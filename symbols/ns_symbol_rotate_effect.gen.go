@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (nc NSSymbolRotateEffectClass) Alloc() NSSymbolRotateEffect {
 // A symbol effect that applies the Rotate animation to symbol images.
 //
 // # Overview
-// 
+//
 // The Rotate animation rotates parts of a symbol around a symbol-provided
 // anchor point.
 //
@@ -63,6 +64,7 @@ type NSSymbolRotateEffect struct {
 func NSSymbolRotateEffectFromID(id objc.ID) NSSymbolRotateEffect {
 	return NSSymbolRotateEffect{NSSymbolEffect: NSSymbolEffectFromID(id)}
 }
+
 // Ensure NSSymbolRotateEffect implements INSSymbolRotateEffect.
 var _ INSSymbolRotateEffect = NSSymbolRotateEffect{}
 
@@ -111,6 +113,7 @@ func (s NSSymbolRotateEffect) EffectWithByLayer() INSSymbolRotateEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolRotateEffectFromID(rv)
 }
+
 // Returns a copy of the effect that animates all layers of the symbol
 // simultaneously.
 //
@@ -127,6 +130,7 @@ func (_NSSymbolRotateEffectClass NSSymbolRotateEffectClass) Effect() NSSymbolRot
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolRotateEffectClass.class), objc.Sel("effect"))
 	return NSSymbolRotateEffectFromID(rv)
 }
+
 // Convenience initializer for a rotate effect that rotates clockwise.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolRotateEffect/rotateClockwiseEffect
@@ -134,6 +138,7 @@ func (_NSSymbolRotateEffectClass NSSymbolRotateEffectClass) RotateClockwiseEffec
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolRotateEffectClass.class), objc.Sel("rotateClockwiseEffect"))
 	return NSSymbolRotateEffectFromID(rv)
 }
+
 // Convenience initializer for a rotate effect that rotates counter-clockwise.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolRotateEffect/rotateCounterClockwiseEffect
@@ -141,4 +146,3 @@ func (_NSSymbolRotateEffectClass NSSymbolRotateEffectClass) RotateCounterClockwi
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolRotateEffectClass.class), objc.Sel("rotateCounterClockwiseEffect"))
 	return NSSymbolRotateEffectFromID(rv)
 }
-

@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLFeatureValueClass) Alloc() MLFeatureValue {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLFeatureValue.DebugQuickLookObject]
@@ -59,6 +59,7 @@ func (mc MLFeatureValueClass) Alloc() MLFeatureValue {
 //   - [MLFeatureValue.InitWithUndefinedValueAndType]
 //   - [MLFeatureValue.InitWithValueType]
 //   - [MLFeatureValue.Undefined]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue
 type MLFeatureValue struct {
 	objectivec.Object
@@ -68,6 +69,7 @@ type MLFeatureValue struct {
 func MLFeatureValueFromID(id objc.ID) MLFeatureValue {
 	return MLFeatureValue{objectivec.Object{ID: id}}
 }
+
 // Ensure MLFeatureValue implements IMLFeatureValue.
 var _ IMLFeatureValue = MLFeatureValue{}
 
@@ -129,7 +131,6 @@ func NewMLFeatureValue() MLFeatureValue {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/initWithCoder:
 func NewFeatureValueWithCoder(coder objectivec.IObject) MLFeatureValue {
 	instance := getMLFeatureValueClass().Alloc()
@@ -137,7 +138,6 @@ func NewFeatureValueWithCoder(coder objectivec.IObject) MLFeatureValue {
 	return MLFeatureValueFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/initWithUndefinedValueAndType:
 func NewFeatureValueWithUndefinedValueAndType(type_ int64) MLFeatureValue {
 	instance := getMLFeatureValueClass().Alloc()
@@ -145,7 +145,6 @@ func NewFeatureValueWithUndefinedValueAndType(type_ int64) MLFeatureValue {
 	return MLFeatureValueFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/initWithValue:type:
 func NewFeatureValueWithValueType(value objectivec.IObject, type_ int64) MLFeatureValue {
 	instance := getMLFeatureValueClass().Alloc()
@@ -158,48 +157,49 @@ func (f MLFeatureValue) DebugQuickLookObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("debugQuickLookObject"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/getFeatureSize:
 func (f MLFeatureValue) GetFeatureSize(size []objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("getFeatureSize:"), objectivec.IObjectSliceToNSArray(size))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/getFeatureSize:ndArrayMode:
 func (f MLFeatureValue) GetFeatureSizeNdArrayMode(size []objectivec.IObject, mode bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("getFeatureSize:ndArrayMode:"), objectivec.IObjectSliceToNSArray(size), mode)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/internalStateValue
 func (f MLFeatureValue) InternalStateValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("internalStateValue"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/stateValue
 func (f MLFeatureValue) StateValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("stateValue"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/initWithCoder:
 func (f MLFeatureValue) InitWithCoder(coder foundation.INSCoder) MLFeatureValue {
 	rv := objc.Send[MLFeatureValue](f.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/initWithUndefinedValueAndType:
 func (f MLFeatureValue) InitWithUndefinedValueAndType(type_ int64) MLFeatureValue {
 	rv := objc.Send[MLFeatureValue](f.ID, objc.Sel("initWithUndefinedValueAndType:"), type_)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/initWithValue:type:
 func (f MLFeatureValue) InitWithValueType(value objectivec.IObject, type_ int64) MLFeatureValue {
 	rv := objc.Send[MLFeatureValue](f.ID, objc.Sel("initWithValue:type:"), value, type_)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueOfType:fromObject:error:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueOfTypeFromObjectError(type_ int64, object objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -211,7 +211,7 @@ func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueOfTypeFromObjectErro
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithDictionary:error:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithDictionaryError(dictionary objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -223,13 +223,13 @@ func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithDictionaryError(
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithDouble:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithDouble(double float64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithDouble:"), double)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithImageAtURL:constraint:options:error:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithImageAtURLConstraintOptionsError(url foundation.INSURL, constraint objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -241,7 +241,7 @@ func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithImageAtURLConstr
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithImageAtURL:orientation:constraint:options:error:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundation.INSURL, orientation uint32, constraint objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -253,7 +253,7 @@ func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithImageAtURLOrient
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithImageAtURL:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.INSURL, orientation uint32, wide int64, high int64, type_ uint32, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -265,7 +265,7 @@ func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithImageAtURLOrient
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithImageAtURL:pixelsWide:pixelsHigh:pixelFormatType:options:error:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithImageAtURLPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.INSURL, wide int64, high int64, type_ uint32, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -277,66 +277,67 @@ func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithImageAtURLPixels
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithInt64:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithInt64(int64_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithInt64:"), int64_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithInt64KeyDictionary:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithInt64KeyDictionary(dictionary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithInt64KeyDictionary:"), dictionary)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithMultiArray:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithMultiArray(array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithMultiArray:"), array)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithSequence:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithSequence(sequence objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithSequence:"), sequence)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithState:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithState(state objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithState:"), state)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithString:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/featureValueWithStringKeyDictionary:
 func (_MLFeatureValueClass MLFeatureValueClass) FeatureValueWithStringKeyDictionary(dictionary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("featureValueWithStringKeyDictionary:"), dictionary)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/internalFeatureValueWithState:
 func (_MLFeatureValueClass MLFeatureValueClass) InternalFeatureValueWithState(state objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("internalFeatureValueWithState:"), state)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/supportsSecureCoding
 func (_MLFeatureValueClass MLFeatureValueClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLFeatureValueClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/undefinedFeatureValueWithType:
 func (_MLFeatureValueClass MLFeatureValueClass) UndefinedFeatureValueWithType(type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureValueClass.class), objc.Sel("undefinedFeatureValueWithType:"), type_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/visionCropAndScaleOptionFromOptions:
 func (_MLFeatureValueClass MLFeatureValueClass) VisionCropAndScaleOptionFromOptions(options objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](objc.ID(_MLFeatureValueClass.class), objc.Sel("visionCropAndScaleOptionFromOptions:"), options)
@@ -351,11 +352,13 @@ func (f MLFeatureValue) ObjectValue() objectivec.Object {
 func (f MLFeatureValue) SetObjectValue(value objectivec.Object) {
 	objc.Send[struct{}](f.ID, objc.Sel("setObjectValue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/undefined
 func (f MLFeatureValue) Undefined() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("undefined"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/value
 func (f MLFeatureValue) Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("value"))
@@ -364,4 +367,3 @@ func (f MLFeatureValue) Value() objectivec.IObject {
 func (f MLFeatureValue) SetValue(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setValue:"), value)
 }
-

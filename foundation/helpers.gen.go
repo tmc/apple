@@ -6,6 +6,7 @@ import (
 	"errors"
 	"io"
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -167,4 +168,3 @@ func NSSetToSlice[T any](set NSSet, from func(objc.ID) T) []T {
 	}
 	return result
 }
-

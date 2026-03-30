@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechTTSSpeechEventObjc struct {
 func TextToSpeechTTSSpeechEventObjcFromID(id objc.ID) TextToSpeechTTSSpeechEventObjc {
 	return TextToSpeechTTSSpeechEventObjc{objectivec.Object{ID: id}}
 }
+
 // Ensure TextToSpeechTTSSpeechEventObjc implements ITextToSpeechTTSSpeechEventObjc.
 var _ ITextToSpeechTTSSpeechEventObjc = TextToSpeechTTSSpeechEventObjc{}
 
@@ -79,16 +81,14 @@ func NewTextToSpeechTTSSpeechEventObjc() TextToSpeechTTSSpeechEventObjc {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechEventObjc/makeWithOtherRewrite:from:to:
 func (_TextToSpeechTTSSpeechEventObjcClass TextToSpeechTTSSpeechEventObjcClass) MakeWithOtherRewriteFromTo(rewrite objectivec.IObject, from objectivec.IObject, to objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TextToSpeechTTSSpeechEventObjcClass.class), objc.Sel("makeWithOtherRewrite:from:to:"), rewrite, from, to)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSSpeechEventObjc/makeWithStart:
 func (_TextToSpeechTTSSpeechEventObjcClass TextToSpeechTTSSpeechEventObjcClass) MakeWithStart(start objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TextToSpeechTTSSpeechEventObjcClass.class), objc.Sel("makeWithStart:"), start)
 	return objectivec.Object{ID: rv}
 }
-

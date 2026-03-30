@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (mc MLModelStructureProgramBindingClass) Alloc() MLModelStructureProgramBin
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelStructureProgramBinding.InitWithName]
 //   - [MLModelStructureProgramBinding.InitWithValue]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBinding
 type MLModelStructureProgramBinding struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type MLModelStructureProgramBinding struct {
 func MLModelStructureProgramBindingFromID(id objc.ID) MLModelStructureProgramBinding {
 	return MLModelStructureProgramBinding{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgramBinding implements IMLModelStructureProgramBinding.
 var _ IMLModelStructureProgramBinding = MLModelStructureProgramBinding{}
 
@@ -94,7 +96,6 @@ func NewMLModelStructureProgramBinding() MLModelStructureProgramBinding {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBinding/initWithName:
 func NewModelStructureProgramBindingWithName(name objectivec.IObject) MLModelStructureProgramBinding {
 	instance := getMLModelStructureProgramBindingClass().Alloc()
@@ -102,7 +103,6 @@ func NewModelStructureProgramBindingWithName(name objectivec.IObject) MLModelStr
 	return MLModelStructureProgramBindingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBinding/initWithValue:
 func NewModelStructureProgramBindingWithValue(value objectivec.IObject) MLModelStructureProgramBinding {
 	instance := getMLModelStructureProgramBindingClass().Alloc()
@@ -110,16 +110,14 @@ func NewModelStructureProgramBindingWithValue(value objectivec.IObject) MLModelS
 	return MLModelStructureProgramBindingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBinding/initWithName:
 func (m MLModelStructureProgramBinding) InitWithName(name objectivec.IObject) MLModelStructureProgramBinding {
 	rv := objc.Send[MLModelStructureProgramBinding](m.ID, objc.Sel("initWithName:"), name)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBinding/initWithValue:
 func (m MLModelStructureProgramBinding) InitWithValue(value objectivec.IObject) MLModelStructureProgramBinding {
 	rv := objc.Send[MLModelStructureProgramBinding](m.ID, objc.Sel("initWithValue:"), value)
 	return rv
 }
-

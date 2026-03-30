@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -111,6 +112,7 @@ type MTLTileRenderPipelineDescriptor struct {
 func MTLTileRenderPipelineDescriptorFromID(id objc.ID) MTLTileRenderPipelineDescriptor {
 	return MTLTileRenderPipelineDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLTileRenderPipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -278,10 +280,11 @@ func (t MTLTileRenderPipelineDescriptor) Label() string {
 func (t MTLTileRenderPipelineDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // The compute kernel or fragment function the pipeline calls.
 //
 // # Discussion
-// 
+//
 // Kernel-based and fragment-based tile pipeline dispatches act as a barrier
 // against previous draw commands and other dispatches. Kernel-based pipelines
 // wait until all prior access to the tile completes. Fragment-based pipelines
@@ -295,11 +298,12 @@ func (t MTLTileRenderPipelineDescriptor) TileFunction() MTLFunction {
 func (t MTLTileRenderPipelineDescriptor) SetTileFunction(value MTLFunction) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTileFunction:"), value)
 }
+
 // An array that contains the buffer mutability options for a render
 // pipeline’s tile function.
 //
 // # Discussion
-// 
+//
 // This property returns an array of [MTLPipelineBufferDescriptor] objects,
 // with each array index corresponding to the same index in the buffer
 // argument table for the render pipeline’s tile shader.
@@ -309,13 +313,14 @@ func (t MTLTileRenderPipelineDescriptor) TileBuffers() IMTLPipelineBufferDescrip
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tileBuffers"))
 	return MTLPipelineBufferDescriptorArrayFromID(objc.ID(rv))
 }
+
 // The maximum call stack depth for indirect function calls in tile shaders.
 //
 // # Discussion
-// 
+//
 // The property’s default value is `1`. Change its value if you use
 // recursive functions in your tile dispatch.
-// 
+//
 // The maximum call stack depth applies only to indirect function calls in
 // your shader, and affects the upper bound of stack memory for each thread.
 // Indirect function calls include those to visible functions, intersection
@@ -329,11 +334,12 @@ func (t MTLTileRenderPipelineDescriptor) MaxCallStackDepth() uint {
 func (t MTLTileRenderPipelineDescriptor) SetMaxCallStackDepth(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaxCallStackDepth:"), value)
 }
+
 // A Boolean value that indicates whether all threadgroups for this pipeline
 // completely cover tiles.
 //
 // # Discussion
-// 
+//
 // Metal can optimize code generation when the threadgroup and tile sizes
 // match.
 //
@@ -345,18 +351,19 @@ func (t MTLTileRenderPipelineDescriptor) ThreadgroupSizeMatchesTileSize() bool {
 func (t MTLTileRenderPipelineDescriptor) SetThreadgroupSizeMatchesTileSize(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setThreadgroupSizeMatchesTileSize:"), value)
 }
+
 // The number of samples in each fragment.
 //
 // # Discussion
-// 
+//
 // The default value is `1`. This value is used only if the pipeline render
 // targets support multisampling. If the render targets don’t support
 // multisampling, then this value needs to be `1`.
-// 
+//
 // When you create a [MTLRenderCommandEncoder], the [SampleCount] value of all
 // attachments need to match this `sampleCount` value. Furthermore, the
-// texture type of all attachments need to be [TextureType2DMultisample].
-// 
+// texture type of all attachments need to be [MTLTextureType2DMultisample].
+//
 // Support for different sample count values varies by device instance. Call
 // the [SupportsTextureSampleCount] method on an [MTLDevice] instance to
 // determine whether it supports a specific sample count.
@@ -369,6 +376,7 @@ func (t MTLTileRenderPipelineDescriptor) RasterSampleCount() uint {
 func (t MTLTileRenderPipelineDescriptor) SetRasterSampleCount(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRasterSampleCount:"), value)
 }
+
 // An array of attachments that store color data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTileRenderPipelineDescriptor/colorAttachments
@@ -376,6 +384,7 @@ func (t MTLTileRenderPipelineDescriptor) ColorAttachments() IMTLTileRenderPipeli
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("colorAttachments"))
 	return MTLTileRenderPipelineColorAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
+
 // The maximum number of threads in a threadgroup when dispatching a command
 // using the pipeline.
 //
@@ -387,6 +396,7 @@ func (t MTLTileRenderPipelineDescriptor) MaxTotalThreadsPerThreadgroup() uint {
 func (t MTLTileRenderPipelineDescriptor) SetMaxTotalThreadsPerThreadgroup(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaxTotalThreadsPerThreadgroup:"), value)
 }
+
 // A Boolean value that indicates whether you can use the pipeline to create
 // new pipelines by adding binary functions to its callable functions list.
 //
@@ -398,6 +408,7 @@ func (t MTLTileRenderPipelineDescriptor) SupportAddingBinaryFunctions() bool {
 func (t MTLTileRenderPipelineDescriptor) SetSupportAddingBinaryFunctions(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSupportAddingBinaryFunctions:"), value)
 }
+
 // An array of binary archives to search for precompiled versions of the
 // shader.
 //
@@ -411,6 +422,7 @@ func (t MTLTileRenderPipelineDescriptor) BinaryArchives() []objectivec.IObject {
 func (t MTLTileRenderPipelineDescriptor) SetBinaryArchives(value []objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBinaryArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Functions that you can specify as function arguments for the tile shader
 // when encoding commands that use the pipeline.
 //
@@ -422,10 +434,11 @@ func (t MTLTileRenderPipelineDescriptor) LinkedFunctions() IMTLLinkedFunctions {
 func (t MTLTileRenderPipelineDescriptor) SetLinkedFunctions(value IMTLLinkedFunctions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLinkedFunctions:"), value)
 }
+
 // A value that enables or disables shader validation for the pipeline.
 //
 // # Discussion
-// 
+//
 // You can override the value using either of these environment variables:
 // `MTL_SHADER_VALIDATION_ENABLE_PIPELINES` or
 // `MTL_SHADER_VALIDATION_DISABLE_PIPELINES.`
@@ -438,6 +451,7 @@ func (t MTLTileRenderPipelineDescriptor) ShaderValidation() MTLShaderValidation 
 func (t MTLTileRenderPipelineDescriptor) SetShaderValidation(value MTLShaderValidation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setShaderValidation:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Metal/MTLTileRenderPipelineDescriptor/preloadedLibraries
 func (t MTLTileRenderPipelineDescriptor) PreloadedLibraries() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("preloadedLibraries"))
@@ -448,9 +462,9 @@ func (t MTLTileRenderPipelineDescriptor) PreloadedLibraries() []objectivec.IObje
 func (t MTLTileRenderPipelineDescriptor) SetPreloadedLibraries(value []objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPreloadedLibraries:"), objectivec.IObjectSliceToNSArray(value))
 }
-//
+
 // # Discussion
-// 
+//
 // Sets the required threads-per-threadgroup during tile dispatches. The
 // `threadsPerTile` argument of any tile dispatch must match to this value if
 // it is set. Optional, unless the pipeline is going to use CooperativeTensors
@@ -465,4 +479,3 @@ func (t MTLTileRenderPipelineDescriptor) RequiredThreadsPerThreadgroup() MTLSize
 func (t MTLTileRenderPipelineDescriptor) SetRequiredThreadsPerThreadgroup(value MTLSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRequiredThreadsPerThreadgroup:"), value)
 }
-

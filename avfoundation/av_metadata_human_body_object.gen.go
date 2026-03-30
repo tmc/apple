@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMetadataHumanBodyObjectClass) Alloc() AVMetadataHumanBodyObject {
 // An object representing a single detected human body in a picture.
 //
 // # Overview
-// 
+//
 // This object is an immutable type that describes the various features found
 // in the human body in a picture.
 //
@@ -58,6 +59,7 @@ type AVMetadataHumanBodyObject struct {
 func AVMetadataHumanBodyObjectFromID(id objc.ID) AVMetadataHumanBodyObject {
 	return AVMetadataHumanBodyObject{AVMetadataBodyObject: AVMetadataBodyObjectFromID(id)}
 }
+
 // NOTE: AVMetadataHumanBodyObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewAVMetadataHumanBodyObject() AVMetadataHumanBodyObject {
 	rv := objc.Send[AVMetadataHumanBodyObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

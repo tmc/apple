@@ -4,8 +4,9 @@ package metalkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -56,10 +57,6 @@ func (mc MTKMeshBufferClass) Alloc() MTKMeshBuffer {
 //   - [MTKMeshBuffer.Length]: The logical size of the Metal buffer, in bytes.
 //   - [MTKMeshBuffer.Offset]: The byte offset of the data within the Metal buffer.
 //
-// # Instance Methods
-//
-//   - [MTKMeshBuffer.Zone]
-//
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBuffer
 type MTKMeshBuffer struct {
 	objectivec.Object
@@ -72,6 +69,7 @@ type MTKMeshBuffer struct {
 func MTKMeshBufferFromID(id objc.ID) MTKMeshBuffer {
 	return MTKMeshBuffer{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTKMeshBuffer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -87,10 +85,6 @@ func MTKMeshBufferFromID(id objc.ID) MTKMeshBuffer {
 //   - [IMTKMeshBuffer.Buffer]: The Metal buffer backing all vertex and index data.
 //   - [IMTKMeshBuffer.Length]: The logical size of the Metal buffer, in bytes.
 //   - [IMTKMeshBuffer.Offset]: The byte offset of the data within the Metal buffer.
-//
-// # Instance Methods
-//
-//   - [IMTKMeshBuffer.Zone]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBuffer
 type IMTKMeshBuffer interface {
@@ -111,10 +105,6 @@ type IMTKMeshBuffer interface {
 	Length() uint
 	// The byte offset of the data within the Metal buffer.
 	Offset() uint
-
-	// Topic: Instance Methods
-
-	Zone(param1 objectivec.IObject) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -136,17 +126,10 @@ func NewMTKMeshBuffer() MTKMeshBuffer {
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/MetalKit/MTKMeshBuffer/zone()
-func (m MTKMeshBuffer) Zone(param1 objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("zone"), param1)
-	return objectivec.Object{ID: rv}
-}
-
 // The allocator object used to create this mesh buffer.
 //
 // # Discussion
-// 
+//
 // The allocator uses Model I/O for copy and re-layout operations, such as
 // when a new vertex descriptor is applied to an existing vertex buffer.
 //
@@ -155,35 +138,38 @@ func (m MTKMeshBuffer) Allocator() IMTKMeshBufferAllocator {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("allocator"))
 	return MTKMeshBufferAllocatorFromID(objc.ID(rv))
 }
+
 // The type of data contained in the originating Model I/O buffer.
 //
 // # Discussion
-// 
+//
 // A [MDLMeshBuffer] object can contain Model I/O mesh vertex data or submesh
 // index data.
 //
-// [MDLMeshBuffer]: https://developer.apple.com/documentation/ModelIO/MDLMeshBuffer
-//
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBuffer/type
+//
+// [MDLMeshBuffer]: https://developer.apple.com/documentation/ModelIO/MDLMeshBuffer
 func (m MTKMeshBuffer) Type() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("type"))
 	return objectivec.Object{ID: rv}
 }
+
 // The Metal buffer backing all vertex and index data.
 //
 // # Discussion
-// 
+//
 // Many [MTKMeshBuffer] objects may reference the same [MTLBuffer] object, in
 // which case each [MTKMeshBuffer] object will have its own unique [Offset]
 // value.
 //
-// [MTLBuffer]: https://developer.apple.com/documentation/Metal/MTLBuffer
-//
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBuffer/buffer
+//
+// [MTLBuffer]: https://developer.apple.com/documentation/Metal/MTLBuffer
 func (m MTKMeshBuffer) Buffer() metal.MTLBuffer {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("buffer"))
 	return metal.MTLBufferObjectFromID(rv)
 }
+
 // The logical size of the Metal buffer, in bytes.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBuffer/length
@@ -191,6 +177,7 @@ func (m MTKMeshBuffer) Length() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("length"))
 	return rv
 }
+
 // The byte offset of the data within the Metal buffer.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBuffer/offset
@@ -198,4 +185,3 @@ func (m MTKMeshBuffer) Offset() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("offset"))
 	return rv
 }
-

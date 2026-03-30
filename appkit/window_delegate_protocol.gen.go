@@ -4,11 +4,13 @@ package appkit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of optional methods that a window’s delegate can implement to respond to events, such as window resizing, moving, exposing, and minimizing.
@@ -22,6 +24,7 @@ type NSWindowDelegate interface {
 type NSWindowDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSWindowDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -46,20 +49,20 @@ func NSWindowDelegateObjectFromID(id objc.ID) NSWindowDelegateObject {
 // with the left and right edges of the window.
 //
 // # Return Value
-// 
+//
 // The custom location specified.
 //
 // # Discussion
-// 
+//
 // This method is also called whenever the user resizes `window` while `sheet`
 // is attached.
-// 
+//
 // This method is useful in many situations. If your window has a toolbar, for
 // example, you can specify a location for the sheet that is just below it. If
 // you want the sheet associated with a certain control or view, you could
 // position the sheet so that it appears to originate from the object (through
 // animation) or is positioned next to it.
-// 
+//
 // Neither the `rect` parameter nor the returned [NSRect] value define the
 // boundary of the sheet. They indicate where the top-left edge of the sheet
 // is attached to the window. The origin is expressed in window coordinates;
@@ -76,41 +79,42 @@ func NSWindowDelegateObjectFromID(id objc.ID) NSWindowDelegateObject {
 func (o NSWindowDelegateObject) WindowWillPositionSheetUsingRect(window INSWindow, sheet INSWindow, rect corefoundation.CGRect) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("window:willPositionSheet:usingRect:"), window, sheet, rect)
 	return rv
-	}
+}
+
 // Notifies the delegate that the window is about to open a sheet.
 //
 // notification: A notification named [willBeginSheetNotification].
-// //
-// [willBeginSheetNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willBeginSheetNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillBeginSheet(_:)
+//
+// [willBeginSheetNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willBeginSheetNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowWillBeginSheet(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowWillBeginSheet:"), notification)
-	}
+}
+
 // Tells the delegate that the window has closed a sheet.
 //
 // notification: A notification named [didEndSheetNotification].
-// //
-// [didEndSheetNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didEndSheetNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidEndSheet(_:)
+//
+// [didEndSheetNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didEndSheetNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidEndSheet(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidEndSheet:"), notification)
-	}
+}
+
 // Tells the delegate that the window is being resized (whether by the user or
 // through one of the `setFrame...` methods other than [SetFrameDisplay]).
 //
@@ -119,17 +123,17 @@ func (o NSWindowDelegateObject) WindowDidEndSheet(notification foundation.NSNoti
 // frameSize: The size to which the specified window is being resized.
 //
 // # Return Value
-// 
+//
 // A custom size to which the specified window will be resized.
 //
 // # Discussion
-// 
+//
 // The `frameSize` contains the size (in screen coordinates) `sender` will be
 // resized to. To resize to a different size, simply return the desired size
 // from this method; to avoid resizing, return the current size. `sender`’s
 // minimum and maximum size constraints have already been applied when this
 // method is called.
-// 
+//
 // While the user is resizing a window, the delegate is sent a series of
 // [WindowWillResizeToSize] messages as the window’s frame continues to
 // change size.
@@ -138,109 +142,110 @@ func (o NSWindowDelegateObject) WindowDidEndSheet(notification foundation.NSNoti
 func (o NSWindowDelegateObject) WindowWillResizeToSize(sender INSWindow, frameSize corefoundation.CGSize) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("windowWillResize:toSize:"), sender, frameSize)
 	return rv
-	}
+}
+
 // Tells the delegate that the window has been resized.
 //
 // notification: A notification named [didResizeNotification].
-// //
-// [didResizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didResizeNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidResize(_:)
+//
+// [didResizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didResizeNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidResize(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidResize:"), notification)
-	}
+}
+
 // Tells the delegate that the window is about to be live resized.
 //
 // notification: A notification named [willStartLiveResizeNotification].
-// //
-// [willStartLiveResizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willStartLiveResizeNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillStartLiveResize(_:)
+//
+// [willStartLiveResizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willStartLiveResizeNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowWillStartLiveResize(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowWillStartLiveResize:"), notification)
-	}
+}
+
 // Tells the delegate that a live resize operation on the window has ended.
 //
 // notification: A notification named [didEndLiveResizeNotification].
-// //
-// [didEndLiveResizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didEndLiveResizeNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidEndLiveResize(_:)
+//
+// [didEndLiveResizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didEndLiveResizeNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidEndLiveResize(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidEndLiveResize:"), notification)
-	}
+}
+
 // Tells the delegate that the window is about to be minimized.
 //
 // notification: A notification named [willMiniaturizeNotification].
-// //
-// [willMiniaturizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willMiniaturizeNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the [NSWindow] object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillMiniaturize(_:)
+//
+// [willMiniaturizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willMiniaturizeNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowWillMiniaturize(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowWillMiniaturize:"), notification)
-	}
+}
+
 // Tells the delegate that the window has been minimized.
 //
 // notification: A notification named [didMiniaturizeNotification].
-// //
-// [didMiniaturizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didMiniaturizeNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the [NSWindow] object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidMiniaturize(_:)
+//
+// [didMiniaturizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didMiniaturizeNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidMiniaturize(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidMiniaturize:"), notification)
-	}
+}
+
 // Tells the delegate that the window has been deminimized.
 //
 // notification: A notification named [didDeminiaturizeNotification]
-// //
-// [didDeminiaturizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didDeminiaturizeNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the [NSWindow] object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidDeminiaturize(_:)
+//
+// [didDeminiaturizeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didDeminiaturizeNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidDeminiaturize(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidDeminiaturize:"), notification)
-	}
+}
+
 // Called by [NSWindow]’s [Zoom] method while determining the frame a window
 // may be zoomed to.
 //
@@ -252,11 +257,11 @@ func (o NSWindowDelegateObject) WindowDidDeminiaturize(notification foundation.N
 // reduced on the top to leave room for the menu bar.
 //
 // # Return Value
-// 
+//
 // The specified window’s standard frame.
 //
 // # Discussion
-// 
+//
 // The standard frame for a window should supply the size and location that
 // are “best” for the type of information shown in the window, taking into
 // account the available display or displays. For example, the best width for
@@ -270,7 +275,8 @@ func (o NSWindowDelegateObject) WindowDidDeminiaturize(notification foundation.N
 func (o NSWindowDelegateObject) WindowWillUseStandardFrameDefaultFrame(window INSWindow, newFrame corefoundation.CGRect) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("windowWillUseStandardFrame:defaultFrame:"), window, newFrame)
 	return rv
-	}
+}
+
 // Asks the delegate whether the specified window should zoom to the specified
 // frame.
 //
@@ -279,18 +285,15 @@ func (o NSWindowDelegateObject) WindowWillUseStandardFrameDefaultFrame(window IN
 // newFrame: The rectangle to which the specified window is being zoomed.
 //
 // # Return Value
-// 
-// [true] to allow `window`’s frame to become `newFrame`; otherwise,
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to allow `window`’s frame to become `newFrame`; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowShouldZoom(_:toFrame:)
 func (o NSWindowDelegateObject) WindowShouldZoomToFrame(window INSWindow, newFrame corefoundation.CGRect) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("windowShouldZoom:toFrame:"), window, newFrame)
 	return rv
-	}
+}
+
 // Called to allow the delegate to modify the full-screen content size.
 //
 // window: The window to enter to full-screen mode.
@@ -298,14 +301,15 @@ func (o NSWindowDelegateObject) WindowShouldZoomToFrame(window INSWindow, newFra
 // proposedSize: The proposed window size.
 //
 // # Return Value
-// 
+//
 // The window size to use when displaying content size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:willUseFullScreenContentSize:)
 func (o NSWindowDelegateObject) WindowWillUseFullScreenContentSize(window INSWindow, proposedSize corefoundation.CGSize) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("window:willUseFullScreenContentSize:"), window, proposedSize)
 	return rv
-	}
+}
+
 // Returns the presentation options the window uses when transitioning to
 // full-screen mode.
 //
@@ -313,70 +317,75 @@ func (o NSWindowDelegateObject) WindowWillUseFullScreenContentSize(window INSWin
 //
 // proposedOptions: The proposed options. See [NSApplication.PresentationOptions] for the
 // possible values.
-// //
-// [NSApplication.PresentationOptions]: https://developer.apple.com/documentation/AppKit/NSApplication/PresentationOptions-swift.struct
 //
 // # Return Value
-// 
+//
 // The options the window should use when transitioning to full-screen mode.
 // These may be the same as the `proposedOptions` or may be modified.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:willUseFullScreenPresentationOptions:)
+//
+// [NSApplication.PresentationOptions]: https://developer.apple.com/documentation/AppKit/NSApplication/PresentationOptions-swift.struct
 func (o NSWindowDelegateObject) WindowWillUseFullScreenPresentationOptions(window INSWindow, proposedOptions NSApplicationPresentationOptions) NSApplicationPresentationOptions {
 	rv := objc.Send[NSApplicationPresentationOptions](o.ID, objc.Sel("window:willUseFullScreenPresentationOptions:"), window, proposedOptions)
 	return rv
-	}
+}
+
 // The window is about to enter full-screen mode.
 //
 // notification: A notification named [willEnterFullScreenNotification].
-// //
-// [willEnterFullScreenNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willEnterFullScreenNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillEnterFullScreen(_:)
+//
+// [willEnterFullScreenNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willEnterFullScreenNotification
 func (o NSWindowDelegateObject) WindowWillEnterFullScreen(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowWillEnterFullScreen:"), notification)
-	}
+}
+
 // The window has entered full-screen mode.
 //
 // notification: A notification named [didEnterFullScreenNotification].
-// //
-// [didEnterFullScreenNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didEnterFullScreenNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidEnterFullScreen(_:)
+//
+// [didEnterFullScreenNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didEnterFullScreenNotification
 func (o NSWindowDelegateObject) WindowDidEnterFullScreen(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidEnterFullScreen:"), notification)
-	}
+}
+
 // The window is about to exit full-screen mode.
 //
 // notification: A notification named [willExitFullScreenNotification].
-// //
-// [willExitFullScreenNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willExitFullScreenNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillExitFullScreen(_:)
+//
+// [willExitFullScreenNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willExitFullScreenNotification
 func (o NSWindowDelegateObject) WindowWillExitFullScreen(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowWillExitFullScreen:"), notification)
-	}
+}
+
 // The window has left full-screen mode.
 //
 // notification: A notification named [didExitFullScreenNotification].
-// //
-// [didExitFullScreenNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didExitFullScreenNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidExitFullScreen(_:)
+//
+// [didExitFullScreenNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didExitFullScreenNotification
 func (o NSWindowDelegateObject) WindowDidExitFullScreen(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidExitFullScreen:"), notification)
-	}
+}
+
 // Called when the window is about to enter full-screen mode.
 //
 // window: The window to enter full-screen mode.
 //
 // # Return Value
-// 
+//
 // An array of windows to use for the animation to full-screen mode for
 // `window`; otherwise `nil`.
 //
 // # Discussion
-// 
+//
 // This method lets a window delegate customize the animation when the window
 // is about to enter full-screen mode by providing a custom window or windows
 // containing layers or other effects. If you don’t want to perform custom
@@ -389,7 +398,8 @@ func (o NSWindowDelegateObject) CustomWindowsToEnterFullScreenForWindow(window I
 	return objc.ConvertSlice(rv, func(id objc.ID) NSWindow {
 		return NSWindowFromID(id)
 	})
-	}
+}
+
 // Called when the window is about to enter full-screen mode.
 //
 // window: The window to enter full-screen mode.
@@ -397,20 +407,20 @@ func (o NSWindowDelegateObject) CustomWindowsToEnterFullScreenForWindow(window I
 // screen: The display screen on which the window will enter full-screen mode.
 //
 // # Return Value
-// 
+//
 // An array of windows to use for the animation to full-screen mode for
 // `window`; otherwise `nil`.
 //
 // # Discussion
-// 
+//
 // This method lets a window delegate customize the animation when the window
 // is about to enter full-screen mode by providing a custom window or windows
 // containing layers or other effects. If you don’t want to perform custom
 // animation, you can omit the implementation of this method, or it can return
 // `nil`.
-// 
+//
 // # Special Considerations
-// 
+//
 // If this method and [CustomWindowsToEnterFullScreenForWindow] are both
 // implemented, this method is called.
 //
@@ -420,7 +430,8 @@ func (o NSWindowDelegateObject) CustomWindowsToEnterFullScreenForWindowOnScreen(
 	return objc.ConvertSlice(rv, func(id objc.ID) NSWindow {
 		return NSWindowFromID(id)
 	})
-	}
+}
+
 // This method is called to start the window animation into full-screen mode,
 // including transitioning to a new space.
 //
@@ -429,19 +440,20 @@ func (o NSWindowDelegateObject) CustomWindowsToEnterFullScreenForWindowOnScreen(
 // duration: The duration of the presentation change.
 //
 // # Discussion
-// 
+//
 // You can implement this method to perform custom animation with the given
 // duration to be in sync with the system animation.
-// 
+//
 // # Special Considerations
-// 
+//
 // This method is called only if [CustomWindowsToEnterFullScreenForWindow]
 // returns non-`nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:startCustomAnimationToEnterFullScreenWithDuration:)
 func (o NSWindowDelegateObject) WindowStartCustomAnimationToEnterFullScreenWithDuration(window INSWindow, duration float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("window:startCustomAnimationToEnterFullScreenWithDuration:"), window, duration)
-	}
+}
+
 // This method is called to start the window animation into full-screen mode,
 // including transitioning to a new space.
 //
@@ -452,12 +464,12 @@ func (o NSWindowDelegateObject) WindowStartCustomAnimationToEnterFullScreenWithD
 // duration: The duration of the presentation change.
 //
 // # Discussion
-// 
+//
 // You can implement this method to perform custom animation with the given
 // duration to be in sync with the system animation.
-// 
+//
 // # Special Considerations
-// 
+//
 // This method is called only if [CustomWindowsToEnterFullScreenForWindow]
 // returns non-`nil`. If
 // [WindowStartCustomAnimationToEnterFullScreenWithDuration] and this method
@@ -466,18 +478,19 @@ func (o NSWindowDelegateObject) WindowStartCustomAnimationToEnterFullScreenWithD
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:startCustomAnimationToEnterFullScreenOn:withDuration:)
 func (o NSWindowDelegateObject) WindowStartCustomAnimationToEnterFullScreenOnScreenWithDuration(window INSWindow, screen INSScreen, duration float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("window:startCustomAnimationToEnterFullScreenOnScreen:withDuration:"), window, screen, duration)
-	}
+}
+
 // Called if the window failed to enter full-screen mode.
 //
 // window: The window that failed to enter to full-screen mode.
 //
 // # Discussion
-// 
+//
 // In some cases, the transition to enter full-screen mode can fail, due to
 // being in the midst of handling some other animation or user gesture. This
 // method indicates that there was an error, and you should clean up any work
 // you may have done to prepare to enter full-screen mode.
-// 
+//
 // This message is sent whether or not the delegate indicated a custom
 // animation by returning non-`nil` from
 // [CustomWindowsToEnterFullScreenForWindow].
@@ -485,18 +498,19 @@ func (o NSWindowDelegateObject) WindowStartCustomAnimationToEnterFullScreenOnScr
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidFailToEnterFullScreen(_:)
 func (o NSWindowDelegateObject) WindowDidFailToEnterFullScreen(window INSWindow) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidFailToEnterFullScreen:"), window)
-	}
+}
+
 // Called when the window is about to exit full-screen mode.
 //
 // window: The window to exit full-screen mode.
 //
 // # Return Value
-// 
+//
 // An array of windows involved in the animation out of full-screen mode for
 // `window`; otherwise `nil`.
 //
 // # Discussion
-// 
+//
 // This method lets the window delegate customize the animation when the
 // window is about to exit full-screen mode by providing a custom window or
 // windows containing layers or other effects. If an you do not want to
@@ -509,7 +523,8 @@ func (o NSWindowDelegateObject) CustomWindowsToExitFullScreenForWindow(window IN
 	return objc.ConvertSlice(rv, func(id objc.ID) NSWindow {
 		return NSWindowFromID(id)
 	})
-	}
+}
+
 // This method is called to start the window animation out of full-screen
 // mode, including transitioning back to the desktop space.
 //
@@ -518,30 +533,31 @@ func (o NSWindowDelegateObject) CustomWindowsToExitFullScreenForWindow(window IN
 // duration: The duration of the presentation change.
 //
 // # Discussion
-// 
+//
 // You can implement this method to perform custom animation with the given
 // duration to be in sync with the system animation.
-// 
+//
 // # Special Considerations
-// 
+//
 // This method is called only if [CustomWindowsToExitFullScreenForWindow]
 // returns non-`nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:startCustomAnimationToExitFullScreenWithDuration:)
 func (o NSWindowDelegateObject) WindowStartCustomAnimationToExitFullScreenWithDuration(window INSWindow, duration float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("window:startCustomAnimationToExitFullScreenWithDuration:"), window, duration)
-	}
+}
+
 // Called if the window failed to exit full-screen mode.
 //
 // window: The window that failed to exit to full-screen mode.
 //
 // # Discussion
-// 
+//
 // In some cases, the transition to exit full-screen mode can fail, due to
 // being in the midst of handling some other animation or user gesture. This
 // method indicates that there was an error, and you should clean up any work
 // you may have done to prepare to exit full-screen mode.
-// 
+//
 // This message is sent whether or not the delegate indicated a custom
 // animation by returning non-`nil` from
 // [CustomWindowsToExitFullScreenForWindow].
@@ -549,93 +565,94 @@ func (o NSWindowDelegateObject) WindowStartCustomAnimationToExitFullScreenWithDu
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidFailToExitFullScreen(_:)
 func (o NSWindowDelegateObject) WindowDidFailToExitFullScreen(window INSWindow) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidFailToExitFullScreen:"), window)
-	}
+}
+
 // Tells the delegate that the window is about to move.
 //
 // notification: A notification named [willMoveNotification].
-// //
-// [willMoveNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willMoveNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the [NSWindow] object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillMove(_:)
+//
+// [willMoveNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willMoveNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowWillMove(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowWillMove:"), notification)
-	}
+}
+
 // Tells the delegate that the window has moved.
 //
 // notification: A notification named [didMoveNotification].
-// //
-// [didMoveNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didMoveNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the [NSWindow] object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidMove(_:)
+//
+// [didMoveNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didMoveNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidMove(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidMove:"), notification)
-	}
+}
+
 // Tells the delegate that the window has changed screens.
 //
 // notification: A notification named [didChangeScreenNotification].
-// //
-// [didChangeScreenNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeScreenNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the [NSWindow] object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidChangeScreen(_:)
+//
+// [didChangeScreenNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeScreenNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidChangeScreen(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidChangeScreen:"), notification)
-	}
+}
+
 // Tells the delegate that the window has changed screen display profiles.
 //
 // notification: A notification named [didChangeScreenProfileNotification].
-// //
-// [didChangeScreenProfileNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeScreenProfileNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the [NSWindow] object in question by sending [object] to
 // `notification`.
-// 
+//
 // If your app runs in macOS 10.7.3 or later, you should instead watch for the
 // notification [NSWindowDidChangeBackingPropertiesNotification].
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidChangeScreenProfile(_:)
+//
+// [didChangeScreenProfileNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeScreenProfileNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidChangeScreenProfile(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidChangeScreenProfile:"), notification)
-	}
+}
+
 // Tells the delegate that the window backing properties changed.
 //
 // notification: A notification named [NSWindowDidChangeBackingPropertiesNotification].
 //
 // # Discussion
-// 
+//
 // You can retrieve the [NSWindow] object in question by sending [object] to
 // `notification`.
-// 
+//
 // The notification [NSWindowDidChangeBackingPropertiesNotification] is posted
 // in macOS 10.7.3 or later when a window’s backing scale factor or its
 // color space changes. You should watch for this notification instead of
 // [NSWindowDidChangeScreenProfileNotification] if your app runs on a system
 // version on which the backing properties notification is available.
-// 
+//
 // Many apps won’t have the need to watch for this notification, but those
 // that perform sophisticated color handling or manually manage their own
 // cache of window-resolution or color-space-appropriate bitmapped images will
@@ -648,26 +665,24 @@ func (o NSWindowDelegateObject) WindowDidChangeScreenProfile(notification founda
 // the window’s new previous backing scale factor and color space at the
 // time of the notification to determine which properties changed.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidChangeBackingProperties(_:)
+//
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidChangeBackingProperties(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidChangeBackingProperties:"), notification)
-	}
+}
+
 // Tells the delegate that the user has attempted to close a window or the
 // window has received a [PerformClose] message.
 //
 // sender: The window being closed.
 //
 // # Return Value
-// 
-// [true] to allow `sender` to be closed; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to allow `sender` to be closed; otherwise, false.
 //
 // # Discussion
-// 
+//
 // This method may not always be called during window closing. Specifically,
 // this method is not called when a user quits an application.
 //
@@ -675,92 +690,93 @@ func (o NSWindowDelegateObject) WindowDidChangeBackingProperties(notification fo
 func (o NSWindowDelegateObject) WindowShouldClose(sender INSWindow) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("windowShouldClose:"), sender)
 	return rv
-	}
+}
+
 // Tells the delegate that the window is about to close.
 //
 // notification: A notification named [willCloseNotification].
-// //
-// [willCloseNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willCloseNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the [NSWindow] object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillClose(_:)
+//
+// [willCloseNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willCloseNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowWillClose(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowWillClose:"), notification)
-	}
+}
+
 // Tells the delegate that the window has become the key window.
 //
 // notification: A notification named [didBecomeKeyNotification].
-// //
-// [didBecomeKeyNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didBecomeKeyNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidBecomeKey(_:)
+//
+// [didBecomeKeyNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didBecomeKeyNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidBecomeKey(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidBecomeKey:"), notification)
-	}
+}
+
 // Tells the delegate that the window has resigned key window status.
 //
 // notification: A notification named [didResignKeyNotification].
-// //
-// [didResignKeyNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didResignKeyNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidResignKey(_:)
+//
+// [didResignKeyNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didResignKeyNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidResignKey(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidResignKey:"), notification)
-	}
+}
+
 // Tells the delegate that the window has become main.
 //
 // notification: A notification named [didBecomeMainNotification].
-// //
-// [didBecomeMainNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didBecomeMainNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidBecomeMain(_:)
+//
+// [didBecomeMainNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didBecomeMainNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidBecomeMain(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidBecomeMain:"), notification)
-	}
+}
+
 // Tells the delegate that the window has resigned main window status.
 //
 // notification: A notification named [didResignMainNotification].
-// //
-// [didResignMainNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didResignMainNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidResignMain(_:)
+//
+// [didResignMainNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didResignMainNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidResignMain(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidResignMain:"), notification)
-	}
+}
+
 // Tells the delegate that the field editor for a text-displaying object has
 // been requested.
 //
@@ -770,7 +786,7 @@ func (o NSWindowDelegateObject) WindowDidResignMain(notification foundation.NSNo
 // the requested field editor is the default.
 //
 // # Return Value
-// 
+//
 // The field editor for `client`; returns `nil` when the delegate has no field
 // editor to assign.
 //
@@ -778,51 +794,53 @@ func (o NSWindowDelegateObject) WindowDidResignMain(notification foundation.NSNo
 func (o NSWindowDelegateObject) WindowWillReturnFieldEditorToObject(sender INSWindow, client objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("windowWillReturnFieldEditor:toObject:"), sender, client)
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // Tells the delegate that the window received an [Update] message.
 //
 // notification: A notification named [didUpdateNotification]
-// //
-// [didUpdateNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didUpdateNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidUpdate(_:)
+//
+// [didUpdateNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didUpdateNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidUpdate(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidUpdate:"), notification)
-	}
+}
+
 // Tells the delegate that the window has been exposed.
 //
 // notification: A notification named [didExposeNotification].
-// //
-// [didExposeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didExposeNotification
 //
 // # Discussion
-// 
+//
 // You can retrieve the window object in question by sending [object] to
 // `notification`.
 //
-// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidExpose(_:)
+//
+// [didExposeNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didExposeNotification
+// [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 func (o NSWindowDelegateObject) WindowDidExpose(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidExpose:"), notification)
-	}
+}
+
 // Tells the delegate that the window changed its occlusion state.
 //
 // notification: An [didChangeOcclusionStateNotification] notification.
-// //
-// [didChangeOcclusionStateNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeOcclusionStateNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidChangeOcclusionState(_:)
+//
+// [didChangeOcclusionStateNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeOcclusionStateNotification
 func (o NSWindowDelegateObject) WindowDidChangeOcclusionState(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidChangeOcclusionState:"), notification)
-	}
+}
+
 // Asks the delegate whether a user can drag the document icon from the
 // window’s title bar.
 //
@@ -837,56 +855,52 @@ func (o NSWindowDelegateObject) WindowDidChangeOcclusionState(notification found
 // can modify.
 //
 // # Return Value
-// 
-// [true] to allow the drag to proceed; [false] to prevent it. Before turning
-// no the delegate can implement its own dragging behavior as described below.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to allow the drag to proceed; false to prevent it. Before turning no
+// the delegate can implement its own dragging behavior as described below.
 //
 // # Discussion
-// 
+//
 // Implementing this method enables an application to customize the process of
 // dragging the window’s document icon. The delegate can prohibit the drag
-// by returning [false]. Before returning [false], the delegate can implement
-// its own dragging behavior using
+// by returning false. Before returning false, the delegate can implement its
+// own dragging behavior using
 // [DragImageAtOffsetEventPasteboardSourceSlideBack].
-// 
-// Alternatively, the delegate can enable a drag by returning [true], for
+//
+// Alternatively, the delegate can enable a drag by returning true, for
 // example, to override the default [NSWindow] behavior of prohibiting the
 // drag of an edited document. In addition, the delegate can customize the
-// pasteboard contents before returning [true].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// pasteboard contents before returning true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:shouldDragDocumentWith:from:with:)
 func (o NSWindowDelegateObject) WindowShouldDragDocumentWithEventFromWithPasteboard(window INSWindow, event INSEvent, dragImageLocation corefoundation.CGPoint, pasteboard INSPasteboard) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("window:shouldDragDocumentWithEvent:from:withPasteboard:"), window, event, dragImageLocation, pasteboard)
 	return rv
-	}
+}
+
 // Tells the delegate that the window’s undo manager has been requested.
 // Returns the appropriate undo manager for the window.
 //
 // window: The window whose undo manager is being requested.
 //
 // # Return Value
-// 
+//
 // The appropriate undo manager for the specified window.
 //
 // # Discussion
-// 
+//
 // If this method is not implemented by the delegate, the window creates
 // an[UndoManager] for `window`. Further, after a window creates its own undo
 // manager, this method is never again called on the delegate.
 //
-// [UndoManager]: https://developer.apple.com/documentation/Foundation/UndoManager
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillReturnUndoManager(_:)
+//
+// [UndoManager]: https://developer.apple.com/documentation/Foundation/UndoManager
 func (o NSWindowDelegateObject) WindowWillReturnUndoManager(window INSWindow) foundation.NSUndoManager {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("windowWillReturnUndoManager:"), window)
 	return foundation.NSUndoManagerFromID(rv)
-	}
+}
+
 // Asks the delegate whether the window displays the title pop-up menu in
 // response to a Command-click or Control-click on its title.
 //
@@ -896,18 +910,15 @@ func (o NSWindowDelegateObject) WindowWillReturnUndoManager(window INSWindow) fo
 // path components of the file represented by `window`.
 //
 // # Return Value
-// 
-// [true] to allow the display of the title pop-up menu; [false] to prevent
-// it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to allow the display of the title pop-up menu; false to prevent it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:shouldPopUpDocumentPathMenu:)
 func (o NSWindowDelegateObject) WindowShouldPopUpDocumentPathMenu(window INSWindow, menu INSMenu) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("window:shouldPopUpDocumentPathMenu:"), window, menu)
 	return rv
-	}
+}
+
 // Tells the delegate the window is about to add its restorable state to a
 // given archiver.
 //
@@ -916,14 +927,15 @@ func (o NSWindowDelegateObject) WindowShouldPopUpDocumentPathMenu(window INSWind
 // state: The coder creating the archive.
 //
 // # Discussion
-// 
+//
 // This method is called during the window’s
 // [EncodeRestorableStateWithCoder] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:willEncodeRestorableState:)
 func (o NSWindowDelegateObject) WindowWillEncodeRestorableState(window INSWindow, state foundation.INSCoder) {
 	objc.Send[struct{}](o.ID, objc.Sel("window:willEncodeRestorableState:"), window, state)
-	}
+}
+
 // Tells the delegate the window is has extracted its restorable state from a
 // given archiver.
 //
@@ -932,13 +944,14 @@ func (o NSWindowDelegateObject) WindowWillEncodeRestorableState(window INSWindow
 // state: The coder extracting the archive.
 //
 // # Discussion
-// 
+//
 // This method is called during the window’s [RestoreStateWithCoder] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/window(_:didDecodeRestorableState:)
 func (o NSWindowDelegateObject) WindowDidDecodeRestorableState(window INSWindow, state foundation.INSCoder) {
 	objc.Send[struct{}](o.ID, objc.Sel("window:didDecodeRestorableState:"), window, state)
-	}
+}
+
 // Tells the delegate the window will resize for presentation during version
 // browsing.
 //
@@ -950,16 +963,16 @@ func (o NSWindowDelegateObject) WindowDidDecodeRestorableState(window INSWindow,
 // margins required to ensure the Versions controls are still visible).
 //
 // # Return Value
-// 
+//
 // The size that the window should be.
 //
 // # Discussion
-// 
+//
 // Windows entering the version browser will be resized to the size returned
 // by this method. If either dimension of the returned size is larger than the
 // `maxPreferredFrameSize`, the window will also be scaled down to ensure it
 // fits properly in the version browser.
-// 
+//
 // If this method is not implemented, the version browser will use
 // [WindowWillUseStandardFrameDefaultFrame] to determine the resulting window
 // frame size.
@@ -968,47 +981,54 @@ func (o NSWindowDelegateObject) WindowDidDecodeRestorableState(window INSWindow,
 func (o NSWindowDelegateObject) WindowWillResizeForVersionBrowserWithMaxPreferredSizeMaxAllowedSize(window INSWindow, maxPreferredFrameSize corefoundation.CGSize, maxAllowedFrameSize corefoundation.CGSize) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("window:willResizeForVersionBrowserWithMaxPreferredSize:maxAllowedSize:"), window, maxPreferredFrameSize, maxAllowedFrameSize)
 	return rv
-	}
+}
+
 // Tells the delegate the window is about to enter version browsing.
 //
 // notification: An [willEnterVersionBrowserNotification] notification.
-// //
-// [willEnterVersionBrowserNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willEnterVersionBrowserNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillEnterVersionBrowser(_:)
+//
+// [willEnterVersionBrowserNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willEnterVersionBrowserNotification
 func (o NSWindowDelegateObject) WindowWillEnterVersionBrowser(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowWillEnterVersionBrowser:"), notification)
-	}
+}
+
 // Tells the delegate that the window has entered version browsing.
 //
 // notification: An [didEnterVersionBrowserNotification] notification.
-// //
-// [didEnterVersionBrowserNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didEnterVersionBrowserNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidEnterVersionBrowser(_:)
+//
+// [didEnterVersionBrowserNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didEnterVersionBrowserNotification
 func (o NSWindowDelegateObject) WindowDidEnterVersionBrowser(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidEnterVersionBrowser:"), notification)
-	}
+}
+
 // Tells the delegate that the window is about to leave version browsing.
 //
 // notification: An [willExitVersionBrowserNotification] notification.
-// //
-// [willExitVersionBrowserNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willExitVersionBrowserNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowWillExitVersionBrowser(_:)
+//
+// [willExitVersionBrowserNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/willExitVersionBrowserNotification
 func (o NSWindowDelegateObject) WindowWillExitVersionBrowser(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowWillExitVersionBrowser:"), notification)
-	}
+}
+
 // Tells the delegate that the window has left version browsing.
 //
 // notification: An [didExitVersionBrowserNotification] notification.
-// //
-// [didExitVersionBrowserNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didExitVersionBrowserNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/windowDidExitVersionBrowser(_:)
+//
+// [didExitVersionBrowserNotification]: https://developer.apple.com/documentation/AppKit/NSWindow/didExitVersionBrowserNotification
 func (o NSWindowDelegateObject) WindowDidExitVersionBrowser(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("windowDidExitVersionBrowser:"), notification)
-	}
+}
+
+// A collection of Preview-representable activity items, used for sharing and
+// collaboration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowDelegate/previewRepresentableActivityItems(for:)
 func (o NSWindowDelegateObject) PreviewRepresentableActivityItemsForWindow(window INSWindow) []objectivec.IObject {
@@ -1016,7 +1036,8 @@ func (o NSWindowDelegateObject) PreviewRepresentableActivityItemsForWindow(windo
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
-	}
+}
+
 // Method called to get the window to share once sharing is confirmed, after a
 // request is initiated by
 // requestSharingOfWindowUsingPreview:title:completionHandler:. Implement this
@@ -1026,7 +1047,7 @@ func (o NSWindowDelegateObject) PreviewRepresentableActivityItemsForWindow(windo
 func (o NSWindowDelegateObject) WindowForSharingRequestFromWindow(window INSWindow) INSWindow {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("windowForSharingRequestFromWindow:"), window)
 	return NSWindowFromID(rv)
-	}
+}
 
 // NSWindowDelegateConfig holds optional typed callbacks for [NSWindowDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -1644,4 +1665,3 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSWindowDelegateObjectFromID(instance)
 }
-

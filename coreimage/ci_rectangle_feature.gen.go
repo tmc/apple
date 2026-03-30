@@ -4,9 +4,10 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [CIRectangleFeature] class.
@@ -45,25 +46,23 @@ func (cc CIRectangleFeatureClass) Alloc() CIRectangleFeature {
 // Information about a rectangular region detected in a still or video image.
 //
 // # Overview
-// 
+//
 // A detected rectangle feature is not necessarily rectangular in the plane of
 // the image; rather, the feature identifies a shape that may be rectangular
 // in space (for example a book on a desk) but which appears as a four-sided
 // polygon in the image. The properties of a [CIRectangleFeature] object
 // identify its four corners in image coordinates.
-// 
+//
 // You can use rectangle feature detection together with the
 // [CIPerspectiveCorrection] filter to transform the feature to a normal
 // orientation.
-// 
+//
 // To detect rectangles in an image or video, choose [CIRectangleFeature.CIDetectorTypeRectangle]
 // when initializing a [CIDetector] object, and use the
 // [CIDetectorAspectRatio] and [CIDetectorFocalLength] options to specify the
 // approximate shape of rectangular features to search for. The detector
 // returns at most one rectangle feature, the most prominent found in the
 // image.
-//
-// [CIRectangleFeature.CIDetectorTypeRectangle]: https://developer.apple.com/documentation/CoreImage/CIDetectorTypeRectangle
 //
 // # Identifying the Corners of a Detected Rectangle
 //
@@ -83,6 +82,7 @@ type CIRectangleFeature struct {
 func CIRectangleFeatureFromID(id objc.ID) CIRectangleFeature {
 	return CIRectangleFeature{CIFeature: CIFeatureFromID(id)}
 }
+
 // NOTE: CIRectangleFeature adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,7 +110,7 @@ type ICIRectangleFeature interface {
 	// The upper-right corner of the detected rectangle, in image coordinates.
 	TopRight() corefoundation.CGPoint
 
-	// A detector that searches for rectangular areas in a still image or video, returning 
+	// A detector that searches for rectangular areas in a still image or video, returning
 	CIDetectorTypeRectangle() string
 }
 
@@ -140,6 +140,7 @@ func (r CIRectangleFeature) BottomLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("bottomLeft"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The lower-right corner of the detected rectangle, in image coordinates.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRectangleFeature/bottomRight-swift.property
@@ -147,6 +148,7 @@ func (r CIRectangleFeature) BottomRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("bottomRight"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The upper-left corner of the detected rectangle, in image coordinates.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRectangleFeature/topLeft-swift.property
@@ -154,6 +156,7 @@ func (r CIRectangleFeature) TopLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("topLeft"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The upper-right corner of the detected rectangle, in image coordinates.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRectangleFeature/topRight-swift.property
@@ -161,6 +164,7 @@ func (r CIRectangleFeature) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("topRight"))
 	return corefoundation.CGPoint(rv)
 }
+
 // A detector that searches for rectangular areas in a still image or video,
 // returning
 //
@@ -169,4 +173,3 @@ func (r CIRectangleFeature) CIDetectorTypeRectangle() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("CIDetectorTypeRectangle"))
 	return foundation.NSStringFromID(rv).String()
 }
-

@@ -29,6 +29,7 @@ type CIMaximumComponent interface {
 type CIMaximumComponentObject struct {
 	objectivec.Object
 }
+
 func (o CIMaximumComponentObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func CIMaximumComponentObjectFromID(id objc.ID) CIMaximumComponentObject {
 func (o CIMaximumComponentObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -55,9 +57,11 @@ func (o CIMaximumComponentObject) InputImage() ICIImage {
 func (o CIMaximumComponentObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMaximumComponent/inputImage
 func (o CIMaximumComponentObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

@@ -4,9 +4,11 @@ package networkextension
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A delegate protocol to customize the TLS authentication done by a connection.
@@ -20,6 +22,7 @@ type NWTCPConnectionAuthenticationDelegate interface {
 type NWTCPConnectionAuthenticationDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NWTCPConnectionAuthenticationDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -105,4 +108,3 @@ func NewNWTCPConnectionAuthenticationDelegate(config NWTCPConnectionAuthenticati
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NWTCPConnectionAuthenticationDelegateObjectFromID(instance)
 }
-

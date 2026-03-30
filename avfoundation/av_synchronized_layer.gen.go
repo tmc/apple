@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/quartzcore"
 )
@@ -45,27 +46,23 @@ func (ac AVSynchronizedLayerClass) Alloc() AVSynchronizedLayer {
 // you can synchronize layer animations with media playback.
 //
 // # Overview
-// 
+//
 // You can create an arbitrary number of synchronized layers from the same
 // [AVPlayerItem] object.
-// 
+//
 // A synchronized layer is similar to a [CATransformLayer] object in that it
 // doesn’t display anything itself, it just confers state upon its layer
 // subtree. [AVSynchronizedLayer] confers its timing state, synchronizing the
 // timing of layers in its subtree with that of a player item.
-// 
+//
 // Any [CoreAnimation] layer with animation property set that is added as a
 // sublayer of [AVSynchronizedLayer] should set the animation’s [AVSynchronizedLayer.BeginTime]
 // property to a non-zero positive value so animations will be interpreted on
 // the player item’s timeline. [CoreAnimation] replaces the default
 // `beginTime` of 0.0 with [CACurrentMediaTime()]. To start the animation from
 // time 0, use a small positive value like [AVSynchronizedLayer.AVCoreAnimationBeginTimeAtZero].
-// 
-// You might use a layer as shown in the following example:
 //
-// [AVSynchronizedLayer.AVCoreAnimationBeginTimeAtZero]: https://developer.apple.com/documentation/AVFoundation/AVCoreAnimationBeginTimeAtZero
-// [CACurrentMediaTime()]: https://developer.apple.com/documentation/QuartzCore/CACurrentMediaTime()
-// [CATransformLayer]: https://developer.apple.com/documentation/QuartzCore/CATransformLayer
+// You might use a layer as shown in the following example:
 //
 // # Managing the player item
 //
@@ -74,9 +71,12 @@ func (ac AVSynchronizedLayerClass) Alloc() AVSynchronizedLayer {
 //
 // # Supporting types
 //
-//   - [AVSynchronizedLayer.AVCoreAnimationBeginTimeAtZero]: A value that sets an animation begin time to 
+//   - [AVSynchronizedLayer.AVCoreAnimationBeginTimeAtZero]: A value that sets an animation begin time to
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSynchronizedLayer
+//
+// [CACurrentMediaTime()]: https://developer.apple.com/documentation/QuartzCore/CACurrentMediaTime()
+// [CATransformLayer]: https://developer.apple.com/documentation/QuartzCore/CATransformLayer
 type AVSynchronizedLayer struct {
 	quartzcore.CALayer
 }
@@ -88,6 +88,7 @@ type AVSynchronizedLayer struct {
 func AVSynchronizedLayerFromID(id objc.ID) AVSynchronizedLayer {
 	return AVSynchronizedLayer{CALayer: quartzcore.CALayerFromID(id)}
 }
+
 // NOTE: AVSynchronizedLayer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -100,7 +101,7 @@ func AVSynchronizedLayerFromID(id objc.ID) AVSynchronizedLayer {
 //
 // # Supporting types
 //
-//   - [IAVSynchronizedLayer.AVCoreAnimationBeginTimeAtZero]: A value that sets an animation begin time to 
+//   - [IAVSynchronizedLayer.AVCoreAnimationBeginTimeAtZero]: A value that sets an animation begin time to
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSynchronizedLayer
 type IAVSynchronizedLayer interface {
@@ -114,7 +115,7 @@ type IAVSynchronizedLayer interface {
 
 	// Topic: Supporting types
 
-	// A value that sets an animation begin time to 
+	// A value that sets an animation begin time to
 	AVCoreAnimationBeginTimeAtZero() float64
 }
 
@@ -143,7 +144,7 @@ func NewAVSynchronizedLayer() AVSynchronizedLayer {
 // playerItem: A player item.
 //
 // # Return Value
-// 
+//
 // A new synchronized layer with timing synchronized with `playerItem`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSynchronizedLayer/init(playerItem:)
@@ -162,6 +163,7 @@ func (s AVSynchronizedLayer) PlayerItem() IAVPlayerItem {
 func (s AVSynchronizedLayer) SetPlayerItem(value IAVPlayerItem) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPlayerItem:"), value)
 }
+
 // A value that sets an animation begin time to
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcoreanimationbegintimeatzero
@@ -169,4 +171,3 @@ func (s AVSynchronizedLayer) AVCoreAnimationBeginTimeAtZero() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("AVCoreAnimationBeginTimeAtZero"))
 	return rv
 }
-

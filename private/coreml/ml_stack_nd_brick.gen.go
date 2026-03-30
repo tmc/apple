@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLStackNDBrickClass) Alloc() MLStackNDBrick {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLStackNDBrick.Axis]
@@ -59,6 +59,7 @@ func (mc MLStackNDBrickClass) Alloc() MLStackNDBrick {
 //   - [MLStackNDBrick.Description]
 //   - [MLStackNDBrick.Hash]
 //   - [MLStackNDBrick.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick
 type MLStackNDBrick struct {
 	objectivec.Object
@@ -68,6 +69,7 @@ type MLStackNDBrick struct {
 func MLStackNDBrickFromID(id objc.ID) MLStackNDBrick {
 	return MLStackNDBrick{objectivec.Object{ID: id}}
 }
+
 // Ensure MLStackNDBrick implements IMLStackNDBrick.
 var _ IMLStackNDBrick = MLStackNDBrick{}
 
@@ -131,7 +133,6 @@ func NewMLStackNDBrick() MLStackNDBrick {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/initWithParameters:
 func NewStackNDBrickWithParameters(parameters objectivec.IObject) MLStackNDBrick {
 	instance := getMLStackNDBrickClass().Alloc()
@@ -139,23 +140,23 @@ func NewStackNDBrickWithParameters(parameters objectivec.IObject) MLStackNDBrick
 	return MLStackNDBrickFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/computeOnCPUWithInputTensors:outputTensors:
 func (s MLStackNDBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/hasGPUSupport
 func (s MLStackNDBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/setupForInputShapes:withParameters:
 func (s MLStackNDBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/initWithParameters:
 func (s MLStackNDBrick) InitWithParameters(parameters objectivec.IObject) MLStackNDBrick {
 	rv := objc.Send[MLStackNDBrick](s.ID, objc.Sel("initWithParameters:"), parameters)
@@ -167,49 +168,57 @@ func (s MLStackNDBrick) Axis() foundation.NSNumber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("axis"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/debugDescription
 func (s MLStackNDBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/description
 func (s MLStackNDBrick) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/hash
 func (s MLStackNDBrick) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/inputRanks
 func (s MLStackNDBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/inputShapes
 func (s MLStackNDBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/outputRanks
 func (s MLStackNDBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/outputShapes
 func (s MLStackNDBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/shapeInfoNeeded
 func (s MLStackNDBrick) ShapeInfoNeeded() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStackNDBrick/superclass
 func (s MLStackNDBrick) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
 	return rv
 }
-

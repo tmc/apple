@@ -4,8 +4,9 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [CIQRCodeDescriptor] class.
@@ -45,7 +46,7 @@ func (cc CIQRCodeDescriptorClass) Alloc() CIQRCodeDescriptor {
 // square QR code symbol.
 //
 // # Overview
-// 
+//
 // ISO/IEC 18004 defines versions from 1 to 40, where a higher symbol version
 // indicates a larger data-carrying capacity. QR Codes can encode text, vCard
 // contact information, or Uniform Resource Identifiers (URI).
@@ -73,6 +74,7 @@ type CIQRCodeDescriptor struct {
 func CIQRCodeDescriptorFromID(id objc.ID) CIQRCodeDescriptor {
 	return CIQRCodeDescriptor{CIBarcodeDescriptor: CIBarcodeDescriptorFromID(id)}
 }
+
 // NOTE: CIQRCodeDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,7 +142,7 @@ func NewCIQRCodeDescriptor() CIQRCodeDescriptor {
 // errorCorrectionLevel: The QR code’s error correction level: L, M, Q, or H.
 //
 // # Return Value
-// 
+//
 // An initialized [CIAztecCodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
@@ -162,7 +164,7 @@ func NewQRCodeDescriptorWithPayloadSymbolVersionMaskPatternErrorCorrectionLevel(
 // errorCorrectionLevel: The QR code’s error correction level: L, M, Q, or H.
 //
 // # Return Value
-// 
+//
 // An initialized [CIAztecCodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
@@ -183,7 +185,7 @@ func (q CIQRCodeDescriptor) InitWithPayloadSymbolVersionMaskPatternErrorCorrecti
 // errorCorrectionLevel: The QR code’s error correction level: L, M, Q, or H.
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIAztecCodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
@@ -196,16 +198,16 @@ func (_CIQRCodeDescriptorClass CIQRCodeDescriptorClass) DescriptorWithPayloadSym
 // The error-corrected codeword payload that comprises the QR code symbol.
 //
 // # Discussion
-// 
+//
 // QR Codes are formally specified in ISO/IEC 18004:2006(E). Section 6.4.10
 // “Bitstream to codeword conversion” specifies the set of 8-bit codewords
 // in the symbol immediately prior to splitting the message into blocks and
 // applying error correction.
-// 
+//
 // During decode, error correction is applied and if successful, the message
 // is re-ordered to the state immediately following “Bitstream to codeword
 // conversion.”
-// 
+//
 // The `errorCorrectedPayload` corresponds to this sequence of 8-bit
 // codewords.
 //
@@ -214,11 +216,12 @@ func (q CIQRCodeDescriptor) ErrorCorrectedPayload() foundation.INSData {
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("errorCorrectedPayload"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // The version of the QR code which corresponds to the size of the QR code
 // symbol.
 //
 // # Discussion
-// 
+//
 // ISO/IEC 18004 defines versions from 1 to 40, where a higher symbol version
 // indicates a larger data-carrying capacity. This field is required in order
 // to properly interpret the error corrected payload.
@@ -228,10 +231,11 @@ func (q CIQRCodeDescriptor) SymbolVersion() int {
 	rv := objc.Send[int](q.ID, objc.Sel("symbolVersion"))
 	return rv
 }
+
 // The data mask pattern for the QR code symbol.
 //
 // # Discussion
-// 
+//
 // QR Codes support eight data mask patterns, which are used to avoid large
 // black or large white areas inside the symbol body. Valid values range from
 // 0 to 7.
@@ -241,20 +245,20 @@ func (q CIQRCodeDescriptor) MaskPattern() uint8 {
 	rv := objc.Send[uint8](q.ID, objc.Sel("maskPattern"))
 	return rv
 }
+
 // The error correction level of the QR code symbol.
 //
 // # Discussion
-// 
+//
 // QR Codes support four levels of Reed-Solomon error correction.
-// 
+//
 // The possible error correction levels are enumerated in
 // [CIDataMatrixCodeDescriptor.ECCVersion].
 //
-// [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeDescriptor/errorCorrectionLevel-swift.property
+//
+// [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
 func (q CIQRCodeDescriptor) ErrorCorrectionLevel() CIQRCodeErrorCorrectionLevel {
 	rv := objc.Send[CIQRCodeErrorCorrectionLevel](q.ID, objc.Sel("errorCorrectionLevel"))
 	return CIQRCodeErrorCorrectionLevel(rv)
 }
-

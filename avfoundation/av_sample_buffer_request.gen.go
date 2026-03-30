@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -75,6 +76,7 @@ type AVSampleBufferRequest struct {
 func AVSampleBufferRequestFromID(id objc.ID) AVSampleBufferRequest {
 	return AVSampleBufferRequest{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSampleBufferRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,7 +160,7 @@ func NewAVSampleBufferRequest() AVSampleBufferRequest {
 // startCursor: The starting cursor position.
 //
 // # Return Value
-// 
+//
 // An initialized [AVSampleBufferRequest] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRequest/init(start:)
@@ -174,7 +176,7 @@ func NewSampleBufferRequestWithStartCursor(startCursor IAVSampleCursor) AVSample
 // startCursor: The starting cursor position.
 //
 // # Return Value
-// 
+//
 // An initialized [AVSampleBufferRequest] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRequest/init(start:)
@@ -186,8 +188,8 @@ func (s AVSampleBufferRequest) InitWithStartCursor(startCursor IAVSampleCursor) 
 // The buffer sample direction.
 //
 // # Discussion
-// 
-// The default value is [SampleBufferRequestDirectionNone].
+//
+// The default value is [AVSampleBufferRequestDirectionNone].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRequest/direction-swift.property
 func (s AVSampleBufferRequest) Direction() AVSampleBufferRequestDirection {
@@ -197,10 +199,11 @@ func (s AVSampleBufferRequest) Direction() AVSampleBufferRequestDirection {
 func (s AVSampleBufferRequest) SetDirection(value AVSampleBufferRequestDirection) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDirection:"), value)
 }
+
 // The limiting position for sample loading.
 //
 // # Discussion
-// 
+//
 // If the value isn’t `nil`, the sequence of samples to load may include the
 // sample at this position, but no further.
 //
@@ -212,10 +215,11 @@ func (s AVSampleBufferRequest) LimitCursor() IAVSampleCursor {
 func (s AVSampleBufferRequest) SetLimitCursor(value IAVSampleCursor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLimitCursor:"), value)
 }
+
 // The maximum number of samples to load.
 //
 // # Discussion
-// 
+//
 // If the value isn’t `0`, indicates the maximum number of samples to load.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRequest/maxSampleCount
@@ -226,11 +230,12 @@ func (s AVSampleBufferRequest) MaxSampleCount() int {
 func (s AVSampleBufferRequest) SetMaxSampleCount(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxSampleCount:"), value)
 }
+
 // The sample buffer request mode.
 //
 // # Discussion
-// 
-// Default is [SampleBufferRequestModeImmediate].
+//
+// Default is [AVSampleBufferRequestModeImmediate].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRequest/mode-swift.property
 func (s AVSampleBufferRequest) Mode() AVSampleBufferRequestMode {
@@ -240,6 +245,7 @@ func (s AVSampleBufferRequest) Mode() AVSampleBufferRequestMode {
 func (s AVSampleBufferRequest) SetMode(value AVSampleBufferRequestMode) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMode:"), value)
 }
+
 // The deadline for sample data and output PTS for the sample buffer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRequest/overrideTime
@@ -250,10 +256,11 @@ func (s AVSampleBufferRequest) OverrideTime() coremedia.CMTime {
 func (s AVSampleBufferRequest) SetOverrideTime(value coremedia.CMTime) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOverrideTime:"), value)
 }
+
 // The preferred minimum number of samples to load.
 //
 // # Discussion
-// 
+//
 // A value that isn’t `0` indicates the preferred number of samples to load.
 // Fewer samples may be loaded if there is a change of format description.
 //
@@ -265,18 +272,18 @@ func (s AVSampleBufferRequest) PreferredMinSampleCount() int {
 func (s AVSampleBufferRequest) SetPreferredMinSampleCount(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPreferredMinSampleCount:"), value)
 }
+
 // The starting cursor position.
 //
 // # Discussion
-// 
+//
 // The [CMSampleBuffer] created with the request must include the sample at
 // this position.
 //
-// [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRequest/startCursor
+//
+// [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 func (s AVSampleBufferRequest) StartCursor() IAVSampleCursor {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("startCursor"))
 	return AVSampleCursorFromID(objc.ID(rv))
 }
-

@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (gc GTAGX2ShaderProfilerPipelineStateClass) Alloc() GTAGX2ShaderProfilerPip
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTAGX2ShaderProfilerPipelineState.AddBinaryKeyForType]
@@ -56,13 +56,14 @@ func (gc GTAGX2ShaderProfilerPipelineStateClass) Alloc() GTAGX2ShaderProfilerPip
 //   - [GTAGX2ShaderProfilerPipelineState.SetFragmentTiming]
 //   - [GTAGX2ShaderProfilerPipelineState.FunctionIndex]
 //   - [GTAGX2ShaderProfilerPipelineState.SetFunctionIndex]
+//   - [GTAGX2ShaderProfilerPipelineState.Index]
+//   - [GTAGX2ShaderProfilerPipelineState.SetIndex]
 //   - [GTAGX2ShaderProfilerPipelineState.NumGPUCommands]
 //   - [GTAGX2ShaderProfilerPipelineState.SetNumGPUCommands]
 //   - [GTAGX2ShaderProfilerPipelineState.ObjectId]
 //   - [GTAGX2ShaderProfilerPipelineState.SetObjectId]
 //   - [GTAGX2ShaderProfilerPipelineState.PointerId]
 //   - [GTAGX2ShaderProfilerPipelineState.SetPointerId]
-//   - [GTAGX2ShaderProfilerPipelineState.SetIndex]
 //   - [GTAGX2ShaderProfilerPipelineState.ShaderFunctions]
 //   - [GTAGX2ShaderProfilerPipelineState.Timing]
 //   - [GTAGX2ShaderProfilerPipelineState.SetTiming]
@@ -74,6 +75,7 @@ func (gc GTAGX2ShaderProfilerPipelineStateClass) Alloc() GTAGX2ShaderProfilerPip
 //   - [GTAGX2ShaderProfilerPipelineState.Description]
 //   - [GTAGX2ShaderProfilerPipelineState.Hash]
 //   - [GTAGX2ShaderProfilerPipelineState.Superclass]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState
 type GTAGX2ShaderProfilerPipelineState struct {
 	objectivec.Object
@@ -83,6 +85,7 @@ type GTAGX2ShaderProfilerPipelineState struct {
 func GTAGX2ShaderProfilerPipelineStateFromID(id objc.ID) GTAGX2ShaderProfilerPipelineState {
 	return GTAGX2ShaderProfilerPipelineState{objectivec.Object{ID: id}}
 }
+
 // Ensure GTAGX2ShaderProfilerPipelineState implements IGTAGX2ShaderProfilerPipelineState.
 var _ IGTAGX2ShaderProfilerPipelineState = GTAGX2ShaderProfilerPipelineState{}
 
@@ -101,13 +104,14 @@ var _ IGTAGX2ShaderProfilerPipelineState = GTAGX2ShaderProfilerPipelineState{}
 //   - [IGTAGX2ShaderProfilerPipelineState.SetFragmentTiming]
 //   - [IGTAGX2ShaderProfilerPipelineState.FunctionIndex]
 //   - [IGTAGX2ShaderProfilerPipelineState.SetFunctionIndex]
+//   - [IGTAGX2ShaderProfilerPipelineState.Index]
+//   - [IGTAGX2ShaderProfilerPipelineState.SetIndex]
 //   - [IGTAGX2ShaderProfilerPipelineState.NumGPUCommands]
 //   - [IGTAGX2ShaderProfilerPipelineState.SetNumGPUCommands]
 //   - [IGTAGX2ShaderProfilerPipelineState.ObjectId]
 //   - [IGTAGX2ShaderProfilerPipelineState.SetObjectId]
 //   - [IGTAGX2ShaderProfilerPipelineState.PointerId]
 //   - [IGTAGX2ShaderProfilerPipelineState.SetPointerId]
-//   - [IGTAGX2ShaderProfilerPipelineState.SetIndex]
 //   - [IGTAGX2ShaderProfilerPipelineState.ShaderFunctions]
 //   - [IGTAGX2ShaderProfilerPipelineState.Timing]
 //   - [IGTAGX2ShaderProfilerPipelineState.SetTiming]
@@ -137,13 +141,14 @@ type IGTAGX2ShaderProfilerPipelineState interface {
 	SetFragmentTiming(value IGTAGX2ShaderProfilerTiming)
 	FunctionIndex() uint64
 	SetFunctionIndex(value uint64)
+	Index() uint32
+	SetIndex(value uint32)
 	NumGPUCommands() uint32
 	SetNumGPUCommands(value uint32)
 	ObjectId() uint64
 	SetObjectId(value uint64)
 	PointerId() uint64
 	SetPointerId(value uint64)
-	SetIndex(index uint32)
 	ShaderFunctions() foundation.INSDictionary
 	Timing() IGTAGX2ShaderProfilerTiming
 	SetTiming(value IGTAGX2ShaderProfilerTiming)
@@ -176,7 +181,6 @@ func NewGTAGX2ShaderProfilerPipelineState() GTAGX2ShaderProfilerPipelineState {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/initWithCoder:
 func NewGTAGX2ShaderProfilerPipelineStateWithCoder(coder objectivec.IObject) GTAGX2ShaderProfilerPipelineState {
 	instance := getGTAGX2ShaderProfilerPipelineStateClass().Alloc()
@@ -184,27 +188,21 @@ func NewGTAGX2ShaderProfilerPipelineStateWithCoder(coder objectivec.IObject) GTA
 	return GTAGX2ShaderProfilerPipelineStateFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/addBinaryKey:forType:
 func (g GTAGX2ShaderProfilerPipelineState) AddBinaryKeyForType(key objectivec.IObject, type_ uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addBinaryKey:forType:"), key, type_)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/addFunction:forType:
 func (g GTAGX2ShaderProfilerPipelineState) AddFunctionForType(function objectivec.IObject, type_ uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addFunction:forType:"), function, type_)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/encodeWithCoder:
 func (g GTAGX2ShaderProfilerPipelineState) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/setIndex:
-func (g GTAGX2ShaderProfilerPipelineState) SetIndex(index uint32) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setIndex:"), index)
-}
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/initWithCoder:
 func (g GTAGX2ShaderProfilerPipelineState) InitWithCoder(coder foundation.INSCoder) GTAGX2ShaderProfilerPipelineState {
 	rv := objc.Send[GTAGX2ShaderProfilerPipelineState](g.ID, objc.Sel("initWithCoder:"), coder)
@@ -222,11 +220,13 @@ func (g GTAGX2ShaderProfilerPipelineState) AllBinaryKeys() foundation.INSDiction
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("allBinaryKeys"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/binaryKeys
 func (g GTAGX2ShaderProfilerPipelineState) BinaryKeys() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryKeys"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/computeTiming
 func (g GTAGX2ShaderProfilerPipelineState) ComputeTiming() IGTAGX2ShaderProfilerTiming {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("computeTiming"))
@@ -235,16 +235,19 @@ func (g GTAGX2ShaderProfilerPipelineState) ComputeTiming() IGTAGX2ShaderProfiler
 func (g GTAGX2ShaderProfilerPipelineState) SetComputeTiming(value IGTAGX2ShaderProfilerTiming) {
 	objc.Send[struct{}](g.ID, objc.Sel("setComputeTiming:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/debugDescription
 func (g GTAGX2ShaderProfilerPipelineState) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/description
 func (g GTAGX2ShaderProfilerPipelineState) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/fragmentTiming
 func (g GTAGX2ShaderProfilerPipelineState) FragmentTiming() IGTAGX2ShaderProfilerTiming {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("fragmentTiming"))
@@ -253,6 +256,7 @@ func (g GTAGX2ShaderProfilerPipelineState) FragmentTiming() IGTAGX2ShaderProfile
 func (g GTAGX2ShaderProfilerPipelineState) SetFragmentTiming(value IGTAGX2ShaderProfilerTiming) {
 	objc.Send[struct{}](g.ID, objc.Sel("setFragmentTiming:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/functionIndex
 func (g GTAGX2ShaderProfilerPipelineState) FunctionIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("functionIndex"))
@@ -261,11 +265,22 @@ func (g GTAGX2ShaderProfilerPipelineState) FunctionIndex() uint64 {
 func (g GTAGX2ShaderProfilerPipelineState) SetFunctionIndex(value uint64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setFunctionIndex:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/hash
 func (g GTAGX2ShaderProfilerPipelineState) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
+
+// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/index
+func (g GTAGX2ShaderProfilerPipelineState) Index() uint32 {
+	rv := objc.Send[uint32](g.ID, objc.Sel("index"))
+	return rv
+}
+func (g GTAGX2ShaderProfilerPipelineState) SetIndex(value uint32) {
+	objc.Send[struct{}](g.ID, objc.Sel("setIndex:"), value)
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/numGPUCommands
 func (g GTAGX2ShaderProfilerPipelineState) NumGPUCommands() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("numGPUCommands"))
@@ -274,6 +289,7 @@ func (g GTAGX2ShaderProfilerPipelineState) NumGPUCommands() uint32 {
 func (g GTAGX2ShaderProfilerPipelineState) SetNumGPUCommands(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setNumGPUCommands:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/objectId
 func (g GTAGX2ShaderProfilerPipelineState) ObjectId() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("objectId"))
@@ -282,6 +298,7 @@ func (g GTAGX2ShaderProfilerPipelineState) ObjectId() uint64 {
 func (g GTAGX2ShaderProfilerPipelineState) SetObjectId(value uint64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setObjectId:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/pointerId
 func (g GTAGX2ShaderProfilerPipelineState) PointerId() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("pointerId"))
@@ -290,16 +307,19 @@ func (g GTAGX2ShaderProfilerPipelineState) PointerId() uint64 {
 func (g GTAGX2ShaderProfilerPipelineState) SetPointerId(value uint64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPointerId:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/shaderFunctions
 func (g GTAGX2ShaderProfilerPipelineState) ShaderFunctions() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("shaderFunctions"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/superclass
 func (g GTAGX2ShaderProfilerPipelineState) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/timing
 func (g GTAGX2ShaderProfilerPipelineState) Timing() IGTAGX2ShaderProfilerTiming {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("timing"))
@@ -308,11 +328,13 @@ func (g GTAGX2ShaderProfilerPipelineState) Timing() IGTAGX2ShaderProfilerTiming 
 func (g GTAGX2ShaderProfilerPipelineState) SetTiming(value IGTAGX2ShaderProfilerTiming) {
 	objc.Send[struct{}](g.ID, objc.Sel("setTiming:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/timingInfo
 func (g GTAGX2ShaderProfilerPipelineState) TimingInfo() IGTShaderProfilerTimingInfo {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("timingInfo"))
 	return GTShaderProfilerTimingInfoFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerPipelineState/vertexTiming
 func (g GTAGX2ShaderProfilerPipelineState) VertexTiming() IGTAGX2ShaderProfilerTiming {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("vertexTiming"))
@@ -321,4 +343,3 @@ func (g GTAGX2ShaderProfilerPipelineState) VertexTiming() IGTAGX2ShaderProfilerT
 func (g GTAGX2ShaderProfilerPipelineState) SetVertexTiming(value IGTAGX2ShaderProfilerTiming) {
 	objc.Send[struct{}](g.ID, objc.Sel("setVertexTiming:"), value)
 }
-

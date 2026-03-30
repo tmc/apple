@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,6 +60,7 @@ type VNVideoProcessorRequestProcessingOptions struct {
 func VNVideoProcessorRequestProcessingOptionsFromID(id objc.ID) VNVideoProcessorRequestProcessingOptions {
 	return VNVideoProcessorRequestProcessingOptions{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNVideoProcessorRequestProcessingOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -102,7 +104,7 @@ func NewVNVideoProcessorRequestProcessingOptions() VNVideoProcessorRequestProces
 // The cadence the video processor maintains to process the request.
 //
 // # Discussion
-// 
+//
 // By default, the system processes every frame of video if you don’t
 // provide a value for this property.
 //
@@ -114,4 +116,3 @@ func (v VNVideoProcessorRequestProcessingOptions) Cadence() IVNVideoProcessorCad
 func (v VNVideoProcessorRequestProcessingOptions) SetCadence(value IVNVideoProcessorCadence) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCadence:"), value)
 }
-

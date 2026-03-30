@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (tc TTSRuleGroupClass) Alloc() TTSRuleGroup {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSRuleGroup.EndIndex]
@@ -51,6 +51,7 @@ func (tc TTSRuleGroupClass) Alloc() TTSRuleGroup {
 //   - [TTSRuleGroup.SetKey]
 //   - [TTSRuleGroup.StartIndex]
 //   - [TTSRuleGroup.SetStartIndex]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleGroup
 type TTSRuleGroup struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type TTSRuleGroup struct {
 func TTSRuleGroupFromID(id objc.ID) TTSRuleGroup {
 	return TTSRuleGroup{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSRuleGroup implements ITTSRuleGroup.
 var _ ITTSRuleGroup = TTSRuleGroup{}
 
@@ -115,6 +117,7 @@ func (t TTSRuleGroup) EndIndex() uint64 {
 func (t TTSRuleGroup) SetEndIndex(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEndIndex:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleGroup/key
 func (t TTSRuleGroup) Key() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("key"))
@@ -123,6 +126,7 @@ func (t TTSRuleGroup) Key() string {
 func (t TTSRuleGroup) SetKey(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setKey:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleGroup/startIndex
 func (t TTSRuleGroup) StartIndex() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("startIndex"))
@@ -131,4 +135,3 @@ func (t TTSRuleGroup) StartIndex() uint64 {
 func (t TTSRuleGroup) SetStartIndex(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStartIndex:"), value)
 }
-

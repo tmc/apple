@@ -4,9 +4,11 @@ package appkit
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that allows you to provide the items for a bar dynamically.
@@ -20,6 +22,7 @@ type NSTouchBarDelegate interface {
 type NSTouchBarDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSTouchBarDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,11 +43,11 @@ func NSTouchBarDelegateObjectFromID(id objc.ID) NSTouchBarDelegateObject {
 // identifier: The item identifier associated with the item being requested.
 //
 // # Return Value
-// 
+//
 // A fully initialized bar item for the specified bar and identifier.
 //
 // # Discussion
-// 
+//
 // When the system needs to populate a bar’s items array, the system calls
 // this delegate method to retrieve an item if that item can’t be found in
 // the bar’s private array or in the bar’s [TemplateItems] property.
@@ -53,7 +56,7 @@ func NSTouchBarDelegateObjectFromID(id objc.ID) NSTouchBarDelegateObject {
 func (o NSTouchBarDelegateObject) TouchBarMakeItemForIdentifier(touchBar INSTouchBar, identifier NSTouchBarItemIdentifier) INSTouchBarItem {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("touchBar:makeItemForIdentifier:"), touchBar, objc.String(string(identifier)))
 	return NSTouchBarItemFromID(rv)
-	}
+}
 
 // NSTouchBarDelegateConfig holds optional typed callbacks for [NSTouchBarDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -116,4 +119,3 @@ func NewNSTouchBarDelegate(config NSTouchBarDelegateConfig) NSTouchBarDelegateOb
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTouchBarDelegateObjectFromID(instance)
 }
-

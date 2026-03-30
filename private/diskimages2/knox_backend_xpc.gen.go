@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (kc KNOXBackendXPCClass) Alloc() KNOXBackendXPC {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [KNOXBackendXPC.URL]
 //   - [KNOXBackendXPC.SetURL]
 //   - [KNOXBackendXPC.Key]
 //   - [KNOXBackendXPC.InitWithURLKey]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/KNOXBackendXPC
 type KNOXBackendXPC struct {
 	BackendXPC
@@ -59,6 +60,7 @@ type KNOXBackendXPC struct {
 func KNOXBackendXPCFromID(id objc.ID) KNOXBackendXPC {
 	return KNOXBackendXPC{BackendXPC: BackendXPCFromID(id)}
 }
+
 // Ensure KNOXBackendXPC implements IKNOXBackendXPC.
 var _ IKNOXBackendXPC = KNOXBackendXPC{}
 
@@ -102,7 +104,6 @@ func NewKNOXBackendXPC() KNOXBackendXPC {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/KNOXBackendXPC/initWithCoder:
 func NewKNOXBackendXPCWithCoder(coder objectivec.IObject) KNOXBackendXPC {
 	instance := getKNOXBackendXPCClass().Alloc()
@@ -110,7 +111,6 @@ func NewKNOXBackendXPCWithCoder(coder objectivec.IObject) KNOXBackendXPC {
 	return KNOXBackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/KNOXBackendXPC/initWithURL:key:
 func NewKNOXBackendXPCWithURLKey(url foundation.INSURL, key unsafe.Pointer) KNOXBackendXPC {
 	instance := getKNOXBackendXPCClass().Alloc()
@@ -118,7 +118,6 @@ func NewKNOXBackendXPCWithURLKey(url foundation.INSURL, key unsafe.Pointer) KNOX
 	return KNOXBackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/KNOXBackendXPC/initWithURL:key:
 func (k KNOXBackendXPC) InitWithURLKey(url foundation.INSURL, key unsafe.Pointer) KNOXBackendXPC {
 	rv := objc.Send[KNOXBackendXPC](k.ID, objc.Sel("initWithURL:key:"), url, key)
@@ -133,9 +132,9 @@ func (k KNOXBackendXPC) URL() IDIURL {
 func (k KNOXBackendXPC) SetURL(value IDIURL) {
 	objc.Send[struct{}](k.ID, objc.Sel("setURL:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/KNOXBackendXPC/key
 func (k KNOXBackendXPC) Key() objectivec.IObject {
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("key"))
 	return objectivec.Object{ID: rv}
 }
-

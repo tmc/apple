@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,10 +41,10 @@ func (vc VZVirtioTraditionalMemoryBalloonDeviceClass) Alloc() VZVirtioTraditiona
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtioTraditionalMemoryBalloonDevice._maxTargetVirtualMachineMemorySize]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioTraditionalMemoryBalloonDevice
 type VZVirtioTraditionalMemoryBalloonDevice struct {
 	VZMemoryBalloonDevice
@@ -53,6 +54,7 @@ type VZVirtioTraditionalMemoryBalloonDevice struct {
 func VZVirtioTraditionalMemoryBalloonDeviceFromID(id objc.ID) VZVirtioTraditionalMemoryBalloonDevice {
 	return VZVirtioTraditionalMemoryBalloonDevice{VZMemoryBalloonDevice: VZMemoryBalloonDeviceFromID(id)}
 }
+
 // Ensure VZVirtioTraditionalMemoryBalloonDevice implements IVZVirtioTraditionalMemoryBalloonDevice.
 var _ IVZVirtioTraditionalMemoryBalloonDevice = VZVirtioTraditionalMemoryBalloonDevice{}
 
@@ -95,4 +97,3 @@ func (v VZVirtioTraditionalMemoryBalloonDevice) _maxTargetVirtualMachineMemorySi
 	rv := objc.Send[uint64](v.ID, objc.Sel("_maxTargetVirtualMachineMemorySize"))
 	return rv
 }
-

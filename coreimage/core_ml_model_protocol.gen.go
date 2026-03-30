@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coreml"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +60,7 @@ type CICoreMLModel interface {
 type CICoreMLModelObject struct {
 	objectivec.Object
 }
+
 func (o CICoreMLModelObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -79,21 +80,24 @@ func CICoreMLModelObjectFromID(id objc.ID) CICoreMLModelObject {
 func (o CICoreMLModelObject) HeadIndex() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("headIndex"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/inputImage
 func (o CICoreMLModelObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The Core ML model used to apply the effect on the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/model
 func (o CICoreMLModelObject) Model() coreml.MLModel {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("model"))
 	return coreml.MLModelFromID(rv)
-	}
+}
+
 // A Boolean value that specifies whether to apply Softmax normalization to
 // the output of the model.
 //
@@ -101,7 +105,8 @@ func (o CICoreMLModelObject) Model() coreml.MLModel {
 func (o CICoreMLModelObject) SoftmaxNormalization() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("softmaxNormalization"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -109,21 +114,34 @@ func (o CICoreMLModelObject) SoftmaxNormalization() bool {
 func (o CICoreMLModelObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// A number that specifies which output of a multihead Core ML model applies
+// the effect on the image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/headIndex
 func (o CICoreMLModelObject) SetHeadIndex(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHeadIndex:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/inputImage
 func (o CICoreMLModelObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The Core ML model used to apply the effect on the image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/model
 func (o CICoreMLModelObject) SetModel(value coreml.MLModel) {
 	objc.Send[struct{}](o.ID, objc.Sel("setModel:"), value)
 }
 
+// A Boolean value that specifies whether to apply Softmax normalization to
+// the output of the model.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/softmaxNormalization
 func (o CICoreMLModelObject) SetSoftmaxNormalization(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSoftmaxNormalization:"), value)
 }
-

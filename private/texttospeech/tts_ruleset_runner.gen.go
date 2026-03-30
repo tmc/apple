@@ -4,10 +4,11 @@ package texttospeech
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (tc TTSRulesetRunnerClass) Alloc() TTSRulesetRunner {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSRulesetRunner._computeActiveRangesWithIgnoreRanges]
@@ -71,6 +71,7 @@ func (tc TTSRulesetRunnerClass) Alloc() TTSRulesetRunner {
 //   - [TTSRulesetRunner.ShouldAbort]
 //   - [TTSRulesetRunner.SetShouldAbort]
 //   - [TTSRulesetRunner.UnloadRuleset]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner
 type TTSRulesetRunner struct {
 	objectivec.Object
@@ -80,6 +81,7 @@ type TTSRulesetRunner struct {
 func TTSRulesetRunnerFromID(id objc.ID) TTSRulesetRunner {
 	return TTSRulesetRunner{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSRulesetRunner implements ITTSRulesetRunner.
 var _ ITTSRulesetRunner = TTSRulesetRunner{}
 
@@ -163,7 +165,6 @@ func NewTTSRulesetRunner() TTSRulesetRunner {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_computeActiveRanges:withIgnoreRanges:
 func (t TTSRulesetRunner) _computeActiveRangesWithIgnoreRanges(ranges objectivec.IObject, ranges2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_computeActiveRanges:withIgnoreRanges:"), ranges, ranges2)
@@ -174,7 +175,7 @@ func (t TTSRulesetRunner) _computeActiveRangesWithIgnoreRanges(ranges objectivec
 func (t TTSRulesetRunner) ComputeActiveRangesWithIgnoreRanges(ranges objectivec.IObject, ranges2 objectivec.IObject) objectivec.IObject {
 	return t._computeActiveRangesWithIgnoreRanges(ranges, ranges2)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_ignoreRangesForString:
 func (t TTSRulesetRunner) _ignoreRangesForString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_ignoreRangesForString:"), string_)
@@ -185,7 +186,7 @@ func (t TTSRulesetRunner) _ignoreRangesForString(string_ objectivec.IObject) obj
 func (t TTSRulesetRunner) IgnoreRangesForString(string_ objectivec.IObject) objectivec.IObject {
 	return t._ignoreRangesForString(string_)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_processSpeechString:startingAt:currentRecursionDepth:
 func (t TTSRulesetRunner) _processSpeechStringStartingAtCurrentRecursionDepth(string_ objectivec.IObject, at uint64, depth uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_processSpeechString:startingAt:currentRecursionDepth:"), string_, at, depth)
@@ -196,10 +197,10 @@ func (t TTSRulesetRunner) _processSpeechStringStartingAtCurrentRecursionDepth(st
 func (t TTSRulesetRunner) ProcessSpeechStringStartingAtCurrentRecursionDepth(string_ objectivec.IObject, at uint64, depth uint64) objectivec.IObject {
 	return t._processSpeechStringStartingAtCurrentRecursionDepth(string_, at, depth)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_processTemplateReplacementTextForText:replacement:cString:
 func (t TTSRulesetRunner) _processTemplateReplacementTextForTextReplacementCString(text objectivec.IObject, replacement objectivec.IObject, string_ string) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("_processTemplateReplacementTextForText:replacement:cString:"), text, replacement, unsafe.Pointer(unsafe.StringData(string_ + "\x00")))
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("_processTemplateReplacementTextForText:replacement:cString:"), text, replacement, unsafe.Pointer(unsafe.StringData(string_+"\x00")))
 	return objectivec.Object{ID: rv}
 }
 
@@ -207,6 +208,7 @@ func (t TTSRulesetRunner) _processTemplateReplacementTextForTextReplacementCStri
 func (t TTSRulesetRunner) ProcessTemplateReplacementTextForTextReplacementCString(text objectivec.IObject, replacement objectivec.IObject, string_ string) objectivec.IObject {
 	return t._processTemplateReplacementTextForTextReplacementCString(text, replacement, string_)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/_recomputeRuleOrdering
 func (t TTSRulesetRunner) _recomputeRuleOrdering() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_recomputeRuleOrdering"))
@@ -216,44 +218,46 @@ func (t TTSRulesetRunner) _recomputeRuleOrdering() {
 func (t TTSRulesetRunner) RecomputeRuleOrdering() {
 	t._recomputeRuleOrdering()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/cancelProcessing
 func (t TTSRulesetRunner) CancelProcessing() {
 	objc.Send[objc.ID](t.ID, objc.Sel("cancelProcessing"))
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/loadRuleSet:
 func (t TTSRulesetRunner) LoadRuleSet(set objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("loadRuleSet:"), set)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/processText:
 func (t TTSRulesetRunner) ProcessText(text objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("processText:"), text)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/reset
 func (t TTSRulesetRunner) Reset() {
 	objc.Send[objc.ID](t.ID, objc.Sel("reset"))
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/setMatchLogger:
 func (t TTSRulesetRunner) SetMatchLogger(logger VoidHandler) {
-_block0, _ := NewVoidBlock(logger)
+	_block0, _ := NewVoidBlock(logger)
 	objc.Send[objc.ID](t.ID, objc.Sel("setMatchLogger:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/setPostRuleWriter:
 func (t TTSRulesetRunner) SetPostRuleWriter(writer VoidHandler) {
-_block0, _ := NewVoidBlock(writer)
+	_block0, _ := NewVoidBlock(writer)
 	objc.Send[objc.ID](t.ID, objc.Sel("setPostRuleWriter:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/setPreRuleWriter:
 func (t TTSRulesetRunner) SetPreRuleWriter(writer VoidHandler) {
-_block0, _ := NewVoidBlock(writer)
+	_block0, _ := NewVoidBlock(writer)
 	objc.Send[objc.ID](t.ID, objc.Sel("setPreRuleWriter:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/unloadRuleset:
 func (t TTSRulesetRunner) UnloadRuleset(ruleset objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("unloadRuleset:"), ruleset)
@@ -267,6 +271,7 @@ func (t TTSRulesetRunner) Executing() bool {
 func (t TTSRulesetRunner) SetExecuting(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setExecuting:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/regexExecutionQueue
 func (t TTSRulesetRunner) RegexExecutionQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("regexExecutionQueue"))
@@ -275,11 +280,13 @@ func (t TTSRulesetRunner) RegexExecutionQueue() objectivec.Object {
 func (t TTSRulesetRunner) SetRegexExecutionQueue(value objectivec.Object) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRegexExecutionQueue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/ruleCount
 func (t TTSRulesetRunner) RuleCount() foundation.NSNumber {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleCount"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/ruleReplacements
 func (t TTSRulesetRunner) RuleReplacements() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleReplacements"))
@@ -288,6 +295,7 @@ func (t TTSRulesetRunner) RuleReplacements() foundation.INSArray {
 func (t TTSRulesetRunner) SetRuleReplacements(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRuleReplacements:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/ruleSets
 func (t TTSRulesetRunner) RuleSets() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleSets"))
@@ -296,6 +304,7 @@ func (t TTSRulesetRunner) RuleSets() foundation.INSArray {
 func (t TTSRulesetRunner) SetRuleSets(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRuleSets:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRulesetRunner/shouldAbort
 func (t TTSRulesetRunner) ShouldAbort() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("shouldAbort"))
@@ -349,4 +358,3 @@ func (t TTSRulesetRunner) SetPreRuleWriterSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

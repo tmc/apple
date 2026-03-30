@@ -4,9 +4,10 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [CITextFeature] class.
@@ -45,19 +46,17 @@ func (cc CITextFeatureClass) Alloc() CITextFeature {
 // Information about a text that was detected in a still or video image.
 //
 // # Overview
-// 
+//
 // A detected text feature is not necessarily rectangular in the plane of the
 // image; rather, the feature identifies a shape that may be rectangular in
 // space (for example a text on a sign) but which appears as a four-sided
 // polygon in the image. The properties of a [CITextFeature] object identify
 // its four corners in image coordinates.
-// 
+//
 // To detect text in an image or video, choose the [CITextFeature.CIDetectorTypeText] type
 // when initializing a [CIDetector] object, and use the
 // [CIDetectorImageOrientation] option to specify the desired orientation for
 // finding upright text.
-//
-// [CITextFeature.CIDetectorTypeText]: https://developer.apple.com/documentation/CoreImage/CIDetectorTypeText
 //
 // # Locating Features Within a Detected Region
 //
@@ -81,6 +80,7 @@ type CITextFeature struct {
 func CITextFeatureFromID(id objc.ID) CITextFeature {
 	return CITextFeature{CIFeature: CIFeatureFromID(id)}
 }
+
 // NOTE: CITextFeature adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,7 +117,7 @@ type ICITextFeature interface {
 	// The image coordinate of the upper-right corner of the detected text.
 	TopRight() corefoundation.CGPoint
 
-	// A detector that searches for text in a still image or video, returning 
+	// A detector that searches for text in a still image or video, returning
 	CIDetectorTypeText() string
 }
 
@@ -143,22 +143,23 @@ func NewCITextFeature() CITextFeature {
 // An array containing additional features detected within the feature.
 //
 // # Discussion
-// 
+//
 // A text detector can identify both a major region that is likely to contain
 // text as well as the areas within that region that likely to contain
 // individual text features. Such features might be single characters, groups
 // of closely-packed characters, or entire words.
-// 
+//
 // To detect sub-features, `/CIDetector/` needs to be called with the
 // [CIDetectorReturnSubFeatures] option set to true.
 //
-// [CIDetectorReturnSubFeatures]: https://developer.apple.com/documentation/CoreImage/CIDetectorReturnSubFeatures
-//
 // See: https://developer.apple.com/documentation/CoreImage/CITextFeature/subFeatures
+//
+// [CIDetectorReturnSubFeatures]: https://developer.apple.com/documentation/CoreImage/CIDetectorReturnSubFeatures
 func (t CITextFeature) SubFeatures() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("subFeatures"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // The image coordinate of the lower-left corner of the detected text.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextFeature/bottomLeft
@@ -166,6 +167,7 @@ func (t CITextFeature) BottomLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](t.ID, objc.Sel("bottomLeft"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The image coordinate of the lower-right corner of the detected text.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextFeature/bottomRight
@@ -173,6 +175,7 @@ func (t CITextFeature) BottomRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](t.ID, objc.Sel("bottomRight"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The image coordinate of the upper-left corner of the detected text.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextFeature/topLeft
@@ -180,6 +183,7 @@ func (t CITextFeature) TopLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](t.ID, objc.Sel("topLeft"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The image coordinate of the upper-right corner of the detected text.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextFeature/topRight
@@ -187,6 +191,7 @@ func (t CITextFeature) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](t.ID, objc.Sel("topRight"))
 	return corefoundation.CGPoint(rv)
 }
+
 // A detector that searches for text in a still image or video, returning
 //
 // See: https://developer.apple.com/documentation/coreimage/cidetectortypetext
@@ -194,4 +199,3 @@ func (t CITextFeature) CIDetectorTypeText() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("CIDetectorTypeText"))
 	return foundation.NSStringFromID(rv).String()
 }
-

@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,12 +45,12 @@ func (mc MLAppleTextClassifierClass) Alloc() MLAppleTextClassifier {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLAppleTextClassifier.Parameters]
 //   - [MLAppleTextClassifier.PredictionFromFeaturesOptionsError]
 //   - [MLAppleTextClassifier.InitWithParametersModelDescriptionNlpHandleConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifier
 type MLAppleTextClassifier struct {
 	MLModel
@@ -59,6 +60,7 @@ type MLAppleTextClassifier struct {
 func MLAppleTextClassifierFromID(id objc.ID) MLAppleTextClassifier {
 	return MLAppleTextClassifier{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLAppleTextClassifier implements IMLAppleTextClassifier.
 var _ IMLAppleTextClassifier = MLAppleTextClassifier{}
 
@@ -100,7 +102,6 @@ func NewMLAppleTextClassifier() MLAppleTextClassifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewAppleTextClassifierDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleTextClassifier, error) {
 	var errorPtr objc.ID
@@ -113,7 +114,6 @@ func NewAppleTextClassifierDescriptionOnlyWithSpecificationConfigurationError(sp
 	return MLAppleTextClassifierFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewAppleTextClassifierInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleTextClassifier, error) {
 	var errorPtr objc.ID
@@ -126,7 +126,6 @@ func NewAppleTextClassifierInterfaceAndMetadataWithCompiledArchiveError(archive 
 	return MLAppleTextClassifierFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewAppleTextClassifierWithConfiguration(configuration objectivec.IObject) MLAppleTextClassifier {
 	instance := getMLAppleTextClassifierClass().Alloc()
@@ -134,7 +133,6 @@ func NewAppleTextClassifierWithConfiguration(configuration objectivec.IObject) M
 	return MLAppleTextClassifierFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewAppleTextClassifierWithDescription(description objectivec.IObject) MLAppleTextClassifier {
 	instance := getMLAppleTextClassifierClass().Alloc()
@@ -142,7 +140,6 @@ func NewAppleTextClassifierWithDescription(description objectivec.IObject) MLApp
 	return MLAppleTextClassifierFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewAppleTextClassifierWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleTextClassifier {
 	instance := getMLAppleTextClassifierClass().Alloc()
@@ -150,7 +147,6 @@ func NewAppleTextClassifierWithDescriptionConfiguration(description objectivec.I
 	return MLAppleTextClassifierFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewAppleTextClassifierWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleTextClassifier {
 	instance := getMLAppleTextClassifierClass().Alloc()
@@ -158,7 +154,6 @@ func NewAppleTextClassifierWithNameInputDescriptionOutputDescriptionOrderedInput
 	return MLAppleTextClassifierFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifier/initWithParameters:modelDescription:nlpHandle:configuration:error:
 func NewAppleTextClassifierWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleTextClassifier, error) {
 	var errorPtr objc.ID
@@ -171,7 +166,6 @@ func NewAppleTextClassifierWithParametersModelDescriptionNlpHandleConfigurationE
 	return MLAppleTextClassifierFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifier/predictionFromFeatures:options:error:
 func (a MLAppleTextClassifier) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -183,7 +177,7 @@ func (a MLAppleTextClassifier) PredictionFromFeaturesOptionsError(features objec
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifier/initWithParameters:modelDescription:nlpHandle:configuration:error:
 func (a MLAppleTextClassifier) InitWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleTextClassifier, error) {
 	var errorPtr objc.ID
@@ -196,7 +190,6 @@ func (a MLAppleTextClassifier) InitWithParametersModelDescriptionNlpHandleConfig
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifier/loadModelFromSpecification:configuration:error:
 func (_MLAppleTextClassifierClass MLAppleTextClassifierClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -208,7 +201,7 @@ func (_MLAppleTextClassifierClass MLAppleTextClassifierClass) LoadModelFromSpeci
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifier/saveAppleTextClassifierModelToURL:textClassifierParameters:error:
 func (_MLAppleTextClassifierClass MLAppleTextClassifierClass) SaveAppleTextClassifierModelToURLTextClassifierParametersError(url foundation.INSURL, parameters objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -229,4 +222,3 @@ func (a MLAppleTextClassifier) Parameters() IMLAppleTextClassifierParameters {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("parameters"))
 	return MLAppleTextClassifierParametersFromID(objc.ID(rv))
 }
-

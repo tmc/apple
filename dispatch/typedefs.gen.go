@@ -4,7 +4,8 @@ package dispatch
 
 import (
 	"unsafe"
-	"github.com/tmc/apple/objectivec"
+
+	"github.com/tmc/apple/objc"
 )
 
 // Dispatch_block_t is the prototype of blocks submitted to dispatch queues, which take no arguments and have no return value.
@@ -15,7 +16,7 @@ type Dispatch_block_t = func()
 // Dispatch_data_applier_t is a block to invoke for every contiguous memory region in a data object.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_data_applier_t
-type Dispatch_data_applier_t = func(objectivec.Object, uint32, unsafe.Pointer, uint32) bool
+type Dispatch_data_applier_t = func(objc.ID, uint32, unsafe.Pointer, uint32) bool
 
 // Dispatch_data_t is an immutable object representing a contiguous or sparse region of memory.
 //
@@ -45,7 +46,7 @@ type Dispatch_io_close_flags_t = uint
 // Dispatch_io_handler_t is a handler block used to process operations on a dispatch I/O channel.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_io_handler_t
-type Dispatch_io_handler_t = func(bool, objectivec.Object, int)
+type Dispatch_io_handler_t = func(bool, objc.ID, int)
 
 // Dispatch_io_interval_flags_t is the desired delivery behavior for interval events.
 //
@@ -169,4 +170,3 @@ type Dispatch_time_t = uint64
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_workloop_t
 type Dispatch_workloop_t = dispatch_queue_t
-

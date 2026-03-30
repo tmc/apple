@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -60,6 +61,7 @@ type VZEFIBootLoader struct {
 func VZEFIBootLoaderFromID(id objc.ID) VZEFIBootLoader {
 	return VZEFIBootLoader{VZBootLoader: VZBootLoaderFromID(id)}
 }
+
 // NOTE: VZEFIBootLoader adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,4 +112,3 @@ func (e VZEFIBootLoader) VariableStore() IVZEFIVariableStore {
 func (e VZEFIBootLoader) SetVariableStore(value IVZEFIVariableStore) {
 	objc.Send[struct{}](e.ID, objc.Sel("setVariableStore:"), value)
 }
-

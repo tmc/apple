@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,11 +46,11 @@ func (nc NSCollectionLayoutGroupCustomItemClass) Alloc() NSCollectionLayoutGroup
 // An item used in a group with a custom layout arrangement.
 //
 // # Overview
-// 
+//
 // You use a custom item if you want to specify a layout with a custom
 // arrangement, like a radial or diagonal layout. You use custom items within
 // a group that’s created with [CustomGroupWithLayoutSizeItemProvider].
-// 
+//
 // Instead of providing a layout size for the custom item, like you do when
 // you create an [NSCollectionLayoutItem], you provide a frame instead.
 //
@@ -72,6 +73,7 @@ type NSCollectionLayoutGroupCustomItem struct {
 func NSCollectionLayoutGroupCustomItemFromID(id objc.ID) NSCollectionLayoutGroupCustomItem {
 	return NSCollectionLayoutGroupCustomItem{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSCollectionLayoutGroupCustomItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -143,6 +145,7 @@ func (c NSCollectionLayoutGroupCustomItem) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
+
 // The vertical stacking order of the custom item in relation to other items
 // in the group.
 //
@@ -151,4 +154,3 @@ func (c NSCollectionLayoutGroupCustomItem) ZIndex() int {
 	rv := objc.Send[int](c.ID, objc.Sel("zIndex"))
 	return rv
 }
-

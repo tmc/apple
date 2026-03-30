@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_concat_fuse_fix struct {
 func EspressoPass_concat_fuse_fixFromID(id objc.ID) EspressoPass_concat_fuse_fix {
 	return EspressoPass_concat_fuse_fix{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_concat_fuse_fix implements IEspressoPass_concat_fuse_fix.
 var _ IEspressoPass_concat_fuse_fix = EspressoPass_concat_fuse_fix{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_concat_fuse_fix() EspressoPass_concat_fuse_fix {
 	rv := objc.Send[EspressoPass_concat_fuse_fix](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

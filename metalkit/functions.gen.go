@@ -5,10 +5,11 @@ package metalkit
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -114,11 +115,10 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_mTKMetalVertexDescriptorFromModelIO, frameworkHandle, "MTKMetalVertexDescriptorFromModelIO")
-		registerFunc(&_mTKMetalVertexDescriptorFromModelIOWithError, frameworkHandle, "MTKMetalVertexDescriptorFromModelIOWithError")
-		registerFunc(&_mTKMetalVertexFormatFromModelIO, frameworkHandle, "MTKMetalVertexFormatFromModelIO")
-		registerFunc(&_mTKModelIOVertexDescriptorFromMetal, frameworkHandle, "MTKModelIOVertexDescriptorFromMetal")
-		registerFunc(&_mTKModelIOVertexDescriptorFromMetalWithError, frameworkHandle, "MTKModelIOVertexDescriptorFromMetalWithError")
-		registerFunc(&_mTKModelIOVertexFormatFromMetal, frameworkHandle, "MTKModelIOVertexFormatFromMetal")
-	}
-
+	registerFunc(&_mTKMetalVertexDescriptorFromModelIO, frameworkHandle, "MTKMetalVertexDescriptorFromModelIO")
+	registerFunc(&_mTKMetalVertexDescriptorFromModelIOWithError, frameworkHandle, "MTKMetalVertexDescriptorFromModelIOWithError")
+	registerFunc(&_mTKMetalVertexFormatFromModelIO, frameworkHandle, "MTKMetalVertexFormatFromModelIO")
+	registerFunc(&_mTKModelIOVertexDescriptorFromMetal, frameworkHandle, "MTKModelIOVertexDescriptorFromMetal")
+	registerFunc(&_mTKModelIOVertexDescriptorFromMetalWithError, frameworkHandle, "MTKModelIOVertexDescriptorFromMetalWithError")
+	registerFunc(&_mTKModelIOVertexFormatFromMetal, frameworkHandle, "MTKModelIOVertexFormatFromMetal")
+}

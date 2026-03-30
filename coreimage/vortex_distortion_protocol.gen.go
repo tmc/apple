@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +60,7 @@ type CIVortexDistortion interface {
 type CIVortexDistortionObject struct {
 	objectivec.Object
 }
+
 func (o CIVortexDistortionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -76,24 +77,28 @@ func CIVortexDistortionObjectFromID(id objc.ID) CIVortexDistortionObject {
 func (o CIVortexDistortionObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/center
 func (o CIVortexDistortionObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/inputImage
 func (o CIVortexDistortionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/radius
 func (o CIVortexDistortionObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -101,21 +106,26 @@ func (o CIVortexDistortionObject) Radius() float32 {
 func (o CIVortexDistortionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/angle
 func (o CIVortexDistortionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/center
 func (o CIVortexDistortionObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/inputImage
 func (o CIVortexDistortionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/radius
 func (o CIVortexDistortionObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

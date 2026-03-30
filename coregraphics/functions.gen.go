@@ -6,9 +6,12 @@ import (
 	"fmt"
 	"os"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/kernel"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -206,12 +209,12 @@ func CGAffineTransformTranslate(t corefoundation.CGAffineTransform, tx float64, 
 	return _cGAffineTransformTranslate(t, tx, ty)
 }
 
-var _cGAssociateMouseAndMouseCursorPosition func(connected uintptr) CGError
+var _cGAssociateMouseAndMouseCursorPosition func(connected bool) CGError
 
 // CGAssociateMouseAndMouseCursorPosition connects or disconnects the mouse and cursor while an application is in the foreground.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGAssociateMouseAndMouseCursorPosition(_:)
-func CGAssociateMouseAndMouseCursorPosition(connected uintptr) CGError {
+func CGAssociateMouseAndMouseCursorPosition(connected bool) CGError {
 	if _cGAssociateMouseAndMouseCursorPosition == nil {
 		panic("CoreGraphics: symbol CGAssociateMouseAndMouseCursorPosition not loaded")
 	}
@@ -472,12 +475,12 @@ func CGColorConversionInfoCreateFromList(options corefoundation.CFDictionaryRef,
 	return _cGColorConversionInfoCreateFromList(options, arg1, arg2, arg3)
 }
 
-var _cGColorConversionInfoCreateFromListWithArguments func(options corefoundation.CFDictionaryRef, arg1 CGColorSpaceRef, arg2 CGColorConversionInfoTransformType, arg3 CGColorRenderingIntent, arg4 uintptr) CGColorConversionInfoRef
+var _cGColorConversionInfoCreateFromListWithArguments func(options corefoundation.CFDictionaryRef, arg1 CGColorSpaceRef, arg2 CGColorConversionInfoTransformType, arg3 CGColorRenderingIntent, arg4 kernel.Va_list) CGColorConversionInfoRef
 
 // CGColorConversionInfoCreateFromListWithArguments.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorConversionInfoCreateFromListWithArguments
-func CGColorConversionInfoCreateFromListWithArguments(options corefoundation.CFDictionaryRef, arg1 CGColorSpaceRef, arg2 CGColorConversionInfoTransformType, arg3 CGColorRenderingIntent, arg4 uintptr) CGColorConversionInfoRef {
+func CGColorConversionInfoCreateFromListWithArguments(options corefoundation.CFDictionaryRef, arg1 CGColorSpaceRef, arg2 CGColorConversionInfoTransformType, arg3 CGColorRenderingIntent, arg4 kernel.Va_list) CGColorConversionInfoRef {
 	if _cGColorConversionInfoCreateFromListWithArguments == nil {
 		panic("CoreGraphics: symbol CGColorConversionInfoCreateFromListWithArguments not loaded")
 	}
@@ -1264,12 +1267,12 @@ func CGConfigureDisplayOrigin(config CGDisplayConfigRef, display uint32, x int32
 	return _cGConfigureDisplayOrigin(config, display, x, y)
 }
 
-var _cGConfigureDisplayStereoOperation func(config CGDisplayConfigRef, display uint32, stereo uintptr, forceBlueLine uintptr) CGError
+var _cGConfigureDisplayStereoOperation func(config CGDisplayConfigRef, display uint32, stereo bool, forceBlueLine bool) CGError
 
 // CGConfigureDisplayStereoOperation enables or disables stereo operation for a display, as part of a display configuration.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGConfigureDisplayStereoOperation(_:_:_:_:)
-func CGConfigureDisplayStereoOperation(config CGDisplayConfigRef, display uint32, stereo uintptr, forceBlueLine uintptr) CGError {
+func CGConfigureDisplayStereoOperation(config CGDisplayConfigRef, display uint32, stereo bool, forceBlueLine bool) CGError {
 	if _cGConfigureDisplayStereoOperation == nil {
 		panic("CoreGraphics: symbol CGConfigureDisplayStereoOperation not loaded")
 	}
@@ -3095,12 +3098,12 @@ func CGDisplayCreateImageForRect(display uint32, rect corefoundation.CGRect) CGI
 	return _cGDisplayCreateImageForRect(display, rect)
 }
 
-var _cGDisplayFade func(token CGDisplayFadeReservationToken, duration float32, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous uintptr) CGError
+var _cGDisplayFade func(token CGDisplayFadeReservationToken, duration float32, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous bool) CGError
 
 // CGDisplayFade performs a single fade operation.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayFade(_:_:_:_:_:_:_:_:)
-func CGDisplayFade(token CGDisplayFadeReservationToken, duration float32, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous uintptr) CGError {
+func CGDisplayFade(token CGDisplayFadeReservationToken, duration float32, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous bool) CGError {
 	if _cGDisplayFade == nil {
 		panic("CoreGraphics: symbol CGDisplayFade not loaded")
 	}
@@ -3155,108 +3158,108 @@ func CGDisplayIDToOpenGLDisplayMask(display uint32) CGOpenGLDisplayMask {
 	return _cGDisplayIDToOpenGLDisplayMask(display)
 }
 
-var _cGDisplayIsActive func(display uint32) objectivec.IObject
+var _cGDisplayIsActive func(display uint32) bool
 
 // CGDisplayIsActive returns a Boolean value indicating whether a display is active.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsActive(_:)
-func CGDisplayIsActive(display uint32) objectivec.IObject {
+func CGDisplayIsActive(display uint32) bool {
 	if _cGDisplayIsActive == nil {
 		panic("CoreGraphics: symbol CGDisplayIsActive not loaded")
 	}
 	return _cGDisplayIsActive(display)
 }
 
-var _cGDisplayIsAlwaysInMirrorSet func(display uint32) objectivec.IObject
+var _cGDisplayIsAlwaysInMirrorSet func(display uint32) bool
 
 // CGDisplayIsAlwaysInMirrorSet returns a Boolean value indicating whether a display is always in a mirroring set.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsAlwaysInMirrorSet(_:)
-func CGDisplayIsAlwaysInMirrorSet(display uint32) objectivec.IObject {
+func CGDisplayIsAlwaysInMirrorSet(display uint32) bool {
 	if _cGDisplayIsAlwaysInMirrorSet == nil {
 		panic("CoreGraphics: symbol CGDisplayIsAlwaysInMirrorSet not loaded")
 	}
 	return _cGDisplayIsAlwaysInMirrorSet(display)
 }
 
-var _cGDisplayIsAsleep func(display uint32) objectivec.IObject
+var _cGDisplayIsAsleep func(display uint32) bool
 
 // CGDisplayIsAsleep returns a Boolean value indicating whether a display is sleeping (and is therefore not drawable).
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsAsleep(_:)
-func CGDisplayIsAsleep(display uint32) objectivec.IObject {
+func CGDisplayIsAsleep(display uint32) bool {
 	if _cGDisplayIsAsleep == nil {
 		panic("CoreGraphics: symbol CGDisplayIsAsleep not loaded")
 	}
 	return _cGDisplayIsAsleep(display)
 }
 
-var _cGDisplayIsBuiltin func(display uint32) objectivec.IObject
+var _cGDisplayIsBuiltin func(display uint32) bool
 
 // CGDisplayIsBuiltin returns a Boolean value indicating whether a display is built-in, such as the internal display in portable systems.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsBuiltin(_:)
-func CGDisplayIsBuiltin(display uint32) objectivec.IObject {
+func CGDisplayIsBuiltin(display uint32) bool {
 	if _cGDisplayIsBuiltin == nil {
 		panic("CoreGraphics: symbol CGDisplayIsBuiltin not loaded")
 	}
 	return _cGDisplayIsBuiltin(display)
 }
 
-var _cGDisplayIsInHWMirrorSet func(display uint32) objectivec.IObject
+var _cGDisplayIsInHWMirrorSet func(display uint32) bool
 
 // CGDisplayIsInHWMirrorSet returns a Boolean value indicating whether a display is in a hardware mirroring set.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsInHWMirrorSet(_:)
-func CGDisplayIsInHWMirrorSet(display uint32) objectivec.IObject {
+func CGDisplayIsInHWMirrorSet(display uint32) bool {
 	if _cGDisplayIsInHWMirrorSet == nil {
 		panic("CoreGraphics: symbol CGDisplayIsInHWMirrorSet not loaded")
 	}
 	return _cGDisplayIsInHWMirrorSet(display)
 }
 
-var _cGDisplayIsInMirrorSet func(display uint32) objectivec.IObject
+var _cGDisplayIsInMirrorSet func(display uint32) bool
 
 // CGDisplayIsInMirrorSet returns a Boolean value indicating whether a display is in a mirroring set.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsInMirrorSet(_:)
-func CGDisplayIsInMirrorSet(display uint32) objectivec.IObject {
+func CGDisplayIsInMirrorSet(display uint32) bool {
 	if _cGDisplayIsInMirrorSet == nil {
 		panic("CoreGraphics: symbol CGDisplayIsInMirrorSet not loaded")
 	}
 	return _cGDisplayIsInMirrorSet(display)
 }
 
-var _cGDisplayIsMain func(display uint32) objectivec.IObject
+var _cGDisplayIsMain func(display uint32) bool
 
 // CGDisplayIsMain returns a Boolean value indicating whether a display is the main display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsMain(_:)
-func CGDisplayIsMain(display uint32) objectivec.IObject {
+func CGDisplayIsMain(display uint32) bool {
 	if _cGDisplayIsMain == nil {
 		panic("CoreGraphics: symbol CGDisplayIsMain not loaded")
 	}
 	return _cGDisplayIsMain(display)
 }
 
-var _cGDisplayIsOnline func(display uint32) objectivec.IObject
+var _cGDisplayIsOnline func(display uint32) bool
 
 // CGDisplayIsOnline returns a Boolean value indicating whether a display is connected or online.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsOnline(_:)
-func CGDisplayIsOnline(display uint32) objectivec.IObject {
+func CGDisplayIsOnline(display uint32) bool {
 	if _cGDisplayIsOnline == nil {
 		panic("CoreGraphics: symbol CGDisplayIsOnline not loaded")
 	}
 	return _cGDisplayIsOnline(display)
 }
 
-var _cGDisplayIsStereo func(display uint32) objectivec.IObject
+var _cGDisplayIsStereo func(display uint32) bool
 
 // CGDisplayIsStereo returns a Boolean value indicating whether a display is running in a stereo graphics mode.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsStereo(_:)
-func CGDisplayIsStereo(display uint32) objectivec.IObject {
+func CGDisplayIsStereo(display uint32) bool {
 	if _cGDisplayIsStereo == nil {
 		panic("CoreGraphics: symbol CGDisplayIsStereo not loaded")
 	}
@@ -3563,12 +3566,12 @@ func CGDisplaySetDisplayMode(display uint32, mode CGDisplayModeRef, options core
 	return _cGDisplaySetDisplayMode(display, mode, options)
 }
 
-var _cGDisplaySetStereoOperation func(display uint32, stereo uintptr, forceBlueLine uintptr, option CGConfigureOption) CGError
+var _cGDisplaySetStereoOperation func(display uint32, stereo bool, forceBlueLine bool, option CGConfigureOption) CGError
 
 // CGDisplaySetStereoOperation immediately enables or disables stereo operation for a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplaySetStereoOperation(_:_:_:_:)
-func CGDisplaySetStereoOperation(display uint32, stereo uintptr, forceBlueLine uintptr, option CGConfigureOption) CGError {
+func CGDisplaySetStereoOperation(display uint32, stereo bool, forceBlueLine bool, option CGConfigureOption) CGError {
 	if _cGDisplaySetStereoOperation == nil {
 		panic("CoreGraphics: symbol CGDisplaySetStereoOperation not loaded")
 	}
@@ -3587,6 +3590,160 @@ func CGDisplayShowCursor(display uint32) CGError {
 	return _cGDisplayShowCursor(display)
 }
 
+var _cGDisplayStreamCreate func(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, handler CGDisplayStreamFrameAvailableHandler) CGDisplayStreamRef
+
+// CGDisplayStreamCreate creates a new display stream to be used with a [CFRunloop].
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/init(display:outputWidth:outputHeight:pixelFormat:properties:handler:)
+func CGDisplayStreamCreate(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, handler CGDisplayStreamFrameAvailableHandler) CGDisplayStreamRef {
+	if _cGDisplayStreamCreate == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamCreate not loaded")
+	}
+	return _cGDisplayStreamCreate(display, outputWidth, outputHeight, pixelFormat, properties, handler)
+}
+
+var _cGDisplayStreamCreateWithDispatchQueue func(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, queue uintptr, handler CGDisplayStreamFrameAvailableHandler) CGDisplayStreamRef
+
+// CGDisplayStreamCreateWithDispatchQueue creates a new display stream whose updates are delivered to a dispatch queue.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/init(dispatchQueueDisplay:outputWidth:outputHeight:pixelFormat:properties:queue:handler:)
+func CGDisplayStreamCreateWithDispatchQueue(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, queue dispatch.Queue, handler CGDisplayStreamFrameAvailableHandler) CGDisplayStreamRef {
+	if _cGDisplayStreamCreateWithDispatchQueue == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamCreateWithDispatchQueue not loaded")
+	}
+	return _cGDisplayStreamCreateWithDispatchQueue(display, outputWidth, outputHeight, pixelFormat, properties, uintptr(queue.Handle()), handler)
+}
+
+var _cGDisplayStreamGetRunLoopSource func(displayStream CGDisplayStreamRef) corefoundation.CFRunLoopSourceRef
+
+// CGDisplayStreamGetRunLoopSource gets the run loop source for a display stream.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/runLoopSource
+func CGDisplayStreamGetRunLoopSource(displayStream CGDisplayStreamRef) corefoundation.CFRunLoopSourceRef {
+	if _cGDisplayStreamGetRunLoopSource == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamGetRunLoopSource not loaded")
+	}
+	return _cGDisplayStreamGetRunLoopSource(displayStream)
+}
+
+var _cGDisplayStreamGetTypeID func() uint
+
+// CGDisplayStreamGetTypeID returns the type identifier of a Quartz display stream.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/typeID
+func CGDisplayStreamGetTypeID() uint {
+	if _cGDisplayStreamGetTypeID == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamGetTypeID not loaded")
+	}
+	return _cGDisplayStreamGetTypeID()
+}
+
+var _cGDisplayStreamStart func(displayStream CGDisplayStreamRef) CGError
+
+// CGDisplayStreamStart tells a stream to start sending updates.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/start()
+func CGDisplayStreamStart(displayStream CGDisplayStreamRef) CGError {
+	if _cGDisplayStreamStart == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamStart not loaded")
+	}
+	return _cGDisplayStreamStart(displayStream)
+}
+
+var _cGDisplayStreamStop func(displayStream CGDisplayStreamRef) CGError
+
+// CGDisplayStreamStop tells a stream to stop sending updates.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/stop()
+func CGDisplayStreamStop(displayStream CGDisplayStreamRef) CGError {
+	if _cGDisplayStreamStop == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamStop not loaded")
+	}
+	return _cGDisplayStreamStop(displayStream)
+}
+
+var _cGDisplayStreamUpdateCreateMergedUpdate func(firstUpdate CGDisplayStreamUpdateRef, secondUpdate CGDisplayStreamUpdateRef) CGDisplayStreamUpdateRef
+
+// CGDisplayStreamUpdateCreateMergedUpdate combines two updates into a new update that includes the metadata for both source updates.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStreamUpdate/init(mergedUpdateFirstUpdate:secondUpdate:)
+func CGDisplayStreamUpdateCreateMergedUpdate(firstUpdate CGDisplayStreamUpdateRef, secondUpdate CGDisplayStreamUpdateRef) CGDisplayStreamUpdateRef {
+	if _cGDisplayStreamUpdateCreateMergedUpdate == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamUpdateCreateMergedUpdate not loaded")
+	}
+	return _cGDisplayStreamUpdateCreateMergedUpdate(firstUpdate, secondUpdate)
+}
+
+var _cGDisplayStreamUpdateGetDropCount func(updateRef CGDisplayStreamUpdateRef) uintptr
+
+// CGDisplayStreamUpdateGetDropCount returns the number of frames that have been dropped since the last call to your update handler.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStreamUpdate/dropCount
+func CGDisplayStreamUpdateGetDropCount(updateRef CGDisplayStreamUpdateRef) uintptr {
+	if _cGDisplayStreamUpdateGetDropCount == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamUpdateGetDropCount not loaded")
+	}
+	return _cGDisplayStreamUpdateGetDropCount(updateRef)
+}
+
+var _cGDisplayStreamUpdateGetMovedRectsDelta func(updateRef CGDisplayStreamUpdateRef, dx *float64, dy *float64)
+
+// CGDisplayStreamUpdateGetMovedRectsDelta return the movement delta values for a single update.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStreamUpdate/getMovedRectsDelta(dx:dy:)
+func CGDisplayStreamUpdateGetMovedRectsDelta(updateRef CGDisplayStreamUpdateRef, dx *float64, dy *float64) {
+	if _cGDisplayStreamUpdateGetMovedRectsDelta == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamUpdateGetMovedRectsDelta not loaded")
+	}
+	_cGDisplayStreamUpdateGetMovedRectsDelta(updateRef, dx, dy)
+}
+
+var _cGDisplayStreamUpdateGetRects func(updateRef CGDisplayStreamUpdateRef, rectType CGDisplayStreamUpdateRectType, rectCount *uintptr) *corefoundation.CGRect
+
+// CGDisplayStreamUpdateGetRects returns an array of rectangles that describe where the frame has changed since the previous frame.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStreamUpdate/getRects(_:rectCount:)
+func CGDisplayStreamUpdateGetRects(updateRef CGDisplayStreamUpdateRef, rectType CGDisplayStreamUpdateRectType, rectCount *uintptr) *corefoundation.CGRect {
+	if _cGDisplayStreamUpdateGetRects == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamUpdateGetRects not loaded")
+	}
+	return _cGDisplayStreamUpdateGetRects(updateRef, rectType, rectCount)
+}
+
+var _cGDisplayStreamUpdateGetTypeID func() uint
+
+// CGDisplayStreamUpdateGetTypeID returns the type identifier of a Quartz display stream update.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStreamUpdate/typeID
+func CGDisplayStreamUpdateGetTypeID() uint {
+	if _cGDisplayStreamUpdateGetTypeID == nil {
+		panic("CoreGraphics: symbol CGDisplayStreamUpdateGetTypeID not loaded")
+	}
+	return _cGDisplayStreamUpdateGetTypeID()
+}
+
 var _cGDisplayUnitNumber func(display uint32) uint32
 
 // CGDisplayUnitNumber returns the logical unit number of a display.
@@ -3599,12 +3756,12 @@ func CGDisplayUnitNumber(display uint32) uint32 {
 	return _cGDisplayUnitNumber(display)
 }
 
-var _cGDisplayUsesOpenGLAcceleration func(display uint32) objectivec.IObject
+var _cGDisplayUsesOpenGLAcceleration func(display uint32) bool
 
 // CGDisplayUsesOpenGLAcceleration returns a Boolean value indicating whether Quartz is using OpenGL-based window acceleration (Quartz Extreme) to render in a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayUsesOpenGLAcceleration(_:)
-func CGDisplayUsesOpenGLAcceleration(display uint32) objectivec.IObject {
+func CGDisplayUsesOpenGLAcceleration(display uint32) bool {
 	if _cGDisplayUsesOpenGLAcceleration == nil {
 		panic("CoreGraphics: symbol CGDisplayUsesOpenGLAcceleration not loaded")
 	}
@@ -6695,6 +6852,18 @@ func CGPDFStringGetLength(string_ CGPDFStringRef) uintptr {
 	return _cGPDFStringGetLength(string_)
 }
 
+var _cGPDFTagTypeGetName func(tagType CGPDFTagType) *byte
+
+// CGPDFTagTypeGetName.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagType/name
+func CGPDFTagTypeGetName(tagType CGPDFTagType) *byte {
+	if _cGPDFTagTypeGetName == nil {
+		panic("CoreGraphics: symbol CGPDFTagTypeGetName not loaded")
+	}
+	return _cGPDFTagTypeGetName(tagType)
+}
+
 var _cGPSConverterAbort func(converter CGPSConverterRef) bool
 
 // CGPSConverterAbort tells a PostScript converter to abort a conversion at the next available opportunity.
@@ -6753,6 +6922,150 @@ func CGPSConverterIsConverting(converter CGPSConverterRef) bool {
 		panic("CoreGraphics: symbol CGPSConverterIsConverting not loaded")
 	}
 	return _cGPSConverterIsConverting(converter)
+}
+
+var _cGPathAddArc func(path CGMutablePathRef, m *corefoundation.CGAffineTransform, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise bool)
+
+// CGPathAddArc appends an arc to a mutable graphics path, possibly preceded by a straight line segment.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddArc
+func CGPathAddArc(path CGMutablePathRef, m *corefoundation.CGAffineTransform, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise bool) {
+	if _cGPathAddArc == nil {
+		panic("CoreGraphics: symbol CGPathAddArc not loaded")
+	}
+	_cGPathAddArc(path, m, x, y, radius, startAngle, endAngle, clockwise)
+}
+
+var _cGPathAddArcToPoint func(path CGMutablePathRef, m *corefoundation.CGAffineTransform, x1 float64, y1 float64, x2 float64, y2 float64, radius float64)
+
+// CGPathAddArcToPoint appends an arc to a mutable graphics path, possibly preceded by a straight line segment.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddArcToPoint
+func CGPathAddArcToPoint(path CGMutablePathRef, m *corefoundation.CGAffineTransform, x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
+	if _cGPathAddArcToPoint == nil {
+		panic("CoreGraphics: symbol CGPathAddArcToPoint not loaded")
+	}
+	_cGPathAddArcToPoint(path, m, x1, y1, x2, y2, radius)
+}
+
+var _cGPathAddCurveToPoint func(path CGMutablePathRef, m *corefoundation.CGAffineTransform, cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64)
+
+// CGPathAddCurveToPoint appends a cubic Bézier curve to a mutable graphics path.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddCurveToPoint
+func CGPathAddCurveToPoint(path CGMutablePathRef, m *corefoundation.CGAffineTransform, cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
+	if _cGPathAddCurveToPoint == nil {
+		panic("CoreGraphics: symbol CGPathAddCurveToPoint not loaded")
+	}
+	_cGPathAddCurveToPoint(path, m, cp1x, cp1y, cp2x, cp2y, x, y)
+}
+
+var _cGPathAddEllipseInRect func(path CGMutablePathRef, m *corefoundation.CGAffineTransform, rect corefoundation.CGRect)
+
+// CGPathAddEllipseInRect adds to a path an ellipse that fits inside a rectangle.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddEllipseInRect
+func CGPathAddEllipseInRect(path CGMutablePathRef, m *corefoundation.CGAffineTransform, rect corefoundation.CGRect) {
+	if _cGPathAddEllipseInRect == nil {
+		panic("CoreGraphics: symbol CGPathAddEllipseInRect not loaded")
+	}
+	_cGPathAddEllipseInRect(path, m, rect)
+}
+
+var _cGPathAddLineToPoint func(path CGMutablePathRef, m *corefoundation.CGAffineTransform, x float64, y float64)
+
+// CGPathAddLineToPoint appends a line segment to a mutable graphics path.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddLineToPoint
+func CGPathAddLineToPoint(path CGMutablePathRef, m *corefoundation.CGAffineTransform, x float64, y float64) {
+	if _cGPathAddLineToPoint == nil {
+		panic("CoreGraphics: symbol CGPathAddLineToPoint not loaded")
+	}
+	_cGPathAddLineToPoint(path, m, x, y)
+}
+
+var _cGPathAddLines func(path CGMutablePathRef, m *corefoundation.CGAffineTransform, points *corefoundation.CGPoint, count uintptr)
+
+// CGPathAddLines appends an array of new line segments to a mutable graphics path.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddLines
+func CGPathAddLines(path CGMutablePathRef, m *corefoundation.CGAffineTransform, points *corefoundation.CGPoint, count uintptr) {
+	if _cGPathAddLines == nil {
+		panic("CoreGraphics: symbol CGPathAddLines not loaded")
+	}
+	_cGPathAddLines(path, m, points, count)
+}
+
+var _cGPathAddPath func(path1 CGMutablePathRef, m *corefoundation.CGAffineTransform, path2 CGPathRef)
+
+// CGPathAddPath appends a path to onto a mutable graphics path.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddPath
+func CGPathAddPath(path1 CGMutablePathRef, m *corefoundation.CGAffineTransform, path2 CGPathRef) {
+	if _cGPathAddPath == nil {
+		panic("CoreGraphics: symbol CGPathAddPath not loaded")
+	}
+	_cGPathAddPath(path1, m, path2)
+}
+
+var _cGPathAddQuadCurveToPoint func(path CGMutablePathRef, m *corefoundation.CGAffineTransform, cpx float64, cpy float64, x float64, y float64)
+
+// CGPathAddQuadCurveToPoint appends a quadratic Bézier curve to a mutable graphics path.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddQuadCurveToPoint
+func CGPathAddQuadCurveToPoint(path CGMutablePathRef, m *corefoundation.CGAffineTransform, cpx float64, cpy float64, x float64, y float64) {
+	if _cGPathAddQuadCurveToPoint == nil {
+		panic("CoreGraphics: symbol CGPathAddQuadCurveToPoint not loaded")
+	}
+	_cGPathAddQuadCurveToPoint(path, m, cpx, cpy, x, y)
+}
+
+var _cGPathAddRect func(path CGMutablePathRef, m *corefoundation.CGAffineTransform, rect corefoundation.CGRect)
+
+// CGPathAddRect appends a rectangle to a mutable graphics path.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddRect
+func CGPathAddRect(path CGMutablePathRef, m *corefoundation.CGAffineTransform, rect corefoundation.CGRect) {
+	if _cGPathAddRect == nil {
+		panic("CoreGraphics: symbol CGPathAddRect not loaded")
+	}
+	_cGPathAddRect(path, m, rect)
+}
+
+var _cGPathAddRects func(path CGMutablePathRef, m *corefoundation.CGAffineTransform, rects *corefoundation.CGRect, count uintptr)
+
+// CGPathAddRects appends an array of rectangles to a mutable graphics path.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddRects
+func CGPathAddRects(path CGMutablePathRef, m *corefoundation.CGAffineTransform, rects *corefoundation.CGRect, count uintptr) {
+	if _cGPathAddRects == nil {
+		panic("CoreGraphics: symbol CGPathAddRects not loaded")
+	}
+	_cGPathAddRects(path, m, rects, count)
+}
+
+var _cGPathAddRelativeArc func(path CGMutablePathRef, matrix *corefoundation.CGAffineTransform, x float64, y float64, radius float64, startAngle float64, delta float64)
+
+// CGPathAddRelativeArc appends an arc to a mutable graphics path, possibly preceded by a straight line segment.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddRelativeArc
+func CGPathAddRelativeArc(path CGMutablePathRef, matrix *corefoundation.CGAffineTransform, x float64, y float64, radius float64, startAngle float64, delta float64) {
+	if _cGPathAddRelativeArc == nil {
+		panic("CoreGraphics: symbol CGPathAddRelativeArc not loaded")
+	}
+	_cGPathAddRelativeArc(path, matrix, x, y, radius, startAngle, delta)
+}
+
+var _cGPathAddRoundedRect func(path CGMutablePathRef, transform *corefoundation.CGAffineTransform, rect corefoundation.CGRect, cornerWidth float64, cornerHeight float64)
+
+// CGPathAddRoundedRect appends a rounded rectangle to a mutable graphics path.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathAddRoundedRect
+func CGPathAddRoundedRect(path CGMutablePathRef, transform *corefoundation.CGAffineTransform, rect corefoundation.CGRect, cornerWidth float64, cornerHeight float64) {
+	if _cGPathAddRoundedRect == nil {
+		panic("CoreGraphics: symbol CGPathAddRoundedRect not loaded")
+	}
+	_cGPathAddRoundedRect(path, transform, rect, cornerWidth, cornerHeight)
 }
 
 var _cGPathApply func(path CGPathRef, info unsafe.Pointer, function CGPathApplierFunction)
@@ -7127,6 +7440,18 @@ func CGPathIsRect(path CGPathRef, rect *corefoundation.CGRect) bool {
 	return _cGPathIsRect(path, rect)
 }
 
+var _cGPathMoveToPoint func(path CGMutablePathRef, m *corefoundation.CGAffineTransform, x float64, y float64)
+
+// CGPathMoveToPoint starts a new subpath at a specified location in a mutable graphics path.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathMoveToPoint
+func CGPathMoveToPoint(path CGMutablePathRef, m *corefoundation.CGAffineTransform, x float64, y float64) {
+	if _cGPathMoveToPoint == nil {
+		panic("CoreGraphics: symbol CGPathMoveToPoint not loaded")
+	}
+	_cGPathMoveToPoint(path, m, x, y)
+}
+
 var _cGPathRelease func(path CGPathRef)
 
 // CGPathRelease decrements the retain count of a graphics path.
@@ -7249,14 +7574,14 @@ func CGPointMakeWithDictionaryRepresentation(dict corefoundation.CFDictionaryRef
 	return _cGPointMakeWithDictionaryRepresentation(dict, point)
 }
 
-var _cGPostMouseEvent func(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition uintptr, buttonCount CGButtonCount, mouseButtonDown uintptr) CGError
+var _cGPostMouseEvent func(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition bool, buttonCount CGButtonCount, mouseButtonDown bool) CGError
 
 // CGPostMouseEvent synthesizes a low-level mouse-button event on the local machine.
 //
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPostMouseEvent
-func CGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition uintptr, buttonCount CGButtonCount, mouseButtonDown uintptr) CGError {
+func CGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition bool, buttonCount CGButtonCount, mouseButtonDown bool) CGError {
 	if _cGPostMouseEvent == nil {
 		panic("CoreGraphics: symbol CGPostMouseEvent not loaded")
 	}
@@ -8051,6 +8376,20 @@ func CGWindowListCreateImage(screenBounds corefoundation.CGRect, listOption CGWi
 	return _cGWindowListCreateImage(screenBounds, listOption, windowID, imageOption)
 }
 
+var _cGWindowListCreateImageFromArray func(screenBounds corefoundation.CGRect, windowArray corefoundation.CFArrayRef, imageOption CGWindowImageOption) CGImageRef
+
+// CGWindowListCreateImageFromArray returns a composite image of the specified windows.
+//
+// Deprecated: Please use ScreenCaptureKit instead.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGImage/init(windowListFromArrayScreenBounds:windowArray:imageOption:)
+func CGWindowListCreateImageFromArray(screenBounds corefoundation.CGRect, windowArray corefoundation.CFArrayRef, imageOption CGWindowImageOption) CGImageRef {
+	if _cGWindowListCreateImageFromArray == nil {
+		panic("CoreGraphics: symbol CGWindowListCreateImageFromArray not loaded")
+	}
+	return _cGWindowListCreateImageFromArray(screenBounds, windowArray, imageOption)
+}
+
 var _cGWindowServerCreateServerPort func() corefoundation.CFMachPort
 
 // CGWindowServerCreateServerPort.
@@ -8067,671 +8406,696 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_cGAcquireDisplayFadeReservation, frameworkHandle, "CGAcquireDisplayFadeReservation")
-		registerFunc(&_cGAffineTransformConcat, frameworkHandle, "CGAffineTransformConcat")
-		registerFunc(&_cGAffineTransformDecompose, frameworkHandle, "CGAffineTransformDecompose")
-		registerFunc(&_cGAffineTransformEqualToTransform, frameworkHandle, "CGAffineTransformEqualToTransform")
-		registerFunc(&_cGAffineTransformInvert, frameworkHandle, "CGAffineTransformInvert")
-		registerFunc(&_cGAffineTransformIsIdentity, frameworkHandle, "CGAffineTransformIsIdentity")
-		registerFunc(&_cGAffineTransformMake, frameworkHandle, "CGAffineTransformMake")
-		registerFunc(&_cGAffineTransformMakeRotation, frameworkHandle, "CGAffineTransformMakeRotation")
-		registerFunc(&_cGAffineTransformMakeScale, frameworkHandle, "CGAffineTransformMakeScale")
-		registerFunc(&_cGAffineTransformMakeTranslation, frameworkHandle, "CGAffineTransformMakeTranslation")
-		registerFunc(&_cGAffineTransformMakeWithComponents, frameworkHandle, "CGAffineTransformMakeWithComponents")
-		registerFunc(&_cGAffineTransformRotate, frameworkHandle, "CGAffineTransformRotate")
-		registerFunc(&_cGAffineTransformScale, frameworkHandle, "CGAffineTransformScale")
-		registerFunc(&_cGAffineTransformTranslate, frameworkHandle, "CGAffineTransformTranslate")
-		registerFunc(&_cGAssociateMouseAndMouseCursorPosition, frameworkHandle, "CGAssociateMouseAndMouseCursorPosition")
-		registerFunc(&_cGBeginDisplayConfiguration, frameworkHandle, "CGBeginDisplayConfiguration")
-		registerFunc(&_cGBitmapContextCreate, frameworkHandle, "CGBitmapContextCreate")
-		registerFunc(&_cGBitmapContextCreateAdaptive, frameworkHandle, "CGBitmapContextCreateAdaptive")
-		registerFunc(&_cGBitmapContextCreateImage, frameworkHandle, "CGBitmapContextCreateImage")
-		registerFunc(&_cGBitmapContextCreateWithData, frameworkHandle, "CGBitmapContextCreateWithData")
-		registerFunc(&_cGBitmapContextGetAlphaInfo, frameworkHandle, "CGBitmapContextGetAlphaInfo")
-		registerFunc(&_cGBitmapContextGetBitmapInfo, frameworkHandle, "CGBitmapContextGetBitmapInfo")
-		registerFunc(&_cGBitmapContextGetBitsPerComponent, frameworkHandle, "CGBitmapContextGetBitsPerComponent")
-		registerFunc(&_cGBitmapContextGetBitsPerPixel, frameworkHandle, "CGBitmapContextGetBitsPerPixel")
-		registerFunc(&_cGBitmapContextGetBytesPerRow, frameworkHandle, "CGBitmapContextGetBytesPerRow")
-		registerFunc(&_cGBitmapContextGetColorSpace, frameworkHandle, "CGBitmapContextGetColorSpace")
-		registerFunc(&_cGBitmapContextGetData, frameworkHandle, "CGBitmapContextGetData")
-		registerFunc(&_cGBitmapContextGetHeight, frameworkHandle, "CGBitmapContextGetHeight")
-		registerFunc(&_cGBitmapContextGetWidth, frameworkHandle, "CGBitmapContextGetWidth")
-		registerFunc(&_cGCancelDisplayConfiguration, frameworkHandle, "CGCancelDisplayConfiguration")
-		registerFunc(&_cGCaptureAllDisplays, frameworkHandle, "CGCaptureAllDisplays")
-		registerFunc(&_cGCaptureAllDisplaysWithOptions, frameworkHandle, "CGCaptureAllDisplaysWithOptions")
-		registerFunc(&_cGColorConversionInfoConvertData, frameworkHandle, "CGColorConversionInfoConvertData")
-		registerFunc(&_cGColorConversionInfoCreate, frameworkHandle, "CGColorConversionInfoCreate")
-		registerFunc(&_cGColorConversionInfoCreateForToneMapping, frameworkHandle, "CGColorConversionInfoCreateForToneMapping")
-		registerFunc(&_cGColorConversionInfoCreateFromList, frameworkHandle, "CGColorConversionInfoCreateFromList")
-		registerFunc(&_cGColorConversionInfoCreateFromListWithArguments, frameworkHandle, "CGColorConversionInfoCreateFromListWithArguments")
-		registerFunc(&_cGColorConversionInfoCreateWithOptions, frameworkHandle, "CGColorConversionInfoCreateWithOptions")
-		registerFunc(&_cGColorConversionInfoGetTypeID, frameworkHandle, "CGColorConversionInfoGetTypeID")
-		registerFunc(&_cGColorCreate, frameworkHandle, "CGColorCreate")
-		registerFunc(&_cGColorCreateCopy, frameworkHandle, "CGColorCreateCopy")
-		registerFunc(&_cGColorCreateCopyByMatchingToColorSpace, frameworkHandle, "CGColorCreateCopyByMatchingToColorSpace")
-		registerFunc(&_cGColorCreateCopyWithAlpha, frameworkHandle, "CGColorCreateCopyWithAlpha")
-		registerFunc(&_cGColorCreateGenericCMYK, frameworkHandle, "CGColorCreateGenericCMYK")
-		registerFunc(&_cGColorCreateGenericGray, frameworkHandle, "CGColorCreateGenericGray")
-		registerFunc(&_cGColorCreateGenericGrayGamma2_2, frameworkHandle, "CGColorCreateGenericGrayGamma2_2")
-		registerFunc(&_cGColorCreateGenericRGB, frameworkHandle, "CGColorCreateGenericRGB")
-		registerFunc(&_cGColorCreateSRGB, frameworkHandle, "CGColorCreateSRGB")
-		registerFunc(&_cGColorCreateWithContentHeadroom, frameworkHandle, "CGColorCreateWithContentHeadroom")
-		registerFunc(&_cGColorCreateWithPattern, frameworkHandle, "CGColorCreateWithPattern")
-		registerFunc(&_cGColorEqualToColor, frameworkHandle, "CGColorEqualToColor")
-		registerFunc(&_cGColorGetAlpha, frameworkHandle, "CGColorGetAlpha")
-		registerFunc(&_cGColorGetColorSpace, frameworkHandle, "CGColorGetColorSpace")
-		registerFunc(&_cGColorGetComponents, frameworkHandle, "CGColorGetComponents")
-		registerFunc(&_cGColorGetConstantColor, frameworkHandle, "CGColorGetConstantColor")
-		registerFunc(&_cGColorGetContentHeadroom, frameworkHandle, "CGColorGetContentHeadroom")
-		registerFunc(&_cGColorGetNumberOfComponents, frameworkHandle, "CGColorGetNumberOfComponents")
-		registerFunc(&_cGColorGetPattern, frameworkHandle, "CGColorGetPattern")
-		registerFunc(&_cGColorGetTypeID, frameworkHandle, "CGColorGetTypeID")
-		registerFunc(&_cGColorRelease, frameworkHandle, "CGColorRelease")
-		registerFunc(&_cGColorRetain, frameworkHandle, "CGColorRetain")
-		registerFunc(&_cGColorSpaceCopyBaseColorSpace, frameworkHandle, "CGColorSpaceCopyBaseColorSpace")
-		registerFunc(&_cGColorSpaceCopyICCData, frameworkHandle, "CGColorSpaceCopyICCData")
-		registerFunc(&_cGColorSpaceCopyName, frameworkHandle, "CGColorSpaceCopyName")
-		registerFunc(&_cGColorSpaceCopyPropertyList, frameworkHandle, "CGColorSpaceCopyPropertyList")
-		registerFunc(&_cGColorSpaceCreateCalibratedGray, frameworkHandle, "CGColorSpaceCreateCalibratedGray")
-		registerFunc(&_cGColorSpaceCreateCalibratedRGB, frameworkHandle, "CGColorSpaceCreateCalibratedRGB")
-		registerFunc(&_cGColorSpaceCreateCopyWithStandardRange, frameworkHandle, "CGColorSpaceCreateCopyWithStandardRange")
-		registerFunc(&_cGColorSpaceCreateDeviceCMYK, frameworkHandle, "CGColorSpaceCreateDeviceCMYK")
-		registerFunc(&_cGColorSpaceCreateDeviceGray, frameworkHandle, "CGColorSpaceCreateDeviceGray")
-		registerFunc(&_cGColorSpaceCreateDeviceRGB, frameworkHandle, "CGColorSpaceCreateDeviceRGB")
-		registerFunc(&_cGColorSpaceCreateExtended, frameworkHandle, "CGColorSpaceCreateExtended")
-		registerFunc(&_cGColorSpaceCreateExtendedLinearized, frameworkHandle, "CGColorSpaceCreateExtendedLinearized")
-		registerFunc(&_cGColorSpaceCreateICCBased, frameworkHandle, "CGColorSpaceCreateICCBased")
-		registerFunc(&_cGColorSpaceCreateIndexed, frameworkHandle, "CGColorSpaceCreateIndexed")
-		registerFunc(&_cGColorSpaceCreateLab, frameworkHandle, "CGColorSpaceCreateLab")
-		registerFunc(&_cGColorSpaceCreateLinearized, frameworkHandle, "CGColorSpaceCreateLinearized")
-		registerFunc(&_cGColorSpaceCreatePattern, frameworkHandle, "CGColorSpaceCreatePattern")
-		registerFunc(&_cGColorSpaceCreateWithColorSyncProfile, frameworkHandle, "CGColorSpaceCreateWithColorSyncProfile")
-		registerFunc(&_cGColorSpaceCreateWithICCData, frameworkHandle, "CGColorSpaceCreateWithICCData")
-		registerFunc(&_cGColorSpaceCreateWithName, frameworkHandle, "CGColorSpaceCreateWithName")
-		registerFunc(&_cGColorSpaceCreateWithPropertyList, frameworkHandle, "CGColorSpaceCreateWithPropertyList")
-		registerFunc(&_cGColorSpaceGetBaseColorSpace, frameworkHandle, "CGColorSpaceGetBaseColorSpace")
-		registerFunc(&_cGColorSpaceGetColorTable, frameworkHandle, "CGColorSpaceGetColorTable")
-		registerFunc(&_cGColorSpaceGetColorTableCount, frameworkHandle, "CGColorSpaceGetColorTableCount")
-		registerFunc(&_cGColorSpaceGetModel, frameworkHandle, "CGColorSpaceGetModel")
-		registerFunc(&_cGColorSpaceGetName, frameworkHandle, "CGColorSpaceGetName")
-		registerFunc(&_cGColorSpaceGetNumberOfComponents, frameworkHandle, "CGColorSpaceGetNumberOfComponents")
-		registerFunc(&_cGColorSpaceGetTypeID, frameworkHandle, "CGColorSpaceGetTypeID")
-		registerFunc(&_cGColorSpaceIsHDR, frameworkHandle, "CGColorSpaceIsHDR")
-		registerFunc(&_cGColorSpaceIsHLGBased, frameworkHandle, "CGColorSpaceIsHLGBased")
-		registerFunc(&_cGColorSpaceIsPQBased, frameworkHandle, "CGColorSpaceIsPQBased")
-		registerFunc(&_cGColorSpaceIsWideGamutRGB, frameworkHandle, "CGColorSpaceIsWideGamutRGB")
-		registerFunc(&_cGColorSpaceRelease, frameworkHandle, "CGColorSpaceRelease")
-		registerFunc(&_cGColorSpaceRetain, frameworkHandle, "CGColorSpaceRetain")
-		registerFunc(&_cGColorSpaceSupportsOutput, frameworkHandle, "CGColorSpaceSupportsOutput")
-		registerFunc(&_cGColorSpaceUsesExtendedRange, frameworkHandle, "CGColorSpaceUsesExtendedRange")
-		registerFunc(&_cGColorSpaceUsesITUR_2100TF, frameworkHandle, "CGColorSpaceUsesITUR_2100TF")
-		registerFunc(&_cGCompleteDisplayConfiguration, frameworkHandle, "CGCompleteDisplayConfiguration")
-		registerFunc(&_cGConfigureDisplayFadeEffect, frameworkHandle, "CGConfigureDisplayFadeEffect")
-		registerFunc(&_cGConfigureDisplayMirrorOfDisplay, frameworkHandle, "CGConfigureDisplayMirrorOfDisplay")
-		registerFunc(&_cGConfigureDisplayOrigin, frameworkHandle, "CGConfigureDisplayOrigin")
-		registerFunc(&_cGConfigureDisplayStereoOperation, frameworkHandle, "CGConfigureDisplayStereoOperation")
-		registerFunc(&_cGConfigureDisplayWithDisplayMode, frameworkHandle, "CGConfigureDisplayWithDisplayMode")
-		registerFunc(&_cGContextAddArc, frameworkHandle, "CGContextAddArc")
-		registerFunc(&_cGContextAddArcToPoint, frameworkHandle, "CGContextAddArcToPoint")
-		registerFunc(&_cGContextAddCurveToPoint, frameworkHandle, "CGContextAddCurveToPoint")
-		registerFunc(&_cGContextAddEllipseInRect, frameworkHandle, "CGContextAddEllipseInRect")
-		registerFunc(&_cGContextAddLineToPoint, frameworkHandle, "CGContextAddLineToPoint")
-		registerFunc(&_cGContextAddLines, frameworkHandle, "CGContextAddLines")
-		registerFunc(&_cGContextAddPath, frameworkHandle, "CGContextAddPath")
-		registerFunc(&_cGContextAddQuadCurveToPoint, frameworkHandle, "CGContextAddQuadCurveToPoint")
-		registerFunc(&_cGContextAddRect, frameworkHandle, "CGContextAddRect")
-		registerFunc(&_cGContextAddRects, frameworkHandle, "CGContextAddRects")
-		registerFunc(&_cGContextBeginPage, frameworkHandle, "CGContextBeginPage")
-		registerFunc(&_cGContextBeginPath, frameworkHandle, "CGContextBeginPath")
-		registerFunc(&_cGContextBeginTransparencyLayer, frameworkHandle, "CGContextBeginTransparencyLayer")
-		registerFunc(&_cGContextBeginTransparencyLayerWithRect, frameworkHandle, "CGContextBeginTransparencyLayerWithRect")
-		registerFunc(&_cGContextClearRect, frameworkHandle, "CGContextClearRect")
-		registerFunc(&_cGContextClip, frameworkHandle, "CGContextClip")
-		registerFunc(&_cGContextClipToMask, frameworkHandle, "CGContextClipToMask")
-		registerFunc(&_cGContextClipToRect, frameworkHandle, "CGContextClipToRect")
-		registerFunc(&_cGContextClipToRects, frameworkHandle, "CGContextClipToRects")
-		registerFunc(&_cGContextClosePath, frameworkHandle, "CGContextClosePath")
-		registerFunc(&_cGContextConcatCTM, frameworkHandle, "CGContextConcatCTM")
-		registerFunc(&_cGContextConvertPointToDeviceSpace, frameworkHandle, "CGContextConvertPointToDeviceSpace")
-		registerFunc(&_cGContextConvertPointToUserSpace, frameworkHandle, "CGContextConvertPointToUserSpace")
-		registerFunc(&_cGContextConvertRectToDeviceSpace, frameworkHandle, "CGContextConvertRectToDeviceSpace")
-		registerFunc(&_cGContextConvertRectToUserSpace, frameworkHandle, "CGContextConvertRectToUserSpace")
-		registerFunc(&_cGContextConvertSizeToDeviceSpace, frameworkHandle, "CGContextConvertSizeToDeviceSpace")
-		registerFunc(&_cGContextConvertSizeToUserSpace, frameworkHandle, "CGContextConvertSizeToUserSpace")
-		registerFunc(&_cGContextCopyPath, frameworkHandle, "CGContextCopyPath")
-		registerFunc(&_cGContextDrawConicGradient, frameworkHandle, "CGContextDrawConicGradient")
-		registerFunc(&_cGContextDrawImage, frameworkHandle, "CGContextDrawImage")
-		registerFunc(&_cGContextDrawImageApplyingToneMapping, frameworkHandle, "CGContextDrawImageApplyingToneMapping")
-		registerFunc(&_cGContextDrawLayerAtPoint, frameworkHandle, "CGContextDrawLayerAtPoint")
-		registerFunc(&_cGContextDrawLayerInRect, frameworkHandle, "CGContextDrawLayerInRect")
-		registerFunc(&_cGContextDrawLinearGradient, frameworkHandle, "CGContextDrawLinearGradient")
-		registerFunc(&_cGContextDrawPDFDocument, frameworkHandle, "CGContextDrawPDFDocument")
-		registerFunc(&_cGContextDrawPDFPage, frameworkHandle, "CGContextDrawPDFPage")
-		registerFunc(&_cGContextDrawPath, frameworkHandle, "CGContextDrawPath")
-		registerFunc(&_cGContextDrawRadialGradient, frameworkHandle, "CGContextDrawRadialGradient")
-		registerFunc(&_cGContextDrawShading, frameworkHandle, "CGContextDrawShading")
-		registerFunc(&_cGContextDrawTiledImage, frameworkHandle, "CGContextDrawTiledImage")
-		registerFunc(&_cGContextEOClip, frameworkHandle, "CGContextEOClip")
-		registerFunc(&_cGContextEOFillPath, frameworkHandle, "CGContextEOFillPath")
-		registerFunc(&_cGContextEndPage, frameworkHandle, "CGContextEndPage")
-		registerFunc(&_cGContextEndTransparencyLayer, frameworkHandle, "CGContextEndTransparencyLayer")
-		registerFunc(&_cGContextFillEllipseInRect, frameworkHandle, "CGContextFillEllipseInRect")
-		registerFunc(&_cGContextFillPath, frameworkHandle, "CGContextFillPath")
-		registerFunc(&_cGContextFillRect, frameworkHandle, "CGContextFillRect")
-		registerFunc(&_cGContextFillRects, frameworkHandle, "CGContextFillRects")
-		registerFunc(&_cGContextFlush, frameworkHandle, "CGContextFlush")
-		registerFunc(&_cGContextGetCTM, frameworkHandle, "CGContextGetCTM")
-		registerFunc(&_cGContextGetClipBoundingBox, frameworkHandle, "CGContextGetClipBoundingBox")
-		registerFunc(&_cGContextGetContentToneMappingInfo, frameworkHandle, "CGContextGetContentToneMappingInfo")
-		registerFunc(&_cGContextGetEDRTargetHeadroom, frameworkHandle, "CGContextGetEDRTargetHeadroom")
-		registerFunc(&_cGContextGetInterpolationQuality, frameworkHandle, "CGContextGetInterpolationQuality")
-		registerFunc(&_cGContextGetPathBoundingBox, frameworkHandle, "CGContextGetPathBoundingBox")
-		registerFunc(&_cGContextGetPathCurrentPoint, frameworkHandle, "CGContextGetPathCurrentPoint")
-		registerFunc(&_cGContextGetTextMatrix, frameworkHandle, "CGContextGetTextMatrix")
-		registerFunc(&_cGContextGetTextPosition, frameworkHandle, "CGContextGetTextPosition")
-		registerFunc(&_cGContextGetTypeID, frameworkHandle, "CGContextGetTypeID")
-		registerFunc(&_cGContextGetUserSpaceToDeviceSpaceTransform, frameworkHandle, "CGContextGetUserSpaceToDeviceSpaceTransform")
-		registerFunc(&_cGContextIsPathEmpty, frameworkHandle, "CGContextIsPathEmpty")
-		registerFunc(&_cGContextMoveToPoint, frameworkHandle, "CGContextMoveToPoint")
-		registerFunc(&_cGContextPathContainsPoint, frameworkHandle, "CGContextPathContainsPoint")
-		registerFunc(&_cGContextRelease, frameworkHandle, "CGContextRelease")
-		registerFunc(&_cGContextReplacePathWithStrokedPath, frameworkHandle, "CGContextReplacePathWithStrokedPath")
-		registerFunc(&_cGContextResetClip, frameworkHandle, "CGContextResetClip")
-		registerFunc(&_cGContextRestoreGState, frameworkHandle, "CGContextRestoreGState")
-		registerFunc(&_cGContextRetain, frameworkHandle, "CGContextRetain")
-		registerFunc(&_cGContextRotateCTM, frameworkHandle, "CGContextRotateCTM")
-		registerFunc(&_cGContextSaveGState, frameworkHandle, "CGContextSaveGState")
-		registerFunc(&_cGContextScaleCTM, frameworkHandle, "CGContextScaleCTM")
-		registerFunc(&_cGContextSetAllowsAntialiasing, frameworkHandle, "CGContextSetAllowsAntialiasing")
-		registerFunc(&_cGContextSetAllowsFontSmoothing, frameworkHandle, "CGContextSetAllowsFontSmoothing")
-		registerFunc(&_cGContextSetAllowsFontSubpixelPositioning, frameworkHandle, "CGContextSetAllowsFontSubpixelPositioning")
-		registerFunc(&_cGContextSetAllowsFontSubpixelQuantization, frameworkHandle, "CGContextSetAllowsFontSubpixelQuantization")
-		registerFunc(&_cGContextSetAlpha, frameworkHandle, "CGContextSetAlpha")
-		registerFunc(&_cGContextSetBlendMode, frameworkHandle, "CGContextSetBlendMode")
-		registerFunc(&_cGContextSetCMYKFillColor, frameworkHandle, "CGContextSetCMYKFillColor")
-		registerFunc(&_cGContextSetCMYKStrokeColor, frameworkHandle, "CGContextSetCMYKStrokeColor")
-		registerFunc(&_cGContextSetCharacterSpacing, frameworkHandle, "CGContextSetCharacterSpacing")
-		registerFunc(&_cGContextSetContentToneMappingInfo, frameworkHandle, "CGContextSetContentToneMappingInfo")
-		registerFunc(&_cGContextSetEDRTargetHeadroom, frameworkHandle, "CGContextSetEDRTargetHeadroom")
-		registerFunc(&_cGContextSetFillColor, frameworkHandle, "CGContextSetFillColor")
-		registerFunc(&_cGContextSetFillColorSpace, frameworkHandle, "CGContextSetFillColorSpace")
-		registerFunc(&_cGContextSetFillColorWithColor, frameworkHandle, "CGContextSetFillColorWithColor")
-		registerFunc(&_cGContextSetFillPattern, frameworkHandle, "CGContextSetFillPattern")
-		registerFunc(&_cGContextSetFlatness, frameworkHandle, "CGContextSetFlatness")
-		registerFunc(&_cGContextSetFont, frameworkHandle, "CGContextSetFont")
-		registerFunc(&_cGContextSetFontSize, frameworkHandle, "CGContextSetFontSize")
-		registerFunc(&_cGContextSetGrayFillColor, frameworkHandle, "CGContextSetGrayFillColor")
-		registerFunc(&_cGContextSetGrayStrokeColor, frameworkHandle, "CGContextSetGrayStrokeColor")
-		registerFunc(&_cGContextSetInterpolationQuality, frameworkHandle, "CGContextSetInterpolationQuality")
-		registerFunc(&_cGContextSetLineCap, frameworkHandle, "CGContextSetLineCap")
-		registerFunc(&_cGContextSetLineDash, frameworkHandle, "CGContextSetLineDash")
-		registerFunc(&_cGContextSetLineJoin, frameworkHandle, "CGContextSetLineJoin")
-		registerFunc(&_cGContextSetLineWidth, frameworkHandle, "CGContextSetLineWidth")
-		registerFunc(&_cGContextSetMiterLimit, frameworkHandle, "CGContextSetMiterLimit")
-		registerFunc(&_cGContextSetPatternPhase, frameworkHandle, "CGContextSetPatternPhase")
-		registerFunc(&_cGContextSetRGBFillColor, frameworkHandle, "CGContextSetRGBFillColor")
-		registerFunc(&_cGContextSetRGBStrokeColor, frameworkHandle, "CGContextSetRGBStrokeColor")
-		registerFunc(&_cGContextSetRenderingIntent, frameworkHandle, "CGContextSetRenderingIntent")
-		registerFunc(&_cGContextSetShadow, frameworkHandle, "CGContextSetShadow")
-		registerFunc(&_cGContextSetShadowWithColor, frameworkHandle, "CGContextSetShadowWithColor")
-		registerFunc(&_cGContextSetShouldAntialias, frameworkHandle, "CGContextSetShouldAntialias")
-		registerFunc(&_cGContextSetShouldSmoothFonts, frameworkHandle, "CGContextSetShouldSmoothFonts")
-		registerFunc(&_cGContextSetShouldSubpixelPositionFonts, frameworkHandle, "CGContextSetShouldSubpixelPositionFonts")
-		registerFunc(&_cGContextSetShouldSubpixelQuantizeFonts, frameworkHandle, "CGContextSetShouldSubpixelQuantizeFonts")
-		registerFunc(&_cGContextSetStrokeColor, frameworkHandle, "CGContextSetStrokeColor")
-		registerFunc(&_cGContextSetStrokeColorSpace, frameworkHandle, "CGContextSetStrokeColorSpace")
-		registerFunc(&_cGContextSetStrokeColorWithColor, frameworkHandle, "CGContextSetStrokeColorWithColor")
-		registerFunc(&_cGContextSetStrokePattern, frameworkHandle, "CGContextSetStrokePattern")
-		registerFunc(&_cGContextSetTextDrawingMode, frameworkHandle, "CGContextSetTextDrawingMode")
-		registerFunc(&_cGContextSetTextMatrix, frameworkHandle, "CGContextSetTextMatrix")
-		registerFunc(&_cGContextSetTextPosition, frameworkHandle, "CGContextSetTextPosition")
-		registerFunc(&_cGContextShowGlyphsAtPositions, frameworkHandle, "CGContextShowGlyphsAtPositions")
-		registerFunc(&_cGContextStrokeEllipseInRect, frameworkHandle, "CGContextStrokeEllipseInRect")
-		registerFunc(&_cGContextStrokeLineSegments, frameworkHandle, "CGContextStrokeLineSegments")
-		registerFunc(&_cGContextStrokePath, frameworkHandle, "CGContextStrokePath")
-		registerFunc(&_cGContextStrokeRect, frameworkHandle, "CGContextStrokeRect")
-		registerFunc(&_cGContextStrokeRectWithWidth, frameworkHandle, "CGContextStrokeRectWithWidth")
-		registerFunc(&_cGContextSynchronize, frameworkHandle, "CGContextSynchronize")
-		registerFunc(&_cGContextSynchronizeAttributes, frameworkHandle, "CGContextSynchronizeAttributes")
-		registerFunc(&_cGContextTranslateCTM, frameworkHandle, "CGContextTranslateCTM")
-		registerFunc(&_cGConvertColorDataWithFormat, frameworkHandle, "CGConvertColorDataWithFormat")
-		registerFunc(&_cGDataConsumerCreate, frameworkHandle, "CGDataConsumerCreate")
-		registerFunc(&_cGDataConsumerCreateWithCFData, frameworkHandle, "CGDataConsumerCreateWithCFData")
-		registerFunc(&_cGDataConsumerCreateWithURL, frameworkHandle, "CGDataConsumerCreateWithURL")
-		registerFunc(&_cGDataConsumerGetTypeID, frameworkHandle, "CGDataConsumerGetTypeID")
-		registerFunc(&_cGDataConsumerRelease, frameworkHandle, "CGDataConsumerRelease")
-		registerFunc(&_cGDataConsumerRetain, frameworkHandle, "CGDataConsumerRetain")
-		registerFunc(&_cGDataProviderCopyData, frameworkHandle, "CGDataProviderCopyData")
-		registerFunc(&_cGDataProviderCreateDirect, frameworkHandle, "CGDataProviderCreateDirect")
-		registerFunc(&_cGDataProviderCreateSequential, frameworkHandle, "CGDataProviderCreateSequential")
-		registerFunc(&_cGDataProviderCreateWithCFData, frameworkHandle, "CGDataProviderCreateWithCFData")
-		registerFunc(&_cGDataProviderCreateWithData, frameworkHandle, "CGDataProviderCreateWithData")
-		registerFunc(&_cGDataProviderCreateWithFilename, frameworkHandle, "CGDataProviderCreateWithFilename")
-		registerFunc(&_cGDataProviderCreateWithURL, frameworkHandle, "CGDataProviderCreateWithURL")
-		registerFunc(&_cGDataProviderGetInfo, frameworkHandle, "CGDataProviderGetInfo")
-		registerFunc(&_cGDataProviderGetTypeID, frameworkHandle, "CGDataProviderGetTypeID")
-		registerFunc(&_cGDataProviderRelease, frameworkHandle, "CGDataProviderRelease")
-		registerFunc(&_cGDataProviderRetain, frameworkHandle, "CGDataProviderRetain")
-		registerFunc(&_cGDirectDisplayCopyCurrentMetalDevice, frameworkHandle, "CGDirectDisplayCopyCurrentMetalDevice")
-		registerFunc(&_cGDisplayBounds, frameworkHandle, "CGDisplayBounds")
-		registerFunc(&_cGDisplayCapture, frameworkHandle, "CGDisplayCapture")
-		registerFunc(&_cGDisplayCaptureWithOptions, frameworkHandle, "CGDisplayCaptureWithOptions")
-		registerFunc(&_cGDisplayCopyAllDisplayModes, frameworkHandle, "CGDisplayCopyAllDisplayModes")
-		registerFunc(&_cGDisplayCopyColorSpace, frameworkHandle, "CGDisplayCopyColorSpace")
-		registerFunc(&_cGDisplayCopyDisplayMode, frameworkHandle, "CGDisplayCopyDisplayMode")
-		registerFunc(&_cGDisplayCreateImage, frameworkHandle, "CGDisplayCreateImage")
-		registerFunc(&_cGDisplayCreateImageForRect, frameworkHandle, "CGDisplayCreateImageForRect")
-		registerFunc(&_cGDisplayFade, frameworkHandle, "CGDisplayFade")
-		registerFunc(&_cGDisplayGammaTableCapacity, frameworkHandle, "CGDisplayGammaTableCapacity")
-		registerFunc(&_cGDisplayGetDrawingContext, frameworkHandle, "CGDisplayGetDrawingContext")
-		registerFunc(&_cGDisplayHideCursor, frameworkHandle, "CGDisplayHideCursor")
-		registerFunc(&_cGDisplayIDToOpenGLDisplayMask, frameworkHandle, "CGDisplayIDToOpenGLDisplayMask")
-		registerFunc(&_cGDisplayIsActive, frameworkHandle, "CGDisplayIsActive")
-		registerFunc(&_cGDisplayIsAlwaysInMirrorSet, frameworkHandle, "CGDisplayIsAlwaysInMirrorSet")
-		registerFunc(&_cGDisplayIsAsleep, frameworkHandle, "CGDisplayIsAsleep")
-		registerFunc(&_cGDisplayIsBuiltin, frameworkHandle, "CGDisplayIsBuiltin")
-		registerFunc(&_cGDisplayIsInHWMirrorSet, frameworkHandle, "CGDisplayIsInHWMirrorSet")
-		registerFunc(&_cGDisplayIsInMirrorSet, frameworkHandle, "CGDisplayIsInMirrorSet")
-		registerFunc(&_cGDisplayIsMain, frameworkHandle, "CGDisplayIsMain")
-		registerFunc(&_cGDisplayIsOnline, frameworkHandle, "CGDisplayIsOnline")
-		registerFunc(&_cGDisplayIsStereo, frameworkHandle, "CGDisplayIsStereo")
-		registerFunc(&_cGDisplayMirrorsDisplay, frameworkHandle, "CGDisplayMirrorsDisplay")
-		registerFunc(&_cGDisplayModeGetHeight, frameworkHandle, "CGDisplayModeGetHeight")
-		registerFunc(&_cGDisplayModeGetIODisplayModeID, frameworkHandle, "CGDisplayModeGetIODisplayModeID")
-		registerFunc(&_cGDisplayModeGetIOFlags, frameworkHandle, "CGDisplayModeGetIOFlags")
-		registerFunc(&_cGDisplayModeGetPixelHeight, frameworkHandle, "CGDisplayModeGetPixelHeight")
-		registerFunc(&_cGDisplayModeGetPixelWidth, frameworkHandle, "CGDisplayModeGetPixelWidth")
-		registerFunc(&_cGDisplayModeGetRefreshRate, frameworkHandle, "CGDisplayModeGetRefreshRate")
-		registerFunc(&_cGDisplayModeGetTypeID, frameworkHandle, "CGDisplayModeGetTypeID")
-		registerFunc(&_cGDisplayModeGetWidth, frameworkHandle, "CGDisplayModeGetWidth")
-		registerFunc(&_cGDisplayModeIsUsableForDesktopGUI, frameworkHandle, "CGDisplayModeIsUsableForDesktopGUI")
-		registerFunc(&_cGDisplayModeRelease, frameworkHandle, "CGDisplayModeRelease")
-		registerFunc(&_cGDisplayModeRetain, frameworkHandle, "CGDisplayModeRetain")
-		registerFunc(&_cGDisplayModelNumber, frameworkHandle, "CGDisplayModelNumber")
-		registerFunc(&_cGDisplayMoveCursorToPoint, frameworkHandle, "CGDisplayMoveCursorToPoint")
-		registerFunc(&_cGDisplayPixelsHigh, frameworkHandle, "CGDisplayPixelsHigh")
-		registerFunc(&_cGDisplayPixelsWide, frameworkHandle, "CGDisplayPixelsWide")
-		registerFunc(&_cGDisplayPrimaryDisplay, frameworkHandle, "CGDisplayPrimaryDisplay")
-		registerFunc(&_cGDisplayRegisterReconfigurationCallback, frameworkHandle, "CGDisplayRegisterReconfigurationCallback")
-		registerFunc(&_cGDisplayRelease, frameworkHandle, "CGDisplayRelease")
-		registerFunc(&_cGDisplayRemoveReconfigurationCallback, frameworkHandle, "CGDisplayRemoveReconfigurationCallback")
-		registerFunc(&_cGDisplayRestoreColorSyncSettings, frameworkHandle, "CGDisplayRestoreColorSyncSettings")
-		registerFunc(&_cGDisplayRotation, frameworkHandle, "CGDisplayRotation")
-		registerFunc(&_cGDisplayScreenSize, frameworkHandle, "CGDisplayScreenSize")
-		registerFunc(&_cGDisplaySerialNumber, frameworkHandle, "CGDisplaySerialNumber")
-		registerFunc(&_cGDisplaySetDisplayMode, frameworkHandle, "CGDisplaySetDisplayMode")
-		registerFunc(&_cGDisplaySetStereoOperation, frameworkHandle, "CGDisplaySetStereoOperation")
-		registerFunc(&_cGDisplayShowCursor, frameworkHandle, "CGDisplayShowCursor")
-		registerFunc(&_cGDisplayUnitNumber, frameworkHandle, "CGDisplayUnitNumber")
-		registerFunc(&_cGDisplayUsesOpenGLAcceleration, frameworkHandle, "CGDisplayUsesOpenGLAcceleration")
-		registerFunc(&_cGDisplayVendorNumber, frameworkHandle, "CGDisplayVendorNumber")
-		registerFunc(&_cGEXRToneMappingGammaGetDefaultOptions, frameworkHandle, "CGEXRToneMappingGammaGetDefaultOptions")
-		registerFunc(&_cGErrorSetCallback, frameworkHandle, "CGErrorSetCallback")
-		registerFunc(&_cGEventCreate, frameworkHandle, "CGEventCreate")
-		registerFunc(&_cGEventCreateCopy, frameworkHandle, "CGEventCreateCopy")
-		registerFunc(&_cGEventCreateData, frameworkHandle, "CGEventCreateData")
-		registerFunc(&_cGEventCreateFromData, frameworkHandle, "CGEventCreateFromData")
-		registerFunc(&_cGEventCreateKeyboardEvent, frameworkHandle, "CGEventCreateKeyboardEvent")
-		registerFunc(&_cGEventCreateMouseEvent, frameworkHandle, "CGEventCreateMouseEvent")
-		registerFunc(&_cGEventCreateScrollWheelEvent, frameworkHandle, "CGEventCreateScrollWheelEvent")
-		registerFunc(&_cGEventCreateScrollWheelEvent2, frameworkHandle, "CGEventCreateScrollWheelEvent2")
-		registerFunc(&_cGEventCreateSourceFromEvent, frameworkHandle, "CGEventCreateSourceFromEvent")
-		registerFunc(&_cGEventGetDoubleValueField, frameworkHandle, "CGEventGetDoubleValueField")
-		registerFunc(&_cGEventGetFlags, frameworkHandle, "CGEventGetFlags")
-		registerFunc(&_cGEventGetIntegerValueField, frameworkHandle, "CGEventGetIntegerValueField")
-		registerFunc(&_cGEventGetLocation, frameworkHandle, "CGEventGetLocation")
-		registerFunc(&_cGEventGetTimestamp, frameworkHandle, "CGEventGetTimestamp")
-		registerFunc(&_cGEventGetType, frameworkHandle, "CGEventGetType")
-		registerFunc(&_cGEventGetTypeID, frameworkHandle, "CGEventGetTypeID")
-		registerFunc(&_cGEventGetUnflippedLocation, frameworkHandle, "CGEventGetUnflippedLocation")
-		registerFunc(&_cGEventKeyboardGetUnicodeString, frameworkHandle, "CGEventKeyboardGetUnicodeString")
-		registerFunc(&_cGEventKeyboardSetUnicodeString, frameworkHandle, "CGEventKeyboardSetUnicodeString")
-		registerFunc(&_cGEventPost, frameworkHandle, "CGEventPost")
-		registerFunc(&_cGEventPostToPSN, frameworkHandle, "CGEventPostToPSN")
-		registerFunc(&_cGEventPostToPid, frameworkHandle, "CGEventPostToPid")
-		registerFunc(&_cGEventSetDoubleValueField, frameworkHandle, "CGEventSetDoubleValueField")
-		registerFunc(&_cGEventSetFlags, frameworkHandle, "CGEventSetFlags")
-		registerFunc(&_cGEventSetIntegerValueField, frameworkHandle, "CGEventSetIntegerValueField")
-		registerFunc(&_cGEventSetLocation, frameworkHandle, "CGEventSetLocation")
-		registerFunc(&_cGEventSetSource, frameworkHandle, "CGEventSetSource")
-		registerFunc(&_cGEventSetTimestamp, frameworkHandle, "CGEventSetTimestamp")
-		registerFunc(&_cGEventSetType, frameworkHandle, "CGEventSetType")
-		registerFunc(&_cGEventSourceButtonState, frameworkHandle, "CGEventSourceButtonState")
-		registerFunc(&_cGEventSourceCounterForEventType, frameworkHandle, "CGEventSourceCounterForEventType")
-		registerFunc(&_cGEventSourceCreate, frameworkHandle, "CGEventSourceCreate")
-		registerFunc(&_cGEventSourceFlagsState, frameworkHandle, "CGEventSourceFlagsState")
-		registerFunc(&_cGEventSourceGetKeyboardType, frameworkHandle, "CGEventSourceGetKeyboardType")
-		registerFunc(&_cGEventSourceGetLocalEventsFilterDuringSuppressionState, frameworkHandle, "CGEventSourceGetLocalEventsFilterDuringSuppressionState")
-		registerFunc(&_cGEventSourceGetLocalEventsSuppressionInterval, frameworkHandle, "CGEventSourceGetLocalEventsSuppressionInterval")
-		registerFunc(&_cGEventSourceGetPixelsPerLine, frameworkHandle, "CGEventSourceGetPixelsPerLine")
-		registerFunc(&_cGEventSourceGetSourceStateID, frameworkHandle, "CGEventSourceGetSourceStateID")
-		registerFunc(&_cGEventSourceGetTypeID, frameworkHandle, "CGEventSourceGetTypeID")
-		registerFunc(&_cGEventSourceGetUserData, frameworkHandle, "CGEventSourceGetUserData")
-		registerFunc(&_cGEventSourceKeyState, frameworkHandle, "CGEventSourceKeyState")
-		registerFunc(&_cGEventSourceSecondsSinceLastEventType, frameworkHandle, "CGEventSourceSecondsSinceLastEventType")
-		registerFunc(&_cGEventSourceSetKeyboardType, frameworkHandle, "CGEventSourceSetKeyboardType")
-		registerFunc(&_cGEventSourceSetLocalEventsFilterDuringSuppressionState, frameworkHandle, "CGEventSourceSetLocalEventsFilterDuringSuppressionState")
-		registerFunc(&_cGEventSourceSetLocalEventsSuppressionInterval, frameworkHandle, "CGEventSourceSetLocalEventsSuppressionInterval")
-		registerFunc(&_cGEventSourceSetPixelsPerLine, frameworkHandle, "CGEventSourceSetPixelsPerLine")
-		registerFunc(&_cGEventSourceSetUserData, frameworkHandle, "CGEventSourceSetUserData")
-		registerFunc(&_cGEventTapCreate, frameworkHandle, "CGEventTapCreate")
-		registerFunc(&_cGEventTapCreateForPSN, frameworkHandle, "CGEventTapCreateForPSN")
-		registerFunc(&_cGEventTapCreateForPid, frameworkHandle, "CGEventTapCreateForPid")
-		registerFunc(&_cGEventTapEnable, frameworkHandle, "CGEventTapEnable")
-		registerFunc(&_cGEventTapIsEnabled, frameworkHandle, "CGEventTapIsEnabled")
-		registerFunc(&_cGEventTapPostEvent, frameworkHandle, "CGEventTapPostEvent")
-		registerFunc(&_cGFontCanCreatePostScriptSubset, frameworkHandle, "CGFontCanCreatePostScriptSubset")
-		registerFunc(&_cGFontCopyFullName, frameworkHandle, "CGFontCopyFullName")
-		registerFunc(&_cGFontCopyGlyphNameForGlyph, frameworkHandle, "CGFontCopyGlyphNameForGlyph")
-		registerFunc(&_cGFontCopyPostScriptName, frameworkHandle, "CGFontCopyPostScriptName")
-		registerFunc(&_cGFontCopyTableForTag, frameworkHandle, "CGFontCopyTableForTag")
-		registerFunc(&_cGFontCopyTableTags, frameworkHandle, "CGFontCopyTableTags")
-		registerFunc(&_cGFontCopyVariationAxes, frameworkHandle, "CGFontCopyVariationAxes")
-		registerFunc(&_cGFontCopyVariations, frameworkHandle, "CGFontCopyVariations")
-		registerFunc(&_cGFontCreateCopyWithVariations, frameworkHandle, "CGFontCreateCopyWithVariations")
-		registerFunc(&_cGFontCreatePostScriptEncoding, frameworkHandle, "CGFontCreatePostScriptEncoding")
-		registerFunc(&_cGFontCreatePostScriptSubset, frameworkHandle, "CGFontCreatePostScriptSubset")
-		registerFunc(&_cGFontCreateWithDataProvider, frameworkHandle, "CGFontCreateWithDataProvider")
-		registerFunc(&_cGFontCreateWithFontName, frameworkHandle, "CGFontCreateWithFontName")
-		registerFunc(&_cGFontGetAscent, frameworkHandle, "CGFontGetAscent")
-		registerFunc(&_cGFontGetCapHeight, frameworkHandle, "CGFontGetCapHeight")
-		registerFunc(&_cGFontGetDescent, frameworkHandle, "CGFontGetDescent")
-		registerFunc(&_cGFontGetFontBBox, frameworkHandle, "CGFontGetFontBBox")
-		registerFunc(&_cGFontGetGlyphAdvances, frameworkHandle, "CGFontGetGlyphAdvances")
-		registerFunc(&_cGFontGetGlyphBBoxes, frameworkHandle, "CGFontGetGlyphBBoxes")
-		registerFunc(&_cGFontGetGlyphWithGlyphName, frameworkHandle, "CGFontGetGlyphWithGlyphName")
-		registerFunc(&_cGFontGetItalicAngle, frameworkHandle, "CGFontGetItalicAngle")
-		registerFunc(&_cGFontGetLeading, frameworkHandle, "CGFontGetLeading")
-		registerFunc(&_cGFontGetNumberOfGlyphs, frameworkHandle, "CGFontGetNumberOfGlyphs")
-		registerFunc(&_cGFontGetStemV, frameworkHandle, "CGFontGetStemV")
-		registerFunc(&_cGFontGetTypeID, frameworkHandle, "CGFontGetTypeID")
-		registerFunc(&_cGFontGetUnitsPerEm, frameworkHandle, "CGFontGetUnitsPerEm")
-		registerFunc(&_cGFontGetXHeight, frameworkHandle, "CGFontGetXHeight")
-		registerFunc(&_cGFontRelease, frameworkHandle, "CGFontRelease")
-		registerFunc(&_cGFontRetain, frameworkHandle, "CGFontRetain")
-		registerFunc(&_cGFunctionCreate, frameworkHandle, "CGFunctionCreate")
-		registerFunc(&_cGFunctionGetTypeID, frameworkHandle, "CGFunctionGetTypeID")
-		registerFunc(&_cGFunctionRelease, frameworkHandle, "CGFunctionRelease")
-		registerFunc(&_cGFunctionRetain, frameworkHandle, "CGFunctionRetain")
-		registerFunc(&_cGGetActiveDisplayList, frameworkHandle, "CGGetActiveDisplayList")
-		registerFunc(&_cGGetDisplayTransferByFormula, frameworkHandle, "CGGetDisplayTransferByFormula")
-		registerFunc(&_cGGetDisplayTransferByTable, frameworkHandle, "CGGetDisplayTransferByTable")
-		registerFunc(&_cGGetDisplaysWithOpenGLDisplayMask, frameworkHandle, "CGGetDisplaysWithOpenGLDisplayMask")
-		registerFunc(&_cGGetDisplaysWithPoint, frameworkHandle, "CGGetDisplaysWithPoint")
-		registerFunc(&_cGGetDisplaysWithRect, frameworkHandle, "CGGetDisplaysWithRect")
-		registerFunc(&_cGGetEventTapList, frameworkHandle, "CGGetEventTapList")
-		registerFunc(&_cGGetLastMouseDelta, frameworkHandle, "CGGetLastMouseDelta")
-		registerFunc(&_cGGetOnlineDisplayList, frameworkHandle, "CGGetOnlineDisplayList")
-		registerFunc(&_cGGradientCreateWithColorComponents, frameworkHandle, "CGGradientCreateWithColorComponents")
-		registerFunc(&_cGGradientCreateWithColors, frameworkHandle, "CGGradientCreateWithColors")
-		registerFunc(&_cGGradientCreateWithContentHeadroom, frameworkHandle, "CGGradientCreateWithContentHeadroom")
-		registerFunc(&_cGGradientGetContentHeadroom, frameworkHandle, "CGGradientGetContentHeadroom")
-		registerFunc(&_cGGradientGetTypeID, frameworkHandle, "CGGradientGetTypeID")
-		registerFunc(&_cGGradientRelease, frameworkHandle, "CGGradientRelease")
-		registerFunc(&_cGGradientRetain, frameworkHandle, "CGGradientRetain")
-		registerFunc(&_cGImageCalculateContentAverageLightLevel, frameworkHandle, "CGImageCalculateContentAverageLightLevel")
-		registerFunc(&_cGImageCalculateContentHeadroom, frameworkHandle, "CGImageCalculateContentHeadroom")
-		registerFunc(&_cGImageContainsImageSpecificToneMappingMetadata, frameworkHandle, "CGImageContainsImageSpecificToneMappingMetadata")
-		registerFunc(&_cGImageCreate, frameworkHandle, "CGImageCreate")
-		registerFunc(&_cGImageCreateCopy, frameworkHandle, "CGImageCreateCopy")
-		registerFunc(&_cGImageCreateCopyWithCalculatedHDRStats, frameworkHandle, "CGImageCreateCopyWithCalculatedHDRStats")
-		registerFunc(&_cGImageCreateCopyWithColorSpace, frameworkHandle, "CGImageCreateCopyWithColorSpace")
-		registerFunc(&_cGImageCreateCopyWithContentAverageLightLevel, frameworkHandle, "CGImageCreateCopyWithContentAverageLightLevel")
-		registerFunc(&_cGImageCreateCopyWithContentHeadroom, frameworkHandle, "CGImageCreateCopyWithContentHeadroom")
-		registerFunc(&_cGImageCreateWithContentHeadroom, frameworkHandle, "CGImageCreateWithContentHeadroom")
-		registerFunc(&_cGImageCreateWithImageInRect, frameworkHandle, "CGImageCreateWithImageInRect")
-		registerFunc(&_cGImageCreateWithJPEGDataProvider, frameworkHandle, "CGImageCreateWithJPEGDataProvider")
-		registerFunc(&_cGImageCreateWithMask, frameworkHandle, "CGImageCreateWithMask")
-		registerFunc(&_cGImageCreateWithMaskingColors, frameworkHandle, "CGImageCreateWithMaskingColors")
-		registerFunc(&_cGImageCreateWithPNGDataProvider, frameworkHandle, "CGImageCreateWithPNGDataProvider")
-		registerFunc(&_cGImageGetAlphaInfo, frameworkHandle, "CGImageGetAlphaInfo")
-		registerFunc(&_cGImageGetBitmapInfo, frameworkHandle, "CGImageGetBitmapInfo")
-		registerFunc(&_cGImageGetBitsPerComponent, frameworkHandle, "CGImageGetBitsPerComponent")
-		registerFunc(&_cGImageGetBitsPerPixel, frameworkHandle, "CGImageGetBitsPerPixel")
-		registerFunc(&_cGImageGetByteOrderInfo, frameworkHandle, "CGImageGetByteOrderInfo")
-		registerFunc(&_cGImageGetBytesPerRow, frameworkHandle, "CGImageGetBytesPerRow")
-		registerFunc(&_cGImageGetColorSpace, frameworkHandle, "CGImageGetColorSpace")
-		registerFunc(&_cGImageGetContentAverageLightLevel, frameworkHandle, "CGImageGetContentAverageLightLevel")
-		registerFunc(&_cGImageGetContentHeadroom, frameworkHandle, "CGImageGetContentHeadroom")
-		registerFunc(&_cGImageGetDataProvider, frameworkHandle, "CGImageGetDataProvider")
-		registerFunc(&_cGImageGetDecode, frameworkHandle, "CGImageGetDecode")
-		registerFunc(&_cGImageGetHeight, frameworkHandle, "CGImageGetHeight")
-		registerFunc(&_cGImageGetPixelFormatInfo, frameworkHandle, "CGImageGetPixelFormatInfo")
-		registerFunc(&_cGImageGetRenderingIntent, frameworkHandle, "CGImageGetRenderingIntent")
-		registerFunc(&_cGImageGetShouldInterpolate, frameworkHandle, "CGImageGetShouldInterpolate")
-		registerFunc(&_cGImageGetTypeID, frameworkHandle, "CGImageGetTypeID")
-		registerFunc(&_cGImageGetUTType, frameworkHandle, "CGImageGetUTType")
-		registerFunc(&_cGImageGetWidth, frameworkHandle, "CGImageGetWidth")
-		registerFunc(&_cGImageIsMask, frameworkHandle, "CGImageIsMask")
-		registerFunc(&_cGImageMaskCreate, frameworkHandle, "CGImageMaskCreate")
-		registerFunc(&_cGImageRelease, frameworkHandle, "CGImageRelease")
-		registerFunc(&_cGImageRetain, frameworkHandle, "CGImageRetain")
-		registerFunc(&_cGImageShouldToneMap, frameworkHandle, "CGImageShouldToneMap")
-		registerFunc(&_cGLayerCreateWithContext, frameworkHandle, "CGLayerCreateWithContext")
-		registerFunc(&_cGLayerGetContext, frameworkHandle, "CGLayerGetContext")
-		registerFunc(&_cGLayerGetSize, frameworkHandle, "CGLayerGetSize")
-		registerFunc(&_cGLayerGetTypeID, frameworkHandle, "CGLayerGetTypeID")
-		registerFunc(&_cGLayerRelease, frameworkHandle, "CGLayerRelease")
-		registerFunc(&_cGLayerRetain, frameworkHandle, "CGLayerRetain")
-		registerFunc(&_cGMainDisplayID, frameworkHandle, "CGMainDisplayID")
-		registerFunc(&_cGOpenGLDisplayMaskToDisplayID, frameworkHandle, "CGOpenGLDisplayMaskToDisplayID")
-		registerFunc(&_cGPDFArrayApplyBlock, frameworkHandle, "CGPDFArrayApplyBlock")
-		registerFunc(&_cGPDFArrayGetArray, frameworkHandle, "CGPDFArrayGetArray")
-		registerFunc(&_cGPDFArrayGetBoolean, frameworkHandle, "CGPDFArrayGetBoolean")
-		registerFunc(&_cGPDFArrayGetCount, frameworkHandle, "CGPDFArrayGetCount")
-		registerFunc(&_cGPDFArrayGetDictionary, frameworkHandle, "CGPDFArrayGetDictionary")
-		registerFunc(&_cGPDFArrayGetInteger, frameworkHandle, "CGPDFArrayGetInteger")
-		registerFunc(&_cGPDFArrayGetName, frameworkHandle, "CGPDFArrayGetName")
-		registerFunc(&_cGPDFArrayGetNull, frameworkHandle, "CGPDFArrayGetNull")
-		registerFunc(&_cGPDFArrayGetNumber, frameworkHandle, "CGPDFArrayGetNumber")
-		registerFunc(&_cGPDFArrayGetObject, frameworkHandle, "CGPDFArrayGetObject")
-		registerFunc(&_cGPDFArrayGetStream, frameworkHandle, "CGPDFArrayGetStream")
-		registerFunc(&_cGPDFArrayGetString, frameworkHandle, "CGPDFArrayGetString")
-		registerFunc(&_cGPDFContentStreamCreateWithPage, frameworkHandle, "CGPDFContentStreamCreateWithPage")
-		registerFunc(&_cGPDFContentStreamCreateWithStream, frameworkHandle, "CGPDFContentStreamCreateWithStream")
-		registerFunc(&_cGPDFContentStreamGetResource, frameworkHandle, "CGPDFContentStreamGetResource")
-		registerFunc(&_cGPDFContentStreamGetStreams, frameworkHandle, "CGPDFContentStreamGetStreams")
-		registerFunc(&_cGPDFContentStreamRelease, frameworkHandle, "CGPDFContentStreamRelease")
-		registerFunc(&_cGPDFContentStreamRetain, frameworkHandle, "CGPDFContentStreamRetain")
-		registerFunc(&_cGPDFContextAddDestinationAtPoint, frameworkHandle, "CGPDFContextAddDestinationAtPoint")
-		registerFunc(&_cGPDFContextAddDocumentMetadata, frameworkHandle, "CGPDFContextAddDocumentMetadata")
-		registerFunc(&_cGPDFContextBeginPage, frameworkHandle, "CGPDFContextBeginPage")
-		registerFunc(&_cGPDFContextBeginTag, frameworkHandle, "CGPDFContextBeginTag")
-		registerFunc(&_cGPDFContextClose, frameworkHandle, "CGPDFContextClose")
-		registerFunc(&_cGPDFContextCreate, frameworkHandle, "CGPDFContextCreate")
-		registerFunc(&_cGPDFContextCreateWithURL, frameworkHandle, "CGPDFContextCreateWithURL")
-		registerFunc(&_cGPDFContextEndPage, frameworkHandle, "CGPDFContextEndPage")
-		registerFunc(&_cGPDFContextEndTag, frameworkHandle, "CGPDFContextEndTag")
-		registerFunc(&_cGPDFContextSetDestinationForRect, frameworkHandle, "CGPDFContextSetDestinationForRect")
-		registerFunc(&_cGPDFContextSetIDTree, frameworkHandle, "CGPDFContextSetIDTree")
-		registerFunc(&_cGPDFContextSetOutline, frameworkHandle, "CGPDFContextSetOutline")
-		registerFunc(&_cGPDFContextSetPageTagStructureTree, frameworkHandle, "CGPDFContextSetPageTagStructureTree")
-		registerFunc(&_cGPDFContextSetParentTree, frameworkHandle, "CGPDFContextSetParentTree")
-		registerFunc(&_cGPDFContextSetURLForRect, frameworkHandle, "CGPDFContextSetURLForRect")
-		registerFunc(&_cGPDFDictionaryApplyBlock, frameworkHandle, "CGPDFDictionaryApplyBlock")
-		registerFunc(&_cGPDFDictionaryApplyFunction, frameworkHandle, "CGPDFDictionaryApplyFunction")
-		registerFunc(&_cGPDFDictionaryGetArray, frameworkHandle, "CGPDFDictionaryGetArray")
-		registerFunc(&_cGPDFDictionaryGetBoolean, frameworkHandle, "CGPDFDictionaryGetBoolean")
-		registerFunc(&_cGPDFDictionaryGetCount, frameworkHandle, "CGPDFDictionaryGetCount")
-		registerFunc(&_cGPDFDictionaryGetDictionary, frameworkHandle, "CGPDFDictionaryGetDictionary")
-		registerFunc(&_cGPDFDictionaryGetInteger, frameworkHandle, "CGPDFDictionaryGetInteger")
-		registerFunc(&_cGPDFDictionaryGetName, frameworkHandle, "CGPDFDictionaryGetName")
-		registerFunc(&_cGPDFDictionaryGetNumber, frameworkHandle, "CGPDFDictionaryGetNumber")
-		registerFunc(&_cGPDFDictionaryGetObject, frameworkHandle, "CGPDFDictionaryGetObject")
-		registerFunc(&_cGPDFDictionaryGetStream, frameworkHandle, "CGPDFDictionaryGetStream")
-		registerFunc(&_cGPDFDictionaryGetString, frameworkHandle, "CGPDFDictionaryGetString")
-		registerFunc(&_cGPDFDocumentAllowsCopying, frameworkHandle, "CGPDFDocumentAllowsCopying")
-		registerFunc(&_cGPDFDocumentAllowsPrinting, frameworkHandle, "CGPDFDocumentAllowsPrinting")
-		registerFunc(&_cGPDFDocumentCreateWithProvider, frameworkHandle, "CGPDFDocumentCreateWithProvider")
-		registerFunc(&_cGPDFDocumentCreateWithURL, frameworkHandle, "CGPDFDocumentCreateWithURL")
-		registerFunc(&_cGPDFDocumentGetAccessPermissions, frameworkHandle, "CGPDFDocumentGetAccessPermissions")
-		registerFunc(&_cGPDFDocumentGetArtBox, frameworkHandle, "CGPDFDocumentGetArtBox")
-		registerFunc(&_cGPDFDocumentGetBleedBox, frameworkHandle, "CGPDFDocumentGetBleedBox")
-		registerFunc(&_cGPDFDocumentGetCatalog, frameworkHandle, "CGPDFDocumentGetCatalog")
-		registerFunc(&_cGPDFDocumentGetCropBox, frameworkHandle, "CGPDFDocumentGetCropBox")
-		registerFunc(&_cGPDFDocumentGetID, frameworkHandle, "CGPDFDocumentGetID")
-		registerFunc(&_cGPDFDocumentGetInfo, frameworkHandle, "CGPDFDocumentGetInfo")
-		registerFunc(&_cGPDFDocumentGetMediaBox, frameworkHandle, "CGPDFDocumentGetMediaBox")
-		registerFunc(&_cGPDFDocumentGetNumberOfPages, frameworkHandle, "CGPDFDocumentGetNumberOfPages")
-		registerFunc(&_cGPDFDocumentGetOutline, frameworkHandle, "CGPDFDocumentGetOutline")
-		registerFunc(&_cGPDFDocumentGetPage, frameworkHandle, "CGPDFDocumentGetPage")
-		registerFunc(&_cGPDFDocumentGetRotationAngle, frameworkHandle, "CGPDFDocumentGetRotationAngle")
-		registerFunc(&_cGPDFDocumentGetTrimBox, frameworkHandle, "CGPDFDocumentGetTrimBox")
-		registerFunc(&_cGPDFDocumentGetTypeID, frameworkHandle, "CGPDFDocumentGetTypeID")
-		registerFunc(&_cGPDFDocumentGetVersion, frameworkHandle, "CGPDFDocumentGetVersion")
-		registerFunc(&_cGPDFDocumentIsEncrypted, frameworkHandle, "CGPDFDocumentIsEncrypted")
-		registerFunc(&_cGPDFDocumentIsUnlocked, frameworkHandle, "CGPDFDocumentIsUnlocked")
-		registerFunc(&_cGPDFDocumentRelease, frameworkHandle, "CGPDFDocumentRelease")
-		registerFunc(&_cGPDFDocumentRetain, frameworkHandle, "CGPDFDocumentRetain")
-		registerFunc(&_cGPDFDocumentUnlockWithPassword, frameworkHandle, "CGPDFDocumentUnlockWithPassword")
-		registerFunc(&_cGPDFObjectGetType, frameworkHandle, "CGPDFObjectGetType")
-		registerFunc(&_cGPDFObjectGetValue, frameworkHandle, "CGPDFObjectGetValue")
-		registerFunc(&_cGPDFOperatorTableCreate, frameworkHandle, "CGPDFOperatorTableCreate")
-		registerFunc(&_cGPDFOperatorTableRelease, frameworkHandle, "CGPDFOperatorTableRelease")
-		registerFunc(&_cGPDFOperatorTableRetain, frameworkHandle, "CGPDFOperatorTableRetain")
-		registerFunc(&_cGPDFOperatorTableSetCallback, frameworkHandle, "CGPDFOperatorTableSetCallback")
-		registerFunc(&_cGPDFPageGetBoxRect, frameworkHandle, "CGPDFPageGetBoxRect")
-		registerFunc(&_cGPDFPageGetDictionary, frameworkHandle, "CGPDFPageGetDictionary")
-		registerFunc(&_cGPDFPageGetDocument, frameworkHandle, "CGPDFPageGetDocument")
-		registerFunc(&_cGPDFPageGetDrawingTransform, frameworkHandle, "CGPDFPageGetDrawingTransform")
-		registerFunc(&_cGPDFPageGetPageNumber, frameworkHandle, "CGPDFPageGetPageNumber")
-		registerFunc(&_cGPDFPageGetRotationAngle, frameworkHandle, "CGPDFPageGetRotationAngle")
-		registerFunc(&_cGPDFPageGetTypeID, frameworkHandle, "CGPDFPageGetTypeID")
-		registerFunc(&_cGPDFPageRelease, frameworkHandle, "CGPDFPageRelease")
-		registerFunc(&_cGPDFPageRetain, frameworkHandle, "CGPDFPageRetain")
-		registerFunc(&_cGPDFScannerCreate, frameworkHandle, "CGPDFScannerCreate")
-		registerFunc(&_cGPDFScannerGetContentStream, frameworkHandle, "CGPDFScannerGetContentStream")
-		registerFunc(&_cGPDFScannerPopArray, frameworkHandle, "CGPDFScannerPopArray")
-		registerFunc(&_cGPDFScannerPopBoolean, frameworkHandle, "CGPDFScannerPopBoolean")
-		registerFunc(&_cGPDFScannerPopDictionary, frameworkHandle, "CGPDFScannerPopDictionary")
-		registerFunc(&_cGPDFScannerPopInteger, frameworkHandle, "CGPDFScannerPopInteger")
-		registerFunc(&_cGPDFScannerPopName, frameworkHandle, "CGPDFScannerPopName")
-		registerFunc(&_cGPDFScannerPopNumber, frameworkHandle, "CGPDFScannerPopNumber")
-		registerFunc(&_cGPDFScannerPopObject, frameworkHandle, "CGPDFScannerPopObject")
-		registerFunc(&_cGPDFScannerPopStream, frameworkHandle, "CGPDFScannerPopStream")
-		registerFunc(&_cGPDFScannerPopString, frameworkHandle, "CGPDFScannerPopString")
-		registerFunc(&_cGPDFScannerRelease, frameworkHandle, "CGPDFScannerRelease")
-		registerFunc(&_cGPDFScannerRetain, frameworkHandle, "CGPDFScannerRetain")
-		registerFunc(&_cGPDFScannerScan, frameworkHandle, "CGPDFScannerScan")
-		registerFunc(&_cGPDFScannerStop, frameworkHandle, "CGPDFScannerStop")
-		registerFunc(&_cGPDFStreamCopyData, frameworkHandle, "CGPDFStreamCopyData")
-		registerFunc(&_cGPDFStreamGetDictionary, frameworkHandle, "CGPDFStreamGetDictionary")
-		registerFunc(&_cGPDFStringCopyDate, frameworkHandle, "CGPDFStringCopyDate")
-		registerFunc(&_cGPDFStringCopyTextString, frameworkHandle, "CGPDFStringCopyTextString")
-		registerFunc(&_cGPDFStringGetBytePtr, frameworkHandle, "CGPDFStringGetBytePtr")
-		registerFunc(&_cGPDFStringGetLength, frameworkHandle, "CGPDFStringGetLength")
-		registerFunc(&_cGPSConverterAbort, frameworkHandle, "CGPSConverterAbort")
-		registerFunc(&_cGPSConverterConvert, frameworkHandle, "CGPSConverterConvert")
-		registerFunc(&_cGPSConverterCreate, frameworkHandle, "CGPSConverterCreate")
-		registerFunc(&_cGPSConverterGetTypeID, frameworkHandle, "CGPSConverterGetTypeID")
-		registerFunc(&_cGPSConverterIsConverting, frameworkHandle, "CGPSConverterIsConverting")
-		registerFunc(&_cGPathApply, frameworkHandle, "CGPathApply")
-		registerFunc(&_cGPathApplyWithBlock, frameworkHandle, "CGPathApplyWithBlock")
-		registerFunc(&_cGPathCloseSubpath, frameworkHandle, "CGPathCloseSubpath")
-		registerFunc(&_cGPathContainsPoint, frameworkHandle, "CGPathContainsPoint")
-		registerFunc(&_cGPathCreateCopy, frameworkHandle, "CGPathCreateCopy")
-		registerFunc(&_cGPathCreateCopyByDashingPath, frameworkHandle, "CGPathCreateCopyByDashingPath")
-		registerFunc(&_cGPathCreateCopyByFlattening, frameworkHandle, "CGPathCreateCopyByFlattening")
-		registerFunc(&_cGPathCreateCopyByIntersectingPath, frameworkHandle, "CGPathCreateCopyByIntersectingPath")
-		registerFunc(&_cGPathCreateCopyByNormalizing, frameworkHandle, "CGPathCreateCopyByNormalizing")
-		registerFunc(&_cGPathCreateCopyByStrokingPath, frameworkHandle, "CGPathCreateCopyByStrokingPath")
-		registerFunc(&_cGPathCreateCopyBySubtractingPath, frameworkHandle, "CGPathCreateCopyBySubtractingPath")
-		registerFunc(&_cGPathCreateCopyBySymmetricDifferenceOfPath, frameworkHandle, "CGPathCreateCopyBySymmetricDifferenceOfPath")
-		registerFunc(&_cGPathCreateCopyByTransformingPath, frameworkHandle, "CGPathCreateCopyByTransformingPath")
-		registerFunc(&_cGPathCreateCopyByUnioningPath, frameworkHandle, "CGPathCreateCopyByUnioningPath")
-		registerFunc(&_cGPathCreateCopyOfLineByIntersectingPath, frameworkHandle, "CGPathCreateCopyOfLineByIntersectingPath")
-		registerFunc(&_cGPathCreateCopyOfLineBySubtractingPath, frameworkHandle, "CGPathCreateCopyOfLineBySubtractingPath")
-		registerFunc(&_cGPathCreateMutable, frameworkHandle, "CGPathCreateMutable")
-		registerFunc(&_cGPathCreateMutableCopy, frameworkHandle, "CGPathCreateMutableCopy")
-		registerFunc(&_cGPathCreateMutableCopyByTransformingPath, frameworkHandle, "CGPathCreateMutableCopyByTransformingPath")
-		registerFunc(&_cGPathCreateSeparateComponents, frameworkHandle, "CGPathCreateSeparateComponents")
-		registerFunc(&_cGPathCreateWithEllipseInRect, frameworkHandle, "CGPathCreateWithEllipseInRect")
-		registerFunc(&_cGPathCreateWithRect, frameworkHandle, "CGPathCreateWithRect")
-		registerFunc(&_cGPathCreateWithRoundedRect, frameworkHandle, "CGPathCreateWithRoundedRect")
-		registerFunc(&_cGPathEqualToPath, frameworkHandle, "CGPathEqualToPath")
-		registerFunc(&_cGPathGetBoundingBox, frameworkHandle, "CGPathGetBoundingBox")
-		registerFunc(&_cGPathGetCurrentPoint, frameworkHandle, "CGPathGetCurrentPoint")
-		registerFunc(&_cGPathGetPathBoundingBox, frameworkHandle, "CGPathGetPathBoundingBox")
-		registerFunc(&_cGPathGetTypeID, frameworkHandle, "CGPathGetTypeID")
-		registerFunc(&_cGPathIntersectsPath, frameworkHandle, "CGPathIntersectsPath")
-		registerFunc(&_cGPathIsEmpty, frameworkHandle, "CGPathIsEmpty")
-		registerFunc(&_cGPathIsRect, frameworkHandle, "CGPathIsRect")
-		registerFunc(&_cGPathRelease, frameworkHandle, "CGPathRelease")
-		registerFunc(&_cGPathRetain, frameworkHandle, "CGPathRetain")
-		registerFunc(&_cGPatternCreate, frameworkHandle, "CGPatternCreate")
-		registerFunc(&_cGPatternGetTypeID, frameworkHandle, "CGPatternGetTypeID")
-		registerFunc(&_cGPatternRelease, frameworkHandle, "CGPatternRelease")
-		registerFunc(&_cGPatternRetain, frameworkHandle, "CGPatternRetain")
-		registerFunc(&_cGPointApplyAffineTransform, frameworkHandle, "CGPointApplyAffineTransform")
-		registerFunc(&_cGPointCreateDictionaryRepresentation, frameworkHandle, "CGPointCreateDictionaryRepresentation")
-		registerFunc(&_cGPointEqualToPoint, frameworkHandle, "CGPointEqualToPoint")
-		registerFunc(&_cGPointMakeWithDictionaryRepresentation, frameworkHandle, "CGPointMakeWithDictionaryRepresentation")
-		registerFunc(&_cGPostMouseEvent, frameworkHandle, "CGPostMouseEvent")
-		registerFunc(&_cGPostScrollWheelEvent, frameworkHandle, "CGPostScrollWheelEvent")
-		registerFunc(&_cGPreflightListenEventAccess, frameworkHandle, "CGPreflightListenEventAccess")
-		registerFunc(&_cGPreflightPostEventAccess, frameworkHandle, "CGPreflightPostEventAccess")
-		registerFunc(&_cGPreflightScreenCaptureAccess, frameworkHandle, "CGPreflightScreenCaptureAccess")
-		registerFunc(&_cGRectApplyAffineTransform, frameworkHandle, "CGRectApplyAffineTransform")
-		registerFunc(&_cGRectContainsPoint, frameworkHandle, "CGRectContainsPoint")
-		registerFunc(&_cGRectContainsRect, frameworkHandle, "CGRectContainsRect")
-		registerFunc(&_cGRectCreateDictionaryRepresentation, frameworkHandle, "CGRectCreateDictionaryRepresentation")
-		registerFunc(&_cGRectDivide, frameworkHandle, "CGRectDivide")
-		registerFunc(&_cGRectEqualToRect, frameworkHandle, "CGRectEqualToRect")
-		registerFunc(&_cGRectGetHeight, frameworkHandle, "CGRectGetHeight")
-		registerFunc(&_cGRectGetMaxX, frameworkHandle, "CGRectGetMaxX")
-		registerFunc(&_cGRectGetMaxY, frameworkHandle, "CGRectGetMaxY")
-		registerFunc(&_cGRectGetMidX, frameworkHandle, "CGRectGetMidX")
-		registerFunc(&_cGRectGetMidY, frameworkHandle, "CGRectGetMidY")
-		registerFunc(&_cGRectGetMinX, frameworkHandle, "CGRectGetMinX")
-		registerFunc(&_cGRectGetMinY, frameworkHandle, "CGRectGetMinY")
-		registerFunc(&_cGRectGetWidth, frameworkHandle, "CGRectGetWidth")
-		registerFunc(&_cGRectInset, frameworkHandle, "CGRectInset")
-		registerFunc(&_cGRectIntegral, frameworkHandle, "CGRectIntegral")
-		registerFunc(&_cGRectIntersection, frameworkHandle, "CGRectIntersection")
-		registerFunc(&_cGRectIntersectsRect, frameworkHandle, "CGRectIntersectsRect")
-		registerFunc(&_cGRectIsEmpty, frameworkHandle, "CGRectIsEmpty")
-		registerFunc(&_cGRectIsInfinite, frameworkHandle, "CGRectIsInfinite")
-		registerFunc(&_cGRectIsNull, frameworkHandle, "CGRectIsNull")
-		registerFunc(&_cGRectMakeWithDictionaryRepresentation, frameworkHandle, "CGRectMakeWithDictionaryRepresentation")
-		registerFunc(&_cGRectOffset, frameworkHandle, "CGRectOffset")
-		registerFunc(&_cGRectStandardize, frameworkHandle, "CGRectStandardize")
-		registerFunc(&_cGRectUnion, frameworkHandle, "CGRectUnion")
-		registerFunc(&_cGReleaseAllDisplays, frameworkHandle, "CGReleaseAllDisplays")
-		registerFunc(&_cGReleaseDisplayFadeReservation, frameworkHandle, "CGReleaseDisplayFadeReservation")
-		registerFunc(&_cGRenderingBufferLockBytePtr, frameworkHandle, "CGRenderingBufferLockBytePtr")
-		registerFunc(&_cGRenderingBufferProviderCreate, frameworkHandle, "CGRenderingBufferProviderCreate")
-		registerFunc(&_cGRenderingBufferProviderCreateWithCFData, frameworkHandle, "CGRenderingBufferProviderCreateWithCFData")
-		registerFunc(&_cGRenderingBufferProviderGetSize, frameworkHandle, "CGRenderingBufferProviderGetSize")
-		registerFunc(&_cGRenderingBufferProviderGetTypeID, frameworkHandle, "CGRenderingBufferProviderGetTypeID")
-		registerFunc(&_cGRenderingBufferUnlockBytePtr, frameworkHandle, "CGRenderingBufferUnlockBytePtr")
-		registerFunc(&_cGRequestListenEventAccess, frameworkHandle, "CGRequestListenEventAccess")
-		registerFunc(&_cGRequestPostEventAccess, frameworkHandle, "CGRequestPostEventAccess")
-		registerFunc(&_cGRequestScreenCaptureAccess, frameworkHandle, "CGRequestScreenCaptureAccess")
-		registerFunc(&_cGRestorePermanentDisplayConfiguration, frameworkHandle, "CGRestorePermanentDisplayConfiguration")
-		registerFunc(&_cGSessionCopyCurrentDictionary, frameworkHandle, "CGSessionCopyCurrentDictionary")
-		registerFunc(&_cGSetDisplayTransferByByteTable, frameworkHandle, "CGSetDisplayTransferByByteTable")
-		registerFunc(&_cGSetDisplayTransferByFormula, frameworkHandle, "CGSetDisplayTransferByFormula")
-		registerFunc(&_cGSetDisplayTransferByTable, frameworkHandle, "CGSetDisplayTransferByTable")
-		registerFunc(&_cGShadingCreateAxial, frameworkHandle, "CGShadingCreateAxial")
-		registerFunc(&_cGShadingCreateAxialWithContentHeadroom, frameworkHandle, "CGShadingCreateAxialWithContentHeadroom")
-		registerFunc(&_cGShadingCreateRadial, frameworkHandle, "CGShadingCreateRadial")
-		registerFunc(&_cGShadingCreateRadialWithContentHeadroom, frameworkHandle, "CGShadingCreateRadialWithContentHeadroom")
-		registerFunc(&_cGShadingGetContentHeadroom, frameworkHandle, "CGShadingGetContentHeadroom")
-		registerFunc(&_cGShadingGetTypeID, frameworkHandle, "CGShadingGetTypeID")
-		registerFunc(&_cGShadingRelease, frameworkHandle, "CGShadingRelease")
-		registerFunc(&_cGShadingRetain, frameworkHandle, "CGShadingRetain")
-		registerFunc(&_cGShieldingWindowID, frameworkHandle, "CGShieldingWindowID")
-		registerFunc(&_cGShieldingWindowLevel, frameworkHandle, "CGShieldingWindowLevel")
-		registerFunc(&_cGSizeApplyAffineTransform, frameworkHandle, "CGSizeApplyAffineTransform")
-		registerFunc(&_cGSizeCreateDictionaryRepresentation, frameworkHandle, "CGSizeCreateDictionaryRepresentation")
-		registerFunc(&_cGSizeEqualToSize, frameworkHandle, "CGSizeEqualToSize")
-		registerFunc(&_cGSizeMakeWithDictionaryRepresentation, frameworkHandle, "CGSizeMakeWithDictionaryRepresentation")
-		registerFunc(&_cGWarpMouseCursorPosition, frameworkHandle, "CGWarpMouseCursorPosition")
-		registerFunc(&_cGWindowLevelForKey, frameworkHandle, "CGWindowLevelForKey")
-		registerFunc(&_cGWindowListCopyWindowInfo, frameworkHandle, "CGWindowListCopyWindowInfo")
-		registerFunc(&_cGWindowListCreate, frameworkHandle, "CGWindowListCreate")
-		registerFunc(&_cGWindowListCreateDescriptionFromArray, frameworkHandle, "CGWindowListCreateDescriptionFromArray")
-		registerFunc(&_cGWindowListCreateImage, frameworkHandle, "CGWindowListCreateImage")
-		registerFunc(&_cGWindowServerCreateServerPort, frameworkHandle, "CGWindowServerCreateServerPort")
-	}
-
+	registerFunc(&_cGAcquireDisplayFadeReservation, frameworkHandle, "CGAcquireDisplayFadeReservation")
+	registerFunc(&_cGAffineTransformConcat, frameworkHandle, "CGAffineTransformConcat")
+	registerFunc(&_cGAffineTransformDecompose, frameworkHandle, "CGAffineTransformDecompose")
+	registerFunc(&_cGAffineTransformEqualToTransform, frameworkHandle, "CGAffineTransformEqualToTransform")
+	registerFunc(&_cGAffineTransformInvert, frameworkHandle, "CGAffineTransformInvert")
+	registerFunc(&_cGAffineTransformIsIdentity, frameworkHandle, "CGAffineTransformIsIdentity")
+	registerFunc(&_cGAffineTransformMake, frameworkHandle, "CGAffineTransformMake")
+	registerFunc(&_cGAffineTransformMakeRotation, frameworkHandle, "CGAffineTransformMakeRotation")
+	registerFunc(&_cGAffineTransformMakeScale, frameworkHandle, "CGAffineTransformMakeScale")
+	registerFunc(&_cGAffineTransformMakeTranslation, frameworkHandle, "CGAffineTransformMakeTranslation")
+	registerFunc(&_cGAffineTransformMakeWithComponents, frameworkHandle, "CGAffineTransformMakeWithComponents")
+	registerFunc(&_cGAffineTransformRotate, frameworkHandle, "CGAffineTransformRotate")
+	registerFunc(&_cGAffineTransformScale, frameworkHandle, "CGAffineTransformScale")
+	registerFunc(&_cGAffineTransformTranslate, frameworkHandle, "CGAffineTransformTranslate")
+	registerFunc(&_cGAssociateMouseAndMouseCursorPosition, frameworkHandle, "CGAssociateMouseAndMouseCursorPosition")
+	registerFunc(&_cGBeginDisplayConfiguration, frameworkHandle, "CGBeginDisplayConfiguration")
+	registerFunc(&_cGBitmapContextCreate, frameworkHandle, "CGBitmapContextCreate")
+	registerFunc(&_cGBitmapContextCreateAdaptive, frameworkHandle, "CGBitmapContextCreateAdaptive")
+	registerFunc(&_cGBitmapContextCreateImage, frameworkHandle, "CGBitmapContextCreateImage")
+	registerFunc(&_cGBitmapContextCreateWithData, frameworkHandle, "CGBitmapContextCreateWithData")
+	registerFunc(&_cGBitmapContextGetAlphaInfo, frameworkHandle, "CGBitmapContextGetAlphaInfo")
+	registerFunc(&_cGBitmapContextGetBitmapInfo, frameworkHandle, "CGBitmapContextGetBitmapInfo")
+	registerFunc(&_cGBitmapContextGetBitsPerComponent, frameworkHandle, "CGBitmapContextGetBitsPerComponent")
+	registerFunc(&_cGBitmapContextGetBitsPerPixel, frameworkHandle, "CGBitmapContextGetBitsPerPixel")
+	registerFunc(&_cGBitmapContextGetBytesPerRow, frameworkHandle, "CGBitmapContextGetBytesPerRow")
+	registerFunc(&_cGBitmapContextGetColorSpace, frameworkHandle, "CGBitmapContextGetColorSpace")
+	registerFunc(&_cGBitmapContextGetData, frameworkHandle, "CGBitmapContextGetData")
+	registerFunc(&_cGBitmapContextGetHeight, frameworkHandle, "CGBitmapContextGetHeight")
+	registerFunc(&_cGBitmapContextGetWidth, frameworkHandle, "CGBitmapContextGetWidth")
+	registerFunc(&_cGCancelDisplayConfiguration, frameworkHandle, "CGCancelDisplayConfiguration")
+	registerFunc(&_cGCaptureAllDisplays, frameworkHandle, "CGCaptureAllDisplays")
+	registerFunc(&_cGCaptureAllDisplaysWithOptions, frameworkHandle, "CGCaptureAllDisplaysWithOptions")
+	registerFunc(&_cGColorConversionInfoConvertData, frameworkHandle, "CGColorConversionInfoConvertData")
+	registerFunc(&_cGColorConversionInfoCreate, frameworkHandle, "CGColorConversionInfoCreate")
+	registerFunc(&_cGColorConversionInfoCreateForToneMapping, frameworkHandle, "CGColorConversionInfoCreateForToneMapping")
+	registerFunc(&_cGColorConversionInfoCreateFromList, frameworkHandle, "CGColorConversionInfoCreateFromList")
+	registerFunc(&_cGColorConversionInfoCreateFromListWithArguments, frameworkHandle, "CGColorConversionInfoCreateFromListWithArguments")
+	registerFunc(&_cGColorConversionInfoCreateWithOptions, frameworkHandle, "CGColorConversionInfoCreateWithOptions")
+	registerFunc(&_cGColorConversionInfoGetTypeID, frameworkHandle, "CGColorConversionInfoGetTypeID")
+	registerFunc(&_cGColorCreate, frameworkHandle, "CGColorCreate")
+	registerFunc(&_cGColorCreateCopy, frameworkHandle, "CGColorCreateCopy")
+	registerFunc(&_cGColorCreateCopyByMatchingToColorSpace, frameworkHandle, "CGColorCreateCopyByMatchingToColorSpace")
+	registerFunc(&_cGColorCreateCopyWithAlpha, frameworkHandle, "CGColorCreateCopyWithAlpha")
+	registerFunc(&_cGColorCreateGenericCMYK, frameworkHandle, "CGColorCreateGenericCMYK")
+	registerFunc(&_cGColorCreateGenericGray, frameworkHandle, "CGColorCreateGenericGray")
+	registerFunc(&_cGColorCreateGenericGrayGamma2_2, frameworkHandle, "CGColorCreateGenericGrayGamma2_2")
+	registerFunc(&_cGColorCreateGenericRGB, frameworkHandle, "CGColorCreateGenericRGB")
+	registerFunc(&_cGColorCreateSRGB, frameworkHandle, "CGColorCreateSRGB")
+	registerFunc(&_cGColorCreateWithContentHeadroom, frameworkHandle, "CGColorCreateWithContentHeadroom")
+	registerFunc(&_cGColorCreateWithPattern, frameworkHandle, "CGColorCreateWithPattern")
+	registerFunc(&_cGColorEqualToColor, frameworkHandle, "CGColorEqualToColor")
+	registerFunc(&_cGColorGetAlpha, frameworkHandle, "CGColorGetAlpha")
+	registerFunc(&_cGColorGetColorSpace, frameworkHandle, "CGColorGetColorSpace")
+	registerFunc(&_cGColorGetComponents, frameworkHandle, "CGColorGetComponents")
+	registerFunc(&_cGColorGetConstantColor, frameworkHandle, "CGColorGetConstantColor")
+	registerFunc(&_cGColorGetContentHeadroom, frameworkHandle, "CGColorGetContentHeadroom")
+	registerFunc(&_cGColorGetNumberOfComponents, frameworkHandle, "CGColorGetNumberOfComponents")
+	registerFunc(&_cGColorGetPattern, frameworkHandle, "CGColorGetPattern")
+	registerFunc(&_cGColorGetTypeID, frameworkHandle, "CGColorGetTypeID")
+	registerFunc(&_cGColorRelease, frameworkHandle, "CGColorRelease")
+	registerFunc(&_cGColorRetain, frameworkHandle, "CGColorRetain")
+	registerFunc(&_cGColorSpaceCopyBaseColorSpace, frameworkHandle, "CGColorSpaceCopyBaseColorSpace")
+	registerFunc(&_cGColorSpaceCopyICCData, frameworkHandle, "CGColorSpaceCopyICCData")
+	registerFunc(&_cGColorSpaceCopyName, frameworkHandle, "CGColorSpaceCopyName")
+	registerFunc(&_cGColorSpaceCopyPropertyList, frameworkHandle, "CGColorSpaceCopyPropertyList")
+	registerFunc(&_cGColorSpaceCreateCalibratedGray, frameworkHandle, "CGColorSpaceCreateCalibratedGray")
+	registerFunc(&_cGColorSpaceCreateCalibratedRGB, frameworkHandle, "CGColorSpaceCreateCalibratedRGB")
+	registerFunc(&_cGColorSpaceCreateCopyWithStandardRange, frameworkHandle, "CGColorSpaceCreateCopyWithStandardRange")
+	registerFunc(&_cGColorSpaceCreateDeviceCMYK, frameworkHandle, "CGColorSpaceCreateDeviceCMYK")
+	registerFunc(&_cGColorSpaceCreateDeviceGray, frameworkHandle, "CGColorSpaceCreateDeviceGray")
+	registerFunc(&_cGColorSpaceCreateDeviceRGB, frameworkHandle, "CGColorSpaceCreateDeviceRGB")
+	registerFunc(&_cGColorSpaceCreateExtended, frameworkHandle, "CGColorSpaceCreateExtended")
+	registerFunc(&_cGColorSpaceCreateExtendedLinearized, frameworkHandle, "CGColorSpaceCreateExtendedLinearized")
+	registerFunc(&_cGColorSpaceCreateICCBased, frameworkHandle, "CGColorSpaceCreateICCBased")
+	registerFunc(&_cGColorSpaceCreateIndexed, frameworkHandle, "CGColorSpaceCreateIndexed")
+	registerFunc(&_cGColorSpaceCreateLab, frameworkHandle, "CGColorSpaceCreateLab")
+	registerFunc(&_cGColorSpaceCreateLinearized, frameworkHandle, "CGColorSpaceCreateLinearized")
+	registerFunc(&_cGColorSpaceCreatePattern, frameworkHandle, "CGColorSpaceCreatePattern")
+	registerFunc(&_cGColorSpaceCreateWithColorSyncProfile, frameworkHandle, "CGColorSpaceCreateWithColorSyncProfile")
+	registerFunc(&_cGColorSpaceCreateWithICCData, frameworkHandle, "CGColorSpaceCreateWithICCData")
+	registerFunc(&_cGColorSpaceCreateWithName, frameworkHandle, "CGColorSpaceCreateWithName")
+	registerFunc(&_cGColorSpaceCreateWithPropertyList, frameworkHandle, "CGColorSpaceCreateWithPropertyList")
+	registerFunc(&_cGColorSpaceGetBaseColorSpace, frameworkHandle, "CGColorSpaceGetBaseColorSpace")
+	registerFunc(&_cGColorSpaceGetColorTable, frameworkHandle, "CGColorSpaceGetColorTable")
+	registerFunc(&_cGColorSpaceGetColorTableCount, frameworkHandle, "CGColorSpaceGetColorTableCount")
+	registerFunc(&_cGColorSpaceGetModel, frameworkHandle, "CGColorSpaceGetModel")
+	registerFunc(&_cGColorSpaceGetName, frameworkHandle, "CGColorSpaceGetName")
+	registerFunc(&_cGColorSpaceGetNumberOfComponents, frameworkHandle, "CGColorSpaceGetNumberOfComponents")
+	registerFunc(&_cGColorSpaceGetTypeID, frameworkHandle, "CGColorSpaceGetTypeID")
+	registerFunc(&_cGColorSpaceIsHDR, frameworkHandle, "CGColorSpaceIsHDR")
+	registerFunc(&_cGColorSpaceIsHLGBased, frameworkHandle, "CGColorSpaceIsHLGBased")
+	registerFunc(&_cGColorSpaceIsPQBased, frameworkHandle, "CGColorSpaceIsPQBased")
+	registerFunc(&_cGColorSpaceIsWideGamutRGB, frameworkHandle, "CGColorSpaceIsWideGamutRGB")
+	registerFunc(&_cGColorSpaceRelease, frameworkHandle, "CGColorSpaceRelease")
+	registerFunc(&_cGColorSpaceRetain, frameworkHandle, "CGColorSpaceRetain")
+	registerFunc(&_cGColorSpaceSupportsOutput, frameworkHandle, "CGColorSpaceSupportsOutput")
+	registerFunc(&_cGColorSpaceUsesExtendedRange, frameworkHandle, "CGColorSpaceUsesExtendedRange")
+	registerFunc(&_cGColorSpaceUsesITUR_2100TF, frameworkHandle, "CGColorSpaceUsesITUR_2100TF")
+	registerFunc(&_cGCompleteDisplayConfiguration, frameworkHandle, "CGCompleteDisplayConfiguration")
+	registerFunc(&_cGConfigureDisplayFadeEffect, frameworkHandle, "CGConfigureDisplayFadeEffect")
+	registerFunc(&_cGConfigureDisplayMirrorOfDisplay, frameworkHandle, "CGConfigureDisplayMirrorOfDisplay")
+	registerFunc(&_cGConfigureDisplayOrigin, frameworkHandle, "CGConfigureDisplayOrigin")
+	registerFunc(&_cGConfigureDisplayStereoOperation, frameworkHandle, "CGConfigureDisplayStereoOperation")
+	registerFunc(&_cGConfigureDisplayWithDisplayMode, frameworkHandle, "CGConfigureDisplayWithDisplayMode")
+	registerFunc(&_cGContextAddArc, frameworkHandle, "CGContextAddArc")
+	registerFunc(&_cGContextAddArcToPoint, frameworkHandle, "CGContextAddArcToPoint")
+	registerFunc(&_cGContextAddCurveToPoint, frameworkHandle, "CGContextAddCurveToPoint")
+	registerFunc(&_cGContextAddEllipseInRect, frameworkHandle, "CGContextAddEllipseInRect")
+	registerFunc(&_cGContextAddLineToPoint, frameworkHandle, "CGContextAddLineToPoint")
+	registerFunc(&_cGContextAddLines, frameworkHandle, "CGContextAddLines")
+	registerFunc(&_cGContextAddPath, frameworkHandle, "CGContextAddPath")
+	registerFunc(&_cGContextAddQuadCurveToPoint, frameworkHandle, "CGContextAddQuadCurveToPoint")
+	registerFunc(&_cGContextAddRect, frameworkHandle, "CGContextAddRect")
+	registerFunc(&_cGContextAddRects, frameworkHandle, "CGContextAddRects")
+	registerFunc(&_cGContextBeginPage, frameworkHandle, "CGContextBeginPage")
+	registerFunc(&_cGContextBeginPath, frameworkHandle, "CGContextBeginPath")
+	registerFunc(&_cGContextBeginTransparencyLayer, frameworkHandle, "CGContextBeginTransparencyLayer")
+	registerFunc(&_cGContextBeginTransparencyLayerWithRect, frameworkHandle, "CGContextBeginTransparencyLayerWithRect")
+	registerFunc(&_cGContextClearRect, frameworkHandle, "CGContextClearRect")
+	registerFunc(&_cGContextClip, frameworkHandle, "CGContextClip")
+	registerFunc(&_cGContextClipToMask, frameworkHandle, "CGContextClipToMask")
+	registerFunc(&_cGContextClipToRect, frameworkHandle, "CGContextClipToRect")
+	registerFunc(&_cGContextClipToRects, frameworkHandle, "CGContextClipToRects")
+	registerFunc(&_cGContextClosePath, frameworkHandle, "CGContextClosePath")
+	registerFunc(&_cGContextConcatCTM, frameworkHandle, "CGContextConcatCTM")
+	registerFunc(&_cGContextConvertPointToDeviceSpace, frameworkHandle, "CGContextConvertPointToDeviceSpace")
+	registerFunc(&_cGContextConvertPointToUserSpace, frameworkHandle, "CGContextConvertPointToUserSpace")
+	registerFunc(&_cGContextConvertRectToDeviceSpace, frameworkHandle, "CGContextConvertRectToDeviceSpace")
+	registerFunc(&_cGContextConvertRectToUserSpace, frameworkHandle, "CGContextConvertRectToUserSpace")
+	registerFunc(&_cGContextConvertSizeToDeviceSpace, frameworkHandle, "CGContextConvertSizeToDeviceSpace")
+	registerFunc(&_cGContextConvertSizeToUserSpace, frameworkHandle, "CGContextConvertSizeToUserSpace")
+	registerFunc(&_cGContextCopyPath, frameworkHandle, "CGContextCopyPath")
+	registerFunc(&_cGContextDrawConicGradient, frameworkHandle, "CGContextDrawConicGradient")
+	registerFunc(&_cGContextDrawImage, frameworkHandle, "CGContextDrawImage")
+	registerFunc(&_cGContextDrawImageApplyingToneMapping, frameworkHandle, "CGContextDrawImageApplyingToneMapping")
+	registerFunc(&_cGContextDrawLayerAtPoint, frameworkHandle, "CGContextDrawLayerAtPoint")
+	registerFunc(&_cGContextDrawLayerInRect, frameworkHandle, "CGContextDrawLayerInRect")
+	registerFunc(&_cGContextDrawLinearGradient, frameworkHandle, "CGContextDrawLinearGradient")
+	registerFunc(&_cGContextDrawPDFDocument, frameworkHandle, "CGContextDrawPDFDocument")
+	registerFunc(&_cGContextDrawPDFPage, frameworkHandle, "CGContextDrawPDFPage")
+	registerFunc(&_cGContextDrawPath, frameworkHandle, "CGContextDrawPath")
+	registerFunc(&_cGContextDrawRadialGradient, frameworkHandle, "CGContextDrawRadialGradient")
+	registerFunc(&_cGContextDrawShading, frameworkHandle, "CGContextDrawShading")
+	registerFunc(&_cGContextDrawTiledImage, frameworkHandle, "CGContextDrawTiledImage")
+	registerFunc(&_cGContextEOClip, frameworkHandle, "CGContextEOClip")
+	registerFunc(&_cGContextEOFillPath, frameworkHandle, "CGContextEOFillPath")
+	registerFunc(&_cGContextEndPage, frameworkHandle, "CGContextEndPage")
+	registerFunc(&_cGContextEndTransparencyLayer, frameworkHandle, "CGContextEndTransparencyLayer")
+	registerFunc(&_cGContextFillEllipseInRect, frameworkHandle, "CGContextFillEllipseInRect")
+	registerFunc(&_cGContextFillPath, frameworkHandle, "CGContextFillPath")
+	registerFunc(&_cGContextFillRect, frameworkHandle, "CGContextFillRect")
+	registerFunc(&_cGContextFillRects, frameworkHandle, "CGContextFillRects")
+	registerFunc(&_cGContextFlush, frameworkHandle, "CGContextFlush")
+	registerFunc(&_cGContextGetCTM, frameworkHandle, "CGContextGetCTM")
+	registerFunc(&_cGContextGetClipBoundingBox, frameworkHandle, "CGContextGetClipBoundingBox")
+	registerFunc(&_cGContextGetContentToneMappingInfo, frameworkHandle, "CGContextGetContentToneMappingInfo")
+	registerFunc(&_cGContextGetEDRTargetHeadroom, frameworkHandle, "CGContextGetEDRTargetHeadroom")
+	registerFunc(&_cGContextGetInterpolationQuality, frameworkHandle, "CGContextGetInterpolationQuality")
+	registerFunc(&_cGContextGetPathBoundingBox, frameworkHandle, "CGContextGetPathBoundingBox")
+	registerFunc(&_cGContextGetPathCurrentPoint, frameworkHandle, "CGContextGetPathCurrentPoint")
+	registerFunc(&_cGContextGetTextMatrix, frameworkHandle, "CGContextGetTextMatrix")
+	registerFunc(&_cGContextGetTextPosition, frameworkHandle, "CGContextGetTextPosition")
+	registerFunc(&_cGContextGetTypeID, frameworkHandle, "CGContextGetTypeID")
+	registerFunc(&_cGContextGetUserSpaceToDeviceSpaceTransform, frameworkHandle, "CGContextGetUserSpaceToDeviceSpaceTransform")
+	registerFunc(&_cGContextIsPathEmpty, frameworkHandle, "CGContextIsPathEmpty")
+	registerFunc(&_cGContextMoveToPoint, frameworkHandle, "CGContextMoveToPoint")
+	registerFunc(&_cGContextPathContainsPoint, frameworkHandle, "CGContextPathContainsPoint")
+	registerFunc(&_cGContextRelease, frameworkHandle, "CGContextRelease")
+	registerFunc(&_cGContextReplacePathWithStrokedPath, frameworkHandle, "CGContextReplacePathWithStrokedPath")
+	registerFunc(&_cGContextResetClip, frameworkHandle, "CGContextResetClip")
+	registerFunc(&_cGContextRestoreGState, frameworkHandle, "CGContextRestoreGState")
+	registerFunc(&_cGContextRetain, frameworkHandle, "CGContextRetain")
+	registerFunc(&_cGContextRotateCTM, frameworkHandle, "CGContextRotateCTM")
+	registerFunc(&_cGContextSaveGState, frameworkHandle, "CGContextSaveGState")
+	registerFunc(&_cGContextScaleCTM, frameworkHandle, "CGContextScaleCTM")
+	registerFunc(&_cGContextSetAllowsAntialiasing, frameworkHandle, "CGContextSetAllowsAntialiasing")
+	registerFunc(&_cGContextSetAllowsFontSmoothing, frameworkHandle, "CGContextSetAllowsFontSmoothing")
+	registerFunc(&_cGContextSetAllowsFontSubpixelPositioning, frameworkHandle, "CGContextSetAllowsFontSubpixelPositioning")
+	registerFunc(&_cGContextSetAllowsFontSubpixelQuantization, frameworkHandle, "CGContextSetAllowsFontSubpixelQuantization")
+	registerFunc(&_cGContextSetAlpha, frameworkHandle, "CGContextSetAlpha")
+	registerFunc(&_cGContextSetBlendMode, frameworkHandle, "CGContextSetBlendMode")
+	registerFunc(&_cGContextSetCMYKFillColor, frameworkHandle, "CGContextSetCMYKFillColor")
+	registerFunc(&_cGContextSetCMYKStrokeColor, frameworkHandle, "CGContextSetCMYKStrokeColor")
+	registerFunc(&_cGContextSetCharacterSpacing, frameworkHandle, "CGContextSetCharacterSpacing")
+	registerFunc(&_cGContextSetContentToneMappingInfo, frameworkHandle, "CGContextSetContentToneMappingInfo")
+	registerFunc(&_cGContextSetEDRTargetHeadroom, frameworkHandle, "CGContextSetEDRTargetHeadroom")
+	registerFunc(&_cGContextSetFillColor, frameworkHandle, "CGContextSetFillColor")
+	registerFunc(&_cGContextSetFillColorSpace, frameworkHandle, "CGContextSetFillColorSpace")
+	registerFunc(&_cGContextSetFillColorWithColor, frameworkHandle, "CGContextSetFillColorWithColor")
+	registerFunc(&_cGContextSetFillPattern, frameworkHandle, "CGContextSetFillPattern")
+	registerFunc(&_cGContextSetFlatness, frameworkHandle, "CGContextSetFlatness")
+	registerFunc(&_cGContextSetFont, frameworkHandle, "CGContextSetFont")
+	registerFunc(&_cGContextSetFontSize, frameworkHandle, "CGContextSetFontSize")
+	registerFunc(&_cGContextSetGrayFillColor, frameworkHandle, "CGContextSetGrayFillColor")
+	registerFunc(&_cGContextSetGrayStrokeColor, frameworkHandle, "CGContextSetGrayStrokeColor")
+	registerFunc(&_cGContextSetInterpolationQuality, frameworkHandle, "CGContextSetInterpolationQuality")
+	registerFunc(&_cGContextSetLineCap, frameworkHandle, "CGContextSetLineCap")
+	registerFunc(&_cGContextSetLineDash, frameworkHandle, "CGContextSetLineDash")
+	registerFunc(&_cGContextSetLineJoin, frameworkHandle, "CGContextSetLineJoin")
+	registerFunc(&_cGContextSetLineWidth, frameworkHandle, "CGContextSetLineWidth")
+	registerFunc(&_cGContextSetMiterLimit, frameworkHandle, "CGContextSetMiterLimit")
+	registerFunc(&_cGContextSetPatternPhase, frameworkHandle, "CGContextSetPatternPhase")
+	registerFunc(&_cGContextSetRGBFillColor, frameworkHandle, "CGContextSetRGBFillColor")
+	registerFunc(&_cGContextSetRGBStrokeColor, frameworkHandle, "CGContextSetRGBStrokeColor")
+	registerFunc(&_cGContextSetRenderingIntent, frameworkHandle, "CGContextSetRenderingIntent")
+	registerFunc(&_cGContextSetShadow, frameworkHandle, "CGContextSetShadow")
+	registerFunc(&_cGContextSetShadowWithColor, frameworkHandle, "CGContextSetShadowWithColor")
+	registerFunc(&_cGContextSetShouldAntialias, frameworkHandle, "CGContextSetShouldAntialias")
+	registerFunc(&_cGContextSetShouldSmoothFonts, frameworkHandle, "CGContextSetShouldSmoothFonts")
+	registerFunc(&_cGContextSetShouldSubpixelPositionFonts, frameworkHandle, "CGContextSetShouldSubpixelPositionFonts")
+	registerFunc(&_cGContextSetShouldSubpixelQuantizeFonts, frameworkHandle, "CGContextSetShouldSubpixelQuantizeFonts")
+	registerFunc(&_cGContextSetStrokeColor, frameworkHandle, "CGContextSetStrokeColor")
+	registerFunc(&_cGContextSetStrokeColorSpace, frameworkHandle, "CGContextSetStrokeColorSpace")
+	registerFunc(&_cGContextSetStrokeColorWithColor, frameworkHandle, "CGContextSetStrokeColorWithColor")
+	registerFunc(&_cGContextSetStrokePattern, frameworkHandle, "CGContextSetStrokePattern")
+	registerFunc(&_cGContextSetTextDrawingMode, frameworkHandle, "CGContextSetTextDrawingMode")
+	registerFunc(&_cGContextSetTextMatrix, frameworkHandle, "CGContextSetTextMatrix")
+	registerFunc(&_cGContextSetTextPosition, frameworkHandle, "CGContextSetTextPosition")
+	registerFunc(&_cGContextShowGlyphsAtPositions, frameworkHandle, "CGContextShowGlyphsAtPositions")
+	registerFunc(&_cGContextStrokeEllipseInRect, frameworkHandle, "CGContextStrokeEllipseInRect")
+	registerFunc(&_cGContextStrokeLineSegments, frameworkHandle, "CGContextStrokeLineSegments")
+	registerFunc(&_cGContextStrokePath, frameworkHandle, "CGContextStrokePath")
+	registerFunc(&_cGContextStrokeRect, frameworkHandle, "CGContextStrokeRect")
+	registerFunc(&_cGContextStrokeRectWithWidth, frameworkHandle, "CGContextStrokeRectWithWidth")
+	registerFunc(&_cGContextSynchronize, frameworkHandle, "CGContextSynchronize")
+	registerFunc(&_cGContextSynchronizeAttributes, frameworkHandle, "CGContextSynchronizeAttributes")
+	registerFunc(&_cGContextTranslateCTM, frameworkHandle, "CGContextTranslateCTM")
+	registerFunc(&_cGConvertColorDataWithFormat, frameworkHandle, "CGConvertColorDataWithFormat")
+	registerFunc(&_cGDataConsumerCreate, frameworkHandle, "CGDataConsumerCreate")
+	registerFunc(&_cGDataConsumerCreateWithCFData, frameworkHandle, "CGDataConsumerCreateWithCFData")
+	registerFunc(&_cGDataConsumerCreateWithURL, frameworkHandle, "CGDataConsumerCreateWithURL")
+	registerFunc(&_cGDataConsumerGetTypeID, frameworkHandle, "CGDataConsumerGetTypeID")
+	registerFunc(&_cGDataConsumerRelease, frameworkHandle, "CGDataConsumerRelease")
+	registerFunc(&_cGDataConsumerRetain, frameworkHandle, "CGDataConsumerRetain")
+	registerFunc(&_cGDataProviderCopyData, frameworkHandle, "CGDataProviderCopyData")
+	registerFunc(&_cGDataProviderCreateDirect, frameworkHandle, "CGDataProviderCreateDirect")
+	registerFunc(&_cGDataProviderCreateSequential, frameworkHandle, "CGDataProviderCreateSequential")
+	registerFunc(&_cGDataProviderCreateWithCFData, frameworkHandle, "CGDataProviderCreateWithCFData")
+	registerFunc(&_cGDataProviderCreateWithData, frameworkHandle, "CGDataProviderCreateWithData")
+	registerFunc(&_cGDataProviderCreateWithFilename, frameworkHandle, "CGDataProviderCreateWithFilename")
+	registerFunc(&_cGDataProviderCreateWithURL, frameworkHandle, "CGDataProviderCreateWithURL")
+	registerFunc(&_cGDataProviderGetInfo, frameworkHandle, "CGDataProviderGetInfo")
+	registerFunc(&_cGDataProviderGetTypeID, frameworkHandle, "CGDataProviderGetTypeID")
+	registerFunc(&_cGDataProviderRelease, frameworkHandle, "CGDataProviderRelease")
+	registerFunc(&_cGDataProviderRetain, frameworkHandle, "CGDataProviderRetain")
+	registerFunc(&_cGDirectDisplayCopyCurrentMetalDevice, frameworkHandle, "CGDirectDisplayCopyCurrentMetalDevice")
+	registerFunc(&_cGDisplayBounds, frameworkHandle, "CGDisplayBounds")
+	registerFunc(&_cGDisplayCapture, frameworkHandle, "CGDisplayCapture")
+	registerFunc(&_cGDisplayCaptureWithOptions, frameworkHandle, "CGDisplayCaptureWithOptions")
+	registerFunc(&_cGDisplayCopyAllDisplayModes, frameworkHandle, "CGDisplayCopyAllDisplayModes")
+	registerFunc(&_cGDisplayCopyColorSpace, frameworkHandle, "CGDisplayCopyColorSpace")
+	registerFunc(&_cGDisplayCopyDisplayMode, frameworkHandle, "CGDisplayCopyDisplayMode")
+	registerFunc(&_cGDisplayCreateImage, frameworkHandle, "CGDisplayCreateImage")
+	registerFunc(&_cGDisplayCreateImageForRect, frameworkHandle, "CGDisplayCreateImageForRect")
+	registerFunc(&_cGDisplayFade, frameworkHandle, "CGDisplayFade")
+	registerFunc(&_cGDisplayGammaTableCapacity, frameworkHandle, "CGDisplayGammaTableCapacity")
+	registerFunc(&_cGDisplayGetDrawingContext, frameworkHandle, "CGDisplayGetDrawingContext")
+	registerFunc(&_cGDisplayHideCursor, frameworkHandle, "CGDisplayHideCursor")
+	registerFunc(&_cGDisplayIDToOpenGLDisplayMask, frameworkHandle, "CGDisplayIDToOpenGLDisplayMask")
+	registerFunc(&_cGDisplayIsActive, frameworkHandle, "CGDisplayIsActive")
+	registerFunc(&_cGDisplayIsAlwaysInMirrorSet, frameworkHandle, "CGDisplayIsAlwaysInMirrorSet")
+	registerFunc(&_cGDisplayIsAsleep, frameworkHandle, "CGDisplayIsAsleep")
+	registerFunc(&_cGDisplayIsBuiltin, frameworkHandle, "CGDisplayIsBuiltin")
+	registerFunc(&_cGDisplayIsInHWMirrorSet, frameworkHandle, "CGDisplayIsInHWMirrorSet")
+	registerFunc(&_cGDisplayIsInMirrorSet, frameworkHandle, "CGDisplayIsInMirrorSet")
+	registerFunc(&_cGDisplayIsMain, frameworkHandle, "CGDisplayIsMain")
+	registerFunc(&_cGDisplayIsOnline, frameworkHandle, "CGDisplayIsOnline")
+	registerFunc(&_cGDisplayIsStereo, frameworkHandle, "CGDisplayIsStereo")
+	registerFunc(&_cGDisplayMirrorsDisplay, frameworkHandle, "CGDisplayMirrorsDisplay")
+	registerFunc(&_cGDisplayModeGetHeight, frameworkHandle, "CGDisplayModeGetHeight")
+	registerFunc(&_cGDisplayModeGetIODisplayModeID, frameworkHandle, "CGDisplayModeGetIODisplayModeID")
+	registerFunc(&_cGDisplayModeGetIOFlags, frameworkHandle, "CGDisplayModeGetIOFlags")
+	registerFunc(&_cGDisplayModeGetPixelHeight, frameworkHandle, "CGDisplayModeGetPixelHeight")
+	registerFunc(&_cGDisplayModeGetPixelWidth, frameworkHandle, "CGDisplayModeGetPixelWidth")
+	registerFunc(&_cGDisplayModeGetRefreshRate, frameworkHandle, "CGDisplayModeGetRefreshRate")
+	registerFunc(&_cGDisplayModeGetTypeID, frameworkHandle, "CGDisplayModeGetTypeID")
+	registerFunc(&_cGDisplayModeGetWidth, frameworkHandle, "CGDisplayModeGetWidth")
+	registerFunc(&_cGDisplayModeIsUsableForDesktopGUI, frameworkHandle, "CGDisplayModeIsUsableForDesktopGUI")
+	registerFunc(&_cGDisplayModeRelease, frameworkHandle, "CGDisplayModeRelease")
+	registerFunc(&_cGDisplayModeRetain, frameworkHandle, "CGDisplayModeRetain")
+	registerFunc(&_cGDisplayModelNumber, frameworkHandle, "CGDisplayModelNumber")
+	registerFunc(&_cGDisplayMoveCursorToPoint, frameworkHandle, "CGDisplayMoveCursorToPoint")
+	registerFunc(&_cGDisplayPixelsHigh, frameworkHandle, "CGDisplayPixelsHigh")
+	registerFunc(&_cGDisplayPixelsWide, frameworkHandle, "CGDisplayPixelsWide")
+	registerFunc(&_cGDisplayPrimaryDisplay, frameworkHandle, "CGDisplayPrimaryDisplay")
+	registerFunc(&_cGDisplayRegisterReconfigurationCallback, frameworkHandle, "CGDisplayRegisterReconfigurationCallback")
+	registerFunc(&_cGDisplayRelease, frameworkHandle, "CGDisplayRelease")
+	registerFunc(&_cGDisplayRemoveReconfigurationCallback, frameworkHandle, "CGDisplayRemoveReconfigurationCallback")
+	registerFunc(&_cGDisplayRestoreColorSyncSettings, frameworkHandle, "CGDisplayRestoreColorSyncSettings")
+	registerFunc(&_cGDisplayRotation, frameworkHandle, "CGDisplayRotation")
+	registerFunc(&_cGDisplayScreenSize, frameworkHandle, "CGDisplayScreenSize")
+	registerFunc(&_cGDisplaySerialNumber, frameworkHandle, "CGDisplaySerialNumber")
+	registerFunc(&_cGDisplaySetDisplayMode, frameworkHandle, "CGDisplaySetDisplayMode")
+	registerFunc(&_cGDisplaySetStereoOperation, frameworkHandle, "CGDisplaySetStereoOperation")
+	registerFunc(&_cGDisplayShowCursor, frameworkHandle, "CGDisplayShowCursor")
+	registerFunc(&_cGDisplayStreamCreate, frameworkHandle, "CGDisplayStreamCreate")
+	registerFunc(&_cGDisplayStreamCreateWithDispatchQueue, frameworkHandle, "CGDisplayStreamCreateWithDispatchQueue")
+	registerFunc(&_cGDisplayStreamGetRunLoopSource, frameworkHandle, "CGDisplayStreamGetRunLoopSource")
+	registerFunc(&_cGDisplayStreamGetTypeID, frameworkHandle, "CGDisplayStreamGetTypeID")
+	registerFunc(&_cGDisplayStreamStart, frameworkHandle, "CGDisplayStreamStart")
+	registerFunc(&_cGDisplayStreamStop, frameworkHandle, "CGDisplayStreamStop")
+	registerFunc(&_cGDisplayStreamUpdateCreateMergedUpdate, frameworkHandle, "CGDisplayStreamUpdateCreateMergedUpdate")
+	registerFunc(&_cGDisplayStreamUpdateGetDropCount, frameworkHandle, "CGDisplayStreamUpdateGetDropCount")
+	registerFunc(&_cGDisplayStreamUpdateGetMovedRectsDelta, frameworkHandle, "CGDisplayStreamUpdateGetMovedRectsDelta")
+	registerFunc(&_cGDisplayStreamUpdateGetRects, frameworkHandle, "CGDisplayStreamUpdateGetRects")
+	registerFunc(&_cGDisplayStreamUpdateGetTypeID, frameworkHandle, "CGDisplayStreamUpdateGetTypeID")
+	registerFunc(&_cGDisplayUnitNumber, frameworkHandle, "CGDisplayUnitNumber")
+	registerFunc(&_cGDisplayUsesOpenGLAcceleration, frameworkHandle, "CGDisplayUsesOpenGLAcceleration")
+	registerFunc(&_cGDisplayVendorNumber, frameworkHandle, "CGDisplayVendorNumber")
+	registerFunc(&_cGEXRToneMappingGammaGetDefaultOptions, frameworkHandle, "CGEXRToneMappingGammaGetDefaultOptions")
+	registerFunc(&_cGErrorSetCallback, frameworkHandle, "CGErrorSetCallback")
+	registerFunc(&_cGEventCreate, frameworkHandle, "CGEventCreate")
+	registerFunc(&_cGEventCreateCopy, frameworkHandle, "CGEventCreateCopy")
+	registerFunc(&_cGEventCreateData, frameworkHandle, "CGEventCreateData")
+	registerFunc(&_cGEventCreateFromData, frameworkHandle, "CGEventCreateFromData")
+	registerFunc(&_cGEventCreateKeyboardEvent, frameworkHandle, "CGEventCreateKeyboardEvent")
+	registerFunc(&_cGEventCreateMouseEvent, frameworkHandle, "CGEventCreateMouseEvent")
+	registerFunc(&_cGEventCreateScrollWheelEvent, frameworkHandle, "CGEventCreateScrollWheelEvent")
+	registerFunc(&_cGEventCreateScrollWheelEvent2, frameworkHandle, "CGEventCreateScrollWheelEvent2")
+	registerFunc(&_cGEventCreateSourceFromEvent, frameworkHandle, "CGEventCreateSourceFromEvent")
+	registerFunc(&_cGEventGetDoubleValueField, frameworkHandle, "CGEventGetDoubleValueField")
+	registerFunc(&_cGEventGetFlags, frameworkHandle, "CGEventGetFlags")
+	registerFunc(&_cGEventGetIntegerValueField, frameworkHandle, "CGEventGetIntegerValueField")
+	registerFunc(&_cGEventGetLocation, frameworkHandle, "CGEventGetLocation")
+	registerFunc(&_cGEventGetTimestamp, frameworkHandle, "CGEventGetTimestamp")
+	registerFunc(&_cGEventGetType, frameworkHandle, "CGEventGetType")
+	registerFunc(&_cGEventGetTypeID, frameworkHandle, "CGEventGetTypeID")
+	registerFunc(&_cGEventGetUnflippedLocation, frameworkHandle, "CGEventGetUnflippedLocation")
+	registerFunc(&_cGEventKeyboardGetUnicodeString, frameworkHandle, "CGEventKeyboardGetUnicodeString")
+	registerFunc(&_cGEventKeyboardSetUnicodeString, frameworkHandle, "CGEventKeyboardSetUnicodeString")
+	registerFunc(&_cGEventPost, frameworkHandle, "CGEventPost")
+	registerFunc(&_cGEventPostToPSN, frameworkHandle, "CGEventPostToPSN")
+	registerFunc(&_cGEventPostToPid, frameworkHandle, "CGEventPostToPid")
+	registerFunc(&_cGEventSetDoubleValueField, frameworkHandle, "CGEventSetDoubleValueField")
+	registerFunc(&_cGEventSetFlags, frameworkHandle, "CGEventSetFlags")
+	registerFunc(&_cGEventSetIntegerValueField, frameworkHandle, "CGEventSetIntegerValueField")
+	registerFunc(&_cGEventSetLocation, frameworkHandle, "CGEventSetLocation")
+	registerFunc(&_cGEventSetSource, frameworkHandle, "CGEventSetSource")
+	registerFunc(&_cGEventSetTimestamp, frameworkHandle, "CGEventSetTimestamp")
+	registerFunc(&_cGEventSetType, frameworkHandle, "CGEventSetType")
+	registerFunc(&_cGEventSourceButtonState, frameworkHandle, "CGEventSourceButtonState")
+	registerFunc(&_cGEventSourceCounterForEventType, frameworkHandle, "CGEventSourceCounterForEventType")
+	registerFunc(&_cGEventSourceCreate, frameworkHandle, "CGEventSourceCreate")
+	registerFunc(&_cGEventSourceFlagsState, frameworkHandle, "CGEventSourceFlagsState")
+	registerFunc(&_cGEventSourceGetKeyboardType, frameworkHandle, "CGEventSourceGetKeyboardType")
+	registerFunc(&_cGEventSourceGetLocalEventsFilterDuringSuppressionState, frameworkHandle, "CGEventSourceGetLocalEventsFilterDuringSuppressionState")
+	registerFunc(&_cGEventSourceGetLocalEventsSuppressionInterval, frameworkHandle, "CGEventSourceGetLocalEventsSuppressionInterval")
+	registerFunc(&_cGEventSourceGetPixelsPerLine, frameworkHandle, "CGEventSourceGetPixelsPerLine")
+	registerFunc(&_cGEventSourceGetSourceStateID, frameworkHandle, "CGEventSourceGetSourceStateID")
+	registerFunc(&_cGEventSourceGetTypeID, frameworkHandle, "CGEventSourceGetTypeID")
+	registerFunc(&_cGEventSourceGetUserData, frameworkHandle, "CGEventSourceGetUserData")
+	registerFunc(&_cGEventSourceKeyState, frameworkHandle, "CGEventSourceKeyState")
+	registerFunc(&_cGEventSourceSecondsSinceLastEventType, frameworkHandle, "CGEventSourceSecondsSinceLastEventType")
+	registerFunc(&_cGEventSourceSetKeyboardType, frameworkHandle, "CGEventSourceSetKeyboardType")
+	registerFunc(&_cGEventSourceSetLocalEventsFilterDuringSuppressionState, frameworkHandle, "CGEventSourceSetLocalEventsFilterDuringSuppressionState")
+	registerFunc(&_cGEventSourceSetLocalEventsSuppressionInterval, frameworkHandle, "CGEventSourceSetLocalEventsSuppressionInterval")
+	registerFunc(&_cGEventSourceSetPixelsPerLine, frameworkHandle, "CGEventSourceSetPixelsPerLine")
+	registerFunc(&_cGEventSourceSetUserData, frameworkHandle, "CGEventSourceSetUserData")
+	registerFunc(&_cGEventTapCreate, frameworkHandle, "CGEventTapCreate")
+	registerFunc(&_cGEventTapCreateForPSN, frameworkHandle, "CGEventTapCreateForPSN")
+	registerFunc(&_cGEventTapCreateForPid, frameworkHandle, "CGEventTapCreateForPid")
+	registerFunc(&_cGEventTapEnable, frameworkHandle, "CGEventTapEnable")
+	registerFunc(&_cGEventTapIsEnabled, frameworkHandle, "CGEventTapIsEnabled")
+	registerFunc(&_cGEventTapPostEvent, frameworkHandle, "CGEventTapPostEvent")
+	registerFunc(&_cGFontCanCreatePostScriptSubset, frameworkHandle, "CGFontCanCreatePostScriptSubset")
+	registerFunc(&_cGFontCopyFullName, frameworkHandle, "CGFontCopyFullName")
+	registerFunc(&_cGFontCopyGlyphNameForGlyph, frameworkHandle, "CGFontCopyGlyphNameForGlyph")
+	registerFunc(&_cGFontCopyPostScriptName, frameworkHandle, "CGFontCopyPostScriptName")
+	registerFunc(&_cGFontCopyTableForTag, frameworkHandle, "CGFontCopyTableForTag")
+	registerFunc(&_cGFontCopyTableTags, frameworkHandle, "CGFontCopyTableTags")
+	registerFunc(&_cGFontCopyVariationAxes, frameworkHandle, "CGFontCopyVariationAxes")
+	registerFunc(&_cGFontCopyVariations, frameworkHandle, "CGFontCopyVariations")
+	registerFunc(&_cGFontCreateCopyWithVariations, frameworkHandle, "CGFontCreateCopyWithVariations")
+	registerFunc(&_cGFontCreatePostScriptEncoding, frameworkHandle, "CGFontCreatePostScriptEncoding")
+	registerFunc(&_cGFontCreatePostScriptSubset, frameworkHandle, "CGFontCreatePostScriptSubset")
+	registerFunc(&_cGFontCreateWithDataProvider, frameworkHandle, "CGFontCreateWithDataProvider")
+	registerFunc(&_cGFontCreateWithFontName, frameworkHandle, "CGFontCreateWithFontName")
+	registerFunc(&_cGFontGetAscent, frameworkHandle, "CGFontGetAscent")
+	registerFunc(&_cGFontGetCapHeight, frameworkHandle, "CGFontGetCapHeight")
+	registerFunc(&_cGFontGetDescent, frameworkHandle, "CGFontGetDescent")
+	registerFunc(&_cGFontGetFontBBox, frameworkHandle, "CGFontGetFontBBox")
+	registerFunc(&_cGFontGetGlyphAdvances, frameworkHandle, "CGFontGetGlyphAdvances")
+	registerFunc(&_cGFontGetGlyphBBoxes, frameworkHandle, "CGFontGetGlyphBBoxes")
+	registerFunc(&_cGFontGetGlyphWithGlyphName, frameworkHandle, "CGFontGetGlyphWithGlyphName")
+	registerFunc(&_cGFontGetItalicAngle, frameworkHandle, "CGFontGetItalicAngle")
+	registerFunc(&_cGFontGetLeading, frameworkHandle, "CGFontGetLeading")
+	registerFunc(&_cGFontGetNumberOfGlyphs, frameworkHandle, "CGFontGetNumberOfGlyphs")
+	registerFunc(&_cGFontGetStemV, frameworkHandle, "CGFontGetStemV")
+	registerFunc(&_cGFontGetTypeID, frameworkHandle, "CGFontGetTypeID")
+	registerFunc(&_cGFontGetUnitsPerEm, frameworkHandle, "CGFontGetUnitsPerEm")
+	registerFunc(&_cGFontGetXHeight, frameworkHandle, "CGFontGetXHeight")
+	registerFunc(&_cGFontRelease, frameworkHandle, "CGFontRelease")
+	registerFunc(&_cGFontRetain, frameworkHandle, "CGFontRetain")
+	registerFunc(&_cGFunctionCreate, frameworkHandle, "CGFunctionCreate")
+	registerFunc(&_cGFunctionGetTypeID, frameworkHandle, "CGFunctionGetTypeID")
+	registerFunc(&_cGFunctionRelease, frameworkHandle, "CGFunctionRelease")
+	registerFunc(&_cGFunctionRetain, frameworkHandle, "CGFunctionRetain")
+	registerFunc(&_cGGetActiveDisplayList, frameworkHandle, "CGGetActiveDisplayList")
+	registerFunc(&_cGGetDisplayTransferByFormula, frameworkHandle, "CGGetDisplayTransferByFormula")
+	registerFunc(&_cGGetDisplayTransferByTable, frameworkHandle, "CGGetDisplayTransferByTable")
+	registerFunc(&_cGGetDisplaysWithOpenGLDisplayMask, frameworkHandle, "CGGetDisplaysWithOpenGLDisplayMask")
+	registerFunc(&_cGGetDisplaysWithPoint, frameworkHandle, "CGGetDisplaysWithPoint")
+	registerFunc(&_cGGetDisplaysWithRect, frameworkHandle, "CGGetDisplaysWithRect")
+	registerFunc(&_cGGetEventTapList, frameworkHandle, "CGGetEventTapList")
+	registerFunc(&_cGGetLastMouseDelta, frameworkHandle, "CGGetLastMouseDelta")
+	registerFunc(&_cGGetOnlineDisplayList, frameworkHandle, "CGGetOnlineDisplayList")
+	registerFunc(&_cGGradientCreateWithColorComponents, frameworkHandle, "CGGradientCreateWithColorComponents")
+	registerFunc(&_cGGradientCreateWithColors, frameworkHandle, "CGGradientCreateWithColors")
+	registerFunc(&_cGGradientCreateWithContentHeadroom, frameworkHandle, "CGGradientCreateWithContentHeadroom")
+	registerFunc(&_cGGradientGetContentHeadroom, frameworkHandle, "CGGradientGetContentHeadroom")
+	registerFunc(&_cGGradientGetTypeID, frameworkHandle, "CGGradientGetTypeID")
+	registerFunc(&_cGGradientRelease, frameworkHandle, "CGGradientRelease")
+	registerFunc(&_cGGradientRetain, frameworkHandle, "CGGradientRetain")
+	registerFunc(&_cGImageCalculateContentAverageLightLevel, frameworkHandle, "CGImageCalculateContentAverageLightLevel")
+	registerFunc(&_cGImageCalculateContentHeadroom, frameworkHandle, "CGImageCalculateContentHeadroom")
+	registerFunc(&_cGImageContainsImageSpecificToneMappingMetadata, frameworkHandle, "CGImageContainsImageSpecificToneMappingMetadata")
+	registerFunc(&_cGImageCreate, frameworkHandle, "CGImageCreate")
+	registerFunc(&_cGImageCreateCopy, frameworkHandle, "CGImageCreateCopy")
+	registerFunc(&_cGImageCreateCopyWithCalculatedHDRStats, frameworkHandle, "CGImageCreateCopyWithCalculatedHDRStats")
+	registerFunc(&_cGImageCreateCopyWithColorSpace, frameworkHandle, "CGImageCreateCopyWithColorSpace")
+	registerFunc(&_cGImageCreateCopyWithContentAverageLightLevel, frameworkHandle, "CGImageCreateCopyWithContentAverageLightLevel")
+	registerFunc(&_cGImageCreateCopyWithContentHeadroom, frameworkHandle, "CGImageCreateCopyWithContentHeadroom")
+	registerFunc(&_cGImageCreateWithContentHeadroom, frameworkHandle, "CGImageCreateWithContentHeadroom")
+	registerFunc(&_cGImageCreateWithImageInRect, frameworkHandle, "CGImageCreateWithImageInRect")
+	registerFunc(&_cGImageCreateWithJPEGDataProvider, frameworkHandle, "CGImageCreateWithJPEGDataProvider")
+	registerFunc(&_cGImageCreateWithMask, frameworkHandle, "CGImageCreateWithMask")
+	registerFunc(&_cGImageCreateWithMaskingColors, frameworkHandle, "CGImageCreateWithMaskingColors")
+	registerFunc(&_cGImageCreateWithPNGDataProvider, frameworkHandle, "CGImageCreateWithPNGDataProvider")
+	registerFunc(&_cGImageGetAlphaInfo, frameworkHandle, "CGImageGetAlphaInfo")
+	registerFunc(&_cGImageGetBitmapInfo, frameworkHandle, "CGImageGetBitmapInfo")
+	registerFunc(&_cGImageGetBitsPerComponent, frameworkHandle, "CGImageGetBitsPerComponent")
+	registerFunc(&_cGImageGetBitsPerPixel, frameworkHandle, "CGImageGetBitsPerPixel")
+	registerFunc(&_cGImageGetByteOrderInfo, frameworkHandle, "CGImageGetByteOrderInfo")
+	registerFunc(&_cGImageGetBytesPerRow, frameworkHandle, "CGImageGetBytesPerRow")
+	registerFunc(&_cGImageGetColorSpace, frameworkHandle, "CGImageGetColorSpace")
+	registerFunc(&_cGImageGetContentAverageLightLevel, frameworkHandle, "CGImageGetContentAverageLightLevel")
+	registerFunc(&_cGImageGetContentHeadroom, frameworkHandle, "CGImageGetContentHeadroom")
+	registerFunc(&_cGImageGetDataProvider, frameworkHandle, "CGImageGetDataProvider")
+	registerFunc(&_cGImageGetDecode, frameworkHandle, "CGImageGetDecode")
+	registerFunc(&_cGImageGetHeight, frameworkHandle, "CGImageGetHeight")
+	registerFunc(&_cGImageGetPixelFormatInfo, frameworkHandle, "CGImageGetPixelFormatInfo")
+	registerFunc(&_cGImageGetRenderingIntent, frameworkHandle, "CGImageGetRenderingIntent")
+	registerFunc(&_cGImageGetShouldInterpolate, frameworkHandle, "CGImageGetShouldInterpolate")
+	registerFunc(&_cGImageGetTypeID, frameworkHandle, "CGImageGetTypeID")
+	registerFunc(&_cGImageGetUTType, frameworkHandle, "CGImageGetUTType")
+	registerFunc(&_cGImageGetWidth, frameworkHandle, "CGImageGetWidth")
+	registerFunc(&_cGImageIsMask, frameworkHandle, "CGImageIsMask")
+	registerFunc(&_cGImageMaskCreate, frameworkHandle, "CGImageMaskCreate")
+	registerFunc(&_cGImageRelease, frameworkHandle, "CGImageRelease")
+	registerFunc(&_cGImageRetain, frameworkHandle, "CGImageRetain")
+	registerFunc(&_cGImageShouldToneMap, frameworkHandle, "CGImageShouldToneMap")
+	registerFunc(&_cGLayerCreateWithContext, frameworkHandle, "CGLayerCreateWithContext")
+	registerFunc(&_cGLayerGetContext, frameworkHandle, "CGLayerGetContext")
+	registerFunc(&_cGLayerGetSize, frameworkHandle, "CGLayerGetSize")
+	registerFunc(&_cGLayerGetTypeID, frameworkHandle, "CGLayerGetTypeID")
+	registerFunc(&_cGLayerRelease, frameworkHandle, "CGLayerRelease")
+	registerFunc(&_cGLayerRetain, frameworkHandle, "CGLayerRetain")
+	registerFunc(&_cGMainDisplayID, frameworkHandle, "CGMainDisplayID")
+	registerFunc(&_cGOpenGLDisplayMaskToDisplayID, frameworkHandle, "CGOpenGLDisplayMaskToDisplayID")
+	registerFunc(&_cGPDFArrayApplyBlock, frameworkHandle, "CGPDFArrayApplyBlock")
+	registerFunc(&_cGPDFArrayGetArray, frameworkHandle, "CGPDFArrayGetArray")
+	registerFunc(&_cGPDFArrayGetBoolean, frameworkHandle, "CGPDFArrayGetBoolean")
+	registerFunc(&_cGPDFArrayGetCount, frameworkHandle, "CGPDFArrayGetCount")
+	registerFunc(&_cGPDFArrayGetDictionary, frameworkHandle, "CGPDFArrayGetDictionary")
+	registerFunc(&_cGPDFArrayGetInteger, frameworkHandle, "CGPDFArrayGetInteger")
+	registerFunc(&_cGPDFArrayGetName, frameworkHandle, "CGPDFArrayGetName")
+	registerFunc(&_cGPDFArrayGetNull, frameworkHandle, "CGPDFArrayGetNull")
+	registerFunc(&_cGPDFArrayGetNumber, frameworkHandle, "CGPDFArrayGetNumber")
+	registerFunc(&_cGPDFArrayGetObject, frameworkHandle, "CGPDFArrayGetObject")
+	registerFunc(&_cGPDFArrayGetStream, frameworkHandle, "CGPDFArrayGetStream")
+	registerFunc(&_cGPDFArrayGetString, frameworkHandle, "CGPDFArrayGetString")
+	registerFunc(&_cGPDFContentStreamCreateWithPage, frameworkHandle, "CGPDFContentStreamCreateWithPage")
+	registerFunc(&_cGPDFContentStreamCreateWithStream, frameworkHandle, "CGPDFContentStreamCreateWithStream")
+	registerFunc(&_cGPDFContentStreamGetResource, frameworkHandle, "CGPDFContentStreamGetResource")
+	registerFunc(&_cGPDFContentStreamGetStreams, frameworkHandle, "CGPDFContentStreamGetStreams")
+	registerFunc(&_cGPDFContentStreamRelease, frameworkHandle, "CGPDFContentStreamRelease")
+	registerFunc(&_cGPDFContentStreamRetain, frameworkHandle, "CGPDFContentStreamRetain")
+	registerFunc(&_cGPDFContextAddDestinationAtPoint, frameworkHandle, "CGPDFContextAddDestinationAtPoint")
+	registerFunc(&_cGPDFContextAddDocumentMetadata, frameworkHandle, "CGPDFContextAddDocumentMetadata")
+	registerFunc(&_cGPDFContextBeginPage, frameworkHandle, "CGPDFContextBeginPage")
+	registerFunc(&_cGPDFContextBeginTag, frameworkHandle, "CGPDFContextBeginTag")
+	registerFunc(&_cGPDFContextClose, frameworkHandle, "CGPDFContextClose")
+	registerFunc(&_cGPDFContextCreate, frameworkHandle, "CGPDFContextCreate")
+	registerFunc(&_cGPDFContextCreateWithURL, frameworkHandle, "CGPDFContextCreateWithURL")
+	registerFunc(&_cGPDFContextEndPage, frameworkHandle, "CGPDFContextEndPage")
+	registerFunc(&_cGPDFContextEndTag, frameworkHandle, "CGPDFContextEndTag")
+	registerFunc(&_cGPDFContextSetDestinationForRect, frameworkHandle, "CGPDFContextSetDestinationForRect")
+	registerFunc(&_cGPDFContextSetIDTree, frameworkHandle, "CGPDFContextSetIDTree")
+	registerFunc(&_cGPDFContextSetOutline, frameworkHandle, "CGPDFContextSetOutline")
+	registerFunc(&_cGPDFContextSetPageTagStructureTree, frameworkHandle, "CGPDFContextSetPageTagStructureTree")
+	registerFunc(&_cGPDFContextSetParentTree, frameworkHandle, "CGPDFContextSetParentTree")
+	registerFunc(&_cGPDFContextSetURLForRect, frameworkHandle, "CGPDFContextSetURLForRect")
+	registerFunc(&_cGPDFDictionaryApplyBlock, frameworkHandle, "CGPDFDictionaryApplyBlock")
+	registerFunc(&_cGPDFDictionaryApplyFunction, frameworkHandle, "CGPDFDictionaryApplyFunction")
+	registerFunc(&_cGPDFDictionaryGetArray, frameworkHandle, "CGPDFDictionaryGetArray")
+	registerFunc(&_cGPDFDictionaryGetBoolean, frameworkHandle, "CGPDFDictionaryGetBoolean")
+	registerFunc(&_cGPDFDictionaryGetCount, frameworkHandle, "CGPDFDictionaryGetCount")
+	registerFunc(&_cGPDFDictionaryGetDictionary, frameworkHandle, "CGPDFDictionaryGetDictionary")
+	registerFunc(&_cGPDFDictionaryGetInteger, frameworkHandle, "CGPDFDictionaryGetInteger")
+	registerFunc(&_cGPDFDictionaryGetName, frameworkHandle, "CGPDFDictionaryGetName")
+	registerFunc(&_cGPDFDictionaryGetNumber, frameworkHandle, "CGPDFDictionaryGetNumber")
+	registerFunc(&_cGPDFDictionaryGetObject, frameworkHandle, "CGPDFDictionaryGetObject")
+	registerFunc(&_cGPDFDictionaryGetStream, frameworkHandle, "CGPDFDictionaryGetStream")
+	registerFunc(&_cGPDFDictionaryGetString, frameworkHandle, "CGPDFDictionaryGetString")
+	registerFunc(&_cGPDFDocumentAllowsCopying, frameworkHandle, "CGPDFDocumentAllowsCopying")
+	registerFunc(&_cGPDFDocumentAllowsPrinting, frameworkHandle, "CGPDFDocumentAllowsPrinting")
+	registerFunc(&_cGPDFDocumentCreateWithProvider, frameworkHandle, "CGPDFDocumentCreateWithProvider")
+	registerFunc(&_cGPDFDocumentCreateWithURL, frameworkHandle, "CGPDFDocumentCreateWithURL")
+	registerFunc(&_cGPDFDocumentGetAccessPermissions, frameworkHandle, "CGPDFDocumentGetAccessPermissions")
+	registerFunc(&_cGPDFDocumentGetArtBox, frameworkHandle, "CGPDFDocumentGetArtBox")
+	registerFunc(&_cGPDFDocumentGetBleedBox, frameworkHandle, "CGPDFDocumentGetBleedBox")
+	registerFunc(&_cGPDFDocumentGetCatalog, frameworkHandle, "CGPDFDocumentGetCatalog")
+	registerFunc(&_cGPDFDocumentGetCropBox, frameworkHandle, "CGPDFDocumentGetCropBox")
+	registerFunc(&_cGPDFDocumentGetID, frameworkHandle, "CGPDFDocumentGetID")
+	registerFunc(&_cGPDFDocumentGetInfo, frameworkHandle, "CGPDFDocumentGetInfo")
+	registerFunc(&_cGPDFDocumentGetMediaBox, frameworkHandle, "CGPDFDocumentGetMediaBox")
+	registerFunc(&_cGPDFDocumentGetNumberOfPages, frameworkHandle, "CGPDFDocumentGetNumberOfPages")
+	registerFunc(&_cGPDFDocumentGetOutline, frameworkHandle, "CGPDFDocumentGetOutline")
+	registerFunc(&_cGPDFDocumentGetPage, frameworkHandle, "CGPDFDocumentGetPage")
+	registerFunc(&_cGPDFDocumentGetRotationAngle, frameworkHandle, "CGPDFDocumentGetRotationAngle")
+	registerFunc(&_cGPDFDocumentGetTrimBox, frameworkHandle, "CGPDFDocumentGetTrimBox")
+	registerFunc(&_cGPDFDocumentGetTypeID, frameworkHandle, "CGPDFDocumentGetTypeID")
+	registerFunc(&_cGPDFDocumentGetVersion, frameworkHandle, "CGPDFDocumentGetVersion")
+	registerFunc(&_cGPDFDocumentIsEncrypted, frameworkHandle, "CGPDFDocumentIsEncrypted")
+	registerFunc(&_cGPDFDocumentIsUnlocked, frameworkHandle, "CGPDFDocumentIsUnlocked")
+	registerFunc(&_cGPDFDocumentRelease, frameworkHandle, "CGPDFDocumentRelease")
+	registerFunc(&_cGPDFDocumentRetain, frameworkHandle, "CGPDFDocumentRetain")
+	registerFunc(&_cGPDFDocumentUnlockWithPassword, frameworkHandle, "CGPDFDocumentUnlockWithPassword")
+	registerFunc(&_cGPDFObjectGetType, frameworkHandle, "CGPDFObjectGetType")
+	registerFunc(&_cGPDFObjectGetValue, frameworkHandle, "CGPDFObjectGetValue")
+	registerFunc(&_cGPDFOperatorTableCreate, frameworkHandle, "CGPDFOperatorTableCreate")
+	registerFunc(&_cGPDFOperatorTableRelease, frameworkHandle, "CGPDFOperatorTableRelease")
+	registerFunc(&_cGPDFOperatorTableRetain, frameworkHandle, "CGPDFOperatorTableRetain")
+	registerFunc(&_cGPDFOperatorTableSetCallback, frameworkHandle, "CGPDFOperatorTableSetCallback")
+	registerFunc(&_cGPDFPageGetBoxRect, frameworkHandle, "CGPDFPageGetBoxRect")
+	registerFunc(&_cGPDFPageGetDictionary, frameworkHandle, "CGPDFPageGetDictionary")
+	registerFunc(&_cGPDFPageGetDocument, frameworkHandle, "CGPDFPageGetDocument")
+	registerFunc(&_cGPDFPageGetDrawingTransform, frameworkHandle, "CGPDFPageGetDrawingTransform")
+	registerFunc(&_cGPDFPageGetPageNumber, frameworkHandle, "CGPDFPageGetPageNumber")
+	registerFunc(&_cGPDFPageGetRotationAngle, frameworkHandle, "CGPDFPageGetRotationAngle")
+	registerFunc(&_cGPDFPageGetTypeID, frameworkHandle, "CGPDFPageGetTypeID")
+	registerFunc(&_cGPDFPageRelease, frameworkHandle, "CGPDFPageRelease")
+	registerFunc(&_cGPDFPageRetain, frameworkHandle, "CGPDFPageRetain")
+	registerFunc(&_cGPDFScannerCreate, frameworkHandle, "CGPDFScannerCreate")
+	registerFunc(&_cGPDFScannerGetContentStream, frameworkHandle, "CGPDFScannerGetContentStream")
+	registerFunc(&_cGPDFScannerPopArray, frameworkHandle, "CGPDFScannerPopArray")
+	registerFunc(&_cGPDFScannerPopBoolean, frameworkHandle, "CGPDFScannerPopBoolean")
+	registerFunc(&_cGPDFScannerPopDictionary, frameworkHandle, "CGPDFScannerPopDictionary")
+	registerFunc(&_cGPDFScannerPopInteger, frameworkHandle, "CGPDFScannerPopInteger")
+	registerFunc(&_cGPDFScannerPopName, frameworkHandle, "CGPDFScannerPopName")
+	registerFunc(&_cGPDFScannerPopNumber, frameworkHandle, "CGPDFScannerPopNumber")
+	registerFunc(&_cGPDFScannerPopObject, frameworkHandle, "CGPDFScannerPopObject")
+	registerFunc(&_cGPDFScannerPopStream, frameworkHandle, "CGPDFScannerPopStream")
+	registerFunc(&_cGPDFScannerPopString, frameworkHandle, "CGPDFScannerPopString")
+	registerFunc(&_cGPDFScannerRelease, frameworkHandle, "CGPDFScannerRelease")
+	registerFunc(&_cGPDFScannerRetain, frameworkHandle, "CGPDFScannerRetain")
+	registerFunc(&_cGPDFScannerScan, frameworkHandle, "CGPDFScannerScan")
+	registerFunc(&_cGPDFScannerStop, frameworkHandle, "CGPDFScannerStop")
+	registerFunc(&_cGPDFStreamCopyData, frameworkHandle, "CGPDFStreamCopyData")
+	registerFunc(&_cGPDFStreamGetDictionary, frameworkHandle, "CGPDFStreamGetDictionary")
+	registerFunc(&_cGPDFStringCopyDate, frameworkHandle, "CGPDFStringCopyDate")
+	registerFunc(&_cGPDFStringCopyTextString, frameworkHandle, "CGPDFStringCopyTextString")
+	registerFunc(&_cGPDFStringGetBytePtr, frameworkHandle, "CGPDFStringGetBytePtr")
+	registerFunc(&_cGPDFStringGetLength, frameworkHandle, "CGPDFStringGetLength")
+	registerFunc(&_cGPDFTagTypeGetName, frameworkHandle, "CGPDFTagTypeGetName")
+	registerFunc(&_cGPSConverterAbort, frameworkHandle, "CGPSConverterAbort")
+	registerFunc(&_cGPSConverterConvert, frameworkHandle, "CGPSConverterConvert")
+	registerFunc(&_cGPSConverterCreate, frameworkHandle, "CGPSConverterCreate")
+	registerFunc(&_cGPSConverterGetTypeID, frameworkHandle, "CGPSConverterGetTypeID")
+	registerFunc(&_cGPSConverterIsConverting, frameworkHandle, "CGPSConverterIsConverting")
+	registerFunc(&_cGPathAddArc, frameworkHandle, "CGPathAddArc")
+	registerFunc(&_cGPathAddArcToPoint, frameworkHandle, "CGPathAddArcToPoint")
+	registerFunc(&_cGPathAddCurveToPoint, frameworkHandle, "CGPathAddCurveToPoint")
+	registerFunc(&_cGPathAddEllipseInRect, frameworkHandle, "CGPathAddEllipseInRect")
+	registerFunc(&_cGPathAddLineToPoint, frameworkHandle, "CGPathAddLineToPoint")
+	registerFunc(&_cGPathAddLines, frameworkHandle, "CGPathAddLines")
+	registerFunc(&_cGPathAddPath, frameworkHandle, "CGPathAddPath")
+	registerFunc(&_cGPathAddQuadCurveToPoint, frameworkHandle, "CGPathAddQuadCurveToPoint")
+	registerFunc(&_cGPathAddRect, frameworkHandle, "CGPathAddRect")
+	registerFunc(&_cGPathAddRects, frameworkHandle, "CGPathAddRects")
+	registerFunc(&_cGPathAddRelativeArc, frameworkHandle, "CGPathAddRelativeArc")
+	registerFunc(&_cGPathAddRoundedRect, frameworkHandle, "CGPathAddRoundedRect")
+	registerFunc(&_cGPathApply, frameworkHandle, "CGPathApply")
+	registerFunc(&_cGPathApplyWithBlock, frameworkHandle, "CGPathApplyWithBlock")
+	registerFunc(&_cGPathCloseSubpath, frameworkHandle, "CGPathCloseSubpath")
+	registerFunc(&_cGPathContainsPoint, frameworkHandle, "CGPathContainsPoint")
+	registerFunc(&_cGPathCreateCopy, frameworkHandle, "CGPathCreateCopy")
+	registerFunc(&_cGPathCreateCopyByDashingPath, frameworkHandle, "CGPathCreateCopyByDashingPath")
+	registerFunc(&_cGPathCreateCopyByFlattening, frameworkHandle, "CGPathCreateCopyByFlattening")
+	registerFunc(&_cGPathCreateCopyByIntersectingPath, frameworkHandle, "CGPathCreateCopyByIntersectingPath")
+	registerFunc(&_cGPathCreateCopyByNormalizing, frameworkHandle, "CGPathCreateCopyByNormalizing")
+	registerFunc(&_cGPathCreateCopyByStrokingPath, frameworkHandle, "CGPathCreateCopyByStrokingPath")
+	registerFunc(&_cGPathCreateCopyBySubtractingPath, frameworkHandle, "CGPathCreateCopyBySubtractingPath")
+	registerFunc(&_cGPathCreateCopyBySymmetricDifferenceOfPath, frameworkHandle, "CGPathCreateCopyBySymmetricDifferenceOfPath")
+	registerFunc(&_cGPathCreateCopyByTransformingPath, frameworkHandle, "CGPathCreateCopyByTransformingPath")
+	registerFunc(&_cGPathCreateCopyByUnioningPath, frameworkHandle, "CGPathCreateCopyByUnioningPath")
+	registerFunc(&_cGPathCreateCopyOfLineByIntersectingPath, frameworkHandle, "CGPathCreateCopyOfLineByIntersectingPath")
+	registerFunc(&_cGPathCreateCopyOfLineBySubtractingPath, frameworkHandle, "CGPathCreateCopyOfLineBySubtractingPath")
+	registerFunc(&_cGPathCreateMutable, frameworkHandle, "CGPathCreateMutable")
+	registerFunc(&_cGPathCreateMutableCopy, frameworkHandle, "CGPathCreateMutableCopy")
+	registerFunc(&_cGPathCreateMutableCopyByTransformingPath, frameworkHandle, "CGPathCreateMutableCopyByTransformingPath")
+	registerFunc(&_cGPathCreateSeparateComponents, frameworkHandle, "CGPathCreateSeparateComponents")
+	registerFunc(&_cGPathCreateWithEllipseInRect, frameworkHandle, "CGPathCreateWithEllipseInRect")
+	registerFunc(&_cGPathCreateWithRect, frameworkHandle, "CGPathCreateWithRect")
+	registerFunc(&_cGPathCreateWithRoundedRect, frameworkHandle, "CGPathCreateWithRoundedRect")
+	registerFunc(&_cGPathEqualToPath, frameworkHandle, "CGPathEqualToPath")
+	registerFunc(&_cGPathGetBoundingBox, frameworkHandle, "CGPathGetBoundingBox")
+	registerFunc(&_cGPathGetCurrentPoint, frameworkHandle, "CGPathGetCurrentPoint")
+	registerFunc(&_cGPathGetPathBoundingBox, frameworkHandle, "CGPathGetPathBoundingBox")
+	registerFunc(&_cGPathGetTypeID, frameworkHandle, "CGPathGetTypeID")
+	registerFunc(&_cGPathIntersectsPath, frameworkHandle, "CGPathIntersectsPath")
+	registerFunc(&_cGPathIsEmpty, frameworkHandle, "CGPathIsEmpty")
+	registerFunc(&_cGPathIsRect, frameworkHandle, "CGPathIsRect")
+	registerFunc(&_cGPathMoveToPoint, frameworkHandle, "CGPathMoveToPoint")
+	registerFunc(&_cGPathRelease, frameworkHandle, "CGPathRelease")
+	registerFunc(&_cGPathRetain, frameworkHandle, "CGPathRetain")
+	registerFunc(&_cGPatternCreate, frameworkHandle, "CGPatternCreate")
+	registerFunc(&_cGPatternGetTypeID, frameworkHandle, "CGPatternGetTypeID")
+	registerFunc(&_cGPatternRelease, frameworkHandle, "CGPatternRelease")
+	registerFunc(&_cGPatternRetain, frameworkHandle, "CGPatternRetain")
+	registerFunc(&_cGPointApplyAffineTransform, frameworkHandle, "CGPointApplyAffineTransform")
+	registerFunc(&_cGPointCreateDictionaryRepresentation, frameworkHandle, "CGPointCreateDictionaryRepresentation")
+	registerFunc(&_cGPointEqualToPoint, frameworkHandle, "CGPointEqualToPoint")
+	registerFunc(&_cGPointMakeWithDictionaryRepresentation, frameworkHandle, "CGPointMakeWithDictionaryRepresentation")
+	registerFunc(&_cGPostMouseEvent, frameworkHandle, "CGPostMouseEvent")
+	registerFunc(&_cGPostScrollWheelEvent, frameworkHandle, "CGPostScrollWheelEvent")
+	registerFunc(&_cGPreflightListenEventAccess, frameworkHandle, "CGPreflightListenEventAccess")
+	registerFunc(&_cGPreflightPostEventAccess, frameworkHandle, "CGPreflightPostEventAccess")
+	registerFunc(&_cGPreflightScreenCaptureAccess, frameworkHandle, "CGPreflightScreenCaptureAccess")
+	registerFunc(&_cGRectApplyAffineTransform, frameworkHandle, "CGRectApplyAffineTransform")
+	registerFunc(&_cGRectContainsPoint, frameworkHandle, "CGRectContainsPoint")
+	registerFunc(&_cGRectContainsRect, frameworkHandle, "CGRectContainsRect")
+	registerFunc(&_cGRectCreateDictionaryRepresentation, frameworkHandle, "CGRectCreateDictionaryRepresentation")
+	registerFunc(&_cGRectDivide, frameworkHandle, "CGRectDivide")
+	registerFunc(&_cGRectEqualToRect, frameworkHandle, "CGRectEqualToRect")
+	registerFunc(&_cGRectGetHeight, frameworkHandle, "CGRectGetHeight")
+	registerFunc(&_cGRectGetMaxX, frameworkHandle, "CGRectGetMaxX")
+	registerFunc(&_cGRectGetMaxY, frameworkHandle, "CGRectGetMaxY")
+	registerFunc(&_cGRectGetMidX, frameworkHandle, "CGRectGetMidX")
+	registerFunc(&_cGRectGetMidY, frameworkHandle, "CGRectGetMidY")
+	registerFunc(&_cGRectGetMinX, frameworkHandle, "CGRectGetMinX")
+	registerFunc(&_cGRectGetMinY, frameworkHandle, "CGRectGetMinY")
+	registerFunc(&_cGRectGetWidth, frameworkHandle, "CGRectGetWidth")
+	registerFunc(&_cGRectInset, frameworkHandle, "CGRectInset")
+	registerFunc(&_cGRectIntegral, frameworkHandle, "CGRectIntegral")
+	registerFunc(&_cGRectIntersection, frameworkHandle, "CGRectIntersection")
+	registerFunc(&_cGRectIntersectsRect, frameworkHandle, "CGRectIntersectsRect")
+	registerFunc(&_cGRectIsEmpty, frameworkHandle, "CGRectIsEmpty")
+	registerFunc(&_cGRectIsInfinite, frameworkHandle, "CGRectIsInfinite")
+	registerFunc(&_cGRectIsNull, frameworkHandle, "CGRectIsNull")
+	registerFunc(&_cGRectMakeWithDictionaryRepresentation, frameworkHandle, "CGRectMakeWithDictionaryRepresentation")
+	registerFunc(&_cGRectOffset, frameworkHandle, "CGRectOffset")
+	registerFunc(&_cGRectStandardize, frameworkHandle, "CGRectStandardize")
+	registerFunc(&_cGRectUnion, frameworkHandle, "CGRectUnion")
+	registerFunc(&_cGReleaseAllDisplays, frameworkHandle, "CGReleaseAllDisplays")
+	registerFunc(&_cGReleaseDisplayFadeReservation, frameworkHandle, "CGReleaseDisplayFadeReservation")
+	registerFunc(&_cGRenderingBufferLockBytePtr, frameworkHandle, "CGRenderingBufferLockBytePtr")
+	registerFunc(&_cGRenderingBufferProviderCreate, frameworkHandle, "CGRenderingBufferProviderCreate")
+	registerFunc(&_cGRenderingBufferProviderCreateWithCFData, frameworkHandle, "CGRenderingBufferProviderCreateWithCFData")
+	registerFunc(&_cGRenderingBufferProviderGetSize, frameworkHandle, "CGRenderingBufferProviderGetSize")
+	registerFunc(&_cGRenderingBufferProviderGetTypeID, frameworkHandle, "CGRenderingBufferProviderGetTypeID")
+	registerFunc(&_cGRenderingBufferUnlockBytePtr, frameworkHandle, "CGRenderingBufferUnlockBytePtr")
+	registerFunc(&_cGRequestListenEventAccess, frameworkHandle, "CGRequestListenEventAccess")
+	registerFunc(&_cGRequestPostEventAccess, frameworkHandle, "CGRequestPostEventAccess")
+	registerFunc(&_cGRequestScreenCaptureAccess, frameworkHandle, "CGRequestScreenCaptureAccess")
+	registerFunc(&_cGRestorePermanentDisplayConfiguration, frameworkHandle, "CGRestorePermanentDisplayConfiguration")
+	registerFunc(&_cGSessionCopyCurrentDictionary, frameworkHandle, "CGSessionCopyCurrentDictionary")
+	registerFunc(&_cGSetDisplayTransferByByteTable, frameworkHandle, "CGSetDisplayTransferByByteTable")
+	registerFunc(&_cGSetDisplayTransferByFormula, frameworkHandle, "CGSetDisplayTransferByFormula")
+	registerFunc(&_cGSetDisplayTransferByTable, frameworkHandle, "CGSetDisplayTransferByTable")
+	registerFunc(&_cGShadingCreateAxial, frameworkHandle, "CGShadingCreateAxial")
+	registerFunc(&_cGShadingCreateAxialWithContentHeadroom, frameworkHandle, "CGShadingCreateAxialWithContentHeadroom")
+	registerFunc(&_cGShadingCreateRadial, frameworkHandle, "CGShadingCreateRadial")
+	registerFunc(&_cGShadingCreateRadialWithContentHeadroom, frameworkHandle, "CGShadingCreateRadialWithContentHeadroom")
+	registerFunc(&_cGShadingGetContentHeadroom, frameworkHandle, "CGShadingGetContentHeadroom")
+	registerFunc(&_cGShadingGetTypeID, frameworkHandle, "CGShadingGetTypeID")
+	registerFunc(&_cGShadingRelease, frameworkHandle, "CGShadingRelease")
+	registerFunc(&_cGShadingRetain, frameworkHandle, "CGShadingRetain")
+	registerFunc(&_cGShieldingWindowID, frameworkHandle, "CGShieldingWindowID")
+	registerFunc(&_cGShieldingWindowLevel, frameworkHandle, "CGShieldingWindowLevel")
+	registerFunc(&_cGSizeApplyAffineTransform, frameworkHandle, "CGSizeApplyAffineTransform")
+	registerFunc(&_cGSizeCreateDictionaryRepresentation, frameworkHandle, "CGSizeCreateDictionaryRepresentation")
+	registerFunc(&_cGSizeEqualToSize, frameworkHandle, "CGSizeEqualToSize")
+	registerFunc(&_cGSizeMakeWithDictionaryRepresentation, frameworkHandle, "CGSizeMakeWithDictionaryRepresentation")
+	registerFunc(&_cGWarpMouseCursorPosition, frameworkHandle, "CGWarpMouseCursorPosition")
+	registerFunc(&_cGWindowLevelForKey, frameworkHandle, "CGWindowLevelForKey")
+	registerFunc(&_cGWindowListCopyWindowInfo, frameworkHandle, "CGWindowListCopyWindowInfo")
+	registerFunc(&_cGWindowListCreate, frameworkHandle, "CGWindowListCreate")
+	registerFunc(&_cGWindowListCreateDescriptionFromArray, frameworkHandle, "CGWindowListCreateDescriptionFromArray")
+	registerFunc(&_cGWindowListCreateImage, frameworkHandle, "CGWindowListCreateImage")
+	registerFunc(&_cGWindowListCreateImageFromArray, frameworkHandle, "CGWindowListCreateImageFromArray")
+	registerFunc(&_cGWindowServerCreateServerPort, frameworkHandle, "CGWindowServerCreateServerPort")
+}

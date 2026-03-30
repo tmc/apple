@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,13 +45,11 @@ func (nc NSMutableParagraphStyleClass) Alloc() NSMutableParagraphStyle {
 // attribute.
 //
 // # Overview
-// 
+//
 // The [NSMutableParagraphStyle] class adds methods to its superclass,
 // [NSParagraphStyle], for changing the values of the subattributes in a
 // paragraph style attribute. For more information, see [NSParagraphStyle] and
 // [NSAttributedString].
-//
-// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 //
 // # Specifying tab information
 //
@@ -58,6 +57,8 @@ func (nc NSMutableParagraphStyleClass) Alloc() NSMutableParagraphStyle {
 //   - [NSMutableParagraphStyle.RemoveTabStop]: Removes the first text tab with a location and type equal to the specified tab stop.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMutableParagraphStyle
+//
+// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 type NSMutableParagraphStyle struct {
 	NSParagraphStyle
 }
@@ -69,6 +70,7 @@ type NSMutableParagraphStyle struct {
 func NSMutableParagraphStyleFromID(id objc.ID) NSMutableParagraphStyle {
 	return NSMutableParagraphStyle{NSParagraphStyle: NSParagraphStyleFromID(id)}
 }
+
 // NOTE: NSMutableParagraphStyle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,6 +118,7 @@ func NewNSMutableParagraphStyle() NSMutableParagraphStyle {
 func (m NSMutableParagraphStyle) AddTabStop(anObject INSTextTab) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addTabStop:"), anObject)
 }
+
 // Removes the first text tab with a location and type equal to the specified
 // tab stop.
 //
@@ -123,4 +126,3 @@ func (m NSMutableParagraphStyle) AddTabStop(anObject INSTextTab) {
 func (m NSMutableParagraphStyle) RemoveTabStop(anObject INSTextTab) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTabStop:"), anObject)
 }
-

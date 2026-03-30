@@ -3,8 +3,9 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,10 +43,10 @@ func (ec EspressoCustomPassClass) Alloc() EspressoCustomPass {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoCustomPass.RunOnNetwork]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoCustomPass
 type EspressoCustomPass struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type EspressoCustomPass struct {
 func EspressoCustomPassFromID(id objc.ID) EspressoCustomPass {
 	return EspressoCustomPass{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoCustomPass implements IEspressoCustomPass.
 var _ IEspressoCustomPass = EspressoCustomPass{}
 
@@ -92,10 +94,8 @@ func NewEspressoCustomPass() EspressoCustomPass {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoCustomPass/runOnNetwork:
 func (e EspressoCustomPass) RunOnNetwork(network unsafe.Pointer) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("runOnNetwork:"), network)
 	return rv
 }
-

@@ -50,6 +50,7 @@ type CIAccordionFoldTransition interface {
 type CIAccordionFoldTransitionObject struct {
 	objectivec.Object
 }
+
 func (o CIAccordionFoldTransitionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -68,21 +69,24 @@ func CIAccordionFoldTransitionObjectFromID(id objc.ID) CIAccordionFoldTransition
 func (o CIAccordionFoldTransitionObject) BottomHeight() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("bottomHeight"))
 	return rv
-	}
+}
+
 // A value that specifies the intensity of the shadow in the transtion.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/foldShadowAmount
 func (o CIAccordionFoldTransitionObject) FoldShadowAmount() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("foldShadowAmount"))
 	return rv
-	}
+}
+
 // The number of folds used in the transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/numberOfFolds
 func (o CIAccordionFoldTransitionObject) NumberOfFolds() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("numberOfFolds"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -90,50 +94,74 @@ func (o CIAccordionFoldTransitionObject) NumberOfFolds() float32 {
 func (o CIAccordionFoldTransitionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIAccordionFoldTransitionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The target image for a transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIAccordionFoldTransitionObject) TargetImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The parametric time of the transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIAccordionFoldTransitionObject) Time() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
-	}
+}
 
+// The height of the accordion-fold part of the transition.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/bottomHeight
 func (o CIAccordionFoldTransitionObject) SetBottomHeight(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBottomHeight:"), value)
 }
 
+// A value that specifies the intensity of the shadow in the transtion.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/foldShadowAmount
 func (o CIAccordionFoldTransitionObject) SetFoldShadowAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFoldShadowAmount:"), value)
 }
 
+// The number of folds used in the transition.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/numberOfFolds
 func (o CIAccordionFoldTransitionObject) SetNumberOfFolds(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNumberOfFolds:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIAccordionFoldTransitionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The target image for a transition.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIAccordionFoldTransitionObject) SetTargetImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTargetImage:"), value)
 }
 
+// The parametric time of the transition.
+//
+// # Discussion
+//
+// This value drives the transition from start, at time 0, to end, at time 1.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIAccordionFoldTransitionObject) SetTime(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTime:"), value)
 }
-

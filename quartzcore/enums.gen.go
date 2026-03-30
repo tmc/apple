@@ -20,6 +20,8 @@ const (
 	KCALayerMinXMargin CAAutoresizingMask = 1
 	// KCALayerMinYMargin: The bottom margin between the receiver and its superview is flexible.
 	KCALayerMinYMargin CAAutoresizingMask = 8
+	// KCALayerNotSizable: The receiver cannot be resized.
+	KCALayerNotSizable CAAutoresizingMask = 0
 	// KCALayerWidthSizable: The receiver’s width is flexible.
 	KCALayerWidthSizable CAAutoresizingMask = 2
 )
@@ -36,6 +38,8 @@ func (e CAAutoresizingMask) String() string {
 		return "KCALayerMinXMargin"
 	case KCALayerMinYMargin:
 		return "KCALayerMinYMargin"
+	case KCALayerNotSizable:
+		return "KCALayerNotSizable"
 	case KCALayerWidthSizable:
 		return "KCALayerWidthSizable"
 	default:
@@ -141,4 +145,3 @@ func (e CAEdgeAntialiasingMask) String() string {
 		return fmt.Sprintf("CAEdgeAntialiasingMask(%d)", e)
 	}
 }
-

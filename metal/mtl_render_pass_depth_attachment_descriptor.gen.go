@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -65,6 +66,7 @@ type MTLRenderPassDepthAttachmentDescriptor struct {
 func MTLRenderPassDepthAttachmentDescriptorFromID(id objc.ID) MTLRenderPassDepthAttachmentDescriptor {
 	return MTLRenderPassDepthAttachmentDescriptor{MTLRenderPassAttachmentDescriptor: MTLRenderPassAttachmentDescriptorFromID(id)}
 }
+
 // NOTE: MTLRenderPassDepthAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,12 +121,12 @@ func NewMTLRenderPassDepthAttachmentDescriptor() MTLRenderPassDepthAttachmentDes
 // The depth to use when clearing the depth attachment.
 //
 // # Discussion
-// 
-// If the [LoadAction] property of the attachment is set to [LoadActionClear],
-// then at the start of a render pass, the GPU fills the contents of the
-// attachment with the value stored in the [ClearDepth] property. Otherwise,
-// the GPU ignores [ClearDepth].
-// 
+//
+// If the [LoadAction] property of the attachment is set to
+// [MTLLoadActionClear], then at the start of a render pass, the GPU fills the
+// contents of the attachment with the value stored in the [ClearDepth]
+// property. Otherwise, the GPU ignores [ClearDepth].
+//
 // The default value is `1.0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassDepthAttachmentDescriptor/clearDepth
@@ -135,11 +137,12 @@ func (r MTLRenderPassDepthAttachmentDescriptor) ClearDepth() float64 {
 func (r MTLRenderPassDepthAttachmentDescriptor) SetClearDepth(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setClearDepth:"), value)
 }
+
 // The filter used for an MSAA depth resolve operation.
 //
 // # Discussion
-// 
-// The default value is [MultisampleDepthResolveFilterSample0].
+//
+// The default value is [MTLMultisampleDepthResolveFilterSample0].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassDepthAttachmentDescriptor/depthResolveFilter
 func (r MTLRenderPassDepthAttachmentDescriptor) DepthResolveFilter() MTLMultisampleDepthResolveFilter {
@@ -149,4 +152,3 @@ func (r MTLRenderPassDepthAttachmentDescriptor) DepthResolveFilter() MTLMultisam
 func (r MTLRenderPassDepthAttachmentDescriptor) SetDepthResolveFilter(value MTLMultisampleDepthResolveFilter) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDepthResolveFilter:"), value)
 }
-

@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMetadataBodyObjectClass) Alloc() AVMetadataBodyObject {
 // An abstract class that defines the interface for a metadata body object.
 //
 // # Overview
-// 
+//
 // A metadata body object represents a single detected body in a picture.
 // It’s the base object used to represent bodies, for example
 // [AVMetadataHumanBodyObject], [AVMetadataDogBodyObject], and
@@ -64,6 +65,7 @@ type AVMetadataBodyObject struct {
 func AVMetadataBodyObjectFromID(id objc.ID) AVMetadataBodyObject {
 	return AVMetadataBodyObject{AVMetadataObject: AVMetadataObjectFromID(id)}
 }
+
 // NOTE: AVMetadataBodyObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,4 +112,3 @@ func (m AVMetadataBodyObject) BodyID() int {
 	rv := objc.Send[int](m.ID, objc.Sel("bodyID"))
 	return rv
 }
-

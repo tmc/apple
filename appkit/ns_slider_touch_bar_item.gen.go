@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -87,6 +88,7 @@ type NSSliderTouchBarItem struct {
 func NSSliderTouchBarItemFromID(id objc.ID) NSSliderTouchBarItem {
 	return NSSliderTouchBarItem{NSTouchBarItem: NSTouchBarItemFromID(id)}
 }
+
 // NOTE: NSSliderTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -202,7 +204,7 @@ func NewSliderTouchBarItemWithCoder(coder foundation.INSCoder) NSSliderTouchBarI
 // Creates a new item with the specified identifier.
 //
 // # Discussion
-// 
+//
 // The designated initializer. The identifier must be globally unique for
 // every item, except for space items.
 //
@@ -216,7 +218,7 @@ func NewSliderTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) NS
 // The slider displayed by the bar item.
 //
 // # Discussion
-// 
+//
 // The slider is automatically created by the item, but you can provide a
 // custom subclass to this property to customize behavior.
 //
@@ -228,10 +230,11 @@ func (s NSSliderTouchBarItem) Slider() INSSlider {
 func (s NSSliderTouchBarItem) SetSlider(value INSSlider) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSlider:"), value)
 }
+
 // The text displayed alongside the slider.
 //
 // # Discussion
-// 
+//
 // Set this property to `nil` to hide the label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderTouchBarItem/label
@@ -242,6 +245,7 @@ func (s NSSliderTouchBarItem) Label() string {
 func (s NSSliderTouchBarItem) SetLabel(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // The accessory that appears at the end of the slider with the minimum value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderTouchBarItem/minimumValueAccessory
@@ -252,6 +256,7 @@ func (s NSSliderTouchBarItem) MinimumValueAccessory() INSSliderAccessory {
 func (s NSSliderTouchBarItem) SetMinimumValueAccessory(value INSSliderAccessory) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinimumValueAccessory:"), value)
 }
+
 // The accessory that appears at the end of the slider with the maximum value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderTouchBarItem/maximumValueAccessory
@@ -262,19 +267,20 @@ func (s NSSliderTouchBarItem) MaximumValueAccessory() INSSliderAccessory {
 func (s NSSliderTouchBarItem) SetMaximumValueAccessory(value INSSliderAccessory) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaximumValueAccessory:"), value)
 }
+
 // The width of the value accessories that appear at either end of the slider.
 //
 // # Discussion
-// 
+//
 // You can provide your own custom width, or use the system-provided [default]
 // or [wide] options.
-// 
+//
 // The default value is [default].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSliderTouchBarItem/valueAccessoryWidth
 //
 // [default]: https://developer.apple.com/documentation/AppKit/NSSliderAccessory/Width/default
 // [wide]: https://developer.apple.com/documentation/AppKit/NSSliderAccessory/Width/wide
-//
-// See: https://developer.apple.com/documentation/AppKit/NSSliderTouchBarItem/valueAccessoryWidth
 func (s NSSliderTouchBarItem) ValueAccessoryWidth() NSSliderAccessoryWidth {
 	rv := objc.Send[NSSliderAccessoryWidth](s.ID, objc.Sel("valueAccessoryWidth"))
 	return NSSliderAccessoryWidth(rv)
@@ -282,6 +288,7 @@ func (s NSSliderTouchBarItem) ValueAccessoryWidth() NSSliderAccessoryWidth {
 func (s NSSliderTouchBarItem) SetValueAccessoryWidth(value NSSliderAccessoryWidth) {
 	objc.Send[struct{}](s.ID, objc.Sel("setValueAccessoryWidth:"), value)
 }
+
 // The minimum width of the slider’s track.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderTouchBarItem/minimumSliderWidth
@@ -292,6 +299,7 @@ func (s NSSliderTouchBarItem) MinimumSliderWidth() float64 {
 func (s NSSliderTouchBarItem) SetMinimumSliderWidth(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinimumSliderWidth:"), value)
 }
+
 // The maximum width of the slider’s track.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderTouchBarItem/maximumSliderWidth
@@ -302,6 +310,7 @@ func (s NSSliderTouchBarItem) MaximumSliderWidth() float64 {
 func (s NSSliderTouchBarItem) SetMaximumSliderWidth(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaximumSliderWidth:"), value)
 }
+
 // The double value of the slider.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderTouchBarItem/doubleValue
@@ -312,6 +321,7 @@ func (s NSSliderTouchBarItem) DoubleValue() float64 {
 func (s NSSliderTouchBarItem) SetDoubleValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDoubleValue:"), value)
 }
+
 // An object that is notified when a user interacts with the slider or either
 // of the accessories.
 //
@@ -323,6 +333,7 @@ func (s NSSliderTouchBarItem) Target() objectivec.IObject {
 func (s NSSliderTouchBarItem) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTarget:"), value)
 }
+
 // The selector on the target object that is invoked when a user interacts
 // with the slider or either of the accessories.
 //
@@ -334,4 +345,3 @@ func (s NSSliderTouchBarItem) Action() objc.SEL {
 func (s NSSliderTouchBarItem) SetAction(value objc.SEL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAction:"), value)
 }
-

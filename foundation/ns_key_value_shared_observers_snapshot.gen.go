@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type NSKeyValueSharedObserversSnapshot struct {
 func NSKeyValueSharedObserversSnapshotFromID(id objc.ID) NSKeyValueSharedObserversSnapshot {
 	return NSKeyValueSharedObserversSnapshot{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSKeyValueSharedObserversSnapshot adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewNSKeyValueSharedObserversSnapshot() NSKeyValueSharedObserversSnapshot {
 	rv := objc.Send[NSKeyValueSharedObserversSnapshot](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

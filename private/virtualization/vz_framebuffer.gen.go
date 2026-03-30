@@ -5,6 +5,7 @@ package virtualization
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,10 +43,10 @@ func (vc VZFramebufferClass) Alloc() VZFramebuffer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZFramebuffer._takeScreenshotWithCompletionHandlerImageConversionBlock]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZFramebuffer
 type VZFramebuffer struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type VZFramebuffer struct {
 func VZFramebufferFromID(id objc.ID) VZFramebuffer {
 	return VZFramebuffer{objectivec.Object{ID: id}}
 }
+
 // Ensure VZFramebuffer implements IVZFramebuffer.
 var _ IVZFramebuffer = VZFramebuffer{}
 
@@ -92,10 +94,9 @@ func NewVZFramebuffer() VZFramebuffer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZFramebuffer/_takeScreenshotWithCompletionHandler:imageConversionBlock:
 func (v VZFramebuffer) _takeScreenshotWithCompletionHandlerImageConversionBlock(handler VoidHandler, block VoidHandler) {
-_block0, _ := NewVoidBlock(handler)
+	_block0, _ := NewVoidBlock(handler)
 	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("_takeScreenshotWithCompletionHandler:imageConversionBlock:"), _block0, _block1)
 }
@@ -119,4 +120,3 @@ func (v VZFramebuffer) _takeScreenshotWithCompletionHandlerImageConversionBlockS
 		return ctx.Err()
 	}
 }
-

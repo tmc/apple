@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NEFlowMetaDataClass) Alloc() NEFlowMetaData {
 // Additional information about data flowing through a per-app VPN provider.
 //
 // # Overview
-// 
+//
 // This metadata is only present for data flowing through per-app VPN
 // providers, that is, app proxy providers and packet tunnel providers in
 // per-app VPN mode, as indicated by the [NEFlowMetaData.RoutingMethod] property.
@@ -71,6 +72,7 @@ type NEFlowMetaData struct {
 func NEFlowMetaDataFromID(id objc.ID) NEFlowMetaData {
 	return NEFlowMetaData{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEFlowMetaData adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,7 +139,7 @@ func (f NEFlowMetaData) EncodeWithCoder(coder foundation.INSCoder) {
 // application.
 //
 // # Discussion
-// 
+//
 // The property contains the Code Directory Hash for the application.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFlowMetaData/sourceAppUniqueIdentifier
@@ -145,10 +147,11 @@ func (f NEFlowMetaData) SourceAppUniqueIdentifier() foundation.INSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sourceAppUniqueIdentifier"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // A string that contains the signing identifier of the source application.
 //
 // # Discussion
-// 
+//
 // For all apps that are signed in the standard way using Xcode, this value is
 // identical to the app’s bundle identifier.
 //
@@ -157,6 +160,7 @@ func (f NEFlowMetaData) SourceAppSigningIdentifier() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sourceAppSigningIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The audit token of the source application of the flow.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFlowMetaData/sourceAppAuditToken
@@ -164,6 +168,7 @@ func (f NEFlowMetaData) SourceAppAuditToken() foundation.INSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sourceAppAuditToken"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // The identifier of the content filter flow corresponding to this flow.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFlowMetaData/filterFlowIdentifier
@@ -171,6 +176,7 @@ func (f NEFlowMetaData) FilterFlowIdentifier() foundation.NSUUID {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("filterFlowIdentifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
+
 // The method by which network traffic is routed to the tunnel.
 //
 // See: https://developer.apple.com/documentation/networkextension/netunnelprovider/routingmethod
@@ -181,4 +187,3 @@ func (f NEFlowMetaData) RoutingMethod() NETunnelProviderRoutingMethod {
 func (f NEFlowMetaData) SetRoutingMethod(value NETunnelProviderRoutingMethod) {
 	objc.Send[struct{}](f.ID, objc.Sel("setRoutingMethod:"), value)
 }
-

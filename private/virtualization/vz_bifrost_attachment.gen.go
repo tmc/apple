@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZBifrostAttachmentClass) Alloc() VZBifrostAttachment {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZBifrostAttachment._attachment]
@@ -52,6 +52,7 @@ func (vc VZBifrostAttachmentClass) Alloc() VZBifrostAttachment {
 //   - [VZBifrostAttachment.Description]
 //   - [VZBifrostAttachment.Hash]
 //   - [VZBifrostAttachment.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment
 type VZBifrostAttachment struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZBifrostAttachment struct {
 func VZBifrostAttachmentFromID(id objc.ID) VZBifrostAttachment {
 	return VZBifrostAttachment{objectivec.Object{ID: id}}
 }
+
 // Ensure VZBifrostAttachment implements IVZBifrostAttachment.
 var _ IVZBifrostAttachment = VZBifrostAttachment{}
 
@@ -115,7 +117,7 @@ func (v VZBifrostAttachment) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/encodeWithEncoder:
 func (v VZBifrostAttachment) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
@@ -127,24 +129,27 @@ func (v VZBifrostAttachment) _attachment() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_attachment"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/debugDescription
 func (v VZBifrostAttachment) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/description
 func (v VZBifrostAttachment) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/hash
 func (v VZBifrostAttachment) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZBifrostAttachment/superclass
 func (v VZBifrostAttachment) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

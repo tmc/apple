@@ -3,11 +3,12 @@
 package avfaudio
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAudioUnitDSPGraph] class.
@@ -43,7 +44,6 @@ func (ac AVAudioUnitDSPGraphClass) Alloc() AVAudioUnitDSPGraph {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioUnitDSPGraph.AuProcessingStripURL]
@@ -51,6 +51,7 @@ func (ac AVAudioUnitDSPGraphClass) Alloc() AVAudioUnitDSPGraph {
 //   - [AVAudioUnitDSPGraph.LoadAudioDSPManager]
 //   - [AVAudioUnitDSPGraph.LoadAudioUnitProcessingStripAtURLError]
 //   - [AVAudioUnitDSPGraph.LoadDSPGraphAtURLError]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitDSPGraph
 type AVAudioUnitDSPGraph struct {
 	AVAudioUnit
@@ -60,6 +61,7 @@ type AVAudioUnitDSPGraph struct {
 func AVAudioUnitDSPGraphFromID(id objc.ID) AVAudioUnitDSPGraph {
 	return AVAudioUnitDSPGraph{AVAudioUnit: AVAudioUnitFromID(id)}
 }
+
 // Ensure AVAudioUnitDSPGraph implements IAVAudioUnitDSPGraph.
 var _ IAVAudioUnitDSPGraph = AVAudioUnitDSPGraph{}
 
@@ -105,7 +107,6 @@ func NewAVAudioUnitDSPGraph() AVAudioUnitDSPGraph {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioUnitDSPGraphWithImpl(impl unsafe.Pointer) AVAudioUnitDSPGraph {
 	instance := getAVAudioUnitDSPGraphClass().Alloc()
@@ -118,7 +119,7 @@ func (a AVAudioUnitDSPGraph) LoadAudioDSPManager() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("loadAudioDSPManager"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitDSPGraph/loadAudioUnitProcessingStripAtURL:error:
 func (a AVAudioUnitDSPGraph) LoadAudioUnitProcessingStripAtURLError(url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -133,7 +134,7 @@ func (a AVAudioUnitDSPGraph) LoadAudioUnitProcessingStripAtURLError(url foundati
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitDSPGraph/loadDSPGraphAtURL:error:
 func (a AVAudioUnitDSPGraph) LoadDSPGraphAtURLError(url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -154,9 +155,9 @@ func (a AVAudioUnitDSPGraph) AuProcessingStripURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("auProcessingStripURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitDSPGraph/dspGraphURL
 func (a AVAudioUnitDSPGraph) DspGraphURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dspGraphURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

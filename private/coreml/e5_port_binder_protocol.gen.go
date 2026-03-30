@@ -23,6 +23,7 @@ type MLE5PortBinder interface {
 type MLE5PortBinderObject struct {
 	objectivec.Object
 }
+
 func (o MLE5PortBinderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,14 +40,14 @@ func MLE5PortBinderObjectFromID(id objc.ID) MLE5PortBinderObject {
 func (o MLE5PortBinderObject) PixelBufferPool() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("pixelBufferPool"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5PortBinder/reset
 func (o MLE5PortBinderObject) Reset() {
 	objc.Send[struct{}](o.ID, objc.Sel("reset"))
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5PortBinder/setPixelBufferPool:
 func (o MLE5PortBinderObject) SetPixelBufferPool(pool objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPixelBufferPool:"), pool)
-	}
-
+}

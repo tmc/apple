@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSTableHeaderCell] class.
@@ -46,14 +47,14 @@ func (nc NSTableHeaderCellClass) Alloc() NSTableHeaderCell {
 // headers.
 //
 // # Overview
-// 
+//
 // Subclasses of the [NSTableHeaderCell] class can override the
 // [DrawInteriorWithFrameInView], [EditWithFrameInViewEditorDelegateEvent],
 // and [HighlightWithFrameInView] methods to change the way headers appear.
 // This specific subclass is responsible for drawing the sort indicators. See
 // the [NSCell] class specification for information on overriding these
 // methods.
-// 
+//
 // See the [NSTableView] and [NSTableHeaderCell] for more information.
 //
 // # Drawing Sorting Indicators
@@ -73,6 +74,7 @@ type NSTableHeaderCell struct {
 func NSTableHeaderCellFromID(id objc.ID) NSTableHeaderCell {
 	return NSTableHeaderCell{NSTextFieldCell: NSTextFieldCellFromID(id)}
 }
+
 // NOTE: NSTableHeaderCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,12 +122,12 @@ func NewNSTableHeaderCell() NSTableHeaderCell {
 // image: The image to use for the cell. If this parameter is `nil`, no image is set.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -141,7 +143,7 @@ func NewTableHeaderCellImageCell(image INSImage) NSTableHeaderCell {
 // string: The string that the text field cell displays.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(textCell:)
@@ -156,7 +158,7 @@ func NewTableHeaderCellTextCell(string_ string) NSTableHeaderCell {
 // coder: An unarchiver object.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(coder:)
@@ -178,19 +180,20 @@ func NewTableHeaderCellWithCoder(coder foundation.INSCoder) NSTableHeaderCell {
 // priority: If `priority` is 0, this is the primary sort indicator.
 //
 // # Discussion
-// 
+//
 // Override this method to customize the sorting user interface.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableHeaderCell/drawSortIndicator(withFrame:in:ascending:priority:)
 func (t NSTableHeaderCell) DrawSortIndicatorWithFrameInViewAscendingPriority(cellFrame corefoundation.CGRect, controlView INSView, ascending bool, priority int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawSortIndicatorWithFrame:inView:ascending:priority:"), cellFrame, controlView, ascending, priority)
 }
+
 // Returns the location to display the sorting indicator given `theRect`.
 //
 // rect: A cell rectangle.
 //
 // # Return Value
-// 
+//
 // The rectangle within `theRect` that should contain the sorting indicator.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableHeaderCell/sortIndicatorRect(forBounds:)
@@ -198,4 +201,3 @@ func (t NSTableHeaderCell) SortIndicatorRectForBounds(rect corefoundation.CGRect
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("sortIndicatorRectForBounds:"), rect)
 	return corefoundation.CGRect(rv)
 }
-

@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TrackingID struct {
 func TrackingIDFromID(id objc.ID) TrackingID {
 	return TrackingID{objectivec.Object{ID: id}}
 }
+
 // Ensure TrackingID implements ITrackingID.
 var _ ITrackingID = TrackingID{}
 
@@ -78,4 +80,3 @@ func NewTrackingID() TrackingID {
 	rv := objc.Send[TrackingID](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

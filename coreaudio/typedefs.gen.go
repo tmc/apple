@@ -4,6 +4,7 @@ package coreaudio
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -74,4 +75,3 @@ type AudioStreamID = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioStreamPropertyListenerProc
 type AudioStreamPropertyListenerProc = func(uint, uint, uint, unsafe.Pointer) int
-

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVCaptureAudioFileOutputClass) Alloc() AVCaptureAudioFileOutput {
 // A capture output that records audio and saves the recorded audio to a file.
 //
 // # Overview
-// 
+//
 // [AVCaptureAudioFileOutput] implements the complete file recording interface
 // declared by [AVCaptureFileOutput] for writing media data to audio files. In
 // addition, you can configure options specific to the audio file formats,
@@ -76,6 +77,7 @@ type AVCaptureAudioFileOutput struct {
 func AVCaptureAudioFileOutputFromID(id objc.ID) AVCaptureAudioFileOutput {
 	return AVCaptureAudioFileOutput{AVCaptureFileOutput: AVCaptureFileOutputFromID(id)}
 }
+
 // NOTE: AVCaptureAudioFileOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,29 +137,29 @@ func NewAVCaptureAudioFileOutput() AVCaptureAudioFileOutput {
 // finished.
 //
 // outputFileURL: The URL of the output file.
-// 
+//
 // This method throws an [InvalidArgumentException] if the URL is not a valid
 // file URL.
-// 
+//
 // If a file at the given URL already exists when capturing starts, recording
 // to the new file will fail.
 //
 // fileType: A UTI indicating the format of the file to be written.
-// 
+//
 // UTIs for common audio file types are declared in `AVMediaFormat.H()`.
 //
 // delegate: An object conforming to the [AVCaptureFileOutputRecordingDelegate]
 // protocol.
-// 
+//
 // You must specify a delegate to be notified when recording is finished.
 //
 // # Discussion
-// 
+//
 // You do not need not to call [StopRecording] before calling this method
 // while another recording is in progress. If this method is invoked while an
 // existing output file was already being recorded, no media samples will be
 // discarded between the old file and the new file.
-// 
+//
 // When recording is stopped—by calling `stopRecording`, by changing files
 // using this method, or because of an error—the remaining data that needs
 // to be included to the file will be written in the background. Therefore,
@@ -167,7 +169,7 @@ func NewAVCaptureAudioFileOutput() AVCaptureAudioFileOutput {
 // method. The recording delegate can also optionally implement methods that
 // inform it when data starts being written, when recording is paused and
 // resumed, and when recording is about to be finished.
-// 
+//
 // In macOS, if this method is called within the
 // [CaptureOutputDidOutputSampleBufferFromConnection] delegate method, the
 // first samples written to the new file are guaranteed to be those contained
@@ -182,7 +184,7 @@ func (c AVCaptureAudioFileOutput) StartRecordingToOutputFileURLOutputFileTypeRec
 // [AVCaptureAudioFileOutput] can write.
 //
 // # Return Value
-// 
+//
 // An array containing UTIs identifying the file types
 // [AVCaptureAudioFileOutput] can write.
 //
@@ -196,7 +198,7 @@ func (_AVCaptureAudioFileOutputClass AVCaptureAudioFileOutputClass) AvailableOut
 // receiver.
 //
 // # Discussion
-// 
+//
 // The value of this property is a dictionary containing values for audio
 // settings keys defined in `AVAudioSettings.H()`. If you set the value of
 // this property to `nil`, the output vends samples in their device native
@@ -210,10 +212,11 @@ func (c AVCaptureAudioFileOutput) AudioSettings() foundation.INSDictionary {
 func (c AVCaptureAudioFileOutput) SetAudioSettings(value foundation.INSDictionary) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAudioSettings:"), value)
 }
+
 // A collection of metadata to be written to the receiver’s output files.
 //
 // # Discussion
-// 
+//
 // The value of this property is an array of [AVMetadataItem] objects
 // representing the collection of top-level metadata to be written in each
 // output file. Only ID3 v2.2, v2.3, or v2.4 style metadata items are
@@ -229,4 +232,3 @@ func (c AVCaptureAudioFileOutput) Metadata() []AVMetadataItem {
 func (c AVCaptureAudioFileOutput) SetMetadata(value []AVMetadataItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMetadata:"), objectivec.IObjectSliceToNSArray(value))
 }
-

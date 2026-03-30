@@ -4,8 +4,9 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (ec ETTaskClassifierClass) Alloc() ETTaskClassifier {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETTaskClassifier.Class_names]
 //   - [ETTaskClassifier.SetClass_names]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETTaskClassifier
 type ETTaskClassifier struct {
 	ETTask
@@ -56,6 +57,7 @@ type ETTaskClassifier struct {
 func ETTaskClassifierFromID(id objc.ID) ETTaskClassifier {
 	return ETTaskClassifier{ETTask: ETTaskFromID(id)}
 }
+
 // Ensure ETTaskClassifier implements IETTaskClassifier.
 var _ IETTaskClassifier = ETTaskClassifier{}
 
@@ -95,7 +97,6 @@ func NewETTaskClassifier() ETTaskClassifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETTaskClassifier/initWithModelDef:optimizerDef:extractor:
 func NewETTaskClassifierWithModelDefOptimizerDefExtractor(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject) ETTaskClassifier {
 	instance := getETTaskClassifierClass().Alloc()
@@ -103,7 +104,6 @@ func NewETTaskClassifierWithModelDefOptimizerDefExtractor(def objectivec.IObject
 	return ETTaskClassifierFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETTaskClassifier/initWithModelDef:optimizerDef:extractor:needWeightsInitialization:
 func NewETTaskClassifierWithModelDefOptimizerDefExtractorNeedWeightsInitialization(def objectivec.IObject, def2 objectivec.IObject, extractor objectivec.IObject, initialization bool) ETTaskClassifier {
 	instance := getETTaskClassifierClass().Alloc()
@@ -111,7 +111,6 @@ func NewETTaskClassifierWithModelDefOptimizerDefExtractorNeedWeightsInitializati
 	return ETTaskClassifierFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETTask/initWithModelDef:optimizerDef:lossConfig:
 func NewETTaskClassifierWithModelDefOptimizerDefLossConfig(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject) ETTaskClassifier {
 	instance := getETTaskClassifierClass().Alloc()
@@ -119,7 +118,6 @@ func NewETTaskClassifierWithModelDefOptimizerDefLossConfig(def objectivec.IObjec
 	return ETTaskClassifierFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETTask/initWithModelDef:optimizerDef:lossConfig:extractor:
 func NewETTaskClassifierWithModelDefOptimizerDefLossConfigExtractor(def objectivec.IObject, def2 objectivec.IObject, config objectivec.IObject, extractor objectivec.IObject) ETTaskClassifier {
 	instance := getETTaskClassifierClass().Alloc()
@@ -135,4 +133,3 @@ func (e ETTaskClassifier) Class_names() foundation.INSArray {
 func (e ETTaskClassifier) SetClass_names(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setClass_names:"), value)
 }
-

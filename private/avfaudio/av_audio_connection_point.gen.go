@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type AVAudioConnectionPoint struct {
 func AVAudioConnectionPointFromID(id objc.ID) AVAudioConnectionPoint {
 	return AVAudioConnectionPoint{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioConnectionPoint implements IAVAudioConnectionPoint.
 var _ IAVAudioConnectionPoint = AVAudioConnectionPoint{}
 
@@ -79,10 +81,8 @@ func NewAVAudioConnectionPoint() AVAudioConnectionPoint {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConnectionPoint/connectionPointWithNode:bus:
 func (_AVAudioConnectionPointClass AVAudioConnectionPointClass) ConnectionPointWithNodeBus(node objectivec.IObject, bus uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_AVAudioConnectionPointClass.class), objc.Sel("connectionPointWithNode:bus:"), node, bus)
 	return objectivec.Object{ID: rv}
 }
-

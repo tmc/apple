@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (tc TextToSpeechTaggedSSMLClass) Alloc() TextToSpeechTaggedSSML {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TextToSpeechTaggedSSML.OriginalSSML]
 //   - [TextToSpeechTaggedSSML.SetOriginalSSML]
 //   - [TextToSpeechTaggedSSML.SsmlSnippets]
 //   - [TextToSpeechTaggedSSML.SetSsmlSnippets]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TaggedSSML
 type TextToSpeechTaggedSSML struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type TextToSpeechTaggedSSML struct {
 func TextToSpeechTaggedSSMLFromID(id objc.ID) TextToSpeechTaggedSSML {
 	return TextToSpeechTaggedSSML{objectivec.Object{ID: id}}
 }
+
 // Ensure TextToSpeechTaggedSSML implements ITextToSpeechTaggedSSML.
 var _ ITextToSpeechTaggedSSML = TextToSpeechTaggedSSML{}
 
@@ -109,6 +111,7 @@ func (t TextToSpeechTaggedSSML) OriginalSSML() string {
 func (t TextToSpeechTaggedSSML) SetOriginalSSML(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOriginalSSML:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TaggedSSML/ssmlSnippets
 func (t TextToSpeechTaggedSSML) SsmlSnippets() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ssmlSnippets"))
@@ -117,4 +120,3 @@ func (t TextToSpeechTaggedSSML) SsmlSnippets() foundation.INSArray {
 func (t TextToSpeechTaggedSSML) SetSsmlSnippets(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSsmlSnippets:"), value)
 }
-

@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -64,6 +65,7 @@ type AVMIDIPolyPressureEvent struct {
 func AVMIDIPolyPressureEventFromID(id objc.ID) AVMIDIPolyPressureEvent {
 	return AVMIDIPolyPressureEvent{AVMIDIChannelEvent: AVMIDIChannelEventFromID(id)}
 }
+
 // NOTE: AVMIDIPolyPressureEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -157,6 +159,7 @@ func (m AVMIDIPolyPressureEvent) Key() uint32 {
 func (m AVMIDIPolyPressureEvent) SetKey(value uint32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setKey:"), value)
 }
+
 // The poly pressure value for the requested key.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPolyPressureEvent/pressure
@@ -167,4 +170,3 @@ func (m AVMIDIPolyPressureEvent) Pressure() uint32 {
 func (m AVMIDIPolyPressureEvent) SetPressure(value uint32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPressure:"), value)
 }
-

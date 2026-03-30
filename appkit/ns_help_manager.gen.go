@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSHelpManagerClass) Alloc() NSHelpManager {
 // An object for displaying online help for an app.
 //
 // # Overview
-// 
+//
 // The [NSHelpManager] class provides an approach to displaying online help.
 // An app contains one [NSHelpManager] object.
 //
@@ -80,6 +81,7 @@ type NSHelpManager struct {
 func NSHelpManagerFromID(id objc.ID) NSHelpManager {
 	return NSHelpManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSHelpManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -162,10 +164,10 @@ func NewNSHelpManager() NSHelpManager {
 // searched.
 //
 // # Discussion
-// 
+//
 // To search for a string in your bundle’s localized help book, you could
 // use code similar to the following:
-// 
+//
 // This is a wrapper for [AHRegisterHelpBook] (which is called only once to
 // register the help book specified in the application’s main bundle) and
 // [AHSearch].
@@ -174,6 +176,7 @@ func NewNSHelpManager() NSHelpManager {
 func (h NSHelpManager) FindStringInBook(query string, book NSHelpBookName) {
 	objc.Send[objc.ID](h.ID, objc.Sel("findString:inBook:"), objc.String(query), objc.String(string(book)))
 }
+
 // Finds and displays the text at the given anchor location in the given book.
 //
 // anchor: Location of the desired text.
@@ -182,10 +185,10 @@ func (h NSHelpManager) FindStringInBook(query string, book NSHelpBookName) {
 // searched.
 //
 // # Discussion
-// 
+//
 // To open an anchor in your bundle’s localized help book, you could use
 // code similar to the following:
-// 
+//
 // This method is a wrapper for [AHRegisterHelpBook] (which is called only
 // once to register the help book specified in the application’s main
 // bundle) and [AHLookupAnchor].
@@ -194,25 +197,23 @@ func (h NSHelpManager) FindStringInBook(query string, book NSHelpBookName) {
 func (h NSHelpManager) OpenHelpAnchorInBook(anchor NSHelpAnchorName, book NSHelpBookName) {
 	objc.Send[objc.ID](h.ID, objc.Sel("openHelpAnchor:inBook:"), objc.String(string(anchor)), objc.String(string(book)))
 }
+
 // Registers one or more help books in the given bundle.
 //
 // bundle: The bundle for additional help books. Books in the main bundle are
 // automatically registered.
 //
 // # Return Value
-// 
-// [true] if registration is successful, [false] if the bundle doesn’t
-// contain any help books or if registration fails.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if registration is successful, false if the bundle doesn’t contain
+// any help books or if registration fails.
 //
 // # Discussion
-// 
-// You use `` to register help books in, for example, a plug-in bundle. The
+//
+// You use “ to register help books in, for example, a plug-in bundle. The
 // `Info.Plist()` in the bundle should contain a help book directory path,
 // which specifies one or more folders containing help books.
-// 
+//
 // The main bundle is automatically registered by [OpenHelpAnchorInBook] and
 // [FindStringInBook].
 //
@@ -221,6 +222,7 @@ func (h NSHelpManager) RegisterBooksInBundle(bundle foundation.NSBundle) bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("registerBooksInBundle:"), bundle)
 	return rv
 }
+
 // Associates help content with an object.
 //
 // attrString: Help content to associate with `object`.
@@ -228,7 +230,7 @@ func (h NSHelpManager) RegisterBooksInBundle(bundle foundation.NSBundle) bool {
 // object: Object to associate with `help`.
 //
 // # Discussion
-// 
+//
 // When the application enters context-sensitive help mode, if `object` is
 // clicked, `help` appears in the context-sensitive help window.
 //
@@ -236,12 +238,13 @@ func (h NSHelpManager) RegisterBooksInBundle(bundle foundation.NSBundle) bool {
 func (h NSHelpManager) SetContextHelpForObject(attrString foundation.NSAttributedString, object objectivec.IObject) {
 	objc.Send[objc.ID](h.ID, objc.Sel("setContextHelp:forObject:"), attrString, object)
 }
+
 // Removes the association between an object and its context-sensitive help.
 //
 // object: Object to disassociate from its help content.
 //
 // # Discussion
-// 
+//
 // If `object` does not have context-sensitive help associated with it, this
 // method does nothing.
 //
@@ -249,12 +252,13 @@ func (h NSHelpManager) SetContextHelpForObject(attrString foundation.NSAttribute
 func (h NSHelpManager) RemoveContextHelpForObject(object objectivec.IObject) {
 	objc.Send[objc.ID](h.ID, objc.Sel("removeContextHelpForObject:"), object)
 }
+
 // Returns context-sensitive help for an object.
 //
 // object: Object for which context-sensitive help is sought.
 //
 // # Return Value
-// 
+//
 // Context-sensitive help content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSHelpManager/contextHelp(for:)
@@ -262,6 +266,7 @@ func (h NSHelpManager) ContextHelpForObject(object objectivec.IObject) foundatio
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("contextHelpForObject:"), object)
 	return foundation.NSAttributedStringFromID(rv)
 }
+
 // Displays the context-sensitive help for a given object at or near the point
 // on the screen specified by a given point.
 //
@@ -271,13 +276,10 @@ func (h NSHelpManager) ContextHelpForObject(object objectivec.IObject) foundatio
 // the cursor.
 //
 // # Return Value
-// 
-// [true] when help content is successfully displayed. [false] if help content
-// is not displayed (for example, when there is no context-sensitive help
-// associated with `object`).
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true when help content is successfully displayed. false if help content is
+// not displayed (for example, when there is no context-sensitive help
+// associated with `object`).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSHelpManager/showContextHelp(for:locationHint:)
 func (h NSHelpManager) ShowContextHelpForObjectLocationHint(object objectivec.IObject, pt corefoundation.CGPoint) bool {
@@ -289,7 +291,7 @@ func (h NSHelpManager) ShowContextHelpForObjectLocationHint(object objectivec.IO
 // already exist.
 //
 // # Return Value
-// 
+//
 // Shared help manager.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSHelpManager/shared
@@ -297,6 +299,7 @@ func (_NSHelpManagerClass NSHelpManagerClass) SharedHelpManager() NSHelpManager 
 	rv := objc.Send[objc.ID](objc.ID(_NSHelpManagerClass.class), objc.Sel("sharedHelpManager"))
 	return NSHelpManagerFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSHelpManager/isContextHelpModeActive
 func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeActive() bool {
 	rv := objc.Send[bool](objc.ID(_NSHelpManagerClass.class), objc.Sel("isContextHelpModeActive"))
@@ -305,6 +308,7 @@ func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeActive() bool {
 func (_NSHelpManagerClass NSHelpManagerClass) SetContextHelpModeActive(value bool) {
 	objc.Send[struct{}](objc.ID(_NSHelpManagerClass.class), objc.Sel("setContextHelpModeActive:"), value)
 }
+
 // Posted when the application enters context-sensitive help mode. This
 // typically happens when the user holds down the Help key.
 //
@@ -313,6 +317,7 @@ func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeDidActivateNotifica
 	rv := objc.Send[objc.ID](objc.ID(_NSHelpManagerClass.class), objc.Sel("NSContextHelpModeDidActivateNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
+
 // Posted when the application exits context-sensitive help mode. This happens
 // when the user clicks the mouse button while the cursor is anywhere on the
 // screen after displaying a context-sensitive help topic.
@@ -322,4 +327,3 @@ func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeDidDeactivateNotifi
 	rv := objc.Send[objc.ID](objc.ID(_NSHelpManagerClass.class), objc.Sel("NSContextHelpModeDidDeactivateNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-

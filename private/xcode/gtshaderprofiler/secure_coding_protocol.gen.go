@@ -23,6 +23,7 @@ type NSSecureCoding interface {
 type NSSecureCodingObject struct {
 	objectivec.Object
 }
+
 func (o NSSecureCodingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,5 +40,4 @@ func NSSecureCodingObjectFromID(id objc.ID) NSSecureCodingObject {
 func (o NSSecureCodingObject) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsSecureCoding"))
 	return rv
-	}
-
+}

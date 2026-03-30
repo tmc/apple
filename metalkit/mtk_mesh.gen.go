@@ -3,11 +3,12 @@
 package metalkit
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -78,6 +79,7 @@ type MTKMesh struct {
 func MTKMeshFromID(id objc.ID) MTKMesh {
 	return MTKMesh{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTKMesh adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,24 +160,24 @@ func NewMTKMesh() MTKMesh {
 // device: The Metal device on which to create MetalKit mesh resources.
 //
 // # Return Value
-// 
+//
 // A new MetalKit mesh object, or `nil` if an error occured.
 //
 // # Discussion
-// 
+//
 // This initializer does initialize any children meshes of the Model I/O mesh.
-// 
+//
 // All vertex buffers in the source Model I/O mesh and the index buffer of
 // each of its submeshes must have been created with a
 // [MTKMeshBufferAllocator] object.
-// 
+//
 // A Model I/O submesh may have its index type and/or geometric primitive type
 // converted to a corresponding Metal type as listed in the tables below. If
 // the geometric primitive type cannot be converted, an error is returned
 // through `error`.
-// 
+//
 // [Table data omitted]
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/init(mesh:device:)
@@ -197,24 +199,24 @@ func NewMeshWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice)
 // device: The Metal device on which to create MetalKit mesh resources.
 //
 // # Return Value
-// 
+//
 // A new MetalKit mesh object, or `nil` if an error occured.
 //
 // # Discussion
-// 
+//
 // This initializer does initialize any children meshes of the Model I/O mesh.
-// 
+//
 // All vertex buffers in the source Model I/O mesh and the index buffer of
 // each of its submeshes must have been created with a
 // [MTKMeshBufferAllocator] object.
-// 
+//
 // A Model I/O submesh may have its index type and/or geometric primitive type
 // converted to a corresponding Metal type as listed in the tables below. If
 // the geometric primitive type cannot be converted, an error is returned
 // through `error`.
-// 
+//
 // [Table data omitted]
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/init(mesh:device:)
@@ -229,11 +231,69 @@ func (m MTKMesh) InitWithMeshDeviceError(mesh objectivec.IObject, device metal.M
 
 }
 
+// Creates and initializes MetalKit meshes from all Model I/O meshes in a
+// Model I/O asset.
+//
+// asset: The source Model I/O asset from which to create MetalKit meshes.
+//
+// device: The Metal device on which to create MetalKit mesh resources.
+//
+// sourceMeshes: A pointer to an array of Model I/O meshes that is populated during
+// initialization and corresponds to the returned array of MetalKit meshes.
+// This is an optional parameter and you may pass `nil` to ignore it.
+//
+// error: A pointer to an [NSError] object if an error occurred, or `nil` if all
+// MetalKit mesh initializations succeeded.
+//
+// asset is a [modelio.MDLAsset].
+//
+// # Return Value
+//
+// An array of MetalKit mesh objects, or `nil` if an error occured.
+//
+// # Discussion
+//
+// This is a convenience method to create MetalKit meshes from each mesh in a
+// source Model I/O asset. The resulting array of [MTKMesh] objects is
+// returned by the method itself, while the [MDLMesh] objects from which they
+// were generated will be populated into the `sourceMeshes` array provided.
+//
+// All vertex buffers in each Model I/O asset mesh and the index buffer of
+// each of their submeshes must have been created with a
+// [MTKMeshBufferAllocator] object.
+//
+// A Model I/O submesh may have its index type and/or geometric primitive type
+// converted to a corresponding Metal type as listed in the tables below. If
+// the geometric primitive type cannot be converted, an error is returned
+// through `error`.
+//
+// [Table data omitted]
+//
+// [Table data omitted]
+//
+// See: https://developer.apple.com/documentation/MetalKit/MTKMesh/newMeshesFromAsset:device:sourceMeshes:error:
+// asset is a [modelio.MDLAsset].
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
+// [MDLMesh]: https://developer.apple.com/documentation/ModelIO/MDLMesh
+func (_MTKMeshClass MTKMeshClass) NewMeshesFromAssetDeviceSourceMeshesError(asset objectivec.IObject, device metal.MTLDevice, sourceMeshes []objc.ID) ([]MTKMesh, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[[]objc.ID](objc.ID(_MTKMeshClass.class), objc.Sel("newMeshesFromAsset:device:sourceMeshes:error:"), asset, device, objectivec.IDSliceToNSArray(sourceMeshes), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objc.ConvertSlice(rv, func(id objc.ID) MTKMesh {
+		return MTKMeshFromID(id)
+	}), nil
+
+}
+
 // An array of submeshes containing index buffers referencing the mesh
 // vertices.
 //
 // # Discussion
-// 
+//
 // Submeshes may also contain texture materials to apply when rendering the
 // mesh object.
 //
@@ -244,6 +304,7 @@ func (m MTKMesh) Submeshes() []MTKSubmesh {
 		return MTKSubmeshFromID(id)
 	})
 }
+
 // An array of buffers in which mesh vertex data resides.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/vertexBuffers
@@ -253,6 +314,7 @@ func (m MTKMesh) VertexBuffers() []MTKMeshBuffer {
 		return MTKMeshBufferFromID(id)
 	})
 }
+
 // The number of vertices in the vertex buffers.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/vertexCount
@@ -260,29 +322,31 @@ func (m MTKMesh) VertexCount() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("vertexCount"))
 	return rv
 }
+
 // A Model I/O vertex descriptor specifying the data layout in the vertex
 // buffers.
 //
 // # Discussion
-// 
+//
 // This is a convenience property. The [MTKMesh] class does not use this
 // descriptor, but your application may use this object to determine rendering
 // state or create a [MTLVertexDescriptor] object to build a
 // [MTLRenderPipelineState] object capable of interpreting the data in
 // [VertexBuffers].
 //
+// See: https://developer.apple.com/documentation/MetalKit/MTKMesh/vertexDescriptor
+//
 // [MTLRenderPipelineState]: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState
 // [MTLVertexDescriptor]: https://developer.apple.com/documentation/Metal/MTLVertexDescriptor
-//
-// See: https://developer.apple.com/documentation/MetalKit/MTKMesh/vertexDescriptor
 func (m MTKMesh) VertexDescriptor() objc.ID {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("vertexDescriptor"))
 	return rv
 }
+
 // The name of the mesh.
 //
 // # Discussion
-// 
+//
 // Your application can use this value to identify the mesh in a scene.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/name
@@ -293,4 +357,3 @@ func (m MTKMesh) Name() string {
 func (m MTKMesh) SetName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
-

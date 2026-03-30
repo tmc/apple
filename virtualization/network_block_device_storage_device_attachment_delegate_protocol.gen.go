@@ -4,10 +4,12 @@ package virtualization
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // Methods you implement to respond to changes to a network block device attachment.
@@ -21,6 +23,7 @@ type VZNetworkBlockDeviceStorageDeviceAttachmentDelegate interface {
 type VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject struct {
 	objectivec.Object
 }
+
 func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,25 +42,26 @@ func VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObjectFromID(id objc.ID)
 // attachment: The attachment object calling the delegate method.
 //
 // error: An [NSError] that describes the nonrecoverable error.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // After the attachment object calls this method, the NBD client is in a
 // nonfunctional state.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachmentDelegate/attachment(_:didEncounterError:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) AttachmentDidEncounterError(attachment IVZNetworkBlockDeviceStorageDeviceAttachment, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("attachment:didEncounterError:"), attachment, error_)
-	}
+}
+
 // The method the attachment object calls when the NBD client successfully
 // connects or reconnects with the server.
 //
 // attachment: The attachment object calling the delegate method.
 //
 // # Discussion
-// 
+//
 // Connection with the server takes place when the VM is first started, and
 // reconnection attempts take place when the connection times out or when the
 // NBD client has encountered a recoverable error, such as an I/O error from
@@ -68,7 +72,7 @@ func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) AttachmentDid
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachmentDelegate/attachmentWasConnected(_:)
 func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) AttachmentWasConnected(attachment IVZNetworkBlockDeviceStorageDeviceAttachment) {
 	objc.Send[struct{}](o.ID, objc.Sel("attachmentWasConnected:"), attachment)
-	}
+}
 
 // VZNetworkBlockDeviceStorageDeviceAttachmentDelegateConfig holds optional typed callbacks for [VZNetworkBlockDeviceStorageDeviceAttachmentDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -144,4 +148,3 @@ func NewVZNetworkBlockDeviceStorageDeviceAttachmentDelegate(config VZNetworkBloc
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObjectFromID(instance)
 }
-

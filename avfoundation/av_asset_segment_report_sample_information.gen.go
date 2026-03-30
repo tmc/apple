@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -63,6 +64,7 @@ type AVAssetSegmentReportSampleInformation struct {
 func AVAssetSegmentReportSampleInformationFromID(id objc.ID) AVAssetSegmentReportSampleInformation {
 	return AVAssetSegmentReportSampleInformation{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetSegmentReportSampleInformation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -129,7 +131,7 @@ func NewAVAssetSegmentReportSampleInformation() AVAssetSegmentReportSampleInform
 // The presentation timestamp (PTS) of a sample.
 //
 // # Discussion
-// 
+//
 // This timestamp may be different from the [EarliestPresentationTimeStamp] if
 // the video’s author encodes it using frame reordering.
 //
@@ -138,6 +140,7 @@ func (a AVAssetSegmentReportSampleInformation) PresentationTimeStamp() coremedia
 	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("presentationTimeStamp"))
 	return coremedia.CMTime(rv)
 }
+
 // The offset of a sample in the segment.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentReportSampleInformation/offset
@@ -145,6 +148,7 @@ func (a AVAssetSegmentReportSampleInformation) Offset() int {
 	rv := objc.Send[int](a.ID, objc.Sel("offset"))
 	return rv
 }
+
 // The length of the sample data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentReportSampleInformation/length
@@ -152,6 +156,7 @@ func (a AVAssetSegmentReportSampleInformation) Length() int {
 	rv := objc.Send[int](a.ID, objc.Sel("length"))
 	return rv
 }
+
 // A Boolean value that indicates whether the sample is a key frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentReportSampleInformation/isSyncSample
@@ -159,6 +164,7 @@ func (a AVAssetSegmentReportSampleInformation) IsSyncSample() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isSyncSample"))
 	return rv
 }
+
 // The duration of a track.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/duration
@@ -169,6 +175,7 @@ func (a AVAssetSegmentReportSampleInformation) Duration() coremedia.CMTime {
 func (a AVAssetSegmentReportSampleInformation) SetDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
+
 // The earliest presentation timestamp (PTS) for this track.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/earliestpresentationtimestamp
@@ -179,6 +186,7 @@ func (a AVAssetSegmentReportSampleInformation) EarliestPresentationTimeStamp() c
 func (a AVAssetSegmentReportSampleInformation) SetEarliestPresentationTimeStamp(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setEarliestPresentationTimeStamp:"), value)
 }
+
 // Information about the first video sample in a track.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/firstvideosampleinformation
@@ -189,6 +197,7 @@ func (a AVAssetSegmentReportSampleInformation) FirstVideoSampleInformation() IAV
 func (a AVAssetSegmentReportSampleInformation) SetFirstVideoSampleInformation(value IAVAssetSegmentReportSampleInformation) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFirstVideoSampleInformation:"), value)
 }
+
 // The type of media a track contains.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/mediatype
@@ -199,6 +208,7 @@ func (a AVAssetSegmentReportSampleInformation) MediaType() AVMediaType {
 func (a AVAssetSegmentReportSampleInformation) SetMediaType(value AVMediaType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMediaType:"), objc.String(string(value)))
 }
+
 // A persistent unique identifier for a track.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/trackid
@@ -209,4 +219,3 @@ func (a AVAssetSegmentReportSampleInformation) TrackID() int32 {
 func (a AVAssetSegmentReportSampleInformation) SetTrackID(value int32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTrackID:"), value)
 }
-

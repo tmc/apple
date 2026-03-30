@@ -4,9 +4,11 @@ package appkit
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of optional methods implemented by the delegate of an [NSAlert](<doc://com.apple.appkit/documentation/AppKit/NSAlert>) object to respond to a user’s request for help.
@@ -20,6 +22,7 @@ type NSAlertDelegate interface {
 type NSAlertDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSAlertDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -36,16 +39,13 @@ func NSAlertDelegateObjectFromID(id objc.ID) NSAlertDelegateObject {
 // delegate causes help to be displayed for an alert, directly or indirectly.
 //
 // # Return Value
-// 
-// [true] when the delegate displayed help directly, [false] otherwise. When
-// [false] and the alert has a help anchor ([HelpAnchor]), the application’s
-// help manager displays help using the help anchor.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true when the delegate displayed help directly, false otherwise. When false
+// and the alert has a help anchor ([HelpAnchor]), the application’s help
+// manager displays help using the help anchor.
 //
 // # Discussion
-// 
+//
 // The delegate implements this method only to override the help-anchor lookup
 // behavior.
 //
@@ -53,7 +53,7 @@ func NSAlertDelegateObjectFromID(id objc.ID) NSAlertDelegateObject {
 func (o NSAlertDelegateObject) AlertShowHelp(alert NSAlert) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("alertShowHelp:"), alert)
 	return rv
-	}
+}
 
 // NSAlertDelegateConfig holds optional typed callbacks for [NSAlertDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -115,4 +115,3 @@ func NewNSAlertDelegate(config NSAlertDelegateConfig) NSAlertDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSAlertDelegateObjectFromID(instance)
 }
-

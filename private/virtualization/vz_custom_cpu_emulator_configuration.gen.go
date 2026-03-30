@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZCustomCPUEmulatorConfiguration] class.
@@ -41,7 +42,6 @@ func (vc VZCustomCPUEmulatorConfigurationClass) Alloc() VZCustomCPUEmulatorConfi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCustomCPUEmulatorConfiguration.EmulatorURL]
@@ -50,6 +50,7 @@ func (vc VZCustomCPUEmulatorConfigurationClass) Alloc() VZCustomCPUEmulatorConfi
 //   - [VZCustomCPUEmulatorConfiguration.SetMemorySize]
 //   - [VZCustomCPUEmulatorConfiguration.Options]
 //   - [VZCustomCPUEmulatorConfiguration.SetOptions]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomCPUEmulatorConfiguration
 type VZCustomCPUEmulatorConfiguration struct {
 	VZCPUEmulatorConfiguration
@@ -59,6 +60,7 @@ type VZCustomCPUEmulatorConfiguration struct {
 func VZCustomCPUEmulatorConfigurationFromID(id objc.ID) VZCustomCPUEmulatorConfiguration {
 	return VZCustomCPUEmulatorConfiguration{VZCPUEmulatorConfiguration: VZCPUEmulatorConfigurationFromID(id)}
 }
+
 // Ensure VZCustomCPUEmulatorConfiguration implements IVZCustomCPUEmulatorConfiguration.
 var _ IVZCustomCPUEmulatorConfiguration = VZCustomCPUEmulatorConfiguration{}
 
@@ -114,6 +116,7 @@ func (v VZCustomCPUEmulatorConfiguration) EmulatorURL() foundation.INSURL {
 func (v VZCustomCPUEmulatorConfiguration) SetEmulatorURL(value foundation.INSURL) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEmulatorURL:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomCPUEmulatorConfiguration/memorySize
 func (v VZCustomCPUEmulatorConfiguration) MemorySize() foundation.NSNumber {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("memorySize"))
@@ -122,6 +125,7 @@ func (v VZCustomCPUEmulatorConfiguration) MemorySize() foundation.NSNumber {
 func (v VZCustomCPUEmulatorConfiguration) SetMemorySize(value foundation.NSNumber) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMemorySize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomCPUEmulatorConfiguration/options
 func (v VZCustomCPUEmulatorConfiguration) Options() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("options"))
@@ -130,4 +134,3 @@ func (v VZCustomCPUEmulatorConfiguration) Options() string {
 func (v VZCustomCPUEmulatorConfiguration) SetOptions(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setOptions:"), objc.String(value))
 }
-

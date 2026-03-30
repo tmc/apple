@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,14 +44,14 @@ func (cc CASpringAnimationClass) Alloc() CASpringAnimation {
 // An animation that applies a spring-like force to a layer’s properties.
 //
 // # Overview
-// 
+//
 // You would typically use a spring animation to animate a layer’s position
 // so that it appears to be pulled towards a target by a spring. The further
 // the layer is from the target, the greater the acceleration towards it is.
-// 
+//
 // [CASpringAnimation] allows control over physically based attributes such as
 // the spring’s damping and stiffness.
-// 
+//
 // You can use a spring animation to animation properties of a layer other
 // than its position. The following code shows how to create a spring
 // animation that bounces a layer into view by animating its scale from `0` to
@@ -91,6 +92,7 @@ type CASpringAnimation struct {
 func CASpringAnimationFromID(id objc.ID) CASpringAnimation {
 	return CASpringAnimation{CABasicAnimation: CABasicAnimationFromID(id)}
 }
+
 // NOTE: CASpringAnimation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -177,7 +179,7 @@ func NewCASpringAnimation() CASpringAnimation {
 // path: The key path of the property to be animated.
 //
 // # Return Value
-// 
+//
 // A new instance of [CAPropertyAnimation] with the key path set to `keyPath`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAPropertyAnimation/init(keyPath:)
@@ -186,7 +188,6 @@ func NewSpringAnimationWithKeyPath(path string) CASpringAnimation {
 	return CASpringAnimationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/init(perceptualDuration:bounce:)
 func NewSpringAnimationWithPerceptualDurationBounce(perceptualDuration float64, bounce float64) CASpringAnimation {
 	instance := getCASpringAnimationClass().Alloc()
@@ -194,7 +195,6 @@ func NewSpringAnimationWithPerceptualDurationBounce(perceptualDuration float64, 
 	return CASpringAnimationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/init(perceptualDuration:bounce:)
 func (s CASpringAnimation) InitWithPerceptualDurationBounce(perceptualDuration float64, bounce float64) CASpringAnimation {
 	rv := objc.Send[CASpringAnimation](s.ID, objc.Sel("initWithPerceptualDuration:bounce:"), perceptualDuration, bounce)
@@ -205,7 +205,7 @@ func (s CASpringAnimation) InitWithPerceptualDurationBounce(perceptualDuration f
 // friction.
 //
 // # Discussion
-// 
+//
 // The default value of the [Damping] property is `10`. Reducing this value
 // reduces the energy loss with each oscillation: the animated value will
 // overshoot the [ToValue] and the [SettlingDuration] may be greater than the
@@ -221,10 +221,11 @@ func (s CASpringAnimation) Damping() float64 {
 func (s CASpringAnimation) SetDamping(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDamping:"), value)
 }
+
 // The initial velocity of the object attached to the spring.
 //
 // # Discussion
-// 
+//
 // Defaults to `0`, which represents an unmoving object. Negative values
 // represent the object moving away from the spring attachment point, positive
 // values represent the object moving towards the spring attachment point.
@@ -237,10 +238,11 @@ func (s CASpringAnimation) InitialVelocity() float64 {
 func (s CASpringAnimation) SetInitialVelocity(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setInitialVelocity:"), value)
 }
+
 // The mass of the object attached to the end of the spring.
 //
 // # Discussion
-// 
+//
 // The default mass is `1`. Increasing this value will increase the spring
 // effect: the attached object will be subject to more oscillations and
 // greater overshoot, resulting in an increased [SettlingDuration]. Decreasing
@@ -255,23 +257,24 @@ func (s CASpringAnimation) Mass() float64 {
 func (s CASpringAnimation) SetMass(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMass:"), value)
 }
+
 // The estimated duration required for the spring system to be considered at
 // rest.
 //
 // # Discussion
-// 
+//
 // The duration is evaluated for the current animation parameters and may not
 // the same as the [Duration].
-// 
+//
 // The following code creates a spring animation with a [Duration] of 2
 // seconds.
-// 
+//
 // With a damping coefficient of `5`, the settling duration is approximately
 // 2.85 seconds: the animated layer bounces around the target position several
 // times before settling. However, changing the [Damping] property to `15`
 // reduces the settling duration to just over 1 second: the animated layer
 // quickly comes to a stop as it reaches the target position.
-// 
+//
 // All of the spring animation’s physical attributes: [Damping],
 // [InitialVelocity], [Mass] and [Stiffness], can affect the settling
 // duration.
@@ -281,10 +284,11 @@ func (s CASpringAnimation) SettlingDuration() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("settlingDuration"))
 	return rv
 }
+
 // The spring stiffness coefficient.
 //
 // # Discussion
-// 
+//
 // The default stiffness coefficient is `100`. Increasing the [Stiffness]
 // reduces the number of oscillations and will reduce the settling duration.
 // Decreasing the [Stiffness] increases the the number of oscillations and
@@ -298,6 +302,7 @@ func (s CASpringAnimation) Stiffness() float64 {
 func (s CASpringAnimation) SetStiffness(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStiffness:"), value)
 }
+
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/allowsOverdamping
 func (s CASpringAnimation) AllowsOverdamping() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("allowsOverdamping"))
@@ -306,14 +311,15 @@ func (s CASpringAnimation) AllowsOverdamping() bool {
 func (s CASpringAnimation) SetAllowsOverdamping(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsOverdamping:"), value)
 }
+
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/bounce
 func (s CASpringAnimation) Bounce() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("bounce"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/QuartzCore/CASpringAnimation/perceptualDuration
 func (s CASpringAnimation) PerceptualDuration() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("perceptualDuration"))
 	return rv
 }
-

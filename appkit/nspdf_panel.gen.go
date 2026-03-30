@@ -5,8 +5,9 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (nc NSPDFPanelClass) Alloc() NSPDFPanel {
 // interface.
 //
 // # Overview
-// 
+//
 // A PDF panel has a variety of built-in customization controls, such as page
 // orientation, paper size, and tags. It also supports the use of a custom
 // accessory view controller that allows an app to specify how a PDF file
@@ -78,6 +79,7 @@ type NSPDFPanel struct {
 func NSPDFPanelFromID(id objc.ID) NSPDFPanel {
 	return NSPDFPanel{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPDFPanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -147,22 +149,34 @@ func NewNSPDFPanel() NSPDFPanel {
 // completionHandler: The block called when the user dismisses the PDF panel.
 //
 // # Discussion
-// 
+//
 // This method presents a slightly different PDF panel depending on whether
-// the [PDFPanelRequestsParentDirectory] constant is set. If the user
+// the [NSPDFPanelRequestsParentDirectory] constant is set. If the user
 // dismisses the panel without canceling it, this method updates the
 // [NSPDFInfo] object with any changes the user makes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFPanel/beginSheet(with:modalFor:completionHandler:)
 func (p NSPDFPanel) BeginSheetWithPDFInfoModalForWindowCompletionHandler(pdfInfo INSPDFInfo, docWindow INSWindow, completionHandler IntHandler) {
-_block2, _ := NewIntBlock(completionHandler)
+	_block2, _ := NewIntBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("beginSheetWithPDFInfo:modalForWindow:completionHandler:"), pdfInfo, docWindow, _block2)
+}
+
+// Returns a new [NSPDFPanel] object.
+//
+// # Return Value
+//
+// A new [NSPDFPanel] object or `nil` if an error occurred.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPDFPanel/panel
+func (_NSPDFPanelClass NSPDFPanelClass) Panel() NSPDFPanel {
+	rv := objc.Send[objc.ID](objc.ID(_NSPDFPanelClass.class), objc.Sel("panel"))
+	return NSPDFPanelFromID(rv)
 }
 
 // A view controller for the accessory view that the panel can present.
 //
 // # Discussion
-// 
+//
 // The PDF panel passes an [NSPDFInfo] object to the accessory view controller
 // to display the various attributes associated with the PDF file. Unlike a
 // print panel (that is, an [NSPrintPanel] object), a PDF panel can have only
@@ -176,17 +190,18 @@ func (p NSPDFPanel) AccessoryController() INSViewController {
 func (p NSPDFPanel) SetAccessoryController(value INSViewController) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAccessoryController:"), value)
 }
+
 // A set of configuration options that determine the accessory views the PDF
 // panel should display.
 //
 // # Discussion
-// 
+//
 // You specify a set of options by combining the appropriate constants defined
 // in [NSPDFPanel.Options].
 //
-// [NSPDFPanel.Options]: https://developer.apple.com/documentation/AppKit/NSPDFPanel/Options-swift.struct
-//
 // See: https://developer.apple.com/documentation/AppKit/NSPDFPanel/options-swift.property
+//
+// [NSPDFPanel.Options]: https://developer.apple.com/documentation/AppKit/NSPDFPanel/Options-swift.struct
 func (p NSPDFPanel) Options() NSPDFPanelOptions {
 	rv := objc.Send[NSPDFPanelOptions](p.ID, objc.Sel("options"))
 	return NSPDFPanelOptions(rv)
@@ -194,11 +209,12 @@ func (p NSPDFPanel) Options() NSPDFPanelOptions {
 func (p NSPDFPanel) SetOptions(value NSPDFPanelOptions) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOptions:"), value)
 }
+
 // The initial value for the user-editable filename shown in the name field of
 // the PDF panel.
 //
 // # Discussion
-// 
+//
 // The `defaultFileName` string should never include a file extension. By
 // default, the string’s value is “Untitled” (or its equivalent for the
 // current locale).
@@ -226,4 +242,3 @@ func (p NSPDFPanel) BeginSheetWithPDFInfoModalForWindow(ctx context.Context, pdf
 		return 0, ctx.Err()
 	}
 }
-

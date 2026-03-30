@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLPredictionEventClass) Alloc() MLPredictionEvent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLPredictionEvent.BundleIdentifier]
@@ -55,6 +55,7 @@ func (mc MLPredictionEventClass) Alloc() MLPredictionEvent {
 //   - [MLPredictionEvent.SetModelName]
 //   - [MLPredictionEvent.ModelType]
 //   - [MLPredictionEvent.SetModelType]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent
 type MLPredictionEvent struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type MLPredictionEvent struct {
 func MLPredictionEventFromID(id objc.ID) MLPredictionEvent {
 	return MLPredictionEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure MLPredictionEvent implements IMLPredictionEvent.
 var _ IMLPredictionEvent = MLPredictionEvent{}
 
@@ -124,7 +126,7 @@ func (p MLPredictionEvent) LastReportedMetric() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("lastReportedMetric"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent/maybeLogPredictionEvent:
 func (p MLPredictionEvent) MaybeLogPredictionEvent(event uint64) {
 	objc.Send[objc.ID](p.ID, objc.Sel("maybeLogPredictionEvent:"), event)
@@ -138,6 +140,7 @@ func (p MLPredictionEvent) BundleIdentifier() string {
 func (p MLPredictionEvent) SetBundleIdentifier(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent/firstPartyExecutable
 func (p MLPredictionEvent) FirstPartyExecutable() foundation.NSNumber {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("firstPartyExecutable"))
@@ -146,6 +149,7 @@ func (p MLPredictionEvent) FirstPartyExecutable() foundation.NSNumber {
 func (p MLPredictionEvent) SetFirstPartyExecutable(value foundation.NSNumber) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFirstPartyExecutable:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent/modelName
 func (p MLPredictionEvent) ModelName() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelName"))
@@ -154,6 +158,7 @@ func (p MLPredictionEvent) ModelName() string {
 func (p MLPredictionEvent) SetModelName(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setModelName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionEvent/modelType
 func (p MLPredictionEvent) ModelType() foundation.NSNumber {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelType"))
@@ -162,4 +167,3 @@ func (p MLPredictionEvent) ModelType() foundation.NSNumber {
 func (p MLPredictionEvent) SetModelType(value foundation.NSNumber) {
 	objc.Send[struct{}](p.ID, objc.Sel("setModelType:"), value)
 }
-

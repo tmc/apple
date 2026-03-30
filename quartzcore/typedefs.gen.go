@@ -2,7 +2,6 @@
 
 package quartzcore
 
-
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimationCalculationMode
 type CAAnimationCalculationMode = string
 
@@ -60,6 +59,9 @@ type CATextLayerAlignmentMode = string
 // See: https://developer.apple.com/documentation/QuartzCore/CATextLayerTruncationMode
 type CATextLayerTruncationMode = string
 
+// See: https://developer.apple.com/documentation/QuartzCore/CALayer/ToneMapMode-swift.struct
+type CAToneMapMode = string
+
 // See: https://developer.apple.com/documentation/QuartzCore/CATransitionSubtype
 type CATransitionSubtype = string
 
@@ -68,4 +70,3 @@ type CATransitionType = string
 
 // See: https://developer.apple.com/documentation/QuartzCore/CAValueFunctionName
 type CAValueFunctionName = string
-

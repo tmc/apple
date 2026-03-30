@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,6 +54,7 @@ type NSNibOutletConnector struct {
 func NSNibOutletConnectorFromID(id objc.ID) NSNibOutletConnector {
 	return NSNibOutletConnector{NSNibConnector: NSNibConnectorFromID(id)}
 }
+
 // Ensure NSNibOutletConnector implements INSNibOutletConnector.
 var _ INSNibOutletConnector = NSNibOutletConnector{}
 
@@ -81,4 +83,3 @@ func NewNSNibOutletConnector() NSNibOutletConnector {
 	rv := objc.Send[NSNibOutletConnector](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

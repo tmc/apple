@@ -18,6 +18,7 @@ type NSXPCProxyCreating interface {
 type NSXPCProxyCreatingObject struct {
 	objectivec.Object
 }
+
 func (o NSXPCProxyCreatingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -33,7 +34,7 @@ func NSXPCProxyCreatingObjectFromID(id objc.ID) NSXPCProxyCreatingObject {
 // Returns a proxy object with no error handling block.
 //
 // # Discussion
-// 
+//
 // Messages sent to the proxy object are sent over the wire to the other side
 // of the connection. All messages must be ‘void’ return type. Control may
 // be returned to the caller before the message is sent. The resulting proxy
@@ -43,7 +44,8 @@ func NSXPCProxyCreatingObjectFromID(id objc.ID) NSXPCProxyCreatingObject {
 func (o NSXPCProxyCreatingObject) RemoteObjectProxy() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteObjectProxy"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // Returns a proxy object that invokes the error handling block if an error
 // occurs on the connection.
 //
@@ -51,21 +53,20 @@ func (o NSXPCProxyCreatingObject) RemoteObjectProxy() objectivec.IObject {
 // occurs while waiting for a reply.
 //
 // # Discussion
-// 
+//
 // If the message sent to the proxy has a reply handler, then either the error
 // handler or the reply handler is called exactly once.
-// 
+//
 // The resulting proxy object conforms to the [NSXPCProxyCreating] protocol.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCProxyCreating/remoteObjectProxyWithErrorHandler(_:)
 func (o NSXPCProxyCreatingObject) RemoteObjectProxyWithErrorHandler(handler ErrorHandler) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteObjectProxyWithErrorHandler:"), handler)
 	return objectivec.Object{ID: rv}
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Foundation/NSXPCProxyCreating/synchronousRemoteObjectProxyWithErrorHandler(_:)
 func (o NSXPCProxyCreatingObject) SynchronousRemoteObjectProxyWithErrorHandler(handler ErrorHandler) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("synchronousRemoteObjectProxyWithErrorHandler:"), handler)
 	return objectivec.Object{ID: rv}
-	}
-
+}

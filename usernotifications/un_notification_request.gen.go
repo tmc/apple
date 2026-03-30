@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (uc UNNotificationRequestClass) Alloc() UNNotificationRequest {
 // the notification and the trigger conditions for delivery.
 //
 // # Overview
-// 
+//
 // Create a [UNNotificationRequest] object when you want to schedule the
 // delivery of a local notification. A notification request object contains a
 // [UNNotificationContent] object with the payload and the
@@ -55,10 +56,10 @@ func (uc UNNotificationRequestClass) Alloc() UNNotificationRequest {
 // notification, pass your request object to the
 // [AddNotificationRequestWithCompletionHandler] method of the shared user
 // notification center object.
-// 
+//
 // After scheduling a request, you interact with [UNNotificationRequest]
 // objects in the following ways:
-// 
+//
 // - View your app’s pending notifications by calling the
 // [GetPendingNotificationRequestsWithCompletionHandler] method of your shared
 // user notification center object. - When the system delivers a notification
@@ -66,7 +67,7 @@ func (uc UNNotificationRequestClass) Alloc() UNNotificationRequest {
 // [UNNotificationRequest] object that you can inspect to get the notification
 // details. - Use the request’s [UNNotificationRequest.Identifier] to remove delivered
 // notifications from Notification Center.
-// 
+//
 // When receiving a local or remote notification, use the provided
 // [UNNotificationRequest] object to fetch details about the notification.
 //
@@ -88,6 +89,7 @@ type UNNotificationRequest struct {
 func UNNotificationRequestFromID(id objc.ID) UNNotificationRequest {
 	return UNNotificationRequest{objectivec.Object{ID: id}}
 }
+
 // NOTE: UNNotificationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -147,18 +149,18 @@ func NewUNNotificationRequest() UNNotificationRequest {
 // `nil` to deliver the notification right away.
 //
 // # Return Value
-// 
+//
 // A new notification request object.
 //
 // # Discussion
-// 
+//
 // Use this method when you want to schedule the delivery of a local
 // notification. This method creates the request object that you subsequently
 // pass to the [AddNotificationRequestWithCompletionHandler] method.
-// 
+//
 // The system uses the `identifier` parameter to determine how to handle the
 // request:
-// 
+//
 // - the system creates a new notification. - the system alerts the user
 // again, replaces the old notification with the new one, and places the new
 // notification at the top of the list. - the new request replaces the pending
@@ -177,15 +179,15 @@ func (u UNNotificationRequest) EncodeWithCoder(coder foundation.INSCoder) {
 // The unique identifier for this notification request.
 //
 // # Discussion
-// 
+//
 // Use this string to identify notifications in your app. For example, you can
 // pass this string to the [RemovePendingNotificationRequestsWithIdentifiers]
 // method to cancel a previously scheduled notification.
-// 
+//
 // If you use the same identifier when scheduling a new notification, the
 // system removes the previously scheduled notification with that identifier
 // and replaces it with the new one.
-// 
+//
 // For local notifications, the system sets this property to the value passed
 // to the request’s initializer (see the
 // [RequestWithIdentifierContentTrigger] method). For remote notifications,
@@ -199,10 +201,11 @@ func (u UNNotificationRequest) Identifier() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The content associated with the notification.
 //
 // # Discussion
-// 
+//
 // Use this property to access the contents of the notification.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationRequest/content
@@ -210,10 +213,11 @@ func (u UNNotificationRequest) Content() IUNNotificationContent {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("content"))
 	return UNNotificationContentFromID(objc.ID(rv))
 }
+
 // The conditions that trigger the delivery of the notification.
 //
 // # Discussion
-// 
+//
 // For notifications that the system has delivered, use this property to
 // determine what caused the delivery to occur. For remote notifications, this
 // property contains a [UNPushNotificationTrigger] object. For other
@@ -225,4 +229,3 @@ func (u UNNotificationRequest) Trigger() IUNNotificationTrigger {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("trigger"))
 	return UNNotificationTriggerFromID(objc.ID(rv))
 }
-

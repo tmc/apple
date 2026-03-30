@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMetadataFaceObjectClass) Alloc() AVMetadataFaceObject {
 // Face information detected by a metadata capture output.
 //
 // # Overview
-// 
+//
 // The [AVMetadataFaceObject] class is a concrete subclass of
 // [AVMetadataObject] that defines the features of a single detected face. You
 // can retrieve instances of this class from the output of an
@@ -71,6 +72,7 @@ type AVMetadataFaceObject struct {
 func AVMetadataFaceObjectFromID(id objc.ID) AVMetadataFaceObject {
 	return AVMetadataFaceObject{AVMetadataObject: AVMetadataObjectFromID(id)}
 }
+
 // NOTE: AVMetadataFaceObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -130,7 +132,7 @@ func NewAVMetadataFaceObject() AVMetadataFaceObject {
 // The unique ID for this face metadata object.
 //
 // # Discussion
-// 
+//
 // Each time a face enters the picture, it is assigned a new unique
 // identifier, which you can use to reference the face in your code. Face IDs
 // are not reused, and the same face leaving and entering the picture again is
@@ -141,74 +143,69 @@ func (m AVMetadataFaceObject) FaceID() int {
 	rv := objc.Send[int](m.ID, objc.Sel("faceID"))
 	return rv
 }
+
 // A Boolean value indicating whether there is a valid roll angle associated
 // with the face.
 //
 // # Discussion
-// 
-// If the value of this property is [false], the value in the [RollAngle]
-// property is invalid and must not be accessed.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// If the value of this property is false, the value in the [RollAngle]
+// property is invalid and must not be accessed.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataFaceObject/hasRollAngle
 func (m AVMetadataFaceObject) HasRollAngle() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasRollAngle"))
 	return rv
 }
+
 // The roll angle of the face specified in degrees.
 //
 // # Discussion
-// 
+//
 // The roll angle represents the side-to-side tilt of the face relative to the
 // metadata’s bounding rectangle. A value of `0.0` yields a face that is
 // level relative to the picture, whereas a value of `90` yields a face that
 // is perpendicular relative to the picture.
-// 
-// You must check the value of the [HasRollAngle] property before accessing
-// this property. If the value in the [HasRollAngle] property is [false],
-// reading the value in this property raises an exception.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// You must check the value of the [HasRollAngle] property before accessing
+// this property. If the value in the [HasRollAngle] property is false,
+// reading the value in this property raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataFaceObject/rollAngle
 func (m AVMetadataFaceObject) RollAngle() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("rollAngle"))
 	return rv
 }
+
 // A Boolean value indicating whether there is a valid yaw angle associated
 // with the face.
 //
 // # Discussion
-// 
-// If the value of this property is [false], the value in the [YawAngle]
-// property is invalid and must not be accessed.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// If the value of this property is false, the value in the [YawAngle]
+// property is invalid and must not be accessed.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataFaceObject/hasYawAngle
 func (m AVMetadataFaceObject) HasYawAngle() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasYawAngle"))
 	return rv
 }
+
 // The yaw angle of the face specified in degrees.
 //
 // # Discussion
-// 
+//
 // The yaw angle represents the rotation of the face around the vertical axis.
 // A value of `0.0` yields a face that is looking directly at the camera,
 // whereas a yaw angle of `90` degrees yields a face whose eye line is
 // perpendicular to that of the camera.
-// 
-// You must check the value of the [HasYawAngle] property before accessing
-// this property. If the value in the [HasYawAngle] property is [false],
-// reading the value in this property raises an exception.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// You must check the value of the [HasYawAngle] property before accessing
+// this property. If the value in the [HasYawAngle] property is false, reading
+// the value in this property raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataFaceObject/yawAngle
 func (m AVMetadataFaceObject) YawAngle() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("yawAngle"))
 	return rv
 }
-

@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZLinuxRosettaAbstractSocketCachingOptions] class.
@@ -45,7 +46,7 @@ func (vc VZLinuxRosettaAbstractSocketCachingOptionsClass) Alloc() VZLinuxRosetta
 // Caching options for an abstract socket.
 //
 // # Overview
-// 
+//
 // Use this object to configure Rosetta to communicate with the Rosetta daemon
 // using an abstract socket.
 //
@@ -68,6 +69,7 @@ type VZLinuxRosettaAbstractSocketCachingOptions struct {
 func VZLinuxRosettaAbstractSocketCachingOptionsFromID(id objc.ID) VZLinuxRosettaAbstractSocketCachingOptions {
 	return VZLinuxRosettaAbstractSocketCachingOptions{VZLinuxRosettaCachingOptions: VZLinuxRosettaCachingOptionsFromID(id)}
 }
+
 // Ensure VZLinuxRosettaAbstractSocketCachingOptions implements IVZLinuxRosettaAbstractSocketCachingOptions.
 var _ IVZLinuxRosettaAbstractSocketCachingOptions = VZLinuxRosettaAbstractSocketCachingOptions{}
 
@@ -122,7 +124,7 @@ func NewVZLinuxRosettaAbstractSocketCachingOptions() VZLinuxRosettaAbstractSocke
 // error: If not `nil`, assigned with the error if the initialization fails.
 //
 // # Discussion
-// 
+//
 // The `sockaddr_un` structure in Linux defines the maximum allowed length of
 // `name`.
 //
@@ -145,7 +147,7 @@ func NewLinuxRosettaAbstractSocketCachingOptionsWithNameError(name string) (VZLi
 // error: If not `nil`, assigned with the error if the initialization fails.
 //
 // # Discussion
-// 
+//
 // The `sockaddr_un` structure in Linux defines the maximum allowed length of
 // `name`.
 //
@@ -172,7 +174,7 @@ func (l VZLinuxRosettaAbstractSocketCachingOptions) Name() string {
 // The maximum length of name that the framework allows.
 //
 // # Discussion
-// 
+//
 // The `sockaddr_un` structure in Linux defines the maximum length for the
 // path [Name].
 //
@@ -181,4 +183,3 @@ func (_VZLinuxRosettaAbstractSocketCachingOptionsClass VZLinuxRosettaAbstractSoc
 	rv := objc.Send[uint](objc.ID(_VZLinuxRosettaAbstractSocketCachingOptionsClass.class), objc.Sel("maximumNameLength"))
 	return rv
 }
-

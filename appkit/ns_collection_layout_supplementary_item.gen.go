@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,18 +47,18 @@ func (nc NSCollectionLayoutSupplementaryItemClass) Alloc() NSCollectionLayoutSup
 // view.
 //
 // # Overview
-// 
+//
 // You use supplementary items to attach additional views to your content. For
 // example, you might attach a badge to an item or a frame around a group. A
 // supplementary item follows the index path of the item it’s attached to.
-// 
+//
 // If you want to create a header or footer for your layout or its sections,
 // use a boundary supplementary item () instead.
-// 
+//
 // Each type of supplementary item must have a unique element kind. Consider
 // tracking these strings together in a way that makes it straightforward to
 // identify each element, for example:
-// 
+//
 // Add supplementary items to an item by passing in an array of supplementary
 // items when you construct the item:
 //
@@ -87,6 +88,7 @@ type NSCollectionLayoutSupplementaryItem struct {
 func NSCollectionLayoutSupplementaryItemFromID(id objc.ID) NSCollectionLayoutSupplementaryItem {
 	return NSCollectionLayoutSupplementaryItem{NSCollectionLayoutItem: NSCollectionLayoutItemFromID(id)}
 }
+
 // NOTE: NSCollectionLayoutSupplementaryItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -190,6 +192,7 @@ func (c NSCollectionLayoutSupplementaryItem) ItemAnchor() INSCollectionLayoutAnc
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemAnchor"))
 	return NSCollectionLayoutAnchorFromID(objc.ID(rv))
 }
+
 // The anchor between the supplementary item and the container it’s attached
 // to.
 //
@@ -198,6 +201,7 @@ func (c NSCollectionLayoutSupplementaryItem) ContainerAnchor() INSCollectionLayo
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("containerAnchor"))
 	return NSCollectionLayoutAnchorFromID(objc.ID(rv))
 }
+
 // A string that identifies the type of supplementary item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSupplementaryItem/elementKind
@@ -205,6 +209,7 @@ func (c NSCollectionLayoutSupplementaryItem) ElementKind() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("elementKind"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The vertical stacking order of the supplementary item in relation to other
 // items in the section.
 //
@@ -216,4 +221,3 @@ func (c NSCollectionLayoutSupplementaryItem) ZIndex() int {
 func (c NSCollectionLayoutSupplementaryItem) SetZIndex(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setZIndex:"), value)
 }
-

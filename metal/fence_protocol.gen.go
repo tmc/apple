@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -34,6 +34,7 @@ type MTLFence interface {
 type MTLFenceObject struct {
 	objectivec.Object
 }
+
 func (o MTLFenceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -52,16 +53,27 @@ func MTLFenceObjectFromID(id objc.ID) MTLFenceObject {
 func (o MTLFenceObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-	}
+}
+
 // A string that identifies the fence.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFence/label
 func (o MTLFenceObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
 
+// A string that identifies the fence.
+//
+// # Discussion
+//
+// Object and command labels are useful identifiers at runtime or when
+// profiling and debugging your app using any Metal tool. See [Naming
+// resources and commands].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLFence/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLFenceObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

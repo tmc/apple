@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_remove_reshape_around_rank2_softmax struct {
 func EspressoPass_remove_reshape_around_rank2_softmaxFromID(id objc.ID) EspressoPass_remove_reshape_around_rank2_softmax {
 	return EspressoPass_remove_reshape_around_rank2_softmax{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_remove_reshape_around_rank2_softmax implements IEspressoPass_remove_reshape_around_rank2_softmax.
 var _ IEspressoPass_remove_reshape_around_rank2_softmax = EspressoPass_remove_reshape_around_rank2_softmax{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_remove_reshape_around_rank2_softmax() EspressoPass_remove_r
 	rv := objc.Send[EspressoPass_remove_reshape_around_rank2_softmax](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

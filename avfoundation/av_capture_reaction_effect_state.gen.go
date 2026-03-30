@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,17 +48,15 @@ func (ac AVCaptureReactionEffectStateClass) Alloc() AVCaptureReactionEffectState
 // capture device.
 //
 // # Overview
-// 
+//
 // Obtain an instance of this class by querying a capture device’s
 // [AVCaptureReactionEffectState.ReactionEffectsInProgress] property. The system adds new entries to this
 // array when you call [PerformEffectForReaction] or by gesture detection in
 // the capture stream when the value of [AVCaptureReactionEffectState.ReactionEffectGesturesEnabled] is
-// [true].
-// 
+// true.
+//
 // The system renders the effect before providing frames to your app, and
 // these status objects let you know when it performs the effect.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Configuring the effect state
 //
@@ -77,6 +76,7 @@ type AVCaptureReactionEffectState struct {
 func AVCaptureReactionEffectStateFromID(id objc.ID) AVCaptureReactionEffectState {
 	return AVCaptureReactionEffectState{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureReactionEffectState adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,7 +134,7 @@ func NewAVCaptureReactionEffectState() AVCaptureReactionEffectState {
 // The type of reaction.
 //
 // # Discussion
-// 
+//
 // There may be multiple reactions of the same type at a given time. Some may
 // come from calls to [PerformEffectForReaction] and others from gesture
 // detection.
@@ -144,6 +144,7 @@ func (c AVCaptureReactionEffectState) ReactionType() AVCaptureReactionType {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("reactionType"))
 	return AVCaptureReactionType(foundation.NSStringFromID(rv).String())
 }
+
 // The presentation time of the first frame where the system renders the
 // effect.
 //
@@ -152,22 +153,24 @@ func (c AVCaptureReactionEffectState) StartTime() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("startTime"))
 	return coremedia.CMTime(rv)
 }
+
 // The presentation time of the first frame following the end of a reaction
 // effect.
 //
 // # Discussion
-// 
+//
 // The value is [invalid] while the effect is in progress, but changes to a
 // valid time when the reaction effect completes and the system removes it
 // from the list of [ReactionEffectsInProgress].
 //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureReactionEffectState/endTime
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (c AVCaptureReactionEffectState) EndTime() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("endTime"))
 	return coremedia.CMTime(rv)
 }
+
 // A set of reactions types that a device supports performing.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/availablereactiontypes
@@ -178,6 +181,7 @@ func (c AVCaptureReactionEffectState) AvailableReactionTypes() AVCaptureReaction
 func (c AVCaptureReactionEffectState) SetAvailableReactionTypes(value AVCaptureReactionType) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAvailableReactionTypes:"), objc.String(string(value)))
 }
+
 // A Boolean value that indicates whether you can perform reaction effects on
 // a capture device.
 //
@@ -189,6 +193,7 @@ func (c AVCaptureReactionEffectState) CanPerformReactionEffects() bool {
 func (c AVCaptureReactionEffectState) SetCanPerformReactionEffects(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCanPerformReactionEffects:"), value)
 }
+
 // An array of reaction effects that the device is currently performing,
 // sorted by timestamp.
 //
@@ -212,6 +217,7 @@ func (_AVCaptureReactionEffectStateClass AVCaptureReactionEffectStateClass) Reac
 func (_AVCaptureReactionEffectStateClass AVCaptureReactionEffectStateClass) SetReactionEffectGesturesEnabled(value bool) {
 	objc.Send[struct{}](objc.ID(_AVCaptureReactionEffectStateClass.class), objc.Sel("setReactionEffectGesturesEnabled:"), value)
 }
+
 // A Boolean value that indicates whether the app supports performing reaction
 // effects.
 //
@@ -223,4 +229,3 @@ func (_AVCaptureReactionEffectStateClass AVCaptureReactionEffectStateClass) Reac
 func (_AVCaptureReactionEffectStateClass AVCaptureReactionEffectStateClass) SetReactionEffectsEnabled(value bool) {
 	objc.Send[struct{}](objc.ID(_AVCaptureReactionEffectStateClass.class), objc.Sel("setReactionEffectsEnabled:"), value)
 }
-

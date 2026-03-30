@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZMouseEventClass) Alloc() VZMouseEvent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMouseEvent.InitWithPressedButtonsDeltaXDeltaY]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMouseEvent
 type VZMouseEvent struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZMouseEvent struct {
 func VZMouseEventFromID(id objc.ID) VZMouseEvent {
 	return VZMouseEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMouseEvent implements IVZMouseEvent.
 var _ IVZMouseEvent = VZMouseEvent{}
 
@@ -91,7 +93,6 @@ func NewVZMouseEvent() VZMouseEvent {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMouseEvent/initWithPressedButtons:deltaX:deltaY:
 func NewVZMouseEventWithPressedButtonsDeltaXDeltaY(buttons int64, x float64, y float64) VZMouseEvent {
 	instance := getVZMouseEventClass().Alloc()
@@ -99,10 +100,8 @@ func NewVZMouseEventWithPressedButtonsDeltaXDeltaY(buttons int64, x float64, y f
 	return VZMouseEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMouseEvent/initWithPressedButtons:deltaX:deltaY:
 func (v VZMouseEvent) InitWithPressedButtonsDeltaXDeltaY(buttons int64, x float64, y float64) VZMouseEvent {
 	rv := objc.Send[VZMouseEvent](v.ID, objc.Sel("initWithPressedButtons:deltaX:deltaY:"), buttons, x, y)
 	return rv
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZVirtioTraditionalMemoryBalloonDeviceConfiguration struct {
 func VZVirtioTraditionalMemoryBalloonDeviceConfigurationFromID(id objc.ID) VZVirtioTraditionalMemoryBalloonDeviceConfiguration {
 	return VZVirtioTraditionalMemoryBalloonDeviceConfiguration{VZMemoryBalloonDeviceConfiguration: VZMemoryBalloonDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioTraditionalMemoryBalloonDeviceConfiguration implements IVZVirtioTraditionalMemoryBalloonDeviceConfiguration.
 var _ IVZVirtioTraditionalMemoryBalloonDeviceConfiguration = VZVirtioTraditionalMemoryBalloonDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZVirtioTraditionalMemoryBalloonDeviceConfiguration() VZVirtioTraditiona
 	rv := objc.Send[VZVirtioTraditionalMemoryBalloonDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

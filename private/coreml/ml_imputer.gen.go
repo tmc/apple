@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (mc MLImputerClass) Alloc() MLImputer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLImputer.ImputeValue]
 //   - [MLImputer.ReplaceValue]
 //   - [MLImputer.InitWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLImputer
 type MLImputer struct {
 	MLModelEngine
@@ -58,6 +59,7 @@ type MLImputer struct {
 func MLImputerFromID(id objc.ID) MLImputer {
 	return MLImputer{MLModelEngine: MLModelEngineFromID(id)}
 }
+
 // Ensure MLImputer implements IMLImputer.
 var _ IMLImputer = MLImputer{}
 
@@ -99,7 +101,6 @@ func NewMLImputer() MLImputer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewImputerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLImputer {
 	instance := getMLImputerClass().Alloc()
@@ -107,7 +108,6 @@ func NewImputerWithDescriptionConfiguration(description objectivec.IObject, conf
 	return MLImputerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLImputer/initWith:imputeValue:replaceValue:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:
 func NewImputerWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError(with objectivec.IObject, value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) (MLImputer, error) {
 	var errorPtr objc.ID
@@ -120,7 +120,6 @@ func NewImputerWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrder
 	return MLImputerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewImputerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLImputer {
 	instance := getMLImputerClass().Alloc()
@@ -128,7 +127,6 @@ func NewImputerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNames
 	return MLImputerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLImputer/initWith:imputeValue:replaceValue:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:
 func (i MLImputer) InitWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError(with objectivec.IObject, value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) (MLImputer, error) {
 	var errorPtr objc.ID
@@ -141,7 +139,6 @@ func (i MLImputer) InitWithImputeValueReplaceValueInputDescriptionOutputDescript
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLImputer/imputeValueFrom:replaceValue:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:error:
 func (_MLImputerClass MLImputerClass) ImputeValueFromReplaceValueDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesError(from objectivec.IObject, value objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -153,7 +150,7 @@ func (_MLImputerClass MLImputerClass) ImputeValueFromReplaceValueDataTransformer
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLImputer/imputeValueFrom:replaceValue:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:error:
 func (_MLImputerClass MLImputerClass) ImputeValueFromReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesError(from objectivec.IObject, value objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -165,7 +162,7 @@ func (_MLImputerClass MLImputerClass) ImputeValueFromReplaceValueInputDescriptio
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLImputer/loadModelFromSpecification:configuration:error:
 func (_MLImputerClass MLImputerClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -183,9 +180,9 @@ func (i MLImputer) ImputeValue() IMLFeatureValue {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("imputeValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLImputer/replaceValue
 func (i MLImputer) ReplaceValue() IMLFeatureValue {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("replaceValue"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
-

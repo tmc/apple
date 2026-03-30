@@ -4,8 +4,9 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (ec EspressoProfilingANEcompilerAnalyticsClass) Alloc() EspressoProfilingAN
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoProfilingANEcompilerAnalytics.Compiler_analytics_file_names]
 //   - [EspressoProfilingANEcompilerAnalytics.SetCompiler_analytics_file_names]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingANEcompilerAnalytics
 type EspressoProfilingANEcompilerAnalytics struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type EspressoProfilingANEcompilerAnalytics struct {
 func EspressoProfilingANEcompilerAnalyticsFromID(id objc.ID) EspressoProfilingANEcompilerAnalytics {
 	return EspressoProfilingANEcompilerAnalytics{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoProfilingANEcompilerAnalytics implements IEspressoProfilingANEcompilerAnalytics.
 var _ IEspressoProfilingANEcompilerAnalytics = EspressoProfilingANEcompilerAnalytics{}
 
@@ -103,4 +105,3 @@ func (e EspressoProfilingANEcompilerAnalytics) Compiler_analytics_file_names() f
 func (e EspressoProfilingANEcompilerAnalytics) SetCompiler_analytics_file_names(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setCompiler_analytics_file_names:"), value)
 }
-

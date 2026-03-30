@@ -4,6 +4,7 @@ package appleneuralengine
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (ac ANESharedWaitEventClass) Alloc() ANESharedWaitEvent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ANESharedWaitEvent.EventType]
@@ -49,6 +49,7 @@ func (ac ANESharedWaitEventClass) Alloc() ANESharedWaitEvent {
 //   - [ANESharedWaitEvent.Value]
 //   - [ANESharedWaitEvent.SetValue]
 //   - [ANESharedWaitEvent.InitWithValueSharedEventEventType]
+//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedWaitEvent
 type ANESharedWaitEvent struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type ANESharedWaitEvent struct {
 func ANESharedWaitEventFromID(id objc.ID) ANESharedWaitEvent {
 	return ANESharedWaitEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure ANESharedWaitEvent implements IANESharedWaitEvent.
 var _ IANESharedWaitEvent = ANESharedWaitEvent{}
 
@@ -103,7 +105,6 @@ func NewANESharedWaitEvent() ANESharedWaitEvent {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedWaitEvent/initWithValue:sharedEvent:eventType:
 func NewANESharedWaitEventWithValueSharedEventEventType(value uint64, event objectivec.IObject, type_ uint64) ANESharedWaitEvent {
 	instance := getANESharedWaitEventClass().Alloc()
@@ -111,20 +112,18 @@ func NewANESharedWaitEventWithValueSharedEventEventType(value uint64, event obje
 	return ANESharedWaitEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedWaitEvent/initWithValue:sharedEvent:eventType:
 func (a ANESharedWaitEvent) InitWithValueSharedEventEventType(value uint64, event objectivec.IObject, type_ uint64) ANESharedWaitEvent {
 	rv := objc.Send[ANESharedWaitEvent](a.ID, objc.Sel("initWithValue:sharedEvent:eventType:"), value, event, type_)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedWaitEvent/waitEventWithValue:sharedEvent:
 func (_ANESharedWaitEventClass ANESharedWaitEventClass) WaitEventWithValueSharedEvent(value uint64, event objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANESharedWaitEventClass.class), objc.Sel("waitEventWithValue:sharedEvent:"), value, event)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedWaitEvent/waitEventWithValue:sharedEvent:eventType:
 func (_ANESharedWaitEventClass ANESharedWaitEventClass) WaitEventWithValueSharedEventEventType(value uint64, event objectivec.IObject, type_ uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANESharedWaitEventClass.class), objc.Sel("waitEventWithValue:sharedEvent:eventType:"), value, event, type_)
@@ -136,11 +135,13 @@ func (a ANESharedWaitEvent) EventType() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("eventType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedWaitEvent/sharedEvent
 func (a ANESharedWaitEvent) SharedEvent() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedEvent"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedWaitEvent/value
 func (a ANESharedWaitEvent) Value() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("value"))
@@ -149,4 +150,3 @@ func (a ANESharedWaitEvent) Value() uint64 {
 func (a ANESharedWaitEvent) SetValue(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setValue:"), value)
 }
-

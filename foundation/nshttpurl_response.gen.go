@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (hc HTTPURLResponseClass) Alloc() HTTPURLResponse {
 // request.
 //
 // # Overview
-// 
+//
 // The [NSHTTPURLResponse] class is a subclass of [NSURLResponse] that
 // provides methods for accessing information specific to HTTP protocol
 // responses. Whenever you make HTTP URL load requests, any response objects
@@ -79,6 +80,7 @@ func HTTPURLResponseFromID(id objc.ID) HTTPURLResponse {
 
 // NSHTTPURLResponseFromID is an alias for [HTTPURLResponseFromID] for cross-framework compatibility.
 func NSHTTPURLResponseFromID(id objc.ID) HTTPURLResponse { return HTTPURLResponseFromID(id) }
+
 // NOTE: HTTPURLResponse adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -138,7 +140,6 @@ func NewHTTPURLResponse() HTTPURLResponse {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewHTTPURLResponseWithCoder(coder INSCoder) HTTPURLResponse {
 	instance := getHTTPURLResponseClass().Alloc()
@@ -159,11 +160,11 @@ func NewHTTPURLResponseWithCoder(coder INSCoder) HTTPURLResponse {
 // name: The text encoding name. This value may be `nil`.
 //
 // # Return Value
-// 
+//
 // The initialized URL response.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer for [NSURLResponse].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)
@@ -180,8 +181,6 @@ func NewHTTPURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL 
 //
 // statusCode: The HTTP status code to return (`404`, for example). See [RFC 2616] for
 // details.
-// //
-// [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
 //
 // HTTPVersion: The version of the HTTP response as returned by the server. This is
 // typically represented as “HTTP/1.1”.
@@ -190,11 +189,13 @@ func NewHTTPURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL 
 // header.
 //
 // # Return Value
-// 
+//
 // An initialized [NSHTTPURLResponse] object or `nil` if an error occurred
 // during initialization.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPURLResponse/init(url:statusCode:httpVersion:headerFields:)
+//
+// [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
 func NewHTTPURLResponseWithURLStatusCodeHTTPVersionHeaderFields(url INSURL, statusCode int, HTTPVersion string, headerFields INSDictionary) HTTPURLResponse {
 	instance := getHTTPURLResponseClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:statusCode:HTTPVersion:headerFields:"), url, statusCode, objc.String(HTTPVersion), headerFields)
@@ -208,8 +209,6 @@ func NewHTTPURLResponseWithURLStatusCodeHTTPVersionHeaderFields(url INSURL, stat
 //
 // statusCode: The HTTP status code to return (`404`, for example). See [RFC 2616] for
 // details.
-// //
-// [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
 //
 // HTTPVersion: The version of the HTTP response as returned by the server. This is
 // typically represented as “HTTP/1.1”.
@@ -218,27 +217,30 @@ func NewHTTPURLResponseWithURLStatusCodeHTTPVersionHeaderFields(url INSURL, stat
 // header.
 //
 // # Return Value
-// 
+//
 // An initialized [NSHTTPURLResponse] object or `nil` if an error occurred
 // during initialization.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPURLResponse/init(url:statusCode:httpVersion:headerFields:)
+//
+// [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
 func (h HTTPURLResponse) InitWithURLStatusCodeHTTPVersionHeaderFields(url INSURL, statusCode int, HTTPVersion string, headerFields INSDictionary) HTTPURLResponse {
 	rv := objc.Send[HTTPURLResponse](h.ID, objc.Sel("initWithURL:statusCode:HTTPVersion:headerFields:"), url, statusCode, objc.String(HTTPVersion), headerFields)
 	return rv
 }
+
 // Returns the value that corresponds to the given header field.
 //
 // field: The name of the header field you want to retrieve. The name is
 // case-insensitive.
 //
 // # Return Value
-// 
+//
 // The value associated with the given header field, or `nil` if no value is
 // associated with the field.
 //
 // # Discussion
-// 
+//
 // In keeping with the HTTP RFC, HTTP header field names are case-insensitive.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPURLResponse/value(forHTTPHeaderField:)
@@ -250,15 +252,15 @@ func (h HTTPURLResponse) ValueForHTTPHeaderField(field string) string {
 // Returns a localized string corresponding to a specified HTTP status code.
 //
 // statusCode: The HTTP status code. See [RFC 2616] for details.
-// //
-// [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
 //
 // # Return Value
-// 
+//
 // A localized string suitable for displaying to users that describes the
 // specified status code.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPURLResponse/localizedString(forStatusCode:)
+//
+// [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
 func (_HTTPURLResponseClass HTTPURLResponseClass) LocalizedStringForStatusCode(statusCode int) string {
 	rv := objc.Send[objc.ID](objc.ID(_HTTPURLResponseClass.class), objc.Sel("localizedStringForStatusCode:"), statusCode)
 	return NSStringFromID(rv).String()
@@ -267,56 +269,56 @@ func (_HTTPURLResponseClass HTTPURLResponseClass) LocalizedStringForStatusCode(s
 // All HTTP header fields of the response.
 //
 // # Discussion
-// 
+//
 // The value of this property is a dictionary that contains all the HTTP
 // header fields received as part of the server’s response. By examining
 // this dictionary, clients can see the “raw” header information returned
 // by the HTTP server.
-// 
+//
 // The keys in this dictionary are the header field names, as received from
 // the server. See [RFC 2616] for a list of commonly used HTTP header fields.
-// 
+//
 // HTTP headers are case insensitive. To simplify your code, URL Loading
 // System canonicalizes certain header field names into their standard form.
 // For example, if the server sends a `content-length` header, it’s
 // automatically adjusted to be `Content-Length`.
-// 
+//
 // When using Swift, this property is a standard dictionary, so its keys are
 // case-sensitive. To perform a case-insensitive header lookup, use the
 // [ValueForHTTPHeaderField] method instead.
-// 
+//
 // In Objective-C, the returned dictionary of headers is case-preserving
 // during the set operation (unless the key already exists with a different
 // case), and case-insensitive when looking up keys.
-// 
+//
 // For example, if you set the header `X-foo`, and then later set the header
 // `X-Foo`, the dictionary’s key is be `X-foo`, but the value comes from the
 // `X-Foo` header.
-// 
+//
 // # Special considerations
-// 
+//
 // Prior to OS X v10.7 and iOS 5, canonicalization occurred for all header
 // fields. The case-preserving dictionary was first introduced in OS X v10.7.2
 // and iOS 5.
 //
-// [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
-//
 // See: https://developer.apple.com/documentation/Foundation/HTTPURLResponse/allHeaderFields
+//
+// [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
 func (h HTTPURLResponse) AllHeaderFields() INSDictionary {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("allHeaderFields"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // The response’s HTTP status code.
 //
 // # Discussion
-// 
+//
 // See [RFC 2616] for details.
 //
-// [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
-//
 // See: https://developer.apple.com/documentation/Foundation/HTTPURLResponse/statusCode
+//
+// [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
 func (h HTTPURLResponse) StatusCode() int {
 	rv := objc.Send[int](h.ID, objc.Sel("statusCode"))
 	return rv
 }
-

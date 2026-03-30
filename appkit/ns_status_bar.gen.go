@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSStatusBarClass) Alloc() NSStatusBar {
 // system-wide menu bar.
 //
 // # Overview
-// 
+//
 // A status item (an instance of [NSStatusItem]) can be displayed with text or
 // an icon, can provide a menu and a target-action message when clicked, or
 // can be a fully customized view that you create. Use status items sparingly
@@ -78,6 +79,7 @@ type NSStatusBar struct {
 func NSStatusBarFromID(id objc.ID) NSStatusBar {
 	return NSStatusBar{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSStatusBar adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,30 +139,31 @@ func NewNSStatusBar() NSStatusBar {
 // length: A constant that specifies whether the status item is of fixed width, or
 // variable width. The valid constants are described in [Status Bar Item
 // Length].
-// //
-// [Status Bar Item Length]: https://developer.apple.com/documentation/AppKit/status-bar-item-length
 //
 // # Return Value
-// 
+//
 // An [NSStatusItem] object.
 //
 // # Discussion
-// 
+//
 // The receiver does not retain a reference to the status item, so you need to
 // retain it. Otherwise, the object is removed from the status bar when it is
 // deallocated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBar/statusItem(withLength:)
+//
+// [Status Bar Item Length]: https://developer.apple.com/documentation/AppKit/status-bar-item-length
 func (s NSStatusBar) StatusItemWithLength(length float64) INSStatusItem {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("statusItemWithLength:"), length)
 	return NSStatusItemFromID(rv)
 }
+
 // Removes the specified status item from the receiver.
 //
 // item: The [NSStatusItem] object to remove.
 //
 // # Discussion
-// 
+//
 // Status items to the left of the specified one in the status bar shift to
 // the right to reclaim its space.
 //
@@ -173,23 +176,21 @@ func (s NSStatusBar) RemoveStatusItem(item INSStatusItem) {
 // orientation.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the status bar has a vertical
-// orientation. The status bar returned by the [SystemStatusBar] method is
-// horizontal and has the value [false] for this property.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the status bar has a vertical
+// orientation. The status bar returned by the [SystemStatusBar] method is
+// horizontal and has the value false for this property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBar/isVertical
 func (s NSStatusBar) Vertical() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isVertical"))
 	return rv
 }
+
 // The thickness of the status bar, in pixels.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `20.0`. The status bar returned by
 // the [SystemStatusBar] has a thickness of 22 pixels, which corresponds to
 // the thickness of the menu bar.
@@ -203,11 +204,11 @@ func (s NSStatusBar) Thickness() float64 {
 // Returns the system-wide status bar located in the menu bar.
 //
 // # Return Value
-// 
+//
 // The shared status bar object.
-// 
+//
 // # Discussion
-// 
+//
 // The status bar begins at the right side of the menu bar (to the left of
 // Menu Extras and the menu bar clock) and grows to the left as [NSStatusItem]
 // objects are added to it.
@@ -217,4 +218,3 @@ func (_NSStatusBarClass NSStatusBarClass) SystemStatusBar() NSStatusBar {
 	rv := objc.Send[objc.ID](objc.ID(_NSStatusBarClass.class), objc.Sel("systemStatusBar"))
 	return NSStatusBarFromID(objc.ID(rv))
 }
-

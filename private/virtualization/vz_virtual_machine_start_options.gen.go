@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (vc VZVirtualMachineStartOptionsClass) Alloc() VZVirtualMachineStartOptions
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtualMachineStartOptions._delegatedExceptionClasses]
 //   - [VZVirtualMachineStartOptions.Set_delegatedExceptionClasses]
 //   - [VZVirtualMachineStartOptions._setDelegatedExceptionClasses]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineStartOptions
 type VZVirtualMachineStartOptions struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type VZVirtualMachineStartOptions struct {
 func VZVirtualMachineStartOptionsFromID(id objc.ID) VZVirtualMachineStartOptions {
 	return VZVirtualMachineStartOptions{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVirtualMachineStartOptions implements IVZVirtualMachineStartOptions.
 var _ IVZVirtualMachineStartOptions = VZVirtualMachineStartOptions{}
 
@@ -98,7 +100,6 @@ func NewVZVirtualMachineStartOptions() VZVirtualMachineStartOptions {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineStartOptions/_setDelegatedExceptionClasses:
 func (v VZVirtualMachineStartOptions) _setDelegatedExceptionClasses(classes objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setDelegatedExceptionClasses:"), classes)
@@ -117,4 +118,3 @@ func (v VZVirtualMachineStartOptions) _delegatedExceptionClasses() foundation.IN
 func (v VZVirtualMachineStartOptions) Set_delegatedExceptionClasses(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_delegatedExceptionClasses:"), value)
 }
-

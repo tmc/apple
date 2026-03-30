@@ -18,6 +18,7 @@ type NSChangeSpelling interface {
 type NSChangeSpellingObject struct {
 	objectivec.Object
 }
+
 func (o NSChangeSpellingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,7 +35,7 @@ func NSChangeSpellingObjectFromID(id objc.ID) NSChangeSpellingObject {
 // the Spelling panel.
 //
 // # Discussion
-// 
+//
 // This message is sent by the [NSSpellChecker] to the object whose text is
 // being checked. To get the corrected spelling, ask `sender` for the string
 // value of its selected cell (visible to the user as the text field in the
@@ -44,5 +45,4 @@ func NSChangeSpellingObjectFromID(id objc.ID) NSChangeSpellingObject {
 // See: https://developer.apple.com/documentation/AppKit/NSChangeSpelling/changeSpelling(_:)
 func (o NSChangeSpellingObject) ChangeSpelling(sender objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("changeSpelling:"), sender)
-	}
-
+}

@@ -23,6 +23,7 @@ type MLBatchProvider interface {
 type MLBatchProviderObject struct {
 	objectivec.Object
 }
+
 func (o MLBatchProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,11 +40,10 @@ func MLBatchProviderObjectFromID(id objc.ID) MLBatchProviderObject {
 func (o MLBatchProviderObject) Count() int64 {
 	rv := objc.Send[int64](o.ID, objc.Sel("count"))
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/featuresAtIndex:
 func (o MLBatchProviderObject) FeaturesAtIndex(index int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
-	}
-
+}

@@ -3,47 +3,11 @@
 package foundation
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"unsafe"
 )
-
-// ArrayErrorHandler is the signature for a completion handler block.
-//
-// Used by:
-//   - [NSFileVersion.GetNonlocalVersionsOfItemAtURLCompletionHandler]
-type ArrayErrorHandler = func(*[]NSFileVersion, error)
-
-// ArrayHandler handles The Block is applied to the object to be evaluated.
-//   - evaluatedObject: The object to be evaluated.
-//   - expressions: An array of predicate expressions that evaluates to a collection.
-//   - context: A dictionary that the expression can use to store temporary state for one predicate evaluation.
-//
-// Used by:
-//   - [NSExpression.ExpressionForBlockArguments]
-//   - [NSHTTPCookieStorage.GetCookiesForTaskCompletionHandler]
-//   - [NSURLSession.GetAllTasksWithCompletionHandler]
-type ArrayHandler = func(objectivec.IObject)
-
-// NewArrayBlock wraps a Go [ArrayHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSExpression.ExpressionForBlockArguments]
-//   - [NSHTTPCookieStorage.GetCookiesForTaskCompletionHandler]
-//   - [NSURLSession.GetAllTasksWithCompletionHandler]
-func NewArrayBlock(handler ArrayHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
-		var val objectivec.IObject
-		if valID != 0 {
-			objc.Send[objc.ID](valID, objc.Sel("retain"))
-			obj := objectivec.ObjectFromID(valID)
-			val = &obj
-		}
-		handler(val)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
 
 // BackgroundActivityCompletionHandlerHandler handles A block of code to execute when the scheduler runs.
 //
@@ -233,26 +197,10 @@ func NewDateBlock(handler DateHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// DictionaryErrorHandler handles A block that is called on an anonymous background queue.
-//
-// Used by:
-//   - [NSFileManager.GetFileProviderServicesForItemAtURLCompletionHandler]
-type DictionaryErrorHandler = func(*INSDictionary, error)
-
-// DictionaryHandler handles The block is applied to the object to be evaluated.
-//   - evaluatedObject: The object to be evaluated.
-//   - bindings: The substitution variables dictionary. The dictionary must contain key-value pairs for all variables in the receiver.
-//
-// Used by:
-//   - [NSComparisonPredicate.PredicateWithBlock]
-//   - [NSCompoundPredicate.PredicateWithBlock]
-//   - [NSPredicate.PredicateWithBlock]
-//   - [NSURLCredentialStorage.GetCredentialsForProtectionSpaceTaskCompletionHandler]
-type DictionaryHandler = func(*INSDictionary)
-
 // ErrorHandler handles A closure or block that the framework calls when the pause action completes.
 //   - err: The error object that is being accessed.
 //   - userInfoKey: The user info key corresponding to the accessed property.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -490,6 +438,45 @@ func NewMatchingFlagsBlock(handler MatchingFlagsHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSExpressionArrayHandler handles The Block is applied to the object to be evaluated.
+//   - evaluatedObject: The object to be evaluated.
+//   - expressions: An array of predicate expressions that evaluates to a collection.
+//   - context: A dictionary that the expression can use to store temporary state for one predicate evaluation.
+//
+// Used by:
+//   - [NSExpression.ExpressionForBlockArguments]
+type NSExpressionArrayHandler = func(objectivec.IObject)
+
+// NewNSExpressionArrayBlock wraps a Go [NSExpressionArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSExpression.ExpressionForBlockArguments]
+func NewNSExpressionArrayBlock(handler NSExpressionArrayHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
+		var val objectivec.IObject
+		if valID != 0 {
+			objc.Send[objc.ID](valID, objc.Sel("retain"))
+			obj := objectivec.ObjectFromID(valID)
+			val = &obj
+		}
+		handler(val)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSFileVersionArrayErrorHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [NSFileVersion.GetNonlocalVersionsOfItemAtURLCompletionHandler]
+type NSFileVersionArrayErrorHandler = func(*[]NSFileVersion, error)
+
+// NSHTTPCookieArrayHandler handles A completion handler that receives an array of cookies as its argument.
+//
+// Used by:
+//   - [NSHTTPCookieStorage.GetCookiesForTaskCompletionHandler]
+type NSHTTPCookieArrayHandler = func(*[]NSHTTPCookie)
+
 // NSItemProviderReadingErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -512,6 +499,12 @@ func NewNSItemProviderReadingErrorBlock(handler NSItemProviderReadingErrorHandle
 	})
 	return objc.ID(block), func() { block.Release() }
 }
+
+// NSURLSessionTaskArrayHandler handles The completion handler to call with the list of tasks.
+//
+// Used by:
+//   - [NSURLSession.GetAllTasksWithCompletionHandler]
+type NSURLSessionTaskArrayHandler = func(*[]NSURLSessionTask)
 
 // NotificationHandler handles The block that executes when receiving a notification.
 //
@@ -634,30 +627,6 @@ func NewObjectTypeBlock(handler ObjectTypeHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// OrderedCollectionChangeHandler handles A block receives an ordered collection change and returns an updated change.
-//
-// Used by:
-//   - [NSOrderedCollectionDifference.DifferenceByTransformingChangesWithBlock]
-type OrderedCollectionChangeHandler = func(*NSOrderedCollectionChange)
-
-// NewOrderedCollectionChangeBlock wraps a Go [OrderedCollectionChangeHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSOrderedCollectionDifference.DifferenceByTransformingChangesWithBlock]
-func NewOrderedCollectionChangeBlock(handler OrderedCollectionChangeHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *NSOrderedCollectionChange
-		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := NSOrderedCollectionChangeFromID(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // RangeHandler handles The block to apply to elements in the index set.
 //   - range: The range of elements.
 //   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
@@ -701,6 +670,28 @@ func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
 // Used by:
 //   - [NSString.EnumerateLinesUsingBlock]
 type StringHandler = func(*string)
+
+// StringNSFileProviderServiceDictionaryErrorHandler handles A block that is called on an anonymous background queue.
+//
+// Used by:
+//   - [NSFileManager.GetFileProviderServicesForItemAtURLCompletionHandler]
+type StringNSFileProviderServiceDictionaryErrorHandler = func(*INSDictionary, error)
+
+// StringNSURLCredentialDictionaryHandler handles A completion handler that receives a single argument with the credentials for the specified protection space and task.
+//
+// Used by:
+//   - [NSURLCredentialStorage.GetCredentialsForProtectionSpaceTaskCompletionHandler]
+type StringNSURLCredentialDictionaryHandler = func(*INSDictionary)
+
+// StringidDictionaryHandler handles The block is applied to the object to be evaluated.
+//   - evaluatedObject: The object to be evaluated.
+//   - bindings: The substitution variables dictionary. The dictionary must contain key-value pairs for all variables in the receiver.
+//
+// Used by:
+//   - [NSComparisonPredicate.PredicateWithBlock]
+//   - [NSCompoundPredicate.PredicateWithBlock]
+//   - [NSPredicate.PredicateWithBlock]
+type StringidDictionaryHandler = func(*INSDictionary)
 
 // TaskHandler handles The system invokes this completion block when the task has completed.
 //
@@ -785,6 +776,7 @@ func NewURLCredentialBlock(handler URLCredentialHandler) (objc.ID, func()) {
 // URLErrorHandler handles An optional error handler block for the file manager to call when an error occurs.
 //   - url: An [NSURL](<doc://com.apple.foundation/documentation/Foundation/NSURL>) object that identifies the item for which the error occurred.
 //   - error: An [NSError](<doc://com.apple.foundation/documentation/Foundation/NSError>) object that contains information about the error.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -1128,6 +1120,30 @@ func NewconstvoidBlock(handler constvoidHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// idOrderedCollectionChangeHandler handles A block receives an ordered collection change and returns an updated change.
+//
+// Used by:
+//   - [NSOrderedCollectionDifference.DifferenceByTransformingChangesWithBlock]
+type idOrderedCollectionChangeHandler = func(*NSOrderedCollectionChange)
+
+// NewidOrderedCollectionChangeBlock wraps a Go [idOrderedCollectionChangeHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSOrderedCollectionDifference.DifferenceByTransformingChangesWithBlock]
+func NewidOrderedCollectionChangeBlock(handler idOrderedCollectionChangeHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *NSOrderedCollectionChange
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSOrderedCollectionChangeFromID(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // unsignedshortHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -1136,4 +1152,3 @@ func NewconstvoidBlock(handler constvoidHandler) (objc.ID, func()) {
 //   - [NSSimpleCString.InitWithCharactersNoCopyLengthDeallocator]
 //   - [NSString.InitWithCharactersNoCopyLengthDeallocator]
 type unsignedshortHandler = func(*uint16)
-

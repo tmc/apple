@@ -18,6 +18,7 @@ type NSIgnoreMisspelledWords interface {
 type NSIgnoreMisspelledWordsObject struct {
 	objectivec.Object
 }
+
 func (o NSIgnoreMisspelledWordsObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,17 +31,15 @@ func NSIgnoreMisspelledWordsObjectFromID(id objc.ID) NSIgnoreMisspelledWordsObje
 	}
 }
 
-//
 // # Discussion
-// 
+//
 // Implement this action method to allow an application to ignore misspelled
 // words on a document-by-document basis. This message is sent by the
 // NSSpellChecker instance to the object whose text is being checked.
-// 
+//
 // Implement this method by using the code shown in the protocol description.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSIgnoreMisspelledWords/ignoreSpelling(_:)
 func (o NSIgnoreMisspelledWordsObject) IgnoreSpelling(sender objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("ignoreSpelling:"), sender)
-	}
-
+}

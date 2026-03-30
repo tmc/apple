@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,11 +44,11 @@ func (mc MLAppleSoundAnalysisPreprocessingClass) Alloc() MLAppleSoundAnalysisPre
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLAppleSoundAnalysisPreprocessing.PredictionFromFeaturesOptionsError]
 //   - [MLAppleSoundAnalysisPreprocessing.InitWithDescriptionConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing
 type MLAppleSoundAnalysisPreprocessing struct {
 	MLModel
@@ -57,6 +58,7 @@ type MLAppleSoundAnalysisPreprocessing struct {
 func MLAppleSoundAnalysisPreprocessingFromID(id objc.ID) MLAppleSoundAnalysisPreprocessing {
 	return MLAppleSoundAnalysisPreprocessing{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLAppleSoundAnalysisPreprocessing implements IMLAppleSoundAnalysisPreprocessing.
 var _ IMLAppleSoundAnalysisPreprocessing = MLAppleSoundAnalysisPreprocessing{}
 
@@ -96,7 +98,6 @@ func NewMLAppleSoundAnalysisPreprocessing() MLAppleSoundAnalysisPreprocessing {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewAppleSoundAnalysisPreprocessingDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleSoundAnalysisPreprocessing, error) {
 	var errorPtr objc.ID
@@ -109,7 +110,6 @@ func NewAppleSoundAnalysisPreprocessingDescriptionOnlyWithSpecificationConfigura
 	return MLAppleSoundAnalysisPreprocessingFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewAppleSoundAnalysisPreprocessingInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleSoundAnalysisPreprocessing, error) {
 	var errorPtr objc.ID
@@ -122,7 +122,6 @@ func NewAppleSoundAnalysisPreprocessingInterfaceAndMetadataWithCompiledArchiveEr
 	return MLAppleSoundAnalysisPreprocessingFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewAppleSoundAnalysisPreprocessingWithConfiguration(configuration objectivec.IObject) MLAppleSoundAnalysisPreprocessing {
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
@@ -130,7 +129,6 @@ func NewAppleSoundAnalysisPreprocessingWithConfiguration(configuration objective
 	return MLAppleSoundAnalysisPreprocessingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewAppleSoundAnalysisPreprocessingWithDescription(description objectivec.IObject) MLAppleSoundAnalysisPreprocessing {
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
@@ -138,7 +136,6 @@ func NewAppleSoundAnalysisPreprocessingWithDescription(description objectivec.IO
 	return MLAppleSoundAnalysisPreprocessingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewAppleSoundAnalysisPreprocessingWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleSoundAnalysisPreprocessing {
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
@@ -146,7 +143,6 @@ func NewAppleSoundAnalysisPreprocessingWithDescriptionConfiguration(description 
 	return MLAppleSoundAnalysisPreprocessingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing/initWithDescription:configuration:error:
 func NewAppleSoundAnalysisPreprocessingWithDescriptionConfigurationError(description objectivec.IObject, configuration objectivec.IObject) (MLAppleSoundAnalysisPreprocessing, error) {
 	var errorPtr objc.ID
@@ -159,7 +155,6 @@ func NewAppleSoundAnalysisPreprocessingWithDescriptionConfigurationError(descrip
 	return MLAppleSoundAnalysisPreprocessingFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewAppleSoundAnalysisPreprocessingWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleSoundAnalysisPreprocessing {
 	instance := getMLAppleSoundAnalysisPreprocessingClass().Alloc()
@@ -167,7 +162,6 @@ func NewAppleSoundAnalysisPreprocessingWithNameInputDescriptionOutputDescription
 	return MLAppleSoundAnalysisPreprocessingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing/predictionFromFeatures:options:error:
 func (a MLAppleSoundAnalysisPreprocessing) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -179,7 +173,7 @@ func (a MLAppleSoundAnalysisPreprocessing) PredictionFromFeaturesOptionsError(fe
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing/initWithDescription:configuration:error:
 func (a MLAppleSoundAnalysisPreprocessing) InitWithDescriptionConfigurationError(description objectivec.IObject, configuration objectivec.IObject) (MLAppleSoundAnalysisPreprocessing, error) {
 	var errorPtr objc.ID
@@ -192,7 +186,6 @@ func (a MLAppleSoundAnalysisPreprocessing) InitWithDescriptionConfigurationError
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleSoundAnalysisPreprocessing/loadModelFromSpecification:configuration:error:
 func (_MLAppleSoundAnalysisPreprocessingClass MLAppleSoundAnalysisPreprocessingClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -204,4 +197,3 @@ func (_MLAppleSoundAnalysisPreprocessingClass MLAppleSoundAnalysisPreprocessingC
 	return objectivec.Object{ID: rv}, nil
 
 }
-

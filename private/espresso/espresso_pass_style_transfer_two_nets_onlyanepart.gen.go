@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_style_transfer_two_nets_onlyanepart struct {
 func EspressoPass_style_transfer_two_nets_onlyanepartFromID(id objc.ID) EspressoPass_style_transfer_two_nets_onlyanepart {
 	return EspressoPass_style_transfer_two_nets_onlyanepart{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_style_transfer_two_nets_onlyanepart implements IEspressoPass_style_transfer_two_nets_onlyanepart.
 var _ IEspressoPass_style_transfer_two_nets_onlyanepart = EspressoPass_style_transfer_two_nets_onlyanepart{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_style_transfer_two_nets_onlyanepart() EspressoPass_style_tr
 	rv := objc.Send[EspressoPass_style_transfer_two_nets_onlyanepart](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

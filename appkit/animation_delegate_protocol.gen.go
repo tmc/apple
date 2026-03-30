@@ -4,9 +4,11 @@ package appkit
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of optional methods implemented by delegates of [NSAnimation](<doc://com.apple.appkit/documentation/AppKit/NSAnimation>) objects.
@@ -20,6 +22,7 @@ type NSAnimationDelegate interface {
 type NSAnimationDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSAnimationDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,41 +40,40 @@ func NSAnimationDelegateObjectFromID(id objc.ID) NSAnimationDelegateObject {
 // animation: The [NSAnimation] instance that completed its run.
 //
 // # Discussion
-// 
+//
 // When an [NSAnimation] object reaches the end of its planned duration, it
 // has a progress value of 1.0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationDidEnd(_:)
 func (o NSAnimationDelegateObject) AnimationDidEnd(animation INSAnimation) {
 	objc.Send[struct{}](o.ID, objc.Sel("animationDidEnd:"), animation)
-	}
+}
+
 // Sent to the delegate when the specified animation is stopped before it
 // completes its run.
 //
 // animation: The [NSAnimation] instance that was stopped.
 //
 // # Discussion
-// 
+//
 // An [NSAnimation] object stops running when it receives a [StopAnimation]
 // message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationDidStop(_:)
 func (o NSAnimationDelegateObject) AnimationDidStop(animation INSAnimation) {
 	objc.Send[struct{}](o.ID, objc.Sel("animationDidStop:"), animation)
-	}
+}
+
 // Sent to the delegate just after an animation is started.
 //
 // animation: The [NSAnimation] object that was just started.
 //
 // # Return Value
-// 
-// [false] to cancel the animation, [true] to have the animation proceed.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// false to cancel the animation, true to have the animation proceed.
 //
 // # Discussion
-// 
+//
 // The delegate is sent this message just after `animation` receives a
 // [StartAnimation] message. The delegate can use this method to prepare
 // objects and resources for the effect.
@@ -80,7 +82,8 @@ func (o NSAnimationDelegateObject) AnimationDidStop(animation INSAnimation) {
 func (o NSAnimationDelegateObject) AnimationShouldStart(animation INSAnimation) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("animationShouldStart:"), animation)
 	return rv
-	}
+}
+
 // Requests a custom curve value for the current progress value.
 //
 // animation: An [NSAnimation] object that is running.
@@ -89,29 +92,30 @@ func (o NSAnimationDelegateObject) AnimationShouldStart(animation INSAnimation) 
 // mark of `animation`. This value is always between 0.0 and 1.0.
 //
 // # Return Value
-// 
+//
 // A `float` value representing a custom curve.
 //
 // # Discussion
-// 
+//
 // The delegate can compute and return a custom curve value for the given
 // progress value. If the delegate does not implement this method,
 // [NSAnimation] computes the current curve value.
-// 
+//
 // The animation:valueForProgress: message is sent to the delegate when an
 // [NSAnimation] object receives a [CurrentValue] message. The value the
 // delegate returns is used as the value of [CurrentValue]; if there is no
 // delegate, or it doesn’t implement animation:valueForProgress:,
 // [NSAnimation] computes and returns the current value. [NSAnimation] does
 // not invoke [CurrentValue]itself, but subclasses might.
-// 
+//
 // See the description of [CurrentValue] for more information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animation(_:valueForProgress:)
 func (o NSAnimationDelegateObject) AnimationValueForProgress(animation INSAnimation, progress NSAnimationProgress) float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("animation:valueForProgress:"), animation, progress)
 	return rv
-	}
+}
+
 // Sent to the delegate when an animation reaches a specific progress mark.
 //
 // animation: A running [NSAnimation] object that has reached a progress mark.
@@ -120,19 +124,19 @@ func (o NSAnimationDelegateObject) AnimationValueForProgress(animation INSAnimat
 // mark of `animation`.
 //
 // # Discussion
-// 
+//
 // The delegate typically implements this method to perform some animation
 // effect for the time slice indicated by `progress`, such as redrawing
 // objects in a view with new coordinates or changing the frame location or
 // size of a window or view. As an alternative to this delegation message, you
 // may choose to observe the [progressMarkNotification] notification.
 //
-// [progressMarkNotification]: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animation(_:didReachProgressMark:)
+//
+// [progressMarkNotification]: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkNotification
 func (o NSAnimationDelegateObject) AnimationDidReachProgressMark(animation INSAnimation, progress NSAnimationProgress) {
 	objc.Send[struct{}](o.ID, objc.Sel("animation:didReachProgressMark:"), animation, progress)
-	}
+}
 
 // NSAnimationDelegateConfig holds optional typed callbacks for [NSAnimationDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -248,4 +252,3 @@ func NewNSAnimationDelegate(config NSAnimationDelegateConfig) NSAnimationDelegat
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSAnimationDelegateObjectFromID(instance)
 }
-

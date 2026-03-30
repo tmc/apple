@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,10 +45,10 @@ func (vc VZAudioInputStreamSourceClass) Alloc() VZAudioInputStreamSource {
 // The base class for an audio input stream source.
 //
 // # Overview
-// 
+//
 // An audio input stream source defines how th guest produces audio input data
 // on the host system.
-// 
+//
 // Don’t instantiate [VZAudioInputStreamSource] directly, use one of its
 // subclasses such as [VZHostAudioInputStreamSource] instead.
 //
@@ -62,6 +63,7 @@ type VZAudioInputStreamSource struct {
 func VZAudioInputStreamSourceFromID(id objc.ID) VZAudioInputStreamSource {
 	return VZAudioInputStreamSource{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZAudioInputStreamSource adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -90,4 +92,3 @@ func NewVZAudioInputStreamSource() VZAudioInputStreamSource {
 	rv := objc.Send[VZAudioInputStreamSource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

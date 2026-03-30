@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -61,6 +62,7 @@ type AVAudioSessionCapability struct {
 func AVAudioSessionCapabilityFromID(id objc.ID) AVAudioSessionCapability {
 	return AVAudioSessionCapability{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioSessionCapability adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,6 +115,7 @@ func (a AVAudioSessionCapability) Enabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isEnabled"))
 	return rv
 }
+
 // A Boolean value that indicates whether the capability is supported.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionCapability/isSupported
@@ -120,6 +123,7 @@ func (a AVAudioSessionCapability) Supported() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isSupported"))
 	return rv
 }
+
 // An optional port extension that describes capabilities relevant to
 // Bluetooth microphone ports.
 //
@@ -131,4 +135,3 @@ func (a AVAudioSessionCapability) BluetoothMicrophoneExtension() objc.ID {
 func (a AVAudioSessionCapability) SetBluetoothMicrophoneExtension(value objc.ID) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBluetoothMicrophoneExtension:"), value)
 }
-

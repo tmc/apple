@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,20 +44,20 @@ func (uc UnitAreaClass) Alloc() UnitArea {
 // A unit of measure for area.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitArea] to represent specific
 // quantities of area using the [NSMeasurement] class.
-// 
+//
 // # Area
-// 
+//
 // Area is a quantity of extent in two dimensions. Area can be expressed by SI
 // derived units in terms of square meters (m2). Area is also commonly
 // measured in square feet (ft2) and acres (ac).
-// 
+//
 // The [NSUnitArea] class defines its [BaseUnit] as [SquareMeters], and
 // provides the following units, which are initialized using
 // [NSUnitConverterLinear] converters with the specified coefficients:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea
@@ -73,6 +74,7 @@ func UnitAreaFromID(id objc.ID) UnitArea {
 
 // NSUnitAreaFromID is an alias for [UnitAreaFromID] for cross-framework compatibility.
 func NSUnitAreaFromID(id objc.ID) UnitArea { return UnitAreaFromID(id) }
+
 // NOTE: UnitArea adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -102,7 +104,6 @@ func NewUnitArea() UnitArea {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitAreaWithCoder(coder INSCoder) UnitArea {
 	instance := getUnitAreaClass().Alloc()
@@ -115,7 +116,7 @@ func NewUnitAreaWithCoder(coder INSCoder) UnitArea {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -134,11 +135,11 @@ func NewUnitAreaWithSymbol(symbol string) UnitArea {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -155,6 +156,7 @@ func (_UnitAreaClass UnitAreaClass) SquareMegameters() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareMegameters"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The square kilometers unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/squareKilometers
@@ -162,6 +164,7 @@ func (_UnitAreaClass UnitAreaClass) SquareKilometers() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareKilometers"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The square meters unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/squareMeters
@@ -169,6 +172,7 @@ func (_UnitAreaClass UnitAreaClass) SquareMeters() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareMeters"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The square centimeters unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/squareCentimeters
@@ -176,6 +180,7 @@ func (_UnitAreaClass UnitAreaClass) SquareCentimeters() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareCentimeters"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The square millimeters unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/squareMillimeters
@@ -183,6 +188,7 @@ func (_UnitAreaClass UnitAreaClass) SquareMillimeters() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareMillimeters"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The square micrometers unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/squareMicrometers
@@ -190,6 +196,7 @@ func (_UnitAreaClass UnitAreaClass) SquareMicrometers() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareMicrometers"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The square nanometers unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/squareNanometers
@@ -197,6 +204,7 @@ func (_UnitAreaClass UnitAreaClass) SquareNanometers() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareNanometers"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The square inches unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/squareInches
@@ -204,6 +212,7 @@ func (_UnitAreaClass UnitAreaClass) SquareInches() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareInches"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The square feet unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/squareFeet
@@ -211,6 +220,7 @@ func (_UnitAreaClass UnitAreaClass) SquareFeet() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareFeet"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The square yards unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/squareYards
@@ -218,6 +228,7 @@ func (_UnitAreaClass UnitAreaClass) SquareYards() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareYards"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The square miles unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/squareMiles
@@ -225,6 +236,7 @@ func (_UnitAreaClass UnitAreaClass) SquareMiles() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("squareMiles"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The acres unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/acres
@@ -232,6 +244,7 @@ func (_UnitAreaClass UnitAreaClass) Acres() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("acres"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The ares unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/ares
@@ -239,6 +252,7 @@ func (_UnitAreaClass UnitAreaClass) Ares() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("ares"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
+
 // The hectares unit of area.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitArea/hectares
@@ -246,4 +260,3 @@ func (_UnitAreaClass UnitAreaClass) Hectares() UnitArea {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAreaClass.class), objc.Sel("hectares"))
 	return NSUnitAreaFromID(objc.ID(rv))
 }
-

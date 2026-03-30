@@ -4,9 +4,10 @@ package coregraphics
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 var (
@@ -210,6 +211,22 @@ var (
 	KCGEXRToneMappingGammaKneeHigh string
 	// See: https://developer.apple.com/documentation/CoreGraphics/kCGEXRToneMappingGammaKneeLow
 	KCGEXRToneMappingGammaKneeLow string
+	// KCGFontVariationAxisDefaultValue is the key used to obtain the default variation axis value from a variation axis dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGFont/variationAxisDefaultValue
+	KCGFontVariationAxisDefaultValue string
+	// KCGFontVariationAxisMaxValue is the key used to obtain the maximum variation axis value from a variation axis dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGFont/variationAxisMaxValue
+	KCGFontVariationAxisMaxValue string
+	// KCGFontVariationAxisMinValue is the key used to obtain the minimum variation axis value from a variation axis dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGFont/variationAxisMinValue
+	KCGFontVariationAxisMinValue string
+	// KCGFontVariationAxisName is the key used to obtain the variation axis name from a variation axis dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGFont/variationAxisName
+	KCGFontVariationAxisName string
 	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextAccessPermissions
 	KCGPDFContextAccessPermissions string
 	// KCGPDFContextAllowsCopying is whether the document allows copying when unlocked with the user password.
@@ -340,6 +357,7 @@ var (
 	// See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagProperty/titleText
 	KCGPDFTagPropertyTitleText CGPDFTagProperty
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -899,6 +917,46 @@ func init() {
 		}
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCGFontVariationAxisDefaultValue"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				KCGFontVariationAxisDefaultValue = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCGFontVariationAxisMaxValue"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				KCGFontVariationAxisMaxValue = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCGFontVariationAxisMinValue"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				KCGFontVariationAxisMinValue = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCGFontVariationAxisName"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				KCGFontVariationAxisName = objc.GoString(cstr)
+			}
+		}
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFContextAccessPermissions"); err == nil && ptr != 0 {
 		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
@@ -1386,4 +1444,3 @@ func init() {
 	}
 
 }
-

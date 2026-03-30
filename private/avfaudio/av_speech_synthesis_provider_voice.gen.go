@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (ac AVSpeechSynthesisProviderVoiceClass) Alloc() AVSpeechSynthesisProviderV
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVSpeechSynthesisProviderVoice.ExtraAttributes]
@@ -70,6 +70,7 @@ func (ac AVSpeechSynthesisProviderVoiceClass) Alloc() AVSpeechSynthesisProviderV
 //   - [AVSpeechSynthesisProviderVoice.SetPrimaryLanguages]
 //   - [AVSpeechSynthesisProviderVoice.SupportedLanguages]
 //   - [AVSpeechSynthesisProviderVoice.SetSupportedLanguages]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice
 type AVSpeechSynthesisProviderVoice struct {
 	objectivec.Object
@@ -79,6 +80,7 @@ type AVSpeechSynthesisProviderVoice struct {
 func AVSpeechSynthesisProviderVoiceFromID(id objc.ID) AVSpeechSynthesisProviderVoice {
 	return AVSpeechSynthesisProviderVoice{objectivec.Object{ID: id}}
 }
+
 // Ensure AVSpeechSynthesisProviderVoice implements IAVSpeechSynthesisProviderVoice.
 var _ IAVSpeechSynthesisProviderVoice = AVSpeechSynthesisProviderVoice{}
 
@@ -164,7 +166,6 @@ func NewAVSpeechSynthesisProviderVoice() AVSpeechSynthesisProviderVoice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/initWithCoder:
 func NewSpeechSynthesisProviderVoiceWithCoder(coder objectivec.IObject) AVSpeechSynthesisProviderVoice {
 	instance := getAVSpeechSynthesisProviderVoiceClass().Alloc()
@@ -177,27 +178,31 @@ func (s AVSpeechSynthesisProviderVoice) FullBundleIdentifier() objectivec.IObjec
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("fullBundleIdentifier"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/rawTTSIdentifier
 func (s AVSpeechSynthesisProviderVoice) RawTTSIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("rawTTSIdentifier"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/supportedCharacterSet
 func (s AVSpeechSynthesisProviderVoice) SupportedCharacterSet() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("supportedCharacterSet"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/uniqueAudioDescSpeechSynthTuple
 func (s AVSpeechSynthesisProviderVoice) UniqueAudioDescSpeechSynthTuple() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("uniqueAudioDescSpeechSynthTuple"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/uniqueAudioDescTriple
 func (s AVSpeechSynthesisProviderVoice) UniqueAudioDescTriple() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("uniqueAudioDescTriple"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/initWithCoder:
 func (s AVSpeechSynthesisProviderVoice) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisProviderVoice {
 	rv := objc.Send[AVSpeechSynthesisProviderVoice](s.ID, objc.Sel("initWithCoder:"), coder)
@@ -209,7 +214,7 @@ func (_AVSpeechSynthesisProviderVoiceClass AVSpeechSynthesisProviderVoiceClass) 
 	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesisProviderVoiceClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/updateSpeechVoicesForClient:
 func (_AVSpeechSynthesisProviderVoiceClass AVSpeechSynthesisProviderVoiceClass) UpdateSpeechVoicesForClient(client objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_AVSpeechSynthesisProviderVoiceClass.class), objc.Sel("updateSpeechVoicesForClient:"), client)
@@ -223,11 +228,13 @@ func (s AVSpeechSynthesisProviderVoice) ExtraAttributes() foundation.INSDictiona
 func (s AVSpeechSynthesisProviderVoice) SetExtraAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setExtraAttributes:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/groupName
 func (s AVSpeechSynthesisProviderVoice) GroupName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("groupName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/identifier
 func (s AVSpeechSynthesisProviderVoice) Identifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("identifier"))
@@ -236,6 +243,7 @@ func (s AVSpeechSynthesisProviderVoice) Identifier() string {
 func (s AVSpeechSynthesisProviderVoice) SetIdentifier(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/isFirstParty
 func (s AVSpeechSynthesisProviderVoice) IsFirstParty() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isFirstParty"))
@@ -244,6 +252,7 @@ func (s AVSpeechSynthesisProviderVoice) IsFirstParty() bool {
 func (s AVSpeechSynthesisProviderVoice) SetIsFirstParty(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIsFirstParty:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/isPersonalVoice
 func (s AVSpeechSynthesisProviderVoice) IsPersonalVoice() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isPersonalVoice"))
@@ -252,6 +261,7 @@ func (s AVSpeechSynthesisProviderVoice) IsPersonalVoice() bool {
 func (s AVSpeechSynthesisProviderVoice) SetIsPersonalVoice(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIsPersonalVoice:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/manufacturerName
 func (s AVSpeechSynthesisProviderVoice) ManufacturerName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("manufacturerName"))
@@ -260,6 +270,7 @@ func (s AVSpeechSynthesisProviderVoice) ManufacturerName() string {
 func (s AVSpeechSynthesisProviderVoice) SetManufacturerName(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setManufacturerName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/name
 func (s AVSpeechSynthesisProviderVoice) Name() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
@@ -268,6 +279,7 @@ func (s AVSpeechSynthesisProviderVoice) Name() string {
 func (s AVSpeechSynthesisProviderVoice) SetName(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/primaryLanguages
 func (s AVSpeechSynthesisProviderVoice) PrimaryLanguages() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("primaryLanguages"))
@@ -276,6 +288,7 @@ func (s AVSpeechSynthesisProviderVoice) PrimaryLanguages() foundation.INSArray {
 func (s AVSpeechSynthesisProviderVoice) SetPrimaryLanguages(value foundation.INSArray) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPrimaryLanguages:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/supportedLanguages
 func (s AVSpeechSynthesisProviderVoice) SupportedLanguages() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("supportedLanguages"))
@@ -284,6 +297,7 @@ func (s AVSpeechSynthesisProviderVoice) SupportedLanguages() foundation.INSArray
 func (s AVSpeechSynthesisProviderVoice) SetSupportedLanguages(value foundation.INSArray) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSupportedLanguages:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/synthesizerBundleIdentifier
 func (s AVSpeechSynthesisProviderVoice) SynthesizerBundleIdentifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("synthesizerBundleIdentifier"))
@@ -292,4 +306,3 @@ func (s AVSpeechSynthesisProviderVoice) SynthesizerBundleIdentifier() string {
 func (s AVSpeechSynthesisProviderVoice) SetSynthesizerBundleIdentifier(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSynthesizerBundleIdentifier:"), objc.String(value))
 }
-

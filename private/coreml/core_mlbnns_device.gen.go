@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type CoreMLBNNSDevice struct {
 func CoreMLBNNSDeviceFromID(id objc.ID) CoreMLBNNSDevice {
 	return CoreMLBNNSDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: CoreMLBNNSDevice struct embeds objectivec.Object (parent type unavailable) but
 // ICoreMLBNNSDevice embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewCoreMLBNNSDevice() CoreMLBNNSDevice {
 	rv := objc.Send[CoreMLBNNSDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -23,6 +23,7 @@ type GTMioTraceDataObserverToken interface {
 type GTMioTraceDataObserverTokenObject struct {
 	objectivec.Object
 }
+
 func (o GTMioTraceDataObserverTokenObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -38,5 +39,4 @@ func GTMioTraceDataObserverTokenObjectFromID(id objc.ID) GTMioTraceDataObserverT
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverToken/cancel
 func (o GTMioTraceDataObserverTokenObject) Cancel() {
 	objc.Send[struct{}](o.ID, objc.Sel("cancel"))
-	}
-
+}

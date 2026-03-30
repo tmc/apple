@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMIDISysexEvent] class.
@@ -44,7 +45,7 @@ func (ac AVMIDISysexEventClass) Alloc() AVMIDISysexEvent {
 // An object that represents a MIDI system exclusive message.
 //
 // # Overview
-// 
+//
 // You can’t modify the size and contents of this event once you create it.
 //
 // # Creates a System Event
@@ -66,6 +67,7 @@ type AVMIDISysexEvent struct {
 func AVMIDISysexEventFromID(id objc.ID) AVMIDISysexEvent {
 	return AVMIDISysexEvent{AVMusicEvent: AVMusicEventFromID(id)}
 }
+
 // NOTE: AVMIDISysexEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -141,4 +143,3 @@ func (m AVMIDISysexEvent) SizeInBytes() uint32 {
 	rv := objc.Send[uint32](m.ID, objc.Sel("sizeInBytes"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -24,6 +25,7 @@ type CIPlugInRegistration interface {
 type CIPlugInRegistrationObject struct {
 	objectivec.Object
 }
+
 func (o CIPlugInRegistrationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,11 +43,11 @@ func CIPlugInRegistrationObjectFromID(id objc.ID) CIPlugInRegistrationObject {
 // host: Reserved for future use.
 //
 // # Return Value
-// 
-// Returns `true` if the image unit is successfully initialized
+//
+// # Returns `true` if the image unit is successfully initialized
 //
 // # Discussion
-// 
+//
 // The `load` method is called once by the host to initialize the image unit
 // when the first filter in the image unit is instantiated. The method
 // provides the image unit with an opportunity to perform custom
@@ -55,5 +57,4 @@ func CIPlugInRegistrationObjectFromID(id objc.ID) CIPlugInRegistrationObject {
 func (o CIPlugInRegistrationObject) Load(host unsafe.Pointer) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("load:"), host)
 	return rv
-	}
-
+}

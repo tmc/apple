@@ -4,11 +4,12 @@ package avfaudio
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,7 +49,7 @@ func (ac AVAudioApplicationClass) Alloc() AVAudioApplication {
 // An object that manages one or more audio sessions that belong to an app.
 //
 // # Overview
-// 
+//
 // Access the shared audio application instance to control app-level audio
 // operations, such as requesting microphone permission and controlling audio
 // input muting.
@@ -74,6 +75,7 @@ type AVAudioApplication struct {
 func AVAudioApplicationFromID(id objc.ID) AVAudioApplication {
 	return AVAudioApplication{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioApplication adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -133,16 +135,15 @@ func NewAVAudioApplication() AVAudioApplication {
 // muted: A Boolean value that indicates the new mute state.
 //
 // # Discussion
-// 
-// In platforms that use [AVAudioSession], setting the value to [true] mutes
-// all sources of audio input in the app. In macOS, the system instead invokes
-// the callback that you register by calling
-// [SetInputMuteStateChangeHandlerError] to handle input muting.
 //
-// [AVAudioSession]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession
-// [true]: https://developer.apple.com/documentation/Swift/true
+// In platforms that use [AVAudioSession], setting the value to true mutes all
+// sources of audio input in the app. In macOS, the system instead invokes the
+// callback that you register by calling [SetInputMuteStateChangeHandlerError]
+// to handle input muting.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioApplication/setInputMuted(_:)
+//
+// [AVAudioSession]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession
 func (a AVAudioApplication) SetInputMutedError(muted bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("setInputMuted:error:"), muted, unsafe.Pointer(&errorPtr))
@@ -156,25 +157,23 @@ func (a AVAudioApplication) SetInputMutedError(muted bool) (bool, error) {
 	return rv, nil
 
 }
+
 // Sets a callback to handle changes to application-level audio muting states.
 //
 // inputMuteHandler: A callback that the system invokes when the input mute state changes. If
-// the callback receives a [true] value, mute all input audio samples until
-// the next time the system calls the handler. Return a value of [true] if you
-// muted input successfully, or in exceptional cases, return [false] to
-// indicate the mute action fails.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// the callback receives a true value, mute all input audio samples until the
+// next time the system calls the handler. Return a value of true if you muted
+// input successfully, or in exceptional cases, return false to indicate the
+// mute action fails.
 //
 // # Discussion
-// 
+//
 // Use this method to set a closure to handle your macOS app’s input muting
 // logic. The system calls thie closure when the input mute state changes,
 // either due to setting the [InputMuted] state, or due to a Bluetooth audio
 // accessory gesture (certain AirPods / Beats headphones) changing the mute
 // state.
-// 
+//
 // Since the input mute handling logic should happen a single place,
 // subsequent calls to this method overwrite any previously registered block
 // with the one you provide. You can specify a `nil` to cancel the callback.
@@ -200,17 +199,17 @@ func (a AVAudioApplication) SetInputMuteStateChangeHandlerError(inputMuteHandler
 // to record audio.
 //
 // # Discussion
-// 
+//
 // Recording audio requires explicit permission from the user. The first time
 // your app attempts to record audio input, the system automatically prompts
 // the user for permission. You can also explicitly ask for permission by
 // calling this method. This method returns immediately, but the system waits
 // for user input if the user hasn’t previously granted or denied recording
 // permission.
-// 
+//
 // Unless a user grants your app permission to record audio, it captures only
 // silence (zeroed out audio samples).
-// 
+//
 // After a user responds to a recording permission prompt from your app, the
 // system remembers their choice and won’t prompt them again. If a user
 // denies the app recording permission, they can grant it access in the
@@ -218,14 +217,14 @@ func (a AVAudioApplication) SetInputMuteStateChangeHandlerError(inputMuteHandler
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioApplication/requestRecordPermission(completionHandler:)
 func (_AVAudioApplicationClass AVAudioApplicationClass) RequestRecordPermissionWithCompletionHandler(response BoolHandler) {
-_block0, _ := NewBoolBlock(response)
+	_block0, _ := NewBoolBlock(response)
 	objc.Send[objc.ID](objc.ID(_AVAudioApplicationClass.class), objc.Sel("requestRecordPermissionWithCompletionHandler:"), _block0)
 }
 
 // The app’s permission to record audio.
 //
 // # Discussion
-// 
+//
 // See [RequestRecordPermissionWithCompletionHandler] for more information.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioApplication/recordPermission-swift.property
@@ -233,11 +232,12 @@ func (a AVAudioApplication) RecordPermission() AVAudioApplicationRecordPermissio
 	rv := objc.Send[AVAudioApplicationRecordPermission](a.ID, objc.Sel("recordPermission"))
 	return AVAudioApplicationRecordPermission(rv)
 }
+
 // A Boolean value that indicates whether the app’s audio input is in a
 // muted state.
 //
 // # Discussion
-// 
+//
 // Set a new value for this property by calling the [SetInputMutedError]
 // method.
 //
@@ -269,4 +269,3 @@ func (ac AVAudioApplicationClass) RequestRecordPermission(ctx context.Context) (
 		return false, ctx.Err()
 	}
 }
-

@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (cc CIRenderInfoClass) Alloc() CIRenderInfo {
 // An encapsulation of a render task’s timing, passes, and pixels processed.
 //
 // # Overview
-// 
+//
 // A [CIRenderInfo] object allows Xcode Quick Look to visualize the render
 // graph with detailed timing information.
 //
@@ -66,6 +67,7 @@ type CIRenderInfo struct {
 func CIRenderInfoFromID(id objc.ID) CIRenderInfo {
 	return CIRenderInfo{objectivec.Object{ID: id}}
 }
+
 // NOTE: CIRenderInfo adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,6 +121,7 @@ func (r CIRenderInfo) KernelExecutionTime() float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("kernelExecutionTime"))
 	return rv
 }
+
 // The number of passes the render took.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderInfo/passCount
@@ -126,6 +129,7 @@ func (r CIRenderInfo) PassCount() int {
 	rv := objc.Send[int](r.ID, objc.Sel("passCount"))
 	return rv
 }
+
 // The number of pixels the render produced executing kernels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderInfo/pixelsProcessed
@@ -133,9 +137,9 @@ func (r CIRenderInfo) PixelsProcessed() int {
 	rv := objc.Send[int](r.ID, objc.Sel("pixelsProcessed"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderInfo/kernelCompileTime
 func (r CIRenderInfo) KernelCompileTime() float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("kernelCompileTime"))
 	return rv
 }
-

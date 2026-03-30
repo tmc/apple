@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -62,6 +63,7 @@ type MTLResourceViewPoolDescriptor struct {
 func MTLResourceViewPoolDescriptorFromID(id objc.ID) MTLResourceViewPoolDescriptor {
 	return MTLResourceViewPoolDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLResourceViewPoolDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,6 +120,7 @@ func (r MTLResourceViewPoolDescriptor) Label() string {
 func (r MTLResourceViewPoolDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // Configures the number of resource views with which Metal creates the
 // resource view pool.
 //
@@ -129,4 +132,3 @@ func (r MTLResourceViewPoolDescriptor) ResourceViewCount() uint {
 func (r MTLResourceViewPoolDescriptor) SetResourceViewCount(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResourceViewCount:"), value)
 }
-

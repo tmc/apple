@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZSharedDirectoryClass) Alloc() VZSharedDirectory {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZSharedDirectory.ReadOnly]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory
 type VZSharedDirectory struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZSharedDirectory struct {
 func VZSharedDirectoryFromID(id objc.ID) VZSharedDirectory {
 	return VZSharedDirectory{objectivec.Object{ID: id}}
 }
+
 // Ensure VZSharedDirectory implements IVZSharedDirectory.
 var _ IVZSharedDirectory = VZSharedDirectory{}
 
@@ -96,4 +98,3 @@ func (s VZSharedDirectory) ReadOnly() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("readOnly"))
 	return rv
 }
-

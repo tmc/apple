@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (mc MTLAccelerationStructurePassSampleBufferAttachmentDescriptorClass) Allo
 	return rv
 }
 
-//
 // # Instance Properties
 //
 //   - [MTLAccelerationStructurePassSampleBufferAttachmentDescriptor.EndOfEncoderSampleIndex]
@@ -50,6 +50,7 @@ func (mc MTLAccelerationStructurePassSampleBufferAttachmentDescriptorClass) Allo
 //   - [MTLAccelerationStructurePassSampleBufferAttachmentDescriptor.SetSampleBuffer]
 //   - [MTLAccelerationStructurePassSampleBufferAttachmentDescriptor.StartOfEncoderSampleIndex]
 //   - [MTLAccelerationStructurePassSampleBufferAttachmentDescriptor.SetStartOfEncoderSampleIndex]
+//
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassSampleBufferAttachmentDescriptor
 type MTLAccelerationStructurePassSampleBufferAttachmentDescriptor struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MTLAccelerationStructurePassSampleBufferAttachmentDescriptor struct {
 func MTLAccelerationStructurePassSampleBufferAttachmentDescriptorFromID(id objc.ID) MTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
 	return MTLAccelerationStructurePassSampleBufferAttachmentDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLAccelerationStructurePassSampleBufferAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,20 +117,21 @@ func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptor) EndOfEncod
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptor) SetEndOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setEndOfEncoderSampleIndex:"), value)
 }
+
 // A specialized memory buffer that the GPU uses to store its counter data
 // during the acceleration structure pass.
 //
 // # Discussion
-// 
+//
 // The property defaults to `nil`, which means the GPU doesn’t save any GPU
 // counter information during the acceleration structure pass. See [Creating a
 // counter sample buffer to store a GPU’s counter data during a pass] and
 // [Sampling GPU data into counter sample buffers] for more information.
 //
+// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassSampleBufferAttachmentDescriptor/sampleBuffer
+//
 // [Creating a counter sample buffer to store a GPU’s counter data during a pass]: https://developer.apple.com/documentation/Metal/creating-a-counter-sample-buffer-to-store-a-gpus-counter-data-during-a-pass
 // [Sampling GPU data into counter sample buffers]: https://developer.apple.com/documentation/Metal/sampling-gpu-data-into-counter-sample-buffers
-//
-// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassSampleBufferAttachmentDescriptor/sampleBuffer
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptor) SampleBuffer() MTLCounterSampleBuffer {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sampleBuffer"))
 	return MTLCounterSampleBufferObjectFromID(rv)
@@ -136,6 +139,7 @@ func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptor) SampleBuff
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTLCounterSampleBuffer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSampleBuffer:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassSampleBufferAttachmentDescriptor/startOfEncoderSampleIndex
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptor) StartOfEncoderSampleIndex() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("startOfEncoderSampleIndex"))
@@ -144,4 +148,3 @@ func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptor) StartOfEnc
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptor) SetStartOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStartOfEncoderSampleIndex:"), value)
 }
-

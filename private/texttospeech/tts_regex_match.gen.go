@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (tc TTSRegexMatchClass) Alloc() TTSRegexMatch {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSRegexMatch.CaptureGroups]
 //   - [TTSRegexMatch.SetCaptureGroups]
 //   - [TTSRegexMatch.Utf8Range]
 //   - [TTSRegexMatch.SetUtf8Range]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexMatch
 type TTSRegexMatch struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type TTSRegexMatch struct {
 func TTSRegexMatchFromID(id objc.ID) TTSRegexMatch {
 	return TTSRegexMatch{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSRegexMatch implements ITTSRegexMatch.
 var _ ITTSRegexMatch = TTSRegexMatch{}
 
@@ -109,6 +111,7 @@ func (t TTSRegexMatch) CaptureGroups() foundation.INSArray {
 func (t TTSRegexMatch) SetCaptureGroups(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCaptureGroups:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexMatch/utf8Range
 func (t TTSRegexMatch) Utf8Range() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("utf8Range"))
@@ -117,4 +120,3 @@ func (t TTSRegexMatch) Utf8Range() foundation.NSRange {
 func (t TTSRegexMatch) SetUtf8Range(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUtf8Range:"), value)
 }
-

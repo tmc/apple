@@ -4,7 +4,6 @@ package endpointsecurity
 
 import (
 	"unsafe"
-	"github.com/tmc/apple/objectivec"
 )
 
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_cdhash_t
@@ -21,7 +20,7 @@ type Es_graphical_session_id_t = uint32
 // Es_handler_block_t is a block that handles a message received from Endpoint Security.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_handler_block_t
-type Es_handler_block_t = func(objectivec.IObject, *Es_message_t)
+type Es_handler_block_t = func(*Es_client_t, *Es_message_t)
 
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_sha256_t
 type Es_sha256_t = unsafe.Pointer
@@ -30,4 +29,3 @@ type Es_sha256_t = unsafe.Pointer
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_statfs_t
 type Es_statfs_t = unsafe.Pointer
-

@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -51,6 +52,7 @@ type UNNotificationAttributedMessageContext struct {
 func UNNotificationAttributedMessageContextFromID(id objc.ID) UNNotificationAttributedMessageContext {
 	return UNNotificationAttributedMessageContext{objectivec.Object{ID: id}}
 }
+
 // NOTE: UNNotificationAttributedMessageContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -81,7 +83,6 @@ func NewUNNotificationAttributedMessageContext() UNNotificationAttributedMessage
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAttributedMessageContext/init(sendMessageIntent:attributedContent:)
 // sendMessageIntent is a [intents.INSendMessageIntent].
 func NewUNNotificationAttributedMessageContextWithSendMessageIntentAttributedContent(sendMessageIntent objectivec.IObject, attributedContent foundation.NSAttributedString) UNNotificationAttributedMessageContext {
@@ -89,6 +90,4 @@ func NewUNNotificationAttributedMessageContextWithSendMessageIntentAttributedCon
 	return UNNotificationAttributedMessageContextFromID(rv)
 }
 
-			// Protocol methods for UNNotificationContentProviding
-			
-
+// Protocol methods for UNNotificationContentProviding

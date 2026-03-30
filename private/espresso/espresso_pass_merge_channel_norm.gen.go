@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_merge_channel_norm struct {
 func EspressoPass_merge_channel_normFromID(id objc.ID) EspressoPass_merge_channel_norm {
 	return EspressoPass_merge_channel_norm{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_merge_channel_norm implements IEspressoPass_merge_channel_norm.
 var _ IEspressoPass_merge_channel_norm = EspressoPass_merge_channel_norm{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_merge_channel_norm() EspressoPass_merge_channel_norm {
 	rv := objc.Send[EspressoPass_merge_channel_norm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

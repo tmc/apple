@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for Accelerate. DO NOT EDIT.
 
 // Package accelerate provides Go bindings for the Accelerate framework.
@@ -10,7 +9,7 @@
 // # Neural Networks
 //
 //   - Training a neural network to recognize digits: Build a simple neural network and train it to recognize randomly generated numbers.
-//   - BNNS: Implement and run neural networks for training and inference. ([Bnns_graph_t], [Bnns_graph_compile_options_t], [Bnns_graph_compile_message_fn_t], [Bnns_user_message_data_t], [Bnns_graph_context_t])
+//   - BNNS: Implement and run neural networks for training and inference. ([Bnns_graph_t], [Bnns_graph_compile_options_t], [BNNSGraphOptimizationPreference], [BNNSGraphMessageLevel], [Bnns_graph_compile_message_fn_t])
 //
 // # Directories, Files, and Data Archives
 //
@@ -156,20 +155,28 @@ package accelerate
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/Accelerate.framework/Accelerate"
+// frameworkPaths lists paths to try when loading the Accelerate library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/Accelerate.framework/Accelerate",
+	"/usr/lib/libAccelerate.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: Accelerate: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: Accelerate: failed to load framework from any known path\n")
 }
-

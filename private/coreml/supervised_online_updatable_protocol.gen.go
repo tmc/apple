@@ -18,6 +18,7 @@ type MLSupervisedOnlineUpdatable interface {
 type MLSupervisedOnlineUpdatableObject struct {
 	objectivec.Object
 }
+
 func (o MLSupervisedOnlineUpdatableObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,7 +31,6 @@ func MLSupervisedOnlineUpdatableObjectFromID(id objc.ID) MLSupervisedOnlineUpdat
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSupervisedOnlineUpdatable/updateModelFromFeatures:toTarget:options:error:
 func (o MLSupervisedOnlineUpdatableObject) UpdateModelFromFeaturesToTargetOptionsError(features objectivec.IObject, target objectivec.IObject, options objectivec.IObject) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("updateModelFromFeatures:toTarget:options:error:"), features, target, options)
@@ -38,5 +38,4 @@ func (o MLSupervisedOnlineUpdatableObject) UpdateModelFromFeaturesToTargetOption
 		return false, err
 	}
 	return rv, nil
-	}
-
+}

@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (ac AVAudioUnitDelayClass) Alloc() AVAudioUnitDelay {
 // An object that implements a delay effect.
 //
 // # Overview
-// 
+//
 // A delay unit delays the input signal by the specified time interval and
 // then blends it with the input signal. You can also control the amount of
 // high-frequency roll-off to simulate the effect of a tape delay.
@@ -71,6 +72,7 @@ type AVAudioUnitDelay struct {
 func AVAudioUnitDelayFromID(id objc.ID) AVAudioUnitDelay {
 	return AVAudioUnitDelay{AVAudioUnitEffect: AVAudioUnitEffectFromID(id)}
 }
+
 // NOTE: AVAudioUnitDelay adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -129,14 +131,14 @@ func NewAVAudioUnitDelay() AVAudioUnitDelay {
 // Creates an audio unit effect object with the specified description.
 //
 // audioComponentDescription: The description of the audio unit to create.
-// 
+//
 // The `audioComponentDescription` must be one of these types
 // `kAudioUnitType_Effect`, `kAudioUnitType_MusicEffect`,
 // `kAudioUnitType_Panner`, `kAudioUnitType_RemoteEffect`, or
 // `kAudioUnitType_RemoteMusicEffect`.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
@@ -150,7 +152,7 @@ func NewAudioUnitDelayWithAudioComponentDescription(audioComponentDescription ob
 // The time for the input signal to reach the output.
 //
 // # Discussion
-// 
+//
 // You specify the delay in seconds. The default value is `1`. The valid range
 // of values is `0` to `2` seconds.
 //
@@ -162,10 +164,11 @@ func (a AVAudioUnitDelay) DelayTime() float64 {
 func (a AVAudioUnitDelay) SetDelayTime(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDelayTime:"), value)
 }
+
 // The amount of the output signal that feeds back into the delay line.
 //
 // # Discussion
-// 
+//
 // You specify the feedback as a percentage. The default value is `50%`. The
 // valid range of values is `-100%` to `100%`.
 //
@@ -177,11 +180,12 @@ func (a AVAudioUnitDelay) Feedback() float32 {
 func (a AVAudioUnitDelay) SetFeedback(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFeedback:"), value)
 }
+
 // The cutoff frequency above which high frequency content rolls off, in
 // hertz.
 //
 // # Discussion
-// 
+//
 // The default value is `15000 Hz`. The valid range of values is `10 Hz`
 // through `(sampleRate/2)`.
 //
@@ -193,10 +197,11 @@ func (a AVAudioUnitDelay) LowPassCutoff() float32 {
 func (a AVAudioUnitDelay) SetLowPassCutoff(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLowPassCutoff:"), value)
 }
+
 // The blend of the wet and dry signals.
 //
 // # Discussion
-// 
+//
 // You specify the blend as a percentage. The default value is `100%`. The
 // valid range of values is `0%` through `100%`, where `0%` represents all
 // dry.
@@ -209,4 +214,3 @@ func (a AVAudioUnitDelay) WetDryMix() float32 {
 func (a AVAudioUnitDelay) SetWetDryMix(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setWetDryMix:"), value)
 }
-

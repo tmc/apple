@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (mc MLSVMLoaderClass) Alloc() MLSVMLoader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLSVMLoader.DebugDescription]
 //   - [MLSVMLoader.Description]
 //   - [MLSVMLoader.Hash]
 //   - [MLSVMLoader.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLSVMLoader
 type MLSVMLoader struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLSVMLoader struct {
 func MLSVMLoaderFromID(id objc.ID) MLSVMLoader {
 	return MLSVMLoader{objectivec.Object{ID: id}}
 }
+
 // Ensure MLSVMLoader implements IMLSVMLoader.
 var _ IMLSVMLoader = MLSVMLoader{}
 
@@ -102,7 +104,6 @@ func NewMLSVMLoader() MLSVMLoader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSVMLoader/loadModelFromSpecification:configuration:error:
 func (_MLSVMLoaderClass MLSVMLoaderClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -120,19 +121,21 @@ func (s MLSVMLoader) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVMLoader/description
 func (s MLSVMLoader) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVMLoader/hash
 func (s MLSVMLoader) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVMLoader/superclass
 func (s MLSVMLoader) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
 	return rv
 }
-

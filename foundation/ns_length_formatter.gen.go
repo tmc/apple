@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -73,6 +74,7 @@ func LengthFormatterFromID(id objc.ID) LengthFormatter {
 
 // NSLengthFormatterFromID is an alias for [LengthFormatterFromID] for cross-framework compatibility.
 func NSLengthFormatterFromID(id objc.ID) LengthFormatter { return LengthFormatterFromID(id) }
+
 // NOTE: LengthFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,7 +137,6 @@ func NewLengthFormatter() LengthFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewLengthFormatterWithCoder(coder INSCoder) LengthFormatter {
 	instance := getLengthFormatterClass().Alloc()
@@ -148,12 +149,12 @@ func NewLengthFormatterWithCoder(coder INSCoder) LengthFormatter {
 // numberInMeters: The length’s value in meters.
 //
 // # Return Value
-// 
+//
 // A string that combines a value and a unit string appropriate for the
 // formatter’s locale.
 //
 // # Discussion
-// 
+//
 // This method converts the provided length into units appropriate for the
 // formatter’s locale.
 //
@@ -162,6 +163,7 @@ func (l LengthFormatter) StringFromMeters(numberInMeters float64) string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("stringFromMeters:"), numberInMeters)
 	return NSStringFromID(rv).String()
 }
+
 // Returns a properly formatted length string for the given value and unit.
 //
 // value: The length’s value in the given unit.
@@ -169,7 +171,7 @@ func (l LengthFormatter) StringFromMeters(numberInMeters float64) string {
 // unit: The unit used in the resulting length string.
 //
 // # Return Value
-// 
+//
 // A localized string that combines the provided value and unit.
 //
 // See: https://developer.apple.com/documentation/Foundation/LengthFormatter/string(fromValue:unit:)
@@ -177,29 +179,31 @@ func (l LengthFormatter) StringFromValueUnit(value float64, unit NSLengthFormatt
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("stringFromValue:unit:"), value, unit)
 	return NSStringFromID(rv).String()
 }
+
 // Returns the unit string for the provided value.
 //
 // numberInMeters: The length’s value in meters.
 //
 // unitp: An output parameter. This will hold the [LengthFormatter.Unit] value that
 // corresponds to the returned units.
-// //
-// [LengthFormatter.Unit]: https://developer.apple.com/documentation/Foundation/LengthFormatter/Unit
 //
 // # Return Value
-// 
+//
 // A localized string representing the unit.
 //
 // # Discussion
-// 
+//
 // This method selects the correct unit based on the formatter’s locale, the
 // magnitude of the value, and the [ForPersonHeightUse] property.
 //
 // See: https://developer.apple.com/documentation/Foundation/LengthFormatter/unitString(fromMeters:usedUnit:)
+//
+// [LengthFormatter.Unit]: https://developer.apple.com/documentation/Foundation/LengthFormatter/Unit
 func (l LengthFormatter) UnitStringFromMetersUsedUnit(numberInMeters float64, unitp NSLengthFormatterUnit) string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("unitStringFromMeters:usedUnit:"), numberInMeters, unitp)
 	return NSStringFromID(rv).String()
 }
+
 // Returns the unit string based on the provided value and unit.
 //
 // value: The length’s value for the provided unit.
@@ -207,7 +211,7 @@ func (l LengthFormatter) UnitStringFromMetersUsedUnit(numberInMeters float64, un
 // unit: The unit to use in the resulting length string.
 //
 // # Return Value
-// 
+//
 // A localized string representing the given unit. The provided value
 // determines whether the unit is plural or singular.
 //
@@ -221,16 +225,13 @@ func (l LengthFormatter) UnitStringFromValueUnit(value float64, unit NSLengthFor
 // person’s height.
 //
 // # Discussion
-// 
-// Returns [true] if the value passed to [StringFromMeters] or
-// [UnitStringFromMetersUsedUnit] is a person’s height; otherwise, [false].
-// By default, this property returns [false].
-// 
+//
+// Returns true if the value passed to [StringFromMeters] or
+// [UnitStringFromMetersUsedUnit] is a person’s height; otherwise, false. By
+// default, this property returns false.
+//
 // The length formatter uses this property when determining the best unit for
 // a given locale (for example, in the [StringFromMeters] method).
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/LengthFormatter/isForPersonHeightUse
 func (l LengthFormatter) ForPersonHeightUse() bool {
@@ -240,13 +241,14 @@ func (l LengthFormatter) ForPersonHeightUse() bool {
 func (l LengthFormatter) SetForPersonHeightUse(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setForPersonHeightUse:"), value)
 }
+
 // The number formatter used to format the numbers in length strings.
 //
 // # Discussion
-// 
+//
 // This property defaults to a number formatter using the
-// [NumberFormatterDecimalStyle]. You can provide a different number formatter
-// to customize the length string’s appearance.
+// [NSNumberFormatterDecimalStyle]. You can provide a different number
+// formatter to customize the length string’s appearance.
 //
 // See: https://developer.apple.com/documentation/Foundation/LengthFormatter/numberFormatter
 func (l LengthFormatter) NumberFormatter() INSNumberFormatter {
@@ -256,16 +258,17 @@ func (l LengthFormatter) NumberFormatter() INSNumberFormatter {
 func (l LengthFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](l.ID, objc.Sel("setNumberFormatter:"), value)
 }
+
 // The unit style used by this formatter.
 //
 // # Discussion
-// 
-// This property defaults to [FormattingUnitStyleMedium]. For a complete list
-// of unit styles, see [Formatter.UnitStyle].
 //
-// [Formatter.UnitStyle]: https://developer.apple.com/documentation/Foundation/Formatter/UnitStyle
+// This property defaults to [NSFormattingUnitStyleMedium]. For a complete
+// list of unit styles, see [Formatter.UnitStyle].
 //
 // See: https://developer.apple.com/documentation/Foundation/LengthFormatter/unitStyle
+//
+// [Formatter.UnitStyle]: https://developer.apple.com/documentation/Foundation/Formatter/UnitStyle
 func (l LengthFormatter) UnitStyle() NSFormattingUnitStyle {
 	rv := objc.Send[NSFormattingUnitStyle](l.ID, objc.Sel("unitStyle"))
 	return NSFormattingUnitStyle(rv)
@@ -273,4 +276,3 @@ func (l LengthFormatter) UnitStyle() NSFormattingUnitStyle {
 func (l LengthFormatter) SetUnitStyle(value NSFormattingUnitStyle) {
 	objc.Send[struct{}](l.ID, objc.Sel("setUnitStyle:"), value)
 }
-

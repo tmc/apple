@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -68,6 +69,7 @@ type MTLFunctionDescriptor struct {
 func MTLFunctionDescriptorFromID(id objc.ID) MTLFunctionDescriptor {
 	return MTLFunctionDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,14 +130,6 @@ func NewMTLFunctionDescriptor() MTLFunctionDescriptor {
 	return rv
 }
 
-// Creates a default function descriptor.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLFunctionDescriptor/functionDescriptor
-func (_MTLFunctionDescriptorClass MTLFunctionDescriptorClass) FunctionDescriptor() MTLFunctionDescriptor {
-	rv := objc.Send[objc.ID](objc.ID(_MTLFunctionDescriptorClass.class), objc.Sel("functionDescriptor"))
-	return MTLFunctionDescriptorFromID(rv)
-}
-
 // The name of the function to fetch from the library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionDescriptor/name
@@ -146,10 +140,11 @@ func (f MTLFunctionDescriptor) Name() string {
 func (f MTLFunctionDescriptor) SetName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setName:"), objc.String(value))
 }
+
 // A new name for the created function object.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`. If you specify a value for this property, Metal
 // creates the new [MTLFunction] object with the new name. Use this property
 // if you want to specialize a function with multiple variants and give each a
@@ -163,10 +158,11 @@ func (f MTLFunctionDescriptor) SpecializedName() string {
 func (f MTLFunctionDescriptor) SetSpecializedName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setSpecializedName:"), objc.String(value))
 }
+
 // The set of constant values assigned to the function constants.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`. If you are creating a function object for a
 // specialized function, you need to provide an array of valid constant values
 // for all required function constants.
@@ -179,6 +175,7 @@ func (f MTLFunctionDescriptor) ConstantValues() IMTLFunctionConstantValues {
 func (f MTLFunctionDescriptor) SetConstantValues(value IMTLFunctionConstantValues) {
 	objc.Send[struct{}](f.ID, objc.Sel("setConstantValues:"), value)
 }
+
 // Flags specifying how Metal should create the new function object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionDescriptor/options
@@ -189,11 +186,12 @@ func (f MTLFunctionDescriptor) Options() MTLFunctionOptions {
 func (f MTLFunctionDescriptor) SetOptions(value MTLFunctionOptions) {
 	objc.Send[struct{}](f.ID, objc.Sel("setOptions:"), value)
 }
+
 // The binary archives to search for a previously-compiled version of this
 // function.
 //
 // # Discussion
-// 
+//
 // If you specify an archive that includes a fully compiled version of this
 // function, Metal uses the compiled version rather than creating a new one.
 //
@@ -207,4 +205,3 @@ func (f MTLFunctionDescriptor) BinaryArchives() []objectivec.IObject {
 func (f MTLFunctionDescriptor) SetBinaryArchives(value []objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setBinaryArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
-

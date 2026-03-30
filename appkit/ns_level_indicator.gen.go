@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSLevelIndicator] class.
@@ -45,13 +46,13 @@ func (nc NSLevelIndicatorClass) Alloc() NSLevelIndicator {
 // A visual representation of a level or quantity, using discrete values.
 //
 // # Overview
-// 
+//
 // A level indicator is similar to an [NSSlider] object, but provides a more
 // customized visual feedback to the user. Unlike sliders, level indicators do
 // not have a “knob” indicating the current setting, and they do not allow
 // the user to adjust the current setting. You set the value of the level
 // indicator programmatically. The supported indicator styles include:
-// 
+//
 // - A capacity style level indicator. The continuous mode for this style is
 // often used to indicate conditions such as how much data is on hard disk.
 // The discrete mode is similar to audio level indicators in audio playback
@@ -61,7 +62,7 @@ func (nc NSLevelIndicatorClass) Alloc() NSLevelIndicator {
 // iTunes and iPhoto. You can also specify your own ranking image. - A
 // relevancy style level indicator. This style is used to display the
 // relevancy of a search result, for example in Mail.
-// 
+//
 // [NSLevelIndicator] uses an [NSLevelIndicatorCell] to implement much of the
 // control’s functionality. [NSLevelIndicator] provides cover methods for
 // most of the [NSLevelIndicatorCell] methods, which call the corresponding
@@ -97,11 +98,11 @@ func (nc NSLevelIndicatorClass) Alloc() NSLevelIndicator {
 //   - [NSLevelIndicator.SetRatingImage]
 //   - [NSLevelIndicator.DrawsTieredCapacityLevels]
 //   - [NSLevelIndicator.SetDrawsTieredCapacityLevels]
-//   - [NSLevelIndicator.FillColor]
+//   - [NSLevelIndicator.FillColor]: Sets the fill color used by Continuous and Discrete Capacity indicators when drawing the “normal” state, and by the rating indicator when drawing stars.
 //   - [NSLevelIndicator.SetFillColor]
 //   - [NSLevelIndicator.WarningFillColor]
 //   - [NSLevelIndicator.SetWarningFillColor]
-//   - [NSLevelIndicator.CriticalFillColor]
+//   - [NSLevelIndicator.CriticalFillColor]: Sets the fill color used by Continuous and Discrete Capacity indicators when drawing values above the “critical” threshold.
 //   - [NSLevelIndicator.SetCriticalFillColor]
 //
 // # Managing Placeholder Information
@@ -127,6 +128,7 @@ type NSLevelIndicator struct {
 func NSLevelIndicatorFromID(id objc.ID) NSLevelIndicator {
 	return NSLevelIndicator{NSControl: NSControlFromID(id)}
 }
+
 // NOTE: NSLevelIndicator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -162,11 +164,11 @@ func NSLevelIndicatorFromID(id objc.ID) NSLevelIndicator {
 //   - [INSLevelIndicator.SetRatingImage]
 //   - [INSLevelIndicator.DrawsTieredCapacityLevels]
 //   - [INSLevelIndicator.SetDrawsTieredCapacityLevels]
-//   - [INSLevelIndicator.FillColor]
+//   - [INSLevelIndicator.FillColor]: Sets the fill color used by Continuous and Discrete Capacity indicators when drawing the “normal” state, and by the rating indicator when drawing stars.
 //   - [INSLevelIndicator.SetFillColor]
 //   - [INSLevelIndicator.WarningFillColor]
 //   - [INSLevelIndicator.SetWarningFillColor]
-//   - [INSLevelIndicator.CriticalFillColor]
+//   - [INSLevelIndicator.CriticalFillColor]: Sets the fill color used by Continuous and Discrete Capacity indicators when drawing values above the “critical” threshold.
 //   - [INSLevelIndicator.SetCriticalFillColor]
 //
 // # Managing Placeholder Information
@@ -225,10 +227,12 @@ type INSLevelIndicator interface {
 	SetRatingImage(value INSImage)
 	DrawsTieredCapacityLevels() bool
 	SetDrawsTieredCapacityLevels(value bool)
+	// Sets the fill color used by Continuous and Discrete Capacity indicators when drawing the “normal” state, and by the rating indicator when drawing stars.
 	FillColor() INSColor
 	SetFillColor(value INSColor)
 	WarningFillColor() INSColor
 	SetWarningFillColor(value INSColor)
+	// Sets the fill color used by Continuous and Discrete Capacity indicators when drawing values above the “critical” threshold.
 	CriticalFillColor() INSColor
 	SetCriticalFillColor(value INSColor)
 
@@ -279,12 +283,12 @@ func NewLevelIndicatorWithCoder(coder foundation.INSCoder) NSLevelIndicator {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -307,11 +311,12 @@ func (l NSLevelIndicator) TickMarkValueAtIndex(index int) float64 {
 	rv := objc.Send[float64](l.ID, objc.Sel("tickMarkValueAtIndex:"), index)
 	return rv
 }
+
 // Returns the bounding rectangle of the tick mark identified by the specified
 // index (the minimum-value tick mark is at index 0).
 //
 // # Discussion
-// 
+//
 // If no tick mark is associated with `index`, the method raises an
 // [NSRangeException].
 //
@@ -331,6 +336,7 @@ func (l NSLevelIndicator) MinValue() float64 {
 func (l NSLevelIndicator) SetMinValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setMinValue:"), value)
 }
+
 // The receiver’s maximum value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/maxValue
@@ -341,6 +347,7 @@ func (l NSLevelIndicator) MaxValue() float64 {
 func (l NSLevelIndicator) SetMaxValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setMaxValue:"), value)
 }
+
 // The receiver’s warning value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/warningValue
@@ -351,6 +358,7 @@ func (l NSLevelIndicator) WarningValue() float64 {
 func (l NSLevelIndicator) SetWarningValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setWarningValue:"), value)
 }
+
 // The receiver’s critical value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/criticalValue
@@ -361,10 +369,11 @@ func (l NSLevelIndicator) CriticalValue() float64 {
 func (l NSLevelIndicator) SetCriticalValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setCriticalValue:"), value)
 }
+
 // Determines how the receiver’s tick marks are aligned with it.
 //
 // # Discussion
-// 
+//
 // The default alignments are [NSTickMarkBelow] and [NSTickMarkLeft]. This
 // property has no effect if no tick marks have been assigned (that is,
 // [NumberOfTickMarks] returns 0).
@@ -377,10 +386,11 @@ func (l NSLevelIndicator) TickMarkPosition() NSTickMarkPosition {
 func (l NSLevelIndicator) SetTickMarkPosition(value NSTickMarkPosition) {
 	objc.Send[struct{}](l.ID, objc.Sel("setTickMarkPosition:"), value)
 }
+
 // The number of tick marks associated with the receiver.
 //
 // # Discussion
-// 
+//
 // By default, this value is 0, and no tick marks appear. The number of tick
 // marks assigned to a slider, along with the slider’s minimum and maximum
 // values, determines the values associated with the tick marks.
@@ -393,16 +403,17 @@ func (l NSLevelIndicator) NumberOfTickMarks() int {
 func (l NSLevelIndicator) SetNumberOfTickMarks(value int) {
 	objc.Send[struct{}](l.ID, objc.Sel("setNumberOfTickMarks:"), value)
 }
+
 // The number of major tick marks associated with the receiver.
 //
 // # Discussion
-// 
+//
 // The number of major tick marks must be less than or equal to the number of
 // tick marks returned by [NumberOfTickMarks]. For example, if the number of
 // tick marks is 11 and you specify 3 major tick marks, the resulting level
 // indicator will display 3 major tick marks alternating with 8 minor tick
 // marks, as in the example shown in [NSLevelIndicator].
-// 
+//
 // [media-1965752]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/numberOfMajorTickMarks
@@ -413,15 +424,16 @@ func (l NSLevelIndicator) NumberOfMajorTickMarks() int {
 func (l NSLevelIndicator) SetNumberOfMajorTickMarks(value int) {
 	objc.Send[struct{}](l.ID, objc.Sel("setNumberOfMajorTickMarks:"), value)
 }
+
 // The appearance of the indicator.
 //
 // # Discussion
-// 
+//
 // See [NSLevelIndicator.Style] for possible styles.
 //
-// [NSLevelIndicator.Style]: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/Style
-//
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/levelIndicatorStyle
+//
+// [NSLevelIndicator.Style]: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/Style
 func (l NSLevelIndicator) LevelIndicatorStyle() NSLevelIndicatorStyle {
 	rv := objc.Send[NSLevelIndicatorStyle](l.ID, objc.Sel("levelIndicatorStyle"))
 	return NSLevelIndicatorStyle(rv)
@@ -429,6 +441,7 @@ func (l NSLevelIndicator) LevelIndicatorStyle() NSLevelIndicatorStyle {
 func (l NSLevelIndicator) SetLevelIndicatorStyle(value NSLevelIndicatorStyle) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLevelIndicatorStyle:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/ratingImage
 func (l NSLevelIndicator) RatingImage() INSImage {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("ratingImage"))
@@ -437,6 +450,7 @@ func (l NSLevelIndicator) RatingImage() INSImage {
 func (l NSLevelIndicator) SetRatingImage(value INSImage) {
 	objc.Send[struct{}](l.ID, objc.Sel("setRatingImage:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/drawsTieredCapacityLevels
 func (l NSLevelIndicator) DrawsTieredCapacityLevels() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("drawsTieredCapacityLevels"))
@@ -445,6 +459,16 @@ func (l NSLevelIndicator) DrawsTieredCapacityLevels() bool {
 func (l NSLevelIndicator) SetDrawsTieredCapacityLevels(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setDrawsTieredCapacityLevels:"), value)
 }
+
+// Sets the fill color used by Continuous and Discrete Capacity indicators
+// when drawing the “normal” state, and by the rating indicator when
+// drawing stars.
+//
+// # Discussion
+//
+// The default value is a system-defined color which may vary between level
+// indicator styles and OS releases.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/fillColor
 func (l NSLevelIndicator) FillColor() INSColor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("fillColor"))
@@ -453,6 +477,7 @@ func (l NSLevelIndicator) FillColor() INSColor {
 func (l NSLevelIndicator) SetFillColor(value INSColor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setFillColor:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/warningFillColor
 func (l NSLevelIndicator) WarningFillColor() INSColor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("warningFillColor"))
@@ -461,6 +486,15 @@ func (l NSLevelIndicator) WarningFillColor() INSColor {
 func (l NSLevelIndicator) SetWarningFillColor(value INSColor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setWarningFillColor:"), value)
 }
+
+// Sets the fill color used by Continuous and Discrete Capacity indicators
+// when drawing values above the “critical” threshold.
+//
+// # Discussion
+//
+// The default value is a system-defined color which may vary between level
+// indicator styles and OS releases.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/criticalFillColor
 func (l NSLevelIndicator) CriticalFillColor() INSColor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("criticalFillColor"))
@@ -469,6 +503,7 @@ func (l NSLevelIndicator) CriticalFillColor() INSColor {
 func (l NSLevelIndicator) SetCriticalFillColor(value INSColor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setCriticalFillColor:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/ratingPlaceholderImage
 func (l NSLevelIndicator) RatingPlaceholderImage() INSImage {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("ratingPlaceholderImage"))
@@ -477,6 +512,7 @@ func (l NSLevelIndicator) RatingPlaceholderImage() INSImage {
 func (l NSLevelIndicator) SetRatingPlaceholderImage(value INSImage) {
 	objc.Send[struct{}](l.ID, objc.Sel("setRatingPlaceholderImage:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/placeholderVisibility-swift.property
 func (l NSLevelIndicator) PlaceholderVisibility() NSLevelIndicatorPlaceholderVisibility {
 	rv := objc.Send[NSLevelIndicatorPlaceholderVisibility](l.ID, objc.Sel("placeholderVisibility"))
@@ -485,6 +521,7 @@ func (l NSLevelIndicator) PlaceholderVisibility() NSLevelIndicatorPlaceholderVis
 func (l NSLevelIndicator) SetPlaceholderVisibility(value NSLevelIndicatorPlaceholderVisibility) {
 	objc.Send[struct{}](l.ID, objc.Sel("setPlaceholderVisibility:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/isEditable
 func (l NSLevelIndicator) Editable() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isEditable"))
@@ -493,4 +530,3 @@ func (l NSLevelIndicator) Editable() bool {
 func (l NSLevelIndicator) SetEditable(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setEditable:"), value)
 }
-

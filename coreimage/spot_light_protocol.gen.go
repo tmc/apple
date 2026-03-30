@@ -79,6 +79,7 @@ type CISpotLight interface {
 type CISpotLightObject struct {
 	objectivec.Object
 }
+
 func (o CISpotLightObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -97,42 +98,48 @@ func CISpotLightObjectFromID(id objc.ID) CISpotLightObject {
 func (o CISpotLightObject) Brightness() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("brightness"))
 	return rv
-	}
+}
+
 // The color of the spotlight.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/color
 func (o CISpotLightObject) Color() ICIColor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
-	}
+}
+
 // The size of the spotlight.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/concentration
 func (o CISpotLightObject) Concentration() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("concentration"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/inputImage
 func (o CISpotLightObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The x and y position that the spotlight points at.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/lightPointsAt
 func (o CISpotLightObject) LightPointsAt() ICIVector {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("lightPointsAt"))
 	return CIVectorFromID(rv)
-	}
+}
+
 // The x and y position of the spotlight.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/lightPosition
 func (o CISpotLightObject) LightPosition() ICIVector {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("lightPosition"))
 	return CIVectorFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -140,29 +147,50 @@ func (o CISpotLightObject) LightPosition() ICIVector {
 func (o CISpotLightObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The brightness of the spotlight.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISpotLight/brightness
 func (o CISpotLightObject) SetBrightness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBrightness:"), value)
 }
 
+// The color of the spotlight.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISpotLight/color
 func (o CISpotLightObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
 
+// The size of the spotlight.
+//
+// # Discussion
+//
+// The smaller the value, the more tightly focused the light beam.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISpotLight/concentration
 func (o CISpotLightObject) SetConcentration(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setConcentration:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISpotLight/inputImage
 func (o CISpotLightObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The x and y position that the spotlight points at.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISpotLight/lightPointsAt
 func (o CISpotLightObject) SetLightPointsAt(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLightPointsAt:"), value)
 }
 
+// The x and y position of the spotlight.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISpotLight/lightPosition
 func (o CISpotLightObject) SetLightPosition(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLightPosition:"), value)
 }
-

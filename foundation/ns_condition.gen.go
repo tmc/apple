@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,16 +46,16 @@ func (nc NSConditionClass) Alloc() NSCondition {
 // conditions.
 //
 // # Overview
-// 
+//
 // A condition object acts as both a lock and a checkpoint in a given thread.
 // The lock protects your code while it tests the condition and performs the
 // task triggered by the condition. The checkpoint behavior requires that the
 // condition be true before the thread proceeds with its task. While the
 // condition is not true, the thread blocks. It remains blocked until another
 // thread signals the condition object.
-// 
+//
 // The semantics for using an [NSCondition] object are as follows:
-// 
+//
 // - Lock the condition object. - Test a boolean predicate. (This predicate is
 // a boolean flag or other variable in your code that indicates whether it is
 // safe to perform the task protected by the condition.) - If the boolean
@@ -65,10 +66,10 @@ func (nc NSConditionClass) Alloc() NSCondition {
 // the task. - Optionally update any predicates (or signal any conditions)
 // affected by your task. - When your task is done, unlock the condition
 // object.
-// 
+//
 // The pseudocode for performing the preceding steps would therefore look
 // something like the following:
-// 
+//
 // Whenever you use a condition object, the first step is to lock the
 // condition. Locking the condition ensures that your predicate and task code
 // are protected from interference by other threads using the same condition.
@@ -76,13 +77,13 @@ func (nc NSConditionClass) Alloc() NSCondition {
 // other conditions based on the needs of your code. You should always set
 // predicates and signal conditions while holding the condition object’s
 // lock.
-// 
+//
 // When a thread waits on a condition, the condition object unlocks its lock
 // and blocks the thread. When the condition is signaled, the system wakes up
 // the thread. The condition object then reacquires its lock before returning
 // from the [NSCondition.Wait] or [NSCondition.WaitUntilDate] method. Thus, from the point of view of
 // the thread, it is as if it always held the lock.
-// 
+//
 // A boolean predicate is an important part of the semantics of using
 // conditions because of the way signaling works. Signaling a condition does
 // not guarantee that the condition itself is true. There are timing issues
@@ -91,11 +92,9 @@ func (nc NSConditionClass) Alloc() NSCondition {
 // work before it is safe to do so. The predicate itself is simply a flag or
 // other variable in your code that you test in order to acquire a Boolean
 // result.
-// 
+//
 // For more information on how to use conditions, see Using POSIX Thread Locks
 // in [Threading Programming Guide].
-//
-// [Threading Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Multithreading/Introduction/Introduction.html#//apple_ref/doc/uid/10000057i
 //
 // # Waiting for the Lock
 //
@@ -113,6 +112,8 @@ func (nc NSConditionClass) Alloc() NSCondition {
 //   - [NSCondition.SetName]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCondition
+//
+// [Threading Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Multithreading/Introduction/Introduction.html#//apple_ref/doc/uid/10000057i
 type NSCondition struct {
 	objectivec.Object
 }
@@ -124,6 +125,7 @@ type NSCondition struct {
 func NSConditionFromID(id objc.ID) NSCondition {
 	return NSCondition{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSCondition adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -191,13 +193,14 @@ func NewNSCondition() NSCondition {
 // Blocks the current thread until the condition is signaled.
 //
 // # Discussion
-// 
+//
 // You must lock the receiver prior to calling this method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCondition/wait()
 func (c NSCondition) Wait() {
 	objc.Send[objc.ID](c.ID, objc.Sel("wait"))
 }
+
 // Blocks the current thread until the condition is signaled or the specified
 // time limit is reached.
 //
@@ -205,15 +208,12 @@ func (c NSCondition) Wait() {
 // signaled.
 //
 // # Return Value
-// 
-// [true] if the condition was signaled; otherwise, [false] if the time limit
-// was reached.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the condition was signaled; otherwise, false if the time limit was
+// reached.
 //
 // # Discussion
-// 
+//
 // You must lock the receiver prior to calling this method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCondition/wait(until:)
@@ -221,14 +221,15 @@ func (c NSCondition) WaitUntilDate(limit INSDate) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("waitUntilDate:"), limit)
 	return rv
 }
+
 // Signals the condition, waking up one thread waiting on it.
 //
 // # Discussion
-// 
+//
 // You use this method to wake up one thread that is waiting on the condition.
 // You may call this method multiple times to wake up multiple threads. If no
 // threads are waiting on the condition, this method does nothing.
-// 
+//
 // To avoid race conditions, you should invoke this method only while the
 // receiver is locked.
 //
@@ -236,12 +237,13 @@ func (c NSCondition) WaitUntilDate(limit INSDate) bool {
 func (c NSCondition) Signal() {
 	objc.Send[objc.ID](c.ID, objc.Sel("signal"))
 }
+
 // Signals the condition, waking up all threads waiting on it.
 //
 // # Discussion
-// 
+//
 // If no threads are waiting on the condition, this method does nothing.
-// 
+//
 // To avoid race conditions, you should invoke this method only while the
 // receiver is locked.
 //
@@ -249,11 +251,12 @@ func (c NSCondition) Signal() {
 func (c NSCondition) Broadcast() {
 	objc.Send[objc.ID](c.ID, objc.Sel("broadcast"))
 }
+
 // Attempts to acquire a lock, blocking a thread’s execution until the lock
 // can be acquired.
 //
 // # Discussion
-// 
+//
 // An application protects a critical section of code by requiring a thread to
 // acquire a lock before executing the code. Once the critical section is
 // completed, the thread relinquishes the lock by invoking [Unlock].
@@ -262,6 +265,7 @@ func (c NSCondition) Broadcast() {
 func (c NSCondition) Lock() {
 	objc.Send[objc.ID](c.ID, objc.Sel("lock"))
 }
+
 // Relinquishes a previously acquired lock.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/unlock()
@@ -272,7 +276,7 @@ func (c NSCondition) Unlock() {
 // The name of the condition.
 //
 // # Discussion
-// 
+//
 // You can use a name string to identify a condition object within your code.
 // Cocoa also uses this name as part of any error descriptions involving the
 // condition.
@@ -285,4 +289,3 @@ func (c NSCondition) Name() string {
 func (c NSCondition) SetName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setName:"), objc.String(value))
 }
-

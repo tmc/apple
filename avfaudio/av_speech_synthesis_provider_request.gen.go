@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -64,6 +65,7 @@ type AVSpeechSynthesisProviderRequest struct {
 func AVSpeechSynthesisProviderRequestFromID(id objc.ID) AVSpeechSynthesisProviderRequest {
 	return AVSpeechSynthesisProviderRequest{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSpeechSynthesisProviderRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -147,7 +149,7 @@ func (s AVSpeechSynthesisProviderRequest) EncodeWithCoder(coder foundation.INSCo
 // The description of the text to synthesize.
 //
 // # Discussion
-// 
+//
 // The Speech Synthesis Markup Language describes the speech synthesis
 // attributes for the customization of pitch, rate, intonation, and more.
 //
@@ -156,6 +158,7 @@ func (s AVSpeechSynthesisProviderRequest) SsmlRepresentation() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("ssmlRepresentation"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The voice to use in the speech request.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/voice
@@ -163,4 +166,3 @@ func (s AVSpeechSynthesisProviderRequest) Voice() IAVSpeechSynthesisProviderVoic
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("voice"))
 	return AVSpeechSynthesisProviderVoiceFromID(objc.ID(rv))
 }
-

@@ -4,7 +4,10 @@ package networkextension
 
 import (
 	"sync"
+
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NEAppProxyUDPFlow] class.
@@ -44,18 +47,13 @@ func (nc NEAppProxyUDPFlowClass) Alloc() NEAppProxyUDPFlow {
 // proxied by the provider.
 //
 // # Overview
-// 
+//
 // App Proxy Providers receive UDP connections to be proxied in the form of
 // [NEAppProxyUDPFlow] objects.
 //
 // # Getting flow information
 //
 //   - [NEAppProxyUDPFlow.LocalEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
-//
-// # Instance Properties
-//
-//   - [NEAppProxyUDPFlow.LocalFlowEndpoint]
-//   - [NEAppProxyUDPFlow.SetLocalFlowEndpoint]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow
 type NEAppProxyUDPFlow struct {
@@ -69,6 +67,7 @@ type NEAppProxyUDPFlow struct {
 func NEAppProxyUDPFlowFromID(id objc.ID) NEAppProxyUDPFlow {
 	return NEAppProxyUDPFlow{NEAppProxyFlow: NEAppProxyFlowFromID(id)}
 }
+
 // NOTE: NEAppProxyUDPFlow adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -77,11 +76,6 @@ func NEAppProxyUDPFlowFromID(id objc.ID) NEAppProxyUDPFlow {
 // # Getting flow information
 //
 //   - [INEAppProxyUDPFlow.LocalEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
-//
-// # Instance Properties
-//
-//   - [INEAppProxyUDPFlow.LocalFlowEndpoint]
-//   - [INEAppProxyUDPFlow.SetLocalFlowEndpoint]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow
 type INEAppProxyUDPFlow interface {
@@ -92,10 +86,9 @@ type INEAppProxyUDPFlow interface {
 	// An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
 	LocalEndpoint() INWEndpoint
 
-	// Topic: Instance Properties
-
-	LocalFlowEndpoint() INWEndpoint
-	SetLocalFlowEndpoint(value INWEndpoint)
+	LocalFlowEndpoint() objectivec.IObject
+	ReadDatagramsAndFlowEndpointsWithCompletionHandler(completionHandler VoidHandler)
+	WriteDatagramsSentByFlowEndpointsCompletionHandler(datagrams []foundation.NSData, remoteEndpoints *NWEndpointArray, completionHandler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -117,11 +110,23 @@ func NewNEAppProxyUDPFlow() NEAppProxyUDPFlow {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow/readDatagramsAndFlowEndpointsWithCompletionHandler:
+func (a NEAppProxyUDPFlow) ReadDatagramsAndFlowEndpointsWithCompletionHandler(completionHandler VoidHandler) {
+	_block0, _ := NewVoidBlock(completionHandler)
+	objc.Send[objc.ID](a.ID, objc.Sel("readDatagramsAndFlowEndpointsWithCompletionHandler:"), _block0)
+}
+
+// See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow/writeDatagrams:sentByFlowEndpoints:completionHandler:
+func (a NEAppProxyUDPFlow) WriteDatagramsSentByFlowEndpointsCompletionHandler(datagrams []foundation.NSData, remoteEndpoints *NWEndpointArray, completionHandler ErrorHandler) {
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[objc.ID](a.ID, objc.Sel("writeDatagrams:sentByFlowEndpoints:completionHandler:"), datagrams, remoteEndpoints, _block2)
+}
+
 // An [NWEndpoint] object containing information about the local endpoint of
 // the flow.
 //
 // # Discussion
-// 
+//
 // This property may be nil if the corresponding UDP socket was not bound to a
 // port by the application and the App Proxy Provider did not set a local
 // endpoint in [OpenWithLocalEndpointCompletionHandler].
@@ -131,12 +136,9 @@ func (a NEAppProxyUDPFlow) LocalEndpoint() INWEndpoint {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("localEndpoint"))
 	return NWEndpointFromID(objc.ID(rv))
 }
-// See: https://developer.apple.com/documentation/networkextension/neappproxyudpflow/localflowendpoint-7ukb6
-func (a NEAppProxyUDPFlow) LocalFlowEndpoint() INWEndpoint {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("localFlowEndpoint"))
-	return NWEndpointFromID(objc.ID(rv))
-}
-func (a NEAppProxyUDPFlow) SetLocalFlowEndpoint(value INWEndpoint) {
-	objc.Send[struct{}](a.ID, objc.Sel("setLocalFlowEndpoint:"), value)
-}
 
+// See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow/localFlowEndpoint-9a8gj
+func (a NEAppProxyUDPFlow) LocalFlowEndpoint() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("localFlowEndpoint"))
+	return objectivec.Object{ID: rv}
+}

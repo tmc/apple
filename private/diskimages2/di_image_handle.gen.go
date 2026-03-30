@@ -3,8 +3,9 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,11 +43,11 @@ func (dc DIImageHandleClass) Alloc() DIImageHandle {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIImageHandle.MoveDiskImage]
 //   - [DIImageHandle.InitWithDiskImageLockableResources]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIImageHandle
 type DIImageHandle struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type DIImageHandle struct {
 func DIImageHandleFromID(id objc.ID) DIImageHandle {
 	return DIImageHandle{objectivec.Object{ID: id}}
 }
+
 // Ensure DIImageHandle implements IDIImageHandle.
 var _ IDIImageHandle = DIImageHandle{}
 
@@ -95,7 +97,6 @@ func NewDIImageHandle() DIImageHandle {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIImageHandle/initWithDiskImage:lockableResources:
 func NewDIImageHandleWithDiskImageLockableResources(image unsafe.Pointer, resources unsafe.Pointer) DIImageHandle {
 	instance := getDIImageHandleClass().Alloc()
@@ -108,10 +109,9 @@ func (d DIImageHandle) MoveDiskImage() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("moveDiskImage"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIImageHandle/initWithDiskImage:lockableResources:
 func (d DIImageHandle) InitWithDiskImageLockableResources(image unsafe.Pointer, resources unsafe.Pointer) DIImageHandle {
 	rv := objc.Send[DIImageHandle](d.ID, objc.Sel("initWithDiskImage:lockableResources:"), image, resources)
 	return rv
 }
-

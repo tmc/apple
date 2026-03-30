@@ -4,10 +4,11 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,7 +49,7 @@ func (nc NSTextPreviewClass) Alloc() NSTextPreview {
 // user-visible effects.
 //
 // # Overview
-// 
+//
 // An [NSTextPreview] object provides a static image of your view’s text
 // content that the system can use to create animations. You provide preview
 // objects in response to system requests, such as ones from Writing Tools. In
@@ -56,7 +57,7 @@ func (nc NSTextPreviewClass) Alloc() NSTextPreview {
 // location of that text in your view’s frame rectangle. When creating
 // animations, the system places the image on top of your view’s content and
 // animates changes to the image instead of to your view.
-// 
+//
 // Create an [NSTextPreview] object in response to specific system requests.
 // Create an image with a transparent background and render your view’s text
 // into the image using the current text attributes. Construct your
@@ -89,6 +90,7 @@ type NSTextPreview struct {
 func NSTextPreviewFromID(id objc.ID) NSTextPreview {
 	return NSTextPreview{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTextPreview adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -180,11 +182,11 @@ func NewTextPreviewWithSnapshotImagePresentationFrame(snapshotImage coregraphics
 // rectangle for text that is part of the preview. When applying visual
 // effects, the system adds highlights only to the text in the specified
 // rectangles.
-// //
-// [NSRect]: https://developer.apple.com/documentation/Foundation/NSRect
-// [NSValue]: https://developer.apple.com/documentation/Foundation/NSValue
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextPreview/init(snapshotImage:presentationFrame:candidateRects:)
+//
+// [NSRect]: https://developer.apple.com/documentation/Foundation/NSRect
+// [NSValue]: https://developer.apple.com/documentation/Foundation/NSValue
 func NewTextPreviewWithSnapshotImagePresentationFrameCandidateRects(snapshotImage coregraphics.CGImageRef, presentationFrame corefoundation.CGRect, candidateRects []foundation.NSValue) NSTextPreview {
 	instance := getNSTextPreviewClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSnapshotImage:presentationFrame:candidateRects:"), snapshotImage, presentationFrame, objectivec.IObjectSliceToNSArray(candidateRects))
@@ -207,6 +209,7 @@ func (t NSTextPreview) InitWithSnapshotImagePresentationFrame(snapshotImage core
 	rv := objc.Send[NSTextPreview](t.ID, objc.Sel("initWithSnapshotImage:presentationFrame:"), snapshotImage, presentationFrame)
 	return rv
 }
+
 // Creates a text preview using the specified image and rectangles that
 // indicate the portions of text to highlight.
 //
@@ -224,11 +227,11 @@ func (t NSTextPreview) InitWithSnapshotImagePresentationFrame(snapshotImage core
 // rectangle for text that is part of the preview. When applying visual
 // effects, the system adds highlights only to the text in the specified
 // rectangles.
-// //
-// [NSRect]: https://developer.apple.com/documentation/Foundation/NSRect
-// [NSValue]: https://developer.apple.com/documentation/Foundation/NSValue
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextPreview/init(snapshotImage:presentationFrame:candidateRects:)
+//
+// [NSRect]: https://developer.apple.com/documentation/Foundation/NSRect
+// [NSValue]: https://developer.apple.com/documentation/Foundation/NSValue
 func (t NSTextPreview) InitWithSnapshotImagePresentationFrameCandidateRects(snapshotImage coregraphics.CGImageRef, presentationFrame corefoundation.CGRect, candidateRects []foundation.NSValue) NSTextPreview {
 	rv := objc.Send[NSTextPreview](t.ID, objc.Sel("initWithSnapshotImage:presentationFrame:candidateRects:"), snapshotImage, presentationFrame, objectivec.IObjectSliceToNSArray(candidateRects))
 	return rv
@@ -237,7 +240,7 @@ func (t NSTextPreview) InitWithSnapshotImagePresentationFrameCandidateRects(snap
 // The image that contains the requested text from your view.
 //
 // # Discussion
-// 
+//
 // You specify this image at initialization time. The system uses it to
 // implement any visual effects involving your view’s text. Create the image
 // with your text on a transparent background.
@@ -247,11 +250,12 @@ func (t NSTextPreview) PreviewImage() coregraphics.CGImageRef {
 	rv := objc.Send[coregraphics.CGImageRef](t.ID, objc.Sel("previewImage"))
 	return coregraphics.CGImageRef(rv)
 }
+
 // The frame rectangle that places the preview image directly over the
 // matching text.
 //
 // # Discussion
-// 
+//
 // You specify this value at initialization time. The system uses it to
 // position the preview image over the text in your view. Make sure the frame
 // rectangle is in your view’s coordinate space.
@@ -261,24 +265,24 @@ func (t NSTextPreview) PresentationFrame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("presentationFrame"))
 	return corefoundation.CGRect(rv)
 }
+
 // Rectangles that define the specific portions of text to highlight.
 //
 // # Discussion
-// 
+//
 // At initialization time, you set this property to an array of [NSValue]
 // objects, each of which contains an [NSRect] in the coordinate space of the
 // target view. Each rectangle contains a bounding rectangle for text that is
 // part of the preview. When applying visual effects, the system adds
 // highlights only to the text in the specified rectangles.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSTextPreview/candidateRects
+//
 // [NSRect]: https://developer.apple.com/documentation/Foundation/NSRect
 // [NSValue]: https://developer.apple.com/documentation/Foundation/NSValue
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextPreview/candidateRects
 func (t NSTextPreview) CandidateRects() []foundation.NSValue {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("candidateRects"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
 		return foundation.NSValueFromID(id)
 	})
 }
-

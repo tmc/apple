@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -65,6 +66,7 @@ type AVContentKeySpecifier struct {
 func AVContentKeySpecifierFromID(id objc.ID) AVContentKeySpecifier {
 	return AVContentKeySpecifier{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVContentKeySpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -171,6 +173,7 @@ func (c AVContentKeySpecifier) Identifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("identifier"))
 	return objectivec.Object{ID: rv}
 }
+
 // The key system that generates content keys.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySpecifier/keySystem
@@ -178,6 +181,7 @@ func (c AVContentKeySpecifier) KeySystem() AVContentKeySystem {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("keySystem"))
 	return AVContentKeySystem(foundation.NSStringFromID(rv).String())
 }
+
 // A dictionary of options with which you initialized the specifier.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySpecifier/options
@@ -185,4 +189,3 @@ func (c AVContentKeySpecifier) Options() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("options"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

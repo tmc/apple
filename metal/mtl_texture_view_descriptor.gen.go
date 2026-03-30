@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MTLTextureViewDescriptorClass) Alloc() MTLTextureViewDescriptor {
 	return rv
 }
 
-//
 // # Instance Properties
 //
 //   - [MTLTextureViewDescriptor.PixelFormat]
@@ -51,6 +51,7 @@ func (mc MTLTextureViewDescriptorClass) Alloc() MTLTextureViewDescriptor {
 //   - [MTLTextureViewDescriptor.SetSwizzle]
 //   - [MTLTextureViewDescriptor.TextureType]
 //   - [MTLTextureViewDescriptor.SetTextureType]
+//
 // See: https://developer.apple.com/documentation/Metal/MTLTextureViewDescriptor
 type MTLTextureViewDescriptor struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type MTLTextureViewDescriptor struct {
 func MTLTextureViewDescriptorFromID(id objc.ID) MTLTextureViewDescriptor {
 	return MTLTextureViewDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLTextureViewDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,9 +114,8 @@ func NewMTLTextureViewDescriptor() MTLTextureViewDescriptor {
 	return rv
 }
 
-//
 // # Discussion
-// 
+//
 // A desired pixel format of a texture view.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureViewDescriptor/pixelFormat
@@ -125,9 +126,9 @@ func (t MTLTextureViewDescriptor) PixelFormat() MTLPixelFormat {
 func (t MTLTextureViewDescriptor) SetPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPixelFormat:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // A desired swizzle format of a texture view.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureViewDescriptor/swizzle
@@ -138,9 +139,9 @@ func (t MTLTextureViewDescriptor) Swizzle() MTLTextureSwizzleChannels {
 func (t MTLTextureViewDescriptor) SetSwizzle(value MTLTextureSwizzleChannels) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSwizzle:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // A desired texture view of a texture view.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureViewDescriptor/textureType
@@ -151,9 +152,9 @@ func (t MTLTextureViewDescriptor) TextureType() MTLTextureType {
 func (t MTLTextureViewDescriptor) SetTextureType(value MTLTextureType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextureType:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // A desired range of mip levels of a texture view.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureViewDescriptor/levelRange-7e7f3
@@ -164,9 +165,9 @@ func (t MTLTextureViewDescriptor) LevelRange() foundation.NSRange {
 func (t MTLTextureViewDescriptor) SetLevelRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLevelRange:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // A desired range of slices of a texture view.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureViewDescriptor/sliceRange-3cs9b
@@ -177,4 +178,3 @@ func (t MTLTextureViewDescriptor) SliceRange() foundation.NSRange {
 func (t MTLTextureViewDescriptor) SetSliceRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSliceRange:"), value)
 }
-

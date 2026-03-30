@@ -3,10 +3,11 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (ec ETImageFolderDataProviderClass) Alloc() ETImageFolderDataProvider {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETImageFolderDataProvider.DataPointAtIndexError]
@@ -54,6 +54,7 @@ func (ec ETImageFolderDataProviderClass) Alloc() ETImageFolderDataProvider {
 //   - [ETImageFolderDataProvider.Description]
 //   - [ETImageFolderDataProvider.Hash]
 //   - [ETImageFolderDataProvider.Superclass]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETImageFolderDataProvider
 type ETImageFolderDataProvider struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type ETImageFolderDataProvider struct {
 func ETImageFolderDataProviderFromID(id objc.ID) ETImageFolderDataProvider {
 	return ETImageFolderDataProvider{objectivec.Object{ID: id}}
 }
+
 // Ensure ETImageFolderDataProvider implements IETImageFolderDataProvider.
 var _ IETImageFolderDataProvider = ETImageFolderDataProvider{}
 
@@ -114,7 +116,6 @@ func NewETImageFolderDataProvider() ETImageFolderDataProvider {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETImageFolderDataProvider/initWithFolder:forImageTensor:andLabelTensor:shuffleBeforeEachEpoch:shuffleRandomSeed:withImagePreprocessParams:
 func NewETImageFolderDataProviderWithFolderForImageTensorAndLabelTensorShuffleBeforeEachEpochShuffleRandomSeedWithImagePreprocessParams(folder objectivec.IObject, tensor objectivec.IObject, tensor2 objectivec.IObject, epoch bool, seed objectivec.IObject, params objectivec.IObject) ETImageFolderDataProvider {
 	instance := getETImageFolderDataProviderClass().Alloc()
@@ -122,7 +123,6 @@ func NewETImageFolderDataProviderWithFolderForImageTensorAndLabelTensorShuffleBe
 	return ETImageFolderDataProviderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETImageFolderDataProvider/dataPointAtIndex:error:
 func (e ETImageFolderDataProvider) DataPointAtIndexError(index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -134,16 +134,18 @@ func (e ETImageFolderDataProvider) DataPointAtIndexError(index uint64) (objectiv
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImageFolderDataProvider/numberOfDataPoints
 func (e ETImageFolderDataProvider) NumberOfDataPoints() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImageFolderDataProvider/prepareForEpoch
 func (e ETImageFolderDataProvider) PrepareForEpoch() {
 	objc.Send[objc.ID](e.ID, objc.Sel("prepareForEpoch"))
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETImageFolderDataProvider/initWithFolder:forImageTensor:andLabelTensor:shuffleBeforeEachEpoch:shuffleRandomSeed:withImagePreprocessParams:
 func (e ETImageFolderDataProvider) InitWithFolderForImageTensorAndLabelTensorShuffleBeforeEachEpochShuffleRandomSeedWithImagePreprocessParams(folder objectivec.IObject, tensor objectivec.IObject, tensor2 objectivec.IObject, epoch bool, seed objectivec.IObject, params objectivec.IObject) ETImageFolderDataProvider {
 	rv := objc.Send[ETImageFolderDataProvider](e.ID, objc.Sel("initWithFolder:forImageTensor:andLabelTensor:shuffleBeforeEachEpoch:shuffleRandomSeed:withImagePreprocessParams:"), folder, tensor, tensor2, epoch, seed, params)
@@ -155,19 +157,21 @@ func (e ETImageFolderDataProvider) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImageFolderDataProvider/description
 func (e ETImageFolderDataProvider) Description() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImageFolderDataProvider/hash
 func (e ETImageFolderDataProvider) Hash() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImageFolderDataProvider/superclass
 func (e ETImageFolderDataProvider) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
 	return rv
 }
-

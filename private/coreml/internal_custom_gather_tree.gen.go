@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (ic InternalCustomGatherTreeClass) Alloc() InternalCustomGatherTree {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [InternalCustomGatherTree.EvaluateOnCPUWithInputsOutputsError]
@@ -52,6 +52,7 @@ func (ic InternalCustomGatherTreeClass) Alloc() InternalCustomGatherTree {
 //   - [InternalCustomGatherTree.SetWeightDataError]
 //   - [InternalCustomGatherTree.Shape]
 //   - [InternalCustomGatherTree.InitWithParameterDictionaryError]
+//
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree
 type InternalCustomGatherTree struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type InternalCustomGatherTree struct {
 func InternalCustomGatherTreeFromID(id objc.ID) InternalCustomGatherTree {
 	return InternalCustomGatherTree{objectivec.Object{ID: id}}
 }
+
 // Ensure InternalCustomGatherTree implements IInternalCustomGatherTree.
 var _ IInternalCustomGatherTree = InternalCustomGatherTree{}
 
@@ -106,7 +108,6 @@ func NewInternalCustomGatherTree() InternalCustomGatherTree {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/initWithParameterDictionary:error:
 func NewInternalCustomGatherTreeWithParameterDictionaryError(dictionary objectivec.IObject) (InternalCustomGatherTree, error) {
 	var errorPtr objc.ID
@@ -119,7 +120,6 @@ func NewInternalCustomGatherTreeWithParameterDictionaryError(dictionary objectiv
 	return InternalCustomGatherTreeFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/evaluateOnCPUWithInputs:outputs:error:
 func (i InternalCustomGatherTree) EvaluateOnCPUWithInputsOutputsError(inputs objectivec.IObject, outputs objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -134,7 +134,7 @@ func (i InternalCustomGatherTree) EvaluateOnCPUWithInputsOutputsError(inputs obj
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/outputShapesForInputShapes:error:
 func (i InternalCustomGatherTree) OutputShapesForInputShapesError(shapes objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -146,7 +146,7 @@ func (i InternalCustomGatherTree) OutputShapesForInputShapesError(shapes objecti
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/setWeightData:error:
 func (i InternalCustomGatherTree) SetWeightDataError(data objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -161,7 +161,7 @@ func (i InternalCustomGatherTree) SetWeightDataError(data objectivec.IObject) (b
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomGatherTree/initWithParameterDictionary:error:
 func (i InternalCustomGatherTree) InitWithParameterDictionaryError(dictionary objectivec.IObject) (InternalCustomGatherTree, error) {
 	var errorPtr objc.ID
@@ -179,4 +179,3 @@ func (i InternalCustomGatherTree) Shape() objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("shape"))
 	return objectivec.Object{ID: rv}
 }
-

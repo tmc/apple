@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (ac AVPlayerMediaSelectionCriteriaClass) Alloc() AVPlayerMediaSelectionCrit
 // for a player.
 //
 // # Overview
-// 
+//
 // An instance of this object represents the languages and media
 // characteristics of assets that contain media selection options that a
 // player attempts to select automatically when preparing and playing items.
@@ -74,6 +75,7 @@ type AVPlayerMediaSelectionCriteria struct {
 func AVPlayerMediaSelectionCriteriaFromID(id objc.ID) AVPlayerMediaSelectionCriteria {
 	return AVPlayerMediaSelectionCriteria{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerMediaSelectionCriteria adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -159,7 +161,7 @@ func NewPlayerMediaSelectionCriteriaWithPreferredLanguagesPreferredMediaCharacte
 // be `nil`.
 //
 // # Discussion
-// 
+//
 // Principal media characteristics, when present, override language
 // preferences when making selections within a specific media selection group.
 // However, language preferences may still pertain to selections in other
@@ -187,6 +189,7 @@ func (p AVPlayerMediaSelectionCriteria) InitWithPreferredLanguagesPreferredMedia
 	rv := objc.Send[AVPlayerMediaSelectionCriteria](p.ID, objc.Sel("initWithPreferredLanguages:preferredMediaCharacteristics:"), objectivec.StringSliceToNSArray(preferredLanguages), objectivec.StringSliceToNSArray(preferredMediaCharacteristics))
 	return rv
 }
+
 // Creates media selection criteria with the principal media characteristics,
 // and preferred languages and media characteristics.
 //
@@ -200,7 +203,7 @@ func (p AVPlayerMediaSelectionCriteria) InitWithPreferredLanguagesPreferredMedia
 // be `nil`.
 //
 // # Discussion
-// 
+//
 // Principal media characteristics, when present, override language
 // preferences when making selections within a specific media selection group.
 // However, language preferences may still pertain to selections in other
@@ -220,6 +223,7 @@ func (p AVPlayerMediaSelectionCriteria) PreferredLanguages() []string {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("preferredLanguages"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // An array of media characteristics in preferred order.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerMediaSelectionCriteria/preferredMediaCharacteristics
@@ -227,14 +231,15 @@ func (p AVPlayerMediaSelectionCriteria) PreferredMediaCharacteristics() []string
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("preferredMediaCharacteristics"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // An array of media characteristics that are essential to select when
 // choosing media with a particular characteristic.
 //
 // # Discussion
-// 
+//
 // If no option matches the principal media characteristics, the system
 // chooses the default option in the group as the best match.
-// 
+//
 // When making automatic selections, a player item treats principal media
 // characteristics as criteria that supersede language preferences and
 // preferred media characteristics.
@@ -244,4 +249,3 @@ func (p AVPlayerMediaSelectionCriteria) PrincipalMediaCharacteristics() []string
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("principalMediaCharacteristics"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

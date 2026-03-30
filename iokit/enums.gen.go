@@ -6,25 +6,80 @@ import (
 	"fmt"
 )
 
+// See: https://developer.apple.com/documentation/iokit/iourlerror
+type IOURLError int32
+
+const (
+	KIOURLImproperArgumentsError       IOURLError = 0
+	KIOURLPropertyKeyUnavailableError  IOURLError = 0
+	KIOURLRemoteHostUnavailableError   IOURLError = 0
+	KIOURLResourceAccessViolationError IOURLError = 0
+	KIOURLResourceNotFoundError        IOURLError = 0
+	KIOURLTimeoutError                 IOURLError = 0
+	KIOURLUnknownError                 IOURLError = 0
+	KIOURLUnknownPropertyKeyError      IOURLError = 0
+	KIOURLUnknownSchemeError           IOURLError = 0
+)
+
+func (e IOURLError) String() string {
+	switch e {
+	case KIOURLImproperArgumentsError:
+		return "KIOURLImproperArgumentsError"
+	default:
+		return fmt.Sprintf("IOURLError(%d)", e)
+	}
+}
+
+type KDisplayVendorID uint
+
+const (
+	KDisplayVendorIDUnknown KDisplayVendorID = 0
+)
+
+func (e KDisplayVendorID) String() string {
+	switch e {
+	case KDisplayVendorIDUnknown:
+		return "KDisplayVendorIDUnknown"
+	default:
+		return fmt.Sprintf("KDisplayVendorID(%d)", e)
+	}
+}
+
 type KFirstIOKitNotificationType uint
 
 const (
-	KFirstIOKitNotificationTypeValue KFirstIOKitNotificationType = 0
-	KIOAsyncCompletionNotificationType KFirstIOKitNotificationType = 0
-	KIOKitNoticationMsgSizeMask KFirstIOKitNotificationType = 0
-	KIOKitNoticationTypeMask KFirstIOKitNotificationType = 0
-	KIOKitNoticationTypeSizeAdjShift KFirstIOKitNotificationType = 0
-	KIOServiceMatchedNotificationType KFirstIOKitNotificationType = 0
-	KIOServiceMessageNotificationType KFirstIOKitNotificationType = 0
-	KIOServicePublishNotificationType KFirstIOKitNotificationType = 0
-	KIOServiceTerminatedNotificationType KFirstIOKitNotificationType = 0
-	KLastIOKitNotificationType KFirstIOKitNotificationType = 0
+	KFirstIOKitNotificationTypeValue     KFirstIOKitNotificationType = 100
+	KIOAsyncCompletionNotificationType   KFirstIOKitNotificationType = 150
+	KIOKitNoticationMsgSizeMask          KFirstIOKitNotificationType = 3
+	KIOKitNoticationTypeMask             KFirstIOKitNotificationType = 4095
+	KIOKitNoticationTypeSizeAdjShift     KFirstIOKitNotificationType = 30
+	KIOServiceMatchedNotificationType    KFirstIOKitNotificationType = 101
+	KIOServiceMessageNotificationType    KFirstIOKitNotificationType = 160
+	KIOServicePublishNotificationType    KFirstIOKitNotificationType = 100
+	KIOServiceTerminatedNotificationType KFirstIOKitNotificationType = 102
+	KLastIOKitNotificationType           KFirstIOKitNotificationType = 199
 )
 
 func (e KFirstIOKitNotificationType) String() string {
 	switch e {
 	case KFirstIOKitNotificationTypeValue:
 		return "KFirstIOKitNotificationTypeValue"
+	case KIOAsyncCompletionNotificationType:
+		return "KIOAsyncCompletionNotificationType"
+	case KIOKitNoticationMsgSizeMask:
+		return "KIOKitNoticationMsgSizeMask"
+	case KIOKitNoticationTypeMask:
+		return "KIOKitNoticationTypeMask"
+	case KIOKitNoticationTypeSizeAdjShift:
+		return "KIOKitNoticationTypeSizeAdjShift"
+	case KIOServiceMatchedNotificationType:
+		return "KIOServiceMatchedNotificationType"
+	case KIOServiceMessageNotificationType:
+		return "KIOServiceMessageNotificationType"
+	case KIOServiceTerminatedNotificationType:
+		return "KIOServiceTerminatedNotificationType"
+	case KLastIOKitNotificationType:
+		return "KLastIOKitNotificationType"
 	default:
 		return fmt.Sprintf("KFirstIOKitNotificationType(%d)", e)
 	}
@@ -33,30 +88,40 @@ func (e KFirstIOKitNotificationType) String() string {
 type KIO uint
 
 const (
-	KIOAsyncCalloutCount KIO = 0
-	KIOAsyncCalloutFuncIndex KIO = 0
-	KIOAsyncCalloutRefconIndex KIO = 0
-	KIOAsyncReservedCount KIO = 0
-	KIOAsyncReservedIndex KIO = 0
-	KIOCopybackCache KIO = 0
-	KIOCopybackInnerCache KIO = 0
-	KIODefaultCache KIO = 0
-	KIOInhibitCache KIO = 0
-	KIOInterestCalloutCount KIO = 0
-	KIOInterestCalloutFuncIndex KIO = 0
-	KIOInterestCalloutRefconIndex KIO = 0
-	KIOInterestCalloutServiceIndex KIO = 0
-	KIOMatchingCalloutCount KIO = 0
-	KIOMatchingCalloutFuncIndex KIO = 0
-	KIOMatchingCalloutRefconIndex KIO = 0
-	KIOWriteCombineCache KIO = 0
-	KIOWriteThruCache KIO = 0
+	KIOAsyncCalloutCount           KIO = 3
+	KIOAsyncCalloutFuncIndex       KIO = 1
+	KIOAsyncCalloutRefconIndex     KIO = 2
+	KIOAsyncReservedCount          KIO = 1
+	KIOAsyncReservedIndex          KIO = 0
+	KIOCopybackCache               KIO = 3
+	KIOCopybackInnerCache          KIO = 5
+	KIODefaultCache                KIO = 0
+	KIOInhibitCache                KIO = 1
+	KIOInterestCalloutCount        KIO = 4
+	KIOInterestCalloutFuncIndex    KIO = 1
+	KIOInterestCalloutRefconIndex  KIO = 2
+	KIOInterestCalloutServiceIndex KIO = 3
+	KIOMatchingCalloutCount        KIO = 3
+	KIOMatchingCalloutFuncIndex    KIO = 1
+	KIOMatchingCalloutRefconIndex  KIO = 2
+	KIOWriteCombineCache           KIO = 4
+	KIOWriteThruCache              KIO = 2
 )
 
 func (e KIO) String() string {
 	switch e {
 	case KIOAsyncCalloutCount:
 		return "KIOAsyncCalloutCount"
+	case KIOAsyncCalloutFuncIndex:
+		return "KIOAsyncCalloutFuncIndex"
+	case KIOAsyncCalloutRefconIndex:
+		return "KIOAsyncCalloutRefconIndex"
+	case KIOAsyncReservedIndex:
+		return "KIOAsyncReservedIndex"
+	case KIOCopybackInnerCache:
+		return "KIOCopybackInnerCache"
+	case KIOInterestCalloutCount:
+		return "KIOInterestCalloutCount"
 	default:
 		return fmt.Sprintf("KIO(%d)", e)
 	}
@@ -64,35 +129,63 @@ func (e KIO) String() string {
 
 const KIOCFSerializeToBinary uint = 0
 
-const KIOConnectMethodVarOutputSize uint = 0
+const KIOConnectMethodVarOutputSize int = -3
 
 const KIODefaultMemoryType uint = 0
 
 type KIOMap uint
 
 const (
-	KIOMapAnywhere KIOMap = 0
-	KIOMapCacheMask KIOMap = 0
-	KIOMapCacheShift KIOMap = 0
-	KIOMapCopybackCache KIOMap = 0
-	KIOMapCopybackInnerCache KIOMap = 0
-	KIOMapDefaultCache KIOMap = 0
-	KIOMapInhibitCache KIOMap = 0
-	KIOMapOverwrite KIOMap = 0
-	KIOMapPrefault KIOMap = 0
-	KIOMapReadOnly KIOMap = 0
-	KIOMapReference KIOMap = 0
-	KIOMapStatic KIOMap = 0
-	KIOMapUnique KIOMap = 0
-	KIOMapUserOptionsMask KIOMap = 0
-	KIOMapWriteCombineCache KIOMap = 0
-	KIOMapWriteThruCache KIOMap = 0
+	KIOMapAnywhere           KIOMap = 1
+	KIOMapCacheMask          KIOMap = 3840
+	KIOMapCacheShift         KIOMap = 8
+	KIOMapCopybackCache      KIOMap = 3
+	KIOMapCopybackInnerCache KIOMap = 5
+	KIOMapDefaultCache       KIOMap = 0
+	KIOMapInhibitCache       KIOMap = 1
+	KIOMapOverwrite          KIOMap = 536870912
+	KIOMapPrefault           KIOMap = 268435456
+	KIOMapReadOnly           KIOMap = 4096
+	KIOMapReference          KIOMap = 33554432
+	KIOMapStatic             KIOMap = 16777216
+	KIOMapUnique             KIOMap = 67108864
+	KIOMapUserOptionsMask    KIOMap = 4095
+	KIOMapWriteCombineCache  KIOMap = 4
+	KIOMapWriteThruCache     KIOMap = 2
 )
 
 func (e KIOMap) String() string {
 	switch e {
 	case KIOMapAnywhere:
 		return "KIOMapAnywhere"
+	case KIOMapCacheMask:
+		return "KIOMapCacheMask"
+	case KIOMapCacheShift:
+		return "KIOMapCacheShift"
+	case KIOMapCopybackCache:
+		return "KIOMapCopybackCache"
+	case KIOMapCopybackInnerCache:
+		return "KIOMapCopybackInnerCache"
+	case KIOMapDefaultCache:
+		return "KIOMapDefaultCache"
+	case KIOMapOverwrite:
+		return "KIOMapOverwrite"
+	case KIOMapPrefault:
+		return "KIOMapPrefault"
+	case KIOMapReadOnly:
+		return "KIOMapReadOnly"
+	case KIOMapReference:
+		return "KIOMapReference"
+	case KIOMapStatic:
+		return "KIOMapStatic"
+	case KIOMapUnique:
+		return "KIOMapUnique"
+	case KIOMapUserOptionsMask:
+		return "KIOMapUserOptionsMask"
+	case KIOMapWriteCombineCache:
+		return "KIOMapWriteCombineCache"
+	case KIOMapWriteThruCache:
+		return "KIOMapWriteThruCache"
 	default:
 		return fmt.Sprintf("KIOMap(%d)", e)
 	}
@@ -101,30 +194,32 @@ func (e KIOMap) String() string {
 type KIORegistryIterate uint
 
 const (
-	KIORegistryIterateParents KIORegistryIterate = 0
-	KIORegistryIterateRecursively KIORegistryIterate = 0
+	KIORegistryIterateParents     KIORegistryIterate = 2
+	KIORegistryIterateRecursively KIORegistryIterate = 1
 )
 
 func (e KIORegistryIterate) String() string {
 	switch e {
 	case KIORegistryIterateParents:
 		return "KIORegistryIterateParents"
+	case KIORegistryIterateRecursively:
+		return "KIORegistryIterateRecursively"
 	default:
 		return fmt.Sprintf("KIORegistryIterate(%d)", e)
 	}
 }
 
-const KIOServiceInteractionAllowed uint = 0
+const KIOServiceInteractionAllowed uint = 1
 
 type KNanosecondScale uint
 
 const (
 	// KMicrosecondScale: # Discussion
-	KMicrosecondScale KNanosecondScale = 0
+	KMicrosecondScale KNanosecondScale = 1000
 	// KMillisecondScale: # Discussion
 	KMillisecondScale KNanosecondScale = 0
 	// KNanosecondScaleValue: # Discussion
-	KNanosecondScaleValue KNanosecondScale = 0
+	KNanosecondScaleValue KNanosecondScale = 1
 	// KSecondScale: # Discussion
 	KSecondScale KNanosecondScale = 0
 	// KTickScale: # Discussion
@@ -135,6 +230,10 @@ func (e KNanosecondScale) String() string {
 	switch e {
 	case KMicrosecondScale:
 		return "KMicrosecondScale"
+	case KMillisecondScale:
+		return "KMillisecondScale"
+	case KNanosecondScaleValue:
+		return "KNanosecondScaleValue"
 	default:
 		return fmt.Sprintf("KNanosecondScale(%d)", e)
 	}
@@ -143,14 +242,16 @@ func (e KNanosecondScale) String() string {
 type KOSAsyncRef uint
 
 const (
-	KOSAsyncRefCount KOSAsyncRef = 0
-	KOSAsyncRefSize KOSAsyncRef = 0
+	KOSAsyncRefCount KOSAsyncRef = 8
+	KOSAsyncRefSize  KOSAsyncRef = 32
 )
 
 func (e KOSAsyncRef) String() string {
 	switch e {
 	case KOSAsyncRefCount:
 		return "KOSAsyncRefCount"
+	case KOSAsyncRefSize:
+		return "KOSAsyncRefSize"
 	default:
 		return fmt.Sprintf("KOSAsyncRef(%d)", e)
 	}
@@ -159,8 +260,8 @@ func (e KOSAsyncRef) String() string {
 type KOSAsyncRef64 uint
 
 const (
-	KOSAsyncRef64Count KOSAsyncRef64 = 0
-	KOSAsyncRef64Size KOSAsyncRef64 = 0
+	KOSAsyncRef64Count KOSAsyncRef64 = 8
+	KOSAsyncRef64Size  KOSAsyncRef64 = 8
 )
 
 func (e KOSAsyncRef64) String() string {
@@ -175,17 +276,20 @@ func (e KOSAsyncRef64) String() string {
 type KOSNotificationMessageID uint
 
 const (
-	KMaxAsyncArgs KOSNotificationMessageID = 0
-	KOSAsyncCompleteMessageID KOSNotificationMessageID = 0
-	KOSNotificationMessageIDValue KOSNotificationMessageID = 0
+	KMaxAsyncArgs                 KOSNotificationMessageID = 16
+	KOSAsyncCompleteMessageID     KOSNotificationMessageID = 57
+	KOSNotificationMessageIDValue KOSNotificationMessageID = 53
 )
 
 func (e KOSNotificationMessageID) String() string {
 	switch e {
 	case KMaxAsyncArgs:
 		return "KMaxAsyncArgs"
+	case KOSAsyncCompleteMessageID:
+		return "KOSAsyncCompleteMessageID"
+	case KOSNotificationMessageIDValue:
+		return "KOSNotificationMessageIDValue"
 	default:
 		return fmt.Sprintf("KOSNotificationMessageID(%d)", e)
 	}
 }
-

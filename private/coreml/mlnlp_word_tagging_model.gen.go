@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (mc MLNLPWordTaggingModelClass) Alloc() MLNLPWordTaggingModel {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLNLPWordTaggingModel.ModelDescription]
 //   - [MLNLPWordTaggingModel.SetModelDescription]
 //   - [MLNLPWordTaggingModel.PredictionFromFeaturesOptionsError]
 //   - [MLNLPWordTaggingModel.InitWithModelDescriptionParameterDictionaryError]
+//
 // See: https://developer.apple.com/documentation/CoreML/_MLNLPWordTaggingModel
 type MLNLPWordTaggingModel struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLNLPWordTaggingModel struct {
 func MLNLPWordTaggingModelFromID(id objc.ID) MLNLPWordTaggingModel {
 	return MLNLPWordTaggingModel{objectivec.Object{ID: id}}
 }
+
 // Ensure MLNLPWordTaggingModel implements IMLNLPWordTaggingModel.
 var _ IMLNLPWordTaggingModel = MLNLPWordTaggingModel{}
 
@@ -102,7 +104,6 @@ func NewMLNLPWordTaggingModel() MLNLPWordTaggingModel {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLNLPWordTaggingModel/initWithModelDescription:parameterDictionary:error:
 func NewMLNLPWordTaggingModelWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLNLPWordTaggingModel, error) {
 	var errorPtr objc.ID
@@ -115,7 +116,6 @@ func NewMLNLPWordTaggingModelWithModelDescriptionParameterDictionaryError(descri
 	return MLNLPWordTaggingModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLNLPWordTaggingModel/predictionFromFeatures:options:error:
 func (m MLNLPWordTaggingModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -127,7 +127,7 @@ func (m MLNLPWordTaggingModel) PredictionFromFeaturesOptionsError(features objec
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLNLPWordTaggingModel/initWithModelDescription:parameterDictionary:error:
 func (m MLNLPWordTaggingModel) InitWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLNLPWordTaggingModel, error) {
 	var errorPtr objc.ID
@@ -148,4 +148,3 @@ func (m MLNLPWordTaggingModel) ModelDescription() IMLModelDescription {
 func (m MLNLPWordTaggingModel) SetModelDescription(value IMLModelDescription) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
 }
-

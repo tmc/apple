@@ -4,9 +4,10 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (cc CIImageAccumulatorClass) Alloc() CIImageAccumulator {
 // painting or fluid simulation.
 //
 // # Overview
-// 
+//
 // The [CIImageAccumulator] class enables feedback-based image processing for
 // such things as iterative painting operations or fluid dynamics simulations.
 // You use [CIImageAccumulator] objects in conjunction with other Core Image
@@ -86,6 +87,7 @@ type CIImageAccumulator struct {
 func CIImageAccumulatorFromID(id objc.ID) CIImageAccumulator {
 	return CIImageAccumulator{objectivec.Object{ID: id}}
 }
+
 // NOTE: CIImageAccumulator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -175,7 +177,7 @@ func NewCIImageAccumulator() CIImageAccumulator {
 // [CIImage] for more information about pixel format constants.
 //
 // # Return Value
-// 
+//
 // The initialized image accumulator object.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageAccumulator/init(extent:format:)
@@ -198,14 +200,14 @@ func NewImageAccumulatorWithExtentFormat(extent corefoundation.CGRect, format in
 //
 // colorSpace: A [CGColorSpace] object describing the color space for the image
 // accumulator.
-// //
-// [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 //
 // # Return Value
-// 
+//
 // The initialized image accumulator object.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageAccumulator/init(extent:format:colorSpace:)
+//
+// [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 func NewImageAccumulatorWithExtentFormatColorSpace(extent corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef) CIImageAccumulator {
 	instance := getCIImageAccumulatorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithExtent:format:colorSpace:"), extent, format, colorSpace)
@@ -224,7 +226,7 @@ func NewImageAccumulatorWithExtentFormatColorSpace(extent corefoundation.CGRect,
 // [CIImage] for more information about pixel format constants.
 //
 // # Return Value
-// 
+//
 // The initialized image accumulator object.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageAccumulator/init(extent:format:)
@@ -232,6 +234,7 @@ func (i CIImageAccumulator) InitWithExtentFormat(extent corefoundation.CGRect, f
 	rv := objc.Send[CIImageAccumulator](i.ID, objc.Sel("initWithExtent:format:"), extent, format)
 	return rv
 }
+
 // Initializes an image accumulator with the specified extent, pixel format,
 // and color space.
 //
@@ -245,18 +248,19 @@ func (i CIImageAccumulator) InitWithExtentFormat(extent corefoundation.CGRect, f
 //
 // colorSpace: A [CGColorSpace] object describing the color space for the image
 // accumulator.
-// //
-// [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 //
 // # Return Value
-// 
+//
 // The initialized image accumulator object.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageAccumulator/init(extent:format:colorSpace:)
+//
+// [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 func (i CIImageAccumulator) InitWithExtentFormatColorSpace(extent corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef) CIImageAccumulator {
 	rv := objc.Send[CIImageAccumulator](i.ID, objc.Sel("initWithExtent:format:colorSpace:"), extent, format, colorSpace)
 	return rv
 }
+
 // Sets the contents of the image accumulator to the contents of the specified
 // image object.
 //
@@ -267,6 +271,7 @@ func (i CIImageAccumulator) InitWithExtentFormatColorSpace(extent corefoundation
 func (i CIImageAccumulator) SetImage(image ICIImage) {
 	objc.Send[objc.ID](i.ID, objc.Sel("setImage:"), image)
 }
+
 // Updates an image accumulator with a subregion of an image object.
 //
 // image: The image object whose contents you want to assign to the image
@@ -278,20 +283,21 @@ func (i CIImageAccumulator) SetImage(image ICIImage) {
 // by the this argument.
 //
 // # Discussion
-// 
+//
 // For additional details on using this method, see “Imaging Dynamical
 // Systems” in [Core Image Programming Guide].
 //
-// [Core Image Programming Guide]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_intro/ci_intro.html#//apple_ref/doc/uid/TP30001185
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIImageAccumulator/setImage(_:dirtyRect:)
+//
+// [Core Image Programming Guide]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_intro/ci_intro.html#//apple_ref/doc/uid/TP30001185
 func (i CIImageAccumulator) SetImageDirtyRect(image ICIImage, dirtyRect corefoundation.CGRect) {
 	objc.Send[objc.ID](i.ID, objc.Sel("setImage:dirtyRect:"), image, dirtyRect)
 }
+
 // Returns the current contents of the image accumulator.
 //
 // # Return Value
-// 
+//
 // The image object that represents the current contents of the image
 // accumulator.
 //
@@ -300,6 +306,7 @@ func (i CIImageAccumulator) Image() ICIImage {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("image"))
 	return CIImageFromID(rv)
 }
+
 // Resets the accumulator, discarding any pending updates and the current
 // content.
 //
@@ -319,7 +326,7 @@ func (i CIImageAccumulator) Clear() {
 // [CIImage] for more information about pixel format constants.
 //
 // # Return Value
-// 
+//
 // The image accumulator object.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageAccumulator/imageAccumulatorWithExtent:format:
@@ -327,6 +334,7 @@ func (_CIImageAccumulatorClass CIImageAccumulatorClass) ImageAccumulatorWithExte
 	rv := objc.Send[objc.ID](objc.ID(_CIImageAccumulatorClass.class), objc.Sel("imageAccumulatorWithExtent:format:"), extent, format)
 	return CIImageAccumulatorFromID(rv)
 }
+
 // Creates an image accumulator with the specified extent, pixel format, and
 // color space.
 //
@@ -340,14 +348,14 @@ func (_CIImageAccumulatorClass CIImageAccumulatorClass) ImageAccumulatorWithExte
 //
 // colorSpace: A [CGColorSpace] object describing the color space for the image
 // accumulator.
-// //
-// [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 //
 // # Return Value
-// 
+//
 // The image accumulator object.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageAccumulator/imageAccumulatorWithExtent:format:colorSpace:
+//
+// [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 func (_CIImageAccumulatorClass CIImageAccumulatorClass) ImageAccumulatorWithExtentFormatColorSpace(extent corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef) CIImageAccumulator {
 	rv := objc.Send[objc.ID](objc.ID(_CIImageAccumulatorClass.class), objc.Sel("imageAccumulatorWithExtent:format:colorSpace:"), extent, format, colorSpace)
 	return CIImageAccumulatorFromID(rv)
@@ -356,7 +364,7 @@ func (_CIImageAccumulatorClass CIImageAccumulatorClass) ImageAccumulatorWithExte
 // The extent of the image associated with the image accumulator.
 //
 // # Discussion
-// 
+//
 // Extent is a rectangle that specifies the size of the image associated with
 // the image accumulator. This rectangle is the size of the complete region of
 // the working coordinate space, and is a fixed area. It specifies the x-value
@@ -368,10 +376,11 @@ func (i CIImageAccumulator) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](i.ID, objc.Sel("extent"))
 	return corefoundation.CGRect(rv)
 }
+
 // The pixel format of the image accumulator.
 //
 // # Discussion
-// 
+//
 // For applicable values, see Pixel Formats.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageAccumulator/format
@@ -379,4 +388,3 @@ func (i CIImageAccumulator) Format() CIFormat {
 	rv := objc.Send[CIFormat](i.ID, objc.Sel("format"))
 	return CIFormat(rv)
 }
-

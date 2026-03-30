@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,14 +43,15 @@ func (vc VZTouchClass) Alloc() VZTouch {
 	return rv
 }
 
-//
 // # Methods
 //
+//   - [VZTouch.Index]
 //   - [VZTouch.Location]
 //   - [VZTouch.Phase]
 //   - [VZTouch.SwipeAim]
 //   - [VZTouch.Timestamp]
 //   - [VZTouch.InitWithViewIndexPhaseLocationSwipeAimTimestamp]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZTouch
 type VZTouch struct {
 	objectivec.Object
@@ -59,6 +61,7 @@ type VZTouch struct {
 func VZTouchFromID(id objc.ID) VZTouch {
 	return VZTouch{objectivec.Object{ID: id}}
 }
+
 // Ensure VZTouch implements IVZTouch.
 var _ IVZTouch = VZTouch{}
 
@@ -66,6 +69,7 @@ var _ IVZTouch = VZTouch{}
 //
 // # Methods
 //
+//   - [IVZTouch.Index]
 //   - [IVZTouch.Location]
 //   - [IVZTouch.Phase]
 //   - [IVZTouch.SwipeAim]
@@ -78,6 +82,7 @@ type IVZTouch interface {
 
 	// Topic: Methods
 
+	Index() byte
 	Location() corefoundation.CGPoint
 	Phase() int64
 	SwipeAim() int64
@@ -104,7 +109,6 @@ func NewVZTouch() VZTouch {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZTouch/initWithView:index:phase:location:swipeAim:timestamp:
 func NewVZTouchWithViewIndexPhaseLocationSwipeAimTimestamp(view objectivec.IObject, index byte, phase int64, location corefoundation.CGPoint, aim int64, timestamp float64) VZTouch {
 	instance := getVZTouchClass().Alloc()
@@ -112,10 +116,15 @@ func NewVZTouchWithViewIndexPhaseLocationSwipeAimTimestamp(view objectivec.IObje
 	return VZTouchFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZTouch/initWithView:index:phase:location:swipeAim:timestamp:
 func (v VZTouch) InitWithViewIndexPhaseLocationSwipeAimTimestamp(view objectivec.IObject, index byte, phase int64, location corefoundation.CGPoint, aim int64, timestamp float64) VZTouch {
 	rv := objc.Send[VZTouch](v.ID, objc.Sel("initWithView:index:phase:location:swipeAim:timestamp:"), view, index, phase, location, aim, timestamp)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/Virtualization/_VZTouch/index
+func (v VZTouch) Index() byte {
+	rv := objc.Send[byte](v.ID, objc.Sel("index"))
 	return rv
 }
 
@@ -124,19 +133,21 @@ func (v VZTouch) Location() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("location"))
 	return corefoundation.CGPoint(rv)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZTouch/phase
 func (v VZTouch) Phase() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("phase"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZTouch/swipeAim
 func (v VZTouch) SwipeAim() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("swipeAim"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZTouch/timestamp
 func (v VZTouch) Timestamp() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("timestamp"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVDelegatingPlaybackCoordinatorPlaybackControlCommandClass) Alloc() AVD
 // An abstract superclass for playback commands.
 //
 // # Overview
-// 
+//
 // Playback commands inherit state that identifies their originator and
 // applicable item.
 //
@@ -65,6 +66,7 @@ type AVDelegatingPlaybackCoordinatorPlaybackControlCommand struct {
 func AVDelegatingPlaybackCoordinatorPlaybackControlCommandFromID(id objc.ID) AVDelegatingPlaybackCoordinatorPlaybackControlCommand {
 	return AVDelegatingPlaybackCoordinatorPlaybackControlCommand{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVDelegatingPlaybackCoordinatorPlaybackControlCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,10 +115,11 @@ func (d AVDelegatingPlaybackCoordinatorPlaybackControlCommand) ExpectedCurrentIt
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("expectedCurrentItemIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The participant that causes the coordinator to issue the command.
 //
 // # Discussion
-// 
+//
 // Only commands that the system issues on behalf of another participant
 // contain an originator. Local commands to coordinate rate change, or those
 // that originate from a call to
@@ -127,4 +130,3 @@ func (d AVDelegatingPlaybackCoordinatorPlaybackControlCommand) Originator() IAVC
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("originator"))
 	return AVCoordinatedPlaybackParticipantFromID(objc.ID(rv))
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,17 +45,17 @@ func (pc PortClass) Alloc() Port {
 // An abstract class that represents a communication channel.
 //
 // # Overview
-// 
+//
 // Communication occurs between [NSPort] objects, which typically reside in
 // different threads or tasks. The distributed objects system uses [NSPort]
 // objects to send [NSPortMessage] objects back and forth. Implement
 // interapplication communication using distributed objects whenever possible
 // and use [NSPort] objects only when necessary.
-// 
+//
 // To receive incoming messages, add [NSPort] objects to an instance of
 // [NSRunLoop] as input sources. [NSConnection] objects automatically add
 // their receive port when initialized.
-// 
+//
 // When the [NSPort] object receives a port message, it forwards the message
 // to its delegate in a [HandleMachMessage] or [HandlePortMessage] message.
 // The delegate should implement only one of these methods to process the
@@ -63,29 +64,26 @@ func (pc PortClass) Alloc() Port {
 // [HandlePortMessage] provides a message as an instance of [NSPortMessage],
 // which is an object-oriented wrapper for a Mach message. If a delegate has
 // not been set, the [NSPort] object handles the message itself.
-// 
+//
 // When you are finished using a port object, you must explicitly invalidate
 // the port object prior to sending it a `release` message. Similarly, if your
 // application uses garbage collection, you must invalidate the port object
 // before removing any strong references to it. If you do not invalidate the
 // port, the resulting port object may linger and create a memory leak. To
 // invalidate the port object, invoke its [Invalidate] method.
-// 
+//
 // Foundation defines three concrete subclasses of [NSPort]. [NSMachPort] and
 // [NSMessagePort] allow local (on the same machine) communication only.
 // [NSSocketPort] allows for both local and remote communication, but may be
 // more expensive than the others for the local case. When creating an
 // [NSPort] object, using [allocWithZone:] or [Port], an [NSMachPort] object
 // is created instead.
-// 
+//
 // For backward compatibility on Mach, `-[NSPort ]` returns an instance of the
 // [NSMachPort] class when sent to this class. Otherwise, it returns an
 // instance of a concrete subclass that can be used for messaging between
 // threads or processes on the local machine, or, in the case of
 // [NSSocketPort], between processes on separate machines.
-//
-// [NSConnection]: https://developer.apple.com/documentation/Foundation/NSConnection
-// [allocWithZone:]: https://developer.apple.com/documentation/Foundation/nsport-allocwithzone
 //
 // # Validation
 //
@@ -109,6 +107,9 @@ func (pc PortClass) Alloc() Port {
 //   - [Port.ScheduleInRunLoopForMode]: This method should be implemented by a subclass to set up monitoring of a port when added to a given run loop in a given input mode.
 //
 // See: https://developer.apple.com/documentation/Foundation/Port
+//
+// [NSConnection]: https://developer.apple.com/documentation/Foundation/NSConnection
+// [allocWithZone:]: https://developer.apple.com/documentation/Foundation/nsport-allocwithzone
 type Port struct {
 	objectivec.Object
 }
@@ -122,6 +123,7 @@ func PortFromID(id objc.ID) Port {
 
 // NSPortFromID is an alias for [PortFromID] for cross-framework compatibility.
 func NSPortFromID(id objc.ID) Port { return PortFromID(id) }
+
 // NOTE: Port adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -204,7 +206,6 @@ func NewPort() Port {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewPortWithCoder(coder INSCoder) Port {
 	instance := getPortClass().Alloc()
@@ -215,17 +216,18 @@ func NewPortWithCoder(coder INSCoder) Port {
 // Marks the receiver as invalid and posts an [didBecomeInvalidNotification]
 // to the default notification center.
 //
-// [didBecomeInvalidNotification]: https://developer.apple.com/documentation/Foundation/Port/didBecomeInvalidNotification
-//
 // # Discussion
-// 
+//
 // You must call this method before releasing a port object (or removing
 // strong references to it if your application is garbage collected).
 //
 // See: https://developer.apple.com/documentation/Foundation/Port/invalidate()
+//
+// [didBecomeInvalidNotification]: https://developer.apple.com/documentation/Foundation/Port/didBecomeInvalidNotification
 func (p Port) Invalidate() {
 	objc.Send[objc.ID](p.ID, objc.Sel("invalidate"))
 }
+
 // Sets the receiver’s delegate to a given object.
 //
 // anObject: The delegate for the receiver.
@@ -234,10 +236,11 @@ func (p Port) Invalidate() {
 func (p Port) SetDelegate(anObject NSPortDelegate) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setDelegate:"), anObject)
 }
+
 // Returns the receiver’s delegate.
 //
 // # Return Value
-// 
+//
 // The receiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/Foundation/Port/delegate()
@@ -245,6 +248,7 @@ func (p Port) Delegate() NSPortDelegate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("delegate"))
 	return NSPortDelegateObjectFromID(rv)
 }
+
 // This method is provided for subclasses that have custom types of [NSPort].
 //
 // limitDate: The last instant that a message may be sent.
@@ -256,7 +260,7 @@ func (p Port) Delegate() NSPortDelegate {
 // headerSpaceReserved: The number of bytes reserved for the header.
 //
 // # Discussion
-// 
+//
 // [NSConnection] calls this method at the appropriate times. This method
 // should not be called directly. This method could raise an
 // [NSInvalidSendPortException], [NSInvalidReceivePortException], or an
@@ -268,6 +272,7 @@ func (p Port) SendBeforeDateComponentsFromReserved(limitDate INSDate, components
 	rv := objc.Send[bool](p.ID, objc.Sel("sendBeforeDate:components:from:reserved:"), limitDate, components, receivePort, headerSpaceReserved)
 	return rv
 }
+
 // This method is provided for subclasses that have custom types of [NSPort].
 //
 // limitDate: The last instant that a message may be sent.
@@ -281,7 +286,7 @@ func (p Port) SendBeforeDateComponentsFromReserved(limitDate INSDate, components
 // headerSpaceReserved: The number of bytes reserved for the header.
 //
 // # Discussion
-// 
+//
 // [NSConnection] calls this method at the appropriate times. This method
 // should not be called directly. This method could raise an
 // [NSInvalidSendPortException], [NSInvalidReceivePortException], or an
@@ -293,6 +298,7 @@ func (p Port) SendBeforeDateMsgidComponentsFromReserved(limitDate INSDate, msgID
 	rv := objc.Send[bool](p.ID, objc.Sel("sendBeforeDate:msgid:components:from:reserved:"), limitDate, msgID, components, receivePort, headerSpaceReserved)
 	return rv
 }
+
 // This method should be implemented by a subclass to stop monitoring of a
 // port when removed from a give run loop in a given input mode.
 //
@@ -301,13 +307,14 @@ func (p Port) SendBeforeDateMsgidComponentsFromReserved(limitDate INSDate, msgID
 // mode: The run loop mode from which to remove the receiver
 //
 // # Discussion
-// 
+//
 // This method should not be called directly.
 //
 // See: https://developer.apple.com/documentation/Foundation/Port/remove(from:forMode:)
 func (p Port) RemoveFromRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode) {
 	objc.Send[objc.ID](p.ID, objc.Sel("removeFromRunLoop:forMode:"), runLoop, objc.String(string(mode)))
 }
+
 // This method should be implemented by a subclass to set up monitoring of a
 // port when added to a given run loop in a given input mode.
 //
@@ -316,13 +323,14 @@ func (p Port) RemoveFromRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode) {
 // mode: The run loop mode to which to add the receiver
 //
 // # Discussion
-// 
+//
 // This method should not be called directly.
 //
 // See: https://developer.apple.com/documentation/Foundation/Port/schedule(in:forMode:)
 func (p Port) ScheduleInRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode) {
 	objc.Send[objc.ID](p.ID, objc.Sel("scheduleInRunLoop:forMode:"), runLoop, objc.String(string(mode)))
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -331,7 +339,7 @@ func (p Port) ScheduleInRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode) {
 func (p Port) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (p Port) InitWithCoder(coder INSCoder) Port {
 	rv := objc.Send[Port](p.ID, objc.Sel("initWithCoder:"), coder)
@@ -342,7 +350,7 @@ func (p Port) InitWithCoder(coder INSCoder) Port {
 // receiving messages.
 //
 // # Return Value
-// 
+//
 // A new [NSPort] object capable of both sending and receiving messages.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPort/port
@@ -354,24 +362,22 @@ func (_PortClass PortClass) Port() Port {
 // A Boolean value that indicates whether the receiver is valid.
 //
 // # Discussion
-// 
-// [false] if the receiver is known to be invalid, otherwise [true].
-// 
+//
+// false if the receiver is known to be invalid, otherwise true.
+//
 // An [NSPort] object becomes invalid when its underlying communication
 // resource, which is operating system dependent, is closed or damaged.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/Port/isValid
 func (p Port) Valid() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isValid"))
 	return rv
 }
+
 // The number of bytes of space reserved by the receiver for sending data.
 //
 // # Discussion
-// 
+//
 // The number of bytes reserved by the receiver for sending data. The default
 // length is `0`.
 //
@@ -381,9 +387,6 @@ func (p Port) ReservedSpaceLength() uint {
 	return rv
 }
 
-			// Protocol methods for NSCoding
-			
+// Protocol methods for NSCoding
 
-			// Protocol methods for NSCopying
-			
-
+// Protocol methods for NSCopying

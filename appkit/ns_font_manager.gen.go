@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,23 +46,23 @@ func (nc NSFontManagerClass) Alloc() NSFontManager {
 // The center of activity for the font-conversion system.
 //
 // # Overview
-// 
+//
 // The font manager records the currently selected font, updates the Font
 // panel and Font menu to reflect the selected font, initiates font changes,
 // and converts fonts in response to requests from text-bearing objects. In a
 // more prosaic role, [NSFontManager] can be queried for the fonts available
 // to the application and for the particular attributes of a font, such as
 // whether it’s condensed or extended.
-// 
+//
 // You typically set up a font manager and the Font menu using Interface
 // Builder. However, you can also do so programmatically by getting the shared
 // font manager instance and having it create the standard Font menu at
 // runtime:
-// 
+//
 // You can then add the Font menu to your app’s main menu. After the Font
 // menu is installed, your app automatically gains the functionality of both
 // the Font menu and the Font panel.
-// 
+//
 // Font collections are managed by [NSFontManager].
 //
 // # Getting Available Fonts
@@ -144,6 +145,7 @@ type NSFontManager struct {
 func NSFontManagerFromID(id objc.ID) NSFontManager {
 	return NSFontManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSFontManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -327,13 +329,6 @@ type INSFontManager interface {
 	SetSelectedAttributesIsMultiple(attributes foundation.INSDictionary, flag bool)
 	// Converts attributes in response to an object initiating an attribute change, typically the Font panel or Font menu.
 	ConvertAttributes(attributes foundation.INSDictionary) foundation.INSDictionary
-
-	// The names of the currently loaded font collections.
-	CollectionNames() objectivec.IObject
-	SetCollectionNames(value objectivec.IObject)
-	// The font manager’s delegate.
-	Delegate() objectivec.IObject
-	SetDelegate(value objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -364,13 +359,13 @@ func NewNSFontManager() NSFontManager {
 // using the C bitwise OR operator.
 //
 // # Return Value
-// 
+//
 // The names of the corresponding fonts.
 //
 // # Discussion
-// 
+//
 // These fonts are in various system font directories.
-// 
+//
 // If `someTraits` is 0, this method returns all fonts that are neither italic
 // nor bold. This result is the same one you’d get if `fontTraitMask` were
 // [NSUnitalicFontMask] `|` [NSUnboldFontMask].
@@ -380,30 +375,31 @@ func (f NSFontManager) AvailableFontNamesWithTraits(someTraits NSFontTraitMask) 
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("availableFontNamesWithTraits:"), someTraits)
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Returns an array with one entry for each available member of a font family.
 //
 // fam: The name of a font family, like one specified by the value of
 // [AvailableFontFamilies].
 //
 // # Return Value
-// 
+//
 // The available members of `family`. See the following discussion for a
 // specific description.
 //
 // # Discussion
-// 
+//
 // Each entry of the returned [NSArray] is another [NSArray] with four
 // members, as follows:
-// 
+//
 // - - The PostScript font name, as an [NSString] object. - - The part of the
 // font name used in the font panel that’s not the font name, as an
 // [NSString] object. This value is not localized—for example, `"Roman"`,
 // `"Italic"`, or `"Bold"`. - - The font’s weight, as an [NSNumber]. - - The
 // font’s traits, as an [NSNumber].
-// 
+//
 // The members of the family are arranged in the font panel order (narrowest
 // to widest, lightest to boldest, plain to italic).
-// 
+//
 // For example, if you call `@"Times"`, it might return an array like this:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/availableMembers(ofFontFamily:)
@@ -413,19 +409,17 @@ func (f NSFontManager) AvailableMembersOfFontFamily(fam string) []foundation.NSA
 		return foundation.NSArrayFromID(id)
 	})
 }
+
 // Records the specified font as the currently selected font and updates the
 // Font panel.
 //
 // fontObj: The font to set as selected.
 //
-// flag: If [true], the Font panel indicates that more than one font is contained in
-// the selection; if [false], it does not.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// flag: If true, the Font panel indicates that more than one font is contained in
+// the selection; if false, it does not.
 //
 // # Discussion
-// 
+//
 // An object that manipulates fonts should invoke this method whenever it
 // becomes first responder and whenever its selection changes. It shouldn’t
 // invoke this method in the process of handling a [changeFont:] message, as
@@ -433,30 +427,30 @@ func (f NSFontManager) AvailableMembersOfFontFamily(fam string) []foundation.NSA
 // the change. After all fonts have been converted, the font manager itself
 // records the new selected font.
 //
-// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
-//
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/setSelectedFont(_:isMultiple:)
+//
+// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
 func (f NSFontManager) SetSelectedFontIsMultiple(fontObj NSFont, flag bool) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setSelectedFont:isMultiple:"), fontObj, flag)
 }
+
 // A Boolean value that indicates whether a responder handled the font
 // manager’s action message.
 //
 // # Discussion
-// 
-// By default, the font manager’s action message is [changeFont:]. The value
-// of this property is [true] if some responder object handled the
-// [changeFont:] message or [false] if the message went unheard.
 //
-// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// By default, the font manager’s action message is [changeFont:]. The value
+// of this property is true if some responder object handled the [changeFont:]
+// message or false if the message went unheard.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/sendAction()
+//
+// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
 func (f NSFontManager) SendAction() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("sendAction"))
 	return rv
 }
+
 // Returns a localized string with the name of the specified font family and
 // face, if one exists.
 //
@@ -465,12 +459,12 @@ func (f NSFontManager) SendAction() bool {
 // faceKey: The font face, for example, `@"Roman"`.
 //
 // # Return Value
-// 
+//
 // A localized string with the name of the specified font family and face, or,
 // if `face` is `nil`, the font family only.
 //
 // # Discussion
-// 
+//
 // The user’s locale is determined from the user’s [NSLanguages] default
 // setting. The method also loads the localized strings for the font, if they
 // aren’t already loaded.
@@ -480,91 +474,96 @@ func (f NSFontManager) LocalizedNameForFamilyFace(family string, faceKey string)
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("localizedNameForFamily:face:"), objc.String(family), objc.String(faceKey))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Adds a trait to the font.
 //
 // sender: The control that sent the message.
 //
 // # Discussion
-// 
+//
 // By default, the action message is [changeFont:]. This action method causes
 // the receiver to send its action message up the responder chain.
-// 
+//
 // When a responder replies by providing a font to convert in a [ConvertFont]
 // message, the receiver converts the font by adding the trait specified by
 // `sender`. This trait is determined by sending a `tag` message to `sender`
 // and interpreting it as a font trait mask for a [ConvertFontToHaveTrait]
 // message.
 //
-// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
-//
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/addFontTrait(_:)
+//
+// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
 func (f NSFontManager) AddFontTrait(sender objectivec.IObject) {
 	objc.Send[objc.ID](f.ID, objc.Sel("addFontTrait:"), sender)
 }
+
 // Removes a trait from the font.
 //
 // sender: The control that sent the message.
 //
 // # Discussion
-// 
+//
 // By default, the action message is [changeFont:]. This action method causes
 // the receiver to send its action message up the responder chain.
-// 
+//
 // When a responder replies by providing a font to convert in a [ConvertFont]
 // message, the receiver converts the font by removing the trait specified by
 // `sender`. This trait is determined by sending a `tag` message to `sender`
 // and interpreting it as a font trait mask for a [ConvertFontToNotHaveTrait]
 // message.
 //
-// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
-//
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/removeFontTrait(_:)
+//
+// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
 func (f NSFontManager) RemoveFontTrait(sender objectivec.IObject) {
 	objc.Send[objc.ID](f.ID, objc.Sel("removeFontTrait:"), sender)
 }
+
 // Modifies a trait of the font.
 //
 // sender: The control that sent the message.
 //
 // # Discussion
-// 
+//
 // By default, the action message is [changeFont:]. This action method causes
 // the receiver to send its action message up the responder chain.
-// 
+//
 // When a responder replies by providing a font to convert in a [ConvertFont]
 // message, the receiver converts the font in the manner specified by
 // `sender`. The conversion is determined by sending a `tag` message to
 // `sender` and invoking a corresponding method:
-// 
+//
 // [Table data omitted]
 //
-// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
-//
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/modifyFont(_:)
+//
+// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
 func (f NSFontManager) ModifyFont(sender objectivec.IObject) {
 	objc.Send[objc.ID](f.ID, objc.Sel("modifyFont:"), sender)
 }
+
 // Modifies a font trait using input from the Font panel.
 //
 // sender: The control that sent the message.
 //
 // # Discussion
-// 
+//
 // By default, the action message is [changeFont:]. This action method causes
 // the receiver to send its action message up the responder chain.
-// 
+//
 // When a responder replies by providing a font to convert in a [ConvertFont]
 // message, the receiver converts the font by sending a [PanelConvertFont]
 // message to the Font panel. The panel in turn may send
 // [ConvertFontToFamily], [ConvertFontToHaveTrait], and other specific
 // conversion methods to make its change.
 //
-// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
-//
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/modifyFontViaPanel(_:)
+//
+// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
 func (f NSFontManager) ModifyFontViaPanel(sender objectivec.IObject) {
 	objc.Send[objc.ID](f.ID, objc.Sel("modifyFontViaPanel:"), sender)
 }
+
 // Opens the Font Styles panel.
 //
 // sender: The control that sent the message.
@@ -573,6 +572,7 @@ func (f NSFontManager) ModifyFontViaPanel(sender objectivec.IObject) {
 func (f NSFontManager) OrderFrontStylesPanel(sender objectivec.IObject) {
 	objc.Send[objc.ID](f.ID, objc.Sel("orderFrontStylesPanel:"), sender)
 }
+
 // Opens the Font panel, creating it if necessary, and displays that panel in
 // front of the app’s windows.
 //
@@ -582,17 +582,18 @@ func (f NSFontManager) OrderFrontStylesPanel(sender objectivec.IObject) {
 func (f NSFontManager) OrderFrontFontPanel(sender objectivec.IObject) {
 	objc.Send[objc.ID](f.ID, objc.Sel("orderFrontFontPanel:"), sender)
 }
+
 // Converts the given font according to the object that initiated a font
 // change, typically the Font panel or Font menu.
 //
 // fontObj: The font to convert.
 //
 // # Return Value
-// 
+//
 // The converted font, or `aFont` itself if the conversion isn’t possible.
 //
 // # Discussion
-// 
+//
 // This method is invoked in response to an action message such as
 // [AddFontTrait] or [ModifyFontViaPanel]. These initiating methods cause the
 // font manager to query the sender for the action to take and the traits to
@@ -603,6 +604,7 @@ func (f NSFontManager) ConvertFont(fontObj NSFont) NSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:"), fontObj)
 	return NSFontFromID(rv)
 }
+
 // Returns a font whose traits are as similar as possible to those of the
 // given font except for the typeface, which is changed to the given typeface.
 //
@@ -612,12 +614,12 @@ func (f NSFontManager) ConvertFont(fontObj NSFont) NSFont {
 // Helvetica-BoldOblique or Times-Roman.
 //
 // # Return Value
-// 
+//
 // A font with matching traits and the given typeface, or `aFont` if it
 // can’t be converted.
 //
 // # Discussion
-// 
+//
 // This method attempts to match the weight and posture of `aFont` as closely
 // as possible. Italic is mapped to Oblique, for example. Weights are mapped
 // based on an approximate numeric scale of 0 to 15.
@@ -627,6 +629,7 @@ func (f NSFontManager) ConvertFontToFace(fontObj NSFont, typeface string) NSFont
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:toFace:"), fontObj, objc.String(typeface))
 	return NSFontFromID(rv)
 }
+
 // Returns a font whose traits are as similar as possible to those of the
 // given font except for the font family, which is changed to the given
 // family.
@@ -636,12 +639,12 @@ func (f NSFontManager) ConvertFontToFace(fontObj NSFont, typeface string) NSFont
 // family: The new font family; a generic font name, such as Helvetica or Times.
 //
 // # Return Value
-// 
+//
 // A font with matching traits and the given family, or `aFont` if it can’t
 // be converted.
 //
 // # Discussion
-// 
+//
 // This method attempts to match the weight and posture of `aFont` as closely
 // as possible. Italic is mapped to Oblique, for example. Weights are mapped
 // based on an approximate numeric scale of 0 to 15.
@@ -651,6 +654,7 @@ func (f NSFontManager) ConvertFontToFamily(fontObj NSFont, family string) NSFont
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:toFamily:"), fontObj, objc.String(family))
 	return NSFontFromID(rv)
 }
+
 // Returns a new version of the font object containing a single additional
 // trait.
 //
@@ -661,12 +665,12 @@ func (f NSFontManager) ConvertFontToFamily(fontObj NSFont, family string) NSFont
 // trait, respectively.
 //
 // # Return Value
-// 
+//
 // A font with matching traits including the given trait, or `aFont` if it
 // can’t be converted.
 //
 // # Discussion
-// 
+//
 // Using [NSUnboldFontMask] or [NSUnitalicFontMask] removes the bold or italic
 // trait, respectively.
 //
@@ -675,16 +679,17 @@ func (f NSFontManager) ConvertFontToHaveTrait(fontObj NSFont, trait NSFontTraitM
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:toHaveTrait:"), fontObj, trait)
 	return NSFontFromID(rv)
 }
+
 // Returns a new version of a font object without the specified traits.
 //
 // fontObj: The font whose traits are matched.
 //
 // trait: The mask for the traits to remove, created using the C bitwise OR operator
-// to combine the traits described in [Constants]. Using [BoldFontMask] or
-// [ItalicFontMask] removes the bold or italic trait, respectively.
+// to combine the traits described in [Constants]. Using [NSBoldFontMask] or
+// [NSItalicFontMask] removes the bold or italic trait, respectively.
 //
 // # Return Value
-// 
+//
 // A font with matching traits minus the given traits, or `aFont` if it
 // can’t be converted.
 //
@@ -693,6 +698,7 @@ func (f NSFontManager) ConvertFontToNotHaveTrait(fontObj NSFont, trait NSFontTra
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:toNotHaveTrait:"), fontObj, trait)
 	return NSFontFromID(rv)
 }
+
 // Returns a font object whose traits are the same as those of the given font,
 // except for the size, which is changed to the given size.
 //
@@ -701,7 +707,7 @@ func (f NSFontManager) ConvertFontToNotHaveTrait(fontObj NSFont, trait NSFontTra
 // size: The new font size.
 //
 // # Return Value
-// 
+//
 // A font with matching traits except in the new size, or `aFont` if it
 // can’t be converted.
 //
@@ -710,30 +716,28 @@ func (f NSFontManager) ConvertFontToSize(fontObj NSFont, size float64) NSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:toSize:"), fontObj, size)
 	return NSFontFromID(rv)
 }
+
 // Returns a font object whose weight is greater or lesser than that of the
 // given font.
 //
-// upFlag: If [true], a heavier font is returned; if it’s [false], a lighter font is
+// upFlag: If true, a heavier font is returned; if it’s false, a lighter font is
 // returned.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // fontObj: The font whose weight is increased or decreased.
 //
 // # Return Value
-// 
+//
 // A font with matching traits except for the new weight, or `aFont` if it
 // can’t be converted.
 //
 // # Discussion
-// 
+//
 // Weights are graded along the following scale. The list on the left gives
 // Apple’s terminology, and the list on the right gives the ISO equivalents.
 // Names on the same line are treated as identical:
-// 
+//
 // [Table data omitted]
-// 
+//
 // The [NSFontManager] implementation of this method refuses to convert a
 // font’s weight if it can’t maintain all other traits, such as italic and
 // condensed. You might wish to override this method to allow a looser
@@ -744,30 +748,29 @@ func (f NSFontManager) ConvertWeightOfFont(upFlag bool, fontObj NSFont) NSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertWeight:ofFont:"), upFlag, fontObj)
 	return NSFontFromID(rv)
 }
+
 // Converts font traits to a new traits mask value.
 //
 // traits: The current font traits.
 //
 // # Return Value
-// 
+//
 // The new traits mask value to be used by [ConvertFont].
 //
 // # Discussion
-// 
+//
 // This method is intended to be invoked to query the font traits while the
 // action message (usually [changeFont:]) is being invoked when the current
-// font action is either [NSFontAction.addTraitFontAction] or
-// [NSFontAction.removeTraitFontAction].
-//
-// [NSFontAction.addTraitFontAction]: https://developer.apple.com/documentation/AppKit/NSFontAction/addTraitFontAction
-// [NSFontAction.removeTraitFontAction]: https://developer.apple.com/documentation/AppKit/NSFontAction/removeTraitFontAction
-// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
+// font action is either [NSAddTraitFontAction] or [NSRemoveTraitFontAction].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/convertFontTraits(_:)
+//
+// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
 func (f NSFontManager) ConvertFontTraits(traits NSFontTraitMask) NSFontTraitMask {
 	rv := objc.Send[NSFontTraitMask](f.ID, objc.Sel("convertFontTraits:"), traits)
 	return NSFontTraitMask(rv)
 }
+
 // Attempts to load a font with the specified characteristics.
 //
 // family: The generic name of the desired font, such as Times or Helvetica.
@@ -784,7 +787,7 @@ func (f NSFontManager) ConvertFontTraits(traits NSFontTraitMask) NSFontTraitMask
 // size: The point size of the desired font.
 //
 // # Return Value
-// 
+//
 // A font with the specified characteristics if successful, or `nil` if not.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/font(withFamily:traits:weight:size:)
@@ -792,12 +795,13 @@ func (f NSFontManager) FontWithFamilyTraitsWeightSize(family string, traits NSFo
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontWithFamily:traits:weight:size:"), objc.String(family), traits, weight, size)
 	return NSFontFromID(rv)
 }
+
 // Returns the traits of the given font.
 //
 // fontObj: The font whose traits are returned.
 //
 // # Return Value
-// 
+//
 // The font traits, returned as a mask created by combining values listed in
 // [Constants] with the C bitwise OR operator.
 //
@@ -806,6 +810,7 @@ func (f NSFontManager) TraitsOfFont(fontObj NSFont) NSFontTraitMask {
 	rv := objc.Send[NSFontTraitMask](f.ID, objc.Sel("traitsOfFont:"), fontObj)
 	return NSFontTraitMask(rv)
 }
+
 // Indicates whether the given font has all the specified traits.
 //
 // fName: The name of the font.
@@ -814,33 +819,28 @@ func (f NSFontManager) TraitsOfFont(fontObj NSFont) NSFontTraitMask {
 // described in [Constants] using the C bitwise OR operator.
 //
 // # Return Value
-// 
-// [true] if the font named `typeface` has all the traits specified in
-// `fontTraitMask`; [false] if it doesn’t.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the font named `typeface` has all the traits specified in
+// `fontTraitMask`; false if it doesn’t.
 //
 // # Discussion
-// 
-// Using [NSUnboldFontMask] returns [true] if the font is not bold, [false]
-// otherwise. Using [NSUnitalicFontMask] returns [true] if the font is not
-// italic, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Using [NSUnboldFontMask] returns true if the font is not bold, false
+// otherwise. Using [NSUnitalicFontMask] returns true if the font is not
+// italic, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/fontNamed(_:hasTraits:)
 func (f NSFontManager) FontNamedHasTraits(fName string, someTraits NSFontTraitMask) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("fontNamed:hasTraits:"), objc.String(fName), someTraits)
 	return rv
 }
+
 // Returns an approximation of the specified font’s weight.
 //
 // fontObj: The font whose approximate weight is returned.
 //
 // # Return Value
-// 
+//
 // An approximation of the weight of the given font, where 0 indicates the
 // lightest possible weight, 5 indicates a normal or book weight, and 9 or
 // more indicates a bold or heavier weight. Because this method returns only
@@ -852,17 +852,15 @@ func (f NSFontManager) WeightOfFont(fontObj NSFont) int {
 	rv := objc.Send[int](f.ID, objc.Sel("weightOfFont:"), fontObj)
 	return rv
 }
+
 // Returns the application’s shared Font panel object, creating it if
 // necessary.
 //
-// create: If [true], the Font panel object is created if necessary; if [false], it is
+// create: If true, the Font panel object is created if necessary; if false, it is
 // not.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // The application’s shared Font panel object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/fontPanel(_:)
@@ -870,6 +868,7 @@ func (f NSFontManager) FontPanel(create bool) NSFontPanel {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontPanel:"), create)
 	return NSFontPanelFromID(rv)
 }
+
 // Records the given menu as the application’s Font menu.
 //
 // newMenu: The new Font menu.
@@ -878,16 +877,14 @@ func (f NSFontManager) FontPanel(create bool) NSFontPanel {
 func (f NSFontManager) SetFontMenu(newMenu INSMenu) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setFontMenu:"), newMenu)
 }
+
 // Returns the menu that’s connected to the font conversion system, creating
 // it if necessary.
 //
-// create: If [true], the menu object is created if necessary; if [false], it is not.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// create: If true, the menu object is created if necessary; if false, it is not.
 //
 // # Return Value
-// 
+//
 // The font conversion system menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/fontMenu(_:)
@@ -895,66 +892,64 @@ func (f NSFontManager) FontMenu(create bool) INSMenu {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontMenu:"), create)
 	return NSMenuFromID(rv)
 }
+
 // Informs the Font panel that the specified font attributes changed for the
 // selected text.
 //
 // attributes: The new attributes.
 //
-// flag: If [true], informs the panel that multiple fonts or attributes are enclosed
+// flag: If true, informs the panel that multiple fonts or attributes are enclosed
 // within the selection.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Discussion
-// 
+//
 // This method is used primarily by [NSTextView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/setSelectedAttributes(_:isMultiple:)
 func (f NSFontManager) SetSelectedAttributesIsMultiple(attributes foundation.INSDictionary, flag bool) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setSelectedAttributes:isMultiple:"), attributes, flag)
 }
+
 // Converts attributes in response to an object initiating an attribute
 // change, typically the Font panel or Font menu.
 //
 // attributes: The current attributes.
 //
 // # Return Value
-// 
+//
 // The converted attributes, or `attributes` itself if the conversion isn’t
 // possible.
 //
 // # Discussion
-// 
+//
 // Attributes unused by the sender should not be changed or removed.
-// 
+//
 // This method is usually invoked on the sender of [ChangeAttributes]. See
 // [Working with the Font Manager] for more information.
 //
-// [Working with the Font Manager]: https://developer.apple.com/library/archive/documentation/TextFonts/Conceptual/CocoaTextArchitecture/FontHandling/FontHandling.html#//apple_ref/doc/uid/TP40009459-CH5-SW9
-//
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/convertAttributes(_:)
+//
+// [Working with the Font Manager]: https://developer.apple.com/library/archive/documentation/TextFonts/Conceptual/CocoaTextArchitecture/FontHandling/FontHandling.html#//apple_ref/doc/uid/TP40009459-CH5-SW9
 func (f NSFontManager) ConvertAttributes(attributes foundation.INSDictionary) foundation.INSDictionary {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertAttributes:"), attributes)
 	return foundation.NSDictionaryFromID(rv)
 }
+
 // Implemented to override the default action of enabling or disabling a
 // specific menu item.
 //
 // menuItem: An [NSMenuItem] object that represents the menu item.
 //
 // # Return Value
-// 
-// [true] to enable `menuItem`, [false] to disable it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to enable `menuItem`, false to disable it.
 //
 // # Discussion
-// 
+//
 // The object implementing this method must be the target of `menuItem`. You
 // can determine which menu item `menuItem` is by querying it for its tag or
 // action.
-// 
+//
 // The following example disables the menu item associated with the
 // `nextRecord` action method when the selected line in a table view is the
 // last one; conversely, it disables the menu item with `priorRecord` as its
@@ -974,12 +969,12 @@ func (f NSFontManager) ValidateMenuItem(menuItem INSMenuItem) bool {
 // [NSFontManager].
 //
 // # Discussion
-// 
+//
 // When you call the [SharedFontManager] method of [NSFontManager], it creates
 // an instance of `aClass`, if no instance already exists. The class in
 // `aClass` must implement `init` as its designated initializer. The default
 // font manager factory is [NSFontManager].
-// 
+//
 // Call this method before AppKit loads your application’s main nib file,
 // such as in your app delegate’s [ApplicationWillFinishLaunching] method.
 //
@@ -987,13 +982,14 @@ func (f NSFontManager) ValidateMenuItem(menuItem INSMenuItem) bool {
 func (_NSFontManagerClass NSFontManagerClass) SetFontManagerFactory(factoryId objc.Class) {
 	objc.Send[objc.ID](objc.ID(_NSFontManagerClass.class), objc.Sel("setFontManagerFactory:"), factoryId)
 }
+
 // Sets the class that creates the shared Font panel object.
 //
 // factoryId: The new font panel factory class, which should be a subclass of
 // [NSFontPanel].
 //
 // # Discussion
-// 
+//
 // Call this method before accessing the Font panel in any way, such as in
 // your app delegate’s [ApplicationWillFinishLaunching] method.
 //
@@ -1006,7 +1002,7 @@ func (_NSFontManagerClass NSFontManagerClass) SetFontPanelFactory(factoryId objc
 // themselves).
 //
 // # Discussion
-// 
+//
 // Note that these fonts are in various system font directories.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/availableFonts
@@ -1014,10 +1010,11 @@ func (f NSFontManager) AvailableFonts() []string {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("availableFonts"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The names of the font families available in the system.
 //
 // # Discussion
-// 
+//
 // Note that these fonts are in various system font directories.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/availableFontFamilies
@@ -1025,13 +1022,14 @@ func (f NSFontManager) AvailableFontFamilies() []string {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("availableFontFamilies"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The currently selected font object.
 //
 // # Discussion
-// 
+//
 // The value of this property is the last font recorded with a
 // [SetSelectedFontIsMultiple] message.
-// 
+//
 // While fonts are being converted in response to a [ConvertFont] message, you
 // can determine the font selected in the Font panel like this:
 //
@@ -1040,50 +1038,47 @@ func (f NSFontManager) SelectedFont() NSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("selectedFont"))
 	return NSFontFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the currently selected font has
 // multiple fonts.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the last font selection recorded
-// has multiple fonts; if the last font selection recorded is a single font,
-// the value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the last font selection recorded
+// has multiple fonts; if the last font selection recorded is a single font,
+// the value is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/isMultiple
 func (f NSFontManager) Multiple() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isMultiple"))
 	return rv
 }
+
 // The current font conversion action.
 //
 // # Discussion
-// 
+//
 // The value of this property represents the current font action used by the
 // [ConvertFont] method. This property is intended to be used to query the
 // font conversion action while the action message (usually [changeFont:]) is
 // being invoked.
 //
-// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
-//
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/currentFontAction
+//
+// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
 func (f NSFontManager) CurrentFontAction() NSFontAction {
 	rv := objc.Send[NSFontAction](f.ID, objc.Sel("currentFontAction"))
 	return NSFontAction(rv)
 }
+
 // A Boolean value that indicates whether the font conversion system’s Font
 // panel and Font menu items are enabled.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the font conversion system’s
-// user interface items (the Font panel and Font menu items) are enabled; when
-// the value is [false], these items are not enabled.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the font conversion system’s
+// user interface items (the Font panel and Font menu items) are enabled; when
+// the value is false, these items are not enabled.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/isEnabled
 func (f NSFontManager) Enabled() bool {
@@ -1093,17 +1088,18 @@ func (f NSFontManager) Enabled() bool {
 func (f NSFontManager) SetEnabled(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setEnabled:"), value)
 }
+
 // The action sent to the first responder when the user selects a new font
 // from the Font panel or chooses a command from the Font menu.
 //
 // # Discussion
-// 
+//
 // The default action is [changeFont:]. You should rarely need to change this
 // setting.
 //
-// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
-//
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/action
+//
+// [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
 func (f NSFontManager) Action() objc.SEL {
 	rv := objc.Send[objc.SEL](f.ID, objc.Sel("action"))
 	return rv
@@ -1111,6 +1107,7 @@ func (f NSFontManager) Action() objc.SEL {
 func (f NSFontManager) SetAction(value objc.SEL) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAction:"), value)
 }
+
 // The object that receives action messages related to the font manager.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/target
@@ -1121,32 +1118,12 @@ func (f NSFontManager) Target() objectivec.IObject {
 func (f NSFontManager) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTarget:"), value)
 }
-// The names of the currently loaded font collections.
-//
-// See: https://developer.apple.com/documentation/appkit/nsfontmanager/collectionnames
-func (f NSFontManager) CollectionNames() objectivec.IObject {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("collectionNames"))
-	return objectivec.Object{ID: rv}
-}
-func (f NSFontManager) SetCollectionNames(value objectivec.IObject) {
-	objc.Send[struct{}](f.ID, objc.Sel("setCollectionNames:"), value)
-}
-// The font manager’s delegate.
-//
-// See: https://developer.apple.com/documentation/appkit/nsfontmanager/delegate
-func (f NSFontManager) Delegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("delegate"))
-	return objectivec.Object{ID: rv}
-}
-func (f NSFontManager) SetDelegate(value objectivec.IObject) {
-	objc.Send[struct{}](f.ID, objc.Sel("setDelegate:"), value)
-}
 
 // Returns the shared instance of the font manager for the application,
 // creating it if necessary.
 //
 // # Return Value
-// 
+//
 // The shared font manager.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/shared
@@ -1155,6 +1132,4 @@ func (_NSFontManagerClass NSFontManagerClass) SharedFontManager() NSFontManager 
 	return NSFontManagerFromID(objc.ID(rv))
 }
 
-			// Protocol methods for NSMenuItemValidation
-			
-
+// Protocol methods for NSMenuItemValidation

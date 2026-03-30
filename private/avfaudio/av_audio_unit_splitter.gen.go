@@ -3,8 +3,9 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,10 +43,10 @@ func (ac AVAudioUnitSplitterClass) Alloc() AVAudioUnitSplitter {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioUnitSplitter.InitWithAudioComponentDescription]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSplitter
 type AVAudioUnitSplitter struct {
 	AVAudioUnit
@@ -55,6 +56,7 @@ type AVAudioUnitSplitter struct {
 func AVAudioUnitSplitterFromID(id objc.ID) AVAudioUnitSplitter {
 	return AVAudioUnitSplitter{AVAudioUnit: AVAudioUnitFromID(id)}
 }
+
 // Ensure AVAudioUnitSplitter implements IAVAudioUnitSplitter.
 var _ IAVAudioUnitSplitter = AVAudioUnitSplitter{}
 
@@ -92,7 +94,6 @@ func NewAVAudioUnitSplitter() AVAudioUnitSplitter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSplitter/initWithAudioComponentDescription:
 func NewAudioUnitSplitterWithAudioComponentDescription(description objectivec.IObject) AVAudioUnitSplitter {
 	instance := getAVAudioUnitSplitterClass().Alloc()
@@ -100,7 +101,6 @@ func NewAudioUnitSplitterWithAudioComponentDescription(description objectivec.IO
 	return AVAudioUnitSplitterFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioUnitSplitterWithImpl(impl unsafe.Pointer) AVAudioUnitSplitter {
 	instance := getAVAudioUnitSplitterClass().Alloc()
@@ -108,10 +108,8 @@ func NewAudioUnitSplitterWithImpl(impl unsafe.Pointer) AVAudioUnitSplitter {
 	return AVAudioUnitSplitterFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSplitter/initWithAudioComponentDescription:
 func (a AVAudioUnitSplitter) InitWithAudioComponentDescription(description objectivec.IObject) AVAudioUnitSplitter {
 	rv := objc.Send[AVAudioUnitSplitter](a.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return rv
 }
-

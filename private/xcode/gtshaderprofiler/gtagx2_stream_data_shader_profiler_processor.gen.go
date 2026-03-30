@@ -3,8 +3,9 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (gc GTAGX2StreamDataShaderProfilerProcessorClass) Alloc() GTAGX2StreamDataS
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTAGX2StreamDataShaderProfilerProcessor._createPerCounterCommandDataWithPerCommandData]
@@ -73,6 +73,7 @@ func (gc GTAGX2StreamDataShaderProfilerProcessorClass) Alloc() GTAGX2StreamDataS
 //   - [GTAGX2StreamDataShaderProfilerProcessor.WaitUntilBatchIDCounterFinished]
 //   - [GTAGX2StreamDataShaderProfilerProcessor.WaitUntilStreamDataFinished]
 //   - [GTAGX2StreamDataShaderProfilerProcessor.InitWithStreamData]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor
 type GTAGX2StreamDataShaderProfilerProcessor struct {
 	objectivec.Object
@@ -82,6 +83,7 @@ type GTAGX2StreamDataShaderProfilerProcessor struct {
 func GTAGX2StreamDataShaderProfilerProcessorFromID(id objc.ID) GTAGX2StreamDataShaderProfilerProcessor {
 	return GTAGX2StreamDataShaderProfilerProcessor{objectivec.Object{ID: id}}
 }
+
 // Ensure GTAGX2StreamDataShaderProfilerProcessor implements IGTAGX2StreamDataShaderProfilerProcessor.
 var _ IGTAGX2StreamDataShaderProfilerProcessor = GTAGX2StreamDataShaderProfilerProcessor{}
 
@@ -173,7 +175,6 @@ func NewGTAGX2StreamDataShaderProfilerProcessor() GTAGX2StreamDataShaderProfiler
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/initWithStreamData:
 func NewGTAGX2StreamDataShaderProfilerProcessorWithStreamData(data objectivec.IObject) GTAGX2StreamDataShaderProfilerProcessor {
 	instance := getGTAGX2StreamDataShaderProfilerProcessorClass().Alloc()
@@ -181,7 +182,6 @@ func NewGTAGX2StreamDataShaderProfilerProcessorWithStreamData(data objectivec.IO
 	return GTAGX2StreamDataShaderProfilerProcessorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_createPerCounterCommandData:withPerCommandData:
 func (g GTAGX2StreamDataShaderProfilerProcessor) _createPerCounterCommandDataWithPerCommandData(data objectivec.IObject, data2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_createPerCounterCommandData:withPerCommandData:"), data, data2)
@@ -192,7 +192,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _createPerCounterCommandDataWit
 func (g GTAGX2StreamDataShaderProfilerProcessor) CreatePerCounterCommandDataWithPerCommandData(data objectivec.IObject, data2 objectivec.IObject) objectivec.IObject {
 	return g._createPerCounterCommandDataWithPerCommandData(data, data2)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_effectiveBatchDrawKickTimes:
 func (g GTAGX2StreamDataShaderProfilerProcessor) _effectiveBatchDrawKickTimes(times objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_effectiveBatchDrawKickTimes:"), times)
@@ -203,7 +203,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _effectiveBatchDrawKickTimes(ti
 func (g GTAGX2StreamDataShaderProfilerProcessor) EffectiveBatchDrawKickTimes(times objectivec.IObject) objectivec.IObject {
 	return g._effectiveBatchDrawKickTimes(times)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_handleStreamingBatchResult:
 func (g GTAGX2StreamDataShaderProfilerProcessor) _handleStreamingBatchResult(result objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_handleStreamingBatchResult:"), result)
@@ -213,6 +213,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _handleStreamingBatchResult(res
 func (g GTAGX2StreamDataShaderProfilerProcessor) HandleStreamingBatchResult(result objectivec.IObject) {
 	g._handleStreamingBatchResult(result)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_postProcessData
 func (g GTAGX2StreamDataShaderProfilerProcessor) _postProcessData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("_postProcessData"))
@@ -222,7 +223,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _postProcessData() {
 func (g GTAGX2StreamDataShaderProfilerProcessor) PostProcessData() {
 	g._postProcessData()
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_preProcessStreamingUSCSampleData:
 func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_preProcessStreamingUSCSampleData:"), data)
@@ -232,7 +233,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleDa
 func (g GTAGX2StreamDataShaderProfilerProcessor) PreProcessStreamingUSCSampleData(data objectivec.IObject) {
 	g._preProcessStreamingUSCSampleData(data)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_preProcessStreamingUSCSampleData:withAddressData:sampleData:frameIndex:ringBufferIdx:targetIndex:
 func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex(data objectivec.IObject, data2 objectivec.IObject, data3 objectivec.IObject, index uint32, idx uint32, index2 int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressData:sampleData:frameIndex:ringBufferIdx:targetIndex:"), data, data2, data3, index, idx, index2)
@@ -242,7 +243,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleDa
 func (g GTAGX2StreamDataShaderProfilerProcessor) PreProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex(data objectivec.IObject, data2 objectivec.IObject, data3 objectivec.IObject, index uint32, idx uint32, index2 int) {
 	g._preProcessStreamingUSCSampleDataWithAddressDataSampleDataFrameIndexRingBufferIdxTargetIndex(data, data2, data3, index, idx, index2)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_preProcessStreamingUSCSampleData:withAddressMappings:sampleData:frameIndex:ringBufferIdx:targetIndex:
 func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex(data objectivec.IObject, mappings objectivec.IObject, data2 objectivec.IObject, index uint32, idx uint32, index2 int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_preProcessStreamingUSCSampleData:withAddressMappings:sampleData:frameIndex:ringBufferIdx:targetIndex:"), data, mappings, data2, index, idx, index2)
@@ -252,7 +253,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _preProcessStreamingUSCSampleDa
 func (g GTAGX2StreamDataShaderProfilerProcessor) PreProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex(data objectivec.IObject, mappings objectivec.IObject, data2 objectivec.IObject, index uint32, idx uint32, index2 int) {
 	g._preProcessStreamingUSCSampleDataWithAddressMappingsSampleDataFrameIndexRingBufferIdxTargetIndex(data, mappings, data2, index, idx, index2)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_processDerivedEncoderCounterData:
 func (g GTAGX2StreamDataShaderProfilerProcessor) _processDerivedEncoderCounterData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_processDerivedEncoderCounterData:"), data)
@@ -262,7 +263,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _processDerivedEncoderCounterDa
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessDerivedEncoderCounterData(data objectivec.IObject) {
 	g._processDerivedEncoderCounterData(data)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_processFrameTimeData:
 func (g GTAGX2StreamDataShaderProfilerProcessor) _processFrameTimeData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_processFrameTimeData:"), data)
@@ -272,7 +273,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _processFrameTimeData(data obje
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessFrameTimeData(data objectivec.IObject) {
 	g._processFrameTimeData(data)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_processHarvestedBinaryData:
 func (g GTAGX2StreamDataShaderProfilerProcessor) _processHarvestedBinaryData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_processHarvestedBinaryData:"), data)
@@ -282,73 +283,77 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) _processHarvestedBinaryData(dat
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessHarvestedBinaryData(data objectivec.IObject) {
 	g._processHarvestedBinaryData(data)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/_saveAddressList:size:filename:
 func (g GTAGX2StreamDataShaderProfilerProcessor) _saveAddressListSizeFilename(list unsafe.Pointer, size uint32, filename string) {
-	objc.Send[objc.ID](g.ID, objc.Sel("_saveAddressList:size:filename:"), list, size, unsafe.Pointer(unsafe.StringData(filename + "\x00")))
+	objc.Send[objc.ID](g.ID, objc.Sel("_saveAddressList:size:filename:"), list, size, unsafe.Pointer(unsafe.StringData(filename+"\x00")))
 }
 
 // SaveAddressListSizeFilename is an exported wrapper for the private method _saveAddressListSizeFilename.
 func (g GTAGX2StreamDataShaderProfilerProcessor) SaveAddressListSizeFilename(list unsafe.Pointer, size uint32, filename string) {
 	g._saveAddressListSizeFilename(list, size, filename)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/analyzeBinary:gpuGeneration:
 func (g GTAGX2StreamDataShaderProfilerProcessor) AnalyzeBinaryGpuGeneration(binary objectivec.IObject, generation uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("analyzeBinary:gpuGeneration:"), binary, generation)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/analyzeBinary:typeName:dylib:data:gpuGeneration:
 func (g GTAGX2StreamDataShaderProfilerProcessor) AnalyzeBinaryTypeNameDylibDataGpuGeneration(binary objectivec.IObject, name objectivec.IObject, dylib bool, data objectivec.IObject, generation uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("analyzeBinary:typeName:dylib:data:gpuGeneration:"), binary, name, dylib, data, generation)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/process:
 func (g GTAGX2StreamDataShaderProfilerProcessor) Process(process objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("process:"), process)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/processBatchIDFilteringData
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessBatchIDFilteringData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("processBatchIDFilteringData"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/processBatchIDFilteringData:
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessBatchIDFilteringDataWithData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("processBatchIDFilteringData:"), data)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/processBatchIdData:
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessBatchIdData(data objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("processBatchIdData:"), data)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/processShaderProfilerStreamedResult:
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessShaderProfilerStreamedResult(result objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("processShaderProfilerStreamedResult:"), result)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/processStreamData
 func (g GTAGX2StreamDataShaderProfilerProcessor) ProcessStreamData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("processStreamData"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/setupForBatchIDFilteringCounters:
 func (g GTAGX2StreamDataShaderProfilerProcessor) SetupForBatchIDFilteringCounters(counters objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("setupForBatchIDFilteringCounters:"), counters)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/waitUntilBatchIDCounterFinished
 func (g GTAGX2StreamDataShaderProfilerProcessor) WaitUntilBatchIDCounterFinished() {
 	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilBatchIDCounterFinished"))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/waitUntilStreamDataFinished
 func (g GTAGX2StreamDataShaderProfilerProcessor) WaitUntilStreamDataFinished() {
 	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilStreamDataFinished"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/initWithStreamData:
 func (g GTAGX2StreamDataShaderProfilerProcessor) InitWithStreamData(data objectivec.IObject) GTAGX2StreamDataShaderProfilerProcessor {
 	rv := objc.Send[GTAGX2StreamDataShaderProfilerProcessor](g.ID, objc.Sel("initWithStreamData:"), data)
@@ -363,6 +368,7 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) Delegate() objectivec.IObject {
 func (g GTAGX2StreamDataShaderProfilerProcessor) SetDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/isaPrinter
 func (g GTAGX2StreamDataShaderProfilerProcessor) IsaPrinter() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaPrinter"))
@@ -371,9 +377,9 @@ func (g GTAGX2StreamDataShaderProfilerProcessor) IsaPrinter() objectivec.IObject
 func (g GTAGX2StreamDataShaderProfilerProcessor) SetIsaPrinter(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataShaderProfilerProcessor/shaderProfilerResult
 func (g GTAGX2StreamDataShaderProfilerProcessor) ShaderProfilerResult() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("shaderProfilerResult"))
 	return objectivec.Object{ID: rv}
 }
-

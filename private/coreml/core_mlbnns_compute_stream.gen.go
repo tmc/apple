@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type CoreMLBNNSComputeStream struct {
 func CoreMLBNNSComputeStreamFromID(id objc.ID) CoreMLBNNSComputeStream {
 	return CoreMLBNNSComputeStream{objectivec.Object{ID: id}}
 }
+
 // NOTE: CoreMLBNNSComputeStream struct embeds objectivec.Object (parent type unavailable) but
 // ICoreMLBNNSComputeStream embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewCoreMLBNNSComputeStream() CoreMLBNNSComputeStream {
 	rv := objc.Send[CoreMLBNNSComputeStream](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

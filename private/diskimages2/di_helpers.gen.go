@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type DIHelpers struct {
 func DIHelpersFromID(id objc.ID) DIHelpers {
 	return DIHelpers{objectivec.Object{ID: id}}
 }
+
 // Ensure DIHelpers implements IDIHelpers.
 var _ IDIHelpers = DIHelpers{}
 
@@ -82,13 +84,12 @@ func NewDIHelpers() DIHelpers {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIHelpers/copyDevicePathWithStatfs:
 func (_DIHelpersClass DIHelpersClass) CopyDevicePathWithStatfs(statfs objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIHelpersClass.class), objc.Sel("copyDevicePathWithStatfs:"), statfs)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIHelpers/executeWithPath:arguments:error:
 func (_DIHelpersClass DIHelpersClass) ExecuteWithPathArgumentsError(path objectivec.IObject, arguments objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -103,7 +104,7 @@ func (_DIHelpersClass DIHelpersClass) ExecuteWithPathArgumentsError(path objecti
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIHelpers/getBlockSizeFromStr:error:
 func (_DIHelpersClass DIHelpersClass) GetBlockSizeFromStrError(str objectivec.IObject) (uint32, error) {
 	var errorPtr objc.ID
@@ -115,16 +116,15 @@ func (_DIHelpersClass DIHelpersClass) GetBlockSizeFromStrError(str objectivec.IO
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIHelpers/numBlocksWithSizeStr:blockSize:
 func (_DIHelpersClass DIHelpersClass) NumBlocksWithSizeStrBlockSize(str objectivec.IObject, size uint32) uint64 {
 	rv := objc.Send[uint64](objc.ID(_DIHelpersClass.class), objc.Sel("numBlocksWithSizeStr:blockSize:"), str, size)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIHelpers/stringWithImageFormat:
 func (_DIHelpersClass DIHelpersClass) StringWithImageFormat(format int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIHelpersClass.class), objc.Sel("stringWithImageFormat:"), format)
 	return objectivec.Object{ID: rv}
 }
-

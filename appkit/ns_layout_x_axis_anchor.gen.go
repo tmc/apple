@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,11 +45,11 @@ func (nc NSLayoutXAxisAnchorClass) Alloc() NSLayoutXAxisAnchor {
 // fluent API.
 //
 // # Overview
-// 
+//
 // [NSLayoutXAxisAnchor] adds type information to the methods inherited from
 // [NSLayoutAnchor]. Specifically, the generic methods declared by
 // [NSLayoutAnchor] must now take a matching [NSLayoutXAxisAnchor] object.
-// 
+//
 // For more information on using layout anchors, see [NSLayoutAnchor].
 //
 // # Building system spacing constraints
@@ -73,6 +74,7 @@ type NSLayoutXAxisAnchor struct {
 func NSLayoutXAxisAnchorFromID(id objc.ID) NSLayoutXAxisAnchor {
 	return NSLayoutXAxisAnchor{NSLayoutAnchor: NSLayoutAnchorFromID(id)}
 }
+
 // NOTE: NSLayoutXAxisAnchor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,17 +137,17 @@ func NewNSLayoutXAxisAnchor() NSLayoutXAxisAnchor {
 // anchors.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that imposes a specific distance between the
 // current anchor and the object in the `anchor` parameter.
 //
 // # Discussion
-// 
+//
 // The constraint causes the current anchor to trail the object in the
 // `anchor` parameter. For example, in a left-to-right layout, the current
 // anchor is to the right of `anchor`, but in a right-to-left layout, it’s
 // to the left of `anchor`.
-// 
+//
 // The distance between the two anchors is determined by multiplying the
 // system spacing by the value in the `multiplier` parameter. The value of the
 // system space is determined from information available from the anchors.
@@ -155,6 +157,7 @@ func (l NSLayoutXAxisAnchor) ConstraintEqualToSystemSpacingAfterAnchorMultiplier
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToSystemSpacingAfterAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the minimum amount by which the current
 // anchor trails the specified anchor.
 //
@@ -164,17 +167,17 @@ func (l NSLayoutXAxisAnchor) ConstraintEqualToSystemSpacingAfterAnchorMultiplier
 // the two anchors.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that imposes a minimum distance between the
 // current anchor and the object in the `anchor` parameter.
 //
 // # Discussion
-// 
+//
 // The constraint causes the current anchor to trail the object in the
 // `anchor` parameter. For example, in a left-to-right layout, the current
 // anchor is to the right of `anchor`, but in a right-to-left layout, it’s
 // to the left of `anchor`.
-// 
+//
 // The minimum distance between the two anchors is determined by multiplying
 // the system spacing by the value in the `multiplier` parameter. (The actual
 // distance must be greater than or equal to that value.) The value of the
@@ -185,6 +188,7 @@ func (l NSLayoutXAxisAnchor) ConstraintGreaterThanOrEqualToSystemSpacingAfterAnc
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToSystemSpacingAfterAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the maximum amount by which the current
 // anchor trails the specified anchor.
 //
@@ -194,17 +198,17 @@ func (l NSLayoutXAxisAnchor) ConstraintGreaterThanOrEqualToSystemSpacingAfterAnc
 // the two anchors.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that imposes a maximum distance between the
 // current anchor and the object in the `anchor` parameter.
 //
 // # Discussion
-// 
+//
 // The constraint causes the current anchor to trail the object in the
 // `anchor` parameter. For example, in a left-to-right layout, the current
 // anchor is to the right of `anchor`, but in a right-to-left layout, it’s
 // to the left of `anchor`.
-// 
+//
 // The maximum distance between the two anchors is determined by multiplying
 // the system spacing by the value in the `multiplier` parameter. (The actual
 // distance must be less than or equal to that value.) The value of the system
@@ -215,16 +219,17 @@ func (l NSLayoutXAxisAnchor) ConstraintLessThanOrEqualToSystemSpacingAfterAnchor
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToSystemSpacingAfterAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Creates a layout dimension object from two anchors.
 //
 // otherAnchor: The second anchor to use when creating the layout dimension.
 //
 // # Return Value
-// 
+//
 // The [NSLayoutDimension] object represented by the two anchors.
 //
 // # Discussion
-// 
+//
 // Use the returned object to define constraints relative to the space between
 // the current anchor and the object in the `otherAnchor` parameter.
 //
@@ -233,4 +238,3 @@ func (l NSLayoutXAxisAnchor) AnchorWithOffsetToAnchor(otherAnchor INSLayoutXAxis
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("anchorWithOffsetToAnchor:"), otherAnchor)
 	return NSLayoutDimensionFromID(rv)
 }
-

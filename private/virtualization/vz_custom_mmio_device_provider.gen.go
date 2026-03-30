@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZCustomMMIODeviceProviderClass) Alloc() VZCustomMMIODeviceProvider {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCustomMMIODeviceProvider._connectionIdentifier]
@@ -52,6 +52,7 @@ func (vc VZCustomMMIODeviceProviderClass) Alloc() VZCustomMMIODeviceProvider {
 //   - [VZCustomMMIODeviceProvider.Description]
 //   - [VZCustomMMIODeviceProvider.Hash]
 //   - [VZCustomMMIODeviceProvider.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceProvider
 type VZCustomMMIODeviceProvider struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZCustomMMIODeviceProvider struct {
 func VZCustomMMIODeviceProviderFromID(id objc.ID) VZCustomMMIODeviceProvider {
 	return VZCustomMMIODeviceProvider{objectivec.Object{ID: id}}
 }
+
 // Ensure VZCustomMMIODeviceProvider implements IVZCustomMMIODeviceProvider.
 var _ IVZCustomMMIODeviceProvider = VZCustomMMIODeviceProvider{}
 
@@ -115,7 +117,7 @@ func (v VZCustomMMIODeviceProvider) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceProvider/encodeWithEncoder:
 func (v VZCustomMMIODeviceProvider) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
@@ -127,24 +129,27 @@ func (v VZCustomMMIODeviceProvider) _connectionIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_connectionIdentifier"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceProvider/debugDescription
 func (v VZCustomMMIODeviceProvider) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceProvider/description
 func (v VZCustomMMIODeviceProvider) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceProvider/hash
 func (v VZCustomMMIODeviceProvider) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceProvider/superclass
 func (v VZCustomMMIODeviceProvider) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (pc PixelBufferPoolKeyClass) Alloc() PixelBufferPoolKey {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [PixelBufferPoolKey.FrameSize]
 //   - [PixelBufferPoolKey.PixelFormatType]
 //   - [PixelBufferPoolKey.InitWithSizePixelFormatType]
+//
 // See: https://developer.apple.com/documentation/CoreML/PixelBufferPoolKey
 type PixelBufferPoolKey struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type PixelBufferPoolKey struct {
 func PixelBufferPoolKeyFromID(id objc.ID) PixelBufferPoolKey {
 	return PixelBufferPoolKey{objectivec.Object{ID: id}}
 }
+
 // Ensure PixelBufferPoolKey implements IPixelBufferPoolKey.
 var _ IPixelBufferPoolKey = PixelBufferPoolKey{}
 
@@ -98,7 +100,6 @@ func NewPixelBufferPoolKey() PixelBufferPoolKey {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/PixelBufferPoolKey/initWithSize:pixelFormatType:
 func NewPixelBufferPoolKeyWithSizePixelFormatType(size corefoundation.CGSize, type_ uint32) PixelBufferPoolKey {
 	instance := getPixelBufferPoolKeyClass().Alloc()
@@ -106,7 +107,6 @@ func NewPixelBufferPoolKeyWithSizePixelFormatType(size corefoundation.CGSize, ty
 	return PixelBufferPoolKeyFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/PixelBufferPoolKey/initWithSize:pixelFormatType:
 func (p PixelBufferPoolKey) InitWithSizePixelFormatType(size corefoundation.CGSize, type_ uint32) PixelBufferPoolKey {
 	rv := objc.Send[PixelBufferPoolKey](p.ID, objc.Sel("initWithSize:pixelFormatType:"), size, type_)
@@ -118,9 +118,9 @@ func (p PixelBufferPoolKey) FrameSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](p.ID, objc.Sel("frameSize"))
 	return corefoundation.CGSize(rv)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/PixelBufferPoolKey/pixelFormatType
 func (p PixelBufferPoolKey) PixelFormatType() uint32 {
 	rv := objc.Send[uint32](p.ID, objc.Sel("pixelFormatType"))
 	return rv
 }
-

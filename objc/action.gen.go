@@ -71,4 +71,3 @@ func NewActionTarget(owner ID, fn func(sender ID)) (target ID, sel SEL) {
 
 	return target, RegisterName("invoke:")
 }
-

@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -45,16 +46,14 @@ func (ac AVCaptureSystemExposureBiasSliderClass) Alloc() AVCaptureSystemExposure
 // system-recommended range.
 //
 // # Overview
-// 
+//
 // This control defines its range by querying the
-// [systemRecommendedExposureBiasRange] property of the device’s active
+// [AVCaptureSystemExposureBiasSlider.SystemRecommendedExposureBiasRange] property of the device’s active
 // format. If a device’s [AVCaptureSystemExposureBiasSlider.ActiveFormat] value changes, the slider updates
 // its range with the new format’s system-recommended value.
-// 
+//
 // To use this control, add it to the capture session by calling the
 // session’s [AddControl] method.
-//
-// [systemRecommendedExposureBiasRange]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/systemRecommendedExposureBiasRange
 //
 // # Creating an exposure bias slider
 //
@@ -73,6 +72,7 @@ type AVCaptureSystemExposureBiasSlider struct {
 func AVCaptureSystemExposureBiasSliderFromID(id objc.ID) AVCaptureSystemExposureBiasSlider {
 	return AVCaptureSystemExposureBiasSlider{AVCaptureControl: AVCaptureControlFromID(id)}
 }
+
 // NOTE: AVCaptureSystemExposureBiasSlider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -127,7 +127,7 @@ func NewAVCaptureSystemExposureBiasSlider() AVCaptureSystemExposureBiasSlider {
 // device: The capture device to control.
 //
 // # Discussion
-// 
+//
 // You can only create an exposure bias slider with a device that support’s
 // setting its [ExposureTargetBias] property value.
 //
@@ -144,7 +144,7 @@ func NewCaptureSystemExposureBiasSliderWithDevice(device IAVCaptureDevice) AVCap
 // device: The capture device to control.
 //
 // # Discussion
-// 
+//
 // You can only create an exposure bias slider with a device that support’s
 // setting its [ExposureTargetBias] property value.
 //
@@ -153,6 +153,7 @@ func (c AVCaptureSystemExposureBiasSlider) InitWithDevice(device IAVCaptureDevic
 	rv := objc.Send[AVCaptureSystemExposureBiasSlider](c.ID, objc.Sel("initWithDevice:"), device)
 	return rv
 }
+
 // Creates a slider to control the exposure bias of the specified capture
 // device with an action to respond to exposure bias changes.
 //
@@ -162,7 +163,7 @@ func (c AVCaptureSystemExposureBiasSlider) InitWithDevice(device IAVCaptureDevic
 // device’s [ExposureTargetBias] property.
 //
 // # Discussion
-// 
+//
 // The system only calls the specified action when the exposure bias slider
 // changes the device’s [VideoZoomFactor] property value. If you need to
 // react to other sources of changes to the exposure target bias, use
@@ -170,7 +171,7 @@ func (c AVCaptureSystemExposureBiasSlider) InitWithDevice(device IAVCaptureDevic
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSystemExposureBiasSlider/init(device:action:)
 func (c AVCaptureSystemExposureBiasSlider) InitWithDeviceAction(device IAVCaptureDevice, action Float32Handler) AVCaptureSystemExposureBiasSlider {
-_block1, _ := NewFloat32Block(action)
+	_block1, _ := NewFloat32Block(action)
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithDevice:action:"), device, _block1)
 	return AVCaptureSystemExposureBiasSliderFromID(rv)
 }
@@ -185,6 +186,7 @@ func (c AVCaptureSystemExposureBiasSlider) ActiveFormat() IAVCaptureDeviceFormat
 func (c AVCaptureSystemExposureBiasSlider) SetActiveFormat(value IAVCaptureDeviceFormat) {
 	objc.Send[struct{}](c.ID, objc.Sel("setActiveFormat:"), value)
 }
+
 // The system’s recommended exposure bias range for this device format.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/systemrecommendedexposurebiasrange
@@ -210,4 +212,3 @@ func (c AVCaptureSystemExposureBiasSlider) InitWithDeviceActionSync(ctx context.
 		return 0.0, ctx.Err()
 	}
 }
-

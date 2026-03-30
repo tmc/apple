@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLGPUComputeDeviceClass) Alloc() MLGPUComputeDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLGPUComputeDevice.InitWithMetalDevice]
@@ -50,6 +50,7 @@ func (mc MLGPUComputeDeviceClass) Alloc() MLGPUComputeDevice {
 //   - [MLGPUComputeDevice.Description]
 //   - [MLGPUComputeDevice.Hash]
 //   - [MLGPUComputeDevice.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice
 type MLGPUComputeDevice struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLGPUComputeDevice struct {
 func MLGPUComputeDeviceFromID(id objc.ID) MLGPUComputeDevice {
 	return MLGPUComputeDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure MLGPUComputeDevice implements IMLGPUComputeDevice.
 var _ IMLGPUComputeDevice = MLGPUComputeDevice{}
 
@@ -104,7 +106,6 @@ func NewMLGPUComputeDevice() MLGPUComputeDevice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/initWithMetalDevice:
 func NewGPUComputeDeviceWithMetalDevice(device objectivec.IObject) MLGPUComputeDevice {
 	instance := getMLGPUComputeDeviceClass().Alloc()
@@ -112,14 +113,12 @@ func NewGPUComputeDeviceWithMetalDevice(device objectivec.IObject) MLGPUComputeD
 	return MLGPUComputeDeviceFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/initWithMetalDevice:
 func (g MLGPUComputeDevice) InitWithMetalDevice(device objectivec.IObject) MLGPUComputeDevice {
 	rv := objc.Send[MLGPUComputeDevice](g.ID, objc.Sel("initWithMetalDevice:"), device)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/deviceWithMetalDevice:
 func (_MLGPUComputeDeviceClass MLGPUComputeDeviceClass) DeviceWithMetalDevice(device objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLGPUComputeDeviceClass.class), objc.Sel("deviceWithMetalDevice:"), device)
@@ -131,19 +130,21 @@ func (g MLGPUComputeDevice) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/description
 func (g MLGPUComputeDevice) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/hash
 func (g MLGPUComputeDevice) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/superclass
 func (g MLGPUComputeDevice) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (vc VZKeyboardClass) Alloc() VZKeyboard {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZKeyboard.ActiveIndicators]
 //   - [VZKeyboard.SendKeyEvents]
 //   - [VZKeyboard.Type]
 //   - [VZKeyboard.InitWithTypeVirtualMachineDeviceIdentifier]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZKeyboard
 type VZKeyboard struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type VZKeyboard struct {
 func VZKeyboardFromID(id objc.ID) VZKeyboard {
 	return VZKeyboard{objectivec.Object{ID: id}}
 }
+
 // Ensure VZKeyboard implements IVZKeyboard.
 var _ IVZKeyboard = VZKeyboard{}
 
@@ -100,7 +102,6 @@ func NewVZKeyboard() VZKeyboard {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZKeyboard/initWithType:virtualMachine:deviceIdentifier:
 func NewVZKeyboardWithTypeVirtualMachineDeviceIdentifier(type_ int64, machine objectivec.IObject, identifier uint32) VZKeyboard {
 	instance := getVZKeyboardClass().Alloc()
@@ -108,12 +109,11 @@ func NewVZKeyboardWithTypeVirtualMachineDeviceIdentifier(type_ int64, machine ob
 	return VZKeyboardFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZKeyboard/sendKeyEvents:
 func (v VZKeyboard) SendKeyEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendKeyEvents:"), events)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZKeyboard/initWithType:virtualMachine:deviceIdentifier:
 func (v VZKeyboard) InitWithTypeVirtualMachineDeviceIdentifier(type_ int64, machine objectivec.IObject, identifier uint32) VZKeyboard {
 	rv := objc.Send[VZKeyboard](v.ID, objc.Sel("initWithType:virtualMachine:deviceIdentifier:"), type_, machine, identifier)
@@ -125,9 +125,9 @@ func (v VZKeyboard) ActiveIndicators() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("activeIndicators"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZKeyboard/type
 func (v VZKeyboard) Type() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("type"))
 	return rv
 }
-

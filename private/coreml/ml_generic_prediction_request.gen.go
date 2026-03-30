@@ -5,8 +5,9 @@ package coreml
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLGenericPredictionRequestClass) Alloc() MLGenericPredictionRequest {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLGenericPredictionRequest.Cancel]
@@ -57,6 +57,7 @@ func (mc MLGenericPredictionRequestClass) Alloc() MLGenericPredictionRequest {
 //   - [MLGenericPredictionRequest.Description]
 //   - [MLGenericPredictionRequest.Hash]
 //   - [MLGenericPredictionRequest.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest
 type MLGenericPredictionRequest struct {
 	objectivec.Object
@@ -66,6 +67,7 @@ type MLGenericPredictionRequest struct {
 func MLGenericPredictionRequestFromID(id objc.ID) MLGenericPredictionRequest {
 	return MLGenericPredictionRequest{objectivec.Object{ID: id}}
 }
+
 // Ensure MLGenericPredictionRequest implements IMLGenericPredictionRequest.
 var _ IMLGenericPredictionRequest = MLGenericPredictionRequest{}
 
@@ -123,7 +125,6 @@ func NewMLGenericPredictionRequest() MLGenericPredictionRequest {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest/initForModel:inputFeatures:options:
 func NewGenericPredictionRequestForModelInputFeaturesOptions(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) MLGenericPredictionRequest {
 	instance := getMLGenericPredictionRequestClass().Alloc()
@@ -135,13 +136,13 @@ func NewGenericPredictionRequestForModelInputFeaturesOptions(model objectivec.IO
 func (g MLGenericPredictionRequest) Cancel() {
 	objc.Send[objc.ID](g.ID, objc.Sel("cancel"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest/submitWithCompletionHandler:
 func (g MLGenericPredictionRequest) SubmitWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](g.ID, objc.Sel("submitWithCompletionHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest/initForModel:inputFeatures:options:
 func (g MLGenericPredictionRequest) InitForModelInputFeaturesOptions(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) MLGenericPredictionRequest {
 	rv := objc.Send[MLGenericPredictionRequest](g.ID, objc.Sel("initForModel:inputFeatures:options:"), model, features, options)
@@ -153,36 +154,43 @@ func (g MLGenericPredictionRequest) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest/description
 func (g MLGenericPredictionRequest) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest/hash
 func (g MLGenericPredictionRequest) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest/inputFeatures
 func (g MLGenericPredictionRequest) InputFeatures() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("inputFeatures"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest/isCancelled
 func (g MLGenericPredictionRequest) IsCancelled() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isCancelled"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest/model
 func (g MLGenericPredictionRequest) Model() IMLModel {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("model"))
 	return MLModelFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest/predictionOptions
 func (g MLGenericPredictionRequest) PredictionOptions() IMLPredictionOptions {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("predictionOptions"))
 	return MLPredictionOptionsFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGenericPredictionRequest/superclass
 func (g MLGenericPredictionRequest) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
@@ -203,4 +211,3 @@ func (g MLGenericPredictionRequest) Submit(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

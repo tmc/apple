@@ -4,6 +4,8 @@ package virtualization
 
 import (
 	"sync"
+
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +43,6 @@ func (vc VZSocketSerialPortAttachmentClass) Alloc() VZSocketSerialPortAttachment
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZSocketSerialPortAttachment.Address]
@@ -50,6 +51,7 @@ func (vc VZSocketSerialPortAttachmentClass) Alloc() VZSocketSerialPortAttachment
 //   - [VZSocketSerialPortAttachment.UnixSocketAddress]
 //   - [VZSocketSerialPortAttachment.InitWithModeAddress]
 //   - [VZSocketSerialPortAttachment.InitWithModeUnixSocketAddress]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSocketSerialPortAttachment
 type VZSocketSerialPortAttachment struct {
 	VZSerialPortAttachment
@@ -59,6 +61,7 @@ type VZSocketSerialPortAttachment struct {
 func VZSocketSerialPortAttachmentFromID(id objc.ID) VZSocketSerialPortAttachment {
 	return VZSocketSerialPortAttachment{VZSerialPortAttachment: VZSerialPortAttachmentFromID(id)}
 }
+
 // Ensure VZSocketSerialPortAttachment implements IVZSocketSerialPortAttachment.
 var _ IVZSocketSerialPortAttachment = VZSocketSerialPortAttachment{}
 
@@ -84,7 +87,7 @@ type IVZSocketSerialPortAttachment interface {
 	Mode() int64
 	UnixSocketAddress() objectivec.IObject
 	InitWithModeAddress(mode int64, address objectivec.IObject) VZSocketSerialPortAttachment
-	InitWithModeUnixSocketAddress(mode int64, address objectivec.IObject) VZSocketSerialPortAttachment
+	InitWithModeUnixSocketAddress(mode int64, address *kernel.Sockaddr_un) VZSocketSerialPortAttachment
 }
 
 // Init initializes the instance.
@@ -106,7 +109,6 @@ func NewVZSocketSerialPortAttachment() VZSocketSerialPortAttachment {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSocketSerialPortAttachment/initWithMode:address:
 func NewVZSocketSerialPortAttachmentWithModeAddress(mode int64, address objectivec.IObject) VZSocketSerialPortAttachment {
 	instance := getVZSocketSerialPortAttachmentClass().Alloc()
@@ -114,29 +116,27 @@ func NewVZSocketSerialPortAttachmentWithModeAddress(mode int64, address objectiv
 	return VZSocketSerialPortAttachmentFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSocketSerialPortAttachment/initWithMode:unixSocketAddress:
-func NewVZSocketSerialPortAttachmentWithModeUnixSocketAddress(mode int64, address objectivec.IObject) VZSocketSerialPortAttachment {
+func NewVZSocketSerialPortAttachmentWithModeUnixSocketAddress(mode int64, address *kernel.Sockaddr_un) VZSocketSerialPortAttachment {
 	instance := getVZSocketSerialPortAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMode:unixSocketAddress:"), mode, address)
 	return VZSocketSerialPortAttachmentFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSocketSerialPortAttachment/encodeWithEncoder:
 func (v VZSocketSerialPortAttachment) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZSocketSerialPortAttachment/initWithMode:address:
 func (v VZSocketSerialPortAttachment) InitWithModeAddress(mode int64, address objectivec.IObject) VZSocketSerialPortAttachment {
 	rv := objc.Send[VZSocketSerialPortAttachment](v.ID, objc.Sel("initWithMode:address:"), mode, address)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZSocketSerialPortAttachment/initWithMode:unixSocketAddress:
-func (v VZSocketSerialPortAttachment) InitWithModeUnixSocketAddress(mode int64, address objectivec.IObject) VZSocketSerialPortAttachment {
+func (v VZSocketSerialPortAttachment) InitWithModeUnixSocketAddress(mode int64, address *kernel.Sockaddr_un) VZSocketSerialPortAttachment {
 	rv := objc.Send[VZSocketSerialPortAttachment](v.ID, objc.Sel("initWithMode:unixSocketAddress:"), mode, address)
 	return rv
 }
@@ -146,14 +146,15 @@ func (v VZSocketSerialPortAttachment) Address() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("address"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZSocketSerialPortAttachment/mode
 func (v VZSocketSerialPortAttachment) Mode() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("mode"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZSocketSerialPortAttachment/unixSocketAddress
 func (v VZSocketSerialPortAttachment) UnixSocketAddress() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("unixSocketAddress"))
 	return objectivec.Object{ID: rv}
 }
-

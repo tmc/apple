@@ -23,6 +23,7 @@ type NSUserInterfaceValidations interface {
 type NSUserInterfaceValidationsObject struct {
 	objectivec.Object
 }
+
 func (o NSUserInterfaceValidationsObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,15 +43,11 @@ func NSUserInterfaceValidationsObjectFromID(id objc.ID) NSUserInterfaceValidatio
 // [Tag] messages.
 //
 // # Return Value
-// 
-// [true] if the user interface item should be enabled, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the user interface item should be enabled, otherwise false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceValidations/validateUserInterfaceItem(_:)
 func (o NSUserInterfaceValidationsObject) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
-	}
-
+}

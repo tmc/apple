@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type LocalPort struct {
 func LocalPortFromID(id objc.ID) LocalPort {
 	return LocalPort{objectivec.Object{ID: id}}
 }
+
 // Ensure LocalPort implements ILocalPort.
 var _ ILocalPort = LocalPort{}
 
@@ -78,4 +80,3 @@ func NewLocalPort() LocalPort {
 	rv := objc.Send[LocalPort](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

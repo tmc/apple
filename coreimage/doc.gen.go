@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for CoreImage. DO NOT EDIT.
 
 // Package coreimage provides Go bindings for the CoreImage framework.
@@ -109,23 +108,6 @@
 //   - CIRoundedQRCodeGenerator: The protocol for the Rounded QR Code Generator filter.
 //   - CISignedDistanceGradientFromRedMask: The protocol for the Signed Distance Gradient From Red Mask filter.
 //
-// # Variables
-//
-//   - kCIInputBacksideImageKey: A key to get or set the backside image for a transition Core Image filter.
-//   - kCIInputBiasVectorKey: A key to get or set the vector bias value of a Core Image filter.
-//   - kCIInputColor0Key: A key to get or set a color value of a Core Image filter.
-//   - kCIInputColor1Key: A key to get or set a color value of a Core Image filter.
-//   - kCIInputColorSpaceKey: A key to get or set a color space value of a Core Image filter.
-//   - kCIInputCountKey: A key to get or set the scalar count value of a Core Image filter.
-//   - kCIInputExtrapolateKey: A key to get or set the boolean behavior of a Core Image filter that specifies if the filter should extrapolate a table beyond the defined range.
-//   - kCIInputPaletteImageKey: A key to get or set the palette image for a  Core Image filter.
-//   - kCIInputPerceptualKey: A key to get or set the boolean behavior of a Core Image filter that specifies if the filter should operate in linear or perceptual colors.
-//   - kCIInputPoint0Key: A key to get or set the coordinate value of a Core Image filter.
-//   - kCIInputPoint1Key: A key to get or set a coordinate value of a Core Image filter.
-//   - kCIInputRadius0Key: A key to get or set the geometric radius value of a Core Image filter.
-//   - kCIInputRadius1Key: A key to get or set the geometric radius value of a Core Image filter.
-//   - kCIInputThresholdKey: A key to get or set the scalar threshold value of a Core Image filter.
-//
 // # Key Types
 //
 //   - [CIFilter] - An image processor that produces an image by manipulating one or more input images or by generating new image data.
@@ -145,20 +127,28 @@ package coreimage
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/CoreImage.framework/CoreImage"
+// frameworkPaths lists paths to try when loading the CoreImage library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/CoreImage.framework/CoreImage",
+	"/usr/lib/libCoreImage.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: CoreImage: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: CoreImage: failed to load framework from any known path\n")
 }
-

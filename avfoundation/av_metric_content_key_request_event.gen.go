@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMetricContentKeyRequestEvent] class.
@@ -61,6 +62,7 @@ type AVMetricContentKeyRequestEvent struct {
 func AVMetricContentKeyRequestEventFromID(id objc.ID) AVMetricContentKeyRequestEvent {
 	return AVMetricContentKeyRequestEvent{AVMetricEvent: AVMetricEventFromID(id)}
 }
+
 // NOTE: AVMetricContentKeyRequestEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,19 +111,21 @@ func (m AVMetricContentKeyRequestEvent) ContentKeySpecifier() IAVContentKeySpeci
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("contentKeySpecifier"))
 	return AVContentKeySpecifierFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricContentKeyRequestEvent/isClientInitiated
 func (m AVMetricContentKeyRequestEvent) IsClientInitiated() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isClientInitiated"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricContentKeyRequestEvent/mediaResourceRequestEvent
 func (m AVMetricContentKeyRequestEvent) MediaResourceRequestEvent() IAVMetricMediaResourceRequestEvent {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaResourceRequestEvent"))
 	return AVMetricMediaResourceRequestEventFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricContentKeyRequestEvent/mediaType
 func (m AVMetricContentKeyRequestEvent) MediaType() AVMediaType {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaType"))
 	return AVMediaType(foundation.NSStringFromID(rv).String())
 }
-

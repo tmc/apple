@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZMailboxHandleMailboxDeviceConfiguration struct {
 func VZMailboxHandleMailboxDeviceConfigurationFromID(id objc.ID) VZMailboxHandleMailboxDeviceConfiguration {
 	return VZMailboxHandleMailboxDeviceConfiguration{VZMailboxDeviceConfiguration: VZMailboxDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZMailboxHandleMailboxDeviceConfiguration implements IVZMailboxHandleMailboxDeviceConfiguration.
 var _ IVZMailboxHandleMailboxDeviceConfiguration = VZMailboxHandleMailboxDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZMailboxHandleMailboxDeviceConfiguration() VZMailboxHandleMailboxDevice
 	rv := objc.Send[VZMailboxHandleMailboxDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

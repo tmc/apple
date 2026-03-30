@@ -5,8 +5,9 @@ package coreml
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -64,6 +65,7 @@ type MLModelStructure struct {
 func MLModelStructureFromID(id objc.ID) MLModelStructure {
 	return MLModelStructure{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructure implements IMLModelStructure.
 var _ IMLModelStructure = MLModelStructure{}
 
@@ -119,9 +121,10 @@ func NewMLModelStructure() MLModelStructure {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure-c.class/loadContentsOfURL:completionHandler:
 func (_MLModelStructureClass MLModelStructureClass) LoadContentsOfURLCompletionHandler(url foundation.INSURL, handler MLModelStructureErrorHandler) {
-_block1, _ := NewMLModelStructureErrorBlock(handler)
+	_block1, _ := NewMLModelStructureErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLModelStructureClass.class), objc.Sel("loadContentsOfURL:completionHandler:"), url, _block1)
 }
+
 // Construct the model structure asynchronously given the model asset.
 //
 // asset: The model asset.
@@ -132,7 +135,7 @@ _block1, _ := NewMLModelStructureErrorBlock(handler)
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure-c.class/loadModelAsset:completionHandler:
 func (_MLModelStructureClass MLModelStructureClass) LoadModelAssetCompletionHandler(asset IMLModelAsset, handler MLModelStructureErrorHandler) {
-_block1, _ := NewMLModelStructureErrorBlock(handler)
+	_block1, _ := NewMLModelStructureErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLModelStructureClass.class), objc.Sel("loadModelAsset:completionHandler:"), asset, _block1)
 }
 
@@ -144,6 +147,7 @@ func (m MLModelStructure) NeuralNetwork() IMLModelStructureNeuralNetwork {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("neuralNetwork"))
 	return MLModelStructureNeuralNetworkFromID(objc.ID(rv))
 }
+
 // If the model is of Pipeline type then it is the structure of the Pipeline
 // otherwise `nil`.
 //
@@ -152,6 +156,7 @@ func (m MLModelStructure) Pipeline() IMLModelStructurePipeline {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("pipeline"))
 	return MLModelStructurePipelineFromID(objc.ID(rv))
 }
+
 // If the model is of ML Program type then it is the structure of the ML
 // Program otherwise `nil`.
 //
@@ -198,4 +203,3 @@ func (mc MLModelStructureClass) LoadModelAsset(ctx context.Context, asset IMLMod
 		return nil, ctx.Err()
 	}
 }
-

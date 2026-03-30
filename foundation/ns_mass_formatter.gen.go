@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -71,6 +72,7 @@ func MassFormatterFromID(id objc.ID) MassFormatter {
 
 // NSMassFormatterFromID is an alias for [MassFormatterFromID] for cross-framework compatibility.
 func NSMassFormatterFromID(id objc.ID) MassFormatter { return MassFormatterFromID(id) }
+
 // NOTE: MassFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -133,7 +135,6 @@ func NewMassFormatter() MassFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMassFormatterWithCoder(coder INSCoder) MassFormatter {
 	instance := getMassFormatterClass().Alloc()
@@ -146,12 +147,12 @@ func NewMassFormatterWithCoder(coder INSCoder) MassFormatter {
 // numberInKilograms: The mass’s value in kilograms.
 //
 // # Return Value
-// 
+//
 // A string that combines a value and a unit string appropriate for the
 // formatter’s locale.
 //
 // # Discussion
-// 
+//
 // This method converts the provided mass in kilograms into units appropriate
 // for the formatter’s locale.
 //
@@ -160,6 +161,7 @@ func (m MassFormatter) StringFromKilograms(numberInKilograms float64) string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringFromKilograms:"), numberInKilograms)
 	return NSStringFromID(rv).String()
 }
+
 // Returns a properly formatted mass string for the given value and unit.
 //
 // value: The mass’s value in the given unit.
@@ -167,7 +169,7 @@ func (m MassFormatter) StringFromKilograms(numberInKilograms float64) string {
 // unit: The unit used in the resulting mass string.
 //
 // # Return Value
-// 
+//
 // A localized string that combines the provided value and unit.
 //
 // See: https://developer.apple.com/documentation/Foundation/MassFormatter/string(fromValue:unit:)
@@ -175,31 +177,33 @@ func (m MassFormatter) StringFromValueUnit(value float64, unit NSMassFormatterUn
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringFromValue:unit:"), value, unit)
 	return NSStringFromID(rv).String()
 }
+
 // Returns the unit string for the provided value.
 //
 // numberInKilograms: The mass’s value in kilograms.
 //
 // unitp: An output parameter. This will hold the [MassFormatter.Unit] value that
 // corresponds to the returned units.
-// //
-// [MassFormatter.Unit]: https://developer.apple.com/documentation/Foundation/MassFormatter/Unit
 //
 // # Return Value
-// 
+//
 // A localized string representing the unit.
 //
 // # Discussion
-// 
+//
 // This method selects the correct unit based on the formatter’s locale, the
 // magnitude of the value, and the [ForPersonMassUse] property. The value,
 // once converted into the appropriate unit, determines whether the unit
 // string is plural or singular.
 //
 // See: https://developer.apple.com/documentation/Foundation/MassFormatter/unitString(fromKilograms:usedUnit:)
+//
+// [MassFormatter.Unit]: https://developer.apple.com/documentation/Foundation/MassFormatter/Unit
 func (m MassFormatter) UnitStringFromKilogramsUsedUnit(numberInKilograms float64, unitp NSMassFormatterUnit) string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("unitStringFromKilograms:usedUnit:"), numberInKilograms, unitp)
 	return NSStringFromID(rv).String()
 }
+
 // Returns the unit string based on the provided value and unit.
 //
 // value: The mass’s value for the provided unit.
@@ -207,7 +211,7 @@ func (m MassFormatter) UnitStringFromKilogramsUsedUnit(numberInKilograms float64
 // unit: The unit to use in the resulting mass string.
 //
 // # Return Value
-// 
+//
 // A localized string representing the given unit. The provided value
 // determines whether the unit is plural or singular.
 //
@@ -221,16 +225,13 @@ func (m MassFormatter) UnitStringFromValueUnit(value float64, unit NSMassFormatt
 // person’s mass.
 //
 // # Discussion
-// 
-// Returns [true] if the value passed to [StringFromKilograms] or
-// [UnitStringFromKilogramsUsedUnit] is a person’s mass; otherwise, [false].
-// By default, this property returns [false].
-// 
+//
+// Returns true if the value passed to [StringFromKilograms] or
+// [UnitStringFromKilogramsUsedUnit] is a person’s mass; otherwise, false.
+// By default, this property returns false.
+//
 // The mass formatter uses this property when determining the best unit for a
 // given locale (for example, in the [StringFromKilograms] method).
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/MassFormatter/isForPersonMassUse
 func (m MassFormatter) ForPersonMassUse() bool {
@@ -240,12 +241,13 @@ func (m MassFormatter) ForPersonMassUse() bool {
 func (m MassFormatter) SetForPersonMassUse(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setForPersonMassUse:"), value)
 }
+
 // The number formatter used to format the numbers in a mass strings.
 //
 // # Discussion
-// 
+//
 // This property defaults to a number formatter using the
-// [NumberFormatterDecimalStyle] style. You can provide a different number
+// [NSNumberFormatterDecimalStyle] style. You can provide a different number
 // formatter to customize the mass string’s appearance.
 //
 // See: https://developer.apple.com/documentation/Foundation/MassFormatter/numberFormatter
@@ -256,16 +258,17 @@ func (m MassFormatter) NumberFormatter() INSNumberFormatter {
 func (m MassFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumberFormatter:"), value)
 }
+
 // The unit style used by this formatter.
 //
 // # Discussion
-// 
-// This property defaults to [FormattingUnitStyleMedium]. For a complete list
-// of unit styles, see [Formatter.UnitStyle].
 //
-// [Formatter.UnitStyle]: https://developer.apple.com/documentation/Foundation/Formatter/UnitStyle
+// This property defaults to [NSFormattingUnitStyleMedium]. For a complete
+// list of unit styles, see [Formatter.UnitStyle].
 //
 // See: https://developer.apple.com/documentation/Foundation/MassFormatter/unitStyle
+//
+// [Formatter.UnitStyle]: https://developer.apple.com/documentation/Foundation/Formatter/UnitStyle
 func (m MassFormatter) UnitStyle() NSFormattingUnitStyle {
 	rv := objc.Send[NSFormattingUnitStyle](m.ID, objc.Sel("unitStyle"))
 	return NSFormattingUnitStyle(rv)
@@ -273,4 +276,3 @@ func (m MassFormatter) UnitStyle() NSFormattingUnitStyle {
 func (m MassFormatter) SetUnitStyle(value NSFormattingUnitStyle) {
 	objc.Send[struct{}](m.ID, objc.Sel("setUnitStyle:"), value)
 }
-

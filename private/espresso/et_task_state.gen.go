@@ -3,8 +3,9 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (ec ETTaskStateClass) Alloc() ETTaskState {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETTaskState.Blobs]
@@ -51,6 +51,7 @@ func (ec ETTaskStateClass) Alloc() ETTaskState {
 //   - [ETTaskState.SetNetworkPointer]
 //   - [ETTaskState.InitWithBlobMap]
 //   - [ETTaskState.InitWithNetwork]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETTaskState
 type ETTaskState struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type ETTaskState struct {
 func ETTaskStateFromID(id objc.ID) ETTaskState {
 	return ETTaskState{objectivec.Object{ID: id}}
 }
+
 // Ensure ETTaskState implements IETTaskState.
 var _ IETTaskState = ETTaskState{}
 
@@ -107,7 +109,6 @@ func NewETTaskState() ETTaskState {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETTaskState/initWithBlobMap:
 func NewETTaskStateWithBlobMap(map_ unsafe.Pointer) ETTaskState {
 	instance := getETTaskStateClass().Alloc()
@@ -115,7 +116,6 @@ func NewETTaskStateWithBlobMap(map_ unsafe.Pointer) ETTaskState {
 	return ETTaskStateFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETTaskState/initWithNetwork:
 func NewETTaskStateWithNetwork(network objectivec.IObject) ETTaskState {
 	instance := getETTaskStateClass().Alloc()
@@ -123,13 +123,12 @@ func NewETTaskStateWithNetwork(network objectivec.IObject) ETTaskState {
 	return ETTaskStateFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETTaskState/initWithBlobMap:
 func (e ETTaskState) InitWithBlobMap(map_ unsafe.Pointer) ETTaskState {
 	rv := objc.Send[ETTaskState](e.ID, objc.Sel("initWithBlobMap:"), map_)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETTaskState/initWithNetwork:
 func (e ETTaskState) InitWithNetwork(network objectivec.IObject) ETTaskState {
 	rv := objc.Send[ETTaskState](e.ID, objc.Sel("initWithNetwork:"), network)
@@ -144,6 +143,7 @@ func (e ETTaskState) Blobs() objectivec.IObject {
 func (e ETTaskState) SetBlobs(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBlobs:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETTaskState/networkPointer
 func (e ETTaskState) NetworkPointer() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("networkPointer"))
@@ -152,4 +152,3 @@ func (e ETTaskState) NetworkPointer() objectivec.IObject {
 func (e ETTaskState) SetNetworkPointer(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNetworkPointer:"), value)
 }
-

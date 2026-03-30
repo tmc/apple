@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLModelIOUtils struct {
 func MLModelIOUtilsFromID(id objc.ID) MLModelIOUtils {
 	return MLModelIOUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelIOUtils implements IMLModelIOUtils.
 var _ IMLModelIOUtils = MLModelIOUtils{}
 
@@ -82,19 +84,18 @@ func NewMLModelIOUtils() MLModelIOUtils {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/defaultFunctionNameFromDescriptionSpecification:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) DefaultFunctionNameFromDescriptionSpecification(specification unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("defaultFunctionNameFromDescriptionSpecification:"), specification)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/descriptionFromProto:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) DescriptionFromProto(proto unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("descriptionFromProto:"), proto)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/deserializeInterfaceFormat:archive:error:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) DeserializeInterfaceFormatArchiveError(format unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -109,7 +110,7 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) DeserializeInterfaceFormatArchiv
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/deserializeMetadataAndInterfaceFromArchive:error:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) DeserializeMetadataAndInterfaceFromArchiveError(archive unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -121,7 +122,7 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) DeserializeMetadataAndInterfaceF
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/deserializeVersionInfoFromArchive:error:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) DeserializeVersionInfoFromArchiveError(archive unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -133,25 +134,25 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) DeserializeVersionInfoFromArchiv
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/featureDescriptionsFromProto:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) FeatureDescriptionsFromProto(proto unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("featureDescriptionsFromProto:"), proto)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/functionDescriptionsFromDescriptionSpecification:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) FunctionDescriptionsFromDescriptionSpecification(specification unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("functionDescriptionsFromDescriptionSpecification:"), specification)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/inputDescriptionFromInterface:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) InputDescriptionFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("inputDescriptionFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/loadFromModelSpecificationInArchive:withClass:versionInfo:configuration:error:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) LoadFromModelSpecificationInArchiveWithClassVersionInfoConfigurationError(archive unsafe.Pointer, class objc.Class, info objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -163,73 +164,73 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) LoadFromModelSpecificationInArch
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/orderedFeatureNamesFromInterface:forInput:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OrderedFeatureNamesFromInterfaceForInput(interface_ unsafe.Pointer, input bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedFeatureNamesFromInterface:forInput:"), interface_, input)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/orderedInputFeatureNamesFromInterface:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OrderedInputFeatureNamesFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedInputFeatureNamesFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/orderedNamesFromProto:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OrderedNamesFromProto(proto unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedNamesFromProto:"), proto)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/orderedOutputFeatureNamesFromInterface:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OrderedOutputFeatureNamesFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedOutputFeatureNamesFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/orderedStateFeatureNamesFromInterface:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OrderedStateFeatureNamesFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("orderedStateFeatureNamesFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/outputDescriptionFromInterface:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) OutputDescriptionFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("outputDescriptionFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/populateConstraintsForArrayFeatureType:dataType:constraintClass:defaultOptionalValue:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) PopulateConstraintsForArrayFeatureTypeDataTypeConstraintClassDefaultOptionalValue(type_ unsafe.Pointer, type_2 int64, class objc.Class, value objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForArrayFeatureType:dataType:constraintClass:defaultOptionalValue:"), type_, type_2, class, value)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/populateConstraintsForFeatureDescription:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) PopulateConstraintsForFeatureDescription(description unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForFeatureDescription:"), description)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/populateConstraintsForImageFeatureDescription:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) PopulateConstraintsForImageFeatureDescription(description unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForImageFeatureDescription:"), description)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/populateConstraintsForImageFeatureDescriptionElement:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) PopulateConstraintsForImageFeatureDescriptionElement(element unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("populateConstraintsForImageFeatureDescriptionElement:"), element)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/rangeFromAllowedSizeRangeProtoMessage:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) RangeFromAllowedSizeRangeProtoMessage(message unsafe.Pointer) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("rangeFromAllowedSizeRangeProtoMessage:"), message)
 	return foundation.NSRange(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/serializeInterfaceFormat:archive:error:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) SerializeInterfaceFormatArchiveError(format unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -244,7 +245,7 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) SerializeInterfaceFormatArchiveE
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/serializeMetadataAndInterfaceFromSpecification:archive:error:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) SerializeMetadataAndInterfaceFromSpecificationArchiveError(specification unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -259,7 +260,7 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) SerializeMetadataAndInterfaceFro
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/serializeSpecification:toArchive:error:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) SerializeSpecificationToArchiveError(specification unsafe.Pointer, archive unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -271,7 +272,7 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) SerializeSpecificationToArchiveE
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/serializeVersionInfo:archive:error:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) SerializeVersionInfoArchiveError(info objectivec.IObject, archive unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -286,7 +287,7 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) SerializeVersionInfoArchiveError
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/specificationURLFromModelAtURL:error:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) SpecificationURLFromModelAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -298,19 +299,19 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) SpecificationURLFromModelAtURLEr
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/stateDescriptionFromInterface:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) StateDescriptionFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("stateDescriptionFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/trainingInputDescriptionFromInterface:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) TrainingInputDescriptionFromInterface(interface_ unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelIOUtilsClass.class), objc.Sel("trainingInputDescriptionFromInterface:"), interface_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelIOUtils/versionForSerializedSpecification:options:error:
 func (_MLModelIOUtilsClass MLModelIOUtilsClass) VersionForSerializedSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -322,4 +323,3 @@ func (_MLModelIOUtilsClass MLModelIOUtilsClass) VersionForSerializedSpecificatio
 	return objectivec.Object{ID: rv}, nil
 
 }
-

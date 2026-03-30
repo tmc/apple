@@ -4,6 +4,7 @@ package coremedia
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -1311,6 +1312,7 @@ var (
 	// See: https://developer.apple.com/documentation/CoreMedia/CMSampleTimingInfo/invalid
 	KCMTimingInfoInvalid CMSampleTimingInfo
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -4827,4 +4829,3 @@ func init() {
 	}
 
 }
-

@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -24,6 +25,7 @@ type MLModelSpecificationSaver interface {
 type MLModelSpecificationSaverObject struct {
 	objectivec.Object
 }
+
 func (o MLModelSpecificationSaverObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -36,10 +38,8 @@ func MLModelSpecificationSaverObjectFromID(id objc.ID) MLModelSpecificationSaver
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelSpecificationSaver/saveModelToSpecification:
 func (o MLModelSpecificationSaverObject) SaveModelToSpecification(specification []objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("saveModelToSpecification:"), objectivec.IObjectSliceToNSArray(specification))
 	return rv
-	}
-
+}

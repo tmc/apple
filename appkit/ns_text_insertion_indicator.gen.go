@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSTextInsertionIndicator] class.
@@ -45,38 +46,33 @@ func (nc NSTextInsertionIndicatorClass) Alloc() NSTextInsertionIndicator {
 // A view that represents the insertion indicator in text.
 //
 // # Overview
-// 
+//
 // [NSTextView] and [NSTextField] both use [NSTextInsertionIndicator] to
 // display the insertion indicator. You can use this indicator if you have
 // your own text engine or need to display an indicator elsewhere.
-// 
+//
 // To use the indicator, instantiate an [NSTextInsertionIndicator], then add
 // the view to your view hierarchy. Set the indicator view’s frame to where
 // you want to display a text insertion indicator. The indicator has the same
 // height as the indicator view’s frame, and centers horizontally within the
 // indicator view’s frame.
-// 
+//
 // The [NSTextInsertionIndicator.DisplayMode] specifies whether the indicator
 // hides, remains visible, or blinks (automatic).
-// 
-// When set to [NSTextInsertionIndicator.DisplayMode.automatic], the indicator
+//
+// When set to [NSTextInsertionIndicatorDisplayModeAutomatic], the indicator
 // stops blinking when you set the frame. The indicator starts blinking when
 // the frame doesn’t change for a period of time. When the user dictates,
 // the indicator displays a trailing glow when it is moved.
-// 
-// Set the [NSTextInsertionIndicator.DisplayMode] to
-// [NSTextInsertionIndicator.DisplayMode.automatic] when your custom view
-// becomes the first responder. When your custom view resigns first responder,
-// set the [NSTextInsertionIndicator.DisplayMode] to [NSTextInsertionIndicator.DisplayMode.hidden] to
-// indicate that key events aren’t sent to your view.
-// 
-// By default the indicator’s color is [textInsertionPointColor]. You can
-// set a different color.
 //
-// [NSTextInsertionIndicator.DisplayMode.automatic]: https://developer.apple.com/documentation/AppKit/NSTextInsertionIndicator/DisplayMode-swift.enum/automatic
-// [NSTextInsertionIndicator.DisplayMode.hidden]: https://developer.apple.com/documentation/AppKit/NSTextInsertionIndicator/DisplayMode-swift.enum/hidden
-// [NSTextInsertionIndicator.DisplayMode]: https://developer.apple.com/documentation/AppKit/NSTextInsertionIndicator/DisplayMode-swift.enum
-// [textInsertionPointColor]: https://developer.apple.com/documentation/AppKit/NSColor/textInsertionPointColor
+// Set the [NSTextInsertionIndicator.DisplayMode] to
+// [NSTextInsertionIndicatorDisplayModeAutomatic] when your custom view
+// becomes the first responder. When your custom view resigns first responder,
+// set the [NSTextInsertionIndicator.DisplayMode] to [NSTextInsertionIndicatorDisplayModeHidden] to
+// indicate that key events aren’t sent to your view.
+//
+// By default the indicator’s color is [NSTextInsertionIndicator.TextInsertionPointColor]. You can
+// set a different color.
 //
 // # Configuring indicators
 //
@@ -93,6 +89,8 @@ func (nc NSTextInsertionIndicatorClass) Alloc() NSTextInsertionIndicator {
 //   - [NSTextInsertionIndicator.SetAutomaticModeOptions]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInsertionIndicator
+//
+// [NSTextInsertionIndicator.DisplayMode]: https://developer.apple.com/documentation/AppKit/NSTextInsertionIndicator/DisplayMode-swift.enum
 type NSTextInsertionIndicator struct {
 	NSView
 }
@@ -103,6 +101,7 @@ type NSTextInsertionIndicator struct {
 func NSTextInsertionIndicatorFromID(id objc.ID) NSTextInsertionIndicator {
 	return NSTextInsertionIndicator{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSTextInsertionIndicator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -169,7 +168,7 @@ func NewNSTextInsertionIndicator() NSTextInsertionIndicator {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -185,11 +184,11 @@ func NewTextInsertionIndicatorWithCoder(coder foundation.INSCoder) NSTextInserti
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -204,12 +203,9 @@ func NewTextInsertionIndicatorWithFrame(frameRect corefoundation.CGRect) NSTextI
 // The color of this indicator.
 //
 // # Discussion
-// 
-// If set to [nil], returns [textInsertionPointColor]. Defaults to
-// [textInsertionPointColor].
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
-// [textInsertionPointColor]: https://developer.apple.com/documentation/AppKit/NSColor/textInsertionPointColor
+// If set to nil, returns [TextInsertionPointColor]. Defaults to
+// [TextInsertionPointColor].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInsertionIndicator/color
 func (t NSTextInsertionIndicator) Color() INSColor {
@@ -219,14 +215,15 @@ func (t NSTextInsertionIndicator) Color() INSColor {
 func (t NSTextInsertionIndicator) SetColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setColor:"), value)
 }
+
 // An optional closure the system calls during dictation.
 //
 // # Discussion
-// 
+//
 // Use this property to add the view that displays the trailing glow to the
 // view hierarchy. The system calls the closure when it needs to display the
 // glow effect view.
-// 
+//
 // During dictation the indicator displays a glow effect above the text view
 // and below the insertion indicator. It’s the closure’s responsibility to
 // add the glow effect view to the view hierarchy.
@@ -242,18 +239,16 @@ func (t NSTextInsertionIndicator) SetEffectsViewInserter(value ViewHandler) {
 	defer cleanup()
 	objc.Send[struct{}](t.ID, objc.Sel("setEffectsViewInserter:"), block)
 }
+
 // A value that describes the display mode of an indicator.
 //
 // # Discussion
-// 
-// Set the [DisplayMode] to [NSTextInsertionIndicator.DisplayMode.automatic]
+//
+// Set the [DisplayMode] to [NSTextInsertionIndicatorDisplayModeAutomatic]
 // when your custom view becomes the first responder. When your custom view
 // resigns first responder, set the [DisplayMode] to
-// [NSTextInsertionIndicator.DisplayMode.hidden] to indicate that key events
+// [NSTextInsertionIndicatorDisplayModeHidden] to indicate that key events
 // aren’t sent to your view.
-//
-// [NSTextInsertionIndicator.DisplayMode.automatic]: https://developer.apple.com/documentation/AppKit/NSTextInsertionIndicator/DisplayMode-swift.enum/automatic
-// [NSTextInsertionIndicator.DisplayMode.hidden]: https://developer.apple.com/documentation/AppKit/NSTextInsertionIndicator/DisplayMode-swift.enum/hidden
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInsertionIndicator/displayMode-swift.property
 func (t NSTextInsertionIndicator) DisplayMode() NSTextInsertionIndicatorDisplayMode {
@@ -263,11 +258,12 @@ func (t NSTextInsertionIndicator) DisplayMode() NSTextInsertionIndicatorDisplayM
 func (t NSTextInsertionIndicator) SetDisplayMode(value NSTextInsertionIndicatorDisplayMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDisplayMode:"), value)
 }
+
 // Options that affect the automatic display mode.
 //
 // # Discussion
-// 
-// Defaults to [TextInsertionIndicatorAutomaticModeOptionsShowEffectsView].
+//
+// Defaults to [NSTextInsertionIndicatorAutomaticModeOptionsShowEffectsView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInsertionIndicator/automaticModeOptions-swift.property
 func (t NSTextInsertionIndicator) AutomaticModeOptions() NSTextInsertionIndicatorAutomaticModeOptions {
@@ -286,4 +282,3 @@ func (_NSTextInsertionIndicatorClass NSTextInsertionIndicatorClass) TextInsertio
 func (_NSTextInsertionIndicatorClass NSTextInsertionIndicatorClass) SetTextInsertionPointColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSTextInsertionIndicatorClass.class), objc.Sel("setTextInsertionPointColor:"), value)
 }
-

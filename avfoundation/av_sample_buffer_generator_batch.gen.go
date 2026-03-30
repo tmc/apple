@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (ac AVSampleBufferGeneratorBatchClass) Alloc() AVSampleBufferGeneratorBatch
 // An object that generates sample buffers in a batch.
 //
 // # Overview
-// 
+//
 // The benefit of batching is it aggregates adjacent I/O requests and overlaps
 // them when possible for all sample buffers within the batch.
 //
@@ -68,6 +69,7 @@ type AVSampleBufferGeneratorBatch struct {
 func AVSampleBufferGeneratorBatchFromID(id objc.ID) AVSampleBufferGeneratorBatch {
 	return AVSampleBufferGeneratorBatch{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSampleBufferGeneratorBatch adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,18 +123,19 @@ func NewAVSampleBufferGeneratorBatch() AVSampleBufferGeneratorBatch {
 // data-ready, or when an error occurs.
 //
 // # Discussion
-// 
+//
 // Calling this method more than once on a batch generates an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferGeneratorBatch/makeDataReady(completionHandler:)
 func (s AVSampleBufferGeneratorBatch) MakeDataReadyWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("makeDataReadyWithCompletionHandler:"), _block0)
 }
+
 // Cancels any I/O for this batch.
 //
 // # Discussion
-// 
+//
 // The system invokes the associated sample buffers data ready handlers with
 // an error.
 //
@@ -155,4 +158,3 @@ func (s AVSampleBufferGeneratorBatch) MakeDataReady(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

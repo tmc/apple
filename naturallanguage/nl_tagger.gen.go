@@ -4,10 +4,11 @@ package naturallanguage
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,12 +48,12 @@ func (nc NLTaggerClass) Alloc() NLTagger {
 // A tagger that analyzes natural language text.
 //
 // # Overview
-// 
+//
 // [NLTagger] supports many different languages and scripts. Use it to segment
 // natural language text into paragraph, sentence, or word units and to tag
 // each unit with information like part of speech, lexical class, lemma,
 // script, and language.
-// 
+//
 // When you create a linguistic tagger, you specify what kind of information
 // you’re interested in by passing one or more [NLTagScheme] values. Set the
 // [NLTagger.String] property to the natural language text you want to analyze, and the
@@ -96,6 +97,7 @@ type NLTagger struct {
 func NLTaggerFromID(id objc.ID) NLTagger {
 	return NLTagger{objectivec.Object{ID: id}}
 }
+
 // NOTE: NLTagger adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -205,7 +207,7 @@ func NewNLTagger() NLTagger {
 // values.
 //
 // # Discussion
-// 
+//
 // Pass any tag schemes to tagSchemes that you intend to use with the methods
 // described in Enumerating linguistic tags and Getting linguistic tags in
 // [NLTagger].
@@ -224,7 +226,7 @@ func NewTaggerWithTagSchemes(tagSchemes []string) NLTagger {
 // values.
 //
 // # Discussion
-// 
+//
 // Pass any tag schemes to tagSchemes that you intend to use with the methods
 // described in Enumerating linguistic tags and Getting linguistic tags in
 // [NLTagger].
@@ -234,6 +236,7 @@ func (t NLTagger) InitWithTagSchemes(tagSchemes []string) NLTagger {
 	rv := objc.Send[NLTagger](t.ID, objc.Sel("initWithTagSchemes:"), objectivec.StringSliceToNSArray(tagSchemes))
 	return rv
 }
+
 // Assigns models for a tag scheme.
 //
 // models: Array of [NLModel] objects to be used with this tagger.
@@ -241,7 +244,7 @@ func (t NLTagger) InitWithTagSchemes(tagSchemes []string) NLTagger {
 // tagScheme: The tag scheme the models would be used with.
 //
 // # Discussion
-// 
+//
 // An array of models is allowed for the case where multiple models need to be
 // used. For example, when models were trained on specific languages.
 //
@@ -249,12 +252,13 @@ func (t NLTagger) InitWithTagSchemes(tagSchemes []string) NLTagger {
 func (t NLTagger) SetModelsForTagScheme(models []NLModel, tagScheme NLTagScheme) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setModels:forTagScheme:"), objectivec.IObjectSliceToNSArray(models), objc.String(string(tagScheme)))
 }
+
 // Returns the models that apply to the given tag scheme.
 //
 // tagScheme: The tag scheme to filter the list of models with.
 //
 // # Return Value
-// 
+//
 // The array of models that apply to the given tag scheme.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/models(forTagScheme:)
@@ -264,6 +268,7 @@ func (t NLTagger) ModelsForTagScheme(tagScheme NLTagScheme) []NLModel {
 		return NLModelFromID(id)
 	})
 }
+
 // Attaches gazetteers to a tag scheme, typically one gazetteer per language
 // or one language-independent gazetteer.
 //
@@ -275,12 +280,13 @@ func (t NLTagger) ModelsForTagScheme(tagScheme NLTagScheme) []NLModel {
 func (t NLTagger) SetGazetteersForTagScheme(gazetteers []NLGazetteer, tagScheme NLTagScheme) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setGazetteers:forTagScheme:"), objectivec.IObjectSliceToNSArray(gazetteers), objc.String(string(tagScheme)))
 }
+
 // Retrieves the gazetteers attached to a tag scheme.
 //
 // tagScheme: The tag scheme for the gazetteers.
 //
 // # Return Value
-// 
+//
 // An array of [NLGazetteer].
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/gazetteers(for:)
@@ -290,37 +296,34 @@ func (t NLTagger) GazetteersForTagScheme(tagScheme NLTagScheme) []NLGazetteer {
 		return NLGazetteerFromID(id)
 	})
 }
+
 // Enumerates a block over the tagger’s string, given a range, token unit,
 // and tag scheme.
 //
 // range: The range of the string you want the tagger to analyze.
 //
 // unit: The linguistic unit of scale you’re interested in, such as
-// [TokenUnitWord], [TokenUnitSentence], [TokenUnitParagraph], or
-// [TokenUnitDocument].
+// [NLTokenUnitWord], [NLTokenUnitSentence], [NLTokenUnitParagraph], or
+// [NLTokenUnitDocument].
 //
 // scheme: The tag scheme the tagger uses to tag the string, such as [language] or
 // [script]. This scheme determines which types of [NLTag] the method passes
 // to your block. For other tag schemes, see [NLTagScheme].
-// //
-// [language]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/language
-// [script]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/script
 //
 // options: The set of linguistic tagger options to use, such as
-// [TaggerOmitWhitespace]. For all available options, see [NLTagger.Options].
-// //
-// [NLTagger.Options]: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/Options
+// [NLTaggerOmitWhitespace]. For all available options, see
+// [NLTagger.Options].
 //
 // block: The block this method uses to iterate over the tagger’s [String]
 // property. The block has the following parameters:
-// 
+//
 // tag: The tag of the token. tokenRange: The range of the token. stop: A
 // reference to a Boolean value. The block can set the value to `true` to stop
 // further processing of the set. The `stop` argument is an out-only argument.
 // You should only ever set this Boolean to `true` within the block.
 //
 // # Discussion
-// 
+//
 // Use this method to iterate your block over the given range of a string. The
 // method divides up the string with the given [NLTokenUnit] and [NLTagScheme]
 // and then calls your block. For example, use the [lexicalClass] tag scheme
@@ -328,16 +331,20 @@ func (t NLTagger) GazetteersForTagScheme(tagScheme NLTagScheme) []NLGazetteer {
 // of punctuation. Use the [lemma] tag scheme to identify the stem form of
 // each word token, if known.
 //
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/enumerateTagsInRange:unit:scheme:options:usingBlock:
+//
+// [language]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/language
+// [script]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/script
+// [NLTagger.Options]: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/Options
 // [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 // [lemma]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/lemma
 // [lexicalClass]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/lexicalClass
-//
-// See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/enumerateTagsInRange:unit:scheme:options:usingBlock:
 func (t NLTagger) EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, block func(*string, unsafe.Pointer, *bool)) {
 	_block4 := objc.NewBlock(func(_ objc.Block, arg0 *string, arg1 unsafe.Pointer, arg2 *bool) { block(arg0, arg1, arg2) })
 	defer _block4.Release()
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateTagsInRange:unit:scheme:options:usingBlock:"), range_, unit, scheme, options, objc.ID(_block4))
 }
+
 // Sets the language for a range of text within the tagger’s string.
 //
 // language: The language of the text range.
@@ -348,6 +355,7 @@ func (t NLTagger) EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundat
 func (t NLTagger) SetLanguageRange(language NLLanguage, range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setLanguage:range:"), objc.String(string(language)), range_)
 }
+
 // Sets the orthography for the specified range.
 //
 // orthography: The orthography for the given range.
@@ -355,7 +363,7 @@ func (t NLTagger) SetLanguageRange(language NLLanguage, range_ foundation.NSRang
 // range: The range of the string that is being assigned an orthography.
 //
 // # Discussion
-// 
+//
 // If the orthography of the linguistic tagger is not set, it will determine
 // it automatically from the contents of the text. You should call this method
 // only if you know the orthography of the text by some other means.
@@ -364,36 +372,36 @@ func (t NLTagger) SetLanguageRange(language NLLanguage, range_ foundation.NSRang
 func (t NLTagger) SetOrthographyRange(orthography foundation.NSOrthography, range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setOrthography:range:"), orthography, range_)
 }
+
 // Finds a tag for a given linguistic unit, for a single scheme, at the
 // specified character position.
 //
 // characterIndex: The position of the initial character.
 //
 // unit: The linguistic unit. See [NLTokenUnit] for possible values.
-// //
-// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 //
 // scheme: The tag scheme. See [NLTagScheme] for possible values.
 //
 // tokenRange: A pointer to the token range.
 //
 // # Return Value
-// 
+//
 // The tag for the requested tag scheme and linguistic unit, or `nil`. If a
 // tag is returned, this function returns by reference the range of the token
 // to `tokenRange`.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/tagAtIndex:unit:scheme:tokenRange:
+//
+// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 func (t NLTagger) TagAtIndexUnitSchemeTokenRange(characterIndex uint, unit NLTokenUnit, scheme NLTagScheme, tokenRange foundation.NSRange) NLTag {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tagAtIndex:unit:scheme:tokenRange:"), characterIndex, unit, objc.String(string(scheme)), tokenRange)
 	return NLTag(foundation.NSStringFromID(rv).String())
 }
+
 // Finds multiple possible tags for a given linguistic unit, for a single
 // scheme, at the specified character position.
 //
 // unit: The linguistic unit. See [NLTokenUnit] for possible values.
-// //
-// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 //
 // scheme: The tag scheme. See [NLTagScheme] for possible values. Not all tag schemes
 // produce more than one prediction.
@@ -403,84 +411,86 @@ func (t NLTagger) TagAtIndexUnitSchemeTokenRange(characterIndex uint, unit NLTok
 // tokenRange: The range of the token for which the tags were produced.
 //
 // # Return Value
-// 
+//
 // A tuple containing a dictionary and a range.
 //
 // # Discussion
-// 
+//
 // Each dictionary entry is a predicted tag with its associated probability
 // score. These tags are the top candidates proposed as possible tags for the
 // token. The dictionary contains up to `maximumCount` entries.
-// 
+//
 // The range contains the range of the individual token for which these tags
 // were produced.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/tagHypothesesAtIndex:unit:scheme:maximumCount:tokenRange:
+//
+// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 func (t NLTagger) TagHypothesesAtIndexUnitSchemeMaximumCountTokenRange(characterIndex uint, unit NLTokenUnit, scheme NLTagScheme, maximumCount uint, tokenRange foundation.NSRange) foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tagHypothesesAtIndex:unit:scheme:maximumCount:tokenRange:"), characterIndex, unit, objc.String(string(scheme)), maximumCount, tokenRange)
 	return foundation.NSDictionaryFromID(rv)
 }
+
 // Finds an array of linguistic tags and token ranges for a given string range
 // and linguistic unit.
 //
 // range: The range from which to return tags.
 //
 // unit: The linguistic unit. See [NLTokenUnit] for possible values.
-// //
-// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 //
 // scheme: The tag scheme. See [NLTagScheme] for possible values.
 //
 // options: The linguistic tagger options to use. See [NLTagger.Options] for possible
 // values.
-// //
-// [NLTagger.Options]: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/Options
 //
 // tokenRanges: Returns by reference an array of token ranges.
 //
 // # Return Value
-// 
+//
 // An array of the tags in the requested range.
 //
 // # Discussion
-// 
+//
 // When the returned array contains an entry that doesn’t have a
 // corresponding tag scheme, that entry is an empty string (””).
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/tagsInRange:unit:scheme:options:tokenRanges:
+//
+// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
+// [NLTagger.Options]: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/Options
 func (t NLTagger) TagsInRangeUnitSchemeOptionsTokenRanges(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, tokenRanges []foundation.NSValue) []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("tagsInRange:unit:scheme:options:tokenRanges:"), range_, unit, objc.String(string(scheme)), options, objectivec.IObjectSliceToNSArray(tokenRanges))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Returns the range of the linguistic unit containing the specified character
 // index.
 //
 // characterIndex: The character index to begin examination.
 //
 // unit: The linguistic unit. For possible values, see [NLTokenUnit].
-// //
-// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 //
 // # Return Value
-// 
+//
 // The range of the substring for the linguistic unit.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/tokenRangeAtIndex:unit:
+//
+// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 func (t NLTagger) TokenRangeAtIndexUnit(characterIndex uint, unit NLTokenUnit) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("tokenRangeAtIndex:unit:"), characterIndex, unit)
 	return foundation.NSRange(rv)
 }
+
 // Finds the entire range of all tokens of the specified linguistic unit
 // contained completely or partially within the specified range.
 //
 // range: The range within the string to search for tokens.
 //
 // unit: The linguistic unit. For possible values, see [NLTokenUnit].
-// //
-// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 //
 // # Return Value
-// 
+//
 // The smallest possible range that contains all of the tokens of the
 // specified linguistic unit within the range specified in `range`. This
 // result includes a token’s entire range if any part of that token is
@@ -488,6 +498,8 @@ func (t NLTagger) TokenRangeAtIndexUnit(characterIndex uint, unit NLTokenUnit) f
 // is equivalent to [TokenRangeAtIndexUnit].
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/tokenRangeForRange:unit:
+//
+// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 func (t NLTagger) TokenRangeForRangeUnit(range_ foundation.NSRange, unit NLTokenUnit) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("tokenRangeForRange:unit:"), range_, unit)
 	return foundation.NSRange(rv)
@@ -497,20 +509,21 @@ func (t NLTagger) TokenRangeForRangeUnit(range_ foundation.NSRange, unit NLToken
 // sentence) and language on the current device.
 //
 // unit: The linguistic unit. For possible values, see [NLTokenUnit].
-// //
-// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 //
 // language: The [NLLanguage] identifying the language.
 //
 // # Return Value
-// 
+//
 // The supported tag schemes. For possible values, see [NLTagScheme].
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/availableTagSchemes(for:language:)
+//
+// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 func (_NLTaggerClass NLTaggerClass) AvailableTagSchemesForUnitLanguage(unit NLTokenUnit, language NLLanguage) []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NLTaggerClass.class), objc.Sel("availableTagSchemesForUnit:language:"), unit, objc.String(string(language)))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Asks the Natural Language framework to load any missing assets for a tag
 // scheme onto the device for the given language.
 //
@@ -523,28 +536,28 @@ func (_NLTaggerClass NLTaggerClass) AvailableTagSchemesForUnitLanguage(unit NLTo
 // has completed.
 //
 // # Discussion
-// 
+//
 // Before using this method, use [AvailableTagSchemesForUnitLanguage] to check
 // whether a tag scheme is available on the device. When a tag scheme is
 // unavailable for a specific language, it may be because the framework
 // hasn’t loaded the support for that language.
-// 
+//
 // Use this method to ask the [Natural Language] framework to load any missing
 // assets for that tag scheme. This method returns immediately but the
 // framework may need time to complete the request. When the framework
 // completes the request, it notifies your app with the `completionHandler`
 // you provided to the method. In your completion handler, use the `result`
 // parameter to check whether the tag scheme is now available.
-// 
+//
 // The [Natural Language] framework may call your `completionHandler`
 // immediately if it knows the state of the tag scheme’s assets or if it
 // experiences an error.
 //
-// [Natural Language]: https://developer.apple.com/documentation/NaturalLanguage
-//
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/requestAssets(for:tagScheme:completionHandler:)
+//
+// [Natural Language]: https://developer.apple.com/documentation/NaturalLanguage
 func (_NLTaggerClass NLTaggerClass) RequestAssetsForLanguageTagSchemeCompletionHandler(language NLLanguage, tagScheme NLTagScheme, completionHandler NLTaggerAssetsResultErrorHandler) {
-_block2, _ := NewNLTaggerAssetsResultErrorBlock(completionHandler)
+	_block2, _ := NewNLTaggerAssetsResultErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NLTaggerClass.class), objc.Sel("requestAssetsForLanguage:tagScheme:completionHandler:"), language, tagScheme, _block2)
 }
 
@@ -558,6 +571,7 @@ func (t NLTagger) String() string {
 func (t NLTagger) SetString(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setString:"), objc.String(value))
 }
+
 // The tag schemes configured for this linguistic tagger.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/tagSchemes
@@ -565,24 +579,25 @@ func (t NLTagger) TagSchemes() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("tagSchemes"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The dominant language of the string set for the linguistic tagger.
 //
 // # Discussion
-// 
+//
 // If you want to know the dominant language of a string that you’re
 // analyzing with a linguistic tagger (for example, identifying part of speech
 // for each word), specify the [language] tag scheme in the initializer. After
 // you set the [String] property of the linguistic tagger, the dominant
 // language can be determined with the [DominantLanguage] property, as shown
 // in this example:
-// 
+//
 // In the example, [german] is the dominant language, indicating that the text
 // is in German.
 //
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/dominantLanguage
+//
 // [german]: https://developer.apple.com/documentation/NaturalLanguage/NLLanguage/german
 // [language]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/language
-//
-// See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/dominantLanguage
 func (t NLTagger) DominantLanguage() NLLanguage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("dominantLanguage"))
 	return NLLanguage(foundation.NSStringFromID(rv).String())
@@ -606,4 +621,3 @@ func (tc NLTaggerClass) RequestAssetsForLanguageTagScheme(ctx context.Context, l
 		return 0, ctx.Err()
 	}
 }
-

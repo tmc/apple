@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +70,7 @@ type CIRadialGradient interface {
 type CIRadialGradientObject struct {
 	objectivec.Object
 }
+
 func (o CIRadialGradientObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -88,35 +89,40 @@ func CIRadialGradientObjectFromID(id objc.ID) CIRadialGradientObject {
 func (o CIRadialGradientObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The first color to use in the gradient.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/color0
 func (o CIRadialGradientObject) Color0() ICIColor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color0"))
 	return CIColorFromID(rv)
-	}
+}
+
 // The second color to use in the gradient.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/color1
 func (o CIRadialGradientObject) Color1() ICIColor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color1"))
 	return CIColorFromID(rv)
-	}
+}
+
 // The radius of the starting circle to use in the gradient.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/radius0
 func (o CIRadialGradientObject) Radius0() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius0"))
 	return rv
-	}
+}
+
 // The radius of the ending circle to use in the gradient.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/radius1
 func (o CIRadialGradientObject) Radius1() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius1"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -124,25 +130,39 @@ func (o CIRadialGradientObject) Radius1() float32 {
 func (o CIRadialGradientObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The center of the effect as x and y coordinates.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/center
 func (o CIRadialGradientObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The first color to use in the gradient.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/color0
 func (o CIRadialGradientObject) SetColor0(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor0:"), value)
 }
 
+// The second color to use in the gradient.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/color1
 func (o CIRadialGradientObject) SetColor1(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor1:"), value)
 }
 
+// The radius of the starting circle to use in the gradient.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/radius0
 func (o CIRadialGradientObject) SetRadius0(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius0:"), value)
 }
 
+// The radius of the ending circle to use in the gradient.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/radius1
 func (o CIRadialGradientObject) SetRadius1(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius1:"), value)
 }
-

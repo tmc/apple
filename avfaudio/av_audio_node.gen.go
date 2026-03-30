@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,16 +46,16 @@ func (ac AVAudioNodeClass) Alloc() AVAudioNode {
 // An object you use for audio generation, processing, or an I/O block.
 //
 // # Overview
-// 
+//
 // An [AVAudioEngine] object contains instances of audio nodes that you
 // attach, and this base class provides common functionality. Instances of
 // this class don’t provide useful functionality until you attach them to an
 // engine.
-// 
+//
 // Nodes have input and output busses that serve as connection points. For
 // example, an effect has one input bus and one output bus, and a mixer has
 // multiple input busses and one output bus.
-// 
+//
 // A bus contains a format the framework expresses in terms of sample rate and
 // channel count. Formats must match exactly when making connections between
 // nodes, excluding [AVAudioMixerNode] and [AVAudioOutputNode].
@@ -105,6 +106,7 @@ type AVAudioNode struct {
 func AVAudioNodeFromID(id objc.ID) AVAudioNode {
 	return AVAudioNode{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -223,7 +225,7 @@ func NewAVAudioNode() AVAudioNode {
 // bus: An audio node bus.
 //
 // # Return Value
-// 
+//
 // An [AVAudioFormat] instance that represents the input format of the bus.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/inputFormat(forBus:)
@@ -231,12 +233,13 @@ func (a AVAudioNode) InputFormatForBus(bus AVAudioNodeBus) IAVAudioFormat {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputFormatForBus:"), bus)
 	return AVAudioFormatFromID(rv)
 }
+
 // Gets the name of the input bus you specify.
 //
 // bus: The input bus from an audio node.
 //
 // # Return Value
-// 
+//
 // The name of the input bus.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/name(forInputBus:)
@@ -244,12 +247,13 @@ func (a AVAudioNode) NameForInputBus(bus AVAudioNodeBus) string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("nameForInputBus:"), bus)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Retrieves the output format for the bus you specify.
 //
 // bus: An audio node bus.
 //
 // # Return Value
-// 
+//
 // An [AVAudioFormat] instance that represents the output format of the bus.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/outputFormat(forBus:)
@@ -257,12 +261,13 @@ func (a AVAudioNode) OutputFormatForBus(bus AVAudioNodeBus) IAVAudioFormat {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputFormatForBus:"), bus)
 	return AVAudioFormatFromID(rv)
 }
+
 // Retrieves the name of the output bus you specify.
 //
 // bus: The output bus from an audio node.
 //
 // # Return Value
-// 
+//
 // The name of the output bus.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/name(forOutputBus:)
@@ -270,6 +275,7 @@ func (a AVAudioNode) NameForOutputBus(bus AVAudioNodeBus) string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("nameForOutputBus:"), bus)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Installs an audio tap on a bus you specify to record, monitor, and observe
 // the output of the node.
 //
@@ -283,13 +289,13 @@ func (a AVAudioNode) NameForOutputBus(bus AVAudioNodeBus) string {
 // in a connected state. The tap and connection formats (if non-`nil`) on the
 // bus need to be identical. Otherwise, the latter operation overrides the
 // previous format.
-// 
+//
 // For [AVAudioOutputNode], you must specify the tap format as `nil`.
 //
 // tapBlock: A block the framework calls with audio buffers.
 //
 // # Discussion
-// 
+//
 // You can install and remove taps while the engine is in a running state. You
 // can install only one tap on any bus.
 //
@@ -297,6 +303,7 @@ func (a AVAudioNode) NameForOutputBus(bus AVAudioNodeBus) string {
 func (a AVAudioNode) InstallTapOnBusBufferSizeFormatBlock(bus AVAudioNodeBus, bufferSize AVAudioFrameCount, format IAVAudioFormat, tapBlock AVAudioNodeTapBlock) {
 	objc.Send[objc.ID](a.ID, objc.Sel("installTapOnBus:bufferSize:format:block:"), bus, bufferSize, format, tapBlock)
 }
+
 // Removes an audio tap on a bus you specify.
 //
 // bus: The node output bus with the tap to remove.
@@ -305,6 +312,7 @@ func (a AVAudioNode) InstallTapOnBusBufferSizeFormatBlock(bus AVAudioNodeBus, bu
 func (a AVAudioNode) RemoveTapOnBus(bus AVAudioNodeBus) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeTapOnBus:"), bus)
 }
+
 // Clears a unit’s previous processing state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/reset()
@@ -319,6 +327,7 @@ func (a AVAudioNode) NumberOfInputs() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("numberOfInputs"))
 	return rv
 }
+
 // The number of output busses for the node.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/numberOfOutputs
@@ -326,6 +335,7 @@ func (a AVAudioNode) NumberOfOutputs() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("numberOfOutputs"))
 	return rv
 }
+
 // The audio engine that manages the node, if any.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/engine
@@ -333,10 +343,11 @@ func (a AVAudioNode) Engine() IAVAudioEngine {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("engine"))
 	return AVAudioEngineFromID(objc.ID(rv))
 }
+
 // The most recent render time.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if the engine isn’t running or if you don’t connect
 // the node to an input or output node.
 //
@@ -345,32 +356,34 @@ func (a AVAudioNode) LastRenderTime() IAVAudioTime {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("lastRenderTime"))
 	return AVAudioTimeFromID(objc.ID(rv))
 }
+
 // An audio unit object that wraps or underlies the implementation’s audio
 // unit.
 //
 // # Discussion
-// 
+//
 // This provides an [AUAudioUnit] that either wraps or underlies the
 // implementation’s audio unit, depending on how the app packages the audio
 // unit. Apps interact with this to control custom properties, select presets,
 // and change parameters.
-// 
+//
 // Don’t perform operations directly on the audio unit that may conflict
 // with the engine’s state, which includes changing the initialization
 // state, stream formats, channel layouts, or connections to other audio
 // units.
 //
-// [AUAudioUnit]: https://developer.apple.com/documentation/AudioToolbox/AUAudioUnit
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/auAudioUnit
+//
+// [AUAudioUnit]: https://developer.apple.com/documentation/AudioToolbox/AUAudioUnit
 func (a AVAudioNode) AUAudioUnit() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AUAudioUnit"))
 	return objectivec.Object{ID: rv}
 }
+
 // The processing latency of the node, in seconds.
 //
 // # Discussion
-// 
+//
 // This latency reflects the delay due to signal processing. A value of `0`
 // indicates either no latency or an unknown latency.
 //
@@ -379,10 +392,11 @@ func (a AVAudioNode) Latency() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("latency"))
 	return rv
 }
+
 // The maximum render pipeline latency downstream of the node, in seconds.
 //
 // # Discussion
-// 
+//
 // This latency describes the maximum time it takes to present the audio at
 // the output of a node.
 //
@@ -391,4 +405,3 @@ func (a AVAudioNode) OutputPresentationLatency() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("outputPresentationLatency"))
 	return rv
 }
-

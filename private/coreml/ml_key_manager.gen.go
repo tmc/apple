@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,6 +53,7 @@ type MLKeyManager struct {
 func MLKeyManagerFromID(id objc.ID) MLKeyManager {
 	return MLKeyManager{objectivec.Object{ID: id}}
 }
+
 // Ensure MLKeyManager implements IMLKeyManager.
 var _ IMLKeyManager = MLKeyManager{}
 
@@ -81,7 +83,6 @@ func NewMLKeyManager() MLKeyManager {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLKeyManager/createPersistentKeyBlobForKeyID:usesCodeSigningIdentityForEncryption:error:
 func (_MLKeyManagerClass MLKeyManagerClass) CreatePersistentKeyBlobForKeyIDUsesCodeSigningIdentityForEncryptionError(id objectivec.IObject, encryption bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -93,7 +94,7 @@ func (_MLKeyManagerClass MLKeyManagerClass) CreatePersistentKeyBlobForKeyIDUsesC
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLKeyManager/decryptSessionForModelAtURL:error:
 func (_MLKeyManagerClass MLKeyManagerClass) DecryptSessionForModelAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -105,7 +106,7 @@ func (_MLKeyManagerClass MLKeyManagerClass) DecryptSessionForModelAtURLError(url
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLKeyManager/extractKeyIdentifierFromModelAtURL:usesCodeSigningIdentityForEncryption:error:
 func (_MLKeyManagerClass MLKeyManagerClass) ExtractKeyIdentifierFromModelAtURLUsesCodeSigningIdentityForEncryptionError(url foundation.INSURL, encryption unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -117,13 +118,13 @@ func (_MLKeyManagerClass MLKeyManagerClass) ExtractKeyIdentifierFromModelAtURLUs
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLKeyManager/isModelEncrypted:
 func (_MLKeyManagerClass MLKeyManagerClass) IsModelEncrypted(encrypted objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLKeyManagerClass.class), objc.Sel("isModelEncrypted:"), encrypted)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLKeyManager/loadDecryptionKeyForModelAtURL:retUsesCodeSigningIdentityForEncryption:error:
 func (_MLKeyManagerClass MLKeyManagerClass) LoadDecryptionKeyForModelAtURLRetUsesCodeSigningIdentityForEncryptionError(url foundation.INSURL, encryption unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -135,9 +136,9 @@ func (_MLKeyManagerClass MLKeyManagerClass) LoadDecryptionKeyForModelAtURLRetUse
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLKeyManager/syncQueue
 func (_MLKeyManagerClass MLKeyManagerClass) SyncQueue() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLKeyManagerClass.class), objc.Sel("syncQueue"))
 	return objectivec.Object{ID: rv}
 }
-

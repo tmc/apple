@@ -10,6 +10,10 @@ import (
 type CGBitmapInfo uint32
 
 const (
+	KCGBitmapAlphaInfoMask       CGBitmapInfo = 31
+	KCGBitmapByteOrderInfoMask   CGBitmapInfo = 28672
+	KCGBitmapComponentInfoMask   CGBitmapInfo = 3840
+	KCGBitmapPixelFormatInfoMask CGBitmapInfo = 983040
 	// Deprecated.
 	KCGBitmapByteOrder16Big CGBitmapInfo = 12288
 	// Deprecated.
@@ -21,11 +25,23 @@ const (
 	// Deprecated.
 	KCGBitmapByteOrderDefault CGBitmapInfo = 0
 	// Deprecated.
+	KCGBitmapByteOrderMask CGBitmapInfo = 28672
+	// Deprecated.
 	KCGBitmapFloatComponents CGBitmapInfo = 256
+	// Deprecated.
+	KCGBitmapFloatInfoMask CGBitmapInfo = 3840
 )
 
 func (e CGBitmapInfo) String() string {
 	switch e {
+	case KCGBitmapAlphaInfoMask:
+		return "KCGBitmapAlphaInfoMask"
+	case KCGBitmapByteOrderInfoMask:
+		return "KCGBitmapByteOrderInfoMask"
+	case KCGBitmapComponentInfoMask:
+		return "KCGBitmapComponentInfoMask"
+	case KCGBitmapPixelFormatInfoMask:
+		return "KCGBitmapPixelFormatInfoMask"
 	case KCGBitmapByteOrder16Big:
 		return "KCGBitmapByteOrder16Big"
 	case KCGBitmapByteOrder16Little:
@@ -47,58 +63,169 @@ func (e CGBitmapInfo) String() string {
 type CGBitmapLayout uint32
 
 const (
+	KCGBitmapLayoutABGR      CGBitmapLayout = 9
+	KCGBitmapLayoutARGB      CGBitmapLayout = 4
+	KCGBitmapLayoutAlphaOnly CGBitmapLayout = 0
+	KCGBitmapLayoutBGRA      CGBitmapLayout = 7
+	KCGBitmapLayoutBGRX      CGBitmapLayout = 8
+	KCGBitmapLayoutCMYK      CGBitmapLayout = 11
+	KCGBitmapLayoutGray      CGBitmapLayout = 1
+	KCGBitmapLayoutGrayAlpha CGBitmapLayout = 2
+	KCGBitmapLayoutRGBA      CGBitmapLayout = 3
+	KCGBitmapLayoutRGBX      CGBitmapLayout = 5
+	KCGBitmapLayoutXBGR      CGBitmapLayout = 10
+	KCGBitmapLayoutXRGB      CGBitmapLayout = 6
 )
+
+func (e CGBitmapLayout) String() string {
+	switch e {
+	case KCGBitmapLayoutABGR:
+		return "KCGBitmapLayoutABGR"
+	case KCGBitmapLayoutARGB:
+		return "KCGBitmapLayoutARGB"
+	case KCGBitmapLayoutAlphaOnly:
+		return "KCGBitmapLayoutAlphaOnly"
+	case KCGBitmapLayoutBGRA:
+		return "KCGBitmapLayoutBGRA"
+	case KCGBitmapLayoutBGRX:
+		return "KCGBitmapLayoutBGRX"
+	case KCGBitmapLayoutCMYK:
+		return "KCGBitmapLayoutCMYK"
+	case KCGBitmapLayoutGray:
+		return "KCGBitmapLayoutGray"
+	case KCGBitmapLayoutGrayAlpha:
+		return "KCGBitmapLayoutGrayAlpha"
+	case KCGBitmapLayoutRGBA:
+		return "KCGBitmapLayoutRGBA"
+	case KCGBitmapLayoutRGBX:
+		return "KCGBitmapLayoutRGBX"
+	case KCGBitmapLayoutXBGR:
+		return "KCGBitmapLayoutXBGR"
+	case KCGBitmapLayoutXRGB:
+		return "KCGBitmapLayoutXRGB"
+	default:
+		return fmt.Sprintf("CGBitmapLayout(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGBlendMode
 type CGBlendMode int32
 
 const (
+	// KCGBlendModeClear: `R = 0`
+	KCGBlendModeClear CGBlendMode = 16
 	// KCGBlendModeColor: Uses the luminance values of the background with the hue and saturation values of the source image.
 	KCGBlendModeColor CGBlendMode = 14
 	// KCGBlendModeColorBurn: Darkens the background image samples to reflect the source image samples.
 	KCGBlendModeColorBurn CGBlendMode = 7
 	// KCGBlendModeColorDodge: Brightens the background image samples to reflect the source image samples.
 	KCGBlendModeColorDodge CGBlendMode = 6
-	// KCGBlendModeExclusion: Produces an effect similar to that produced by , but with lower contrast.
+	// KCGBlendModeCopy: `R = S`
+	KCGBlendModeCopy CGBlendMode = 17
+	// KCGBlendModeDarken: # Discussion
+	KCGBlendModeDarken CGBlendMode = 4
+	// KCGBlendModeDestinationAtop: `R = S*(1 - Da) + D*Sa`
+	KCGBlendModeDestinationAtop CGBlendMode = 24
+	// KCGBlendModeDestinationIn: `R = D*Sa`
+	KCGBlendModeDestinationIn CGBlendMode = 22
+	// KCGBlendModeDestinationOut: `R = D*(1 - Sa)`
+	KCGBlendModeDestinationOut CGBlendMode = 23
+	// KCGBlendModeDestinationOver: `R = S*(1 - Da) + D`
+	KCGBlendModeDestinationOver CGBlendMode = 21
+	// KCGBlendModeDifference: # Discussion
+	KCGBlendModeDifference CGBlendMode = 10
+	// KCGBlendModeExclusion: Produces an effect similar to that produced by CGBlendMode.difference, but with lower contrast.
 	KCGBlendModeExclusion CGBlendMode = 11
+	// KCGBlendModeHardLight: # Discussion
+	KCGBlendModeHardLight CGBlendMode = 9
 	// KCGBlendModeHue: Uses the luminance and saturation values of the background with the hue of the source image.
 	KCGBlendModeHue CGBlendMode = 12
+	// KCGBlendModeLighten: # Discussion
+	KCGBlendModeLighten CGBlendMode = 5
 	// KCGBlendModeLuminosity: Uses the hue and saturation of the background with the luminance of the source image.
 	KCGBlendModeLuminosity CGBlendMode = 15
 	// KCGBlendModeMultiply: Multiplies the source image samples with the background image samples.
 	KCGBlendModeMultiply CGBlendMode = 1
 	// KCGBlendModeNormal: Paints the source image samples over the background image samples.
 	KCGBlendModeNormal CGBlendMode = 0
+	// KCGBlendModeOverlay: # Discussion
+	KCGBlendModeOverlay CGBlendMode = 3
+	// KCGBlendModePlusDarker: `R = MAX(0, 1 - ((1 - D) + (1 - S)))`
+	KCGBlendModePlusDarker CGBlendMode = 26
+	// KCGBlendModePlusLighter: `R = MIN(1, S + D)`
+	KCGBlendModePlusLighter CGBlendMode = 27
 	// KCGBlendModeSaturation: Uses the luminance and hue values of the background with the saturation of the source image.
 	KCGBlendModeSaturation CGBlendMode = 13
 	// KCGBlendModeScreen: Multiplies the inverse of the source image samples with the inverse of the background image samples, resulting in colors that are at least as light as either of the two contributing sample colors.
 	KCGBlendModeScreen CGBlendMode = 2
-	// KCGBlendModeXOR: .
+	// KCGBlendModeSoftLight: # Discussion
+	KCGBlendModeSoftLight CGBlendMode = 8
+	// KCGBlendModeSourceAtop: `R = S*Da + D*(1 - Sa)`
+	KCGBlendModeSourceAtop CGBlendMode = 20
+	// KCGBlendModeSourceIn: `R = S*Da`
+	KCGBlendModeSourceIn CGBlendMode = 18
+	// KCGBlendModeSourceOut: `R = S*(1 - Da)`
+	KCGBlendModeSourceOut CGBlendMode = 19
+	// KCGBlendModeXOR: `R = S*(1 - Da) + D*(1 - Sa)`.
 	KCGBlendModeXOR CGBlendMode = 25
 )
 
 func (e CGBlendMode) String() string {
 	switch e {
+	case KCGBlendModeClear:
+		return "KCGBlendModeClear"
 	case KCGBlendModeColor:
 		return "KCGBlendModeColor"
 	case KCGBlendModeColorBurn:
 		return "KCGBlendModeColorBurn"
 	case KCGBlendModeColorDodge:
 		return "KCGBlendModeColorDodge"
+	case KCGBlendModeCopy:
+		return "KCGBlendModeCopy"
+	case KCGBlendModeDarken:
+		return "KCGBlendModeDarken"
+	case KCGBlendModeDestinationAtop:
+		return "KCGBlendModeDestinationAtop"
+	case KCGBlendModeDestinationIn:
+		return "KCGBlendModeDestinationIn"
+	case KCGBlendModeDestinationOut:
+		return "KCGBlendModeDestinationOut"
+	case KCGBlendModeDestinationOver:
+		return "KCGBlendModeDestinationOver"
+	case KCGBlendModeDifference:
+		return "KCGBlendModeDifference"
 	case KCGBlendModeExclusion:
 		return "KCGBlendModeExclusion"
+	case KCGBlendModeHardLight:
+		return "KCGBlendModeHardLight"
 	case KCGBlendModeHue:
 		return "KCGBlendModeHue"
+	case KCGBlendModeLighten:
+		return "KCGBlendModeLighten"
 	case KCGBlendModeLuminosity:
 		return "KCGBlendModeLuminosity"
 	case KCGBlendModeMultiply:
 		return "KCGBlendModeMultiply"
 	case KCGBlendModeNormal:
 		return "KCGBlendModeNormal"
+	case KCGBlendModeOverlay:
+		return "KCGBlendModeOverlay"
+	case KCGBlendModePlusDarker:
+		return "KCGBlendModePlusDarker"
+	case KCGBlendModePlusLighter:
+		return "KCGBlendModePlusLighter"
 	case KCGBlendModeSaturation:
 		return "KCGBlendModeSaturation"
 	case KCGBlendModeScreen:
 		return "KCGBlendModeScreen"
+	case KCGBlendModeSoftLight:
+		return "KCGBlendModeSoftLight"
+	case KCGBlendModeSourceAtop:
+		return "KCGBlendModeSourceAtop"
+	case KCGBlendModeSourceIn:
+		return "KCGBlendModeSourceIn"
+	case KCGBlendModeSourceOut:
+		return "KCGBlendModeSourceOut"
 	case KCGBlendModeXOR:
 		return "KCGBlendModeXOR"
 	default:
@@ -112,12 +239,18 @@ type CGCaptureOptions uint32
 const (
 	// KCGCaptureNoFill: Disables fill with black.
 	KCGCaptureNoFill CGCaptureOptions = 1
+	// KCGCaptureNoOptions: The system should use the default fill behavior, which is fill with black.
+	KCGCaptureNoOptions CGCaptureOptions = 0
+	// KCGMouseEventSubtype: Key to access an integer field that encodes the mouse event subtype as a .
+	KCGMouseEventSubtype CGCaptureOptions = 0
 )
 
 func (e CGCaptureOptions) String() string {
 	switch e {
 	case KCGCaptureNoFill:
 		return "KCGCaptureNoFill"
+	case KCGCaptureNoOptions:
+		return "KCGCaptureNoOptions"
 	default:
 		return fmt.Sprintf("CGCaptureOptions(%d)", e)
 	}
@@ -152,11 +285,12 @@ func (e CGColorConversionInfoTransformType) String() string {
 type CGColorModel uint32
 
 const (
-	KCGColorModelCMYK CGColorModel = 4
-	KCGColorModelDeviceN CGColorModel = 16
-	KCGColorModelGray CGColorModel = 1
-	KCGColorModelLab CGColorModel = 8
-	KCGColorModelRGB CGColorModel = 2
+	KCGColorModelCMYK       CGColorModel = 4
+	KCGColorModelDeviceN    CGColorModel = 16
+	KCGColorModelGray       CGColorModel = 1
+	KCGColorModelLab        CGColorModel = 8
+	KCGColorModelNoColorant CGColorModel = 0
+	KCGColorModelRGB        CGColorModel = 2
 )
 
 func (e CGColorModel) String() string {
@@ -169,6 +303,8 @@ func (e CGColorModel) String() string {
 		return "KCGColorModelGray"
 	case KCGColorModelLab:
 		return "KCGColorModelLab"
+	case KCGColorModelNoColorant:
+		return "KCGColorModelNoColorant"
 	case KCGColorModelRGB:
 		return "KCGColorModelRGB"
 	default:
@@ -180,18 +316,30 @@ func (e CGColorModel) String() string {
 type CGColorRenderingIntent int32
 
 const (
+	// KCGRenderingIntentAbsoluteColorimetric: # Discussion
+	KCGRenderingIntentAbsoluteColorimetric CGColorRenderingIntent = 1
 	// KCGRenderingIntentDefault: The default rendering intent for the graphics context.
 	KCGRenderingIntentDefault CGColorRenderingIntent = 0
 	// KCGRenderingIntentPerceptual: Preserve the visual relationship between colors by compressing the gamut of the graphics context to fit inside the gamut of the output device.
 	KCGRenderingIntentPerceptual CGColorRenderingIntent = 3
+	// KCGRenderingIntentRelativeColorimetric: # Discussion
+	KCGRenderingIntentRelativeColorimetric CGColorRenderingIntent = 2
+	// KCGRenderingIntentSaturation: # Discussion
+	KCGRenderingIntentSaturation CGColorRenderingIntent = 4
 )
 
 func (e CGColorRenderingIntent) String() string {
 	switch e {
+	case KCGRenderingIntentAbsoluteColorimetric:
+		return "KCGRenderingIntentAbsoluteColorimetric"
 	case KCGRenderingIntentDefault:
 		return "KCGRenderingIntentDefault"
 	case KCGRenderingIntentPerceptual:
 		return "KCGRenderingIntentPerceptual"
+	case KCGRenderingIntentRelativeColorimetric:
+		return "KCGRenderingIntentRelativeColorimetric"
+	case KCGRenderingIntentSaturation:
+		return "KCGRenderingIntentSaturation"
 	default:
 		return fmt.Sprintf("CGColorRenderingIntent(%d)", e)
 	}
@@ -250,7 +398,35 @@ func (e CGColorSpaceModel) String() string {
 type CGComponent uint32
 
 const (
+	KCGComponentFloat16Bit   CGComponent = 5
+	KCGComponentFloat32Bit   CGComponent = 4
+	KCGComponentInteger10Bit CGComponent = 6
+	KCGComponentInteger16Bit CGComponent = 2
+	KCGComponentInteger32Bit CGComponent = 3
+	KCGComponentInteger8Bit  CGComponent = 1
+	KCGComponentUnknown      CGComponent = 0
 )
+
+func (e CGComponent) String() string {
+	switch e {
+	case KCGComponentFloat16Bit:
+		return "KCGComponentFloat16Bit"
+	case KCGComponentFloat32Bit:
+		return "KCGComponentFloat32Bit"
+	case KCGComponentInteger10Bit:
+		return "KCGComponentInteger10Bit"
+	case KCGComponentInteger16Bit:
+		return "KCGComponentInteger16Bit"
+	case KCGComponentInteger32Bit:
+		return "KCGComponentInteger32Bit"
+	case KCGComponentInteger8Bit:
+		return "KCGComponentInteger8Bit"
+	case KCGComponentUnknown:
+		return "KCGComponentUnknown"
+	default:
+		return fmt.Sprintf("CGComponent(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGConfigureOption
 type CGConfigureOption uint32
@@ -346,8 +522,6 @@ const (
 	KCGDisplayStreamFrameStatusFrameIdle CGDisplayStreamFrameStatus = 1
 	// KCGDisplayStreamFrameStatusStopped: The display stream was stopped.
 	KCGDisplayStreamFrameStatusStopped CGDisplayStreamFrameStatus = 3
-	// KCGMouseEventSubtype: Key to access an integer field that encodes the mouse event subtype as a .
-	KCGMouseEventSubtype CGDisplayStreamFrameStatus = 0
 )
 
 func (e CGDisplayStreamFrameStatus) String() string {
@@ -406,7 +580,7 @@ const (
 	KCGErrorIllegalArgument CGError = 1001
 	// KCGErrorInvalidConnection: The parameter representing a connection to the window server is invalid.
 	KCGErrorInvalidConnection CGError = 1002
-	// KCGErrorInvalidContext: The  or context identifier parameter is not valid.
+	// KCGErrorInvalidContext: The [CPSProcessSerNum] or context identifier parameter is not valid.
 	KCGErrorInvalidContext CGError = 1003
 	// KCGErrorInvalidOperation: The requested operation is not valid for the parameters passed in, or the current system state.
 	KCGErrorInvalidOperation CGError = 1010
@@ -468,7 +642,9 @@ const (
 	// KCGEventTargetProcessSerialNumber: Key to access a field that contains the event target process serial number.
 	KCGEventTargetProcessSerialNumber CGEventField = 39
 	// KCGEventTargetUnixProcessID: Key to access a field that contains the event target Unix process ID.
-	KCGEventTargetUnixProcessID CGEventField = 40
+	KCGEventTargetUnixProcessID           CGEventField = 40
+	KCGEventUnacceleratedPointerMovementX CGEventField = 170
+	KCGEventUnacceleratedPointerMovementY CGEventField = 171
 	// KCGKeyboardEventAutorepeat: Key to access an integer field, non-zero when this is an autorepeat of a key-down, and zero otherwise.
 	KCGKeyboardEventAutorepeat CGEventField = 8
 	// KCGKeyboardEventKeyboardType: Key to access an integer field that contains the keyboard type identifier.
@@ -488,7 +664,11 @@ const (
 	// KCGMouseEventNumber: Key to access an integer field that contains the mouse button event number.
 	KCGMouseEventNumber CGEventField = 0
 	// KCGMouseEventPressure: Key to access a double field that contains the mouse button pressure.
-	KCGMouseEventPressure CGEventField = 2
+	KCGMouseEventPressure                                      CGEventField = 2
+	KCGMouseEventWindowUnderMousePointer                       CGEventField = 91
+	KCGMouseEventWindowUnderMousePointerThatCanHandleThisEvent CGEventField = 92
+	KCGScrollWheelEventAcceleratedDeltaAxis1                   CGEventField = 176
+	KCGScrollWheelEventAcceleratedDeltaAxis2                   CGEventField = 175
 	// KCGScrollWheelEventDeltaAxis1: Key to access an integer field that contains scrolling data.
 	KCGScrollWheelEventDeltaAxis1 CGEventField = 11
 	// KCGScrollWheelEventDeltaAxis2: Key to access an integer field that contains scrolling data.
@@ -504,13 +684,19 @@ const (
 	// KCGScrollWheelEventInstantMouser: Key to access an integer field that indicates whether the event should be ignored by the Inkwell subsystem.
 	KCGScrollWheelEventInstantMouser CGEventField = 14
 	// KCGScrollWheelEventIsContinuous: Key to access an integer field that indicates whether a scrolling event contains continuous, pixel-based scrolling data.
-	KCGScrollWheelEventIsContinuous CGEventField = 88
+	KCGScrollWheelEventIsContinuous        CGEventField = 88
+	KCGScrollWheelEventMomentumOptionPhase CGEventField = 173
+	KCGScrollWheelEventMomentumPhase       CGEventField = 123
 	// KCGScrollWheelEventPointDeltaAxis1: Key to access an integer field that contains pixel-based scrolling data.
 	KCGScrollWheelEventPointDeltaAxis1 CGEventField = 96
 	// KCGScrollWheelEventPointDeltaAxis2: Key to access an integer field that contains pixel-based scrolling data.
 	KCGScrollWheelEventPointDeltaAxis2 CGEventField = 97
 	// KCGScrollWheelEventPointDeltaAxis3: This field is not used.
 	KCGScrollWheelEventPointDeltaAxis3 CGEventField = 98
+	KCGScrollWheelEventRawDeltaAxis1   CGEventField = 178
+	KCGScrollWheelEventRawDeltaAxis2   CGEventField = 177
+	KCGScrollWheelEventScrollCount     CGEventField = 100
+	KCGScrollWheelEventScrollPhase     CGEventField = 99
 	// KCGTabletEventDeviceID: Key to access an integer field that contains the system-assigned unique device ID.
 	KCGTabletEventDeviceID CGEventField = 24
 	// KCGTabletEventPointButtons: Key to access an integer field that contains the tablet button state.
@@ -577,6 +763,10 @@ func (e CGEventField) String() string {
 		return "KCGEventTargetProcessSerialNumber"
 	case KCGEventTargetUnixProcessID:
 		return "KCGEventTargetUnixProcessID"
+	case KCGEventUnacceleratedPointerMovementX:
+		return "KCGEventUnacceleratedPointerMovementX"
+	case KCGEventUnacceleratedPointerMovementY:
+		return "KCGEventUnacceleratedPointerMovementY"
 	case KCGKeyboardEventAutorepeat:
 		return "KCGKeyboardEventAutorepeat"
 	case KCGKeyboardEventKeyboardType:
@@ -597,6 +787,14 @@ func (e CGEventField) String() string {
 		return "KCGMouseEventNumber"
 	case KCGMouseEventPressure:
 		return "KCGMouseEventPressure"
+	case KCGMouseEventWindowUnderMousePointer:
+		return "KCGMouseEventWindowUnderMousePointer"
+	case KCGMouseEventWindowUnderMousePointerThatCanHandleThisEvent:
+		return "KCGMouseEventWindowUnderMousePointerThatCanHandleThisEvent"
+	case KCGScrollWheelEventAcceleratedDeltaAxis1:
+		return "KCGScrollWheelEventAcceleratedDeltaAxis1"
+	case KCGScrollWheelEventAcceleratedDeltaAxis2:
+		return "KCGScrollWheelEventAcceleratedDeltaAxis2"
 	case KCGScrollWheelEventDeltaAxis1:
 		return "KCGScrollWheelEventDeltaAxis1"
 	case KCGScrollWheelEventDeltaAxis2:
@@ -613,12 +811,24 @@ func (e CGEventField) String() string {
 		return "KCGScrollWheelEventInstantMouser"
 	case KCGScrollWheelEventIsContinuous:
 		return "KCGScrollWheelEventIsContinuous"
+	case KCGScrollWheelEventMomentumOptionPhase:
+		return "KCGScrollWheelEventMomentumOptionPhase"
+	case KCGScrollWheelEventMomentumPhase:
+		return "KCGScrollWheelEventMomentumPhase"
 	case KCGScrollWheelEventPointDeltaAxis1:
 		return "KCGScrollWheelEventPointDeltaAxis1"
 	case KCGScrollWheelEventPointDeltaAxis2:
 		return "KCGScrollWheelEventPointDeltaAxis2"
 	case KCGScrollWheelEventPointDeltaAxis3:
 		return "KCGScrollWheelEventPointDeltaAxis3"
+	case KCGScrollWheelEventRawDeltaAxis1:
+		return "KCGScrollWheelEventRawDeltaAxis1"
+	case KCGScrollWheelEventRawDeltaAxis2:
+		return "KCGScrollWheelEventRawDeltaAxis2"
+	case KCGScrollWheelEventScrollCount:
+		return "KCGScrollWheelEventScrollCount"
+	case KCGScrollWheelEventScrollPhase:
+		return "KCGScrollWheelEventScrollPhase"
 	case KCGTabletEventDeviceID:
 		return "KCGTabletEventDeviceID"
 	case KCGTabletEventPointButtons:
@@ -677,7 +887,7 @@ type CGEventFilterMask uint32
 
 const (
 	KCGEventFilterMaskPermitLocalKeyboardEvents CGEventFilterMask = 2
-	KCGEventFilterMaskPermitLocalMouseEvents CGEventFilterMask = 1
+	KCGEventFilterMaskPermitLocalMouseEvents    CGEventFilterMask = 1
 	KCGEventFilterMaskPermitSystemDefinedEvents CGEventFilterMask = 4
 )
 
@@ -749,8 +959,10 @@ type CGEventMouseSubtype uint32
 const (
 	// KCGEventMouseSubtypeDefault: Specifies that the event is an ordinary mouse event, and does not contain additional tablet device information.
 	KCGEventMouseSubtypeDefault CGEventMouseSubtype = 0
-	// KCGEventMouseSubtypeTabletPoint: Specifies that the mouse event originated from a tablet device, and that the various  field selectors may be used to obtain tablet-specific data from the mouse event.
+	// KCGEventMouseSubtypeTabletPoint: Specifies that the mouse event originated from a tablet device, and that the various `kCGTabletEvent` field selectors may be used to obtain tablet-specific data from the mouse event.
 	KCGEventMouseSubtypeTabletPoint CGEventMouseSubtype = 1
+	// KCGEventMouseSubtypeTabletProximity: # Discussion
+	KCGEventMouseSubtypeTabletProximity CGEventMouseSubtype = 2
 )
 
 func (e CGEventMouseSubtype) String() string {
@@ -759,6 +971,8 @@ func (e CGEventMouseSubtype) String() string {
 		return "KCGEventMouseSubtypeDefault"
 	case KCGEventMouseSubtypeTabletPoint:
 		return "KCGEventMouseSubtypeTabletPoint"
+	case KCGEventMouseSubtypeTabletProximity:
+		return "KCGEventMouseSubtypeTabletProximity"
 	default:
 		return fmt.Sprintf("CGEventMouseSubtype(%d)", e)
 	}
@@ -797,6 +1011,7 @@ const (
 	KCGEventSuppressionStateRemoteMouseDrag CGEventSuppressionState = 1
 	// KCGEventSuppressionStateSuppressionInterval: Specifies that certain local hardware events may be suppressed for a short interval after posting an event.
 	KCGEventSuppressionStateSuppressionInterval CGEventSuppressionState = 0
+	KCGNumberOfEventSuppressionStates           CGEventSuppressionState = 2
 )
 
 func (e CGEventSuppressionState) String() string {
@@ -805,6 +1020,8 @@ func (e CGEventSuppressionState) String() string {
 		return "KCGEventSuppressionStateRemoteMouseDrag"
 	case KCGEventSuppressionStateSuppressionInterval:
 		return "KCGEventSuppressionStateSuppressionInterval"
+	case KCGNumberOfEventSuppressionStates:
+		return "KCGNumberOfEventSuppressionStates"
 	default:
 		return fmt.Sprintf("CGEventSuppressionState(%d)", e)
 	}
@@ -839,7 +1056,22 @@ func (e CGEventTapLocation) String() string {
 type CGEventTapOptions uint32
 
 const (
+	// KCGEventTapOptionDefault: # Discussion
+	KCGEventTapOptionDefault CGEventTapOptions = 0
+	// KCGEventTapOptionListenOnly: # Discussion
+	KCGEventTapOptionListenOnly CGEventTapOptions = 1
 )
+
+func (e CGEventTapOptions) String() string {
+	switch e {
+	case KCGEventTapOptionDefault:
+		return "KCGEventTapOptionDefault"
+	case KCGEventTapOptionListenOnly:
+		return "KCGEventTapOptionListenOnly"
+	default:
+		return fmt.Sprintf("CGEventTapOptions(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventTapPlacement
 type CGEventTapPlacement uint32
@@ -980,7 +1212,32 @@ func (e CGFontPostScriptFormat) String() string {
 type CGGesturePhase uint32
 
 const (
+	KCGGesturePhaseBegan     CGGesturePhase = 1
+	KCGGesturePhaseCancelled CGGesturePhase = 8
+	KCGGesturePhaseChanged   CGGesturePhase = 2
+	KCGGesturePhaseEnded     CGGesturePhase = 4
+	KCGGesturePhaseMayBegin  CGGesturePhase = 128
+	KCGGesturePhaseNone      CGGesturePhase = 0
 )
+
+func (e CGGesturePhase) String() string {
+	switch e {
+	case KCGGesturePhaseBegan:
+		return "KCGGesturePhaseBegan"
+	case KCGGesturePhaseCancelled:
+		return "KCGGesturePhaseCancelled"
+	case KCGGesturePhaseChanged:
+		return "KCGGesturePhaseChanged"
+	case KCGGesturePhaseEnded:
+		return "KCGGesturePhaseEnded"
+	case KCGGesturePhaseMayBegin:
+		return "KCGGesturePhaseMayBegin"
+	case KCGGesturePhaseNone:
+		return "KCGGesturePhaseNone"
+	default:
+		return fmt.Sprintf("CGGesturePhase(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGlyphDeprecatedEnum
 type CGGlyphDeprecatedEnum int32
@@ -1073,19 +1330,82 @@ func (e CGImageAlphaInfo) String() string {
 type CGImageByteOrderInfo uint32
 
 const (
+	KCGImageByteOrder16Big    CGImageByteOrderInfo = 12288
+	KCGImageByteOrder16Host   CGImageByteOrderInfo = 4096
+	KCGImageByteOrder16Little CGImageByteOrderInfo = 4096
+	KCGImageByteOrder32Big    CGImageByteOrderInfo = 16384
+	KCGImageByteOrder32Host   CGImageByteOrderInfo = 8192
+	KCGImageByteOrder32Little CGImageByteOrderInfo = 8192
+	KCGImageByteOrderDefault  CGImageByteOrderInfo = 0
+	// Deprecated.
+	KCGImageByteOrderMask CGImageByteOrderInfo = 0
 )
+
+func (e CGImageByteOrderInfo) String() string {
+	switch e {
+	case KCGImageByteOrder16Big:
+		return "KCGImageByteOrder16Big"
+	case KCGImageByteOrder16Host:
+		return "KCGImageByteOrder16Host"
+	case KCGImageByteOrder32Big:
+		return "KCGImageByteOrder32Big"
+	case KCGImageByteOrder32Host:
+		return "KCGImageByteOrder32Host"
+	case KCGImageByteOrderDefault:
+		return "KCGImageByteOrderDefault"
+	default:
+		return fmt.Sprintf("CGImageByteOrderInfo(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGImageComponentInfo
 type CGImageComponentInfo uint32
 
 const (
+	KCGImageComponentFloat   CGImageComponentInfo = 256
+	KCGImageComponentInteger CGImageComponentInfo = 0
 )
+
+func (e CGImageComponentInfo) String() string {
+	switch e {
+	case KCGImageComponentFloat:
+		return "KCGImageComponentFloat"
+	case KCGImageComponentInteger:
+		return "KCGImageComponentInteger"
+	default:
+		return fmt.Sprintf("CGImageComponentInfo(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGImagePixelFormatInfo
 type CGImagePixelFormatInfo uint32
 
 const (
+	KCGImagePixelFormatPacked    CGImagePixelFormatInfo = 0
+	KCGImagePixelFormatRGB101010 CGImagePixelFormatInfo = 196608
+	KCGImagePixelFormatRGB555    CGImagePixelFormatInfo = 65536
+	KCGImagePixelFormatRGB565    CGImagePixelFormatInfo = 131072
+	KCGImagePixelFormatRGBCIF10  CGImagePixelFormatInfo = 262144
+	// Deprecated.
+	KCGImagePixelFormatMask CGImagePixelFormatInfo = 0
 )
+
+func (e CGImagePixelFormatInfo) String() string {
+	switch e {
+	case KCGImagePixelFormatPacked:
+		return "KCGImagePixelFormatPacked"
+	case KCGImagePixelFormatRGB101010:
+		return "KCGImagePixelFormatRGB101010"
+	case KCGImagePixelFormatRGB555:
+		return "KCGImagePixelFormatRGB555"
+	case KCGImagePixelFormatRGB565:
+		return "KCGImagePixelFormatRGB565"
+	case KCGImagePixelFormatRGBCIF10:
+		return "KCGImagePixelFormatRGBCIF10"
+	default:
+		return fmt.Sprintf("CGImagePixelFormatInfo(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGInterpolationQuality
 type CGInterpolationQuality int32
@@ -1151,6 +1471,8 @@ type CGLineJoin int32
 const (
 	// KCGLineJoinBevel: A join with a squared-off end.
 	KCGLineJoinBevel CGLineJoin = 2
+	// KCGLineJoinMiter: # Discussion
+	KCGLineJoinMiter CGLineJoin = 0
 	// KCGLineJoinRound: A join with a rounded end.
 	KCGLineJoinRound CGLineJoin = 1
 )
@@ -1159,6 +1481,8 @@ func (e CGLineJoin) String() string {
 	switch e {
 	case KCGLineJoinBevel:
 		return "KCGLineJoinBevel"
+	case KCGLineJoinMiter:
+		return "KCGLineJoinMiter"
 	case KCGLineJoinRound:
 		return "KCGLineJoinRound"
 	default:
@@ -1170,26 +1494,64 @@ func (e CGLineJoin) String() string {
 type CGMomentumScrollPhase uint32
 
 const (
+	KCGMomentumScrollPhaseBegin    CGMomentumScrollPhase = 1
+	KCGMomentumScrollPhaseContinue CGMomentumScrollPhase = 2
+	KCGMomentumScrollPhaseEnd      CGMomentumScrollPhase = 3
+	KCGMomentumScrollPhaseNone     CGMomentumScrollPhase = 0
 )
+
+func (e CGMomentumScrollPhase) String() string {
+	switch e {
+	case KCGMomentumScrollPhaseBegin:
+		return "KCGMomentumScrollPhaseBegin"
+	case KCGMomentumScrollPhaseContinue:
+		return "KCGMomentumScrollPhaseContinue"
+	case KCGMomentumScrollPhaseEnd:
+		return "KCGMomentumScrollPhaseEnd"
+	case KCGMomentumScrollPhaseNone:
+		return "KCGMomentumScrollPhaseNone"
+	default:
+		return fmt.Sprintf("CGMomentumScrollPhase(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGMouseButton
 type CGMouseButton uint32
 
 const (
+	// KCGMouseButtonCenter: # Discussion
+	KCGMouseButtonCenter CGMouseButton = 2
+	// KCGMouseButtonLeft: # Discussion
+	KCGMouseButtonLeft CGMouseButton = 0
+	// KCGMouseButtonRight: # Discussion
+	KCGMouseButtonRight CGMouseButton = 1
 )
+
+func (e CGMouseButton) String() string {
+	switch e {
+	case KCGMouseButtonCenter:
+		return "KCGMouseButtonCenter"
+	case KCGMouseButtonLeft:
+		return "KCGMouseButtonLeft"
+	case KCGMouseButtonRight:
+		return "KCGMouseButtonRight"
+	default:
+		return fmt.Sprintf("CGMouseButton(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFAccessPermissions
 type CGPDFAccessPermissions uint32
 
 const (
-	KCGPDFAllowsCommenting CGPDFAccessPermissions = 64
+	KCGPDFAllowsCommenting           CGPDFAccessPermissions = 64
 	KCGPDFAllowsContentAccessibility CGPDFAccessPermissions = 32
-	KCGPDFAllowsContentCopying CGPDFAccessPermissions = 16
-	KCGPDFAllowsDocumentAssembly CGPDFAccessPermissions = 8
-	KCGPDFAllowsDocumentChanges CGPDFAccessPermissions = 4
-	KCGPDFAllowsFormFieldEntry CGPDFAccessPermissions = 128
-	KCGPDFAllowsHighQualityPrinting CGPDFAccessPermissions = 2
-	KCGPDFAllowsLowQualityPrinting CGPDFAccessPermissions = 1
+	KCGPDFAllowsContentCopying       CGPDFAccessPermissions = 16
+	KCGPDFAllowsDocumentAssembly     CGPDFAccessPermissions = 8
+	KCGPDFAllowsDocumentChanges      CGPDFAccessPermissions = 4
+	KCGPDFAllowsFormFieldEntry       CGPDFAccessPermissions = 128
+	KCGPDFAllowsHighQualityPrinting  CGPDFAccessPermissions = 2
+	KCGPDFAllowsLowQualityPrinting   CGPDFAccessPermissions = 1
 )
 
 func (e CGPDFAccessPermissions) String() string {
@@ -1326,7 +1688,161 @@ func (e CGPDFObjectType) String() string {
 type CGPDFTagType int32
 
 const (
+	CGPDFTagTypeAnnotation         CGPDFTagType = 507
+	CGPDFTagTypeArt                CGPDFTagType = 102
+	CGPDFTagTypeBibliography       CGPDFTagType = 504
+	CGPDFTagTypeBlockQuote         CGPDFTagType = 105
+	CGPDFTagTypeCaption            CGPDFTagType = 106
+	CGPDFTagTypeCode               CGPDFTagType = 505
+	CGPDFTagTypeDiv                CGPDFTagType = 104
+	CGPDFTagTypeDocument           CGPDFTagType = 100
+	CGPDFTagTypeFigure             CGPDFTagType = 700
+	CGPDFTagTypeForm               CGPDFTagType = 702
+	CGPDFTagTypeFormula            CGPDFTagType = 701
+	CGPDFTagTypeHeader             CGPDFTagType = 201
+	CGPDFTagTypeHeader1            CGPDFTagType = 202
+	CGPDFTagTypeHeader2            CGPDFTagType = 203
+	CGPDFTagTypeHeader3            CGPDFTagType = 204
+	CGPDFTagTypeHeader4            CGPDFTagType = 205
+	CGPDFTagTypeHeader5            CGPDFTagType = 206
+	CGPDFTagTypeHeader6            CGPDFTagType = 207
+	CGPDFTagTypeLabel              CGPDFTagType = 302
+	CGPDFTagTypeLink               CGPDFTagType = 506
+	CGPDFTagTypeList               CGPDFTagType = 300
+	CGPDFTagTypeListBody           CGPDFTagType = 303
+	CGPDFTagTypeListItem           CGPDFTagType = 301
+	CGPDFTagTypeNonStructure       CGPDFTagType = 110
+	CGPDFTagTypeNote               CGPDFTagType = 502
+	CGPDFTagTypeObject             CGPDFTagType = 800
+	CGPDFTagTypeParagraph          CGPDFTagType = 200
+	CGPDFTagTypePart               CGPDFTagType = 101
+	CGPDFTagTypePrivate            CGPDFTagType = 111
+	CGPDFTagTypeQuote              CGPDFTagType = 501
+	CGPDFTagTypeReference          CGPDFTagType = 503
+	CGPDFTagTypeRuby               CGPDFTagType = 600
+	CGPDFTagTypeRubyAnnotationText CGPDFTagType = 602
+	CGPDFTagTypeRubyBaseText       CGPDFTagType = 601
+	CGPDFTagTypeRubyPunctuation    CGPDFTagType = 603
+	CGPDFTagTypeSection            CGPDFTagType = 103
+	CGPDFTagTypeSpan               CGPDFTagType = 500
+	CGPDFTagTypeTOC                CGPDFTagType = 107
+	CGPDFTagTypeTOCI               CGPDFTagType = 108
+	CGPDFTagTypeTable              CGPDFTagType = 400
+	CGPDFTagTypeTableBody          CGPDFTagType = 405
+	CGPDFTagTypeTableDataCell      CGPDFTagType = 403
+	CGPDFTagTypeTableFooter        CGPDFTagType = 406
+	CGPDFTagTypeTableHeader        CGPDFTagType = 404
+	CGPDFTagTypeTableHeaderCell    CGPDFTagType = 402
+	CGPDFTagTypeTableRow           CGPDFTagType = 401
+	CGPDFTagTypeWarichu            CGPDFTagType = 604
+	CGPDFTagTypeWarichuPunctiation CGPDFTagType = 606
+	CGPDFTagTypeWarichuText        CGPDFTagType = 605
 )
+
+func (e CGPDFTagType) String() string {
+	switch e {
+	case CGPDFTagTypeAnnotation:
+		return "CGPDFTagTypeAnnotation"
+	case CGPDFTagTypeArt:
+		return "CGPDFTagTypeArt"
+	case CGPDFTagTypeBibliography:
+		return "CGPDFTagTypeBibliography"
+	case CGPDFTagTypeBlockQuote:
+		return "CGPDFTagTypeBlockQuote"
+	case CGPDFTagTypeCaption:
+		return "CGPDFTagTypeCaption"
+	case CGPDFTagTypeCode:
+		return "CGPDFTagTypeCode"
+	case CGPDFTagTypeDiv:
+		return "CGPDFTagTypeDiv"
+	case CGPDFTagTypeDocument:
+		return "CGPDFTagTypeDocument"
+	case CGPDFTagTypeFigure:
+		return "CGPDFTagTypeFigure"
+	case CGPDFTagTypeForm:
+		return "CGPDFTagTypeForm"
+	case CGPDFTagTypeFormula:
+		return "CGPDFTagTypeFormula"
+	case CGPDFTagTypeHeader:
+		return "CGPDFTagTypeHeader"
+	case CGPDFTagTypeHeader1:
+		return "CGPDFTagTypeHeader1"
+	case CGPDFTagTypeHeader2:
+		return "CGPDFTagTypeHeader2"
+	case CGPDFTagTypeHeader3:
+		return "CGPDFTagTypeHeader3"
+	case CGPDFTagTypeHeader4:
+		return "CGPDFTagTypeHeader4"
+	case CGPDFTagTypeHeader5:
+		return "CGPDFTagTypeHeader5"
+	case CGPDFTagTypeHeader6:
+		return "CGPDFTagTypeHeader6"
+	case CGPDFTagTypeLabel:
+		return "CGPDFTagTypeLabel"
+	case CGPDFTagTypeLink:
+		return "CGPDFTagTypeLink"
+	case CGPDFTagTypeList:
+		return "CGPDFTagTypeList"
+	case CGPDFTagTypeListBody:
+		return "CGPDFTagTypeListBody"
+	case CGPDFTagTypeListItem:
+		return "CGPDFTagTypeListItem"
+	case CGPDFTagTypeNonStructure:
+		return "CGPDFTagTypeNonStructure"
+	case CGPDFTagTypeNote:
+		return "CGPDFTagTypeNote"
+	case CGPDFTagTypeObject:
+		return "CGPDFTagTypeObject"
+	case CGPDFTagTypeParagraph:
+		return "CGPDFTagTypeParagraph"
+	case CGPDFTagTypePart:
+		return "CGPDFTagTypePart"
+	case CGPDFTagTypePrivate:
+		return "CGPDFTagTypePrivate"
+	case CGPDFTagTypeQuote:
+		return "CGPDFTagTypeQuote"
+	case CGPDFTagTypeReference:
+		return "CGPDFTagTypeReference"
+	case CGPDFTagTypeRuby:
+		return "CGPDFTagTypeRuby"
+	case CGPDFTagTypeRubyAnnotationText:
+		return "CGPDFTagTypeRubyAnnotationText"
+	case CGPDFTagTypeRubyBaseText:
+		return "CGPDFTagTypeRubyBaseText"
+	case CGPDFTagTypeRubyPunctuation:
+		return "CGPDFTagTypeRubyPunctuation"
+	case CGPDFTagTypeSection:
+		return "CGPDFTagTypeSection"
+	case CGPDFTagTypeSpan:
+		return "CGPDFTagTypeSpan"
+	case CGPDFTagTypeTOC:
+		return "CGPDFTagTypeTOC"
+	case CGPDFTagTypeTOCI:
+		return "CGPDFTagTypeTOCI"
+	case CGPDFTagTypeTable:
+		return "CGPDFTagTypeTable"
+	case CGPDFTagTypeTableBody:
+		return "CGPDFTagTypeTableBody"
+	case CGPDFTagTypeTableDataCell:
+		return "CGPDFTagTypeTableDataCell"
+	case CGPDFTagTypeTableFooter:
+		return "CGPDFTagTypeTableFooter"
+	case CGPDFTagTypeTableHeader:
+		return "CGPDFTagTypeTableHeader"
+	case CGPDFTagTypeTableHeaderCell:
+		return "CGPDFTagTypeTableHeaderCell"
+	case CGPDFTagTypeTableRow:
+		return "CGPDFTagTypeTableRow"
+	case CGPDFTagTypeWarichu:
+		return "CGPDFTagTypeWarichu"
+	case CGPDFTagTypeWarichuPunctiation:
+		return "CGPDFTagTypeWarichuPunctiation"
+	case CGPDFTagTypeWarichuText:
+		return "CGPDFTagTypeWarichuText"
+	default:
+		return fmt.Sprintf("CGPDFTagType(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPathDrawingMode
 type CGPathDrawingMode int32
@@ -1398,7 +1914,7 @@ func (e CGPathElementType) String() string {
 type CGPatternTiling int32
 
 const (
-	// KCGPatternTilingConstantSpacing: Pattern cells are spaced consistently, as with .The pattern cell may be distorted additionally to permit a moreefficient implementation.
+	// KCGPatternTilingConstantSpacing: Pattern cells are spaced consistently, as with CGPatternTiling.constantSpacingMinimalDistortion.The pattern cell may be distorted additionally to permit a moreefficient implementation.
 	KCGPatternTilingConstantSpacing CGPatternTiling = 2
 	// KCGPatternTilingConstantSpacingMinimalDistortion: Pattern cells are spaced consistently.
 	KCGPatternTilingConstantSpacingMinimalDistortion CGPatternTiling = 1
@@ -1494,7 +2010,29 @@ func (e CGScrollEventUnit) String() string {
 type CGScrollPhase uint32
 
 const (
+	KCGScrollPhaseBegan     CGScrollPhase = 1
+	KCGScrollPhaseCancelled CGScrollPhase = 8
+	KCGScrollPhaseChanged   CGScrollPhase = 2
+	KCGScrollPhaseEnded     CGScrollPhase = 4
+	KCGScrollPhaseMayBegin  CGScrollPhase = 128
 )
+
+func (e CGScrollPhase) String() string {
+	switch e {
+	case KCGScrollPhaseBegan:
+		return "KCGScrollPhaseBegan"
+	case KCGScrollPhaseCancelled:
+		return "KCGScrollPhaseCancelled"
+	case KCGScrollPhaseChanged:
+		return "KCGScrollPhaseChanged"
+	case KCGScrollPhaseEnded:
+		return "KCGScrollPhaseEnded"
+	case KCGScrollPhaseMayBegin:
+		return "KCGScrollPhaseMayBegin"
+	default:
+		return fmt.Sprintf("CGScrollPhase(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGTextDrawingMode
 type CGTextDrawingMode int32
@@ -1545,9 +2083,9 @@ func (e CGTextDrawingMode) String() string {
 type CGTextEncoding int32
 
 const (
-	// KCGEncodingFontSpecific: The built-in encoding of the font.
+	// Deprecated.
 	KCGEncodingFontSpecific CGTextEncoding = 0
-	// KCGEncodingMacRoman: The MacRoman encoding.
+	// Deprecated.
 	KCGEncodingMacRoman CGTextEncoding = 1
 )
 
@@ -1566,13 +2104,57 @@ func (e CGTextEncoding) String() string {
 type CGToneMapping uint32
 
 const (
+	KCGToneMappingDefault                  CGToneMapping = 0
+	KCGToneMappingEXRGamma                 CGToneMapping = 4
+	KCGToneMappingITURecommended           CGToneMapping = 3
+	KCGToneMappingImageSpecificLumaScaling CGToneMapping = 1
+	KCGToneMappingNone                     CGToneMapping = 5
+	KCGToneMappingReferenceWhiteBased      CGToneMapping = 2
 )
+
+func (e CGToneMapping) String() string {
+	switch e {
+	case KCGToneMappingDefault:
+		return "KCGToneMappingDefault"
+	case KCGToneMappingEXRGamma:
+		return "KCGToneMappingEXRGamma"
+	case KCGToneMappingITURecommended:
+		return "KCGToneMappingITURecommended"
+	case KCGToneMappingImageSpecificLumaScaling:
+		return "KCGToneMappingImageSpecificLumaScaling"
+	case KCGToneMappingNone:
+		return "KCGToneMappingNone"
+	case KCGToneMappingReferenceWhiteBased:
+		return "KCGToneMappingReferenceWhiteBased"
+	default:
+		return fmt.Sprintf("CGToneMapping(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGWindowBackingType
 type CGWindowBackingType uint32
 
 const (
+	// KCGBackingStoreBuffered: # Discussion
+	KCGBackingStoreBuffered CGWindowBackingType = 2
+	// KCGBackingStoreNonretained: # Discussion
+	KCGBackingStoreNonretained CGWindowBackingType = 1
+	// KCGBackingStoreRetained: # Discussion
+	KCGBackingStoreRetained CGWindowBackingType = 0
 )
+
+func (e CGWindowBackingType) String() string {
+	switch e {
+	case KCGBackingStoreBuffered:
+		return "KCGBackingStoreBuffered"
+	case KCGBackingStoreNonretained:
+		return "KCGBackingStoreNonretained"
+	case KCGBackingStoreRetained:
+		return "KCGBackingStoreRetained"
+	default:
+		return fmt.Sprintf("CGWindowBackingType(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGWindowImageOption
 type CGWindowImageOption uint32
@@ -1582,6 +2164,8 @@ const (
 	KCGWindowImageBestResolution CGWindowImageOption = 8
 	// KCGWindowImageBoundsIgnoreFraming: # Discussion
 	KCGWindowImageBoundsIgnoreFraming CGWindowImageOption = 1
+	// KCGWindowImageDefault: # Discussion
+	KCGWindowImageDefault CGWindowImageOption = 0
 	// KCGWindowImageNominalResolution: When capturing the window, return the nominal image resolution.
 	KCGWindowImageNominalResolution CGWindowImageOption = 16
 	// KCGWindowImageOnlyShadows: # Discussion
@@ -1596,6 +2180,8 @@ func (e CGWindowImageOption) String() string {
 		return "KCGWindowImageBestResolution"
 	case KCGWindowImageBoundsIgnoreFraming:
 		return "KCGWindowImageBoundsIgnoreFraming"
+	case KCGWindowImageDefault:
+		return "KCGWindowImageDefault"
 	case KCGWindowImageNominalResolution:
 		return "KCGWindowImageNominalResolution"
 	case KCGWindowImageOnlyShadows:
@@ -1611,7 +2197,102 @@ func (e CGWindowImageOption) String() string {
 type CGWindowLevelKey int32
 
 const (
+	// KCGAssistiveTechHighWindowLevelKey: # Discussion
+	KCGAssistiveTechHighWindowLevelKey CGWindowLevelKey = 20
+	// KCGBackstopMenuLevelKey: # Discussion
+	KCGBackstopMenuLevelKey CGWindowLevelKey = 3
+	// KCGBaseWindowLevelKey: # Discussion
+	KCGBaseWindowLevelKey CGWindowLevelKey = 0
+	// KCGCursorWindowLevelKey: # Discussion
+	KCGCursorWindowLevelKey CGWindowLevelKey = 19
+	// KCGDesktopIconWindowLevelKey: # Discussion
+	KCGDesktopIconWindowLevelKey CGWindowLevelKey = 18
+	// KCGDesktopWindowLevelKey: # Discussion
+	KCGDesktopWindowLevelKey CGWindowLevelKey = 2
+	// KCGDockWindowLevelKey: # Discussion
+	KCGDockWindowLevelKey CGWindowLevelKey = 7
+	// KCGDraggingWindowLevelKey: # Discussion
+	KCGDraggingWindowLevelKey CGWindowLevelKey = 12
+	// KCGFloatingWindowLevelKey: # Discussion
+	KCGFloatingWindowLevelKey CGWindowLevelKey = 5
+	// KCGHelpWindowLevelKey: # Discussion
+	KCGHelpWindowLevelKey CGWindowLevelKey = 16
+	// KCGMainMenuWindowLevelKey: # Discussion
+	KCGMainMenuWindowLevelKey CGWindowLevelKey = 8
+	// KCGMaximumWindowLevelKey: # Discussion
+	KCGMaximumWindowLevelKey CGWindowLevelKey = 14
+	// KCGMinimumWindowLevelKey: # Discussion
+	KCGMinimumWindowLevelKey CGWindowLevelKey = 1
+	// KCGModalPanelWindowLevelKey: # Discussion
+	KCGModalPanelWindowLevelKey CGWindowLevelKey = 10
+	// KCGNormalWindowLevelKey: # Discussion
+	KCGNormalWindowLevelKey CGWindowLevelKey = 4
+	// KCGNumberOfWindowLevelKeys: # Discussion
+	KCGNumberOfWindowLevelKeys CGWindowLevelKey = 21
+	// KCGOverlayWindowLevelKey: # Discussion
+	KCGOverlayWindowLevelKey CGWindowLevelKey = 15
+	// KCGPopUpMenuWindowLevelKey: # Discussion
+	KCGPopUpMenuWindowLevelKey CGWindowLevelKey = 11
+	// KCGScreenSaverWindowLevelKey: # Discussion
+	KCGScreenSaverWindowLevelKey CGWindowLevelKey = 13
+	// KCGStatusWindowLevelKey: # Discussion
+	KCGStatusWindowLevelKey CGWindowLevelKey = 9
+	// KCGTornOffMenuWindowLevelKey: # Discussion
+	KCGTornOffMenuWindowLevelKey CGWindowLevelKey = 6
+	// KCGUtilityWindowLevelKey: # Discussion
+	KCGUtilityWindowLevelKey CGWindowLevelKey = 17
 )
+
+func (e CGWindowLevelKey) String() string {
+	switch e {
+	case KCGAssistiveTechHighWindowLevelKey:
+		return "KCGAssistiveTechHighWindowLevelKey"
+	case KCGBackstopMenuLevelKey:
+		return "KCGBackstopMenuLevelKey"
+	case KCGBaseWindowLevelKey:
+		return "KCGBaseWindowLevelKey"
+	case KCGCursorWindowLevelKey:
+		return "KCGCursorWindowLevelKey"
+	case KCGDesktopIconWindowLevelKey:
+		return "KCGDesktopIconWindowLevelKey"
+	case KCGDesktopWindowLevelKey:
+		return "KCGDesktopWindowLevelKey"
+	case KCGDockWindowLevelKey:
+		return "KCGDockWindowLevelKey"
+	case KCGDraggingWindowLevelKey:
+		return "KCGDraggingWindowLevelKey"
+	case KCGFloatingWindowLevelKey:
+		return "KCGFloatingWindowLevelKey"
+	case KCGHelpWindowLevelKey:
+		return "KCGHelpWindowLevelKey"
+	case KCGMainMenuWindowLevelKey:
+		return "KCGMainMenuWindowLevelKey"
+	case KCGMaximumWindowLevelKey:
+		return "KCGMaximumWindowLevelKey"
+	case KCGMinimumWindowLevelKey:
+		return "KCGMinimumWindowLevelKey"
+	case KCGModalPanelWindowLevelKey:
+		return "KCGModalPanelWindowLevelKey"
+	case KCGNormalWindowLevelKey:
+		return "KCGNormalWindowLevelKey"
+	case KCGNumberOfWindowLevelKeys:
+		return "KCGNumberOfWindowLevelKeys"
+	case KCGOverlayWindowLevelKey:
+		return "KCGOverlayWindowLevelKey"
+	case KCGPopUpMenuWindowLevelKey:
+		return "KCGPopUpMenuWindowLevelKey"
+	case KCGScreenSaverWindowLevelKey:
+		return "KCGScreenSaverWindowLevelKey"
+	case KCGStatusWindowLevelKey:
+		return "KCGStatusWindowLevelKey"
+	case KCGTornOffMenuWindowLevelKey:
+		return "KCGTornOffMenuWindowLevelKey"
+	case KCGUtilityWindowLevelKey:
+		return "KCGUtilityWindowLevelKey"
+	default:
+		return fmt.Sprintf("CGWindowLevelKey(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGWindowListOption
 type CGWindowListOption uint32
@@ -1654,5 +2335,23 @@ func (e CGWindowListOption) String() string {
 type CGWindowSharingType uint32
 
 const (
+	// KCGWindowSharingNone: # Discussion
+	KCGWindowSharingNone CGWindowSharingType = 0
+	// KCGWindowSharingReadOnly: # Discussion
+	KCGWindowSharingReadOnly CGWindowSharingType = 1
+	// KCGWindowSharingReadWrite: # Discussion
+	KCGWindowSharingReadWrite CGWindowSharingType = 2
 )
 
+func (e CGWindowSharingType) String() string {
+	switch e {
+	case KCGWindowSharingNone:
+		return "KCGWindowSharingNone"
+	case KCGWindowSharingReadOnly:
+		return "KCGWindowSharingReadOnly"
+	case KCGWindowSharingReadWrite:
+		return "KCGWindowSharingReadWrite"
+	default:
+		return fmt.Sprintf("CGWindowSharingType(%d)", e)
+	}
+}

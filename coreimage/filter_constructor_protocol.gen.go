@@ -23,6 +23,7 @@ type CIFilterConstructor interface {
 type CIFilterConstructorObject struct {
 	objectivec.Object
 }
+
 func (o CIFilterConstructorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,11 +41,11 @@ func CIFilterConstructorObjectFromID(id objc.ID) CIFilterConstructorObject {
 // name: The name of the requested custom filter.
 //
 // # Return Value
-// 
+//
 // A [CIFilter] object implementing the custom filter.
 //
 // # Discussion
-// 
+//
 // Core Image calls this method when a filter is requested by name using the
 // [CIFilter] class method [FilterWithName] method (or related methods). Your
 // implementation of this method should provide a new instance of the
@@ -54,5 +55,4 @@ func CIFilterConstructorObjectFromID(id objc.ID) CIFilterConstructorObject {
 func (o CIFilterConstructorObject) FilterWithName(name string) CIFilter {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("filterWithName:"), objc.String(name))
 	return CIFilterFromID(rv)
-	}
-
+}

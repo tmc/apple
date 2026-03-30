@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSSearchToolbarItemClass) Alloc() NSSearchToolbarItem {
 // text-based searches.
 //
 // # Overview
-// 
+//
 // [NSSearchToolbarItem] automatically resizes to accommodate typing when the
 // focus switches to the toolbar item. When the toolbar is low on space, the
 // system may collapse the search item into a button representation, which
@@ -76,6 +77,7 @@ type NSSearchToolbarItem struct {
 func NSSearchToolbarItemFromID(id objc.ID) NSSearchToolbarItem {
 	return NSSearchToolbarItem{NSToolbarItem: NSToolbarItemFromID(id)}
 }
+
 // NOTE: NSSearchToolbarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -145,7 +147,7 @@ func NewNSSearchToolbarItem() NSSearchToolbarItem {
 // toolbar delegate uses this value to identify the specific toolbar item.
 //
 // # Return Value
-// 
+//
 // A new toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/init(itemIdentifier:)
@@ -159,7 +161,7 @@ func NewSearchToolbarItemWithItemIdentifier(itemIdentifier NSToolbarItemIdentifi
 // field.
 //
 // # Discussion
-// 
+//
 // If the system displays a compressed search field, starting the search
 // interaction expands the field to the width stored in the
 // [PreferredWidthForSearchField] property and moves the keyboard focus into
@@ -170,12 +172,13 @@ func NewSearchToolbarItemWithItemIdentifier(itemIdentifier NSToolbarItemIdentifi
 func (s NSSearchToolbarItem) BeginSearchInteraction() {
 	objc.Send[objc.ID](s.ID, objc.Sel("beginSearchInteraction"))
 }
+
 // Ends a search interaction by giving up the first responder and adjusting
 // the size of the search field to the available width for the toolbar item if
 // necessary.
 //
 // # Discussion
-// 
+//
 // Use [BeginSearchInteraction] and [EndSearchInteraction] to programmatically
 // control a search.
 //
@@ -194,11 +197,12 @@ func (s NSSearchToolbarItem) PreferredWidthForSearchField() float64 {
 func (s NSSearchToolbarItem) SetPreferredWidthForSearchField(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPreferredWidthForSearchField:"), value)
 }
+
 // A Boolean value that enables the cancel button in the search field to
 // resign the first responder in addition to clearing the contents.
 //
 // # Discussion
-// 
+//
 // The default value is `true`. If set to `false`, the cancel button only
 // clears the contents of the search field.
 //
@@ -210,10 +214,11 @@ func (s NSSearchToolbarItem) ResignsFirstResponderWithCancel() bool {
 func (s NSSearchToolbarItem) SetResignsFirstResponderWithCancel(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setResignsFirstResponderWithCancel:"), value)
 }
+
 // The search field inside the toolbar item.
 //
 // # Discussion
-// 
+//
 // When you set `searchField` to `nil`, it uses the default configuration for
 // the toolbar item, and inherits the item’s properties and layout
 // constraints. However, if you want to customize the search field, you’ll
@@ -228,4 +233,3 @@ func (s NSSearchToolbarItem) SearchField() INSSearchField {
 func (s NSSearchToolbarItem) SetSearchField(value INSSearchField) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSearchField:"), value)
 }
-

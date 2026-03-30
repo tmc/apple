@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (vc VZGraphicsDisplayConfigurationClass) Alloc() VZGraphicsDisplayConfigura
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZGraphicsDisplayConfiguration._init]
@@ -51,6 +51,7 @@ func (vc VZGraphicsDisplayConfigurationClass) Alloc() VZGraphicsDisplayConfigura
 //   - [VZGraphicsDisplayConfiguration._setUUID]
 //   - [VZGraphicsDisplayConfiguration._uuid]
 //   - [VZGraphicsDisplayConfiguration.Set_uuid]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration
 type VZGraphicsDisplayConfiguration struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZGraphicsDisplayConfiguration struct {
 func VZGraphicsDisplayConfigurationFromID(id objc.ID) VZGraphicsDisplayConfiguration {
 	return VZGraphicsDisplayConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZGraphicsDisplayConfiguration implements IVZGraphicsDisplayConfiguration.
 var _ IVZGraphicsDisplayConfiguration = VZGraphicsDisplayConfiguration{}
 
@@ -110,7 +112,7 @@ func (g VZGraphicsDisplayConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_initWithConfiguration:
 func (g VZGraphicsDisplayConfiguration) _initWithConfiguration(configuration unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_initWithConfiguration:"), configuration)
@@ -121,7 +123,7 @@ func (g VZGraphicsDisplayConfiguration) _initWithConfiguration(configuration uns
 func (g VZGraphicsDisplayConfiguration) InitWithConfiguration(configuration unsafe.Pointer) objectivec.IObject {
 	return g._initWithConfiguration(configuration)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayConfiguration/_setUUID:
 func (g VZGraphicsDisplayConfiguration) _setUUID(uuid objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_setUUID:"), uuid)
@@ -140,4 +142,3 @@ func (g VZGraphicsDisplayConfiguration) _uuid() foundation.NSUUID {
 func (g VZGraphicsDisplayConfiguration) Set_uuid(value foundation.NSUUID) {
 	objc.Send[struct{}](g.ID, objc.Sel("set_uuid:"), value)
 }
-

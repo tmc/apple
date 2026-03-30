@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (mc MLCustomModelLoaderClass) Alloc() MLCustomModelLoader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLCustomModelLoader.DebugDescription]
 //   - [MLCustomModelLoader.Description]
 //   - [MLCustomModelLoader.Hash]
 //   - [MLCustomModelLoader.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader
 type MLCustomModelLoader struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLCustomModelLoader struct {
 func MLCustomModelLoaderFromID(id objc.ID) MLCustomModelLoader {
 	return MLCustomModelLoader{objectivec.Object{ID: id}}
 }
+
 // Ensure MLCustomModelLoader implements IMLCustomModelLoader.
 var _ IMLCustomModelLoader = MLCustomModelLoader{}
 
@@ -102,7 +104,6 @@ func NewMLCustomModelLoader() MLCustomModelLoader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/customModelWithName:modelDescription:modelConfiguration:parameterDictionary:error:
 func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) CustomModelWithNameModelDescriptionModelConfigurationParameterDictionaryError(name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, dictionary objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -114,7 +115,7 @@ func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) CustomModelWithNameMod
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/loadModelFromSpecification:configuration:error:
 func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -126,7 +127,7 @@ func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) LoadModelFromSpecifica
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/parametersFromCustomModelSpec:error:
 func (_MLCustomModelLoaderClass MLCustomModelLoaderClass) ParametersFromCustomModelSpecError(spec unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -144,19 +145,21 @@ func (c MLCustomModelLoader) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/description
 func (c MLCustomModelLoader) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/hash
 func (c MLCustomModelLoader) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelLoader/superclass
 func (c MLCustomModelLoader) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
 	return rv
 }
-

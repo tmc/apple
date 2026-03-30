@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioOutputNode] class.
@@ -44,25 +44,20 @@ func (ac AVAudioOutputNodeClass) Alloc() AVAudioOutputNode {
 // An object that connects to the system’s audio output.
 //
 // # Overview
-// 
+//
 // This node connects to the system’s audio output when rendering to or from
 // an audio device. This node performs output in response to client’s
 // requests when the engine is in manual rendering mode.
-// 
+//
 // This audio node has one element. The format of the output scope reflects:
-// 
+//
 // - The audio hardware sample rate and channel count when it connects to the
 // hardware. - The engine’s manual rendering mode output format (see
 // [AVAudioOutputNode.ManualRenderingFormat]).
-// 
+//
 // The format of the input scope is initially the same as that of the output,
 // but you may set it to a different format, in which case the audio node
 // converts.
-//
-// # Configuring the Spatial Audio experience
-//
-//   - [AVAudioOutputNode.IntendedSpatialExperience]: The intended spatial experience for this output node.
-//   - [AVAudioOutputNode.SetIntendedSpatialExperience]
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioOutputNode
 type AVAudioOutputNode struct {
@@ -75,25 +70,15 @@ type AVAudioOutputNode struct {
 func AVAudioOutputNodeFromID(id objc.ID) AVAudioOutputNode {
 	return AVAudioOutputNode{AVAudioIONode: AVAudioIONodeFromID(id)}
 }
+
 // NOTE: AVAudioOutputNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
 // An interface definition for the [AVAudioOutputNode] class.
 //
-// # Configuring the Spatial Audio experience
-//
-//   - [IAVAudioOutputNode.IntendedSpatialExperience]: The intended spatial experience for this output node.
-//   - [IAVAudioOutputNode.SetIntendedSpatialExperience]
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioOutputNode
 type IAVAudioOutputNode interface {
 	IAVAudioIONode
-
-	// Topic: Configuring the Spatial Audio experience
-
-	// The intended spatial experience for this output node.
-	IntendedSpatialExperience() objectivec.IObject
-	SetIntendedSpatialExperience(value objectivec.IObject)
 
 	// The render format of the engine in manual rendering mode.
 	ManualRenderingFormat() IAVAudioFormat
@@ -119,16 +104,6 @@ func NewAVAudioOutputNode() AVAudioOutputNode {
 	return rv
 }
 
-// The intended spatial experience for this output node.
-//
-// See: https://developer.apple.com/documentation/avfaudio/avaudiooutputnode/intendedspatialexperience-3ts59
-func (a AVAudioOutputNode) IntendedSpatialExperience() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("intendedSpatialExperience"))
-	return objectivec.Object{ID: rv}
-}
-func (a AVAudioOutputNode) SetIntendedSpatialExperience(value objectivec.IObject) {
-	objc.Send[struct{}](a.ID, objc.Sel("setIntendedSpatialExperience:"), value)
-}
 // The render format of the engine in manual rendering mode.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudioengine/manualrenderingformat
@@ -139,4 +114,3 @@ func (a AVAudioOutputNode) ManualRenderingFormat() IAVAudioFormat {
 func (a AVAudioOutputNode) SetManualRenderingFormat(value IAVAudioFormat) {
 	objc.Send[struct{}](a.ID, objc.Sel("setManualRenderingFormat:"), value)
 }
-

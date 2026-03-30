@@ -4,9 +4,10 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [SOSRLanguageRowCheckboxButton] class.
@@ -42,11 +43,11 @@ func (sc SOSRLanguageRowCheckboxButtonClass) Alloc() SOSRLanguageRowCheckboxButt
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SOSRLanguageRowCheckboxButton.LocaleIdentifier]
 //   - [SOSRLanguageRowCheckboxButton.SetLocaleIdentifier]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRowCheckboxButton
 type SOSRLanguageRowCheckboxButton struct {
 	appkit.NSButton
@@ -56,6 +57,7 @@ type SOSRLanguageRowCheckboxButton struct {
 func SOSRLanguageRowCheckboxButtonFromID(id objc.ID) SOSRLanguageRowCheckboxButton {
 	return SOSRLanguageRowCheckboxButton{NSButton: appkit.NSButtonFromID(id)}
 }
+
 // Ensure SOSRLanguageRowCheckboxButton implements ISOSRLanguageRowCheckboxButton.
 var _ ISOSRLanguageRowCheckboxButton = SOSRLanguageRowCheckboxButton{}
 
@@ -103,4 +105,3 @@ func (s SOSRLanguageRowCheckboxButton) LocaleIdentifier() string {
 func (s SOSRLanguageRowCheckboxButton) SetLocaleIdentifier(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLocaleIdentifier:"), objc.String(value))
 }
-

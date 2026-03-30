@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNDetectedObjectObservation] class.
@@ -45,7 +46,7 @@ func (vc VNDetectedObjectObservationClass) Alloc() VNDetectedObjectObservation {
 // that an image- analysis request detects.
 //
 // # Overview
-// 
+//
 // This class is the observation type that [VNTrackObjectRequest] generates.
 // It represents an object that the Vision request detects and tracks.
 //
@@ -69,6 +70,7 @@ type VNDetectedObjectObservation struct {
 func VNDetectedObjectObservationFromID(id objc.ID) VNDetectedObjectObservation {
 	return VNDetectedObjectObservation{VNObservation: VNObservationFromID(id)}
 }
+
 // NOTE: VNDetectedObjectObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -145,7 +147,7 @@ func NewDetectedObjectObservationWithRequestRevisionBoundingBox(requestRevision 
 // The bounding box of the object that the request detects.
 //
 // # Discussion
-// 
+//
 // The system normalizes the coordinates to the dimensions of the processed
 // image, with the origin at the lower-left corner of the image.
 //
@@ -154,6 +156,7 @@ func (d VNDetectedObjectObservation) BoundingBox() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](d.ID, objc.Sel("boundingBox"))
 	return corefoundation.CGRect(rv)
 }
+
 // A resulting pixel buffer from a request to generate a segmentation mask for
 // an image.
 //
@@ -162,4 +165,3 @@ func (d VNDetectedObjectObservation) GlobalSegmentationMask() IVNPixelBufferObse
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("globalSegmentationMask"))
 	return VNPixelBufferObservationFromID(objc.ID(rv))
 }
-

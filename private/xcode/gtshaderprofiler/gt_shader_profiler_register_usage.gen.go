@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (gc GTShaderProfilerRegisterUsageClass) Alloc() GTShaderProfilerRegisterUsa
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTShaderProfilerRegisterUsage.Combine]
 //   - [GTShaderProfilerRegisterUsage.Size]
 //   - [GTShaderProfilerRegisterUsage.Test]
 //   - [GTShaderProfilerRegisterUsage.InitWithBitsetString]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage
 type GTShaderProfilerRegisterUsage struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type GTShaderProfilerRegisterUsage struct {
 func GTShaderProfilerRegisterUsageFromID(id objc.ID) GTShaderProfilerRegisterUsage {
 	return GTShaderProfilerRegisterUsage{objectivec.Object{ID: id}}
 }
+
 // Ensure GTShaderProfilerRegisterUsage implements IGTShaderProfilerRegisterUsage.
 var _ IGTShaderProfilerRegisterUsage = GTShaderProfilerRegisterUsage{}
 
@@ -100,7 +102,6 @@ func NewGTShaderProfilerRegisterUsage() GTShaderProfilerRegisterUsage {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/initWithBitsetString:
 func NewGTShaderProfilerRegisterUsageWithBitsetString(string_ objectivec.IObject) GTShaderProfilerRegisterUsage {
 	instance := getGTShaderProfilerRegisterUsageClass().Alloc()
@@ -108,18 +109,17 @@ func NewGTShaderProfilerRegisterUsageWithBitsetString(string_ objectivec.IObject
 	return GTShaderProfilerRegisterUsageFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/combine:
 func (g GTShaderProfilerRegisterUsage) Combine(combine objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("combine:"), combine)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/test:
 func (g GTShaderProfilerRegisterUsage) Test(test uint64) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("test:"), test)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/initWithBitsetString:
 func (g GTShaderProfilerRegisterUsage) InitWithBitsetString(string_ objectivec.IObject) GTShaderProfilerRegisterUsage {
 	rv := objc.Send[GTShaderProfilerRegisterUsage](g.ID, objc.Sel("initWithBitsetString:"), string_)
@@ -131,4 +131,3 @@ func (g GTShaderProfilerRegisterUsage) Size() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("size"))
 	return rv
 }
-

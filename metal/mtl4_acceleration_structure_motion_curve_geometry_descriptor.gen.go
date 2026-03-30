@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (mc MTL4AccelerationStructureMotionCurveGeometryDescriptorClass) Alloc() MT
 // Describes motion curve geometry, suitable for motion ray tracing.
 //
 // # Overview
-// 
+//
 // Use a [MTLResidencySet] to mark residency of all buffers this descriptor
 // references when you build this acceleration structure.
 //
@@ -89,6 +90,7 @@ type MTL4AccelerationStructureMotionCurveGeometryDescriptor struct {
 func MTL4AccelerationStructureMotionCurveGeometryDescriptorFromID(id objc.ID) MTL4AccelerationStructureMotionCurveGeometryDescriptor {
 	return MTL4AccelerationStructureMotionCurveGeometryDescriptor{MTL4AccelerationStructureGeometryDescriptor: MTL4AccelerationStructureGeometryDescriptorFromID(id)}
 }
+
 // NOTE: MTL4AccelerationStructureMotionCurveGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -198,18 +200,18 @@ func NewMTL4AccelerationStructureMotionCurveGeometryDescriptor() MTL4Acceleratio
 // buffer of control points.
 //
 // # Discussion
-// 
+//
 // This property references a buffer that conceptually represents an array
 // with one entry for each keyframe in the motion animation. Each one of these
 // entries consists of a [MTL4BufferRange] that, in turn, references a buffer
 // containing the control points corresponding to the keyframe.
-// 
+//
 // You are responsible for ensuring the buffer address is not zero for the
 // top-level buffer, as well as for all the vertex buffers it references.
 //
-// [MTL4BufferRange]: https://developer.apple.com/documentation/Metal/MTL4BufferRange
-//
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureMotionCurveGeometryDescriptor/controlPointBuffers
+//
+// [MTL4BufferRange]: https://developer.apple.com/documentation/Metal/MTL4BufferRange
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) ControlPointBuffers() MTL4BufferRange {
 	rv := objc.Send[MTL4BufferRange](m.ID, objc.Sel("controlPointBuffers"))
 	return MTL4BufferRange(rv)
@@ -217,11 +219,12 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) ControlPointBuff
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetControlPointBuffers(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setControlPointBuffers:"), value)
 }
+
 // Specifies the number of control points in the buffers the control point
 // buffers reference.
 //
 // # Discussion
-// 
+//
 // All keyframes have the same number of control points.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureMotionCurveGeometryDescriptor/controlPointCount
@@ -232,11 +235,12 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) ControlPointCoun
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetControlPointCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setControlPointCount:"), value)
 }
+
 // Declares the format of the control points in the buffers that the control
 // point buffers reference.
 //
 // # Discussion
-// 
+//
 // All keyframes share the same control point format. Defaults to
 // [MTLAttributeFormatFloat3], representing 3 floating point values tightly
 // packed.
@@ -249,17 +253,18 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) ControlPointForm
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetControlPointFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setControlPointFormat:"), value)
 }
+
 // Sets the stride, in bytes, between control points in the control point
 // buffer.
 //
 // # Discussion
-// 
+//
 // All keyframes share the same control point stride.
-// 
+//
 // You are responsible for ensuring this stride is a multiple of the control
 // point format’s element size, and at a minimum exactly the control point
 // format’s size.
-// 
+//
 // This property defaults to `0`, indicating that the control points are
 // tightly-packed.
 //
@@ -271,11 +276,12 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) ControlPointStri
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetControlPointStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setControlPointStride:"), value)
 }
+
 // Sets the curve basis function, determining how Metal interpolates the
 // control points.
 //
 // # Discussion
-// 
+//
 // Defaults to [MTLCurveBasisBSpline]. All keyframes share the same curve
 // basis function.
 //
@@ -287,10 +293,11 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) CurveBasis() MTL
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetCurveBasis(value MTLCurveBasis) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCurveBasis:"), value)
 }
+
 // Configures the type of curve end caps.
 //
 // # Discussion
-// 
+//
 // Defaults to [MTLCurveEndCapsNone]. All keyframes share the same end cap
 // type.
 //
@@ -302,10 +309,11 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) CurveEndCaps() M
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetCurveEndCaps(value MTLCurveEndCaps) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCurveEndCaps:"), value)
 }
+
 // Controls the curve type.
 //
 // # Discussion
-// 
+//
 // Defaults to [MTLCurveTypeRound]. All keyframes share the same curve type.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureMotionCurveGeometryDescriptor/curveType
@@ -316,14 +324,15 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) CurveType() MTLC
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetCurveType(value MTLCurveType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCurveType:"), value)
 }
+
 // Assigns an optional index buffer containing references to control points in
 // the control point buffers.
 //
 // # Discussion
-// 
+//
 // All keyframes share the same index buffer, with each index representing the
 // first control point of a curve segment.
-// 
+//
 // You are responsible for ensuring the buffer address of the range is not
 // zero.
 //
@@ -335,6 +344,7 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) IndexBuffer() MT
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetIndexBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndexBuffer:"), value)
 }
+
 // Configures the size of the indices the `indexBuffer` contains, which is
 // typically either 16 or 32-bits for each index.
 //
@@ -346,27 +356,28 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) IndexType() MTLI
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetIndexType(value MTLIndexType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndexType:"), value)
 }
+
 // Assigns a reference to a buffer containing, in turn, references to curve
 // radii buffers.
 //
 // # Discussion
-// 
+//
 // This property references a buffer that conceptually represents an array
 // with one entry for each keyframe in the motion animation. Each one of these
 // entries consists of a [MTL4BufferRange] that, in turn, references a buffer
 // containing the radii corresponding to the keyframe.
-// 
+//
 // Metal interpolates curve radii according to the basis function you specify
 // via [CurveBasis].
-// 
+//
 // You are responsible for ensuring the type of each radius matches the type
 // property [RadiusFormat] specifies, that each radius is at least zero, and
 // that the buffer address of the top-level buffer, as well as of buffer it
 // references, is not zero.
 //
-// [MTL4BufferRange]: https://developer.apple.com/documentation/Metal/MTL4BufferRange
-//
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureMotionCurveGeometryDescriptor/radiusBuffers
+//
+// [MTL4BufferRange]: https://developer.apple.com/documentation/Metal/MTL4BufferRange
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) RadiusBuffers() MTL4BufferRange {
 	rv := objc.Send[MTL4BufferRange](m.ID, objc.Sel("radiusBuffers"))
 	return MTL4BufferRange(rv)
@@ -374,10 +385,11 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) RadiusBuffers() 
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetRadiusBuffers(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRadiusBuffers:"), value)
 }
+
 // Sets the format of the radii in the radius buffer.
 //
 // # Discussion
-// 
+//
 // Defaults to [MTLAttributeFormatFloat]. All keyframes share the same radius
 // format.
 //
@@ -389,14 +401,15 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) RadiusFormat() M
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetRadiusFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRadiusFormat:"), value)
 }
+
 // Sets the stride, in bytes, between radii in the radius buffer.
 //
 // # Discussion
-// 
+//
 // You are responsible for ensuring this property is set to a multiple of the
 // size corresponding to the [RadiusFormat]. All keyframes share the same
 // radius stride.
-// 
+//
 // This property defaults to `0` bytes, indicating that the radii are tightly
 // packed.
 //
@@ -408,10 +421,11 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) RadiusStride() u
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetRadiusStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRadiusStride:"), value)
 }
+
 // Controls the number of control points per curve segment.
 //
 // # Discussion
-// 
+//
 // Valid values for this property are `2`, `3`, or `4`. All keyframes have the
 // same number of control points per curve segment.
 //
@@ -423,10 +437,11 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SegmentControlPo
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetSegmentControlPointCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSegmentControlPointCount:"), value)
 }
+
 // Declares the number of curve segments.
 //
 // # Discussion
-// 
+//
 // All keyframes have the same number of curve segments.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureMotionCurveGeometryDescriptor/segmentCount
@@ -437,4 +452,3 @@ func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SegmentCount() u
 func (m MTL4AccelerationStructureMotionCurveGeometryDescriptor) SetSegmentCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSegmentCount:"), value)
 }
-

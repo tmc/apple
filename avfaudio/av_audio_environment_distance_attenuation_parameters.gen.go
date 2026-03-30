@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -72,6 +73,7 @@ type AVAudioEnvironmentDistanceAttenuationParameters struct {
 func AVAudioEnvironmentDistanceAttenuationParametersFromID(id objc.ID) AVAudioEnvironmentDistanceAttenuationParameters {
 	return AVAudioEnvironmentDistanceAttenuationParameters{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioEnvironmentDistanceAttenuationParameters adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,9 +139,9 @@ func NewAVAudioEnvironmentDistanceAttenuationParameters() AVAudioEnvironmentDist
 // source moves away from the listener.
 //
 // # Discussion
-// 
-// The default value is the [AudioEnvironmentDistanceAttenuationModelInverse]
-// attenuation model.
+//
+// The default value is the
+// [AVAudioEnvironmentDistanceAttenuationModelInverse] attenuation model.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters/distanceAttenuationModel
 func (a AVAudioEnvironmentDistanceAttenuationParameters) DistanceAttenuationModel() AVAudioEnvironmentDistanceAttenuationModel {
@@ -149,15 +151,16 @@ func (a AVAudioEnvironmentDistanceAttenuationParameters) DistanceAttenuationMode
 func (a AVAudioEnvironmentDistanceAttenuationParameters) SetDistanceAttenuationModel(value AVAudioEnvironmentDistanceAttenuationModel) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDistanceAttenuationModel:"), value)
 }
+
 // The distance beyond which the node applies no further attenuation, in
 // meters.
 //
 // # Discussion
-// 
+//
 // The default value is `100000.0` meters.
-// 
+//
 // This property is relevant for
-// [AudioEnvironmentDistanceAttenuationModelInverse].
+// [AVAudioEnvironmentDistanceAttenuationModelInverse].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters/maximumDistance
 func (a AVAudioEnvironmentDistanceAttenuationParameters) MaximumDistance() float32 {
@@ -167,15 +170,16 @@ func (a AVAudioEnvironmentDistanceAttenuationParameters) MaximumDistance() float
 func (a AVAudioEnvironmentDistanceAttenuationParameters) SetMaximumDistance(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMaximumDistance:"), value)
 }
+
 // The minimum distance at which the node applies attenuation, in meters.
 //
 // # Discussion
-// 
+//
 // The default value is `1.0` meter.
-// 
+//
 // This property is relevant for
-// [AudioEnvironmentDistanceAttenuationModelInverse] and
-// [AudioEnvironmentDistanceAttenuationModelLinear].
+// [AVAudioEnvironmentDistanceAttenuationModelInverse] and
+// [AVAudioEnvironmentDistanceAttenuationModelLinear].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters/referenceDistance
 func (a AVAudioEnvironmentDistanceAttenuationParameters) ReferenceDistance() float32 {
@@ -185,17 +189,18 @@ func (a AVAudioEnvironmentDistanceAttenuationParameters) ReferenceDistance() flo
 func (a AVAudioEnvironmentDistanceAttenuationParameters) SetReferenceDistance(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setReferenceDistance:"), value)
 }
+
 // A factor that determines the attenuation curve.
 //
 // # Discussion
-// 
+//
 // A higher value results in a steeper attenuation curve. The default value is
 // `1.0`, and the value must be greater than `0.0`.
-// 
+//
 // This property is relevant for
-// [AudioEnvironmentDistanceAttenuationModelExponential],
-// [AudioEnvironmentDistanceAttenuationModelInverse], and
-// [AudioEnvironmentDistanceAttenuationModelLinear].
+// [AVAudioEnvironmentDistanceAttenuationModelExponential],
+// [AVAudioEnvironmentDistanceAttenuationModelInverse], and
+// [AVAudioEnvironmentDistanceAttenuationModelLinear].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters/rolloffFactor
 func (a AVAudioEnvironmentDistanceAttenuationParameters) RolloffFactor() float32 {
@@ -205,4 +210,3 @@ func (a AVAudioEnvironmentDistanceAttenuationParameters) RolloffFactor() float32
 func (a AVAudioEnvironmentDistanceAttenuationParameters) SetRolloffFactor(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRolloffFactor:"), value)
 }
-

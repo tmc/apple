@@ -3,10 +3,11 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corevideo"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [EspressoDataFrameImageAttachment] class.
@@ -42,12 +43,12 @@ func (ec EspressoDataFrameImageAttachmentClass) Alloc() EspressoDataFrameImageAt
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoDataFrameImageAttachment.CopyAsImageGrayscaleOrBGRA]
 //   - [EspressoDataFrameImageAttachment.NChannels]
 //   - [EspressoDataFrameImageAttachment.SetNChannels]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameImageAttachment
 type EspressoDataFrameImageAttachment struct {
 	EspressoDataFrameAttachment
@@ -57,6 +58,7 @@ type EspressoDataFrameImageAttachment struct {
 func EspressoDataFrameImageAttachmentFromID(id objc.ID) EspressoDataFrameImageAttachment {
 	return EspressoDataFrameImageAttachment{EspressoDataFrameAttachment: EspressoDataFrameAttachmentFromID(id)}
 }
+
 // Ensure EspressoDataFrameImageAttachment implements IEspressoDataFrameImageAttachment.
 var _ IEspressoDataFrameImageAttachment = EspressoDataFrameImageAttachment{}
 
@@ -104,7 +106,6 @@ func (e EspressoDataFrameImageAttachment) CopyAsImageGrayscaleOrBGRA() unsafe.Po
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameImageAttachment/createCVPixelBufferFromvImage:withPixelFormat:
 func (_EspressoDataFrameImageAttachmentClass EspressoDataFrameImageAttachmentClass) CreateCVPixelBufferFromvImageWithPixelFormat(image unsafe.Pointer, format uint32) corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_EspressoDataFrameImageAttachmentClass.class), objc.Sel("createCVPixelBufferFromvImage:withPixelFormat:"), image, format)
@@ -119,4 +120,3 @@ func (e EspressoDataFrameImageAttachment) NChannels() int {
 func (e EspressoDataFrameImageAttachment) SetNChannels(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNChannels:"), value)
 }
-

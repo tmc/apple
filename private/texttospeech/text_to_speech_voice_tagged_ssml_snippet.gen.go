@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (tc TextToSpeechVoiceTaggedSSMLSnippetClass) Alloc() TextToSpeechVoiceTagge
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TextToSpeechVoiceTaggedSSMLSnippet.Language]
@@ -51,6 +51,7 @@ func (tc TextToSpeechVoiceTaggedSSMLSnippetClass) Alloc() TextToSpeechVoiceTagge
 //   - [TextToSpeechVoiceTaggedSSMLSnippet.SetSsml]
 //   - [TextToSpeechVoiceTaggedSSMLSnippet.VoiceName]
 //   - [TextToSpeechVoiceTaggedSSMLSnippet.SetVoiceName]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceTaggedSSMLSnippet
 type TextToSpeechVoiceTaggedSSMLSnippet struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type TextToSpeechVoiceTaggedSSMLSnippet struct {
 func TextToSpeechVoiceTaggedSSMLSnippetFromID(id objc.ID) TextToSpeechVoiceTaggedSSMLSnippet {
 	return TextToSpeechVoiceTaggedSSMLSnippet{objectivec.Object{ID: id}}
 }
+
 // Ensure TextToSpeechVoiceTaggedSSMLSnippet implements ITextToSpeechVoiceTaggedSSMLSnippet.
 var _ ITextToSpeechVoiceTaggedSSMLSnippet = TextToSpeechVoiceTaggedSSMLSnippet{}
 
@@ -115,6 +117,7 @@ func (t TextToSpeechVoiceTaggedSSMLSnippet) Language() string {
 func (t TextToSpeechVoiceTaggedSSMLSnippet) SetLanguage(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceTaggedSSMLSnippet/ssml
 func (t TextToSpeechVoiceTaggedSSMLSnippet) Ssml() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ssml"))
@@ -123,6 +126,7 @@ func (t TextToSpeechVoiceTaggedSSMLSnippet) Ssml() string {
 func (t TextToSpeechVoiceTaggedSSMLSnippet) SetSsml(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSsml:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceTaggedSSMLSnippet/voiceName
 func (t TextToSpeechVoiceTaggedSSMLSnippet) VoiceName() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceName"))
@@ -131,4 +135,3 @@ func (t TextToSpeechVoiceTaggedSSMLSnippet) VoiceName() string {
 func (t TextToSpeechVoiceTaggedSSMLSnippet) SetVoiceName(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVoiceName:"), objc.String(value))
 }
-

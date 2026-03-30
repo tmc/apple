@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -71,6 +72,7 @@ type MLUpdateContext struct {
 func MLUpdateContextFromID(id objc.ID) MLUpdateContext {
 	return MLUpdateContext{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLUpdateContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -141,6 +143,7 @@ func (u MLUpdateContext) Event() MLUpdateProgressEvent {
 	rv := objc.Send[MLUpdateProgressEvent](u.ID, objc.Sel("event"))
 	return MLUpdateProgressEvent(rv)
 }
+
 // The update task that generated the update context.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/task
@@ -148,6 +151,7 @@ func (u MLUpdateContext) Task() IMLUpdateTask {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("task"))
 	return MLUpdateTaskFromID(objc.ID(rv))
 }
+
 // The parameters for the update task.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/parameters
@@ -155,11 +159,12 @@ func (u MLUpdateContext) Parameters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("parameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // The training metrics of the model for the update task, contained in a
 // dictionary.
 //
 // # Discussion
-// 
+//
 // Use the [MLMetricKey] to access the values within the dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/metrics
@@ -167,6 +172,7 @@ func (u MLUpdateContext) Metrics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("metrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // The underlying Core ML model stored in memory.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/model
@@ -174,4 +180,3 @@ func (u MLUpdateContext) Model() IMLModel {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("model"))
 	return MLModelFromID(objc.ID(rv))
 }
-

@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,14 +47,14 @@ func (nc NSPointerFunctionsClass) Alloc() NSPointerFunctions {
 // for managing a pointer reference held somewhere else.
 //
 // # Overview
-// 
+//
 // The functions specified by an instance of [NSPointerFunctions] are
 // separated into two clusters—those that define “personality” such as
 // “object” or “C-string”, and those that describe memory management
 // issues such as a memory deallocation function. There are constants for
 // common personalities and memory manager selections (see `Memory and
 // Personality Options`).
-// 
+//
 // [NSHashTable], [NSMapTable], and [NSPointerArray] use an
 // [NSPointerFunctions] object to define the acquisition and retention
 // behavior for the pointers they manage. Note, however, that not all
@@ -61,9 +62,9 @@ func (nc NSPointerFunctionsClass) Alloc() NSPointerFunctions {
 // these collections. The pointer collection objects copy the
 // [NSPointerFunctions] object on input and output, so you cannot usefully
 // subclass [NSPointerFunctions].
-// 
+//
 // # Subclassing Notes
-// 
+//
 // [NSPointerFunctions] is not suitable for subclassing.
 //
 // # Creating and Initializing an NSPointerFunctions Object
@@ -100,6 +101,7 @@ type NSPointerFunctions struct {
 func NSPointerFunctionsFromID(id objc.ID) NSPointerFunctions {
 	return NSPointerFunctions{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPointerFunctions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -190,7 +192,7 @@ func NewNSPointerFunctions() NSPointerFunctions {
 // options: The options for the new [NSPointerFunctions] object.
 //
 // # Return Value
-// 
+//
 // The [NSPointerFunctions] object, initialized with the given options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerFunctions/init(options:)
@@ -205,7 +207,7 @@ func NewPointerFunctionsWithOptions(options NSPointerFunctionsOptions) NSPointer
 // options: The options for the new [NSPointerFunctions] object.
 //
 // # Return Value
-// 
+//
 // The [NSPointerFunctions] object, initialized with the given options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerFunctions/init(options:)
@@ -220,7 +222,7 @@ func (p NSPointerFunctions) InitWithOptions(options NSPointerFunctionsOptions) N
 // options: The options for the new [NSPointerFunctions] object.
 //
 // # Return Value
-// 
+//
 // A new [NSPointerFunctions] object initialized with the given options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerFunctions/pointerFunctionsWithOptions:
@@ -239,6 +241,7 @@ func (p NSPointerFunctions) HashFunction() int {
 func (p NSPointerFunctions) SetHashFunction(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHashFunction:"), value)
 }
+
 // The function used to compare pointers.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/isequalfunction
@@ -249,6 +252,7 @@ func (p NSPointerFunctions) IsEqualFunction() objectivec.IObject {
 func (p NSPointerFunctions) SetIsEqualFunction(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIsEqualFunction:"), value)
 }
+
 // The function used to determine the size of pointers.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/sizefunction
@@ -259,6 +263,7 @@ func (p NSPointerFunctions) SizeFunction() int {
 func (p NSPointerFunctions) SetSizeFunction(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSizeFunction:"), value)
 }
+
 // The function used to describe elements.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/descriptionfunction
@@ -269,6 +274,7 @@ func (p NSPointerFunctions) DescriptionFunction() string {
 func (p NSPointerFunctions) SetDescriptionFunction(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDescriptionFunction:"), objc.String(value))
 }
+
 // The function used to acquire memory.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/acquirefunction
@@ -279,6 +285,7 @@ func (p NSPointerFunctions) AcquireFunction() unsafe.Pointer {
 func (p NSPointerFunctions) SetAcquireFunction(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAcquireFunction:"), value)
 }
+
 // The function used to relinquish memory.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/relinquishfunction
@@ -289,6 +296,7 @@ func (p NSPointerFunctions) RelinquishFunction() objectivec.IObject {
 func (p NSPointerFunctions) SetRelinquishFunction(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRelinquishFunction:"), value)
 }
+
 // The pointer functions for the hash table.
 //
 // See: https://developer.apple.com/documentation/foundation/nshashtable/pointerfunctions
@@ -300,6 +308,4 @@ func (p NSPointerFunctions) SetPointerFunctions(value INSPointerFunctions) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPointerFunctions:"), value)
 }
 
-			// Protocol methods for NSCopying
-			
-
+// Protocol methods for NSCopying

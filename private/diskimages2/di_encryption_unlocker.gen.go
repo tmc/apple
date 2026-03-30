@@ -4,6 +4,7 @@ package diskimages2
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type DIEncryptionUnlocker struct {
 func DIEncryptionUnlockerFromID(id objc.ID) DIEncryptionUnlocker {
 	return DIEncryptionUnlocker{DIEncryptionFrontend: DIEncryptionFrontendFromID(id)}
 }
+
 // Ensure DIEncryptionUnlocker implements IDIEncryptionUnlocker.
 var _ IDIEncryptionUnlocker = DIEncryptionUnlocker{}
 
@@ -79,7 +81,6 @@ func NewDIEncryptionUnlocker() DIEncryptionUnlocker {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithCoder:
 func NewDIEncryptionUnlockerWithCoder(coder objectivec.IObject) DIEncryptionUnlocker {
 	instance := getDIEncryptionUnlockerClass().Alloc()
@@ -87,11 +88,9 @@ func NewDIEncryptionUnlockerWithCoder(coder objectivec.IObject) DIEncryptionUnlo
 	return DIEncryptionUnlockerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithParams:
 func NewDIEncryptionUnlockerWithParams(params objectivec.IObject) DIEncryptionUnlocker {
 	instance := getDIEncryptionUnlockerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return DIEncryptionUnlockerFromID(rv)
 }
-

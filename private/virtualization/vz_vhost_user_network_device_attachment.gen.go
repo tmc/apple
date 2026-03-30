@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (vc VZVhostUserNetworkDeviceAttachmentClass) Alloc() VZVhostUserNetworkDevi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVhostUserNetworkDeviceAttachment.EncodeWithEncoder]
@@ -57,6 +57,7 @@ func (vc VZVhostUserNetworkDeviceAttachmentClass) Alloc() VZVhostUserNetworkDevi
 //   - [VZVhostUserNetworkDeviceAttachment.InitWithInterfaceError]
 //   - [VZVhostUserNetworkDeviceAttachment.InitWithInterfaceMaximumTransmissionUnitHostChecksumOffloadGuestChecksumOffloadHostTcpSegmentationOffloadGuestTcpSegmentationOffloadError]
 //   - [VZVhostUserNetworkDeviceAttachment.InitWithInterfaceXpcServiceMaximumTransmissionUnitHostChecksumOffloadGuestChecksumOffloadHostTcpSegmentationOffloadGuestTcpSegmentationOffloadError]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment
 type VZVhostUserNetworkDeviceAttachment struct {
 	VZNetworkDeviceAttachment
@@ -66,6 +67,7 @@ type VZVhostUserNetworkDeviceAttachment struct {
 func VZVhostUserNetworkDeviceAttachmentFromID(id objc.ID) VZVhostUserNetworkDeviceAttachment {
 	return VZVhostUserNetworkDeviceAttachment{VZNetworkDeviceAttachment: VZNetworkDeviceAttachmentFromID(id)}
 }
+
 // Ensure VZVhostUserNetworkDeviceAttachment implements IVZVhostUserNetworkDeviceAttachment.
 var _ IVZVhostUserNetworkDeviceAttachment = VZVhostUserNetworkDeviceAttachment{}
 
@@ -123,7 +125,6 @@ func NewVZVhostUserNetworkDeviceAttachment() VZVhostUserNetworkDeviceAttachment 
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/initWithInterface:error:
 func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceError(interface_ objectivec.IObject) (VZVhostUserNetworkDeviceAttachment, error) {
 	var errorPtr objc.ID
@@ -136,7 +137,6 @@ func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceError(interface_ objectiv
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/initWithInterface:maximumTransmissionUnit:hostChecksumOffload:guestChecksumOffload:hostTcpSegmentationOffload:guestTcpSegmentationOffload:error:
 func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceMaximumTransmissionUnitHostChecksumOffloadGuestChecksumOffloadHostTcpSegmentationOffloadGuestTcpSegmentationOffloadError(interface_ objectivec.IObject, unit int64, offload int64, offload2 int64, offload3 int64, offload4 int64) (VZVhostUserNetworkDeviceAttachment, error) {
 	var errorPtr objc.ID
@@ -149,7 +149,6 @@ func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceMaximumTransmissionUnitHo
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/initWithInterface:xpcService:maximumTransmissionUnit:hostChecksumOffload:guestChecksumOffload:hostTcpSegmentationOffload:guestTcpSegmentationOffload:error:
 func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceXpcServiceMaximumTransmissionUnitHostChecksumOffloadGuestChecksumOffloadHostTcpSegmentationOffloadGuestTcpSegmentationOffloadError(interface_ objectivec.IObject, service int64, unit int64, offload int64, offload2 int64, offload3 int64, offload4 int64) (VZVhostUserNetworkDeviceAttachment, error) {
 	var errorPtr objc.ID
@@ -162,13 +161,12 @@ func NewVZVhostUserNetworkDeviceAttachmentWithInterfaceXpcServiceMaximumTransmis
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/encodeWithEncoder:
 func (v VZVhostUserNetworkDeviceAttachment) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/initWithInterface:error:
 func (v VZVhostUserNetworkDeviceAttachment) InitWithInterfaceError(interface_ objectivec.IObject) (VZVhostUserNetworkDeviceAttachment, error) {
 	var errorPtr objc.ID
@@ -180,7 +178,7 @@ func (v VZVhostUserNetworkDeviceAttachment) InitWithInterfaceError(interface_ ob
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/initWithInterface:maximumTransmissionUnit:hostChecksumOffload:guestChecksumOffload:hostTcpSegmentationOffload:guestTcpSegmentationOffload:error:
 func (v VZVhostUserNetworkDeviceAttachment) InitWithInterfaceMaximumTransmissionUnitHostChecksumOffloadGuestChecksumOffloadHostTcpSegmentationOffloadGuestTcpSegmentationOffloadError(interface_ objectivec.IObject, unit int64, offload int64, offload2 int64, offload3 int64, offload4 int64) (VZVhostUserNetworkDeviceAttachment, error) {
 	var errorPtr objc.ID
@@ -192,7 +190,7 @@ func (v VZVhostUserNetworkDeviceAttachment) InitWithInterfaceMaximumTransmission
 	return VZVhostUserNetworkDeviceAttachmentFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/initWithInterface:xpcService:maximumTransmissionUnit:hostChecksumOffload:guestChecksumOffload:hostTcpSegmentationOffload:guestTcpSegmentationOffload:error:
 func (v VZVhostUserNetworkDeviceAttachment) InitWithInterfaceXpcServiceMaximumTransmissionUnitHostChecksumOffloadGuestChecksumOffloadHostTcpSegmentationOffloadGuestTcpSegmentationOffloadError(interface_ objectivec.IObject, service int64, unit int64, offload int64, offload2 int64, offload3 int64, offload4 int64) (VZVhostUserNetworkDeviceAttachment, error) {
 	var errorPtr objc.ID
@@ -215,6 +213,7 @@ func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmen
 func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmentClass) DefaultMaximumTransmissionUnit() int64 {
 	return _VZVhostUserNetworkDeviceAttachmentClass._defaultMaximumTransmissionUnit()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/_defaultOffloadMode
 func (_VZVhostUserNetworkDeviceAttachmentClass VZVhostUserNetworkDeviceAttachmentClass) _defaultOffloadMode() int64 {
 	rv := objc.Send[int64](objc.ID(_VZVhostUserNetworkDeviceAttachmentClass.class), objc.Sel("_defaultOffloadMode"))
@@ -231,34 +230,39 @@ func (v VZVhostUserNetworkDeviceAttachment) GuestChecksumOffload() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("guestChecksumOffload"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/guestTcpSegmentationOffload
 func (v VZVhostUserNetworkDeviceAttachment) GuestTcpSegmentationOffload() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("guestTcpSegmentationOffload"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/hostChecksumOffload
 func (v VZVhostUserNetworkDeviceAttachment) HostChecksumOffload() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("hostChecksumOffload"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/hostTcpSegmentationOffload
 func (v VZVhostUserNetworkDeviceAttachment) HostTcpSegmentationOffload() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("hostTcpSegmentationOffload"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/interface
 func (v VZVhostUserNetworkDeviceAttachment) Interface() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("interface"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/maximumTransmissionUnit
 func (v VZVhostUserNetworkDeviceAttachment) MaximumTransmissionUnit() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("maximumTransmissionUnit"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVhostUserNetworkDeviceAttachment/xpcService
 func (v VZVhostUserNetworkDeviceAttachment) XpcService() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("xpcService"))
 	return rv
 }
-

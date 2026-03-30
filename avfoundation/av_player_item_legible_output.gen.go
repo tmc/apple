@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -75,6 +76,7 @@ type AVPlayerItemLegibleOutput struct {
 func AVPlayerItemLegibleOutputFromID(id objc.ID) AVPlayerItemLegibleOutput {
 	return AVPlayerItemLegibleOutput{AVPlayerItemOutput: AVPlayerItemOutputFromID(id)}
 }
+
 // NOTE: AVPlayerItemLegibleOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -147,36 +149,35 @@ func NewAVPlayerItemLegibleOutput() AVPlayerItemLegibleOutput {
 // Creates an initialized legible-output object.
 //
 // subtypes: An [NSArray] of [NSNumber] FourCC codes.
-// //
-// [NSArray]: https://developer.apple.com/documentation/Foundation/NSArray
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 //
 // # Return Value
-// 
+//
 // An initialized instance of [AVPlayerItemLegibleOutput].
 //
 // # Discussion
-// 
+//
 // When creating an instance you add media subtype FourCC codes as [NSNumber]
 // objects to the `subtypes` array to elect to receive that type as a
 // [CMSampleBuffer] instead of an attributed string. FourCC codes are
 // converted to [NSNumber] objects as shown:
-// 
+//
 // Initializing an [AVPlayerItemLegibleOutput] using the `init` method (which
 // is preferred) is equivalent to calling this method with an empty `subtypes`
 // array, which means that all legible data, regardless of media subtype, is
 // delivered using [NSAttributedString] instances in a common format.
-// 
+//
 // If a media subtype for which there is no legible data in the current player
 // item is included in the media `subtypes` array, no error occurs. An
 // [AVPlayerItemLegibleOutput] instance doesn’t vend closed caption data as
 // a [CMSampleBuffer], so it is an error to include `'c608'` in the media
 // subtypes array.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/init(mediaSubtypesForNativeRepresentation:)
+//
+// [NSArray]: https://developer.apple.com/documentation/Foundation/NSArray
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 // [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 // [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/init(mediaSubtypesForNativeRepresentation:)
 func NewPlayerItemLegibleOutputWithMediaSubtypesForNativeRepresentation(subtypes []foundation.NSNumber) AVPlayerItemLegibleOutput {
 	instance := getAVPlayerItemLegibleOutputClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMediaSubtypesForNativeRepresentation:"), objectivec.IObjectSliceToNSArray(subtypes))
@@ -186,40 +187,40 @@ func NewPlayerItemLegibleOutputWithMediaSubtypesForNativeRepresentation(subtypes
 // Creates an initialized legible-output object.
 //
 // subtypes: An [NSArray] of [NSNumber] FourCC codes.
-// //
-// [NSArray]: https://developer.apple.com/documentation/Foundation/NSArray
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 //
 // # Return Value
-// 
+//
 // An initialized instance of [AVPlayerItemLegibleOutput].
 //
 // # Discussion
-// 
+//
 // When creating an instance you add media subtype FourCC codes as [NSNumber]
 // objects to the `subtypes` array to elect to receive that type as a
 // [CMSampleBuffer] instead of an attributed string. FourCC codes are
 // converted to [NSNumber] objects as shown:
-// 
+//
 // Initializing an [AVPlayerItemLegibleOutput] using the `init` method (which
 // is preferred) is equivalent to calling this method with an empty `subtypes`
 // array, which means that all legible data, regardless of media subtype, is
 // delivered using [NSAttributedString] instances in a common format.
-// 
+//
 // If a media subtype for which there is no legible data in the current player
 // item is included in the media `subtypes` array, no error occurs. An
 // [AVPlayerItemLegibleOutput] instance doesn’t vend closed caption data as
 // a [CMSampleBuffer], so it is an error to include `'c608'` in the media
 // subtypes array.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/init(mediaSubtypesForNativeRepresentation:)
+//
+// [NSArray]: https://developer.apple.com/documentation/Foundation/NSArray
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 // [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 // [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/init(mediaSubtypesForNativeRepresentation:)
 func (p AVPlayerItemLegibleOutput) InitWithMediaSubtypesForNativeRepresentation(subtypes []foundation.NSNumber) AVPlayerItemLegibleOutput {
 	rv := objc.Send[AVPlayerItemLegibleOutput](p.ID, objc.Sel("initWithMediaSubtypesForNativeRepresentation:"), objectivec.IObjectSliceToNSArray(subtypes))
 	return rv
 }
+
 // Sets the receiver’s delegate and a dispatch queue on which the delegate
 // is called.
 //
@@ -229,7 +230,7 @@ func (p AVPlayerItemLegibleOutput) InitWithMediaSubtypesForNativeRepresentation(
 // delegateQueue: A dispatch queue on which all delegate methods will be called.
 //
 // # Discussion
-// 
+//
 // Because the delegate is held using a zeroing-weak reference, it is safe to
 // deallocate the delegate while the receiver still has a reference to it.
 //
@@ -242,18 +243,18 @@ func (p AVPlayerItemLegibleOutput) SetDelegateQueue(delegate AVPlayerItemLegible
 // attributed strings vended by the object.
 //
 // # Discussion
-// 
+//
 // Valid values are described in `Text Style Settings`. An exception
 // ([InvalidArgumentException]) is raised if this property is set to any other
 // value.
-// 
+//
 // The default value is [default], which indicates that attributed strings
 // vended by the receiver includes the same level of styling information that
 // would be used if the text was rendered by an instance of [AVPlayerLayer].
 //
-// [default]: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/TextStylingResolution-swift.struct/default
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/textStylingResolution-swift.property
+//
+// [default]: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/TextStylingResolution-swift.struct/default
 func (p AVPlayerItemLegibleOutput) TextStylingResolution() AVPlayerItemLegibleOutputTextStylingResolution {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("textStylingResolution"))
 	return AVPlayerItemLegibleOutputTextStylingResolution(foundation.NSStringFromID(rv).String())
@@ -261,14 +262,15 @@ func (p AVPlayerItemLegibleOutput) TextStylingResolution() AVPlayerItemLegibleOu
 func (p AVPlayerItemLegibleOutput) SetTextStylingResolution(value AVPlayerItemLegibleOutputTextStylingResolution) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTextStylingResolution:"), objc.String(string(value)))
 }
+
 // The delegate of the output class.
 //
 // # Discussion
-// 
+//
 // Because the delegate is held using a zeroing-weak reference, this property
 // has a value of `nil` after a delegate that was previously set has been
 // deallocated.
-// 
+//
 // This property does not support key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/delegate
@@ -276,15 +278,16 @@ func (p AVPlayerItemLegibleOutput) Delegate() AVPlayerItemLegibleOutputPushDeleg
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("delegate"))
 	return AVPlayerItemLegibleOutputPushDelegateObjectFromID(rv)
 }
+
 // The time interval, in seconds, that a player item legible output object
 // messages its delegate earlier than normal.
 //
 // # Discussion
-// 
+//
 // If possible, an [AVPlayerItemLegibleOutput] instance messages its delegate
 // `advanceIntervalForDelegateInvocation` seconds earlier than it otherwise
 // would.
-// 
+//
 // If the value provided is large, the delegate methods are invoked as soon as
 // possible.
 //
@@ -296,10 +299,11 @@ func (p AVPlayerItemLegibleOutput) AdvanceIntervalForDelegateInvocation() float6
 func (p AVPlayerItemLegibleOutput) SetAdvanceIntervalForDelegateInvocation(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAdvanceIntervalForDelegateInvocation:"), value)
 }
+
 // The dispatch queue on which the delegate is called.
 //
 // # Discussion
-// 
+//
 // This property does not support key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutput/delegateQueue
@@ -307,4 +311,3 @@ func (p AVPlayerItemLegibleOutput) DelegateQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](p.ID, objc.Sel("delegateQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
-

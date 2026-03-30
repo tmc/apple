@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNTrackingRequest] class.
@@ -46,7 +47,7 @@ func (vc VNTrackingRequestClass) Alloc() VNTrackingRequest {
 // features across multiple images or video frames.
 //
 // # Overview
-// 
+//
 // Instantiate a tracking request subclass to perform object tracking across
 // multiple frames of an image. After initialization, configure the degree of
 // accuracy by setting [VNTrackingRequest.TrackingLevel], and provide observations you’d like
@@ -77,6 +78,7 @@ type VNTrackingRequest struct {
 func VNTrackingRequestFromID(id objc.ID) VNTrackingRequest {
 	return VNTrackingRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNTrackingRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -141,7 +143,7 @@ func NewVNTrackingRequest() VNTrackingRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -158,7 +160,7 @@ func NewTrackingRequestWithCompletionHandler(completionHandler VNRequestCompleti
 // error: An error that contains the reason why a failure occurs.
 //
 // # Return Value
-// 
+//
 // The maximum number of trackers given a combination; or `0` if such
 // combination doesn’t exist.
 //
@@ -177,12 +179,12 @@ func (t VNTrackingRequest) SupportedNumberOfTrackersAndReturnError() (uint, erro
 // The observation object defining a region to track.
 //
 // # Discussion
-// 
+//
 // Providing an observation not returned from a tracker, such as a
 // user-defined observation, begins a new tracker for the sequence. Providing
 // an observation that was returned from a tracker continues the use of that
 // tracker, to track the region to the next frame.
-// 
+//
 // In general, unless specified in the request’s documentation or header
 // file, you must define the rectangle in normalized coordinates, with the
 // origin at the lower-left corner.
@@ -195,6 +197,7 @@ func (t VNTrackingRequest) InputObservation() IVNDetectedObjectObservation {
 func (t VNTrackingRequest) SetInputObservation(value IVNDetectedObjectObservation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setInputObservation:"), value)
 }
+
 // A value for specifying whether to prioritize speed or location accuracy.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackingRequest/trackingLevel
@@ -205,14 +208,13 @@ func (t VNTrackingRequest) TrackingLevel() VNRequestTrackingLevel {
 func (t VNTrackingRequest) SetTrackingLevel(value VNRequestTrackingLevel) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTrackingLevel:"), value)
 }
+
 // A Boolean that indicates the last frame in a tracking sequence.
 //
 // # Discussion
-// 
-// If set to [true], the current tracker will be released to the pool of
-// available trackers when the current frame finishes processing.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If set to true, the current tracker will be released to the pool of
+// available trackers when the current frame finishes processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackingRequest/isLastFrame
 func (t VNTrackingRequest) LastFrame() bool {
@@ -222,4 +224,3 @@ func (t VNTrackingRequest) LastFrame() bool {
 func (t VNTrackingRequest) SetLastFrame(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLastFrame:"), value)
 }
-

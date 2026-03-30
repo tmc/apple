@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +60,7 @@ type CICircularWrap interface {
 type CICircularWrapObject struct {
 	objectivec.Object
 }
+
 func (o CICircularWrapObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -76,24 +77,28 @@ func CICircularWrapObjectFromID(id objc.ID) CICircularWrapObject {
 func (o CICircularWrapObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/center
 func (o CICircularWrapObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/inputImage
 func (o CICircularWrapObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/radius
 func (o CICircularWrapObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -101,21 +106,26 @@ func (o CICircularWrapObject) Radius() float32 {
 func (o CICircularWrapObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/angle
 func (o CICircularWrapObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/center
 func (o CICircularWrapObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/inputImage
 func (o CICircularWrapObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CICircularWrap/radius
 func (o CICircularWrapObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

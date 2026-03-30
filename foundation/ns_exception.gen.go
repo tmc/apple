@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,7 +47,7 @@ func (nc NSExceptionClass) Alloc() NSException {
 // flow of program execution.
 //
 // # Overview
-// 
+//
 // Use [NSException] to implement exception handling. An exception is a
 // special condition that interrupts the normal flow of program execution.
 // Each application can interrupt the program for different reasons. For
@@ -84,6 +85,7 @@ type NSException struct {
 func NSExceptionFromID(id objc.ID) NSException {
 	return NSException{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSException adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -155,7 +157,6 @@ func NewNSException() NSException {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewExceptionWithCoder(coder INSCoder) NSException {
 	instance := getNSExceptionClass().Alloc()
@@ -172,12 +173,12 @@ func NewExceptionWithCoder(coder INSCoder) NSException {
 // aUserInfo: A dictionary containing user-defined information relating to the exception
 //
 // # Return Value
-// 
+//
 // The created [NSException] object or `nil` if the object couldn’t be
 // created.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSException/init(name:reason:userInfo:)
@@ -196,12 +197,12 @@ func NewExceptionWithNameReasonUserInfo(aName NSExceptionName, aReason string, a
 // aUserInfo: A dictionary containing user-defined information relating to the exception
 //
 // # Return Value
-// 
+//
 // The created [NSException] object or `nil` if the object couldn’t be
 // created.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSException/init(name:reason:userInfo:)
@@ -209,11 +210,12 @@ func (e NSException) InitWithNameReasonUserInfo(aName NSExceptionName, aReason s
 	rv := objc.Send[NSException](e.ID, objc.Sel("initWithName:reason:userInfo:"), objc.String(string(aName)), objc.String(aReason), aUserInfo)
 	return rv
 }
+
 // Raises the receiver, causing program flow to jump to the local exception
 // handler.
 //
 // # Discussion
-// 
+//
 // When there are no exception handlers in the exception handler stack, unless
 // the exception is raised during the posting of a notification, this method
 // calls the uncaught exception handler, in which last-minute logging can be
@@ -224,6 +226,7 @@ func (e NSException) InitWithNameReasonUserInfo(aName NSExceptionName, aReason s
 func (e NSException) Raise() {
 	objc.Send[objc.ID](e.ID, objc.Sel("raise"))
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -232,7 +235,7 @@ func (e NSException) Raise() {
 func (e NSException) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (e NSException) InitWithCoder(coder INSCoder) NSException {
 	rv := objc.Send[NSException](e.ID, objc.Sel("initWithCoder:"), coder)
@@ -251,13 +254,14 @@ func (e NSException) InitWithCoder(coder INSCoder) NSException {
 // the manner of `vprintf`).
 //
 // # Discussion
-// 
+//
 // The user-defined dictionary of the generated object is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSException/raise(_:format:arguments:)
 func (_NSExceptionClass NSExceptionClass) RaiseFormatArguments(name NSExceptionName, format string, argList unsafe.Pointer) {
 	objc.Send[objc.ID](objc.ID(_NSExceptionClass.class), objc.Sel("raise:format:arguments:"), objc.String(string(name)), objc.String(format), argList)
 }
+
 // Creates and returns an exception object .
 //
 // name: The name of the exception.
@@ -267,7 +271,7 @@ func (_NSExceptionClass NSExceptionClass) RaiseFormatArguments(name NSExceptionN
 // userInfo: A dictionary containing user-defined information relating to the exception
 //
 // # Return Value
-// 
+//
 // The created [NSException] object or `nil` if the object couldn’t be
 // created.
 //
@@ -276,6 +280,7 @@ func (_NSExceptionClass NSExceptionClass) ExceptionWithNameReasonUserInfo(name N
 	rv := objc.Send[objc.ID](objc.ID(_NSExceptionClass.class), objc.Sel("exceptionWithName:reason:userInfo:"), objc.String(string(name)), objc.String(reason), userInfo)
 	return NSExceptionFromID(rv)
 }
+
 // A convenience method that creates and raises an exception.
 //
 // name: The name of the exception.
@@ -284,9 +289,9 @@ func (_NSExceptionClass NSExceptionClass) ExceptionWithNameReasonUserInfo(name N
 // conversion specifications for the variable arguments that follow.
 //
 // # Discussion
-// 
+//
 // The user-defined information is `nil` for the generated exception object.
-// 
+//
 // Pass variable information to be inserted into the formatted exception
 // reason (in the manner of `printf`) as variadic arguments.
 //
@@ -302,6 +307,7 @@ func (e NSException) Name() NSExceptionName {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("name"))
 	return NSExceptionName(NSStringFromID(rv).String())
 }
+
 // A string containing a “human-readable” reason for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSException/reason-swift.property
@@ -309,11 +315,12 @@ func (e NSException) Reason() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("reason"))
 	return NSStringFromID(rv).String()
 }
+
 // A dictionary containing application-specific data pertaining to the
 // receiver.
 //
 // # Discussion
-// 
+//
 // `nil` if no application-specific data exists. As an example, if a
 // method’s return value caused the exception to be raised, the return value
 // might be available to the exception handler through this method.
@@ -323,32 +330,34 @@ func (e NSException) UserInfo() INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("userInfo"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // The call return addresses related to a raised exception.
 //
 // # Discussion
-// 
+//
 // An array of [NSNumber] objects encapsulating [NSUInteger] values. Each
 // value is a call frame return address. The array of stack frames starts at
 // the point at which the exception was first raised, with the first items
 // being the most recent stack frames.
-// 
+//
 // [NSException] subclasses posing as the [NSException] class or subclasses or
 // other API elements that interfere with the exception-raising mechanism may
 // not get this information.
 //
-// [NSUInteger]: https://developer.apple.com/documentation/ObjectiveC/NSUInteger
-//
 // See: https://developer.apple.com/documentation/Foundation/NSException/callStackReturnAddresses
+//
+// [NSUInteger]: https://developer.apple.com/documentation/ObjectiveC/NSUInteger
 func (e NSException) CallStackReturnAddresses() []NSNumber {
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("callStackReturnAddresses"))
 	return objc.ConvertSlice(rv, func(id objc.ID) NSNumber {
 		return NSNumberFromID(id)
 	})
 }
+
 // An array containing the current call stack symbols.
 //
 // # Discussion
-// 
+//
 // An array of strings describing the call stack backtrace at the moment the
 // exception was first raised. The format of each string is determined by the
 // `backtrace_symbols()` API
@@ -359,9 +368,6 @@ func (e NSException) CallStackSymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

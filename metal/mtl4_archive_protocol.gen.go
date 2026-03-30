@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -54,6 +54,7 @@ type MTL4Archive interface {
 type MTL4ArchiveObject struct {
 	objectivec.Object
 }
+
 func (o MTL4ArchiveObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -72,7 +73,8 @@ func MTL4ArchiveObjectFromID(id objc.ID) MTL4ArchiveObject {
 func (o MTL4ArchiveObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Synchronously creates a binary version of a GPU visible function or GPU
 // intersection function.
 //
@@ -80,7 +82,7 @@ func (o MTL4ArchiveObject) Label() string {
 // binary function and which options to apply when compiling it.
 //
 // # Return Value
-// 
+//
 // A new GPU binary function instance if the method succeeds; otherwise `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4Archive/makeBinaryFunction(descriptor:)
@@ -90,7 +92,8 @@ func (o MTL4ArchiveObject) NewBinaryFunctionWithDescriptorError(descriptor IMTL4
 		return nil, err
 	}
 	return MTL4BinaryFunctionObjectFromID(rv), nil
-	}
+}
+
 // Creates a compute pipeline state from the archive with a compute descriptor
 // and a dynamic linking descriptor.
 //
@@ -103,7 +106,7 @@ func (o MTL4ArchiveObject) NewBinaryFunctionWithDescriptorError(descriptor IMTL4
 // otherwise `nil`.
 //
 // # Return Value
-// 
+//
 // A compute pipeline state if the method succeeds, otherwise `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4Archive/newComputePipelineStateWithDescriptor:dynamicLinkingDescriptor:error:
@@ -113,7 +116,8 @@ func (o MTL4ArchiveObject) NewComputePipelineStateWithDescriptorDynamicLinkingDe
 		return nil, err
 	}
 	return MTLComputePipelineStateObjectFromID(rv), nil
-	}
+}
+
 // Creates a compute pipeline state from the archive with a descriptor.
 //
 // descriptor: A compute pipeline descriptor.
@@ -122,7 +126,7 @@ func (o MTL4ArchiveObject) NewComputePipelineStateWithDescriptorDynamicLinkingDe
 // otherwise `nil`.
 //
 // # Return Value
-// 
+//
 // A compute pipeline state if the method succeeds, otherwise `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4Archive/newComputePipelineStateWithDescriptor:error:
@@ -132,7 +136,8 @@ func (o MTL4ArchiveObject) NewComputePipelineStateWithDescriptorError(descriptor
 		return nil, err
 	}
 	return MTLComputePipelineStateObjectFromID(rv), nil
-	}
+}
+
 // Creates a render pipeline state from the archive with a render descriptor
 // and a dynamic linking descriptor.
 //
@@ -145,13 +150,13 @@ func (o MTL4ArchiveObject) NewComputePipelineStateWithDescriptorError(descriptor
 // otherwise `nil`.
 //
 // # Return Value
-// 
+//
 // A render pipeline state if the method succeeds, otherwise `nil`.
 //
 // # Discussion
-// 
+//
 // You create any kind of render pipeline states with this method, including:
-// 
+//
 // - Traditional render pipelines - Mesh render pipelines - Tile render
 // pipelines
 //
@@ -162,7 +167,8 @@ func (o MTL4ArchiveObject) NewRenderPipelineStateWithDescriptorDynamicLinkingDes
 		return nil, err
 	}
 	return MTLRenderPipelineStateObjectFromID(rv), nil
-	}
+}
+
 // Creates a render pipeline state from the archive with a descriptor.
 //
 // descriptor: A render pipeline descriptor.
@@ -171,13 +177,13 @@ func (o MTL4ArchiveObject) NewRenderPipelineStateWithDescriptorDynamicLinkingDes
 // otherwise `nil`.
 //
 // # Return Value
-// 
+//
 // A render pipeline state if the method succeeds, otherwise `nil`.
 //
 // # Discussion
-// 
+//
 // You create any kind of render pipeline states with this method, including:
-// 
+//
 // - Traditional render pipelines - Mesh render pipelines - Tile render
 // pipelines
 //
@@ -188,9 +194,11 @@ func (o MTL4ArchiveObject) NewRenderPipelineStateWithDescriptorError(descriptor 
 		return nil, err
 	}
 	return MTLRenderPipelineStateObjectFromID(rv), nil
-	}
+}
 
+// A label that you can associate with this archive.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4Archive/label
 func (o MTL4ArchiveObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

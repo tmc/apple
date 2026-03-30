@@ -18,6 +18,7 @@ type NSMutableCopying interface {
 type NSMutableCopyingObject struct {
 	objectivec.Object
 }
+
 func (o NSMutableCopyingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func NSMutableCopyingObjectFromID(id objc.ID) NSMutableCopyingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

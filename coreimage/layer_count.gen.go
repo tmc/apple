@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type LayerCount struct {
 func LayerCountFromID(id objc.ID) LayerCount {
 	return LayerCount{objectivec.Object{ID: id}}
 }
+
 // Ensure LayerCount implements ILayerCount.
 var _ ILayerCount = LayerCount{}
 
@@ -78,4 +80,3 @@ func NewLayerCount() LayerCount {
 	rv := objc.Send[LayerCount](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,9 +4,10 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNClassificationObservation] class.
@@ -46,15 +47,13 @@ func (vc VNClassificationObservationClass) Alloc() VNClassificationObservation {
 // request produces.
 //
 // # Overview
-// 
+//
 // This type of observation results from performing a [VNCoreMLRequest] image
 // analysis with a Core ML model whose role is classification (rather than
 // prediction or image-to-image processing). Vision infers that an [MLModel]
 // object is a classifier model if that model predicts a single feature. That
 // is, the model’s [VNClassificationObservation.ModelDescription] object has a non-`nil` value for its
 // [VNClassificationObservation.PredictedFeatureName] property.
-//
-// [MLModel]: https://developer.apple.com/documentation/CoreML/MLModel
 //
 // # Determining Classification
 //
@@ -67,6 +66,8 @@ func (vc VNClassificationObservationClass) Alloc() VNClassificationObservation {
 //   - [VNClassificationObservation.HasMinimumRecallForPrecision]: Determines whether the observation for a specific precision has a minimum recall value.
 //
 // See: https://developer.apple.com/documentation/Vision/VNClassificationObservation
+//
+// [MLModel]: https://developer.apple.com/documentation/CoreML/MLModel
 type VNClassificationObservation struct {
 	VNObservation
 }
@@ -78,6 +79,7 @@ type VNClassificationObservation struct {
 func VNClassificationObservationFromID(id objc.ID) VNClassificationObservation {
 	return VNClassificationObservation{VNObservation: VNObservationFromID(id)}
 }
+
 // NOTE: VNClassificationObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -146,7 +148,7 @@ func NewVNClassificationObservation() VNClassificationObservation {
 // recall: The percentage of relevant results that the algorithm correctly classified.
 //
 // # Return Value
-// 
+//
 // A Boolean indicating whether or not this classification observation
 // provides a minimum percentage of relevant results that meet the desired
 // recall criterion.
@@ -156,6 +158,7 @@ func (c VNClassificationObservation) HasMinimumPrecisionForRecall(minimumPrecisi
 	rv := objc.Send[bool](c.ID, objc.Sel("hasMinimumPrecision:forRecall:"), minimumPrecision, recall)
 	return rv
 }
+
 // Determines whether the observation for a specific precision has a minimum
 // recall value.
 //
@@ -165,7 +168,7 @@ func (c VNClassificationObservation) HasMinimumPrecisionForRecall(minimumPrecisi
 // precision: The percentage of classification results that are relevant.
 //
 // # Return Value
-// 
+//
 // A Boolean indicating whether or not this classification observation
 // provides a minimum percentage of relevant results that meet the desired
 // precision criterion.
@@ -179,7 +182,7 @@ func (c VNClassificationObservation) HasMinimumRecallForPrecision(minimumRecall 
 // Classification label identifying the type of observation.
 //
 // # Discussion
-// 
+//
 // An example classification could be a string like `cat` or `hotdog`. The
 // model used for the classification defines the domain of strings that may
 // result. Usually, these strings are unlocalized technical labels not meant
@@ -190,27 +193,26 @@ func (c VNClassificationObservation) Identifier() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A Boolean variable indicating whether the observation contains precision
 // and recall curves.
 //
 // # Discussion
-// 
+//
 // Precision refers to the percentage of your classification results that are
 // relevant, while recall refers to the percentage of total relevant results
 // correctly classified.
-// 
-// If this property is [true], then you can call precision and recall-related
-// methods in this observation. If this property is [false], then the
-// precision and recall-related methods won’t return meaningful data.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this property is true, then you can call precision and recall-related
+// methods in this observation. If this property is false, then the precision
+// and recall-related methods won’t return meaningful data.
 //
 // See: https://developer.apple.com/documentation/Vision/VNClassificationObservation/hasPrecisionRecallCurve
 func (c VNClassificationObservation) HasPrecisionRecallCurve() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("hasPrecisionRecallCurve"))
 	return rv
 }
+
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
 //
@@ -222,6 +224,7 @@ func (c VNClassificationObservation) ModelDescription() coreml.MLModelDescriptio
 func (c VNClassificationObservation) SetModelDescription(value coreml.MLModelDescription) {
 	objc.Send[struct{}](c.ID, objc.Sel("setModelDescription:"), value)
 }
+
 // The name of the primary prediction feature output description.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/predictedFeatureName
@@ -232,4 +235,3 @@ func (c VNClassificationObservation) PredictedFeatureName() string {
 func (c VNClassificationObservation) SetPredictedFeatureName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPredictedFeatureName:"), objc.String(value))
 }
-

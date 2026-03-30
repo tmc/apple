@@ -3,8 +3,8 @@
 package quartzcore
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -19,6 +19,7 @@ type CALayoutManager interface {
 type CALayoutManagerObject struct {
 	objectivec.Object
 }
+
 func (o CALayoutManagerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,19 +38,20 @@ func CALayoutManagerObjectFromID(id objc.ID) CALayoutManagerObject {
 // See: https://developer.apple.com/documentation/QuartzCore/CALayoutManager/invalidateLayout(of:)
 func (o CALayoutManagerObject) InvalidateLayoutOfLayer(layer ICALayer) {
 	objc.Send[struct{}](o.ID, objc.Sel("invalidateLayoutOfLayer:"), layer)
-	}
+}
+
 // Override to customize layout of sublayers whenever the layer needs
 // redrawing.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayoutManager/layoutSublayers(of:)
 func (o CALayoutManagerObject) LayoutSublayersOfLayer(layer ICALayer) {
 	objc.Send[struct{}](o.ID, objc.Sel("layoutSublayersOfLayer:"), layer)
-	}
+}
+
 // Override to customize layer size.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayoutManager/preferredSize(of:)
 func (o CALayoutManagerObject) PreferredSizeOfLayer(layer ICALayer) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("preferredSizeOfLayer:"), layer)
 	return rv
-	}
-
+}

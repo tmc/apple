@@ -4,8 +4,9 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [CAPropertyAnimation] class.
@@ -45,10 +46,10 @@ func (cc CAPropertyAnimationClass) Alloc() CAPropertyAnimation {
 // layer properties.
 //
 // # Overview
-// 
+//
 // The property to animate is specified using a key path that is relative to
 // the layer using the animation.
-// 
+//
 // You do not create instances of [CAPropertyAnimation]: to animate the
 // properties of a Core Animation layer, create instance of the concrete
 // subclasses [CABasicAnimation] or [CAKeyframeAnimation].
@@ -79,6 +80,7 @@ type CAPropertyAnimation struct {
 func CAPropertyAnimationFromID(id objc.ID) CAPropertyAnimation {
 	return CAPropertyAnimation{CAAnimation: CAAnimationFromID(id)}
 }
+
 // NOTE: CAPropertyAnimation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -146,7 +148,7 @@ func NewCAPropertyAnimation() CAPropertyAnimation {
 // path: The key path of the property to be animated.
 //
 // # Return Value
-// 
+//
 // A new instance of [CAPropertyAnimation] with the key path set to `keyPath`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAPropertyAnimation/init(keyPath:)
@@ -158,7 +160,7 @@ func NewPropertyAnimationWithKeyPath(path string) CAPropertyAnimation {
 // Specifies the key path the receiver animates.
 //
 // # Discussion
-// 
+//
 // The key path is relative to the layer the receiver is attached to.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAPropertyAnimation/keyPath
@@ -169,18 +171,16 @@ func (p CAPropertyAnimation) KeyPath() string {
 func (p CAPropertyAnimation) SetKeyPath(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setKeyPath:"), objc.String(value))
 }
+
 // Determines if the value of the property is the value at the end of the
 // previous repeat cycle, plus the value of the current repeat cycle.
 //
 // # Discussion
-// 
-// If [true], then the value of the property is the value at the end of the
-// previous repeat cycle, plus the value of the current repeat cycle. If
-// [false], the value of the property is simply the value calculated for the
-// current repeat cycle. The default is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If true, then the value of the property is the value at the end of the
+// previous repeat cycle, plus the value of the current repeat cycle. If
+// false, the value of the property is simply the value calculated for the
+// current repeat cycle. The default is false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAPropertyAnimation/isCumulative
 func (p CAPropertyAnimation) Cumulative() bool {
@@ -190,18 +190,16 @@ func (p CAPropertyAnimation) Cumulative() bool {
 func (p CAPropertyAnimation) SetCumulative(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCumulative:"), value)
 }
+
 // Determines if the value specified by the animation is added to the current
 // render tree value to produce the new render tree value.
 //
 // # Discussion
-// 
-// If [true], the value specified by the animation will be added to the
-// current render tree value of the property to produce the new render tree
-// value. The addition function is type-dependent, e.g. for affine transforms
-// the two matrices are concatenated. The default is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If true, the value specified by the animation will be added to the current
+// render tree value of the property to produce the new render tree value. The
+// addition function is type-dependent, e.g. for affine transforms the two
+// matrices are concatenated. The default is false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAPropertyAnimation/isAdditive
 func (p CAPropertyAnimation) Additive() bool {
@@ -211,10 +209,11 @@ func (p CAPropertyAnimation) Additive() bool {
 func (p CAPropertyAnimation) SetAdditive(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAdditive:"), value)
 }
+
 // An optional value function that is applied to interpolated values.
 //
 // # Discussion
-// 
+//
 // If the `valueFunction` property is not `nil`, the function is applied to
 // the values interpolated by the animation as they are applied to the
 // presentation layer. Defaults to `nil`.
@@ -227,4 +226,3 @@ func (p CAPropertyAnimation) ValueFunction() ICAValueFunction {
 func (p CAPropertyAnimation) SetValueFunction(value ICAValueFunction) {
 	objc.Send[struct{}](p.ID, objc.Sel("setValueFunction:"), value)
 }
-

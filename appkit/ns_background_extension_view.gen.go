@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSBackgroundExtensionView] class.
@@ -45,7 +46,7 @@ func (nc NSBackgroundExtensionViewClass) Alloc() NSBackgroundExtensionView {
 // A view that extends content to fill its own bounds.
 //
 // # Overview
-// 
+//
 // A background extension view can be laid out to extend outside the safe
 // area, such as under the titlebar, sidebar, or inspector. By default it lays
 // out its content to stay within the safe area, and uses modifications of the
@@ -69,6 +70,7 @@ type NSBackgroundExtensionView struct {
 func NSBackgroundExtensionViewFromID(id objc.ID) NSBackgroundExtensionView {
 	return NSBackgroundExtensionView{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSBackgroundExtensionView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,7 +121,7 @@ func NewNSBackgroundExtensionView() NSBackgroundExtensionView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -135,11 +137,11 @@ func NewBackgroundExtensionViewWithCoder(coder foundation.INSCoder) NSBackground
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -155,11 +157,11 @@ func NewBackgroundExtensionViewWithFrame(frameRect corefoundation.CGRect) NSBack
 // container.
 //
 // # Discussion
-// 
+//
 // When [NO], the frame of the content view must be explicitly set or
 // constraints added. The extension effect will be used to fill the container
 // view around the content.
-// 
+//
 // Defaults to [YES].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBackgroundExtensionView/automaticallyPlacesContentView
@@ -170,10 +172,11 @@ func (b NSBackgroundExtensionView) AutomaticallyPlacesContentView() bool {
 func (b NSBackgroundExtensionView) SetAutomaticallyPlacesContentView(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAutomaticallyPlacesContentView:"), value)
 }
+
 // The content view to extend to fill the [NSBackgroundExtensionView].
 //
 // # Discussion
-// 
+//
 // The content view will be added as a subview of the extension view and
 // placed within the safe area by default. See
 // `automaticallyPlacesContentView` to customize the layout.
@@ -186,4 +189,3 @@ func (b NSBackgroundExtensionView) ContentView() INSView {
 func (b NSBackgroundExtensionView) SetContentView(value INSView) {
 	objc.Send[struct{}](b.ID, objc.Sel("setContentView:"), value)
 }
-

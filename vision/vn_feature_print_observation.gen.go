@@ -3,11 +3,12 @@
 package vision
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNFeaturePrintObservation] class.
@@ -69,6 +70,7 @@ type VNFeaturePrintObservation struct {
 func VNFeaturePrintObservationFromID(id objc.ID) VNFeaturePrintObservation {
 	return VNFeaturePrintObservation{VNObservation: VNObservationFromID(id)}
 }
+
 // NOTE: VNFeaturePrintObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,7 +137,7 @@ func NewVNFeaturePrintObservation() VNFeaturePrintObservation {
 // featurePrint: The feature print object whose distance to calculate.
 //
 // # Discussion
-// 
+//
 // Shorter distances indicate greater similarity between feature prints.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFeaturePrintObservation/computeDistance(_:to:)
@@ -156,7 +158,7 @@ func (f VNFeaturePrintObservation) ComputeDistanceToFeaturePrintObservationError
 // The feature print data.
 //
 // # Discussion
-// 
+//
 // The data is divided into separate elements. Determine the type of element
 // using [ElementType], and the number of elements using [ElementCount].
 //
@@ -165,6 +167,7 @@ func (f VNFeaturePrintObservation) Data() foundation.INSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // The total number of elements in the data.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFeaturePrintObservation/elementCount
@@ -172,6 +175,7 @@ func (f VNFeaturePrintObservation) ElementCount() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("elementCount"))
 	return rv
 }
+
 // The type of each element in the data.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFeaturePrintObservation/elementType
@@ -179,4 +183,3 @@ func (f VNFeaturePrintObservation) ElementType() VNElementType {
 	rv := objc.Send[VNElementType](f.ID, objc.Sel("elementType"))
 	return VNElementType(rv)
 }
-

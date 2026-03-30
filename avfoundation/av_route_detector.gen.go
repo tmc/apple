@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,12 +46,10 @@ func (ac AVRouteDetectorClass) Alloc() AVRouteDetector {
 // An object that detects available media playback routes.
 //
 // # Overview
-// 
+//
 // If you enable route detection, the object reports whether it detects
 // multiple playback routes. If it does, use [AVRoutePickerView] to present
 // the UI for the user to select an appropriate route.
-//
-// [AVRoutePickerView]: https://developer.apple.com/documentation/AVKit/AVRoutePickerView
 //
 // # Detecting routes
 //
@@ -60,6 +59,8 @@ func (ac AVRouteDetectorClass) Alloc() AVRouteDetector {
 //   - [AVRouteDetector.AVRouteDetectorMultipleRoutesDetectedDidChange]: A notification the system posts when changes occur to its detected routes.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVRouteDetector
+//
+// [AVRoutePickerView]: https://developer.apple.com/documentation/AVKit/AVRoutePickerView
 type AVRouteDetector struct {
 	objectivec.Object
 }
@@ -70,6 +71,7 @@ type AVRouteDetector struct {
 func AVRouteDetectorFromID(id objc.ID) AVRouteDetector {
 	return AVRouteDetector{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVRouteDetector adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,10 +122,8 @@ func NewAVRouteDetector() AVRouteDetector {
 // state.
 //
 // # Discussion
-// 
-// The default value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVRouteDetector/isRouteDetectionEnabled
 func (r AVRouteDetector) RouteDetectionEnabled() bool {
@@ -133,22 +133,24 @@ func (r AVRouteDetector) RouteDetectionEnabled() bool {
 func (r AVRouteDetector) SetRouteDetectionEnabled(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRouteDetectionEnabled:"), value)
 }
+
 // A Boolean value that indicates whether the object detects more than one
 // playback route.
 //
 // # Discussion
-// 
+//
 // The system posts a
 // [AVRouteDetectorMultipleRoutesDetectedDidChangeNotification] notification
 // when this property value changes.
 //
-// [AVRouteDetectorMultipleRoutesDetectedDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVRouteDetectorMultipleRoutesDetectedDidChangeNotification
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVRouteDetector/multipleRoutesDetected
+//
+// [AVRouteDetectorMultipleRoutesDetectedDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVRouteDetectorMultipleRoutesDetectedDidChangeNotification
 func (r AVRouteDetector) MultipleRoutesDetected() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("multipleRoutesDetected"))
 	return rv
 }
+
 // A notification the system posts when changes occur to its detected routes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/AVRouteDetectorMultipleRoutesDetectedDidChange
@@ -156,4 +158,3 @@ func (r AVRouteDetector) AVRouteDetectorMultipleRoutesDetectedDidChange() founda
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("AVRouteDetectorMultipleRoutesDetectedDidChange"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-

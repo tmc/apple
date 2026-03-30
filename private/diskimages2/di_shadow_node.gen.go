@@ -4,8 +4,9 @@ package diskimages2
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (dc DIShadowNodeClass) Alloc() DIShadowNode {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIShadowNode.URL]
@@ -55,6 +55,7 @@ func (dc DIShadowNodeClass) Alloc() DIShadowNode {
 //   - [DIShadowNode.SetNumBlocks]
 //   - [DIShadowNode.InitWithCoder]
 //   - [DIShadowNode.InitWithURLIsCache]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIShadowNode
 type DIShadowNode struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type DIShadowNode struct {
 func DIShadowNodeFromID(id objc.ID) DIShadowNode {
 	return DIShadowNode{objectivec.Object{ID: id}}
 }
+
 // Ensure DIShadowNode implements IDIShadowNode.
 var _ IDIShadowNode = DIShadowNode{}
 
@@ -119,7 +121,6 @@ func NewDIShadowNode() DIShadowNode {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIShadowNode/initWithCoder:
 func NewDIShadowNodeWithCoder(coder objectivec.IObject) DIShadowNode {
 	instance := getDIShadowNodeClass().Alloc()
@@ -127,7 +128,6 @@ func NewDIShadowNodeWithCoder(coder objectivec.IObject) DIShadowNode {
 	return DIShadowNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIShadowNode/initWithURL:isCache:
 func NewDIShadowNodeWithURLIsCache(url foundation.INSURL, cache bool) DIShadowNode {
 	instance := getDIShadowNodeClass().Alloc()
@@ -135,23 +135,22 @@ func NewDIShadowNodeWithURLIsCache(url foundation.INSURL, cache bool) DIShadowNo
 	return DIShadowNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIShadowNode/createBackendWithFlags:
 func (d DIShadowNode) CreateBackendWithFlags(flags int) {
 	objc.Send[objc.ID](d.ID, objc.Sel("createBackendWithFlags:"), flags)
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIShadowNode/encodeWithCoder:
 func (d DIShadowNode) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIShadowNode/initWithCoder:
 func (d DIShadowNode) InitWithCoder(coder foundation.INSCoder) DIShadowNode {
 	rv := objc.Send[DIShadowNode](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIShadowNode/initWithURL:isCache:
 func (d DIShadowNode) InitWithURLIsCache(url foundation.INSURL, cache bool) DIShadowNode {
 	rv := objc.Send[DIShadowNode](d.ID, objc.Sel("initWithURL:isCache:"), url, cache)
@@ -169,6 +168,7 @@ func (d DIShadowNode) URL() IDIURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("URL"))
 	return DIURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIShadowNode/fileBackend
 func (d DIShadowNode) FileBackend() IFileLocalXPC {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileBackend"))
@@ -177,11 +177,13 @@ func (d DIShadowNode) FileBackend() IFileLocalXPC {
 func (d DIShadowNode) SetFileBackend(value IFileLocalXPC) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFileBackend:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIShadowNode/isCache
 func (d DIShadowNode) IsCache() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isCache"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIShadowNode/numBlocks
 func (d DIShadowNode) NumBlocks() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("numBlocks"))
@@ -190,4 +192,3 @@ func (d DIShadowNode) NumBlocks() uint64 {
 func (d DIShadowNode) SetNumBlocks(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNumBlocks:"), value)
 }
-

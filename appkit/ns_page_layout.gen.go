@@ -5,6 +5,7 @@ package appkit
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,17 +47,14 @@ func (nc NSPageLayoutClass) Alloc() NSPageLayout {
 // orientation.
 //
 // # Overview
-// 
+//
 // A page layout panel is typically displayed in response to the user
 // selecting the Page Setup menu item. You obtain an instance with the
-// [pageLayout] class method. The pane can then be run as a sheet using
+// [PageLayout] class method. The pane can then be run as a sheet using
 // [NSPageLayout.BeginSheetWithPrintInfoModalForWindowDelegateDidEndSelectorContextInfo] or
 // modally using [NSPageLayout.RunModal] or [NSPageLayout.RunModalWithPrintInfo].
-// 
-// For design guidance, see [Human Interface Guidelines].
 //
-// [Human Interface Guidelines]: https://developer.apple.com/design/human-interface-guidelines/macos/system-capabilities/printing#page-setup-dialogs
-// [pageLayout]: https://developer.apple.com/documentation/AppKit/NSPageLayout/pageLayout
+// For design guidance, see [Human Interface Guidelines].
 //
 // # Running the page setup dialog
 //
@@ -75,6 +73,8 @@ func (nc NSPageLayoutClass) Alloc() NSPageLayout {
 //   - [NSPageLayout.PrintInfo]: The printing information object used when the page layout panel is run.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageLayout
+//
+// [Human Interface Guidelines]: https://developer.apple.com/design/human-interface-guidelines/macos/system-capabilities/printing#page-setup-dialogs
 type NSPageLayout struct {
 	objectivec.Object
 }
@@ -86,6 +86,7 @@ type NSPageLayout struct {
 func NSPageLayoutFromID(id objc.ID) NSPageLayout {
 	return NSPageLayout{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPageLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -153,22 +154,22 @@ func NewNSPageLayout() NSPageLayout {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSPageLayout/beginSheet(using:on:completionHandler:)
 func (p NSPageLayout) BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler PageLayoutResultHandler) {
-_block2, _ := NewPageLayoutResultBlock(handler)
+	_block2, _ := NewPageLayoutResultBlock(handler)
 	objc.Send[objc.ID](p.ID, objc.Sel("beginSheetUsingPrintInfo:onWindow:completionHandler:"), printInfo, parentWindow, _block2)
 }
+
 // Displays the page layout panel and begins the modal loop using the shared
 // print info object.
 //
 // # Return Value
-// 
+//
 // [NSCancelButton] if the user clicks the Cancel button; otherwise,
 // [NSOKButton].
 //
 // # Discussion
-// 
+//
 // The receiver’s values are recorded in the shared [NSPrintInfo] object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageLayout/runModal()
@@ -176,18 +177,19 @@ func (p NSPageLayout) RunModal() int {
 	rv := objc.Send[int](p.ID, objc.Sel("runModal"))
 	return rv
 }
+
 // Displays the page layout panel and begins the modal loop using the
 // specified print info object.
 //
 // printInfo: The [NSPrintInfo] object to use.
 //
 // # Return Value
-// 
+//
 // [NSCancelButton] if the user clicks the Cancel button; otherwise,
 // [NSOKButton].
 //
 // # Discussion
-// 
+//
 // The receiver’s values are recorded in `printInfo`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageLayout/runModal(with:)
@@ -195,6 +197,7 @@ func (p NSPageLayout) RunModalWithPrintInfo(printInfo INSPrintInfo) int {
 	rv := objc.Send[int](p.ID, objc.Sel("runModalWithPrintInfo:"), printInfo)
 	return rv
 }
+
 // Adds the specified controller of an accessory view to be presented in the
 // page setup panel.
 //
@@ -204,6 +207,7 @@ func (p NSPageLayout) RunModalWithPrintInfo(printInfo INSPrintInfo) int {
 func (p NSPageLayout) AddAccessoryController(accessoryController INSViewController) {
 	objc.Send[objc.ID](p.ID, objc.Sel("addAccessoryController:"), accessoryController)
 }
+
 // Removes the specified controller of an accessory view.
 //
 // accessoryController: The controller to remove.
@@ -213,10 +217,18 @@ func (p NSPageLayout) RemoveAccessoryController(accessoryController INSViewContr
 	objc.Send[objc.ID](p.ID, objc.Sel("removeAccessoryController:"), accessoryController)
 }
 
+// Returns a newly created page layout object.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPageLayout/pageLayout
+func (_NSPageLayoutClass NSPageLayoutClass) PageLayout() NSPageLayout {
+	rv := objc.Send[objc.ID](objc.ID(_NSPageLayoutClass.class), objc.Sel("pageLayout"))
+	return NSPageLayoutFromID(rv)
+}
+
 // An array of accessory view controllers belonging to the page layout panel.
 //
 // # Discussion
-// 
+//
 // The [NSViewController] instances representing the accessory view
 // controllers belonging to the receiver.
 //
@@ -227,10 +239,11 @@ func (p NSPageLayout) AccessoryControllers() []NSViewController {
 		return NSViewControllerFromID(id)
 	})
 }
+
 // The printing information object used when the page layout panel is run.
 //
 // # Discussion
-// 
+//
 // The NSPrintInfo object is set using the
 // [BeginSheetWithPrintInfoModalForWindowDelegateDidEndSelectorContextInfo] or
 // [RunModalWithPrintInfo] method. The shared NSPrintInfo object is used if
@@ -256,4 +269,3 @@ func (p NSPageLayout) BeginSheetUsingPrintInfoOnWindow(ctx context.Context, prin
 		return 0, ctx.Err()
 	}
 }
-

@@ -2,7 +2,6 @@
 
 package coregraphics
 
-
 // KCGBitmapByteOrder16Host is 16-bit, host endian format.
 //
 // Deprecated: Deprecated since macOS 26.2.
@@ -31,4 +30,3 @@ const KCGFontIndexMax CGFontIndex = 65534
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/kCGGlyphMax
 const KCGGlyphMax CGFontIndex = 65534
-

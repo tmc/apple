@@ -3,10 +3,11 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (gc GTMioTraceTrackClass) Alloc() GTMioTraceTrack {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioTraceTrack.Context]
@@ -59,6 +59,7 @@ func (gc GTMioTraceTrackClass) Alloc() GTMioTraceTrack {
 //   - [GTMioTraceTrack.TakeEndIndexesBeginIndexesEndLaneId]
 //   - [GTMioTraceTrack.TrackId]
 //   - [GTMioTraceTrack.InitWithIdScopeScopeIdentifierLevelLevelIdentifier]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack
 type GTMioTraceTrack struct {
 	objectivec.Object
@@ -68,6 +69,7 @@ type GTMioTraceTrack struct {
 func GTMioTraceTrackFromID(id objc.ID) GTMioTraceTrack {
 	return GTMioTraceTrack{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioTraceTrack implements IGTMioTraceTrack.
 var _ IGTMioTraceTrack = GTMioTraceTrack{}
 
@@ -129,7 +131,6 @@ func NewGTMioTraceTrack() GTMioTraceTrack {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/initWithId:scope:scopeIdentifier:level:levelIdentifier:
 func NewGTMioTraceTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceTrack {
 	instance := getGTMioTraceTrackClass().Alloc()
@@ -137,28 +138,27 @@ func NewGTMioTraceTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, sc
 	return GTMioTraceTrackFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/laneIdForStart:end:
 func (g GTMioTraceTrack) LaneIdForStartEnd(start uint64, end uint64) int {
 	rv := objc.Send[int](g.ID, objc.Sel("laneIdForStart:end:"), start, end)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/take:end:index:
 func (g GTMioTraceTrack) TakeEndIndex(take uint64, end uint64, index uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:end:index:"), take, end, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/take:end:index:laneId:
 func (g GTMioTraceTrack) TakeEndIndexLaneId(take uint64, end uint64, index uint64, id int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:end:index:laneId:"), take, end, index, id)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/take:end:indexesBegin:indexesEnd:laneId:
 func (g GTMioTraceTrack) TakeEndIndexesBeginIndexesEndLaneId(take uint64, end uint64, begin uint64, end2 uint64, id int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:end:indexesBegin:indexesEnd:laneId:"), take, end, begin, end2, id)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/initWithId:scope:scopeIdentifier:level:levelIdentifier:
 func (g GTMioTraceTrack) InitWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceTrack {
 	rv := objc.Send[GTMioTraceTrack](g.ID, objc.Sel("initWithId:scope:scopeIdentifier:level:levelIdentifier:"), id, scope, identifier, level, identifier2)
@@ -170,39 +170,45 @@ func (g GTMioTraceTrack) Context() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("context"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/duration
 func (g GTMioTraceTrack) Duration() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("duration"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/endTimestamp
 func (g GTMioTraceTrack) EndTimestamp() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("endTimestamp"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/firstIndex
 func (g GTMioTraceTrack) FirstIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("firstIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/isEmpty
 func (g GTMioTraceTrack) IsEmpty() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isEmpty"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/lanes
 func (g GTMioTraceTrack) Lanes() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("lanes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/startTimestamp
 func (g GTMioTraceTrack) StartTimestamp() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("startTimestamp"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/trackId
 func (g GTMioTraceTrack) TrackId() int {
 	rv := objc.Send[int](g.ID, objc.Sel("trackId"))
 	return rv
 }
-

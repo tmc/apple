@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMIDIMetaEvent] class.
@@ -44,12 +45,13 @@ func (ac AVMIDIMetaEventClass) Alloc() AVMIDIMetaEvent {
 // An object that represents MIDI meta event messages.
 //
 // # Overview
-// 
+//
 // You can’t modify the size and contents of this event once you create it.
 // This doesn’t verify that the content matches the MIDI specification.
-// 
-// You can only add [MIDIMetaEventTypeTempo], [MIDIMetaEventTypeSmpteOffset],
-// or [MIDIMetaEventTypeTimeSignature] to a sequence’s tempo track.
+//
+// You can only add [AVMIDIMetaEventTypeTempo],
+// [AVMIDIMetaEventTypeSmpteOffset], or [AVMIDIMetaEventTypeTimeSignature] to
+// a sequence’s tempo track.
 //
 // # Creating a Meta Event
 //
@@ -70,6 +72,7 @@ type AVMIDIMetaEvent struct {
 func AVMIDIMetaEventFromID(id objc.ID) AVMIDIMetaEvent {
 	return AVMIDIMetaEvent{AVMusicEvent: AVMusicEventFromID(id)}
 }
+
 // NOTE: AVMIDIMetaEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -149,4 +152,3 @@ func (m AVMIDIMetaEvent) Type() AVMIDIMetaEventType {
 	rv := objc.Send[AVMIDIMetaEventType](m.ID, objc.Sel("type"))
 	return AVMIDIMetaEventType(rv)
 }
-

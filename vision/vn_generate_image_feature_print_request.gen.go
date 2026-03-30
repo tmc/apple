@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (vc VNGenerateImageFeaturePrintRequestClass) Alloc() VNGenerateImageFeature
 // An image-based request to generate feature prints from an image.
 //
 // # Overview
-// 
+//
 // This request returns the feature print data it generates as an array of
 // [VNFeaturePrintObservation] objects.
 //
@@ -67,6 +68,7 @@ type VNGenerateImageFeaturePrintRequest struct {
 func VNGenerateImageFeaturePrintRequestFromID(id objc.ID) VNGenerateImageFeaturePrintRequest {
 	return VNGenerateImageFeaturePrintRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNGenerateImageFeaturePrintRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,7 +123,7 @@ func NewVNGenerateImageFeaturePrintRequest() VNGenerateImageFeaturePrintRequest 
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -137,14 +139,14 @@ func NewGenerateImageFeaturePrintRequestWithCompletionHandler(completionHandler 
 // before generating the feature print.
 //
 // # Discussion
-// 
+//
 // Scaling is applied before generating the feature print. The default value
-// is [ImageCropAndScaleOptionScaleFill].
-// 
+// is [VNImageCropAndScaleOptionScaleFill].
+//
 // Scaling an image ensures that the entire image fits into the algorithm’s
 // input image dimensions, which may require a change in aspect ratio. Each
 // crop and scale option transforms the input image in a different way:
-// 
+//
 // [scale-crop-options]
 //
 // See: https://developer.apple.com/documentation/Vision/VNGenerateImageFeaturePrintRequest/imageCropAndScaleOption
@@ -155,6 +157,7 @@ func (g VNGenerateImageFeaturePrintRequest) ImageCropAndScaleOption() VNImageCro
 func (g VNGenerateImageFeaturePrintRequest) SetImageCropAndScaleOption(value VNImageCropAndScaleOption) {
 	objc.Send[struct{}](g.ID, objc.Sel("setImageCropAndScaleOption:"), value)
 }
+
 // A constant for specifying the first revision of the feature-print request.
 //
 // See: https://developer.apple.com/documentation/vision/vngenerateimagefeatureprintrequestrevision1
@@ -162,4 +165,3 @@ func (g VNGenerateImageFeaturePrintRequest) VNGenerateImageFeaturePrintRequestRe
 	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateImageFeaturePrintRequestRevision1"))
 	return rv
 }
-

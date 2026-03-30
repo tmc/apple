@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVFragmentedMovie] class.
@@ -54,6 +55,7 @@ type AVFragmentedMovie struct {
 func AVFragmentedMovieFromID(id objc.ID) AVFragmentedMovie {
 	return AVFragmentedMovie{AVMovie: AVMovieFromID(id)}
 }
+
 // NOTE: AVFragmentedMovie adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -101,7 +103,7 @@ func NewFragmentedMovieAssetWithURL(URL foundation.INSURL) AVFragmentedMovie {
 // options: A dictionary of options to use to initialize the movie.
 //
 // # Discussion
-// 
+//
 // Use this method to create movies from movie headers that aren’t stored in
 // files, which can include movies that the pasteboard contains.
 //
@@ -120,7 +122,7 @@ func NewFragmentedMovieWithDataOptions(data foundation.INSData, options foundati
 // options: A dictionary of options to use to initialize the movie.
 //
 // # Discussion
-// 
+//
 // Upon creation, the values of the [DefaultMediaDataStorage] property and any
 // associated [MediaDataStorage] properties are `nil`.
 //
@@ -140,6 +142,4 @@ func (f AVFragmentedMovie) IsAssociatedWithFragmentMinder() bool {
 	return rv
 }
 
-			// Protocol methods for AVFragmentMinding
-			
-
+// Protocol methods for AVFragmentMinding

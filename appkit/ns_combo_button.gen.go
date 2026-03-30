@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSComboButtonClass) Alloc() NSComboButton {
 // A button with a pull-down menu and a default action.
 //
 // # Overview
-// 
+//
 // An [NSComboButton] object is a button that displays a title string, image,
 // and an optional control for displaying a menu. Use this control in places
 // where you want to offer a button with a default action and one or more
@@ -54,7 +55,7 @@ func (nc NSComboButtonClass) Alloc() NSComboButton {
 // action you provide, and clicking the menu control displays a menu for
 // selecting a different action. If you configure the button to hide the menu
 // control, a long-press gesture displays the menu.
-// 
+//
 // After you create a combo button programmatically or in Interface Builder,
 // choose the button [NSComboButton.Style] you want and add a title or image for your
 // content. A combo button has a default action, which you specify at creation
@@ -62,7 +63,7 @@ func (nc NSComboButtonClass) Alloc() NSComboButton {
 // and [NSComboButton.Action] properties. To specify one or more alternative actions,
 // configure a menu with those actions and assign it to the button’s [Menu]
 // property.
-// 
+//
 // This control doesn’t use an [NSCell] object for its underlying
 // implementation. It also doesn’t support the addition of a contextual
 // menu.
@@ -89,6 +90,7 @@ type NSComboButton struct {
 func NSComboButtonFromID(id objc.ID) NSComboButton {
 	return NSComboButton{NSControl: NSControlFromID(id)}
 }
+
 // NOTE: NSComboButton adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -159,12 +161,12 @@ func NewComboButtonWithCoder(coder foundation.INSCoder) NSComboButton {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -191,11 +193,11 @@ func NewComboButtonWithFrame(frameRect corefoundation.CGRect) NSComboButton {
 // action: The action message to send to the `target` object.
 //
 // # Return Value
-// 
+//
 // A combo button configured with only the specified image.
 //
 // # Discussion
-// 
+//
 // This method sets the [Title] property to an empty string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboButton/init(image:menu:target:action:)
@@ -219,7 +221,7 @@ func NewComboButtonWithImageMenuTargetAction(image INSImage, menu INSMenu, targe
 // action: The action message to send to the `target` object.
 //
 // # Return Value
-// 
+//
 // A combo button configured with both a title and image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboButton/init(title:image:menu:target:action:)
@@ -241,11 +243,11 @@ func NewComboButtonWithTitleImageMenuTargetAction(title string, image INSImage, 
 // action: The action message to send to the `target` object.
 //
 // # Return Value
-// 
+//
 // A combo button configured with only a title string.
 //
 // # Discussion
-// 
+//
 // This method sets the [Image] property to `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboButton/init(title:menu:target:action:)
@@ -257,10 +259,8 @@ func NewComboButtonWithTitleMenuTargetAction(title string, menu INSMenu, target 
 // The appearance setting that determines how the button presents its menu .
 //
 // # Discussion
-// 
-// The default value of this property is [NSComboButton.Style.split].
 //
-// [NSComboButton.Style.split]: https://developer.apple.com/documentation/AppKit/NSComboButton/Style-swift.enum/split
+// The default value of this property is [NSComboButtonStyleSplit].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboButton/style-swift.property
 func (c NSComboButton) Style() NSComboButtonStyle {
@@ -270,10 +270,11 @@ func (c NSComboButton) Style() NSComboButtonStyle {
 func (c NSComboButton) SetStyle(value NSComboButtonStyle) {
 	objc.Send[struct{}](c.ID, objc.Sel("setStyle:"), value)
 }
+
 // The localized string that the button displays.
 //
 // # Discussion
-// 
+//
 // The method you use to create the combo button sets the initial value of
 // this property.
 //
@@ -285,10 +286,11 @@ func (c NSComboButton) Title() string {
 func (c NSComboButton) SetTitle(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTitle:"), objc.String(value))
 }
+
 // The image that the button displays.
 //
 // # Discussion
-// 
+//
 // The combo button scales the image to fit within its bounds. Use the
 // [ImageScaling] property to specify the scaling behavior to use with your
 // image.
@@ -301,14 +303,12 @@ func (c NSComboButton) Image() INSImage {
 func (c NSComboButton) SetImage(value INSImage) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImage:"), value)
 }
+
 // The scaling behavior to apply to the button’s image.
 //
 // # Discussion
-// 
-// The default value of this property is
-// [NSImageScaling.scaleProportionallyDown].
 //
-// [NSImageScaling.scaleProportionallyDown]: https://developer.apple.com/documentation/AppKit/NSImageScaling/scaleProportionallyDown
+// The default value of this property is [NSImageScaleProportionallyDown].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboButton/imageScaling
 func (c NSComboButton) ImageScaling() NSImageScaling {
@@ -318,4 +318,3 @@ func (c NSComboButton) ImageScaling() NSImageScaling {
 func (c NSComboButton) SetImageScaling(value NSImageScaling) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImageScaling:"), value)
 }
-

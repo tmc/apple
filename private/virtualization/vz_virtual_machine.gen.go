@@ -4,11 +4,12 @@ package virtualization
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,6 @@ func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtualMachine._audioDevices]
@@ -93,6 +93,7 @@ func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
 //   - [VZVirtualMachine.SendSmartMagnifyEventsPointingDeviceIndex]
 //   - [VZVirtualMachine.State]
 //   - [VZVirtualMachine.SetState]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine
 type VZVirtualMachine struct {
 	objectivec.Object
@@ -102,6 +103,7 @@ type VZVirtualMachine struct {
 func VZVirtualMachineFromID(id objc.ID) VZVirtualMachine {
 	return VZVirtualMachine{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVirtualMachine implements IVZVirtualMachine.
 var _ IVZVirtualMachine = VZVirtualMachine{}
 
@@ -227,10 +229,9 @@ func NewVZVirtualMachine() VZVirtualMachine {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_createCoreWithCompletionHandler:
 func (v VZVirtualMachine) _createCoreWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_createCoreWithCompletionHandler:"), _block0)
 }
 
@@ -238,10 +239,10 @@ _block0, _ := NewErrorBlock(handler)
 func (v VZVirtualMachine) CreateCoreWithCompletionHandler(handler ErrorHandler) {
 	v._createCoreWithCompletionHandler(handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_createCoresWithCompletionHandler:
 func (v VZVirtualMachine) _createCoresWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_createCoresWithCompletionHandler:"), _block0)
 }
 
@@ -249,7 +250,7 @@ _block0, _ := NewErrorBlock(handler)
 func (v VZVirtualMachine) CreateCoresWithCompletionHandler(handler ErrorHandler) {
 	v._createCoresWithCompletionHandler(handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_createViewEndpointWithOptions:
 func (v VZVirtualMachine) _createViewEndpointWithOptions(options uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_createViewEndpointWithOptions:"), options)
@@ -260,10 +261,10 @@ func (v VZVirtualMachine) _createViewEndpointWithOptions(options uint64) objecti
 func (v VZVirtualMachine) CreateViewEndpointWithOptions(options uint64) objectivec.IObject {
 	return v._createViewEndpointWithOptions(options)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_enterRestrictedModeWithCompletionHandler:
 func (v VZVirtualMachine) _enterRestrictedModeWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_enterRestrictedModeWithCompletionHandler:"), _block0)
 }
 
@@ -271,10 +272,10 @@ _block0, _ := NewErrorBlock(handler)
 func (v VZVirtualMachine) EnterRestrictedModeWithCompletionHandler(handler ErrorHandler) {
 	v._enterRestrictedModeWithCompletionHandler(handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_getUSBControllerLocationIDWithCompletionHandler:
 func (v VZVirtualMachine) _getUSBControllerLocationIDWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_getUSBControllerLocationIDWithCompletionHandler:"), _block0)
 }
 
@@ -282,7 +283,7 @@ _block0, _ := NewErrorBlock(handler)
 func (v VZVirtualMachine) GetUSBControllerLocationIDWithCompletionHandler(handler ErrorHandler) {
 	v._getUSBControllerLocationIDWithCompletionHandler(handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_overrideConnectionForTesting:
 func (v VZVirtualMachine) _overrideConnectionForTesting(testing objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_overrideConnectionForTesting:"), testing)
@@ -292,7 +293,7 @@ func (v VZVirtualMachine) _overrideConnectionForTesting(testing objectivec.IObje
 func (v VZVirtualMachine) OverrideConnectionForTesting(testing objectivec.IObject) {
 	v._overrideConnectionForTesting(testing)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_processHIDReports:forDevice:deviceType:
 func (v VZVirtualMachine) _processHIDReportsForDeviceDeviceType(hIDReports unsafe.Pointer, device uint32, type_ int) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"), hIDReports, device, type_)
@@ -302,10 +303,10 @@ func (v VZVirtualMachine) _processHIDReportsForDeviceDeviceType(hIDReports unsaf
 func (v VZVirtualMachine) ProcessHIDReportsForDeviceDeviceType(hIDReports unsafe.Pointer, device uint32, type_ int) {
 	v._processHIDReportsForDeviceDeviceType(hIDReports, device, type_)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_resetWithType:completionHandler:
 func (v VZVirtualMachine) _resetWithTypeCompletionHandler(type_ int64, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_resetWithType:completionHandler:"), type_, _block1)
 }
 
@@ -313,10 +314,10 @@ _block1, _ := NewErrorBlock(handler)
 func (v VZVirtualMachine) ResetWithTypeCompletionHandler(type_ int64, handler ErrorHandler) {
 	v._resetWithTypeCompletionHandler(type_, handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_saveMachineStateToURL:options:completionHandler:
 func (v VZVirtualMachine) _saveMachineStateToURLOptionsCompletionHandler(url foundation.INSURL, options objectivec.IObject, handler ErrorHandler) {
-_block2, _ := NewErrorBlock(handler)
+	_block2, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_saveMachineStateToURL:options:completionHandler:"), url, options, _block2)
 }
 
@@ -324,7 +325,7 @@ _block2, _ := NewErrorBlock(handler)
 func (v VZVirtualMachine) SaveMachineStateToURLOptionsCompletionHandler(url foundation.INSURL, options objectivec.IObject, handler ErrorHandler) {
 	v._saveMachineStateToURLOptionsCompletionHandler(url, options, handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_setCrashContextMessage:
 func (v VZVirtualMachine) _setCrashContextMessage(message objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setCrashContextMessage:"), message)
@@ -334,7 +335,7 @@ func (v VZVirtualMachine) _setCrashContextMessage(message objectivec.IObject) {
 func (v VZVirtualMachine) SetCrashContextMessage(message objectivec.IObject) {
 	v._setCrashContextMessage(message)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_setName:
 func (v VZVirtualMachine) _setName(name objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setName:"), name)
@@ -344,6 +345,7 @@ func (v VZVirtualMachine) _setName(name objectivec.IObject) {
 func (v VZVirtualMachine) SetName(name objectivec.IObject) {
 	v._setName(name)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_shouldSendHIDReports
 func (v VZVirtualMachine) _shouldSendHIDReports() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_shouldSendHIDReports"))
@@ -354,7 +356,7 @@ func (v VZVirtualMachine) _shouldSendHIDReports() bool {
 func (v VZVirtualMachine) ShouldSendHIDReports() bool {
 	return v._shouldSendHIDReports()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_validateRestrictedModeSupportWithError:
 func (v VZVirtualMachine) _validateRestrictedModeSupportWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -374,57 +376,57 @@ func (v VZVirtualMachine) _validateRestrictedModeSupportWithError() (bool, error
 func (v VZVirtualMachine) ValidateRestrictedModeSupportWithError() (bool, error) {
 	return v._validateRestrictedModeSupportWithError()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendDigitizerEvents:pointingDeviceIndex:
 func (v VZVirtualMachine) SendDigitizerEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendDigitizerEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendIOHIDEvents:hidDeviceIndex:
 func (v VZVirtualMachine) SendIOHIDEventsHidDeviceIndex(iOHIDEvents unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendIOHIDEvents:hidDeviceIndex:"), iOHIDEvents, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendKeyboardEvents:keyboardID:
 func (v VZVirtualMachine) SendKeyboardEventsKeyboardID(events unsafe.Pointer, id uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events, id)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendMagnifyEvents:pointingDeviceIndex:
 func (v VZVirtualMachine) SendMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMagnifyEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendMouseEvents:pointingDeviceIndex:
 func (v VZVirtualMachine) SendMouseEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMouseEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendMultiTouchEvents:multiTouchDeviceIndex:
 func (v VZVirtualMachine) SendMultiTouchEventsMultiTouchDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMultiTouchEvents:multiTouchDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendPointerNSEvent:pointingDeviceIndex:
 func (v VZVirtualMachine) SendPointerNSEventPointingDeviceIndex(nSEvent objectivec.IObject, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendPointerNSEvent:pointingDeviceIndex:"), nSEvent, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendQuickLookEvents:pointingDeviceIndex:
 func (v VZVirtualMachine) SendQuickLookEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendQuickLookEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendRotationEvents:pointingDeviceIndex:
 func (v VZVirtualMachine) SendRotationEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendRotationEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendScrollWheelEvents:pointingDeviceIndex:
 func (v VZVirtualMachine) SendScrollWheelEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendScrollWheelEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendSmartMagnifyEvents:pointingDeviceIndex:
 func (v VZVirtualMachine) SendSmartMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendSmartMagnifyEvents:pointingDeviceIndex:"), events, index)
@@ -435,16 +437,19 @@ func (v VZVirtualMachine) _audioDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_audioDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_canCreateCore
 func (v VZVirtualMachine) _canCreateCore() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_canCreateCore"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_coprocessors
 func (v VZVirtualMachine) _coprocessors() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_coprocessors"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_crashContextMessage
 func (v VZVirtualMachine) _crashContextMessage() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_crashContextMessage"))
@@ -453,11 +458,13 @@ func (v VZVirtualMachine) _crashContextMessage() string {
 func (v VZVirtualMachine) Set_crashContextMessage(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_crashContextMessage:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_currentConfiguration
 func (v VZVirtualMachine) _currentConfiguration() IVZVirtualMachineConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_currentConfiguration"))
 	return VZVirtualMachineConfigurationFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_debugStub
 func (v VZVirtualMachine) _debugStub() *VZDebugStub {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_debugStub"))
@@ -467,11 +474,13 @@ func (v VZVirtualMachine) _debugStub() *VZDebugStub {
 	val := VZDebugStubFromID(objc.ID(rv))
 	return &val
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_hidDevices
 func (v VZVirtualMachine) _hidDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_hidEventMonitor
 func (v VZVirtualMachine) _hidEventMonitor() *VZHIDEventMonitor {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidEventMonitor"))
@@ -481,16 +490,19 @@ func (v VZVirtualMachine) _hidEventMonitor() *VZHIDEventMonitor {
 	val := VZHIDEventMonitorFromID(objc.ID(rv))
 	return &val
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_keyboards
 func (v VZVirtualMachine) _keyboards() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_keyboards"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_multiTouchDevices
 func (v VZVirtualMachine) _multiTouchDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_multiTouchDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_name
 func (v VZVirtualMachine) _name() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_name"))
@@ -499,36 +511,43 @@ func (v VZVirtualMachine) _name() string {
 func (v VZVirtualMachine) Set_name(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_name:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_pointingDevices
 func (v VZVirtualMachine) _pointingDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pointingDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_powerSourceDevices
 func (v VZVirtualMachine) _powerSourceDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_powerSourceDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_serialPorts
 func (v VZVirtualMachine) _serialPorts() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_serialPorts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_serviceProcessIdentifier
 func (v VZVirtualMachine) _serviceProcessIdentifier() int {
 	rv := objc.Send[int](v.ID, objc.Sel("_serviceProcessIdentifier"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_stateDescription
 func (v VZVirtualMachine) _stateDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_stateDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_storageDevices
 func (v VZVirtualMachine) _storageDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_storageDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/state
 func (v VZVirtualMachine) State() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("state"))
@@ -627,4 +646,3 @@ func (v VZVirtualMachine) _saveMachineStateToURLOptions(ctx context.Context, url
 		return ctx.Err()
 	}
 }
-

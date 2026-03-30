@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,12 +45,12 @@ func (nc NSMorphologyClass) Alloc() NSMorphology {
 // A description of the grammatical properties of a string.
 //
 // # Overview
-// 
+//
 // Use a morphology with an [NSInflectionRule] to specify how to interpret a
 // specific word when inflecting an [NSAttributedString]. This affects
 // grammatical agreement with traits like number and gender, as well as
 // declaring the word’s part of speech.
-// 
+//
 // The [NSMorphology] type’s design is language-independent; the concepts it
 // can specify encompass the spectrum of what languages can do. Even for
 // languages that don’t have one or more of those properties benefit the
@@ -92,6 +93,7 @@ type NSMorphology struct {
 func NSMorphologyFromID(id objc.ID) NSMorphology {
 	return NSMorphology{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSMorphology adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -177,12 +179,12 @@ func NewNSMorphology() NSMorphology {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (m NSMorphology) InitWithCoder(coder INSCoder) NSMorphology {
 	rv := objc.Send[NSMorphology](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -196,7 +198,7 @@ func (m NSMorphology) EncodeWithCoder(coder INSCoder) {
 // particular grammar.
 //
 // # Discussion
-// 
+//
 // This value is equivalent to having set none of the properties in this
 // [NSMorphology]. This occurs when the user hasn’t specified preferences,
 // or chose not to share them with this app. When the morphology is
@@ -207,6 +209,7 @@ func (m NSMorphology) Unspecified() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isUnspecified"))
 	return rv
 }
+
 // The grammatical gender used for inflecting strings with this morphology.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/grammaticalGender
@@ -217,6 +220,7 @@ func (m NSMorphology) GrammaticalGender() NSGrammaticalGender {
 func (m NSMorphology) SetGrammaticalGender(value NSGrammaticalGender) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGrammaticalGender:"), value)
 }
+
 // The grammatical number used for inflecting strings with this morphology.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/number
@@ -227,6 +231,7 @@ func (m NSMorphology) Number() NSGrammaticalNumber {
 func (m NSMorphology) SetNumber(value NSGrammaticalNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumber:"), value)
 }
+
 // The grammatical part of speech used for inflecting strings with this
 // morphology.
 //
@@ -238,6 +243,7 @@ func (m NSMorphology) PartOfSpeech() NSGrammaticalPartOfSpeech {
 func (m NSMorphology) SetPartOfSpeech(value NSGrammaticalPartOfSpeech) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPartOfSpeech:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/definiteness
 func (m NSMorphology) Definiteness() NSGrammaticalDefiniteness {
 	rv := objc.Send[NSGrammaticalDefiniteness](m.ID, objc.Sel("definiteness"))
@@ -246,6 +252,7 @@ func (m NSMorphology) Definiteness() NSGrammaticalDefiniteness {
 func (m NSMorphology) SetDefiniteness(value NSGrammaticalDefiniteness) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDefiniteness:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/determination
 func (m NSMorphology) Determination() NSGrammaticalDetermination {
 	rv := objc.Send[NSGrammaticalDetermination](m.ID, objc.Sel("determination"))
@@ -254,6 +261,7 @@ func (m NSMorphology) Determination() NSGrammaticalDetermination {
 func (m NSMorphology) SetDetermination(value NSGrammaticalDetermination) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDetermination:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/grammaticalCase
 func (m NSMorphology) GrammaticalCase() NSGrammaticalCase {
 	rv := objc.Send[NSGrammaticalCase](m.ID, objc.Sel("grammaticalCase"))
@@ -262,6 +270,7 @@ func (m NSMorphology) GrammaticalCase() NSGrammaticalCase {
 func (m NSMorphology) SetGrammaticalCase(value NSGrammaticalCase) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGrammaticalCase:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/grammaticalPerson
 func (m NSMorphology) GrammaticalPerson() NSGrammaticalPerson {
 	rv := objc.Send[NSGrammaticalPerson](m.ID, objc.Sel("grammaticalPerson"))
@@ -270,6 +279,7 @@ func (m NSMorphology) GrammaticalPerson() NSGrammaticalPerson {
 func (m NSMorphology) SetGrammaticalPerson(value NSGrammaticalPerson) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGrammaticalPerson:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/pronounType
 func (m NSMorphology) PronounType() NSGrammaticalPronounType {
 	rv := objc.Send[NSGrammaticalPronounType](m.ID, objc.Sel("pronounType"))
@@ -282,10 +292,10 @@ func (m NSMorphology) SetPronounType(value NSGrammaticalPronounType) {
 // The addressing preferences of the current user.
 //
 // # Discussion
-// 
+//
 // If the user hasn’t specified preferences, or chose not to share them with
 // this app, the [Unspecified] property is `true`.
-// 
+//
 // This value doesn’t change throughout the lifetime of the process.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/userMorphology
@@ -294,9 +304,6 @@ func (_NSMorphologyClass NSMorphologyClass) UserMorphology() NSMorphology {
 	return NSMorphologyFromID(objc.ID(rv))
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

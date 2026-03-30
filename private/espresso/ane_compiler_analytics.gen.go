@@ -3,12 +3,13 @@
 package espresso
 
 import (
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/appleneuralengine"
-	"sync"
-	"unsafe"
 )
 
 // The class instance for the [ANECompilerAnalytics] class.

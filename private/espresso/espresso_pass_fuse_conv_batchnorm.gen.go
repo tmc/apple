@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_fuse_conv_batchnorm struct {
 func EspressoPass_fuse_conv_batchnormFromID(id objc.ID) EspressoPass_fuse_conv_batchnorm {
 	return EspressoPass_fuse_conv_batchnorm{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_fuse_conv_batchnorm implements IEspressoPass_fuse_conv_batchnorm.
 var _ IEspressoPass_fuse_conv_batchnorm = EspressoPass_fuse_conv_batchnorm{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_fuse_conv_batchnorm() EspressoPass_fuse_conv_batchnorm {
 	rv := objc.Send[EspressoPass_fuse_conv_batchnorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

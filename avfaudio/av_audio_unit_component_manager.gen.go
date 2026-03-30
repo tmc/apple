@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,17 +47,17 @@ func (ac AVAudioUnitComponentManagerClass) Alloc() AVAudioUnitComponentManager {
 // system registers.
 //
 // # Overview
-// 
+//
 // The component manager has methods to find various information about the
 // audio components without opening them. Currently, you can only search audio
 // components that are audio units.
-// 
+//
 // The class supports system tags and arbitrary user tags. You can tag each
 // audio unit as part of its definition. Audio unit hosts, such as Logic or
 // GarageBand, can present groupings of audio units according to the tags.
-// 
+//
 // You can search for audio units in the following ways:
-// 
+//
 // - Using a [NSPredicate] instance that contains search strings for tags or
 // descriptions - Using a block to match on a custom criteria - Using an
 // [AudioComponentDescription]
@@ -84,6 +85,7 @@ type AVAudioUnitComponentManager struct {
 func AVAudioUnitComponentManagerFromID(id objc.ID) AVAudioUnitComponentManager {
 	return AVAudioUnitComponentManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioUnitComponentManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -145,36 +147,37 @@ func NewAVAudioUnitComponentManager() AVAudioUnitComponentManager {
 // desc is a [audiotoolbox.AudioComponentDescription].
 //
 // # Return Value
-// 
+//
 // An array of [AVAudioComponent] objects that match the `description`.
 //
 // # Discussion
-// 
+//
 // - desc: The [AudioComponentDescription] structure to match. The method uses
 // the `type`, `subtype` and `manufacturer` fields to search for matching
 // audio units. A value of `0` for any of these fields is a wildcard and
 // returns the first match the method finds.
 //
-// [AudioComponentDescription]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentDescription
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/components(matching:)-9qt94
 // desc is a [audiotoolbox.AudioComponentDescription].
+//
+// [AudioComponentDescription]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentDescription
 func (a AVAudioUnitComponentManager) ComponentsMatchingDescription(desc objectivec.IObject) []AVAudioUnitComponent {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("componentsMatchingDescription:"), desc)
 	return objc.ConvertSlice(rv, func(id objc.ID) AVAudioUnitComponent {
 		return AVAudioUnitComponentFromID(id)
 	})
 }
+
 // Gets an array of audio component objects that match the search predicate.
 //
 // predicate: The search predicate.
 //
 // # Return Value
-// 
+//
 // An array of [AVAudioComponent] objects that match the predicate.
 //
 // # Discussion
-// 
+//
 // You use the audio component’s information or tags to build search
 // criteria, such as `“typeName CONTAINS 'Effect'"` or `“tags IN
 // {'Sampler', 'MIDI'}"`.
@@ -186,37 +189,34 @@ func (a AVAudioUnitComponentManager) ComponentsMatchingPredicate(predicate found
 		return AVAudioUnitComponentFromID(id)
 	})
 }
+
 // Gets an array of audio components that pass the block method.
 //
 // testHandler: The block to apply to the audio unit components.
-// 
+//
 // The block takes two parameters.
-// 
+//
 // comp: A block to test. stop: A reference to a Boolean value. To stop
-// further processing of the search, the block sets the value to [true]. The
-// stop argument is an out-only argument. Only set this Boolean to [true]
-// within the block.
-// 
+// further processing of the search, the block sets the value to true. The
+// stop argument is an out-only argument. Only set this Boolean to true within
+// the block.
+//
 // The block returns a Boolean value that indicates whether `comp` passes the
-// test. Returning [true] stops further processing of the audio components.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// test. Returning true stops further processing of the audio components.
 //
 // # Return Value
-// 
+//
 // An array of audio components that pass the test.
 //
 // # Discussion
-// 
-// For each audio component the manager finds, the system calls the block
-// method. If the block returns [true], the method adds [AVAudioComponent]
-// instance to the array.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// For each audio component the manager finds, the system calls the block
+// method. If the block returns true, the method adds [AVAudioComponent]
+// instance to the array.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/components(passingTest:)
 func (a AVAudioUnitComponentManager) ComponentsPassingTest(testHandler AVAudioUnitComponentHandler) []AVAudioUnitComponent {
-_block0, _ := NewAVAudioUnitComponentBlock(testHandler)
+	_block0, _ := NewAVAudioUnitComponentBlock(testHandler)
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("componentsPassingTest:"), _block0)
 	return objc.ConvertSlice(rv, func(id objc.ID) AVAudioUnitComponent {
 		return AVAudioUnitComponentFromID(id)
@@ -226,7 +226,7 @@ _block0, _ := NewAVAudioUnitComponentBlock(testHandler)
 // Gets the shared component manager instance.
 //
 // # Return Value
-// 
+//
 // The singleton instance of the [AVAudioUnitComponentManager] object.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/shared()
@@ -242,6 +242,7 @@ func (a AVAudioUnitComponentManager) StandardLocalizedTagNames() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("standardLocalizedTagNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // An array of all tags the audio unit associates with the current user, and
 // the system tags the audio units define.
 //
@@ -250,4 +251,3 @@ func (a AVAudioUnitComponentManager) TagNames() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("tagNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

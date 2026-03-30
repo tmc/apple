@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (vc VZWrappingKeyClass) Alloc() VZWrappingKey {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZWrappingKey.InitWithAESKeyError]
 //   - [VZWrappingKey.InitWithAsymmetricKeyError]
 //   - [VZWrappingKey.InitWithPasswordError]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey
 type VZWrappingKey struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type VZWrappingKey struct {
 func VZWrappingKeyFromID(id objc.ID) VZWrappingKey {
 	return VZWrappingKey{objectivec.Object{ID: id}}
 }
+
 // Ensure VZWrappingKey implements IVZWrappingKey.
 var _ IVZWrappingKey = VZWrappingKey{}
 
@@ -99,7 +101,6 @@ func NewVZWrappingKey() VZWrappingKey {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithAESKey:error:
 func NewVZWrappingKeyWithAESKeyError(aESKey objectivec.IObject) (VZWrappingKey, error) {
 	var errorPtr objc.ID
@@ -112,7 +113,6 @@ func NewVZWrappingKeyWithAESKeyError(aESKey objectivec.IObject) (VZWrappingKey, 
 	return VZWrappingKeyFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithAsymmetricKey:error:
 func NewVZWrappingKeyWithAsymmetricKeyError(key string) (VZWrappingKey, error) {
 	var errorPtr objc.ID
@@ -125,7 +125,6 @@ func NewVZWrappingKeyWithAsymmetricKeyError(key string) (VZWrappingKey, error) {
 	return VZWrappingKeyFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithPassword:error:
 func NewVZWrappingKeyWithPasswordError(password objectivec.IObject) (VZWrappingKey, error) {
 	var errorPtr objc.ID
@@ -138,7 +137,6 @@ func NewVZWrappingKeyWithPasswordError(password objectivec.IObject) (VZWrappingK
 	return VZWrappingKeyFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithAESKey:error:
 func (v VZWrappingKey) InitWithAESKeyError(aESKey objectivec.IObject) (VZWrappingKey, error) {
 	var errorPtr objc.ID
@@ -150,7 +148,7 @@ func (v VZWrappingKey) InitWithAESKeyError(aESKey objectivec.IObject) (VZWrappin
 	return VZWrappingKeyFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithAsymmetricKey:error:
 func (v VZWrappingKey) InitWithAsymmetricKeyError(key string) (VZWrappingKey, error) {
 	var errorPtr objc.ID
@@ -162,7 +160,7 @@ func (v VZWrappingKey) InitWithAsymmetricKeyError(key string) (VZWrappingKey, er
 	return VZWrappingKeyFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZWrappingKey/initWithPassword:error:
 func (v VZWrappingKey) InitWithPasswordError(password objectivec.IObject) (VZWrappingKey, error) {
 	var errorPtr objc.ID
@@ -174,4 +172,3 @@ func (v VZWrappingKey) InitWithPasswordError(password objectivec.IObject) (VZWra
 	return VZWrappingKeyFromID(rv), nil
 
 }
-

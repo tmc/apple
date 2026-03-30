@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (mc MLKeyClass) Alloc() MLKey {
 // An abstract base class for machine learning key types.
 //
 // # Overview
-// 
+//
 // You don’t create use this class directly. Instead, use a class that
 // inherits from this one, such as [MLParameterKey] or [MLMetricKey].
 //
@@ -65,6 +66,7 @@ type MLKey struct {
 func MLKeyFromID(id objc.ID) MLKey {
 	return MLKey{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLKey adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,6 +121,7 @@ func (k MLKey) Name() string {
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The applicable scope of the machine learning key.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLKey/scope
@@ -126,4 +129,3 @@ func (k MLKey) Scope() string {
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("scope"))
 	return foundation.NSStringFromID(rv).String()
 }
-

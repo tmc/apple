@@ -18,6 +18,7 @@ type AVMetricEventStreamPublisher interface {
 type AVMetricEventStreamPublisherObject struct {
 	objectivec.Object
 }
+
 func (o AVMetricEventStreamPublisherObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func AVMetricEventStreamPublisherObjectFromID(id objc.ID) AVMetricEventStreamPub
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

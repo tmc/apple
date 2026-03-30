@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNHumanObservation] class.
@@ -58,6 +59,7 @@ type VNHumanObservation struct {
 func VNHumanObservationFromID(id objc.ID) VNHumanObservation {
 	return VNHumanObservation{VNDetectedObjectObservation: VNDetectedObjectObservationFromID(id)}
 }
+
 // NOTE: VNHumanObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -130,4 +132,3 @@ func (h VNHumanObservation) UpperBodyOnly() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("upperBodyOnly"))
 	return rv
 }
-

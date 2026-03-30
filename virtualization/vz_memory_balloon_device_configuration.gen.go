@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZMemoryBalloonDeviceConfigurationClass) Alloc() VZMemoryBalloonDeviceC
 // The common configuration traits for memory balloon devices.
 //
 // # Overview
-// 
+//
 // Don’t instantiate this abstract class directly. Instead, instantiate one
 // of its subclasses such as
 // [VZVirtioTraditionalMemoryBalloonDeviceConfiguration].
@@ -60,6 +61,7 @@ type VZMemoryBalloonDeviceConfiguration struct {
 func VZMemoryBalloonDeviceConfigurationFromID(id objc.ID) VZMemoryBalloonDeviceConfiguration {
 	return VZMemoryBalloonDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZMemoryBalloonDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -88,4 +90,3 @@ func NewVZMemoryBalloonDeviceConfiguration() VZMemoryBalloonDeviceConfiguration 
 	rv := objc.Send[VZMemoryBalloonDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

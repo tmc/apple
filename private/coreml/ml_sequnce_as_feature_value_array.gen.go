@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (mc MLSequnceAsFeatureValueArrayClass) Alloc() MLSequnceAsFeatureValueArray
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLSequnceAsFeatureValueArray.Sequence]
 //   - [MLSequnceAsFeatureValueArray.InitWrappingSequence]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLSequnceAsFeatureValueArray
 type MLSequnceAsFeatureValueArray struct {
 	foundation.NSArray
@@ -56,6 +57,7 @@ type MLSequnceAsFeatureValueArray struct {
 func MLSequnceAsFeatureValueArrayFromID(id objc.ID) MLSequnceAsFeatureValueArray {
 	return MLSequnceAsFeatureValueArray{NSArray: foundation.NSArrayFromID(id)}
 }
+
 // Ensure MLSequnceAsFeatureValueArray implements IMLSequnceAsFeatureValueArray.
 var _ IMLSequnceAsFeatureValueArray = MLSequnceAsFeatureValueArray{}
 
@@ -95,7 +97,6 @@ func NewMLSequnceAsFeatureValueArray() MLSequnceAsFeatureValueArray {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSequnceAsFeatureValueArray/initWrappingSequence:
 func NewSequnceAsFeatureValueArrayWrappingSequence(sequence objectivec.IObject) MLSequnceAsFeatureValueArray {
 	instance := getMLSequnceAsFeatureValueArrayClass().Alloc()
@@ -103,7 +104,6 @@ func NewSequnceAsFeatureValueArrayWrappingSequence(sequence objectivec.IObject) 
 	return MLSequnceAsFeatureValueArrayFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSequnceAsFeatureValueArray/initWrappingSequence:
 func (s MLSequnceAsFeatureValueArray) InitWrappingSequence(sequence objectivec.IObject) MLSequnceAsFeatureValueArray {
 	rv := objc.Send[MLSequnceAsFeatureValueArray](s.ID, objc.Sel("initWrappingSequence:"), sequence)
@@ -115,4 +115,3 @@ func (s MLSequnceAsFeatureValueArray) Sequence() IMLSequence {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("sequence"))
 	return MLSequenceFromID(objc.ID(rv))
 }
-

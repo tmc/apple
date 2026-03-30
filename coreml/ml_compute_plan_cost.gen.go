@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,6 +61,7 @@ type MLComputePlanCost struct {
 func MLComputePlanCostFromID(id objc.ID) MLComputePlanCost {
 	return MLComputePlanCost{objectivec.Object{ID: id}}
 }
+
 // Ensure MLComputePlanCost implements IMLComputePlanCost.
 var _ IMLComputePlanCost = MLComputePlanCost{}
 
@@ -106,4 +108,3 @@ func (c MLComputePlanCost) Weight() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("weight"))
 	return rv
 }
-

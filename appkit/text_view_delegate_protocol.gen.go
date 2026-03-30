@@ -5,11 +5,13 @@ package appkit
 import (
 	"fmt"
 	"unsafe"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of optional methods that text view delegates can use to manage selection, set text attributes, work with the spell checker, and more.
@@ -24,6 +26,7 @@ type NSTextViewDelegate interface {
 type NSTextViewDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSTextViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,11 +44,11 @@ func NSTextViewDelegateObjectFromID(id objc.ID) NSTextViewDelegateObject {
 // view: The text view whose undo manager should be returned.
 //
 // # Return Value
-// 
+//
 // The undo manager for `view`.
 //
 // # Discussion
-// 
+//
 // This method provides the flexibility to return a custom undo manager for
 // the text view. Although [NSTextView] implements undo and redo for changes
 // to text, applications may need a custom undo manager to handle interactions
@@ -55,7 +58,8 @@ func NSTextViewDelegateObjectFromID(id objc.ID) NSTextViewDelegateObject {
 func (o NSTextViewDelegateObject) UndoManagerForTextView(view INSTextView) foundation.NSUndoManager {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("undoManagerForTextView:"), view)
 	return foundation.NSUndoManagerFromID(rv)
-	}
+}
+
 // Returns the actual tooltip to display.
 //
 // textView: The text view sending the message.
@@ -65,21 +69,22 @@ func (o NSTextViewDelegateObject) UndoManagerForTextView(view INSTextView) found
 // characterIndex: The location in `textView`.
 //
 // # Return Value
-// 
+//
 // The actual tooltip to display, or `nil` to suppress display of the tooltip.
 //
 // # Discussion
-// 
+//
 // The tooltip string is the value of the [toolTip] attribute at
 // `characterIndex`.
 //
-// [toolTip]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/toolTip
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:willDisplayToolTip:forCharacterAt:)
+//
+// [toolTip]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/toolTip
 func (o NSTextViewDelegateObject) TextViewWillDisplayToolTipForCharacterAtIndex(textView INSTextView, tooltip string, characterIndex uint) string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:willDisplayToolTip:forCharacterAtIndex:"), textView, objc.String(tooltip), characterIndex)
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Returns a URL representing the document contents for a text attachment.
 //
 // textView: The text view sending the message.
@@ -90,11 +95,11 @@ func (o NSTextViewDelegateObject) TextViewWillDisplayToolTipForCharacterAtIndex(
 // charIndex: The character index of the text attachment.
 //
 // # Return Value
-// 
+//
 // The absolute URL for the document contents represented by `textAttachment`.
 //
 // # Discussion
-// 
+//
 // The returned [NSURL] object is used by the text view to provide default
 // behaviors involving text attachments such as Quick Look and
 // double-clicking. For example, the [NSTextView] method
@@ -108,7 +113,8 @@ func (o NSTextViewDelegateObject) TextViewWillDisplayToolTipForCharacterAtIndex(
 func (o NSTextViewDelegateObject) TextViewURLForContentsOfTextAttachmentAtIndex(textView INSTextView, textAttachment INSTextAttachment, charIndex uint) foundation.INSURL {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:URLForContentsOfTextAttachment:atIndex:"), textView, textAttachment, charIndex)
 	return foundation.NSURLFromID(rv)
-	}
+}
+
 // Returns the actual range to select.
 //
 // textView: The text view sending the message. This is the first text view in a series
@@ -120,23 +126,23 @@ func (o NSTextViewDelegateObject) TextViewURLForContentsOfTextAttachmentAtIndex(
 // newSelectedCharRange: The proposed character range for the new selection.
 //
 // # Return Value
-// 
+//
 // The actual character range for the new selection.
 //
 // # Discussion
-// 
+//
 // This method is invoked before a text view finishes changing the
 // selection—that is, when the last argument to a
-// [SetSelectedRangeAffinityStillSelecting] message is [false].
-// 
+// [SetSelectedRangeAffinityStillSelecting] message is false.
+//
 // Non-selectable text views do not process any mouse events. If for some
 // reason it is necessary to disallow user selection change in a text view
 // that handles mouse events, this can be achieved by making the text view
 // selectable but implementing this delegate method to disallow selection
 // changes.
-// 
+//
 // # Special Considerations
-// 
+//
 // In macOS 10.4 and later, if a delegate implements this delegate method and
 // not its multiple-selection replacement,
 // [TextViewWillChangeSelectionFromCharacterRangesToCharacterRanges], then
@@ -144,13 +150,12 @@ func (o NSTextViewDelegateObject) TextViewURLForContentsOfTextAttachmentAtIndex(
 // ranges call the old delegate method with the first subrange, and afterwards
 // only a single selected range is set.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:willChangeSelectionFromCharacterRange:toCharacterRange:)
 func (o NSTextViewDelegateObject) TextViewWillChangeSelectionFromCharacterRangeToCharacterRange(textView INSTextView, oldSelectedCharRange foundation.NSRange, newSelectedCharRange foundation.NSRange) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("textView:willChangeSelectionFromCharacterRange:toCharacterRange:"), textView, oldSelectedCharRange, newSelectedCharRange)
 	return rv
-	}
+}
+
 // Returns the actual character ranges to select.
 //
 // textView: The text view sending the message. This is the first text view in a series
@@ -170,27 +175,25 @@ func (o NSTextViewDelegateObject) TextViewWillChangeSelectionFromCharacterRangeT
 // range) have non-zero-length.
 //
 // # Return Value
-// 
+//
 // An array containing the actual character ranges for the new selection.
 //
 // # Discussion
-// 
+//
 // Invoked before an [NSTextView] object finishes changing the
 // selection—that is, when the last argument to a
 // [SetSelectedRangeAffinityStillSelecting] or
-// [SetSelectedRangesAffinityStillSelecting] message is [false].
-// 
+// [SetSelectedRangesAffinityStillSelecting] message is false.
+//
 // Non-selectable text views do not process any mouse events. If for some
 // reason it is necessary to disallow user selection change in a text view
 // that handles mouse events, this can be achieved by making the text view
 // selectable but implementing this delegate method to disallow selection
 // changes.
-// 
+//
 // If a delegate implements both this method and
 // [TextViewWillChangeSelectionFromCharacterRangeToCharacterRange], then the
 // latter is ignored.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:willChangeSelectionFromCharacterRanges:toCharacterRanges:)
 func (o NSTextViewDelegateObject) TextViewWillChangeSelectionFromCharacterRangesToCharacterRanges(textView INSTextView, oldSelectedCharRanges []foundation.NSValue, newSelectedCharRanges []foundation.NSValue) []foundation.NSValue {
@@ -198,43 +201,47 @@ func (o NSTextViewDelegateObject) TextViewWillChangeSelectionFromCharacterRanges
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
 		return foundation.NSValueFromID(id)
 	})
-	}
+}
+
 // Sent when the selection changes in the text view.
 //
 // notification: A notification named [didChangeSelectionNotification].
-// //
-// [didChangeSelectionNotification]: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeSelectionNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewDidChangeSelection(_:)
+//
+// [didChangeSelectionNotification]: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeSelectionNotification
 func (o NSTextViewDelegateObject) TextViewDidChangeSelection(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("textViewDidChangeSelection:"), notification)
-	}
+}
+
 // Returns an array of text objects to include in a text selection.
 //
 // # Return Value
-// 
+//
 // An array of [NSTextCheckingResult] objects.
 //
-// [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:candidates:forSelectedRange:)
+//
+// [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
 func (o NSTextViewDelegateObject) TextViewWithCandidatesForSelectedRange(textView INSTextView, candidates []foundation.NSTextCheckingResult, selectedRange foundation.NSRange) []foundation.NSTextCheckingResult {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textView:candidates:forSelectedRange:"), textView, objectivec.IObjectSliceToNSArray(candidates), selectedRange)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSTextCheckingResult {
 		return foundation.NSTextCheckingResultFromID(id)
 	})
-	}
+}
+
 // Returns an array of objects that represent the elements of a selection.
 //
 // # Return Value
-// 
+//
 // An array of objects that represent the selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:candidatesForSelectedRange:)
 func (o NSTextViewDelegateObject) TextViewCandidatesForSelectedRange(textView INSTextView, selectedRange foundation.NSRange) foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:candidatesForSelectedRange:"), textView, selectedRange)
 	return foundation.NSArrayFromID(rv)
-	}
+}
+
 // Returns a Boolean value that indicates whether to select the text object at
 // the index.
 //
@@ -243,16 +250,15 @@ func (o NSTextViewDelegateObject) TextViewCandidatesForSelectedRange(textView IN
 // index: The index that represents the start of the candidate text to evaluate.
 //
 // # Return Value
-// 
-// Returns [true] if the framework selects the text.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Returns true if the framework selects the text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldSelectCandidateAt:)
 func (o NSTextViewDelegateObject) TextViewShouldSelectCandidateAtIndex(textView INSTextView, index uint) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textView:shouldSelectCandidateAtIndex:"), textView, index)
 	return rv
-	}
+}
+
 // Returns and array of touch bar elements for the framework to update.
 //
 // textView: The text view that sent the message.
@@ -260,7 +266,7 @@ func (o NSTextViewDelegateObject) TextViewShouldSelectCandidateAtIndex(textView 
 // identifiers: An array of touch bar identifiers to evaluate.
 //
 // # Return Value
-// 
+//
 // Returns an array of [NSTouchBarItemIdentifier] elements for framework to
 // update.
 //
@@ -268,7 +274,8 @@ func (o NSTextViewDelegateObject) TextViewShouldSelectCandidateAtIndex(textView 
 func (o NSTextViewDelegateObject) TextViewShouldUpdateTouchBarItemIdentifiers(textView INSTextView, identifiers []string) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textView:shouldUpdateTouchBarItemIdentifiers:"), textView, objectivec.StringSliceToNSArray(identifiers))
 	return objc.ConvertSliceToStrings(rv)
-	}
+}
+
 // Returns the writable pasteboard types for a given cell.
 //
 // view: The text view sending the message.
@@ -278,11 +285,11 @@ func (o NSTextViewDelegateObject) TextViewShouldUpdateTouchBarItemIdentifiers(te
 // charIndex: The character index in the text view that was clicked.
 //
 // # Return Value
-// 
+//
 // An array of types that can be written to the pasteboard for `cell`.
 //
 // # Discussion
-// 
+//
 // This method is invoked after the user clicks `cell` at the specified
 // `charIndex` location in `aTextView`. If the
 // [TextViewDraggedCellInRectEventAtIndex] is not used, this method and
@@ -294,7 +301,8 @@ func (o NSTextViewDelegateObject) TextViewShouldUpdateTouchBarItemIdentifiers(te
 func (o NSTextViewDelegateObject) TextViewWritablePasteboardTypesForCellAtIndex(view INSTextView, cell NSTextAttachmentCell, charIndex uint) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textView:writablePasteboardTypesForCell:atIndex:"), view, cell, charIndex)
 	return objc.ConvertSliceToStrings(rv)
-	}
+}
+
 // Returns whether data of the specified type for the given cell could be
 // written to the specified pasteboard.
 //
@@ -309,14 +317,11 @@ func (o NSTextViewDelegateObject) TextViewWritablePasteboardTypesForCellAtIndex(
 // type: The type of data that should be written.
 //
 // # Return Value
-// 
-// [true] if the write succeeded, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the write succeeded, false otherwise.
 //
 // # Discussion
-// 
+//
 // The receiver should attempt to write the `cell` to `pboard` with the given
 // `type`, and return success or failure.
 //
@@ -324,7 +329,8 @@ func (o NSTextViewDelegateObject) TextViewWritablePasteboardTypesForCellAtIndex(
 func (o NSTextViewDelegateObject) TextViewWriteCellAtIndexToPasteboardType(view INSTextView, cell NSTextAttachmentCell, charIndex uint, pboard INSPasteboard, type_ NSPasteboardType) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textView:writeCell:atIndex:toPasteboard:type:"), view, cell, charIndex, pboard, objc.String(string(type_)))
 	return rv
-	}
+}
+
 // Sent when a text view needs to determine if text in a specified range
 // should be changed.
 //
@@ -338,14 +344,11 @@ func (o NSTextViewDelegateObject) TextViewWriteCellAtIndexToPasteboardType(view 
 // `nil` if only text attributes are being changed.
 //
 // # Return Value
-// 
-// [true] to allow the replacement, or [false] to reject the change.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to allow the replacement, or false to reject the change.
 //
 // # Discussion
-// 
+//
 // If a delegate implements this method and not its multiple-selection
 // replacement, [TextViewShouldChangeTextInRangesReplacementStrings], it is
 // called with an appropriate range and string. If a delegate implements the
@@ -355,7 +358,8 @@ func (o NSTextViewDelegateObject) TextViewWriteCellAtIndexToPasteboardType(view 
 func (o NSTextViewDelegateObject) TextViewShouldChangeTextInRangeReplacementString(textView INSTextView, affectedCharRange foundation.NSRange, replacementString string) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textView:shouldChangeTextInRange:replacementString:"), textView, affectedCharRange, objc.String(replacementString))
 	return rv
-	}
+}
+
 // Sent when a text view needs to determine if text in an array of specified
 // ranges should be changed.
 //
@@ -373,17 +377,15 @@ func (o NSTextViewDelegateObject) TextViewShouldChangeTextInRangeReplacementStri
 // one string for each range; `nil` if only text attributes are being changed.
 //
 // # Return Value
-// 
-// [true] to allow the replacement, or [false] to reject the change.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to allow the replacement, or false to reject the change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldChangeTextInRanges:replacementStrings:)
 func (o NSTextViewDelegateObject) TextViewShouldChangeTextInRangesReplacementStrings(textView INSTextView, affectedRanges []foundation.NSValue, replacementStrings []string) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textView:shouldChangeTextInRanges:replacementStrings:"), textView, objectivec.IObjectSliceToNSArray(affectedRanges), objectivec.StringSliceToNSArray(replacementStrings))
 	return rv
-	}
+}
+
 // Sent when the typing attributes are changed.
 //
 // textView: The text view sending the message.
@@ -393,24 +395,26 @@ func (o NSTextViewDelegateObject) TextViewShouldChangeTextInRangesReplacementStr
 // newTypingAttributes: The proposed typing attributes.
 //
 // # Return Value
-// 
+//
 // The actual new typing attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldChangeTypingAttributes:toAttributes:)
 func (o NSTextViewDelegateObject) TextViewShouldChangeTypingAttributesToAttributes(textView INSTextView, oldTypingAttributes foundation.INSDictionary, newTypingAttributes foundation.INSDictionary) foundation.INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:shouldChangeTypingAttributes:toAttributes:"), textView, oldTypingAttributes, newTypingAttributes)
 	return foundation.NSDictionaryFromID(rv)
-	}
+}
+
 // Sent when a text view’s typing attributes change.
 //
 // notification: A notification named [didChangeTypingAttributesNotification].
-// //
-// [didChangeTypingAttributesNotification]: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeTypingAttributesNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewDidChangeTypingAttributes(_:)
+//
+// [didChangeTypingAttributesNotification]: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeTypingAttributesNotification
 func (o NSTextViewDelegateObject) TextViewDidChangeTypingAttributes(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("textViewDidChangeTypingAttributes:"), notification)
-	}
+}
+
 // Sent when the user clicks a cell.
 //
 // textView: The text view sending the message.
@@ -422,12 +426,12 @@ func (o NSTextViewDelegateObject) TextViewDidChangeTypingAttributes(notification
 // charIndex: The character index of the clicked cell.
 //
 // # Discussion
-// 
+//
 // The delegate can use this message as its cue to perform an action or select
 // the attachment cell’s character. `aTextView` is the first text view in a
 // series shared by a layout manager, not necessarily the one that draws
 // `cell`.
-// 
+//
 // The delegate may subsequently receive a
 // [TextViewDoubleClickedOnCellInRectAtIndex] message if the user continues to
 // perform a double click.
@@ -435,7 +439,8 @@ func (o NSTextViewDelegateObject) TextViewDidChangeTypingAttributes(notification
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:clickedOn:in:at:)
 func (o NSTextViewDelegateObject) TextViewClickedOnCellInRectAtIndex(textView INSTextView, cell NSTextAttachmentCell, cellFrame corefoundation.CGRect, charIndex uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("textView:clickedOnCell:inRect:atIndex:"), textView, cell, cellFrame, charIndex)
-	}
+}
+
 // Sent when the user double-clicks a cell.
 //
 // textView: The text view sending the message.
@@ -447,7 +452,7 @@ func (o NSTextViewDelegateObject) TextViewClickedOnCellInRectAtIndex(textView IN
 // charIndex: The character index of the double-clicked cell.
 //
 // # Discussion
-// 
+//
 // The delegate can use this message as its cue to perform an action, such as
 // opening the file represented by the attachment. `aTextView` is the first
 // text view in a series shared by a layout manager, not necessarily the one
@@ -456,31 +461,27 @@ func (o NSTextViewDelegateObject) TextViewClickedOnCellInRectAtIndex(textView IN
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:doubleClickedOn:in:at:)
 func (o NSTextViewDelegateObject) TextViewDoubleClickedOnCellInRectAtIndex(textView INSTextView, cell NSTextAttachmentCell, cellFrame corefoundation.CGRect, charIndex uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("textView:doubleClickedOnCell:inRect:atIndex:"), textView, cell, cellFrame, charIndex)
-	}
+}
+
 // Sent after the user clicks a link.
 //
 // textView: The text view sending the message.
 //
 // link: The link that was clicked; the value of [link].
-// //
-// [link]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/link
 //
 // charIndex: The character index where the click occurred, indexed within the text
 // storage.
 //
 // # Return Value
-// 
-// [true] if the click was handled; otherwise, [false] to allow the next
-// responder to handle it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the click was handled; otherwise, false to allow the next responder
+// to handle it.
 //
 // # Discussion
-// 
+//
 // The delegate can use this method to handle the click on the link. It is
 // invoked by [ClickedOnLinkAtIndex].
-// 
+//
 // The `charIndex` parameter is a character index somewhere in the range of
 // the link attribute. If the user actually physically clicked the link, then
 // it should be the character that was originally clicked. In some cases a
@@ -488,10 +489,13 @@ func (o NSTextViewDelegateObject) TextViewDoubleClickedOnCellInRectAtIndex(textV
 // character index somewhere in the range of the link attribute is supplied.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:clickedOnLink:at:)
+//
+// [link]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/link
 func (o NSTextViewDelegateObject) TextViewClickedOnLinkAtIndex(textView INSTextView, link objectivec.IObject, charIndex uint) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textView:clickedOnLink:atIndex:"), textView, link, charIndex)
 	return rv
-	}
+}
+
 // Sent when the spelling state is changed.
 //
 // textView: The text view sending the message.
@@ -499,21 +503,18 @@ func (o NSTextViewDelegateObject) TextViewClickedOnLinkAtIndex(textView INSTextV
 // value: The proposed spelling state value to set. Possible values, for the
 // temporary attribute on the layout manager using the key
 // NSSpellingStateAttributeName, are:
-// 
+//
 // - [NSSpellingStateSpellingFlag] to highlight spelling issues. -
 // [NSSpellingStateGrammarFlag] to highlight grammar issues.
-// //
-// [NSSpellingStateGrammarFlag]: https://developer.apple.com/documentation/AppKit/NSSpellingState/NSSpellingStateGrammarFlag
-// [NSSpellingStateSpellingFlag]: https://developer.apple.com/documentation/AppKit/NSSpellingState/NSSpellingStateSpellingFlag
 //
 // affectedCharRange: The character range over which to set the given spelling state.
 //
 // # Return Value
-// 
+//
 // The actual spelling state to set.
 //
 // # Discussion
-// 
+//
 // Delegate only. Allows delegate to control the setting of spelling and
 // grammar indicators.
 //
@@ -521,7 +522,8 @@ func (o NSTextViewDelegateObject) TextViewClickedOnLinkAtIndex(textView INSTextV
 func (o NSTextViewDelegateObject) TextViewShouldSetSpellingStateRange(textView INSTextView, value int, affectedCharRange foundation.NSRange) int {
 	rv := objc.Send[int](o.ID, objc.Sel("textView:shouldSetSpellingState:range:"), textView, value, affectedCharRange)
 	return rv
-	}
+}
+
 // Invoked to allow the delegate to modify the text checking process before it
 // occurs.
 //
@@ -535,27 +537,28 @@ func (o NSTextViewDelegateObject) TextViewShouldSetSpellingStateRange(textView I
 // checkingTypes: The type of checking to be performed, passed by-reference. The possible
 // constants are listed in [NSTextCheckingTypes] and can be combined using the
 // C bit-wise [OR] operator to perform multiple checks at the same time.
-// 
+//
 // You can change this parameter to alter the types of checking to be
 // performed.
-// //
-// [NSTextCheckingTypes]: https://developer.apple.com/documentation/Foundation/NSTextCheckingTypes
 //
 // # Return Value
-// 
+//
 // A dictionary containing an alternative to the options `dictionary`.
 //
 // # Discussion
-// 
+//
 // Invoked by [CheckTextInRangeTypesOptions], this method allows control over
 // text checking `options`s (via the return value) or types (by modifying the
 // flags pointed to by the inout parameter `checkingTypes`)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:willCheckTextIn:options:types:)
+//
+// [NSTextCheckingTypes]: https://developer.apple.com/documentation/Foundation/NSTextCheckingTypes
 func (o NSTextViewDelegateObject) TextViewWillCheckTextInRangeOptionsTypes(view INSTextView, range_ foundation.NSRange, options foundation.INSDictionary, checkingTypes unsafe.Pointer) foundation.INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:willCheckTextInRange:options:types:"), view, range_, options, checkingTypes)
 	return foundation.NSDictionaryFromID(rv)
-	}
+}
+
 // Invoked to allow the delegate to modify the text checking results after
 // checking has occurred.
 //
@@ -566,58 +569,58 @@ func (o NSTextViewDelegateObject) TextViewWillCheckTextInRangeOptionsTypes(view 
 // checkingTypes: The type of checking that was performed. The possible constants are listed
 // in [NSTextCheckingTypes] and can be combined using the C bit-wise [OR]
 // operator to perform multiple checks at the same time.
-// //
-// [NSTextCheckingTypes]: https://developer.apple.com/documentation/Foundation/NSTextCheckingTypes
 //
 // options: A dictionary of values used during the checking process to perform. See
 // Spell Checking Option Dictionary Keys for the supported values.
 //
 // results: An array of [NSTextCheckingResult] instances.
-// //
-// [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
 //
 // orthography: The orthography of the text.
 //
 // wordCount: The number of words checked.
 //
 // # Return Value
-// 
+//
 // An array of [NSTextCheckingResult] instances. You can return the results
 // array as is, or an altered array of [NSTextCheckingResult] objects.
 //
-// [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
-//
 // # Discussion
-// 
+//
 // Invoked by
 // [HandleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount], this
 // method allows observation of text checking, or modification of the results
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:didCheckTextIn:types:options:results:orthography:wordCount:)
+//
+// [NSTextCheckingTypes]: https://developer.apple.com/documentation/Foundation/NSTextCheckingTypes
+// [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
+//
+// [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
 func (o NSTextViewDelegateObject) TextViewDidCheckTextInRangeTypesOptionsResultsOrthographyWordCount(view INSTextView, range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary, results []foundation.NSTextCheckingResult, orthography foundation.NSOrthography, wordCount int) []foundation.NSTextCheckingResult {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textView:didCheckTextInRange:types:options:results:orthography:wordCount:"), view, range_, checkingTypes, options, objectivec.IObjectSliceToNSArray(results), orthography, wordCount)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSTextCheckingResult {
 		return foundation.NSTextCheckingResultFromID(id)
 	})
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewWritingToolsWillBegin(_:)
 func (o NSTextViewDelegateObject) TextViewWritingToolsWillBegin(textView INSTextView) {
 	objc.Send[struct{}](o.ID, objc.Sel("textViewWritingToolsWillBegin:"), textView)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewWritingToolsDidEnd(_:)
 func (o NSTextViewDelegateObject) TextViewWritingToolsDidEnd(textView INSTextView) {
 	objc.Send[struct{}](o.ID, objc.Sel("textViewWritingToolsDidEnd:"), textView)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:writingToolsIgnoredRangesInEnclosingRange:)
 func (o NSTextViewDelegateObject) TextViewWritingToolsIgnoredRangesInEnclosingRange(textView INSTextView, enclosingRange foundation.NSRange) []foundation.NSValue {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textView:writingToolsIgnoredRangesInEnclosingRange:"), textView, enclosingRange)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
 		return foundation.NSValueFromID(id)
 	})
-	}
+}
+
 // Sent when the user attempts to drag a cell.
 //
 // view: The text view sending the message.
@@ -631,14 +634,15 @@ func (o NSTextViewDelegateObject) TextViewWritingToolsIgnoredRangesInEnclosingRa
 // charIndex: The character position where the mouse button was clicked.
 //
 // # Discussion
-// 
+//
 // The delegate can use this message as its cue to initiate a dragging
 // operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:draggedCell:in:event:at:)
 func (o NSTextViewDelegateObject) TextViewDraggedCellInRectEventAtIndex(view INSTextView, cell NSTextAttachmentCell, rect corefoundation.CGRect, event INSEvent, charIndex uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("textView:draggedCell:inRect:event:atIndex:"), view, cell, rect, event, charIndex)
-	}
+}
+
 // Returns the actual completions for a partial word.
 //
 // textView: The text view sending the message.
@@ -651,7 +655,7 @@ func (o NSTextViewDelegateObject) TextViewDraggedCellInRectEventAtIndex(view INS
 // 0, and –1 indicates no selection.
 //
 // # Return Value
-// 
+//
 // The actual array of completions that will be presented for the partial word
 // at the given range. Returning `nil` or a zero-length array suppresses
 // completion.
@@ -660,7 +664,8 @@ func (o NSTextViewDelegateObject) TextViewDraggedCellInRectEventAtIndex(view INS
 func (o NSTextViewDelegateObject) TextViewCompletionsForPartialWordRangeIndexOfSelectedItem(textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textView:completions:forPartialWordRange:indexOfSelectedItem:"), textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
-	}
+}
+
 // Returns a sharing service picker for the current selection.
 //
 // textView: The text view.
@@ -670,16 +675,16 @@ func (o NSTextViewDelegateObject) TextViewCompletionsForPartialWordRangeIndexOfS
 // items: The ranges of the items to share.
 //
 // # Return Value
-// 
+//
 // An [NSSharingServicePicker] instance. The original sharing picker or a new
 // sharing picker instance can be returned.
 //
 // # Discussion
-// 
+//
 // Returns a sharing service picker created for items right before shown to
-// the screen when the `` method. Return `nil` to remove the Share item from
+// the screen when the “ method. Return `nil` to remove the Share item from
 // the menu.
-// 
+//
 // The delegate is specified as the delegate for the [NSSharingServicePicker]
 // instance.
 //
@@ -687,7 +692,8 @@ func (o NSTextViewDelegateObject) TextViewCompletionsForPartialWordRangeIndexOfS
 func (o NSTextViewDelegateObject) TextViewWillShowSharingServicePickerForItems(textView INSTextView, servicePicker INSSharingServicePicker, items foundation.INSArray) INSSharingServicePicker {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:willShowSharingServicePicker:forItems:"), textView, servicePicker, items)
 	return NSSharingServicePickerFromID(rv)
-	}
+}
+
 // Sent to allow the delegate to perform the command for the text view.
 //
 // textView: The text view sending the message. This is the first text view in a series
@@ -696,23 +702,21 @@ func (o NSTextViewDelegateObject) TextViewWillShowSharingServicePickerForItems(t
 // commandSelector: The selector.
 //
 // # Return Value
-// 
-// [true] indicates that the delegate handled the command and the text view
-// will not attempt to perform it; [false] indicates that the delegate did not
-// handle the command the text view will attempt to perform it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true indicates that the delegate handled the command and the text view will
+// not attempt to perform it; false indicates that the delegate did not handle
+// the command the text view will attempt to perform it.
 //
 // # Discussion
-// 
+//
 // This method is invoked by [NSTextView]’s `doCommand()` method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:doCommandBy:)
 func (o NSTextViewDelegateObject) TextViewDoCommandBySelector(textView INSTextView, commandSelector objc.SEL) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textView:doCommandBySelector:"), textView, commandSelector)
 	return rv
-	}
+}
+
 // Allows delegate to control the context menu returned by the text view.
 //
 // view: The text view sending the message.
@@ -724,12 +728,12 @@ func (o NSTextViewDelegateObject) TextViewDoCommandBySelector(textView INSTextVi
 // charIndex: The character position where the mouse button was clicked.
 //
 // # Return Value
-// 
+//
 // A menu to use as the contextual menu. You can return `menu` unaltered, or
 // you can return a customized menu.
 //
 // # Discussion
-// 
+//
 // This method allows the delegate to control the context menu returned by
 // [MenuForEvent].
 //
@@ -737,81 +741,78 @@ func (o NSTextViewDelegateObject) TextViewDoCommandBySelector(textView INSTextVi
 func (o NSTextViewDelegateObject) TextViewMenuForEventAtIndex(view INSTextView, menu INSMenu, event INSEvent, charIndex uint) INSMenu {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:menu:forEvent:atIndex:"), view, menu, event, charIndex)
 	return NSMenuFromID(rv)
-	}
+}
+
 // Informs the delegate that the text object has changed its characters or
 // formatting attributes.
 //
 // # Discussion
-// 
+//
 // The name of `aNotification` is [didChangeNotification].
 //
-// [didChangeNotification]: https://developer.apple.com/documentation/AppKit/NSText/didChangeNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidChange(_:)
+//
+// [didChangeNotification]: https://developer.apple.com/documentation/AppKit/NSText/didChangeNotification
 func (o NSTextViewDelegateObject) TextDidChange(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("textDidChange:"), notification)
-	}
+}
+
 // Invoked when a text object begins to change its text, this method requests
 // permission for `aTextObject` to begin editing.
 //
 // # Discussion
-// 
-// If the delegate returns [true], the text object proceeds to make changes.
-// If the delegate returns [false], the text object abandons the editing
-// operation. This method is also invoked when the user drags and drops a file
-// onto the text object.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the delegate returns true, the text object proceeds to make changes. If
+// the delegate returns false, the text object abandons the editing operation.
+// This method is also invoked when the user drags and drops a file onto the
+// text object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldBeginEditing(_:)
 func (o NSTextViewDelegateObject) TextShouldBeginEditing(textObject INSText) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textShouldBeginEditing:"), textObject)
 	return rv
-	}
+}
+
 // Informs the delegate that the text object has begun editing (that the user
 // has begun changing it).
 //
 // # Discussion
-// 
+//
 // The name of `aNotification` is [didBeginEditingNotification].
 //
-// [didBeginEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didBeginEditingNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidBeginEditing(_:)
+//
+// [didBeginEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didBeginEditingNotification
 func (o NSTextViewDelegateObject) TextDidBeginEditing(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("textDidBeginEditing:"), notification)
-	}
+}
+
 // Invoked from a text object’s implementation of [ResignFirstResponder],
 // this method requests permission for `aTextObject` to end editing.
 //
 // # Discussion
-// 
-// If the delegate returns [true], the text object proceeds to finish editing
-// and resign first responder status. If the delegate returns [false], the
-// text object selects all of its text and remains the first responder.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the delegate returns true, the text object proceeds to finish editing
+// and resign first responder status. If the delegate returns false, the text
+// object selects all of its text and remains the first responder.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldEndEditing(_:)
 func (o NSTextViewDelegateObject) TextShouldEndEditing(textObject INSText) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textShouldEndEditing:"), textObject)
 	return rv
-	}
+}
+
 // Informs the delegate that the text object has finished editing (that it has
 // resigned first responder status).
 //
 // # Discussion
-// 
-// The name of `aNotification` is [didEndEditingNotification].
 //
-// [didEndEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didEndEditingNotification
+// The name of `aNotification` is [DidEndEditingNotification].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidEndEditing(_:)
 func (o NSTextViewDelegateObject) TextDidEndEditing(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("textDidEndEditing:"), notification)
-	}
+}
 
 // NSTextViewDelegateConfig holds optional typed callbacks for [NSTextViewDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -843,7 +844,7 @@ type NSTextViewDelegateConfig struct {
 
 	// Responding to writing tools interactions
 	WritingToolsWillBegin func(textView NSTextView)
-	WritingToolsDidEnd func(textView NSTextView)
+	WritingToolsDidEnd    func(textView NSTextView)
 
 	// Other Methods
 	// UndoManagerForTextView — Returns the undo manager for the specified text view.
@@ -1056,4 +1057,3 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextViewDelegateObjectFromID(instance)
 }
-

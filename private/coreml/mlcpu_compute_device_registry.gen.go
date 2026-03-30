@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLCPUComputeDeviceRegistryClass) Alloc() MLCPUComputeDeviceRegistry {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLCPUComputeDeviceRegistry.CpuDevice]
@@ -52,6 +52,7 @@ func (mc MLCPUComputeDeviceRegistryClass) Alloc() MLCPUComputeDeviceRegistry {
 //   - [MLCPUComputeDeviceRegistry.Description]
 //   - [MLCPUComputeDeviceRegistry.Hash]
 //   - [MLCPUComputeDeviceRegistry.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDeviceRegistry
 type MLCPUComputeDeviceRegistry struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type MLCPUComputeDeviceRegistry struct {
 func MLCPUComputeDeviceRegistryFromID(id objc.ID) MLCPUComputeDeviceRegistry {
 	return MLCPUComputeDeviceRegistry{objectivec.Object{ID: id}}
 }
+
 // Ensure MLCPUComputeDeviceRegistry implements IMLCPUComputeDeviceRegistry.
 var _ IMLCPUComputeDeviceRegistry = MLCPUComputeDeviceRegistry{}
 
@@ -110,7 +112,6 @@ func NewMLCPUComputeDeviceRegistry() MLCPUComputeDeviceRegistry {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDeviceRegistry/initWithCpuDevice:
 func NewCPUComputeDeviceRegistryWithCpuDevice(device objectivec.IObject) MLCPUComputeDeviceRegistry {
 	instance := getMLCPUComputeDeviceRegistryClass().Alloc()
@@ -118,7 +119,6 @@ func NewCPUComputeDeviceRegistryWithCpuDevice(device objectivec.IObject) MLCPUCo
 	return MLCPUComputeDeviceRegistryFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDeviceRegistry/initWithCpuDevice:
 func (c MLCPUComputeDeviceRegistry) InitWithCpuDevice(device objectivec.IObject) MLCPUComputeDeviceRegistry {
 	rv := objc.Send[MLCPUComputeDeviceRegistry](c.ID, objc.Sel("initWithCpuDevice:"), device)
@@ -136,29 +136,33 @@ func (c MLCPUComputeDeviceRegistry) CpuDevice() IMLCPUComputeDevice {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("cpuDevice"))
 	return MLCPUComputeDeviceFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDeviceRegistry/debugDescription
 func (c MLCPUComputeDeviceRegistry) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDeviceRegistry/description
 func (c MLCPUComputeDeviceRegistry) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDeviceRegistry/hash
 func (c MLCPUComputeDeviceRegistry) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDeviceRegistry/registeredComputeDevices
 func (c MLCPUComputeDeviceRegistry) RegisteredComputeDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("registeredComputeDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDeviceRegistry/superclass
 func (c MLCPUComputeDeviceRegistry) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
 	return rv
 }
-

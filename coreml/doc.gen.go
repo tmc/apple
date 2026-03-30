@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for CoreML. DO NOT EDIT.
 
 // Package coreml provides Go bindings for the CoreML framework.
@@ -84,9 +83,9 @@
 // # Key Types
 //
 //   - [MLFeatureValue] - A generic wrapper around an underlying value and the value’s type.
-//   - [MLParameterKey] - The keys for the parameter dictionary in a model configuration or a model update context.
-//   - [MLModel] - An encapsulation of all the details of your machine learning model.
 //   - [MLMultiArray] - A machine learning collection type that stores numeric values in an array with multiple dimensions.
+//   - [MLModel] - An encapsulation of all the details of your machine learning model.
+//   - [MLParameterKey] - The keys for the parameter dictionary in a model configuration or a model update context.
 //   - [MLModelDescription] - Information about a model, primarily the input and output format for each feature the model expects, and optional metadata.
 //   - [MLFeatureDescription] - The name, type, and constraints of an input or output feature.
 //   - [MLMultiArrayConstraint] - The shape and data type constraints for a multidimensional array feature.
@@ -100,20 +99,28 @@ package coreml
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/CoreML.framework/CoreML"
+// frameworkPaths lists paths to try when loading the CoreML library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/CoreML.framework/CoreML",
+	"/usr/lib/libCoreML.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: CoreML: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: CoreML: failed to load framework from any known path\n")
 }
-

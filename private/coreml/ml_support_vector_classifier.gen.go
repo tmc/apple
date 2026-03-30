@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (mc MLSupportVectorClassifierClass) Alloc() MLSupportVectorClassifier {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLSupportVectorClassifier.ClassifyOptionsError]
 //   - [MLSupportVectorClassifier.Engine]
 //   - [MLSupportVectorClassifier.SetEngine]
 //   - [MLSupportVectorClassifier.InitWithEngineDescriptionConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier
 type MLSupportVectorClassifier struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLSupportVectorClassifier struct {
 func MLSupportVectorClassifierFromID(id objc.ID) MLSupportVectorClassifier {
 	return MLSupportVectorClassifier{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLSupportVectorClassifier struct embeds objectivec.Object (parent type unavailable) but
 // IMLSupportVectorClassifier embeds the parent interface; skip compile-time assertion.
 
@@ -102,7 +104,6 @@ func NewMLSupportVectorClassifier() MLSupportVectorClassifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier/initWithEngine:description:configuration:error:
 func NewSupportVectorClassifierWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLSupportVectorClassifier, error) {
 	var errorPtr objc.ID
@@ -115,7 +116,6 @@ func NewSupportVectorClassifierWithEngineDescriptionConfigurationError(engine ob
 	return MLSupportVectorClassifierFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier/classify:options:error:
 func (s MLSupportVectorClassifier) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -127,7 +127,7 @@ func (s MLSupportVectorClassifier) ClassifyOptionsError(classify objectivec.IObj
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier/initWithEngine:description:configuration:error:
 func (s MLSupportVectorClassifier) InitWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLSupportVectorClassifier, error) {
 	var errorPtr objc.ID
@@ -140,7 +140,6 @@ func (s MLSupportVectorClassifier) InitWithEngineDescriptionConfigurationError(e
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSupportVectorClassifier/featureValueWithObject:
 func (_MLSupportVectorClassifierClass MLSupportVectorClassifierClass) FeatureValueWithObject(object objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLSupportVectorClassifierClass.class), objc.Sel("featureValueWithObject:"), object)
@@ -155,4 +154,3 @@ func (s MLSupportVectorClassifier) Engine() IMLSVMEngine {
 func (s MLSupportVectorClassifier) SetEngine(value IMLSVMEngine) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEngine:"), value)
 }
-

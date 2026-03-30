@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MTLRenderPipelineColorAttachmentDescriptorArray struct {
 func MTLRenderPipelineColorAttachmentDescriptorArrayFromID(id objc.ID) MTLRenderPipelineColorAttachmentDescriptorArray {
 	return MTLRenderPipelineColorAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLRenderPipelineColorAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,7 +106,7 @@ func NewMTLRenderPipelineColorAttachmentDescriptorArray() MTLRenderPipelineColor
 // attachmentIndex: An index in the color attachment array.
 //
 // # Return Value
-// 
+//
 // An [MTLRenderPipelineColorAttachmentDescriptor] instance that describes the
 // render pipeline information for a color attachment.
 //
@@ -113,6 +115,7 @@ func (r MTLRenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubscrip
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLRenderPipelineColorAttachmentDescriptorFromID(rv)
 }
+
 // Sets the render pipeline state for a specified color attachment.
 //
 // attachment: A descriptor that contains the render pipeline description for a color
@@ -121,11 +124,11 @@ func (r MTLRenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubscrip
 // attachmentIndex: An index in the color attachment array.
 //
 // # Discussion
-// 
+//
 // This method copies the pipeline state from the descriptor into the
 // specified attachment in the array. The descriptor passed into this method
 // can be modified and reused without affecting a previously set attachment.
-// 
+//
 // If this method is called with `nil` for `attachment` for any legal index,
 // its attachment descriptor state is set to the default values.
 //
@@ -133,4 +136,3 @@ func (r MTLRenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubscrip
 func (r MTLRenderPipelineColorAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLRenderPipelineColorAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-

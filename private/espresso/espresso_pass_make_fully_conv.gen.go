@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_make_fully_conv struct {
 func EspressoPass_make_fully_convFromID(id objc.ID) EspressoPass_make_fully_conv {
 	return EspressoPass_make_fully_conv{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_make_fully_conv implements IEspressoPass_make_fully_conv.
 var _ IEspressoPass_make_fully_conv = EspressoPass_make_fully_conv{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_make_fully_conv() EspressoPass_make_fully_conv {
 	rv := objc.Send[EspressoPass_make_fully_conv](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

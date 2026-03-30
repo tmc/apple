@@ -28,6 +28,7 @@ type ETDataProvider interface {
 type ETDataProviderObject struct {
 	objectivec.Object
 }
+
 func (o ETDataProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,7 +41,6 @@ func ETDataProviderObjectFromID(id objc.ID) ETDataProviderObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/ETDataProvider/dataPointAtIndex:error:
 func (o ETDataProviderObject) DataPointAtIndexError(index uint64) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("dataPointAtIndex:error:"), index)
@@ -48,14 +48,15 @@ func (o ETDataProviderObject) DataPointAtIndexError(index uint64) (objectivec.IO
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
+}
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/ETDataProvider/numberOfDataPoints
 func (o ETDataProviderObject) NumberOfDataPoints() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("numberOfDataPoints"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/ETDataProvider/prepareForEpoch
 func (o ETDataProviderObject) PrepareForEpoch() {
 	objc.Send[struct{}](o.ID, objc.Sel("prepareForEpoch"))
-	}
-
+}

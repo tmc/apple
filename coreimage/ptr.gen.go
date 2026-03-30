@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Ptr struct {
 func PtrFromID(id objc.ID) Ptr {
 	return Ptr{objectivec.Object{ID: id}}
 }
+
 // Ensure Ptr implements IPtr.
 var _ IPtr = Ptr{}
 
@@ -78,4 +80,3 @@ func NewPtr() Ptr {
 	rv := objc.Send[Ptr](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

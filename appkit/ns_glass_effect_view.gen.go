@@ -4,10 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSGlassEffectView] class.
@@ -67,6 +67,7 @@ type NSGlassEffectView struct {
 func NSGlassEffectViewFromID(id objc.ID) NSGlassEffectView {
 	return NSGlassEffectView{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSGlassEffectView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -96,8 +97,8 @@ type INSGlassEffectView interface {
 	CornerRadius() float64
 	SetCornerRadius(value float64)
 	// The style of glass this view uses.
-	Style() objectivec.IObject
-	SetStyle(value objectivec.IObject)
+	Style() NSGlassEffectViewStyle
+	SetStyle(value NSGlassEffectViewStyle)
 	// The color the glass effect view uses to tint the background and glass effect toward.
 	TintColor() INSColor
 	SetTintColor(value INSColor)
@@ -127,7 +128,7 @@ func NewNSGlassEffectView() NSGlassEffectView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -143,11 +144,11 @@ func NewGlassEffectViewWithCoder(coder foundation.INSCoder) NSGlassEffectView {
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -171,6 +172,7 @@ func (g NSGlassEffectView) ContentView() INSView {
 func (g NSGlassEffectView) SetContentView(value INSView) {
 	objc.Send[struct{}](g.ID, objc.Sel("setContentView:"), value)
 }
+
 // The amount of curvature for all corners of the glass.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlassEffectView/cornerRadius
@@ -181,16 +183,18 @@ func (g NSGlassEffectView) CornerRadius() float64 {
 func (g NSGlassEffectView) SetCornerRadius(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setCornerRadius:"), value)
 }
+
 // The style of glass this view uses.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlassEffectView/style-swift.property
-func (g NSGlassEffectView) Style() objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("style"))
-	return objectivec.Object{ID: rv}
+func (g NSGlassEffectView) Style() NSGlassEffectViewStyle {
+	rv := objc.Send[NSGlassEffectViewStyle](g.ID, objc.Sel("style"))
+	return NSGlassEffectViewStyle(rv)
 }
-func (g NSGlassEffectView) SetStyle(value objectivec.IObject) {
+func (g NSGlassEffectView) SetStyle(value NSGlassEffectViewStyle) {
 	objc.Send[struct{}](g.ID, objc.Sel("setStyle:"), value)
 }
+
 // The color the glass effect view uses to tint the background and glass
 // effect toward.
 //
@@ -202,4 +206,3 @@ func (g NSGlassEffectView) TintColor() INSColor {
 func (g NSGlassEffectView) SetTintColor(value INSColor) {
 	objc.Send[struct{}](g.ID, objc.Sel("setTintColor:"), value)
 }
-

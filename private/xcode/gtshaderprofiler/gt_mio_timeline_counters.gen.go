@@ -3,10 +3,11 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (gc GTMioTimelineCountersClass) Alloc() GTMioTimelineCounters {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioTimelineCounters.CounterForName]
 //   - [GTMioTimelineCounters.Counters]
 //   - [GTMioTimelineCounters.InitWithTimelineCountersScopeScopeIndex]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTimelineCounters
 type GTMioTimelineCounters struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type GTMioTimelineCounters struct {
 func GTMioTimelineCountersFromID(id objc.ID) GTMioTimelineCounters {
 	return GTMioTimelineCounters{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioTimelineCounters implements IGTMioTimelineCounters.
 var _ IGTMioTimelineCounters = GTMioTimelineCounters{}
 
@@ -99,7 +101,6 @@ func NewGTMioTimelineCounters() GTMioTimelineCounters {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTimelineCounters/initWithTimelineCounters:scope:scopeIndex:
 func NewGTMioTimelineCountersWithTimelineCountersScopeScopeIndex(counters unsafe.Pointer, scope uint16, index uint32) GTMioTimelineCounters {
 	instance := getGTMioTimelineCountersClass().Alloc()
@@ -107,13 +108,12 @@ func NewGTMioTimelineCountersWithTimelineCountersScopeScopeIndex(counters unsafe
 	return GTMioTimelineCountersFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTimelineCounters/counterForName:
 func (g GTMioTimelineCounters) CounterForName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("counterForName:"), name)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTimelineCounters/initWithTimelineCounters:scope:scopeIndex:
 func (g GTMioTimelineCounters) InitWithTimelineCountersScopeScopeIndex(counters unsafe.Pointer, scope uint16, index uint32) GTMioTimelineCounters {
 	rv := objc.Send[GTMioTimelineCounters](g.ID, objc.Sel("initWithTimelineCounters:scope:scopeIndex:"), counters, scope, index)
@@ -125,4 +125,3 @@ func (g GTMioTimelineCounters) Counters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("counters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

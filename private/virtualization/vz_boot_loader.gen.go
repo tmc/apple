@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZBootLoaderClass) Alloc() VZBootLoader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZBootLoader._init]
@@ -50,6 +50,7 @@ func (vc VZBootLoaderClass) Alloc() VZBootLoader {
 //   - [VZBootLoader.Description]
 //   - [VZBootLoader.Hash]
 //   - [VZBootLoader.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZBootLoader
 type VZBootLoader struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type VZBootLoader struct {
 func VZBootLoaderFromID(id objc.ID) VZBootLoader {
 	return VZBootLoader{objectivec.Object{ID: id}}
 }
+
 // Ensure VZBootLoader implements IVZBootLoader.
 var _ IVZBootLoader = VZBootLoader{}
 
@@ -115,19 +117,21 @@ func (b VZBootLoader) DebugDescription() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/description
 func (b VZBootLoader) Description() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/hash
 func (b VZBootLoader) Hash() uint64 {
 	rv := objc.Send[uint64](b.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZBootLoader/superclass
 func (b VZBootLoader) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](b.ID, objc.Sel("superclass"))
 	return rv
 }
-

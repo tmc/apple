@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLGeluActivationBrickClass) Alloc() MLGeluActivationBrick {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLGeluActivationBrick.ComputeOnCPUWithInputTensorsOutputTensors]
@@ -54,6 +54,7 @@ func (mc MLGeluActivationBrickClass) Alloc() MLGeluActivationBrick {
 //   - [MLGeluActivationBrick.Description]
 //   - [MLGeluActivationBrick.Hash]
 //   - [MLGeluActivationBrick.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLGeluActivationBrick
 type MLGeluActivationBrick struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type MLGeluActivationBrick struct {
 func MLGeluActivationBrickFromID(id objc.ID) MLGeluActivationBrick {
 	return MLGeluActivationBrick{objectivec.Object{ID: id}}
 }
+
 // Ensure MLGeluActivationBrick implements IMLGeluActivationBrick.
 var _ IMLGeluActivationBrick = MLGeluActivationBrick{}
 
@@ -116,7 +118,6 @@ func NewMLGeluActivationBrick() MLGeluActivationBrick {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGeluActivationBrick/initWithParameters:
 func NewGeluActivationBrickWithParameters(parameters objectivec.IObject) MLGeluActivationBrick {
 	instance := getMLGeluActivationBrickClass().Alloc()
@@ -124,23 +125,23 @@ func NewGeluActivationBrickWithParameters(parameters objectivec.IObject) MLGeluA
 	return MLGeluActivationBrickFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGeluActivationBrick/computeOnCPUWithInputTensors:outputTensors:
 func (g MLGeluActivationBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGeluActivationBrick/hasGPUSupport
 func (g MLGeluActivationBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGeluActivationBrick/setupForInputShapes:withParameters:
 func (g MLGeluActivationBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGeluActivationBrick/initWithParameters:
 func (g MLGeluActivationBrick) InitWithParameters(parameters objectivec.IObject) MLGeluActivationBrick {
 	rv := objc.Send[MLGeluActivationBrick](g.ID, objc.Sel("initWithParameters:"), parameters)
@@ -152,24 +153,27 @@ func (g MLGeluActivationBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGeluActivationBrick/description
 func (g MLGeluActivationBrick) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGeluActivationBrick/hash
 func (g MLGeluActivationBrick) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGeluActivationBrick/size
 func (g MLGeluActivationBrick) Size() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("size"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGeluActivationBrick/superclass
 func (g MLGeluActivationBrick) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
 	return rv
 }
-

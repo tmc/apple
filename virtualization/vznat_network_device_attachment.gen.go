@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,27 +45,27 @@ func (vc VZNATNetworkDeviceAttachmentClass) Alloc() VZNATNetworkDeviceAttachment
 // performs network address translation on the resulting packets.
 //
 // # Overview
-// 
+//
 // A [VZNATNetworkDeviceAttachment] works with the host computer to perform
 // network address translation (NAT) on the guest system’s network packets,
 // and then route those packets to outside networks. Use this attachment to
 // give the guest system indirect access to external networks, instead of
 // direct access through a shared physical network interface.
-// 
+//
 // To configure a network device with a NAT attachment:
-// 
+//
 // - Create the [VZNATNetworkDeviceAttachment] object. - Assign the attachment
 // object to the [VZNATNetworkDeviceAttachment.Attachment] property of a
 // [VZVirtioNetworkDeviceConfiguration] object. - Add the
 // [VZVirtioNetworkDeviceConfiguration] object to the [VZNATNetworkDeviceAttachment.NetworkDevices]
 // property of your [VZVirtualMachineConfiguration].
-// 
+//
 // This attachment doesn’t require your app to have the
 // [com.apple.vm.networking] entitlement.
 //
-// [com.apple.vm.networking]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.vm.networking
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZNATNetworkDeviceAttachment
+//
+// [com.apple.vm.networking]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.vm.networking
 type VZNATNetworkDeviceAttachment struct {
 	VZNetworkDeviceAttachment
 }
@@ -76,6 +77,7 @@ type VZNATNetworkDeviceAttachment struct {
 func VZNATNetworkDeviceAttachmentFromID(id objc.ID) VZNATNetworkDeviceAttachment {
 	return VZNATNetworkDeviceAttachment{VZNetworkDeviceAttachment: VZNetworkDeviceAttachmentFromID(id)}
 }
+
 // NOTE: VZNATNetworkDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -123,6 +125,7 @@ func (n VZNATNetworkDeviceAttachment) Attachment() IVZNetworkDeviceAttachment {
 func (n VZNATNetworkDeviceAttachment) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
 }
+
 // The array of network devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/networkdevices
@@ -133,4 +136,3 @@ func (n VZNATNetworkDeviceAttachment) NetworkDevices() IVZNetworkDeviceConfigura
 func (n VZNATNetworkDeviceAttachment) SetNetworkDevices(value IVZNetworkDeviceConfiguration) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNetworkDevices:"), value)
 }
-

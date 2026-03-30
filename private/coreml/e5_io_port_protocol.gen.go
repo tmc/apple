@@ -28,6 +28,7 @@ type MLE5IOPort interface {
 type MLE5IOPortObject struct {
 	objectivec.Object
 }
+
 func (o MLE5IOPortObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -44,24 +45,26 @@ func MLE5IOPortObjectFromID(id objc.ID) MLE5IOPortObject {
 func (o MLE5IOPortObject) BoundFeatureDirectly() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("boundFeatureDirectly"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5IOPort/name
 func (o MLE5IOPortObject) Name() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5IOPort/pixelBufferPool
 func (o MLE5IOPortObject) PixelBufferPool() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("pixelBufferPool"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5IOPort/reset
 func (o MLE5IOPortObject) Reset() {
 	objc.Send[struct{}](o.ID, objc.Sel("reset"))
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5IOPort/setPixelBufferPool:
 func (o MLE5IOPortObject) SetPixelBufferPool(pool objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPixelBufferPool:"), pool)
-	}
-
+}

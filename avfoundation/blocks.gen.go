@@ -9,9 +9,20 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
+// AVAssetTrackArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
+//   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
+//   - error: An error object if the request fails; otherwise, `nil`.
+//
+// Used by:
+//   - [AVAsset.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVAsset.LoadTracksWithMediaTypeCompletionHandler]
+//   - [AVAssetTrack.LoadAssociatedTracksOfTypeCompletionHandler]
+type AVAssetTrackArrayErrorHandler = func(*[]AVAssetTrack, error)
+
 // AVAssetTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -41,6 +52,7 @@ func NewAVAssetTrackErrorBlock(handler AVAssetTrackErrorHandler) (objc.ID, func(
 // AVAssetTrackSegmentErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - segment: The loaded track segment, or `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -98,9 +110,19 @@ func NewAVCaptionConversionWarningBlock(handler AVCaptionConversionWarningHandle
 	return objc.ID(block), func() { block.Release() }
 }
 
+// AVCompositionTrackArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
+//   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
+//   - error: An error object if the request fails; otherwise, `nil`.
+//
+// Used by:
+//   - [AVComposition.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVComposition.LoadTracksWithMediaTypeCompletionHandler]
+type AVCompositionTrackArrayErrorHandler = func(*[]AVCompositionTrack, error)
+
 // AVCompositionTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -125,9 +147,19 @@ func NewAVCompositionTrackErrorBlock(handler AVCompositionTrackErrorHandler) (ob
 	return objc.ID(block), func() { block.Release() }
 }
 
+// AVFragmentedAssetTrackArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
+//   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
+//   - error: An error object if the request fails; otherwise, `nil`.
+//
+// Used by:
+//   - [AVFragmentedAsset.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVFragmentedAsset.LoadTracksWithMediaTypeCompletionHandler]
+type AVFragmentedAssetTrackArrayErrorHandler = func(*[]AVFragmentedAssetTrack, error)
+
 // AVFragmentedAssetTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -152,9 +184,19 @@ func NewAVFragmentedAssetTrackErrorBlock(handler AVFragmentedAssetTrackErrorHand
 	return objc.ID(block), func() { block.Release() }
 }
 
+// AVFragmentedMovieTrackArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
+//   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
+//   - error: An error object if the request fails; otherwise, `nil`.
+//
+// Used by:
+//   - [AVFragmentedMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVFragmentedMovie.LoadTracksWithMediaTypeCompletionHandler]
+type AVFragmentedMovieTrackArrayErrorHandler = func(*[]AVFragmentedMovieTrack, error)
+
 // AVFragmentedMovieTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -182,6 +224,7 @@ func NewAVFragmentedMovieTrackErrorBlock(handler AVFragmentedMovieTrackErrorHand
 // AVMediaSelectionGroupErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - mediaSelectionGroup: The loaded media selection group, or `nil` if no group is available or if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -206,7 +249,16 @@ func NewAVMediaSelectionGroupErrorBlock(handler AVMediaSelectionGroupErrorHandle
 	return objc.ID(block), func() { block.Release() }
 }
 
-// AVMetadataItemValueRequestHandler handles A callback the system invokes to load the value for the metadata item.
+// AVMetadataItemArrayErrorHandler handles A callback that the system invokes after it finishes the loading request.
+//   - metadata: An array of metadata items, which may be empty if there are no items of the specified format. The value is `nil` if an error occurs.
+//   - error: An error object if the request fails; otherwise, `nil`.
+//
+// Used by:
+//   - [AVAsset.LoadMetadataForFormatCompletionHandler]
+//   - [AVAssetTrack.LoadMetadataForFormatCompletionHandler]
+type AVMetadataItemArrayErrorHandler = func(*[]AVMetadataItem, error)
+
+// AVMetadataItemValueRequestHandler handles A block that loads the value of the metadata item.
 //
 // Used by:
 //   - [AVMetadataItem.MetadataItemWithPropertiesOfMetadataItemValueLoadingHandler]
@@ -232,9 +284,19 @@ func NewAVMetadataItemValueRequestBlock(handler AVMetadataItemValueRequestHandle
 	return objc.ID(block), func() { block.Release() }
 }
 
+// AVMovieTrackArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
+//   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
+//   - error: An error object if the request fails; otherwise, `nil`.
+//
+// Used by:
+//   - [AVMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVMovie.LoadTracksWithMediaTypeCompletionHandler]
+type AVMovieTrackArrayErrorHandler = func(*[]AVMovieTrack, error)
+
 // AVMovieTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -259,9 +321,19 @@ func NewAVMovieTrackErrorBlock(handler AVMovieTrackErrorHandler) (objc.ID, func(
 	return objc.ID(block), func() { block.Release() }
 }
 
+// AVMutableCompositionTrackArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
+//   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
+//   - error: An error object if the request fails; otherwise, `nil`.
+//
+// Used by:
+//   - [AVMutableComposition.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVMutableComposition.LoadTracksWithMediaTypeCompletionHandler]
+type AVMutableCompositionTrackArrayErrorHandler = func(*[]AVMutableCompositionTrack, error)
+
 // AVMutableCompositionTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -286,9 +358,19 @@ func NewAVMutableCompositionTrackErrorBlock(handler AVMutableCompositionTrackErr
 	return objc.ID(block), func() { block.Release() }
 }
 
+// AVMutableMovieTrackArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
+//   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
+//   - error: An error object if the request fails; otherwise, `nil`.
+//
+// Used by:
+//   - [AVMutableMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
+//   - [AVMutableMovie.LoadTracksWithMediaTypeCompletionHandler]
+type AVMutableMovieTrackArrayErrorHandler = func(*[]AVMutableMovieTrack, error)
+
 // AVMutableMovieTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
 //   - track: The loaded track, or `nil` if no track with the specified identifier exists or if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -342,6 +424,15 @@ func NewAVMutableVideoCompositionErrorBlock(handler AVMutableVideoCompositionErr
 	return objc.ID(block), func() { block.Release() }
 }
 
+// AVTimedMetadataGroupArrayErrorHandler handles A callback that the system invokes after it finishes the loading request.
+//   - metadataGroups: An array of metadata groups, which may be empty if no groups exist for the specified languages. The value is `nil` if an error occurs.
+//   - error: An error object if the request fails; otherwise, `nil`.
+//
+// Used by:
+//   - [AVAsset.LoadChapterMetadataGroupsBestMatchingPreferredLanguagesCompletionHandler]
+//   - [AVAsset.LoadChapterMetadataGroupsWithTitleLocaleContainingItemsWithCommonKeysCompletionHandler]
+type AVTimedMetadataGroupArrayErrorHandler = func(*[]AVTimedMetadataGroup, error)
+
 // AVVideoCompositionErrorHandler handles A callback the system invokes with the created video composition, or an error if a failure occurs.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -390,32 +481,6 @@ func NewAVVideoPerformanceMetricsBlock(handler AVVideoPerformanceMetricsHandler)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-// ArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
-//   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
-//   - error: An error object if the request fails; otherwise, `nil`.
-//
-// Used by:
-//   - [AVAsset.LoadChapterMetadataGroupsBestMatchingPreferredLanguagesCompletionHandler]
-//   - [AVAsset.LoadChapterMetadataGroupsWithTitleLocaleContainingItemsWithCommonKeysCompletionHandler]
-//   - [AVAsset.LoadMetadataForFormatCompletionHandler]
-//   - [AVAsset.LoadTracksWithMediaCharacteristicCompletionHandler]
-//   - [AVAsset.LoadTracksWithMediaTypeCompletionHandler]
-//   - [AVAssetTrack.LoadAssociatedTracksOfTypeCompletionHandler]
-//   - [AVAssetTrack.LoadMetadataForFormatCompletionHandler]
-//   - [AVComposition.LoadTracksWithMediaCharacteristicCompletionHandler]
-//   - [AVComposition.LoadTracksWithMediaTypeCompletionHandler]
-//   - [AVFragmentedAsset.LoadTracksWithMediaCharacteristicCompletionHandler]
-//   - [AVFragmentedAsset.LoadTracksWithMediaTypeCompletionHandler]
-//   - [AVFragmentedMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
-//   - [AVFragmentedMovie.LoadTracksWithMediaTypeCompletionHandler]
-//   - [AVMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
-//   - [AVMovie.LoadTracksWithMediaTypeCompletionHandler]
-//   - [AVMutableComposition.LoadTracksWithMediaCharacteristicCompletionHandler]
-//   - [AVMutableComposition.LoadTracksWithMediaTypeCompletionHandler]
-//   - [AVMutableMovie.LoadTracksWithMediaCharacteristicCompletionHandler]
-//   - [AVMutableMovie.LoadTracksWithMediaTypeCompletionHandler]
-type ArrayErrorHandler = func(*[]AVAssetTrack, error)
 
 // BoolErrorHandler handles A completion block to be called on a serial dispatch queue after the photo output has finished preparing resources.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -530,6 +595,7 @@ func NewCMPersistentTrackIDErrorBlock(handler CMPersistentTrackIDErrorHandler) (
 // CMTimeErrorHandler handles A callback the system invokes when it finishes its estimation.
 //   - time: A [CMTime](<doc://com.apple.documentation/documentation/CoreMedia/CMTime>) value, which is [invalid](<doc://com.apple.documentation/documentation/CoreMedia/CMTime/invalid>) if the track time is out of range or if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -588,6 +654,7 @@ func NewCMTimeBlock(handler CMTimeHandler) (objc.ID, func()) {
 // DataErrorHandler handles A block called after the streaming content key request has been prepared.
 //   - contentKeyRequestData: The streaming content key request data.
 //   - error: An object that describes the error, if one occurred; otherwise, the value is `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -771,4 +838,3 @@ func Newint64_tErrorBlock(handler int64_tErrorHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

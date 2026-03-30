@@ -4,9 +4,10 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (sc SOCustomizeSRLanguagesWindowControllerClass) Alloc() SOCustomizeSRLangu
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SOCustomizeSRLanguagesWindowController._propagateCheckboxSelection]
@@ -66,6 +66,7 @@ func (sc SOCustomizeSRLanguagesWindowControllerClass) Alloc() SOCustomizeSRLangu
 //   - [SOCustomizeSRLanguagesWindowController.Description]
 //   - [SOCustomizeSRLanguagesWindowController.Hash]
 //   - [SOCustomizeSRLanguagesWindowController.Superclass]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController
 type SOCustomizeSRLanguagesWindowController struct {
 	appkit.NSWindowController
@@ -75,6 +76,7 @@ type SOCustomizeSRLanguagesWindowController struct {
 func SOCustomizeSRLanguagesWindowControllerFromID(id objc.ID) SOCustomizeSRLanguagesWindowController {
 	return SOCustomizeSRLanguagesWindowController{NSWindowController: appkit.NSWindowControllerFromID(id)}
 }
+
 // Ensure SOCustomizeSRLanguagesWindowController implements ISOCustomizeSRLanguagesWindowController.
 var _ ISOCustomizeSRLanguagesWindowController = SOCustomizeSRLanguagesWindowController{}
 
@@ -150,7 +152,6 @@ func NewSOCustomizeSRLanguagesWindowController() SOCustomizeSRLanguagesWindowCon
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_propagateCheckboxSelection:
 func (s SOCustomizeSRLanguagesWindowController) _propagateCheckboxSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_propagateCheckboxSelection:"), selection)
@@ -160,7 +161,7 @@ func (s SOCustomizeSRLanguagesWindowController) _propagateCheckboxSelection(sele
 func (s SOCustomizeSRLanguagesWindowController) PropagateCheckboxSelection(selection objectivec.IObject) {
 	s._propagateCheckboxSelection(selection)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_propagateDownloadVariantSelection:
 func (s SOCustomizeSRLanguagesWindowController) _propagateDownloadVariantSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_propagateDownloadVariantSelection:"), selection)
@@ -170,6 +171,7 @@ func (s SOCustomizeSRLanguagesWindowController) _propagateDownloadVariantSelecti
 func (s SOCustomizeSRLanguagesWindowController) PropagateDownloadVariantSelection(selection objectivec.IObject) {
 	s._propagateDownloadVariantSelection(selection)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_rebuildList
 func (s SOCustomizeSRLanguagesWindowController) _rebuildList() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_rebuildList"))
@@ -179,7 +181,7 @@ func (s SOCustomizeSRLanguagesWindowController) _rebuildList() {
 func (s SOCustomizeSRLanguagesWindowController) RebuildList() {
 	s._rebuildList()
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_setRowStatusFieldView:variantPopUpButton:speechItem:isSelected:
 func (s SOCustomizeSRLanguagesWindowController) _setRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected(view objectivec.IObject, button objectivec.IObject, item objectivec.IObject, selected bool) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_setRowStatusFieldView:variantPopUpButton:speechItem:isSelected:"), view, button, item, selected)
@@ -189,7 +191,7 @@ func (s SOCustomizeSRLanguagesWindowController) _setRowStatusFieldViewVariantPop
 func (s SOCustomizeSRLanguagesWindowController) SetRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected(view objectivec.IObject, button objectivec.IObject, item objectivec.IObject, selected bool) {
 	s._setRowStatusFieldViewVariantPopUpButtonSpeechItemIsSelected(view, button, item, selected)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_updateButtonStatesOnlyIfDownloadRequired:
 func (s SOCustomizeSRLanguagesWindowController) _updateButtonStatesOnlyIfDownloadRequired(required bool) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_updateButtonStatesOnlyIfDownloadRequired:"), required)
@@ -199,7 +201,7 @@ func (s SOCustomizeSRLanguagesWindowController) _updateButtonStatesOnlyIfDownloa
 func (s SOCustomizeSRLanguagesWindowController) UpdateButtonStatesOnlyIfDownloadRequired(required bool) {
 	s._updateButtonStatesOnlyIfDownloadRequired(required)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_updateDisplayUsingFilterString:
 func (s SOCustomizeSRLanguagesWindowController) _updateDisplayUsingFilterString(string_ objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_updateDisplayUsingFilterString:"), string_)
@@ -209,6 +211,7 @@ func (s SOCustomizeSRLanguagesWindowController) _updateDisplayUsingFilterString(
 func (s SOCustomizeSRLanguagesWindowController) UpdateDisplayUsingFilterString(string_ objectivec.IObject) {
 	s._updateDisplayUsingFilterString(string_)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/_updateRowDownloadStatus
 func (s SOCustomizeSRLanguagesWindowController) _updateRowDownloadStatus() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_updateRowDownloadStatus"))
@@ -218,51 +221,51 @@ func (s SOCustomizeSRLanguagesWindowController) _updateRowDownloadStatus() {
 func (s SOCustomizeSRLanguagesWindowController) UpdateRowDownloadStatus() {
 	s._updateRowDownloadStatus()
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/acceptSelection:
 func (s SOCustomizeSRLanguagesWindowController) AcceptSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("acceptSelection:"), selection)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/cancelSelection:
 func (s SOCustomizeSRLanguagesWindowController) CancelSelection(selection objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("cancelSelection:"), selection)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/numberOfRowsInTableView:
 func (s SOCustomizeSRLanguagesWindowController) NumberOfRowsInTableView(view objectivec.IObject) int64 {
 	rv := objc.Send[int64](s.ID, objc.Sel("numberOfRowsInTableView:"), view)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/searchFieldChanged:
 func (s SOCustomizeSRLanguagesWindowController) SearchFieldChanged(changed objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("searchFieldChanged:"), changed)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/showSheetForWindow:networkSupportedLocaleIdentifiers:requiredLocaleIdentifier:supportDownloads:showOnlyNetworkSupportedItems:
 func (s SOCustomizeSRLanguagesWindowController) ShowSheetForWindowNetworkSupportedLocaleIdentifiersRequiredLocaleIdentifierSupportDownloadsShowOnlyNetworkSupportedItems(window objectivec.IObject, identifiers objectivec.IObject, identifier objectivec.IObject, downloads bool, items bool) {
 	objc.Send[objc.ID](s.ID, objc.Sel("showSheetForWindow:networkSupportedLocaleIdentifiers:requiredLocaleIdentifier:supportDownloads:showOnlyNetworkSupportedItems:"), window, identifiers, identifier, downloads, items)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/tableView:isGroupRow:
 func (s SOCustomizeSRLanguagesWindowController) TableViewIsGroupRow(view objectivec.IObject, row int) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("tableView:isGroupRow:"), view, row)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/tableView:shouldSelectRow:
 func (s SOCustomizeSRLanguagesWindowController) TableViewShouldSelectRow(view objectivec.IObject, row int64) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("tableView:shouldSelectRow:"), view, row)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/tableView:viewForTableColumn:row:
 func (s SOCustomizeSRLanguagesWindowController) TableViewViewForTableColumnRow(view objectivec.IObject, column objectivec.IObject, row int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("tableView:viewForTableColumn:row:"), view, column, row)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/tableViewSelectionDidChange:
 func (s SOCustomizeSRLanguagesWindowController) TableViewSelectionDidChange(change objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("tableViewSelectionDidChange:"), change)
@@ -273,19 +276,21 @@ func (s SOCustomizeSRLanguagesWindowController) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/description
 func (s SOCustomizeSRLanguagesWindowController) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/hash
 func (s SOCustomizeSRLanguagesWindowController) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOCustomizeSRLanguagesWindowController/superclass
 func (s SOCustomizeSRLanguagesWindowController) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
 	return rv
 }
-

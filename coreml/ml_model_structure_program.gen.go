@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -59,6 +60,7 @@ type MLModelStructureProgram struct {
 func MLModelStructureProgramFromID(id objc.ID) MLModelStructureProgram {
 	return MLModelStructureProgram{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgram implements IMLModelStructureProgram.
 var _ IMLModelStructureProgram = MLModelStructureProgram{}
 
@@ -104,4 +106,3 @@ func (m MLModelStructureProgram) Functions() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("functions"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

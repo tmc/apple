@@ -28,6 +28,7 @@ type MLComputeDataProvider interface {
 type MLComputeDataProviderObject struct {
 	objectivec.Object
 }
+
 func (o MLComputeDataProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,7 +41,6 @@ func MLComputeDataProviderObjectFromID(id objc.ID) MLComputeDataProviderObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataProvider/batchAtIndex:error:
 func (o MLComputeDataProviderObject) BatchAtIndexError(index uint64) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("batchAtIndex:error:"), index)
@@ -48,16 +48,16 @@ func (o MLComputeDataProviderObject) BatchAtIndexError(index uint64) (objectivec
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataProvider/numberOfBatches
 func (o MLComputeDataProviderObject) NumberOfBatches() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("numberOfBatches"))
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataProvider/sizeOfBatchAtIndex:
 func (o MLComputeDataProviderObject) SizeOfBatchAtIndex(index uint64) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
 	return rv
-	}
-
+}

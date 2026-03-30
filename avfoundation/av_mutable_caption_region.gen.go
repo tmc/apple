@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -59,6 +60,7 @@ type AVMutableCaptionRegion struct {
 func AVMutableCaptionRegionFromID(id objc.ID) AVMutableCaptionRegion {
 	return AVMutableCaptionRegion{AVCaptionRegion: AVCaptionRegionFromID(id)}
 }
+
 // NOTE: AVMutableCaptionRegion adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,4 +119,3 @@ func (m AVMutableCaptionRegion) InitWithIdentifier(identifier string) AVMutableC
 	rv := objc.Send[AVMutableCaptionRegion](m.ID, objc.Sel("initWithIdentifier:"), objc.String(identifier))
 	return rv
 }
-

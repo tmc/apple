@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -41,6 +41,7 @@ type CIAreaHistogram interface {
 type CIAreaHistogramObject struct {
 	objectivec.Object
 }
+
 func (o CIAreaHistogramObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,24 +58,28 @@ func CIAreaHistogramObjectFromID(id objc.ID) CIAreaHistogramObject {
 func (o CIAreaHistogramObject) Count() int {
 	rv := objc.Send[int](o.ID, objc.Sel("count"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaHistogram/scale
 func (o CIAreaHistogramObject) Scale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
 func (o CIAreaHistogramObject) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIAreaHistogramObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -82,21 +87,26 @@ func (o CIAreaHistogramObject) InputImage() ICIImage {
 func (o CIAreaHistogramObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaHistogram/count
 func (o CIAreaHistogramObject) SetCount(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCount:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaHistogram/scale
 func (o CIAreaHistogramObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
 func (o CIAreaHistogramObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIAreaHistogramObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

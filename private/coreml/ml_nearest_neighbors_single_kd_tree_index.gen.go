@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLNearestNeighborsSingleKdTreeIndexClass) Alloc() MLNearestNeighborsSin
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLNearestNeighborsSingleKdTreeIndex.CalculateDistancesForNodesBetweenLeftAndRightToQueryPoint]
@@ -64,6 +64,7 @@ func (mc MLNearestNeighborsSingleKdTreeIndexClass) Alloc() MLNearestNeighborsSin
 //   - [MLNearestNeighborsSingleKdTreeIndex.UpdateWithDataError]
 //   - [MLNearestNeighborsSingleKdTreeIndex.InitWithCoder]
 //   - [MLNearestNeighborsSingleKdTreeIndex.InitWithDatasetNumberOfDimensionsLeafSizeError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex
 type MLNearestNeighborsSingleKdTreeIndex struct {
 	objectivec.Object
@@ -73,6 +74,7 @@ type MLNearestNeighborsSingleKdTreeIndex struct {
 func MLNearestNeighborsSingleKdTreeIndexFromID(id objc.ID) MLNearestNeighborsSingleKdTreeIndex {
 	return MLNearestNeighborsSingleKdTreeIndex{objectivec.Object{ID: id}}
 }
+
 // Ensure MLNearestNeighborsSingleKdTreeIndex implements IMLNearestNeighborsSingleKdTreeIndex.
 var _ IMLNearestNeighborsSingleKdTreeIndex = MLNearestNeighborsSingleKdTreeIndex{}
 
@@ -142,7 +144,6 @@ func NewMLNearestNeighborsSingleKdTreeIndex() MLNearestNeighborsSingleKdTreeInde
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/initWithCoder:
 func NewNearestNeighborsSingleKdTreeIndexWithCoder(coder objectivec.IObject) MLNearestNeighborsSingleKdTreeIndex {
 	instance := getMLNearestNeighborsSingleKdTreeIndexClass().Alloc()
@@ -150,7 +151,6 @@ func NewNearestNeighborsSingleKdTreeIndexWithCoder(coder objectivec.IObject) MLN
 	return MLNearestNeighborsSingleKdTreeIndexFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/initWithDataset:numberOfDimensions:leafSize:error:
 func NewNearestNeighborsSingleKdTreeIndexWithDatasetNumberOfDimensionsLeafSizeError(dataset unsafe.Pointer, dimensions uint64, size uint64) (MLNearestNeighborsSingleKdTreeIndex, error) {
 	var errorPtr objc.ID
@@ -163,51 +163,52 @@ func NewNearestNeighborsSingleKdTreeIndexWithDatasetNumberOfDimensionsLeafSizeEr
 	return MLNearestNeighborsSingleKdTreeIndexFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/calculateDistancesForNodesBetweenLeft:andRight:toQueryPoint:
 func (n MLNearestNeighborsSingleKdTreeIndex) CalculateDistancesForNodesBetweenLeftAndRightToQueryPoint(left uint64, right uint64, point unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("calculateDistancesForNodesBetweenLeft:andRight:toQueryPoint:"), left, right, point)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/constructTree
 func (n MLNearestNeighborsSingleKdTreeIndex) ConstructTree() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("constructTree"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/constructTreeForPointsBoundedBy:startingIndex:count:
 func (n MLNearestNeighborsSingleKdTreeIndex) ConstructTreeForPointsBoundedByStartingIndexCount(by unsafe.Pointer, index uint64, count uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("constructTreeForPointsBoundedBy:startingIndex:count:"), objc.CArray(by), index, count)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/dataPointCount
 func (n MLNearestNeighborsSingleKdTreeIndex) DataPointCount() uint64 {
 	rv := objc.Send[uint64](n.ID, objc.Sel("dataPointCount"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/encodeWithCoder:
 func (n MLNearestNeighborsSingleKdTreeIndex) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/findK:nearestNeighbors:toQueryPoint:inTree:
 func (n MLNearestNeighborsSingleKdTreeIndex) FindKNearestNeighborsToQueryPointInTree(k uint64, neighbors unsafe.Pointer, point unsafe.Pointer, tree objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("findK:nearestNeighbors:toQueryPoint:inTree:"), k, neighbors, point, tree)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/findNearestNeighbors:toIndex:
 func (n MLNearestNeighborsSingleKdTreeIndex) FindNearestNeighborsToIndex(neighbors uint64, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("findNearestNeighbors:toIndex:"), neighbors, index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/findNearestNeighbors:toQueryPoint:
 func (n MLNearestNeighborsSingleKdTreeIndex) FindNearestNeighborsToQueryPoint(neighbors uint64, point unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("findNearestNeighbors:toQueryPoint:"), neighbors, point)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/updateWithData:error:
 func (n MLNearestNeighborsSingleKdTreeIndex) UpdateWithDataError(data unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -222,13 +223,13 @@ func (n MLNearestNeighborsSingleKdTreeIndex) UpdateWithDataError(data unsafe.Poi
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/initWithCoder:
 func (n MLNearestNeighborsSingleKdTreeIndex) InitWithCoder(coder foundation.INSCoder) MLNearestNeighborsSingleKdTreeIndex {
 	rv := objc.Send[MLNearestNeighborsSingleKdTreeIndex](n.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/initWithDataset:numberOfDimensions:leafSize:error:
 func (n MLNearestNeighborsSingleKdTreeIndex) InitWithDatasetNumberOfDimensionsLeafSizeError(dataset unsafe.Pointer, dimensions uint64, size uint64) (MLNearestNeighborsSingleKdTreeIndex, error) {
 	var errorPtr objc.ID
@@ -255,6 +256,7 @@ func (n MLNearestNeighborsSingleKdTreeIndex) LeafSize() uint64 {
 func (n MLNearestNeighborsSingleKdTreeIndex) SetLeafSize(value uint64) {
 	objc.Send[struct{}](n.ID, objc.Sel("setLeafSize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/numDimensions
 func (n MLNearestNeighborsSingleKdTreeIndex) NumDimensions() uint64 {
 	rv := objc.Send[uint64](n.ID, objc.Sel("numDimensions"))
@@ -263,6 +265,7 @@ func (n MLNearestNeighborsSingleKdTreeIndex) NumDimensions() uint64 {
 func (n MLNearestNeighborsSingleKdTreeIndex) SetNumDimensions(value uint64) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNumDimensions:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNearestNeighborsSingleKdTreeIndex/root
 func (n MLNearestNeighborsSingleKdTreeIndex) Root() *KDNode {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("root"))
@@ -279,4 +282,3 @@ func (n MLNearestNeighborsSingleKdTreeIndex) SetRoot(value *KDNode) {
 	}
 	objc.Send[struct{}](n.ID, objc.Sel("setRoot:"), value)
 }
-

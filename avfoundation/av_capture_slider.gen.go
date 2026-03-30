@@ -5,9 +5,10 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (ac AVCaptureSliderClass) Alloc() AVCaptureSlider {
 // A slider control that selects a value from a bounded range.
 //
 // # Overview
-// 
+//
 // Sliders are appropriate for controls that provide a single float value.
 //
 // # Accessing the control value
@@ -73,6 +74,7 @@ type AVCaptureSlider struct {
 func AVCaptureSliderFromID(id objc.ID) AVCaptureSlider {
 	return AVCaptureSlider{AVCaptureControl: AVCaptureControlFromID(id)}
 }
+
 // NOTE: AVCaptureSlider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -154,7 +156,7 @@ func NewAVCaptureSlider() AVCaptureSlider {
 // maxValue: The upper bound of the range.
 //
 // # Discussion
-// 
+//
 // Use continuous sliders when your use case supports selecting any value in
 // the specified range.
 //
@@ -180,7 +182,7 @@ func NewCaptureSliderWithLocalizedTitleSymbolNameMinValueMaxValue(localizedTitle
 // than `0` or the system throws an [InvalidArgumentException].
 //
 // # Discussion
-// 
+//
 // Use discrete sliders when your use case supports selecting stepped values
 // within the specified range.
 //
@@ -200,7 +202,7 @@ func NewCaptureSliderWithLocalizedTitleSymbolNameMinValueMaxValueStep(localizedT
 // values: An array of floating-point values.
 //
 // # Discussion
-// 
+//
 // Use discrete sliders when your app supports selecting from a specific list
 // of values.
 //
@@ -223,7 +225,7 @@ func NewCaptureSliderWithLocalizedTitleSymbolNameValues(localizedTitle string, s
 // maxValue: The upper bound of the range.
 //
 // # Discussion
-// 
+//
 // Use continuous sliders when your use case supports selecting any value in
 // the specified range.
 //
@@ -232,6 +234,7 @@ func (c AVCaptureSlider) InitWithLocalizedTitleSymbolNameMinValueMaxValue(locali
 	rv := objc.Send[AVCaptureSlider](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:minValue:maxValue:"), objc.String(localizedTitle), objc.String(symbolName), minValue, maxValue)
 	return rv
 }
+
 // Creates a discrete slider control that selects a stepped value from a
 // bounded range.
 //
@@ -247,7 +250,7 @@ func (c AVCaptureSlider) InitWithLocalizedTitleSymbolNameMinValueMaxValue(locali
 // than `0` or the system throws an [InvalidArgumentException].
 //
 // # Discussion
-// 
+//
 // Use discrete sliders when your use case supports selecting stepped values
 // within the specified range.
 //
@@ -256,6 +259,7 @@ func (c AVCaptureSlider) InitWithLocalizedTitleSymbolNameMinValueMaxValueStep(lo
 	rv := objc.Send[AVCaptureSlider](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:minValue:maxValue:step:"), objc.String(localizedTitle), objc.String(symbolName), minValue, maxValue, step)
 	return rv
 }
+
 // Creates a discrete slider control that selects a value from a list.
 //
 // localizedTitle: A localized title that describes the slider’s action.
@@ -265,7 +269,7 @@ func (c AVCaptureSlider) InitWithLocalizedTitleSymbolNameMinValueMaxValueStep(lo
 // values: An array of floating-point values.
 //
 // # Discussion
-// 
+//
 // Use discrete sliders when your app supports selecting from a specific list
 // of values.
 //
@@ -274,6 +278,7 @@ func (c AVCaptureSlider) InitWithLocalizedTitleSymbolNameValues(localizedTitle s
 	rv := objc.Send[AVCaptureSlider](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:values:"), objc.String(localizedTitle), objc.String(symbolName), objectivec.IObjectSliceToNSArray(values))
 	return rv
 }
+
 // Sets the action to perform on the specified dispatch queue when the
 // slider’s value changes.
 //
@@ -282,23 +287,23 @@ func (c AVCaptureSlider) InitWithLocalizedTitleSymbolNameValues(localizedTitle s
 // action: The action to perform in response to changes to the slider’s value.
 //
 // # Discussion
-// 
+//
 // If the action modifies a property of the camera system, the specified
 // dispatch queue must represent the camera system’s same exclusive
 // execution context (see [isSameExclusiveExecutionContext(other:)]).
 //
-// [isSameExclusiveExecutionContext(other:)]: https://developer.apple.com/documentation/Swift/SerialExecutor/isSameExclusiveExecutionContext(other:)-3ptya
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSlider/setActionQueue:action:
+//
+// [isSameExclusiveExecutionContext(other:)]: https://developer.apple.com/documentation/Swift/SerialExecutor/isSameExclusiveExecutionContext(other:)-3ptya
 func (c AVCaptureSlider) SetActionQueueAction(actionQueue dispatch.Queue, action Float32Handler) {
-_block1, _ := NewFloat32Block(action)
+	_block1, _ := NewFloat32Block(action)
 	objc.Send[objc.ID](c.ID, objc.Sel("setActionQueue:action:"), uintptr(actionQueue.Handle()), _block1)
 }
 
 // The current value of the slider.
 //
 // # Discussion
-// 
+//
 // The default value is the slider’s minimum value. You may set a value only
 // if it’s within the slider’s minimum and maximum values, otherwise the
 // system throws an exception.
@@ -311,17 +316,18 @@ func (c AVCaptureSlider) Value() float32 {
 func (c AVCaptureSlider) SetValue(value float32) {
 	objc.Send[struct{}](c.ID, objc.Sel("setValue:"), value)
 }
+
 // A localized string that defines the presentation of the slider’s value.
 //
 // # Discussion
-// 
+//
 // Specify a format string to modify the presentation of a slider’s value.
 // The format string may only contain `%@` and no other placeholders like
 // `%d`, `%s`, and so on. Setting an Invalid format string results in the
 // value’s default presentation.
-// 
+//
 // Examples of valid format strings are:
-// 
+//
 // - “%@%” for “40%” - “%@ fps” for “60 fps” - “+ %@” for
 // “+ 20”
 //
@@ -333,6 +339,7 @@ func (c AVCaptureSlider) LocalizedValueFormat() string {
 func (c AVCaptureSlider) SetLocalizedValueFormat(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLocalizedValueFormat:"), objc.String(value))
 }
+
 // The name of the SF Symbol that represents this control.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSlider/symbolName
@@ -340,6 +347,7 @@ func (c AVCaptureSlider) SymbolName() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("symbolName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A localized title that describes the control’s action.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSlider/localizedTitle
@@ -347,6 +355,7 @@ func (c AVCaptureSlider) LocalizedTitle() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("localizedTitle"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Values in this array may receive unique visual representations or
 // behaviors.
 //
@@ -375,4 +384,3 @@ func (c AVCaptureSlider) SetActionQueueActionSync(ctx context.Context, actionQue
 		return 0.0, ctx.Err()
 	}
 }
-

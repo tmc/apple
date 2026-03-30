@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -71,6 +71,7 @@ type CIRippleTransition interface {
 type CIRippleTransitionObject struct {
 	objectivec.Object
 }
+
 func (o CIRippleTransitionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -89,14 +90,16 @@ func CIRippleTransitionObjectFromID(id objc.ID) CIRippleTransitionObject {
 func (o CIRippleTransitionObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // A rectangle that defines the extent of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/extent
 func (o CIRippleTransitionObject) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
-	}
+}
+
 // A value that determines whether the ripple starts as a bulge (a higher
 // value) or a dimple (a lower value).
 //
@@ -104,21 +107,24 @@ func (o CIRippleTransitionObject) Extent() corefoundation.CGRect {
 func (o CIRippleTransitionObject) Scale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // An image that looks like a shaded sphere enclosed in a square.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/shadingImage
 func (o CIRippleTransitionObject) ShadingImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("shadingImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The width of the ripple.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/width
 func (o CIRippleTransitionObject) Width() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -126,58 +132,89 @@ func (o CIRippleTransitionObject) Width() float32 {
 func (o CIRippleTransitionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIRippleTransitionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The target image for a transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIRippleTransitionObject) TargetImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The parametric time of the transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIRippleTransitionObject) Time() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
-	}
+}
 
+// The x and y position to use as the center of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/center
 func (o CIRippleTransitionObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// A rectangle that defines the extent of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/extent
 func (o CIRippleTransitionObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
 
+// A value that determines whether the ripple starts as a bulge (a higher
+// value) or a dimple (a lower value).
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/scale
 func (o CIRippleTransitionObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
 
+// An image that looks like a shaded sphere enclosed in a square.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/shadingImage
 func (o CIRippleTransitionObject) SetShadingImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadingImage:"), value)
 }
 
+// The width of the ripple.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/width
 func (o CIRippleTransitionObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIRippleTransitionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The target image for a transition.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIRippleTransitionObject) SetTargetImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTargetImage:"), value)
 }
 
+// The parametric time of the transition.
+//
+// # Discussion
+//
+// This value drives the transition from start, at time 0, to end, at time 1.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIRippleTransitionObject) SetTime(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTime:"), value)
 }
-

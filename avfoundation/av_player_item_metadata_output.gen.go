@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -71,6 +72,7 @@ type AVPlayerItemMetadataOutput struct {
 func AVPlayerItemMetadataOutputFromID(id objc.ID) AVPlayerItemMetadataOutput {
 	return AVPlayerItemMetadataOutput{AVPlayerItemOutput: AVPlayerItemOutputFromID(id)}
 }
+
 // NOTE: AVPlayerItemMetadataOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,11 +137,11 @@ func NewAVPlayerItemMetadataOutput() AVPlayerItemMetadataOutput {
 // output should provide.
 //
 // # Return Value
-// 
+//
 // An AVPlayerItemMetadataOutput instance.
 //
 // # Discussion
-// 
+//
 // Pass `nil` to receive all of the timed metadata from all enabled
 // [AVPlayerItemTracks] that carry timed metadata.
 //
@@ -156,11 +158,11 @@ func NewPlayerItemMetadataOutputWithIdentifiers(identifiers []string) AVPlayerIt
 // output should provide.
 //
 // # Return Value
-// 
+//
 // An AVPlayerItemMetadataOutput instance.
 //
 // # Discussion
-// 
+//
 // Pass `nil` to receive all of the timed metadata from all enabled
 // [AVPlayerItemTracks] that carry timed metadata.
 //
@@ -169,6 +171,7 @@ func (p AVPlayerItemMetadataOutput) InitWithIdentifiers(identifiers []string) AV
 	rv := objc.Send[AVPlayerItemMetadataOutput](p.ID, objc.Sel("initWithIdentifiers:"), objectivec.StringSliceToNSArray(identifiers))
 	return rv
 }
+
 // Sets the delegate and a dispatch queue on which the delegate is called.
 //
 // delegate: An object conforming to [AVPlayerItemMetadataOutputPushDelegate] protocol.
@@ -176,7 +179,7 @@ func (p AVPlayerItemMetadataOutput) InitWithIdentifiers(identifiers []string) AV
 // delegateQueue: A dispatch queue on which all delegate methods will be called.
 //
 // # Discussion
-// 
+//
 // You specify the metadata delegate, and a dispatch queue on which it will be
 // called, to be notified as new metadata is encountered in the source media.
 //
@@ -189,7 +192,7 @@ func (p AVPlayerItemMetadataOutput) SetDelegateQueue(delegate AVPlayerItemMetada
 // messages its delegate earlier than normal.
 //
 // # Discussion
-// 
+//
 // If possible, an [AVPlayerItemMetadataOutput] will message its delegate
 // `advanceIntervalForDelegateInvocation` seconds earlier than otherwise. If
 // the value you provide is large, effectively requesting provision of samples
@@ -204,6 +207,7 @@ func (p AVPlayerItemMetadataOutput) AdvanceIntervalForDelegateInvocation() float
 func (p AVPlayerItemMetadataOutput) SetAdvanceIntervalForDelegateInvocation(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAdvanceIntervalForDelegateInvocation:"), value)
 }
+
 // The delegate object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemMetadataOutput/delegate
@@ -211,6 +215,7 @@ func (p AVPlayerItemMetadataOutput) Delegate() AVPlayerItemMetadataOutputPushDel
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("delegate"))
 	return AVPlayerItemMetadataOutputPushDelegateObjectFromID(rv)
 }
+
 // The dispatch queue on which messages are sent to the delegate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemMetadataOutput/delegateQueue
@@ -218,4 +223,3 @@ func (p AVPlayerItemMetadataOutput) DelegateQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](p.ID, objc.Sel("delegateQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
-

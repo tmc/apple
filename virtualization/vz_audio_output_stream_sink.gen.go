@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,10 +45,10 @@ func (vc VZAudioOutputStreamSinkClass) Alloc() VZAudioOutputStreamSink {
 // The base class for an audio output stream sink.
 //
 // # Overview
-// 
+//
 // An audio output stream sink defines how the host system consumes audio data
 // from a guest.
-// 
+//
 // Don’t instantiate [VZAudioOutputStreamSink] directly, use one of its
 // subclasses, such as [VZHostAudioOutputStreamSink] instead.
 //
@@ -62,6 +63,7 @@ type VZAudioOutputStreamSink struct {
 func VZAudioOutputStreamSinkFromID(id objc.ID) VZAudioOutputStreamSink {
 	return VZAudioOutputStreamSink{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZAudioOutputStreamSink adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -90,4 +92,3 @@ func NewVZAudioOutputStreamSink() VZAudioOutputStreamSink {
 	rv := objc.Send[VZAudioOutputStreamSink](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

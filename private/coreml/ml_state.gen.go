@@ -5,8 +5,9 @@ package coreml
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,15 +44,14 @@ func (mc MLStateClass) Alloc() MLState {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLState.Backings]
 //   - [MLState.FeatureProviderRepresentation]
-//   - [MLState.GetMultiArrayForStateNamedHandler]
 //   - [MLState.GetMultiArrayWithHandler]
 //   - [MLState.InternalGetMultiArrayWithHandler]
 //   - [MLState.InitWithBackings]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLState
 type MLState struct {
 	objectivec.Object
@@ -61,6 +61,7 @@ type MLState struct {
 func MLStateFromID(id objc.ID) MLState {
 	return MLState{objectivec.Object{ID: id}}
 }
+
 // Ensure MLState implements IMLState.
 var _ IMLState = MLState{}
 
@@ -70,7 +71,6 @@ var _ IMLState = MLState{}
 //
 //   - [IMLState.Backings]
 //   - [IMLState.FeatureProviderRepresentation]
-//   - [IMLState.GetMultiArrayForStateNamedHandler]
 //   - [IMLState.GetMultiArrayWithHandler]
 //   - [IMLState.InternalGetMultiArrayWithHandler]
 //   - [IMLState.InitWithBackings]
@@ -83,7 +83,6 @@ type IMLState interface {
 
 	Backings() foundation.INSDictionary
 	FeatureProviderRepresentation() objectivec.IObject
-	GetMultiArrayForStateNamedHandler(named objectivec.IObject, handler MLMultiArrayHandler)
 	GetMultiArrayWithHandler(handler VoidHandler)
 	InternalGetMultiArrayWithHandler(handler VoidHandler)
 	InitWithBackings(backings objectivec.IObject) MLState
@@ -108,7 +107,6 @@ func NewMLState() MLState {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLState/initWithBackings:
 func NewStateWithBackings(backings objectivec.IObject) MLState {
 	instance := getMLStateClass().Alloc()
@@ -116,25 +114,18 @@ func NewStateWithBackings(backings objectivec.IObject) MLState {
 	return MLStateFromID(rv)
 }
 
-//
-// See: https://developer.apple.com/documentation/CoreML/MLState/getMultiArrayForStateNamed:handler:
-func (s MLState) GetMultiArrayForStateNamedHandler(named objectivec.IObject, handler MLMultiArrayHandler) {
-_block1, _ := NewMLMultiArrayBlock(handler)
-	objc.Send[objc.ID](s.ID, objc.Sel("getMultiArrayForStateNamed:handler:"), named, _block1)
-}
-//
 // See: https://developer.apple.com/documentation/CoreML/MLState/getMultiArrayWithHandler:
 func (s MLState) GetMultiArrayWithHandler(handler VoidHandler) {
-_block0, _ := NewVoidBlock(handler)
+	_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("getMultiArrayWithHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLState/internalGetMultiArrayWithHandler:
 func (s MLState) InternalGetMultiArrayWithHandler(handler VoidHandler) {
-_block0, _ := NewVoidBlock(handler)
+	_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("internalGetMultiArrayWithHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLState/initWithBackings:
 func (s MLState) InitWithBackings(backings objectivec.IObject) MLState {
 	rv := objc.Send[MLState](s.ID, objc.Sel("initWithBackings:"), backings)
@@ -152,25 +143,11 @@ func (s MLState) Backings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("backings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLState/featureProviderRepresentation
 func (s MLState) FeatureProviderRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("featureProviderRepresentation"))
 	return objectivec.Object{ID: rv}
-}
-
-// GetMultiArrayForStateNamedHandlerSync is a synchronous wrapper around [MLState.GetMultiArrayForStateNamedHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (s MLState) GetMultiArrayForStateNamedHandlerSync(ctx context.Context, named objectivec.IObject) (*MLMultiArray, error) {
-	done := make(chan *MLMultiArray, 1)
-	s.GetMultiArrayForStateNamedHandler(named, func(val *MLMultiArray) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
 }
 
 // GetMultiArrayWithHandlerSync is a synchronous wrapper around [MLState.GetMultiArrayWithHandler].
@@ -202,4 +179,3 @@ func (s MLState) InternalGetMultiArrayWithHandlerSync(ctx context.Context) error
 		return ctx.Err()
 	}
 }
-

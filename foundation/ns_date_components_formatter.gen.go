@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,20 +44,20 @@ func (dc DateComponentsFormatterClass) Alloc() DateComponentsFormatter {
 // A formatter that creates string representations of quantities of time.
 //
 // # Overview
-// 
+//
 // An [NSDateComponentsFormatter] object takes quantities of time and formats
 // them as a user-readable string. Use a date components formatter to create
 // strings for your app’s interface. The formatter object has many options
 // for creating both abbreviated and expanded strings. The formatter takes the
 // current user’s locale and language into account when generating strings.
-// 
+//
 // To use this class, create an instance, configure its properties, and call
 // one of its methods to generate an appropriate string. The properties of
 // this class let you configure the calendar and specify the date and time
 // units you want displayed in the resulting string. The listing below shows
 // how to configure a formatter to create the string “About 5 minutes
 // remaining”.
-// 
+//
 // The methods of this class may be called safely from any thread of your app.
 // It is also safe to share a single instance of this class from multiple
 // threads, with the caveat that you should not change the configuration of
@@ -109,7 +110,10 @@ func DateComponentsFormatterFromID(id objc.ID) DateComponentsFormatter {
 }
 
 // NSDateComponentsFormatterFromID is an alias for [DateComponentsFormatterFromID] for cross-framework compatibility.
-func NSDateComponentsFormatterFromID(id objc.ID) DateComponentsFormatter { return DateComponentsFormatterFromID(id) }
+func NSDateComponentsFormatterFromID(id objc.ID) DateComponentsFormatter {
+	return DateComponentsFormatterFromID(id)
+}
+
 // NOTE: DateComponentsFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -219,7 +223,6 @@ func NewDateComponentsFormatter() DateComponentsFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDateComponentsFormatterWithCoder(coder INSCoder) DateComponentsFormatter {
 	instance := getDateComponentsFormatterClass().Alloc()
@@ -236,11 +239,11 @@ func NewDateComponentsFormatterWithCoder(coder INSCoder) DateComponentsFormatter
 // ignored. This parameter must not be `nil`.
 //
 // # Return Value
-// 
+//
 // A formatted string representing the specified date information.
 //
 // # Discussion
-// 
+//
 // Use this method to format date information that is already broken down into
 // the component day and time values.
 //
@@ -249,6 +252,7 @@ func (d DateComponentsFormatter) StringFromDateComponents(components INSDateComp
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stringFromDateComponents:"), components)
 	return NSStringFromID(rv).String()
 }
+
 // Returns a formatted string based on the time difference between two dates.
 //
 // startDate: The start time. This parameter must not be `nil`.
@@ -256,11 +260,11 @@ func (d DateComponentsFormatter) StringFromDateComponents(components INSDateComp
 // endDate: The end time. This parameter must not be `nil`.
 //
 // # Return Value
-// 
+//
 // A formatted string representing the specified time information.
 //
 // # Discussion
-// 
+//
 // This method calculates the elapsed time between the `startDate` and
 // `endDate` values and uses that information to generate the string. For
 // example, if there is exactly one hour and ten minutes difference between
@@ -272,17 +276,18 @@ func (d DateComponentsFormatter) StringFromDateToDate(startDate INSDate, endDate
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stringFromDate:toDate:"), startDate, endDate)
 	return NSStringFromID(rv).String()
 }
+
 // Returns a formatted string based on the specified number of seconds.
 //
 // ti: The time interval, measured in seconds. The value must be a finite number.
 // Negative numbers are treated as positive numbers when creating the string.
 //
 // # Return Value
-// 
+//
 // A formatted string representing the specified time interval.
 //
 // # Discussion
-// 
+//
 // This method formats the specified number of seconds into the appropriate
 // units. For example, if the formatter allows the display of minutes and
 // seconds, creating an abbreviated string for the value 70 seconds results in
@@ -304,11 +309,11 @@ func (d DateComponentsFormatter) StringFromTimeInterval(ti float64) string {
 // format.
 //
 // # Return Value
-// 
+//
 // A string containing the localized date and time information.
 //
 // # Discussion
-// 
+//
 // Use this convenience method to format a string using the default formatter
 // values, with the exception of the `unitsStyle` value.
 //
@@ -322,13 +327,13 @@ func (_DateComponentsFormatterClass DateComponentsFormatterClass) LocalizedStrin
 // output string.
 //
 // # Discussion
-// 
+//
 // The allowed calendar units are:
-// 
-// - [CalendarUnitYear] - [CalendarUnitMonth] - [CalendarUnitWeekOfMonth] -
-// [CalendarUnitDay] - [CalendarUnitHour] - [CalendarUnitMinute] -
-// [CalendarUnitSecond]
-// 
+//
+// - [NSCalendarUnitYear] - [NSCalendarUnitMonth] -
+// [NSCalendarUnitWeekOfMonth] - [NSCalendarUnitDay] - [NSCalendarUnitHour] -
+// [NSCalendarUnitMinute] - [NSCalendarUnitSecond]
+//
 // Assigning any other calendar units to this property results in an
 // exception.
 //
@@ -340,17 +345,16 @@ func (d DateComponentsFormatter) AllowedUnits() NSCalendarUnit {
 func (d DateComponentsFormatter) SetAllowedUnits(value NSCalendarUnit) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAllowedUnits:"), value)
 }
+
 // A Boolean indicating whether non-integer units may be used for values.
 //
 // # Discussion
-// 
+//
 // Fractional units may be used when a value cannot be exactly represented
 // using the available units. For example, if minutes are not allowed, the
 // value “1h 30m” could be formatted as “1.5h”.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/allowsFractionalUnits
 func (d DateComponentsFormatter) AllowsFractionalUnits() bool {
@@ -360,14 +364,15 @@ func (d DateComponentsFormatter) AllowsFractionalUnits() bool {
 func (d DateComponentsFormatter) SetAllowsFractionalUnits(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAllowsFractionalUnits:"), value)
 }
+
 // The default calendar to use when formatting date components.
 //
 // # Discussion
-// 
+//
 // The formatter uses the calendar in this property to format values that do
 // not have an inherent calendar of their own. For example, the formatter uses
 // this calendar when formatting an [NSTimeInterval] value.
-// 
+//
 // The default value of this property is the calendar returned by the
 // [AutoupdatingCurrentCalendar] method of [NSCalendar]. Setting this property
 // to `nil` causes the formatter to use the Gregorian calendar with the
@@ -381,20 +386,18 @@ func (d DateComponentsFormatter) Calendar() INSCalendar {
 func (d DateComponentsFormatter) SetCalendar(value INSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
+
 // A Boolean value indicating whether to collapse the largest unit into
 // smaller units when a certain threshold is met.
 //
 // # Discussion
-// 
-// An example of when this property might apply is when expressing 63 seconds
-// worth of time. When this property is set to [true], the formatted value
-// would be “63s”. When the value of this property is [false], the
-// formatted value would be “1m 3s”.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// An example of when this property might apply is when expressing 63 seconds
+// worth of time. When this property is set to true, the formatted value would
+// be “63s”. When the value of this property is false, the formatted value
+// would be “1m 3s”.
+//
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/collapsesLargestUnit
 func (d DateComponentsFormatter) CollapsesLargestUnit() bool {
@@ -404,20 +407,18 @@ func (d DateComponentsFormatter) CollapsesLargestUnit() bool {
 func (d DateComponentsFormatter) SetCollapsesLargestUnit(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCollapsesLargestUnit:"), value)
 }
+
 // A Boolean value indicating whether the resulting phrase reflects an inexact
 // time value.
 //
 // # Discussion
-// 
-// Setting the value of this property to [true] adds phrasing to output
-// strings to reflect that the given time value is approximate and not exact.
-// Using this property yields more correct phrasing than simply prepending the
-// string “About” to an output string.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Setting the value of this property to true adds phrasing to output strings
+// to reflect that the given time value is approximate and not exact. Using
+// this property yields more correct phrasing than simply prepending the
+// string “About” to an output string.
+//
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/includesApproximationPhrase
 func (d DateComponentsFormatter) IncludesApproximationPhrase() bool {
@@ -427,18 +428,16 @@ func (d DateComponentsFormatter) IncludesApproximationPhrase() bool {
 func (d DateComponentsFormatter) SetIncludesApproximationPhrase(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIncludesApproximationPhrase:"), value)
 }
+
 // A Boolean value indicating whether output strings reflect the amount of
 // time remaining.
 //
 // # Discussion
-// 
-// Setting this property to [true] results in output strings like “30
-// minutes remaining”.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Setting this property to true results in output strings like “30 minutes
+// remaining”.
+//
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/includesTimeRemainingPhrase
 func (d DateComponentsFormatter) IncludesTimeRemainingPhrase() bool {
@@ -448,16 +447,17 @@ func (d DateComponentsFormatter) IncludesTimeRemainingPhrase() bool {
 func (d DateComponentsFormatter) SetIncludesTimeRemainingPhrase(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIncludesTimeRemainingPhrase:"), value)
 }
+
 // The maximum number of time units to include in the output string.
 //
 // # Discussion
-// 
+//
 // Use this property to limit the number of units displayed in the resulting
 // string. For example, with this property set to 2, instead of “1h 10m,
 // 30s”, the resulting string would be “1h 10m”. Use this property when
 // you are constrained for space or want to round up values to the nearest
 // large unit.
-// 
+//
 // The default value of this property is `0`, which does not cause the
 // elimination of any units.
 //
@@ -469,17 +469,18 @@ func (d DateComponentsFormatter) MaximumUnitCount() int {
 func (d DateComponentsFormatter) SetMaximumUnitCount(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumUnitCount:"), value)
 }
+
 // The formatting style for unit names.
 //
 // # Discussion
-// 
+//
 // Configures the strings to use (if any) for unit names such as days, hours,
 // minutes, and seconds. Use this property to specify whether you want
 // abbreviated or shortened versions of unit names—for example, `hrs`
 // instead of `hours`.
-// 
+//
 // The default value of this property is
-// [DateComponentsFormatterUnitsStylePositional].
+// [NSDateComponentsFormatterUnitsStylePositional].
 //
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/unitsStyle-swift.property
 func (d DateComponentsFormatter) UnitsStyle() NSDateComponentsFormatterUnitsStyle {
@@ -489,18 +490,19 @@ func (d DateComponentsFormatter) UnitsStyle() NSDateComponentsFormatterUnitsStyl
 func (d DateComponentsFormatter) SetUnitsStyle(value NSDateComponentsFormatterUnitsStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUnitsStyle:"), value)
 }
+
 // The formatting style for units whose value is 0.
 //
 // # Discussion
-// 
+//
 // When the value for a particular unit is 0, the zero formatting behavior
 // determines whether that value is retained or omitted from any resulting
 // strings. For example, when the formatting behavior is
-// [DateComponentsFormatterZeroFormattingBehaviorDropTrailing], the value of
+// [NSDateComponentsFormatterZeroFormattingBehaviorDropTrailing], the value of
 // one hour, ten minutes, and zero seconds would omit the mention of seconds.
-// 
+//
 // The default value of this property is
-// [DateComponentsFormatterZeroFormattingBehaviorDefault].
+// [NSDateComponentsFormatterZeroFormattingBehaviorDefault].
 //
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/zeroFormattingBehavior-swift.property
 func (d DateComponentsFormatter) ZeroFormattingBehavior() NSDateComponentsFormatterZeroFormattingBehavior {
@@ -510,6 +512,7 @@ func (d DateComponentsFormatter) ZeroFormattingBehavior() NSDateComponentsFormat
 func (d DateComponentsFormatter) SetZeroFormattingBehavior(value NSDateComponentsFormatterZeroFormattingBehavior) {
 	objc.Send[struct{}](d.ID, objc.Sel("setZeroFormattingBehavior:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/formattingContext
 func (d DateComponentsFormatter) FormattingContext() NSFormattingContext {
 	rv := objc.Send[NSFormattingContext](d.ID, objc.Sel("formattingContext"))
@@ -518,6 +521,7 @@ func (d DateComponentsFormatter) FormattingContext() NSFormattingContext {
 func (d DateComponentsFormatter) SetFormattingContext(value NSFormattingContext) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFormattingContext:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/referenceDate
 func (d DateComponentsFormatter) ReferenceDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("referenceDate"))
@@ -526,4 +530,3 @@ func (d DateComponentsFormatter) ReferenceDate() INSDate {
 func (d DateComponentsFormatter) SetReferenceDate(value INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setReferenceDate:"), value)
 }
-

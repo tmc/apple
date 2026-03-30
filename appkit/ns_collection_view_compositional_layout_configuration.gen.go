@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,11 +46,11 @@ func (nc NSCollectionViewCompositionalLayoutConfigurationClass) Alloc() NSCollec
 // footers for the layout.
 //
 // # Overview
-// 
+//
 // You use a layout configuration to modify a collection view layout’s
 // default scroll direction, add extra spacing between each section of the
 // layout, and add headers or footers to the entire layout.
-// 
+//
 // You can pass in this configuration when creating an
 // [NSCollectionViewCompositionalLayout], or you can set the [NSCollectionViewCompositionalLayoutConfiguration.Configuration]
 // property on an existing layout. If you modify the configuration on an
@@ -83,6 +84,7 @@ type NSCollectionViewCompositionalLayoutConfiguration struct {
 func NSCollectionViewCompositionalLayoutConfigurationFromID(id objc.ID) NSCollectionViewCompositionalLayoutConfiguration {
 	return NSCollectionViewCompositionalLayoutConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSCollectionViewCompositionalLayoutConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -152,11 +154,9 @@ func NewNSCollectionViewCompositionalLayoutConfiguration() NSCollectionViewCompo
 // The axis that the content in the collection view layout scrolls along.
 //
 // # Discussion
-// 
-// The default value of this property is
-// [NSCollectionView.ScrollDirection.vertical].
 //
-// [NSCollectionView.ScrollDirection.vertical]: https://developer.apple.com/documentation/AppKit/NSCollectionView/ScrollDirection/vertical
+// The default value of this property is
+// [NSCollectionViewScrollDirectionVertical].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewCompositionalLayoutConfiguration/scrollDirection
 func (c NSCollectionViewCompositionalLayoutConfiguration) ScrollDirection() NSCollectionViewScrollDirection {
@@ -166,10 +166,11 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) ScrollDirection() NSCo
 func (c NSCollectionViewCompositionalLayoutConfiguration) SetScrollDirection(value NSCollectionViewScrollDirection) {
 	objc.Send[struct{}](c.ID, objc.Sel("setScrollDirection:"), value)
 }
+
 // The amount of space between the sections in the layout.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `0.0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewCompositionalLayoutConfiguration/interSectionSpacing
@@ -180,6 +181,7 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) InterSectionSpacing() 
 func (c NSCollectionViewCompositionalLayoutConfiguration) SetInterSectionSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInterSectionSpacing:"), value)
 }
+
 // An array of the supplementary items that are associated with the boundary
 // edges of the entire layout, such as global headers and footers.
 //
@@ -193,6 +195,7 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) BoundarySupplementaryI
 func (c NSCollectionViewCompositionalLayoutConfiguration) SetBoundarySupplementaryItems(value []NSCollectionLayoutBoundarySupplementaryItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBoundarySupplementaryItems:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The layout’s configuration, such as its scroll direction and section
 // spacing.
 //
@@ -204,4 +207,3 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) Configuration() INSCol
 func (c NSCollectionViewCompositionalLayoutConfiguration) SetConfiguration(value INSCollectionViewCompositionalLayoutConfiguration) {
 	objc.Send[struct{}](c.ID, objc.Sel("setConfiguration:"), value)
 }
-

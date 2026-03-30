@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Components struct {
 func ComponentsFromID(id objc.ID) Components {
 	return Components{objectivec.Object{ID: id}}
 }
+
 // Ensure Components implements IComponents.
 var _ IComponents = Components{}
 
@@ -78,4 +80,3 @@ func NewComponents() Components {
 	rv := objc.Send[Components](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

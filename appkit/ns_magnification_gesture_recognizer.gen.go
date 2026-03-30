@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,14 +47,12 @@ func (nc NSMagnificationGestureRecognizerClass) Alloc() NSMagnificationGestureRe
 // content.
 //
 // # Overview
-// 
+//
 // This object tracks pinch gestures on a track pad or other input device and
 // stores the resulting magnification value for you to use in your code.
-// 
-// This gesture recognizer automatically sets the value of the
-// [NSMagnificationGestureRecognizer.DelaysMagnificationEvents] property to [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This gesture recognizer automatically sets the value of the
+// [NSMagnificationGestureRecognizer.DelaysMagnificationEvents] property to true.
 //
 // # Finding the Magnification Factor
 //
@@ -72,6 +71,7 @@ type NSMagnificationGestureRecognizer struct {
 func NSMagnificationGestureRecognizerFromID(id objc.ID) NSMagnificationGestureRecognizer {
 	return NSMagnificationGestureRecognizer{NSGestureRecognizer: NSGestureRecognizerFromID(id)}
 }
+
 // NOTE: NSMagnificationGestureRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,7 +112,6 @@ func NewNSMagnificationGestureRecognizer() NSMagnificationGestureRecognizer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func NewMagnificationGestureRecognizerWithCoder(coder foundation.INSCoder) NSMagnificationGestureRecognizer {
 	instance := getNSMagnificationGestureRecognizerClass().Alloc()
@@ -131,18 +130,18 @@ func NewMagnificationGestureRecognizerWithCoder(coder foundation.INSCoder) NSMag
 // must not specify `nil` for this parameter.
 //
 // # Return Value
-// 
+//
 // The initialized gesture recognizer object or `nil` if an error occurred.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer. Subclasses must call this method
 // from their own custom initialization methods. Call the method before
 // performing other tasks.
-// 
+//
 // This method records the specified `target` and `action` values and prepares
 // the gesture recognizer for use.
-// 
+//
 // The `action` method must have one of the following signatures:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(target:action:)
@@ -155,7 +154,7 @@ func NewMagnificationGestureRecognizerWithTargetAction(target objectivec.IObject
 // The amount of magnification to apply.
 //
 // # Discussion
-// 
+//
 // This property contains the current magnification in effect for the gesture.
 // Add the value of this property to `1.0` to get the scale factor to apply to
 // your content.
@@ -168,4 +167,3 @@ func (m NSMagnificationGestureRecognizer) Magnification() float64 {
 func (m NSMagnificationGestureRecognizer) SetMagnification(value float64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMagnification:"), value)
 }
-

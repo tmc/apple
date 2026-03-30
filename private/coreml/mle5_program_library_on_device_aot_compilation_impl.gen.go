@@ -4,10 +4,11 @@ package coreml
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLE5ProgramLibraryOnDeviceAOTCompilationImplClass) Alloc() MLE5ProgramL
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLE5ProgramLibraryOnDeviceAOTCompilationImpl.Configuration]
@@ -56,6 +56,7 @@ func (mc MLE5ProgramLibraryOnDeviceAOTCompilationImplClass) Alloc() MLE5ProgramL
 //   - [MLE5ProgramLibraryOnDeviceAOTCompilationImpl.InitWithIRProgramContainerConfigurationDeallocator]
 //   - [MLE5ProgramLibraryOnDeviceAOTCompilationImpl.InitWithMILTextAtURLContainerConfiguration]
 //   - [MLE5ProgramLibraryOnDeviceAOTCompilationImpl.InitWithMILTextAtURLIrProgramDeallocatorContainerConfiguration]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl
 type MLE5ProgramLibraryOnDeviceAOTCompilationImpl struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type MLE5ProgramLibraryOnDeviceAOTCompilationImpl struct {
 func MLE5ProgramLibraryOnDeviceAOTCompilationImplFromID(id objc.ID) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
 	return MLE5ProgramLibraryOnDeviceAOTCompilationImpl{objectivec.Object{ID: id}}
 }
+
 // Ensure MLE5ProgramLibraryOnDeviceAOTCompilationImpl implements IMLE5ProgramLibraryOnDeviceAOTCompilationImpl.
 var _ IMLE5ProgramLibraryOnDeviceAOTCompilationImpl = MLE5ProgramLibraryOnDeviceAOTCompilationImpl{}
 
@@ -118,7 +120,6 @@ func NewMLE5ProgramLibraryOnDeviceAOTCompilationImpl() MLE5ProgramLibraryOnDevic
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/initWithMILTextAtURL:container:configuration:
 func NewE5ProgramLibraryOnDeviceAOTCompilationImplWithMILTextAtURLContainerConfiguration(url foundation.INSURL, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
 	instance := getMLE5ProgramLibraryOnDeviceAOTCompilationImplClass().Alloc()
@@ -126,7 +127,6 @@ func NewE5ProgramLibraryOnDeviceAOTCompilationImplWithMILTextAtURLContainerConfi
 	return MLE5ProgramLibraryOnDeviceAOTCompilationImplFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/createProgramLibraryHandleWithRespecialization:error:
 func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) CreateProgramLibraryHandleWithRespecializationError(respecialization bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -138,23 +138,23 @@ func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) CreateProgramLibraryHandle
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/initWithIRProgram:container:configuration:deallocator:
 func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) InitWithIRProgramContainerConfigurationDeallocator(iRProgram unsafe.Pointer, container objectivec.IObject, configuration objectivec.IObject, deallocator VoidHandler) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
-_block3, _ := NewVoidBlock(deallocator)
+	_block3, _ := NewVoidBlock(deallocator)
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithIRProgram:container:configuration:deallocator:"), iRProgram, container, configuration, _block3)
 	return MLE5ProgramLibraryOnDeviceAOTCompilationImplFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/initWithMILTextAtURL:container:configuration:
 func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) InitWithMILTextAtURLContainerConfiguration(url foundation.INSURL, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
 	rv := objc.Send[MLE5ProgramLibraryOnDeviceAOTCompilationImpl](e.ID, objc.Sel("initWithMILTextAtURL:container:configuration:"), url, container, configuration)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/initWithMILTextAtURL:irProgram:deallocator:container:configuration:
 func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) InitWithMILTextAtURLIrProgramDeallocatorContainerConfiguration(url foundation.INSURL, program unsafe.Pointer, deallocator VoidHandler, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
-_block2, _ := NewVoidBlock(deallocator)
+	_block2, _ := NewVoidBlock(deallocator)
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initWithMILTextAtURL:irProgram:deallocator:container:configuration:"), url, program, _block2, container, configuration)
 	return MLE5ProgramLibraryOnDeviceAOTCompilationImplFromID(rv)
 }
@@ -164,16 +164,19 @@ func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) Configuration() IMLModelCo
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/container
 func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) Container() IMLProgramE5Container {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("container"))
 	return MLProgramE5ContainerFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/modelDisplayName
 func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) ModelDisplayName() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelDisplayName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ProgramLibraryOnDeviceAOTCompilationImpl/serializedMILText
 func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) SerializedMILText() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("serializedMILText"))
@@ -197,4 +200,3 @@ func (e MLE5ProgramLibraryOnDeviceAOTCompilationImpl) InitWithIRProgramContainer
 		return ctx.Err()
 	}
 }
-

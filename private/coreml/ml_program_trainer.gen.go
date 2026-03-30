@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLProgramTrainerClass) Alloc() MLProgramTrainer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLProgramTrainer.AttachLearningRateToFeatures]
@@ -67,6 +67,7 @@ func (mc MLProgramTrainerClass) Alloc() MLProgramTrainer {
 //   - [MLProgramTrainer.TrainUsingTrainingDataError]
 //   - [MLProgramTrainer.TrainUsingTrainingDataEvaluationMetricNamesError]
 //   - [MLProgramTrainer.InitWithProgramLearningRateError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer
 type MLProgramTrainer struct {
 	objectivec.Object
@@ -76,6 +77,7 @@ type MLProgramTrainer struct {
 func MLProgramTrainerFromID(id objc.ID) MLProgramTrainer {
 	return MLProgramTrainer{objectivec.Object{ID: id}}
 }
+
 // Ensure MLProgramTrainer implements IMLProgramTrainer.
 var _ IMLProgramTrainer = MLProgramTrainer{}
 
@@ -153,7 +155,6 @@ func NewMLProgramTrainer() MLProgramTrainer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/initWithProgram:learningRate:error:
 func NewProgramTrainerWithProgramLearningRateError(program objectivec.IObject, rate float64) (MLProgramTrainer, error) {
 	var errorPtr objc.ID
@@ -166,18 +167,18 @@ func NewProgramTrainerWithProgramLearningRateError(program objectivec.IObject, r
 	return MLProgramTrainerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/attachLearningRateToFeatures:
 func (p MLProgramTrainer) AttachLearningRateToFeatures(features objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("attachLearningRateToFeatures:"), features)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/copyCurrentTrainingDelta
 func (p MLProgramTrainer) CopyCurrentTrainingDelta() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("copyCurrentTrainingDelta"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/evaluateUsingTestData:error:
 func (p MLProgramTrainer) EvaluateUsingTestDataError(data objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -189,7 +190,7 @@ func (p MLProgramTrainer) EvaluateUsingTestDataError(data objectivec.IObject) (o
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/evaluateUsingTestData:evaluationMetricNames:error:
 func (p MLProgramTrainer) EvaluateUsingTestDataEvaluationMetricNamesError(data objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -201,7 +202,7 @@ func (p MLProgramTrainer) EvaluateUsingTestDataEvaluationMetricNamesError(data o
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/evaluateUsingTestData:evaluationMetricNames:evaluateOnTrainFunction:error:
 func (p MLProgramTrainer) EvaluateUsingTestDataEvaluationMetricNamesEvaluateOnTrainFunctionError(data objectivec.IObject, names objectivec.IObject, function bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -213,18 +214,19 @@ func (p MLProgramTrainer) EvaluateUsingTestDataEvaluationMetricNamesEvaluateOnTr
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/flattenFeatures:orderedFeatures:
 func (p MLProgramTrainer) FlattenFeaturesOrderedFeatures(features objectivec.IObject, features2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("flattenFeatures:orderedFeatures:"), features, features2)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/orderedTrainableWeightsNames
 func (p MLProgramTrainer) OrderedTrainableWeightsNames() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("orderedTrainableWeightsNames"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/trainUsingTrainingData:error:
 func (p MLProgramTrainer) TrainUsingTrainingDataError(data objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -236,7 +238,7 @@ func (p MLProgramTrainer) TrainUsingTrainingDataError(data objectivec.IObject) (
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/trainUsingTrainingData:evaluationMetricNames:error:
 func (p MLProgramTrainer) TrainUsingTrainingDataEvaluationMetricNamesError(data objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -248,7 +250,7 @@ func (p MLProgramTrainer) TrainUsingTrainingDataEvaluationMetricNamesError(data 
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/initWithProgram:learningRate:error:
 func (p MLProgramTrainer) InitWithProgramLearningRateError(program objectivec.IObject, rate float64) (MLProgramTrainer, error) {
 	var errorPtr objc.ID
@@ -269,6 +271,7 @@ func (p MLProgramTrainer) Context() IMLProgramContext {
 func (p MLProgramTrainer) SetContext(value IMLProgramContext) {
 	objc.Send[struct{}](p.ID, objc.Sel("setContext:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/currentUpdatedWeights
 func (p MLProgramTrainer) CurrentUpdatedWeights() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentUpdatedWeights"))
@@ -277,6 +280,7 @@ func (p MLProgramTrainer) CurrentUpdatedWeights() objectivec.IObject {
 func (p MLProgramTrainer) SetCurrentUpdatedWeights(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCurrentUpdatedWeights:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/evaluator
 func (p MLProgramTrainer) Evaluator() IMLProgramEvaluator {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("evaluator"))
@@ -285,11 +289,13 @@ func (p MLProgramTrainer) Evaluator() IMLProgramEvaluator {
 func (p MLProgramTrainer) SetEvaluator(value IMLProgramEvaluator) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEvaluator:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/inferenceModel
 func (p MLProgramTrainer) InferenceModel() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("inferenceModel"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/learningRate
 func (p MLProgramTrainer) LearningRate() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("learningRate"))
@@ -298,6 +304,7 @@ func (p MLProgramTrainer) LearningRate() float64 {
 func (p MLProgramTrainer) SetLearningRate(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setLearningRate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainer/program
 func (p MLProgramTrainer) Program() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("program"))
@@ -306,4 +313,3 @@ func (p MLProgramTrainer) Program() objectivec.IObject {
 func (p MLProgramTrainer) SetProgram(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setProgram:"), value)
 }
-

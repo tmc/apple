@@ -3,11 +3,12 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (vc VZMacGraphicsDisplayClass) Alloc() VZMacGraphicsDisplay {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacGraphicsDisplay._connectionType]
@@ -52,6 +52,7 @@ func (vc VZMacGraphicsDisplayClass) Alloc() VZMacGraphicsDisplay {
 //   - [VZMacGraphicsDisplay._displayMode]
 //   - [VZMacGraphicsDisplay.ReconfigureWithConfigurationError]
 //   - [VZMacGraphicsDisplay.InitWithConfigurationError]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay
 type VZMacGraphicsDisplay struct {
 	VZGraphicsDisplay
@@ -61,6 +62,7 @@ type VZMacGraphicsDisplay struct {
 func VZMacGraphicsDisplayFromID(id objc.ID) VZMacGraphicsDisplay {
 	return VZMacGraphicsDisplay{VZGraphicsDisplay: VZGraphicsDisplayFromID(id)}
 }
+
 // Ensure VZMacGraphicsDisplay implements IVZMacGraphicsDisplay.
 var _ IVZMacGraphicsDisplay = VZMacGraphicsDisplay{}
 
@@ -106,7 +108,6 @@ func NewVZMacGraphicsDisplay() VZMacGraphicsDisplay {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/initWithConfiguration:error:
 func NewMacGraphicsDisplayWithConfigurationError(configuration objectivec.IObject) (VZMacGraphicsDisplay, error) {
 	var errorPtr objc.ID
@@ -119,7 +120,6 @@ func NewMacGraphicsDisplayWithConfigurationError(configuration objectivec.IObjec
 	return VZMacGraphicsDisplayFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:
 func NewMacGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZMacGraphicsDisplay {
 	instance := getVZMacGraphicsDisplayClass().Alloc()
@@ -137,6 +137,7 @@ func (m VZMacGraphicsDisplay) _connectionType() int64 {
 func (m VZMacGraphicsDisplay) ConnectionType() int64 {
 	return m._connectionType()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/_displayIdentifier
 func (m VZMacGraphicsDisplay) _displayIdentifier() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_displayIdentifier"))
@@ -147,6 +148,7 @@ func (m VZMacGraphicsDisplay) _displayIdentifier() objectivec.IObject {
 func (m VZMacGraphicsDisplay) DisplayIdentifier() objectivec.IObject {
 	return m._displayIdentifier()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/_displayMode
 func (m VZMacGraphicsDisplay) _displayMode() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("_displayMode"))
@@ -157,7 +159,7 @@ func (m VZMacGraphicsDisplay) _displayMode() int64 {
 func (m VZMacGraphicsDisplay) DisplayMode() int64 {
 	return m._displayMode()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/reconfigureWithConfiguration:error:
 func (m VZMacGraphicsDisplay) ReconfigureWithConfigurationError(configuration objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -172,7 +174,7 @@ func (m VZMacGraphicsDisplay) ReconfigureWithConfigurationError(configuration ob
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/initWithConfiguration:error:
 func (m VZMacGraphicsDisplay) InitWithConfigurationError(configuration objectivec.IObject) (VZMacGraphicsDisplay, error) {
 	var errorPtr objc.ID
@@ -184,4 +186,3 @@ func (m VZMacGraphicsDisplay) InitWithConfigurationError(configuration objective
 	return VZMacGraphicsDisplayFromID(rv), nil
 
 }
-

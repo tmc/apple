@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MLParameterKey struct {
 func MLParameterKeyFromID(id objc.ID) MLParameterKey {
 	return MLParameterKey{MLKey: MLKeyFromID(id)}
 }
+
 // Ensure MLParameterKey implements IMLParameterKey.
 var _ IMLParameterKey = MLParameterKey{}
 
@@ -79,7 +81,6 @@ func NewMLParameterKey() MLParameterKey {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLKey/initWithCoder:
 func NewParameterKeyWithCoder(coder objectivec.IObject) MLParameterKey {
 	instance := getMLParameterKeyClass().Alloc()
@@ -87,7 +88,6 @@ func NewParameterKeyWithCoder(coder objectivec.IObject) MLParameterKey {
 	return MLParameterKeyFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/initWithKeyName:
 func NewParameterKeyWithKeyName(name objectivec.IObject) MLParameterKey {
 	instance := getMLParameterKeyClass().Alloc()
@@ -95,7 +95,6 @@ func NewParameterKeyWithKeyName(name objectivec.IObject) MLParameterKey {
 	return MLParameterKeyFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLKey/initWithKeyName:scope:
 func NewParameterKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLParameterKey {
 	instance := getMLParameterKeyClass().Alloc()
@@ -108,34 +107,39 @@ func (_MLParameterKeyClass MLParameterKeyClass) MaxDepth() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("maxDepth"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/minChildWeight
 func (_MLParameterKeyClass MLParameterKeyClass) MinChildWeight() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("minChildWeight"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/numClasses
 func (_MLParameterKeyClass MLParameterKeyClass) NumClasses() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("numClasses"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/numTrees
 func (_MLParameterKeyClass MLParameterKeyClass) NumTrees() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("numTrees"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/objective
 func (_MLParameterKeyClass MLParameterKeyClass) Objective() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("objective"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/precisionRecallCurves
 func (_MLParameterKeyClass MLParameterKeyClass) PrecisionRecallCurves() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("precisionRecallCurves"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterKey/updateType
 func (_MLParameterKeyClass MLParameterKeyClass) UpdateType() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("updateType"))
 	return objectivec.Object{ID: rv}
 }
-

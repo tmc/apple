@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,14 +45,14 @@ func (mc MTLTextureDescriptorClass) Alloc() MTLTextureDescriptor {
 // An instance that you use to configure new Metal texture instances.
 //
 // # Overview
-// 
+//
 // To create a new texture, first create an [MTLTextureDescriptor] instance
 // and set its property values. Then, call either the
 // [NewTextureWithDescriptor] or [NewTextureWithDescriptorIosurfacePlane]
 // method of an [MTLDevice] instance, or the
 // [NewTextureWithDescriptorOffsetBytesPerRow] method of an [MTLBuffer]
 // instance.
-// 
+//
 // When you create a texture, Metal copies property values from the descriptor
 // into the new texture. You can reuse an [MTLTextureDescriptor] instance,
 // modifying its property values as needed, to create more [MTLTexture]
@@ -108,6 +109,7 @@ type MTLTextureDescriptor struct {
 func MTLTextureDescriptorFromID(id objc.ID) MTLTextureDescriptor {
 	return MTLTextureDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLTextureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -236,7 +238,7 @@ func NewMTLTextureDescriptor() MTLTextureDescriptor {
 // Creates a texture descriptor object for a 2D texture.
 //
 // pixelFormat: The format describing how every pixel on the texture image is stored. The
-// default value is [PixelFormatRGBA8Unorm].
+// default value is [MTLPixelFormatRGBA8Unorm].
 //
 // width: The width of the 2D texture image. The value needs to be greater than or
 // equal to `1`.
@@ -245,15 +247,12 @@ func NewMTLTextureDescriptor() MTLTextureDescriptor {
 // equal to `1`.
 //
 // mipmapped: A Boolean indicating whether the resulting image should be mipmapped. If
-// [true], then the [MipmapLevelCount] property in the returned descriptor is
-// computed from `width` and `height`. If [false], then [MipmapLevelCount] is
+// true, then the [MipmapLevelCount] property in the returned descriptor is
+// computed from `width` and `height`. If false, then [MipmapLevelCount] is
 // `1`.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // A pointer to a texture descriptor object for a 2D texture.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/texture2DDescriptor(pixelFormat:width:height:mipmapped:)
@@ -261,28 +260,26 @@ func (_MTLTextureDescriptorClass MTLTextureDescriptorClass) Texture2DDescriptorW
 	rv := objc.Send[objc.ID](objc.ID(_MTLTextureDescriptorClass.class), objc.Sel("texture2DDescriptorWithPixelFormat:width:height:mipmapped:"), pixelFormat, width, height, mipmapped)
 	return MTLTextureDescriptorFromID(rv)
 }
+
 // Creates a texture descriptor object for a cube texture.
 //
 // pixelFormat: The format describing how every pixel on the texture image is stored. The
-// default value is [PixelFormatRGBA8Unorm].
+// default value is [MTLPixelFormatRGBA8Unorm].
 //
 // size: The width and height of each slice of the cube texture. The value needs to
 // be greater than or equal to `1`.
 //
 // mipmapped: A Boolean indicating whether the resulting image should be mipmapped. If
-// [true], then the [MipmapLevelCount] property in the returned descriptor is
-// computed from `width` and `height`. If [false], then [MipmapLevelCount] is
+// true, then the [MipmapLevelCount] property in the returned descriptor is
+// computed from `width` and `height`. If false, then [MipmapLevelCount] is
 // `1`.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // A pointer to a texture descriptor object for a cube texture.
 //
 // # Discussion
-// 
+//
 // For a cube texture, the property values describe one slice, which is any
 // one of its six sides. Each slice is a square.
 //
@@ -291,10 +288,11 @@ func (_MTLTextureDescriptorClass MTLTextureDescriptorClass) TextureCubeDescripto
 	rv := objc.Send[objc.ID](objc.ID(_MTLTextureDescriptorClass.class), objc.Sel("textureCubeDescriptorWithPixelFormat:size:mipmapped:"), pixelFormat, size, mipmapped)
 	return MTLTextureDescriptorFromID(rv)
 }
+
 // Creates a texture descriptor object for a texture buffer.
 //
 // pixelFormat: The format describing how every pixel on the texture buffer is stored. The
-// default value is [PixelFormatRGBA8Unorm].
+// default value is [MTLPixelFormatRGBA8Unorm].
 //
 // width: The width of the texture buffer. The value needs to be greater than or
 // equal to `1`.
@@ -304,7 +302,7 @@ func (_MTLTextureDescriptorClass MTLTextureDescriptorClass) TextureCubeDescripto
 // usage: The allowed usage of the new texture buffer.
 //
 // # Return Value
-// 
+//
 // A pointer to a texture descriptor object for a texture buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/textureBufferDescriptor(with:width:resourceOptions:usage:)
@@ -316,7 +314,7 @@ func (_MTLTextureDescriptorClass MTLTextureDescriptorClass) TextureBufferDescrip
 // The dimension and arrangement of texture image data.
 //
 // # Discussion
-// 
+//
 // The default value is [MTLTexture2D].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/textureType
@@ -327,10 +325,11 @@ func (t MTLTextureDescriptor) TextureType() MTLTextureType {
 func (t MTLTextureDescriptor) SetTextureType(value MTLTextureType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextureType:"), value)
 }
+
 // The size and bit layout of all pixels in the texture.
 //
 // # Discussion
-// 
+//
 // The default value is [MTLPixelFormatRGBA8Unorm].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/pixelFormat
@@ -341,10 +340,11 @@ func (t MTLTextureDescriptor) PixelFormat() MTLPixelFormat {
 func (t MTLTextureDescriptor) SetPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPixelFormat:"), value)
 }
+
 // The width of the texture image for the base level mipmap, in pixels.
 //
 // # Discussion
-// 
+//
 // The default value is `1`. The value needs to be greater than or equal to
 // `1`.
 //
@@ -356,10 +356,11 @@ func (t MTLTextureDescriptor) Width() uint {
 func (t MTLTextureDescriptor) SetWidth(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWidth:"), value)
 }
+
 // The height of the texture image for the base level mipmap, in pixels.
 //
 // # Discussion
-// 
+//
 // The default value is `1`. The value needs to be greater than or equal to
 // `1`. For a 1D texture, the value needs to be `1`.
 //
@@ -371,10 +372,11 @@ func (t MTLTextureDescriptor) Height() uint {
 func (t MTLTextureDescriptor) SetHeight(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHeight:"), value)
 }
+
 // The depth of the texture image for the base level mipmap, in pixels.
 //
 // # Discussion
-// 
+//
 // The default value is `1`. The value needs to be greater than or equal to
 // `1`. For 1D, 2D, and cube textures, the value needs to be `1`.
 //
@@ -386,10 +388,11 @@ func (t MTLTextureDescriptor) Depth() uint {
 func (t MTLTextureDescriptor) SetDepth(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDepth:"), value)
 }
+
 // The number of mipmap levels for this texture.
 //
 // # Discussion
-// 
+//
 // The default value is `1`. For a buffer-backed or multisample textures, the
 // value needs to be `1`.
 //
@@ -401,14 +404,15 @@ func (t MTLTextureDescriptor) MipmapLevelCount() uint {
 func (t MTLTextureDescriptor) SetMipmapLevelCount(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMipmapLevelCount:"), value)
 }
+
 // The number of samples in each fragment.
 //
 // # Discussion
-// 
+//
 // The default value is `1`. If [TextureType] is not
-// [TextureType2DMultisample] or [TextureType2DMultisampleArray], this value
-// needs to be `1`.
-// 
+// [MTLTextureType2DMultisample] or [MTLTextureType2DMultisampleArray], this
+// value needs to be `1`.
+//
 // Support for different sample count values varies by device. Call the
 // [SupportsTextureSampleCount] method to determine if your desired sample
 // count value is supported.
@@ -421,20 +425,21 @@ func (t MTLTextureDescriptor) SampleCount() uint {
 func (t MTLTextureDescriptor) SetSampleCount(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSampleCount:"), value)
 }
+
 // The number of array elements for this texture.
 //
 // # Discussion
-// 
+//
 // The value of this property needs to be between `1` and `2048`, inclusive.
 // The default value is `1`.
-// 
+//
 // This value is `1` if the texture type is not an array.
-// 
+//
 // This value can be between `1` and `2048` if the texture type is one of the
 // following array types:
-// 
-// - [TextureType1DArray] - [TextureType2DArray] -
-// [TextureType2DMultisampleArray] - [TextureTypeCubeArray]
+//
+// - [MTLTextureType1DArray] - [MTLTextureType2DArray] -
+// [MTLTextureType2DMultisampleArray] - [MTLTextureTypeCubeArray]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/arrayLength
 func (t MTLTextureDescriptor) ArrayLength() uint {
@@ -444,15 +449,16 @@ func (t MTLTextureDescriptor) ArrayLength() uint {
 func (t MTLTextureDescriptor) SetArrayLength(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setArrayLength:"), value)
 }
+
 // The behavior of a new memory allocation.
 //
 // # Discussion
-// 
+//
 // This property only has an effect when you are allocating a new texture. If
 // you are creating a texture whose data comes from another [MTLResource]
 // object, this property value is ignored, and the value of the original
 // resource is used instead.
-// 
+//
 // The value of this property aggregates the values of [StorageMode],
 // [CpuCacheMode], and [HazardTrackingMode]. If you modify this property, the
 // other properties also change, and vice versa.
@@ -465,11 +471,12 @@ func (t MTLTextureDescriptor) ResourceOptions() MTLResourceOptions {
 func (t MTLTextureDescriptor) SetResourceOptions(value MTLResourceOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResourceOptions:"), value)
 }
+
 // The CPU cache mode used for the CPU mapping of the texture.
 //
 // # Discussion
-// 
-// The default value is [CPUCacheModeDefaultCache].
+//
+// The default value is [MTLCPUCacheModeDefaultCache].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/cpuCacheMode
 func (t MTLTextureDescriptor) CpuCacheMode() MTLCPUCacheMode {
@@ -479,12 +486,13 @@ func (t MTLTextureDescriptor) CpuCacheMode() MTLCPUCacheMode {
 func (t MTLTextureDescriptor) SetCpuCacheMode(value MTLCPUCacheMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCpuCacheMode:"), value)
 }
+
 // The location and access permissions of the texture.
 //
 // # Discussion
-// 
-// In iOS and tvOS, the default value is [StorageModeShared]. In macOS, the
-// default value is [StorageModeManaged].
+//
+// In iOS and tvOS, the default value is [MTLStorageModeShared]. In macOS, the
+// default value is [MTLStorageModeManaged].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/storageMode
 func (t MTLTextureDescriptor) StorageMode() MTLStorageMode {
@@ -494,13 +502,16 @@ func (t MTLTextureDescriptor) StorageMode() MTLStorageMode {
 func (t MTLTextureDescriptor) SetStorageMode(value MTLStorageMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStorageMode:"), value)
 }
+
 // The texture’s hazard tracking mode.
 //
 // # Discussion
-// 
-// The default value is [HazardTrackingModeDefault].
+//
+// The default value is [MTLHazardTrackingMode.default].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/hazardTrackingMode
+//
+// [MTLHazardTrackingMode.default]: https://developer.apple.com/documentation/Metal/MTLHazardTrackingMode/default
 func (t MTLTextureDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 	rv := objc.Send[MTLHazardTrackingMode](t.ID, objc.Sel("hazardTrackingMode"))
 	return MTLHazardTrackingMode(rv)
@@ -508,11 +519,12 @@ func (t MTLTextureDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 func (t MTLTextureDescriptor) SetHazardTrackingMode(value MTLHazardTrackingMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHazardTrackingMode:"), value)
 }
+
 // A Boolean value indicating whether the GPU is allowed to adjust the
 // texture’s contents to improve GPU performance.
 //
 // # Discussion
-// 
+//
 // The default value is `true`, which means that the Metal device is allowed
 // to adjust the private layout of the texture in memory to improve GPU
 // performance. For a shared or managed texture, this optimization can cause
@@ -528,25 +540,26 @@ func (t MTLTextureDescriptor) AllowGPUOptimizedContents() bool {
 func (t MTLTextureDescriptor) SetAllowGPUOptimizedContents(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowGPUOptimizedContents:"), value)
 }
+
 // Options that determine how you can use the texture.
 //
 // # Discussion
-// 
-// The default value for this property is [TextureUsageShaderRead]. If the
+//
+// The default value for this property is [MTLTextureUsageShaderRead]. If the
 // given texture has multiple uses in your app, you can combine multiple usage
 // options for that texture. After you set a texture’s usage options, you
 // can use it only in the ways that you specified.
-// 
+//
 // Metal can optimize operations for a given texture, based on its intended
 // use. Set explicit usage options for a texture, if you know them in advance,
 // before you use the texture. Only set usage options that correspond to a
 // texture’s intended use.
-// 
+//
 // In iOS devices with GPU family 5, Metal doesn’t apply lossless
 // compression to a given texture if you set any of these options:
-// 
-// - [TextureUsageUnknown] - [TextureUsageShaderWrite] -
-// [TextureUsagePixelFormatView]
+//
+// - [MTLTextureUsageUnknown] - [MTLTextureUsageShaderWrite] -
+// [MTLTextureUsagePixelFormatView]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/usage
 func (t MTLTextureDescriptor) Usage() MTLTextureUsage {
@@ -556,11 +569,12 @@ func (t MTLTextureDescriptor) Usage() MTLTextureUsage {
 func (t MTLTextureDescriptor) SetUsage(value MTLTextureUsage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsage:"), value)
 }
+
 // The pattern you want the GPU to apply to pixels when you read or sample
 // pixels from the texture.
 //
 // # Discussion
-// 
+//
 // The default value does not apply a transformation to pixels sampled or read
 // from the texture.
 //
@@ -572,6 +586,7 @@ func (t MTLTextureDescriptor) Swizzle() MTLTextureSwizzleChannels {
 func (t MTLTextureDescriptor) SetSwizzle(value MTLTextureSwizzleChannels) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSwizzle:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/compressionType
 func (t MTLTextureDescriptor) CompressionType() MTLTextureCompressionType {
 	rv := objc.Send[MTLTextureCompressionType](t.ID, objc.Sel("compressionType"))
@@ -580,22 +595,23 @@ func (t MTLTextureDescriptor) CompressionType() MTLTextureCompressionType {
 func (t MTLTextureDescriptor) SetCompressionType(value MTLTextureCompressionType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCompressionType:"), value)
 }
+
 // Determines the page size for a placement sparse texture.
 //
 // # Discussion
-// 
+//
 // Set this property to a non-zero value to create a .
-// 
+//
 // Placement sparse textures are instances of [MTLTexture] that you assign
-// memory to using a [MTLHeap] instance of type [HeapTypePlacement] and a
+// memory to using a [MTLHeap] instance of type [MTLHeapTypePlacement] and a
 // [MaxCompatiblePlacementSparsePageSize] at least as large as the
 // [MTLSparsePageSize] value you assign to this property.
-// 
+//
 // This value is 0 by default.
 //
-// [MTLSparsePageSize]: https://developer.apple.com/documentation/Metal/MTLSparsePageSize
-//
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/placementSparsePageSize
+//
+// [MTLSparsePageSize]: https://developer.apple.com/documentation/Metal/MTLSparsePageSize
 func (t MTLTextureDescriptor) PlacementSparsePageSize() MTLSparsePageSize {
 	rv := objc.Send[MTLSparsePageSize](t.ID, objc.Sel("placementSparsePageSize"))
 	return MTLSparsePageSize(rv)
@@ -603,4 +619,3 @@ func (t MTLTextureDescriptor) PlacementSparsePageSize() MTLSparsePageSize {
 func (t MTLTextureDescriptor) SetPlacementSparsePageSize(value MTLSparsePageSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlacementSparsePageSize:"), value)
 }
-

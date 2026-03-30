@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +60,7 @@ type CISixfoldReflectedTile interface {
 type CISixfoldReflectedTileObject struct {
 	objectivec.Object
 }
+
 func (o CISixfoldReflectedTileObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -78,28 +79,32 @@ func CISixfoldReflectedTileObjectFromID(id objc.ID) CISixfoldReflectedTileObject
 func (o CISixfoldReflectedTileObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // The x and y position to use as the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/center
 func (o CISixfoldReflectedTileObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/inputImage
 func (o CISixfoldReflectedTileObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The width of a tile.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/width
 func (o CISixfoldReflectedTileObject) Width() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -107,21 +112,32 @@ func (o CISixfoldReflectedTileObject) Width() float32 {
 func (o CISixfoldReflectedTileObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The angle, in radians, of the tiled pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/angle
 func (o CISixfoldReflectedTileObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// The x and y position to use as the center of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/center
 func (o CISixfoldReflectedTileObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/inputImage
 func (o CISixfoldReflectedTileObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The width of a tile.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/width
 func (o CISixfoldReflectedTileObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }
-

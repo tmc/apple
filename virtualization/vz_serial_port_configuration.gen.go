@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZSerialPortConfigurationClass) Alloc() VZSerialPortConfiguration {
 // The common configuration traits for serial port requests.
 //
 // # Overview
-// 
+//
 // Don’t create a [VZSerialPortConfiguration] object directly. Instead,
 // instantiate a concrete instance of one of its subclasses, such as
 // [VZVirtioConsoleDeviceConfiguration]. Use the [VZSerialPortConfiguration.Attachment] property of this
@@ -66,6 +67,7 @@ type VZSerialPortConfiguration struct {
 func VZSerialPortConfigurationFromID(id objc.ID) VZSerialPortConfiguration {
 	return VZSerialPortConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZSerialPortConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,7 +112,7 @@ func NewVZSerialPortConfiguration() VZSerialPortConfiguration {
 // serial port interfaces.
 //
 // # Discussion
-// 
+//
 // Assign an appropriate attachment object to this property, such as a
 // [VZFileHandleSerialPortAttachment] or [VZFileSerialPortAttachment] object.
 // When configuring the serial ports, the virtual machine uses the attachment
@@ -124,4 +126,3 @@ func (s VZSerialPortConfiguration) Attachment() IVZSerialPortAttachment {
 func (s VZSerialPortConfiguration) SetAttachment(value IVZSerialPortAttachment) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAttachment:"), value)
 }
-

@@ -471,18 +471,14 @@ func (e AVCaptionRegionWritingMode) String() string {
 	}
 }
 
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRubyAlignment
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby/Alignment-swift.enum
 type AVCaptionRubyAlignment int
 
 const (
-	// AVCaptionRubyAlignmentCenter: An alignment with the ruby text at the center of ruby base.
-	AVCaptionRubyAlignmentCenter AVCaptionRubyAlignment = 1
-	// AVCaptionRubyAlignmentDistributeSpaceAround: An alignment with the ruby text so the spaces around each ruby text character are equal.
-	AVCaptionRubyAlignmentDistributeSpaceAround AVCaptionRubyAlignment = 3
-	// AVCaptionRubyAlignmentDistributeSpaceBetween: An alignment with the ruby text so the spaces between the ruby text characters are equal.
+	AVCaptionRubyAlignmentCenter                 AVCaptionRubyAlignment = 1
+	AVCaptionRubyAlignmentDistributeSpaceAround  AVCaptionRubyAlignment = 3
 	AVCaptionRubyAlignmentDistributeSpaceBetween AVCaptionRubyAlignment = 2
-	// AVCaptionRubyAlignmentStart: An alignment with the ruby base and text at the left edge of horizontal text in a left-to-right inline progression, or at top of the vertical text in a top-to-bottom inline progression.
-	AVCaptionRubyAlignmentStart AVCaptionRubyAlignment = 0
+	AVCaptionRubyAlignmentStart                  AVCaptionRubyAlignment = 0
 )
 
 func (e AVCaptionRubyAlignment) String() string {
@@ -500,13 +496,11 @@ func (e AVCaptionRubyAlignment) String() string {
 	}
 }
 
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRubyPosition
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby/Position-swift.enum
 type AVCaptionRubyPosition int
 
 const (
-	// AVCaptionRubyPositionAfter: Display ruby text below horizontal text, or to the left of vertical text in a right-to-left block progression.
-	AVCaptionRubyPositionAfter AVCaptionRubyPosition = 1
-	// AVCaptionRubyPositionBefore: Display ruby text above horizontal text, or to the right of vertical text in a right-to-left block progression.
+	AVCaptionRubyPositionAfter  AVCaptionRubyPosition = 1
 	AVCaptionRubyPositionBefore AVCaptionRubyPosition = 0
 )
 
@@ -1584,7 +1578,7 @@ const (
 	AVErrorApplicationIsNotAuthorized AVError = -11836
 	// AVErrorApplicationIsNotAuthorizedToUseDevice: The user denied this app permission to capture media.
 	AVErrorApplicationIsNotAuthorizedToUseDevice AVError = -11852
-	AVErrorAutoWhiteBalanceNotLocked AVError = -11891
+	AVErrorAutoWhiteBalanceNotLocked             AVError = -11891
 	// AVErrorCompositionTrackSegmentsNotContiguous: The composition can’t add the source media because it contains gaps.
 	AVErrorCompositionTrackSegmentsNotContiguous AVError = -11824
 	// AVErrorContentIsNotAuthorized: The user isn’t authorized to play the media.
@@ -1593,9 +1587,9 @@ const (
 	AVErrorContentIsProtected AVError = -11831
 	// AVErrorContentIsUnavailable: The captured content is unavailable.
 	AVErrorContentIsUnavailable AVError = -11863
-	AVErrorContentKeyInvalid AVError = -11889
+	AVErrorContentKeyInvalid    AVError = -11889
 	// AVErrorContentKeyRequestCancelled: The app canceled a request to retrieve a content key.
-	AVErrorContentKeyRequestCancelled AVError = -11879
+	AVErrorContentKeyRequestCancelled                                                      AVError = -11879
 	AVErrorContentKeyRequestPlaybackDestinationDoesNotSupportDeviceIdentifierRandomization AVError = -11888
 	// AVErrorContentNotUpdated: The system couldn’t update the captured content.
 	AVErrorContentNotUpdated AVError = -11866
@@ -1645,7 +1639,7 @@ const (
 	AVErrorFileFormatNotRecognized AVError = -11828
 	// AVErrorFileTypeDoesNotSupportSampleReferences: The file type doesn’t support sample references.
 	AVErrorFileTypeDoesNotSupportSampleReferences AVError = -11854
-	AVErrorFollowExternalSyncDeviceTimedOut AVError = -11892
+	AVErrorFollowExternalSyncDeviceTimedOut       AVError = -11892
 	// AVErrorFormatUnsupported: The current asset format isn’t supported.
 	AVErrorFormatUnsupported AVError = -11864
 	// AVErrorIncompatibleAsset: You can’t display the media because the device isn’t capable of playing the content.
@@ -1679,7 +1673,7 @@ const (
 	// AVErrorMediaChanged: Recording stopped because the format of the source media changed.
 	AVErrorMediaChanged AVError = -11809
 	// AVErrorMediaDiscontinuity: Recording stopped because there was an interruption in the input media.
-	AVErrorMediaDiscontinuity AVError = -11812
+	AVErrorMediaDiscontinuity     AVError = -11812
 	AVErrorMediaExtensionConflict AVError = -11887
 	AVErrorMediaExtensionDisabled AVError = -11886
 	// AVErrorMediaServicesWereReset: The system couldn’t perform the operation because media services were unavailable.
@@ -1691,7 +1685,7 @@ const (
 	// AVErrorNoImageAtTime: No image is available in the media at the indicated time.
 	AVErrorNoImageAtTime AVError = -11832
 	// AVErrorNoLongerPlayable: The asset is no longer playable.
-	AVErrorNoLongerPlayable AVError = -11867
+	AVErrorNoLongerPlayable       AVError = -11867
 	AVErrorNoSmartFramingsEnabled AVError = -11890
 	// AVErrorNoSourceTrack: The asset doesn’t contain a source track.
 	AVErrorNoSourceTrack AVError = -11869
@@ -2529,4 +2523,3 @@ func (e CMTagCollectionVideoOutputPreset) String() string {
 		return fmt.Sprintf("CMTagCollectionVideoOutputPreset(%d)", e)
 	}
 }
-

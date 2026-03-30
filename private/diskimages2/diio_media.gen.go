@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (dc DIIOMediaClass) Alloc() DIIOMedia {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIIOMedia.BSDName]
 //   - [DIIOMedia.CopyBlockDeviceWithError]
 //   - [DIIOMedia.InitWithDevNameError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOMedia
 type DIIOMedia struct {
 	DIIOObject
@@ -58,6 +59,7 @@ type DIIOMedia struct {
 func DIIOMediaFromID(id objc.ID) DIIOMedia {
 	return DIIOMedia{DIIOObject: DIIOObjectFromID(id)}
 }
+
 // Ensure DIIOMedia implements IDIIOMedia.
 var _ IDIIOMedia = DIIOMedia{}
 
@@ -99,7 +101,6 @@ func NewDIIOMedia() DIIOMedia {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithClassName:error:
 func NewDIIOMediaWithClassNameError(name objectivec.IObject) (DIIOMedia, error) {
 	var errorPtr objc.ID
@@ -112,7 +113,6 @@ func NewDIIOMediaWithClassNameError(name objectivec.IObject) (DIIOMedia, error) 
 	return DIIOMediaFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithDIIOObject:
 func NewDIIOMediaWithDIIOObject(dIIOObject objectivec.IObject) DIIOMedia {
 	instance := getDIIOMediaClass().Alloc()
@@ -120,7 +120,6 @@ func NewDIIOMediaWithDIIOObject(dIIOObject objectivec.IObject) DIIOMedia {
 	return DIIOMediaFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOMedia/initWithDevName:error:
 func NewDIIOMediaWithDevNameError(name objectivec.IObject) (DIIOMedia, error) {
 	var errorPtr objc.ID
@@ -133,7 +132,6 @@ func NewDIIOMediaWithDevNameError(name objectivec.IObject) (DIIOMedia, error) {
 	return DIIOMediaFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIOObject:
 func NewDIIOMediaWithIOObject(iOObject uint32) DIIOMedia {
 	instance := getDIIOMediaClass().Alloc()
@@ -141,7 +139,6 @@ func NewDIIOMediaWithIOObject(iOObject uint32) DIIOMedia {
 	return DIIOMediaFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIOObject:retain:
 func NewDIIOMediaWithIOObjectRetain(iOObject uint32, retain bool) DIIOMedia {
 	instance := getDIIOMediaClass().Alloc()
@@ -149,7 +146,6 @@ func NewDIIOMediaWithIOObjectRetain(iOObject uint32, retain bool) DIIOMedia {
 	return DIIOMediaFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIteratorNext:
 func NewDIIOMediaWithIteratorNext(next objectivec.IObject) DIIOMedia {
 	instance := getDIIOMediaClass().Alloc()
@@ -157,7 +153,6 @@ func NewDIIOMediaWithIteratorNext(next objectivec.IObject) DIIOMedia {
 	return DIIOMediaFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithRegistryEntryID:error:
 func NewDIIOMediaWithRegistryEntryIDError(id uint64) (DIIOMedia, error) {
 	var errorPtr objc.ID
@@ -170,7 +165,6 @@ func NewDIIOMediaWithRegistryEntryIDError(id uint64) (DIIOMedia, error) {
 	return DIIOMediaFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOMedia/copyBlockDeviceWithError:
 func (d DIIOMedia) CopyBlockDeviceWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -182,7 +176,7 @@ func (d DIIOMedia) CopyBlockDeviceWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOMedia/initWithDevName:error:
 func (d DIIOMedia) InitWithDevNameError(name objectivec.IObject) (DIIOMedia, error) {
 	var errorPtr objc.ID
@@ -200,4 +194,3 @@ func (d DIIOMedia) BSDName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("BSDName"))
 	return foundation.NSStringFromID(rv).String()
 }
-

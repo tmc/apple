@@ -2,7 +2,6 @@
 
 package coreml
 
-
 // MLFeatureValueImageOption is the initializer options you use to crop and scale an image when creating an image feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/ImageOption
@@ -12,4 +11,3 @@ type MLFeatureValueImageOption = string
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadataKey
 type MLModelMetadataKey = string
-

@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Bounds struct {
 func BoundsFromID(id objc.ID) Bounds {
 	return Bounds{objectivec.Object{ID: id}}
 }
+
 // Ensure Bounds implements IBounds.
 var _ IBounds = Bounds{}
 
@@ -78,4 +80,3 @@ func NewBounds() Bounds {
 	rv := objc.Send[Bounds](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

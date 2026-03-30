@@ -4,6 +4,7 @@ package coregraphics
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 )
 
@@ -476,4 +477,3 @@ type CGEvent = CGEventRef
 // CGFont is a bare alias for CGFontRef.
 
 type CGFont = CGFontRef
-

@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,13 +47,13 @@ func (nc NSComboBoxCellClass) Alloc() NSComboBoxCell {
 // The user interface of a combo box.
 //
 // # Overview
-// 
+//
 // [NSComboBoxCell] is a subclass of [NSTextFieldCell] used to implement the
 // user interface of “combo boxes” (see [NSComboBox] for information on
 // how combo boxes look and work). The [NSComboBox] subclass of [NSTextField]
 // uses a single [NSComboBoxCell], and essentially all of the [NSComboBox]
 // class’s methods simply invoke the corresponding [NSComboBoxCell] method.
-// 
+//
 // Also see the [NSComboBoxCellDataSource] protocol, which declares the
 // methods that an [NSComboBoxCell] object uses to access the contents of its
 // data source object.
@@ -122,6 +123,7 @@ type NSComboBoxCell struct {
 func NSComboBoxCellFromID(id objc.ID) NSComboBoxCell {
 	return NSComboBoxCell{NSTextFieldCell: NSTextFieldCellFromID(id)}
 }
+
 // NOTE: NSComboBoxCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -293,12 +295,12 @@ func NewNSComboBoxCell() NSComboBoxCell {
 // image: The image to use for the cell. If this parameter is `nil`, no image is set.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -314,7 +316,7 @@ func NewComboBoxCellImageCell(image INSImage) NSComboBoxCell {
 // string: The string that the text field cell displays.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(textCell:)
@@ -329,7 +331,7 @@ func NewComboBoxCellTextCell(string_ string) NSComboBoxCell {
 // coder: An unarchiver object.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(coder:)
@@ -344,29 +346,27 @@ func NewComboBoxCellWithCoder(coder foundation.INSCoder) NSComboBoxCell {
 // objects: The object to add to the end of the combo box’s internal item list.
 //
 // # Discussion
-// 
-// This method logs a warning if [UsesDataSource] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This method logs a warning if [UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/addItems(withObjectValues:)
 func (c NSComboBoxCell) AddItemsWithObjectValues(objects foundation.INSArray) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addItemsWithObjectValues:"), objects)
 }
+
 // Adds the specified object to the internal item list.
 //
 // object: The object to add to the end of the combo box’s internal item list.
 //
 // # Discussion
-// 
-// This method logs a warning if [UsesDataSource] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This method logs a warning if [UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/addItem(withObjectValue:)
 func (c NSComboBoxCell) AddItemWithObjectValue(object objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addItemWithObjectValue:"), object)
 }
+
 // Inserts an object at the specified location in the internal item list.
 //
 // object: The object to add to the combo box’s internal item list.
@@ -376,27 +376,25 @@ func (c NSComboBoxCell) AddItemWithObjectValue(object objectivec.IObject) {
 // room.
 //
 // # Discussion
-// 
-// This method logs a warning if [UsesDataSource] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This method logs a warning if [UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/insertItem(withObjectValue:at:)
 func (c NSComboBoxCell) InsertItemWithObjectValueAtIndex(object objectivec.IObject, index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("insertItemWithObjectValue:atIndex:"), object, index)
 }
+
 // Removes all items from the combo box’s internal item list.
 //
 // # Discussion
-// 
-// This method logs a warning if [UsesDataSource] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This method logs a warning if [UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/removeAllItems()
 func (c NSComboBoxCell) RemoveAllItems() {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeAllItems"))
 }
+
 // Removes the object at the specified location from the combo box’s
 // internal item list.
 //
@@ -404,60 +402,53 @@ func (c NSComboBoxCell) RemoveAllItems() {
 // list. All items beyond `index` are moved up one slot to fill the gap.
 //
 // # Discussion
-// 
+//
 // The removed object receives a `release` message. This method raises an
 // [NSRangeException] if `index` is beyond the end of the list and logs a
-// warning if [UsesDataSource] is [true].
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
+// warning if [UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/removeItem(at:)
 func (c NSComboBoxCell) RemoveItemAtIndex(index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeItemAtIndex:"), index)
 }
+
 // Removes all occurrences of the specified object from the combo box’s
 // internal item list.
 //
 // object: The object to remove from the combo box’s internal item list. Objects are
-// considered equal if they have the same id or if `` returns [true].
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// considered equal if they have the same id or if “ returns true.
 //
 // # Discussion
-// 
-// This method logs a warning if [UsesDataSource] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This method logs a warning if [UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/removeItem(withObjectValue:)
 func (c NSComboBoxCell) RemoveItemWithObjectValue(object objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeItemWithObjectValue:"), object)
 }
+
 // Searches the combo box’s internal item list for the given object and
 // returns the matching index number.
 //
 // object: The object for which to return the index.
 //
 // # Return Value
-// 
+//
 // The lowest index whose corresponding value is equal to `anObject`. Objects
-// are considered equal if they have the same id or if `` returns [true]. If
+// are considered equal if they have the same id or if “ returns true. If
 // none of the objects in the combo box’s internal item list is equal to
 // `anObject`, [IndexOfItemWithObjectValue] returns [NSNotFound].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // # Discussion
-// 
-// This method logs a warning if [UsesDataSource] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This method logs a warning if [UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/indexOfItem(withObjectValue:)
 func (c NSComboBoxCell) IndexOfItemWithObjectValue(object objectivec.IObject) int {
 	rv := objc.Send[int](c.ID, objc.Sel("indexOfItemWithObjectValue:"), object)
 	return rv
 }
+
 // Returns the object located at the specified location in the internal item
 // list.
 //
@@ -465,31 +456,30 @@ func (c NSComboBoxCell) IndexOfItemWithObjectValue(object objectivec.IObject) in
 // list, an [NSRangeException] is raised.
 //
 // # Return Value
-// 
+//
 // The object at the given location in the combo box’s internal item list.
 //
 // # Discussion
-// 
-// This method logs a warning if [UsesDataSource] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This method logs a warning if [UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/itemObjectValue(at:)
 func (c NSComboBoxCell) ItemObjectValueAtIndex(index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemObjectValueAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
+
 // Informs the combo box that the number of items in its data source has
 // changed.
 //
 // # Discussion
-// 
+//
 // This method allows the combo box to update the scrollers in its displayed
 // pop-up list without actually reloading data into the combo box. It is
 // particularly useful for a data source that continually receives data in the
 // background over a period of time, in which case the [NSComboBoxCell] can
 // remain responsive to the user while the data is received.
-// 
+//
 // See the NSComboBoxCellDataSource informal protocol specification for
 // information on the messages an [NSComboBoxCell] sends to its data source.
 //
@@ -497,6 +487,7 @@ func (c NSComboBoxCell) ItemObjectValueAtIndex(index int) objectivec.IObject {
 func (c NSComboBoxCell) NoteNumberOfItemsChanged() {
 	objc.Send[objc.ID](c.ID, objc.Sel("noteNumberOfItemsChanged"))
 }
+
 // Marks the combo box as needing redisplay, so that it will reload the data
 // for visible pop-up items and draw the new values.
 //
@@ -504,89 +495,92 @@ func (c NSComboBoxCell) NoteNumberOfItemsChanged() {
 func (c NSComboBoxCell) ReloadData() {
 	objc.Send[objc.ID](c.ID, objc.Sel("reloadData"))
 }
+
 // Scrolls the combo box’s pop-up list vertically so that the item at the
 // given index is as close to the top as possible.
 //
 // index: The index of the item to scroll to the top.
 //
 // # Discussion
-// 
+//
 // The pop-up list need not be displayed at the time this method is invoked.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/scrollItemAtIndexToTop(_:)
 func (c NSComboBoxCell) ScrollItemAtIndexToTop(index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scrollItemAtIndexToTop:"), index)
 }
+
 // Scrolls the combo box’s pop-up list vertically so that the item at the
 // given index is visible.
 //
 // index: The index of the item to make visible.
 //
 // # Discussion
-// 
+//
 // The pop-up list need not be displayed at the time this method is invoked.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/scrollItemAtIndexToVisible(_:)
 func (c NSComboBoxCell) ScrollItemAtIndexToVisible(index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scrollItemAtIndexToVisible:"), index)
 }
+
 // Deselects the pop-up list item at the given index if it’s selected.
 //
 // index: The index of the item to deselect.
 //
 // # Discussion
-// 
+//
 // If the selection does in fact change, this method posts an
 // [selectionDidChangeNotification] to the default notification center.
 //
-// [selectionDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSComboBox/selectionDidChangeNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/deselectItem(at:)
+//
+// [selectionDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSComboBox/selectionDidChangeNotification
 func (c NSComboBoxCell) DeselectItemAtIndex(index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("deselectItemAtIndex:"), index)
 }
+
 // Selects the pop-up list row at the given index.
 //
 // index: The index of the row to select.
 //
 // # Discussion
-// 
+//
 // Posts an [selectionDidChangeNotification] to the default notification
 // center if the selection does in fact change. Note that this method does not
 // alter the contents of the combo box cell’s text field—see [Combo Box
 // Programming Topics] for more information.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/selectItem(at:)
+//
 // [Combo Box Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ComboBox/ComboBox.html#//apple_ref/doc/uid/10000020i
 // [selectionDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSComboBox/selectionDidChangeNotification
-//
-// See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/selectItem(at:)
 func (c NSComboBoxCell) SelectItemAtIndex(index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("selectItemAtIndex:"), index)
 }
+
 // Selects the first pop-up list item that corresponds to the specified
 // object.
 //
 // object: The object for which to select the corresponding pop-up list item. Objects
-// are considered equal if they have the same id or if `` returns [true].
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// are considered equal if they have the same id or if “ returns true.
 //
 // # Discussion
-// 
-// This method logs a warning if [UsesDataSource] is [true]. Posts an
+//
+// This method logs a warning if [UsesDataSource] is true. Posts an
 // [selectionDidChangeNotification] to the default notification center if the
 // selection does in fact change. Note that this method doesn’t alter the
 // contents of the combo box cell’s text field—see [Setting the Combo
 // Box’s Value] for more information.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/selectItem(withObjectValue:)
+//
 // [Setting the Combo Box’s Value]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ComboBox/Tasks/SettingComboBoxValue.html#//apple_ref/doc/uid/20000256
 // [selectionDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSComboBox/selectionDidChangeNotification
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/selectItem(withObjectValue:)
 func (c NSComboBoxCell) SelectItemWithObjectValue(object objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("selectItemWithObjectValue:"), object)
 }
+
 // Returns a string from the combo box’s pop-up list that starts with the
 // given substring.
 //
@@ -594,19 +588,19 @@ func (c NSComboBoxCell) SelectItemWithObjectValue(object objectivec.IObject) {
 // box’s text field.
 //
 // # Return Value
-// 
+//
 // The string from the combo box’s pop-up list that starts with the
 // specified substring or `nil` if there is no such string.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method first checks whether the combo
 // box uses a data source and whether the data source responds to
 // comboBox:completedString: or comboBoxCell:completedString:. If so, the
 // combo box cell returns that method’s return value. Otherwise, this method
 // goes through the combo box’s items one by one and returns an item that
 // starts with `substring`.
-// 
+//
 // Override this method only if your subclass completes strings differently.
 // The overriding method does not need to call the superclass’s method.
 // Generally, you do not need to call this method directly.
@@ -621,21 +615,17 @@ func (c NSComboBoxCell) CompletedString(string_ string) string {
 // scroller.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the combo box displays a
-// vertical scroller; when the value is [false], it does not. The default
-// value of this property is [true]. Note that the scroller is displayed even
-// if the pop-up list contains fewer items than will fit in the area specified
-// for display.
-// 
-// If you set this property to [false] and the combo box cell has more list
+//
+// When the value of this property is true, the combo box displays a vertical
+// scroller; when the value is false, it does not. The default value of this
+// property is true. Note that the scroller is displayed even if the pop-up
+// list contains fewer items than will fit in the area specified for display.
+//
+// If you set this property to false and the combo box cell has more list
 // items (either in its internal item list or from its data source) than are
 // allowed by [NumberOfVisibleItems], only a subset are displayed. The
 // [NSComboBoxCell] `scroll...` methods can be used to position this subset
 // within the pop-up list.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/hasVerticalScroller
 func (c NSComboBoxCell) HasVerticalScroller() bool {
@@ -645,18 +635,16 @@ func (c NSComboBoxCell) HasVerticalScroller() bool {
 func (c NSComboBoxCell) SetHasVerticalScroller(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHasVerticalScroller:"), value)
 }
+
 // A Boolean value that indicates whether the combo box button displays a
 // border.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the button has a border; when it
-// is [false], the button is borderless. For example, it is often useful when
+//
+// When the value of this property is true, the button has a border; when it
+// is false, the button is borderless. For example, it is often useful when
 // using a combo box in an [NSTableView] to display the button without a
 // border.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/isButtonBordered
 func (c NSComboBoxCell) ButtonBordered() bool {
@@ -666,10 +654,11 @@ func (c NSComboBoxCell) ButtonBordered() bool {
 func (c NSComboBoxCell) SetButtonBordered(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setButtonBordered:"), value)
 }
+
 // The spacing between cells in the combo box’s pop-up list.
 //
 // # Discussion
-// 
+//
 // The value of this property is the horizontal and vertical spacing between
 // cells in the combo box’s pop-up list. The default spacing is (3.0, 2.0).
 //
@@ -681,10 +670,11 @@ func (c NSComboBoxCell) IntercellSpacing() corefoundation.CGSize {
 func (c NSComboBoxCell) SetIntercellSpacing(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIntercellSpacing:"), value)
 }
+
 // The height of each item in the combo box’s pop-up list.
 //
 // # Discussion
-// 
+//
 // The default item height is 16.0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/itemHeight
@@ -695,6 +685,7 @@ func (c NSComboBoxCell) ItemHeight() float64 {
 func (c NSComboBoxCell) SetItemHeight(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setItemHeight:"), value)
 }
+
 // The maximum number of items visible in the pop-up list at any one time.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/numberOfVisibleItems
@@ -705,22 +696,21 @@ func (c NSComboBoxCell) NumberOfVisibleItems() int {
 func (c NSComboBoxCell) SetNumberOfVisibleItems(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNumberOfVisibleItems:"), value)
 }
+
 // The object that provides the data displayed in the combo box’s pop-up
 // list.
 //
 // # Discussion
-// 
+//
 // The value of this property should be an object that implements the
 // appropriate methods of the NSComboBoxCellDataSource informal protocol. Note
 // that setting this property doesn’t automatically set [UsesDataSource] to
-// [false] and in fact logs a warning if [UsesDataSource] is [false]. If you
-// set this property to an object that doesn’t respond to either
+// false and in fact logs a warning if [UsesDataSource] is false. If you set
+// this property to an object that doesn’t respond to either
 // numberOfItemsInComboBoxCell: or comboBoxCell:objectValueForItemAtIndex:, a
-// warning is logged if [UsesDataSource] is [false]. See the class description
+// warning is logged if [UsesDataSource] is false. See the class description
 // and the NSComboBoxCellDataSource informal protocol specification for more
 // information on combo box cell data source objects.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/dataSource
 func (c NSComboBoxCell) DataSource() NSComboBoxCellDataSource {
@@ -730,17 +720,15 @@ func (c NSComboBoxCell) DataSource() NSComboBoxCellDataSource {
 func (c NSComboBoxCell) SetDataSource(value NSComboBoxCellDataSource) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDataSource:"), value)
 }
+
 // A Boolean value that indicates if the combo box uses an external data
 // source to populate its pop-up list.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the combo box uses an external
-// data source to populate its pop-up list; when it is [false], the combo box
-// uses an internal item list.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the combo box uses an external
+// data source to populate its pop-up list; when it is false, the combo box
+// uses an internal item list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/usesDataSource
 func (c NSComboBoxCell) UsesDataSource() bool {
@@ -750,19 +738,19 @@ func (c NSComboBoxCell) UsesDataSource() bool {
 func (c NSComboBoxCell) SetUsesDataSource(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setUsesDataSource:"), value)
 }
+
 // The combo box’s internal item list in an array.
 //
 // # Discussion
-// 
-// Accessing this property logs a warning if [UsesDataSource] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Accessing this property logs a warning if [UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/objectValues
 func (c NSComboBoxCell) ObjectValues() foundation.INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("objectValues"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // The total number of items in the pop-up list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/numberOfItems
@@ -770,10 +758,11 @@ func (c NSComboBoxCell) NumberOfItems() int {
 	rv := objc.Send[int](c.ID, objc.Sel("numberOfItems"))
 	return rv
 }
+
 // The index of the last item selected from the pop-up list.
 //
 // # Discussion
-// 
+//
 // The index of the last item selected from the combo box’s pop-up list or
 // –1 if no item is selected. Note that nothing is initially selected in a
 // newly initialized combo box cell.
@@ -783,42 +772,39 @@ func (c NSComboBoxCell) IndexOfSelectedItem() int {
 	rv := objc.Send[int](c.ID, objc.Sel("indexOfSelectedItem"))
 	return rv
 }
+
 // The object corresponding to the last item selected from the pop-up list.
 //
 // # Discussion
-// 
+//
 // The value of this property is the object from the combo box’s internal
 // item list corresponding to the last item selected from the pop-up list, or
 // `nil` if no item is selected.
-// 
-// Note that nothing is initially selected in a newly initialized combo box
-// cell. Accessing this property logs a warning if [UsesDataSource] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Note that nothing is initially selected in a newly initialized combo box
+// cell. Accessing this property logs a warning if [UsesDataSource] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/objectValueOfSelectedItem
 func (c NSComboBoxCell) ObjectValueOfSelectedItem() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("objectValueOfSelectedItem"))
 	return objectivec.Object{ID: rv}
 }
+
 // A Boolean value that indicates if the combo box tries to complete text
 // entered by the user.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the combo box tries to complete
+//
+// When the value of this property is true, the combo box tries to complete
 // what the user types in the text field and every time the user adds
 // characters to the end of the text field, the combo box calls
-// [CompletedString]; when it is [false], it does not.
-// 
+// [CompletedString]; when it is false, it does not.
+//
 // If [CompletedString] returns a string that’s longer than the existing
 // string, the combo box replaces the existing string with the returned string
 // and selects the additional characters. If the user is deleting characters
 // or adds characters somewhere besides the end of the string, the combo box
 // does not try to complete it.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/completes
 func (c NSComboBoxCell) Completes() bool {
@@ -828,4 +814,3 @@ func (c NSComboBoxCell) Completes() bool {
 func (c NSComboBoxCell) SetCompletes(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCompletes:"), value)
 }
-

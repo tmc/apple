@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -148,13 +149,12 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_mTLCopyAllDevices, frameworkHandle, "MTLCopyAllDevices")
-		registerFunc(&_mTLCopyAllDevicesWithObserver, frameworkHandle, "MTLCopyAllDevicesWithObserver")
-		registerFunc(&_mTLCreateSystemDefaultDevice, frameworkHandle, "MTLCreateSystemDefaultDevice")
-		registerFunc(&_mTLIOCompressionContextAppendData, frameworkHandle, "MTLIOCompressionContextAppendData")
-		registerFunc(&_mTLIOCompressionContextDefaultChunkSize, frameworkHandle, "MTLIOCompressionContextDefaultChunkSize")
-		registerFunc(&_mTLIOCreateCompressionContext, frameworkHandle, "MTLIOCreateCompressionContext")
-		registerFunc(&_mTLIOFlushAndDestroyCompressionContext, frameworkHandle, "MTLIOFlushAndDestroyCompressionContext")
-		registerFunc(&_mTLRemoveDeviceObserver, frameworkHandle, "MTLRemoveDeviceObserver")
-	}
-
+	registerFunc(&_mTLCopyAllDevices, frameworkHandle, "MTLCopyAllDevices")
+	registerFunc(&_mTLCopyAllDevicesWithObserver, frameworkHandle, "MTLCopyAllDevicesWithObserver")
+	registerFunc(&_mTLCreateSystemDefaultDevice, frameworkHandle, "MTLCreateSystemDefaultDevice")
+	registerFunc(&_mTLIOCompressionContextAppendData, frameworkHandle, "MTLIOCompressionContextAppendData")
+	registerFunc(&_mTLIOCompressionContextDefaultChunkSize, frameworkHandle, "MTLIOCompressionContextDefaultChunkSize")
+	registerFunc(&_mTLIOCreateCompressionContext, frameworkHandle, "MTLIOCreateCompressionContext")
+	registerFunc(&_mTLIOFlushAndDestroyCompressionContext, frameworkHandle, "MTLIOFlushAndDestroyCompressionContext")
+	registerFunc(&_mTLRemoveDeviceObserver, frameworkHandle, "MTLRemoveDeviceObserver")
+}

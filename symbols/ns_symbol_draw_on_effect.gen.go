@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (nc NSSymbolDrawOnEffectClass) Alloc() NSSymbolDrawOnEffect {
 // A symbol effect that applies the DrawOn animation to symbol images.
 //
 // # Overview
-// 
+//
 // The DrawOn animation makes the symbol visible either as a whole, or one
 // motion group at a time, animating parts of the symbol with draw data.
 //
@@ -64,6 +65,7 @@ type NSSymbolDrawOnEffect struct {
 func NSSymbolDrawOnEffectFromID(id objc.ID) NSSymbolDrawOnEffect {
 	return NSSymbolDrawOnEffect{NSSymbolEffect: NSSymbolEffectFromID(id)}
 }
+
 // Ensure NSSymbolDrawOnEffect implements INSSymbolDrawOnEffect.
 var _ INSSymbolDrawOnEffect = NSSymbolDrawOnEffect{}
 
@@ -116,6 +118,7 @@ func (s NSSymbolDrawOnEffect) EffectWithByLayer() INSSymbolDrawOnEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolDrawOnEffectFromID(rv)
 }
+
 // Returns a copy of the effect requesting an animation that applies
 // separately to each motion group, where only one motion group is active at a
 // time.
@@ -125,6 +128,7 @@ func (s NSSymbolDrawOnEffect) EffectWithIndividually() INSSymbolDrawOnEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithIndividually"))
 	return NSSymbolDrawOnEffectFromID(rv)
 }
+
 // Returns a copy of the effect requesting an animation that applies to all
 // motion groups simultaneously.
 //
@@ -141,4 +145,3 @@ func (_NSSymbolDrawOnEffectClass NSSymbolDrawOnEffectClass) Effect() NSSymbolDra
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolDrawOnEffectClass.class), objc.Sel("effect"))
 	return NSSymbolDrawOnEffectFromID(rv)
 }
-

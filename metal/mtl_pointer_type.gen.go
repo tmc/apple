@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -66,6 +67,7 @@ type MTLPointerType struct {
 func MTLPointerTypeFromID(id objc.ID) MTLPointerType {
 	return MTLPointerType{MTLType: MTLTypeFromID(id)}
 }
+
 // NOTE: MTLPointerType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -132,7 +134,7 @@ func NewMTLPointerType() MTLPointerType {
 // an array.
 //
 // # Return Value
-// 
+//
 // An object that describes the array. If the pointer does not point to an
 // array, this method returns `nil`.
 //
@@ -141,11 +143,12 @@ func (p MTLPointerType) ElementArrayType() IMTLArrayType {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("elementArrayType"))
 	return MTLArrayTypeFromID(rv)
 }
+
 // Provides a description of the underlying struct when the pointer points to
 // a struct.
 //
 // # Return Value
-// 
+//
 // An object that describes the struct. If the pointer does not point to an
 // struct, this method returns `nil`.
 //
@@ -162,6 +165,7 @@ func (p MTLPointerType) Alignment() uint {
 	rv := objc.Send[uint](p.ID, objc.Sel("alignment"))
 	return rv
 }
+
 // The size, in bytes, of the element data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLPointerType/dataSize
@@ -169,6 +173,7 @@ func (p MTLPointerType) DataSize() uint {
 	rv := objc.Send[uint](p.ID, objc.Sel("dataSize"))
 	return rv
 }
+
 // The data type of the element data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLPointerType/elementType
@@ -176,6 +181,7 @@ func (p MTLPointerType) ElementType() MTLDataType {
 	rv := objc.Send[MTLDataType](p.ID, objc.Sel("elementType"))
 	return MTLDataType(rv)
 }
+
 // The function’s read/write access to the element data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLPointerType/access
@@ -183,6 +189,7 @@ func (p MTLPointerType) Access() MTLBindingAccess {
 	rv := objc.Send[MTLBindingAccess](p.ID, objc.Sel("access"))
 	return MTLBindingAccess(rv)
 }
+
 // A Boolean value that indicates whether the element is an argument buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLPointerType/elementIsArgumentBuffer
@@ -190,4 +197,3 @@ func (p MTLPointerType) ElementIsArgumentBuffer() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("elementIsArgumentBuffer"))
 	return rv
 }
-

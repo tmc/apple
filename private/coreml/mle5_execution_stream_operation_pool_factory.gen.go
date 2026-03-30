@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MLE5ExecutionStreamOperationPoolFactory struct {
 func MLE5ExecutionStreamOperationPoolFactoryFromID(id objc.ID) MLE5ExecutionStreamOperationPoolFactory {
 	return MLE5ExecutionStreamOperationPoolFactory{objectivec.Object{ID: id}}
 }
+
 // Ensure MLE5ExecutionStreamOperationPoolFactory implements IMLE5ExecutionStreamOperationPoolFactory.
 var _ IMLE5ExecutionStreamOperationPoolFactory = MLE5ExecutionStreamOperationPoolFactory{}
 
@@ -79,10 +81,8 @@ func NewMLE5ExecutionStreamOperationPoolFactory() MLE5ExecutionStreamOperationPo
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamOperationPoolFactory/createPoolFromLibrary:functionName:modelDescription:modelConfiguration:modelSignpostId:compilerVersionInfo:
 func (_MLE5ExecutionStreamOperationPoolFactoryClass MLE5ExecutionStreamOperationPoolFactoryClass) CreatePoolFromLibraryFunctionNameModelDescriptionModelConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLE5ExecutionStreamOperationPoolFactoryClass.class), objc.Sel("createPoolFromLibrary:functionName:modelDescription:modelConfiguration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return objectivec.Object{ID: rv}
 }
-

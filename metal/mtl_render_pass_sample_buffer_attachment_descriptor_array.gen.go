@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MTLRenderPassSampleBufferAttachmentDescriptorArray struct {
 func MTLRenderPassSampleBufferAttachmentDescriptorArrayFromID(id objc.ID) MTLRenderPassSampleBufferAttachmentDescriptorArray {
 	return MTLRenderPassSampleBufferAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLRenderPassSampleBufferAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,7 +106,7 @@ func NewMTLRenderPassSampleBufferAttachmentDescriptorArray() MTLRenderPassSample
 // attachmentIndex: An index for the object to fetch.
 //
 // # Return Value
-// 
+//
 // The [MTLRenderPassSampleBufferAttachmentDescriptor] at the specified index.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassSampleBufferAttachmentDescriptorArray/subscript(_:)
@@ -112,6 +114,7 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubsc
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLRenderPassSampleBufferAttachmentDescriptorFromID(rv)
 }
+
 // Sets the descriptor object for the specified sample buffer attachment.
 //
 // attachment: A sample buffer attachment descriptor. Specify `nil` to resets the
@@ -120,11 +123,10 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubsc
 // attachmentIndex: The item in the array to replace.
 //
 // # Discussion
-// 
+//
 // The method copies the parameter contents into the attachment.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassSampleBufferAttachmentDescriptorArray/setObject:atIndexedSubscript:
 func (r MTLRenderPassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLRenderPassSampleBufferAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-

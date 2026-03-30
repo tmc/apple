@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,24 +45,24 @@ func (uc URLSessionWebSocketTaskClass) Alloc() URLSessionWebSocketTask {
 // A URL session task that communicates over the WebSockets protocol standard.
 //
 // # Overview
-// 
+//
 // [NSURLSessionWebSocketTask] is a concrete subclass of [NSURLSessionTask]
 // that provides a message-oriented transport protocol over TCP and TLS in the
 // form of WebSocket framing. It follows the WebSocket Protocol defined in
 // [RFC 6455].
-// 
-// You create a [NSURLSessionWebSocketTask] with either a `` or `` URL. When
+//
+// You create a [NSURLSessionWebSocketTask] with either a “ or “ URL. When
 // creating the task, you can also provide a list of protocols to advertise
 // during the handshake phase. Once the handshake completes, your app receives
 // notifications through the session’s [Delegate].
-// 
+//
 // You send data with [send(_:completionHandler:)] and receive data with
 // [receive(completionHandler:)]. The task performs reads and writes
 // asynchronously, and allows you to send and receive messages that contain
 // both binary frames and UTF-8 encoded text frames. The task enqueues any
 // reads or writes you perform prior to the handshake’s completion, and
 // executes them after the handshake completes.
-// 
+//
 // [NSURLSessionWebSocketTask] supports redirection and authentication like
 // other types of tasks do, using the methods in [NSURLSessionTaskDelegate].
 // The WebSocket task calls the redirection and authentication delegate
@@ -69,10 +70,6 @@ func (uc URLSessionWebSocketTaskClass) Alloc() URLSessionWebSocketTask {
 // cookies, by storing cookies to the session configuration’s
 // [HTTPCookieStorage], and attaches cookies to outgoing HTTP handshake
 // requests.
-//
-// [RFC 6455]: https://tools.ietf.org/html/rfc6455
-// [receive(completionHandler:)]: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/receive(completionHandler:)
-// [send(_:completionHandler:)]: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/send(_:completionHandler:)
 //
 // # Sending and receiving data
 //
@@ -90,6 +87,10 @@ func (uc URLSessionWebSocketTaskClass) Alloc() URLSessionWebSocketTask {
 //   - [URLSessionWebSocketTask.CloseReason]: A block of data that provides further information about why a connection closed.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask
+//
+// [RFC 6455]: https://tools.ietf.org/html/rfc6455
+// [receive(completionHandler:)]: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/receive(completionHandler:)
+// [send(_:completionHandler:)]: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/send(_:completionHandler:)
 type URLSessionWebSocketTask struct {
 	NSURLSessionTask
 }
@@ -102,7 +103,10 @@ func URLSessionWebSocketTaskFromID(id objc.ID) URLSessionWebSocketTask {
 }
 
 // NSURLSessionWebSocketTaskFromID is an alias for [URLSessionWebSocketTaskFromID] for cross-framework compatibility.
-func NSURLSessionWebSocketTaskFromID(id objc.ID) URLSessionWebSocketTask { return URLSessionWebSocketTaskFromID(id) }
+func NSURLSessionWebSocketTaskFromID(id objc.ID) URLSessionWebSocketTask {
+	return URLSessionWebSocketTaskFromID(id)
+}
+
 // NOTE: URLSessionWebSocketTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -183,34 +187,36 @@ func NewURLSessionWebSocketTask() URLSessionWebSocketTask {
 // other problem, or `nil` if no error occurred.
 //
 // # Discussion
-// 
+//
 // When sending multiple pings, the task always calls `pongReceiveHandler` in
 // the order it sent the pings.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/sendPing(pongReceiveHandler:)
 func (u URLSessionWebSocketTask) SendPingWithPongReceiveHandler(pongReceiveHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(pongReceiveHandler)
+	_block0, _ := NewErrorBlock(pongReceiveHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("sendPingWithPongReceiveHandler:"), _block0)
 }
+
 // Sends a close frame with the given close code and optional close reason.
 //
 // closeCode: A [URLSessionWebSocketTask.CloseCode] that indicates the reason for closing
 // the connection.
-// //
-// [URLSessionWebSocketTask.CloseCode]: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/CloseCode-swift.enum
 //
 // reason: Optional further information to explain the closing. The value of this
 // parameter is defined by the endpoints, not by the standard.
 //
 // # Discussion
-// 
+//
 // If you call [Cancel] on the task instead of this method, it sends a
 // cancellation frame with no close code or reason.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/cancel(with:reason:)
+//
+// [URLSessionWebSocketTask.CloseCode]: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/CloseCode-swift.enum
 func (u URLSessionWebSocketTask) CancelWithCloseCodeReason(closeCode NSURLSessionWebSocketCloseCode, reason INSData) {
 	objc.Send[objc.ID](u.ID, objc.Sel("cancelWithCloseCode:reason:"), closeCode, reason)
 }
+
 // Reads a WebSocket message once all the frames of the message are available.
 //
 // completionHandler: A closure that receives two parameters: the WebSocket message, and an
@@ -218,15 +224,16 @@ func (u URLSessionWebSocketTask) CancelWithCloseCodeReason(closeCode NSURLSessio
 // The error is `nil` if no error occurred.
 //
 // # Discussion
-// 
+//
 // If the task reaches the [MaximumMessageSize] while buffering the frames,
 // this call fails with an error.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketTask/receiveMessageWithCompletionHandler:
 func (u URLSessionWebSocketTask) ReceiveMessageWithCompletionHandler(completionHandler URLSessionWebSocketMessageErrorHandler) {
-_block0, _ := NewURLSessionWebSocketMessageErrorBlock(completionHandler)
+	_block0, _ := NewURLSessionWebSocketMessageErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("receiveMessageWithCompletionHandler:"), _block0)
 }
+
 // Sends a WebSocket message, receiving the result in a completion handler.
 //
 // message: The WebSocket message to send.
@@ -235,13 +242,13 @@ _block0, _ := NewURLSessionWebSocketMessageErrorBlock(completionHandler)
 // while sending, or `nil` if no error occurred.
 //
 // # Discussion
-// 
+//
 // If an error occurs while sending the message, any outstanding work also
 // fails.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketTask/sendMessage:completionHandler:
 func (u URLSessionWebSocketTask) SendMessageCompletionHandler(message INSURLSessionWebSocketMessage, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("sendMessage:completionHandler:"), message, _block1)
 }
 
@@ -249,7 +256,7 @@ _block1, _ := NewErrorBlock(completionHandler)
 // error.
 //
 // # Discussion
-// 
+//
 // This value includes the sum of all bytes from continuation frames. Receive
 // calls will fail once the task reaches this limit.
 //
@@ -261,37 +268,40 @@ func (u URLSessionWebSocketTask) MaximumMessageSize() int {
 func (u URLSessionWebSocketTask) SetMaximumMessageSize(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setMaximumMessageSize:"), value)
 }
+
 // A code that indicates the reason a connection closed.
 //
 // # Discussion
-// 
+//
 // You can retrieve the close code at any time. When the task is not yet
-// closed, this value is [URLSessionWebSocketCloseCodeInvalid].
+// closed, this value is [NSURLSessionWebSocketCloseCodeInvalid].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/closeCode-swift.property
 func (u URLSessionWebSocketTask) CloseCode() NSURLSessionWebSocketCloseCode {
 	rv := objc.Send[NSURLSessionWebSocketCloseCode](u.ID, objc.Sel("closeCode"))
 	return NSURLSessionWebSocketCloseCode(rv)
 }
+
 // A block of data that provides further information about why a connection
 // closed.
 //
 // # Discussion
-// 
+//
 // The close reason provides further information about why a connection
 // closed, beyond that provided by the [CloseCode]. The value of this property
 // isn’t defined by [RFC 6455]; the endpoints define how it’s used.
-// 
-// You can retrieve the close reason at any time. When the task is not yet
-// closed, this value is [URLSessionWebSocketCloseCodeInvalid].
 //
-// [RFC 6455]: https://tools.ietf.org/html/rfc6455
+// You can retrieve the close reason at any time. When the task is not yet
+// closed, this value is [NSURLSessionWebSocketCloseCodeInvalid].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/closeReason
+//
+// [RFC 6455]: https://tools.ietf.org/html/rfc6455
 func (u URLSessionWebSocketTask) CloseReason() INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("closeReason"))
 	return NSDataFromID(objc.ID(rv))
 }
+
 // The cookie store for storing cookies within this session.
 //
 // See: https://developer.apple.com/documentation/foundation/urlsessionconfiguration/httpcookiestorage
@@ -351,4 +361,3 @@ func (u URLSessionWebSocketTask) SendMessage(ctx context.Context, message INSURL
 		return ctx.Err()
 	}
 }
-

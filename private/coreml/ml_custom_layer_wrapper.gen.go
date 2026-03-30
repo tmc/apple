@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLCustomLayerWrapperClass) Alloc() MLCustomLayerWrapper {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLCustomLayerWrapper.ClassName]
@@ -60,6 +60,7 @@ func (mc MLCustomLayerWrapperClass) Alloc() MLCustomLayerWrapper {
 //   - [MLCustomLayerWrapper.Description]
 //   - [MLCustomLayerWrapper.Hash]
 //   - [MLCustomLayerWrapper.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper
 type MLCustomLayerWrapper struct {
 	objectivec.Object
@@ -69,6 +70,7 @@ type MLCustomLayerWrapper struct {
 func MLCustomLayerWrapperFromID(id objc.ID) MLCustomLayerWrapper {
 	return MLCustomLayerWrapper{objectivec.Object{ID: id}}
 }
+
 // Ensure MLCustomLayerWrapper implements IMLCustomLayerWrapper.
 var _ IMLCustomLayerWrapper = MLCustomLayerWrapper{}
 
@@ -132,7 +134,6 @@ func NewMLCustomLayerWrapper() MLCustomLayerWrapper {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/initWithParameters:
 func NewCustomLayerWrapperWithParameters(parameters objectivec.IObject) MLCustomLayerWrapper {
 	instance := getMLCustomLayerWrapperClass().Alloc()
@@ -140,87 +141,87 @@ func NewCustomLayerWrapperWithParameters(parameters objectivec.IObject) MLCustom
 	return MLCustomLayerWrapperFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/computeOnCPUWithInputTensors:outputTensors:
 func (c MLCustomLayerWrapper) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/encodeToMetalCommandBuffer:inputTensors:outputTensors:
 func (c MLCustomLayerWrapper) EncodeToMetalCommandBufferInputTensorsOutputTensors(buffer objectivec.IObject, tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeToMetalCommandBuffer:inputTensors:outputTensors:"), buffer, tensors, tensors2)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/hasGPUSupport
 func (c MLCustomLayerWrapper) HasGPUSupport() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/setMappedWeights:sizeInBytes:
 func (c MLCustomLayerWrapper) SetMappedWeightsSizeInBytes(weights unsafe.Pointer, bytes uint64) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setMappedWeights:sizeInBytes:"), weights, bytes)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/setupForInputShapes:withParameters:
 func (c MLCustomLayerWrapper) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/initWithParameters:
 func (c MLCustomLayerWrapper) InitWithParameters(parameters objectivec.IObject) MLCustomLayerWrapper {
 	rv := objc.Send[MLCustomLayerWrapper](c.ID, objc.Sel("initWithParameters:"), parameters)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/coremlShapeToEspressoShape:ndMode:
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) CoremlShapeToEspressoShapeNdMode(shape objectivec.IObject, mode bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("coremlShapeToEspressoShape:ndMode:"), shape, mode)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/coremlShapesToEspressoShapes:ndMode:
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) CoremlShapesToEspressoShapesNdMode(shapes objectivec.IObject, mode bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("coremlShapesToEspressoShapes:ndMode:"), shapes, mode)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/espressoShapeToCoremlShape:ndMode:
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) EspressoShapeToCoremlShapeNdMode(shape objectivec.IObject, mode bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoShapeToCoremlShape:ndMode:"), shape, mode)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/espressoShapesToCoremlShapes:ndMode:
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) EspressoShapesToCoremlShapesNdMode(shapes objectivec.IObject, mode bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoShapesToCoremlShapes:ndMode:"), shapes, mode)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/espressoTensorToCoremlTensor:ndMode:
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) EspressoTensorToCoremlTensorNdMode(tensor objectivec.IObject, mode bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoTensorToCoremlTensor:ndMode:"), tensor, mode)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/espressoTensorsToCoremlTensors:ndMode:
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) EspressoTensorsToCoremlTensorsNdMode(tensors objectivec.IObject, mode bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoTensorsToCoremlTensors:ndMode:"), tensors, mode)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/espressoTensorsToCoremlTensorsGPU:
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) EspressoTensorsToCoremlTensorsGPU(gpu objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("espressoTensorsToCoremlTensorsGPU:"), gpu)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/factory
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) Factory() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("factory"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/getStrides:
 func (_MLCustomLayerWrapperClass MLCustomLayerWrapperClass) GetStrides(strides objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCustomLayerWrapperClass.class), objc.Sel("getStrides:"), strides)
@@ -232,6 +233,7 @@ func (c MLCustomLayerWrapper) ClassName() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("className"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/customImpl
 func (c MLCustomLayerWrapper) CustomImpl() objectivec.Object {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("customImpl"))
@@ -240,29 +242,33 @@ func (c MLCustomLayerWrapper) CustomImpl() objectivec.Object {
 func (c MLCustomLayerWrapper) SetCustomImpl(value objectivec.Object) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCustomImpl:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/debugDescription
 func (c MLCustomLayerWrapper) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/description
 func (c MLCustomLayerWrapper) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/hash
 func (c MLCustomLayerWrapper) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/ndMode
 func (c MLCustomLayerWrapper) NdMode() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("ndMode"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerWrapper/superclass
 func (c MLCustomLayerWrapper) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
 	return rv
 }
-

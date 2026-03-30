@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSCollectionViewTransitionLayoutClass) Alloc() NSCollectionViewTransiti
 // another in a collection view.
 //
 // # Overview
-// 
+//
 // Transition layout objects are commonly used to implement interactive
 // transitions between layouts, where the transition itself is driven by a
 // gesture recognizer.
@@ -77,6 +78,7 @@ type NSCollectionViewTransitionLayout struct {
 func NSCollectionViewTransitionLayoutFromID(id objc.ID) NSCollectionViewTransitionLayout {
 	return NSCollectionViewTransitionLayout{NSCollectionViewLayout: NSCollectionViewLayoutFromID(id)}
 }
+
 // NOTE: NSCollectionViewTransitionLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -152,12 +154,12 @@ func NewNSCollectionViewTransitionLayout() NSCollectionViewTransitionLayout {
 // view.
 //
 // # Return Value
-// 
+//
 // An initialized transition layout or `nil` if the object could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This method initializes the transition layout object and saves references
 // to the current and new layout objects. If you subclass and implement your
 // own initialization method, you must call this method to initialize the
@@ -178,12 +180,12 @@ func NewCollectionViewTransitionLayoutWithCurrentLayoutNextLayout(currentLayout 
 // view.
 //
 // # Return Value
-// 
+//
 // An initialized transition layout or `nil` if the object could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This method initializes the transition layout object and saves references
 // to the current and new layout objects. If you subclass and implement your
 // own initialization method, you must call this method to initialize the
@@ -194,6 +196,7 @@ func (c NSCollectionViewTransitionLayout) InitWithCurrentLayoutNextLayout(curren
 	rv := objc.Send[NSCollectionViewTransitionLayout](c.ID, objc.Sel("initWithCurrentLayout:nextLayout:"), currentLayout, newLayout)
 	return rv
 }
+
 // Sets the value of a key whose value you use during the animation.
 //
 // value: The value of the key.
@@ -201,7 +204,7 @@ func (c NSCollectionViewTransitionLayout) InitWithCurrentLayoutNextLayout(curren
 // key: The key that you define for your custom transition layout.
 //
 // # Discussion
-// 
+//
 // Use this method to update the value of a specific key that you use in your
 // custom transition layout.
 //
@@ -209,17 +212,18 @@ func (c NSCollectionViewTransitionLayout) InitWithCurrentLayoutNextLayout(curren
 func (c NSCollectionViewTransitionLayout) UpdateValueForAnimatedKey(value float64, key NSCollectionViewTransitionLayoutAnimatedKey) {
 	objc.Send[objc.ID](c.ID, objc.Sel("updateValue:forAnimatedKey:"), value, objc.String(string(key)))
 }
+
 // Returns the most recently set value for the specified key.
 //
 // key: A key whose value you set previously using the [UpdateValueForAnimatedKey]
 // method.
 //
 // # Return Value
-// 
+//
 // The last value set for the key.
 //
 // # Discussion
-// 
+//
 // Use this method to retrieve floating-point values that relate to laying out
 // the contents of your collection view. The key you specify is a string that
 // you define and that has some meaning to your layout’s implementation. At
@@ -235,7 +239,7 @@ func (c NSCollectionViewTransitionLayout) ValueForAnimatedKey(key NSCollectionVi
 // The completion percentage of the transition.
 //
 // # Discussion
-// 
+//
 // During the transition, set the value of this property periodically and call
 // the [InvalidateLayout] method to force the collection view to update item
 // positions. For example, when driving a transition using a gesture
@@ -250,10 +254,11 @@ func (c NSCollectionViewTransitionLayout) TransitionProgress() float64 {
 func (c NSCollectionViewTransitionLayout) SetTransitionProgress(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTransitionProgress:"), value)
 }
+
 // The collection view’s current layout object.
 //
 // # Discussion
-// 
+//
 // Use this object to retrieve the initial layout attributes for elements of
 // the collection view. If the transition is ultimately cancelled, the
 // collection view animates its items back to the attributes provided by this
@@ -264,10 +269,11 @@ func (c NSCollectionViewTransitionLayout) CurrentLayout() INSCollectionViewLayou
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("currentLayout"))
 	return NSCollectionViewLayoutFromID(objc.ID(rv))
 }
+
 // The collection view’s new layout object.
 //
 // # Discussion
-// 
+//
 // Use this object to retrieve the final layout attributes for elements of the
 // collection view. If the transition completes as expected, the collection
 // view animates its items to the attributes provided by this object.
@@ -277,4 +283,3 @@ func (c NSCollectionViewTransitionLayout) NextLayout() INSCollectionViewLayout {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("nextLayout"))
 	return NSCollectionViewLayoutFromID(objc.ID(rv))
 }
-

@@ -4,10 +4,12 @@ package appkit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of optional methods implemented by the delegate of an [NSText](<doc://com.apple.appkit/documentation/AppKit/NSText>) object to edit text and change text formats.
@@ -21,6 +23,7 @@ type NSTextDelegate interface {
 type NSTextDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSTextDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,76 +40,72 @@ func NSTextDelegateObjectFromID(id objc.ID) NSTextDelegateObject {
 // formatting attributes.
 //
 // # Discussion
-// 
+//
 // The name of `aNotification` is [didChangeNotification].
 //
-// [didChangeNotification]: https://developer.apple.com/documentation/AppKit/NSText/didChangeNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidChange(_:)
+//
+// [didChangeNotification]: https://developer.apple.com/documentation/AppKit/NSText/didChangeNotification
 func (o NSTextDelegateObject) TextDidChange(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("textDidChange:"), notification)
-	}
+}
+
 // Invoked when a text object begins to change its text, this method requests
 // permission for `aTextObject` to begin editing.
 //
 // # Discussion
-// 
-// If the delegate returns [true], the text object proceeds to make changes.
-// If the delegate returns [false], the text object abandons the editing
-// operation. This method is also invoked when the user drags and drops a file
-// onto the text object.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the delegate returns true, the text object proceeds to make changes. If
+// the delegate returns false, the text object abandons the editing operation.
+// This method is also invoked when the user drags and drops a file onto the
+// text object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldBeginEditing(_:)
 func (o NSTextDelegateObject) TextShouldBeginEditing(textObject INSText) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textShouldBeginEditing:"), textObject)
 	return rv
-	}
+}
+
 // Informs the delegate that the text object has begun editing (that the user
 // has begun changing it).
 //
 // # Discussion
-// 
+//
 // The name of `aNotification` is [didBeginEditingNotification].
 //
-// [didBeginEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didBeginEditingNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidBeginEditing(_:)
+//
+// [didBeginEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didBeginEditingNotification
 func (o NSTextDelegateObject) TextDidBeginEditing(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("textDidBeginEditing:"), notification)
-	}
+}
+
 // Invoked from a text object’s implementation of [ResignFirstResponder],
 // this method requests permission for `aTextObject` to end editing.
 //
 // # Discussion
-// 
-// If the delegate returns [true], the text object proceeds to finish editing
-// and resign first responder status. If the delegate returns [false], the
-// text object selects all of its text and remains the first responder.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the delegate returns true, the text object proceeds to finish editing
+// and resign first responder status. If the delegate returns false, the text
+// object selects all of its text and remains the first responder.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldEndEditing(_:)
 func (o NSTextDelegateObject) TextShouldEndEditing(textObject INSText) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textShouldEndEditing:"), textObject)
 	return rv
-	}
+}
+
 // Informs the delegate that the text object has finished editing (that it has
 // resigned first responder status).
 //
 // # Discussion
-// 
-// The name of `aNotification` is [didEndEditingNotification].
 //
-// [didEndEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didEndEditingNotification
+// The name of `aNotification` is [DidEndEditingNotification].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidEndEditing(_:)
 func (o NSTextDelegateObject) TextDidEndEditing(notification foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("textDidEndEditing:"), notification)
-	}
+}
 
 // NSTextDelegateConfig holds optional typed callbacks for [NSTextDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -222,4 +221,3 @@ func NewNSTextDelegate(config NSTextDelegateConfig) NSTextDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextDelegateObjectFromID(instance)
 }
-

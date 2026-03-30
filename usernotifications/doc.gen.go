@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for UserNotifications. DO NOT EDIT.
 
 // Package usernotifications provides Go bindings for the UserNotifications framework.
@@ -30,7 +29,7 @@
 //   - UNNotificationRequest: A request to schedule a local notification, which includes the content of the notification and the trigger conditions for delivery.
 //   - UNNotification: The data for a local or remote notification the system delivers to your app.
 //
-// # Push notifications in safari
+// # Push notifications in Safari
 //
 //   - Sending web push notifications in web apps and browsers: Update your web server and website to send push notifications that work in Safari, other browsers, and web apps, following cross-browser standards.
 //
@@ -105,20 +104,28 @@ package usernotifications
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/UserNotifications.framework/UserNotifications"
+// frameworkPaths lists paths to try when loading the UserNotifications library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/UserNotifications.framework/UserNotifications",
+	"/usr/lib/libUserNotifications.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: UserNotifications: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: UserNotifications: failed to load framework from any known path\n")
 }
-

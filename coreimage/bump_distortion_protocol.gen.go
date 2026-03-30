@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +60,7 @@ type CIBumpDistortion interface {
 type CIBumpDistortionObject struct {
 	objectivec.Object
 }
+
 func (o CIBumpDistortionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -76,24 +77,28 @@ func CIBumpDistortionObjectFromID(id objc.ID) CIBumpDistortionObject {
 func (o CIBumpDistortionObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortion/inputImage
 func (o CIBumpDistortionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortion/radius
 func (o CIBumpDistortionObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortion/scale
 func (o CIBumpDistortionObject) Scale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -101,21 +106,26 @@ func (o CIBumpDistortionObject) Scale() float32 {
 func (o CIBumpDistortionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortion/center
 func (o CIBumpDistortionObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortion/inputImage
 func (o CIBumpDistortionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortion/radius
 func (o CIBumpDistortionObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortion/scale
 func (o CIBumpDistortionObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
-

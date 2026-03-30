@@ -5,10 +5,11 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,7 +50,7 @@ func (ac AVPlayerItemIntegratedTimelineClass) Alloc() AVPlayerItemIntegratedTime
 // player item and scheduled interstitial events.
 //
 // # Overview
-// 
+//
 // The timeline models all regions to traverse during playback. A player may
 // not present portions of the primary item when exiting an interstitial event
 // with a positive resumption offset.
@@ -80,6 +81,7 @@ type AVPlayerItemIntegratedTimeline struct {
 func AVPlayerItemIntegratedTimelineFromID(id objc.ID) AVPlayerItemIntegratedTimeline {
 	return AVPlayerItemIntegratedTimeline{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerItemIntegratedTimeline adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -162,9 +164,10 @@ func NewAVPlayerItemIntegratedTimeline() AVPlayerItemIntegratedTimeline {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/seek(to:toleranceBefore:toleranceAfter:completionHandler:)
 func (p AVPlayerItemIntegratedTimeline) SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time coremedia.CMTime, toleranceBefore coremedia.CMTime, toleranceAfter coremedia.CMTime, completionHandler BoolHandler) {
-_block3, _ := NewBoolBlock(completionHandler)
+	_block3, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:toleranceBefore:toleranceAfter:completionHandler:"), time, toleranceBefore, toleranceAfter, _block3)
 }
+
 // Seeks to a particular date in the integrated time domain.
 //
 // date: A date represented in the integrated time domain.
@@ -174,26 +177,29 @@ _block3, _ := NewBoolBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/seek(to:completionHandler:)
 func (p AVPlayerItemIntegratedTimeline) SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler) {
-_block1, _ := NewBoolBlock(completionHandler)
+	_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToDate:completionHandler:"), date, _block1)
 }
+
 // Requests invocation of a block when traversing an offset in a segment
 // during playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/addBoundaryTimeObserverForSegment:offsetsIntoSegment:queue:usingBlock:
 func (p AVPlayerItemIntegratedTimeline) AddBoundaryTimeObserverForSegmentOffsetsIntoSegmentQueueUsingBlock(segment IAVPlayerItemSegment, offsetsIntoSegment foundation.INSArray, queue dispatch.Queue, block BoolHandler) AVPlayerItemIntegratedTimelineObserver {
-_block3, _ := NewBoolBlock(block)
+	_block3, _ := NewBoolBlock(block)
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("addBoundaryTimeObserverForSegment:offsetsIntoSegment:queue:usingBlock:"), segment, offsetsIntoSegment, uintptr(queue.Handle()), _block3)
 	return AVPlayerItemIntegratedTimelineObserverObjectFromID(rv)
 }
+
 // Requests invocation of a block during playback to report changing time.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/addPeriodicTimeObserverForInterval:queue:usingBlock:
 func (p AVPlayerItemIntegratedTimeline) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval coremedia.CMTime, queue dispatch.Queue, block CMTimeHandler) AVPlayerItemIntegratedTimelineObserver {
-_block2, _ := NewCMTimeBlock(block)
+	_block2, _ := NewCMTimeBlock(block)
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("addPeriodicTimeObserverForInterval:queue:usingBlock:"), interval, uintptr(queue.Handle()), _block2)
 	return AVPlayerItemIntegratedTimelineObserverObjectFromID(rv)
 }
+
 // Cancels a previously registered time observer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/removeTimeObserver:
@@ -204,7 +210,7 @@ func (p AVPlayerItemIntegratedTimeline) RemoveTimeObserver(observer AVPlayerItem
 // An immutable representation of the timeline state at time of request.
 //
 // # Discussion
-// 
+//
 // A timeline snapshot provides a read-only view of the details of the
 // timeline. Because a snapshot provides a fixed view of the timeline at the
 // time of the request, its state doesn’t update as playback continues.
@@ -214,10 +220,11 @@ func (p AVPlayerItemIntegratedTimeline) CurrentSnapshot() IAVPlayerItemIntegrate
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentSnapshot"))
 	return AVPlayerItemIntegratedTimelineSnapshotFromID(objc.ID(rv))
 }
+
 // The current time on the integrated timeline.
 //
 // # Discussion
-// 
+//
 // During playback of interstitial events that occupy a single point, this
 // value doesn’t change.
 //
@@ -226,10 +233,11 @@ func (p AVPlayerItemIntegratedTimeline) CurrentTime() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("currentTime"))
 	return coremedia.CMTime(rv)
 }
+
 // The current date of playback.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if playback doesn’t map to a date.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/currentDate
@@ -306,4 +314,3 @@ func (p AVPlayerItemIntegratedTimeline) AddPeriodicTimeObserverForIntervalQueueU
 		return coremedia.CMTime{}, ctx.Err()
 	}
 }
-

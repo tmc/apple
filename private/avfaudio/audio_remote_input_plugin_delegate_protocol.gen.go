@@ -18,6 +18,7 @@ type AVAudioRemoteInputPluginDelegate interface {
 type AVAudioRemoteInputPluginDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVAudioRemoteInputPluginDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,14 +31,12 @@ func AVAudioRemoteInputPluginDelegateObjectFromID(id objc.ID) AVAudioRemoteInput
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRemoteInputPluginDelegate/inputPlugin:didPublishDevice:
 func (o AVAudioRemoteInputPluginDelegateObject) InputPluginDidPublishDevice(plugin objectivec.IObject, device objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("inputPlugin:didPublishDevice:"), plugin, device)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRemoteInputPluginDelegate/inputPlugin:didUnpublishDevice:
 func (o AVAudioRemoteInputPluginDelegateObject) InputPluginDidUnpublishDevice(plugin objectivec.IObject, device objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("inputPlugin:didUnpublishDevice:"), plugin, device)
-	}
-
+}

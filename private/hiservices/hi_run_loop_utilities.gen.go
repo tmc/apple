@@ -5,6 +5,7 @@ package hiservices
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,10 +43,10 @@ func (hc HIRunLoopUtilitiesClass) Alloc() HIRunLoopUtilities {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [HIRunLoopUtilities._blockQueueDepth]
+//
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities
 type HIRunLoopUtilities struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type HIRunLoopUtilities struct {
 func HIRunLoopUtilitiesFromID(id objc.ID) HIRunLoopUtilities {
 	return HIRunLoopUtilities{objectivec.Object{ID: id}}
 }
+
 // Ensure HIRunLoopUtilities implements IHIRunLoopUtilities.
 var _ IHIRunLoopUtilities = HIRunLoopUtilities{}
 
@@ -113,15 +115,15 @@ func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) _currentRunLoopMode() ob
 func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) CurrentRunLoopMode() objectivec.IObject {
 	return _HIRunLoopUtilitiesClass._currentRunLoopMode()
 }
-//
+
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities/addRunLoopModesForDeferredActions:
 func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) AddRunLoopModesForDeferredActions(actions objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("addRunLoopModesForDeferredActions:"), actions)
 }
-//
+
 // See: https://developer.apple.com/documentation/HIServices/HIRunLoopUtilities/deferActions:
 func (_HIRunLoopUtilitiesClass HIRunLoopUtilitiesClass) DeferActions(actions VoidHandler) {
-_block0, _ := NewVoidBlock(actions)
+	_block0, _ := NewVoidBlock(actions)
 	objc.Send[objc.ID](objc.ID(_HIRunLoopUtilitiesClass.class), objc.Sel("deferActions:"), _block0)
 }
 
@@ -139,4 +141,3 @@ func (hc HIRunLoopUtilitiesClass) DeferActionsSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

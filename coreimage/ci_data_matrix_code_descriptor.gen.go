@@ -4,8 +4,9 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [CIDataMatrixCodeDescriptor] class.
@@ -45,7 +46,7 @@ func (cc CIDataMatrixCodeDescriptorClass) Alloc() CIDataMatrixCodeDescriptor {
 // Data Matrix code symbol.
 //
 // # Overview
-// 
+//
 // A Data Matrix code symbol is a 2D barcode format defined by the ISO/IEC
 // 16022:2006(E) standard. It encodes data in square or rectangular symbol
 // with solid lines on the left and bottom sides
@@ -73,6 +74,7 @@ type CIDataMatrixCodeDescriptor struct {
 func CIDataMatrixCodeDescriptorFromID(id objc.ID) CIDataMatrixCodeDescriptor {
 	return CIDataMatrixCodeDescriptor{CIBarcodeDescriptor: CIBarcodeDescriptorFromID(id)}
 }
+
 // NOTE: CIDataMatrixCodeDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,15 +142,15 @@ func NewCIDataMatrixCodeDescriptor() CIDataMatrixCodeDescriptor {
 //
 // eccVersion: The [CIDataMatrixCodeDescriptor.ECCVersion] for the Data Matrix code
 // symbol.
-// //
-// [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
 //
 // # Return Value
-// 
+//
 // An initialized [CIAztecCodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/init(payload:rowCount:columnCount:eccVersion:)
+//
+// [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
 func NewDataMatrixCodeDescriptorWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.INSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor {
 	instance := getCIDataMatrixCodeDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPayload:rowCount:columnCount:eccVersion:"), errorCorrectedPayload, rowCount, columnCount, eccVersion)
@@ -166,15 +168,15 @@ func NewDataMatrixCodeDescriptorWithPayloadRowCountColumnCountEccVersion(errorCo
 //
 // eccVersion: The [CIDataMatrixCodeDescriptor.ECCVersion] for the Data Matrix code
 // symbol.
-// //
-// [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
 //
 // # Return Value
-// 
+//
 // An initialized [CIAztecCodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/init(payload:rowCount:columnCount:eccVersion:)
+//
+// [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
 func (d CIDataMatrixCodeDescriptor) InitWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.INSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor {
 	rv := objc.Send[CIDataMatrixCodeDescriptor](d.ID, objc.Sel("initWithPayload:rowCount:columnCount:eccVersion:"), errorCorrectedPayload, rowCount, columnCount, eccVersion)
 	return rv
@@ -190,15 +192,15 @@ func (d CIDataMatrixCodeDescriptor) InitWithPayloadRowCountColumnCountEccVersion
 //
 // eccVersion: The [CIDataMatrixCodeDescriptor.ECCVersion] for the Data Matrix code
 // symbol.
-// //
-// [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIAztecCodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/descriptorWithPayload:rowCount:columnCount:eccVersion:
+//
+// [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
 func (_CIDataMatrixCodeDescriptorClass CIDataMatrixCodeDescriptorClass) DescriptorWithPayloadRowCountColumnCountEccVersion(errorCorrectedPayload foundation.INSData, rowCount int, columnCount int, eccVersion CIDataMatrixCodeECCVersion) CIDataMatrixCodeDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_CIDataMatrixCodeDescriptorClass.class), objc.Sel("descriptorWithPayload:rowCount:columnCount:eccVersion:"), errorCorrectedPayload, rowCount, columnCount, eccVersion)
 	return CIDataMatrixCodeDescriptorFromID(rv)
@@ -208,10 +210,10 @@ func (_CIDataMatrixCodeDescriptorClass CIDataMatrixCodeDescriptorClass) Descript
 // code symbol.
 //
 // # Discussion
-// 
+//
 // DataMatrix symbols are specified bn ISO/IEC 16022:2006(E). ECC 200-type
 // symbols will always have an even number of rows and columns.
-// 
+//
 // For ECC 200-type symbols, the phases of encoding data into a symbol are
 // described in section 5.1 – Encode procedure overview. The error corrected
 // payload comprises the de-interleaved bits of the message described at the
@@ -222,10 +224,11 @@ func (d CIDataMatrixCodeDescriptor) ErrorCorrectedPayload() foundation.INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("errorCorrectedPayload"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // The number of rows in the Data Matrix code symbol.
 //
 // # Discussion
-// 
+//
 // Refer to ISO/IEC 16022:2006(E) for valid module row and column count
 // combinations.
 //
@@ -234,10 +237,11 @@ func (d CIDataMatrixCodeDescriptor) RowCount() int {
 	rv := objc.Send[int](d.ID, objc.Sel("rowCount"))
 	return rv
 }
+
 // The number of columns in the Data Matrix code symbol.
 //
 // # Discussion
-// 
+//
 // Refer to ISO/IEC 16022:2006(E) for valid module row and column count
 // combinations.
 //
@@ -246,19 +250,19 @@ func (d CIDataMatrixCodeDescriptor) ColumnCount() int {
 	rv := objc.Send[int](d.ID, objc.Sel("columnCount"))
 	return rv
 }
+
 // The error correction version of the Data Matrix code symbol.
 //
 // # Discussion
-// 
+//
 // The possible error correction version are enumerated in
 // [CIDataMatrixCodeDescriptor.ECCVersion]. Any symbol with an even number of
 // rows and columns will be ECC 200.
 //
-// [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/eccVersion-swift.property
+//
+// [CIDataMatrixCodeDescriptor.ECCVersion]: https://developer.apple.com/documentation/CoreImage/CIDataMatrixCodeDescriptor/ECCVersion-swift.enum
 func (d CIDataMatrixCodeDescriptor) EccVersion() CIDataMatrixCodeECCVersion {
 	rv := objc.Send[CIDataMatrixCodeECCVersion](d.ID, objc.Sel("eccVersion"))
 	return CIDataMatrixCodeECCVersion(rv)
 }
-

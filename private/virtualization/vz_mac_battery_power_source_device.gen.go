@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZMacBatteryPowerSourceDeviceClass) Alloc() VZMacBatteryPowerSourceDevi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacBatteryPowerSourceDevice.BatterySourceDidUpdateCharge]
@@ -53,6 +53,7 @@ func (vc VZMacBatteryPowerSourceDeviceClass) Alloc() VZMacBatteryPowerSourceDevi
 //   - [VZMacBatteryPowerSourceDevice.Description]
 //   - [VZMacBatteryPowerSourceDevice.Hash]
 //   - [VZMacBatteryPowerSourceDevice.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice
 type VZMacBatteryPowerSourceDevice struct {
 	VZPowerSourceDevice
@@ -62,6 +63,7 @@ type VZMacBatteryPowerSourceDevice struct {
 func VZMacBatteryPowerSourceDeviceFromID(id objc.ID) VZMacBatteryPowerSourceDevice {
 	return VZMacBatteryPowerSourceDevice{VZPowerSourceDevice: VZPowerSourceDeviceFromID(id)}
 }
+
 // Ensure VZMacBatteryPowerSourceDevice implements IVZMacBatteryPowerSourceDevice.
 var _ IVZMacBatteryPowerSourceDevice = VZMacBatteryPowerSourceDevice{}
 
@@ -113,12 +115,11 @@ func NewVZMacBatteryPowerSourceDevice() VZMacBatteryPowerSourceDevice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/batterySource:didUpdateCharge:
 func (v VZMacBatteryPowerSourceDevice) BatterySourceDidUpdateCharge(source objectivec.IObject, charge float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("batterySource:didUpdateCharge:"), source, charge)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/batterySource:didUpdateConnectivity:
 func (v VZMacBatteryPowerSourceDevice) BatterySourceDidUpdateConnectivity(source objectivec.IObject, connectivity int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("batterySource:didUpdateConnectivity:"), source, connectivity)
@@ -129,16 +130,19 @@ func (v VZMacBatteryPowerSourceDevice) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/description
 func (v VZMacBatteryPowerSourceDevice) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/hash
 func (v VZMacBatteryPowerSourceDevice) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/source
 func (v VZMacBatteryPowerSourceDevice) Source() *VZMacBatterySource {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("source"))
@@ -155,9 +159,9 @@ func (v VZMacBatteryPowerSourceDevice) SetSource(value *VZMacBatterySource) {
 	}
 	objc.Send[struct{}](v.ID, objc.Sel("setSource:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDevice/superclass
 func (v VZMacBatteryPowerSourceDevice) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

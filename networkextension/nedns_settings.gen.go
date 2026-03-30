@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -79,6 +80,7 @@ type NEDNSSettings struct {
 func NEDNSSettingsFromID(id objc.ID) NEDNSSettings {
 	return NEDNSSettings{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEDNSSettings adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -167,7 +169,7 @@ func NewNEDNSSettings() NEDNSSettings {
 // mixture of IPv4 and IPv6 addresses.
 //
 // # Return Value
-// 
+//
 // The initialized [NEDNSSettings] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettings/init(servers:)
@@ -183,7 +185,7 @@ func NewDNSSettingsWithServers(servers []string) NEDNSSettings {
 // mixture of IPv4 and IPv6 addresses.
 //
 // # Return Value
-// 
+//
 // The initialized [NEDNSSettings] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettings/init(servers:)
@@ -202,6 +204,7 @@ func (d NEDNSSettings) Servers() []string {
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("servers"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // A list of domain strings used to fully qualify single-label host names.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettings/searchDomains
@@ -212,6 +215,7 @@ func (d NEDNSSettings) SearchDomains() []string {
 func (d NEDNSSettings) SetSearchDomains(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSearchDomains:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The primary domain of the tunnel.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettings/domainName
@@ -222,20 +226,21 @@ func (d NEDNSSettings) DomainName() string {
 func (d NEDNSSettings) SetDomainName(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDomainName:"), objc.String(value))
 }
+
 // A list of domain strings used to determine which DNS queries will use the
 // DNS resolver settings contained in this object.
 //
 // # Discussion
-// 
+//
 // This property is used to create a “split DNS” configuration, where only
 // hosts in certain domains are resolved using the tunnel’s DNS resolver
 // settings. Hosts not in one of the domains in this list are resolved using
 // the system’s default resolver.
-// 
+//
 // If `matchDomains` contains the empty string it becomes the default domain.
 // This is how a split-tunnel configuration can direct all DNS queries first
 // to the VPN DNS servers before the primary DNS servers.
-// 
+//
 // If the VPN tunnel becomes the network’s default route, the servers listed
 // earlier by [NEDNSSettings] become the default resolver and the
 // `matchDomains` list is ignored.
@@ -248,14 +253,13 @@ func (d NEDNSSettings) MatchDomains() []string {
 func (d NEDNSSettings) SetMatchDomains(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMatchDomains:"), objectivec.StringSliceToNSArray(value))
 }
+
 // A Boolean that specifies if the domains in the `matchDomains` list should
 // not be appended to the resolver’s list of search domains.
 //
 // # Discussion
-// 
-// The default value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value is false.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettings/matchDomainsNoSearch
 func (d NEDNSSettings) MatchDomainsNoSearch() bool {
@@ -265,24 +269,23 @@ func (d NEDNSSettings) MatchDomainsNoSearch() bool {
 func (d NEDNSSettings) SetMatchDomainsNoSearch(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMatchDomainsNoSearch:"), value)
 }
+
 // The DNS protocol used by the server, such as HTTPS or TLS.
 //
 // # Discussion
-// 
-// By default, an [NEDNSSettings] object will use [NEDNSProtocol.cleartext].
-// In order to use encryption, create an [NEDNSOverHTTPSSettings] or
-// [NEDNSOverTLSSettings] object.
 //
-// [NEDNSProtocol.cleartext]: https://developer.apple.com/documentation/NetworkExtension/NEDNSProtocol/cleartext
+// By default, an [NEDNSSettings] object will use [NEDNSProtocolCleartext]. In
+// order to use encryption, create an [NEDNSOverHTTPSSettings] or
+// [NEDNSOverTLSSettings] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettings/dnsProtocol
 func (d NEDNSSettings) DnsProtocol() NEDNSProtocol {
 	rv := objc.Send[NEDNSProtocol](d.ID, objc.Sel("dnsProtocol"))
 	return NEDNSProtocol(rv)
 }
-//
+
 // # Discussion
-// 
+//
 // A boolean indicating if failover to the default system resolver is
 // permitted on resolution failure.
 //
@@ -294,4 +297,3 @@ func (d NEDNSSettings) AllowFailover() bool {
 func (d NEDNSSettings) SetAllowFailover(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAllowFailover:"), value)
 }
-

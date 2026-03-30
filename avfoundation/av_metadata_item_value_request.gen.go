@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type AVMetadataItemValueRequest struct {
 func AVMetadataItemValueRequestFromID(id objc.ID) AVMetadataItemValueRequest {
 	return AVMetadataItemValueRequest{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMetadataItemValueRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,13 +112,14 @@ func NewAVMetadataItemValueRequest() AVMetadataItemValueRequest {
 // value: The value to return for the request.
 //
 // # Discussion
-// 
+//
 // You call this method to return the metadata item’s value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItemValueRequest/respond(value:)
 func (m AVMetadataItemValueRequest) RespondWithValue(value objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("respondWithValue:"), value)
 }
+
 // Returns an error when the system fails to load the value.
 //
 // error: The error to return for the request.
@@ -133,4 +136,3 @@ func (m AVMetadataItemValueRequest) MetadataItem() IAVMetadataItem {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadataItem"))
 	return AVMetadataItemFromID(objc.ID(rv))
 }
-

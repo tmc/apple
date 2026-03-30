@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,11 +46,11 @@ func (xc XMLDTDClass) Alloc() XMLDTD {
 // A representation of a Document Type Definition.
 //
 // # Overview
-// 
+//
 // An instance of the [NSXMLDTD] class is held as a property of an
 // [NSXMLDocument] instance, accessed through the [NSXMLDocument] property
 // [DTD].
-// 
+//
 // In the data model, an [NSXMLDTD] object is conceptually similar to
 // namespace and attribute nodes: it is not considered to be a child of the
 // [NSXMLDocument] object although it is closely associated with it. It is at
@@ -57,12 +58,12 @@ func (xc XMLDTDClass) Alloc() XMLDTD {
 // DTD declarations. Acceptable child nodes are instances of the
 // [NSXMLDTDNode] class as well as [NSXMLNode] objects representing comment
 // nodes and processing-instruction nodes.
-// 
+//
 // You create an [NSXMLDTD] object in one of three ways:
-// 
+//
 // - By processing an XML document with its own internal (in-line) DTD - By
 // process a standalone (external) DTD - Programmatically
-// 
+//
 // Once an [NSXMLDTD] instance is in place, you can add, remove, and change
 // the [NSXMLDTDNode] objects representing various DTD declarations. When you
 // write the document out as XML, the new or modified internal DTD is included
@@ -110,6 +111,7 @@ func XMLDTDFromID(id objc.ID) XMLDTD {
 
 // NSXMLDTDFromID is an alias for [XMLDTDFromID] for cross-framework compatibility.
 func NSXMLDTDFromID(id objc.ID) XMLDTD { return XMLDTDFromID(id) }
+
 // NOTE: XMLDTD adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -186,7 +188,7 @@ type IXMLDTD interface {
 	// Returns the DTD node representing the notation declaration identified by the specified notation name.
 	NotationDeclarationForName(name string) INSXMLDTDNode
 
-	// Returns an 
+	// Returns an
 	Dtd() INSXMLDTD
 	SetDtd(value INSXMLDTD)
 }
@@ -221,12 +223,12 @@ func NewXMLDTD() XMLDTD {
 // “Constants” section of the [NSXMLNode] reference.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDTD] object or `nil` if initialization fails because
 // of parsing errors or other reasons.
 //
 // # Discussion
-// 
+//
 // You use this method to create a stand-alone DTD which you can thereafter
 // query and use for validation. You can associate the DTD created through
 // this message with a document by setting the [DTD] property on an
@@ -255,12 +257,12 @@ func NewXMLDTDWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptions) (
 // “Constants” section of the [NSXMLNode] reference.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDTD] object or `nil` if initialization fails because
 // of parsing errors or other reasons.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer for the [NSXMLDTD] class. You use
 // this method to create a stand-alone DTD which you can thereafter query and
 // use for validation. You can associate the DTD created through this message
@@ -283,33 +285,32 @@ func NewXMLDTDWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XMLDTD,
 //
 // kind: An `enum` constant of type [XMLNode.Kind] that indicates the type of node.
 // See Constants for a list of valid NSXMLNodeKind constants.
-// //
-// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 //
 // # Return Value
-// 
+//
 // An [NSXMLNode] object initialized with kind or `nil` if the object
 // couldn’t be created. If `kind` is not a valid NSXMLNodeKind constant, the
 // method returns an [NSXMLNode] object of kind [NSXMLInvalidKind].
 //
 // # Discussion
-// 
+//
 // This method invokes [InitWithKindOptions] with the `options` parameter set
 // to [NSXMLNodeOptionsNone].
-// 
+//
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
 // attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
 // method of this class or the [InitWithXMLString] method of the
 // [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:)
+//
+// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 func NewXMLDTDWithKind(kind NSXMLNodeKind) XMLDTD {
 	instance := getXMLDTDClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKind:"), kind)
 	return XMLDTDFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSXMLDTD/initWithKind:options:
 func NewXMLDTDWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLDTD {
 	instance := getXMLDTDClass().Alloc()
@@ -328,12 +329,12 @@ func NewXMLDTDWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLD
 // “Constants” section of the [NSXMLNode] reference.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDTD] object or `nil` if initialization fails because
 // of parsing errors or other reasons.
 //
 // # Discussion
-// 
+//
 // You use this method to create a stand-alone DTD which you can thereafter
 // query and use for validation. You can associate the DTD created through
 // this message with a document by setting the [DTD] property on an
@@ -350,6 +351,7 @@ func (x XMLDTD) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOpti
 	return NSXMLDTDFromID(rv), nil
 
 }
+
 // Initializes and returns an [NSXMLDTD] object created from the DTD
 // declarations encapsulated in an [NSData] object
 //
@@ -361,12 +363,12 @@ func (x XMLDTD) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOpti
 // “Constants” section of the [NSXMLNode] reference.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDTD] object or `nil` if initialization fails because
 // of parsing errors or other reasons.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer for the [NSXMLDTD] class. You use
 // this method to create a stand-alone DTD which you can thereafter query and
 // use for validation. You can associate the DTD created through this message
@@ -383,6 +385,7 @@ func (x XMLDTD) InitWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (X
 	return NSXMLDTDFromID(rv), nil
 
 }
+
 // Adds a child node to the end of the list of existing children.
 //
 // child: The node object to add to the existing children.
@@ -391,6 +394,7 @@ func (x XMLDTD) InitWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (X
 func (x XMLDTD) AddChild(child INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("addChild:"), child)
 }
+
 // Inserts a child node in the receiver’s list of children at a specific
 // location in the list.
 //
@@ -404,6 +408,7 @@ func (x XMLDTD) AddChild(child INSXMLNode) {
 func (x XMLDTD) InsertChildAtIndex(child INSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChild:atIndex:"), child, index)
 }
+
 // Inserts an array of child nodes at a specified location in the receiver’s
 // list of children.
 //
@@ -417,6 +422,7 @@ func (x XMLDTD) InsertChildAtIndex(child INSXMLNode, index uint) {
 func (x XMLDTD) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChildren:atIndex:"), objectivec.IObjectSliceToNSArray(children), index)
 }
+
 // Removes the child node at a particular location in the receiver’s list of
 // children.
 //
@@ -424,13 +430,14 @@ func (x XMLDTD) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 // children in the list are decremented by one.
 //
 // # Discussion
-// 
+//
 // The removed child node is released.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/removeChild(at:)
 func (x XMLDTD) RemoveChildAtIndex(index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("removeChildAtIndex:"), index)
 }
+
 // Replaces a child at a particular index with another child.
 //
 // index: An integer identifying the position of a node in the receiver’s list of
@@ -439,20 +446,21 @@ func (x XMLDTD) RemoveChildAtIndex(index uint) {
 // node: An [NSXMLNode] object to replace the object at `index`.
 //
 // # Discussion
-// 
+//
 // The replaced child node is released.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/replaceChild(at:with:)
 func (x XMLDTD) ReplaceChildAtIndexWithNode(index uint, node INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("replaceChildAtIndex:withNode:"), index, node)
 }
+
 // Returns the DTD node representing an element declaration for a specified
 // element.
 //
 // name: A string that is the name of an element.
 //
 // # Return Value
-// 
+//
 // An autoreleased [NSXMLDTDNode] object, or `nil` if there is no match.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/elementDeclaration(forName:)
@@ -460,6 +468,7 @@ func (x XMLDTD) ElementDeclarationForName(name string) INSXMLDTDNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("elementDeclarationForName:"), objc.String(name))
 	return NSXMLDTDNodeFromID(rv)
 }
+
 // Returns the DTD node representing an attribute-list declaration for a given
 // attribute and its element.
 //
@@ -468,14 +477,14 @@ func (x XMLDTD) ElementDeclarationForName(name string) INSXMLDTDNode {
 // elementName: A string object identifying the name of an element.
 //
 // # Return Value
-// 
+//
 // An autoreleased [NSXMLDTDNode] object, or `nil` if there is no matching
 // attribute-list declaration.
 //
 // # Discussion
-// 
+//
 // For example, in the attribute-list declaration:
-// 
+//
 // “idnum” would correspond to `attrName` and “person” would
 // correspond to `elementName`.
 //
@@ -484,13 +493,14 @@ func (x XMLDTD) AttributeDeclarationForNameElementName(name string, elementName 
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("attributeDeclarationForName:elementName:"), objc.String(name), objc.String(elementName))
 	return NSXMLDTDNodeFromID(rv)
 }
+
 // Returns the DTD node representing the entity declaration for a specified
 // entity.
 //
 // name: A string that is the name of an entity.
 //
 // # Return Value
-// 
+//
 // An autoreleased [NSXMLDTDNode] object, or `nil` if there is no match.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/entityDeclaration(forName:)
@@ -498,13 +508,14 @@ func (x XMLDTD) EntityDeclarationForName(name string) INSXMLDTDNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("entityDeclarationForName:"), objc.String(name))
 	return NSXMLDTDNodeFromID(rv)
 }
+
 // Returns the DTD node representing the notation declaration identified by
 // the specified notation name.
 //
 // name: A string that is the name of a notation.
 //
 // # Return Value
-// 
+//
 // An autoreleased [NSXMLDTDNode] object, or `nil` if there is no match.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/notationDeclaration(forName:)
@@ -519,12 +530,12 @@ func (x XMLDTD) NotationDeclarationForName(name string) INSXMLDTDNode {
 // name: A string identifying a predefined entity declaration.
 //
 // # Return Value
-// 
+//
 // An autoreleased [NSXMLDTDNode] object, or `nil` if there is no match for
 // `name`.
 //
 // # Discussion
-// 
+//
 // The five predefined entity references (or character references) are “”
 // (greater-than sign), “&” (ampersand), “"” (quotation mark), and
 // “'” (apostrophe).
@@ -545,6 +556,7 @@ func (x XMLDTD) PublicID() string {
 func (x XMLDTD) SetPublicID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setPublicID:"), objc.String(value))
 }
+
 // Returns the receiver’s system identifier.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/systemID
@@ -555,6 +567,7 @@ func (x XMLDTD) SystemID() string {
 func (x XMLDTD) SetSystemID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setSystemID:"), objc.String(value))
 }
+
 // Returns an
 //
 // See: https://developer.apple.com/documentation/foundation/xmldocument/dtd
@@ -565,4 +578,3 @@ func (x XMLDTD) Dtd() INSXMLDTD {
 func (x XMLDTD) SetDtd(value INSXMLDTD) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDTD:"), value)
 }
-

@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZDiskImageStorageDeviceAttachment] class.
@@ -45,14 +46,14 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDevi
 // A device that stores content in a disk image.
 //
 // # Overview
-// 
+//
 // Use a [VZDiskImageStorageDeviceAttachment] object to manage the storage for
 // a disk in a virtual machine (VM). The guest operating system sees the
 // storage as a disk, and when the guest operating system writes files to the
 // disk, the virtual machine stores the files in the disk image you provide.
-// 
+//
 // The virtualization framework supports two disk image formats:
-// 
+//
 // RAW disk images: A file that’s the requested size of the VM disk, this
 // format results in a 1-to-1 mapping between the offsets in the file and the
 // offsets in the VM disk. ASIF disk images: (ASIF) files transfer more
@@ -60,23 +61,23 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDevi
 // doesn’t depend on the host file system’s capabilities. The size the
 // ASIF file takes on the file system is proportional to the actual data
 // stored in the disk image.
-// 
+//
 // # Create the disk image
-// 
+//
 // Create disk images using `diskutil`, a command-line utility you can access
 // through the Terminal app. The `diskutil` utility performs a number of
 // functions. The command uses a specific structure that tells the app what
 // function it’s performing, including many arguments documented in its
 // online manual page documents. For more information, see the `diskutil`
 // manual page by using the command `man diskutil` in Terminal.
-// 
+//
 // The command to creates disk image files you use with VMs starts with
 // `diskutil image create blank`, followed by three required arguments that
 // describe the structure, size, and location of the disk image. The general
 // format of the command follows the pattern shown here:
-// 
+//
 // Use these parameters to specify the configuration of the disk image:
-// 
+//
 // `--format`: An argument that describes the specific file-system format to
 // use, either [RAW] or [ASIF]. `diskutil` supports other file-system formats
 // as well, not all of which Virtualization supports. For more information,
@@ -88,37 +89,35 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDevi
 // also specify sizes in megabytes, using the MiB notation; for example,
 // `256MiB`. `IMAGE_PATH`: The file system path that represents the location
 // where `diskutil` creates the [RAW] or [ASIF] file.
-// 
+//
 // To create a RAW disk image in the file system of the host computer, open
 // Terminal and run the following command, replacing the placeholder values
 // with your own, for example:
-// 
+//
 // A best practice is to give disk images a common and easily recognizable
 // file extension, such as `XCUIElementTypeImg`; for example `VM_Image.Img()`.
-// 
+//
 // To create an ASIF image, replace [RAW] with [ASIF], as shown here:
-// 
+//
 // You can execute `diskutil` commands under app control to create disk images
 // programmatically.
-// 
+//
 // You can also create [ASIF] or [RAW] disk images interactively using Disk
 // Utility, a utility app that Apple provides with macOS. To create volumes
 // with Disk Utility, open the app, then select File > New Image > Blank
 // Image. Configure the form by selecting the disk format (either [ASIF] or
 // [RAW]), volume size, and location for the new volume, and then click Save.
 // For more information on using Disk Utility, see [Disk Utility User Guide].
-// 
+//
 // Alternatively, you can create a raw disk image programmatically using the
 // UNIX `open()` and `truncate()` standard library functions as shown here:
-// 
+//
 // # Initialize the disk image
-// 
+//
 // After creating the disk image, you use it to initialize a VM’s
 // [VZDiskImageStorageDeviceAttachment] object. Use the attachment object to
 // configure the [VZVirtioBlockDeviceConfiguration] object that you add to
 // your virtual machine’s configuration, as shown here:
-//
-// [Disk Utility User Guide]: https://support.apple.com/guide/disk-utility/welcome/mac
 //
 // # Creating the attachment point
 //
@@ -133,6 +132,8 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDevi
 //   - [VZDiskImageStorageDeviceAttachment.SynchronizationMode]: The mode in which the disk image synchronizes data with the underlying storage device.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment
+//
+// [Disk Utility User Guide]: https://support.apple.com/guide/disk-utility/welcome/mac
 type VZDiskImageStorageDeviceAttachment struct {
 	VZStorageDeviceAttachment
 }
@@ -143,6 +144,7 @@ type VZDiskImageStorageDeviceAttachment struct {
 func VZDiskImageStorageDeviceAttachmentFromID(id objc.ID) VZDiskImageStorageDeviceAttachment {
 	return VZDiskImageStorageDeviceAttachment{VZStorageDeviceAttachment: VZStorageDeviceAttachmentFromID(id)}
 }
+
 // NOTE: VZDiskImageStorageDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -211,16 +213,15 @@ func NewVZDiskImageStorageDeviceAttachment() VZDiskImageStorageDeviceAttachment 
 //
 // cachingMode: The cacheing mode from one of the available [VZDiskImageCachingMode]
 // options.
-// //
-// [VZDiskImageCachingMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageCachingMode
 //
 // synchronizationMode: How the disk image synchronizes with the underlying storage when the guest
 // operating system flushes data, described by one of the available
 // [VZDiskImageSynchronizationMode] modes.
-// //
-// [VZDiskImageSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageSynchronizationMode
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)
+//
+// [VZDiskImageCachingMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageCachingMode
+// [VZDiskImageSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageSynchronizationMode
 func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyCachingModeSynchronizationModeError(url foundation.INSURL, readOnly bool, cachingMode VZDiskImageCachingMode, synchronizationMode VZDiskImageSynchronizationMode) (VZDiskImageStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZDiskImageStorageDeviceAttachmentClass().Alloc()
@@ -237,14 +238,11 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyCachingModeSynchronizatio
 // url: A URL that points to a local disk image in RAW format.
 //
 // readOnly: A Boolean that indicates whether to configure the disk image as read-only.
-// Specify [true] to prevent the guest operating system from writing to the
-// disk image, and [false] to allow writing.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Specify true to prevent the guest operating system from writing to the disk
+// image, and false to allow writing.
 //
 // # Return Value
-// 
+//
 // In Swift the methods returns an attachment object; in Objective-C the
 // methods returns an attachment object on success, or `nil` if an error
 // occurred
@@ -266,14 +264,11 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyError(url foundation.INSU
 // url: A URL that points to a local disk image in RAW format.
 //
 // readOnly: A Boolean that indicates whether to configure the disk image as read-only.
-// Specify [true] to prevent the guest operating system from writing to the
-// disk image, and [false] to allow writing.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Specify true to prevent the guest operating system from writing to the disk
+// image, and false to allow writing.
 //
 // # Return Value
-// 
+//
 // In Swift the methods returns an attachment object; in Objective-C the
 // methods returns an attachment object on success, or `nil` if an error
 // occurred
@@ -289,6 +284,7 @@ func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyError(url foundat
 	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
 
 }
+
 // Initialize the attachment from a local file URL.
 //
 // url: Local file URL to the disk image in RAW format.
@@ -298,16 +294,15 @@ func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyError(url foundat
 //
 // cachingMode: The cacheing mode from one of the available [VZDiskImageCachingMode]
 // options.
-// //
-// [VZDiskImageCachingMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageCachingMode
 //
 // synchronizationMode: How the disk image synchronizes with the underlying storage when the guest
 // operating system flushes data, described by one of the available
 // [VZDiskImageSynchronizationMode] modes.
-// //
-// [VZDiskImageSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageSynchronizationMode
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)
+//
+// [VZDiskImageCachingMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageCachingMode
+// [VZDiskImageSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageSynchronizationMode
 func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyCachingModeSynchronizationModeError(url foundation.INSURL, readOnly bool, cachingMode VZDiskImageCachingMode, synchronizationMode VZDiskImageSynchronizationMode) (VZDiskImageStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:readOnly:cachingMode:synchronizationMode:error:"), url, readOnly, cachingMode, synchronizationMode, unsafe.Pointer(&errorPtr))
@@ -326,21 +321,21 @@ func (d VZDiskImageStorageDeviceAttachment) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the underlying disk image is
 // read-only.
 //
 // # Discussion
-// 
-// If the value of this property is [true], the guest operating system may
-// read the contents of the disk image, but may not write to it.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the value of this property is true, the guest operating system may read
+// the contents of the disk image, but may not write to it.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/isReadOnly
 func (d VZDiskImageStorageDeviceAttachment) ReadOnly() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isReadOnly"))
 	return rv
 }
+
 // The current cacheing mode for the virtual disk image.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/cachingMode
@@ -348,6 +343,7 @@ func (d VZDiskImageStorageDeviceAttachment) CachingMode() VZDiskImageCachingMode
 	rv := objc.Send[VZDiskImageCachingMode](d.ID, objc.Sel("cachingMode"))
 	return VZDiskImageCachingMode(rv)
 }
+
 // The mode in which the disk image synchronizes data with the underlying
 // storage device.
 //
@@ -356,4 +352,3 @@ func (d VZDiskImageStorageDeviceAttachment) SynchronizationMode() VZDiskImageSyn
 	rv := objc.Send[VZDiskImageSynchronizationMode](d.ID, objc.Sel("synchronizationMode"))
 	return VZDiskImageSynchronizationMode(rv)
 }
-

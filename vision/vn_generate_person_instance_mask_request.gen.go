@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -59,6 +60,7 @@ type VNGeneratePersonInstanceMaskRequest struct {
 func VNGeneratePersonInstanceMaskRequestFromID(id objc.ID) VNGeneratePersonInstanceMaskRequest {
 	return VNGeneratePersonInstanceMaskRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNGeneratePersonInstanceMaskRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -102,7 +104,7 @@ func NewVNGeneratePersonInstanceMaskRequest() VNGeneratePersonInstanceMaskReques
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -121,4 +123,3 @@ func (g VNGeneratePersonInstanceMaskRequest) VNGeneratePersonInstanceMaskRequest
 	rv := objc.Send[int](g.ID, objc.Sel("VNGeneratePersonInstanceMaskRequestRevision1"))
 	return rv
 }
-

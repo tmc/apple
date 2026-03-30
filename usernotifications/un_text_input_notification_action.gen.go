@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [UNTextInputNotificationAction] class.
@@ -44,17 +45,15 @@ func (uc UNTextInputNotificationActionClass) Alloc() UNTextInputNotificationActi
 // An action that accepts user-typed text.
 //
 // # Overview
-// 
+//
 // Use [UNTextInputNotificationAction] objects to define an action that allows
 // the user to provide a custom text-based response. When the user selects an
 // action of this type, the system displays controls for the user to enter or
 // dictate the text content. That text is then included in the response object
 // that’s delivered to your app.
-// 
+//
 // For information on how to define actions and categories, see [Declaring
 // your actionable notification types].
-//
-// [Declaring your actionable notification types]: https://developer.apple.com/documentation/UserNotifications/declaring-your-actionable-notification-types
 //
 // # Getting Information
 //
@@ -62,6 +61,8 @@ func (uc UNTextInputNotificationActionClass) Alloc() UNTextInputNotificationActi
 //   - [UNTextInputNotificationAction.TextInputPlaceholder]: The placeholder text that the system localizes and displays in the text input field.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNTextInputNotificationAction
+//
+// [Declaring your actionable notification types]: https://developer.apple.com/documentation/UserNotifications/declaring-your-actionable-notification-types
 type UNTextInputNotificationAction struct {
 	UNNotificationAction
 }
@@ -72,6 +73,7 @@ type UNTextInputNotificationAction struct {
 func UNTextInputNotificationActionFromID(id objc.ID) UNTextInputNotificationAction {
 	return UNTextInputNotificationAction{UNNotificationAction: UNNotificationActionFromID(id)}
 }
+
 // NOTE: UNTextInputNotificationAction adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,14 +130,14 @@ func NewUNTextInputNotificationAction() UNTextInputNotificationAction {
 // options: Additional options that describe how the action behaves. Include options
 // when you need the related behavior. For a list of possible values, see
 // [UNNotificationActionOptions].
-// //
-// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 //
 // # Return Value
-// 
+//
 // An action object that the system initializes.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAction/init(identifier:title:options:)
+//
+// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 func NewUNTextInputNotificationActionWithIdentifierTitleOptions(identifier string, title string, options UNNotificationActionOptions) UNTextInputNotificationAction {
 	rv := objc.Send[objc.ID](objc.ID(getUNTextInputNotificationActionClass().class), objc.Sel("actionWithIdentifier:title:options:"), objc.String(identifier), objc.String(title), options)
 	return UNTextInputNotificationActionFromID(rv)
@@ -156,16 +158,16 @@ func NewUNTextInputNotificationActionWithIdentifierTitleOptions(identifier strin
 // options: Additional options that describe how the action behaves. Include options
 // when you need the related behavior. For a list of possible values, see
 // [UNNotificationActionOptions].
-// //
-// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 //
 // icon: The icon that the system displays to the user.
 //
 // # Return Value
-// 
+//
 // An action object that the system initializes.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAction/init(identifier:title:options:icon:)
+//
+// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 func NewUNTextInputNotificationActionWithIdentifierTitleOptionsIcon(identifier string, title string, options UNNotificationActionOptions, icon IUNNotificationActionIcon) UNTextInputNotificationAction {
 	rv := objc.Send[objc.ID](objc.ID(getUNTextInputNotificationActionClass().class), objc.Sel("actionWithIdentifier:title:options:icon:"), objc.String(identifier), objc.String(title), options, icon)
 	return UNTextInputNotificationActionFromID(rv)
@@ -187,8 +189,6 @@ func NewUNTextInputNotificationActionWithIdentifierTitleOptionsIcon(identifier s
 // options: Additional options describing how the action behaves. Include options when
 // you need the related behavior. For a list of possible values, see
 // [UNNotificationActionOptions].
-// //
-// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 //
 // icon: The icon to display to the user.
 //
@@ -198,10 +198,12 @@ func NewUNTextInputNotificationActionWithIdentifierTitleOptionsIcon(identifier s
 // textInputPlaceholder: The localized placeholder text to display in the text input field.
 //
 // # Return Value
-// 
+//
 // A new text input action object.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNTextInputNotificationAction/init(identifier:title:options:icon:textInputButtonTitle:textInputPlaceholder:)
+//
+// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 func NewUNTextInputNotificationActionWithIdentifierTitleOptionsIconTextInputButtonTitleTextInputPlaceholder(identifier string, title string, options UNNotificationActionOptions, icon IUNNotificationActionIcon, textInputButtonTitle string, textInputPlaceholder string) UNTextInputNotificationAction {
 	rv := objc.Send[objc.ID](objc.ID(getUNTextInputNotificationActionClass().class), objc.Sel("actionWithIdentifier:title:options:icon:textInputButtonTitle:textInputPlaceholder:"), objc.String(identifier), objc.String(title), options, icon, objc.String(textInputButtonTitle), objc.String(textInputPlaceholder))
 	return UNTextInputNotificationActionFromID(rv)
@@ -222,8 +224,6 @@ func NewUNTextInputNotificationActionWithIdentifierTitleOptionsIconTextInputButt
 // options: Additional options describing how the action behaves. Include options when
 // you need the related behavior. For a list of possible values, see
 // [UNNotificationActionOptions].
-// //
-// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 //
 // textInputButtonTitle: The localized title of the text input button that’s displayed to the
 // user.
@@ -231,10 +231,12 @@ func NewUNTextInputNotificationActionWithIdentifierTitleOptionsIconTextInputButt
 // textInputPlaceholder: The localized placeholder text the system displays in the text input field.
 //
 // # Return Value
-// 
+//
 // A new text input action object.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNTextInputNotificationAction/init(identifier:title:options:textInputButtonTitle:textInputPlaceholder:)
+//
+// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 func NewUNTextInputNotificationActionWithIdentifierTitleOptionsTextInputButtonTitleTextInputPlaceholder(identifier string, title string, options UNNotificationActionOptions, textInputButtonTitle string, textInputPlaceholder string) UNTextInputNotificationAction {
 	rv := objc.Send[objc.ID](objc.ID(getUNTextInputNotificationActionClass().class), objc.Sel("actionWithIdentifier:title:options:textInputButtonTitle:textInputPlaceholder:"), objc.String(identifier), objc.String(title), options, objc.String(textInputButtonTitle), objc.String(textInputPlaceholder))
 	return UNTextInputNotificationActionFromID(rv)
@@ -248,6 +250,7 @@ func (u UNTextInputNotificationAction) TextInputButtonTitle() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("textInputButtonTitle"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The placeholder text that the system localizes and displays in the text
 // input field.
 //
@@ -256,4 +259,3 @@ func (u UNTextInputNotificationAction) TextInputPlaceholder() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("textInputPlaceholder"))
 	return foundation.NSStringFromID(rv).String()
 }
-

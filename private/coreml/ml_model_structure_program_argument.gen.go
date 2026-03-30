@@ -3,8 +3,9 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,11 +43,11 @@ func (mc MLModelStructureProgramArgumentClass) Alloc() MLModelStructureProgramAr
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelStructureProgramArgument.InitWithBindings]
 //   - [MLModelStructureProgramArgument.InitWithMILArguments]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramArgument
 type MLModelStructureProgramArgument struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type MLModelStructureProgramArgument struct {
 func MLModelStructureProgramArgumentFromID(id objc.ID) MLModelStructureProgramArgument {
 	return MLModelStructureProgramArgument{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgramArgument implements IMLModelStructureProgramArgument.
 var _ IMLModelStructureProgramArgument = MLModelStructureProgramArgument{}
 
@@ -95,7 +97,6 @@ func NewMLModelStructureProgramArgument() MLModelStructureProgramArgument {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramArgument/initWithBindings:
 func NewModelStructureProgramArgumentWithBindings(bindings objectivec.IObject) MLModelStructureProgramArgument {
 	instance := getMLModelStructureProgramArgumentClass().Alloc()
@@ -103,7 +104,6 @@ func NewModelStructureProgramArgumentWithBindings(bindings objectivec.IObject) M
 	return MLModelStructureProgramArgumentFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramArgument/initWithMILArguments:
 func NewModelStructureProgramArgumentWithMILArguments(mILArguments unsafe.Pointer) MLModelStructureProgramArgument {
 	instance := getMLModelStructureProgramArgumentClass().Alloc()
@@ -111,16 +111,14 @@ func NewModelStructureProgramArgumentWithMILArguments(mILArguments unsafe.Pointe
 	return MLModelStructureProgramArgumentFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramArgument/initWithBindings:
 func (m MLModelStructureProgramArgument) InitWithBindings(bindings objectivec.IObject) MLModelStructureProgramArgument {
 	rv := objc.Send[MLModelStructureProgramArgument](m.ID, objc.Sel("initWithBindings:"), bindings)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramArgument/initWithMILArguments:
 func (m MLModelStructureProgramArgument) InitWithMILArguments(mILArguments unsafe.Pointer) MLModelStructureProgramArgument {
 	rv := objc.Send[MLModelStructureProgramArgument](m.ID, objc.Sel("initWithMILArguments:"), mILArguments)
 	return rv
 }
-

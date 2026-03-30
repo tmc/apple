@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"context"
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -51,6 +52,7 @@ type AVAudioSinkNode struct {
 func AVAudioSinkNodeFromID(id objc.ID) AVAudioSinkNode {
 	return AVAudioSinkNode{AVAudioNode: AVAudioNodeFromID(id)}
 }
+
 // Ensure AVAudioSinkNode implements IAVAudioSinkNode.
 var _ IAVAudioSinkNode = AVAudioSinkNode{}
 
@@ -80,7 +82,6 @@ func NewAVAudioSinkNode() AVAudioSinkNode {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioSinkNodeWithImpl(impl unsafe.Pointer) AVAudioSinkNode {
 	instance := getAVAudioSinkNodeClass().Alloc()
@@ -88,10 +89,9 @@ func NewAudioSinkNodeWithImpl(impl unsafe.Pointer) AVAudioSinkNode {
 	return AVAudioSinkNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSinkNode/pullInputBlockFromReceiverBlock:
 func (_AVAudioSinkNodeClass AVAudioSinkNodeClass) PullInputBlockFromReceiverBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_AVAudioSinkNodeClass.class), objc.Sel("pullInputBlockFromReceiverBlock:"), _block0)
 }
 
@@ -109,4 +109,3 @@ func (ac AVAudioSinkNodeClass) PullInputBlockFromReceiverBlockSync(ctx context.C
 		return ctx.Err()
 	}
 }
-

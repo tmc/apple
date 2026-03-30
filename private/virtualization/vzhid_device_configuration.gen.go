@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZHIDDeviceConfigurationClass) Alloc() VZHIDDeviceConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZHIDDeviceConfiguration._hidDevice]
@@ -53,6 +53,7 @@ func (vc VZHIDDeviceConfigurationClass) Alloc() VZHIDDeviceConfiguration {
 //   - [VZHIDDeviceConfiguration.Description]
 //   - [VZHIDDeviceConfiguration.Hash]
 //   - [VZHIDDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDeviceConfiguration
 type VZHIDDeviceConfiguration struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type VZHIDDeviceConfiguration struct {
 func VZHIDDeviceConfigurationFromID(id objc.ID) VZHIDDeviceConfiguration {
 	return VZHIDDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZHIDDeviceConfiguration implements IVZHIDDeviceConfiguration.
 var _ IVZHIDDeviceConfiguration = VZHIDDeviceConfiguration{}
 
@@ -118,13 +120,13 @@ func (v VZHIDDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDeviceConfiguration/encodeWithEncoder:
 func (v VZHIDDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDeviceConfiguration/makeHIDDeviceForVirtualMachine:hidDeviceIndex:
 func (v VZHIDDeviceConfiguration) MakeHIDDeviceForVirtualMachineHidDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeHIDDeviceForVirtualMachine:hidDeviceIndex:"), machine, index)
@@ -136,24 +138,27 @@ func (v VZHIDDeviceConfiguration) _hidDevice() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidDevice"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDeviceConfiguration/debugDescription
 func (v VZHIDDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDeviceConfiguration/description
 func (v VZHIDDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDeviceConfiguration/hash
 func (v VZHIDDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDeviceConfiguration/superclass
 func (v VZHIDDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

@@ -3,8 +3,9 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -41,7 +42,6 @@ func (gc GTMioTraceShaderCliqueInstructionTraceTrackGroupClass) Alloc() GTMioTra
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioTraceShaderCliqueInstructionTraceTrackGroup.EarliestTimestamp]
@@ -54,6 +54,7 @@ func (gc GTMioTraceShaderCliqueInstructionTraceTrackGroupClass) Alloc() GTMioTra
 //   - [GTMioTraceShaderCliqueInstructionTraceTrackGroup.TraceCount]
 //   - [GTMioTraceShaderCliqueInstructionTraceTrackGroup.Traces]
 //   - [GTMioTraceShaderCliqueInstructionTraceTrackGroup.InitWithTracesRecordsPipelineStateIdProgramTypeEarliestTimestampLatestTimestampMaxCliqueId]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup
 type GTMioTraceShaderCliqueInstructionTraceTrackGroup struct {
 	GTMioTraceTrack
@@ -63,6 +64,7 @@ type GTMioTraceShaderCliqueInstructionTraceTrackGroup struct {
 func GTMioTraceShaderCliqueInstructionTraceTrackGroupFromID(id objc.ID) GTMioTraceShaderCliqueInstructionTraceTrackGroup {
 	return GTMioTraceShaderCliqueInstructionTraceTrackGroup{GTMioTraceTrack: GTMioTraceTrackFromID(id)}
 }
+
 // Ensure GTMioTraceShaderCliqueInstructionTraceTrackGroup implements IGTMioTraceShaderCliqueInstructionTraceTrackGroup.
 var _ IGTMioTraceShaderCliqueInstructionTraceTrackGroup = GTMioTraceShaderCliqueInstructionTraceTrackGroup{}
 
@@ -118,7 +120,6 @@ func NewGTMioTraceShaderCliqueInstructionTraceTrackGroup() GTMioTraceShaderCliqu
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/initWithId:scope:scopeIdentifier:level:levelIdentifier:
 func NewGTMioTraceShaderCliqueInstructionTraceTrackGroupWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceShaderCliqueInstructionTraceTrackGroup {
 	instance := getGTMioTraceShaderCliqueInstructionTraceTrackGroupClass().Alloc()
@@ -126,7 +127,6 @@ func NewGTMioTraceShaderCliqueInstructionTraceTrackGroupWithIdScopeScopeIdentifi
 	return GTMioTraceShaderCliqueInstructionTraceTrackGroupFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/initWithTraces:records:pipelineStateId:programType:earliestTimestamp:latestTimestamp:maxCliqueId:
 func NewGTMioTraceShaderCliqueInstructionTraceTrackGroupWithTracesRecordsPipelineStateIdProgramTypeEarliestTimestampLatestTimestampMaxCliqueId(traces unsafe.Pointer, records unsafe.Pointer, id uint64, type_ uint16, timestamp uint64, timestamp2 uint64, id2 uint32) GTMioTraceShaderCliqueInstructionTraceTrackGroup {
 	instance := getGTMioTraceShaderCliqueInstructionTraceTrackGroupClass().Alloc()
@@ -134,7 +134,6 @@ func NewGTMioTraceShaderCliqueInstructionTraceTrackGroupWithTracesRecordsPipelin
 	return GTMioTraceShaderCliqueInstructionTraceTrackGroupFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/initWithTraces:records:pipelineStateId:programType:earliestTimestamp:latestTimestamp:maxCliqueId:
 func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) InitWithTracesRecordsPipelineStateIdProgramTypeEarliestTimestampLatestTimestampMaxCliqueId(traces unsafe.Pointer, records unsafe.Pointer, id uint64, type_ uint16, timestamp uint64, timestamp2 uint64, id2 uint32) GTMioTraceShaderCliqueInstructionTraceTrackGroup {
 	rv := objc.Send[GTMioTraceShaderCliqueInstructionTraceTrackGroup](g.ID, objc.Sel("initWithTraces:records:pipelineStateId:programType:earliestTimestamp:latestTimestamp:maxCliqueId:"), traces, records, id, type_, timestamp, timestamp2, id2)
@@ -146,44 +145,51 @@ func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) EarliestTimestamp() ui
 	rv := objc.Send[uint64](g.ID, objc.Sel("earliestTimestamp"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/latestTimestamp
 func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) LatestTimestamp() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("latestTimestamp"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/maxCliqueId
 func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) MaxCliqueId() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("maxCliqueId"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/pipelineStateId
 func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) PipelineStateId() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("pipelineStateId"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/programType
 func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) ProgramType() uint16 {
 	rv := objc.Send[uint16](g.ID, objc.Sel("programType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/recordCount
 func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) RecordCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("recordCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/records
 func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) Records() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("records"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/traceCount
 func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) TraceCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("traceCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceShaderCliqueInstructionTraceTrackGroup/traces
 func (g GTMioTraceShaderCliqueInstructionTraceTrackGroup) Traces() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
 	return rv
 }
-

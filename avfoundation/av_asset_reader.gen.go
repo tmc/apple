@@ -3,11 +3,12 @@
 package avfoundation
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (ac AVAssetReaderClass) Alloc() AVAssetReader {
 // An object that reads media data from an asset.
 //
 // # Overview
-// 
+//
 // Use an asset reader to read media data from instances of [AVAsset]. The
 // assets you read may represent file-based media like QuickTime movies or
 // MPEG-4 files, or media that you compose from multiple sources using
@@ -88,6 +89,7 @@ type AVAssetReader struct {
 func AVAssetReaderFromID(id objc.ID) AVAssetReader {
 	return AVAssetReader{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetReader adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -204,19 +206,17 @@ func (a AVAssetReader) InitWithAssetError(asset IAVAsset) (AVAssetReader, error)
 	return AVAssetReaderFromID(rv), nil
 
 }
+
 // Determines whether you can add the output to the asset reader.
 //
 // output: The asset reader output to test.
 //
 // # Return Value
-// 
-// [true] if you can add the output; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if you can add the output; otherwise, false.
 //
 // # Discussion
-// 
+//
 // You may only add outputs that retrieve media data from the asset that you
 // associate with the asset reader.
 //
@@ -225,11 +225,12 @@ func (a AVAssetReader) CanAddOutput(output IAVAssetReaderOutput) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("canAddOutput:"), output)
 	return rv
 }
+
 // Cancels any background work and stops the reader’s outputs from reading
 // more samples.
 //
 // # Discussion
-// 
+//
 // To stop reading samples before reaching the end of the time range, call
 // this method to stop any in-progress background read operations.
 //
@@ -246,7 +247,7 @@ func (a AVAssetReader) CancelReading() {
 // provides the details of the failure.
 //
 // # Return Value
-// 
+//
 // A new asset reader object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReader/assetReaderWithAsset:error:
@@ -264,7 +265,7 @@ func (_AVAssetReaderClass AVAssetReaderClass) AssetReaderWithAssetError(asset IA
 // The outputs from which you read media data.
 //
 // # Discussion
-// 
+//
 // The array contains the concrete instances of [AVAssetReaderOutput] that you
 // associate with the reader.
 //
@@ -275,19 +276,20 @@ func (a AVAssetReader) Outputs() []AVAssetReaderOutput {
 		return AVAssetReaderOutputFromID(id)
 	})
 }
+
 // The time range within the asset to read.
 //
 // # Discussion
-// 
+//
 // The default value is a time range with a start time of [zero] and a
 // duration of [positiveInfinity].
-// 
+//
 // You can’t modify this value after reading starts.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetReader/timeRange
 //
 // [positiveInfinity]: https://developer.apple.com/documentation/CoreMedia/CMTime/positiveInfinity
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetReader/timeRange
 func (a AVAssetReader) TimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](a.ID, objc.Sel("timeRange"))
 	return coremedia.CMTimeRange(rv)
@@ -295,30 +297,32 @@ func (a AVAssetReader) TimeRange() coremedia.CMTimeRange {
 func (a AVAssetReader) SetTimeRange(value coremedia.CMTimeRange) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimeRange:"), value)
 }
+
 // The status of reading sample buffers from the asset.
 //
 // # Discussion
-// 
+//
 // Check the value of this property when the [copyNextSampleBuffer()] method
 // on [AVAssetReaderOutput] returns `nil` to determine why the output can’t
 // read more data.
-// 
+//
 // This property is thread safe.
 //
-// [copyNextSampleBuffer()]: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderOutput/copyNextSampleBuffer()
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReader/status-swift.property
+//
+// [copyNextSampleBuffer()]: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderOutput/copyNextSampleBuffer()
 func (a AVAssetReader) Status() AVAssetReaderStatus {
 	rv := objc.Send[AVAssetReaderStatus](a.ID, objc.Sel("status"))
 	return AVAssetReaderStatus(rv)
 }
+
 // An error that describes the reason for a failure.
 //
 // # Discussion
-// 
+//
 // The value is `nil` if the asset reader’s status isn’t
-// [AssetReaderStatusFailed].
-// 
+// [AVAssetReaderStatusFailed].
+//
 // This property is thread safe.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReader/error
@@ -326,6 +330,7 @@ func (a AVAssetReader) Error() foundation.INSError {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
+
 // The asset from which to read media data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReader/asset
@@ -333,4 +338,3 @@ func (a AVAssetReader) Asset() IAVAsset {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("asset"))
 	return AVAssetFromID(objc.ID(rv))
 }
-

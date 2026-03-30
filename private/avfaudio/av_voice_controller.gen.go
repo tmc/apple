@@ -4,11 +4,12 @@ package avfaudio
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,6 @@ func (ac AVVoiceControllerClass) Alloc() AVVoiceController {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVVoiceController.IsDeviceAvailableInLocalRouteError]
@@ -136,6 +136,7 @@ func (ac AVVoiceControllerClass) Alloc() AVVoiceController {
 //   - [AVVoiceController.Description]
 //   - [AVVoiceController.Hash]
 //   - [AVVoiceController.Superclass]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController
 type AVVoiceController struct {
 	objectivec.Object
@@ -145,6 +146,7 @@ type AVVoiceController struct {
 func AVVoiceControllerFromID(id objc.ID) AVVoiceController {
 	return AVVoiceController{objectivec.Object{ID: id}}
 }
+
 // Ensure AVVoiceController implements IAVVoiceController.
 var _ IAVVoiceController = AVVoiceController{}
 
@@ -356,7 +358,6 @@ func NewAVVoiceController() AVVoiceController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/initVoiceControllerForClient:withError:
 func NewVoiceControllerVoiceControllerForClientWithError(client int64) (AVVoiceController, error) {
 	var errorPtr objc.ID
@@ -369,7 +370,6 @@ func NewVoiceControllerVoiceControllerForClientWithError(client int64) (AVVoiceC
 	return AVVoiceControllerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/initWithError:
 func NewVoiceControllerWithError() (AVVoiceController, error) {
 	var errorPtr objc.ID
@@ -382,7 +382,6 @@ func NewVoiceControllerWithError() (AVVoiceController, error) {
 	return AVVoiceControllerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/IsDeviceAvailableInLocalRoute:error:
 func (v AVVoiceController) IsDeviceAvailableInLocalRouteError(route objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -397,7 +396,7 @@ func (v AVVoiceController) IsDeviceAvailableInLocalRouteError(route objectivec.I
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/_bringUp:withError:
 func (v AVVoiceController) _bringUpWithError(up int64) (int64, error) {
 	var errorPtr objc.ID
@@ -414,7 +413,7 @@ func (v AVVoiceController) _bringUpWithError(up int64) (int64, error) {
 func (v AVVoiceController) BringUpWithError(up int64) (int64, error) {
 	return v._bringUpWithError(up)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/_teardownWithError:
 func (v AVVoiceController) _teardownWithError() error {
 	var errorPtr objc.ID
@@ -426,7 +425,7 @@ func (v AVVoiceController) _teardownWithError() error {
 	return nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/activateAudioSessionForStream:isPrewarm:error:
 func (v AVVoiceController) ActivateAudioSessionForStreamIsPrewarmError(stream uint64, prewarm bool) (bool, error) {
 	var errorPtr objc.ID
@@ -441,7 +440,7 @@ func (v AVVoiceController) ActivateAudioSessionForStreamIsPrewarmError(stream ui
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/activateAudioSessionForStream:isPrewarm:recordMode:error:
 func (v AVVoiceController) ActivateAudioSessionForStreamIsPrewarmRecordModeError(stream uint64, prewarm bool, mode bool) (bool, error) {
 	var errorPtr objc.ID
@@ -456,17 +455,17 @@ func (v AVVoiceController) ActivateAudioSessionForStreamIsPrewarmRecordModeError
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/alertPlaybackFinishedWithSettings:
 func (v AVVoiceController) AlertPlaybackFinishedWithSettings(settings objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("alertPlaybackFinishedWithSettings:"), settings)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/beganRecording:status:
 func (v AVVoiceController) BeganRecordingStatus(recording uint64, status int) {
 	objc.Send[objc.ID](v.ID, objc.Sel("beganRecording:status:"), recording, status)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/cleanSlateWithError:
 func (v AVVoiceController) CleanSlateWithError() error {
 	var errorPtr objc.ID
@@ -478,13 +477,13 @@ func (v AVVoiceController) CleanSlateWithError() error {
 	return nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/configureAlertBehaviorForStream:completion:
 func (v AVVoiceController) ConfigureAlertBehaviorForStreamCompletion(stream objectivec.IObject, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("configureAlertBehaviorForStream:completion:"), stream, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/configureAlertBehaviorForStream:error:
 func (v AVVoiceController) ConfigureAlertBehaviorForStreamError(stream objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -499,17 +498,18 @@ func (v AVVoiceController) ConfigureAlertBehaviorForStreamError(stream objective
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/configureVoiceTriggerClientCompletionBlocks
 func (v AVVoiceController) ConfigureVoiceTriggerClientCompletionBlocks() {
 	objc.Send[objc.ID](v.ID, objc.Sel("configureVoiceTriggerClientCompletionBlocks"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/deactivateAudioSessionForStream:withOptions:completion:
 func (v AVVoiceController) DeactivateAudioSessionForStreamWithOptionsCompletion(stream uint64, options uint64, completion VoidHandler) {
-_block2, _ := NewVoidBlock(completion)
+	_block2, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("deactivateAudioSessionForStream:withOptions:completion:"), stream, options, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/deactivateAudioSessionForStream:withOptions:error:
 func (v AVVoiceController) DeactivateAudioSessionForStreamWithOptionsError(stream uint64, options uint64) error {
 	var errorPtr objc.ID
@@ -521,12 +521,12 @@ func (v AVVoiceController) DeactivateAudioSessionForStreamWithOptionsError(strea
 	return nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/deactivateAudioSessionWithOptions:
 func (v AVVoiceController) DeactivateAudioSessionWithOptions(options uint64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("deactivateAudioSessionWithOptions:"), options)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/enableSmartRoutingConsiderationForStream:enable:error:
 func (v AVVoiceController) EnableSmartRoutingConsiderationForStreamEnableError(stream uint64, enable bool) (bool, error) {
 	var errorPtr objc.ID
@@ -541,75 +541,76 @@ func (v AVVoiceController) EnableSmartRoutingConsiderationForStreamEnableError(s
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/enableTriangleModeForStream:enable:withCompletion:
 func (v AVVoiceController) EnableTriangleModeForStreamEnableWithCompletion(stream uint64, enable bool, completion VoidHandler) {
-_block2, _ := NewVoidBlock(completion)
+	_block2, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("enableTriangleModeForStream:enable:withCompletion:"), stream, enable, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/encodeError:
 func (v AVVoiceController) EncodeError(error_ int) {
 	objc.Send[objc.ID](v.ID, objc.Sel("encodeError:"), error_)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/endpointDetectedAtTime:
 func (v AVVoiceController) EndpointDetectedAtTime(time float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("endpointDetectedAtTime:"), time)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/finishedRecording:status:
 func (v AVVoiceController) FinishedRecordingStatus(recording uint64, status int) {
 	objc.Send[objc.ID](v.ID, objc.Sel("finishedRecording:status:"), recording, status)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getAveragePowerForStream:forChannel:
 func (v AVVoiceController) GetAveragePowerForStreamForChannel(stream uint64, channel uint64) float32 {
 	rv := objc.Send[float32](v.ID, objc.Sel("getAveragePowerForStream:forChannel:"), stream, channel)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getCurrentSessionState
 func (v AVVoiceController) GetCurrentSessionState() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("getCurrentSessionState"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getCurrentSessionStateForStream:
 func (v AVVoiceController) GetCurrentSessionStateForStream(stream uint64) int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("getCurrentSessionStateForStream:"), stream)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getCurrentStreamState:
 func (v AVVoiceController) GetCurrentStreamState(state uint64) int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("getCurrentStreamState:"), state)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getDeviceLatenciesForStream:withCompletion:
 func (v AVVoiceController) GetDeviceLatenciesForStreamWithCompletion(stream uint64, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("getDeviceLatenciesForStream:withCompletion:"), stream, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getInputChannelInfoForStream:completion:
 func (v AVVoiceController) GetInputChannelInfoForStreamCompletion(stream uint64, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("getInputChannelInfoForStream:completion:"), stream, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getPeakPowerForStream:forChannel:
 func (v AVVoiceController) GetPeakPowerForStreamForChannel(stream uint64, channel uint64) float32 {
 	rv := objc.Send[float32](v.ID, objc.Sel("getPeakPowerForStream:forChannel:"), stream, channel)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getPlaybackRouteForStream:withCompletion:
 func (v AVVoiceController) GetPlaybackRouteForStreamWithCompletion(stream uint64, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("getPlaybackRouteForStream:withCompletion:"), stream, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getPlaybackRouteForStream:withError:
 func (v AVVoiceController) GetPlaybackRouteForStreamWithError(stream uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -621,56 +622,57 @@ func (v AVVoiceController) GetPlaybackRouteForStreamWithError(stream uint64) (ob
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getRecordBufferDurationForStream:
 func (v AVVoiceController) GetRecordBufferDurationForStream(stream uint64) float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("getRecordBufferDurationForStream:"), stream)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getRecordDeviceInfoForStream:
 func (v AVVoiceController) GetRecordDeviceInfoForStream(stream uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("getRecordDeviceInfoForStream:"), stream)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getRecordModeForStream:
 func (v AVVoiceController) GetRecordModeForStream(stream uint64) int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("getRecordModeForStream:"), stream)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/getRecordSettingsForStream:
 func (v AVVoiceController) GetRecordSettingsForStream(stream uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("getRecordSettingsForStream:"), stream)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/handleAudioHALDeviceWentAway:
 func (v AVVoiceController) HandleAudioHALDeviceWentAway(away uint64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("handleAudioHALDeviceWentAway:"), away)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/handlePluginDidPublishDevice:withDevice:
 func (v AVVoiceController) HandlePluginDidPublishDeviceWithDevice(device objectivec.IObject, device2 objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("handlePluginDidPublishDevice:withDevice:"), device, device2)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/handlePluginDidUnpublishDevice:withDevice:
 func (v AVVoiceController) HandlePluginDidUnpublishDeviceWithDevice(device objectivec.IObject, device2 objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("handlePluginDidUnpublishDevice:withDevice:"), device, device2)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/impl
 func (v AVVoiceController) Impl() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("impl"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/interspeechPointDetectedAtTime:
 func (v AVVoiceController) InterspeechPointDetectedAtTime(time float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("interspeechPointDetectedAtTime:"), time)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/isDuckingSupportedOnPickedRouteForStream:error:
 func (v AVVoiceController) IsDuckingSupportedOnPickedRouteForStreamError(stream uint64) (bool, error) {
 	var errorPtr objc.ID
@@ -685,46 +687,47 @@ func (v AVVoiceController) IsDuckingSupportedOnPickedRouteForStreamError(stream 
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/isMeteringEnabledForStream:
 func (v AVVoiceController) IsMeteringEnabledForStream(stream uint64) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isMeteringEnabledForStream:"), stream)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/mockPluginEndpoint
 func (v AVVoiceController) MockPluginEndpoint() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("mockPluginEndpoint"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/notifyEventOccured:error:
 func (v AVVoiceController) NotifyEventOccuredError(occured uint64, error_ objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("notifyEventOccured:error:"), occured, error_)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/notifyStreamInvalidated:
 func (v AVVoiceController) NotifyStreamInvalidated(invalidated uint64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("notifyStreamInvalidated:"), invalidated)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/playAlert:withOverride:completion:
 func (v AVVoiceController) PlayAlertWithOverrideCompletion(alert int, override int64, completion VoidHandler) {
-_block2, _ := NewVoidBlock(completion)
+	_block2, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("playAlert:withOverride:completion:"), alert, override, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/playAlertSoundForType:overrideMode:
 func (v AVVoiceController) PlayAlertSoundForTypeOverrideMode(type_ int, mode int64) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("playAlertSoundForType:overrideMode:"), type_, mode)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/prepareRecordForStream:completion:
 func (v AVVoiceController) PrepareRecordForStreamCompletion(stream objectivec.IObject, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("prepareRecordForStream:completion:"), stream, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/prepareRecordForStream:error:
 func (v AVVoiceController) PrepareRecordForStreamError(stream objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -739,31 +742,31 @@ func (v AVVoiceController) PrepareRecordForStreamError(stream objectivec.IObject
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/removeStream:completion:
 func (v AVVoiceController) RemoveStreamCompletion(stream uint64, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("removeStream:completion:"), stream, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/setAlertSoundFromURL:forType:
 func (v AVVoiceController) SetAlertSoundFromURLForType(url foundation.INSURL, type_ int) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("setAlertSoundFromURL:forType:"), url, type_)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/setAnnounceCallsEnabledForStream:enable:
 func (v AVVoiceController) SetAnnounceCallsEnabledForStreamEnable(stream uint64, enable bool) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("setAnnounceCallsEnabledForStream:enable:"), stream, enable)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/setContext:completion:
 func (v AVVoiceController) SetContextCompletion(context objectivec.IObject, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("setContext:completion:"), context, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/setContext:error:
 func (v AVVoiceController) SetContextError(context objectivec.IObject) (uint64, error) {
 	var errorPtr objc.ID
@@ -775,7 +778,7 @@ func (v AVVoiceController) SetContextError(context objectivec.IObject) (uint64, 
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/setContext:streamType:error:
 func (v AVVoiceController) SetContextStreamTypeError(context objectivec.IObject, type_ unsafe.Pointer) (uint64, error) {
 	var errorPtr objc.ID
@@ -787,7 +790,7 @@ func (v AVVoiceController) SetContextStreamTypeError(context objectivec.IObject,
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/setContextForStream:forStream:error:
 func (v AVVoiceController) SetContextForStreamForStreamError(stream objectivec.IObject, stream2 uint64) (bool, error) {
 	var errorPtr objc.ID
@@ -802,7 +805,7 @@ func (v AVVoiceController) SetContextForStreamForStreamError(stream objectivec.I
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/setDuckOthersForStream:withSettings:error:
 func (v AVVoiceController) SetDuckOthersForStreamWithSettingsError(stream uint64, settings objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -817,7 +820,7 @@ func (v AVVoiceController) SetDuckOthersForStreamWithSettingsError(stream uint64
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/setEnableInterruptionByRecordingClientsForStream:enable:error:
 func (v AVVoiceController) SetEnableInterruptionByRecordingClientsForStreamEnableError(stream uint64, enable bool) (bool, error) {
 	var errorPtr objc.ID
@@ -832,7 +835,7 @@ func (v AVVoiceController) SetEnableInterruptionByRecordingClientsForStreamEnabl
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/setRecordModeForStream:recordMode:error:
 func (v AVVoiceController) SetRecordModeForStreamRecordModeError(stream uint64, mode int64) (bool, error) {
 	var errorPtr objc.ID
@@ -847,25 +850,25 @@ func (v AVVoiceController) SetRecordModeForStreamRecordModeError(stream uint64, 
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/setRecordStatusChangeBlock:
 func (v AVVoiceController) SetRecordStatusChangeBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setRecordStatusChangeBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/startKeepAliveQueueForStream:completion:
 func (v AVVoiceController) StartKeepAliveQueueForStreamCompletion(stream uint64, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("startKeepAliveQueueForStream:completion:"), stream, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/startRecordForStream:completion:
 func (v AVVoiceController) StartRecordForStreamCompletion(stream objectivec.IObject, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("startRecordForStream:completion:"), stream, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/startRecordForStream:error:
 func (v AVVoiceController) StartRecordForStreamError(stream objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -880,31 +883,32 @@ func (v AVVoiceController) StartRecordForStreamError(stream objectivec.IObject) 
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/startRecordWithSettings:completion:alertCompletion:audioCallback:
 func (v AVVoiceController) StartRecordWithSettingsCompletionAlertCompletionAudioCallback(settings objectivec.IObject, completion VoidHandler, completion2 VoidHandler, callback VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	_block2, _ := NewVoidBlock(completion2)
 	_block3, _ := NewVoidBlock(callback)
 	objc.Send[objc.ID](v.ID, objc.Sel("startRecordWithSettings:completion:alertCompletion:audioCallback:"), settings, _block1, _block2, _block3)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/startpointDetected
 func (v AVVoiceController) StartpointDetected() {
 	objc.Send[objc.ID](v.ID, objc.Sel("startpointDetected"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/stopKeepAliveQueueForStream:completion:
 func (v AVVoiceController) StopKeepAliveQueueForStreamCompletion(stream uint64, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("stopKeepAliveQueueForStream:completion:"), stream, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/stopRecordForStream:completion:
 func (v AVVoiceController) StopRecordForStreamCompletion(stream uint64, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("stopRecordForStream:completion:"), stream, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/stopRecordForStream:error:
 func (v AVVoiceController) StopRecordForStreamError(stream uint64) (bool, error) {
 	var errorPtr objc.ID
@@ -919,7 +923,7 @@ func (v AVVoiceController) StopRecordForStreamError(stream uint64) (bool, error)
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/teardownWithError:
 func (v AVVoiceController) TeardownWithError() error {
 	var errorPtr objc.ID
@@ -931,13 +935,13 @@ func (v AVVoiceController) TeardownWithError() error {
 	return nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/updateMeterForStream:
 func (v AVVoiceController) UpdateMeterForStream(stream uint64) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("updateMeterForStream:"), stream)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/initVoiceControllerForClient:withError:
 func (v AVVoiceController) InitVoiceControllerForClientWithError(client int64) (AVVoiceController, error) {
 	var errorPtr objc.ID
@@ -949,7 +953,7 @@ func (v AVVoiceController) InitVoiceControllerForClientWithError(client int64) (
 	return AVVoiceControllerFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/initWithError:
 func (v AVVoiceController) InitWithError() (AVVoiceController, error) {
 	var errorPtr objc.ID
@@ -970,16 +974,19 @@ func (v AVVoiceController) AlertVolume() float32 {
 func (v AVVoiceController) SetAlertVolume(value float32) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAlertVolume:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/debugDescription
 func (v AVVoiceController) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/description
 func (v AVVoiceController) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/endpointerDelegate
 func (v AVVoiceController) EndpointerDelegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("endpointerDelegate"))
@@ -988,16 +995,19 @@ func (v AVVoiceController) EndpointerDelegate() objectivec.IObject {
 func (v AVVoiceController) SetEndpointerDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEndpointerDelegate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/hash
 func (v AVVoiceController) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/metrics
 func (v AVVoiceController) Metrics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("metrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/recordDelegate
 func (v AVVoiceController) RecordDelegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("recordDelegate"))
@@ -1006,6 +1016,7 @@ func (v AVVoiceController) RecordDelegate() objectivec.IObject {
 func (v AVVoiceController) SetRecordDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRecordDelegate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/recordEndWaitTime
 func (v AVVoiceController) RecordEndWaitTime() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("recordEndWaitTime"))
@@ -1014,6 +1025,7 @@ func (v AVVoiceController) RecordEndWaitTime() float64 {
 func (v AVVoiceController) SetRecordEndWaitTime(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRecordEndWaitTime:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/recordEndpointMode
 func (v AVVoiceController) RecordEndpointMode() int {
 	rv := objc.Send[int](v.ID, objc.Sel("recordEndpointMode"))
@@ -1022,6 +1034,7 @@ func (v AVVoiceController) RecordEndpointMode() int {
 func (v AVVoiceController) SetRecordEndpointMode(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRecordEndpointMode:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/recordInterspeechWaitTime
 func (v AVVoiceController) RecordInterspeechWaitTime() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("recordInterspeechWaitTime"))
@@ -1030,6 +1043,7 @@ func (v AVVoiceController) RecordInterspeechWaitTime() float64 {
 func (v AVVoiceController) SetRecordInterspeechWaitTime(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRecordInterspeechWaitTime:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/recordStartWaitTime
 func (v AVVoiceController) RecordStartWaitTime() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("recordStartWaitTime"))
@@ -1038,6 +1052,7 @@ func (v AVVoiceController) RecordStartWaitTime() float64 {
 func (v AVVoiceController) SetRecordStartWaitTime(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRecordStartWaitTime:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceController/superclass
 func (v AVVoiceController) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
@@ -1283,4 +1298,3 @@ func (v AVVoiceController) StopRecordForStreamCompletionSync(ctx context.Context
 		return ctx.Err()
 	}
 }
-

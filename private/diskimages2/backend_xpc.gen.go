@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (bc BackendXPCClass) Alloc() BackendXPC {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [BackendXPC.Backend]
@@ -58,6 +58,7 @@ func (bc BackendXPCClass) Alloc() BackendXPC {
 //   - [BackendXPC.ReplaceWithBackendXPC]
 //   - [BackendXPC.TryCreatingCryptoHeader]
 //   - [BackendXPC.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC
 type BackendXPC struct {
 	objectivec.Object
@@ -67,6 +68,7 @@ type BackendXPC struct {
 func BackendXPCFromID(id objc.ID) BackendXPC {
 	return BackendXPC{objectivec.Object{ID: id}}
 }
+
 // Ensure BackendXPC implements IBackendXPC.
 var _ IBackendXPC = BackendXPC{}
 
@@ -126,7 +128,6 @@ func NewBackendXPC() BackendXPC {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/initWithCoder:
 func NewBackendXPCWithCoder(coder objectivec.IObject) BackendXPC {
 	instance := getBackendXPCClass().Alloc()
@@ -134,27 +135,29 @@ func NewBackendXPCWithCoder(coder objectivec.IObject) BackendXPC {
 	return BackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/encodeWithCoder:
 func (b BackendXPC) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/getCryptoHeaderBackend
 func (b BackendXPC) GetCryptoHeaderBackend() objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("getCryptoHeaderBackend"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/isUnlocked
 func (b BackendXPC) IsUnlocked() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isUnlocked"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/lock
 func (b BackendXPC) Lock() int {
 	rv := objc.Send[int](b.ID, objc.Sel("lock"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/newWithCryptoFormat:error:
 func (b BackendXPC) NewWithCryptoFormatError(format unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -166,24 +169,24 @@ func (b BackendXPC) NewWithCryptoFormatError(format unsafe.Pointer) (objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/replaceWithBackendXPC:
 func (b BackendXPC) ReplaceWithBackendXPC(xpc objectivec.IObject) {
 	objc.Send[objc.ID](b.ID, objc.Sel("replaceWithBackendXPC:"), xpc)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/tryCreatingCryptoHeader
 func (b BackendXPC) TryCreatingCryptoHeader() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("tryCreatingCryptoHeader"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/initWithCoder:
 func (b BackendXPC) InitWithCoder(coder foundation.INSCoder) BackendXPC {
 	rv := objc.Send[BackendXPC](b.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/newFileBackendWithURL:fileOpenFlags:error:
 func (_BackendXPCClass BackendXPCClass) NewFileBackendWithURLFileOpenFlagsError(url foundation.INSURL, flags int) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -195,6 +198,7 @@ func (_BackendXPCClass BackendXPCClass) NewFileBackendWithURLFileOpenFlagsError(
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/supportsSecureCoding
 func (_BackendXPCClass BackendXPCClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_BackendXPCClass.class), objc.Sel("supportsSecureCoding"))
@@ -209,14 +213,15 @@ func (b BackendXPC) Backend() objectivec.IObject {
 func (b BackendXPC) SetBackend(value objectivec.IObject) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBackend:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/cryptoHeader
 func (b BackendXPC) CryptoHeader() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](b.ID, objc.Sel("cryptoHeader"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/BackendXPC/instanceID
 func (b BackendXPC) InstanceID() foundation.NSUUID {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("instanceID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
-

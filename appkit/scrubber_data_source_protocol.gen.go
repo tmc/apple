@@ -28,6 +28,7 @@ type NSScrubberDataSource interface {
 type NSScrubberDataSourceObject struct {
 	objectivec.Object
 }
+
 func (o NSScrubberDataSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -45,14 +46,15 @@ func NSScrubberDataSourceObjectFromID(id objc.ID) NSScrubberDataSourceObject {
 // scrubber: The scrubber whose item count is being requested.
 //
 // # Return Value
-// 
+//
 // The number of items in the scrubber.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDataSource/numberOfItems(for:)
 func (o NSScrubberDataSourceObject) NumberOfItemsForScrubber(scrubber INSScrubber) int {
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfItemsForScrubber:"), scrubber)
 	return rv
-	}
+}
+
 // Asks the data source object for the view the corresponds to the specified
 // item in the scrubber.
 //
@@ -61,12 +63,11 @@ func (o NSScrubberDataSourceObject) NumberOfItemsForScrubber(scrubber INSScrubbe
 // index: The index that specifies the location of the item in the scrubber.
 //
 // # Return Value
-// 
+//
 // A configured item view object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDataSource/scrubber(_:viewForItemAt:)
 func (o NSScrubberDataSourceObject) ScrubberViewForItemAtIndex(scrubber INSScrubber, index int) INSScrubberItemView {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("scrubber:viewForItemAtIndex:"), scrubber, index)
 	return NSScrubberItemViewFromID(rv)
-	}
-
+}

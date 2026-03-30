@@ -4,10 +4,12 @@ package virtualization
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // The methods you use to respond to changes in the state of the VM.
@@ -21,6 +23,7 @@ type VZVirtualMachineDelegate interface {
 type VZVirtualMachineDelegateObject struct {
 	objectivec.Object
 }
+
 func (o VZVirtualMachineDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,7 +43,8 @@ func VZVirtualMachineDelegateObjectFromID(id objc.ID) VZVirtualMachineDelegateOb
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineDelegate/guestDidStop(_:)
 func (o VZVirtualMachineDelegateObject) GuestDidStopVirtualMachine(virtualMachine IVZVirtualMachine) {
 	objc.Send[struct{}](o.ID, objc.Sel("guestDidStopVirtualMachine:"), virtualMachine)
-	}
+}
+
 // Tells the delegate that the VM stopped because of an error.
 //
 // virtualMachine: The VM that called the delegate method.
@@ -50,7 +54,8 @@ func (o VZVirtualMachineDelegateObject) GuestDidStopVirtualMachine(virtualMachin
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineDelegate/virtualMachine(_:didStopWithError:)
 func (o VZVirtualMachineDelegateObject) VirtualMachineDidStopWithError(virtualMachine IVZVirtualMachine, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("virtualMachine:didStopWithError:"), virtualMachine, error_)
-	}
+}
+
 // The method the framework calls when an error causes a VM’s network
 // attachment to disconnect.
 //
@@ -62,7 +67,7 @@ func (o VZVirtualMachineDelegateObject) VirtualMachineDidStopWithError(virtualMa
 // device.
 //
 // # Discussion
-// 
+//
 // The system invokes this method when the network interface fails to start,
 // which results in the disconnection of the network attachment. This can
 // happen in many situations such as initial boot, device reset, reboot, and
@@ -73,7 +78,7 @@ func (o VZVirtualMachineDelegateObject) VirtualMachineDidStopWithError(virtualMa
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineDelegate/virtualMachine(_:networkDevice:attachmentWasDisconnectedWithError:)
 func (o VZVirtualMachineDelegateObject) VirtualMachineNetworkDeviceAttachmentWasDisconnectedWithError(virtualMachine IVZVirtualMachine, networkDevice IVZNetworkDevice, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("virtualMachine:networkDevice:attachmentWasDisconnectedWithError:"), virtualMachine, networkDevice, error_)
-	}
+}
 
 // VZVirtualMachineDelegateConfig holds optional typed callbacks for [VZVirtualMachineDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -168,4 +173,3 @@ func NewVZVirtualMachineDelegate(config VZVirtualMachineDelegateConfig) VZVirtua
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return VZVirtualMachineDelegateObjectFromID(instance)
 }
-

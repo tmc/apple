@@ -18,6 +18,7 @@ type OS_sec_protocol_metadata interface {
 type OS_sec_protocol_metadataObject struct {
 	objectivec.Object
 }
+
 func (o OS_sec_protocol_metadataObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func OS_sec_protocol_metadataObjectFromID(id objc.ID) OS_sec_protocol_metadataOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

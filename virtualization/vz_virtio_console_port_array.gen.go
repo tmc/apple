@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -62,6 +63,7 @@ type VZVirtioConsolePortArray struct {
 func VZVirtioConsolePortArrayFromID(id objc.ID) VZVirtioConsolePortArray {
 	return VZVirtioConsolePortArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZVirtioConsolePortArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,7 +116,7 @@ func NewVZVirtioConsolePortArray() VZVirtioConsolePortArray {
 // portIndex: The index of the port to return, if present.
 //
 // # Return Value
-// 
+//
 // A [VZVirtioConsolePort] port, or `nil` if the index is outside the bounds
 // of the array.
 //
@@ -132,4 +134,3 @@ func (v VZVirtioConsolePortArray) MaximumPortCount() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("maximumPortCount"))
 	return rv
 }
-

@@ -3,11 +3,12 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (vc VZMailboxDeviceConfigurationClass) Alloc() VZMailboxDeviceConfiguration
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMailboxDeviceConfiguration._init]
@@ -57,6 +57,7 @@ func (vc VZMailboxDeviceConfigurationClass) Alloc() VZMailboxDeviceConfiguration
 //   - [VZMailboxDeviceConfiguration.Description]
 //   - [VZMailboxDeviceConfiguration.Hash]
 //   - [VZMailboxDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMailboxDeviceConfiguration
 type VZMailboxDeviceConfiguration struct {
 	objectivec.Object
@@ -66,6 +67,7 @@ type VZMailboxDeviceConfiguration struct {
 func VZMailboxDeviceConfigurationFromID(id objc.ID) VZMailboxDeviceConfiguration {
 	return VZMailboxDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMailboxDeviceConfiguration implements IVZMailboxDeviceConfiguration.
 var _ IVZMailboxDeviceConfiguration = VZMailboxDeviceConfiguration{}
 
@@ -126,13 +128,13 @@ func (v VZMailboxDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMailboxDeviceConfiguration/encodeWithEncoder:
 func (v VZMailboxDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMailboxDeviceConfiguration/validateWithError:
 func (v VZMailboxDeviceConfiguration) ValidateWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -153,6 +155,7 @@ func (v VZMailboxDeviceConfiguration) _mailboxDevice() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_mailboxDevice"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMailboxDeviceConfiguration/attachment
 func (v VZMailboxDeviceConfiguration) Attachment() *VZMailboxDeviceAttachment {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("attachment"))
@@ -169,24 +172,27 @@ func (v VZMailboxDeviceConfiguration) SetAttachment(value *VZMailboxDeviceAttach
 	}
 	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMailboxDeviceConfiguration/debugDescription
 func (v VZMailboxDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMailboxDeviceConfiguration/description
 func (v VZMailboxDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMailboxDeviceConfiguration/hash
 func (v VZMailboxDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMailboxDeviceConfiguration/superclass
 func (v VZMailboxDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

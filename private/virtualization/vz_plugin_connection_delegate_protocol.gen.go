@@ -4,9 +4,11 @@ package virtualization
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // _VZPluginConnectionDelegate protocol.
@@ -25,6 +27,7 @@ type VZPluginConnectionDelegate interface {
 type VZPluginConnectionDelegateObject struct {
 	objectivec.Object
 }
+
 func (o VZPluginConnectionDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,15 +40,15 @@ func VZPluginConnectionDelegateObjectFromID(id objc.ID) VZPluginConnectionDelega
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPluginConnectionDelegate/handleConnectionError:
 func (o VZPluginConnectionDelegateObject) HandleConnectionError(error_ objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("handleConnectionError:"), error_)
-	}
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPluginConnectionDelegate/invalidateConnection
 func (o VZPluginConnectionDelegateObject) InvalidateConnection() {
 	objc.Send[struct{}](o.ID, objc.Sel("invalidateConnection"))
-	}
+}
 
 // VZPluginConnectionDelegateConfig holds optional typed callbacks for [_VZPluginConnectionDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -105,4 +108,3 @@ func NewVZPluginConnectionDelegate(config VZPluginConnectionDelegateConfig) VZPl
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return VZPluginConnectionDelegateObjectFromID(instance)
 }
-

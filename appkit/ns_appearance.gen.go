@@ -5,8 +5,9 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (nc NSAppearanceClass) Alloc() NSAppearance {
 // app.
 //
 // # Overview
-// 
+//
 // An [NSAppearance] object manages how AppKit renders your app’s UI
 // elements. Specifically, appearance objects determine which colors and
 // images AppKit uses when drawing windows, views, and controls. Although you
@@ -56,14 +57,14 @@ func (nc NSAppearanceClass) Alloc() NSAppearance {
 // automatically to the current appearance. For example, define a color asset
 // whose actual color value changes for light and dark appearances. You can
 // assign specific appearances to your views in Interface Builder.
-// 
+//
 // The user chooses the default appearance for the system, but you can
 // override that appearance for all or part of your app. Apps inherit the
 // default system appearance, windows inherit their app’s appearance, and
 // views inherit the appearance of their nearest ancestor (either a superview
 // or window). To force a window or view to adopt an appearance, assign a
 // specific appearance object to its [Appearance] property.
-// 
+//
 // When AppKit draws a control, it automatically sets the current appearance
 // on the current thread to the control’s appearance. The current appearance
 // influences the drawing path and return values you get when you access
@@ -103,6 +104,7 @@ type NSAppearance struct {
 func NSAppearanceFromID(id objc.ID) NSAppearance {
 	return NSAppearance{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAppearance adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -159,7 +161,7 @@ type INSAppearance interface {
 	// Specifies whether the current appearance allows vibrancy.
 	AllowsVibrancy() bool
 
-	// The appearance of the receiver, in an 
+	// The appearance of the receiver, in an
 	Appearance() INSAppearance
 	SetAppearance(value INSAppearance)
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -191,17 +193,17 @@ func NewNSAppearance() NSAppearance {
 // standard appearance names.
 //
 // # Return Value
-// 
+//
 // A standard [NSAppearance] object.
 //
 // # Discussion
-// 
+//
 // When you specify a standard appearance name—such as [aqua]—this method
 // returns a built-in appearance.
 //
-// [aqua]: https://developer.apple.com/documentation/AppKit/NSAppearance/Name-swift.struct/aqua
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/init(named:)
+//
+// [aqua]: https://developer.apple.com/documentation/AppKit/NSAppearance/Name-swift.struct/aqua
 func NewAppearanceNamed(name NSAppearanceName) NSAppearance {
 	rv := objc.Send[objc.ID](objc.ID(getNSAppearanceClass().class), objc.Sel("appearanceNamed:"), objc.String(string(name)))
 	return NSAppearanceFromID(rv)
@@ -217,7 +219,7 @@ func NewAppearanceNamed(name NSAppearanceName) NSAppearance {
 // to search for the appearance file in the main bundle.
 //
 // # Return Value
-// 
+//
 // An initialized appearance object, or `nil` if an error occurs.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/init(appearanceNamed:bundle:)
@@ -227,7 +229,6 @@ func NewAppearanceWithAppearanceNamedBundle(name NSAppearanceName, bundle founda
 	return NSAppearanceFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/init(coder:)
 func NewAppearanceWithCoder(coder foundation.INSCoder) NSAppearance {
 	instance := getNSAppearanceClass().Alloc()
@@ -245,7 +246,7 @@ func NewAppearanceWithCoder(coder foundation.INSCoder) NSAppearance {
 // to search for the appearance file in the main bundle.
 //
 // # Return Value
-// 
+//
 // An initialized appearance object, or `nil` if an error occurs.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/init(appearanceNamed:bundle:)
@@ -253,12 +254,13 @@ func (a NSAppearance) InitWithAppearanceNamedBundle(name NSAppearanceName, bundl
 	rv := objc.Send[NSAppearance](a.ID, objc.Sel("initWithAppearanceNamed:bundle:"), objc.String(string(name)), bundle)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/init(coder:)
 func (a NSAppearance) InitWithCoder(coder foundation.INSCoder) NSAppearance {
 	rv := objc.Send[NSAppearance](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Returns the appearance name that most closely matches the current
 // appearance object.
 //
@@ -266,12 +268,12 @@ func (a NSAppearance) InitWithCoder(coder foundation.INSCoder) NSAppearance {
 // supports.
 //
 // # Return Value
-// 
+//
 // The name of the appearance that most closely matches the current appearance
 // object.
 //
 // # Discussion
-// 
+//
 // You can use this method in situations where your app doesn’t fully
 // support the current appearance, but supports a different appearance object
 // that has similar qualities. This method returns the name from the
@@ -283,6 +285,7 @@ func (a NSAppearance) BestMatchFromAppearancesWithNames(appearances []string) NS
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("bestMatchFromAppearancesWithNames:"), objectivec.StringSliceToNSArray(appearances))
 	return NSAppearanceName(foundation.NSStringFromID(rv).String())
 }
+
 // Sets the appearance to be the active drawing appearance and perform the
 // specified block.
 //
@@ -290,35 +293,22 @@ func (a NSAppearance) BestMatchFromAppearancesWithNames(appearances []string) NS
 // appearance.
 //
 // # Discussion
-// 
+//
 // This method saves and restores the previous current appearance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/performAsCurrentDrawingAppearance(_:)
 func (a NSAppearance) PerformAsCurrentDrawingAppearance(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("performAsCurrentDrawingAppearance:"), _block0)
 }
 func (a NSAppearance) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// The appearance that the system uses for color and asset resolution, and
-// that’s active for drawing, usually from locking focus on a view.
-//
-// # Return Value
-// 
-// The current appearance used for drawing.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAppearance/currentDrawing()
-func (_NSAppearanceClass NSAppearanceClass) CurrentDrawingAppearance() NSAppearance {
-	rv := objc.Send[objc.ID](objc.ID(_NSAppearanceClass.class), objc.Sel("currentDrawingAppearance"))
-	return NSAppearanceFromID(rv)
-}
-
 // The name of the appearance.
 //
 // # Discussion
-// 
+//
 // For a list of standard appearance names, see [NSAppearanceName].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/name-swift.property
@@ -326,6 +316,7 @@ func (a NSAppearance) Name() NSAppearanceName {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return NSAppearanceName(foundation.NSStringFromID(rv).String())
 }
+
 // Specifies whether the current appearance allows vibrancy.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/allowsVibrancy
@@ -333,6 +324,7 @@ func (a NSAppearance) AllowsVibrancy() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("allowsVibrancy"))
 	return rv
 }
+
 // The appearance of the receiver, in an
 //
 // See: https://developer.apple.com/documentation/appkit/nsappearancecustomization/appearance
@@ -342,6 +334,15 @@ func (a NSAppearance) Appearance() INSAppearance {
 }
 func (a NSAppearance) SetAppearance(value INSAppearance) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAppearance:"), value)
+}
+
+// The appearance that the system uses for color and asset resolution, and
+// that’s active for drawing, usually from locking focus on a view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAppearance/currentDrawingAppearance
+func (_NSAppearanceClass NSAppearanceClass) CurrentDrawingAppearance() NSAppearance {
+	rv := objc.Send[objc.ID](objc.ID(_NSAppearanceClass.class), objc.Sel("currentDrawingAppearance"))
+	return NSAppearanceFromID(objc.ID(rv))
 }
 
 // PerformAsCurrentDrawingAppearanceSync is a synchronous wrapper around [NSAppearance.PerformAsCurrentDrawingAppearance].
@@ -358,4 +359,3 @@ func (a NSAppearance) PerformAsCurrentDrawingAppearanceSync(ctx context.Context)
 		return ctx.Err()
 	}
 }
-

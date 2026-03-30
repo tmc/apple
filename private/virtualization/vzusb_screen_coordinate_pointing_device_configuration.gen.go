@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZUSBScreenCoordinatePointingDeviceConfiguration struct {
 func VZUSBScreenCoordinatePointingDeviceConfigurationFromID(id objc.ID) VZUSBScreenCoordinatePointingDeviceConfiguration {
 	return VZUSBScreenCoordinatePointingDeviceConfiguration{VZPointingDeviceConfiguration: VZPointingDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZUSBScreenCoordinatePointingDeviceConfiguration implements IVZUSBScreenCoordinatePointingDeviceConfiguration.
 var _ IVZUSBScreenCoordinatePointingDeviceConfiguration = VZUSBScreenCoordinatePointingDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZUSBScreenCoordinatePointingDeviceConfiguration() VZUSBScreenCoordinate
 	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

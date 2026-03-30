@@ -3,8 +3,9 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,10 +43,10 @@ func (vc VZForwardingDebugStubConfigurationClass) Alloc() VZForwardingDebugStubC
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZForwardingDebugStubConfiguration._initWithDebugStub]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZForwardingDebugStubConfiguration
 type VZForwardingDebugStubConfiguration struct {
 	VZDebugStubConfiguration
@@ -55,6 +56,7 @@ type VZForwardingDebugStubConfiguration struct {
 func VZForwardingDebugStubConfigurationFromID(id objc.ID) VZForwardingDebugStubConfiguration {
 	return VZForwardingDebugStubConfiguration{VZDebugStubConfiguration: VZDebugStubConfigurationFromID(id)}
 }
+
 // Ensure VZForwardingDebugStubConfiguration implements IVZForwardingDebugStubConfiguration.
 var _ IVZForwardingDebugStubConfiguration = VZForwardingDebugStubConfiguration{}
 
@@ -92,7 +94,6 @@ func NewVZForwardingDebugStubConfiguration() VZForwardingDebugStubConfiguration 
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZForwardingDebugStubConfiguration/_initWithDebugStub:
 func (v VZForwardingDebugStubConfiguration) _initWithDebugStub(stub unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithDebugStub:"), stub)
@@ -103,4 +104,3 @@ func (v VZForwardingDebugStubConfiguration) _initWithDebugStub(stub unsafe.Point
 func (v VZForwardingDebugStubConfiguration) InitWithDebugStub(stub unsafe.Pointer) objectivec.IObject {
 	return v._initWithDebugStub(stub)
 }
-

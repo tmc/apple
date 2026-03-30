@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (vc VZMacTrackpadConfigurationClass) Alloc() VZMacTrackpadConfiguration {
 // The class that represents the configuration for a Mac trackpad.
 //
 // # Overview
-// 
+//
 // The [VZVirtualMachineView] uses this device to send pointer events and
 // multi-touch trackpad gestures to the virtual machine. In macOS 13 and
 // later, guests use the multi-touch trackpad device, while earlier versions
@@ -60,6 +61,7 @@ type VZMacTrackpadConfiguration struct {
 func VZMacTrackpadConfigurationFromID(id objc.ID) VZMacTrackpadConfiguration {
 	return VZMacTrackpadConfiguration{VZPointingDeviceConfiguration: VZPointingDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZMacTrackpadConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -103,4 +105,3 @@ func (m VZMacTrackpadConfiguration) PointingDevices() IVZPointingDeviceConfigura
 func (m VZMacTrackpadConfiguration) SetPointingDevices(value IVZPointingDeviceConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPointingDevices:"), value)
 }
-

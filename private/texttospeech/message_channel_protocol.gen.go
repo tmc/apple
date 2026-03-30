@@ -23,6 +23,7 @@ type AUMessageChannel interface {
 type AUMessageChannelObject struct {
 	objectivec.Object
 }
+
 func (o AUMessageChannelObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -35,15 +36,14 @@ func AUMessageChannelObjectFromID(id objc.ID) AUMessageChannelObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/AUMessageChannel/callAudioUnit:
 func (o AUMessageChannelObject) CallAudioUnit(unit objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("callAudioUnit:"), unit)
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/TextToSpeech/AUMessageChannel/callHostBlock
 func (o AUMessageChannelObject) CallHostBlock() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("callHostBlock"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

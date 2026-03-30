@@ -33,6 +33,7 @@ type MTL4CompilerTask interface {
 type MTL4CompilerTaskObject struct {
 	objectivec.Object
 }
+
 func (o MTL4CompilerTaskObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -52,19 +53,20 @@ func MTL4CompilerTaskObjectFromID(id objc.ID) MTL4CompilerTaskObject {
 func (o MTL4CompilerTaskObject) Compiler() MTL4Compiler {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("compiler"))
 	return MTL4CompilerObjectFromID(rv)
-	}
+}
+
 // Returns the compiler task status.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/status
 func (o MTL4CompilerTaskObject) Status() MTL4CompilerTaskStatus {
 	rv := objc.Send[MTL4CompilerTaskStatus](o.ID, objc.Sel("status"))
 	return rv
-	}
+}
+
 // Waits synchronously for this compile task to complete by blocking the
 // calling thread.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/waitUntilCompleted
 func (o MTL4CompilerTaskObject) WaitUntilCompleted() {
 	objc.Send[struct{}](o.ID, objc.Sel("waitUntilCompleted"))
-	}
-
+}

@@ -4,9 +4,10 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (cc CISamplerClass) Alloc() CISampler {
 // An object that retrieves pixel samples for processing by a filter kernel.
 //
 // # Overview
-// 
+//
 // The [CISampler] class retrieves samples of images for processing by a
 // [CIKernel] object. A [CISampler] object defines a coordinate transform, and
 // modes for interpolation and wrapping. You use [CISampler] objects in
@@ -74,6 +75,7 @@ type CISampler struct {
 func CISamplerFromID(id objc.ID) CISampler {
 	return CISampler{objectivec.Object{ID: id}}
 }
+
 // NOTE: CISampler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -150,10 +152,10 @@ func NewSamplerWithImage(im ICIImage) CISampler {
 // followed by that appropriate value. You can supply one or more key-value
 // pairs. Use `nil` to specify the end of the key-value options. See [Sampler
 // Option Keys].
-// //
-// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISampler/initWithImage:keysAndValues:
+//
+// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 func NewSamplerWithImageKeysAndValues(im ICIImage, key0 objectivec.IObject) CISampler {
 	instance := getCISamplerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImage:keysAndValues:"), im, key0)
@@ -167,10 +169,10 @@ func NewSamplerWithImageKeysAndValues(im ICIImage, key0 objectivec.IObject) CISa
 //
 // dict: A dictionary that contains options specified as key-value pairs. See
 // [Sampler Option Keys].
-// //
-// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISampler/init(image:options:)
+//
+// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 func NewSamplerWithImageOptions(im ICIImage, dict foundation.INSDictionary) CISampler {
 	instance := getCISamplerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImage:options:"), im, dict)
@@ -186,6 +188,7 @@ func (s CISampler) InitWithImage(im ICIImage) CISampler {
 	rv := objc.Send[CISampler](s.ID, objc.Sel("initWithImage:"), im)
 	return rv
 }
+
 // Initializes the sampler with an image object using options specified in a
 // dictionary.
 //
@@ -193,14 +196,15 @@ func (s CISampler) InitWithImage(im ICIImage) CISampler {
 //
 // dict: A dictionary that contains options specified as key-value pairs. See
 // [Sampler Option Keys].
-// //
-// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISampler/init(image:options:)
+//
+// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 func (s CISampler) InitWithImageOptions(im ICIImage, dict foundation.INSDictionary) CISampler {
 	rv := objc.Send[CISampler](s.ID, objc.Sel("initWithImage:options:"), im, dict)
 	return rv
 }
+
 // Initializes the sampler with an image object using options specified as
 // key-value pairs.
 //
@@ -210,10 +214,10 @@ func (s CISampler) InitWithImageOptions(im ICIImage, dict foundation.INSDictiona
 // followed by that appropriate value. You can supply one or more key-value
 // pairs. Use `nil` to specify the end of the key-value options. See [Sampler
 // Option Keys].
-// //
-// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISampler/initWithImage:keysAndValues:
+//
+// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 func (s CISampler) InitWithImageKeysAndValues(im ICIImage, key0 objectivec.IObject) CISampler {
 	rv := objc.Send[CISampler](s.ID, objc.Sel("initWithImage:keysAndValues:"), im, key0)
 	return rv
@@ -224,7 +228,7 @@ func (s CISampler) InitWithImageKeysAndValues(im ICIImage, key0 objectivec.IObje
 // im: The image that you want the sampler to reference.
 //
 // # Return Value
-// 
+//
 // A sampler object that references the image specified by the `im` argument.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISampler/samplerWithImage:
@@ -232,6 +236,7 @@ func (_CISamplerClass CISamplerClass) SamplerWithImage(im ICIImage) CISampler {
 	rv := objc.Send[objc.ID](objc.ID(_CISamplerClass.class), objc.Sel("samplerWithImage:"), im)
 	return CISamplerFromID(rv)
 }
+
 // Creates and returns a sampler that references an image using options
 // specified as key-value pairs.
 //
@@ -241,19 +246,20 @@ func (_CISamplerClass CISamplerClass) SamplerWithImage(im ICIImage) CISampler {
 // followed by that appropriate value. You can supply one or more key-value
 // pairs. Use `nil` to specify the end of the key-value options. See [Sampler
 // Option Keys].
-// //
-// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 //
 // # Return Value
-// 
+//
 // A sampler that references the image specified by the `im` argument and uses
 // the specified options.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISampler/samplerWithImage:keysAndValues:
+//
+// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 func (_CISamplerClass CISamplerClass) SamplerWithImageKeysAndValues(im ICIImage, key0 objectivec.IObject) CISampler {
 	rv := objc.Send[objc.ID](objc.ID(_CISamplerClass.class), objc.Sel("samplerWithImage:keysAndValues:"), im, key0)
 	return CISamplerFromID(rv)
 }
+
 // Creates and returns a sampler that references an image using options
 // specified in a dictionary.
 //
@@ -261,15 +267,15 @@ func (_CISamplerClass CISamplerClass) SamplerWithImageKeysAndValues(im ICIImage,
 //
 // dict: A dictionary that contains options specified as key-value pairs. See
 // [Sampler Option Keys].
-// //
-// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 //
 // # Return Value
-// 
+//
 // A sampler that references the image specified by the `im` argument and uses
 // the options specified in the dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISampler/samplerWithImage:options:
+//
+// [Sampler Option Keys]: https://developer.apple.com/documentation/CoreImage/sampler-option-keys
 func (_CISamplerClass CISamplerClass) SamplerWithImageOptions(im ICIImage, dict foundation.INSDictionary) CISampler {
 	rv := objc.Send[objc.ID](objc.ID(_CISamplerClass.class), objc.Sel("samplerWithImage:options:"), im, dict)
 	return CISamplerFromID(rv)
@@ -278,7 +284,7 @@ func (_CISamplerClass CISamplerClass) SamplerWithImageOptions(im ICIImage, dict 
 // The domain of definition (DOD) of the sampler
 //
 // # Discussion
-// 
+//
 // The DOD contains all nontransparent pixels produced by referencing the
 // sampler.
 //
@@ -287,10 +293,11 @@ func (s CISampler) Definition() ICIFilterShape {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("definition"))
 	return CIFilterShapeFromID(objc.ID(rv))
 }
+
 // The rectangle that specifies the extent of the sampler
 //
 // # Discussion
-// 
+//
 // Extent is the rectangle that specifies the area outside which the wrap mode
 // set for the sampler is invoked.
 //
@@ -299,4 +306,3 @@ func (s CISampler) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("extent"))
 	return corefoundation.CGRect(rv)
 }
-

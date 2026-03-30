@@ -39,6 +39,7 @@ type CIBoxBlur interface {
 type CIBoxBlurObject struct {
 	objectivec.Object
 }
+
 func (o CIBoxBlurObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIBoxBlurObjectFromID(id objc.ID) CIBoxBlurObject {
 func (o CIBoxBlurObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The radius of the blur, in pixels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBoxBlur/radius
 func (o CIBoxBlurObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIBoxBlurObject) Radius() float32 {
 func (o CIBoxBlurObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBoxBlur/inputImage
 func (o CIBoxBlurObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The radius of the blur, in pixels.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBoxBlur/radius
 func (o CIBoxBlurObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

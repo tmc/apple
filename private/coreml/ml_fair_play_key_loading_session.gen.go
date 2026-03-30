@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLFairPlayKeyLoadingSessionClass) Alloc() MLFairPlayKeyLoadingSession {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLFairPlayKeyLoadingSession.GenerateKeyRequestForKeyIdentifierTeamIdentifierError]
@@ -55,6 +55,7 @@ func (mc MLFairPlayKeyLoadingSessionClass) Alloc() MLFairPlayKeyLoadingSession {
 //   - [MLFairPlayKeyLoadingSession.SessionID]
 //   - [MLFairPlayKeyLoadingSession.SetSessionID]
 //   - [MLFairPlayKeyLoadingSession.TransformKeyIdentifierError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession
 type MLFairPlayKeyLoadingSession struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type MLFairPlayKeyLoadingSession struct {
 func MLFairPlayKeyLoadingSessionFromID(id objc.ID) MLFairPlayKeyLoadingSession {
 	return MLFairPlayKeyLoadingSession{objectivec.Object{ID: id}}
 }
+
 // Ensure MLFairPlayKeyLoadingSession implements IMLFairPlayKeyLoadingSession.
 var _ IMLFairPlayKeyLoadingSession = MLFairPlayKeyLoadingSession{}
 
@@ -117,7 +119,6 @@ func NewMLFairPlayKeyLoadingSession() MLFairPlayKeyLoadingSession {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/generateKeyRequestForKeyIdentifier:teamIdentifier:error:
 func (f MLFairPlayKeyLoadingSession) GenerateKeyRequestForKeyIdentifierTeamIdentifierError(identifier objectivec.IObject, identifier2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -129,7 +130,7 @@ func (f MLFairPlayKeyLoadingSession) GenerateKeyRequestForKeyIdentifierTeamIdent
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/generatePersistentKeyBlobFromKeyResponse:error:
 func (f MLFairPlayKeyLoadingSession) GeneratePersistentKeyBlobFromKeyResponseError(response objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -141,7 +142,7 @@ func (f MLFairPlayKeyLoadingSession) GeneratePersistentKeyBlobFromKeyResponseErr
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/transformKeyIdentifier:error:
 func (f MLFairPlayKeyLoadingSession) TransformKeyIdentifierError(identifier objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -162,6 +163,7 @@ func (f MLFairPlayKeyLoadingSession) KeyIdentifier() string {
 func (f MLFairPlayKeyLoadingSession) SetKeyIdentifier(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setKeyIdentifier:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/sessionContext
 func (f MLFairPlayKeyLoadingSession) SessionContext() objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sessionContext"))
@@ -170,6 +172,7 @@ func (f MLFairPlayKeyLoadingSession) SessionContext() objectivec.IObject {
 func (f MLFairPlayKeyLoadingSession) SetSessionContext(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setSessionContext:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayKeyLoadingSession/sessionID
 func (f MLFairPlayKeyLoadingSession) SessionID() uint32 {
 	rv := objc.Send[uint32](f.ID, objc.Sel("sessionID"))
@@ -178,4 +181,3 @@ func (f MLFairPlayKeyLoadingSession) SessionID() uint32 {
 func (f MLFairPlayKeyLoadingSession) SetSessionID(value uint32) {
 	objc.Send[struct{}](f.ID, objc.Sel("setSessionID:"), value)
 }
-

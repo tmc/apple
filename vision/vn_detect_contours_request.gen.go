@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNDetectContoursRequest] class.
@@ -69,6 +70,7 @@ type VNDetectContoursRequest struct {
 func VNDetectContoursRequestFromID(id objc.ID) VNDetectContoursRequest {
 	return VNDetectContoursRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectContoursRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -138,7 +140,7 @@ func NewVNDetectContoursRequest() VNDetectContoursRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -153,11 +155,11 @@ func NewDetectContoursRequestWithCompletionHandler(completionHandler VNRequestCo
 // The amount by which to adjust the image contrast.
 //
 // # Discussion
-// 
+//
 // Contour detection works best with high-contrast images. The default value
 // of this property is `2.0`, which doubles the image contrast to achieve the
 // most accurate results.
-// 
+//
 // This property supports a value range from `0.0` to `3.0`.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectContoursRequest/contrastAdjustment
@@ -168,14 +170,15 @@ func (d VNDetectContoursRequest) ContrastAdjustment() float32 {
 func (d VNDetectContoursRequest) SetContrastAdjustment(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContrastAdjustment:"), value)
 }
+
 // The pixel value to use as a pivot for the contrast.
 //
 // # Discussion
-// 
+//
 // Numeric values range from `0.0` to `1.0`. You can also specify `nil` to
 // have the framework automatically detect the value according to image
 // intensity.
-// 
+//
 // The default value is `0.5`, which indicates the pixel center.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectContoursRequest/contrastPivot
@@ -186,14 +189,13 @@ func (d VNDetectContoursRequest) ContrastPivot() foundation.NSNumber {
 func (d VNDetectContoursRequest) SetContrastPivot(value foundation.NSNumber) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContrastPivot:"), value)
 }
+
 // A Boolean value that indicates whether the request detects a dark object on
 // a light background to aid in detection.
 //
 // # Discussion
-// 
-// The default value is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value is true.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectContoursRequest/detectsDarkOnLight
 func (d VNDetectContoursRequest) DetectsDarkOnLight() bool {
@@ -203,22 +205,23 @@ func (d VNDetectContoursRequest) DetectsDarkOnLight() bool {
 func (d VNDetectContoursRequest) SetDetectsDarkOnLight(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDetectsDarkOnLight:"), value)
 }
+
 // The maximum image dimension to use for contour detection.
 //
 // # Discussion
-// 
+//
 // Contour detection is computationally intensive. To improve performance,
 // Vision scales the input image down, while maintaining its aspect ratio,
 // such that its maximum dimension is the value of this property. Vision never
 // scales the image up, so specifying the maximum value ensures that the image
 // processes in its original size and not as a downscaled version.
-// 
+//
 // This property supports values from 64 to [NSUIntegerMax]. The default value
 // is 512.
 //
-// [NSUIntegerMax]: https://developer.apple.com/documentation/ObjectiveC/NSUIntegerMax
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectContoursRequest/maximumImageDimension
+//
+// [NSUIntegerMax]: https://developer.apple.com/documentation/ObjectiveC/NSUIntegerMax
 func (d VNDetectContoursRequest) MaximumImageDimension() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("maximumImageDimension"))
 	return rv
@@ -226,6 +229,7 @@ func (d VNDetectContoursRequest) MaximumImageDimension() uint {
 func (d VNDetectContoursRequest) SetMaximumImageDimension(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumImageDimension:"), value)
 }
+
 // A constant for specifying revision 1 of the contours detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectcontourrequestrevision1
@@ -233,4 +237,3 @@ func (d VNDetectContoursRequest) VNDetectContourRequestRevision1() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectContourRequestRevision1"))
 	return rv
 }
-

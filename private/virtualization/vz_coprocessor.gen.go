@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZCoprocessorClass) Alloc() VZCoprocessor {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCoprocessor._init]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessor
 type VZCoprocessor struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZCoprocessor struct {
 func VZCoprocessorFromID(id objc.ID) VZCoprocessor {
 	return VZCoprocessor{objectivec.Object{ID: id}}
 }
+
 // Ensure VZCoprocessor implements IVZCoprocessor.
 var _ IVZCoprocessor = VZCoprocessor{}
 
@@ -96,4 +98,3 @@ func (v VZCoprocessor) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-

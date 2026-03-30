@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMetadataDogBodyObjectClass) Alloc() AVMetadataDogBodyObject {
 // An object representing a single detected dog body in a picture.
 //
 // # Overview
-// 
+//
 // This object is an immutable type that describes the various features found
 // in the dog body in a picture.
 //
@@ -58,6 +59,7 @@ type AVMetadataDogBodyObject struct {
 func AVMetadataDogBodyObjectFromID(id objc.ID) AVMetadataDogBodyObject {
 	return AVMetadataDogBodyObject{AVMetadataBodyObject: AVMetadataBodyObjectFromID(id)}
 }
+
 // NOTE: AVMetadataDogBodyObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewAVMetadataDogBodyObject() AVMetadataDogBodyObject {
 	rv := objc.Send[AVMetadataDogBodyObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

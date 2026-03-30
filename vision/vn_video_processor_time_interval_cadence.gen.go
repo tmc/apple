@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -61,6 +62,7 @@ type VNVideoProcessorTimeIntervalCadence struct {
 func VNVideoProcessorTimeIntervalCadenceFromID(id objc.ID) VNVideoProcessorTimeIntervalCadence {
 	return VNVideoProcessorTimeIntervalCadence{VNVideoProcessorCadence: VNVideoProcessorCadenceFromID(id)}
 }
+
 // NOTE: VNVideoProcessorTimeIntervalCadence adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -136,4 +138,3 @@ func (v VNVideoProcessorTimeIntervalCadence) TimeInterval() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("timeInterval"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -59,6 +60,7 @@ type VNFaceLandmarkRegion struct {
 func VNFaceLandmarkRegionFromID(id objc.ID) VNFaceLandmarkRegion {
 	return VNFaceLandmarkRegion{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNFaceLandmarkRegion adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,7 +112,7 @@ func (f VNFaceLandmarkRegion) EncodeWithCoder(coder foundation.INSCoder) {
 // The number of points in the face region.
 //
 // # Discussion
-// 
+//
 // The value is zero if no points for a region could be found.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion/pointCount
@@ -118,6 +120,7 @@ func (f VNFaceLandmarkRegion) PointCount() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("pointCount"))
 	return rv
 }
+
 // The facial features of the detected face.
 //
 // See: https://developer.apple.com/documentation/vision/vnfaceobservation/landmarks
@@ -128,6 +131,7 @@ func (f VNFaceLandmarkRegion) Landmarks() IVNFaceLandmarks2D {
 func (f VNFaceLandmarkRegion) SetLandmarks(value IVNFaceLandmarks2D) {
 	objc.Send[struct{}](f.ID, objc.Sel("setLandmarks:"), value)
 }
+
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //
@@ -137,6 +141,4 @@ func (f VNFaceLandmarkRegion) RequestRevision() uint {
 	return rv
 }
 
-			// Protocol methods for VNRequestRevisionProviding
-			
-
+// Protocol methods for VNRequestRevisionProviding

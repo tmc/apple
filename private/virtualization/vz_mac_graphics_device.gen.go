@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,11 +41,11 @@ func (vc VZMacGraphicsDeviceClass) Alloc() VZMacGraphicsDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacGraphicsDevice._deviceFeatureLevel]
 //   - [VZMacGraphicsDevice._prefersLowPower]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDevice
 type VZMacGraphicsDevice struct {
 	VZGraphicsDevice
@@ -54,6 +55,7 @@ type VZMacGraphicsDevice struct {
 func VZMacGraphicsDeviceFromID(id objc.ID) VZMacGraphicsDevice {
 	return VZMacGraphicsDevice{VZGraphicsDevice: VZGraphicsDeviceFromID(id)}
 }
+
 // Ensure VZMacGraphicsDevice implements IVZMacGraphicsDevice.
 var _ IVZMacGraphicsDevice = VZMacGraphicsDevice{}
 
@@ -103,6 +105,7 @@ func (m VZMacGraphicsDevice) _deviceFeatureLevel() int64 {
 func (m VZMacGraphicsDevice) DeviceFeatureLevel() int64 {
 	return m._deviceFeatureLevel()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDevice/_prefersLowPower
 func (m VZMacGraphicsDevice) _prefersLowPower() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_prefersLowPower"))
@@ -113,4 +116,3 @@ func (m VZMacGraphicsDevice) _prefersLowPower() bool {
 func (m VZMacGraphicsDevice) PrefersLowPower() bool {
 	return m._prefersLowPower()
 }
-

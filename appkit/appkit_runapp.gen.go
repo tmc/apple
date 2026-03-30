@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"runtime"
+
 	"github.com/tmc/apple/foundation"
 )
 
@@ -25,4 +26,3 @@ func RunApp(setupFn func(app NSApplication, delegate NSApplicationDelegateObject
 	app.SetDelegate(delegateObj)
 	app.Run()
 }
-

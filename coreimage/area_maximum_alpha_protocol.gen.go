@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -21,6 +21,7 @@ type CIAreaMaximumAlpha interface {
 type CIAreaMaximumAlphaObject struct {
 	objectivec.Object
 }
+
 func (o CIAreaMaximumAlphaObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,14 +38,16 @@ func CIAreaMaximumAlphaObjectFromID(id objc.ID) CIAreaMaximumAlphaObject {
 func (o CIAreaMaximumAlphaObject) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIAreaMaximumAlphaObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -52,13 +55,16 @@ func (o CIAreaMaximumAlphaObject) InputImage() ICIImage {
 func (o CIAreaMaximumAlphaObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
 func (o CIAreaMaximumAlphaObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIAreaMaximumAlphaObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type HostName struct {
 func HostNameFromID(id objc.ID) HostName {
 	return HostName{objectivec.Object{ID: id}}
 }
+
 // Ensure HostName implements IHostName.
 var _ IHostName = HostName{}
 
@@ -78,4 +80,3 @@ func NewHostName() HostName {
 	rv := objc.Send[HostName](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

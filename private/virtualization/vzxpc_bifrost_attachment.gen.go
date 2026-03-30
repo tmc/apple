@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZXPCBifrostAttachment struct {
 func VZXPCBifrostAttachmentFromID(id objc.ID) VZXPCBifrostAttachment {
 	return VZXPCBifrostAttachment{VZBifrostAttachment: VZBifrostAttachmentFromID(id)}
 }
+
 // Ensure VZXPCBifrostAttachment implements IVZXPCBifrostAttachment.
 var _ IVZXPCBifrostAttachment = VZXPCBifrostAttachment{}
 
@@ -77,4 +79,3 @@ func NewVZXPCBifrostAttachment() VZXPCBifrostAttachment {
 	rv := objc.Send[VZXPCBifrostAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

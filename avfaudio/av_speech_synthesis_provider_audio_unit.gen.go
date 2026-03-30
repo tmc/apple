@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,15 +45,15 @@ func (ac AVSpeechSynthesisProviderAudioUnitClass) Alloc() AVSpeechSynthesisProvi
 // An object that generates speech from text.
 //
 // # Overview
-// 
+//
 // Use a speech synthesizer audio unit to generate audio buffers that contain
 // speech for a given voice and speech markup. The audio unit receives an
 // [AVSpeechSynthesisProviderRequest] as input, and extracts audio buffers
 // through the render block.
-// 
+//
 // Use [AVSpeechSynthesisProviderAudioUnit.SpeechSynthesisOutputMetadataBlock] to provide metadata as an array of
 // [AVSpeechSynthesisMarker].
-// 
+//
 // The system scans and loads voices for audio unit extensions of this type,
 // and the voices it provides are available for use in [AVSpeechSynthesizer]
 // and accessibility technologies like VoiceOver and Speak Screen.
@@ -86,6 +87,7 @@ type AVSpeechSynthesisProviderAudioUnit struct {
 func AVSpeechSynthesisProviderAudioUnitFromID(id objc.ID) AVSpeechSynthesisProviderAudioUnit {
 	return AVSpeechSynthesisProviderAudioUnit{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSpeechSynthesisProviderAudioUnit adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -160,18 +162,19 @@ func NewAVSpeechSynthesisProviderAudioUnit() AVSpeechSynthesisProviderAudioUnit 
 // speechRequest: A speech request to synthesize.
 //
 // # Discussion
-// 
+//
 // When the synthesizer finishes generating audio buffers for the speech
 // request, use [AUInternalRenderBlock] to report
 // [offlineUnitRenderAction_Complete].
 //
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderAudioUnit/synthesizeSpeechRequest(_:)
+//
 // [AUInternalRenderBlock]: https://developer.apple.com/documentation/AudioToolbox/AUInternalRenderBlock
 // [offlineUnitRenderAction_Complete]: https://developer.apple.com/documentation/AudioToolbox/AudioUnitRenderActionFlags/offlineUnitRenderAction_Complete
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderAudioUnit/synthesizeSpeechRequest(_:)
 func (s AVSpeechSynthesisProviderAudioUnit) SynthesizeSpeechRequest(speechRequest IAVSpeechSynthesisProviderRequest) {
 	objc.Send[objc.ID](s.ID, objc.Sel("synthesizeSpeechRequest:"), speechRequest)
 }
+
 // Informs the audio unit to discard the speech request.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderAudioUnit/cancelSpeechRequest()
@@ -182,16 +185,16 @@ func (s AVSpeechSynthesisProviderAudioUnit) CancelSpeechRequest() {
 // A block that subclasses use to send marker information to the host.
 //
 // # Discussion
-// 
+//
 // A host sets this block to retrieve metadata for a request.
-// 
+//
 // A synthesizer calls this method when it produces data relevant to the audio
 // buffers it’s sending back to a host. In some cases, the system may delay
 // speech output until it delivers these markers. For example, word
 // highlighting depends on marker data from synthesizers to time what word to
 // highlight. The array of markers can reference audio buffers that the system
 // delivers at a later time.
-// 
+//
 // There may be cases where a subclass doesn’t have marker data until it
 // completes extra audio processing. If marker data changes, this block
 // replaces that audio buffer range’s marker data.
@@ -204,10 +207,11 @@ func (s AVSpeechSynthesisProviderAudioUnit) SpeechSynthesisOutputMetadataBlock()
 func (s AVSpeechSynthesisProviderAudioUnit) SetSpeechSynthesisOutputMetadataBlock(value AVSpeechSynthesisProviderOutputBlock) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpeechSynthesisOutputMetadataBlock:"), value)
 }
+
 // A list of voices the audio unit provides to the system.
 //
 // # Discussion
-// 
+//
 // The list of voices that a user selects through Settings. Speech synthesizer
 // audio unit extensions must provide this list. Override the getter to
 // perform complex fetches that provide a dynamic list of voices.
@@ -222,4 +226,3 @@ func (s AVSpeechSynthesisProviderAudioUnit) SpeechVoices() []AVSpeechSynthesisPr
 func (s AVSpeechSynthesisProviderAudioUnit) SetSpeechVoices(value []AVSpeechSynthesisProviderVoice) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpeechVoices:"), objectivec.IObjectSliceToNSArray(value))
 }
-

@@ -4,6 +4,7 @@ package accelerate
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -159,12 +160,12 @@ type ResamplingFilter = unsafe.Pointer
 // Bnns_graph_compile_message_fn_t is the graph compile-message logging callback function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/bnns_graph_compile_message_fn_t
-type Bnns_graph_compile_message_fn_t = func(unsafe.Pointer, *byte, *byte, *Bnns_user_message_data_t)
+type Bnns_graph_compile_message_fn_t = func(BNNSGraphMessageLevel, *byte, *byte, *Bnns_user_message_data_t)
 
 // Bnns_graph_execute_message_fn_t is the graph execute-message logging callback function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/bnns_graph_execute_message_fn_t
-type Bnns_graph_execute_message_fn_t = func(unsafe.Pointer, *byte, *byte, *Bnns_user_message_data_t)
+type Bnns_graph_execute_message_fn_t = func(BNNSGraphMessageLevel, *byte, *byte, *Bnns_user_message_data_t)
 
 // Bnns_graph_free_all_fn_t is the workspace and output deallocation function.
 //
@@ -974,4 +975,3 @@ type VUInt64 = unsafe.Pointer
 //
 // See: https://developer.apple.com/documentation/Accelerate/vUInt8
 type VUInt8 = unsafe.Pointer
-

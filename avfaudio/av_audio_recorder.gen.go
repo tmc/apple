@@ -3,10 +3,11 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,18 +47,15 @@ func (ac AVAudioRecorderClass) Alloc() AVAudioRecorder {
 // An object that records audio data to a file.
 //
 // # Overview
-// 
+//
 // Use an audio recorder to:
-// 
+//
 // - Record audio from the system’s active input device - Record for a
 // specified duration or until the user stops recording - Pause and resume a
 // recording - Access recording-level metering data
-// 
-// To record audio in iOS or tvOS, configure your audio session to use the
-// [record] or [playAndRecord] category.
 //
-// [playAndRecord]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/Category-swift.struct/playAndRecord
-// [record]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/Category-swift.struct/record
+// To record audio in iOS or tvOS, configure your audio session to use the
+// [AVAudioRecorder.Record] or [AVAudioRecorder.PlayAndRecord] category.
 //
 // # Creating an audio recorder
 //
@@ -110,6 +108,7 @@ type AVAudioRecorder struct {
 func AVAudioRecorderFromID(id objc.ID) AVAudioRecorder {
 	return AVAudioRecorder{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioRecorder adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -251,10 +250,8 @@ func NewAVAudioRecorder() AVAudioRecorder {
 // format: The audio format to use for the recording.
 //
 // # Return Value
-// 
-// A new audio recorder, or [nil] if an error occurred.
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// A new audio recorder, or nil if an error occurred.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:format:)
 func NewAudioRecorderWithURLFormatError(url foundation.INSURL, format IAVAudioFormat) (AVAudioRecorder, error) {
@@ -275,26 +272,24 @@ func NewAudioRecorderWithURLFormatError(url foundation.INSURL, format IAVAudioFo
 // settings: The audio settings to use for the recording.
 //
 // # Return Value
-// 
-// A new audio recorder, or [nil] if an error occurred.
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// A new audio recorder, or nil if an error occurred.
 //
 // # Discussion
-// 
+//
 // The system supports the following keys when defining the format settings:
-// 
+//
 // [Table data omitted]
-// 
+//
 // The system supports additional configuration options based on your selected
 // audio format. See [Linear PCM format settings] for information about
 // customizing Linear PCM formats and [Encoder settings] for compressed
 // formats.
 //
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:settings:)
+//
 // [Encoder settings]: https://developer.apple.com/documentation/AVFoundation/encoder-settings
 // [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:settings:)
 func NewAudioRecorderWithURLSettingsError(url foundation.INSURL, settings foundation.INSDictionary) (AVAudioRecorder, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioRecorderClass().Alloc()
@@ -313,26 +308,24 @@ func NewAudioRecorderWithURLSettingsError(url foundation.INSURL, settings founda
 // settings: The audio settings to use for the recording.
 //
 // # Return Value
-// 
-// A new audio recorder, or [nil] if an error occurred.
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// A new audio recorder, or nil if an error occurred.
 //
 // # Discussion
-// 
+//
 // The system supports the following keys when defining the format settings:
-// 
+//
 // [Table data omitted]
-// 
+//
 // The system supports additional configuration options based on your selected
 // audio format. See [Linear PCM format settings] for information about
 // customizing Linear PCM formats and [Encoder settings] for compressed
 // formats.
 //
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:settings:)
+//
 // [Encoder settings]: https://developer.apple.com/documentation/AVFoundation/encoder-settings
 // [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:settings:)
 func (a AVAudioRecorder) InitWithURLSettingsError(url foundation.INSURL, settings foundation.INSDictionary) (AVAudioRecorder, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithURL:settings:error:"), url, settings, unsafe.Pointer(&errorPtr))
@@ -343,6 +336,7 @@ func (a AVAudioRecorder) InitWithURLSettingsError(url foundation.INSURL, setting
 	return AVAudioRecorderFromID(rv), nil
 
 }
+
 // Creates an audio recorder with an audio format.
 //
 // url: The file system location to record to.
@@ -350,10 +344,8 @@ func (a AVAudioRecorder) InitWithURLSettingsError(url foundation.INSURL, setting
 // format: The audio format to use for the recording.
 //
 // # Return Value
-// 
-// A new audio recorder, or [nil] if an error occurred.
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// A new audio recorder, or nil if an error occurred.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/init(url:format:)
 func (a AVAudioRecorder) InitWithURLFormatError(url foundation.INSURL, format IAVAudioFormat) (AVAudioRecorder, error) {
@@ -366,21 +358,19 @@ func (a AVAudioRecorder) InitWithURLFormatError(url foundation.INSURL, format IA
 	return AVAudioRecorderFromID(rv), nil
 
 }
+
 // Creates an audio file and prepares the system for recording.
 //
 // # Return Value
-// 
-// [true] if successful; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if successful; otherwise, false.
 //
 // # Discussion
-// 
+//
 // Calling this method creates an audio file at the URL you used to create the
 // recorder. If a file already exists at that location, this method overwrites
 // it.
-// 
+//
 // Call this method to start recording as quickly as possible upon calling
 // [Record].
 //
@@ -389,22 +379,20 @@ func (a AVAudioRecorder) PrepareToRecord() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("prepareToRecord"))
 	return rv
 }
+
 // Records audio starting at a specific time.
 //
 // time: The time at which to start recording, relative to [DeviceCurrentTime].
 //
 // # Return Value
-// 
-// [true] if recording starts successfully; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if recording starts successfully; otherwise, false.
 //
 // # Discussion
-// 
+//
 // You can call this method on a single recorder, or use it to synchronize the
 // recording of multiple players as shown below.
-// 
+//
 // Calling this method implicitly calls [PrepareToRecord], which creates an
 // audio file and prepares the system for recording.
 //
@@ -413,21 +401,19 @@ func (a AVAudioRecorder) RecordAtTime(time float64) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("recordAtTime:"), time)
 	return rv
 }
+
 // Records audio for the indicated duration of time.
 //
 // duration: The duration of time to record, in seconds.
 //
 // # Return Value
-// 
-// [true] if successful; otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if successful; otherwise false.
 //
 // # Discussion
-// 
+//
 // The recorder stops recording when it reaches the indicated duration.
-// 
+//
 // Calling this method implicitly calls [PrepareToRecord], which creates an
 // audio file and prepares the system for recording.
 //
@@ -436,6 +422,7 @@ func (a AVAudioRecorder) RecordForDuration(duration float64) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("recordForDuration:"), duration)
 	return rv
 }
+
 // Records audio starting at a specific time for the indicated duration.
 //
 // time: The time at which to start recording, relative to [DeviceCurrentTime].
@@ -443,18 +430,15 @@ func (a AVAudioRecorder) RecordForDuration(duration float64) bool {
 // duration: The duration of time to record, in seconds.
 //
 // # Return Value
-// 
-// [true] if recording was successful; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if recording was successful; otherwise, false.
 //
 // # Discussion
-// 
+//
 // The recorder automatically stops recording when it reaches the indicated
 // duration. You may also use it to synchronize recording of multiple
 // recorders as shown below.
-// 
+//
 // Calling this method implicitly calls [PrepareToRecord], which creates an
 // audio file and prepares the system for recording.
 //
@@ -463,33 +447,33 @@ func (a AVAudioRecorder) RecordAtTimeForDuration(time float64, duration float64)
 	rv := objc.Send[bool](a.ID, objc.Sel("recordAtTime:forDuration:"), time, duration)
 	return rv
 }
+
 // Pauses an audio recording.
 //
 // # Discussion
-// 
+//
 // Call [Record] to resume recording.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/pause()
 func (a AVAudioRecorder) Pause() {
 	objc.Send[objc.ID](a.ID, objc.Sel("pause"))
 }
+
 // Stops recording and closes the audio file.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/stop()
 func (a AVAudioRecorder) Stop() {
 	objc.Send[objc.ID](a.ID, objc.Sel("stop"))
 }
+
 // Deletes a recorded audio file.
 //
 // # Return Value
-// 
-// [true] if the system deleted the file; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the system deleted the file; otherwise, false.
 //
 // # Discussion
-// 
+//
 // You must stop the audio recorder before calling this method.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/deleteRecording()
@@ -497,11 +481,12 @@ func (a AVAudioRecorder) DeleteRecording() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("deleteRecording"))
 	return rv
 }
+
 // Refreshes the average and peak power values for all channels of an audio
 // recorder.
 //
 // # Discussion
-// 
+//
 // Call this method to update the level meter data before calling
 // [AveragePowerForChannel] or [PeakPowerForChannel].
 //
@@ -509,17 +494,18 @@ func (a AVAudioRecorder) DeleteRecording() bool {
 func (a AVAudioRecorder) UpdateMeters() {
 	objc.Send[objc.ID](a.ID, objc.Sel("updateMeters"))
 }
+
 // Returns the average power, in decibels full-scale (dBFS), for an audio
 // channel.
 //
 // channelNumber: The number of the channel that you want the average power value for.
 //
 // # Return Value
-// 
+//
 // The audio channel’s current average power.
 //
 // # Discussion
-// 
+//
 // Before asking the player for its average power value, you must call
 // [UpdateMeters] to generate the latest data. The returned value ranges from
 // `–160` dBFS, indicating minimum power, to 0 dBFS, indicating maximum
@@ -530,17 +516,18 @@ func (a AVAudioRecorder) AveragePowerForChannel(channelNumber uint) float32 {
 	rv := objc.Send[float32](a.ID, objc.Sel("averagePowerForChannel:"), channelNumber)
 	return rv
 }
+
 // Returns the peak power, in decibels full-scale (dBFS), for an audio
 // channel.
 //
 // channelNumber: The number of the channel that you want the peak power value for.
 //
 // # Return Value
-// 
+//
 // The audio channel’s current peak power.
 //
 // # Discussion
-// 
+//
 // Before asking the player for its peak power value, you must call
 // [UpdateMeters] to generate the latest data. The returned value ranges from
 // `–160` dBFS, indicating minimum power, to 0 dBFS, indicating maximum
@@ -559,10 +546,11 @@ func (a AVAudioRecorder) Recording() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRecording"))
 	return rv
 }
+
 // The time, in seconds, since the beginning of the recording.
 //
 // # Discussion
-// 
+//
 // The value of this property is `0` when you call it on a stopped audio
 // recorder.
 //
@@ -571,10 +559,11 @@ func (a AVAudioRecorder) CurrentTime() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("currentTime"))
 	return rv
 }
+
 // The time, in seconds, of the host audio device.
 //
 // # Discussion
-// 
+//
 // Use this property value to schedule audio recording using the
 // [RecordAtTime] and [RecordAtTimeForDuration] methods.
 //
@@ -583,11 +572,12 @@ func (a AVAudioRecorder) DeviceCurrentTime() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("deviceCurrentTime"))
 	return rv
 }
+
 // A Boolean value that indicates whether you’ve enabled the recorder to
 // generate audio-level metering data.
 //
 // # Discussion
-// 
+//
 // By default, the recorder doesn’t generate audio-level metering data.
 // Because metering uses computing resources, enable it only if you intend to
 // use it.
@@ -600,6 +590,7 @@ func (a AVAudioRecorder) MeteringEnabled() bool {
 func (a AVAudioRecorder) SetMeteringEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMeteringEnabled:"), value)
 }
+
 // The delegate object for the audio recorder.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/delegate
@@ -610,6 +601,7 @@ func (a AVAudioRecorder) Delegate() AVAudioRecorderDelegate {
 func (a AVAudioRecorder) SetDelegate(value AVAudioRecorderDelegate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The URL to which the recorder writes its data.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/url
@@ -617,6 +609,7 @@ func (a AVAudioRecorder) Url() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // The format of the recorded audio.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/format
@@ -624,10 +617,11 @@ func (a AVAudioRecorder) Format() IAVAudioFormat {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("format"))
 	return AVAudioFormatFromID(objc.ID(rv))
 }
+
 // The settings that describe the format of the recorded audio.
 //
 // # Discussion
-// 
+//
 // See [InitWithURLSettingsError] for supported keys and values.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorder/settings
@@ -635,6 +629,7 @@ func (a AVAudioRecorder) Settings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("settings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // The category for recording (input) and playback (output) of audio, such as
 // for a Voice over Internet Protocol (VoIP) app.
 //
@@ -643,6 +638,7 @@ func (a AVAudioRecorder) PlayAndRecord() objc.ID {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioSessionCategoryPlayAndRecord"))
 	return rv
 }
+
 // The category for recording audio while also silencing playback audio.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiosession/category-swift.struct/record
@@ -650,4 +646,3 @@ func (a AVAudioRecorder) Record() objc.ID {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioSessionCategoryRecord"))
 	return rv
 }
-

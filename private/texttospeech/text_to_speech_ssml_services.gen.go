@@ -3,10 +3,11 @@
 package texttospeech
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,11 +44,11 @@ func (tc TextToSpeechSSMLServicesClass) Alloc() TextToSpeechSSMLServices {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TextToSpeechSSMLServices.MakeProsodySnippetWithStringRatePitchVolume]
 //   - [TextToSpeechSSMLServices.ParseSSMLToPlainTextError]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLServices
 type TextToSpeechSSMLServices struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type TextToSpeechSSMLServices struct {
 func TextToSpeechSSMLServicesFromID(id objc.ID) TextToSpeechSSMLServices {
 	return TextToSpeechSSMLServices{objectivec.Object{ID: id}}
 }
+
 // Ensure TextToSpeechSSMLServices implements ITextToSpeechSSMLServices.
 var _ ITextToSpeechSSMLServices = TextToSpeechSSMLServices{}
 
@@ -96,13 +98,12 @@ func NewTextToSpeechSSMLServices() TextToSpeechSSMLServices {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLServices/makeProsodySnippetWithString:rate:pitch:volume:
 func (t TextToSpeechSSMLServices) MakeProsodySnippetWithStringRatePitchVolume(string_ objectivec.IObject, rate objectivec.IObject, pitch objectivec.IObject, volume objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("makeProsodySnippetWithString:rate:pitch:volume:"), string_, rate, pitch, volume)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLServices/parseSSMLToPlainText:error:
 func (t TextToSpeechSSMLServices) ParseSSMLToPlainTextError(text objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -115,9 +116,7 @@ func (t TextToSpeechSSMLServices) ParseSSMLToPlainTextError(text objectivec.IObj
 
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLServices/setShared:
 func (_TextToSpeechSSMLServicesClass TextToSpeechSSMLServicesClass) SetShared(shared objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_TextToSpeechSSMLServicesClass.class), objc.Sel("setShared:"), shared)
 }
-

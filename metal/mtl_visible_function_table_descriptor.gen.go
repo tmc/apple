@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,6 +60,7 @@ type MTLVisibleFunctionTableDescriptor struct {
 func MTLVisibleFunctionTableDescriptorFromID(id objc.ID) MTLVisibleFunctionTableDescriptor {
 	return MTLVisibleFunctionTableDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLVisibleFunctionTableDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,4 +119,3 @@ func (v MTLVisibleFunctionTableDescriptor) FunctionCount() uint {
 func (v MTLVisibleFunctionTableDescriptor) SetFunctionCount(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFunctionCount:"), value)
 }
-

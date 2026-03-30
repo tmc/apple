@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NEIPv6SettingsClass) Alloc() NEIPv6Settings {
 // The IPv6 settings of an IP layer network tunnel.
 //
 // # Overview
-// 
+//
 // To specify the IPv6 settings of a packet tunnel, set its
 // [NEPacketTunnelNetworkSettings].[IPv6Settings] property to an instance of
 // this class.
@@ -77,6 +78,7 @@ type NEIPv6Settings struct {
 func NEIPv6SettingsFromID(id objc.ID) NEIPv6Settings {
 	return NEIPv6Settings{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEIPv6Settings adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -168,7 +170,7 @@ func NewNEIPv6Settings() NEIPv6Settings {
 // to. Each prefix length must be set to an integer between 0 and 128.
 //
 // # Return Value
-// 
+//
 // The initialized [NEIPv6Settings] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEIPv6Settings/init(addresses:networkPrefixLengths:)
@@ -189,7 +191,7 @@ func NewIPv6SettingsWithAddressesNetworkPrefixLengths(addresses []string, networ
 // to. Each prefix length must be set to an integer between 0 and 128.
 //
 // # Return Value
-// 
+//
 // The initialized [NEIPv6Settings] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEIPv6Settings/init(addresses:networkPrefixLengths:)
@@ -201,6 +203,28 @@ func (i NEIPv6Settings) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
+// # Discussion
+//
+// Create a NEIPv6Settings object that will obtain IP addresses and netmasks
+// automatically.
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NEIPv6Settings/settingsWithAutomaticAddressing
+func (_NEIPv6SettingsClass NEIPv6SettingsClass) SettingsWithAutomaticAddressing() NEIPv6Settings {
+	rv := objc.Send[objc.ID](objc.ID(_NEIPv6SettingsClass.class), objc.Sel("settingsWithAutomaticAddressing"))
+	return NEIPv6SettingsFromID(rv)
+}
+
+// # Discussion
+//
+// Create a NEIPv6Settings object that will only use link-local IPv6
+// addresses.
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NEIPv6Settings/settingsWithLinkLocalAddressing
+func (_NEIPv6SettingsClass NEIPv6SettingsClass) SettingsWithLinkLocalAddressing() NEIPv6Settings {
+	rv := objc.Send[objc.ID](objc.ID(_NEIPv6SettingsClass.class), objc.Sel("settingsWithLinkLocalAddressing"))
+	return NEIPv6SettingsFromID(rv)
+}
+
 // The IPv6 addresses to assign to the TUN interface.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEIPv6Settings/addresses
@@ -208,10 +232,11 @@ func (i NEIPv6Settings) Addresses() []string {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("addresses"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The IPv6 network prefix lengths to assign to the TUN interface.
 //
 // # Discussion
-// 
+//
 // Each network prefix length in this array is combined with the IP address in
 // the corresponding index in `addresses` to specify an IPv6 network that the
 // TUN interface is (virtually) connected to.
@@ -223,10 +248,11 @@ func (i NEIPv6Settings) NetworkPrefixLengths() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // The IPv6 network traffic that the system routes to the TUN interface.
 //
 // # Discussion
-// 
+//
 // If you include the default route (`0.0.0.0/0` or `::/0`) in this property,
 // the system routes traffic that doesn’t match a specific rule in the
 // system routing table through the VPN.
@@ -241,11 +267,12 @@ func (i NEIPv6Settings) IncludedRoutes() []NEIPv6Route {
 func (i NEIPv6Settings) SetIncludedRoutes(value []NEIPv6Route) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIncludedRoutes:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The IPv6 network traffic that the system routes to the primary physical
 // interface, not the TUN interface.
 //
 // # Discussion
-// 
+//
 // This property excludes routes that the system might otherwise include from
 // the [IncludedRoutes] property. The system automatically excludes the IP
 // address of the tunnel server.
@@ -260,6 +287,7 @@ func (i NEIPv6Settings) ExcludedRoutes() []NEIPv6Route {
 func (i NEIPv6Settings) SetExcludedRoutes(value []NEIPv6Route) {
 	objc.Send[struct{}](i.ID, objc.Sel("setExcludedRoutes:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The tunnel IP version 4 settings.
 //
 // See: https://developer.apple.com/documentation/networkextension/nepackettunnelnetworksettings/ipv4settings
@@ -270,6 +298,7 @@ func (i NEIPv6Settings) Ipv4Settings() INEIPv4Settings {
 func (i NEIPv6Settings) SetIpv4Settings(value INEIPv4Settings) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIPv4Settings:"), value)
 }
+
 // The tunnel IP version 6 settings.
 //
 // See: https://developer.apple.com/documentation/networkextension/nepackettunnelnetworksettings/ipv6settings
@@ -280,6 +309,7 @@ func (i NEIPv6Settings) Ipv6Settings() INEIPv6Settings {
 func (i NEIPv6Settings) SetIpv6Settings(value INEIPv6Settings) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIPv6Settings:"), value)
 }
+
 // The size of the maximum trasnmission unit, in bytes.
 //
 // See: https://developer.apple.com/documentation/networkextension/nepackettunnelnetworksettings/mtu
@@ -290,6 +320,7 @@ func (i NEIPv6Settings) Mtu() foundation.NSNumber {
 func (i NEIPv6Settings) SetMtu(value foundation.NSNumber) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMTU:"), value)
 }
+
 // The number of bytes added to each tunneled packet for storing tunneling
 // protocol headers.
 //
@@ -301,4 +332,3 @@ func (i NEIPv6Settings) TunnelOverheadBytes() foundation.NSNumber {
 func (i NEIPv6Settings) SetTunnelOverheadBytes(value foundation.NSNumber) {
 	objc.Send[struct{}](i.ID, objc.Sel("setTunnelOverheadBytes:"), value)
 }
-

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,7 +49,7 @@ func (ac AVMediaPresentationSelectorClass) Alloc() AVMediaPresentationSelector {
 // settings.
 //
 // # Overview
-// 
+//
 // Subclasses of this type that are used from Swift must fulfill the
 // requirements of a Sendable type.
 //
@@ -75,6 +76,7 @@ type AVMediaPresentationSelector struct {
 func AVMediaPresentationSelectorFromID(id objc.ID) AVMediaPresentationSelector {
 	return AVMediaPresentationSelector{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMediaPresentationSelector adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -141,6 +143,7 @@ func (m AVMediaPresentationSelector) Identifier() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Provides selectable mutually exclusive settings for the selector.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaPresentationSelector/settings
@@ -150,4 +153,3 @@ func (m AVMediaPresentationSelector) Settings() []AVMediaPresentationSetting {
 		return AVMediaPresentationSettingFromID(id)
 	})
 }
-

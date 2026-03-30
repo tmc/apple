@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLLazyUnionBatchProviderClass) Alloc() MLLazyUnionBatchProvider {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLLazyUnionBatchProvider.Count]
@@ -53,6 +53,7 @@ func (mc MLLazyUnionBatchProviderClass) Alloc() MLLazyUnionBatchProvider {
 //   - [MLLazyUnionBatchProvider.Second]
 //   - [MLLazyUnionBatchProvider.SetSecond]
 //   - [MLLazyUnionBatchProvider.InitWithFeaturesFromAddedToFeaturesFromError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider
 type MLLazyUnionBatchProvider struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLLazyUnionBatchProvider struct {
 func MLLazyUnionBatchProviderFromID(id objc.ID) MLLazyUnionBatchProvider {
 	return MLLazyUnionBatchProvider{objectivec.Object{ID: id}}
 }
+
 // Ensure MLLazyUnionBatchProvider implements IMLLazyUnionBatchProvider.
 var _ IMLLazyUnionBatchProvider = MLLazyUnionBatchProvider{}
 
@@ -111,7 +113,6 @@ func NewMLLazyUnionBatchProvider() MLLazyUnionBatchProvider {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/initWithFeaturesFrom:addedToFeaturesFrom:error:
 func NewLazyUnionBatchProviderWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error) {
 	var errorPtr objc.ID
@@ -124,13 +125,12 @@ func NewLazyUnionBatchProviderWithFeaturesFromAddedToFeaturesFromError(from obje
 	return MLLazyUnionBatchProviderFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/featuresAtIndex:
 func (l MLLazyUnionBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/initWithFeaturesFrom:addedToFeaturesFrom:error:
 func (l MLLazyUnionBatchProvider) InitWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error) {
 	var errorPtr objc.ID
@@ -148,6 +148,7 @@ func (l MLLazyUnionBatchProvider) Count() int64 {
 	rv := objc.Send[int64](l.ID, objc.Sel("count"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/first
 func (l MLLazyUnionBatchProvider) First() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("first"))
@@ -156,6 +157,7 @@ func (l MLLazyUnionBatchProvider) First() objectivec.IObject {
 func (l MLLazyUnionBatchProvider) SetFirst(value objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setFirst:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionBatchProvider/second
 func (l MLLazyUnionBatchProvider) Second() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("second"))
@@ -164,4 +166,3 @@ func (l MLLazyUnionBatchProvider) Second() objectivec.IObject {
 func (l MLLazyUnionBatchProvider) SetSecond(value objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setSecond:"), value)
 }
-

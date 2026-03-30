@@ -4,6 +4,7 @@ package diskimages2
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (rc ReadSynchronizerBackendXPCClass) Alloc() ReadSynchronizerBackendXPC {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ReadSynchronizerBackendXPC.BaseBackendXPC]
 //   - [ReadSynchronizerBackendXPC.InitWithBackend]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/ReadSynchronizerBackendXPC
 type ReadSynchronizerBackendXPC struct {
 	BackendXPC
@@ -55,6 +56,7 @@ type ReadSynchronizerBackendXPC struct {
 func ReadSynchronizerBackendXPCFromID(id objc.ID) ReadSynchronizerBackendXPC {
 	return ReadSynchronizerBackendXPC{BackendXPC: BackendXPCFromID(id)}
 }
+
 // Ensure ReadSynchronizerBackendXPC implements IReadSynchronizerBackendXPC.
 var _ IReadSynchronizerBackendXPC = ReadSynchronizerBackendXPC{}
 
@@ -94,7 +96,6 @@ func NewReadSynchronizerBackendXPC() ReadSynchronizerBackendXPC {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/ReadSynchronizerBackendXPC/initWithBackend:
 func NewReadSynchronizerBackendXPCWithBackend(backend objectivec.IObject) ReadSynchronizerBackendXPC {
 	instance := getReadSynchronizerBackendXPCClass().Alloc()
@@ -102,7 +103,6 @@ func NewReadSynchronizerBackendXPCWithBackend(backend objectivec.IObject) ReadSy
 	return ReadSynchronizerBackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/ReadSynchronizerBackendXPC/initWithCoder:
 func NewReadSynchronizerBackendXPCWithCoder(coder objectivec.IObject) ReadSynchronizerBackendXPC {
 	instance := getReadSynchronizerBackendXPCClass().Alloc()
@@ -110,7 +110,6 @@ func NewReadSynchronizerBackendXPCWithCoder(coder objectivec.IObject) ReadSynchr
 	return ReadSynchronizerBackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/ReadSynchronizerBackendXPC/initWithBackend:
 func (r ReadSynchronizerBackendXPC) InitWithBackend(backend objectivec.IObject) ReadSynchronizerBackendXPC {
 	rv := objc.Send[ReadSynchronizerBackendXPC](r.ID, objc.Sel("initWithBackend:"), backend)
@@ -122,4 +121,3 @@ func (r ReadSynchronizerBackendXPC) BaseBackendXPC() IBackendXPC {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("baseBackendXPC"))
 	return BackendXPCFromID(objc.ID(rv))
 }
-

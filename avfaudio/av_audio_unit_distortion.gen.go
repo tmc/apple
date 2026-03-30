@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,6 +66,7 @@ type AVAudioUnitDistortion struct {
 func AVAudioUnitDistortionFromID(id objc.ID) AVAudioUnitDistortion {
 	return AVAudioUnitDistortion{AVAudioUnitEffect: AVAudioUnitEffectFromID(id)}
 }
+
 // NOTE: AVAudioUnitDistortion adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,14 +124,14 @@ func NewAVAudioUnitDistortion() AVAudioUnitDistortion {
 // Creates an audio unit effect object with the specified description.
 //
 // audioComponentDescription: The description of the audio unit to create.
-// 
+//
 // The `audioComponentDescription` must be one of these types
 // `kAudioUnitType_Effect`, `kAudioUnitType_MusicEffect`,
 // `kAudioUnitType_Panner`, `kAudioUnitType_RemoteEffect`, or
 // `kAudioUnitType_RemoteMusicEffect`.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
@@ -145,14 +147,14 @@ func NewAudioUnitDistortionWithAudioComponentDescription(audioComponentDescripti
 // preset: The distortion preset.
 //
 // # Discussion
-// 
+//
 // For more information about possible values for `preset`, see
 // [AVAudioUnitDistortionPreset]. The default value is
-// [AudioUnitDistortionPresetDrumsBitBrush].
-//
-// [AVAudioUnitDistortionPreset]: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitDistortionPreset
+// [AVAudioUnitDistortionPresetDrumsBitBrush].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitDistortion/loadFactoryPreset(_:)
+//
+// [AVAudioUnitDistortionPreset]: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitDistortionPreset
 func (a AVAudioUnitDistortion) LoadFactoryPreset(preset AVAudioUnitDistortionPreset) {
 	objc.Send[objc.ID](a.ID, objc.Sel("loadFactoryPreset:"), preset)
 }
@@ -161,7 +163,7 @@ func (a AVAudioUnitDistortion) LoadFactoryPreset(preset AVAudioUnitDistortionPre
 // decibels.
 //
 // # Discussion
-// 
+//
 // The default value is `-6 dB`. The valid range of values is `-80 dB` to `20
 // dB`.
 //
@@ -173,10 +175,11 @@ func (a AVAudioUnitDistortion) PreGain() float32 {
 func (a AVAudioUnitDistortion) SetPreGain(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPreGain:"), value)
 }
+
 // The blend of the distorted and dry signals.
 //
 // # Discussion
-// 
+//
 // You specify the blend as a percentage. The default value is `50%`. The
 // valid range is `0%` through `100%`, where `0` represents all dry.
 //
@@ -188,4 +191,3 @@ func (a AVAudioUnitDistortion) WetDryMix() float32 {
 func (a AVAudioUnitDistortion) SetWetDryMix(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setWetDryMix:"), value)
 }
-

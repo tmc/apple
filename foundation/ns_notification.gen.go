@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,10 +46,10 @@ func (nc NSNotificationClass) Alloc() NSNotification {
 // registered observers.
 //
 // # Overview
-// 
+//
 // In Swift, this object bridges to [Notification]; use [NSNotification] when
 // you need reference semantics or other Foundation-specific behavior.
-// 
+//
 // A notification contains a name, an object, and an optional dictionary, and
 // is broadcast to by instances of [NSNotificationCenter] or
 // [NSDistributedNotificationCenter]. The name is a tag identifying the
@@ -56,33 +57,30 @@ func (nc NSNotificationClass) Alloc() NSNotification {
 // wants to send to observers of that notification (typically, the object
 // posting the notification). The dictionary stores other related objects, if
 // any. [NSNotification] objects are immutable.
-// 
+//
 // You don’t usually create your own notifications directly, but instead
 // call the [NSNotificationCenter] methods [PostNotificationNameObject] and
 // [PostNotificationNameObjectUserInfo].
-// 
+//
 // # Object Comparison
-// 
+//
 // The objects of a notification are compared using pointer equality for local
 // notifications. Distributed notifications use strings as their objects, and
 // those strings are compared using [isEqual(_:)], because pointer equality
 // doesn’t make sense across process boundaries.
-// 
+//
 // # Creating Subclasses
-// 
+//
 // You can subclass [NSNotification] to contain information in addition to the
 // notification name, object, and dictionary. This extra data must be agreed
 // upon between notifiers and observers.
-// 
+//
 // [NSNotificationCenter] is a class cluster with no instance variables. As
 // such, you must subclass [NSNotification] and override the primitive methods
 // [Name], [NSNotification.GetObject], and [UserInfo]. You can choose any designated
 // initializer you like, but be sure that your initializer does not call
 // [NSNotification.Init] on `super` ([NSNotification] is not meant to be instantiated
 // directly, and its `init` method raises an exception).
-//
-// [Notification]: https://developer.apple.com/documentation/Foundation/Notification
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 //
 // # Creating Notifications
 //
@@ -95,6 +93,9 @@ func (nc NSNotificationClass) Alloc() NSNotification {
 //   - [NSNotification.UserInfo]: The user information dictionary associated with the notification.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNotification
+//
+// [Notification]: https://developer.apple.com/documentation/Foundation/Notification
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 type NSNotification struct {
 	objectivec.Object
 }
@@ -106,6 +107,7 @@ type NSNotification struct {
 func NSNotificationFromID(id objc.ID) NSNotification {
 	return NSNotification{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSNotification adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -205,6 +207,7 @@ func (n NSNotification) InitWithCoder(coder INSCoder) NSNotification {
 	rv := objc.Send[NSNotification](n.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Initializes a notification with a specified name, object, and user
 // information.
 //
@@ -219,6 +222,7 @@ func (n NSNotification) InitWithNameObjectUserInfo(name NSNotificationName, obje
 	rv := objc.Send[NSNotification](n.ID, objc.Sel("initWithName:object:userInfo:"), objc.String(string(name)), object, userInfo)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -246,12 +250,12 @@ func (_NSNotificationClass NSNotificationClass) NotificationWithNameObjectUserIn
 // The name of the notification.
 //
 // # Discussion
-// 
+//
 // Typically you use this property to find out what kind of notification you
 // are dealing with when you receive a notification.
-// 
+//
 // # Special Considerations
-// 
+//
 // Notification names can be any string. To avoid name collisions, you might
 // want to use a prefix that’s specific to your application.
 //
@@ -260,21 +264,22 @@ func (n NSNotification) Name() NSNotificationName {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("name"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // The object associated with the notification.
 //
 // # Discussion
-// 
+//
 // This is often the object that posted this notification. In Objective-C, it
 // may be `nil`.
-// 
+//
 // Typically you use this method to find out what object a notification
 // applies to when you receive a notification.
-// 
+//
 // For example, suppose you’ve registered an object to receive the message
-// `` when the [PortInvalid] notification is posted to the notification center
-// and that `` needs to access the object monitoring the port that is now
-// invalid. `` can retrieve that object as shown here:
-// 
+// “ when the [PortInvalid] notification is posted to the notification center
+// and that “ needs to access the object monitoring the port that is now
+// invalid. “ can retrieve that object as shown here:
+//
 // Example of accessing notification object in Objective-C:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNotification/object
@@ -282,15 +287,16 @@ func (n NSNotification) GetObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("object"))
 	return objectivec.Object{ID: rv}
 }
+
 // The user information dictionary associated with the notification.
 //
 // # Discussion
-// 
+//
 // In Objective-C, this may be `nil`.
-// 
+//
 // The user information dictionary stores any additional objects that objects
 // receiving the notification might use.
-// 
+//
 // For example, in AppKit, [NSControl] objects post the
 // [textDidChangeNotification] whenever the field editor (an [NSText] object)
 // changes text inside the [NSControl]. This notification provides the
@@ -300,19 +306,16 @@ func (n NSNotification) GetObject() objectivec.IObject {
 // dictionary. Objects receiving the notification can access the field editor
 // and the [NSControl] object posting the notification as follows:
 //
+// See: https://developer.apple.com/documentation/Foundation/NSNotification/userInfo
+//
 // [NSControl]: https://developer.apple.com/documentation/AppKit/NSControl
 // [NSText]: https://developer.apple.com/documentation/AppKit/NSText
 // [textDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSControl/textDidChangeNotification
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNotification/userInfo
 func (n NSNotification) UserInfo() INSDictionary {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("userInfo"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-			// Protocol methods for NSCoding
-			
+// Protocol methods for NSCoding
 
-			// Protocol methods for NSCopying
-			
-
+// Protocol methods for NSCopying

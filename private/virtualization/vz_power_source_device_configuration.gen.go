@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZPowerSourceDeviceConfigurationClass) Alloc() VZPowerSourceDeviceConfi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZPowerSourceDeviceConfiguration._init]
@@ -53,6 +53,7 @@ func (vc VZPowerSourceDeviceConfigurationClass) Alloc() VZPowerSourceDeviceConfi
 //   - [VZPowerSourceDeviceConfiguration.Description]
 //   - [VZPowerSourceDeviceConfiguration.Hash]
 //   - [VZPowerSourceDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDeviceConfiguration
 type VZPowerSourceDeviceConfiguration struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type VZPowerSourceDeviceConfiguration struct {
 func VZPowerSourceDeviceConfigurationFromID(id objc.ID) VZPowerSourceDeviceConfiguration {
 	return VZPowerSourceDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZPowerSourceDeviceConfiguration implements IVZPowerSourceDeviceConfiguration.
 var _ IVZPowerSourceDeviceConfiguration = VZPowerSourceDeviceConfiguration{}
 
@@ -118,13 +120,13 @@ func (v VZPowerSourceDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDeviceConfiguration/encodeWithEncoder:
 func (v VZPowerSourceDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDeviceConfiguration/makePowerSourceDeviceForVirtualMachine:powerSourceDeviceIndex:
 func (v VZPowerSourceDeviceConfiguration) MakePowerSourceDeviceForVirtualMachinePowerSourceDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makePowerSourceDeviceForVirtualMachine:powerSourceDeviceIndex:"), machine, index)
@@ -136,24 +138,27 @@ func (v VZPowerSourceDeviceConfiguration) _powerSourceDevice() objectivec.IObjec
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_powerSourceDevice"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDeviceConfiguration/debugDescription
 func (v VZPowerSourceDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDeviceConfiguration/description
 func (v VZPowerSourceDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDeviceConfiguration/hash
 func (v VZPowerSourceDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDeviceConfiguration/superclass
 func (v VZPowerSourceDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

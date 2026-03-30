@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"os"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/diskarbitration"
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/security"
 )
@@ -1099,56 +1101,56 @@ func AEUnflattenDescFromBytes(buffer unsafe.Pointer, bufferLen unsafe.Pointer, r
 	return _aEUnflattenDescFromBytes(buffer, bufferLen, result)
 }
 
-var _absoluteDeltaToDuration func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer
+var _absoluteDeltaToDuration func(arg0 kernel.AbsoluteTime, arg1 kernel.AbsoluteTime) Duration
 
 // AbsoluteDeltaToDuration.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501245-absolutedeltatoduration
-func AbsoluteDeltaToDuration(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
+func AbsoluteDeltaToDuration(arg0 kernel.AbsoluteTime, arg1 kernel.AbsoluteTime) Duration {
 	if _absoluteDeltaToDuration == nil {
 		panic("coreservices: symbol AbsoluteDeltaToDuration not loaded")
 	}
 	return _absoluteDeltaToDuration(arg0, arg1)
 }
 
-var _absoluteDeltaToNanoseconds func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) Nanoseconds
+var _absoluteDeltaToNanoseconds func(arg0 kernel.AbsoluteTime, arg1 kernel.AbsoluteTime) Nanoseconds
 
 // AbsoluteDeltaToNanoseconds.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501268-absolutedeltatonanoseconds
-func AbsoluteDeltaToNanoseconds(arg0 unsafe.Pointer, arg1 unsafe.Pointer) Nanoseconds {
+func AbsoluteDeltaToNanoseconds(arg0 kernel.AbsoluteTime, arg1 kernel.AbsoluteTime) Nanoseconds {
 	if _absoluteDeltaToNanoseconds == nil {
 		panic("coreservices: symbol AbsoluteDeltaToNanoseconds not loaded")
 	}
 	return _absoluteDeltaToNanoseconds(arg0, arg1)
 }
 
-var _absoluteToDuration func(arg0 unsafe.Pointer) unsafe.Pointer
+var _absoluteToDuration func(arg0 kernel.AbsoluteTime) Duration
 
 // AbsoluteToDuration.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501266-absolutetoduration
-func AbsoluteToDuration(arg0 unsafe.Pointer) unsafe.Pointer {
+func AbsoluteToDuration(arg0 kernel.AbsoluteTime) Duration {
 	if _absoluteToDuration == nil {
 		panic("coreservices: symbol AbsoluteToDuration not loaded")
 	}
 	return _absoluteToDuration(arg0)
 }
 
-var _absoluteToNanoseconds func(arg0 unsafe.Pointer) Nanoseconds
+var _absoluteToNanoseconds func(arg0 kernel.AbsoluteTime) Nanoseconds
 
 // AbsoluteToNanoseconds.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501246-absolutetonanoseconds
-func AbsoluteToNanoseconds(arg0 unsafe.Pointer) Nanoseconds {
+func AbsoluteToNanoseconds(arg0 kernel.AbsoluteTime) Nanoseconds {
 	if _absoluteToNanoseconds == nil {
 		panic("coreservices: symbol AbsoluteToNanoseconds not loaded")
 	}
@@ -1169,14 +1171,14 @@ func AcquireIconRef(theIconRef uintptr) int16 {
 	return _acquireIconRef(theIconRef)
 }
 
-var _addAbsoluteToAbsolute func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer
+var _addAbsoluteToAbsolute func(arg0 kernel.AbsoluteTime, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime
 
 // AddAbsoluteToAbsolute.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501267-addabsolutetoabsolute
-func AddAbsoluteToAbsolute(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
+func AddAbsoluteToAbsolute(arg0 kernel.AbsoluteTime, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime {
 	if _addAbsoluteToAbsolute == nil {
 		panic("coreservices: symbol AddAbsoluteToAbsolute not loaded")
 	}
@@ -1253,14 +1255,14 @@ func AddCollectionItemHdl(arg0 Collection, arg1 CollectionTag, arg2 int32, arg3 
 	return _addCollectionItemHdl(arg0, arg1, arg2, arg3)
 }
 
-var _addDurationToAbsolute func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer
+var _addDurationToAbsolute func(arg0 Duration, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime
 
 // AddDurationToAbsolute.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501249-adddurationtoabsolute
-func AddDurationToAbsolute(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
+func AddDurationToAbsolute(arg0 Duration, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime {
 	if _addDurationToAbsolute == nil {
 		panic("coreservices: symbol AddDurationToAbsolute not loaded")
 	}
@@ -1281,14 +1283,14 @@ func AddFolderDescriptor(arg0 FolderType, arg1 FolderDescFlags, arg2 FolderClass
 	return _addFolderDescriptor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 }
 
-var _addNanosecondsToAbsolute func(arg0 Nanoseconds, arg1 unsafe.Pointer) unsafe.Pointer
+var _addNanosecondsToAbsolute func(arg0 Nanoseconds, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime
 
 // AddNanosecondsToAbsolute.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501264-addnanosecondstoabsolute
-func AddNanosecondsToAbsolute(arg0 Nanoseconds, arg1 unsafe.Pointer) unsafe.Pointer {
+func AddNanosecondsToAbsolute(arg0 Nanoseconds, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime {
 	if _addNanosecondsToAbsolute == nil {
 		panic("coreservices: symbol AddNanosecondsToAbsolute not loaded")
 	}
@@ -1951,12 +1953,12 @@ func CSIdentityGetImageURL(identity CSIdentityRef) corefoundation.CFURLRef {
 	return _cSIdentityGetImageURL(identity)
 }
 
-var _cSIdentityGetPosixID func(identity CSIdentityRef) unsafe.Pointer
+var _cSIdentityGetPosixID func(identity CSIdentityRef) kernel.Id_t
 
 // CSIdentityGetPosixID.
 //
 // See: https://developer.apple.com/documentation/coreservices/1443230-csidentitygetposixid
-func CSIdentityGetPosixID(identity CSIdentityRef) unsafe.Pointer {
+func CSIdentityGetPosixID(identity CSIdentityRef) kernel.Id_t {
 	if _cSIdentityGetPosixID == nil {
 		panic("coreservices: symbol CSIdentityGetPosixID not loaded")
 	}
@@ -2107,12 +2109,12 @@ func CSIdentityQueryCreateForPersistentReference(allocator corefoundation.CFAllo
 	return _cSIdentityQueryCreateForPersistentReference(allocator, referenceData)
 }
 
-var _cSIdentityQueryCreateForPosixID func(allocator corefoundation.CFAllocatorRef, posixID unsafe.Pointer, identityClass int32, authority CSIdentityAuthorityRef) CSIdentityQueryRef
+var _cSIdentityQueryCreateForPosixID func(allocator corefoundation.CFAllocatorRef, posixID uintptr, identityClass int32, authority CSIdentityAuthorityRef) CSIdentityQueryRef
 
 // CSIdentityQueryCreateForPosixID.
 //
 // See: https://developer.apple.com/documentation/coreservices/1428990-csidentityquerycreateforposixid
-func CSIdentityQueryCreateForPosixID(allocator corefoundation.CFAllocatorRef, posixID unsafe.Pointer, identityClass int32, authority CSIdentityAuthorityRef) CSIdentityQueryRef {
+func CSIdentityQueryCreateForPosixID(allocator corefoundation.CFAllocatorRef, posixID uintptr, identityClass int32, authority CSIdentityAuthorityRef) CSIdentityQueryRef {
 	if _cSIdentityQueryCreateForPosixID == nil {
 		panic("coreservices: symbol CSIdentityQueryCreateForPosixID not loaded")
 	}
@@ -3967,28 +3969,28 @@ func DisposeUnicodeToTextRunInfo(arg0 UnicodeToTextRunInfo) int32 {
 	return _disposeUnicodeToTextRunInfo(arg0)
 }
 
-var _durationToAbsolute func(arg0 unsafe.Pointer) unsafe.Pointer
+var _durationToAbsolute func(arg0 Duration) kernel.AbsoluteTime
 
 // DurationToAbsolute.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501247-durationtoabsolute
-func DurationToAbsolute(arg0 unsafe.Pointer) unsafe.Pointer {
+func DurationToAbsolute(arg0 Duration) kernel.AbsoluteTime {
 	if _durationToAbsolute == nil {
 		panic("coreservices: symbol DurationToAbsolute not loaded")
 	}
 	return _durationToAbsolute(arg0)
 }
 
-var _durationToNanoseconds func(arg0 unsafe.Pointer) Nanoseconds
+var _durationToNanoseconds func(arg0 Duration) Nanoseconds
 
 // DurationToNanoseconds.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501254-durationtonanoseconds
-func DurationToNanoseconds(arg0 unsafe.Pointer) Nanoseconds {
+func DurationToNanoseconds(arg0 Duration) Nanoseconds {
 	if _durationToNanoseconds == nil {
 		panic("coreservices: symbol DurationToNanoseconds not loaded")
 	}
@@ -4163,14 +4165,14 @@ func FSCancelVolumeOperation(arg0 FSVolumeOperation) int32 {
 	return _fSCancelVolumeOperation(arg0)
 }
 
-var _fSCatalogSearch func(arg0 FSIterator, arg1 FSSearchParams, arg2 uintptr, arg3 uintptr, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 uintptr, arg8 FSSpecPtr, arg9 unsafe.Pointer) int16
+var _fSCatalogSearch func(arg0 FSIterator, arg1 FSSearchParams, arg2 uintptr, arg3 uintptr, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 uintptr, arg8 FSSpecPtr, arg9 kernel.HFSUniStr255) int16
 
 // FSCatalogSearch.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565862-fscatalogsearch
-func FSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 uintptr, arg3 uintptr, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 uintptr, arg8 FSSpecPtr, arg9 unsafe.Pointer) int16 {
+func FSCatalogSearch(arg0 FSIterator, arg1 FSSearchParams, arg2 uintptr, arg3 uintptr, arg4 bool, arg5 FSCatalogInfoBitmap, arg6 FSCatalogInfo, arg7 uintptr, arg8 FSSpecPtr, arg9 kernel.HFSUniStr255) int16 {
 	if _fSCatalogSearch == nil {
 		panic("coreservices: symbol FSCatalogSearch not loaded")
 	}
@@ -4387,14 +4389,14 @@ func FSCreateResourceFork(arg0 uintptr, arg1 uint, arg2 uint16, arg3 uint32) int
 	return _fSCreateResourceFork(arg0, arg1, arg2, arg3)
 }
 
-var _fSCreateStringFromHFSUniStr func(arg0 corefoundation.CFAllocatorRef, arg1 unsafe.Pointer) corefoundation.CFStringRef
+var _fSCreateStringFromHFSUniStr func(arg0 corefoundation.CFAllocatorRef, arg1 kernel.HFSUniStr255) corefoundation.CFStringRef
 
 // FSCreateStringFromHFSUniStr.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566957-fscreatestringfromhfsunistr
-func FSCreateStringFromHFSUniStr(arg0 corefoundation.CFAllocatorRef, arg1 unsafe.Pointer) corefoundation.CFStringRef {
+func FSCreateStringFromHFSUniStr(arg0 corefoundation.CFAllocatorRef, arg1 kernel.HFSUniStr255) corefoundation.CFStringRef {
 	if _fSCreateStringFromHFSUniStr == nil {
 		panic("coreservices: symbol FSCreateStringFromHFSUniStr not loaded")
 	}
@@ -5131,28 +5133,28 @@ func FSGetAsyncUnmountStatus(arg0 FSVolumeOperation, arg1 FSUnmountStatus, arg2 
 	return _fSGetAsyncUnmountStatus(arg0, arg1, arg2, arg3, arg4)
 }
 
-var _fSGetDataForkName func(arg0 unsafe.Pointer) int16
+var _fSGetDataForkName func(arg0 kernel.HFSUniStr255) int16
 
 // FSGetDataForkName.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566760-fsgetdataforkname
-func FSGetDataForkName(arg0 unsafe.Pointer) int16 {
+func FSGetDataForkName(arg0 kernel.HFSUniStr255) int16 {
 	if _fSGetDataForkName == nil {
 		panic("coreservices: symbol FSGetDataForkName not loaded")
 	}
 	return _fSGetDataForkName(arg0)
 }
 
-var _fSGetForkCBInfo func(arg0 FSIORefNum, arg1 uintptr, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 uintptr, arg6 unsafe.Pointer) int16
+var _fSGetForkCBInfo func(arg0 FSIORefNum, arg1 uintptr, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 uintptr, arg6 kernel.HFSUniStr255) int16
 
 // FSGetForkCBInfo.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565345-fsgetforkcbinfo
-func FSGetForkCBInfo(arg0 FSIORefNum, arg1 uintptr, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 uintptr, arg6 unsafe.Pointer) int16 {
+func FSGetForkCBInfo(arg0 FSIORefNum, arg1 uintptr, arg2 int16, arg3 FSIORefNum, arg4 FSForkInfo, arg5 uintptr, arg6 kernel.HFSUniStr255) int16 {
 	if _fSGetForkCBInfo == nil {
 		panic("coreservices: symbol FSGetForkCBInfo not loaded")
 	}
@@ -5187,28 +5189,28 @@ func FSGetForkSize(arg0 FSIORefNum, arg1 int64) int16 {
 	return _fSGetForkSize(arg0, arg1)
 }
 
-var _fSGetHFSUniStrFromString func(arg0 corefoundation.CFStringRef, arg1 unsafe.Pointer) int32
+var _fSGetHFSUniStrFromString func(arg0 corefoundation.CFStringRef, arg1 kernel.HFSUniStr255) int32
 
 // FSGetHFSUniStrFromString.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565877-fsgethfsunistrfromstring
-func FSGetHFSUniStrFromString(arg0 corefoundation.CFStringRef, arg1 unsafe.Pointer) int32 {
+func FSGetHFSUniStrFromString(arg0 corefoundation.CFStringRef, arg1 kernel.HFSUniStr255) int32 {
 	if _fSGetHFSUniStrFromString == nil {
 		panic("coreservices: symbol FSGetHFSUniStrFromString not loaded")
 	}
 	return _fSGetHFSUniStrFromString(arg0, arg1)
 }
 
-var _fSGetResourceForkName func(arg0 unsafe.Pointer) int16
+var _fSGetResourceForkName func(arg0 kernel.HFSUniStr255) int16
 
 // FSGetResourceForkName.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566158-fsgetresourceforkname
-func FSGetResourceForkName(arg0 unsafe.Pointer) int16 {
+func FSGetResourceForkName(arg0 kernel.HFSUniStr255) int16 {
 	if _fSGetResourceForkName == nil {
 		panic("coreservices: symbol FSGetResourceForkName not loaded")
 	}
@@ -5257,28 +5259,28 @@ func FSGetVolumeForDiskID(arg0 corefoundation.CFStringRef, arg1 uintptr) int32 {
 	return _fSGetVolumeForDiskID(arg0, arg1)
 }
 
-var _fSGetVolumeInfo func(arg0 uintptr, arg1 uintptr, arg2 uintptr, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 unsafe.Pointer, arg6 uintptr) int16
+var _fSGetVolumeInfo func(arg0 uintptr, arg1 uintptr, arg2 uintptr, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 kernel.HFSUniStr255, arg6 uintptr) int16
 
 // FSGetVolumeInfo.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566350-fsgetvolumeinfo
-func FSGetVolumeInfo(arg0 uintptr, arg1 uintptr, arg2 uintptr, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 unsafe.Pointer, arg6 uintptr) int16 {
+func FSGetVolumeInfo(arg0 uintptr, arg1 uintptr, arg2 uintptr, arg3 FSVolumeInfoBitmap, arg4 FSVolumeInfo, arg5 kernel.HFSUniStr255, arg6 uintptr) int16 {
 	if _fSGetVolumeInfo == nil {
 		panic("coreservices: symbol FSGetVolumeInfo not loaded")
 	}
 	return _fSGetVolumeInfo(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 }
 
-var _fSGetVolumeMountInfo func(arg0 uintptr, arg1 unsafe.Pointer, arg2 uintptr, arg3 uintptr) int32
+var _fSGetVolumeMountInfo func(arg0 uintptr, arg1 kernel.BytePtr, arg2 uintptr, arg3 uintptr) int32
 
 // FSGetVolumeMountInfo.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565587-fsgetvolumemountinfo
-func FSGetVolumeMountInfo(arg0 uintptr, arg1 unsafe.Pointer, arg2 uintptr, arg3 uintptr) int32 {
+func FSGetVolumeMountInfo(arg0 uintptr, arg1 kernel.BytePtr, arg2 uintptr, arg3 uintptr) int32 {
 	if _fSGetVolumeMountInfo == nil {
 		panic("coreservices: symbol FSGetVolumeMountInfo not loaded")
 	}
@@ -5327,14 +5329,14 @@ func FSIsFSRefValid(arg0 uintptr) bool {
 	return _fSIsFSRefValid(arg0)
 }
 
-var _fSIterateForks func(arg0 uintptr, arg1 CatPositionRec, arg2 unsafe.Pointer, arg3 int64, arg4 uint64) int16
+var _fSIterateForks func(arg0 uintptr, arg1 CatPositionRec, arg2 kernel.HFSUniStr255, arg3 int64, arg4 uint64) int16
 
 // FSIterateForks.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1565757-fsiterateforks
-func FSIterateForks(arg0 uintptr, arg1 CatPositionRec, arg2 unsafe.Pointer, arg3 int64, arg4 uint64) int16 {
+func FSIterateForks(arg0 uintptr, arg1 CatPositionRec, arg2 kernel.HFSUniStr255, arg3 int64, arg4 uint64) int16 {
 	if _fSIterateForks == nil {
 		panic("coreservices: symbol FSIterateForks not loaded")
 	}
@@ -5523,14 +5525,14 @@ func FSOpenIterator(arg0 uintptr, arg1 FSIteratorFlags, arg2 FSIterator) int16 {
 	return _fSOpenIterator(arg0, arg1, arg2)
 }
 
-var _fSOpenOrphanResFile func(arg0 uintptr, arg1 unsafe.Pointer, arg2 ResFileRefNum) int16
+var _fSOpenOrphanResFile func(arg0 uintptr, arg1 kernel.SignedByte, arg2 ResFileRefNum) int16
 
 // FSOpenOrphanResFile.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1529349-fsopenorphanresfile
-func FSOpenOrphanResFile(arg0 uintptr, arg1 unsafe.Pointer, arg2 ResFileRefNum) int16 {
+func FSOpenOrphanResFile(arg0 uintptr, arg1 kernel.SignedByte, arg2 ResFileRefNum) int16 {
 	if _fSOpenOrphanResFile == nil {
 		panic("coreservices: symbol FSOpenOrphanResFile not loaded")
 	}
@@ -5915,14 +5917,14 @@ func FSUnmountVolumeSync(arg0 uintptr, arg1 uintptr, arg2 int32) int32 {
 	return _fSUnmountVolumeSync(arg0, arg1, arg2)
 }
 
-var _fSVolumeMount func(arg0 unsafe.Pointer, arg1 uintptr) int32
+var _fSVolumeMount func(arg0 kernel.BytePtr, arg1 uintptr) int32
 
 // FSVolumeMount.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1566510-fsvolumemount
-func FSVolumeMount(arg0 unsafe.Pointer, arg1 uintptr) int32 {
+func FSVolumeMount(arg0 kernel.BytePtr, arg1 uintptr) int32 {
 	if _fSVolumeMount == nil {
 		panic("coreservices: symbol FSVolumeMount not loaded")
 	}
@@ -5971,14 +5973,14 @@ func FindNextComponent(arg0 Component, arg1 ComponentDescription) Component {
 	return _findNextComponent(arg0, arg1)
 }
 
-var _fix2Frac func(arg0 uintptr) unsafe.Pointer
+var _fix2Frac func(arg0 uintptr) kernel.Fract
 
 // Fix2Frac.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409219-fix2frac
-func Fix2Frac(arg0 uintptr) unsafe.Pointer {
+func Fix2Frac(arg0 uintptr) kernel.Fract {
 	if _fix2Frac == nil {
 		panic("coreservices: symbol Fix2Frac not loaded")
 	}
@@ -6125,98 +6127,98 @@ func FlattenPartialCollection(arg0 Collection, arg1 CollectionFlattenUPP, arg2 i
 	return _flattenPartialCollection(arg0, arg1, arg2, arg3)
 }
 
-var _frac2Fix func(arg0 unsafe.Pointer) objectivec.IObject
+var _frac2Fix func(arg0 kernel.Fract) objectivec.IObject
 
 // Frac2Fix.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409286-frac2fix
-func Frac2Fix(arg0 unsafe.Pointer) objectivec.IObject {
+func Frac2Fix(arg0 kernel.Fract) objectivec.IObject {
 	if _frac2Fix == nil {
 		panic("coreservices: symbol Frac2Fix not loaded")
 	}
 	return _frac2Fix(arg0)
 }
 
-var _frac2X func(arg0 unsafe.Pointer) float64
+var _frac2X func(arg0 kernel.Fract) float64
 
 // Frac2X.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409216-frac2x
-func Frac2X(arg0 unsafe.Pointer) float64 {
+func Frac2X(arg0 kernel.Fract) float64 {
 	if _frac2X == nil {
 		panic("coreservices: symbol Frac2X not loaded")
 	}
 	return _frac2X(arg0)
 }
 
-var _fracCos func(arg0 uintptr) unsafe.Pointer
+var _fracCos func(arg0 uintptr) kernel.Fract
 
 // FracCos.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409257-fraccos
-func FracCos(arg0 uintptr) unsafe.Pointer {
+func FracCos(arg0 uintptr) kernel.Fract {
 	if _fracCos == nil {
 		panic("coreservices: symbol FracCos not loaded")
 	}
 	return _fracCos(arg0)
 }
 
-var _fracDiv func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer
+var _fracDiv func(arg0 kernel.Fract, arg1 kernel.Fract) kernel.Fract
 
 // FracDiv.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409280-fracdiv
-func FracDiv(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
+func FracDiv(arg0 kernel.Fract, arg1 kernel.Fract) kernel.Fract {
 	if _fracDiv == nil {
 		panic("coreservices: symbol FracDiv not loaded")
 	}
 	return _fracDiv(arg0, arg1)
 }
 
-var _fracMul func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer
+var _fracMul func(arg0 kernel.Fract, arg1 kernel.Fract) kernel.Fract
 
 // FracMul.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409259-fracmul
-func FracMul(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
+func FracMul(arg0 kernel.Fract, arg1 kernel.Fract) kernel.Fract {
 	if _fracMul == nil {
 		panic("coreservices: symbol FracMul not loaded")
 	}
 	return _fracMul(arg0, arg1)
 }
 
-var _fracSin func(arg0 uintptr) unsafe.Pointer
+var _fracSin func(arg0 uintptr) kernel.Fract
 
 // FracSin.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409243-fracsin
-func FracSin(arg0 uintptr) unsafe.Pointer {
+func FracSin(arg0 uintptr) kernel.Fract {
 	if _fracSin == nil {
 		panic("coreservices: symbol FracSin not loaded")
 	}
 	return _fracSin(arg0)
 }
 
-var _fracSqrt func(arg0 unsafe.Pointer) unsafe.Pointer
+var _fracSqrt func(arg0 kernel.Fract) kernel.Fract
 
 // FracSqrt.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409284-fracsqrt
-func FracSqrt(arg0 unsafe.Pointer) unsafe.Pointer {
+func FracSqrt(arg0 kernel.Fract) kernel.Fract {
 	if _fracSqrt == nil {
 		panic("coreservices: symbol FracSqrt not loaded")
 	}
@@ -6615,14 +6617,14 @@ func GetDefaultThreadStackSize(arg0 ThreadStyle, arg1 corefoundation.CGSize) int
 	return _getDefaultThreadStackSize(arg0, arg1)
 }
 
-var _getFolderNameUnicode func(arg0 uintptr, arg1 uint32, arg2 uintptr, arg3 unsafe.Pointer) int32
+var _getFolderNameUnicode func(arg0 uintptr, arg1 uint32, arg2 uintptr, arg3 kernel.HFSUniStr255) int32
 
 // GetFolderNameUnicode.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1389375-getfoldernameunicode
-func GetFolderNameUnicode(arg0 uintptr, arg1 uint32, arg2 uintptr, arg3 unsafe.Pointer) int32 {
+func GetFolderNameUnicode(arg0 uintptr, arg1 uint32, arg2 uintptr, arg3 kernel.HFSUniStr255) int32 {
 	if _getFolderNameUnicode == nil {
 		panic("coreservices: symbol GetFolderNameUnicode not loaded")
 	}
@@ -10475,14 +10477,14 @@ func MPAllocateTaskStorageIndex(arg0 TaskStorageIndex) int32 {
 	return _mPAllocateTaskStorageIndex(arg0)
 }
 
-var _mPArmTimer func(arg0 MPTimerID, arg1 unsafe.Pointer, arg2 uintptr) int32
+var _mPArmTimer func(arg0 MPTimerID, arg1 kernel.AbsoluteTime, arg2 uintptr) int32
 
 // MPArmTimer arms the timer to expire at a given time.
 //
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585612-mparmtimer
-func MPArmTimer(arg0 MPTimerID, arg1 unsafe.Pointer, arg2 uintptr) int32 {
+func MPArmTimer(arg0 MPTimerID, arg1 kernel.AbsoluteTime, arg2 uintptr) int32 {
 	if _mPArmTimer == nil {
 		panic("coreservices: symbol MPArmTimer not loaded")
 	}
@@ -10517,14 +10519,14 @@ func MPBlockCopy(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 uintptr) {
 	_mPBlockCopy(arg0, arg1, arg2)
 }
 
-var _mPCancelTimer func(arg0 MPTimerID, arg1 unsafe.Pointer) int32
+var _mPCancelTimer func(arg0 MPTimerID, arg1 kernel.AbsoluteTime) int32
 
 // MPCancelTimer cancels an armed timer.
 //
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585745-mpcanceltimer
-func MPCancelTimer(arg0 MPTimerID, arg1 unsafe.Pointer) int32 {
+func MPCancelTimer(arg0 MPTimerID, arg1 kernel.AbsoluteTime) int32 {
 	if _mPCancelTimer == nil {
 		panic("coreservices: symbol MPCancelTimer not loaded")
 	}
@@ -10671,14 +10673,14 @@ func MPDeallocateTaskStorageIndex(arg0 TaskStorageIndex) int32 {
 	return _mPDeallocateTaskStorageIndex(arg0)
 }
 
-var _mPDelayUntil func(arg0 unsafe.Pointer) int32
+var _mPDelayUntil func(arg0 kernel.AbsoluteTime) int32
 
 // MPDelayUntil blocks the calling task until a specified time.
 //
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585647-mpdelayuntil
-func MPDelayUntil(arg0 unsafe.Pointer) int32 {
+func MPDelayUntil(arg0 kernel.AbsoluteTime) int32 {
 	if _mPDelayUntil == nil {
 		panic("coreservices: symbol MPDelayUntil not loaded")
 	}
@@ -10783,14 +10785,14 @@ func MPDisposeTaskException(arg0 MPTaskID, arg1 uintptr) int32 {
 	return _mPDisposeTaskException(arg0, arg1)
 }
 
-var _mPEnterCriticalRegion func(arg0 MPCriticalRegionID, arg1 unsafe.Pointer) int32
+var _mPEnterCriticalRegion func(arg0 MPCriticalRegionID, arg1 Duration) int32
 
 // MPEnterCriticalRegion attempts to enter a critical region.
 //
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585622-mpentercriticalregion
-func MPEnterCriticalRegion(arg0 MPCriticalRegionID, arg1 unsafe.Pointer) int32 {
+func MPEnterCriticalRegion(arg0 MPCriticalRegionID, arg1 Duration) int32 {
 	if _mPEnterCriticalRegion == nil {
 		panic("coreservices: symbol MPEnterCriticalRegion not loaded")
 	}
@@ -11189,42 +11191,42 @@ func MPUnregisterDebugger(arg0 MPQueueID) int32 {
 	return _mPUnregisterDebugger(arg0)
 }
 
-var _mPWaitForEvent func(arg0 MPEventID, arg1 MPEventFlags, arg2 unsafe.Pointer) int32
+var _mPWaitForEvent func(arg0 MPEventID, arg1 MPEventFlags, arg2 Duration) int32
 
 // MPWaitForEvent retrieves event flags from a specified event group.
 //
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585656-mpwaitforevent
-func MPWaitForEvent(arg0 MPEventID, arg1 MPEventFlags, arg2 unsafe.Pointer) int32 {
+func MPWaitForEvent(arg0 MPEventID, arg1 MPEventFlags, arg2 Duration) int32 {
 	if _mPWaitForEvent == nil {
 		panic("coreservices: symbol MPWaitForEvent not loaded")
 	}
 	return _mPWaitForEvent(arg0, arg1, arg2)
 }
 
-var _mPWaitOnQueue func(arg0 MPQueueID, arg1 unsafe.Pointer) int32
+var _mPWaitOnQueue func(arg0 MPQueueID, arg1 Duration) int32
 
 // MPWaitOnQueue obtains a message from a specified message queue.
 //
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585762-mpwaitonqueue
-func MPWaitOnQueue(arg0 MPQueueID, arg1 unsafe.Pointer) int32 {
+func MPWaitOnQueue(arg0 MPQueueID, arg1 Duration) int32 {
 	if _mPWaitOnQueue == nil {
 		panic("coreservices: symbol MPWaitOnQueue not loaded")
 	}
 	return _mPWaitOnQueue(arg0, arg1)
 }
 
-var _mPWaitOnSemaphore func(arg0 MPSemaphoreID, arg1 unsafe.Pointer) int32
+var _mPWaitOnSemaphore func(arg0 MPSemaphoreID, arg1 Duration) int32
 
 // MPWaitOnSemaphore waits on a semaphore
 //
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/coreservices/1585722-mpwaitonsemaphore
-func MPWaitOnSemaphore(arg0 MPSemaphoreID, arg1 unsafe.Pointer) int32 {
+func MPWaitOnSemaphore(arg0 MPSemaphoreID, arg1 Duration) int32 {
 	if _mPWaitOnSemaphore == nil {
 		panic("coreservices: symbol MPWaitOnSemaphore not loaded")
 	}
@@ -11315,28 +11317,28 @@ func Munger(arg0 uintptr, arg1 int, arg2 int, arg3 int) int {
 	return _munger(arg0, arg1, arg2, arg3)
 }
 
-var _nanosecondsToAbsolute func(arg0 Nanoseconds) unsafe.Pointer
+var _nanosecondsToAbsolute func(arg0 Nanoseconds) kernel.AbsoluteTime
 
 // NanosecondsToAbsolute.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501255-nanosecondstoabsolute
-func NanosecondsToAbsolute(arg0 Nanoseconds) unsafe.Pointer {
+func NanosecondsToAbsolute(arg0 Nanoseconds) kernel.AbsoluteTime {
 	if _nanosecondsToAbsolute == nil {
 		panic("coreservices: symbol NanosecondsToAbsolute not loaded")
 	}
 	return _nanosecondsToAbsolute(arg0)
 }
 
-var _nanosecondsToDuration func(arg0 Nanoseconds) unsafe.Pointer
+var _nanosecondsToDuration func(arg0 Nanoseconds) Duration
 
 // NanosecondsToDuration.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501257-nanosecondstoduration
-func NanosecondsToDuration(arg0 Nanoseconds) unsafe.Pointer {
+func NanosecondsToDuration(arg0 Nanoseconds) Duration {
 	if _nanosecondsToDuration == nil {
 		panic("coreservices: symbol NanosecondsToDuration not loaded")
 	}
@@ -13551,18 +13553,18 @@ func RecoverHandle(arg0 coreimage.Ptr) objectivec.IObject {
 	return _recoverHandle(arg0)
 }
 
-var _registerComponent func(arg0 ComponentDescription, arg1 ComponentRoutineUPP, arg2 int16, arg3 uintptr, arg4 uintptr, arg5 uintptr) Component
+var _registerComponentFunc func(arg0 ComponentDescription, arg1 ComponentRoutineUPP, arg2 int16, arg3 uintptr, arg4 uintptr, arg5 uintptr) Component
 
-// RegisterComponent registers a component stored in memory.
+// RegisterComponentFunc registers a component stored in memory.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1516537-registercomponent
-func RegisterComponent(arg0 ComponentDescription, arg1 ComponentRoutineUPP, arg2 int16, arg3 uintptr, arg4 uintptr, arg5 uintptr) Component {
-	if _registerComponent == nil {
+func RegisterComponentFunc(arg0 ComponentDescription, arg1 ComponentRoutineUPP, arg2 int16, arg3 uintptr, arg4 uintptr, arg5 uintptr) Component {
+	if _registerComponentFunc == nil {
 		panic("coreservices: symbol RegisterComponent not loaded")
 	}
-	return _registerComponent(arg0, arg1, arg2, arg3, arg4, arg5)
+	return _registerComponentFunc(arg0, arg1, arg2, arg3, arg4, arg5)
 }
 
 var _registerComponentFileRef func(arg0 uintptr, arg1 int16) int16
@@ -15447,42 +15449,42 @@ func SleepQRemove(arg0 SleepQRecPtr) {
 	_sleepQRemove(arg0)
 }
 
-var _subAbsoluteFromAbsolute func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer
+var _subAbsoluteFromAbsolute func(arg0 kernel.AbsoluteTime, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime
 
 // SubAbsoluteFromAbsolute.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501265-subabsolutefromabsolute
-func SubAbsoluteFromAbsolute(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
+func SubAbsoluteFromAbsolute(arg0 kernel.AbsoluteTime, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime {
 	if _subAbsoluteFromAbsolute == nil {
 		panic("coreservices: symbol SubAbsoluteFromAbsolute not loaded")
 	}
 	return _subAbsoluteFromAbsolute(arg0, arg1)
 }
 
-var _subDurationFromAbsolute func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer
+var _subDurationFromAbsolute func(arg0 Duration, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime
 
 // SubDurationFromAbsolute.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501261-subdurationfromabsolute
-func SubDurationFromAbsolute(arg0 unsafe.Pointer, arg1 unsafe.Pointer) unsafe.Pointer {
+func SubDurationFromAbsolute(arg0 Duration, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime {
 	if _subDurationFromAbsolute == nil {
 		panic("coreservices: symbol SubDurationFromAbsolute not loaded")
 	}
 	return _subDurationFromAbsolute(arg0, arg1)
 }
 
-var _subNanosecondsFromAbsolute func(arg0 Nanoseconds, arg1 unsafe.Pointer) unsafe.Pointer
+var _subNanosecondsFromAbsolute func(arg0 Nanoseconds, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime
 
 // SubNanosecondsFromAbsolute.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501240-subnanosecondsfromabsolute
-func SubNanosecondsFromAbsolute(arg0 Nanoseconds, arg1 unsafe.Pointer) unsafe.Pointer {
+func SubNanosecondsFromAbsolute(arg0 Nanoseconds, arg1 kernel.AbsoluteTime) kernel.AbsoluteTime {
 	if _subNanosecondsFromAbsolute == nil {
 		panic("coreservices: symbol SubNanosecondsFromAbsolute not loaded")
 	}
@@ -16955,14 +16957,14 @@ func UnsignedWideToUInt64(arg0 uint64) uint64 {
 	return _unsignedWideToUInt64(arg0)
 }
 
-var _upTime func() unsafe.Pointer
+var _upTime func() kernel.AbsoluteTime
 
 // UpTime.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1501237-uptime
-func UpTime() unsafe.Pointer {
+func UpTime() kernel.AbsoluteTime {
 	if _upTime == nil {
 		panic("coreservices: symbol UpTime not loaded")
 	}
@@ -17623,14 +17625,14 @@ func X2Fix(arg0 float64) objectivec.IObject {
 	return _x2Fix(arg0)
 }
 
-var _x2Frac func(arg0 float64) unsafe.Pointer
+var _x2Frac func(arg0 float64) kernel.Fract
 
 // X2Frac.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1409261-x2frac
-func X2Frac(arg0 float64) unsafe.Pointer {
+func X2Frac(arg0 float64) kernel.Fract {
 	if _x2Frac == nil {
 		panic("coreservices: symbol X2Frac not loaded")
 	}
@@ -17721,14 +17723,14 @@ func Dec2l(arg0 Decimal) int {
 	return _dec2l(arg0)
 }
 
-var _dec2num func(arg0 Decimal) unsafe.Pointer
+var _dec2num func(arg0 Decimal) kernel.Double_t
 
 // Dec2num.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1492667-dec2num
-func Dec2num(arg0 Decimal) unsafe.Pointer {
+func Dec2num(arg0 Decimal) kernel.Double_t {
 	if _dec2num == nil {
 		panic("coreservices: symbol dec2num not loaded")
 	}
@@ -17871,14 +17873,14 @@ func Ldtox80(arg0 unsafe.Pointer, arg1 unsafe.Pointer) {
 	_ldtox80(arg0, arg1)
 }
 
-var _num2dec func(arg0 Decform, arg1 unsafe.Pointer, arg2 Decimal)
+var _num2dec func(arg0 Decform, arg1 kernel.Double_t, arg2 Decimal)
 
 // Num2dec.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1492649-num2dec
-func Num2dec(arg0 Decform, arg1 unsafe.Pointer, arg2 Decimal) {
+func Num2dec(arg0 Decform, arg1 kernel.Double_t, arg2 Decimal) {
 	if _num2dec == nil {
 		panic("coreservices: symbol num2dec not loaded")
 	}
@@ -17911,28 +17913,28 @@ func Numtostring(arg0 int, arg1 int8) {
 	_numtostring(arg0, arg1)
 }
 
-var _randomx func(arg0 unsafe.Pointer) unsafe.Pointer
+var _randomx func(arg0 kernel.Double_t) kernel.Double_t
 
 // Randomx.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1492636-randomx
-func Randomx(arg0 unsafe.Pointer) unsafe.Pointer {
+func Randomx(arg0 kernel.Double_t) kernel.Double_t {
 	if _randomx == nil {
 		panic("coreservices: symbol randomx not loaded")
 	}
 	return _randomx(arg0)
 }
 
-var _relation func(arg0 unsafe.Pointer, arg1 unsafe.Pointer) Relop
+var _relation func(arg0 kernel.Double_t, arg1 kernel.Double_t) Relop
 
 // Relation.
 //
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/coreservices/1492646-relation
-func Relation(arg0 unsafe.Pointer, arg1 unsafe.Pointer) Relop {
+func Relation(arg0 kernel.Double_t, arg1 kernel.Double_t) Relop {
 	if _relation == nil {
 		panic("coreservices: symbol relation not loaded")
 	}
@@ -18031,1362 +18033,1361 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_aEBuildAppleEvent, frameworkHandle, "AEBuildAppleEvent")
-		registerFunc(&_aEBuildDesc, frameworkHandle, "AEBuildDesc")
-		registerFunc(&_aEBuildParameters, frameworkHandle, "AEBuildParameters")
-		registerFunc(&_aECallObjectAccessor, frameworkHandle, "AECallObjectAccessor")
-		registerFunc(&_aECheckIsRecord, frameworkHandle, "AECheckIsRecord")
-		registerFunc(&_aECoerceDesc, frameworkHandle, "AECoerceDesc")
-		registerFunc(&_aECoercePtr, frameworkHandle, "AECoercePtr")
-		registerFunc(&_aECompareDesc, frameworkHandle, "AECompareDesc")
-		registerFunc(&_aECountItems, frameworkHandle, "AECountItems")
-		registerFunc(&_aECreateAppleEvent, frameworkHandle, "AECreateAppleEvent")
-		registerFunc(&_aECreateDesc, frameworkHandle, "AECreateDesc")
-		registerFunc(&_aECreateDescFromExternalPtr, frameworkHandle, "AECreateDescFromExternalPtr")
-		registerFunc(&_aECreateList, frameworkHandle, "AECreateList")
-		registerFunc(&_aECreateRemoteProcessResolver, frameworkHandle, "AECreateRemoteProcessResolver")
-		registerFunc(&_aEDecodeMessage, frameworkHandle, "AEDecodeMessage")
-		registerFunc(&_aEDeleteItem, frameworkHandle, "AEDeleteItem")
-		registerFunc(&_aEDeleteParam, frameworkHandle, "AEDeleteParam")
-		registerFunc(&_aEDeterminePermissionToAutomateTarget, frameworkHandle, "AEDeterminePermissionToAutomateTarget")
-		registerFunc(&_aEDisposeDesc, frameworkHandle, "AEDisposeDesc")
-		registerFunc(&_aEDisposeRemoteProcessResolver, frameworkHandle, "AEDisposeRemoteProcessResolver")
-		registerFunc(&_aEDisposeToken, frameworkHandle, "AEDisposeToken")
-		registerFunc(&_aEDuplicateDesc, frameworkHandle, "AEDuplicateDesc")
-		registerFunc(&_aEFlattenDesc, frameworkHandle, "AEFlattenDesc")
-		registerFunc(&_aEGetArray, frameworkHandle, "AEGetArray")
-		registerFunc(&_aEGetAttributeDesc, frameworkHandle, "AEGetAttributeDesc")
-		registerFunc(&_aEGetAttributePtr, frameworkHandle, "AEGetAttributePtr")
-		registerFunc(&_aEGetCoercionHandler, frameworkHandle, "AEGetCoercionHandler")
-		registerFunc(&_aEGetDescData, frameworkHandle, "AEGetDescData")
-		registerFunc(&_aEGetDescDataRange, frameworkHandle, "AEGetDescDataRange")
-		registerFunc(&_aEGetDescDataSize, frameworkHandle, "AEGetDescDataSize")
-		registerFunc(&_aEGetEventHandler, frameworkHandle, "AEGetEventHandler")
-		registerFunc(&_aEGetNthDesc, frameworkHandle, "AEGetNthDesc")
-		registerFunc(&_aEGetNthPtr, frameworkHandle, "AEGetNthPtr")
-		registerFunc(&_aEGetObjectAccessor, frameworkHandle, "AEGetObjectAccessor")
-		registerFunc(&_aEGetParamDesc, frameworkHandle, "AEGetParamDesc")
-		registerFunc(&_aEGetParamPtr, frameworkHandle, "AEGetParamPtr")
-		registerFunc(&_aEGetRegisteredMachPort, frameworkHandle, "AEGetRegisteredMachPort")
-		registerFunc(&_aEGetSpecialHandler, frameworkHandle, "AEGetSpecialHandler")
-		registerFunc(&_aEInitializeDesc, frameworkHandle, "AEInitializeDesc")
-		registerFunc(&_aEInstallCoercionHandler, frameworkHandle, "AEInstallCoercionHandler")
-		registerFunc(&_aEInstallEventHandler, frameworkHandle, "AEInstallEventHandler")
-		registerFunc(&_aEInstallObjectAccessor, frameworkHandle, "AEInstallObjectAccessor")
-		registerFunc(&_aEInstallSpecialHandler, frameworkHandle, "AEInstallSpecialHandler")
-		registerFunc(&_aEManagerInfo, frameworkHandle, "AEManagerInfo")
-		registerFunc(&_aEObjectInit, frameworkHandle, "AEObjectInit")
-		registerFunc(&_aEPrintDescToHandle, frameworkHandle, "AEPrintDescToHandle")
-		registerFunc(&_aEProcessMessage, frameworkHandle, "AEProcessMessage")
-		registerFunc(&_aEPutArray, frameworkHandle, "AEPutArray")
-		registerFunc(&_aEPutAttributeDesc, frameworkHandle, "AEPutAttributeDesc")
-		registerFunc(&_aEPutAttributePtr, frameworkHandle, "AEPutAttributePtr")
-		registerFunc(&_aEPutDesc, frameworkHandle, "AEPutDesc")
-		registerFunc(&_aEPutParamDesc, frameworkHandle, "AEPutParamDesc")
-		registerFunc(&_aEPutParamPtr, frameworkHandle, "AEPutParamPtr")
-		registerFunc(&_aEPutPtr, frameworkHandle, "AEPutPtr")
-		registerFunc(&_aERemoteProcessResolverGetProcesses, frameworkHandle, "AERemoteProcessResolverGetProcesses")
-		registerFunc(&_aERemoteProcessResolverScheduleWithRunLoop, frameworkHandle, "AERemoteProcessResolverScheduleWithRunLoop")
-		registerFunc(&_aERemoveCoercionHandler, frameworkHandle, "AERemoveCoercionHandler")
-		registerFunc(&_aERemoveEventHandler, frameworkHandle, "AERemoveEventHandler")
-		registerFunc(&_aERemoveObjectAccessor, frameworkHandle, "AERemoveObjectAccessor")
-		registerFunc(&_aERemoveSpecialHandler, frameworkHandle, "AERemoveSpecialHandler")
-		registerFunc(&_aEReplaceDescData, frameworkHandle, "AEReplaceDescData")
-		registerFunc(&_aEResolve, frameworkHandle, "AEResolve")
-		registerFunc(&_aESendMessage, frameworkHandle, "AESendMessage")
-		registerFunc(&_aESetObjectCallbacks, frameworkHandle, "AESetObjectCallbacks")
-		registerFunc(&_aESizeOfAttribute, frameworkHandle, "AESizeOfAttribute")
-		registerFunc(&_aESizeOfFlattenedDesc, frameworkHandle, "AESizeOfFlattenedDesc")
-		registerFunc(&_aESizeOfNthItem, frameworkHandle, "AESizeOfNthItem")
-		registerFunc(&_aESizeOfParam, frameworkHandle, "AESizeOfParam")
-		registerFunc(&_aEStreamClose, frameworkHandle, "AEStreamClose")
-		registerFunc(&_aEStreamCloseDesc, frameworkHandle, "AEStreamCloseDesc")
-		registerFunc(&_aEStreamCloseList, frameworkHandle, "AEStreamCloseList")
-		registerFunc(&_aEStreamCloseRecord, frameworkHandle, "AEStreamCloseRecord")
-		registerFunc(&_aEStreamCreateEvent, frameworkHandle, "AEStreamCreateEvent")
-		registerFunc(&_aEStreamOpen, frameworkHandle, "AEStreamOpen")
-		registerFunc(&_aEStreamOpenDesc, frameworkHandle, "AEStreamOpenDesc")
-		registerFunc(&_aEStreamOpenEvent, frameworkHandle, "AEStreamOpenEvent")
-		registerFunc(&_aEStreamOpenKeyDesc, frameworkHandle, "AEStreamOpenKeyDesc")
-		registerFunc(&_aEStreamOpenList, frameworkHandle, "AEStreamOpenList")
-		registerFunc(&_aEStreamOpenRecord, frameworkHandle, "AEStreamOpenRecord")
-		registerFunc(&_aEStreamOptionalParam, frameworkHandle, "AEStreamOptionalParam")
-		registerFunc(&_aEStreamSetRecordType, frameworkHandle, "AEStreamSetRecordType")
-		registerFunc(&_aEStreamWriteAEDesc, frameworkHandle, "AEStreamWriteAEDesc")
-		registerFunc(&_aEStreamWriteData, frameworkHandle, "AEStreamWriteData")
-		registerFunc(&_aEStreamWriteDesc, frameworkHandle, "AEStreamWriteDesc")
-		registerFunc(&_aEStreamWriteKey, frameworkHandle, "AEStreamWriteKey")
-		registerFunc(&_aEStreamWriteKeyDesc, frameworkHandle, "AEStreamWriteKeyDesc")
-		registerFunc(&_aEUnflattenDesc, frameworkHandle, "AEUnflattenDesc")
-		registerFunc(&_aEUnflattenDescFromBytes, frameworkHandle, "AEUnflattenDescFromBytes")
-		registerFunc(&_absoluteDeltaToDuration, frameworkHandle, "AbsoluteDeltaToDuration")
-		registerFunc(&_absoluteDeltaToNanoseconds, frameworkHandle, "AbsoluteDeltaToNanoseconds")
-		registerFunc(&_absoluteToDuration, frameworkHandle, "AbsoluteToDuration")
-		registerFunc(&_absoluteToNanoseconds, frameworkHandle, "AbsoluteToNanoseconds")
-		registerFunc(&_acquireIconRef, frameworkHandle, "AcquireIconRef")
-		registerFunc(&_addAbsoluteToAbsolute, frameworkHandle, "AddAbsoluteToAbsolute")
-		registerFunc(&_addAtomic, frameworkHandle, "AddAtomic")
-		registerFunc(&_addAtomic16, frameworkHandle, "AddAtomic16")
-		registerFunc(&_addAtomic8, frameworkHandle, "AddAtomic8")
-		registerFunc(&_addCollectionItem, frameworkHandle, "AddCollectionItem")
-		registerFunc(&_addCollectionItemHdl, frameworkHandle, "AddCollectionItemHdl")
-		registerFunc(&_addDurationToAbsolute, frameworkHandle, "AddDurationToAbsolute")
-		registerFunc(&_addFolderDescriptor, frameworkHandle, "AddFolderDescriptor")
-		registerFunc(&_addNanosecondsToAbsolute, frameworkHandle, "AddNanosecondsToAbsolute")
-		registerFunc(&_addResource, frameworkHandle, "AddResource")
-		registerFunc(&_batteryCount, frameworkHandle, "BatteryCount")
-		registerFunc(&_bitAnd, frameworkHandle, "BitAnd")
-		registerFunc(&_bitAndAtomic, frameworkHandle, "BitAndAtomic")
-		registerFunc(&_bitAndAtomic16, frameworkHandle, "BitAndAtomic16")
-		registerFunc(&_bitAndAtomic8, frameworkHandle, "BitAndAtomic8")
-		registerFunc(&_bitClr, frameworkHandle, "BitClr")
-		registerFunc(&_bitNot, frameworkHandle, "BitNot")
-		registerFunc(&_bitOr, frameworkHandle, "BitOr")
-		registerFunc(&_bitOrAtomic, frameworkHandle, "BitOrAtomic")
-		registerFunc(&_bitOrAtomic16, frameworkHandle, "BitOrAtomic16")
-		registerFunc(&_bitOrAtomic8, frameworkHandle, "BitOrAtomic8")
-		registerFunc(&_bitSet, frameworkHandle, "BitSet")
-		registerFunc(&_bitShift, frameworkHandle, "BitShift")
-		registerFunc(&_bitTst, frameworkHandle, "BitTst")
-		registerFunc(&_bitXor, frameworkHandle, "BitXor")
-		registerFunc(&_bitXorAtomic, frameworkHandle, "BitXorAtomic")
-		registerFunc(&_bitXorAtomic16, frameworkHandle, "BitXorAtomic16")
-		registerFunc(&_bitXorAtomic8, frameworkHandle, "BitXorAtomic8")
-		registerFunc(&_cSBackupIsItemExcluded, frameworkHandle, "CSBackupIsItemExcluded")
-		registerFunc(&_cSBackupSetItemExcluded, frameworkHandle, "CSBackupSetItemExcluded")
-		registerFunc(&_cSCopyMachineName, frameworkHandle, "CSCopyMachineName")
-		registerFunc(&_cSCopyUserName, frameworkHandle, "CSCopyUserName")
-		registerFunc(&_cSDiskSpaceCancelRecovery, frameworkHandle, "CSDiskSpaceCancelRecovery")
-		registerFunc(&_cSDiskSpaceGetRecoveryEstimate, frameworkHandle, "CSDiskSpaceGetRecoveryEstimate")
-		registerFunc(&_cSDiskSpaceStartRecovery, frameworkHandle, "CSDiskSpaceStartRecovery")
-		registerFunc(&_cSGetComponentsThreadMode, frameworkHandle, "CSGetComponentsThreadMode")
-		registerFunc(&_cSGetDefaultIdentityAuthority, frameworkHandle, "CSGetDefaultIdentityAuthority")
-		registerFunc(&_cSGetLocalIdentityAuthority, frameworkHandle, "CSGetLocalIdentityAuthority")
-		registerFunc(&_cSGetManagedIdentityAuthority, frameworkHandle, "CSGetManagedIdentityAuthority")
-		registerFunc(&_cSIdentityAddAlias, frameworkHandle, "CSIdentityAddAlias")
-		registerFunc(&_cSIdentityAddMember, frameworkHandle, "CSIdentityAddMember")
-		registerFunc(&_cSIdentityAuthenticateUsingPassword, frameworkHandle, "CSIdentityAuthenticateUsingPassword")
-		registerFunc(&_cSIdentityAuthorityCopyLocalizedName, frameworkHandle, "CSIdentityAuthorityCopyLocalizedName")
-		registerFunc(&_cSIdentityAuthorityGetTypeID, frameworkHandle, "CSIdentityAuthorityGetTypeID")
-		registerFunc(&_cSIdentityCommit, frameworkHandle, "CSIdentityCommit")
-		registerFunc(&_cSIdentityCommitAsynchronously, frameworkHandle, "CSIdentityCommitAsynchronously")
-		registerFunc(&_cSIdentityCreate, frameworkHandle, "CSIdentityCreate")
-		registerFunc(&_cSIdentityCreateCopy, frameworkHandle, "CSIdentityCreateCopy")
-		registerFunc(&_cSIdentityCreateGroupMembershipQuery, frameworkHandle, "CSIdentityCreateGroupMembershipQuery")
-		registerFunc(&_cSIdentityCreatePersistentReference, frameworkHandle, "CSIdentityCreatePersistentReference")
-		registerFunc(&_cSIdentityDelete, frameworkHandle, "CSIdentityDelete")
-		registerFunc(&_cSIdentityGetAliases, frameworkHandle, "CSIdentityGetAliases")
-		registerFunc(&_cSIdentityGetAuthority, frameworkHandle, "CSIdentityGetAuthority")
-		registerFunc(&_cSIdentityGetCertificate, frameworkHandle, "CSIdentityGetCertificate")
-		registerFunc(&_cSIdentityGetClass, frameworkHandle, "CSIdentityGetClass")
-		registerFunc(&_cSIdentityGetEmailAddress, frameworkHandle, "CSIdentityGetEmailAddress")
-		registerFunc(&_cSIdentityGetFullName, frameworkHandle, "CSIdentityGetFullName")
-		registerFunc(&_cSIdentityGetImageData, frameworkHandle, "CSIdentityGetImageData")
-		registerFunc(&_cSIdentityGetImageDataType, frameworkHandle, "CSIdentityGetImageDataType")
-		registerFunc(&_cSIdentityGetImageURL, frameworkHandle, "CSIdentityGetImageURL")
-		registerFunc(&_cSIdentityGetPosixID, frameworkHandle, "CSIdentityGetPosixID")
-		registerFunc(&_cSIdentityGetPosixName, frameworkHandle, "CSIdentityGetPosixName")
-		registerFunc(&_cSIdentityGetTypeID, frameworkHandle, "CSIdentityGetTypeID")
-		registerFunc(&_cSIdentityGetUUID, frameworkHandle, "CSIdentityGetUUID")
-		registerFunc(&_cSIdentityIsCommitting, frameworkHandle, "CSIdentityIsCommitting")
-		registerFunc(&_cSIdentityIsEnabled, frameworkHandle, "CSIdentityIsEnabled")
-		registerFunc(&_cSIdentityIsHidden, frameworkHandle, "CSIdentityIsHidden")
-		registerFunc(&_cSIdentityIsMemberOfGroup, frameworkHandle, "CSIdentityIsMemberOfGroup")
-		registerFunc(&_cSIdentityQueryCopyResults, frameworkHandle, "CSIdentityQueryCopyResults")
-		registerFunc(&_cSIdentityQueryCreate, frameworkHandle, "CSIdentityQueryCreate")
-		registerFunc(&_cSIdentityQueryCreateForCurrentUser, frameworkHandle, "CSIdentityQueryCreateForCurrentUser")
-		registerFunc(&_cSIdentityQueryCreateForName, frameworkHandle, "CSIdentityQueryCreateForName")
-		registerFunc(&_cSIdentityQueryCreateForPersistentReference, frameworkHandle, "CSIdentityQueryCreateForPersistentReference")
-		registerFunc(&_cSIdentityQueryCreateForPosixID, frameworkHandle, "CSIdentityQueryCreateForPosixID")
-		registerFunc(&_cSIdentityQueryCreateForUUID, frameworkHandle, "CSIdentityQueryCreateForUUID")
-		registerFunc(&_cSIdentityQueryExecute, frameworkHandle, "CSIdentityQueryExecute")
-		registerFunc(&_cSIdentityQueryExecuteAsynchronously, frameworkHandle, "CSIdentityQueryExecuteAsynchronously")
-		registerFunc(&_cSIdentityQueryGetTypeID, frameworkHandle, "CSIdentityQueryGetTypeID")
-		registerFunc(&_cSIdentityQueryStop, frameworkHandle, "CSIdentityQueryStop")
-		registerFunc(&_cSIdentityRemoveAlias, frameworkHandle, "CSIdentityRemoveAlias")
-		registerFunc(&_cSIdentityRemoveClient, frameworkHandle, "CSIdentityRemoveClient")
-		registerFunc(&_cSIdentityRemoveMember, frameworkHandle, "CSIdentityRemoveMember")
-		registerFunc(&_cSIdentitySetCertificate, frameworkHandle, "CSIdentitySetCertificate")
-		registerFunc(&_cSIdentitySetEmailAddress, frameworkHandle, "CSIdentitySetEmailAddress")
-		registerFunc(&_cSIdentitySetFullName, frameworkHandle, "CSIdentitySetFullName")
-		registerFunc(&_cSIdentitySetImageData, frameworkHandle, "CSIdentitySetImageData")
-		registerFunc(&_cSIdentitySetImageURL, frameworkHandle, "CSIdentitySetImageURL")
-		registerFunc(&_cSIdentitySetIsEnabled, frameworkHandle, "CSIdentitySetIsEnabled")
-		registerFunc(&_cSIdentitySetPassword, frameworkHandle, "CSIdentitySetPassword")
-		registerFunc(&_cSSetComponentsThreadMode, frameworkHandle, "CSSetComponentsThreadMode")
-		registerFunc(&_callComponentCanDo, frameworkHandle, "CallComponentCanDo")
-		registerFunc(&_callComponentClose, frameworkHandle, "CallComponentClose")
-		registerFunc(&_callComponentDispatch, frameworkHandle, "CallComponentDispatch")
-		registerFunc(&_callComponentFunction, frameworkHandle, "CallComponentFunction")
-		registerFunc(&_callComponentFunctionWithStorage, frameworkHandle, "CallComponentFunctionWithStorage")
-		registerFunc(&_callComponentFunctionWithStorageProcInfo, frameworkHandle, "CallComponentFunctionWithStorageProcInfo")
-		registerFunc(&_callComponentGetMPWorkFunction, frameworkHandle, "CallComponentGetMPWorkFunction")
-		registerFunc(&_callComponentGetPublicResource, frameworkHandle, "CallComponentGetPublicResource")
-		registerFunc(&_callComponentOpen, frameworkHandle, "CallComponentOpen")
-		registerFunc(&_callComponentRegister, frameworkHandle, "CallComponentRegister")
-		registerFunc(&_callComponentTarget, frameworkHandle, "CallComponentTarget")
-		registerFunc(&_callComponentUnregister, frameworkHandle, "CallComponentUnregister")
-		registerFunc(&_callComponentVersion, frameworkHandle, "CallComponentVersion")
-		registerFunc(&_captureComponent, frameworkHandle, "CaptureComponent")
-		registerFunc(&_changeTextToUnicodeInfo, frameworkHandle, "ChangeTextToUnicodeInfo")
-		registerFunc(&_changeUnicodeToTextInfo, frameworkHandle, "ChangeUnicodeToTextInfo")
-		registerFunc(&_changedResource, frameworkHandle, "ChangedResource")
-		registerFunc(&_cloneCollection, frameworkHandle, "CloneCollection")
-		registerFunc(&_closeComponent, frameworkHandle, "CloseComponent")
-		registerFunc(&_closeComponentResFile, frameworkHandle, "CloseComponentResFile")
-		registerFunc(&_closeResFile, frameworkHandle, "CloseResFile")
-		registerFunc(&_collectionTagExists, frameworkHandle, "CollectionTagExists")
-		registerFunc(&_compareAndSwap, frameworkHandle, "CompareAndSwap")
-		registerFunc(&_compositeIconRef, frameworkHandle, "CompositeIconRef")
-		registerFunc(&_convertFromPStringToUnicode, frameworkHandle, "ConvertFromPStringToUnicode")
-		registerFunc(&_convertFromTextToUnicode, frameworkHandle, "ConvertFromTextToUnicode")
-		registerFunc(&_convertFromUnicodeToPString, frameworkHandle, "ConvertFromUnicodeToPString")
-		registerFunc(&_convertFromUnicodeToScriptCodeRun, frameworkHandle, "ConvertFromUnicodeToScriptCodeRun")
-		registerFunc(&_convertFromUnicodeToText, frameworkHandle, "ConvertFromUnicodeToText")
-		registerFunc(&_convertFromUnicodeToTextRun, frameworkHandle, "ConvertFromUnicodeToTextRun")
-		registerFunc(&_copyCollection, frameworkHandle, "CopyCollection")
-		registerFunc(&_coreEndianFlipData, frameworkHandle, "CoreEndianFlipData")
-		registerFunc(&_coreEndianGetFlipper, frameworkHandle, "CoreEndianGetFlipper")
-		registerFunc(&_coreEndianInstallFlipper, frameworkHandle, "CoreEndianInstallFlipper")
-		registerFunc(&_count1Resources, frameworkHandle, "Count1Resources")
-		registerFunc(&_count1Types, frameworkHandle, "Count1Types")
-		registerFunc(&_countCollectionItems, frameworkHandle, "CountCollectionItems")
-		registerFunc(&_countCollectionOwners, frameworkHandle, "CountCollectionOwners")
-		registerFunc(&_countCollectionTags, frameworkHandle, "CountCollectionTags")
-		registerFunc(&_countComponentInstances, frameworkHandle, "CountComponentInstances")
-		registerFunc(&_countComponents, frameworkHandle, "CountComponents")
-		registerFunc(&_countResources, frameworkHandle, "CountResources")
-		registerFunc(&_countTaggedCollectionItems, frameworkHandle, "CountTaggedCollectionItems")
-		registerFunc(&_countTypes, frameworkHandle, "CountTypes")
-		registerFunc(&_countUnicodeMappings, frameworkHandle, "CountUnicodeMappings")
-		registerFunc(&_createCompDescriptor, frameworkHandle, "CreateCompDescriptor")
-		registerFunc(&_createLogicalDescriptor, frameworkHandle, "CreateLogicalDescriptor")
-		registerFunc(&_createObjSpecifier, frameworkHandle, "CreateObjSpecifier")
-		registerFunc(&_createOffsetDescriptor, frameworkHandle, "CreateOffsetDescriptor")
-		registerFunc(&_createRangeDescriptor, frameworkHandle, "CreateRangeDescriptor")
-		registerFunc(&_createTextEncoding, frameworkHandle, "CreateTextEncoding")
-		registerFunc(&_createTextToUnicodeInfo, frameworkHandle, "CreateTextToUnicodeInfo")
-		registerFunc(&_createTextToUnicodeInfoByEncoding, frameworkHandle, "CreateTextToUnicodeInfoByEncoding")
-		registerFunc(&_createThreadPool, frameworkHandle, "CreateThreadPool")
-		registerFunc(&_createUnicodeToTextInfo, frameworkHandle, "CreateUnicodeToTextInfo")
-		registerFunc(&_createUnicodeToTextInfoByEncoding, frameworkHandle, "CreateUnicodeToTextInfoByEncoding")
-		registerFunc(&_createUnicodeToTextRunInfo, frameworkHandle, "CreateUnicodeToTextRunInfo")
-		registerFunc(&_createUnicodeToTextRunInfoByEncoding, frameworkHandle, "CreateUnicodeToTextRunInfoByEncoding")
-		registerFunc(&_createUnicodeToTextRunInfoByScriptCode, frameworkHandle, "CreateUnicodeToTextRunInfoByScriptCode")
-		registerFunc(&_curResFile, frameworkHandle, "CurResFile")
-		registerFunc(&_currentProcessorSpeed, frameworkHandle, "CurrentProcessorSpeed")
-		registerFunc(&_dCSCopyTextDefinition, frameworkHandle, "DCSCopyTextDefinition")
-		registerFunc(&_dCSGetTermRangeInString, frameworkHandle, "DCSGetTermRangeInString")
-		registerFunc(&_debugAssert, frameworkHandle, "DebugAssert")
-		registerFunc(&_decrementAtomic, frameworkHandle, "DecrementAtomic")
-		registerFunc(&_decrementAtomic16, frameworkHandle, "DecrementAtomic16")
-		registerFunc(&_decrementAtomic8, frameworkHandle, "DecrementAtomic8")
-		registerFunc(&_delay, frameworkHandle, "Delay")
-		registerFunc(&_delegateComponentCall, frameworkHandle, "DelegateComponentCall")
-		registerFunc(&_deleteGestaltValue, frameworkHandle, "DeleteGestaltValue")
-		registerFunc(&_dequeue, frameworkHandle, "Dequeue")
-		registerFunc(&_detachResource, frameworkHandle, "DetachResource")
-		registerFunc(&_detachResourceFile, frameworkHandle, "DetachResourceFile")
-		registerFunc(&_determineIfPathIsEnclosedByFolder, frameworkHandle, "DetermineIfPathIsEnclosedByFolder")
-		registerFunc(&_disposeAECoerceDescUPP, frameworkHandle, "DisposeAECoerceDescUPP")
-		registerFunc(&_disposeAECoercePtrUPP, frameworkHandle, "DisposeAECoercePtrUPP")
-		registerFunc(&_disposeAEDisposeExternalUPP, frameworkHandle, "DisposeAEDisposeExternalUPP")
-		registerFunc(&_disposeAEEventHandlerUPP, frameworkHandle, "DisposeAEEventHandlerUPP")
-		registerFunc(&_disposeCollection, frameworkHandle, "DisposeCollection")
-		registerFunc(&_disposeCollectionExceptionUPP, frameworkHandle, "DisposeCollectionExceptionUPP")
-		registerFunc(&_disposeCollectionFlattenUPP, frameworkHandle, "DisposeCollectionFlattenUPP")
-		registerFunc(&_disposeComponentFunctionUPP, frameworkHandle, "DisposeComponentFunctionUPP")
-		registerFunc(&_disposeComponentMPWorkFunctionUPP, frameworkHandle, "DisposeComponentMPWorkFunctionUPP")
-		registerFunc(&_disposeComponentRoutineUPP, frameworkHandle, "DisposeComponentRoutineUPP")
-		registerFunc(&_disposeDebugAssertOutputHandlerUPP, frameworkHandle, "DisposeDebugAssertOutputHandlerUPP")
-		registerFunc(&_disposeDebugComponent, frameworkHandle, "DisposeDebugComponent")
-		registerFunc(&_disposeDebugComponentCallbackUPP, frameworkHandle, "DisposeDebugComponentCallbackUPP")
-		registerFunc(&_disposeDebuggerDisposeThreadUPP, frameworkHandle, "DisposeDebuggerDisposeThreadUPP")
-		registerFunc(&_disposeDebuggerNewThreadUPP, frameworkHandle, "DisposeDebuggerNewThreadUPP")
-		registerFunc(&_disposeDebuggerThreadSchedulerUPP, frameworkHandle, "DisposeDebuggerThreadSchedulerUPP")
-		registerFunc(&_disposeDeferredTaskUPP, frameworkHandle, "DisposeDeferredTaskUPP")
-		registerFunc(&_disposeExceptionHandlerUPP, frameworkHandle, "DisposeExceptionHandlerUPP")
-		registerFunc(&_disposeFNSubscriptionUPP, frameworkHandle, "DisposeFNSubscriptionUPP")
-		registerFunc(&_disposeFSVolumeEjectUPP, frameworkHandle, "DisposeFSVolumeEjectUPP")
-		registerFunc(&_disposeFSVolumeMountUPP, frameworkHandle, "DisposeFSVolumeMountUPP")
-		registerFunc(&_disposeFSVolumeUnmountUPP, frameworkHandle, "DisposeFSVolumeUnmountUPP")
-		registerFunc(&_disposeFolderManagerNotificationUPP, frameworkHandle, "DisposeFolderManagerNotificationUPP")
-		registerFunc(&_disposeGetMissingComponentResourceUPP, frameworkHandle, "DisposeGetMissingComponentResourceUPP")
-		registerFunc(&_disposeHandle, frameworkHandle, "DisposeHandle")
-		registerFunc(&_disposeIOCompletionUPP, frameworkHandle, "DisposeIOCompletionUPP")
-		registerFunc(&_disposeIndexToUCStringUPP, frameworkHandle, "DisposeIndexToUCStringUPP")
-		registerFunc(&_disposeKCCallbackUPP, frameworkHandle, "DisposeKCCallbackUPP")
-		registerFunc(&_disposeOSLAccessorUPP, frameworkHandle, "DisposeOSLAccessorUPP")
-		registerFunc(&_disposeOSLAdjustMarksUPP, frameworkHandle, "DisposeOSLAdjustMarksUPP")
-		registerFunc(&_disposeOSLCompareUPP, frameworkHandle, "DisposeOSLCompareUPP")
-		registerFunc(&_disposeOSLCountUPP, frameworkHandle, "DisposeOSLCountUPP")
-		registerFunc(&_disposeOSLDisposeTokenUPP, frameworkHandle, "DisposeOSLDisposeTokenUPP")
-		registerFunc(&_disposeOSLGetErrDescUPP, frameworkHandle, "DisposeOSLGetErrDescUPP")
-		registerFunc(&_disposeOSLGetMarkTokenUPP, frameworkHandle, "DisposeOSLGetMarkTokenUPP")
-		registerFunc(&_disposeOSLMarkUPP, frameworkHandle, "DisposeOSLMarkUPP")
-		registerFunc(&_disposePtr, frameworkHandle, "DisposePtr")
-		registerFunc(&_disposeResErrUPP, frameworkHandle, "DisposeResErrUPP")
-		registerFunc(&_disposeSelectorFunctionUPP, frameworkHandle, "DisposeSelectorFunctionUPP")
-		registerFunc(&_disposeSleepQUPP, frameworkHandle, "DisposeSleepQUPP")
-		registerFunc(&_disposeTextToUnicodeInfo, frameworkHandle, "DisposeTextToUnicodeInfo")
-		registerFunc(&_disposeThread, frameworkHandle, "DisposeThread")
-		registerFunc(&_disposeThreadEntryUPP, frameworkHandle, "DisposeThreadEntryUPP")
-		registerFunc(&_disposeThreadSchedulerUPP, frameworkHandle, "DisposeThreadSchedulerUPP")
-		registerFunc(&_disposeThreadSwitchUPP, frameworkHandle, "DisposeThreadSwitchUPP")
-		registerFunc(&_disposeThreadTerminationUPP, frameworkHandle, "DisposeThreadTerminationUPP")
-		registerFunc(&_disposeTimerUPP, frameworkHandle, "DisposeTimerUPP")
-		registerFunc(&_disposeUnicodeToTextFallbackUPP, frameworkHandle, "DisposeUnicodeToTextFallbackUPP")
-		registerFunc(&_disposeUnicodeToTextInfo, frameworkHandle, "DisposeUnicodeToTextInfo")
-		registerFunc(&_disposeUnicodeToTextRunInfo, frameworkHandle, "DisposeUnicodeToTextRunInfo")
-		registerFunc(&_durationToAbsolute, frameworkHandle, "DurationToAbsolute")
-		registerFunc(&_durationToNanoseconds, frameworkHandle, "DurationToNanoseconds")
-		registerFunc(&_emptyCollection, frameworkHandle, "EmptyCollection")
-		registerFunc(&_emptyHandle, frameworkHandle, "EmptyHandle")
-		registerFunc(&_enqueue, frameworkHandle, "Enqueue")
-		registerFunc(&_fNGetDirectoryForSubscription, frameworkHandle, "FNGetDirectoryForSubscription")
-		registerFunc(&_fNNotify, frameworkHandle, "FNNotify")
-		registerFunc(&_fNNotifyAll, frameworkHandle, "FNNotifyAll")
-		registerFunc(&_fNNotifyByPath, frameworkHandle, "FNNotifyByPath")
-		registerFunc(&_fNSubscribe, frameworkHandle, "FNSubscribe")
-		registerFunc(&_fNSubscribeByPath, frameworkHandle, "FNSubscribeByPath")
-		registerFunc(&_fNUnsubscribe, frameworkHandle, "FNUnsubscribe")
-		registerFunc(&_fSAllocateFork, frameworkHandle, "FSAllocateFork")
-		registerFunc(&_fSCancelVolumeOperation, frameworkHandle, "FSCancelVolumeOperation")
-		registerFunc(&_fSCatalogSearch, frameworkHandle, "FSCatalogSearch")
-		registerFunc(&_fSCloseFork, frameworkHandle, "FSCloseFork")
-		registerFunc(&_fSCloseIterator, frameworkHandle, "FSCloseIterator")
-		registerFunc(&_fSCompareFSRefs, frameworkHandle, "FSCompareFSRefs")
-		registerFunc(&_fSCopyDADiskForVolume, frameworkHandle, "FSCopyDADiskForVolume")
-		registerFunc(&_fSCopyDiskIDForVolume, frameworkHandle, "FSCopyDiskIDForVolume")
-		registerFunc(&_fSCopyObjectAsync, frameworkHandle, "FSCopyObjectAsync")
-		registerFunc(&_fSCopyObjectSync, frameworkHandle, "FSCopyObjectSync")
-		registerFunc(&_fSCopyURLForVolume, frameworkHandle, "FSCopyURLForVolume")
-		registerFunc(&_fSCreateDirectoryUnicode, frameworkHandle, "FSCreateDirectoryUnicode")
-		registerFunc(&_fSCreateFileAndOpenForkUnicode, frameworkHandle, "FSCreateFileAndOpenForkUnicode")
-		registerFunc(&_fSCreateFileUnicode, frameworkHandle, "FSCreateFileUnicode")
-		registerFunc(&_fSCreateFork, frameworkHandle, "FSCreateFork")
-		registerFunc(&_fSCreateResFile, frameworkHandle, "FSCreateResFile")
-		registerFunc(&_fSCreateResourceFile, frameworkHandle, "FSCreateResourceFile")
-		registerFunc(&_fSCreateResourceFork, frameworkHandle, "FSCreateResourceFork")
-		registerFunc(&_fSCreateStringFromHFSUniStr, frameworkHandle, "FSCreateStringFromHFSUniStr")
-		registerFunc(&_fSCreateVolumeOperation, frameworkHandle, "FSCreateVolumeOperation")
-		registerFunc(&_fSDeleteFork, frameworkHandle, "FSDeleteFork")
-		registerFunc(&_fSDeleteObject, frameworkHandle, "FSDeleteObject")
-		registerFunc(&_fSDetermineIfRefIsEnclosedByFolder, frameworkHandle, "FSDetermineIfRefIsEnclosedByFolder")
-		registerFunc(&_fSDisposeVolumeOperation, frameworkHandle, "FSDisposeVolumeOperation")
-		registerFunc(&_fSEjectVolumeAsync, frameworkHandle, "FSEjectVolumeAsync")
-		registerFunc(&_fSEjectVolumeSync, frameworkHandle, "FSEjectVolumeSync")
-		registerFunc(&_fSEventStreamCopyDescription, frameworkHandle, "FSEventStreamCopyDescription")
-		registerFunc(&_fSEventStreamCopyPathsBeingWatched, frameworkHandle, "FSEventStreamCopyPathsBeingWatched")
-		registerFunc(&_fSEventStreamCreate, frameworkHandle, "FSEventStreamCreate")
-		registerFunc(&_fSEventStreamCreateRelativeToDevice, frameworkHandle, "FSEventStreamCreateRelativeToDevice")
-		registerFunc(&_fSEventStreamFlushAsync, frameworkHandle, "FSEventStreamFlushAsync")
-		registerFunc(&_fSEventStreamFlushSync, frameworkHandle, "FSEventStreamFlushSync")
-		registerFunc(&_fSEventStreamGetDeviceBeingWatched, frameworkHandle, "FSEventStreamGetDeviceBeingWatched")
-		registerFunc(&_fSEventStreamGetLatestEventId, frameworkHandle, "FSEventStreamGetLatestEventId")
-		registerFunc(&_fSEventStreamInvalidate, frameworkHandle, "FSEventStreamInvalidate")
-		registerFunc(&_fSEventStreamRelease, frameworkHandle, "FSEventStreamRelease")
-		registerFunc(&_fSEventStreamRetain, frameworkHandle, "FSEventStreamRetain")
-		registerFunc(&_fSEventStreamSetDispatchQueue, frameworkHandle, "FSEventStreamSetDispatchQueue")
-		registerFunc(&_fSEventStreamSetExclusionPaths, frameworkHandle, "FSEventStreamSetExclusionPaths")
-		registerFunc(&_fSEventStreamShow, frameworkHandle, "FSEventStreamShow")
-		registerFunc(&_fSEventStreamStart, frameworkHandle, "FSEventStreamStart")
-		registerFunc(&_fSEventStreamStop, frameworkHandle, "FSEventStreamStop")
-		registerFunc(&_fSEventsCopyUUIDForDevice, frameworkHandle, "FSEventsCopyUUIDForDevice")
-		registerFunc(&_fSEventsGetCurrentEventId, frameworkHandle, "FSEventsGetCurrentEventId")
-		registerFunc(&_fSEventsGetLastEventIdForDeviceBeforeTime, frameworkHandle, "FSEventsGetLastEventIdForDeviceBeforeTime")
-		registerFunc(&_fSEventsPurgeEventsForDeviceUpToEventId, frameworkHandle, "FSEventsPurgeEventsForDeviceUpToEventId")
-		registerFunc(&_fSFileOperationCancel, frameworkHandle, "FSFileOperationCancel")
-		registerFunc(&_fSFileOperationCopyStatus, frameworkHandle, "FSFileOperationCopyStatus")
-		registerFunc(&_fSFileOperationCreate, frameworkHandle, "FSFileOperationCreate")
-		registerFunc(&_fSFileOperationGetTypeID, frameworkHandle, "FSFileOperationGetTypeID")
-		registerFunc(&_fSFileOperationScheduleWithRunLoop, frameworkHandle, "FSFileOperationScheduleWithRunLoop")
-		registerFunc(&_fSFileOperationUnscheduleFromRunLoop, frameworkHandle, "FSFileOperationUnscheduleFromRunLoop")
-		registerFunc(&_fSFileSecurityCopyAccessControlList, frameworkHandle, "FSFileSecurityCopyAccessControlList")
-		registerFunc(&_fSFileSecurityCreate, frameworkHandle, "FSFileSecurityCreate")
-		registerFunc(&_fSFileSecurityCreateWithFSPermissionInfo, frameworkHandle, "FSFileSecurityCreateWithFSPermissionInfo")
-		registerFunc(&_fSFileSecurityGetGroup, frameworkHandle, "FSFileSecurityGetGroup")
-		registerFunc(&_fSFileSecurityGetGroupUUID, frameworkHandle, "FSFileSecurityGetGroupUUID")
-		registerFunc(&_fSFileSecurityGetMode, frameworkHandle, "FSFileSecurityGetMode")
-		registerFunc(&_fSFileSecurityGetOwner, frameworkHandle, "FSFileSecurityGetOwner")
-		registerFunc(&_fSFileSecurityGetOwnerUUID, frameworkHandle, "FSFileSecurityGetOwnerUUID")
-		registerFunc(&_fSFileSecurityGetTypeID, frameworkHandle, "FSFileSecurityGetTypeID")
-		registerFunc(&_fSFileSecurityRefCreateCopy, frameworkHandle, "FSFileSecurityRefCreateCopy")
-		registerFunc(&_fSFileSecuritySetAccessControlList, frameworkHandle, "FSFileSecuritySetAccessControlList")
-		registerFunc(&_fSFileSecuritySetGroup, frameworkHandle, "FSFileSecuritySetGroup")
-		registerFunc(&_fSFileSecuritySetGroupUUID, frameworkHandle, "FSFileSecuritySetGroupUUID")
-		registerFunc(&_fSFileSecuritySetMode, frameworkHandle, "FSFileSecuritySetMode")
-		registerFunc(&_fSFileSecuritySetOwner, frameworkHandle, "FSFileSecuritySetOwner")
-		registerFunc(&_fSFileSecuritySetOwnerUUID, frameworkHandle, "FSFileSecuritySetOwnerUUID")
-		registerFunc(&_fSFindFolder, frameworkHandle, "FSFindFolder")
-		registerFunc(&_fSFlushFork, frameworkHandle, "FSFlushFork")
-		registerFunc(&_fSFlushVolume, frameworkHandle, "FSFlushVolume")
-		registerFunc(&_fSGetAsyncEjectStatus, frameworkHandle, "FSGetAsyncEjectStatus")
-		registerFunc(&_fSGetAsyncMountStatus, frameworkHandle, "FSGetAsyncMountStatus")
-		registerFunc(&_fSGetAsyncUnmountStatus, frameworkHandle, "FSGetAsyncUnmountStatus")
-		registerFunc(&_fSGetDataForkName, frameworkHandle, "FSGetDataForkName")
-		registerFunc(&_fSGetForkCBInfo, frameworkHandle, "FSGetForkCBInfo")
-		registerFunc(&_fSGetForkPosition, frameworkHandle, "FSGetForkPosition")
-		registerFunc(&_fSGetForkSize, frameworkHandle, "FSGetForkSize")
-		registerFunc(&_fSGetHFSUniStrFromString, frameworkHandle, "FSGetHFSUniStrFromString")
-		registerFunc(&_fSGetResourceForkName, frameworkHandle, "FSGetResourceForkName")
-		registerFunc(&_fSGetTemporaryDirectoryForReplaceObject, frameworkHandle, "FSGetTemporaryDirectoryForReplaceObject")
-		registerFunc(&_fSGetVolumeForDADisk, frameworkHandle, "FSGetVolumeForDADisk")
-		registerFunc(&_fSGetVolumeForDiskID, frameworkHandle, "FSGetVolumeForDiskID")
-		registerFunc(&_fSGetVolumeInfo, frameworkHandle, "FSGetVolumeInfo")
-		registerFunc(&_fSGetVolumeMountInfo, frameworkHandle, "FSGetVolumeMountInfo")
-		registerFunc(&_fSGetVolumeMountInfoSize, frameworkHandle, "FSGetVolumeMountInfoSize")
-		registerFunc(&_fSGetVolumeParms, frameworkHandle, "FSGetVolumeParms")
-		registerFunc(&_fSIsFSRefValid, frameworkHandle, "FSIsFSRefValid")
-		registerFunc(&_fSIterateForks, frameworkHandle, "FSIterateForks")
-		registerFunc(&_fSLockRange, frameworkHandle, "FSLockRange")
-		registerFunc(&_fSMakeFSRefUnicode, frameworkHandle, "FSMakeFSRefUnicode")
-		registerFunc(&_fSMountLocalVolumeAsync, frameworkHandle, "FSMountLocalVolumeAsync")
-		registerFunc(&_fSMountLocalVolumeSync, frameworkHandle, "FSMountLocalVolumeSync")
-		registerFunc(&_fSMountServerVolumeAsync, frameworkHandle, "FSMountServerVolumeAsync")
-		registerFunc(&_fSMountServerVolumeSync, frameworkHandle, "FSMountServerVolumeSync")
-		registerFunc(&_fSMoveObject, frameworkHandle, "FSMoveObject")
-		registerFunc(&_fSMoveObjectAsync, frameworkHandle, "FSMoveObjectAsync")
-		registerFunc(&_fSMoveObjectSync, frameworkHandle, "FSMoveObjectSync")
-		registerFunc(&_fSMoveObjectToTrashAsync, frameworkHandle, "FSMoveObjectToTrashAsync")
-		registerFunc(&_fSMoveObjectToTrashSync, frameworkHandle, "FSMoveObjectToTrashSync")
-		registerFunc(&_fSOpenFork, frameworkHandle, "FSOpenFork")
-		registerFunc(&_fSOpenIterator, frameworkHandle, "FSOpenIterator")
-		registerFunc(&_fSOpenOrphanResFile, frameworkHandle, "FSOpenOrphanResFile")
-		registerFunc(&_fSOpenResFile, frameworkHandle, "FSOpenResFile")
-		registerFunc(&_fSOpenResourceFile, frameworkHandle, "FSOpenResourceFile")
-		registerFunc(&_fSPathCopyObjectAsync, frameworkHandle, "FSPathCopyObjectAsync")
-		registerFunc(&_fSPathCopyObjectSync, frameworkHandle, "FSPathCopyObjectSync")
-		registerFunc(&_fSPathFileOperationCopyStatus, frameworkHandle, "FSPathFileOperationCopyStatus")
-		registerFunc(&_fSPathGetTemporaryDirectoryForReplaceObject, frameworkHandle, "FSPathGetTemporaryDirectoryForReplaceObject")
-		registerFunc(&_fSPathMakeRef, frameworkHandle, "FSPathMakeRef")
-		registerFunc(&_fSPathMakeRefWithOptions, frameworkHandle, "FSPathMakeRefWithOptions")
-		registerFunc(&_fSPathMoveObjectAsync, frameworkHandle, "FSPathMoveObjectAsync")
-		registerFunc(&_fSPathMoveObjectSync, frameworkHandle, "FSPathMoveObjectSync")
-		registerFunc(&_fSPathMoveObjectToTrashAsync, frameworkHandle, "FSPathMoveObjectToTrashAsync")
-		registerFunc(&_fSPathMoveObjectToTrashSync, frameworkHandle, "FSPathMoveObjectToTrashSync")
-		registerFunc(&_fSPathReplaceObject, frameworkHandle, "FSPathReplaceObject")
-		registerFunc(&_fSReadFork, frameworkHandle, "FSReadFork")
-		registerFunc(&_fSRefMakePath, frameworkHandle, "FSRefMakePath")
-		registerFunc(&_fSRenameUnicode, frameworkHandle, "FSRenameUnicode")
-		registerFunc(&_fSReplaceObject, frameworkHandle, "FSReplaceObject")
-		registerFunc(&_fSResolveNodeID, frameworkHandle, "FSResolveNodeID")
-		registerFunc(&_fSResourceFileAlreadyOpen, frameworkHandle, "FSResourceFileAlreadyOpen")
-		registerFunc(&_fSSetCatalogInfo, frameworkHandle, "FSSetCatalogInfo")
-		registerFunc(&_fSSetForkPosition, frameworkHandle, "FSSetForkPosition")
-		registerFunc(&_fSSetForkSize, frameworkHandle, "FSSetForkSize")
-		registerFunc(&_fSSetVolumeInfo, frameworkHandle, "FSSetVolumeInfo")
-		registerFunc(&_fSUnlinkObject, frameworkHandle, "FSUnlinkObject")
-		registerFunc(&_fSUnlockRange, frameworkHandle, "FSUnlockRange")
-		registerFunc(&_fSUnmountVolumeAsync, frameworkHandle, "FSUnmountVolumeAsync")
-		registerFunc(&_fSUnmountVolumeSync, frameworkHandle, "FSUnmountVolumeSync")
-		registerFunc(&_fSVolumeMount, frameworkHandle, "FSVolumeMount")
-		registerFunc(&_fSWriteFork, frameworkHandle, "FSWriteFork")
-		registerFunc(&_findFolder, frameworkHandle, "FindFolder")
-		registerFunc(&_findNextComponent, frameworkHandle, "FindNextComponent")
-		registerFunc(&_fix2Frac, frameworkHandle, "Fix2Frac")
-		registerFunc(&_fix2Long, frameworkHandle, "Fix2Long")
-		registerFunc(&_fix2X, frameworkHandle, "Fix2X")
-		registerFunc(&_fixATan2, frameworkHandle, "FixATan2")
-		registerFunc(&_fixDiv, frameworkHandle, "FixDiv")
-		registerFunc(&_fixMul, frameworkHandle, "FixMul")
-		registerFunc(&_fixRatio, frameworkHandle, "FixRatio")
-		registerFunc(&_fixRound, frameworkHandle, "FixRound")
-		registerFunc(&_flattenCollection, frameworkHandle, "FlattenCollection")
-		registerFunc(&_flattenCollectionToHdl, frameworkHandle, "FlattenCollectionToHdl")
-		registerFunc(&_flattenPartialCollection, frameworkHandle, "FlattenPartialCollection")
-		registerFunc(&_frac2Fix, frameworkHandle, "Frac2Fix")
-		registerFunc(&_frac2X, frameworkHandle, "Frac2X")
-		registerFunc(&_fracCos, frameworkHandle, "FracCos")
-		registerFunc(&_fracDiv, frameworkHandle, "FracDiv")
-		registerFunc(&_fracMul, frameworkHandle, "FracMul")
-		registerFunc(&_fracSin, frameworkHandle, "FracSin")
-		registerFunc(&_fracSqrt, frameworkHandle, "FracSqrt")
-		registerFunc(&_gestaltFunc, frameworkHandle, "Gestalt")
-		registerFunc(&_get1IndResource, frameworkHandle, "Get1IndResource")
-		registerFunc(&_get1IndType, frameworkHandle, "Get1IndType")
-		registerFunc(&_get1NamedResource, frameworkHandle, "Get1NamedResource")
-		registerFunc(&_get1Resource, frameworkHandle, "Get1Resource")
-		registerFunc(&_getCPUSpeed, frameworkHandle, "GetCPUSpeed")
-		registerFunc(&_getCollectionDefaultAttributes, frameworkHandle, "GetCollectionDefaultAttributes")
-		registerFunc(&_getCollectionExceptionProc, frameworkHandle, "GetCollectionExceptionProc")
-		registerFunc(&_getCollectionItem, frameworkHandle, "GetCollectionItem")
-		registerFunc(&_getCollectionItemHdl, frameworkHandle, "GetCollectionItemHdl")
-		registerFunc(&_getCollectionItemInfo, frameworkHandle, "GetCollectionItemInfo")
-		registerFunc(&_getCollectionRetainCount, frameworkHandle, "GetCollectionRetainCount")
-		registerFunc(&_getComponentIndString, frameworkHandle, "GetComponentIndString")
-		registerFunc(&_getComponentInfo, frameworkHandle, "GetComponentInfo")
-		registerFunc(&_getComponentInstanceError, frameworkHandle, "GetComponentInstanceError")
-		registerFunc(&_getComponentInstanceStorage, frameworkHandle, "GetComponentInstanceStorage")
-		registerFunc(&_getComponentListModSeed, frameworkHandle, "GetComponentListModSeed")
-		registerFunc(&_getComponentPublicIndString, frameworkHandle, "GetComponentPublicIndString")
-		registerFunc(&_getComponentPublicResource, frameworkHandle, "GetComponentPublicResource")
-		registerFunc(&_getComponentPublicResourceList, frameworkHandle, "GetComponentPublicResourceList")
-		registerFunc(&_getComponentRefcon, frameworkHandle, "GetComponentRefcon")
-		registerFunc(&_getComponentResource, frameworkHandle, "GetComponentResource")
-		registerFunc(&_getComponentTypeModSeed, frameworkHandle, "GetComponentTypeModSeed")
-		registerFunc(&_getCurrentThread, frameworkHandle, "GetCurrentThread")
-		registerFunc(&_getCustomIconsEnabled, frameworkHandle, "GetCustomIconsEnabled")
-		registerFunc(&_getDebugComponentInfo, frameworkHandle, "GetDebugComponentInfo")
-		registerFunc(&_getDebugOptionInfo, frameworkHandle, "GetDebugOptionInfo")
-		registerFunc(&_getDefaultThreadStackSize, frameworkHandle, "GetDefaultThreadStackSize")
-		registerFunc(&_getFolderNameUnicode, frameworkHandle, "GetFolderNameUnicode")
-		registerFunc(&_getFolderTypes, frameworkHandle, "GetFolderTypes")
-		registerFunc(&_getHandleSize, frameworkHandle, "GetHandleSize")
-		registerFunc(&_getIconRef, frameworkHandle, "GetIconRef")
-		registerFunc(&_getIconRefFromComponent, frameworkHandle, "GetIconRefFromComponent")
-		registerFunc(&_getIconRefFromFileInfo, frameworkHandle, "GetIconRefFromFileInfo")
-		registerFunc(&_getIconRefFromFolder, frameworkHandle, "GetIconRefFromFolder")
-		registerFunc(&_getIconRefFromIconFamilyPtr, frameworkHandle, "GetIconRefFromIconFamilyPtr")
-		registerFunc(&_getIconRefFromTypeInfo, frameworkHandle, "GetIconRefFromTypeInfo")
-		registerFunc(&_getIconRefOwners, frameworkHandle, "GetIconRefOwners")
-		registerFunc(&_getIndResource, frameworkHandle, "GetIndResource")
-		registerFunc(&_getIndType, frameworkHandle, "GetIndType")
-		registerFunc(&_getIndexedCollectionItem, frameworkHandle, "GetIndexedCollectionItem")
-		registerFunc(&_getIndexedCollectionItemHdl, frameworkHandle, "GetIndexedCollectionItemHdl")
-		registerFunc(&_getIndexedCollectionItemInfo, frameworkHandle, "GetIndexedCollectionItemInfo")
-		registerFunc(&_getIndexedCollectionTag, frameworkHandle, "GetIndexedCollectionTag")
-		registerFunc(&_getMacOSStatusCommentString, frameworkHandle, "GetMacOSStatusCommentString")
-		registerFunc(&_getMacOSStatusErrorString, frameworkHandle, "GetMacOSStatusErrorString")
-		registerFunc(&_getMaxResourceSize, frameworkHandle, "GetMaxResourceSize")
-		registerFunc(&_getNamedResource, frameworkHandle, "GetNamedResource")
-		registerFunc(&_getNewCollection, frameworkHandle, "GetNewCollection")
-		registerFunc(&_getNextFOND, frameworkHandle, "GetNextFOND")
-		registerFunc(&_getNextResourceFile, frameworkHandle, "GetNextResourceFile")
-		registerFunc(&_getPtrSize, frameworkHandle, "GetPtrSize")
-		registerFunc(&_getResAttrs, frameworkHandle, "GetResAttrs")
-		registerFunc(&_getResFileAttrs, frameworkHandle, "GetResFileAttrs")
-		registerFunc(&_getResInfo, frameworkHandle, "GetResInfo")
-		registerFunc(&_getResource, frameworkHandle, "GetResource")
-		registerFunc(&_getResourceSizeOnDisk, frameworkHandle, "GetResourceSizeOnDisk")
-		registerFunc(&_getScriptInfoFromTextEncoding, frameworkHandle, "GetScriptInfoFromTextEncoding")
-		registerFunc(&_getScriptManagerVariable, frameworkHandle, "GetScriptManagerVariable")
-		registerFunc(&_getTaggedCollectionItem, frameworkHandle, "GetTaggedCollectionItem")
-		registerFunc(&_getTaggedCollectionItemInfo, frameworkHandle, "GetTaggedCollectionItemInfo")
-		registerFunc(&_getTextEncodingBase, frameworkHandle, "GetTextEncodingBase")
-		registerFunc(&_getTextEncodingFormat, frameworkHandle, "GetTextEncodingFormat")
-		registerFunc(&_getTextEncodingFromScriptInfo, frameworkHandle, "GetTextEncodingFromScriptInfo")
-		registerFunc(&_getTextEncodingName, frameworkHandle, "GetTextEncodingName")
-		registerFunc(&_getTextEncodingVariant, frameworkHandle, "GetTextEncodingVariant")
-		registerFunc(&_getThreadCurrentTaskRef, frameworkHandle, "GetThreadCurrentTaskRef")
-		registerFunc(&_getThreadState, frameworkHandle, "GetThreadState")
-		registerFunc(&_getThreadStateGivenTaskRef, frameworkHandle, "GetThreadStateGivenTaskRef")
-		registerFunc(&_getTopResourceFile, frameworkHandle, "GetTopResourceFile")
-		registerFunc(&_hClrRBit, frameworkHandle, "HClrRBit")
-		registerFunc(&_hGetState, frameworkHandle, "HGetState")
-		registerFunc(&_hLock, frameworkHandle, "HLock")
-		registerFunc(&_hLockHi, frameworkHandle, "HLockHi")
-		registerFunc(&_hSetRBit, frameworkHandle, "HSetRBit")
-		registerFunc(&_hSetState, frameworkHandle, "HSetState")
-		registerFunc(&_hUnlock, frameworkHandle, "HUnlock")
-		registerFunc(&_handAndHand, frameworkHandle, "HandAndHand")
-		registerFunc(&_handToHand, frameworkHandle, "HandToHand")
-		registerFunc(&_homeResFile, frameworkHandle, "HomeResFile")
-		registerFunc(&_identifyFolder, frameworkHandle, "IdentifyFolder")
-		registerFunc(&_incrementAtomic, frameworkHandle, "IncrementAtomic")
-		registerFunc(&_incrementAtomic16, frameworkHandle, "IncrementAtomic16")
-		registerFunc(&_incrementAtomic8, frameworkHandle, "IncrementAtomic8")
-		registerFunc(&_insTime, frameworkHandle, "InsTime")
-		registerFunc(&_insXTime, frameworkHandle, "InsXTime")
-		registerFunc(&_insertResourceFile, frameworkHandle, "InsertResourceFile")
-		registerFunc(&_installDebugAssertOutputHandler, frameworkHandle, "InstallDebugAssertOutputHandler")
-		registerFunc(&_installExceptionHandler, frameworkHandle, "InstallExceptionHandler")
-		registerFunc(&_installTimeTask, frameworkHandle, "InstallTimeTask")
-		registerFunc(&_installXTimeTask, frameworkHandle, "InstallXTimeTask")
-		registerFunc(&_invalidateFolderDescriptorCache, frameworkHandle, "InvalidateFolderDescriptorCache")
-		registerFunc(&_invokeAECoerceDescUPP, frameworkHandle, "InvokeAECoerceDescUPP")
-		registerFunc(&_invokeAECoercePtrUPP, frameworkHandle, "InvokeAECoercePtrUPP")
-		registerFunc(&_invokeAEDisposeExternalUPP, frameworkHandle, "InvokeAEDisposeExternalUPP")
-		registerFunc(&_invokeAEEventHandlerUPP, frameworkHandle, "InvokeAEEventHandlerUPP")
-		registerFunc(&_invokeCollectionExceptionUPP, frameworkHandle, "InvokeCollectionExceptionUPP")
-		registerFunc(&_invokeCollectionFlattenUPP, frameworkHandle, "InvokeCollectionFlattenUPP")
-		registerFunc(&_invokeComponentMPWorkFunctionUPP, frameworkHandle, "InvokeComponentMPWorkFunctionUPP")
-		registerFunc(&_invokeComponentRoutineUPP, frameworkHandle, "InvokeComponentRoutineUPP")
-		registerFunc(&_invokeDebugAssertOutputHandlerUPP, frameworkHandle, "InvokeDebugAssertOutputHandlerUPP")
-		registerFunc(&_invokeDebugComponentCallbackUPP, frameworkHandle, "InvokeDebugComponentCallbackUPP")
-		registerFunc(&_invokeDebuggerDisposeThreadUPP, frameworkHandle, "InvokeDebuggerDisposeThreadUPP")
-		registerFunc(&_invokeDebuggerNewThreadUPP, frameworkHandle, "InvokeDebuggerNewThreadUPP")
-		registerFunc(&_invokeDebuggerThreadSchedulerUPP, frameworkHandle, "InvokeDebuggerThreadSchedulerUPP")
-		registerFunc(&_invokeDeferredTaskUPP, frameworkHandle, "InvokeDeferredTaskUPP")
-		registerFunc(&_invokeExceptionHandlerUPP, frameworkHandle, "InvokeExceptionHandlerUPP")
-		registerFunc(&_invokeFNSubscriptionUPP, frameworkHandle, "InvokeFNSubscriptionUPP")
-		registerFunc(&_invokeFSVolumeEjectUPP, frameworkHandle, "InvokeFSVolumeEjectUPP")
-		registerFunc(&_invokeFSVolumeMountUPP, frameworkHandle, "InvokeFSVolumeMountUPP")
-		registerFunc(&_invokeFSVolumeUnmountUPP, frameworkHandle, "InvokeFSVolumeUnmountUPP")
-		registerFunc(&_invokeFolderManagerNotificationUPP, frameworkHandle, "InvokeFolderManagerNotificationUPP")
-		registerFunc(&_invokeGetMissingComponentResourceUPP, frameworkHandle, "InvokeGetMissingComponentResourceUPP")
-		registerFunc(&_invokeIOCompletionUPP, frameworkHandle, "InvokeIOCompletionUPP")
-		registerFunc(&_invokeIndexToUCStringUPP, frameworkHandle, "InvokeIndexToUCStringUPP")
-		registerFunc(&_invokeKCCallbackUPP, frameworkHandle, "InvokeKCCallbackUPP")
-		registerFunc(&_invokeOSLAccessorUPP, frameworkHandle, "InvokeOSLAccessorUPP")
-		registerFunc(&_invokeOSLAdjustMarksUPP, frameworkHandle, "InvokeOSLAdjustMarksUPP")
-		registerFunc(&_invokeOSLCompareUPP, frameworkHandle, "InvokeOSLCompareUPP")
-		registerFunc(&_invokeOSLCountUPP, frameworkHandle, "InvokeOSLCountUPP")
-		registerFunc(&_invokeOSLDisposeTokenUPP, frameworkHandle, "InvokeOSLDisposeTokenUPP")
-		registerFunc(&_invokeOSLGetErrDescUPP, frameworkHandle, "InvokeOSLGetErrDescUPP")
-		registerFunc(&_invokeOSLGetMarkTokenUPP, frameworkHandle, "InvokeOSLGetMarkTokenUPP")
-		registerFunc(&_invokeOSLMarkUPP, frameworkHandle, "InvokeOSLMarkUPP")
-		registerFunc(&_invokeResErrUPP, frameworkHandle, "InvokeResErrUPP")
-		registerFunc(&_invokeSelectorFunctionUPP, frameworkHandle, "InvokeSelectorFunctionUPP")
-		registerFunc(&_invokeSleepQUPP, frameworkHandle, "InvokeSleepQUPP")
-		registerFunc(&_invokeThreadEntryUPP, frameworkHandle, "InvokeThreadEntryUPP")
-		registerFunc(&_invokeThreadSchedulerUPP, frameworkHandle, "InvokeThreadSchedulerUPP")
-		registerFunc(&_invokeThreadSwitchUPP, frameworkHandle, "InvokeThreadSwitchUPP")
-		registerFunc(&_invokeThreadTerminationUPP, frameworkHandle, "InvokeThreadTerminationUPP")
-		registerFunc(&_invokeTimerUPP, frameworkHandle, "InvokeTimerUPP")
-		registerFunc(&_invokeUnicodeToTextFallbackUPP, frameworkHandle, "InvokeUnicodeToTextFallbackUPP")
-		registerFunc(&_isDataAvailableInIconRef, frameworkHandle, "IsDataAvailableInIconRef")
-		registerFunc(&_isHandleValid, frameworkHandle, "IsHandleValid")
-		registerFunc(&_isHeapValid, frameworkHandle, "IsHeapValid")
-		registerFunc(&_isIconRefComposite, frameworkHandle, "IsIconRefComposite")
-		registerFunc(&_isMetric, frameworkHandle, "IsMetric")
-		registerFunc(&_isPointerValid, frameworkHandle, "IsPointerValid")
-		registerFunc(&_isValidIconRef, frameworkHandle, "IsValidIconRef")
-		registerFunc(&_kCAddCallback, frameworkHandle, "KCAddCallback")
-		registerFunc(&_kCCopyItem, frameworkHandle, "KCCopyItem")
-		registerFunc(&_kCCountKeychains, frameworkHandle, "KCCountKeychains")
-		registerFunc(&_kCDeleteItem, frameworkHandle, "KCDeleteItem")
-		registerFunc(&_kCFindAppleSharePassword, frameworkHandle, "KCFindAppleSharePassword")
-		registerFunc(&_kCFindFirstItem, frameworkHandle, "KCFindFirstItem")
-		registerFunc(&_kCFindGenericPassword, frameworkHandle, "KCFindGenericPassword")
-		registerFunc(&_kCFindInternetPassword, frameworkHandle, "KCFindInternetPassword")
-		registerFunc(&_kCFindInternetPasswordWithPath, frameworkHandle, "KCFindInternetPasswordWithPath")
-		registerFunc(&_kCFindNextItem, frameworkHandle, "KCFindNextItem")
-		registerFunc(&_kCGetAttribute, frameworkHandle, "KCGetAttribute")
-		registerFunc(&_kCGetData, frameworkHandle, "KCGetData")
-		registerFunc(&_kCGetDefaultKeychain, frameworkHandle, "KCGetDefaultKeychain")
-		registerFunc(&_kCGetIndKeychain, frameworkHandle, "KCGetIndKeychain")
-		registerFunc(&_kCGetKeychain, frameworkHandle, "KCGetKeychain")
-		registerFunc(&_kCGetKeychainManagerVersion, frameworkHandle, "KCGetKeychainManagerVersion")
-		registerFunc(&_kCGetKeychainName, frameworkHandle, "KCGetKeychainName")
-		registerFunc(&_kCGetStatus, frameworkHandle, "KCGetStatus")
-		registerFunc(&_kCIsInteractionAllowed, frameworkHandle, "KCIsInteractionAllowed")
-		registerFunc(&_kCLock, frameworkHandle, "KCLock")
-		registerFunc(&_kCMakeAliasFromKCRef, frameworkHandle, "KCMakeAliasFromKCRef")
-		registerFunc(&_kCMakeKCRefFromAlias, frameworkHandle, "KCMakeKCRefFromAlias")
-		registerFunc(&_kCMakeKCRefFromFSRef, frameworkHandle, "KCMakeKCRefFromFSRef")
-		registerFunc(&_kCNewItem, frameworkHandle, "KCNewItem")
-		registerFunc(&_kCReleaseItem, frameworkHandle, "KCReleaseItem")
-		registerFunc(&_kCReleaseKeychain, frameworkHandle, "KCReleaseKeychain")
-		registerFunc(&_kCReleaseSearch, frameworkHandle, "KCReleaseSearch")
-		registerFunc(&_kCRemoveCallback, frameworkHandle, "KCRemoveCallback")
-		registerFunc(&_kCSetAttribute, frameworkHandle, "KCSetAttribute")
-		registerFunc(&_kCSetData, frameworkHandle, "KCSetData")
-		registerFunc(&_kCSetDefaultKeychain, frameworkHandle, "KCSetDefaultKeychain")
-		registerFunc(&_kCSetInteractionAllowed, frameworkHandle, "KCSetInteractionAllowed")
-		registerFunc(&_kCUpdateItem, frameworkHandle, "KCUpdateItem")
-		registerFunc(&_lMGetApFontID, frameworkHandle, "LMGetApFontID")
-		registerFunc(&_lMGetBootDrive, frameworkHandle, "LMGetBootDrive")
-		registerFunc(&_lMGetIntlSpec, frameworkHandle, "LMGetIntlSpec")
-		registerFunc(&_lMGetMemErr, frameworkHandle, "LMGetMemErr")
-		registerFunc(&_lMGetResErr, frameworkHandle, "LMGetResErr")
-		registerFunc(&_lMGetResLoad, frameworkHandle, "LMGetResLoad")
-		registerFunc(&_lMGetSysFontSize, frameworkHandle, "LMGetSysFontSize")
-		registerFunc(&_lMGetSysMap, frameworkHandle, "LMGetSysMap")
-		registerFunc(&_lMGetTmpResLoad, frameworkHandle, "LMGetTmpResLoad")
-		registerFunc(&_lMSetApFontID, frameworkHandle, "LMSetApFontID")
-		registerFunc(&_lMSetBootDrive, frameworkHandle, "LMSetBootDrive")
-		registerFunc(&_lMSetIntlSpec, frameworkHandle, "LMSetIntlSpec")
-		registerFunc(&_lMSetMemErr, frameworkHandle, "LMSetMemErr")
-		registerFunc(&_lMSetResErr, frameworkHandle, "LMSetResErr")
-		registerFunc(&_lMSetResLoad, frameworkHandle, "LMSetResLoad")
-		registerFunc(&_lMSetSysFontFam, frameworkHandle, "LMSetSysFontFam")
-		registerFunc(&_lMSetSysFontSize, frameworkHandle, "LMSetSysFontSize")
-		registerFunc(&_lMSetSysMap, frameworkHandle, "LMSetSysMap")
-		registerFunc(&_lMSetTmpResLoad, frameworkHandle, "LMSetTmpResLoad")
-		registerFunc(&_lSCanURLAcceptURL, frameworkHandle, "LSCanURLAcceptURL")
-		registerFunc(&_lSCopyAllHandlersForURLScheme, frameworkHandle, "LSCopyAllHandlersForURLScheme")
-		registerFunc(&_lSCopyAllRoleHandlersForContentType, frameworkHandle, "LSCopyAllRoleHandlersForContentType")
-		registerFunc(&_lSCopyApplicationURLsForBundleIdentifier, frameworkHandle, "LSCopyApplicationURLsForBundleIdentifier")
-		registerFunc(&_lSCopyApplicationURLsForURL, frameworkHandle, "LSCopyApplicationURLsForURL")
-		registerFunc(&_lSCopyDefaultApplicationURLForContentType, frameworkHandle, "LSCopyDefaultApplicationURLForContentType")
-		registerFunc(&_lSCopyDefaultApplicationURLForURL, frameworkHandle, "LSCopyDefaultApplicationURLForURL")
-		registerFunc(&_lSCopyDefaultHandlerForURLScheme, frameworkHandle, "LSCopyDefaultHandlerForURLScheme")
-		registerFunc(&_lSCopyDefaultRoleHandlerForContentType, frameworkHandle, "LSCopyDefaultRoleHandlerForContentType")
-		registerFunc(&_lSCopyDisplayNameForURL, frameworkHandle, "LSCopyDisplayNameForURL")
-		registerFunc(&_lSCopyItemInfoForURL, frameworkHandle, "LSCopyItemInfoForURL")
-		registerFunc(&_lSCopyKindStringForURL, frameworkHandle, "LSCopyKindStringForURL")
-		registerFunc(&_lSGetExtensionInfo, frameworkHandle, "LSGetExtensionInfo")
-		registerFunc(&_lSGetHandlerOptionsForContentType, frameworkHandle, "LSGetHandlerOptionsForContentType")
-		registerFunc(&_lSOpenApplication, frameworkHandle, "LSOpenApplication")
-		registerFunc(&_lSOpenCFURLRef, frameworkHandle, "LSOpenCFURLRef")
-		registerFunc(&_lSOpenFSRef, frameworkHandle, "LSOpenFSRef")
-		registerFunc(&_lSOpenFromRefSpec, frameworkHandle, "LSOpenFromRefSpec")
-		registerFunc(&_lSOpenFromURLSpec, frameworkHandle, "LSOpenFromURLSpec")
-		registerFunc(&_lSOpenItemsWithRole, frameworkHandle, "LSOpenItemsWithRole")
-		registerFunc(&_lSOpenURLsWithRole, frameworkHandle, "LSOpenURLsWithRole")
-		registerFunc(&_lSRegisterURL, frameworkHandle, "LSRegisterURL")
-		registerFunc(&_lSSetDefaultHandlerForURLScheme, frameworkHandle, "LSSetDefaultHandlerForURLScheme")
-		registerFunc(&_lSSetDefaultRoleHandlerForContentType, frameworkHandle, "LSSetDefaultRoleHandlerForContentType")
-		registerFunc(&_lSSetExtensionHiddenForURL, frameworkHandle, "LSSetExtensionHiddenForURL")
-		registerFunc(&_lSSetHandlerOptionsForContentType, frameworkHandle, "LSSetHandlerOptionsForContentType")
-		registerFunc(&_lSSetItemAttribute, frameworkHandle, "LSSetItemAttribute")
-		registerFunc(&_lSSharedFileListAddObserver, frameworkHandle, "LSSharedFileListAddObserver")
-		registerFunc(&_lSSharedFileListCopyProperty, frameworkHandle, "LSSharedFileListCopyProperty")
-		registerFunc(&_lSSharedFileListCopySnapshot, frameworkHandle, "LSSharedFileListCopySnapshot")
-		registerFunc(&_lSSharedFileListCreate, frameworkHandle, "LSSharedFileListCreate")
-		registerFunc(&_lSSharedFileListGetSeedValue, frameworkHandle, "LSSharedFileListGetSeedValue")
-		registerFunc(&_lSSharedFileListGetTypeID, frameworkHandle, "LSSharedFileListGetTypeID")
-		registerFunc(&_lSSharedFileListInsertItemFSRef, frameworkHandle, "LSSharedFileListInsertItemFSRef")
-		registerFunc(&_lSSharedFileListInsertItemURL, frameworkHandle, "LSSharedFileListInsertItemURL")
-		registerFunc(&_lSSharedFileListItemCopyDisplayName, frameworkHandle, "LSSharedFileListItemCopyDisplayName")
-		registerFunc(&_lSSharedFileListItemCopyIconRef, frameworkHandle, "LSSharedFileListItemCopyIconRef")
-		registerFunc(&_lSSharedFileListItemCopyProperty, frameworkHandle, "LSSharedFileListItemCopyProperty")
-		registerFunc(&_lSSharedFileListItemCopyResolvedURL, frameworkHandle, "LSSharedFileListItemCopyResolvedURL")
-		registerFunc(&_lSSharedFileListItemGetID, frameworkHandle, "LSSharedFileListItemGetID")
-		registerFunc(&_lSSharedFileListItemGetTypeID, frameworkHandle, "LSSharedFileListItemGetTypeID")
-		registerFunc(&_lSSharedFileListItemMove, frameworkHandle, "LSSharedFileListItemMove")
-		registerFunc(&_lSSharedFileListItemRemove, frameworkHandle, "LSSharedFileListItemRemove")
-		registerFunc(&_lSSharedFileListItemResolve, frameworkHandle, "LSSharedFileListItemResolve")
-		registerFunc(&_lSSharedFileListItemSetProperty, frameworkHandle, "LSSharedFileListItemSetProperty")
-		registerFunc(&_lSSharedFileListRemoveAllItems, frameworkHandle, "LSSharedFileListRemoveAllItems")
-		registerFunc(&_lSSharedFileListRemoveObserver, frameworkHandle, "LSSharedFileListRemoveObserver")
-		registerFunc(&_lSSharedFileListSetAuthorization, frameworkHandle, "LSSharedFileListSetAuthorization")
-		registerFunc(&_lSSharedFileListSetProperty, frameworkHandle, "LSSharedFileListSetProperty")
-		registerFunc(&_loadResource, frameworkHandle, "LoadResource")
-		registerFunc(&_localeCountNames, frameworkHandle, "LocaleCountNames")
-		registerFunc(&_localeGetIndName, frameworkHandle, "LocaleGetIndName")
-		registerFunc(&_localeGetName, frameworkHandle, "LocaleGetName")
-		registerFunc(&_localeOperationCountLocales, frameworkHandle, "LocaleOperationCountLocales")
-		registerFunc(&_localeOperationCountNames, frameworkHandle, "LocaleOperationCountNames")
-		registerFunc(&_localeOperationGetIndName, frameworkHandle, "LocaleOperationGetIndName")
-		registerFunc(&_localeOperationGetLocales, frameworkHandle, "LocaleOperationGetLocales")
-		registerFunc(&_localeOperationGetName, frameworkHandle, "LocaleOperationGetName")
-		registerFunc(&_localeRefFromLangOrRegionCode, frameworkHandle, "LocaleRefFromLangOrRegionCode")
-		registerFunc(&_localeRefFromLocaleString, frameworkHandle, "LocaleRefFromLocaleString")
-		registerFunc(&_localeRefGetPartString, frameworkHandle, "LocaleRefGetPartString")
-		registerFunc(&_localeStringToLangAndRegionCodes, frameworkHandle, "LocaleStringToLangAndRegionCodes")
-		registerFunc(&_long2Fix, frameworkHandle, "Long2Fix")
-		registerFunc(&_longDoubleToSInt64, frameworkHandle, "LongDoubleToSInt64")
-		registerFunc(&_longDoubleToUInt64, frameworkHandle, "LongDoubleToUInt64")
-		registerFunc(&_mDCopyLabelKinds, frameworkHandle, "MDCopyLabelKinds")
-		registerFunc(&_mDCopyLabelWithUUID, frameworkHandle, "MDCopyLabelWithUUID")
-		registerFunc(&_mDCopyLabelsMatchingExpression, frameworkHandle, "MDCopyLabelsMatchingExpression")
-		registerFunc(&_mDCopyLabelsWithKind, frameworkHandle, "MDCopyLabelsWithKind")
-		registerFunc(&_mDItemCopyAttribute, frameworkHandle, "MDItemCopyAttribute")
-		registerFunc(&_mDItemCopyAttributeList, frameworkHandle, "MDItemCopyAttributeList")
-		registerFunc(&_mDItemCopyAttributeNames, frameworkHandle, "MDItemCopyAttributeNames")
-		registerFunc(&_mDItemCopyAttributes, frameworkHandle, "MDItemCopyAttributes")
-		registerFunc(&_mDItemCopyLabels, frameworkHandle, "MDItemCopyLabels")
-		registerFunc(&_mDItemCreate, frameworkHandle, "MDItemCreate")
-		registerFunc(&_mDItemCreateWithURL, frameworkHandle, "MDItemCreateWithURL")
-		registerFunc(&_mDItemGetCacheFileDescriptors, frameworkHandle, "MDItemGetCacheFileDescriptors")
-		registerFunc(&_mDItemGetTypeID, frameworkHandle, "MDItemGetTypeID")
-		registerFunc(&_mDItemRemoveLabel, frameworkHandle, "MDItemRemoveLabel")
-		registerFunc(&_mDItemSetLabel, frameworkHandle, "MDItemSetLabel")
-		registerFunc(&_mDItemsCopyAttributes, frameworkHandle, "MDItemsCopyAttributes")
-		registerFunc(&_mDItemsCreateWithURLs, frameworkHandle, "MDItemsCreateWithURLs")
-		registerFunc(&_mDLabelCopyAttribute, frameworkHandle, "MDLabelCopyAttribute")
-		registerFunc(&_mDLabelCopyAttributeName, frameworkHandle, "MDLabelCopyAttributeName")
-		registerFunc(&_mDLabelCreate, frameworkHandle, "MDLabelCreate")
-		registerFunc(&_mDLabelDelete, frameworkHandle, "MDLabelDelete")
-		registerFunc(&_mDLabelGetTypeID, frameworkHandle, "MDLabelGetTypeID")
-		registerFunc(&_mDLabelSetAttributes, frameworkHandle, "MDLabelSetAttributes")
-		registerFunc(&_mDQueryCopyQueryString, frameworkHandle, "MDQueryCopyQueryString")
-		registerFunc(&_mDQueryCopySortingAttributes, frameworkHandle, "MDQueryCopySortingAttributes")
-		registerFunc(&_mDQueryCopyValueListAttributes, frameworkHandle, "MDQueryCopyValueListAttributes")
-		registerFunc(&_mDQueryCopyValuesOfAttribute, frameworkHandle, "MDQueryCopyValuesOfAttribute")
-		registerFunc(&_mDQueryCreate, frameworkHandle, "MDQueryCreate")
-		registerFunc(&_mDQueryCreateForItems, frameworkHandle, "MDQueryCreateForItems")
-		registerFunc(&_mDQueryCreateSubset, frameworkHandle, "MDQueryCreateSubset")
-		registerFunc(&_mDQueryDisableUpdates, frameworkHandle, "MDQueryDisableUpdates")
-		registerFunc(&_mDQueryEnableUpdates, frameworkHandle, "MDQueryEnableUpdates")
-		registerFunc(&_mDQueryExecute, frameworkHandle, "MDQueryExecute")
-		registerFunc(&_mDQueryGetAttributeValueOfResultAtIndex, frameworkHandle, "MDQueryGetAttributeValueOfResultAtIndex")
-		registerFunc(&_mDQueryGetBatchingParameters, frameworkHandle, "MDQueryGetBatchingParameters")
-		registerFunc(&_mDQueryGetCountOfResultsWithAttributeValue, frameworkHandle, "MDQueryGetCountOfResultsWithAttributeValue")
-		registerFunc(&_mDQueryGetIndexOfResult, frameworkHandle, "MDQueryGetIndexOfResult")
-		registerFunc(&_mDQueryGetResultAtIndex, frameworkHandle, "MDQueryGetResultAtIndex")
-		registerFunc(&_mDQueryGetResultCount, frameworkHandle, "MDQueryGetResultCount")
-		registerFunc(&_mDQueryGetSortOptionFlagsForAttribute, frameworkHandle, "MDQueryGetSortOptionFlagsForAttribute")
-		registerFunc(&_mDQueryGetTypeID, frameworkHandle, "MDQueryGetTypeID")
-		registerFunc(&_mDQueryIsGatheringComplete, frameworkHandle, "MDQueryIsGatheringComplete")
-		registerFunc(&_mDQuerySetBatchingParameters, frameworkHandle, "MDQuerySetBatchingParameters")
-		registerFunc(&_mDQuerySetCreateResultFunction, frameworkHandle, "MDQuerySetCreateResultFunction")
-		registerFunc(&_mDQuerySetCreateValueFunction, frameworkHandle, "MDQuerySetCreateValueFunction")
-		registerFunc(&_mDQuerySetDispatchQueue, frameworkHandle, "MDQuerySetDispatchQueue")
-		registerFunc(&_mDQuerySetMaxCount, frameworkHandle, "MDQuerySetMaxCount")
-		registerFunc(&_mDQuerySetSearchScope, frameworkHandle, "MDQuerySetSearchScope")
-		registerFunc(&_mDQuerySetSortComparator, frameworkHandle, "MDQuerySetSortComparator")
-		registerFunc(&_mDQuerySetSortComparatorBlock, frameworkHandle, "MDQuerySetSortComparatorBlock")
-		registerFunc(&_mDQuerySetSortOptionFlagsForAttribute, frameworkHandle, "MDQuerySetSortOptionFlagsForAttribute")
-		registerFunc(&_mDQuerySetSortOrder, frameworkHandle, "MDQuerySetSortOrder")
-		registerFunc(&_mDQueryStop, frameworkHandle, "MDQueryStop")
-		registerFunc(&_mDSchemaCopyAllAttributes, frameworkHandle, "MDSchemaCopyAllAttributes")
-		registerFunc(&_mDSchemaCopyAttributesForContentType, frameworkHandle, "MDSchemaCopyAttributesForContentType")
-		registerFunc(&_mDSchemaCopyDisplayDescriptionForAttribute, frameworkHandle, "MDSchemaCopyDisplayDescriptionForAttribute")
-		registerFunc(&_mDSchemaCopyDisplayNameForAttribute, frameworkHandle, "MDSchemaCopyDisplayNameForAttribute")
-		registerFunc(&_mDSchemaCopyMetaAttributesForAttribute, frameworkHandle, "MDSchemaCopyMetaAttributesForAttribute")
-		registerFunc(&_mPAllocateAligned, frameworkHandle, "MPAllocateAligned")
-		registerFunc(&_mPAllocateTaskStorageIndex, frameworkHandle, "MPAllocateTaskStorageIndex")
-		registerFunc(&_mPArmTimer, frameworkHandle, "MPArmTimer")
-		registerFunc(&_mPBlockClear, frameworkHandle, "MPBlockClear")
-		registerFunc(&_mPBlockCopy, frameworkHandle, "MPBlockCopy")
-		registerFunc(&_mPCancelTimer, frameworkHandle, "MPCancelTimer")
-		registerFunc(&_mPCauseNotification, frameworkHandle, "MPCauseNotification")
-		registerFunc(&_mPCreateCriticalRegion, frameworkHandle, "MPCreateCriticalRegion")
-		registerFunc(&_mPCreateEvent, frameworkHandle, "MPCreateEvent")
-		registerFunc(&_mPCreateNotification, frameworkHandle, "MPCreateNotification")
-		registerFunc(&_mPCreateQueue, frameworkHandle, "MPCreateQueue")
-		registerFunc(&_mPCreateSemaphore, frameworkHandle, "MPCreateSemaphore")
-		registerFunc(&_mPCreateTask, frameworkHandle, "MPCreateTask")
-		registerFunc(&_mPCreateTimer, frameworkHandle, "MPCreateTimer")
-		registerFunc(&_mPCurrentTaskID, frameworkHandle, "MPCurrentTaskID")
-		registerFunc(&_mPDeallocateTaskStorageIndex, frameworkHandle, "MPDeallocateTaskStorageIndex")
-		registerFunc(&_mPDelayUntil, frameworkHandle, "MPDelayUntil")
-		registerFunc(&_mPDeleteCriticalRegion, frameworkHandle, "MPDeleteCriticalRegion")
-		registerFunc(&_mPDeleteEvent, frameworkHandle, "MPDeleteEvent")
-		registerFunc(&_mPDeleteNotification, frameworkHandle, "MPDeleteNotification")
-		registerFunc(&_mPDeleteQueue, frameworkHandle, "MPDeleteQueue")
-		registerFunc(&_mPDeleteSemaphore, frameworkHandle, "MPDeleteSemaphore")
-		registerFunc(&_mPDeleteTimer, frameworkHandle, "MPDeleteTimer")
-		registerFunc(&_mPDisposeTaskException, frameworkHandle, "MPDisposeTaskException")
-		registerFunc(&_mPEnterCriticalRegion, frameworkHandle, "MPEnterCriticalRegion")
-		registerFunc(&_mPExit, frameworkHandle, "MPExit")
-		registerFunc(&_mPExitCriticalRegion, frameworkHandle, "MPExitCriticalRegion")
-		registerFunc(&_mPExtractTaskState, frameworkHandle, "MPExtractTaskState")
-		registerFunc(&_mPFree, frameworkHandle, "MPFree")
-		registerFunc(&_mPGetAllocatedBlockSize, frameworkHandle, "MPGetAllocatedBlockSize")
-		registerFunc(&_mPGetNextCpuID, frameworkHandle, "MPGetNextCpuID")
-		registerFunc(&_mPGetNextTaskID, frameworkHandle, "MPGetNextTaskID")
-		registerFunc(&_mPGetTaskStorageValue, frameworkHandle, "MPGetTaskStorageValue")
-		registerFunc(&_mPModifyNotification, frameworkHandle, "MPModifyNotification")
-		registerFunc(&_mPModifyNotificationParameters, frameworkHandle, "MPModifyNotificationParameters")
-		registerFunc(&_mPNotifyQueue, frameworkHandle, "MPNotifyQueue")
-		registerFunc(&_mPProcessors, frameworkHandle, "MPProcessors")
-		registerFunc(&_mPProcessorsScheduled, frameworkHandle, "MPProcessorsScheduled")
-		registerFunc(&_mPRegisterDebugger, frameworkHandle, "MPRegisterDebugger")
-		registerFunc(&_mPRemoteCall, frameworkHandle, "MPRemoteCall")
-		registerFunc(&_mPRemoteCallCFM, frameworkHandle, "MPRemoteCallCFM")
-		registerFunc(&_mPSetEvent, frameworkHandle, "MPSetEvent")
-		registerFunc(&_mPSetExceptionHandler, frameworkHandle, "MPSetExceptionHandler")
-		registerFunc(&_mPSetQueueReserve, frameworkHandle, "MPSetQueueReserve")
-		registerFunc(&_mPSetTaskState, frameworkHandle, "MPSetTaskState")
-		registerFunc(&_mPSetTaskStorageValue, frameworkHandle, "MPSetTaskStorageValue")
-		registerFunc(&_mPSetTaskType, frameworkHandle, "MPSetTaskType")
-		registerFunc(&_mPSetTaskWeight, frameworkHandle, "MPSetTaskWeight")
-		registerFunc(&_mPSetTimerNotify, frameworkHandle, "MPSetTimerNotify")
-		registerFunc(&_mPSignalSemaphore, frameworkHandle, "MPSignalSemaphore")
-		registerFunc(&_mPTaskIsPreemptive, frameworkHandle, "MPTaskIsPreemptive")
-		registerFunc(&_mPTerminateTask, frameworkHandle, "MPTerminateTask")
-		registerFunc(&_mPUnregisterDebugger, frameworkHandle, "MPUnregisterDebugger")
-		registerFunc(&_mPWaitForEvent, frameworkHandle, "MPWaitForEvent")
-		registerFunc(&_mPWaitOnQueue, frameworkHandle, "MPWaitOnQueue")
-		registerFunc(&_mPWaitOnSemaphore, frameworkHandle, "MPWaitOnSemaphore")
-		registerFunc(&_mPYield, frameworkHandle, "MPYield")
-		registerFunc(&_maximumProcessorSpeed, frameworkHandle, "MaximumProcessorSpeed")
-		registerFunc(&_memError, frameworkHandle, "MemError")
-		registerFunc(&_microseconds, frameworkHandle, "Microseconds")
-		registerFunc(&_minimumProcessorSpeed, frameworkHandle, "MinimumProcessorSpeed")
-		registerFunc(&_munger, frameworkHandle, "Munger")
-		registerFunc(&_nanosecondsToAbsolute, frameworkHandle, "NanosecondsToAbsolute")
-		registerFunc(&_nanosecondsToDuration, frameworkHandle, "NanosecondsToDuration")
-		registerFunc(&_nearestMacTextEncodings, frameworkHandle, "NearestMacTextEncodings")
-		registerFunc(&_newAECoerceDescUPP, frameworkHandle, "NewAECoerceDescUPP")
-		registerFunc(&_newAECoercePtrUPP, frameworkHandle, "NewAECoercePtrUPP")
-		registerFunc(&_newAEDisposeExternalUPP, frameworkHandle, "NewAEDisposeExternalUPP")
-		registerFunc(&_newAEEventHandlerUPP, frameworkHandle, "NewAEEventHandlerUPP")
-		registerFunc(&_newCollection, frameworkHandle, "NewCollection")
-		registerFunc(&_newCollectionExceptionUPP, frameworkHandle, "NewCollectionExceptionUPP")
-		registerFunc(&_newCollectionFlattenUPP, frameworkHandle, "NewCollectionFlattenUPP")
-		registerFunc(&_newComponentFunctionUPP, frameworkHandle, "NewComponentFunctionUPP")
-		registerFunc(&_newComponentMPWorkFunctionUPP, frameworkHandle, "NewComponentMPWorkFunctionUPP")
-		registerFunc(&_newComponentRoutineUPP, frameworkHandle, "NewComponentRoutineUPP")
-		registerFunc(&_newDebugAssertOutputHandlerUPP, frameworkHandle, "NewDebugAssertOutputHandlerUPP")
-		registerFunc(&_newDebugComponent, frameworkHandle, "NewDebugComponent")
-		registerFunc(&_newDebugComponentCallbackUPP, frameworkHandle, "NewDebugComponentCallbackUPP")
-		registerFunc(&_newDebugOption, frameworkHandle, "NewDebugOption")
-		registerFunc(&_newDebuggerDisposeThreadUPP, frameworkHandle, "NewDebuggerDisposeThreadUPP")
-		registerFunc(&_newDebuggerNewThreadUPP, frameworkHandle, "NewDebuggerNewThreadUPP")
-		registerFunc(&_newDebuggerThreadSchedulerUPP, frameworkHandle, "NewDebuggerThreadSchedulerUPP")
-		registerFunc(&_newDeferredTaskUPP, frameworkHandle, "NewDeferredTaskUPP")
-		registerFunc(&_newEmptyHandle, frameworkHandle, "NewEmptyHandle")
-		registerFunc(&_newExceptionHandlerUPP, frameworkHandle, "NewExceptionHandlerUPP")
-		registerFunc(&_newFNSubscriptionUPP, frameworkHandle, "NewFNSubscriptionUPP")
-		registerFunc(&_newFSVolumeEjectUPP, frameworkHandle, "NewFSVolumeEjectUPP")
-		registerFunc(&_newFSVolumeMountUPP, frameworkHandle, "NewFSVolumeMountUPP")
-		registerFunc(&_newFSVolumeUnmountUPP, frameworkHandle, "NewFSVolumeUnmountUPP")
-		registerFunc(&_newFolderManagerNotificationUPP, frameworkHandle, "NewFolderManagerNotificationUPP")
-		registerFunc(&_newGestaltValue, frameworkHandle, "NewGestaltValue")
-		registerFunc(&_newGetMissingComponentResourceUPP, frameworkHandle, "NewGetMissingComponentResourceUPP")
-		registerFunc(&_newHandle, frameworkHandle, "NewHandle")
-		registerFunc(&_newHandleClear, frameworkHandle, "NewHandleClear")
-		registerFunc(&_newIOCompletionUPP, frameworkHandle, "NewIOCompletionUPP")
-		registerFunc(&_newIndexToUCStringUPP, frameworkHandle, "NewIndexToUCStringUPP")
-		registerFunc(&_newKCCallbackUPP, frameworkHandle, "NewKCCallbackUPP")
-		registerFunc(&_newOSLAccessorUPP, frameworkHandle, "NewOSLAccessorUPP")
-		registerFunc(&_newOSLAdjustMarksUPP, frameworkHandle, "NewOSLAdjustMarksUPP")
-		registerFunc(&_newOSLCompareUPP, frameworkHandle, "NewOSLCompareUPP")
-		registerFunc(&_newOSLCountUPP, frameworkHandle, "NewOSLCountUPP")
-		registerFunc(&_newOSLDisposeTokenUPP, frameworkHandle, "NewOSLDisposeTokenUPP")
-		registerFunc(&_newOSLGetErrDescUPP, frameworkHandle, "NewOSLGetErrDescUPP")
-		registerFunc(&_newOSLGetMarkTokenUPP, frameworkHandle, "NewOSLGetMarkTokenUPP")
-		registerFunc(&_newOSLMarkUPP, frameworkHandle, "NewOSLMarkUPP")
-		registerFunc(&_newPtr, frameworkHandle, "NewPtr")
-		registerFunc(&_newPtrClear, frameworkHandle, "NewPtrClear")
-		registerFunc(&_newResErrUPP, frameworkHandle, "NewResErrUPP")
-		registerFunc(&_newSelectorFunctionUPP, frameworkHandle, "NewSelectorFunctionUPP")
-		registerFunc(&_newSleepQUPP, frameworkHandle, "NewSleepQUPP")
-		registerFunc(&_newThread, frameworkHandle, "NewThread")
-		registerFunc(&_newThreadEntryUPP, frameworkHandle, "NewThreadEntryUPP")
-		registerFunc(&_newThreadSchedulerUPP, frameworkHandle, "NewThreadSchedulerUPP")
-		registerFunc(&_newThreadSwitchUPP, frameworkHandle, "NewThreadSwitchUPP")
-		registerFunc(&_newThreadTerminationUPP, frameworkHandle, "NewThreadTerminationUPP")
-		registerFunc(&_newTimerUPP, frameworkHandle, "NewTimerUPP")
-		registerFunc(&_newUnicodeToTextFallbackUPP, frameworkHandle, "NewUnicodeToTextFallbackUPP")
-		registerFunc(&_openAComponent, frameworkHandle, "OpenAComponent")
-		registerFunc(&_openAComponentResFile, frameworkHandle, "OpenAComponentResFile")
-		registerFunc(&_openADefaultComponent, frameworkHandle, "OpenADefaultComponent")
-		registerFunc(&_openComponent, frameworkHandle, "OpenComponent")
-		registerFunc(&_openComponentResFile, frameworkHandle, "OpenComponentResFile")
-		registerFunc(&_openDefaultComponent, frameworkHandle, "OpenDefaultComponent")
-		registerFunc(&_overrideIconRef, frameworkHandle, "OverrideIconRef")
-		registerFunc(&_pBAllocateForkAsync, frameworkHandle, "PBAllocateForkAsync")
-		registerFunc(&_pBAllocateForkSync, frameworkHandle, "PBAllocateForkSync")
-		registerFunc(&_pBCatalogSearchAsync, frameworkHandle, "PBCatalogSearchAsync")
-		registerFunc(&_pBCatalogSearchSync, frameworkHandle, "PBCatalogSearchSync")
-		registerFunc(&_pBCloseForkAsync, frameworkHandle, "PBCloseForkAsync")
-		registerFunc(&_pBCloseForkSync, frameworkHandle, "PBCloseForkSync")
-		registerFunc(&_pBCloseIteratorAsync, frameworkHandle, "PBCloseIteratorAsync")
-		registerFunc(&_pBCloseIteratorSync, frameworkHandle, "PBCloseIteratorSync")
-		registerFunc(&_pBCompareFSRefsAsync, frameworkHandle, "PBCompareFSRefsAsync")
-		registerFunc(&_pBCompareFSRefsSync, frameworkHandle, "PBCompareFSRefsSync")
-		registerFunc(&_pBCreateDirectoryUnicodeAsync, frameworkHandle, "PBCreateDirectoryUnicodeAsync")
-		registerFunc(&_pBCreateDirectoryUnicodeSync, frameworkHandle, "PBCreateDirectoryUnicodeSync")
-		registerFunc(&_pBCreateFileAndOpenForkUnicodeAsync, frameworkHandle, "PBCreateFileAndOpenForkUnicodeAsync")
-		registerFunc(&_pBCreateFileAndOpenForkUnicodeSync, frameworkHandle, "PBCreateFileAndOpenForkUnicodeSync")
-		registerFunc(&_pBCreateFileUnicodeAsync, frameworkHandle, "PBCreateFileUnicodeAsync")
-		registerFunc(&_pBCreateFileUnicodeSync, frameworkHandle, "PBCreateFileUnicodeSync")
-		registerFunc(&_pBCreateForkAsync, frameworkHandle, "PBCreateForkAsync")
-		registerFunc(&_pBCreateForkSync, frameworkHandle, "PBCreateForkSync")
-		registerFunc(&_pBDeleteForkAsync, frameworkHandle, "PBDeleteForkAsync")
-		registerFunc(&_pBDeleteForkSync, frameworkHandle, "PBDeleteForkSync")
-		registerFunc(&_pBDeleteObjectAsync, frameworkHandle, "PBDeleteObjectAsync")
-		registerFunc(&_pBDeleteObjectSync, frameworkHandle, "PBDeleteObjectSync")
-		registerFunc(&_pBExchangeObjectsAsync, frameworkHandle, "PBExchangeObjectsAsync")
-		registerFunc(&_pBExchangeObjectsSync, frameworkHandle, "PBExchangeObjectsSync")
-		registerFunc(&_pBFSCopyFileAsync, frameworkHandle, "PBFSCopyFileAsync")
-		registerFunc(&_pBFSCopyFileSync, frameworkHandle, "PBFSCopyFileSync")
-		registerFunc(&_pBFSResolveNodeIDAsync, frameworkHandle, "PBFSResolveNodeIDAsync")
-		registerFunc(&_pBFSResolveNodeIDSync, frameworkHandle, "PBFSResolveNodeIDSync")
-		registerFunc(&_pBFlushForkAsync, frameworkHandle, "PBFlushForkAsync")
-		registerFunc(&_pBFlushForkSync, frameworkHandle, "PBFlushForkSync")
-		registerFunc(&_pBFlushVolumeAsync, frameworkHandle, "PBFlushVolumeAsync")
-		registerFunc(&_pBFlushVolumeSync, frameworkHandle, "PBFlushVolumeSync")
-		registerFunc(&_pBGetCatalogInfoAsync, frameworkHandle, "PBGetCatalogInfoAsync")
-		registerFunc(&_pBGetCatalogInfoBulkAsync, frameworkHandle, "PBGetCatalogInfoBulkAsync")
-		registerFunc(&_pBGetCatalogInfoBulkSync, frameworkHandle, "PBGetCatalogInfoBulkSync")
-		registerFunc(&_pBGetCatalogInfoSync, frameworkHandle, "PBGetCatalogInfoSync")
-		registerFunc(&_pBGetForkCBInfoAsync, frameworkHandle, "PBGetForkCBInfoAsync")
-		registerFunc(&_pBGetForkCBInfoSync, frameworkHandle, "PBGetForkCBInfoSync")
-		registerFunc(&_pBGetForkPositionAsync, frameworkHandle, "PBGetForkPositionAsync")
-		registerFunc(&_pBGetForkPositionSync, frameworkHandle, "PBGetForkPositionSync")
-		registerFunc(&_pBGetForkSizeAsync, frameworkHandle, "PBGetForkSizeAsync")
-		registerFunc(&_pBGetForkSizeSync, frameworkHandle, "PBGetForkSizeSync")
-		registerFunc(&_pBGetVolumeInfoAsync, frameworkHandle, "PBGetVolumeInfoAsync")
-		registerFunc(&_pBGetVolumeInfoSync, frameworkHandle, "PBGetVolumeInfoSync")
-		registerFunc(&_pBIterateForksAsync, frameworkHandle, "PBIterateForksAsync")
-		registerFunc(&_pBIterateForksSync, frameworkHandle, "PBIterateForksSync")
-		registerFunc(&_pBMakeFSRefUnicodeAsync, frameworkHandle, "PBMakeFSRefUnicodeAsync")
-		registerFunc(&_pBMakeFSRefUnicodeSync, frameworkHandle, "PBMakeFSRefUnicodeSync")
-		registerFunc(&_pBMoveObjectAsync, frameworkHandle, "PBMoveObjectAsync")
-		registerFunc(&_pBMoveObjectSync, frameworkHandle, "PBMoveObjectSync")
-		registerFunc(&_pBOpenForkAsync, frameworkHandle, "PBOpenForkAsync")
-		registerFunc(&_pBOpenForkSync, frameworkHandle, "PBOpenForkSync")
-		registerFunc(&_pBOpenIteratorAsync, frameworkHandle, "PBOpenIteratorAsync")
-		registerFunc(&_pBOpenIteratorSync, frameworkHandle, "PBOpenIteratorSync")
-		registerFunc(&_pBReadForkAsync, frameworkHandle, "PBReadForkAsync")
-		registerFunc(&_pBReadForkSync, frameworkHandle, "PBReadForkSync")
-		registerFunc(&_pBRenameUnicodeAsync, frameworkHandle, "PBRenameUnicodeAsync")
-		registerFunc(&_pBRenameUnicodeSync, frameworkHandle, "PBRenameUnicodeSync")
-		registerFunc(&_pBSetCatalogInfoAsync, frameworkHandle, "PBSetCatalogInfoAsync")
-		registerFunc(&_pBSetCatalogInfoSync, frameworkHandle, "PBSetCatalogInfoSync")
-		registerFunc(&_pBSetForkPositionAsync, frameworkHandle, "PBSetForkPositionAsync")
-		registerFunc(&_pBSetForkPositionSync, frameworkHandle, "PBSetForkPositionSync")
-		registerFunc(&_pBSetForkSizeAsync, frameworkHandle, "PBSetForkSizeAsync")
-		registerFunc(&_pBSetForkSizeSync, frameworkHandle, "PBSetForkSizeSync")
-		registerFunc(&_pBSetVolumeInfoAsync, frameworkHandle, "PBSetVolumeInfoAsync")
-		registerFunc(&_pBSetVolumeInfoSync, frameworkHandle, "PBSetVolumeInfoSync")
-		registerFunc(&_pBUnlinkObjectAsync, frameworkHandle, "PBUnlinkObjectAsync")
-		registerFunc(&_pBUnlinkObjectSync, frameworkHandle, "PBUnlinkObjectSync")
-		registerFunc(&_pBWriteForkAsync, frameworkHandle, "PBWriteForkAsync")
-		registerFunc(&_pBWriteForkSync, frameworkHandle, "PBWriteForkSync")
-		registerFunc(&_pBXLockRangeAsync, frameworkHandle, "PBXLockRangeAsync")
-		registerFunc(&_pBXLockRangeSync, frameworkHandle, "PBXLockRangeSync")
-		registerFunc(&_pBXUnlockRangeAsync, frameworkHandle, "PBXUnlockRangeAsync")
-		registerFunc(&_pBXUnlockRangeSync, frameworkHandle, "PBXUnlockRangeSync")
-		registerFunc(&_pLpos, frameworkHandle, "PLpos")
-		registerFunc(&_pLstrcat, frameworkHandle, "PLstrcat")
-		registerFunc(&_pLstrchr, frameworkHandle, "PLstrchr")
-		registerFunc(&_pLstrcmp, frameworkHandle, "PLstrcmp")
-		registerFunc(&_pLstrcpy, frameworkHandle, "PLstrcpy")
-		registerFunc(&_pLstrlen, frameworkHandle, "PLstrlen")
-		registerFunc(&_pLstrncat, frameworkHandle, "PLstrncat")
-		registerFunc(&_pLstrncmp, frameworkHandle, "PLstrncmp")
-		registerFunc(&_pLstrncpy, frameworkHandle, "PLstrncpy")
-		registerFunc(&_pLstrpbrk, frameworkHandle, "PLstrpbrk")
-		registerFunc(&_pLstrrchr, frameworkHandle, "PLstrrchr")
-		registerFunc(&_pLstrspn, frameworkHandle, "PLstrspn")
-		registerFunc(&_pLstrstr, frameworkHandle, "PLstrstr")
-		registerFunc(&_primeTime, frameworkHandle, "PrimeTime")
-		registerFunc(&_primeTimeTask, frameworkHandle, "PrimeTimeTask")
-		registerFunc(&_ptrAndHand, frameworkHandle, "PtrAndHand")
-		registerFunc(&_ptrToHand, frameworkHandle, "PtrToHand")
-		registerFunc(&_ptrToXHand, frameworkHandle, "PtrToXHand")
-		registerFunc(&_purgeCollection, frameworkHandle, "PurgeCollection")
-		registerFunc(&_purgeCollectionTag, frameworkHandle, "PurgeCollectionTag")
-		registerFunc(&_queryUnicodeMappings, frameworkHandle, "QueryUnicodeMappings")
-		registerFunc(&_readIconFromFSRef, frameworkHandle, "ReadIconFromFSRef")
-		registerFunc(&_readLocation, frameworkHandle, "ReadLocation")
-		registerFunc(&_readPartialResource, frameworkHandle, "ReadPartialResource")
-		registerFunc(&_reallocateHandle, frameworkHandle, "ReallocateHandle")
-		registerFunc(&_recoverHandle, frameworkHandle, "RecoverHandle")
-		registerFunc(&_registerComponent, frameworkHandle, "RegisterComponent")
-		registerFunc(&_registerComponentFileRef, frameworkHandle, "RegisterComponentFileRef")
-		registerFunc(&_registerComponentFileRefEntries, frameworkHandle, "RegisterComponentFileRefEntries")
-		registerFunc(&_registerComponentResource, frameworkHandle, "RegisterComponentResource")
-		registerFunc(&_registerComponentResourceFile, frameworkHandle, "RegisterComponentResourceFile")
-		registerFunc(&_registerIconRefFromFSRef, frameworkHandle, "RegisterIconRefFromFSRef")
-		registerFunc(&_registerIconRefFromIconFamily, frameworkHandle, "RegisterIconRefFromIconFamily")
-		registerFunc(&_releaseCollection, frameworkHandle, "ReleaseCollection")
-		registerFunc(&_releaseFolder, frameworkHandle, "ReleaseFolder")
-		registerFunc(&_releaseIconRef, frameworkHandle, "ReleaseIconRef")
-		registerFunc(&_releaseResource, frameworkHandle, "ReleaseResource")
-		registerFunc(&_removeCollectionItem, frameworkHandle, "RemoveCollectionItem")
-		registerFunc(&_removeFolderDescriptor, frameworkHandle, "RemoveFolderDescriptor")
-		registerFunc(&_removeIconRefOverride, frameworkHandle, "RemoveIconRefOverride")
-		registerFunc(&_removeIndexedCollectionItem, frameworkHandle, "RemoveIndexedCollectionItem")
-		registerFunc(&_removeResource, frameworkHandle, "RemoveResource")
-		registerFunc(&_removeTimeTask, frameworkHandle, "RemoveTimeTask")
-		registerFunc(&_replaceGestaltValue, frameworkHandle, "ReplaceGestaltValue")
-		registerFunc(&_replaceIndexedCollectionItem, frameworkHandle, "ReplaceIndexedCollectionItem")
-		registerFunc(&_replaceIndexedCollectionItemHdl, frameworkHandle, "ReplaceIndexedCollectionItemHdl")
-		registerFunc(&_resError, frameworkHandle, "ResError")
-		registerFunc(&_resetTextToUnicodeInfo, frameworkHandle, "ResetTextToUnicodeInfo")
-		registerFunc(&_resetUnicodeToTextInfo, frameworkHandle, "ResetUnicodeToTextInfo")
-		registerFunc(&_resetUnicodeToTextRunInfo, frameworkHandle, "ResetUnicodeToTextRunInfo")
-		registerFunc(&_resolveComponentAlias, frameworkHandle, "ResolveComponentAlias")
-		registerFunc(&_resolveDefaultTextEncoding, frameworkHandle, "ResolveDefaultTextEncoding")
-		registerFunc(&_retainCollection, frameworkHandle, "RetainCollection")
-		registerFunc(&_revertTextEncodingToScriptInfo, frameworkHandle, "RevertTextEncodingToScriptInfo")
-		registerFunc(&_rmvTime, frameworkHandle, "RmvTime")
-		registerFunc(&_s32Set, frameworkHandle, "S32Set")
-		registerFunc(&_s64Absolute, frameworkHandle, "S64Absolute")
-		registerFunc(&_s64Add, frameworkHandle, "S64Add")
-		registerFunc(&_s64And, frameworkHandle, "S64And")
-		registerFunc(&_s64BitwiseAnd, frameworkHandle, "S64BitwiseAnd")
-		registerFunc(&_s64BitwiseEor, frameworkHandle, "S64BitwiseEor")
-		registerFunc(&_s64BitwiseNot, frameworkHandle, "S64BitwiseNot")
-		registerFunc(&_s64BitwiseOr, frameworkHandle, "S64BitwiseOr")
-		registerFunc(&_s64Compare, frameworkHandle, "S64Compare")
-		registerFunc(&_s64Div, frameworkHandle, "S64Div")
-		registerFunc(&_s64Divide, frameworkHandle, "S64Divide")
-		registerFunc(&_s64Eor, frameworkHandle, "S64Eor")
-		registerFunc(&_s64Max, frameworkHandle, "S64Max")
-		registerFunc(&_s64Min, frameworkHandle, "S64Min")
-		registerFunc(&_s64Mod, frameworkHandle, "S64Mod")
-		registerFunc(&_s64Multiply, frameworkHandle, "S64Multiply")
-		registerFunc(&_s64Negate, frameworkHandle, "S64Negate")
-		registerFunc(&_s64Not, frameworkHandle, "S64Not")
-		registerFunc(&_s64Or, frameworkHandle, "S64Or")
-		registerFunc(&_s64Set, frameworkHandle, "S64Set")
-		registerFunc(&_s64SetU, frameworkHandle, "S64SetU")
-		registerFunc(&_s64ShiftLeft, frameworkHandle, "S64ShiftLeft")
-		registerFunc(&_s64ShiftRight, frameworkHandle, "S64ShiftRight")
-		registerFunc(&_s64Subtract, frameworkHandle, "S64Subtract")
-		registerFunc(&_sInt64ToLongDouble, frameworkHandle, "SInt64ToLongDouble")
-		registerFunc(&_sInt64ToUInt64, frameworkHandle, "SInt64ToUInt64")
-		registerFunc(&_sInt64ToWide, frameworkHandle, "SInt64ToWide")
-		registerFunc(&_sKDocumentCopyURL, frameworkHandle, "SKDocumentCopyURL")
-		registerFunc(&_sKDocumentCreate, frameworkHandle, "SKDocumentCreate")
-		registerFunc(&_sKDocumentCreateWithURL, frameworkHandle, "SKDocumentCreateWithURL")
-		registerFunc(&_sKDocumentGetName, frameworkHandle, "SKDocumentGetName")
-		registerFunc(&_sKDocumentGetParent, frameworkHandle, "SKDocumentGetParent")
-		registerFunc(&_sKDocumentGetSchemeName, frameworkHandle, "SKDocumentGetSchemeName")
-		registerFunc(&_sKDocumentGetTypeID, frameworkHandle, "SKDocumentGetTypeID")
-		registerFunc(&_sKIndexAddDocument, frameworkHandle, "SKIndexAddDocument")
-		registerFunc(&_sKIndexAddDocumentWithText, frameworkHandle, "SKIndexAddDocumentWithText")
-		registerFunc(&_sKIndexClose, frameworkHandle, "SKIndexClose")
-		registerFunc(&_sKIndexCompact, frameworkHandle, "SKIndexCompact")
-		registerFunc(&_sKIndexCopyDocumentForDocumentID, frameworkHandle, "SKIndexCopyDocumentForDocumentID")
-		registerFunc(&_sKIndexCopyDocumentIDArrayForTermID, frameworkHandle, "SKIndexCopyDocumentIDArrayForTermID")
-		registerFunc(&_sKIndexCopyDocumentProperties, frameworkHandle, "SKIndexCopyDocumentProperties")
-		registerFunc(&_sKIndexCopyDocumentRefsForDocumentIDs, frameworkHandle, "SKIndexCopyDocumentRefsForDocumentIDs")
-		registerFunc(&_sKIndexCopyDocumentURLsForDocumentIDs, frameworkHandle, "SKIndexCopyDocumentURLsForDocumentIDs")
-		registerFunc(&_sKIndexCopyInfoForDocumentIDs, frameworkHandle, "SKIndexCopyInfoForDocumentIDs")
-		registerFunc(&_sKIndexCopyTermIDArrayForDocumentID, frameworkHandle, "SKIndexCopyTermIDArrayForDocumentID")
-		registerFunc(&_sKIndexCopyTermStringForTermID, frameworkHandle, "SKIndexCopyTermStringForTermID")
-		registerFunc(&_sKIndexCreateWithMutableData, frameworkHandle, "SKIndexCreateWithMutableData")
-		registerFunc(&_sKIndexCreateWithURL, frameworkHandle, "SKIndexCreateWithURL")
-		registerFunc(&_sKIndexDocumentIteratorCopyNext, frameworkHandle, "SKIndexDocumentIteratorCopyNext")
-		registerFunc(&_sKIndexDocumentIteratorCreate, frameworkHandle, "SKIndexDocumentIteratorCreate")
-		registerFunc(&_sKIndexDocumentIteratorGetTypeID, frameworkHandle, "SKIndexDocumentIteratorGetTypeID")
-		registerFunc(&_sKIndexFlush, frameworkHandle, "SKIndexFlush")
-		registerFunc(&_sKIndexGetAnalysisProperties, frameworkHandle, "SKIndexGetAnalysisProperties")
-		registerFunc(&_sKIndexGetDocumentCount, frameworkHandle, "SKIndexGetDocumentCount")
-		registerFunc(&_sKIndexGetDocumentID, frameworkHandle, "SKIndexGetDocumentID")
-		registerFunc(&_sKIndexGetDocumentState, frameworkHandle, "SKIndexGetDocumentState")
-		registerFunc(&_sKIndexGetDocumentTermCount, frameworkHandle, "SKIndexGetDocumentTermCount")
-		registerFunc(&_sKIndexGetDocumentTermFrequency, frameworkHandle, "SKIndexGetDocumentTermFrequency")
-		registerFunc(&_sKIndexGetIndexType, frameworkHandle, "SKIndexGetIndexType")
-		registerFunc(&_sKIndexGetMaximumBytesBeforeFlush, frameworkHandle, "SKIndexGetMaximumBytesBeforeFlush")
-		registerFunc(&_sKIndexGetMaximumDocumentID, frameworkHandle, "SKIndexGetMaximumDocumentID")
-		registerFunc(&_sKIndexGetMaximumTermID, frameworkHandle, "SKIndexGetMaximumTermID")
-		registerFunc(&_sKIndexGetTermDocumentCount, frameworkHandle, "SKIndexGetTermDocumentCount")
-		registerFunc(&_sKIndexGetTermIDForTermString, frameworkHandle, "SKIndexGetTermIDForTermString")
-		registerFunc(&_sKIndexGetTypeID, frameworkHandle, "SKIndexGetTypeID")
-		registerFunc(&_sKIndexMoveDocument, frameworkHandle, "SKIndexMoveDocument")
-		registerFunc(&_sKIndexOpenWithData, frameworkHandle, "SKIndexOpenWithData")
-		registerFunc(&_sKIndexOpenWithMutableData, frameworkHandle, "SKIndexOpenWithMutableData")
-		registerFunc(&_sKIndexOpenWithURL, frameworkHandle, "SKIndexOpenWithURL")
-		registerFunc(&_sKIndexRemoveDocument, frameworkHandle, "SKIndexRemoveDocument")
-		registerFunc(&_sKIndexRenameDocument, frameworkHandle, "SKIndexRenameDocument")
-		registerFunc(&_sKIndexSetDocumentProperties, frameworkHandle, "SKIndexSetDocumentProperties")
-		registerFunc(&_sKIndexSetMaximumBytesBeforeFlush, frameworkHandle, "SKIndexSetMaximumBytesBeforeFlush")
-		registerFunc(&_sKLoadDefaultExtractorPlugIns, frameworkHandle, "SKLoadDefaultExtractorPlugIns")
-		registerFunc(&_sKSearchCancel, frameworkHandle, "SKSearchCancel")
-		registerFunc(&_sKSearchCreate, frameworkHandle, "SKSearchCreate")
-		registerFunc(&_sKSearchFindMatches, frameworkHandle, "SKSearchFindMatches")
-		registerFunc(&_sKSearchGetTypeID, frameworkHandle, "SKSearchGetTypeID")
-		registerFunc(&_sKSearchGroupGetTypeID, frameworkHandle, "SKSearchGroupGetTypeID")
-		registerFunc(&_sKSummaryCopyParagraphAtIndex, frameworkHandle, "SKSummaryCopyParagraphAtIndex")
-		registerFunc(&_sKSummaryCopyParagraphSummaryString, frameworkHandle, "SKSummaryCopyParagraphSummaryString")
-		registerFunc(&_sKSummaryCopySentenceAtIndex, frameworkHandle, "SKSummaryCopySentenceAtIndex")
-		registerFunc(&_sKSummaryCopySentenceSummaryString, frameworkHandle, "SKSummaryCopySentenceSummaryString")
-		registerFunc(&_sKSummaryCreateWithString, frameworkHandle, "SKSummaryCreateWithString")
-		registerFunc(&_sKSummaryGetParagraphCount, frameworkHandle, "SKSummaryGetParagraphCount")
-		registerFunc(&_sKSummaryGetParagraphSummaryInfo, frameworkHandle, "SKSummaryGetParagraphSummaryInfo")
-		registerFunc(&_sKSummaryGetSentenceCount, frameworkHandle, "SKSummaryGetSentenceCount")
-		registerFunc(&_sKSummaryGetSentenceSummaryInfo, frameworkHandle, "SKSummaryGetSentenceSummaryInfo")
-		registerFunc(&_sKSummaryGetTypeID, frameworkHandle, "SKSummaryGetTypeID")
-		registerFunc(&_setCollectionDefaultAttributes, frameworkHandle, "SetCollectionDefaultAttributes")
-		registerFunc(&_setCollectionExceptionProc, frameworkHandle, "SetCollectionExceptionProc")
-		registerFunc(&_setCollectionItemInfo, frameworkHandle, "SetCollectionItemInfo")
-		registerFunc(&_setComponentInstanceError, frameworkHandle, "SetComponentInstanceError")
-		registerFunc(&_setComponentInstanceStorage, frameworkHandle, "SetComponentInstanceStorage")
-		registerFunc(&_setComponentRefcon, frameworkHandle, "SetComponentRefcon")
-		registerFunc(&_setCustomIconsEnabled, frameworkHandle, "SetCustomIconsEnabled")
-		registerFunc(&_setDebugOptionValue, frameworkHandle, "SetDebugOptionValue")
-		registerFunc(&_setDebuggerNotificationProcs, frameworkHandle, "SetDebuggerNotificationProcs")
-		registerFunc(&_setDefaultComponent, frameworkHandle, "SetDefaultComponent")
-		registerFunc(&_setFallbackUnicodeToText, frameworkHandle, "SetFallbackUnicodeToText")
-		registerFunc(&_setFallbackUnicodeToTextRun, frameworkHandle, "SetFallbackUnicodeToTextRun")
-		registerFunc(&_setGestaltValue, frameworkHandle, "SetGestaltValue")
-		registerFunc(&_setHandleSize, frameworkHandle, "SetHandleSize")
-		registerFunc(&_setIndexedCollectionItemInfo, frameworkHandle, "SetIndexedCollectionItemInfo")
-		registerFunc(&_setPtrSize, frameworkHandle, "SetPtrSize")
-		registerFunc(&_setResAttrs, frameworkHandle, "SetResAttrs")
-		registerFunc(&_setResFileAttrs, frameworkHandle, "SetResFileAttrs")
-		registerFunc(&_setResInfo, frameworkHandle, "SetResInfo")
-		registerFunc(&_setResLoad, frameworkHandle, "SetResLoad")
-		registerFunc(&_setResPurge, frameworkHandle, "SetResPurge")
-		registerFunc(&_setResourceSize, frameworkHandle, "SetResourceSize")
-		registerFunc(&_setScriptManagerVariable, frameworkHandle, "SetScriptManagerVariable")
-		registerFunc(&_setThreadReadyGivenTaskRef, frameworkHandle, "SetThreadReadyGivenTaskRef")
-		registerFunc(&_setThreadScheduler, frameworkHandle, "SetThreadScheduler")
-		registerFunc(&_setThreadState, frameworkHandle, "SetThreadState")
-		registerFunc(&_setThreadStateEndCritical, frameworkHandle, "SetThreadStateEndCritical")
-		registerFunc(&_setThreadSwitcher, frameworkHandle, "SetThreadSwitcher")
-		registerFunc(&_setThreadTerminator, frameworkHandle, "SetThreadTerminator")
-		registerFunc(&_sleepQInstall, frameworkHandle, "SleepQInstall")
-		registerFunc(&_sleepQRemove, frameworkHandle, "SleepQRemove")
-		registerFunc(&_subAbsoluteFromAbsolute, frameworkHandle, "SubAbsoluteFromAbsolute")
-		registerFunc(&_subDurationFromAbsolute, frameworkHandle, "SubDurationFromAbsolute")
-		registerFunc(&_subNanosecondsFromAbsolute, frameworkHandle, "SubNanosecondsFromAbsolute")
-		registerFunc(&_sysError, frameworkHandle, "SysError")
-		registerFunc(&_tECClearConverterContextInfo, frameworkHandle, "TECClearConverterContextInfo")
-		registerFunc(&_tECClearSnifferContextInfo, frameworkHandle, "TECClearSnifferContextInfo")
-		registerFunc(&_tECConvertText, frameworkHandle, "TECConvertText")
-		registerFunc(&_tECConvertTextToMultipleEncodings, frameworkHandle, "TECConvertTextToMultipleEncodings")
-		registerFunc(&_tECCopyTextEncodingInternetNameAndMIB, frameworkHandle, "TECCopyTextEncodingInternetNameAndMIB")
-		registerFunc(&_tECCountAvailableSniffers, frameworkHandle, "TECCountAvailableSniffers")
-		registerFunc(&_tECCountAvailableTextEncodings, frameworkHandle, "TECCountAvailableTextEncodings")
-		registerFunc(&_tECCountDestinationTextEncodings, frameworkHandle, "TECCountDestinationTextEncodings")
-		registerFunc(&_tECCountDirectTextEncodingConversions, frameworkHandle, "TECCountDirectTextEncodingConversions")
-		registerFunc(&_tECCountMailTextEncodings, frameworkHandle, "TECCountMailTextEncodings")
-		registerFunc(&_tECCountSubTextEncodings, frameworkHandle, "TECCountSubTextEncodings")
-		registerFunc(&_tECCountWebTextEncodings, frameworkHandle, "TECCountWebTextEncodings")
-		registerFunc(&_tECCreateConverter, frameworkHandle, "TECCreateConverter")
-		registerFunc(&_tECCreateConverterFromPath, frameworkHandle, "TECCreateConverterFromPath")
-		registerFunc(&_tECCreateOneToManyConverter, frameworkHandle, "TECCreateOneToManyConverter")
-		registerFunc(&_tECCreateSniffer, frameworkHandle, "TECCreateSniffer")
-		registerFunc(&_tECDisposeConverter, frameworkHandle, "TECDisposeConverter")
-		registerFunc(&_tECDisposeSniffer, frameworkHandle, "TECDisposeSniffer")
-		registerFunc(&_tECFlushMultipleEncodings, frameworkHandle, "TECFlushMultipleEncodings")
-		registerFunc(&_tECFlushText, frameworkHandle, "TECFlushText")
-		registerFunc(&_tECGetAvailableSniffers, frameworkHandle, "TECGetAvailableSniffers")
-		registerFunc(&_tECGetAvailableTextEncodings, frameworkHandle, "TECGetAvailableTextEncodings")
-		registerFunc(&_tECGetDestinationTextEncodings, frameworkHandle, "TECGetDestinationTextEncodings")
-		registerFunc(&_tECGetDirectTextEncodingConversions, frameworkHandle, "TECGetDirectTextEncodingConversions")
-		registerFunc(&_tECGetEncodingList, frameworkHandle, "TECGetEncodingList")
-		registerFunc(&_tECGetInfo, frameworkHandle, "TECGetInfo")
-		registerFunc(&_tECGetMailTextEncodings, frameworkHandle, "TECGetMailTextEncodings")
-		registerFunc(&_tECGetSubTextEncodings, frameworkHandle, "TECGetSubTextEncodings")
-		registerFunc(&_tECGetTextEncodingFromInternetName, frameworkHandle, "TECGetTextEncodingFromInternetName")
-		registerFunc(&_tECGetTextEncodingFromInternetNameOrMIB, frameworkHandle, "TECGetTextEncodingFromInternetNameOrMIB")
-		registerFunc(&_tECGetTextEncodingInternetName, frameworkHandle, "TECGetTextEncodingInternetName")
-		registerFunc(&_tECGetWebTextEncodings, frameworkHandle, "TECGetWebTextEncodings")
-		registerFunc(&_tECSetBasicOptions, frameworkHandle, "TECSetBasicOptions")
-		registerFunc(&_tECSniffTextEncoding, frameworkHandle, "TECSniffTextEncoding")
-		registerFunc(&_taskLevel, frameworkHandle, "TaskLevel")
-		registerFunc(&_tempNewHandle, frameworkHandle, "TempNewHandle")
-		registerFunc(&_testAndClear, frameworkHandle, "TestAndClear")
-		registerFunc(&_testAndSet, frameworkHandle, "TestAndSet")
-		registerFunc(&_threadBeginCritical, frameworkHandle, "ThreadBeginCritical")
-		registerFunc(&_threadCurrentStackSpace, frameworkHandle, "ThreadCurrentStackSpace")
-		registerFunc(&_threadEndCritical, frameworkHandle, "ThreadEndCritical")
-		registerFunc(&_tickCount, frameworkHandle, "TickCount")
-		registerFunc(&_truncateForTextToUnicode, frameworkHandle, "TruncateForTextToUnicode")
-		registerFunc(&_truncateForUnicodeToText, frameworkHandle, "TruncateForUnicodeToText")
-		registerFunc(&_u32SetU, frameworkHandle, "U32SetU")
-		registerFunc(&_u64Add, frameworkHandle, "U64Add")
-		registerFunc(&_u64And, frameworkHandle, "U64And")
-		registerFunc(&_u64BitwiseAnd, frameworkHandle, "U64BitwiseAnd")
-		registerFunc(&_u64BitwiseEor, frameworkHandle, "U64BitwiseEor")
-		registerFunc(&_u64BitwiseNot, frameworkHandle, "U64BitwiseNot")
-		registerFunc(&_u64BitwiseOr, frameworkHandle, "U64BitwiseOr")
-		registerFunc(&_u64Compare, frameworkHandle, "U64Compare")
-		registerFunc(&_u64Div, frameworkHandle, "U64Div")
-		registerFunc(&_u64Divide, frameworkHandle, "U64Divide")
-		registerFunc(&_u64Eor, frameworkHandle, "U64Eor")
-		registerFunc(&_u64Max, frameworkHandle, "U64Max")
-		registerFunc(&_u64Mod, frameworkHandle, "U64Mod")
-		registerFunc(&_u64Multiply, frameworkHandle, "U64Multiply")
-		registerFunc(&_u64Not, frameworkHandle, "U64Not")
-		registerFunc(&_u64Or, frameworkHandle, "U64Or")
-		registerFunc(&_u64Set, frameworkHandle, "U64Set")
-		registerFunc(&_u64SetU, frameworkHandle, "U64SetU")
-		registerFunc(&_u64ShiftLeft, frameworkHandle, "U64ShiftLeft")
-		registerFunc(&_u64ShiftRight, frameworkHandle, "U64ShiftRight")
-		registerFunc(&_u64Subtract, frameworkHandle, "U64Subtract")
-		registerFunc(&_uCCompareCollationKeys, frameworkHandle, "UCCompareCollationKeys")
-		registerFunc(&_uCCompareText, frameworkHandle, "UCCompareText")
-		registerFunc(&_uCCompareTextDefault, frameworkHandle, "UCCompareTextDefault")
-		registerFunc(&_uCCompareTextNoLocale, frameworkHandle, "UCCompareTextNoLocale")
-		registerFunc(&_uCConvertCFAbsoluteTimeToLongDateTime, frameworkHandle, "UCConvertCFAbsoluteTimeToLongDateTime")
-		registerFunc(&_uCConvertCFAbsoluteTimeToSeconds, frameworkHandle, "UCConvertCFAbsoluteTimeToSeconds")
-		registerFunc(&_uCConvertCFAbsoluteTimeToUTCDateTime, frameworkHandle, "UCConvertCFAbsoluteTimeToUTCDateTime")
-		registerFunc(&_uCConvertLongDateTimeToCFAbsoluteTime, frameworkHandle, "UCConvertLongDateTimeToCFAbsoluteTime")
-		registerFunc(&_uCConvertSecondsToCFAbsoluteTime, frameworkHandle, "UCConvertSecondsToCFAbsoluteTime")
-		registerFunc(&_uCConvertUTCDateTimeToCFAbsoluteTime, frameworkHandle, "UCConvertUTCDateTimeToCFAbsoluteTime")
-		registerFunc(&_uCCreateCollator, frameworkHandle, "UCCreateCollator")
-		registerFunc(&_uCDisposeCollator, frameworkHandle, "UCDisposeCollator")
-		registerFunc(&_uCGetCharProperty, frameworkHandle, "UCGetCharProperty")
-		registerFunc(&_uCGetCollationKey, frameworkHandle, "UCGetCollationKey")
-		registerFunc(&_uCGetUnicodeScalarValueForSurrogatePair, frameworkHandle, "UCGetUnicodeScalarValueForSurrogatePair")
-		registerFunc(&_uCIsSurrogateHighCharacter, frameworkHandle, "UCIsSurrogateHighCharacter")
-		registerFunc(&_uCIsSurrogateLowCharacter, frameworkHandle, "UCIsSurrogateLowCharacter")
-		registerFunc(&_uCKeyTranslate, frameworkHandle, "UCKeyTranslate")
-		registerFunc(&_uCTypeSelectAddKeyToSelector, frameworkHandle, "UCTypeSelectAddKeyToSelector")
-		registerFunc(&_uCTypeSelectCompare, frameworkHandle, "UCTypeSelectCompare")
-		registerFunc(&_uCTypeSelectCreateSelector, frameworkHandle, "UCTypeSelectCreateSelector")
-		registerFunc(&_uCTypeSelectFindItem, frameworkHandle, "UCTypeSelectFindItem")
-		registerFunc(&_uCTypeSelectFlushSelectorData, frameworkHandle, "UCTypeSelectFlushSelectorData")
-		registerFunc(&_uCTypeSelectReleaseSelector, frameworkHandle, "UCTypeSelectReleaseSelector")
-		registerFunc(&_uCTypeSelectWalkList, frameworkHandle, "UCTypeSelectWalkList")
-		registerFunc(&_uCTypeSelectWouldResetBuffer, frameworkHandle, "UCTypeSelectWouldResetBuffer")
-		registerFunc(&_uInt64ToLongDouble, frameworkHandle, "UInt64ToLongDouble")
-		registerFunc(&_uInt64ToSInt64, frameworkHandle, "UInt64ToSInt64")
-		registerFunc(&_uInt64ToUnsignedWide, frameworkHandle, "UInt64ToUnsignedWide")
-		registerFunc(&_uTCreateStringForOSType, frameworkHandle, "UTCreateStringForOSType")
-		registerFunc(&_uTGetOSTypeFromString, frameworkHandle, "UTGetOSTypeFromString")
-		registerFunc(&_uTTypeConformsTo, frameworkHandle, "UTTypeConformsTo")
-		registerFunc(&_uTTypeCopyAllTagsWithClass, frameworkHandle, "UTTypeCopyAllTagsWithClass")
-		registerFunc(&_uTTypeCopyDeclaration, frameworkHandle, "UTTypeCopyDeclaration")
-		registerFunc(&_uTTypeCopyDeclaringBundleURL, frameworkHandle, "UTTypeCopyDeclaringBundleURL")
-		registerFunc(&_uTTypeCopyDescription, frameworkHandle, "UTTypeCopyDescription")
-		registerFunc(&_uTTypeCopyPreferredTagWithClass, frameworkHandle, "UTTypeCopyPreferredTagWithClass")
-		registerFunc(&_uTTypeCreateAllIdentifiersForTag, frameworkHandle, "UTTypeCreateAllIdentifiersForTag")
-		registerFunc(&_uTTypeCreatePreferredIdentifierForTag, frameworkHandle, "UTTypeCreatePreferredIdentifierForTag")
-		registerFunc(&_uTTypeEqual, frameworkHandle, "UTTypeEqual")
-		registerFunc(&_uTTypeIsDeclared, frameworkHandle, "UTTypeIsDeclared")
-		registerFunc(&_uTTypeIsDynamic, frameworkHandle, "UTTypeIsDynamic")
-		registerFunc(&_uncaptureComponent, frameworkHandle, "UncaptureComponent")
-		registerFunc(&_unflattenCollection, frameworkHandle, "UnflattenCollection")
-		registerFunc(&_unflattenCollectionFromHdl, frameworkHandle, "UnflattenCollectionFromHdl")
-		registerFunc(&_unique1ID, frameworkHandle, "Unique1ID")
-		registerFunc(&_uniqueID, frameworkHandle, "UniqueID")
-		registerFunc(&_unregisterComponent, frameworkHandle, "UnregisterComponent")
-		registerFunc(&_unregisterIconRef, frameworkHandle, "UnregisterIconRef")
-		registerFunc(&_unsignedFixedMulDiv, frameworkHandle, "UnsignedFixedMulDiv")
-		registerFunc(&_unsignedWideToUInt64, frameworkHandle, "UnsignedWideToUInt64")
-		registerFunc(&_upTime, frameworkHandle, "UpTime")
-		registerFunc(&_updateIconRef, frameworkHandle, "UpdateIconRef")
-		registerFunc(&_updateResFile, frameworkHandle, "UpdateResFile")
-		registerFunc(&_updateSystemActivity, frameworkHandle, "UpdateSystemActivity")
-		registerFunc(&_upgradeScriptInfoToTextEncoding, frameworkHandle, "UpgradeScriptInfoToTextEncoding")
-		registerFunc(&_useResFile, frameworkHandle, "UseResFile")
-		registerFunc(&_wSGetCFTypeIDFromWSTypeID, frameworkHandle, "WSGetCFTypeIDFromWSTypeID")
-		registerFunc(&_wSGetWSTypeIDFromCFType, frameworkHandle, "WSGetWSTypeIDFromCFType")
-		registerFunc(&_wSMethodInvocationAddDeserializationOverride, frameworkHandle, "WSMethodInvocationAddDeserializationOverride")
-		registerFunc(&_wSMethodInvocationAddSerializationOverride, frameworkHandle, "WSMethodInvocationAddSerializationOverride")
-		registerFunc(&_wSMethodInvocationCopyParameters, frameworkHandle, "WSMethodInvocationCopyParameters")
-		registerFunc(&_wSMethodInvocationCopyProperty, frameworkHandle, "WSMethodInvocationCopyProperty")
-		registerFunc(&_wSMethodInvocationCopySerialization, frameworkHandle, "WSMethodInvocationCopySerialization")
-		registerFunc(&_wSMethodInvocationCreate, frameworkHandle, "WSMethodInvocationCreate")
-		registerFunc(&_wSMethodInvocationCreateFromSerialization, frameworkHandle, "WSMethodInvocationCreateFromSerialization")
-		registerFunc(&_wSMethodInvocationGetTypeID, frameworkHandle, "WSMethodInvocationGetTypeID")
-		registerFunc(&_wSMethodInvocationInvoke, frameworkHandle, "WSMethodInvocationInvoke")
-		registerFunc(&_wSMethodInvocationScheduleWithRunLoop, frameworkHandle, "WSMethodInvocationScheduleWithRunLoop")
-		registerFunc(&_wSMethodInvocationSetCallBack, frameworkHandle, "WSMethodInvocationSetCallBack")
-		registerFunc(&_wSMethodInvocationSetParameters, frameworkHandle, "WSMethodInvocationSetParameters")
-		registerFunc(&_wSMethodInvocationSetProperty, frameworkHandle, "WSMethodInvocationSetProperty")
-		registerFunc(&_wSMethodInvocationUnscheduleFromRunLoop, frameworkHandle, "WSMethodInvocationUnscheduleFromRunLoop")
-		registerFunc(&_wSMethodResultIsFault, frameworkHandle, "WSMethodResultIsFault")
-		registerFunc(&_wSProtocolHandlerCopyFaultDocument, frameworkHandle, "WSProtocolHandlerCopyFaultDocument")
-		registerFunc(&_wSProtocolHandlerCopyProperty, frameworkHandle, "WSProtocolHandlerCopyProperty")
-		registerFunc(&_wSProtocolHandlerCopyReplyDictionary, frameworkHandle, "WSProtocolHandlerCopyReplyDictionary")
-		registerFunc(&_wSProtocolHandlerCopyReplyDocument, frameworkHandle, "WSProtocolHandlerCopyReplyDocument")
-		registerFunc(&_wSProtocolHandlerCopyRequestDictionary, frameworkHandle, "WSProtocolHandlerCopyRequestDictionary")
-		registerFunc(&_wSProtocolHandlerCopyRequestDocument, frameworkHandle, "WSProtocolHandlerCopyRequestDocument")
-		registerFunc(&_wSProtocolHandlerCreate, frameworkHandle, "WSProtocolHandlerCreate")
-		registerFunc(&_wSProtocolHandlerGetTypeID, frameworkHandle, "WSProtocolHandlerGetTypeID")
-		registerFunc(&_wSProtocolHandlerSetDeserializationOverride, frameworkHandle, "WSProtocolHandlerSetDeserializationOverride")
-		registerFunc(&_wSProtocolHandlerSetProperty, frameworkHandle, "WSProtocolHandlerSetProperty")
-		registerFunc(&_wSProtocolHandlerSetSerializationOverride, frameworkHandle, "WSProtocolHandlerSetSerializationOverride")
-		registerFunc(&_wideAdd, frameworkHandle, "WideAdd")
-		registerFunc(&_wideBitShift, frameworkHandle, "WideBitShift")
-		registerFunc(&_wideCompare, frameworkHandle, "WideCompare")
-		registerFunc(&_wideDivide, frameworkHandle, "WideDivide")
-		registerFunc(&_wideMultiply, frameworkHandle, "WideMultiply")
-		registerFunc(&_wideNegate, frameworkHandle, "WideNegate")
-		registerFunc(&_wideShift, frameworkHandle, "WideShift")
-		registerFunc(&_wideSquareRoot, frameworkHandle, "WideSquareRoot")
-		registerFunc(&_wideSubtract, frameworkHandle, "WideSubtract")
-		registerFunc(&_wideToSInt64, frameworkHandle, "WideToSInt64")
-		registerFunc(&_wideWideDivide, frameworkHandle, "WideWideDivide")
-		registerFunc(&_writePartialResource, frameworkHandle, "WritePartialResource")
-		registerFunc(&_writeResource, frameworkHandle, "WriteResource")
-		registerFunc(&_x2Fix, frameworkHandle, "X2Fix")
-		registerFunc(&_x2Frac, frameworkHandle, "X2Frac")
-		registerFunc(&_yieldToAnyThread, frameworkHandle, "YieldToAnyThread")
-		registerFunc(&_yieldToThread, frameworkHandle, "YieldToThread")
-		registerFunc(&_annuity, frameworkHandle, "annuity")
-		registerFunc(&_compound, frameworkHandle, "compound")
-		registerFunc(&_dec2f, frameworkHandle, "dec2f")
-		registerFunc(&_dec2l, frameworkHandle, "dec2l")
-		registerFunc(&_dec2num, frameworkHandle, "dec2num")
-		registerFunc(&_dec2numl, frameworkHandle, "dec2numl")
-		registerFunc(&_dec2s, frameworkHandle, "dec2s")
-		registerFunc(&_dec2str, frameworkHandle, "dec2str")
-		registerFunc(&_dtox80, frameworkHandle, "dtox80")
-		registerFunc(&_kcfindapplesharepassword, frameworkHandle, "kcfindapplesharepassword")
-		registerFunc(&_kcfindgenericpassword, frameworkHandle, "kcfindgenericpassword")
-		registerFunc(&_kcfindinternetpassword, frameworkHandle, "kcfindinternetpassword")
-		registerFunc(&_kcfindinternetpasswordwithpath, frameworkHandle, "kcfindinternetpasswordwithpath")
-		registerFunc(&_kcgetkeychainname, frameworkHandle, "kcgetkeychainname")
-		registerFunc(&_ldtox80, frameworkHandle, "ldtox80")
-		registerFunc(&_num2dec, frameworkHandle, "num2dec")
-		registerFunc(&_num2decl, frameworkHandle, "num2decl")
-		registerFunc(&_numtostring, frameworkHandle, "numtostring")
-		registerFunc(&_randomx, frameworkHandle, "randomx")
-		registerFunc(&_relation, frameworkHandle, "relation")
-		registerFunc(&_relationl, frameworkHandle, "relationl")
-		registerFunc(&_str2dec, frameworkHandle, "str2dec")
-		registerFunc(&_vAEBuildAppleEvent, frameworkHandle, "vAEBuildAppleEvent")
-		registerFunc(&_vAEBuildDesc, frameworkHandle, "vAEBuildDesc")
-		registerFunc(&_vAEBuildParameters, frameworkHandle, "vAEBuildParameters")
-		registerFunc(&_x80tod, frameworkHandle, "x80tod")
-		registerFunc(&_x80told, frameworkHandle, "x80told")
-	}
-
+	registerFunc(&_aEBuildAppleEvent, frameworkHandle, "AEBuildAppleEvent")
+	registerFunc(&_aEBuildDesc, frameworkHandle, "AEBuildDesc")
+	registerFunc(&_aEBuildParameters, frameworkHandle, "AEBuildParameters")
+	registerFunc(&_aECallObjectAccessor, frameworkHandle, "AECallObjectAccessor")
+	registerFunc(&_aECheckIsRecord, frameworkHandle, "AECheckIsRecord")
+	registerFunc(&_aECoerceDesc, frameworkHandle, "AECoerceDesc")
+	registerFunc(&_aECoercePtr, frameworkHandle, "AECoercePtr")
+	registerFunc(&_aECompareDesc, frameworkHandle, "AECompareDesc")
+	registerFunc(&_aECountItems, frameworkHandle, "AECountItems")
+	registerFunc(&_aECreateAppleEvent, frameworkHandle, "AECreateAppleEvent")
+	registerFunc(&_aECreateDesc, frameworkHandle, "AECreateDesc")
+	registerFunc(&_aECreateDescFromExternalPtr, frameworkHandle, "AECreateDescFromExternalPtr")
+	registerFunc(&_aECreateList, frameworkHandle, "AECreateList")
+	registerFunc(&_aECreateRemoteProcessResolver, frameworkHandle, "AECreateRemoteProcessResolver")
+	registerFunc(&_aEDecodeMessage, frameworkHandle, "AEDecodeMessage")
+	registerFunc(&_aEDeleteItem, frameworkHandle, "AEDeleteItem")
+	registerFunc(&_aEDeleteParam, frameworkHandle, "AEDeleteParam")
+	registerFunc(&_aEDeterminePermissionToAutomateTarget, frameworkHandle, "AEDeterminePermissionToAutomateTarget")
+	registerFunc(&_aEDisposeDesc, frameworkHandle, "AEDisposeDesc")
+	registerFunc(&_aEDisposeRemoteProcessResolver, frameworkHandle, "AEDisposeRemoteProcessResolver")
+	registerFunc(&_aEDisposeToken, frameworkHandle, "AEDisposeToken")
+	registerFunc(&_aEDuplicateDesc, frameworkHandle, "AEDuplicateDesc")
+	registerFunc(&_aEFlattenDesc, frameworkHandle, "AEFlattenDesc")
+	registerFunc(&_aEGetArray, frameworkHandle, "AEGetArray")
+	registerFunc(&_aEGetAttributeDesc, frameworkHandle, "AEGetAttributeDesc")
+	registerFunc(&_aEGetAttributePtr, frameworkHandle, "AEGetAttributePtr")
+	registerFunc(&_aEGetCoercionHandler, frameworkHandle, "AEGetCoercionHandler")
+	registerFunc(&_aEGetDescData, frameworkHandle, "AEGetDescData")
+	registerFunc(&_aEGetDescDataRange, frameworkHandle, "AEGetDescDataRange")
+	registerFunc(&_aEGetDescDataSize, frameworkHandle, "AEGetDescDataSize")
+	registerFunc(&_aEGetEventHandler, frameworkHandle, "AEGetEventHandler")
+	registerFunc(&_aEGetNthDesc, frameworkHandle, "AEGetNthDesc")
+	registerFunc(&_aEGetNthPtr, frameworkHandle, "AEGetNthPtr")
+	registerFunc(&_aEGetObjectAccessor, frameworkHandle, "AEGetObjectAccessor")
+	registerFunc(&_aEGetParamDesc, frameworkHandle, "AEGetParamDesc")
+	registerFunc(&_aEGetParamPtr, frameworkHandle, "AEGetParamPtr")
+	registerFunc(&_aEGetRegisteredMachPort, frameworkHandle, "AEGetRegisteredMachPort")
+	registerFunc(&_aEGetSpecialHandler, frameworkHandle, "AEGetSpecialHandler")
+	registerFunc(&_aEInitializeDesc, frameworkHandle, "AEInitializeDesc")
+	registerFunc(&_aEInstallCoercionHandler, frameworkHandle, "AEInstallCoercionHandler")
+	registerFunc(&_aEInstallEventHandler, frameworkHandle, "AEInstallEventHandler")
+	registerFunc(&_aEInstallObjectAccessor, frameworkHandle, "AEInstallObjectAccessor")
+	registerFunc(&_aEInstallSpecialHandler, frameworkHandle, "AEInstallSpecialHandler")
+	registerFunc(&_aEManagerInfo, frameworkHandle, "AEManagerInfo")
+	registerFunc(&_aEObjectInit, frameworkHandle, "AEObjectInit")
+	registerFunc(&_aEPrintDescToHandle, frameworkHandle, "AEPrintDescToHandle")
+	registerFunc(&_aEProcessMessage, frameworkHandle, "AEProcessMessage")
+	registerFunc(&_aEPutArray, frameworkHandle, "AEPutArray")
+	registerFunc(&_aEPutAttributeDesc, frameworkHandle, "AEPutAttributeDesc")
+	registerFunc(&_aEPutAttributePtr, frameworkHandle, "AEPutAttributePtr")
+	registerFunc(&_aEPutDesc, frameworkHandle, "AEPutDesc")
+	registerFunc(&_aEPutParamDesc, frameworkHandle, "AEPutParamDesc")
+	registerFunc(&_aEPutParamPtr, frameworkHandle, "AEPutParamPtr")
+	registerFunc(&_aEPutPtr, frameworkHandle, "AEPutPtr")
+	registerFunc(&_aERemoteProcessResolverGetProcesses, frameworkHandle, "AERemoteProcessResolverGetProcesses")
+	registerFunc(&_aERemoteProcessResolverScheduleWithRunLoop, frameworkHandle, "AERemoteProcessResolverScheduleWithRunLoop")
+	registerFunc(&_aERemoveCoercionHandler, frameworkHandle, "AERemoveCoercionHandler")
+	registerFunc(&_aERemoveEventHandler, frameworkHandle, "AERemoveEventHandler")
+	registerFunc(&_aERemoveObjectAccessor, frameworkHandle, "AERemoveObjectAccessor")
+	registerFunc(&_aERemoveSpecialHandler, frameworkHandle, "AERemoveSpecialHandler")
+	registerFunc(&_aEReplaceDescData, frameworkHandle, "AEReplaceDescData")
+	registerFunc(&_aEResolve, frameworkHandle, "AEResolve")
+	registerFunc(&_aESendMessage, frameworkHandle, "AESendMessage")
+	registerFunc(&_aESetObjectCallbacks, frameworkHandle, "AESetObjectCallbacks")
+	registerFunc(&_aESizeOfAttribute, frameworkHandle, "AESizeOfAttribute")
+	registerFunc(&_aESizeOfFlattenedDesc, frameworkHandle, "AESizeOfFlattenedDesc")
+	registerFunc(&_aESizeOfNthItem, frameworkHandle, "AESizeOfNthItem")
+	registerFunc(&_aESizeOfParam, frameworkHandle, "AESizeOfParam")
+	registerFunc(&_aEStreamClose, frameworkHandle, "AEStreamClose")
+	registerFunc(&_aEStreamCloseDesc, frameworkHandle, "AEStreamCloseDesc")
+	registerFunc(&_aEStreamCloseList, frameworkHandle, "AEStreamCloseList")
+	registerFunc(&_aEStreamCloseRecord, frameworkHandle, "AEStreamCloseRecord")
+	registerFunc(&_aEStreamCreateEvent, frameworkHandle, "AEStreamCreateEvent")
+	registerFunc(&_aEStreamOpen, frameworkHandle, "AEStreamOpen")
+	registerFunc(&_aEStreamOpenDesc, frameworkHandle, "AEStreamOpenDesc")
+	registerFunc(&_aEStreamOpenEvent, frameworkHandle, "AEStreamOpenEvent")
+	registerFunc(&_aEStreamOpenKeyDesc, frameworkHandle, "AEStreamOpenKeyDesc")
+	registerFunc(&_aEStreamOpenList, frameworkHandle, "AEStreamOpenList")
+	registerFunc(&_aEStreamOpenRecord, frameworkHandle, "AEStreamOpenRecord")
+	registerFunc(&_aEStreamOptionalParam, frameworkHandle, "AEStreamOptionalParam")
+	registerFunc(&_aEStreamSetRecordType, frameworkHandle, "AEStreamSetRecordType")
+	registerFunc(&_aEStreamWriteAEDesc, frameworkHandle, "AEStreamWriteAEDesc")
+	registerFunc(&_aEStreamWriteData, frameworkHandle, "AEStreamWriteData")
+	registerFunc(&_aEStreamWriteDesc, frameworkHandle, "AEStreamWriteDesc")
+	registerFunc(&_aEStreamWriteKey, frameworkHandle, "AEStreamWriteKey")
+	registerFunc(&_aEStreamWriteKeyDesc, frameworkHandle, "AEStreamWriteKeyDesc")
+	registerFunc(&_aEUnflattenDesc, frameworkHandle, "AEUnflattenDesc")
+	registerFunc(&_aEUnflattenDescFromBytes, frameworkHandle, "AEUnflattenDescFromBytes")
+	registerFunc(&_absoluteDeltaToDuration, frameworkHandle, "AbsoluteDeltaToDuration")
+	registerFunc(&_absoluteDeltaToNanoseconds, frameworkHandle, "AbsoluteDeltaToNanoseconds")
+	registerFunc(&_absoluteToDuration, frameworkHandle, "AbsoluteToDuration")
+	registerFunc(&_absoluteToNanoseconds, frameworkHandle, "AbsoluteToNanoseconds")
+	registerFunc(&_acquireIconRef, frameworkHandle, "AcquireIconRef")
+	registerFunc(&_addAbsoluteToAbsolute, frameworkHandle, "AddAbsoluteToAbsolute")
+	registerFunc(&_addAtomic, frameworkHandle, "AddAtomic")
+	registerFunc(&_addAtomic16, frameworkHandle, "AddAtomic16")
+	registerFunc(&_addAtomic8, frameworkHandle, "AddAtomic8")
+	registerFunc(&_addCollectionItem, frameworkHandle, "AddCollectionItem")
+	registerFunc(&_addCollectionItemHdl, frameworkHandle, "AddCollectionItemHdl")
+	registerFunc(&_addDurationToAbsolute, frameworkHandle, "AddDurationToAbsolute")
+	registerFunc(&_addFolderDescriptor, frameworkHandle, "AddFolderDescriptor")
+	registerFunc(&_addNanosecondsToAbsolute, frameworkHandle, "AddNanosecondsToAbsolute")
+	registerFunc(&_addResource, frameworkHandle, "AddResource")
+	registerFunc(&_batteryCount, frameworkHandle, "BatteryCount")
+	registerFunc(&_bitAnd, frameworkHandle, "BitAnd")
+	registerFunc(&_bitAndAtomic, frameworkHandle, "BitAndAtomic")
+	registerFunc(&_bitAndAtomic16, frameworkHandle, "BitAndAtomic16")
+	registerFunc(&_bitAndAtomic8, frameworkHandle, "BitAndAtomic8")
+	registerFunc(&_bitClr, frameworkHandle, "BitClr")
+	registerFunc(&_bitNot, frameworkHandle, "BitNot")
+	registerFunc(&_bitOr, frameworkHandle, "BitOr")
+	registerFunc(&_bitOrAtomic, frameworkHandle, "BitOrAtomic")
+	registerFunc(&_bitOrAtomic16, frameworkHandle, "BitOrAtomic16")
+	registerFunc(&_bitOrAtomic8, frameworkHandle, "BitOrAtomic8")
+	registerFunc(&_bitSet, frameworkHandle, "BitSet")
+	registerFunc(&_bitShift, frameworkHandle, "BitShift")
+	registerFunc(&_bitTst, frameworkHandle, "BitTst")
+	registerFunc(&_bitXor, frameworkHandle, "BitXor")
+	registerFunc(&_bitXorAtomic, frameworkHandle, "BitXorAtomic")
+	registerFunc(&_bitXorAtomic16, frameworkHandle, "BitXorAtomic16")
+	registerFunc(&_bitXorAtomic8, frameworkHandle, "BitXorAtomic8")
+	registerFunc(&_cSBackupIsItemExcluded, frameworkHandle, "CSBackupIsItemExcluded")
+	registerFunc(&_cSBackupSetItemExcluded, frameworkHandle, "CSBackupSetItemExcluded")
+	registerFunc(&_cSCopyMachineName, frameworkHandle, "CSCopyMachineName")
+	registerFunc(&_cSCopyUserName, frameworkHandle, "CSCopyUserName")
+	registerFunc(&_cSDiskSpaceCancelRecovery, frameworkHandle, "CSDiskSpaceCancelRecovery")
+	registerFunc(&_cSDiskSpaceGetRecoveryEstimate, frameworkHandle, "CSDiskSpaceGetRecoveryEstimate")
+	registerFunc(&_cSDiskSpaceStartRecovery, frameworkHandle, "CSDiskSpaceStartRecovery")
+	registerFunc(&_cSGetComponentsThreadMode, frameworkHandle, "CSGetComponentsThreadMode")
+	registerFunc(&_cSGetDefaultIdentityAuthority, frameworkHandle, "CSGetDefaultIdentityAuthority")
+	registerFunc(&_cSGetLocalIdentityAuthority, frameworkHandle, "CSGetLocalIdentityAuthority")
+	registerFunc(&_cSGetManagedIdentityAuthority, frameworkHandle, "CSGetManagedIdentityAuthority")
+	registerFunc(&_cSIdentityAddAlias, frameworkHandle, "CSIdentityAddAlias")
+	registerFunc(&_cSIdentityAddMember, frameworkHandle, "CSIdentityAddMember")
+	registerFunc(&_cSIdentityAuthenticateUsingPassword, frameworkHandle, "CSIdentityAuthenticateUsingPassword")
+	registerFunc(&_cSIdentityAuthorityCopyLocalizedName, frameworkHandle, "CSIdentityAuthorityCopyLocalizedName")
+	registerFunc(&_cSIdentityAuthorityGetTypeID, frameworkHandle, "CSIdentityAuthorityGetTypeID")
+	registerFunc(&_cSIdentityCommit, frameworkHandle, "CSIdentityCommit")
+	registerFunc(&_cSIdentityCommitAsynchronously, frameworkHandle, "CSIdentityCommitAsynchronously")
+	registerFunc(&_cSIdentityCreate, frameworkHandle, "CSIdentityCreate")
+	registerFunc(&_cSIdentityCreateCopy, frameworkHandle, "CSIdentityCreateCopy")
+	registerFunc(&_cSIdentityCreateGroupMembershipQuery, frameworkHandle, "CSIdentityCreateGroupMembershipQuery")
+	registerFunc(&_cSIdentityCreatePersistentReference, frameworkHandle, "CSIdentityCreatePersistentReference")
+	registerFunc(&_cSIdentityDelete, frameworkHandle, "CSIdentityDelete")
+	registerFunc(&_cSIdentityGetAliases, frameworkHandle, "CSIdentityGetAliases")
+	registerFunc(&_cSIdentityGetAuthority, frameworkHandle, "CSIdentityGetAuthority")
+	registerFunc(&_cSIdentityGetCertificate, frameworkHandle, "CSIdentityGetCertificate")
+	registerFunc(&_cSIdentityGetClass, frameworkHandle, "CSIdentityGetClass")
+	registerFunc(&_cSIdentityGetEmailAddress, frameworkHandle, "CSIdentityGetEmailAddress")
+	registerFunc(&_cSIdentityGetFullName, frameworkHandle, "CSIdentityGetFullName")
+	registerFunc(&_cSIdentityGetImageData, frameworkHandle, "CSIdentityGetImageData")
+	registerFunc(&_cSIdentityGetImageDataType, frameworkHandle, "CSIdentityGetImageDataType")
+	registerFunc(&_cSIdentityGetImageURL, frameworkHandle, "CSIdentityGetImageURL")
+	registerFunc(&_cSIdentityGetPosixID, frameworkHandle, "CSIdentityGetPosixID")
+	registerFunc(&_cSIdentityGetPosixName, frameworkHandle, "CSIdentityGetPosixName")
+	registerFunc(&_cSIdentityGetTypeID, frameworkHandle, "CSIdentityGetTypeID")
+	registerFunc(&_cSIdentityGetUUID, frameworkHandle, "CSIdentityGetUUID")
+	registerFunc(&_cSIdentityIsCommitting, frameworkHandle, "CSIdentityIsCommitting")
+	registerFunc(&_cSIdentityIsEnabled, frameworkHandle, "CSIdentityIsEnabled")
+	registerFunc(&_cSIdentityIsHidden, frameworkHandle, "CSIdentityIsHidden")
+	registerFunc(&_cSIdentityIsMemberOfGroup, frameworkHandle, "CSIdentityIsMemberOfGroup")
+	registerFunc(&_cSIdentityQueryCopyResults, frameworkHandle, "CSIdentityQueryCopyResults")
+	registerFunc(&_cSIdentityQueryCreate, frameworkHandle, "CSIdentityQueryCreate")
+	registerFunc(&_cSIdentityQueryCreateForCurrentUser, frameworkHandle, "CSIdentityQueryCreateForCurrentUser")
+	registerFunc(&_cSIdentityQueryCreateForName, frameworkHandle, "CSIdentityQueryCreateForName")
+	registerFunc(&_cSIdentityQueryCreateForPersistentReference, frameworkHandle, "CSIdentityQueryCreateForPersistentReference")
+	registerFunc(&_cSIdentityQueryCreateForPosixID, frameworkHandle, "CSIdentityQueryCreateForPosixID")
+	registerFunc(&_cSIdentityQueryCreateForUUID, frameworkHandle, "CSIdentityQueryCreateForUUID")
+	registerFunc(&_cSIdentityQueryExecute, frameworkHandle, "CSIdentityQueryExecute")
+	registerFunc(&_cSIdentityQueryExecuteAsynchronously, frameworkHandle, "CSIdentityQueryExecuteAsynchronously")
+	registerFunc(&_cSIdentityQueryGetTypeID, frameworkHandle, "CSIdentityQueryGetTypeID")
+	registerFunc(&_cSIdentityQueryStop, frameworkHandle, "CSIdentityQueryStop")
+	registerFunc(&_cSIdentityRemoveAlias, frameworkHandle, "CSIdentityRemoveAlias")
+	registerFunc(&_cSIdentityRemoveClient, frameworkHandle, "CSIdentityRemoveClient")
+	registerFunc(&_cSIdentityRemoveMember, frameworkHandle, "CSIdentityRemoveMember")
+	registerFunc(&_cSIdentitySetCertificate, frameworkHandle, "CSIdentitySetCertificate")
+	registerFunc(&_cSIdentitySetEmailAddress, frameworkHandle, "CSIdentitySetEmailAddress")
+	registerFunc(&_cSIdentitySetFullName, frameworkHandle, "CSIdentitySetFullName")
+	registerFunc(&_cSIdentitySetImageData, frameworkHandle, "CSIdentitySetImageData")
+	registerFunc(&_cSIdentitySetImageURL, frameworkHandle, "CSIdentitySetImageURL")
+	registerFunc(&_cSIdentitySetIsEnabled, frameworkHandle, "CSIdentitySetIsEnabled")
+	registerFunc(&_cSIdentitySetPassword, frameworkHandle, "CSIdentitySetPassword")
+	registerFunc(&_cSSetComponentsThreadMode, frameworkHandle, "CSSetComponentsThreadMode")
+	registerFunc(&_callComponentCanDo, frameworkHandle, "CallComponentCanDo")
+	registerFunc(&_callComponentClose, frameworkHandle, "CallComponentClose")
+	registerFunc(&_callComponentDispatch, frameworkHandle, "CallComponentDispatch")
+	registerFunc(&_callComponentFunction, frameworkHandle, "CallComponentFunction")
+	registerFunc(&_callComponentFunctionWithStorage, frameworkHandle, "CallComponentFunctionWithStorage")
+	registerFunc(&_callComponentFunctionWithStorageProcInfo, frameworkHandle, "CallComponentFunctionWithStorageProcInfo")
+	registerFunc(&_callComponentGetMPWorkFunction, frameworkHandle, "CallComponentGetMPWorkFunction")
+	registerFunc(&_callComponentGetPublicResource, frameworkHandle, "CallComponentGetPublicResource")
+	registerFunc(&_callComponentOpen, frameworkHandle, "CallComponentOpen")
+	registerFunc(&_callComponentRegister, frameworkHandle, "CallComponentRegister")
+	registerFunc(&_callComponentTarget, frameworkHandle, "CallComponentTarget")
+	registerFunc(&_callComponentUnregister, frameworkHandle, "CallComponentUnregister")
+	registerFunc(&_callComponentVersion, frameworkHandle, "CallComponentVersion")
+	registerFunc(&_captureComponent, frameworkHandle, "CaptureComponent")
+	registerFunc(&_changeTextToUnicodeInfo, frameworkHandle, "ChangeTextToUnicodeInfo")
+	registerFunc(&_changeUnicodeToTextInfo, frameworkHandle, "ChangeUnicodeToTextInfo")
+	registerFunc(&_changedResource, frameworkHandle, "ChangedResource")
+	registerFunc(&_cloneCollection, frameworkHandle, "CloneCollection")
+	registerFunc(&_closeComponent, frameworkHandle, "CloseComponent")
+	registerFunc(&_closeComponentResFile, frameworkHandle, "CloseComponentResFile")
+	registerFunc(&_closeResFile, frameworkHandle, "CloseResFile")
+	registerFunc(&_collectionTagExists, frameworkHandle, "CollectionTagExists")
+	registerFunc(&_compareAndSwap, frameworkHandle, "CompareAndSwap")
+	registerFunc(&_compositeIconRef, frameworkHandle, "CompositeIconRef")
+	registerFunc(&_convertFromPStringToUnicode, frameworkHandle, "ConvertFromPStringToUnicode")
+	registerFunc(&_convertFromTextToUnicode, frameworkHandle, "ConvertFromTextToUnicode")
+	registerFunc(&_convertFromUnicodeToPString, frameworkHandle, "ConvertFromUnicodeToPString")
+	registerFunc(&_convertFromUnicodeToScriptCodeRun, frameworkHandle, "ConvertFromUnicodeToScriptCodeRun")
+	registerFunc(&_convertFromUnicodeToText, frameworkHandle, "ConvertFromUnicodeToText")
+	registerFunc(&_convertFromUnicodeToTextRun, frameworkHandle, "ConvertFromUnicodeToTextRun")
+	registerFunc(&_copyCollection, frameworkHandle, "CopyCollection")
+	registerFunc(&_coreEndianFlipData, frameworkHandle, "CoreEndianFlipData")
+	registerFunc(&_coreEndianGetFlipper, frameworkHandle, "CoreEndianGetFlipper")
+	registerFunc(&_coreEndianInstallFlipper, frameworkHandle, "CoreEndianInstallFlipper")
+	registerFunc(&_count1Resources, frameworkHandle, "Count1Resources")
+	registerFunc(&_count1Types, frameworkHandle, "Count1Types")
+	registerFunc(&_countCollectionItems, frameworkHandle, "CountCollectionItems")
+	registerFunc(&_countCollectionOwners, frameworkHandle, "CountCollectionOwners")
+	registerFunc(&_countCollectionTags, frameworkHandle, "CountCollectionTags")
+	registerFunc(&_countComponentInstances, frameworkHandle, "CountComponentInstances")
+	registerFunc(&_countComponents, frameworkHandle, "CountComponents")
+	registerFunc(&_countResources, frameworkHandle, "CountResources")
+	registerFunc(&_countTaggedCollectionItems, frameworkHandle, "CountTaggedCollectionItems")
+	registerFunc(&_countTypes, frameworkHandle, "CountTypes")
+	registerFunc(&_countUnicodeMappings, frameworkHandle, "CountUnicodeMappings")
+	registerFunc(&_createCompDescriptor, frameworkHandle, "CreateCompDescriptor")
+	registerFunc(&_createLogicalDescriptor, frameworkHandle, "CreateLogicalDescriptor")
+	registerFunc(&_createObjSpecifier, frameworkHandle, "CreateObjSpecifier")
+	registerFunc(&_createOffsetDescriptor, frameworkHandle, "CreateOffsetDescriptor")
+	registerFunc(&_createRangeDescriptor, frameworkHandle, "CreateRangeDescriptor")
+	registerFunc(&_createTextEncoding, frameworkHandle, "CreateTextEncoding")
+	registerFunc(&_createTextToUnicodeInfo, frameworkHandle, "CreateTextToUnicodeInfo")
+	registerFunc(&_createTextToUnicodeInfoByEncoding, frameworkHandle, "CreateTextToUnicodeInfoByEncoding")
+	registerFunc(&_createThreadPool, frameworkHandle, "CreateThreadPool")
+	registerFunc(&_createUnicodeToTextInfo, frameworkHandle, "CreateUnicodeToTextInfo")
+	registerFunc(&_createUnicodeToTextInfoByEncoding, frameworkHandle, "CreateUnicodeToTextInfoByEncoding")
+	registerFunc(&_createUnicodeToTextRunInfo, frameworkHandle, "CreateUnicodeToTextRunInfo")
+	registerFunc(&_createUnicodeToTextRunInfoByEncoding, frameworkHandle, "CreateUnicodeToTextRunInfoByEncoding")
+	registerFunc(&_createUnicodeToTextRunInfoByScriptCode, frameworkHandle, "CreateUnicodeToTextRunInfoByScriptCode")
+	registerFunc(&_curResFile, frameworkHandle, "CurResFile")
+	registerFunc(&_currentProcessorSpeed, frameworkHandle, "CurrentProcessorSpeed")
+	registerFunc(&_dCSCopyTextDefinition, frameworkHandle, "DCSCopyTextDefinition")
+	registerFunc(&_dCSGetTermRangeInString, frameworkHandle, "DCSGetTermRangeInString")
+	registerFunc(&_debugAssert, frameworkHandle, "DebugAssert")
+	registerFunc(&_decrementAtomic, frameworkHandle, "DecrementAtomic")
+	registerFunc(&_decrementAtomic16, frameworkHandle, "DecrementAtomic16")
+	registerFunc(&_decrementAtomic8, frameworkHandle, "DecrementAtomic8")
+	registerFunc(&_delay, frameworkHandle, "Delay")
+	registerFunc(&_delegateComponentCall, frameworkHandle, "DelegateComponentCall")
+	registerFunc(&_deleteGestaltValue, frameworkHandle, "DeleteGestaltValue")
+	registerFunc(&_dequeue, frameworkHandle, "Dequeue")
+	registerFunc(&_detachResource, frameworkHandle, "DetachResource")
+	registerFunc(&_detachResourceFile, frameworkHandle, "DetachResourceFile")
+	registerFunc(&_determineIfPathIsEnclosedByFolder, frameworkHandle, "DetermineIfPathIsEnclosedByFolder")
+	registerFunc(&_disposeAECoerceDescUPP, frameworkHandle, "DisposeAECoerceDescUPP")
+	registerFunc(&_disposeAECoercePtrUPP, frameworkHandle, "DisposeAECoercePtrUPP")
+	registerFunc(&_disposeAEDisposeExternalUPP, frameworkHandle, "DisposeAEDisposeExternalUPP")
+	registerFunc(&_disposeAEEventHandlerUPP, frameworkHandle, "DisposeAEEventHandlerUPP")
+	registerFunc(&_disposeCollection, frameworkHandle, "DisposeCollection")
+	registerFunc(&_disposeCollectionExceptionUPP, frameworkHandle, "DisposeCollectionExceptionUPP")
+	registerFunc(&_disposeCollectionFlattenUPP, frameworkHandle, "DisposeCollectionFlattenUPP")
+	registerFunc(&_disposeComponentFunctionUPP, frameworkHandle, "DisposeComponentFunctionUPP")
+	registerFunc(&_disposeComponentMPWorkFunctionUPP, frameworkHandle, "DisposeComponentMPWorkFunctionUPP")
+	registerFunc(&_disposeComponentRoutineUPP, frameworkHandle, "DisposeComponentRoutineUPP")
+	registerFunc(&_disposeDebugAssertOutputHandlerUPP, frameworkHandle, "DisposeDebugAssertOutputHandlerUPP")
+	registerFunc(&_disposeDebugComponent, frameworkHandle, "DisposeDebugComponent")
+	registerFunc(&_disposeDebugComponentCallbackUPP, frameworkHandle, "DisposeDebugComponentCallbackUPP")
+	registerFunc(&_disposeDebuggerDisposeThreadUPP, frameworkHandle, "DisposeDebuggerDisposeThreadUPP")
+	registerFunc(&_disposeDebuggerNewThreadUPP, frameworkHandle, "DisposeDebuggerNewThreadUPP")
+	registerFunc(&_disposeDebuggerThreadSchedulerUPP, frameworkHandle, "DisposeDebuggerThreadSchedulerUPP")
+	registerFunc(&_disposeDeferredTaskUPP, frameworkHandle, "DisposeDeferredTaskUPP")
+	registerFunc(&_disposeExceptionHandlerUPP, frameworkHandle, "DisposeExceptionHandlerUPP")
+	registerFunc(&_disposeFNSubscriptionUPP, frameworkHandle, "DisposeFNSubscriptionUPP")
+	registerFunc(&_disposeFSVolumeEjectUPP, frameworkHandle, "DisposeFSVolumeEjectUPP")
+	registerFunc(&_disposeFSVolumeMountUPP, frameworkHandle, "DisposeFSVolumeMountUPP")
+	registerFunc(&_disposeFSVolumeUnmountUPP, frameworkHandle, "DisposeFSVolumeUnmountUPP")
+	registerFunc(&_disposeFolderManagerNotificationUPP, frameworkHandle, "DisposeFolderManagerNotificationUPP")
+	registerFunc(&_disposeGetMissingComponentResourceUPP, frameworkHandle, "DisposeGetMissingComponentResourceUPP")
+	registerFunc(&_disposeHandle, frameworkHandle, "DisposeHandle")
+	registerFunc(&_disposeIOCompletionUPP, frameworkHandle, "DisposeIOCompletionUPP")
+	registerFunc(&_disposeIndexToUCStringUPP, frameworkHandle, "DisposeIndexToUCStringUPP")
+	registerFunc(&_disposeKCCallbackUPP, frameworkHandle, "DisposeKCCallbackUPP")
+	registerFunc(&_disposeOSLAccessorUPP, frameworkHandle, "DisposeOSLAccessorUPP")
+	registerFunc(&_disposeOSLAdjustMarksUPP, frameworkHandle, "DisposeOSLAdjustMarksUPP")
+	registerFunc(&_disposeOSLCompareUPP, frameworkHandle, "DisposeOSLCompareUPP")
+	registerFunc(&_disposeOSLCountUPP, frameworkHandle, "DisposeOSLCountUPP")
+	registerFunc(&_disposeOSLDisposeTokenUPP, frameworkHandle, "DisposeOSLDisposeTokenUPP")
+	registerFunc(&_disposeOSLGetErrDescUPP, frameworkHandle, "DisposeOSLGetErrDescUPP")
+	registerFunc(&_disposeOSLGetMarkTokenUPP, frameworkHandle, "DisposeOSLGetMarkTokenUPP")
+	registerFunc(&_disposeOSLMarkUPP, frameworkHandle, "DisposeOSLMarkUPP")
+	registerFunc(&_disposePtr, frameworkHandle, "DisposePtr")
+	registerFunc(&_disposeResErrUPP, frameworkHandle, "DisposeResErrUPP")
+	registerFunc(&_disposeSelectorFunctionUPP, frameworkHandle, "DisposeSelectorFunctionUPP")
+	registerFunc(&_disposeSleepQUPP, frameworkHandle, "DisposeSleepQUPP")
+	registerFunc(&_disposeTextToUnicodeInfo, frameworkHandle, "DisposeTextToUnicodeInfo")
+	registerFunc(&_disposeThread, frameworkHandle, "DisposeThread")
+	registerFunc(&_disposeThreadEntryUPP, frameworkHandle, "DisposeThreadEntryUPP")
+	registerFunc(&_disposeThreadSchedulerUPP, frameworkHandle, "DisposeThreadSchedulerUPP")
+	registerFunc(&_disposeThreadSwitchUPP, frameworkHandle, "DisposeThreadSwitchUPP")
+	registerFunc(&_disposeThreadTerminationUPP, frameworkHandle, "DisposeThreadTerminationUPP")
+	registerFunc(&_disposeTimerUPP, frameworkHandle, "DisposeTimerUPP")
+	registerFunc(&_disposeUnicodeToTextFallbackUPP, frameworkHandle, "DisposeUnicodeToTextFallbackUPP")
+	registerFunc(&_disposeUnicodeToTextInfo, frameworkHandle, "DisposeUnicodeToTextInfo")
+	registerFunc(&_disposeUnicodeToTextRunInfo, frameworkHandle, "DisposeUnicodeToTextRunInfo")
+	registerFunc(&_durationToAbsolute, frameworkHandle, "DurationToAbsolute")
+	registerFunc(&_durationToNanoseconds, frameworkHandle, "DurationToNanoseconds")
+	registerFunc(&_emptyCollection, frameworkHandle, "EmptyCollection")
+	registerFunc(&_emptyHandle, frameworkHandle, "EmptyHandle")
+	registerFunc(&_enqueue, frameworkHandle, "Enqueue")
+	registerFunc(&_fNGetDirectoryForSubscription, frameworkHandle, "FNGetDirectoryForSubscription")
+	registerFunc(&_fNNotify, frameworkHandle, "FNNotify")
+	registerFunc(&_fNNotifyAll, frameworkHandle, "FNNotifyAll")
+	registerFunc(&_fNNotifyByPath, frameworkHandle, "FNNotifyByPath")
+	registerFunc(&_fNSubscribe, frameworkHandle, "FNSubscribe")
+	registerFunc(&_fNSubscribeByPath, frameworkHandle, "FNSubscribeByPath")
+	registerFunc(&_fNUnsubscribe, frameworkHandle, "FNUnsubscribe")
+	registerFunc(&_fSAllocateFork, frameworkHandle, "FSAllocateFork")
+	registerFunc(&_fSCancelVolumeOperation, frameworkHandle, "FSCancelVolumeOperation")
+	registerFunc(&_fSCatalogSearch, frameworkHandle, "FSCatalogSearch")
+	registerFunc(&_fSCloseFork, frameworkHandle, "FSCloseFork")
+	registerFunc(&_fSCloseIterator, frameworkHandle, "FSCloseIterator")
+	registerFunc(&_fSCompareFSRefs, frameworkHandle, "FSCompareFSRefs")
+	registerFunc(&_fSCopyDADiskForVolume, frameworkHandle, "FSCopyDADiskForVolume")
+	registerFunc(&_fSCopyDiskIDForVolume, frameworkHandle, "FSCopyDiskIDForVolume")
+	registerFunc(&_fSCopyObjectAsync, frameworkHandle, "FSCopyObjectAsync")
+	registerFunc(&_fSCopyObjectSync, frameworkHandle, "FSCopyObjectSync")
+	registerFunc(&_fSCopyURLForVolume, frameworkHandle, "FSCopyURLForVolume")
+	registerFunc(&_fSCreateDirectoryUnicode, frameworkHandle, "FSCreateDirectoryUnicode")
+	registerFunc(&_fSCreateFileAndOpenForkUnicode, frameworkHandle, "FSCreateFileAndOpenForkUnicode")
+	registerFunc(&_fSCreateFileUnicode, frameworkHandle, "FSCreateFileUnicode")
+	registerFunc(&_fSCreateFork, frameworkHandle, "FSCreateFork")
+	registerFunc(&_fSCreateResFile, frameworkHandle, "FSCreateResFile")
+	registerFunc(&_fSCreateResourceFile, frameworkHandle, "FSCreateResourceFile")
+	registerFunc(&_fSCreateResourceFork, frameworkHandle, "FSCreateResourceFork")
+	registerFunc(&_fSCreateStringFromHFSUniStr, frameworkHandle, "FSCreateStringFromHFSUniStr")
+	registerFunc(&_fSCreateVolumeOperation, frameworkHandle, "FSCreateVolumeOperation")
+	registerFunc(&_fSDeleteFork, frameworkHandle, "FSDeleteFork")
+	registerFunc(&_fSDeleteObject, frameworkHandle, "FSDeleteObject")
+	registerFunc(&_fSDetermineIfRefIsEnclosedByFolder, frameworkHandle, "FSDetermineIfRefIsEnclosedByFolder")
+	registerFunc(&_fSDisposeVolumeOperation, frameworkHandle, "FSDisposeVolumeOperation")
+	registerFunc(&_fSEjectVolumeAsync, frameworkHandle, "FSEjectVolumeAsync")
+	registerFunc(&_fSEjectVolumeSync, frameworkHandle, "FSEjectVolumeSync")
+	registerFunc(&_fSEventStreamCopyDescription, frameworkHandle, "FSEventStreamCopyDescription")
+	registerFunc(&_fSEventStreamCopyPathsBeingWatched, frameworkHandle, "FSEventStreamCopyPathsBeingWatched")
+	registerFunc(&_fSEventStreamCreate, frameworkHandle, "FSEventStreamCreate")
+	registerFunc(&_fSEventStreamCreateRelativeToDevice, frameworkHandle, "FSEventStreamCreateRelativeToDevice")
+	registerFunc(&_fSEventStreamFlushAsync, frameworkHandle, "FSEventStreamFlushAsync")
+	registerFunc(&_fSEventStreamFlushSync, frameworkHandle, "FSEventStreamFlushSync")
+	registerFunc(&_fSEventStreamGetDeviceBeingWatched, frameworkHandle, "FSEventStreamGetDeviceBeingWatched")
+	registerFunc(&_fSEventStreamGetLatestEventId, frameworkHandle, "FSEventStreamGetLatestEventId")
+	registerFunc(&_fSEventStreamInvalidate, frameworkHandle, "FSEventStreamInvalidate")
+	registerFunc(&_fSEventStreamRelease, frameworkHandle, "FSEventStreamRelease")
+	registerFunc(&_fSEventStreamRetain, frameworkHandle, "FSEventStreamRetain")
+	registerFunc(&_fSEventStreamSetDispatchQueue, frameworkHandle, "FSEventStreamSetDispatchQueue")
+	registerFunc(&_fSEventStreamSetExclusionPaths, frameworkHandle, "FSEventStreamSetExclusionPaths")
+	registerFunc(&_fSEventStreamShow, frameworkHandle, "FSEventStreamShow")
+	registerFunc(&_fSEventStreamStart, frameworkHandle, "FSEventStreamStart")
+	registerFunc(&_fSEventStreamStop, frameworkHandle, "FSEventStreamStop")
+	registerFunc(&_fSEventsCopyUUIDForDevice, frameworkHandle, "FSEventsCopyUUIDForDevice")
+	registerFunc(&_fSEventsGetCurrentEventId, frameworkHandle, "FSEventsGetCurrentEventId")
+	registerFunc(&_fSEventsGetLastEventIdForDeviceBeforeTime, frameworkHandle, "FSEventsGetLastEventIdForDeviceBeforeTime")
+	registerFunc(&_fSEventsPurgeEventsForDeviceUpToEventId, frameworkHandle, "FSEventsPurgeEventsForDeviceUpToEventId")
+	registerFunc(&_fSFileOperationCancel, frameworkHandle, "FSFileOperationCancel")
+	registerFunc(&_fSFileOperationCopyStatus, frameworkHandle, "FSFileOperationCopyStatus")
+	registerFunc(&_fSFileOperationCreate, frameworkHandle, "FSFileOperationCreate")
+	registerFunc(&_fSFileOperationGetTypeID, frameworkHandle, "FSFileOperationGetTypeID")
+	registerFunc(&_fSFileOperationScheduleWithRunLoop, frameworkHandle, "FSFileOperationScheduleWithRunLoop")
+	registerFunc(&_fSFileOperationUnscheduleFromRunLoop, frameworkHandle, "FSFileOperationUnscheduleFromRunLoop")
+	registerFunc(&_fSFileSecurityCopyAccessControlList, frameworkHandle, "FSFileSecurityCopyAccessControlList")
+	registerFunc(&_fSFileSecurityCreate, frameworkHandle, "FSFileSecurityCreate")
+	registerFunc(&_fSFileSecurityCreateWithFSPermissionInfo, frameworkHandle, "FSFileSecurityCreateWithFSPermissionInfo")
+	registerFunc(&_fSFileSecurityGetGroup, frameworkHandle, "FSFileSecurityGetGroup")
+	registerFunc(&_fSFileSecurityGetGroupUUID, frameworkHandle, "FSFileSecurityGetGroupUUID")
+	registerFunc(&_fSFileSecurityGetMode, frameworkHandle, "FSFileSecurityGetMode")
+	registerFunc(&_fSFileSecurityGetOwner, frameworkHandle, "FSFileSecurityGetOwner")
+	registerFunc(&_fSFileSecurityGetOwnerUUID, frameworkHandle, "FSFileSecurityGetOwnerUUID")
+	registerFunc(&_fSFileSecurityGetTypeID, frameworkHandle, "FSFileSecurityGetTypeID")
+	registerFunc(&_fSFileSecurityRefCreateCopy, frameworkHandle, "FSFileSecurityRefCreateCopy")
+	registerFunc(&_fSFileSecuritySetAccessControlList, frameworkHandle, "FSFileSecuritySetAccessControlList")
+	registerFunc(&_fSFileSecuritySetGroup, frameworkHandle, "FSFileSecuritySetGroup")
+	registerFunc(&_fSFileSecuritySetGroupUUID, frameworkHandle, "FSFileSecuritySetGroupUUID")
+	registerFunc(&_fSFileSecuritySetMode, frameworkHandle, "FSFileSecuritySetMode")
+	registerFunc(&_fSFileSecuritySetOwner, frameworkHandle, "FSFileSecuritySetOwner")
+	registerFunc(&_fSFileSecuritySetOwnerUUID, frameworkHandle, "FSFileSecuritySetOwnerUUID")
+	registerFunc(&_fSFindFolder, frameworkHandle, "FSFindFolder")
+	registerFunc(&_fSFlushFork, frameworkHandle, "FSFlushFork")
+	registerFunc(&_fSFlushVolume, frameworkHandle, "FSFlushVolume")
+	registerFunc(&_fSGetAsyncEjectStatus, frameworkHandle, "FSGetAsyncEjectStatus")
+	registerFunc(&_fSGetAsyncMountStatus, frameworkHandle, "FSGetAsyncMountStatus")
+	registerFunc(&_fSGetAsyncUnmountStatus, frameworkHandle, "FSGetAsyncUnmountStatus")
+	registerFunc(&_fSGetDataForkName, frameworkHandle, "FSGetDataForkName")
+	registerFunc(&_fSGetForkCBInfo, frameworkHandle, "FSGetForkCBInfo")
+	registerFunc(&_fSGetForkPosition, frameworkHandle, "FSGetForkPosition")
+	registerFunc(&_fSGetForkSize, frameworkHandle, "FSGetForkSize")
+	registerFunc(&_fSGetHFSUniStrFromString, frameworkHandle, "FSGetHFSUniStrFromString")
+	registerFunc(&_fSGetResourceForkName, frameworkHandle, "FSGetResourceForkName")
+	registerFunc(&_fSGetTemporaryDirectoryForReplaceObject, frameworkHandle, "FSGetTemporaryDirectoryForReplaceObject")
+	registerFunc(&_fSGetVolumeForDADisk, frameworkHandle, "FSGetVolumeForDADisk")
+	registerFunc(&_fSGetVolumeForDiskID, frameworkHandle, "FSGetVolumeForDiskID")
+	registerFunc(&_fSGetVolumeInfo, frameworkHandle, "FSGetVolumeInfo")
+	registerFunc(&_fSGetVolumeMountInfo, frameworkHandle, "FSGetVolumeMountInfo")
+	registerFunc(&_fSGetVolumeMountInfoSize, frameworkHandle, "FSGetVolumeMountInfoSize")
+	registerFunc(&_fSGetVolumeParms, frameworkHandle, "FSGetVolumeParms")
+	registerFunc(&_fSIsFSRefValid, frameworkHandle, "FSIsFSRefValid")
+	registerFunc(&_fSIterateForks, frameworkHandle, "FSIterateForks")
+	registerFunc(&_fSLockRange, frameworkHandle, "FSLockRange")
+	registerFunc(&_fSMakeFSRefUnicode, frameworkHandle, "FSMakeFSRefUnicode")
+	registerFunc(&_fSMountLocalVolumeAsync, frameworkHandle, "FSMountLocalVolumeAsync")
+	registerFunc(&_fSMountLocalVolumeSync, frameworkHandle, "FSMountLocalVolumeSync")
+	registerFunc(&_fSMountServerVolumeAsync, frameworkHandle, "FSMountServerVolumeAsync")
+	registerFunc(&_fSMountServerVolumeSync, frameworkHandle, "FSMountServerVolumeSync")
+	registerFunc(&_fSMoveObject, frameworkHandle, "FSMoveObject")
+	registerFunc(&_fSMoveObjectAsync, frameworkHandle, "FSMoveObjectAsync")
+	registerFunc(&_fSMoveObjectSync, frameworkHandle, "FSMoveObjectSync")
+	registerFunc(&_fSMoveObjectToTrashAsync, frameworkHandle, "FSMoveObjectToTrashAsync")
+	registerFunc(&_fSMoveObjectToTrashSync, frameworkHandle, "FSMoveObjectToTrashSync")
+	registerFunc(&_fSOpenFork, frameworkHandle, "FSOpenFork")
+	registerFunc(&_fSOpenIterator, frameworkHandle, "FSOpenIterator")
+	registerFunc(&_fSOpenOrphanResFile, frameworkHandle, "FSOpenOrphanResFile")
+	registerFunc(&_fSOpenResFile, frameworkHandle, "FSOpenResFile")
+	registerFunc(&_fSOpenResourceFile, frameworkHandle, "FSOpenResourceFile")
+	registerFunc(&_fSPathCopyObjectAsync, frameworkHandle, "FSPathCopyObjectAsync")
+	registerFunc(&_fSPathCopyObjectSync, frameworkHandle, "FSPathCopyObjectSync")
+	registerFunc(&_fSPathFileOperationCopyStatus, frameworkHandle, "FSPathFileOperationCopyStatus")
+	registerFunc(&_fSPathGetTemporaryDirectoryForReplaceObject, frameworkHandle, "FSPathGetTemporaryDirectoryForReplaceObject")
+	registerFunc(&_fSPathMakeRef, frameworkHandle, "FSPathMakeRef")
+	registerFunc(&_fSPathMakeRefWithOptions, frameworkHandle, "FSPathMakeRefWithOptions")
+	registerFunc(&_fSPathMoveObjectAsync, frameworkHandle, "FSPathMoveObjectAsync")
+	registerFunc(&_fSPathMoveObjectSync, frameworkHandle, "FSPathMoveObjectSync")
+	registerFunc(&_fSPathMoveObjectToTrashAsync, frameworkHandle, "FSPathMoveObjectToTrashAsync")
+	registerFunc(&_fSPathMoveObjectToTrashSync, frameworkHandle, "FSPathMoveObjectToTrashSync")
+	registerFunc(&_fSPathReplaceObject, frameworkHandle, "FSPathReplaceObject")
+	registerFunc(&_fSReadFork, frameworkHandle, "FSReadFork")
+	registerFunc(&_fSRefMakePath, frameworkHandle, "FSRefMakePath")
+	registerFunc(&_fSRenameUnicode, frameworkHandle, "FSRenameUnicode")
+	registerFunc(&_fSReplaceObject, frameworkHandle, "FSReplaceObject")
+	registerFunc(&_fSResolveNodeID, frameworkHandle, "FSResolveNodeID")
+	registerFunc(&_fSResourceFileAlreadyOpen, frameworkHandle, "FSResourceFileAlreadyOpen")
+	registerFunc(&_fSSetCatalogInfo, frameworkHandle, "FSSetCatalogInfo")
+	registerFunc(&_fSSetForkPosition, frameworkHandle, "FSSetForkPosition")
+	registerFunc(&_fSSetForkSize, frameworkHandle, "FSSetForkSize")
+	registerFunc(&_fSSetVolumeInfo, frameworkHandle, "FSSetVolumeInfo")
+	registerFunc(&_fSUnlinkObject, frameworkHandle, "FSUnlinkObject")
+	registerFunc(&_fSUnlockRange, frameworkHandle, "FSUnlockRange")
+	registerFunc(&_fSUnmountVolumeAsync, frameworkHandle, "FSUnmountVolumeAsync")
+	registerFunc(&_fSUnmountVolumeSync, frameworkHandle, "FSUnmountVolumeSync")
+	registerFunc(&_fSVolumeMount, frameworkHandle, "FSVolumeMount")
+	registerFunc(&_fSWriteFork, frameworkHandle, "FSWriteFork")
+	registerFunc(&_findFolder, frameworkHandle, "FindFolder")
+	registerFunc(&_findNextComponent, frameworkHandle, "FindNextComponent")
+	registerFunc(&_fix2Frac, frameworkHandle, "Fix2Frac")
+	registerFunc(&_fix2Long, frameworkHandle, "Fix2Long")
+	registerFunc(&_fix2X, frameworkHandle, "Fix2X")
+	registerFunc(&_fixATan2, frameworkHandle, "FixATan2")
+	registerFunc(&_fixDiv, frameworkHandle, "FixDiv")
+	registerFunc(&_fixMul, frameworkHandle, "FixMul")
+	registerFunc(&_fixRatio, frameworkHandle, "FixRatio")
+	registerFunc(&_fixRound, frameworkHandle, "FixRound")
+	registerFunc(&_flattenCollection, frameworkHandle, "FlattenCollection")
+	registerFunc(&_flattenCollectionToHdl, frameworkHandle, "FlattenCollectionToHdl")
+	registerFunc(&_flattenPartialCollection, frameworkHandle, "FlattenPartialCollection")
+	registerFunc(&_frac2Fix, frameworkHandle, "Frac2Fix")
+	registerFunc(&_frac2X, frameworkHandle, "Frac2X")
+	registerFunc(&_fracCos, frameworkHandle, "FracCos")
+	registerFunc(&_fracDiv, frameworkHandle, "FracDiv")
+	registerFunc(&_fracMul, frameworkHandle, "FracMul")
+	registerFunc(&_fracSin, frameworkHandle, "FracSin")
+	registerFunc(&_fracSqrt, frameworkHandle, "FracSqrt")
+	registerFunc(&_gestaltFunc, frameworkHandle, "Gestalt")
+	registerFunc(&_get1IndResource, frameworkHandle, "Get1IndResource")
+	registerFunc(&_get1IndType, frameworkHandle, "Get1IndType")
+	registerFunc(&_get1NamedResource, frameworkHandle, "Get1NamedResource")
+	registerFunc(&_get1Resource, frameworkHandle, "Get1Resource")
+	registerFunc(&_getCPUSpeed, frameworkHandle, "GetCPUSpeed")
+	registerFunc(&_getCollectionDefaultAttributes, frameworkHandle, "GetCollectionDefaultAttributes")
+	registerFunc(&_getCollectionExceptionProc, frameworkHandle, "GetCollectionExceptionProc")
+	registerFunc(&_getCollectionItem, frameworkHandle, "GetCollectionItem")
+	registerFunc(&_getCollectionItemHdl, frameworkHandle, "GetCollectionItemHdl")
+	registerFunc(&_getCollectionItemInfo, frameworkHandle, "GetCollectionItemInfo")
+	registerFunc(&_getCollectionRetainCount, frameworkHandle, "GetCollectionRetainCount")
+	registerFunc(&_getComponentIndString, frameworkHandle, "GetComponentIndString")
+	registerFunc(&_getComponentInfo, frameworkHandle, "GetComponentInfo")
+	registerFunc(&_getComponentInstanceError, frameworkHandle, "GetComponentInstanceError")
+	registerFunc(&_getComponentInstanceStorage, frameworkHandle, "GetComponentInstanceStorage")
+	registerFunc(&_getComponentListModSeed, frameworkHandle, "GetComponentListModSeed")
+	registerFunc(&_getComponentPublicIndString, frameworkHandle, "GetComponentPublicIndString")
+	registerFunc(&_getComponentPublicResource, frameworkHandle, "GetComponentPublicResource")
+	registerFunc(&_getComponentPublicResourceList, frameworkHandle, "GetComponentPublicResourceList")
+	registerFunc(&_getComponentRefcon, frameworkHandle, "GetComponentRefcon")
+	registerFunc(&_getComponentResource, frameworkHandle, "GetComponentResource")
+	registerFunc(&_getComponentTypeModSeed, frameworkHandle, "GetComponentTypeModSeed")
+	registerFunc(&_getCurrentThread, frameworkHandle, "GetCurrentThread")
+	registerFunc(&_getCustomIconsEnabled, frameworkHandle, "GetCustomIconsEnabled")
+	registerFunc(&_getDebugComponentInfo, frameworkHandle, "GetDebugComponentInfo")
+	registerFunc(&_getDebugOptionInfo, frameworkHandle, "GetDebugOptionInfo")
+	registerFunc(&_getDefaultThreadStackSize, frameworkHandle, "GetDefaultThreadStackSize")
+	registerFunc(&_getFolderNameUnicode, frameworkHandle, "GetFolderNameUnicode")
+	registerFunc(&_getFolderTypes, frameworkHandle, "GetFolderTypes")
+	registerFunc(&_getHandleSize, frameworkHandle, "GetHandleSize")
+	registerFunc(&_getIconRef, frameworkHandle, "GetIconRef")
+	registerFunc(&_getIconRefFromComponent, frameworkHandle, "GetIconRefFromComponent")
+	registerFunc(&_getIconRefFromFileInfo, frameworkHandle, "GetIconRefFromFileInfo")
+	registerFunc(&_getIconRefFromFolder, frameworkHandle, "GetIconRefFromFolder")
+	registerFunc(&_getIconRefFromIconFamilyPtr, frameworkHandle, "GetIconRefFromIconFamilyPtr")
+	registerFunc(&_getIconRefFromTypeInfo, frameworkHandle, "GetIconRefFromTypeInfo")
+	registerFunc(&_getIconRefOwners, frameworkHandle, "GetIconRefOwners")
+	registerFunc(&_getIndResource, frameworkHandle, "GetIndResource")
+	registerFunc(&_getIndType, frameworkHandle, "GetIndType")
+	registerFunc(&_getIndexedCollectionItem, frameworkHandle, "GetIndexedCollectionItem")
+	registerFunc(&_getIndexedCollectionItemHdl, frameworkHandle, "GetIndexedCollectionItemHdl")
+	registerFunc(&_getIndexedCollectionItemInfo, frameworkHandle, "GetIndexedCollectionItemInfo")
+	registerFunc(&_getIndexedCollectionTag, frameworkHandle, "GetIndexedCollectionTag")
+	registerFunc(&_getMacOSStatusCommentString, frameworkHandle, "GetMacOSStatusCommentString")
+	registerFunc(&_getMacOSStatusErrorString, frameworkHandle, "GetMacOSStatusErrorString")
+	registerFunc(&_getMaxResourceSize, frameworkHandle, "GetMaxResourceSize")
+	registerFunc(&_getNamedResource, frameworkHandle, "GetNamedResource")
+	registerFunc(&_getNewCollection, frameworkHandle, "GetNewCollection")
+	registerFunc(&_getNextFOND, frameworkHandle, "GetNextFOND")
+	registerFunc(&_getNextResourceFile, frameworkHandle, "GetNextResourceFile")
+	registerFunc(&_getPtrSize, frameworkHandle, "GetPtrSize")
+	registerFunc(&_getResAttrs, frameworkHandle, "GetResAttrs")
+	registerFunc(&_getResFileAttrs, frameworkHandle, "GetResFileAttrs")
+	registerFunc(&_getResInfo, frameworkHandle, "GetResInfo")
+	registerFunc(&_getResource, frameworkHandle, "GetResource")
+	registerFunc(&_getResourceSizeOnDisk, frameworkHandle, "GetResourceSizeOnDisk")
+	registerFunc(&_getScriptInfoFromTextEncoding, frameworkHandle, "GetScriptInfoFromTextEncoding")
+	registerFunc(&_getScriptManagerVariable, frameworkHandle, "GetScriptManagerVariable")
+	registerFunc(&_getTaggedCollectionItem, frameworkHandle, "GetTaggedCollectionItem")
+	registerFunc(&_getTaggedCollectionItemInfo, frameworkHandle, "GetTaggedCollectionItemInfo")
+	registerFunc(&_getTextEncodingBase, frameworkHandle, "GetTextEncodingBase")
+	registerFunc(&_getTextEncodingFormat, frameworkHandle, "GetTextEncodingFormat")
+	registerFunc(&_getTextEncodingFromScriptInfo, frameworkHandle, "GetTextEncodingFromScriptInfo")
+	registerFunc(&_getTextEncodingName, frameworkHandle, "GetTextEncodingName")
+	registerFunc(&_getTextEncodingVariant, frameworkHandle, "GetTextEncodingVariant")
+	registerFunc(&_getThreadCurrentTaskRef, frameworkHandle, "GetThreadCurrentTaskRef")
+	registerFunc(&_getThreadState, frameworkHandle, "GetThreadState")
+	registerFunc(&_getThreadStateGivenTaskRef, frameworkHandle, "GetThreadStateGivenTaskRef")
+	registerFunc(&_getTopResourceFile, frameworkHandle, "GetTopResourceFile")
+	registerFunc(&_hClrRBit, frameworkHandle, "HClrRBit")
+	registerFunc(&_hGetState, frameworkHandle, "HGetState")
+	registerFunc(&_hLock, frameworkHandle, "HLock")
+	registerFunc(&_hLockHi, frameworkHandle, "HLockHi")
+	registerFunc(&_hSetRBit, frameworkHandle, "HSetRBit")
+	registerFunc(&_hSetState, frameworkHandle, "HSetState")
+	registerFunc(&_hUnlock, frameworkHandle, "HUnlock")
+	registerFunc(&_handAndHand, frameworkHandle, "HandAndHand")
+	registerFunc(&_handToHand, frameworkHandle, "HandToHand")
+	registerFunc(&_homeResFile, frameworkHandle, "HomeResFile")
+	registerFunc(&_identifyFolder, frameworkHandle, "IdentifyFolder")
+	registerFunc(&_incrementAtomic, frameworkHandle, "IncrementAtomic")
+	registerFunc(&_incrementAtomic16, frameworkHandle, "IncrementAtomic16")
+	registerFunc(&_incrementAtomic8, frameworkHandle, "IncrementAtomic8")
+	registerFunc(&_insTime, frameworkHandle, "InsTime")
+	registerFunc(&_insXTime, frameworkHandle, "InsXTime")
+	registerFunc(&_insertResourceFile, frameworkHandle, "InsertResourceFile")
+	registerFunc(&_installDebugAssertOutputHandler, frameworkHandle, "InstallDebugAssertOutputHandler")
+	registerFunc(&_installExceptionHandler, frameworkHandle, "InstallExceptionHandler")
+	registerFunc(&_installTimeTask, frameworkHandle, "InstallTimeTask")
+	registerFunc(&_installXTimeTask, frameworkHandle, "InstallXTimeTask")
+	registerFunc(&_invalidateFolderDescriptorCache, frameworkHandle, "InvalidateFolderDescriptorCache")
+	registerFunc(&_invokeAECoerceDescUPP, frameworkHandle, "InvokeAECoerceDescUPP")
+	registerFunc(&_invokeAECoercePtrUPP, frameworkHandle, "InvokeAECoercePtrUPP")
+	registerFunc(&_invokeAEDisposeExternalUPP, frameworkHandle, "InvokeAEDisposeExternalUPP")
+	registerFunc(&_invokeAEEventHandlerUPP, frameworkHandle, "InvokeAEEventHandlerUPP")
+	registerFunc(&_invokeCollectionExceptionUPP, frameworkHandle, "InvokeCollectionExceptionUPP")
+	registerFunc(&_invokeCollectionFlattenUPP, frameworkHandle, "InvokeCollectionFlattenUPP")
+	registerFunc(&_invokeComponentMPWorkFunctionUPP, frameworkHandle, "InvokeComponentMPWorkFunctionUPP")
+	registerFunc(&_invokeComponentRoutineUPP, frameworkHandle, "InvokeComponentRoutineUPP")
+	registerFunc(&_invokeDebugAssertOutputHandlerUPP, frameworkHandle, "InvokeDebugAssertOutputHandlerUPP")
+	registerFunc(&_invokeDebugComponentCallbackUPP, frameworkHandle, "InvokeDebugComponentCallbackUPP")
+	registerFunc(&_invokeDebuggerDisposeThreadUPP, frameworkHandle, "InvokeDebuggerDisposeThreadUPP")
+	registerFunc(&_invokeDebuggerNewThreadUPP, frameworkHandle, "InvokeDebuggerNewThreadUPP")
+	registerFunc(&_invokeDebuggerThreadSchedulerUPP, frameworkHandle, "InvokeDebuggerThreadSchedulerUPP")
+	registerFunc(&_invokeDeferredTaskUPP, frameworkHandle, "InvokeDeferredTaskUPP")
+	registerFunc(&_invokeExceptionHandlerUPP, frameworkHandle, "InvokeExceptionHandlerUPP")
+	registerFunc(&_invokeFNSubscriptionUPP, frameworkHandle, "InvokeFNSubscriptionUPP")
+	registerFunc(&_invokeFSVolumeEjectUPP, frameworkHandle, "InvokeFSVolumeEjectUPP")
+	registerFunc(&_invokeFSVolumeMountUPP, frameworkHandle, "InvokeFSVolumeMountUPP")
+	registerFunc(&_invokeFSVolumeUnmountUPP, frameworkHandle, "InvokeFSVolumeUnmountUPP")
+	registerFunc(&_invokeFolderManagerNotificationUPP, frameworkHandle, "InvokeFolderManagerNotificationUPP")
+	registerFunc(&_invokeGetMissingComponentResourceUPP, frameworkHandle, "InvokeGetMissingComponentResourceUPP")
+	registerFunc(&_invokeIOCompletionUPP, frameworkHandle, "InvokeIOCompletionUPP")
+	registerFunc(&_invokeIndexToUCStringUPP, frameworkHandle, "InvokeIndexToUCStringUPP")
+	registerFunc(&_invokeKCCallbackUPP, frameworkHandle, "InvokeKCCallbackUPP")
+	registerFunc(&_invokeOSLAccessorUPP, frameworkHandle, "InvokeOSLAccessorUPP")
+	registerFunc(&_invokeOSLAdjustMarksUPP, frameworkHandle, "InvokeOSLAdjustMarksUPP")
+	registerFunc(&_invokeOSLCompareUPP, frameworkHandle, "InvokeOSLCompareUPP")
+	registerFunc(&_invokeOSLCountUPP, frameworkHandle, "InvokeOSLCountUPP")
+	registerFunc(&_invokeOSLDisposeTokenUPP, frameworkHandle, "InvokeOSLDisposeTokenUPP")
+	registerFunc(&_invokeOSLGetErrDescUPP, frameworkHandle, "InvokeOSLGetErrDescUPP")
+	registerFunc(&_invokeOSLGetMarkTokenUPP, frameworkHandle, "InvokeOSLGetMarkTokenUPP")
+	registerFunc(&_invokeOSLMarkUPP, frameworkHandle, "InvokeOSLMarkUPP")
+	registerFunc(&_invokeResErrUPP, frameworkHandle, "InvokeResErrUPP")
+	registerFunc(&_invokeSelectorFunctionUPP, frameworkHandle, "InvokeSelectorFunctionUPP")
+	registerFunc(&_invokeSleepQUPP, frameworkHandle, "InvokeSleepQUPP")
+	registerFunc(&_invokeThreadEntryUPP, frameworkHandle, "InvokeThreadEntryUPP")
+	registerFunc(&_invokeThreadSchedulerUPP, frameworkHandle, "InvokeThreadSchedulerUPP")
+	registerFunc(&_invokeThreadSwitchUPP, frameworkHandle, "InvokeThreadSwitchUPP")
+	registerFunc(&_invokeThreadTerminationUPP, frameworkHandle, "InvokeThreadTerminationUPP")
+	registerFunc(&_invokeTimerUPP, frameworkHandle, "InvokeTimerUPP")
+	registerFunc(&_invokeUnicodeToTextFallbackUPP, frameworkHandle, "InvokeUnicodeToTextFallbackUPP")
+	registerFunc(&_isDataAvailableInIconRef, frameworkHandle, "IsDataAvailableInIconRef")
+	registerFunc(&_isHandleValid, frameworkHandle, "IsHandleValid")
+	registerFunc(&_isHeapValid, frameworkHandle, "IsHeapValid")
+	registerFunc(&_isIconRefComposite, frameworkHandle, "IsIconRefComposite")
+	registerFunc(&_isMetric, frameworkHandle, "IsMetric")
+	registerFunc(&_isPointerValid, frameworkHandle, "IsPointerValid")
+	registerFunc(&_isValidIconRef, frameworkHandle, "IsValidIconRef")
+	registerFunc(&_kCAddCallback, frameworkHandle, "KCAddCallback")
+	registerFunc(&_kCCopyItem, frameworkHandle, "KCCopyItem")
+	registerFunc(&_kCCountKeychains, frameworkHandle, "KCCountKeychains")
+	registerFunc(&_kCDeleteItem, frameworkHandle, "KCDeleteItem")
+	registerFunc(&_kCFindAppleSharePassword, frameworkHandle, "KCFindAppleSharePassword")
+	registerFunc(&_kCFindFirstItem, frameworkHandle, "KCFindFirstItem")
+	registerFunc(&_kCFindGenericPassword, frameworkHandle, "KCFindGenericPassword")
+	registerFunc(&_kCFindInternetPassword, frameworkHandle, "KCFindInternetPassword")
+	registerFunc(&_kCFindInternetPasswordWithPath, frameworkHandle, "KCFindInternetPasswordWithPath")
+	registerFunc(&_kCFindNextItem, frameworkHandle, "KCFindNextItem")
+	registerFunc(&_kCGetAttribute, frameworkHandle, "KCGetAttribute")
+	registerFunc(&_kCGetData, frameworkHandle, "KCGetData")
+	registerFunc(&_kCGetDefaultKeychain, frameworkHandle, "KCGetDefaultKeychain")
+	registerFunc(&_kCGetIndKeychain, frameworkHandle, "KCGetIndKeychain")
+	registerFunc(&_kCGetKeychain, frameworkHandle, "KCGetKeychain")
+	registerFunc(&_kCGetKeychainManagerVersion, frameworkHandle, "KCGetKeychainManagerVersion")
+	registerFunc(&_kCGetKeychainName, frameworkHandle, "KCGetKeychainName")
+	registerFunc(&_kCGetStatus, frameworkHandle, "KCGetStatus")
+	registerFunc(&_kCIsInteractionAllowed, frameworkHandle, "KCIsInteractionAllowed")
+	registerFunc(&_kCLock, frameworkHandle, "KCLock")
+	registerFunc(&_kCMakeAliasFromKCRef, frameworkHandle, "KCMakeAliasFromKCRef")
+	registerFunc(&_kCMakeKCRefFromAlias, frameworkHandle, "KCMakeKCRefFromAlias")
+	registerFunc(&_kCMakeKCRefFromFSRef, frameworkHandle, "KCMakeKCRefFromFSRef")
+	registerFunc(&_kCNewItem, frameworkHandle, "KCNewItem")
+	registerFunc(&_kCReleaseItem, frameworkHandle, "KCReleaseItem")
+	registerFunc(&_kCReleaseKeychain, frameworkHandle, "KCReleaseKeychain")
+	registerFunc(&_kCReleaseSearch, frameworkHandle, "KCReleaseSearch")
+	registerFunc(&_kCRemoveCallback, frameworkHandle, "KCRemoveCallback")
+	registerFunc(&_kCSetAttribute, frameworkHandle, "KCSetAttribute")
+	registerFunc(&_kCSetData, frameworkHandle, "KCSetData")
+	registerFunc(&_kCSetDefaultKeychain, frameworkHandle, "KCSetDefaultKeychain")
+	registerFunc(&_kCSetInteractionAllowed, frameworkHandle, "KCSetInteractionAllowed")
+	registerFunc(&_kCUpdateItem, frameworkHandle, "KCUpdateItem")
+	registerFunc(&_lMGetApFontID, frameworkHandle, "LMGetApFontID")
+	registerFunc(&_lMGetBootDrive, frameworkHandle, "LMGetBootDrive")
+	registerFunc(&_lMGetIntlSpec, frameworkHandle, "LMGetIntlSpec")
+	registerFunc(&_lMGetMemErr, frameworkHandle, "LMGetMemErr")
+	registerFunc(&_lMGetResErr, frameworkHandle, "LMGetResErr")
+	registerFunc(&_lMGetResLoad, frameworkHandle, "LMGetResLoad")
+	registerFunc(&_lMGetSysFontSize, frameworkHandle, "LMGetSysFontSize")
+	registerFunc(&_lMGetSysMap, frameworkHandle, "LMGetSysMap")
+	registerFunc(&_lMGetTmpResLoad, frameworkHandle, "LMGetTmpResLoad")
+	registerFunc(&_lMSetApFontID, frameworkHandle, "LMSetApFontID")
+	registerFunc(&_lMSetBootDrive, frameworkHandle, "LMSetBootDrive")
+	registerFunc(&_lMSetIntlSpec, frameworkHandle, "LMSetIntlSpec")
+	registerFunc(&_lMSetMemErr, frameworkHandle, "LMSetMemErr")
+	registerFunc(&_lMSetResErr, frameworkHandle, "LMSetResErr")
+	registerFunc(&_lMSetResLoad, frameworkHandle, "LMSetResLoad")
+	registerFunc(&_lMSetSysFontFam, frameworkHandle, "LMSetSysFontFam")
+	registerFunc(&_lMSetSysFontSize, frameworkHandle, "LMSetSysFontSize")
+	registerFunc(&_lMSetSysMap, frameworkHandle, "LMSetSysMap")
+	registerFunc(&_lMSetTmpResLoad, frameworkHandle, "LMSetTmpResLoad")
+	registerFunc(&_lSCanURLAcceptURL, frameworkHandle, "LSCanURLAcceptURL")
+	registerFunc(&_lSCopyAllHandlersForURLScheme, frameworkHandle, "LSCopyAllHandlersForURLScheme")
+	registerFunc(&_lSCopyAllRoleHandlersForContentType, frameworkHandle, "LSCopyAllRoleHandlersForContentType")
+	registerFunc(&_lSCopyApplicationURLsForBundleIdentifier, frameworkHandle, "LSCopyApplicationURLsForBundleIdentifier")
+	registerFunc(&_lSCopyApplicationURLsForURL, frameworkHandle, "LSCopyApplicationURLsForURL")
+	registerFunc(&_lSCopyDefaultApplicationURLForContentType, frameworkHandle, "LSCopyDefaultApplicationURLForContentType")
+	registerFunc(&_lSCopyDefaultApplicationURLForURL, frameworkHandle, "LSCopyDefaultApplicationURLForURL")
+	registerFunc(&_lSCopyDefaultHandlerForURLScheme, frameworkHandle, "LSCopyDefaultHandlerForURLScheme")
+	registerFunc(&_lSCopyDefaultRoleHandlerForContentType, frameworkHandle, "LSCopyDefaultRoleHandlerForContentType")
+	registerFunc(&_lSCopyDisplayNameForURL, frameworkHandle, "LSCopyDisplayNameForURL")
+	registerFunc(&_lSCopyItemInfoForURL, frameworkHandle, "LSCopyItemInfoForURL")
+	registerFunc(&_lSCopyKindStringForURL, frameworkHandle, "LSCopyKindStringForURL")
+	registerFunc(&_lSGetExtensionInfo, frameworkHandle, "LSGetExtensionInfo")
+	registerFunc(&_lSGetHandlerOptionsForContentType, frameworkHandle, "LSGetHandlerOptionsForContentType")
+	registerFunc(&_lSOpenApplication, frameworkHandle, "LSOpenApplication")
+	registerFunc(&_lSOpenCFURLRef, frameworkHandle, "LSOpenCFURLRef")
+	registerFunc(&_lSOpenFSRef, frameworkHandle, "LSOpenFSRef")
+	registerFunc(&_lSOpenFromRefSpec, frameworkHandle, "LSOpenFromRefSpec")
+	registerFunc(&_lSOpenFromURLSpec, frameworkHandle, "LSOpenFromURLSpec")
+	registerFunc(&_lSOpenItemsWithRole, frameworkHandle, "LSOpenItemsWithRole")
+	registerFunc(&_lSOpenURLsWithRole, frameworkHandle, "LSOpenURLsWithRole")
+	registerFunc(&_lSRegisterURL, frameworkHandle, "LSRegisterURL")
+	registerFunc(&_lSSetDefaultHandlerForURLScheme, frameworkHandle, "LSSetDefaultHandlerForURLScheme")
+	registerFunc(&_lSSetDefaultRoleHandlerForContentType, frameworkHandle, "LSSetDefaultRoleHandlerForContentType")
+	registerFunc(&_lSSetExtensionHiddenForURL, frameworkHandle, "LSSetExtensionHiddenForURL")
+	registerFunc(&_lSSetHandlerOptionsForContentType, frameworkHandle, "LSSetHandlerOptionsForContentType")
+	registerFunc(&_lSSetItemAttribute, frameworkHandle, "LSSetItemAttribute")
+	registerFunc(&_lSSharedFileListAddObserver, frameworkHandle, "LSSharedFileListAddObserver")
+	registerFunc(&_lSSharedFileListCopyProperty, frameworkHandle, "LSSharedFileListCopyProperty")
+	registerFunc(&_lSSharedFileListCopySnapshot, frameworkHandle, "LSSharedFileListCopySnapshot")
+	registerFunc(&_lSSharedFileListCreate, frameworkHandle, "LSSharedFileListCreate")
+	registerFunc(&_lSSharedFileListGetSeedValue, frameworkHandle, "LSSharedFileListGetSeedValue")
+	registerFunc(&_lSSharedFileListGetTypeID, frameworkHandle, "LSSharedFileListGetTypeID")
+	registerFunc(&_lSSharedFileListInsertItemFSRef, frameworkHandle, "LSSharedFileListInsertItemFSRef")
+	registerFunc(&_lSSharedFileListInsertItemURL, frameworkHandle, "LSSharedFileListInsertItemURL")
+	registerFunc(&_lSSharedFileListItemCopyDisplayName, frameworkHandle, "LSSharedFileListItemCopyDisplayName")
+	registerFunc(&_lSSharedFileListItemCopyIconRef, frameworkHandle, "LSSharedFileListItemCopyIconRef")
+	registerFunc(&_lSSharedFileListItemCopyProperty, frameworkHandle, "LSSharedFileListItemCopyProperty")
+	registerFunc(&_lSSharedFileListItemCopyResolvedURL, frameworkHandle, "LSSharedFileListItemCopyResolvedURL")
+	registerFunc(&_lSSharedFileListItemGetID, frameworkHandle, "LSSharedFileListItemGetID")
+	registerFunc(&_lSSharedFileListItemGetTypeID, frameworkHandle, "LSSharedFileListItemGetTypeID")
+	registerFunc(&_lSSharedFileListItemMove, frameworkHandle, "LSSharedFileListItemMove")
+	registerFunc(&_lSSharedFileListItemRemove, frameworkHandle, "LSSharedFileListItemRemove")
+	registerFunc(&_lSSharedFileListItemResolve, frameworkHandle, "LSSharedFileListItemResolve")
+	registerFunc(&_lSSharedFileListItemSetProperty, frameworkHandle, "LSSharedFileListItemSetProperty")
+	registerFunc(&_lSSharedFileListRemoveAllItems, frameworkHandle, "LSSharedFileListRemoveAllItems")
+	registerFunc(&_lSSharedFileListRemoveObserver, frameworkHandle, "LSSharedFileListRemoveObserver")
+	registerFunc(&_lSSharedFileListSetAuthorization, frameworkHandle, "LSSharedFileListSetAuthorization")
+	registerFunc(&_lSSharedFileListSetProperty, frameworkHandle, "LSSharedFileListSetProperty")
+	registerFunc(&_loadResource, frameworkHandle, "LoadResource")
+	registerFunc(&_localeCountNames, frameworkHandle, "LocaleCountNames")
+	registerFunc(&_localeGetIndName, frameworkHandle, "LocaleGetIndName")
+	registerFunc(&_localeGetName, frameworkHandle, "LocaleGetName")
+	registerFunc(&_localeOperationCountLocales, frameworkHandle, "LocaleOperationCountLocales")
+	registerFunc(&_localeOperationCountNames, frameworkHandle, "LocaleOperationCountNames")
+	registerFunc(&_localeOperationGetIndName, frameworkHandle, "LocaleOperationGetIndName")
+	registerFunc(&_localeOperationGetLocales, frameworkHandle, "LocaleOperationGetLocales")
+	registerFunc(&_localeOperationGetName, frameworkHandle, "LocaleOperationGetName")
+	registerFunc(&_localeRefFromLangOrRegionCode, frameworkHandle, "LocaleRefFromLangOrRegionCode")
+	registerFunc(&_localeRefFromLocaleString, frameworkHandle, "LocaleRefFromLocaleString")
+	registerFunc(&_localeRefGetPartString, frameworkHandle, "LocaleRefGetPartString")
+	registerFunc(&_localeStringToLangAndRegionCodes, frameworkHandle, "LocaleStringToLangAndRegionCodes")
+	registerFunc(&_long2Fix, frameworkHandle, "Long2Fix")
+	registerFunc(&_longDoubleToSInt64, frameworkHandle, "LongDoubleToSInt64")
+	registerFunc(&_longDoubleToUInt64, frameworkHandle, "LongDoubleToUInt64")
+	registerFunc(&_mDCopyLabelKinds, frameworkHandle, "MDCopyLabelKinds")
+	registerFunc(&_mDCopyLabelWithUUID, frameworkHandle, "MDCopyLabelWithUUID")
+	registerFunc(&_mDCopyLabelsMatchingExpression, frameworkHandle, "MDCopyLabelsMatchingExpression")
+	registerFunc(&_mDCopyLabelsWithKind, frameworkHandle, "MDCopyLabelsWithKind")
+	registerFunc(&_mDItemCopyAttribute, frameworkHandle, "MDItemCopyAttribute")
+	registerFunc(&_mDItemCopyAttributeList, frameworkHandle, "MDItemCopyAttributeList")
+	registerFunc(&_mDItemCopyAttributeNames, frameworkHandle, "MDItemCopyAttributeNames")
+	registerFunc(&_mDItemCopyAttributes, frameworkHandle, "MDItemCopyAttributes")
+	registerFunc(&_mDItemCopyLabels, frameworkHandle, "MDItemCopyLabels")
+	registerFunc(&_mDItemCreate, frameworkHandle, "MDItemCreate")
+	registerFunc(&_mDItemCreateWithURL, frameworkHandle, "MDItemCreateWithURL")
+	registerFunc(&_mDItemGetCacheFileDescriptors, frameworkHandle, "MDItemGetCacheFileDescriptors")
+	registerFunc(&_mDItemGetTypeID, frameworkHandle, "MDItemGetTypeID")
+	registerFunc(&_mDItemRemoveLabel, frameworkHandle, "MDItemRemoveLabel")
+	registerFunc(&_mDItemSetLabel, frameworkHandle, "MDItemSetLabel")
+	registerFunc(&_mDItemsCopyAttributes, frameworkHandle, "MDItemsCopyAttributes")
+	registerFunc(&_mDItemsCreateWithURLs, frameworkHandle, "MDItemsCreateWithURLs")
+	registerFunc(&_mDLabelCopyAttribute, frameworkHandle, "MDLabelCopyAttribute")
+	registerFunc(&_mDLabelCopyAttributeName, frameworkHandle, "MDLabelCopyAttributeName")
+	registerFunc(&_mDLabelCreate, frameworkHandle, "MDLabelCreate")
+	registerFunc(&_mDLabelDelete, frameworkHandle, "MDLabelDelete")
+	registerFunc(&_mDLabelGetTypeID, frameworkHandle, "MDLabelGetTypeID")
+	registerFunc(&_mDLabelSetAttributes, frameworkHandle, "MDLabelSetAttributes")
+	registerFunc(&_mDQueryCopyQueryString, frameworkHandle, "MDQueryCopyQueryString")
+	registerFunc(&_mDQueryCopySortingAttributes, frameworkHandle, "MDQueryCopySortingAttributes")
+	registerFunc(&_mDQueryCopyValueListAttributes, frameworkHandle, "MDQueryCopyValueListAttributes")
+	registerFunc(&_mDQueryCopyValuesOfAttribute, frameworkHandle, "MDQueryCopyValuesOfAttribute")
+	registerFunc(&_mDQueryCreate, frameworkHandle, "MDQueryCreate")
+	registerFunc(&_mDQueryCreateForItems, frameworkHandle, "MDQueryCreateForItems")
+	registerFunc(&_mDQueryCreateSubset, frameworkHandle, "MDQueryCreateSubset")
+	registerFunc(&_mDQueryDisableUpdates, frameworkHandle, "MDQueryDisableUpdates")
+	registerFunc(&_mDQueryEnableUpdates, frameworkHandle, "MDQueryEnableUpdates")
+	registerFunc(&_mDQueryExecute, frameworkHandle, "MDQueryExecute")
+	registerFunc(&_mDQueryGetAttributeValueOfResultAtIndex, frameworkHandle, "MDQueryGetAttributeValueOfResultAtIndex")
+	registerFunc(&_mDQueryGetBatchingParameters, frameworkHandle, "MDQueryGetBatchingParameters")
+	registerFunc(&_mDQueryGetCountOfResultsWithAttributeValue, frameworkHandle, "MDQueryGetCountOfResultsWithAttributeValue")
+	registerFunc(&_mDQueryGetIndexOfResult, frameworkHandle, "MDQueryGetIndexOfResult")
+	registerFunc(&_mDQueryGetResultAtIndex, frameworkHandle, "MDQueryGetResultAtIndex")
+	registerFunc(&_mDQueryGetResultCount, frameworkHandle, "MDQueryGetResultCount")
+	registerFunc(&_mDQueryGetSortOptionFlagsForAttribute, frameworkHandle, "MDQueryGetSortOptionFlagsForAttribute")
+	registerFunc(&_mDQueryGetTypeID, frameworkHandle, "MDQueryGetTypeID")
+	registerFunc(&_mDQueryIsGatheringComplete, frameworkHandle, "MDQueryIsGatheringComplete")
+	registerFunc(&_mDQuerySetBatchingParameters, frameworkHandle, "MDQuerySetBatchingParameters")
+	registerFunc(&_mDQuerySetCreateResultFunction, frameworkHandle, "MDQuerySetCreateResultFunction")
+	registerFunc(&_mDQuerySetCreateValueFunction, frameworkHandle, "MDQuerySetCreateValueFunction")
+	registerFunc(&_mDQuerySetDispatchQueue, frameworkHandle, "MDQuerySetDispatchQueue")
+	registerFunc(&_mDQuerySetMaxCount, frameworkHandle, "MDQuerySetMaxCount")
+	registerFunc(&_mDQuerySetSearchScope, frameworkHandle, "MDQuerySetSearchScope")
+	registerFunc(&_mDQuerySetSortComparator, frameworkHandle, "MDQuerySetSortComparator")
+	registerFunc(&_mDQuerySetSortComparatorBlock, frameworkHandle, "MDQuerySetSortComparatorBlock")
+	registerFunc(&_mDQuerySetSortOptionFlagsForAttribute, frameworkHandle, "MDQuerySetSortOptionFlagsForAttribute")
+	registerFunc(&_mDQuerySetSortOrder, frameworkHandle, "MDQuerySetSortOrder")
+	registerFunc(&_mDQueryStop, frameworkHandle, "MDQueryStop")
+	registerFunc(&_mDSchemaCopyAllAttributes, frameworkHandle, "MDSchemaCopyAllAttributes")
+	registerFunc(&_mDSchemaCopyAttributesForContentType, frameworkHandle, "MDSchemaCopyAttributesForContentType")
+	registerFunc(&_mDSchemaCopyDisplayDescriptionForAttribute, frameworkHandle, "MDSchemaCopyDisplayDescriptionForAttribute")
+	registerFunc(&_mDSchemaCopyDisplayNameForAttribute, frameworkHandle, "MDSchemaCopyDisplayNameForAttribute")
+	registerFunc(&_mDSchemaCopyMetaAttributesForAttribute, frameworkHandle, "MDSchemaCopyMetaAttributesForAttribute")
+	registerFunc(&_mPAllocateAligned, frameworkHandle, "MPAllocateAligned")
+	registerFunc(&_mPAllocateTaskStorageIndex, frameworkHandle, "MPAllocateTaskStorageIndex")
+	registerFunc(&_mPArmTimer, frameworkHandle, "MPArmTimer")
+	registerFunc(&_mPBlockClear, frameworkHandle, "MPBlockClear")
+	registerFunc(&_mPBlockCopy, frameworkHandle, "MPBlockCopy")
+	registerFunc(&_mPCancelTimer, frameworkHandle, "MPCancelTimer")
+	registerFunc(&_mPCauseNotification, frameworkHandle, "MPCauseNotification")
+	registerFunc(&_mPCreateCriticalRegion, frameworkHandle, "MPCreateCriticalRegion")
+	registerFunc(&_mPCreateEvent, frameworkHandle, "MPCreateEvent")
+	registerFunc(&_mPCreateNotification, frameworkHandle, "MPCreateNotification")
+	registerFunc(&_mPCreateQueue, frameworkHandle, "MPCreateQueue")
+	registerFunc(&_mPCreateSemaphore, frameworkHandle, "MPCreateSemaphore")
+	registerFunc(&_mPCreateTask, frameworkHandle, "MPCreateTask")
+	registerFunc(&_mPCreateTimer, frameworkHandle, "MPCreateTimer")
+	registerFunc(&_mPCurrentTaskID, frameworkHandle, "MPCurrentTaskID")
+	registerFunc(&_mPDeallocateTaskStorageIndex, frameworkHandle, "MPDeallocateTaskStorageIndex")
+	registerFunc(&_mPDelayUntil, frameworkHandle, "MPDelayUntil")
+	registerFunc(&_mPDeleteCriticalRegion, frameworkHandle, "MPDeleteCriticalRegion")
+	registerFunc(&_mPDeleteEvent, frameworkHandle, "MPDeleteEvent")
+	registerFunc(&_mPDeleteNotification, frameworkHandle, "MPDeleteNotification")
+	registerFunc(&_mPDeleteQueue, frameworkHandle, "MPDeleteQueue")
+	registerFunc(&_mPDeleteSemaphore, frameworkHandle, "MPDeleteSemaphore")
+	registerFunc(&_mPDeleteTimer, frameworkHandle, "MPDeleteTimer")
+	registerFunc(&_mPDisposeTaskException, frameworkHandle, "MPDisposeTaskException")
+	registerFunc(&_mPEnterCriticalRegion, frameworkHandle, "MPEnterCriticalRegion")
+	registerFunc(&_mPExit, frameworkHandle, "MPExit")
+	registerFunc(&_mPExitCriticalRegion, frameworkHandle, "MPExitCriticalRegion")
+	registerFunc(&_mPExtractTaskState, frameworkHandle, "MPExtractTaskState")
+	registerFunc(&_mPFree, frameworkHandle, "MPFree")
+	registerFunc(&_mPGetAllocatedBlockSize, frameworkHandle, "MPGetAllocatedBlockSize")
+	registerFunc(&_mPGetNextCpuID, frameworkHandle, "MPGetNextCpuID")
+	registerFunc(&_mPGetNextTaskID, frameworkHandle, "MPGetNextTaskID")
+	registerFunc(&_mPGetTaskStorageValue, frameworkHandle, "MPGetTaskStorageValue")
+	registerFunc(&_mPModifyNotification, frameworkHandle, "MPModifyNotification")
+	registerFunc(&_mPModifyNotificationParameters, frameworkHandle, "MPModifyNotificationParameters")
+	registerFunc(&_mPNotifyQueue, frameworkHandle, "MPNotifyQueue")
+	registerFunc(&_mPProcessors, frameworkHandle, "MPProcessors")
+	registerFunc(&_mPProcessorsScheduled, frameworkHandle, "MPProcessorsScheduled")
+	registerFunc(&_mPRegisterDebugger, frameworkHandle, "MPRegisterDebugger")
+	registerFunc(&_mPRemoteCall, frameworkHandle, "MPRemoteCall")
+	registerFunc(&_mPRemoteCallCFM, frameworkHandle, "MPRemoteCallCFM")
+	registerFunc(&_mPSetEvent, frameworkHandle, "MPSetEvent")
+	registerFunc(&_mPSetExceptionHandler, frameworkHandle, "MPSetExceptionHandler")
+	registerFunc(&_mPSetQueueReserve, frameworkHandle, "MPSetQueueReserve")
+	registerFunc(&_mPSetTaskState, frameworkHandle, "MPSetTaskState")
+	registerFunc(&_mPSetTaskStorageValue, frameworkHandle, "MPSetTaskStorageValue")
+	registerFunc(&_mPSetTaskType, frameworkHandle, "MPSetTaskType")
+	registerFunc(&_mPSetTaskWeight, frameworkHandle, "MPSetTaskWeight")
+	registerFunc(&_mPSetTimerNotify, frameworkHandle, "MPSetTimerNotify")
+	registerFunc(&_mPSignalSemaphore, frameworkHandle, "MPSignalSemaphore")
+	registerFunc(&_mPTaskIsPreemptive, frameworkHandle, "MPTaskIsPreemptive")
+	registerFunc(&_mPTerminateTask, frameworkHandle, "MPTerminateTask")
+	registerFunc(&_mPUnregisterDebugger, frameworkHandle, "MPUnregisterDebugger")
+	registerFunc(&_mPWaitForEvent, frameworkHandle, "MPWaitForEvent")
+	registerFunc(&_mPWaitOnQueue, frameworkHandle, "MPWaitOnQueue")
+	registerFunc(&_mPWaitOnSemaphore, frameworkHandle, "MPWaitOnSemaphore")
+	registerFunc(&_mPYield, frameworkHandle, "MPYield")
+	registerFunc(&_maximumProcessorSpeed, frameworkHandle, "MaximumProcessorSpeed")
+	registerFunc(&_memError, frameworkHandle, "MemError")
+	registerFunc(&_microseconds, frameworkHandle, "Microseconds")
+	registerFunc(&_minimumProcessorSpeed, frameworkHandle, "MinimumProcessorSpeed")
+	registerFunc(&_munger, frameworkHandle, "Munger")
+	registerFunc(&_nanosecondsToAbsolute, frameworkHandle, "NanosecondsToAbsolute")
+	registerFunc(&_nanosecondsToDuration, frameworkHandle, "NanosecondsToDuration")
+	registerFunc(&_nearestMacTextEncodings, frameworkHandle, "NearestMacTextEncodings")
+	registerFunc(&_newAECoerceDescUPP, frameworkHandle, "NewAECoerceDescUPP")
+	registerFunc(&_newAECoercePtrUPP, frameworkHandle, "NewAECoercePtrUPP")
+	registerFunc(&_newAEDisposeExternalUPP, frameworkHandle, "NewAEDisposeExternalUPP")
+	registerFunc(&_newAEEventHandlerUPP, frameworkHandle, "NewAEEventHandlerUPP")
+	registerFunc(&_newCollection, frameworkHandle, "NewCollection")
+	registerFunc(&_newCollectionExceptionUPP, frameworkHandle, "NewCollectionExceptionUPP")
+	registerFunc(&_newCollectionFlattenUPP, frameworkHandle, "NewCollectionFlattenUPP")
+	registerFunc(&_newComponentFunctionUPP, frameworkHandle, "NewComponentFunctionUPP")
+	registerFunc(&_newComponentMPWorkFunctionUPP, frameworkHandle, "NewComponentMPWorkFunctionUPP")
+	registerFunc(&_newComponentRoutineUPP, frameworkHandle, "NewComponentRoutineUPP")
+	registerFunc(&_newDebugAssertOutputHandlerUPP, frameworkHandle, "NewDebugAssertOutputHandlerUPP")
+	registerFunc(&_newDebugComponent, frameworkHandle, "NewDebugComponent")
+	registerFunc(&_newDebugComponentCallbackUPP, frameworkHandle, "NewDebugComponentCallbackUPP")
+	registerFunc(&_newDebugOption, frameworkHandle, "NewDebugOption")
+	registerFunc(&_newDebuggerDisposeThreadUPP, frameworkHandle, "NewDebuggerDisposeThreadUPP")
+	registerFunc(&_newDebuggerNewThreadUPP, frameworkHandle, "NewDebuggerNewThreadUPP")
+	registerFunc(&_newDebuggerThreadSchedulerUPP, frameworkHandle, "NewDebuggerThreadSchedulerUPP")
+	registerFunc(&_newDeferredTaskUPP, frameworkHandle, "NewDeferredTaskUPP")
+	registerFunc(&_newEmptyHandle, frameworkHandle, "NewEmptyHandle")
+	registerFunc(&_newExceptionHandlerUPP, frameworkHandle, "NewExceptionHandlerUPP")
+	registerFunc(&_newFNSubscriptionUPP, frameworkHandle, "NewFNSubscriptionUPP")
+	registerFunc(&_newFSVolumeEjectUPP, frameworkHandle, "NewFSVolumeEjectUPP")
+	registerFunc(&_newFSVolumeMountUPP, frameworkHandle, "NewFSVolumeMountUPP")
+	registerFunc(&_newFSVolumeUnmountUPP, frameworkHandle, "NewFSVolumeUnmountUPP")
+	registerFunc(&_newFolderManagerNotificationUPP, frameworkHandle, "NewFolderManagerNotificationUPP")
+	registerFunc(&_newGestaltValue, frameworkHandle, "NewGestaltValue")
+	registerFunc(&_newGetMissingComponentResourceUPP, frameworkHandle, "NewGetMissingComponentResourceUPP")
+	registerFunc(&_newHandle, frameworkHandle, "NewHandle")
+	registerFunc(&_newHandleClear, frameworkHandle, "NewHandleClear")
+	registerFunc(&_newIOCompletionUPP, frameworkHandle, "NewIOCompletionUPP")
+	registerFunc(&_newIndexToUCStringUPP, frameworkHandle, "NewIndexToUCStringUPP")
+	registerFunc(&_newKCCallbackUPP, frameworkHandle, "NewKCCallbackUPP")
+	registerFunc(&_newOSLAccessorUPP, frameworkHandle, "NewOSLAccessorUPP")
+	registerFunc(&_newOSLAdjustMarksUPP, frameworkHandle, "NewOSLAdjustMarksUPP")
+	registerFunc(&_newOSLCompareUPP, frameworkHandle, "NewOSLCompareUPP")
+	registerFunc(&_newOSLCountUPP, frameworkHandle, "NewOSLCountUPP")
+	registerFunc(&_newOSLDisposeTokenUPP, frameworkHandle, "NewOSLDisposeTokenUPP")
+	registerFunc(&_newOSLGetErrDescUPP, frameworkHandle, "NewOSLGetErrDescUPP")
+	registerFunc(&_newOSLGetMarkTokenUPP, frameworkHandle, "NewOSLGetMarkTokenUPP")
+	registerFunc(&_newOSLMarkUPP, frameworkHandle, "NewOSLMarkUPP")
+	registerFunc(&_newPtr, frameworkHandle, "NewPtr")
+	registerFunc(&_newPtrClear, frameworkHandle, "NewPtrClear")
+	registerFunc(&_newResErrUPP, frameworkHandle, "NewResErrUPP")
+	registerFunc(&_newSelectorFunctionUPP, frameworkHandle, "NewSelectorFunctionUPP")
+	registerFunc(&_newSleepQUPP, frameworkHandle, "NewSleepQUPP")
+	registerFunc(&_newThread, frameworkHandle, "NewThread")
+	registerFunc(&_newThreadEntryUPP, frameworkHandle, "NewThreadEntryUPP")
+	registerFunc(&_newThreadSchedulerUPP, frameworkHandle, "NewThreadSchedulerUPP")
+	registerFunc(&_newThreadSwitchUPP, frameworkHandle, "NewThreadSwitchUPP")
+	registerFunc(&_newThreadTerminationUPP, frameworkHandle, "NewThreadTerminationUPP")
+	registerFunc(&_newTimerUPP, frameworkHandle, "NewTimerUPP")
+	registerFunc(&_newUnicodeToTextFallbackUPP, frameworkHandle, "NewUnicodeToTextFallbackUPP")
+	registerFunc(&_openAComponent, frameworkHandle, "OpenAComponent")
+	registerFunc(&_openAComponentResFile, frameworkHandle, "OpenAComponentResFile")
+	registerFunc(&_openADefaultComponent, frameworkHandle, "OpenADefaultComponent")
+	registerFunc(&_openComponent, frameworkHandle, "OpenComponent")
+	registerFunc(&_openComponentResFile, frameworkHandle, "OpenComponentResFile")
+	registerFunc(&_openDefaultComponent, frameworkHandle, "OpenDefaultComponent")
+	registerFunc(&_overrideIconRef, frameworkHandle, "OverrideIconRef")
+	registerFunc(&_pBAllocateForkAsync, frameworkHandle, "PBAllocateForkAsync")
+	registerFunc(&_pBAllocateForkSync, frameworkHandle, "PBAllocateForkSync")
+	registerFunc(&_pBCatalogSearchAsync, frameworkHandle, "PBCatalogSearchAsync")
+	registerFunc(&_pBCatalogSearchSync, frameworkHandle, "PBCatalogSearchSync")
+	registerFunc(&_pBCloseForkAsync, frameworkHandle, "PBCloseForkAsync")
+	registerFunc(&_pBCloseForkSync, frameworkHandle, "PBCloseForkSync")
+	registerFunc(&_pBCloseIteratorAsync, frameworkHandle, "PBCloseIteratorAsync")
+	registerFunc(&_pBCloseIteratorSync, frameworkHandle, "PBCloseIteratorSync")
+	registerFunc(&_pBCompareFSRefsAsync, frameworkHandle, "PBCompareFSRefsAsync")
+	registerFunc(&_pBCompareFSRefsSync, frameworkHandle, "PBCompareFSRefsSync")
+	registerFunc(&_pBCreateDirectoryUnicodeAsync, frameworkHandle, "PBCreateDirectoryUnicodeAsync")
+	registerFunc(&_pBCreateDirectoryUnicodeSync, frameworkHandle, "PBCreateDirectoryUnicodeSync")
+	registerFunc(&_pBCreateFileAndOpenForkUnicodeAsync, frameworkHandle, "PBCreateFileAndOpenForkUnicodeAsync")
+	registerFunc(&_pBCreateFileAndOpenForkUnicodeSync, frameworkHandle, "PBCreateFileAndOpenForkUnicodeSync")
+	registerFunc(&_pBCreateFileUnicodeAsync, frameworkHandle, "PBCreateFileUnicodeAsync")
+	registerFunc(&_pBCreateFileUnicodeSync, frameworkHandle, "PBCreateFileUnicodeSync")
+	registerFunc(&_pBCreateForkAsync, frameworkHandle, "PBCreateForkAsync")
+	registerFunc(&_pBCreateForkSync, frameworkHandle, "PBCreateForkSync")
+	registerFunc(&_pBDeleteForkAsync, frameworkHandle, "PBDeleteForkAsync")
+	registerFunc(&_pBDeleteForkSync, frameworkHandle, "PBDeleteForkSync")
+	registerFunc(&_pBDeleteObjectAsync, frameworkHandle, "PBDeleteObjectAsync")
+	registerFunc(&_pBDeleteObjectSync, frameworkHandle, "PBDeleteObjectSync")
+	registerFunc(&_pBExchangeObjectsAsync, frameworkHandle, "PBExchangeObjectsAsync")
+	registerFunc(&_pBExchangeObjectsSync, frameworkHandle, "PBExchangeObjectsSync")
+	registerFunc(&_pBFSCopyFileAsync, frameworkHandle, "PBFSCopyFileAsync")
+	registerFunc(&_pBFSCopyFileSync, frameworkHandle, "PBFSCopyFileSync")
+	registerFunc(&_pBFSResolveNodeIDAsync, frameworkHandle, "PBFSResolveNodeIDAsync")
+	registerFunc(&_pBFSResolveNodeIDSync, frameworkHandle, "PBFSResolveNodeIDSync")
+	registerFunc(&_pBFlushForkAsync, frameworkHandle, "PBFlushForkAsync")
+	registerFunc(&_pBFlushForkSync, frameworkHandle, "PBFlushForkSync")
+	registerFunc(&_pBFlushVolumeAsync, frameworkHandle, "PBFlushVolumeAsync")
+	registerFunc(&_pBFlushVolumeSync, frameworkHandle, "PBFlushVolumeSync")
+	registerFunc(&_pBGetCatalogInfoAsync, frameworkHandle, "PBGetCatalogInfoAsync")
+	registerFunc(&_pBGetCatalogInfoBulkAsync, frameworkHandle, "PBGetCatalogInfoBulkAsync")
+	registerFunc(&_pBGetCatalogInfoBulkSync, frameworkHandle, "PBGetCatalogInfoBulkSync")
+	registerFunc(&_pBGetCatalogInfoSync, frameworkHandle, "PBGetCatalogInfoSync")
+	registerFunc(&_pBGetForkCBInfoAsync, frameworkHandle, "PBGetForkCBInfoAsync")
+	registerFunc(&_pBGetForkCBInfoSync, frameworkHandle, "PBGetForkCBInfoSync")
+	registerFunc(&_pBGetForkPositionAsync, frameworkHandle, "PBGetForkPositionAsync")
+	registerFunc(&_pBGetForkPositionSync, frameworkHandle, "PBGetForkPositionSync")
+	registerFunc(&_pBGetForkSizeAsync, frameworkHandle, "PBGetForkSizeAsync")
+	registerFunc(&_pBGetForkSizeSync, frameworkHandle, "PBGetForkSizeSync")
+	registerFunc(&_pBGetVolumeInfoAsync, frameworkHandle, "PBGetVolumeInfoAsync")
+	registerFunc(&_pBGetVolumeInfoSync, frameworkHandle, "PBGetVolumeInfoSync")
+	registerFunc(&_pBIterateForksAsync, frameworkHandle, "PBIterateForksAsync")
+	registerFunc(&_pBIterateForksSync, frameworkHandle, "PBIterateForksSync")
+	registerFunc(&_pBMakeFSRefUnicodeAsync, frameworkHandle, "PBMakeFSRefUnicodeAsync")
+	registerFunc(&_pBMakeFSRefUnicodeSync, frameworkHandle, "PBMakeFSRefUnicodeSync")
+	registerFunc(&_pBMoveObjectAsync, frameworkHandle, "PBMoveObjectAsync")
+	registerFunc(&_pBMoveObjectSync, frameworkHandle, "PBMoveObjectSync")
+	registerFunc(&_pBOpenForkAsync, frameworkHandle, "PBOpenForkAsync")
+	registerFunc(&_pBOpenForkSync, frameworkHandle, "PBOpenForkSync")
+	registerFunc(&_pBOpenIteratorAsync, frameworkHandle, "PBOpenIteratorAsync")
+	registerFunc(&_pBOpenIteratorSync, frameworkHandle, "PBOpenIteratorSync")
+	registerFunc(&_pBReadForkAsync, frameworkHandle, "PBReadForkAsync")
+	registerFunc(&_pBReadForkSync, frameworkHandle, "PBReadForkSync")
+	registerFunc(&_pBRenameUnicodeAsync, frameworkHandle, "PBRenameUnicodeAsync")
+	registerFunc(&_pBRenameUnicodeSync, frameworkHandle, "PBRenameUnicodeSync")
+	registerFunc(&_pBSetCatalogInfoAsync, frameworkHandle, "PBSetCatalogInfoAsync")
+	registerFunc(&_pBSetCatalogInfoSync, frameworkHandle, "PBSetCatalogInfoSync")
+	registerFunc(&_pBSetForkPositionAsync, frameworkHandle, "PBSetForkPositionAsync")
+	registerFunc(&_pBSetForkPositionSync, frameworkHandle, "PBSetForkPositionSync")
+	registerFunc(&_pBSetForkSizeAsync, frameworkHandle, "PBSetForkSizeAsync")
+	registerFunc(&_pBSetForkSizeSync, frameworkHandle, "PBSetForkSizeSync")
+	registerFunc(&_pBSetVolumeInfoAsync, frameworkHandle, "PBSetVolumeInfoAsync")
+	registerFunc(&_pBSetVolumeInfoSync, frameworkHandle, "PBSetVolumeInfoSync")
+	registerFunc(&_pBUnlinkObjectAsync, frameworkHandle, "PBUnlinkObjectAsync")
+	registerFunc(&_pBUnlinkObjectSync, frameworkHandle, "PBUnlinkObjectSync")
+	registerFunc(&_pBWriteForkAsync, frameworkHandle, "PBWriteForkAsync")
+	registerFunc(&_pBWriteForkSync, frameworkHandle, "PBWriteForkSync")
+	registerFunc(&_pBXLockRangeAsync, frameworkHandle, "PBXLockRangeAsync")
+	registerFunc(&_pBXLockRangeSync, frameworkHandle, "PBXLockRangeSync")
+	registerFunc(&_pBXUnlockRangeAsync, frameworkHandle, "PBXUnlockRangeAsync")
+	registerFunc(&_pBXUnlockRangeSync, frameworkHandle, "PBXUnlockRangeSync")
+	registerFunc(&_pLpos, frameworkHandle, "PLpos")
+	registerFunc(&_pLstrcat, frameworkHandle, "PLstrcat")
+	registerFunc(&_pLstrchr, frameworkHandle, "PLstrchr")
+	registerFunc(&_pLstrcmp, frameworkHandle, "PLstrcmp")
+	registerFunc(&_pLstrcpy, frameworkHandle, "PLstrcpy")
+	registerFunc(&_pLstrlen, frameworkHandle, "PLstrlen")
+	registerFunc(&_pLstrncat, frameworkHandle, "PLstrncat")
+	registerFunc(&_pLstrncmp, frameworkHandle, "PLstrncmp")
+	registerFunc(&_pLstrncpy, frameworkHandle, "PLstrncpy")
+	registerFunc(&_pLstrpbrk, frameworkHandle, "PLstrpbrk")
+	registerFunc(&_pLstrrchr, frameworkHandle, "PLstrrchr")
+	registerFunc(&_pLstrspn, frameworkHandle, "PLstrspn")
+	registerFunc(&_pLstrstr, frameworkHandle, "PLstrstr")
+	registerFunc(&_primeTime, frameworkHandle, "PrimeTime")
+	registerFunc(&_primeTimeTask, frameworkHandle, "PrimeTimeTask")
+	registerFunc(&_ptrAndHand, frameworkHandle, "PtrAndHand")
+	registerFunc(&_ptrToHand, frameworkHandle, "PtrToHand")
+	registerFunc(&_ptrToXHand, frameworkHandle, "PtrToXHand")
+	registerFunc(&_purgeCollection, frameworkHandle, "PurgeCollection")
+	registerFunc(&_purgeCollectionTag, frameworkHandle, "PurgeCollectionTag")
+	registerFunc(&_queryUnicodeMappings, frameworkHandle, "QueryUnicodeMappings")
+	registerFunc(&_readIconFromFSRef, frameworkHandle, "ReadIconFromFSRef")
+	registerFunc(&_readLocation, frameworkHandle, "ReadLocation")
+	registerFunc(&_readPartialResource, frameworkHandle, "ReadPartialResource")
+	registerFunc(&_reallocateHandle, frameworkHandle, "ReallocateHandle")
+	registerFunc(&_recoverHandle, frameworkHandle, "RecoverHandle")
+	registerFunc(&_registerComponentFunc, frameworkHandle, "RegisterComponent")
+	registerFunc(&_registerComponentFileRef, frameworkHandle, "RegisterComponentFileRef")
+	registerFunc(&_registerComponentFileRefEntries, frameworkHandle, "RegisterComponentFileRefEntries")
+	registerFunc(&_registerComponentResource, frameworkHandle, "RegisterComponentResource")
+	registerFunc(&_registerComponentResourceFile, frameworkHandle, "RegisterComponentResourceFile")
+	registerFunc(&_registerIconRefFromFSRef, frameworkHandle, "RegisterIconRefFromFSRef")
+	registerFunc(&_registerIconRefFromIconFamily, frameworkHandle, "RegisterIconRefFromIconFamily")
+	registerFunc(&_releaseCollection, frameworkHandle, "ReleaseCollection")
+	registerFunc(&_releaseFolder, frameworkHandle, "ReleaseFolder")
+	registerFunc(&_releaseIconRef, frameworkHandle, "ReleaseIconRef")
+	registerFunc(&_releaseResource, frameworkHandle, "ReleaseResource")
+	registerFunc(&_removeCollectionItem, frameworkHandle, "RemoveCollectionItem")
+	registerFunc(&_removeFolderDescriptor, frameworkHandle, "RemoveFolderDescriptor")
+	registerFunc(&_removeIconRefOverride, frameworkHandle, "RemoveIconRefOverride")
+	registerFunc(&_removeIndexedCollectionItem, frameworkHandle, "RemoveIndexedCollectionItem")
+	registerFunc(&_removeResource, frameworkHandle, "RemoveResource")
+	registerFunc(&_removeTimeTask, frameworkHandle, "RemoveTimeTask")
+	registerFunc(&_replaceGestaltValue, frameworkHandle, "ReplaceGestaltValue")
+	registerFunc(&_replaceIndexedCollectionItem, frameworkHandle, "ReplaceIndexedCollectionItem")
+	registerFunc(&_replaceIndexedCollectionItemHdl, frameworkHandle, "ReplaceIndexedCollectionItemHdl")
+	registerFunc(&_resError, frameworkHandle, "ResError")
+	registerFunc(&_resetTextToUnicodeInfo, frameworkHandle, "ResetTextToUnicodeInfo")
+	registerFunc(&_resetUnicodeToTextInfo, frameworkHandle, "ResetUnicodeToTextInfo")
+	registerFunc(&_resetUnicodeToTextRunInfo, frameworkHandle, "ResetUnicodeToTextRunInfo")
+	registerFunc(&_resolveComponentAlias, frameworkHandle, "ResolveComponentAlias")
+	registerFunc(&_resolveDefaultTextEncoding, frameworkHandle, "ResolveDefaultTextEncoding")
+	registerFunc(&_retainCollection, frameworkHandle, "RetainCollection")
+	registerFunc(&_revertTextEncodingToScriptInfo, frameworkHandle, "RevertTextEncodingToScriptInfo")
+	registerFunc(&_rmvTime, frameworkHandle, "RmvTime")
+	registerFunc(&_s32Set, frameworkHandle, "S32Set")
+	registerFunc(&_s64Absolute, frameworkHandle, "S64Absolute")
+	registerFunc(&_s64Add, frameworkHandle, "S64Add")
+	registerFunc(&_s64And, frameworkHandle, "S64And")
+	registerFunc(&_s64BitwiseAnd, frameworkHandle, "S64BitwiseAnd")
+	registerFunc(&_s64BitwiseEor, frameworkHandle, "S64BitwiseEor")
+	registerFunc(&_s64BitwiseNot, frameworkHandle, "S64BitwiseNot")
+	registerFunc(&_s64BitwiseOr, frameworkHandle, "S64BitwiseOr")
+	registerFunc(&_s64Compare, frameworkHandle, "S64Compare")
+	registerFunc(&_s64Div, frameworkHandle, "S64Div")
+	registerFunc(&_s64Divide, frameworkHandle, "S64Divide")
+	registerFunc(&_s64Eor, frameworkHandle, "S64Eor")
+	registerFunc(&_s64Max, frameworkHandle, "S64Max")
+	registerFunc(&_s64Min, frameworkHandle, "S64Min")
+	registerFunc(&_s64Mod, frameworkHandle, "S64Mod")
+	registerFunc(&_s64Multiply, frameworkHandle, "S64Multiply")
+	registerFunc(&_s64Negate, frameworkHandle, "S64Negate")
+	registerFunc(&_s64Not, frameworkHandle, "S64Not")
+	registerFunc(&_s64Or, frameworkHandle, "S64Or")
+	registerFunc(&_s64Set, frameworkHandle, "S64Set")
+	registerFunc(&_s64SetU, frameworkHandle, "S64SetU")
+	registerFunc(&_s64ShiftLeft, frameworkHandle, "S64ShiftLeft")
+	registerFunc(&_s64ShiftRight, frameworkHandle, "S64ShiftRight")
+	registerFunc(&_s64Subtract, frameworkHandle, "S64Subtract")
+	registerFunc(&_sInt64ToLongDouble, frameworkHandle, "SInt64ToLongDouble")
+	registerFunc(&_sInt64ToUInt64, frameworkHandle, "SInt64ToUInt64")
+	registerFunc(&_sInt64ToWide, frameworkHandle, "SInt64ToWide")
+	registerFunc(&_sKDocumentCopyURL, frameworkHandle, "SKDocumentCopyURL")
+	registerFunc(&_sKDocumentCreate, frameworkHandle, "SKDocumentCreate")
+	registerFunc(&_sKDocumentCreateWithURL, frameworkHandle, "SKDocumentCreateWithURL")
+	registerFunc(&_sKDocumentGetName, frameworkHandle, "SKDocumentGetName")
+	registerFunc(&_sKDocumentGetParent, frameworkHandle, "SKDocumentGetParent")
+	registerFunc(&_sKDocumentGetSchemeName, frameworkHandle, "SKDocumentGetSchemeName")
+	registerFunc(&_sKDocumentGetTypeID, frameworkHandle, "SKDocumentGetTypeID")
+	registerFunc(&_sKIndexAddDocument, frameworkHandle, "SKIndexAddDocument")
+	registerFunc(&_sKIndexAddDocumentWithText, frameworkHandle, "SKIndexAddDocumentWithText")
+	registerFunc(&_sKIndexClose, frameworkHandle, "SKIndexClose")
+	registerFunc(&_sKIndexCompact, frameworkHandle, "SKIndexCompact")
+	registerFunc(&_sKIndexCopyDocumentForDocumentID, frameworkHandle, "SKIndexCopyDocumentForDocumentID")
+	registerFunc(&_sKIndexCopyDocumentIDArrayForTermID, frameworkHandle, "SKIndexCopyDocumentIDArrayForTermID")
+	registerFunc(&_sKIndexCopyDocumentProperties, frameworkHandle, "SKIndexCopyDocumentProperties")
+	registerFunc(&_sKIndexCopyDocumentRefsForDocumentIDs, frameworkHandle, "SKIndexCopyDocumentRefsForDocumentIDs")
+	registerFunc(&_sKIndexCopyDocumentURLsForDocumentIDs, frameworkHandle, "SKIndexCopyDocumentURLsForDocumentIDs")
+	registerFunc(&_sKIndexCopyInfoForDocumentIDs, frameworkHandle, "SKIndexCopyInfoForDocumentIDs")
+	registerFunc(&_sKIndexCopyTermIDArrayForDocumentID, frameworkHandle, "SKIndexCopyTermIDArrayForDocumentID")
+	registerFunc(&_sKIndexCopyTermStringForTermID, frameworkHandle, "SKIndexCopyTermStringForTermID")
+	registerFunc(&_sKIndexCreateWithMutableData, frameworkHandle, "SKIndexCreateWithMutableData")
+	registerFunc(&_sKIndexCreateWithURL, frameworkHandle, "SKIndexCreateWithURL")
+	registerFunc(&_sKIndexDocumentIteratorCopyNext, frameworkHandle, "SKIndexDocumentIteratorCopyNext")
+	registerFunc(&_sKIndexDocumentIteratorCreate, frameworkHandle, "SKIndexDocumentIteratorCreate")
+	registerFunc(&_sKIndexDocumentIteratorGetTypeID, frameworkHandle, "SKIndexDocumentIteratorGetTypeID")
+	registerFunc(&_sKIndexFlush, frameworkHandle, "SKIndexFlush")
+	registerFunc(&_sKIndexGetAnalysisProperties, frameworkHandle, "SKIndexGetAnalysisProperties")
+	registerFunc(&_sKIndexGetDocumentCount, frameworkHandle, "SKIndexGetDocumentCount")
+	registerFunc(&_sKIndexGetDocumentID, frameworkHandle, "SKIndexGetDocumentID")
+	registerFunc(&_sKIndexGetDocumentState, frameworkHandle, "SKIndexGetDocumentState")
+	registerFunc(&_sKIndexGetDocumentTermCount, frameworkHandle, "SKIndexGetDocumentTermCount")
+	registerFunc(&_sKIndexGetDocumentTermFrequency, frameworkHandle, "SKIndexGetDocumentTermFrequency")
+	registerFunc(&_sKIndexGetIndexType, frameworkHandle, "SKIndexGetIndexType")
+	registerFunc(&_sKIndexGetMaximumBytesBeforeFlush, frameworkHandle, "SKIndexGetMaximumBytesBeforeFlush")
+	registerFunc(&_sKIndexGetMaximumDocumentID, frameworkHandle, "SKIndexGetMaximumDocumentID")
+	registerFunc(&_sKIndexGetMaximumTermID, frameworkHandle, "SKIndexGetMaximumTermID")
+	registerFunc(&_sKIndexGetTermDocumentCount, frameworkHandle, "SKIndexGetTermDocumentCount")
+	registerFunc(&_sKIndexGetTermIDForTermString, frameworkHandle, "SKIndexGetTermIDForTermString")
+	registerFunc(&_sKIndexGetTypeID, frameworkHandle, "SKIndexGetTypeID")
+	registerFunc(&_sKIndexMoveDocument, frameworkHandle, "SKIndexMoveDocument")
+	registerFunc(&_sKIndexOpenWithData, frameworkHandle, "SKIndexOpenWithData")
+	registerFunc(&_sKIndexOpenWithMutableData, frameworkHandle, "SKIndexOpenWithMutableData")
+	registerFunc(&_sKIndexOpenWithURL, frameworkHandle, "SKIndexOpenWithURL")
+	registerFunc(&_sKIndexRemoveDocument, frameworkHandle, "SKIndexRemoveDocument")
+	registerFunc(&_sKIndexRenameDocument, frameworkHandle, "SKIndexRenameDocument")
+	registerFunc(&_sKIndexSetDocumentProperties, frameworkHandle, "SKIndexSetDocumentProperties")
+	registerFunc(&_sKIndexSetMaximumBytesBeforeFlush, frameworkHandle, "SKIndexSetMaximumBytesBeforeFlush")
+	registerFunc(&_sKLoadDefaultExtractorPlugIns, frameworkHandle, "SKLoadDefaultExtractorPlugIns")
+	registerFunc(&_sKSearchCancel, frameworkHandle, "SKSearchCancel")
+	registerFunc(&_sKSearchCreate, frameworkHandle, "SKSearchCreate")
+	registerFunc(&_sKSearchFindMatches, frameworkHandle, "SKSearchFindMatches")
+	registerFunc(&_sKSearchGetTypeID, frameworkHandle, "SKSearchGetTypeID")
+	registerFunc(&_sKSearchGroupGetTypeID, frameworkHandle, "SKSearchGroupGetTypeID")
+	registerFunc(&_sKSummaryCopyParagraphAtIndex, frameworkHandle, "SKSummaryCopyParagraphAtIndex")
+	registerFunc(&_sKSummaryCopyParagraphSummaryString, frameworkHandle, "SKSummaryCopyParagraphSummaryString")
+	registerFunc(&_sKSummaryCopySentenceAtIndex, frameworkHandle, "SKSummaryCopySentenceAtIndex")
+	registerFunc(&_sKSummaryCopySentenceSummaryString, frameworkHandle, "SKSummaryCopySentenceSummaryString")
+	registerFunc(&_sKSummaryCreateWithString, frameworkHandle, "SKSummaryCreateWithString")
+	registerFunc(&_sKSummaryGetParagraphCount, frameworkHandle, "SKSummaryGetParagraphCount")
+	registerFunc(&_sKSummaryGetParagraphSummaryInfo, frameworkHandle, "SKSummaryGetParagraphSummaryInfo")
+	registerFunc(&_sKSummaryGetSentenceCount, frameworkHandle, "SKSummaryGetSentenceCount")
+	registerFunc(&_sKSummaryGetSentenceSummaryInfo, frameworkHandle, "SKSummaryGetSentenceSummaryInfo")
+	registerFunc(&_sKSummaryGetTypeID, frameworkHandle, "SKSummaryGetTypeID")
+	registerFunc(&_setCollectionDefaultAttributes, frameworkHandle, "SetCollectionDefaultAttributes")
+	registerFunc(&_setCollectionExceptionProc, frameworkHandle, "SetCollectionExceptionProc")
+	registerFunc(&_setCollectionItemInfo, frameworkHandle, "SetCollectionItemInfo")
+	registerFunc(&_setComponentInstanceError, frameworkHandle, "SetComponentInstanceError")
+	registerFunc(&_setComponentInstanceStorage, frameworkHandle, "SetComponentInstanceStorage")
+	registerFunc(&_setComponentRefcon, frameworkHandle, "SetComponentRefcon")
+	registerFunc(&_setCustomIconsEnabled, frameworkHandle, "SetCustomIconsEnabled")
+	registerFunc(&_setDebugOptionValue, frameworkHandle, "SetDebugOptionValue")
+	registerFunc(&_setDebuggerNotificationProcs, frameworkHandle, "SetDebuggerNotificationProcs")
+	registerFunc(&_setDefaultComponent, frameworkHandle, "SetDefaultComponent")
+	registerFunc(&_setFallbackUnicodeToText, frameworkHandle, "SetFallbackUnicodeToText")
+	registerFunc(&_setFallbackUnicodeToTextRun, frameworkHandle, "SetFallbackUnicodeToTextRun")
+	registerFunc(&_setGestaltValue, frameworkHandle, "SetGestaltValue")
+	registerFunc(&_setHandleSize, frameworkHandle, "SetHandleSize")
+	registerFunc(&_setIndexedCollectionItemInfo, frameworkHandle, "SetIndexedCollectionItemInfo")
+	registerFunc(&_setPtrSize, frameworkHandle, "SetPtrSize")
+	registerFunc(&_setResAttrs, frameworkHandle, "SetResAttrs")
+	registerFunc(&_setResFileAttrs, frameworkHandle, "SetResFileAttrs")
+	registerFunc(&_setResInfo, frameworkHandle, "SetResInfo")
+	registerFunc(&_setResLoad, frameworkHandle, "SetResLoad")
+	registerFunc(&_setResPurge, frameworkHandle, "SetResPurge")
+	registerFunc(&_setResourceSize, frameworkHandle, "SetResourceSize")
+	registerFunc(&_setScriptManagerVariable, frameworkHandle, "SetScriptManagerVariable")
+	registerFunc(&_setThreadReadyGivenTaskRef, frameworkHandle, "SetThreadReadyGivenTaskRef")
+	registerFunc(&_setThreadScheduler, frameworkHandle, "SetThreadScheduler")
+	registerFunc(&_setThreadState, frameworkHandle, "SetThreadState")
+	registerFunc(&_setThreadStateEndCritical, frameworkHandle, "SetThreadStateEndCritical")
+	registerFunc(&_setThreadSwitcher, frameworkHandle, "SetThreadSwitcher")
+	registerFunc(&_setThreadTerminator, frameworkHandle, "SetThreadTerminator")
+	registerFunc(&_sleepQInstall, frameworkHandle, "SleepQInstall")
+	registerFunc(&_sleepQRemove, frameworkHandle, "SleepQRemove")
+	registerFunc(&_subAbsoluteFromAbsolute, frameworkHandle, "SubAbsoluteFromAbsolute")
+	registerFunc(&_subDurationFromAbsolute, frameworkHandle, "SubDurationFromAbsolute")
+	registerFunc(&_subNanosecondsFromAbsolute, frameworkHandle, "SubNanosecondsFromAbsolute")
+	registerFunc(&_sysError, frameworkHandle, "SysError")
+	registerFunc(&_tECClearConverterContextInfo, frameworkHandle, "TECClearConverterContextInfo")
+	registerFunc(&_tECClearSnifferContextInfo, frameworkHandle, "TECClearSnifferContextInfo")
+	registerFunc(&_tECConvertText, frameworkHandle, "TECConvertText")
+	registerFunc(&_tECConvertTextToMultipleEncodings, frameworkHandle, "TECConvertTextToMultipleEncodings")
+	registerFunc(&_tECCopyTextEncodingInternetNameAndMIB, frameworkHandle, "TECCopyTextEncodingInternetNameAndMIB")
+	registerFunc(&_tECCountAvailableSniffers, frameworkHandle, "TECCountAvailableSniffers")
+	registerFunc(&_tECCountAvailableTextEncodings, frameworkHandle, "TECCountAvailableTextEncodings")
+	registerFunc(&_tECCountDestinationTextEncodings, frameworkHandle, "TECCountDestinationTextEncodings")
+	registerFunc(&_tECCountDirectTextEncodingConversions, frameworkHandle, "TECCountDirectTextEncodingConversions")
+	registerFunc(&_tECCountMailTextEncodings, frameworkHandle, "TECCountMailTextEncodings")
+	registerFunc(&_tECCountSubTextEncodings, frameworkHandle, "TECCountSubTextEncodings")
+	registerFunc(&_tECCountWebTextEncodings, frameworkHandle, "TECCountWebTextEncodings")
+	registerFunc(&_tECCreateConverter, frameworkHandle, "TECCreateConverter")
+	registerFunc(&_tECCreateConverterFromPath, frameworkHandle, "TECCreateConverterFromPath")
+	registerFunc(&_tECCreateOneToManyConverter, frameworkHandle, "TECCreateOneToManyConverter")
+	registerFunc(&_tECCreateSniffer, frameworkHandle, "TECCreateSniffer")
+	registerFunc(&_tECDisposeConverter, frameworkHandle, "TECDisposeConverter")
+	registerFunc(&_tECDisposeSniffer, frameworkHandle, "TECDisposeSniffer")
+	registerFunc(&_tECFlushMultipleEncodings, frameworkHandle, "TECFlushMultipleEncodings")
+	registerFunc(&_tECFlushText, frameworkHandle, "TECFlushText")
+	registerFunc(&_tECGetAvailableSniffers, frameworkHandle, "TECGetAvailableSniffers")
+	registerFunc(&_tECGetAvailableTextEncodings, frameworkHandle, "TECGetAvailableTextEncodings")
+	registerFunc(&_tECGetDestinationTextEncodings, frameworkHandle, "TECGetDestinationTextEncodings")
+	registerFunc(&_tECGetDirectTextEncodingConversions, frameworkHandle, "TECGetDirectTextEncodingConversions")
+	registerFunc(&_tECGetEncodingList, frameworkHandle, "TECGetEncodingList")
+	registerFunc(&_tECGetInfo, frameworkHandle, "TECGetInfo")
+	registerFunc(&_tECGetMailTextEncodings, frameworkHandle, "TECGetMailTextEncodings")
+	registerFunc(&_tECGetSubTextEncodings, frameworkHandle, "TECGetSubTextEncodings")
+	registerFunc(&_tECGetTextEncodingFromInternetName, frameworkHandle, "TECGetTextEncodingFromInternetName")
+	registerFunc(&_tECGetTextEncodingFromInternetNameOrMIB, frameworkHandle, "TECGetTextEncodingFromInternetNameOrMIB")
+	registerFunc(&_tECGetTextEncodingInternetName, frameworkHandle, "TECGetTextEncodingInternetName")
+	registerFunc(&_tECGetWebTextEncodings, frameworkHandle, "TECGetWebTextEncodings")
+	registerFunc(&_tECSetBasicOptions, frameworkHandle, "TECSetBasicOptions")
+	registerFunc(&_tECSniffTextEncoding, frameworkHandle, "TECSniffTextEncoding")
+	registerFunc(&_taskLevel, frameworkHandle, "TaskLevel")
+	registerFunc(&_tempNewHandle, frameworkHandle, "TempNewHandle")
+	registerFunc(&_testAndClear, frameworkHandle, "TestAndClear")
+	registerFunc(&_testAndSet, frameworkHandle, "TestAndSet")
+	registerFunc(&_threadBeginCritical, frameworkHandle, "ThreadBeginCritical")
+	registerFunc(&_threadCurrentStackSpace, frameworkHandle, "ThreadCurrentStackSpace")
+	registerFunc(&_threadEndCritical, frameworkHandle, "ThreadEndCritical")
+	registerFunc(&_tickCount, frameworkHandle, "TickCount")
+	registerFunc(&_truncateForTextToUnicode, frameworkHandle, "TruncateForTextToUnicode")
+	registerFunc(&_truncateForUnicodeToText, frameworkHandle, "TruncateForUnicodeToText")
+	registerFunc(&_u32SetU, frameworkHandle, "U32SetU")
+	registerFunc(&_u64Add, frameworkHandle, "U64Add")
+	registerFunc(&_u64And, frameworkHandle, "U64And")
+	registerFunc(&_u64BitwiseAnd, frameworkHandle, "U64BitwiseAnd")
+	registerFunc(&_u64BitwiseEor, frameworkHandle, "U64BitwiseEor")
+	registerFunc(&_u64BitwiseNot, frameworkHandle, "U64BitwiseNot")
+	registerFunc(&_u64BitwiseOr, frameworkHandle, "U64BitwiseOr")
+	registerFunc(&_u64Compare, frameworkHandle, "U64Compare")
+	registerFunc(&_u64Div, frameworkHandle, "U64Div")
+	registerFunc(&_u64Divide, frameworkHandle, "U64Divide")
+	registerFunc(&_u64Eor, frameworkHandle, "U64Eor")
+	registerFunc(&_u64Max, frameworkHandle, "U64Max")
+	registerFunc(&_u64Mod, frameworkHandle, "U64Mod")
+	registerFunc(&_u64Multiply, frameworkHandle, "U64Multiply")
+	registerFunc(&_u64Not, frameworkHandle, "U64Not")
+	registerFunc(&_u64Or, frameworkHandle, "U64Or")
+	registerFunc(&_u64Set, frameworkHandle, "U64Set")
+	registerFunc(&_u64SetU, frameworkHandle, "U64SetU")
+	registerFunc(&_u64ShiftLeft, frameworkHandle, "U64ShiftLeft")
+	registerFunc(&_u64ShiftRight, frameworkHandle, "U64ShiftRight")
+	registerFunc(&_u64Subtract, frameworkHandle, "U64Subtract")
+	registerFunc(&_uCCompareCollationKeys, frameworkHandle, "UCCompareCollationKeys")
+	registerFunc(&_uCCompareText, frameworkHandle, "UCCompareText")
+	registerFunc(&_uCCompareTextDefault, frameworkHandle, "UCCompareTextDefault")
+	registerFunc(&_uCCompareTextNoLocale, frameworkHandle, "UCCompareTextNoLocale")
+	registerFunc(&_uCConvertCFAbsoluteTimeToLongDateTime, frameworkHandle, "UCConvertCFAbsoluteTimeToLongDateTime")
+	registerFunc(&_uCConvertCFAbsoluteTimeToSeconds, frameworkHandle, "UCConvertCFAbsoluteTimeToSeconds")
+	registerFunc(&_uCConvertCFAbsoluteTimeToUTCDateTime, frameworkHandle, "UCConvertCFAbsoluteTimeToUTCDateTime")
+	registerFunc(&_uCConvertLongDateTimeToCFAbsoluteTime, frameworkHandle, "UCConvertLongDateTimeToCFAbsoluteTime")
+	registerFunc(&_uCConvertSecondsToCFAbsoluteTime, frameworkHandle, "UCConvertSecondsToCFAbsoluteTime")
+	registerFunc(&_uCConvertUTCDateTimeToCFAbsoluteTime, frameworkHandle, "UCConvertUTCDateTimeToCFAbsoluteTime")
+	registerFunc(&_uCCreateCollator, frameworkHandle, "UCCreateCollator")
+	registerFunc(&_uCDisposeCollator, frameworkHandle, "UCDisposeCollator")
+	registerFunc(&_uCGetCharProperty, frameworkHandle, "UCGetCharProperty")
+	registerFunc(&_uCGetCollationKey, frameworkHandle, "UCGetCollationKey")
+	registerFunc(&_uCGetUnicodeScalarValueForSurrogatePair, frameworkHandle, "UCGetUnicodeScalarValueForSurrogatePair")
+	registerFunc(&_uCIsSurrogateHighCharacter, frameworkHandle, "UCIsSurrogateHighCharacter")
+	registerFunc(&_uCIsSurrogateLowCharacter, frameworkHandle, "UCIsSurrogateLowCharacter")
+	registerFunc(&_uCKeyTranslate, frameworkHandle, "UCKeyTranslate")
+	registerFunc(&_uCTypeSelectAddKeyToSelector, frameworkHandle, "UCTypeSelectAddKeyToSelector")
+	registerFunc(&_uCTypeSelectCompare, frameworkHandle, "UCTypeSelectCompare")
+	registerFunc(&_uCTypeSelectCreateSelector, frameworkHandle, "UCTypeSelectCreateSelector")
+	registerFunc(&_uCTypeSelectFindItem, frameworkHandle, "UCTypeSelectFindItem")
+	registerFunc(&_uCTypeSelectFlushSelectorData, frameworkHandle, "UCTypeSelectFlushSelectorData")
+	registerFunc(&_uCTypeSelectReleaseSelector, frameworkHandle, "UCTypeSelectReleaseSelector")
+	registerFunc(&_uCTypeSelectWalkList, frameworkHandle, "UCTypeSelectWalkList")
+	registerFunc(&_uCTypeSelectWouldResetBuffer, frameworkHandle, "UCTypeSelectWouldResetBuffer")
+	registerFunc(&_uInt64ToLongDouble, frameworkHandle, "UInt64ToLongDouble")
+	registerFunc(&_uInt64ToSInt64, frameworkHandle, "UInt64ToSInt64")
+	registerFunc(&_uInt64ToUnsignedWide, frameworkHandle, "UInt64ToUnsignedWide")
+	registerFunc(&_uTCreateStringForOSType, frameworkHandle, "UTCreateStringForOSType")
+	registerFunc(&_uTGetOSTypeFromString, frameworkHandle, "UTGetOSTypeFromString")
+	registerFunc(&_uTTypeConformsTo, frameworkHandle, "UTTypeConformsTo")
+	registerFunc(&_uTTypeCopyAllTagsWithClass, frameworkHandle, "UTTypeCopyAllTagsWithClass")
+	registerFunc(&_uTTypeCopyDeclaration, frameworkHandle, "UTTypeCopyDeclaration")
+	registerFunc(&_uTTypeCopyDeclaringBundleURL, frameworkHandle, "UTTypeCopyDeclaringBundleURL")
+	registerFunc(&_uTTypeCopyDescription, frameworkHandle, "UTTypeCopyDescription")
+	registerFunc(&_uTTypeCopyPreferredTagWithClass, frameworkHandle, "UTTypeCopyPreferredTagWithClass")
+	registerFunc(&_uTTypeCreateAllIdentifiersForTag, frameworkHandle, "UTTypeCreateAllIdentifiersForTag")
+	registerFunc(&_uTTypeCreatePreferredIdentifierForTag, frameworkHandle, "UTTypeCreatePreferredIdentifierForTag")
+	registerFunc(&_uTTypeEqual, frameworkHandle, "UTTypeEqual")
+	registerFunc(&_uTTypeIsDeclared, frameworkHandle, "UTTypeIsDeclared")
+	registerFunc(&_uTTypeIsDynamic, frameworkHandle, "UTTypeIsDynamic")
+	registerFunc(&_uncaptureComponent, frameworkHandle, "UncaptureComponent")
+	registerFunc(&_unflattenCollection, frameworkHandle, "UnflattenCollection")
+	registerFunc(&_unflattenCollectionFromHdl, frameworkHandle, "UnflattenCollectionFromHdl")
+	registerFunc(&_unique1ID, frameworkHandle, "Unique1ID")
+	registerFunc(&_uniqueID, frameworkHandle, "UniqueID")
+	registerFunc(&_unregisterComponent, frameworkHandle, "UnregisterComponent")
+	registerFunc(&_unregisterIconRef, frameworkHandle, "UnregisterIconRef")
+	registerFunc(&_unsignedFixedMulDiv, frameworkHandle, "UnsignedFixedMulDiv")
+	registerFunc(&_unsignedWideToUInt64, frameworkHandle, "UnsignedWideToUInt64")
+	registerFunc(&_upTime, frameworkHandle, "UpTime")
+	registerFunc(&_updateIconRef, frameworkHandle, "UpdateIconRef")
+	registerFunc(&_updateResFile, frameworkHandle, "UpdateResFile")
+	registerFunc(&_updateSystemActivity, frameworkHandle, "UpdateSystemActivity")
+	registerFunc(&_upgradeScriptInfoToTextEncoding, frameworkHandle, "UpgradeScriptInfoToTextEncoding")
+	registerFunc(&_useResFile, frameworkHandle, "UseResFile")
+	registerFunc(&_wSGetCFTypeIDFromWSTypeID, frameworkHandle, "WSGetCFTypeIDFromWSTypeID")
+	registerFunc(&_wSGetWSTypeIDFromCFType, frameworkHandle, "WSGetWSTypeIDFromCFType")
+	registerFunc(&_wSMethodInvocationAddDeserializationOverride, frameworkHandle, "WSMethodInvocationAddDeserializationOverride")
+	registerFunc(&_wSMethodInvocationAddSerializationOverride, frameworkHandle, "WSMethodInvocationAddSerializationOverride")
+	registerFunc(&_wSMethodInvocationCopyParameters, frameworkHandle, "WSMethodInvocationCopyParameters")
+	registerFunc(&_wSMethodInvocationCopyProperty, frameworkHandle, "WSMethodInvocationCopyProperty")
+	registerFunc(&_wSMethodInvocationCopySerialization, frameworkHandle, "WSMethodInvocationCopySerialization")
+	registerFunc(&_wSMethodInvocationCreate, frameworkHandle, "WSMethodInvocationCreate")
+	registerFunc(&_wSMethodInvocationCreateFromSerialization, frameworkHandle, "WSMethodInvocationCreateFromSerialization")
+	registerFunc(&_wSMethodInvocationGetTypeID, frameworkHandle, "WSMethodInvocationGetTypeID")
+	registerFunc(&_wSMethodInvocationInvoke, frameworkHandle, "WSMethodInvocationInvoke")
+	registerFunc(&_wSMethodInvocationScheduleWithRunLoop, frameworkHandle, "WSMethodInvocationScheduleWithRunLoop")
+	registerFunc(&_wSMethodInvocationSetCallBack, frameworkHandle, "WSMethodInvocationSetCallBack")
+	registerFunc(&_wSMethodInvocationSetParameters, frameworkHandle, "WSMethodInvocationSetParameters")
+	registerFunc(&_wSMethodInvocationSetProperty, frameworkHandle, "WSMethodInvocationSetProperty")
+	registerFunc(&_wSMethodInvocationUnscheduleFromRunLoop, frameworkHandle, "WSMethodInvocationUnscheduleFromRunLoop")
+	registerFunc(&_wSMethodResultIsFault, frameworkHandle, "WSMethodResultIsFault")
+	registerFunc(&_wSProtocolHandlerCopyFaultDocument, frameworkHandle, "WSProtocolHandlerCopyFaultDocument")
+	registerFunc(&_wSProtocolHandlerCopyProperty, frameworkHandle, "WSProtocolHandlerCopyProperty")
+	registerFunc(&_wSProtocolHandlerCopyReplyDictionary, frameworkHandle, "WSProtocolHandlerCopyReplyDictionary")
+	registerFunc(&_wSProtocolHandlerCopyReplyDocument, frameworkHandle, "WSProtocolHandlerCopyReplyDocument")
+	registerFunc(&_wSProtocolHandlerCopyRequestDictionary, frameworkHandle, "WSProtocolHandlerCopyRequestDictionary")
+	registerFunc(&_wSProtocolHandlerCopyRequestDocument, frameworkHandle, "WSProtocolHandlerCopyRequestDocument")
+	registerFunc(&_wSProtocolHandlerCreate, frameworkHandle, "WSProtocolHandlerCreate")
+	registerFunc(&_wSProtocolHandlerGetTypeID, frameworkHandle, "WSProtocolHandlerGetTypeID")
+	registerFunc(&_wSProtocolHandlerSetDeserializationOverride, frameworkHandle, "WSProtocolHandlerSetDeserializationOverride")
+	registerFunc(&_wSProtocolHandlerSetProperty, frameworkHandle, "WSProtocolHandlerSetProperty")
+	registerFunc(&_wSProtocolHandlerSetSerializationOverride, frameworkHandle, "WSProtocolHandlerSetSerializationOverride")
+	registerFunc(&_wideAdd, frameworkHandle, "WideAdd")
+	registerFunc(&_wideBitShift, frameworkHandle, "WideBitShift")
+	registerFunc(&_wideCompare, frameworkHandle, "WideCompare")
+	registerFunc(&_wideDivide, frameworkHandle, "WideDivide")
+	registerFunc(&_wideMultiply, frameworkHandle, "WideMultiply")
+	registerFunc(&_wideNegate, frameworkHandle, "WideNegate")
+	registerFunc(&_wideShift, frameworkHandle, "WideShift")
+	registerFunc(&_wideSquareRoot, frameworkHandle, "WideSquareRoot")
+	registerFunc(&_wideSubtract, frameworkHandle, "WideSubtract")
+	registerFunc(&_wideToSInt64, frameworkHandle, "WideToSInt64")
+	registerFunc(&_wideWideDivide, frameworkHandle, "WideWideDivide")
+	registerFunc(&_writePartialResource, frameworkHandle, "WritePartialResource")
+	registerFunc(&_writeResource, frameworkHandle, "WriteResource")
+	registerFunc(&_x2Fix, frameworkHandle, "X2Fix")
+	registerFunc(&_x2Frac, frameworkHandle, "X2Frac")
+	registerFunc(&_yieldToAnyThread, frameworkHandle, "YieldToAnyThread")
+	registerFunc(&_yieldToThread, frameworkHandle, "YieldToThread")
+	registerFunc(&_annuity, frameworkHandle, "annuity")
+	registerFunc(&_compound, frameworkHandle, "compound")
+	registerFunc(&_dec2f, frameworkHandle, "dec2f")
+	registerFunc(&_dec2l, frameworkHandle, "dec2l")
+	registerFunc(&_dec2num, frameworkHandle, "dec2num")
+	registerFunc(&_dec2numl, frameworkHandle, "dec2numl")
+	registerFunc(&_dec2s, frameworkHandle, "dec2s")
+	registerFunc(&_dec2str, frameworkHandle, "dec2str")
+	registerFunc(&_dtox80, frameworkHandle, "dtox80")
+	registerFunc(&_kcfindapplesharepassword, frameworkHandle, "kcfindapplesharepassword")
+	registerFunc(&_kcfindgenericpassword, frameworkHandle, "kcfindgenericpassword")
+	registerFunc(&_kcfindinternetpassword, frameworkHandle, "kcfindinternetpassword")
+	registerFunc(&_kcfindinternetpasswordwithpath, frameworkHandle, "kcfindinternetpasswordwithpath")
+	registerFunc(&_kcgetkeychainname, frameworkHandle, "kcgetkeychainname")
+	registerFunc(&_ldtox80, frameworkHandle, "ldtox80")
+	registerFunc(&_num2dec, frameworkHandle, "num2dec")
+	registerFunc(&_num2decl, frameworkHandle, "num2decl")
+	registerFunc(&_numtostring, frameworkHandle, "numtostring")
+	registerFunc(&_randomx, frameworkHandle, "randomx")
+	registerFunc(&_relation, frameworkHandle, "relation")
+	registerFunc(&_relationl, frameworkHandle, "relationl")
+	registerFunc(&_str2dec, frameworkHandle, "str2dec")
+	registerFunc(&_vAEBuildAppleEvent, frameworkHandle, "vAEBuildAppleEvent")
+	registerFunc(&_vAEBuildDesc, frameworkHandle, "vAEBuildDesc")
+	registerFunc(&_vAEBuildParameters, frameworkHandle, "vAEBuildParameters")
+	registerFunc(&_x80tod, frameworkHandle, "x80tod")
+	registerFunc(&_x80told, frameworkHandle, "x80told")
+}

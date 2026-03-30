@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,28 +46,26 @@ func (mc MTLDepthStencilDescriptorClass) Alloc() MTLDepthStencilDescriptor {
 // An instance that configures new [MTLDepthStencilState] instances.
 //
 // # Overview
-// 
+//
 // An [MTLDepthStencilDescriptor] instance is used to define a specific
 // configuration of the depth and stencil stages of a rendering pipeline. To
 // create an [MTLDepthStencilDescriptor] instance, use standard allocation and
 // initialization techniques.
-// 
+//
 // To enable writing the depth value to a depth attachment, set the
-// depthWriteEnabled property to [true].
-// 
+// depthWriteEnabled property to true.
+//
 // The depthCompareFunction property specifies how the depth test is
 // performed. If a fragment’s depth value fails the depth test, the fragment
-// is discarded. [CompareFunctionLess] is a commonly used value for
+// is discarded. [MTLCompareFunctionLess] is a commonly used value for
 // [MTLDepthStencilDescriptor.DepthCompareFunction], because fragment values that are farther away from
 // the viewer than the pixel depth value (a previously written fragment) fail
 // the depth test and are considered occluded by the earlier depth value.
-// 
+//
 // The [MTLDepthStencilDescriptor.FrontFaceStencil] and [MTLDepthStencilDescriptor.BackFaceStencil] properties define two
 // independent stencil descriptors: one for front-facing primitives and the
 // other for back-facing primitives, respectively. Both properties can be set
 // to the same MTLStencilDescriptor instance.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Specifying depth operations
 //
@@ -98,6 +97,7 @@ type MTLDepthStencilDescriptor struct {
 func MTLDepthStencilDescriptorFromID(id objc.ID) MTLDepthStencilDescriptor {
 	return MTLDepthStencilDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLDepthStencilDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -175,15 +175,16 @@ func NewMTLDepthStencilDescriptor() MTLDepthStencilDescriptor {
 // fragment.
 //
 // # Discussion
-// 
-// The default value is [CompareFunctionAlways], which indicates that the
+//
+// The default value is [MTLCompareFunction.always], which indicates that the
 // depth test always passes and the fragment remains a candidate to replace
 // the data at the specified location. For more information on possible
 // values, see [MTLCompareFunction].
 //
-// [MTLCompareFunction]: https://developer.apple.com/documentation/Metal/MTLCompareFunction
-//
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilDescriptor/depthCompareFunction
+//
+// [MTLCompareFunction.always]: https://developer.apple.com/documentation/Metal/MTLCompareFunction/always
+// [MTLCompareFunction]: https://developer.apple.com/documentation/Metal/MTLCompareFunction
 func (d MTLDepthStencilDescriptor) DepthCompareFunction() MTLCompareFunction {
 	rv := objc.Send[MTLCompareFunction](d.ID, objc.Sel("depthCompareFunction"))
 	return MTLCompareFunction(rv)
@@ -191,15 +192,14 @@ func (d MTLDepthStencilDescriptor) DepthCompareFunction() MTLCompareFunction {
 func (d MTLDepthStencilDescriptor) SetDepthCompareFunction(value MTLCompareFunction) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDepthCompareFunction:"), value)
 }
+
 // A Boolean value that indicates whether depth values can be written to the
 // depth attachment.
 //
 // # Discussion
-// 
-// The default value is [false], which indicates the depth attachment is
-// read-only.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value is false, which indicates the depth attachment is
+// read-only.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilDescriptor/isDepthWriteEnabled
 func (d MTLDepthStencilDescriptor) DepthWriteEnabled() bool {
@@ -209,10 +209,11 @@ func (d MTLDepthStencilDescriptor) DepthWriteEnabled() bool {
 func (d MTLDepthStencilDescriptor) SetDepthWriteEnabled(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDepthWriteEnabled:"), value)
 }
+
 // The stencil descriptor for back-facing primitives.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`, which indicates the stencil test is disabled
 // for the back-facing primitives. For more information, see
 // [MTLStencilDescriptor].
@@ -225,10 +226,11 @@ func (d MTLDepthStencilDescriptor) BackFaceStencil() IMTLStencilDescriptor {
 func (d MTLDepthStencilDescriptor) SetBackFaceStencil(value IMTLStencilDescriptor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBackFaceStencil:"), value)
 }
+
 // The stencil descriptor for front-facing primitives.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`, which indicates the stencil test is disabled
 // for the front-facing primitives. For more information, see
 // [MTLStencilDescriptor].
@@ -241,6 +243,7 @@ func (d MTLDepthStencilDescriptor) FrontFaceStencil() IMTLStencilDescriptor {
 func (d MTLDepthStencilDescriptor) SetFrontFaceStencil(value IMTLStencilDescriptor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFrontFaceStencil:"), value)
 }
+
 // A string that identifies this object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilDescriptor/label
@@ -251,4 +254,3 @@ func (d MTLDepthStencilDescriptor) Label() string {
 func (d MTLDepthStencilDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

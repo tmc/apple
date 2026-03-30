@@ -23,6 +23,7 @@ type AVFragmentMinding interface {
 type AVFragmentMindingObject struct {
 	objectivec.Object
 }
+
 func (o AVFragmentMindingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,5 +43,4 @@ func AVFragmentMindingObjectFromID(id objc.ID) AVFragmentMindingObject {
 func (o AVFragmentMindingObject) IsAssociatedWithFragmentMinder() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAssociatedWithFragmentMinder"))
 	return rv
-	}
-
+}

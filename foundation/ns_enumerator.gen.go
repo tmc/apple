@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSEnumeratorClass) Alloc() NSEnumerator {
 // as arrays and dictionaries.
 //
 // # Overview
-// 
+//
 // All creation methods are defined in the collection classes—such as
 // [NSArray], [NSSet], and [NSDictionary]—which provide special
 // [NSEnumerator] objects with which to enumerate their contents. For example,
@@ -54,13 +55,13 @@ func (nc NSEnumeratorClass) Alloc() NSEnumerator {
 // two methods that return an [NSEnumerator] object: [KeyEnumerator] and
 // [ObjectEnumerator]. These methods let you enumerate the contents of a
 // dictionary by key or by value, respectively.
-// 
+//
 // You send [NSEnumerator.NextObject] repeatedly to a newly created [NSEnumerator] object
 // to have it return the next object in the original collection. When the
 // collection is exhausted, `nil` is returned. You cannot “reset” an
 // enumerator after it has exhausted its collection. To enumerate a collection
 // again, you need a new enumerator.
-// 
+//
 // The enumerator subclasses used by [NSArray], [NSDictionary], and [NSSet]
 // retain the collection during enumeration. When the enumeration is
 // exhausted, the collection is released.
@@ -82,6 +83,7 @@ type NSEnumerator struct {
 func NSEnumeratorFromID(id objc.ID) NSEnumerator {
 	return NSEnumerator{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSEnumerator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,12 +128,12 @@ func NewNSEnumerator() NSEnumerator {
 // Returns the next object from the collection being enumerated.
 //
 // # Return Value
-// 
+//
 // The next object from the collection being enumerated, or `nil` when all
 // objects have been enumerated.
 //
 // # Discussion
-// 
+//
 // The following code illustrates how this method works using an array:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSEnumerator/nextObject()
@@ -139,6 +141,7 @@ func (e NSEnumerator) NextObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("nextObject"))
 	return objectivec.Object{ID: rv}
 }
+
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //
@@ -150,12 +153,12 @@ func (e NSEnumerator) NextObject() objectivec.IObject {
 // len: The maximum number of objects to return in `stackbuf`.
 //
 // # Return Value
-// 
+//
 // The number of objects returned in `stackbuf`. Returns `0` when the
 // iteration is finished.
 //
 // # Discussion
-// 
+//
 // The state structure is assumed to be of stack local memory, so you can
 // recast the passed in state structure to one more suitable for your
 // iteration.
@@ -169,11 +172,11 @@ func (e NSEnumerator) CountByEnumeratingWithStateObjectsCount(state NSFastEnumer
 // The array of unenumerated objects.
 //
 // # Discussion
-// 
+//
 // This array contains all the remaining objects of the enumerator in
 // enumerated order. It does not contain objects that have already been
 // enumerated with previous [NextObject] messages.
-// 
+//
 // Accessing this property exhausts the enumerator’s collection so that
 // subsequent invocations of [NextObject] return `nil`.
 //
@@ -184,4 +187,3 @@ func (e NSEnumerator) AllObjects() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-

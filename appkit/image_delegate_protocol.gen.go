@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -19,6 +19,7 @@ type NSImageDelegate interface {
 type NSImageDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSImageDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,14 +40,14 @@ func NSImageDelegateObjectFromID(id objc.ID) NSImageDelegateObject {
 // rect: The rectangle that the image object was attempting to draw.
 //
 // # Return Value
-// 
+//
 // An [NSImage] to draw in place of the one in `sender`, or `nil` if the
 // delegate wants to draw the image itself.
 //
 // # Discussion
-// 
+//
 // The delegate can do one of the following:
-// 
+//
 // - Return another [NSImage] object to draw in the sender’s place. - Draw
 // the image itself and return `nil`. - Simply return `nil` to indicate that
 // `sender` should give up on the attempt at drawing the image.
@@ -55,5 +56,4 @@ func NSImageDelegateObjectFromID(id objc.ID) NSImageDelegateObject {
 func (o NSImageDelegateObject) ImageDidNotDrawInRect(sender INSImage, rect corefoundation.CGRect) INSImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageDidNotDraw:inRect:"), sender, rect)
 	return NSImageFromID(rv)
-	}
-
+}

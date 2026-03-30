@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (mc MTLFunctionStitchingAttributeAlwaysInlineClass) Alloc() MTLFunctionStit
 // calls when generating the stitched function.
 //
 // # Overview
-// 
+//
 // To inline functions in a call graph, instantiate an instance of this class
 // and assign it as an attribute on the [MTLFunctionStitchingGraph].
 //
@@ -61,6 +62,7 @@ type MTLFunctionStitchingAttributeAlwaysInline struct {
 func MTLFunctionStitchingAttributeAlwaysInlineFromID(id objc.ID) MTLFunctionStitchingAttributeAlwaysInline {
 	return MTLFunctionStitchingAttributeAlwaysInline{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLFunctionStitchingAttributeAlwaysInline adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -107,6 +109,4 @@ func (f MTLFunctionStitchingAttributeAlwaysInline) SetAttributes(value MTLFuncti
 	objc.Send[struct{}](f.ID, objc.Sel("setAttributes:"), value)
 }
 
-			// Protocol methods for MTLFunctionStitchingAttribute
-			
-
+// Protocol methods for MTLFunctionStitchingAttribute

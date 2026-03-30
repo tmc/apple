@@ -38,6 +38,7 @@ type AVPlaybackCoordinatorPlaybackControlDelegate interface {
 type AVPlaybackCoordinatorPlaybackControlDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,7 +68,8 @@ func AVPlaybackCoordinatorPlaybackControlDelegateObjectFromID(id objc.ID) AVPlay
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinatorPlaybackControlDelegate/playbackCoordinator(_:didIssue:completionHandler:)-73p3a
 func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorDidIssuePlayCommandCompletionHandler(coordinator IAVDelegatingPlaybackCoordinator, playCommand IAVDelegatingPlaybackCoordinatorPlayCommand, completionHandler VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssuePlayCommand:completionHandler:"), coordinator, playCommand, completionHandler)
-	}
+}
+
 // Tells the delegate to pause playback.
 //
 // coordinator: The playback coordinator that issues the command.
@@ -80,17 +82,16 @@ func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorD
 // completionHandler: A completion handler that your app must call when it finishes handling the
 // command, either successfully or after beginning a suspension if it can’t
 // handle the command currently.
-// 
+//
 // If the value of the command’s [ShouldBufferInAnticipationOfPlayback]
-// property is [true], call the completion handler only after the player is
+// property is true, call the completion handler only after the player is
 // ready for playback.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinatorPlaybackControlDelegate/playbackCoordinator(_:didIssue:completionHandler:)-56t01
 func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorDidIssuePauseCommandCompletionHandler(coordinator IAVDelegatingPlaybackCoordinator, pauseCommand IAVDelegatingPlaybackCoordinatorPauseCommand, completionHandler VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssuePauseCommand:completionHandler:"), coordinator, pauseCommand, completionHandler)
-	}
+}
+
 // Tells the delegate to seek to a new time.
 //
 // coordinator: The playback coordinator that issues the command.
@@ -103,22 +104,21 @@ func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorD
 // completionHandler: A completion handler that your app must call when it finishes handling the
 // command, either successfully or after beginning a suspension if it can’t
 // handle the command currently.
-// 
+//
 // If the value of the command’s [ShouldBufferInAnticipationOfPlayback]
-// property is [true], call the completion handler only after the player is
+// property is true, call the completion handler only after the player is
 // ready for playback.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Discussion
-// 
+//
 // The coordinator issues this command to perform a seek in the item timeline,
 // potentially pausing playback in the process.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinatorPlaybackControlDelegate/playbackCoordinator(_:didIssue:completionHandler:)-4fk8y
 func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorDidIssueSeekCommandCompletionHandler(coordinator IAVDelegatingPlaybackCoordinator, seekCommand IAVDelegatingPlaybackCoordinatorSeekCommand, completionHandler VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssueSeekCommand:completionHandler:"), coordinator, seekCommand, completionHandler)
-	}
+}
+
 // Tells the delegate to expect playback soon and to start buffering media
 // data in preparation.
 //
@@ -132,15 +132,13 @@ func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorD
 // completionHandler: A completion handler that your app must call when it finishes handling the
 // command, either successfully or after beginning a suspension if it can’t
 // handle the command currently.
-// 
+//
 // If the value of the command’s [ShouldBufferInAnticipationOfPlayback]
-// property is [true], call the completion handler only after the player is
+// property is true, call the completion handler only after the player is
 // ready for playback.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Discussion
-// 
+//
 // The coordinator issues this command when playback is currently in a paused
 // state and the coordinator is expecting playback to start soon. It provides
 // an appropriate opportunity to update your player UI to indicate that
@@ -149,5 +147,4 @@ func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorD
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinatorPlaybackControlDelegate/playbackCoordinator(_:didIssue:completionHandler:)-btle
 func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorDidIssueBufferingCommandCompletionHandler(coordinator IAVDelegatingPlaybackCoordinator, bufferingCommand IAVDelegatingPlaybackCoordinatorBufferingCommand, completionHandler VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssueBufferingCommand:completionHandler:"), coordinator, bufferingCommand, completionHandler)
-	}
-
+}

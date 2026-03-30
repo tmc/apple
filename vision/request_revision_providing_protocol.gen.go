@@ -23,6 +23,7 @@ type VNRequestRevisionProviding interface {
 type VNRequestRevisionProvidingObject struct {
 	objectivec.Object
 }
+
 func (o VNRequestRevisionProvidingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,5 +43,4 @@ func VNRequestRevisionProvidingObjectFromID(id objc.ID) VNRequestRevisionProvidi
 func (o VNRequestRevisionProvidingObject) RequestRevision() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("requestRevision"))
 	return rv
-	}
-
+}

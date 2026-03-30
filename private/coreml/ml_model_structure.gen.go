@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (mc MLModelStructureClass) Alloc() MLModelStructure {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelStructure.InitWithNeuralNetwork]
 //   - [MLModelStructure.InitWithNeuralNetworkProgramPipeline]
 //   - [MLModelStructure.InitWithPipeline]
 //   - [MLModelStructure.InitWithProgram]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure
 type MLModelStructure struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type MLModelStructure struct {
 func MLModelStructureFromID(id objc.ID) MLModelStructure {
 	return MLModelStructure{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructure implements IMLModelStructure.
 var _ IMLModelStructure = MLModelStructure{}
 
@@ -100,7 +102,6 @@ func NewMLModelStructure() MLModelStructure {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure/initWithNeuralNetwork:
 func NewModelStructureWithNeuralNetwork(network objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
@@ -108,7 +109,6 @@ func NewModelStructureWithNeuralNetwork(network objectivec.IObject) MLModelStruc
 	return MLModelStructureFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure/initWithNeuralNetwork:program:pipeline:
 func NewModelStructureWithNeuralNetworkProgramPipeline(network objectivec.IObject, program objectivec.IObject, pipeline objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
@@ -116,7 +116,6 @@ func NewModelStructureWithNeuralNetworkProgramPipeline(network objectivec.IObjec
 	return MLModelStructureFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure/initWithPipeline:
 func NewModelStructureWithPipeline(pipeline objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
@@ -124,7 +123,6 @@ func NewModelStructureWithPipeline(pipeline objectivec.IObject) MLModelStructure
 	return MLModelStructureFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure/initWithProgram:
 func NewModelStructureWithProgram(program objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
@@ -132,28 +130,26 @@ func NewModelStructureWithProgram(program objectivec.IObject) MLModelStructure {
 	return MLModelStructureFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure/initWithNeuralNetwork:
 func (m MLModelStructure) InitWithNeuralNetwork(network objectivec.IObject) MLModelStructure {
 	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("initWithNeuralNetwork:"), network)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure/initWithNeuralNetwork:program:pipeline:
 func (m MLModelStructure) InitWithNeuralNetworkProgramPipeline(network objectivec.IObject, program objectivec.IObject, pipeline objectivec.IObject) MLModelStructure {
 	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("initWithNeuralNetwork:program:pipeline:"), network, program, pipeline)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure/initWithPipeline:
 func (m MLModelStructure) InitWithPipeline(pipeline objectivec.IObject) MLModelStructure {
 	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("initWithPipeline:"), pipeline)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure/initWithProgram:
 func (m MLModelStructure) InitWithProgram(program objectivec.IObject) MLModelStructure {
 	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("initWithProgram:"), program)
 	return rv
 }
-

@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (mc MTLVertexBufferLayoutDescriptorArrayClass) Alloc() MTLVertexBufferLayou
 // An array of vertex buffer layout descriptor instances.
 //
 // # Overview
-// 
+//
 // An [MTLVertexBufferLayoutDescriptorArray] holds an array of vertex buffer
 // layout states. The methods of [MTLVertexBufferLayoutDescriptorArray] set
 // the vertex buffer layout state in the array or retrieve the state from the
@@ -65,6 +66,7 @@ type MTLVertexBufferLayoutDescriptorArray struct {
 func MTLVertexBufferLayoutDescriptorArrayFromID(id objc.ID) MTLVertexBufferLayoutDescriptorArray {
 	return MTLVertexBufferLayoutDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLVertexBufferLayoutDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,7 +114,7 @@ func NewMTLVertexBufferLayoutDescriptorArray() MTLVertexBufferLayoutDescriptorAr
 // index: A specified index in the array of vertex buffer layouts.
 //
 // # Return Value
-// 
+//
 // A descriptor that contains vertex buffer layout state.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexBufferLayoutDescriptorArray/subscript(_:)
@@ -120,6 +122,7 @@ func (v MTLVertexBufferLayoutDescriptorArray) ObjectAtIndexedSubscript(index uin
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("objectAtIndexedSubscript:"), index)
 	return MTLVertexBufferLayoutDescriptorFromID(rv)
 }
+
 // Sets the state of the specified vertex buffer layout.
 //
 // bufferDesc: A descriptor that contains vertex buffer layout state.
@@ -127,7 +130,7 @@ func (v MTLVertexBufferLayoutDescriptorArray) ObjectAtIndexedSubscript(index uin
 // index: An index in the array of vertex buffer layouts.
 //
 // # Discussion
-// 
+//
 // If this method is called with `nil` for `bufferDesc` for any legal index,
 // the [MTLVertexBufferLayoutDescriptor] object in the array is set to the
 // default values.
@@ -142,4 +145,3 @@ func (v MTLVertexBufferLayoutDescriptorArray) MTLBufferLayoutStrideDynamic() int
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
-

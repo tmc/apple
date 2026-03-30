@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type ErrorCorrectedPayload struct {
 func ErrorCorrectedPayloadFromID(id objc.ID) ErrorCorrectedPayload {
 	return ErrorCorrectedPayload{objectivec.Object{ID: id}}
 }
+
 // Ensure ErrorCorrectedPayload implements IErrorCorrectedPayload.
 var _ IErrorCorrectedPayload = ErrorCorrectedPayload{}
 
@@ -78,4 +80,3 @@ func NewErrorCorrectedPayload() ErrorCorrectedPayload {
 	rv := objc.Send[ErrorCorrectedPayload](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

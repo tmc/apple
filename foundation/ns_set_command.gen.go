@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,15 +45,15 @@ func (nc NSSetCommandClass) Alloc() NSSetCommand {
 // values.
 //
 // # Overview
-// 
+//
 // An instance of [NSSetCommand] sets one or more attributes or relationships
 // to one or more values; for example, it may set the (x, y) coordinates for a
 // window’s position or set the name of a document.
-// 
+//
 // [NSSetCommand] is part of Cocoa’s built-in scripting support. It works
 // automatically to support the `set` command through key-value coding. Most
 // applications don’t need to subclass [NSSetCommand] or call its methods.
-// 
+//
 // [NSSetCommand] uses available scripting class descriptions to determine
 // whether it should set a value for an attribute (or property), or set a
 // value for all elements (to-many objects). For the latter, it invokes
@@ -60,21 +61,21 @@ func (nc NSSetCommandClass) Alloc() NSSetCommand {
 // [setValue(_:forKey:)] (or, if the receiver overrides
 // [takeValue(_:forKey:)], it invokes that method, to support backward binary
 // compatibility.)
-// 
+//
 // For information on working with `set` commands, see [Getting and Setting
 // Properties and Elements] in [Cocoa Scripting Guide].
-//
-// [Cocoa Scripting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_intro/SAppsIntro.html#//apple_ref/doc/uid/TP40002164
-// [Getting and Setting Properties and Elements]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_get_set/SAppsGetSet.html#//apple_ref/doc/uid/TP40002164-CH18
-// [replaceValue(at:inPropertyWithKey:withValue:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/replaceValue(at:inPropertyWithKey:withValue:)
-// [setValue(_:forKey:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/setValue(_:forKey:)
-// [takeValue(_:forKey:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/takeValue(_:forKey:)
 //
 // # Working with specifiers
 //
 //   - [NSSetCommand.KeySpecifier]: Returns a specifier that identifies the attribute or relationship that is to be set for the receiver of the `set` AppleScript command.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSetCommand
+//
+// [Cocoa Scripting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_intro/SAppsIntro.html#//apple_ref/doc/uid/TP40002164
+// [Getting and Setting Properties and Elements]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_get_set/SAppsGetSet.html#//apple_ref/doc/uid/TP40002164-CH18
+// [replaceValue(at:inPropertyWithKey:withValue:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/replaceValue(at:inPropertyWithKey:withValue:)
+// [setValue(_:forKey:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/setValue(_:forKey:)
+// [takeValue(_:forKey:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/takeValue(_:forKey:)
 type NSSetCommand struct {
 	NSScriptCommand
 }
@@ -86,6 +87,7 @@ type NSSetCommand struct {
 func NSSetCommandFromID(id objc.ID) NSSetCommand {
 	return NSSetCommand{NSScriptCommand: NSScriptCommandFromID(id)}
 }
+
 // NOTE: NSSetCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,7 +126,6 @@ func NewNSSetCommand() NSSetCommand {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewSetCommandWithCoder(inCoder INSCoder) NSSetCommand {
 	instance := getNSSetCommandClass().Alloc()
@@ -138,11 +139,11 @@ func NewSetCommandWithCoder(inCoder INSCoder) NSSetCommand {
 // commandDef: A command description for the command to be created.
 //
 // # Return Value
-// 
+//
 // A newly initialized instance of [NSScriptCommand] or a subclass.
 //
 // # Discussion
-// 
+//
 // To make this command object usable, you must set its receiving objects and
 // arguments (if any) after invoking this method.
 //
@@ -157,7 +158,7 @@ func NewSetCommandWithCommandDescription(commandDef INSScriptCommandDescription)
 // to be set for the receiver of the `set` AppleScript command.
 //
 // # Return Value
-// 
+//
 // A specifier that identifies the attribute or relationship that is to be set
 // for the receiver of the `set` AppleScript command.
 //
@@ -166,4 +167,3 @@ func (s NSSetCommand) KeySpecifier() INSScriptObjectSpecifier {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("keySpecifier"))
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
-

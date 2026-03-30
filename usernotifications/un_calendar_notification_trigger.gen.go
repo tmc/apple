@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [UNCalendarNotificationTrigger] class.
@@ -45,19 +46,17 @@ func (uc UNCalendarNotificationTriggerClass) Alloc() UNCalendarNotificationTrigg
 // specific date and time.
 //
 // # Overview
-// 
+//
 // Create a [UNCalendarNotificationTrigger] object when you want to schedule
 // the delivery of a local notification at the date and time you specify. You
 // use an [NSDateComponents] object to specify only the time values that you
 // want the system to use to determine the matching date and time.
-// 
+//
 // Listing 1 creates a trigger that delivers its notification every morning at
 // 8:30. The repeating behavior is achieved by specifying `true` for the
 // `repeats` parameter when creating the trigger.
-// 
-// Listing 1. Creating a trigger that repeats at a specific time
 //
-// [NSDateComponents]: https://developer.apple.com/documentation/Foundation/NSDateComponents
+// Listing 1. Creating a trigger that repeats at a specific time
 //
 // # Getting the Trigger Information
 //
@@ -65,6 +64,8 @@ func (uc UNCalendarNotificationTriggerClass) Alloc() UNCalendarNotificationTrigg
 //   - [UNCalendarNotificationTrigger.DateComponents]: The date components to construct this object.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNCalendarNotificationTrigger
+//
+// [NSDateComponents]: https://developer.apple.com/documentation/Foundation/NSDateComponents
 type UNCalendarNotificationTrigger struct {
 	UNNotificationTrigger
 }
@@ -76,6 +77,7 @@ type UNCalendarNotificationTrigger struct {
 func UNCalendarNotificationTriggerFromID(id objc.ID) UNCalendarNotificationTrigger {
 	return UNCalendarNotificationTrigger{UNNotificationTrigger: UNNotificationTriggerFromID(id)}
 }
+
 // NOTE: UNCalendarNotificationTrigger adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,19 +124,16 @@ func NewUNCalendarNotificationTrigger() UNCalendarNotificationTrigger {
 // dateComponents: The temporal information to use when constructing the trigger. Provide only
 // the date components that are relevant for your trigger.
 //
-// repeats: Specify [false] to deliver the notification one time. Specify [true] to
+// repeats: Specify false to deliver the notification one time. Specify true to
 // reschedule the notification request each time the system delivers the
 // notification.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // A new calendar trigger based on the specified temporal information.
 //
 // # Discussion
-// 
+//
 // If you specify `true` for the `repeats` parameter, you must explicitly
 // remove the notification request to stop the delivery of the associated
 // notification. Use the methods of [UNUserNotificationCenter] to remove
@@ -149,11 +148,11 @@ func NewUNCalendarNotificationTriggerWithDateMatchingComponentsRepeats(dateCompo
 // The next date at which the trigger conditions are met.
 //
 // # Return Value
-// 
+//
 // The next trigger date.
 //
 // # Discussion
-// 
+//
 // Use this property to find out when the system will deliver a notification
 // associated with this trigger.
 //
@@ -166,7 +165,7 @@ func (u UNCalendarNotificationTrigger) NextTriggerDate() foundation.INSDate {
 // The date components to construct this object.
 //
 // # Discussion
-// 
+//
 // Use this property to review the date components associated with this
 // trigger.
 //
@@ -175,4 +174,3 @@ func (u UNCalendarNotificationTrigger) DateComponents() foundation.NSDateCompone
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dateComponents"))
 	return foundation.NSDateComponentsFromID(objc.ID(rv))
 }
-

@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -125,6 +125,7 @@ type MTLHeap interface {
 type MTLHeapObject struct {
 	objectivec.Object
 }
+
 func (o MTLHeapObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -143,7 +144,8 @@ func MTLHeapObjectFromID(id objc.ID) MTLHeapObject {
 func (o MTLHeapObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Creates a buffer on the heap.
 //
 // length: The size, in bytes, of the buffer.
@@ -151,24 +153,27 @@ func (o MTLHeapObject) Label() string {
 // options: Options that describe the properties of the buffer.
 //
 // # Return Value
-// 
+//
 // A new buffer object backed by heap memory, or `nil` if the heap memory is
 // full.
 //
 // # Discussion
-// 
+//
 // You can call the method with the following restrictions:
-// 
-// - The heap’s type needs to be [HeapTypeAutomatic] - The buffer’s
+//
+// - The heap’s type needs to be [MTLHeapType.automatic] - The buffer’s
 // storage mode option needs to match the heap’s [StorageMode] property -
 // The buffer’s CPU cache mode option needs to match the heap’s
 // [CpuCacheMode] property
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeBuffer(length:options:)
+//
+// [MTLHeapType.automatic]: https://developer.apple.com/documentation/Metal/MTLHeapType/automatic
 func (o MTLHeapObject) NewBufferWithLengthOptions(length uint, options MTLResourceOptions) MTLBuffer {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithLength:options:"), length, options)
 	return MTLBufferObjectFromID(rv)
-	}
+}
+
 // Creates a buffer at a specified offset on the heap.
 //
 // length: The size of the buffer, in bytes.
@@ -179,50 +184,56 @@ func (o MTLHeapObject) NewBufferWithLengthOptions(length uint, options MTLResour
 // heap.
 //
 // # Return Value
-// 
+//
 // A new buffer, or `nil` if the heap is not a placement heap.
 //
 // # Discussion
-// 
+//
 // You can call the method with the following restrictions:
-// 
-// - The heap’s type needs to be [HeapTypePlacement] - The buffer’s
+//
+// - The heap’s type needs to be [MTLHeapTypePlacement] - The buffer’s
 // storage mode option needs to match the heap’s [StorageMode] property -
 // The buffer’s CPU cache mode option needs to match the heap’s
 // [CpuCacheMode] property
-// 
-// Use the [HeapBufferSizeAndAlignWithLengthOptions] method to determine the
+//
+// Use the [heapBufferSizeAndAlign(length:options:)] method to determine the
 // required size and alignment. If you don’t align the buffer correctly or
 // it extends past the end of the heap, the behavior is undefined.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeBuffer(length:options:offset:)
+//
+// [heapBufferSizeAndAlign(length:options:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapBufferSizeAndAlign(length:options:)
 func (o MTLHeapObject) NewBufferWithLengthOptionsOffset(length uint, options MTLResourceOptions, offset uint) MTLBuffer {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithLength:options:offset:"), length, options, offset)
 	return MTLBufferObjectFromID(rv)
-	}
+}
+
 // Creates a texture on the heap.
 //
 // descriptor: A descriptor object that describes the properties of the texture.
 //
 // # Return Value
-// 
+//
 // A new texture object backed by heap memory, or `nil` if the heap memory is
 // full.
 //
 // # Discussion
-// 
+//
 // You can call the method with the following restrictions:
-// 
-// - The heap’s type needs to be [HeapTypeAutomatic] - The texture’s CPU
-// cache mode option needs to match the heap’s [CpuCacheMode] property - The
-// texture’s storage mode option needs to be [StorageModeMemoryless], or
-// match the heap’s [StorageMode] property
+//
+// - The heap’s type needs to be [MTLHeapType.automatic] - The texture’s
+// CPU cache mode option needs to match the heap’s [CpuCacheMode] property -
+// The texture’s storage mode option needs to be [MTLStorageModeMemoryless],
+// or match the heap’s [StorageMode] property
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeTexture(descriptor:)
+//
+// [MTLHeapType.automatic]: https://developer.apple.com/documentation/Metal/MTLHeapType/automatic
 func (o MTLHeapObject) NewTextureWithDescriptor(descriptor IMTLTextureDescriptor) MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureWithDescriptor:"), descriptor)
 	return MTLTextureObjectFromID(rv)
-	}
+}
+
 // Creates a texture at a specified offset on the heap.
 //
 // descriptor: A descriptor object that describes the properties of the texture.
@@ -231,75 +242,79 @@ func (o MTLHeapObject) NewTextureWithDescriptor(descriptor IMTLTextureDescriptor
 // heap.
 //
 // # Return Value
-// 
+//
 // A new texture, or `nil` if the heap is not a placement heap.
 //
 // # Discussion
-// 
+//
 // You can call the method with the following restrictions:
-// 
-// - The heap’s type needs to be [HeapTypePlacement] - The texture’s CPU
-// cache mode option needs to match the heap’s [CpuCacheMode] property - The
-// texture’s storage mode option needs to be [StorageModeMemoryless], or
-// match the heap’s [StorageMode] property
-// 
-// Use the [HeapBufferSizeAndAlignWithLengthOptions] to determine the correct
+//
+// - The heap’s type needs to be [MTLHeapTypePlacement] - The texture’s
+// CPU cache mode option needs to match the heap’s [CpuCacheMode] property -
+// The texture’s storage mode option needs to be [MTLStorageModeMemoryless],
+// or match the heap’s [StorageMode] property
+//
+// Use the [heapBufferSizeAndAlign(length:options:)] to determine the correct
 // size and alignment.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeTexture(descriptor:offset:)
+//
+// [heapBufferSizeAndAlign(length:options:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapBufferSizeAndAlign(length:options:)
 func (o MTLHeapObject) NewTextureWithDescriptorOffset(descriptor IMTLTextureDescriptor, offset uint) MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureWithDescriptor:offset:"), descriptor, offset)
 	return MTLTextureObjectFromID(rv)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeAccelerationStructure(size:)
 func (o MTLHeapObject) NewAccelerationStructureWithSize(size uint) MTLAccelerationStructure {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newAccelerationStructureWithSize:"), size)
 	return MTLAccelerationStructureObjectFromID(rv)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeAccelerationStructure(size:offset:)
 func (o MTLHeapObject) NewAccelerationStructureWithSizeOffset(size uint, offset uint) MTLAccelerationStructure {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newAccelerationStructureWithSize:offset:"), size, offset)
 	return MTLAccelerationStructureObjectFromID(rv)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeAccelerationStructure(descriptor:)
 func (o MTLHeapObject) NewAccelerationStructureWithDescriptor(descriptor IMTLAccelerationStructureDescriptor) MTLAccelerationStructure {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newAccelerationStructureWithDescriptor:"), descriptor)
 	return MTLAccelerationStructureObjectFromID(rv)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeAccelerationStructure(descriptor:offset:)
 func (o MTLHeapObject) NewAccelerationStructureWithDescriptorOffset(descriptor IMTLAccelerationStructureDescriptor, offset uint) MTLAccelerationStructure {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newAccelerationStructureWithDescriptor:offset:"), descriptor, offset)
 	return MTLAccelerationStructureObjectFromID(rv)
-	}
+}
+
 // Sets the purgeable state of the heap.
 //
 // state: The desired purgeable state of the heap.
 //
 // # Return Value
-// 
+//
 // The previous purgeable state of the heap.
 //
 // # Discussion
-// 
+//
 // The heap purgeability state refers to its whole backing memory and affects
 // all resources in the heap. Heaps can be marked purgeable but its resources
 // cannot; the heap’s resources always reflect the heap’s purgeability
 // state.
-// 
+//
 // Refer to the [MTLPurgeableState] and [SetPurgeableState] reference for
 // further information.
 //
-// [MTLPurgeableState]: https://developer.apple.com/documentation/Metal/MTLPurgeableState
-//
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/setPurgeableState(_:)
+//
+// [MTLPurgeableState]: https://developer.apple.com/documentation/Metal/MTLPurgeableState
 func (o MTLHeapObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
-	}
+}
+
 // The maximum size of a resource, in bytes, that can be currently allocated
 // from the heap.
 //
@@ -307,84 +322,97 @@ func (o MTLHeapObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableSt
 // two.
 //
 // # Return Value
-// 
+//
 // The maximum size for the resource, in bytes.
 //
 // # Discussion
-// 
+//
 // This method measures fragmentation within the heap. You can use the
-// [HeapBufferSizeAndAlignWithLengthOptions] and
-// [HeapTextureSizeAndAlignWithDescriptor] methods to help you determine the
+// [heapBufferSizeAndAlign(length:options:)] and
+// [heapTextureSizeAndAlign(descriptor:)] methods to help you determine the
 // correct alignment for the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/maxAvailableSize(alignment:)
+//
+// [heapBufferSizeAndAlign(length:options:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapBufferSizeAndAlign(length:options:)
+// [heapTextureSizeAndAlign(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapTextureSizeAndAlign(descriptor:)
 func (o MTLHeapObject) MaxAvailableSizeWithAlignment(alignment uint) uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("maxAvailableSizeWithAlignment:"), alignment)
 	return rv
-	}
+}
+
 // The total size of the heap, in bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/size
 func (o MTLHeapObject) Size() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("size"))
 	return rv
-	}
+}
+
 // The size of all resources currently in the heap, in bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/usedSize
 func (o MTLHeapObject) UsedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("usedSize"))
 	return rv
-	}
+}
+
 // The size, in bytes, of the current heap allocation.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/currentAllocatedSize
 func (o MTLHeapObject) CurrentAllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("currentAllocatedSize"))
 	return rv
-	}
+}
+
 // The device object that created the heap.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/device
 func (o MTLHeapObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-	}
+}
+
 // The heap’s type.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/type
 func (o MTLHeapObject) Type() MTLHeapType {
 	rv := objc.Send[MTLHeapType](o.ID, objc.Sel("type"))
 	return rv
-	}
+}
+
 // The heap’s storage mode.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/storageMode
 func (o MTLHeapObject) StorageMode() MTLStorageMode {
 	rv := objc.Send[MTLStorageMode](o.ID, objc.Sel("storageMode"))
 	return rv
-	}
+}
+
 // The heap’s CPU cache mode.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/cpuCacheMode
 func (o MTLHeapObject) CpuCacheMode() MTLCPUCacheMode {
 	rv := objc.Send[MTLCPUCacheMode](o.ID, objc.Sel("cpuCacheMode"))
 	return rv
-	}
+}
+
 // The heap’s hazard tracking mode.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/hazardTrackingMode
 func (o MTLHeapObject) HazardTrackingMode() MTLHazardTrackingMode {
 	rv := objc.Send[MTLHazardTrackingMode](o.ID, objc.Sel("hazardTrackingMode"))
 	return rv
-	}
+}
+
 // The options for resources created by the heap.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/resourceOptions
 func (o MTLHeapObject) ResourceOptions() MTLResourceOptions {
 	rv := objc.Send[MTLResourceOptions](o.ID, objc.Sel("resourceOptions"))
 	return rv
-	}
+}
+
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
 // texture, or heap.
 //
@@ -392,9 +420,19 @@ func (o MTLHeapObject) ResourceOptions() MTLResourceOptions {
 func (o MTLHeapObject) AllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
-	}
+}
 
+// A string that identifies the heap.
+//
+// # Discussion
+//
+// Object and command labels are useful identifiers at runtime or when
+// profiling and debugging your app using any Metal tool. See [Naming
+// resources and commands].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLHeap/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLHeapObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

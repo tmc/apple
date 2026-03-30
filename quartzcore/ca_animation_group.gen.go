@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,16 +46,16 @@ func (cc CAAnimationGroupClass) Alloc() CAAnimationGroup {
 // concurrently.
 //
 // # Overview
-// 
+//
 // The grouped animations run in the time space specified by the
 // [CAAnimationGroup] instance.
-// 
+//
 // The duration of the grouped animations are not scaled to the duration of
 // their [CAAnimationGroup]. Instead, the animations are clipped to the
 // duration of the animation group. For example, a 10 second animation grouped
 // within an animation group with a duration of 5 seconds displays only the
 // first 5 seconds of the animation.
-// 
+//
 // The following code shows how you can create a grouped animation containing
 // opacity and scale animations to fade out a layer while expanding it. The
 // animation starts with an opacity of `1` and a scale of `1` on all axes. As
@@ -78,6 +79,7 @@ type CAAnimationGroup struct {
 func CAAnimationGroupFromID(id objc.ID) CAAnimationGroup {
 	return CAAnimationGroup{CAAnimation: CAAnimationFromID(id)}
 }
+
 // NOTE: CAAnimationGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,7 +128,7 @@ func NewCAAnimationGroup() CAAnimationGroup {
 // receiver.
 //
 // # Discussion
-// 
+//
 // The animations run concurrently in the receiver’s time space.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimationGroup/animations
@@ -139,6 +141,7 @@ func (a CAAnimationGroup) Animations() []CAAnimation {
 func (a CAAnimationGroup) SetAnimations(value []CAAnimation) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAnimations:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Determines if the animation is removed from the target layer’s animations
 // upon completion.
 //
@@ -150,4 +153,3 @@ func (a CAAnimationGroup) IsRemovedOnCompletion() bool {
 func (a CAAnimationGroup) SetIsRemovedOnCompletion(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRemovedOnCompletion:"), value)
 }
-

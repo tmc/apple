@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,6 +53,7 @@ type MLRegressor struct {
 func MLRegressorFromID(id objc.ID) MLRegressor {
 	return MLRegressor{objectivec.Object{ID: id}}
 }
+
 // Ensure MLRegressor implements IMLRegressor.
 var _ IMLRegressor = MLRegressor{}
 
@@ -78,4 +80,3 @@ func NewMLRegressor() MLRegressor {
 	rv := objc.Send[MLRegressor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

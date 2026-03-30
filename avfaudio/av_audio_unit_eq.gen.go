@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (ac AVAudioUnitEQClass) Alloc() AVAudioUnitEQ {
 // An object that implements a multiband equalizer.
 //
 // # Overview
-// 
+//
 // The [AVAudioUnitEQFilterParameters] class encapsulates the filter
 // parameters that the [AVAudioUnitEQ.Bands] property array returns.
 //
@@ -69,6 +70,7 @@ type AVAudioUnitEQ struct {
 func AVAudioUnitEQFromID(id objc.ID) AVAudioUnitEQ {
 	return AVAudioUnitEQ{AVAudioUnitEffect: AVAudioUnitEffectFromID(id)}
 }
+
 // NOTE: AVAudioUnitEQ adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,14 +126,14 @@ func NewAVAudioUnitEQ() AVAudioUnitEQ {
 // Creates an audio unit effect object with the specified description.
 //
 // audioComponentDescription: The description of the audio unit to create.
-// 
+//
 // The `audioComponentDescription` must be one of these types
 // `kAudioUnitType_Effect`, `kAudioUnitType_MusicEffect`,
 // `kAudioUnitType_Panner`, `kAudioUnitType_RemoteEffect`, or
 // `kAudioUnitType_RemoteMusicEffect`.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
@@ -147,7 +149,7 @@ func NewAudioUnitEQWithAudioComponentDescription(audioComponentDescription objec
 // numberOfBands: The number of bands that the equalizer creates.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitEQ] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEQ/init(numberOfBands:)
@@ -162,7 +164,7 @@ func NewAudioUnitEQWithNumberOfBands(numberOfBands uint) AVAudioUnitEQ {
 // numberOfBands: The number of bands that the equalizer creates.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitEQ] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEQ/init(numberOfBands:)
@@ -174,7 +176,7 @@ func (a AVAudioUnitEQ) InitWithNumberOfBands(numberOfBands uint) AVAudioUnitEQ {
 // An array of equalizer filter parameters.
 //
 // # Discussion
-// 
+//
 // The number of elements in the array is equal to the number of bands.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEQ/bands
@@ -184,11 +186,12 @@ func (a AVAudioUnitEQ) Bands() []AVAudioUnitEQFilterParameters {
 		return AVAudioUnitEQFilterParametersFromID(id)
 	})
 }
+
 // The overall gain adjustment that the audio unit applies to the signal, in
 // decibels.
 //
 // # Discussion
-// 
+//
 // The default value is `0 db`. The valid range of values is `-96 db` to `24
 // db`.
 //
@@ -200,4 +203,3 @@ func (a AVAudioUnitEQ) GlobalGain() float32 {
 func (a AVAudioUnitEQ) SetGlobalGain(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setGlobalGain:"), value)
 }
-

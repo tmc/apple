@@ -24,4 +24,3 @@ func (o Object) Autorelease() {
 		objc.Send[objc.ID](o.ID, objc.Sel("autorelease"))
 	}
 }
-

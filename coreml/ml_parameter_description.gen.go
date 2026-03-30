@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type MLParameterDescription struct {
 func MLParameterDescriptionFromID(id objc.ID) MLParameterDescription {
 	return MLParameterDescription{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLParameterDescription adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -138,6 +140,7 @@ func (p MLParameterDescription) DefaultValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("defaultValue"))
 	return objectivec.Object{ID: rv}
 }
+
 // The key for this parameter description value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/key
@@ -145,6 +148,7 @@ func (p MLParameterDescription) Key() IMLParameterKey {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("key"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
+
 // The constraints of this paramter description value, if and only if the
 // value is numerical.
 //
@@ -153,6 +157,7 @@ func (p MLParameterDescription) NumericConstraint() IMLNumericConstraint {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("numericConstraint"))
 	return MLNumericConstraintFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether you can update the model with
 // additional training.
 //
@@ -164,6 +169,7 @@ func (p MLParameterDescription) IsUpdatable() bool {
 func (p MLParameterDescription) SetIsUpdatable(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIsUpdatable:"), value)
 }
+
 // A dictionary of the descriptions for the model’s parameters.
 //
 // See: https://developer.apple.com/documentation/coreml/mlmodeldescription/parameterdescriptionsbykey
@@ -174,6 +180,7 @@ func (p MLParameterDescription) ParameterDescriptionsByKey() IMLParameterDescrip
 func (p MLParameterDescription) SetParameterDescriptionsByKey(value IMLParameterDescription) {
 	objc.Send[struct{}](p.ID, objc.Sel("setParameterDescriptionsByKey:"), value)
 }
+
 // A dictionary of the training input feature descriptions, which the model
 // keys by the input’s name.
 //
@@ -185,4 +192,3 @@ func (p MLParameterDescription) TrainingInputDescriptionsByName() IMLFeatureDesc
 func (p MLParameterDescription) SetTrainingInputDescriptionsByName(value IMLFeatureDescription) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTrainingInputDescriptionsByName:"), value)
 }
-

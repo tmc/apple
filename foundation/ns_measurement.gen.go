@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,19 +46,19 @@ func (nc NSMeasurementClass) Alloc() NSMeasurement {
 // conversion and unit-aware calculations.
 //
 // # Overview
-// 
+//
 // Use this object in Swift when you need reference semantics or other
 // Foundation-specific behavior.
-// 
+//
 // An [NSMeasurement] object represents a quantity and unit of measure. The
 // [NSMeasurement] class provides a programmatic interface to converting
 // measurements into different units, as well as calculating the sum or
 // difference between two measurements.
-// 
+//
 // [NSMeasurement] objects are initialized with an [NSUnit] object and
 // `double` value. [NSMeasurement] objects are immutable, and cannot be
 // changed after being created.
-// 
+//
 // You can use the [NSMeasurementFormatter] class to create localized string
 // representations of [NSMeasurement] objects.
 //
@@ -92,6 +93,7 @@ type NSMeasurement struct {
 func NSMeasurementFromID(id objc.ID) NSMeasurement {
 	return NSMeasurement{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSMeasurement adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -169,7 +171,6 @@ func NewNSMeasurement() NSMeasurement {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMeasurementWithCoder(coder INSCoder) NSMeasurement {
 	instance := getNSMeasurementClass().Alloc()
@@ -185,7 +186,7 @@ func NewMeasurementWithCoder(coder INSCoder) NSMeasurement {
 // unit: The unit of measure.
 //
 // # Return Value
-// 
+//
 // A measurement initialized to have the specified double-precision
 // floating-point value and unit.
 //
@@ -204,7 +205,7 @@ func NewMeasurementWithDoubleValueUnit(doubleValue float64, unit objectivec.IObj
 // unit: The unit of measure.
 //
 // # Return Value
-// 
+//
 // A measurement initialized to have the specified double-precision
 // floating-point value and unit.
 //
@@ -213,6 +214,7 @@ func (m NSMeasurement) InitWithDoubleValueUnit(doubleValue float64, unit objecti
 	rv := objc.Send[NSMeasurement](m.ID, objc.Sel("initWithDoubleValue:unit:"), doubleValue, unit)
 	return rv
 }
+
 // Indicates whether the measurement can be converted to the given unit.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/canBeConverted(to:)
@@ -220,79 +222,77 @@ func (m NSMeasurement) CanBeConvertedToUnit(unit INSUnit) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("canBeConvertedToUnit:"), unit)
 	return rv
 }
+
 // Returns a measurement created by converting the receiver to the specified
 // unit.
 //
 // unit: The unit to convert the measurement into.
 //
 // # Return Value
-// 
+//
 // A new measurement with a value calculated by converting into the new unit.
 //
 // # Discussion
-// 
-// This method raises an [invalidArgumentException] if the receiver cannot be
-// converted to unit.
 //
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+// This method raises an [InvalidArgumentException] if the receiver cannot be
+// converted to unit.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/converting(to:)
 func (m NSMeasurement) MeasurementByConvertingToUnit(unit INSUnit) INSMeasurement {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("measurementByConvertingToUnit:"), unit)
 	return NSMeasurementFromID(rv)
 }
+
 // Returns a new measurement by adding the receiver to the specified
 // measurement.
 //
 // measurement: The measurement to be added.
 //
 // # Return Value
-// 
+//
 // A new measurement with a value equal to the receiver’s value plus the
 // value of the specified measurement converted into the unit of the receiver.
 //
 // # Discussion
-// 
-// This method raises an [invalidArgumentException] if the receiver cannot be
+//
+// This method raises an [InvalidArgumentException] if the receiver cannot be
 // converted to unit.
-// 
+//
 // You can use the [CanBeConvertedToUnit] method, passing the unit of the
 // specified measurement, to determine whether a measurement can be converted
 // to a particular unit before calling this method.
-//
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/adding(_:)
 func (m NSMeasurement) MeasurementByAddingMeasurement(measurement INSMeasurement) INSMeasurement {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("measurementByAddingMeasurement:"), measurement)
 	return NSMeasurementFromID(rv)
 }
+
 // Returns a new measurement by subtracting the specified measurement from the
 // receiver.
 //
 // measurement: The measurement to be subtracted.
 //
 // # Return Value
-// 
+//
 // A new measurement with a value equal to the receiver’s value minus the
 // value of the specified measurement converted into the unit of the receiver.
 //
 // # Discussion
-// 
-// This method raises an [invalidArgumentException] if the receiver cannot be
+//
+// This method raises an [InvalidArgumentException] if the receiver cannot be
 // converted to unit.
-// 
+//
 // You can use the [CanBeConvertedToUnit] method, passing the unit of the
 // specified measurement, to determine whether a measurement can be converted
 // to a particular unit before calling this method.
-//
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/subtracting(_:)
 func (m NSMeasurement) MeasurementBySubtractingMeasurement(measurement INSMeasurement) INSMeasurement {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("measurementBySubtractingMeasurement:"), measurement)
 	return NSMeasurementFromID(rv)
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -301,7 +301,7 @@ func (m NSMeasurement) MeasurementBySubtractingMeasurement(measurement INSMeasur
 func (m NSMeasurement) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (m NSMeasurement) InitWithCoder(coder INSCoder) NSMeasurement {
 	rv := objc.Send[NSMeasurement](m.ID, objc.Sel("initWithCoder:"), coder)
@@ -315,6 +315,7 @@ func (m NSMeasurement) Unit() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("unit"))
 	return objectivec.Object{ID: rv}
 }
+
 // The measurement value, represented as a double-precision floating-point
 // number.
 //
@@ -324,9 +325,6 @@ func (m NSMeasurement) DoubleValue() float64 {
 	return rv
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

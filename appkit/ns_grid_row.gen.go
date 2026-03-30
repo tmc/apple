@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -86,6 +87,7 @@ type NSGridRow struct {
 func NSGridRowFromID(id objc.ID) NSGridRow {
 	return NSGridRow{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSGridRow adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -179,13 +181,12 @@ func NewNSGridRow() NSGridRow {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/cell(at:)
 func (g NSGridRow) CellAtIndex(index int) INSGridCell {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("cellAtIndex:"), index)
 	return NSGridCellFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/mergeCells(in:)
 func (g NSGridRow) MergeCellsInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](g.ID, objc.Sel("mergeCellsInRange:"), range_)
@@ -199,6 +200,7 @@ func (g NSGridRow) NumberOfCells() int {
 	rv := objc.Send[int](g.ID, objc.Sel("numberOfCells"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/isHidden
 func (g NSGridRow) Hidden() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isHidden"))
@@ -207,6 +209,7 @@ func (g NSGridRow) Hidden() bool {
 func (g NSGridRow) SetHidden(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setHidden:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/topPadding
 func (g NSGridRow) TopPadding() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("topPadding"))
@@ -215,6 +218,7 @@ func (g NSGridRow) TopPadding() float64 {
 func (g NSGridRow) SetTopPadding(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setTopPadding:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/bottomPadding
 func (g NSGridRow) BottomPadding() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("bottomPadding"))
@@ -223,6 +227,7 @@ func (g NSGridRow) BottomPadding() float64 {
 func (g NSGridRow) SetBottomPadding(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setBottomPadding:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/height
 func (g NSGridRow) Height() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("height"))
@@ -231,6 +236,7 @@ func (g NSGridRow) Height() float64 {
 func (g NSGridRow) SetHeight(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setHeight:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/rowAlignment
 func (g NSGridRow) RowAlignment() NSGridRowAlignment {
 	rv := objc.Send[NSGridRowAlignment](g.ID, objc.Sel("rowAlignment"))
@@ -239,6 +245,7 @@ func (g NSGridRow) RowAlignment() NSGridRowAlignment {
 func (g NSGridRow) SetRowAlignment(value NSGridRowAlignment) {
 	objc.Send[struct{}](g.ID, objc.Sel("setRowAlignment:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/yPlacement
 func (g NSGridRow) YPlacement() NSGridCellPlacement {
 	rv := objc.Send[NSGridCellPlacement](g.ID, objc.Sel("yPlacement"))
@@ -247,9 +254,9 @@ func (g NSGridRow) YPlacement() NSGridCellPlacement {
 func (g NSGridRow) SetYPlacement(value NSGridCellPlacement) {
 	objc.Send[struct{}](g.ID, objc.Sel("setYPlacement:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridRow/gridView
 func (g NSGridRow) GridView() INSGridView {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("gridView"))
 	return NSGridViewFromID(objc.ID(rv))
 }
-

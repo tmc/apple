@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"context"
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -43,7 +44,6 @@ func (gc GTMioTraceDataHelperClass) Alloc() GTMioTraceDataHelper {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioTraceDataHelper._cachePerEncoderShaderTracks]
@@ -88,6 +88,7 @@ func (gc GTMioTraceDataHelperClass) Alloc() GTMioTraceDataHelper {
 //   - [GTMioTraceDataHelper.Stats]
 //   - [GTMioTraceDataHelper.TraceData]
 //   - [GTMioTraceDataHelper.InitWithTraceData]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper
 type GTMioTraceDataHelper struct {
 	objectivec.Object
@@ -97,6 +98,7 @@ type GTMioTraceDataHelper struct {
 func GTMioTraceDataHelperFromID(id objc.ID) GTMioTraceDataHelper {
 	return GTMioTraceDataHelper{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioTraceDataHelper implements IGTMioTraceDataHelper.
 var _ IGTMioTraceDataHelper = GTMioTraceDataHelper{}
 
@@ -216,7 +218,6 @@ func NewGTMioTraceDataHelper() GTMioTraceDataHelper {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/initWithTraceData:
 func NewGTMioTraceDataHelperWithTraceData(data objectivec.IObject) GTMioTraceDataHelper {
 	instance := getGTMioTraceDataHelperClass().Alloc()
@@ -233,187 +234,194 @@ func (g GTMioTraceDataHelper) _cachePerEncoderShaderTracks() {
 func (g GTMioTraceDataHelper) CachePerEncoderShaderTracks() {
 	g._cachePerEncoderShaderTracks()
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedCliqueTrackForUSC:
 func (g GTMioTraceDataHelper) GenerateAggregatedCliqueTrackForUSC(usc uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedCliqueTrackForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedDrawTrackForEncoder:
 func (g GTMioTraceDataHelper) GenerateAggregatedDrawTrackForEncoder(encoder uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedDrawTrackForEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedPerBinaryShaderTrackForEncoder:
 func (g GTMioTraceDataHelper) GenerateAggregatedPerBinaryShaderTrackForEncoder(encoder uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedPerBinaryShaderTrackForEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedShaderTrackForDataMaster:
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForDataMaster(master uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForDataMaster:"), master)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedShaderTrackForDataMasterWithBinaries:
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForDataMasterWithBinaries(binaries uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForDataMasterWithBinaries:"), binaries)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedShaderTrackForDataMasterWithCliques:
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForDataMasterWithCliques(cliques uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForDataMasterWithCliques:"), cliques)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedShaderTrackForEncoder:
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForEncoder(encoder uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedShaderTrackForPipelineState:dataMaster:
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForPipelineStateDataMaster(state uint64, master uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:dataMaster:"), state, master)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForPipelineStateEncoderFunctionIndex(state uint64, index uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:"), state, index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:cacheKey:dataMaster:
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForPipelineStateEncoderFunctionIndexCacheKeyDataMaster(state uint64, index uint32, key uint64, master uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:cacheKey:dataMaster:"), state, index, key, master)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:cacheKey:programType:
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForPipelineStateEncoderFunctionIndexCacheKeyProgramType(state uint64, index uint32, key uint64, type_ uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:encoderFunctionIndex:cacheKey:programType:"), state, index, key, type_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateAggregatedShaderTrackForPipelineState:programType:
 func (g GTMioTraceDataHelper) GenerateAggregatedShaderTrackForPipelineStateProgramType(state uint64, type_ uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAggregatedShaderTrackForPipelineState:programType:"), state, type_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateBinaryTrack:
 func (g GTMioTraceDataHelper) GenerateBinaryTrack(track uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateBinaryTrack:"), track)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateCliqueInstructionTracksForShader:programType:uscIndex:
 func (g GTMioTraceDataHelper) GenerateCliqueInstructionTracksForShaderProgramTypeUscIndex(shader uint64, type_ uint16, index uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateCliqueInstructionTracksForShader:programType:uscIndex:"), shader, type_, index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateCliqueInstructionTracksForUSC:
 func (g GTMioTraceDataHelper) GenerateCliqueInstructionTracksForUSC(usc uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateCliqueInstructionTracksForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateCliqueTracksForUSC:
 func (g GTMioTraceDataHelper) GenerateCliqueTracksForUSC(usc uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateCliqueTracksForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateEncoderShaderTracks:
 func (g GTMioTraceDataHelper) GenerateEncoderShaderTracks(tracks uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateEncoderShaderTracks:"), tracks)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateIndividualShaderTrackForProgramTypes
 func (g GTMioTraceDataHelper) GenerateIndividualShaderTrackForProgramTypes() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateIndividualShaderTrackForProgramTypes"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateKickTracksForMGPU:
 func (g GTMioTraceDataHelper) GenerateKickTracksForMGPU(mgpu uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateKickTracksForMGPU:"), mgpu)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateKickTracksForUSC:
 func (g GTMioTraceDataHelper) GenerateKickTracksForUSC(usc uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateKickTracksForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateShaderTrackForProgramType:
 func (g GTMioTraceDataHelper) GenerateShaderTrackForProgramType(type_ uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateShaderTrackForProgramType:"), type_)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateShaderTrackForProgramTypes
 func (g GTMioTraceDataHelper) GenerateShaderTrackForProgramTypes() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateShaderTrackForProgramTypes"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateShaderTrackForProgramTypesForUSC:
 func (g GTMioTraceDataHelper) GenerateShaderTrackForProgramTypesForUSC(usc uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateShaderTrackForProgramTypesForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateShaderTracksForPipelineState:
 func (g GTMioTraceDataHelper) GenerateShaderTracksForPipelineState(state uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateShaderTracksForPipelineState:"), state)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateTileTracksForUSC:
 func (g GTMioTraceDataHelper) GenerateTileTracksForUSC(usc uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTileTracksForUSC:"), usc)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateTopBinaryTracks
 func (g GTMioTraceDataHelper) GenerateTopBinaryTracks() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTopBinaryTracks"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateTopDrawTracks
 func (g GTMioTraceDataHelper) GenerateTopDrawTracks() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTopDrawTracks"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateTopKickTracks
 func (g GTMioTraceDataHelper) GenerateTopKickTracks() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTopKickTracks"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateTopRIATracks
 func (g GTMioTraceDataHelper) GenerateTopRIATracks() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTopRIATracks"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/generateTrackForCliqueIndexes:count:group:
 func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroup(indexes unsafe.Pointer, count uint64, group VoidHandler) objectivec.IObject {
-_block2, _ := NewVoidBlock(group)
+	_block2, _ := NewVoidBlock(group)
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateTrackForCliqueIndexes:count:group:"), indexes, count, _block2)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/stats
 func (g GTMioTraceDataHelper) Stats() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("stats"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/initWithTraceData:
 func (g GTMioTraceDataHelper) InitWithTraceData(data objectivec.IObject) GTMioTraceDataHelper {
 	rv := objc.Send[GTMioTraceDataHelper](g.ID, objc.Sel("initWithTraceData:"), data)
@@ -428,6 +436,7 @@ func (g GTMioTraceDataHelper) DoNotMergeProgramTypes() bool {
 func (g GTMioTraceDataHelper) SetDoNotMergeProgramTypes(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDoNotMergeProgramTypes:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/showDriverInternalShaders
 func (g GTMioTraceDataHelper) ShowDriverInternalShaders() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("showDriverInternalShaders"))
@@ -436,6 +445,7 @@ func (g GTMioTraceDataHelper) ShowDriverInternalShaders() bool {
 func (g GTMioTraceDataHelper) SetShowDriverInternalShaders(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setShowDriverInternalShaders:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/showDriverIntersectionShaders
 func (g GTMioTraceDataHelper) ShowDriverIntersectionShaders() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("showDriverIntersectionShaders"))
@@ -444,6 +454,7 @@ func (g GTMioTraceDataHelper) ShowDriverIntersectionShaders() bool {
 func (g GTMioTraceDataHelper) SetShowDriverIntersectionShaders(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setShowDriverIntersectionShaders:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/showESLShaders
 func (g GTMioTraceDataHelper) ShowESLShaders() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("showESLShaders"))
@@ -452,6 +463,7 @@ func (g GTMioTraceDataHelper) ShowESLShaders() bool {
 func (g GTMioTraceDataHelper) SetShowESLShaders(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setShowESLShaders:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataHelper/traceData
 func (g GTMioTraceDataHelper) TraceData() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("traceData"))
@@ -472,4 +484,3 @@ func (g GTMioTraceDataHelper) GenerateTrackForCliqueIndexesCountGroupSync(ctx co
 		return ctx.Err()
 	}
 }
-

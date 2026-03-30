@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,21 +45,19 @@ func (bc BlockOperationClass) Alloc() BlockOperation {
 // An operation that manages the concurrent execution of one or more blocks.
 //
 // # Overview
-// 
+//
 // The [NSBlockOperation] class is a concrete subclass of [NSOperation] that
 // manages the concurrent execution of one or more blocks. You can use this
 // object to execute several blocks at once without having to create separate
 // operation objects for each. When executing more than one block, the
 // operation itself is considered finished only when all blocks have finished
 // executing.
-// 
+//
 // Blocks added to a block operation are dispatched with default priority to
 // an appropriate work queue. The blocks themselves should not make any
 // assumptions about the configuration of their execution environment.
-// 
-// For more information about blocks, see [Blocks Programming Topics].
 //
-// [Blocks Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html#//apple_ref/doc/uid/TP40007502
+// For more information about blocks, see [Blocks Programming Topics].
 //
 // # Managing the Blocks in the Operation
 //
@@ -66,6 +65,8 @@ func (bc BlockOperationClass) Alloc() BlockOperation {
 //   - [BlockOperation.ExecutionBlocks]: The blocks associated with the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/BlockOperation
+//
+// [Blocks Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html#//apple_ref/doc/uid/TP40007502
 type BlockOperation struct {
 	NSOperation
 }
@@ -79,6 +80,7 @@ func BlockOperationFromID(id objc.ID) BlockOperation {
 
 // NSBlockOperationFromID is an alias for [BlockOperationFromID] for cross-framework compatibility.
 func NSBlockOperationFromID(id objc.ID) BlockOperation { return BlockOperationFromID(id) }
+
 // NOTE: BlockOperation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,16 +128,16 @@ func NewBlockOperation() BlockOperation {
 // parameters and have no return value.
 //
 // # Discussion
-// 
+//
 // The specified block should not make any assumptions about its execution
 // environment.
-// 
+//
 // Calling this method while the receiver is executing or has already finished
 // causes an [NSInvalidArgumentException] exception to be thrown.
 //
 // See: https://developer.apple.com/documentation/Foundation/BlockOperation/addExecutionBlock(_:)
 func (b BlockOperation) AddExecutionBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](b.ID, objc.Sel("addExecutionBlock:"), _block0)
 }
 
@@ -146,12 +148,12 @@ _block0, _ := NewVoidBlock(block)
 // should take no parameters and have no return value.
 //
 // # Return Value
-// 
+//
 // A new block operation object.
 //
 // See: https://developer.apple.com/documentation/Foundation/BlockOperation/init(block:)
 func (_BlockOperationClass BlockOperationClass) BlockOperationWithBlock(block VoidHandler) BlockOperation {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_BlockOperationClass.class), objc.Sel("blockOperationWithBlock:"), _block0)
 	return NSBlockOperationFromID(rv)
 }
@@ -159,7 +161,7 @@ _block0, _ := NewVoidBlock(block)
 // The blocks associated with the receiver.
 //
 // # Discussion
-// 
+//
 // The blocks in this array are copies of those originally added using the
 // [AddExecutionBlock] method.
 //
@@ -199,4 +201,3 @@ func (b BlockOperation) AddExecutionBlockSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

@@ -18,6 +18,7 @@ type OSSystemExtensionsWorkspaceObserver interface {
 type OSSystemExtensionsWorkspaceObserverObject struct {
 	objectivec.Object
 }
+
 func (o OSSystemExtensionsWorkspaceObserverObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,9 +31,8 @@ func OSSystemExtensionsWorkspaceObserverObjectFromID(id objc.ID) OSSystemExtensi
 	}
 }
 
-//
 // # Discussion
-// 
+//
 // This delegate method will be called when the user disables an already
 // enabled system extension, or when the system extension is first installed
 // and is in the disabled state.
@@ -40,20 +40,20 @@ func OSSystemExtensionsWorkspaceObserverObjectFromID(id objc.ID) OSSystemExtensi
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionsWorkspaceObserver/systemExtensionWillBecomeDisabled(_:)
 func (o OSSystemExtensionsWorkspaceObserverObject) SystemExtensionWillBecomeDisabled(systemExtensionInfo IOSSystemExtensionInfo) {
 	objc.Send[struct{}](o.ID, objc.Sel("systemExtensionWillBecomeDisabled:"), systemExtensionInfo)
-	}
-//
+}
+
 // # Discussion
-// 
+//
 // This delegate method will be called when a system extension has been
 // validated and allowed by the user to run.
 //
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionsWorkspaceObserver/systemExtensionWillBecomeEnabled(_:)
 func (o OSSystemExtensionsWorkspaceObserverObject) SystemExtensionWillBecomeEnabled(systemExtensionInfo IOSSystemExtensionInfo) {
 	objc.Send[struct{}](o.ID, objc.Sel("systemExtensionWillBecomeEnabled:"), systemExtensionInfo)
-	}
-//
+}
+
 // # Discussion
-// 
+//
 // This delegate method will be called when a system extension is deactivated
 // and is about to get uninstalled. The extension may still be running until
 // the system is rebooted.
@@ -61,5 +61,4 @@ func (o OSSystemExtensionsWorkspaceObserverObject) SystemExtensionWillBecomeEnab
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionsWorkspaceObserver/systemExtensionWillBecomeInactive(_:)
 func (o OSSystemExtensionsWorkspaceObserverObject) SystemExtensionWillBecomeInactive(systemExtensionInfo IOSSystemExtensionInfo) {
 	objc.Send[struct{}](o.ID, objc.Sel("systemExtensionWillBecomeInactive:"), systemExtensionInfo)
-	}
-
+}

@@ -4,11 +4,12 @@ package servicemanagement
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,13 +50,13 @@ func (sc SMAppServiceClass) Alloc() SMAppService {
 // an app’s main bundle.
 //
 // # Overview
-// 
+//
 // In macOS 13 and later, use [SMAppService] to register and control
 // [LoginItems], [LaunchAgents], and [LaunchDaemons] as helper executables for
 // your app. When converting code from earlier versions of macOS, use an
 // [SMAppService] object and select one of the following methods depending on
 // the type of service your helper executable provides:
-// 
+//
 // - For [SMAppServices] initialized as [LoginItems], the
 // [SMAppService.RegisterAndReturnError] and [SMAppService.UnregisterAndReturnError] APIs provide a
 // replacement for [SMLoginItemSetEnabled(_:_:)]. - For [SMAppServices]
@@ -65,8 +66,6 @@ func (sc SMAppServiceClass) Alloc() SMAppService {
 // For [SMAppServices] initialized as [LaunchDaemons], the
 // [SMAppService.RegisterAndReturnError] and [SMAppService.UnregisterAndReturnError] methods provide a
 // replacement for installing property lists in `/Library/LaunchDaemons`.
-//
-// [SMLoginItemSetEnabled(_:_:)]: https://developer.apple.com/documentation/ServiceManagement/SMLoginItemSetEnabled(_:_:)
 //
 // # Registering services
 //
@@ -79,6 +78,8 @@ func (sc SMAppServiceClass) Alloc() SMAppService {
 //   - [SMAppService.Status]: A property that describes registration or authorization state of the service.
 //
 // See: https://developer.apple.com/documentation/ServiceManagement/SMAppService
+//
+// [SMLoginItemSetEnabled(_:_:)]: https://developer.apple.com/documentation/ServiceManagement/SMLoginItemSetEnabled(_:_:)
 type SMAppService struct {
 	objectivec.Object
 }
@@ -90,6 +91,7 @@ type SMAppService struct {
 func SMAppServiceFromID(id objc.ID) SMAppService {
 	return SMAppService{objectivec.Object{ID: id}}
 }
+
 // NOTE: SMAppService adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -146,10 +148,10 @@ func NewSMAppService() SMAppService {
 // Registers the service so it can begin launching subject to user approval.
 //
 // # Discussion
-// 
+//
 // The registration process applies to the following rules, depending upon the
 // type of service:
-// 
+//
 // - If the service corresponds to a LoginItem bundle, the helper starts
 // immediately and on subsequent logins. If the helper crashes or exits with a
 // non-zero status, the system relaunches it. - If the service corresponds to
@@ -163,12 +165,12 @@ func NewSMAppService() SMAppService {
 // approves the LaunchDaemon in System Preferences. The system bootstraps
 // LaunchDaemons registered with this method and approved by an admin on each
 // subsequent boot.
-// 
+//
 // If the service is already registered, this method returns
-// [ErrorAlreadyRegistered].
-// 
+// [KSMErrorAlreadyRegistered].
+//
 // If the service isn’t approved by the user, this method returns
-// [ErrorLaunchDeniedByUser].
+// [KSMErrorLaunchDeniedByUser].
 //
 // See: https://developer.apple.com/documentation/ServiceManagement/SMAppService/register()
 func (a SMAppService) RegisterAndReturnError() (bool, error) {
@@ -184,19 +186,20 @@ func (a SMAppService) RegisterAndReturnError() (bool, error) {
 	return rv, nil
 
 }
+
 // Unregisters the service so the system no longer launches it.
 //
 // # Discussion
-// 
+//
 // This is the opposite operation of [RegisterAndReturnError].
-// 
+//
 // If the service corresponds to a LoginItem, LaunchAgent, or LaunchDaemon and
 // the service is currently running it, the system terminates it. If the
 // service corresponds to the main application, it continues running, but
 // becomes unregistered to prevent future launches at login.
-// 
+//
 // If the service is already unregistered, this method returns
-// [ErrorJobNotFound].
+// [KSMErrorJobNotFound].
 //
 // See: https://developer.apple.com/documentation/ServiceManagement/SMAppService/unregister()
 func (a SMAppService) UnregisterAndReturnError() (bool, error) {
@@ -212,6 +215,7 @@ func (a SMAppService) UnregisterAndReturnError() (bool, error) {
 	return rv, nil
 
 }
+
 // Unregisters the service so the system no longer launches it and calls a
 // completion handler you provide with the resulting error value.
 //
@@ -219,14 +223,14 @@ func (a SMAppService) UnregisterAndReturnError() (bool, error) {
 // operation. Upon an unsuccessful return, the handler contains a new
 // [NSError] object describing the error. Upon successful return, this
 // argument is [NULL].
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/ServiceManagement/SMAppService/unregister(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (a SMAppService) UnregisterWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("unregisterWithCompletionHandler:"), _block0)
 }
 
@@ -236,7 +240,7 @@ _block0, _ := NewErrorBlock(handler)
 // plistName: The name of the property list corresponding to the [SMAppService].
 //
 // # Discussion
-// 
+//
 // The property list name must correspond to a property list in the calling
 // app’s `Contents/Library/LaunchAgents` directory.
 //
@@ -245,17 +249,18 @@ func (_SMAppServiceClass SMAppServiceClass) AgentServiceWithPlistName(plistName 
 	rv := objc.Send[objc.ID](objc.ID(_SMAppServiceClass.class), objc.Sel("agentServiceWithPlistName:"), objc.String(plistName))
 	return SMAppServiceFromID(rv)
 }
+
 // Initializes an app service object with a launch daemon with the property
 // list name you provide.
 //
 // plistName: The name of the property list corresponding to the [SMAppService].
 //
 // # Return Value
-// 
+//
 // An [SMService] object
 //
 // # Discussion
-// 
+//
 // The property list name must correspond to a property list in the calling
 // app’s `Contents/Library/LaunchDaemons` directory
 //
@@ -264,17 +269,18 @@ func (_SMAppServiceClass SMAppServiceClass) DaemonServiceWithPlistName(plistName
 	rv := objc.Send[objc.ID](objc.ID(_SMAppServiceClass.class), objc.Sel("daemonServiceWithPlistName:"), objc.String(plistName))
 	return SMAppServiceFromID(rv)
 }
+
 // Initializes an app service object for a login item corresponding to the
 // bundle with the identifier you provide.
 //
 // identifier: The bundle identifier of the helper application.
 //
 // # Return Value
-// 
+//
 // An [SMService] object.
 //
 // # Discussion
-// 
+//
 // The property list name must correspond to a property list in the calling
 // app’s `Contents/Library/LoginItems` directory
 //
@@ -283,24 +289,26 @@ func (_SMAppServiceClass SMAppServiceClass) LoginItemServiceWithIdentifier(ident
 	rv := objc.Send[objc.ID](objc.ID(_SMAppServiceClass.class), objc.Sel("loginItemServiceWithIdentifier:"), objc.String(identifier))
 	return SMAppServiceFromID(rv)
 }
+
 // Opens System Settings to the Login Items control panel.
 //
 // See: https://developer.apple.com/documentation/ServiceManagement/SMAppService/openSystemSettingsLoginItems()
 func (_SMAppServiceClass SMAppServiceClass) OpenSystemSettingsLoginItems() {
 	objc.Send[objc.ID](objc.ID(_SMAppServiceClass.class), objc.Sel("openSystemSettingsLoginItems"))
 }
+
 // Check the authorization status of an earlier OS version login item.
 //
 // url: The URL of the helper executable’s property list.
 //
 // # Return Value
-// 
+//
 // One of the [SMAppService.Status] constants that indicate the current
 // authorization status.
 //
-// [SMAppService.Status]: https://developer.apple.com/documentation/ServiceManagement/SMAppService/Status-swift.enum
-//
 // See: https://developer.apple.com/documentation/ServiceManagement/SMAppService/statusForLegacyPlist(at:)
+//
+// [SMAppService.Status]: https://developer.apple.com/documentation/ServiceManagement/SMAppService/Status-swift.enum
 func (_SMAppServiceClass SMAppServiceClass) StatusForLegacyURL(url foundation.INSURL) SMAppServiceStatus {
 	rv := objc.Send[SMAppServiceStatus](objc.ID(_SMAppServiceClass.class), objc.Sel("statusForLegacyURL:"), url)
 	return SMAppServiceStatus(rv)
@@ -319,7 +327,7 @@ func (a SMAppService) Status() SMAppServiceStatus {
 // item.
 //
 // # Discussion
-// 
+//
 // Use this [SMAppService] to configure the main app to launch at login.
 //
 // See: https://developer.apple.com/documentation/ServiceManagement/SMAppService/mainApp
@@ -342,4 +350,3 @@ func (a SMAppService) Unregister(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

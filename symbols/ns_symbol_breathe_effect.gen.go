@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (nc NSSymbolBreatheEffectClass) Alloc() NSSymbolBreatheEffect {
 // A symbol effect that applies the Breathe animation to symbol images.
 //
 // # Overview
-// 
+//
 // The Breathe animation smoothly scales a symbol up and down.
 //
 // # Instance Methods
@@ -62,6 +63,7 @@ type NSSymbolBreatheEffect struct {
 func NSSymbolBreatheEffectFromID(id objc.ID) NSSymbolBreatheEffect {
 	return NSSymbolBreatheEffect{NSSymbolEffect: NSSymbolEffectFromID(id)}
 }
+
 // Ensure NSSymbolBreatheEffect implements INSSymbolBreatheEffect.
 var _ INSSymbolBreatheEffect = NSSymbolBreatheEffect{}
 
@@ -110,6 +112,7 @@ func (s NSSymbolBreatheEffect) EffectWithByLayer() INSSymbolBreatheEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolBreatheEffectFromID(rv)
 }
+
 // Returns a copy of the effect that animates all layers of the symbol
 // simultaneously.
 //
@@ -127,6 +130,7 @@ func (_NSSymbolBreatheEffectClass NSSymbolBreatheEffectClass) BreathePlainEffect
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolBreatheEffectClass.class), objc.Sel("breathePlainEffect"))
 	return NSSymbolBreatheEffectFromID(rv)
 }
+
 // Convenience initializer for a breathe effect that pulses layers as they
 // breathe.
 //
@@ -135,6 +139,7 @@ func (_NSSymbolBreatheEffectClass NSSymbolBreatheEffectClass) BreathePulseEffect
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolBreatheEffectClass.class), objc.Sel("breathePulseEffect"))
 	return NSSymbolBreatheEffectFromID(rv)
 }
+
 // The default breathe effect, determined by the system.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolBreatheEffect/effect
@@ -142,4 +147,3 @@ func (_NSSymbolBreatheEffectClass NSSymbolBreatheEffectClass) Effect() NSSymbolB
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolBreatheEffectClass.class), objc.Sel("effect"))
 	return NSSymbolBreatheEffectFromID(rv)
 }
-

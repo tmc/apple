@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,30 +46,28 @@ func (nc NSProtocolCheckerClass) Alloc() NSProtocolChecker {
 // (referred to as the checker’s delegate).
 //
 // # Overview
-// 
+//
 // A [NSProtocolChecker] object can be particularly useful when an object with
 // many methods, only a few of which ought to be remotely accessible, is made
 // available using the distributed objects system.
-// 
+//
 // A protocol checker acts as a kind of proxy; when it receives a message that
 // is in its designated protocol, it forwards the message to its target and
 // consequently appears to be the target object itself. However, when it
 // receives a message not in its protocol, it raises an
-// [invalidArgumentException] to indicate that the message isn’t allowed,
+// [NSProtocolChecker.InvalidArgumentException] to indicate that the message isn’t allowed,
 // whether or not the target object implements the method.
-// 
+//
 // Typically, an object that is to be distributed (yet must restrict messages)
 // creates an [NSProtocolChecker] for itself and returns the checker rather
 // than returning itself in response to any messages. The object might also
 // register the checker as the root object of an NSConnection.
-// 
+//
 // The object should be careful about vending references to `self`—the
 // protocol checker will convert a return value of `self` to indicate the
 // checker rather than the object for any messages forwarded by the checker,
 // but direct references to the object (bypassing the checker) could be passed
 // around by other objects.
-//
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 //
 // # Creating a checker
 //
@@ -91,6 +90,7 @@ type NSProtocolChecker struct {
 func NSProtocolCheckerFromID(id objc.ID) NSProtocolChecker {
 	return NSProtocolChecker{NSProxy: NSProxyFromID(id)}
 }
+
 // NOTE: NSProtocolChecker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,7 +121,7 @@ type INSProtocolChecker interface {
 	// Returns the target of the receiver.
 	Target() objectivec.Object
 
-	// Name of an exception that occurs when you pass an invalid argument to a method, such as a 
+	// Name of an exception that occurs when you pass an invalid argument to a method, such as a
 	InvalidArgumentException() NSExceptionName
 }
 
@@ -149,7 +149,7 @@ func NewNSProtocolChecker() NSProtocolChecker {
 // target.
 //
 // # Discussion
-// 
+//
 // Thus, the checker can be vended in lieu of `anObject` to restrict the
 // messages that can be sent to `anObject`. If `anObject` is allowed to be
 // freed or dereferenced by clients, the `free` method should be included in
@@ -167,7 +167,7 @@ func NewProtocolCheckerWithTargetProtocol(anObject objectivec.Object, aProtocol 
 // target.
 //
 // # Discussion
-// 
+//
 // Thus, the checker can be vended in lieu of `anObject` to restrict the
 // messages that can be sent to `anObject`. If `anObject` is allowed to be
 // freed or dereferenced by clients, the `free` method should be included in
@@ -183,7 +183,7 @@ func (p NSProtocolChecker) InitWithTargetProtocol(anObject objectivec.Object, aP
 // any messages in `aProtocol` to `anObject`, the protocol checker’s target.
 //
 // # Discussion
-// 
+//
 // Thus, the checker can be vended in lieu of `anObject` to restrict the
 // messages that can be sent to `anObject`. Returns the new instance.
 //
@@ -204,6 +204,7 @@ func (p NSProtocolChecker) Protocol() *objectivec.Protocol {
 	val := objectivec.ProtocolFromID(objc.ID(rv))
 	return &val
 }
+
 // Returns the target of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProtocolChecker/target
@@ -211,6 +212,7 @@ func (p NSProtocolChecker) Target() objectivec.Object {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("target"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
+
 // Name of an exception that occurs when you pass an invalid argument to a
 // method, such as a
 //
@@ -219,4 +221,3 @@ func (p NSProtocolChecker) InvalidArgumentException() NSExceptionName {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("NSInvalidArgumentException"))
 	return NSExceptionName(NSStringFromID(rv).String())
 }
-

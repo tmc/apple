@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,13 +46,11 @@ func (nc NSArrayControllerClass) Alloc() NSArrayController {
 // A bindings-compatible controller that manages a collection of objects.
 //
 // # Overview
-// 
+//
 // Typically the collection that an [NSArrayController] manages is an array,
 // however, if the controller manages a relationship of a managed object (see
 // [NSManagedObject]) the collection may be a set. [NSArrayController]
 // provides selection management and sorting capabilities.
-//
-// [NSManagedObject]: https://developer.apple.com/documentation/CoreData/NSManagedObject
 //
 // # Managing Sort Descriptors
 //
@@ -117,6 +116,8 @@ func (nc NSArrayControllerClass) Alloc() NSArrayController {
 //   - [NSArrayController.DidChangeArrangementCriteria]: Invoked when any criteria for arranging objects change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController
+//
+// [NSManagedObject]: https://developer.apple.com/documentation/CoreData/NSManagedObject
 type NSArrayController struct {
 	NSObjectController
 }
@@ -127,6 +128,7 @@ type NSArrayController struct {
 func NSArrayControllerFromID(id objc.ID) NSArrayController {
 	return NSArrayController{NSObjectController: NSObjectControllerFromID(id)}
 }
+
 // NOTE: NSArrayController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -313,7 +315,6 @@ func NewNSArrayController() NSArrayController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/init(coder:)
 func NewArrayControllerWithCoder(coder foundation.INSCoder) NSArrayController {
 	instance := getNSArrayControllerClass().Alloc()
@@ -327,7 +328,7 @@ func NewArrayControllerWithCoder(coder foundation.INSCoder) NSArrayController {
 // content: The content for the receiver.
 //
 // # Return Value
-// 
+//
 // The initialized object controller, with its content object set to
 // `content`.
 //
@@ -341,13 +342,13 @@ func NewArrayControllerWithContent(content objectivec.IObject) NSArrayController
 // Returns a given array, appropriately sorted and filtered.
 //
 // # Return Value
-// 
+//
 // An array containing `objects` filtered using the receiver’s filter
 // predicate (see [FilterPredicate]) and sorted according to the receiver’s
 // [SortDescriptors].
 //
 // # Discussion
-// 
+//
 // Subclasses should override this method to use a different sort mechanism,
 // provide custom object arrangement, or (typically only prior to OS X version
 // 10.4, which provides a filter predicate) filter the objects.
@@ -357,12 +358,13 @@ func (a NSArrayController) ArrangeObjects(objects foundation.INSArray) foundatio
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("arrangeObjects:"), objects)
 	return foundation.NSArrayFromID(rv)
 }
+
 // Triggers filtering of the receiver’s content.
 //
 // # Discussion
-// 
+//
 // This method invokes [ArrangeObjects].
-// 
+//
 // When you detect that filtering criteria change (such as when listening to
 // the text sent by an [NSSearchField] instance), invoke this method on
 // `self`.
@@ -371,65 +373,16 @@ func (a NSArrayController) ArrangeObjects(objects foundation.INSArray) foundatio
 func (a NSArrayController) RearrangeObjects() {
 	objc.Send[objc.ID](a.ID, objc.Sel("rearrangeObjects"))
 }
-// Sets the receiver’s selection to the given index, and returns a Boolean
-// value that indicates whether the selection was changed.
-//
-// index: The index for the selection.
-//
-// # Return Value
-// 
-// [true] if the selection was changed, otherwise [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// Attempting to change the selection may cause a [CommitEditing] message
-// which fails, thus denying the selection change.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSArrayController/setSelectionIndex(_:)
-func (a NSArrayController) SetSelectionIndex(index uint) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("setSelectionIndex:"), index)
-	return rv
-}
-// Sets the receiver’s selection indexes and returns a Boolean value that
-// indicates whether the selection changed.
-//
-// indexes: The set of selection indexes for the receiver.
-//
-// # Return Value
-// 
-// [true] if the selection was changed, otherwise [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// Attempting to change the selection may cause a [CommitEditing] message
-// which fails, thus denying the selection change.
-// 
-// To select all the receiver’s objects, indexes should be an index set with
-// indexes `[0..XCUIElementTypeCount -1]`. To deselect all indexes, pass an
-// empty index set.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSArrayController/setSelectionIndexes(_:)
-func (a NSArrayController) SetSelectionIndexes(indexes foundation.NSIndexSet) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("setSelectionIndexes:"), indexes)
-	return rv
-}
+
 // Adds the objects at the specified indexes in the receiver’s content array
 // to the current selection.
 //
 // # Return Value
-// 
-// [true] if the selection was changed.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the selection was changed.
 //
 // # Discussion
-// 
+//
 // Attempting to change the selection may cause a [CommitEditing] message
 // which fails, thus denying the selection change.
 //
@@ -438,17 +391,16 @@ func (a NSArrayController) AddSelectionIndexes(indexes foundation.NSIndexSet) bo
 	rv := objc.Send[bool](a.ID, objc.Sel("addSelectionIndexes:"), indexes)
 	return rv
 }
+
 // Removes the object as the specified indexes from the receiver’s current
 // selection.
 //
 // # Return Value
-// 
-// [true] if the selection was changed.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the selection was changed.
 //
 // # Discussion
-// 
+//
 // Attempting to change the selection may cause a [CommitEditing] message
 // which fails, thus denying the selection change.
 //
@@ -457,17 +409,16 @@ func (a NSArrayController) RemoveSelectionIndexes(indexes foundation.NSIndexSet)
 	rv := objc.Send[bool](a.ID, objc.Sel("removeSelectionIndexes:"), indexes)
 	return rv
 }
+
 // Adds the specified objects from the receiver’s content array to the
 // current selection.
 //
 // # Return Value
-// 
-// [true] if the selection was changed.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the selection was changed.
 //
 // # Discussion
-// 
+//
 // Attempting to change the selection may cause a [CommitEditing] message
 // which fails, thus denying the selection change.
 //
@@ -476,16 +427,15 @@ func (a NSArrayController) AddSelectedObjects(objects foundation.INSArray) bool 
 	rv := objc.Send[bool](a.ID, objc.Sel("addSelectedObjects:"), objects)
 	return rv
 }
+
 // Removes the specified objects from the receiver’s current selection.
 //
 // # Return Value
-// 
-// [true] if the selection was changed.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the selection was changed.
 //
 // # Discussion
-// 
+//
 // Attempting to change the selection may cause a [CommitEditing] message
 // which fails, thus denying the selection change.
 //
@@ -494,104 +444,105 @@ func (a NSArrayController) RemoveSelectedObjects(objects foundation.INSArray) bo
 	rv := objc.Send[bool](a.ID, objc.Sel("removeSelectedObjects:"), objects)
 	return rv
 }
+
 // Selects the next object, relative to the current selection, in the
 // receiver’s arranged content.
 //
 // # Discussion
-// 
+//
 // The `sender` is typically the object that invoked this method.
-// 
+//
 // # Special Considerations
-// 
+//
 // Beginning with OS X v10.4 the result of this method is deferred until the
 // next iteration of the runloop so that the error presentation mechanism (see
 // [Error Responders and Error Recovery]) can provide feedback as a sheet.
 //
-// [Error Responders and Error Recovery]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ErrorHandlingCocoa/ErrorRespondRecover/ErrorRespondRecover.html#//apple_ref/doc/uid/TP40001806-CH203
-//
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/selectNext(_:)
+//
+// [Error Responders and Error Recovery]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ErrorHandlingCocoa/ErrorRespondRecover/ErrorRespondRecover.html#//apple_ref/doc/uid/TP40001806-CH203
 func (a NSArrayController) SelectNext(sender objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("selectNext:"), sender)
 }
+
 // Selects the previous object, relative to the current selection, in the
 // receiver’s arranged content.
 //
 // # Discussion
-// 
+//
 // The `sender` is typically the object that invoked this method.
-// 
+//
 // # Special Considerations
-// 
+//
 // Beginning with OS X v10.4 the result of this method is deferred until the
 // next iteration of the runloop so that the error presentation mechanism (see
 // [Error Responders and Error Recovery]) can provide feedback as a sheet.
 //
-// [Error Responders and Error Recovery]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ErrorHandlingCocoa/ErrorRespondRecover/ErrorRespondRecover.html#//apple_ref/doc/uid/TP40001806-CH203
-//
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/selectPrevious(_:)
+//
+// [Error Responders and Error Recovery]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ErrorHandlingCocoa/ErrorRespondRecover/ErrorRespondRecover.html#//apple_ref/doc/uid/TP40001806-CH203
 func (a NSArrayController) SelectPrevious(sender objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("selectPrevious:"), sender)
 }
+
 // Creates a new object and inserts it into the receiver’s content array.
 //
 // sender: Typically the object that invoked this method.
 //
 // # Discussion
-// 
+//
 // If an entity name is specified (see [EntityName]), this method creates an
 // instance of the of the class specified by the entity, otherwise this method
 // creates an instance of the class specified by [ObjectClass].
-// 
+//
 // # Special Considerations
-// 
+//
 // Beginning with OS X v10.4 the result of this method is deferred until the
 // next iteration of the runloop so that the error presentation mechanism (see
 // [Error Responders and Error Recovery]) can provide feedback as a sheet.
 //
-// [Error Responders and Error Recovery]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ErrorHandlingCocoa/ErrorRespondRecover/ErrorRespondRecover.html#//apple_ref/doc/uid/TP40001806-CH203
-//
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/insert(_:)
+//
+// [Error Responders and Error Recovery]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ErrorHandlingCocoa/ErrorRespondRecover/ErrorRespondRecover.html#//apple_ref/doc/uid/TP40001806-CH203
 func (a NSArrayController) Insert(sender objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("insert:"), sender)
 }
+
 // Adds `objects` to the receiver’s content collection.
 //
 // # Discussion
-// 
-// If [SelectsInsertedObjects] is [true] (the default), the added objects are
+//
+// If [SelectsInsertedObjects] is true (the default), the added objects are
 // selected in the array controller.
-// 
+//
 // It is important to note that inserting many objects with
 // [SelectsInsertedObjects] on can cause a significant performance penalty. In
 // this case it is more efficient to use the [Content] method to set the
-// array, or to set [SelectsInsertedObjects] to [false] before adding the
+// array, or to set [SelectsInsertedObjects] to false before adding the
 // objects with [AddObjects].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/add(contentsOf:)
 func (a NSArrayController) AddObjects(objects foundation.INSArray) {
 	objc.Send[objc.ID](a.ID, objc.Sel("addObjects:"), objects)
 }
+
 // Inserts `object` into the receiver’s arranged objects array at the
 // location specified by `index`, and adds it to the receiver’s content
 // collection.
 //
 // # Discussion
-// 
+//
 // Subclasses can override this method to provide customized arranged objects
 // support. An error is returned if the given index is outside of the
 // [ArrangedObjects] range, or if the given object would not appear in the
-// arrangedObjects. Set the [ClearsFilterPredicateOnInsertion] to [true] to
+// arrangedObjects. Set the [ClearsFilterPredicateOnInsertion] to true to
 // allow insertion.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/insert(_:atArrangedObjectIndex:)
 func (a NSArrayController) InsertObjectAtArrangedObjectIndex(object objectivec.IObject, index uint) {
 	objc.Send[objc.ID](a.ID, objc.Sel("insertObject:atArrangedObjectIndex:"), object, index)
 }
+
 // Inserts `object`s into the receiver’s arranged objects array at the
 // locations specified in `indexes`, and adds it to the receiver’s content
 // collection.
@@ -600,11 +551,12 @@ func (a NSArrayController) InsertObjectAtArrangedObjectIndex(object objectivec.I
 func (a NSArrayController) InsertObjectsAtArrangedObjectIndexes(objects foundation.INSArray, indexes foundation.NSIndexSet) {
 	objc.Send[objc.ID](a.ID, objc.Sel("insertObjects:atArrangedObjectIndexes:"), objects, indexes)
 }
+
 // Removes the object at the specified `index` in the receiver’s arranged
 // objects from the receiver’s content array.
 //
 // # Discussion
-// 
+//
 // See [RemoveObject] for a discussion of the semantics of removing objects
 // when using Core Data.
 //
@@ -612,11 +564,12 @@ func (a NSArrayController) InsertObjectsAtArrangedObjectIndexes(objects foundati
 func (a NSArrayController) RemoveObjectAtArrangedObjectIndex(index uint) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeObjectAtArrangedObjectIndex:"), index)
 }
+
 // Removes the objects at the specified `indexes` in the receiver’s arranged
 // objects from the content array.
 //
 // # Discussion
-// 
+//
 // See [RemoveObject] for a discussion of the semantics of removing objects
 // when using Core Data.
 //
@@ -624,10 +577,11 @@ func (a NSArrayController) RemoveObjectAtArrangedObjectIndex(index uint) {
 func (a NSArrayController) RemoveObjectsAtArrangedObjectIndexes(indexes foundation.NSIndexSet) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeObjectsAtArrangedObjectIndexes:"), indexes)
 }
+
 // Removes `objects` from the receiver’s content collection.
 //
 // # Discussion
-// 
+//
 // See [RemoveObject] for a discussion of the semantics of removing objects
 // when using Core Data.
 //
@@ -635,16 +589,17 @@ func (a NSArrayController) RemoveObjectsAtArrangedObjectIndexes(indexes foundati
 func (a NSArrayController) RemoveObjects(objects foundation.INSArray) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeObjects:"), objects)
 }
+
 // Invoked when any criteria for arranging objects change.
 //
 // # Discussion
-// 
+//
 // This method is invoked by the controller itself when any criteria for
 // arranging objects change (sort descriptors or filter predicates) to reset
 // the key paths for automatic rearranging.
-// 
+//
 // # Special Considerations
-// 
+//
 // If you implement a subclass of [NSArrayController] and override
 // [RearrangeObjects] to use additional arrangement criteria, you should
 // invoke this method if those criteria change.
@@ -658,7 +613,7 @@ func (a NSArrayController) DidChangeArrangementCriteria() {
 // content.
 //
 // # Discussion
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/sortDescriptors
@@ -671,11 +626,12 @@ func (a NSArrayController) SortDescriptors() []foundation.NSSortDescriptor {
 func (a NSArrayController) SetSortDescriptors(value []foundation.NSSortDescriptor) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSortDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // An array containing the receiver’s content objects arranged using
 // [ArrangeObjects].
 //
 // # Discussion
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/arrangedObjects
@@ -683,15 +639,13 @@ func (a NSArrayController) ArrangedObjects() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("arrangedObjects"))
 	return objectivec.Object{ID: rv}
 }
+
 // A Boolean value that indicates whether the receiver requires that the
 // content array attempt to maintain a selection
 //
 // # Discussion
-// 
-// The default is [true]. This property is observable using key-value
-// observing.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default is true. This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/avoidsEmptySelection
 func (a NSArrayController) AvoidsEmptySelection() bool {
@@ -701,15 +655,13 @@ func (a NSArrayController) AvoidsEmptySelection() bool {
 func (a NSArrayController) SetAvoidsEmptySelection(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAvoidsEmptySelection:"), value)
 }
+
 // A Boolean value that indicates whether the receiver will attempt to
 // preserve the current selection when the content changes
 //
 // # Discussion
-// 
-// The default is [true]. This property is observable using key-value
-// observing.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default is true. This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/preservesSelection
 func (a NSArrayController) PreservesSelection() bool {
@@ -719,17 +671,15 @@ func (a NSArrayController) PreservesSelection() bool {
 func (a NSArrayController) SetPreservesSelection(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPreservesSelection:"), value)
 }
+
 // A Boolean value that indicates whether the receiver always returns the
 // multiple values marker when multiple objects are selected
 //
 // # Discussion
-// 
-// The default is [false]. Setting to [true] can increase performance if your
+//
+// The default is false. Setting to true can increase performance if your
 // application doesn’t allow editing multiple values. This property is
 // observable using key-value observing.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/alwaysUsesMultipleValuesMarker
 func (a NSArrayController) AlwaysUsesMultipleValuesMarker() bool {
@@ -739,10 +689,11 @@ func (a NSArrayController) AlwaysUsesMultipleValuesMarker() bool {
 func (a NSArrayController) SetAlwaysUsesMultipleValuesMarker(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAlwaysUsesMultipleValuesMarker:"), value)
 }
+
 // The index of the first object in the receiver’s selection
 //
 // # Discussion
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/selectionIndex
@@ -750,15 +701,13 @@ func (a NSArrayController) SelectionIndex() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("selectionIndex"))
 	return rv
 }
+
 // A Boolean value that indicates whether the receiver automatically selects
 // inserted objects
 //
 // # Discussion
-// 
-// The default is [true]. This property is observable using key-value
-// observing.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default is true. This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/selectsInsertedObjects
 func (a NSArrayController) SelectsInsertedObjects() bool {
@@ -768,11 +717,12 @@ func (a NSArrayController) SelectsInsertedObjects() bool {
 func (a NSArrayController) SetSelectsInsertedObjects(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSelectsInsertedObjects:"), value)
 }
+
 // An index set containing the indexes of the receiver’s currently selected
 // objects in the content array
 //
 // # Discussion
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/selectionIndexes
@@ -780,11 +730,12 @@ func (a NSArrayController) SelectionIndexes() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("selectionIndexes"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
+
 // A Boolean value indicating whether the next object, relative to the current
 // selection, in the receiver’s content array can be selected
 //
 // # Discussion
-// 
+//
 // This property can be used by a binding to enable user interface items. This
 // property is observable using key-value observing.
 //
@@ -793,11 +744,12 @@ func (a NSArrayController) CanSelectNext() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("canSelectNext"))
 	return rv
 }
+
 // A Boolean value indicating whether the previous object, relative to the
 // current selection, in the receiver’s content array can be selected
 //
 // # Discussion
-// 
+//
 // This property can be used by a binding to enable user interface items. This
 // property is observable using key-value observing.
 //
@@ -806,39 +758,35 @@ func (a NSArrayController) CanSelectPrevious() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("canSelectPrevious"))
 	return rv
 }
+
 // Returns a Boolean value that indicates whether an object can be inserted
 // into the receiver’s content collection.
 //
 // # Return Value
-// 
-// [true] if an object can be inserted into the receiver’s content
-// collection, otherwise [false].
-// 
+//
+// true if an object can be inserted into the receiver’s content collection,
+// otherwise false.
+//
 // # Discussion
-// 
+//
 // The result of this method can be used by a binding to enable user interface
 // items.
-// 
-// This property is observable using key-value observing.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/canInsert
 func (a NSArrayController) CanInsert() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("canInsert"))
 	return rv
 }
+
 // A Boolean value that indicates whether the receiver automatically clears an
 // existing filter predicate when new items are inserted or added to the
 // content
 //
 // # Discussion
-// 
-// The default is [true]. This property is observable using key-value
-// observing.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default is true. This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/clearsFilterPredicateOnInsertion
 func (a NSArrayController) ClearsFilterPredicateOnInsertion() bool {
@@ -848,10 +796,11 @@ func (a NSArrayController) ClearsFilterPredicateOnInsertion() bool {
 func (a NSArrayController) SetClearsFilterPredicateOnInsertion(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setClearsFilterPredicateOnInsertion:"), value)
 }
+
 // A predicate used by the receiver to filter the array controller contents
 //
 // # Discussion
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/filterPredicate
@@ -862,14 +811,13 @@ func (a NSArrayController) FilterPredicate() foundation.INSPredicate {
 func (a NSArrayController) SetFilterPredicate(value foundation.INSPredicate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFilterPredicate:"), value)
 }
+
 // A Boolean that indicates if the receiver automatically rearranges its
 // content to correspond to the current sort descriptors and filter predicates
 //
 // # Discussion
-// 
-// The default is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSArrayController/automaticallyRearrangesObjects
 func (a NSArrayController) AutomaticallyRearrangesObjects() bool {
@@ -879,10 +827,11 @@ func (a NSArrayController) AutomaticallyRearrangesObjects() bool {
 func (a NSArrayController) SetAutomaticallyRearrangesObjects(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAutomaticallyRearrangesObjects:"), value)
 }
+
 // An array of key paths that trigger automatic content sorting or filtering
 //
 // # Discussion
-// 
+//
 // Subclasses can override this property to customize the default behavior of
 // the sort descriptors and filtering predicates, for example, if additional
 // arrangement criteria are used in a custom implementation of
@@ -893,4 +842,3 @@ func (a NSArrayController) AutomaticRearrangementKeyPaths() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("automaticRearrangementKeyPaths"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

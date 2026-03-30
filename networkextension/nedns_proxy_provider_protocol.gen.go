@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NEDNSProxyProviderProtocol] class.
@@ -61,6 +62,7 @@ type NEDNSProxyProviderProtocol struct {
 func NEDNSProxyProviderProtocolFromID(id objc.ID) NEDNSProxyProviderProtocol {
 	return NEDNSProxyProviderProtocol{NEVPNProtocol: NEVPNProtocolFromID(id)}
 }
+
 // NOTE: NEDNSProxyProviderProtocol adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,7 +112,7 @@ func NewNEDNSProxyProviderProtocol() NEDNSProxyProviderProtocol {
 // proxy provider.
 //
 // # Discussion
-// 
+//
 // This dictionary is passed as-is through the `options` parameter when the
 // framework starts a DNS proxy by calling the proxy’s
 // [StartProxyWithOptionsCompletionHandler] function.
@@ -123,6 +125,7 @@ func (d NEDNSProxyProviderProtocol) ProviderConfiguration() foundation.INSDictio
 func (d NEDNSProxyProviderProtocol) SetProviderConfiguration(value foundation.INSDictionary) {
 	objc.Send[struct{}](d.ID, objc.Sel("setProviderConfiguration:"), value)
 }
+
 // A string containing the bundle identifier of the proxy provider to be used
 // by this configuration.
 //
@@ -134,4 +137,3 @@ func (d NEDNSProxyProviderProtocol) ProviderBundleIdentifier() string {
 func (d NEDNSProxyProviderProtocol) SetProviderBundleIdentifier(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setProviderBundleIdentifier:"), objc.String(value))
 }
-

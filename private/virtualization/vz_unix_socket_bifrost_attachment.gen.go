@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,11 +44,11 @@ func (vc VZUnixSocketBifrostAttachmentClass) Alloc() VZUnixSocketBifrostAttachme
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZUnixSocketBifrostAttachment.Path]
 //   - [VZUnixSocketBifrostAttachment.InitWithPathError]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZUnixSocketBifrostAttachment
 type VZUnixSocketBifrostAttachment struct {
 	VZBifrostAttachment
@@ -57,6 +58,7 @@ type VZUnixSocketBifrostAttachment struct {
 func VZUnixSocketBifrostAttachmentFromID(id objc.ID) VZUnixSocketBifrostAttachment {
 	return VZUnixSocketBifrostAttachment{VZBifrostAttachment: VZBifrostAttachmentFromID(id)}
 }
+
 // Ensure VZUnixSocketBifrostAttachment implements IVZUnixSocketBifrostAttachment.
 var _ IVZUnixSocketBifrostAttachment = VZUnixSocketBifrostAttachment{}
 
@@ -96,7 +98,6 @@ func NewVZUnixSocketBifrostAttachment() VZUnixSocketBifrostAttachment {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZUnixSocketBifrostAttachment/initWithPath:error:
 func NewVZUnixSocketBifrostAttachmentWithPathError(path objectivec.IObject) (VZUnixSocketBifrostAttachment, error) {
 	var errorPtr objc.ID
@@ -109,7 +110,6 @@ func NewVZUnixSocketBifrostAttachmentWithPathError(path objectivec.IObject) (VZU
 	return VZUnixSocketBifrostAttachmentFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZUnixSocketBifrostAttachment/initWithPath:error:
 func (v VZUnixSocketBifrostAttachment) InitWithPathError(path objectivec.IObject) (VZUnixSocketBifrostAttachment, error) {
 	var errorPtr objc.ID
@@ -133,4 +133,3 @@ func (v VZUnixSocketBifrostAttachment) Path() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("path"))
 	return foundation.NSStringFromID(rv).String()
 }
-

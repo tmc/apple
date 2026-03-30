@@ -4,9 +4,10 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (tc TwoNetsStyleTransferClass) Alloc() TwoNetsStyleTransfer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TwoNetsStyleTransfer.ExecuteSyncWithImageSmallImage]
@@ -52,6 +52,7 @@ func (tc TwoNetsStyleTransferClass) Alloc() TwoNetsStyleTransfer {
 //   - [TwoNetsStyleTransfer.LoadOutputName]
 //   - [TwoNetsStyleTransfer.WidthBig]
 //   - [TwoNetsStyleTransfer.WidthSmall]
+//
 // See: https://developer.apple.com/documentation/Espresso/TwoNetsStyleTransfer
 type TwoNetsStyleTransfer struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type TwoNetsStyleTransfer struct {
 func TwoNetsStyleTransferFromID(id objc.ID) TwoNetsStyleTransfer {
 	return TwoNetsStyleTransfer{objectivec.Object{ID: id}}
 }
+
 // Ensure TwoNetsStyleTransfer implements ITwoNetsStyleTransfer.
 var _ ITwoNetsStyleTransfer = TwoNetsStyleTransfer{}
 
@@ -108,33 +110,36 @@ func NewTwoNetsStyleTransfer() TwoNetsStyleTransfer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/TwoNetsStyleTransfer/executeSyncWithImage:smallImage:
 func (t TwoNetsStyleTransfer) ExecuteSyncWithImageSmallImage(image corevideo.CVImageBufferRef, image2 corevideo.CVImageBufferRef) coregraphics.IOSurfaceRef {
 	rv := objc.Send[coregraphics.IOSurfaceRef](t.ID, objc.Sel("executeSyncWithImage:smallImage:"), image, image2)
 	return coregraphics.IOSurfaceRef(rv)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/TwoNetsStyleTransfer/heightBig
 func (t TwoNetsStyleTransfer) HeightBig() int {
 	rv := objc.Send[int](t.ID, objc.Sel("heightBig"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/TwoNetsStyleTransfer/heightSmall
 func (t TwoNetsStyleTransfer) HeightSmall() int {
 	rv := objc.Send[int](t.ID, objc.Sel("heightSmall"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/TwoNetsStyleTransfer/load:outputName:
 func (t TwoNetsStyleTransfer) LoadOutputName(load objectivec.IObject, name objectivec.IObject) int {
 	rv := objc.Send[int](t.ID, objc.Sel("load:outputName:"), load, name)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/TwoNetsStyleTransfer/widthBig
 func (t TwoNetsStyleTransfer) WidthBig() int {
 	rv := objc.Send[int](t.ID, objc.Sel("widthBig"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/TwoNetsStyleTransfer/widthSmall
 func (t TwoNetsStyleTransfer) WidthSmall() int {
 	rv := objc.Send[int](t.ID, objc.Sel("widthSmall"))
@@ -146,4 +151,3 @@ func (_TwoNetsStyleTransferClass TwoNetsStyleTransferClass) SupportsANE() bool {
 	rv := objc.Send[bool](objc.ID(_TwoNetsStyleTransferClass.class), objc.Sel("supportsANE"))
 	return rv
 }
-

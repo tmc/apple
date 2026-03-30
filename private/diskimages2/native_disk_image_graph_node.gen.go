@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,11 +44,11 @@ func (nc NativeDiskImageGraphNodeClass) Alloc() NativeDiskImageGraphNode {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [NativeDiskImageGraphNode.FilePath]
 //   - [NativeDiskImageGraphNode.InitWithURLTagUUIDParentNodeMetadataIsCache]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/NativeDiskImageGraphNode
 type NativeDiskImageGraphNode struct {
 	DiskImageGraphNode
@@ -57,6 +58,7 @@ type NativeDiskImageGraphNode struct {
 func NativeDiskImageGraphNodeFromID(id objc.ID) NativeDiskImageGraphNode {
 	return NativeDiskImageGraphNode{DiskImageGraphNode: DiskImageGraphNodeFromID(id)}
 }
+
 // Ensure NativeDiskImageGraphNode implements INativeDiskImageGraphNode.
 var _ INativeDiskImageGraphNode = NativeDiskImageGraphNode{}
 
@@ -96,7 +98,6 @@ func NewNativeDiskImageGraphNode() NativeDiskImageGraphNode {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/NativeDiskImageGraphNode/initWithDictionary:workDir:error:
 func NewNativeDiskImageGraphNodeWithDictionaryWorkDirError(dictionary objectivec.IObject, dir objectivec.IObject) (NativeDiskImageGraphNode, error) {
 	var errorPtr objc.ID
@@ -109,7 +110,6 @@ func NewNativeDiskImageGraphNodeWithDictionaryWorkDirError(dictionary objectivec
 	return NativeDiskImageGraphNodeFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/initWithTag:UUID:parentNode:metadata:isCache:
 func NewNativeDiskImageGraphNodeWithTagUUIDParentNodeMetadataIsCache(tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) NativeDiskImageGraphNode {
 	instance := getNativeDiskImageGraphNodeClass().Alloc()
@@ -117,7 +117,6 @@ func NewNativeDiskImageGraphNodeWithTagUUIDParentNodeMetadataIsCache(tag objecti
 	return NativeDiskImageGraphNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/NativeDiskImageGraphNode/initWithURL:tag:UUID:parentNode:metadata:isCache:
 func NewNativeDiskImageGraphNodeWithURLTagUUIDParentNodeMetadataIsCache(url foundation.INSURL, tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) NativeDiskImageGraphNode {
 	instance := getNativeDiskImageGraphNodeClass().Alloc()
@@ -125,12 +124,6 @@ func NewNativeDiskImageGraphNodeWithURLTagUUIDParentNodeMetadataIsCache(url foun
 	return NativeDiskImageGraphNodeFromID(rv)
 }
 
-//
-// See: https://developer.apple.com/documentation/DiskImages2/NativeDiskImageGraphNode/setFilePath:
-func (n NativeDiskImageGraphNode) SetFilePath(path objectivec.IObject) {
-	objc.Send[objc.ID](n.ID, objc.Sel("setFilePath:"), path)
-}
-//
 // See: https://developer.apple.com/documentation/DiskImages2/NativeDiskImageGraphNode/initWithURL:tag:UUID:parentNode:metadata:isCache:
 func (n NativeDiskImageGraphNode) InitWithURLTagUUIDParentNodeMetadataIsCache(url foundation.INSURL, tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) NativeDiskImageGraphNode {
 	rv := objc.Send[NativeDiskImageGraphNode](n.ID, objc.Sel("initWithURL:tag:UUID:parentNode:metadata:isCache:"), url, tag, uid, node, metadata, cache)
@@ -142,4 +135,3 @@ func (n NativeDiskImageGraphNode) FilePath() foundation.INSURL {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("filePath"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

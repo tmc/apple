@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSColorPanelClass) Alloc() NSColorPanel {
 // A standard user interface for selecting color in an app.
 //
 // # Overview
-// 
+//
 // [NSColorPanel] provides a number of standard color selection modes and,
 // with the [NSColorPickingDefault] and [NSColorPickingCustom] protocols,
 // allows an app to add its own color selection modes. It also allows the user
@@ -98,6 +99,7 @@ type NSColorPanel struct {
 func NSColorPanelFromID(id objc.ID) NSColorPanel {
 	return NSColorPanel{NSPanel: NSPanelFromID(id)}
 }
+
 // NOTE: NSColorPanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -213,26 +215,24 @@ func NewNSColorPanel() NSColorPanel {
 //
 // contentViewController: The view controller that provides the main content view for the window. The
 // window’s [ContentView] property is set to
-// `contentViewController``XCUIElementTypeView`.
+// `contentViewController“XCUIElementTypeView`.
 //
 // # Return Value
-// 
+//
 // A window with the content view controller set to the passed-in view
 // controller object.
 //
 // # Discussion
-// 
+//
 // This method creates a basic window object that is titled, closable,
 // resizable, and miniaturizable. By default, the window’s title is
 // automatically bound to the title of `contentViewController`. You can
 // control the size of the window by using Auto Layout and applying size
 // constraints to the view or its subviews. The initial size of the window is
 // set to the initial size of [ContentView] (that is, the size of
-// `contentViewController``XCUIElementTypeView`). The newly created window has
-// [ReleasedWhenClosed] set to [false], and it must be explicitly retained to
+// `contentViewController“XCUIElementTypeView`). The newly created window has
+// [ReleasedWhenClosed] set to false, and it must be explicitly retained to
 // keep the window instance alive.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentViewController:)
 func NewColorPanelWindowWithContentViewController(contentViewController INSViewController) NSColorPanel {
@@ -264,37 +264,34 @@ func NewColorPanelWithCoder(coder foundation.INSCoder) NSColorPanel {
 // purposes; you should normally not need to create them. Also, note that a
 // window’s style mask should include [NSTitledWindowMask] if it includes
 // any of the others.
-// //
-// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
 //
 // backingStoreType: Specifies how the drawing done in the window is buffered by the window
 // device, and possible values are described in [NSWindow.BackingStoreType].
-// //
-// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 //
 // flag: Specifies whether the window server creates a window device for the window
-// immediately. When [true], the window server defers creating the window
-// device until the window is moved onscreen. All display messages sent to the
-// window or its views are postponed until the window is created, just before
-// it’s moved onscreen.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// immediately. When true, the window server defers creating the window device
+// until the window is moved onscreen. All display messages sent to the window
+// or its views are postponed until the window is created, just before it’s
+// moved onscreen.
 //
 // # Return Value
-// 
+//
 // The initialized window.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer for the [NSWindow] class.
-// 
+//
 // Deferring the creation of the window improves launch time and minimizes the
 // virtual memory load on the window server.
-// 
+//
 // The new window creates a view to be its default content view. You can
 // replace it with your own object by setting the [ContentView] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
+//
+// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
+// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 func NewColorPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation.CGRect, style NSWindowStyleMask, backingStoreType NSBackingStoreType, flag bool) NSColorPanel {
 	instance := getNSColorPanelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:"), contentRect, style, backingStoreType, flag)
@@ -315,21 +312,15 @@ func NewColorPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundatio
 // purposes; you should not usually need to create them. Also, note that a
 // window’s style mask should include [NSTitledWindowMask] if it includes
 // any of the others.
-// //
-// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
 //
 // backingStoreType: Specifies how the drawing done in the window is buffered by the window
 // device; possible values are described in [NSWindow.BackingStoreType].
-// //
-// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 //
 // flag: Specifies whether the window server creates a window device for the window
-// immediately. When [true], the window server defers creating the window
-// device until the window is moved onscreen. All display messages sent to the
-// window or its views are postponed until the window is created, just before
-// it’s moved onscreen.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// immediately. When true, the window server defers creating the window device
+// until the window is moved onscreen. All display messages sent to the window
+// or its views are postponed until the window is created, just before it’s
+// moved onscreen.
 //
 // screen: Specifies the screen on which the window is positioned. The content
 // rectangle is positioned relative to the bottom-left corner of `screen`.
@@ -337,11 +328,11 @@ func NewColorPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundatio
 // is the origin of the primary screen.
 //
 // # Return Value
-// 
+//
 // The initialized window.
 //
 // # Discussion
-// 
+//
 // The primary screen is the one that contains the current key window or, if
 // there is no key window, the one that contains the main menu. If there’s
 // neither a key window nor a main menu (if there’s no active application),
@@ -349,6 +340,9 @@ func NewColorPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundatio
 // system is located.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:screen:)
+//
+// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
+// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 func NewColorPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoundation.CGRect, style NSWindowStyleMask, backingStoreType NSBackingStoreType, flag bool, screen INSScreen) NSColorPanel {
 	instance := getNSColorPanelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:screen:"), contentRect, style, backingStoreType, flag, screen)
@@ -360,7 +354,7 @@ func NewColorPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefou
 // selector: The action message.
 //
 // # Discussion
-// 
+//
 // When you select a color in the color panel [NSColorPanel] sends its action
 // to its target, provided that neither the action nor the target is `nil`.
 // The action is [NULL] by default.
@@ -369,6 +363,7 @@ func NewColorPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefou
 func (c NSColorPanel) SetAction(selector objc.SEL) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setAction:"), selector)
 }
+
 // Sets the target of the receiver.
 //
 // target: The target of the receiver. When you select a color in the color panel
@@ -379,6 +374,7 @@ func (c NSColorPanel) SetAction(selector objc.SEL) {
 func (c NSColorPanel) SetTarget(target objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setTarget:"), target)
 }
+
 // Adds the list of [NSColor] objects specified to all the color pickers in
 // the receiver that display color lists by invoking [AttachColorList] on all
 // color pickers in the application.
@@ -386,7 +382,7 @@ func (c NSColorPanel) SetTarget(target objectivec.IObject) {
 // colorList: The list of colors to add to the color pickers in the receiver.
 //
 // # Discussion
-// 
+//
 // An application should use this method to add an [NSColorList] saved with a
 // document in its file package or in a directory other than [NSColorList]’s
 // standard search directories.
@@ -395,6 +391,7 @@ func (c NSColorPanel) SetTarget(target objectivec.IObject) {
 func (c NSColorPanel) AttachColorList(colorList INSColorList) {
 	objc.Send[objc.ID](c.ID, objc.Sel("attachColorList:"), colorList)
 }
+
 // Removes the list of colors from all the color pickers in the receiver that
 // display color lists by invoking [DetachColorList] on all color pickers in
 // the application.
@@ -403,7 +400,7 @@ func (c NSColorPanel) AttachColorList(colorList INSColorList) {
 // panel.
 //
 // # Discussion
-// 
+//
 // Your application should use this method to remove an [NSColorList] saved
 // with a document in its file package or in a directory other than
 // [NSColorList]’s standard search directories.
@@ -419,7 +416,7 @@ func (c NSColorPanel) DetachColorList(colorList INSColorList) {
 // one of the symbolic constants described in `Color Panel Modes`.
 //
 // # Discussion
-// 
+//
 // This method may be called at any time, whether or not an application’s
 // [NSColorPanel] has been instantiated.
 //
@@ -427,6 +424,7 @@ func (c NSColorPanel) DetachColorList(colorList INSColorList) {
 func (_NSColorPanelClass NSColorPanelClass) SetPickerMode(mode NSColorPanelMode) {
 	objc.Send[objc.ID](objc.ID(_NSColorPanelClass.class), objc.Sel("setPickerMode:"), mode)
 }
+
 // Determines which color selection modes are available in an application’s
 // [NSColorPanel].
 //
@@ -434,10 +432,10 @@ func (_NSColorPanelClass NSColorPanelClass) SetPickerMode(mode NSColorPanelMode)
 // Masks`.
 //
 // # Discussion
-// 
+//
 // This method has an effect only before an [NSColorPanel] object is
 // instantiated.
-// 
+//
 // If you create a class that implements the color-picking protocols
 // ([NSColorPickingDefault] and [NSColorPickingCustom]), you may want to give
 // it a unique mask—one different from those defined for the standard color
@@ -449,6 +447,7 @@ func (_NSColorPanelClass NSColorPanelClass) SetPickerMode(mode NSColorPanelMode)
 func (_NSColorPanelClass NSColorPanelClass) SetPickerMask(mask NSColorPanelOptions) {
 	objc.Send[objc.ID](objc.ID(_NSColorPanelClass.class), objc.Sel("setPickerMask:"), mask)
 }
+
 // Drags a color into a destination view from the specified source view.
 //
 // color: The color to drag.
@@ -458,16 +457,14 @@ func (_NSColorPanelClass NSColorPanelClass) SetPickerMask(mask NSColorPanelOptio
 // sourceView: The view from which the color was dragged.
 //
 // # Return Value
-// 
-// [true]
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true
 //
 // # Discussion
-// 
-// This method is usually invoked by the `` method of `sourceView`. The
+//
+// This method is usually invoked by the “ method of `sourceView`. The
 // dragging mechanism handles all subsequent events.
-// 
+//
 // Because it is a class method, [DragColorWithEventFromView] can be invoked
 // whether or not the instance of [NSColorPanel] exists.
 //
@@ -488,6 +485,7 @@ func (c NSColorPanel) Mode() NSColorPanelMode {
 func (c NSColorPanel) SetMode(value NSColorPanelMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMode:"), value)
 }
+
 // The accessory view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/accessoryView
@@ -498,6 +496,7 @@ func (c NSColorPanel) AccessoryView() INSView {
 func (c NSColorPanel) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAccessoryView:"), value)
 }
+
 // A Boolean value indicating whether the receiver continuously sends the
 // action message to the target.
 //
@@ -509,6 +508,7 @@ func (c NSColorPanel) Continuous() bool {
 func (c NSColorPanel) SetContinuous(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContinuous:"), value)
 }
+
 // A Boolean value that indicates whether the receiver shows alpha values and
 // an opacity slider.
 //
@@ -520,6 +520,7 @@ func (c NSColorPanel) ShowsAlpha() bool {
 func (c NSColorPanel) SetShowsAlpha(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setShowsAlpha:"), value)
 }
+
 // The color of the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/color
@@ -530,6 +531,7 @@ func (c NSColorPanel) Color() INSColor {
 func (c NSColorPanel) SetColor(value INSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColor:"), value)
 }
+
 // The maximum linear exposure that can be set on a color picked in the color
 // panel. Defaults to 1 and ignores any value less than 1. If set to a value
 // >= 2, the color picked by the panel may have a linear exposure applied to
@@ -543,6 +545,7 @@ func (c NSColorPanel) MaximumLinearExposure() float64 {
 func (c NSColorPanel) SetMaximumLinearExposure(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumLinearExposure:"), value)
 }
+
 // The receiver’s current alpha value based on its opacity slider.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/alpha
@@ -554,7 +557,7 @@ func (c NSColorPanel) Alpha() float64 {
 // Returns the shared [NSColorPanel] instance, creating it if necessary.
 //
 // # Return Value
-// 
+//
 // The shared [NSColorPanel] instance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/shared
@@ -562,19 +565,16 @@ func (_NSColorPanelClass NSColorPanelClass) SharedColorPanel() NSColorPanel {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorPanelClass.class), objc.Sel("sharedColorPanel"))
 	return NSColorPanelFromID(objc.ID(rv))
 }
+
 // Returns a Boolean value indicating whether the [NSColorPanel] has been
 // created already.
 //
 // # Return Value
-// 
-// [true] if the [NSColorPanel] has been created already; otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the [NSColorPanel] has been created already; otherwise false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/sharedColorPanelExists
 func (_NSColorPanelClass NSColorPanelClass) SharedColorPanelExists() bool {
 	rv := objc.Send[bool](objc.ID(_NSColorPanelClass.class), objc.Sel("sharedColorPanelExists"))
 	return rv
 }
-

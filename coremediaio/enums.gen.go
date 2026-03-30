@@ -56,6 +56,8 @@ func (e CMIOExtensionStreamDirection) String() string {
 type CMIOExtensionStreamDiscontinuityFlags uint32
 
 const (
+	// CMIOExtensionStreamDiscontinuityFlagNone: A flag that indicates there’s no discontinuity in the stream.
+	CMIOExtensionStreamDiscontinuityFlagNone CMIOExtensionStreamDiscontinuityFlags = 0
 	// CMIOExtensionStreamDiscontinuityFlagSampleDropped: A flag that indicates a discontinuity in the stream due to a dropped frame.
 	CMIOExtensionStreamDiscontinuityFlagSampleDropped CMIOExtensionStreamDiscontinuityFlags = 64
 	// CMIOExtensionStreamDiscontinuityFlagTime: A flag that indicates a time discontinuity in the stream.
@@ -66,6 +68,8 @@ const (
 
 func (e CMIOExtensionStreamDiscontinuityFlags) String() string {
 	switch e {
+	case CMIOExtensionStreamDiscontinuityFlagNone:
+		return "CMIOExtensionStreamDiscontinuityFlagNone"
 	case CMIOExtensionStreamDiscontinuityFlagSampleDropped:
 		return "CMIOExtensionStreamDiscontinuityFlagSampleDropped"
 	case CMIOExtensionStreamDiscontinuityFlagTime:
@@ -81,55 +85,55 @@ type KCMIO uint
 
 const (
 	KCMIOBacklightCompensationControlClassID KCMIO = 'b'<<24 | 'k'<<16 | 'l'<<8 | 't' // 'bklt'
-	KCMIOBlackLevelControlClassID KCMIO = 'b'<<24 | 'k'<<16 | 'l'<<8 | 'v' // 'bklv'
-	KCMIOBooleanControlClassID KCMIO = 't'<<24 | 'o'<<16 | 'g'<<8 | 'l' // 'togl'
-	KCMIOBrightnessControlClassID KCMIO = 'b'<<24 | 'r'<<16 | 'i'<<8 | 't' // 'brit'
-	KCMIOContrastControlClassID KCMIO = 'c'<<24 | 't'<<16 | 's'<<8 | 't' // 'ctst'
-	KCMIOControlClassID KCMIO = 'a'<<24 | 'c'<<16 | 't'<<8 | 'l' // 'actl'
-	KCMIODevicePermissionsError KCMIO = '!'<<24 | 'h'<<16 | 'o'<<8 | 'g' // '!hog'
-	KCMIODeviceUnsupportedFormatError KCMIO = '!'<<24 | 'd'<<16 | 'a'<<8 | 't' // '!dat'
-	KCMIODirectionControlClassID KCMIO = 'd'<<24 | 'i'<<16 | 'r'<<8 | 'e' // 'dire'
-	KCMIOExposureControlClassID KCMIO = 'x'<<24 | 'p'<<16 | 's'<<8 | 'r' // 'xpsr'
-	KCMIOFeatureControlClassID KCMIO = 'f'<<24 | 't'<<16 | 'c'<<8 | 't' // 'ftct'
-	KCMIOFocusControlClassID KCMIO = 'f'<<24 | 'c'<<16 | 'u'<<8 | 's' // 'fcus'
-	KCMIOGainControlClassID KCMIO = 'g'<<24 | 'a'<<16 | 'i'<<8 | 'n' // 'gain'
-	KCMIOGammaControlClassID KCMIO = 'g'<<24 | 'm'<<16 | 'm'<<8 | 'a' // 'gmma'
-	KCMIOHardwareBadDeviceError KCMIO = '!'<<24 | 'd'<<16 | 'e'<<8 | 'v' // '!dev'
-	KCMIOHardwareBadObjectError KCMIO = '!'<<24 | 'o'<<16 | 'b'<<8 | 'j' // '!obj'
-	KCMIOHardwareBadPropertySizeError KCMIO = '!'<<24 | 's'<<16 | 'i'<<8 | 'z' // '!siz'
-	KCMIOHardwareBadStreamError KCMIO = '!'<<24 | 's'<<16 | 't'<<8 | 'r' // '!str'
-	KCMIOHardwareIllegalOperationError KCMIO = 'n'<<24 | 'o'<<16 | 'p'<<8 | 'e' // 'nope'
-	KCMIOHardwareNoError KCMIO = 0
-	KCMIOHardwareNotRunningError KCMIO = 's'<<24 | 't'<<16 | 'o'<<8 | 'p' // 'stop'
-	KCMIOHardwareNotStoppedError KCMIO = 'r'<<24 | 'u'<<16 | 'n'<<8 | ' ' // 'run '
-	KCMIOHardwareSuspendedBySystemError KCMIO = 'd'<<24 | 'e'<<16 | 'n'<<8 | 'y' // 'deny'
-	KCMIOHardwareUnknownPropertyError KCMIO = 'w'<<24 | 'h'<<16 | 'o'<<8 | '?' // 'who?'
-	KCMIOHardwareUnspecifiedError KCMIO = 'w'<<24 | 'h'<<16 | 'a'<<8 | 't' // 'what'
-	KCMIOHardwareUnsupportedOperationError KCMIO = 'u'<<24 | 'n'<<16 | 'o'<<8 | 'p' // 'unop'
-	KCMIOHueControlClassID KCMIO = 'h'<<24 | 'u'<<16 | 'e'<<8 | ' ' // 'hue '
-	KCMIOIrisControlClassID KCMIO = 'i'<<24 | 'r'<<16 | 'i'<<8 | 's' // 'iris'
-	KCMIOJackControlClassID KCMIO = 'j'<<24 | 'a'<<16 | 'c'<<8 | 'k' // 'jack'
-	KCMIONoiseReductionControlClassID KCMIO = 's'<<24 | '2'<<16 | 'n'<<8 | 'r' // 's2nr'
-	KCMIOObjectSystemObject KCMIO = 0
-	KCMIOOpticalFilterClassID KCMIO = 'o'<<24 | 'p'<<16 | 'f'<<8 | 't' // 'opft'
-	KCMIOPanControlClassID KCMIO = 'p'<<24 | 'a'<<16 | 'n'<<8 | ' ' // 'pan '
-	KCMIOPanTiltAbsoluteControlClassID KCMIO = 'p'<<24 | 't'<<16 | 'a'<<8 | 'b' // 'ptab'
-	KCMIOPanTiltRelativeControlClassID KCMIO = 'p'<<24 | 't'<<16 | 'r'<<8 | 'l' // 'ptrl'
-	KCMIOPowerLineFrequencyControlClassID KCMIO = 'p'<<24 | 'w'<<16 | 'f'<<8 | 'q' // 'pwfq'
-	KCMIORollAbsoluteControlClassID KCMIO = 'r'<<24 | 'o'<<16 | 'l'<<8 | 'a' // 'rola'
-	KCMIOSaturationControlClassID KCMIO = 's'<<24 | 'a'<<16 | 't'<<8 | 'u' // 'satu'
-	KCMIOSelectorControlClassID KCMIO = 's'<<24 | 'l'<<16 | 'c'<<8 | 't' // 'slct'
-	KCMIOSharpnessControlClassID KCMIO = 's'<<24 | 'h'<<16 | 'r'<<8 | 'p' // 'shrp'
-	KCMIOShutterControlClassID KCMIO = 's'<<24 | 'h'<<16 | 't'<<8 | 'r' // 'shtr'
-	KCMIOSystemObjectClassID KCMIO = 'a'<<24 | 's'<<16 | 'y'<<8 | 's' // 'asys'
-	KCMIOTemperatureControlClassID KCMIO = 't'<<24 | 'e'<<16 | 'm'<<8 | 'p' // 'temp'
-	KCMIOTiltControlClassID KCMIO = 't'<<24 | 'i'<<16 | 'l'<<8 | 't' // 'tilt'
-	KCMIOWhiteBalanceControlClassID KCMIO = 'w'<<24 | 'h'<<16 | 'b'<<8 | 'l' // 'whbl'
-	KCMIOWhiteBalanceUControlClassID KCMIO = 'w'<<24 | 'h'<<16 | 'b'<<8 | 'u' // 'whbu'
-	KCMIOWhiteBalanceVControlClassID KCMIO = 'w'<<24 | 'h'<<16 | 'b'<<8 | 'v' // 'whbv'
-	KCMIOWhiteLevelControlClassID KCMIO = 'w'<<24 | 'h'<<16 | 'l'<<8 | 'v' // 'whlv'
-	KCMIOZoomControlClassID KCMIO = 'z'<<24 | 'o'<<16 | 'o'<<8 | 'm' // 'zoom'
-	KCMIOZoomRelativeControlClassID KCMIO = 'z'<<24 | 'o'<<16 | 'm'<<8 | 'r' // 'zomr'
+	KCMIOBlackLevelControlClassID            KCMIO = 'b'<<24 | 'k'<<16 | 'l'<<8 | 'v' // 'bklv'
+	KCMIOBooleanControlClassID               KCMIO = 't'<<24 | 'o'<<16 | 'g'<<8 | 'l' // 'togl'
+	KCMIOBrightnessControlClassID            KCMIO = 'b'<<24 | 'r'<<16 | 'i'<<8 | 't' // 'brit'
+	KCMIOContrastControlClassID              KCMIO = 'c'<<24 | 't'<<16 | 's'<<8 | 't' // 'ctst'
+	KCMIOControlClassID                      KCMIO = 'a'<<24 | 'c'<<16 | 't'<<8 | 'l' // 'actl'
+	KCMIODevicePermissionsError              KCMIO = '!'<<24 | 'h'<<16 | 'o'<<8 | 'g' // '!hog'
+	KCMIODeviceUnsupportedFormatError        KCMIO = '!'<<24 | 'd'<<16 | 'a'<<8 | 't' // '!dat'
+	KCMIODirectionControlClassID             KCMIO = 'd'<<24 | 'i'<<16 | 'r'<<8 | 'e' // 'dire'
+	KCMIOExposureControlClassID              KCMIO = 'x'<<24 | 'p'<<16 | 's'<<8 | 'r' // 'xpsr'
+	KCMIOFeatureControlClassID               KCMIO = 'f'<<24 | 't'<<16 | 'c'<<8 | 't' // 'ftct'
+	KCMIOFocusControlClassID                 KCMIO = 'f'<<24 | 'c'<<16 | 'u'<<8 | 's' // 'fcus'
+	KCMIOGainControlClassID                  KCMIO = 'g'<<24 | 'a'<<16 | 'i'<<8 | 'n' // 'gain'
+	KCMIOGammaControlClassID                 KCMIO = 'g'<<24 | 'm'<<16 | 'm'<<8 | 'a' // 'gmma'
+	KCMIOHardwareBadDeviceError              KCMIO = '!'<<24 | 'd'<<16 | 'e'<<8 | 'v' // '!dev'
+	KCMIOHardwareBadObjectError              KCMIO = '!'<<24 | 'o'<<16 | 'b'<<8 | 'j' // '!obj'
+	KCMIOHardwareBadPropertySizeError        KCMIO = '!'<<24 | 's'<<16 | 'i'<<8 | 'z' // '!siz'
+	KCMIOHardwareBadStreamError              KCMIO = '!'<<24 | 's'<<16 | 't'<<8 | 'r' // '!str'
+	KCMIOHardwareIllegalOperationError       KCMIO = 'n'<<24 | 'o'<<16 | 'p'<<8 | 'e' // 'nope'
+	KCMIOHardwareNoError                     KCMIO = 0
+	KCMIOHardwareNotRunningError             KCMIO = 's'<<24 | 't'<<16 | 'o'<<8 | 'p' // 'stop'
+	KCMIOHardwareNotStoppedError             KCMIO = 'r'<<24 | 'u'<<16 | 'n'<<8 | ' ' // 'run '
+	KCMIOHardwareSuspendedBySystemError      KCMIO = 'd'<<24 | 'e'<<16 | 'n'<<8 | 'y' // 'deny'
+	KCMIOHardwareUnknownPropertyError        KCMIO = 'w'<<24 | 'h'<<16 | 'o'<<8 | '?' // 'who?'
+	KCMIOHardwareUnspecifiedError            KCMIO = 'w'<<24 | 'h'<<16 | 'a'<<8 | 't' // 'what'
+	KCMIOHardwareUnsupportedOperationError   KCMIO = 'u'<<24 | 'n'<<16 | 'o'<<8 | 'p' // 'unop'
+	KCMIOHueControlClassID                   KCMIO = 'h'<<24 | 'u'<<16 | 'e'<<8 | ' ' // 'hue '
+	KCMIOIrisControlClassID                  KCMIO = 'i'<<24 | 'r'<<16 | 'i'<<8 | 's' // 'iris'
+	KCMIOJackControlClassID                  KCMIO = 'j'<<24 | 'a'<<16 | 'c'<<8 | 'k' // 'jack'
+	KCMIONoiseReductionControlClassID        KCMIO = 's'<<24 | '2'<<16 | 'n'<<8 | 'r' // 's2nr'
+	KCMIOObjectSystemObject                  KCMIO = 0
+	KCMIOOpticalFilterClassID                KCMIO = 'o'<<24 | 'p'<<16 | 'f'<<8 | 't' // 'opft'
+	KCMIOPanControlClassID                   KCMIO = 'p'<<24 | 'a'<<16 | 'n'<<8 | ' ' // 'pan '
+	KCMIOPanTiltAbsoluteControlClassID       KCMIO = 'p'<<24 | 't'<<16 | 'a'<<8 | 'b' // 'ptab'
+	KCMIOPanTiltRelativeControlClassID       KCMIO = 'p'<<24 | 't'<<16 | 'r'<<8 | 'l' // 'ptrl'
+	KCMIOPowerLineFrequencyControlClassID    KCMIO = 'p'<<24 | 'w'<<16 | 'f'<<8 | 'q' // 'pwfq'
+	KCMIORollAbsoluteControlClassID          KCMIO = 'r'<<24 | 'o'<<16 | 'l'<<8 | 'a' // 'rola'
+	KCMIOSaturationControlClassID            KCMIO = 's'<<24 | 'a'<<16 | 't'<<8 | 'u' // 'satu'
+	KCMIOSelectorControlClassID              KCMIO = 's'<<24 | 'l'<<16 | 'c'<<8 | 't' // 'slct'
+	KCMIOSharpnessControlClassID             KCMIO = 's'<<24 | 'h'<<16 | 'r'<<8 | 'p' // 'shrp'
+	KCMIOShutterControlClassID               KCMIO = 's'<<24 | 'h'<<16 | 't'<<8 | 'r' // 'shtr'
+	KCMIOSystemObjectClassID                 KCMIO = 'a'<<24 | 's'<<16 | 'y'<<8 | 's' // 'asys'
+	KCMIOTemperatureControlClassID           KCMIO = 't'<<24 | 'e'<<16 | 'm'<<8 | 'p' // 'temp'
+	KCMIOTiltControlClassID                  KCMIO = 't'<<24 | 'i'<<16 | 'l'<<8 | 't' // 'tilt'
+	KCMIOWhiteBalanceControlClassID          KCMIO = 'w'<<24 | 'h'<<16 | 'b'<<8 | 'l' // 'whbl'
+	KCMIOWhiteBalanceUControlClassID         KCMIO = 'w'<<24 | 'h'<<16 | 'b'<<8 | 'u' // 'whbu'
+	KCMIOWhiteBalanceVControlClassID         KCMIO = 'w'<<24 | 'h'<<16 | 'b'<<8 | 'v' // 'whbv'
+	KCMIOWhiteLevelControlClassID            KCMIO = 'w'<<24 | 'h'<<16 | 'l'<<8 | 'v' // 'whlv'
+	KCMIOZoomControlClassID                  KCMIO = 'z'<<24 | 'o'<<16 | 'o'<<8 | 'm' // 'zoom'
+	KCMIOZoomRelativeControlClassID          KCMIO = 'z'<<24 | 'o'<<16 | 'm'<<8 | 'r' // 'zomr'
 )
 
 func (e KCMIO) String() string {
@@ -240,19 +244,19 @@ func (e KCMIO) String() string {
 type KCMIOAVCDeviceType uint
 
 const (
-	KCMIOAVCDeviceType_DVCPro100_720p KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'h'<<8 | 'p' // 'dvhp'
-	KCMIOAVCDeviceType_DVCPro100_NTSC KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | '1'<<8 | 'n' // 'dv1n'
-	KCMIOAVCDeviceType_DVCPro100_PAL KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | '1'<<8 | 'p' // 'dv1p'
-	KCMIOAVCDeviceType_DVCPro50_NTSC KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | '5'<<8 | 'n' // 'dv5n'
-	KCMIOAVCDeviceType_DVCPro50_PAL KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | '5'<<8 | 'p' // 'dv5p'
+	KCMIOAVCDeviceType_DVCPro100_720p   KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'h'<<8 | 'p' // 'dvhp'
+	KCMIOAVCDeviceType_DVCPro100_NTSC   KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | '1'<<8 | 'n' // 'dv1n'
+	KCMIOAVCDeviceType_DVCPro100_PAL    KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | '1'<<8 | 'p' // 'dv1p'
+	KCMIOAVCDeviceType_DVCPro50_NTSC    KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | '5'<<8 | 'n' // 'dv5n'
+	KCMIOAVCDeviceType_DVCPro50_PAL     KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | '5'<<8 | 'p' // 'dv5p'
 	KCMIOAVCDeviceType_DVCProHD_1080i50 KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'h'<<8 | '5' // 'dvh5'
 	KCMIOAVCDeviceType_DVCProHD_1080i60 KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'h'<<8 | '6' // 'dvh6'
-	KCMIOAVCDeviceType_DVCPro_NTSC KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'p'<<8 | 'n' // 'dvpn'
-	KCMIOAVCDeviceType_DVCPro_PAL KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'p'<<8 | 'p' // 'dvpp'
-	KCMIOAVCDeviceType_DV_NTSC KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'c'<<8 | ' ' // 'dvc '
-	KCMIOAVCDeviceType_DV_PAL KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'c'<<8 | 'p' // 'dvcp'
-	KCMIOAVCDeviceType_MPEG2 KCMIOAVCDeviceType = 'm'<<24 | 'p'<<16 | 'g'<<8 | '2' // 'mpg2'
-	KCMIOAVCDeviceType_Unknown KCMIOAVCDeviceType = 'u'<<24 | 'n'<<16 | 'k'<<8 | 'n' // 'unkn'
+	KCMIOAVCDeviceType_DVCPro_NTSC      KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'p'<<8 | 'n' // 'dvpn'
+	KCMIOAVCDeviceType_DVCPro_PAL       KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'p'<<8 | 'p' // 'dvpp'
+	KCMIOAVCDeviceType_DV_NTSC          KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'c'<<8 | ' ' // 'dvc '
+	KCMIOAVCDeviceType_DV_PAL           KCMIOAVCDeviceType = 'd'<<24 | 'v'<<16 | 'c'<<8 | 'p' // 'dvcp'
+	KCMIOAVCDeviceType_MPEG2            KCMIOAVCDeviceType = 'm'<<24 | 'p'<<16 | 'g'<<8 | '2' // 'mpg2'
+	KCMIOAVCDeviceType_Unknown          KCMIOAVCDeviceType = 'u'<<24 | 'n'<<16 | 'k'<<8 | 'n' // 'unkn'
 )
 
 func (e KCMIOAVCDeviceType) String() string {
@@ -288,13 +292,26 @@ func (e KCMIOAVCDeviceType) String() string {
 	}
 }
 
-const KCMIOBooleanControlPropertyValue uint = 'b'<<24 | 'c'<<16 | 'v'<<8 | 'l' // 'bcvl'
+type KCMIOBooleanControlProperty uint
+
+const (
+	KCMIOBooleanControlPropertyValue KCMIOBooleanControlProperty = 'b'<<24 | 'c'<<16 | 'v'<<8 | 'l' // 'bcvl'
+)
+
+func (e KCMIOBooleanControlProperty) String() string {
+	switch e {
+	case KCMIOBooleanControlPropertyValue:
+		return "KCMIOBooleanControlPropertyValue"
+	default:
+		return fmt.Sprintf("KCMIOBooleanControlProperty(%d)", e)
+	}
+}
 
 type KCMIOControlProperty uint
 
 const (
 	KCMIOControlPropertyElement KCMIOControlProperty = 'c'<<24 | 'e'<<16 | 'l'<<8 | 'm' // 'celm'
-	KCMIOControlPropertyScope KCMIOControlProperty = 'c'<<24 | 's'<<16 | 'c'<<8 | 'p' // 'cscp'
+	KCMIOControlPropertyScope   KCMIOControlProperty = 'c'<<24 | 's'<<16 | 'c'<<8 | 'p' // 'cscp'
 	KCMIOControlPropertyVariant KCMIOControlProperty = 'c'<<24 | 'v'<<16 | 'a'<<8 | 'r' // 'cvar'
 )
 
@@ -315,7 +332,7 @@ type KCMIOData uint
 
 const (
 	KCMIODataDestinationControlClassID KCMIOData = 'd'<<24 | 'e'<<16 | 's'<<8 | 't' // 'dest'
-	KCMIODataSourceControlClassID KCMIOData = 'd'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'dsrc'
+	KCMIODataSourceControlClassID      KCMIOData = 'd'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'dsrc'
 )
 
 func (e KCMIOData) String() string {
@@ -332,27 +349,27 @@ func (e KCMIOData) String() string {
 type KCMIODeckShuttle uint
 
 const (
-	KCMIODeckShuttlePause KCMIODeckShuttle = 0
-	KCMIODeckShuttlePlay1x KCMIODeckShuttle = 0
-	KCMIODeckShuttlePlayFast KCMIODeckShuttle = 0
-	KCMIODeckShuttlePlayFaster KCMIODeckShuttle = 0
-	KCMIODeckShuttlePlayFastest KCMIODeckShuttle = 0
-	KCMIODeckShuttlePlayHighSpeed KCMIODeckShuttle = 0
-	KCMIODeckShuttlePlayNextFrame KCMIODeckShuttle = 0
+	KCMIODeckShuttlePause             KCMIODeckShuttle = 0
+	KCMIODeckShuttlePlay1x            KCMIODeckShuttle = 0
+	KCMIODeckShuttlePlayFast          KCMIODeckShuttle = 0
+	KCMIODeckShuttlePlayFaster        KCMIODeckShuttle = 0
+	KCMIODeckShuttlePlayFastest       KCMIODeckShuttle = 0
+	KCMIODeckShuttlePlayHighSpeed     KCMIODeckShuttle = 0
+	KCMIODeckShuttlePlayNextFrame     KCMIODeckShuttle = 0
 	KCMIODeckShuttlePlayPreviousFrame KCMIODeckShuttle = 0
-	KCMIODeckShuttlePlaySlow1 KCMIODeckShuttle = 0
-	KCMIODeckShuttlePlaySlow2 KCMIODeckShuttle = 0
-	KCMIODeckShuttlePlaySlow3 KCMIODeckShuttle = 0
-	KCMIODeckShuttlePlaySlowest KCMIODeckShuttle = 0
-	KCMIODeckShuttleReverse1x KCMIODeckShuttle = 0
-	KCMIODeckShuttleReverseFast KCMIODeckShuttle = 0
-	KCMIODeckShuttleReverseFaster KCMIODeckShuttle = 0
-	KCMIODeckShuttleReverseFastest KCMIODeckShuttle = 0
-	KCMIODeckShuttleReverseHighSpeed KCMIODeckShuttle = 0
-	KCMIODeckShuttleReverseSlow1 KCMIODeckShuttle = 0
-	KCMIODeckShuttleReverseSlow2 KCMIODeckShuttle = 0
-	KCMIODeckShuttleReverseSlow3 KCMIODeckShuttle = 0
-	KCMIODeckShuttleReverseSlowest KCMIODeckShuttle = 0
+	KCMIODeckShuttlePlaySlow1         KCMIODeckShuttle = 0
+	KCMIODeckShuttlePlaySlow2         KCMIODeckShuttle = 0
+	KCMIODeckShuttlePlaySlow3         KCMIODeckShuttle = 0
+	KCMIODeckShuttlePlaySlowest       KCMIODeckShuttle = 0
+	KCMIODeckShuttleReverse1x         KCMIODeckShuttle = 0
+	KCMIODeckShuttleReverseFast       KCMIODeckShuttle = 0
+	KCMIODeckShuttleReverseFaster     KCMIODeckShuttle = 0
+	KCMIODeckShuttleReverseFastest    KCMIODeckShuttle = 0
+	KCMIODeckShuttleReverseHighSpeed  KCMIODeckShuttle = 0
+	KCMIODeckShuttleReverseSlow1      KCMIODeckShuttle = 0
+	KCMIODeckShuttleReverseSlow2      KCMIODeckShuttle = 0
+	KCMIODeckShuttleReverseSlow3      KCMIODeckShuttle = 0
+	KCMIODeckShuttleReverseSlowest    KCMIODeckShuttle = 0
 )
 
 func (e KCMIODeckShuttle) String() string {
@@ -368,13 +385,13 @@ type KCMIODeckState uint
 
 const (
 	KCMIODeckStateFastForward KCMIODeckState = 0
-	KCMIODeckStateFastRewind KCMIODeckState = 0
-	KCMIODeckStatePause KCMIODeckState = 0
-	KCMIODeckStatePlay KCMIODeckState = 0
+	KCMIODeckStateFastRewind  KCMIODeckState = 0
+	KCMIODeckStatePause       KCMIODeckState = 0
+	KCMIODeckStatePlay        KCMIODeckState = 0
 	KCMIODeckStatePlayReverse KCMIODeckState = 0
-	KCMIODeckStatePlaySlow KCMIODeckState = 0
+	KCMIODeckStatePlaySlow    KCMIODeckState = 0
 	KCMIODeckStateReverseSlow KCMIODeckState = 0
-	KCMIODeckStateStop KCMIODeckState = 0
+	KCMIODeckStateStop        KCMIODeckState = 0
 )
 
 func (e KCMIODeckState) String() string {
@@ -389,13 +406,13 @@ func (e KCMIODeckState) String() string {
 type KCMIODeckStatus int
 
 const (
-	KCMIODeckStatusBusy KCMIODeckStatus = 0
-	KCMIODeckStatusLocal KCMIODeckStatus = 0
-	KCMIODeckStatusNoDevice KCMIODeckStatus = 0
-	KCMIODeckStatusNotThreaded KCMIODeckStatus = 0
-	KCMIODeckStatusOpcode KCMIODeckStatus = 0
+	KCMIODeckStatusBusy               KCMIODeckStatus = 0
+	KCMIODeckStatusLocal              KCMIODeckStatus = 0
+	KCMIODeckStatusNoDevice           KCMIODeckStatus = 0
+	KCMIODeckStatusNotThreaded        KCMIODeckStatus = 0
+	KCMIODeckStatusOpcode             KCMIODeckStatus = 0
 	KCMIODeckStatusSearchingForDevice KCMIODeckStatus = 0
-	KCMIODeckStatusTapeInserted KCMIODeckStatus = 0
+	KCMIODeckStatusTapeInserted       KCMIODeckStatus = 0
 )
 
 func (e KCMIODeckStatus) String() string {
@@ -410,11 +427,11 @@ func (e KCMIODeckStatus) String() string {
 type KCMIODevice uint
 
 const (
-	KCMIODeviceClassID KCMIODevice = 'a'<<24 | 'd'<<16 | 'e'<<8 | 'v' // 'adev'
-	KCMIODevicePropertyScopeInput KCMIODevice = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
-	KCMIODevicePropertyScopeOutput KCMIODevice = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
+	KCMIODeviceClassID                  KCMIODevice = 'a'<<24 | 'd'<<16 | 'e'<<8 | 'v' // 'adev'
+	KCMIODevicePropertyScopeInput       KCMIODevice = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
+	KCMIODevicePropertyScopeOutput      KCMIODevice = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
 	KCMIODevicePropertyScopePlayThrough KCMIODevice = 'p'<<24 | 't'<<16 | 'r'<<8 | 'u' // 'ptru'
-	KCMIODeviceUnknown KCMIODevice = 0
+	KCMIODeviceUnknown                  KCMIODevice = 0
 )
 
 func (e KCMIODevice) String() string {
@@ -437,46 +454,46 @@ func (e KCMIODevice) String() string {
 type KCMIODeviceAVCSignal uint
 
 const (
-	KCMIODeviceAVCSignalMode8mmNTSC KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalMode8mmPAL KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeAudio KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeDVCPro100_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeDVCPro100_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeDVCPro25_525_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeDVCPro25_625_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeDVCPro50_525_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeDVCPro50_625_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeDVHS KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeHD1125_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeHD1250_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeHDV1_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeHDV1_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeHDV2_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeHDV2_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeHi8NTSC KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeHi8PAL KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeMPEG12Mbps_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeMPEG12Mbps_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeMPEG25Mbps_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeMPEG25Mbps_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeMPEG6Mbps_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeMPEG6Mbps_60 KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalMode8mmNTSC          KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalMode8mmPAL           KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeAudio            KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeDVCPro100_50     KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeDVCPro100_60     KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeDVCPro25_525_60  KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeDVCPro25_625_50  KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeDVCPro50_525_60  KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeDVCPro50_625_50  KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeDVHS             KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeHD1125_60        KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeHD1250_50        KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeHDV1_50          KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeHDV1_60          KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeHDV2_50          KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeHDV2_60          KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeHi8NTSC          KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeHi8PAL           KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeMPEG12Mbps_50    KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeMPEG12Mbps_60    KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeMPEG25Mbps_50    KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeMPEG25Mbps_60    KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeMPEG6Mbps_50     KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeMPEG6Mbps_60     KCMIODeviceAVCSignal = 0
 	KCMIODeviceAVCSignalModeMicroMV12Mbps_50 KCMIODeviceAVCSignal = 0
 	KCMIODeviceAVCSignalModeMicroMV12Mbps_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeMicroMV6Mbps_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeMicroMV6Mbps_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeSD525_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeSD625_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeSDL525_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeSDL625_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeSVHS525_60 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeSVHS625_50 KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeVHSMESECAM KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeVHSMPAL KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeVHSNPAL KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeVHSNTSC KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeVHSPAL KCMIODeviceAVCSignal = 0
-	KCMIODeviceAVCSignalModeVHSSECAM KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeMicroMV6Mbps_50  KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeMicroMV6Mbps_60  KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeSD525_60         KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeSD625_50         KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeSDL525_60        KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeSDL625_50        KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeSVHS525_60       KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeSVHS625_50       KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeVHSMESECAM       KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeVHSMPAL          KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeVHSNPAL          KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeVHSNTSC          KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeVHSPAL           KCMIODeviceAVCSignal = 0
+	KCMIODeviceAVCSignalModeVHSSECAM         KCMIODeviceAVCSignal = 0
 )
 
 func (e KCMIODeviceAVCSignal) String() string {
@@ -491,36 +508,36 @@ func (e KCMIODeviceAVCSignal) String() string {
 type KCMIODeviceProperty uint
 
 const (
-	KCMIODevicePropertyAVCDeviceSignalMode KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 's'<<8 | 'm' // 'pmsm'
-	KCMIODevicePropertyAVCDeviceType KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 'a'<<8 | 't' // 'pmat'
-	KCMIODevicePropertyCanProcessAVCCommand KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 'a'<<8 | 'c' // 'pmac'
-	KCMIODevicePropertyCanProcessRS422Command KCMIODeviceProperty = 'r'<<24 | '4'<<16 | '2'<<8 | '2' // 'r422'
+	KCMIODevicePropertyAVCDeviceSignalMode                  KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 's'<<8 | 'm' // 'pmsm'
+	KCMIODevicePropertyAVCDeviceType                        KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 'a'<<8 | 't' // 'pmat'
+	KCMIODevicePropertyCanProcessAVCCommand                 KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 'a'<<8 | 'c' // 'pmac'
+	KCMIODevicePropertyCanProcessRS422Command               KCMIODeviceProperty = 'r'<<24 | '4'<<16 | '2'<<8 | '2' // 'r422'
 	KCMIODevicePropertyCanSwitchFrameRatesWithoutFrameDrops KCMIODeviceProperty = 'f'<<24 | 'r'<<16 | 'n'<<8 | 'd' // 'frnd'
-	KCMIODevicePropertyClientSyncDiscontinuity KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 'c'<<8 | 's' // 'pmcs'
-	KCMIODevicePropertyDeviceCanBeDefaultDevice KCMIODeviceProperty = 'd'<<24 | 'f'<<16 | 'l'<<8 | 't' // 'dflt'
-	KCMIODevicePropertyDeviceControl KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 'n'<<8 | 'h' // 'pmnh'
-	KCMIODevicePropertyDeviceHasChanged KCMIODeviceProperty = 'd'<<24 | 'i'<<16 | 'f'<<8 | 'f' // 'diff'
-	KCMIODevicePropertyDeviceHasStreamingError KCMIODeviceProperty = 's'<<24 | 'e'<<16 | 'r'<<8 | 'r' // 'serr'
-	KCMIODevicePropertyDeviceIsAlive KCMIODeviceProperty = 'l'<<24 | 'i'<<16 | 'v'<<8 | 'n' // 'livn'
-	KCMIODevicePropertyDeviceIsRunning KCMIODeviceProperty = 'g'<<24 | 'o'<<16 | 'i'<<8 | 'n' // 'goin'
-	KCMIODevicePropertyDeviceIsRunningSomewhere KCMIODeviceProperty = 'g'<<24 | 'o'<<16 | 'n'<<8 | 'e' // 'gone'
-	KCMIODevicePropertyDeviceUID KCMIODeviceProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | ' ' // 'uid '
-	KCMIODevicePropertyExcludeNonDALAccess KCMIODeviceProperty = 'i'<<24 | 'x'<<16 | 'n'<<8 | 'a' // 'ixna'
-	KCMIODevicePropertyHogMode KCMIODeviceProperty = 'o'<<24 | 'i'<<16 | 'n'<<8 | 'k' // 'oink'
-	KCMIODevicePropertyIIDCCSRData KCMIODeviceProperty = 'c'<<24 | 's'<<16 | 'r'<<8 | 'd' // 'csrd'
-	KCMIODevicePropertyIIDCInitialUnitSpace KCMIODeviceProperty = 'i'<<24 | 'u'<<16 | 'n'<<8 | 's' // 'iuns'
-	KCMIODevicePropertyLatency KCMIODeviceProperty = 'l'<<24 | 't'<<16 | 'n'<<8 | 'c' // 'ltnc'
-	KCMIODevicePropertyLinkedAndSyncedCoreAudioDeviceUID KCMIODeviceProperty = 'p'<<24 | 'l'<<16 | 's'<<8 | 'd' // 'plsd'
-	KCMIODevicePropertyLinkedCoreAudioDeviceUID KCMIODeviceProperty = 'p'<<24 | 'l'<<16 | 'u'<<8 | 'd' // 'plud'
-	KCMIODevicePropertyLocation KCMIODeviceProperty = 'd'<<24 | 'l'<<16 | 'o'<<8 | 'c' // 'dloc'
-	KCMIODevicePropertyModelUID KCMIODeviceProperty = 'm'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'muid'
-	KCMIODevicePropertyPlugIn KCMIODeviceProperty = 'p'<<24 | 'l'<<16 | 'u'<<8 | 'g' // 'plug'
-	KCMIODevicePropertySMPTETimeCallback KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 's'<<8 | 'c' // 'pmsc'
-	KCMIODevicePropertyStreamConfiguration KCMIODeviceProperty = 's'<<24 | 'l'<<16 | 'a'<<8 | 'y' // 'slay'
-	KCMIODevicePropertyStreams KCMIODeviceProperty = 's'<<24 | 't'<<16 | 'm'<<8 | '#' // 'stm#'
-	KCMIODevicePropertySuspendedByUser KCMIODeviceProperty = 's'<<24 | 'b'<<16 | 'y'<<8 | 'u' // 'sbyu'
-	KCMIODevicePropertyTransportType KCMIODeviceProperty = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
-	KCMIODevicePropertyVideoDigitizerComponents KCMIODeviceProperty = 'v'<<24 | 'd'<<16 | 'i'<<8 | 'g' // 'vdig'
+	KCMIODevicePropertyClientSyncDiscontinuity              KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 'c'<<8 | 's' // 'pmcs'
+	KCMIODevicePropertyDeviceCanBeDefaultDevice             KCMIODeviceProperty = 'd'<<24 | 'f'<<16 | 'l'<<8 | 't' // 'dflt'
+	KCMIODevicePropertyDeviceControl                        KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 'n'<<8 | 'h' // 'pmnh'
+	KCMIODevicePropertyDeviceHasChanged                     KCMIODeviceProperty = 'd'<<24 | 'i'<<16 | 'f'<<8 | 'f' // 'diff'
+	KCMIODevicePropertyDeviceHasStreamingError              KCMIODeviceProperty = 's'<<24 | 'e'<<16 | 'r'<<8 | 'r' // 'serr'
+	KCMIODevicePropertyDeviceIsAlive                        KCMIODeviceProperty = 'l'<<24 | 'i'<<16 | 'v'<<8 | 'n' // 'livn'
+	KCMIODevicePropertyDeviceIsRunning                      KCMIODeviceProperty = 'g'<<24 | 'o'<<16 | 'i'<<8 | 'n' // 'goin'
+	KCMIODevicePropertyDeviceIsRunningSomewhere             KCMIODeviceProperty = 'g'<<24 | 'o'<<16 | 'n'<<8 | 'e' // 'gone'
+	KCMIODevicePropertyDeviceUID                            KCMIODeviceProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | ' ' // 'uid '
+	KCMIODevicePropertyExcludeNonDALAccess                  KCMIODeviceProperty = 'i'<<24 | 'x'<<16 | 'n'<<8 | 'a' // 'ixna'
+	KCMIODevicePropertyHogMode                              KCMIODeviceProperty = 'o'<<24 | 'i'<<16 | 'n'<<8 | 'k' // 'oink'
+	KCMIODevicePropertyIIDCCSRData                          KCMIODeviceProperty = 'c'<<24 | 's'<<16 | 'r'<<8 | 'd' // 'csrd'
+	KCMIODevicePropertyIIDCInitialUnitSpace                 KCMIODeviceProperty = 'i'<<24 | 'u'<<16 | 'n'<<8 | 's' // 'iuns'
+	KCMIODevicePropertyLatency                              KCMIODeviceProperty = 'l'<<24 | 't'<<16 | 'n'<<8 | 'c' // 'ltnc'
+	KCMIODevicePropertyLinkedAndSyncedCoreAudioDeviceUID    KCMIODeviceProperty = 'p'<<24 | 'l'<<16 | 's'<<8 | 'd' // 'plsd'
+	KCMIODevicePropertyLinkedCoreAudioDeviceUID             KCMIODeviceProperty = 'p'<<24 | 'l'<<16 | 'u'<<8 | 'd' // 'plud'
+	KCMIODevicePropertyLocationValue                        KCMIODeviceProperty = 'd'<<24 | 'l'<<16 | 'o'<<8 | 'c' // 'dloc'
+	KCMIODevicePropertyModelUID                             KCMIODeviceProperty = 'm'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'muid'
+	KCMIODevicePropertyPlugIn                               KCMIODeviceProperty = 'p'<<24 | 'l'<<16 | 'u'<<8 | 'g' // 'plug'
+	KCMIODevicePropertySMPTETimeCallback                    KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 's'<<8 | 'c' // 'pmsc'
+	KCMIODevicePropertyStreamConfiguration                  KCMIODeviceProperty = 's'<<24 | 'l'<<16 | 'a'<<8 | 'y' // 'slay'
+	KCMIODevicePropertyStreams                              KCMIODeviceProperty = 's'<<24 | 't'<<16 | 'm'<<8 | '#' // 'stm#'
+	KCMIODevicePropertySuspendedByUser                      KCMIODeviceProperty = 's'<<24 | 'b'<<16 | 'y'<<8 | 'u' // 'sbyu'
+	KCMIODevicePropertyTransportType                        KCMIODeviceProperty = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
+	KCMIODevicePropertyVideoDigitizerComponents             KCMIODeviceProperty = 'v'<<24 | 'd'<<16 | 'i'<<8 | 'g' // 'vdig'
 	// Deprecated.
 	KCMIODevicePropertyDeviceMaster KCMIODeviceProperty = 'p'<<24 | 'm'<<16 | 'n'<<8 | 'h' // 'pmnh'
 )
@@ -569,8 +586,8 @@ func (e KCMIODeviceProperty) String() string {
 		return "KCMIODevicePropertyLinkedAndSyncedCoreAudioDeviceUID"
 	case KCMIODevicePropertyLinkedCoreAudioDeviceUID:
 		return "KCMIODevicePropertyLinkedCoreAudioDeviceUID"
-	case KCMIODevicePropertyLocation:
-		return "KCMIODevicePropertyLocation"
+	case KCMIODevicePropertyLocationValue:
+		return "KCMIODevicePropertyLocationValue"
 	case KCMIODevicePropertyModelUID:
 		return "KCMIODevicePropertyModelUID"
 	case KCMIODevicePropertyPlugIn:
@@ -592,26 +609,37 @@ func (e KCMIODeviceProperty) String() string {
 	}
 }
 
+type KCMIODevicePropertyLocation uint
+
 const (
-	KCMIODevicePropertyLocationBuiltInDisplay uint = 0
-	KCMIODevicePropertyLocationExternalDevice uint = 0
-	KCMIODevicePropertyLocationExternalDisplay uint = 0
-	KCMIODevicePropertyLocationExternalWirelessDevice uint = 0
-	KCMIODevicePropertyLocationUnknown uint = 0
+	KCMIODevicePropertyLocationBuiltInDisplay         KCMIODevicePropertyLocation = 0
+	KCMIODevicePropertyLocationExternalDevice         KCMIODevicePropertyLocation = 0
+	KCMIODevicePropertyLocationExternalDisplay        KCMIODevicePropertyLocation = 0
+	KCMIODevicePropertyLocationExternalWirelessDevice KCMIODevicePropertyLocation = 0
+	KCMIODevicePropertyLocationUnknown                KCMIODevicePropertyLocation = 0
 )
+
+func (e KCMIODevicePropertyLocation) String() string {
+	switch e {
+	case KCMIODevicePropertyLocationBuiltInDisplay:
+		return "KCMIODevicePropertyLocationBuiltInDisplay"
+	default:
+		return fmt.Sprintf("KCMIODevicePropertyLocation(%d)", e)
+	}
+}
 
 type KCMIOExposureControlProperty uint
 
 const (
 	KCMIOExposureControlPropertyConvergenceSpeed KCMIOExposureControlProperty = 'e'<<24 | 'c'<<16 | 's'<<8 | 'p' // 'ecsp'
-	KCMIOExposureControlPropertyIntegrationTime KCMIOExposureControlProperty = 'e'<<24 | 'i'<<16 | 'n'<<8 | 't' // 'eint'
-	KCMIOExposureControlPropertyLockThreshold KCMIOExposureControlProperty = 'e'<<24 | 'l'<<16 | 'c'<<8 | 'k' // 'elck'
-	KCMIOExposureControlPropertyMaximumGain KCMIOExposureControlProperty = 'e'<<24 | 'm'<<16 | 'a'<<8 | 'x' // 'emax'
+	KCMIOExposureControlPropertyIntegrationTime  KCMIOExposureControlProperty = 'e'<<24 | 'i'<<16 | 'n'<<8 | 't' // 'eint'
+	KCMIOExposureControlPropertyLockThreshold    KCMIOExposureControlProperty = 'e'<<24 | 'l'<<16 | 'c'<<8 | 'k' // 'elck'
+	KCMIOExposureControlPropertyMaximumGain      KCMIOExposureControlProperty = 'e'<<24 | 'm'<<16 | 'a'<<8 | 'x' // 'emax'
 	KCMIOExposureControlPropertyRegionOfInterest KCMIOExposureControlProperty = 'e'<<24 | 'r'<<16 | 'o'<<8 | 'i' // 'eroi'
-	KCMIOExposureControlPropertyStability KCMIOExposureControlProperty = 'e'<<24 | 's'<<16 | 't'<<8 | 'y' // 'esty'
-	KCMIOExposureControlPropertyStable KCMIOExposureControlProperty = 'e'<<24 | 's'<<16 | 't'<<8 | 'b' // 'estb'
-	KCMIOExposureControlPropertyTarget KCMIOExposureControlProperty = 'e'<<24 | 't'<<16 | 'g'<<8 | 't' // 'etgt'
-	KCMIOExposureControlPropertyUnlockThreshold KCMIOExposureControlProperty = 'e'<<24 | 'u'<<16 | 'l'<<8 | 'k' // 'eulk'
+	KCMIOExposureControlPropertyStability        KCMIOExposureControlProperty = 'e'<<24 | 's'<<16 | 't'<<8 | 'y' // 'esty'
+	KCMIOExposureControlPropertyStable           KCMIOExposureControlProperty = 'e'<<24 | 's'<<16 | 't'<<8 | 'b' // 'estb'
+	KCMIOExposureControlPropertyTarget           KCMIOExposureControlProperty = 'e'<<24 | 't'<<16 | 'g'<<8 | 't' // 'etgt'
+	KCMIOExposureControlPropertyUnlockThreshold  KCMIOExposureControlProperty = 'e'<<24 | 'u'<<16 | 'l'<<8 | 'k' // 'eulk'
 )
 
 func (e KCMIOExposureControlProperty) String() string {
@@ -642,19 +670,19 @@ func (e KCMIOExposureControlProperty) String() string {
 type KCMIOFeatureControlProperty uint
 
 const (
-	KCMIOFeatureControlPropertyAbsoluteNative KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'n'<<8 | 'a' // 'fcna'
-	KCMIOFeatureControlPropertyAbsoluteRange KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'a'<<8 | 'r' // 'fcar'
-	KCMIOFeatureControlPropertyAbsoluteUnitName KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'u'<<8 | 'n' // 'fcun'
-	KCMIOFeatureControlPropertyAbsoluteValue KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'a'<<8 | 'v' // 'fcav'
-	KCMIOFeatureControlPropertyAutomaticManual KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'a'<<8 | 'm' // 'fcam'
+	KCMIOFeatureControlPropertyAbsoluteNative          KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'n'<<8 | 'a' // 'fcna'
+	KCMIOFeatureControlPropertyAbsoluteRange           KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'a'<<8 | 'r' // 'fcar'
+	KCMIOFeatureControlPropertyAbsoluteUnitName        KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'u'<<8 | 'n' // 'fcun'
+	KCMIOFeatureControlPropertyAbsoluteValue           KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'a'<<8 | 'v' // 'fcav'
+	KCMIOFeatureControlPropertyAutomaticManual         KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'a'<<8 | 'm' // 'fcam'
 	KCMIOFeatureControlPropertyConvertAbsoluteToNative KCMIOFeatureControlProperty = 'f'<<24 | 'a'<<16 | '2'<<8 | 'n' // 'fa2n'
 	KCMIOFeatureControlPropertyConvertNativeToAbsolute KCMIOFeatureControlProperty = 'f'<<24 | 'n'<<16 | '2'<<8 | 'a' // 'fn2a'
-	KCMIOFeatureControlPropertyNativeData KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'n'<<8 | 'd' // 'fcnd'
-	KCMIOFeatureControlPropertyNativeDataRange KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'd'<<8 | 'r' // 'fcdr'
-	KCMIOFeatureControlPropertyNativeRange KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'n'<<8 | 'r' // 'fcnr'
-	KCMIOFeatureControlPropertyNativeValue KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'n'<<8 | 'v' // 'fcnv'
-	KCMIOFeatureControlPropertyOnOff KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'o'<<8 | 'o' // 'fcoo'
-	KCMIOFeatureControlPropertyTune KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 't'<<8 | 'n' // 'fctn'
+	KCMIOFeatureControlPropertyNativeData              KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'n'<<8 | 'd' // 'fcnd'
+	KCMIOFeatureControlPropertyNativeDataRange         KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'd'<<8 | 'r' // 'fcdr'
+	KCMIOFeatureControlPropertyNativeRange             KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'n'<<8 | 'r' // 'fcnr'
+	KCMIOFeatureControlPropertyNativeValue             KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'n'<<8 | 'v' // 'fcnv'
+	KCMIOFeatureControlPropertyOnOff                   KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 'o'<<8 | 'o' // 'fcoo'
+	KCMIOFeatureControlPropertyTune                    KCMIOFeatureControlProperty = 'f'<<24 | 'c'<<16 | 't'<<8 | 'n' // 'fctn'
 )
 
 func (e KCMIOFeatureControlProperty) String() string {
@@ -693,19 +721,19 @@ func (e KCMIOFeatureControlProperty) String() string {
 type KCMIOHardwareProperty uint
 
 const (
-	KCMIOHardwarePropertyAllowScreenCaptureDevices KCMIOHardwareProperty = 'y'<<24 | 'e'<<16 | 's'<<8 | ' ' // 'yes '
+	KCMIOHardwarePropertyAllowScreenCaptureDevices         KCMIOHardwareProperty = 'y'<<24 | 'e'<<16 | 's'<<8 | ' ' // 'yes '
 	KCMIOHardwarePropertyAllowWirelessScreenCaptureDevices KCMIOHardwareProperty = 'w'<<24 | 's'<<16 | 'c'<<8 | 'd' // 'wscd'
-	KCMIOHardwarePropertyDefaultInputDevice KCMIOHardwareProperty = 'd'<<24 | 'I'<<16 | 'n'<<8 | ' ' // 'dIn '
-	KCMIOHardwarePropertyDefaultOutputDevice KCMIOHardwareProperty = 'd'<<24 | 'O'<<16 | 'u'<<8 | 't' // 'dOut'
-	KCMIOHardwarePropertyDeviceForUID KCMIOHardwareProperty = 'd'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'duid'
-	KCMIOHardwarePropertyDevices KCMIOHardwareProperty = 'd'<<24 | 'e'<<16 | 'v'<<8 | '#' // 'dev#'
-	KCMIOHardwarePropertyIsInitingOrExiting KCMIOHardwareProperty = 'i'<<24 | 'n'<<16 | 'o'<<8 | 't' // 'inot'
-	KCMIOHardwarePropertyPlugInForBundleID KCMIOHardwareProperty = 'p'<<24 | 'i'<<16 | 'b'<<8 | 'i' // 'pibi'
-	KCMIOHardwarePropertyProcessIsMain KCMIOHardwareProperty = 'm'<<24 | 'a'<<16 | 'i'<<8 | 'n' // 'main'
-	KCMIOHardwarePropertySleepingIsAllowed KCMIOHardwareProperty = 's'<<24 | 'l'<<16 | 'e'<<8 | 'p' // 'slep'
-	KCMIOHardwarePropertySuspendedBySystem KCMIOHardwareProperty = 's'<<24 | 'b'<<16 | 'y'<<8 | 's' // 'sbys'
-	KCMIOHardwarePropertyUnloadingIsAllowed KCMIOHardwareProperty = 'u'<<24 | 'n'<<16 | 'l'<<8 | 'd' // 'unld'
-	KCMIOHardwarePropertyUserSessionIsActiveOrHeadless KCMIOHardwareProperty = 'u'<<24 | 's'<<16 | 'e'<<8 | 'r' // 'user'
+	KCMIOHardwarePropertyDefaultInputDevice                KCMIOHardwareProperty = 'd'<<24 | 'I'<<16 | 'n'<<8 | ' ' // 'dIn '
+	KCMIOHardwarePropertyDefaultOutputDevice               KCMIOHardwareProperty = 'd'<<24 | 'O'<<16 | 'u'<<8 | 't' // 'dOut'
+	KCMIOHardwarePropertyDeviceForUID                      KCMIOHardwareProperty = 'd'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'duid'
+	KCMIOHardwarePropertyDevices                           KCMIOHardwareProperty = 'd'<<24 | 'e'<<16 | 'v'<<8 | '#' // 'dev#'
+	KCMIOHardwarePropertyIsInitingOrExiting                KCMIOHardwareProperty = 'i'<<24 | 'n'<<16 | 'o'<<8 | 't' // 'inot'
+	KCMIOHardwarePropertyPlugInForBundleID                 KCMIOHardwareProperty = 'p'<<24 | 'i'<<16 | 'b'<<8 | 'i' // 'pibi'
+	KCMIOHardwarePropertyProcessIsMain                     KCMIOHardwareProperty = 'm'<<24 | 'a'<<16 | 'i'<<8 | 'n' // 'main'
+	KCMIOHardwarePropertySleepingIsAllowed                 KCMIOHardwareProperty = 's'<<24 | 'l'<<16 | 'e'<<8 | 'p' // 'slep'
+	KCMIOHardwarePropertySuspendedBySystem                 KCMIOHardwareProperty = 's'<<24 | 'b'<<16 | 'y'<<8 | 's' // 'sbys'
+	KCMIOHardwarePropertyUnloadingIsAllowed                KCMIOHardwareProperty = 'u'<<24 | 'n'<<16 | 'l'<<8 | 'd' // 'unld'
+	KCMIOHardwarePropertyUserSessionIsActiveOrHeadless     KCMIOHardwareProperty = 'u'<<24 | 's'<<16 | 'e'<<8 | 'r' // 'user'
 	// Deprecated.
 	KCMIOHardwarePropertyProcessIsMaster KCMIOHardwareProperty = 'm'<<24 | 'a'<<16 | 's'<<8 | 't' // 'mast'
 )
@@ -748,11 +776,11 @@ func (e KCMIOHardwareProperty) String() string {
 type KCMIOObject uint
 
 const (
-	KCMIOObjectClassID KCMIOObject = 'a'<<24 | 'o'<<16 | 'b'<<8 | 'j' // 'aobj'
-	KCMIOObjectClassIDWildcard KCMIOObject = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
+	KCMIOObjectClassID             KCMIOObject = 'a'<<24 | 'o'<<16 | 'b'<<8 | 'j' // 'aobj'
+	KCMIOObjectClassIDWildcard     KCMIOObject = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
 	KCMIOObjectPropertyElementMain KCMIOObject = 0
 	KCMIOObjectPropertyScopeGlobal KCMIOObject = 'g'<<24 | 'l'<<16 | 'o'<<8 | 'b' // 'glob'
-	KCMIOObjectUnknown KCMIOObject = 0
+	KCMIOObjectUnknown             KCMIOObject = 0
 	// Deprecated.
 	KCMIOObjectPropertyElementMaster KCMIOObject = 0
 )
@@ -775,20 +803,20 @@ func (e KCMIOObject) String() string {
 type KCMIOObjectProperty uint
 
 const (
-	KCMIOObjectPropertyClass KCMIOObjectProperty = 'c'<<24 | 'l'<<16 | 'a'<<8 | 's' // 'clas'
-	KCMIOObjectPropertyCreator KCMIOObjectProperty = 'o'<<24 | 'p'<<16 | 'l'<<8 | 'g' // 'oplg'
+	KCMIOObjectPropertyClass               KCMIOObjectProperty = 'c'<<24 | 'l'<<16 | 'a'<<8 | 's' // 'clas'
+	KCMIOObjectPropertyCreator             KCMIOObjectProperty = 'o'<<24 | 'p'<<16 | 'l'<<8 | 'g' // 'oplg'
 	KCMIOObjectPropertyElementCategoryName KCMIOObjectProperty = 'l'<<24 | 'c'<<16 | 'c'<<8 | 'n' // 'lccn'
-	KCMIOObjectPropertyElementName KCMIOObjectProperty = 'l'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'lchn'
-	KCMIOObjectPropertyElementNumberName KCMIOObjectProperty = 'l'<<24 | 'c'<<16 | 'n'<<8 | 'n' // 'lcnn'
-	KCMIOObjectPropertyElementWildcard KCMIOObjectProperty = 0
-	KCMIOObjectPropertyListenerAdded KCMIOObjectProperty = 'l'<<24 | 'i'<<16 | 's'<<8 | 'a' // 'lisa'
-	KCMIOObjectPropertyListenerRemoved KCMIOObjectProperty = 'l'<<24 | 'i'<<16 | 's'<<8 | 'r' // 'lisr'
-	KCMIOObjectPropertyManufacturer KCMIOObjectProperty = 'l'<<24 | 'm'<<16 | 'a'<<8 | 'k' // 'lmak'
-	KCMIOObjectPropertyName KCMIOObjectProperty = 'l'<<24 | 'n'<<16 | 'a'<<8 | 'm' // 'lnam'
-	KCMIOObjectPropertyOwnedObjects KCMIOObjectProperty = 'o'<<24 | 'w'<<16 | 'n'<<8 | 'd' // 'ownd'
-	KCMIOObjectPropertyOwner KCMIOObjectProperty = 's'<<24 | 't'<<16 | 'd'<<8 | 'v' // 'stdv'
-	KCMIOObjectPropertyScopeWildcard KCMIOObjectProperty = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
-	KCMIOObjectPropertySelectorWildcard KCMIOObjectProperty = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
+	KCMIOObjectPropertyElementName         KCMIOObjectProperty = 'l'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'lchn'
+	KCMIOObjectPropertyElementNumberName   KCMIOObjectProperty = 'l'<<24 | 'c'<<16 | 'n'<<8 | 'n' // 'lcnn'
+	KCMIOObjectPropertyElementWildcard     KCMIOObjectProperty = 0
+	KCMIOObjectPropertyListenerAdded       KCMIOObjectProperty = 'l'<<24 | 'i'<<16 | 's'<<8 | 'a' // 'lisa'
+	KCMIOObjectPropertyListenerRemoved     KCMIOObjectProperty = 'l'<<24 | 'i'<<16 | 's'<<8 | 'r' // 'lisr'
+	KCMIOObjectPropertyManufacturer        KCMIOObjectProperty = 'l'<<24 | 'm'<<16 | 'a'<<8 | 'k' // 'lmak'
+	KCMIOObjectPropertyName                KCMIOObjectProperty = 'l'<<24 | 'n'<<16 | 'a'<<8 | 'm' // 'lnam'
+	KCMIOObjectPropertyOwnedObjects        KCMIOObjectProperty = 'o'<<24 | 'w'<<16 | 'n'<<8 | 'd' // 'ownd'
+	KCMIOObjectPropertyOwner               KCMIOObjectProperty = 's'<<24 | 't'<<16 | 'd'<<8 | 'v' // 'stdv'
+	KCMIOObjectPropertyScopeWildcard       KCMIOObjectProperty = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
+	KCMIOObjectPropertySelectorWildcard    KCMIOObjectProperty = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
 )
 
 func (e KCMIOObjectProperty) String() string {
@@ -824,12 +852,25 @@ func (e KCMIOObjectProperty) String() string {
 	}
 }
 
-const KCMIOPlugInClassID uint = 'a'<<24 | 'p'<<16 | 'l'<<8 | 'g' // 'aplg'
+type KCMIOPlugInClassI uint
+
+const (
+	KCMIOPlugInClassID KCMIOPlugInClassI = 'a'<<24 | 'p'<<16 | 'l'<<8 | 'g' // 'aplg'
+)
+
+func (e KCMIOPlugInClassI) String() string {
+	switch e {
+	case KCMIOPlugInClassID:
+		return "KCMIOPlugInClassID"
+	default:
+		return fmt.Sprintf("KCMIOPlugInClassI(%d)", e)
+	}
+}
 
 type KCMIOPlugInProperty uint
 
 const (
-	KCMIOPlugInPropertyBundleID KCMIOPlugInProperty = 'p'<<24 | 'i'<<16 | 'i'<<8 | 'd' // 'piid'
+	KCMIOPlugInPropertyBundleID    KCMIOPlugInProperty = 'p'<<24 | 'i'<<16 | 'i'<<8 | 'd' // 'piid'
 	KCMIOPlugInPropertyIsExtension KCMIOPlugInProperty = 'p'<<24 | 'i'<<16 | 'i'<<8 | 'e' // 'piie'
 )
 
@@ -850,26 +891,26 @@ const (
 	KCMIOSampleBufferDiscontinuityFlag_BufferOverrun KCMIOSampleBuffer = 0
 	// KCMIOSampleBufferDiscontinuityFlag_ClientSyncDiscontinuity: # Discussion
 	KCMIOSampleBufferDiscontinuityFlag_ClientSyncDiscontinuity KCMIOSampleBuffer = 0
-	KCMIOSampleBufferDiscontinuityFlag_CodecSettingsChanged KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_CodecSettingsChanged    KCMIOSampleBuffer = 0
 	// KCMIOSampleBufferDiscontinuityFlag_DataFormatChanged: # Discussion
-	KCMIOSampleBufferDiscontinuityFlag_DataFormatChanged KCMIOSampleBuffer = 0
-	KCMIOSampleBufferDiscontinuityFlag_DataWasDropped KCMIOSampleBuffer = 0
-	KCMIOSampleBufferDiscontinuityFlag_DataWasFlushed KCMIOSampleBuffer = 0
-	KCMIOSampleBufferDiscontinuityFlag_DiscontinuityInDTS KCMIOSampleBuffer = 0
-	KCMIOSampleBufferDiscontinuityFlag_DurationWasExtended KCMIOSampleBuffer = 0
-	KCMIOSampleBufferDiscontinuityFlag_MalformedData KCMIOSampleBuffer = 0
-	KCMIOSampleBufferDiscontinuityFlag_NoDataMarker KCMIOSampleBuffer = 0
-	KCMIOSampleBufferDiscontinuityFlag_PacketError KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_DataFormatChanged      KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_DataWasDropped         KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_DataWasFlushed         KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_DiscontinuityInDTS     KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_DurationWasExtended    KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_MalformedData          KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_NoDataMarker           KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_PacketError            KCMIOSampleBuffer = 0
 	KCMIOSampleBufferDiscontinuityFlag_RelatedToDiscontinuity KCMIOSampleBuffer = 0
 	// KCMIOSampleBufferDiscontinuityFlag_SleepWakeCycle: # Discussion
-	KCMIOSampleBufferDiscontinuityFlag_SleepWakeCycle KCMIOSampleBuffer = 0
-	KCMIOSampleBufferDiscontinuityFlag_StreamDiscontinuity KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_SleepWakeCycle        KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_StreamDiscontinuity   KCMIOSampleBuffer = 0
 	KCMIOSampleBufferDiscontinuityFlag_TimecodeDiscontinuity KCMIOSampleBuffer = 0
 	KCMIOSampleBufferDiscontinuityFlag_TimingReferenceJumped KCMIOSampleBuffer = 0
 	// KCMIOSampleBufferDiscontinuityFlag_TrickPlay: # Discussion
-	KCMIOSampleBufferDiscontinuityFlag_TrickPlay KCMIOSampleBuffer = 0
+	KCMIOSampleBufferDiscontinuityFlag_TrickPlay            KCMIOSampleBuffer = 0
 	KCMIOSampleBufferDiscontinuityFlag_UnknownDiscontinuity KCMIOSampleBuffer = 0
-	KCMIOSampleBufferNoDiscontinuities KCMIOSampleBuffer = 0
+	KCMIOSampleBufferNoDiscontinuities                      KCMIOSampleBuffer = 0
 )
 
 func (e KCMIOSampleBuffer) String() string {
@@ -884,12 +925,12 @@ func (e KCMIOSampleBuffer) String() string {
 type KCMIOSampleBufferNoDataEvent uint
 
 const (
-	KCMIOSampleBufferNoDataEvent_DeviceDidNotSync KCMIOSampleBufferNoDataEvent = 0
+	KCMIOSampleBufferNoDataEvent_DeviceDidNotSync  KCMIOSampleBufferNoDataEvent = 0
 	KCMIOSampleBufferNoDataEvent_DeviceInWrongMode KCMIOSampleBufferNoDataEvent = 0
-	KCMIOSampleBufferNoDataEvent_NoMedia KCMIOSampleBufferNoDataEvent = 0
-	KCMIOSampleBufferNoDataEvent_ProcessingError KCMIOSampleBufferNoDataEvent = 0
-	KCMIOSampleBufferNoDataEvent_SleepWakeCycle KCMIOSampleBufferNoDataEvent = 0
-	KCMIOSampleBufferNoDataEvent_Unknown KCMIOSampleBufferNoDataEvent = 0
+	KCMIOSampleBufferNoDataEvent_NoMedia           KCMIOSampleBufferNoDataEvent = 0
+	KCMIOSampleBufferNoDataEvent_ProcessingError   KCMIOSampleBufferNoDataEvent = 0
+	KCMIOSampleBufferNoDataEvent_SleepWakeCycle    KCMIOSampleBufferNoDataEvent = 0
+	KCMIOSampleBufferNoDataEvent_Unknown           KCMIOSampleBufferNoDataEvent = 0
 )
 
 func (e KCMIOSampleBufferNoDataEvent) String() string {
@@ -905,9 +946,9 @@ type KCMIOSelectorControlProperty uint
 
 const (
 	KCMIOSelectorControlPropertyAvailableItemNames KCMIOSelectorControlProperty = 's'<<24 | 'c'<<16 | 'a'<<8 | 'n' // 'scan'
-	KCMIOSelectorControlPropertyAvailableItems KCMIOSelectorControlProperty = 's'<<24 | 'c'<<16 | 'a'<<8 | 'i' // 'scai'
-	KCMIOSelectorControlPropertyCurrentItem KCMIOSelectorControlProperty = 's'<<24 | 'c'<<16 | 'c'<<8 | 'i' // 'scci'
-	KCMIOSelectorControlPropertyItemName KCMIOSelectorControlProperty = 's'<<24 | 'c'<<16 | 'i'<<8 | 'n' // 'scin'
+	KCMIOSelectorControlPropertyAvailableItems     KCMIOSelectorControlProperty = 's'<<24 | 'c'<<16 | 'a'<<8 | 'i' // 'scai'
+	KCMIOSelectorControlPropertyCurrentItem        KCMIOSelectorControlProperty = 's'<<24 | 'c'<<16 | 'c'<<8 | 'i' // 'scci'
+	KCMIOSelectorControlPropertyItemName           KCMIOSelectorControlProperty = 's'<<24 | 'c'<<16 | 'i'<<8 | 'n' // 'scin'
 )
 
 func (e KCMIOSelectorControlProperty) String() string {
@@ -946,40 +987,40 @@ func (e KCMIOStream) String() string {
 type KCMIOStreamProperty uint
 
 const (
-	KCMIOStreamPropertyCanProcessDeckCommand KCMIOStreamProperty = 'p'<<24 | 'd'<<16 | 'c'<<8 | 'd' // 'pdcd'
-	KCMIOStreamPropertyClock KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'c'<<8 | 'l' // 'pmcl'
-	KCMIOStreamPropertyDeck KCMIOStreamProperty = 'd'<<24 | 'e'<<16 | 'c'<<8 | 'k' // 'deck'
-	KCMIOStreamPropertyDeckCueing KCMIOStreamProperty = 'c'<<24 | 'u'<<16 | 'e'<<8 | 'c' // 'cuec'
-	KCMIOStreamPropertyDeckDropness KCMIOStreamProperty = 'd'<<24 | 'r'<<16 | 'o'<<8 | 'p' // 'drop'
-	KCMIOStreamPropertyDeckFrameNumber KCMIOStreamProperty = 't'<<24 | 'c'<<16 | 'o'<<8 | 'd' // 'tcod'
-	KCMIOStreamPropertyDeckLocal KCMIOStreamProperty = 'l'<<24 | 'o'<<16 | 'c'<<8 | 'l' // 'locl'
-	KCMIOStreamPropertyDeckThreaded KCMIOStreamProperty = 't'<<24 | 'h'<<16 | 'r'<<8 | 'd' // 'thrd'
-	KCMIOStreamPropertyDeviceSyncTimeoutInMSec KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'n'<<8 | '2' // 'pmn2'
-	KCMIOStreamPropertyDirection KCMIOStreamProperty = 's'<<24 | 'd'<<16 | 'i'<<8 | 'r' // 'sdir'
-	KCMIOStreamPropertyEndOfData KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'e'<<8 | 'd' // 'pmed'
-	KCMIOStreamPropertyFirstOutputPresentationTimeStamp KCMIOStreamProperty = 'p'<<24 | 'o'<<16 | 'p'<<8 | 't' // 'popt'
-	KCMIOStreamPropertyFormatDescription KCMIOStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | ' ' // 'pft '
-	KCMIOStreamPropertyFormatDescriptions KCMIOStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | 'a' // 'pfta'
-	KCMIOStreamPropertyFrameRate KCMIOStreamProperty = 'n'<<24 | 'f'<<16 | 'r'<<8 | 't' // 'nfrt'
-	KCMIOStreamPropertyFrameRateRanges KCMIOStreamProperty = 'f'<<24 | 'r'<<16 | 'r'<<8 | 'g' // 'frrg'
-	KCMIOStreamPropertyFrameRates KCMIOStreamProperty = 'n'<<24 | 'f'<<16 | 'r'<<8 | '#' // 'nfr#'
+	KCMIOStreamPropertyCanProcessDeckCommand                               KCMIOStreamProperty = 'p'<<24 | 'd'<<16 | 'c'<<8 | 'd' // 'pdcd'
+	KCMIOStreamPropertyClock                                               KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'c'<<8 | 'l' // 'pmcl'
+	KCMIOStreamPropertyDeck                                                KCMIOStreamProperty = 'd'<<24 | 'e'<<16 | 'c'<<8 | 'k' // 'deck'
+	KCMIOStreamPropertyDeckCueing                                          KCMIOStreamProperty = 'c'<<24 | 'u'<<16 | 'e'<<8 | 'c' // 'cuec'
+	KCMIOStreamPropertyDeckDropness                                        KCMIOStreamProperty = 'd'<<24 | 'r'<<16 | 'o'<<8 | 'p' // 'drop'
+	KCMIOStreamPropertyDeckFrameNumber                                     KCMIOStreamProperty = 't'<<24 | 'c'<<16 | 'o'<<8 | 'd' // 'tcod'
+	KCMIOStreamPropertyDeckLocal                                           KCMIOStreamProperty = 'l'<<24 | 'o'<<16 | 'c'<<8 | 'l' // 'locl'
+	KCMIOStreamPropertyDeckThreaded                                        KCMIOStreamProperty = 't'<<24 | 'h'<<16 | 'r'<<8 | 'd' // 'thrd'
+	KCMIOStreamPropertyDeviceSyncTimeoutInMSec                             KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'n'<<8 | '2' // 'pmn2'
+	KCMIOStreamPropertyDirection                                           KCMIOStreamProperty = 's'<<24 | 'd'<<16 | 'i'<<8 | 'r' // 'sdir'
+	KCMIOStreamPropertyEndOfData                                           KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'e'<<8 | 'd' // 'pmed'
+	KCMIOStreamPropertyFirstOutputPresentationTimeStamp                    KCMIOStreamProperty = 'p'<<24 | 'o'<<16 | 'p'<<8 | 't' // 'popt'
+	KCMIOStreamPropertyFormatDescription                                   KCMIOStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | ' ' // 'pft '
+	KCMIOStreamPropertyFormatDescriptions                                  KCMIOStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | 'a' // 'pfta'
+	KCMIOStreamPropertyFrameRate                                           KCMIOStreamProperty = 'n'<<24 | 'f'<<16 | 'r'<<8 | 't' // 'nfrt'
+	KCMIOStreamPropertyFrameRateRanges                                     KCMIOStreamProperty = 'f'<<24 | 'r'<<16 | 'r'<<8 | 'g' // 'frrg'
+	KCMIOStreamPropertyFrameRates                                          KCMIOStreamProperty = 'n'<<24 | 'f'<<16 | 'r'<<8 | '#' // 'nfr#'
 	KCMIOStreamPropertyInitialPresentationTimeStampForLinkedAndSyncedAudio KCMIOStreamProperty = 'i'<<24 | 'p'<<16 | 'l'<<8 | 's' // 'ipls'
-	KCMIOStreamPropertyLatency KCMIOStreamProperty = 'l'<<24 | 't'<<16 | 'n'<<8 | 'c' // 'ltnc'
-	KCMIOStreamPropertyMinimumFrameRate KCMIOStreamProperty = 'm'<<24 | 'f'<<16 | 'r'<<8 | 't' // 'mfrt'
-	KCMIOStreamPropertyNoDataEventCount KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'n'<<8 | '3' // 'pmn3'
-	KCMIOStreamPropertyNoDataTimeoutInMSec KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'n'<<8 | '1' // 'pmn1'
-	KCMIOStreamPropertyOutputBufferQueueSize KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'o'<<8 | 'q' // 'pmoq'
-	KCMIOStreamPropertyOutputBufferRepeatCount KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'o'<<8 | 'r' // 'pmor'
-	KCMIOStreamPropertyOutputBufferUnderrunCount KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'o'<<8 | 'u' // 'pmou'
-	KCMIOStreamPropertyOutputBuffersNeededForThrottledPlayback KCMIOStreamProperty = 'm'<<24 | 'i'<<16 | 'f'<<8 | 'f' // 'miff'
-	KCMIOStreamPropertyOutputBuffersRequiredForStartup KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'o'<<8 | 's' // 'pmos'
-	KCMIOStreamPropertyPreferredFormatDescription KCMIOStreamProperty = 'p'<<24 | 'r'<<16 | 'f'<<8 | 'd' // 'prfd'
-	KCMIOStreamPropertyPreferredFrameRate KCMIOStreamProperty = 'p'<<24 | 'r'<<16 | 'f'<<8 | 'r' // 'prfr'
-	KCMIOStreamPropertyScheduledOutputNotificationProc KCMIOStreamProperty = 's'<<24 | 'o'<<16 | 'n'<<8 | 'p' // 'sonp'
-	KCMIOStreamPropertyStartingChannel KCMIOStreamProperty = 's'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'schn'
-	KCMIOStreamPropertyStillImage KCMIOStreamProperty = 's'<<24 | 't'<<16 | 'm'<<8 | 'g' // 'stmg'
-	KCMIOStreamPropertyStillImageFormatDescriptions KCMIOStreamProperty = 's'<<24 | 't'<<16 | 'f'<<8 | 't' // 'stft'
-	KCMIOStreamPropertyTerminalType KCMIOStreamProperty = 't'<<24 | 'e'<<16 | 'r'<<8 | 'm' // 'term'
+	KCMIOStreamPropertyLatency                                             KCMIOStreamProperty = 'l'<<24 | 't'<<16 | 'n'<<8 | 'c' // 'ltnc'
+	KCMIOStreamPropertyMinimumFrameRate                                    KCMIOStreamProperty = 'm'<<24 | 'f'<<16 | 'r'<<8 | 't' // 'mfrt'
+	KCMIOStreamPropertyNoDataEventCount                                    KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'n'<<8 | '3' // 'pmn3'
+	KCMIOStreamPropertyNoDataTimeoutInMSec                                 KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'n'<<8 | '1' // 'pmn1'
+	KCMIOStreamPropertyOutputBufferQueueSize                               KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'o'<<8 | 'q' // 'pmoq'
+	KCMIOStreamPropertyOutputBufferRepeatCount                             KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'o'<<8 | 'r' // 'pmor'
+	KCMIOStreamPropertyOutputBufferUnderrunCount                           KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'o'<<8 | 'u' // 'pmou'
+	KCMIOStreamPropertyOutputBuffersNeededForThrottledPlayback             KCMIOStreamProperty = 'm'<<24 | 'i'<<16 | 'f'<<8 | 'f' // 'miff'
+	KCMIOStreamPropertyOutputBuffersRequiredForStartup                     KCMIOStreamProperty = 'p'<<24 | 'm'<<16 | 'o'<<8 | 's' // 'pmos'
+	KCMIOStreamPropertyPreferredFormatDescription                          KCMIOStreamProperty = 'p'<<24 | 'r'<<16 | 'f'<<8 | 'd' // 'prfd'
+	KCMIOStreamPropertyPreferredFrameRate                                  KCMIOStreamProperty = 'p'<<24 | 'r'<<16 | 'f'<<8 | 'r' // 'prfr'
+	KCMIOStreamPropertyScheduledOutputNotificationProc                     KCMIOStreamProperty = 's'<<24 | 'o'<<16 | 'n'<<8 | 'p' // 'sonp'
+	KCMIOStreamPropertyStartingChannel                                     KCMIOStreamProperty = 's'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'schn'
+	KCMIOStreamPropertyStillImage                                          KCMIOStreamProperty = 's'<<24 | 't'<<16 | 'm'<<8 | 'g' // 'stmg'
+	KCMIOStreamPropertyStillImageFormatDescriptions                        KCMIOStreamProperty = 's'<<24 | 't'<<16 | 'f'<<8 | 't' // 'stft'
+	KCMIOStreamPropertyTerminalType                                        KCMIOStreamProperty = 't'<<24 | 'e'<<16 | 'r'<<8 | 'm' // 'term'
 )
 
 func (e KCMIOStreamProperty) String() string {
@@ -1056,4 +1097,3 @@ func (e KCMIOStreamProperty) String() string {
 		return fmt.Sprintf("KCMIOStreamProperty(%d)", e)
 	}
 }
-

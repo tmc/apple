@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type ColumnCount struct {
 func ColumnCountFromID(id objc.ID) ColumnCount {
 	return ColumnCount{objectivec.Object{ID: id}}
 }
+
 // Ensure ColumnCount implements IColumnCount.
 var _ IColumnCount = ColumnCount{}
 
@@ -78,4 +80,3 @@ func NewColumnCount() ColumnCount {
 	rv := objc.Send[ColumnCount](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

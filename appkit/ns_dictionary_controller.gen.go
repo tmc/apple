@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,14 +47,14 @@ func (nc NSDictionaryControllerClass) Alloc() NSDictionaryController {
 // dictionary of key-value pairs.
 //
 // # Overview
-// 
+//
 // [NSDictionaryController] transforms the contents of a dictionary into an
 // array of key-value pairs that can be bound to user interface items such as
 // the columns of an [NSTableView].
-// 
+//
 // The content of an [NSDictionaryController] instance is specified using the
 // inherited method [NSDictionaryController.Content] or by binding an [NSDictionary] instance to the
-// [contentDictionary] binding. New key/value pairs inserted into the
+// [NSDictionaryController.ContentDictionary] binding. New key/value pairs inserted into the
 // dictionary are created using the [NSDictionaryController.NewObject] method. The initial key name
 // is set to the string returned by [NSDictionaryController.InitialKey] . The initial key name is
 // copied to the newly inserted object, while the object returned by
@@ -61,19 +62,19 @@ func (nc NSDictionaryControllerClass) Alloc() NSDictionaryController {
 // enumerates the initial key name, resulting in key names such as “key”,
 // “key1”, “key2”, and so on. This behavior can be customized by
 // overriding [NSDictionaryController.NewObject].
-// 
+//
 // An [NSDictionaryController] instance can be configured to exclude specified
 // keys in a dictionary from being returned by [NSDictionaryController.ArrangedObjects] using the
 // [NSDictionaryController.ExcludedKeys] property. Similarly, you can specify an array of key names
 // that are always included in the arranged objects, even if they are not
 // present in the content dictionary, using the [NSDictionaryController.IncludedKeys] property.
-// 
+//
 // [NSDictionaryController] supports providing localized key names for the
 // keys in the dictionary, allowing a user-friendly representation of the key
 // name to be displayed. The localized key names are specified by a dictionary
 // (using [NSDictionaryController.LocalizedKeyDictionary]) or by providing a strings table (using
 // [NSDictionaryController.LocalizedKeyDictionary]).
-// 
+//
 // The [NSDictionaryController.ArrangedObjects] method returns an array of objects that implement the
 // [NSDictionaryControllerKeyValuePair] informal protocol. User interface
 // controls are bound to the arranged objects array using key paths such as:
@@ -81,33 +82,19 @@ func (nc NSDictionaryControllerClass) Alloc() NSDictionaryController {
 // (displays the value for the key), or `arrangedObjects.LocalizedKey()`
 // (displays the localized key name). See [NSDictionaryControllerKeyValuePair]
 // for more information.
-// 
+//
 // [NSDictionaryController] overrides [NSDictionaryController.ArrangedObjects] to return an array of
 // objects that implement the [NSDictionaryControllerKeyValuePair] informal
 // protocol. See [NSDictionaryControllerKeyValuePair] and [Cocoa Bindings
 // Programming Topics] for more information.
-// 
+//
 // The constants listed below are used to specify a binding to
 // [bind(_:to:withKeyPath:options:)], [infoForBinding(_:)], [unbind(_:)], and
 // [valueClassForBinding(_:)]. See the [Cocoa Bindings Reference] for more
 // information.
-// 
-// - [contentDictionary] - [includedKeys] - [excludedKeys] -
-// [localizedKeyDictionary] - [initialKey] - [initialValue]
 //
-// [Cocoa Bindings Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaBindings/CocoaBindings.html#//apple_ref/doc/uid/10000167i
-// [Cocoa Bindings Reference]: https://developer.apple.com/library/archive/documentation/Cocoa/Reference/CocoaBindingsRef/CocoaBindingsRef.html#//apple_ref/doc/uid/10000189i
-// [NSDictionary]: https://developer.apple.com/documentation/Foundation/NSDictionary
-// [bind(_:to:withKeyPath:options:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/bind(_:to:withKeyPath:options:)
-// [contentDictionary]: https://developer.apple.com/documentation/AppKit/NSBindingName/contentDictionary
-// [excludedKeys]: https://developer.apple.com/documentation/AppKit/NSBindingName/excludedKeys
-// [includedKeys]: https://developer.apple.com/documentation/AppKit/NSBindingName/includedKeys
-// [infoForBinding(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/infoForBinding(_:)
-// [initialKey]: https://developer.apple.com/documentation/AppKit/NSBindingName/initialKey
-// [initialValue]: https://developer.apple.com/documentation/AppKit/NSBindingName/initialValue
-// [localizedKeyDictionary]: https://developer.apple.com/documentation/AppKit/NSBindingName/localizedKeyDictionary
-// [unbind(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/unbind(_:)
-// [valueClassForBinding(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/valueClassForBinding(_:)
+// - [NSDictionaryController.ContentDictionary] - [includedKeys] - [excludedKeys] -
+// [localizedKeyDictionary] - [initialKey] - [initialValue]
 //
 // # Localizing Key Names
 //
@@ -131,6 +118,19 @@ func (nc NSDictionaryControllerClass) Alloc() NSDictionaryController {
 //   - [NSDictionaryController.SetInitialValue]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryController
+//
+// [Cocoa Bindings Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaBindings/CocoaBindings.html#//apple_ref/doc/uid/10000167i
+// [Cocoa Bindings Reference]: https://developer.apple.com/library/archive/documentation/Cocoa/Reference/CocoaBindingsRef/CocoaBindingsRef.html#//apple_ref/doc/uid/10000189i
+// [NSDictionary]: https://developer.apple.com/documentation/Foundation/NSDictionary
+// [bind(_:to:withKeyPath:options:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/bind(_:to:withKeyPath:options:)
+// [excludedKeys]: https://developer.apple.com/documentation/AppKit/NSBindingName/excludedKeys
+// [includedKeys]: https://developer.apple.com/documentation/AppKit/NSBindingName/includedKeys
+// [infoForBinding(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/infoForBinding(_:)
+// [initialKey]: https://developer.apple.com/documentation/AppKit/NSBindingName/initialKey
+// [initialValue]: https://developer.apple.com/documentation/AppKit/NSBindingName/initialValue
+// [localizedKeyDictionary]: https://developer.apple.com/documentation/AppKit/NSBindingName/localizedKeyDictionary
+// [unbind(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/unbind(_:)
+// [valueClassForBinding(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/valueClassForBinding(_:)
 type NSDictionaryController struct {
 	NSArrayController
 }
@@ -142,6 +142,7 @@ type NSDictionaryController struct {
 func NSDictionaryControllerFromID(id objc.ID) NSDictionaryController {
 	return NSDictionaryController{NSArrayController: NSArrayControllerFromID(id)}
 }
+
 // NOTE: NSDictionaryController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -222,7 +223,6 @@ func NewNSDictionaryController() NSDictionaryController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/init(coder:)
 func NewDictionaryControllerWithCoder(coder foundation.INSCoder) NSDictionaryController {
 	instance := getNSDictionaryControllerClass().Alloc()
@@ -236,7 +236,7 @@ func NewDictionaryControllerWithCoder(coder foundation.INSCoder) NSDictionaryCon
 // content: The content for the receiver.
 //
 // # Return Value
-// 
+//
 // The initialized object controller, with its content object set to
 // `content`.
 //
@@ -251,7 +251,7 @@ func NewDictionaryControllerWithContent(content objectivec.IObject) NSDictionary
 // key names.
 //
 // # Discussion
-// 
+//
 // The dictionary contains the key names as the keys, and the localized key
 // names as the corresponding values.
 //
@@ -263,6 +263,7 @@ func (d NSDictionaryController) LocalizedKeyDictionary() foundation.INSDictionar
 func (d NSDictionaryController) SetLocalizedKeyDictionary(value foundation.INSDictionary) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocalizedKeyDictionary:"), value)
 }
+
 // the strings file used to localize key names.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryController/localizedKeyTable
@@ -273,6 +274,7 @@ func (d NSDictionaryController) LocalizedKeyTable() string {
 func (d NSDictionaryController) SetLocalizedKeyTable(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocalizedKeyTable:"), objc.String(value))
 }
+
 // The key names that are represented by a key-value pair, even if they are
 // not present in the receiver’s content dictionary.
 //
@@ -284,6 +286,7 @@ func (d NSDictionaryController) IncludedKeys() []string {
 func (d NSDictionaryController) SetIncludedKeys(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIncludedKeys:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The key names that are never displayed in the user interface items bound to
 // the receiver.
 //
@@ -295,6 +298,7 @@ func (d NSDictionaryController) ExcludedKeys() []string {
 func (d NSDictionaryController) SetExcludedKeys(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setExcludedKeys:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The string used as the initial key name for a newly inserted item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryController/initialKey
@@ -305,6 +309,7 @@ func (d NSDictionaryController) InitialKey() string {
 func (d NSDictionaryController) SetInitialKey(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setInitialKey:"), objc.String(value))
 }
+
 // The string used as the initial value for a newly inserted item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryController/initialValue
@@ -315,6 +320,7 @@ func (d NSDictionaryController) InitialValue() objectivec.IObject {
 func (d NSDictionaryController) SetInitialValue(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setInitialValue:"), value)
 }
+
 // A constant that identifies a content dictionary binding.
 //
 // See: https://developer.apple.com/documentation/appkit/nsbindingname/contentdictionary
@@ -322,4 +328,3 @@ func (d NSDictionaryController) ContentDictionary() NSBindingName {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("NSContentDictionaryBinding"))
 	return NSBindingName(foundation.NSStringFromID(rv).String())
 }
-

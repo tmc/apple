@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (ac AVVCDuckLevelClass) Alloc() AVVCDuckLevel {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVVCDuckLevel.IsBlur]
 //   - [AVVCDuckLevel.SetIsBlur]
 //   - [AVVCDuckLevel.Value]
 //   - [AVVCDuckLevel.SetValue]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckLevel
 type AVVCDuckLevel struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type AVVCDuckLevel struct {
 func AVVCDuckLevelFromID(id objc.ID) AVVCDuckLevel {
 	return AVVCDuckLevel{objectivec.Object{ID: id}}
 }
+
 // Ensure AVVCDuckLevel implements IAVVCDuckLevel.
 var _ IAVVCDuckLevel = AVVCDuckLevel{}
 
@@ -109,6 +111,7 @@ func (v AVVCDuckLevel) IsBlur() bool {
 func (v AVVCDuckLevel) SetIsBlur(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIsBlur:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckLevel/value
 func (v AVVCDuckLevel) Value() foundation.NSNumber {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("value"))
@@ -117,4 +120,3 @@ func (v AVVCDuckLevel) Value() foundation.NSNumber {
 func (v AVVCDuckLevel) SetValue(value foundation.NSNumber) {
 	objc.Send[struct{}](v.ID, objc.Sel("setValue:"), value)
 }
-

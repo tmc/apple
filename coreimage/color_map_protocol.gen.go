@@ -39,6 +39,7 @@ type CIColorMap interface {
 type CIColorMapObject struct {
 	objectivec.Object
 }
+
 func (o CIColorMapObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIColorMapObjectFromID(id objc.ID) CIColorMapObject {
 func (o CIColorMapObject) GradientImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("gradientImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMap/inputImage
 func (o CIColorMapObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIColorMapObject) InputImage() ICIImage {
 func (o CIColorMapObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image data that transforms the source image values.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorMap/gradientImage
 func (o CIColorMapObject) SetGradientImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setGradientImage:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorMap/inputImage
 func (o CIColorMapObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

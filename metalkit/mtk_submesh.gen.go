@@ -3,10 +3,11 @@
 package metalkit
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,15 +48,13 @@ func (mc MTKSubmeshClass) Alloc() MTKSubmesh {
 // a Metal app.
 //
 // # Overview
-// 
+//
 // The [MTKSubmesh] class provides a container for a segment of mesh data that
 // can be rendered in a single draw call. A submesh can only be initialized as
 // part of a [MTKMesh] object. Each submesh contains an index buffer with
 // which the parent’s mesh data can be rendered. Actual submesh vertex data
 // resides in the submesh’s parent mesh. For more information on Model I/O
 // submeshes, see [MDLSubmesh].
-//
-// [MDLSubmesh]: https://developer.apple.com/documentation/ModelIO/MDLSubmesh
 //
 // # Parent Mesh
 //
@@ -74,6 +73,8 @@ func (mc MTKSubmeshClass) Alloc() MTKSubmesh {
 //   - [MTKSubmesh.SetName]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKSubmesh
+//
+// [MDLSubmesh]: https://developer.apple.com/documentation/ModelIO/MDLSubmesh
 type MTKSubmesh struct {
 	objectivec.Object
 }
@@ -85,6 +86,7 @@ type MTKSubmesh struct {
 func MTKSubmeshFromID(id objc.ID) MTKSubmesh {
 	return MTKSubmesh{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTKSubmesh adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -155,79 +157,84 @@ func NewMTKSubmesh() MTKSubmesh {
 // The parent mesh containing the vertex data of this submesh.
 //
 // # Discussion
-// 
+//
 // The buffer of this parent mesh should be set in the encoder before a call
 // to
 // [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]
 // is made.
 //
-// [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
-//
 // See: https://developer.apple.com/documentation/MetalKit/MTKSubmesh/mesh
+//
+// [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
 func (s MTKSubmesh) Mesh() IMTKMesh {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("mesh"))
 	return MTKMeshFromID(objc.ID(rv))
 }
+
 // The index buffer used to render the submesh object.
 //
 // # Discussion
-// 
+//
 // Use this object for the `indexBuffer` parameter in a call to
 // [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)].
 //
-// [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
-//
 // See: https://developer.apple.com/documentation/MetalKit/MTKSubmesh/indexBuffer
+//
+// [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
 func (s MTKSubmesh) IndexBuffer() IMTKMeshBuffer {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("indexBuffer"))
 	return MTKMeshBufferFromID(objc.ID(rv))
 }
+
 // The number of indices in the index buffer.
 //
 // # Discussion
-// 
+//
 // Use this value for the `indexCount` parameter in a call to
 // [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)].
 //
-// [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
-//
 // See: https://developer.apple.com/documentation/MetalKit/MTKSubmesh/indexCount
+//
+// [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
 func (s MTKSubmesh) IndexCount() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("indexCount"))
 	return rv
 }
+
 // The type of index data in the index buffer.
 //
 // # Discussion
-// 
+//
 // Use this value for the `indexType` parameter in a call to
 // [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)].
 //
-// [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
-//
 // See: https://developer.apple.com/documentation/MetalKit/MTKSubmesh/indexType
+//
+// [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
 func (s MTKSubmesh) IndexType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("indexType"))
 	return rv
 }
+
 // The primitive type with which to draw the submesh object.
 //
 // # Discussion
-// 
+//
 // Use this value for the `primitiveType` parameter in a call to
 // [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)].
 //
-// [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
-//
 // See: https://developer.apple.com/documentation/MetalKit/MTKSubmesh/primitiveType
+//
+// [drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/drawIndexedPrimitives(type:indexCount:indexType:indexBuffer:indexBufferOffset:)
 func (s MTKSubmesh) PrimitiveType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("primitiveType"))
 	return rv
 }
+
 // The name of the submesh.
 //
 // # Discussion
-// 
+//
 // Your application can use this value to identify the mesh in a scene.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKSubmesh/name
@@ -238,4 +245,3 @@ func (s MTKSubmesh) Name() string {
 func (s MTKSubmesh) SetName(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setName:"), objc.String(value))
 }
-

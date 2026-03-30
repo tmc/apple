@@ -18,6 +18,7 @@ type MLPipelineProtocol interface {
 type MLPipelineProtocolObject struct {
 	objectivec.Object
 }
+
 func (o MLPipelineProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,10 +35,10 @@ func MLPipelineProtocolObjectFromID(id objc.ID) MLPipelineProtocolObject {
 func (o MLPipelineProtocolObject) ModelNames() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelNames"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipeline/models
 func (o MLPipelineProtocolObject) Models() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("models"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

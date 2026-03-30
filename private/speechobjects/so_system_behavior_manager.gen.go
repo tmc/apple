@@ -4,6 +4,7 @@ package speechobjects
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (sc SOSystemBehaviorManagerClass) Alloc() SOSystemBehaviorManager {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SOSystemBehaviorManager._numberObjectFromTimer]
 //   - [SOSystemBehaviorManager.AddTimer]
 //   - [SOSystemBehaviorManager.RemoveTimer]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSystemBehaviorManager
 type SOSystemBehaviorManager struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type SOSystemBehaviorManager struct {
 func SOSystemBehaviorManagerFromID(id objc.ID) SOSystemBehaviorManager {
 	return SOSystemBehaviorManager{objectivec.Object{ID: id}}
 }
+
 // Ensure SOSystemBehaviorManager implements ISOSystemBehaviorManager.
 var _ ISOSystemBehaviorManager = SOSystemBehaviorManager{}
 
@@ -97,7 +99,6 @@ func NewSOSystemBehaviorManager() SOSystemBehaviorManager {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSystemBehaviorManager/_numberObjectFromTimer:
 func (s SOSystemBehaviorManager) _numberObjectFromTimer(timer objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_numberObjectFromTimer:"), timer)
@@ -108,12 +109,12 @@ func (s SOSystemBehaviorManager) _numberObjectFromTimer(timer objectivec.IObject
 func (s SOSystemBehaviorManager) NumberObjectFromTimer(timer objectivec.IObject) objectivec.IObject {
 	return s._numberObjectFromTimer(timer)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSystemBehaviorManager/addTimer:
 func (s SOSystemBehaviorManager) AddTimer(timer objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addTimer:"), timer)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSystemBehaviorManager/removeTimer:
 func (s SOSystemBehaviorManager) RemoveTimer(timer objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeTimer:"), timer)
@@ -124,4 +125,3 @@ func (_SOSystemBehaviorManagerClass SOSystemBehaviorManagerClass) SharedSOSystem
 	rv := objc.Send[objc.ID](objc.ID(_SOSystemBehaviorManagerClass.class), objc.Sel("sharedSOSystemBehaviorManager"))
 	return SOSystemBehaviorManagerFromID(rv)
 }
-

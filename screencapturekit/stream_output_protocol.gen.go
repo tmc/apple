@@ -18,6 +18,7 @@ type SCStreamOutput interface {
 type SCStreamOutputObject struct {
 	objectivec.Object
 }
+
 func (o SCStreamOutputObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,5 +42,4 @@ func SCStreamOutputObjectFromID(id objc.ID) SCStreamOutputObject {
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamOutput/stream(_:didOutputSampleBuffer:of:)
 func (o SCStreamOutputObject) StreamDidOutputSampleBufferOfType(stream ISCStream, sampleBuffer uintptr, type_ SCStreamOutputType) {
 	objc.Send[struct{}](o.ID, objc.Sel("stream:didOutputSampleBuffer:ofType:"), stream, sampleBuffer, type_)
-	}
-
+}

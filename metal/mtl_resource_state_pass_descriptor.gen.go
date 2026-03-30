@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,6 +61,7 @@ type MTLResourceStatePassDescriptor struct {
 func MTLResourceStatePassDescriptorFromID(id objc.ID) MTLResourceStatePassDescriptor {
 	return MTLResourceStatePassDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLResourceStatePassDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -101,7 +103,7 @@ func NewMTLResourceStatePassDescriptor() MTLResourceStatePassDescriptor {
 // Creates a new resource state pass descriptor.
 //
 // # Return Value
-// 
+//
 // A new resource state pass descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStatePassDescriptor/resourceStatePassDescriptor
@@ -117,4 +119,3 @@ func (r MTLResourceStatePassDescriptor) SampleBufferAttachments() IMTLResourceSt
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("sampleBufferAttachments"))
 	return MTLResourceStatePassSampleBufferAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-

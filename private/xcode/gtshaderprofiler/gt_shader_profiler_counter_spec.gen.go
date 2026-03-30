@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (gc GTShaderProfilerCounterSpecClass) Alloc() GTShaderProfilerCounterSpec {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTShaderProfilerCounterSpec.BatchIdFilterableCounterNames]
@@ -53,6 +53,7 @@ func (gc GTShaderProfilerCounterSpecClass) Alloc() GTShaderProfilerCounterSpec {
 //   - [GTShaderProfilerCounterSpec.TimelineGroups]
 //   - [GTShaderProfilerCounterSpec.UpdateMioNonOverlappingCounters]
 //   - [GTShaderProfilerCounterSpec.InitWithSpecFile]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec
 type GTShaderProfilerCounterSpec struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type GTShaderProfilerCounterSpec struct {
 func GTShaderProfilerCounterSpecFromID(id objc.ID) GTShaderProfilerCounterSpec {
 	return GTShaderProfilerCounterSpec{objectivec.Object{ID: id}}
 }
+
 // Ensure GTShaderProfilerCounterSpec implements IGTShaderProfilerCounterSpec.
 var _ IGTShaderProfilerCounterSpec = GTShaderProfilerCounterSpec{}
 
@@ -113,7 +115,6 @@ func NewGTShaderProfilerCounterSpec() GTShaderProfilerCounterSpec {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/initWithSpecFile:
 func NewGTShaderProfilerCounterSpecWithSpecFile(file objectivec.IObject) GTShaderProfilerCounterSpec {
 	instance := getGTShaderProfilerCounterSpecClass().Alloc()
@@ -126,18 +127,18 @@ func (g GTShaderProfilerCounterSpec) BatchIdFilterableCounterNames() objectivec.
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("batchIdFilterableCounterNames"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/counterFromName:
 func (g GTShaderProfilerCounterSpec) CounterFromName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("counterFromName:"), name)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/updateMioNonOverlappingCounters:
 func (g GTShaderProfilerCounterSpec) UpdateMioNonOverlappingCounters(counters objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("updateMioNonOverlappingCounters:"), counters)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/initWithSpecFile:
 func (g GTShaderProfilerCounterSpec) InitWithSpecFile(file objectivec.IObject) GTShaderProfilerCounterSpec {
 	rv := objc.Send[GTShaderProfilerCounterSpec](g.ID, objc.Sel("initWithSpecFile:"), file)
@@ -155,19 +156,21 @@ func (g GTShaderProfilerCounterSpec) CounterTableGroups() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("counterTableGroups"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/counters
 func (g GTShaderProfilerCounterSpec) Counters() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("counters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/filterSynonyms
 func (g GTShaderProfilerCounterSpec) FilterSynonyms() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("filterSynonyms"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/timelineGroups
 func (g GTShaderProfilerCounterSpec) TimelineGroups() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineGroups"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

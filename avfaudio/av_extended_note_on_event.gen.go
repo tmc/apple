@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVExtendedNoteOnEventClass) Alloc() AVExtendedNoteOnEvent {
 // An object that represents a custom extension of a MIDI note on event.
 //
 // # Overview
-// 
+//
 // Use this to allow an app to trigger a custom note on event on one of
 // several Apple audio units that support it. The floating point note and
 // velocity numbers allow for optional fractional control of the note’s
@@ -80,6 +81,7 @@ type AVExtendedNoteOnEvent struct {
 func AVExtendedNoteOnEventFromID(id objc.ID) AVExtendedNoteOnEvent {
 	return AVExtendedNoteOnEvent{AVMusicEvent: AVMusicEventFromID(id)}
 }
+
 // NOTE: AVExtendedNoteOnEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -185,12 +187,12 @@ func NewExtendedNoteOnEventWithMIDINoteVelocityGroupIDDuration(midiNote float32,
 // duration: The duration of the event, in beats.
 //
 // # Discussion
-// 
+//
 // Use [defaultInstrument] when you set `instrumentID`.
 //
-// [defaultInstrument]: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/defaultInstrument
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/init(midiNote:velocity:instrumentID:groupID:duration:)
+//
+// [defaultInstrument]: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/defaultInstrument
 func NewExtendedNoteOnEventWithMIDINoteVelocityInstrumentIDGroupIDDuration(midiNote float32, velocity float32, instrumentID uint32, groupID uint32, duration AVMusicTimeStamp) AVExtendedNoteOnEvent {
 	instance := getAVExtendedNoteOnEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMIDINote:velocity:instrumentID:groupID:duration:"), midiNote, velocity, instrumentID, groupID, duration)
@@ -214,6 +216,7 @@ func (e AVExtendedNoteOnEvent) InitWithMIDINoteVelocityGroupIDDuration(midiNote 
 	rv := objc.Send[AVExtendedNoteOnEvent](e.ID, objc.Sel("initWithMIDINote:velocity:groupID:duration:"), midiNote, velocity, groupID, duration)
 	return rv
 }
+
 // Creates a note on event with the default instrument.
 //
 // midiNote: The MIDI note number.
@@ -228,12 +231,12 @@ func (e AVExtendedNoteOnEvent) InitWithMIDINoteVelocityGroupIDDuration(midiNote 
 // duration: The duration of the event, in beats.
 //
 // # Discussion
-// 
+//
 // Use [defaultInstrument] when you set `instrumentID`.
 //
-// [defaultInstrument]: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/defaultInstrument
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/init(midiNote:velocity:instrumentID:groupID:duration:)
+//
+// [defaultInstrument]: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/defaultInstrument
 func (e AVExtendedNoteOnEvent) InitWithMIDINoteVelocityInstrumentIDGroupIDDuration(midiNote float32, velocity float32, instrumentID uint32, groupID uint32, duration AVMusicTimeStamp) AVExtendedNoteOnEvent {
 	rv := objc.Send[AVExtendedNoteOnEvent](e.ID, objc.Sel("initWithMIDINote:velocity:instrumentID:groupID:duration:"), midiNote, velocity, instrumentID, groupID, duration)
 	return rv
@@ -242,7 +245,7 @@ func (e AVExtendedNoteOnEvent) InitWithMIDINoteVelocityInstrumentIDGroupIDDurati
 // The MIDI note number.
 //
 // # Discussion
-// 
+//
 // If the instrument within the [AVMusicTrack] destination audio unit supports
 // fractional values, you use this to generate arbitrary tunings. The valid
 // range of values depends on the destination audio unit, and is usually
@@ -256,10 +259,11 @@ func (e AVExtendedNoteOnEvent) MidiNote() float32 {
 func (e AVExtendedNoteOnEvent) SetMidiNote(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMidiNote:"), value)
 }
+
 // The MDI velocity.
 //
 // # Discussion
-// 
+//
 // If the instrument in the [AVMusicTrack] destination audio unit supports
 // fractional values, use this to generate precise changes in gain and other
 // values. The valid range of values depend on the destination audio unit, and
@@ -273,15 +277,16 @@ func (e AVExtendedNoteOnEvent) Velocity() float32 {
 func (e AVExtendedNoteOnEvent) SetVelocity(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setVelocity:"), value)
 }
+
 // The instrument identifier.
 //
 // # Discussion
-// 
+//
 // Set this value to [defaultInstrument].
 //
-// [defaultInstrument]: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/defaultInstrument
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/instrumentID
+//
+// [defaultInstrument]: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/defaultInstrument
 func (e AVExtendedNoteOnEvent) InstrumentID() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("instrumentID"))
 	return rv
@@ -289,10 +294,11 @@ func (e AVExtendedNoteOnEvent) InstrumentID() uint32 {
 func (e AVExtendedNoteOnEvent) SetInstrumentID(value uint32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInstrumentID:"), value)
 }
+
 // The audio unit channel that handles the event.
 //
 // # Discussion
-// 
+//
 // The valid range of values are between `0` and `15`, but can be higher if
 // the [AVMusicTrack] destination audio unit supports more channels.
 //
@@ -304,6 +310,7 @@ func (e AVExtendedNoteOnEvent) GroupID() uint32 {
 func (e AVExtendedNoteOnEvent) SetGroupID(value uint32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setGroupID:"), value)
 }
+
 // The duration of the event, in beats.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVExtendedNoteOnEvent/duration
@@ -314,4 +321,3 @@ func (e AVExtendedNoteOnEvent) Duration() AVMusicTimeStamp {
 func (e AVExtendedNoteOnEvent) SetDuration(value AVMusicTimeStamp) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDuration:"), value)
 }
-

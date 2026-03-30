@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type NSViewLayoutRegion struct {
 func NSViewLayoutRegionFromID(id objc.ID) NSViewLayoutRegion {
 	return NSViewLayoutRegion{objectivec.Object{ID: id}}
 }
+
 // Ensure NSViewLayoutRegion implements INSViewLayoutRegion.
 var _ INSViewLayoutRegion = NSViewLayoutRegion{}
 
@@ -79,16 +81,14 @@ func NewNSViewLayoutRegion() NSViewLayoutRegion {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSViewLayoutRegion/marginsLayoutRegionWithCornerAdaptation:
 func (_NSViewLayoutRegionClass NSViewLayoutRegionClass) MarginsLayoutRegionWithCornerAdaptation(adaptivityAxis NSViewLayoutRegionAdaptivityAxis) NSViewLayoutRegion {
 	rv := objc.Send[objc.ID](objc.ID(_NSViewLayoutRegionClass.class), objc.Sel("marginsLayoutRegionWithCornerAdaptation:"), adaptivityAxis)
 	return NSViewLayoutRegionFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSViewLayoutRegion/safeAreaLayoutRegionWithCornerAdaptation:
 func (_NSViewLayoutRegionClass NSViewLayoutRegionClass) SafeAreaLayoutRegionWithCornerAdaptation(adaptivityAxis NSViewLayoutRegionAdaptivityAxis) NSViewLayoutRegion {
 	rv := objc.Send[objc.ID](objc.ID(_NSViewLayoutRegionClass.class), objc.Sel("safeAreaLayoutRegionWithCornerAdaptation:"), adaptivityAxis)
 	return NSViewLayoutRegionFromID(rv)
 }
-

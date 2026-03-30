@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSScrubberImageItemView] class.
@@ -45,11 +46,11 @@ func (nc NSScrubberImageItemViewClass) Alloc() NSScrubberImageItemView {
 // A concrete view subclass for displaying images in a scrubber items.
 //
 // # Overview
-// 
+//
 // Provide the image you want to display in the scrubber item to the [Image]
 // property. If you want finer control over the appearance of the image, you
 // can access the underlying image view using the [ImageView] property.
-// 
+//
 // The image is scaled proportionally to fit the view’s frame. Use the
 // [NSScrubberImageItemView.ImageAlignment] property to determine how the scaled image is cropped
 // within that frame.
@@ -76,6 +77,7 @@ type NSScrubberImageItemView struct {
 func NSScrubberImageItemViewFromID(id objc.ID) NSScrubberImageItemView {
 	return NSScrubberImageItemView{NSScrubberItemView: NSScrubberItemViewFromID(id)}
 }
+
 // NOTE: NSScrubberImageItemView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,7 +137,7 @@ func NewNSScrubberImageItemView() NSScrubberImageItemView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -151,11 +153,11 @@ func NewScrubberImageItemViewWithCoder(coder foundation.INSCoder) NSScrubberImag
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -177,10 +179,11 @@ func (s NSScrubberImageItemView) Image() INSImage {
 func (s NSScrubberImageItemView) SetImage(value INSImage) {
 	objc.Send[struct{}](s.ID, objc.Sel("setImage:"), value)
 }
+
 // The image view that the scrubber item uses to display its image.
 //
 // # Discussion
-// 
+//
 // Use this property to access and configure the underlying image view used to
 // display the image in the [Image] property.
 //
@@ -189,18 +192,19 @@ func (s NSScrubberImageItemView) ImageView() INSImageView {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("imageView"))
 	return NSImageViewFromID(objc.ID(rv))
 }
+
 // The alignment of the image within the scrubber item.
 //
 // # Discussion
-// 
+//
 // The image is scaled proportionally to fit the frame of the item. This
 // property determines how the image is cropped within that frame.
-// 
+//
 // For possible values, see [NSImageAlignment].
 //
-// [NSImageAlignment]: https://developer.apple.com/documentation/AppKit/NSImageAlignment
-//
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberImageItemView/imageAlignment
+//
+// [NSImageAlignment]: https://developer.apple.com/documentation/AppKit/NSImageAlignment
 func (s NSScrubberImageItemView) ImageAlignment() NSImageAlignment {
 	rv := objc.Send[NSImageAlignment](s.ID, objc.Sel("imageAlignment"))
 	return NSImageAlignment(rv)
@@ -208,4 +212,3 @@ func (s NSScrubberImageItemView) ImageAlignment() NSImageAlignment {
 func (s NSScrubberImageItemView) SetImageAlignment(value NSImageAlignment) {
 	objc.Send[struct{}](s.ID, objc.Sel("setImageAlignment:"), value)
 }
-

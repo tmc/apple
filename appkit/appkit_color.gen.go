@@ -19,4 +19,3 @@ func (n NSColor) RGBA() (r, g, b, a uint32) {
 	a = uint32(c.AlphaComponent() * 0xffff)
 	return
 }
-

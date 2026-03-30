@@ -4,8 +4,9 @@ package diskimages2
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (sc SparseBundleBackendXPCClass) Alloc() SparseBundleBackendXPC {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SparseBundleBackendXPC.InitWithURLFileOpenFlags]
 //   - [SparseBundleBackendXPC.InitWithURLFileOpenFlagsBandSize]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC
 type SparseBundleBackendXPC struct {
 	BackendXPC
@@ -56,6 +57,7 @@ type SparseBundleBackendXPC struct {
 func SparseBundleBackendXPCFromID(id objc.ID) SparseBundleBackendXPC {
 	return SparseBundleBackendXPC{BackendXPC: BackendXPCFromID(id)}
 }
+
 // Ensure SparseBundleBackendXPC implements ISparseBundleBackendXPC.
 var _ ISparseBundleBackendXPC = SparseBundleBackendXPC{}
 
@@ -95,7 +97,6 @@ func NewSparseBundleBackendXPC() SparseBundleBackendXPC {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/initWithCoder:
 func NewSparseBundleBackendXPCWithCoder(coder objectivec.IObject) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
@@ -103,7 +104,6 @@ func NewSparseBundleBackendXPCWithCoder(coder objectivec.IObject) SparseBundleBa
 	return SparseBundleBackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/initWithURL:fileOpenFlags:
 func NewSparseBundleBackendXPCWithURLFileOpenFlags(url foundation.INSURL, flags int) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
@@ -111,7 +111,6 @@ func NewSparseBundleBackendXPCWithURLFileOpenFlags(url foundation.INSURL, flags 
 	return SparseBundleBackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/initWithURL:fileOpenFlags:bandSize:
 func NewSparseBundleBackendXPCWithURLFileOpenFlagsBandSize(url foundation.INSURL, flags int, size uint64) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
@@ -119,23 +118,20 @@ func NewSparseBundleBackendXPCWithURLFileOpenFlagsBandSize(url foundation.INSURL
 	return SparseBundleBackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/initWithURL:fileOpenFlags:
 func (s SparseBundleBackendXPC) InitWithURLFileOpenFlags(url foundation.INSURL, flags int) SparseBundleBackendXPC {
 	rv := objc.Send[SparseBundleBackendXPC](s.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/initWithURL:fileOpenFlags:bandSize:
 func (s SparseBundleBackendXPC) InitWithURLFileOpenFlagsBandSize(url foundation.INSURL, flags int, size uint64) SparseBundleBackendXPC {
 	rv := objc.Send[SparseBundleBackendXPC](s.ID, objc.Sel("initWithURL:fileOpenFlags:bandSize:"), url, flags, size)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SparseBundleBackendXPC/isSparseBundleWithURL:
 func (_SparseBundleBackendXPCClass SparseBundleBackendXPCClass) IsSparseBundleWithURL(url foundation.INSURL) bool {
 	rv := objc.Send[bool](objc.ID(_SparseBundleBackendXPCClass.class), objc.Sel("isSparseBundleWithURL:"), url)
 	return rv
 }
-

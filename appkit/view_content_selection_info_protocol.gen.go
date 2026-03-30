@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -24,6 +24,7 @@ type NSViewContentSelectionInfo interface {
 type NSViewContentSelectionInfoObject struct {
 	objectivec.Object
 }
+
 func (o NSViewContentSelectionInfoObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,5 +41,4 @@ func NSViewContentSelectionInfoObjectFromID(id objc.ID) NSViewContentSelectionIn
 func (o NSViewContentSelectionInfoObject) SelectionAnchorRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("selectionAnchorRect"))
 	return rv
-	}
-
+}

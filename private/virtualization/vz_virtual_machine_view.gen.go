@@ -4,9 +4,10 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (vc VZVirtualMachineViewClass) Alloc() VZVirtualMachineView {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtualMachineView._canGrabMouseInput]
@@ -65,6 +65,7 @@ func (vc VZVirtualMachineViewClass) Alloc() VZVirtualMachineView {
 //   - [VZVirtualMachineView.Description]
 //   - [VZVirtualMachineView.Hash]
 //   - [VZVirtualMachineView.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView
 type VZVirtualMachineView struct {
 	appkit.NSView
@@ -74,6 +75,7 @@ type VZVirtualMachineView struct {
 func VZVirtualMachineViewFromID(id objc.ID) VZVirtualMachineView {
 	return VZVirtualMachineView{NSView: appkit.NSViewFromID(id)}
 }
+
 // Ensure VZVirtualMachineView implements IVZVirtualMachineView.
 var _ IVZVirtualMachineView = VZVirtualMachineView{}
 
@@ -147,7 +149,6 @@ func NewVZVirtualMachineView() VZVirtualMachineView {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/initWithCoder:
 func NewVirtualMachineViewWithCoder(coder objectivec.IObject) VZVirtualMachineView {
 	instance := getVZVirtualMachineViewClass().Alloc()
@@ -165,6 +166,7 @@ func (v VZVirtualMachineView) _grabMouseInput() bool {
 func (v VZVirtualMachineView) GrabMouseInput() bool {
 	return v._grabMouseInput()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_releaseMouseInput
 func (v VZVirtualMachineView) _releaseMouseInput() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_releaseMouseInput"))
@@ -175,7 +177,7 @@ func (v VZVirtualMachineView) _releaseMouseInput() bool {
 func (v VZVirtualMachineView) ReleaseMouseInput() bool {
 	return v._releaseMouseInput()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_setDelegate:
 func (v VZVirtualMachineView) _setDelegate(delegate objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setDelegate:"), delegate)
@@ -185,7 +187,7 @@ func (v VZVirtualMachineView) _setDelegate(delegate objectivec.IObject) {
 func (v VZVirtualMachineView) SetDelegate(delegate objectivec.IObject) {
 	v._setDelegate(delegate)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_setGraphicsDisplay:
 func (v VZVirtualMachineView) _setGraphicsDisplay(display objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setGraphicsDisplay:"), display)
@@ -195,7 +197,7 @@ func (v VZVirtualMachineView) _setGraphicsDisplay(display objectivec.IObject) {
 func (v VZVirtualMachineView) SetGraphicsDisplay(display objectivec.IObject) {
 	v._setGraphicsDisplay(display)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_setScaleMode:
 func (v VZVirtualMachineView) _setScaleMode(mode int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setScaleMode:"), mode)
@@ -205,12 +207,12 @@ func (v VZVirtualMachineView) _setScaleMode(mode int64) {
 func (v VZVirtualMachineView) SetScaleMode(mode int64) {
 	v._setScaleMode(mode)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/displayDidBeginReconfiguration:
 func (v VZVirtualMachineView) DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayDidBeginReconfiguration:"), reconfiguration)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/displayDidEndReconfiguration:
 func (v VZVirtualMachineView) DisplayDidEndReconfiguration(reconfiguration objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayDidEndReconfiguration:"), reconfiguration)
@@ -221,11 +223,13 @@ func (v VZVirtualMachineView) _canGrabMouseInput() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_canGrabMouseInput"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_canReleaseMouseInput
 func (v VZVirtualMachineView) _canReleaseMouseInput() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_canReleaseMouseInput"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_delegate
 func (v VZVirtualMachineView) _delegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_delegate"))
@@ -234,6 +238,7 @@ func (v VZVirtualMachineView) _delegate() objectivec.IObject {
 func (v VZVirtualMachineView) Set_delegate(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_delegate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_graphicsDisplay
 func (v VZVirtualMachineView) _graphicsDisplay() IVZGraphicsDisplay {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_graphicsDisplay"))
@@ -242,6 +247,7 @@ func (v VZVirtualMachineView) _graphicsDisplay() IVZGraphicsDisplay {
 func (v VZVirtualMachineView) Set_graphicsDisplay(value IVZGraphicsDisplay) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_graphicsDisplay:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_scaleMode
 func (v VZVirtualMachineView) _scaleMode() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("_scaleMode"))
@@ -250,24 +256,27 @@ func (v VZVirtualMachineView) _scaleMode() int64 {
 func (v VZVirtualMachineView) Set_scaleMode(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_scaleMode:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/debugDescription
 func (v VZVirtualMachineView) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/description
 func (v VZVirtualMachineView) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/hash
 func (v VZVirtualMachineView) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/superclass
 func (v VZVirtualMachineView) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

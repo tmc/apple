@@ -3,8 +3,9 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -41,11 +42,11 @@ func (ac AVAudioUnitSamplerClass) Alloc() AVAudioUnitSampler {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioUnitSampler.MasterGain]
 //   - [AVAudioUnitSampler.SetMasterGain]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitSampler
 type AVAudioUnitSampler struct {
 	AVAudioUnitMIDIInstrument
@@ -55,6 +56,7 @@ type AVAudioUnitSampler struct {
 func AVAudioUnitSamplerFromID(id objc.ID) AVAudioUnitSampler {
 	return AVAudioUnitSampler{AVAudioUnitMIDIInstrument: AVAudioUnitMIDIInstrumentFromID(id)}
 }
+
 // Ensure AVAudioUnitSampler implements IAVAudioUnitSampler.
 var _ IAVAudioUnitSampler = AVAudioUnitSampler{}
 
@@ -94,7 +96,6 @@ func NewAVAudioUnitSampler() AVAudioUnitSampler {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioUnitSamplerWithImpl(impl unsafe.Pointer) AVAudioUnitSampler {
 	instance := getAVAudioUnitSamplerClass().Alloc()
@@ -110,4 +111,3 @@ func (a AVAudioUnitSampler) MasterGain() float32 {
 func (a AVAudioUnitSampler) SetMasterGain(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMasterGain:"), value)
 }
-

@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSWorkspaceOpenConfigurationClass) Alloc() NSWorkspaceOpenConfiguration
 // The configuration options for opening URLs or launching apps.
 //
 // # Overview
-// 
+//
 // Create an [NSWorkspaceOpenConfiguration] object before launching an app or
 // opening a URL using the shared [NSWorkspace] object. Use the properties of
 // this object to customize the behavior of the launched app or the handling
@@ -101,6 +102,7 @@ type NSWorkspaceOpenConfiguration struct {
 func NSWorkspaceOpenConfigurationFromID(id objc.ID) NSWorkspaceOpenConfiguration {
 	return NSWorkspaceOpenConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSWorkspaceOpenConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -219,22 +221,32 @@ func NewNSWorkspaceOpenConfiguration() NSWorkspaceOpenConfiguration {
 	return rv
 }
 
+// Creates and returns a new workspace configuration object containing default
+// values.
+//
+// # Return Value
+//
+// A new workspace configuration object with default values.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSWorkspaceOpenConfiguration/configuration
+func (_NSWorkspaceOpenConfigurationClass NSWorkspaceOpenConfigurationClass) Configuration() NSWorkspaceOpenConfiguration {
+	rv := objc.Send[objc.ID](objc.ID(_NSWorkspaceOpenConfigurationClass.class), objc.Sel("configuration"))
+	return NSWorkspaceOpenConfigurationFromID(rv)
+}
+
 // A Boolean value indicating whether you require the URL to have an
 // associated universal link.
 //
 // # Discussion
-// 
-// The default value of this property is [false], which tells the app to open
-// any URL you provide. Set the value to [true] when you want the app to open
+//
+// The default value of this property is false, which tells the app to open
+// any URL you provide. Set the value to true when you want the app to open
 // only valid universal links.
-// 
+//
 // The app must be specifically configured to open universal links, and
 // attempts to open such links fail with an appropriate error if the app
 // isn’t properly configured. Attempts may also fail with an error if the
 // user disabled support for opening links with the specified app.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/requiresUniversalLinks
 func (w NSWorkspaceOpenConfiguration) RequiresUniversalLinks() bool {
@@ -244,17 +256,15 @@ func (w NSWorkspaceOpenConfiguration) RequiresUniversalLinks() bool {
 func (w NSWorkspaceOpenConfiguration) SetRequiresUniversalLinks(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setRequiresUniversalLinks:"), value)
 }
+
 // A Boolean value indicating whether you want to print the contents of
 // documents and URLs instead of opening them.
 //
 // # Discussion
-// 
-// The default value of this property is [false], which causes the app to open
-// documents and URLs. Set the value to [true] if you want the app to print
-// the items instead.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is false, which causes the app to open
+// documents and URLs. Set the value to true if you want the app to print the
+// items instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/isForPrinting
 func (w NSWorkspaceOpenConfiguration) ForPrinting() bool {
@@ -264,15 +274,14 @@ func (w NSWorkspaceOpenConfiguration) ForPrinting() bool {
 func (w NSWorkspaceOpenConfiguration) SetForPrinting(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setForPrinting:"), value)
 }
+
 // A Boolean value indicating whether the system activates the app and brings
 // it to the foreground.
 //
 // # Discussion
-// 
-// The default value of this property is [true], which causes the system to
-// bring the app to the foreground.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is true, which causes the system to
+// bring the app to the foreground.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/activates
 func (w NSWorkspaceOpenConfiguration) Activates() bool {
@@ -282,15 +291,14 @@ func (w NSWorkspaceOpenConfiguration) Activates() bool {
 func (w NSWorkspaceOpenConfiguration) SetActivates(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setActivates:"), value)
 }
+
 // A Boolean value indicating whether to add the app or documents to the
 // Recent Items menu.
 //
 // # Discussion
-// 
-// The default value of this property is [true], which causes AppKit to add
-// the items to the Recent Items menu.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is true, which causes AppKit to add the
+// items to the Recent Items menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/addsToRecentItems
 func (w NSWorkspaceOpenConfiguration) AddsToRecentItems() bool {
@@ -300,21 +308,19 @@ func (w NSWorkspaceOpenConfiguration) AddsToRecentItems() bool {
 func (w NSWorkspaceOpenConfiguration) SetAddsToRecentItems(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAddsToRecentItems:"), value)
 }
+
 // A Boolean value that indicates whether to use a running instance of an
 // application even if it’s at a different URL.
 //
 // # Discussion
-// 
+//
 // If an instance of an application is already running and is capable of
 // opening the provided URLs, but the running instance is at a different URL,
 // use the running application.
-// 
-// This property defaults to [true]. Set this to [false] if you let the user
+//
+// This property defaults to true. Set this to false if you let the user
 // select between specific versions of an application, or let them choose a
 // particular installation.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/allowsRunningApplicationSubstitution
 func (w NSWorkspaceOpenConfiguration) AllowsRunningApplicationSubstitution() bool {
@@ -324,18 +330,16 @@ func (w NSWorkspaceOpenConfiguration) AllowsRunningApplicationSubstitution() boo
 func (w NSWorkspaceOpenConfiguration) SetAllowsRunningApplicationSubstitution(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAllowsRunningApplicationSubstitution:"), value)
 }
+
 // A Boolean value indicating whether you want the system to launch a new
 // instance of the app.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the system always launches a new
-// version of the app, even if an existing copy is already running. The
-// default value of this property is [false], which causes the system to open
-// the already running app when present.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the system always launches a new
+// version of the app, even if an existing copy is already running. The
+// default value of this property is false, which causes the system to open
+// the already running app when present.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/createsNewApplicationInstance
 func (w NSWorkspaceOpenConfiguration) CreatesNewApplicationInstance() bool {
@@ -345,17 +349,15 @@ func (w NSWorkspaceOpenConfiguration) CreatesNewApplicationInstance() bool {
 func (w NSWorkspaceOpenConfiguration) SetCreatesNewApplicationInstance(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setCreatesNewApplicationInstance:"), value)
 }
+
 // A Boolean value indicating whether you want the app to hide itself after it
 // launches.
 //
 // # Discussion
-// 
-// The default value of this property is [false], which leaves the app in its
-// default state after launch. Setting the property to [true] causes the app
-// to hide itself.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is false, which leaves the app in its
+// default state after launch. Setting the property to true causes the app to
+// hide itself.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/hides
 func (w NSWorkspaceOpenConfiguration) Hides() bool {
@@ -365,17 +367,15 @@ func (w NSWorkspaceOpenConfiguration) Hides() bool {
 func (w NSWorkspaceOpenConfiguration) SetHides(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setHides:"), value)
 }
+
 // A Boolean value indicating whether you want to hide all apps except the one
 // that launched.
 //
 // # Discussion
-// 
-// The default value of this property is [false], which leaves the visibility
-// of other apps unchanged. Setting the property to [true] hides all apps
-// except the one that launched.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is false, which leaves the visibility of
+// other apps unchanged. Setting the property to true hides all apps except
+// the one that launched.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/hidesOthers
 func (w NSWorkspaceOpenConfiguration) HidesOthers() bool {
@@ -385,17 +385,16 @@ func (w NSWorkspaceOpenConfiguration) HidesOthers() bool {
 func (w NSWorkspaceOpenConfiguration) SetHidesOthers(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setHidesOthers:"), value)
 }
+
 // A Boolean value indicating whether to display errors, authentication
 // requests, or other UI elements to the user.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the system presents a user
+//
+// When the value of this property is true, the system presents a user
 // interface to request or display relevant information. The system waits
 // until the user dismisses the UI before calling any relevant completion
-// handlers. The default value of this property is [true].
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
+// handlers. The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/promptsUserIfNeeded
 func (w NSWorkspaceOpenConfiguration) PromptsUserIfNeeded() bool {
@@ -405,10 +404,11 @@ func (w NSWorkspaceOpenConfiguration) PromptsUserIfNeeded() bool {
 func (w NSWorkspaceOpenConfiguration) SetPromptsUserIfNeeded(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setPromptsUserIfNeeded:"), value)
 }
+
 // The first Apple event to send to the new app.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `nil`, which causes the system to
 // send a default Apple event, as needed. The system sends the event only if
 // an instance of the app is already running.
@@ -421,16 +421,17 @@ func (w NSWorkspaceOpenConfiguration) AppleEvent() foundation.NSAppleEventDescri
 func (w NSWorkspaceOpenConfiguration) SetAppleEvent(value foundation.NSAppleEventDescriptor) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAppleEvent:"), value)
 }
+
 // The set of command-line arguments to pass to a new app instance at launch
 // time.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. When launching a new
 // instance of an app, use this property to specify any additional launch
 // arguments. The system inserts the app’s path as the first element in the
 // array.
-// 
+//
 // If the calling process is sandboxed, the system ignores the value of this
 // property.
 //
@@ -442,14 +443,15 @@ func (w NSWorkspaceOpenConfiguration) Arguments() []string {
 func (w NSWorkspaceOpenConfiguration) SetArguments(value []string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setArguments:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The set of environment variables to set in a new app instance.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty dictionary. When launching a
 // new instance of an app, use this property to specify the key/value pairs
 // for any environment variables.
-// 
+//
 // If the calling process is sandboxed, the system ignores the value of this
 // property.
 //
@@ -461,14 +463,15 @@ func (w NSWorkspaceOpenConfiguration) Environment() foundation.INSDictionary {
 func (w NSWorkspaceOpenConfiguration) SetEnvironment(value foundation.INSDictionary) {
 	objc.Send[struct{}](w.ID, objc.Sel("setEnvironment:"), value)
 }
+
 // The architecture version of the app to launch.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `CPU_TYPE_ANY`, which causes the
 // system to launch the app’s preferred architecture. You may specify a
 // different value to force the system to launch that architecture. For a list
-// of possible types, see the `` header file.
+// of possible types, see the “ header file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/OpenConfiguration/architecture
 func (w NSWorkspaceOpenConfiguration) Architecture() int32 {
@@ -478,4 +481,3 @@ func (w NSWorkspaceOpenConfiguration) Architecture() int32 {
 func (w NSWorkspaceOpenConfiguration) SetArchitecture(value int32) {
 	objc.Send[struct{}](w.ID, objc.Sel("setArchitecture:"), value)
 }
-

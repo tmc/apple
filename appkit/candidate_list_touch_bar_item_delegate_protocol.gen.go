@@ -4,9 +4,11 @@ package appkit
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of methods that a candidate list item delegate uses to enable selection state and list visibility.
@@ -20,6 +22,7 @@ type NSCandidateListTouchBarItemDelegate interface {
 type NSCandidateListTouchBarItemDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSCandidateListTouchBarItemDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,7 +45,8 @@ func NSCandidateListTouchBarItemDelegateObjectFromID(id objc.ID) NSCandidateList
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItemDelegate/candidateListTouchBarItem(_:beginSelectingCandidateAt:)
 func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemBeginSelectingCandidateAtIndex(anItem INSCandidateListTouchBarItem, index int) {
 	objc.Send[struct{}](o.ID, objc.Sel("candidateListTouchBarItem:beginSelectingCandidateAtIndex:"), anItem, index)
-	}
+}
+
 // Tells the delegate that user has moved from touching one candidate in the
 // candidate list item to another.
 //
@@ -55,7 +59,8 @@ func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemBegi
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItemDelegate/candidateListTouchBarItem(_:changeSelectionFromCandidateAt:to:)
 func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemChangeSelectionFromCandidateAtIndexToIndex(anItem INSCandidateListTouchBarItem, previousIndex int, index int) {
 	objc.Send[struct{}](o.ID, objc.Sel("candidateListTouchBarItem:changeSelectionFromCandidateAtIndex:toIndex:"), anItem, previousIndex, index)
-	}
+}
+
 // Tells the delegate that a user has stopped touching candidates in the
 // candidate list item.
 //
@@ -65,28 +70,26 @@ func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemChan
 // their finger.
 //
 // # Discussion
-// 
+//
 // If `index` is equal to [NSNotFound] then the user didn’t select a
 // candidate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItemDelegate/candidateListTouchBarItem(_:endSelectingCandidateAt:)
 func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemEndSelectingCandidateAtIndex(anItem INSCandidateListTouchBarItem, index int) {
 	objc.Send[struct{}](o.ID, objc.Sel("candidateListTouchBarItem:endSelectingCandidateAtIndex:"), anItem, index)
-	}
+}
+
 // Tells the delegate that the visibility of the candidate list has changed.
 //
 // anItem: The candidate list item whose candidate list’s visibility has changed.
 //
 // isVisible: A Boolean value that specifies whether or not the candidate list is
-// visible. If [true] then the candidate list is visible, [false] otherwise.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// visible. If true then the candidate list is visible, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItemDelegate/candidateListTouchBarItem(_:changedCandidateListVisibility:)
 func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemChangedCandidateListVisibility(anItem INSCandidateListTouchBarItem, isVisible bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("candidateListTouchBarItem:changedCandidateListVisibility:"), anItem, isVisible)
-	}
+}
 
 // NSCandidateListTouchBarItemDelegateConfig holds optional typed callbacks for [NSCandidateListTouchBarItemDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -189,4 +192,3 @@ func NewNSCandidateListTouchBarItemDelegate(config NSCandidateListTouchBarItemDe
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSCandidateListTouchBarItemDelegateObjectFromID(instance)
 }
-

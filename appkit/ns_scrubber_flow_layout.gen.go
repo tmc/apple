@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSScrubberFlowLayout] class.
@@ -45,7 +46,7 @@ func (nc NSScrubberFlowLayoutClass) Alloc() NSScrubberFlowLayout {
 // A concrete layout object that arranges items end-to-end in a linear strip.
 //
 // # Overview
-// 
+//
 // To set the size of items on a per-item basis, ensure that your scrubber
 // delegate conforms to the [NSScrubberFlowLayoutDelegate] protocol, and
 // provides an implementation of the [ScrubberLayoutSizeForItemAtIndex]
@@ -73,6 +74,7 @@ type NSScrubberFlowLayout struct {
 func NSScrubberFlowLayoutFromID(id objc.ID) NSScrubberFlowLayout {
 	return NSScrubberFlowLayout{NSScrubberLayout: NSScrubberLayoutFromID(id)}
 }
+
 // NOTE: NSScrubberFlowLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,7 +133,7 @@ func NewNSScrubberFlowLayout() NSScrubberFlowLayout {
 // storyboard or nib file.
 //
 // # Return Value
-// 
+//
 // A properly initialized scrubber layout object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberLayout/init(coder:)
@@ -155,7 +157,7 @@ func (s NSScrubberFlowLayout) InvalidateLayoutForItemsAtIndexes(invalidItemIndex
 // The horizontal spacing between items, specified in points.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `0.0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberFlowLayout/itemSpacing
@@ -166,15 +168,16 @@ func (s NSScrubberFlowLayout) ItemSpacing() float64 {
 func (s NSScrubberFlowLayout) SetItemSpacing(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemSpacing:"), value)
 }
+
 // The frame size for each item in the scrubber.
 //
 // # Discussion
-// 
+//
 // You can override the value of this property on a per-item basis, by
 // providing a delegate object to the scrubber that conforms to the
 // [NSScrubberFlowLayoutDelegate] protocol. This delegate object must
 // implement the [ScrubberLayoutSizeForItemAtIndex] method.
-// 
+//
 // The default value for this property has a width of `50.0` points and a
 // height of `30.0` points.
 //
@@ -186,4 +189,3 @@ func (s NSScrubberFlowLayout) ItemSize() corefoundation.CGSize {
 func (s NSScrubberFlowLayout) SetItemSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemSize:"), value)
 }
-

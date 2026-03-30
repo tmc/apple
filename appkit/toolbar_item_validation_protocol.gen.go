@@ -23,6 +23,7 @@ type NSToolbarItemValidation interface {
 type NSToolbarItemValidationObject struct {
 	objectivec.Object
 }
+
 func (o NSToolbarItemValidationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -38,22 +39,18 @@ func NSToolbarItemValidationObjectFromID(id objc.ID) NSToolbarItemValidationObje
 // Determines whether to enable or disable the toolbar item.
 //
 // # Discussion
-// 
-// If this method is implemented and returns [false], [NSToolbar] will disable
-// `item`. Returning [true] causes `item` to be enabled.
-// 
+//
+// If this method is implemented and returns false, [NSToolbar] will disable
+// `item`. Returning true causes `item` to be enabled.
+//
 // [NSToolbar] only calls this method for image items.
-// 
+//
 // If the receiver is the `target` for the actions of multiple toolbar items,
 // it’s necessary to determine which toolbar item `item` refers to by
 // testing the `itemIdentifier`.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemValidation/validateToolbarItem(_:)
 func (o NSToolbarItemValidationObject) ValidateToolbarItem(item INSToolbarItem) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("validateToolbarItem:"), item)
 	return rv
-	}
-
+}

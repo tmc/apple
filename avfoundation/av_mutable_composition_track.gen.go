@@ -3,12 +3,13 @@
 package avfoundation
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,7 +50,7 @@ func (ac AVMutableCompositionTrackClass) Alloc() AVMutableCompositionTrack {
 // track segments without affecting their low-level representation.
 //
 // # Overview
-// 
+//
 // Use this object to define constraints for the temporal arrangement of the
 // track segments. If you set the composition’s track segments, you can test
 // whether they meet the constraints by calling the
@@ -93,6 +94,7 @@ type AVMutableCompositionTrack struct {
 func AVMutableCompositionTrackFromID(id objc.ID) AVMutableCompositionTrack {
 	return AVMutableCompositionTrack{AVCompositionTrack: AVCompositionTrackFromID(id)}
 }
+
 // NOTE: AVMutableCompositionTrack adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -192,6 +194,7 @@ func NewAVMutableCompositionTrack() AVMutableCompositionTrack {
 func (m AVMutableCompositionTrack) InsertEmptyTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertEmptyTimeRange:"), timeRange)
 }
+
 // Inserts a time range of media from a source track into a composition track.
 //
 // timeRange: The time range of media in the source track to add.
@@ -201,7 +204,7 @@ func (m AVMutableCompositionTrack) InsertEmptyTimeRange(timeRange coremedia.CMTi
 // startTime: A start time within the composition track to insert the time range.
 //
 // # Discussion
-// 
+//
 // The time range you insert presents at its natural duration and rate. If
 // necessary, you can scale it to a different duration by calling the
 // [ScaleTimeRangeToDuration] method.
@@ -220,6 +223,7 @@ func (m AVMutableCompositionTrack) InsertTimeRangeOfTrackAtTimeError(timeRange c
 	return rv, nil
 
 }
+
 // Inserts the time ranges of multiple source tracks into a track of a
 // composition.
 //
@@ -243,6 +247,7 @@ func (m AVMutableCompositionTrack) InsertTimeRangesOfTracksAtTimeError(timeRange
 	return rv, nil
 
 }
+
 // Removes a time range of media from a composition track.
 //
 // timeRange: The time range to remove.
@@ -251,6 +256,7 @@ func (m AVMutableCompositionTrack) InsertTimeRangesOfTracksAtTimeError(timeRange
 func (m AVMutableCompositionTrack) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTimeRange:"), timeRange)
 }
+
 // Changes the duration of a time range of the track.
 //
 // timeRange: The time range to scale.
@@ -261,6 +267,7 @@ func (m AVMutableCompositionTrack) RemoveTimeRange(timeRange coremedia.CMTimeRan
 func (m AVMutableCompositionTrack) ScaleTimeRangeToDuration(timeRange coremedia.CMTimeRange, duration coremedia.CMTime) {
 	objc.Send[objc.ID](m.ID, objc.Sel("scaleTimeRange:toDuration:"), timeRange, duration)
 }
+
 // Establishes a track association of a specific type between two tracks.
 //
 // compositionTrack: A composition track to associate.
@@ -271,6 +278,7 @@ func (m AVMutableCompositionTrack) ScaleTimeRangeToDuration(timeRange coremedia.
 func (m AVMutableCompositionTrack) AddTrackAssociationToTrackType(compositionTrack IAVCompositionTrack, trackAssociationType AVTrackAssociationType) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addTrackAssociationToTrack:type:"), compositionTrack, objc.String(string(trackAssociationType)))
 }
+
 // Removes an association from a composition track.
 //
 // compositionTrack: A composition track to remove the association from.
@@ -281,6 +289,7 @@ func (m AVMutableCompositionTrack) AddTrackAssociationToTrackType(compositionTra
 func (m AVMutableCompositionTrack) RemoveTrackAssociationToTrackType(compositionTrack IAVCompositionTrack, trackAssociationType AVTrackAssociationType) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTrackAssociationToTrack:type:"), compositionTrack, objc.String(string(trackAssociationType)))
 }
+
 // Replaces a format description with another or cancels a previous
 // replacement.
 //
@@ -292,6 +301,7 @@ func (m AVMutableCompositionTrack) RemoveTrackAssociationToTrackType(composition
 func (m AVMutableCompositionTrack) ReplaceFormatDescriptionWithFormatDescription(originalFormatDescription uintptr, replacementFormatDescription uintptr) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceFormatDescription:withFormatDescription:"), originalFormatDescription, replacementFormatDescription)
 }
+
 // Returns a Boolean value that indicates whether a given array of track
 // segments conform to the timing rules for a composition track.
 //
@@ -322,4 +332,3 @@ func (m AVMutableCompositionTrack) Enabled() bool {
 func (m AVMutableCompositionTrack) SetEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEnabled:"), value)
 }
-

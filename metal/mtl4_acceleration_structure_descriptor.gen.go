@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (mc MTL4AccelerationStructureDescriptorClass) Alloc() MTL4AccelerationStruc
 // Base class for Metal 4 acceleration structure descriptors.
 //
 // # Overview
-// 
+//
 // Don’t use this class directly. Use one of its subclasses instead.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureDescriptor
@@ -57,6 +58,7 @@ type MTL4AccelerationStructureDescriptor struct {
 func MTL4AccelerationStructureDescriptorFromID(id objc.ID) MTL4AccelerationStructureDescriptor {
 	return MTL4AccelerationStructureDescriptor{MTLAccelerationStructureDescriptor: MTLAccelerationStructureDescriptorFromID(id)}
 }
+
 // NOTE: MTL4AccelerationStructureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -85,4 +87,3 @@ func NewMTL4AccelerationStructureDescriptor() MTL4AccelerationStructureDescripto
 	rv := objc.Send[MTL4AccelerationStructureDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

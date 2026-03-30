@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,9 +46,10 @@ func (mc MTL4CommitOptionsClass) Alloc() MTL4CommitOptions {
 // Represents options to configure a commit operation on a command queue.
 //
 // # Overview
-// 
-// You pass these options as a parameter when you call [CommitCountOptions].
-// 
+//
+// You pass these options as a parameter when you call
+// [commit:count:options:].
+//
 // - Note Instances of this class are not thread-safe. If your app modifies a
 // shared commit options instance from multiple threads simultaneously, you
 // are responsible for providing external synchronization.
@@ -57,6 +59,8 @@ func (mc MTL4CommitOptionsClass) Alloc() MTL4CommitOptions {
 //   - [MTL4CommitOptions.AddFeedbackHandler]: Registers a commit feedback handler that Metal calls with feedback data when available.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitOptions
+//
+// [commit:count:options:]: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/commit:count:options:
 type MTL4CommitOptions struct {
 	objectivec.Object
 }
@@ -67,6 +71,7 @@ type MTL4CommitOptions struct {
 func MTL4CommitOptionsFromID(id objc.ID) MTL4CommitOptions {
 	return MTL4CommitOptions{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4CommitOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,4 +127,3 @@ func (m MTL4CommitOptions) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-

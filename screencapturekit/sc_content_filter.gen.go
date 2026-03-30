@@ -4,8 +4,9 @@ package screencapturekit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (sc SCContentFilterClass) Alloc() SCContentFilter {
 // An instance that filters the content a stream captures.
 //
 // # Overview
-// 
+//
 // Use a content filter to limit an [SCStream] object’s output to only that
 // matching your filter criteria. Retrieve the displays, apps, and windows
 // that your app can capture from an instance of [SCShareableContent].
@@ -84,6 +85,7 @@ type SCContentFilter struct {
 func SCContentFilterFromID(id objc.ID) SCContentFilter {
 	return SCContentFilter{objectivec.Object{ID: id}}
 }
+
 // NOTE: SCContentFilter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -189,10 +191,10 @@ func NewContentFilterWithDesktopIndependentWindow(window ISCWindow) SCContentFil
 // exceptingWindows: An array of windows that are exceptions to the previous rules.
 //
 // # Discussion
-// 
+//
 // The initializer arguments provide a three-stage filter that gives you
 // fine-grained control over the output:
-// 
+//
 // - Specify a display to capture. If you don’t specify additional filter
 // criteria, the stream includes all content for a display. - Specify one or
 // more apps with windows to exclude from the output. - Specify one or more
@@ -232,10 +234,10 @@ func NewContentFilterWithDisplayExcludingWindows(display ISCDisplay, excluded []
 // exceptingWindows: An array of windows that are exceptions to the previous rules.
 //
 // # Discussion
-// 
+//
 // The initializer arguments provide a three-stage filter that gives you
 // fine-grained control over the output:
-// 
+//
 // - Specify a display to capture. If you don’t specify additional filter
 // criteria, the stream includes all content for a display. - Specify one or
 // more apps to capture only the windows that they own. - Specify one or more
@@ -273,6 +275,7 @@ func (c SCContentFilter) InitWithDesktopIndependentWindow(window ISCWindow) SCCo
 	rv := objc.Send[SCContentFilter](c.ID, objc.Sel("initWithDesktopIndependentWindow:"), window)
 	return rv
 }
+
 // Creates a filter that captures only specific windows from a display.
 //
 // display: A display to capture.
@@ -284,6 +287,7 @@ func (c SCContentFilter) InitWithDisplayIncludingWindows(display ISCDisplay, inc
 	rv := objc.Send[SCContentFilter](c.ID, objc.Sel("initWithDisplay:includingWindows:"), display, objectivec.IObjectSliceToNSArray(includedWindows))
 	return rv
 }
+
 // Creates a filter that captures the contents of a display, excluding the
 // specified windows.
 //
@@ -296,6 +300,7 @@ func (c SCContentFilter) InitWithDisplayExcludingWindows(display ISCDisplay, exc
 	rv := objc.Send[SCContentFilter](c.ID, objc.Sel("initWithDisplay:excludingWindows:"), display, objectivec.IObjectSliceToNSArray(excluded))
 	return rv
 }
+
 // Creates a filter that captures a display, including only windows of the
 // specified apps.
 //
@@ -306,10 +311,10 @@ func (c SCContentFilter) InitWithDisplayExcludingWindows(display ISCDisplay, exc
 // exceptingWindows: An array of windows that are exceptions to the previous rules.
 //
 // # Discussion
-// 
+//
 // The initializer arguments provide a three-stage filter that gives you
 // fine-grained control over the output:
-// 
+//
 // - Specify a display to capture. If you don’t specify additional filter
 // criteria, the stream includes all content for a display. - Specify one or
 // more apps to capture only the windows that they own. - Specify one or more
@@ -323,6 +328,7 @@ func (c SCContentFilter) InitWithDisplayIncludingApplicationsExceptingWindows(di
 	rv := objc.Send[SCContentFilter](c.ID, objc.Sel("initWithDisplay:includingApplications:exceptingWindows:"), display, objectivec.IObjectSliceToNSArray(applications), objectivec.IObjectSliceToNSArray(exceptingWindows))
 	return rv
 }
+
 // Creates a filter that captures a display, excluding windows of the
 // specified apps.
 //
@@ -333,10 +339,10 @@ func (c SCContentFilter) InitWithDisplayIncludingApplicationsExceptingWindows(di
 // exceptingWindows: An array of windows that are exceptions to the previous rules.
 //
 // # Discussion
-// 
+//
 // The initializer arguments provide a three-stage filter that gives you
 // fine-grained control over the output:
-// 
+//
 // - Specify a display to capture. If you don’t specify additional filter
 // criteria, the stream includes all content for a display. - Specify one or
 // more apps with windows to exclude from the output. - Specify one or more
@@ -358,6 +364,7 @@ func (c SCContentFilter) ContentRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("contentRect"))
 	return corefoundation.CGRect(rv)
 }
+
 // The scaling factor used to translate screen points into pixels.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/pointPixelScale
@@ -365,6 +372,7 @@ func (c SCContentFilter) PointPixelScale() float32 {
 	rv := objc.Send[float32](c.ID, objc.Sel("pointPixelScale"))
 	return rv
 }
+
 // The type of the streaming content.
 //
 // # Discussion
@@ -374,6 +382,7 @@ func (c SCContentFilter) StreamType() SCStreamType {
 	rv := objc.Send[SCStreamType](c.ID, objc.Sel("streamType"))
 	return SCStreamType(rv)
 }
+
 // The display style of the sharable content.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/style
@@ -381,6 +390,7 @@ func (c SCContentFilter) Style() SCShareableContentStyle {
 	rv := objc.Send[SCShareableContentStyle](c.ID, objc.Sel("style"))
 	return SCShareableContentStyle(rv)
 }
+
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/includeMenuBar
 func (c SCContentFilter) IncludeMenuBar() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("includeMenuBar"))
@@ -389,10 +399,10 @@ func (c SCContentFilter) IncludeMenuBar() bool {
 func (c SCContentFilter) SetIncludeMenuBar(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIncludeMenuBar:"), value)
 }
-//
+
 // # Discussion
-// 
-// Applications that are included in the content filter
+//
+// # Applications that are included in the content filter
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/includedApplications
 func (c SCContentFilter) IncludedApplications() []SCRunningApplication {
@@ -401,10 +411,10 @@ func (c SCContentFilter) IncludedApplications() []SCRunningApplication {
 		return SCRunningApplicationFromID(id)
 	})
 }
-//
+
 // # Discussion
-// 
-// SCDisplays that are included in the content filter
+//
+// # SCDisplays that are included in the content filter
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/includedDisplays
 func (c SCContentFilter) IncludedDisplays() []SCDisplay {
@@ -413,10 +423,10 @@ func (c SCContentFilter) IncludedDisplays() []SCDisplay {
 		return SCDisplayFromID(id)
 	})
 }
-//
+
 // # Discussion
-// 
-// Windows that are included in the content filter
+//
+// # Windows that are included in the content filter
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/includedWindows
 func (c SCContentFilter) IncludedWindows() []SCWindow {
@@ -425,4 +435,3 @@ func (c SCContentFilter) IncludedWindows() []SCWindow {
 		return SCWindowFromID(id)
 	})
 }
-

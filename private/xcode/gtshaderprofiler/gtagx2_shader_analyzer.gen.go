@@ -3,8 +3,9 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (gc GTAGX2ShaderAnalyzerClass) Alloc() GTAGX2ShaderAnalyzer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTAGX2ShaderAnalyzer._calculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary]
@@ -50,6 +50,7 @@ func (gc GTAGX2ShaderAnalyzerClass) Alloc() GTAGX2ShaderAnalyzer {
 //   - [GTAGX2ShaderAnalyzer.AnalyzedBinaryProcessedUscSamplesTargetIndexWithALUBlocksBinaryInfo]
 //   - [GTAGX2ShaderAnalyzer.DisassembleBinary]
 //   - [GTAGX2ShaderAnalyzer.GetShaderBinaryForTargetIndexBinaryInfo]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer
 type GTAGX2ShaderAnalyzer struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type GTAGX2ShaderAnalyzer struct {
 func GTAGX2ShaderAnalyzerFromID(id objc.ID) GTAGX2ShaderAnalyzer {
 	return GTAGX2ShaderAnalyzer{objectivec.Object{ID: id}}
 }
+
 // Ensure GTAGX2ShaderAnalyzer implements IGTAGX2ShaderAnalyzer.
 var _ IGTAGX2ShaderAnalyzer = GTAGX2ShaderAnalyzer{}
 
@@ -104,7 +106,6 @@ func NewGTAGX2ShaderAnalyzer() GTAGX2ShaderAnalyzer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:
 func (g GTAGX2ShaderAnalyzer) _calculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary(data objectivec.IObject, index int, binary objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerDrawCallWithGRCSampleData:targetIndex:shaderBinary:"), data, index, binary)
@@ -114,7 +115,7 @@ func (g GTAGX2ShaderAnalyzer) _calculatePerDrawCallWithGRCSampleDataTargetIndexS
 func (g GTAGX2ShaderAnalyzer) CalculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary(data objectivec.IObject, index int, binary objectivec.IObject) {
 	g._calculatePerDrawCallWithGRCSampleDataTargetIndexShaderBinary(data, index, binary)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:
 func (g GTAGX2ShaderAnalyzer) _calculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo(data objectivec.IObject, result objectivec.IObject, index int, aLUBlocks unsafe.Pointer, info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerLineCostWithSampleData:analysisResult:targetIndex:withALUBlocks:binaryInfo:"), data, result, index, aLUBlocks, info)
@@ -125,22 +126,21 @@ func (g GTAGX2ShaderAnalyzer) _calculatePerLineCostWithSampleDataAnalysisResultT
 func (g GTAGX2ShaderAnalyzer) CalculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo(data objectivec.IObject, result objectivec.IObject, index int, aLUBlocks unsafe.Pointer, info objectivec.IObject) objectivec.IObject {
 	return g._calculatePerLineCostWithSampleDataAnalysisResultTargetIndexWithALUBlocksBinaryInfo(data, result, index, aLUBlocks, info)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/analyzedBinary:processedUscSamples:targetIndex:withALUBlocks:binaryInfo:
 func (g GTAGX2ShaderAnalyzer) AnalyzedBinaryProcessedUscSamplesTargetIndexWithALUBlocksBinaryInfo(binary objectivec.IObject, samples objectivec.IObject, index int, aLUBlocks unsafe.Pointer, info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("analyzedBinary:processedUscSamples:targetIndex:withALUBlocks:binaryInfo:"), binary, samples, index, aLUBlocks, info)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/disassembleBinary:
 func (g GTAGX2ShaderAnalyzer) DisassembleBinary(binary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("disassembleBinary:"), binary)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderAnalyzer/getShaderBinary:forTargetIndex:binaryInfo:
 func (g GTAGX2ShaderAnalyzer) GetShaderBinaryForTargetIndexBinaryInfo(binary objectivec.IObject, index int, info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("getShaderBinary:forTargetIndex:binaryInfo:"), binary, index, info)
 	return objectivec.Object{ID: rv}
 }
-

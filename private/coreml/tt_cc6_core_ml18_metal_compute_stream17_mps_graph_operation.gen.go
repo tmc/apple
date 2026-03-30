@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TtCC6CoreML18MetalComputeStream17MPSGraphOperation struct {
 func TtCC6CoreML18MetalComputeStream17MPSGraphOperationFromID(id objc.ID) TtCC6CoreML18MetalComputeStream17MPSGraphOperation {
 	return TtCC6CoreML18MetalComputeStream17MPSGraphOperation{objectivec.Object{ID: id}}
 }
+
 // NOTE: TtCC6CoreML18MetalComputeStream17MPSGraphOperation struct embeds objectivec.Object (parent type unavailable) but
 // ITtCC6CoreML18MetalComputeStream17MPSGraphOperation embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTtCC6CoreML18MetalComputeStream17MPSGraphOperation() TtCC6CoreML18MetalC
 	rv := objc.Send[TtCC6CoreML18MetalComputeStream17MPSGraphOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

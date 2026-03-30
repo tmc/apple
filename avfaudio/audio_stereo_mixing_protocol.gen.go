@@ -28,6 +28,7 @@ type AVAudioStereoMixing interface {
 type AVAudioStereoMixingObject struct {
 	objectivec.Object
 }
+
 func (o AVAudioStereoMixingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -46,9 +47,16 @@ func AVAudioStereoMixingObjectFromID(id objc.ID) AVAudioStereoMixingObject {
 func (o AVAudioStereoMixingObject) Pan() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("pan"))
 	return rv
-	}
+}
 
+// The bus’s stereo pan.
+//
+// # Discussion
+//
+// The default value is `0.0`, and the range of valid values is `-1.0` to
+// `1.0`. Only the [AVAudioEnvironmentNode] class implements this property.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioStereoMixing/pan
 func (o AVAudioStereoMixingObject) SetPan(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPan:"), value)
 }
-

@@ -23,6 +23,7 @@ type NSCloudSharingValidation interface {
 type NSCloudSharingValidationObject struct {
 	objectivec.Object
 }
+
 func (o NSCloudSharingValidationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,5 +43,4 @@ func NSCloudSharingValidationObjectFromID(id objc.ID) NSCloudSharingValidationOb
 func (o NSCloudSharingValidationObject) CloudShareForUserInterfaceItem(item NSValidatedUserInterfaceItem) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("cloudShareForUserInterfaceItem:"), item)
 	return objectivec.Object{ID: rv}
-	}
-
+}

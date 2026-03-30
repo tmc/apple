@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZSocketDeviceConfigurationClass) Alloc() VZSocketDeviceConfiguration {
 // The common configuration traits for socket device requests.
 //
 // # Overview
-// 
+//
 // Don’t create a [VZSocketDeviceConfiguration] object directly. Instead,
 // create a [VZVirtioSocketDeviceConfiguration] object and add it to your
 // virtual machine’s configuration.
@@ -60,6 +61,7 @@ type VZSocketDeviceConfiguration struct {
 func VZSocketDeviceConfigurationFromID(id objc.ID) VZSocketDeviceConfiguration {
 	return VZSocketDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZSocketDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -88,4 +90,3 @@ func NewVZSocketDeviceConfiguration() VZSocketDeviceConfiguration {
 	rv := objc.Send[VZSocketDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

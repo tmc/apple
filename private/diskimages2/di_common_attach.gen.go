@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type DICommonAttach struct {
 func DICommonAttachFromID(id objc.ID) DICommonAttach {
 	return DICommonAttach{objectivec.Object{ID: id}}
 }
+
 // Ensure DICommonAttach implements IDICommonAttach.
 var _ IDICommonAttach = DICommonAttach{}
 
@@ -82,7 +84,6 @@ func NewDICommonAttach() DICommonAttach {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/diskImageAttach:readOnly:autoMount:BSDName:error:
 func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachReadOnlyAutoMountBSDNameError(url foundation.INSURL, readOnly bool, autoMount bool, bsdName string) (bool, error) {
 	var errorPtr objc.ID
@@ -97,7 +98,7 @@ func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachReadOnlyAutoMount
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/diskImageAttach:BSDName:error:
 func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachBSDNameError(url foundation.INSURL, bsdName string) (bool, error) {
 	var errorPtr objc.ID
@@ -112,7 +113,7 @@ func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachBSDNameError(url 
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/defaultDiskImageAttach:BSDName:error:
 func (_DICommonAttachClass DICommonAttachClass) DefaultDiskImageAttachBSDNameError(url foundation.INSURL, bsdName string) (bool, error) {
 	var errorPtr objc.ID
@@ -127,7 +128,7 @@ func (_DICommonAttachClass DICommonAttachClass) DefaultDiskImageAttachBSDNameErr
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/DI1_attachWithDictionary:BSDName:error:
 func (_DICommonAttachClass DICommonAttachClass) DI1_attachWithDictionaryBSDNameError(dictionary objectivec.IObject, sDName []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -142,7 +143,7 @@ func (_DICommonAttachClass DICommonAttachClass) DI1_attachWithDictionaryBSDNameE
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/DI2_attachWithParams:BSDName:error:
 func (_DICommonAttachClass DICommonAttachClass) DI2_attachWithParamsBSDNameError(params objectivec.IObject, sDName []objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -157,7 +158,7 @@ func (_DICommonAttachClass DICommonAttachClass) DI2_attachWithParamsBSDNameError
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/failWithDI1errorCode:error:
 func (_DICommonAttachClass DICommonAttachClass) FailWithDI1errorCodeError(code int) (bool, error) {
 	var errorPtr objc.ID
@@ -172,4 +173,3 @@ func (_DICommonAttachClass DICommonAttachClass) FailWithDI1errorCodeError(code i
 	return rv, nil
 
 }
-

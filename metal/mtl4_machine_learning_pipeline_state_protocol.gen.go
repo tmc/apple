@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -40,6 +40,7 @@ type MTL4MachineLearningPipelineState interface {
 type MTL4MachineLearningPipelineStateObject struct {
 	objectivec.Object
 }
+
 func (o MTL4MachineLearningPipelineStateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -58,7 +59,8 @@ func MTL4MachineLearningPipelineStateObjectFromID(id objc.ID) MTL4MachineLearnin
 func (o MTL4MachineLearningPipelineStateObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-	}
+}
+
 // Obtain the size of the heap, in bytes, this pipeline requires during the
 // execution.
 //
@@ -66,21 +68,24 @@ func (o MTL4MachineLearningPipelineStateObject) Device() MTLDevice {
 func (o MTL4MachineLearningPipelineStateObject) IntermediatesHeapSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("intermediatesHeapSize"))
 	return rv
-	}
+}
+
 // Queries the string that helps identify this object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineState/label
 func (o MTL4MachineLearningPipelineStateObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Returns reflection information for this machine learning pipeline state.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineState/reflection
 func (o MTL4MachineLearningPipelineStateObject) Reflection() IMTL4MachineLearningPipelineReflection {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflection"))
 	return MTL4MachineLearningPipelineReflectionFromID(rv)
-	}
+}
+
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
 // texture, or heap.
 //
@@ -88,5 +93,4 @@ func (o MTL4MachineLearningPipelineStateObject) Reflection() IMTL4MachineLearnin
 func (o MTL4MachineLearningPipelineStateObject) AllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
-	}
-
+}

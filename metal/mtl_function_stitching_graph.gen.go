@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,14 +46,14 @@ func (mc MTLFunctionStitchingGraphClass) Alloc() MTLFunctionStitchingGraph {
 // A description of a new stitched function.
 //
 // # Overview
-// 
+//
 // An [MTLFunctionStitchingGraph] instance describes the function graph for a
 // stitched function. A is a visible function you create by composing other
 // Metal shader functions together in a function graph. A function stitching
 // graph contains nodes for the function’s arguments and any functions it
 // calls in the implementation. Data flows from the arguments to the end of
 // the graph until the stitched function evaluates all of the graph’s nodes.
-// 
+//
 // The graph in the figure below constructs a new function that adds numbers
 // from two source arrays, storing the result in a third array. The
 // function’s parameters are pointers to the source and destination arrays,
@@ -60,19 +61,19 @@ func (mc MTLFunctionStitchingGraphClass) Alloc() MTLFunctionStitchingGraph {
 // MSL functions to construct the stitched function: a function to look up a
 // value from an array, a function that adds two numbers together, and a
 // function that stores a value to an array.
-// 
+//
 // [media-3842304]
-// 
+//
 // Create an [MTLFunctionStitchingGraph] instance for each stitched function
 // you want to create. Configure its properties to describe the new function
 // and the nodes that define its behavior, as described below. To create a new
 // library with these stitched functions, see [MTLStitchedLibraryDescriptor].
-// 
+//
 // # Configuring a function stitching graph
-// 
+//
 // To create a valid stitched function, the function stitching graph and
 // shader code need to meet some requirements:
-// 
+//
 // - Implement the MSL functions that you use to create the new function,
 // adding the `stitchable` attribute to each. Stitchable functions are visible
 // functions that you can also use in a function graph. Stitchable functions
@@ -96,10 +97,10 @@ func (mc MTLFunctionStitchingGraphClass) Alloc() MTLFunctionStitchingGraph {
 // create another node and assign it to the [MTLFunctionStitchingGraph.OutputNode] property. The output
 // type of this node needs to match the function’s return type. Don’t
 // include this node in the array of nodes you assign to the [MTLFunctionStitchingGraph.Nodes] property.
-// 
+//
 // The MSL code below implements the functions in the example graph above, as
 // well as the function’s signature:
-// 
+//
 // The following code creates the graph above:
 //
 // # Initializing a function graph
@@ -128,6 +129,7 @@ type MTLFunctionStitchingGraph struct {
 func MTLFunctionStitchingGraphFromID(id objc.ID) MTLFunctionStitchingGraph {
 	return MTLFunctionStitchingGraph{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLFunctionStitchingGraph adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -235,6 +237,7 @@ func (f MTLFunctionStitchingGraph) FunctionName() string {
 func (f MTLFunctionStitchingGraph) SetFunctionName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFunctionName:"), objc.String(value))
 }
+
 // The nodes in the function’s call graph.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionStitchingGraph/nodes
@@ -247,10 +250,11 @@ func (f MTLFunctionStitchingGraph) Nodes() []MTLFunctionStitchingFunctionNode {
 func (f MTLFunctionStitchingGraph) SetNodes(value []MTLFunctionStitchingFunctionNode) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNodes:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The node with the output that’s the output of the new stitched function.
 //
 // # Discussion
-// 
+//
 // The output type of the node needs to match the result type in the stitched
 // function’s declaration.
 //
@@ -262,6 +266,7 @@ func (f MTLFunctionStitchingGraph) OutputNode() IMTLFunctionStitchingFunctionNod
 func (f MTLFunctionStitchingGraph) SetOutputNode(value IMTLFunctionStitchingFunctionNode) {
 	objc.Send[struct{}](f.ID, objc.Sel("setOutputNode:"), value)
 }
+
 // A list of attributes to configure how the Metal device object generates the
 // new stitched function.
 //
@@ -275,4 +280,3 @@ func (f MTLFunctionStitchingGraph) Attributes() []objectivec.IObject {
 func (f MTLFunctionStitchingGraph) SetAttributes(value []objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAttributes:"), objectivec.IObjectSliceToNSArray(value))
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,20 +45,20 @@ func (vc VZNVMExpressControllerDeviceConfigurationClass) Alloc() VZNVMExpressCon
 // device.
 //
 // # Overview
-// 
+//
 // This device configuration creates a storage device that conforms to the
 // [NVM Express specification revision 1.1b].
-// 
+//
 // The device configuration is valid only if used with
 // [VZGenericPlatformConfiguration].
-//
-// [NVM Express specification revision 1.1b]: https://nvmexpress.org/wp-content/uploads/NVM-Express-1_1b-1.pdf
 //
 // # Creating a new device configuration
 //
 //   - [VZNVMExpressControllerDeviceConfiguration.InitWithAttachment]: Creates a new NVM Express controller configuration with the storage device attachment you provide.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNVMExpressControllerDeviceConfiguration
+//
+// [NVM Express specification revision 1.1b]: https://nvmexpress.org/wp-content/uploads/NVM-Express-1_1b-1.pdf
 type VZNVMExpressControllerDeviceConfiguration struct {
 	VZStorageDeviceConfiguration
 }
@@ -69,6 +70,7 @@ type VZNVMExpressControllerDeviceConfiguration struct {
 func VZNVMExpressControllerDeviceConfigurationFromID(id objc.ID) VZNVMExpressControllerDeviceConfiguration {
 	return VZNVMExpressControllerDeviceConfiguration{VZStorageDeviceConfiguration: VZStorageDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZNVMExpressControllerDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,4 +133,3 @@ func (n VZNVMExpressControllerDeviceConfiguration) InitWithAttachment(attachment
 	rv := objc.Send[VZNVMExpressControllerDeviceConfiguration](n.ID, objc.Sel("initWithAttachment:"), attachment)
 	return rv
 }
-

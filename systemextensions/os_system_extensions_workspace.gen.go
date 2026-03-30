@@ -3,11 +3,12 @@
 package systemextensions
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (oc OSSystemExtensionsWorkspaceClass) Alloc() OSSystemExtensionsWorkspace {
 	return rv
 }
 
-//
 // # Overview
 //
 // # Instance Methods
@@ -61,6 +61,7 @@ type OSSystemExtensionsWorkspace struct {
 func OSSystemExtensionsWorkspaceFromID(id objc.ID) OSSystemExtensionsWorkspace {
 	return OSSystemExtensionsWorkspace{objectivec.Object{ID: id}}
 }
+
 // NOTE: OSSystemExtensionsWorkspace adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -100,9 +101,8 @@ func NewOSSystemExtensionsWorkspace() OSSystemExtensionsWorkspace {
 	return rv
 }
 
-//
 // # Discussion
-// 
+//
 // Start observing changes to System Extension(s) which are enabled or ready
 // to be enabled.
 //
@@ -120,9 +120,9 @@ func (o OSSystemExtensionsWorkspace) AddObserverError(observer OSSystemExtension
 	return rv, nil
 
 }
-//
+
 // # Discussion
-// 
+//
 // Stop observing changes to System Extension(s).
 //
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionsWorkspace/removeObserver(_:)
@@ -135,4 +135,3 @@ func (_OSSystemExtensionsWorkspaceClass OSSystemExtensionsWorkspaceClass) Shared
 	rv := objc.Send[objc.ID](objc.ID(_OSSystemExtensionsWorkspaceClass.class), objc.Sel("sharedWorkspace"))
 	return OSSystemExtensionsWorkspaceFromID(objc.ID(rv))
 }
-

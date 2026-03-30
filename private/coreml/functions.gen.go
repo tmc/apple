@@ -5,6 +5,7 @@ package coreml
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
@@ -38,5 +39,4 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-	}
-
+}

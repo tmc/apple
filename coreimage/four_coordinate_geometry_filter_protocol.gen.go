@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +70,7 @@ type CIFourCoordinateGeometryFilter interface {
 type CIFourCoordinateGeometryFilterObject struct {
 	objectivec.Object
 }
+
 func (o CIFourCoordinateGeometryFilterObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -86,29 +87,34 @@ func CIFourCoordinateGeometryFilterObjectFromID(id objc.ID) CIFourCoordinateGeom
 func (o CIFourCoordinateGeometryFilterObject) BottomLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomLeft"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomRight
 func (o CIFourCoordinateGeometryFilterObject) BottomRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomRight"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/inputImage
 func (o CIFourCoordinateGeometryFilterObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topLeft
 func (o CIFourCoordinateGeometryFilterObject) TopLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topLeft"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topRight
 func (o CIFourCoordinateGeometryFilterObject) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topRight"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -116,25 +122,31 @@ func (o CIFourCoordinateGeometryFilterObject) TopRight() corefoundation.CGPoint 
 func (o CIFourCoordinateGeometryFilterObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomLeft
 func (o CIFourCoordinateGeometryFilterObject) SetBottomLeft(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBottomLeft:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomRight
 func (o CIFourCoordinateGeometryFilterObject) SetBottomRight(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBottomRight:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/inputImage
 func (o CIFourCoordinateGeometryFilterObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topLeft
 func (o CIFourCoordinateGeometryFilterObject) SetTopLeft(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTopLeft:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topRight
 func (o CIFourCoordinateGeometryFilterObject) SetTopRight(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTopRight:"), value)
 }
-

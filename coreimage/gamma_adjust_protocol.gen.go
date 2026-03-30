@@ -39,6 +39,7 @@ type CIGammaAdjust interface {
 type CIGammaAdjustObject struct {
 	objectivec.Object
 }
+
 func (o CIGammaAdjustObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIGammaAdjustObjectFromID(id objc.ID) CIGammaAdjustObject {
 func (o CIGammaAdjustObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A gamma value to use to correct image brightness.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGammaAdjust/power
 func (o CIGammaAdjustObject) Power() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("power"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIGammaAdjustObject) Power() float32 {
 func (o CIGammaAdjustObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIGammaAdjust/inputImage
 func (o CIGammaAdjustObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// A gamma value to use to correct image brightness.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIGammaAdjust/power
 func (o CIGammaAdjustObject) SetPower(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPower:"), value)
 }
-

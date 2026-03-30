@@ -3,11 +3,12 @@
 package avfoundation
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,15 +49,15 @@ func (ac AVAudioMixInputParametersClass) Alloc() AVAudioMixInputParameters {
 // audio track to a mix.
 //
 // # Overview
-// 
+//
 // You use an instance [AVAudioMixInputParameters] to apply audio volume ramps
 // for an input to an audio mix. Mix parameters are associated with audio
 // tracks via the [AVAudioMixInputParameters.TrackID] property.
-// 
+//
 // Audio volume is currently supported as a time-varying parameter.
 // [AVAudioMixInputParameters] has a mutable subclass,
 // [AVMutableAudioMixInputParameters].
-// 
+//
 // Before the first time at which a volume is set, a volume of 1.0 used; after
 // the last time for which a volume has been set, the last volume is used.
 // Within the time range of a volume ramp, the volume is interpolated between
@@ -66,7 +67,7 @@ func (ac AVAudioMixInputParametersClass) Alloc() AVAudioMixInputParameters {
 // that hold the volume constant at 1.0 from 0.0 sec to 4.0 sec, then cause it
 // to jump to 0.5 and descend to 0.2 from 4.0 sec to 9.0 sec, holding constant
 // at 0.2 thereafter.
-// 
+//
 // Given that this is an immutable variant of the object, you should not
 // allocate and initialize a version of this class yourself. Other classes may
 // return instances of this class.
@@ -99,6 +100,7 @@ type AVAudioMixInputParameters struct {
 func AVAudioMixInputParametersFromID(id objc.ID) AVAudioMixInputParameters {
 	return AVAudioMixInputParameters{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioMixInputParameters adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -173,35 +175,32 @@ func NewAVAudioMixInputParameters() AVAudioMixInputParameters {
 //
 // startVolume: A pointer to a float to receive the starting volume value for the volume
 // ramp.
-// 
+//
 // This value may be [NULL].
 //
 // endVolume: A pointer to a float to receive the ending volume value for the volume
 // ramp.
-// 
+//
 // This value may be [NULL].
 //
 // timeRange: A pointer to a [CMTimeRange] to receive the time range of the volume ramp.
-// 
+//
 // This value may be [NULL].
-// //
-// [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
 //
 // # Return Value
-// 
-// [true] if the values were retrieved successfully, otherwise [false].
-// Returns [false] if `time` is beyond the duration of the last volume ramp
-// that has been set.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the values were retrieved successfully, otherwise false. Returns
+// false if `time` is beyond the duration of the last volume ramp that has
+// been set.
 //
 // # Discussion
-// 
+//
 // The process of setting up volume ramps requires the configuration of an
 // instance of [AVMutableAudioMixInputParameters].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAudioMixInputParameters/getVolumeRamp(for:startVolume:endVolume:timeRange:)
+//
+// [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
 func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool) {
 	var startVolume float32
 	var endVolume float32
@@ -217,13 +216,14 @@ func (a AVAudioMixInputParameters) TrackID() int32 {
 	rv := objc.Send[int32](a.ID, objc.Sel("trackID"))
 	return rv
 }
+
 // The audio processing tap associated with the track.
 //
 // # Discussion
-// 
+//
 // You can use the audio tap to access the track’s audio data before it is
 // played, read, or exported. This property is `nil` by default.
-// 
+//
 // The process of setting up a tap requires the configuration of an instance
 // of [AVMutableAudioMixInputParameters]. If an instance of
 // [AVMutableAudioMixInputParameters] is present in the [InputParameters]
@@ -236,10 +236,11 @@ func (a AVAudioMixInputParameters) AudioTapProcessor() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioTapProcessor"))
 	return objectivec.Object{ID: rv}
 }
+
 // The processing algorithm used to manage audio pitch for scaled audio edits.
 //
 // # Discussion
-// 
+//
 // The supported constants are defined in Time Pitch Algorithm Settings. An
 // [InvalidArgumentException] will be raised if this property is set to a
 // value other than the defined constants.
@@ -249,4 +250,3 @@ func (a AVAudioMixInputParameters) AudioTimePitchAlgorithm() AVAudioTimePitchAlg
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioTimePitchAlgorithm"))
 	return AVAudioTimePitchAlgorithm(foundation.NSStringFromID(rv).String())
 }
-

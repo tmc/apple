@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -50,6 +50,7 @@ type CIMeshGenerator interface {
 type CIMeshGeneratorObject struct {
 	objectivec.Object
 }
+
 func (o CIMeshGeneratorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -68,21 +69,24 @@ func CIMeshGeneratorObjectFromID(id objc.ID) CIMeshGeneratorObject {
 func (o CIMeshGeneratorObject) Color() ICIColor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
-	}
+}
+
 // An array that describes the mesh to render.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMeshGenerator/mesh
 func (o CIMeshGeneratorObject) Mesh() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("mesh"))
 	return foundation.NSArrayFromID(rv)
-	}
+}
+
 // The width of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMeshGenerator/width
 func (o CIMeshGeneratorObject) Width() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -90,17 +94,31 @@ func (o CIMeshGeneratorObject) Width() float32 {
 func (o CIMeshGeneratorObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The color of the rendered mesh.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMeshGenerator/color
 func (o CIMeshGeneratorObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
 
+// An array that describes the mesh to render.
+//
+// # Discussion
+//
+// Specify the mesh as an array of line segments. Each line segment is stored
+// as a [CIVector] instance that describes the line as a start point and an
+// end point.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMeshGenerator/mesh
 func (o CIMeshGeneratorObject) SetMesh(value foundation.INSArray) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMesh:"), value)
 }
 
+// The width of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMeshGenerator/width
 func (o CIMeshGeneratorObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }
-

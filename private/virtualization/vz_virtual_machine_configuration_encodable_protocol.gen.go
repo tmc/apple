@@ -18,6 +18,7 @@ type VZVirtualMachineConfigurationEncodable interface {
 type VZVirtualMachineConfigurationEncodableObject struct {
 	objectivec.Object
 }
+
 func (o VZVirtualMachineConfigurationEncodableObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,10 +31,8 @@ func VZVirtualMachineConfigurationEncodableObjectFromID(id objc.ID) VZVirtualMac
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationEncodable/encodeWithEncoder:
 func (o VZVirtualMachineConfigurationEncodableObject) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
-	}
-
+}

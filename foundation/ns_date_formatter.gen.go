@@ -3,10 +3,11 @@
 package foundation
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,63 +47,61 @@ func (dc DateFormatterClass) Alloc() DateFormatter {
 // A formatter that converts between dates and their textual representations.
 //
 // # Overview
-// 
+//
 // Instances of [NSDateFormatter] create string representations of [NSDate]
 // objects, and convert textual representations of dates and times into
 // [NSDate] objects. For user-visible representations of dates and times,
 // [NSDateFormatter] provides a variety of localized presets and configuration
 // options. For fixed format representations of dates and times, you can
 // specify a custom format string.
-// 
+//
 // When working with date representations in ISO 8601 format, use
 // [NSISO8601DateFormatter] instead.
-// 
+//
 // To represent an interval between two [NSDate] objects, use
 // [NSDateIntervalFormatter] instead.
-// 
+//
 // To represent a quantity of time specified by an [NSDateComponents] object,
 // use [NSDateComponentsFormatter] instead.
-// 
+//
 // # Working With User-Visible Representations of Dates and Times
-// 
+//
 // When displaying a date to a user, you set the [DateStyle] and [TimeStyle]
 // properties of the date formatter according to your particular needs. For
 // example, if you want to show the month, day, and year without showing the
-// time, you would set the [DateStyle] property to [DateFormatterLongStyle]
-// and the [TimeStyle] property to [DateFormatterNoStyle]. Conversely, if you
-// want to show only the time, you would set the `dateStyle` property to
-// [DateFormatterNoStyle] and the [TimeStyle] property to
-// [DateFormatterShortStyle]. Based on the values of the [DateStyle] and
+// time, you would set the [DateStyle] property to [NSDateFormatterLongStyle]
+// and the [TimeStyle] property to [NSDateFormatterNoStyle]. Conversely, if
+// you want to show only the time, you would set the `dateStyle` property to
+// [NSDateFormatterNoStyle] and the [TimeStyle] property to
+// [NSDateFormatterShortStyle]. Based on the values of the [DateStyle] and
 // [TimeStyle] properties, [NSDateFormatter] provides a representation of a
 // specified date that is appropriate for a given locale.
-// 
+//
 // If you need to define a format that cannot be achieved using the predefined
 // styles, you can use the [SetLocalizedDateFormatFromTemplate] to specify a
 // localized date format from a template.
-// 
+//
 // # Working With Fixed Format Date Representations
-// 
+//
 // When working with fixed format dates, such as RFC 3339, you set the
 // [DateFormat] property to specify a format string. For most fixed formats,
 // you should also set the [Locale] property to a POSIX locale
 // (`"en_US_POSIX"`), and set the [TimeZone] property to UTC.
-// 
+//
 // For more information, see [Technical Q&A QA1480 “NSDateFormatter and
 // Internet Dates”].
-// 
+//
 // # Thread Safety
-// 
+//
 // On iOS 7 and later [NSDateFormatter] is thread safe.
-// 
+//
 // In macOS 10.9 and later [NSDateFormatter] is thread safe so long as you are
 // using the modern behavior in a 64-bit app.
-// 
+//
 // On earlier versions of the operating system, or when using the legacy
 // formatter behavior or running in 32-bit in macOS, [NSDateFormatter] is not
 // thread safe, and you therefore must not mutate a date formatter
 // simultaneously from multiple threads.
-//
-// [Technical Q&A QA1480 “NSDateFormatter and Internet Dates”]: https://developer.apple.com/library/mac/qa/qa1480/
 //
 // # Converting Objects
 //
@@ -210,6 +209,8 @@ func (dc DateFormatterClass) Alloc() DateFormatter {
 //   - [DateFormatter.SetGeneratesCalendarDates]
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter
+//
+// [Technical Q&A QA1480 “NSDateFormatter and Internet Dates”]: https://developer.apple.com/library/mac/qa/qa1480/
 type DateFormatter struct {
 	NSFormatter
 }
@@ -223,6 +224,7 @@ func DateFormatterFromID(id objc.ID) DateFormatter {
 
 // NSDateFormatterFromID is an alias for [DateFormatterFromID] for cross-framework compatibility.
 func NSDateFormatterFromID(id objc.ID) DateFormatter { return DateFormatterFromID(id) }
+
 // NOTE: DateFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -500,7 +502,6 @@ func NewDateFormatter() DateFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDateFormatterWithCoder(coder INSCoder) DateFormatter {
 	instance := getDateFormatterClass().Alloc()
@@ -514,45 +515,47 @@ func NewDateFormatterWithCoder(coder INSCoder) DateFormatter {
 // string: The string to parse.
 //
 // # Return Value
-// 
+//
 // A date representation of `string`. If [DateFromString] can’t parse the
 // string, returns `nil`.
 //
 // # Discussion
-// 
+//
 // For more information about using [NSDateFormatter] to convert a string to a
 // date, see [NSDateFormatter]. For a sample code playground, see [Displaying
 // Human-Friendly Content].
 //
-// [Displaying Human-Friendly Content]: https://developer.apple.com/documentation/Foundation/displaying-human-friendly-content
-//
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/date(from:)
+//
+// [Displaying Human-Friendly Content]: https://developer.apple.com/documentation/Foundation/displaying-human-friendly-content
 func (d DateFormatter) DateFromString(string_ string) INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dateFromString:"), objc.String(string_))
 	return NSDateFromID(rv)
 }
+
 // Returns a string representation of a specified date that the system formats
 // using the receiver’s current settings.
 //
 // date: The date to format.
 //
 // # Return Value
-// 
+//
 // A string representation of `date`.
 //
 // # Discussion
-// 
+//
 // For more information about using [NSDateFormatter] to produce a string
 // representation of a date, see [NSDateFormatter]. For a sample code
 // playground, see [Displaying Human-Friendly Content].
 //
-// [Displaying Human-Friendly Content]: https://developer.apple.com/documentation/Foundation/displaying-human-friendly-content
-//
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/string(from:)
+//
+// [Displaying Human-Friendly Content]: https://developer.apple.com/documentation/Foundation/displaying-human-friendly-content
 func (d DateFormatter) StringFromDate(date INSDate) string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stringFromDate:"), date)
 	return NSStringFromID(rv).String()
 }
+
 // Returns by reference a date representation of a specified string and its
 // date range, as well as a Boolean value that indicates whether the system
 // can parse the string.
@@ -581,28 +584,28 @@ func (d DateFormatter) GetObjectValueForStringRangeError(obj []objectivec.IObjec
 	return rv, nil
 
 }
+
 // Sets the date format from a template using the specified locale for the
 // receiver.
 //
 // dateFormatTemplate: A string containing date format patterns (such as “MM” or “h”).
-// 
+//
 // For full details, see [Date and Time Programming Guide].
-// //
-// [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
 //
 // # Discussion
-// 
+//
 // See [Data Formatting Guide] for a list of the conversion specifiers
 // permitted in date format strings.
-// 
+//
 // Calling this method is equivalent to, but not necessarily implemented as,
 // setting the [DateFormat] property to the result of calling the
 // [DateFormatFromTemplateOptionsLocale] method, passing no options and the
 // [Locale] property value.
 //
-// [Data Formatting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DataFormatting/DataFormatting.html#//apple_ref/doc/uid/10000029i
-//
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/setLocalizedDateFormatFromTemplate(_:)
+//
+// [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
+// [Data Formatting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DataFormatting/DataFormatting.html#//apple_ref/doc/uid/10000029i
 func (d DateFormatter) SetLocalizedDateFormatFromTemplate(dateFormatTemplate string) {
 	objc.Send[objc.ID](d.ID, objc.Sel("setLocalizedDateFormatFromTemplate:"), objc.String(dateFormatTemplate))
 }
@@ -614,45 +617,44 @@ func (d DateFormatter) SetLocalizedDateFormatFromTemplate(dateFormatTemplate str
 //
 // dstyle: A format style for the date. For possible values, see
 // [DateFormatter.Style].
-// //
-// [DateFormatter.Style]: https://developer.apple.com/documentation/Foundation/DateFormatter/Style
 //
 // tstyle: A format style for the time. For possible values, see
 // [DateFormatter.Style].
-// //
-// [DateFormatter.Style]: https://developer.apple.com/documentation/Foundation/DateFormatter/Style
 //
 // # Return Value
-// 
+//
 // A localized string representation of `date` using the specified date and
 // time styles.
 //
 // # Discussion
-// 
+//
 // This method uses a date formatter configured with the current default
 // settings. The returned string is the same as if you configured and used a
 // date formatter as shown in the following example:
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/localizedString(from:dateStyle:timeStyle:)
+//
+// [DateFormatter.Style]: https://developer.apple.com/documentation/Foundation/DateFormatter/Style
+//
+// [DateFormatter.Style]: https://developer.apple.com/documentation/Foundation/DateFormatter/Style
 func (_DateFormatterClass DateFormatterClass) LocalizedStringFromDateDateStyleTimeStyle(date INSDate, dstyle NSDateFormatterStyle, tstyle NSDateFormatterStyle) string {
 	rv := objc.Send[objc.ID](objc.ID(_DateFormatterClass.class), objc.Sel("localizedStringFromDate:dateStyle:timeStyle:"), date, dstyle, tstyle)
 	return NSStringFromID(rv).String()
 }
+
 // Returns a localized date format string representing the given date format
 // components arranged appropriately for the specified locale.
 //
 // tmplate: A string containing date format patterns (such as “MM” or “h”).
-// 
+//
 // For full details, see [Date and Time Programming Guide].
-// //
-// [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
 //
 // opts: No options are currently defined.
 //
 // locale: The locale for which the template is required.
 //
 // # Return Value
-// 
+//
 // A localized date format string representing the date format components
 // given in `template`, arranged appropriately for the locale specified by
 // `locale`. The returned string may not contain exactly those components
@@ -660,16 +662,18 @@ func (_DateFormatterClass DateFormatterClass) LocalizedStringFromDateDateStyleTi
 // adjustments applied.
 //
 // # Discussion
-// 
+//
 // Different locales have different conventions for the ordering of date
 // components. You use this method to get an appropriate format string for a
 // given set of components for a specified locale (typically you use the
 // current locale—see [CurrentLocale]).
-// 
+//
 // The following example shows the difference between the date formats for
 // British and American English:
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/dateFormat(fromTemplate:options:locale:)
+//
+// [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
 func (_DateFormatterClass DateFormatterClass) DateFormatFromTemplateOptionsLocale(tmplate string, opts uint, locale INSLocale) string {
 	rv := objc.Send[objc.ID](objc.ID(_DateFormatterClass.class), objc.Sel("dateFormatFromTemplate:options:locale:"), objc.String(tmplate), opts, locale)
 	return NSStringFromID(rv).String()
@@ -685,6 +689,7 @@ func (d DateFormatter) DateStyle() NSDateFormatterStyle {
 func (d DateFormatter) SetDateStyle(value NSDateFormatterStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateStyle:"), value)
 }
+
 // The time style of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/timeStyle
@@ -695,13 +700,14 @@ func (d DateFormatter) TimeStyle() NSDateFormatterStyle {
 func (d DateFormatter) SetTimeStyle(value NSDateFormatterStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeStyle:"), value)
 }
+
 // The date format string used by the receiver.
 //
 // # Discussion
-// 
+//
 // See [Data Formatting Guide] for a list of the conversion specifiers
 // permitted in date format strings.
-// 
+//
 // You should only set this property when working with fixed format
 // representations, as discussed in [NSDateFormatter]. For user-visible
 // representations, you should use the [DateStyle] and [TimeStyle] properties,
@@ -710,9 +716,9 @@ func (d DateFormatter) SetTimeStyle(value NSDateFormatterStyle) {
 // and this method provide a localized date representation appropriate for
 // display to the user.
 //
-// [Data Formatting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DataFormatting/DataFormatting.html#//apple_ref/doc/uid/10000029i
-//
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/dateFormat
+//
+// [Data Formatting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DataFormatting/DataFormatting.html#//apple_ref/doc/uid/10000029i
 func (d DateFormatter) DateFormat() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dateFormat"))
 	return NSStringFromID(rv).String()
@@ -720,10 +726,11 @@ func (d DateFormatter) DateFormat() string {
 func (d DateFormatter) SetDateFormat(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateFormat:"), objc.String(value))
 }
+
 // The capitalization formatting context used when formatting a date.
 //
 // # Discussion
-// 
+//
 // The formatting context allows the formatter to apply appropriate
 // capitalization depending on how the how the string will be used, and
 // whether the locale makes capitalization distinctions.
@@ -736,10 +743,11 @@ func (d DateFormatter) FormattingContext() NSFormattingContext {
 func (d DateFormatter) SetFormattingContext(value NSFormattingContext) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFormattingContext:"), value)
 }
+
 // The calendar for the receiver.
 //
 // # Discussion
-// 
+//
 // If unspecified, the logical calendar for the current user is used.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/calendar
@@ -750,10 +758,11 @@ func (d DateFormatter) Calendar() INSCalendar {
 func (d DateFormatter) SetCalendar(value INSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
+
 // The default date for the receiver.
 //
 // # Discussion
-// 
+//
 // By default, this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/defaultDate
@@ -764,6 +773,7 @@ func (d DateFormatter) DefaultDate() INSDate {
 func (d DateFormatter) SetDefaultDate(value INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDefaultDate:"), value)
 }
+
 // The locale for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/locale
@@ -774,10 +784,11 @@ func (d DateFormatter) Locale() INSLocale {
 func (d DateFormatter) SetLocale(value INSLocale) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocale:"), value)
 }
+
 // The time zone for the receiver.
 //
 // # Discussion
-// 
+//
 // If unspecified, the system time zone is used.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/timeZone
@@ -788,14 +799,15 @@ func (d DateFormatter) TimeZone() INSTimeZone {
 func (d DateFormatter) SetTimeZone(value INSTimeZone) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeZone:"), value)
 }
+
 // The earliest date that can be denoted by a two-digit year specifier.
 //
 // # Discussion
-// 
+//
 // If the two-digit start date is set to January 6, 1976, then “January 1,
 // 76” is interpreted as New Year’s Day in 2076, whereas “February 14,
 // 76” is interpreted as Valentine’s Day in 1976.
-// 
+//
 // By default, this property is equal to December 31, 1949.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/twoDigitStartDate
@@ -806,14 +818,15 @@ func (d DateFormatter) TwoDigitStartDate() INSDate {
 func (d DateFormatter) SetTwoDigitStartDate(value INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTwoDigitStartDate:"), value)
 }
+
 // The start date of the Gregorian calendar for the receiver.
 //
 // # Discussion
-// 
+//
 // This is used to specify the start date for the Gregorian calendar switch
 // from the Julian calendar. Different locales switched at different times.
 // Normally you should just accept the locale’s default date for the switch.
-// 
+//
 // See [NSCalendar] for more information.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/gregorianStartDate
@@ -824,6 +837,7 @@ func (d DateFormatter) GregorianStartDate() INSDate {
 func (d DateFormatter) SetGregorianStartDate(value INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setGregorianStartDate:"), value)
 }
+
 // The formatter behavior for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/formatterBehavior
@@ -834,21 +848,19 @@ func (d DateFormatter) FormatterBehavior() NSDateFormatterBehavior {
 func (d DateFormatter) SetFormatterBehavior(value NSDateFormatterBehavior) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFormatterBehavior:"), value)
 }
+
 // A Boolean value that indicates whether the receiver uses heuristics when
 // parsing a string.
 //
 // # Discussion
-// 
-// [true] if the receiver has been set to use heuristics when parsing a string
-// to guess at the date which is intended, otherwise [false].
-// 
+//
+// true if the receiver has been set to use heuristics when parsing a string
+// to guess at the date which is intended, otherwise false.
+//
 // If a formatter is set to be lenient, when parsing a string it uses
 // heuristics to guess at the date which is intended. As with any guessing, it
 // may get the result date wrong (that is, a date other than that which was
 // intended).
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/isLenient
 func (d DateFormatter) Lenient() bool {
@@ -858,13 +870,14 @@ func (d DateFormatter) Lenient() bool {
 func (d DateFormatter) SetLenient(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLenient:"), value)
 }
+
 // A Boolean value that indicates whether the receiver uses phrases such as
 // “today” and “tomorrow” for the date component.
 //
 // # Discussion
-// 
-// [true] if the receiver uses relative date formatting, otherwise [false].
-// 
+//
+// true if the receiver uses relative date formatting, otherwise false.
+//
 // If a date formatter uses relative date formatting, where possible it
 // replaces the date component of its output with a phrase—such as
 // “today” or “tomorrow”—that indicates a relative date. The
@@ -872,9 +885,6 @@ func (d DateFormatter) SetLenient(value bool) {
 // dates in the future, English may only allow “tomorrow,” French may
 // allow “the day after the day after tomorrow,” as illustrated in the
 // following example.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/doesRelativeDateFormatting
 func (d DateFormatter) DoesRelativeDateFormatting() bool {
@@ -884,6 +894,7 @@ func (d DateFormatter) DoesRelativeDateFormatting() bool {
 func (d DateFormatter) SetDoesRelativeDateFormatting(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDoesRelativeDateFormatting:"), value)
 }
+
 // The AM symbol for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/amSymbol
@@ -894,6 +905,7 @@ func (d DateFormatter) AMSymbol() string {
 func (d DateFormatter) SetAMSymbol(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAMSymbol:"), objc.String(value))
 }
+
 // The PM symbol for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/pmSymbol
@@ -904,6 +916,7 @@ func (d DateFormatter) PMSymbol() string {
 func (d DateFormatter) SetPMSymbol(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPMSymbol:"), objc.String(value))
 }
+
 // The array of weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/weekdaySymbols
@@ -914,6 +927,7 @@ func (d DateFormatter) WeekdaySymbols() []string {
 func (d DateFormatter) SetWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The array of short weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortWeekdaySymbols
@@ -924,6 +938,7 @@ func (d DateFormatter) ShortWeekdaySymbols() []string {
 func (d DateFormatter) SetShortWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The array of very short weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/veryShortWeekdaySymbols
@@ -934,6 +949,7 @@ func (d DateFormatter) VeryShortWeekdaySymbols() []string {
 func (d DateFormatter) SetVeryShortWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setVeryShortWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The array of standalone weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/standaloneWeekdaySymbols
@@ -944,6 +960,7 @@ func (d DateFormatter) StandaloneWeekdaySymbols() []string {
 func (d DateFormatter) SetStandaloneWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setStandaloneWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The array of short standalone weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortStandaloneWeekdaySymbols
@@ -954,6 +971,7 @@ func (d DateFormatter) ShortStandaloneWeekdaySymbols() []string {
 func (d DateFormatter) SetShortStandaloneWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortStandaloneWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The array of very short standalone weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/veryShortStandaloneWeekdaySymbols
@@ -964,6 +982,7 @@ func (d DateFormatter) VeryShortStandaloneWeekdaySymbols() []string {
 func (d DateFormatter) SetVeryShortStandaloneWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setVeryShortStandaloneWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/monthSymbols
@@ -974,6 +993,7 @@ func (d DateFormatter) MonthSymbols() []string {
 func (d DateFormatter) SetMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The array of short month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortMonthSymbols
@@ -984,6 +1004,7 @@ func (d DateFormatter) ShortMonthSymbols() []string {
 func (d DateFormatter) SetShortMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The very short month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/veryShortMonthSymbols
@@ -994,6 +1015,7 @@ func (d DateFormatter) VeryShortMonthSymbols() []string {
 func (d DateFormatter) SetVeryShortMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setVeryShortMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The standalone month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/standaloneMonthSymbols
@@ -1004,6 +1026,7 @@ func (d DateFormatter) StandaloneMonthSymbols() []string {
 func (d DateFormatter) SetStandaloneMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setStandaloneMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The short standalone month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortStandaloneMonthSymbols
@@ -1014,6 +1037,7 @@ func (d DateFormatter) ShortStandaloneMonthSymbols() []string {
 func (d DateFormatter) SetShortStandaloneMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortStandaloneMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The very short month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/veryShortStandaloneMonthSymbols
@@ -1024,6 +1048,7 @@ func (d DateFormatter) VeryShortStandaloneMonthSymbols() []string {
 func (d DateFormatter) SetVeryShortStandaloneMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setVeryShortStandaloneMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The quarter symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/quarterSymbols
@@ -1034,6 +1059,7 @@ func (d DateFormatter) QuarterSymbols() []string {
 func (d DateFormatter) SetQuarterSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setQuarterSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The short quarter symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortQuarterSymbols
@@ -1044,6 +1070,7 @@ func (d DateFormatter) ShortQuarterSymbols() []string {
 func (d DateFormatter) SetShortQuarterSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortQuarterSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The standalone quarter symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/standaloneQuarterSymbols
@@ -1054,6 +1081,7 @@ func (d DateFormatter) StandaloneQuarterSymbols() []string {
 func (d DateFormatter) SetStandaloneQuarterSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setStandaloneQuarterSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The short standalone quarter symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortStandaloneQuarterSymbols
@@ -1064,10 +1092,11 @@ func (d DateFormatter) ShortStandaloneQuarterSymbols() []string {
 func (d DateFormatter) SetShortStandaloneQuarterSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortStandaloneQuarterSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The era symbols for the receiver.
 //
 // # Discussion
-// 
+//
 // An array containing [NSString] objects representing the era symbols for the
 // receiver (for example, {“B.C.E.”, “C.E.”}).
 //
@@ -1079,10 +1108,11 @@ func (d DateFormatter) EraSymbols() []string {
 func (d DateFormatter) SetEraSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEraSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The long era symbols for the receiver
 //
 // # Discussion
-// 
+//
 // An array containing [NSString] objects representing the era symbols for the
 // receiver (for example, {“Before Common Era”, “Common Era”}).
 //
@@ -1094,22 +1124,21 @@ func (d DateFormatter) LongEraSymbols() []string {
 func (d DateFormatter) SetLongEraSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLongEraSymbols:"), objectivec.StringSliceToNSArray(value))
 }
+
 // Indicates whether the formatter generates the deprecated calendar date
 // type.
 //
 // # Discussion
-// 
-// This property is [true] if the formatter generates the deprecated
-// [NSCalendarDate] type, and is [false] otherwise. You should use [Date] and
+//
+// This property is true if the formatter generates the deprecated
+// [NSCalendarDate] type, and is false otherwise. You should use [Date] and
 // [Calendar] rather than [NSCalendarDate].
+//
+// See: https://developer.apple.com/documentation/Foundation/DateFormatter/generatesCalendarDates
 //
 // [Calendar]: https://developer.apple.com/documentation/Foundation/Calendar
 // [Date]: https://developer.apple.com/documentation/Foundation/Date
 // [NSCalendarDate]: https://developer.apple.com/documentation/Foundation/NSCalendarDate
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/Foundation/DateFormatter/generatesCalendarDates
 func (d DateFormatter) GeneratesCalendarDates() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("generatesCalendarDates"))
 	return rv
@@ -1121,18 +1150,18 @@ func (d DateFormatter) SetGeneratesCalendarDates(value bool) {
 // Returns the default formatting behavior for instances of the class.
 //
 // # Return Value
-// 
+//
 // The default formatting behavior for instances of the class. For possible
 // values, see [DateFormatter.Behavior].
-// 
+//
 // # Discussion
-// 
+//
 // For iOS and for macOS applications linked against macOS 10.5 and later, the
 // default is `NSDateFormatterBehavior10_4`.
 //
-// [DateFormatter.Behavior]: https://developer.apple.com/documentation/Foundation/DateFormatter/Behavior
-//
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/defaultFormatterBehavior
+//
+// [DateFormatter.Behavior]: https://developer.apple.com/documentation/Foundation/DateFormatter/Behavior
 func (_DateFormatterClass DateFormatterClass) DefaultFormatterBehavior() NSDateFormatterBehavior {
 	rv := objc.Send[NSDateFormatterBehavior](objc.ID(_DateFormatterClass.class), objc.Sel("defaultFormatterBehavior"))
 	return NSDateFormatterBehavior(rv)
@@ -1140,4 +1169,3 @@ func (_DateFormatterClass DateFormatterClass) DefaultFormatterBehavior() NSDateF
 func (_DateFormatterClass DateFormatterClass) SetDefaultFormatterBehavior(value NSDateFormatterBehavior) {
 	objc.Send[struct{}](objc.ID(_DateFormatterClass.class), objc.Sel("setDefaultFormatterBehavior:"), value)
 }
-

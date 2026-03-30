@@ -23,6 +23,7 @@ type NSHapticFeedbackPerformer interface {
 type NSHapticFeedbackPerformerObject struct {
 	objectivec.Object
 }
+
 func (o NSHapticFeedbackPerformerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,22 +40,20 @@ func NSHapticFeedbackPerformerObjectFromID(id objc.ID) NSHapticFeedbackPerformer
 //
 // pattern: A pattern of feedback to be provided to the user. For possible values, see
 // [NSHapticFeedbackManager.FeedbackPattern].
-// //
-// [NSHapticFeedbackManager.FeedbackPattern]: https://developer.apple.com/documentation/AppKit/NSHapticFeedbackManager/FeedbackPattern
 //
 // performanceTime: The time when the feedback should be provided to the user. For possible
 // values, see [NSHapticFeedbackManager.PerformanceTime].
-// //
-// [NSHapticFeedbackManager.PerformanceTime]: https://developer.apple.com/documentation/AppKit/NSHapticFeedbackManager/PerformanceTime
 //
 // # Discussion
-// 
+//
 // In some cases, the system may override a call to this method. For example,
 // a Force Touch trackpad won’t provide haptic feedback if the user isn’t
 // touching the trackpad.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSHapticFeedbackPerformer/perform(_:performanceTime:)
+//
+// [NSHapticFeedbackManager.FeedbackPattern]: https://developer.apple.com/documentation/AppKit/NSHapticFeedbackManager/FeedbackPattern
+// [NSHapticFeedbackManager.PerformanceTime]: https://developer.apple.com/documentation/AppKit/NSHapticFeedbackManager/PerformanceTime
 func (o NSHapticFeedbackPerformerObject) PerformFeedbackPatternPerformanceTime(pattern NSHapticFeedbackPattern, performanceTime NSHapticFeedbackPerformanceTime) {
 	objc.Send[struct{}](o.ID, objc.Sel("performFeedbackPattern:performanceTime:"), pattern, performanceTime)
-	}
-
+}

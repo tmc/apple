@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSTextAlternativesClass) Alloc() NSTextAlternatives {
 // A list of alternative strings for a piece of text.
 //
 // # Overview
-// 
+//
 // [NSTextAlternatives] is an immutable value class that stores a list of
 // alternatives for a piece of text and communicates the user’s selection of
 // an alternative via a notification to your app. To support dictation, for
@@ -54,11 +55,9 @@ func (nc NSTextAlternativesClass) Alloc() NSTextAlternatives {
 // user chooses to replace the initial interpretation with an alternative,
 // [NSTextAlternatives] notifies you of the choice so that you can update the
 // text appropriately.
-// 
+//
 // [NSTextAlternatives] instances are attached to attributed strings as the
 // value of a text attribute, [NSTextAlternativesAttributeName].
-//
-// [NSTextAlternativesAttributeName]: https://developer.apple.com/documentation/AppKit/NSTextAlternativesAttributeName
 //
 // # Initializing a Text Alternatives Object
 //
@@ -74,6 +73,8 @@ func (nc NSTextAlternativesClass) Alloc() NSTextAlternatives {
 //   - [NSTextAlternatives.NoteSelectedAlternativeString]: Sent to the [NSTextAlternatives] object by the text view when the user chooses one of the alternative strings.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAlternatives
+//
+// [NSTextAlternativesAttributeName]: https://developer.apple.com/documentation/AppKit/NSTextAlternativesAttributeName
 type NSTextAlternatives struct {
 	objectivec.Object
 }
@@ -84,6 +85,7 @@ type NSTextAlternatives struct {
 func NSTextAlternativesFromID(id objc.ID) NSTextAlternatives {
 	return NSTextAlternatives{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTextAlternatives adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -153,7 +155,7 @@ func NewNSTextAlternatives() NSTextAlternatives {
 // select.
 //
 // # Return Value
-// 
+//
 // An initialized [NSTextAlternatives] instance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAlternatives/init(primaryString:alternativeStrings:)
@@ -171,7 +173,7 @@ func NewTextAlternativesWithPrimaryStringAlternativeStrings(primaryString string
 // select.
 //
 // # Return Value
-// 
+//
 // An initialized [NSTextAlternatives] instance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAlternatives/init(primaryString:alternativeStrings:)
@@ -179,13 +181,14 @@ func (t NSTextAlternatives) InitWithPrimaryStringAlternativeStrings(primaryStrin
 	rv := objc.Send[NSTextAlternatives](t.ID, objc.Sel("initWithPrimaryString:alternativeStrings:"), objc.String(primaryString), objectivec.StringSliceToNSArray(alternativeStrings))
 	return rv
 }
+
 // Sent to the [NSTextAlternatives] object by the text view when the user
 // chooses one of the alternative strings.
 //
 // alternativeString: The alternative string chosen by the user.
 //
 // # Discussion
-// 
+//
 // The base class implementation sends a notification,
 // [NSTextAlternativesSelectedAlternativeStringNotification], with the
 // selected alternative string in the user info under the key
@@ -203,7 +206,7 @@ func (t NSTextAlternatives) EncodeWithCoder(coder foundation.INSCoder) {
 // The text that was initially chosen as the input string.
 //
 // # Discussion
-// 
+//
 // The text system uses the `primaryString` property to make sure that the
 // text is still in the same state as when it was entered.
 //
@@ -212,11 +215,12 @@ func (t NSTextAlternatives) PrimaryString() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("primaryString"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An array of alternative possible interpretations that the user might
 // select.
 //
 // # Discussion
-// 
+//
 // The text system presents the alternative strings via a user interface
 // similar to that used for spelling correction alternatives.
 //
@@ -225,4 +229,3 @@ func (t NSTextAlternatives) AlternativeStrings() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("alternativeStrings"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

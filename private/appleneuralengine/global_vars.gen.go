@@ -114,6 +114,7 @@ var (
 	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFSkipPreparePhaseKey
 	KANEFSkipPreparePhaseKey objectivec.Object
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -328,4 +329,3 @@ func init() {
 	}
 
 }
-

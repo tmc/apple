@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_fix_input_underflow struct {
 func EspressoPass_fix_input_underflowFromID(id objc.ID) EspressoPass_fix_input_underflow {
 	return EspressoPass_fix_input_underflow{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_fix_input_underflow implements IEspressoPass_fix_input_underflow.
 var _ IEspressoPass_fix_input_underflow = EspressoPass_fix_input_underflow{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_fix_input_underflow() EspressoPass_fix_input_underflow {
 	rv := objc.Send[EspressoPass_fix_input_underflow](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

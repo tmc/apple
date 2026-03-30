@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLTaskClass) Alloc() MLTask {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLTask._canCancel]
@@ -62,6 +62,7 @@ func (mc MLTaskClass) Alloc() MLTask {
 //   - [MLTask.SetError]
 //   - [MLTask.State]
 //   - [MLTask.SetState]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLTask
 type MLTask struct {
 	objectivec.Object
@@ -71,6 +72,7 @@ type MLTask struct {
 func MLTaskFromID(id objc.ID) MLTask {
 	return MLTask{objectivec.Object{ID: id}}
 }
+
 // Ensure MLTask implements IMLTask.
 var _ IMLTask = MLTask{}
 
@@ -140,7 +142,6 @@ func NewMLTask() MLTask {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLTask/initWithState:
 func NewTaskWithState(state int64) MLTask {
 	instance := getMLTaskClass().Alloc()
@@ -158,6 +159,7 @@ func (t MLTask) _canCancel() bool {
 func (t MLTask) CanCancel() bool {
 	return t._canCancel()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canComplete
 func (t MLTask) _canComplete() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("_canComplete"))
@@ -168,6 +170,7 @@ func (t MLTask) _canComplete() bool {
 func (t MLTask) CanComplete() bool {
 	return t._canComplete()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canFail
 func (t MLTask) _canFail() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("_canFail"))
@@ -178,6 +181,7 @@ func (t MLTask) _canFail() bool {
 func (t MLTask) CanFail() bool {
 	return t._canFail()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canResume
 func (t MLTask) _canResume() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("_canResume"))
@@ -188,6 +192,7 @@ func (t MLTask) _canResume() bool {
 func (t MLTask) CanResume() bool {
 	return t._canResume()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_canSuspend
 func (t MLTask) _canSuspend() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("_canSuspend"))
@@ -198,38 +203,38 @@ func (t MLTask) _canSuspend() bool {
 func (t MLTask) CanSuspend() bool {
 	return t._canSuspend()
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/_resumeWithTaskContext:
 func (t MLTask) _resumeWithTaskContext(context objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_resumeWithTaskContext:"), context)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/completeWithTaskContext:
 func (t MLTask) CompleteWithTaskContext(context objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("completeWithTaskContext:"), context)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/failWithError:taskContext:
 func (t MLTask) FailWithErrorTaskContext(error_ objectivec.IObject, context objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("failWithError:taskContext:"), error_, context)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/resumeWithTaskContext:
 func (t MLTask) ResumeWithTaskContext(context objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("resumeWithTaskContext:"), context)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/suspendWithTaskContext:
 func (t MLTask) SuspendWithTaskContext(context objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("suspendWithTaskContext:"), context)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/taskStatesToString:
 func (t MLTask) TaskStatesToString(string_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("taskStatesToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/initWithState:
 func (t MLTask) InitWithState(state int64) MLTask {
 	rv := objc.Send[MLTask](t.ID, objc.Sel("initWithState:"), state)
@@ -244,6 +249,7 @@ func (t MLTask) Error() foundation.INSError {
 func (t MLTask) SetError(value foundation.INSError) {
 	objc.Send[struct{}](t.ID, objc.Sel("setError:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/state
 func (t MLTask) State() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("state"))
@@ -252,9 +258,9 @@ func (t MLTask) State() int64 {
 func (t MLTask) SetState(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setState:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTask/syncQueue
 func (t MLTask) SyncQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("syncQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-

@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (fc FileLocalXPCClass) Alloc() FileLocalXPC {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [FileLocalXPC.InitWithBackend]
 //   - [FileLocalXPC.InitWithFileDescriptorWritableLocked]
 //   - [FileLocalXPC.InitWithURLFileOpenFlags]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/FileLocalXPC
 type FileLocalXPC struct {
 	BackendXPC
@@ -58,6 +59,7 @@ type FileLocalXPC struct {
 func FileLocalXPCFromID(id objc.ID) FileLocalXPC {
 	return FileLocalXPC{BackendXPC: BackendXPCFromID(id)}
 }
+
 // Ensure FileLocalXPC implements IFileLocalXPC.
 var _ IFileLocalXPC = FileLocalXPC{}
 
@@ -99,7 +101,6 @@ func NewFileLocalXPC() FileLocalXPC {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/FileLocalXPC/initWithBackend:
 func NewFileLocalXPCWithBackend(backend unsafe.Pointer) FileLocalXPC {
 	instance := getFileLocalXPCClass().Alloc()
@@ -107,7 +108,6 @@ func NewFileLocalXPCWithBackend(backend unsafe.Pointer) FileLocalXPC {
 	return FileLocalXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/FileLocalXPC/initWithCoder:
 func NewFileLocalXPCWithCoder(coder objectivec.IObject) FileLocalXPC {
 	instance := getFileLocalXPCClass().Alloc()
@@ -115,7 +115,6 @@ func NewFileLocalXPCWithCoder(coder objectivec.IObject) FileLocalXPC {
 	return FileLocalXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/FileLocalXPC/initWithFileDescriptor:writable:locked:
 func NewFileLocalXPCWithFileDescriptorWritableLocked(descriptor int, writable bool, locked bool) FileLocalXPC {
 	instance := getFileLocalXPCClass().Alloc()
@@ -123,7 +122,6 @@ func NewFileLocalXPCWithFileDescriptorWritableLocked(descriptor int, writable bo
 	return FileLocalXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/FileLocalXPC/initWithURL:fileOpenFlags:
 func NewFileLocalXPCWithURLFileOpenFlags(url foundation.INSURL, flags int) FileLocalXPC {
 	instance := getFileLocalXPCClass().Alloc()
@@ -131,22 +129,20 @@ func NewFileLocalXPCWithURLFileOpenFlags(url foundation.INSURL, flags int) FileL
 	return FileLocalXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/FileLocalXPC/initWithBackend:
 func (f FileLocalXPC) InitWithBackend(backend unsafe.Pointer) FileLocalXPC {
 	rv := objc.Send[FileLocalXPC](f.ID, objc.Sel("initWithBackend:"), backend)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/FileLocalXPC/initWithFileDescriptor:writable:locked:
 func (f FileLocalXPC) InitWithFileDescriptorWritableLocked(descriptor int, writable bool, locked bool) FileLocalXPC {
 	rv := objc.Send[FileLocalXPC](f.ID, objc.Sel("initWithFileDescriptor:writable:locked:"), descriptor, writable, locked)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/FileLocalXPC/initWithURL:fileOpenFlags:
 func (f FileLocalXPC) InitWithURLFileOpenFlags(url foundation.INSURL, flags int) FileLocalXPC {
 	rv := objc.Send[FileLocalXPC](f.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
 	return rv
 }
-

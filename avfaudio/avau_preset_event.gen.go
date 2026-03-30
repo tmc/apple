@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAUPresetEvent] class.
@@ -68,6 +69,7 @@ type AVAUPresetEvent struct {
 func AVAUPresetEventFromID(id objc.ID) AVAUPresetEvent {
 	return AVAUPresetEvent{AVMusicEvent: AVMusicEventFromID(id)}
 }
+
 // NOTE: AVAUPresetEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,14 +136,14 @@ func NewAVAUPresetEvent() AVAUPresetEvent {
 // presetDictionary: The dictionary that contains the preset.
 //
 // # Discussion
-// 
+//
 // The system copies the dictionary you specify and isn’t editable once it
 // creates the event. The `scope` parameter must be [kAudioUnitScope_Global],
 // and the element index should be `0`.
 //
-// [kAudioUnitScope_Global]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitScope_Global
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAUPresetEvent/init(scope:element:dictionary:)
+//
+// [kAudioUnitScope_Global]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitScope_Global
 func NewAUPresetEventWithScopeElementDictionary(scope uint32, element uint32, presetDictionary foundation.INSDictionary) AVAUPresetEvent {
 	instance := getAVAUPresetEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithScope:element:dictionary:"), scope, element, presetDictionary)
@@ -157,14 +159,14 @@ func NewAUPresetEventWithScopeElementDictionary(scope uint32, element uint32, pr
 // presetDictionary: The dictionary that contains the preset.
 //
 // # Discussion
-// 
+//
 // The system copies the dictionary you specify and isn’t editable once it
 // creates the event. The `scope` parameter must be [kAudioUnitScope_Global],
 // and the element index should be `0`.
 //
-// [kAudioUnitScope_Global]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitScope_Global
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAUPresetEvent/init(scope:element:dictionary:)
+//
+// [kAudioUnitScope_Global]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitScope_Global
 func (a AVAUPresetEvent) InitWithScopeElementDictionary(scope uint32, element uint32, presetDictionary foundation.INSDictionary) AVAUPresetEvent {
 	rv := objc.Send[AVAUPresetEvent](a.ID, objc.Sel("initWithScope:element:dictionary:"), scope, element, presetDictionary)
 	return rv
@@ -180,6 +182,7 @@ func (a AVAUPresetEvent) Scope() uint32 {
 func (a AVAUPresetEvent) SetScope(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setScope:"), value)
 }
+
 // The element index in the scope.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAUPresetEvent/element
@@ -190,6 +193,7 @@ func (a AVAUPresetEvent) Element() uint32 {
 func (a AVAUPresetEvent) SetElement(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setElement:"), value)
 }
+
 // The dictionary that contains the preset.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAUPresetEvent/presetDictionary
@@ -197,4 +201,3 @@ func (a AVAUPresetEvent) PresetDictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("presetDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

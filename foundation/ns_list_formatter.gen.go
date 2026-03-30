@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (lc ListFormatterClass) Alloc() ListFormatter {
 // the appropriate separator and conjunction.
 //
 // # Overview
-// 
+//
 // The list formatter isn’t aware of the context where the formatted string
 // will be used and doesn’t provide capitalization customization of the list
 // items. The formatted result may not be grammatically correct if placed in a
@@ -77,6 +78,7 @@ func ListFormatterFromID(id objc.ID) ListFormatter {
 
 // NSListFormatterFromID is an alias for [ListFormatterFromID] for cross-framework compatibility.
 func NSListFormatterFromID(id objc.ID) ListFormatter { return ListFormatterFromID(id) }
+
 // NOTE: ListFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,7 +133,6 @@ func NewListFormatter() ListFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewListFormatterWithCoder(coder INSCoder) ListFormatter {
 	instance := getListFormatterClass().Alloc()
@@ -144,22 +145,22 @@ func NewListFormatterWithCoder(coder INSCoder) ListFormatter {
 // items: An array of objects to format as a list.
 //
 // # Return Value
-// 
+//
 // A formatted string representing the list of objects in an array. Returns
 // `nil` if the formatter can’t generate a description for all objects in
 // the array, or if `obj` is `nil`.
 //
 // # Discussion
-// 
+//
 // The list formatter uses [ItemFormatter] to format each item in the array.
 // If [ItemFormatter] doesn’t apply to a particular item, the list formatter
 // falls back to the item’s [DescriptionWithLocale] or
 // [LocalizedDescription] if implemented. If those methods aren’t
 // implemented, the formatter uses [description] instead.
 //
-// [description]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
-//
 // See: https://developer.apple.com/documentation/Foundation/ListFormatter/string(from:)
+//
+// [description]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
 func (l ListFormatter) StringFromItems(items INSArray) string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("stringFromItems:"), items)
 	return NSStringFromID(rv).String()
@@ -171,7 +172,7 @@ func (l ListFormatter) StringFromItems(items INSArray) string {
 // strings: An array of strings to join together in a list.
 //
 // # Return Value
-// 
+//
 // A formatted string that joins together a list of strings using a
 // locale-specific list format.
 //
@@ -186,15 +187,15 @@ func (_ListFormatterClass ListFormatterClass) LocalizedStringByJoiningStrings(st
 // An object that formats each item in the list.
 //
 // # Discussion
-// 
+//
 // If this property isn’t set, the list formatter falls back to the item’s
 // [DescriptionWithLocale] or [LocalizedDescription] methods if implemented.
 // If those methods aren’t implemented, the formatter uses [description]
 // instead.
 //
-// [description]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
-//
 // See: https://developer.apple.com/documentation/Foundation/ListFormatter/itemFormatter
+//
+// [description]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
 func (l ListFormatter) ItemFormatter() INSFormatter {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("itemFormatter"))
 	return NSFormatterFromID(objc.ID(rv))
@@ -202,10 +203,11 @@ func (l ListFormatter) ItemFormatter() INSFormatter {
 func (l ListFormatter) SetItemFormatter(value INSFormatter) {
 	objc.Send[struct{}](l.ID, objc.Sel("setItemFormatter:"), value)
 }
+
 // The locale to use when formatting items in the list.
 //
 // # Discussion
-// 
+//
 // The default value is [AutoupdatingCurrentLocale]. If you set this property
 // to `nil`, the formatter resets to using [AutoupdatingCurrentLocale].
 //
@@ -217,4 +219,3 @@ func (l ListFormatter) Locale() INSLocale {
 func (l ListFormatter) SetLocale(value INSLocale) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLocale:"), value)
 }
-

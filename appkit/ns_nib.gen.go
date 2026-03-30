@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSNibClass) Alloc() NSNib {
 // An object wrapper, or container, for an Interface Builder nib file.
 //
 // # Overview
-// 
+//
 // An [NSNib] object keeps the contents of a nib file resident in memory,
 // ready for unarchiving and instantiation. When you create a nib object using
 // the contents of a nib file, the object loads the contents of the referenced
@@ -53,7 +54,7 @@ func (nc NSNibClass) Alloc() NSNib {
 // memory; but it does not yet unarchive it. To unarchive all of the nib data
 // and thus truly instantiate the nib you must call one of the
 // `instantiate...` methods of [NSNib].
-// 
+//
 // During the instantiation process, each object in the archive is unarchived
 // and then initialized using the method befitting its type. View classes are
 // initialized using their [InitWithFrame] method. Custom objects are
@@ -61,7 +62,7 @@ func (nc NSNibClass) Alloc() NSNib {
 // custom views that have options on an associated Interface Builder palette)
 // the initialization process also reads in any values set by the user in
 // Interface Builder.
-// 
+//
 // Once all objects have been instantiated and initialized from the archive,
 // the nib loading code attempts to reestablish the connections between each
 // object’s outlets and the corresponding target objects. If your custom
@@ -69,21 +70,21 @@ func (nc NSNibClass) Alloc() NSNib {
 // connections you created in Interface Builder. It starts by trying to
 // establish the connections using your object’s own methods first. For each
 // outlet that needs a connection, the [NSNib] object looks for a method of
-// the form `` in your object. If that method exists, the nib object calls it,
+// the form “ in your object. If that method exists, the nib object calls it,
 // passing the target object as a parameter. If you did not define a setter
 // method with that exact name, the [NSNib] object searches the object for an
 // instance variable (of type `IBOutlet id`) with the corresponding outlet
 // name and tries to set its value directly. If an instance variable with the
 // correct name cannot be found, initialization of that connection does not
 // occur.
-// 
+//
 // After all objects have been initialized and their connections
 // reestablished, each object receives an [awakeFromNib()] message. You can
 // override this method in your custom objects to perform any additional
 // initialization.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // You can subclass [NSNib] if you want to extend or specialize nib-loading
 // behavior. For example, you could create a custom [NSNib] subclass that
 // performs some post-processing on the top-level objects returned from the
@@ -93,8 +94,6 @@ func (nc NSNibClass) Alloc() NSNib {
 // [NSNib] are private and thus are not available to subclasses. Any override
 // of [NSNib.InitWithNibDataBundle] or [NSNib.InitWithNibNamedBundle] should first invoke
 // the superclass implementation.
-//
-// [awakeFromNib()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/awakeFromNib()
 //
 // # Initializing a Nib
 //
@@ -106,6 +105,8 @@ func (nc NSNibClass) Alloc() NSNib {
 //   - [NSNib.InstantiateWithOwnerTopLevelObjects]: Instantiates objects in the nib file with the specified owner.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSNib
+//
+// [awakeFromNib()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/awakeFromNib()
 type NSNib struct {
 	objectivec.Object
 }
@@ -116,6 +117,7 @@ type NSNib struct {
 func NSNibFromID(id objc.ID) NSNib {
 	return NSNib{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSNib adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -177,7 +179,7 @@ func NewNSNib() NSNib {
 // used.
 //
 // # Return Value
-// 
+//
 // The initialized [NSNib] object or `nil` if there were errors during
 // initialization.
 //
@@ -198,16 +200,16 @@ func NewNibWithNibDataBundle(nibData foundation.INSData, bundle foundation.NSBun
 // method looks for the nib file in the main bundle.
 //
 // # Return Value
-// 
+//
 // The initialized [NSNib] object or `nil` if there were errors during
 // initialization or the nib file could not be located.
 //
 // # Discussion
-// 
+//
 // The [NSNib] object looks for the nib file in the bundle’s
 // language-specific project directories first, followed by the [Resources]
 // directory.
-// 
+//
 // After the nib file has been loaded, the [NSNib] object uses the bundle’s
 // resource map to locate additional resources referenced by the nib. If you
 // specified `nil` for the `bundle` parameter, the [NSNib] object looks for
@@ -232,16 +234,16 @@ func NewNibWithNibNamedBundle(nibName NSNibName, bundle foundation.NSBundle) NSN
 // method looks for the nib file in the main bundle.
 //
 // # Return Value
-// 
+//
 // The initialized [NSNib] object or `nil` if there were errors during
 // initialization or the nib file could not be located.
 //
 // # Discussion
-// 
+//
 // The [NSNib] object looks for the nib file in the bundle’s
 // language-specific project directories first, followed by the [Resources]
 // directory.
-// 
+//
 // After the nib file has been loaded, the [NSNib] object uses the bundle’s
 // resource map to locate additional resources referenced by the nib. If you
 // specified `nil` for the `bundle` parameter, the [NSNib] object looks for
@@ -254,6 +256,7 @@ func (n NSNib) InitWithNibNamedBundle(nibName NSNibName, bundle foundation.NSBun
 	rv := objc.Send[NSNib](n.ID, objc.Sel("initWithNibNamed:bundle:"), objc.String(string(nibName)), bundle)
 	return rv
 }
+
 // Initializes an instance with nib data and specified bundle for locating
 // resources.
 //
@@ -263,7 +266,7 @@ func (n NSNib) InitWithNibNamedBundle(nibName NSNibName, bundle foundation.NSBun
 // used.
 //
 // # Return Value
-// 
+//
 // The initialized [NSNib] object or `nil` if there were errors during
 // initialization.
 //
@@ -272,6 +275,7 @@ func (n NSNib) InitWithNibDataBundle(nibData foundation.INSData, bundle foundati
 	rv := objc.Send[NSNib](n.ID, objc.Sel("initWithNibData:bundle:"), nibData, bundle)
 	return rv
 }
+
 // Instantiates objects in the nib file with the specified owner.
 //
 // owner: The object to set as the Nib’s owner (File’s Owner).
@@ -279,18 +283,15 @@ func (n NSNib) InitWithNibDataBundle(nibData foundation.INSData, bundle foundati
 // topLevelObjects: On return, an array containing the top-level objects of the nib.
 //
 // # Return Value
-// 
-// [true] if the nib is instantiated; otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the nib is instantiated; otherwise false.
 //
 // # Discussion
-// 
+//
 // Unlike legacy methods, the objects adhere to standard Cocoa memory
 // management rules; it is necessary to keep a strong reference to the objects
 // or the array to prevent the nib contents from being deallocated.
-// 
+//
 // Outlets to top level objects should be strong references to demonstrate
 // ownership and prevent deallocation.
 //
@@ -302,4 +303,3 @@ func (n NSNib) InstantiateWithOwnerTopLevelObjects(owner objectivec.IObject, top
 func (n NSNib) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-

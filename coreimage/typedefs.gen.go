@@ -37,4 +37,3 @@ type CIKernelROICallback = func(int, corefoundation.CGRect) corefoundation.CGRec
 
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWDecoderVersion
 type CIRAWDecoderVersion = string
-

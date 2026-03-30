@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZConsoleDeviceConfigurationClass) Alloc() VZConsoleDeviceConfiguration
 // The base class for a console device configuration.
 //
 // # Overview
-// 
+//
 // Don’t instantiate VZConsoleDeviceConfiguration directly, instead use one
 // of its subclasses like [VZVirtioConsoleDeviceConfiguration] instead.
 //
@@ -59,6 +60,7 @@ type VZConsoleDeviceConfiguration struct {
 func VZConsoleDeviceConfigurationFromID(id objc.ID) VZConsoleDeviceConfiguration {
 	return VZConsoleDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZConsoleDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -87,4 +89,3 @@ func NewVZConsoleDeviceConfiguration() VZConsoleDeviceConfiguration {
 	rv := objc.Send[VZConsoleDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

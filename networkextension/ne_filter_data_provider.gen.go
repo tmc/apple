@@ -5,8 +5,9 @@ package networkextension
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NEFilterDataProvider] class.
@@ -45,25 +46,25 @@ func (nc NEFilterDataProviderClass) Alloc() NEFilterDataProvider {
 // The principal class for a filter data provider extension.
 //
 // # Overview
-// 
+//
 // Network content is delivered to the Filter Data Provider in the form of
 // [NEFilterFlow] objects. Each [NEFilterFlow] object corresponds to a network
 // connection opened by an application running on the device. The Filter Data
 // Provider can choose to pass or block the data when it receives a new flow,
 // or it can ask the system to see more of the flow’s data in either the
 // outbound or inbound direction before making a pass or block decision.
-// 
+//
 // In addition to passing or blocking network data, the Filter Data Provider
 // can tell the system that it needs more information before it can make a
 // decision about a particular flow of data. The system will then ask the
 // Filter Control Provider to update the current set of rules and place them
 // in a location on disk that is readable from the Filter Data Provider
 // extension.
-// 
+//
 // When a [NEFilterFlow] object is originated from a WebKit browser object,
 // the Filter Data Provider can affect the user experience in the following
 // ways:
-// 
+//
 // - If the Filter Data Provider chooses to block the web page, then a special
 // “block” page is displayed in the WebKit browser object informing the
 // user that their attempt to access the content was blocked. The Filter Data
@@ -72,52 +73,50 @@ func (nc NEFilterDataProviderClass) Alloc() NEFilterDataProvider {
 // chooses to allow the web page, then it can also specify that a string be
 // appended to the web page URL. This allows the Filter Data Provider to
 // direct the WebKit browser object to a “safe” version of the web page.
-// 
+//
 // To protect the user’s privacy, the Filter Data Provider extension sandbox
 // prevents the extension from moving network content outside of its address
 // space.
-// 
+//
 // # Creating a Filter Data Provider Extension
-// 
+//
 // Filter Data Providers run as App Extensions for the
 // `com.AppleXCUIElementTypeNetworkextensionXCUIElementTypeFilter()-data`
 // extension point.
-// 
+//
 // To create a Filter Data Provider extension, first create a new App
 // Extension target in your project.
-// 
+//
 // For an example of an Xcode build target for this app extension, see the
 // [SimpleTunnel: Customized Networking Using the NetworkExtension Framework]
 // sample code project.
-// 
+//
 // Once you have a Filter Data Provider extension target, create a subclass of
 // [NEFilterDataProvider]. Then set the [NSExtensionPrincipalClass] key in the
 // the extension’s `Info.Plist()` to the name of your subclass.
-// 
+//
 // If it is not done already, set the [NSExtensionPointIdentifier] key in the
 // extension’s `Info.Plist()` to
 // `com.AppleXCUIElementTypeNetworkextensionXCUIElementTypeFilter()-data`.
-// 
+//
 // Here is an example of the [NSExtension] dictionary in a Filter Data
 // Provider extension’s `Info.Plist()`:
-// 
+//
 // Finally, add your Filter Data Provider extension target to your app’s
 // Embed App Extensions build phase.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // To create a Filter Data Provider extension, you must first create a
 // subclass of [NEFilterDataProvider] and override the methods listed below.
-// 
+//
 // # Methods to Override
-// 
+//
 // - [NEFilterDataProvider.HandleNewFlow] -
 // [NEFilterDataProvider.HandleInboundDataFromFlowReadBytesStartOffsetReadBytes] -
 // [NEFilterDataProvider.HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes] -
 // [NEFilterDataProvider.HandleInboundDataCompleteForFlow] - [NEFilterDataProvider.HandleOutboundDataCompleteForFlow] -
 // [NEFilterDataProvider.HandleRemediationForFlow] - [NEFilterDataProvider.HandleRulesChanged]
-//
-// [SimpleTunnel: Customized Networking Using the NetworkExtension Framework]: https://developer.apple.com/library/archive/samplecode/SimpleTunnel/Introduction/Intro.html#//apple_ref/doc/uid/TP40016140
 //
 // # Filtering network content
 //
@@ -140,6 +139,8 @@ func (nc NEFilterDataProviderClass) Alloc() NEFilterDataProvider {
 //   - [NEFilterDataProvider.UpdateFlowUsingVerdictForDirection]: Updates the verdict for a flow outside the context of any filter data provider callback.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataProvider
+//
+// [SimpleTunnel: Customized Networking Using the NetworkExtension Framework]: https://developer.apple.com/library/archive/samplecode/SimpleTunnel/Introduction/Intro.html#//apple_ref/doc/uid/TP40016140
 type NEFilterDataProvider struct {
 	NEFilterProvider
 }
@@ -150,6 +151,7 @@ type NEFilterDataProvider struct {
 func NEFilterDataProviderFromID(id objc.ID) NEFilterDataProvider {
 	return NEFilterDataProvider{NEFilterProvider: NEFilterProviderFromID(id)}
 }
+
 // NOTE: NEFilterDataProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -232,15 +234,15 @@ func NewNEFilterDataProvider() NEFilterDataProvider {
 // flow: An [NEFilterFlow] object containing information about the new flow.
 //
 // # Return Value
-// 
+//
 // An [NEFilterNewFlowVerdict] object indicating how the system should handle
 // the flow.
 //
 // # Discussion
-// 
+//
 // This function is called by the system when a filtering decision needs to be
 // made about a new flow of network content.
-// 
+//
 // [NEFilterDataProvider] subclasses must override this method.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataProvider/handleNewFlow(_:)
@@ -248,6 +250,7 @@ func (f NEFilterDataProvider) HandleNewFlow(flow INEFilterFlow) INEFilterNewFlow
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("handleNewFlow:"), flow)
 	return NEFilterNewFlowVerdictFromID(rv)
 }
+
 // Make a filtering decision about a chunk of inbound data.
 //
 // flow: An [NEFilterFlow] object containing information about the flow.
@@ -261,24 +264,25 @@ func (f NEFilterDataProvider) HandleNewFlow(flow INEFilterFlow) INEFilterNewFlow
 // 4-byte [NEFilterDataAttribute] field preceding the user data. Your handler
 // must examine the [NEFilterDataAttribute] field and handle the data
 // accordingly.
-// //
-// [NEFilterDataAttribute]: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataAttribute
-// [NSData]: https://developer.apple.com/documentation/Foundation/NSData
 //
 // # Return Value
-// 
+//
 // A [NEFilterDataVerdict] object indicating how the system should handle the
 // chunk of data and all subsequent inbound data for the flow.
 //
 // # Discussion
-// 
+//
 // [NEFilterDataProvider] subclasses must override this method.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataProvider/handleInboundData(from:readBytesStartOffset:readBytes:)
+//
+// [NEFilterDataAttribute]: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataAttribute
+// [NSData]: https://developer.apple.com/documentation/Foundation/NSData
 func (f NEFilterDataProvider) HandleInboundDataFromFlowReadBytesStartOffsetReadBytes(flow INEFilterFlow, offset uint, readBytes foundation.INSData) INEFilterDataVerdict {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("handleInboundDataFromFlow:readBytesStartOffset:readBytes:"), flow, offset, readBytes)
 	return NEFilterDataVerdictFromID(rv)
 }
+
 // Make a filtering decision about a chunk of outbound data.
 //
 // flow: An [NEFilterFlow] object containing information about the flow.
@@ -288,37 +292,38 @@ func (f NEFilterDataProvider) HandleInboundDataFromFlowReadBytesStartOffsetReadB
 // outbound data.
 //
 // readBytes: An [NSData] object containing the data to be filtered.
-// //
-// [NSData]: https://developer.apple.com/documentation/Foundation/NSData
 //
 // # Return Value
-// 
+//
 // An [NEFilterDataVerdict] indicating how the system should handle the chunk
 // of data and all subsequent outbound data for the flow.
 //
 // # Discussion
-// 
+//
 // [NEFilterDataProvider] subclasses must override this method.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataProvider/handleOutboundData(from:readBytesStartOffset:readBytes:)
+//
+// [NSData]: https://developer.apple.com/documentation/Foundation/NSData
 func (f NEFilterDataProvider) HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes(flow INEFilterFlow, offset uint, readBytes foundation.INSData) INEFilterDataVerdict {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("handleOutboundDataFromFlow:readBytesStartOffset:readBytes:"), flow, offset, readBytes)
 	return NEFilterDataVerdictFromID(rv)
 }
+
 // Make a filtering decision after seeing all of the inbound data for a flow.
 //
 // flow: An [NEFilterFlow] object containing information about the flow.
 //
 // # Return Value
-// 
+//
 // An [NEFilterDataVerdict] object indicating how the system should handle the
 // flow of network content.
 //
 // # Discussion
-// 
+//
 // The system calls this method after all of the inbound data for a flow of
 // network content has been given to the Filter Data Provider.
-// 
+//
 // [NEFilterDataProvider] subclasses must override this method.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataProvider/handleInboundDataComplete(for:)
@@ -326,20 +331,21 @@ func (f NEFilterDataProvider) HandleInboundDataCompleteForFlow(flow INEFilterFlo
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("handleInboundDataCompleteForFlow:"), flow)
 	return NEFilterDataVerdictFromID(rv)
 }
+
 // Make a filtering decision after seeing all of the outbound data for a flow.
 //
 // flow: An [NEFilterFlow] object containing information about the flow.
 //
 // # Return Value
-// 
+//
 // An [NEFilterDataVerdict] object indicating how the system should handle the
 // flow of network content.
 //
 // # Discussion
-// 
+//
 // The system calls this method after all of the outbound data for a flow of
 // network content has been given to the Filter Data Provider.
-// 
+//
 // [NEFilterDataProvider] subclasses must override this method.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataProvider/handleOutboundDataComplete(for:)
@@ -347,30 +353,30 @@ func (f NEFilterDataProvider) HandleOutboundDataCompleteForFlow(flow INEFilterFl
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("handleOutboundDataCompleteForFlow:"), flow)
 	return NEFilterDataVerdictFromID(rv)
 }
+
 // Applies a set of filtering rules associated with the provider and changes
 // the default filtering action.
 //
 // settings: A [NEFilterSettings] object containing the filter settings to apply to the
 // system. Pass `nil` to revert to the default settings, which are an empty
-// list of rules and a default action of [NEFilterAction.filterData].
-// //
-// [NEFilterAction.filterData]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/filterData
+// list of rules and a default action of [NEFilterActionFilterData].
 //
 // completionHandler: A Swift closure or ObjectiveC block that executes when the system finishes
 // applying the settings. It receives an [NSError] parameter; a non-`nil`
 // value that indicates there’s an error contidition.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataProvider/apply(_:completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (f NEFilterDataProvider) ApplySettingsCompletionHandler(settings INEFilterSettings, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("applySettings:completionHandler:"), settings, _block1)
 }
+
 // Resumes a previously-paused flow.
 //
 // # Discussion
-// 
+//
 // The provider calls this method to resume a flow that the provider
 // previously paused by returning a pause verdict.
 //
@@ -378,6 +384,7 @@ _block1, _ := NewErrorBlock(completionHandler)
 func (f NEFilterDataProvider) ResumeFlowWithVerdict(flow INEFilterFlow, verdict INEFilterVerdict) {
 	objc.Send[objc.ID](f.ID, objc.Sel("resumeFlow:withVerdict:"), flow, verdict)
 }
+
 // Updates the verdict for a flow outside the context of any filter data
 // provider callback.
 //
@@ -387,11 +394,9 @@ func (f NEFilterDataProvider) ResumeFlowWithVerdict(flow INEFilterFlow, verdict 
 // [DropVerdict] verdict, or a data verdict created with the Swift initializer
 // or ObjectiveC type method, [DataVerdictWithPassBytesPeekBytes].
 //
-// direction: The direction to which the verdict applies. Pass [NETrafficDirection.any]
-// to update the verdict for both the inbound and outbound directions. This
+// direction: The direction to which the verdict applies. Pass [NETrafficDirectionAny] to
+// update the verdict for both the inbound and outbound directions. This
 // parameter has no effect if the verdict is [DropVerdict].
-// //
-// [NETrafficDirection.any]: https://developer.apple.com/documentation/NetworkExtension/NETrafficDirection/any
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataProvider/update(_:using:for:)
 func (f NEFilterDataProvider) UpdateFlowUsingVerdictForDirection(flow INEFilterSocketFlow, verdict INEFilterDataVerdict, direction NETrafficDirection) {
@@ -412,4 +417,3 @@ func (f NEFilterDataProvider) ApplySettings(ctx context.Context, settings INEFil
 		return ctx.Err()
 	}
 }
-

@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (mc MLModelVisionFeaturePrintInfoClass) Alloc() MLModelVisionFeaturePrintIn
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelVisionFeaturePrintInfo.FeatureExtractorParameters]
@@ -50,6 +50,7 @@ func (mc MLModelVisionFeaturePrintInfoClass) Alloc() MLModelVisionFeaturePrintIn
 //   - [MLModelVisionFeaturePrintInfo.SetPostVisionFeaturePrintModel]
 //   - [MLModelVisionFeaturePrintInfo.Version]
 //   - [MLModelVisionFeaturePrintInfo.SetVersion]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelVisionFeaturePrintInfo
 type MLModelVisionFeaturePrintInfo struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLModelVisionFeaturePrintInfo struct {
 func MLModelVisionFeaturePrintInfoFromID(id objc.ID) MLModelVisionFeaturePrintInfo {
 	return MLModelVisionFeaturePrintInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelVisionFeaturePrintInfo implements IMLModelVisionFeaturePrintInfo.
 var _ IMLModelVisionFeaturePrintInfo = MLModelVisionFeaturePrintInfo{}
 
@@ -114,6 +116,7 @@ func (m MLModelVisionFeaturePrintInfo) FeatureExtractorParameters() objectivec.I
 func (m MLModelVisionFeaturePrintInfo) SetFeatureExtractorParameters(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFeatureExtractorParameters:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelVisionFeaturePrintInfo/postVisionFeaturePrintModel
 func (m MLModelVisionFeaturePrintInfo) PostVisionFeaturePrintModel() IMLModel {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("postVisionFeaturePrintModel"))
@@ -122,6 +125,7 @@ func (m MLModelVisionFeaturePrintInfo) PostVisionFeaturePrintModel() IMLModel {
 func (m MLModelVisionFeaturePrintInfo) SetPostVisionFeaturePrintModel(value IMLModel) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPostVisionFeaturePrintModel:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelVisionFeaturePrintInfo/version
 func (m MLModelVisionFeaturePrintInfo) Version() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("version"))
@@ -130,4 +134,3 @@ func (m MLModelVisionFeaturePrintInfo) Version() uint64 {
 func (m MLModelVisionFeaturePrintInfo) SetVersion(value uint64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVersion:"), value)
 }
-

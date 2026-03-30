@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (dc DIOpenParamsClass) Alloc() DIOpenParams {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIOpenParams.UIOOpenMode]
 //   - [DIOpenParams.OpenWithError]
 //   - [DIOpenParams.UnlockImageWithOpenParams]
 //   - [DIOpenParams.InitWithURLOpenModeError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams
 type DIOpenParams struct {
 	DIBaseParams
@@ -59,6 +60,7 @@ type DIOpenParams struct {
 func DIOpenParamsFromID(id objc.ID) DIOpenParams {
 	return DIOpenParams{DIBaseParams: DIBaseParamsFromID(id)}
 }
+
 // Ensure DIOpenParams implements IDIOpenParams.
 var _ IDIOpenParams = DIOpenParams{}
 
@@ -102,7 +104,6 @@ func NewDIOpenParams() DIOpenParams {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithCoder:
 func NewDIOpenParamsWithCoder(coder objectivec.IObject) DIOpenParams {
 	instance := getDIOpenParamsClass().Alloc()
@@ -110,7 +111,6 @@ func NewDIOpenParamsWithCoder(coder objectivec.IObject) DIOpenParams {
 	return DIOpenParamsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithURL:error:
 func NewDIOpenParamsWithURLError(url foundation.INSURL) (DIOpenParams, error) {
 	var errorPtr objc.ID
@@ -123,7 +123,6 @@ func NewDIOpenParamsWithURLError(url foundation.INSURL) (DIOpenParams, error) {
 	return DIOpenParamsFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams/initWithURL:openMode:error:
 func NewDIOpenParamsWithURLOpenModeError(url foundation.INSURL, mode int64) (DIOpenParams, error) {
 	var errorPtr objc.ID
@@ -136,7 +135,6 @@ func NewDIOpenParamsWithURLOpenModeError(url foundation.INSURL, mode int64) (DIO
 	return DIOpenParamsFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams/openWithError:
 func (d DIOpenParams) OpenWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -148,13 +146,13 @@ func (d DIOpenParams) OpenWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams/unlockImageWithOpenParams:
 func (d DIOpenParams) UnlockImageWithOpenParams(params objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("unlockImageWithOpenParams:"), params)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIOpenParams/initWithURL:openMode:error:
 func (d DIOpenParams) InitWithURLOpenModeError(url foundation.INSURL, mode int64) (DIOpenParams, error) {
 	var errorPtr objc.ID
@@ -172,4 +170,3 @@ func (d DIOpenParams) UIOOpenMode() int {
 	rv := objc.Send[int](d.ID, objc.Sel("UIOOpenMode"))
 	return rv
 }
-

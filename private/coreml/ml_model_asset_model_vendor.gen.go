@@ -4,10 +4,11 @@ package coreml
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLModelAssetModelVendorClass) Alloc() MLModelAssetModelVendor {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelAssetModelVendor.CachedConfiguration]
@@ -55,6 +55,7 @@ func (mc MLModelAssetModelVendorClass) Alloc() MLModelAssetModelVendor {
 //   - [MLModelAssetModelVendor.ModelWithConfigurationError]
 //   - [MLModelAssetModelVendor.ResourceFactory]
 //   - [MLModelAssetModelVendor.InitWithResourceFactory]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelVendor
 type MLModelAssetModelVendor struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type MLModelAssetModelVendor struct {
 func MLModelAssetModelVendorFromID(id objc.ID) MLModelAssetModelVendor {
 	return MLModelAssetModelVendor{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelAssetModelVendor implements IMLModelAssetModelVendor.
 var _ IMLModelAssetModelVendor = MLModelAssetModelVendor{}
 
@@ -115,7 +117,6 @@ func NewMLModelAssetModelVendor() MLModelAssetModelVendor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelVendor/initWithResourceFactory:
 func NewModelAssetModelVendorWithResourceFactory(factory objectivec.IObject) MLModelAssetModelVendor {
 	instance := getMLModelAssetModelVendorClass().Alloc()
@@ -123,13 +124,12 @@ func NewModelAssetModelVendorWithResourceFactory(factory objectivec.IObject) MLM
 	return MLModelAssetModelVendorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelVendor/modelWithConfiguration:completionHandler:
 func (m MLModelAssetModelVendor) ModelWithConfigurationCompletionHandler(configuration objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("modelWithConfiguration:completionHandler:"), configuration, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelVendor/modelWithConfiguration:error:
 func (m MLModelAssetModelVendor) ModelWithConfigurationError(configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -141,7 +141,7 @@ func (m MLModelAssetModelVendor) ModelWithConfigurationError(configuration objec
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelVendor/initWithResourceFactory:
 func (m MLModelAssetModelVendor) InitWithResourceFactory(factory objectivec.IObject) MLModelAssetModelVendor {
 	rv := objc.Send[MLModelAssetModelVendor](m.ID, objc.Sel("initWithResourceFactory:"), factory)
@@ -156,6 +156,7 @@ func (m MLModelAssetModelVendor) CachedConfiguration() IMLModelConfiguration {
 func (m MLModelAssetModelVendor) SetCachedConfiguration(value IMLModelConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCachedConfiguration:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelVendor/cachedModel
 func (m MLModelAssetModelVendor) CachedModel() IMLModel {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("cachedModel"))
@@ -164,6 +165,7 @@ func (m MLModelAssetModelVendor) CachedModel() IMLModel {
 func (m MLModelAssetModelVendor) SetCachedModel(value IMLModel) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCachedModel:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelVendor/resourceFactory
 func (m MLModelAssetModelVendor) ResourceFactory() IMLModelAssetResourceFactory {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("resourceFactory"))
@@ -184,4 +186,3 @@ func (m MLModelAssetModelVendor) ModelWithConfiguration(ctx context.Context, con
 		return ctx.Err()
 	}
 }
-

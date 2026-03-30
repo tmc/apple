@@ -5,6 +5,7 @@ package texttospeech
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (tc TTSAUMessagingAUClass) Alloc() TTSAUMessagingAU {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSAUMessagingAU.CallAudioUnit]
@@ -51,6 +51,7 @@ func (tc TTSAUMessagingAUClass) Alloc() TTSAUMessagingAU {
 //   - [TTSAUMessagingAU.SetOwningAudioUnit]
 //   - [TTSAUMessagingAU.SetCallHostBlock]
 //   - [TTSAUMessagingAU.SetHostBlock]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU
 type TTSAUMessagingAU struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type TTSAUMessagingAU struct {
 func TTSAUMessagingAUFromID(id objc.ID) TTSAUMessagingAU {
 	return TTSAUMessagingAU{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSAUMessagingAU implements ITTSAUMessagingAU.
 var _ ITTSAUMessagingAU = TTSAUMessagingAU{}
 
@@ -107,28 +109,27 @@ func NewTTSAUMessagingAU() TTSAUMessagingAU {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU/callAudioUnit:
 func (t TTSAUMessagingAU) CallAudioUnit(unit objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("callAudioUnit:"), unit)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU/echo:
 func (t TTSAUMessagingAU) Echo(echo objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("echo:"), echo)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU/setCallHostBlock:
 func (t TTSAUMessagingAU) SetCallHostBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("setCallHostBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAUMessagingAU/setHostBlock:
 func (t TTSAUMessagingAU) SetHostBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("setHostBlock:"), _block0)
 }
 
@@ -170,4 +171,3 @@ func (t TTSAUMessagingAU) SetHostBlockSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

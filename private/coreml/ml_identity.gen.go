@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,10 +44,10 @@ func (mc MLIdentityClass) Alloc() MLIdentity {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLIdentity.PredictionFromFeaturesOptionsError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLIdentity
 type MLIdentity struct {
 	MLModel
@@ -56,6 +57,7 @@ type MLIdentity struct {
 func MLIdentityFromID(id objc.ID) MLIdentity {
 	return MLIdentity{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLIdentity implements IMLIdentity.
 var _ IMLIdentity = MLIdentity{}
 
@@ -93,7 +95,6 @@ func NewMLIdentity() MLIdentity {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewIdentityDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLIdentity, error) {
 	var errorPtr objc.ID
@@ -106,7 +107,6 @@ func NewIdentityDescriptionOnlyWithSpecificationConfigurationError(specification
 	return MLIdentityFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewIdentityInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLIdentity, error) {
 	var errorPtr objc.ID
@@ -119,7 +119,6 @@ func NewIdentityInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Poin
 	return MLIdentityFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewIdentityWithConfiguration(configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
@@ -127,7 +126,6 @@ func NewIdentityWithConfiguration(configuration objectivec.IObject) MLIdentity {
 	return MLIdentityFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewIdentityWithDescription(description objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
@@ -135,7 +133,6 @@ func NewIdentityWithDescription(description objectivec.IObject) MLIdentity {
 	return MLIdentityFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewIdentityWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
@@ -143,7 +140,6 @@ func NewIdentityWithDescriptionConfiguration(description objectivec.IObject, con
 	return MLIdentityFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewIdentityWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
@@ -151,7 +147,6 @@ func NewIdentityWithNameInputDescriptionOutputDescriptionOrderedInputFeatureName
 	return MLIdentityFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLIdentity/predictionFromFeatures:options:error:
 func (i MLIdentity) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -164,7 +159,6 @@ func (i MLIdentity) PredictionFromFeaturesOptionsError(features objectivec.IObje
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLIdentity/loadModelFromSpecification:configuration:error:
 func (_MLIdentityClass MLIdentityClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -176,4 +170,3 @@ func (_MLIdentityClass MLIdentityClass) LoadModelFromSpecificationConfigurationE
 	return objectivec.Object{ID: rv}, nil
 
 }
-

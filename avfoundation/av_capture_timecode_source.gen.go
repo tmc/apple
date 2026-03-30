@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVCaptureTimecodeSourceClass) Alloc() AVCaptureTimecodeSource {
 // Describes a timecode source that a timecode generator can synchronize to.
 //
 // # Overview
-// 
+//
 // [AVCaptureTimecodeSource] provides information about a specific timecode
 // source available for synchronization in [AVCaptureTimecodeGenerator]. It
 // includes metadata such as the source’s name, type, and unique identifier.
@@ -67,6 +68,7 @@ type AVCaptureTimecodeSource struct {
 func AVCaptureTimecodeSourceFromID(id objc.ID) AVCaptureTimecodeSource {
 	return AVCaptureTimecodeSource{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureTimecodeSource adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,7 +116,7 @@ func NewAVCaptureTimecodeSource() AVCaptureTimecodeSource {
 // The name of the timecode source.
 //
 // # Discussion
-// 
+//
 // This property provides a descriptive name of the timecode source, useful
 // for display in user interfaces or logging.
 //
@@ -123,10 +125,11 @@ func (c AVCaptureTimecodeSource) DisplayName() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("displayName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The type of timecode source.
 //
 // # Discussion
-// 
+//
 // Indicates the type of timecode source, represented as a value from the
 // [AVCaptureTimecodeSynchronizationSourceType] enum. This helps you identify
 // the source for specific synchronization use cases, such as frame counter,
@@ -137,10 +140,11 @@ func (c AVCaptureTimecodeSource) Type() AVCaptureTimecodeSourceType {
 	rv := objc.Send[AVCaptureTimecodeSourceType](c.ID, objc.Sel("type"))
 	return AVCaptureTimecodeSourceType(rv)
 }
+
 // A unique identifier for the timecode source.
 //
 // # Discussion
-// 
+//
 // The UUID uniquely identifies this timecode source. It is particularly
 // useful when multiple sources of the same type are available, allowing your
 // application to distinguish between them.
@@ -150,4 +154,3 @@ func (c AVCaptureTimecodeSource) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
-

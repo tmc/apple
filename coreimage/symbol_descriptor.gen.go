@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type SymbolDescriptor struct {
 func SymbolDescriptorFromID(id objc.ID) SymbolDescriptor {
 	return SymbolDescriptor{objectivec.Object{ID: id}}
 }
+
 // Ensure SymbolDescriptor implements ISymbolDescriptor.
 var _ ISymbolDescriptor = SymbolDescriptor{}
 
@@ -78,4 +80,3 @@ func NewSymbolDescriptor() SymbolDescriptor {
 	rv := objc.Send[SymbolDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

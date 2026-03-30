@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -19,6 +19,7 @@ type NSTextLayoutManagerDelegate interface {
 type NSTextLayoutManagerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSTextLayoutManagerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,18 +42,19 @@ func NSTextLayoutManagerDelegateObjectFromID(id objc.ID) NSTextLayoutManagerDele
 // location: The [NSTextLocation] of the link.
 //
 // renderingAttributes: A dictionary of attributes whose keys are [NSAttributedString.Key] values.
-// //
-// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 //
 // # Return Value
-// 
+//
 // A dictionary of attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManagerDelegate/textLayoutManager(_:renderingAttributesForLink:at:defaultAttributes:)
+//
+// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerRenderingAttributesForLinkAtLocationDefaultAttributes(textLayoutManager INSTextLayoutManager, link objectivec.IObject, location NSTextLocation, renderingAttributes foundation.INSDictionary) foundation.INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textLayoutManager:renderingAttributesForLink:atLocation:defaultAttributes:"), textLayoutManager, link, location, renderingAttributes)
 	return foundation.NSDictionaryFromID(rv)
-	}
+}
+
 // The method the framework calls to determine the soft line break point.
 //
 // textLayoutManager: The text layout manager.
@@ -62,12 +64,12 @@ func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerRenderingAttributesF
 // hyphenating: A Boolean value that indicates the current hyphenation mode.
 //
 // # Return Value
-// 
+//
 // A Boolean value that indicates if the framework should break the line at
 // the current location.
 //
 // # Discussion
-// 
+//
 // When `hyphenating` is `false`, [NSTextLayoutManager] tries to find the next
 // line break opportunity before location. When hyphenating is `true`, it’s
 // an auto-hyphenation point.
@@ -76,7 +78,8 @@ func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerRenderingAttributesF
 func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerShouldBreakLineBeforeLocationHyphenating(textLayoutManager INSTextLayoutManager, location NSTextLocation, hyphenating bool) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textLayoutManager:shouldBreakLineBeforeLocation:hyphenating:"), textLayoutManager, location, hyphenating)
 	return rv
-	}
+}
+
 // The method the framework calls to give the delegate an opportunity to
 // return a custom text layout fragment.
 //
@@ -88,11 +91,11 @@ func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerShouldBreakLineBefor
 // [NSTextLayoutFragment] from.
 //
 // # Return Value
-// 
+//
 // An [NSTextLayoutFragment].
 //
 // # Discussion
-// 
+//
 // Use this to provide an [NSTextLayoutFragment] specialized for an
 // [NSTextElement] subclass targeted for the rendering surface.
 //
@@ -100,5 +103,4 @@ func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerShouldBreakLineBefor
 func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerTextLayoutFragmentForLocationInTextElement(textLayoutManager INSTextLayoutManager, location NSTextLocation, textElement INSTextElement) INSTextLayoutFragment {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textLayoutManager:textLayoutFragmentForLocation:inTextElement:"), textLayoutManager, location, textElement)
 	return NSTextLayoutFragmentFromID(rv)
-	}
-
+}

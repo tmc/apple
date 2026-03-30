@@ -3,8 +3,8 @@
 package quartzcore
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -19,6 +19,7 @@ type CAAction interface {
 type CAActionObject struct {
 	objectivec.Object
 }
+
 func (o CAActionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -45,5 +46,4 @@ func CAActionObjectFromID(id objc.ID) CAActionObject {
 // See: https://developer.apple.com/documentation/QuartzCore/CAAction/run(forKey:object:arguments:)
 func (o CAActionObject) RunActionForKeyObjectArguments(event string, anObject objectivec.IObject, dict foundation.INSDictionary) {
 	objc.Send[struct{}](o.ID, objc.Sel("runActionForKey:object:arguments:"), objc.String(event), anObject, dict)
-	}
-
+}

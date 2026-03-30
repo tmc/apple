@@ -18,6 +18,7 @@ type MLCustomModel interface {
 type MLCustomModelObject struct {
 	objectivec.Object
 }
+
 func (o MLCustomModelObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,7 +31,6 @@ func MLCustomModelObjectFromID(id objc.ID) MLCustomModelObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModel/predictionFromFeatures:options:error:
 func (o MLCustomModelObject) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options)
@@ -38,8 +38,8 @@ func (o MLCustomModelObject) PredictionFromFeaturesOptionsError(features objecti
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModel/predictionsFromBatch:options:error:
 func (o MLCustomModelObject) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options)
@@ -47,5 +47,4 @@ func (o MLCustomModelObject) PredictionsFromBatchOptionsError(batch objectivec.I
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

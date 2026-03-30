@@ -3,8 +3,8 @@
 package coreml
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -24,6 +24,7 @@ type MLWritable interface {
 type MLWritableObject struct {
 	objectivec.Object
 }
+
 func (o MLWritableObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,5 +48,4 @@ func (o MLWritableObject) WriteToURLError(url foundation.INSURL) (bool, error) {
 		return false, err
 	}
 	return rv, nil
-	}
-
+}

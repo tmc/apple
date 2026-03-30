@@ -4,6 +4,7 @@ package corevideo
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -98,4 +99,3 @@ type CVPixelBufferReleasePlanarBytesCallback = func(unsafe.Pointer, unsafe.Point
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVReturn
 type CVReturn = int32
-

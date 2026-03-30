@@ -48,4 +48,3 @@ func SetActionHandlerFor[T Actionable](ctrl T, fn func(T)) {
 	ctrl.SetTarget(objectivec.Object{ID: target})
 	ctrl.SetAction(sel)
 }
-

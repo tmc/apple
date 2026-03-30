@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,10 +41,10 @@ func (vc VZSEPCoprocessorClass) Alloc() VZSEPCoprocessor {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZSEPCoprocessor.DebugStub]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessor
 type VZSEPCoprocessor struct {
 	VZCoprocessor
@@ -53,6 +54,7 @@ type VZSEPCoprocessor struct {
 func VZSEPCoprocessorFromID(id objc.ID) VZSEPCoprocessor {
 	return VZSEPCoprocessor{VZCoprocessor: VZCoprocessorFromID(id)}
 }
+
 // Ensure VZSEPCoprocessor implements IVZSEPCoprocessor.
 var _ IVZSEPCoprocessor = VZSEPCoprocessor{}
 
@@ -99,4 +101,3 @@ func (v VZSEPCoprocessor) DebugStub() *VZDebugStub {
 	val := VZDebugStubFromID(objc.ID(rv))
 	return &val
 }
-

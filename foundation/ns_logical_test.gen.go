@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,19 +45,19 @@ func (nc NSLogicalTestClass) Alloc() NSLogicalTest {
 // The logical combination of one or more specifier tests.
 //
 // # Overview
-// 
+//
 // Instances of this class perform logical operations of [AND], [OR], and
 // [NOT] on Boolean expressions represented by [NSSpecifierTest] objects.
 // These operators are equivalent to “`&&`”, “`||`”, and “`!`” in
 // the C language.
-// 
+//
 // For [AND] and [OR] operations, an [NSLogicalTest] object is typically
 // initialized with an array containing two or more [NSSpecifierTest] objects.
 // [IsTrue]—inherited from [NSScriptWhoseTest]—evaluates the array in a
 // manner appropriate to the logical operation. For [NOT] operations, an
 // [NSLogicalTest] object is initialized with only one [NSSpecifierTest]
 // object; it simply reverses the Boolean outcome of the [IsTrue] method.
-// 
+//
 // You don’t normally subclass [NSLogicalTest].
 //
 // # Initializing a logical test
@@ -76,6 +77,7 @@ type NSLogicalTest struct {
 func NSLogicalTestFromID(id objc.ID) NSLogicalTest {
 	return NSLogicalTest{NSScriptWhoseTest: NSScriptWhoseTestFromID(id)}
 }
+
 // NOTE: NSLogicalTest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,7 +128,7 @@ func NewNSLogicalTest() NSLogicalTest {
 // subTests: An array of [NSSpecifierTest] objects representing Boolean expressions.
 //
 // # Return Value
-// 
+//
 // An [NSLogicalTest] object initialized to perform an [AND] operation with
 // the [NSSpecifierTest] objects in `subTests`.
 //
@@ -143,7 +145,7 @@ func NewLogicalTestAndTestWithTests(subTests []NSSpecifierTest) NSLogicalTest {
 // subTest: The [NSScriptWhoseTest] object to invert.
 //
 // # Return Value
-// 
+//
 // An [NSLogicalTest] object initialized to perform a [NOT] operation on
 // `subTest`.
 //
@@ -160,7 +162,7 @@ func NewLogicalTestNotTestWithTest(subTest INSScriptWhoseTest) NSLogicalTest {
 // subTests: An array of [NSSpecifierTest] objects representing Boolean expressions.
 //
 // # Return Value
-// 
+//
 // An [NSLogicalTest] object initialized to perform an [OR] operation with the
 // [NSSpecifierTest] objects in `subTests`.
 //
@@ -171,7 +173,6 @@ func NewLogicalTestOrTestWithTests(subTests []NSSpecifierTest) NSLogicalTest {
 	return NSLogicalTestFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptWhoseTest/init(coder:)
 func NewLogicalTestWithCoder(inCoder INSCoder) NSLogicalTest {
 	instance := getNSLogicalTestClass().Alloc()
@@ -185,7 +186,7 @@ func NewLogicalTestWithCoder(inCoder INSCoder) NSLogicalTest {
 // subTests: An array of [NSSpecifierTest] objects representing Boolean expressions.
 //
 // # Return Value
-// 
+//
 // An [NSLogicalTest] object initialized to perform an [AND] operation with
 // the [NSSpecifierTest] objects in `subTests`.
 //
@@ -194,13 +195,14 @@ func (l NSLogicalTest) InitAndTestWithTests(subTests []NSSpecifierTest) NSLogica
 	rv := objc.Send[NSLogicalTest](l.ID, objc.Sel("initAndTestWithTests:"), objectivec.IObjectSliceToNSArray(subTests))
 	return rv
 }
+
 // Returns an [NSLogicalTest] object initialized to perform a [NOT] operation
 // on the given [NSScriptWhoseTest] object.
 //
 // subTest: The [NSScriptWhoseTest] object to invert.
 //
 // # Return Value
-// 
+//
 // An [NSLogicalTest] object initialized to perform a [NOT] operation on
 // `subTest`.
 //
@@ -209,13 +211,14 @@ func (l NSLogicalTest) InitNotTestWithTest(subTest INSScriptWhoseTest) NSLogical
 	rv := objc.Send[NSLogicalTest](l.ID, objc.Sel("initNotTestWithTest:"), subTest)
 	return rv
 }
+
 // Returns an [NSLogicalTest] object initialized to perform an [OR] operation
 // with the [NSSpecifierTest] objects in a given array.
 //
 // subTests: An array of [NSSpecifierTest] objects representing Boolean expressions.
 //
 // # Return Value
-// 
+//
 // An [NSLogicalTest] object initialized to perform an [OR] operation with the
 // [NSSpecifierTest] objects in `subTests`.
 //
@@ -224,4 +227,3 @@ func (l NSLogicalTest) InitOrTestWithTests(subTests []NSSpecifierTest) NSLogical
 	rv := objc.Send[NSLogicalTest](l.ID, objc.Sel("initOrTestWithTests:"), objectivec.IObjectSliceToNSArray(subTests))
 	return rv
 }
-

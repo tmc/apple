@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -71,6 +72,7 @@ type NSAttributedStringMarkdownSourcePosition struct {
 func NSAttributedStringMarkdownSourcePositionFromID(id objc.ID) NSAttributedStringMarkdownSourcePosition {
 	return NSAttributedStringMarkdownSourcePosition{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAttributedStringMarkdownSourcePosition adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -186,16 +188,17 @@ func (a NSAttributedStringMarkdownSourcePosition) InitWithStartLineStartColumnEn
 	rv := objc.Send[NSAttributedStringMarkdownSourcePosition](a.ID, objc.Sel("initWithStartLine:startColumn:endLine:endColumn:"), startLine, startColumn, endLine, endColumn)
 	return rv
 }
+
 // Returns a range indicating the source portion within a Markdown string.
 //
 // string: The Markdown source string that this source position object refers to.
 //
 // # Return Value
-// 
+//
 // A range that represents the source portion within a source Markdown string.
 //
 // # Discussion
-// 
+//
 // Use this method to access the marked-up region of `string` with an NSRange,
 // rather than making manual calculations based on row and column values.
 //
@@ -204,12 +207,13 @@ func (a NSAttributedStringMarkdownSourcePosition) RangeInString(string_ string) 
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeInString:"), objc.String(string_))
 	return NSRange(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (a NSAttributedStringMarkdownSourcePosition) InitWithCoder(coder INSCoder) NSAttributedStringMarkdownSourcePosition {
 	rv := objc.Send[NSAttributedStringMarkdownSourcePosition](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -222,7 +226,7 @@ func (a NSAttributedStringMarkdownSourcePosition) EncodeWithCoder(coder INSCoder
 // The line where the text begins in the Markdown source.
 //
 // # Discussion
-// 
+//
 // This property uses `1`-based counting.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedStringMarkdownSourcePosition/startLine
@@ -230,10 +234,11 @@ func (a NSAttributedStringMarkdownSourcePosition) StartLine() int {
 	rv := objc.Send[int](a.ID, objc.Sel("startLine"))
 	return rv
 }
+
 // The column where the text begins in the Markdown source.
 //
 // # Discussion
-// 
+//
 // This property uses `1`-based counting. Columns represent UTF-8 indices; for
 // multi-byte characters, the column indicates the first byte.
 //
@@ -242,10 +247,11 @@ func (a NSAttributedStringMarkdownSourcePosition) StartColumn() int {
 	rv := objc.Send[int](a.ID, objc.Sel("startColumn"))
 	return rv
 }
+
 // The line where the text ends in the Markdown source.
 //
 // # Discussion
-// 
+//
 // This property uses `1`-based counting.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedStringMarkdownSourcePosition/endLine
@@ -253,10 +259,11 @@ func (a NSAttributedStringMarkdownSourcePosition) EndLine() int {
 	rv := objc.Send[int](a.ID, objc.Sel("endLine"))
 	return rv
 }
+
 // The column where the text ends in the Markdown source.
 //
 // # Discussion
-// 
+//
 // This property uses `1`-based counting. Columns represent UTF-8 indices; for
 // multi-byte characters, the column indicates the first byte.
 //
@@ -266,9 +273,6 @@ func (a NSAttributedStringMarkdownSourcePosition) EndColumn() int {
 	return rv
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

@@ -23,6 +23,7 @@ type NSMenuItemValidation interface {
 type NSMenuItemValidationObject struct {
 	objectivec.Object
 }
+
 func (o NSMenuItemValidationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,18 +42,15 @@ func NSMenuItemValidationObjectFromID(id objc.ID) NSMenuItemValidationObject {
 // menuItem: An [NSMenuItem] object that represents the menu item.
 //
 // # Return Value
-// 
-// [true] to enable `menuItem`, [false] to disable it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to enable `menuItem`, false to disable it.
 //
 // # Discussion
-// 
+//
 // The object implementing this method must be the target of `menuItem`. You
 // can determine which menu item `menuItem` is by querying it for its tag or
 // action.
-// 
+//
 // The following example disables the menu item associated with the
 // `nextRecord` action method when the selected line in a table view is the
 // last one; conversely, it disables the menu item with `priorRecord` as its
@@ -64,5 +62,4 @@ func NSMenuItemValidationObjectFromID(id objc.ID) NSMenuItemValidationObject {
 func (o NSMenuItemValidationObject) ValidateMenuItem(menuItem INSMenuItem) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("validateMenuItem:"), menuItem)
 	return rv
-	}
-
+}

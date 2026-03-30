@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +61,7 @@ type MTL4CommandAllocatorDescriptor struct {
 func MTL4CommandAllocatorDescriptorFromID(id objc.ID) MTL4CommandAllocatorDescriptor {
 	return MTL4CommandAllocatorDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4CommandAllocatorDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,9 +114,9 @@ func (m MTL4CommandAllocatorDescriptor) Label() string {
 func (m MTL4CommandAllocatorDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CommandAllocatorDescriptor) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-

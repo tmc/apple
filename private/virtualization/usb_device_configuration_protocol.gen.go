@@ -18,6 +18,7 @@ type VZUSBDeviceConfiguration interface {
 type VZUSBDeviceConfigurationObject struct {
 	objectivec.Object
 }
+
 func (o VZUSBDeviceConfigurationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,14 +31,13 @@ func VZUSBDeviceConfigurationObjectFromID(id objc.ID) VZUSBDeviceConfigurationOb
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDeviceConfiguration/setUuid:
 func (o VZUSBDeviceConfigurationObject) SetUuid(uuid objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUuid:"), uuid)
-	}
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDeviceConfiguration/uuid
 func (o VZUSBDeviceConfigurationObject) Uuid() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

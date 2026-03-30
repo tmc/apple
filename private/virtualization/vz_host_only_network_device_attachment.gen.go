@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZHostOnlyNetworkDeviceAttachmentClass) Alloc() VZHostOnlyNetworkDevice
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZHostOnlyNetworkDeviceAttachment.EncodeWithEncoder]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZHostOnlyNetworkDeviceAttachment
 type VZHostOnlyNetworkDeviceAttachment struct {
 	VZNetworkDeviceAttachment
@@ -54,6 +55,7 @@ type VZHostOnlyNetworkDeviceAttachment struct {
 func VZHostOnlyNetworkDeviceAttachmentFromID(id objc.ID) VZHostOnlyNetworkDeviceAttachment {
 	return VZHostOnlyNetworkDeviceAttachment{VZNetworkDeviceAttachment: VZNetworkDeviceAttachmentFromID(id)}
 }
+
 // Ensure VZHostOnlyNetworkDeviceAttachment implements IVZHostOnlyNetworkDeviceAttachment.
 var _ IVZHostOnlyNetworkDeviceAttachment = VZHostOnlyNetworkDeviceAttachment{}
 
@@ -91,10 +93,8 @@ func NewVZHostOnlyNetworkDeviceAttachment() VZHostOnlyNetworkDeviceAttachment {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZHostOnlyNetworkDeviceAttachment/encodeWithEncoder:
 func (v VZHostOnlyNetworkDeviceAttachment) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-

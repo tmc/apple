@@ -18,6 +18,7 @@ type AVCaptureMetadataOutputObjectsDelegate interface {
 type AVCaptureMetadataOutputObjectsDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVCaptureMetadataOutputObjectsDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -43,14 +44,14 @@ func AVCaptureMetadataOutputObjectsDelegateObjectFromID(id objc.ID) AVCaptureMet
 // connection: The capture connection through which the objects were emitted.
 //
 // # Discussion
-// 
+//
 // The [AVCaptureMetadataOutput] object emits only metadata objects whose
 // types are included in its [MetadataObjectTypes] property. The delegate
 // implements this method to perform additional processing on metadata objects
 // as they become available. If you plan to use metadata objects outside the
 // scope of this method, you must store strong references to them and remove
 // those references when the objects are no longer required.
-// 
+//
 // This method is executed on the dispatch queue specified by the
 // [MetadataObjectsCallbackQueue] property of the capture metadata output
 // object. Because this method may be called frequently, your implementation
@@ -60,5 +61,4 @@ func AVCaptureMetadataOutputObjectsDelegateObjectFromID(id objc.ID) AVCaptureMet
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMetadataOutputObjectsDelegate/metadataOutput(_:didOutput:from:)
 func (o AVCaptureMetadataOutputObjectsDelegateObject) CaptureOutputDidOutputMetadataObjectsFromConnection(output IAVCaptureOutput, metadataObjects []AVMetadataObject, connection IAVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didOutputMetadataObjects:fromConnection:"), output, objectivec.IObjectSliceToNSArray(metadataObjects), connection)
-	}
-
+}

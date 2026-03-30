@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLParameterDescriptionClass) Alloc() MLParameterDescription {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLParameterDescription.InitWithCoder]
@@ -53,6 +53,7 @@ func (mc MLParameterDescriptionClass) Alloc() MLParameterDescription {
 //   - [MLParameterDescription.SetKey]
 //   - [MLParameterDescription.NumericConstraint]
 //   - [MLParameterDescription.SetNumericConstraint]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription
 type MLParameterDescription struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLParameterDescription struct {
 func MLParameterDescriptionFromID(id objc.ID) MLParameterDescription {
 	return MLParameterDescription{objectivec.Object{ID: id}}
 }
+
 // Ensure MLParameterDescription implements IMLParameterDescription.
 var _ IMLParameterDescription = MLParameterDescription{}
 
@@ -111,7 +113,6 @@ func NewMLParameterDescription() MLParameterDescription {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/initWithCoder:
 func NewParameterDescriptionWithCoder(coder objectivec.IObject) MLParameterDescription {
 	instance := getMLParameterDescriptionClass().Alloc()
@@ -119,43 +120,42 @@ func NewParameterDescriptionWithCoder(coder objectivec.IObject) MLParameterDescr
 	return MLParameterDescriptionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/initWithCoder:
 func (p MLParameterDescription) InitWithCoder(coder foundation.INSCoder) MLParameterDescription {
 	rv := objc.Send[MLParameterDescription](p.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/parameterDescriptionForKey:boolParameterSpec:
 func (_MLParameterDescriptionClass MLParameterDescriptionClass) ParameterDescriptionForKeyBoolParameterSpec(key objectivec.IObject, spec unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterDescriptionClass.class), objc.Sel("parameterDescriptionForKey:boolParameterSpec:"), key, spec)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/parameterDescriptionForKey:defaultValue:numericConstraint:
 func (_MLParameterDescriptionClass MLParameterDescriptionClass) ParameterDescriptionForKeyDefaultValueNumericConstraint(key objectivec.IObject, value objectivec.IObject, constraint objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterDescriptionClass.class), objc.Sel("parameterDescriptionForKey:defaultValue:numericConstraint:"), key, value, constraint)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/parameterDescriptionForKey:doubleParameterSpec:
 func (_MLParameterDescriptionClass MLParameterDescriptionClass) ParameterDescriptionForKeyDoubleParameterSpec(key objectivec.IObject, spec unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterDescriptionClass.class), objc.Sel("parameterDescriptionForKey:doubleParameterSpec:"), key, spec)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/parameterDescriptionForKey:int64ParameterSpec:
 func (_MLParameterDescriptionClass MLParameterDescriptionClass) ParameterDescriptionForKeyInt64ParameterSpec(key objectivec.IObject, spec unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterDescriptionClass.class), objc.Sel("parameterDescriptionForKey:int64ParameterSpec:"), key, spec)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/parameterDescriptionForKey:stringParameterSpec:
 func (_MLParameterDescriptionClass MLParameterDescriptionClass) ParameterDescriptionForKeyStringParameterSpec(key objectivec.IObject, spec unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterDescriptionClass.class), objc.Sel("parameterDescriptionForKey:stringParameterSpec:"), key, spec)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/supportsSecureCoding
 func (_MLParameterDescriptionClass MLParameterDescriptionClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLParameterDescriptionClass.class), objc.Sel("supportsSecureCoding"))
@@ -170,6 +170,7 @@ func (p MLParameterDescription) DefaultValue() objectivec.IObject {
 func (p MLParameterDescription) SetDefaultValue(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDefaultValue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/key
 func (p MLParameterDescription) Key() IMLParameterKey {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("key"))
@@ -178,6 +179,7 @@ func (p MLParameterDescription) Key() IMLParameterKey {
 func (p MLParameterDescription) SetKey(value IMLParameterKey) {
 	objc.Send[struct{}](p.ID, objc.Sel("setKey:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLParameterDescription/numericConstraint
 func (p MLParameterDescription) NumericConstraint() IMLNumericConstraint {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("numericConstraint"))
@@ -186,4 +188,3 @@ func (p MLParameterDescription) NumericConstraint() IMLNumericConstraint {
 func (p MLParameterDescription) SetNumericConstraint(value IMLNumericConstraint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNumericConstraint:"), value)
 }
-

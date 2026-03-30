@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,15 +46,13 @@ func (ac AVAssetTrackGroupClass) Alloc() AVAssetTrackGroup {
 // A group of related tracks in an asset.
 //
 // # Overview
-// 
+//
 // A track group describes a group of related alternative tracks, only one of
 // which should play at a time. Groups of alternative tracks typically contain
 // variations of the same content, like subtitles in multiple translations.
-// 
-// You can inspect an asset’s track groups by loading the value of its
-// [trackGroups] property.
 //
-// [trackGroups]: https://developer.apple.com/documentation/AVFoundation/AVPartialAsyncProperty/trackGroups
+// You can inspect an asset’s track groups by loading the value of its
+// [AVAssetTrackGroup.TrackGroups] property.
 //
 // # Getting track ID values
 //
@@ -70,6 +69,7 @@ type AVAssetTrackGroup struct {
 func AVAssetTrackGroupFromID(id objc.ID) AVAssetTrackGroup {
 	return AVAssetTrackGroup{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetTrackGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,20 +115,21 @@ func NewAVAssetTrackGroup() AVAssetTrackGroup {
 // The IDs of the tracks in the group.
 //
 // # Discussion
-// 
+//
 // The value of this property is an array of [NSNumber] instances used as
 // [CMPersistentTrackID] values, one for each track in the group.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrackGroup/trackIDs
+//
 // [CMPersistentTrackID]: https://developer.apple.com/documentation/CoreMedia/CMPersistentTrackID
 // [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrackGroup/trackIDs
 func (a AVAssetTrackGroup) TrackIDs() []foundation.NSNumber {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("trackIDs"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // The track groups an asset contains.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avpartialasyncproperty/trackgroups
@@ -139,4 +140,3 @@ func (a AVAssetTrackGroup) TrackGroups() IAVAssetTrackGroup {
 func (a AVAssetTrackGroup) SetTrackGroups(value IAVAssetTrackGroup) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTrackGroups:"), value)
 }
-

@@ -3,11 +3,12 @@
 package appkit
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +71,7 @@ type NSController struct {
 func NSControllerFromID(id objc.ID) NSController {
 	return NSController{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -129,7 +131,6 @@ func NewNSController() NSController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSController/init(coder:)
 func NewControllerWithCoder(coder foundation.INSCoder) NSController {
 	instance := getNSControllerClass().Alloc()
@@ -144,6 +145,7 @@ func NewControllerWithCoder(coder foundation.INSCoder) NSController {
 func (c NSController) ObjectDidBeginEditing(editor NSEditor) {
 	objc.Send[objc.ID](c.ID, objc.Sel("objectDidBeginEditing:"), editor)
 }
+
 // Invoked to inform the receiver that `editor` has committed or discarded its
 // changes.
 //
@@ -151,27 +153,27 @@ func (c NSController) ObjectDidBeginEditing(editor NSEditor) {
 func (c NSController) ObjectDidEndEditing(editor NSEditor) {
 	objc.Send[objc.ID](c.ID, objc.Sel("objectDidEndEditing:"), editor)
 }
+
 // Attempts to commit any pending edits.
 //
 // # Return Value
-// 
-// [true] if successful or no edits were pending.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if successful or no edits were pending.
 //
 // # Discussion
-// 
+//
 // The receiver invokes [commitEditing] on any current editors, returning
 // their response. A commit is denied if the receiver fails to apply the
 // changes to the model object, perhaps due to a validation error.
 //
-// [commitEditing]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/commitEditing
-//
 // See: https://developer.apple.com/documentation/AppKit/NSController/commitEditing()
+//
+// [commitEditing]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/commitEditing
 func (c NSController) CommitEditing() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("commitEditing"))
 	return rv
 }
+
 // Attempts to commit any pending changes in known editors of the receiver.
 //
 // delegate: An object that can serve as the receiver’s delegate. It should implement
@@ -184,28 +186,28 @@ func (c NSController) CommitEditing() bool {
 // delegate when `didCommitSelector` is invoked.
 //
 // # Discussion
-// 
+//
 // Provides support for the NSEditor informal protocol. This method attempts
 // to commit pending changes in known editors. Known editors are either
 // instances of a subclass of [NSController] or (more rarely) user interface
 // controls that may contain pending edits—such as text fields—that
 // registered with the context using [ObjectDidBeginEditing] and have not yet
 // unregistered using a subsequent invocation of [ObjectDidEndEditing].
-// 
+//
 // The receiver iterates through the array of its known editors and invokes
 // `commitEditing` on each. The receiver then sends the message specified by
 // the `didCommitSelector` selector to the specified delegate.
-// 
+//
 // The `didCommit` argument is the value returned by the editor specified by
 // `editor` from the `commitEditing` message. The `contextInfo` argument is
 // the same value specified as the `contextInfo` parameter—you may use this
 // value however you wish.
-// 
+//
 // If an error occurs while attempting to commit, for example if key-value
 // coding validation fails, your implementation of this method should
-// typically send the view in which editing is being performed a `` message,
+// typically send the view in which editing is being performed a “ message,
 // specifying the view’s containing window.
-// 
+//
 // You may find this method useful in some situations (typically if you are
 // using Cocoa Bindings) when you want to ensure that pending changes are
 // applied before a change in user interface state. For example, you may need
@@ -218,25 +220,26 @@ func (c NSController) CommitEditing() bool {
 func (c NSController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](c.ID, objc.Sel("commitEditingWithDelegate:didCommitSelector:contextInfo:"), delegate, didCommitSelector, contextInfo)
 }
+
 // Discards any pending changes by registered editors.
 //
 // # Discussion
-// 
+//
 // The receiver invokes [discardEditing] on any current editors.
 //
-// [discardEditing]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/discardEditing
-//
 // See: https://developer.apple.com/documentation/AppKit/NSController/discardEditing()
+//
+// [discardEditing]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/discardEditing
 func (c NSController) DiscardEditing() {
 	objc.Send[objc.ID](c.ID, objc.Sel("discardEditing"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSController/init(coder:)
 func (c NSController) InitWithCoder(coder foundation.INSCoder) NSController {
 	rv := objc.Send[NSController](c.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditingWithoutPresentingError()
 func (c NSController) CommitEditingAndReturnError() (bool, error) {
 	var errorPtr objc.ID
@@ -259,12 +262,9 @@ func (c NSController) EncodeWithCoder(coder foundation.INSCoder) {
 // controller.
 //
 // # Discussion
-// 
-// The value of this property is [true] when an editor is registered with the
-// controller object or [false] when no editor is registered.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true when an editor is registered with the
+// controller object or false when no editor is registered.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSController/isEditing
 func (c NSController) Editing() bool {
@@ -272,6 +272,4 @@ func (c NSController) Editing() bool {
 	return rv
 }
 
-			// Protocol methods for NSEditorRegistration
-			
-
+// Protocol methods for NSEditorRegistration

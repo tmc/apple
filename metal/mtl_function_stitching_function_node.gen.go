@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,12 +46,12 @@ func (mc MTLFunctionStitchingFunctionNodeClass) Alloc() MTLFunctionStitchingFunc
 // A call graph node that describes a function call and its inputs.
 //
 // # Overview
-// 
+//
 // When the Metal device object evaluates the function graph to compile the
 // stitched function, it evaluates the nodes stored in the [MTLFunctionStitchingFunctionNode.Arguments]
 // property that it hasn’t already evaluated, and then calls the function
 // specified by [MTLFunctionStitchingFunctionNode.Name] to generate the node’s output.
-// 
+//
 // If the function has side effects on the input data, use the
 // [MTLFunctionStitchingFunctionNode.ControlDependencies] property on other nodes to specify whether the Metal
 // device object needs to evaluate this node first.
@@ -79,6 +80,7 @@ type MTLFunctionStitchingFunctionNode struct {
 func MTLFunctionStitchingFunctionNodeFromID(id objc.ID) MTLFunctionStitchingFunctionNode {
 	return MTLFunctionStitchingFunctionNode{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLFunctionStitchingFunctionNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -171,7 +173,7 @@ func (f MTLFunctionStitchingFunctionNode) InitWithNameArgumentsControlDependenci
 // The name of the function to call.
 //
 // # Discussion
-// 
+//
 // The name needs to match one of the functions in the stitched library
 // descriptor’s [Functions] property.
 //
@@ -183,10 +185,11 @@ func (f MTLFunctionStitchingFunctionNode) Name() string {
 func (f MTLFunctionStitchingFunctionNode) SetName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setName:"), objc.String(value))
 }
+
 // An ordered list of the nodes that provide the function’s arguments.
 //
 // # Discussion
-// 
+//
 // Each node’s output data types needs to match the input data type of the
 // matching argument.
 //
@@ -200,10 +203,11 @@ func (f MTLFunctionStitchingFunctionNode) Arguments() []objectivec.IObject {
 func (f MTLFunctionStitchingFunctionNode) SetArguments(value []objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setArguments:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The list of nodes that need to execute before executing the node.
 //
 // # Discussion
-// 
+//
 // When a stitched function calls functions that have side effects on their
 // input data, you often need the GPU to execute functions in a specific
 // order. In such cases, use the [ControlDependencies] property to specify
@@ -220,6 +224,4 @@ func (f MTLFunctionStitchingFunctionNode) SetControlDependencies(value []MTLFunc
 	objc.Send[struct{}](f.ID, objc.Sel("setControlDependencies:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-			// Protocol methods for MTLFunctionStitchingNode
-			
-
+// Protocol methods for MTLFunctionStitchingNode

@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (ac AVExternalSyncDeviceDiscoverySessionClass) Alloc() AVExternalSyncDevice
 // external sync devices to the host.
 //
 // # Overview
-// 
+//
 // [AVExternalSyncDeviceDiscoverySession] is a singleton that lists the
 // external sync devices connected to the host. The client is expected to
 // key-value observe the [AVExternalSyncDeviceDiscoverySession.Devices] property for changes to the external sync
@@ -67,6 +68,7 @@ type AVExternalSyncDeviceDiscoverySession struct {
 func AVExternalSyncDeviceDiscoverySessionFromID(id objc.ID) AVExternalSyncDeviceDiscoverySession {
 	return AVExternalSyncDeviceDiscoverySession{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVExternalSyncDeviceDiscoverySession adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -108,7 +110,7 @@ func NewAVExternalSyncDeviceDiscoverySession() AVExternalSyncDeviceDiscoverySess
 // An array of external sync devices connected to this host.
 //
 // # Discussion
-// 
+//
 // The list is updated when external sync devices are connected to the host
 // and they remain in the list until they become unavailable. This property is
 // key-value observable.
@@ -125,7 +127,7 @@ func (e AVExternalSyncDeviceDiscoverySession) Devices() []AVExternalSyncDevice {
 // session.
 //
 // # Discussion
-// 
+//
 // Access the one and only external sync device discovery session on this host
 // device using this method. `sharedSession` returns `nil` if the host device
 // doesn’t support external sync devices.
@@ -135,10 +137,11 @@ func (_AVExternalSyncDeviceDiscoverySessionClass AVExternalSyncDeviceDiscoverySe
 	rv := objc.Send[objc.ID](objc.ID(_AVExternalSyncDeviceDiscoverySessionClass.class), objc.Sel("sharedSession"))
 	return AVExternalSyncDeviceDiscoverySessionFromID(objc.ID(rv))
 }
+
 // Whether external sync devices are supported by this device.
 //
 // # Discussion
-// 
+//
 // A value of `true` indicates that external sync devices are supported while
 // `false` indicates they are not.
 //
@@ -147,4 +150,3 @@ func (_AVExternalSyncDeviceDiscoverySessionClass AVExternalSyncDeviceDiscoverySe
 	rv := objc.Send[bool](objc.ID(_AVExternalSyncDeviceDiscoverySessionClass.class), objc.Sel("isSupported"))
 	return rv
 }
-

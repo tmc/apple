@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_fuse_broadcastable_transposes struct {
 func EspressoPass_fuse_broadcastable_transposesFromID(id objc.ID) EspressoPass_fuse_broadcastable_transposes {
 	return EspressoPass_fuse_broadcastable_transposes{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_fuse_broadcastable_transposes implements IEspressoPass_fuse_broadcastable_transposes.
 var _ IEspressoPass_fuse_broadcastable_transposes = EspressoPass_fuse_broadcastable_transposes{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_fuse_broadcastable_transposes() EspressoPass_fuse_broadcast
 	rv := objc.Send[EspressoPass_fuse_broadcastable_transposes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

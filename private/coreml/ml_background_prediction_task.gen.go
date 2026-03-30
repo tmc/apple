@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLBackgroundPredictionTaskClass) Alloc() MLBackgroundPredictionTask {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLBackgroundPredictionTask.ModelConfiguration]
@@ -51,6 +51,7 @@ func (mc MLBackgroundPredictionTaskClass) Alloc() MLBackgroundPredictionTask {
 //   - [MLBackgroundPredictionTask.SetModelURL]
 //   - [MLBackgroundPredictionTask.PredictionOptions]
 //   - [MLBackgroundPredictionTask.SetPredictionOptions]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask
 type MLBackgroundPredictionTask struct {
 	MLBackgroundTask
@@ -60,6 +61,7 @@ type MLBackgroundPredictionTask struct {
 func MLBackgroundPredictionTaskFromID(id objc.ID) MLBackgroundPredictionTask {
 	return MLBackgroundPredictionTask{MLBackgroundTask: MLBackgroundTaskFromID(id)}
 }
+
 // Ensure MLBackgroundPredictionTask implements IMLBackgroundPredictionTask.
 var _ IMLBackgroundPredictionTask = MLBackgroundPredictionTask{}
 
@@ -107,7 +109,6 @@ func NewMLBackgroundPredictionTask() MLBackgroundPredictionTask {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/initWithCoder:
 func NewBackgroundPredictionTaskWithCoder(coder objectivec.IObject) MLBackgroundPredictionTask {
 	instance := getMLBackgroundPredictionTaskClass().Alloc()
@@ -129,6 +130,7 @@ func (b MLBackgroundPredictionTask) ModelConfiguration() IMLModelConfiguration {
 func (b MLBackgroundPredictionTask) SetModelConfiguration(value IMLModelConfiguration) {
 	objc.Send[struct{}](b.ID, objc.Sel("setModelConfiguration:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/modelURL
 func (b MLBackgroundPredictionTask) ModelURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("modelURL"))
@@ -137,6 +139,7 @@ func (b MLBackgroundPredictionTask) ModelURL() foundation.INSURL {
 func (b MLBackgroundPredictionTask) SetModelURL(value foundation.INSURL) {
 	objc.Send[struct{}](b.ID, objc.Sel("setModelURL:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundPredictionTask/predictionOptions
 func (b MLBackgroundPredictionTask) PredictionOptions() IMLPredictionOptions {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("predictionOptions"))
@@ -145,4 +148,3 @@ func (b MLBackgroundPredictionTask) PredictionOptions() IMLPredictionOptions {
 func (b MLBackgroundPredictionTask) SetPredictionOptions(value IMLPredictionOptions) {
 	objc.Send[struct{}](b.ID, objc.Sel("setPredictionOptions:"), value)
 }
-

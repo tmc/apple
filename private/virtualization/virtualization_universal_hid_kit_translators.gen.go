@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VirtualizationUniversalHIDKitTranslators struct {
 func VirtualizationUniversalHIDKitTranslatorsFromID(id objc.ID) VirtualizationUniversalHIDKitTranslators {
 	return VirtualizationUniversalHIDKitTranslators{objectivec.Object{ID: id}}
 }
+
 // NOTE: VirtualizationUniversalHIDKitTranslators struct embeds objectivec.Object (parent type unavailable) but
 // IVirtualizationUniversalHIDKitTranslators embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewVirtualizationUniversalHIDKitTranslators() VirtualizationUniversalHIDKit
 	rv := objc.Send[VirtualizationUniversalHIDKitTranslators](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

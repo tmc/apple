@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMetricHLSPlaylistRequestEvent] class.
@@ -61,6 +62,7 @@ type AVMetricHLSPlaylistRequestEvent struct {
 func AVMetricHLSPlaylistRequestEventFromID(id objc.ID) AVMetricHLSPlaylistRequestEvent {
 	return AVMetricHLSPlaylistRequestEvent{AVMetricEvent: AVMetricEventFromID(id)}
 }
+
 // NOTE: AVMetricHLSPlaylistRequestEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,19 +111,21 @@ func (m AVMetricHLSPlaylistRequestEvent) IsMultivariantPlaylist() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isMultivariantPlaylist"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSPlaylistRequestEvent/mediaResourceRequestEvent
 func (m AVMetricHLSPlaylistRequestEvent) MediaResourceRequestEvent() IAVMetricMediaResourceRequestEvent {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaResourceRequestEvent"))
 	return AVMetricMediaResourceRequestEventFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSPlaylistRequestEvent/mediaType
 func (m AVMetricHLSPlaylistRequestEvent) MediaType() AVMediaType {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaType"))
 	return AVMediaType(foundation.NSStringFromID(rv).String())
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSPlaylistRequestEvent/url
 func (m AVMetricHLSPlaylistRequestEvent) Url() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

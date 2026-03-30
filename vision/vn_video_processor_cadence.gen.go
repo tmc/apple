@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,6 +55,7 @@ type VNVideoProcessorCadence struct {
 func VNVideoProcessorCadenceFromID(id objc.ID) VNVideoProcessorCadence {
 	return VNVideoProcessorCadence{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNVideoProcessorCadence adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -97,4 +99,3 @@ func (v VNVideoProcessorCadence) Cadence() IVNVideoProcessorCadence {
 func (v VNVideoProcessorCadence) SetCadence(value IVNVideoProcessorCadence) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCadence:"), value)
 }
-

@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVDelegatingPlaybackCoordinatorSeekCommand] class.
@@ -62,6 +63,7 @@ type AVDelegatingPlaybackCoordinatorSeekCommand struct {
 func AVDelegatingPlaybackCoordinatorSeekCommandFromID(id objc.ID) AVDelegatingPlaybackCoordinatorSeekCommand {
 	return AVDelegatingPlaybackCoordinatorSeekCommand{AVDelegatingPlaybackCoordinatorPlaybackControlCommand: AVDelegatingPlaybackCoordinatorPlaybackControlCommandFromID(id)}
 }
+
 // NOTE: AVDelegatingPlaybackCoordinatorSeekCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,6 +119,7 @@ func (d AVDelegatingPlaybackCoordinatorSeekCommand) ShouldBufferInAnticipationOf
 	rv := objc.Send[bool](d.ID, objc.Sel("shouldBufferInAnticipationOfPlayback"))
 	return rv
 }
+
 // The rate at which the coordinator expects playback to resume.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorSeekCommand/anticipatedPlaybackRate
@@ -124,6 +127,7 @@ func (d AVDelegatingPlaybackCoordinatorSeekCommand) AnticipatedPlaybackRate() fl
 	rv := objc.Send[float32](d.ID, objc.Sel("anticipatedPlaybackRate"))
 	return rv
 }
+
 // The time to seek to in the item timeline.
 //
 // # Discussion
@@ -133,6 +137,7 @@ func (d AVDelegatingPlaybackCoordinatorSeekCommand) ItemTime() coremedia.CMTime 
 	rv := objc.Send[coremedia.CMTime](d.ID, objc.Sel("itemTime"))
 	return coremedia.CMTime(rv)
 }
+
 // The deadline by which the coordinator expects the delegate to handle the
 // command.
 //
@@ -141,4 +146,3 @@ func (d AVDelegatingPlaybackCoordinatorSeekCommand) CompletionDueDate() foundati
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("completionDueDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-

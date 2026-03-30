@@ -4,11 +4,12 @@ package coreimage
 
 import (
 	"unsafe"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -73,6 +74,7 @@ type CIImageProcessorInput interface {
 type CIImageProcessorInputObject struct {
 	objectivec.Object
 }
+
 func (o CIImageProcessorInputObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -92,14 +94,16 @@ func CIImageProcessorInputObjectFromID(id objc.ID) CIImageProcessorInputObject {
 func (o CIImageProcessorInputObject) BaseAddress() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("baseAddress"))
 	return rv
-	}
+}
+
 // A MTLTexture object that can be bound for input using Metal.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/metalTexture
 func (o CIImageProcessorInputObject) MetalTexture() metal.MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metalTexture"))
 	return metal.MTLTextureObjectFromID(rv)
-	}
+}
+
 // An input pixel buffer object that your Core Image Processor Kernel can read
 // from.
 //
@@ -107,7 +111,8 @@ func (o CIImageProcessorInputObject) MetalTexture() metal.MTLTexture {
 func (o CIImageProcessorInputObject) PixelBuffer() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](o.ID, objc.Sel("pixelBuffer"))
 	return rv
-	}
+}
+
 // An input surface object that your Core Image Processor Kernel can read
 // from.
 //
@@ -115,7 +120,8 @@ func (o CIImageProcessorInputObject) PixelBuffer() corevideo.CVImageBufferRef {
 func (o CIImageProcessorInputObject) Surface() iosurface.IOSurfaceRef {
 	rv := objc.Send[iosurface.IOSurfaceRef](o.ID, objc.Sel("surface"))
 	return rv
-	}
+}
+
 // The rectangular region of the input image that your Core Image Processor
 // Kernel can use to provide the output.
 //
@@ -123,7 +129,8 @@ func (o CIImageProcessorInputObject) Surface() iosurface.IOSurfaceRef {
 func (o CIImageProcessorInputObject) Region() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("region"))
 	return rv
-	}
+}
+
 // The bytes per row of the CPU memory that your Core Image Processor Kernel
 // can read pixelsfrom.
 //
@@ -131,7 +138,8 @@ func (o CIImageProcessorInputObject) Region() corefoundation.CGRect {
 func (o CIImageProcessorInputObject) BytesPerRow() uintptr {
 	rv := objc.Send[uintptr](o.ID, objc.Sel("bytesPerRow"))
 	return rv
-	}
+}
+
 // The pixel format of the CPU memory that your Core Image Processor Kernel
 // can read pixels from.
 //
@@ -139,7 +147,8 @@ func (o CIImageProcessorInputObject) BytesPerRow() uintptr {
 func (o CIImageProcessorInputObject) Format() CIFormat {
 	rv := objc.Send[CIFormat](o.ID, objc.Sel("format"))
 	return rv
-	}
+}
+
 // A 64-bit digest that uniquely describes the contents of the input to a
 // processor.
 //
@@ -147,7 +156,8 @@ func (o CIImageProcessorInputObject) Format() CIFormat {
 func (o CIImageProcessorInputObject) Digest() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("digest"))
 	return rv
-	}
+}
+
 // This property tells a tiled-input processor how many input tiles will be
 // processed.
 //
@@ -155,7 +165,8 @@ func (o CIImageProcessorInputObject) Digest() uint64 {
 func (o CIImageProcessorInputObject) RoiTileCount() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("roiTileCount"))
 	return rv
-	}
+}
+
 // This property tells a tiled-input processor which input tile index is being
 // processed.
 //
@@ -163,5 +174,4 @@ func (o CIImageProcessorInputObject) RoiTileCount() uint {
 func (o CIImageProcessorInputObject) RoiTileIndex() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("roiTileIndex"))
 	return rv
-	}
-
+}

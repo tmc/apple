@@ -4,10 +4,11 @@ package avfoundation
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,13 +48,11 @@ func (ac AVSampleBufferGeneratorClass) Alloc() AVSampleBufferGenerator {
 // An object that creates sample buffers.
 //
 // # Overview
-// 
+//
 // Each request for [CMSampleBuffer] creation is described in an
 // [AVSampleBufferRequest] object. The [CMSampleBuffer] opaque objects are
 // returned synchronously. If requested, sample data may be loaded
 // asynchronously (depending on file format support).
-//
-// [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 //
 // # Creating sample buffer generators
 //
@@ -66,6 +65,8 @@ func (ac AVSampleBufferGeneratorClass) Alloc() AVSampleBufferGenerator {
 //   - [AVSampleBufferGenerator.CreateSampleBufferForRequestAddingToBatchError]: Creates a sample buffer and attempts to defer I/O for its data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferGenerator
+//
+// [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 type AVSampleBufferGenerator struct {
 	objectivec.Object
 }
@@ -76,6 +77,7 @@ type AVSampleBufferGenerator struct {
 func AVSampleBufferGeneratorFromID(id objc.ID) AVSampleBufferGenerator {
 	return AVSampleBufferGenerator{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSampleBufferGenerator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -136,7 +138,7 @@ func NewAVSampleBufferGenerator() AVSampleBufferGenerator {
 // timebase: If [NULL], requests will be handled synchronously.
 //
 // # Return Value
-// 
+//
 // An initialized [AVSampleBufferGenerator] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferGenerator/init(asset:timebase:)
@@ -153,7 +155,7 @@ func NewSampleBufferGeneratorWithAssetTimebase(asset IAVAsset, timebase uintptr)
 // timebase: If [NULL], requests will be handled synchronously.
 //
 // # Return Value
-// 
+//
 // An initialized [AVSampleBufferGenerator] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferGenerator/init(asset:timebase:)
@@ -161,24 +163,25 @@ func (s AVSampleBufferGenerator) InitWithAssetTimebase(asset IAVAsset, timebase 
 	rv := objc.Send[AVSampleBufferGenerator](s.ID, objc.Sel("initWithAsset:timebase:"), asset, timebase)
 	return rv
 }
+
 // Creates a sample buffer, and attempts to load its data asynchronously if
 // requested.
 //
 // request: A sample buffer creation request.
 //
 // # Return Value
-// 
+//
 // A sample buffer object.
 //
 // # Discussion
-// 
+//
 // If you created the generator with a `nil` timebase, any associated
 // [AVSampleBufferRequest] objects default to using a request mode of
-// [SampleBufferRequestModeImmediate].
-// 
+// [AVSampleBufferRequestModeImmediate].
+//
 // Call the [NotifyOfDataReadyForSampleBufferCompletionHandler] class method
 // to have the system notify you when sample buffer data is available.
-// 
+//
 // The request may fail based on generator configuration or file format.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferGenerator/makeSampleBuffer(for:)
@@ -192,14 +195,15 @@ func (s AVSampleBufferGenerator) CreateSampleBufferForRequestError(request IAVSa
 	return rv, nil
 
 }
+
 // Creates a batch object to handle generating multiple sample buffers.
 //
 // # Return Value
-// 
+//
 // An object to batch generate sample buffers.
 //
 // # Discussion
-// 
+//
 // Generating sample buffers in batches optimizes performance by allowing the
 // system to asynchronously load sample data and optimize I/O when possible.
 //
@@ -208,6 +212,7 @@ func (s AVSampleBufferGenerator) MakeBatch() IAVSampleBufferGeneratorBatch {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeBatch"))
 	return AVSampleBufferGeneratorBatchFromID(rv)
 }
+
 // Creates a sample buffer and attempts to defer I/O for its data.
 //
 // request: A sample buffer creation request.
@@ -217,24 +222,24 @@ func (s AVSampleBufferGenerator) MakeBatch() IAVSampleBufferGeneratorBatch {
 // or an error occurs.
 //
 // # Return Value
-// 
+//
 // A sample buffer.
 //
 // # Discussion
-// 
+//
 // Call the [DataReadyWithCompletionHandler] on [AVSampleBufferGeneratorBatch]
 // once to commence I/O and load sample data for all [CMSampleBuffer] objects
 // in a batch. After loading commences, any subsequent calls to
 // [CreateSampleBufferForRequestAddingToBatchError] throw an exception.
-// 
+//
 // The generator may defer I/O to fetch sample data depending on the source of
 // the sample data and the generator’s timebase
-// 
+//
 // The request may fail based on generator configuration or file format.
 //
-// [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferGenerator/makeSampleBuffer(for:addTo:)
+//
+// [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 func (s AVSampleBufferGenerator) CreateSampleBufferForRequestAddingToBatchError(request IAVSampleBufferRequest, batch IAVSampleBufferGeneratorBatch) (uintptr, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[uintptr](s.ID, objc.Sel("createSampleBufferForRequest:addingToBatch:error:"), request, batch, unsafe.Pointer(&errorPtr))
@@ -252,15 +257,13 @@ func (s AVSampleBufferGenerator) CreateSampleBufferForRequestAddingToBatchError(
 // sbuf: The [CMSampleBufferRef].
 //
 // completionHandler: A completion block that is called when data is ready for the sample buffer
-// or an error occurs. The `dataReady` argument is [true] if data is read for
+// or an error occurs. The `dataReady` argument is true if data is read for
 // the sample buffer. If an error occurs, the `error` argument contains the
 // [NSError] object.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferGenerator/notifyOfDataReady(for:completionHandler:)
 func (_AVSampleBufferGeneratorClass AVSampleBufferGeneratorClass) NotifyOfDataReadyForSampleBufferCompletionHandler(sbuf uintptr, completionHandler BoolErrorHandler) {
-_block1, _ := NewBoolErrorBlock(completionHandler)
+	_block1, _ := NewBoolErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_AVSampleBufferGeneratorClass.class), objc.Sel("notifyOfDataReadyForSampleBuffer:completionHandler:"), sbuf, _block1)
 }
 
@@ -282,4 +285,3 @@ func (sc AVSampleBufferGeneratorClass) NotifyOfDataReadyForSampleBuffer(ctx cont
 		return false, ctx.Err()
 	}
 }
-

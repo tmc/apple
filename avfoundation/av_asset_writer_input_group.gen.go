@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (ac AVAssetWriterInputGroupClass) Alloc() AVAssetWriterInputGroup {
 // playback or processing.
 //
 // # Overview
-// 
+//
 // Assets may contain multiple tracks of media that are mutually exclusive to
 // each other when you play or process them. For example, an asset may contain
 // multiple audio tracks for different spoken languages, but only one of them
@@ -74,6 +75,7 @@ type AVAssetWriterInputGroup struct {
 func AVAssetWriterInputGroupFromID(id objc.ID) AVAssetWriterInputGroup {
 	return AVAssetWriterInputGroup{AVMediaSelectionGroup: AVMediaSelectionGroupFromID(id)}
 }
+
 // NOTE: AVAssetWriterInputGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,13 +133,10 @@ func NewAVAssetWriterInputGroup() AVAssetWriterInputGroup {
 // defaultInput: The group’s default input.
 //
 // # Discussion
-// 
-// When you add an input group to an asset writer, the system sets the default
-// input’s [MarksOutputTrackAsEnabled] property value to [true], and the
-// value of the other inputs in the group to [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When you add an input group to an asset writer, the system sets the default
+// input’s [MarksOutputTrackAsEnabled] property value to true, and the value
+// of the other inputs in the group to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInputGroup/init(inputs:defaultInput:)
 func NewAssetWriterInputGroupWithInputsDefaultInput(inputs []AVAssetWriterInput, defaultInput IAVAssetWriterInput) AVAssetWriterInputGroup {
@@ -153,13 +152,10 @@ func NewAssetWriterInputGroupWithInputsDefaultInput(inputs []AVAssetWriterInput,
 // defaultInput: The group’s default input.
 //
 // # Discussion
-// 
-// When you add an input group to an asset writer, the system sets the default
-// input’s [MarksOutputTrackAsEnabled] property value to [true], and the
-// value of the other inputs in the group to [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When you add an input group to an asset writer, the system sets the default
+// input’s [MarksOutputTrackAsEnabled] property value to true, and the value
+// of the other inputs in the group to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInputGroup/init(inputs:defaultInput:)
 func (a AVAssetWriterInputGroup) InitWithInputsDefaultInput(inputs []AVAssetWriterInput, defaultInput IAVAssetWriterInput) AVAssetWriterInputGroup {
@@ -174,17 +170,14 @@ func (a AVAssetWriterInputGroup) InitWithInputsDefaultInput(inputs []AVAssetWrit
 // defaultInput: The group’s default input.
 //
 // # Return Value
-// 
+//
 // An asset writer input group.
 //
 // # Discussion
-// 
-// When you add an input group to an asset writer, the system sets the default
-// input’s [MarksOutputTrackAsEnabled] property value to [true], and the
-// value of the other inputs in the group to [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When you add an input group to an asset writer, the system sets the default
+// input’s [MarksOutputTrackAsEnabled] property value to true, and the value
+// of the other inputs in the group to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInputGroup/assetWriterInputGroupWithInputs:defaultInput:
 func (_AVAssetWriterInputGroupClass AVAssetWriterInputGroupClass) AssetWriterInputGroupWithInputsDefaultInput(inputs []AVAssetWriterInput, defaultInput IAVAssetWriterInput) AVAssetWriterInputGroup {
@@ -202,6 +195,7 @@ func (a AVAssetWriterInputGroup) Inputs() []AVAssetWriterInput {
 		return AVAssetWriterInputFromID(id)
 	})
 }
+
 // The default input for the group.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInputGroup/defaultInput
@@ -209,4 +203,3 @@ func (a AVAssetWriterInputGroup) DefaultInput() IAVAssetWriterInput {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("defaultInput"))
 	return AVAssetWriterInputFromID(objc.ID(rv))
 }
-

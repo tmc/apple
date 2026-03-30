@@ -5,6 +5,7 @@ package texttospeech
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (tc TextToSpeechCoreSynthesisVoiceShimClass) Alloc() TextToSpeechCoreSynthe
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifier]
@@ -62,6 +62,7 @@ func (tc TextToSpeechCoreSynthesisVoiceShimClass) Alloc() TextToSpeechCoreSynthe
 //   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithIdentifierCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithLanguageCode]
 //   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithLanguageCodeCompletionHandler]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim
 type TextToSpeechCoreSynthesisVoiceShim struct {
 	objectivec.Object
@@ -71,6 +72,7 @@ type TextToSpeechCoreSynthesisVoiceShim struct {
 func TextToSpeechCoreSynthesisVoiceShimFromID(id objc.ID) TextToSpeechCoreSynthesisVoiceShim {
 	return TextToSpeechCoreSynthesisVoiceShim{objectivec.Object{ID: id}}
 }
+
 // Ensure TextToSpeechCoreSynthesisVoiceShim implements ITextToSpeechCoreSynthesisVoiceShim.
 var _ ITextToSpeechCoreSynthesisVoiceShim = TextToSpeechCoreSynthesisVoiceShim{}
 
@@ -140,107 +142,107 @@ func NewTextToSpeechCoreSynthesisVoiceShim() TextToSpeechCoreSynthesisVoiceShim 
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/internalVoiceWithIdentifier:
 func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("internalVoiceWithIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/internalVoiceWithIdentifier:completionHandler:
 func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("internalVoiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/internalVoicesIncludingSiri:
 func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoicesIncludingSiri(siri bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("internalVoicesIncludingSiri:"), siri)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/internalVoicesIncludingSiri:completionHandler:
 func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoicesIncludingSiriCompletionHandler(siri bool, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("internalVoicesIncludingSiri:completionHandler:"), siri, _block1)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/publicVoices
 func (t TextToSpeechCoreSynthesisVoiceShim) PublicVoices() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("publicVoices"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/publicVoicesWithCompletionHandler:
 func (t TextToSpeechCoreSynthesisVoiceShim) PublicVoicesWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("publicVoicesWithCompletionHandler:"), _block0)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/reloadPublicResolver
 func (t TextToSpeechCoreSynthesisVoiceShim) ReloadPublicResolver() {
 	objc.Send[objc.ID](t.ID, objc.Sel("reloadPublicResolver"))
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/resourceVoiceWithIdentifier:
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourceVoiceWithIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/resourceVoiceWithIdentifier:completionHandler:
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("resourceVoiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/resourceVoicesWithOnlyInstalled:
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoicesWithOnlyInstalled(installed bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourceVoicesWithOnlyInstalled:"), installed)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/resourceVoicesWithOnlyInstalled:completionHandler:
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoicesWithOnlyInstalledCompletionHandler(installed bool, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("resourceVoicesWithOnlyInstalled:completionHandler:"), installed, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/resourcesWithLanguageCode:
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourcesWithLanguageCode(code objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourcesWithLanguageCode:"), code)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/resourcesWithLanguageCode:completionHandler:
 func (t TextToSpeechCoreSynthesisVoiceShim) ResourcesWithLanguageCodeCompletionHandler(code string, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("resourcesWithLanguageCode:completionHandler:"), objc.String(code), _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/voiceWithIdentifier:
 func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/voiceWithIdentifier:completionHandler:
 func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/voiceWithLanguageCode:
 func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCode(code objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceWithLanguageCode:"), code)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/voiceWithLanguageCode:completionHandler:
 func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCodeCompletionHandler(code string, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithLanguageCode:completionHandler:"), objc.String(code), _block1)
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/setShared:
 func (_TextToSpeechCoreSynthesisVoiceShimClass TextToSpeechCoreSynthesisVoiceShimClass) SetShared(shared objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_TextToSpeechCoreSynthesisVoiceShimClass.class), objc.Sel("setShared:"), shared)
@@ -365,4 +367,3 @@ func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCodeSync(ctx contex
 		return ctx.Err()
 	}
 }
-

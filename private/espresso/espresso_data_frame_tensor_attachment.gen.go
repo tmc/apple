@@ -4,8 +4,9 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corevideo"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,10 +43,10 @@ func (ec EspressoDataFrameTensorAttachmentClass) Alloc() EspressoDataFrameTensor
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoDataFrameTensorAttachment.CopyAsEspressoBuffer]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameTensorAttachment
 type EspressoDataFrameTensorAttachment struct {
 	EspressoDataFrameAttachment
@@ -55,6 +56,7 @@ type EspressoDataFrameTensorAttachment struct {
 func EspressoDataFrameTensorAttachmentFromID(id objc.ID) EspressoDataFrameTensorAttachment {
 	return EspressoDataFrameTensorAttachment{EspressoDataFrameAttachment: EspressoDataFrameAttachmentFromID(id)}
 }
+
 // Ensure EspressoDataFrameTensorAttachment implements IEspressoDataFrameTensorAttachment.
 var _ IEspressoDataFrameTensorAttachment = EspressoDataFrameTensorAttachment{}
 
@@ -98,10 +100,8 @@ func (e EspressoDataFrameTensorAttachment) CopyAsEspressoBuffer() objectivec.IOb
 	return objectivec.Object{ID: rv}
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameTensorAttachment/copyFromCVPixelBuffer:
 func (_EspressoDataFrameTensorAttachmentClass EspressoDataFrameTensorAttachmentClass) CopyFromCVPixelBuffer(buffer corevideo.CVImageBufferRef) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_EspressoDataFrameTensorAttachmentClass.class), objc.Sel("copyFromCVPixelBuffer:"), buffer)
 	return objectivec.Object{ID: rv}
 }
-

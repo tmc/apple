@@ -1,10 +1,10 @@
-
 // Code generated from Apple documentation for Metal. DO NOT EDIT.
 
 package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -45,4 +45,3 @@ func (o MTLSharedEventObject) NotifyListenerAtValueRetained(listener IMTLSharedE
 	objc.Send[struct{}](o.ID, objc.Sel("notifyListener:atValue:block:"), listener, value, objc.ID(b))
 	return &SharedEventNotificationBinding{cleanup: b.Release}
 }
-

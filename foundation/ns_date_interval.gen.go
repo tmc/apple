@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,26 +46,24 @@ func (nc NSDateIntervalClass) Alloc() NSDateInterval {
 // end date.
 //
 // # Overview
-// 
+//
 // In Swift, this object bridges to [DateInterval]; use [NSDateInterval] when
 // you need reference semantics or other Foundation-specific behavior.
-// 
+//
 // An [NSDateInterval] object represents a closed interval between two dates.
 // The [NSDateInterval] class provides a programmatic interface for
 // calculating the duration of a time interval and determining whether a date
 // falls within it, as well as comparing date intervals and checking to see
 // whether they intersect.
-// 
+//
 // An [NSDateInterval] object consists of a [NSDateInterval.StartDate] and an [NSDateInterval.EndDate]. The
 // [NSDateInterval.StartDate] and [NSDateInterval.EndDate] of a date interval can be equal, in which case
 // its [NSDateInterval.Duration] is `0`. However, [NSDateInterval.EndDate] cannot occur earlier than
 // [NSDateInterval.StartDate].
-// 
+//
 // You can use the [NSDateIntervalFormatter] class to create string
 // representations of [NSDateInterval] objects that are suitable for display
 // in the current locale.
-//
-// [DateInterval]: https://developer.apple.com/documentation/Foundation/DateInterval
 //
 // # Creating Date Intervals
 //
@@ -92,6 +91,8 @@ func (nc NSDateIntervalClass) Alloc() NSDateInterval {
 //   - [NSDateInterval.ContainsDate]: Indicates whether the receiver contains the specified date.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval
+//
+// [DateInterval]: https://developer.apple.com/documentation/Foundation/DateInterval
 type NSDateInterval struct {
 	objectivec.Object
 }
@@ -103,6 +104,7 @@ type NSDateInterval struct {
 func NSDateIntervalFromID(id objc.ID) NSDateInterval {
 	return NSDateInterval{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSDateInterval adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -211,7 +213,7 @@ func NewDateIntervalWithCoder(coder INSCoder) NSDateInterval {
 // duration: The duration from the start date for the date interval.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/init(start:duration:)
@@ -241,7 +243,7 @@ func NewDateIntervalWithStartDateEndDate(startDate INSDate, endDate INSDate) NSD
 // duration: The duration from the start date for the date interval.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/init(start:duration:)
@@ -249,6 +251,7 @@ func (d NSDateInterval) InitWithStartDateDuration(startDate INSDate, duration fl
 	rv := objc.Send[NSDateInterval](d.ID, objc.Sel("initWithStartDate:duration:"), startDate, duration)
 	return rv
 }
+
 // Initializes a date interval from a given start date and end date.
 //
 // startDate: The start date of the date interval.
@@ -260,6 +263,7 @@ func (d NSDateInterval) InitWithStartDateEndDate(startDate INSDate, endDate INSD
 	rv := objc.Send[NSDateInterval](d.ID, objc.Sel("initWithStartDate:endDate:"), startDate, endDate)
 	return rv
 }
+
 // Returns a date interval initialized from data in the given unarchiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/init(coder:)
@@ -267,70 +271,70 @@ func (d NSDateInterval) InitWithCoder(coder INSCoder) NSDateInterval {
 	rv := objc.Send[NSDateInterval](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Compares the receiver with the specified date interval.
 //
 // dateInterval: The date interval with which to compare the receiver.
 //
 // # Return Value
-// 
+//
 // Returns an [ComparisonResult] value that indicates the temporal ordering of
 // the receiver and a given date interval:
-// 
-// - [OrderedAscending] if the receiver’s [StartDate] occurs earlier than
+//
+// - [NSOrderedAscending] if the receiver’s [StartDate] occurs earlier than
 // that of `dateInterval`, or both [StartDate] values are equal and the
 // [Duration] of the receiver is less than that of `dateInterval`. -
-// [OrderedDescending] if the receiver’s [StartDate] occurs later than that
-// of `dateInterval`, or both [StartDate] values are equal and the [Duration]
-// of the receiver is greater than that of `dateInterval`. - [OrderedSame] if
-// the receiver’s [StartDate] and [Duration] values are equal to those of
-// `dateInterval`.
-//
-// [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
+// [NSOrderedDescending] if the receiver’s [StartDate] occurs later than
+// that of `dateInterval`, or both [StartDate] values are equal and the
+// [Duration] of the receiver is greater than that of `dateInterval`. -
+// [NSOrderedSame] if the receiver’s [StartDate] and [Duration] values are
+// equal to those of `dateInterval`.
 //
 // # Discussion
-// 
+//
 // The following figure illustrates four [NSDateInterval] objects plotted on
 // an arbitrary time axis. Each date interval spans its [Duration] from left
 // to right, from its [StartDate] to its [EndDate].
-// 
+//
 // [media-2556955]
-// 
+//
 // The result of comparing the date interval labeled with the date interval
-// labeled is [OrderedAscending], because has a [StartDate] that occurs
+// labeled is [NSOrderedAscending], because has a [StartDate] that occurs
 // earlier than that of .
-// 
+//
 // The result of comparing the date interval labeled with the date interval
-// labeled is [OrderedDescending], because because and have the same
+// labeled is [NSOrderedDescending], because because and have the same
 // [StartDate], and has a [Duration] greater than that of .
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/compare(_:)
+//
+// [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
 func (d NSDateInterval) Compare(dateInterval INSDateInterval) ComparisonResult {
 	rv := objc.Send[ComparisonResult](d.ID, objc.Sel("compare:"), dateInterval)
 	return ComparisonResult(rv)
 }
+
 // Indicates whether the receiver is equal to the specified date interval.
 //
 // dateInterval: The date interval with which to check the receiver for equality.
 //
 // # Return Value
-// 
-// [true] if the [StartDate] and [Duration] of `dateInterval` and the receiver
-// are equal. Otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the [StartDate] and [Duration] of `dateInterval` and the receiver
+// are equal. Otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/isEqual(to:)
 func (d NSDateInterval) IsEqualToDateInterval(dateInterval INSDateInterval) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEqualToDateInterval:"), dateInterval)
 	return rv
 }
+
 // Indicates whether the receiver intersects with the specified date interval.
 //
 // dateInterval: The date interval with which to check the receiver for intersection.
 //
 // # Discussion
-// 
+//
 // See [IntersectionWithDateInterval] for more information about determining
 // whether two date intervals intersect.
 //
@@ -339,31 +343,32 @@ func (d NSDateInterval) IntersectsDateInterval(dateInterval INSDateInterval) boo
 	rv := objc.Send[bool](d.ID, objc.Sel("intersectsDateInterval:"), dateInterval)
 	return rv
 }
+
 // Returns the intersection between the receiver and the specified date
 // interval.
 //
 // dateInterval: The date interval with which to calculate the intersection of the receiver.
 //
 // # Return Value
-// 
+//
 // A date interval for the intersection of the receiver and `dateInterval`, or
 // `nil` if no intersection occurs.
 //
 // # Discussion
-// 
+//
 // Calculating the intersection of date intervals is a commutative and
 // associative operation. The intersection of a date interval with itself is
 // equal to itself.
-// 
+//
 // The following figure illustrates five [NSDateInterval] objects plotted on
 // an arbitrary time axis. Each date interval spans its [Duration] from left
 // to right, from its [StartDate] to its [EndDate].
-// 
+//
 // [media-2556958]
-// 
+//
 // The date intervals labeled and do not intersect, because the [StartDate] of
 // occurs later than the [EndDate] of .
-// 
+//
 // The date intervals labeled and do intersect. The date interval labeled
 // represents the result of calculating the intersection between and .
 //
@@ -372,22 +377,21 @@ func (d NSDateInterval) IntersectionWithDateInterval(dateInterval INSDateInterva
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("intersectionWithDateInterval:"), dateInterval)
 	return NSDateIntervalFromID(rv)
 }
+
 // Indicates whether the receiver contains the specified date.
 //
 // date: The date for which to test membership of the date interval.
 //
 // # Return Value
-// 
-// [true] if the receiver contains `date`. Otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver contains `date`. Otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/contains(_:)
 func (d NSDateInterval) ContainsDate(date INSDate) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("containsDate:"), date)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -404,6 +408,7 @@ func (d NSDateInterval) StartDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("startDate"))
 	return NSDateFromID(objc.ID(rv))
 }
+
 // The end date of the date interval.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/endDate
@@ -411,6 +416,7 @@ func (d NSDateInterval) EndDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("endDate"))
 	return NSDateFromID(objc.ID(rv))
 }
+
 // The duration of the date interval.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/duration
@@ -419,9 +425,6 @@ func (d NSDateInterval) Duration() float64 {
 	return float64(rv)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

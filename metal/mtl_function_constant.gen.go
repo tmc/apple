@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,11 +46,11 @@ func (mc MTLFunctionConstantClass) Alloc() MTLFunctionConstant {
 // A constant that specializes the behavior of a shader.
 //
 // # Overview
-// 
+//
 // Don’t create an [MTLFunctionConstant] instance directly. Instead, the
 // list of function constants for a function by querying the
 // `functionConstants` property of an [MTLFunction] instance.
-// 
+//
 // An [MTLFunctionConstant] instance should only be obtained from a
 // nonspecialized function created with the [NewFunctionWithName] method. You
 // only need an [MTLFunctionConstant] instance if you don’t have sufficient
@@ -76,6 +77,7 @@ type MTLFunctionConstant struct {
 func MTLFunctionConstantFromID(id objc.ID) MTLFunctionConstant {
 	return MTLFunctionConstant{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLFunctionConstant adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -130,6 +132,7 @@ func (f MTLFunctionConstant) Name() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The data type of the function constant.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstant/type
@@ -137,6 +140,7 @@ func (f MTLFunctionConstant) Type() MTLDataType {
 	rv := objc.Send[MTLDataType](f.ID, objc.Sel("type"))
 	return MTLDataType(rv)
 }
+
 // The index of the function constant.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstant/index
@@ -144,23 +148,22 @@ func (f MTLFunctionConstant) Index() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("index"))
 	return rv
 }
+
 // A Boolean value indicating whether the function constant needs to be
 // provided to specialize the function.
 //
 // # Discussion
-// 
-// This value is [true] if a constant value needs to be provided for the
+//
+// This value is true if a constant value needs to be provided for the
 // function constant. A function constant is optional only if it is referenced
 // in a call to the built-in `is_function_constant_defined(name)` function.
-// 
+//
 // Refer to the [Metal Shading Language Guide] for more information.
 //
-// [Metal Shading Language Guide]: https://developer.apple.com/library/archive/documentation/Metal/Reference/MetalShadingLanguageGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40014364
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstant/required
+//
+// [Metal Shading Language Guide]: https://developer.apple.com/library/archive/documentation/Metal/Reference/MetalShadingLanguageGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40014364
 func (f MTLFunctionConstant) Required() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("required"))
 	return rv
 }
-

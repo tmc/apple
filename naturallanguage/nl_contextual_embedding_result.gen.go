@@ -4,8 +4,9 @@ package naturallanguage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -63,6 +64,7 @@ type NLContextualEmbeddingResult struct {
 func NLContextualEmbeddingResultFromID(id objc.ID) NLContextualEmbeddingResult {
 	return NLContextualEmbeddingResult{objectivec.Object{ID: id}}
 }
+
 // NOTE: NLContextualEmbeddingResult adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,6 +133,7 @@ func (c NLContextualEmbeddingResult) Language() NLLanguage {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("language"))
 	return NLLanguage(foundation.NSStringFromID(rv).String())
 }
+
 // The number of embedding vectors the request generates.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbeddingResult/sequenceLength
@@ -138,6 +141,7 @@ func (c NLContextualEmbeddingResult) SequenceLength() uint {
 	rv := objc.Send[uint](c.ID, objc.Sel("sequenceLength"))
 	return rv
 }
+
 // The string value.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbeddingResult/string
@@ -145,4 +149,3 @@ func (c NLContextualEmbeddingResult) String() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("string"))
 	return foundation.NSStringFromID(rv).String()
 }
-

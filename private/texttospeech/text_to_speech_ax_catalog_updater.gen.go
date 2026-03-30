@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechAXCatalogUpdater struct {
 func TextToSpeechAXCatalogUpdaterFromID(id objc.ID) TextToSpeechAXCatalogUpdater {
 	return TextToSpeechAXCatalogUpdater{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechAXCatalogUpdater struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechAXCatalogUpdater embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechAXCatalogUpdater() TextToSpeechAXCatalogUpdater {
 	rv := objc.Send[TextToSpeechAXCatalogUpdater](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

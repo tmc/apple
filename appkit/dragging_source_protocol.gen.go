@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -24,6 +24,7 @@ type NSDraggingSource interface {
 type NSDraggingSourceObject struct {
 	objectivec.Object
 }
+
 func (o NSDraggingSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,25 +42,25 @@ func NSDraggingSourceObjectFromID(id objc.ID) NSDraggingSourceObject {
 // session: The dragging session.
 //
 // context: The dragging context. See [NSDraggingContext] for the supported values.
-// //
-// [NSDraggingContext]: https://developer.apple.com/documentation/AppKit/NSDraggingContext
 //
 // # Return Value
-// 
-// The appropriate dragging operation as defined in
+//
+// A dragging operation you specify.
 //
 // # Discussion
-// 
-// In the future Apple may provide more specific “within” values in the
-// future. To account for this, for unrecognized localities, return the
-// operation mask for the most specific context that you are concerned with.
-// The following code is an example of how to implement this functionality:
+//
+// To account for unexpected contexts, set a `default` case for the most
+// specific context your app handles. The following code shows an example that
+// handles different dragging contexts and includes a default case.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:sourceOperationMaskFor:)
+//
+// [NSDraggingContext]: https://developer.apple.com/documentation/AppKit/NSDraggingContext
 func (o NSDraggingSourceObject) DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation {
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("draggingSession:sourceOperationMaskForDraggingContext:"), session, context)
 	return rv
-	}
+}
+
 // Invoked when the drag will begin.
 //
 // session: The dragging session.
@@ -69,7 +70,8 @@ func (o NSDraggingSourceObject) DraggingSessionSourceOperationMaskForDraggingCon
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:willBeginAt:)
 func (o NSDraggingSourceObject) DraggingSessionWillBeginAtPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("draggingSession:willBeginAtPoint:"), session, screenPoint)
-	}
+}
+
 // Invoked when the drag moves on the screen.
 //
 // session: The dragging session.
@@ -79,7 +81,8 @@ func (o NSDraggingSourceObject) DraggingSessionWillBeginAtPoint(session INSDragg
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:movedTo:)
 func (o NSDraggingSourceObject) DraggingSessionMovedToPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("draggingSession:movedToPoint:"), session, screenPoint)
-	}
+}
+
 // Invoked when the dragging session has completed.
 //
 // session: The dragging session.
@@ -87,28 +90,25 @@ func (o NSDraggingSourceObject) DraggingSessionMovedToPoint(session INSDraggingS
 // screenPoint: The point where the drag ended, in screen coordinates.
 //
 // operation: The drag operation. See [NSDragOperation] for drag operation types.
-// //
-// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:endedAt:operation:)
+//
+// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
 func (o NSDraggingSourceObject) DraggingSessionEndedAtPointOperation(session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
 	objc.Send[struct{}](o.ID, objc.Sel("draggingSession:endedAtPoint:operation:"), session, screenPoint, operation)
-	}
+}
+
 // Returns whether the modifier keys will be ignored for this dragging
 // session.
 //
 // session: The dragging session.
 //
 // # Return Value
-// 
-// [true] if the modifier keys will be ignored, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the modifier keys will be ignored, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/ignoreModifierKeys(for:)
 func (o NSDraggingSourceObject) IgnoreModifierKeysForDraggingSession(session INSDraggingSession) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("ignoreModifierKeysForDraggingSession:"), session)
 	return rv
-	}
-
+}

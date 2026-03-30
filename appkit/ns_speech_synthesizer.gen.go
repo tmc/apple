@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSSpeechSynthesizerClass) Alloc() NSSpeechSynthesizer {
 // The Cocoa interface to speech synthesis in macOS.
 //
 // # Overview
-// 
+//
 // Speech synthesis, also called text-to-speech (TTS), parses text and
 // converts it into audible speech. It offers a concurrent feedback mode that
 // can be used in concert with or in place of traditional visual and aural
@@ -55,14 +56,14 @@ func (nc NSSpeechSynthesizerClass) Alloc() NSSpeechSynthesizer {
 // without forcing them to shift attention from their current task. And
 // because speech doesn’t rely on visual elements for meaning, it is a
 // crucial technology for users with vision or attention disabilities.
-// 
+//
 // In addition, synthesized speech can help save system resources. Because
 // sound samples can take up large amounts of room on disk, using text in
 // place of sampled sound is extremely efficient, and so a multimedia
 // application might use an [NSSpeechSynthesizer] object to provide a
 // narration of a QuickTime movie instead of including sampled-sound data on a
 // movie track.
-// 
+//
 // When you create an [NSSpeechSynthesizer] instance using the default
 // initializer (`init`), the class uses the selected in System Preferences >
 // Speech. Alternatively, you can select a specific voice for an
@@ -73,33 +74,31 @@ func (nc NSSpeechSynthesizerClass) Alloc() NSSpeechSynthesizer {
 // generated speech to a file. If you wish to be notified when the current
 // speech concludes, set the [NSSpeechSynthesizer.Delegate] property and implement the delegate
 // method [SpeechSynthesizerDidFinishSpeaking].
-// 
+//
 // Speech synthesis is just one of the macOS speech technologies. The speech
 // recognizer technology allows applications to “listen to” text spoken in
 // U.S. English; the [NSSpeechRecognizer] class is the Cocoa interface to this
 // technology. Both technologies provide benefits for all users, and are
 // particularly useful to those users who have difficulties seeing the screen
 // or using the mouse and keyboard.
-// 
+//
 // # Speech Feedback Window
-// 
+//
 // The speech feedback window ([Figure 1]) displays the text recognized from
 // the user’s speech and the text from which an [NSSpeechSynthesizer] object
 // synthesizes speech. Using the feedback window makes spoken exchange more
 // natural and helps the user understand the synthesized speech.
-// 
+//
 // [media-1965715]
-// 
+//
 // For example, your application may use an [NSSpeechRecognizer] object to
 // listen for the command “Play some music.” When it recognizes this
 // command, your application might then respond by speaking “Which
 // artist?” using a speech synthesizer.
-// 
-// When [NSSpeechSynthesizer.UsesFeedbackWindow] is [true], the speech synthesizer uses the
-// feedback window if its visible, which the user specifies in System
-// Preferences > Speech.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When [NSSpeechSynthesizer.UsesFeedbackWindow] is true, the speech synthesizer uses the feedback
+// window if its visible, which the user specifies in System Preferences >
+// Speech.
 //
 // # Customizing the Speech Synthesizer Behavior
 //
@@ -130,6 +129,7 @@ type NSSpeechSynthesizer struct {
 func NSSpeechSynthesizerFromID(id objc.ID) NSSpeechSynthesizer {
 	return NSSpeechSynthesizer{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSSpeechSynthesizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -180,7 +180,7 @@ type INSSpeechSynthesizer interface {
 	// Indicates whether the receiver is currently generating synthesized speech.
 	Speaking() bool
 
-	// The perceived gender of the voice. The supported values are listed in 
+	// The perceived gender of the voice. The supported values are listed in
 	Gender() NSVoiceAttributeKey
 }
 
@@ -212,7 +212,7 @@ func NewNSSpeechSynthesizer() NSSpeechSynthesizer {
 // user specifies in Speech preferences.
 //
 // # Return Value
-// 
+//
 // Initialized speech synthesizer or `nil` when the voice identified by
 // `voiceIdentifier` is not available or when there’s an allocation error.
 //
@@ -233,18 +233,15 @@ func (s NSSpeechSynthesizer) Delegate() NSSpeechSynthesizerDelegate {
 func (s NSSpeechSynthesizer) SetDelegate(value NSSpeechSynthesizerDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
+
 // Indicates whether the receiver uses the speech feedback window.
 //
 // # Discussion
-// 
-// [true] when the receiver uses the speech feedback window, [false]
-// otherwise.
-// 
+//
+// true when the receiver uses the speech feedback window, false otherwise.
+//
 // See the class description for details on the [UsesFeedbackWindow]
 // attribute.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/usesFeedbackWindow
 func (s NSSpeechSynthesizer) UsesFeedbackWindow() bool {
@@ -254,10 +251,11 @@ func (s NSSpeechSynthesizer) UsesFeedbackWindow() bool {
 func (s NSSpeechSynthesizer) SetUsesFeedbackWindow(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setUsesFeedbackWindow:"), value)
 }
+
 // The synthesizer’s speaking rate (words per minute).
 //
 // # Discussion
-// 
+//
 // The range of supported rates is not predefined by the Speech Synthesis
 // framework; but the synthesizer may only respond to a limited range of
 // speech rates. Average human speech occurs at a rate of 180 to 220 words per
@@ -271,10 +269,11 @@ func (s NSSpeechSynthesizer) Rate() float32 {
 func (s NSSpeechSynthesizer) SetRate(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRate:"), value)
 }
+
 // The synthesizer’s speaking volume.
 //
 // # Discussion
-// 
+//
 // Volumes are expressed in floating-point units ranging from 0.0 through 1.0.
 // A value of 0.0 corresponds to silence, and a value of 1.0 corresponds to
 // the maximum possible volume. Volume units lie on a scale that is linear
@@ -289,21 +288,19 @@ func (s NSSpeechSynthesizer) Volume() float32 {
 func (s NSSpeechSynthesizer) SetVolume(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVolume:"), value)
 }
+
 // Indicates whether the receiver is currently generating synthesized speech.
 //
 // # Discussion
-// 
-// [true] when the receiver is generating synthesized speech, [false]
-// otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true when the receiver is generating synthesized speech, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/isSpeaking
 func (s NSSpeechSynthesizer) Speaking() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSpeaking"))
 	return rv
 }
+
 // The perceived gender of the voice. The supported values are listed in
 //
 // See: https://developer.apple.com/documentation/appkit/nsspeechsynthesizer/voiceattributekey/gender
@@ -315,7 +312,7 @@ func (s NSSpeechSynthesizer) Gender() NSVoiceAttributeKey {
 // Provides the identifiers of the voices available on the system.
 //
 // # Return Value
-// 
+//
 // Array of strings representing the identifiers of each voice available on
 // the system.
 //
@@ -324,10 +321,11 @@ func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) AvailableVoices() []st
 	rv := objc.Send[[]objc.ID](objc.ID(_NSSpeechSynthesizerClass.class), objc.Sel("availableVoices"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Provides the identifier of the default voice.
 //
 // # Return Value
-// 
+//
 // Identifier of the default voice.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/defaultVoice
@@ -335,21 +333,19 @@ func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) DefaultVoice() NSSpeec
 	rv := objc.Send[objc.ID](objc.ID(_NSSpeechSynthesizerClass.class), objc.Sel("defaultVoice"))
 	return NSSpeechSynthesizerVoiceName(foundation.NSStringFromID(rv).String())
 }
+
 // A Boolean value indicating whether any application is currently speaking
 // through the sound output device.
 //
 // # Discussion
-// 
-// This property is [true] when another application is producing speech
-// through the sound output device. You usually invoke this method to prevent
-// your application from speaking over speech being generated by another
-// application or system component.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property is true when another application is producing speech through
+// the sound output device. You usually invoke this method to prevent your
+// application from speaking over speech being generated by another
+// application or system component.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/isAnyApplicationSpeaking
 func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) AnyApplicationSpeaking() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpeechSynthesizerClass.class), objc.Sel("isAnyApplicationSpeaking"))
 	return rv
 }
-

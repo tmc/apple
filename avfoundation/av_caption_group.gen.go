@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -65,6 +66,7 @@ type AVCaptionGroup struct {
 func AVCaptionGroupFromID(id objc.ID) AVCaptionGroup {
 	return AVCaptionGroup{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptionGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -151,6 +153,7 @@ func (c AVCaptionGroup) InitWithTimeRange(timeRange coremedia.CMTimeRange) AVCap
 	rv := objc.Send[AVCaptionGroup](c.ID, objc.Sel("initWithTimeRange:"), timeRange)
 	return rv
 }
+
 // Creates a caption group with captions and a time range.
 //
 // captions: The captions of the caption group.
@@ -172,6 +175,7 @@ func (c AVCaptionGroup) Captions() []AVCaption {
 		return AVCaptionFromID(id)
 	})
 }
+
 // The time range of the caption group.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionGroup/timeRange
@@ -179,4 +183,3 @@ func (c AVCaptionGroup) TimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](c.ID, objc.Sel("timeRange"))
 	return coremedia.CMTimeRange(rv)
 }
-

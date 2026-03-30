@@ -18,6 +18,7 @@ type NSSpeechRecognizerDelegate interface {
 type NSSpeechRecognizerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSSpeechRecognizerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,7 +35,7 @@ func NSSpeechRecognizerDelegateObjectFromID(id objc.ID) NSSpeechRecognizerDelega
 // `command`.
 //
 // # Discussion
-// 
+//
 // `command` is one of the strings from the array passed to [Commands]. The
 // delegate typically evaluates which command was recognized and performs the
 // related action.
@@ -42,5 +43,4 @@ func NSSpeechRecognizerDelegateObjectFromID(id objc.ID) NSSpeechRecognizerDelega
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechRecognizerDelegate/speechRecognizer(_:didRecognizeCommand:)
 func (o NSSpeechRecognizerDelegateObject) SpeechRecognizerDidRecognizeCommand(sender INSSpeechRecognizer, command string) {
 	objc.Send[struct{}](o.ID, objc.Sel("speechRecognizer:didRecognizeCommand:"), sender, objc.String(command))
-	}
-
+}

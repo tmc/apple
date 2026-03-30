@@ -4,8 +4,9 @@ package symbols
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -57,6 +58,7 @@ type NSSymbolContentTransition struct {
 func NSSymbolContentTransitionFromID(id objc.ID) NSSymbolContentTransition {
 	return NSSymbolContentTransition{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSSymbolContentTransition adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -91,4 +93,3 @@ func NewNSSymbolContentTransition() NSSymbolContentTransition {
 func (s NSSymbolContentTransition) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-

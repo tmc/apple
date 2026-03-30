@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSGridCellClass) Alloc() NSGridCell {
 // intersection of a row and a column.
 //
 // # Overview
-// 
+//
 // Use a grid cell to specify the content view to display and to position the
 // content view within the cell’s area.
 //
@@ -80,6 +81,7 @@ type NSGridCell struct {
 func NSGridCellFromID(id objc.ID) NSGridCell {
 	return NSGridCell{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSGridCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -156,11 +158,13 @@ func (g NSGridCell) Column() INSGridColumn {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("column"))
 	return NSGridColumnFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/row
 func (g NSGridCell) Row() INSGridRow {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("row"))
 	return NSGridRowFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/contentView
 func (g NSGridCell) ContentView() INSView {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("contentView"))
@@ -169,6 +173,7 @@ func (g NSGridCell) ContentView() INSView {
 func (g NSGridCell) SetContentView(value INSView) {
 	objc.Send[struct{}](g.ID, objc.Sel("setContentView:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/customPlacementConstraints
 func (g NSGridCell) CustomPlacementConstraints() []NSLayoutConstraint {
 	rv := objc.Send[[]objc.ID](g.ID, objc.Sel("customPlacementConstraints"))
@@ -179,6 +184,7 @@ func (g NSGridCell) CustomPlacementConstraints() []NSLayoutConstraint {
 func (g NSGridCell) SetCustomPlacementConstraints(value []NSLayoutConstraint) {
 	objc.Send[struct{}](g.ID, objc.Sel("setCustomPlacementConstraints:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/rowAlignment
 func (g NSGridCell) RowAlignment() NSGridRowAlignment {
 	rv := objc.Send[NSGridRowAlignment](g.ID, objc.Sel("rowAlignment"))
@@ -187,6 +193,7 @@ func (g NSGridCell) RowAlignment() NSGridRowAlignment {
 func (g NSGridCell) SetRowAlignment(value NSGridRowAlignment) {
 	objc.Send[struct{}](g.ID, objc.Sel("setRowAlignment:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/xPlacement
 func (g NSGridCell) XPlacement() NSGridCellPlacement {
 	rv := objc.Send[NSGridCellPlacement](g.ID, objc.Sel("xPlacement"))
@@ -195,6 +202,7 @@ func (g NSGridCell) XPlacement() NSGridCellPlacement {
 func (g NSGridCell) SetXPlacement(value NSGridCellPlacement) {
 	objc.Send[struct{}](g.ID, objc.Sel("setXPlacement:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/yPlacement
 func (g NSGridCell) YPlacement() NSGridCellPlacement {
 	rv := objc.Send[NSGridCellPlacement](g.ID, objc.Sel("yPlacement"))
@@ -209,4 +217,3 @@ func (_NSGridCellClass NSGridCellClass) EmptyContentView() NSView {
 	rv := objc.Send[objc.ID](objc.ID(_NSGridCellClass.class), objc.Sel("emptyContentView"))
 	return NSViewFromID(objc.ID(rv))
 }
-

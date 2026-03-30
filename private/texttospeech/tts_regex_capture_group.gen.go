@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (tc TTSRegexCaptureGroupClass) Alloc() TTSRegexCaptureGroup {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSRegexCaptureGroup.Utf8Range]
 //   - [TTSRegexCaptureGroup.SetUtf8Range]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCaptureGroup
 type TTSRegexCaptureGroup struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type TTSRegexCaptureGroup struct {
 func TTSRegexCaptureGroupFromID(id objc.ID) TTSRegexCaptureGroup {
 	return TTSRegexCaptureGroup{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSRegexCaptureGroup implements ITTSRegexCaptureGroup.
 var _ ITTSRegexCaptureGroup = TTSRegexCaptureGroup{}
 
@@ -103,4 +105,3 @@ func (t TTSRegexCaptureGroup) Utf8Range() foundation.NSRange {
 func (t TTSRegexCaptureGroup) SetUtf8Range(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUtf8Range:"), value)
 }
-

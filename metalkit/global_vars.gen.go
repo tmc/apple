@@ -7,8 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-var (
-)
+var ()
 
 var (
 	// MTKTextureLoaderCubeLayoutVertical is specifies that the source 2D image is a vertical arrangement of six cube faces.
@@ -17,14 +16,12 @@ var (
 	MTKTextureLoaderCubeLayoutVertical MTKTextureLoaderCubeLayout
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -226,7 +223,7 @@ var MTKTextureLoaderOptions struct {
 	CubeLayout MTKTextureLoaderOption
 	// GenerateMipmaps: A key used to specify whether the texture loader should generate mipmaps for the texture.
 	GenerateMipmaps MTKTextureLoaderOption
-	LoadAsArray MTKTextureLoaderOption
+	LoadAsArray     MTKTextureLoaderOption
 	// Origin: A key used to specify when to flip the pixel coordinates of the texture.
 	Origin MTKTextureLoaderOption
 	// SRGB: A key used to specify whether the texture data is stored as sRGB image data.
@@ -248,4 +245,3 @@ var MTKTextureLoaderOrigins struct {
 	// TopLeft: An option for specifying images that should be flipped only to put their origin in the top-left corner.
 	TopLeft MTKTextureLoaderOrigin
 }
-

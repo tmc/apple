@@ -3,10 +3,11 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (ec EspressoMetalKernelsCacheClass) Alloc() EspressoMetalKernelsCache {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoMetalKernelsCache.AddLibraryAtPath]
@@ -58,6 +58,7 @@ func (ec EspressoMetalKernelsCacheClass) Alloc() EspressoMetalKernelsCache {
 //   - [EspressoMetalKernelsCache.ShouldUseTexArray]
 //   - [EspressoMetalKernelsCache.WasSetup]
 //   - [EspressoMetalKernelsCache.InitWithDevice]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache
 type EspressoMetalKernelsCache struct {
 	objectivec.Object
@@ -67,6 +68,7 @@ type EspressoMetalKernelsCache struct {
 func EspressoMetalKernelsCacheFromID(id objc.ID) EspressoMetalKernelsCache {
 	return EspressoMetalKernelsCache{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoMetalKernelsCache implements IEspressoMetalKernelsCache.
 var _ IEspressoMetalKernelsCache = EspressoMetalKernelsCache{}
 
@@ -126,7 +128,6 @@ func NewEspressoMetalKernelsCache() EspressoMetalKernelsCache {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/initWithDevice:
 func NewEspressoMetalKernelsCacheWithDevice(device objectivec.IObject) EspressoMetalKernelsCache {
 	instance := getEspressoMetalKernelsCacheClass().Alloc()
@@ -134,43 +135,45 @@ func NewEspressoMetalKernelsCacheWithDevice(device objectivec.IObject) EspressoM
 	return EspressoMetalKernelsCacheFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/addLibraryAtPath:
 func (e EspressoMetalKernelsCache) AddLibraryAtPath(path objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("addLibraryAtPath:"), path)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/kernelForFunction:
 func (e EspressoMetalKernelsCache) KernelForFunction(function string) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelForFunction:"), unsafe.Pointer(unsafe.StringData(function + "\x00")))
+	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelForFunction:"), unsafe.Pointer(unsafe.StringData(function+"\x00")))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/kernelForFunction:cacheString:withConstants:
 func (e EspressoMetalKernelsCache) KernelForFunctionCacheStringWithConstants(function string, string_ string, constants objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelForFunction:cacheString:withConstants:"), unsafe.Pointer(unsafe.StringData(function + "\x00")), unsafe.Pointer(unsafe.StringData(string_ + "\x00")), constants)
+	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelForFunction:cacheString:withConstants:"), unsafe.Pointer(unsafe.StringData(function+"\x00")), unsafe.Pointer(unsafe.StringData(string_+"\x00")), constants)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/lazySetup
 func (e EspressoMetalKernelsCache) LazySetup() {
 	objc.Send[objc.ID](e.ID, objc.Sel("lazySetup"))
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/loadLibraryNamed:
 func (e EspressoMetalKernelsCache) LoadLibraryNamed(named objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("loadLibraryNamed:"), named)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/shouldUseTexArray
 func (e EspressoMetalKernelsCache) ShouldUseTexArray() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("shouldUseTexArray"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/wasSetup
 func (e EspressoMetalKernelsCache) WasSetup() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("wasSetup"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/initWithDevice:
 func (e EspressoMetalKernelsCache) InitWithDevice(device objectivec.IObject) EspressoMetalKernelsCache {
 	rv := objc.Send[EspressoMetalKernelsCache](e.ID, objc.Sel("initWithDevice:"), device)
@@ -185,6 +188,7 @@ func (e EspressoMetalKernelsCache) KernelPrefix() string {
 func (e EspressoMetalKernelsCache) SetKernelPrefix(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setKernelPrefix:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/m_kernelCache
 func (e EspressoMetalKernelsCache) M_kernelCache() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("m_kernelCache"))
@@ -193,4 +197,3 @@ func (e EspressoMetalKernelsCache) M_kernelCache() foundation.INSDictionary {
 func (e EspressoMetalKernelsCache) SetM_kernelCache(value foundation.INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setM_kernelCache:"), value)
 }
-

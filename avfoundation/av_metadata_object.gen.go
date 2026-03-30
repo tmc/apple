@@ -4,10 +4,11 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,13 +48,13 @@ func (ac AVMetadataObjectClass) Alloc() AVMetadataObject {
 // The abstract superclass for objects provided by a metadata capture output.
 //
 // # Overview
-// 
+//
 // The [AVMetadataObject] class is an abstract class that defines the basic
 // properties associated with a piece of metadata. These attributes reflect
 // information either about the metadata itself or the media from which the
 // metadata originated. Subclasses are responsible for providing appropriate
 // values for each of the relevant properties.
-// 
+//
 // You shouldn’t subclass [AVMetadataObject] directly. Instead, you use one
 // of the defined subclasses provided by the AVFoundation framework.
 // Similarly, you don’t create instances of this class yourself but use an
@@ -81,6 +82,7 @@ type AVMetadataObject struct {
 func AVMetadataObjectFromID(id objc.ID) AVMetadataObject {
 	return AVMetadataObject{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMetadataObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -143,60 +145,63 @@ func NewAVMetadataObject() AVMetadataObject {
 // The bounding rectangle associated with the metadata.
 //
 // # Discussion
-// 
+//
 // The bounding rectangle is specified relative to the picture or video of the
 // corresponding media. The rectangle’s origin is always specified in the
 // top-left corner, and the x and y axis extend down and to the right.
-// 
+//
 // If the metadata has no bounding rectangle, the value of this property
 // should be [CGRectZero].
-// 
+//
 // For video content, the bounding rectangle may be expressed using scalar
 // values in the range 0.0 to 1.0. Scalar values remain meaningful even when
 // the original video has been scaled down.
 //
-// [CGRectZero]: https://developer.apple.com/documentation/CoreGraphics/CGRectZero
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/bounds
+//
+// [CGRectZero]: https://developer.apple.com/documentation/CoreGraphics/CGRectZero
 func (m AVMetadataObject) Bounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](m.ID, objc.Sel("bounds"))
 	return corefoundation.CGRect(rv)
 }
+
 // The duration of the media associated with this metadata object.
 //
 // # Discussion
-// 
+//
 // For metadata originating from a sample buffer ([CMSampleBuffer]), the
 // duration reflects the duration of the sample buffer. If there is no valid
 // duration value associated with the metadata, this property should contain
 // [invalid].
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/duration
+//
 // [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/duration
 func (m AVMetadataObject) Duration() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("duration"))
 	return coremedia.CMTime(rv)
 }
+
 // The media time value associated with the metadata object.
 //
 // # Discussion
-// 
+//
 // For captured media, this property represents the time when the metadata was
 // captured. For metadata originating from a sample buffer ([CMSampleBuffer]),
 // the time is the sample buffer’s presentation time. If there is no valid
 // time value associated with the metadata, this property should contain
 // [invalid].
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/time
+//
 // [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/time
 func (m AVMetadataObject) Time() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("time"))
 	return coremedia.CMTime(rv)
 }
+
 // The type of metadata that this object provides.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/type
@@ -204,6 +209,7 @@ func (m AVMetadataObject) Type() AVMetadataObjectType {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("type"))
 	return AVMetadataObjectType(foundation.NSStringFromID(rv).String())
 }
+
 // A BOOL indicating whether this metadata object represents a fixed focus.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/isFixedFocus
@@ -211,23 +217,25 @@ func (m AVMetadataObject) FixedFocus() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isFixedFocus"))
 	return rv
 }
+
 // The current focus mode when an object is detected during a Cinematic Video
 // recording.
 //
 // # Discussion
-// 
-// Default is [CaptureCinematicVideoFocusModeNone].
+//
+// Default is [AVCaptureCinematicVideoFocusModeNone].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/cinematicVideoFocusMode
 func (m AVMetadataObject) CinematicVideoFocusMode() AVCaptureCinematicVideoFocusMode {
 	rv := objc.Send[AVCaptureCinematicVideoFocusMode](m.ID, objc.Sel("cinematicVideoFocusMode"))
 	return AVCaptureCinematicVideoFocusMode(rv)
 }
+
 // An identifier associated with a metadata object used to group it with other
 // metadata objects belonging to a common parent.
 //
 // # Discussion
-// 
+//
 // When presented with a collection of [AVMetadataObject] instances of
 // different types, you may use the objects’ [GroupID] to combine them into
 // groups. For example, a human body and face belonging to the same person
@@ -240,11 +248,12 @@ func (m AVMetadataObject) GroupID() int {
 	rv := objc.Send[int](m.ID, objc.Sel("groupID"))
 	return rv
 }
+
 // A unique identifier for each detected object type (face, body, hands, heads
 // and salient objects) in a collection.
 //
 // # Discussion
-// 
+//
 // Defaults to a value of -1 when invalid or not available. When used in
 // conjunction with an [AVCaptureMetadataOutput], each newly detected object
 // that enters the scene is assigned a unique identifier. [ObjectID]s are
@@ -256,4 +265,3 @@ func (m AVMetadataObject) ObjectID() int {
 	rv := objc.Send[int](m.ID, objc.Sel("objectID"))
 	return rv
 }
-

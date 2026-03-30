@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMetadataCatHeadObjectClass) Alloc() AVMetadataCatHeadObject {
 // A concrete metadata object subclass representing a cat head.
 //
 // # Overview
-// 
+//
 // [AVMetadataCatHeadObject] is a concrete subclass of [AVMetadataObject]
 // representing a cat head.
 //
@@ -58,6 +59,7 @@ type AVMetadataCatHeadObject struct {
 func AVMetadataCatHeadObjectFromID(id objc.ID) AVMetadataCatHeadObject {
 	return AVMetadataCatHeadObject{AVMetadataObject: AVMetadataObjectFromID(id)}
 }
+
 // NOTE: AVMetadataCatHeadObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewAVMetadataCatHeadObject() AVMetadataCatHeadObject {
 	rv := objc.Send[AVMetadataCatHeadObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLFeatureProviderUtils struct {
 func MLFeatureProviderUtilsFromID(id objc.ID) MLFeatureProviderUtils {
 	return MLFeatureProviderUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure MLFeatureProviderUtils implements IMLFeatureProviderUtils.
 var _ IMLFeatureProviderUtils = MLFeatureProviderUtils{}
 
@@ -82,7 +84,6 @@ func NewMLFeatureProviderUtils() MLFeatureProviderUtils {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/_featureValuesForNames:providedBy:error:
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) _featureValuesForNamesProvidedByError(names objectivec.IObject, by objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -99,7 +100,7 @@ func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) _featureValuesFo
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) FeatureValuesForNamesProvidedByError(names objectivec.IObject, by objectivec.IObject) (objectivec.IObject, error) {
 	return _MLFeatureProviderUtilsClass._featureValuesForNamesProvidedByError(names, by)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/_vectorizeWithoutSizeCheckFeatureValues:intoDoubleVector:stride:error:
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) _vectorizeWithoutSizeCheckFeatureValuesIntoDoubleVectorStrideError(values objectivec.IObject, stride uint64) (float64, error) {
 	var vector float64
@@ -119,7 +120,7 @@ func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) _vectorizeWithou
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) VectorizeWithoutSizeCheckFeatureValuesIntoDoubleVectorStrideError(values objectivec.IObject, stride uint64) (float64, error) {
 	return _MLFeatureProviderUtilsClass._vectorizeWithoutSizeCheckFeatureValuesIntoDoubleVectorStrideError(values, stride)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/_vectorizedSizeOfFeatureValues:error:
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) _vectorizedSizeOfFeatureValuesError(values objectivec.IObject) (int64, error) {
 	var errorPtr objc.ID
@@ -136,31 +137,31 @@ func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) _vectorizedSizeO
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) VectorizedSizeOfFeatureValuesError(values objectivec.IObject) (int64, error) {
 	return _MLFeatureProviderUtilsClass._vectorizedSizeOfFeatureValuesError(values)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/canVectorizeAllFeaturesWithDescriptions:
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) CanVectorizeAllFeaturesWithDescriptions(descriptions objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("canVectorizeAllFeaturesWithDescriptions:"), descriptions)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/canVectorizeFeatureWithDescription:
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) CanVectorizeFeatureWithDescription(description objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("canVectorizeFeatureWithDescription:"), description)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/lazyProviderWithFeaturesProvidedBy:addedToFeaturesProvidedBy:
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) LazyProviderWithFeaturesProvidedByAddedToFeaturesProvidedBy(by objectivec.IObject, by2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("lazyProviderWithFeaturesProvidedBy:addedToFeaturesProvidedBy:"), by, by2)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/providerWithSubsetOfFeaturesNamed:providedBy:
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) ProviderWithSubsetOfFeaturesNamedProvidedBy(named objectivec.IObject, by objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureProviderUtilsClass.class), objc.Sel("providerWithSubsetOfFeaturesNamed:providedBy:"), named, by)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/vectorizeFeaturesProvidedBy:featureNames:error:
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) VectorizeFeaturesProvidedByFeatureNamesError(by objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -172,7 +173,7 @@ func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) VectorizeFeature
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProviderUtils/vectorizeFeaturesProvidedBy:featureNames:intoDoubleVector:length:stride:error:
 func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) VectorizeFeaturesProvidedByFeatureNamesIntoDoubleVectorLengthStrideError(by objectivec.IObject, names objectivec.IObject, length uint64, stride uint64) (float64, error) {
 	var vector float64
@@ -187,4 +188,3 @@ func (_MLFeatureProviderUtilsClass MLFeatureProviderUtilsClass) VectorizeFeature
 	}
 	return vector, nil
 }
-

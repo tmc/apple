@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZAcceleratorDeviceConfigurationClass) Alloc() VZAcceleratorDeviceConfi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZAcceleratorDeviceConfiguration._acceleratorDeviceWithPlatform]
@@ -52,6 +52,7 @@ func (vc VZAcceleratorDeviceConfigurationClass) Alloc() VZAcceleratorDeviceConfi
 //   - [VZAcceleratorDeviceConfiguration.Description]
 //   - [VZAcceleratorDeviceConfiguration.Hash]
 //   - [VZAcceleratorDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZAcceleratorDeviceConfiguration
 type VZAcceleratorDeviceConfiguration struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZAcceleratorDeviceConfiguration struct {
 func VZAcceleratorDeviceConfigurationFromID(id objc.ID) VZAcceleratorDeviceConfiguration {
 	return VZAcceleratorDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZAcceleratorDeviceConfiguration implements IVZAcceleratorDeviceConfiguration.
 var _ IVZAcceleratorDeviceConfiguration = VZAcceleratorDeviceConfiguration{}
 
@@ -110,7 +112,6 @@ func NewVZAcceleratorDeviceConfiguration() VZAcceleratorDeviceConfiguration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZAcceleratorDeviceConfiguration/_acceleratorDeviceWithPlatform:
 func (v VZAcceleratorDeviceConfiguration) _acceleratorDeviceWithPlatform(platform objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_acceleratorDeviceWithPlatform:"), platform)
@@ -121,12 +122,13 @@ func (v VZAcceleratorDeviceConfiguration) _acceleratorDeviceWithPlatform(platfor
 func (v VZAcceleratorDeviceConfiguration) AcceleratorDeviceWithPlatform(platform objectivec.IObject) objectivec.IObject {
 	return v._acceleratorDeviceWithPlatform(platform)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZAcceleratorDeviceConfiguration/_init
 func (v VZAcceleratorDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZAcceleratorDeviceConfiguration/encodeWithEncoder:
 func (v VZAcceleratorDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
@@ -138,19 +140,21 @@ func (v VZAcceleratorDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZAcceleratorDeviceConfiguration/description
 func (v VZAcceleratorDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZAcceleratorDeviceConfiguration/hash
 func (v VZAcceleratorDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZAcceleratorDeviceConfiguration/superclass
 func (v VZAcceleratorDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

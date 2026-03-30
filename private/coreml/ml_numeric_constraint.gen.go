@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLNumericConstraintClass) Alloc() MLNumericConstraint {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLNumericConstraint.InitWithCoder]
@@ -52,6 +52,7 @@ func (mc MLNumericConstraintClass) Alloc() MLNumericConstraint {
 //   - [MLNumericConstraint.SetMaxNumber]
 //   - [MLNumericConstraint.MinNumber]
 //   - [MLNumericConstraint.SetMinNumber]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint
 type MLNumericConstraint struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type MLNumericConstraint struct {
 func MLNumericConstraintFromID(id objc.ID) MLNumericConstraint {
 	return MLNumericConstraint{objectivec.Object{ID: id}}
 }
+
 // Ensure MLNumericConstraint implements IMLNumericConstraint.
 var _ IMLNumericConstraint = MLNumericConstraint{}
 
@@ -110,7 +112,6 @@ func NewMLNumericConstraint() MLNumericConstraint {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/initWithCoder:
 func NewNumericConstraintWithCoder(coder objectivec.IObject) MLNumericConstraint {
 	instance := getMLNumericConstraintClass().Alloc()
@@ -118,25 +119,24 @@ func NewNumericConstraintWithCoder(coder objectivec.IObject) MLNumericConstraint
 	return MLNumericConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/initWithCoder:
 func (n MLNumericConstraint) InitWithCoder(coder foundation.INSCoder) MLNumericConstraint {
 	rv := objc.Send[MLNumericConstraint](n.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/numericConstraintWithEnumeratedNumbers:
 func (_MLNumericConstraintClass MLNumericConstraintClass) NumericConstraintWithEnumeratedNumbers(numbers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNumericConstraintClass.class), objc.Sel("numericConstraintWithEnumeratedNumbers:"), numbers)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/numericConstraintWithMinNumber:maxNumber:
 func (_MLNumericConstraintClass MLNumericConstraintClass) NumericConstraintWithMinNumberMaxNumber(number objectivec.IObject, number2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNumericConstraintClass.class), objc.Sel("numericConstraintWithMinNumber:maxNumber:"), number, number2)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/supportsSecureCoding
 func (_MLNumericConstraintClass MLNumericConstraintClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLNumericConstraintClass.class), objc.Sel("supportsSecureCoding"))
@@ -151,6 +151,7 @@ func (n MLNumericConstraint) EnumeratedNumbers() foundation.INSSet {
 func (n MLNumericConstraint) SetEnumeratedNumbers(value foundation.INSSet) {
 	objc.Send[struct{}](n.ID, objc.Sel("setEnumeratedNumbers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/maxNumber
 func (n MLNumericConstraint) MaxNumber() foundation.NSNumber {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("maxNumber"))
@@ -159,6 +160,7 @@ func (n MLNumericConstraint) MaxNumber() foundation.NSNumber {
 func (n MLNumericConstraint) SetMaxNumber(value foundation.NSNumber) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMaxNumber:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/minNumber
 func (n MLNumericConstraint) MinNumber() foundation.NSNumber {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("minNumber"))
@@ -167,4 +169,3 @@ func (n MLNumericConstraint) MinNumber() foundation.NSNumber {
 func (n MLNumericConstraint) SetMinNumber(value foundation.NSNumber) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMinNumber:"), value)
 }
-

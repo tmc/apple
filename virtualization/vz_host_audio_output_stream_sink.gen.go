@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,13 +45,13 @@ func (vc VZHostAudioOutputStreamSinkClass) Alloc() VZHostAudioOutputStreamSink {
 // output device.
 //
 // # Overview
-// 
+//
 // Host output data goes to the same device that
 // [AudioQueueNewOutput(_:_:_:_:_:_:_:)] uses.
 //
-// [AudioQueueNewOutput(_:_:_:_:_:_:_:)]: https://developer.apple.com/documentation/AudioToolbox/AudioQueueNewOutput(_:_:_:_:_:_:_:)
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZHostAudioOutputStreamSink
+//
+// [AudioQueueNewOutput(_:_:_:_:_:_:_:)]: https://developer.apple.com/documentation/AudioToolbox/AudioQueueNewOutput(_:_:_:_:_:_:_:)
 type VZHostAudioOutputStreamSink struct {
 	VZAudioOutputStreamSink
 }
@@ -62,6 +63,7 @@ type VZHostAudioOutputStreamSink struct {
 func VZHostAudioOutputStreamSinkFromID(id objc.ID) VZHostAudioOutputStreamSink {
 	return VZHostAudioOutputStreamSink{VZAudioOutputStreamSink: VZAudioOutputStreamSinkFromID(id)}
 }
+
 // NOTE: VZHostAudioOutputStreamSink adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -90,4 +92,3 @@ func NewVZHostAudioOutputStreamSink() VZHostAudioOutputStreamSink {
 	rv := objc.Send[VZHostAudioOutputStreamSink](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

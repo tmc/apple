@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +60,7 @@ type CIPinchDistortion interface {
 type CIPinchDistortionObject struct {
 	objectivec.Object
 }
+
 func (o CIPinchDistortionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -76,24 +77,28 @@ func CIPinchDistortionObjectFromID(id objc.ID) CIPinchDistortionObject {
 func (o CIPinchDistortionObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/inputImage
 func (o CIPinchDistortionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/radius
 func (o CIPinchDistortionObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/scale
 func (o CIPinchDistortionObject) Scale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -101,21 +106,26 @@ func (o CIPinchDistortionObject) Scale() float32 {
 func (o CIPinchDistortionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/center
 func (o CIPinchDistortionObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/inputImage
 func (o CIPinchDistortionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/radius
 func (o CIPinchDistortionObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/scale
 func (o CIPinchDistortionObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
-

@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (mc MTL4CompilerTaskOptionsClass) Alloc() MTL4CompilerTaskOptions {
 // for a Metal 4 compiler instance.
 //
 // # Overview
-// 
+//
 // You can configure task-specific settings that affect a compilation task by
 // creating an instance of this class, setting its properties, and passing it
 // to one of the applicable methods of an [MTL4Compiler] instance.
@@ -67,6 +68,7 @@ type MTL4CompilerTaskOptions struct {
 func MTL4CompilerTaskOptionsFromID(id objc.ID) MTL4CompilerTaskOptions {
 	return MTL4CompilerTaskOptions{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4CompilerTaskOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -111,12 +113,12 @@ func NewMTL4CompilerTaskOptions() MTL4CompilerTaskOptions {
 // task.
 //
 // # Discussion
-// 
+//
 // The compiler can reduce the runtime of a compilation task if it finds an
 // entry that matches a function description within any of the archives in
 // this array. The compiler searches the archives in the order of the
 // array’s element.
-// 
+//
 // Consider adding archives to the array in scenarios that can benefit from
 // the runtime savings, such as repeat builds or when your app can share
 // compilation results across multiple contexts.
@@ -131,4 +133,3 @@ func (m MTL4CompilerTaskOptions) LookupArchives() []objectivec.IObject {
 func (m MTL4CompilerTaskOptions) SetLookupArchives(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLookupArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
-

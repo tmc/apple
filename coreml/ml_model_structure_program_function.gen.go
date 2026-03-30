@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,6 +60,7 @@ type MLModelStructureProgramFunction struct {
 func MLModelStructureProgramFunctionFromID(id objc.ID) MLModelStructureProgramFunction {
 	return MLModelStructureProgramFunction{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgramFunction implements IMLModelStructureProgramFunction.
 var _ IMLModelStructureProgramFunction = MLModelStructureProgramFunction{}
 
@@ -107,6 +109,7 @@ func (m MLModelStructureProgramFunction) Block() IMLModelStructureProgramBlock {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("block"))
 	return MLModelStructureProgramBlockFromID(objc.ID(rv))
 }
+
 // The named inputs to the function.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramFunction/inputs
@@ -116,4 +119,3 @@ func (m MLModelStructureProgramFunction) Inputs() []MLModelStructureProgramNamed
 		return MLModelStructureProgramNamedValueTypeFromID(id)
 	})
 }
-

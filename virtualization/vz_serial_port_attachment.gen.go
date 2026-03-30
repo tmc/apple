@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (vc VZSerialPortAttachmentClass) Alloc() VZSerialPortAttachment {
 // machine.
 //
 // # Overview
-// 
+//
 // Don’t create a [VZSerialPortAttachment] object directly. Instead,
 // instantiate a concrete subclass such as [VZFileHandleSerialPortAttachment]
 // to configure how the virtual machine’s serial port connects with the host
@@ -63,6 +64,7 @@ type VZSerialPortAttachment struct {
 func VZSerialPortAttachmentFromID(id objc.ID) VZSerialPortAttachment {
 	return VZSerialPortAttachment{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZSerialPortAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -91,4 +93,3 @@ func NewVZSerialPortAttachment() VZSerialPortAttachment {
 	rv := objc.Send[VZSerialPortAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,10 +4,11 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (ec EspressoANEIOSurfaceClass) Alloc() EspressoANEIOSurface {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoANEIOSurface.Ane_io_surfaceForMultiBufferFrame]
@@ -66,6 +66,7 @@ func (ec EspressoANEIOSurfaceClass) Alloc() EspressoANEIOSurface {
 //   - [EspressoANEIOSurface.RestoreInternalStorageForAllMultiBufferFrames]
 //   - [EspressoANEIOSurface.SetExternalStorageIoSurface]
 //   - [EspressoANEIOSurface.InitWithIOSurfacePropertiesAndPixelFormats]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface
 type EspressoANEIOSurface struct {
 	objectivec.Object
@@ -75,6 +76,7 @@ type EspressoANEIOSurface struct {
 func EspressoANEIOSurfaceFromID(id objc.ID) EspressoANEIOSurface {
 	return EspressoANEIOSurface{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoANEIOSurface implements IEspressoANEIOSurface.
 var _ IEspressoANEIOSurface = EspressoANEIOSurface{}
 
@@ -148,7 +150,6 @@ func NewEspressoANEIOSurface() EspressoANEIOSurface {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/initWithIOSurfaceProperties:andPixelFormats:
 func NewEspressoANEIOSurfaceWithIOSurfacePropertiesAndPixelFormats(properties objectivec.IObject, formats objectivec.IObject) EspressoANEIOSurface {
 	instance := getEspressoANEIOSurfaceClass().Alloc()
@@ -156,87 +157,89 @@ func NewEspressoANEIOSurfaceWithIOSurfacePropertiesAndPixelFormats(properties ob
 	return EspressoANEIOSurfaceFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/ane_io_surfaceForMultiBufferFrame:
 func (e EspressoANEIOSurface) Ane_io_surfaceForMultiBufferFrame(frame uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("ane_io_surfaceForMultiBufferFrame:"), frame)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/checkIfMatches:
 func (e EspressoANEIOSurface) CheckIfMatches(matches corevideo.CVImageBufferRef) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("checkIfMatches:"), matches)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/checkIfMatchesIOSurface:
 func (e EspressoANEIOSurface) CheckIfMatchesIOSurface(iOSurface coregraphics.IOSurfaceRef) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("checkIfMatchesIOSurface:"), iOSurface)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/cleanup
 func (e EspressoANEIOSurface) Cleanup() {
 	objc.Send[objc.ID](e.ID, objc.Sel("cleanup"))
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/createIOSurfaceWithExtraProperties:
 func (e EspressoANEIOSurface) CreateIOSurfaceWithExtraProperties(properties objectivec.IObject) coregraphics.IOSurfaceRef {
 	rv := objc.Send[coregraphics.IOSurfaceRef](e.ID, objc.Sel("createIOSurfaceWithExtraProperties:"), properties)
 	return coregraphics.IOSurfaceRef(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/doNonLazyAllocation:
 func (e EspressoANEIOSurface) DoNonLazyAllocation(allocation objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("doNonLazyAllocation:"), allocation)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/ioSurfaceForMultiBufferFrame:
 func (e EspressoANEIOSurface) IoSurfaceForMultiBufferFrame(frame uint64) coregraphics.IOSurfaceRef {
 	rv := objc.Send[coregraphics.IOSurfaceRef](e.ID, objc.Sel("ioSurfaceForMultiBufferFrame:"), frame)
 	return coregraphics.IOSurfaceRef(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/ioSurfaceForMultiBufferFrameNoLazyForTesting:
 func (e EspressoANEIOSurface) IoSurfaceForMultiBufferFrameNoLazyForTesting(testing uint64) coregraphics.IOSurfaceRef {
 	rv := objc.Send[coregraphics.IOSurfaceRef](e.ID, objc.Sel("ioSurfaceForMultiBufferFrameNoLazyForTesting:"), testing)
 	return coregraphics.IOSurfaceRef(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/lazilyAutoCreateSurfaceForFrame:
 func (e EspressoANEIOSurface) LazilyAutoCreateSurfaceForFrame(frame uint64) {
 	objc.Send[objc.ID](e.ID, objc.Sel("lazilyAutoCreateSurfaceForFrame:"), frame)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/metalBufferWithDevice:multiBufferFrame:
 func (e EspressoANEIOSurface) MetalBufferWithDeviceMultiBufferFrame(device objectivec.IObject, frame uint64) metal.MTLBuffer {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("metalBufferWithDevice:multiBufferFrame:"), device, frame)
 	return metal.MTLBufferObjectFromID(rv)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/nFrames
 func (e EspressoANEIOSurface) NFrames() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("nFrames"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/resizeForMultipleAsyncBuffers:
 func (e EspressoANEIOSurface) ResizeForMultipleAsyncBuffers(buffers uint64) {
 	objc.Send[objc.ID](e.ID, objc.Sel("resizeForMultipleAsyncBuffers:"), buffers)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/restoreInternalStorage:
 func (e EspressoANEIOSurface) RestoreInternalStorage(storage uint64) {
 	objc.Send[objc.ID](e.ID, objc.Sel("restoreInternalStorage:"), storage)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/restoreInternalStorageForAllMultiBufferFrames
 func (e EspressoANEIOSurface) RestoreInternalStorageForAllMultiBufferFrames() {
 	objc.Send[objc.ID](e.ID, objc.Sel("restoreInternalStorageForAllMultiBufferFrames"))
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/setExternalStorage:ioSurface:
 func (e EspressoANEIOSurface) SetExternalStorageIoSurface(storage uint64, surface coregraphics.IOSurfaceRef) {
 	objc.Send[objc.ID](e.ID, objc.Sel("setExternalStorage:ioSurface:"), storage, surface)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/initWithIOSurfaceProperties:andPixelFormats:
 func (e EspressoANEIOSurface) InitWithIOSurfacePropertiesAndPixelFormats(properties objectivec.IObject, formats objectivec.IObject) EspressoANEIOSurface {
 	rv := objc.Send[EspressoANEIOSurface](e.ID, objc.Sel("initWithIOSurfaceProperties:andPixelFormats:"), properties, formats)
@@ -251,9 +254,9 @@ func (e EspressoANEIOSurface) External_storage_blob_for_aliasing_mem() objective
 func (e EspressoANEIOSurface) SetExternal_storage_blob_for_aliasing_mem(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setExternal_storage_blob_for_aliasing_mem:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/pixelFormat
 func (e EspressoANEIOSurface) PixelFormat() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("pixelFormat"))
 	return rv
 }
-

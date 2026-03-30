@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVFragmentedAsset] class.
@@ -45,12 +46,12 @@ func (ac AVFragmentedAssetClass) Alloc() AVFragmentedAsset {
 // existing media data.
 //
 // # Overview
-// 
+//
 // By using an `mvex` box in their `moov` box, QuickTime movie files and
 // MPEG-4 files can indicate that they accommodate additional fragments. To
 // determine whether a fragmented asset can monitor the addition of fragments,
-// check the value of its [canContainFragments] property.
-// 
+// check the value of its [AVFragmentedAsset.CanContainFragments] property.
+//
 // Associate a fragmented asset with an instance of [AVFragmentedAssetMinder]
 // to know when the system appends new fragments. When it has an associated
 // asset minder, [AVFragmentedAssetTrack] posts
@@ -60,12 +61,11 @@ func (ac AVFragmentedAssetClass) Alloc() AVFragmentedAsset {
 // [AVAssetWasDefragmentedNotification], as the documentation of those
 // notifications explains.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAsset
+//
 // [AVAssetContainsFragmentsDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVAssetContainsFragmentsDidChangeNotification
 // [AVAssetDurationDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVAssetDurationDidChangeNotification
 // [AVAssetWasDefragmentedNotification]: https://developer.apple.com/documentation/AVFoundation/AVAssetWasDefragmentedNotification
-// [canContainFragments]: https://developer.apple.com/documentation/AVFoundation/AVAsset/canContainFragments
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAsset
 type AVFragmentedAsset struct {
 	AVURLAsset
 }
@@ -77,6 +77,7 @@ type AVFragmentedAsset struct {
 func AVFragmentedAssetFromID(id objc.ID) AVFragmentedAsset {
 	return AVFragmentedAsset{AVURLAsset: AVURLAssetFromID(id)}
 }
+
 // NOTE: AVFragmentedAsset adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -127,16 +128,16 @@ func NewFragmentedAssetWithURL(URL foundation.INSURL) AVFragmentedAsset {
 //
 // options: A dictionary that contains options used to customize the initialization of
 // the asset.
-// 
+//
 // For supported keys and values, see [Initialization options].
-// //
-// [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 //
 // # Return Value
-// 
+//
 // An asset that models the media resource found at [URL].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)
+//
+// [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 func NewFragmentedAssetWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVFragmentedAsset {
 	instance := getAVFragmentedAssetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
@@ -159,15 +160,15 @@ func (f AVFragmentedAsset) IsAssociatedWithFragmentMinder() bool {
 // options: A dictionary of keys for specifying initialization options. Valid values
 // are [AVURLAssetPreferPreciseDurationAndTimingKey] and
 // [AVURLAssetReferenceRestrictionsKey].
-// //
-// [AVURLAssetPreferPreciseDurationAndTimingKey]: https://developer.apple.com/documentation/AVFoundation/AVURLAssetPreferPreciseDurationAndTimingKey
-// [AVURLAssetReferenceRestrictionsKey]: https://developer.apple.com/documentation/AVFoundation/AVURLAssetReferenceRestrictionsKey
 //
 // # Return Value
-// 
+//
 // A fragmented asset that models the media at the specified URL.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAsset/fragmentedAssetWithURL:options:
+//
+// [AVURLAssetPreferPreciseDurationAndTimingKey]: https://developer.apple.com/documentation/AVFoundation/AVURLAssetPreferPreciseDurationAndTimingKey
+// [AVURLAssetReferenceRestrictionsKey]: https://developer.apple.com/documentation/AVFoundation/AVURLAssetReferenceRestrictionsKey
 func (_AVFragmentedAssetClass AVFragmentedAssetClass) FragmentedAssetWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVFragmentedAsset {
 	rv := objc.Send[objc.ID](objc.ID(_AVFragmentedAssetClass.class), objc.Sel("fragmentedAssetWithURL:options:"), URL, options)
 	return AVFragmentedAssetFromID(rv)
@@ -185,6 +186,4 @@ func (f AVFragmentedAsset) SetCanContainFragments(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setCanContainFragments:"), value)
 }
 
-			// Protocol methods for AVFragmentMinding
-			
-
+// Protocol methods for AVFragmentMinding

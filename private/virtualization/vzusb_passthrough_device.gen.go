@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (vc VZUSBPassthroughDeviceClass) Alloc() VZUSBPassthroughDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZUSBPassthroughDevice.Configuration]
@@ -60,6 +60,7 @@ func (vc VZUSBPassthroughDeviceClass) Alloc() VZUSBPassthroughDevice {
 //   - [VZUSBPassthroughDevice.Description]
 //   - [VZUSBPassthroughDevice.Hash]
 //   - [VZUSBPassthroughDevice.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice
 type VZUSBPassthroughDevice struct {
 	objectivec.Object
@@ -69,6 +70,7 @@ type VZUSBPassthroughDevice struct {
 func VZUSBPassthroughDeviceFromID(id objc.ID) VZUSBPassthroughDevice {
 	return VZUSBPassthroughDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure VZUSBPassthroughDevice implements IVZUSBPassthroughDevice.
 var _ IVZUSBPassthroughDevice = VZUSBPassthroughDevice{}
 
@@ -132,7 +134,6 @@ func NewVZUSBPassthroughDevice() VZUSBPassthroughDevice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/initWithConfiguration:error:
 func NewVZUSBPassthroughDeviceWithConfigurationError(configuration objectivec.IObject) (VZUSBPassthroughDevice, error) {
 	var errorPtr objc.ID
@@ -150,7 +151,7 @@ func (v VZUSBPassthroughDevice) Signature() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("signature"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/initWithConfiguration:error:
 func (v VZUSBPassthroughDevice) InitWithConfigurationError(configuration objectivec.IObject) (VZUSBPassthroughDevice, error) {
 	var errorPtr objc.ID
@@ -179,31 +180,37 @@ func (v VZUSBPassthroughDevice) SetConfiguration(value *VZUSBPassthroughDeviceCo
 	}
 	objc.Send[struct{}](v.ID, objc.Sel("setConfiguration:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/debugDescription
 func (v VZUSBPassthroughDevice) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/description
 func (v VZUSBPassthroughDevice) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/hash
 func (v VZUSBPassthroughDevice) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/isPointingDevice
 func (v VZUSBPassthroughDevice) IsPointingDevice() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPointingDevice"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/superclass
 func (v VZUSBPassthroughDevice) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/usbController
 func (v VZUSBPassthroughDevice) UsbController() IVZUSBController {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("usbController"))
@@ -212,11 +219,13 @@ func (v VZUSBPassthroughDevice) UsbController() IVZUSBController {
 func (v VZUSBPassthroughDevice) SetUsbController(value IVZUSBController) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUsbController:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/uuid
 func (v VZUSBPassthroughDevice) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBPassthroughDevice/virtualMachine
 func (v VZUSBPassthroughDevice) VirtualMachine() IVZVirtualMachine {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("virtualMachine"))
@@ -225,4 +234,3 @@ func (v VZUSBPassthroughDevice) VirtualMachine() IVZVirtualMachine {
 func (v VZUSBPassthroughDevice) SetVirtualMachine(value IVZVirtualMachine) {
 	objc.Send[struct{}](v.ID, objc.Sel("setVirtualMachine:"), value)
 }
-

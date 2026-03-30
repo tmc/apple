@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,13 +45,13 @@ func (nc NSMachPortClass) Alloc() NSMachPort {
 // (or raw messaging).
 //
 // # Overview
-// 
+//
 // [NSMachPort] is a subclass of [NSPort] that wraps a Mach port, the
 // fundamental communication port in macOS. [NSMachPort] allows for local (on
 // the same machine) communication only. A companion class, [NSSocketPort],
 // allows for both local and remote distributed object communication, but may
 // be more expensive than [NSMachPort] for the local case.
-// 
+//
 // To use [NSMachPort] effectively, you should be familiar with Mach ports,
 // port access rights, and Mach messages. See the Mach OS documentation for
 // more information.
@@ -76,6 +77,7 @@ type NSMachPort struct {
 func NSMachPortFromID(id objc.ID) NSMachPort {
 	return NSMachPort{NSPort: NSPortFromID(id)}
 }
+
 // NOTE: NSMachPort adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,7 +128,6 @@ func NewNSMachPort() NSMachPort {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMachPortWithCoder(coder INSCoder) NSMachPort {
 	instance := getNSMachPortClass().Alloc()
@@ -140,17 +141,17 @@ func NewMachPortWithCoder(coder INSCoder) NSMachPort {
 // mach_port_t.
 //
 // # Return Value
-// 
+//
 // Returns an initialized [NSMachPort] object that uses `machPort` to send or
 // receive messages. The returned object might be different than the original
 // receiver
 //
 // # Discussion
-// 
+//
 // Depending on the access rights for `machPort`, the new port may be able to
 // only send messages. If a port with `machPort` already exists, this method
 // deallocates the receiver, then retains and returns the existing port.
-// 
+//
 // This method is the designated initializer for the [NSMachPort] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMachPort/init(machPort:)
@@ -171,13 +172,13 @@ func NewMachPortWithMachPort(machPort uint32) NSMachPort {
 // see `Mach Port Rights`.
 //
 // # Return Value
-// 
+//
 // Returns an initialized [NSMachPort] object that uses `machPort` to send or
 // receive messages. The returned object might be different than the original
 // receiver
 //
 // # Discussion
-// 
+//
 // Depending on the access rights for `machPort`, the new port may be able to
 // only send messages. If a port with `machPort` already exists, this method
 // deallocates the receiver, then retains and returns the existing port.
@@ -195,17 +196,17 @@ func NewMachPortWithMachPortOptions(machPort uint32, f NSMachPortOptions) NSMach
 // mach_port_t.
 //
 // # Return Value
-// 
+//
 // Returns an initialized [NSMachPort] object that uses `machPort` to send or
 // receive messages. The returned object might be different than the original
 // receiver
 //
 // # Discussion
-// 
+//
 // Depending on the access rights for `machPort`, the new port may be able to
 // only send messages. If a port with `machPort` already exists, this method
 // deallocates the receiver, then retains and returns the existing port.
-// 
+//
 // This method is the designated initializer for the [NSMachPort] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMachPort/init(machPort:)
@@ -213,6 +214,7 @@ func (m NSMachPort) InitWithMachPort(machPort uint32) NSMachPort {
 	rv := objc.Send[NSMachPort](m.ID, objc.Sel("initWithMachPort:"), machPort)
 	return rv
 }
+
 // Initializes a newly allocated [NSMachPort] object with a given Mach port
 // and the specified options.
 //
@@ -224,13 +226,13 @@ func (m NSMachPort) InitWithMachPort(machPort uint32) NSMachPort {
 // see `Mach Port Rights`.
 //
 // # Return Value
-// 
+//
 // Returns an initialized [NSMachPort] object that uses `machPort` to send or
 // receive messages. The returned object might be different than the original
 // receiver
 //
 // # Discussion
-// 
+//
 // Depending on the access rights for `machPort`, the new port may be able to
 // only send messages. If a port with `machPort` already exists, this method
 // deallocates the receiver, then retains and returns the existing port.
@@ -247,11 +249,11 @@ func (m NSMachPort) InitWithMachPortOptions(machPort uint32, f NSMachPortOptions
 // mach_port_t.
 //
 // # Return Value
-// 
+//
 // An [NSMachPort] object that uses `machPort` to send or receive messages.
 //
 // # Discussion
-// 
+//
 // Creates the port object if necessary. Depending on the access rights
 // associated with `machPort`, the new port object may be usable only for
 // sending messages.
@@ -261,6 +263,7 @@ func (_NSMachPortClass NSMachPortClass) PortWithMachPort(machPort uint32) Port {
 	rv := objc.Send[objc.ID](objc.ID(_NSMachPortClass.class), objc.Sel("portWithMachPort:"), machPort)
 	return NSPortFromID(rv)
 }
+
 // Creates and returns a port object configured with the specified options and
 // the given Mach port.
 //
@@ -272,11 +275,11 @@ func (_NSMachPortClass NSMachPortClass) PortWithMachPort(machPort uint32) Port {
 // see `Mach Port Rights`.
 //
 // # Return Value
-// 
+//
 // An [NSMachPort] object that uses `machPort` to send or receive messages.
 //
 // # Discussion
-// 
+//
 // Creates the port object if necessary. Depending on the access rights
 // associated with `machPort`, the new port object may be usable only for
 // sending messages.
@@ -290,7 +293,7 @@ func (_NSMachPortClass NSMachPortClass) PortWithMachPortOptions(machPort uint32,
 // The Mach port used by the receiver, represented as an integer.
 //
 // # Discussion
-// 
+//
 // The Mach port used by the receiver. Cast this value to a mach_port_t when
 // using it with Mach system calls.
 //
@@ -299,4 +302,3 @@ func (m NSMachPort) MachPort() uint32 {
 	rv := objc.Send[uint32](m.ID, objc.Sel("machPort"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,6 +61,7 @@ type AVExternalStorageDeviceDiscoverySession struct {
 func AVExternalStorageDeviceDiscoverySessionFromID(id objc.ID) AVExternalStorageDeviceDiscoverySession {
 	return AVExternalStorageDeviceDiscoverySession{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVExternalStorageDeviceDiscoverySession adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -102,7 +104,7 @@ func NewAVExternalStorageDeviceDiscoverySession() AVExternalStorageDeviceDiscove
 // devices connect or disconnect from the system.
 //
 // # Discussion
-// 
+//
 // Your app can monitor the changes to this array with a key-value
 // observation.
 //
@@ -122,6 +124,7 @@ func (_AVExternalStorageDeviceDiscoverySessionClass AVExternalStorageDeviceDisco
 	rv := objc.Send[bool](objc.ID(_AVExternalStorageDeviceDiscoverySessionClass.class), objc.Sel("isSupported"))
 	return rv
 }
+
 // The system’s singleton device discovery session instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDeviceDiscoverySession/shared
@@ -129,4 +132,3 @@ func (_AVExternalStorageDeviceDiscoverySessionClass AVExternalStorageDeviceDisco
 	rv := objc.Send[objc.ID](objc.ID(_AVExternalStorageDeviceDiscoverySessionClass.class), objc.Sel("sharedSession"))
 	return AVExternalStorageDeviceDiscoverySessionFromID(objc.ID(rv))
 }
-

@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,6 +66,7 @@ type CAMetalDisplayLinkUpdate struct {
 func CAMetalDisplayLinkUpdateFromID(id objc.ID) CAMetalDisplayLinkUpdate {
 	return CAMetalDisplayLinkUpdate{objectivec.Object{ID: id}}
 }
+
 // NOTE: CAMetalDisplayLinkUpdate adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,7 +120,7 @@ func NewCAMetalDisplayLinkUpdate() CAMetalDisplayLinkUpdate {
 // The time the system estimates until the display of the next frame.
 //
 // # Discussion
-// 
+//
 // Update your animations based on the time difference between this timestamp
 // and the previous timestamp.
 //
@@ -127,23 +129,25 @@ func (m CAMetalDisplayLinkUpdate) TargetPresentationTimestamp() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("targetPresentationTimestamp"))
 	return rv
 }
+
 // A deadline that indicates when your app needs to finish rendering to the
 // drawable.
 //
 // # Discussion
-// 
+//
 // Your app needs to call the [Drawable] instance’s [present()] method
 // before the deadline. GPU rendering can continue after this time, based on
 // [PreferredFrameLatency]. For more information on timing your app’s
 // rendering, see [MetalDisplayLinkNeedsUpdate].
 //
-// [present()]: https://developer.apple.com/documentation/Metal/MTLDrawable/present()
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDisplayLink/Update/targetTimestamp
+//
+// [present()]: https://developer.apple.com/documentation/Metal/MTLDrawable/present()
 func (m CAMetalDisplayLinkUpdate) TargetTimestamp() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("targetTimestamp"))
 	return rv
 }
+
 // The Metal drawable your app uses to render the next frame.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDisplayLink/Update/drawable
@@ -151,4 +155,3 @@ func (m CAMetalDisplayLinkUpdate) Drawable() CAMetalDrawable {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("drawable"))
 	return CAMetalDrawableObjectFromID(rv)
 }
-

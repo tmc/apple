@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,6 +61,7 @@ type AVZoomRange struct {
 func AVZoomRangeFromID(id objc.ID) AVZoomRange {
 	return AVZoomRange{objectivec.Object{ID: id}}
 }
+
 // Ensure AVZoomRange implements IAVZoomRange.
 var _ IAVZoomRange = AVZoomRange{}
 
@@ -130,6 +132,7 @@ func (z AVZoomRange) MinZoomFactor() float64 {
 	rv := objc.Send[float64](z.ID, objc.Sel("minZoomFactor"))
 	return rv
 }
+
 // The range’s maximum zoom factor.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVZoomRange/maxZoomFactor
@@ -137,6 +140,7 @@ func (z AVZoomRange) MaxZoomFactor() float64 {
 	rv := objc.Send[float64](z.ID, objc.Sel("maxZoomFactor"))
 	return rv
 }
+
 // A maximum zoom factor the format allows.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/videomaxzoomfactor
@@ -147,6 +151,7 @@ func (z AVZoomRange) VideoMaxZoomFactor() float64 {
 func (z AVZoomRange) SetVideoMaxZoomFactor(value float64) {
 	objc.Send[struct{}](z.ID, objc.Sel("setVideoMaxZoomFactor:"), value)
 }
+
 // A threshold at which the system upscales pixel data.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/videozoomfactorupscalethreshold
@@ -157,6 +162,7 @@ func (z AVZoomRange) VideoZoomFactorUpscaleThreshold() float64 {
 func (z AVZoomRange) SetVideoZoomFactorUpscaleThreshold(value float64) {
 	objc.Send[struct{}](z.ID, objc.Sel("setVideoZoomFactorUpscaleThreshold:"), value)
 }
+
 // A Boolean value that indicates whether the format supports zoom factors
 // outside the range supported for depth delivery.
 //
@@ -168,4 +174,3 @@ func (z AVZoomRange) ZoomFactorsOutsideOfVideoZoomRangesForDepthDeliverySupporte
 func (z AVZoomRange) SetZoomFactorsOutsideOfVideoZoomRangesForDepthDeliverySupported(value bool) {
 	objc.Send[struct{}](z.ID, objc.Sel("setZoomFactorsOutsideOfVideoZoomRangesForDepthDeliverySupported:"), value)
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (vc VZVirtioQueueClass) Alloc() VZVirtioQueue {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtioQueue.NextElement]
 //   - [VZVirtioQueue.QueueIndex]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioQueue
 type VZVirtioQueue struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type VZVirtioQueue struct {
 func VZVirtioQueueFromID(id objc.ID) VZVirtioQueue {
 	return VZVirtioQueue{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVirtioQueue implements IVZVirtioQueue.
 var _ IVZVirtioQueue = VZVirtioQueue{}
 
@@ -105,4 +107,3 @@ func (v VZVirtioQueue) QueueIndex() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("queueIndex"))
 	return rv
 }
-

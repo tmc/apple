@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLLayerPathClass) Alloc() MLLayerPath {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLLayerPath.AppendPathComponent]
@@ -52,6 +52,7 @@ func (mc MLLayerPathClass) Alloc() MLLayerPath {
 //   - [MLLayerPath.ScopedModelNames]
 //   - [MLLayerPath.SetScopedModelNames]
 //   - [MLLayerPath.InitWithScopedModelAndLayerNameLayerName]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath
 type MLLayerPath struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type MLLayerPath struct {
 func MLLayerPathFromID(id objc.ID) MLLayerPath {
 	return MLLayerPath{objectivec.Object{ID: id}}
 }
+
 // Ensure MLLayerPath implements IMLLayerPath.
 var _ IMLLayerPath = MLLayerPath{}
 
@@ -110,7 +112,6 @@ func NewMLLayerPath() MLLayerPath {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath/initWithScopedModelAndLayerName:layerName:
 func NewLayerPathWithScopedModelAndLayerNameLayerName(name objectivec.IObject, name2 objectivec.IObject) MLLayerPath {
 	instance := getMLLayerPathClass().Alloc()
@@ -118,18 +119,17 @@ func NewLayerPathWithScopedModelAndLayerNameLayerName(name objectivec.IObject, n
 	return MLLayerPathFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath/appendPathComponent:
 func (l MLLayerPath) AppendPathComponent(component objectivec.IObject) {
 	objc.Send[objc.ID](l.ID, objc.Sel("appendPathComponent:"), component)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath/isEqualToMLLayerPath:
 func (l MLLayerPath) IsEqualToMLLayerPath(path objectivec.IObject) bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isEqualToMLLayerPath:"), path)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath/initWithScopedModelAndLayerName:layerName:
 func (l MLLayerPath) InitWithScopedModelAndLayerNameLayerName(name objectivec.IObject, name2 objectivec.IObject) MLLayerPath {
 	rv := objc.Send[MLLayerPath](l.ID, objc.Sel("initWithScopedModelAndLayerName:layerName:"), name, name2)
@@ -144,6 +144,7 @@ func (l MLLayerPath) LayerName() string {
 func (l MLLayerPath) SetLayerName(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLayerName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLLayerPath/scopedModelNames
 func (l MLLayerPath) ScopedModelNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("scopedModelNames"))
@@ -152,4 +153,3 @@ func (l MLLayerPath) ScopedModelNames() foundation.INSArray {
 func (l MLLayerPath) SetScopedModelNames(value foundation.INSArray) {
 	objc.Send[struct{}](l.ID, objc.Sel("setScopedModelNames:"), value)
 }
-

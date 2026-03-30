@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MLLogging struct {
 func MLLoggingFromID(id objc.ID) MLLogging {
 	return MLLogging{objectivec.Object{ID: id}}
 }
+
 // Ensure MLLogging implements IMLLogging.
 var _ IMLLogging = MLLogging{}
 
@@ -84,4 +86,3 @@ func (_MLLoggingClass MLLoggingClass) CoreChannel() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLLoggingClass.class), objc.Sel("coreChannel"))
 	return objectivec.Object{ID: rv}
 }
-

@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NEFilterSettingsClass) Alloc() NEFilterSettings {
 // The rules and other settings that define the operation of a filter.
 //
 // # Overview
-// 
+//
 // [NEFilterDataProvider] instances use [NEFilterSettings] to communicate the
 // desired settings for the filter to the framework. The framework takes care
 // of applying the contained settings to the system.
@@ -70,6 +71,7 @@ type NEFilterSettings struct {
 func NEFilterSettingsFromID(id objc.ID) NEFilterSettings {
 	return NEFilterSettings{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEFilterSettings adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -130,16 +132,13 @@ func NewNEFilterSettings() NEFilterSettings {
 //
 // defaultAction: The [NEFilterAction] to take for flows of network data that don’t match
 // any of the specified rules. The default `defaultAction` is
-// [NEFilterAction.filterData]. If `defaultAction` is [NEFilterAction.allow]
-// or [NEFilterAction.drop], then the `rules` array must contain at least one
+// [NEFilterActionFilterData]. If `defaultAction` is [NEFilterActionAllow] or
+// [NEFilterActionDrop], then the `rules` array must contain at least one
 // [NEFilterRule].
-// //
-// [NEFilterAction.allow]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/allow
-// [NEFilterAction.drop]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/drop
-// [NEFilterAction.filterData]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/filterData
-// [NEFilterAction]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSettings/init(rules:defaultAction:)
+//
+// [NEFilterAction]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction
 func NewFilterSettingsWithRulesDefaultAction(rules []NEFilterRule, defaultAction NEFilterAction) NEFilterSettings {
 	instance := getNEFilterSettingsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRules:defaultAction:"), objectivec.IObjectSliceToNSArray(rules), defaultAction)
@@ -154,16 +153,13 @@ func NewFilterSettingsWithRulesDefaultAction(rules []NEFilterRule, defaultAction
 //
 // defaultAction: The [NEFilterAction] to take for flows of network data that don’t match
 // any of the specified rules. The default `defaultAction` is
-// [NEFilterAction.filterData]. If `defaultAction` is [NEFilterAction.allow]
-// or [NEFilterAction.drop], then the `rules` array must contain at least one
+// [NEFilterActionFilterData]. If `defaultAction` is [NEFilterActionAllow] or
+// [NEFilterActionDrop], then the `rules` array must contain at least one
 // [NEFilterRule].
-// //
-// [NEFilterAction.allow]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/allow
-// [NEFilterAction.drop]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/drop
-// [NEFilterAction.filterData]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/filterData
-// [NEFilterAction]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSettings/init(rules:defaultAction:)
+//
+// [NEFilterAction]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction
 func (f NEFilterSettings) InitWithRulesDefaultAction(rules []NEFilterRule, defaultAction NEFilterAction) NEFilterSettings {
 	rv := objc.Send[NEFilterSettings](f.ID, objc.Sel("initWithRules:defaultAction:"), objectivec.IObjectSliceToNSArray(rules), defaultAction)
 	return rv
@@ -175,20 +171,21 @@ func (f NEFilterSettings) EncodeWithCoder(coder foundation.INSCoder) {
 // An ordered list of rules that define the filter’s operation.
 //
 // # Discussion
-// 
+//
 // After applying the [NEFilterSettings], the system compares each network
 // flow against these rules in order, and acts on the rule of the first
 // [NEFilterAction] that matches.
 //
-// [NEFilterAction]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSettings/rules
+//
+// [NEFilterAction]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction
 func (f NEFilterSettings) Rules() []NEFilterRule {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("rules"))
 	return objc.ConvertSlice(rv, func(id objc.ID) NEFilterRule {
 		return NEFilterRuleFromID(id)
 	})
 }
+
 // The default action to take for flows of network data that don’t match any
 // of the specified rules.
 //
@@ -197,4 +194,3 @@ func (f NEFilterSettings) DefaultAction() NEFilterAction {
 	rv := objc.Send[NEFilterAction](f.ID, objc.Sel("defaultAction"))
 	return NEFilterAction(rv)
 }
-

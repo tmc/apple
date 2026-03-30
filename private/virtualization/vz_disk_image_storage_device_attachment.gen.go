@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDevi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZDiskImageStorageDeviceAttachment._updateDiskSize]
 //   - [VZDiskImageStorageDeviceAttachment.ReadOnly]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment
 type VZDiskImageStorageDeviceAttachment struct {
 	VZStorageDeviceAttachment
@@ -55,6 +56,7 @@ type VZDiskImageStorageDeviceAttachment struct {
 func VZDiskImageStorageDeviceAttachmentFromID(id objc.ID) VZDiskImageStorageDeviceAttachment {
 	return VZDiskImageStorageDeviceAttachment{VZStorageDeviceAttachment: VZStorageDeviceAttachmentFromID(id)}
 }
+
 // Ensure VZDiskImageStorageDeviceAttachment implements IVZDiskImageStorageDeviceAttachment.
 var _ IVZDiskImageStorageDeviceAttachment = VZDiskImageStorageDeviceAttachment{}
 
@@ -94,7 +96,6 @@ func NewVZDiskImageStorageDeviceAttachment() VZDiskImageStorageDeviceAttachment 
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/_updateDiskSize:
 func (d VZDiskImageStorageDeviceAttachment) _updateDiskSize(size uint64) {
 	objc.Send[objc.ID](d.ID, objc.Sel("_updateDiskSize:"), size)
@@ -105,7 +106,6 @@ func (d VZDiskImageStorageDeviceAttachment) UpdateDiskSize(size uint64) {
 	d._updateDiskSize(size)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/_diskImageStorageDeviceAttachmentWithDiskImage:
 func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmentClass) _diskImageStorageDeviceAttachmentWithDiskImage(image objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZDiskImageStorageDeviceAttachmentClass.class), objc.Sel("_diskImageStorageDeviceAttachmentWithDiskImage:"), image)
@@ -122,4 +122,3 @@ func (d VZDiskImageStorageDeviceAttachment) ReadOnly() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("readOnly"))
 	return rv
 }
-

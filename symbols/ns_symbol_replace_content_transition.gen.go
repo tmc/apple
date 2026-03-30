@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,11 +45,11 @@ func (nc NSSymbolReplaceContentTransitionClass) Alloc() NSSymbolReplaceContentTr
 // another.
 //
 // # Overview
-// 
+//
 // A replace transition animates the change from one symbol image to another.
 // You choose from one of the predefined scaling animations: Down-Up, Off-Up,
 // and Up-Up.
-// 
+//
 // Down-Up: The initial symbol scales down as it’s removed, and the new
 // symbol scales up as it’s added. Off-Up: The initial symbol is removed
 // with no animation, and the new symbol scales up as it’s added. Up-Up: The
@@ -72,6 +73,7 @@ type NSSymbolReplaceContentTransition struct {
 func NSSymbolReplaceContentTransitionFromID(id objc.ID) NSSymbolReplaceContentTransition {
 	return NSSymbolReplaceContentTransition{NSSymbolContentTransition: NSSymbolContentTransitionFromID(id)}
 }
+
 // Ensure NSSymbolReplaceContentTransition implements INSSymbolReplaceContentTransition.
 var _ INSSymbolReplaceContentTransition = NSSymbolReplaceContentTransition{}
 
@@ -116,7 +118,7 @@ func NewNSSymbolReplaceContentTransition() NSSymbolReplaceContentTransition {
 // An effect that replaces each layer separately.
 //
 // # Return Value
-// 
+//
 // A copy of the transition that replaces each layer separately.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolReplaceContentTransition/transitionWithByLayer
@@ -124,10 +126,11 @@ func (s NSSymbolReplaceContentTransition) TransitionWithByLayer() INSSymbolRepla
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("transitionWithByLayer"))
 	return NSSymbolReplaceContentTransitionFromID(rv)
 }
+
 // An effect that replaces all layers simultaneously.
 //
 // # Return Value
-// 
+//
 // A copy of the transition that replaces all layers simultaneously.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolReplaceContentTransition/transitionWithWholeSymbol
@@ -140,7 +143,7 @@ func (s NSSymbolReplaceContentTransition) TransitionWithWholeSymbol() INSSymbolR
 // another.
 //
 // # Return Value
-// 
+//
 // A new instance of the replace transition.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolReplaceContentTransition/transition
@@ -148,15 +151,16 @@ func (_NSSymbolReplaceContentTransitionClass NSSymbolReplaceContentTransitionCla
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolReplaceContentTransitionClass.class), objc.Sel("transition"))
 	return NSSymbolReplaceContentTransitionFromID(rv)
 }
+
 // An effect that replaces a symbol by scaling it down, and scaling a
 // different symbol up.
 //
 // # Return Value
-// 
+//
 // A new instance of the transition that uses the Down-Up animation.
 //
 // # Discussion
-// 
+//
 // The initial symbol scales down as it’s removed, and the new symbol scales
 // up as it’s added.
 //
@@ -165,15 +169,16 @@ func (_NSSymbolReplaceContentTransitionClass NSSymbolReplaceContentTransitionCla
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolReplaceContentTransitionClass.class), objc.Sel("replaceDownUpTransition"))
 	return NSSymbolReplaceContentTransitionFromID(rv)
 }
+
 // An effect that replaces a symbol by removing it, and scaling a different
 // symbol up.
 //
 // # Return Value
-// 
+//
 // A new instance of the transition that uses the Off-Up animation.
 //
 // # Discussion
-// 
+//
 // The initial symbol is removed with no animation, and the new symbol scales
 // up as it’s added.
 //
@@ -182,15 +187,16 @@ func (_NSSymbolReplaceContentTransitionClass NSSymbolReplaceContentTransitionCla
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolReplaceContentTransitionClass.class), objc.Sel("replaceOffUpTransition"))
 	return NSSymbolReplaceContentTransitionFromID(rv)
 }
+
 // An effect that replaces a symbol by scaling it up, and scaling a different
 // symbol up.
 //
 // # Return Value
-// 
+//
 // A new instance of the transition that uses the Up-Up animation.
 //
 // # Discussion
-// 
+//
 // The initial symbol scales up as it’s removed, and the new symbol scales
 // up as it’s added.
 //
@@ -199,6 +205,7 @@ func (_NSSymbolReplaceContentTransitionClass NSSymbolReplaceContentTransitionCla
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolReplaceContentTransitionClass.class), objc.Sel("replaceUpUpTransition"))
 	return NSSymbolReplaceContentTransitionFromID(rv)
 }
+
 // Convenience initializer for a MagicReplace content transition with a
 // configured Replace fallback.
 //
@@ -207,4 +214,3 @@ func (_NSSymbolReplaceContentTransitionClass NSSymbolReplaceContentTransitionCla
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolReplaceContentTransitionClass.class), objc.Sel("magicTransitionWithFallback:"), fallback)
 	return NSSymbolMagicReplaceContentTransitionFromID(rv)
 }
-

@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -19,6 +20,7 @@ type MLSpecificationCompilerResolvingBlobFileReferences interface {
 type MLSpecificationCompilerResolvingBlobFileReferencesObject struct {
 	objectivec.Object
 }
+
 func (o MLSpecificationCompilerResolvingBlobFileReferencesObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -31,7 +33,6 @@ func MLSpecificationCompilerResolvingBlobFileReferencesObjectFromID(id objc.ID) 
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSpecificationCompilerResolvingBlobFileReferences/compileSpecification:blobMapping:toArchive:options:error:
 func (o MLSpecificationCompilerResolvingBlobFileReferencesObject) CompileSpecificationBlobMappingToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("compileSpecification:blobMapping:toArchive:options:error:"), specification, mapping, archive, options)
@@ -39,5 +40,4 @@ func (o MLSpecificationCompilerResolvingBlobFileReferencesObject) CompileSpecifi
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

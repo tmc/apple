@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLPredictionOptionsClass) Alloc() MLPredictionOptions {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLPredictionOptions._validateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings]
@@ -82,6 +82,7 @@ func (mc MLPredictionOptionsClass) Alloc() MLPredictionOptions {
 //   - [MLPredictionOptions.SetWaitSyncPoints]
 //   - [MLPredictionOptions.InitWithCoder]
 //   - [MLPredictionOptions.InitWithUsesCPUOnly]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions
 type MLPredictionOptions struct {
 	objectivec.Object
@@ -91,6 +92,7 @@ type MLPredictionOptions struct {
 func MLPredictionOptionsFromID(id objc.ID) MLPredictionOptions {
 	return MLPredictionOptions{objectivec.Object{ID: id}}
 }
+
 // Ensure MLPredictionOptions implements IMLPredictionOptions.
 var _ IMLPredictionOptions = MLPredictionOptions{}
 
@@ -196,7 +198,6 @@ func NewMLPredictionOptions() MLPredictionOptions {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/initWithCoder:
 func NewPredictionOptionsWithCoder(coder objectivec.IObject) MLPredictionOptions {
 	instance := getMLPredictionOptionsClass().Alloc()
@@ -204,7 +205,6 @@ func NewPredictionOptionsWithCoder(coder objectivec.IObject) MLPredictionOptions
 	return MLPredictionOptionsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/initWithUsesCPUOnly:
 func NewPredictionOptionsWithUsesCPUOnly(cPUOnly bool) MLPredictionOptions {
 	instance := getMLPredictionOptionsClass().Alloc()
@@ -212,7 +212,6 @@ func NewPredictionOptionsWithUsesCPUOnly(cPUOnly bool) MLPredictionOptions {
 	return MLPredictionOptionsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/_validateDirectBindingExpectations:directlyBoundFeatureNames:unexpectedDirectBindings:unexpectedCopyBindings:
 func (p MLPredictionOptions) _validateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings(expectations objectivec.IObject, names objectivec.IObject, bindings []objectivec.IObject, bindings2 []objectivec.IObject) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("_validateDirectBindingExpectations:directlyBoundFeatureNames:unexpectedDirectBindings:unexpectedCopyBindings:"), expectations, names, objectivec.IObjectSliceToNSArray(bindings), objectivec.IObjectSliceToNSArray(bindings2))
@@ -223,12 +222,12 @@ func (p MLPredictionOptions) _validateDirectBindingExpectationsDirectlyBoundFeat
 func (p MLPredictionOptions) ValidateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings(expectations objectivec.IObject, names objectivec.IObject, bindings []objectivec.IObject, bindings2 []objectivec.IObject) bool {
 	return p._validateDirectBindingExpectationsDirectlyBoundFeatureNamesUnexpectedDirectBindingsUnexpectedCopyBindings(expectations, names, bindings, bindings2)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/encodeWithCoder:
 func (p MLPredictionOptions) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/validateExpectationsWithDirectlyBoundInputs:outputs:error:
 func (p MLPredictionOptions) ValidateExpectationsWithDirectlyBoundInputsOutputsError(inputs objectivec.IObject, outputs objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -243,13 +242,13 @@ func (p MLPredictionOptions) ValidateExpectationsWithDirectlyBoundInputsOutputsE
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/initWithCoder:
 func (p MLPredictionOptions) InitWithCoder(coder foundation.INSCoder) MLPredictionOptions {
 	rv := objc.Send[MLPredictionOptions](p.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/initWithUsesCPUOnly:
 func (p MLPredictionOptions) InitWithUsesCPUOnly(cPUOnly bool) MLPredictionOptions {
 	rv := objc.Send[MLPredictionOptions](p.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)
@@ -261,6 +260,7 @@ func (_MLPredictionOptionsClass MLPredictionOptionsClass) DefaultOptions() objec
 	rv := objc.Send[objc.ID](objc.ID(_MLPredictionOptionsClass.class), objc.Sel("defaultOptions"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/supportsSecureCoding
 func (_MLPredictionOptionsClass MLPredictionOptionsClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLPredictionOptionsClass.class), objc.Sel("supportsSecureCoding"))
@@ -275,6 +275,7 @@ func (p MLPredictionOptions) AneExecutionPriority() string {
 func (p MLPredictionOptions) SetAneExecutionPriority(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAneExecutionPriority:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/aneQoS
 func (p MLPredictionOptions) AneQoS() uint32 {
 	rv := objc.Send[uint32](p.ID, objc.Sel("aneQoS"))
@@ -283,6 +284,7 @@ func (p MLPredictionOptions) AneQoS() uint32 {
 func (p MLPredictionOptions) SetAneQoS(value uint32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAneQoS:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/automaticOutputBackingMode
 func (p MLPredictionOptions) AutomaticOutputBackingMode() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("automaticOutputBackingMode"))
@@ -291,6 +293,7 @@ func (p MLPredictionOptions) AutomaticOutputBackingMode() foundation.INSDictiona
 func (p MLPredictionOptions) SetAutomaticOutputBackingMode(value foundation.INSDictionary) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAutomaticOutputBackingMode:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/classifyTopK
 func (p MLPredictionOptions) ClassifyTopK() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("classifyTopK"))
@@ -299,6 +302,7 @@ func (p MLPredictionOptions) ClassifyTopK() uint64 {
 func (p MLPredictionOptions) SetClassifyTopK(value uint64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setClassifyTopK:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/completionSyncPoint
 func (p MLPredictionOptions) CompletionSyncPoint() IMLPredictionSyncPoint {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("completionSyncPoint"))
@@ -307,6 +311,7 @@ func (p MLPredictionOptions) CompletionSyncPoint() IMLPredictionSyncPoint {
 func (p MLPredictionOptions) SetCompletionSyncPoint(value IMLPredictionSyncPoint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCompletionSyncPoint:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/e5rtStreamReuseExpectation
 func (p MLPredictionOptions) E5rtStreamReuseExpectation() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("e5rtStreamReuseExpectation"))
@@ -315,6 +320,7 @@ func (p MLPredictionOptions) E5rtStreamReuseExpectation() string {
 func (p MLPredictionOptions) SetE5rtStreamReuseExpectation(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setE5rtStreamReuseExpectation:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/enablePixelBufferDirectBinding
 func (p MLPredictionOptions) EnablePixelBufferDirectBinding() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("enablePixelBufferDirectBinding"))
@@ -323,11 +329,13 @@ func (p MLPredictionOptions) EnablePixelBufferDirectBinding() bool {
 func (p MLPredictionOptions) SetEnablePixelBufferDirectBinding(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEnablePixelBufferDirectBinding:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/hasDirectBindingExpectations
 func (p MLPredictionOptions) HasDirectBindingExpectations() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("hasDirectBindingExpectations"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/inferenceFrameDataSerialization
 func (p MLPredictionOptions) InferenceFrameDataSerialization() IMLInferenceFrameDataSerialization {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("inferenceFrameDataSerialization"))
@@ -336,6 +344,7 @@ func (p MLPredictionOptions) InferenceFrameDataSerialization() IMLInferenceFrame
 func (p MLPredictionOptions) SetInferenceFrameDataSerialization(value IMLInferenceFrameDataSerialization) {
 	objc.Send[struct{}](p.ID, objc.Sel("setInferenceFrameDataSerialization:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/inputDirectBindingExpectations
 func (p MLPredictionOptions) InputDirectBindingExpectations() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("inputDirectBindingExpectations"))
@@ -344,6 +353,7 @@ func (p MLPredictionOptions) InputDirectBindingExpectations() foundation.INSDict
 func (p MLPredictionOptions) SetInputDirectBindingExpectations(value foundation.INSDictionary) {
 	objc.Send[struct{}](p.ID, objc.Sel("setInputDirectBindingExpectations:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/maxComputationBatchSize
 func (p MLPredictionOptions) MaxComputationBatchSize() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("maxComputationBatchSize"))
@@ -352,6 +362,7 @@ func (p MLPredictionOptions) MaxComputationBatchSize() uint64 {
 func (p MLPredictionOptions) SetMaxComputationBatchSize(value uint64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMaxComputationBatchSize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/outputDirectBindingExpectations
 func (p MLPredictionOptions) OutputDirectBindingExpectations() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("outputDirectBindingExpectations"))
@@ -360,6 +371,7 @@ func (p MLPredictionOptions) OutputDirectBindingExpectations() foundation.INSDic
 func (p MLPredictionOptions) SetOutputDirectBindingExpectations(value foundation.INSDictionary) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOutputDirectBindingExpectations:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/parentSignpostID
 func (p MLPredictionOptions) ParentSignpostID() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("parentSignpostID"))
@@ -368,11 +380,13 @@ func (p MLPredictionOptions) ParentSignpostID() uint64 {
 func (p MLPredictionOptions) SetParentSignpostID(value uint64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setParentSignpostID:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/predictionUsesCPU
 func (p MLPredictionOptions) PredictionUsesCPU() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("predictionUsesCPU"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/usesCPUOnly
 func (p MLPredictionOptions) UsesCPUOnly() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("usesCPUOnly"))
@@ -381,6 +395,7 @@ func (p MLPredictionOptions) UsesCPUOnly() bool {
 func (p MLPredictionOptions) SetUsesCPUOnly(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setUsesCPUOnly:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/waitSyncPoints
 func (p MLPredictionOptions) WaitSyncPoints() foundation.INSArray {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("waitSyncPoints"))
@@ -389,4 +404,3 @@ func (p MLPredictionOptions) WaitSyncPoints() foundation.INSArray {
 func (p MLPredictionOptions) SetWaitSyncPoints(value foundation.INSArray) {
 	objc.Send[struct{}](p.ID, objc.Sel("setWaitSyncPoints:"), value)
 }
-

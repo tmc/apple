@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLComputeDataSourceClass) Alloc() MLComputeDataSource {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLComputeDataSource.DataCHWFromChanneledPixelTypeChannelOrderIsBGRError]
@@ -53,6 +53,7 @@ func (mc MLComputeDataSourceClass) Alloc() MLComputeDataSource {
 //   - [MLComputeDataSource.DataDictionary]
 //   - [MLComputeDataSource.OneHotEncodedDataFromFeatureValueWithNNEngineError]
 //   - [MLComputeDataSource.InitWithFeatureProviderForPredictionNeuralNetworkEngineError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource
 type MLComputeDataSource struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLComputeDataSource struct {
 func MLComputeDataSourceFromID(id objc.ID) MLComputeDataSource {
 	return MLComputeDataSource{objectivec.Object{ID: id}}
 }
+
 // Ensure MLComputeDataSource implements IMLComputeDataSource.
 var _ IMLComputeDataSource = MLComputeDataSource{}
 
@@ -109,7 +111,6 @@ func NewMLComputeDataSource() MLComputeDataSource {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/initWithFeatureProvider:forPrediction:neuralNetworkEngine:error:
 func NewComputeDataSourceWithFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLComputeDataSource, error) {
 	var errorPtr objc.ID
@@ -122,7 +123,6 @@ func NewComputeDataSourceWithFeatureProviderForPredictionNeuralNetworkEngineErro
 	return MLComputeDataSourceFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataCHWFromChanneledPixelType:channelOrderIsBGR:error:
 func (c MLComputeDataSource) DataCHWFromChanneledPixelTypeChannelOrderIsBGRError(type_ corevideo.CVImageBufferRef, bgr bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -134,7 +134,7 @@ func (c MLComputeDataSource) DataCHWFromChanneledPixelTypeChannelOrderIsBGRError
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataCHWFromPixelBuffer:channelOrderIsBGR:error:
 func (c MLComputeDataSource) DataCHWFromPixelBufferChannelOrderIsBGRError(buffer corevideo.CVImageBufferRef, bgr bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -146,7 +146,7 @@ func (c MLComputeDataSource) DataCHWFromPixelBufferChannelOrderIsBGRError(buffer
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/dataCHWFromPixelTypeGray8:error:
 func (c MLComputeDataSource) DataCHWFromPixelTypeGray8Error(gray8 corevideo.CVImageBufferRef) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -158,7 +158,7 @@ func (c MLComputeDataSource) DataCHWFromPixelTypeGray8Error(gray8 corevideo.CVIm
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/oneHotEncodedDataFromFeatureValue:withNNEngine:error:
 func (c MLComputeDataSource) OneHotEncodedDataFromFeatureValueWithNNEngineError(value objectivec.IObject, nNEngine objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -170,7 +170,7 @@ func (c MLComputeDataSource) OneHotEncodedDataFromFeatureValueWithNNEngineError(
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDataSource/initWithFeatureProvider:forPrediction:neuralNetworkEngine:error:
 func (c MLComputeDataSource) InitWithFeatureProviderForPredictionNeuralNetworkEngineError(provider objectivec.IObject, prediction bool, engine objectivec.IObject) (MLComputeDataSource, error) {
 	var errorPtr objc.ID
@@ -188,4 +188,3 @@ func (c MLComputeDataSource) DataDictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("dataDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

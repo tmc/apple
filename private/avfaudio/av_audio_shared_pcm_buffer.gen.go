@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (ac AVAudioSharedPCMBufferClass) Alloc() AVAudioSharedPCMBuffer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioSharedPCMBuffer.BackedBySharedMemory]
 //   - [AVAudioSharedPCMBuffer.SharedBufferToken]
 //   - [AVAudioSharedPCMBuffer.InitWithPCMFormatFrameCapacity]
 //   - [AVAudioSharedPCMBuffer.InitWithPCMFormatSharedBufferToken]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedPCMBuffer
 type AVAudioSharedPCMBuffer struct {
 	AVAudioPCMBuffer
@@ -57,6 +58,7 @@ type AVAudioSharedPCMBuffer struct {
 func AVAudioSharedPCMBufferFromID(id objc.ID) AVAudioSharedPCMBuffer {
 	return AVAudioSharedPCMBuffer{AVAudioPCMBuffer: AVAudioPCMBufferFromID(id)}
 }
+
 // Ensure AVAudioSharedPCMBuffer implements IAVAudioSharedPCMBuffer.
 var _ IAVAudioSharedPCMBuffer = AVAudioSharedPCMBuffer{}
 
@@ -100,7 +102,6 @@ func NewAVAudioSharedPCMBuffer() AVAudioSharedPCMBuffer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/initWithFormat:byteCapacity:
 func NewAudioSharedPCMBufferWithFormatByteCapacity(format objectivec.IObject, capacity uint32) AVAudioSharedPCMBuffer {
 	instance := getAVAudioSharedPCMBufferClass().Alloc()
@@ -108,7 +109,6 @@ func NewAudioSharedPCMBufferWithFormatByteCapacity(format objectivec.IObject, ca
 	return AVAudioSharedPCMBufferFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedPCMBuffer/initWithPCMFormat:frameCapacity:
 func NewAudioSharedPCMBufferWithPCMFormatFrameCapacity(pCMFormat objectivec.IObject, capacity uint32) AVAudioSharedPCMBuffer {
 	instance := getAVAudioSharedPCMBufferClass().Alloc()
@@ -116,7 +116,6 @@ func NewAudioSharedPCMBufferWithPCMFormatFrameCapacity(pCMFormat objectivec.IObj
 	return AVAudioSharedPCMBufferFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedPCMBuffer/initWithPCMFormat:sharedBufferToken:
 func NewAudioSharedPCMBufferWithPCMFormatSharedBufferToken(pCMFormat objectivec.IObject, token objectivec.IObject) AVAudioSharedPCMBuffer {
 	instance := getAVAudioSharedPCMBufferClass().Alloc()
@@ -124,13 +123,12 @@ func NewAudioSharedPCMBufferWithPCMFormatSharedBufferToken(pCMFormat objectivec.
 	return AVAudioSharedPCMBufferFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedPCMBuffer/initWithPCMFormat:frameCapacity:
 func (a AVAudioSharedPCMBuffer) InitWithPCMFormatFrameCapacity(pCMFormat objectivec.IObject, capacity uint32) AVAudioSharedPCMBuffer {
 	rv := objc.Send[AVAudioSharedPCMBuffer](a.ID, objc.Sel("initWithPCMFormat:frameCapacity:"), pCMFormat, capacity)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedPCMBuffer/initWithPCMFormat:sharedBufferToken:
 func (a AVAudioSharedPCMBuffer) InitWithPCMFormatSharedBufferToken(pCMFormat objectivec.IObject, token objectivec.IObject) AVAudioSharedPCMBuffer {
 	rv := objc.Send[AVAudioSharedPCMBuffer](a.ID, objc.Sel("initWithPCMFormat:sharedBufferToken:"), pCMFormat, token)
@@ -142,9 +140,9 @@ func (a AVAudioSharedPCMBuffer) BackedBySharedMemory() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("backedBySharedMemory"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedPCMBuffer/sharedBufferToken
 func (a AVAudioSharedPCMBuffer) SharedBufferToken() IAVAudioSharedBufferToken {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedBufferToken"))
 	return AVAudioSharedBufferTokenFromID(objc.ID(rv))
 }
-

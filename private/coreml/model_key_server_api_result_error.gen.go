@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc ModelKeyServerAPIResultErrorClass) Alloc() ModelKeyServerAPIResultError
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ModelKeyServerAPIResultError.CopyTo]
@@ -53,6 +53,7 @@ func (mc ModelKeyServerAPIResultErrorClass) Alloc() ModelKeyServerAPIResultError
 //   - [ModelKeyServerAPIResultError.SetMessage]
 //   - [ModelKeyServerAPIResultError.ReadFrom]
 //   - [ModelKeyServerAPIResultError.WriteTo]
+//
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError
 type ModelKeyServerAPIResultError struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type ModelKeyServerAPIResultError struct {
 func ModelKeyServerAPIResultErrorFromID(id objc.ID) ModelKeyServerAPIResultError {
 	return ModelKeyServerAPIResultError{objectivec.Object{ID: id}}
 }
+
 // NOTE: ModelKeyServerAPIResultError struct embeds objectivec.Object (parent type unavailable) but
 // IModelKeyServerAPIResultError embeds the parent interface; skip compile-time assertion.
 
@@ -113,28 +115,28 @@ func NewModelKeyServerAPIResultError() ModelKeyServerAPIResultError {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/copyTo:
 func (m ModelKeyServerAPIResultError) CopyTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/dictionaryRepresentation
 func (m ModelKeyServerAPIResultError) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/mergeFrom:
 func (m ModelKeyServerAPIResultError) MergeFrom(from objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/readFrom:
 func (m ModelKeyServerAPIResultError) ReadFrom(from objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/writeTo:
 func (m ModelKeyServerAPIResultError) WriteTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
@@ -145,6 +147,7 @@ func (m ModelKeyServerAPIResultError) HasMessage() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasMessage"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIResultError/message
 func (m ModelKeyServerAPIResultError) Message() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("message"))
@@ -153,4 +156,3 @@ func (m ModelKeyServerAPIResultError) Message() string {
 func (m ModelKeyServerAPIResultError) SetMessage(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMessage:"), objc.String(value))
 }
-

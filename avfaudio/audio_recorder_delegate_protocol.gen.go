@@ -4,10 +4,12 @@ package avfaudio
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that defines the methods to respond to audio recording events and encoding errors.
@@ -21,6 +23,7 @@ type AVAudioRecorderDelegate interface {
 type AVAudioRecorderDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVAudioRecorderDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,14 +44,15 @@ func AVAudioRecorderDelegateObjectFromID(id objc.ID) AVAudioRecorderDelegateObje
 // flag: A Boolean value that indicates whether the recording stopped successfully.
 //
 // # Discussion
-// 
+//
 // The system doesn’t call this method if the recorder stops due to an
 // interruption.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorderDelegate/audioRecorderDidFinishRecording(_:successfully:)
 func (o AVAudioRecorderDelegateObject) AudioRecorderDidFinishRecordingSuccessfully(recorder IAVAudioRecorder, flag bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("audioRecorderDidFinishRecording:successfully:"), recorder, flag)
-	}
+}
+
 // Tells the delegate that the audio recorder encountered an encoding error
 // during recording.
 //
@@ -59,7 +63,7 @@ func (o AVAudioRecorderDelegateObject) AudioRecorderDidFinishRecordingSuccessful
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorderDelegate/audioRecorderEncodeErrorDidOccur(_:error:)
 func (o AVAudioRecorderDelegateObject) AudioRecorderEncodeErrorDidOccurError(recorder IAVAudioRecorder, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("audioRecorderEncodeErrorDidOccur:error:"), recorder, error_)
-	}
+}
 
 // AVAudioRecorderDelegateConfig holds optional typed callbacks for [AVAudioRecorderDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -137,4 +141,3 @@ func NewAVAudioRecorderDelegate(config AVAudioRecorderDelegateConfig) AVAudioRec
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVAudioRecorderDelegateObjectFromID(instance)
 }
-

@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSMenuItemCell] class.
@@ -88,6 +89,7 @@ type NSMenuItemCell struct {
 func NSMenuItemCellFromID(id objc.ID) NSMenuItemCell {
 	return NSMenuItemCell{NSButtonCell: NSButtonCellFromID(id)}
 }
+
 // NOTE: NSMenuItemCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -189,7 +191,6 @@ func NewNSMenuItemCell() NSMenuItemCell {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/init(imageCell:)
 func NewMenuItemCellImageCell(image INSImage) NSMenuItemCell {
 	instance := getNSMenuItemCellClass().Alloc()
@@ -197,7 +198,6 @@ func NewMenuItemCellImageCell(image INSImage) NSMenuItemCell {
 	return NSMenuItemCellFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/init(textCell:)
 func NewMenuItemCellTextCell(string_ string) NSMenuItemCell {
 	instance := getNSMenuItemCellClass().Alloc()
@@ -205,7 +205,6 @@ func NewMenuItemCellTextCell(string_ string) NSMenuItemCell {
 	return NSMenuItemCellFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/init(coder:)
 func NewMenuItemCellWithCoder(coder foundation.INSCoder) NSMenuItemCell {
 	instance := getNSMenuItemCellClass().Alloc()
@@ -217,11 +216,11 @@ func NewMenuItemCellWithCoder(coder foundation.INSCoder) NSMenuItemCell {
 // item.
 //
 // # Discussion
-// 
+//
 // The calculated values are cached for future use. This method also
 // calculates the sizes of individual components of the cell’s menu item and
 // caches those values.
-// 
+//
 // This method is invoked automatically when necessary. You should not need to
 // invoke it directly.
 //
@@ -229,13 +228,14 @@ func NewMenuItemCellWithCoder(coder foundation.INSCoder) NSMenuItemCell {
 func (m NSMenuItemCell) CalcSize() {
 	objc.Send[objc.ID](m.ID, objc.Sel("calcSize"))
 }
+
 // Returns the rectangle into which the menu item’s key equivalent should be
 // drawn.
 //
 // cellFrame: A rectangle that defines the bounds of the receiver.
 //
 // # Return Value
-// 
+//
 // The returned rectangle is based on `cellFrame` but encompasses only the
 // area to be occupied by the key equivalent.
 //
@@ -244,13 +244,14 @@ func (m NSMenuItemCell) KeyEquivalentRectForBounds(cellFrame corefoundation.CGRe
 	rv := objc.Send[corefoundation.CGRect](m.ID, objc.Sel("keyEquivalentRectForBounds:"), cellFrame)
 	return corefoundation.CGRect(rv)
 }
+
 // Returns the rectangle into which the menu item’s state image should be
 // drawn.
 //
 // cellFrame: A rectangle that defines the bounds of the receiver.
 //
 // # Return Value
-// 
+//
 // The returned rectangle is based on `cellFrame` but encompasses only the
 // area to be occupied by the menu item’s state image.
 //
@@ -259,6 +260,7 @@ func (m NSMenuItemCell) StateImageRectForBounds(cellFrame corefoundation.CGRect)
 	rv := objc.Send[corefoundation.CGRect](m.ID, objc.Sel("stateImageRectForBounds:"), cellFrame)
 	return corefoundation.CGRect(rv)
 }
+
 // Draws the borders and background associated with the receiver’s menu item
 // (if any).
 //
@@ -267,7 +269,7 @@ func (m NSMenuItemCell) StateImageRectForBounds(cellFrame corefoundation.CGRect)
 // controlView: The view object that contains this cell (usually an [NSControl] object).
 //
 // # Discussion
-// 
+//
 // This method invokes the [NSCell] method [ImageRectForBounds], passing it
 // `cellFrame`, to calculate the rectangle in which to draw the image. The
 // cell invokes this method before invoking the methods to draw the other menu
@@ -277,6 +279,7 @@ func (m NSMenuItemCell) StateImageRectForBounds(cellFrame corefoundation.CGRect)
 func (m NSMenuItemCell) DrawBorderAndBackgroundWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
 	objc.Send[objc.ID](m.ID, objc.Sel("drawBorderAndBackgroundWithFrame:inView:"), cellFrame, controlView)
 }
+
 // Draws the key equivalent associated with the menu item.
 //
 // cellFrame: A rectangle defining the receiver’s frame area.
@@ -284,10 +287,10 @@ func (m NSMenuItemCell) DrawBorderAndBackgroundWithFrameInView(cellFrame corefou
 // controlView: The view object that contains this cell (usually an [NSControl] object).
 //
 // # Discussion
-// 
+//
 // This method invokes [KeyEquivalentRectForBounds], passing it `cellFrame`,
 // to calculate the rectangle in which to draw the key equivalent. This method
-// is invoked by the cell’s `` method. You should not need to invoke it
+// is invoked by the cell’s “ method. You should not need to invoke it
 // directly. Subclasses may override this method to control the drawing of the
 // key equivalent.
 //
@@ -295,6 +298,7 @@ func (m NSMenuItemCell) DrawBorderAndBackgroundWithFrameInView(cellFrame corefou
 func (m NSMenuItemCell) DrawKeyEquivalentWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
 	objc.Send[objc.ID](m.ID, objc.Sel("drawKeyEquivalentWithFrame:inView:"), cellFrame, controlView)
 }
+
 // Draws a menu item separator.
 //
 // cellFrame: A rectangle defining the receiver’s frame area.
@@ -302,12 +306,12 @@ func (m NSMenuItemCell) DrawKeyEquivalentWithFrameInView(cellFrame corefoundatio
 // controlView: The view object that contains this cell (usually an [NSControl] object).
 //
 // # Discussion
-// 
+//
 // This method uses the `cellFrame` parameter to calculate the rectangle in
 // which to draw the menu item separator. This method uses the `controlView`
 // to determine whether the separator item should be drawn normally or
 // flipped.
-// 
+//
 // You should not need to invoke this method directly. Subclasses may override
 // this method to control the drawing of the separator.
 //
@@ -315,6 +319,7 @@ func (m NSMenuItemCell) DrawKeyEquivalentWithFrameInView(cellFrame corefoundatio
 func (m NSMenuItemCell) DrawSeparatorItemWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
 	objc.Send[objc.ID](m.ID, objc.Sel("drawSeparatorItemWithFrame:inView:"), cellFrame, controlView)
 }
+
 // Draws the state image associated with the menu item.
 //
 // cellFrame: A rectangle defining the receiver’s frame area.
@@ -322,10 +327,10 @@ func (m NSMenuItemCell) DrawSeparatorItemWithFrameInView(cellFrame corefoundatio
 // controlView: The view object that contains this cell (usually an [NSControl] object).
 //
 // # Discussion
-// 
+//
 // This method invokes [StateImageRectForBounds], passing it `cellFrame`, to
 // calculate the rectangle in which to draw the state image. This method is
-// invoked by the cell’s `` method. You should not need to invoke it
+// invoked by the cell’s “ method. You should not need to invoke it
 // directly. Subclasses may override this method to control the drawing of the
 // state image.
 //
@@ -344,24 +349,22 @@ func (m NSMenuItemCell) MenuItem() INSMenuItem {
 func (m NSMenuItemCell) SetMenuItem(value INSMenuItem) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMenuItem:"), value)
 }
+
 // A Boolean value indicating whether the size of the menu needs to be
 // calculated.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the next attempt to obtain size
+//
+// When the value of this property is true, the next attempt to obtain size
 // information about the menu cause the [CalcSize] method to be called. When
-// the value of the property is [false], the size information is obtained from
+// the value of the property is false, the size information is obtained from
 // the currently cached values.
-// 
+//
 // Subclasses that drastically change the way a menu item is drawn can change
 // the value of this property to update the menu item information. Other parts
 // of your application should not need to change this property directly. The
 // cell checks this value of this property as necessary when the content of
 // its menu item changes.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/needsSizing
 func (m NSMenuItemCell) NeedsSizing() bool {
@@ -371,10 +374,11 @@ func (m NSMenuItemCell) NeedsSizing() bool {
 func (m NSMenuItemCell) SetNeedsSizing(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNeedsSizing:"), value)
 }
+
 // The width of the image associated with the menu item.
 //
 // # Discussion
-// 
+//
 // The width of the image is measured in points. You can associate an image
 // with a menu item using the setImage: method of [NSMenuItem].
 //
@@ -383,10 +387,11 @@ func (m NSMenuItemCell) ImageWidth() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("imageWidth"))
 	return rv
 }
+
 // The width of the menu item’s text, measured in points.
 //
 // # Discussion
-// 
+//
 // To set the menu item’s text, use the setTitle: method of [NSMenuItem].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/titleWidth
@@ -394,10 +399,11 @@ func (m NSMenuItemCell) TitleWidth() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("titleWidth"))
 	return rv
 }
+
 // The width of the menu item’s key equivalent string.
 //
 // # Discussion
-// 
+//
 // To set the menu item’s key equivalent, use the [KeyEquivalent] property
 // of [NSMenuItem].
 //
@@ -406,16 +412,17 @@ func (m NSMenuItemCell) KeyEquivalentWidth() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("keyEquivalentWidth"))
 	return rv
 }
+
 // The width of the image used to indicate the state of the menu item.
 //
 // # Discussion
-// 
+//
 // If the menu item has multiple images associated with it (to indicate any of
 // the available states: on, off, or mixed), this property contains the width
 // of the largest image. You can set the state images for a menu item using
 // the setOnStateImage:, setOffStateImage:, and setMixedStateImage: methods of
 // [NSMenuItem].
-// 
+//
 // To change the state of the cell’s menu item, use the setState: method of
 // [NSMenuItem].
 //
@@ -424,13 +431,12 @@ func (m NSMenuItemCell) StateImageWidth() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("stateImageWidth"))
 	return rv
 }
+
 // A Boolean value indicating whether the menu item needs to be displayed.
 //
 // # Discussion
-// 
-// Set this property to [true] when you want the menu item to be drawn.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Set this property to true when you want the menu item to be drawn.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/needsDisplay
 func (m NSMenuItemCell) NeedsDisplay() bool {
@@ -440,4 +446,3 @@ func (m NSMenuItemCell) NeedsDisplay() bool {
 func (m NSMenuItemCell) SetNeedsDisplay(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNeedsDisplay:"), value)
 }
-

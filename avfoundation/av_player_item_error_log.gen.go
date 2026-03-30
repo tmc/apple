@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type AVPlayerItemErrorLog struct {
 func AVPlayerItemErrorLogFromID(id objc.ID) AVPlayerItemErrorLog {
 	return AVPlayerItemErrorLog{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerItemErrorLog adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,21 +111,21 @@ func NewAVPlayerItemErrorLog() AVPlayerItemErrorLog {
 // File Format.
 //
 // # Return Value
-// 
+//
 // A serialized representation of the error log in the Extended Log File
 // Format.
 //
 // # Discussion
-// 
+//
 // This method converts the web server error log into a textual format that
 // conforms to the W3C Extended Log File Format for web server log files. For
 // more information, see [http://www.w3.org/pub/WWW/TR/WD-logfile.html].
-// 
+//
 // You can generate a string suitable for console output using:
 //
-// [http://www.w3.org/pub/WWW/TR/WD-logfile.html]: http://www.w3.org/pub/WWW/TR/WD-logfile.html
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemErrorLog/extendedLogData()
+//
+// [http://www.w3.org/pub/WWW/TR/WD-logfile.html]: http://www.w3.org/pub/WWW/TR/WD-logfile.html
 func (p AVPlayerItemErrorLog) ExtendedLogData() foundation.INSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("extendedLogData"))
 	return foundation.NSDataFromID(rv)
@@ -132,22 +134,23 @@ func (p AVPlayerItemErrorLog) ExtendedLogData() foundation.INSData {
 // A chronologically ordered array of player item error log event objects.
 //
 // # Discussion
-// 
+//
 // The array contains [AVPlayerItemErrorLogEvent] objects that represent the
 // chronological sequence of events contained in the error log.
-// 
+//
 // This property isn’t observable. For more information about key-value
 // observing, see [Using Key-Value Observing in Swift].
 //
-// [Using Key-Value Observing in Swift]: https://developer.apple.com/documentation/Swift/using-key-value-observing-in-swift
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemErrorLog/events
+//
+// [Using Key-Value Observing in Swift]: https://developer.apple.com/documentation/Swift/using-key-value-observing-in-swift
 func (p AVPlayerItemErrorLog) Events() []AVPlayerItemErrorLogEvent {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("events"))
 	return objc.ConvertSlice(rv, func(id objc.ID) AVPlayerItemErrorLogEvent {
 		return AVPlayerItemErrorLogEventFromID(id)
 	})
 }
+
 // The string encoding of the extended log data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemErrorLog/extendedLogDataStringEncoding
@@ -155,4 +158,3 @@ func (p AVPlayerItemErrorLog) ExtendedLogDataStringEncoding() uint {
 	rv := objc.Send[uint](p.ID, objc.Sel("extendedLogDataStringEncoding"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -73,6 +74,7 @@ type MTL4RenderPipelineBinaryFunctionsDescriptor struct {
 func MTL4RenderPipelineBinaryFunctionsDescriptorFromID(id objc.ID) MTL4RenderPipelineBinaryFunctionsDescriptor {
 	return MTL4RenderPipelineBinaryFunctionsDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4RenderPipelineBinaryFunctionsDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -162,6 +164,7 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) FragmentAdditionalBinaryFun
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetFragmentAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFragmentAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Provides an array of binary functions representing additional binary mesh
 // shader functions.
 //
@@ -175,6 +178,7 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) MeshAdditionalBinaryFunctio
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetMeshAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMeshAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Provides an array of binary functions representing additional binary object
 // shader functions.
 //
@@ -188,6 +192,7 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) ObjectAdditionalBinaryFunct
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetObjectAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setObjectAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Provides an array of binary functions representing additional binary tile
 // shader functions.
 //
@@ -201,6 +206,7 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) TileAdditionalBinaryFunctio
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetTileAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTileAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Provides an array of binary functions representing additional binary vertex
 // shader functions.
 //
@@ -214,4 +220,3 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) VertexAdditionalBinaryFunct
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetVertexAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
-

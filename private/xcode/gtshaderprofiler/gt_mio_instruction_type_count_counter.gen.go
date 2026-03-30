@@ -3,8 +3,9 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -41,11 +42,11 @@ func (gc GTMioInstructionTypeCountCounterClass) Alloc() GTMioInstructionTypeCoun
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioInstructionTypeCountCounter.InstructionType]
 //   - [GTMioInstructionTypeCountCounter.InitWithContainerInstructionTypeScopeScopeIndex]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioInstructionTypeCountCounter
 type GTMioInstructionTypeCountCounter struct {
 	GTMioCounterData
@@ -55,6 +56,7 @@ type GTMioInstructionTypeCountCounter struct {
 func GTMioInstructionTypeCountCounterFromID(id objc.ID) GTMioInstructionTypeCountCounter {
 	return GTMioInstructionTypeCountCounter{GTMioCounterData: GTMioCounterDataFromID(id)}
 }
+
 // Ensure GTMioInstructionTypeCountCounter implements IGTMioInstructionTypeCountCounter.
 var _ IGTMioInstructionTypeCountCounter = GTMioInstructionTypeCountCounter{}
 
@@ -94,7 +96,6 @@ func NewGTMioInstructionTypeCountCounter() GTMioInstructionTypeCountCounter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/initWithContainer:index:scope:scopeIndex:
 func NewGTMioInstructionTypeCountCounterWithContainerIndexScopeScopeIndex(container unsafe.Pointer, index uint64, scope uint16, index2 uint64) GTMioInstructionTypeCountCounter {
 	instance := getGTMioInstructionTypeCountCounterClass().Alloc()
@@ -102,7 +103,6 @@ func NewGTMioInstructionTypeCountCounterWithContainerIndexScopeScopeIndex(contai
 	return GTMioInstructionTypeCountCounterFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioInstructionTypeCountCounter/initWithContainer:instructionType:scope:scopeIndex:
 func NewGTMioInstructionTypeCountCounterWithContainerInstructionTypeScopeScopeIndex(container unsafe.Pointer, type_ uint16, scope uint16, index uint64) GTMioInstructionTypeCountCounter {
 	instance := getGTMioInstructionTypeCountCounterClass().Alloc()
@@ -110,7 +110,6 @@ func NewGTMioInstructionTypeCountCounterWithContainerInstructionTypeScopeScopeIn
 	return GTMioInstructionTypeCountCounterFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioInstructionTypeCountCounter/initWithContainer:instructionType:scope:scopeIndex:
 func (g GTMioInstructionTypeCountCounter) InitWithContainerInstructionTypeScopeScopeIndex(container unsafe.Pointer, type_ uint16, scope uint16, index uint64) GTMioInstructionTypeCountCounter {
 	rv := objc.Send[GTMioInstructionTypeCountCounter](g.ID, objc.Sel("initWithContainer:instructionType:scope:scopeIndex:"), container, type_, scope, index)
@@ -122,4 +121,3 @@ func (g GTMioInstructionTypeCountCounter) InstructionType() uint16 {
 	rv := objc.Send[uint16](g.ID, objc.Sel("instructionType"))
 	return rv
 }
-

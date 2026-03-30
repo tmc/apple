@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,16 +45,16 @@ func (nc NSMorphologyCustomPronounClass) Alloc() NSMorphologyCustomPronoun {
 // A custom pronoun behavior for use in a specific langauge.
 //
 // # Overview
-// 
+//
 // Set a [NSMorphologyCustomPronoun] instance on a [NSMorphology] instance
 // when you want to provide a langauge-specific customization of pronoun use
 // in that language. Different languages have different requirements for the
 // grammatical information needed to apply a custom pronoun, so you set custom
 // pronoun behavior on a per-language basis.
-// 
+//
 // The example below shows how to create English “ze” and “hir” custom
 // pronouns:
-// 
+//
 // [NSMorphologyCustomPronoun] only supports third-person pronouns. Use this
 // feature when your app needs to refer to third parties with a specific
 // pronoun.
@@ -82,6 +83,7 @@ type NSMorphologyCustomPronoun struct {
 func NSMorphologyCustomPronounFromID(id objc.ID) NSMorphologyCustomPronoun {
 	return NSMorphologyCustomPronoun{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSMorphologyCustomPronoun adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -148,12 +150,12 @@ func NewNSMorphologyCustomPronoun() NSMorphologyCustomPronoun {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (m NSMorphologyCustomPronoun) InitWithCoder(coder INSCoder) NSMorphologyCustomPronoun {
 	rv := objc.Send[NSMorphologyCustomPronoun](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -166,7 +168,7 @@ func (m NSMorphologyCustomPronoun) EncodeWithCoder(coder INSCoder) {
 // The subject pronoun form to apply when using this custom pronoun behavior.
 //
 // # Discussion
-// 
+//
 // In the English phrase “she reads,” the pronoun “she” exhibits the
 // subject form.
 //
@@ -178,10 +180,11 @@ func (m NSMorphologyCustomPronoun) SubjectForm() string {
 func (m NSMorphologyCustomPronoun) SetSubjectForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSubjectForm:"), objc.String(value))
 }
+
 // The object pronoun form to apply when using this custom pronoun behavior.
 //
 // # Discussion
-// 
+//
 // In the English phrase “ask him,” the pronoun “him” exhibits the
 // object form.
 //
@@ -193,11 +196,12 @@ func (m NSMorphologyCustomPronoun) ObjectForm() string {
 func (m NSMorphologyCustomPronoun) SetObjectForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setObjectForm:"), objc.String(value))
 }
+
 // The posessive pronoun form to apply when using this custom pronoun
 // behavior.
 //
 // # Discussion
-// 
+//
 // In the English phrase “the bike is hers,” the pronoun “hers”
 // exhibits the posessive form.
 //
@@ -209,11 +213,12 @@ func (m NSMorphologyCustomPronoun) PossessiveForm() string {
 func (m NSMorphologyCustomPronoun) SetPossessiveForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPossessiveForm:"), objc.String(value))
 }
+
 // The posessive adjective pronoun form to apply when using this custom
 // pronoun behavior.
 //
 // # Discussion
-// 
+//
 // In the English phrase “his bike,” the pronoun “his” exhibits the
 // possesive adjective form.
 //
@@ -225,11 +230,12 @@ func (m NSMorphologyCustomPronoun) PossessiveAdjectiveForm() string {
 func (m NSMorphologyCustomPronoun) SetPossessiveAdjectiveForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPossessiveAdjectiveForm:"), objc.String(value))
 }
+
 // The reflexive pronoun form to apply when using this custom pronoun
 // behavior.
 //
 // # Discussion
-// 
+//
 // The English pronoun “herself” is an example of the reflexive form.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMorphologyCustomPronoun/reflexiveForm
@@ -241,9 +247,6 @@ func (m NSMorphologyCustomPronoun) SetReflexiveForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setReflexiveForm:"), objc.String(value))
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

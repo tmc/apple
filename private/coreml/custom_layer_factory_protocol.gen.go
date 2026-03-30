@@ -18,6 +18,7 @@ type MLCustomLayerFactory interface {
 type MLCustomLayerFactoryObject struct {
 	objectivec.Object
 }
+
 func (o MLCustomLayerFactoryObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,7 +31,6 @@ func MLCustomLayerFactoryObjectFromID(id objc.ID) MLCustomLayerFactoryObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayerFactory/createCustomLayer:withParameters:error:
 func (o MLCustomLayerFactoryObject) CreateCustomLayerWithParametersError(layer objectivec.IObject, parameters objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("createCustomLayer:withParameters:error:"), layer, parameters)
@@ -38,5 +38,4 @@ func (o MLCustomLayerFactoryObject) CreateCustomLayerWithParametersError(layer o
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

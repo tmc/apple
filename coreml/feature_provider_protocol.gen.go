@@ -3,8 +3,8 @@
 package coreml
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -29,6 +29,7 @@ type MLFeatureProvider interface {
 type MLFeatureProviderObject struct {
 	objectivec.Object
 }
+
 func (o MLFeatureProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -46,19 +47,19 @@ func MLFeatureProviderObjectFromID(id objc.ID) MLFeatureProviderObject {
 // featureName: The name of the feature of the desired value.
 //
 // # Return Value
-// 
+//
 // The value of the feature, or nil if no value exists for that name.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureValue(for:)
 func (o MLFeatureProviderObject) FeatureValueForName(featureName string) IMLFeatureValue {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureValueForName:"), objc.String(featureName))
 	return MLFeatureValueFromID(rv)
-	}
+}
+
 // The set of valid feature names.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureNames
 func (o MLFeatureProviderObject) FeatureNames() foundation.INSSet {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureNames"))
 	return foundation.NSSetFromID(rv)
-	}
-
+}

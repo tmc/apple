@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZFileHandleNetworkDeviceAttachment] class.
@@ -45,14 +46,14 @@ func (vc VZFileHandleNetworkDeviceAttachmentClass) Alloc() VZFileHandleNetworkDe
 // datagram socket.
 //
 // # Overview
-// 
+//
 // A [VZFileHandleNetworkDeviceAttachment] object maps a network interface to
 // a connected datagram socket. This attachment transmits data at the data
 // link layer. You configure and manage the socket in your app, and manage the
 // corresponding data transfers.
-// 
+//
 // To configure a network device with a socket-based file handle:
-// 
+//
 // - Create a socket with the `SOCK_DGRAM` type in your app. - Create a
 // [VZFileHandleNetworkDeviceAttachment.FileHandle] from the socket’s file descriptor. - Create the
 // [VZFileHandleNetworkDeviceAttachment] object using the file handle. -
@@ -60,12 +61,9 @@ func (vc VZFileHandleNetworkDeviceAttachmentClass) Alloc() VZFileHandleNetworkDe
 // [VZVirtioNetworkDeviceConfiguration] object. - Add the
 // [VZVirtioNetworkDeviceConfiguration] object to the [VZFileHandleNetworkDeviceAttachment.NetworkDevices]
 // property of your [VZVirtualMachineConfiguration].
-// 
+//
 // This attachment doesn’t require your app to have the
 // [com.apple.vm.networking] entitlement.
-//
-// [VZFileHandleNetworkDeviceAttachment.FileHandle]: https://developer.apple.com/documentation/Foundation/FileHandle
-// [com.apple.vm.networking]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.vm.networking
 //
 // # Creating the attachment point
 //
@@ -81,6 +79,9 @@ func (vc VZFileHandleNetworkDeviceAttachmentClass) Alloc() VZFileHandleNetworkDe
 //   - [VZFileHandleNetworkDeviceAttachment.SetMaximumTransmissionUnit]
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZFileHandleNetworkDeviceAttachment
+//
+// [VZFileHandleNetworkDeviceAttachment.FileHandle]: https://developer.apple.com/documentation/Foundation/FileHandle
+// [com.apple.vm.networking]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.vm.networking
 type VZFileHandleNetworkDeviceAttachment struct {
 	VZNetworkDeviceAttachment
 }
@@ -92,6 +93,7 @@ type VZFileHandleNetworkDeviceAttachment struct {
 func VZFileHandleNetworkDeviceAttachmentFromID(id objc.ID) VZFileHandleNetworkDeviceAttachment {
 	return VZFileHandleNetworkDeviceAttachment{VZNetworkDeviceAttachment: VZNetworkDeviceAttachmentFromID(id)}
 }
+
 // NOTE: VZFileHandleNetworkDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -163,7 +165,7 @@ func NewVZFileHandleNetworkDeviceAttachment() VZFileHandleNetworkDeviceAttachmen
 // fileHandle: A file handle to a connected datagram socket.
 //
 // # Return Value
-// 
+//
 // An attachment object for the specified file handle.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZFileHandleNetworkDeviceAttachment/init(fileHandle:)
@@ -179,7 +181,7 @@ func NewFileHandleNetworkDeviceAttachmentWithFileHandle(fileHandle foundation.NS
 // fileHandle: A file handle to a connected datagram socket.
 //
 // # Return Value
-// 
+//
 // An attachment object for the specified file handle.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZFileHandleNetworkDeviceAttachment/init(fileHandle:)
@@ -195,18 +197,19 @@ func (f VZFileHandleNetworkDeviceAttachment) FileHandle() foundation.NSFileHandl
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fileHandle"))
 	return foundation.NSFileHandleFromID(objc.ID(rv))
 }
+
 // An integer value that indicates the maximum transmission unit (MTU)
 // associated with this attachment.
 //
 // # Discussion
-// 
+//
 // The client side of the associated datagram socket must be properly
 // configured with the appropriate values for `SO_SNDBUF`, and `SO_RCVBUF`.
 // Set these using the `setsockopt(_:_:_:_:_:)` system call. The system
 // expects the value of `SO_RCVBUF` to be at least double the value of
 // `SO_SNDBUF`, and for optimal performance, the recommended value of
 // `SO_RCVBUF` is four times the value of `SO_SNDBUF`.
-// 
+//
 // The default MTU is 1500. The maximum MTU allowed is 65535, and the minimum
 // MTU allowed is 1500. An invalid MTU value results in an invalid virtual
 // machine configuration.
@@ -219,6 +222,7 @@ func (f VZFileHandleNetworkDeviceAttachment) MaximumTransmissionUnit() int {
 func (f VZFileHandleNetworkDeviceAttachment) SetMaximumTransmissionUnit(value int) {
 	objc.Send[struct{}](f.ID, objc.Sel("setMaximumTransmissionUnit:"), value)
 }
+
 // The object that defines how the virtual network device communicates with
 // the host system.
 //
@@ -230,6 +234,7 @@ func (f VZFileHandleNetworkDeviceAttachment) Attachment() IVZNetworkDeviceAttach
 func (f VZFileHandleNetworkDeviceAttachment) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAttachment:"), value)
 }
+
 // The array of network devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/networkdevices
@@ -240,4 +245,3 @@ func (f VZFileHandleNetworkDeviceAttachment) NetworkDevices() IVZNetworkDeviceCo
 func (f VZFileHandleNetworkDeviceAttachment) SetNetworkDevices(value IVZNetworkDeviceConfiguration) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNetworkDevices:"), value)
 }
-

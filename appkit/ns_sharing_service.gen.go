@@ -5,8 +5,9 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,23 +48,20 @@ func (nc NSSharingServiceClass) Alloc() NSSharingService {
 // services, or with apps like Mail or Safari.
 //
 // # Overview
-// 
+//
 // An [NSSharingService] object provides a consistent user experience for
 // sharing items—[NSURL] objects, [NSString] objects, [NSImage] objects,
 // video (through file URLs), of any object that implements the
 // [NSPasteboardWriting] protocol—in macOS.
-// 
+//
 // For any item or group of items, the [NSSharingService] displays a sheet
 // with the content to share. A sharing service can create a post on a social
 // network like Twitter or Facebook, send a message by email or iMessage,
 // upload videos to viewing services, or send a file using AirDrop.
-// 
+//
 // You can use [NSSharingService] objects directly in your app. The following
 // example shows how to create a button that shares content directly to a
 // social media service.
-//
-// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 //
 // # Creating a Sharing Service
 //
@@ -105,6 +103,9 @@ func (nc NSSharingServiceClass) Alloc() NSSharingService {
 //   - [NSSharingService.PermanentLink]: A permanent URL (permalink) that your app can use to access the post.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService
+//
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 type NSSharingService struct {
 	objectivec.Object
 }
@@ -116,6 +117,7 @@ type NSSharingService struct {
 func NSSharingServiceFromID(id objc.ID) NSSharingService {
 	return NSSharingService{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSSharingService adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -243,7 +245,7 @@ func NewNSSharingService() NSSharingService {
 // `Available Sharing Services`.
 //
 // # Return Value
-// 
+//
 // An instance of [NSSharingService] for the specified service name.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/init(named:)
@@ -263,42 +265,39 @@ func NewSharingServiceNamed(serviceName NSSharingServiceName) NSSharingService {
 // block: The block that actually interacts with the service.
 //
 // # Return Value
-// 
+//
 // An instance of the custom sharing object.
 //
 // # Discussion
-// 
+//
 // Custom sharing services can be added to the [NSSharingServicePicker] with
 // the [SharingServicePickerSharingServicesForItemsProposedSharingServices]
 // delegate method.
-// 
+//
 // When implementing this method, consider subclassing [NSSharingService] so
 // the [CanPerformWithItems] and [sharingServices(forItems:)] can provide
 // accurate results.
 //
-// [sharingServices(forItems:)]: https://developer.apple.com/documentation/AppKit/NSSharingService/sharingServices(forItems:)
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/init(title:image:alternateImage:handler:)
+//
+// [sharingServices(forItems:)]: https://developer.apple.com/documentation/AppKit/NSSharingService/sharingServices(forItems:)
 func (s NSSharingService) InitWithTitleImageAlternateImageHandler(title string, image INSImage, alternateImage INSImage, block VoidHandler) NSSharingService {
-_block3, _ := NewVoidBlock(block)
+	_block3, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithTitle:image:alternateImage:handler:"), objc.String(title), image, alternateImage, _block3)
 	return NSSharingServiceFromID(rv)
 }
+
 // Returns whether the service can share all the specified items.
 //
 // items: The items to share.
 //
 // # Return Value
-// 
-// [true] if the service can share all the items; [false] otherwise. If
-// `items` is `nil`, the method will return [true] when the service is
-// configured.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the service can share all the items; false otherwise. If `items` is
+// `nil`, the method will return true when the service is configured.
 //
 // # Discussion
-// 
+//
 // This method can be used to validate a custom user interface such as a
 // dedicated Twitter button. Therefore you could call it once at launch time
 // with `nil` items to check whether to display the button or not, and then
@@ -310,12 +309,13 @@ func (s NSSharingService) CanPerformWithItems(items foundation.INSArray) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("canPerformWithItems:"), items)
 	return rv
 }
+
 // Manually performs the service on the provided items.
 //
 // items: The items to share.
 //
 // # Discussion
-// 
+//
 // In most cases this will display a sharing window.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/perform(withItems:)
@@ -326,7 +326,7 @@ func (s NSSharingService) PerformWithItems(items foundation.INSArray) {
 // Specifies the delegate of the sharing service.
 //
 // # Discussion
-// 
+//
 // The delegate class must conform to the [NSSharingServiceDelegate] protocol.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/delegate
@@ -337,6 +337,7 @@ func (s NSSharingService) Delegate() NSSharingServiceDelegate {
 func (s NSSharingService) SetDelegate(value NSSharingServiceDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The account name used for posting on Twitter or Sina Weibo.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/accountName
@@ -344,6 +345,7 @@ func (s NSSharingService) AccountName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("accountName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The alternate image representing the sharing service.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/alternateImage
@@ -351,6 +353,7 @@ func (s NSSharingService) AlternateImage() INSImage {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("alternateImage"))
 	return NSImageFromID(objc.ID(rv))
 }
+
 // The primary image representing the sharing service.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/image
@@ -358,6 +361,7 @@ func (s NSSharingService) Image() INSImage {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("image"))
 	return NSImageFromID(objc.ID(rv))
 }
+
 // The title of the sharing service.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/title
@@ -365,10 +369,11 @@ func (s NSSharingService) Title() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The title of the service in the Share menu.
 //
 // # Discussion
-// 
+//
 // By default, this title is the same as the value of the [Title] property.
 // Your app can modify this value.
 //
@@ -380,10 +385,11 @@ func (s NSSharingService) MenuItemTitle() string {
 func (s NSSharingService) SetMenuItemTitle(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMenuItemTitle:"), objc.String(value))
 }
+
 // An array containing the user handles of the desired recipients.
 //
 // # Discussion
-// 
+//
 // Each object in the array is an [NSString] object that contains the handle
 // of a single recipient. The specific format of these handle varies from
 // service to service. For example, some services use email addresses as
@@ -397,6 +403,7 @@ func (s NSSharingService) Recipients() []string {
 func (s NSSharingService) SetRecipients(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRecipients:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The subject of the post.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/subject
@@ -407,6 +414,7 @@ func (s NSSharingService) Subject() string {
 func (s NSSharingService) SetSubject(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSubject:"), objc.String(value))
 }
+
 // An array of NSURL objects representing the files that were shared.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/attachmentFileURLs
@@ -416,6 +424,7 @@ func (s NSSharingService) AttachmentFileURLs() []foundation.NSURL {
 		return foundation.NSURLFromID(id)
 	})
 }
+
 // The message body as a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/messageBody
@@ -423,6 +432,7 @@ func (s NSSharingService) MessageBody() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("messageBody"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A permanent URL (permalink) that your app can use to access the post.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/permanentLink
@@ -445,4 +455,3 @@ func (s NSSharingService) InitWithTitleImageAlternateImageHandlerSync(ctx contex
 		return ctx.Err()
 	}
 }
-

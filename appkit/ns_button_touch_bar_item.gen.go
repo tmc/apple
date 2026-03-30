@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -76,6 +77,7 @@ type NSButtonTouchBarItem struct {
 func NSButtonTouchBarItemFromID(id objc.ID) NSButtonTouchBarItem {
 	return NSButtonTouchBarItem{NSTouchBarItem: NSTouchBarItemFromID(id)}
 }
+
 // NOTE: NSButtonTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -159,7 +161,7 @@ func NewButtonTouchBarItemWithCoder(coder foundation.INSCoder) NSButtonTouchBarI
 // Creates a new item with the specified identifier.
 //
 // # Discussion
-// 
+//
 // The designated initializer. The identifier must be globally unique for
 // every item, except for space items.
 //
@@ -170,20 +172,18 @@ func NewButtonTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) NS
 	return NSButtonTouchBarItemFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/init(identifier:title:target:action:)
 func NewButtonTouchBarItemWithIdentifierTitleTargetAction(identifier NSTouchBarItemIdentifier, title string, target objectivec.IObject, action objc.SEL) NSButtonTouchBarItem {
 	rv := objc.Send[objc.ID](objc.ID(getNSButtonTouchBarItemClass().class), objc.Sel("buttonTouchBarItemWithIdentifier:title:target:action:"), objc.String(string(identifier)), objc.String(title), target, action)
 	return NSButtonTouchBarItemFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/init(identifier:image:target:action:)
 func (_NSButtonTouchBarItemClass NSButtonTouchBarItemClass) ButtonTouchBarItemWithIdentifierImageTargetAction(identifier NSTouchBarItemIdentifier, image objectivec.Object, target objectivec.IObject, action objc.SEL) NSButtonTouchBarItem {
 	rv := objc.Send[objc.ID](objc.ID(_NSButtonTouchBarItemClass.class), objc.Sel("buttonTouchBarItemWithIdentifier:image:target:action:"), objc.String(string(identifier)), image, target, action)
 	return NSButtonTouchBarItemFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/init(identifier:title:image:target:action:)
 func (_NSButtonTouchBarItemClass NSButtonTouchBarItemClass) ButtonTouchBarItemWithIdentifierTitleImageTargetAction(identifier NSTouchBarItemIdentifier, title string, image objectivec.Object, target objectivec.IObject, action objc.SEL) NSButtonTouchBarItem {
 	rv := objc.Send[objc.ID](objc.ID(_NSButtonTouchBarItemClass.class), objc.Sel("buttonTouchBarItemWithIdentifier:title:image:target:action:"), objc.String(string(identifier)), objc.String(title), image, target, action)
@@ -198,6 +198,7 @@ func (b NSButtonTouchBarItem) Title() string {
 func (b NSButtonTouchBarItem) SetTitle(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTitle:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/image
 func (b NSButtonTouchBarItem) Image() objectivec.Object {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("image"))
@@ -206,6 +207,7 @@ func (b NSButtonTouchBarItem) Image() objectivec.Object {
 func (b NSButtonTouchBarItem) SetImage(value objectivec.Object) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImage:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/bezelColor
 func (b NSButtonTouchBarItem) BezelColor() objectivec.Object {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("bezelColor"))
@@ -214,6 +216,7 @@ func (b NSButtonTouchBarItem) BezelColor() objectivec.Object {
 func (b NSButtonTouchBarItem) SetBezelColor(value objectivec.Object) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBezelColor:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/isEnabled
 func (b NSButtonTouchBarItem) Enabled() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isEnabled"))
@@ -222,6 +225,7 @@ func (b NSButtonTouchBarItem) Enabled() bool {
 func (b NSButtonTouchBarItem) SetEnabled(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setEnabled:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/target
 func (b NSButtonTouchBarItem) Target() objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("target"))
@@ -230,6 +234,7 @@ func (b NSButtonTouchBarItem) Target() objectivec.IObject {
 func (b NSButtonTouchBarItem) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTarget:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSButtonTouchBarItem/action
 func (b NSButtonTouchBarItem) Action() objc.SEL {
 	rv := objc.Send[objc.SEL](b.ID, objc.Sel("action"))
@@ -238,4 +243,3 @@ func (b NSButtonTouchBarItem) Action() objc.SEL {
 func (b NSButtonTouchBarItem) SetAction(value objc.SEL) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAction:"), value)
 }
-

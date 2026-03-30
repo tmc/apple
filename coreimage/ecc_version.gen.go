@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type EccVersion struct {
 func EccVersionFromID(id objc.ID) EccVersion {
 	return EccVersion{objectivec.Object{ID: id}}
 }
+
 // Ensure EccVersion implements IEccVersion.
 var _ IEccVersion = EccVersion{}
 
@@ -78,4 +80,3 @@ func NewEccVersion() EccVersion {
 	rv := objc.Send[EccVersion](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

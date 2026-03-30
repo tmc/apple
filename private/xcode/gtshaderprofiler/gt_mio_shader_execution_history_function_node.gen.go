@@ -3,10 +3,11 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (gc GTMioShaderExecutionHistoryFunctionNodeClass) Alloc() GTMioShaderExecut
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioShaderExecutionHistoryFunctionNode.Binary]
@@ -65,6 +65,7 @@ func (gc GTMioShaderExecutionHistoryFunctionNodeClass) Alloc() GTMioShaderExecut
 //   - [GTMioShaderExecutionHistoryFunctionNode.Synthesized]
 //   - [GTMioShaderExecutionHistoryFunctionNode.InitWithBinaryCliqueParentIdentifier]
 //   - [GTMioShaderExecutionHistoryFunctionNode.InitWithLocationInlinedBinaryRangeIndexBinaryCallerLocationCallerBinaryRangeIndexCallerBinaryIdentifierParent]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode
 type GTMioShaderExecutionHistoryFunctionNode struct {
 	GTMioShaderExecutionHistoryNode
@@ -74,6 +75,7 @@ type GTMioShaderExecutionHistoryFunctionNode struct {
 func GTMioShaderExecutionHistoryFunctionNodeFromID(id objc.ID) GTMioShaderExecutionHistoryFunctionNode {
 	return GTMioShaderExecutionHistoryFunctionNode{GTMioShaderExecutionHistoryNode: GTMioShaderExecutionHistoryNodeFromID(id)}
 }
+
 // Ensure GTMioShaderExecutionHistoryFunctionNode implements IGTMioShaderExecutionHistoryFunctionNode.
 var _ IGTMioShaderExecutionHistoryFunctionNode = GTMioShaderExecutionHistoryFunctionNode{}
 
@@ -147,7 +149,6 @@ func NewGTMioShaderExecutionHistoryFunctionNode() GTMioShaderExecutionHistoryFun
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/initWithBinary:clique:parent:identifier:
 func NewGTMioShaderExecutionHistoryFunctionNodeWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique unsafe.Pointer, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode {
 	instance := getGTMioShaderExecutionHistoryFunctionNodeClass().Alloc()
@@ -155,7 +156,6 @@ func NewGTMioShaderExecutionHistoryFunctionNodeWithBinaryCliqueParentIdentifier(
 	return GTMioShaderExecutionHistoryFunctionNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/initWithLocation:inlined:binaryRangeIndex:binary:callerLocation:callerBinaryRangeIndex:callerBinary:identifier:parent:
 func NewGTMioShaderExecutionHistoryFunctionNodeWithLocationInlinedBinaryRangeIndexBinaryCallerLocationCallerBinaryRangeIndexCallerBinaryIdentifierParent(location unsafe.Pointer, inlined bool, index uint32, binary objectivec.IObject, location2 unsafe.Pointer, index2 uint32, binary2 objectivec.IObject, identifier uint64, parent objectivec.IObject) GTMioShaderExecutionHistoryFunctionNode {
 	instance := getGTMioShaderExecutionHistoryFunctionNodeClass().Alloc()
@@ -163,7 +163,6 @@ func NewGTMioShaderExecutionHistoryFunctionNodeWithLocationInlinedBinaryRangeInd
 	return GTMioShaderExecutionHistoryFunctionNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryNode/initWithType:parent:
 func NewGTMioShaderExecutionHistoryFunctionNodeWithTypeParent(type_ uint32, parent objectivec.IObject) GTMioShaderExecutionHistoryFunctionNode {
 	instance := getGTMioShaderExecutionHistoryFunctionNodeClass().Alloc()
@@ -175,13 +174,13 @@ func NewGTMioShaderExecutionHistoryFunctionNodeWithTypeParent(type_ uint32, pare
 func (g GTMioShaderExecutionHistoryFunctionNode) IncrementCallCount() {
 	objc.Send[objc.ID](g.ID, objc.Sel("incrementCallCount"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/initWithBinary:clique:parent:identifier:
 func (g GTMioShaderExecutionHistoryFunctionNode) InitWithBinaryCliqueParentIdentifier(binary objectivec.IObject, clique unsafe.Pointer, parent objectivec.IObject, identifier uint64) GTMioShaderExecutionHistoryFunctionNode {
 	rv := objc.Send[GTMioShaderExecutionHistoryFunctionNode](g.ID, objc.Sel("initWithBinary:clique:parent:identifier:"), binary, clique, parent, identifier)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/initWithLocation:inlined:binaryRangeIndex:binary:callerLocation:callerBinaryRangeIndex:callerBinary:identifier:parent:
 func (g GTMioShaderExecutionHistoryFunctionNode) InitWithLocationInlinedBinaryRangeIndexBinaryCallerLocationCallerBinaryRangeIndexCallerBinaryIdentifierParent(location unsafe.Pointer, inlined bool, index uint32, binary objectivec.IObject, location2 unsafe.Pointer, index2 uint32, binary2 objectivec.IObject, identifier uint64, parent objectivec.IObject) GTMioShaderExecutionHistoryFunctionNode {
 	rv := objc.Send[GTMioShaderExecutionHistoryFunctionNode](g.ID, objc.Sel("initWithLocation:inlined:binaryRangeIndex:binary:callerLocation:callerBinaryRangeIndex:callerBinary:identifier:parent:"), location, inlined, index, binary, location2, index2, binary2, identifier, parent)
@@ -193,79 +192,93 @@ func (g GTMioShaderExecutionHistoryFunctionNode) Binary() IGTMioShaderBinaryData
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binary"))
 	return GTMioShaderBinaryDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/binaryRange
 func (g GTMioShaderExecutionHistoryFunctionNode) BinaryRange() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binaryRange"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/binaryRangeIndex
 func (g GTMioShaderExecutionHistoryFunctionNode) BinaryRangeIndex() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("binaryRangeIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/callCount
 func (g GTMioShaderExecutionHistoryFunctionNode) CallCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("callCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/callerBinary
 func (g GTMioShaderExecutionHistoryFunctionNode) CallerBinary() IGTMioShaderBinaryData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("callerBinary"))
 	return GTMioShaderBinaryDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/callerBinaryRange
 func (g GTMioShaderExecutionHistoryFunctionNode) CallerBinaryRange() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("callerBinaryRange"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/callerBinaryRangeIndex
 func (g GTMioShaderExecutionHistoryFunctionNode) CallerBinaryRangeIndex() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("callerBinaryRangeIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/callerDebugFilePath
 func (g GTMioShaderExecutionHistoryFunctionNode) CallerDebugFilePath() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("callerDebugFilePath"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/callerDebugFunctionName
 func (g GTMioShaderExecutionHistoryFunctionNode) CallerDebugFunctionName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("callerDebugFunctionName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/callerLocation
 func (g GTMioShaderExecutionHistoryFunctionNode) CallerLocation() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("callerLocation"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/debugFilePath
 func (g GTMioShaderExecutionHistoryFunctionNode) DebugFilePath() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugFilePath"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/debugFunctionName
 func (g GTMioShaderExecutionHistoryFunctionNode) DebugFunctionName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugFunctionName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/identifier
 func (g GTMioShaderExecutionHistoryFunctionNode) Identifier() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("identifier"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/inlined
 func (g GTMioShaderExecutionHistoryFunctionNode) Inlined() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("inlined"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/location
 func (g GTMioShaderExecutionHistoryFunctionNode) Location() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("location"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryFunctionNode/synthesized
 func (g GTMioShaderExecutionHistoryFunctionNode) Synthesized() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("synthesized"))
 	return rv
 }
-

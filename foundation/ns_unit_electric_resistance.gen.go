@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,22 +44,22 @@ func (uc UnitElectricResistanceClass) Alloc() UnitElectricResistance {
 // A unit of measure for electric resistance.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitElectricResistance] to represent
 // specific quantities of electric resistance using the [NSMeasurement] class.
-// 
+//
 // # Electric Resistance
-// 
+//
 // Electric resistance is the difficulty of passing an electric current
 // through a conductor. The SI unit for electric resistance is the ohm (Ω),
 // which is derived as the electric resistance that produces one ampere of
 // current between two points in conductor with one volt of electric potential
 // difference (1Ω = 1V/1A).
-// 
+//
 // The [NSUnitElectricResistance] class defines its [BaseUnit] as [Ohms], and
 // provides the following units, which are initialized using
 // [NSUnitConverterLinear] converters with the specified coefficients:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricResistance
@@ -74,7 +75,10 @@ func UnitElectricResistanceFromID(id objc.ID) UnitElectricResistance {
 }
 
 // NSUnitElectricResistanceFromID is an alias for [UnitElectricResistanceFromID] for cross-framework compatibility.
-func NSUnitElectricResistanceFromID(id objc.ID) UnitElectricResistance { return UnitElectricResistanceFromID(id) }
+func NSUnitElectricResistanceFromID(id objc.ID) UnitElectricResistance {
+	return UnitElectricResistanceFromID(id)
+}
+
 // NOTE: UnitElectricResistance adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,7 +108,6 @@ func NewUnitElectricResistance() UnitElectricResistance {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitElectricResistanceWithCoder(coder INSCoder) UnitElectricResistance {
 	instance := getUnitElectricResistanceClass().Alloc()
@@ -117,7 +120,7 @@ func NewUnitElectricResistanceWithCoder(coder INSCoder) UnitElectricResistance {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -136,11 +139,11 @@ func NewUnitElectricResistanceWithSymbol(symbol string) UnitElectricResistance {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -157,6 +160,7 @@ func (_UnitElectricResistanceClass UnitElectricResistanceClass) Megaohms() UnitE
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricResistanceClass.class), objc.Sel("megaohms"))
 	return NSUnitElectricResistanceFromID(objc.ID(rv))
 }
+
 // The kiloohms unit of electric resistance.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricResistance/kiloohms
@@ -164,6 +168,7 @@ func (_UnitElectricResistanceClass UnitElectricResistanceClass) Kiloohms() UnitE
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricResistanceClass.class), objc.Sel("kiloohms"))
 	return NSUnitElectricResistanceFromID(objc.ID(rv))
 }
+
 // The ohms unit of electric resistance.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricResistance/ohms
@@ -171,6 +176,7 @@ func (_UnitElectricResistanceClass UnitElectricResistanceClass) Ohms() UnitElect
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricResistanceClass.class), objc.Sel("ohms"))
 	return NSUnitElectricResistanceFromID(objc.ID(rv))
 }
+
 // The milliohms unit of electric resistance.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricResistance/milliohms
@@ -178,6 +184,7 @@ func (_UnitElectricResistanceClass UnitElectricResistanceClass) Milliohms() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricResistanceClass.class), objc.Sel("milliohms"))
 	return NSUnitElectricResistanceFromID(objc.ID(rv))
 }
+
 // The microohms unit of electric resistance.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricResistance/microohms
@@ -185,4 +192,3 @@ func (_UnitElectricResistanceClass UnitElectricResistanceClass) Microohms() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricResistanceClass.class), objc.Sel("microohms"))
 	return NSUnitElectricResistanceFromID(objc.ID(rv))
 }
-

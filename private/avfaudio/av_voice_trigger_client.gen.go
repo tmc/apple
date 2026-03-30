@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (ac AVVoiceTriggerClientClass) Alloc() AVVoiceTriggerClient {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVVoiceTriggerClient.ActivateSecureSession]
@@ -91,6 +91,7 @@ func (ac AVVoiceTriggerClientClass) Alloc() AVVoiceTriggerClient {
 //   - [AVVoiceTriggerClient.VoiceTriggerPastDataFramesAvailableCompletion]
 //   - [AVVoiceTriggerClient.VoiceTriggerServerConnection]
 //   - [AVVoiceTriggerClient.InitWithValue]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient
 type AVVoiceTriggerClient struct {
 	objectivec.Object
@@ -100,6 +101,7 @@ type AVVoiceTriggerClient struct {
 func AVVoiceTriggerClientFromID(id objc.ID) AVVoiceTriggerClient {
 	return AVVoiceTriggerClient{objectivec.Object{ID: id}}
 }
+
 // Ensure AVVoiceTriggerClient implements IAVVoiceTriggerClient.
 var _ IAVVoiceTriggerClient = AVVoiceTriggerClient{}
 
@@ -227,7 +229,6 @@ func NewAVVoiceTriggerClient() AVVoiceTriggerClient {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/init:
 func NewVoiceTriggerClientWithValue(init_ int64) AVVoiceTriggerClient {
 	instance := getAVVoiceTriggerClientClass().Alloc()
@@ -235,237 +236,246 @@ func NewVoiceTriggerClientWithValue(init_ int64) AVVoiceTriggerClient {
 	return AVVoiceTriggerClientFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/activateSecureSession:
 func (v AVVoiceTriggerClient) ActivateSecureSession(session bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("activateSecureSession:"), session)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/callServerCrashedBlock
 func (v AVVoiceTriggerClient) CallServerCrashedBlock() {
 	objc.Send[objc.ID](v.ID, objc.Sel("callServerCrashedBlock"))
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/callServerResetBlock
 func (v AVVoiceTriggerClient) CallServerResetBlock() {
 	objc.Send[objc.ID](v.ID, objc.Sel("callServerResetBlock"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableBargeInMode:completionBlock:
 func (v AVVoiceTriggerClient) EnableBargeInModeCompletionBlock(mode bool, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("enableBargeInMode:completionBlock:"), mode, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableListeningOnPorts:completionBlock:
 func (v AVVoiceTriggerClient) EnableListeningOnPortsCompletionBlock(ports objectivec.IObject, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("enableListeningOnPorts:completionBlock:"), ports, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableSpeakerStateListening:
 func (v AVVoiceTriggerClient) EnableSpeakerStateListening(listening bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("enableSpeakerStateListening:"), listening)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableSpeakerStateListening:completionBlock:
 func (v AVVoiceTriggerClient) EnableSpeakerStateListeningCompletionBlock(listening bool, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("enableSpeakerStateListening:completionBlock:"), listening, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableVoiceTriggerListening:
 func (v AVVoiceTriggerClient) EnableVoiceTriggerListening(listening bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("enableVoiceTriggerListening:"), listening)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/enableVoiceTriggerListening:completionBlock:
 func (v AVVoiceTriggerClient) EnableVoiceTriggerListeningCompletionBlock(listening bool, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("enableVoiceTriggerListening:completionBlock:"), listening, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/getInputChannelInfoCompletion:
 func (v AVVoiceTriggerClient) GetInputChannelInfoCompletion(completion VoidHandler) {
-_block0, _ := NewVoidBlock(completion)
+	_block0, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("getInputChannelInfoCompletion:"), _block0)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/isSiriClient
 func (v AVVoiceTriggerClient) IsSiriClient() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isSiriClient"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/listeningEnabledCompletionBlock:
 func (v AVVoiceTriggerClient) ListeningEnabledCompletionBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("listeningEnabledCompletionBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/portStateActiveCompletionBlock:
 func (v AVVoiceTriggerClient) PortStateActiveCompletionBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("portStateActiveCompletionBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/portStateChangedNotification:
 func (v AVVoiceTriggerClient) PortStateChangedNotification(notification objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("portStateChangedNotification:"), notification)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/recordingAuditTokenList
 func (v AVVoiceTriggerClient) RecordingAuditTokenList() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("recordingAuditTokenList"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/recordingPIDList
 func (v AVVoiceTriggerClient) RecordingPIDList() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("recordingPIDList"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/secureSessionServerCrash
 func (v AVVoiceTriggerClient) SecureSessionServerCrash() {
 	objc.Send[objc.ID](v.ID, objc.Sel("secureSessionServerCrash"))
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/secureSessionServerReset
 func (v AVVoiceTriggerClient) SecureSessionServerReset() {
 	objc.Send[objc.ID](v.ID, objc.Sel("secureSessionServerReset"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setAggressiveECMode:completionBlock:
 func (v AVVoiceTriggerClient) SetAggressiveECModeCompletionBlock(eCMode bool, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setAggressiveECMode:completionBlock:"), eCMode, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setAvvcServerCrashedBlock:
 func (v AVVoiceTriggerClient) SetAvvcServerCrashedBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setAvvcServerCrashedBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setAvvcServerResetBlock:
 func (v AVVoiceTriggerClient) SetAvvcServerResetBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setAvvcServerResetBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setListeningProperty:completionBlock:
 func (v AVVoiceTriggerClient) SetListeningPropertyCompletionBlock(property bool, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setListeningProperty:completionBlock:"), property, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setPortStateChangedBlock:
 func (v AVVoiceTriggerClient) SetPortStateChangedBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setPortStateChangedBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setServerCrashedBlock:
 func (v AVVoiceTriggerClient) SetServerCrashedBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setServerCrashedBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setServerResetBlock:
 func (v AVVoiceTriggerClient) SetServerResetBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setServerResetBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setSiriClientRecordStateChangedBlock:
 func (v AVVoiceTriggerClient) SetSiriClientRecordStateChangedBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setSiriClientRecordStateChangedBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setSpeakerMuteStateChangedBlock:
 func (v AVVoiceTriggerClient) SetSpeakerMuteStateChangedBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setSpeakerMuteStateChangedBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setSpeakerStateChangedBlock:
 func (v AVVoiceTriggerClient) SetSpeakerStateChangedBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setSpeakerStateChangedBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/setVoiceTriggerBlock:
 func (v AVVoiceTriggerClient) SetVoiceTriggerBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setVoiceTriggerBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/siriClientRecordStateChangedNotification:recordingCount:
 func (v AVVoiceTriggerClient) SiriClientRecordStateChangedNotificationRecordingCount(notification bool, count uint64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("siriClientRecordStateChangedNotification:recordingCount:"), notification, count)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/siriClientsRecordingCompletionBlock:
 func (v AVVoiceTriggerClient) SiriClientsRecordingCompletionBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("siriClientsRecordingCompletionBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerMuteStateChangedNotification:
 func (v AVVoiceTriggerClient) SpeakerMuteStateChangedNotification(notification bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("speakerMuteStateChangedNotification:"), notification)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerStateActive
 func (v AVVoiceTriggerClient) SpeakerStateActive() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("speakerStateActive"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerStateActiveCompletionBlock:
 func (v AVVoiceTriggerClient) SpeakerStateActiveCompletionBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("speakerStateActiveCompletionBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerStateChangedNotification:
 func (v AVVoiceTriggerClient) SpeakerStateChangedNotification(notification objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("speakerStateChangedNotification:"), notification)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerStateMuted
 func (v AVVoiceTriggerClient) SpeakerStateMuted() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("speakerStateMuted"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/speakerStateMutedCompletionBlock:
 func (v AVVoiceTriggerClient) SpeakerStateMutedCompletionBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("speakerStateMutedCompletionBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/updateVoiceTriggerConfiguration:
 func (v AVVoiceTriggerClient) UpdateVoiceTriggerConfiguration(configuration objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("updateVoiceTriggerConfiguration:"), configuration)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/updateVoiceTriggerConfiguration:completionBlock:
 func (v AVVoiceTriggerClient) UpdateVoiceTriggerConfigurationCompletionBlock(configuration objectivec.IObject, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("updateVoiceTriggerConfiguration:completionBlock:"), configuration, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/voiceTriggerNotification:
 func (v AVVoiceTriggerClient) VoiceTriggerNotification(notification objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("voiceTriggerNotification:"), notification)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/voiceTriggerPastDataFramesAvailableCompletion:
 func (v AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailableCompletion(completion VoidHandler) {
-_block0, _ := NewVoidBlock(completion)
+	_block0, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("voiceTriggerPastDataFramesAvailableCompletion:"), _block0)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/voiceTriggerServerConnection
 func (v AVVoiceTriggerClient) VoiceTriggerServerConnection() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("voiceTriggerServerConnection"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/init:
 func (v AVVoiceTriggerClient) InitWithValue(init_ int64) AVVoiceTriggerClient {
 	rv := objc.Send[AVVoiceTriggerClient](v.ID, objc.Sel("init:"), init_)
@@ -477,17 +487,19 @@ func (_AVVoiceTriggerClientClass AVVoiceTriggerClientClass) IsAPIAvailable() boo
 	rv := objc.Send[bool](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("isAPIAvailable"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/sharedInstance
 func (_AVVoiceTriggerClientClass AVVoiceTriggerClientClass) SharedInstance() AVVoiceTriggerClient {
 	rv := objc.Send[objc.ID](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("sharedInstance"))
 	return AVVoiceTriggerClientFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/sharedInstance:
 func (_AVVoiceTriggerClientClass AVVoiceTriggerClientClass) SharedInstanceWithInstance(instance int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("sharedInstance:"), instance)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/supportsDuckingOnSpeakerOutput
 func (_AVVoiceTriggerClientClass AVVoiceTriggerClientClass) SupportsDuckingOnSpeakerOutput() bool {
 	rv := objc.Send[bool](objc.ID(_AVVoiceTriggerClientClass.class), objc.Sel("supportsDuckingOnSpeakerOutput"))
@@ -502,6 +514,7 @@ func (v AVVoiceTriggerClient) ClientType() int64 {
 func (v AVVoiceTriggerClient) SetClientType(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setClientType:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVoiceTriggerClient/voiceTriggerPastDataFramesAvailable
 func (v AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailable() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("voiceTriggerPastDataFramesAvailable"))
@@ -852,4 +865,3 @@ func (v AVVoiceTriggerClient) VoiceTriggerPastDataFramesAvailableCompletionSync(
 		return ctx.Err()
 	}
 }
-

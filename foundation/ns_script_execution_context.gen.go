@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,20 +45,20 @@ func (nc NSScriptExecutionContextClass) Alloc() NSScriptExecutionContext {
 // The context in which the current script command is executed.
 //
 // # Overview
-// 
+//
 // An [NSScriptExecutionContext] object is a shared instance (there is only
 // one instance of the class) that represents the context in which the current
 // script command is executed. [NSScriptExecutionContext] tracks global state
 // relating to the command being executed, especially the top-level container
 // object (that is, the container implied by a specifier object that specifies
 // no container) used in an evaluation of an [NSScriptObjectSpecifier] object.
-// 
+//
 // In most cases, the top-level container for a complete series of nested
 // object specifiers is automatically set to the application object ([NSApp]),
 // and you can get this object with the [NSScriptExecutionContext.TopLevelObject] method. But you can
 // also set this top-level container to something else (using
 // [NSScriptExecutionContext.TopLevelObject]) if the situation warrants it.
-// 
+//
 // It is unlikely that you will need to subclass [NSScriptExecutionContext].
 //
 // # Getting and setting the container object
@@ -80,6 +81,7 @@ type NSScriptExecutionContext struct {
 func NSScriptExecutionContextFromID(id objc.ID) NSScriptExecutionContext {
 	return NSScriptExecutionContext{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSScriptExecutionContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -133,7 +135,7 @@ func NewNSScriptExecutionContext() NSScriptExecutionContext {
 // Returns the shared [NSScriptExecutionContext] instance.
 //
 // # Return Value
-// 
+//
 // The shared [NSScriptExecutionContext] instance, creating it first if it
 // doesn’t exist.
 //
@@ -153,6 +155,7 @@ func (s NSScriptExecutionContext) TopLevelObject() objectivec.IObject {
 func (s NSScriptExecutionContext) SetTopLevelObject(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTopLevelObject:"), value)
 }
+
 // Sets the top-level container object currently being tested in a “whose”
 // qualifier to a given object.
 //
@@ -164,11 +167,12 @@ func (s NSScriptExecutionContext) ObjectBeingTested() objectivec.IObject {
 func (s NSScriptExecutionContext) SetObjectBeingTested(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setObjectBeingTested:"), value)
 }
+
 // Sets the top-level container object for a range-specifier evaluation to a
 // give object.
 //
 // # Discussion
-// 
+//
 // Instances of [NSRangeSpecifier] contain object specifiers representing the
 // first or last element in a range of elements, and these specifiers are
 // evaluated in the context of `container`.
@@ -181,4 +185,3 @@ func (s NSScriptExecutionContext) RangeContainerObject() objectivec.IObject {
 func (s NSScriptExecutionContext) SetRangeContainerObject(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRangeContainerObject:"), value)
 }
-

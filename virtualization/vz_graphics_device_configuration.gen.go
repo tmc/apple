@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,6 +55,7 @@ type VZGraphicsDeviceConfiguration struct {
 func VZGraphicsDeviceConfigurationFromID(id objc.ID) VZGraphicsDeviceConfiguration {
 	return VZGraphicsDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZGraphicsDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -82,4 +84,3 @@ func NewVZGraphicsDeviceConfiguration() VZGraphicsDeviceConfiguration {
 	rv := objc.Send[VZGraphicsDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

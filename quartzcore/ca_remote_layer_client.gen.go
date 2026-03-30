@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,14 +45,10 @@ func (cc CARemoteLayerClientClass) Alloc() CARemoteLayerClient {
 // A legacy class for cross-process rendering.
 //
 // # Overview
-// 
+//
 // [CARemoteLaterClient] is a legacy class for cross-process rendering.
 // [IOSurfaceCreateMachPort(_:)] and [IOSurfaceCreateXPCObject(_:)], available
 // with [IOSurface], offer an improved way to perform cross-process rendering.
-//
-// [IOSurfaceCreateMachPort(_:)]: https://developer.apple.com/documentation/IOSurface/IOSurfaceCreateMachPort(_:)
-// [IOSurfaceCreateXPCObject(_:)]: https://developer.apple.com/documentation/IOSurface/IOSurfaceCreateXPCObject(_:)
-// [IOSurface]: https://developer.apple.com/documentation/IOSurface/IOSurface
 //
 // # Creating a Client
 //
@@ -68,6 +65,10 @@ func (cc CARemoteLayerClientClass) Alloc() CARemoteLayerClient {
 //   - [CARemoteLayerClient.Invalidate]: Invalidates a remote layer client.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARemoteLayerClient
+//
+// [IOSurfaceCreateMachPort(_:)]: https://developer.apple.com/documentation/IOSurface/IOSurfaceCreateMachPort(_:)
+// [IOSurfaceCreateXPCObject(_:)]: https://developer.apple.com/documentation/IOSurface/IOSurfaceCreateXPCObject(_:)
+// [IOSurface]: https://developer.apple.com/documentation/IOSurface/IOSurface
 type CARemoteLayerClient struct {
 	objectivec.Object
 }
@@ -78,6 +79,7 @@ type CARemoteLayerClient struct {
 func CARemoteLayerClientFromID(id objc.ID) CARemoteLayerClient {
 	return CARemoteLayerClient{objectivec.Object{ID: id}}
 }
+
 // NOTE: CARemoteLayerClient adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -155,6 +157,7 @@ func (r CARemoteLayerClient) InitWithServerPort(port uint32) CARemoteLayerClient
 	rv := objc.Send[CARemoteLayerClient](r.ID, objc.Sel("initWithServerPort:"), port)
 	return rv
 }
+
 // Invalidates a remote layer client.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARemoteLayerClient/invalidate()
@@ -169,6 +172,7 @@ func (r CARemoteLayerClient) ClientId() uint32 {
 	rv := objc.Send[uint32](r.ID, objc.Sel("clientId"))
 	return rv
 }
+
 // The layer associated with the remote client.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARemoteLayerClient/layer
@@ -179,4 +183,3 @@ func (r CARemoteLayerClient) Layer() ICALayer {
 func (r CARemoteLayerClient) SetLayer(value ICALayer) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLayer:"), value)
 }
-

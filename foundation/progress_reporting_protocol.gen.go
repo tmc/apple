@@ -23,6 +23,7 @@ type NSProgressReporting interface {
 type NSProgressReportingObject struct {
 	objectivec.Object
 }
+
 func (o NSProgressReportingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,5 +42,4 @@ func NSProgressReportingObjectFromID(id objc.ID) NSProgressReportingObject {
 func (o NSProgressReportingObject) Progress() INSProgress {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("progress"))
 	return NSProgressFromID(rv)
-	}
-
+}

@@ -4,10 +4,11 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,14 +49,14 @@ func (cc CIRAWFilterClass) Alloc() CIRAWFilter {
 // data from a digital camera or scanner.
 //
 // # Overview
-// 
+//
 // Use this class to generate a [CIImage] object based on the configuration
 // parameters you provide.
-// 
+//
 // You can use this object in conjunction with other Core Image classes—such
 // as [CIFilter] and [CIContext]—to take advantage of the built-in Core
 // Image filters when processing images or writing custom filters.
-// 
+//
 // You can also query this object to find out about the supported camera
 // models, decoders, and filters.
 //
@@ -149,6 +150,7 @@ type CIRAWFilter struct {
 func CIRAWFilterFromID(id objc.ID) CIRAWFilter {
 	return CIRAWFilter{CIFilter: CIFilterFromID(id)}
 }
+
 // NOTE: CIRAWFilter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -414,7 +416,7 @@ func NewRAWFilterWithImageURL(url foundation.INSURL) CIRAWFilter {
 // An array of all supported decoder versions for the given image type.
 //
 // # Discussion
-// 
+//
 // This array is sorted in reverse chronological order. All entries represent
 // a valid version identifier set to [DecoderVersion].
 //
@@ -423,130 +425,123 @@ func (r CIRAWFilter) SupportedDecoderVersions() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("supportedDecoderVersions"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // A Boolean that indicates if the current image supports color noise
 // reduction adjustments.
 //
 // # Discussion
-// 
-// If this value is [true], you can adjust the amount of color noise reduction
-// to apply to the image by setting [ColorNoiseReductionAmount].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this value is true, you can adjust the amount of color noise reduction
+// to apply to the image by setting [ColorNoiseReductionAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isColorNoiseReductionSupported
 func (r CIRAWFilter) ColorNoiseReductionSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isColorNoiseReductionSupported"))
 	return rv
 }
+
 // A Boolean that indicates if the current image supports contrast
 // adjustments.
 //
 // # Discussion
-// 
-// If this value is [true], you can adjust the amount of contrast to apply to
-// the image by setting [ContrastAmount].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this value is true, you can adjust the amount of contrast to apply to
+// the image by setting [ContrastAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isContrastSupported
 func (r CIRAWFilter) ContrastSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isContrastSupported"))
 	return rv
 }
+
 // A Boolean that indicates if the current image supports detail enhancement
 // adjustments.
 //
 // # Discussion
-// 
-// If this value is [true], you can adjust the amount of detail enhancement to
-// apply to the image by setting [DetailAmount].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this value is true, you can adjust the amount of detail enhancement to
+// apply to the image by setting [DetailAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isDetailSupported
 func (r CIRAWFilter) DetailSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isDetailSupported"))
 	return rv
 }
+
 // A Boolean that indicates if you can enable lens correction for the current
 // image.
 //
 // # Discussion
-// 
-// If this value is [true], you can enable lens correction on the image by
-// setting [LensCorrectionEnabled] to [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this value is true, you can enable lens correction on the image by
+// setting [LensCorrectionEnabled] to true.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLensCorrectionSupported
 func (r CIRAWFilter) LensCorrectionSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isLensCorrectionSupported"))
 	return rv
 }
+
 // A Boolean that indicates if the current image supports local tone curve
 // adjustments.
 //
 // # Discussion
-// 
-// If this value is [true], you can adjust the amount of local tone curve to
-// apply to the image by setting [LocalToneMapAmount].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this value is true, you can adjust the amount of local tone curve to
+// apply to the image by setting [LocalToneMapAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLocalToneMapSupported
 func (r CIRAWFilter) LocalToneMapSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isLocalToneMapSupported"))
 	return rv
 }
+
 // A Boolean that indicates if the current image supports luminance noise
 // reduction adjustments.
 //
 // # Discussion
-// 
-// If this value is [true], you can adjust the amount of luminance noise
-// reduction to apply to the image by setting [LuminanceNoiseReductionAmount].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this value is true, you can adjust the amount of luminance noise
+// reduction to apply to the image by setting [LuminanceNoiseReductionAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLuminanceNoiseReductionSupported
 func (r CIRAWFilter) LuminanceNoiseReductionSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isLuminanceNoiseReductionSupported"))
 	return rv
 }
+
 // A Boolean that indicates if the current image supports moire artifact
 // reduction adjustments.
 //
 // # Discussion
-// 
-// If this value is [true], you can adjust the amount of moire artifact
-// reduction to apply to the image by setting [MoireReductionAmount].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this value is true, you can adjust the amount of moire artifact
+// reduction to apply to the image by setting [MoireReductionAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isMoireReductionSupported
 func (r CIRAWFilter) MoireReductionSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isMoireReductionSupported"))
 	return rv
 }
+
 // A Boolean that indicates if the current image supports sharpness
 // adjustments.
 //
 // # Discussion
-// 
-// If this value is [true], you can adjust the amount of sharpness to apply to
-// the image by setting [SharpnessAmount].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this value is true, you can adjust the amount of sharpness to apply to
+// the image by setting [SharpnessAmount].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isSharpnessSupported
 func (r CIRAWFilter) SharpnessSupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isSharpnessSupported"))
 	return rv
 }
+
 // The full native size of the unscaled image.
 //
 // # Discussion
-// 
+//
 // This value isn’t affected by orientation changes.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/nativeSize
@@ -554,10 +549,11 @@ func (r CIRAWFilter) NativeSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](r.ID, objc.Sel("nativeSize"))
 	return corefoundation.CGSize(rv)
 }
+
 // A value that indicates the baseline exposure to apply to the image.
 //
 // # Discussion
-// 
+//
 // The default value varies with camera settings. A value of `0` indicates
 // linear response.
 //
@@ -569,11 +565,12 @@ func (r CIRAWFilter) BaselineExposure() float32 {
 func (r CIRAWFilter) SetBaselineExposure(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setBaselineExposure:"), value)
 }
+
 // A value that indicates the amount of global tone curve to apply to the
 // image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0...1`. A value of `0` indicates no
 // global tone curve (linear response), and a value of `1` indicates full
 // global tone curve. The default value is `1`.
@@ -586,10 +583,11 @@ func (r CIRAWFilter) BoostAmount() float32 {
 func (r CIRAWFilter) SetBoostAmount(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setBoostAmount:"), value)
 }
+
 // A value that indicates the amount to boost the shadow areas of the image.
 //
 // # Discussion
-// 
+//
 // Use this value to lighten details in shadows. The value should be in the
 // range of `0...2`. The default value is `1`. A value less than `1` darkens
 // the shadows, and a value greater than `1` lightens the shadows.
@@ -602,11 +600,12 @@ func (r CIRAWFilter) BoostShadowAmount() float32 {
 func (r CIRAWFilter) SetBoostShadowAmount(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setBoostShadowAmount:"), value)
 }
+
 // A value that indicates the amount of chroma noise reduction to apply to the
 // image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0...1`. The default value varies by
 // image. A value of `0` indicates no chroma noise reduction, and a value of
 // `1` indicates maximum chroma noise reduction.
@@ -619,11 +618,12 @@ func (r CIRAWFilter) ColorNoiseReductionAmount() float32 {
 func (r CIRAWFilter) SetColorNoiseReductionAmount(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setColorNoiseReductionAmount:"), value)
 }
+
 // A value that indicates the amount of local contrast to apply to the edges
 // of the image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0...1`. The default value varies by
 // image. A value of `0` indicates no contrast, and a value of `1` indicates
 // maximum contrast.
@@ -636,18 +636,19 @@ func (r CIRAWFilter) ContrastAmount() float32 {
 func (r CIRAWFilter) SetContrastAmount(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setContrastAmount:"), value)
 }
+
 // A value that indicates the decoder version to use.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0` to the current decoder version.
-// 
+//
 // A newly initialized object defaults to the newest available decoder version
 // for the given image type. You can request an older version to maintain
 // compatibility with older releases. However, the version you request needs
 // to be a member of [SupportedDecoderVersions], otherwise the system
 // generates a `nil` output image.
-// 
+//
 // When you request a specific version of the decoder, Core Image produces an
 // image that looks the same across different versions. However, Core Image
 // doesn’t guarantee that the bits are the same across versions, because the
@@ -662,11 +663,12 @@ func (r CIRAWFilter) DecoderVersion() CIRAWDecoderVersion {
 func (r CIRAWFilter) SetDecoderVersion(value CIRAWDecoderVersion) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDecoderVersion:"), objc.String(string(value)))
 }
+
 // A value that indicates the amount of detail enhancement to apply to the
 // edges of the image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0...3`. The default value varies by
 // image. A value of `0` indicates no detail enhancement, and a value of `3`
 // indicates maximum detail enhancement.
@@ -679,10 +681,11 @@ func (r CIRAWFilter) DetailAmount() float32 {
 func (r CIRAWFilter) SetDetailAmount(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDetailAmount:"), value)
 }
+
 // A value that indicates the amount of exposure to apply to the image.
 //
 // # Discussion
-// 
+//
 // The default value is `0`.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/exposure
@@ -693,11 +696,12 @@ func (r CIRAWFilter) Exposure() float32 {
 func (r CIRAWFilter) SetExposure(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setExposure:"), value)
 }
+
 // A value that indicates the amount of extended dynamic range (EDR) to apply
 // to the image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0...2`. The default value is `0`. A
 // value of `0` indicates no EDR. A value of `1` indicates default EDR, and a
 // value of `2` indicates maximum EDR.
@@ -710,15 +714,13 @@ func (r CIRAWFilter) ExtendedDynamicRangeAmount() float32 {
 func (r CIRAWFilter) SetExtendedDynamicRangeAmount(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setExtendedDynamicRangeAmount:"), value)
 }
+
 // A Boolean that indicates whether to enable draft mode.
 //
 // # Discussion
-// 
-// Setting this value to [true] can improve image decoding speed with minimal
-// loss of quality. The default value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Setting this value to true can improve image decoding speed with minimal
+// loss of quality. The default value is false.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isDraftModeEnabled
 func (r CIRAWFilter) DraftModeEnabled() bool {
@@ -728,13 +730,12 @@ func (r CIRAWFilter) DraftModeEnabled() bool {
 func (r CIRAWFilter) SetDraftModeEnabled(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDraftModeEnabled:"), value)
 }
+
 // A Boolean that indicates whether to enable gamut mapping.
 //
 // # Discussion
-// 
-// The default value is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value is true.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isGamutMappingEnabled
 func (r CIRAWFilter) GamutMappingEnabled() bool {
@@ -744,10 +745,11 @@ func (r CIRAWFilter) GamutMappingEnabled() bool {
 func (r CIRAWFilter) SetGamutMappingEnabled(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setGamutMappingEnabled:"), value)
 }
+
 // A Boolean that indicates whether to enable lens correction.
 //
 // # Discussion
-// 
+//
 // The default value varies by image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isLensCorrectionEnabled
@@ -758,6 +760,7 @@ func (r CIRAWFilter) LensCorrectionEnabled() bool {
 func (r CIRAWFilter) SetLensCorrectionEnabled(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLensCorrectionEnabled:"), value)
 }
+
 // An optional filter you can apply to the RAW image while it’s in linear
 // space.
 //
@@ -769,11 +772,12 @@ func (r CIRAWFilter) LinearSpaceFilter() CIFilter {
 func (r CIRAWFilter) SetLinearSpaceFilter(value CIFilter) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLinearSpaceFilter:"), value)
 }
+
 // A value that indicates the amount of local tone curve to apply to the
 // image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0...1`. The default value varies by
 // image. A value of `0` indicates no local tone curve (linear response), and
 // a value of `1` indicates full global tone curve.
@@ -786,11 +790,12 @@ func (r CIRAWFilter) LocalToneMapAmount() float32 {
 func (r CIRAWFilter) SetLocalToneMapAmount(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLocalToneMapAmount:"), value)
 }
+
 // A value that indicates the amount of luminance noise reduction to apply to
 // the image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0...1`. The default value varies by
 // image. A value of `0` indicates no luminance noise reduction, and a value
 // of `1` indicates maximum luminance noise reduction.
@@ -803,11 +808,12 @@ func (r CIRAWFilter) LuminanceNoiseReductionAmount() float32 {
 func (r CIRAWFilter) SetLuminanceNoiseReductionAmount(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLuminanceNoiseReductionAmount:"), value)
 }
+
 // A value that indicates the amount of moire artifact reduction to apply to
 // high frequency areas of the image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0...1`. The default value varies by
 // image. A value of `0` indicates no moire reduction, and a value of `1`
 // indicates maximum moire reduction.
@@ -820,11 +826,12 @@ func (r CIRAWFilter) MoireReductionAmount() float32 {
 func (r CIRAWFilter) SetMoireReductionAmount(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMoireReductionAmount:"), value)
 }
+
 // A value that indicates the amount of white balance based on chromaticity
 // values to apply to the image.
 //
 // # Discussion
-// 
+//
 // Set this value to change the level of white balance to apply to the image,
 // based on `x,y` chromaticity values in the range `0...1`.
 //
@@ -836,11 +843,12 @@ func (r CIRAWFilter) NeutralChromaticity() corefoundation.CGPoint {
 func (r CIRAWFilter) SetNeutralChromaticity(value corefoundation.CGPoint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNeutralChromaticity:"), value)
 }
+
 // A value that indicates the amount of white balance based on pixel
 // coordinates to apply to the image.
 //
 // # Discussion
-// 
+//
 // Set this value based on `x,y` pixel coordinates in the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/neutralLocation
@@ -851,11 +859,12 @@ func (r CIRAWFilter) NeutralLocation() corefoundation.CGPoint {
 func (r CIRAWFilter) SetNeutralLocation(value corefoundation.CGPoint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNeutralLocation:"), value)
 }
+
 // A value that indicates the amount of white balance based on temperature
 // values to apply to the image.
 //
 // # Discussion
-// 
+//
 // Set this value based on temperature values in the range `2000K...50000K`.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/neutralTemperature
@@ -866,11 +875,12 @@ func (r CIRAWFilter) NeutralTemperature() float32 {
 func (r CIRAWFilter) SetNeutralTemperature(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNeutralTemperature:"), value)
 }
+
 // A value that indicates the amount of white balance based on tint values to
 // apply to the image.
 //
 // # Discussion
-// 
+//
 // Set this value based on tint values in the range `-150...150`.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/neutralTint
@@ -881,10 +891,11 @@ func (r CIRAWFilter) NeutralTint() float32 {
 func (r CIRAWFilter) SetNeutralTint(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNeutralTint:"), value)
 }
+
 // A value that indicates the orientation of the image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `1...8` and follow the EXIF
 // specification.
 //
@@ -896,6 +907,7 @@ func (r CIRAWFilter) Orientation() objectivec.IObject {
 func (r CIRAWFilter) SetOrientation(value objectivec.IObject) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOrientation:"), value)
 }
+
 // An optional auxiliary image that represents the portrait effects matte of
 // the image.
 //
@@ -904,6 +916,7 @@ func (r CIRAWFilter) PortraitEffectsMatte() ICIImage {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("portraitEffectsMatte"))
 	return CIImageFromID(objc.ID(rv))
 }
+
 // An optional auxiliary image that represents a preview of the original
 // image.
 //
@@ -912,25 +925,27 @@ func (r CIRAWFilter) PreviewImage() ICIImage {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("previewImage"))
 	return CIImageFromID(objc.ID(rv))
 }
+
 // A dictionary that contains properties of the image source.
 //
 // # Discussion
-// 
+//
 // This dictionary contains the same contents as the [Image Properties]
 // accessed using [CGImageSourceCopyProperties(_:_:)].
 //
+// See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/properties
+//
 // [CGImageSourceCopyProperties(_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageSourceCopyProperties(_:_:)
 // [Image Properties]: https://developer.apple.com/documentation/ImageIO/image-properties
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/properties
 func (r CIRAWFilter) Properties() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("properties"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // A value that indicates the desired scale factor to draw the output image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0...1`. The default value is `1`. A
 // value of `1` results in a full-size output image, and a value less than `1`
 // results in a smaller output image.
@@ -943,11 +958,12 @@ func (r CIRAWFilter) ScaleFactor() float32 {
 func (r CIRAWFilter) SetScaleFactor(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setScaleFactor:"), value)
 }
+
 // An optional auxiliary image that represents the semantic segmentation
 // glasses matte of the image.
 //
 // # Discussion
-// 
+//
 // This matting image segments eyeglasses and sunglasses from all people in
 // the visible field of view of the image.
 //
@@ -956,11 +972,12 @@ func (r CIRAWFilter) SemanticSegmentationGlassesMatte() ICIImage {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("semanticSegmentationGlassesMatte"))
 	return CIImageFromID(objc.ID(rv))
 }
+
 // An optional auxiliary image that represents the semantic segmentation hair
 // matte of the image.
 //
 // # Discussion
-// 
+//
 // This matting image segments hair from all people in the visible field of
 // view of the image.
 //
@@ -969,11 +986,12 @@ func (r CIRAWFilter) SemanticSegmentationHairMatte() ICIImage {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("semanticSegmentationHairMatte"))
 	return CIImageFromID(objc.ID(rv))
 }
+
 // An optional auxiliary image that represents the semantic segmentation skin
 // matte of the image.
 //
 // # Discussion
-// 
+//
 // This matting image segments skin from all people in the visible field of
 // view of the image.
 //
@@ -982,11 +1000,12 @@ func (r CIRAWFilter) SemanticSegmentationSkinMatte() ICIImage {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("semanticSegmentationSkinMatte"))
 	return CIImageFromID(objc.ID(rv))
 }
+
 // An optional auxiliary image that represents the semantic segmentation sky
 // matte of the image.
 //
 // # Discussion
-// 
+//
 // This matting image segments the sky from the visible field of view of the
 // image.
 //
@@ -995,11 +1014,12 @@ func (r CIRAWFilter) SemanticSegmentationSkyMatte() ICIImage {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("semanticSegmentationSkyMatte"))
 	return CIImageFromID(objc.ID(rv))
 }
+
 // An optional auxiliary image that represents the semantic segmentation teeth
 // matte of the image.
 //
 // # Discussion
-// 
+//
 // This matting image segments the teeth from all people in the visible field
 // of view of the image.
 //
@@ -1008,11 +1028,12 @@ func (r CIRAWFilter) SemanticSegmentationTeethMatte() ICIImage {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("semanticSegmentationTeethMatte"))
 	return CIImageFromID(objc.ID(rv))
 }
+
 // A value that indicates the amount to subtract from the shadows in the
 // image.
 //
 // # Discussion
-// 
+//
 // The default value varies by image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/shadowBias
@@ -1023,11 +1044,12 @@ func (r CIRAWFilter) ShadowBias() float32 {
 func (r CIRAWFilter) SetShadowBias(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setShadowBias:"), value)
 }
+
 // A value that indicates the amount of sharpness to apply to the edges of the
 // image.
 //
 // # Discussion
-// 
+//
 // The value should be in the range of `0...1`. The default value varies by
 // image. A value of `0` indicates no sharpness, and a value of `1` indicates
 // maximum sharpness.
@@ -1040,6 +1062,7 @@ func (r CIRAWFilter) SharpnessAmount() float32 {
 func (r CIRAWFilter) SetSharpnessAmount(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSharpnessAmount:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isHighlightRecoveryEnabled
 func (r CIRAWFilter) HighlightRecoveryEnabled() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isHighlightRecoveryEnabled"))
@@ -1048,6 +1071,7 @@ func (r CIRAWFilter) HighlightRecoveryEnabled() bool {
 func (r CIRAWFilter) SetHighlightRecoveryEnabled(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setHighlightRecoveryEnabled:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/isHighlightRecoverySupported
 func (r CIRAWFilter) HighlightRecoverySupported() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isHighlightRecoverySupported"))
@@ -1061,4 +1085,3 @@ func (_CIRAWFilterClass CIRAWFilterClass) SupportedCameraModels() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_CIRAWFilterClass.class), objc.Sel("supportedCameraModels"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

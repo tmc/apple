@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMetadataDogHeadObjectClass) Alloc() AVMetadataDogHeadObject {
 // A concrete metadata object subclass representing a dog head.
 //
 // # Overview
-// 
+//
 // [AVMetadataDogHeadObject] is a concrete subclass of [AVMetadataObject]
 // representing a dog head.
 //
@@ -58,6 +59,7 @@ type AVMetadataDogHeadObject struct {
 func AVMetadataDogHeadObjectFromID(id objc.ID) AVMetadataDogHeadObject {
 	return AVMetadataDogHeadObject{AVMetadataObject: AVMetadataObjectFromID(id)}
 }
+
 // NOTE: AVMetadataDogHeadObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewAVMetadataDogHeadObject() AVMetadataDogHeadObject {
 	rv := objc.Send[AVMetadataDogHeadObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

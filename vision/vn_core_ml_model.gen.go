@@ -3,11 +3,12 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,14 +48,11 @@ func (vc VNCoreMLModelClass) Alloc() VNCoreMLModel {
 // A container for the model to use with Vision requests.
 //
 // # Overview
-// 
+//
 // A [Core ML] model encapsulates the information trained from a data set used
 // to drive Vision recognition requests. See [Getting a Core ML Model] for
 // instructions on training your own model. Once you train the model, use this
 // class to initialize a [VNCoreMLRequest] for identification.
-//
-// [Core ML]: https://developer.apple.com/documentation/CoreML
-// [Getting a Core ML Model]: https://developer.apple.com/documentation/CoreML/getting-a-core-ml-model
 //
 // # Providing Features
 //
@@ -64,6 +62,9 @@ func (vc VNCoreMLModelClass) Alloc() VNCoreMLModel {
 //   - [VNCoreMLModel.SetInputImageFeatureName]
 //
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLModel
+//
+// [Core ML]: https://developer.apple.com/documentation/CoreML
+// [Getting a Core ML Model]: https://developer.apple.com/documentation/CoreML/getting-a-core-ml-model
 type VNCoreMLModel struct {
 	objectivec.Object
 }
@@ -74,6 +75,7 @@ type VNCoreMLModel struct {
 func VNCoreMLModelFromID(id objc.ID) VNCoreMLModel {
 	return VNCoreMLModel{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNCoreMLModel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,10 +130,10 @@ func NewVNCoreMLModel() VNCoreMLModel {
 // model: The model to create the model container from.
 //
 // # Discussion
-// 
+//
 // This method may fail if the framework doesn’t support the Core ML model.
 // For example, a model that doesn’t accept an image as any of its inputs
-// will yield an [ErrorInvalidModel] error.
+// will yield an [VNErrorInvalidModel] error.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLModel/init(for:)
 func NewCoreMLModelForMLModelError(model coreml.MLModel) (VNCoreMLModel, error) {
@@ -147,18 +149,18 @@ func NewCoreMLModelForMLModelError(model coreml.MLModel) (VNCoreMLModel, error) 
 // An optional object to support inputs outside Vision.
 //
 // # Discussion
-// 
+//
 // This optional object conforms to the [MLFeatureProvider] protocol that the
 // model uses to predict inputs that are not supplied by Vision. Vision
 // provides the MLModel with the image for the [InputImageFeatureName] via the
 // [VNRequestHandler].
-// 
+//
 // A feature provider is necessary for models that have more than one required
 // input. Models with only one image input won’t use the feature provider.
 //
-// [MLFeatureProvider]: https://developer.apple.com/documentation/CoreML/MLFeatureProvider
-//
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLModel/featureProvider
+//
+// [MLFeatureProvider]: https://developer.apple.com/documentation/CoreML/MLFeatureProvider
 func (c VNCoreMLModel) FeatureProvider() coreml.MLFeatureProvider {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("featureProvider"))
 	return coreml.MLFeatureProviderObjectFromID(rv)
@@ -166,10 +168,11 @@ func (c VNCoreMLModel) FeatureProvider() coreml.MLFeatureProvider {
 func (c VNCoreMLModel) SetFeatureProvider(value coreml.MLFeatureProvider) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFeatureProvider:"), value)
 }
+
 // The name of the feature value that Vision sets from the request handler.
 //
 // # Discussion
-// 
+//
 // By default, Vision uses the first input found, but you can manually set
 // that input to another [FeatureName] instead.
 //
@@ -181,6 +184,7 @@ func (c VNCoreMLModel) InputImageFeatureName() string {
 func (c VNCoreMLModel) SetInputImageFeatureName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInputImageFeatureName:"), objc.String(value))
 }
+
 // The model to base the image analysis request on.
 //
 // See: https://developer.apple.com/documentation/vision/vncoremlrequest/model
@@ -191,4 +195,3 @@ func (c VNCoreMLModel) Model() IVNCoreMLModel {
 func (c VNCoreMLModel) SetModel(value IVNCoreMLModel) {
 	objc.Send[struct{}](c.ID, objc.Sel("setModel:"), value)
 }
-

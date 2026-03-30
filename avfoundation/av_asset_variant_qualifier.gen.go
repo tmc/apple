@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -55,6 +56,7 @@ type AVAssetVariantQualifier struct {
 func AVAssetVariantQualifierFromID(id objc.ID) AVAssetVariantQualifier {
 	return AVAssetVariantQualifier{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetVariantQualifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,6 +126,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForAu
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForAudioSampleRate:mediaSelectionOption:operatorType:"), sampleRate, mediaSelectionOption, operatorType)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a NSPredicate for audio sample rate which can be used with other
 // NSPredicates to express variant preferences.
 //
@@ -136,7 +139,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForAu
 // and NSNotEqualToPredicateOperatorType.
 //
 // # Discussion
-// 
+//
 // Predicate will be evaluated on the media selection option selected for the
 // asset. Media selection options for primary assets may be specified in the
 // AVAssetDownloadConfiguration mediaSelections property. Media selection
@@ -149,6 +152,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForAu
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForAudioSampleRate:operatorType:"), sampleRate, operatorType)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a NSPredicate for binaural which can be used with other
 // NSPredicates to express variant preferences.
 //
@@ -157,6 +161,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForBi
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForBinauralAudio:"), isBinauralAudio)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a predicate for binaural audio.
 //
 // isBinauralAudio: A Boolean value that indicates the binaural state to use in the predicate
@@ -165,11 +170,11 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForBi
 // mediaSelectionOption: The media selection option for the variant.
 //
 // # Return Value
-// 
+//
 // A predicate object that you use to to create an [AVAssetVariantQualifier].
 //
 // # Discussion
-// 
+//
 // Use the returned value, along with other predicates, to express variant
 // preferences.
 //
@@ -178,6 +183,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForBi
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForBinauralAudio:mediaSelectionOption:"), isBinauralAudio, mediaSelectionOption)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a predicate with a channel count, media selection option, and
 // operator type.
 //
@@ -188,7 +194,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForBi
 // operatorType: The predicate operator.
 //
 // # Return Value
-// 
+//
 // A predicate object that you use to to create an [AVAssetVariantQualifier].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariantQualifier/predicate(forChannelCount:mediaSelectionOption:operatorType:)
@@ -196,6 +202,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForCh
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForChannelCount:mediaSelectionOption:operatorType:"), channelCount, mediaSelectionOption, operatorType)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a NSPredicate for audio channel count which can be used with other
 // NSPredicates to express variant preferences.
 //
@@ -208,7 +215,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForCh
 // and NSNotEqualToPredicateOperatorType.
 //
 // # Discussion
-// 
+//
 // Predicate will be evaluated on the media selection option selected for the
 // asset. Media selection options for primary assets may be specified in the
 // AVAssetDownloadConfiguration mediaSelections property. Media selection
@@ -221,13 +228,14 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForCh
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForChannelCount:operatorType:"), channelCount, operatorType)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a NSPredicate for immersive audio which can be used with other
 // NSPredicates to express variant preferences.
 //
 // isDownmixAudio: The RHS value for the value of isDownmixAudio in the predicate equation.
 //
 // # Discussion
-// 
+//
 // Predicate will be evaluated on the media selection option selected for the
 // asset. Media selection options for primary assets may be specified in the
 // AVAssetDownloadConfiguration mediaSelections property. Media selection
@@ -240,16 +248,17 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForDo
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForDownmixAudio:"), isDownmixAudio)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a predicate for downmix audio.
 //
 // mediaSelectionOption: The media selection option for the variant.
 //
 // # Return Value
-// 
+//
 // A predicate object that you use to to create an [AVAssetVariantQualifier].
 //
 // # Discussion
-// 
+//
 // Use the returned value, along with other predicates, to express variant
 // preferences.
 //
@@ -258,13 +267,14 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForDo
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForDownmixAudio:mediaSelectionOption:"), isDownmixAudio, mediaSelectionOption)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a NSPredicate for immersive audio which can be used with other
 // NSPredicates to express variant preferences.
 //
 // isImmersiveAudio: The RHS value for the value of isImmersiveAudio in the predicate equation.
 //
 // # Discussion
-// 
+//
 // Predicate will be evaluated on the media selection option selected for the
 // asset. Media selection options for primary assets may be specified in the
 // AVAssetDownloadConfiguration mediaSelections property. Media selection
@@ -277,16 +287,17 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForIm
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForImmersiveAudio:"), isImmersiveAudio)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a predicate for immersive audio.
 //
 // mediaSelectionOption: The media selection option for the variant.
 //
 // # Return Value
-// 
+//
 // A predicate object that you use to to create an [AVAssetVariantQualifier].
 //
 // # Discussion
-// 
+//
 // Use the returned value, along with other predicates, to express variant
 // preferences.
 //
@@ -295,6 +306,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForIm
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForImmersiveAudio:mediaSelectionOption:"), isImmersiveAudio, mediaSelectionOption)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a predicate with a height and operator type.
 //
 // height: The presentation height.
@@ -302,7 +314,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForIm
 // operatorType: The predicate’s operator type.
 //
 // # Return Value
-// 
+//
 // A predicate object that you use to to create an [AVAssetVariantQualifier].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariantQualifier/predicate(forPresentationHeight:operatorType:)
@@ -310,6 +322,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForPr
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForPresentationHeight:operatorType:"), height, operatorType)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Creates a predicate with a width and operator type.
 //
 // width: The presentation width.
@@ -317,7 +330,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForPr
 // operatorType: The predicate’s operator type.
 //
 // # Return Value
-// 
+//
 // A predicate object that you use to to create an [AVAssetVariantQualifier].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariantQualifier/predicate(forPresentationWidth:operatorType:)
@@ -325,6 +338,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) PredicateForPr
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("predicateForPresentationWidth:operatorType:"), width, operatorType)
 	return foundation.NSPredicateFromID(rv)
 }
+
 // Returns a qualifer for finding variant with maximum value in the input key
 // path
 //
@@ -337,6 +351,7 @@ func (_AVAssetVariantQualifierClass AVAssetVariantQualifierClass) AssetVariantQu
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetVariantQualifierClass.class), objc.Sel("assetVariantQualifierForMaximumValueInKeyPath:"), objc.String(keyPath))
 	return AVAssetVariantQualifierFromID(rv)
 }
+
 // Returns a qualifer for finding variant with minimum value in the input key
 // path.
 //
@@ -360,6 +375,7 @@ func (a AVAssetVariantQualifier) MediaSelections() IAVMediaSelection {
 func (a AVAssetVariantQualifier) SetMediaSelections(value IAVMediaSelection) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMediaSelections:"), value)
 }
+
 // The variant qualifiers for this configuration.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetdownloadcontentconfiguration/variantqualifiers
@@ -370,4 +386,3 @@ func (a AVAssetVariantQualifier) VariantQualifiers() IAVAssetVariantQualifier {
 func (a AVAssetVariantQualifier) SetVariantQualifiers(value IAVAssetVariantQualifier) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVariantQualifiers:"), value)
 }
-

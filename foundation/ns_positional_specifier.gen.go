@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSPositionalSpecifierClass) Alloc() NSPositionalSpecifier {
 // object in the container.
 //
 // # Overview
-// 
+//
 // Instances of [NSPositionalSpecifier] specify an insertion point in a
 // container relative to another object in the container, for example, `before
 // first word` or `after paragraph 4`. The container is specified by an
@@ -54,11 +55,11 @@ func (nc NSPositionalSpecifierClass) Alloc() NSPositionalSpecifier {
 // (`create`) and `move` commands and indicate where the created or moved
 // object is to be inserted relative to the object represented by an object
 // specifier.
-// 
+//
 // Invoking an accessor method to obtain information about an instance of
 // [NSPositionalSpecifier] causes the object to be evaluated if it hasn’t
 // been already.
-// 
+//
 // You don’t normally subclass [NSPositionalSpecifier].
 //
 // # Initializing a positional specifier
@@ -91,6 +92,7 @@ type NSPositionalSpecifier struct {
 func NSPositionalSpecifierFromID(id objc.ID) NSPositionalSpecifier {
 	return NSPositionalSpecifier{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPositionalSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -173,7 +175,7 @@ func NewNSPositionalSpecifier() NSPositionalSpecifier {
 // specifier: The reference specifier.
 //
 // # Return Value
-// 
+//
 // An initialized positional specifier with the position specified by
 // `position` relative to the object specified by `specifier`.
 //
@@ -192,7 +194,7 @@ func NewPositionalSpecifierWithPositionObjectSpecifier(position NSInsertionPosit
 // specifier: The reference specifier.
 //
 // # Return Value
-// 
+//
 // An initialized positional specifier with the position specified by
 // `position` relative to the object specified by `specifier`.
 //
@@ -201,12 +203,13 @@ func (p NSPositionalSpecifier) InitWithPositionObjectSpecifier(position NSInsert
 	rv := objc.Send[NSPositionalSpecifier](p.ID, objc.Sel("initWithPosition:objectSpecifier:"), position, specifier)
 	return rv
 }
+
 // Sets the class description for the object or objects to be inserted.
 //
 // classDescription: The class description for the object or objects to be inserted.
 //
 // # Discussion
-// 
+//
 // This message can be sent at any time after object initialization, but must
 // be sent before evaluation to have any effect.
 //
@@ -214,10 +217,11 @@ func (p NSPositionalSpecifier) InitWithPositionObjectSpecifier(position NSInsert
 func (p NSPositionalSpecifier) SetInsertionClassDescription(classDescription INSScriptClassDescription) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setInsertionClassDescription:"), classDescription)
 }
+
 // Causes the receiver to evaluate its position.
 //
 // # Discussion
-// 
+//
 // Calling [InsertionContainer], [InsertionKey], [InsertionIndex], or
 // [InsertionReplaces] also causes the receiver to be evaluated, if it
 // hasn’t already been evaluated.
@@ -231,7 +235,7 @@ func (p NSPositionalSpecifier) Evaluate() {
 // be placed.
 //
 // # Return Value
-// 
+//
 // A container. Determined by evaluating the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPositionalSpecifier/insertionContainer
@@ -239,11 +243,12 @@ func (p NSPositionalSpecifier) InsertionContainer() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("insertionContainer"))
 	return objectivec.Object{ID: rv}
 }
+
 // Returns an insertion index that indicates where the new or copied object or
 // objects should be placed.
 //
 // # Return Value
-// 
+//
 // An insertion index. Determined by evaluating the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPositionalSpecifier/insertionIndex
@@ -251,11 +256,12 @@ func (p NSPositionalSpecifier) InsertionIndex() int {
 	rv := objc.Send[int](p.ID, objc.Sel("insertionIndex"))
 	return rv
 }
+
 // Returns the key that identifies the relationship into which the new or
 // copied object or objects should be inserted.
 //
 // # Return Value
-// 
+//
 // A key. Determined by evaluating the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPositionalSpecifier/insertionKey
@@ -263,32 +269,31 @@ func (p NSPositionalSpecifier) InsertionKey() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("insertionKey"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns a Boolean value that indicates whether evaluation has been
 // successful and the object to be inserted should actually replace the keyed,
 // indexed object in the insertion container.
 //
 // # Return Value
-// 
-// [true] if evaluation has been successful and the object to be inserted
-// should actually replace the keyed, indexed object in the insertion
-// container, instead of being inserted before it; [false] otherwise.
-// 
-// # Discussion
-// 
-// If this object has never been evaluated, evaluation is attempted.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if evaluation has been successful and the object to be inserted should
+// actually replace the keyed, indexed object in the insertion container,
+// instead of being inserted before it; false otherwise.
+//
+// # Discussion
+//
+// If this object has never been evaluated, evaluation is attempted.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPositionalSpecifier/insertionReplaces
 func (p NSPositionalSpecifier) InsertionReplaces() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("insertionReplaces"))
 	return rv
 }
+
 // Returns the object specifier specified at initialization time.
 //
 // # Return Value
-// 
+//
 // An object specifier for a container.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPositionalSpecifier/objectSpecifier
@@ -296,10 +301,11 @@ func (p NSPositionalSpecifier) ObjectSpecifier() INSScriptObjectSpecifier {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("objectSpecifier"))
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
+
 // Returns the insertion position specified at initialization time.
 //
 // # Return Value
-// 
+//
 // An insertion position.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPositionalSpecifier/position
@@ -307,4 +313,3 @@ func (p NSPositionalSpecifier) Position() NSInsertionPosition {
 	rv := objc.Send[NSInsertionPosition](p.ID, objc.Sel("position"))
 	return NSInsertionPosition(rv)
 }
-

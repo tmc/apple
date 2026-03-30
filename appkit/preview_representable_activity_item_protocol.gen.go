@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -34,6 +34,7 @@ type NSPreviewRepresentableActivityItem interface {
 type NSPreviewRepresentableActivityItemObject struct {
 	objectivec.Object
 }
+
 func (o NSPreviewRepresentableActivityItemObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -52,26 +53,28 @@ func NSPreviewRepresentableActivityItemObjectFromID(id objc.ID) NSPreviewReprese
 func (o NSPreviewRepresentableActivityItemObject) Item() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // A localized string that contains the name of the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/title
 func (o NSPreviewRepresentableActivityItemObject) Title() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // An object that provides a visual representation of the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/imageProvider
 func (o NSPreviewRepresentableActivityItemObject) ImageProvider() foundation.NSItemProvider {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageProvider"))
 	return foundation.NSItemProviderFromID(rv)
-	}
+}
+
 // An object that provides an icon that represents the item’s source.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/iconProvider
 func (o NSPreviewRepresentableActivityItemObject) IconProvider() foundation.NSItemProvider {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("iconProvider"))
 	return foundation.NSItemProviderFromID(rv)
-	}
-
+}

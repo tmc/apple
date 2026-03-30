@@ -5,8 +5,9 @@ package networkextension
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,13 +47,13 @@ func (nc NEDNSProxyManagerClass) Alloc() NEDNSProxyManager {
 // An object to create and manage an DNS proxy provider’s configuration.
 //
 // # Overview
-// 
+//
 // A DNS proxy allows your app to intercept all DNS traffic generated on a
 // device. You can use this capability to provide services like DNS traffic
 // encryption, typically by redirecting DNS traffic to your own server. You
 // usually do this in the context of managed devices, such as those owned by a
 // school or an enterprise.
-// 
+//
 // You create a DNS proxy as an app extension based on a custom subclass of
 // the [NEDNSProxyProvider] class. You enable and configure this proxy from
 // within your app using the singleton proxy manager instance provided by the
@@ -60,7 +61,7 @@ func (nc NEDNSProxyManagerClass) Alloc() NEDNSProxyManager {
 // for a proxy that performs a simple redirect, you can use the proxy manager
 // to define and dynamically configure the destination IP address of the
 // redirected traffic.
-// 
+//
 // Instances of the proxy manager are thread safe.
 //
 // # Managing the DNS proxy configuration
@@ -97,6 +98,7 @@ type NEDNSProxyManager struct {
 func NEDNSProxyManagerFromID(id objc.ID) NEDNSProxyManager {
 	return NEDNSProxyManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEDNSProxyManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -187,60 +189,61 @@ func NewNEDNSProxyManager() NEDNSProxyManager {
 // an error instance passed to this block describes the problem. Otherwise,
 // the error is `nil`. See [NEDNSProxyManagerError] for the list of possible
 // errors.
-// //
-// [NEDNSProxyManagerError]: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManagerError
 //
 // # Discussion
-// 
+//
 // Initially, the DNS proxy configuration comes from a configuration profile
 // stored on the device in a managed environment, as described in
 // [Configuration Profile Reference].
-// 
+//
 // When you want to inspect or make changes to the configuration, you call the
 // proxy manager’s [LoadFromPreferencesWithCompletionHandler] method. This
 // causes the system to load the configuration into the manager’s
 // [ProviderProtocol] and [Enabled] properties.
-// 
+//
 // If you modify the configuration stored in these properties, you must then
 // call the [SaveToPreferencesWithCompletionHandler] method to make the
 // changes take effect. Saving the preferences also stores the modified
 // configuration on disk for use the next time the proxy is started or the
 // configuration is loaded.
 //
-// [Configuration Profile Reference]: https://developer.apple.com/library/archive/featuredarticles/iPhoneConfigurationProfileRef/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010206
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager/loadFromPreferences(completionHandler:)
+//
+// [NEDNSProxyManagerError]: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManagerError
+// [Configuration Profile Reference]: https://developer.apple.com/library/archive/featuredarticles/iPhoneConfigurationProfileRef/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010206
 func (d NEDNSProxyManager) LoadFromPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("loadFromPreferencesWithCompletionHandler:"), _block0)
 }
+
 // Saves the DNS proxy configuration in the caller’s DNS proxy preferences.
 //
 // completionHandler: A block called when the save operation completes. If the operation fails,
 // an error instance passed to this block describes the problem. Otherwise,
 // the error is `nil`. See [NEDNSProxyManagerError] for the list of possible
 // errors.
-// //
-// [NEDNSProxyManagerError]: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManagerError
 //
 // # Discussion
-// 
+//
 // If you alter the DNS proxy configuration that you load into the proxy
 // manager’s properties using a call to the
 // [LoadFromPreferencesWithCompletionHandler] method, you must then call the
 // [SaveToPreferencesWithCompletionHandler] method to make the changes take
 // effect. Saving also stores the modified configuration for the next time the
 // proxy is started or the configuration loaded.
-// 
+//
 // Trying to save preferences before loading them produces an error.
-// 
+//
 // If the DNS proxy is enabled, it becomes active as a result of this call.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager/saveToPreferences(completionHandler:)
+//
+// [NEDNSProxyManagerError]: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManagerError
 func (d NEDNSProxyManager) SaveToPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("saveToPreferencesWithCompletionHandler:"), _block0)
 }
+
 // Removes the DNS proxy configuration from the caller’s DNS proxy
 // preferences.
 //
@@ -248,11 +251,9 @@ _block0, _ := NewErrorBlock(completionHandler)
 // an error instance passed to this block describes the problem. Otherwise,
 // the error is `nil`. See [NEDNSProxyManagerError] for the list of possible
 // errors.
-// //
-// [NEDNSProxyManagerError]: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManagerError
 //
 // # Discussion
-// 
+//
 // If you use a device without an installed configuration profile during
 // development, your app can create the DNS proxy configuration from scratch.
 // You first call the [LoadFromPreferencesWithCompletionHandler] method to
@@ -261,33 +262,33 @@ _block0, _ := NewErrorBlock(completionHandler)
 // the configuration, call the [RemoveFromPreferencesWithCompletionHandler]
 // method. This allows you to restore the device to a clean, unconfigured
 // state.
-// 
+//
 // In a production environment, however, a configuration profile placed in the
 // system by an external process typically provides the baseline DNS proxy
 // configuration. Your app can modify this configuration at runtime using the
 // same load-modify-save steps, but cannot remove the configuration entirely.
 // An attempt to remove the configuration when a configuration profile is
 // present on the device results in a
-// [NEDNSProxyManagerError.configurationCannotBeRemoved] error.
-// 
+// [NEDNSProxyManagerErrorConfigurationCannotBeRemoved] error.
+//
 // If the DNS proxy is enabled, it becomes disabled as a result of this call.
 //
-// [NEDNSProxyManagerError.configurationCannotBeRemoved]: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManagerError/configurationCannotBeRemoved
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager/removeFromPreferences(completionHandler:)
+//
+// [NEDNSProxyManagerError]: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManagerError
 func (d NEDNSProxyManager) RemoveFromPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("removeFromPreferencesWithCompletionHandler:"), _block0)
 }
 
 // Returns a singleton DNS proxy manager instance.
 //
 // # Return Value
-// 
+//
 // The [NEDNSProxyManager] instance for the app.
 //
 // # Discussion
-// 
+//
 // Each app is allowed to create a single DNS proxy manager. The
 // [SharedManager] type method returns a singleton [NEDNSProxyManager]
 // instance that your app can use to manage any DNS proxy instances that it
@@ -302,14 +303,11 @@ func (_NEDNSProxyManagerClass NEDNSProxyManagerClass) SharedManager() NEDNSProxy
 // The status of a DNS proxy.
 //
 // # Discussion
-// 
-// Only one DNS proxy can be active in the system at a time. Therefore,
-// setting this property to [true] disables any DNS proxy configurations of
-// other apps. Similarly, the system sets this property to [false] when any
-// other DNS proxy configuration is enabled.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Only one DNS proxy can be active in the system at a time. Therefore,
+// setting this property to true disables any DNS proxy configurations of
+// other apps. Similarly, the system sets this property to false when any
+// other DNS proxy configuration is enabled.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager/isEnabled
 func (d NEDNSProxyManager) Enabled() bool {
@@ -319,24 +317,25 @@ func (d NEDNSProxyManager) Enabled() bool {
 func (d NEDNSProxyManager) SetEnabled(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEnabled:"), value)
 }
+
 // The provider-specific portion of the DNS proxy configuration.
 //
 // # Discussion
-// 
+//
 // As the author of the DNS proxy, you decide what configuration the proxy
 // needs. For example, if your proxy requires the IP addresses of servers to
 // which DNS traffic can be redirected, you can use an array of strings to
 // hold these values.
-// 
+//
 // Initially, you store this array in the configuration profile, as described
 // in [Configuration Profile Reference]. When you want to inspect or modify
 // this data, you call [LoadFromPreferencesWithCompletionHandler] to pull the
 // configuration into memory. You access this memory through the proxy
 // manager’s [ProviderProtocol] property.
 //
-// [Configuration Profile Reference]: https://developer.apple.com/library/archive/featuredarticles/iPhoneConfigurationProfileRef/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010206
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager/providerProtocol
+//
+// [Configuration Profile Reference]: https://developer.apple.com/library/archive/featuredarticles/iPhoneConfigurationProfileRef/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010206
 func (d NEDNSProxyManager) ProviderProtocol() INEDNSProxyProviderProtocol {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("providerProtocol"))
 	return NEDNSProxyProviderProtocolFromID(objc.ID(rv))
@@ -344,6 +343,7 @@ func (d NEDNSProxyManager) ProviderProtocol() INEDNSProxyProviderProtocol {
 func (d NEDNSProxyManager) SetProviderProtocol(value INEDNSProxyProviderProtocol) {
 	objc.Send[struct{}](d.ID, objc.Sel("setProviderProtocol:"), value)
 }
+
 // A description of the DNS proxy.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyManager/localizedDescription
@@ -354,6 +354,7 @@ func (d NEDNSProxyManager) LocalizedDescription() string {
 func (d NEDNSProxyManager) SetLocalizedDescription(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocalizedDescription:"), objc.String(value))
 }
+
 // A notification that is posted when the DNS proxy configuration changes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NEDNSProxyConfigurationDidChange
@@ -361,6 +362,7 @@ func (d NEDNSProxyManager) NEDNSProxyConfigurationDidChange() foundation.NSStrin
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("NEDNSProxyConfigurationDidChange"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
+
 // The DNS proxy error domain.
 //
 // See: https://developer.apple.com/documentation/networkextension/nednsproxyerrordomain
@@ -413,4 +415,3 @@ func (d NEDNSProxyManager) RemoveFromPreferences(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

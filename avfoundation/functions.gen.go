@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
@@ -163,15 +164,14 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_aVCaptionDimensionMake, frameworkHandle, "AVCaptionDimensionMake")
-		registerFunc(&_aVCaptionPointMake, frameworkHandle, "AVCaptionPointMake")
-		registerFunc(&_aVCaptionSizeMake, frameworkHandle, "AVCaptionSizeMake")
-		registerFunc(&_aVCaptureReactionSystemImageNameForType, frameworkHandle, "AVCaptureReactionSystemImageNameForType")
-		registerFunc(&_aVCaptureTimecodeAdvancedByFrames, frameworkHandle, "AVCaptureTimecodeAdvancedByFrames")
-		registerFunc(&_aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp, frameworkHandle, "AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp")
-		registerFunc(&_aVCaptureTimecodeCreateMetadataSampleBufferForDuration, frameworkHandle, "AVCaptureTimecodeCreateMetadataSampleBufferForDuration")
-		registerFunc(&_aVMakeRectWithAspectRatioInsideRect, frameworkHandle, "AVMakeRectWithAspectRatioInsideRect")
-		registerFunc(&_aVSampleBufferAttachContentKey, frameworkHandle, "AVSampleBufferAttachContentKey")
-		registerFunc(&_cMTagCollectionCreateWithVideoOutputPreset, frameworkHandle, "CMTagCollectionCreateWithVideoOutputPreset")
-	}
-
+	registerFunc(&_aVCaptionDimensionMake, frameworkHandle, "AVCaptionDimensionMake")
+	registerFunc(&_aVCaptionPointMake, frameworkHandle, "AVCaptionPointMake")
+	registerFunc(&_aVCaptionSizeMake, frameworkHandle, "AVCaptionSizeMake")
+	registerFunc(&_aVCaptureReactionSystemImageNameForType, frameworkHandle, "AVCaptureReactionSystemImageNameForType")
+	registerFunc(&_aVCaptureTimecodeAdvancedByFrames, frameworkHandle, "AVCaptureTimecodeAdvancedByFrames")
+	registerFunc(&_aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp, frameworkHandle, "AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp")
+	registerFunc(&_aVCaptureTimecodeCreateMetadataSampleBufferForDuration, frameworkHandle, "AVCaptureTimecodeCreateMetadataSampleBufferForDuration")
+	registerFunc(&_aVMakeRectWithAspectRatioInsideRect, frameworkHandle, "AVMakeRectWithAspectRatioInsideRect")
+	registerFunc(&_aVSampleBufferAttachContentKey, frameworkHandle, "AVSampleBufferAttachContentKey")
+	registerFunc(&_cMTagCollectionCreateWithVideoOutputPreset, frameworkHandle, "CMTagCollectionCreateWithVideoOutputPreset")
+}

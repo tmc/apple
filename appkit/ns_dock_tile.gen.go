@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,36 +48,36 @@ func (nc NSDockTileClass) Alloc() NSDockTile {
 // as they appear in the Dock.
 //
 // # Overview
-// 
+//
 // You do not create Dock tile objects explicitly in your app. Instead, you
 // retrieve the Dock tile for an existing window or for the app by calling
 // that object’s [DockTile] method. Also, you do not subclass the
 // [NSDockTile] class; instead, you use the methods of the class to make the
 // following customizations:
-// 
+//
 // - Badge the tile with a custom string. - Remove or show the application
 // icon badge. - Draw the tile content yourself.
-// 
+//
 // If you decide to draw the tile content yourself, you must provide a custom
 // content view to handle the drawing.
-// 
+//
 // # Application Dock Tiles
-// 
+//
 // An application Dock tile defaults to display the application’s
 // [NSDockTile.ApplicationIconImage].
-// 
+//
 // The application Dock tile never shows a smaller application icon badge.
-// 
+//
 // Whether using the default or custom view, the application Dock tile may be
 // badged with a short custom string.
-// 
+//
 // # Window Dock Tiles
-// 
+//
 // A window Dock tile defaults to display a miniaturized version of the
 // windows contents with a badge derived from the application Dock icon,
 // including any customized application Dock icon. The default window Dock
 // tile image may not be badged with a custom string.
-// 
+//
 // A window Dock tile can use a custom view to draw the Dock icon. If a custom
 // view is used, no application badge will be added, but the text label will
 // be overlaid on top of the icon.
@@ -114,6 +115,7 @@ type NSDockTile struct {
 func NSDockTileFromID(id objc.ID) NSDockTile {
 	return NSDockTile{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSDockTile adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -201,17 +203,17 @@ func NewNSDockTile() NSDockTile {
 // Redraws the dock tile’s content.
 //
 // # Discussion
-// 
-// If a custom content view is provided, Cocoa calls the `` method of that
+//
+// If a custom content view is provided, Cocoa calls the “ method of that
 // view (and its subviews) to draw the tile’s content.
-// 
+//
 // You can call this method to force the redrawing of the dock tile contents.
 // You might do this if the contents of the underlying application or window
 // change in a way that would require a refreshing of the tile. Some types of
 // system activity, such as resizing the dock, may trigger automatic redraws
 // of the tile. In most cases, however, your application is responsible for
 // triggering redraws.
-// 
+//
 // Cocoa does not automatically redraw the contents of your dock tile.
 // Instead, your application must explicitly send `display` messages to the
 // dock tile object whenever the contents of your view change and need to be
@@ -225,9 +227,9 @@ func (d NSDockTile) Display() {
 // The view to use for drawing the dock tile contents.
 //
 // # Discussion
-// 
+//
 // The view you specify should be height and width resizable.
-// 
+//
 // Cocoa does not automatically redraw the contents of your dock tile.
 // Instead, your application must explicitly send display messages to the dock
 // tile object whenever the contents of your view change and need to be
@@ -243,10 +245,11 @@ func (d NSDockTile) ContentView() INSView {
 func (d NSDockTile) SetContentView(value INSView) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContentView:"), value)
 }
+
 // The size of the tile.
 //
 // # Discussion
-// 
+//
 // This corresponds to the size of the backing store in the dock, which may be
 // bigger than the actual tile displayed on the screen.
 //
@@ -255,6 +258,7 @@ func (d NSDockTile) Size() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](d.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)
 }
+
 // The object represented by the dock tile.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDockTile/owner
@@ -262,15 +266,16 @@ func (d NSDockTile) Owner() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("owner"))
 	return objectivec.Object{ID: rv}
 }
+
 // A Boolean showing whether the tile is badged with the application’s icon
 //
 // # Discussion
-// 
+//
 // Miniaturized windows include the application badge by default to convey the
 // associated application to the user. In macOS 10.5 and later, application
 // tiles do not support the application badge. A miniaturized window with a
 // custom view does not draw the application badge.
-// 
+//
 // The application icon is positioned automatically in the tile by the
 // [NSDockTile] object.
 //
@@ -282,10 +287,11 @@ func (d NSDockTile) ShowsApplicationBadge() bool {
 func (d NSDockTile) SetShowsApplicationBadge(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShowsApplicationBadge:"), value)
 }
+
 // The string to be displayed in the tile’s badging area.
 //
 // # Discussion
-// 
+//
 // The appearance of the badge area is system defined.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDockTile/badgeLabel
@@ -296,6 +302,7 @@ func (d NSDockTile) BadgeLabel() string {
 func (d NSDockTile) SetBadgeLabel(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBadgeLabel:"), objc.String(value))
 }
+
 // The image used for the app’s icon.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/applicationiconimage
@@ -306,6 +313,7 @@ func (d NSDockTile) ApplicationIconImage() INSImage {
 func (d NSDockTile) SetApplicationIconImage(value INSImage) {
 	objc.Send[struct{}](d.ID, objc.Sel("setApplicationIconImage:"), value)
 }
+
 // The application’s Dock tile.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/docktile
@@ -316,4 +324,3 @@ func (d NSDockTile) DockTile() INSDockTile {
 func (d NSDockTile) SetDockTile(value INSDockTile) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDockTile:"), value)
 }
-

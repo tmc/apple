@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLFeatureDescriptionClass) Alloc() MLFeatureDescription {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLFeatureDescription.AllowsValuesWithDescription]
@@ -59,6 +59,7 @@ func (mc MLFeatureDescriptionClass) Alloc() MLFeatureDescription {
 //   - [MLFeatureDescription.InitWithCoder]
 //   - [MLFeatureDescription.InitWithNameTypeOptionalContraints]
 //   - [MLFeatureDescription.Optional]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription
 type MLFeatureDescription struct {
 	objectivec.Object
@@ -68,6 +69,7 @@ type MLFeatureDescription struct {
 func MLFeatureDescriptionFromID(id objc.ID) MLFeatureDescription {
 	return MLFeatureDescription{objectivec.Object{ID: id}}
 }
+
 // Ensure MLFeatureDescription implements IMLFeatureDescription.
 var _ IMLFeatureDescription = MLFeatureDescription{}
 
@@ -127,7 +129,6 @@ func NewMLFeatureDescription() MLFeatureDescription {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/initWithCoder:
 func NewFeatureDescriptionWithCoder(coder objectivec.IObject) MLFeatureDescription {
 	instance := getMLFeatureDescriptionClass().Alloc()
@@ -135,7 +136,6 @@ func NewFeatureDescriptionWithCoder(coder objectivec.IObject) MLFeatureDescripti
 	return MLFeatureDescriptionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/initWithName:type:optional:contraints:
 func NewFeatureDescriptionWithNameTypeOptionalContraints(name objectivec.IObject, type_ int64, optional bool, contraints objectivec.IObject) MLFeatureDescription {
 	instance := getMLFeatureDescriptionClass().Alloc()
@@ -143,18 +143,18 @@ func NewFeatureDescriptionWithNameTypeOptionalContraints(name objectivec.IObject
 	return MLFeatureDescriptionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/allowsValuesWithDescription:
 func (f MLFeatureDescription) AllowsValuesWithDescription(description objectivec.IObject) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("allowsValuesWithDescription:"), description)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/debugQuickLookObject
 func (f MLFeatureDescription) DebugQuickLookObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("debugQuickLookObject"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/isAllowedValue:error:
 func (f MLFeatureDescription) IsAllowedValueError(value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -169,25 +169,25 @@ func (f MLFeatureDescription) IsAllowedValueError(value objectivec.IObject) (boo
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/initWithCoder:
 func (f MLFeatureDescription) InitWithCoder(coder foundation.INSCoder) MLFeatureDescription {
 	rv := objc.Send[MLFeatureDescription](f.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/initWithName:type:optional:contraints:
 func (f MLFeatureDescription) InitWithNameTypeOptionalContraints(name objectivec.IObject, type_ int64, optional bool, contraints objectivec.IObject) MLFeatureDescription {
 	rv := objc.Send[MLFeatureDescription](f.ID, objc.Sel("initWithName:type:optional:contraints:"), name, type_, optional, contraints)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/featureDescriptionWithName:type:optional:constraints:
 func (_MLFeatureDescriptionClass MLFeatureDescriptionClass) FeatureDescriptionWithNameTypeOptionalConstraints(name objectivec.IObject, type_ int64, optional bool, constraints objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLFeatureDescriptionClass.class), objc.Sel("featureDescriptionWithName:type:optional:constraints:"), name, type_, optional, constraints)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/supportsSecureCoding
 func (_MLFeatureDescriptionClass MLFeatureDescriptionClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLFeatureDescriptionClass.class), objc.Sel("supportsSecureCoding"))
@@ -199,26 +199,31 @@ func (f MLFeatureDescription) DictionaryConstraintCached() IMLDictionaryConstrai
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("dictionaryConstraintCached"))
 	return MLDictionaryConstraintFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/imageConstraintCached
 func (f MLFeatureDescription) ImageConstraintCached() IMLImageConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("imageConstraintCached"))
 	return MLImageConstraintFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/multiArrayConstraintCached
 func (f MLFeatureDescription) MultiArrayConstraintCached() IMLMultiArrayConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("multiArrayConstraintCached"))
 	return MLMultiArrayConstraintFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/optional
 func (f MLFeatureDescription) Optional() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("optional"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/sequenceConstraintCached
 func (f MLFeatureDescription) SequenceConstraintCached() IMLSequenceConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sequenceConstraintCached"))
 	return MLSequenceConstraintFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/valueConstraints
 func (f MLFeatureDescription) ValueConstraints() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("valueConstraints"))
@@ -227,4 +232,3 @@ func (f MLFeatureDescription) ValueConstraints() foundation.INSDictionary {
 func (f MLFeatureDescription) SetValueConstraints(value foundation.INSDictionary) {
 	objc.Send[struct{}](f.ID, objc.Sel("setValueConstraints:"), value)
 }
-

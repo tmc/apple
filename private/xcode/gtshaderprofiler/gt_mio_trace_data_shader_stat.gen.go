@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (gc GTMioTraceDataShaderStatClass) Alloc() GTMioTraceDataShaderStat {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioTraceDataShaderStat.NumberOfCliques]
 //   - [GTMioTraceDataShaderStat.TotalGPUCycles]
 //   - [GTMioTraceDataShaderStat.TotalLatency]
 //   - [GTMioTraceDataShaderStat.InitWithStat]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataShaderStat
 type GTMioTraceDataShaderStat struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type GTMioTraceDataShaderStat struct {
 func GTMioTraceDataShaderStatFromID(id objc.ID) GTMioTraceDataShaderStat {
 	return GTMioTraceDataShaderStat{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioTraceDataShaderStat implements IGTMioTraceDataShaderStat.
 var _ IGTMioTraceDataShaderStat = GTMioTraceDataShaderStat{}
 
@@ -100,7 +102,6 @@ func NewGTMioTraceDataShaderStat() GTMioTraceDataShaderStat {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataShaderStat/initWithStat:
 func NewGTMioTraceDataShaderStatWithStat(stat objectivec.IObject) GTMioTraceDataShaderStat {
 	instance := getGTMioTraceDataShaderStatClass().Alloc()
@@ -108,7 +109,6 @@ func NewGTMioTraceDataShaderStatWithStat(stat objectivec.IObject) GTMioTraceData
 	return GTMioTraceDataShaderStatFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataShaderStat/initWithStat:
 func (g GTMioTraceDataShaderStat) InitWithStat(stat objectivec.IObject) GTMioTraceDataShaderStat {
 	rv := objc.Send[GTMioTraceDataShaderStat](g.ID, objc.Sel("initWithStat:"), stat)
@@ -120,14 +120,15 @@ func (g GTMioTraceDataShaderStat) NumberOfCliques() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("numberOfCliques"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataShaderStat/totalGPUCycles
 func (g GTMioTraceDataShaderStat) TotalGPUCycles() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("totalGPUCycles"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataShaderStat/totalLatency
 func (g GTMioTraceDataShaderStat) TotalLatency() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("totalLatency"))
 	return rv
 }
-

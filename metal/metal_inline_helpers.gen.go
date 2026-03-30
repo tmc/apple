@@ -75,4 +75,3 @@ func mtlSizeMake(width, height, depth uint) MTLSize {
 func mtlTextureSwizzleChannelsMake(r, g, b, a MTLTextureSwizzle) MTLTextureSwizzleChannels {
 	return MTLTextureSwizzleChannels{Red: r, Green: g, Blue: b, Alpha: a}
 }
-

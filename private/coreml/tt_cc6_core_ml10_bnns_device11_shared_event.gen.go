@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TtCC6CoreML10BNNSDevice11SharedEvent struct {
 func TtCC6CoreML10BNNSDevice11SharedEventFromID(id objc.ID) TtCC6CoreML10BNNSDevice11SharedEvent {
 	return TtCC6CoreML10BNNSDevice11SharedEvent{objectivec.Object{ID: id}}
 }
+
 // NOTE: TtCC6CoreML10BNNSDevice11SharedEvent struct embeds objectivec.Object (parent type unavailable) but
 // ITtCC6CoreML10BNNSDevice11SharedEvent embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTtCC6CoreML10BNNSDevice11SharedEvent() TtCC6CoreML10BNNSDevice11SharedEv
 	rv := objc.Send[TtCC6CoreML10BNNSDevice11SharedEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

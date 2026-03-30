@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZMacScalerAcceleratorDeviceConfiguration struct {
 func VZMacScalerAcceleratorDeviceConfigurationFromID(id objc.ID) VZMacScalerAcceleratorDeviceConfiguration {
 	return VZMacScalerAcceleratorDeviceConfiguration{VZAcceleratorDeviceConfiguration: VZAcceleratorDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZMacScalerAcceleratorDeviceConfiguration implements IVZMacScalerAcceleratorDeviceConfiguration.
 var _ IVZMacScalerAcceleratorDeviceConfiguration = VZMacScalerAcceleratorDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZMacScalerAcceleratorDeviceConfiguration() VZMacScalerAcceleratorDevice
 	rv := objc.Send[VZMacScalerAcceleratorDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

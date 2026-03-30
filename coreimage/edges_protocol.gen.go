@@ -39,6 +39,7 @@ type CIEdges interface {
 type CIEdgesObject struct {
 	objectivec.Object
 }
+
 func (o CIEdgesObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIEdgesObjectFromID(id objc.ID) CIEdgesObject {
 func (o CIEdgesObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The intensity of the edges.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdges/intensity
 func (o CIEdgesObject) Intensity() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIEdgesObject) Intensity() float32 {
 func (o CIEdgesObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIEdges/inputImage
 func (o CIEdgesObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The intensity of the edges.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIEdges/intensity
 func (o CIEdgesObject) SetIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIntensity:"), value)
 }
-

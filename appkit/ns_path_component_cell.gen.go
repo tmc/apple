@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSPathComponentCell] class.
@@ -44,7 +45,7 @@ func (nc NSPathComponentCellClass) Alloc() NSPathComponentCell {
 // A component of a path.
 //
 // # Overview
-// 
+//
 // An [NSPathCell] object manages a collection of [NSPathComponentCell]
 // objects, in conjunction with an [NSPathControl] object, to represent a
 // path.
@@ -65,6 +66,7 @@ type NSPathComponentCell struct {
 func NSPathComponentCellFromID(id objc.ID) NSPathComponentCell {
 	return NSPathComponentCell{NSTextFieldCell: NSTextFieldCellFromID(id)}
 }
+
 // NOTE: NSPathComponentCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -111,12 +113,12 @@ func NewNSPathComponentCell() NSPathComponentCell {
 // image: The image to use for the cell. If this parameter is `nil`, no image is set.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -132,7 +134,7 @@ func NewPathComponentCellImageCell(image INSImage) NSPathComponentCell {
 // string: The string that the text field cell displays.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(textCell:)
@@ -147,7 +149,7 @@ func NewPathComponentCellTextCell(string_ string) NSPathComponentCell {
 // coder: An unarchiver object.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(coder:)
@@ -168,4 +170,3 @@ func (p NSPathComponentCell) URL() foundation.INSURL {
 func (p NSPathComponentCell) SetURL(value foundation.INSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
-

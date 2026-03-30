@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,15 +46,13 @@ func (nc NSSpellServerClass) Alloc() NSSpellServer {
 // apps running in the system.
 //
 // # Overview
-// 
+//
 // A is an application that declares its availability in a standard way, so
 // that any other applications that wish to use it can do so. If you build a
 // spelling checker that makes use of the [NSSpellServer] class and list it as
 // an available service, then users of any application that makes use of
 // [NSSpellChecker] or includes a Services menu will see your spelling checker
 // as one of the available dictionaries.
-//
-// [NSSpellChecker]: https://developer.apple.com/documentation/AppKit/NSSpellChecker
 //
 // # Configuring Spelling Servers
 //
@@ -70,6 +69,8 @@ func (nc NSSpellServerClass) Alloc() NSSpellServer {
 //   - [NSSpellServer.IsWordInUserDictionariesCaseSensitive]: Indicates whether a given word is in the user’s list of learned words or the document’s list of words to ignore.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServer
+//
+// [NSSpellChecker]: https://developer.apple.com/documentation/AppKit/NSSpellChecker
 type NSSpellServer struct {
 	objectivec.Object
 }
@@ -81,6 +82,7 @@ type NSSpellServer struct {
 func NSSpellServerFromID(id objc.ID) NSSpellServer {
 	return NSSpellServer{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSSpellServer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -151,15 +153,12 @@ func NewNSSpellServer() NSSpellServer {
 // from those that others may offer for the same language).
 //
 // # Return Value
-// 
-// Returns [true] if the language is registered, [false] if for some reason it
+//
+// Returns true if the language is registered, false if for some reason it
 // can’t be registered.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // # Discussion
-// 
+//
 // If your spelling checker supports more than one language, it should invoke
 // this method once for each language. Registering a language-vendor
 // combination causes it to appear in the Spelling panel’s pop-up menu of
@@ -170,10 +169,11 @@ func (s NSSpellServer) RegisterLanguageByVendor(language string, vendor string) 
 	rv := objc.Send[bool](s.ID, objc.Sel("registerLanguage:byVendor:"), objc.String(language), objc.String(vendor))
 	return rv
 }
+
 // Causes the receiver to start listening for spell-checking requests.
 //
 // # Discussion
-// 
+//
 // This method starts a loop that never returns; you need to set the
 // [NSSpellServer] object’s delegate before sending this message.
 //
@@ -181,6 +181,7 @@ func (s NSSpellServer) RegisterLanguageByVendor(language string, vendor string) 
 func (s NSSpellServer) Run() {
 	objc.Send[objc.ID](s.ID, objc.Sel("run"))
 }
+
 // Indicates whether a given word is in the user’s list of learned words or
 // the document’s list of words to ignore.
 //
@@ -189,11 +190,9 @@ func (s NSSpellServer) Run() {
 // flag: Specifies whether the comparison is case sensitive.
 //
 // # Return Value
-// 
-// A Boolean value indicating whether the word is in the user dictionaries. If
-// [true], the word is acceptable to the user.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// A Boolean value indicating whether the word is in the user dictionaries. If
+// true, the word is acceptable to the user.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServer/isWord(inUserDictionaries:caseSensitive:)
 func (s NSSpellServer) IsWordInUserDictionariesCaseSensitive(word string, flag bool) bool {
@@ -211,4 +210,3 @@ func (s NSSpellServer) Delegate() NSSpellServerDelegate {
 func (s NSSpellServer) SetDelegate(value NSSpellServerDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-

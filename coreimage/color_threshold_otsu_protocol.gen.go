@@ -29,6 +29,7 @@ type CIColorThresholdOtsu interface {
 type CIColorThresholdOtsuObject struct {
 	objectivec.Object
 }
+
 func (o CIColorThresholdOtsuObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func CIColorThresholdOtsuObjectFromID(id objc.ID) CIColorThresholdOtsuObject {
 func (o CIColorThresholdOtsuObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -55,9 +57,11 @@ func (o CIColorThresholdOtsuObject) InputImage() ICIImage {
 func (o CIColorThresholdOtsuObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorThresholdOtsu/inputImage
 func (o CIColorThresholdOtsuObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

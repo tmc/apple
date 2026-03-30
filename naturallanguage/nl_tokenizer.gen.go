@@ -3,10 +3,11 @@
 package naturallanguage
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,17 +47,14 @@ func (nc NLTokenizerClass) Alloc() NLTokenizer {
 // A tokenizer that segments natural language text into semantic units.
 //
 // # Overview
-// 
+//
 // [NLTokenizer] creates individual units from natural language text. Define
 // the desired unit (word, sentence, paragraph, or document as declared in the
 // [NLTokenUnit]) for tokenization, and then assign a string to tokenize. The
 // [NLTokenizer.EnumerateTokensInRangeUsingBlock] method provides the ranges of the tokens
 // in the string based on the tokenization unit.
-// 
-// For more information, see [Tokenizing natural language text].
 //
-// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
-// [Tokenizing natural language text]: https://developer.apple.com/documentation/NaturalLanguage/tokenizing-natural-language-text
+// For more information, see [Tokenizing natural language text].
 //
 // # Creating a tokenizer
 //
@@ -70,6 +68,9 @@ func (nc NLTokenizerClass) Alloc() NLTokenizer {
 //   - [NLTokenizer.Unit]: The linguistic unit that this tokenizer uses.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTokenizer
+//
+// [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
+// [Tokenizing natural language text]: https://developer.apple.com/documentation/NaturalLanguage/tokenizing-natural-language-text
 type NLTokenizer struct {
 	objectivec.Object
 }
@@ -80,6 +81,7 @@ type NLTokenizer struct {
 func NLTokenizerFromID(id objc.ID) NLTokenizer {
 	return NLTokenizer{objectivec.Object{ID: id}}
 }
+
 // NOTE: NLTokenizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -164,12 +166,14 @@ func (t NLTokenizer) InitWithUnit(unit NLTokenUnit) NLTokenizer {
 	rv := objc.Send[NLTokenizer](t.ID, objc.Sel("initWithUnit:"), unit)
 	return rv
 }
+
 // Sets the language of the text to be tokenized.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTokenizer/setLanguage(_:)
 func (t NLTokenizer) SetLanguage(language NLLanguage) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setLanguage:"), objc.String(string(language)))
 }
+
 // Enumerates over a given range of the string and calls the specified block
 // for each token.
 //
@@ -184,10 +188,11 @@ func (t NLTokenizer) EnumerateTokensInRangeUsingBlock(range_ foundation.NSRange,
 	defer _block1.Release()
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateTokensInRange:usingBlock:"), range_, objc.ID(_block1))
 }
+
 // Finds the range of the token at the given index.
 //
 // # Return Value
-// 
+//
 // The range of the token at the given location.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTokenizer/tokenRangeAtIndex:
@@ -195,13 +200,14 @@ func (t NLTokenizer) TokenRangeAtIndex(characterIndex uint) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("tokenRangeAtIndex:"), characterIndex)
 	return foundation.NSRange(rv)
 }
+
 // Finds the entire range of all tokens contained completely or partially
 // within the specified range.
 //
 // range: The range within the string to search for tokens.
 //
 // # Return Value
-// 
+//
 // The smallest possible range that contains all of the tokens within the
 // range specified in `range`. This result includes a token’s entire range
 // if any part of that token is included within `range`. If the length of
@@ -212,12 +218,13 @@ func (t NLTokenizer) TokenRangeForRange(range_ foundation.NSRange) foundation.NS
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("tokenRangeForRange:"), range_)
 	return foundation.NSRange(rv)
 }
+
 // Tokenizes the string within the provided range.
 //
 // range: The range within the string that should be tokenzied.
 //
 // # Return Value
-// 
+//
 // Returns the ranges corresponding to the tokens for the tokenizer’s unit
 // that intersect the given range.
 //
@@ -239,6 +246,7 @@ func (t NLTokenizer) String() string {
 func (t NLTokenizer) SetString(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setString:"), objc.String(value))
 }
+
 // The linguistic unit that this tokenizer uses.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTokenizer/unit
@@ -246,4 +254,3 @@ func (t NLTokenizer) Unit() NLTokenUnit {
 	rv := objc.Send[NLTokenUnit](t.ID, objc.Sel("unit"))
 	return NLTokenUnit(rv)
 }
-

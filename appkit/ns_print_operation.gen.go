@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,11 +48,11 @@ func (nc NSPrintOperationClass) Alloc() NSPrintOperation {
 // (EPS) code, Portable Document Format (PDF) code, or print jobs.
 //
 // # Overview
-// 
+//
 // An [NSPrintOperation] object works in conjunction with two other objects:
 // an [NSPrintInfo] object, which specifies how the code should be generated,
 // and an [NSView] object, which generates the actual code.
-// 
+//
 // It is important to note that the majority of methods in [NSPrintOperation]
 // copy the instance of [NSPrintInfo] passed into them. Future changes to that
 // print info are not reflected in the print info retained by the current
@@ -127,6 +128,7 @@ type NSPrintOperation struct {
 func NSPrintOperationFromID(id objc.ID) NSPrintOperation {
 	return NSPrintOperation{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPrintOperation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -292,12 +294,12 @@ func NewNSPrintOperation() NSPrintOperation {
 // view: The view whose contents you want to print.
 //
 // # Return Value
-// 
+//
 // The new [NSPrintOperation] object. You must run the operation to print the
 // view.
 //
 // # Discussion
-// 
+//
 // The new [NSPrintOperation] object uses the settings stored in the shared
 // [NSPrintInfo] object. This method raises an
 // [NSPrintOperationExistsException] if there is already a print operation in
@@ -318,12 +320,12 @@ func NewPrintOperationWithView(view INSView) NSPrintOperation {
 // printInfo: The print settings to use when printing the view.
 //
 // # Return Value
-// 
+//
 // The new [NSPrintOperation] object. You must run the operation to print the
 // view.
 //
 // # Discussion
-// 
+//
 // This method raises an [NSPrintOperationExistsException] if there is already
 // a print operation in progress; otherwise the returned object is made the
 // current print operation for this thread.
@@ -337,28 +339,24 @@ func NewPrintOperationWithViewPrintInfo(view INSView, printInfo INSPrintInfo) NS
 // Runs the print operation on the current thread.
 //
 // # Return Value
-// 
-// [true] if the operation was successful; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the operation was successful; otherwise, false.
 //
 // # Discussion
-// 
+//
 // The operation runs to completion in the current thread, blocking the
 // application. A separate thread is not spawned, even if
-// [CanSpawnSeparateThread] is [true]. Use
+// [CanSpawnSeparateThread] is true. Use
 // [RunOperationModalForWindowDelegateDidRunSelectorContextInfo] to use
 // document-modal sheets and to allow a separate thread to perform the
 // operation.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/run()
 func (p NSPrintOperation) RunOperation() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("runOperation"))
 	return rv
 }
+
 // Runs the print operation, calling your custom delegate method upon
 // completion.
 //
@@ -372,47 +370,43 @@ func (p NSPrintOperation) RunOperation() bool {
 // parameter.
 //
 // # Discussion
-// 
+//
 // The method specified by the `didRunSelector` parameter must have the
 // following signature:
-// 
-// The value of `success` is [true] if the print operation ran to completion
-// without cancellation or error, and [false] otherwise.
-// 
-// If you send [CanSpawnSeparateThread] to an [NSPrintOperation] object with
-// an argument of [true], then the delegate specified in a subsequent
-// invocation of [RunOperationModalForWindowDelegateDidRunSelectorContextInfo]
-// may be messaged in that spawned, non-main thread.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of `success` is true if the print operation ran to completion
+// without cancellation or error, and false otherwise.
+//
+// If you send [CanSpawnSeparateThread] to an [NSPrintOperation] object with
+// an argument of true, then the delegate specified in a subsequent invocation
+// of [RunOperationModalForWindowDelegateDidRunSelectorContextInfo] may be
+// messaged in that spawned, non-main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/runModal(for:delegate:didRun:contextInfo:)
 func (p NSPrintOperation) RunOperationModalForWindowDelegateDidRunSelectorContextInfo(docWindow INSWindow, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](p.ID, objc.Sel("runOperationModalForWindow:delegate:didRunSelector:contextInfo:"), docWindow, delegate, didRunSelector, contextInfo)
 }
+
 // Called at the end of a print operation to remove the print operation as the
 // current operation.
 //
 // # Discussion
-// 
+//
 // You typically do not invoke this method directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/cleanUp()
 func (p NSPrintOperation) CleanUpOperation() {
 	objc.Send[objc.ID](p.ID, objc.Sel("cleanUpOperation"))
 }
+
 // Delivers the results of the print operation to the intended destination.
 //
 // # Return Value
-// 
-// [true] if the results were successfully delivered; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the results were successfully delivered; otherwise, false.
 //
 // # Discussion
-// 
+//
 // This method may be called to deliver the results to the printer spool or
 // preview application. Do not invoke this method directly—it is invoked
 // automatically when the print operation is done.
@@ -422,15 +416,16 @@ func (p NSPrintOperation) DeliverResult() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("deliverResult"))
 	return rv
 }
+
 // Creates the graphics context object used for drawing during the operation.
 //
 // # Return Value
-// 
+//
 // The graphics context object used for drawing. This object is created using
 // the settings from the receiver’s [NSPrintInfo] object.
 //
 // # Discussion
-// 
+//
 // Do not invoke this method directly—it is invoked before any output is
 // generated.
 //
@@ -439,10 +434,11 @@ func (p NSPrintOperation) CreateContext() INSGraphicsContext {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("createContext"))
 	return NSGraphicsContextFromID(rv)
 }
+
 // Destroys the print operation’s graphics context.
 //
 // # Discussion
-// 
+//
 // Do not invoke this method directly—it is invoked at the end of a print
 // operation.
 //
@@ -463,12 +459,12 @@ func (p NSPrintOperation) DestroyContext() {
 // the EPS data.
 //
 // # Return Value
-// 
+//
 // The new [NSPrintOperation] object. You must run the operation to generate
 // the EPS data.
 //
 // # Discussion
-// 
+//
 // The new [NSPrintOperation] object uses the default [NSPrintInfo] object.
 // This method raises an [NSPrintOperationExistsException] if there is already
 // a print operation in progress; otherwise the returned object is made the
@@ -479,6 +475,7 @@ func (_NSPrintOperationClass NSPrintOperationClass) EPSOperationWithViewInsideRe
 	rv := objc.Send[objc.ID](objc.ID(_NSPrintOperationClass.class), objc.Sel("EPSOperationWithView:insideRect:toData:"), view, rect, data)
 	return NSPrintOperationFromID(rv)
 }
+
 // Creates and returns a new print operation object ready to control the
 // copying of EPS graphics from the specified view using the specified print
 // settings.
@@ -494,12 +491,12 @@ func (_NSPrintOperationClass NSPrintOperationClass) EPSOperationWithViewInsideRe
 // printInfo: The print settings to use when generating the EPS data.
 //
 // # Return Value
-// 
+//
 // The new [NSPrintOperation] object. You must run the operation to generate
 // the EPS data.
 //
 // # Discussion
-// 
+//
 // This method raises an [NSPrintOperationExistsException] if there is already
 // a print operation in progress; otherwise the returned object is made the
 // current print operation for this thread.
@@ -509,6 +506,7 @@ func (_NSPrintOperationClass NSPrintOperationClass) EPSOperationWithViewInsideRe
 	rv := objc.Send[objc.ID](objc.ID(_NSPrintOperationClass.class), objc.Sel("EPSOperationWithView:insideRect:toData:printInfo:"), view, rect, data, printInfo)
 	return NSPrintOperationFromID(rv)
 }
+
 // Creates and returns a new print operation object ready to control the
 // copying of EPS graphics from the specified view and write the resulting
 // data to the specified file.
@@ -523,12 +521,12 @@ func (_NSPrintOperationClass NSPrintOperationClass) EPSOperationWithViewInsideRe
 // printInfo: The print settings to use when generating the EPS data.
 //
 // # Return Value
-// 
+//
 // The new [NSPrintOperation] object. You must run the operation to generate
 // the EPS data.
 //
 // # Discussion
-// 
+//
 // This method raises an [NSPrintOperationExistsException] if there is already
 // a print operation in progress; otherwise the returned object is made the
 // current print operation for this thread.
@@ -538,6 +536,7 @@ func (_NSPrintOperationClass NSPrintOperationClass) EPSOperationWithViewInsideRe
 	rv := objc.Send[objc.ID](objc.ID(_NSPrintOperationClass.class), objc.Sel("EPSOperationWithView:insideRect:toPath:printInfo:"), view, rect, objc.String(path), printInfo)
 	return NSPrintOperationFromID(rv)
 }
+
 // Creates and returns a new print operation object ready to control the
 // copying of PDF graphics from the specified view.
 //
@@ -550,12 +549,12 @@ func (_NSPrintOperationClass NSPrintOperationClass) EPSOperationWithViewInsideRe
 // the PDF data.
 //
 // # Return Value
-// 
+//
 // The new [NSPrintOperation] object. You must run the operation to generate
 // the PDF data.
 //
 // # Discussion
-// 
+//
 // The new [NSPrintOperation] object uses the default [NSPrintInfo] object.
 // This method raises an [NSPrintOperationExistsException] if there is already
 // a print operation in progress; otherwise the returned object is made the
@@ -566,6 +565,7 @@ func (_NSPrintOperationClass NSPrintOperationClass) PDFOperationWithViewInsideRe
 	rv := objc.Send[objc.ID](objc.ID(_NSPrintOperationClass.class), objc.Sel("PDFOperationWithView:insideRect:toData:"), view, rect, data)
 	return NSPrintOperationFromID(rv)
 }
+
 // Creates and returns a new print operation object ready to control the
 // copying of PDF graphics from the specified view using the specified print
 // settings.
@@ -581,12 +581,12 @@ func (_NSPrintOperationClass NSPrintOperationClass) PDFOperationWithViewInsideRe
 // printInfo: The print settings to use when generating the PDF data.
 //
 // # Return Value
-// 
+//
 // The new [NSPrintOperation] object. You must run the operation to generate
 // the PDF data.
 //
 // # Discussion
-// 
+//
 // This method raises an [NSPrintOperationExistsException] if there is already
 // a print operation in progress; otherwise the returned object is made the
 // current print operation for this thread.
@@ -596,6 +596,7 @@ func (_NSPrintOperationClass NSPrintOperationClass) PDFOperationWithViewInsideRe
 	rv := objc.Send[objc.ID](objc.ID(_NSPrintOperationClass.class), objc.Sel("PDFOperationWithView:insideRect:toData:printInfo:"), view, rect, data, printInfo)
 	return NSPrintOperationFromID(rv)
 }
+
 // Creates and returns a new print operation object ready to control the
 // copying of PDF graphics from the specified view and write the resulting
 // data to the specified file.
@@ -610,12 +611,12 @@ func (_NSPrintOperationClass NSPrintOperationClass) PDFOperationWithViewInsideRe
 // printInfo: The print settings to use when generating the PDF data.
 //
 // # Return Value
-// 
+//
 // The new [NSPrintOperation] object. You must run the operation to generate
 // the PDF data.
 //
 // # Discussion
-// 
+//
 // This method raises an [NSPrintOperationExistsException] if there is already
 // a print operation in progress; otherwise the returned object is made the
 // current print operation for this thread.
@@ -630,17 +631,15 @@ func (_NSPrintOperationClass NSPrintOperationClass) PDFOperationWithViewInsideRe
 // copy operation.
 //
 // # Return Value
-// 
-// [true] if the receiver is an EPS or PDF copy operation; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver is an EPS or PDF copy operation; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/isCopyingOperation
 func (p NSPrintOperation) CopyingOperation() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isCopyingOperation"))
 	return rv
 }
+
 // The printing information associated with the print operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/printInfo
@@ -651,10 +650,11 @@ func (p NSPrintOperation) PrintInfo() INSPrintInfo {
 func (p NSPrintOperation) SetPrintInfo(value INSPrintInfo) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPrintInfo:"), value)
 }
+
 // The view object that generates the actual data for the print operation.
 //
 // # Return Value
-// 
+//
 // The view object that generates the data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/view
@@ -662,40 +662,42 @@ func (p NSPrintOperation) View() INSView {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("view"))
 	return NSViewFromID(objc.ID(rv))
 }
+
 // The printing quality.
 //
 // # Return Value
-// 
+//
 // The preferred printing quality. See [NSPrintOperation.RenderingQuality] for
 // the possible values.
-// 
+//
 // # Discussion
-// 
+//
 // If the print sheet is unresponsive or sluggish due to the time is takes to
-// fully render a page, you can check this method in `` and other printing
-// methods such as `beginDocument` and `` to determine if the print operation
+// fully render a page, you can check this method in “ and other printing
+// methods such as `beginDocument` and “ to determine if the print operation
 // prefers speed over fidelity. Most applications render each page fast enough
 // and do not need to call this method. Only use this method after
 // establishing that best quality rendering does indeed make the user
 // interface unresponsive.
-// 
+//
 // The following is an example use of this method:
 //
-// [NSPrintOperation.RenderingQuality]: https://developer.apple.com/documentation/AppKit/NSPrintOperation/RenderingQuality
-//
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/preferredRenderingQuality
+//
+// [NSPrintOperation.RenderingQuality]: https://developer.apple.com/documentation/AppKit/NSPrintOperation/RenderingQuality
 func (p NSPrintOperation) PreferredRenderingQuality() NSPrintRenderingQuality {
 	rv := objc.Send[NSPrintRenderingQuality](p.ID, objc.Sel("preferredRenderingQuality"))
 	return NSPrintRenderingQuality(rv)
 }
+
 // A Boolean value that determines whether the print operation displays a
 // print panel.
 //
 // # Discussion
-// 
+//
 // This method does not affect the display of a progress panel; that operation
 // is controlled by the [ShowsProgressPanel] method.
-// 
+//
 // Operations that generate EPS or PDF data do no display a progress panel,
 // regardless of the value in the `flag` parameter.
 //
@@ -707,14 +709,15 @@ func (p NSPrintOperation) ShowsPrintPanel() bool {
 func (p NSPrintOperation) SetShowsPrintPanel(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setShowsPrintPanel:"), value)
 }
+
 // A Boolean value that determines whether the print operation displays a
 // progress panel.
 //
 // # Discussion
-// 
+//
 // This method does not affect the display of a print panel; that operation is
 // controlled by the [ShowsPrintPanel] method.
-// 
+//
 // Operations that generate EPS or PDF data do no display a progress panel,
 // regardless of the value in the `flag` parameter.
 //
@@ -726,16 +729,15 @@ func (p NSPrintOperation) ShowsProgressPanel() bool {
 func (p NSPrintOperation) SetShowsProgressPanel(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setShowsProgressPanel:"), value)
 }
+
 // The custom title of the print job.
 //
 // # Discussion
-// 
+//
 // Assigning a title with this method overrides the job title provided by the
-// printing view’s [printJobTitle] method. Specifying `nil` for the
+// printing view’s [PrintJobTitle] method. Specifying `nil` for the
 // `jobTitle` parameter causes the receiver to once again take its title from
 // the printing view.
-//
-// [printJobTitle]: https://developer.apple.com/documentation/AppKit/NSView/printJobTitle
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/jobTitle
 func (p NSPrintOperation) JobTitle() string {
@@ -745,6 +747,7 @@ func (p NSPrintOperation) JobTitle() string {
 func (p NSPrintOperation) SetJobTitle(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setJobTitle:"), objc.String(value))
 }
+
 // The print panel object to use during the operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/printPanel
@@ -755,6 +758,7 @@ func (p NSPrintOperation) PrintPanel() INSPrintPanel {
 func (p NSPrintOperation) SetPrintPanel(value INSPrintPanel) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPrintPanel:"), value)
 }
+
 // The PDF panel object to use during the operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/pdfPanel
@@ -765,10 +769,11 @@ func (p NSPrintOperation) PDFPanel() INSPDFPanel {
 func (p NSPrintOperation) SetPDFPanel(value INSPDFPanel) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPDFPanel:"), value)
 }
+
 // The graphics context object used for generating output.
 //
 // # Return Value
-// 
+//
 // The graphics context object used for drawing during the operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/context
@@ -776,10 +781,11 @@ func (p NSPrintOperation) Context() INSGraphicsContext {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("context"))
 	return NSGraphicsContextFromID(objc.ID(rv))
 }
+
 // The current page number being printed.
 //
 // # Return Value
-// 
+//
 // The current page being printed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/currentPage
@@ -787,10 +793,11 @@ func (p NSPrintOperation) CurrentPage() int {
 	rv := objc.Send[int](p.ID, objc.Sel("currentPage"))
 	return rv
 }
+
 // The range of pages associated with the print operation.
 //
 // # Return Value
-// 
+//
 // The range of page numbers. Page numbers are one-based values where the
 // index of page one is 1, the index of page two is 2, and so on. Depending on
 // the information returned by the printing view, the starting page number may
@@ -802,6 +809,7 @@ func (p NSPrintOperation) PageRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](p.ID, objc.Sel("pageRange"))
 	return foundation.NSRange(rv)
 }
+
 // The print order for the pages of the operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/pageOrder-swift.property
@@ -812,27 +820,25 @@ func (p NSPrintOperation) PageOrder() NSPrintingPageOrder {
 func (p NSPrintOperation) SetPageOrder(value NSPrintingPageOrder) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPageOrder:"), value)
 }
+
 // A Boolean value that determines whether the print operation is allowed to
 // spawn a separate printing thread.
 //
 // # Discussion
-// 
-// If `canSpawnSeparateThread` is [true], an [NSThread] object is detached
-// when the print panel is dismissed (or immediately, if the panel is not to
-// be displayed). The new thread performs the print operation, so that control
+//
+// If `canSpawnSeparateThread` is true, an [NSThread] object is detached when
+// the print panel is dismissed (or immediately, if the panel is not to be
+// displayed). The new thread performs the print operation, so that control
 // can return to your application. A thread is detached only if the print
 // operation is run using the
 // [RunOperationModalForWindowDelegateDidRunSelectorContextInfo] method. If
-// `canSpawnSeparateThread` is [false], the operation runs on the current
+// `canSpawnSeparateThread` is false, the operation runs on the current
 // thread, blocking the application until the operation completes.
-// 
-// If you send [CanSpawnSeparateThread] to an [NSPrintOperation] object with
-// an argument of [true], then the delegate specified in a subsequent
-// invocation of [RunOperationModalForWindowDelegateDidRunSelectorContextInfo]
-// may be messaged in that spawned, non-main thread.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If you send [CanSpawnSeparateThread] to an [NSPrintOperation] object with
+// an argument of true, then the delegate specified in a subsequent invocation
+// of [RunOperationModalForWindowDelegateDidRunSelectorContextInfo] may be
+// messaged in that spawned, non-main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/canSpawnSeparateThread
 func (p NSPrintOperation) CanSpawnSeparateThread() bool {
@@ -846,7 +852,7 @@ func (p NSPrintOperation) SetCanSpawnSeparateThread(value bool) {
 // The current print operation for this thread.
 //
 // # Return Value
-// 
+//
 // The print operation object, or `nil` if there is no current operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/current
@@ -857,4 +863,3 @@ func (_NSPrintOperationClass NSPrintOperationClass) CurrentOperation() NSPrintOp
 func (_NSPrintOperationClass NSPrintOperationClass) SetCurrentOperation(value NSPrintOperation) {
 	objc.Send[struct{}](objc.ID(_NSPrintOperationClass.class), objc.Sel("setCurrentOperation:"), value)
 }
-

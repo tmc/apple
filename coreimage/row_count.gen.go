@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type RowCount struct {
 func RowCountFromID(id objc.ID) RowCount {
 	return RowCount{objectivec.Object{ID: id}}
 }
+
 // Ensure RowCount implements IRowCount.
 var _ IRowCount = RowCount{}
 
@@ -78,4 +80,3 @@ func NewRowCount() RowCount {
 	rv := objc.Send[RowCount](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (vc VZSpiceAgentCoreCapabilitiesClass) Alloc() VZSpiceAgentCoreCapabilities
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZSpiceAgentCoreCapabilities.Clipboard]
 //   - [VZSpiceAgentCoreCapabilities.SetClipboard]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSpiceAgentCoreCapabilities
 type VZSpiceAgentCoreCapabilities struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type VZSpiceAgentCoreCapabilities struct {
 func VZSpiceAgentCoreCapabilitiesFromID(id objc.ID) VZSpiceAgentCoreCapabilities {
 	return VZSpiceAgentCoreCapabilities{objectivec.Object{ID: id}}
 }
+
 // Ensure VZSpiceAgentCoreCapabilities implements IVZSpiceAgentCoreCapabilities.
 var _ IVZSpiceAgentCoreCapabilities = VZSpiceAgentCoreCapabilities{}
 
@@ -102,4 +104,3 @@ func (v VZSpiceAgentCoreCapabilities) Clipboard() bool {
 func (v VZSpiceAgentCoreCapabilities) SetClipboard(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setClipboard:"), value)
 }
-

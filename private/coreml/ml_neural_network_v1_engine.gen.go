@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,6 +53,7 @@ type MLNeuralNetworkV1Engine struct {
 func MLNeuralNetworkV1EngineFromID(id objc.ID) MLNeuralNetworkV1Engine {
 	return MLNeuralNetworkV1Engine{MLNeuralNetworkEngine: MLNeuralNetworkEngineFromID(id)}
 }
+
 // Ensure MLNeuralNetworkV1Engine implements IMLNeuralNetworkV1Engine.
 var _ IMLNeuralNetworkV1Engine = MLNeuralNetworkV1Engine{}
 
@@ -81,7 +83,6 @@ func NewMLNeuralNetworkV1Engine() MLNeuralNetworkV1Engine {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/initWithContainer:configuration:error:
 func NewNeuralNetworkV1EngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkV1Engine, error) {
 	var errorPtr objc.ID
@@ -94,7 +95,6 @@ func NewNeuralNetworkV1EngineWithContainerConfigurationError(container objective
 	return MLNeuralNetworkV1EngineFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/initWithContainer:error:
 func NewNeuralNetworkV1EngineWithContainerError(container objectivec.IObject) (MLNeuralNetworkV1Engine, error) {
 	var errorPtr objc.ID
@@ -107,7 +107,6 @@ func NewNeuralNetworkV1EngineWithContainerError(container objectivec.IObject) (M
 	return MLNeuralNetworkV1EngineFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewNeuralNetworkV1EngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkV1Engine {
 	instance := getMLNeuralNetworkV1EngineClass().Alloc()
@@ -115,11 +114,9 @@ func NewNeuralNetworkV1EngineWithDescriptionConfiguration(description objectivec
 	return MLNeuralNetworkV1EngineFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewNeuralNetworkV1EngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkV1Engine {
 	instance := getMLNeuralNetworkV1EngineClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNeuralNetworkV1EngineFromID(rv)
 }
-

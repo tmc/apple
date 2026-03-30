@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -91,6 +91,7 @@ type CIPageCurlWithShadowTransition interface {
 type CIPageCurlWithShadowTransitionObject struct {
 	objectivec.Object
 }
+
 func (o CIPageCurlWithShadowTransitionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -109,7 +110,8 @@ func CIPageCurlWithShadowTransitionObjectFromID(id objc.ID) CIPageCurlWithShadow
 func (o CIPageCurlWithShadowTransitionObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // The image that appears on the back of the source image as the page curls to
 // reveal the target image.
 //
@@ -117,42 +119,48 @@ func (o CIPageCurlWithShadowTransitionObject) Angle() float32 {
 func (o CIPageCurlWithShadowTransitionObject) BacksideImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("backsideImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The extent of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/extent
 func (o CIPageCurlWithShadowTransitionObject) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
-	}
+}
+
 // The radius of the curl.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/radius
 func (o CIPageCurlWithShadowTransitionObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // The strength of the shadow.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowAmount
 func (o CIPageCurlWithShadowTransitionObject) ShadowAmount() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("shadowAmount"))
 	return rv
-	}
+}
+
 // The rectagular portion of input image that casts a shadow.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowExtent
 func (o CIPageCurlWithShadowTransitionObject) ShadowExtent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("shadowExtent"))
 	return rv
-	}
+}
+
 // The maximum size, in pixels, of the shadow.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowSize
 func (o CIPageCurlWithShadowTransitionObject) ShadowSize() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("shadowSize"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -160,66 +168,103 @@ func (o CIPageCurlWithShadowTransitionObject) ShadowSize() float32 {
 func (o CIPageCurlWithShadowTransitionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIPageCurlWithShadowTransitionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The target image for a transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIPageCurlWithShadowTransitionObject) TargetImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The parametric time of the transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIPageCurlWithShadowTransitionObject) Time() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
-	}
+}
 
+// The angle of the curling page.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/angle
 func (o CIPageCurlWithShadowTransitionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// The image that appears on the back of the source image as the page curls to
+// reveal the target image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/backsideImage
 func (o CIPageCurlWithShadowTransitionObject) SetBacksideImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBacksideImage:"), value)
 }
 
+// The extent of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/extent
 func (o CIPageCurlWithShadowTransitionObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
 
+// The radius of the curl.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/radius
 func (o CIPageCurlWithShadowTransitionObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
 
+// The strength of the shadow.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowAmount
 func (o CIPageCurlWithShadowTransitionObject) SetShadowAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadowAmount:"), value)
 }
 
+// The rectagular portion of input image that casts a shadow.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowExtent
 func (o CIPageCurlWithShadowTransitionObject) SetShadowExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadowExtent:"), value)
 }
 
+// The maximum size, in pixels, of the shadow.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowSize
 func (o CIPageCurlWithShadowTransitionObject) SetShadowSize(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadowSize:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIPageCurlWithShadowTransitionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The target image for a transition.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIPageCurlWithShadowTransitionObject) SetTargetImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTargetImage:"), value)
 }
 
+// The parametric time of the transition.
+//
+// # Discussion
+//
+// This value drives the transition from start, at time 0, to end, at time 1.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIPageCurlWithShadowTransitionObject) SetTime(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTime:"), value)
 }
-

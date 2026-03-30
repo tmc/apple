@@ -5,6 +5,7 @@ package quartzcore
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,12 +47,12 @@ func (cc CATransactionClass) Alloc() CATransaction {
 // to the render tree.
 //
 // # Overview
-// 
+//
 // [CATransaction] is the Core Animation mechanism for batching multiple
 // layer-tree operations into atomic updates to the render tree. Every
 // modification to a layer tree must be part of a transaction. Nested
 // transactions are supported.
-// 
+//
 // Core Animation supports two types of transactions: transactions and
 // transactions. Implicit transactions are created automatically when the
 // layer tree is modified by a thread without an active transaction and are
@@ -59,16 +60,16 @@ func (cc CATransactionClass) Alloc() CATransaction {
 // transactions occur when the the application sends the [CATransaction] class
 // a [CATransaction.Begin] message before modifying the layer tree, and a [CATransaction.Commit] message
 // afterwards.
-// 
+//
 // [CATransaction] allows you to override default animation properties that
 // are set for animatable properties. You can customize duration, timing
 // function, whether changes to properties trigger animations, and provide a
 // handler that informs you when all animations from the transaction group are
 // completed.
-// 
+//
 // During a transaction you can temporarily acquire a recursive spin lock for
 // managing property atomicity.
-// 
+//
 // [CATransaction] supports nested transactions. The following code shows how
 // you can fade out a layer (named `transitioningLayer`) over a 2 second
 // duration while scaling it to three times its original size. The scale
@@ -88,6 +89,7 @@ type CATransaction struct {
 func CATransactionFromID(id objc.ID) CATransaction {
 	return CATransaction{objectivec.Object{ID: id}}
 }
+
 // NOTE: CATransaction adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,7 +122,7 @@ func NewCATransaction() CATransaction {
 // Begin a new transaction for the current thread.
 //
 // # Discussion
-// 
+//
 // The transaction is nested within the thread’s current transaction, if
 // there is one.
 //
@@ -128,26 +130,28 @@ func NewCATransaction() CATransaction {
 func (_CATransactionClass CATransactionClass) Begin() {
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("begin"))
 }
+
 // Commit all changes made during the current transaction.
 //
 // # Discussion
-// 
+//
 // Raises an exception if no current transaction exists.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/commit()
 func (_CATransactionClass CATransactionClass) Commit() {
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("commit"))
 }
+
 // Flushes any extant implicit transaction.
 //
 // # Discussion
-// 
+//
 // Delays the commit until any nested explicit transactions have completed.
-// 
+//
 // Flush is typically called automatically at the end of the current runloop,
 // regardless of the runloop mode. If your application does not have a
 // runloop, you must call this method explicitly.
-// 
+//
 // However, you should attempt to avoid calling `flush` explicitly. By
 // allowing `flush` to execute during the runloop your application will
 // achieve better performance, atomic screen updates will be preserved, and
@@ -158,123 +162,125 @@ func (_CATransactionClass CATransactionClass) Commit() {
 func (_CATransactionClass CATransactionClass) Flush() {
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("flush"))
 }
+
 // Returns the animation duration used by all animations within this
 // transaction group.
 //
 // # Return Value
-// 
+//
 // An interval of time used as the duration.
 //
 // # Discussion
-// 
+//
 // You can retrieve the animation duration for a specific transaction by
 // calling the [ValueForKey] method of the transaction object and asking for
 // the [kCATransactionAnimationDuration] key.
 //
-// [kCATransactionAnimationDuration]: https://developer.apple.com/documentation/QuartzCore/kCATransactionAnimationDuration
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/animationDuration()
+//
+// [kCATransactionAnimationDuration]: https://developer.apple.com/documentation/QuartzCore/kCATransactionAnimationDuration
 func (_CATransactionClass CATransactionClass) AnimationDuration() float64 {
 	rv := objc.Send[float64](objc.ID(_CATransactionClass.class), objc.Sel("animationDuration"))
 	return rv
 }
+
 // Sets the animation duration used by all animations within this transaction
 // group.
 //
 // dur: An interval of time used as the duration.
 //
 // # Discussion
-// 
+//
 // You can also set the animation duration for a specific transaction object
 // by calling the [SetValueForKey] method of that object and specifying the
 // [kCATransactionAnimationDuration] key.
 //
-// [kCATransactionAnimationDuration]: https://developer.apple.com/documentation/QuartzCore/kCATransactionAnimationDuration
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/setAnimationDuration(_:)
+//
+// [kCATransactionAnimationDuration]: https://developer.apple.com/documentation/QuartzCore/kCATransactionAnimationDuration
 func (_CATransactionClass CATransactionClass) SetAnimationDuration(dur float64) {
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("setAnimationDuration:"), dur)
 }
+
 // Returns the timing function used for all animations within this transaction
 // group.
 //
 // # Return Value
-// 
+//
 // An instance of [CAMediaTimingFunction].
 //
 // # Discussion
-// 
+//
 // This is a convenience method that returns the [CAMediaTimingFunction] for
 // the [ValueForKey] value returned by the
 // [kCATransactionAnimationTimingFunction] key.
 //
-// [kCATransactionAnimationTimingFunction]: https://developer.apple.com/documentation/QuartzCore/kCATransactionAnimationTimingFunction
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/animationTimingFunction()
+//
+// [kCATransactionAnimationTimingFunction]: https://developer.apple.com/documentation/QuartzCore/kCATransactionAnimationTimingFunction
 func (_CATransactionClass CATransactionClass) AnimationTimingFunction() CAMediaTimingFunction {
 	rv := objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("animationTimingFunction"))
 	return CAMediaTimingFunctionFromID(rv)
 }
+
 // Sets the timing function used for all animations within this transaction
 // group.
 //
 // function: An instance of [CAMediaTimingFunction].
 //
 // # Discussion
-// 
+//
 // This is a convenience method that sets the [CAMediaTimingFunction] for the
 // [ValueForKey] value of the [kCATransactionAnimationTimingFunction] key.
 //
-// [kCATransactionAnimationTimingFunction]: https://developer.apple.com/documentation/QuartzCore/kCATransactionAnimationTimingFunction
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/setAnimationTimingFunction(_:)
+//
+// [kCATransactionAnimationTimingFunction]: https://developer.apple.com/documentation/QuartzCore/kCATransactionAnimationTimingFunction
 func (_CATransactionClass CATransactionClass) SetAnimationTimingFunction(function ICAMediaTimingFunction) {
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("setAnimationTimingFunction:"), function)
 }
+
 // Returns whether actions triggered as a result of property changes made
 // within this transaction group are suppressed.
 //
 // # Return Value
-// 
-// [true] if actions are disabled.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if actions are disabled.
 //
 // # Discussion
-// 
+//
 // This is a convenience method that returns the `boolValue` for the
 // [ValueForKey] value returned by the [kCATransactionDisableActions] key.
 //
-// [kCATransactionDisableActions]: https://developer.apple.com/documentation/QuartzCore/kCATransactionDisableActions
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/disableActions()
+//
+// [kCATransactionDisableActions]: https://developer.apple.com/documentation/QuartzCore/kCATransactionDisableActions
 func (_CATransactionClass CATransactionClass) DisableActions() bool {
 	rv := objc.Send[bool](objc.ID(_CATransactionClass.class), objc.Sel("disableActions"))
 	return rv
 }
+
 // Sets whether actions triggered as a result of property changes made within
 // this transaction group are suppressed.
 //
-// flag: [true], if actions should be disabled.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// flag: true, if actions should be disabled.
 //
 // # Discussion
-// 
-// This is a convenience method that invokes [SetValueForKey] with an
-// [NSNumber] containing a [true] for the [kCATransactionDisableActions] key.
 //
-// [kCATransactionDisableActions]: https://developer.apple.com/documentation/QuartzCore/kCATransactionDisableActions
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This is a convenience method that invokes [SetValueForKey] with an
+// [NSNumber] containing a true for the [kCATransactionDisableActions] key.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/setDisableActions(_:)
+//
+// [kCATransactionDisableActions]: https://developer.apple.com/documentation/QuartzCore/kCATransactionDisableActions
 func (_CATransactionClass CATransactionClass) SetDisableActions(flag bool) {
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("setDisableActions:"), flag)
 }
+
 // Returns the completion block object.
 //
 // # Discussion
-// 
+//
 // See [SetCompletionBlock] for a description of the role of the completion
 // block object.
 //
@@ -282,15 +288,16 @@ func (_CATransactionClass CATransactionClass) SetDisableActions(flag bool) {
 func (_CATransactionClass CATransactionClass) CompletionBlock() {
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("completionBlock"))
 }
+
 // Sets the completion block object.
 //
 // block: A block object called when animations for this transaction group are
 // completed.
-// 
+//
 // The block object takes no parameters and returns no value.
 //
 // # Discussion
-// 
+//
 // The completion block object that is guaranteed to be called (on the main
 // thread) as soon as all animations subsequently added by this transaction
 // group have completed (or have been removed.) If no animations are added
@@ -299,14 +306,15 @@ func (_CATransactionClass CATransactionClass) CompletionBlock() {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/setCompletionBlock(_:)
 func (_CATransactionClass CATransactionClass) SetCompletionBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("setCompletionBlock:"), _block0)
 }
+
 // Attempts to acquire a recursive spin-lock lock, ensuring that returned
 // layer values are valid until unlocked.
 //
 // # Discussion
-// 
+//
 // Core Animation uses a data model that promises not to corrupt the internal
 // data structures when called from multiple threads concurrently, but not
 // that data returned is still valid if the property was valid on another
@@ -317,6 +325,7 @@ _block0, _ := NewVoidBlock(block)
 func (_CATransactionClass CATransactionClass) Lock() {
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("lock"))
 }
+
 // Relinquishes a previously acquired transaction lock.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransaction/unlock()
@@ -338,4 +347,3 @@ func (tc CATransactionClass) SetCompletionBlockSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

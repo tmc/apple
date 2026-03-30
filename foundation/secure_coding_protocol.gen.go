@@ -19,6 +19,7 @@ type NSSecureCoding interface {
 type NSSecureCodingObject struct {
 	objectivec.Object
 }
+
 func (o NSSecureCodingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -38,5 +39,4 @@ func NSSecureCodingObjectFromID(id objc.ID) NSSecureCodingObject {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (o NSSecureCodingObject) EncodeWithCoder(coder INSCoder) {
 	objc.Send[struct{}](o.ID, objc.Sel("encodeWithCoder:"), coder)
-	}
-
+}

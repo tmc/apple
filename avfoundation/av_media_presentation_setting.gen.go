@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,7 +49,7 @@ func (ac AVMediaPresentationSettingClass) Alloc() AVMediaPresentationSetting {
 // the presentation of the media.
 //
 // # Overview
-// 
+//
 // Each selectable setting is associated with a media characteristic that one
 // or more of the AVMediaSelectionOptions in the AVMediaSelectionGroup
 // possesses. By selecting a setting in a user interface that offers
@@ -79,6 +80,7 @@ type AVMediaPresentationSetting struct {
 func AVMediaPresentationSettingFromID(id objc.ID) AVMediaPresentationSetting {
 	return AVMediaPresentationSetting{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMediaPresentationSetting adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -143,4 +145,3 @@ func (m AVMediaPresentationSetting) MediaCharacteristic() AVMediaCharacteristic 
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaCharacteristic"))
 	return AVMediaCharacteristic(foundation.NSStringFromID(rv).String())
 }
-

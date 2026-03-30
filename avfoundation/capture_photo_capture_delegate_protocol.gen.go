@@ -4,11 +4,13 @@ package avfoundation
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // Methods for monitoring progress and receiving results from a photo capture output.
@@ -22,6 +24,7 @@ type AVCapturePhotoCaptureDelegate interface {
 type AVCapturePhotoCaptureDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVCapturePhotoCaptureDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -46,25 +49,26 @@ func AVCapturePhotoCaptureDelegateObjectFromID(id objc.ID) AVCapturePhotoCapture
 // find out which values the photo output has chosen for automatic settings.
 //
 // # Discussion
-// 
+//
 // The photo output calls this method when it has committed to a choice of
 // settings and will soon begin the capture process. This call occurs as early
 // as possible after your call to the [CapturePhotoWithSettingsDelegate]
 // method, letting you know what to expect for other delegate method calls
 // related to the same capture.
-// 
+//
 // Use this method and the [AVCaptureResolvedPhotoSettings] it provides to
 // find out at the earliest possible opportunity which values the photo output
 // has chosen for automatic settings, and what the output dimensions for
 // captured images and movies will be. For example, if you requested capture
-// with the [FlashMode] property set to [CaptureFlashModeAuto], the resolved
+// with the [FlashMode] property set to [AVCaptureFlashModeAuto], the resolved
 // photo settings’ [FlashEnabled] property indicates whether the flash will
 // fire during capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:willBeginCaptureFor:)
 func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputWillBeginCaptureForResolvedSettings(output IAVCapturePhotoOutput, resolvedSettings IAVCaptureResolvedPhotoSettings) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:willBeginCaptureForResolvedSettings:"), output, resolvedSettings)
-	}
+}
+
 // Notifies the delegate that photo capture is about to occur.
 //
 // output: The photo output performing the capture.
@@ -76,7 +80,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputWillBeginCaptureForRes
 // find out which values the photo output has chosen for automatic settings.
 //
 // # Discussion
-// 
+//
 // The photo output calls this method as close as possible to the initial
 // moment of capture. If the shutter sound is enabled, this call occurs
 // immediately after the photo output begins playing the shutter sound.
@@ -84,7 +88,8 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputWillBeginCaptureForRes
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:willCapturePhotoFor:)
 func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputWillCapturePhotoForResolvedSettings(output IAVCapturePhotoOutput, resolvedSettings IAVCaptureResolvedPhotoSettings) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:willCapturePhotoForResolvedSettings:"), output, resolvedSettings)
-	}
+}
+
 // Notifies the delegate that the photo has been taken.
 //
 // output: The photo output performing the capture.
@@ -96,14 +101,15 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputWillCapturePhotoForRes
 // find out which values the photo output has chosen for automatic settings.
 //
 // # Discussion
-// 
+//
 // The photo output calls this method as soon as the first step of capture
 // ends—that is, at the end of the photographic exposure time.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didCapturePhotoFor:)
 func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidCapturePhotoForResolvedSettings(output IAVCapturePhotoOutput, resolvedSettings IAVCaptureResolvedPhotoSettings) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didCapturePhotoForResolvedSettings:"), output, resolvedSettings)
-	}
+}
+
 // Notifies the delegate that the capture process is complete.
 //
 // output: The photo output performing the capture.
@@ -118,7 +124,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidCapturePhotoForReso
 // describing the failure; otherwise, `nil`.
 //
 // # Discussion
-// 
+//
 // The photo output calls this method when the entire capture process has
 // finished, and no more delegate messages will be sent for this capture
 // request. Use this time to clean up any resources you’ve allocated that
@@ -127,7 +133,8 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidCapturePhotoForReso
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishCaptureFor:error:)
 func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCaptureForResolvedSettingsError(output IAVCapturePhotoOutput, resolvedSettings IAVCaptureResolvedPhotoSettings, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishCaptureForResolvedSettings:error:"), output, resolvedSettings, error_)
-	}
+}
+
 // Provides the delegate with the captured image and associated metadata
 // resulting from a photo capture.
 //
@@ -136,7 +143,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCaptureForRes
 // photo: An object containing the captured image pixel buffer, along with any
 // metadata and attachments captured along with the photo (such as a preview
 // image or depth map).
-// 
+//
 // This parameter is always non-`nil`: if an error prevented successful
 // capture, this object still contains metadata for the intended capture.
 //
@@ -144,10 +151,10 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCaptureForRes
 // describing the failure; otherwise, `nil`.
 //
 // # Discussion
-// 
+//
 // Use this method to receive the results of photo capture regardless of
 // format.
-// 
+//
 // The photo output calls this method once for each primary image to be
 // delivered in a capture request. If you request capture in both RAW and
 // processed formats, this method fires once for each format. If you request a
@@ -157,7 +164,8 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCaptureForRes
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishProcessingPhoto:error:)
 func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingPhotoError(output IAVCapturePhotoOutput, photo IAVCapturePhoto, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishProcessingPhoto:error:"), output, photo, error_)
-	}
+}
+
 // Notifies the delegate that the movie content of a Live Photo has finished
 // recording.
 //
@@ -172,26 +180,27 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingPho
 // find out which values the photo output has chosen for automatic settings.
 //
 // # Discussion
-// 
+//
 // The photo output calls this method as soon as it has captured all movie
 // data for a Live Photo. However, at this moment, that media content has not
 // yet been processed or written to storage. (To be notified when the complete
 // movie file has finished writing and is ready for consumption, implement the
 // [CaptureOutputDidFinishProcessingLivePhotoToMovieFileAtURLDurationPhotoDisplayTimeResolvedSettingsError]
 // method.)
-// 
+//
 // Use this method to determine when it is appropriate to change your
 // displayed UI to indicate that Live Photo movie capture is no longer in
 // progress. For example, the Camera app displays a “LIVE” icon when the
 // user presses the shutter button, then hides that icon when movie capture
 // ends.
-// 
+//
 // The photo output calls this method only once for each Live Photo capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishRecordingLivePhotoMovieForEventualFileAt:resolvedSettings:)
 func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishRecordingLivePhotoMovieForEventualFileAtURLResolvedSettings(output IAVCapturePhotoOutput, outputFileURL foundation.INSURL, resolvedSettings IAVCaptureResolvedPhotoSettings) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishRecordingLivePhotoMovieForEventualFileAtURL:resolvedSettings:"), output, outputFileURL, resolvedSettings)
-	}
+}
+
 // Provides the delegate the movie file URL resulting from a Live Photo
 // capture.
 //
@@ -214,7 +223,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishRecordingLive
 // describing the failure; otherwise, `nil`.
 //
 // # Discussion
-// 
+//
 // Use this method to receive the results of a Live Photo capture. When the
 // photo output calls this method, the movie component of the Live Photo has
 // been written to the location specified by the `outputFileURL` parameter and
@@ -222,31 +231,29 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishRecordingLive
 // component of the Live Photo, implement the
 // [CaptureOutputDidFinishProcessingPhotoSampleBufferPreviewPhotoSampleBufferResolvedSettingsBracketSettingsError]
 // method.)
-// 
+//
 // You don’t need to implement this method if you’re not requesting Live
 // Photo capture.
-// 
+//
 // The photo output calls this method only once for each Live Photo capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishProcessingLivePhotoToMovieFileAt:duration:photoDisplayTime:resolvedSettings:error:)
 func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLivePhotoToMovieFileAtURLDurationPhotoDisplayTimeResolvedSettingsError(output IAVCapturePhotoOutput, outputFileURL foundation.INSURL, duration coremedia.CMTime, photoDisplayTime coremedia.CMTime, resolvedSettings IAVCaptureResolvedPhotoSettings, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishProcessingLivePhotoToMovieFileAtURL:duration:photoDisplayTime:resolvedSettings:error:"), output, outputFileURL, duration, photoDisplayTime, resolvedSettings, error_)
-	}
+}
+
 // Tells the delegate when the system finishes capturing the photo proxy.
 //
 // output: The output instance.
 //
 // deferredPhotoProxy: A [AVCaptureDeferredPhotoProxy] instance that contains a proxy
 // [CVPixelBuffer] as a placeholder for the final image.
-// //
-// [AVCaptureDeferredPhotoProxy]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeferredPhotoProxy
-// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
 //
 // error: If the system couldn’t create the photo proxy, or any of the underlying
 // intermediate files, an error object that describes the failure.
 //
 // # Discussion
-// 
+//
 // You can use the output’s [FileDataRepresentation] with
 // [PHAssetCreationRequest] to eventually produce the final, processed photo
 // into the user’s Photo Library. Add the in-memory proxy file data
@@ -255,17 +262,19 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLiv
 // also important so that the intermediates aren’t removed by a periodic
 // clean-up job looking for abandoned intermediates produced by using the
 // deferred photo processing APIs.
-// 
+//
 // Your delegate implementation must adopt this method to opt into deferred
 // photo processing, otherwise calling [CapturePhotoWithSettingsDelegate]
 // throws an exception.
 //
-// [PHAssetCreationRequest]: https://developer.apple.com/documentation/Photos/PHAssetCreationRequest
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishCapturingDeferredPhotoProxy:error:)
+//
+// [AVCaptureDeferredPhotoProxy]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeferredPhotoProxy
+// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
+// [PHAssetCreationRequest]: https://developer.apple.com/documentation/Photos/PHAssetCreationRequest
 func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCapturingDeferredPhotoProxyError(output IAVCapturePhotoOutput, deferredPhotoProxy objectivec.IObject, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishCapturingDeferredPhotoProxy:error:"), output, deferredPhotoProxy, error_)
-	}
+}
 
 // AVCapturePhotoCaptureDelegateConfig holds optional typed callbacks for [AVCapturePhotoCaptureDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -386,4 +395,3 @@ func NewAVCapturePhotoCaptureDelegate(config AVCapturePhotoCaptureDelegateConfig
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVCapturePhotoCaptureDelegateObjectFromID(instance)
 }
-

@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZCoprocessorConfigurationClass) Alloc() VZCoprocessorConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCoprocessorConfiguration._coprocessor]
@@ -53,6 +53,7 @@ func (vc VZCoprocessorConfigurationClass) Alloc() VZCoprocessorConfiguration {
 //   - [VZCoprocessorConfiguration.Description]
 //   - [VZCoprocessorConfiguration.Hash]
 //   - [VZCoprocessorConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration
 type VZCoprocessorConfiguration struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type VZCoprocessorConfiguration struct {
 func VZCoprocessorConfigurationFromID(id objc.ID) VZCoprocessorConfiguration {
 	return VZCoprocessorConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZCoprocessorConfiguration implements IVZCoprocessorConfiguration.
 var _ IVZCoprocessorConfiguration = VZCoprocessorConfiguration{}
 
@@ -123,18 +125,19 @@ func (v VZCoprocessorConfiguration) _coprocessor() objectivec.IObject {
 func (v VZCoprocessorConfiguration) Coprocessor() objectivec.IObject {
 	return v._coprocessor()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/_init
 func (v VZCoprocessorConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/encodeWithEncoder:
 func (v VZCoprocessorConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/makeCoprocessorForVirtualMachine:coprocessorIndex:
 func (v VZCoprocessorConfiguration) MakeCoprocessorForVirtualMachineCoprocessorIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeCoprocessorForVirtualMachine:coprocessorIndex:"), machine, index)
@@ -146,19 +149,21 @@ func (v VZCoprocessorConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/description
 func (v VZCoprocessorConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/hash
 func (v VZCoprocessorConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorConfiguration/superclass
 func (v VZCoprocessorConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

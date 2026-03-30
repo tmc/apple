@@ -4,10 +4,11 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,7 +49,7 @@ func (ac AVAsynchronousVideoCompositionRequestClass) Alloc() AVAsynchronousVideo
 // output pixel buffer.
 //
 // # Overview
-// 
+//
 // The video compositor must adopt the [AVVideoCompositing] protocol.
 //
 // # Inspecting the request
@@ -79,6 +80,7 @@ type AVAsynchronousVideoCompositionRequest struct {
 func AVAsynchronousVideoCompositionRequestFromID(id objc.ID) AVAsynchronousVideoCompositionRequest {
 	return AVAsynchronousVideoCompositionRequest{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAsynchronousVideoCompositionRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -162,7 +164,7 @@ func NewAVAsynchronousVideoCompositionRequest() AVAsynchronousVideoCompositionRe
 // trackID: The identifier of the track that contains the timed metadata.
 //
 // # Return Value
-// 
+//
 // A timed metadata group, or `nil` if not found.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/sourceTimedMetadata(byTrackID:)
@@ -170,12 +172,13 @@ func (a AVAsynchronousVideoCompositionRequest) SourceTimedMetadataByTrackID(trac
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sourceTimedMetadataByTrackID:"), trackID)
 	return AVTimedMetadataGroupFromID(rv)
 }
+
 // Finishes the request with an error.
 //
 // error: Returns the error encountered during the compositing.
 //
 // # Discussion
-// 
+//
 // A custom compositor calls this method to indicate that the attempt to
 // compose a frame failed.
 //
@@ -183,12 +186,14 @@ func (a AVAsynchronousVideoCompositionRequest) SourceTimedMetadataByTrackID(trac
 func (a AVAsynchronousVideoCompositionRequest) FinishWithError(error_ foundation.INSError) {
 	objc.Send[objc.ID](a.ID, objc.Sel("finishWithError:"), error_)
 }
+
 // Cancels the request to compose a video frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/finishCancelledRequest()
 func (a AVAsynchronousVideoCompositionRequest) FinishCancelledRequest() {
 	objc.Send[objc.ID](a.ID, objc.Sel("finishCancelledRequest"))
 }
+
 // Associates the pixel buffer with the specified spatial configuration.
 //
 // spatialVideoConfiguration: The spatial configuration to associate with the pixel buffer.
@@ -209,6 +214,7 @@ func (a AVAsynchronousVideoCompositionRequest) FinishCancelledRequest() {
 func (a AVAsynchronousVideoCompositionRequest) AttachSpatialVideoConfigurationToPixelBuffer(spatialVideoConfiguration IAVSpatialVideoConfiguration, pixelBuffer corevideo.CVImageBufferRef) {
 	objc.Send[objc.ID](a.ID, objc.Sel("attachSpatialVideoConfiguration:toPixelBuffer:"), spatialVideoConfiguration, pixelBuffer)
 }
+
 // The method that the custom compositor calls when composition succeeds.
 //
 // taggedBufferGroup: The tagged buffer group containing the composed tagged buffers. The tagged
@@ -224,12 +230,13 @@ func (a AVAsynchronousVideoCompositionRequest) AttachSpatialVideoConfigurationTo
 func (a AVAsynchronousVideoCompositionRequest) FinishWithComposedTaggedBufferGroup(taggedBufferGroup coremedia.CMTaggedBufferGroupRef) {
 	objc.Send[objc.ID](a.ID, objc.Sel("finishWithComposedTaggedBufferGroup:"), taggedBufferGroup)
 }
+
 // Returns the source CMTaggedBufferGroupRef for the given track ID.
 //
 // trackID: The track ID for the requested source tagged buffer group.
 //
 // # Discussion
-// 
+//
 // Returns nil if the video track does not contain tagged buffers. Returns nil
 // if the track does not contain video. This function should only be called
 // when supportsSourceTaggedBuffers is YES.
@@ -247,6 +254,7 @@ func (a AVAsynchronousVideoCompositionRequest) CompositionTime() coremedia.CMTim
 	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("compositionTime"))
 	return coremedia.CMTime(rv)
 }
+
 // The rendering context of the video composition.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/renderContext
@@ -254,6 +262,7 @@ func (a AVAsynchronousVideoCompositionRequest) RenderContext() IAVVideoCompositi
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("renderContext"))
 	return AVVideoCompositionRenderContextFromID(objc.ID(rv))
 }
+
 // A video composition instruction that indicates how to compose the frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/videoCompositionInstruction
@@ -261,6 +270,7 @@ func (a AVAsynchronousVideoCompositionRequest) VideoCompositionInstruction() AVV
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("videoCompositionInstruction"))
 	return AVVideoCompositionInstructionFromID(objc.ID(rv))
 }
+
 // The identifiers of tracks that contain source video.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/sourceTrackIDs
@@ -270,19 +280,19 @@ func (a AVAsynchronousVideoCompositionRequest) SourceTrackIDs() []foundation.NSN
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // The identifiers of tracks that contain source metadata.
 //
 // # Discussion
-// 
+//
 // The track identifiers are of type [kCMMediaType_Metadata].
 //
-// [kCMMediaType_Metadata]: https://developer.apple.com/documentation/CoreMedia/kCMMediaType_Metadata
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/sourceSampleDataTrackIDs-9vxz5
+//
+// [kCMMediaType_Metadata]: https://developer.apple.com/documentation/CoreMedia/kCMMediaType_Metadata
 func (a AVAsynchronousVideoCompositionRequest) SourceSampleDataTrackIDs() []foundation.NSNumber {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("sourceSampleDataTrackIDs"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
-

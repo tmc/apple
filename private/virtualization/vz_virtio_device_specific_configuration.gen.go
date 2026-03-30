@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (vc VZVirtioDeviceSpecificConfigurationClass) Alloc() VZVirtioDeviceSpecifi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtioDeviceSpecificConfiguration._configuration]
 //   - [VZVirtioDeviceSpecificConfiguration._init]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioDeviceSpecificConfiguration
 type VZVirtioDeviceSpecificConfiguration struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type VZVirtioDeviceSpecificConfiguration struct {
 func VZVirtioDeviceSpecificConfigurationFromID(id objc.ID) VZVirtioDeviceSpecificConfiguration {
 	return VZVirtioDeviceSpecificConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVirtioDeviceSpecificConfiguration implements IVZVirtioDeviceSpecificConfiguration.
 var _ IVZVirtioDeviceSpecificConfiguration = VZVirtioDeviceSpecificConfiguration{}
 
@@ -105,4 +107,3 @@ func (v VZVirtioDeviceSpecificConfiguration) _configuration() objectivec.IObject
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_configuration"))
 	return objectivec.Object{ID: rv}
 }
-

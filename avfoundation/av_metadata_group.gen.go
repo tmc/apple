@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type AVMetadataGroup struct {
 func AVMetadataGroupFromID(id objc.ID) AVMetadataGroup {
 	return AVMetadataGroup{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMetadataGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -108,7 +110,7 @@ func NewAVMetadataGroup() AVMetadataGroup {
 // The array of metadata items associated with the metadata group.
 //
 // # Discussion
-// 
+//
 // The `items` array may be empty if no metadata items are associated with
 // this group.
 //
@@ -119,10 +121,11 @@ func (m AVMetadataGroup) Items() []AVMetadataItem {
 		return AVMetadataItemFromID(id)
 	})
 }
+
 // The unique identifier for the metadata group.
 //
 // # Discussion
-// 
+//
 // The value of this property may be `nil` if no unique identifier is defined
 // for this group.
 //
@@ -131,10 +134,11 @@ func (m AVMetadataGroup) UniqueID() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("uniqueID"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The classifying label associated with the metadata group.
 //
 // # Discussion
-// 
+//
 // The value of this property may be `nil` if no classifying label is defined
 // for this group.
 //
@@ -143,4 +147,3 @@ func (m AVMetadataGroup) ClassifyingLabel() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("classifyingLabel"))
 	return foundation.NSStringFromID(rv).String()
 }
-

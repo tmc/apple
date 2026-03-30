@@ -29,6 +29,7 @@ type CISRGBToneCurveToLinear interface {
 type CISRGBToneCurveToLinearObject struct {
 	objectivec.Object
 }
+
 func (o CISRGBToneCurveToLinearObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func CISRGBToneCurveToLinearObjectFromID(id objc.ID) CISRGBToneCurveToLinearObje
 func (o CISRGBToneCurveToLinearObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -55,9 +57,11 @@ func (o CISRGBToneCurveToLinearObject) InputImage() ICIImage {
 func (o CISRGBToneCurveToLinearObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISRGBToneCurveToLinear/inputImage
 func (o CISRGBToneCurveToLinearObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

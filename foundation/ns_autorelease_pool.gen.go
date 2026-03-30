@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,10 +46,10 @@ func (nc NSAutoreleasePoolClass) Alloc() NSAutoreleasePool {
 // system.
 //
 // # Overview
-// 
+//
 // An autorelease pool stores objects that are sent a `release` message when
 // the pool itself is drained.
-// 
+//
 // In a reference-counted environment (as opposed to one which uses garbage
 // collection), an [NSAutoreleasePool] object contains objects that have
 // received an [autorelease] message and when drained it sends a [release]
@@ -58,12 +59,12 @@ func (nc NSAutoreleasePoolClass) Alloc() NSAutoreleasePool {
 // retained). An object can be put into the same pool several times, in which
 // case it receives a [release] message for each time it was put into the
 // pool.
-// 
+//
 // In a reference counted environment, Cocoa expects there to be an
 // autorelease pool always available. If a pool is not available, autoreleased
 // objects do not get released and you leak memory. In this situation, your
 // program will typically log suitable warning messages.
-// 
+//
 // The Application Kit creates an autorelease pool on the main thread at the
 // beginning of every cycle of the event loop, and drains it at the end,
 // thereby releasing any autoreleased objects generated while processing an
@@ -72,7 +73,7 @@ func (nc NSAutoreleasePoolClass) Alloc() NSAutoreleasePool {
 // autoreleased objects within the event loop, however, it may be beneficial
 // to create “local” autorelease pools to help to minimize the peak memory
 // footprint.
-// 
+//
 // You create an [NSAutoreleasePool] object with the usual `alloc` and `init`
 // messages and dispose of it with [NSAutoreleasePool.Drain] (or `release`—to understand the
 // difference, see [NSAutoreleasePool]). Since you cannot retain an
@@ -81,7 +82,7 @@ func (nc NSAutoreleasePoolClass) Alloc() NSAutoreleasePool {
 // always drain an autorelease pool in the same context (invocation of a
 // method or function, or body of a loop) that it was created. See [Using
 // Autorelease Pool Blocks] for more details.
-// 
+//
 // Each thread (including the main thread) maintains its own stack of
 // [NSAutoreleasePool] objects (see [NSAutoreleasePool]). As new pools are
 // created, they get added to the top of the stack. When pools are
@@ -89,22 +90,22 @@ func (nc NSAutoreleasePoolClass) Alloc() NSAutoreleasePool {
 // placed into the top autorelease pool for the current thread. When a thread
 // terminates, it automatically drains all of the autorelease pools associated
 // with itself.
-// 
+//
 // # Threads
-// 
+//
 // If you are making Cocoa calls outside of the Application Kit’s main
 // thread—for example if you create a Foundation-only application or if you
 // detach a thread—you need to create your own autorelease pool.
-// 
+//
 // If your application or thread is long-lived and potentially generates a lot
 // of autoreleased objects, you should periodically drain and create
 // autorelease pools (like the Application Kit does on the main thread);
 // otherwise, autoreleased objects accumulate and your memory footprint grows.
 // If, however, your detached thread does not make Cocoa calls, you do not
 // need to create an autorelease pool.
-// 
+//
 // # Garbage Collection
-// 
+//
 // In a garbage-collected environment, there is no need for autorelease pools.
 // You may, however, write a framework that is designed to work in both a
 // garbage-collected and reference-counted environment. In this case, you can
@@ -115,15 +116,15 @@ func (nc NSAutoreleasePoolClass) Alloc() NSAutoreleasePool {
 // `release`. Typically, therefore, you should use [NSAutoreleasePool.Drain] instead of
 // `release`.
 //
-// [Using Autorelease Pool Blocks]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmAutoreleasePools.html#//apple_ref/doc/uid/20000047
-// [autorelease]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/autorelease
-// [release]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
-//
 // # Managing a Pool
 //
 //   - [NSAutoreleasePool.Drain]: In a reference-counted environment, releases and pops the receiver; in a garbage-collected environment, triggers garbage collection if the memory allocated since the last collection is greater than the current threshold.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAutoreleasePool
+//
+// [Using Autorelease Pool Blocks]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmAutoreleasePools.html#//apple_ref/doc/uid/20000047
+// [autorelease]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/autorelease
+// [release]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
 type NSAutoreleasePool struct {
 	objectivec.Object
 }
@@ -135,6 +136,7 @@ type NSAutoreleasePool struct {
 func NSAutoreleasePoolFromID(id objc.ID) NSAutoreleasePool {
 	return NSAutoreleasePool{objectivec.Object{ID: id}}
 }
+
 // Ensure NSAutoreleasePool implements INSAutoreleasePool.
 var _ INSAutoreleasePool = NSAutoreleasePool{}
 
@@ -178,7 +180,7 @@ func NewNSAutoreleasePool() NSAutoreleasePool {
 // allocated since the last collection is greater than the current threshold.
 //
 // # Discussion
-// 
+//
 // In a reference-counted environment, this method behaves the same as
 // [release]. Since an autorelease pool cannot be retained (see
 // [NSAutoreleasePool]), this therefore causes the receiver to be deallocated.
@@ -186,16 +188,16 @@ func NewNSAutoreleasePool() NSAutoreleasePool {
 // all its autoreleased objects. If an object is added several times to the
 // same pool, when the pool is deallocated it receives a [release] message for
 // each time it was added.
-// 
+//
 // # Special Considerations
-// 
+//
 // In a garbage-collected environment, `release` is a no-op, so unless you do
 // not want to give the collector a hint it is important to use [Drain] in any
 // code that may be compiled for a garbage-collected environment.
 //
-// [release]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAutoreleasePool/drain
+//
+// [release]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
 func (a NSAutoreleasePool) Drain() {
 	objc.Send[objc.ID](a.ID, objc.Sel("drain"))
 }
@@ -205,21 +207,22 @@ func (a NSAutoreleasePool) Drain() {
 // anObject: The object to add to the active autorelease pool in the current thread.
 //
 // # Discussion
-// 
+//
 // The same object may be added several times to the active pool and, when the
 // pool is deallocated, it will receive a [release] message for each time it
 // was added.
-// 
+//
 // Normally you don’t invoke this method directly—you send [autorelease]
 // to `object` instead.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSAutoreleasePool/addObject:-c.type.method
+//
 // [autorelease]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/autorelease
 // [release]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAutoreleasePool/addObject:-c.type.method
 func (_NSAutoreleasePoolClass NSAutoreleasePoolClass) AddObjectWithAnObject(anObject objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_NSAutoreleasePoolClass.class), objc.Sel("addObject:"), anObject)
 }
+
 // Displays the state of the current thread’s autorelease pool stack to
 // `stderr`.
 //
@@ -229,4 +232,3 @@ func (_NSAutoreleasePoolClass NSAutoreleasePoolClass) AddObjectWithAnObject(anOb
 func (_NSAutoreleasePoolClass NSAutoreleasePoolClass) ShowPools() {
 	objc.Send[objc.ID](objc.ID(_NSAutoreleasePoolClass.class), objc.Sel("showPools"))
 }
-

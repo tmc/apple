@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TTSFallbackLoader struct {
 func TTSFallbackLoaderFromID(id objc.ID) TTSFallbackLoader {
 	return TTSFallbackLoader{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSFallbackLoader implements ITTSFallbackLoader.
 var _ ITTSFallbackLoader = TTSFallbackLoader{}
 
@@ -84,4 +86,3 @@ func (_TTSFallbackLoaderClass TTSFallbackLoaderClass) FallbackRendererClass() ob
 	rv := objc.Send[objc.Class](objc.ID(_TTSFallbackLoaderClass.class), objc.Sel("fallbackRendererClass"))
 	return rv
 }
-

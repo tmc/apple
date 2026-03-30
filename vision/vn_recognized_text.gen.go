@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (vc VNRecognizedTextClass) Alloc() VNRecognizedText {
 // Text recognized in an image through a text recognition request.
 //
 // # Overview
-// 
+//
 // A single [VNRecognizedTextObservation] can contain multiple recognized text
 // objects—one for each candidate.
 //
@@ -66,6 +67,7 @@ type VNRecognizedText struct {
 func VNRecognizedTextFromID(id objc.ID) VNRecognizedText {
 	return VNRecognizedText{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNRecognizedText adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,14 +123,14 @@ func NewVNRecognizedText() VNRecognizedText {
 // box, or `nil` if no error occurred.
 //
 // # Discussion
-// 
+//
 // Bounding boxes aren’t always an exact fit around the characters. Use them
 // to display in user interfaces to provide general guidance, but avoid using
 // their contents for image processing.
-// 
+//
 // The bounding box that returns from this method differs based on the value
 // of [RecognitionLevel], as follows:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedText/boundingBoxForRange:error:
@@ -153,10 +155,11 @@ func (r VNRecognizedText) String() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("string"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A normalized confidence score for the text recognition result.
 //
 // # Discussion
-// 
+//
 // The confidence level is a normalized value between `0.0` and `1.0`, where
 // `1.0` represents the highest confidence.
 //
@@ -165,6 +168,7 @@ func (r VNRecognizedText) Confidence() VNConfidence {
 	rv := objc.Send[VNConfidence](r.ID, objc.Sel("confidence"))
 	return VNConfidence(rv)
 }
+
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //
@@ -174,6 +178,4 @@ func (r VNRecognizedText) RequestRevision() uint {
 	return rv
 }
 
-			// Protocol methods for VNRequestRevisionProviding
-			
-
+// Protocol methods for VNRequestRevisionProviding

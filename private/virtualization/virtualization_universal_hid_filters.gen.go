@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VirtualizationUniversalHIDFilters struct {
 func VirtualizationUniversalHIDFiltersFromID(id objc.ID) VirtualizationUniversalHIDFilters {
 	return VirtualizationUniversalHIDFilters{objectivec.Object{ID: id}}
 }
+
 // NOTE: VirtualizationUniversalHIDFilters struct embeds objectivec.Object (parent type unavailable) but
 // IVirtualizationUniversalHIDFilters embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewVirtualizationUniversalHIDFilters() VirtualizationUniversalHIDFilters {
 	rv := objc.Send[VirtualizationUniversalHIDFilters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

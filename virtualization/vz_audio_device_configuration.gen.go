@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZAudioDeviceConfigurationClass) Alloc() VZAudioDeviceConfiguration {
 // The base class for an audio device configuration.
 //
 // # Overview
-// 
+//
 // Don’t instantiate this abstract class directly. Instead, instantiate one
 // of its subclasses such as [VZVirtioSoundDeviceConfiguration].
 //
@@ -59,6 +60,7 @@ type VZAudioDeviceConfiguration struct {
 func VZAudioDeviceConfigurationFromID(id objc.ID) VZAudioDeviceConfiguration {
 	return VZAudioDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZAudioDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -87,4 +89,3 @@ func NewVZAudioDeviceConfiguration() VZAudioDeviceConfiguration {
 	rv := objc.Send[VZAudioDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

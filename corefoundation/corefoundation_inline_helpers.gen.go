@@ -140,4 +140,3 @@ func cfUserNotificationSecureTextField(i CFIndex) CFOptionFlags {
 func cfUserNotificationPopUpSelection(n CFIndex) CFOptionFlags {
 	return CFOptionFlags(n) << 24
 }
-

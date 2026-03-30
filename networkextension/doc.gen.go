@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for NetworkExtension. DO NOT EDIT.
 
 // Package networkextension provides Go bindings for the NetworkExtension framework.
@@ -63,13 +62,13 @@
 //   - [NEVPNProtocolIKEv2] - Settings for an IKEv2 VPN configuration.
 //   - [NERelayManager] - An object you use to create and manage a network relay configuration.
 //   - [NEVPNProtocol] - Settings common to both IKEv2 and IPsec VPN configurations.
+//   - [NENetworkRule] - A rule to match attributes of network traffic.
 //   - [NETunnelProviderManager] - An object to create and manage the tunnel provider’s VPN configuration.
 //   - [NEProxySettings] - [NEProxySettings] contains HTTP proxy settings.
 //   - [NEVPNManager] - An object to create and manage a Personal VPN configuration.
-//   - [NEFilterManager] - An object to create and manage a content filter’s configuration.
-//   - [NENetworkRule] - A rule to match attributes of network traffic.
-//   - [NEVPNConnection] - An object to start and stop a Personal VPN connection and get its status.
 //   - [NEAppProxyFlow] - An abstract base class shared by NEAppProxyTCPFlow and NEAppProxyUDPFlow.
+//   - [NEFilterManager] - An object to create and manage a content filter’s configuration.
+//   - [NEIPv4Settings] - The IPv4 settings of an IP layer network tunnel.
 //
 // [NetworkExtension Documentation]: https://developer.apple.com/documentation/NetworkExtension
 package networkextension
@@ -77,20 +76,28 @@ package networkextension
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/NetworkExtension.framework/NetworkExtension"
+// frameworkPaths lists paths to try when loading the NetworkExtension library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/NetworkExtension.framework/NetworkExtension",
+	"/usr/lib/libNetworkExtension.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: NetworkExtension: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: NetworkExtension: failed to load framework from any known path\n")
 }
-

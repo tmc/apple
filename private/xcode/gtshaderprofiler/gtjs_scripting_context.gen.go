@@ -4,10 +4,11 @@ package gtshaderprofiler
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (gc GTJSScriptingContextClass) Alloc() GTJSScriptingContext {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTJSScriptingContext._cachedStringFromString]
@@ -69,6 +69,7 @@ func (gc GTJSScriptingContextClass) Alloc() GTJSScriptingContext {
 //   - [GTJSScriptingContext.SetValueValue]
 //   - [GTJSScriptingContext.SetValues]
 //   - [GTJSScriptingContext.VirtualMachine]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext
 type GTJSScriptingContext struct {
 	objectivec.Object
@@ -78,6 +79,7 @@ type GTJSScriptingContext struct {
 func GTJSScriptingContextFromID(id objc.ID) GTJSScriptingContext {
 	return GTJSScriptingContext{objectivec.Object{ID: id}}
 }
+
 // Ensure GTJSScriptingContext implements IGTJSScriptingContext.
 var _ IGTJSScriptingContext = GTJSScriptingContext{}
 
@@ -157,10 +159,9 @@ func NewGTJSScriptingContext() GTJSScriptingContext {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/_cachedStringFromString:
 func (g GTJSScriptingContext) _cachedStringFromString(string_ string) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("_cachedStringFromString:"), unsafe.Pointer(unsafe.StringData(string_ + "\x00")))
+	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("_cachedStringFromString:"), unsafe.Pointer(unsafe.StringData(string_+"\x00")))
 	return rv
 }
 
@@ -168,6 +169,7 @@ func (g GTJSScriptingContext) _cachedStringFromString(string_ string) unsafe.Poi
 func (g GTJSScriptingContext) CachedStringFromString(string_ string) unsafe.Pointer {
 	return g._cachedStringFromString(string_)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/_clearCache
 func (g GTJSScriptingContext) _clearCache() {
 	objc.Send[objc.ID](g.ID, objc.Sel("_clearCache"))
@@ -177,7 +179,7 @@ func (g GTJSScriptingContext) _clearCache() {
 func (g GTJSScriptingContext) ClearCache() {
 	g._clearCache()
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/_jsStringToString:
 func (g GTJSScriptingContext) _jsStringToString(string_ unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_jsStringToString:"), string_)
@@ -188,7 +190,7 @@ func (g GTJSScriptingContext) _jsStringToString(string_ unsafe.Pointer) objectiv
 func (g GTJSScriptingContext) JsStringToString(string_ unsafe.Pointer) objectivec.IObject {
 	return g._jsStringToString(string_)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/_jsValueToString:
 func (g GTJSScriptingContext) _jsValueToString(string_ unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_jsValueToString:"), string_)
@@ -199,91 +201,92 @@ func (g GTJSScriptingContext) _jsValueToString(string_ unsafe.Pointer) objective
 func (g GTJSScriptingContext) JsValueToString(string_ unsafe.Pointer) objectivec.IObject {
 	return g._jsValueToString(string_)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/allocNewContext
 func (g GTJSScriptingContext) AllocNewContext() {
 	objc.Send[objc.ID](g.ID, objc.Sel("allocNewContext"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/callFunction:withArguments:
 func (g GTJSScriptingContext) CallFunctionWithArguments(function objectivec.IObject, arguments objectivec.IObject) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("callFunction:withArguments:"), function, arguments)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/callGlobalFunction:
 func (g GTJSScriptingContext) CallGlobalFunction(function string) float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("callGlobalFunction:"), unsafe.Pointer(unsafe.StringData(function + "\x00")))
+	rv := objc.Send[float64](g.ID, objc.Sel("callGlobalFunction:"), unsafe.Pointer(unsafe.StringData(function+"\x00")))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/createArrayRef:
 func (g GTJSScriptingContext) CreateArrayRef(ref objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("createArrayRef:"), ref)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/evaluteScript:scriptURL:
 func (g GTJSScriptingContext) EvaluteScriptScriptURL(script objectivec.IObject, url foundation.INSURL) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("evaluteScript:scriptURL:"), script, url)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/getGlobalDouble:
 func (g GTJSScriptingContext) GetGlobalDouble(double string) float64 {
-	rv := objc.Send[float64](g.ID, objc.Sel("getGlobalDouble:"), unsafe.Pointer(unsafe.StringData(double + "\x00")))
+	rv := objc.Send[float64](g.ID, objc.Sel("getGlobalDouble:"), unsafe.Pointer(unsafe.StringData(double+"\x00")))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/getGlobalJSONObject:
 func (g GTJSScriptingContext) GetGlobalJSONObject(jSONObject string) objectivec.IObject {
-	rv := objc.Send[objc.ID](g.ID, objc.Sel("getGlobalJSONObject:"), unsafe.Pointer(unsafe.StringData(jSONObject + "\x00")))
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("getGlobalJSONObject:"), unsafe.Pointer(unsafe.StringData(jSONObject+"\x00")))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/getValue:
 func (g GTJSScriptingContext) GetValue(value objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("getValue:"), value)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/setExceptionHandler:
 func (g GTJSScriptingContext) SetExceptionHandler(handler VoidHandler) {
-_block0, _ := NewVoidBlock(handler)
+	_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](g.ID, objc.Sel("setExceptionHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/setGlobalDouble:value:
 func (g GTJSScriptingContext) SetGlobalDoubleValue(double string, value float64) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setGlobalDouble:value:"), unsafe.Pointer(unsafe.StringData(double + "\x00")), value)
+	objc.Send[objc.ID](g.ID, objc.Sel("setGlobalDouble:value:"), unsafe.Pointer(unsafe.StringData(double+"\x00")), value)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/setGlobalJSONObject:value:
 func (g GTJSScriptingContext) SetGlobalJSONObjectValue(jSONObject string, value objectivec.IObject) bool {
-	rv := objc.Send[bool](g.ID, objc.Sel("setGlobalJSONObject:value:"), unsafe.Pointer(unsafe.StringData(jSONObject + "\x00")), value)
+	rv := objc.Send[bool](g.ID, objc.Sel("setGlobalJSONObject:value:"), unsafe.Pointer(unsafe.StringData(jSONObject+"\x00")), value)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/setRawArrayValues:withDoubleValues:andNumCounters:
 func (g GTJSScriptingContext) SetRawArrayValuesWithDoubleValuesAndNumCounters(values objectivec.IObject, values2 []float64, counters uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setRawArrayValues:withDoubleValues:andNumCounters:"), values, values2, counters)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/setRawArrayValues:withUint32Values:andNumCounters:
 func (g GTJSScriptingContext) SetRawArrayValuesWithUint32ValuesAndNumCounters(values objectivec.IObject, uint32Values unsafe.Pointer, counters uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setRawArrayValues:withUint32Values:andNumCounters:"), values, uint32Values, counters)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/setRawArrayValues:withUint64Values:andNumCounters:
 func (g GTJSScriptingContext) SetRawArrayValuesWithUint64ValuesAndNumCounters(values objectivec.IObject, uint64Values unsafe.Pointer, counters uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setRawArrayValues:withUint64Values:andNumCounters:"), values, uint64Values, counters)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/setValue:value:
 func (g GTJSScriptingContext) SetValueValue(value objectivec.IObject, value2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("setValue:value:"), value, value2)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/setValues:
 func (g GTJSScriptingContext) SetValues(values objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setValues:"), values)
@@ -300,6 +303,7 @@ func (g GTJSScriptingContext) Context() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("context"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTJSScriptingContext/virtualMachine
 func (g GTJSScriptingContext) VirtualMachine() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("virtualMachine"))
@@ -320,4 +324,3 @@ func (g GTJSScriptingContext) SetExceptionHandlerSync(ctx context.Context) error
 		return ctx.Err()
 	}
 }
-

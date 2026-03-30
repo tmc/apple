@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type NSLocalizedNumberFormatRule struct {
 func NSLocalizedNumberFormatRuleFromID(id objc.ID) NSLocalizedNumberFormatRule {
 	return NSLocalizedNumberFormatRule{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSLocalizedNumberFormatRule adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -85,12 +87,12 @@ func NewNSLocalizedNumberFormatRule() NSLocalizedNumberFormatRule {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (l NSLocalizedNumberFormatRule) InitWithCoder(coder INSCoder) NSLocalizedNumberFormatRule {
 	rv := objc.Send[NSLocalizedNumberFormatRule](l.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -106,9 +108,6 @@ func (_NSLocalizedNumberFormatRuleClass NSLocalizedNumberFormatRuleClass) Automa
 	return NSLocalizedNumberFormatRuleFromID(rv)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

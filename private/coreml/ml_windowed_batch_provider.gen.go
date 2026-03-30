@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLWindowedBatchProviderClass) Alloc() MLWindowedBatchProvider {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLWindowedBatchProvider.Count]
@@ -55,6 +55,7 @@ func (mc MLWindowedBatchProviderClass) Alloc() MLWindowedBatchProvider {
 //   - [MLWindowedBatchProvider.WindowLength]
 //   - [MLWindowedBatchProvider.SetWindowLength]
 //   - [MLWindowedBatchProvider.InitWithBatchStartIndexWindowLengthError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLWindowedBatchProvider
 type MLWindowedBatchProvider struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type MLWindowedBatchProvider struct {
 func MLWindowedBatchProviderFromID(id objc.ID) MLWindowedBatchProvider {
 	return MLWindowedBatchProvider{objectivec.Object{ID: id}}
 }
+
 // Ensure MLWindowedBatchProvider implements IMLWindowedBatchProvider.
 var _ IMLWindowedBatchProvider = MLWindowedBatchProvider{}
 
@@ -117,7 +119,6 @@ func NewMLWindowedBatchProvider() MLWindowedBatchProvider {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLWindowedBatchProvider/initWithBatch:startIndex:windowLength:error:
 func NewWindowedBatchProviderWithBatchStartIndexWindowLengthError(batch objectivec.IObject, index int64, length int64) (MLWindowedBatchProvider, error) {
 	var errorPtr objc.ID
@@ -130,13 +131,12 @@ func NewWindowedBatchProviderWithBatchStartIndexWindowLengthError(batch objectiv
 	return MLWindowedBatchProviderFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLWindowedBatchProvider/featuresAtIndex:
 func (w MLWindowedBatchProvider) FeaturesAtIndex(index int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLWindowedBatchProvider/initWithBatch:startIndex:windowLength:error:
 func (w MLWindowedBatchProvider) InitWithBatchStartIndexWindowLengthError(batch objectivec.IObject, index int64, length int64) (MLWindowedBatchProvider, error) {
 	var errorPtr objc.ID
@@ -154,6 +154,7 @@ func (w MLWindowedBatchProvider) Count() int64 {
 	rv := objc.Send[int64](w.ID, objc.Sel("count"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLWindowedBatchProvider/fullBatch
 func (w MLWindowedBatchProvider) FullBatch() objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("fullBatch"))
@@ -162,6 +163,7 @@ func (w MLWindowedBatchProvider) FullBatch() objectivec.IObject {
 func (w MLWindowedBatchProvider) SetFullBatch(value objectivec.IObject) {
 	objc.Send[struct{}](w.ID, objc.Sel("setFullBatch:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLWindowedBatchProvider/startIndex
 func (w MLWindowedBatchProvider) StartIndex() int64 {
 	rv := objc.Send[int64](w.ID, objc.Sel("startIndex"))
@@ -170,6 +172,7 @@ func (w MLWindowedBatchProvider) StartIndex() int64 {
 func (w MLWindowedBatchProvider) SetStartIndex(value int64) {
 	objc.Send[struct{}](w.ID, objc.Sel("setStartIndex:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLWindowedBatchProvider/windowLength
 func (w MLWindowedBatchProvider) WindowLength() int64 {
 	rv := objc.Send[int64](w.ID, objc.Sel("windowLength"))
@@ -178,4 +181,3 @@ func (w MLWindowedBatchProvider) WindowLength() int64 {
 func (w MLWindowedBatchProvider) SetWindowLength(value int64) {
 	objc.Send[struct{}](w.ID, objc.Sel("setWindowLength:"), value)
 }
-

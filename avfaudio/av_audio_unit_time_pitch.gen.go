@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,6 +66,7 @@ type AVAudioUnitTimePitch struct {
 func AVAudioUnitTimePitchFromID(id objc.ID) AVAudioUnitTimePitch {
 	return AVAudioUnitTimePitch{AVAudioUnitTimeEffect: AVAudioUnitTimeEffectFromID(id)}
 }
+
 // NOTE: AVAudioUnitTimePitch adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,11 +122,11 @@ func NewAVAudioUnitTimePitch() AVAudioUnitTimePitch {
 // audioComponentDescription: The description of the audio unit to create.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitTimeEffect] instance.
 //
 // # Discussion
-// 
+//
 // The `componentType` field of the description structure must be
 // `kAudioUnitType_FormatConverter` (”`aufc`”); otherwise, the method
 // raises an exception.
@@ -140,7 +142,7 @@ func NewAudioUnitTimePitchWithAudioComponentDescription(audioComponentDescriptio
 // The amount of overlap between segments of the input audio signal.
 //
 // # Discussion
-// 
+//
 // A higher value results in fewer artifacts in the output signal. The default
 // value is `8.0`. The range of values is `3.0` to `32.0`.
 //
@@ -152,15 +154,16 @@ func (a AVAudioUnitTimePitch) Overlap() float32 {
 func (a AVAudioUnitTimePitch) SetOverlap(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOverlap:"), value)
 }
+
 // The amount to use to pitch shift the input signal.
 //
 // # Discussion
-// 
+//
 // The audio unit measures the pitch in , a logarithmic value you use for
 // measuring musical intervals. One octave is equal to 1200 cents. One musical
 // semitone is equal to 100 cents.
-// 
-// The default value is `0``.0`. The range of values is `-2400` to `2400`.
+//
+// The default value is `0“.0`. The range of values is `-2400` to `2400`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitTimePitch/pitch
 func (a AVAudioUnitTimePitch) Pitch() float32 {
@@ -170,10 +173,11 @@ func (a AVAudioUnitTimePitch) Pitch() float32 {
 func (a AVAudioUnitTimePitch) SetPitch(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPitch:"), value)
 }
+
 // The playback rate of the input signal.
 //
 // # Discussion
-// 
+//
 // The default value is 1.0. The range of supported values is `1/32` to
 // `32.0`.
 //
@@ -185,4 +189,3 @@ func (a AVAudioUnitTimePitch) Rate() float32 {
 func (a AVAudioUnitTimePitch) SetRate(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRate:"), value)
 }
-

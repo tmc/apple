@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,14 +47,14 @@ func (nc NSSharingServicePickerClass) Alloc() NSSharingServicePicker {
 // A list of sharing services that the user can choose from.
 //
 // # Overview
-// 
+//
 // An [NSSharingServicePicker] object presents an interface for sharing one or
 // more items using a specific service. In macOS 12 and earlier, this picker
 // displays a menu with a list of services that someone can use to share the
 // item. In macOS 13 and later, the picker displays a popover with a preview
 // of the item and the list of services. When someone chooses a service, the
 // picker automatically shares the proposed item with that service.
-// 
+//
 // Create a sharing service picker and configure it with a delegate object to
 // monitor interactions. Your delegate must conform to the
 // [NSSharingServicePickerDelegate] protocol. Present the picker from your
@@ -88,6 +89,7 @@ type NSSharingServicePicker struct {
 func NSSharingServicePickerFromID(id objc.ID) NSSharingServicePicker {
 	return NSSharingServicePicker{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSSharingServicePicker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -165,25 +167,25 @@ func NewNSSharingServicePicker() NSSharingServicePicker {
 // example, you can specify an [NSString], [NSImage], [NSURL], or similar type
 // directly. You can also specify [NSItemProvider] or [NSDocument] objects in
 // the array to share those types.
-// //
-// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
-// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 //
 // # Return Value
-// 
+//
 // A configured sharing service picker.
 //
 // # Discussion
-// 
+//
 // If an item is an [NSURL] object and contains a file URL (pointing to a
 // video on the local disk for example), the picker shares the content of the
 // file. If the URL is remote, then the picker shares the URL instead of the
 // contents.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/init(items:)
+//
+// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 //
-// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/init(items:)
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 func NewSharingServicePickerWithItems(items foundation.INSArray) NSSharingServicePicker {
 	instance := getNSSharingServicePickerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItems:"), items)
@@ -197,65 +199,66 @@ func NewSharingServicePickerWithItems(items foundation.INSArray) NSSharingServic
 // example, you can specify an [NSString], [NSImage], [NSURL], or similar type
 // directly. You can also specify [NSItemProvider] or [NSDocument] objects in
 // the array to share those types.
-// //
-// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
-// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 //
 // # Return Value
-// 
+//
 // A configured sharing service picker.
 //
 // # Discussion
-// 
+//
 // If an item is an [NSURL] object and contains a file URL (pointing to a
 // video on the local disk for example), the picker shares the content of the
 // file. If the URL is remote, then the picker shares the URL instead of the
 // contents.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/init(items:)
+//
+// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 // [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 //
-// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/init(items:)
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 func (s NSSharingServicePicker) InitWithItems(items foundation.INSArray) NSSharingServicePicker {
 	rv := objc.Send[NSSharingServicePicker](s.ID, objc.Sel("initWithItems:"), items)
 	return rv
 }
+
 // Shows the picker interface and populates it with the relevant sharing
 // services.
 //
 // rect: The rectangle the picker should be showed relative to. The coordinates are
 // in the `view` coordinate system. Passing [NSZeroRect] causes the view
 // bounds to be used.
-// //
-// [NSZeroRect]: https://developer.apple.com/documentation/Foundation/NSZeroRect
 //
 // view: The view.
 //
 // preferredEdge: The preferred edge of the view to display the picker. See [NSRectEdge] for
 // the possible values.
-// //
-// [NSRectEdge]: https://developer.apple.com/documentation/Foundation/NSRectEdge
 //
 // # Discussion
-// 
+//
 // In macOS 13 and later, the picker displays the macOS share sheet in a
 // popover. In earlier versions of macOS, the picker displays a menu with the
 // available services. When someone chooses a service for sharing the items,
 // the picker notifies its delegate and then shares the content.
-// 
+//
 // The following example shows the basic code to display the picker in
 // response to an action. Update the code to include the items you want to
 // share and to position the picker interface in an appropriate part of your
 // window.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/show(relativeTo:of:preferredEdge:)
+//
+// [NSZeroRect]: https://developer.apple.com/documentation/Foundation/NSZeroRect
+// [NSRectEdge]: https://developer.apple.com/documentation/Foundation/NSRectEdge
 func (s NSSharingServicePicker) ShowRelativeToRectOfViewPreferredEdge(rect corefoundation.CGRect, view INSView, preferredEdge foundation.NSRectEdge) {
 	objc.Send[objc.ID](s.ID, objc.Sel("showRelativeToRect:ofView:preferredEdge:"), rect, view, preferredEdge)
 }
+
 // Closes the picker interface.
 //
 // # Discussion
-// 
+//
 // The [SharingServicePickerDidChooseSharingService] method will be invoked if
 // the [Delegate] is set to `nil`.
 //
@@ -267,7 +270,7 @@ func (s NSSharingServicePicker) Close() {
 // The object for managing the sharing service picker.
 //
 // # Discussion
-// 
+//
 // The delegate object must conform to the [NSSharingServicePickerDelegate]
 // delegate.
 //
@@ -279,6 +282,7 @@ func (s NSSharingServicePicker) Delegate() NSSharingServicePickerDelegate {
 func (s NSSharingServicePicker) SetDelegate(value NSSharingServicePickerDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
+
 // A menu item suitable to display the picker for the specified items.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/standardShareMenuItem
@@ -286,4 +290,3 @@ func (s NSSharingServicePicker) StandardShareMenuItem() INSMenuItem {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("standardShareMenuItem"))
 	return NSMenuItemFromID(objc.ID(rv))
 }
-

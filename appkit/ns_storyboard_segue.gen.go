@@ -5,8 +5,9 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,19 +48,19 @@ func (nc NSStoryboardSegueClass) Alloc() NSStoryboardSegue {
 // storyboard.
 //
 // # Overview
-// 
+//
 // In this context, a is a view controller or a window controller and a is an
 // instance of the [NSStoryboard] class.
-// 
+//
 // A storyboard segue has a procedural notion of being invoked, known in the
 // API as being . You can take advantage of hooks into the segue performance
 // process by way of the [NSSeguePerforming] protocol.
-// 
+//
 // You do not create storyboard segue objects directly. Instead, the system
 // creates them as needed as segues are invoked. To run code during
 // initialization and performance of a segue, override the
 // [NSStoryboardSegue.InitWithIdentifierSourceDestination] and [NSStoryboardSegue.Perform] methods.
-// 
+//
 // You can initiate a segue programmatically with the
 // [PerformSegueWithIdentifierSender] method of the [NSSeguePerforming]
 // protocol. For example, you might do this to transition from a scene in one
@@ -88,6 +89,7 @@ type NSStoryboardSegue struct {
 func NSStoryboardSegueFromID(id objc.ID) NSStoryboardSegue {
 	return NSStoryboardSegue{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSStoryboardSegue adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -156,15 +158,15 @@ func NewNSStoryboardSegue() NSStoryboardSegue {
 // storyboard segue.
 //
 // # Return Value
-// 
+//
 // An initialized storyboard segue, ready to be performed.
 //
 // # Discussion
-// 
+//
 // When a segue begins, the system calls this method. To run code during segue
 // initialization, implement a storyboard segue subclass and override this
 // method.
-// 
+//
 // Whenever this method is called, the system then calls the [Perform] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboardSegue/init(identifier:source:destination:)
@@ -186,15 +188,15 @@ func NewStoryboardSegueWithIdentifierSourceDestination(identifier NSStoryboardSe
 // storyboard segue.
 //
 // # Return Value
-// 
+//
 // An initialized storyboard segue, ready to be performed.
 //
 // # Discussion
-// 
+//
 // When a segue begins, the system calls this method. To run code during segue
 // initialization, implement a storyboard segue subclass and override this
 // method.
-// 
+//
 // Whenever this method is called, the system then calls the [Perform] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboardSegue/init(identifier:source:destination:)
@@ -202,17 +204,18 @@ func (s NSStoryboardSegue) InitWithIdentifierSourceDestination(identifier NSStor
 	rv := objc.Send[NSStoryboardSegue](s.ID, objc.Sel("initWithIdentifier:source:destination:"), objc.String(string(identifier)), sourceController, destinationController)
 	return rv
 }
+
 // Performs a visual transition from one controller to another.
 //
 // # Discussion
-// 
+//
 // You can override this method in your [NSStoryboardSegue] subclass to
 // perform custom animation between the starting/containing controller and the
 // ending/contained controller for a storyboard segue. Typically, you would
 // use Core Animation to set up an animation from one set of views to the
 // next. For more complex animations, you might take a snapshot image of the
 // two view hierarchies and manipulate the images instead of the view objects.
-// 
+//
 // Regardless of how you perform the animation, you are responsible for
 // installing the destination view controller o window controller (and its
 // contained views) in the right place so that it can handle events.
@@ -239,17 +242,17 @@ func (s NSStoryboardSegue) Perform() {
 // [Perform] method.
 //
 // # Return Value
-// 
+//
 // An initialized storyboard segue and code block, ready to be performed.
 //
 // # Discussion
-// 
+//
 // You can use this method to customize a storyboard segue in lieu of creating
 // a subclass.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboardSegue/init(identifier:source:destination:performHandler:)
 func (_NSStoryboardSegueClass NSStoryboardSegueClass) SegueWithIdentifierSourceDestinationPerformHandler(identifier NSStoryboardSegueIdentifier, sourceController objectivec.IObject, destinationController objectivec.IObject, performHandler VoidHandler) NSStoryboardSegue {
-_block3, _ := NewVoidBlock(performHandler)
+	_block3, _ := NewVoidBlock(performHandler)
 	rv := objc.Send[objc.ID](objc.ID(_NSStoryboardSegueClass.class), objc.Sel("segueWithIdentifier:source:destination:performHandler:"), identifier, sourceController, destinationController, _block3)
 	return NSStoryboardSegueFromID(rv)
 }
@@ -258,7 +261,7 @@ _block3, _ := NewVoidBlock(performHandler)
 // storyboard segue.
 //
 // # Discussion
-// 
+//
 // In your storyboard segue subclass, you can read this property to get the
 // starting/containing view controller or window controller for the segue.
 //
@@ -267,11 +270,12 @@ func (s NSStoryboardSegue) SourceController() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("sourceController"))
 	return objectivec.Object{ID: rv}
 }
+
 // The ending/contained view controller or window controller for the
 // storyboard segue.
 //
 // # Discussion
-// 
+//
 // In your storyboard segue subclass, you can read this property to get the
 // ending/contained view controller or window controller for the segue. This
 // property is essential if you override the [PrepareForSegueSender] method of
@@ -283,11 +287,12 @@ func (s NSStoryboardSegue) DestinationController() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("destinationController"))
 	return objectivec.Object{ID: rv}
 }
+
 // An optional, unique identifier for the storyboard segue that you can
 // specify using the Identity inspector in Interface Builder.
 //
 // # Discussion
-// 
+//
 // You use this property if you override the [PrepareForSegueSender] method of
 // the [NSSeguePerforming] protocol.
 //
@@ -311,4 +316,3 @@ func (sc NSStoryboardSegueClass) SegueWithIdentifierSourceDestinationPerformHand
 		return ctx.Err()
 	}
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (vc VZVirtioSoundDeviceInputStreamConfigurationClass) Alloc() VZVirtioSound
 // A PCM stream of input audio data, such as from a microphone.
 //
 // # Overview
-// 
+//
 // This device represents a PCM stream of audio data. Don’t instantiate
 // [VZVirtioSoundDeviceStreamConfiguration] directly. Instead, use one of its
 // subclasses such as [VZVirtioSoundDeviceInputStreamConfiguration] or
@@ -65,6 +66,7 @@ type VZVirtioSoundDeviceInputStreamConfiguration struct {
 func VZVirtioSoundDeviceInputStreamConfigurationFromID(id objc.ID) VZVirtioSoundDeviceInputStreamConfiguration {
 	return VZVirtioSoundDeviceInputStreamConfiguration{VZVirtioSoundDeviceStreamConfiguration: VZVirtioSoundDeviceStreamConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioSoundDeviceInputStreamConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,7 +111,7 @@ func NewVZVirtioSoundDeviceInputStreamConfiguration() VZVirtioSoundDeviceInputSt
 // the guest.
 //
 // # Discussion
-// 
+//
 // Not specifying a source results in a default handler that produces audio
 // silence. The default is `nil`.
 //
@@ -121,4 +123,3 @@ func (v VZVirtioSoundDeviceInputStreamConfiguration) Source() IVZAudioInputStrea
 func (v VZVirtioSoundDeviceInputStreamConfiguration) SetSource(value IVZAudioInputStreamSource) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSource:"), value)
 }
-

@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -40,6 +40,7 @@ type CIAffineTile interface {
 type CIAffineTileObject struct {
 	objectivec.Object
 }
+
 func (o CIAffineTileObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -58,14 +59,16 @@ func CIAffineTileObjectFromID(id objc.ID) CIAffineTileObject {
 func (o CIAffineTileObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The transform to apply to the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/transform
 func (o CIAffineTileObject) Transform() corefoundation.CGAffineTransform {
 	rv := objc.Send[corefoundation.CGAffineTransform](o.ID, objc.Sel("transform"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -73,13 +76,18 @@ func (o CIAffineTileObject) Transform() corefoundation.CGAffineTransform {
 func (o CIAffineTileObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/inputImage
 func (o CIAffineTileObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The transform to apply to the image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/transform
 func (o CIAffineTileObject) SetTransform(value corefoundation.CGAffineTransform) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTransform:"), value)
 }
-

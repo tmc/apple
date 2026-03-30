@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MTL4MachineLearningPipelineReflection struct {
 func MTL4MachineLearningPipelineReflectionFromID(id objc.ID) MTL4MachineLearningPipelineReflection {
 	return MTL4MachineLearningPipelineReflection{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4MachineLearningPipelineReflection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -105,4 +107,3 @@ func (m MTL4MachineLearningPipelineReflection) Bindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,11 +46,11 @@ func (ac AVAssetResourceLoaderClass) Alloc() AVAssetResourceLoader {
 // An object that mediates resource requests from a URL asset.
 //
 // # Overview
-// 
+//
 // You do not create resource loader objects yourself. Instead, you retrieve a
 // resource loader from the [AVAssetResourceLoader.ResourceLoader] property of an [AVURLAsset]
 // object and use it to assign your custom delegate object.
-// 
+//
 // The delegate you associate with this object must adopt the
 // [AVAssetResourceLoaderDelegate] protocol. For more information, see
 // [AVAssetResourceLoaderDelegate].
@@ -81,6 +82,7 @@ type AVAssetResourceLoader struct {
 func AVAssetResourceLoaderFromID(id objc.ID) AVAssetResourceLoader {
 	return AVAssetResourceLoader{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetResourceLoader adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -161,12 +163,12 @@ func NewAVAssetResourceLoader() AVAssetResourceLoader {
 // parameter is not `nil`, this parameter must also not be `nil` and must
 // contain a valid dispatch queue. However, if `delegate` is `nil`, this
 // parameter may also be `nil`.
-// 
+//
 // The resource loader maintains a strong reference to the dispatch queue you
 // specify.
 //
 // # Discussion
-// 
+//
 // You use this method to specify the object to use when handling resource
 // requests and the dispatch queue on which to process those requests.
 // Resource requests are processed synchronously on the dispatch queue you
@@ -180,7 +182,7 @@ func (a AVAssetResourceLoader) SetDelegateQueue(delegate AVAssetResourceLoaderDe
 // The delegate object to use when handling resource requests.
 //
 // # Discussion
-// 
+//
 // The delegate object is responsible for indicating whether or not it is able
 // to handle a resource request. And for those requests it does handle, the
 // delegate object must initiate the loading of the requested resource.
@@ -190,10 +192,11 @@ func (a AVAssetResourceLoader) Delegate() AVAssetResourceLoaderDelegate {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("delegate"))
 	return AVAssetResourceLoaderDelegateObjectFromID(rv)
 }
+
 // The dispatch queue to use when handling resource requests.
 //
 // # Discussion
-// 
+//
 // Resource requests are processed synchronously on the specified dispatch
 // queue.
 //
@@ -202,11 +205,12 @@ func (a AVAssetResourceLoader) DelegateQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](a.ID, objc.Sel("delegateQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
+
 // A Boolean value that indicates whether content keys will be loaded as
 // quickly as possible.
 //
 // # Discussion
-// 
+//
 // Set this property to `true` to load eligible keys. This may result in
 // network activity. All work done as a result of setting this property to
 // `true` is performed asynchronously.
@@ -219,14 +223,13 @@ func (a AVAssetResourceLoader) PreloadsEligibleContentKeys() bool {
 func (a AVAssetResourceLoader) SetPreloadsEligibleContentKeys(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPreloadsEligibleContentKeys:"), value)
 }
+
 // A Boolean value that indicates whether to enable attaching Common Media
 // Client Data as HTTP request headers.
 //
 // # Discussion
-// 
-// The default value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetResourceLoader/sendsCommonMediaClientDataAsHTTPHeaders
 func (a AVAssetResourceLoader) SendsCommonMediaClientDataAsHTTPHeaders() bool {
@@ -236,6 +239,7 @@ func (a AVAssetResourceLoader) SendsCommonMediaClientDataAsHTTPHeaders() bool {
 func (a AVAssetResourceLoader) SetSendsCommonMediaClientDataAsHTTPHeaders(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSendsCommonMediaClientDataAsHTTPHeaders:"), value)
 }
+
 // The resource loader for the asset.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avurlasset/resourceloader
@@ -246,4 +250,3 @@ func (a AVAssetResourceLoader) ResourceLoader() IAVAssetResourceLoader {
 func (a AVAssetResourceLoader) SetResourceLoader(value IAVAssetResourceLoader) {
 	objc.Send[struct{}](a.ID, objc.Sel("setResourceLoader:"), value)
 }
-

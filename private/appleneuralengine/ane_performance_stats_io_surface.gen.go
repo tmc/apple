@@ -4,6 +4,7 @@ package appleneuralengine
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (ac ANEPerformanceStatsIOSurfaceClass) Alloc() ANEPerformanceStatsIOSurface
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ANEPerformanceStatsIOSurface.StatType]
 //   - [ANEPerformanceStatsIOSurface.Stats]
 //   - [ANEPerformanceStatsIOSurface.InitWithIOSurfaceStatType]
+//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStatsIOSurface
 type ANEPerformanceStatsIOSurface struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type ANEPerformanceStatsIOSurface struct {
 func ANEPerformanceStatsIOSurfaceFromID(id objc.ID) ANEPerformanceStatsIOSurface {
 	return ANEPerformanceStatsIOSurface{objectivec.Object{ID: id}}
 }
+
 // Ensure ANEPerformanceStatsIOSurface implements IANEPerformanceStatsIOSurface.
 var _ IANEPerformanceStatsIOSurface = ANEPerformanceStatsIOSurface{}
 
@@ -97,7 +99,6 @@ func NewANEPerformanceStatsIOSurface() ANEPerformanceStatsIOSurface {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStatsIOSurface/initWithIOSurface:statType:
 func NewANEPerformanceStatsIOSurfaceWithIOSurfaceStatType(iOSurface objectivec.IObject, type_ int64) ANEPerformanceStatsIOSurface {
 	instance := getANEPerformanceStatsIOSurfaceClass().Alloc()
@@ -105,14 +106,12 @@ func NewANEPerformanceStatsIOSurfaceWithIOSurfaceStatType(iOSurface objectivec.I
 	return ANEPerformanceStatsIOSurfaceFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStatsIOSurface/initWithIOSurface:statType:
 func (a ANEPerformanceStatsIOSurface) InitWithIOSurfaceStatType(iOSurface objectivec.IObject, type_ int64) ANEPerformanceStatsIOSurface {
 	rv := objc.Send[ANEPerformanceStatsIOSurface](a.ID, objc.Sel("initWithIOSurface:statType:"), iOSurface, type_)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStatsIOSurface/objectWithIOSurface:statType:
 func (_ANEPerformanceStatsIOSurfaceClass ANEPerformanceStatsIOSurfaceClass) ObjectWithIOSurfaceStatType(iOSurface objectivec.IObject, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEPerformanceStatsIOSurfaceClass.class), objc.Sel("objectWithIOSurface:statType:"), iOSurface, type_)
@@ -124,6 +123,7 @@ func (a ANEPerformanceStatsIOSurface) StatType() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("statType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStatsIOSurface/stats
 func (a ANEPerformanceStatsIOSurface) Stats() *ANEIOSurfaceObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("stats"))
@@ -133,4 +133,3 @@ func (a ANEPerformanceStatsIOSurface) Stats() *ANEIOSurfaceObject {
 	val := ANEIOSurfaceObjectFromID(objc.ID(rv))
 	return &val
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,29 +44,29 @@ func (nc NSDeleteCommandClass) Alloc() NSDeleteCommand {
 // A command that deletes a scriptable object.
 //
 // # Overview
-// 
+//
 // An instance of [NSDeleteCommand] deletes the specified scriptable object or
 // objects (such as words, paragraphs, and so on).
-// 
+//
 // Suppose, for example, a user executes a script that sends the command
 // `delete the third rectangle in the first document` to the Sketch sample
 // application (located in `/Developer/Examples/AppKit`). Cocoa creates an
 // [NSDeleteCommand] object to perform the operation. When the command is
-// executed, it uses the key-value coding mechanism (by invoking ``) to remove
+// executed, it uses the key-value coding mechanism (by invoking “) to remove
 // the specified object or objects from their container. See the description
 // for [removeValue(at:fromPropertyWithKey:)] for related information.
-// 
+//
 // [NSDeleteCommand] is part of Cocoa’s built-in scripting support. Most
 // applications don’t need to subclass [NSDeleteCommand] or call its
 // methods.
-//
-// [removeValue(at:fromPropertyWithKey:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/removeValue(at:fromPropertyWithKey:)
 //
 // # Working with specifiers
 //
 //   - [NSDeleteCommand.KeySpecifier]: Returns a specifier for the object or objects to be deleted.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDeleteCommand
+//
+// [removeValue(at:fromPropertyWithKey:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/removeValue(at:fromPropertyWithKey:)
 type NSDeleteCommand struct {
 	NSScriptCommand
 }
@@ -76,6 +77,7 @@ type NSDeleteCommand struct {
 func NSDeleteCommandFromID(id objc.ID) NSDeleteCommand {
 	return NSDeleteCommand{NSScriptCommand: NSScriptCommandFromID(id)}
 }
+
 // NOTE: NSDeleteCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,7 +116,6 @@ func NewNSDeleteCommand() NSDeleteCommand {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewDeleteCommandWithCoder(inCoder INSCoder) NSDeleteCommand {
 	instance := getNSDeleteCommandClass().Alloc()
@@ -128,11 +129,11 @@ func NewDeleteCommandWithCoder(inCoder INSCoder) NSDeleteCommand {
 // commandDef: A command description for the command to be created.
 //
 // # Return Value
-// 
+//
 // A newly initialized instance of [NSScriptCommand] or a subclass.
 //
 // # Discussion
-// 
+//
 // To make this command object usable, you must set its receiving objects and
 // arguments (if any) after invoking this method.
 //
@@ -146,11 +147,11 @@ func NewDeleteCommandWithCommandDescription(commandDef INSScriptCommandDescripti
 // Returns a specifier for the object or objects to be deleted.
 //
 // # Return Value
-// 
+//
 // A specifier for the object or objects to be deleted.
-// 
+//
 // # Discussion
-// 
+//
 // Note that this may be different than the specifier or specifiers set by
 // [SetReceiversSpecifier].
 //
@@ -159,4 +160,3 @@ func (d NSDeleteCommand) KeySpecifier() INSScriptObjectSpecifier {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("keySpecifier"))
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
-

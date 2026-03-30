@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,15 +47,15 @@ func (nc NSUUIDClass) Alloc() NSUUID {
 // and other items.
 //
 // # Overview
-// 
+//
 // In Swift, this object bridges to [UUID]; use [NSUUID] when you need
 // reference semantics or other Foundation-specific behavior.
-// 
+//
 // UUIDs (Universally Unique Identifiers), also known as GUIDs (Globally
 // Unique Identifiers) or IIDs (Interface Identifiers), are 128-bit values.
 // UUIDs created by [NSUUID] conform to RFC 4122 version 4 and are created
 // with random bytes.
-// 
+//
 // The standard format for UUIDs represented in ASCII is a string punctuated
 // by hyphens, for example `68753A44-4D6F-1226-9C60-0050E4C00067`. The hex
 // representation looks, as you might expect, like a list of numerical values
@@ -62,14 +63,11 @@ func (nc NSUUIDClass) Alloc() NSUUID {
 // `0x6E`, `0x12`, `0x26`, `0x80`, `0x3A`, `0x00`, `0x50`, `0xE4`, `0xC0`,
 // `0x00`, `0x67`. Because a UUID is expressed simply as an array of bytes,
 // there are no endianness considerations for different platforms.
-// 
+//
 // The [NSUUID] class is toll-free bridged with CoreFoundation’s [CFUUID].
 // Use UUID strings to convert between [CFUUIDRef] and [NSUUID], if needed.
 // Two [NSUUID] objects are not guaranteed to be comparable by pointer value
 // (as [CFUUID] is); use [isEqual(_:)] to compare two [NSUUID] instances.
-//
-// [CFUUID]: https://developer.apple.com/documentation/CoreFoundation/CFUUID
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 //
 // # Creating UUIDs
 //
@@ -86,6 +84,9 @@ func (nc NSUUIDClass) Alloc() NSUUID {
 //   - [NSUUID.Compare]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUUID
+//
+// [CFUUID]: https://developer.apple.com/documentation/CoreFoundation/CFUUID
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 type NSUUID struct {
 	objectivec.Object
 }
@@ -97,6 +98,7 @@ type NSUUID struct {
 func NSUUIDFromID(id objc.ID) NSUUID {
 	return NSUUID{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSUUID adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -161,7 +163,6 @@ func NewNSUUID() NSUUID {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUUIDWithCoder(coder INSCoder) NSUUID {
 	instance := getNSUUIDClass().Alloc()
@@ -174,7 +175,7 @@ func NewUUIDWithCoder(coder INSCoder) NSUUID {
 // bytes: Raw UUID bytes to use to create the UUID.
 //
 // # Return Value
-// 
+//
 // A new UUID object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)
@@ -191,7 +192,7 @@ func NewUUIDWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
 // `68753A44-4D6F-1226-9C60-0050E4C00067`.
 //
 // # Return Value
-// 
+//
 // A new UUID object. Returns `nil` for invalid strings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidString:)
@@ -208,7 +209,7 @@ func NewUUIDWithUUIDString(string_ string) NSUUID {
 // `68753A44-4D6F-1226-9C60-0050E4C00067`.
 //
 // # Return Value
-// 
+//
 // A new UUID object. Returns `nil` for invalid strings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidString:)
@@ -216,12 +217,13 @@ func (u NSUUID) InitWithUUIDString(string_ string) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithUUIDString:"), objc.String(string_))
 	return rv
 }
+
 // Initializes a new UUID with the given bytes.
 //
 // bytes: Raw UUID bytes to use to create the UUID.
 //
 // # Return Value
-// 
+//
 // A new UUID object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)
@@ -229,6 +231,7 @@ func (u NSUUID) InitWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithUUIDBytes:"), bytes)
 	return rv
 }
+
 // Returns the UUID as bytes.
 //
 // uuid: The value of uuid represented as raw bytes.
@@ -237,12 +240,13 @@ func (u NSUUID) InitWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
 func (u NSUUID) GetUUIDBytes(uuid unsafe.Pointer) {
 	objc.Send[objc.ID](u.ID, objc.Sel("getUUIDBytes:"), uuid)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/compare(_:)
 func (u NSUUID) Compare(otherUUID INSUUID) ComparisonResult {
 	rv := objc.Send[ComparisonResult](u.ID, objc.Sel("compare:"), otherUUID)
 	return ComparisonResult(rv)
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -251,7 +255,7 @@ func (u NSUUID) Compare(otherUUID INSUUID) ComparisonResult {
 func (u NSUUID) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u NSUUID) InitWithCoder(coder INSCoder) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithCoder:"), coder)
@@ -261,7 +265,7 @@ func (u NSUUID) InitWithCoder(coder INSCoder) NSUUID {
 // Create and returns a new UUID with RFC 4122 version 4 random bytes.
 //
 // # Return Value
-// 
+//
 // A new UUID object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/UUID
@@ -273,24 +277,21 @@ func (_NSUUIDClass NSUUIDClass) UUID() NSUUID {
 // The UUID as a string.
 //
 // # Discussion
-// 
+//
 // A string containing a formatted UUID for example
 // `E621E1F8-C36C-495A-93FC-0C247A3E6E5F`.
-// 
+//
 // Use this property when you need a string representation of the [NSUUID]
 // object—for example, to compare with a [CFUUID] object.
 //
-// [CFUUID]: https://developer.apple.com/documentation/CoreFoundation/CFUUID
-//
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/uuidString
+//
+// [CFUUID]: https://developer.apple.com/documentation/CoreFoundation/CFUUID
 func (u NSUUID) UUIDString() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("UUIDString"))
 	return NSStringFromID(rv).String()
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

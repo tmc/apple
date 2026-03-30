@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,13 +47,11 @@ func (ac AVMetricEventStreamClass) Alloc() AVMetricEventStream {
 // specific metric event classes from those publishers.
 //
 // # Overview
-// 
+//
 // Publishers are [AVFoundation] types that adopt
 // [AVMetricEventStreamPublisher]. The protocol allows clients to receive
 // metric events with a subscriber delegate which adopts the
 // [AVMetricEventStreamSubscriber] protocol.
-//
-// [AVFoundation]: https://developer.apple.com/documentation/AVFoundation
 //
 // # Adding a publisher
 //
@@ -69,6 +68,8 @@ func (ac AVMetricEventStreamClass) Alloc() AVMetricEventStream {
 //   - [AVMetricEventStream.SetSubscriberQueue]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEventStream
+//
+// [AVFoundation]: https://developer.apple.com/documentation/AVFoundation
 type AVMetricEventStream struct {
 	objectivec.Object
 }
@@ -80,6 +81,7 @@ type AVMetricEventStream struct {
 func AVMetricEventStreamFromID(id objc.ID) AVMetricEventStream {
 	return AVMetricEventStream{objectivec.Object{ID: id}}
 }
+
 // Ensure AVMetricEventStream implements IAVMetricEventStream.
 var _ IAVMetricEventStream = AVMetricEventStream{}
 
@@ -137,27 +139,27 @@ func NewAVMetricEventStream() AVMetricEventStream {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEventStream/addPublisher:
 func (m AVMetricEventStream) AddPublisher(publisher AVMetricEventStreamPublisher) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("addPublisher:"), publisher)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEventStream/subscribeToAllMetricEvents
 func (m AVMetricEventStream) SubscribeToAllMetricEvents() {
 	objc.Send[objc.ID](m.ID, objc.Sel("subscribeToAllMetricEvents"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEventStream/subscribeToMetricEvent:
 func (m AVMetricEventStream) SubscribeToMetricEvent(metricEventClass objc.Class) {
 	objc.Send[objc.ID](m.ID, objc.Sel("subscribeToMetricEvent:"), metricEventClass)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEventStream/subscribeToMetricEvents:
 func (m AVMetricEventStream) SubscribeToMetricEvents(metricEventClasses []objc.Class) {
 	objc.Send[objc.ID](m.ID, objc.Sel("subscribeToMetricEvents:"), objectivec.ClassSliceToNSArray(metricEventClasses))
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEventStream/setSubscriber:queue:
 func (m AVMetricEventStream) SetSubscriberQueue(subscriber AVMetricEventStreamSubscriber, queue dispatch.Queue) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("setSubscriber:queue:"), subscriber, uintptr(queue.Handle()))
@@ -169,4 +171,3 @@ func (_AVMetricEventStreamClass AVMetricEventStreamClass) EventStream() AVMetric
 	rv := objc.Send[objc.ID](objc.ID(_AVMetricEventStreamClass.class), objc.Sel("eventStream"))
 	return AVMetricEventStreamFromID(rv)
 }
-

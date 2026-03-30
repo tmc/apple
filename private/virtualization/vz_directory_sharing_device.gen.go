@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZDirectorySharingDeviceClass) Alloc() VZDirectorySharingDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZDirectorySharingDevice._initWithVirtualMachineDirectorySharingDeviceIndex]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDevice
 type VZDirectorySharingDevice struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZDirectorySharingDevice struct {
 func VZDirectorySharingDeviceFromID(id objc.ID) VZDirectorySharingDevice {
 	return VZDirectorySharingDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure VZDirectorySharingDevice implements IVZDirectorySharingDevice.
 var _ IVZDirectorySharingDevice = VZDirectorySharingDevice{}
 
@@ -91,7 +93,6 @@ func NewVZDirectorySharingDevice() VZDirectorySharingDevice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDevice/_initWithVirtualMachine:directorySharingDeviceIndex:
 func (d VZDirectorySharingDevice) _initWithVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("_initWithVirtualMachine:directorySharingDeviceIndex:"), machine, index)
@@ -102,4 +103,3 @@ func (d VZDirectorySharingDevice) _initWithVirtualMachineDirectorySharingDeviceI
 func (d VZDirectorySharingDevice) InitWithVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	return d._initWithVirtualMachineDirectorySharingDeviceIndex(machine, index)
 }
-

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMutableAudioMixInputParameters] class.
@@ -59,6 +60,7 @@ type AVMutableAudioMixInputParameters struct {
 func AVMutableAudioMixInputParametersFromID(id objc.ID) AVMutableAudioMixInputParameters {
 	return AVMutableAudioMixInputParameters{AVAudioMixInputParameters: AVAudioMixInputParametersFromID(id)}
 }
+
 // NOTE: AVMutableAudioMixInputParameters adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -105,7 +107,7 @@ func NewAVMutableAudioMixInputParameters() AVMutableAudioMixInputParameters {
 // track: The track to associate with the input parameters object.
 //
 // # Return Value
-// 
+//
 // A mutable input parameters object with no volume ramps and [TrackID] set to
 // `track`’s identifier.
 //
@@ -122,7 +124,7 @@ func NewMutableAudioMixInputParametersWithTrack(track IAVAssetTrack) AVMutableAu
 // time: The start time at which to set the volume.
 //
 // # Discussion
-// 
+//
 // This method adds a volume ramp starting at `time`. This volume setting
 // remains in effect until the end of the track unless you set a different
 // volume level to start at a later time.
@@ -131,6 +133,7 @@ func NewMutableAudioMixInputParametersWithTrack(track IAVAssetTrack) AVMutableAu
 func (m AVMutableAudioMixInputParameters) SetVolumeAtTime(volume float32, time coremedia.CMTime) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setVolume:atTime:"), volume, time)
 }
+
 // Sets a volume ramp to apply during a specified time range.
 //
 // startVolume: The starting volume. The value must be between `0.0` and 1.0.
@@ -147,15 +150,14 @@ func (m AVMutableAudioMixInputParameters) SetVolumeRampFromStartVolumeToEndVolum
 // Creates a mutable input parameters object.
 //
 // # Return Value
-// 
+//
 // A mutable input parameters object with no volume ramps and [TrackID]
 // initialized to [kCMPersistentTrackID_Invalid].
 //
-// [kCMPersistentTrackID_Invalid]: https://developer.apple.com/documentation/CoreMedia/kCMPersistentTrackID_Invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableAudioMixInputParameters/audioMixInputParameters
+//
+// [kCMPersistentTrackID_Invalid]: https://developer.apple.com/documentation/CoreMedia/kCMPersistentTrackID_Invalid
 func (_AVMutableAudioMixInputParametersClass AVMutableAudioMixInputParametersClass) AudioMixInputParameters() AVMutableAudioMixInputParameters {
 	rv := objc.Send[objc.ID](objc.ID(_AVMutableAudioMixInputParametersClass.class), objc.Sel("audioMixInputParameters"))
 	return AVMutableAudioMixInputParametersFromID(rv)
 }
-

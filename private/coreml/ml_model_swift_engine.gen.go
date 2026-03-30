@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,6 +53,7 @@ type MLModelSwiftEngine struct {
 func MLModelSwiftEngineFromID(id objc.ID) MLModelSwiftEngine {
 	return MLModelSwiftEngine{MLModelEngine: MLModelEngineFromID(id)}
 }
+
 // Ensure MLModelSwiftEngine implements IMLModelSwiftEngine.
 var _ IMLModelSwiftEngine = MLModelSwiftEngine{}
 
@@ -81,7 +83,6 @@ func NewMLModelSwiftEngine() MLModelSwiftEngine {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelSwiftEngine/initWithDescription:configuration:
 func NewModelSwiftEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModelSwiftEngine {
 	instance := getMLModelSwiftEngineClass().Alloc()
@@ -89,7 +90,6 @@ func NewModelSwiftEngineWithDescriptionConfiguration(description objectivec.IObj
 	return MLModelSwiftEngineFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewModelSwiftEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModelSwiftEngine {
 	instance := getMLModelSwiftEngineClass().Alloc()
@@ -97,7 +97,6 @@ func NewModelSwiftEngineWithNameInputDescriptionOutputDescriptionOrderedInputFea
 	return MLModelSwiftEngineFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelSwiftEngine/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLModelSwiftEngineClass MLModelSwiftEngineClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -109,4 +108,3 @@ func (_MLModelSwiftEngineClass MLModelSwiftEngineClass) LoadModelFromCompiledArc
 	return objectivec.Object{ID: rv}, nil
 
 }
-

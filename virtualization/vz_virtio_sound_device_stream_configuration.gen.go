@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZVirtioSoundDeviceStreamConfigurationClass) Alloc() VZVirtioSoundDevic
 // An object that defines a Virtio sound device stream configuration.
 //
 // # Overview
-// 
+//
 // A [VZVirtioSoundDeviceStreamConfiguration] object represents a PCM stream
 // of audio data. Don’t instantiate this class directly. Instead,
 // instantiate one of its subclasses such as
@@ -62,6 +63,7 @@ type VZVirtioSoundDeviceStreamConfiguration struct {
 func VZVirtioSoundDeviceStreamConfigurationFromID(id objc.ID) VZVirtioSoundDeviceStreamConfiguration {
 	return VZVirtioSoundDeviceStreamConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZVirtioSoundDeviceStreamConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -90,4 +92,3 @@ func NewVZVirtioSoundDeviceStreamConfiguration() VZVirtioSoundDeviceStreamConfig
 	rv := objc.Send[VZVirtioSoundDeviceStreamConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

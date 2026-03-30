@@ -132,4 +132,3 @@ func NewSCShareableContentErrorBlock(handler SCShareableContentErrorHandler) (ob
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

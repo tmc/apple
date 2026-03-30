@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSSymbolVariableColorEffectClass) Alloc() NSSymbolVariableColorEffect {
 // in a repeatable sequence.
 //
 // # Overview
-// 
+//
 // A variable color animation draws attention to a symbol by changing the
 // opacity of the symbol’s layers. You can choose to apply the effect to
 // layers either cumulatively or iteratively. For cumulative animations, each
@@ -79,6 +80,7 @@ type NSSymbolVariableColorEffect struct {
 func NSSymbolVariableColorEffectFromID(id objc.ID) NSSymbolVariableColorEffect {
 	return NSSymbolVariableColorEffect{NSSymbolEffect: NSSymbolEffectFromID(id)}
 }
+
 // Ensure NSSymbolVariableColorEffect implements INSSymbolVariableColorEffect.
 var _ INSSymbolVariableColorEffect = NSSymbolVariableColorEffect{}
 
@@ -147,46 +149,48 @@ func NewNSSymbolVariableColorEffect() NSSymbolVariableColorEffect {
 // An effect that enables each layer of a symbol-based image in sequence.
 //
 // # Return Value
-// 
+//
 // A copy of the symbol effect options that uses the `cumulative` animation.
 //
 // # Discussion
-// 
+//
 // This effect enables each successive variable layer, and the layer remains
 // enabled until the end of the animation cycle. This effect cancels the
 // [iterative] variant.
 //
-// [iterative]: https://developer.apple.com/documentation/Symbols/VariableColorSymbolEffect/iterative
-//
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolVariableColorEffect/effectWithCumulative
+//
+// [iterative]: https://developer.apple.com/documentation/Symbols/VariableColorSymbolEffect/iterative
 func (s NSSymbolVariableColorEffect) EffectWithCumulative() INSSymbolVariableColorEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithCumulative"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
+
 // An effect that momentarily enables each layer of a symbol-based image in
 // sequence.
 //
 // # Return Value
-// 
+//
 // A copy of the symbol effect options that uses the `iterative` animation.
 //
 // # Discussion
-// 
+//
 // This effect enables each successive variable layer for a short period of
 // time, and then disables the layer until the animation cycle ends. This
 // effect cancels the [cumulative] variant.
 //
-// [cumulative]: https://developer.apple.com/documentation/Symbols/VariableColorSymbolEffect/cumulative
-//
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolVariableColorEffect/effectWithIterative
+//
+// [cumulative]: https://developer.apple.com/documentation/Symbols/VariableColorSymbolEffect/cumulative
 func (s NSSymbolVariableColorEffect) EffectWithIterative() INSSymbolVariableColorEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithIterative"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
+
 // An effect that doesn’t reverse each time it repeats.
 //
 // # Return Value
-// 
+//
 // A copy of the symbol effect options that doesn’t reverse each time it
 // repeats.
 //
@@ -195,10 +199,11 @@ func (s NSSymbolVariableColorEffect) EffectWithNonReversing() INSSymbolVariableC
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithNonReversing"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
+
 // An effect that reverses each time it repeats.
 //
 // # Return Value
-// 
+//
 // A copy of the symbol effect options that reverses each time it repeats.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolVariableColorEffect/effectWithReversing
@@ -206,14 +211,15 @@ func (s NSSymbolVariableColorEffect) EffectWithReversing() INSSymbolVariableColo
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithReversing"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
+
 // An effect that dims inactive layers in a symbol-based image.
 //
 // # Return Value
-// 
+//
 // A copy of the symbol effect options that dims inactive layers.
 //
 // # Discussion
-// 
+//
 // This effect draws inactive layers with reduced, but nonzero, opacity.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolVariableColorEffect/effectWithDimInactiveLayers
@@ -221,14 +227,15 @@ func (s NSSymbolVariableColorEffect) EffectWithDimInactiveLayers() INSSymbolVari
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithDimInactiveLayers"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
+
 // An effect that hides inactive layers in a symbol-based image.
 //
 // # Return Value
-// 
+//
 // A copy of the symbol effect options that hides inactive layers.
 //
 // # Discussion
-// 
+//
 // This effect hides inactive layers completely, rather than drawing them with
 // reduced, but nonzero, opacity.
 //
@@ -242,7 +249,7 @@ func (s NSSymbolVariableColorEffect) EffectWithHideInactiveLayers() INSSymbolVar
 // image in a repeatable sequence.
 //
 // # Return Value
-// 
+//
 // A new instance of the variable color effect options.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolVariableColorEffect/effect
@@ -250,4 +257,3 @@ func (_NSSymbolVariableColorEffectClass NSSymbolVariableColorEffectClass) Effect
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolVariableColorEffectClass.class), objc.Sel("effect"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
-

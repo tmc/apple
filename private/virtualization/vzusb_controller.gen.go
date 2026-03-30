@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (vc VZUSBControllerClass) Alloc() VZUSBController {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZUSBController._capturePassthroughDevicesWithCompletionHandler]
@@ -49,6 +49,7 @@ func (vc VZUSBControllerClass) Alloc() VZUSBController {
 //   - [VZUSBController._releasePassthroughDevices]
 //   - [VZUSBController.Delegate]
 //   - [VZUSBController.SetDelegate]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController
 type VZUSBController struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type VZUSBController struct {
 func VZUSBControllerFromID(id objc.ID) VZUSBController {
 	return VZUSBController{objectivec.Object{ID: id}}
 }
+
 // Ensure VZUSBController implements IVZUSBController.
 var _ IVZUSBController = VZUSBController{}
 
@@ -103,10 +105,9 @@ func NewVZUSBController() VZUSBController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/_capturePassthroughDevicesWithCompletionHandler:
 func (u VZUSBController) _capturePassthroughDevicesWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](u.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:"), _block0)
 }
 
@@ -114,7 +115,7 @@ _block0, _ := NewErrorBlock(handler)
 func (u VZUSBController) CapturePassthroughDevicesWithCompletionHandler(handler ErrorHandler) {
 	u._capturePassthroughDevicesWithCompletionHandler(handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/_initWithVirtualMachine:usbControllerIndex:usbDevices:
 func (u VZUSBController) _initWithVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("_initWithVirtualMachine:usbControllerIndex:usbDevices:"), machine, index, devices)
@@ -125,6 +126,7 @@ func (u VZUSBController) _initWithVirtualMachineUsbControllerIndexUsbDevices(mac
 func (u VZUSBController) InitWithVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject {
 	return u._initWithVirtualMachineUsbControllerIndexUsbDevices(machine, index, devices)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/_releasePassthroughDevices
 func (u VZUSBController) _releasePassthroughDevices() {
 	objc.Send[objc.ID](u.ID, objc.Sel("_releasePassthroughDevices"))
@@ -143,4 +145,3 @@ func (u VZUSBController) Delegate() objectivec.IObject {
 func (u VZUSBController) SetDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setDelegate:"), value)
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,12 +45,12 @@ func (nc NSURLHandleClass) Alloc() NSURLHandle {
 // An object that accesses and manages resource data indicated by a URL.
 //
 // # Overview
-// 
+//
 // A single [NSURLHandle] can service multiple equivalent [NSURL] objects, but
 // only if these URLs map to the same resource.
-// 
+//
 // # Overview
-// 
+//
 // Cocoa provides private concrete subclasses to handle HTTP and file URL
 // schemes. If you want to implement support for additional URL schemes, you
 // would do so by creating a subclass of [NSURLHandle]. You can use [NSURL]
@@ -66,6 +67,7 @@ type NSURLHandle struct {
 func NSURLHandleFromID(id objc.ID) NSURLHandle {
 	return NSURLHandle{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSURLHandle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -94,4 +96,3 @@ func NewNSURLHandle() NSURLHandle {
 	rv := objc.Send[NSURLHandle](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

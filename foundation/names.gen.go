@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Names struct {
 func NamesFromID(id objc.ID) Names {
 	return Names{objectivec.Object{ID: id}}
 }
+
 // Ensure Names implements INames.
 var _ INames = Names{}
 
@@ -78,4 +80,3 @@ func NewNames() Names {
 	rv := objc.Send[Names](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,13 +45,13 @@ func (mc MLPipelineLoaderClass) Alloc() MLPipelineLoader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLPipelineLoader.DebugDescription]
 //   - [MLPipelineLoader.Description]
 //   - [MLPipelineLoader.Hash]
 //   - [MLPipelineLoader.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader
 type MLPipelineLoader struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type MLPipelineLoader struct {
 func MLPipelineLoaderFromID(id objc.ID) MLPipelineLoader {
 	return MLPipelineLoader{objectivec.Object{ID: id}}
 }
+
 // Ensure MLPipelineLoader implements IMLPipelineLoader.
 var _ IMLPipelineLoader = MLPipelineLoader{}
 
@@ -103,7 +105,6 @@ func NewMLPipelineLoader() MLPipelineLoader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/ensureFrameworkSupportsCompilerVersion:error:
 func (_MLPipelineLoaderClass MLPipelineLoaderClass) EnsureFrameworkSupportsCompilerVersionError(version objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -118,7 +119,7 @@ func (_MLPipelineLoaderClass MLPipelineLoaderClass) EnsureFrameworkSupportsCompi
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/loadModelAssetDescriptionFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLPipelineLoaderClass MLPipelineLoaderClass) LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -130,7 +131,7 @@ func (_MLPipelineLoaderClass MLPipelineLoaderClass) LoadModelAssetDescriptionFro
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLPipelineLoaderClass MLPipelineLoaderClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -148,19 +149,21 @@ func (p MLPipelineLoader) DebugDescription() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/description
 func (p MLPipelineLoader) Description() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/hash
 func (p MLPipelineLoader) Hash() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineLoader/superclass
 func (p MLPipelineLoader) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](p.ID, objc.Sel("superclass"))
 	return rv
 }
-

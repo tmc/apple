@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverride
 func TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheFromID(id objc.ID) TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache {
 	return TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache{objectivec.Object{ID: id}}
 }
+
 // NOTE: TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache struct embeds objectivec.Object (parent type unavailable) but
 // ITtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverr
 	rv := objc.Send[TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

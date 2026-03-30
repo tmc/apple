@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_transpose_inner_product_weights struct {
 func EspressoPass_transpose_inner_product_weightsFromID(id objc.ID) EspressoPass_transpose_inner_product_weights {
 	return EspressoPass_transpose_inner_product_weights{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_transpose_inner_product_weights implements IEspressoPass_transpose_inner_product_weights.
 var _ IEspressoPass_transpose_inner_product_weights = EspressoPass_transpose_inner_product_weights{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_transpose_inner_product_weights() EspressoPass_transpose_in
 	rv := objc.Send[EspressoPass_transpose_inner_product_weights](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

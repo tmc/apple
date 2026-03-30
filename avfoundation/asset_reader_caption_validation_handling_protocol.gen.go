@@ -18,6 +18,7 @@ type AVAssetReaderCaptionValidationHandling interface {
 type AVAssetReaderCaptionValidationHandlingObject struct {
 	objectivec.Object
 }
+
 func (o AVAssetReaderCaptionValidationHandlingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,5 +43,4 @@ func AVAssetReaderCaptionValidationHandlingObjectFromID(id objc.ID) AVAssetReade
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderCaptionValidationHandling/captionAdaptor(_:didVendCaption:skippingUnsupportedSourceSyntaxElements:)
 func (o AVAssetReaderCaptionValidationHandlingObject) CaptionAdaptorDidVendCaptionSkippingUnsupportedSourceSyntaxElements(adaptor objectivec.IObject, caption IAVCaption, syntaxElements []string) {
 	objc.Send[struct{}](o.ID, objc.Sel("captionAdaptor:didVendCaption:skippingUnsupportedSourceSyntaxElements:"), adaptor, caption, objectivec.StringSliceToNSArray(syntaxElements))
-	}
-
+}

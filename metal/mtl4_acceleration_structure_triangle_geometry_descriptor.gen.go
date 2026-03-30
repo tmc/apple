@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (mc MTL4AccelerationStructureTriangleGeometryDescriptorClass) Alloc() MTL4A
 // Describes triangle geometry suitable for ray tracing.
 //
 // # Overview
-// 
+//
 // Use a [MTLResidencySet] to mark residency of all buffers this descriptor
 // references when you build this acceleration structure.
 //
@@ -77,6 +78,7 @@ type MTL4AccelerationStructureTriangleGeometryDescriptor struct {
 func MTL4AccelerationStructureTriangleGeometryDescriptorFromID(id objc.ID) MTL4AccelerationStructureTriangleGeometryDescriptor {
 	return MTL4AccelerationStructureTriangleGeometryDescriptor{MTL4AccelerationStructureGeometryDescriptor: MTL4AccelerationStructureGeometryDescriptorFromID(id)}
 }
+
 // NOTE: MTL4AccelerationStructureTriangleGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -156,7 +158,7 @@ func NewMTL4AccelerationStructureTriangleGeometryDescriptor() MTL4AccelerationSt
 // `vertexBuffer`.
 //
 // # Discussion
-// 
+//
 // You can set this property to `0`, the default, to avoid specifying an index
 // buffer.
 //
@@ -168,6 +170,7 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) IndexBuffer() MTL4B
 func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetIndexBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndexBuffer:"), value)
 }
+
 // Configures the size of the indices the `indexBuffer` contains, which is
 // typically either 16 or 32-bits for each index.
 //
@@ -179,14 +182,15 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) IndexType() MTLInde
 func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetIndexType(value MTLIndexType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndexType:"), value)
 }
+
 // Assigns an optional reference to a buffer containing a `float4x3`
 // transformation matrix.
 //
 // # Discussion
-// 
+//
 // When the buffer address is non-zero, Metal applies this transform to the
 // vertex data positions when building the acceleration structure.
-// 
+//
 // Building an acceleration structure with a descriptor that specifies this
 // property doesn’t modify the contents of the input `vertexBuffer`.
 //
@@ -198,14 +202,15 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) TransformationMatri
 func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetTransformationMatrixBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTransformationMatrixBuffer:"), value)
 }
+
 // Configures the layout for the transformation matrix in the transformation
 // matrix buffer.
 //
 // # Discussion
-// 
+//
 // You can provide matrices in column-major or row-major form, and this
 // property allows you to control how Metal interprets them.
-// 
+//
 // Defaults to [MTLMatrixLayoutColumnMajor].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureTriangleGeometryDescriptor/transformationMatrixLayout
@@ -216,6 +221,7 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) TransformationMatri
 func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetTransformationMatrixLayout(value MTLMatrixLayout) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTransformationMatrixLayout:"), value)
 }
+
 // Declares the number of triangles in this geometry descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureTriangleGeometryDescriptor/triangleCount
@@ -226,10 +232,11 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) TriangleCount() uin
 func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetTriangleCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTriangleCount:"), value)
 }
+
 // Associates a vertex buffer containing triangle vertices.
 //
 // # Discussion
-// 
+//
 // You are responsible for ensuring that the format of all vertex positions
 // match the [VertexFormat] property, and that the buffer address for the
 // buffer range is not zero.
@@ -242,13 +249,14 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) VertexBuffer() MTL4
 func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetVertexBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexBuffer:"), value)
 }
+
 // Describes the format of the vertices in the vertex buffer.
 //
 // # Discussion
-// 
+//
 // This property controls the format of the position attribute of the vertices
 // the [VertexBuffer] references.
-// 
+//
 // The format defaults to [MTLAttributeFormatFloat3], corresponding to three
 // packed floating point numbers.
 //
@@ -260,15 +268,16 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) VertexFormat() MTLA
 func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetVertexFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexFormat:"), value)
 }
+
 // Sets the stride, in bytes, between vertices in the vertex buffer.
 //
 // # Discussion
-// 
+//
 // The stride you specify needs to be a multiple of the size of the vertex
 // format you provide in the [VertexFormat] property. Similarly, you are
 // responsible for ensuring this stride matches the vertex format data
 // type’s alignment.
-// 
+//
 // Defaults to `0`, which signals the stride matches the size of the
 // [VertexFormat] data.
 //
@@ -280,4 +289,3 @@ func (m MTL4AccelerationStructureTriangleGeometryDescriptor) VertexStride() uint
 func (m MTL4AccelerationStructureTriangleGeometryDescriptor) SetVertexStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexStride:"), value)
 }
-

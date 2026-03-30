@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZDisplayPresenter struct {
 func VZDisplayPresenterFromID(id objc.ID) VZDisplayPresenter {
 	return VZDisplayPresenter{objectivec.Object{ID: id}}
 }
+
 // Ensure VZDisplayPresenter implements IVZDisplayPresenter.
 var _ IVZDisplayPresenter = VZDisplayPresenter{}
 
@@ -78,4 +80,3 @@ func NewVZDisplayPresenter() VZDisplayPresenter {
 	rv := objc.Send[VZDisplayPresenter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

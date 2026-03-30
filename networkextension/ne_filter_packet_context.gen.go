@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,6 +55,7 @@ type NEFilterPacketContext struct {
 func NEFilterPacketContextFromID(id objc.ID) NEFilterPacketContext {
 	return NEFilterPacketContext{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEFilterPacketContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -98,4 +100,3 @@ func (f NEFilterPacketContext) PacketHandler() NEFilterPacketHandler {
 func (f NEFilterPacketContext) SetPacketHandler(value NEFilterPacketHandler) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPacketHandler:"), value)
 }
-

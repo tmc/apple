@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,32 +45,28 @@ func (nc NSMutableCharacterSetClass) Alloc() NSMutableCharacterSet {
 // search operations.
 //
 // # Overview
-// 
+//
 // In Swift, this object bridges to [CharacterSet]; use
 // [NSMutableCharacterSet] when you need reference semantics or other
 // Foundation-specific behavior.
-// 
+//
 // The [NSMutableCharacterSet] class declares the programmatic interface to
 // objects that manage a modifiable set of Unicode characters. You can add or
 // remove characters from a mutable character set as numeric values in
 // [NSRange] structures or as character values in strings, combine character
 // sets by union or intersection, and invert a character set.
-// 
+//
 // Mutable character sets are less efficient to use than immutable character
 // sets. If you don’t need to change a character set after creating it,
 // create an immutable copy with `copy` and use that.
-// 
+//
 // [NSMutableCharacterSet] defines no primitive methods. Subclasses must
 // implement all methods declared by this class in addition to the primitives
 // of [NSCharacterSet]. They must also implement [NSMutableCharacterSet.MutableCopyWithZone].
-// 
+//
 // [NSMutableCharacterSet] is “toll-free bridged” with its Core Foundation
 // counterpart, [CFMutableCharacterSet]. See [Toll-Free Bridging] for more
 // information.
-//
-// [CFMutableCharacterSet]: https://developer.apple.com/documentation/CoreFoundation/CFMutableCharacterSet
-// [CharacterSet]: https://developer.apple.com/documentation/Foundation/CharacterSet
-// [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
 //
 // # Adding and Removing Characters
 //
@@ -88,6 +85,10 @@ func (nc NSMutableCharacterSetClass) Alloc() NSMutableCharacterSet {
 //   - [NSMutableCharacterSet.Invert]: Replaces all the characters in the receiver with all the characters it didn’t previously contain.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableCharacterSet
+//
+// [CFMutableCharacterSet]: https://developer.apple.com/documentation/CoreFoundation/CFMutableCharacterSet
+// [CharacterSet]: https://developer.apple.com/documentation/Foundation/CharacterSet
+// [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
 type NSMutableCharacterSet struct {
 	NSCharacterSet
 }
@@ -99,6 +100,7 @@ type NSMutableCharacterSet struct {
 func NSMutableCharacterSetFromID(id objc.ID) NSMutableCharacterSet {
 	return NSMutableCharacterSet{NSCharacterSet: NSCharacterSetFromID(id)}
 }
+
 // NOTE: NSMutableCharacterSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -184,7 +186,6 @@ func NewMutableCharacterSetWithCharactersInString(aString string) NSMutableChara
 	return NSMutableCharacterSetFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/init(coder:)
 func NewMutableCharacterSetWithCoder(coder INSCoder) NSMutableCharacterSet {
 	instance := getNSMutableCharacterSetClass().Alloc()
@@ -218,7 +219,7 @@ func NewMutableCharacterSetWithRange(aRange NSRange) NSMutableCharacterSet {
 // value of the last. If `aRange.Length()` is `0`, this method has no effect.
 //
 // # Discussion
-// 
+//
 // This code excerpt adds to a character set the lowercase English alphabetic
 // characters:
 //
@@ -226,6 +227,7 @@ func NewMutableCharacterSetWithRange(aRange NSRange) NSMutableCharacterSet {
 func (m NSMutableCharacterSet) AddCharactersInRange(aRange NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addCharactersInRange:"), aRange)
 }
+
 // Removes from the receiver the characters whose Unicode values are in a
 // given range.
 //
@@ -238,30 +240,33 @@ func (m NSMutableCharacterSet) AddCharactersInRange(aRange NSRange) {
 func (m NSMutableCharacterSet) RemoveCharactersInRange(aRange NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeCharactersInRange:"), aRange)
 }
+
 // Adds to the receiver the characters in a given string.
 //
 // aString: The characters to add to the receiver.
 //
 // # Discussion
-// 
+//
 // This method has no effect if `aString` is empty.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableCharacterSet/addCharacters(in:)-7q02
 func (m NSMutableCharacterSet) AddCharactersInString(aString string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addCharactersInString:"), objc.String(aString))
 }
+
 // Removes from the receiver the characters in a given string.
 //
 // aString: The characters to remove from the receiver.
 //
 // # Discussion
-// 
+//
 // This method has no effect if `aString` is empty.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableCharacterSet/removeCharacters(in:)-762gt
 func (m NSMutableCharacterSet) RemoveCharactersInString(aString string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeCharactersInString:"), objc.String(aString))
 }
+
 // Modifies the receiver so it contains only characters that exist in both the
 // receiver and another set.
 //
@@ -271,6 +276,7 @@ func (m NSMutableCharacterSet) RemoveCharactersInString(aString string) {
 func (m NSMutableCharacterSet) FormIntersectionWithCharacterSet(otherSet INSCharacterSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("formIntersectionWithCharacterSet:"), otherSet)
 }
+
 // Modifies the receiver so it contains all characters that exist in either
 // the receiver or another set.
 //
@@ -278,11 +284,12 @@ func (m NSMutableCharacterSet) FormIntersectionWithCharacterSet(otherSet INSChar
 func (m NSMutableCharacterSet) FormUnionWithCharacterSet(otherSet INSCharacterSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("formUnionWithCharacterSet:"), otherSet)
 }
+
 // Replaces all the characters in the receiver with all the characters it
 // didn’t previously contain.
 //
 // # Discussion
-// 
+//
 // Inverting a mutable character set, whether by [Invert] or by [InvertedSet],
 // is much less efficient than inverting an immutable character set with
 // [InvertedSet].
@@ -291,4 +298,3 @@ func (m NSMutableCharacterSet) FormUnionWithCharacterSet(otherSet INSCharacterSe
 func (m NSMutableCharacterSet) Invert() {
 	objc.Send[objc.ID](m.ID, objc.Sel("invert"))
 }
-

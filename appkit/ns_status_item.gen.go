@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSStatusItemClass) Alloc() NSStatusItem {
 // An individual element displayed in the system menu bar.
 //
 // # Overview
-// 
+//
 // The [NSStatusBar] method [StatusItemWithLength] creates instances of this
 // class and automatically adds them to the menu bar. Use the [Button]
 // property to customize the appearance and behavior of the status item.
@@ -85,6 +86,7 @@ type NSStatusItem struct {
 func NSStatusItemFromID(id objc.ID) NSStatusItem {
 	return NSStatusItem{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSStatusItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -176,17 +178,18 @@ func (s NSStatusItem) StatusBar() INSStatusBar {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("statusBar"))
 	return NSStatusBarFromID(objc.ID(rv))
 }
+
 // The set of allowed behaviors for the status item.
 //
 // # Discussion
-// 
+//
 // By default, this property includes no behavior options. See
 // [NSStatusItem.Behavior] for a list of available behavior options and their
 // effects.
 //
-// [NSStatusItem.Behavior]: https://developer.apple.com/documentation/AppKit/NSStatusItem/Behavior-swift.struct
-//
 // See: https://developer.apple.com/documentation/AppKit/NSStatusItem/behavior-swift.property
+//
+// [NSStatusItem.Behavior]: https://developer.apple.com/documentation/AppKit/NSStatusItem/Behavior-swift.struct
 func (s NSStatusItem) Behavior() NSStatusItemBehavior {
 	rv := objc.Send[NSStatusItemBehavior](s.ID, objc.Sel("behavior"))
 	return NSStatusItemBehavior(rv)
@@ -194,25 +197,25 @@ func (s NSStatusItem) Behavior() NSStatusItemBehavior {
 func (s NSStatusItem) SetBehavior(value NSStatusItemBehavior) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBehavior:"), value)
 }
+
 // The button displayed in the status bar.
 //
 // # Discussion
-// 
+//
 // The status item automatically creates this button by default. Use this
 // property to customize the appearance and behavior of the button, such as
-// its [Image], [Target], [Action], [toolTip], and so on.
-//
-// [toolTip]: https://developer.apple.com/documentation/AppKit/NSView/toolTip
+// its [Image], [Target], [Action], [ToolTip], and so on.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusItem/button
 func (s NSStatusItem) Button() INSStatusBarButton {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("button"))
 	return NSStatusBarButtonFromID(objc.ID(rv))
 }
+
 // The pull-down menu displayed when the user clicks the status item.
 //
 // # Discussion
-// 
+//
 // When non-`nil`, the status item’s single click action behavior is not
 // used. Setting the value of this property to `nil` removes the menu.
 //
@@ -224,21 +227,20 @@ func (s NSStatusItem) Menu() INSMenu {
 func (s NSStatusItem) SetMenu(value INSMenu) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMenu:"), value)
 }
+
 // A Boolean value indicating if the menu bar currently displays the status
 // item.
 //
 // # Discussion
-// 
+//
 // Setting this property either shows or hides the status item within the menu
 // bar. The item’s visiblity may also change if the user removes the item
 // manually, and you can watch for changes in visibility using key-value
 // observation. The status item’s visiblity persists and restores
 // automatically based on the value of [AutosaveName].
-// 
-// This property returns [true] even if the status item is temporarily hidden
-// due to insufficient space in the menu bar. The default value is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property returns true even if the status item is temporarily hidden
+// due to insufficient space in the menu bar. The default value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusItem/isVisible
 func (s NSStatusItem) Visible() bool {
@@ -248,11 +250,12 @@ func (s NSStatusItem) Visible() bool {
 func (s NSStatusItem) SetVisible(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVisible:"), value)
 }
+
 // The amount of space in the status bar that should be allocated to the
 // status item.
 //
 // # Discussion
-// 
+//
 // If the status bar is horizontal, the value of this property is the width of
 // the status item. In addition to a fixed length, this value can be
 // NSSquareStatusItemLength or NSVariableStatusItemLength (see [NSStatusBar]
@@ -268,18 +271,17 @@ func (s NSStatusItem) Length() float64 {
 func (s NSStatusItem) SetLength(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLength:"), value)
 }
+
 // A unique name for saving and restoring information about a status item.
 //
 // # Discussion
-// 
+//
 // If you do not provide an autosave name for a status item, the system
-// automatically chooses a unique name. Setting this property to [nil] resets
-// it to the automatically chosen name.
-// 
+// automatically chooses a unique name. Setting this property to nil resets it
+// to the automatically chosen name.
+//
 // Applications with multiple status items should set an autosave name after
 // creating each item.
-//
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusItem/autosaveName-swift.property
 func (s NSStatusItem) AutosaveName() NSStatusItemAutosaveName {
@@ -297,6 +299,7 @@ func (_NSStatusItemClass NSStatusItemClass) SquareLength() float64 {
 	rv := objc.Send[float64](objc.ID(_NSStatusItemClass.class), objc.Sel("NSSquareStatusItemLength"))
 	return rv
 }
+
 // A status item length that dynamically adjusts to the width of its contents.
 //
 // See: https://developer.apple.com/documentation/appkit/nsstatusitem/variablelength
@@ -304,4 +307,3 @@ func (_NSStatusItemClass NSStatusItemClass) VariableLength() float64 {
 	rv := objc.Send[float64](objc.ID(_NSStatusItemClass.class), objc.Sel("NSVariableStatusItemLength"))
 	return rv
 }
-

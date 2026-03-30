@@ -5,8 +5,10 @@ package networkextension
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NEAppProxyTCPFlow] class.
@@ -46,7 +48,7 @@ func (nc NEAppProxyTCPFlowClass) Alloc() NEAppProxyTCPFlow {
 // proxied by the provider.
 //
 // # Overview
-// 
+//
 // App Proxy Providers receive TCP connections to be proxied in the form of
 // [NEAppProxyTCPFlow] objects.
 //
@@ -58,11 +60,6 @@ func (nc NEAppProxyTCPFlowClass) Alloc() NEAppProxyTCPFlow {
 // # Getting flow information
 //
 //   - [NEAppProxyTCPFlow.RemoteEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
-//
-// # Instance Properties
-//
-//   - [NEAppProxyTCPFlow.RemoteFlowEndpoint]
-//   - [NEAppProxyTCPFlow.SetRemoteFlowEndpoint]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow
 type NEAppProxyTCPFlow struct {
@@ -76,6 +73,7 @@ type NEAppProxyTCPFlow struct {
 func NEAppProxyTCPFlowFromID(id objc.ID) NEAppProxyTCPFlow {
 	return NEAppProxyTCPFlow{NEAppProxyFlow: NEAppProxyFlowFromID(id)}
 }
+
 // NOTE: NEAppProxyTCPFlow adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -89,11 +87,6 @@ func NEAppProxyTCPFlowFromID(id objc.ID) NEAppProxyTCPFlow {
 // # Getting flow information
 //
 //   - [INEAppProxyTCPFlow.RemoteEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
-//
-// # Instance Properties
-//
-//   - [INEAppProxyTCPFlow.RemoteFlowEndpoint]
-//   - [INEAppProxyTCPFlow.SetRemoteFlowEndpoint]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow
 type INEAppProxyTCPFlow interface {
@@ -111,10 +104,7 @@ type INEAppProxyTCPFlow interface {
 	// An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
 	RemoteEndpoint() INWEndpoint
 
-	// Topic: Instance Properties
-
-	RemoteFlowEndpoint() INWEndpoint
-	SetRemoteFlowEndpoint(value INWEndpoint)
+	RemoteFlowEndpoint() objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -139,8 +129,6 @@ func NewNEAppProxyTCPFlow() NEAppProxyTCPFlow {
 // Write data to the flow.
 //
 // data: An [NSData] object containing the data to write.
-// //
-// [NSData]: https://developer.apple.com/documentation/Foundation/NSData
 //
 // completionHandler: A block that will be executed by the system on an internal system thread
 // when the data is written into the receive buffer of the socket associated
@@ -149,14 +137,16 @@ func NewNEAppProxyTCPFlow() NEAppProxyTCPFlow {
 // buffer memory. If an error occurs while writing the data then a non-nil
 // [NSError] object is passed to the block. See [NEAppProxyFlowError] in
 // [NEAppProxyFlow] for a list of possible errors.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow/write(_:withCompletionHandler:)
+//
+// [NSData]: https://developer.apple.com/documentation/Foundation/NSData
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (a NEAppProxyTCPFlow) WriteDataWithCompletionHandler(data foundation.INSData, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("writeData:withCompletionHandler:"), data, _block1)
 }
+
 // Read data from the flow.
 //
 // completionHandler: A block that will be executed by the system on an internal system thread
@@ -168,7 +158,7 @@ _block1, _ := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow/readData(completionHandler:)
 func (a NEAppProxyTCPFlow) ReadDataWithCompletionHandler(completionHandler DataErrorHandler) {
-_block0, _ := NewDataErrorBlock(completionHandler)
+	_block0, _ := NewDataErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("readDataWithCompletionHandler:"), _block0)
 }
 
@@ -176,7 +166,7 @@ _block0, _ := NewDataErrorBlock(completionHandler)
 // endpoint of the flow.
 //
 // # Discussion
-// 
+//
 // If the flow’s corresponding socket was created using one of the
 // high-level networking APIs such as [URLSession] or [NSURLConnection], then
 // the hostname property of the `remoteEndpoint` object contains the DNS name
@@ -184,21 +174,19 @@ _block0, _ := NewDataErrorBlock(completionHandler)
 // the sockets API directly, then the hostname property of the
 // `remoteEndpoint` object contains the IP address of the remote host.
 //
+// See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow/remoteEndpoint
+//
 // [NSURLConnection]: https://developer.apple.com/documentation/Foundation/NSURLConnection
 // [URLSession]: https://developer.apple.com/documentation/Foundation/URLSession
-//
-// See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow/remoteEndpoint
 func (a NEAppProxyTCPFlow) RemoteEndpoint() INWEndpoint {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteEndpoint"))
 	return NWEndpointFromID(objc.ID(rv))
 }
-// See: https://developer.apple.com/documentation/networkextension/neappproxytcpflow/remoteflowendpoint-4r7v1
-func (a NEAppProxyTCPFlow) RemoteFlowEndpoint() INWEndpoint {
+
+// See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyTCPFlow/remoteFlowEndpoint-9lvob
+func (a NEAppProxyTCPFlow) RemoteFlowEndpoint() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("remoteFlowEndpoint"))
-	return NWEndpointFromID(objc.ID(rv))
-}
-func (a NEAppProxyTCPFlow) SetRemoteFlowEndpoint(value INWEndpoint) {
-	objc.Send[struct{}](a.ID, objc.Sel("setRemoteFlowEndpoint:"), value)
+	return objectivec.Object{ID: rv}
 }
 
 // WriteData is a synchronous wrapper around [NEAppProxyTCPFlow.WriteDataWithCompletionHandler].
@@ -234,4 +222,3 @@ func (a NEAppProxyTCPFlow) ReadData(ctx context.Context) (*foundation.NSData, er
 		return nil, ctx.Err()
 	}
 }
-

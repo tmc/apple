@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,12 +45,12 @@ func (nc NSXPCListenerEndpointClass) Alloc() NSXPCListenerEndpoint {
 // An object that names a specific XPC listener.
 //
 // # Overview
-// 
+//
 // An instance of [NSXPCListenerEndpoint] may be retrieved from an
 // [NSXPCListener] instance and sent over existing [NSXPCConnection]s. A
 // process may then use the endpoint to create a new [NSXPCConnection] to the
 // original [NSXPCListener].
-// 
+//
 // This pattern is useful if you have a service which multiplexes work to
 // other services. The service can act as an intermediate helper. The
 // requesting application does not need to know specifically which service it
@@ -66,6 +67,7 @@ type NSXPCListenerEndpoint struct {
 func NSXPCListenerEndpointFromID(id objc.ID) NSXPCListenerEndpoint {
 	return NSXPCListenerEndpoint{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSXPCListenerEndpoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -97,7 +99,6 @@ func NewNSXPCListenerEndpoint() NSXPCListenerEndpoint {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewXPCListenerEndpointWithCoder(coder INSCoder) NSXPCListenerEndpoint {
 	instance := getNSXPCListenerEndpointClass().Alloc()
@@ -113,13 +114,11 @@ func NewXPCListenerEndpointWithCoder(coder INSCoder) NSXPCListenerEndpoint {
 func (x NSXPCListenerEndpoint) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (x NSXPCListenerEndpoint) InitWithCoder(coder INSCoder) NSXPCListenerEndpoint {
 	rv := objc.Send[NSXPCListenerEndpoint](x.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

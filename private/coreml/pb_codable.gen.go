@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,6 +53,7 @@ type PBCodable struct {
 func PBCodableFromID(id objc.ID) PBCodable {
 	return PBCodable{objectivec.Object{ID: id}}
 }
+
 // Ensure PBCodable implements IPBCodable.
 var _ IPBCodable = PBCodable{}
 
@@ -78,4 +80,3 @@ func NewPBCodable() PBCodable {
 	rv := objc.Send[PBCodable](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

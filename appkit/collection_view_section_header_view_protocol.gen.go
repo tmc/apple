@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -31,6 +31,7 @@ type NSCollectionViewSectionHeaderView interface {
 type NSCollectionViewSectionHeaderViewObject struct {
 	objectivec.Object
 }
+
 func (o NSCollectionViewSectionHeaderViewObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -49,11 +50,12 @@ func NSCollectionViewSectionHeaderViewObjectFromID(id objc.ID) NSCollectionViewS
 func (o NSCollectionViewSectionHeaderViewObject) SectionCollapseButton() INSButton {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sectionCollapseButton"))
 	return NSButtonFromID(rv)
-	}
+}
+
 // Performs any necessary cleanup to prepare the element for use again.
 //
 // # Discussion
-// 
+//
 // The recycling of content is an important technique for improving
 // performance of a collection view. Instead of creating all views from
 // scratch, the collection view recycles views and view controllers that move
@@ -62,7 +64,7 @@ func (o NSCollectionViewSectionHeaderViewObject) SectionCollapseButton() INSButt
 // [SupplementaryViewOfKindWithIdentifierForIndexPath] method, the collection
 // view retrieves a recycled object from the appropriate storage, calls this
 // method, and then returns the object to your app.
-// 
+//
 // Implement this method when you need to delete old data or when you want to
 // restore your recycled views to a standard initial state prior to their
 // reuse. For example, you might use this method to restore the size of a view
@@ -70,13 +72,14 @@ func (o NSCollectionViewSectionHeaderViewObject) SectionCollapseButton() INSButt
 // fully opaque. Do not use this method to configure the view with new data.
 // Restoring your views to a default state in this method simplifies the
 // configuration code you must write in your data source object later.
-// 
+//
 // If you implement this method, you must call `super` at some point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/prepareForReuse()
 func (o NSCollectionViewSectionHeaderViewObject) PrepareForReuse() {
 	objc.Send[struct{}](o.ID, objc.Sel("prepareForReuse"))
-	}
+}
+
 // Asks your element if it wants to modify any layout attributes before they
 // are applied.
 //
@@ -84,32 +87,33 @@ func (o NSCollectionViewSectionHeaderViewObject) PrepareForReuse() {
 // the values that the layout object intends to apply to the element.
 //
 // # Return Value
-// 
+//
 // The final attributes to apply to the element.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method returns the same attributes that
 // are in the `layoutAttributes` parameter. You can override this method in
 // subclasses and use it to return a different set of attributes. If you
 // override this method, call `super` first to give the system the opportunity
 // to make changes, then modify the returned attributes.
-// 
+//
 // # Special Considerations
-// 
+//
 // In OS X 10.11, this method is never called.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/preferredLayoutAttributesFitting(_:)
 func (o NSCollectionViewSectionHeaderViewObject) PreferredLayoutAttributesFittingAttributes(layoutAttributes INSCollectionViewLayoutAttributes) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("preferredLayoutAttributesFittingAttributes:"), layoutAttributes)
 	return NSCollectionViewLayoutAttributesFromID(rv)
-	}
+}
+
 // Applies the specified layout attributes to the element.
 //
 // layoutAttributes: The layout attributes to apply.
 //
 // # Discussion
-// 
+//
 // In your custom elements, you can use this method to apply the specified
 // attributes to your content. For example, if your element object is a view
 // controller, you would override this method and use it to apply the
@@ -120,7 +124,8 @@ func (o NSCollectionViewSectionHeaderViewObject) PreferredLayoutAttributesFittin
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/apply(_:)
 func (o NSCollectionViewSectionHeaderViewObject) ApplyLayoutAttributes(layoutAttributes INSCollectionViewLayoutAttributes) {
 	objc.Send[struct{}](o.ID, objc.Sel("applyLayoutAttributes:"), layoutAttributes)
-	}
+}
+
 // Tells the element that the layout object of the collection view is about to
 // change.
 //
@@ -129,18 +134,19 @@ func (o NSCollectionViewSectionHeaderViewObject) ApplyLayoutAttributes(layoutAtt
 // newLayout: The new layout object that is about to be used by the collection view.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Subclasses can
 // override it and use it to prepare for the change in layouts.
-// 
+//
 // # Special Considerations
-// 
+//
 // In OS X 10.11, this method is never called.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/willTransition(from:to:)
 func (o NSCollectionViewSectionHeaderViewObject) WillTransitionFromLayoutToLayout(oldLayout INSCollectionViewLayout, newLayout INSCollectionViewLayout) {
 	objc.Send[struct{}](o.ID, objc.Sel("willTransitionFromLayout:toLayout:"), oldLayout, newLayout)
-	}
+}
+
 // Tells the element that the layout object of the collection view changed.
 //
 // oldLayout: The collection view’s previous layout object.
@@ -148,32 +154,73 @@ func (o NSCollectionViewSectionHeaderViewObject) WillTransitionFromLayoutToLayou
 // newLayout: The current layout object associated with the collection view.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Subclasses can
 // override it and use it to finalize any behaviors associated with the change
 // in layouts.
-// 
+//
 // # Special Considerations
-// 
+//
 // In OS X 10.11, this method is never called.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/didTransition(from:to:)
 func (o NSCollectionViewSectionHeaderViewObject) DidTransitionFromLayoutToLayout(oldLayout INSCollectionViewLayout, newLayout INSCollectionViewLayout) {
 	objc.Send[struct{}](o.ID, objc.Sel("didTransitionFromLayout:toLayout:"), oldLayout, newLayout)
-	}
+}
+
 // A string that identifies the user interface item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
 func (o NSCollectionViewSectionHeaderViewObject) Identifier() NSUserInterfaceItemIdentifier {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("identifier"))
 	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
-	}
+}
 
+// A control that lets users collapse and open a collection view section.
+//
+// # Discussion
+//
+// For the best user experience, set this property to the button that lets
+// users control the collapsing of a section so that the collection view can
+// show and hide the button appropriately, based on whether the section’s
+// items can be displayed in the available space. The collection view uses its
+// [ToggleSectionCollapse] property to access this button.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewSectionHeaderView/sectionCollapseButton
 func (o NSCollectionViewSectionHeaderViewObject) SetSectionCollapseButton(value INSButton) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSectionCollapseButton:"), value)
 }
 
+// A string that identifies the user interface item.
+//
+// # Discussion
+//
+// Identifiers are used during window restoration operations to uniquely
+// identify the windows of the application. You can set the value of this
+// string programmatically or in Interface Builder. If you create an item in
+// Interface Builder and do not set a value for this string, a unique value is
+// created for the item when the nib file is loaded. For programmatically
+// created views, you typically set this value after creating the item but
+// before adding it to a window.
+//
+// You should not change the value of a window’s identifier after adding any
+// views to the window. For views and controls in a window, the value you
+// specify for this string must be unique on a per-window basis.
+//
+// The slash (`/`), backslash (`\`), or colon (`:`) characters are reserved
+// and must not be used in your custom identifiers. Similarly, Apple reserves
+// all identifiers beginning with an underscore (`_`) character. Applications
+// and frameworks should use a consistent prefix for their identifiers to
+// avoid collisions with other frameworks. For a list of prefixes used by the
+// system frameworks, see [OS X Frameworks] in [Mac Technology Overview].
+//
+// If you are subclassing a class from one of the system frameworks, do not
+// override the accessor methods of this protocol.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
+//
+// [Mac Technology Overview]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067
+// [OS X Frameworks]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/SystemFrameworks/SystemFrameworks.html#//apple_ref/doc/uid/TP40001067-CH210
 func (o NSCollectionViewSectionHeaderViewObject) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
-

@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,6 +60,7 @@ type AVAssetPlaybackAssistant struct {
 func AVAssetPlaybackAssistantFromID(id objc.ID) AVAssetPlaybackAssistant {
 	return AVAssetPlaybackAssistant{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetPlaybackAssistant adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,7 +117,7 @@ func NewAssetPlaybackAssistantWithAsset(asset IAVAsset) AVAssetPlaybackAssistant
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetPlaybackAssistant/loadPlaybackConfigurationOptions(completionHandler:)
 func (a AVAssetPlaybackAssistant) LoadPlaybackConfigurationOptionsWithCompletionHandler(completionHandler VoidHandler) {
-_block0, _ := NewVoidBlock(completionHandler)
+	_block0, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("loadPlaybackConfigurationOptionsWithCompletionHandler:"), _block0)
 }
 
@@ -133,4 +135,3 @@ func (a AVAssetPlaybackAssistant) LoadPlaybackConfigurationOptions(ctx context.C
 		return ctx.Err()
 	}
 }
-

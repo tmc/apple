@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (mc MLAppleAudioFeatureExtractorSoundPrintParametersClass) Alloc() MLAppleA
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLAppleAudioFeatureExtractorSoundPrintParameters.SoundPrintVersion]
 //   - [MLAppleAudioFeatureExtractorSoundPrintParameters.InitSoundPrintParameters]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorSoundPrintParameters
 type MLAppleAudioFeatureExtractorSoundPrintParameters struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type MLAppleAudioFeatureExtractorSoundPrintParameters struct {
 func MLAppleAudioFeatureExtractorSoundPrintParametersFromID(id objc.ID) MLAppleAudioFeatureExtractorSoundPrintParameters {
 	return MLAppleAudioFeatureExtractorSoundPrintParameters{objectivec.Object{ID: id}}
 }
+
 // Ensure MLAppleAudioFeatureExtractorSoundPrintParameters implements IMLAppleAudioFeatureExtractorSoundPrintParameters.
 var _ IMLAppleAudioFeatureExtractorSoundPrintParameters = MLAppleAudioFeatureExtractorSoundPrintParameters{}
 
@@ -94,7 +96,6 @@ func NewMLAppleAudioFeatureExtractorSoundPrintParameters() MLAppleAudioFeatureEx
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorSoundPrintParameters/initSoundPrintParameters:
 func NewAppleAudioFeatureExtractorSoundPrintParametersSoundPrintParameters(parameters int64) MLAppleAudioFeatureExtractorSoundPrintParameters {
 	instance := getMLAppleAudioFeatureExtractorSoundPrintParametersClass().Alloc()
@@ -102,7 +103,6 @@ func NewAppleAudioFeatureExtractorSoundPrintParametersSoundPrintParameters(param
 	return MLAppleAudioFeatureExtractorSoundPrintParametersFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorSoundPrintParameters/initSoundPrintParameters:
 func (a MLAppleAudioFeatureExtractorSoundPrintParameters) InitSoundPrintParameters(parameters int64) MLAppleAudioFeatureExtractorSoundPrintParameters {
 	rv := objc.Send[MLAppleAudioFeatureExtractorSoundPrintParameters](a.ID, objc.Sel("initSoundPrintParameters:"), parameters)
@@ -114,4 +114,3 @@ func (a MLAppleAudioFeatureExtractorSoundPrintParameters) SoundPrintVersion() in
 	rv := objc.Send[int64](a.ID, objc.Sel("soundPrintVersion"))
 	return rv
 }
-

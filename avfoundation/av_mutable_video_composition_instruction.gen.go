@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMutableVideoCompositionInstructionClass) Alloc() AVMutableVideoCompos
 // A mutable video composition instruction subclass.
 //
 // # Overview
-// 
+//
 // An [AVVideoComposition] object maintains an array of [AVMutableVideoCompositionInstruction.Instructions] to
 // perform its composition.
 //
@@ -58,6 +59,7 @@ type AVMutableVideoCompositionInstruction struct {
 func AVMutableVideoCompositionInstructionFromID(id objc.ID) AVMutableVideoCompositionInstruction {
 	return AVMutableVideoCompositionInstruction{AVVideoCompositionInstruction: AVVideoCompositionInstructionFromID(id)}
 }
+
 // NOTE: AVMutableVideoCompositionInstruction adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -90,7 +92,7 @@ func NewAVMutableVideoCompositionInstruction() AVMutableVideoCompositionInstruct
 // Returns a new mutable video composition instruction.
 //
 // # Return Value
-// 
+//
 // A new mutable video composition instruction.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoCompositionInstruction/videoCompositionInstruction
@@ -98,4 +100,3 @@ func (_AVMutableVideoCompositionInstructionClass AVMutableVideoCompositionInstru
 	rv := objc.Send[objc.ID](objc.ID(_AVMutableVideoCompositionInstructionClass.class), objc.Sel("videoCompositionInstruction"))
 	return AVMutableVideoCompositionInstructionFromID(rv)
 }
-

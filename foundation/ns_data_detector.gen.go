@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -45,45 +46,45 @@ func (nc NSDataDetectorClass) Alloc() NSDataDetector {
 // for predefined data patterns.
 //
 // # Overview
-// 
+//
 // Find dates, addresses, links, phone numbers, and transit information in
 // natural language text with [NSDataDetector].
-// 
+//
 // [NSDataDetector] returns the results of matching content in
 // [NSTextCheckingResult] objects. The [NSTextCheckingResult] objects that
 // [NSDataDetector] returns are different from those that
 // [NSRegularExpression] returns. The results are one of the data detector’s
 // types and contain the corresponding properties. For example, results of
-// type [TextCheckingTypeDate] have a [Date], [TimeZone], and [NSDataDetector.Duration]; and
-// results of type [TextCheckingTypeLink] have a [URL].
-// 
+// type [NSTextCheckingTypeDate] have a [Date], [TimeZone], and [NSDataDetector.Duration];
+// and results of type [NSTextCheckingTypeLink] have a [URL].
+//
 // # Examples
-// 
+//
 // The following shows several graduated examples of using the
 // [NSDataDetector] class.
-// 
+//
 // This code fragment creates a data detector that finds URL links and phone
 // numbers. If an error occurs, it returns in `error`.
-// 
+//
 // After creating the data detector instance, you can determine the number of
 // matches within a range of a string using the [NSRegularExpression] method
 // [NumberOfMatchesInStringOptionsRange].
-// 
+//
 // If you’re interested only in the overall range of the first match, the
 // [NumberOfMatchesInStringOptionsRange] method provides it. However, with
 // data detectors, this is less likely than with regular expressions because
 // clients are usually interested in additional information as well.
-// 
+//
 // The additional information available depends on the type of the result. For
-// results of type [TextCheckingTypeLink], it’s the [URL] property that’s
-// significant. For results of type [NSTextCheckingTypePhoneNumber] , it’s
-// the `phoneNumber` property instead.
-// 
+// results of type [NSTextCheckingTypeLink], it’s the [URL] property
+// that’s significant. For results of type [NSTextCheckingTypePhoneNumber] ,
+// it’s the `phoneNumber` property instead.
+//
 // The [MatchesInStringOptionsRange] method is similar to
 // [FirstMatchInStringOptionsRange], except that it returns all matches rather
 // than only the first. The following code fragment finds all the matches for
 // links and phone numbers in a string:
-// 
+//
 // The [NSRegularExpression] block object enumerator is the most general and
 // flexible of the matching methods. It allows you to iterate through matches
 // in a string, performing arbitrary actions on each as specified by the code
@@ -110,6 +111,7 @@ type NSDataDetector struct {
 func NSDataDetectorFromID(id objc.ID) NSDataDetector {
 	return NSDataDetector{NSRegularExpression: NSRegularExpressionFromID(id)}
 }
+
 // NOTE: NSDataDetector adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -173,7 +175,6 @@ func NewNSDataDetector() NSDataDetector {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDataDetectorWithCoder(coder INSCoder) NSDataDetector {
 	instance := getNSDataDetectorClass().Alloc()
@@ -188,17 +189,17 @@ func NewDataDetectorWithCoder(coder INSCoder) NSDataDetector {
 //
 // options: The regular expression options that are applied to the expression during
 // matching. See [NSRegularExpression.Options] for possible values.
-// //
-// [NSRegularExpression.Options]: https://developer.apple.com/documentation/Foundation/NSRegularExpression/Options-swift.struct
 //
 // # Return Value
-// 
+//
 // An instance of [NSRegularExpression] for the specified regular expression
 // and options.
 //
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/init(pattern:options:)
+//
+// [NSRegularExpression.Options]: https://developer.apple.com/documentation/Foundation/NSRegularExpression/Options-swift.struct
 func NewDataDetectorWithPatternOptionsError(pattern string, options NSRegularExpressionOptions) (NSDataDetector, error) {
 	var errorPtr objc.ID
 	instance := getNSDataDetectorClass().Alloc()
@@ -215,22 +216,22 @@ func NewDataDetectorWithPatternOptionsError(pattern string, options NSRegularExp
 // checkingTypes: The checking types. The supported checking types are a subset of the types
 // [NSTextCheckingResult.CheckingType]. Those constants can be combined using
 // the C-bitwise OR operator.
-// //
-// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
 //
 // # Return Value
-// 
+//
 // Returns the newly initialized data detector. If an error was encountered
 // returns `nil`, and `error` contains the error.
 //
 // # Discussion
-// 
+//
 // Currently, the supported data detectors `checkingTypes` are:
-// [TextCheckingTypeDate], [TextCheckingTypeAddress], [TextCheckingTypeLink],
-// [NSTextCheckingTypePhoneNumber], and
+// [NSTextCheckingTypeDate], [NSTextCheckingTypeAddress],
+// [NSTextCheckingTypeLink], [NSTextCheckingTypePhoneNumber], and
 // [NSTextCheckingTypeTransitInformation].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDataDetector/init(types:)
+//
+// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
 func NewDataDetectorWithTypesError(checkingTypes NSTextCheckingTypes) (NSDataDetector, error) {
 	var errorPtr objc.ID
 	instance := getNSDataDetectorClass().Alloc()
@@ -247,22 +248,22 @@ func NewDataDetectorWithTypesError(checkingTypes NSTextCheckingTypes) (NSDataDet
 // checkingTypes: The checking types. The supported checking types are a subset of the types
 // [NSTextCheckingResult.CheckingType]. Those constants can be combined using
 // the C-bitwise OR operator.
-// //
-// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
 //
 // # Return Value
-// 
+//
 // Returns the newly initialized data detector. If an error was encountered
 // returns `nil`, and `error` contains the error.
 //
 // # Discussion
-// 
+//
 // Currently, the supported data detectors `checkingTypes` are:
-// [TextCheckingTypeDate], [TextCheckingTypeAddress], [TextCheckingTypeLink],
-// [NSTextCheckingTypePhoneNumber], and
+// [NSTextCheckingTypeDate], [NSTextCheckingTypeAddress],
+// [NSTextCheckingTypeLink], [NSTextCheckingTypePhoneNumber], and
 // [NSTextCheckingTypeTransitInformation].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDataDetector/init(types:)
+//
+// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
 func (d NSDataDetector) InitWithTypesError(checkingTypes NSTextCheckingTypes) (NSDataDetector, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithTypes:error:"), checkingTypes, unsafe.Pointer(&errorPtr))
@@ -279,25 +280,25 @@ func (d NSDataDetector) InitWithTypesError(checkingTypes NSTextCheckingTypes) (N
 // checkingTypes: The checking types. The supported checking types are a subset of the types
 // specified in [NSTextCheckingResult.CheckingType]. Those constants can be
 // combined using the C-bitwise OR operator.
-// //
-// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
 //
 // error: An out parameter that if an error occurs during initialization contains the
 // encountered error.
 //
 // # Return Value
-// 
+//
 // Returns the newly initialized data detector. If an error was encountered
 // returns `nil`, and `error` contains the error.
 //
 // # Discussion
-// 
+//
 // Currently, the supported data detectors `checkingTypes` are:
-// [TextCheckingTypeDate], [TextCheckingTypeAddress], [TextCheckingTypeLink],
-// [NSTextCheckingTypePhoneNumber], and
+// [NSTextCheckingTypeDate], [NSTextCheckingTypeAddress],
+// [NSTextCheckingTypeLink], [NSTextCheckingTypePhoneNumber], and
 // [NSTextCheckingTypeTransitInformation].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDataDetector/dataDetectorWithTypes:error:
+//
+// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
 func (_NSDataDetectorClass NSDataDetectorClass) DataDetectorWithTypesError(checkingTypes NSTextCheckingTypes) (NSDataDetector, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSDataDetectorClass.class), objc.Sel("dataDetectorWithTypes:error:"), checkingTypes, unsafe.Pointer(&errorPtr))
@@ -312,23 +313,24 @@ func (_NSDataDetectorClass NSDataDetectorClass) DataDetectorWithTypesError(check
 // Returns the checking types for the data detector.
 //
 // # Discussion
-// 
+//
 // The supported subset of checking types are specified in
 // [NSTextCheckingResult.CheckingType]. Those constants can be combined using
 // the C-bitwise OR operator.
-// 
+//
 // Currently, the supported data detectors `checkingTypes` are:
-// [TextCheckingTypeDate], [TextCheckingTypeAddress], [TextCheckingTypeLink],
-// [NSTextCheckingTypePhoneNumber], and
+// [NSTextCheckingTypeDate], [NSTextCheckingTypeAddress],
+// [NSTextCheckingTypeLink], [NSTextCheckingTypePhoneNumber], and
 // [NSTextCheckingTypeTransitInformation].
 //
-// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDataDetector/checkingTypes
+//
+// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
 func (d NSDataDetector) CheckingTypes() NSTextCheckingTypes {
 	rv := objc.Send[NSTextCheckingTypes](d.ID, objc.Sel("checkingTypes"))
 	return NSTextCheckingTypes(rv)
 }
+
 // Attempts to locate dates.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/date
@@ -339,6 +341,7 @@ func (d NSDataDetector) Date() NSTextCheckingType {
 func (d NSDataDetector) SetDate(value NSTextCheckingType) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSTextCheckingTypeDate:"), value)
 }
+
 // The duration component of a type checking result.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/duration
@@ -349,6 +352,7 @@ func (d NSDataDetector) Duration() float64 {
 func (d NSDataDetector) SetDuration(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDuration:"), value)
 }
+
 // Attempts to locate URL links.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/link
@@ -359,6 +363,7 @@ func (d NSDataDetector) Link() NSTextCheckingType {
 func (d NSDataDetector) SetLink(value NSTextCheckingType) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSTextCheckingTypeLink:"), value)
 }
+
 // The time zone component of a type checking result.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/timezone
@@ -369,6 +374,7 @@ func (d NSDataDetector) TimeZone() INSTimeZone {
 func (d NSDataDetector) SetTimeZone(value INSTimeZone) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeZone:"), value)
 }
+
 // The URL of a type checking result.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/url
@@ -379,4 +385,3 @@ func (d NSDataDetector) Url() INSURL {
 func (d NSDataDetector) SetUrl(value INSURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setURL:"), value)
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Reserved2 struct {
 func Reserved2FromID(id objc.ID) Reserved2 {
 	return Reserved2{objectivec.Object{ID: id}}
 }
+
 // Ensure Reserved2 implements IReserved2.
 var _ IReserved2 = Reserved2{}
 
@@ -78,4 +80,3 @@ func NewReserved2() Reserved2 {
 	rv := objc.Send[Reserved2](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

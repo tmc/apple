@@ -4,9 +4,11 @@ package quartzcore
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // Methods your app can implement to respond when animations start and stop.
@@ -20,6 +22,7 @@ type CAAnimationDelegate interface {
 type CAAnimationDelegateObject struct {
 	objectivec.Object
 }
+
 func (o CAAnimationDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,7 +42,8 @@ func CAAnimationDelegateObjectFromID(id objc.ID) CAAnimationDelegateObject {
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimationDelegate/animationDidStart(_:)
 func (o CAAnimationDelegateObject) AnimationDidStart(anim ICAAnimation) {
 	objc.Send[struct{}](o.ID, objc.Sel("animationDidStart:"), anim)
-	}
+}
+
 // Tells the delegate the animation has ended.
 //
 // anim: The [CAAnimation] object that has ended.
@@ -48,7 +52,7 @@ func (o CAAnimationDelegateObject) AnimationDidStart(anim ICAAnimation) {
 // of its duration.
 //
 // # Discussion
-// 
+//
 // The animation may have ended because it has completed its active duration
 // or because it has been removed from the layer it is attached to. `flag` is
 // true if the animation reached the end of its duration without being
@@ -57,7 +61,7 @@ func (o CAAnimationDelegateObject) AnimationDidStart(anim ICAAnimation) {
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimationDelegate/animationDidStop(_:finished:)
 func (o CAAnimationDelegateObject) AnimationDidStopFinished(anim ICAAnimation, flag bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("animationDidStop:finished:"), anim, flag)
-	}
+}
 
 // CAAnimationDelegateConfig holds optional typed callbacks for [CAAnimationDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -132,4 +136,3 @@ func NewCAAnimationDelegate(config CAAnimationDelegateConfig) CAAnimationDelegat
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return CAAnimationDelegateObjectFromID(instance)
 }
-

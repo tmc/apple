@@ -3,11 +3,12 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (ac AVAudioSharedBufferTokenClass) Alloc() AVAudioSharedBufferToken {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioSharedBufferToken.EncodeWithCoder]
@@ -54,6 +54,7 @@ func (ac AVAudioSharedBufferTokenClass) Alloc() AVAudioSharedBufferToken {
 //   - [AVAudioSharedBufferToken.TaskTokenXPCType]
 //   - [AVAudioSharedBufferToken.InitWithCoder]
 //   - [AVAudioSharedBufferToken.InitWithSurfaceTaskToken]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken
 type AVAudioSharedBufferToken struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type AVAudioSharedBufferToken struct {
 func AVAudioSharedBufferTokenFromID(id objc.ID) AVAudioSharedBufferToken {
 	return AVAudioSharedBufferToken{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioSharedBufferToken implements IAVAudioSharedBufferToken.
 var _ IAVAudioSharedBufferToken = AVAudioSharedBufferToken{}
 
@@ -112,7 +114,6 @@ func NewAVAudioSharedBufferToken() AVAudioSharedBufferToken {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/initWithCoder:
 func NewAudioSharedBufferTokenWithCoder(coder objectivec.IObject) AVAudioSharedBufferToken {
 	instance := getAVAudioSharedBufferTokenClass().Alloc()
@@ -120,7 +121,6 @@ func NewAudioSharedBufferTokenWithCoder(coder objectivec.IObject) AVAudioSharedB
 	return AVAudioSharedBufferTokenFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/initWithSurface:taskToken:
 func NewAudioSharedBufferTokenWithSurfaceTaskToken(surface coregraphics.IOSurfaceRef, token uint32) AVAudioSharedBufferToken {
 	instance := getAVAudioSharedBufferTokenClass().Alloc()
@@ -128,38 +128,41 @@ func NewAudioSharedBufferTokenWithSurfaceTaskToken(surface coregraphics.IOSurfac
 	return AVAudioSharedBufferTokenFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/encodeWithCoder:
 func (a AVAudioSharedBufferToken) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/surface
 func (a AVAudioSharedBufferToken) Surface() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("surface"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/surfaceXPCType
 func (a AVAudioSharedBufferToken) SurfaceXPCType() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("surfaceXPCType"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/taskToken
 func (a AVAudioSharedBufferToken) TaskToken() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("taskToken"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/taskTokenXPCType
 func (a AVAudioSharedBufferToken) TaskTokenXPCType() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("taskTokenXPCType"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/initWithCoder:
 func (a AVAudioSharedBufferToken) InitWithCoder(coder foundation.INSCoder) AVAudioSharedBufferToken {
 	rv := objc.Send[AVAudioSharedBufferToken](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSharedBufferToken/initWithSurface:taskToken:
 func (a AVAudioSharedBufferToken) InitWithSurfaceTaskToken(surface coregraphics.IOSurfaceRef, token uint32) AVAudioSharedBufferToken {
 	rv := objc.Send[AVAudioSharedBufferToken](a.ID, objc.Sel("initWithSurface:taskToken:"), surface, token)
@@ -171,4 +174,3 @@ func (_AVAudioSharedBufferTokenClass AVAudioSharedBufferTokenClass) SupportsSecu
 	rv := objc.Send[bool](objc.ID(_AVAudioSharedBufferTokenClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-

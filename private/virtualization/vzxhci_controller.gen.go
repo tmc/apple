@@ -5,6 +5,7 @@ package virtualization
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,11 +43,11 @@ func (vc VZXHCIControllerClass) Alloc() VZXHCIController {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZXHCIController.AttachDeviceCompletionHandler]
 //   - [VZXHCIController.DetachDeviceCompletionHandler]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZXHCIController
 type VZXHCIController struct {
 	VZUSBController
@@ -56,6 +57,7 @@ type VZXHCIController struct {
 func VZXHCIControllerFromID(id objc.ID) VZXHCIController {
 	return VZXHCIController{VZUSBController: VZUSBControllerFromID(id)}
 }
+
 // Ensure VZXHCIController implements IVZXHCIController.
 var _ IVZXHCIController = VZXHCIController{}
 
@@ -95,16 +97,15 @@ func NewVZXHCIController() VZXHCIController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZXHCIController/attachDevice:completionHandler:
 func (x VZXHCIController) AttachDeviceCompletionHandler(device objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](x.ID, objc.Sel("attachDevice:completionHandler:"), device, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZXHCIController/detachDevice:completionHandler:
 func (x VZXHCIController) DetachDeviceCompletionHandler(device objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](x.ID, objc.Sel("detachDevice:completionHandler:"), device, _block1)
 }
 
@@ -137,4 +138,3 @@ func (x VZXHCIController) DetachDevice(ctx context.Context, device objectivec.IO
 		return ctx.Err()
 	}
 }
-

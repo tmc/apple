@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLPipelineCompiler struct {
 func MLPipelineCompilerFromID(id objc.ID) MLPipelineCompiler {
 	return MLPipelineCompiler{objectivec.Object{ID: id}}
 }
+
 // Ensure MLPipelineCompiler implements IMLPipelineCompiler.
 var _ IMLPipelineCompiler = MLPipelineCompiler{}
 
@@ -82,7 +84,6 @@ func NewMLPipelineCompiler() MLPipelineCompiler {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/_archiveCustomModelNames:to:
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archiveCustomModelNamesTo(names unsafe.Pointer, to unsafe.Pointer) {
 	objc.Send[objc.ID](objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archiveCustomModelNames:to:"), names, to)
@@ -92,7 +93,7 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archiveCustomModelNames
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) ArchiveCustomModelNamesTo(names unsafe.Pointer, to unsafe.Pointer) {
 	_MLPipelineCompilerClass._archiveCustomModelNamesTo(names, to)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/_archivePipelineModelDetailsFrom:toArchive:error:
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archivePipelineModelDetailsFromToArchiveError(from unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -112,7 +113,7 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archivePipelineModelDet
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) ArchivePipelineModelDetailsFromToArchiveError(from unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
 	return _MLPipelineCompilerClass._archivePipelineModelDetailsFromToArchiveError(from, archive)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/_archivePipelineUpdateParameterForModels:to:updatable:
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archivePipelineUpdateParameterForModelsToUpdatable(models unsafe.Pointer, to unsafe.Pointer, updatable bool) {
 	objc.Send[objc.ID](objc.ID(_MLPipelineCompilerClass.class), objc.Sel("_archivePipelineUpdateParameterForModels:to:updatable:"), models, to, updatable)
@@ -122,7 +123,7 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) _archivePipelineUpdatePa
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) ArchivePipelineUpdateParameterForModelsToUpdatable(models unsafe.Pointer, to unsafe.Pointer, updatable bool) {
 	_MLPipelineCompilerClass._archivePipelineUpdateParameterForModelsToUpdatable(models, to, updatable)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/_compileSpecification:blobMapping:toArchive:options:error:
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) _compileSpecificationBlobMappingToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -134,7 +135,7 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) _compileSpecificationBlo
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/_compileWithModelsInPipeline:blobMapping:toArchive:options:updatable:osSizeTracking:error:
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) _compileWithModelsInPipelineBlobMappingToArchiveOptionsUpdatableOsSizeTrackingError(pipeline unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject, updatable bool, tracking objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -151,7 +152,7 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) _compileWithModelsInPipe
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) CompileWithModelsInPipelineBlobMappingToArchiveOptionsUpdatableOsSizeTrackingError(pipeline unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject, updatable bool, tracking objectivec.IObject) (objectivec.IObject, error) {
 	return _MLPipelineCompilerClass._compileWithModelsInPipelineBlobMappingToArchiveOptionsUpdatableOsSizeTrackingError(pipeline, mapping, archive, options, updatable, tracking)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/compileSpecification:blobMapping:toArchive:options:error:
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) CompileSpecificationBlobMappingToArchiveOptionsError(specification unsafe.Pointer, mapping objectivec.IObject, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -163,7 +164,7 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) CompileSpecificationBlob
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/compileSpecification:toArchive:options:error:
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -175,7 +176,7 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) CompileSpecificationToAr
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineCompiler/compiledVersionForSpecification:options:error:
 func (_MLPipelineCompilerClass MLPipelineCompilerClass) CompiledVersionForSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -187,4 +188,3 @@ func (_MLPipelineCompilerClass MLPipelineCompilerClass) CompiledVersionForSpecif
 	return objectivec.Object{ID: rv}, nil
 
 }
-

@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSTextParagraph] class.
@@ -66,6 +67,7 @@ type NSTextParagraph struct {
 func NSTextParagraphFromID(id objc.ID) NSTextParagraph {
 	return NSTextParagraph{NSTextElement: NSTextElementFromID(id)}
 }
+
 // NOTE: NSTextParagraph adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,10 +124,10 @@ func NewNSTextParagraph() NSTextParagraph {
 // Creates a new paragraph with the attributed string you provide.
 //
 // attributedString: An [NSAttributedString].
-// //
-// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextParagraph/init(attributedString:)
+//
+// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 func NewTextParagraphWithAttributedString(attributedString foundation.NSAttributedString) NSTextParagraph {
 	instance := getNSTextParagraphClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAttributedString:"), attributedString)
@@ -146,10 +148,10 @@ func NewTextParagraphWithTextContentManager(textContentManager INSTextContentMan
 // Creates a new paragraph with the attributed string you provide.
 //
 // attributedString: An [NSAttributedString].
-// //
-// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextParagraph/init(attributedString:)
+//
+// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 func (t NSTextParagraph) InitWithAttributedString(attributedString foundation.NSAttributedString) NSTextParagraph {
 	rv := objc.Send[NSTextParagraph](t.ID, objc.Sel("initWithAttributedString:"), attributedString)
 	return rv
@@ -162,11 +164,12 @@ func (t NSTextParagraph) AttributedString() foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedString"))
 	return foundation.NSAttributedStringFromID(objc.ID(rv))
 }
+
 // Returns the range of the paragraph in the containing text’s attributed
 // string.
 //
 // # Discussion
-// 
+//
 // The containing text is [NSTextContentStorage]’s [AttributedString].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextParagraph/paragraphContentRange
@@ -174,11 +177,12 @@ func (t NSTextParagraph) ParagraphContentRange() INSTextRange {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("paragraphContentRange"))
 	return NSTextRangeFromID(objc.ID(rv))
 }
+
 // Returns the range of the paragraph separator in the containing text’s
 // attributed string.
 //
 // # Discussion
-// 
+//
 // The containing text is [NSTextContentStorage]’s [AttributedString].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextParagraph/paragraphSeparatorRange
@@ -186,4 +190,3 @@ func (t NSTextParagraph) ParagraphSeparatorRange() INSTextRange {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("paragraphSeparatorRange"))
 	return NSTextRangeFromID(objc.ID(rv))
 }
-

@@ -4,11 +4,12 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,12 +50,12 @@ func (vc VNGenerateOpticalFlowRequestClass) Alloc() VNGenerateOpticalFlowRequest
 // targeted image.
 //
 // # Overview
-// 
+//
 // This request operates at a pixel level, so both images need to have the
 // same dimensions to successfully perform the analysis. Setting a region of
 // interest limits the region in which the analysis occurs. However, the
 // system reports the resulting observation at full resolution.
-// 
+//
 // Optical flow requests are resource-intensive, so create only one request at
 // a time, and release it immediately after generating optical flows.
 //
@@ -84,6 +85,7 @@ type VNGenerateOpticalFlowRequest struct {
 func VNGenerateOpticalFlowRequestFromID(id objc.ID) VNGenerateOpticalFlowRequest {
 	return VNGenerateOpticalFlowRequest{VNTargetedImageRequest: VNTargetedImageRequestFromID(id)}
 }
+
 // NOTE: VNGenerateOpticalFlowRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -151,7 +153,7 @@ func NewVNGenerateOpticalFlowRequest() VNGenerateOpticalFlowRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -199,13 +201,13 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOptionsCompletionHandler(cg
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCGImage:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation objectivec.IObject, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:"), cgImage, orientation, options)
@@ -220,8 +222,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptions(cgImage 
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -229,6 +229,8 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptions(cgImage 
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCGImage:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage coregraphics.CGImageRef, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:completionHandler:"), cgImage, orientation, options, completionHandler)
@@ -238,12 +240,12 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptionsCompletio
 // Creates a new request targeting a Core Image image.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
-// //
-// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:options:
+//
+// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 func NewGenerateOpticalFlowRequestWithTargetedCIImageOptions(ciImage coreimage.CIImage, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
@@ -253,14 +255,14 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOptions(ciImage coreimage.C
 // Creates a new request targeting a Core Image image.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
-// //
-// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:options:completionHandler:)
+//
+// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 func NewGenerateOpticalFlowRequestWithTargetedCIImageOptionsCompletionHandler(ciImage coreimage.CIImage, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, completionHandler)
@@ -270,19 +272,18 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOptionsCompletionHandler(ci
 // Creates a new request targeting a Core Image image of known orientation.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
-// //
-// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptions(ciImage coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
@@ -293,14 +294,10 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptions(ciImage 
 // executing the completion handler when done.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
-// //
-// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -308,6 +305,9 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptions(ciImage 
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:completionHandler:"), ciImage, orientation, options, completionHandler)
@@ -317,12 +317,12 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptionsCompletio
 // Creates a new request that targets an image in a sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
-// //
-// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCMSampleBuffer:options:
+//
+// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOptions(sampleBuffer uintptr, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:"), sampleBuffer, options)
@@ -333,14 +333,14 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOptions(sampleBuffer
 // sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
-// //
-// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // completionHandler: The callback the system invokes when the request finishes executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCMSampleBuffer:options:completionHandler:)
+//
+// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer uintptr, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, completionHandler)
@@ -351,18 +351,17 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOptionsCompletionHan
 // sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
-// //
-// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 //
 // orientation: The EXIF orientation of the image. See [CGImagePropertyOrientation] for
 // supported orientation values.
-// //
-// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCMSampleBuffer:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
+// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptions(sampleBuffer uintptr, orientation objectivec.IObject, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
@@ -373,13 +372,9 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptions(s
 // known orientation in a sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
-// //
-// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 //
 // orientation: The EXIF orientation of the image. See [CGImagePropertyOrientation] for
 // supported orientations.
-// //
-// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -387,6 +382,9 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptions(s
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCMSampleBuffer:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
+// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer uintptr, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:completionHandler:"), sampleBuffer, orientation, options, completionHandler)
@@ -429,13 +427,13 @@ func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOptionsCompletionHand
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCVPixelBuffer:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation objectivec.IObject, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
@@ -450,8 +448,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptions(pi
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -459,6 +455,8 @@ func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptions(pi
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCVPixelBuffer:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:completionHandler:"), pixelBuffer, orientation, options, completionHandler)
@@ -501,13 +499,13 @@ func NewGenerateOpticalFlowRequestWithTargetedImageDataOptionsCompletionHandler(
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageData:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptions(imageData foundation.INSData, orientation objectivec.IObject, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:"), imageData, orientation, options)
@@ -522,8 +520,6 @@ func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptions(imageD
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -531,6 +527,8 @@ func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptions(imageD
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageData:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptionsCompletionHandler(imageData foundation.INSData, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:completionHandler:"), imageData, orientation, options, completionHandler)
@@ -574,13 +572,13 @@ func NewGenerateOpticalFlowRequestWithTargetedImageURLOptionsCompletionHandler(i
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageURL:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptions(imageURL foundation.INSURL, orientation objectivec.IObject, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:"), imageURL, orientation, options)
@@ -595,8 +593,6 @@ func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptions(imageUR
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -604,6 +600,8 @@ func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptions(imageUR
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageURL:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL foundation.INSURL, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:completionHandler:"), imageURL, orientation, options, completionHandler)
@@ -620,6 +618,7 @@ func (g VNGenerateOpticalFlowRequest) ComputationAccuracy() VNGenerateOpticalFlo
 func (g VNGenerateOpticalFlowRequest) SetComputationAccuracy(value VNGenerateOpticalFlowRequestComputationAccuracy) {
 	objc.Send[struct{}](g.ID, objc.Sel("setComputationAccuracy:"), value)
 }
+
 // The output buffer’s pixel format.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequest/outputPixelFormat
@@ -630,17 +629,15 @@ func (g VNGenerateOpticalFlowRequest) OutputPixelFormat() uint32 {
 func (g VNGenerateOpticalFlowRequest) SetOutputPixelFormat(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setOutputPixelFormat:"), value)
 }
+
 // A Boolean value that indicates whether to keep the raw pixel buffer coming
 // from the machine learning network.
 //
 // # Discussion
-// 
-// The default is [false]. When you set this to [true], the system ignores
+//
+// The default is false. When you set this to true, the system ignores
 // [OutputPixelFormat]. Setting this for revision 1 has no effect because
 // it’s not machine learning-based.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequest/keepNetworkOutput
 func (g VNGenerateOpticalFlowRequest) KeepNetworkOutput() bool {
@@ -650,6 +647,7 @@ func (g VNGenerateOpticalFlowRequest) KeepNetworkOutput() bool {
 func (g VNGenerateOpticalFlowRequest) SetKeepNetworkOutput(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setKeepNetworkOutput:"), value)
 }
+
 // A constant for specifying revision 2 of the optical flow generation
 // request.
 //
@@ -658,6 +656,7 @@ func (g VNGenerateOpticalFlowRequest) VNGenerateOpticalFlowRequestRevision2() in
 	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateOpticalFlowRequestRevision2"))
 	return rv
 }
+
 // A constant for specifying revision 1 of the optical flow generation
 // request.
 //
@@ -666,4 +665,3 @@ func (g VNGenerateOpticalFlowRequest) VNGenerateOpticalFlowRequestRevision1() in
 	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateOpticalFlowRequestRevision1"))
 	return rv
 }
-

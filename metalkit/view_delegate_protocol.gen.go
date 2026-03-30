@@ -4,10 +4,12 @@ package metalkit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // Methods for responding to a MetalKit view’s drawing and resizing events.
@@ -31,6 +33,7 @@ type MTKViewDelegate interface {
 type MTKViewDelegateObject struct {
 	objectivec.Object
 }
+
 func (o MTKViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -51,27 +54,28 @@ func MTKViewDelegateObjectFromID(id objc.ID) MTKViewDelegateObject {
 // size: The view’s new drawable size.
 //
 // # Discussion
-// 
+//
 // Use this method to recompute any view or projection matrices, or to
 // regenerate any buffers to be compatible with the view’s new size.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKViewDelegate/mtkView(_:drawableSizeWillChange:)
 func (o MTKViewDelegateObject) MtkViewDrawableSizeWillChange(view IMTKView, size corefoundation.CGSize) {
 	objc.Send[struct{}](o.ID, objc.Sel("mtkView:drawableSizeWillChange:"), view, size)
-	}
+}
+
 // Draws the view’s contents.
 //
 // view: The view requesting that its contents be redrawn.
 //
 // # Discussion
-// 
+//
 // This method is called on the delegate when it is asked to render into the
 // view.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKViewDelegate/draw(in:)
 func (o MTKViewDelegateObject) DrawInMTKView(view IMTKView) {
 	objc.Send[struct{}](o.ID, objc.Sel("drawInMTKView:"), view)
-	}
+}
 
 // MTKViewDelegateConfig holds optional typed callbacks for [MTKViewDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -133,4 +137,3 @@ func NewMTKViewDelegate(config MTKViewDelegateConfig) MTKViewDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return MTKViewDelegateObjectFromID(instance)
 }
-

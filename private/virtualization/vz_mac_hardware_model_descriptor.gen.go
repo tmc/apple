@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (vc VZMacHardwareModelDescriptorClass) Alloc() VZMacHardwareModelDescriptor
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacHardwareModelDescriptor.SetBoardID]
@@ -50,6 +50,7 @@ func (vc VZMacHardwareModelDescriptorClass) Alloc() VZMacHardwareModelDescriptor
 //   - [VZMacHardwareModelDescriptor.SetMinimumSupportedHostOSVersion]
 //   - [VZMacHardwareModelDescriptor.SetPlatformVersion]
 //   - [VZMacHardwareModelDescriptor.SetVariantIDVariantName]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHardwareModelDescriptor
 type VZMacHardwareModelDescriptor struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type VZMacHardwareModelDescriptor struct {
 func VZMacHardwareModelDescriptorFromID(id objc.ID) VZMacHardwareModelDescriptor {
 	return VZMacHardwareModelDescriptor{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMacHardwareModelDescriptor implements IVZMacHardwareModelDescriptor.
 var _ IVZMacHardwareModelDescriptor = VZMacHardwareModelDescriptor{}
 
@@ -106,34 +108,32 @@ func NewVZMacHardwareModelDescriptor() VZMacHardwareModelDescriptor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHardwareModelDescriptor/setBoardID:
 func (v VZMacHardwareModelDescriptor) SetBoardID(id uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setBoardID:"), id)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHardwareModelDescriptor/setISA:
 func (v VZMacHardwareModelDescriptor) SetISA(isa int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setISA:"), isa)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHardwareModelDescriptor/setInitialGuestMacOSVersion:
 func (v VZMacHardwareModelDescriptor) SetInitialGuestMacOSVersion(oSVersion objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setInitialGuestMacOSVersion:"), oSVersion)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHardwareModelDescriptor/setMinimumSupportedHostOSVersion:
 func (v VZMacHardwareModelDescriptor) SetMinimumSupportedHostOSVersion(oSVersion objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setMinimumSupportedHostOSVersion:"), oSVersion)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHardwareModelDescriptor/setPlatformVersion:
 func (v VZMacHardwareModelDescriptor) SetPlatformVersion(version uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setPlatformVersion:"), version)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHardwareModelDescriptor/setVariantID:variantName:
 func (v VZMacHardwareModelDescriptor) SetVariantIDVariantName(id uint32, name objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setVariantID:variantName:"), id, name)
 }
-

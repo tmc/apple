@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,11 +44,11 @@ func (dc DiskImageParamsRAM_XPCClass) Alloc() DiskImageParamsRAM_XPC {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DiskImageParamsRAM_XPC.RamSizeStr]
 //   - [DiskImageParamsRAM_XPC.InitWithURLError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRAM_XPC
 type DiskImageParamsRAM_XPC struct {
 	DiskImageParamsRaw_XPC
@@ -57,6 +58,7 @@ type DiskImageParamsRAM_XPC struct {
 func DiskImageParamsRAM_XPCFromID(id objc.ID) DiskImageParamsRAM_XPC {
 	return DiskImageParamsRAM_XPC{DiskImageParamsRaw_XPC: DiskImageParamsRaw_XPCFromID(id)}
 }
+
 // Ensure DiskImageParamsRAM_XPC implements IDiskImageParamsRAM_XPC.
 var _ IDiskImageParamsRAM_XPC = DiskImageParamsRAM_XPC{}
 
@@ -96,7 +98,6 @@ func NewDiskImageParamsRAM_XPC() DiskImageParamsRAM_XPC {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
 func NewDiskImageParamsRAM_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRAM_XPC {
 	instance := getDiskImageParamsRAM_XPCClass().Alloc()
@@ -104,7 +105,6 @@ func NewDiskImageParamsRAM_XPCWithBackendXPC(xpc objectivec.IObject) DiskImagePa
 	return DiskImageParamsRAM_XPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
 func NewDiskImageParamsRAM_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRAM_XPC {
 	instance := getDiskImageParamsRAM_XPCClass().Alloc()
@@ -112,7 +112,6 @@ func NewDiskImageParamsRAM_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, si
 	return DiskImageParamsRAM_XPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithCoder:
 func NewDiskImageParamsRAM_XPCWithCoder(coder objectivec.IObject) DiskImageParamsRAM_XPC {
 	instance := getDiskImageParamsRAM_XPCClass().Alloc()
@@ -120,7 +119,6 @@ func NewDiskImageParamsRAM_XPCWithCoder(coder objectivec.IObject) DiskImageParam
 	return DiskImageParamsRAM_XPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRAM_XPC/initWithURL:error:
 func NewDiskImageParamsRAM_XPCWithURLError(url foundation.INSURL) (DiskImageParamsRAM_XPC, error) {
 	var errorPtr objc.ID
@@ -133,7 +131,6 @@ func NewDiskImageParamsRAM_XPCWithURLError(url foundation.INSURL) (DiskImagePara
 	return DiskImageParamsRAM_XPCFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsRAM_XPC/initWithURL:error:
 func (d DiskImageParamsRAM_XPC) InitWithURLError(url foundation.INSURL) (DiskImageParamsRAM_XPC, error) {
 	var errorPtr objc.ID
@@ -151,4 +148,3 @@ func (d DiskImageParamsRAM_XPC) RamSizeStr() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("ramSizeStr"))
 	return foundation.NSStringFromID(rv).String()
 }
-

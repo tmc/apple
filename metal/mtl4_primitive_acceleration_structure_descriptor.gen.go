@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -71,6 +72,7 @@ type MTL4PrimitiveAccelerationStructureDescriptor struct {
 func MTL4PrimitiveAccelerationStructureDescriptorFromID(id objc.ID) MTL4PrimitiveAccelerationStructureDescriptor {
 	return MTL4PrimitiveAccelerationStructureDescriptor{MTL4AccelerationStructureDescriptor: MTL4AccelerationStructureDescriptorFromID(id)}
 }
+
 // NOTE: MTL4PrimitiveAccelerationStructureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,12 +142,12 @@ func NewMTL4PrimitiveAccelerationStructureDescriptor() MTL4PrimitiveAcceleration
 // acceleration structure.
 //
 // # Discussion
-// 
+//
 // If you enable keyframe motion by setting property [MotionKeyframeCount] to
 // a value greater than `1`, then all geometry descriptors this array
 // references need to be motion geometry descriptors and have a number of
 // primitive buffers equals to [MotionKeyframeCount].
-// 
+//
 // Example of motion geometry descriptors include:
 // [MTL4AccelerationStructureMotionTriangleGeometryDescriptor],
 // [MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor],
@@ -161,13 +163,14 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) GeometryDescriptors() []MT
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetGeometryDescriptors(value []MTL4AccelerationStructureGeometryDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGeometryDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Configures the motion border mode.
 //
 // # Discussion
-// 
+//
 // This property controls what happens if Metal samples the acceleration
 // structure after [MotionEndTime].
-// 
+//
 // Its default value is [MTLMotionBorderModeClamp].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PrimitiveAccelerationStructureDescriptor/motionEndBorderMode
@@ -178,10 +181,11 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionEndBorderMode() MTLM
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionEndBorderMode(value MTLMotionBorderMode) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionEndBorderMode:"), value)
 }
+
 // Configures the motion end time for this geometry.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `1.0f`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PrimitiveAccelerationStructureDescriptor/motionEndTime
@@ -192,10 +196,11 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionEndTime() float32 {
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionEndTime(value float32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionEndTime:"), value)
 }
+
 // Sets the motion keyframe count.
 //
 // # Discussion
-// 
+//
 // This property’s default is `1`, indicating no motion.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PrimitiveAccelerationStructureDescriptor/motionKeyframeCount
@@ -206,15 +211,16 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionKeyframeCount() uint
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionKeyframeCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionKeyframeCount:"), value)
 }
+
 // Configures the behavior when the ray-tracing system samples the
 // acceleration structure before the motion start time.
 //
 // # Discussion
-// 
+//
 // Use this property to control the behavior when the ray-tracing system
 // samples the acceleration structure at a time prior to the one you set for
 // [MotionStartTime].
-// 
+//
 // The default value of this property is [MTLMotionBorderModeClamp].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PrimitiveAccelerationStructureDescriptor/motionStartBorderMode
@@ -225,10 +231,11 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionStartBorderMode() MT
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionStartBorderMode(value MTLMotionBorderMode) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionStartBorderMode:"), value)
 }
+
 // Configures the motion start time for this geometry.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `0.0f`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PrimitiveAccelerationStructureDescriptor/motionStartTime
@@ -239,4 +246,3 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionStartTime() float32 
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionStartTime(value float32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionStartTime:"), value)
 }
-

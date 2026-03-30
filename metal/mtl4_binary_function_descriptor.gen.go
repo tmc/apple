@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -64,6 +65,7 @@ type MTL4BinaryFunctionDescriptor struct {
 func MTL4BinaryFunctionDescriptorFromID(id objc.ID) MTL4BinaryFunctionDescriptor {
 	return MTL4BinaryFunctionDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4BinaryFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -125,10 +127,11 @@ func (m MTL4BinaryFunctionDescriptor) FunctionDescriptor() IMTL4FunctionDescript
 func (m MTL4BinaryFunctionDescriptor) SetFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptor:"), value)
 }
+
 // Associates a string that uniquely identifies a binary function.
 //
 // # Discussion
-// 
+//
 // You can use this property to look up a corresponding binary function by
 // name in a [MTL4Archive] instance.
 //
@@ -140,6 +143,7 @@ func (m MTL4BinaryFunctionDescriptor) Name() string {
 func (m MTL4BinaryFunctionDescriptor) SetName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
+
 // Configure the options to use at binary function creation time.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4BinaryFunctionDescriptor/options
@@ -150,4 +154,3 @@ func (m MTL4BinaryFunctionDescriptor) Options() MTL4BinaryFunctionOptions {
 func (m MTL4BinaryFunctionDescriptor) SetOptions(value MTL4BinaryFunctionOptions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOptions:"), value)
 }
-

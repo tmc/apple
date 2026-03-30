@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,11 +46,11 @@ func (cc CATransformLayerClass) Alloc() CATransformLayer {
 // hierarchy rendering model used by other layer types.
 //
 // # Overview
-// 
+//
 // Unlike normal layers, transform layers do not flatten their sublayers into
 // the plane at `Z=0`. Due to this, they do not support many of the features
 // of the [CALayer] class compositing model:
-// 
+//
 // - Only the sublayers of a transform layer are rendered. The [CALayer]
 // properties that are rendered by a layer are ignored, including:
 // `backgroundColor`, `contents`, border style properties, stroke style
@@ -60,24 +61,24 @@ func (cc CATransformLayerClass) Alloc() CATransformLayer {
 // not form a compositing group. - The [HitTest] method should never be called
 // on a transform layer as they do not have a 2D coordinate space into which
 // the point can be mapped.
-// 
+//
 // # Example: Displaying layers in 3D
-// 
+//
 // Because [CATransformLayer] creates true 3D layer hierarchies, you can
 // display otherwise hidden layers when applying 3D transforms.
-// 
+//
 // The following code shows three layers with different colors but identical
 // sizes added at the same position to `layer`. The blue layer is visible
 // because it has the highest [CATransformLayer.ZPosition]. Defining the layer’s transform
 // rotates the viewpoint in 3D space and, because `layer` is a
 // [CATransformLayer], all three layers are visible as illustrated below.
-// 
+//
 // [media-2826921]
-// 
+//
 // However, if `layer` is created as a [CALayer], the green and red layers,
 // being hidden by the blue layer, are not rendered as illustrated in the
 // following figure.
-// 
+//
 // [media-2826922]
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATransformLayer
@@ -92,6 +93,7 @@ type CATransformLayer struct {
 func CATransformLayerFromID(id objc.ID) CATransformLayer {
 	return CATransformLayer{CALayer: CALayerFromID(id)}
 }
+
 // NOTE: CATransformLayer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,20 +128,20 @@ func NewCATransformLayer() CATransformLayer {
 // layer: The layer from which custom fields should be copied.
 //
 // # Return Value
-// 
+//
 // A layer instance with any custom instance variables copied from `layer`.
 //
 // # Discussion
-// 
+//
 // This initializer is used to create shadow copies of layers, for example,
 // for the [PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
-// 
+//
 // If you are implementing a custom layer subclass, you can override this
 // method and use it to copy the values of instance variables into the new
 // object. Subclasses should always invoke the superclass implementation.
-// 
+//
 // This method is the designated initializer for layer objects in the
 // presentation layer.
 //
@@ -149,4 +151,3 @@ func NewTransformLayerWithLayer(layer objectivec.IObject) CATransformLayer {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)
 	return CATransformLayerFromID(rv)
 }
-

@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (mc MLSNSoundPrintClass) Alloc() MLSNSoundPrint {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLSNSoundPrint.ModelDescription]
 //   - [MLSNSoundPrint.PredictionFromFeaturesOptionsError]
 //   - [MLSNSoundPrint.InitWithModelDescriptionParameterDictionaryError]
+//
 // See: https://developer.apple.com/documentation/CoreML/_MLSNSoundPrint
 type MLSNSoundPrint struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type MLSNSoundPrint struct {
 func MLSNSoundPrintFromID(id objc.ID) MLSNSoundPrint {
 	return MLSNSoundPrint{objectivec.Object{ID: id}}
 }
+
 // Ensure MLSNSoundPrint implements IMLSNSoundPrint.
 var _ IMLSNSoundPrint = MLSNSoundPrint{}
 
@@ -99,7 +101,6 @@ func NewMLSNSoundPrint() MLSNSoundPrint {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLSNSoundPrint/initWithModelDescription:parameterDictionary:error:
 func NewMLSNSoundPrintWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLSNSoundPrint, error) {
 	var errorPtr objc.ID
@@ -112,7 +113,6 @@ func NewMLSNSoundPrintWithModelDescriptionParameterDictionaryError(description o
 	return MLSNSoundPrintFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLSNSoundPrint/predictionFromFeatures:options:error:
 func (m MLSNSoundPrint) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -124,7 +124,7 @@ func (m MLSNSoundPrint) PredictionFromFeaturesOptionsError(features objectivec.I
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLSNSoundPrint/initWithModelDescription:parameterDictionary:error:
 func (m MLSNSoundPrint) InitWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLSNSoundPrint, error) {
 	var errorPtr objc.ID
@@ -142,4 +142,3 @@ func (m MLSNSoundPrint) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
-

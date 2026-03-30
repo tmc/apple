@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (vc VZVirtioInputDeviceSpecificConfigurationClass) Alloc() VZVirtioInputDev
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtioInputDeviceSpecificConfiguration.Configurations]
 //   - [VZVirtioInputDeviceSpecificConfiguration.InitWithConfigurations]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioInputDeviceSpecificConfiguration
 type VZVirtioInputDeviceSpecificConfiguration struct {
 	VZVirtioDeviceSpecificConfiguration
@@ -56,6 +57,7 @@ type VZVirtioInputDeviceSpecificConfiguration struct {
 func VZVirtioInputDeviceSpecificConfigurationFromID(id objc.ID) VZVirtioInputDeviceSpecificConfiguration {
 	return VZVirtioInputDeviceSpecificConfiguration{VZVirtioDeviceSpecificConfiguration: VZVirtioDeviceSpecificConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioInputDeviceSpecificConfiguration implements IVZVirtioInputDeviceSpecificConfiguration.
 var _ IVZVirtioInputDeviceSpecificConfiguration = VZVirtioInputDeviceSpecificConfiguration{}
 
@@ -95,7 +97,6 @@ func NewVZVirtioInputDeviceSpecificConfiguration() VZVirtioInputDeviceSpecificCo
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioInputDeviceSpecificConfiguration/initWithConfigurations:
 func NewVZVirtioInputDeviceSpecificConfigurationWithConfigurations(configurations objectivec.IObject) VZVirtioInputDeviceSpecificConfiguration {
 	instance := getVZVirtioInputDeviceSpecificConfigurationClass().Alloc()
@@ -103,7 +104,6 @@ func NewVZVirtioInputDeviceSpecificConfigurationWithConfigurations(configuration
 	return VZVirtioInputDeviceSpecificConfigurationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioInputDeviceSpecificConfiguration/initWithConfigurations:
 func (v VZVirtioInputDeviceSpecificConfiguration) InitWithConfigurations(configurations objectivec.IObject) VZVirtioInputDeviceSpecificConfiguration {
 	rv := objc.Send[VZVirtioInputDeviceSpecificConfiguration](v.ID, objc.Sel("initWithConfigurations:"), configurations)
@@ -115,4 +115,3 @@ func (v VZVirtioInputDeviceSpecificConfiguration) Configurations() foundation.IN
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("configurations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

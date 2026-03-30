@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"context"
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -43,7 +44,6 @@ func (gc GTMioEncoderQuadDataClass) Alloc() GTMioEncoderQuadData {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioEncoderQuadData._buildCliquesEncoderFunctionIndexProgramTypeCliqueFilter]
@@ -81,6 +81,7 @@ func (gc GTMioEncoderQuadDataClass) Alloc() GTMioEncoderQuadData {
 //   - [GTMioEncoderQuadData.InitWithTraceDataEncoderFunctionIndexDrawIndexProgramTypeOptions]
 //   - [GTMioEncoderQuadData.InitWithTraceDataEncoderFunctionIndexPipelineStateIdProgramTypeOptions]
 //   - [GTMioEncoderQuadData.InitWithTraceDataEncoderFunctionIndexProgramTypeOptions]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData
 type GTMioEncoderQuadData struct {
 	objectivec.Object
@@ -90,6 +91,7 @@ type GTMioEncoderQuadData struct {
 func GTMioEncoderQuadDataFromID(id objc.ID) GTMioEncoderQuadData {
 	return GTMioEncoderQuadData{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioEncoderQuadData implements IGTMioEncoderQuadData.
 var _ IGTMioEncoderQuadData = GTMioEncoderQuadData{}
 
@@ -195,7 +197,6 @@ func NewGTMioEncoderQuadData() GTMioEncoderQuadData {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:
 func NewGTMioEncoderQuadDataWithTraceDataEncoderFunctionIndexDrawIndexProgramTypeOptions(data objectivec.IObject, index uint32, index2 uint32, type_ uint16, options uint64) GTMioEncoderQuadData {
 	instance := getGTMioEncoderQuadDataClass().Alloc()
@@ -203,7 +204,6 @@ func NewGTMioEncoderQuadDataWithTraceDataEncoderFunctionIndexDrawIndexProgramTyp
 	return GTMioEncoderQuadDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:
 func NewGTMioEncoderQuadDataWithTraceDataEncoderFunctionIndexPipelineStateIdProgramTypeOptions(data objectivec.IObject, index uint32, id uint64, type_ uint16, options uint64) GTMioEncoderQuadData {
 	instance := getGTMioEncoderQuadDataClass().Alloc()
@@ -211,7 +211,6 @@ func NewGTMioEncoderQuadDataWithTraceDataEncoderFunctionIndexPipelineStateIdProg
 	return GTMioEncoderQuadDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/initWithTraceData:encoderFunctionIndex:programType:options:
 func NewGTMioEncoderQuadDataWithTraceDataEncoderFunctionIndexProgramTypeOptions(data objectivec.IObject, index uint32, type_ uint16, options uint64) GTMioEncoderQuadData {
 	instance := getGTMioEncoderQuadDataClass().Alloc()
@@ -219,10 +218,9 @@ func NewGTMioEncoderQuadDataWithTraceDataEncoderFunctionIndexProgramTypeOptions(
 	return GTMioEncoderQuadDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/_buildCliques:encoderFunctionIndex:programType:cliqueFilter:
 func (g GTMioEncoderQuadData) _buildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
-_block3, _ := NewVoidBlock(filter)
+	_block3, _ := NewVoidBlock(filter)
 	rv := objc.Send[bool](g.ID, objc.Sel("_buildCliques:encoderFunctionIndex:programType:cliqueFilter:"), cliques, index, type_, _block3)
 	return rv
 }
@@ -231,10 +229,10 @@ _block3, _ := NewVoidBlock(filter)
 func (g GTMioEncoderQuadData) BuildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
 	return g._buildCliquesEncoderFunctionIndexProgramTypeCliqueFilter(cliques, index, type_, filter)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/_buildCompute:encoderFunctionIndex:programType:cliqueFilter:
 func (g GTMioEncoderQuadData) _buildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
-_block3, _ := NewVoidBlock(filter)
+	_block3, _ := NewVoidBlock(filter)
 	rv := objc.Send[bool](g.ID, objc.Sel("_buildCompute:encoderFunctionIndex:programType:cliqueFilter:"), compute, index, type_, _block3)
 	return rv
 }
@@ -243,10 +241,10 @@ _block3, _ := NewVoidBlock(filter)
 func (g GTMioEncoderQuadData) BuildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
 	return g._buildComputeEncoderFunctionIndexProgramTypeCliqueFilter(compute, index, type_, filter)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/_buildFragment:encoderFunctionIndex:programType:cliqueFilter:
 func (g GTMioEncoderQuadData) _buildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
-_block3, _ := NewVoidBlock(filter)
+	_block3, _ := NewVoidBlock(filter)
 	rv := objc.Send[bool](g.ID, objc.Sel("_buildFragment:encoderFunctionIndex:programType:cliqueFilter:"), fragment, index, type_, _block3)
 	return rv
 }
@@ -255,7 +253,7 @@ _block3, _ := NewVoidBlock(filter)
 func (g GTMioEncoderQuadData) BuildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment objectivec.IObject, index uint32, type_ uint16, filter VoidHandler) bool {
 	return g._buildFragmentEncoderFunctionIndexProgramTypeCliqueFilter(fragment, index, type_, filter)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/_handleClique:
 func (g GTMioEncoderQuadData) _handleClique(clique unsafe.Pointer) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_handleClique:"), clique)
@@ -265,85 +263,85 @@ func (g GTMioEncoderQuadData) _handleClique(clique unsafe.Pointer) {
 func (g GTMioEncoderQuadData) HandleClique(clique unsafe.Pointer) {
 	g._handleClique(clique)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/build:encoderFunctionIndex:cliqueFilter:
 func (g GTMioEncoderQuadData) BuildEncoderFunctionIndexCliqueFilter(build objectivec.IObject, index uint32, filter VoidHandler) bool {
-_block2, _ := NewVoidBlock(filter)
+	_block2, _ := NewVoidBlock(filter)
 	rv := objc.Send[bool](g.ID, objc.Sel("build:encoderFunctionIndex:cliqueFilter:"), build, index, _block2)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/cliqueIndexesForQuad:count:
 func (g GTMioEncoderQuadData) CliqueIndexesForQuadCount(quad []objectivec.IObject, count unsafe.Pointer) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cliqueIndexesForQuad:count:"), objc.CArray(quad), count)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/cliqueIndexesForQuadLocation:count:
 func (g GTMioEncoderQuadData) CliqueIndexesForQuadLocationCount(location uint64, count unsafe.Pointer) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cliqueIndexesForQuadLocation:count:"), location, count)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/containsDraw:
 func (g GTMioEncoderQuadData) ContainsDraw(draw uint32) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("containsDraw:"), draw)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/drawIndexesForQuad:
 func (g GTMioEncoderQuadData) DrawIndexesForQuad(quad unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("drawIndexesForQuad:"), quad)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/drawIndexesForQuadLocation:
 func (g GTMioEncoderQuadData) DrawIndexesForQuadLocation(location uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("drawIndexesForQuadLocation:"), location)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/enumerateCliquesForQuad:enumerator:
 func (g GTMioEncoderQuadData) EnumerateCliquesForQuadEnumerator(quad unsafe.Pointer, enumerator VoidHandler) {
-_block1, _ := NewVoidBlock(enumerator)
+	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateCliquesForQuad:enumerator:"), quad, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/enumerateCliquesForQuadLocation:enumerator:
 func (g GTMioEncoderQuadData) EnumerateCliquesForQuadLocationEnumerator(location uint64, enumerator VoidHandler) {
-_block1, _ := NewVoidBlock(enumerator)
+	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateCliquesForQuadLocation:enumerator:"), location, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/enumerateOrderedQuads:
 func (g GTMioEncoderQuadData) EnumerateOrderedQuads(quads VoidHandler) {
-_block0, _ := NewVoidBlock(quads)
+	_block0, _ := NewVoidBlock(quads)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateOrderedQuads:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/instructionsExecutedForQuadLocation:threadInstructionsExectued:activeThreadInstructionsExecuted:totalInstructionsExectued:numActiveThreads:
 func (g GTMioEncoderQuadData) InstructionsExecutedForQuadLocationThreadInstructionsExectuedActiveThreadInstructionsExecutedTotalInstructionsExectuedNumActiveThreads(location uint64, exectued unsafe.Pointer, executed unsafe.Pointer, exectued2 unsafe.Pointer, threads unsafe.Pointer) {
 	objc.Send[objc.ID](g.ID, objc.Sel("instructionsExecutedForQuadLocation:threadInstructionsExectued:activeThreadInstructionsExecuted:totalInstructionsExectued:numActiveThreads:"), location, exectued, executed, exectued2, threads)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/quadIndexForQuad:
 func (g GTMioEncoderQuadData) QuadIndexForQuad(quad unsafe.Pointer) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("quadIndexForQuad:"), quad)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:
 func (g GTMioEncoderQuadData) InitWithTraceDataEncoderFunctionIndexDrawIndexProgramTypeOptions(data objectivec.IObject, index uint32, index2 uint32, type_ uint16, options uint64) GTMioEncoderQuadData {
 	rv := objc.Send[GTMioEncoderQuadData](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:drawIndex:programType:options:"), data, index, index2, type_, options)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:
 func (g GTMioEncoderQuadData) InitWithTraceDataEncoderFunctionIndexPipelineStateIdProgramTypeOptions(data objectivec.IObject, index uint32, id uint64, type_ uint16, options uint64) GTMioEncoderQuadData {
 	rv := objc.Send[GTMioEncoderQuadData](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:pipelineStateId:programType:options:"), data, index, id, type_, options)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/initWithTraceData:encoderFunctionIndex:programType:options:
 func (g GTMioEncoderQuadData) InitWithTraceDataEncoderFunctionIndexProgramTypeOptions(data objectivec.IObject, index uint32, type_ uint16, options uint64) GTMioEncoderQuadData {
 	rv := objc.Send[GTMioEncoderQuadData](g.ID, objc.Sel("initWithTraceData:encoderFunctionIndex:programType:options:"), data, index, type_, options)
@@ -355,81 +353,97 @@ func (g GTMioEncoderQuadData) Depth() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("depth"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/drawCount
 func (g GTMioEncoderQuadData) DrawCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("drawCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/drawIndexes
 func (g GTMioEncoderQuadData) DrawIndexes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("drawIndexes"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/encoderInfo
 func (g GTMioEncoderQuadData) EncoderInfo() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("encoderInfo"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/heatmapType
 func (g GTMioEncoderQuadData) HeatmapType() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("heatmapType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/height
 func (g GTMioEncoderQuadData) Height() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("height"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/maxCost
 func (g GTMioEncoderQuadData) MaxCost() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("maxCost"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/maxTimestamp
 func (g GTMioEncoderQuadData) MaxTimestamp() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("maxTimestamp"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/minCost
 func (g GTMioEncoderQuadData) MinCost() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("minCost"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/minTimestamp
 func (g GTMioEncoderQuadData) MinTimestamp() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("minTimestamp"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/options
 func (g GTMioEncoderQuadData) Options() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("options"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/programType
 func (g GTMioEncoderQuadData) ProgramType() uint16 {
 	rv := objc.Send[uint16](g.ID, objc.Sel("programType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/quadCount
 func (g GTMioEncoderQuadData) QuadCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("quadCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/quads
 func (g GTMioEncoderQuadData) Quads() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("quads"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/referenceComputePosition
 func (g GTMioEncoderQuadData) ReferenceComputePosition() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("referenceComputePosition"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/traceData
 func (g GTMioEncoderQuadData) TraceData() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("traceData"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioEncoderQuadData/width
 func (g GTMioEncoderQuadData) Width() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("width"))
@@ -540,4 +554,3 @@ func (g GTMioEncoderQuadData) EnumerateOrderedQuadsSync(ctx context.Context) err
 		return ctx.Err()
 	}
 }
-

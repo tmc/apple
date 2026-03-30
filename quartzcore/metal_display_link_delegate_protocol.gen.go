@@ -4,9 +4,11 @@ package quartzcore
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol your app implements to respond to callbacks from Core Animation for a Metal display link.
@@ -25,6 +27,7 @@ type CAMetalDisplayLinkDelegate interface {
 type CAMetalDisplayLinkDelegateObject struct {
 	objectivec.Object
 }
+
 func (o CAMetalDisplayLinkDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -45,11 +48,9 @@ func CAMetalDisplayLinkDelegateObjectFromID(id objc.ID) CAMetalDisplayLinkDelega
 // update: An update instance that contains the time the system intends to update the
 // display, a [CAMetalDrawable] instance, and a deadline to call its
 // [present()] method.
-// //
-// [present()]: https://developer.apple.com/documentation/Metal/MTLDrawable/present()
 //
 // # Discussion
-// 
+//
 // In this method’s implementation, perform your app’s rendering on the
 // [Layer] or [Texture] of the `update` instance’s [Drawable] property.
 // Before calling [present()], encode all your Metal commands to the `link`
@@ -57,13 +58,15 @@ func CAMetalDisplayLinkDelegateObjectFromID(id objc.ID) CAMetalDisplayLinkDelega
 // your commands before the frame displays on screen, determined by the value
 // of the `link` parameter’s [PreferredFrameLatency] property.
 //
-// [MTLDevice]: https://developer.apple.com/documentation/Metal/MTLDevice
-// [present()]: https://developer.apple.com/documentation/Metal/MTLDrawable/present()
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDisplayLinkDelegate/metalDisplayLink(_:needsUpdate:)
+//
+// [present()]: https://developer.apple.com/documentation/Metal/MTLDrawable/present()
+// [MTLDevice]: https://developer.apple.com/documentation/Metal/MTLDevice
+//
+// [present()]: https://developer.apple.com/documentation/Metal/MTLDrawable/present()
 func (o CAMetalDisplayLinkDelegateObject) MetalDisplayLinkNeedsUpdate(link ICAMetalDisplayLink, update ICAMetalDisplayLinkUpdate) {
 	objc.Send[struct{}](o.ID, objc.Sel("metalDisplayLink:needsUpdate:"), link, update)
-	}
+}
 
 // CAMetalDisplayLinkDelegateConfig holds optional typed callbacks for [CAMetalDisplayLinkDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -126,4 +129,3 @@ func NewCAMetalDisplayLinkDelegate(config CAMetalDisplayLinkDelegateConfig) CAMe
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return CAMetalDisplayLinkDelegateObjectFromID(instance)
 }
-

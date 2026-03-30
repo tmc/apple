@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,14 +45,14 @@ func (nc NSLayoutDimensionClass) Alloc() NSLayoutDimension {
 // fluent API.
 //
 // # Overview
-// 
+//
 // Use these constraints to programmatically define your layout using Auto
 // Layout. All sizes are measured in points. In addition to providing
 // size-specific methods for creating constraints, this class adds type
 // information to the methods inherited from [NSLayoutAnchor]. Specifically,
 // the generic methods declared by [NSLayoutAnchor] must now take a matching
 // [NSLayoutDimension] object.
-// 
+//
 // For more information on using layout anchors, see [NSLayoutAnchor].
 //
 // # Building constraints
@@ -78,6 +79,7 @@ type NSLayoutDimension struct {
 func NSLayoutDimensionFromID(id objc.ID) NSLayoutDimension {
 	return NSLayoutDimension{NSLayoutAnchor: NSLayoutAnchorFromID(id)}
 }
+
 // NOTE: NSLayoutDimension adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -148,18 +150,18 @@ func NewNSLayoutDimension() NSLayoutDimension {
 // m: The multiplier constant for the constraint.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines the attribute represented by
 // this layout anchor as equal to the attribute represented by the `anchor`
 // parameter multiplied by the `m` constant.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute = m * second
 // attribute`. Where `first attribute` is the layout attribute represented by
 // the anchor receiving this method call, and `second attribute` is the layout
 // attribute represented by the `anchor` parameter.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutDimension/constraint(equalTo:multiplier:)
@@ -167,6 +169,7 @@ func (l NSLayoutDimension) ConstraintEqualToAnchorMultiplier(anchor INSLayoutDim
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToAnchor:multiplier:"), anchor, m)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the anchor’s size attribute as equal to
 // the specified size attribute multiplied by a constant plus an offset.
 //
@@ -177,18 +180,18 @@ func (l NSLayoutDimension) ConstraintEqualToAnchorMultiplier(anchor INSLayoutDim
 // c: The offset constant for this relationship.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines the attribute represented by
 // this layout anchor as equal to the attribute represented by the `anchor`
 // parameter multiplied by the `m` constant plus the constant `c`.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute = (m * second
 // attribute) + c`. Where `first attribute` is the layout attribute
 // represented by the anchor receiving this method call, and `second
 // attribute` is the layout attribute represented by the `anchor` parameter.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutDimension/constraint(equalTo:multiplier:constant:)
@@ -196,6 +199,7 @@ func (l NSLayoutDimension) ConstraintEqualToAnchorMultiplierConstant(anchor INSL
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToAnchor:multiplier:constant:"), anchor, m, c)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines a constant size for the anchor’s size
 // attribute.
 //
@@ -203,16 +207,16 @@ func (l NSLayoutDimension) ConstraintEqualToAnchorMultiplierConstant(anchor INSL
 // dimension anchor.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines a constant size for the
 // attribute associated with this dimension anchor.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute = c`. Where `first
 // attribute` is the layout attribute represented by the anchor receiving this
 // method call.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutDimension/constraint(equalToConstant:)
@@ -220,6 +224,7 @@ func (l NSLayoutDimension) ConstraintEqualToConstant(c float64) INSLayoutConstra
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToConstant:"), c)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the anchor’s size attribute as greater
 // than or equal to the specified anchor multiplied by the constant.
 //
@@ -228,18 +233,18 @@ func (l NSLayoutDimension) ConstraintEqualToConstant(c float64) INSLayoutConstra
 // m: The multiplier constant for the constraint.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines the attribute represented by
 // this layout anchor as greater than or equal to the attribute represented by
 // the `anchor` parameter multiplied by the `m` constant.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute >= m * second
 // attribute`. Where `first attribute` is the layout attribute represented by
 // the anchor receiving this method call, and `second attribute` is the layout
 // attribute represented by the `anchor` parameter.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutDimension/constraint(greaterThanOrEqualTo:multiplier:)
@@ -247,6 +252,7 @@ func (l NSLayoutDimension) ConstraintGreaterThanOrEqualToAnchorMultiplier(anchor
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToAnchor:multiplier:"), anchor, m)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the anchor’s size attribute as greater
 // than or equal to the specified anchor multiplied by the constant plus an
 // offset.
@@ -258,19 +264,19 @@ func (l NSLayoutDimension) ConstraintGreaterThanOrEqualToAnchorMultiplier(anchor
 // c: The constant offset for this relationship.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines the attribute represented by
 // this layout anchor as greater than or equal to the attribute represented by
 // the `anchor` parameter multiplied by the `m` constant plus the constant
 // `c`.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute >= (m * second
 // attribute) + c`. Where `first attribute` is the layout attribute
 // represented by the anchor receiving this method call, and `second
 // attribute` is the layout attribute represented by the `anchor` parameter.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutDimension/constraint(greaterThanOrEqualTo:multiplier:constant:)
@@ -278,6 +284,7 @@ func (l NSLayoutDimension) ConstraintGreaterThanOrEqualToAnchorMultiplierConstan
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToAnchor:multiplier:constant:"), anchor, m, c)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the minimum size for the anchor’s size
 // attribute.
 //
@@ -285,16 +292,16 @@ func (l NSLayoutDimension) ConstraintGreaterThanOrEqualToAnchorMultiplierConstan
 // this dimension anchor.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines a minimum size for the
 // attribute associated with this dimension anchor.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute >= c`. Where `first
 // attribute` is the layout attribute represented by the anchor receiving this
 // method call.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutDimension/constraint(greaterThanOrEqualToConstant:)
@@ -302,6 +309,7 @@ func (l NSLayoutDimension) ConstraintGreaterThanOrEqualToConstant(c float64) INS
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToConstant:"), c)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the anchor’s size attribute as less
 // than or equal to the specified anchor multiplied by the constant.
 //
@@ -310,18 +318,18 @@ func (l NSLayoutDimension) ConstraintGreaterThanOrEqualToConstant(c float64) INS
 // m: The multiplier constant for the constraint.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines the attribute represented by
 // this layout anchor as less than or equal to the attribute represented by
 // the `anchor` parameter multiplied by the `m` constant.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute <= m * second
 // attribute` . Where `first attribute` is the layout attribute represented by
 // the anchor receiving this method call, and `second attribute` is the layout
 // attribute represented by the `anchor` parameter.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutDimension/constraint(lessThanOrEqualTo:multiplier:)
@@ -329,6 +337,7 @@ func (l NSLayoutDimension) ConstraintLessThanOrEqualToAnchorMultiplier(anchor IN
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToAnchor:multiplier:"), anchor, m)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the anchor’s size attribute as greater
 // than or equal to the specified anchor multiplied by the constant plus an
 // offset.
@@ -340,19 +349,19 @@ func (l NSLayoutDimension) ConstraintLessThanOrEqualToAnchorMultiplier(anchor IN
 // c: The constant offset for this relationship.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines the attribute represented by
 // this layout anchor as less than or equal to the attribute represented by
 // the `anchor` parameter multiplied by the `m` constant plus the constant
 // `c`.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute <= (m * second
 // attribute) + c`. Where `first attribute` is the layout attribute
 // represented by the anchor receiving this method call, and `second
 // attribute` is the layout attribute represented by the `anchor` parameter.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutDimension/constraint(lessThanOrEqualTo:multiplier:constant:)
@@ -360,6 +369,7 @@ func (l NSLayoutDimension) ConstraintLessThanOrEqualToAnchorMultiplierConstant(a
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToAnchor:multiplier:constant:"), anchor, m, c)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the maximum size for the anchor’s size
 // attribute.
 //
@@ -367,16 +377,16 @@ func (l NSLayoutDimension) ConstraintLessThanOrEqualToAnchorMultiplierConstant(a
 // this dimension anchor.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines a maximum size for the
 // attribute associated with this dimension anchor.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute <= c`. Where `first
 // attribute` is the layout attribute represented by the anchor receiving this
 // method call.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutDimension/constraint(lessThanOrEqualToConstant:)
@@ -384,4 +394,3 @@ func (l NSLayoutDimension) ConstraintLessThanOrEqualToConstant(c float64) INSLay
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToConstant:"), c)
 	return NSLayoutConstraintFromID(rv)
 }
-

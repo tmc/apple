@@ -39,6 +39,7 @@ type CIDocumentEnhancer interface {
 type CIDocumentEnhancerObject struct {
 	objectivec.Object
 }
+
 func (o CIDocumentEnhancerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIDocumentEnhancerObjectFromID(id objc.ID) CIDocumentEnhancerObject {
 func (o CIDocumentEnhancerObject) Amount() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/inputImage
 func (o CIDocumentEnhancerObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIDocumentEnhancerObject) InputImage() ICIImage {
 func (o CIDocumentEnhancerObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The amount of enhancement.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/amount
 func (o CIDocumentEnhancerObject) SetAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAmount:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/inputImage
 func (o CIDocumentEnhancerObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

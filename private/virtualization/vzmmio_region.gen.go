@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZMMIORegionClass) Alloc() VZMMIORegion {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMMIORegion.BaseAddress]
@@ -55,6 +55,7 @@ func (vc VZMMIORegionClass) Alloc() VZMMIORegion {
 //   - [VZMMIORegion.Description]
 //   - [VZMMIORegion.Hash]
 //   - [VZMMIORegion.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion
 type VZMMIORegion struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type VZMMIORegion struct {
 func VZMMIORegionFromID(id objc.ID) VZMMIORegion {
 	return VZMMIORegion{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMMIORegion implements IVZMMIORegion.
 var _ IVZMMIORegion = VZMMIORegion{}
 
@@ -119,7 +121,6 @@ func NewVZMMIORegion() VZMMIORegion {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/initWithBaseAddress:length:
 func NewVZMMIORegionWithBaseAddressLength(address uint64, length uint64) VZMMIORegion {
 	instance := getVZMMIORegionClass().Alloc()
@@ -127,7 +128,6 @@ func NewVZMMIORegionWithBaseAddressLength(address uint64, length uint64) VZMMIOR
 	return VZMMIORegionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/initWithBaseAddress:length:writeSynchronously:
 func NewVZMMIORegionWithBaseAddressLengthWriteSynchronously(address uint64, length uint64, synchronously bool) VZMMIORegion {
 	instance := getVZMMIORegionClass().Alloc()
@@ -135,19 +135,18 @@ func NewVZMMIORegionWithBaseAddressLengthWriteSynchronously(address uint64, leng
 	return VZMMIORegionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/encodeWithEncoder:
 func (v VZMMIORegion) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/initWithBaseAddress:length:
 func (v VZMMIORegion) InitWithBaseAddressLength(address uint64, length uint64) VZMMIORegion {
 	rv := objc.Send[VZMMIORegion](v.ID, objc.Sel("initWithBaseAddress:length:"), address, length)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/initWithBaseAddress:length:writeSynchronously:
 func (v VZMMIORegion) InitWithBaseAddressLengthWriteSynchronously(address uint64, length uint64, synchronously bool) VZMMIORegion {
 	rv := objc.Send[VZMMIORegion](v.ID, objc.Sel("initWithBaseAddress:length:writeSynchronously:"), address, length, synchronously)
@@ -159,34 +158,39 @@ func (v VZMMIORegion) BaseAddress() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("baseAddress"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/debugDescription
 func (v VZMMIORegion) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/description
 func (v VZMMIORegion) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/hash
 func (v VZMMIORegion) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/length
 func (v VZMMIORegion) Length() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("length"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/superclass
 func (v VZMMIORegion) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMMIORegion/writeSynchronously
 func (v VZMMIORegion) WriteSynchronously() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("writeSynchronously"))
 	return rv
 }
-

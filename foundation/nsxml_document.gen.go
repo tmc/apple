@@ -3,10 +3,11 @@
 package foundation
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 // An XML document as internalized into a logical tree structure.
 //
 // # Overview
-// 
+//
 // An [NSXMLDocument] object can have multiple child nodes but only one
 // element, the root element. Any other node must be a [NSXMLNode] object
 // representing a comment or a processing instruction. If you attempt to add
@@ -56,7 +57,7 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 // and that object already has a parent, [NSXMLDocument] raises an exception.
 // An [NSXMLDocument] object may also have document-global attributes, such as
 // XML version, character encoding, referenced DTD, and MIME type.
-// 
+//
 // The initializers of the [NSXMLDocument] class read an external source of
 // XML, whether it be a local file or remote website, parse it, and process it
 // into the tree representation. You can also construct an [NSXMLDocument]
@@ -64,33 +65,33 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 // document attributes, methods for transforming documents using XSLT, a
 // method for dynamically validating a document, and methods for printing out
 // the content of an [NSXMLDocument] as XML, XHTML, HTML, or plain text.
-// 
+//
 // The [NSXMLDocument] class is thread-safe as long as any given instance is
 // used only in one thread.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // # Methods to Override
-// 
+//
 // To subclass [NSXMLDocument] you need to override the primary initializer,
 // [InitWithDataOptionsError], and the methods listed below. In most cases,
 // you need only invoke the superclass implementation, adding any
 // subclass-specific code before or after the invocation, as necessary.
-// 
+//
 // - [RootElement] - [SetChildren] - [RemoveChildAtIndex] -
 // [InsertChildAtIndex] - [CharacterEncoding] - [CharacterEncoding] -
 // [DocumentContentKind] - [DocumentContentKind] - [DTD] - [MIMEType] -
 // [Standalone] - [Version] - [Version]
-// 
+//
 // By default [NSXMLDocument] implements the [NSObject] [isEqual(_:)] method
 // to perform a deep comparison: two [NSXMLDocument] objects are not
 // considered equal unless they have the same name, same child nodes, same
 // attributes, and so on. The comparison does not consider the parent node
 // (and hence the node’s location). If you want a different standard of
-// comparison, override ``.
-// 
+// comparison, override “.
+//
 // # Special Considerations
-// 
+//
 // Because of the architecture and data model of NSXML, when it parses and
 // processes a source of XML it cannot know about your subclass unless you
 // override the class method [ReplacementClassForClass] to return your custom
@@ -98,8 +99,6 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 // [NSXML] counterpart—for example, it is a subclass of [NSXMLNode] that
 // represents CDATA sections—then you can walk the tree after it has been
 // created and insert the new node where appropriate.
-//
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 //
 // # Initializing NSXMLDocument Objects
 //
@@ -152,6 +151,8 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 //   - [XMLDocument.ValidateAndReturnError]: Validates the document against the governing schema and returns whether the document conforms to the schema.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument
+//
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 type XMLDocument struct {
 	NSXMLNode
 }
@@ -165,6 +166,7 @@ func XMLDocumentFromID(id objc.ID) XMLDocument {
 
 // NSXMLDocumentFromID is an alias for [XMLDocumentFromID] for cross-framework compatibility.
 func NSXMLDocumentFromID(id objc.ID) XMLDocument { return XMLDocumentFromID(id) }
+
 // NOTE: XMLDocument adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -326,7 +328,7 @@ func NewXMLDocument() XMLDocument {
 // bit-OR’ing them. See Constants for a list of valid input options.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDocument] object, or `nil` if initialization fails
 // because of parsing errors or other reasons.
 //
@@ -353,14 +355,14 @@ func NewXMLDocumentWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptio
 // bit-OR’ing them. See Constants for a list of valid input options.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDocument] object, or `nil` if initialization fails
 // because of parsing errors or other reasons.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer for the [NSXMLDocument] class.
-// 
+//
 // If you specify [NSXMLDocumentTidyXML] as one of the options, NSXMLDocument
 // performs several clean-up operations on the document XML (such as removing
 // leading tabs). It does respect the `space="preserve"` attribute when it
@@ -383,26 +385,26 @@ func NewXMLDocumentWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XM
 //
 // kind: An `enum` constant of type [XMLNode.Kind] that indicates the type of node.
 // See Constants for a list of valid NSXMLNodeKind constants.
-// //
-// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 //
 // # Return Value
-// 
+//
 // An [NSXMLNode] object initialized with kind or `nil` if the object
 // couldn’t be created. If `kind` is not a valid NSXMLNodeKind constant, the
 // method returns an [NSXMLNode] object of kind [NSXMLInvalidKind].
 //
 // # Discussion
-// 
+//
 // This method invokes [InitWithKindOptions] with the `options` parameter set
 // to [NSXMLNodeOptionsNone].
-// 
+//
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
 // attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
 // method of this class or the [InitWithXMLString] method of the
 // [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:)
+//
+// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 func NewXMLDocumentWithKind(kind NSXMLNodeKind) XMLDocument {
 	instance := getXMLDocumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKind:"), kind)
@@ -414,8 +416,6 @@ func NewXMLDocumentWithKind(kind NSXMLNodeKind) XMLDocument {
 //
 // kind: An `enum` constant of type [XMLNode.Kind] that indicates the type of node.
 // See Constants for a list of valid NSXMLNodeKind constants.
-// //
-// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 //
 // options: One or more constants that specify initialization options; if there are
 // multiple constants, bit-OR them together. These options request operations
@@ -424,20 +424,22 @@ func NewXMLDocumentWithKind(kind NSXMLNodeKind) XMLDocument {
 // Constants for a list of valid node-initialization constants.
 //
 // # Return Value
-// 
+//
 // An [NSXMLNode] object initialized with the given kind and options, or `nil`
 // if the object couldn’t be created. If `kind` is not a valid NSXMLNodeKind
 // constant, the method returns an [NSXMLNode] object of kind
 // [NSXMLInvalidKind].
 //
 // # Discussion
-// 
+//
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
 // attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
 // method of this class or the [InitWithXMLString] method of the
 // [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:options:)
+//
+// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 func NewXMLDocumentWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLDocument {
 	instance := getXMLDocumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKind:options:"), kind, options)
@@ -450,7 +452,7 @@ func NewXMLDocumentWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions)
 // element: An [NSXMLElement] object representing an XML element.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDocument] object, or `nil` if initialization fails for
 // any reason.
 //
@@ -470,12 +472,12 @@ func NewXMLDocumentWithRootElement(element INSXMLElement) XMLDocument {
 // bit-OR’ing them. See Constants for a list of valid input options.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDocument] object, or `nil` if initialization fails
 // because of parsing errors or other reasons.
 //
 // # Discussion
-// 
+//
 // The encoding of the document is set to UTF-8.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/init(xmlString:options:)
@@ -499,7 +501,7 @@ func NewXMLDocumentWithXMLStringOptionsError(string_ string, mask NSXMLNodeOptio
 // bit-OR’ing them. See Constants for a list of valid input options.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDocument] object, or `nil` if initialization fails
 // because of parsing errors or other reasons.
 //
@@ -516,6 +518,7 @@ func (x XMLDocument) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNod
 	return NSXMLDocumentFromID(rv), nil
 
 }
+
 // Initializes and returns an [NSXMLDocument] object created from an [NSData]
 // object.
 //
@@ -525,14 +528,14 @@ func (x XMLDocument) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNod
 // bit-OR’ing them. See Constants for a list of valid input options.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDocument] object, or `nil` if initialization fails
 // because of parsing errors or other reasons.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer for the [NSXMLDocument] class.
-// 
+//
 // If you specify [NSXMLDocumentTidyXML] as one of the options, NSXMLDocument
 // performs several clean-up operations on the document XML (such as removing
 // leading tabs). It does respect the `space="preserve"` attribute when it
@@ -549,13 +552,14 @@ func (x XMLDocument) InitWithDataOptionsError(data INSData, mask NSXMLNodeOption
 	return NSXMLDocumentFromID(rv), nil
 
 }
+
 // Returns an [NSXMLDocument] object initialized with a single child, the root
 // element.
 //
 // element: An [NSXMLElement] object representing an XML element.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDocument] object, or `nil` if initialization fails for
 // any reason.
 //
@@ -564,6 +568,7 @@ func (x XMLDocument) InitWithRootElement(element INSXMLElement) XMLDocument {
 	rv := objc.Send[XMLDocument](x.ID, objc.Sel("initWithRootElement:"), element)
 	return rv
 }
+
 // Initializes and returns an [NSXMLDocument] object created from a string
 // containing XML markup text.
 //
@@ -573,12 +578,12 @@ func (x XMLDocument) InitWithRootElement(element INSXMLElement) XMLDocument {
 // bit-OR’ing them. See Constants for a list of valid input options.
 //
 // # Return Value
-// 
+//
 // An initialized [NSXMLDocument] object, or `nil` if initialization fails
 // because of parsing errors or other reasons.
 //
 // # Discussion
-// 
+//
 // The encoding of the document is set to UTF-8.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/init(xmlString:options:)
@@ -592,10 +597,11 @@ func (x XMLDocument) InitWithXMLStringOptionsError(string_ string, mask NSXMLNod
 	return NSXMLDocumentFromID(rv), nil
 
 }
+
 // Returns the root element of the receiver.
 //
 // # Return Value
-// 
+//
 // The root element of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/rootElement()
@@ -603,12 +609,13 @@ func (x XMLDocument) RootElement() INSXMLElement {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("rootElement"))
 	return NSXMLElementFromID(rv)
 }
+
 // Set the root element of the receiver.
 //
 // root: An [NSXMLNode] object that is to be the root element.
 //
 // # Discussion
-// 
+//
 // As a side effect, this method removes all other children, including
 // [NSXMLNode] objects representing comments and processing-instructions.
 //
@@ -616,6 +623,7 @@ func (x XMLDocument) RootElement() INSXMLElement {
 func (x XMLDocument) SetRootElement(root INSXMLElement) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setRootElement:"), root)
 }
+
 // Adds a child node after the last of the receiver’s existing children.
 //
 // child: The [NSXMLNode] object to be added.
@@ -624,6 +632,7 @@ func (x XMLDocument) SetRootElement(root INSXMLElement) {
 func (x XMLDocument) AddChild(child INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("addChild:"), child)
 }
+
 // Inserts a node object at specified position in the receiver’s array of
 // children.
 //
@@ -640,6 +649,7 @@ func (x XMLDocument) AddChild(child INSXMLNode) {
 func (x XMLDocument) InsertChildAtIndex(child INSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChild:atIndex:"), child, index)
 }
+
 // Inserts an array of children at a specified position in the receiver’s
 // array of children.
 //
@@ -655,6 +665,7 @@ func (x XMLDocument) InsertChildAtIndex(child INSXMLNode, index uint) {
 func (x XMLDocument) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChildren:atIndex:"), objectivec.IObjectSliceToNSArray(children), index)
 }
+
 // Removes the child node of the receiver located at a specified position in
 // its array of children.
 //
@@ -663,7 +674,7 @@ func (x XMLDocument) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 // one, an out-of-bounds exception is raised.
 //
 // # Discussion
-// 
+//
 // Subsequent children have their indexes decreased by one. The removed
 // [NSXMLNode] object is autoreleased.
 //
@@ -671,6 +682,7 @@ func (x XMLDocument) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 func (x XMLDocument) RemoveChildAtIndex(index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("removeChildAtIndex:"), index)
 }
+
 // Replaces the child node of the receiver located at a specified position in
 // its array of children with another node.
 //
@@ -682,13 +694,14 @@ func (x XMLDocument) RemoveChildAtIndex(index uint) {
 // comment, a processing instruction, or the root element.
 //
 // # Discussion
-// 
+//
 // The removed [NSXMLNode] object is autoreleased.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/replaceChild(at:with:)
 func (x XMLDocument) ReplaceChildAtIndexWithNode(index uint, node INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("replaceChildAtIndex:withNode:"), index, node)
 }
+
 // Applies the XSLT pattern rules and templates (specified as a data object)
 // to the receiver and returns a document object containing transformed XML or
 // HTML markup.
@@ -700,7 +713,7 @@ func (x XMLDocument) ReplaceChildAtIndexWithNode(index uint, node INSXMLNode) {
 // parameters to pass.
 //
 // # Return Value
-// 
+//
 // Depending on intended output, the method returns an [NSXMLDocument] object
 // an [NSData] data containing transformed XML or HTML markup. If the message
 // is supposed to create plain text or RTF, then an [NSData] object is
@@ -720,6 +733,7 @@ func (x XMLDocument) ObjectByApplyingXSLTArgumentsError(xslt INSData, arguments 
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // Applies the XSLT pattern rules and templates (specified as a string) to the
 // receiver and returns a document object containing transformed XML or HTML
 // markup.
@@ -731,7 +745,7 @@ func (x XMLDocument) ObjectByApplyingXSLTArgumentsError(xslt INSData, arguments 
 // parameters to pass.
 //
 // # Return Value
-// 
+//
 // Depending on intended output, the method returns an [NSXMLDocument] object
 // an [NSData] data containing transformed XML or HTML markup. If the message
 // is supposed to create plain text or RTF, then an [NSData] object is
@@ -751,6 +765,7 @@ func (x XMLDocument) ObjectByApplyingXSLTStringArgumentsError(xslt string, argum
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // Applies the XSLT pattern rules and templates located at a specified URL to
 // the receiver and returns a document object containing transformed XML
 // markup or an [NSData] object containing plain text, RTF text, and so on.
@@ -762,7 +777,7 @@ func (x XMLDocument) ObjectByApplyingXSLTStringArgumentsError(xslt string, argum
 // parameters to pass.
 //
 // # Return Value
-// 
+//
 // Depending on intended output, the returns an [NSXMLDocument] object an
 // [NSData] data containing transformed XML or HTML markup. If the message is
 // supposed to create plain text or RTF, then an [NSData] object is returned,
@@ -782,6 +797,7 @@ func (x XMLDocument) ObjectByApplyingXSLTAtURLArgumentsError(xsltURL INSURL, arg
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // Returns the XML string representation of the receiver—that is, the entire
 // document—encapsulated in a data object.
 //
@@ -789,7 +805,7 @@ func (x XMLDocument) ObjectByApplyingXSLTAtURLArgumentsError(xsltURL INSURL, arg
 // document; see Constants for the valid output options.
 //
 // # Discussion
-// 
+//
 // The encoding used is based on the value returned from [CharacterEncoding].
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/xmlData(options:)
@@ -797,18 +813,19 @@ func (x XMLDocument) XMLDataWithOptions(options NSXMLNodeOptions) INSData {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("XMLDataWithOptions:"), options)
 	return NSDataFromID(rv)
 }
+
 // Validates the document against the governing schema and returns whether the
 // document conforms to the schema.
 //
 // # Discussion
-// 
+//
 // The constants indicating the kind of validation errors are emitted by the
 // underlying parser; see `NSXMLParser.H()` for most of these constants. If
 // the schema is defined with a DTD, this method uses the [NSXMLDTD] object
 // set for the receiver for validation. If the schema is based on XML Schema,
 // the method uses the URL specified as the value of the `schemaLocation`
 // attribute of the root element.
-// 
+//
 // You can validate an XML document when it is first processed by specifying
 // the [NSXMLDocumentValidate] option when you initialize an [NSXMLDocument]
 // object with the [InitWithContentsOfURLOptionsError],
@@ -836,15 +853,15 @@ func (x XMLDocument) ValidateAndReturnError() (bool, error) {
 // custom class.
 //
 // # Return Value
-// 
+//
 // The substituted class.
 //
 // # Discussion
-// 
+//
 // For example, if you have a custom subclass of [NSXMLElement] that you want
 // to be used in place of [NSXMLElement], you would make the following
 // override:
-// 
+//
 // This method is invoked before a document is parsed. The substituted class
 // must be a subclass of [NSXMLNode], [NSXMLDocument], [NSXMLElement],
 // [NSXMLDTD], or [NSXMLDTDNode].
@@ -858,7 +875,7 @@ func (_XMLDocumentClass XMLDocumentClass) ReplacementClassForClass(cls objc.Clas
 // Sets the character encoding of the receiver to `encoding`,
 //
 // # Discussion
-// 
+//
 // Typically the encoding is specified in the XML declaration of a document
 // that is processed, but it can be set at any time. If the specified encoding
 // does not match the actual encoding, parsing of the document might fail.
@@ -871,12 +888,13 @@ func (x XMLDocument) CharacterEncoding() string {
 func (x XMLDocument) SetCharacterEncoding(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setCharacterEncoding:"), objc.String(value))
 }
+
 // Sets the kind of output content for the receiver.
 //
 // # Discussion
-// 
+//
 // Most of the differences among document-content kind have to do with the
-// handling of content-less tags such as ``.
+// handling of content-less tags such as “.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/documentContentKind
 func (x XMLDocument) DocumentContentKind() NSXMLDocumentContentKind {
@@ -886,11 +904,12 @@ func (x XMLDocument) DocumentContentKind() NSXMLDocumentContentKind {
 func (x XMLDocument) SetDocumentContentKind(value NSXMLDocumentContentKind) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDocumentContentKind:"), value)
 }
+
 // Returns an [NSXMLDTD] object representing the internal DTD associated with
 // the receiver.
 //
 // # Return Value
-// 
+//
 // An [NSXMLDTD] object representing the internal DTD associated with the
 // receiver or `nil` if no DTD has been associated.
 //
@@ -902,11 +921,12 @@ func (x XMLDocument) DTD() INSXMLDTD {
 func (x XMLDocument) SetDTD(value INSXMLDTD) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDTD:"), value)
 }
+
 // Sets a Boolean value that specifies whether the receiver represents a
 // standalone XML document.
 //
 // # Discussion
-// 
+//
 // A standalone document does not have an external DTD associated with it.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/isStandalone
@@ -917,20 +937,21 @@ func (x XMLDocument) Standalone() bool {
 func (x XMLDocument) SetStandalone(value bool) {
 	objc.Send[struct{}](x.ID, objc.Sel("setStandalone:"), value)
 }
+
 // Returns the MIME type for the receiver.
 //
 // # Return Value
-// 
+//
 // The MIME type for the receiver (for example, “text/xml”).
-// 
+//
 // # Discussion
-// 
+//
 // MIME types are assigned by IANA (see
 // [http://www.iana.org/assignments/media-types/index.html]).
 //
-// [http://www.iana.org/assignments/media-types/index.html]: http://www.iana.org/assignments/media-types/index.html
-//
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/mimeType
+//
+// [http://www.iana.org/assignments/media-types/index.html]: http://www.iana.org/assignments/media-types/index.html
 func (x XMLDocument) MIMEType() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("MIMEType"))
 	return NSStringFromID(rv).String()
@@ -938,10 +959,11 @@ func (x XMLDocument) MIMEType() string {
 func (x XMLDocument) SetMIMEType(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setMIMEType:"), objc.String(value))
 }
+
 // Sets the version of the receiver’s XML.
 //
 // # Discussion
-// 
+//
 // Currently, the version should be either “1.0 “or “1.1”.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/version
@@ -952,11 +974,12 @@ func (x XMLDocument) Version() string {
 func (x XMLDocument) SetVersion(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setVersion:"), objc.String(value))
 }
+
 // Returns the XML string representation of the receiver—that is, the entire
 // document—encapsulated in a data object.
 //
 // # Discussion
-// 
+//
 // This method invokes [XMLDataWithOptions] with an option of
 // [NSXMLNodeOptionsNone]. The encoding used is based on the value returned
 // from [CharacterEncoding] or UTF-8 if no valid encoding is returned by that
@@ -967,4 +990,3 @@ func (x XMLDocument) XMLData() INSData {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("XMLData"))
 	return NSDataFromID(objc.ID(rv))
 }
-

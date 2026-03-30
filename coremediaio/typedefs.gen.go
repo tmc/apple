@@ -58,4 +58,3 @@ type CMIOStreamID = string
 
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOStreamScheduledOutputNotificationProc
 type CMIOStreamScheduledOutputNotificationProc = func(uint64, uint64, unsafe.Pointer)
-

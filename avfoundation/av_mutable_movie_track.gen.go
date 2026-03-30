@@ -3,13 +3,14 @@
 package avfoundation
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -188,6 +189,7 @@ type AVMutableMovieTrack struct {
 func AVMutableMovieTrackFromID(id objc.ID) AVMutableMovieTrack {
 	return AVMutableMovieTrack{AVMovieTrack: AVMovieTrackFromID(id)}
 }
+
 // NOTE: AVMutableMovieTrack adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -550,18 +552,20 @@ func (m AVMutableMovieTrack) InsertTimeRangeOfTrackAtTimeCopySampleDataError(tim
 	return rv, nil
 
 }
+
 // Adds an empty time range to a track.
 //
 // timeRange: A time range to insert.
 //
 // # Discussion
-// 
+//
 // You can’t add empty time ranges to the end of a track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/insertEmptyTimeRange(_:)
 func (m AVMutableMovieTrack) InsertEmptyTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertEmptyTimeRange:"), timeRange)
 }
+
 // Removes the specified time range from a track.
 //
 // timeRange: The time range to remove.
@@ -570,6 +574,7 @@ func (m AVMutableMovieTrack) InsertEmptyTimeRange(timeRange coremedia.CMTimeRang
 func (m AVMutableMovieTrack) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTimeRange:"), timeRange)
 }
+
 // Changes the duration of a time range in a track.
 //
 // timeRange: The time range to change.
@@ -580,6 +585,7 @@ func (m AVMutableMovieTrack) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 func (m AVMutableMovieTrack) ScaleTimeRangeToDuration(timeRange coremedia.CMTimeRange, duration coremedia.CMTime) {
 	objc.Send[objc.ID](m.ID, objc.Sel("scaleTimeRange:toDuration:"), timeRange, duration)
 }
+
 // Inserts a reference to a media time range into a track.
 //
 // mediaTimeRange: The presentation time range of the media to be inserted.
@@ -587,11 +593,11 @@ func (m AVMutableMovieTrack) ScaleTimeRangeToDuration(timeRange coremedia.CMTime
 // trackTimeRange: The time range of the track into which the media is to be inserted.
 //
 // # Return Value
-// 
+//
 // A Boolean value that indicates whether the insertion was successful.
 //
 // # Discussion
-// 
+//
 // Use this method after appending samples or sample references to a track’s
 // media. To specify that the media time range be played at its natural rate,
 // pass `mediaTimeRange.Duration() == trackTimeRange.Duration()`; otherwise,
@@ -599,26 +605,23 @@ func (m AVMutableMovieTrack) ScaleTimeRangeToDuration(timeRange coremedia.CMTime
 // [invalid] for `trackTimeRange.Start()` to indicate that the segment should
 // be appended to the end of the track.
 //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/insertMediaTimeRange(_:into:)
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (m AVMutableMovieTrack) InsertMediaTimeRangeIntoTimeRange(mediaTimeRange coremedia.CMTimeRange, trackTimeRange coremedia.CMTimeRange) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("insertMediaTimeRange:intoTimeRange:"), mediaTimeRange, trackTimeRange)
 	return rv
 }
+
 // Replaces the track’s format description with a new format description.
 //
 // formatDescription: The [CMFormatDescription] object to be replaced.
-// //
-// [CMFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescription
 //
 // newFormatDescription: The [CMFormatDescription] object to replacing the specified format
 // description.
-// //
-// [CMFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescription
 //
 // # Discussion
-// 
+//
 // Use this method to change a track’s format descriptions, such as adding
 // format description extensions to a format description or changing the audio
 // channel layout of an audio track. Format description can have extensions of
@@ -627,54 +630,57 @@ func (m AVMutableMovieTrack) InsertMediaTimeRangeIntoTimeRange(mediaTimeRange co
 // copy of a format description, delete those extensions from the copy or your
 // changes might be ignored.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/replaceFormatDescription(_:with:)
+//
+// [CMFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescription
 // [kCMFormatDescriptionExtension_VerbatimISOSampleEntry]: https://developer.apple.com/documentation/CoreMedia/kCMFormatDescriptionExtension_VerbatimISOSampleEntry
 // [kCMFormatDescriptionExtension_VerbatimSampleDescription]: https://developer.apple.com/documentation/CoreMedia/kCMFormatDescriptionExtension_VerbatimSampleDescription
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/replaceFormatDescription(_:with:)
+// [CMFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescription
 func (m AVMutableMovieTrack) ReplaceFormatDescriptionWithFormatDescription(formatDescription uintptr, newFormatDescription uintptr) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceFormatDescription:withFormatDescription:"), formatDescription, newFormatDescription)
 }
+
 // Returns a Boolean value that indicates whether the track references media
 // with the specified media characteristic.
 //
 // mediaCharacteristic: The media characteristic of interest.
 //
 // # Return Value
-// 
-// [true] if the track references media with the specified characteristic;
-// otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the track references media with the specified characteristic;
+// otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/hasMediaCharacteristic(_:)
 func (m AVMutableMovieTrack) HasMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasMediaCharacteristic:"), objc.String(string(mediaCharacteristic)))
 	return rv
 }
+
 // Maps the specified track time through the appropriate time mapping and
 // returns the resulting sample presentation time.
 //
 // trackTime: The track time for which to request the sample presentation time.
 //
 // # Return Value
-// 
+//
 // The sample presentation time corresponding to the specified time; otherwise
 // [invalid] if the time is out of range.
 //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/samplePresentationTime(forTrackTime:)
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (m AVMutableMovieTrack) SamplePresentationTimeForTrackTime(trackTime coremedia.CMTime) coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("samplePresentationTimeForTrackTime:"), trackTime)
 	return coremedia.CMTime(rv)
 }
+
 // Returns metadata items that a track contains for the specified format.
 //
 // format: The format of the metadata items to retrieve.
 //
 // # Return Value
-// 
+//
 // An array of metadata items matching the specified format, or an empty array
 // if none are found.
 //
@@ -685,13 +691,14 @@ func (m AVMutableMovieTrack) MetadataForFormat(format AVMetadataFormat) []AVMeta
 		return AVMetadataItemFromID(id)
 	})
 }
+
 // Returns a segment whose target time range contains, or is closest to, the
 // specified track time.
 //
 // trackTime: The track time of the segment to return.
 //
 // # Return Value
-// 
+//
 // The [AVCompositionTrackSegment] associated with the track time.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/segment(forTrackTime:)
@@ -699,34 +706,36 @@ func (m AVMutableMovieTrack) SegmentForTrackTime(trackTime coremedia.CMTime) IAV
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("segmentForTrackTime:"), trackTime)
 	return AVAssetTrackSegmentFromID(rv)
 }
+
 // Returns an array of associated tracks that have the specified association
 // type.
 //
 // trackAssociationType: The requested track association type.
 //
 // # Return Value
-// 
+//
 // An array of tracks matching the specified track association type, or an
 // empty array if none are found.
 //
 // # Discussion
-// 
+//
 // Apple discourages using this method in iOS 15, tvOS 15, macOS 12, and
 // watchOS 8 or later. Load associated tracks asynchronously using
 // [LoadAssociatedTracksOfTypeCompletionHandler] instead.
-// 
+//
 // You can call this method without blocking the current thread after you’ve
 // loaded the [availableTrackAssociationTypes] property.
 //
-// [availableTrackAssociationTypes]: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/availableTrackAssociationTypes
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/associatedTracks(ofType:)
+//
+// [availableTrackAssociationTypes]: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/availableTrackAssociationTypes
 func (m AVMutableMovieTrack) AssociatedTracksOfType(trackAssociationType AVTrackAssociationType) []AVAssetTrack {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("associatedTracksOfType:"), objc.String(string(trackAssociationType)))
 	return objc.ConvertSlice(rv, func(id objc.ID) AVAssetTrack {
 		return AVAssetTrackFromID(id)
 	})
 }
+
 // Creates a specific type of track association between two tracks.
 //
 // movieTrack: The AVMovieTrack object to be associated with the receiver.
@@ -738,6 +747,7 @@ func (m AVMutableMovieTrack) AssociatedTracksOfType(trackAssociationType AVTrack
 func (m AVMutableMovieTrack) AddTrackAssociationToTrackType(movieTrack IAVMovieTrack, trackAssociationType AVTrackAssociationType) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addTrackAssociationToTrack:type:"), movieTrack, objc.String(string(trackAssociationType)))
 }
+
 // Removes a specific type of track association between two tracks.
 //
 // movieTrack: The AVMovieTrack object that is associated with the receiver.
@@ -754,7 +764,7 @@ func (m AVMutableMovieTrack) RemoveTrackAssociationToTrackType(movieTrack IAVMov
 // chunk alignment.
 //
 // # Discussion
-// 
+//
 // The default value is `0`, which indicates to use no padding should to
 // achieve chunk alignment. Setting a negative chunk alignment value causes an
 // error.
@@ -767,11 +777,12 @@ func (m AVMutableMovieTrack) PreferredMediaChunkAlignment() int {
 func (m AVMutableMovieTrack) SetPreferredMediaChunkAlignment(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreferredMediaChunkAlignment:"), value)
 }
+
 // The maximum duration to use for each chunk of sample data written to the
 // file for file types that support media chunk duration.
 //
 // # Discussion
-// 
+//
 // The total duration of the samples in a chunk can be no greater than the
 // preferred chunk duration, or the duration of a single sample if the single
 // sample’s duration is greater than the preferred chunk duration. The
@@ -786,17 +797,18 @@ func (m AVMutableMovieTrack) PreferredMediaChunkDuration() coremedia.CMTime {
 func (m AVMutableMovieTrack) SetPreferredMediaChunkDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreferredMediaChunkDuration:"), value)
 }
+
 // The maximum size to use for each chunk of sample data written to the file
 // for file types that support media chunk duration.
 //
 // # Discussion
-// 
+//
 // The total size of the samples in a chunk can be no greater than the
 // preferred chunk size, or the size of a single sample if the single
 // sample’s size is greater than the preferred chunk size. The default media
 // chunk duration is `1024 * 1024` bytes. Setting a negative value for the
 // chunk duration will cause an error.
-// 
+//
 // A larger chunk size can result in fewer reads from the storage container,
 // at the potential expense of a larger memory footprint.
 //
@@ -808,13 +820,14 @@ func (m AVMutableMovieTrack) PreferredMediaChunkSize() int {
 func (m AVMutableMovieTrack) SetPreferredMediaChunkSize(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreferredMediaChunkSize:"), value)
 }
+
 // The format descriptions of the media samples that a track references.
 //
 // # Discussion
-// 
+//
 // The array contains [CMFormatDescription] objects that indicate the format
 // of media samples the track references.
-// 
+//
 // Asset tracks typically present uniform media (for example, media that uses
 // the same encoding settings) and contain a single format description.
 // However, in some cases, an asset track may contain multiple format
@@ -822,14 +835,14 @@ func (m AVMutableMovieTrack) SetPreferredMediaChunkSize(value int) {
 // segments that use the Main profile and others that use the High profile.
 // Also, an individual [AVCompositionTrack], which subclasses [AVAssetTrack],
 // may contain audio or video segments using different codecs.
-// 
+//
 // You can use [CMFormatDescription] to access low-level details about the
 // media the track references. For example, you can retrieve the details of
 // track’s media type and subtype as the code below shows:
 //
-// [CMFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescription
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/formatDescriptions
+//
+// [CMFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescription
 func (m AVMutableMovieTrack) FormatDescriptions() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("formatDescriptions"))
 	return objectivec.Object{ID: rv}
@@ -837,10 +850,11 @@ func (m AVMutableMovieTrack) FormatDescriptions() objectivec.IObject {
 func (m AVMutableMovieTrack) SetFormatDescriptions(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFormatDescriptions:"), value)
 }
+
 // A Boolean value that indicates whether a track is in a modified state.
 //
 // # Discussion
-// 
+//
 // This property is [YES] when the [AVMutableMovieTrack] object has been
 // modified since it was created, was last written, or had its modified state
 // cleared.
@@ -853,10 +867,11 @@ func (m AVMutableMovieTrack) Modified() bool {
 func (m AVMutableMovieTrack) SetModified(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModified:"), value)
 }
+
 // The base URL for sample references.
 //
 // # Discussion
-// 
+//
 // When this property is an absolute URL, the sample locations written to the
 // file when appending sample references to this track are relative to this
 // URL. The URL must point to a location contained by any common parent
@@ -865,7 +880,7 @@ func (m AVMutableMovieTrack) SetModified(value bool) {
 // buffers that refer to `///Users/johnappleseed/Movies/data/movie1.Mov()`
 // will cause the sample reference `data/movie1.Mov()` to be written to the
 // movie file.
-// 
+//
 // If this property can’t be resolved as an absolute URL or if it points to
 // a location that isn’t contained by any common parent directory of the
 // locations referenced, the unmodified location is written. The default value
@@ -879,6 +894,7 @@ func (m AVMutableMovieTrack) SampleReferenceBaseURL() foundation.INSURL {
 func (m AVMutableMovieTrack) SetSampleReferenceBaseURL(value foundation.INSURL) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSampleReferenceBaseURL:"), value)
 }
+
 // A Boolean value that indicates whether the track is playable in the current
 // environment.
 //
@@ -890,15 +906,14 @@ func (m AVMutableMovieTrack) IsPlayable() bool {
 func (m AVMutableMovieTrack) SetIsPlayable(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPlayable:"), value)
 }
+
 // A Boolean value that indicates whether the track is decodable in the
 // current environment.
 //
 // # Discussion
-// 
-// When this property is [true], the system can decode the track, even if
-// decoding may be too slow for real-time playback.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When this property is true, the system can decode the track, even if
+// decoding may be too slow for real-time playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/isDecodable
 func (m AVMutableMovieTrack) IsDecodable() bool {
@@ -908,10 +923,11 @@ func (m AVMutableMovieTrack) IsDecodable() bool {
 func (m AVMutableMovieTrack) SetIsDecodable(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDecodable:"), value)
 }
+
 // A Boolean value that indicates whether the track’s container enables it.
 //
 // # Discussion
-// 
+//
 // For file-based media, you can change its [Enabled] presentation state using
 // [AVPlayerItemTrack].
 //
@@ -923,6 +939,7 @@ func (m AVMutableMovieTrack) Enabled() bool {
 func (m AVMutableMovieTrack) SetEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEnabled:"), value)
 }
+
 // A Boolean value that indicates whether this track references sample data
 // only within its container file.
 //
@@ -934,6 +951,7 @@ func (m AVMutableMovieTrack) IsSelfContained() bool {
 func (m AVMutableMovieTrack) SetIsSelfContained(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSelfContained:"), value)
 }
+
 // A Boolean value that indicates whether a track contains protected content.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/hasProtectedContent
@@ -941,10 +959,11 @@ func (m AVMutableMovieTrack) HasProtectedContent() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasProtectedContent"))
 	return rv
 }
+
 // The total number of bytes of sample data the track requires.
 //
 // # Discussion
-// 
+//
 // The value may be `0` if the framework can’t determine the total sample
 // data length.
 //
@@ -956,18 +975,19 @@ func (m AVMutableMovieTrack) TotalSampleDataLength() objectivec.IObject {
 func (m AVMutableMovieTrack) SetTotalSampleDataLength(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTotalSampleDataLength:"), value)
 }
+
 // The time range of the track within the overall timeline of the asset.
 //
 // # Discussion
-// 
+//
 // If the start of the time range is greater than [zero], the track doesn’t
 // initially have media data to present. This condition may occur when the
 // media delays an audio track to align the start of audio with a specific
 // video frame. You can test for this as the example below shows:
 //
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/timeRange
+//
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func (m AVMutableMovieTrack) TimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](m.ID, objc.Sel("timeRange"))
 	return coremedia.CMTimeRange(rv)
@@ -975,10 +995,11 @@ func (m AVMutableMovieTrack) TimeRange() coremedia.CMTimeRange {
 func (m AVMutableMovieTrack) SetTimeRange(value coremedia.CMTimeRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTimeRange:"), value)
 }
+
 // The time scale for tracks that contain the `moov` atom.
 //
 // # Discussion
-// 
+//
 // The default media time is `0`. Set this property on any new, empty tracks
 // before any edits are performed on the track.
 //
@@ -990,6 +1011,7 @@ func (m AVMutableMovieTrack) Timescale() int32 {
 func (m AVMutableMovieTrack) SetTimescale(value int32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTimescale:"), value)
 }
+
 // The natural time scale of the media that a track references.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/naturalTimeScale
@@ -1000,6 +1022,7 @@ func (m AVMutableMovieTrack) NaturalTimeScale() int32 {
 func (m AVMutableMovieTrack) SetNaturalTimeScale(value int32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNaturalTimeScale:"), value)
 }
+
 // The estimated data rate, in bits per second, of the media that the track
 // references.
 //
@@ -1011,10 +1034,11 @@ func (m AVMutableMovieTrack) EstimatedDataRate() float32 {
 func (m AVMutableMovieTrack) SetEstimatedDataRate(value float32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEstimatedDataRate:"), value)
 }
+
 // The language code of the track.
 //
 // # Discussion
-// 
+//
 // The value is an ISO 639-2/T language code, or `nil` if the track doesn’t
 // specify a language code.
 //
@@ -1026,16 +1050,17 @@ func (m AVMutableMovieTrack) LanguageCode() string {
 func (m AVMutableMovieTrack) SetLanguageCode(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLanguageCode:"), objc.String(value))
 }
+
 // The language tag of the track.
 //
 // # Discussion
-// 
+//
 // The value is a [BCP-47] language tag, or `nil` if the track doesn’t
 // specify a language tag.
 //
-// [BCP-47]: https://tools.ietf.org/html/bcp47
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/extendedLanguageTag
+//
+// [BCP-47]: https://tools.ietf.org/html/bcp47
 func (m AVMutableMovieTrack) ExtendedLanguageTag() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("extendedLanguageTag"))
 	return foundation.NSStringFromID(rv).String()
@@ -1043,6 +1068,7 @@ func (m AVMutableMovieTrack) ExtendedLanguageTag() string {
 func (m AVMutableMovieTrack) SetExtendedLanguageTag(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setExtendedLanguageTag:"), objc.String(value))
 }
+
 // The dimensions used to display the visual media data for the track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/naturalSize
@@ -1053,6 +1079,7 @@ func (m AVMutableMovieTrack) NaturalSize() corefoundation.CGSize {
 func (m AVMutableMovieTrack) SetNaturalSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNaturalSize:"), value)
 }
+
 // The transform performed on the visual media data of the track for display
 // purposes.
 //
@@ -1064,6 +1091,7 @@ func (m AVMutableMovieTrack) PreferredTransform() corefoundation.CGAffineTransfo
 func (m AVMutableMovieTrack) SetPreferredTransform(value corefoundation.CGAffineTransform) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreferredTransform:"), value)
 }
+
 // The layer level for the visual media of the track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/layer
@@ -1074,6 +1102,7 @@ func (m AVMutableMovieTrack) Layer() int {
 func (m AVMutableMovieTrack) SetLayer(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLayer:"), value)
 }
+
 // The clean aperture dimension of the track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/cleanApertureDimensions
@@ -1084,6 +1113,7 @@ func (m AVMutableMovieTrack) CleanApertureDimensions() corefoundation.CGSize {
 func (m AVMutableMovieTrack) SetCleanApertureDimensions(value corefoundation.CGSize) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCleanApertureDimensions:"), value)
 }
+
 // The production aperture dimensions of the track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/productionApertureDimensions
@@ -1094,6 +1124,7 @@ func (m AVMutableMovieTrack) ProductionApertureDimensions() corefoundation.CGSiz
 func (m AVMutableMovieTrack) SetProductionApertureDimensions(value corefoundation.CGSize) {
 	objc.Send[struct{}](m.ID, objc.Sel("setProductionApertureDimensions:"), value)
 }
+
 // The encoded pixels dimensions of the track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/encodedPixelsDimensions
@@ -1104,6 +1135,7 @@ func (m AVMutableMovieTrack) EncodedPixelsDimensions() corefoundation.CGSize {
 func (m AVMutableMovieTrack) SetEncodedPixelsDimensions(value corefoundation.CGSize) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEncodedPixelsDimensions:"), value)
 }
+
 // The preferred volume for the audible medata data of the track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/preferredVolume
@@ -1114,13 +1146,12 @@ func (m AVMutableMovieTrack) PreferredVolume() float32 {
 func (m AVMutableMovieTrack) SetPreferredVolume(value float32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreferredVolume:"), value)
 }
+
 // A Boolean value that indicates whether the track has sample dependencies.
 //
 // # Discussion
-// 
-// The value is always [false] for nonaudible media.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The value is always false for nonaudible media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/hasAudioSampleDependencies
 func (m AVMutableMovieTrack) HasAudioSampleDependencies() bool {
@@ -1130,10 +1161,11 @@ func (m AVMutableMovieTrack) HasAudioSampleDependencies() bool {
 func (m AVMutableMovieTrack) SetHasAudioSampleDependencies(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHasAudioSampleDependencies:"), value)
 }
+
 // The frame rate of the track, in frames per second.
 //
 // # Discussion
-// 
+//
 // The nominal frame rate indicates the number of frames per second for tracks
 // that contain a full frame per media sample. For field-based (interlaced)
 // video tracks, the value of this property indicates the field rate, not the
@@ -1147,20 +1179,21 @@ func (m AVMutableMovieTrack) NominalFrameRate() float32 {
 func (m AVMutableMovieTrack) SetNominalFrameRate(value float32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNominalFrameRate:"), value)
 }
+
 // The minimum duration of the track’s frames.
 //
 // # Discussion
-// 
+//
 // A track’s minimum frame duration is the reciprocal of its maximum frame
 // rate. For example, a video track with a maximum frame rate of 30 frames per
 // second has a minimum frame duration of 1/30, or 0.033 seconds.
-// 
+//
 // The value of this property is [invalid] if the track can’t calculate its
 // minimum frame duration, or if it’s unknown.
 //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/minFrameDuration
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (m AVMutableMovieTrack) MinFrameDuration() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("minFrameDuration"))
 	return coremedia.CMTime(rv)
@@ -1168,6 +1201,7 @@ func (m AVMutableMovieTrack) MinFrameDuration() coremedia.CMTime {
 func (m AVMutableMovieTrack) SetMinFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMinFrameDuration:"), value)
 }
+
 // A Boolean value that indicates whether samples in the track may have
 // different presentation and decode timestamps.
 //
@@ -1179,6 +1213,7 @@ func (m AVMutableMovieTrack) RequiresFrameReordering() bool {
 func (m AVMutableMovieTrack) SetRequiresFrameReordering(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRequiresFrameReordering:"), value)
 }
+
 // An array of metadata stored by the track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/metadata
@@ -1191,6 +1226,7 @@ func (m AVMutableMovieTrack) Metadata() []AVMetadataItem {
 func (m AVMutableMovieTrack) SetMetadata(value []AVMetadataItem) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMetadata:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // An array of metadata items for all common metadata keys that have a value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/commonMetadata
@@ -1201,6 +1237,7 @@ func (m AVMutableMovieTrack) CommonMetadata() IAVMetadataItem {
 func (m AVMutableMovieTrack) SetCommonMetadata(value IAVMetadataItem) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCommonMetadata:"), value)
 }
+
 // An array of metadata formats available for the track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/availableMetadataFormats
@@ -1211,6 +1248,7 @@ func (m AVMutableMovieTrack) AvailableMetadataFormats() AVMetadataFormat {
 func (m AVMutableMovieTrack) SetAvailableMetadataFormats(value AVMetadataFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAvailableMetadataFormats:"), objc.String(string(value)))
 }
+
 // The time mappings from the track’s media samples to its timeline.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/segments
@@ -1221,6 +1259,7 @@ func (m AVMutableMovieTrack) Segments() IAVAssetTrackSegment {
 func (m AVMutableMovieTrack) SetSegments(value IAVAssetTrackSegment) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSegments:"), value)
 }
+
 // An array of association types that the track uses to associate with other
 // tracks.
 //
@@ -1232,6 +1271,7 @@ func (m AVMutableMovieTrack) AvailableTrackAssociationTypes() objc.ID {
 func (m AVMutableMovieTrack) SetAvailableTrackAssociationTypes(value objc.ID) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAvailableTrackAssociationTypes:"), value)
 }
+
 // A Boolean value that indicates whether the track can provide instances of
 // sample cursors to traverse its media samples and discover information.
 //
@@ -1243,4 +1283,3 @@ func (m AVMutableMovieTrack) CanProvideSampleCursors() bool {
 func (m AVMutableMovieTrack) SetCanProvideSampleCursors(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCanProvideSampleCursors:"), value)
 }
-

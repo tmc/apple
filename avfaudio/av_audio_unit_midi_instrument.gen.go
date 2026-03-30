@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVAudioUnitMIDIInstrumentClass) Alloc() AVAudioUnitMIDIInstrument {
 // An object that represents music devices or remote instruments.
 //
 // # Overview
-// 
+//
 // Use an [AVAudioUnitMIDIInstrument] in a chain that processes real-time
 // (live) input and has the general concept of music events; for example,
 // notes.
@@ -83,6 +84,7 @@ type AVAudioUnitMIDIInstrument struct {
 func AVAudioUnitMIDIInstrumentFromID(id objc.ID) AVAudioUnitMIDIInstrument {
 	return AVAudioUnitMIDIInstrument{AVAudioUnit: AVAudioUnitFromID(id)}
 }
+
 // NOTE: AVAudioUnitMIDIInstrument adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -178,11 +180,11 @@ func NewAVAudioUnitMIDIInstrument() AVAudioUnitMIDIInstrument {
 // description: The description of the audio component.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitMIDIInstrument] instance.
 //
 // # Discussion
-// 
+//
 // The component type must be `kAudioUnitType_MusicDevice` or
 // `kAudioUnitType_RemoteInstrument`.
 //
@@ -202,11 +204,11 @@ func NewAudioUnitMIDIInstrumentWithAudioComponentDescription(description objecti
 // description is a [audiotoolbox.AudioComponentDescription].
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitMIDIInstrument] instance.
 //
 // # Discussion
-// 
+//
 // The component type must be `kAudioUnitType_MusicDevice` or
 // `kAudioUnitType_RemoteInstrument`.
 //
@@ -216,6 +218,7 @@ func (a AVAudioUnitMIDIInstrument) InitWithAudioComponentDescription(description
 	rv := objc.Send[AVAudioUnitMIDIInstrument](a.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return rv
 }
+
 // Sends a MIDI controller event to the instrument.
 //
 // controller: Specifies a standard MIDI controller number. The valid range is `0` to
@@ -229,6 +232,7 @@ func (a AVAudioUnitMIDIInstrument) InitWithAudioComponentDescription(description
 func (a AVAudioUnitMIDIInstrument) SendControllerWithValueOnChannel(controller uint8, value uint8, channel uint8) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendController:withValue:onChannel:"), controller, value, channel)
 }
+
 // Sends a MIDI event which contains one data byte to the instrument.
 //
 // midiStatus: The status value of the MIDI event.
@@ -239,6 +243,7 @@ func (a AVAudioUnitMIDIInstrument) SendControllerWithValueOnChannel(controller u
 func (a AVAudioUnitMIDIInstrument) SendMIDIEventData1(midiStatus uint8, data1 uint8) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendMIDIEvent:data1:"), midiStatus, data1)
 }
+
 // Sends a MIDI event which contains two data bytes to the instrument.
 //
 // midiStatus: The status value of the MIDI event.
@@ -251,12 +256,13 @@ func (a AVAudioUnitMIDIInstrument) SendMIDIEventData1(midiStatus uint8, data1 ui
 func (a AVAudioUnitMIDIInstrument) SendMIDIEventData1Data2(midiStatus uint8, data1 uint8, data2 uint8) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendMIDIEvent:data1:data2:"), midiStatus, data1, data2)
 }
+
 // Sends a MIDI System Exclusive event to the instrument.
 //
 // midiData: The system exclusive data you want to send to the instrument.
 //
 // # Discussion
-// 
+//
 // The `midiData` parameter should contain the complete [SysEx] data,
 // including start (F0) and termination (F7) bytes.
 //
@@ -264,6 +270,7 @@ func (a AVAudioUnitMIDIInstrument) SendMIDIEventData1Data2(midiStatus uint8, dat
 func (a AVAudioUnitMIDIInstrument) SendMIDISysExEvent(midiData foundation.INSData) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendMIDISysExEvent:"), midiData)
 }
+
 // Sends a MIDI Pitch Bend event to the instrument.
 //
 // pitchbend: Value of the pitchbend. The valid range of values is `0` to `16383`.
@@ -272,7 +279,7 @@ func (a AVAudioUnitMIDIInstrument) SendMIDISysExEvent(midiData foundation.INSDat
 // to `15`.
 //
 // # Discussion
-// 
+//
 // If this method isn’t invoked, then the system uses the default pitch bend
 // value of `8192` (no pitch).
 //
@@ -280,6 +287,7 @@ func (a AVAudioUnitMIDIInstrument) SendMIDISysExEvent(midiData foundation.INSDat
 func (a AVAudioUnitMIDIInstrument) SendPitchBendOnChannel(pitchbend uint16, channel uint8) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendPitchBend:onChannel:"), pitchbend, channel)
 }
+
 // Sends a MIDI channel pressure event to the instrument.
 //
 // pressure: The value of the pressure. The valid range is `0` to `127`.
@@ -290,6 +298,7 @@ func (a AVAudioUnitMIDIInstrument) SendPitchBendOnChannel(pitchbend uint16, chan
 func (a AVAudioUnitMIDIInstrument) SendPressureOnChannel(pressure uint8, channel uint8) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendPressure:onChannel:"), pressure, channel)
 }
+
 // Sends a MIDI Polyphonic key pressure event to the instrument.
 //
 // key: The key (note) number to which the pressure event applies. The valid range
@@ -303,6 +312,7 @@ func (a AVAudioUnitMIDIInstrument) SendPressureOnChannel(pressure uint8, channel
 func (a AVAudioUnitMIDIInstrument) SendPressureForKeyWithValueOnChannel(key uint8, value uint8, channel uint8) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendPressureForKey:withValue:onChannel:"), key, value, channel)
 }
+
 // Sends MIDI Program Change and Bank Select events to the instrument.
 //
 // program: The program (preset) number within the bank to load. The valid range is `0`
@@ -311,7 +321,7 @@ func (a AVAudioUnitMIDIInstrument) SendPressureForKeyWithValueOnChannel(key uint
 // channel: The channel number to send the event to. The valid range is `0` to `15`.
 //
 // # Discussion
-// 
+//
 // The system loads the instrument from the bank that was previously set by
 // the MIDI “Bank Select” controller messages (0 and 31). The system uses
 // bank `0` if not previously set.
@@ -320,6 +330,7 @@ func (a AVAudioUnitMIDIInstrument) SendPressureForKeyWithValueOnChannel(key uint
 func (a AVAudioUnitMIDIInstrument) SendProgramChangeOnChannel(program uint8, channel uint8) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendProgramChange:onChannel:"), program, channel)
 }
+
 // Sends MIDI Program Change and Bank Select events to the instrument.
 //
 // program: Specifies the program (preset) number within the bank to load. The valid
@@ -337,6 +348,7 @@ func (a AVAudioUnitMIDIInstrument) SendProgramChangeOnChannel(program uint8, cha
 func (a AVAudioUnitMIDIInstrument) SendProgramChangeBankMSBBankLSBOnChannel(program uint8, bankMSB uint8, bankLSB uint8, channel uint8) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendProgramChange:bankMSB:bankLSB:onChannel:"), program, bankMSB, bankLSB, channel)
 }
+
 // Sends a MIDI event list to the instrument.
 //
 // eventList: The MIDI event list.
@@ -345,6 +357,7 @@ func (a AVAudioUnitMIDIInstrument) SendProgramChangeBankMSBBankLSBOnChannel(prog
 func (a AVAudioUnitMIDIInstrument) SendMIDIEventList(eventList objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("sendMIDIEventList:"), eventList)
 }
+
 // Sends a MIDI Note On event to the instrument.
 //
 // note: The note number (key) to play. The valid range is `0` to `127`.
@@ -357,6 +370,7 @@ func (a AVAudioUnitMIDIInstrument) SendMIDIEventList(eventList objectivec.IObjec
 func (a AVAudioUnitMIDIInstrument) StartNoteWithVelocityOnChannel(note uint8, velocity uint8, channel uint8) {
 	objc.Send[objc.ID](a.ID, objc.Sel("startNote:withVelocity:onChannel:"), note, velocity, channel)
 }
+
 // Sends a MIDI Note Off event to the instrument.
 //
 // note: The note number (key) to stop. The valid range is `0` to `127`.
@@ -367,6 +381,7 @@ func (a AVAudioUnitMIDIInstrument) StartNoteWithVelocityOnChannel(note uint8, ve
 func (a AVAudioUnitMIDIInstrument) StopNoteOnChannel(note uint8, channel uint8) {
 	objc.Send[objc.ID](a.ID, objc.Sel("stopNote:onChannel:"), note, channel)
 }
+
 // Gets the audio mixing destination object that corresponds to the specified
 // mixer node and input bus.
 //
@@ -375,20 +390,20 @@ func (a AVAudioUnitMIDIInstrument) StopNoteOnChannel(note uint8, channel uint8) 
 // bus: The input bus.
 //
 // # Return Value
-// 
+//
 // Returns `self` if the specified mixer or input bus matches its connection
 // point. If the mixer or input bus doesn’t match its connection point, or
 // if the source node isn’t in a connected state to the mixer or input bus,
 // the method returns `nil.`
 //
 // # Discussion
-// 
+//
 // When you connect a source node to multiple mixers downstream, setting
 // [AVAudioMixing] properties directly on the source node applies the change
 // to all of them. Use this method to get the corresponding
 // [AVAudioMixingDestination] for a specific mixer. Properties set on
 // individual destination instances don’t reflect at the source node level.
-// 
+//
 // If there’s any disconnection between the source and mixer nodes, the
 // return value can be invalid. Fetch the return value every time you want to
 // set or get properties on a specific mixer.
@@ -403,10 +418,10 @@ func (a AVAudioUnitMIDIInstrument) DestinationForMixerBus(mixer IAVAudioNode, bu
 // obstacle.
 //
 // # Discussion
-// 
+//
 // The value of `obstruction` is in decibels. The system blocks only the
 // direct path of sound between the source and listener.
-// 
+//
 // The default value is `0.0`, and the range of valid values is `-100` to `0`.
 // Only the [AVAudioEnvironmentNode] class implements this property.
 //
@@ -418,14 +433,15 @@ func (a AVAudioUnitMIDIInstrument) Obstruction() float32 {
 func (a AVAudioUnitMIDIInstrument) SetObstruction(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setObstruction:"), value)
 }
+
 // A value that simulates filtering of the direct and reverb paths of sound
 // due to an obstacle.
 //
 // # Discussion
-// 
+//
 // The value of `obstruction` is in decibels. The system blocks the direct and
 // reverb paths of sound between the source and listener.
-// 
+//
 // The default value is `0.0`, and the range of valid values is `-100` to `0`.
 // Only the [AVAudioEnvironmentNode] class implements this property.
 //
@@ -437,10 +453,11 @@ func (a AVAudioUnitMIDIInstrument) Occlusion() float32 {
 func (a AVAudioUnitMIDIInstrument) SetOcclusion(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOcclusion:"), value)
 }
+
 // The bus’s stereo pan.
 //
 // # Discussion
-// 
+//
 // The default value is `0.0`, and the range of valid values is `-1.0` to
 // `1.0`. Only the [AVAudioEnvironmentNode] class implements this property.
 //
@@ -452,6 +469,7 @@ func (a AVAudioUnitMIDIInstrument) Pan() float32 {
 func (a AVAudioUnitMIDIInstrument) SetPan(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPan:"), value)
 }
+
 // The in-head mode for a point source.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/pointSourceInHeadMode
@@ -462,10 +480,11 @@ func (a AVAudioUnitMIDIInstrument) PointSourceInHeadMode() AVAudio3DMixingPointS
 func (a AVAudioUnitMIDIInstrument) SetPointSourceInHeadMode(value AVAudio3DMixingPointSourceInHeadMode) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPointSourceInHeadMode:"), value)
 }
+
 // The location of the source in the 3D environment.
 //
 // # Discussion
-// 
+//
 // The system specifies the coordinates in meters. Only the
 // [AVAudioEnvironmentNode] class implements this property.
 //
@@ -477,13 +496,14 @@ func (a AVAudioUnitMIDIInstrument) Position() AVAudio3DPoint {
 func (a AVAudioUnitMIDIInstrument) SetPosition(value AVAudio3DPoint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPosition:"), value)
 }
+
 // A value that changes the playback rate of the input signal.
 //
 // # Discussion
-// 
+//
 // A value of `2.0` results in the output audio playing one octave higher. A
 // value of `0.5` results in the output audio playing one octave lower.
-// 
+//
 // The default value is `1.0`, and the range of valid values is `0.5` to
 // `2.0`. Only the [AVAudioEnvironmentNode] class implements this property.
 //
@@ -495,18 +515,19 @@ func (a AVAudioUnitMIDIInstrument) Rate() float32 {
 func (a AVAudioUnitMIDIInstrument) SetRate(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRate:"), value)
 }
+
 // The type of rendering algorithm the mixer uses.
 //
 // # Discussion
-// 
+//
 // Depending on the current output format of the [AVAudioEnvironmentNode]
 // instance, the system may only support a subset of the rendering algorithms.
 // You can retrieve an array of valid rendering algorithms by calling the
 // [ApplicableRenderingAlgorithms] function of the [AVAudioEnvironmentNode]
 // instance.
-// 
+//
 // The default rendering algorithm is
-// [Audio3DMixingRenderingAlgorithmEqualPowerPanning]. Only the
+// [AVAudio3DMixingRenderingAlgorithmEqualPowerPanning]. Only the
 // [AVAudioEnvironmentNode] class implements this property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/renderingAlgorithm
@@ -517,14 +538,15 @@ func (a AVAudioUnitMIDIInstrument) RenderingAlgorithm() AVAudio3DMixingRendering
 func (a AVAudioUnitMIDIInstrument) SetRenderingAlgorithm(value AVAudio3DMixingRenderingAlgorithm) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRenderingAlgorithm:"), value)
 }
+
 // A value that controls the blend of dry and reverb processed audio.
 //
 // # Discussion
-// 
+//
 // This property controls the amount of the source’s audio that the
 // [AVAudioEnvironmentNode] instance processes. A value of `0.5` results in an
 // equal blend of dry and processed (wet) audio.
-// 
+//
 // The default is `0.0`, and the range of valid values is `0.0` (completely
 // dry) to `1.0` (completely wet). Only the [AVAudioEnvironmentNode] class
 // implements this property.
@@ -537,6 +559,7 @@ func (a AVAudioUnitMIDIInstrument) ReverbBlend() float32 {
 func (a AVAudioUnitMIDIInstrument) SetReverbBlend(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setReverbBlend:"), value)
 }
+
 // The source mode for the input bus of the audio environment node.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/sourceMode
@@ -547,10 +570,11 @@ func (a AVAudioUnitMIDIInstrument) SourceMode() AVAudio3DMixingSourceMode {
 func (a AVAudioUnitMIDIInstrument) SetSourceMode(value AVAudio3DMixingSourceMode) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSourceMode:"), value)
 }
+
 // The bus’s input volume.
 //
 // # Discussion
-// 
+//
 // The default value is `1.0`, and the range of valid values is `0.0` to
 // `1.0`. Only the [AVAudioEnvironmentNode] and the [AVAudioMixerNode]
 // implement this property.
@@ -564,6 +588,4 @@ func (a AVAudioUnitMIDIInstrument) SetVolume(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVolume:"), value)
 }
 
-			// Protocol methods for AVAudioMixing
-			
-
+// Protocol methods for AVAudioMixing

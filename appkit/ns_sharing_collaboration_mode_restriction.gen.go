@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,6 +43,19 @@ func (nc NSSharingCollaborationModeRestrictionClass) Alloc() NSSharingCollaborat
 	return rv
 }
 
+// Specifies whether a specific type of sharing should be disabled in the
+// share picker, and if so, whether a reason should be provided for the
+// disablement.
+//
+// # Overview
+//
+// If a reason is provided, the corresponding mode will show up as an option,
+// but an alert explaining why it is disabled will show if it is chosen, and
+// the mode will switch back to the supported one. Optionally, an extra alert
+// button can be provided for a “recovery suggestion”. This can give a
+// user a way to fix whatever is causing this type of sharing to be disabled.
+// If no reason is provided, the corresponding mode will not show up as an
+// option.
 //
 // # Initializers
 //
@@ -58,15 +72,21 @@ func (nc NSSharingCollaborationModeRestrictionClass) Alloc() NSSharingCollaborat
 //   - [NSSharingCollaborationModeRestriction.AlertRecoverySuggestionButtonTitle]: The label on the recovery suggestion button if it is provided
 //   - [NSSharingCollaborationModeRestriction.AlertTitle]: The title of the alert if a reason for disabling is provided
 //   - [NSSharingCollaborationModeRestriction.DisabledMode]: The type of sharing which should be disabled
+//
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/CollaborationModeRestriction
 type NSSharingCollaborationModeRestriction struct {
 	objectivec.Object
 }
 
 // NSSharingCollaborationModeRestrictionFromID constructs a [NSSharingCollaborationModeRestriction] from an objc.ID.
+//
+// Specifies whether a specific type of sharing should be disabled in the
+// share picker, and if so, whether a reason should be provided for the
+// disablement.
 func NSSharingCollaborationModeRestrictionFromID(id objc.ID) NSSharingCollaborationModeRestriction {
 	return NSSharingCollaborationModeRestriction{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSSharingCollaborationModeRestriction adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -136,7 +156,6 @@ func NewNSSharingCollaborationModeRestriction() NSSharingCollaborationModeRestri
 	return rv
 }
 
-//
 // disabledMode: The disabled type of sharing
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/CollaborationModeRestriction/init(disabledMode:)
@@ -146,7 +165,6 @@ func NewSharingCollaborationModeRestrictionWithDisabledMode(disabledMode NSShari
 	return NSSharingCollaborationModeRestrictionFromID(rv)
 }
 
-//
 // disabledMode: The disabled type of sharing
 //
 // alertTitle: The alert title
@@ -160,7 +178,6 @@ func NewSharingCollaborationModeRestrictionWithDisabledModeAlertTitleAlertMessag
 	return NSSharingCollaborationModeRestrictionFromID(rv)
 }
 
-//
 // disabledMode: The disabled type of sharing
 //
 // alertTitle: The alert title
@@ -176,7 +193,6 @@ func NewSharingCollaborationModeRestrictionWithDisabledModeAlertTitleAlertMessag
 	return NSSharingCollaborationModeRestrictionFromID(rv)
 }
 
-//
 // disabledMode: The disabled type of sharing
 //
 // alertTitle: The alert title
@@ -197,7 +213,6 @@ func NewSharingCollaborationModeRestrictionWithDisabledModeAlertTitleAlertMessag
 	return NSSharingCollaborationModeRestrictionFromID(rv)
 }
 
-//
 // disabledMode: The disabled type of sharing
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/CollaborationModeRestriction/init(disabledMode:)
@@ -205,7 +220,7 @@ func (s NSSharingCollaborationModeRestriction) InitWithDisabledMode(disabledMode
 	rv := objc.Send[NSSharingCollaborationModeRestriction](s.ID, objc.Sel("initWithDisabledMode:"), disabledMode)
 	return rv
 }
-//
+
 // disabledMode: The disabled type of sharing
 //
 // alertTitle: The alert title
@@ -217,7 +232,7 @@ func (s NSSharingCollaborationModeRestriction) InitWithDisabledModeAlertTitleAle
 	rv := objc.Send[NSSharingCollaborationModeRestriction](s.ID, objc.Sel("initWithDisabledMode:alertTitle:alertMessage:"), disabledMode, objc.String(alertTitle), objc.String(alertMessage))
 	return rv
 }
-//
+
 // disabledMode: The disabled type of sharing
 //
 // alertTitle: The alert title
@@ -231,7 +246,7 @@ func (s NSSharingCollaborationModeRestriction) InitWithDisabledModeAlertTitleAle
 	rv := objc.Send[NSSharingCollaborationModeRestriction](s.ID, objc.Sel("initWithDisabledMode:alertTitle:alertMessage:alertDismissButtonTitle:"), disabledMode, objc.String(alertTitle), objc.String(alertMessage), objc.String(alertDismissButtonTitle))
 	return rv
 }
-//
+
 // disabledMode: The disabled type of sharing
 //
 // alertTitle: The alert title
@@ -262,6 +277,7 @@ func (s NSSharingCollaborationModeRestriction) AlertDismissButtonTitle() string 
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("alertDismissButtonTitle"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The message of the alert if a reason for disabling is provided
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/CollaborationModeRestriction/alertMessage
@@ -269,6 +285,7 @@ func (s NSSharingCollaborationModeRestriction) AlertMessage() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("alertMessage"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The URL that is opened when the user selects the recovery suggestion, if
 // any
 //
@@ -277,6 +294,7 @@ func (s NSSharingCollaborationModeRestriction) AlertRecoverySuggestionButtonLaun
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("alertRecoverySuggestionButtonLaunchURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // The label on the recovery suggestion button if it is provided
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/CollaborationModeRestriction/alertRecoverySuggestionButtonTitle
@@ -284,6 +302,7 @@ func (s NSSharingCollaborationModeRestriction) AlertRecoverySuggestionButtonTitl
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("alertRecoverySuggestionButtonTitle"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The title of the alert if a reason for disabling is provided
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/CollaborationModeRestriction/alertTitle
@@ -291,6 +310,7 @@ func (s NSSharingCollaborationModeRestriction) AlertTitle() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("alertTitle"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The type of sharing which should be disabled
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/CollaborationModeRestriction/disabledMode
@@ -298,4 +318,3 @@ func (s NSSharingCollaborationModeRestriction) DisabledMode() NSSharingCollabora
 	rv := objc.Send[NSSharingCollaborationMode](s.ID, objc.Sel("disabledMode"))
 	return NSSharingCollaborationMode(rv)
 }
-

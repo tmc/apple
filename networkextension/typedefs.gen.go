@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -14,4 +15,3 @@ type NEFilterPacketHandler = func(NEFilterPacketContext, objectivec.Object, NETr
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NWEndpointArray
 type NWEndpointArray = []objectivec.Object
-

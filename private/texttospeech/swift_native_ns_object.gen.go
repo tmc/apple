@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,6 +53,7 @@ type SwiftNativeNSObject struct {
 func SwiftNativeNSObjectFromID(id objc.ID) SwiftNativeNSObject {
 	return SwiftNativeNSObject{objectivec.Object{ID: id}}
 }
+
 // Ensure SwiftNativeNSObject implements ISwiftNativeNSObject.
 var _ ISwiftNativeNSObject = SwiftNativeNSObject{}
 
@@ -78,4 +80,3 @@ func NewSwiftNativeNSObject() SwiftNativeNSObject {
 	rv := objc.Send[SwiftNativeNSObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

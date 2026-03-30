@@ -2,7 +2,6 @@
 
 package gtshaderprofiler
 
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/AGXPSCliqueInstructionTraceRef
 type AGXPSCliqueInstructionTraceRef uintptr
 
@@ -20,4 +19,3 @@ type AGXPSParserHandle = uintptr
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/AGXPSProfileData
 type AGXPSProfileData = uintptr
-

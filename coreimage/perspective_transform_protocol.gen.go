@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -21,6 +21,7 @@ type CIPerspectiveTransform interface {
 type CIPerspectiveTransformObject struct {
 	objectivec.Object
 }
+
 func (o CIPerspectiveTransformObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,52 +41,63 @@ func CIPerspectiveTransformObjectFromID(id objc.ID) CIPerspectiveTransformObject
 func (o CIPerspectiveTransformObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomLeft
 func (o CIPerspectiveTransformObject) BottomLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomLeft"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomRight
 func (o CIPerspectiveTransformObject) BottomRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomRight"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/inputImage
 func (o CIPerspectiveTransformObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topLeft
 func (o CIPerspectiveTransformObject) TopLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topLeft"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topRight
 func (o CIPerspectiveTransformObject) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topRight"))
 	return rv
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomLeft
 func (o CIPerspectiveTransformObject) SetBottomLeft(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBottomLeft:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomRight
 func (o CIPerspectiveTransformObject) SetBottomRight(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBottomRight:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/inputImage
 func (o CIPerspectiveTransformObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topLeft
 func (o CIPerspectiveTransformObject) SetTopLeft(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTopLeft:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topRight
 func (o CIPerspectiveTransformObject) SetTopRight(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTopRight:"), value)
 }
-

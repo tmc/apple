@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLReporterUtils struct {
 func MLReporterUtilsFromID(id objc.ID) MLReporterUtils {
 	return MLReporterUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure MLReporterUtils implements IMLReporterUtils.
 var _ IMLReporterUtils = MLReporterUtils{}
 
@@ -82,7 +84,6 @@ func NewMLReporterUtils() MLReporterUtils {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLReporterUtils/archiveModelDetails:withName:toArchive:error:
 func (_MLReporterUtilsClass MLReporterUtilsClass) ArchiveModelDetailsWithNameToArchiveError(details unsafe.Pointer, name unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -97,7 +98,7 @@ func (_MLReporterUtilsClass MLReporterUtilsClass) ArchiveModelDetailsWithNameToA
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLReporterUtils/hashFileAt:error:
 func (_MLReporterUtilsClass MLReporterUtilsClass) HashFileAtError(at objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -109,4 +110,3 @@ func (_MLReporterUtilsClass MLReporterUtilsClass) HashFileAtError(at objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-

@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MTLType struct {
 func MTLTypeFromID(id objc.ID) MTLType {
 	return MTLType{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -103,4 +105,3 @@ func (t MTLType) DataType() MTLDataType {
 	rv := objc.Send[MTLDataType](t.ID, objc.Sel("dataType"))
 	return MTLDataType(rv)
 }
-

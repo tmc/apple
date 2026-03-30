@@ -3,11 +3,12 @@
 package avfaudio
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,14 +49,14 @@ func (ac AVAudioUnitSamplerClass) Alloc() AVAudioUnitSampler {
 // Apple’s Sampler audio unit.
 //
 // # Overview
-// 
+//
 // An [AVAudioUnitSampler] is an [AVAudioUnit] for Apple’s Sampler audio
 // unit.
-// 
+//
 // You configure the sampler by loading instruments from different types of
 // files. These include an `aupreset` file, DLS, or SF2 sound bank; an EXS24
 // instrument; a single audio file; or an array of audio files.
-// 
+//
 // The output of a [AVAudioUnitSampler] is a single stereo bus.
 //
 // # Configuring the Sampler Audio Unit
@@ -85,6 +86,7 @@ type AVAudioUnitSampler struct {
 func AVAudioUnitSamplerFromID(id objc.ID) AVAudioUnitSampler {
 	return AVAudioUnitSampler{AVAudioUnitMIDIInstrument: AVAudioUnitMIDIInstrumentFromID(id)}
 }
+
 // NOTE: AVAudioUnitSampler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -156,11 +158,11 @@ func NewAVAudioUnitSampler() AVAudioUnitSampler {
 // description: The description of the audio component.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitMIDIInstrument] instance.
 //
 // # Discussion
-// 
+//
 // The component type must be `kAudioUnitType_MusicDevice` or
 // `kAudioUnitType_RemoteInstrument`.
 //
@@ -177,11 +179,11 @@ func NewAudioUnitSamplerWithAudioComponentDescription(description objectivec.IOb
 // instrumentURL: The URL of the file that contains the instrument.
 //
 // # Discussion
-// 
+//
 // The instrument can be one of the following types: Logic or GarageBand
 // [EXS24], the sampler’s native `aupreset` file, or an audio file, such as
 // `caf`, `aiff`, `wav`, or `mp3`.
-// 
+//
 // For a single audio file, the framework loads it into a new default
 // instrument and uses any information in the audio file, such as the root key
 // and key range, for its placement in the instrument.
@@ -200,12 +202,13 @@ func (a AVAudioUnitSampler) LoadInstrumentAtURLError(instrumentURL foundation.IN
 	return rv, nil
 
 }
+
 // Configures the sampler by loading the specified audio files.
 //
 // audioFiles: An array of audio file URLs to load.
 //
 // # Discussion
-// 
+//
 // The framework loads the audio files into a new instrument with each audio
 // file in its own sampler zone. The framework uses any information in the
 // audio file for its placement in the instrument. For example, the root key
@@ -225,6 +228,7 @@ func (a AVAudioUnitSampler) LoadAudioFilesAtURLsError(audioFiles []foundation.NS
 	return rv, nil
 
 }
+
 // Loads a specific instrument from the specified soundbank.
 //
 // bankURL: The URL for a soundbank file, either a DLS bank (`XCUIElementTypeDls`) or a
@@ -259,7 +263,7 @@ func (a AVAudioUnitSampler) LoadSoundBankInstrumentAtURLProgramBankMSBBankLSBErr
 // An adjustment for the tuning of all the played notes.
 //
 // # Discussion
-// 
+//
 // The tuning unit is cents, and defaults to `0.0`. The range of valid values
 // is `-2400` to `2400` cents.
 //
@@ -271,10 +275,11 @@ func (a AVAudioUnitSampler) GlobalTuning() float32 {
 func (a AVAudioUnitSampler) SetGlobalTuning(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setGlobalTuning:"), value)
 }
+
 // An adjustment for the gain of all the played notes, in decibels.
 //
 // # Discussion
-// 
+//
 // The default value is `0.0` dB, and the range of valid values is `-90.0` dB
 // to `12.0` dB.
 //
@@ -286,10 +291,11 @@ func (a AVAudioUnitSampler) OverallGain() float32 {
 func (a AVAudioUnitSampler) SetOverallGain(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOverallGain:"), value)
 }
+
 // An adjustment for the stereo panning of all the played notes.
 //
 // # Discussion
-// 
+//
 // The default value is `0.0`, and the range of valid values is `-100.0` to
 // `100.0`.
 //
@@ -301,4 +307,3 @@ func (a AVAudioUnitSampler) StereoPan() float32 {
 func (a AVAudioUnitSampler) SetStereoPan(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStereoPan:"), value)
 }
-

@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZEntropyDeviceConfigurationClass) Alloc() VZEntropyDeviceConfiguration
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZEntropyDeviceConfiguration._entropyDevice]
@@ -51,6 +51,7 @@ func (vc VZEntropyDeviceConfigurationClass) Alloc() VZEntropyDeviceConfiguration
 //   - [VZEntropyDeviceConfiguration.Description]
 //   - [VZEntropyDeviceConfiguration.Hash]
 //   - [VZEntropyDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration
 type VZEntropyDeviceConfiguration struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZEntropyDeviceConfiguration struct {
 func VZEntropyDeviceConfigurationFromID(id objc.ID) VZEntropyDeviceConfiguration {
 	return VZEntropyDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZEntropyDeviceConfiguration implements IVZEntropyDeviceConfiguration.
 var _ IVZEntropyDeviceConfiguration = VZEntropyDeviceConfiguration{}
 
@@ -118,24 +120,27 @@ func (e VZEntropyDeviceConfiguration) _entropyDevice() int {
 	rv := objc.Send[int](e.ID, objc.Sel("_entropyDevice"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/debugDescription
 func (e VZEntropyDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/description
 func (e VZEntropyDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/hash
 func (e VZEntropyDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZEntropyDeviceConfiguration/superclass
 func (e VZEntropyDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
 	return rv
 }
-

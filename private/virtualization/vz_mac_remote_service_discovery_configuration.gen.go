@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (vc VZMacRemoteServiceDiscoveryConfigurationClass) Alloc() VZMacRemoteServi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacRemoteServiceDiscoveryConfiguration.GuestServiceAllowList]
 //   - [VZMacRemoteServiceDiscoveryConfiguration.SetGuestServiceAllowList]
 //   - [VZMacRemoteServiceDiscoveryConfiguration.HostServiceAllowList]
 //   - [VZMacRemoteServiceDiscoveryConfiguration.SetHostServiceAllowList]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacRemoteServiceDiscoveryConfiguration
 type VZMacRemoteServiceDiscoveryConfiguration struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type VZMacRemoteServiceDiscoveryConfiguration struct {
 func VZMacRemoteServiceDiscoveryConfigurationFromID(id objc.ID) VZMacRemoteServiceDiscoveryConfiguration {
 	return VZMacRemoteServiceDiscoveryConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMacRemoteServiceDiscoveryConfiguration implements IVZMacRemoteServiceDiscoveryConfiguration.
 var _ IVZMacRemoteServiceDiscoveryConfiguration = VZMacRemoteServiceDiscoveryConfiguration{}
 
@@ -109,6 +111,7 @@ func (v VZMacRemoteServiceDiscoveryConfiguration) GuestServiceAllowList() founda
 func (v VZMacRemoteServiceDiscoveryConfiguration) SetGuestServiceAllowList(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("setGuestServiceAllowList:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacRemoteServiceDiscoveryConfiguration/hostServiceAllowList
 func (v VZMacRemoteServiceDiscoveryConfiguration) HostServiceAllowList() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("hostServiceAllowList"))
@@ -117,4 +120,3 @@ func (v VZMacRemoteServiceDiscoveryConfiguration) HostServiceAllowList() foundat
 func (v VZMacRemoteServiceDiscoveryConfiguration) SetHostServiceAllowList(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHostServiceAllowList:"), value)
 }
-

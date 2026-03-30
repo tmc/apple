@@ -4,11 +4,12 @@ package networkextension
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NETunnelProviderSession] class.
@@ -47,10 +48,10 @@ func (nc NETunnelProviderSessionClass) Alloc() NETunnelProviderSession {
 // An object to start and stop a tunnel connection and get its status.
 //
 // # Overview
-// 
+//
 // [NETunnelProviderSession] objects control network tunnel connections
 // provided by Tunnel Provider extensions.
-// 
+//
 // [NETunnelProviderSession] objects are not instantiated directly. Instead,
 // each [NETunnelProviderManager] object has an associated
 // [NETunnelProviderSession] as a read-only property.
@@ -75,6 +76,7 @@ type NETunnelProviderSession struct {
 func NETunnelProviderSessionFromID(id objc.ID) NETunnelProviderSession {
 	return NETunnelProviderSession{NEVPNConnection: NEVPNConnectionFromID(id)}
 }
+
 // NOTE: NETunnelProviderSession adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,16 +133,16 @@ func NewNETunnelProviderSession() NETunnelProviderSession {
 // extension.
 //
 // # Discussion
-// 
+//
 // This method returns immediately after starting the process of connecting
 // the tunnel. In order to be notified when the tunnel is fully connected,
 // register to observe the [NEVPNStatusDidChangeNotification] notification on
 // the [NETunnelProviderSession] object and examine its status property when
 // the notification is received.
 //
-// [NEVPNStatusDidChangeNotification]: https://developer.apple.com/documentation/NetworkExtension/NEVPNStatusDidChangeNotification
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderSession/startTunnel(options:)
+//
+// [NEVPNStatusDidChangeNotification]: https://developer.apple.com/documentation/NetworkExtension/NEVPNStatusDidChangeNotification
 func (t NETunnelProviderSession) StartTunnelWithOptionsAndReturnError(options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("startTunnelWithOptions:andReturnError:"), options, unsafe.Pointer(&errorPtr))
@@ -154,22 +156,24 @@ func (t NETunnelProviderSession) StartTunnelWithOptionsAndReturnError(options fo
 	return rv, nil
 
 }
+
 // Start the process of disconnecting the tunnel.
 //
 // # Discussion
-// 
+//
 // This method returns immediately after starting the process of disconnecting
 // the tunnel. In order to be notified when the tunnel is fully disconnected,
 // register to observe the [NEVPNStatusDidChangeNotification] notification on
 // the [NETunnelProviderSession] object and examine its status property when
 // the notification is received.
 //
-// [NEVPNStatusDidChangeNotification]: https://developer.apple.com/documentation/NetworkExtension/NEVPNStatusDidChangeNotification
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderSession/stopTunnel()
+//
+// [NEVPNStatusDidChangeNotification]: https://developer.apple.com/documentation/NetworkExtension/NEVPNStatusDidChangeNotification
 func (t NETunnelProviderSession) StopTunnel() {
 	objc.Send[objc.ID](t.ID, objc.Sel("stopTunnel"))
 }
+
 // Send a message to the Tunnel Provider extension. If the extension is not
 // running, it should be launched to handle the message. If this method
 // can’t start sending the message it reports an error in the `returnError`
@@ -177,8 +181,6 @@ func (t NETunnelProviderSession) StopTunnel() {
 // result, `nil` should be sent to the response handler as notification.
 //
 // messageData: An [NSData] object containing the message to be sent.
-// //
-// [NSData]: https://developer.apple.com/documentation/Foundation/NSData
 //
 // responseHandler: An optional block that handles the response from the Tunnel Provider
 // extension. Pass nil if no response is expected.
@@ -186,8 +188,10 @@ func (t NETunnelProviderSession) StopTunnel() {
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderSession/sendProviderMessage(_:responseHandler:)
+//
+// [NSData]: https://developer.apple.com/documentation/Foundation/NSData
 func (t NETunnelProviderSession) SendProviderMessageReturnErrorResponseHandler(messageData foundation.INSData, error_ foundation.INSError, responseHandler DataHandler) bool {
-_block2, _ := NewDataBlock(responseHandler)
+	_block2, _ := NewDataBlock(responseHandler)
 	rv := objc.Send[bool](t.ID, objc.Sel("sendProviderMessage:returnError:responseHandler:"), messageData, error_, _block2)
 	return rv
 }
@@ -206,4 +210,3 @@ func (t NETunnelProviderSession) SendProviderMessageReturnErrorResponseHandlerSy
 		return nil, ctx.Err()
 	}
 }
-

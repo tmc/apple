@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NEPacketTunnelFlowClass) Alloc() NEPacketTunnelFlow {
 // virtual interface.
 //
 // # Overview
-// 
+//
 // Use the [NEPacketTunnelFlow] class to implement a custom-IP tunneling
 // protocol for your packet tunnel. For example, use the APIs in this class to
 // read packets from the virtual interface, so you can then encapsulate these
@@ -72,6 +73,7 @@ type NEPacketTunnelFlow struct {
 func NEPacketTunnelFlowFromID(id objc.ID) NEPacketTunnelFlow {
 	return NEPacketTunnelFlow{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEPacketTunnelFlow adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -123,6 +125,7 @@ func (p NEPacketTunnelFlow) WritePacketObjects(packets []NEPacket) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("writePacketObjects:"), objectivec.IObjectSliceToNSArray(packets))
 	return rv
 }
+
 // Reads IP packets from the TUN interface.
 //
 // completionHandler: A Swift closure or an ObjectiveC block that runs when some packets are read
@@ -134,16 +137,17 @@ func (p NEPacketTunnelFlow) WritePacketObjects(packets []NEPacket) bool {
 // include `AF_INET` and `AF_INET6`. See `/usr/include/sys/socket.H()`.
 //
 // # Discussion
-// 
+//
 // Each call to this method results in a single execution of the completion
 // handler. The caller should call this method after each `completionHandler`
 // execution in order to continue to receive packets from the TUN interface.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacketTunnelFlow/readPackets(completionHandler:)
 func (p NEPacketTunnelFlow) ReadPacketsWithCompletionHandler(completionHandler VoidHandler) {
-_block0, _ := NewVoidBlock(completionHandler)
+	_block0, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("readPacketsWithCompletionHandler:"), _block0)
 }
+
 // Writes IP packets to the TUN interface.
 //
 // packets: An array of NSData objects containing the IP packets to the written.
@@ -152,7 +156,7 @@ _block0, _ := NewVoidBlock(completionHandler)
 // or AF_INET6) of the IP packets in `packets` in host byte order.
 //
 // # Discussion
-// 
+//
 // The number of NSData objects in `packets` must be exactly equal to the
 // number of NSNumber objects in `protocols`.
 //
@@ -161,4 +165,3 @@ func (p NEPacketTunnelFlow) WritePacketsWithProtocols(packets []foundation.NSDat
 	rv := objc.Send[bool](p.ID, objc.Sel("writePackets:withProtocols:"), objectivec.IObjectSliceToNSArray(packets), objectivec.IObjectSliceToNSArray(protocols))
 	return rv
 }
-

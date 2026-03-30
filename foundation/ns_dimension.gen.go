@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,14 +44,14 @@ func (dc DimensionClass) Alloc() Dimension {
 // An abstract class representing a dimensional unit of measure.
 //
 // # Overview
-// 
+//
 // The Foundation framework provides concrete subclasses for many of the most
 // common types of physical units.
-// 
+//
 // Table 1: [NSDimension] subclasses.
-// 
+//
 // [Table data omitted]
-// 
+//
 // Each instance of a [NSDimension] subclass has a [Converter], which
 // represents the unit in terms of the dimension’s [BaseUnit]. For example,
 // the [NSLengthUnit] class uses [Meters] as its base unit. The system defines
@@ -59,43 +60,43 @@ func (dc DimensionClass) Alloc() Dimension {
 // miles to meters (1 mi = 1609.34 m); the system defines the predefined
 // [Meters] unit by a [NSUnitConverterLinear] with a [Coefficient] of `1.0`
 // because it’s the base unit.
-// 
+//
 // You typically use an [NSDimension] subclass in conjunction with the
 // [NSMeasurement] class to represent specific quantities of a particular
 // unit.
-// 
+//
 // # Working with Custom Units
-// 
+//
 // In addition to the Apple-provided units, you can define custom units. You
 // can initialize custom units from a symbol and converter of an existing type
 // or implemented as a class method of an existing type for additional
 // convenience. You can also define your own [NSDimension] subclass to
 // represent an entirely new unit dimension.
-// 
+//
 // # Initializing a Custom Unit with a Specified Symbol and Definition
-// 
+//
 // The simplest way to define a custom unit is to create a new instance of an
 // existing [NSDimension] subclass using the [InitWithSymbolConverter] method.
-// 
+//
 // For example, the is a nonstandard unit of length (1 smoot = 1.70180 m). You
 // can create a new instance of [NSUnitLength] as follows:
-// 
+//
 // # Extending Existing Dimension Subclasses
-// 
+//
 // Alternatively, if you use a custom unit extensively throughout an app,
 // consider extending the corresponding [NSDimension] subclass and adding a
 // static variable.
-// 
+//
 // For example, a measurement of speed can be furlongs per fortnight (1
 // fur/ftn = 201.168 m / 1,209,600 s). If an app makes frequent use of this
 // unit, you can extend [NSUnitSpeed] to add a `furlongsPerFortnight` static
 // variable for convenient access as follows:
-// 
+//
 // # Creating a Custom Dimension Subclass
-// 
+//
 // You can create a new subclass of [NSDimension] to describe a new unit
 // dimension.
-// 
+//
 // For example, the Foundation framework doesn’t define any units for
 // radioactivity. Radioactivity is the process by which the nucleus of an atom
 // emits radiation. The SI unit of measure for radioactivity is the becquerel
@@ -105,29 +106,29 @@ func (dc DimensionClass) Alloc() Dimension {
 // of the radium-226 isotope (1 Ci = 3.7 × 1010 Bq). You can implement a
 // [CustomUnitRadioactivity] class that defines both units of radioactivity as
 // follows:
-// 
+//
 // # Subclassing Notes
-// 
+//
 // The system provides [NSDimension] for subclassing. Although the subclasses
 // listed in Table 1 above are suitable for most purposes, you may want to
 // define a custom unit type. For instance, you may need a custom unit type to
 // represent a derived unit, such as magnetic flux (measured as the product of
 // electric potential difference and time).
-// 
+//
 // To represent dimensionless units, subclass [NSUnit] directly.
-// 
+//
 // # Methods to Override
-// 
+//
 // All subclasses must fully implement the [BaseUnit] method designating the
 // base unit, relative to which you define any additional units.
-// 
+//
 // You must also implement a class method named for the base unit itself, to
 // use interchangeably. For example, the [NSUnitIlluminance] class defines its
 // [BaseUnit] in terms of the lux (lx) and provides a corresponding [Lux]
 // class method.
-// 
+//
 // # Alternatives to Subclassing
-// 
+//
 // As described in [NSDimension], you need to create a custom subclass of
 // [NSDimension] only if you or the system haven’t defined a unit of the
 // desired dimension. You can define a custom unit for an existing
@@ -156,6 +157,7 @@ func DimensionFromID(id objc.ID) Dimension {
 
 // NSDimensionFromID is an alias for [DimensionFromID] for cross-framework compatibility.
 func NSDimensionFromID(id objc.ID) Dimension { return DimensionFromID(id) }
+
 // NOTE: Dimension adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -207,7 +209,6 @@ func NewDimension() Dimension {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDimensionWithCoder(coder INSCoder) Dimension {
 	instance := getDimensionClass().Alloc()
@@ -220,7 +221,7 @@ func NewDimensionWithCoder(coder INSCoder) Dimension {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -239,11 +240,11 @@ func NewDimensionWithSymbol(symbol string) Dimension {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -262,11 +263,11 @@ func NewDimensionWithSymbolConverter(symbol string, converter INSUnitConverter) 
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -278,17 +279,17 @@ func (d Dimension) InitWithSymbolConverter(symbol string, converter INSUnitConve
 // Returns the base unit.
 //
 // # Return Value
-// 
+//
 // An [NSDimension] subclass object from which all other units provided by the
 // subclass are defined.
 //
 // # Discussion
-// 
+//
 // The default implementation returns `nil` to indicate that the [NSDimension]
 // class should not be used directly.
-// 
+//
 // When implementing a subclass, you should return a unit converter that
-// returns the inputted value for both the `` and `` methods. You can create a
+// returns the inputted value for both the “ and “ methods. You can create a
 // unit converter for a base unit using the [NSUnitConverterLinear]
 // [InitWithCoefficient] initializer, passing `1` as the coefficient.
 //
@@ -306,6 +307,7 @@ func (d Dimension) Converter() INSUnitConverter {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("converter"))
 	return NSUnitConverterFromID(objc.ID(rv))
 }
+
 // The coefficient to use in the linear unit conversion calculation.
 //
 // See: https://developer.apple.com/documentation/foundation/unitconverterlinear/coefficient
@@ -327,6 +329,7 @@ func (_DimensionClass DimensionClass) Lux() UnitIlluminance {
 func (_DimensionClass DimensionClass) SetLux(value UnitIlluminance) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setLux:"), value)
 }
+
 // The meters unit of length.
 //
 // See: https://developer.apple.com/documentation/foundation/unitlength/meters
@@ -337,6 +340,7 @@ func (_DimensionClass DimensionClass) Meters() UnitLength {
 func (_DimensionClass DimensionClass) SetMeters(value UnitLength) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setMeters:"), value)
 }
+
 // The miles unit of length.
 //
 // See: https://developer.apple.com/documentation/foundation/unitlength/miles
@@ -347,4 +351,3 @@ func (_DimensionClass DimensionClass) Miles() UnitLength {
 func (_DimensionClass DimensionClass) SetMiles(value UnitLength) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setMiles:"), value)
 }
-

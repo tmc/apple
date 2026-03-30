@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLStateConstraintClass) Alloc() MLStateConstraint {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLStateConstraint.IsAllowedDataTypeError]
@@ -53,6 +53,7 @@ func (mc MLStateConstraintClass) Alloc() MLStateConstraint {
 //   - [MLStateConstraint.Shape]
 //   - [MLStateConstraint.InitWithCoder]
 //   - [MLStateConstraint.InitWithShapeDataTypeShapeConstraintDefaultOptionalValue]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint
 type MLStateConstraint struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLStateConstraint struct {
 func MLStateConstraintFromID(id objc.ID) MLStateConstraint {
 	return MLStateConstraint{objectivec.Object{ID: id}}
 }
+
 // Ensure MLStateConstraint implements IMLStateConstraint.
 var _ IMLStateConstraint = MLStateConstraint{}
 
@@ -109,7 +111,6 @@ func NewMLStateConstraint() MLStateConstraint {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/initWithCoder:
 func NewStateConstraintWithCoder(coder objectivec.IObject) MLStateConstraint {
 	instance := getMLStateConstraintClass().Alloc()
@@ -117,7 +118,6 @@ func NewStateConstraintWithCoder(coder objectivec.IObject) MLStateConstraint {
 	return MLStateConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/initWithShape:dataType:shapeConstraint:defaultOptionalValue:
 func NewStateConstraintWithShapeDataTypeShapeConstraintDefaultOptionalValue(shape objectivec.IObject, type_ int64, constraint objectivec.IObject, value objectivec.IObject) MLStateConstraint {
 	instance := getMLStateConstraintClass().Alloc()
@@ -125,7 +125,6 @@ func NewStateConstraintWithShapeDataTypeShapeConstraintDefaultOptionalValue(shap
 	return MLStateConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/isAllowedDataType:error:
 func (s MLStateConstraint) IsAllowedDataTypeError(type_ int64) (bool, error) {
 	var errorPtr objc.ID
@@ -140,7 +139,7 @@ func (s MLStateConstraint) IsAllowedDataTypeError(type_ int64) (bool, error) {
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/isAllowedShape:error:
 func (s MLStateConstraint) IsAllowedShapeError(shape objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -155,7 +154,7 @@ func (s MLStateConstraint) IsAllowedShapeError(shape objectivec.IObject) (bool, 
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/isAllowedValue:error:
 func (s MLStateConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -170,33 +169,33 @@ func (s MLStateConstraint) IsAllowedValueError(value objectivec.IObject) (bool, 
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/shape
 func (s MLStateConstraint) Shape() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("shape"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/initWithCoder:
 func (s MLStateConstraint) InitWithCoder(coder foundation.INSCoder) MLStateConstraint {
 	rv := objc.Send[MLStateConstraint](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/initWithShape:dataType:shapeConstraint:defaultOptionalValue:
 func (s MLStateConstraint) InitWithShapeDataTypeShapeConstraintDefaultOptionalValue(shape objectivec.IObject, type_ int64, constraint objectivec.IObject, value objectivec.IObject) MLStateConstraint {
 	rv := objc.Send[MLStateConstraint](s.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/constraintWithBufferShape:dataType:
 func (_MLStateConstraintClass MLStateConstraintClass) ConstraintWithBufferShapeDataType(shape objectivec.IObject, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLStateConstraintClass.class), objc.Sel("constraintWithBufferShape:dataType:"), shape, type_)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/supportsSecureCoding
 func (_MLStateConstraintClass MLStateConstraintClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLStateConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-

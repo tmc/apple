@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -55,6 +56,7 @@ type UNNotificationActionIcon struct {
 func UNNotificationActionIconFromID(id objc.ID) UNNotificationActionIcon {
 	return UNNotificationActionIcon{objectivec.Object{ID: id}}
 }
+
 // NOTE: UNNotificationActionIcon adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -91,15 +93,15 @@ func NewUNNotificationActionIcon() UNNotificationActionIcon {
 // systemImageName: The name of the system symbol image. Use the SF Symbols app to look up the
 // names of system symbol images. Download this app from the design resources
 // page at [developer.apple.com].
-// //
-// [developer.apple.com]: https://developer.apple.com/design/resources/
 //
 // # Return Value
-// 
+//
 // An action icon that the system initializes with the system symbol image
 // that your app specifies.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionIcon/init(systemImageName:)
+//
+// [developer.apple.com]: https://developer.apple.com/design/resources/
 func NewUNNotificationActionIconWithSystemImageName(systemImageName string) UNNotificationActionIcon {
 	rv := objc.Send[objc.ID](objc.ID(getUNNotificationActionIconClass().class), objc.Sel("iconWithSystemImageName:"), objc.String(systemImageName))
 	return UNNotificationActionIconFromID(rv)
@@ -111,13 +113,13 @@ func NewUNNotificationActionIconWithSystemImageName(systemImageName string) UNNo
 // templateImageName: The name of a custom image in the app’s asset catalog. If the image
 // isn’t in your app’s asset catalog, this method searches the app bundle
 // for the image.
-// 
+//
 // You don’t need to specify the filename extension or the `@2x` or `@3x`
 // modifiers for this name. This method retrieves the appropriate image based
 // on the system and the available image resources.
 //
 // # Return Value
-// 
+//
 // An action icon initialized with the specified template image provided by
 // your app.
 //
@@ -130,4 +132,3 @@ func NewUNNotificationActionIconWithTemplateImageName(templateImageName string) 
 func (u UNNotificationActionIcon) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-

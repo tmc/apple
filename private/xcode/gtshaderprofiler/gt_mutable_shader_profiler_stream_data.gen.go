@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (gc GTMutableShaderProfilerStreamDataClass) Alloc() GTMutableShaderProfiler
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMutableShaderProfilerStreamData._commonInit]
@@ -65,6 +65,7 @@ func (gc GTMutableShaderProfilerStreamDataClass) Alloc() GTMutableShaderProfiler
 //   - [GTMutableShaderProfilerStreamData.RemoveAPSTimelineData]
 //   - [GTMutableShaderProfilerStreamData.SetDataSourceHasUnusedResourcesCaptureRange]
 //   - [GTMutableShaderProfilerStreamData.SetNumBlitCalls]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData
 type GTMutableShaderProfilerStreamData struct {
 	GTShaderProfilerStreamData
@@ -74,6 +75,7 @@ type GTMutableShaderProfilerStreamData struct {
 func GTMutableShaderProfilerStreamDataFromID(id objc.ID) GTMutableShaderProfilerStreamData {
 	return GTMutableShaderProfilerStreamData{GTShaderProfilerStreamData: GTShaderProfilerStreamDataFromID(id)}
 }
+
 // Ensure GTMutableShaderProfilerStreamData implements IGTMutableShaderProfilerStreamData.
 var _ IGTMutableShaderProfilerStreamData = GTMutableShaderProfilerStreamData{}
 
@@ -149,7 +151,6 @@ func NewGTMutableShaderProfilerStreamData() GTMutableShaderProfilerStreamData {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithCoder:
 func NewGTMutableShaderProfilerStreamDataWithCoder(coder objectivec.IObject) GTMutableShaderProfilerStreamData {
 	instance := getGTMutableShaderProfilerStreamDataClass().Alloc()
@@ -157,7 +158,6 @@ func NewGTMutableShaderProfilerStreamDataWithCoder(coder objectivec.IObject) GTM
 	return GTMutableShaderProfilerStreamDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/initWithNewFileFormatV2Support:
 func NewGTMutableShaderProfilerStreamDataWithNewFileFormatV2Support(v2Support bool) GTMutableShaderProfilerStreamData {
 	instance := getGTMutableShaderProfilerStreamDataClass().Alloc()
@@ -165,7 +165,6 @@ func NewGTMutableShaderProfilerStreamDataWithNewFileFormatV2Support(v2Support bo
 	return GTMutableShaderProfilerStreamDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithPreSiBundle:
 func NewGTMutableShaderProfilerStreamDataWithPreSiBundle(bundle objectivec.IObject) GTMutableShaderProfilerStreamData {
 	instance := getGTMutableShaderProfilerStreamDataClass().Alloc()
@@ -182,7 +181,7 @@ func (g GTMutableShaderProfilerStreamData) _commonInit() {
 func (g GTMutableShaderProfilerStreamData) CommonInit() {
 	g._commonInit()
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/_copyForAddAPSData:prefix:
 func (g GTMutableShaderProfilerStreamData) _copyForAddAPSDataPrefix(aPSData objectivec.IObject, prefix objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_copyForAddAPSData:prefix:"), aPSData, prefix)
@@ -193,98 +192,100 @@ func (g GTMutableShaderProfilerStreamData) _copyForAddAPSDataPrefix(aPSData obje
 func (g GTMutableShaderProfilerStreamData) CopyForAddAPSDataPrefix(aPSData objectivec.IObject, prefix objectivec.IObject) objectivec.IObject {
 	return g._copyForAddAPSDataPrefix(aPSData, prefix)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addAPSCounterData:
 func (g GTMutableShaderProfilerStreamData) AddAPSCounterData(data objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addAPSCounterData:"), data)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addAPSData:
 func (g GTMutableShaderProfilerStreamData) AddAPSData(aPSData objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addAPSData:"), aPSData)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addAPSTimelineData:
 func (g GTMutableShaderProfilerStreamData) AddAPSTimelineData(data objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addAPSTimelineData:"), data)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addBatchIdFilteredCounterData:
 func (g GTMutableShaderProfilerStreamData) AddBatchIdFilteredCounterData(data objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addBatchIdFilteredCounterData:"), data)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addCommandBuffers:count:
 func (g GTMutableShaderProfilerStreamData) AddCommandBuffersCount(buffers objectivec.IObject, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addCommandBuffers:count:"), buffers, count)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addEncoders:count:
 func (g GTMutableShaderProfilerStreamData) AddEncodersCount(encoders objectivec.IObject, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addEncoders:count:"), encoders, count)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addGPUCommands:count:
 func (g GTMutableShaderProfilerStreamData) AddGPUCommandsCount(gPUCommands objectivec.IObject, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addGPUCommands:count:"), gPUCommands, count)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addGPUTimelineData:
 func (g GTMutableShaderProfilerStreamData) AddGPUTimelineData(data objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addGPUTimelineData:"), data)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addPipelinePerformanceStatisticsData:
 func (g GTMutableShaderProfilerStreamData) AddPipelinePerformanceStatisticsData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addPipelinePerformanceStatisticsData:"), data)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addPipelineStates:count:
 func (g GTMutableShaderProfilerStreamData) AddPipelineStatesCount(states objectivec.IObject, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addPipelineStates:count:"), states, count)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addShaderFunctionInfo:count:
 func (g GTMutableShaderProfilerStreamData) AddShaderFunctionInfoCount(info objectivec.IObject, count uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addShaderFunctionInfo:count:"), info, count)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addShaderProfilerData:
 func (g GTMutableShaderProfilerStreamData) AddShaderProfilerData(data objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addShaderProfilerData:"), data)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/addString:
 func (g GTMutableShaderProfilerStreamData) AddString(string_ objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("addString:"), string_)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/removeAPSCounterData
 func (g GTMutableShaderProfilerStreamData) RemoveAPSCounterData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("removeAPSCounterData"))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/removeAPSData
 func (g GTMutableShaderProfilerStreamData) RemoveAPSData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("removeAPSData"))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/removeAPSTimelineData
 func (g GTMutableShaderProfilerStreamData) RemoveAPSTimelineData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("removeAPSTimelineData"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/setDataSourceHasUnusedResources:captureRange:
 func (g GTMutableShaderProfilerStreamData) SetDataSourceHasUnusedResourcesCaptureRange(resources bool, range_ foundation.NSRange) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setDataSourceHasUnusedResources:captureRange:"), resources, range_)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMutableShaderProfilerStreamData/setNumBlitCalls:
 func (g GTMutableShaderProfilerStreamData) SetNumBlitCalls(calls uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setNumBlitCalls:"), calls)
 }
-

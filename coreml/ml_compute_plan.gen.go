@@ -5,8 +5,9 @@ package coreml
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (mc MLComputePlanClass) Alloc() MLComputePlan {
 // A class describing the plan for executing a model.
 //
 // # Overview
-// 
+//
 // The application can use the plan to estimate the necessary cost and
 // resources of the model before running the predictions.
 //
@@ -74,6 +75,7 @@ type MLComputePlan struct {
 func MLComputePlanFromID(id objc.ID) MLComputePlan {
 	return MLComputePlan{objectivec.Object{ID: id}}
 }
+
 // Ensure MLComputePlan implements IMLComputePlan.
 var _ IMLComputePlan = MLComputePlan{}
 
@@ -139,7 +141,7 @@ func NewMLComputePlan() MLComputePlan {
 // operation: An ML Program operation.
 //
 // # Return Value
-// 
+//
 // The anticipated compute devices that would be used for executing the
 // operation or `nil`if the usage couldn’t be determined.
 //
@@ -148,13 +150,14 @@ func (c MLComputePlan) ComputeDeviceUsageForMLProgramOperation(operation IMLMode
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("computeDeviceUsageForMLProgramOperation:"), operation)
 	return MLComputePlanDeviceUsageFromID(rv)
 }
+
 // Returns the anticipated compute devices that would be used for executing a
 // NeuralNetwork layer.
 //
 // layer: A NeuralNetwork layer.
 //
 // # Return Value
-// 
+//
 // The anticipated compute devices that would be used for executing the layer
 // or `nil` if the usage couldn’t be determined.
 //
@@ -163,12 +166,13 @@ func (c MLComputePlan) ComputeDeviceUsageForNeuralNetworkLayer(layer IMLModelStr
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("computeDeviceUsageForNeuralNetworkLayer:"), layer)
 	return MLComputePlanDeviceUsageFromID(rv)
 }
+
 // Returns the estimated cost of executing an ML Program operation.
 //
 // operation: An ML Program operation.
 //
 // # Return Value
-// 
+//
 // The estimated cost of executing the operation or nil if the cost couldn’t
 // be estimated.
 //
@@ -191,9 +195,10 @@ func (c MLComputePlan) EstimatedCostOfMLProgramOperation(operation IMLModelStruc
 //
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan-85vdw/loadContentsOfURL:configuration:completionHandler:
 func (_MLComputePlanClass MLComputePlanClass) LoadContentsOfURLConfigurationCompletionHandler(url foundation.INSURL, configuration IMLModelConfiguration, handler MLComputePlanErrorHandler) {
-_block2, _ := NewMLComputePlanErrorBlock(handler)
+	_block2, _ := NewMLComputePlanErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("loadContentsOfURL:configuration:completionHandler:"), url, configuration, _block2)
 }
+
 // Construct the compute plan of a model asynchronously given the model asset.
 //
 // asset: The model asset.
@@ -206,7 +211,7 @@ _block2, _ := NewMLComputePlanErrorBlock(handler)
 //
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan-85vdw/loadModelAsset:configuration:completionHandler:
 func (_MLComputePlanClass MLComputePlanClass) LoadModelAssetConfigurationCompletionHandler(asset IMLModelAsset, configuration IMLModelConfiguration, handler MLComputePlanErrorHandler) {
-_block2, _ := NewMLComputePlanErrorBlock(handler)
+	_block2, _ := NewMLComputePlanErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("loadModelAsset:configuration:completionHandler:"), asset, configuration, _block2)
 }
 
@@ -255,4 +260,3 @@ func (cc MLComputePlanClass) LoadModelAssetConfiguration(ctx context.Context, as
 		return nil, ctx.Err()
 	}
 }
-

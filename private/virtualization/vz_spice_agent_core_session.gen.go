@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZSpiceAgentCoreSession struct {
 func VZSpiceAgentCoreSessionFromID(id objc.ID) VZSpiceAgentCoreSession {
 	return VZSpiceAgentCoreSession{objectivec.Object{ID: id}}
 }
+
 // Ensure VZSpiceAgentCoreSession implements IVZSpiceAgentCoreSession.
 var _ IVZSpiceAgentCoreSession = VZSpiceAgentCoreSession{}
 
@@ -78,4 +80,3 @@ func NewVZSpiceAgentCoreSession() VZSpiceAgentCoreSession {
 	rv := objc.Send[VZSpiceAgentCoreSession](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

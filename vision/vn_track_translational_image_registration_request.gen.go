@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNTrackTranslationalImageRegistrationRequest] class.
@@ -46,7 +47,7 @@ func (vc VNTrackTranslationalImageRegistrationRequestClass) Alloc() VNTrackTrans
 // images.
 //
 // # Overview
-// 
+//
 // This request is similar to [VNTranslationalImageRegistrationRequest].
 // However, as a [VNStatefulRequest], it automatically computes the
 // registration against the previous frame.
@@ -64,6 +65,7 @@ type VNTrackTranslationalImageRegistrationRequest struct {
 func VNTrackTranslationalImageRegistrationRequestFromID(id objc.ID) VNTrackTranslationalImageRegistrationRequest {
 	return VNTrackTranslationalImageRegistrationRequest{VNStatefulRequest: VNStatefulRequestFromID(id)}
 }
+
 // NOTE: VNTrackTranslationalImageRegistrationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,18 +112,17 @@ func NewTrackTranslationalImageRegistrationRequestWithCompletionHandler(completi
 // frameAnalysisSpacing: A [CMTime] value that indicates the duration between analysis operations.
 // Increase this value to reduce the number of frames analyzed on slower
 // devices. Set this argument to [zero] to analyze all frames.
-// //
-// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // completionHandler: A closure that’s invoked after the request has completed its processing.
 // The system invokes the completion handler on the same dispatch queue as the
 // request performs its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
+//
+// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func NewTrackTranslationalImageRegistrationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNTrackTranslationalImageRegistrationRequest {
 	instance := getVNTrackTranslationalImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
 	return VNTrackTranslationalImageRegistrationRequestFromID(rv)
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,18 +45,18 @@ func (nc NSScriptCommandDescriptionClass) Alloc() NSScriptCommandDescription {
 // A script command that a macOS app supports.
 //
 // # Overview
-// 
+//
 // A scriptable application provides scriptability information that describes
 // the commands and objects scripters can use in scripts that target the
 // application. An application’s scripting information is collected
 // automatically by an instance of [NSScriptSuiteRegistry], which creates an
 // [NSScriptCommandDescription] for each command it finds, caches these
 // objects in memory, and installs a command handler for each command.
-// 
+//
 // A script command instance stores the name, class, argument types, and
 // return type of a command. For example, commands in AppleScript’s Core
 // suite include `clone`, `count`, `create`, `delete`, `exists`, and `move`.
-// 
+//
 // The public methods of [NSScriptCommandDescription] are used primarily by
 // Cocoa’s built-in scripting support in responding to Apple events that
 // target the application. Although you can subclass the
@@ -102,6 +103,7 @@ type NSScriptCommandDescription struct {
 func NSScriptCommandDescriptionFromID(id objc.ID) NSScriptCommandDescription {
 	return NSScriptCommandDescription{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSScriptCommandDescription adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -204,7 +206,6 @@ func NewNSScriptCommandDescription() NSScriptCommandDescription {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription/init(coder:)
 func NewScriptCommandDescriptionWithCoder(inCoder INSCoder) NSScriptCommandDescription {
 	instance := getNSScriptCommandDescriptionClass().Alloc()
@@ -225,13 +226,13 @@ func NewScriptCommandDescriptionWithCoder(inCoder INSCoder) NSScriptCommandDescr
 // such as its argument names and types and return type (if any).
 //
 // # Return Value
-// 
+//
 // The initialized command description instance. Returns `nil` if the event
 // constant or class name for the command description is missing; also returns
 // `nil` if the return type or argument values are of the wrong type.
 //
 // # Discussion
-// 
+//
 // This method registers `self` with the application’s global instance of
 // [NSScriptSuiteRegistry] and also registers all command arguments with the
 // registry.
@@ -256,13 +257,13 @@ func NewScriptCommandDescriptionWithSuiteNameCommandNameDictionary(suiteName str
 // such as its argument names and types and return type (if any).
 //
 // # Return Value
-// 
+//
 // The initialized command description instance. Returns `nil` if the event
 // constant or class name for the command description is missing; also returns
 // `nil` if the return type or argument values are of the wrong type.
 //
 // # Discussion
-// 
+//
 // This method registers `self` with the application’s global instance of
 // [NSScriptSuiteRegistry] and also registers all command arguments with the
 // registry.
@@ -272,6 +273,7 @@ func (s NSScriptCommandDescription) InitWithSuiteNameCommandNameDictionary(suite
 	rv := objc.Send[NSScriptCommandDescription](s.ID, objc.Sel("initWithSuiteName:commandName:dictionary:"), objc.String(suiteName), objc.String(commandName), commandDeclaration)
 	return rv
 }
+
 // Returns the Apple event code for the specified command argument of the
 // receiver.
 //
@@ -279,7 +281,7 @@ func (s NSScriptCommandDescription) InitWithSuiteNameCommandNameDictionary(suite
 // Apple event code.
 //
 // # Return Value
-// 
+//
 // The code for the specified argument.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription/appleEventCodeForArgument(withName:)
@@ -287,6 +289,7 @@ func (s NSScriptCommandDescription) AppleEventCodeForArgumentWithName(argumentNa
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventCodeForArgumentWithName:"), objc.String(argumentName))
 	return rv
 }
+
 // Returns a Boolean value that indicates whether the command argument
 // identified by the specified argument key is an optional argument.
 //
@@ -294,25 +297,22 @@ func (s NSScriptCommandDescription) AppleEventCodeForArgumentWithName(argumentNa
 // examine.
 //
 // # Return Value
-// 
-// [true] if the specified argument exists and is optional; otherwise,
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the specified argument exists and is optional; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription/isOptionalArgument(withName:)
 func (s NSScriptCommandDescription) IsOptionalArgumentWithName(argumentName string) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isOptionalArgumentWithName:"), objc.String(argumentName))
 	return rv
 }
+
 // Returns the type of the command argument identified by the specified key.
 //
 // argumentName: Argument name (used as a key) that identifies the command argument to
 // examine.
 //
 // # Return Value
-// 
+//
 // The type of the specified command argument. Returns `nil` if there is no
 // such argument.
 //
@@ -321,11 +321,12 @@ func (s NSScriptCommandDescription) TypeForArgumentWithName(argumentName string)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("typeForArgumentWithName:"), objc.String(argumentName))
 	return NSStringFromID(rv).String()
 }
+
 // Creates and returns an instance of the command object described by the
 // receiver.
 //
 // # Return Value
-// 
+//
 // The command object, instantiated from [NSScriptCommand] or a subclass.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription/createCommandInstance()
@@ -333,13 +334,14 @@ func (s NSScriptCommandDescription) CreateCommandInstance() INSScriptCommand {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createCommandInstance"))
 	return NSScriptCommandFromID(rv)
 }
+
 // Creates and returns an instance of the command object described by the
 // receiver in the specified memory zone.
 //
 // zone: The memory zone from which to allocate the command.
 //
 // # Return Value
-// 
+//
 // The command object, instantiated from [NSScriptCommand] or a subclass.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription/createCommandInstance(with:)
@@ -347,12 +349,13 @@ func (s NSScriptCommandDescription) CreateCommandInstanceWithZone(zone NSZone) I
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createCommandInstanceWithZone:"), zone)
 	return NSScriptCommandFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription/init(coder:)
 func (s NSScriptCommandDescription) InitWithCoder(inCoder INSCoder) NSScriptCommandDescription {
 	rv := objc.Send[NSScriptCommandDescription](s.ID, objc.Sel("initWithCoder:"), inCoder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -366,17 +369,17 @@ func (s NSScriptCommandDescription) EncodeWithCoder(coder INSCoder) {
 // receiver’s command.
 //
 // # Return Value
-// 
+//
 // The Apple event code associated with the receiver’s command. This is the
 // primary code used to identify the command in Apple events.
-// 
+//
 // # Discussion
-// 
+//
 // In an Apple event that specifies a script command, two four character
 // codes—the event class and event ID—together identify the command. You
 // use this method to obtain the event class. You use [AppleEventCode] to
 // obtain the event ID.
-// 
+//
 // For example, commands in AppleScript’s Core suite, such as `clone`,
 // `count`, and `create`, have an event class code of `'core'`. This code and
 // the event ID code returned by `appleEventCode` together specify the
@@ -387,15 +390,16 @@ func (s NSScriptCommandDescription) AppleEventClassCode() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventClassCode"))
 	return rv
 }
+
 // Returns the four-character code for the Apple event ID of the receiver’s
 // command.
 //
 // # Return Value
-// 
+//
 // The code for the event ID of the receiver’s command.
-// 
+//
 // # Discussion
-// 
+//
 // This value of the event ID returned by this method, together with the event
 // class code returned by [AppleEventClassCode], specifies the necessary
 // information for identifying and dispatching an Apple event.
@@ -405,11 +409,12 @@ func (s NSScriptCommandDescription) AppleEventCode() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventCode"))
 	return rv
 }
+
 // Returns the name of the class that will be instantiated to handle the
 // command.
 //
 // # Return Value
-// 
+//
 // The Objective-C class name (for example, `"NSGetCommand"`). This is always
 // [NSScriptCommand] or a subclass.
 //
@@ -418,10 +423,11 @@ func (s NSScriptCommandDescription) CommandClassName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("commandClassName"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns the name of the command.
 //
 // # Return Value
-// 
+//
 // The command name as it appears in the application’s scriptability
 // information; may be different from what is displayed to the scripter.
 //
@@ -430,11 +436,12 @@ func (s NSScriptCommandDescription) CommandName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("commandName"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns the name of the suite that contains the command described by the
 // receiver.
 //
 // # Return Value
-// 
+//
 // The receiver’s suite name. Within an application’s scriptability
 // information, named suites contain related sets of information.
 //
@@ -443,10 +450,11 @@ func (s NSScriptCommandDescription) SuiteName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("suiteName"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns the names (or keys) for all arguments of the receiver’s command.
 //
 // # Return Value
-// 
+//
 // The array of argument names. If there are no arguments for the command,
 // returns an empty array.
 //
@@ -455,10 +463,11 @@ func (s NSScriptCommandDescription) ArgumentNames() []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("argumentNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Returns the Apple event code that identifies the command’s return type.
 //
 // # Return Value
-// 
+//
 // The event code for the command’s return type.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription/appleEventCodeForReturnType
@@ -466,10 +475,11 @@ func (s NSScriptCommandDescription) AppleEventCodeForReturnType() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventCodeForReturnType"))
 	return rv
 }
+
 // Returns the return type of the command.
 //
 // # Return Value
-// 
+//
 // The receiver’s command return type; for example, `"NSNumber"` or
 // `"NSDictionary"`).
 //
@@ -479,6 +489,4 @@ func (s NSScriptCommandDescription) ReturnType() string {
 	return NSStringFromID(rv).String()
 }
 
-			// Protocol methods for NSCoding
-			
-
+// Protocol methods for NSCoding

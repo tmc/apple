@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,16 +44,16 @@ func (nc NSCreateCommandClass) Alloc() NSCreateCommand {
 // A command that creates a scriptable object.
 //
 // # Overview
-// 
+//
 // An instance of [NSCreateCommand] creates the specified scriptable object
 // (such as a document), optionally supplying the new object with the
 // specified attributes. This command corresponds to AppleScript’s `make`
 // command.
-// 
+//
 // [NSCreateCommand] is part of Cocoa’s built-in scripting support. Most
 // applications don’t need to subclass [NSCreateCommand] or invoke its
 // methods.
-// 
+//
 // When an instance of [NSCreateCommand] is executed, it creates a new object
 // using `[[theClassToBeCreated NULL] init]` (where `theClassToBeCreated` is
 // the class of the object to be created), unless the command has a `with
@@ -60,21 +61,18 @@ func (nc NSCreateCommandClass) Alloc() NSCreateCommand {
 // `[[NSScriptCoercionHandler sharedCoercionHandler] theDataAsAnObject
 // theClassToBeCreated]`. Any properties specified by a `with properties`
 // argument are then set in the new object using `-`.
-// 
+//
 // If an [NSCreateCommand] object with no argument corresponding to the `at`
 // parameter is executed (for example, `tell application "Mail" to make new
 // mailbox with properties {"testFolder"}`), and the receiver of the command
 // (not necessarily the application object) has a to-many relationship to
 // objects of the class to be instantiated, and the class description for the
-// receiving class returns [false] when sent an `` message, the
+// receiving class returns false when sent an “ message, the
 // [NSCreateCommand] object creates a new object and sends the receiver an
 // [insertValue(_:at:inPropertyWithKey:)] message to place the new object in
 // the container. This is part of Cocoa’s scripting support for inserting
 // newly-created objects into containers without explicitly specifying a
 // location.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [insertValue(_:at:inPropertyWithKey:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/insertValue(_:at:inPropertyWithKey:)
 //
 // # Getting information about a create command
 //
@@ -82,6 +80,8 @@ func (nc NSCreateCommandClass) Alloc() NSCreateCommand {
 //   - [NSCreateCommand.ResolvedKeyDictionary]: Returns a dictionary that contains the properties that were specified in the `make` Apple event command that has been converted to this [NSCreateCommand] object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCreateCommand
+//
+// [insertValue(_:at:inPropertyWithKey:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/insertValue(_:at:inPropertyWithKey:)
 type NSCreateCommand struct {
 	NSScriptCommand
 }
@@ -92,6 +92,7 @@ type NSCreateCommand struct {
 func NSCreateCommandFromID(id objc.ID) NSCreateCommand {
 	return NSCreateCommand{NSScriptCommand: NSScriptCommandFromID(id)}
 }
+
 // NOTE: NSCreateCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -133,7 +134,6 @@ func NewNSCreateCommand() NSCreateCommand {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewCreateCommandWithCoder(inCoder INSCoder) NSCreateCommand {
 	instance := getNSCreateCommandClass().Alloc()
@@ -147,11 +147,11 @@ func NewCreateCommandWithCoder(inCoder INSCoder) NSCreateCommand {
 // commandDef: A command description for the command to be created.
 //
 // # Return Value
-// 
+//
 // A newly initialized instance of [NSScriptCommand] or a subclass.
 //
 // # Discussion
-// 
+//
 // To make this command object usable, you must set its receiving objects and
 // arguments (if any) after invoking this method.
 //
@@ -165,7 +165,7 @@ func NewCreateCommandWithCommandDescription(commandDef INSScriptCommandDescripti
 // Returns the class description for the class that is to be created.
 //
 // # Return Value
-// 
+//
 // The class description for the class that is to be created.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCreateCommand/createClassDescription
@@ -173,18 +173,19 @@ func (c NSCreateCommand) CreateClassDescription() INSScriptClassDescription {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("createClassDescription"))
 	return NSScriptClassDescriptionFromID(objc.ID(rv))
 }
+
 // Returns a dictionary that contains the properties that were specified in
 // the `make` Apple event command that has been converted to this
 // [NSCreateCommand] object.
 //
 // # Return Value
-// 
+//
 // A dictionary that contains the properties that were specified in the `make`
 // Apple event script command that has been converted to this
 // [NSCreateCommand] object.
-// 
+//
 // # Discussion
-// 
+//
 // The keys in the returned dictionary are the names of properties (attributes
 // or relationships, in the script suite) that have been specified for the
 // command, and the corresponding values in the dictionary are the values that
@@ -197,4 +198,3 @@ func (c NSCreateCommand) ResolvedKeyDictionary() INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("resolvedKeyDictionary"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-

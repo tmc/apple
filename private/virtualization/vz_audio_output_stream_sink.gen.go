@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZAudioOutputStreamSinkClass) Alloc() VZAudioOutputStreamSink {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZAudioOutputStreamSink._init]
@@ -51,6 +51,7 @@ func (vc VZAudioOutputStreamSinkClass) Alloc() VZAudioOutputStreamSink {
 //   - [VZAudioOutputStreamSink.Description]
 //   - [VZAudioOutputStreamSink.Hash]
 //   - [VZAudioOutputStreamSink.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink
 type VZAudioOutputStreamSink struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZAudioOutputStreamSink struct {
 func VZAudioOutputStreamSinkFromID(id objc.ID) VZAudioOutputStreamSink {
 	return VZAudioOutputStreamSink{objectivec.Object{ID: id}}
 }
+
 // Ensure VZAudioOutputStreamSink implements IVZAudioOutputStreamSink.
 var _ IVZAudioOutputStreamSink = VZAudioOutputStreamSink{}
 
@@ -118,24 +120,27 @@ func (a VZAudioOutputStreamSink) _attachment() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("_attachment"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/debugDescription
 func (a VZAudioOutputStreamSink) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/description
 func (a VZAudioOutputStreamSink) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/hash
 func (a VZAudioOutputStreamSink) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioOutputStreamSink/superclass
 func (a VZAudioOutputStreamSink) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
 	return rv
 }
-

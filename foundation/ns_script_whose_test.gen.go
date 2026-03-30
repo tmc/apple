@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSScriptWhoseTestClass) Alloc() NSScriptWhoseTest {
 // time or in groups.
 //
 // # Overview
-// 
+//
 // [NSScriptWhoseTest] is an abstract class whose sole method is [NSScriptWhoseTest.IsTrue]. Two
 // concrete subclasses of [NSScriptWhoseTest] generate objects representing
 // Boolean expressions comparing one object with another and objects
@@ -53,7 +54,7 @@ func (nc NSScriptWhoseTestClass) Alloc() NSScriptWhoseTest {
 // ([OR], [AND], [NOT]). These classes are, respectively, [NSSpecifierTest]
 // and [NSLogicalTest]. In evaluating itself, an [NSWhoseSpecifier] invokes
 // the [NSScriptWhoseTest.IsTrue] method of its “test” object.
-// 
+//
 // You shouldn’t need to subclass [NSScriptWhoseTest], and you should rarely
 // need to subclass one of its subclasses.
 //
@@ -73,6 +74,7 @@ type NSScriptWhoseTest struct {
 func NSScriptWhoseTestFromID(id objc.ID) NSScriptWhoseTest {
 	return NSScriptWhoseTest{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSScriptWhoseTest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,7 +114,6 @@ func NewNSScriptWhoseTest() NSScriptWhoseTest {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptWhoseTest/init(coder:)
 func NewScriptWhoseTestWithCoder(inCoder INSCoder) NSScriptWhoseTest {
 	instance := getNSScriptWhoseTestClass().Alloc()
@@ -124,24 +125,22 @@ func NewScriptWhoseTestWithCoder(inCoder INSCoder) NSScriptWhoseTest {
 // receiver evaluates to true.
 //
 // # Return Value
-// 
-// [true] if the test represented by the receiver evaluates to [true],
-// otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the test represented by the receiver evaluates to true, otherwise
+// false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptWhoseTest/isTrue()
 func (s NSScriptWhoseTest) IsTrue() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isTrue"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSScriptWhoseTest/init(coder:)
 func (s NSScriptWhoseTest) InitWithCoder(inCoder INSCoder) NSScriptWhoseTest {
 	rv := objc.Send[NSScriptWhoseTest](s.ID, objc.Sel("initWithCoder:"), inCoder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -151,6 +150,4 @@ func (s NSScriptWhoseTest) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-			// Protocol methods for NSCoding
-			
-
+// Protocol methods for NSCoding

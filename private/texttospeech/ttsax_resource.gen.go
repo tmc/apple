@@ -4,9 +4,10 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (tc TTSAXResourceClass) Alloc() TTSAXResource {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSAXResource.AssetSize]
@@ -90,6 +90,7 @@ func (tc TTSAXResourceClass) Alloc() TTSAXResource {
 //   - [TTSAXResource.SetVoiceId]
 //   - [TTSAXResource.VoiceType]
 //   - [TTSAXResource.SetVoiceType]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource
 type TTSAXResource struct {
 	objectivec.Object
@@ -99,6 +100,7 @@ type TTSAXResource struct {
 func TTSAXResourceFromID(id objc.ID) TTSAXResource {
 	return TTSAXResource{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSAXResource implements ITTSAXResource.
 var _ ITTSAXResource = TTSAXResource{}
 
@@ -227,35 +229,37 @@ func (t TTSAXResource) AssetSize() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("assetSize"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/isInstalled
 func (t TTSAXResource) IsInstalled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isInstalled"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/localizedNameForLanguage:
 func (t TTSAXResource) LocalizedNameForLanguageWithLanguage(language objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("localizedNameForLanguage:"), language)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/nameAndFootprintForLanguage:
 func (t TTSAXResource) NameAndFootprintForLanguage(language objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("nameAndFootprintForLanguage:"), language)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/primaryLanguage
 func (t TTSAXResource) PrimaryLanguage() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("primaryLanguage"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/speechVoice
 func (t TTSAXResource) SpeechVoice() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("speechVoice"))
 	return objectivec.Object{ID: rv}
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/localizedName:forLanguage:
 func (_TTSAXResourceClass TTSAXResourceClass) LocalizedNameWithForLanguage(name objectivec.IObject, language objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSAXResourceClass.class), objc.Sel("localizedName:forLanguage:"), name, language)
@@ -270,6 +274,7 @@ func (t TTSAXResource) CanBeDownloaded() bool {
 func (t TTSAXResource) SetCanBeDownloaded(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCanBeDownloaded:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/contentPath
 func (t TTSAXResource) ContentPath() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("contentPath"))
@@ -278,6 +283,7 @@ func (t TTSAXResource) ContentPath() string {
 func (t TTSAXResource) SetContentPath(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContentPath:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/footprint
 func (t TTSAXResource) Footprint() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("footprint"))
@@ -286,6 +292,7 @@ func (t TTSAXResource) Footprint() int64 {
 func (t TTSAXResource) SetFootprint(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFootprint:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/gender
 func (t TTSAXResource) Gender() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("gender"))
@@ -294,6 +301,7 @@ func (t TTSAXResource) Gender() int64 {
 func (t TTSAXResource) SetGender(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGender:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/identifier
 func (t TTSAXResource) Identifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
@@ -302,6 +310,7 @@ func (t TTSAXResource) Identifier() string {
 func (t TTSAXResource) SetIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/isDefault
 func (t TTSAXResource) IsDefault() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isDefault"))
@@ -310,6 +319,7 @@ func (t TTSAXResource) IsDefault() bool {
 func (t TTSAXResource) SetIsDefault(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIsDefault:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/isNoveltyVoice
 func (t TTSAXResource) IsNoveltyVoice() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isNoveltyVoice"))
@@ -318,6 +328,7 @@ func (t TTSAXResource) IsNoveltyVoice() bool {
 func (t TTSAXResource) SetIsNoveltyVoice(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIsNoveltyVoice:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/isPersonalVoice
 func (t TTSAXResource) IsPersonalVoice() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isPersonalVoice"))
@@ -326,6 +337,7 @@ func (t TTSAXResource) IsPersonalVoice() bool {
 func (t TTSAXResource) SetIsPersonalVoice(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIsPersonalVoice:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/isSystemVoice
 func (t TTSAXResource) IsSystemVoice() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSystemVoice"))
@@ -334,6 +346,7 @@ func (t TTSAXResource) IsSystemVoice() bool {
 func (t TTSAXResource) SetIsSystemVoice(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIsSystemVoice:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/language
 func (t TTSAXResource) Language() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("language"))
@@ -342,6 +355,7 @@ func (t TTSAXResource) Language() string {
 func (t TTSAXResource) SetLanguage(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/languages
 func (t TTSAXResource) Languages() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("languages"))
@@ -350,6 +364,7 @@ func (t TTSAXResource) Languages() foundation.INSArray {
 func (t TTSAXResource) SetLanguages(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLanguages:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/localizedName
 func (t TTSAXResource) LocalizedName() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("localizedName"))
@@ -358,6 +373,7 @@ func (t TTSAXResource) LocalizedName() string {
 func (t TTSAXResource) SetLocalizedName(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLocalizedName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/localizedNameWithFootprint
 func (t TTSAXResource) LocalizedNameWithFootprint() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("localizedNameWithFootprint"))
@@ -366,6 +382,7 @@ func (t TTSAXResource) LocalizedNameWithFootprint() string {
 func (t TTSAXResource) SetLocalizedNameWithFootprint(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLocalizedNameWithFootprint:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/name
 func (t TTSAXResource) Name() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("name"))
@@ -374,6 +391,7 @@ func (t TTSAXResource) Name() string {
 func (t TTSAXResource) SetName(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/subtype
 func (t TTSAXResource) Subtype() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("subtype"))
@@ -382,6 +400,7 @@ func (t TTSAXResource) Subtype() uint64 {
 func (t TTSAXResource) SetSubtype(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSubtype:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/synthesisProviderVoice
 func (t TTSAXResource) SynthesisProviderVoice() avfaudio.AVSpeechSynthesisProviderVoice {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("synthesisProviderVoice"))
@@ -390,6 +409,7 @@ func (t TTSAXResource) SynthesisProviderVoice() avfaudio.AVSpeechSynthesisProvid
 func (t TTSAXResource) SetSynthesisProviderVoice(value avfaudio.AVSpeechSynthesisProviderVoice) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSynthesisProviderVoice:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/type
 func (t TTSAXResource) Type() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("type"))
@@ -398,6 +418,7 @@ func (t TTSAXResource) Type() uint64 {
 func (t TTSAXResource) SetType(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setType:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/voiceId
 func (t TTSAXResource) VoiceId() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceId"))
@@ -406,6 +427,7 @@ func (t TTSAXResource) VoiceId() string {
 func (t TTSAXResource) SetVoiceId(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVoiceId:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResource/voiceType
 func (t TTSAXResource) VoiceType() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("voiceType"))
@@ -414,4 +436,3 @@ func (t TTSAXResource) VoiceType() int64 {
 func (t TTSAXResource) SetVoiceType(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVoiceType:"), value)
 }
-

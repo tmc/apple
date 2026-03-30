@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type NEFilterRule struct {
 func NEFilterRuleFromID(id objc.ID) NEFilterRule {
 	return NEFilterRule{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEFilterRule adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,6 +160,7 @@ func (f NEFilterRule) NetworkRule() INENetworkRule {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("networkRule"))
 	return NENetworkRuleFromID(objc.ID(rv))
 }
+
 // The action to take when this rule matches network traffic.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterRule/action
@@ -165,4 +168,3 @@ func (f NEFilterRule) Action() NEFilterAction {
 	rv := objc.Send[NEFilterAction](f.ID, objc.Sel("action"))
 	return NEFilterAction(rv)
 }
-

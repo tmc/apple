@@ -4,11 +4,12 @@ package texttospeech
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,6 @@ func (tc TTSWrappedAudioQueueClass) Alloc() TTSWrappedAudioQueue {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSWrappedAudioQueue._attemptQueueStart]
@@ -106,6 +106,7 @@ func (tc TTSWrappedAudioQueueClass) Alloc() TTSWrappedAudioQueue {
 //   - [TTSWrappedAudioQueue.State]
 //   - [TTSWrappedAudioQueue.SetState]
 //   - [TTSWrappedAudioQueue.Stop]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue
 type TTSWrappedAudioQueue struct {
 	objectivec.Object
@@ -115,6 +116,7 @@ type TTSWrappedAudioQueue struct {
 func TTSWrappedAudioQueueFromID(id objc.ID) TTSWrappedAudioQueue {
 	return TTSWrappedAudioQueue{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSWrappedAudioQueue implements ITTSWrappedAudioQueue.
 var _ ITTSWrappedAudioQueue = TTSWrappedAudioQueue{}
 
@@ -276,6 +278,7 @@ func (t TTSWrappedAudioQueue) _attemptQueueStart() bool {
 func (t TTSWrappedAudioQueue) AttemptQueueStart() bool {
 	return t._attemptQueueStart()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_buildAudioQueue
 func (t TTSWrappedAudioQueue) _buildAudioQueue() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_buildAudioQueue"))
@@ -285,6 +288,7 @@ func (t TTSWrappedAudioQueue) _buildAudioQueue() {
 func (t TTSWrappedAudioQueue) BuildAudioQueue() {
 	t._buildAudioQueue()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_configureEffects
 func (t TTSWrappedAudioQueue) _configureEffects() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_configureEffects"))
@@ -294,6 +298,7 @@ func (t TTSWrappedAudioQueue) _configureEffects() {
 func (t TTSWrappedAudioQueue) ConfigureEffects() {
 	t._configureEffects()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_initializeDSPGraphAU
 func (t TTSWrappedAudioQueue) _initializeDSPGraphAU() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_initializeDSPGraphAU"))
@@ -303,6 +308,7 @@ func (t TTSWrappedAudioQueue) _initializeDSPGraphAU() {
 func (t TTSWrappedAudioQueue) InitializeDSPGraphAU() {
 	t._initializeDSPGraphAU()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_minimumBufferByteSize
 func (t TTSWrappedAudioQueue) _minimumBufferByteSize() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("_minimumBufferByteSize"))
@@ -313,6 +319,7 @@ func (t TTSWrappedAudioQueue) _minimumBufferByteSize() uint64 {
 func (t TTSWrappedAudioQueue) MinimumBufferByteSize() uint64 {
 	return t._minimumBufferByteSize()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_rebuildAudioQueue
 func (t TTSWrappedAudioQueue) _rebuildAudioQueue() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_rebuildAudioQueue"))
@@ -322,6 +329,7 @@ func (t TTSWrappedAudioQueue) _rebuildAudioQueue() {
 func (t TTSWrappedAudioQueue) RebuildAudioQueue() {
 	t._rebuildAudioQueue()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_reconfigureQueueFormatForMultiChannelOutputIfNecessary
 func (t TTSWrappedAudioQueue) _reconfigureQueueFormatForMultiChannelOutputIfNecessary() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_reconfigureQueueFormatForMultiChannelOutputIfNecessary"))
@@ -331,6 +339,7 @@ func (t TTSWrappedAudioQueue) _reconfigureQueueFormatForMultiChannelOutputIfNece
 func (t TTSWrappedAudioQueue) ReconfigureQueueFormatForMultiChannelOutputIfNecessary() {
 	t._reconfigureQueueFormatForMultiChannelOutputIfNecessary()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_startQueueWithRetry
 func (t TTSWrappedAudioQueue) _startQueueWithRetry() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("_startQueueWithRetry"))
@@ -341,6 +350,7 @@ func (t TTSWrappedAudioQueue) _startQueueWithRetry() bool {
 func (t TTSWrappedAudioQueue) StartQueueWithRetry() bool {
 	return t._startQueueWithRetry()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_syncGraphParameters
 func (t TTSWrappedAudioQueue) _syncGraphParameters() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_syncGraphParameters"))
@@ -350,6 +360,7 @@ func (t TTSWrappedAudioQueue) _syncGraphParameters() {
 func (t TTSWrappedAudioQueue) SyncGraphParameters() {
 	t._syncGraphParameters()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_syncGraphProperties
 func (t TTSWrappedAudioQueue) _syncGraphProperties() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_syncGraphProperties"))
@@ -359,6 +370,7 @@ func (t TTSWrappedAudioQueue) _syncGraphProperties() {
 func (t TTSWrappedAudioQueue) SyncGraphProperties() {
 	t._syncGraphProperties()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_tearDownAudioQueue
 func (t TTSWrappedAudioQueue) _tearDownAudioQueue() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_tearDownAudioQueue"))
@@ -368,6 +380,7 @@ func (t TTSWrappedAudioQueue) _tearDownAudioQueue() {
 func (t TTSWrappedAudioQueue) TearDownAudioQueue() {
 	t._tearDownAudioQueue()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/_tearDownDSPGraphAU
 func (t TTSWrappedAudioQueue) _tearDownDSPGraphAU() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_tearDownDSPGraphAU"))
@@ -377,58 +390,64 @@ func (t TTSWrappedAudioQueue) _tearDownDSPGraphAU() {
 func (t TTSWrappedAudioQueue) TearDownDSPGraphAU() {
 	t._tearDownDSPGraphAU()
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/bufferCallback:
 func (t TTSWrappedAudioQueue) BufferCallback(callback unsafe.Pointer) {
 	objc.Send[objc.ID](t.ID, objc.Sel("bufferCallback:"), callback)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/convertBufferIfNecessary:
 func (t TTSWrappedAudioQueue) ConvertBufferIfNecessary(necessary objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("convertBufferIfNecessary:"), necessary)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/handleMediaServicesReset
 func (t TTSWrappedAudioQueue) HandleMediaServicesReset() {
 	objc.Send[objc.ID](t.ID, objc.Sel("handleMediaServicesReset"))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/isRunning
 func (t TTSWrappedAudioQueue) IsRunning() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isRunning"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/pause
 func (t TTSWrappedAudioQueue) Pause() {
 	objc.Send[objc.ID](t.ID, objc.Sel("pause"))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/play
 func (t TTSWrappedAudioQueue) Play() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("play"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/playBuffer:completionHandler:
 func (t TTSWrappedAudioQueue) PlayBufferCompletionHandler(buffer objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("playBuffer:completionHandler:"), buffer, _block1)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/queueStreamDescription
 func (t TTSWrappedAudioQueue) QueueStreamDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("queueStreamDescription"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/scheduleBuffer:completionHandler:
 func (t TTSWrappedAudioQueue) ScheduleBufferCompletionHandler(buffer objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("scheduleBuffer:completionHandler:"), buffer, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/scheduleBuffer:completionHandler:lastBuffer:
 func (t TTSWrappedAudioQueue) ScheduleBufferCompletionHandlerLastBuffer(buffer objectivec.IObject, handler ErrorHandler, buffer2 bool) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("scheduleBuffer:completionHandler:lastBuffer:"), buffer, _block1, buffer2)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/stop
 func (t TTSWrappedAudioQueue) Stop() {
 	objc.Send[objc.ID](t.ID, objc.Sel("stop"))
@@ -442,6 +461,7 @@ func (t TTSWrappedAudioQueue) AqRef() unsafe.Pointer {
 func (t TTSWrappedAudioQueue) SetAqRef(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAqRef:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/audioDevice
 func (t TTSWrappedAudioQueue) AudioDevice() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("audioDevice"))
@@ -450,11 +470,13 @@ func (t TTSWrappedAudioQueue) AudioDevice() uint32 {
 func (t TTSWrappedAudioQueue) SetAudioDevice(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAudioDevice:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/audioQueueActive
 func (t TTSWrappedAudioQueue) AudioQueueActive() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("audioQueueActive"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/audioQueueFlags
 func (t TTSWrappedAudioQueue) AudioQueueFlags() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("audioQueueFlags"))
@@ -463,6 +485,7 @@ func (t TTSWrappedAudioQueue) AudioQueueFlags() uint32 {
 func (t TTSWrappedAudioQueue) SetAudioQueueFlags(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/cachedAudioConverter
 func (t TTSWrappedAudioQueue) CachedAudioConverter() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("cachedAudioConverter"))
@@ -471,6 +494,7 @@ func (t TTSWrappedAudioQueue) CachedAudioConverter() unsafe.Pointer {
 func (t TTSWrappedAudioQueue) SetCachedAudioConverter(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCachedAudioConverter:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/callbackQueue
 func (t TTSWrappedAudioQueue) CallbackQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("callbackQueue"))
@@ -479,6 +503,7 @@ func (t TTSWrappedAudioQueue) CallbackQueue() objectivec.Object {
 func (t TTSWrappedAudioQueue) SetCallbackQueue(value objectivec.Object) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCallbackQueue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/currentSilenceBufferCount
 func (t TTSWrappedAudioQueue) CurrentSilenceBufferCount() foundation.NSNumber {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("currentSilenceBufferCount"))
@@ -487,6 +512,7 @@ func (t TTSWrappedAudioQueue) CurrentSilenceBufferCount() foundation.NSNumber {
 func (t TTSWrappedAudioQueue) SetCurrentSilenceBufferCount(value foundation.NSNumber) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCurrentSilenceBufferCount:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/dspGraph
 func (t TTSWrappedAudioQueue) DspGraph() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("dspGraph"))
@@ -495,6 +521,7 @@ func (t TTSWrappedAudioQueue) DspGraph() string {
 func (t TTSWrappedAudioQueue) SetDspGraph(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDspGraph:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/graphParameters
 func (t TTSWrappedAudioQueue) GraphParameters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("graphParameters"))
@@ -503,6 +530,7 @@ func (t TTSWrappedAudioQueue) GraphParameters() foundation.INSDictionary {
 func (t TTSWrappedAudioQueue) SetGraphParameters(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGraphParameters:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/graphProperties
 func (t TTSWrappedAudioQueue) GraphProperties() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("graphProperties"))
@@ -511,6 +539,7 @@ func (t TTSWrappedAudioQueue) GraphProperties() foundation.INSDictionary {
 func (t TTSWrappedAudioQueue) SetGraphProperties(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGraphProperties:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/inflightBuffers
 func (t TTSWrappedAudioQueue) InflightBuffers() foundation.INSOrderedSet {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("inflightBuffers"))
@@ -519,6 +548,7 @@ func (t TTSWrappedAudioQueue) InflightBuffers() foundation.INSOrderedSet {
 func (t TTSWrappedAudioQueue) SetInflightBuffers(value foundation.INSOrderedSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setInflightBuffers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/needsParameterSync
 func (t TTSWrappedAudioQueue) NeedsParameterSync() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("needsParameterSync"))
@@ -527,6 +557,7 @@ func (t TTSWrappedAudioQueue) NeedsParameterSync() bool {
 func (t TTSWrappedAudioQueue) SetNeedsParameterSync(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNeedsParameterSync:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/needsPropertySync
 func (t TTSWrappedAudioQueue) NeedsPropertySync() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("needsPropertySync"))
@@ -535,6 +566,7 @@ func (t TTSWrappedAudioQueue) NeedsPropertySync() bool {
 func (t TTSWrappedAudioQueue) SetNeedsPropertySync(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNeedsPropertySync:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/outputFormat
 func (t TTSWrappedAudioQueue) OutputFormat() ITTSAudioFormat {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("outputFormat"))
@@ -543,6 +575,7 @@ func (t TTSWrappedAudioQueue) OutputFormat() ITTSAudioFormat {
 func (t TTSWrappedAudioQueue) SetOutputFormat(value ITTSAudioFormat) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOutputFormat:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/procNodeRef
 func (t TTSWrappedAudioQueue) ProcNodeRef() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("procNodeRef"))
@@ -551,6 +584,7 @@ func (t TTSWrappedAudioQueue) ProcNodeRef() unsafe.Pointer {
 func (t TTSWrappedAudioQueue) SetProcNodeRef(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setProcNodeRef:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/queueFormat
 func (t TTSWrappedAudioQueue) QueueFormat() avfaudio.AVAudioFormat {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("queueFormat"))
@@ -559,6 +593,7 @@ func (t TTSWrappedAudioQueue) QueueFormat() avfaudio.AVAudioFormat {
 func (t TTSWrappedAudioQueue) SetQueueFormat(value avfaudio.AVAudioFormat) {
 	objc.Send[struct{}](t.ID, objc.Sel("setQueueFormat:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/shouldRebuildAudioQueue
 func (t TTSWrappedAudioQueue) ShouldRebuildAudioQueue() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("shouldRebuildAudioQueue"))
@@ -567,6 +602,7 @@ func (t TTSWrappedAudioQueue) ShouldRebuildAudioQueue() bool {
 func (t TTSWrappedAudioQueue) SetShouldRebuildAudioQueue(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setShouldRebuildAudioQueue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/state
 func (t TTSWrappedAudioQueue) State() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("state"))
@@ -605,4 +641,3 @@ func (t TTSWrappedAudioQueue) ScheduleBuffer(ctx context.Context, buffer objecti
 		return ctx.Err()
 	}
 }
-

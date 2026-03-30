@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_debug_mode struct {
 func EspressoPass_debug_modeFromID(id objc.ID) EspressoPass_debug_mode {
 	return EspressoPass_debug_mode{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_debug_mode implements IEspressoPass_debug_mode.
 var _ IEspressoPass_debug_mode = EspressoPass_debug_mode{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_debug_mode() EspressoPass_debug_mode {
 	rv := objc.Send[EspressoPass_debug_mode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

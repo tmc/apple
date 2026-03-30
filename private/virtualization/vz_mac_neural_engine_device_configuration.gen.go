@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,13 +41,13 @@ func (vc VZMacNeuralEngineDeviceConfigurationClass) Alloc() VZMacNeuralEngineDev
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacNeuralEngineDeviceConfiguration._isSignatureMismatchAllowed]
 //   - [VZMacNeuralEngineDeviceConfiguration._setSignatureMismatchAllowed]
 //   - [VZMacNeuralEngineDeviceConfiguration._signatureMismatchAllowed]
 //   - [VZMacNeuralEngineDeviceConfiguration.Set_signatureMismatchAllowed]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacNeuralEngineDeviceConfiguration
 type VZMacNeuralEngineDeviceConfiguration struct {
 	VZAcceleratorDeviceConfiguration
@@ -56,6 +57,7 @@ type VZMacNeuralEngineDeviceConfiguration struct {
 func VZMacNeuralEngineDeviceConfigurationFromID(id objc.ID) VZMacNeuralEngineDeviceConfiguration {
 	return VZMacNeuralEngineDeviceConfiguration{VZAcceleratorDeviceConfiguration: VZAcceleratorDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZMacNeuralEngineDeviceConfiguration implements IVZMacNeuralEngineDeviceConfiguration.
 var _ IVZMacNeuralEngineDeviceConfiguration = VZMacNeuralEngineDeviceConfiguration{}
 
@@ -109,7 +111,7 @@ func (v VZMacNeuralEngineDeviceConfiguration) _isSignatureMismatchAllowed() bool
 func (v VZMacNeuralEngineDeviceConfiguration) IsSignatureMismatchAllowed() bool {
 	return v._isSignatureMismatchAllowed()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacNeuralEngineDeviceConfiguration/_setSignatureMismatchAllowed:
 func (v VZMacNeuralEngineDeviceConfiguration) _setSignatureMismatchAllowed(allowed bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setSignatureMismatchAllowed:"), allowed)
@@ -128,4 +130,3 @@ func (v VZMacNeuralEngineDeviceConfiguration) _signatureMismatchAllowed() bool {
 func (v VZMacNeuralEngineDeviceConfiguration) Set_signatureMismatchAllowed(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_signatureMismatchAllowed:"), value)
 }
-

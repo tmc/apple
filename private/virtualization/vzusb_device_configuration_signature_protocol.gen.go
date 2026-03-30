@@ -18,6 +18,7 @@ type VZUSBDeviceConfigurationSignature interface {
 type VZUSBDeviceConfigurationSignatureObject struct {
 	objectivec.Object
 }
+
 func (o VZUSBDeviceConfigurationSignatureObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,5 +35,4 @@ func VZUSBDeviceConfigurationSignatureObjectFromID(id objc.ID) VZUSBDeviceConfig
 func (o VZUSBDeviceConfigurationSignatureObject) Signature() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("signature"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

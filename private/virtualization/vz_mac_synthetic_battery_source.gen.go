@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,13 +41,13 @@ func (vc VZMacSyntheticBatterySourceClass) Alloc() VZMacSyntheticBatterySource {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacSyntheticBatterySource.Charge]
 //   - [VZMacSyntheticBatterySource.SetCharge]
 //   - [VZMacSyntheticBatterySource.Connectivity]
 //   - [VZMacSyntheticBatterySource.SetConnectivity]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacSyntheticBatterySource
 type VZMacSyntheticBatterySource struct {
 	VZMacBatterySource
@@ -56,6 +57,7 @@ type VZMacSyntheticBatterySource struct {
 func VZMacSyntheticBatterySourceFromID(id objc.ID) VZMacSyntheticBatterySource {
 	return VZMacSyntheticBatterySource{VZMacBatterySource: VZMacBatterySourceFromID(id)}
 }
+
 // Ensure VZMacSyntheticBatterySource implements IVZMacSyntheticBatterySource.
 var _ IVZMacSyntheticBatterySource = VZMacSyntheticBatterySource{}
 
@@ -107,6 +109,7 @@ func (v VZMacSyntheticBatterySource) Charge() float64 {
 func (v VZMacSyntheticBatterySource) SetCharge(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCharge:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacSyntheticBatterySource/connectivity
 func (v VZMacSyntheticBatterySource) Connectivity() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("connectivity"))
@@ -115,4 +118,3 @@ func (v VZMacSyntheticBatterySource) Connectivity() int64 {
 func (v VZMacSyntheticBatterySource) SetConnectivity(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConnectivity:"), value)
 }
-

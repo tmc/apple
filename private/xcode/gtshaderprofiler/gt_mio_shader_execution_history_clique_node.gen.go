@@ -3,8 +3,9 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,12 +43,12 @@ func (gc GTMioShaderExecutionHistoryCliqueNodeClass) Alloc() GTMioShaderExecutio
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioShaderExecutionHistoryCliqueNode.Clique]
 //   - [GTMioShaderExecutionHistoryCliqueNode.Usc]
 //   - [GTMioShaderExecutionHistoryCliqueNode.InitWithCliqueUscParent]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryCliqueNode
 type GTMioShaderExecutionHistoryCliqueNode struct {
 	GTMioShaderExecutionHistoryNode
@@ -57,6 +58,7 @@ type GTMioShaderExecutionHistoryCliqueNode struct {
 func GTMioShaderExecutionHistoryCliqueNodeFromID(id objc.ID) GTMioShaderExecutionHistoryCliqueNode {
 	return GTMioShaderExecutionHistoryCliqueNode{GTMioShaderExecutionHistoryNode: GTMioShaderExecutionHistoryNodeFromID(id)}
 }
+
 // Ensure GTMioShaderExecutionHistoryCliqueNode implements IGTMioShaderExecutionHistoryCliqueNode.
 var _ IGTMioShaderExecutionHistoryCliqueNode = GTMioShaderExecutionHistoryCliqueNode{}
 
@@ -98,7 +100,6 @@ func NewGTMioShaderExecutionHistoryCliqueNode() GTMioShaderExecutionHistoryCliqu
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryCliqueNode/initWithClique:usc:parent:
 func NewGTMioShaderExecutionHistoryCliqueNodeWithCliqueUscParent(clique unsafe.Pointer, usc objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryCliqueNode {
 	instance := getGTMioShaderExecutionHistoryCliqueNodeClass().Alloc()
@@ -106,7 +107,6 @@ func NewGTMioShaderExecutionHistoryCliqueNodeWithCliqueUscParent(clique unsafe.P
 	return GTMioShaderExecutionHistoryCliqueNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryNode/initWithType:parent:
 func NewGTMioShaderExecutionHistoryCliqueNodeWithTypeParent(type_ uint32, parent objectivec.IObject) GTMioShaderExecutionHistoryCliqueNode {
 	instance := getGTMioShaderExecutionHistoryCliqueNodeClass().Alloc()
@@ -114,7 +114,6 @@ func NewGTMioShaderExecutionHistoryCliqueNodeWithTypeParent(type_ uint32, parent
 	return GTMioShaderExecutionHistoryCliqueNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryCliqueNode/initWithClique:usc:parent:
 func (g GTMioShaderExecutionHistoryCliqueNode) InitWithCliqueUscParent(clique unsafe.Pointer, usc objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryCliqueNode {
 	rv := objc.Send[GTMioShaderExecutionHistoryCliqueNode](g.ID, objc.Sel("initWithClique:usc:parent:"), clique, usc, parent)
@@ -126,9 +125,9 @@ func (g GTMioShaderExecutionHistoryCliqueNode) Clique() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("clique"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryCliqueNode/usc
 func (g GTMioShaderExecutionHistoryCliqueNode) Usc() IGTMioUSCTraceData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("usc"))
 	return GTMioUSCTraceDataFromID(objc.ID(rv))
 }
-

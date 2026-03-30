@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLGKDecisionTreeClass) Alloc() MLGKDecisionTree {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLGKDecisionTree._attributes]
@@ -54,6 +54,7 @@ func (mc MLGKDecisionTreeClass) Alloc() MLGKDecisionTree {
 //   - [MLGKDecisionTree._objectStore]
 //   - [MLGKDecisionTree.Set_objectStore]
 //   - [MLGKDecisionTree._saveModelAssetWithModelToPathWithError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree
 type MLGKDecisionTree struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type MLGKDecisionTree struct {
 func MLGKDecisionTreeFromID(id objc.ID) MLGKDecisionTree {
 	return MLGKDecisionTree{objectivec.Object{ID: id}}
 }
+
 // Ensure MLGKDecisionTree implements IMLGKDecisionTree.
 var _ IMLGKDecisionTree = MLGKDecisionTree{}
 
@@ -121,7 +123,7 @@ func (g MLGKDecisionTree) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_initWithFlattenedTree:
 func (g MLGKDecisionTree) _initWithFlattenedTree(tree objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_initWithFlattenedTree:"), tree)
@@ -132,7 +134,7 @@ func (g MLGKDecisionTree) _initWithFlattenedTree(tree objectivec.IObject) object
 func (g MLGKDecisionTree) InitWithFlattenedTree(tree objectivec.IObject) objectivec.IObject {
 	return g._initWithFlattenedTree(tree)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_loadModelAssetWithModelAtPath:withError:
 func (g MLGKDecisionTree) _loadModelAssetWithModelAtPathWithError(path objectivec.IObject, error_ objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_loadModelAssetWithModelAtPath:withError:"), path, error_)
@@ -142,7 +144,7 @@ func (g MLGKDecisionTree) _loadModelAssetWithModelAtPathWithError(path objective
 func (g MLGKDecisionTree) LoadModelAssetWithModelAtPathWithError(path objectivec.IObject, error_ objectivec.IObject) {
 	g._loadModelAssetWithModelAtPathWithError(path, error_)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_makeInferenceFromAnswers:withError:
 func (g MLGKDecisionTree) _makeInferenceFromAnswersWithError(answers objectivec.IObject, error_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_makeInferenceFromAnswers:withError:"), answers, error_)
@@ -153,7 +155,7 @@ func (g MLGKDecisionTree) _makeInferenceFromAnswersWithError(answers objectivec.
 func (g MLGKDecisionTree) MakeInferenceFromAnswersWithError(answers objectivec.IObject, error_ objectivec.IObject) objectivec.IObject {
 	return g._makeInferenceFromAnswersWithError(answers, error_)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_saveModelAssetWithModelToPath:withError:
 func (g MLGKDecisionTree) _saveModelAssetWithModelToPathWithError(path objectivec.IObject, error_ objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("_saveModelAssetWithModelToPath:withError:"), path, error_)
@@ -173,6 +175,7 @@ func (g MLGKDecisionTree) _attributes() foundation.INSArray {
 func (g MLGKDecisionTree) Set_attributes(value foundation.INSArray) {
 	objc.Send[struct{}](g.ID, objc.Sel("set_attributes:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGKDecisionTree/_objectStore
 func (g MLGKDecisionTree) _objectStore() foundation.INSOrderedSet {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_objectStore"))
@@ -181,4 +184,3 @@ func (g MLGKDecisionTree) _objectStore() foundation.INSOrderedSet {
 func (g MLGKDecisionTree) Set_objectStore(value foundation.INSOrderedSet) {
 	objc.Send[struct{}](g.ID, objc.Sel("set_objectStore:"), value)
 }
-

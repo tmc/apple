@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that delegates of a URL connection created with Newsstand Kit implement to receive data associated with a download.
@@ -26,6 +28,7 @@ type NSURLConnectionDownloadDelegate interface {
 type NSURLConnectionDownloadDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSURLConnectionDownloadDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +50,7 @@ func NSURLConnectionDownloadDelegateObjectFromID(id objc.ID) NSURLConnectionDown
 // applications, this is a location in the application sandbox.
 //
 // # Discussion
-// 
+//
 // This method will be called once after a successful download. The file
 // downloaded to `destinationURL` is guaranteed to exist there only for the
 // duration of this method implementation; the delegate should copy or move
@@ -56,7 +59,8 @@ func NSURLConnectionDownloadDelegateObjectFromID(id objc.ID) NSURLConnectionDown
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDownloadDelegate/connectionDidFinishDownloading(_:destinationURL:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFinishDownloadingDestinationURL(connection INSURLConnection, destinationURL INSURL) {
 	objc.Send[struct{}](o.ID, objc.Sel("connectionDidFinishDownloading:destinationURL:"), connection, destinationURL)
-	}
+}
+
 // Sent to the delegate to deliver progress information for a download of a
 // URL asset to a destination file.
 //
@@ -72,7 +76,7 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFinishDownloadingDes
 // bytes is not known.
 //
 // # Discussion
-// 
+//
 // This method is invoked repeatedly during the download of a URL asset to the
 // destination file. The delegate typically uses the values of the three
 // “bytes” parameters to update a progress indicator in the
@@ -81,7 +85,8 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFinishDownloadingDes
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDownloadDelegate/connection(_:didWriteData:totalBytesWritten:expectedTotalBytes:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidWriteDataTotalBytesWrittenExpectedTotalBytes(connection INSURLConnection, bytesWritten int64, totalBytesWritten int64, expectedTotalBytes int64) {
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didWriteData:totalBytesWritten:expectedTotalBytes:"), connection, bytesWritten, totalBytesWritten, expectedTotalBytes)
-	}
+}
+
 // Sent to the delegate when an URL connection resumes downloading a URL asset
 // that was earlier suspended.
 //
@@ -94,7 +99,7 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidWriteDataTotalBytesW
 // and written to a file.
 //
 // # Discussion
-// 
+//
 // This method is invoked once a suspended download of a URL asset resumes
 // downloading. In response, the delegate can display a progress indicator,
 // setting the initial value of the indicator to where it was when downloading
@@ -105,7 +110,8 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidWriteDataTotalBytesW
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDownloadDelegate/connectionDidResumeDownloading(_:totalBytesWritten:expectedTotalBytes:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidResumeDownloadingTotalBytesWrittenExpectedTotalBytes(connection INSURLConnection, totalBytesWritten int64, expectedTotalBytes int64) {
 	objc.Send[struct{}](o.ID, objc.Sel("connectionDidResumeDownloading:totalBytesWritten:expectedTotalBytes:"), connection, totalBytesWritten, expectedTotalBytes)
-	}
+}
+
 // Tells the delegate that the connection will send a request for an
 // authentication challenge.
 //
@@ -114,23 +120,23 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidResumeDownloadingTot
 // challenge: The authentication challenge for which a request is being sent.
 //
 // # Discussion
-// 
+//
 // This method allows the delegate to make an informed decision about
 // connection authentication at once. If the delegate implements this method,
 // it has no need to implement
 // [connection(_:canAuthenticateAgainstProtectionSpace:)] or
 // [connection(_:didReceive:)]. In fact, those other methods are not invoked
 // (except on older operating systems, where applicable).
-// 
+//
 // In this method,you invoke one of the challenge-responder methods
 // ([NSURLAuthenticationChallengeSender] protocol):
-// 
+//
 // - [UseCredentialForAuthenticationChallenge] -
 // [ContinueWithoutCredentialForAuthenticationChallenge] -
 // [CancelAuthenticationChallenge] -
 // [PerformDefaultHandlingForAuthenticationChallenge] -
 // [RejectProtectionSpaceAndContinueWithChallenge]
-// 
+//
 // You might also want to analyze `challenge` for the authentication scheme
 // and the proposed credential before calling a
 // [NSURLAuthenticationChallengeSender] method. You should never assume that a
@@ -139,37 +145,36 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidResumeDownloadingTot
 // (Because this object is immutable, if you want to change it you must copy
 // it and then modify the copy.)
 //
+// See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:willSendRequestFor:)
+//
 // [connection(_:canAuthenticateAgainstProtectionSpace:)]: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:canAuthenticateAgainstProtectionSpace:)
 // [connection(_:didReceive:)]: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didReceive:)
-//
-// See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:willSendRequestFor:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionWillSendRequestForAuthenticationChallenge(connection INSURLConnection, challenge INSURLAuthenticationChallenge) {
 	objc.Send[struct{}](o.ID, objc.Sel("connection:willSendRequestForAuthenticationChallenge:"), connection, challenge)
-	}
+}
+
 // Sent to determine whether the URL loader should use the credential storage
 // for authenticating the connection.
 //
 // connection: The connection sending the message.
 //
 // # Discussion
-// 
+//
 // This method is called before any attempt to authenticate is made.
-// 
-// If you return [false], the connection does not consult the credential
-// storage automatically, and does not store credentials. However, in your
+//
+// If you return false, the connection does not consult the credential storage
+// automatically, and does not store credentials. However, in your
 // connection:didReceiveAuthenticationChallenge: method, you can consult the
 // credential storage yourself and store credentials yourself, as needed.
-// 
-// Not implementing this method is the same as returning [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Not implementing this method is the same as returning true.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connectionShouldUseCredentialStorage(_:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionShouldUseCredentialStorage(connection INSURLConnection) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("connectionShouldUseCredentialStorage:"), connection)
 	return rv
-	}
+}
+
 // Sent when a connection fails to load its request successfully.
 //
 // connection: The connection sending the message.
@@ -178,14 +183,14 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionShouldUseCredentialStor
 // request successfully.
 //
 // # Discussion
-// 
+//
 // Once the delegate receives this message, it will receive no further
 // messages for `connection`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didFailWithError:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFailWithError(connection INSURLConnection, error_ INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didFailWithError:"), connection, error_)
-	}
+}
 
 // NSURLConnectionDownloadDelegateConfig holds optional typed callbacks for [NSURLConnectionDownloadDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -274,4 +279,3 @@ func NewNSURLConnectionDownloadDelegate(config NSURLConnectionDownloadDelegateCo
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLConnectionDownloadDelegateObjectFromID(instance)
 }
-

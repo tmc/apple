@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLClassConfidenceThresholdingClass) Alloc() MLClassConfidenceThresholdi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLClassConfidenceThresholding.InputFeatureConformer]
@@ -52,6 +52,7 @@ func (mc MLClassConfidenceThresholdingClass) Alloc() MLClassConfidenceThresholdi
 //   - [MLClassConfidenceThresholding.ParameterValueForKeyError]
 //   - [MLClassConfidenceThresholding.PredictionFromFeaturesOptionsError]
 //   - [MLClassConfidenceThresholding.InitWithDescriptionConfigurationPrecisionRecallCurvesError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding
 type MLClassConfidenceThresholding struct {
 	MLModel
@@ -61,6 +62,7 @@ type MLClassConfidenceThresholding struct {
 func MLClassConfidenceThresholdingFromID(id objc.ID) MLClassConfidenceThresholding {
 	return MLClassConfidenceThresholding{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLClassConfidenceThresholding implements IMLClassConfidenceThresholding.
 var _ IMLClassConfidenceThresholding = MLClassConfidenceThresholding{}
 
@@ -108,7 +110,6 @@ func NewMLClassConfidenceThresholding() MLClassConfidenceThresholding {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewClassConfidenceThresholdingDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
@@ -121,7 +122,6 @@ func NewClassConfidenceThresholdingDescriptionOnlyWithSpecificationConfiguration
 	return MLClassConfidenceThresholdingFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewClassConfidenceThresholdingInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
@@ -134,7 +134,6 @@ func NewClassConfidenceThresholdingInterfaceAndMetadataWithCompiledArchiveError(
 	return MLClassConfidenceThresholdingFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewClassConfidenceThresholdingWithConfiguration(configuration objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
@@ -142,7 +141,6 @@ func NewClassConfidenceThresholdingWithConfiguration(configuration objectivec.IO
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewClassConfidenceThresholdingWithDescription(description objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
@@ -150,7 +148,6 @@ func NewClassConfidenceThresholdingWithDescription(description objectivec.IObjec
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewClassConfidenceThresholdingWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
@@ -158,7 +155,6 @@ func NewClassConfidenceThresholdingWithDescriptionConfiguration(description obje
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/initWithDescription:configuration:precisionRecallCurves:error:
 func NewClassConfidenceThresholdingWithDescriptionConfigurationPrecisionRecallCurvesError(description objectivec.IObject, configuration objectivec.IObject, curves objectivec.IObject) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
@@ -171,7 +167,6 @@ func NewClassConfidenceThresholdingWithDescriptionConfigurationPrecisionRecallCu
 	return MLClassConfidenceThresholdingFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewClassConfidenceThresholdingWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
@@ -179,7 +174,6 @@ func NewClassConfidenceThresholdingWithNameInputDescriptionOutputDescriptionOrde
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/parameterValueForKey:error:
 func (c MLClassConfidenceThresholding) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -191,7 +185,7 @@ func (c MLClassConfidenceThresholding) ParameterValueForKeyError(key objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/predictionFromFeatures:options:error:
 func (c MLClassConfidenceThresholding) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -203,7 +197,7 @@ func (c MLClassConfidenceThresholding) PredictionFromFeaturesOptionsError(featur
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/initWithDescription:configuration:precisionRecallCurves:error:
 func (c MLClassConfidenceThresholding) InitWithDescriptionConfigurationPrecisionRecallCurvesError(description objectivec.IObject, configuration objectivec.IObject, curves objectivec.IObject) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
@@ -216,7 +210,6 @@ func (c MLClassConfidenceThresholding) InitWithDescriptionConfigurationPrecision
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/loadModelFromSpecification:configuration:error:
 func (_MLClassConfidenceThresholdingClass MLClassConfidenceThresholdingClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -234,6 +227,7 @@ func (c MLClassConfidenceThresholding) InputFeatureConformer() IMLFeatureProvide
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("inputFeatureConformer"))
 	return MLFeatureProviderConformerFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassConfidenceThresholding/parameterContainer
 func (c MLClassConfidenceThresholding) ParameterContainer() IMLParameterContainer {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("parameterContainer"))
@@ -242,4 +236,3 @@ func (c MLClassConfidenceThresholding) ParameterContainer() IMLParameterContaine
 func (c MLClassConfidenceThresholding) SetParameterContainer(value IMLParameterContainer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setParameterContainer:"), value)
 }
-

@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNDetectedPoint] class.
@@ -60,6 +61,7 @@ type VNDetectedPoint struct {
 func VNDetectedPointFromID(id objc.ID) VNDetectedPoint {
 	return VNDetectedPoint{VNPoint: VNPointFromID(id)}
 }
+
 // NOTE: VNDetectedPoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -129,4 +131,3 @@ func (d VNDetectedPoint) Confidence() VNConfidence {
 	rv := objc.Send[VNConfidence](d.ID, objc.Sel("confidence"))
 	return VNConfidence(rv)
 }
-

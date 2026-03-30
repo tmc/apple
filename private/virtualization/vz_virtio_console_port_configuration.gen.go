@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZVirtioConsolePortConfiguration struct {
 func VZVirtioConsolePortConfigurationFromID(id objc.ID) VZVirtioConsolePortConfiguration {
 	return VZVirtioConsolePortConfiguration{VZConsolePortConfiguration: VZConsolePortConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioConsolePortConfiguration implements IVZVirtioConsolePortConfiguration.
 var _ IVZVirtioConsolePortConfiguration = VZVirtioConsolePortConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZVirtioConsolePortConfiguration() VZVirtioConsolePortConfiguration {
 	rv := objc.Send[VZVirtioConsolePortConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

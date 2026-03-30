@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,29 +45,29 @@ func (nc NSToolbarItemGroupClass) Alloc() NSToolbarItemGroup {
 // A group of subitems in a toolbar item.
 //
 // # Overview
-// 
+//
 // An [NSToolbarItemGroup] represents a collection set of subitems in a
 // toolbar that the system displays based on available space and settings that
 // you specify. The system uses the views and labels of the subitems, but the
 // parent’s attributes take precedence. This differs from other
 // [NSToolbarItem] objects because they’re attached — the user drags them
 // together as a single item rather than separately.
-// 
+//
 // If a subitem of the group has an action set on it, the group uses that
 // action instead of its own when the user clicks or taps on that item. The
 // system prefers the subitem’s action if it exists, otherwise it uses the
 // group’s action.
-// 
+//
 // To configure an instance of [NSToolbarItemGroup], you first create the
 // individual toolbar subitems:
-// 
+//
 // Then, you put them in a grouped item:
-// 
+//
 // In this configuration, you get two grouped items, and two labels.
-// 
+//
 // If you set a label on the parent item, you get two grouped items with one
 // shared label:
-// 
+//
 // If instead you set a view on the parent item, you get two labels with one
 // shared view:
 //
@@ -97,6 +98,7 @@ type NSToolbarItemGroup struct {
 func NSToolbarItemGroupFromID(id objc.ID) NSToolbarItemGroup {
 	return NSToolbarItemGroup{NSToolbarItem: NSToolbarItemFromID(id)}
 }
+
 // NOTE: NSToolbarItemGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -171,7 +173,7 @@ func NewNSToolbarItemGroup() NSToolbarItemGroup {
 // toolbar delegate uses this value to identify the specific toolbar item.
 //
 // # Return Value
-// 
+//
 // A new toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/init(itemIdentifier:)
@@ -192,7 +194,7 @@ func NewToolbarItemGroupWithItemIdentifier(itemIdentifier NSToolbarItemIdentifie
 // labels: Labels that correspond to the specified images.
 //
 // target: The target that the toolbar calls upon selection.
-// 
+//
 // If target is `nil`, the toolbar attempts to invoke the specified action on
 // the first responder and, failing that, passes the action up the responder
 // chain.
@@ -217,7 +219,7 @@ func NewToolbarItemGroupWithItemIdentifierImagesSelectionModeLabelsTargetAction(
 // labels: Labels that correspond to the specified titles.
 //
 // target: The target that the toolbar calls upon selection.
-// 
+//
 // If target is `nil`, the toolbar attempts to invoke the specified action on
 // the first responder and, failing that, passes the action up the responder
 // chain.
@@ -235,23 +237,22 @@ func NewToolbarItemGroupWithItemIdentifierTitlesSelectionModeLabelsTargetAction(
 // index: The index of the subitems in a grouped toolbar item.
 //
 // # Return Value
-// 
+//
 // A Boolean value indicating whether the specified index is currently
 // selected.
 //
 // # Discussion
-// 
-// Use this method when you specify the
-// [NSToolbarItemGroup.SelectionMode.selectAny] selection mode for the grouped
-// toolbar item to determine which subitems are currently selected.
 //
-// [NSToolbarItemGroup.SelectionMode.selectAny]: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/SelectionMode-swift.enum/selectAny
+// Use this method when you specify the
+// [NSToolbarItemGroupSelectionModeSelectAny] selection mode for the grouped
+// toolbar item to determine which subitems are currently selected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/isSelected(at:)
 func (t NSToolbarItemGroup) IsSelectedAtIndex(index int) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSelectedAtIndex:"), index)
 	return rv
 }
+
 // Sets the selected state of a subitem in a grouped toolbar item.
 //
 // selected: If `true`, indicates whether to select a subitem, `false` otherwise.
@@ -266,7 +267,7 @@ func (t NSToolbarItemGroup) SetSelectedAtIndex(selected bool, index int) {
 // The subitems of the grouped toolbar item.
 //
 // # Discussion
-// 
+//
 // By default, an [NSToolbarItemGroup] instance has an empty array of
 // subitems.
 //
@@ -280,21 +281,19 @@ func (t NSToolbarItemGroup) Subitems() []NSToolbarItem {
 func (t NSToolbarItemGroup) SetSubitems(value []NSToolbarItem) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSubitems:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The index value for the most recently selected subitem of a grouped toolbar
 // item.
 //
 // # Discussion
-// 
-// When using the [NSToolbarItemGroup.SelectionMode.selectAny] or
-// [NSToolbarItemGroup.SelectionMode.momentary] selection mode, don’t assume
+//
+// When using the [NSToolbarItemGroupSelectionModeSelectAny] or
+// [NSToolbarItemGroupSelectionModeMomentary] selection mode, don’t assume
 // that this value represents the selected subitem. This method returns the
 // index of the most recently selected subitem.
-// 
+//
 // To determine if a specific subitem of a grouped toolbar item is selected,
 // use the [IsSelectedAtIndex] method.
-//
-// [NSToolbarItemGroup.SelectionMode.momentary]: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/SelectionMode-swift.enum/momentary
-// [NSToolbarItemGroup.SelectionMode.selectAny]: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/SelectionMode-swift.enum/selectAny
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/selectedIndex
 func (t NSToolbarItemGroup) SelectedIndex() int {
@@ -304,6 +303,7 @@ func (t NSToolbarItemGroup) SelectedIndex() int {
 func (t NSToolbarItemGroup) SetSelectedIndex(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedIndex:"), value)
 }
+
 // A value that represents how a toolbar displays a grouped toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/controlRepresentation-swift.property
@@ -314,6 +314,7 @@ func (t NSToolbarItemGroup) ControlRepresentation() NSToolbarItemGroupControlRep
 func (t NSToolbarItemGroup) SetControlRepresentation(value NSToolbarItemGroupControlRepresentation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setControlRepresentation:"), value)
 }
+
 // The selection mode of the grouped toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/selectionMode-swift.property
@@ -324,4 +325,3 @@ func (t NSToolbarItemGroup) SelectionMode() NSToolbarItemGroupSelectionMode {
 func (t NSToolbarItemGroup) SetSelectionMode(value NSToolbarItemGroupSelectionMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectionMode:"), value)
 }
-

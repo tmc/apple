@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,15 +46,15 @@ func (nc NSDistributedLockClass) Alloc() NSDistributedLock {
 // access to some shared resource, such as a file.
 //
 // # Overview
-// 
+//
 // The lock is implemented by an entry (such as a file or directory) in the
 // file system. For multiple applications to use an [NSDistributedLock] object
 // to coordinate their activities, the lock must be writable on a file system
 // accessible to all hosts on which the applications might be running.
-// 
+//
 // Use the [NSDistributedLock.TryLock] method to attempt to acquire a lock. You should generally
 // use the [NSDistributedLock.Unlock] method to release the lock rather than [NSDistributedLock.BreakLock].
-// 
+//
 // [NSDistributedLock] doesn’t conform to the [NSLocking] protocol, nor does
 // it have a `lock` method. The protocol’s [Lock] method is intended to
 // block the execution of the thread until successful. For an
@@ -91,6 +92,7 @@ type NSDistributedLock struct {
 func NSDistributedLockFromID(id objc.ID) NSDistributedLock {
 	return NSDistributedLock{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSDistributedLock adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -167,12 +169,12 @@ func NewNSDistributedLock() NSDistributedLock {
 // intermediate directories.
 //
 // # Return Value
-// 
+//
 // An [NSDistributedLock] object initialized to use as the locking object the
 // file-system entry specified by `path`.
 //
 // # Discussion
-// 
+//
 // For applications to use the lock, `path` must be accessible to—and
 // writable by—all hosts on which the applications might be running.
 //
@@ -191,12 +193,12 @@ func NewDistributedLockWithPath(path string) NSDistributedLock {
 // intermediate directories.
 //
 // # Return Value
-// 
+//
 // An [NSDistributedLock] object initialized to use as the locking object the
 // file-system entry specified by `path`.
 //
 // # Discussion
-// 
+//
 // For applications to use the lock, `path` must be accessible to—and
 // writable by—all hosts on which the applications might be running.
 //
@@ -205,19 +207,17 @@ func (d NSDistributedLock) InitWithPath(path string) NSDistributedLock {
 	rv := objc.Send[NSDistributedLock](d.ID, objc.Sel("initWithPath:"), objc.String(path))
 	return rv
 }
+
 // Attempts to acquire the receiver and immediately returns a Boolean value
 // that indicates whether the attempt was successful.
 //
 // # Return Value
-// 
-// [true] if the attempt to acquire the receiver was successful, otherwise
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the attempt to acquire the receiver was successful, otherwise
+// false.
 //
 // # Discussion
-// 
+//
 // Raises [NSGenericException] if a file-system error occurs.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDistributedLock/try()
@@ -225,32 +225,34 @@ func (d NSDistributedLock) TryLock() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("tryLock"))
 	return rv
 }
+
 // Forces the lock to be relinquished.
 //
 // # Discussion
-// 
+//
 // This method always succeeds unless the lock has been damaged. If another
 // process has already unlocked or broken the lock, this method has no effect.
 // You should generally use [Unlock] rather than [BreakLock] to relinquish a
 // lock.
-// 
+//
 // Even if you break a lock, there’s no guarantee that you will then be able
 // to acquire the lock—another process might get it before your [TryLock] is
 // invoked.
-// 
+//
 // Raises an [NSGenericException] if the lock could not be removed.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDistributedLock/break()
 func (d NSDistributedLock) BreakLock() {
 	objc.Send[objc.ID](d.ID, objc.Sel("breakLock"))
 }
+
 // Relinquishes the receiver.
 //
 // # Discussion
-// 
+//
 // You should generally use the [Unlock] method rather than [BreakLock] to
 // release a lock.
-// 
+//
 // An [NSGenericException] is raised if the receiver doesn’t already exist.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDistributedLock/unlock()
@@ -266,12 +268,12 @@ func (d NSDistributedLock) Unlock() {
 // intermediate directories.
 //
 // # Return Value
-// 
+//
 // An [NSDistributedLock] object initialized to use as the locking object the
 // file-system entry specified by `path`.
 //
 // # Discussion
-// 
+//
 // For applications to use the lock, `path` must be accessible to—and
 // writable by—all hosts on which the applications might be running.
 //
@@ -285,15 +287,15 @@ func (_NSDistributedLockClass NSDistributedLockClass) LockWithPath(path string) 
 // [NSDistributedLock] objects using the same path.
 //
 // # Return Value
-// 
+//
 // The time the receiver was acquired by any of the [NSDistributedLock]
 // objects using the same path. Returns `nil` if the lock doesn’t exist.
-// 
+//
 // # Discussion
-// 
+//
 // This method is potentially useful to applications that want to use an age
 // heuristic to decide if a lock is too old and should be broken.
-// 
+//
 // If the creation date on the lock isn’t the date on which you locked it,
 // you’ve lost the lock: it’s been broken since you last checked it.
 //
@@ -302,4 +304,3 @@ func (d NSDistributedLock) LockDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("lockDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-

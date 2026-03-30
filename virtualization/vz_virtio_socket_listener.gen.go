@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,13 +46,13 @@ func (vc VZVirtioSocketListenerClass) Alloc() VZVirtioSocketListener {
 // operating system.
 //
 // # Overview
-// 
+//
 // Use a [VZVirtioSocketListener] object to route connection requests to your
 // associated delegate object. The socket listener object handles incoming
 // connection requests from the guest operating system and directs them to the
 // methods of its associated [VZVirtioSocketListener.Delegate] object. You may use the same listener
 // object to monitor connections on multiple ports.
-// 
+//
 // After creating a [VZVirtioSocketListener] object, assign a custom object to
 // its [VZVirtioSocketListener.Delegate] property. The delegate must implement the
 // [VZVirtioSocketListenerDelegate] protocol. To connect the listener to a
@@ -75,6 +76,7 @@ type VZVirtioSocketListener struct {
 func VZVirtioSocketListenerFromID(id objc.ID) VZVirtioSocketListener {
 	return VZVirtioSocketListener{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZVirtioSocketListener adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,7 +120,7 @@ func NewVZVirtioSocketListener() VZVirtioSocketListener {
 // The custom object you use to respond to port-based connection attempts.
 //
 // # Discussion
-// 
+//
 // Your delegate object must conform to the [VZVirtioSocketListenerDelegate]
 // protocol.
 //
@@ -130,4 +132,3 @@ func (v VZVirtioSocketListener) Delegate() VZVirtioSocketListenerDelegate {
 func (v VZVirtioSocketListener) SetDelegate(value VZVirtioSocketListenerDelegate) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
-

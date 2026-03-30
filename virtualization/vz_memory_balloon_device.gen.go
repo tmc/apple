@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZMemoryBalloonDeviceClass) Alloc() VZMemoryBalloonDevice {
 // The common behavior for memory devices.
 //
 // # Overview
-// 
+//
 // Don’t instantiate this class directly. To request a memory ballon device,
 // add an appropriate configuration object to the [VZMemoryBalloonDevice.MemoryBalloonDevices]
 // property of the [VZVirtualMachineConfiguration] object that you use to
@@ -65,6 +66,7 @@ type VZMemoryBalloonDevice struct {
 func VZMemoryBalloonDeviceFromID(id objc.ID) VZMemoryBalloonDevice {
 	return VZMemoryBalloonDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZMemoryBalloonDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,4 +111,3 @@ func (m VZMemoryBalloonDevice) MemoryBalloonDevices() IVZMemoryBalloonDeviceConf
 func (m VZMemoryBalloonDevice) SetMemoryBalloonDevices(value IVZMemoryBalloonDeviceConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMemoryBalloonDevices:"), value)
 }
-

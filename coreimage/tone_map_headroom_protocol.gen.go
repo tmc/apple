@@ -49,6 +49,7 @@ type CIToneMapHeadroom interface {
 type CIToneMapHeadroomObject struct {
 	objectivec.Object
 }
+
 func (o CIToneMapHeadroomObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -65,17 +66,20 @@ func CIToneMapHeadroomObjectFromID(id objc.ID) CIToneMapHeadroomObject {
 func (o CIToneMapHeadroomObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIToneMapHeadroom/sourceHeadroom
 func (o CIToneMapHeadroomObject) SourceHeadroom() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("sourceHeadroom"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIToneMapHeadroom/targetHeadroom
 func (o CIToneMapHeadroomObject) TargetHeadroom() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("targetHeadroom"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -83,17 +87,19 @@ func (o CIToneMapHeadroomObject) TargetHeadroom() float32 {
 func (o CIToneMapHeadroomObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIToneMapHeadroom/inputImage
 func (o CIToneMapHeadroomObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIToneMapHeadroom/sourceHeadroom
 func (o CIToneMapHeadroomObject) SetSourceHeadroom(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSourceHeadroom:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIToneMapHeadroom/targetHeadroom
 func (o CIToneMapHeadroomObject) SetTargetHeadroom(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTargetHeadroom:"), value)
 }
-

@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,11 +46,9 @@ func (mc MTLComputePassSampleBufferAttachmentDescriptorArrayClass) Alloc() MTLCo
 // pass.
 //
 // # Overview
-// 
-// The number of elements in the array is at least the number of elements in
-// an [MTLDevice] instance’s [counterSets] property.
 //
-// [counterSets]: https://developer.apple.com/documentation/Metal/MTLDevice/counterSets
+// The number of elements in the array is at least the number of elements in
+// an [MTLDevice] instance’s [MTLComputePassSampleBufferAttachmentDescriptorArray.CounterSets] property.
 //
 // # Accessing a sample buffer attachment
 //
@@ -67,6 +66,7 @@ type MTLComputePassSampleBufferAttachmentDescriptorArray struct {
 func MTLComputePassSampleBufferAttachmentDescriptorArrayFromID(id objc.ID) MTLComputePassSampleBufferAttachmentDescriptorArray {
 	return MTLComputePassSampleBufferAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLComputePassSampleBufferAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,7 +116,7 @@ func NewMTLComputePassSampleBufferAttachmentDescriptorArray() MTLComputePassSamp
 // attachmentIndex: An index for the sample buffer attachment to fetch.
 //
 // # Return Value
-// 
+//
 // The requested [MTLComputePassSampleBufferAttachmentDescriptor] object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePassSampleBufferAttachmentDescriptorArray/subscript(_:)
@@ -124,6 +124,7 @@ func (c MTLComputePassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubs
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLComputePassSampleBufferAttachmentDescriptorFromID(rv)
 }
+
 // Sets the descriptor object for the specified sample buffer attachment.
 //
 // attachment: A sample buffer attachment descriptor. When set to `nil`, removes any
@@ -132,7 +133,7 @@ func (c MTLComputePassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubs
 // attachmentIndex: The attachment in the array to replace.
 //
 // # Discussion
-// 
+//
 // The method copies the `attachment` parameter’s contents into the
 // attachment at the specified index.
 //
@@ -151,4 +152,3 @@ func (c MTLComputePassSampleBufferAttachmentDescriptorArray) CounterSets() MTLCo
 func (c MTLComputePassSampleBufferAttachmentDescriptorArray) SetCounterSets(value MTLCounterSet) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCounterSets:"), value)
 }
-

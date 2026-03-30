@@ -5,8 +5,9 @@ package gtshaderprofiler
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (dc DYGPUDerivedEncoderCounterInfoClass) Alloc() DYGPUDerivedEncoderCounter
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DYGPUDerivedEncoderCounterInfo._enumerateEncoderDerivedData]
@@ -56,6 +56,7 @@ func (dc DYGPUDerivedEncoderCounterInfoClass) Alloc() DYGPUDerivedEncoderCounter
 //   - [DYGPUDerivedEncoderCounterInfo.EncoderInfos]
 //   - [DYGPUDerivedEncoderCounterInfo.SetEncoderInfos]
 //   - [DYGPUDerivedEncoderCounterInfo.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo
 type DYGPUDerivedEncoderCounterInfo struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type DYGPUDerivedEncoderCounterInfo struct {
 func DYGPUDerivedEncoderCounterInfoFromID(id objc.ID) DYGPUDerivedEncoderCounterInfo {
 	return DYGPUDerivedEncoderCounterInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure DYGPUDerivedEncoderCounterInfo implements IDYGPUDerivedEncoderCounterInfo.
 var _ IDYGPUDerivedEncoderCounterInfo = DYGPUDerivedEncoderCounterInfo{}
 
@@ -120,7 +122,6 @@ func NewDYGPUDerivedEncoderCounterInfo() DYGPUDerivedEncoderCounterInfo {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/initWithCoder:
 func NewDYGPUDerivedEncoderCounterInfoWithCoder(coder objectivec.IObject) DYGPUDerivedEncoderCounterInfo {
 	instance := getDYGPUDerivedEncoderCounterInfoClass().Alloc()
@@ -128,10 +129,9 @@ func NewDYGPUDerivedEncoderCounterInfoWithCoder(coder objectivec.IObject) DYGPUD
 	return DYGPUDerivedEncoderCounterInfoFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/_enumerateEncoderDerivedData:
 func (d DYGPUDerivedEncoderCounterInfo) _enumerateEncoderDerivedData(data VoidHandler) {
-_block0, _ := NewVoidBlock(data)
+	_block0, _ := NewVoidBlock(data)
 	objc.Send[objc.ID](d.ID, objc.Sel("_enumerateEncoderDerivedData:"), _block0)
 }
 
@@ -139,10 +139,10 @@ _block0, _ := NewVoidBlock(data)
 func (d DYGPUDerivedEncoderCounterInfo) EnumerateEncoderDerivedData(data VoidHandler) {
 	d._enumerateEncoderDerivedData(data)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/_enumerateEncoderDerivedDataAtIndex:withBlock:
 func (d DYGPUDerivedEncoderCounterInfo) _enumerateEncoderDerivedDataAtIndexWithBlock(index uint32, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("_enumerateEncoderDerivedDataAtIndex:withBlock:"), index, _block1)
 }
 
@@ -150,12 +150,12 @@ _block1, _ := NewVoidBlock(block)
 func (d DYGPUDerivedEncoderCounterInfo) EnumerateEncoderDerivedDataAtIndexWithBlock(index uint32, block VoidHandler) {
 	d._enumerateEncoderDerivedDataAtIndexWithBlock(index, block)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/encodeWithCoder:
 func (d DYGPUDerivedEncoderCounterInfo) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/initWithCoder:
 func (d DYGPUDerivedEncoderCounterInfo) InitWithCoder(coder foundation.INSCoder) DYGPUDerivedEncoderCounterInfo {
 	rv := objc.Send[DYGPUDerivedEncoderCounterInfo](d.ID, objc.Sel("initWithCoder:"), coder)
@@ -176,6 +176,7 @@ func (d DYGPUDerivedEncoderCounterInfo) DerivedCounterNames() foundation.INSArra
 func (d DYGPUDerivedEncoderCounterInfo) SetDerivedCounterNames(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDerivedCounterNames:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/derivedCounters
 func (d DYGPUDerivedEncoderCounterInfo) DerivedCounters() foundation.INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("derivedCounters"))
@@ -184,6 +185,7 @@ func (d DYGPUDerivedEncoderCounterInfo) DerivedCounters() foundation.INSData {
 func (d DYGPUDerivedEncoderCounterInfo) SetDerivedCounters(value foundation.INSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDerivedCounters:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYGPUDerivedEncoderCounterInfo/encoderInfos
 func (d DYGPUDerivedEncoderCounterInfo) EncoderInfos() foundation.INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("encoderInfos"))
@@ -222,4 +224,3 @@ func (d DYGPUDerivedEncoderCounterInfo) _enumerateEncoderDerivedDataAtIndexWithB
 		return ctx.Err()
 	}
 }
-

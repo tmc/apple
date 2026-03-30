@@ -4,9 +4,11 @@ package appkit
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // The [NSTabViewDelegate] protocol defines the optional methods implemented by delegates of [NSTabView] objects.
@@ -20,6 +22,7 @@ type NSTabViewDelegate interface {
 type NSTabViewDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSTabViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,7 +43,8 @@ func NSTabViewDelegateObjectFromID(id objc.ID) NSTabViewDelegateObject {
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewDelegate/tabViewDidChangeNumberOfTabViewItems(_:)
 func (o NSTabViewDelegateObject) TabViewDidChangeNumberOfTabViewItems(tabView INSTabView) {
 	objc.Send[struct{}](o.ID, objc.Sel("tabViewDidChangeNumberOfTabViewItems:"), tabView)
-	}
+}
+
 // Invoked just before `tabViewItem` in `tabView` is selected.
 //
 // tabView: The tab view that sent the request.
@@ -48,17 +52,15 @@ func (o NSTabViewDelegateObject) TabViewDidChangeNumberOfTabViewItems(tabView IN
 // tabViewItem: The tab view item to select.
 //
 // # Return Value
-// 
-// [true] if the tab view item should be selected, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the tab view item should be selected, otherwise false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewDelegate/tabView(_:shouldSelect:)
 func (o NSTabViewDelegateObject) TabViewShouldSelectTabViewItem(tabView INSTabView, tabViewItem INSTabViewItem) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("tabView:shouldSelectTabViewItem:"), tabView, tabViewItem)
 	return rv
-	}
+}
+
 // Informs the delegate that `tabView` is about to select `tabViewItem`.
 //
 // tabView: The tab view that sent the request.
@@ -68,7 +70,8 @@ func (o NSTabViewDelegateObject) TabViewShouldSelectTabViewItem(tabView INSTabVi
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewDelegate/tabView(_:willSelect:)
 func (o NSTabViewDelegateObject) TabViewWillSelectTabViewItem(tabView INSTabView, tabViewItem INSTabViewItem) {
 	objc.Send[struct{}](o.ID, objc.Sel("tabView:willSelectTabViewItem:"), tabView, tabViewItem)
-	}
+}
+
 // Informs the delegate that `tabView` has selected `tabViewItem`.
 //
 // tabView: The tab view that sent the request.
@@ -78,7 +81,7 @@ func (o NSTabViewDelegateObject) TabViewWillSelectTabViewItem(tabView INSTabView
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewDelegate/tabView(_:didSelect:)
 func (o NSTabViewDelegateObject) TabViewDidSelectTabViewItem(tabView INSTabView, tabViewItem INSTabViewItem) {
 	objc.Send[struct{}](o.ID, objc.Sel("tabView:didSelectTabViewItem:"), tabView, tabViewItem)
-	}
+}
 
 // NSTabViewDelegateConfig holds optional typed callbacks for [NSTabViewDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -184,4 +187,3 @@ func NewNSTabViewDelegate(config NSTabViewDelegateConfig) NSTabViewDelegateObjec
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTabViewDelegateObjectFromID(instance)
 }
-

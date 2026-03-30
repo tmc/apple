@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -71,6 +71,7 @@ type CIPageCurlTransition interface {
 type CIPageCurlTransitionObject struct {
 	objectivec.Object
 }
+
 func (o CIPageCurlTransitionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -89,7 +90,8 @@ func CIPageCurlTransitionObjectFromID(id objc.ID) CIPageCurlTransitionObject {
 func (o CIPageCurlTransitionObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // The image that appears on the back of the source image as the page curls to
 // reveal the target image.
 //
@@ -97,28 +99,32 @@ func (o CIPageCurlTransitionObject) Angle() float32 {
 func (o CIPageCurlTransitionObject) BacksideImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("backsideImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The extent of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/extent
 func (o CIPageCurlTransitionObject) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
-	}
+}
+
 // The radius of the curl.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/radius
 func (o CIPageCurlTransitionObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // An image that looks like a shaded sphere enclosed in a square.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/shadingImage
 func (o CIPageCurlTransitionObject) ShadingImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("shadingImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -126,58 +132,89 @@ func (o CIPageCurlTransitionObject) ShadingImage() ICIImage {
 func (o CIPageCurlTransitionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIPageCurlTransitionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The target image for a transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIPageCurlTransitionObject) TargetImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The parametric time of the transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIPageCurlTransitionObject) Time() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
-	}
+}
 
+// The angle of the curling page.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/angle
 func (o CIPageCurlTransitionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// The image that appears on the back of the source image as the page curls to
+// reveal the target image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/backsideImage
 func (o CIPageCurlTransitionObject) SetBacksideImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBacksideImage:"), value)
 }
 
+// The extent of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/extent
 func (o CIPageCurlTransitionObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
 
+// The radius of the curl.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/radius
 func (o CIPageCurlTransitionObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
 
+// An image that looks like a shaded sphere enclosed in a square.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/shadingImage
 func (o CIPageCurlTransitionObject) SetShadingImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadingImage:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIPageCurlTransitionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The target image for a transition.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIPageCurlTransitionObject) SetTargetImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTargetImage:"), value)
 }
 
+// The parametric time of the transition.
+//
+// # Discussion
+//
+// This value drives the transition from start, at time 0, to end, at time 1.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIPageCurlTransitionObject) SetTime(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTime:"), value)
 }
-

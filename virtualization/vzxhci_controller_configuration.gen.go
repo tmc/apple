@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VZXHCIControllerConfigurationClass) Alloc() VZXHCIControllerConfigurati
 // (XHCI) controller.
 //
 // # Overview
-// 
+//
 // Use this configuration to create a USB XHCI controller device for the
 // guest.
 //
@@ -60,6 +61,7 @@ type VZXHCIControllerConfiguration struct {
 func VZXHCIControllerConfigurationFromID(id objc.ID) VZXHCIControllerConfiguration {
 	return VZXHCIControllerConfiguration{VZUSBControllerConfiguration: VZUSBControllerConfigurationFromID(id)}
 }
+
 // NOTE: VZXHCIControllerConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -88,4 +90,3 @@ func NewVZXHCIControllerConfiguration() VZXHCIControllerConfiguration {
 	rv := objc.Send[VZXHCIControllerConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

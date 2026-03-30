@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (mc MLNLPSentenceClassifierModelClass) Alloc() MLNLPSentenceClassifierModel
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLNLPSentenceClassifierModel.ModelDescription]
 //   - [MLNLPSentenceClassifierModel.SetModelDescription]
 //   - [MLNLPSentenceClassifierModel.PredictionFromFeaturesOptionsError]
 //   - [MLNLPSentenceClassifierModel.InitWithModelDescriptionParameterDictionaryError]
+//
 // See: https://developer.apple.com/documentation/CoreML/_MLNLPSentenceClassifierModel
 type MLNLPSentenceClassifierModel struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLNLPSentenceClassifierModel struct {
 func MLNLPSentenceClassifierModelFromID(id objc.ID) MLNLPSentenceClassifierModel {
 	return MLNLPSentenceClassifierModel{objectivec.Object{ID: id}}
 }
+
 // Ensure MLNLPSentenceClassifierModel implements IMLNLPSentenceClassifierModel.
 var _ IMLNLPSentenceClassifierModel = MLNLPSentenceClassifierModel{}
 
@@ -102,7 +104,6 @@ func NewMLNLPSentenceClassifierModel() MLNLPSentenceClassifierModel {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLNLPSentenceClassifierModel/initWithModelDescription:parameterDictionary:error:
 func NewMLNLPSentenceClassifierModelWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLNLPSentenceClassifierModel, error) {
 	var errorPtr objc.ID
@@ -115,7 +116,6 @@ func NewMLNLPSentenceClassifierModelWithModelDescriptionParameterDictionaryError
 	return MLNLPSentenceClassifierModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLNLPSentenceClassifierModel/predictionFromFeatures:options:error:
 func (m MLNLPSentenceClassifierModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -127,7 +127,7 @@ func (m MLNLPSentenceClassifierModel) PredictionFromFeaturesOptionsError(feature
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLNLPSentenceClassifierModel/initWithModelDescription:parameterDictionary:error:
 func (m MLNLPSentenceClassifierModel) InitWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLNLPSentenceClassifierModel, error) {
 	var errorPtr objc.ID
@@ -148,4 +148,3 @@ func (m MLNLPSentenceClassifierModel) ModelDescription() IMLModelDescription {
 func (m MLNLPSentenceClassifierModel) SetModelDescription(value IMLModelDescription) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
 }
-

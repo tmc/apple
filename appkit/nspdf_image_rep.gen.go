@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSPDFImageRep] class.
@@ -67,6 +68,7 @@ type NSPDFImageRep struct {
 func NSPDFImageRepFromID(id objc.ID) NSPDFImageRep {
 	return NSPDFImageRep{NSImageRep: NSImageRepFromID(id)}
 }
+
 // NOTE: NSPDFImageRep adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -141,7 +143,7 @@ func NewPDFImageRepWithCoder(coder foundation.INSCoder) NSPDFImageRep {
 // pdfData: A data object containing the PDF data for the image.
 //
 // # Return Value
-// 
+//
 // An initialized [NSPDFImageRep] object, or `nil` if the object could not be
 // initialized. Initialization may fail if the PDF data does not conform to
 // the PDF file format.
@@ -159,7 +161,7 @@ func NewPDFImageRepWithData(pdfData foundation.INSData) NSPDFImageRep {
 // pdfData: A data object containing the PDF data for the image.
 //
 // # Return Value
-// 
+//
 // An initialized [NSPDFImageRep] object, or `nil` if the object could not be
 // initialized. Initialization may fail if the PDF data does not conform to
 // the PDF file format.
@@ -170,10 +172,27 @@ func (p NSPDFImageRep) InitWithData(pdfData foundation.INSData) NSPDFImageRep {
 	return rv
 }
 
+// Creates and returns a representation of an image initialized with the
+// specified PDF data.
+//
+// pdfData: A data object containing the PDF data for the image.
+//
+// # Return Value
+//
+// An initialized [NSPDFImageRep] object, or `nil` if the object could not be
+// initialized. Initialization may fail if the PDF data does not conform to
+// the PDF file format.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/imageRepWithData:
+func (_NSPDFImageRepClass NSPDFImageRepClass) ImageRepWithData(pdfData foundation.INSData) NSPDFImageRep {
+	rv := objc.Send[objc.ID](objc.ID(_NSPDFImageRepClass.class), objc.Sel("imageRepWithData:"), pdfData)
+	return NSPDFImageRepFromID(rv)
+}
+
 // The image representation’s bounding rectangle.
 //
 // # Discussion
-// 
+//
 // This value is equivalent to the crop box specified by the PDF data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/bounds
@@ -181,6 +200,7 @@ func (p NSPDFImageRep) Bounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](p.ID, objc.Sel("bounds"))
 	return corefoundation.CGRect(rv)
 }
+
 // The page currently displayed by the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/currentPage
@@ -191,6 +211,7 @@ func (p NSPDFImageRep) CurrentPage() int {
 func (p NSPDFImageRep) SetCurrentPage(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCurrentPage:"), value)
 }
+
 // The number of pages in the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/pageCount
@@ -198,6 +219,7 @@ func (p NSPDFImageRep) PageCount() int {
 	rv := objc.Send[int](p.ID, objc.Sel("pageCount"))
 	return rv
 }
+
 // The PDF representation of the representation’s image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/pdfRepresentation
@@ -205,4 +227,3 @@ func (p NSPDFImageRep) PDFRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("PDFRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,13 +44,13 @@ func (nc NSCloseCommandClass) Alloc() NSCloseCommand {
 // A command that closes one or more scriptable objects.
 //
 // # Overview
-// 
+//
 // An instance of [NSCloseCommand] closes the specified scriptable object or
 // objects—typically a document or window (and its associated document, if
 // any). The command may optionally specify a location to save in and how to
 // handle modified documents (by automatically saving changes, not saving
 // them, or asking the user).
-// 
+//
 // [NSCloseCommand] is part of Cocoa’s built-in scripting support. It works
 // automatically to support the `close` command through key-value coding. Most
 // applications don’t need to subclass [NSCloseCommand] or call its methods.
@@ -69,6 +70,7 @@ type NSCloseCommand struct {
 func NSCloseCommandFromID(id objc.ID) NSCloseCommand {
 	return NSCloseCommand{NSScriptCommand: NSScriptCommandFromID(id)}
 }
+
 // NOTE: NSCloseCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -107,7 +109,6 @@ func NewNSCloseCommand() NSCloseCommand {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewCloseCommandWithCoder(inCoder INSCoder) NSCloseCommand {
 	instance := getNSCloseCommandClass().Alloc()
@@ -121,11 +122,11 @@ func NewCloseCommandWithCoder(inCoder INSCoder) NSCloseCommand {
 // commandDef: A command description for the command to be created.
 //
 // # Return Value
-// 
+//
 // A newly initialized instance of [NSScriptCommand] or a subclass.
 //
 // # Discussion
-// 
+//
 // To make this command object usable, you must set its receiving objects and
 // arguments (if any) after invoking this method.
 //
@@ -140,7 +141,7 @@ func NewCloseCommandWithCommandDescription(commandDef INSScriptCommandDescriptio
 // documents.
 //
 // # Return Value
-// 
+//
 // A constant indicating how to deal with closing any modified documents. The
 // default value returned is [NSSaveOptionsAsk]. See Constants for a list of
 // possible return values.
@@ -150,4 +151,3 @@ func (c NSCloseCommand) SaveOptions() NSSaveOptions {
 	rv := objc.Send[NSSaveOptions](c.ID, objc.Sel("saveOptions"))
 	return NSSaveOptions(rv)
 }
-

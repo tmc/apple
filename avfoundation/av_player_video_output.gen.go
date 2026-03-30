@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,17 +46,17 @@ func (ac AVPlayerVideoOutputClass) Alloc() AVPlayerVideoOutput {
 // An object that receives video data from a player object.
 //
 // # Overview
-// 
+//
 // Attach a video output to an [AVPlayer] object to access the player’s
 // video data as [CMTaggedBufferGroupRef] objects.
-//
-// [CMTaggedBufferGroupRef]: https://developer.apple.com/documentation/CoreMedia/CMTaggedBufferGroupRef
 //
 // # Creating an output
 //
 //   - [AVPlayerVideoOutput.InitWithSpecification]: Creates a video output from a specification.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerVideoOutput
+//
+// [CMTaggedBufferGroupRef]: https://developer.apple.com/documentation/CoreMedia/CMTaggedBufferGroupRef
 type AVPlayerVideoOutput struct {
 	objectivec.Object
 }
@@ -66,6 +67,7 @@ type AVPlayerVideoOutput struct {
 func AVPlayerVideoOutputFromID(id objc.ID) AVPlayerVideoOutput {
 	return AVPlayerVideoOutput{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerVideoOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,10 +124,9 @@ func (p AVPlayerVideoOutput) InitWithSpecification(specification IAVVideoOutputS
 	rv := objc.Send[AVPlayerVideoOutput](p.ID, objc.Sel("initWithSpecification:"), specification)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerVideoOutput/copyTaggedBufferGroupForHostTime:presentationTimeStamp:activeConfiguration:
 func (p AVPlayerVideoOutput) CopyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime coremedia.CMTime, presentationTimeStampOut *coremedia.CMTime, activeConfigurationOut *AVPlayerVideoOutputConfiguration) coremedia.CMTaggedBufferGroupRef {
 	rv := objc.Send[coremedia.CMTaggedBufferGroupRef](p.ID, objc.Sel("copyTaggedBufferGroupForHostTime:presentationTimeStamp:activeConfiguration:"), hostTime, presentationTimeStampOut, activeConfigurationOut)
 	return coremedia.CMTaggedBufferGroupRef(rv)
 }
-

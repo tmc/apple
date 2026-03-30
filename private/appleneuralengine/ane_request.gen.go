@@ -4,10 +4,11 @@ package appleneuralengine
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (ac ANERequestClass) Alloc() ANERequest {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ANERequest.InputArray]
@@ -65,6 +65,7 @@ func (ac ANERequestClass) Alloc() ANERequest {
 //   - [ANERequest.WeightsBuffer]
 //   - [ANERequest.InitWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndexSharedEventsTransactionHandle]
 //   - [ANERequest.InitWithVirtualModel]
+//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest
 type ANERequest struct {
 	objectivec.Object
@@ -74,6 +75,7 @@ type ANERequest struct {
 func ANERequestFromID(id objc.ID) ANERequest {
 	return ANERequest{objectivec.Object{ID: id}}
 }
+
 // Ensure ANERequest implements IANERequest.
 var _ IANERequest = ANERequest{}
 
@@ -145,7 +147,6 @@ func NewANERequest() ANERequest {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/initWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents:transactionHandle:
 func NewANERequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndexSharedEventsTransactionHandle(inputs objectivec.IObject, indices objectivec.IObject, outputs objectivec.IObject, indices2 objectivec.IObject, buffer objectivec.IObject, stats objectivec.IObject, index objectivec.IObject, events objectivec.IObject, handle objectivec.IObject) ANERequest {
 	instance := getANERequestClass().Alloc()
@@ -153,7 +154,6 @@ func NewANERequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfSta
 	return ANERequestFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/initWithVirtualModel:
 func NewANERequestWithVirtualModel(model unsafe.Pointer) ANERequest {
 	instance := getANERequestClass().Alloc()
@@ -166,61 +166,61 @@ func (a ANERequest) IoSurfacesCount() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("ioSurfacesCount"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/setCompletionHandler:
 func (a ANERequest) SetCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("setCompletionHandler:"), _block0)
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/validate
 func (a ANERequest) Validate() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("validate"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/initWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents:transactionHandle:
 func (a ANERequest) InitWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndexSharedEventsTransactionHandle(inputs objectivec.IObject, indices objectivec.IObject, outputs objectivec.IObject, indices2 objectivec.IObject, buffer objectivec.IObject, stats objectivec.IObject, index objectivec.IObject, events objectivec.IObject, handle objectivec.IObject) ANERequest {
 	rv := objc.Send[ANERequest](a.ID, objc.Sel("initWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents:transactionHandle:"), inputs, indices, outputs, indices2, buffer, stats, index, events, handle)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/initWithVirtualModel:
 func (a ANERequest) InitWithVirtualModel(model unsafe.Pointer) ANERequest {
 	rv := objc.Send[ANERequest](a.ID, objc.Sel("initWithVirtualModel:"), model)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/requestWithInputs:inputIndices:outputs:outputIndices:perfStats:procedureIndex:
 func (_ANERequestClass ANERequestClass) RequestWithInputsInputIndicesOutputsOutputIndicesPerfStatsProcedureIndex(inputs objectivec.IObject, indices objectivec.IObject, outputs objectivec.IObject, indices2 objectivec.IObject, stats objectivec.IObject, index objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANERequestClass.class), objc.Sel("requestWithInputs:inputIndices:outputs:outputIndices:perfStats:procedureIndex:"), inputs, indices, outputs, indices2, stats, index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/requestWithInputs:inputIndices:outputs:outputIndices:procedureIndex:
 func (_ANERequestClass ANERequestClass) RequestWithInputsInputIndicesOutputsOutputIndicesProcedureIndex(inputs objectivec.IObject, indices objectivec.IObject, outputs objectivec.IObject, indices2 objectivec.IObject, index objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANERequestClass.class), objc.Sel("requestWithInputs:inputIndices:outputs:outputIndices:procedureIndex:"), inputs, indices, outputs, indices2, index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:
 func (_ANERequestClass ANERequestClass) RequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndex(inputs objectivec.IObject, indices objectivec.IObject, outputs objectivec.IObject, indices2 objectivec.IObject, buffer objectivec.IObject, stats objectivec.IObject, index objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANERequestClass.class), objc.Sel("requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:"), inputs, indices, outputs, indices2, buffer, stats, index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents:
 func (_ANERequestClass ANERequestClass) RequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndexSharedEvents(inputs objectivec.IObject, indices objectivec.IObject, outputs objectivec.IObject, indices2 objectivec.IObject, buffer objectivec.IObject, stats objectivec.IObject, index objectivec.IObject, events objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANERequestClass.class), objc.Sel("requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents:"), inputs, indices, outputs, indices2, buffer, stats, index, events)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents:transactionHandle:
 func (_ANERequestClass ANERequestClass) RequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndexSharedEventsTransactionHandle(inputs objectivec.IObject, indices objectivec.IObject, outputs objectivec.IObject, indices2 objectivec.IObject, buffer objectivec.IObject, stats objectivec.IObject, index objectivec.IObject, events objectivec.IObject, handle objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANERequestClass.class), objc.Sel("requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:perfStats:procedureIndex:sharedEvents:transactionHandle:"), inputs, indices, outputs, indices2, buffer, stats, index, events, handle)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:procedureIndex:
 func (_ANERequestClass ANERequestClass) RequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferProcedureIndex(inputs objectivec.IObject, indices objectivec.IObject, outputs objectivec.IObject, indices2 objectivec.IObject, buffer objectivec.IObject, index objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANERequestClass.class), objc.Sel("requestWithInputs:inputIndices:outputs:outputIndices:weightsBuffer:procedureIndex:"), inputs, indices, outputs, indices2, buffer, index)
@@ -232,21 +232,25 @@ func (a ANERequest) InputArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/inputIndexArray
 func (a ANERequest) InputIndexArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputIndexArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/outputArray
 func (a ANERequest) OutputArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/outputIndexArray
 func (a ANERequest) OutputIndexArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputIndexArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/perfStats
 func (a ANERequest) PerfStats() *ANEPerformanceStats {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("perfStats"))
@@ -263,16 +267,19 @@ func (a ANERequest) SetPerfStats(value *ANEPerformanceStats) {
 	}
 	objc.Send[struct{}](a.ID, objc.Sel("setPerfStats:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/perfStatsArray
 func (a ANERequest) PerfStatsArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("perfStatsArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/procedureIndex
 func (a ANERequest) ProcedureIndex() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureIndex"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/sharedEvents
 func (a ANERequest) SharedEvents() *ANESharedEvents {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedEvents"))
@@ -289,6 +296,7 @@ func (a ANERequest) SetSharedEvents(value *ANESharedEvents) {
 	}
 	objc.Send[struct{}](a.ID, objc.Sel("setSharedEvents:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/transactionHandle
 func (a ANERequest) TransactionHandle() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("transactionHandle"))
@@ -297,6 +305,7 @@ func (a ANERequest) TransactionHandle() foundation.NSNumber {
 func (a ANERequest) SetTransactionHandle(value foundation.NSNumber) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTransactionHandle:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/weightsBuffer
 func (a ANERequest) WeightsBuffer() *ANEIOSurfaceObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("weightsBuffer"))
@@ -321,4 +330,3 @@ func (a ANERequest) Set(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

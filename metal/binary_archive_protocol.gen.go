@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -69,6 +69,7 @@ type MTLBinaryArchive interface {
 type MTLBinaryArchiveObject struct {
 	objectivec.Object
 }
+
 func (o MTLBinaryArchiveObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -87,14 +88,16 @@ func MTLBinaryArchiveObjectFromID(id objc.ID) MTLBinaryArchiveObject {
 func (o MTLBinaryArchiveObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-	}
+}
+
 // A string that identifies the library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/label
 func (o MTLBinaryArchiveObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Adds a description of a compute pipeline to the archive.
 //
 // descriptor: A description of the compute pipeline to archive.
@@ -106,7 +109,8 @@ func (o MTLBinaryArchiveObject) AddComputePipelineFunctionsWithDescriptorError(d
 		return false, err
 	}
 	return rv, nil
-	}
+}
+
 // Adds a description of a render pipeline to the archive.
 //
 // descriptor: A description of the render pipeline to archive.
@@ -118,7 +122,8 @@ func (o MTLBinaryArchiveObject) AddRenderPipelineFunctionsWithDescriptorError(de
 		return false, err
 	}
 	return rv, nil
-	}
+}
+
 // Adds a description of a tile renderer pipeline to the archive.
 //
 // descriptor: A description of the tile renderer pipeline to archive.
@@ -130,7 +135,8 @@ func (o MTLBinaryArchiveObject) AddTileRenderPipelineFunctionsWithDescriptorErro
 		return false, err
 	}
 	return rv, nil
-	}
+}
+
 // Adds a description of a function to the archive.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addFunction(descriptor:library:)
@@ -140,13 +146,14 @@ func (o MTLBinaryArchiveObject) AddFunctionWithDescriptorLibraryError(descriptor
 		return false, err
 	}
 	return rv, nil
-	}
+}
+
 // Writes the contents of the archive to a file.
 //
 // url: The URL for the destination file.
 //
 // # Discussion
-// 
+//
 // The destination folder needs to exist when you call this method.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/serialize(to:)
@@ -156,8 +163,8 @@ func (o MTLBinaryArchiveObject) SerializeToURLError(url foundation.INSURL) (bool
 		return false, err
 	}
 	return rv, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addLibrary(descriptor:)
 func (o MTLBinaryArchiveObject) AddLibraryWithDescriptorError(descriptor IMTLStitchedLibraryDescriptor) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("addLibraryWithDescriptor:error:"), descriptor)
@@ -165,8 +172,8 @@ func (o MTLBinaryArchiveObject) AddLibraryWithDescriptorError(descriptor IMTLSti
 		return false, err
 	}
 	return rv, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addMeshRenderPipelineFunctions(descriptor:)
 func (o MTLBinaryArchiveObject) AddMeshRenderPipelineFunctionsWithDescriptorError(descriptor IMTLMeshRenderPipelineDescriptor) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("addMeshRenderPipelineFunctionsWithDescriptor:error:"), descriptor)
@@ -174,9 +181,19 @@ func (o MTLBinaryArchiveObject) AddMeshRenderPipelineFunctionsWithDescriptorErro
 		return false, err
 	}
 	return rv, nil
-	}
+}
 
+// A string that identifies the library.
+//
+// # Discussion
+//
+// Object and command labels are useful identifiers at runtime or when
+// profiling and debugging your app using any Metal tool. See [Naming
+// resources and commands].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLBinaryArchiveObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

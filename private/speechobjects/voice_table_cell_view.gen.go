@@ -4,8 +4,9 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/appkit"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VoiceTableCellView] class.
@@ -41,12 +42,12 @@ func (vc VoiceTableCellViewClass) Alloc() VoiceTableCellView {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VoiceTableCellView.ActiveCheckbox]
 //   - [VoiceTableCellView.DownloadCheckbox]
 //   - [VoiceTableCellView.DownloadMessageTextField]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableCellView
 type VoiceTableCellView struct {
 	appkit.NSTableCellView
@@ -56,6 +57,7 @@ type VoiceTableCellView struct {
 func VoiceTableCellViewFromID(id objc.ID) VoiceTableCellView {
 	return VoiceTableCellView{NSTableCellView: appkit.NSTableCellViewFromID(id)}
 }
+
 // Ensure VoiceTableCellView implements IVoiceTableCellView.
 var _ IVoiceTableCellView = VoiceTableCellView{}
 
@@ -102,14 +104,15 @@ func (v VoiceTableCellView) ActiveCheckbox() ISOVoiceRowCheckboxButton {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("activeCheckbox"))
 	return SOVoiceRowCheckboxButtonFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableCellView/downloadCheckbox
 func (v VoiceTableCellView) DownloadCheckbox() ISOVoiceRowCheckboxButton {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("downloadCheckbox"))
 	return SOVoiceRowCheckboxButtonFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceTableCellView/downloadMessageTextField
 func (v VoiceTableCellView) DownloadMessageTextField() appkit.NSTextField {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("downloadMessageTextField"))
 	return appkit.NSTextFieldFromID(objc.ID(rv))
 }
-

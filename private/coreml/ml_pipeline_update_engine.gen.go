@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLPipelineUpdateEngineClass) Alloc() MLPipelineUpdateEngine {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLPipelineUpdateEngine.CancelUpdate]
@@ -71,6 +71,7 @@ func (mc MLPipelineUpdateEngineClass) Alloc() MLPipelineUpdateEngine {
 //   - [MLPipelineUpdateEngine.SignpostID]
 //   - [MLPipelineUpdateEngine.Superclass]
 //   - [MLPipelineUpdateEngine.SupportsConcurrentSubmissions]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine
 type MLPipelineUpdateEngine struct {
 	objectivec.Object
@@ -80,6 +81,7 @@ type MLPipelineUpdateEngine struct {
 func MLPipelineUpdateEngineFromID(id objc.ID) MLPipelineUpdateEngine {
 	return MLPipelineUpdateEngine{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLPipelineUpdateEngine struct embeds objectivec.Object (parent type unavailable) but
 // IMLPipelineUpdateEngine embeds the parent interface; skip compile-time assertion.
 
@@ -163,7 +165,6 @@ func NewMLPipelineUpdateEngine() MLPipelineUpdateEngine {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/initFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func NewPipelineUpdateEngineFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (MLPipelineUpdateEngine, error) {
 	var errorPtr objc.ID
@@ -180,7 +181,7 @@ func NewPipelineUpdateEngineFromCompiledArchiveModelVersionInfoCompilerVersionIn
 func (p MLPipelineUpdateEngine) CancelUpdate() {
 	objc.Send[objc.ID](p.ID, objc.Sel("cancelUpdate"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/parameterValueForKey:error:
 func (p MLPipelineUpdateEngine) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -192,27 +193,28 @@ func (p MLPipelineUpdateEngine) ParameterValueForKeyError(key objectivec.IObject
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/resumeUpdate
 func (p MLPipelineUpdateEngine) ResumeUpdate() {
 	objc.Send[objc.ID](p.ID, objc.Sel("resumeUpdate"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/resumeUpdateWithParameters:
 func (p MLPipelineUpdateEngine) ResumeUpdateWithParameters(parameters objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/setUpdateProgressHandlers:dispatchQueue:
 func (p MLPipelineUpdateEngine) SetUpdateProgressHandlersDispatchQueue(handlers ErrorHandler, queue objectivec.IObject) {
-_block0, _ := NewErrorBlock(handlers)
+	_block0, _ := NewErrorBlock(handlers)
 	objc.Send[objc.ID](p.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), _block0, queue)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/updateModelWithData:
 func (p MLPipelineUpdateEngine) UpdateModelWithData(data objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("updateModelWithData:"), data)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/writeToURL:error:
 func (p MLPipelineUpdateEngine) WriteToURLError(url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -227,7 +229,7 @@ func (p MLPipelineUpdateEngine) WriteToURLError(url foundation.INSURL) (bool, er
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/initFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (p MLPipelineUpdateEngine) InitFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (MLPipelineUpdateEngine, error) {
 	var errorPtr objc.ID
@@ -240,7 +242,6 @@ func (p MLPipelineUpdateEngine) InitFromCompiledArchiveModelVersionInfoCompilerV
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLPipelineUpdateEngineClass MLPipelineUpdateEngineClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -258,16 +259,19 @@ func (p MLPipelineUpdateEngine) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/debugDescription
 func (p MLPipelineUpdateEngine) DebugDescription() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/description
 func (p MLPipelineUpdateEngine) Description() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/dispatchQueue
 func (p MLPipelineUpdateEngine) DispatchQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("dispatchQueue"))
@@ -276,26 +280,31 @@ func (p MLPipelineUpdateEngine) DispatchQueue() objectivec.Object {
 func (p MLPipelineUpdateEngine) SetDispatchQueue(value objectivec.Object) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDispatchQueue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/hash
 func (p MLPipelineUpdateEngine) Hash() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/metadata
 func (p MLPipelineUpdateEngine) Metadata() IMLModelMetadata {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/modelDescription
 func (p MLPipelineUpdateEngine) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/predictionTypeForKTrace
 func (p MLPipelineUpdateEngine) PredictionTypeForKTrace() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("predictionTypeForKTrace"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/progressHandlers
 func (p MLPipelineUpdateEngine) ProgressHandlers() IMLUpdateProgressHandlers {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("progressHandlers"))
@@ -304,29 +313,33 @@ func (p MLPipelineUpdateEngine) ProgressHandlers() IMLUpdateProgressHandlers {
 func (p MLPipelineUpdateEngine) SetProgressHandlers(value IMLUpdateProgressHandlers) {
 	objc.Send[struct{}](p.ID, objc.Sel("setProgressHandlers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/recordsPredictionEvent
 func (p MLPipelineUpdateEngine) RecordsPredictionEvent() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("recordsPredictionEvent"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/signpostID
 func (p MLPipelineUpdateEngine) SignpostID() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("signpostID"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/superclass
 func (p MLPipelineUpdateEngine) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](p.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/supportsConcurrentSubmissions
 func (p MLPipelineUpdateEngine) SupportsConcurrentSubmissions() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("supportsConcurrentSubmissions"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineUpdateEngine/updatableModelIndicies
 func (p MLPipelineUpdateEngine) UpdatableModelIndicies() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("updatableModelIndicies"))
 	return objectivec.Object{ID: rv}
 }
-

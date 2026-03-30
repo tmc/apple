@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSWindowTabGroupClass) Alloc() NSWindowTabGroup {
 // A group of windows that display together as a single tabbed window.
 //
 // # Overview
-// 
+//
 // AppKit automatically creates instances of [NSWindowTabGroup] to reflect the
 // tabbing state of your windows. You can access a window’s current tab
 // group using the [NSWindowTabGroup.TabGroup] property.
@@ -80,6 +81,7 @@ type NSWindowTabGroup struct {
 func NSWindowTabGroupFromID(id objc.ID) NSWindowTabGroup {
 	return NSWindowTabGroup{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSWindowTabGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -164,7 +166,7 @@ func NewNSWindowTabGroup() NSWindowTabGroup {
 // window: The window to append to the tab group.
 //
 // # Discussion
-// 
+//
 // This method appends the window to the end of the tab group. If the window
 // is already a member of another tab group, it is first removed from that
 // group.
@@ -173,6 +175,7 @@ func NewNSWindowTabGroup() NSWindowTabGroup {
 func (w NSWindowTabGroup) AddWindow(window INSWindow) {
 	objc.Send[objc.ID](w.ID, objc.Sel("addWindow:"), window)
 }
+
 // Inserts a window at a specific location within the tab group.
 //
 // window: The window to insert into the tab group.
@@ -180,12 +183,12 @@ func (w NSWindowTabGroup) AddWindow(window INSWindow) {
 // index: The location in the tab group at which to insert window. This value must
 // not be negative, and must not be greater than the number of windows in the
 // tab group.
-// 
+//
 // Raises an [NSInternalInconsistencyException] if the index is negative or
 // larger than the number of tabs in the group.
 //
 // # Discussion
-// 
+//
 // Inserts the window at the specified location within the tab group. If the
 // window is already a member of another tab group, it is first removed from
 // that group.
@@ -194,16 +197,17 @@ func (w NSWindowTabGroup) AddWindow(window INSWindow) {
 func (w NSWindowTabGroup) InsertWindowAtIndex(window INSWindow, index int) {
 	objc.Send[objc.ID](w.ID, objc.Sel("insertWindow:atIndex:"), window, index)
 }
+
 // Removes a window from the tab group.
 //
 // window: The window to remove from the tab group. This window must already be a
 // member of the tab group.
-// 
+//
 // Raises an [NSInternalInconsistencyException] if the window is not a member
 // of the tab group.
 //
 // # Discussion
-// 
+//
 // You can use [RemoveWindow] to explicitly remove a window from the tab
 // group. Windows are implicity removed from their associated tab groups when
 // they order out.
@@ -216,7 +220,7 @@ func (w NSWindowTabGroup) RemoveWindow(window INSWindow) {
 // The unique identifier for a tabbed window group.
 //
 // # Discussion
-// 
+//
 // This identifier is shared by all windows that participate in this tab
 // group.
 //
@@ -225,15 +229,16 @@ func (w NSWindowTabGroup) Identifier() NSWindowTabbingIdentifier {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("identifier"))
 	return NSWindowTabbingIdentifier(foundation.NSStringFromID(rv).String())
 }
+
 // A Boolean value indicating if the tab overview is currently displayed.
 //
 // # Discussion
-// 
+//
 // The tab overview provides a visual overview of the windows that make up a
 // tabbing group. This property indicates whether the tab overview is
 // currently displayed. Setting the property either shows or hides the
 // overview.
-// 
+//
 // You can monitor this property for changes using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowTabGroup/isOverviewVisible
@@ -244,11 +249,12 @@ func (w NSWindowTabGroup) OverviewVisible() bool {
 func (w NSWindowTabGroup) SetOverviewVisible(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setOverviewVisible:"), value)
 }
+
 // A Boolean value indicating whether the tabbed window group currently
 // displays a tab bar.
 //
 // # Discussion
-// 
+//
 // Typically, a tabbed window displays a tab bar if there is more than one
 // window in the tabbing group. The tab bar can also be manually toggled using
 // the [ToggleTabBar] method.
@@ -258,11 +264,12 @@ func (w NSWindowTabGroup) TabBarVisible() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isTabBarVisible"))
 	return rv
 }
+
 // A collection of the windows that are currently grouped together by this
 // window tab group.
 //
 // # Discussion
-// 
+//
 // The order of this array corresponds to the visual order of the tabs in this
 // tab group, arranged from the leading edge of the tab bar to the trailing
 // edge. You can monitor this property for changes using key-value observing.
@@ -274,13 +281,14 @@ func (w NSWindowTabGroup) Windows() []NSWindow {
 		return NSWindowFromID(id)
 	})
 }
+
 // The selected, or frontmost, window in the tab group.
 //
 // # Discussion
-// 
+//
 // This property returns the currently selected window within the tabbed
 // window group. Setting this property visually changes the selected tab.
-// 
+//
 // You can monitor this property for changes using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowTabGroup/selectedWindow
@@ -291,6 +299,7 @@ func (w NSWindowTabGroup) SelectedWindow() INSWindow {
 func (w NSWindowTabGroup) SetSelectedWindow(value INSWindow) {
 	objc.Send[struct{}](w.ID, objc.Sel("setSelectedWindow:"), value)
 }
+
 // A group of windows that display together as a tab group.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/tabgroup
@@ -301,4 +310,3 @@ func (w NSWindowTabGroup) TabGroup() INSWindowTabGroup {
 func (w NSWindowTabGroup) SetTabGroup(value INSWindowTabGroup) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTabGroup:"), value)
 }
-

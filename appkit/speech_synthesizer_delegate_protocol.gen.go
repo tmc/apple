@@ -4,9 +4,11 @@ package appkit
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of optional methods implemented by delegates of [NSSpeechSynthesizer](<doc://com.apple.appkit/documentation/AppKit/NSSpeechSynthesizer>) objects.
@@ -20,6 +22,7 @@ type NSSpeechSynthesizerDelegate interface {
 type NSSpeechSynthesizerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSSpeechSynthesizerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -105,4 +108,3 @@ func NewNSSpeechSynthesizerDelegate(config NSSpeechSynthesizerDelegateConfig) NS
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSpeechSynthesizerDelegateObjectFromID(instance)
 }
-

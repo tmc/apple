@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -77,6 +78,7 @@ type MTL4TileRenderPipelineDescriptor struct {
 func MTL4TileRenderPipelineDescriptorFromID(id objc.ID) MTL4TileRenderPipelineDescriptor {
 	return MTL4TileRenderPipelineDescriptor{MTL4PipelineDescriptor: MTL4PipelineDescriptorFromID(id)}
 }
+
 // NOTE: MTL4TileRenderPipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -174,6 +176,7 @@ func (m MTL4TileRenderPipelineDescriptor) ColorAttachments() IMTLTileRenderPipel
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("colorAttachments"))
 	return MTLTileRenderPipelineColorAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
+
 // Sets the maximum number of threads that the GPU can execute simultaneously
 // within a single threadgroup in the tile render pipeline.
 //
@@ -185,6 +188,7 @@ func (m MTL4TileRenderPipelineDescriptor) MaxTotalThreadsPerThreadgroup() uint {
 func (m MTL4TileRenderPipelineDescriptor) SetMaxTotalThreadsPerThreadgroup(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxTotalThreadsPerThreadgroup:"), value)
 }
+
 // Configures the number of samples per pixel used for multisampling.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4TileRenderPipelineDescriptor/rasterSampleCount
@@ -195,18 +199,19 @@ func (m MTL4TileRenderPipelineDescriptor) RasterSampleCount() uint {
 func (m MTL4TileRenderPipelineDescriptor) SetRasterSampleCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRasterSampleCount:"), value)
 }
+
 // Sets the required number of threads per threadgroup for tile dispatches.
 //
 // # Discussion
-// 
+//
 // This value is typically optional, except in the cases where the tile
 // function that [TileFunctionDescriptor] references uses
 // [CooperativeTensors]. In this case, you need to provide a non-zero value to
 // this property.
-// 
+//
 // Additionally, when you set this value, the `threadsPerTile` argument of any
 // tile dispatch needs to match it.
-// 
+//
 // Setting this value to a size of 0 in every dimension disables this
 // property.
 //
@@ -218,6 +223,7 @@ func (m MTL4TileRenderPipelineDescriptor) RequiredThreadsPerThreadgroup() MTLSiz
 func (m MTL4TileRenderPipelineDescriptor) SetRequiredThreadsPerThreadgroup(value MTLSize) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRequiredThreadsPerThreadgroup:"), value)
 }
+
 // Configures an object that contains information about functions to link to
 // the tile render pipeline when Metal builds it.
 //
@@ -229,6 +235,7 @@ func (m MTL4TileRenderPipelineDescriptor) StaticLinkingDescriptor() IMTL4StaticL
 func (m MTL4TileRenderPipelineDescriptor) SetStaticLinkingDescriptor(value IMTL4StaticLinkingDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStaticLinkingDescriptor:"), value)
 }
+
 // Indicates whether the pipeline supports linking binary functions.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4TileRenderPipelineDescriptor/supportBinaryLinking
@@ -239,6 +246,7 @@ func (m MTL4TileRenderPipelineDescriptor) SupportBinaryLinking() bool {
 func (m MTL4TileRenderPipelineDescriptor) SetSupportBinaryLinking(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportBinaryLinking:"), value)
 }
+
 // Indicating whether the size of the threadgroup matches the size of a tile
 // in the render pipeline.
 //
@@ -250,6 +258,7 @@ func (m MTL4TileRenderPipelineDescriptor) ThreadgroupSizeMatchesTileSize() bool 
 func (m MTL4TileRenderPipelineDescriptor) SetThreadgroupSizeMatchesTileSize(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setThreadgroupSizeMatchesTileSize:"), value)
 }
+
 // Configures the tile function that the render pipeline executes for each
 // tile in the tile shader stage.
 //
@@ -261,4 +270,3 @@ func (m MTL4TileRenderPipelineDescriptor) TileFunctionDescriptor() IMTL4Function
 func (m MTL4TileRenderPipelineDescriptor) SetTileFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTileFunctionDescriptor:"), value)
 }
-

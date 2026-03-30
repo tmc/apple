@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,11 +45,11 @@ func (dc DIStackParamsClass) Alloc() DIStackParams {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIStackParams.AppendWithURLIsCacheError]
 //   - [DIStackParams.AppendWithURLIsCacheNumBlocksError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIStackParams
 type DIStackParams struct {
 	DIBaseParams
@@ -58,6 +59,7 @@ type DIStackParams struct {
 func DIStackParamsFromID(id objc.ID) DIStackParams {
 	return DIStackParams{DIBaseParams: DIBaseParamsFromID(id)}
 }
+
 // Ensure DIStackParams implements IDIStackParams.
 var _ IDIStackParams = DIStackParams{}
 
@@ -97,7 +99,6 @@ func NewDIStackParams() DIStackParams {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithCoder:
 func NewDIStackParamsWithCoder(coder objectivec.IObject) DIStackParams {
 	instance := getDIStackParamsClass().Alloc()
@@ -105,7 +106,6 @@ func NewDIStackParamsWithCoder(coder objectivec.IObject) DIStackParams {
 	return DIStackParamsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIStackParams/initWithURL:error:
 func NewDIStackParamsWithURLError(url foundation.INSURL) (DIStackParams, error) {
 	var errorPtr objc.ID
@@ -118,7 +118,6 @@ func NewDIStackParamsWithURLError(url foundation.INSURL) (DIStackParams, error) 
 	return DIStackParamsFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIStackParams/appendWithURL:isCache:error:
 func (d DIStackParams) AppendWithURLIsCacheError(url foundation.INSURL, cache bool) (bool, error) {
 	var errorPtr objc.ID
@@ -133,7 +132,7 @@ func (d DIStackParams) AppendWithURLIsCacheError(url foundation.INSURL, cache bo
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIStackParams/appendWithURL:isCache:numBlocks:error:
 func (d DIStackParams) AppendWithURLIsCacheNumBlocksError(url foundation.INSURL, cache bool, blocks uint64) (bool, error) {
 	var errorPtr objc.ID
@@ -148,4 +147,3 @@ func (d DIStackParams) AppendWithURLIsCacheNumBlocksError(url foundation.INSURL,
 	return rv, nil
 
 }
-

@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSStepperCell] class.
@@ -72,6 +73,7 @@ type NSStepperCell struct {
 func NSStepperCellFromID(id objc.ID) NSStepperCell {
 	return NSStepperCell{NSActionCell: NSActionCellFromID(id)}
 }
+
 // NOTE: NSStepperCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -144,12 +146,12 @@ func NewNSStepperCell() NSStepperCell {
 // image: The image to use for the cell. If this parameter is `nil`, no image is set.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -166,15 +168,15 @@ func NewStepperCellImageCell(image INSImage) NSStepperCell {
 // string: The initial string to use for the cell.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If no field editor (a shared [NSText] object) has been created for all
 // [NSCell] objects, one is created.
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -185,7 +187,6 @@ func NewStepperCellTextCell(string_ string) NSStepperCell {
 	return NSStepperCellFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewStepperCellWithCoder(coder foundation.INSCoder) NSStepperCell {
 	instance := getNSStepperCellClass().Alloc()
@@ -196,7 +197,7 @@ func NewStepperCellWithCoder(coder foundation.INSCoder) NSStepperCell {
 // The maximum value for the receiver.
 //
 // # Discussion
-// 
+//
 // The default is 59.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStepperCell/maxValue
@@ -207,10 +208,11 @@ func (s NSStepperCell) MaxValue() float64 {
 func (s NSStepperCell) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
+
 // The minimum value for the receiver.
 //
 // # Discussion
-// 
+//
 // The default is 0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStepperCell/minValue
@@ -221,10 +223,11 @@ func (s NSStepperCell) MinValue() float64 {
 func (s NSStepperCell) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
+
 // The amount by which the receiver will change per increment or decrement.
 //
 // # Discussion
-// 
+//
 // The default is 1.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStepperCell/increment
@@ -235,17 +238,15 @@ func (s NSStepperCell) Increment() float64 {
 func (s NSStepperCell) SetIncrement(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncrement:"), value)
 }
+
 // A Boolean value indicating how the receiver responds to mouse events.
 //
 // # Discussion
-// 
-// If [true], the first mouse down will do one increment (decrement), and,
-// after a delay of 0.5 seconds, will increment (decrement) at a rate of ten
-// times per second. If [false], the receiver will do one increment
-// (decrement) on a mouse up. The default is [true]
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If true, the first mouse down will do one increment (decrement), and, after
+// a delay of 0.5 seconds, will increment (decrement) at a rate of ten times
+// per second. If false, the receiver will do one increment (decrement) on a
+// mouse up. The default is true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStepperCell/autorepeat
 func (s NSStepperCell) Autorepeat() bool {
@@ -255,17 +256,15 @@ func (s NSStepperCell) Autorepeat() bool {
 func (s NSStepperCell) SetAutorepeat(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutorepeat:"), value)
 }
+
 // A Boolean value indicating whether the receiver wraps around the minimum
 // and maximum values.
 //
 // # Discussion
-// 
-// [true] if, when incrementing or decrementing, the value wraps around to the
-// minimum or maximum. [false] if the value stays pinned at the minimum or
-// maximum. The default is [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if, when incrementing or decrementing, the value wraps around to the
+// minimum or maximum. false if the value stays pinned at the minimum or
+// maximum. The default is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStepperCell/valueWraps
 func (s NSStepperCell) ValueWraps() bool {
@@ -275,4 +274,3 @@ func (s NSStepperCell) ValueWraps() bool {
 func (s NSStepperCell) SetValueWraps(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setValueWraps:"), value)
 }
-

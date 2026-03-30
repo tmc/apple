@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (tc TTSSubstitutionClass) Alloc() TTSSubstitution {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSSubstitution.Active]
@@ -73,6 +73,7 @@ func (tc TTSSubstitutionClass) Alloc() TTSSubstitution {
 //   - [TTSSubstitution.VoiceIds]
 //   - [TTSSubstitution.SetVoiceIds]
 //   - [TTSSubstitution.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution
 type TTSSubstitution struct {
 	objectivec.Object
@@ -82,6 +83,7 @@ type TTSSubstitution struct {
 func TTSSubstitutionFromID(id objc.ID) TTSSubstitution {
 	return TTSSubstitution{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSSubstitution implements ITTSSubstitution.
 var _ ITTSSubstitution = TTSSubstitution{}
 
@@ -173,7 +175,6 @@ func NewTTSSubstitution() TTSSubstitution {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/initWithCoder:
 func NewTTSSubstitutionWithCoder(coder objectivec.IObject) TTSSubstitution {
 	instance := getTTSSubstitutionClass().Alloc()
@@ -181,12 +182,11 @@ func NewTTSSubstitutionWithCoder(coder objectivec.IObject) TTSSubstitution {
 	return TTSSubstitutionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/encodeWithCoder:
 func (t TTSSubstitution) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/initWithCoder:
 func (t TTSSubstitution) InitWithCoder(coder foundation.INSCoder) TTSSubstitution {
 	rv := objc.Send[TTSSubstitution](t.ID, objc.Sel("initWithCoder:"), coder)
@@ -207,6 +207,7 @@ func (t TTSSubstitution) Active() bool {
 func (t TTSSubstitution) SetActive(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setActive:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/appliesToAllApps
 func (t TTSSubstitution) AppliesToAllApps() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("appliesToAllApps"))
@@ -215,6 +216,7 @@ func (t TTSSubstitution) AppliesToAllApps() bool {
 func (t TTSSubstitution) SetAppliesToAllApps(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAppliesToAllApps:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/bundleIdentifiers
 func (t TTSSubstitution) BundleIdentifiers() foundation.INSSet {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("bundleIdentifiers"))
@@ -223,6 +225,7 @@ func (t TTSSubstitution) BundleIdentifiers() foundation.INSSet {
 func (t TTSSubstitution) SetBundleIdentifiers(value foundation.INSSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBundleIdentifiers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/ignoreCase
 func (t TTSSubstitution) IgnoreCase() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("ignoreCase"))
@@ -231,16 +234,19 @@ func (t TTSSubstitution) IgnoreCase() bool {
 func (t TTSSubstitution) SetIgnoreCase(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIgnoreCase:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/isReplacementTextAllPunctuation
 func (t TTSSubstitution) IsReplacementTextAllPunctuation() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isReplacementTextAllPunctuation"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/isReplacementTextSurroundedByPunctuation
 func (t TTSSubstitution) IsReplacementTextSurroundedByPunctuation() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isReplacementTextSurroundedByPunctuation"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/isUserSubstitution
 func (t TTSSubstitution) IsUserSubstitution() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isUserSubstitution"))
@@ -249,6 +255,7 @@ func (t TTSSubstitution) IsUserSubstitution() bool {
 func (t TTSSubstitution) SetIsUserSubstitution(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIsUserSubstitution:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/languages
 func (t TTSSubstitution) Languages() foundation.INSSet {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("languages"))
@@ -257,6 +264,7 @@ func (t TTSSubstitution) Languages() foundation.INSSet {
 func (t TTSSubstitution) SetLanguages(value foundation.INSSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLanguages:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/originalString
 func (t TTSSubstitution) OriginalString() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("originalString"))
@@ -265,6 +273,7 @@ func (t TTSSubstitution) OriginalString() string {
 func (t TTSSubstitution) SetOriginalString(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOriginalString:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/phonemes
 func (t TTSSubstitution) Phonemes() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("phonemes"))
@@ -273,6 +282,7 @@ func (t TTSSubstitution) Phonemes() string {
 func (t TTSSubstitution) SetPhonemes(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPhonemes:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/replacementRange
 func (t TTSSubstitution) ReplacementRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("replacementRange"))
@@ -281,6 +291,7 @@ func (t TTSSubstitution) ReplacementRange() foundation.NSRange {
 func (t TTSSubstitution) SetReplacementRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setReplacementRange:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/replacementString
 func (t TTSSubstitution) ReplacementString() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacementString"))
@@ -289,6 +300,7 @@ func (t TTSSubstitution) ReplacementString() string {
 func (t TTSSubstitution) SetReplacementString(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setReplacementString:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/uuid
 func (t TTSSubstitution) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("uuid"))
@@ -297,6 +309,7 @@ func (t TTSSubstitution) Uuid() foundation.NSUUID {
 func (t TTSSubstitution) SetUuid(value foundation.NSUUID) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUuid:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSubstitution/voiceIds
 func (t TTSSubstitution) VoiceIds() foundation.INSSet {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceIds"))
@@ -305,4 +318,3 @@ func (t TTSSubstitution) VoiceIds() foundation.INSSet {
 func (t TTSSubstitution) SetVoiceIds(value foundation.INSSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVoiceIds:"), value)
 }
-

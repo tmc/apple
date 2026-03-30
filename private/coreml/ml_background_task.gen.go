@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLBackgroundTaskClass) Alloc() MLBackgroundTask {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLBackgroundTask.ActivityForScheduling]
@@ -50,6 +50,7 @@ func (mc MLBackgroundTaskClass) Alloc() MLBackgroundTask {
 //   - [MLBackgroundTask.TaskIdentifier]
 //   - [MLBackgroundTask.SetTaskIdentifier]
 //   - [MLBackgroundTask.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask
 type MLBackgroundTask struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLBackgroundTask struct {
 func MLBackgroundTaskFromID(id objc.ID) MLBackgroundTask {
 	return MLBackgroundTask{objectivec.Object{ID: id}}
 }
+
 // Ensure MLBackgroundTask implements IMLBackgroundTask.
 var _ IMLBackgroundTask = MLBackgroundTask{}
 
@@ -104,7 +106,6 @@ func NewMLBackgroundTask() MLBackgroundTask {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/initWithCoder:
 func NewBackgroundTaskWithCoder(coder objectivec.IObject) MLBackgroundTask {
 	instance := getMLBackgroundTaskClass().Alloc()
@@ -117,12 +118,12 @@ func (b MLBackgroundTask) ActivityForScheduling() objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("activityForScheduling"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/encodeWithCoder:
 func (b MLBackgroundTask) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/initWithCoder:
 func (b MLBackgroundTask) InitWithCoder(coder foundation.INSCoder) MLBackgroundTask {
 	rv := objc.Send[MLBackgroundTask](b.ID, objc.Sel("initWithCoder:"), coder)
@@ -134,24 +135,25 @@ func (_MLBackgroundTaskClass MLBackgroundTaskClass) CancelAllTasks() bool {
 	rv := objc.Send[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("cancelAllTasks"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/cancelTaskWithIdentifier:
 func (_MLBackgroundTaskClass MLBackgroundTaskClass) CancelTaskWithIdentifier(identifier objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("cancelTaskWithIdentifier:"), identifier)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/scheduleTask:
 func (_MLBackgroundTaskClass MLBackgroundTaskClass) ScheduleTask(task objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("scheduleTask:"), task)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/supportsSecureCoding
 func (_MLBackgroundTaskClass MLBackgroundTaskClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundTask/taskIsScheduledWithIdentifier:
 func (_MLBackgroundTaskClass MLBackgroundTaskClass) TaskIsScheduledWithIdentifier(identifier objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_MLBackgroundTaskClass.class), objc.Sel("taskIsScheduledWithIdentifier:"), identifier)
@@ -166,4 +168,3 @@ func (b MLBackgroundTask) TaskIdentifier() string {
 func (b MLBackgroundTask) SetTaskIdentifier(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTaskIdentifier:"), objc.String(value))
 }
-

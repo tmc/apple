@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -62,6 +63,7 @@ type AVMIDIControlChangeEvent struct {
 func AVMIDIControlChangeEventFromID(id objc.ID) AVMIDIControlChangeEvent {
 	return AVMIDIControlChangeEvent{AVMIDIChannelEvent: AVMIDIChannelEventFromID(id)}
 }
+
 // NOTE: AVMIDIControlChangeEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -148,6 +150,7 @@ func (m AVMIDIControlChangeEvent) Value() uint32 {
 	rv := objc.Send[uint32](m.ID, objc.Sel("value"))
 	return rv
 }
+
 // The type of control change message.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIControlChangeEvent/messageType-swift.property
@@ -155,4 +158,3 @@ func (m AVMIDIControlChangeEvent) MessageType() AVMIDIControlChangeMessageType {
 	rv := objc.Send[AVMIDIControlChangeMessageType](m.ID, objc.Sel("messageType"))
 	return AVMIDIControlChangeMessageType(rv)
 }
-

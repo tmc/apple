@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (gc GTMioTraceDataObserverTokenInternalClass) Alloc() GTMioTraceDataObserve
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioTraceDataObserverTokenInternal.Cancel]
 //   - [GTMioTraceDataObserverTokenInternal.InitWithTraceDataIdentifier]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverTokenInternal
 type GTMioTraceDataObserverTokenInternal struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type GTMioTraceDataObserverTokenInternal struct {
 func GTMioTraceDataObserverTokenInternalFromID(id objc.ID) GTMioTraceDataObserverTokenInternal {
 	return GTMioTraceDataObserverTokenInternal{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioTraceDataObserverTokenInternal implements IGTMioTraceDataObserverTokenInternal.
 var _ IGTMioTraceDataObserverTokenInternal = GTMioTraceDataObserverTokenInternal{}
 
@@ -94,7 +96,6 @@ func NewGTMioTraceDataObserverTokenInternal() GTMioTraceDataObserverTokenInterna
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverTokenInternal/initWithTraceData:identifier:
 func NewGTMioTraceDataObserverTokenInternalWithTraceDataIdentifier(data objectivec.IObject, identifier uint64) GTMioTraceDataObserverTokenInternal {
 	instance := getGTMioTraceDataObserverTokenInternalClass().Alloc()
@@ -106,10 +107,9 @@ func NewGTMioTraceDataObserverTokenInternalWithTraceDataIdentifier(data objectiv
 func (g GTMioTraceDataObserverTokenInternal) Cancel() {
 	objc.Send[objc.ID](g.ID, objc.Sel("cancel"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataObserverTokenInternal/initWithTraceData:identifier:
 func (g GTMioTraceDataObserverTokenInternal) InitWithTraceDataIdentifier(data objectivec.IObject, identifier uint64) GTMioTraceDataObserverTokenInternal {
 	rv := objc.Send[GTMioTraceDataObserverTokenInternal](g.ID, objc.Sel("initWithTraceData:identifier:"), data, identifier)
 	return rv
 }
-

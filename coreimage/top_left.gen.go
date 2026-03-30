@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TopLeft struct {
 func TopLeftFromID(id objc.ID) TopLeft {
 	return TopLeft{objectivec.Object{ID: id}}
 }
+
 // Ensure TopLeft implements ITopLeft.
 var _ ITopLeft = TopLeft{}
 
@@ -78,4 +80,3 @@ func NewTopLeft() TopLeft {
 	rv := objc.Send[TopLeft](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

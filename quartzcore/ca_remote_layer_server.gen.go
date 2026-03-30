@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,20 +45,20 @@ func (cc CARemoteLayerServerClass) Alloc() CARemoteLayerServer {
 // A legacy class for cross-process rendering.
 //
 // # Overview
-// 
+//
 // [CARemoteLaterServer] is a legacy class for cross-process rendering.
 // [IOSurfaceCreateMachPort(_:)] and [IOSurfaceCreateXPCObject(_:)], available
 // with [IOSurface], offer an improved way to perform cross-process rendering.
-//
-// [IOSurfaceCreateMachPort(_:)]: https://developer.apple.com/documentation/IOSurface/IOSurfaceCreateMachPort(_:)
-// [IOSurfaceCreateXPCObject(_:)]: https://developer.apple.com/documentation/IOSurface/IOSurfaceCreateXPCObject(_:)
-// [IOSurface]: https://developer.apple.com/documentation/IOSurface/IOSurface
 //
 // # Creating a Server
 //
 //   - [CARemoteLayerServer.ServerPort]: The port number of the server.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARemoteLayerServer
+//
+// [IOSurfaceCreateMachPort(_:)]: https://developer.apple.com/documentation/IOSurface/IOSurfaceCreateMachPort(_:)
+// [IOSurfaceCreateXPCObject(_:)]: https://developer.apple.com/documentation/IOSurface/IOSurfaceCreateXPCObject(_:)
+// [IOSurface]: https://developer.apple.com/documentation/IOSurface/IOSurface
 type CARemoteLayerServer struct {
 	objectivec.Object
 }
@@ -68,6 +69,7 @@ type CARemoteLayerServer struct {
 func CARemoteLayerServerFromID(id objc.ID) CARemoteLayerServer {
 	return CARemoteLayerServer{objectivec.Object{ID: id}}
 }
+
 // NOTE: CARemoteLayerServer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,4 +123,3 @@ func (r CARemoteLayerServer) ServerPort() uint32 {
 	rv := objc.Send[uint32](r.ID, objc.Sel("serverPort"))
 	return rv
 }
-

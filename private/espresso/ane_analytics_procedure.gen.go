@@ -4,8 +4,9 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (ac ANEAnalyticsProcedureClass) Alloc() ANEAnalyticsProcedure {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ANEAnalyticsProcedure.GroupInfo]
@@ -50,6 +50,7 @@ func (ac ANEAnalyticsProcedureClass) Alloc() ANEAnalyticsProcedure {
 //   - [ANEAnalyticsProcedure.ProcedureMetrics]
 //   - [ANEAnalyticsProcedure.Serialize]
 //   - [ANEAnalyticsProcedure.InitWithGroupsProcedureMetricsIndentifier]
+//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsProcedure
 type ANEAnalyticsProcedure struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type ANEAnalyticsProcedure struct {
 func ANEAnalyticsProcedureFromID(id objc.ID) ANEAnalyticsProcedure {
 	return ANEAnalyticsProcedure{objectivec.Object{ID: id}}
 }
+
 // Ensure ANEAnalyticsProcedure implements IANEAnalyticsProcedure.
 var _ IANEAnalyticsProcedure = ANEAnalyticsProcedure{}
 
@@ -104,7 +106,6 @@ func NewANEAnalyticsProcedure() ANEAnalyticsProcedure {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsProcedure/initWithGroups:procedureMetrics:indentifier:
 func NewANEAnalyticsProcedureWithGroupsProcedureMetricsIndentifier(groups objectivec.IObject, metrics objectivec.IObject, indentifier objectivec.IObject) ANEAnalyticsProcedure {
 	instance := getANEAnalyticsProcedureClass().Alloc()
@@ -117,14 +118,13 @@ func (a ANEAnalyticsProcedure) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsProcedure/initWithGroups:procedureMetrics:indentifier:
 func (a ANEAnalyticsProcedure) InitWithGroupsProcedureMetricsIndentifier(groups objectivec.IObject, metrics objectivec.IObject, indentifier objectivec.IObject) ANEAnalyticsProcedure {
 	rv := objc.Send[ANEAnalyticsProcedure](a.ID, objc.Sel("initWithGroups:procedureMetrics:indentifier:"), groups, metrics, indentifier)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsProcedure/objectWithGroups:procedureMetrics:indentifier:
 func (_ANEAnalyticsProcedureClass ANEAnalyticsProcedureClass) ObjectWithGroupsProcedureMetricsIndentifier(groups objectivec.IObject, metrics objectivec.IObject, indentifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEAnalyticsProcedureClass.class), objc.Sel("objectWithGroups:procedureMetrics:indentifier:"), groups, metrics, indentifier)
@@ -136,14 +136,15 @@ func (a ANEAnalyticsProcedure) GroupInfo() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("groupInfo"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsProcedure/identifier
 func (a ANEAnalyticsProcedure) Identifier() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsProcedure/procedureMetrics
 func (a ANEAnalyticsProcedure) ProcedureMetrics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureMetrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

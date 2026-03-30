@@ -116,4 +116,3 @@ type AVSpeechSynthesizerBufferCallback = func(AVAudioBuffer)
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/MarkerCallback
 type AVSpeechSynthesizerMarkerCallback = func([]AVSpeechSynthesisMarker)
-

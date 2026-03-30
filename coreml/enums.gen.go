@@ -172,24 +172,31 @@ type MLMultiArrayDataType int
 const (
 	// MLMultiArrayDataTypeDouble: Designates the multiarray’s elements as doubles.
 	MLMultiArrayDataTypeDouble MLMultiArrayDataType = 65600
+	// MLMultiArrayDataTypeFloat: Designates the multiarray’s elements as floats.
+	MLMultiArrayDataTypeFloat MLMultiArrayDataType = 65568
 	// MLMultiArrayDataTypeFloat16: Designates the multiarray’s elements as 16-bit floats.
 	MLMultiArrayDataTypeFloat16 MLMultiArrayDataType = 65552
 	// MLMultiArrayDataTypeFloat32: Designates the multiarray’s elements as 32-bit floats.
 	MLMultiArrayDataTypeFloat32 MLMultiArrayDataType = 65568
+	// MLMultiArrayDataTypeFloat64: Designates the multiarray’s elements as 64-bit floats.
+	MLMultiArrayDataTypeFloat64 MLMultiArrayDataType = 65600
 	// MLMultiArrayDataTypeInt32: Designates the multiarray’s elements as 32-bit integers.
 	MLMultiArrayDataTypeInt32 MLMultiArrayDataType = 131104
+	MLMultiArrayDataTypeInt8  MLMultiArrayDataType = 131080
 )
 
 func (e MLMultiArrayDataType) String() string {
 	switch e {
 	case MLMultiArrayDataTypeDouble:
 		return "MLMultiArrayDataTypeDouble"
+	case MLMultiArrayDataTypeFloat:
+		return "MLMultiArrayDataTypeFloat"
 	case MLMultiArrayDataTypeFloat16:
 		return "MLMultiArrayDataTypeFloat16"
-	case MLMultiArrayDataTypeFloat32:
-		return "MLMultiArrayDataTypeFloat32"
 	case MLMultiArrayDataTypeInt32:
 		return "MLMultiArrayDataTypeInt32"
+	case MLMultiArrayDataTypeInt8:
+		return "MLMultiArrayDataTypeInt8"
 	default:
 		return fmt.Sprintf("MLMultiArrayDataType(%d)", e)
 	}
@@ -224,7 +231,9 @@ func (e MLMultiArrayShapeConstraintType) String() string {
 type MLReshapeFrequencyHint int
 
 const (
+	// MLReshapeFrequencyHintFrequent: The input shape is expected to change frequently on each prediction sent to this loaded model instance.
 	MLReshapeFrequencyHintFrequent MLReshapeFrequencyHint = 0
+	// MLReshapeFrequencyHintInfrequent: The input shape is expected to be stable and many/all predictions sent to this loaded model instance would use the same input shapes repeatedly.
 	MLReshapeFrequencyHintInfrequent MLReshapeFrequencyHint = 1
 )
 
@@ -243,7 +252,9 @@ func (e MLReshapeFrequencyHint) String() string {
 type MLSpecializationStrategy int
 
 const (
+	// MLSpecializationStrategyDefault: The strategy that works well for most applications.
 	MLSpecializationStrategyDefault MLSpecializationStrategy = 0
+	// MLSpecializationStrategyFastPrediction: Prefer the prediction latency at the potential cost of specialization time, memory footprint, and the disk space usage of specialized artifacts.
 	MLSpecializationStrategyFastPrediction MLSpecializationStrategy = 1
 )
 
@@ -315,4 +326,3 @@ func (e MLUpdateProgressEvent) String() string {
 		return fmt.Sprintf("MLUpdateProgressEvent(%d)", e)
 	}
 }
-

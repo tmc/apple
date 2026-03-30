@@ -3,10 +3,11 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (gc GTMioShaderExecutionHistoryLoopNodeClass) Alloc() GTMioShaderExecutionH
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioShaderExecutionHistoryLoopNode.Binary]
@@ -57,6 +57,7 @@ func (gc GTMioShaderExecutionHistoryLoopNodeClass) Alloc() GTMioShaderExecutionH
 //   - [GTMioShaderExecutionHistoryLoopNode.Location]
 //   - [GTMioShaderExecutionHistoryLoopNode.LoopCount]
 //   - [GTMioShaderExecutionHistoryLoopNode.InitWithLoopInstructionBeginEndLoopCountCurrentLoopIndexBinaryParent]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode
 type GTMioShaderExecutionHistoryLoopNode struct {
 	GTMioShaderExecutionHistoryNode
@@ -66,6 +67,7 @@ type GTMioShaderExecutionHistoryLoopNode struct {
 func GTMioShaderExecutionHistoryLoopNodeFromID(id objc.ID) GTMioShaderExecutionHistoryLoopNode {
 	return GTMioShaderExecutionHistoryLoopNode{GTMioShaderExecutionHistoryNode: GTMioShaderExecutionHistoryNodeFromID(id)}
 }
+
 // Ensure GTMioShaderExecutionHistoryLoopNode implements IGTMioShaderExecutionHistoryLoopNode.
 var _ IGTMioShaderExecutionHistoryLoopNode = GTMioShaderExecutionHistoryLoopNode{}
 
@@ -123,7 +125,6 @@ func NewGTMioShaderExecutionHistoryLoopNode() GTMioShaderExecutionHistoryLoopNod
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/initWithLoopInstructionBegin:end:loopCount:currentLoopIndex:binary:parent:
 func NewGTMioShaderExecutionHistoryLoopNodeWithLoopInstructionBeginEndLoopCountCurrentLoopIndexBinaryParent(begin uint32, end uint32, count uint32, index uint32, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryLoopNode {
 	instance := getGTMioShaderExecutionHistoryLoopNodeClass().Alloc()
@@ -131,7 +132,6 @@ func NewGTMioShaderExecutionHistoryLoopNodeWithLoopInstructionBeginEndLoopCountC
 	return GTMioShaderExecutionHistoryLoopNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryNode/initWithType:parent:
 func NewGTMioShaderExecutionHistoryLoopNodeWithTypeParent(type_ uint32, parent objectivec.IObject) GTMioShaderExecutionHistoryLoopNode {
 	instance := getGTMioShaderExecutionHistoryLoopNodeClass().Alloc()
@@ -139,7 +139,6 @@ func NewGTMioShaderExecutionHistoryLoopNodeWithTypeParent(type_ uint32, parent o
 	return GTMioShaderExecutionHistoryLoopNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/initWithLoopInstructionBegin:end:loopCount:currentLoopIndex:binary:parent:
 func (g GTMioShaderExecutionHistoryLoopNode) InitWithLoopInstructionBeginEndLoopCountCurrentLoopIndexBinaryParent(begin uint32, end uint32, count uint32, index uint32, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryLoopNode {
 	rv := objc.Send[GTMioShaderExecutionHistoryLoopNode](g.ID, objc.Sel("initWithLoopInstructionBegin:end:loopCount:currentLoopIndex:binary:parent:"), begin, end, count, index, binary, parent)
@@ -151,49 +150,57 @@ func (g GTMioShaderExecutionHistoryLoopNode) Binary() IGTMioShaderBinaryData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binary"))
 	return GTMioShaderBinaryDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/binaryRange
 func (g GTMioShaderExecutionHistoryLoopNode) BinaryRange() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binaryRange"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/currentLoopIndex
 func (g GTMioShaderExecutionHistoryLoopNode) CurrentLoopIndex() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("currentLoopIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/debugFilePath
 func (g GTMioShaderExecutionHistoryLoopNode) DebugFilePath() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugFilePath"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/debugFunctionName
 func (g GTMioShaderExecutionHistoryLoopNode) DebugFunctionName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugFunctionName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/instructionBegin
 func (g GTMioShaderExecutionHistoryLoopNode) InstructionBegin() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("instructionBegin"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/instructionEnd
 func (g GTMioShaderExecutionHistoryLoopNode) InstructionEnd() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("instructionEnd"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/isLoopRoot
 func (g GTMioShaderExecutionHistoryLoopNode) IsLoopRoot() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isLoopRoot"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/location
 func (g GTMioShaderExecutionHistoryLoopNode) Location() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("location"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryLoopNode/loopCount
 func (g GTMioShaderExecutionHistoryLoopNode) LoopCount() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("loopCount"))
 	return rv
 }
-

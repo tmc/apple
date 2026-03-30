@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (nc NSPDFInfoClass) Alloc() NSPDFInfo {
 // file, such as its URL, tag names, page orientation, and paper size.
 //
 // # Overview
-// 
+//
 // Typically, a PDF panel—that is, a panel created by an [NSPDFPanel]
 // object—displays the information supplied by an [NSPDFInfo] object when
 // the user wants to export content as a PDF file. A PDF panel can also update
@@ -79,6 +80,7 @@ type NSPDFInfo struct {
 func NSPDFInfoFromID(id objc.ID) NSPDFInfo {
 	return NSPDFInfo{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPDFInfo adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,6 +160,7 @@ func (p NSPDFInfo) URL() foundation.INSURL {
 func (p NSPDFInfo) SetURL(value foundation.INSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
+
 // A Boolean value that indicates whether the file extension should appear
 // after the filename.
 //
@@ -169,6 +172,7 @@ func (p NSPDFInfo) FileExtensionHidden() bool {
 func (p NSPDFInfo) SetFileExtensionHidden(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFileExtensionHidden:"), value)
 }
+
 // An array of tag names that should be applied to the PDF file after it’s
 // created.
 //
@@ -180,6 +184,7 @@ func (p NSPDFInfo) TagNames() []string {
 func (p NSPDFInfo) SetTagNames(value []string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTagNames:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The paper orientation to use when exporting content as a PDF file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFInfo/orientation
@@ -190,6 +195,7 @@ func (p NSPDFInfo) Orientation() NSPaperOrientation {
 func (p NSPDFInfo) SetOrientation(value NSPaperOrientation) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOrientation:"), value)
 }
+
 // The paper size to use when exporting content as a PDF file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFInfo/paperSize
@@ -200,11 +206,12 @@ func (p NSPDFInfo) PaperSize() corefoundation.CGSize {
 func (p NSPDFInfo) SetPaperSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPaperSize:"), value)
 }
+
 // A dictionary of additional attributes that describe how to export content
 // as a PDF file.
 //
 // # Discussion
-// 
+//
 // Although `attributes` is a read-only property, you can modify the mutable
 // dictionary associated with it. Typically, this dictionary contains custom
 // attributes or parameters that are set by a custom accessory view in the PDF
@@ -215,4 +222,3 @@ func (p NSPDFInfo) Attributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("attributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_find_shared_weights struct {
 func EspressoPass_find_shared_weightsFromID(id objc.ID) EspressoPass_find_shared_weights {
 	return EspressoPass_find_shared_weights{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_find_shared_weights implements IEspressoPass_find_shared_weights.
 var _ IEspressoPass_find_shared_weights = EspressoPass_find_shared_weights{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_find_shared_weights() EspressoPass_find_shared_weights {
 	rv := objc.Send[EspressoPass_find_shared_weights](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

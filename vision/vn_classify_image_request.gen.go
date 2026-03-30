@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNClassifyImageRequest] class.
@@ -45,12 +46,10 @@ func (vc VNClassifyImageRequestClass) Alloc() VNClassifyImageRequest {
 // A request to classify an image.
 //
 // # Overview
-// 
+//
 // This type of request produces a collection of [VNClassificationObservation]
 // objects that describe an image. Access the classifications through
 // [knownClassifications(forRevision:)].
-//
-// [knownClassifications(forRevision:)]: https://developer.apple.com/documentation/Vision/VNClassifyImageRequest/knownClassifications(forRevision:)
 //
 // # Accessing Results
 //
@@ -61,6 +60,8 @@ func (vc VNClassifyImageRequestClass) Alloc() VNClassifyImageRequest {
 //   - [VNClassifyImageRequest.VNClassifyImageRequestRevision1]: A constant for specifying the first revision of the image-classification request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNClassifyImageRequest
+//
+// [knownClassifications(forRevision:)]: https://developer.apple.com/documentation/Vision/VNClassifyImageRequest/knownClassifications(forRevision:)
 type VNClassifyImageRequest struct {
 	VNImageBasedRequest
 }
@@ -71,6 +72,7 @@ type VNClassifyImageRequest struct {
 func VNClassifyImageRequestFromID(id objc.ID) VNClassifyImageRequest {
 	return VNClassifyImageRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNClassifyImageRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -123,7 +125,7 @@ func NewVNClassifyImageRequest() VNClassifyImageRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -139,7 +141,7 @@ func NewClassifyImageRequestWithCompletionHandler(completionHandler VNRequestCom
 // current configuration.
 //
 // # Return Value
-// 
+//
 // An array of supported identifiers.
 //
 // See: https://developer.apple.com/documentation/Vision/VNClassifyImageRequest/supportedIdentifiers()
@@ -162,4 +164,3 @@ func (c VNClassifyImageRequest) VNClassifyImageRequestRevision1() int {
 	rv := objc.Send[int](c.ID, objc.Sel("VNClassifyImageRequestRevision1"))
 	return rv
 }
-

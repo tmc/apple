@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZMacGraphicsDisplayConfigurationClass) Alloc() VZMacGraphicsDisplayCon
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacGraphicsDisplayConfiguration._connectionType]
@@ -54,6 +54,7 @@ func (vc VZMacGraphicsDisplayConfigurationClass) Alloc() VZMacGraphicsDisplayCon
 //   - [VZMacGraphicsDisplayConfiguration._setConnectionType]
 //   - [VZMacGraphicsDisplayConfiguration._setDisplayIdentifier]
 //   - [VZMacGraphicsDisplayConfiguration._setDisplayMode]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplayConfiguration
 type VZMacGraphicsDisplayConfiguration struct {
 	VZGraphicsDisplayConfiguration
@@ -63,6 +64,7 @@ type VZMacGraphicsDisplayConfiguration struct {
 func VZMacGraphicsDisplayConfigurationFromID(id objc.ID) VZMacGraphicsDisplayConfiguration {
 	return VZMacGraphicsDisplayConfiguration{VZGraphicsDisplayConfiguration: VZGraphicsDisplayConfigurationFromID(id)}
 }
+
 // Ensure VZMacGraphicsDisplayConfiguration implements IVZMacGraphicsDisplayConfiguration.
 var _ IVZMacGraphicsDisplayConfiguration = VZMacGraphicsDisplayConfiguration{}
 
@@ -116,7 +118,6 @@ func NewVZMacGraphicsDisplayConfiguration() VZMacGraphicsDisplayConfiguration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplayConfiguration/_setConnectionType:
 func (m VZMacGraphicsDisplayConfiguration) _setConnectionType(type_ int64) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_setConnectionType:"), type_)
@@ -126,7 +127,7 @@ func (m VZMacGraphicsDisplayConfiguration) _setConnectionType(type_ int64) {
 func (m VZMacGraphicsDisplayConfiguration) SetConnectionType(type_ int64) {
 	m._setConnectionType(type_)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplayConfiguration/_setDisplayIdentifier:
 func (m VZMacGraphicsDisplayConfiguration) _setDisplayIdentifier(identifier objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_setDisplayIdentifier:"), identifier)
@@ -136,7 +137,7 @@ func (m VZMacGraphicsDisplayConfiguration) _setDisplayIdentifier(identifier obje
 func (m VZMacGraphicsDisplayConfiguration) SetDisplayIdentifier(identifier objectivec.IObject) {
 	m._setDisplayIdentifier(identifier)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplayConfiguration/_setDisplayMode:
 func (m VZMacGraphicsDisplayConfiguration) _setDisplayMode(mode int64) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_setDisplayMode:"), mode)
@@ -155,6 +156,7 @@ func (m VZMacGraphicsDisplayConfiguration) _connectionType() int64 {
 func (m VZMacGraphicsDisplayConfiguration) Set_connectionType(value int64) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_connectionType:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplayConfiguration/_displayIdentifier
 func (m VZMacGraphicsDisplayConfiguration) _displayIdentifier() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_displayIdentifier"))
@@ -163,6 +165,7 @@ func (m VZMacGraphicsDisplayConfiguration) _displayIdentifier() string {
 func (m VZMacGraphicsDisplayConfiguration) Set_displayIdentifier(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_displayIdentifier:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplayConfiguration/_displayMode
 func (m VZMacGraphicsDisplayConfiguration) _displayMode() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("_displayMode"))
@@ -171,4 +174,3 @@ func (m VZMacGraphicsDisplayConfiguration) _displayMode() int64 {
 func (m VZMacGraphicsDisplayConfiguration) Set_displayMode(value int64) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_displayMode:"), value)
 }
-

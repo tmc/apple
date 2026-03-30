@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner struct {
 func TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunnerFromID(id objc.ID) TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner {
 	return TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner{objectivec.Object{ID: id}}
 }
+
 // NOTE: TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner struct embeds objectivec.Object (parent type unavailable) but
 // ITtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner() TtCC12TextToSpeec
 	rv := objc.Send[TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

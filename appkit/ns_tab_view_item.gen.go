@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSTabViewItemClass) Alloc() NSTabViewItem {
 // An item in a tab view.
 //
 // # Overview
-// 
+//
 // An [NSTabViewItem] is a convenient way for presenting information in
 // multiple pages. A tab view is usually distinguished by a row of tabs that
 // give the visual appearance of folder tabs. When the user clicks a tab, the
@@ -99,7 +100,7 @@ func (nc NSTabViewItemClass) Alloc() NSTabViewItem {
 //
 // # Instance Properties
 //
-//   - [NSTabViewItem.Image]
+//   - [NSTabViewItem.Image]: Gets and set the image for this tab view item. The image may only be used in certain tab view styles and options.
 //   - [NSTabViewItem.SetImage]
 //   - [NSTabViewItem.ViewController]
 //   - [NSTabViewItem.SetViewController]
@@ -115,6 +116,7 @@ type NSTabViewItem struct {
 func NSTabViewItemFromID(id objc.ID) NSTabViewItem {
 	return NSTabViewItem{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTabViewItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -166,7 +168,7 @@ func NSTabViewItemFromID(id objc.ID) NSTabViewItem {
 //
 // # Instance Properties
 //
-//   - [INSTabViewItem.Image]
+//   - [INSTabViewItem.Image]: Gets and set the image for this tab view item. The image may only be used in certain tab view styles and options.
 //   - [INSTabViewItem.SetImage]
 //   - [INSTabViewItem.ViewController]
 //   - [INSTabViewItem.SetViewController]
@@ -232,6 +234,7 @@ type INSTabViewItem interface {
 
 	// Topic: Instance Properties
 
+	// Gets and set the image for this tab view item. The image may only be used in certain tab view styles and options.
 	Image() INSImage
 	SetImage(value INSImage)
 	ViewController() INSViewController
@@ -262,7 +265,7 @@ func NewNSTabViewItem() NSTabViewItem {
 // Performs default initialization for the receiver.
 //
 // # Discussion
-// 
+//
 // Sets the receiver’s identifier object to `identifier`, if it is not
 // `nil`. Use this method when creating tab view items programmatically.
 //
@@ -273,7 +276,6 @@ func NewTabViewItemWithIdentifier(identifier objectivec.IObject) NSTabViewItem {
 	return NSTabViewItemFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/init(viewController:)
 func NewTabViewItemWithViewController(viewController INSViewController) NSTabViewItem {
 	rv := objc.Send[objc.ID](objc.ID(getNSTabViewItemClass().class), objc.Sel("tabViewItemWithViewController:"), viewController)
@@ -283,7 +285,7 @@ func NewTabViewItemWithViewController(viewController INSViewController) NSTabVie
 // Performs default initialization for the receiver.
 //
 // # Discussion
-// 
+//
 // Sets the receiver’s identifier object to `identifier`, if it is not
 // `nil`. Use this method when creating tab view items programmatically.
 //
@@ -292,37 +294,33 @@ func (t NSTabViewItem) InitWithIdentifier(identifier objectivec.IObject) NSTabVi
 	rv := objc.Send[NSTabViewItem](t.ID, objc.Sel("initWithIdentifier:"), identifier)
 	return rv
 }
+
 // Draws the receiver’s label in `tabRect`, which is the area between the
 // curved end caps.
 //
 // # Discussion
-// 
-// If `shouldTruncateLabel` is [false], draws the full label in the rectangle
-// specified by `tabRect`. If `shouldTruncateLabel` is [true], draws the
+//
+// If `shouldTruncateLabel` is false, draws the full label in the rectangle
+// specified by `tabRect`. If `shouldTruncateLabel` is true, draws the
 // truncated label. You can override this method to perform customized label
 // drawing. For example, you might want to add an icon to each tab in the
 // view.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/drawLabel(_:in:)
 func (t NSTabViewItem) DrawLabelInRect(shouldTruncateLabel bool, labelRect corefoundation.CGRect) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawLabel:inRect:"), shouldTruncateLabel, labelRect)
 }
+
 // Calculates the size of the receiver’s label.
 //
 // # Discussion
-// 
-// If `shouldTruncateLabel` is [false], returns the size of the receiver’s
-// full label. If `shouldTruncateLabel` is [true], returns the truncated size.
+//
+// If `shouldTruncateLabel` is false, returns the size of the receiver’s
+// full label. If `shouldTruncateLabel` is true, returns the truncated size.
 // If your application does anything to change the size of tab labels, such as
 // overriding the [DrawLabelInRect] method to add an icon to each tab, you
 // should override [SizeOfLabel] too so the NSTabView knows the correct size
 // for the tab label.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/sizeOfLabel(_:)
 func (t NSTabViewItem) SizeOfLabel(computeMin bool) corefoundation.CGSize {
@@ -343,10 +341,11 @@ func (t NSTabViewItem) Label() string {
 func (t NSTabViewItem) SetLabel(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // Returns the current display state of the tab associated with the receiver.
 //
 // # Discussion
-// 
+//
 // The possible values are [NSSelectedTab], [NSBackgroundTab], or
 // [NSPressedTab]. Your application does not directly set the tab state.
 //
@@ -355,10 +354,11 @@ func (t NSTabViewItem) TabState() NSTabState {
 	rv := objc.Send[NSTabState](t.ID, objc.Sel("tabState"))
 	return NSTabState(rv)
 }
+
 // Sets the receiver’s optional identifier object to `identifier`.
 //
 // # Discussion
-// 
+//
 // To customize how your application works with tabs, you can specify an
 // identifier object for each tab view item.
 //
@@ -370,6 +370,7 @@ func (t NSTabViewItem) Identifier() objectivec.IObject {
 func (t NSTabViewItem) SetIdentifier(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), value)
 }
+
 // Sets the background color for content in the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/color
@@ -380,10 +381,11 @@ func (t NSTabViewItem) Color() INSColor {
 func (t NSTabViewItem) SetColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setColor:"), value)
 }
+
 // Sets the view associated with the receiver to `view`.
 //
 // # Discussion
-// 
+//
 // This is the view displayed when a user clicks the tab. When you set a new
 // view, the old view is released.
 //
@@ -395,6 +397,7 @@ func (t NSTabViewItem) View() INSView {
 func (t NSTabViewItem) SetView(value INSView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setView:"), value)
 }
+
 // Sets the initial first responder for the view associated with the receiver
 // (the view that is displayed when a user clicks on the tab) to `view`.
 //
@@ -406,13 +409,14 @@ func (t NSTabViewItem) InitialFirstResponder() INSView {
 func (t NSTabViewItem) SetInitialFirstResponder(value INSView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setInitialFirstResponder:"), value)
 }
+
 // Returns the parent tab view for the receiver.
 //
 // # Discussion
-// 
+//
 // Note that this is the tab view itself, not the view displayed when a user
 // clicks the tab.
-// 
+//
 // A tab view item normally learns about its parent tab view when it is
 // inserted into the view’s array of items. The NSTabView methods
 // [AddTabViewItem] and [InsertTabViewItemAtIndex] set the tab view for the
@@ -423,6 +427,7 @@ func (t NSTabViewItem) TabView() INSTabView {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tabView"))
 	return NSTabViewFromID(objc.ID(rv))
 }
+
 // Sets the tooltip displayed for the tab view item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/toolTip
@@ -433,6 +438,14 @@ func (t NSTabViewItem) ToolTip() string {
 func (t NSTabViewItem) SetToolTip(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setToolTip:"), objc.String(value))
 }
+
+// Gets and set the image for this tab view item. The image may only be used
+// in certain tab view styles and options.
+//
+// # Discussion
+//
+// The default value is `nil`.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/image
 func (t NSTabViewItem) Image() INSImage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("image"))
@@ -441,6 +454,7 @@ func (t NSTabViewItem) Image() INSImage {
 func (t NSTabViewItem) SetImage(value INSImage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setImage:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/viewController
 func (t NSTabViewItem) ViewController() INSViewController {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("viewController"))
@@ -449,4 +463,3 @@ func (t NSTabViewItem) ViewController() INSViewController {
 func (t NSTabViewItem) SetViewController(value INSViewController) {
 	objc.Send[struct{}](t.ID, objc.Sel("setViewController:"), value)
 }
-

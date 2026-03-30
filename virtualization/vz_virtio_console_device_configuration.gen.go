@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VZVirtioConsoleDeviceConfigurationClass) Alloc() VZVirtioConsoleDeviceC
 // using console ports through a Virtio interface.
 //
 // # Overview
-// 
+//
 // A [VZVirtioConsoleDeviceConfiguration] object enables serial communication
 // between the guest-operating system and host computer through the Virtio
 // interface. The device sets up one or more ports through
@@ -66,6 +67,7 @@ type VZVirtioConsoleDeviceConfiguration struct {
 func VZVirtioConsoleDeviceConfigurationFromID(id objc.ID) VZVirtioConsoleDeviceConfiguration {
 	return VZVirtioConsoleDeviceConfiguration{VZConsoleDeviceConfiguration: VZConsoleDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioConsoleDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,6 +117,7 @@ func (v VZVirtioConsoleDeviceConfiguration) Ports() IVZVirtioConsolePortConfigur
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("ports"))
 	return VZVirtioConsolePortConfigurationArrayFromID(objc.ID(rv))
 }
+
 // The array of console devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/consoledevices
@@ -125,4 +128,3 @@ func (v VZVirtioConsoleDeviceConfiguration) ConsoleDevices() IVZConsoleDeviceCon
 func (v VZVirtioConsoleDeviceConfiguration) SetConsoleDevices(value IVZConsoleDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConsoleDevices:"), value)
 }
-

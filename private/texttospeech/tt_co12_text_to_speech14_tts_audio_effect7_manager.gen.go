@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TtCO12TextToSpeech14TTSAudioEffect7Manager struct {
 func TtCO12TextToSpeech14TTSAudioEffect7ManagerFromID(id objc.ID) TtCO12TextToSpeech14TTSAudioEffect7Manager {
 	return TtCO12TextToSpeech14TTSAudioEffect7Manager{objectivec.Object{ID: id}}
 }
+
 // NOTE: TtCO12TextToSpeech14TTSAudioEffect7Manager struct embeds objectivec.Object (parent type unavailable) but
 // ITtCO12TextToSpeech14TTSAudioEffect7Manager embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTtCO12TextToSpeech14TTSAudioEffect7Manager() TtCO12TextToSpeech14TTSAudi
 	rv := objc.Send[TtCO12TextToSpeech14TTSAudioEffect7Manager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

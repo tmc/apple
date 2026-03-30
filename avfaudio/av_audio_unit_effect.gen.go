@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,13 +45,11 @@ func (ac AVAudioUnitEffectClass) Alloc() AVAudioUnitEffect {
 // An object that processes audio in real time.
 //
 // # Overview
-// 
+//
 // This processing uses [AudioUnit] of type effect, music effect, panner,
 // remote effect, or remote music effect. These effects run in real time and
 // process some number of audio input samples to produce several audio output
 // samples. A delay unit is an example of an effect unit.
-//
-// [AudioUnit]: https://developer.apple.com/documentation/AudioToolbox/AudioUnit
 //
 // # Creating an audio effect
 //
@@ -62,6 +61,8 @@ func (ac AVAudioUnitEffectClass) Alloc() AVAudioUnitEffect {
 //   - [AVAudioUnitEffect.SetBypass]
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect
+//
+// [AudioUnit]: https://developer.apple.com/documentation/AudioToolbox/AudioUnit
 type AVAudioUnitEffect struct {
 	AVAudioUnit
 }
@@ -72,6 +73,7 @@ type AVAudioUnitEffect struct {
 func AVAudioUnitEffectFromID(id objc.ID) AVAudioUnitEffect {
 	return AVAudioUnitEffect{AVAudioUnit: AVAudioUnitFromID(id)}
 }
+
 // NOTE: AVAudioUnitEffect adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,14 +126,14 @@ func NewAVAudioUnitEffect() AVAudioUnitEffect {
 // Creates an audio unit effect object with the specified description.
 //
 // audioComponentDescription: The description of the audio unit to create.
-// 
+//
 // The `audioComponentDescription` must be one of these types
 // `kAudioUnitType_Effect`, `kAudioUnitType_MusicEffect`,
 // `kAudioUnitType_Panner`, `kAudioUnitType_RemoteEffect`, or
 // `kAudioUnitType_RemoteMusicEffect`.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
@@ -145,7 +147,7 @@ func NewAudioUnitEffectWithAudioComponentDescription(audioComponentDescription o
 // Creates an audio unit effect object with the specified description.
 //
 // audioComponentDescription: The description of the audio unit to create.
-// 
+//
 // The `audioComponentDescription` must be one of these types
 // `kAudioUnitType_Effect`, `kAudioUnitType_MusicEffect`,
 // `kAudioUnitType_Panner`, `kAudioUnitType_RemoteEffect`, or
@@ -154,7 +156,7 @@ func NewAudioUnitEffectWithAudioComponentDescription(audioComponentDescription o
 // audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
@@ -174,4 +176,3 @@ func (a AVAudioUnitEffect) Bypass() bool {
 func (a AVAudioUnitEffect) SetBypass(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBypass:"), value)
 }
-

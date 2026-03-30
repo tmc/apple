@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLTreeEnsembleXGBoostUpdateEngineClass) Alloc() MLTreeEnsembleXGBoostUp
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLTreeEnsembleXGBoostUpdateEngine.CachedModel]
@@ -90,6 +90,7 @@ func (mc MLTreeEnsembleXGBoostUpdateEngineClass) Alloc() MLTreeEnsembleXGBoostUp
 //   - [MLTreeEnsembleXGBoostUpdateEngine.SignpostID]
 //   - [MLTreeEnsembleXGBoostUpdateEngine.Superclass]
 //   - [MLTreeEnsembleXGBoostUpdateEngine.SupportsConcurrentSubmissions]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine
 type MLTreeEnsembleXGBoostUpdateEngine struct {
 	MLTreeEnsembleXGBoostClassifier
@@ -99,6 +100,7 @@ type MLTreeEnsembleXGBoostUpdateEngine struct {
 func MLTreeEnsembleXGBoostUpdateEngineFromID(id objc.ID) MLTreeEnsembleXGBoostUpdateEngine {
 	return MLTreeEnsembleXGBoostUpdateEngine{MLTreeEnsembleXGBoostClassifier: MLTreeEnsembleXGBoostClassifierFromID(id)}
 }
+
 // Ensure MLTreeEnsembleXGBoostUpdateEngine implements IMLTreeEnsembleXGBoostUpdateEngine.
 var _ IMLTreeEnsembleXGBoostUpdateEngine = MLTreeEnsembleXGBoostUpdateEngine{}
 
@@ -220,7 +222,6 @@ func NewMLTreeEnsembleXGBoostUpdateEngine() MLTreeEnsembleXGBoostUpdateEngine {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/initWithCompiledArchive:configuration:error:
 func NewTreeEnsembleXGBoostUpdateEngineWithCompiledArchiveConfigurationError(archive unsafe.Pointer, configuration objectivec.IObject) (MLTreeEnsembleXGBoostUpdateEngine, error) {
 	var errorPtr objc.ID
@@ -233,7 +234,6 @@ func NewTreeEnsembleXGBoostUpdateEngineWithCompiledArchiveConfigurationError(arc
 	return MLTreeEnsembleXGBoostUpdateEngineFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostClassifier/initWithDescription:configuration:indexToStringLabelArray:indexToIntLabelArray:modelURL:error:
 func NewTreeEnsembleXGBoostUpdateEngineWithDescriptionConfigurationIndexToStringLabelArrayIndexToIntLabelArrayModelURLError(description objectivec.IObject, configuration objectivec.IObject, array objectivec.IObject, array2 objectivec.IObject, url foundation.INSURL) (MLTreeEnsembleXGBoostUpdateEngine, error) {
 	var errorPtr objc.ID
@@ -250,7 +250,7 @@ func NewTreeEnsembleXGBoostUpdateEngineWithDescriptionConfigurationIndexToString
 func (t MLTreeEnsembleXGBoostUpdateEngine) CancelUpdate() {
 	objc.Send[objc.ID](t.ID, objc.Sel("cancelUpdate"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/loadParameterDescriptionsAndContainerFromConfiguration:modelDescription:error:
 func (t MLTreeEnsembleXGBoostUpdateEngine) LoadParameterDescriptionsAndContainerFromConfigurationModelDescriptionError(configuration objectivec.IObject, description objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -262,13 +262,13 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) LoadParameterDescriptionsAndContainer
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/parameterValueForKey:
 func (t MLTreeEnsembleXGBoostUpdateEngine) ParameterValueForKey(key objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("parameterValueForKey:"), key)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/parameterValueForKey:error:
 func (t MLTreeEnsembleXGBoostUpdateEngine) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -280,16 +280,17 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) ParameterValueForKeyError(key objecti
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/resumeUpdate
 func (t MLTreeEnsembleXGBoostUpdateEngine) ResumeUpdate() {
 	objc.Send[objc.ID](t.ID, objc.Sel("resumeUpdate"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/resumeUpdateWithParameters:
 func (t MLTreeEnsembleXGBoostUpdateEngine) ResumeUpdateWithParameters(parameters objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/setBoosterParameters:error:
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetBoosterParametersError(parameters unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -304,23 +305,24 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) SetBoosterParametersError(parameters 
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/setUpdateProgressHandlers:dispatchQueue:
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetUpdateProgressHandlersDispatchQueue(handlers ErrorHandler, queue objectivec.IObject) {
-_block0, _ := NewErrorBlock(handlers)
+	_block0, _ := NewErrorBlock(handlers)
 	objc.Send[objc.ID](t.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), _block0, queue)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/updateModelWithData:
 func (t MLTreeEnsembleXGBoostUpdateEngine) UpdateModelWithData(data objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("updateModelWithData:"), data)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/updateParameters
 func (t MLTreeEnsembleXGBoostUpdateEngine) UpdateParameters() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("updateParameters"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/writeToURL:error:
 func (t MLTreeEnsembleXGBoostUpdateEngine) WriteToURLError(url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -335,7 +337,7 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) WriteToURLError(url foundation.INSURL
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/initWithCompiledArchive:configuration:error:
 func (t MLTreeEnsembleXGBoostUpdateEngine) InitWithCompiledArchiveConfigurationError(archive unsafe.Pointer, configuration objectivec.IObject) (MLTreeEnsembleXGBoostUpdateEngine, error) {
 	var errorPtr objc.ID
@@ -348,7 +350,6 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) InitWithCompiledArchiveConfigurationE
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLTreeEnsembleXGBoostUpdateEngineClass MLTreeEnsembleXGBoostUpdateEngineClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -369,6 +370,7 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) CachedModel() objectivec.IObject {
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetCachedModel(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCachedModel:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/classesByInt
 func (t MLTreeEnsembleXGBoostUpdateEngine) ClassesByInt() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("classesByInt"))
@@ -377,6 +379,7 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) ClassesByInt() objectivec.IObject {
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetClassesByInt(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setClassesByInt:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/classesByString
 func (t MLTreeEnsembleXGBoostUpdateEngine) ClassesByString() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("classesByString"))
@@ -385,11 +388,13 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) ClassesByString() objectivec.IObject 
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetClassesByString(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setClassesByString:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/configuration
 func (t MLTreeEnsembleXGBoostUpdateEngine) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/continueWithUpdate
 func (t MLTreeEnsembleXGBoostUpdateEngine) ContinueWithUpdate() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("continueWithUpdate"))
@@ -398,26 +403,31 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) ContinueWithUpdate() bool {
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetContinueWithUpdate(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContinueWithUpdate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/debugDescription
 func (t MLTreeEnsembleXGBoostUpdateEngine) DebugDescription() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/description
 func (t MLTreeEnsembleXGBoostUpdateEngine) Description() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/hash
 func (t MLTreeEnsembleXGBoostUpdateEngine) Hash() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/metadata
 func (t MLTreeEnsembleXGBoostUpdateEngine) Metadata() IMLModelMetadata {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/mmappedModel
 func (t MLTreeEnsembleXGBoostUpdateEngine) MmappedModel() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("mmappedModel"))
@@ -426,11 +436,13 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) MmappedModel() objectivec.IObject {
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetMmappedModel(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMmappedModel:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/modelDescription
 func (t MLTreeEnsembleXGBoostUpdateEngine) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/numDimensions
 func (t MLTreeEnsembleXGBoostUpdateEngine) NumDimensions() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("numDimensions"))
@@ -439,6 +451,7 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) NumDimensions() uint64 {
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetNumDimensions(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNumDimensions:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/parameterContainer
 func (t MLTreeEnsembleXGBoostUpdateEngine) ParameterContainer() IMLParameterContainer {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("parameterContainer"))
@@ -447,6 +460,7 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) ParameterContainer() IMLParameterCont
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetParameterContainer(value IMLParameterContainer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setParameterContainer:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/personalization
 func (t MLTreeEnsembleXGBoostUpdateEngine) Personalization() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("personalization"))
@@ -455,11 +469,13 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) Personalization() bool {
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetPersonalization(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPersonalization:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/predictionTypeForKTrace
 func (t MLTreeEnsembleXGBoostUpdateEngine) PredictionTypeForKTrace() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("predictionTypeForKTrace"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/progressHandlers
 func (t MLTreeEnsembleXGBoostUpdateEngine) ProgressHandlers() IMLUpdateProgressHandlers {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("progressHandlers"))
@@ -468,6 +484,7 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) ProgressHandlers() IMLUpdateProgressH
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetProgressHandlers(value IMLUpdateProgressHandlers) {
 	objc.Send[struct{}](t.ID, objc.Sel("setProgressHandlers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/progressHandlersDispatchQueue
 func (t MLTreeEnsembleXGBoostUpdateEngine) ProgressHandlersDispatchQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("progressHandlersDispatchQueue"))
@@ -476,24 +493,27 @@ func (t MLTreeEnsembleXGBoostUpdateEngine) ProgressHandlersDispatchQueue() objec
 func (t MLTreeEnsembleXGBoostUpdateEngine) SetProgressHandlersDispatchQueue(value objectivec.Object) {
 	objc.Send[struct{}](t.ID, objc.Sel("setProgressHandlersDispatchQueue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/recordsPredictionEvent
 func (t MLTreeEnsembleXGBoostUpdateEngine) RecordsPredictionEvent() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("recordsPredictionEvent"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/signpostID
 func (t MLTreeEnsembleXGBoostUpdateEngine) SignpostID() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("signpostID"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/superclass
 func (t MLTreeEnsembleXGBoostUpdateEngine) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](t.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleXGBoostUpdateEngine/supportsConcurrentSubmissions
 func (t MLTreeEnsembleXGBoostUpdateEngine) SupportsConcurrentSubmissions() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("supportsConcurrentSubmissions"))
 	return rv
 }
-

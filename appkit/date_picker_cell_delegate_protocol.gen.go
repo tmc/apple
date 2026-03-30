@@ -5,10 +5,12 @@ package appkit
 import (
 	"fmt"
 	"unsafe"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of optional methods implemented by delegates of [NSDatePickerCell](<doc://com.apple.appkit/documentation/AppKit/NSDatePickerCell>) objects.
@@ -22,6 +24,7 @@ type NSDatePickerCellDelegate interface {
 type NSDatePickerCellDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSDatePickerCellDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,11 +50,11 @@ func NSDatePickerCellDelegateObjectFromID(id objc.ID) NSDatePickerCellDelegateOb
 // this value before returning.
 //
 // # Discussion
-// 
+//
 // When returning a new `proposedDateValue`, the [NSDate] instance should be
 // autoreleased, and the `proposedDateValue` should not be released by the
 // delegate.
-// 
+//
 // The `proposedDateValue` and `proposedTimeInterval` are guaranteed to lie
 // between the dates returned by [MinDate] and [MaxDate]. If you modify these
 // values, you should ensure that the new values are within the appropriate
@@ -60,7 +63,7 @@ func NSDatePickerCellDelegateObjectFromID(id objc.ID) NSDatePickerCellDelegateOb
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCellDelegate/datePickerCell(_:validateProposedDateValue:timeInterval:)
 func (o NSDatePickerCellDelegateObject) DatePickerCellValidateProposedDateValueTimeInterval(datePickerCell INSDatePickerCell, proposedDateValue foundation.INSDate, proposedTimeInterval unsafe.Pointer) {
 	objc.Send[struct{}](o.ID, objc.Sel("datePickerCell:validateProposedDateValue:timeInterval:"), datePickerCell, proposedDateValue, proposedTimeInterval)
-	}
+}
 
 // NSDatePickerCellDelegateConfig holds optional typed callbacks for [NSDatePickerCellDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -123,4 +126,3 @@ func NewNSDatePickerCellDelegate(config NSDatePickerCellDelegateConfig) NSDatePi
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSDatePickerCellDelegateObjectFromID(instance)
 }
-

@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for Metal. DO NOT EDIT.
 
 package metal
@@ -26,7 +25,5 @@ func TestNotifyListenerAtValueRetainedNilReceiver(t *testing.T) {
 
 func TestMetalExtensionWrapperCompile(t *testing.T) {
 	var _ func(MTLDeviceObject, uint32) MTLSharedEvent = MTLDeviceObject.NewSharedEventWithMachPort
-	var _ func(MTLSharedEventObject, IMTLSharedEventListener, uint64, MTLSharedEventNotificationBlock) *SharedEventNotificationBinding =
-		MTLSharedEventObject.NotifyListenerAtValueRetained
+	var _ func(MTLSharedEventObject, IMTLSharedEventListener, uint64, MTLSharedEventNotificationBlock) *SharedEventNotificationBinding = MTLSharedEventObject.NotifyListenerAtValueRetained
 }
-

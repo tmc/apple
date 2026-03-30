@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNRecognizedTextObservation] class.
@@ -44,7 +45,7 @@ func (vc VNRecognizedTextObservationClass) Alloc() VNRecognizedTextObservation {
 // A request that detects and recognizes regions of text in an image.
 //
 // # Overview
-// 
+//
 // This type of observation results from a [VNRecognizeTextRequest]. It
 // contains information about both the location and content of text and glyphs
 // that Vision recognized in the input image.
@@ -64,6 +65,7 @@ type VNRecognizedTextObservation struct {
 func VNRecognizedTextObservationFromID(id objc.ID) VNRecognizedTextObservation {
 	return VNRecognizedTextObservation{VNRectangleObservation: VNRectangleObservationFromID(id)}
 }
+
 // NOTE: VNRecognizedTextObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -171,11 +173,11 @@ func NewRecognizedTextObservationWithRequestRevisionBoundingBox(requestRevision 
 // maxCandidateCount: The maximum number of candidates to return. This can’t exceed 10.
 //
 // # Return Value
-// 
+//
 // An array of the top candidates, sorted by decreasing confidence score.
 //
 // # Discussion
-// 
+//
 // This function returns no more than candidates, but it may return fewer than
 // candidates.
 //
@@ -186,4 +188,3 @@ func (r VNRecognizedTextObservation) TopCandidates(maxCandidateCount uint) []VNR
 		return VNRecognizedTextFromID(id)
 	})
 }
-

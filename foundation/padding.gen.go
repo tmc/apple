@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Padding struct {
 func PaddingFromID(id objc.ID) Padding {
 	return Padding{objectivec.Object{ID: id}}
 }
+
 // Ensure Padding implements IPadding.
 var _ IPadding = Padding{}
 
@@ -78,4 +80,3 @@ func NewPadding() Padding {
 	rv := objc.Send[Padding](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,24 +46,24 @@ func (nc NSTextFieldCellClass) Alloc() NSTextFieldCell {
 // An object that enhances the text display capabilities of a cell.
 //
 // # Overview
-// 
+//
 // The [NSTextFieldCell] class adds to the text display capabilities of the
 // [NSCell] class by allowing you to set the color of both the text and its
 // background. You can also specify whether the cell draws its background at
 // all.
-// 
+//
 // All of the methods declared by this class are also declared by the
 // [NSTextField] class, which uses [NSTextFieldCell] objects to draw and edit
 // text. The [NSTextField] cover methods call the corresponding
 // [NSTextFieldCell] methods.
-// 
+//
 // Placeholder strings, set using the [NSTextFieldCell.PlaceholderString] or
 // [NSTextFieldCell.PlaceholderAttributedString] property, appear in the text field cell if
 // the actual string is `nil` or an empty string. They’re drawn in gray on
 // the cell and aren’t archived in the “pre-10.2” nib format.
-// 
+//
 // # Designated Initializers
-// 
+//
 // When subclassing [NSTextFieldCell] you must implement the designated
 // initializers [NSTextFieldCell.InitWithCoder] and [NSTextFieldCell.InitTextCell].
 //
@@ -106,6 +107,7 @@ type NSTextFieldCell struct {
 func NSTextFieldCellFromID(id objc.ID) NSTextFieldCell {
 	return NSTextFieldCell{NSActionCell: NSActionCellFromID(id)}
 }
+
 // NOTE: NSTextFieldCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -206,12 +208,12 @@ func NewNSTextFieldCell() NSTextFieldCell {
 // image: The image to use for the cell. If this parameter is `nil`, no image is set.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -227,7 +229,7 @@ func NewTextFieldCellImageCell(image INSImage) NSTextFieldCell {
 // string: The string that the text field cell displays.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(textCell:)
@@ -242,7 +244,7 @@ func NewTextFieldCellTextCell(string_ string) NSTextFieldCell {
 // coder: An unarchiver object.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(coder:)
@@ -262,18 +264,18 @@ func (t NSTextFieldCell) TextColor() INSColor {
 func (t NSTextFieldCell) SetTextColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextColor:"), value)
 }
+
 // The bezel style to use when drawing the text field.
 //
 // # Discussion
-// 
-// To set the bezel style, you must have already set the the text field’s
-// [Bezeled] method with an argument of [true]. For a list of bezel styles,
-// see [NSTextField.BezelStyle].
 //
-// [NSTextField.BezelStyle]: https://developer.apple.com/documentation/AppKit/NSTextField/BezelStyle-swift.enum
-// [true]: https://developer.apple.com/documentation/Swift/true
+// To set the bezel style, you must have already set the the text field’s
+// [Bezeled] method with an argument of true. For a list of bezel styles, see
+// [NSTextField.BezelStyle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/bezelStyle
+//
+// [NSTextField.BezelStyle]: https://developer.apple.com/documentation/AppKit/NSTextField/BezelStyle-swift.enum
 func (t NSTextFieldCell) BezelStyle() NSTextFieldBezelStyle {
 	rv := objc.Send[NSTextFieldBezelStyle](t.ID, objc.Sel("bezelStyle"))
 	return NSTextFieldBezelStyle(rv)
@@ -281,10 +283,11 @@ func (t NSTextFieldCell) BezelStyle() NSTextFieldBezelStyle {
 func (t NSTextFieldCell) SetBezelStyle(value NSTextFieldBezelStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBezelStyle:"), value)
 }
+
 // The color of the cell’s background.
 //
 // # Discussion
-// 
+//
 // The background color is drawn behind the cell’s text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/backgroundColor
@@ -295,15 +298,14 @@ func (t NSTextFieldCell) BackgroundColor() INSColor {
 func (t NSTextFieldCell) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
+
 // A Boolean value that indicates whether the cell draws its background color.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the cell draws its background
+//
+// When the value of this property is true, the cell draws its background
 // color. In order to prevent inconsistent rendering, background color
 // rendering is automatically disabled for rounded-bezel text fields.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/drawsBackground
 func (t NSTextFieldCell) DrawsBackground() bool {
@@ -313,10 +315,11 @@ func (t NSTextFieldCell) DrawsBackground() bool {
 func (t NSTextFieldCell) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDrawsBackground:"), value)
 }
+
 // The placeholder text for the cell, specified as a plain text string.
 //
 // # Discussion
-// 
+//
 // Assigning a new value to this property also clears out any value set for
 // the [PlaceholderAttributedString] property.
 //
@@ -328,10 +331,11 @@ func (t NSTextFieldCell) PlaceholderString() string {
 func (t NSTextFieldCell) SetPlaceholderString(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlaceholderString:"), objc.String(value))
 }
+
 // The placeholder text for the cell, specified as an attributed string.
 //
 // # Discussion
-// 
+//
 // Assigning a new value to this property also clears out any value set for
 // the [PlaceholderString] property.
 //
@@ -343,20 +347,21 @@ func (t NSTextFieldCell) PlaceholderAttributedString() foundation.NSAttributedSt
 func (t NSTextFieldCell) SetPlaceholderAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlaceholderAttributedString:"), value)
 }
+
 // An array of locale identifiers that represent the allowed input sources
 // when the text field has the keyboard focus.
 //
 // # Discussion
-// 
+//
 // The value of this property is an array of [NSString] objects, each of which
 // contains a locale identifier. You can assign the meta-locale identifier,
 // [NSAllRomanInputSourcesLocaleIdentifier], to specify input sources that are
 // limited for Roman script editing.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/allowedInputSourceLocales
+//
 // [NSAllRomanInputSourcesLocaleIdentifier]: https://developer.apple.com/documentation/AppKit/NSAllRomanInputSourcesLocaleIdentifier
 // [NSString]: https://developer.apple.com/documentation/Foundation/NSString
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/allowedInputSourceLocales
 func (t NSTextFieldCell) AllowedInputSourceLocales() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("allowedInputSourceLocales"))
 	return objc.ConvertSliceToStrings(rv)
@@ -364,4 +369,3 @@ func (t NSTextFieldCell) AllowedInputSourceLocales() []string {
 func (t NSTextFieldCell) SetAllowedInputSourceLocales(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowedInputSourceLocales:"), objectivec.StringSliceToNSArray(value))
 }
-

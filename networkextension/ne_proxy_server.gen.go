@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NEProxyServerClass) Alloc() NEProxyServer {
 // [NEProxyServer] contains settings for a proxy server.
 //
 // # Overview
-// 
+//
 // [NEProxyServer] instances are used inside of [NEProxySettings] instances to
 // configure proxy settings for VPN connections.
 //
@@ -75,6 +76,7 @@ type NEProxyServer struct {
 func NEProxyServerFromID(id objc.ID) NEProxyServer {
 	return NEProxyServer{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEProxyServer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -123,13 +125,13 @@ type INEProxyServer interface {
 	// A Boolean indicating if a static HTTP proxy will be used.
 	HttpEnabled() bool
 	SetHttpEnabled(value bool)
-	// An 
+	// An
 	HttpServer() INEProxyServer
 	SetHttpServer(value INEProxyServer)
 	// A Boolean indicating if a static HTTPS proxy will be used.
 	HttpsEnabled() bool
 	SetHttpsEnabled(value bool)
-	// An 
+	// An
 	HttpsServer() INEProxyServer
 	SetHttpsServer(value INEProxyServer)
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -189,6 +191,7 @@ func (p NEProxyServer) Address() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("address"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The TCP port on which the proxy server is listening for connections.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProxyServer/port
@@ -196,6 +199,7 @@ func (p NEProxyServer) Port() int {
 	rv := objc.Send[int](p.ID, objc.Sel("port"))
 	return rv
 }
+
 // A Boolean indicating if the server requires authentication credentials.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProxyServer/authenticationRequired
@@ -206,6 +210,7 @@ func (p NEProxyServer) AuthenticationRequired() bool {
 func (p NEProxyServer) SetAuthenticationRequired(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAuthenticationRequired:"), value)
 }
+
 // The username portion of the authentication credential to be used to
 // authenticate with the proxy server.
 //
@@ -217,6 +222,7 @@ func (p NEProxyServer) Username() string {
 func (p NEProxyServer) SetUsername(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setUsername:"), objc.String(value))
 }
+
 // The password portion of the authentication credential to be used to
 // authenticate with the proxy server.
 //
@@ -228,6 +234,7 @@ func (p NEProxyServer) Password() string {
 func (p NEProxyServer) SetPassword(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPassword:"), objc.String(value))
 }
+
 // A Boolean indicating if a static HTTP proxy will be used.
 //
 // See: https://developer.apple.com/documentation/networkextension/neproxysettings/httpenabled
@@ -238,6 +245,7 @@ func (p NEProxyServer) HttpEnabled() bool {
 func (p NEProxyServer) SetHttpEnabled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPEnabled:"), value)
 }
+
 // An
 //
 // See: https://developer.apple.com/documentation/networkextension/neproxysettings/httpserver
@@ -248,6 +256,7 @@ func (p NEProxyServer) HttpServer() INEProxyServer {
 func (p NEProxyServer) SetHttpServer(value INEProxyServer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPServer:"), value)
 }
+
 // A Boolean indicating if a static HTTPS proxy will be used.
 //
 // See: https://developer.apple.com/documentation/networkextension/neproxysettings/httpsenabled
@@ -258,6 +267,7 @@ func (p NEProxyServer) HttpsEnabled() bool {
 func (p NEProxyServer) SetHttpsEnabled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPSEnabled:"), value)
 }
+
 // An
 //
 // See: https://developer.apple.com/documentation/networkextension/neproxysettings/httpsserver
@@ -268,4 +278,3 @@ func (p NEProxyServer) HttpsServer() INEProxyServer {
 func (p NEProxyServer) SetHttpsServer(value INEProxyServer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPSServer:"), value)
 }
-

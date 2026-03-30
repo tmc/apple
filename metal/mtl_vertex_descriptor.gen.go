@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,10 +46,10 @@ func (mc MTLVertexDescriptorClass) Alloc() MTLVertexDescriptor {
 // function.
 //
 // # Overview
-// 
+//
 // An [MTLVertexDescriptor] instance is used to configure how vertex data
 // stored in memory is mapped to attributes in a vertex shader.
-// 
+//
 // A pipeline state is the state of the graphics rendering pipeline, including
 // shaders, blending, multisampling, and visibility testing. For every
 // pipeline state, there can be only one [MTLVertexDescriptor] instance. When
@@ -80,6 +81,7 @@ type MTLVertexDescriptor struct {
 func MTLVertexDescriptorFromID(id objc.ID) MTLVertexDescriptor {
 	return MTLVertexDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLVertexDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -138,7 +140,7 @@ func NewMTLVertexDescriptor() MTLVertexDescriptor {
 // Resets the default state for the vertex descriptor.
 //
 // # Discussion
-// 
+//
 // After reset, each element of the [Attributes] array has a default vertex
 // attribute descriptor, and each element of the [Layouts] array has a default
 // vertex buffer layout descriptor.
@@ -151,7 +153,7 @@ func (v MTLVertexDescriptor) Reset() {
 // Creates and returns a new vertex descriptor.
 //
 // # Return Value
-// 
+//
 // A default object with allocated arrays in the [Attributes] and [Layouts]
 // properties.
 //
@@ -169,6 +171,7 @@ func (v MTLVertexDescriptor) Attributes() IMTLVertexAttributeDescriptorArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("attributes"))
 	return MTLVertexAttributeDescriptorArrayFromID(objc.ID(rv))
 }
+
 // An array of state data that describes how data are fetched by a vertex
 // shader function when rendering primitives.
 //
@@ -177,11 +180,13 @@ func (v MTLVertexDescriptor) Layouts() IMTLVertexBufferLayoutDescriptorArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("layouts"))
 	return MTLVertexBufferLayoutDescriptorArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexDescriptor) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
+
 // The organization of vertex data in an attribute’s argument table.
 //
 // See: https://developer.apple.com/documentation/metal/mtlrenderpipelinedescriptor/vertexdescriptor
@@ -192,4 +197,3 @@ func (v MTLVertexDescriptor) VertexDescriptor() IMTLVertexDescriptor {
 func (v MTLVertexDescriptor) SetVertexDescriptor(value IMTLVertexDescriptor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setVertexDescriptor:"), value)
 }
-

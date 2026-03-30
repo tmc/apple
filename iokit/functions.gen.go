@@ -6,10 +6,11 @@ import (
 	"fmt"
 	"os"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/dispatch"
-	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/kernel"
 )
 
 // registerFunc resolves a framework symbol and registers it as a Go function.
@@ -362,24 +363,24 @@ func IOConnectGetService(connect uintptr, service *uintptr) int32 {
 	return _iOConnectGetService(connect, service)
 }
 
-var _iOConnectMapMemory func(connect uintptr, memoryType uint32, intoTask unsafe.Pointer, atAddress uintptr, ofSize uintptr, options uint32) int32
+var _iOConnectMapMemory func(connect uintptr, memoryType uint32, intoTask kernel.Task_port_t, atAddress *kernel.Mach_vm_address_t, ofSize *kernel.Mach_vm_size_t, options uint32) int32
 
 // IOConnectMapMemory map hardware or shared memory into the caller's task.
 //
 // See: https://developer.apple.com/documentation/iokit/1514377-ioconnectmapmemory
-func IOConnectMapMemory(connect uintptr, memoryType uint32, intoTask unsafe.Pointer, atAddress uintptr, ofSize uintptr, options uint32) int32 {
+func IOConnectMapMemory(connect uintptr, memoryType uint32, intoTask kernel.Task_port_t, atAddress *kernel.Mach_vm_address_t, ofSize *kernel.Mach_vm_size_t, options uint32) int32 {
 	if _iOConnectMapMemory == nil {
 		panic("iokit: symbol IOConnectMapMemory not loaded")
 	}
 	return _iOConnectMapMemory(connect, memoryType, intoTask, atAddress, ofSize, options)
 }
 
-var _iOConnectMapMemory64 func(connect uintptr, memoryType uint32, intoTask unsafe.Pointer, atAddress uintptr, ofSize uintptr, options uint32) int32
+var _iOConnectMapMemory64 func(connect uintptr, memoryType uint32, intoTask kernel.Task_port_t, atAddress *kernel.Mach_vm_address_t, ofSize *kernel.Mach_vm_size_t, options uint32) int32
 
 // IOConnectMapMemory64 map hardware or shared memory into the caller's task.
 //
 // See: https://developer.apple.com/documentation/iokit/1514862-ioconnectmapmemory64
-func IOConnectMapMemory64(connect uintptr, memoryType uint32, intoTask unsafe.Pointer, atAddress uintptr, ofSize uintptr, options uint32) int32 {
+func IOConnectMapMemory64(connect uintptr, memoryType uint32, intoTask kernel.Task_port_t, atAddress *kernel.Mach_vm_address_t, ofSize *kernel.Mach_vm_size_t, options uint32) int32 {
 	if _iOConnectMapMemory64 == nil {
 		panic("iokit: symbol IOConnectMapMemory64 not loaded")
 	}
@@ -518,24 +519,24 @@ func IOConnectTrap6(connect uintptr, index uint32, p1 unsafe.Pointer, p2 unsafe.
 	return _iOConnectTrap6(connect, index, p1, p2, p3, p4, p5, p6)
 }
 
-var _iOConnectUnmapMemory func(connect uintptr, memoryType uint32, fromTask unsafe.Pointer, atAddress uint64) int32
+var _iOConnectUnmapMemory func(connect uintptr, memoryType uint32, fromTask kernel.Task_port_t, atAddress kernel.Mach_vm_address_t) int32
 
 // IOConnectUnmapMemory remove a mapping made with IOConnectMapMemory.
 //
 // See: https://developer.apple.com/documentation/iokit/1514527-ioconnectunmapmemory
-func IOConnectUnmapMemory(connect uintptr, memoryType uint32, fromTask unsafe.Pointer, atAddress uint64) int32 {
+func IOConnectUnmapMemory(connect uintptr, memoryType uint32, fromTask kernel.Task_port_t, atAddress kernel.Mach_vm_address_t) int32 {
 	if _iOConnectUnmapMemory == nil {
 		panic("iokit: symbol IOConnectUnmapMemory not loaded")
 	}
 	return _iOConnectUnmapMemory(connect, memoryType, fromTask, atAddress)
 }
 
-var _iOConnectUnmapMemory64 func(connect uintptr, memoryType uint32, fromTask unsafe.Pointer, atAddress uint64) int32
+var _iOConnectUnmapMemory64 func(connect uintptr, memoryType uint32, fromTask kernel.Task_port_t, atAddress kernel.Mach_vm_address_t) int32
 
 // IOConnectUnmapMemory64 remove a mapping made with IOConnectMapMemory64.
 //
 // See: https://developer.apple.com/documentation/iokit/1514760-ioconnectunmapmemory64
-func IOConnectUnmapMemory64(connect uintptr, memoryType uint32, fromTask unsafe.Pointer, atAddress uint64) int32 {
+func IOConnectUnmapMemory64(connect uintptr, memoryType uint32, fromTask kernel.Task_port_t, atAddress kernel.Mach_vm_address_t) int32 {
 	if _iOConnectUnmapMemory64 == nil {
 		panic("iokit: symbol IOConnectUnmapMemory64 not loaded")
 	}
@@ -866,12 +867,12 @@ func IOFBGetI2CInterfaceCount(arg0 uintptr, arg1 uint) int {
 	return _iOFBGetI2CInterfaceCount(arg0, arg1)
 }
 
-var _iOFramebufferOpen func(arg0 uintptr, arg1 unsafe.Pointer, arg2 uint, arg3 uintptr) int32
+var _iOFramebufferOpen func(arg0 uintptr, arg1 kernel.Task_port_t, arg2 uint, arg3 uintptr) int32
 
 // IOFramebufferOpen.
 //
 // See: https://developer.apple.com/documentation/iokit/1574872-ioframebufferopen
-func IOFramebufferOpen(arg0 uintptr, arg1 unsafe.Pointer, arg2 uint, arg3 uintptr) int32 {
+func IOFramebufferOpen(arg0 uintptr, arg1 kernel.Task_port_t, arg2 uint, arg3 uintptr) int32 {
 	if _iOFramebufferOpen == nil {
 		panic("iokit: symbol IOFramebufferOpen not loaded")
 	}
@@ -888,18 +889,6 @@ func IOGetSystemLoadAdvisory() IOSystemLoadAdvisoryLevel {
 		panic("iokit: symbol IOGetSystemLoadAdvisory not loaded")
 	}
 	return _iOGetSystemLoadAdvisory()
-}
-
-var _iOHIDAccessCheckAuditToken func(arg0 IOHIDRequestType, arg1 uintptr) bool
-
-// IOHIDAccessCheckAuditToken.
-//
-// See: https://developer.apple.com/documentation/iokit/4423108-iohidaccesscheckaudittoken
-func IOHIDAccessCheckAuditToken(arg0 IOHIDRequestType, arg1 uintptr) bool {
-	if _iOHIDAccessCheckAuditToken == nil {
-		panic("iokit: symbol IOHIDAccessCheckAuditToken not loaded")
-	}
-	return _iOHIDAccessCheckAuditToken(arg0, arg1)
 }
 
 var _iOHIDCheckAccess func(arg0 IOHIDRequestType) IOHIDAccessType
@@ -2188,14 +2177,14 @@ func IOHIDManagerUnscheduleFromRunLoop(arg0 IOHIDManagerRef, arg1 corefoundation
 	_iOHIDManagerUnscheduleFromRunLoop(arg0, arg1, arg2)
 }
 
-var _iOHIDPostEvent func(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 unsafe.Pointer, arg4 uint32, arg5 uint32, arg6 uint32) int32
+var _iOHIDPostEvent func(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 kernel.NXEventData, arg4 uint32, arg5 uint32, arg6 uint32) int32
 
 // IOHIDPostEvent.
 //
 // Deprecated: Deprecated since macOS 11.0.
 //
 // See: https://developer.apple.com/documentation/iokit/1555406-iohidpostevent
-func IOHIDPostEvent(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 unsafe.Pointer, arg4 uint32, arg5 uint32, arg6 uint32) int32 {
+func IOHIDPostEvent(arg0 uintptr, arg1 uint32, arg2 IOGPoint, arg3 kernel.NXEventData, arg4 uint32, arg5 uint32, arg6 uint32) int32 {
 	if _iOHIDPostEvent == nil {
 		panic("iokit: symbol IOHIDPostEvent not loaded")
 	}
@@ -2456,12 +2445,12 @@ func IOHIDRequestAccess(arg0 IOHIDRequestType) bool {
 	return _iOHIDRequestAccess(arg0)
 }
 
-var _iOHIDServiceClientConformsTo func(arg0 IOHIDServiceClientRef, arg1 uint32, arg2 uint32) objectivec.IObject
+var _iOHIDServiceClientConformsTo func(arg0 IOHIDServiceClientRef, arg1 uint32, arg2 uint32) bool
 
 // IOHIDServiceClientConformsTo.
 //
 // See: https://developer.apple.com/documentation/iokit/2269428-iohidserviceclientconformsto
-func IOHIDServiceClientConformsTo(arg0 IOHIDServiceClientRef, arg1 uint32, arg2 uint32) objectivec.IObject {
+func IOHIDServiceClientConformsTo(arg0 IOHIDServiceClientRef, arg1 uint32, arg2 uint32) bool {
 	if _iOHIDServiceClientConformsTo == nil {
 		panic("iokit: symbol IOHIDServiceClientConformsTo not loaded")
 	}
@@ -2542,26 +2531,26 @@ func IOHIDSetCFTypeParameter(arg0 uintptr, arg1 corefoundation.CFStringRef, arg2
 	return _iOHIDSetCFTypeParameter(arg0, arg1, arg2)
 }
 
-var _iOHIDSetCursorEnable func(arg0 uintptr, arg1 uintptr) int32
+var _iOHIDSetCursorEnable func(arg0 uintptr, arg1 bool) int32
 
 // IOHIDSetCursorEnable.
 //
 // Deprecated: Deprecated since macOS 11.0.
 //
 // See: https://developer.apple.com/documentation/iokit/1555409-iohidsetcursorenable
-func IOHIDSetCursorEnable(arg0 uintptr, arg1 uintptr) int32 {
+func IOHIDSetCursorEnable(arg0 uintptr, arg1 bool) int32 {
 	if _iOHIDSetCursorEnable == nil {
 		panic("iokit: symbol IOHIDSetCursorEnable not loaded")
 	}
 	return _iOHIDSetCursorEnable(arg0, arg1)
 }
 
-var _iOHIDSetEventsEnable func(arg0 uintptr, arg1 uintptr) int32
+var _iOHIDSetEventsEnable func(arg0 uintptr, arg1 bool) int32
 
 // IOHIDSetEventsEnable.
 //
 // See: https://developer.apple.com/documentation/iokit/1555396-iohidseteventsenable
-func IOHIDSetEventsEnable(arg0 uintptr, arg1 uintptr) int32 {
+func IOHIDSetEventsEnable(arg0 uintptr, arg1 bool) int32 {
 	if _iOHIDSetEventsEnable == nil {
 		panic("iokit: symbol IOHIDSetEventsEnable not loaded")
 	}
@@ -3086,12 +3075,12 @@ func IOHIDValueGetLength(arg0 IOHIDValueRef) int {
 	return _iOHIDValueGetLength(arg0)
 }
 
-var _iOHIDValueGetScaledValue func(arg0 IOHIDValueRef, arg1 IOHIDValueScaleType) unsafe.Pointer
+var _iOHIDValueGetScaledValue func(arg0 IOHIDValueRef, arg1 IOHIDValueScaleType) kernel.Double_t
 
 // IOHIDValueGetScaledValue returns an scaled representaion of the value contained in this IOHIDValueRef based on the scale type.
 //
 // See: https://developer.apple.com/documentation/iokit/1433288-iohidvaluegetscaledvalue
-func IOHIDValueGetScaledValue(arg0 IOHIDValueRef, arg1 IOHIDValueScaleType) unsafe.Pointer {
+func IOHIDValueGetScaledValue(arg0 IOHIDValueRef, arg1 IOHIDValueScaleType) kernel.Double_t {
 	if _iOHIDValueGetScaledValue == nil {
 		panic("iokit: symbol IOHIDValueGetScaledValue not loaded")
 	}
@@ -3170,12 +3159,12 @@ func IOI2CSendRequest(arg0 IOI2CConnectRef, arg1 uint32, arg2 IOI2CRequest) int 
 	return _iOI2CSendRequest(arg0, arg1, arg2)
 }
 
-var _iOIteratorIsValid func(iterator uintptr) objectivec.IObject
+var _iOIteratorIsValid func(iterator uintptr) bool
 
 // IOIteratorIsValid checks an iterator is still valid.
 //
 // See: https://developer.apple.com/documentation/iokit/1514556-ioiteratorisvalid
-func IOIteratorIsValid(iterator uintptr) objectivec.IObject {
+func IOIteratorIsValid(iterator uintptr) bool {
 	if _iOIteratorIsValid == nil {
 		panic("iokit: symbol IOIteratorIsValid not loaded")
 	}
@@ -3218,12 +3207,12 @@ func IOKitGetBusyState(mainPort uint32, busyState *uint32) int32 {
 	return _iOKitGetBusyState(mainPort, busyState)
 }
 
-var _iOKitWaitQuiet func(mainPort uint32, waitTime uintptr) int32
+var _iOKitWaitQuiet func(mainPort uint32, waitTime *kernel.Mach_timespec_t) int32
 
 // IOKitWaitQuiet wait for a all IOServices' busyState to be zero.
 //
 // See: https://developer.apple.com/documentation/iokit/1514440-iokitwaitquiet
-func IOKitWaitQuiet(mainPort uint32, waitTime uintptr) int32 {
+func IOKitWaitQuiet(mainPort uint32, waitTime *kernel.Mach_timespec_t) int32 {
 	if _iOKitWaitQuiet == nil {
 		panic("iokit: symbol IOKitWaitQuiet not loaded")
 	}
@@ -3436,12 +3425,12 @@ func IONotificationPortSetImportanceReceiver(notify IONotificationPortRef) int32
 	return _iONotificationPortSetImportanceReceiver(notify)
 }
 
-var _iOObjectConformsTo func(object uintptr, className string) objectivec.IObject
+var _iOObjectConformsTo func(object uintptr, className string) bool
 
 // IOObjectConformsTo performs an OSDynamicCast operation on an IOKit object.
 //
 // See: https://developer.apple.com/documentation/iokit/1514505-ioobjectconformsto
-func IOObjectConformsTo(object uintptr, className string) objectivec.IObject {
+func IOObjectConformsTo(object uintptr, className string) bool {
 	if _iOObjectConformsTo == nil {
 		panic("iokit: symbol IOObjectConformsTo not loaded")
 	}
@@ -3532,12 +3521,12 @@ func IOObjectGetUserRetainCount(object uintptr) uint32 {
 	return _iOObjectGetUserRetainCount(object)
 }
 
-var _iOObjectIsEqualTo func(object uintptr, anObject uintptr) objectivec.IObject
+var _iOObjectIsEqualTo func(object uintptr, anObject uintptr) bool
 
 // IOObjectIsEqualTo checks two object handles to see if they represent the same kernel object.
 //
 // See: https://developer.apple.com/documentation/iokit/1514563-ioobjectisequalto
-func IOObjectIsEqualTo(object uintptr, anObject uintptr) objectivec.IObject {
+func IOObjectIsEqualTo(object uintptr, anObject uintptr) bool {
 	if _iOObjectIsEqualTo == nil {
 		panic("iokit: symbol IOObjectIsEqualTo not loaded")
 	}
@@ -3836,12 +3825,12 @@ func IOPMSetAggressiveness(arg0 uintptr, arg1 uint, arg2 uint) int {
 	return _iOPMSetAggressiveness(arg0, arg1, arg2)
 }
 
-var _iOPMSleepEnabled func() objectivec.IObject
+var _iOPMSleepEnabled func() bool
 
 // IOPMSleepEnabled tells whether the system supports full sleep, or just doze
 //
 // See: https://developer.apple.com/documentation/iokit/1557074-iopmsleepenabled
-func IOPMSleepEnabled() objectivec.IObject {
+func IOPMSleepEnabled() bool {
 	if _iOPMSleepEnabled == nil {
 		panic("iokit: symbol IOPMSleepEnabled not loaded")
 	}
@@ -4222,12 +4211,12 @@ func IORegistryEntryIDMatching(entryID uint64) corefoundation.CFMutableDictionar
 	return _iORegistryEntryIDMatching(entryID)
 }
 
-var _iORegistryEntryInPlane func(entry uintptr, plane string) objectivec.IObject
+var _iORegistryEntryInPlane func(entry uintptr, plane string) bool
 
 // IORegistryEntryInPlane determines if the registry entry is attached in a plane.
 //
 // See: https://developer.apple.com/documentation/iokit/1514668-ioregistryentryinplane
-func IORegistryEntryInPlane(entry uintptr, plane string) objectivec.IObject {
+func IORegistryEntryInPlane(entry uintptr, plane string) bool {
 	if _iORegistryEntryInPlane == nil {
 		panic("iokit: symbol IORegistryEntryInPlane not loaded")
 	}
@@ -4404,12 +4393,12 @@ func IOServiceGetMatchingServices(mainPort uint32, matching corefoundation.CFDic
 	return _iOServiceGetMatchingServices(mainPort, matching, existing)
 }
 
-var _iOServiceMatchPropertyTable func(service uintptr, matching corefoundation.CFDictionaryRef, matches uintptr) int32
+var _iOServiceMatchPropertyTable func(service uintptr, matching corefoundation.CFDictionaryRef, matches *bool) int32
 
 // IOServiceMatchPropertyTable match an IOService objects with matching dictionary.
 //
 // See: https://developer.apple.com/documentation/iokit/1514685-ioservicematchpropertytable
-func IOServiceMatchPropertyTable(service uintptr, matching corefoundation.CFDictionaryRef, matches uintptr) int32 {
+func IOServiceMatchPropertyTable(service uintptr, matching corefoundation.CFDictionaryRef, matches *bool) int32 {
 	if _iOServiceMatchPropertyTable == nil {
 		panic("iokit: symbol IOServiceMatchPropertyTable not loaded")
 	}
@@ -4454,12 +4443,12 @@ func IOServiceOFPathToBSDName(mainPort uint32, openFirmwarePath string, bsdName 
 	return _iOServiceOFPathToBSDName(mainPort, openFirmwarePath, bsdName)
 }
 
-var _iOServiceOpen func(service uintptr, owningTask unsafe.Pointer, type_ uint32, connect *uintptr) int32
+var _iOServiceOpen func(service uintptr, owningTask kernel.Task_port_t, type_ uint32, connect *uintptr) int32
 
 // IOServiceOpen a request to create a connection to an IOService.
 //
 // See: https://developer.apple.com/documentation/iokit/1514515-ioserviceopen
-func IOServiceOpen(service uintptr, owningTask unsafe.Pointer, type_ uint32, connect *uintptr) int32 {
+func IOServiceOpen(service uintptr, owningTask kernel.Task_port_t, type_ uint32, connect *uintptr) int32 {
 	if _iOServiceOpen == nil {
 		panic("iokit: symbol IOServiceOpen not loaded")
 	}
@@ -4490,12 +4479,12 @@ func IOServiceRequestProbe(service uintptr, options uint32) int32 {
 	return _iOServiceRequestProbe(service, options)
 }
 
-var _iOServiceWaitQuiet func(service uintptr, waitTime uintptr) int32
+var _iOServiceWaitQuiet func(service uintptr, waitTime *kernel.Mach_timespec_t) int32
 
 // IOServiceWaitQuiet wait for an IOService's busyState to be zero.
 //
 // See: https://developer.apple.com/documentation/iokit/1514573-ioservicewaitquiet
-func IOServiceWaitQuiet(service uintptr, waitTime uintptr) int32 {
+func IOServiceWaitQuiet(service uintptr, waitTime *kernel.Mach_timespec_t) int32 {
 	if _iOServiceWaitQuiet == nil {
 		panic("iokit: symbol IOServiceWaitQuiet not loaded")
 	}
@@ -4792,12 +4781,12 @@ func NXSetKeyRepeatThreshold(arg0 NXEventHandle, arg1 float64) {
 	_nXSetKeyRepeatThreshold(arg0, arg1)
 }
 
-var _oSGetNotificationFromMessage func(msg unsafe.Pointer, index uint32, type_ *uint32, reference unsafe.Pointer, content unsafe.Pointer, size uintptr) int32
+var _oSGetNotificationFromMessage func(msg unsafe.Pointer, index uint32, type_ *uint32, reference unsafe.Pointer, content unsafe.Pointer, size *kernel.Vm_size_t) int32
 
 // OSGetNotificationFromMessage.
 //
 // See: https://developer.apple.com/documentation/iokit/1514263-osgetnotificationfrommessage
-func OSGetNotificationFromMessage(msg unsafe.Pointer, index uint32, type_ *uint32, reference unsafe.Pointer, content unsafe.Pointer, size uintptr) int32 {
+func OSGetNotificationFromMessage(msg unsafe.Pointer, index uint32, type_ *uint32, reference unsafe.Pointer, content unsafe.Pointer, size *kernel.Vm_size_t) int32 {
 	if _oSGetNotificationFromMessage == nil {
 		panic("iokit: symbol OSGetNotificationFromMessage not loaded")
 	}
@@ -4808,396 +4797,394 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_cDConvertLBAToMSF, frameworkHandle, "CDConvertLBAToMSF")
-		registerFunc(&_cDConvertMSFToClippedLBA, frameworkHandle, "CDConvertMSFToClippedLBA")
-		registerFunc(&_cDConvertMSFToLBA, frameworkHandle, "CDConvertMSFToLBA")
-		registerFunc(&_cDConvertTrackNumberToMSF, frameworkHandle, "CDConvertTrackNumberToMSF")
-		registerFunc(&_cDTOCGetDescriptorCount, frameworkHandle, "CDTOCGetDescriptorCount")
-		registerFunc(&_iOAccelFindAccelerator, frameworkHandle, "IOAccelFindAccelerator")
-		registerFunc(&_iOAllowPowerChange, frameworkHandle, "IOAllowPowerChange")
-		registerFunc(&_iOBSDNameMatching, frameworkHandle, "IOBSDNameMatching")
-		registerFunc(&_iOCFSerialize, frameworkHandle, "IOCFSerialize")
-		registerFunc(&_iOCFUnserialize, frameworkHandle, "IOCFUnserialize")
-		registerFunc(&_iOCFUnserializeBinary, frameworkHandle, "IOCFUnserializeBinary")
-		registerFunc(&_iOCFUnserializeWithSize, frameworkHandle, "IOCFUnserializeWithSize")
-		registerFunc(&_iOCancelPowerChange, frameworkHandle, "IOCancelPowerChange")
-		registerFunc(&_iOCatalogueGetData, frameworkHandle, "IOCatalogueGetData")
-		registerFunc(&_iOCatalogueModuleLoaded, frameworkHandle, "IOCatalogueModuleLoaded")
-		registerFunc(&_iOCatalogueReset, frameworkHandle, "IOCatalogueReset")
-		registerFunc(&_iOCatalogueSendData, frameworkHandle, "IOCatalogueSendData")
-		registerFunc(&_iOCatalogueTerminate, frameworkHandle, "IOCatalogueTerminate")
-		registerFunc(&_iOConnectAddClient, frameworkHandle, "IOConnectAddClient")
-		registerFunc(&_iOConnectAddRef, frameworkHandle, "IOConnectAddRef")
-		registerFunc(&_iOConnectCallAsyncMethod, frameworkHandle, "IOConnectCallAsyncMethod")
-		registerFunc(&_iOConnectCallAsyncScalarMethod, frameworkHandle, "IOConnectCallAsyncScalarMethod")
-		registerFunc(&_iOConnectCallAsyncStructMethod, frameworkHandle, "IOConnectCallAsyncStructMethod")
-		registerFunc(&_iOConnectCallMethod, frameworkHandle, "IOConnectCallMethod")
-		registerFunc(&_iOConnectCallScalarMethod, frameworkHandle, "IOConnectCallScalarMethod")
-		registerFunc(&_iOConnectCallStructMethod, frameworkHandle, "IOConnectCallStructMethod")
-		registerFunc(&_iOConnectGetService, frameworkHandle, "IOConnectGetService")
-		registerFunc(&_iOConnectMapMemory, frameworkHandle, "IOConnectMapMemory")
-		registerFunc(&_iOConnectMapMemory64, frameworkHandle, "IOConnectMapMemory64")
-		registerFunc(&_iOConnectRelease, frameworkHandle, "IOConnectRelease")
-		registerFunc(&_iOConnectSetCFProperties, frameworkHandle, "IOConnectSetCFProperties")
-		registerFunc(&_iOConnectSetCFProperty, frameworkHandle, "IOConnectSetCFProperty")
-		registerFunc(&_iOConnectSetNotificationPort, frameworkHandle, "IOConnectSetNotificationPort")
-		registerFunc(&_iOConnectTrap0, frameworkHandle, "IOConnectTrap0")
-		registerFunc(&_iOConnectTrap1, frameworkHandle, "IOConnectTrap1")
-		registerFunc(&_iOConnectTrap2, frameworkHandle, "IOConnectTrap2")
-		registerFunc(&_iOConnectTrap3, frameworkHandle, "IOConnectTrap3")
-		registerFunc(&_iOConnectTrap4, frameworkHandle, "IOConnectTrap4")
-		registerFunc(&_iOConnectTrap5, frameworkHandle, "IOConnectTrap5")
-		registerFunc(&_iOConnectTrap6, frameworkHandle, "IOConnectTrap6")
-		registerFunc(&_iOConnectUnmapMemory, frameworkHandle, "IOConnectUnmapMemory")
-		registerFunc(&_iOConnectUnmapMemory64, frameworkHandle, "IOConnectUnmapMemory64")
-		registerFunc(&_iOCopySystemLoadAdvisoryDetailed, frameworkHandle, "IOCopySystemLoadAdvisoryDetailed")
-		registerFunc(&_iOCreatePlugInInterfaceForService, frameworkHandle, "IOCreatePlugInInterfaceForService")
-		registerFunc(&_iOCreateReceivePort, frameworkHandle, "IOCreateReceivePort")
-		registerFunc(&_iODataQueueAllocateNotificationPort, frameworkHandle, "IODataQueueAllocateNotificationPort")
-		registerFunc(&_iODataQueueDataAvailable, frameworkHandle, "IODataQueueDataAvailable")
-		registerFunc(&_iODataQueueDequeue, frameworkHandle, "IODataQueueDequeue")
-		registerFunc(&_iODataQueueEnqueue, frameworkHandle, "IODataQueueEnqueue")
-		registerFunc(&_iODataQueuePeek, frameworkHandle, "IODataQueuePeek")
-		registerFunc(&_iODataQueueSetNotificationPort, frameworkHandle, "IODataQueueSetNotificationPort")
-		registerFunc(&_iODataQueueWaitForAvailableData, frameworkHandle, "IODataQueueWaitForAvailableData")
-		registerFunc(&_iODeregisterApp, frameworkHandle, "IODeregisterApp")
-		registerFunc(&_iODeregisterForSystemPower, frameworkHandle, "IODeregisterForSystemPower")
-		registerFunc(&_iODestroyPlugInInterface, frameworkHandle, "IODestroyPlugInInterface")
-		registerFunc(&_iODispatchCalloutFromMessage, frameworkHandle, "IODispatchCalloutFromMessage")
-		registerFunc(&_iODisplayCommitParameters, frameworkHandle, "IODisplayCommitParameters")
-		registerFunc(&_iODisplayCopyFloatParameters, frameworkHandle, "IODisplayCopyFloatParameters")
-		registerFunc(&_iODisplayCopyParameters, frameworkHandle, "IODisplayCopyParameters")
-		registerFunc(&_iODisplayCreateInfoDictionary, frameworkHandle, "IODisplayCreateInfoDictionary")
-		registerFunc(&_iODisplayForFramebuffer, frameworkHandle, "IODisplayForFramebuffer")
-		registerFunc(&_iODisplayGetFloatParameter, frameworkHandle, "IODisplayGetFloatParameter")
-		registerFunc(&_iODisplayGetIntegerRangeParameter, frameworkHandle, "IODisplayGetIntegerRangeParameter")
-		registerFunc(&_iODisplayMatchDictionaries, frameworkHandle, "IODisplayMatchDictionaries")
-		registerFunc(&_iODisplaySetFloatParameter, frameworkHandle, "IODisplaySetFloatParameter")
-		registerFunc(&_iODisplaySetIntegerParameter, frameworkHandle, "IODisplaySetIntegerParameter")
-		registerFunc(&_iODisplaySetParameters, frameworkHandle, "IODisplaySetParameters")
-		registerFunc(&_iOFBCopyI2CInterfaceForBus, frameworkHandle, "IOFBCopyI2CInterfaceForBus")
-		registerFunc(&_iOFBGetI2CInterfaceCount, frameworkHandle, "IOFBGetI2CInterfaceCount")
-		registerFunc(&_iOFramebufferOpen, frameworkHandle, "IOFramebufferOpen")
-		registerFunc(&_iOGetSystemLoadAdvisory, frameworkHandle, "IOGetSystemLoadAdvisory")
-		registerFunc(&_iOHIDAccessCheckAuditToken, frameworkHandle, "IOHIDAccessCheckAuditToken")
-		registerFunc(&_iOHIDCheckAccess, frameworkHandle, "IOHIDCheckAccess")
-		registerFunc(&_iOHIDCopyCFTypeParameter, frameworkHandle, "IOHIDCopyCFTypeParameter")
-		registerFunc(&_iOHIDCreateSharedMemory, frameworkHandle, "IOHIDCreateSharedMemory")
-		registerFunc(&_iOHIDDeviceActivate, frameworkHandle, "IOHIDDeviceActivate")
-		registerFunc(&_iOHIDDeviceCancel, frameworkHandle, "IOHIDDeviceCancel")
-		registerFunc(&_iOHIDDeviceClose, frameworkHandle, "IOHIDDeviceClose")
-		registerFunc(&_iOHIDDeviceConformsTo, frameworkHandle, "IOHIDDeviceConformsTo")
-		registerFunc(&_iOHIDDeviceCopyMatchingElements, frameworkHandle, "IOHIDDeviceCopyMatchingElements")
-		registerFunc(&_iOHIDDeviceCopyValueMultiple, frameworkHandle, "IOHIDDeviceCopyValueMultiple")
-		registerFunc(&_iOHIDDeviceCopyValueMultipleWithCallback, frameworkHandle, "IOHIDDeviceCopyValueMultipleWithCallback")
-		registerFunc(&_iOHIDDeviceCreate, frameworkHandle, "IOHIDDeviceCreate")
-		registerFunc(&_iOHIDDeviceGetProperty, frameworkHandle, "IOHIDDeviceGetProperty")
-		registerFunc(&_iOHIDDeviceGetReport, frameworkHandle, "IOHIDDeviceGetReport")
-		registerFunc(&_iOHIDDeviceGetReportWithCallback, frameworkHandle, "IOHIDDeviceGetReportWithCallback")
-		registerFunc(&_iOHIDDeviceGetService, frameworkHandle, "IOHIDDeviceGetService")
-		registerFunc(&_iOHIDDeviceGetTypeID, frameworkHandle, "IOHIDDeviceGetTypeID")
-		registerFunc(&_iOHIDDeviceGetValue, frameworkHandle, "IOHIDDeviceGetValue")
-		registerFunc(&_iOHIDDeviceGetValueWithCallback, frameworkHandle, "IOHIDDeviceGetValueWithCallback")
-		registerFunc(&_iOHIDDeviceGetValueWithOptions, frameworkHandle, "IOHIDDeviceGetValueWithOptions")
-		registerFunc(&_iOHIDDeviceOpen, frameworkHandle, "IOHIDDeviceOpen")
-		registerFunc(&_iOHIDDeviceRegisterInputReportCallback, frameworkHandle, "IOHIDDeviceRegisterInputReportCallback")
-		registerFunc(&_iOHIDDeviceRegisterInputReportWithTimeStampCallback, frameworkHandle, "IOHIDDeviceRegisterInputReportWithTimeStampCallback")
-		registerFunc(&_iOHIDDeviceRegisterInputValueCallback, frameworkHandle, "IOHIDDeviceRegisterInputValueCallback")
-		registerFunc(&_iOHIDDeviceRegisterRemovalCallback, frameworkHandle, "IOHIDDeviceRegisterRemovalCallback")
-		registerFunc(&_iOHIDDeviceScheduleWithRunLoop, frameworkHandle, "IOHIDDeviceScheduleWithRunLoop")
-		registerFunc(&_iOHIDDeviceSetCancelHandler, frameworkHandle, "IOHIDDeviceSetCancelHandler")
-		registerFunc(&_iOHIDDeviceSetDispatchQueue, frameworkHandle, "IOHIDDeviceSetDispatchQueue")
-		registerFunc(&_iOHIDDeviceSetInputValueMatching, frameworkHandle, "IOHIDDeviceSetInputValueMatching")
-		registerFunc(&_iOHIDDeviceSetInputValueMatchingMultiple, frameworkHandle, "IOHIDDeviceSetInputValueMatchingMultiple")
-		registerFunc(&_iOHIDDeviceSetProperty, frameworkHandle, "IOHIDDeviceSetProperty")
-		registerFunc(&_iOHIDDeviceSetReport, frameworkHandle, "IOHIDDeviceSetReport")
-		registerFunc(&_iOHIDDeviceSetReportWithCallback, frameworkHandle, "IOHIDDeviceSetReportWithCallback")
-		registerFunc(&_iOHIDDeviceSetValue, frameworkHandle, "IOHIDDeviceSetValue")
-		registerFunc(&_iOHIDDeviceSetValueMultiple, frameworkHandle, "IOHIDDeviceSetValueMultiple")
-		registerFunc(&_iOHIDDeviceSetValueMultipleWithCallback, frameworkHandle, "IOHIDDeviceSetValueMultipleWithCallback")
-		registerFunc(&_iOHIDDeviceSetValueWithCallback, frameworkHandle, "IOHIDDeviceSetValueWithCallback")
-		registerFunc(&_iOHIDDeviceUnscheduleFromRunLoop, frameworkHandle, "IOHIDDeviceUnscheduleFromRunLoop")
-		registerFunc(&_iOHIDElementAttach, frameworkHandle, "IOHIDElementAttach")
-		registerFunc(&_iOHIDElementCopyAttached, frameworkHandle, "IOHIDElementCopyAttached")
-		registerFunc(&_iOHIDElementCreateWithDictionary, frameworkHandle, "IOHIDElementCreateWithDictionary")
-		registerFunc(&_iOHIDElementDetach, frameworkHandle, "IOHIDElementDetach")
-		registerFunc(&_iOHIDElementGetChildren, frameworkHandle, "IOHIDElementGetChildren")
-		registerFunc(&_iOHIDElementGetCollectionType, frameworkHandle, "IOHIDElementGetCollectionType")
-		registerFunc(&_iOHIDElementGetCookie, frameworkHandle, "IOHIDElementGetCookie")
-		registerFunc(&_iOHIDElementGetDevice, frameworkHandle, "IOHIDElementGetDevice")
-		registerFunc(&_iOHIDElementGetLogicalMax, frameworkHandle, "IOHIDElementGetLogicalMax")
-		registerFunc(&_iOHIDElementGetLogicalMin, frameworkHandle, "IOHIDElementGetLogicalMin")
-		registerFunc(&_iOHIDElementGetName, frameworkHandle, "IOHIDElementGetName")
-		registerFunc(&_iOHIDElementGetParent, frameworkHandle, "IOHIDElementGetParent")
-		registerFunc(&_iOHIDElementGetPhysicalMax, frameworkHandle, "IOHIDElementGetPhysicalMax")
-		registerFunc(&_iOHIDElementGetPhysicalMin, frameworkHandle, "IOHIDElementGetPhysicalMin")
-		registerFunc(&_iOHIDElementGetProperty, frameworkHandle, "IOHIDElementGetProperty")
-		registerFunc(&_iOHIDElementGetReportCount, frameworkHandle, "IOHIDElementGetReportCount")
-		registerFunc(&_iOHIDElementGetReportID, frameworkHandle, "IOHIDElementGetReportID")
-		registerFunc(&_iOHIDElementGetReportSize, frameworkHandle, "IOHIDElementGetReportSize")
-		registerFunc(&_iOHIDElementGetType, frameworkHandle, "IOHIDElementGetType")
-		registerFunc(&_iOHIDElementGetTypeID, frameworkHandle, "IOHIDElementGetTypeID")
-		registerFunc(&_iOHIDElementGetUnit, frameworkHandle, "IOHIDElementGetUnit")
-		registerFunc(&_iOHIDElementGetUnitExponent, frameworkHandle, "IOHIDElementGetUnitExponent")
-		registerFunc(&_iOHIDElementGetUsage, frameworkHandle, "IOHIDElementGetUsage")
-		registerFunc(&_iOHIDElementGetUsagePage, frameworkHandle, "IOHIDElementGetUsagePage")
-		registerFunc(&_iOHIDElementHasNullState, frameworkHandle, "IOHIDElementHasNullState")
-		registerFunc(&_iOHIDElementHasPreferredState, frameworkHandle, "IOHIDElementHasPreferredState")
-		registerFunc(&_iOHIDElementIsArray, frameworkHandle, "IOHIDElementIsArray")
-		registerFunc(&_iOHIDElementIsNonLinear, frameworkHandle, "IOHIDElementIsNonLinear")
-		registerFunc(&_iOHIDElementIsRelative, frameworkHandle, "IOHIDElementIsRelative")
-		registerFunc(&_iOHIDElementIsVirtual, frameworkHandle, "IOHIDElementIsVirtual")
-		registerFunc(&_iOHIDElementIsWrapping, frameworkHandle, "IOHIDElementIsWrapping")
-		registerFunc(&_iOHIDElementSetProperty, frameworkHandle, "IOHIDElementSetProperty")
-		registerFunc(&_iOHIDEventSystemClientCopyProperty, frameworkHandle, "IOHIDEventSystemClientCopyProperty")
-		registerFunc(&_iOHIDEventSystemClientCopyServices, frameworkHandle, "IOHIDEventSystemClientCopyServices")
-		registerFunc(&_iOHIDEventSystemClientCreateSimpleClient, frameworkHandle, "IOHIDEventSystemClientCreateSimpleClient")
-		registerFunc(&_iOHIDEventSystemClientGetTypeID, frameworkHandle, "IOHIDEventSystemClientGetTypeID")
-		registerFunc(&_iOHIDEventSystemClientSetProperty, frameworkHandle, "IOHIDEventSystemClientSetProperty")
-		registerFunc(&_iOHIDGetAccelerationWithKey, frameworkHandle, "IOHIDGetAccelerationWithKey")
-		registerFunc(&_iOHIDGetActivityState, frameworkHandle, "IOHIDGetActivityState")
-		registerFunc(&_iOHIDGetButtonEventNum, frameworkHandle, "IOHIDGetButtonEventNum")
-		registerFunc(&_iOHIDGetModifierLockState, frameworkHandle, "IOHIDGetModifierLockState")
-		registerFunc(&_iOHIDGetMouseAcceleration, frameworkHandle, "IOHIDGetMouseAcceleration")
-		registerFunc(&_iOHIDGetMouseButtonMode, frameworkHandle, "IOHIDGetMouseButtonMode")
-		registerFunc(&_iOHIDGetParameter, frameworkHandle, "IOHIDGetParameter")
-		registerFunc(&_iOHIDGetScrollAcceleration, frameworkHandle, "IOHIDGetScrollAcceleration")
-		registerFunc(&_iOHIDGetStateForSelector, frameworkHandle, "IOHIDGetStateForSelector")
-		registerFunc(&_iOHIDManagerActivate, frameworkHandle, "IOHIDManagerActivate")
-		registerFunc(&_iOHIDManagerCancel, frameworkHandle, "IOHIDManagerCancel")
-		registerFunc(&_iOHIDManagerClose, frameworkHandle, "IOHIDManagerClose")
-		registerFunc(&_iOHIDManagerCopyDevices, frameworkHandle, "IOHIDManagerCopyDevices")
-		registerFunc(&_iOHIDManagerCreate, frameworkHandle, "IOHIDManagerCreate")
-		registerFunc(&_iOHIDManagerGetProperty, frameworkHandle, "IOHIDManagerGetProperty")
-		registerFunc(&_iOHIDManagerGetTypeID, frameworkHandle, "IOHIDManagerGetTypeID")
-		registerFunc(&_iOHIDManagerOpen, frameworkHandle, "IOHIDManagerOpen")
-		registerFunc(&_iOHIDManagerRegisterDeviceMatchingCallback, frameworkHandle, "IOHIDManagerRegisterDeviceMatchingCallback")
-		registerFunc(&_iOHIDManagerRegisterDeviceRemovalCallback, frameworkHandle, "IOHIDManagerRegisterDeviceRemovalCallback")
-		registerFunc(&_iOHIDManagerRegisterInputReportCallback, frameworkHandle, "IOHIDManagerRegisterInputReportCallback")
-		registerFunc(&_iOHIDManagerRegisterInputReportWithTimeStampCallback, frameworkHandle, "IOHIDManagerRegisterInputReportWithTimeStampCallback")
-		registerFunc(&_iOHIDManagerRegisterInputValueCallback, frameworkHandle, "IOHIDManagerRegisterInputValueCallback")
-		registerFunc(&_iOHIDManagerSaveToPropertyDomain, frameworkHandle, "IOHIDManagerSaveToPropertyDomain")
-		registerFunc(&_iOHIDManagerScheduleWithRunLoop, frameworkHandle, "IOHIDManagerScheduleWithRunLoop")
-		registerFunc(&_iOHIDManagerSetCancelHandler, frameworkHandle, "IOHIDManagerSetCancelHandler")
-		registerFunc(&_iOHIDManagerSetDeviceMatching, frameworkHandle, "IOHIDManagerSetDeviceMatching")
-		registerFunc(&_iOHIDManagerSetDeviceMatchingMultiple, frameworkHandle, "IOHIDManagerSetDeviceMatchingMultiple")
-		registerFunc(&_iOHIDManagerSetDispatchQueue, frameworkHandle, "IOHIDManagerSetDispatchQueue")
-		registerFunc(&_iOHIDManagerSetInputValueMatching, frameworkHandle, "IOHIDManagerSetInputValueMatching")
-		registerFunc(&_iOHIDManagerSetInputValueMatchingMultiple, frameworkHandle, "IOHIDManagerSetInputValueMatchingMultiple")
-		registerFunc(&_iOHIDManagerSetProperty, frameworkHandle, "IOHIDManagerSetProperty")
-		registerFunc(&_iOHIDManagerUnscheduleFromRunLoop, frameworkHandle, "IOHIDManagerUnscheduleFromRunLoop")
-		registerFunc(&_iOHIDPostEvent, frameworkHandle, "IOHIDPostEvent")
-		registerFunc(&_iOHIDQueueActivate, frameworkHandle, "IOHIDQueueActivate")
-		registerFunc(&_iOHIDQueueAddElement, frameworkHandle, "IOHIDQueueAddElement")
-		registerFunc(&_iOHIDQueueCancel, frameworkHandle, "IOHIDQueueCancel")
-		registerFunc(&_iOHIDQueueContainsElement, frameworkHandle, "IOHIDQueueContainsElement")
-		registerFunc(&_iOHIDQueueCopyNextValue, frameworkHandle, "IOHIDQueueCopyNextValue")
-		registerFunc(&_iOHIDQueueCopyNextValueWithTimeout, frameworkHandle, "IOHIDQueueCopyNextValueWithTimeout")
-		registerFunc(&_iOHIDQueueCreate, frameworkHandle, "IOHIDQueueCreate")
-		registerFunc(&_iOHIDQueueGetDepth, frameworkHandle, "IOHIDQueueGetDepth")
-		registerFunc(&_iOHIDQueueGetDevice, frameworkHandle, "IOHIDQueueGetDevice")
-		registerFunc(&_iOHIDQueueGetTypeID, frameworkHandle, "IOHIDQueueGetTypeID")
-		registerFunc(&_iOHIDQueueRegisterValueAvailableCallback, frameworkHandle, "IOHIDQueueRegisterValueAvailableCallback")
-		registerFunc(&_iOHIDQueueRemoveElement, frameworkHandle, "IOHIDQueueRemoveElement")
-		registerFunc(&_iOHIDQueueScheduleWithRunLoop, frameworkHandle, "IOHIDQueueScheduleWithRunLoop")
-		registerFunc(&_iOHIDQueueSetCancelHandler, frameworkHandle, "IOHIDQueueSetCancelHandler")
-		registerFunc(&_iOHIDQueueSetDepth, frameworkHandle, "IOHIDQueueSetDepth")
-		registerFunc(&_iOHIDQueueSetDispatchQueue, frameworkHandle, "IOHIDQueueSetDispatchQueue")
-		registerFunc(&_iOHIDQueueStart, frameworkHandle, "IOHIDQueueStart")
-		registerFunc(&_iOHIDQueueStop, frameworkHandle, "IOHIDQueueStop")
-		registerFunc(&_iOHIDQueueUnscheduleFromRunLoop, frameworkHandle, "IOHIDQueueUnscheduleFromRunLoop")
-		registerFunc(&_iOHIDRegisterVirtualDisplay, frameworkHandle, "IOHIDRegisterVirtualDisplay")
-		registerFunc(&_iOHIDRequestAccess, frameworkHandle, "IOHIDRequestAccess")
-		registerFunc(&_iOHIDServiceClientConformsTo, frameworkHandle, "IOHIDServiceClientConformsTo")
-		registerFunc(&_iOHIDServiceClientCopyProperty, frameworkHandle, "IOHIDServiceClientCopyProperty")
-		registerFunc(&_iOHIDServiceClientGetRegistryID, frameworkHandle, "IOHIDServiceClientGetRegistryID")
-		registerFunc(&_iOHIDServiceClientGetTypeID, frameworkHandle, "IOHIDServiceClientGetTypeID")
-		registerFunc(&_iOHIDServiceClientSetProperty, frameworkHandle, "IOHIDServiceClientSetProperty")
-		registerFunc(&_iOHIDSetAccelerationWithKey, frameworkHandle, "IOHIDSetAccelerationWithKey")
-		registerFunc(&_iOHIDSetCFTypeParameter, frameworkHandle, "IOHIDSetCFTypeParameter")
-		registerFunc(&_iOHIDSetCursorEnable, frameworkHandle, "IOHIDSetCursorEnable")
-		registerFunc(&_iOHIDSetEventsEnable, frameworkHandle, "IOHIDSetEventsEnable")
-		registerFunc(&_iOHIDSetModifierLockState, frameworkHandle, "IOHIDSetModifierLockState")
-		registerFunc(&_iOHIDSetMouseAcceleration, frameworkHandle, "IOHIDSetMouseAcceleration")
-		registerFunc(&_iOHIDSetMouseButtonMode, frameworkHandle, "IOHIDSetMouseButtonMode")
-		registerFunc(&_iOHIDSetMouseLocation, frameworkHandle, "IOHIDSetMouseLocation")
-		registerFunc(&_iOHIDSetParameter, frameworkHandle, "IOHIDSetParameter")
-		registerFunc(&_iOHIDSetScrollAcceleration, frameworkHandle, "IOHIDSetScrollAcceleration")
-		registerFunc(&_iOHIDSetStateForSelector, frameworkHandle, "IOHIDSetStateForSelector")
-		registerFunc(&_iOHIDSetVirtualDisplayBounds, frameworkHandle, "IOHIDSetVirtualDisplayBounds")
-		registerFunc(&_iOHIDTransactionAddElement, frameworkHandle, "IOHIDTransactionAddElement")
-		registerFunc(&_iOHIDTransactionClear, frameworkHandle, "IOHIDTransactionClear")
-		registerFunc(&_iOHIDTransactionCommit, frameworkHandle, "IOHIDTransactionCommit")
-		registerFunc(&_iOHIDTransactionCommitWithCallback, frameworkHandle, "IOHIDTransactionCommitWithCallback")
-		registerFunc(&_iOHIDTransactionContainsElement, frameworkHandle, "IOHIDTransactionContainsElement")
-		registerFunc(&_iOHIDTransactionCreate, frameworkHandle, "IOHIDTransactionCreate")
-		registerFunc(&_iOHIDTransactionGetDevice, frameworkHandle, "IOHIDTransactionGetDevice")
-		registerFunc(&_iOHIDTransactionGetDirection, frameworkHandle, "IOHIDTransactionGetDirection")
-		registerFunc(&_iOHIDTransactionGetTypeID, frameworkHandle, "IOHIDTransactionGetTypeID")
-		registerFunc(&_iOHIDTransactionGetValue, frameworkHandle, "IOHIDTransactionGetValue")
-		registerFunc(&_iOHIDTransactionRemoveElement, frameworkHandle, "IOHIDTransactionRemoveElement")
-		registerFunc(&_iOHIDTransactionScheduleWithRunLoop, frameworkHandle, "IOHIDTransactionScheduleWithRunLoop")
-		registerFunc(&_iOHIDTransactionSetDirection, frameworkHandle, "IOHIDTransactionSetDirection")
-		registerFunc(&_iOHIDTransactionSetValue, frameworkHandle, "IOHIDTransactionSetValue")
-		registerFunc(&_iOHIDTransactionUnscheduleFromRunLoop, frameworkHandle, "IOHIDTransactionUnscheduleFromRunLoop")
-		registerFunc(&_iOHIDUnregisterVirtualDisplay, frameworkHandle, "IOHIDUnregisterVirtualDisplay")
-		registerFunc(&_iOHIDUserDeviceActivate, frameworkHandle, "IOHIDUserDeviceActivate")
-		registerFunc(&_iOHIDUserDeviceCancel, frameworkHandle, "IOHIDUserDeviceCancel")
-		registerFunc(&_iOHIDUserDeviceCopyProperty, frameworkHandle, "IOHIDUserDeviceCopyProperty")
-		registerFunc(&_iOHIDUserDeviceCreateWithProperties, frameworkHandle, "IOHIDUserDeviceCreateWithProperties")
-		registerFunc(&_iOHIDUserDeviceGetTypeID, frameworkHandle, "IOHIDUserDeviceGetTypeID")
-		registerFunc(&_iOHIDUserDeviceHandleReportWithTimeStamp, frameworkHandle, "IOHIDUserDeviceHandleReportWithTimeStamp")
-		registerFunc(&_iOHIDUserDeviceRegisterGetReportBlock, frameworkHandle, "IOHIDUserDeviceRegisterGetReportBlock")
-		registerFunc(&_iOHIDUserDeviceRegisterSetReportBlock, frameworkHandle, "IOHIDUserDeviceRegisterSetReportBlock")
-		registerFunc(&_iOHIDUserDeviceSetCancelHandler, frameworkHandle, "IOHIDUserDeviceSetCancelHandler")
-		registerFunc(&_iOHIDUserDeviceSetDispatchQueue, frameworkHandle, "IOHIDUserDeviceSetDispatchQueue")
-		registerFunc(&_iOHIDUserDeviceSetProperty, frameworkHandle, "IOHIDUserDeviceSetProperty")
-		registerFunc(&_iOHIDValueCreateWithBytes, frameworkHandle, "IOHIDValueCreateWithBytes")
-		registerFunc(&_iOHIDValueCreateWithBytesNoCopy, frameworkHandle, "IOHIDValueCreateWithBytesNoCopy")
-		registerFunc(&_iOHIDValueCreateWithIntegerValue, frameworkHandle, "IOHIDValueCreateWithIntegerValue")
-		registerFunc(&_iOHIDValueGetBytePtr, frameworkHandle, "IOHIDValueGetBytePtr")
-		registerFunc(&_iOHIDValueGetElement, frameworkHandle, "IOHIDValueGetElement")
-		registerFunc(&_iOHIDValueGetIntegerValue, frameworkHandle, "IOHIDValueGetIntegerValue")
-		registerFunc(&_iOHIDValueGetLength, frameworkHandle, "IOHIDValueGetLength")
-		registerFunc(&_iOHIDValueGetScaledValue, frameworkHandle, "IOHIDValueGetScaledValue")
-		registerFunc(&_iOHIDValueGetTimeStamp, frameworkHandle, "IOHIDValueGetTimeStamp")
-		registerFunc(&_iOHIDValueGetTypeID, frameworkHandle, "IOHIDValueGetTypeID")
-		registerFunc(&_iOI2CCopyInterfaceForID, frameworkHandle, "IOI2CCopyInterfaceForID")
-		registerFunc(&_iOI2CInterfaceClose, frameworkHandle, "IOI2CInterfaceClose")
-		registerFunc(&_iOI2CInterfaceOpen, frameworkHandle, "IOI2CInterfaceOpen")
-		registerFunc(&_iOI2CSendRequest, frameworkHandle, "IOI2CSendRequest")
-		registerFunc(&_iOIteratorIsValid, frameworkHandle, "IOIteratorIsValid")
-		registerFunc(&_iOIteratorNext, frameworkHandle, "IOIteratorNext")
-		registerFunc(&_iOIteratorReset, frameworkHandle, "IOIteratorReset")
-		registerFunc(&_iOKitGetBusyState, frameworkHandle, "IOKitGetBusyState")
-		registerFunc(&_iOKitWaitQuiet, frameworkHandle, "IOKitWaitQuiet")
-		registerFunc(&_iOMainPort, frameworkHandle, "IOMainPort")
-		registerFunc(&_iOMasterPort, frameworkHandle, "IOMasterPort")
-		registerFunc(&_iONetworkClose, frameworkHandle, "IONetworkClose")
-		registerFunc(&_iONetworkGetDataCapacity, frameworkHandle, "IONetworkGetDataCapacity")
-		registerFunc(&_iONetworkGetDataHandle, frameworkHandle, "IONetworkGetDataHandle")
-		registerFunc(&_iONetworkGetPacketFiltersMask, frameworkHandle, "IONetworkGetPacketFiltersMask")
-		registerFunc(&_iONetworkOpen, frameworkHandle, "IONetworkOpen")
-		registerFunc(&_iONetworkReadData, frameworkHandle, "IONetworkReadData")
-		registerFunc(&_iONetworkResetData, frameworkHandle, "IONetworkResetData")
-		registerFunc(&_iONetworkSetPacketFiltersMask, frameworkHandle, "IONetworkSetPacketFiltersMask")
-		registerFunc(&_iONetworkWriteData, frameworkHandle, "IONetworkWriteData")
-		registerFunc(&_iONotificationPortCreate, frameworkHandle, "IONotificationPortCreate")
-		registerFunc(&_iONotificationPortDestroy, frameworkHandle, "IONotificationPortDestroy")
-		registerFunc(&_iONotificationPortGetMachPort, frameworkHandle, "IONotificationPortGetMachPort")
-		registerFunc(&_iONotificationPortGetRunLoopSource, frameworkHandle, "IONotificationPortGetRunLoopSource")
-		registerFunc(&_iONotificationPortSetDispatchQueue, frameworkHandle, "IONotificationPortSetDispatchQueue")
-		registerFunc(&_iONotificationPortSetImportanceReceiver, frameworkHandle, "IONotificationPortSetImportanceReceiver")
-		registerFunc(&_iOObjectConformsTo, frameworkHandle, "IOObjectConformsTo")
-		registerFunc(&_iOObjectCopyBundleIdentifierForClass, frameworkHandle, "IOObjectCopyBundleIdentifierForClass")
-		registerFunc(&_iOObjectCopyClass, frameworkHandle, "IOObjectCopyClass")
-		registerFunc(&_iOObjectCopySuperclassForClass, frameworkHandle, "IOObjectCopySuperclassForClass")
-		registerFunc(&_iOObjectGetClass, frameworkHandle, "IOObjectGetClass")
-		registerFunc(&_iOObjectGetKernelRetainCount, frameworkHandle, "IOObjectGetKernelRetainCount")
-		registerFunc(&_iOObjectGetRetainCount, frameworkHandle, "IOObjectGetRetainCount")
-		registerFunc(&_iOObjectGetUserRetainCount, frameworkHandle, "IOObjectGetUserRetainCount")
-		registerFunc(&_iOObjectIsEqualTo, frameworkHandle, "IOObjectIsEqualTo")
-		registerFunc(&_iOObjectRelease, frameworkHandle, "IOObjectRelease")
-		registerFunc(&_iOObjectRetain, frameworkHandle, "IOObjectRetain")
-		registerFunc(&_iOOpenFirmwarePathMatching, frameworkHandle, "IOOpenFirmwarePathMatching")
-		registerFunc(&_iOPMAssertionCopyProperties, frameworkHandle, "IOPMAssertionCopyProperties")
-		registerFunc(&_iOPMAssertionCreate, frameworkHandle, "IOPMAssertionCreate")
-		registerFunc(&_iOPMAssertionCreateWithDescription, frameworkHandle, "IOPMAssertionCreateWithDescription")
-		registerFunc(&_iOPMAssertionCreateWithName, frameworkHandle, "IOPMAssertionCreateWithName")
-		registerFunc(&_iOPMAssertionCreateWithProperties, frameworkHandle, "IOPMAssertionCreateWithProperties")
-		registerFunc(&_iOPMAssertionDeclareUserActivity, frameworkHandle, "IOPMAssertionDeclareUserActivity")
-		registerFunc(&_iOPMAssertionRelease, frameworkHandle, "IOPMAssertionRelease")
-		registerFunc(&_iOPMAssertionRetain, frameworkHandle, "IOPMAssertionRetain")
-		registerFunc(&_iOPMAssertionSetProperty, frameworkHandle, "IOPMAssertionSetProperty")
-		registerFunc(&_iOPMCancelScheduledPowerEvent, frameworkHandle, "IOPMCancelScheduledPowerEvent")
-		registerFunc(&_iOPMCopyAssertionsByProcess, frameworkHandle, "IOPMCopyAssertionsByProcess")
-		registerFunc(&_iOPMCopyAssertionsStatus, frameworkHandle, "IOPMCopyAssertionsStatus")
-		registerFunc(&_iOPMCopyBatteryInfo, frameworkHandle, "IOPMCopyBatteryInfo")
-		registerFunc(&_iOPMCopyCPUPowerStatus, frameworkHandle, "IOPMCopyCPUPowerStatus")
-		registerFunc(&_iOPMCopyScheduledPowerEvents, frameworkHandle, "IOPMCopyScheduledPowerEvents")
-		registerFunc(&_iOPMDeclareNetworkClientActivity, frameworkHandle, "IOPMDeclareNetworkClientActivity")
-		registerFunc(&_iOPMFindPowerManagement, frameworkHandle, "IOPMFindPowerManagement")
-		registerFunc(&_iOPMGetAggressiveness, frameworkHandle, "IOPMGetAggressiveness")
-		registerFunc(&_iOPMGetThermalWarningLevel, frameworkHandle, "IOPMGetThermalWarningLevel")
-		registerFunc(&_iOPMSchedulePowerEvent, frameworkHandle, "IOPMSchedulePowerEvent")
-		registerFunc(&_iOPMSetAggressiveness, frameworkHandle, "IOPMSetAggressiveness")
-		registerFunc(&_iOPMSleepEnabled, frameworkHandle, "IOPMSleepEnabled")
-		registerFunc(&_iOPMSleepSystem, frameworkHandle, "IOPMSleepSystem")
-		registerFunc(&_iOPSCopyExternalPowerAdapterDetails, frameworkHandle, "IOPSCopyExternalPowerAdapterDetails")
-		registerFunc(&_iOPSCopyPowerSourcesInfo, frameworkHandle, "IOPSCopyPowerSourcesInfo")
-		registerFunc(&_iOPSCopyPowerSourcesList, frameworkHandle, "IOPSCopyPowerSourcesList")
-		registerFunc(&_iOPSCreateLimitedPowerNotification, frameworkHandle, "IOPSCreateLimitedPowerNotification")
-		registerFunc(&_iOPSGetBatteryWarningLevel, frameworkHandle, "IOPSGetBatteryWarningLevel")
-		registerFunc(&_iOPSGetPowerSourceDescription, frameworkHandle, "IOPSGetPowerSourceDescription")
-		registerFunc(&_iOPSGetProvidingPowerSourceType, frameworkHandle, "IOPSGetProvidingPowerSourceType")
-		registerFunc(&_iOPSGetTimeRemainingEstimate, frameworkHandle, "IOPSGetTimeRemainingEstimate")
-		registerFunc(&_iOPSNotificationCreateRunLoopSource, frameworkHandle, "IOPSNotificationCreateRunLoopSource")
-		registerFunc(&_iORPCMessageFromMach, frameworkHandle, "IORPCMessageFromMach")
-		registerFunc(&_iORegisterApp, frameworkHandle, "IORegisterApp")
-		registerFunc(&_iORegisterForSystemPower, frameworkHandle, "IORegisterForSystemPower")
-		registerFunc(&_iORegistryCreateIterator, frameworkHandle, "IORegistryCreateIterator")
-		registerFunc(&_iORegistryEntryCopyFromPath, frameworkHandle, "IORegistryEntryCopyFromPath")
-		registerFunc(&_iORegistryEntryCopyPath, frameworkHandle, "IORegistryEntryCopyPath")
-		registerFunc(&_iORegistryEntryCreateCFProperties, frameworkHandle, "IORegistryEntryCreateCFProperties")
-		registerFunc(&_iORegistryEntryCreateCFProperty, frameworkHandle, "IORegistryEntryCreateCFProperty")
-		registerFunc(&_iORegistryEntryCreateIterator, frameworkHandle, "IORegistryEntryCreateIterator")
-		registerFunc(&_iORegistryEntryFromPath, frameworkHandle, "IORegistryEntryFromPath")
-		registerFunc(&_iORegistryEntryGetChildEntry, frameworkHandle, "IORegistryEntryGetChildEntry")
-		registerFunc(&_iORegistryEntryGetChildIterator, frameworkHandle, "IORegistryEntryGetChildIterator")
-		registerFunc(&_iORegistryEntryGetLocationInPlane, frameworkHandle, "IORegistryEntryGetLocationInPlane")
-		registerFunc(&_iORegistryEntryGetName, frameworkHandle, "IORegistryEntryGetName")
-		registerFunc(&_iORegistryEntryGetNameInPlane, frameworkHandle, "IORegistryEntryGetNameInPlane")
-		registerFunc(&_iORegistryEntryGetParentEntry, frameworkHandle, "IORegistryEntryGetParentEntry")
-		registerFunc(&_iORegistryEntryGetParentIterator, frameworkHandle, "IORegistryEntryGetParentIterator")
-		registerFunc(&_iORegistryEntryGetPath, frameworkHandle, "IORegistryEntryGetPath")
-		registerFunc(&_iORegistryEntryGetProperty, frameworkHandle, "IORegistryEntryGetProperty")
-		registerFunc(&_iORegistryEntryGetRegistryEntryID, frameworkHandle, "IORegistryEntryGetRegistryEntryID")
-		registerFunc(&_iORegistryEntryIDMatching, frameworkHandle, "IORegistryEntryIDMatching")
-		registerFunc(&_iORegistryEntryInPlane, frameworkHandle, "IORegistryEntryInPlane")
-		registerFunc(&_iORegistryEntrySearchCFProperty, frameworkHandle, "IORegistryEntrySearchCFProperty")
-		registerFunc(&_iORegistryEntrySetCFProperties, frameworkHandle, "IORegistryEntrySetCFProperties")
-		registerFunc(&_iORegistryEntrySetCFProperty, frameworkHandle, "IORegistryEntrySetCFProperty")
-		registerFunc(&_iORegistryGetRootEntry, frameworkHandle, "IORegistryGetRootEntry")
-		registerFunc(&_iORegistryIteratorEnterEntry, frameworkHandle, "IORegistryIteratorEnterEntry")
-		registerFunc(&_iORegistryIteratorExitEntry, frameworkHandle, "IORegistryIteratorExitEntry")
-		registerFunc(&_iOServiceAddInterestNotification, frameworkHandle, "IOServiceAddInterestNotification")
-		registerFunc(&_iOServiceAddMatchingNotification, frameworkHandle, "IOServiceAddMatchingNotification")
-		registerFunc(&_iOServiceAddNotification, frameworkHandle, "IOServiceAddNotification")
-		registerFunc(&_iOServiceAuthorize, frameworkHandle, "IOServiceAuthorize")
-		registerFunc(&_iOServiceClose, frameworkHandle, "IOServiceClose")
-		registerFunc(&_iOServiceGetBusyState, frameworkHandle, "IOServiceGetBusyState")
-		registerFunc(&_iOServiceGetMatchingService, frameworkHandle, "IOServiceGetMatchingService")
-		registerFunc(&_iOServiceGetMatchingServices, frameworkHandle, "IOServiceGetMatchingServices")
-		registerFunc(&_iOServiceMatchPropertyTable, frameworkHandle, "IOServiceMatchPropertyTable")
-		registerFunc(&_iOServiceMatching, frameworkHandle, "IOServiceMatching")
-		registerFunc(&_iOServiceNameMatching, frameworkHandle, "IOServiceNameMatching")
-		registerFunc(&_iOServiceOFPathToBSDName, frameworkHandle, "IOServiceOFPathToBSDName")
-		registerFunc(&_iOServiceOpen, frameworkHandle, "IOServiceOpen")
-		registerFunc(&_iOServiceOpenAsFileDescriptor, frameworkHandle, "IOServiceOpenAsFileDescriptor")
-		registerFunc(&_iOServiceRequestProbe, frameworkHandle, "IOServiceRequestProbe")
-		registerFunc(&_iOServiceWaitQuiet, frameworkHandle, "IOServiceWaitQuiet")
-		registerFunc(&_iOURLCreateDataAndPropertiesFromResource, frameworkHandle, "IOURLCreateDataAndPropertiesFromResource")
-		registerFunc(&_iOURLCreatePropertyFromResource, frameworkHandle, "IOURLCreatePropertyFromResource")
-		registerFunc(&_iOURLWriteDataAndPropertiesToResource, frameworkHandle, "IOURLWriteDataAndPropertiesToResource")
-		registerFunc(&_iOVirtualRangeMake, frameworkHandle, "IOVirtualRangeMake")
-		registerFunc(&_kextManagerCopyLoadedKextInfo, frameworkHandle, "KextManagerCopyLoadedKextInfo")
-		registerFunc(&_kextManagerCreateURLForBundleIdentifier, frameworkHandle, "KextManagerCreateURLForBundleIdentifier")
-		registerFunc(&_kextManagerLoadKextWithIdentifier, frameworkHandle, "KextManagerLoadKextWithIdentifier")
-		registerFunc(&_kextManagerLoadKextWithURL, frameworkHandle, "KextManagerLoadKextWithURL")
-		registerFunc(&_kextManagerUnloadKextWithIdentifier, frameworkHandle, "KextManagerUnloadKextWithIdentifier")
-		registerFunc(&_nXClickTime, frameworkHandle, "NXClickTime")
-		registerFunc(&_nXCloseEventStatus, frameworkHandle, "NXCloseEventStatus")
-		registerFunc(&_nXEventSystemInfo, frameworkHandle, "NXEventSystemInfo")
-		registerFunc(&_nXGetClickSpace, frameworkHandle, "NXGetClickSpace")
-		registerFunc(&_nXKeyRepeatInterval, frameworkHandle, "NXKeyRepeatInterval")
-		registerFunc(&_nXKeyRepeatThreshold, frameworkHandle, "NXKeyRepeatThreshold")
-		registerFunc(&_nXOpenEventStatus, frameworkHandle, "NXOpenEventStatus")
-		registerFunc(&_nXResetKeyboard, frameworkHandle, "NXResetKeyboard")
-		registerFunc(&_nXResetMouse, frameworkHandle, "NXResetMouse")
-		registerFunc(&_nXSetClickSpace, frameworkHandle, "NXSetClickSpace")
-		registerFunc(&_nXSetClickTime, frameworkHandle, "NXSetClickTime")
-		registerFunc(&_nXSetKeyRepeatInterval, frameworkHandle, "NXSetKeyRepeatInterval")
-		registerFunc(&_nXSetKeyRepeatThreshold, frameworkHandle, "NXSetKeyRepeatThreshold")
-		registerFunc(&_oSGetNotificationFromMessage, frameworkHandle, "OSGetNotificationFromMessage")
-	}
-
+	registerFunc(&_cDConvertLBAToMSF, frameworkHandle, "CDConvertLBAToMSF")
+	registerFunc(&_cDConvertMSFToClippedLBA, frameworkHandle, "CDConvertMSFToClippedLBA")
+	registerFunc(&_cDConvertMSFToLBA, frameworkHandle, "CDConvertMSFToLBA")
+	registerFunc(&_cDConvertTrackNumberToMSF, frameworkHandle, "CDConvertTrackNumberToMSF")
+	registerFunc(&_cDTOCGetDescriptorCount, frameworkHandle, "CDTOCGetDescriptorCount")
+	registerFunc(&_iOAccelFindAccelerator, frameworkHandle, "IOAccelFindAccelerator")
+	registerFunc(&_iOAllowPowerChange, frameworkHandle, "IOAllowPowerChange")
+	registerFunc(&_iOBSDNameMatching, frameworkHandle, "IOBSDNameMatching")
+	registerFunc(&_iOCFSerialize, frameworkHandle, "IOCFSerialize")
+	registerFunc(&_iOCFUnserialize, frameworkHandle, "IOCFUnserialize")
+	registerFunc(&_iOCFUnserializeBinary, frameworkHandle, "IOCFUnserializeBinary")
+	registerFunc(&_iOCFUnserializeWithSize, frameworkHandle, "IOCFUnserializeWithSize")
+	registerFunc(&_iOCancelPowerChange, frameworkHandle, "IOCancelPowerChange")
+	registerFunc(&_iOCatalogueGetData, frameworkHandle, "IOCatalogueGetData")
+	registerFunc(&_iOCatalogueModuleLoaded, frameworkHandle, "IOCatalogueModuleLoaded")
+	registerFunc(&_iOCatalogueReset, frameworkHandle, "IOCatalogueReset")
+	registerFunc(&_iOCatalogueSendData, frameworkHandle, "IOCatalogueSendData")
+	registerFunc(&_iOCatalogueTerminate, frameworkHandle, "IOCatalogueTerminate")
+	registerFunc(&_iOConnectAddClient, frameworkHandle, "IOConnectAddClient")
+	registerFunc(&_iOConnectAddRef, frameworkHandle, "IOConnectAddRef")
+	registerFunc(&_iOConnectCallAsyncMethod, frameworkHandle, "IOConnectCallAsyncMethod")
+	registerFunc(&_iOConnectCallAsyncScalarMethod, frameworkHandle, "IOConnectCallAsyncScalarMethod")
+	registerFunc(&_iOConnectCallAsyncStructMethod, frameworkHandle, "IOConnectCallAsyncStructMethod")
+	registerFunc(&_iOConnectCallMethod, frameworkHandle, "IOConnectCallMethod")
+	registerFunc(&_iOConnectCallScalarMethod, frameworkHandle, "IOConnectCallScalarMethod")
+	registerFunc(&_iOConnectCallStructMethod, frameworkHandle, "IOConnectCallStructMethod")
+	registerFunc(&_iOConnectGetService, frameworkHandle, "IOConnectGetService")
+	registerFunc(&_iOConnectMapMemory, frameworkHandle, "IOConnectMapMemory")
+	registerFunc(&_iOConnectMapMemory64, frameworkHandle, "IOConnectMapMemory64")
+	registerFunc(&_iOConnectRelease, frameworkHandle, "IOConnectRelease")
+	registerFunc(&_iOConnectSetCFProperties, frameworkHandle, "IOConnectSetCFProperties")
+	registerFunc(&_iOConnectSetCFProperty, frameworkHandle, "IOConnectSetCFProperty")
+	registerFunc(&_iOConnectSetNotificationPort, frameworkHandle, "IOConnectSetNotificationPort")
+	registerFunc(&_iOConnectTrap0, frameworkHandle, "IOConnectTrap0")
+	registerFunc(&_iOConnectTrap1, frameworkHandle, "IOConnectTrap1")
+	registerFunc(&_iOConnectTrap2, frameworkHandle, "IOConnectTrap2")
+	registerFunc(&_iOConnectTrap3, frameworkHandle, "IOConnectTrap3")
+	registerFunc(&_iOConnectTrap4, frameworkHandle, "IOConnectTrap4")
+	registerFunc(&_iOConnectTrap5, frameworkHandle, "IOConnectTrap5")
+	registerFunc(&_iOConnectTrap6, frameworkHandle, "IOConnectTrap6")
+	registerFunc(&_iOConnectUnmapMemory, frameworkHandle, "IOConnectUnmapMemory")
+	registerFunc(&_iOConnectUnmapMemory64, frameworkHandle, "IOConnectUnmapMemory64")
+	registerFunc(&_iOCopySystemLoadAdvisoryDetailed, frameworkHandle, "IOCopySystemLoadAdvisoryDetailed")
+	registerFunc(&_iOCreatePlugInInterfaceForService, frameworkHandle, "IOCreatePlugInInterfaceForService")
+	registerFunc(&_iOCreateReceivePort, frameworkHandle, "IOCreateReceivePort")
+	registerFunc(&_iODataQueueAllocateNotificationPort, frameworkHandle, "IODataQueueAllocateNotificationPort")
+	registerFunc(&_iODataQueueDataAvailable, frameworkHandle, "IODataQueueDataAvailable")
+	registerFunc(&_iODataQueueDequeue, frameworkHandle, "IODataQueueDequeue")
+	registerFunc(&_iODataQueueEnqueue, frameworkHandle, "IODataQueueEnqueue")
+	registerFunc(&_iODataQueuePeek, frameworkHandle, "IODataQueuePeek")
+	registerFunc(&_iODataQueueSetNotificationPort, frameworkHandle, "IODataQueueSetNotificationPort")
+	registerFunc(&_iODataQueueWaitForAvailableData, frameworkHandle, "IODataQueueWaitForAvailableData")
+	registerFunc(&_iODeregisterApp, frameworkHandle, "IODeregisterApp")
+	registerFunc(&_iODeregisterForSystemPower, frameworkHandle, "IODeregisterForSystemPower")
+	registerFunc(&_iODestroyPlugInInterface, frameworkHandle, "IODestroyPlugInInterface")
+	registerFunc(&_iODispatchCalloutFromMessage, frameworkHandle, "IODispatchCalloutFromMessage")
+	registerFunc(&_iODisplayCommitParameters, frameworkHandle, "IODisplayCommitParameters")
+	registerFunc(&_iODisplayCopyFloatParameters, frameworkHandle, "IODisplayCopyFloatParameters")
+	registerFunc(&_iODisplayCopyParameters, frameworkHandle, "IODisplayCopyParameters")
+	registerFunc(&_iODisplayCreateInfoDictionary, frameworkHandle, "IODisplayCreateInfoDictionary")
+	registerFunc(&_iODisplayForFramebuffer, frameworkHandle, "IODisplayForFramebuffer")
+	registerFunc(&_iODisplayGetFloatParameter, frameworkHandle, "IODisplayGetFloatParameter")
+	registerFunc(&_iODisplayGetIntegerRangeParameter, frameworkHandle, "IODisplayGetIntegerRangeParameter")
+	registerFunc(&_iODisplayMatchDictionaries, frameworkHandle, "IODisplayMatchDictionaries")
+	registerFunc(&_iODisplaySetFloatParameter, frameworkHandle, "IODisplaySetFloatParameter")
+	registerFunc(&_iODisplaySetIntegerParameter, frameworkHandle, "IODisplaySetIntegerParameter")
+	registerFunc(&_iODisplaySetParameters, frameworkHandle, "IODisplaySetParameters")
+	registerFunc(&_iOFBCopyI2CInterfaceForBus, frameworkHandle, "IOFBCopyI2CInterfaceForBus")
+	registerFunc(&_iOFBGetI2CInterfaceCount, frameworkHandle, "IOFBGetI2CInterfaceCount")
+	registerFunc(&_iOFramebufferOpen, frameworkHandle, "IOFramebufferOpen")
+	registerFunc(&_iOGetSystemLoadAdvisory, frameworkHandle, "IOGetSystemLoadAdvisory")
+	registerFunc(&_iOHIDCheckAccess, frameworkHandle, "IOHIDCheckAccess")
+	registerFunc(&_iOHIDCopyCFTypeParameter, frameworkHandle, "IOHIDCopyCFTypeParameter")
+	registerFunc(&_iOHIDCreateSharedMemory, frameworkHandle, "IOHIDCreateSharedMemory")
+	registerFunc(&_iOHIDDeviceActivate, frameworkHandle, "IOHIDDeviceActivate")
+	registerFunc(&_iOHIDDeviceCancel, frameworkHandle, "IOHIDDeviceCancel")
+	registerFunc(&_iOHIDDeviceClose, frameworkHandle, "IOHIDDeviceClose")
+	registerFunc(&_iOHIDDeviceConformsTo, frameworkHandle, "IOHIDDeviceConformsTo")
+	registerFunc(&_iOHIDDeviceCopyMatchingElements, frameworkHandle, "IOHIDDeviceCopyMatchingElements")
+	registerFunc(&_iOHIDDeviceCopyValueMultiple, frameworkHandle, "IOHIDDeviceCopyValueMultiple")
+	registerFunc(&_iOHIDDeviceCopyValueMultipleWithCallback, frameworkHandle, "IOHIDDeviceCopyValueMultipleWithCallback")
+	registerFunc(&_iOHIDDeviceCreate, frameworkHandle, "IOHIDDeviceCreate")
+	registerFunc(&_iOHIDDeviceGetProperty, frameworkHandle, "IOHIDDeviceGetProperty")
+	registerFunc(&_iOHIDDeviceGetReport, frameworkHandle, "IOHIDDeviceGetReport")
+	registerFunc(&_iOHIDDeviceGetReportWithCallback, frameworkHandle, "IOHIDDeviceGetReportWithCallback")
+	registerFunc(&_iOHIDDeviceGetService, frameworkHandle, "IOHIDDeviceGetService")
+	registerFunc(&_iOHIDDeviceGetTypeID, frameworkHandle, "IOHIDDeviceGetTypeID")
+	registerFunc(&_iOHIDDeviceGetValue, frameworkHandle, "IOHIDDeviceGetValue")
+	registerFunc(&_iOHIDDeviceGetValueWithCallback, frameworkHandle, "IOHIDDeviceGetValueWithCallback")
+	registerFunc(&_iOHIDDeviceGetValueWithOptions, frameworkHandle, "IOHIDDeviceGetValueWithOptions")
+	registerFunc(&_iOHIDDeviceOpen, frameworkHandle, "IOHIDDeviceOpen")
+	registerFunc(&_iOHIDDeviceRegisterInputReportCallback, frameworkHandle, "IOHIDDeviceRegisterInputReportCallback")
+	registerFunc(&_iOHIDDeviceRegisterInputReportWithTimeStampCallback, frameworkHandle, "IOHIDDeviceRegisterInputReportWithTimeStampCallback")
+	registerFunc(&_iOHIDDeviceRegisterInputValueCallback, frameworkHandle, "IOHIDDeviceRegisterInputValueCallback")
+	registerFunc(&_iOHIDDeviceRegisterRemovalCallback, frameworkHandle, "IOHIDDeviceRegisterRemovalCallback")
+	registerFunc(&_iOHIDDeviceScheduleWithRunLoop, frameworkHandle, "IOHIDDeviceScheduleWithRunLoop")
+	registerFunc(&_iOHIDDeviceSetCancelHandler, frameworkHandle, "IOHIDDeviceSetCancelHandler")
+	registerFunc(&_iOHIDDeviceSetDispatchQueue, frameworkHandle, "IOHIDDeviceSetDispatchQueue")
+	registerFunc(&_iOHIDDeviceSetInputValueMatching, frameworkHandle, "IOHIDDeviceSetInputValueMatching")
+	registerFunc(&_iOHIDDeviceSetInputValueMatchingMultiple, frameworkHandle, "IOHIDDeviceSetInputValueMatchingMultiple")
+	registerFunc(&_iOHIDDeviceSetProperty, frameworkHandle, "IOHIDDeviceSetProperty")
+	registerFunc(&_iOHIDDeviceSetReport, frameworkHandle, "IOHIDDeviceSetReport")
+	registerFunc(&_iOHIDDeviceSetReportWithCallback, frameworkHandle, "IOHIDDeviceSetReportWithCallback")
+	registerFunc(&_iOHIDDeviceSetValue, frameworkHandle, "IOHIDDeviceSetValue")
+	registerFunc(&_iOHIDDeviceSetValueMultiple, frameworkHandle, "IOHIDDeviceSetValueMultiple")
+	registerFunc(&_iOHIDDeviceSetValueMultipleWithCallback, frameworkHandle, "IOHIDDeviceSetValueMultipleWithCallback")
+	registerFunc(&_iOHIDDeviceSetValueWithCallback, frameworkHandle, "IOHIDDeviceSetValueWithCallback")
+	registerFunc(&_iOHIDDeviceUnscheduleFromRunLoop, frameworkHandle, "IOHIDDeviceUnscheduleFromRunLoop")
+	registerFunc(&_iOHIDElementAttach, frameworkHandle, "IOHIDElementAttach")
+	registerFunc(&_iOHIDElementCopyAttached, frameworkHandle, "IOHIDElementCopyAttached")
+	registerFunc(&_iOHIDElementCreateWithDictionary, frameworkHandle, "IOHIDElementCreateWithDictionary")
+	registerFunc(&_iOHIDElementDetach, frameworkHandle, "IOHIDElementDetach")
+	registerFunc(&_iOHIDElementGetChildren, frameworkHandle, "IOHIDElementGetChildren")
+	registerFunc(&_iOHIDElementGetCollectionType, frameworkHandle, "IOHIDElementGetCollectionType")
+	registerFunc(&_iOHIDElementGetCookie, frameworkHandle, "IOHIDElementGetCookie")
+	registerFunc(&_iOHIDElementGetDevice, frameworkHandle, "IOHIDElementGetDevice")
+	registerFunc(&_iOHIDElementGetLogicalMax, frameworkHandle, "IOHIDElementGetLogicalMax")
+	registerFunc(&_iOHIDElementGetLogicalMin, frameworkHandle, "IOHIDElementGetLogicalMin")
+	registerFunc(&_iOHIDElementGetName, frameworkHandle, "IOHIDElementGetName")
+	registerFunc(&_iOHIDElementGetParent, frameworkHandle, "IOHIDElementGetParent")
+	registerFunc(&_iOHIDElementGetPhysicalMax, frameworkHandle, "IOHIDElementGetPhysicalMax")
+	registerFunc(&_iOHIDElementGetPhysicalMin, frameworkHandle, "IOHIDElementGetPhysicalMin")
+	registerFunc(&_iOHIDElementGetProperty, frameworkHandle, "IOHIDElementGetProperty")
+	registerFunc(&_iOHIDElementGetReportCount, frameworkHandle, "IOHIDElementGetReportCount")
+	registerFunc(&_iOHIDElementGetReportID, frameworkHandle, "IOHIDElementGetReportID")
+	registerFunc(&_iOHIDElementGetReportSize, frameworkHandle, "IOHIDElementGetReportSize")
+	registerFunc(&_iOHIDElementGetType, frameworkHandle, "IOHIDElementGetType")
+	registerFunc(&_iOHIDElementGetTypeID, frameworkHandle, "IOHIDElementGetTypeID")
+	registerFunc(&_iOHIDElementGetUnit, frameworkHandle, "IOHIDElementGetUnit")
+	registerFunc(&_iOHIDElementGetUnitExponent, frameworkHandle, "IOHIDElementGetUnitExponent")
+	registerFunc(&_iOHIDElementGetUsage, frameworkHandle, "IOHIDElementGetUsage")
+	registerFunc(&_iOHIDElementGetUsagePage, frameworkHandle, "IOHIDElementGetUsagePage")
+	registerFunc(&_iOHIDElementHasNullState, frameworkHandle, "IOHIDElementHasNullState")
+	registerFunc(&_iOHIDElementHasPreferredState, frameworkHandle, "IOHIDElementHasPreferredState")
+	registerFunc(&_iOHIDElementIsArray, frameworkHandle, "IOHIDElementIsArray")
+	registerFunc(&_iOHIDElementIsNonLinear, frameworkHandle, "IOHIDElementIsNonLinear")
+	registerFunc(&_iOHIDElementIsRelative, frameworkHandle, "IOHIDElementIsRelative")
+	registerFunc(&_iOHIDElementIsVirtual, frameworkHandle, "IOHIDElementIsVirtual")
+	registerFunc(&_iOHIDElementIsWrapping, frameworkHandle, "IOHIDElementIsWrapping")
+	registerFunc(&_iOHIDElementSetProperty, frameworkHandle, "IOHIDElementSetProperty")
+	registerFunc(&_iOHIDEventSystemClientCopyProperty, frameworkHandle, "IOHIDEventSystemClientCopyProperty")
+	registerFunc(&_iOHIDEventSystemClientCopyServices, frameworkHandle, "IOHIDEventSystemClientCopyServices")
+	registerFunc(&_iOHIDEventSystemClientCreateSimpleClient, frameworkHandle, "IOHIDEventSystemClientCreateSimpleClient")
+	registerFunc(&_iOHIDEventSystemClientGetTypeID, frameworkHandle, "IOHIDEventSystemClientGetTypeID")
+	registerFunc(&_iOHIDEventSystemClientSetProperty, frameworkHandle, "IOHIDEventSystemClientSetProperty")
+	registerFunc(&_iOHIDGetAccelerationWithKey, frameworkHandle, "IOHIDGetAccelerationWithKey")
+	registerFunc(&_iOHIDGetActivityState, frameworkHandle, "IOHIDGetActivityState")
+	registerFunc(&_iOHIDGetButtonEventNum, frameworkHandle, "IOHIDGetButtonEventNum")
+	registerFunc(&_iOHIDGetModifierLockState, frameworkHandle, "IOHIDGetModifierLockState")
+	registerFunc(&_iOHIDGetMouseAcceleration, frameworkHandle, "IOHIDGetMouseAcceleration")
+	registerFunc(&_iOHIDGetMouseButtonMode, frameworkHandle, "IOHIDGetMouseButtonMode")
+	registerFunc(&_iOHIDGetParameter, frameworkHandle, "IOHIDGetParameter")
+	registerFunc(&_iOHIDGetScrollAcceleration, frameworkHandle, "IOHIDGetScrollAcceleration")
+	registerFunc(&_iOHIDGetStateForSelector, frameworkHandle, "IOHIDGetStateForSelector")
+	registerFunc(&_iOHIDManagerActivate, frameworkHandle, "IOHIDManagerActivate")
+	registerFunc(&_iOHIDManagerCancel, frameworkHandle, "IOHIDManagerCancel")
+	registerFunc(&_iOHIDManagerClose, frameworkHandle, "IOHIDManagerClose")
+	registerFunc(&_iOHIDManagerCopyDevices, frameworkHandle, "IOHIDManagerCopyDevices")
+	registerFunc(&_iOHIDManagerCreate, frameworkHandle, "IOHIDManagerCreate")
+	registerFunc(&_iOHIDManagerGetProperty, frameworkHandle, "IOHIDManagerGetProperty")
+	registerFunc(&_iOHIDManagerGetTypeID, frameworkHandle, "IOHIDManagerGetTypeID")
+	registerFunc(&_iOHIDManagerOpen, frameworkHandle, "IOHIDManagerOpen")
+	registerFunc(&_iOHIDManagerRegisterDeviceMatchingCallback, frameworkHandle, "IOHIDManagerRegisterDeviceMatchingCallback")
+	registerFunc(&_iOHIDManagerRegisterDeviceRemovalCallback, frameworkHandle, "IOHIDManagerRegisterDeviceRemovalCallback")
+	registerFunc(&_iOHIDManagerRegisterInputReportCallback, frameworkHandle, "IOHIDManagerRegisterInputReportCallback")
+	registerFunc(&_iOHIDManagerRegisterInputReportWithTimeStampCallback, frameworkHandle, "IOHIDManagerRegisterInputReportWithTimeStampCallback")
+	registerFunc(&_iOHIDManagerRegisterInputValueCallback, frameworkHandle, "IOHIDManagerRegisterInputValueCallback")
+	registerFunc(&_iOHIDManagerSaveToPropertyDomain, frameworkHandle, "IOHIDManagerSaveToPropertyDomain")
+	registerFunc(&_iOHIDManagerScheduleWithRunLoop, frameworkHandle, "IOHIDManagerScheduleWithRunLoop")
+	registerFunc(&_iOHIDManagerSetCancelHandler, frameworkHandle, "IOHIDManagerSetCancelHandler")
+	registerFunc(&_iOHIDManagerSetDeviceMatching, frameworkHandle, "IOHIDManagerSetDeviceMatching")
+	registerFunc(&_iOHIDManagerSetDeviceMatchingMultiple, frameworkHandle, "IOHIDManagerSetDeviceMatchingMultiple")
+	registerFunc(&_iOHIDManagerSetDispatchQueue, frameworkHandle, "IOHIDManagerSetDispatchQueue")
+	registerFunc(&_iOHIDManagerSetInputValueMatching, frameworkHandle, "IOHIDManagerSetInputValueMatching")
+	registerFunc(&_iOHIDManagerSetInputValueMatchingMultiple, frameworkHandle, "IOHIDManagerSetInputValueMatchingMultiple")
+	registerFunc(&_iOHIDManagerSetProperty, frameworkHandle, "IOHIDManagerSetProperty")
+	registerFunc(&_iOHIDManagerUnscheduleFromRunLoop, frameworkHandle, "IOHIDManagerUnscheduleFromRunLoop")
+	registerFunc(&_iOHIDPostEvent, frameworkHandle, "IOHIDPostEvent")
+	registerFunc(&_iOHIDQueueActivate, frameworkHandle, "IOHIDQueueActivate")
+	registerFunc(&_iOHIDQueueAddElement, frameworkHandle, "IOHIDQueueAddElement")
+	registerFunc(&_iOHIDQueueCancel, frameworkHandle, "IOHIDQueueCancel")
+	registerFunc(&_iOHIDQueueContainsElement, frameworkHandle, "IOHIDQueueContainsElement")
+	registerFunc(&_iOHIDQueueCopyNextValue, frameworkHandle, "IOHIDQueueCopyNextValue")
+	registerFunc(&_iOHIDQueueCopyNextValueWithTimeout, frameworkHandle, "IOHIDQueueCopyNextValueWithTimeout")
+	registerFunc(&_iOHIDQueueCreate, frameworkHandle, "IOHIDQueueCreate")
+	registerFunc(&_iOHIDQueueGetDepth, frameworkHandle, "IOHIDQueueGetDepth")
+	registerFunc(&_iOHIDQueueGetDevice, frameworkHandle, "IOHIDQueueGetDevice")
+	registerFunc(&_iOHIDQueueGetTypeID, frameworkHandle, "IOHIDQueueGetTypeID")
+	registerFunc(&_iOHIDQueueRegisterValueAvailableCallback, frameworkHandle, "IOHIDQueueRegisterValueAvailableCallback")
+	registerFunc(&_iOHIDQueueRemoveElement, frameworkHandle, "IOHIDQueueRemoveElement")
+	registerFunc(&_iOHIDQueueScheduleWithRunLoop, frameworkHandle, "IOHIDQueueScheduleWithRunLoop")
+	registerFunc(&_iOHIDQueueSetCancelHandler, frameworkHandle, "IOHIDQueueSetCancelHandler")
+	registerFunc(&_iOHIDQueueSetDepth, frameworkHandle, "IOHIDQueueSetDepth")
+	registerFunc(&_iOHIDQueueSetDispatchQueue, frameworkHandle, "IOHIDQueueSetDispatchQueue")
+	registerFunc(&_iOHIDQueueStart, frameworkHandle, "IOHIDQueueStart")
+	registerFunc(&_iOHIDQueueStop, frameworkHandle, "IOHIDQueueStop")
+	registerFunc(&_iOHIDQueueUnscheduleFromRunLoop, frameworkHandle, "IOHIDQueueUnscheduleFromRunLoop")
+	registerFunc(&_iOHIDRegisterVirtualDisplay, frameworkHandle, "IOHIDRegisterVirtualDisplay")
+	registerFunc(&_iOHIDRequestAccess, frameworkHandle, "IOHIDRequestAccess")
+	registerFunc(&_iOHIDServiceClientConformsTo, frameworkHandle, "IOHIDServiceClientConformsTo")
+	registerFunc(&_iOHIDServiceClientCopyProperty, frameworkHandle, "IOHIDServiceClientCopyProperty")
+	registerFunc(&_iOHIDServiceClientGetRegistryID, frameworkHandle, "IOHIDServiceClientGetRegistryID")
+	registerFunc(&_iOHIDServiceClientGetTypeID, frameworkHandle, "IOHIDServiceClientGetTypeID")
+	registerFunc(&_iOHIDServiceClientSetProperty, frameworkHandle, "IOHIDServiceClientSetProperty")
+	registerFunc(&_iOHIDSetAccelerationWithKey, frameworkHandle, "IOHIDSetAccelerationWithKey")
+	registerFunc(&_iOHIDSetCFTypeParameter, frameworkHandle, "IOHIDSetCFTypeParameter")
+	registerFunc(&_iOHIDSetCursorEnable, frameworkHandle, "IOHIDSetCursorEnable")
+	registerFunc(&_iOHIDSetEventsEnable, frameworkHandle, "IOHIDSetEventsEnable")
+	registerFunc(&_iOHIDSetModifierLockState, frameworkHandle, "IOHIDSetModifierLockState")
+	registerFunc(&_iOHIDSetMouseAcceleration, frameworkHandle, "IOHIDSetMouseAcceleration")
+	registerFunc(&_iOHIDSetMouseButtonMode, frameworkHandle, "IOHIDSetMouseButtonMode")
+	registerFunc(&_iOHIDSetMouseLocation, frameworkHandle, "IOHIDSetMouseLocation")
+	registerFunc(&_iOHIDSetParameter, frameworkHandle, "IOHIDSetParameter")
+	registerFunc(&_iOHIDSetScrollAcceleration, frameworkHandle, "IOHIDSetScrollAcceleration")
+	registerFunc(&_iOHIDSetStateForSelector, frameworkHandle, "IOHIDSetStateForSelector")
+	registerFunc(&_iOHIDSetVirtualDisplayBounds, frameworkHandle, "IOHIDSetVirtualDisplayBounds")
+	registerFunc(&_iOHIDTransactionAddElement, frameworkHandle, "IOHIDTransactionAddElement")
+	registerFunc(&_iOHIDTransactionClear, frameworkHandle, "IOHIDTransactionClear")
+	registerFunc(&_iOHIDTransactionCommit, frameworkHandle, "IOHIDTransactionCommit")
+	registerFunc(&_iOHIDTransactionCommitWithCallback, frameworkHandle, "IOHIDTransactionCommitWithCallback")
+	registerFunc(&_iOHIDTransactionContainsElement, frameworkHandle, "IOHIDTransactionContainsElement")
+	registerFunc(&_iOHIDTransactionCreate, frameworkHandle, "IOHIDTransactionCreate")
+	registerFunc(&_iOHIDTransactionGetDevice, frameworkHandle, "IOHIDTransactionGetDevice")
+	registerFunc(&_iOHIDTransactionGetDirection, frameworkHandle, "IOHIDTransactionGetDirection")
+	registerFunc(&_iOHIDTransactionGetTypeID, frameworkHandle, "IOHIDTransactionGetTypeID")
+	registerFunc(&_iOHIDTransactionGetValue, frameworkHandle, "IOHIDTransactionGetValue")
+	registerFunc(&_iOHIDTransactionRemoveElement, frameworkHandle, "IOHIDTransactionRemoveElement")
+	registerFunc(&_iOHIDTransactionScheduleWithRunLoop, frameworkHandle, "IOHIDTransactionScheduleWithRunLoop")
+	registerFunc(&_iOHIDTransactionSetDirection, frameworkHandle, "IOHIDTransactionSetDirection")
+	registerFunc(&_iOHIDTransactionSetValue, frameworkHandle, "IOHIDTransactionSetValue")
+	registerFunc(&_iOHIDTransactionUnscheduleFromRunLoop, frameworkHandle, "IOHIDTransactionUnscheduleFromRunLoop")
+	registerFunc(&_iOHIDUnregisterVirtualDisplay, frameworkHandle, "IOHIDUnregisterVirtualDisplay")
+	registerFunc(&_iOHIDUserDeviceActivate, frameworkHandle, "IOHIDUserDeviceActivate")
+	registerFunc(&_iOHIDUserDeviceCancel, frameworkHandle, "IOHIDUserDeviceCancel")
+	registerFunc(&_iOHIDUserDeviceCopyProperty, frameworkHandle, "IOHIDUserDeviceCopyProperty")
+	registerFunc(&_iOHIDUserDeviceCreateWithProperties, frameworkHandle, "IOHIDUserDeviceCreateWithProperties")
+	registerFunc(&_iOHIDUserDeviceGetTypeID, frameworkHandle, "IOHIDUserDeviceGetTypeID")
+	registerFunc(&_iOHIDUserDeviceHandleReportWithTimeStamp, frameworkHandle, "IOHIDUserDeviceHandleReportWithTimeStamp")
+	registerFunc(&_iOHIDUserDeviceRegisterGetReportBlock, frameworkHandle, "IOHIDUserDeviceRegisterGetReportBlock")
+	registerFunc(&_iOHIDUserDeviceRegisterSetReportBlock, frameworkHandle, "IOHIDUserDeviceRegisterSetReportBlock")
+	registerFunc(&_iOHIDUserDeviceSetCancelHandler, frameworkHandle, "IOHIDUserDeviceSetCancelHandler")
+	registerFunc(&_iOHIDUserDeviceSetDispatchQueue, frameworkHandle, "IOHIDUserDeviceSetDispatchQueue")
+	registerFunc(&_iOHIDUserDeviceSetProperty, frameworkHandle, "IOHIDUserDeviceSetProperty")
+	registerFunc(&_iOHIDValueCreateWithBytes, frameworkHandle, "IOHIDValueCreateWithBytes")
+	registerFunc(&_iOHIDValueCreateWithBytesNoCopy, frameworkHandle, "IOHIDValueCreateWithBytesNoCopy")
+	registerFunc(&_iOHIDValueCreateWithIntegerValue, frameworkHandle, "IOHIDValueCreateWithIntegerValue")
+	registerFunc(&_iOHIDValueGetBytePtr, frameworkHandle, "IOHIDValueGetBytePtr")
+	registerFunc(&_iOHIDValueGetElement, frameworkHandle, "IOHIDValueGetElement")
+	registerFunc(&_iOHIDValueGetIntegerValue, frameworkHandle, "IOHIDValueGetIntegerValue")
+	registerFunc(&_iOHIDValueGetLength, frameworkHandle, "IOHIDValueGetLength")
+	registerFunc(&_iOHIDValueGetScaledValue, frameworkHandle, "IOHIDValueGetScaledValue")
+	registerFunc(&_iOHIDValueGetTimeStamp, frameworkHandle, "IOHIDValueGetTimeStamp")
+	registerFunc(&_iOHIDValueGetTypeID, frameworkHandle, "IOHIDValueGetTypeID")
+	registerFunc(&_iOI2CCopyInterfaceForID, frameworkHandle, "IOI2CCopyInterfaceForID")
+	registerFunc(&_iOI2CInterfaceClose, frameworkHandle, "IOI2CInterfaceClose")
+	registerFunc(&_iOI2CInterfaceOpen, frameworkHandle, "IOI2CInterfaceOpen")
+	registerFunc(&_iOI2CSendRequest, frameworkHandle, "IOI2CSendRequest")
+	registerFunc(&_iOIteratorIsValid, frameworkHandle, "IOIteratorIsValid")
+	registerFunc(&_iOIteratorNext, frameworkHandle, "IOIteratorNext")
+	registerFunc(&_iOIteratorReset, frameworkHandle, "IOIteratorReset")
+	registerFunc(&_iOKitGetBusyState, frameworkHandle, "IOKitGetBusyState")
+	registerFunc(&_iOKitWaitQuiet, frameworkHandle, "IOKitWaitQuiet")
+	registerFunc(&_iOMainPort, frameworkHandle, "IOMainPort")
+	registerFunc(&_iOMasterPort, frameworkHandle, "IOMasterPort")
+	registerFunc(&_iONetworkClose, frameworkHandle, "IONetworkClose")
+	registerFunc(&_iONetworkGetDataCapacity, frameworkHandle, "IONetworkGetDataCapacity")
+	registerFunc(&_iONetworkGetDataHandle, frameworkHandle, "IONetworkGetDataHandle")
+	registerFunc(&_iONetworkGetPacketFiltersMask, frameworkHandle, "IONetworkGetPacketFiltersMask")
+	registerFunc(&_iONetworkOpen, frameworkHandle, "IONetworkOpen")
+	registerFunc(&_iONetworkReadData, frameworkHandle, "IONetworkReadData")
+	registerFunc(&_iONetworkResetData, frameworkHandle, "IONetworkResetData")
+	registerFunc(&_iONetworkSetPacketFiltersMask, frameworkHandle, "IONetworkSetPacketFiltersMask")
+	registerFunc(&_iONetworkWriteData, frameworkHandle, "IONetworkWriteData")
+	registerFunc(&_iONotificationPortCreate, frameworkHandle, "IONotificationPortCreate")
+	registerFunc(&_iONotificationPortDestroy, frameworkHandle, "IONotificationPortDestroy")
+	registerFunc(&_iONotificationPortGetMachPort, frameworkHandle, "IONotificationPortGetMachPort")
+	registerFunc(&_iONotificationPortGetRunLoopSource, frameworkHandle, "IONotificationPortGetRunLoopSource")
+	registerFunc(&_iONotificationPortSetDispatchQueue, frameworkHandle, "IONotificationPortSetDispatchQueue")
+	registerFunc(&_iONotificationPortSetImportanceReceiver, frameworkHandle, "IONotificationPortSetImportanceReceiver")
+	registerFunc(&_iOObjectConformsTo, frameworkHandle, "IOObjectConformsTo")
+	registerFunc(&_iOObjectCopyBundleIdentifierForClass, frameworkHandle, "IOObjectCopyBundleIdentifierForClass")
+	registerFunc(&_iOObjectCopyClass, frameworkHandle, "IOObjectCopyClass")
+	registerFunc(&_iOObjectCopySuperclassForClass, frameworkHandle, "IOObjectCopySuperclassForClass")
+	registerFunc(&_iOObjectGetClass, frameworkHandle, "IOObjectGetClass")
+	registerFunc(&_iOObjectGetKernelRetainCount, frameworkHandle, "IOObjectGetKernelRetainCount")
+	registerFunc(&_iOObjectGetRetainCount, frameworkHandle, "IOObjectGetRetainCount")
+	registerFunc(&_iOObjectGetUserRetainCount, frameworkHandle, "IOObjectGetUserRetainCount")
+	registerFunc(&_iOObjectIsEqualTo, frameworkHandle, "IOObjectIsEqualTo")
+	registerFunc(&_iOObjectRelease, frameworkHandle, "IOObjectRelease")
+	registerFunc(&_iOObjectRetain, frameworkHandle, "IOObjectRetain")
+	registerFunc(&_iOOpenFirmwarePathMatching, frameworkHandle, "IOOpenFirmwarePathMatching")
+	registerFunc(&_iOPMAssertionCopyProperties, frameworkHandle, "IOPMAssertionCopyProperties")
+	registerFunc(&_iOPMAssertionCreate, frameworkHandle, "IOPMAssertionCreate")
+	registerFunc(&_iOPMAssertionCreateWithDescription, frameworkHandle, "IOPMAssertionCreateWithDescription")
+	registerFunc(&_iOPMAssertionCreateWithName, frameworkHandle, "IOPMAssertionCreateWithName")
+	registerFunc(&_iOPMAssertionCreateWithProperties, frameworkHandle, "IOPMAssertionCreateWithProperties")
+	registerFunc(&_iOPMAssertionDeclareUserActivity, frameworkHandle, "IOPMAssertionDeclareUserActivity")
+	registerFunc(&_iOPMAssertionRelease, frameworkHandle, "IOPMAssertionRelease")
+	registerFunc(&_iOPMAssertionRetain, frameworkHandle, "IOPMAssertionRetain")
+	registerFunc(&_iOPMAssertionSetProperty, frameworkHandle, "IOPMAssertionSetProperty")
+	registerFunc(&_iOPMCancelScheduledPowerEvent, frameworkHandle, "IOPMCancelScheduledPowerEvent")
+	registerFunc(&_iOPMCopyAssertionsByProcess, frameworkHandle, "IOPMCopyAssertionsByProcess")
+	registerFunc(&_iOPMCopyAssertionsStatus, frameworkHandle, "IOPMCopyAssertionsStatus")
+	registerFunc(&_iOPMCopyBatteryInfo, frameworkHandle, "IOPMCopyBatteryInfo")
+	registerFunc(&_iOPMCopyCPUPowerStatus, frameworkHandle, "IOPMCopyCPUPowerStatus")
+	registerFunc(&_iOPMCopyScheduledPowerEvents, frameworkHandle, "IOPMCopyScheduledPowerEvents")
+	registerFunc(&_iOPMDeclareNetworkClientActivity, frameworkHandle, "IOPMDeclareNetworkClientActivity")
+	registerFunc(&_iOPMFindPowerManagement, frameworkHandle, "IOPMFindPowerManagement")
+	registerFunc(&_iOPMGetAggressiveness, frameworkHandle, "IOPMGetAggressiveness")
+	registerFunc(&_iOPMGetThermalWarningLevel, frameworkHandle, "IOPMGetThermalWarningLevel")
+	registerFunc(&_iOPMSchedulePowerEvent, frameworkHandle, "IOPMSchedulePowerEvent")
+	registerFunc(&_iOPMSetAggressiveness, frameworkHandle, "IOPMSetAggressiveness")
+	registerFunc(&_iOPMSleepEnabled, frameworkHandle, "IOPMSleepEnabled")
+	registerFunc(&_iOPMSleepSystem, frameworkHandle, "IOPMSleepSystem")
+	registerFunc(&_iOPSCopyExternalPowerAdapterDetails, frameworkHandle, "IOPSCopyExternalPowerAdapterDetails")
+	registerFunc(&_iOPSCopyPowerSourcesInfo, frameworkHandle, "IOPSCopyPowerSourcesInfo")
+	registerFunc(&_iOPSCopyPowerSourcesList, frameworkHandle, "IOPSCopyPowerSourcesList")
+	registerFunc(&_iOPSCreateLimitedPowerNotification, frameworkHandle, "IOPSCreateLimitedPowerNotification")
+	registerFunc(&_iOPSGetBatteryWarningLevel, frameworkHandle, "IOPSGetBatteryWarningLevel")
+	registerFunc(&_iOPSGetPowerSourceDescription, frameworkHandle, "IOPSGetPowerSourceDescription")
+	registerFunc(&_iOPSGetProvidingPowerSourceType, frameworkHandle, "IOPSGetProvidingPowerSourceType")
+	registerFunc(&_iOPSGetTimeRemainingEstimate, frameworkHandle, "IOPSGetTimeRemainingEstimate")
+	registerFunc(&_iOPSNotificationCreateRunLoopSource, frameworkHandle, "IOPSNotificationCreateRunLoopSource")
+	registerFunc(&_iORPCMessageFromMach, frameworkHandle, "IORPCMessageFromMach")
+	registerFunc(&_iORegisterApp, frameworkHandle, "IORegisterApp")
+	registerFunc(&_iORegisterForSystemPower, frameworkHandle, "IORegisterForSystemPower")
+	registerFunc(&_iORegistryCreateIterator, frameworkHandle, "IORegistryCreateIterator")
+	registerFunc(&_iORegistryEntryCopyFromPath, frameworkHandle, "IORegistryEntryCopyFromPath")
+	registerFunc(&_iORegistryEntryCopyPath, frameworkHandle, "IORegistryEntryCopyPath")
+	registerFunc(&_iORegistryEntryCreateCFProperties, frameworkHandle, "IORegistryEntryCreateCFProperties")
+	registerFunc(&_iORegistryEntryCreateCFProperty, frameworkHandle, "IORegistryEntryCreateCFProperty")
+	registerFunc(&_iORegistryEntryCreateIterator, frameworkHandle, "IORegistryEntryCreateIterator")
+	registerFunc(&_iORegistryEntryFromPath, frameworkHandle, "IORegistryEntryFromPath")
+	registerFunc(&_iORegistryEntryGetChildEntry, frameworkHandle, "IORegistryEntryGetChildEntry")
+	registerFunc(&_iORegistryEntryGetChildIterator, frameworkHandle, "IORegistryEntryGetChildIterator")
+	registerFunc(&_iORegistryEntryGetLocationInPlane, frameworkHandle, "IORegistryEntryGetLocationInPlane")
+	registerFunc(&_iORegistryEntryGetName, frameworkHandle, "IORegistryEntryGetName")
+	registerFunc(&_iORegistryEntryGetNameInPlane, frameworkHandle, "IORegistryEntryGetNameInPlane")
+	registerFunc(&_iORegistryEntryGetParentEntry, frameworkHandle, "IORegistryEntryGetParentEntry")
+	registerFunc(&_iORegistryEntryGetParentIterator, frameworkHandle, "IORegistryEntryGetParentIterator")
+	registerFunc(&_iORegistryEntryGetPath, frameworkHandle, "IORegistryEntryGetPath")
+	registerFunc(&_iORegistryEntryGetProperty, frameworkHandle, "IORegistryEntryGetProperty")
+	registerFunc(&_iORegistryEntryGetRegistryEntryID, frameworkHandle, "IORegistryEntryGetRegistryEntryID")
+	registerFunc(&_iORegistryEntryIDMatching, frameworkHandle, "IORegistryEntryIDMatching")
+	registerFunc(&_iORegistryEntryInPlane, frameworkHandle, "IORegistryEntryInPlane")
+	registerFunc(&_iORegistryEntrySearchCFProperty, frameworkHandle, "IORegistryEntrySearchCFProperty")
+	registerFunc(&_iORegistryEntrySetCFProperties, frameworkHandle, "IORegistryEntrySetCFProperties")
+	registerFunc(&_iORegistryEntrySetCFProperty, frameworkHandle, "IORegistryEntrySetCFProperty")
+	registerFunc(&_iORegistryGetRootEntry, frameworkHandle, "IORegistryGetRootEntry")
+	registerFunc(&_iORegistryIteratorEnterEntry, frameworkHandle, "IORegistryIteratorEnterEntry")
+	registerFunc(&_iORegistryIteratorExitEntry, frameworkHandle, "IORegistryIteratorExitEntry")
+	registerFunc(&_iOServiceAddInterestNotification, frameworkHandle, "IOServiceAddInterestNotification")
+	registerFunc(&_iOServiceAddMatchingNotification, frameworkHandle, "IOServiceAddMatchingNotification")
+	registerFunc(&_iOServiceAddNotification, frameworkHandle, "IOServiceAddNotification")
+	registerFunc(&_iOServiceAuthorize, frameworkHandle, "IOServiceAuthorize")
+	registerFunc(&_iOServiceClose, frameworkHandle, "IOServiceClose")
+	registerFunc(&_iOServiceGetBusyState, frameworkHandle, "IOServiceGetBusyState")
+	registerFunc(&_iOServiceGetMatchingService, frameworkHandle, "IOServiceGetMatchingService")
+	registerFunc(&_iOServiceGetMatchingServices, frameworkHandle, "IOServiceGetMatchingServices")
+	registerFunc(&_iOServiceMatchPropertyTable, frameworkHandle, "IOServiceMatchPropertyTable")
+	registerFunc(&_iOServiceMatching, frameworkHandle, "IOServiceMatching")
+	registerFunc(&_iOServiceNameMatching, frameworkHandle, "IOServiceNameMatching")
+	registerFunc(&_iOServiceOFPathToBSDName, frameworkHandle, "IOServiceOFPathToBSDName")
+	registerFunc(&_iOServiceOpen, frameworkHandle, "IOServiceOpen")
+	registerFunc(&_iOServiceOpenAsFileDescriptor, frameworkHandle, "IOServiceOpenAsFileDescriptor")
+	registerFunc(&_iOServiceRequestProbe, frameworkHandle, "IOServiceRequestProbe")
+	registerFunc(&_iOServiceWaitQuiet, frameworkHandle, "IOServiceWaitQuiet")
+	registerFunc(&_iOURLCreateDataAndPropertiesFromResource, frameworkHandle, "IOURLCreateDataAndPropertiesFromResource")
+	registerFunc(&_iOURLCreatePropertyFromResource, frameworkHandle, "IOURLCreatePropertyFromResource")
+	registerFunc(&_iOURLWriteDataAndPropertiesToResource, frameworkHandle, "IOURLWriteDataAndPropertiesToResource")
+	registerFunc(&_iOVirtualRangeMake, frameworkHandle, "IOVirtualRangeMake")
+	registerFunc(&_kextManagerCopyLoadedKextInfo, frameworkHandle, "KextManagerCopyLoadedKextInfo")
+	registerFunc(&_kextManagerCreateURLForBundleIdentifier, frameworkHandle, "KextManagerCreateURLForBundleIdentifier")
+	registerFunc(&_kextManagerLoadKextWithIdentifier, frameworkHandle, "KextManagerLoadKextWithIdentifier")
+	registerFunc(&_kextManagerLoadKextWithURL, frameworkHandle, "KextManagerLoadKextWithURL")
+	registerFunc(&_kextManagerUnloadKextWithIdentifier, frameworkHandle, "KextManagerUnloadKextWithIdentifier")
+	registerFunc(&_nXClickTime, frameworkHandle, "NXClickTime")
+	registerFunc(&_nXCloseEventStatus, frameworkHandle, "NXCloseEventStatus")
+	registerFunc(&_nXEventSystemInfo, frameworkHandle, "NXEventSystemInfo")
+	registerFunc(&_nXGetClickSpace, frameworkHandle, "NXGetClickSpace")
+	registerFunc(&_nXKeyRepeatInterval, frameworkHandle, "NXKeyRepeatInterval")
+	registerFunc(&_nXKeyRepeatThreshold, frameworkHandle, "NXKeyRepeatThreshold")
+	registerFunc(&_nXOpenEventStatus, frameworkHandle, "NXOpenEventStatus")
+	registerFunc(&_nXResetKeyboard, frameworkHandle, "NXResetKeyboard")
+	registerFunc(&_nXResetMouse, frameworkHandle, "NXResetMouse")
+	registerFunc(&_nXSetClickSpace, frameworkHandle, "NXSetClickSpace")
+	registerFunc(&_nXSetClickTime, frameworkHandle, "NXSetClickTime")
+	registerFunc(&_nXSetKeyRepeatInterval, frameworkHandle, "NXSetKeyRepeatInterval")
+	registerFunc(&_nXSetKeyRepeatThreshold, frameworkHandle, "NXSetKeyRepeatThreshold")
+	registerFunc(&_oSGetNotificationFromMessage, frameworkHandle, "OSGetNotificationFromMessage")
+}

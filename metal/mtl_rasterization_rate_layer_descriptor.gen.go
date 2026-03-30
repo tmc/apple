@@ -3,8 +3,9 @@
 package metal
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,11 +47,11 @@ func (mc MTLRasterizationRateLayerDescriptorClass) Alloc() MTLRasterizationRateL
 // render target.
 //
 // # Overview
-// 
+//
 // Use a layer map to divide the logical viewport coordinate system into a 2D
 // grid of equal-sized rectangles, and choose different rasterization rates
 // for each cell.
-// 
+//
 // Specify rasterization rates using floating-point numbers between `0.0` and
 // `1.0`, inclusive. A rate of `1.0` represents the normal rasterization rate,
 // where each logical unit is equal to a physical pixel; a rate of `0.5` means
@@ -58,7 +59,7 @@ func (mc MTLRasterizationRateLayerDescriptorClass) Alloc() MTLRasterizationRateL
 // `0.0` means that the GPU renders at its lowest quality level. When you
 // create the map, the device object chooses the nearest rasterization rate
 // supported by the GPU that meets or exceeds the rate you specified.
-// 
+//
 // In the layer map, you provide separate rasterization rates for the grid’s
 // rows and columns. The horizontal rates specify a horizontal rasterization
 // rate for each column, and the vertical rates specify a vertical
@@ -89,6 +90,7 @@ type MTLRasterizationRateLayerDescriptor struct {
 func MTLRasterizationRateLayerDescriptorFromID(id objc.ID) MTLRasterizationRateLayerDescriptor {
 	return MTLRasterizationRateLayerDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLRasterizationRateLayerDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -125,8 +127,6 @@ type IMTLRasterizationRateLayerDescriptor interface {
 	// The vertical rasterization rates for the layer map’s rows.
 	Vertical() IMTLRasterizationRateSampleArray
 
-	// A pointer to the storage for the layer map’s horizontal rasterization rates.
-	HorizontalSampleStorage() unsafe.Pointer
 	// A pointer to the storage for the layer map’s vertical rasterization rates.
 	VerticalSampleStorage() unsafe.Pointer
 	// Initializes the layer map with the provided grid size and rasterization rates.
@@ -159,7 +159,7 @@ func NewMTLRasterizationRateLayerDescriptor() MTLRasterizationRateLayerDescripto
 // component.
 //
 // # Return Value
-// 
+//
 // A layer descriptor with a grid of the specified size. All of the
 // rasterization rates are set to `0.0`.
 //
@@ -184,7 +184,7 @@ func NewRasterizationRateLayerDescriptorWithSampleCount(sampleCount MTLSize) MTL
 // least as many samples as the height you specified in `sampleCount`.
 //
 // # Return Value
-// 
+//
 // A layer descriptor with a grid of the specified size. The layer descriptor
 // copies the rasterization rates.
 //
@@ -202,7 +202,7 @@ func NewRasterizationRateLayerDescriptorWithSampleCountHorizontalVertical(sample
 // component.
 //
 // # Return Value
-// 
+//
 // A layer descriptor with a grid of the specified size. All of the
 // rasterization rates are set to `0.0`.
 //
@@ -211,6 +211,7 @@ func (r MTLRasterizationRateLayerDescriptor) InitWithSampleCount(sampleCount MTL
 	rv := objc.Send[MTLRasterizationRateLayerDescriptor](r.ID, objc.Sel("initWithSampleCount:"), sampleCount)
 	return rv
 }
+
 // Initializes the layer map with the provided grid size and rasterization
 // rates.
 //
@@ -225,7 +226,7 @@ func (r MTLRasterizationRateLayerDescriptor) InitWithSampleCount(sampleCount MTL
 // least as many samples as the height you specified in `sampleCount`.
 //
 // # Return Value
-// 
+//
 // A layer descriptor with a grid of the specified size. The layer descriptor
 // copies the rasterization rates.
 //
@@ -238,32 +239,34 @@ func (r MTLRasterizationRateLayerDescriptor) InitWithSampleCountHorizontalVertic
 // The number of rows and columns in the layer map.
 //
 // # Discussion
-// 
+//
 // The [SampleCount] property splits the logical viewport coordinate space
 // into a 2D grid of equal-sized cells. Its [depth] value is always `0`.
-// 
+//
 // The default value is the same as [MaxSampleCount].
 //
-// [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
-//
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/sampleCount
+//
+// [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
 func (r MTLRasterizationRateLayerDescriptor) SampleCount() MTLSize {
 	rv := objc.Send[MTLSize](r.ID, objc.Sel("sampleCount"))
 	return MTLSize(rv)
 }
+
 // The maximum number of rows and columns in the layer map.
 //
 // # Discussion
-// 
+//
 // Its [depth] value is always `0`.
 //
-// [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
-//
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/maxSampleCount
+//
+// [depth]: https://developer.apple.com/documentation/Metal/MTLSize/depth
 func (r MTLRasterizationRateLayerDescriptor) MaxSampleCount() MTLSize {
 	rv := objc.Send[MTLSize](r.ID, objc.Sel("maxSampleCount"))
 	return MTLSize(rv)
 }
+
 // The horizontal rasterization rates for the layer map’s rows.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/horizontal
@@ -271,6 +274,7 @@ func (r MTLRasterizationRateLayerDescriptor) Horizontal() IMTLRasterizationRateS
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("horizontal"))
 	return MTLRasterizationRateSampleArrayFromID(objc.ID(rv))
 }
+
 // The vertical rasterization rates for the layer map’s rows.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/vertical
@@ -278,34 +282,19 @@ func (r MTLRasterizationRateLayerDescriptor) Vertical() IMTLRasterizationRateSam
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("vertical"))
 	return MTLRasterizationRateSampleArrayFromID(objc.ID(rv))
 }
-// A pointer to the storage for the layer map’s horizontal rasterization
-// rates.
-//
-// # Discussion
-// 
-// Points to the first element in the array of horizontal rasterization rates.
-// The number of elements is equal to the [width] value of [SampleCount].
-//
-// [width]: https://developer.apple.com/documentation/Metal/MTLSize/width
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/horizontalSampleStorage
-func (r MTLRasterizationRateLayerDescriptor) HorizontalSampleStorage() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("horizontalSampleStorage"))
-	return rv
-}
+
 // A pointer to the storage for the layer map’s vertical rasterization
 // rates.
 //
 // # Discussion
-// 
+//
 // Points to the first element in the array of vertical rasterization rates.
 // The number of elements is equal to the [height] value of [SampleCount].
 //
-// [height]: https://developer.apple.com/documentation/Metal/MTLSize/height
-//
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/verticalSampleStorage
+//
+// [height]: https://developer.apple.com/documentation/Metal/MTLSize/height
 func (r MTLRasterizationRateLayerDescriptor) VerticalSampleStorage() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("verticalSampleStorage"))
 	return rv
 }
-

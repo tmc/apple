@@ -5,11 +5,12 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -82,6 +83,7 @@ type AVSampleBufferVideoRenderer struct {
 func AVSampleBufferVideoRendererFromID(id objc.ID) AVSampleBufferVideoRenderer {
 	return AVSampleBufferVideoRenderer{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSampleBufferVideoRenderer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -175,26 +177,28 @@ func NewAVSampleBufferVideoRenderer() AVSampleBufferVideoRenderer {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/flush(removingDisplayedImage:completionHandler:)
 func (s AVSampleBufferVideoRenderer) FlushWithRemovalOfDisplayedImageCompletionHandler(removeDisplayedImage bool, handler VoidHandler) {
-_block1, _ := NewVoidBlock(handler)
+	_block1, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("flushWithRemovalOfDisplayedImage:completionHandler:"), removeDisplayedImage, _block1)
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/displayedPixelBuffer()
 func (s AVSampleBufferVideoRenderer) CopyDisplayedPixelBuffer() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](s.ID, objc.Sel("copyDisplayedPixelBuffer"))
 	return corevideo.CVImageBufferRef(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/loadVideoPerformanceMetrics(completionHandler:)
 func (s AVSampleBufferVideoRenderer) LoadVideoPerformanceMetricsWithCompletionHandler(completionHandler AVVideoPerformanceMetricsHandler) {
-_block0, _ := NewAVVideoPerformanceMetricsBlock(completionHandler)
+	_block0, _ := NewAVVideoPerformanceMetricsBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("loadVideoPerformanceMetricsWithCompletionHandler:"), _block0)
 }
+
 // Sends a sample buffer to the queue for rendering.
 //
 // sampleBuffer: The sample buffer to be enqueued.
 //
 // # Discussion
-// 
+//
 // For video data, the sample buffer is processed according to the attachments
 // it contains. If it has a true value for its
 // [kCMSampleAttachmentKey_DoNotDisplay] attachment, the frame is decoded but
@@ -203,34 +207,36 @@ _block0, _ := NewAVVideoPerformanceMetricsBlock(completionHandler)
 // displayed as soon as possible, regardless of its presentation timestamp.
 // Otherwise, the frame is displayed according to its presentation timestamp,
 // relative to the timebase.
-// 
+//
 // To schedule the removal of previous images at a specific timestamp, enqueue
 // a marker sample buffer that doesn’t contain any samples, with the
 // [kCMSampleBufferAttachmentKey_EmptyMedia] attachment set to
 // [kCFBooleanTrue].
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/enqueue(_:)
+//
 // [kCFBooleanTrue]: https://developer.apple.com/documentation/CoreFoundation/kCFBooleanTrue
 // [kCMSampleAttachmentKey_DisplayImmediately]: https://developer.apple.com/documentation/CoreMedia/kCMSampleAttachmentKey_DisplayImmediately
 // [kCMSampleAttachmentKey_DoNotDisplay]: https://developer.apple.com/documentation/CoreMedia/kCMSampleAttachmentKey_DoNotDisplay
 // [kCMSampleBufferAttachmentKey_EmptyMedia]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_EmptyMedia
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/enqueue(_:)
 func (s AVSampleBufferVideoRenderer) EnqueueSampleBuffer(sampleBuffer uintptr) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enqueueSampleBuffer:"), sampleBuffer)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/expectMinimumUpcomingSampleBufferPresentationTime:
 func (s AVSampleBufferVideoRenderer) ExpectMinimumUpcomingSampleBufferPresentationTime(minimumUpcomingPresentationTime coremedia.CMTime) {
 	objc.Send[objc.ID](s.ID, objc.Sel("expectMinimumUpcomingSampleBufferPresentationTime:"), minimumUpcomingPresentationTime)
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/expectMonotonicallyIncreasingUpcomingSampleBufferPresentationTimes
 func (s AVSampleBufferVideoRenderer) ExpectMonotonicallyIncreasingUpcomingSampleBufferPresentationTimes() {
 	objc.Send[objc.ID](s.ID, objc.Sel("expectMonotonicallyIncreasingUpcomingSampleBufferPresentationTimes"))
 }
+
 // Discards all pending enqueued sample buffers.
 //
 // # Discussion
-// 
+//
 // It is not possible to determine which sample buffers have been decoded for
 // video. The next frame passed to [EnqueueSampleBuffer] should be an IDR
 // frame (also known as a key frame or sync sample).
@@ -239,6 +245,7 @@ func (s AVSampleBufferVideoRenderer) ExpectMonotonicallyIncreasingUpcomingSample
 func (s AVSampleBufferVideoRenderer) Flush() {
 	objc.Send[objc.ID](s.ID, objc.Sel("flush"))
 }
+
 // A Boolean value that indicates whether the receiver is able to accept more
 // sample buffers.
 //
@@ -247,6 +254,7 @@ func (s AVSampleBufferVideoRenderer) IsReadyForMoreMediaData() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isReadyForMoreMediaData"))
 	return rv
 }
+
 // Tells the target to invoke a client-supplied block in order to gather
 // sample buffers for playback.
 //
@@ -256,7 +264,7 @@ func (s AVSampleBufferVideoRenderer) IsReadyForMoreMediaData() bool {
 // or there is no more data to supply.
 //
 // # Discussion
-// 
+//
 // When this method is called multiple times, only the last call is
 // implemented. Pair each call to [RequestMediaDataWhenReadyOnQueueUsingBlock]
 // with a corresponding call to [StopRequestingMediaData]. Releasing the
@@ -265,17 +273,19 @@ func (s AVSampleBufferVideoRenderer) IsReadyForMoreMediaData() bool {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/requestMediaDataWhenReady(on:using:)
 func (s AVSampleBufferVideoRenderer) RequestMediaDataWhenReadyOnQueueUsingBlock(queue dispatch.Queue, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("requestMediaDataWhenReadyOnQueue:usingBlock:"), uintptr(queue.Handle()), _block1)
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/resetUpcomingSampleBufferPresentationTimeExpectations
 func (s AVSampleBufferVideoRenderer) ResetUpcomingSampleBufferPresentationTimeExpectations() {
 	objc.Send[objc.ID](s.ID, objc.Sel("resetUpcomingSampleBufferPresentationTimeExpectations"))
 }
+
 // Cancels any current [RequestMediaDataWhenReadyOnQueueUsingBlock] call.
 //
 // # Discussion
-// 
+//
 // Always pair a call to [RequestMediaDataWhenReadyOnQueueUsingBlock] with
 // this method. You can call this method from inside or outside of the
 // requesting method’s block parameter.
@@ -289,26 +299,26 @@ func (s AVSampleBufferVideoRenderer) StopRequestingMediaData() {
 // continue decoding frames.
 //
 // # Discussion
-// 
+//
 // When your app enters a state where using a video decoder resources is not
-// permissible, the value of this property changes to [true] along with the
+// permissible, the value of this property changes to true along with the
 // video renderer’s status changing to
-// [QueuedSampleBufferRenderingStatusFailed]. To resume rendering sample
+// [AVQueuedSampleBufferRenderingStatusFailed]. To resume rendering sample
 // buffers, you must first reset the video renderer by calling [Flush] or
 // [FlushWithRemovalOfDisplayedImageCompletionHandler].
-// 
+//
 // This property is not key-value observable. Instead, track changes to this
 // property by observing notifications of type
 // [requiresFlushToResumeDecodingDidChangeNotification].
 //
-// [requiresFlushToResumeDecodingDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/requiresFlushToResumeDecodingDidChangeNotification
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/requiresFlushToResumeDecoding
+//
+// [requiresFlushToResumeDecodingDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/requiresFlushToResumeDecodingDidChangeNotification
 func (s AVSampleBufferVideoRenderer) RequiresFlushToResumeDecoding() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("requiresFlushToResumeDecoding"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/avfoundation/avsamplebuffervideorenderer/presentationtimeexpectation-swift.property
 func (s AVSampleBufferVideoRenderer) PresentationTimeExpectation() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("presentationTimeExpectation"))
@@ -317,17 +327,18 @@ func (s AVSampleBufferVideoRenderer) PresentationTimeExpectation() objectivec.IO
 func (s AVSampleBufferVideoRenderer) SetPresentationTimeExpectation(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPresentationTimeExpectation:"), value)
 }
+
 // A status value that indicates whether this object can enqueue and render
 // sample buffers.
 //
 // # Discussion
-// 
-// If the status is [QueuedSampleBufferRenderingStatusFailed], check the value
-// of the [Error] property to determine the failure. To resume rendering
+//
+// If the status is [AVQueuedSampleBufferRenderingStatusFailed], check the
+// value of the [Error] property to determine the failure. To resume rendering
 // sample buffers after a failure, you must first reset the status to
-// [QueuedSampleBufferRenderingStatusUnknown], which you do by invoking
+// [AVQueuedSampleBufferRenderingStatusUnknown], which you do by invoking
 // [Flush] on the video renderer.
-// 
+//
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/status
@@ -335,39 +346,39 @@ func (s AVSampleBufferVideoRenderer) Status() AVQueuedSampleBufferRenderingStatu
 	rv := objc.Send[AVQueuedSampleBufferRenderingStatus](s.ID, objc.Sel("status"))
 	return AVQueuedSampleBufferRenderingStatus(rv)
 }
+
 // An object the describes the error that caused the rendering failure.
 //
 // # Discussion
-// 
+//
 // This value is `nil` by default. It only contains a valid error object when
-// the [Status] value is [QueuedSampleBufferRenderingStatusFailed].
+// the [Status] value is [AVQueuedSampleBufferRenderingStatusFailed].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/error
 func (s AVSampleBufferVideoRenderer) Error() foundation.INSError {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the enqued media meets the required
 // preroll level for reliable playback.
 //
 // # Discussion
-// 
-// Starting playback when this property is [false] may prevent smooth playback
-// following an immediate start.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// Starting playback when this property is false may prevent smooth playback
+// following an immediate start.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/hasSufficientMediaDataForReliablePlaybackStart
 func (s AVSampleBufferVideoRenderer) HasSufficientMediaDataForReliablePlaybackStart() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("hasSufficientMediaDataForReliablePlaybackStart"))
 	return rv
 }
-//
+
 // # Discussion
-// 
+//
 // Recommended pixel buffer attributes for optimal performance when using
 // CMSampleBuffers containing CVPixelBuffers.
-// 
+//
 // The returned dictionary does not contain all of the attributes needed for
 // creating pixel buffers. Use
 // `CVPixelBufferCreateResolvedAttributesDictionary()` to reconcile these
@@ -378,10 +389,11 @@ func (s AVSampleBufferVideoRenderer) RecommendedPixelBufferAttributes() foundati
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("recommendedPixelBufferAttributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // The timebase for a renderer.
 //
 // # Discussion
-// 
+//
 // The timebase governs how time stamps are interpreted by the renderer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
@@ -390,8 +402,7 @@ func (s AVSampleBufferVideoRenderer) Timebase() uintptr {
 	return rv
 }
 
-			// Protocol methods for AVQueuedSampleBufferRendering
-			
+// Protocol methods for AVQueuedSampleBufferRendering
 
 // FlushWithRemovalOfDisplayedImage is a synchronous wrapper around [AVSampleBufferVideoRenderer.FlushWithRemovalOfDisplayedImageCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -437,4 +448,3 @@ func (s AVSampleBufferVideoRenderer) RequestMediaDataWhenReadyOnQueueUsingBlockS
 		return ctx.Err()
 	}
 }
-

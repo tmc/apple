@@ -3,10 +3,11 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,49 +47,46 @@ func (nc NSValueClass) Alloc() NSValue {
 // A simple container for a single C or Objective-C data item.
 //
 // # Overview
-// 
+//
 // An [NSValue] object can hold any of the scalar types such as `int`,
 // `float`, and `char`, as well as pointers, structures, and object `id`
 // references. Use this class to work with such data types in collections
 // (such as [NSArray] and [NSSet]), [Key-value coding], and other APIs that
 // require Objective-C objects. [NSValue] objects are always immutable.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // The abstract [NSValue] class is the public interface of a class cluster
 // consisting mostly of private, concrete classes that create and return a
 // value object appropriate for a given situation. It is possible to subclass
 // [NSValue], but doing so requires providing storage facilities for the value
 // (which is not inherited by subclasses) and implementing two primitive
 // methods.
-// 
+//
 // # Methods to Override
-// 
+//
 // Any subclass of [NSValue] override the primitive instance methods
 // [NSValue.GetValue] and [NSValue.ObjCType]. These methods must operate on the storage that
 // you provide for the value.
-// 
+//
 // You might want to implement an initializer for your subclass that is suited
 // to the storage you provide. The [NSValue] class does not have a designated
 // initializer, so your initializer need only invoke the [init()] method of
 // `super`. The [NSValue] class adopts the [NSCopying] and [NSSecureCoding]
 // protocols; if you want instances of your own custom subclass created from
 // copying or coding, override the methods in these protocols.
-// 
+//
 // You may also wish to implement the [NSValue.Hash] method to make your subclass work
 // well in collections.
-// 
+//
 // # Alternatives to Subclassing
-// 
+//
 // If you need only to use [NSValue] objects for wrap a custom data types or
 // structures defined by your app, you need not create an [NSValue] subclass.
 // Instead, create a category that uses existing [NSValue] methods to store
 // and retrieve data of your custom type. For example, the code below defines
 // a custom Polyhedron structure and creates [NSValue] convenience methods to
 // store and retrieve it:
-//
-// [Key-value coding]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/KeyValueCoding.html#//apple_ref/doc/uid/TP40008195-CH25
-// [init()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/init()
 //
 // # Working with Raw Values
 //
@@ -146,6 +144,9 @@ func (nc NSValueClass) Alloc() NSValue {
 //   - [NSValue.GetValueSize]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue
+//
+// [Key-value coding]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/KeyValueCoding.html#//apple_ref/doc/uid/TP40008195-CH25
+// [init()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/init()
 type NSValue struct {
 	objectivec.Object
 }
@@ -156,6 +157,7 @@ type NSValue struct {
 func NSValueFromID(id objc.ID) NSValue {
 	return NSValue{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSValue adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -329,24 +331,24 @@ func NewNSValue() NSValue {
 // directive. Do not hard-code this parameter as a C string.
 //
 // # Return Value
-// 
+//
 // An initialized value object that contains `value`, which is interpreted as
 // being of the Objective-C type `type`. The returned object might be
 // different than the original receiver.
 //
 // # Discussion
-// 
+//
 // See [Number and Value Programming Topics] for other considerations in
 // creating a value object.
-// 
+//
 // This is the designated initializer for the [NSValue] class.
 //
-// [Number and Value Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NumbersandValues/NumbersandValues.html#//apple_ref/doc/uid/10000038i
-//
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(bytes:objCType:)
+//
+// [Number and Value Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NumbersandValues/NumbersandValues.html#//apple_ref/doc/uid/10000038i
 func NewValueWithBytesObjCType(value unsafe.Pointer, type_ string) NSValue {
 	instance := getNSValueClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.StringData(type_ + "\x00")))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.StringData(type_+"\x00")))
 	return NSValueFromID(rv)
 }
 
@@ -356,7 +358,7 @@ func NewValueWithBytesObjCType(value unsafe.Pointer, type_ string) NSValue {
 // t: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the transform information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CATransform3D:)
@@ -372,7 +374,7 @@ func NewValueWithCATransform3D(t objectivec.IObject) NSValue {
 // transform: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the affine transform information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CGAffineTransform:)
@@ -387,7 +389,7 @@ func NewValueWithCGAffineTransform(transform corefoundation.CGAffineTransform) N
 // point: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the point information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CGPoint:)
@@ -402,7 +404,7 @@ func NewValueWithCGPoint(point corefoundation.CGPoint) NSValue {
 // rect: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the rectangle information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CGRect:)
@@ -417,7 +419,7 @@ func NewValueWithCGRect(rect corefoundation.CGRect) NSValue {
 // size: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the size information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CGSize:)
@@ -432,7 +434,7 @@ func NewValueWithCGSize(size corefoundation.CGSize) NSValue {
 // vector: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the vector information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CGVector:)
@@ -447,7 +449,7 @@ func NewValueWithCGVector(vector corefoundation.CGVector) NSValue {
 // time: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the media time information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMTime:)
@@ -463,7 +465,7 @@ func NewValueWithCMTime(time objectivec.IObject) NSValue {
 // timeMapping: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the time mapping information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMTimeMapping:)
@@ -479,7 +481,7 @@ func NewValueWithCMTimeMapping(timeMapping objectivec.IObject) NSValue {
 // timeRange: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the time range information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMTimeRange:)
@@ -489,7 +491,6 @@ func NewValueWithCMTimeRange(timeRange objectivec.IObject) NSValue {
 	return NSValueFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMVideoDimensions:)
 // dimensions is a [coremedia.CMVideoDimensions].
 func NewValueWithCMVideoDimensions(dimensions objectivec.IObject) NSValue {
@@ -497,7 +498,6 @@ func NewValueWithCMVideoDimensions(dimensions objectivec.IObject) NSValue {
 	return NSValueFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(coder:)
 func NewValueWithCoder(coder INSCoder) NSValue {
 	instance := getNSValueClass().Alloc()
@@ -505,7 +505,6 @@ func NewValueWithCoder(coder INSCoder) NSValue {
 	return NSValueFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(directionalEdgeInsets:)
 // insets is a [appkit.NSDirectionalEdgeInsets].
 func NewValueWithDirectionalEdgeInsets(insets objectivec.IObject) NSValue {
@@ -513,14 +512,12 @@ func NewValueWithDirectionalEdgeInsets(insets objectivec.IObject) NSValue {
 	return NSValueFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(edgeInsets:)
 func NewValueWithEdgeInsets(insets NSEdgeInsets) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithEdgeInsets:"), insets)
 	return NSValueFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(GCPoint2:)
 // point is a [gamecontroller.GCPoint2].
 func NewValueWithGCPoint2(point objectivec.IObject) NSValue {
@@ -534,7 +531,7 @@ func NewValueWithGCPoint2(point objectivec.IObject) NSValue {
 // coordinate: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the geographic coordinate information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(MKCoordinate:)
@@ -550,7 +547,7 @@ func NewValueWithMKCoordinate(coordinate objectivec.IObject) NSValue {
 // span: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the coordinate span information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(MKCoordinateSpan:)
@@ -565,19 +562,19 @@ func NewValueWithMKCoordinateSpan(span objectivec.IObject) NSValue {
 // anObject: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains `anObject`.
 //
 // # Discussion
-// 
+//
 // This method is equivalent to invoking [ValueWithObjCType] in this manner:
-// 
+//
 // This method is useful if you want to add an object to a [Collection] but
 // don’t want the collection to create a strong reference to it.
 //
-// [Collection]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Collection.html#//apple_ref/doc/uid/TP40008195-CH10
-//
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(nonretainedObject:)
+//
+// [Collection]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Collection.html#//apple_ref/doc/uid/TP40008195-CH10
 func NewValueWithNonretainedObject(anObject objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithNonretainedObject:"), anObject)
 	return NSValueFromID(rv)
@@ -592,19 +589,19 @@ func NewValueWithNonretainedObject(anObject objectivec.IObject) NSValue {
 // directive. Do not hard-code this parameter as a C string.
 //
 // # Return Value
-// 
+//
 // A new value object that contains `value`, which is interpreted as being of
 // the Objective-C type `type`.
 //
 // # Discussion
-// 
+//
 // This method has the same effect as [ValueWithBytesObjCType] and may be
 // deprecated in a future release. You should use [ValueWithBytesObjCType]
 // instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(_:withObjCType:)
 func NewValueWithObjCType(value unsafe.Pointer, type_ string) NSValue {
-	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("value:withObjCType:"), value, unsafe.Pointer(unsafe.StringData(type_ + "\x00")))
+	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("value:withObjCType:"), value, unsafe.Pointer(unsafe.StringData(type_+"\x00")))
 	return NSValueFromID(rv)
 }
 
@@ -614,7 +611,7 @@ func NewValueWithObjCType(value unsafe.Pointer, type_ string) NSValue {
 // point: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the point information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(point:)
@@ -628,13 +625,13 @@ func NewValueWithPoint(point corefoundation.CGPoint) NSValue {
 // pointer: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains `aPointer`.
 //
 // # Discussion
-// 
+//
 // This method is equivalent to invoking [ValueWithObjCType] in this manner:
-// 
+//
 // This method does not copy the contents of `aPointer`, so you must not to
 // free the memory at the pointer destination while the [NSValue] object
 // exists. [NSData] objects may be more suited for arbitrary pointers than
@@ -652,7 +649,7 @@ func NewValueWithPointer(pointer unsafe.Pointer) NSValue {
 // range: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the range information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(range:)
@@ -667,7 +664,7 @@ func NewValueWithRange(range_ NSRange) NSValue {
 // rect: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the data in the `rect` structure.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(rect:)
@@ -681,7 +678,7 @@ func NewValueWithRect(rect corefoundation.CGRect) NSValue {
 // v: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the matrix information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(SCNMatrix4:)
@@ -697,7 +694,7 @@ func NewValueWithSCNMatrix4(v objectivec.IObject) NSValue {
 // v: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the vector information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(SCNVector3:)
@@ -713,7 +710,7 @@ func NewValueWithSCNVector3(v objectivec.IObject) NSValue {
 // v: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the vector information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(SCNVector4:)
@@ -729,7 +726,7 @@ func NewValueWithSCNVector4(v objectivec.IObject) NSValue {
 // size: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the size information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(size:)
@@ -744,7 +741,7 @@ func NewValueWithSize(size corefoundation.CGSize) NSValue {
 // insets: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the edge inset information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(UIEdgeInsets:)
@@ -759,7 +756,7 @@ func NewValueWithUIEdgeInsets(insets objectivec.IObject) NSValue {
 // insets: The value for the new object.
 //
 // # Return Value
-// 
+//
 // A new value object that contains the offset information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(UIOffset:)
@@ -778,39 +775,37 @@ func NewValueWithUIOffset(insets objectivec.IObject) NSValue {
 // directive. Do not hard-code this parameter as a C string.
 //
 // # Return Value
-// 
+//
 // An initialized value object that contains `value`, which is interpreted as
 // being of the Objective-C type `type`. The returned object might be
 // different than the original receiver.
 //
 // # Discussion
-// 
+//
 // See [Number and Value Programming Topics] for other considerations in
 // creating a value object.
-// 
+//
 // This is the designated initializer for the [NSValue] class.
 //
-// [Number and Value Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NumbersandValues/NumbersandValues.html#//apple_ref/doc/uid/10000038i
-//
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(bytes:objCType:)
+//
+// [Number and Value Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NumbersandValues/NumbersandValues.html#//apple_ref/doc/uid/10000038i
 func (v NSValue) InitWithBytesObjCType(value unsafe.Pointer, type_ string) NSValue {
-	rv := objc.Send[NSValue](v.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.StringData(type_ + "\x00")))
+	rv := objc.Send[NSValue](v.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.StringData(type_+"\x00")))
 	return rv
 }
+
 // Returns a Boolean value that indicates whether the value object and another
 // value object are equal.
 //
 // value: The other value object with which to compare the value object.
 //
 // # Return Value
-// 
-// [true] if both value objects are equal; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if both value objects are equal; otherwise, false.
 //
 // # Discussion
-// 
+//
 // The [NSValue] class compares the type and contents of each value object to
 // determine equality.
 //
@@ -819,17 +814,18 @@ func (v NSValue) IsEqualToValue(value INSValue) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isEqualToValue:"), value)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(coder:)
 func (v NSValue) InitWithCoder(coder INSCoder) NSValue {
 	rv := objc.Send[NSValue](v.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSValue/getValue(_:size:)
 func (v NSValue) GetValueSize(value unsafe.Pointer, size uint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("getValue:size:"), value, size)
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -848,20 +844,20 @@ func (v NSValue) EncodeWithCoder(coder INSCoder) {
 // directive. Do not hard-code this parameter as a C string.
 //
 // # Return Value
-// 
+//
 // A new value object that contains `value`, which is interpreted as being of
 // the Objective-C type `type`.
 //
 // # Discussion
-// 
+//
 // See [Number and Value Programming Topics] for other considerations in
 // creating a value object and code examples.
 //
-// [Number and Value Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NumbersandValues/NumbersandValues.html#//apple_ref/doc/uid/10000038i
-//
 // See: https://developer.apple.com/documentation/Foundation/NSValue/valueWithBytes:objCType:
+//
+// [Number and Value Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NumbersandValues/NumbersandValues.html#//apple_ref/doc/uid/10000038i
 func (_NSValueClass NSValueClass) ValueWithBytesObjCType(value unsafe.Pointer, type_ string) NSValue {
-	rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithBytes:objCType:"), value, unsafe.Pointer(unsafe.StringData(type_ + "\x00")))
+	rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithBytes:objCType:"), value, unsafe.Pointer(unsafe.StringData(type_+"\x00")))
 	return NSValueFromID(rv)
 }
 
@@ -869,7 +865,7 @@ func (_NSValueClass NSValueClass) ValueWithBytesObjCType(value unsafe.Pointer, t
 // value object.
 //
 // # Discussion
-// 
+//
 // This property provides the same string produced by the `@encode()` compiler
 // directive.
 //
@@ -878,10 +874,11 @@ func (v NSValue) ObjCType() string {
 	rv := objc.Send[*byte](v.ID, objc.Sel("objCType"))
 	return objc.GoString(rv)
 }
+
 // Returns the value as an untyped pointer.
 //
 // # Return Value
-// 
+//
 // The value as a pointer to void. If the value object was not created to hold
 // a pointer-sized data item, the result is undefined.
 //
@@ -890,10 +887,11 @@ func (v NSValue) PointerValue() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("pointerValue"))
 	return rv
 }
+
 // The value as a non-retained pointer to an object.
 //
 // # Discussion
-// 
+//
 // If the value was not created to hold a pointer-sized data item, the result
 // is undefined.
 //
@@ -902,6 +900,7 @@ func (v NSValue) NonretainedObjectValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("nonretainedObjectValue"))
 	return objectivec.Object{ID: rv}
 }
+
 // The Foundation range structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/rangeValue
@@ -909,6 +908,7 @@ func (v NSValue) RangeValue() NSRange {
 	rv := objc.Send[NSRange](v.ID, objc.Sel("rangeValue"))
 	return NSRange(rv)
 }
+
 // The Foundation point structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/pointValue
@@ -916,6 +916,7 @@ func (v NSValue) PointValue() NSPoint {
 	rv := objc.Send[NSPoint](v.ID, objc.Sel("pointValue"))
 	return NSPoint(rv)
 }
+
 // The Foundation size structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/sizeValue
@@ -923,6 +924,7 @@ func (v NSValue) SizeValue() NSSize {
 	rv := objc.Send[NSSize](v.ID, objc.Sel("sizeValue"))
 	return NSSize(rv)
 }
+
 // The Foundation rectangle structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/rectValue
@@ -930,6 +932,7 @@ func (v NSValue) RectValue() NSRect {
 	rv := objc.Send[NSRect](v.ID, objc.Sel("rectValue"))
 	return NSRect(rv)
 }
+
 // The CoreAnimation transform structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/caTransform3DValue
@@ -937,6 +940,7 @@ func (v NSValue) CATransform3DValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CATransform3DValue"))
 	return objectivec.Object{ID: rv}
 }
+
 // The CoreMedia time structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeValue
@@ -944,6 +948,7 @@ func (v NSValue) CMTimeValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeValue"))
 	return objectivec.Object{ID: rv}
 }
+
 // The CoreMedia time range structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeRangeValue
@@ -951,6 +956,7 @@ func (v NSValue) CMTimeRangeValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeRangeValue"))
 	return objectivec.Object{ID: rv}
 }
+
 // The CoreMedia time mapping structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeMappingValue
@@ -958,6 +964,7 @@ func (v NSValue) CMTimeMappingValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeMappingValue"))
 	return objectivec.Object{ID: rv}
 }
+
 // The CoreLocation geographic coordinate structure representation of the
 // value.
 //
@@ -966,6 +973,7 @@ func (v NSValue) MKCoordinateValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("MKCoordinateValue"))
 	return objectivec.Object{ID: rv}
 }
+
 // The MapKit coordinate span structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/mkCoordinateSpanValue
@@ -973,6 +981,7 @@ func (v NSValue) MKCoordinateSpanValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("MKCoordinateSpanValue"))
 	return objectivec.Object{ID: rv}
 }
+
 // The three-element Scene Kit vector representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/scnVector3Value
@@ -980,6 +989,7 @@ func (v NSValue) SCNVector3Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("SCNVector3Value"))
 	return objectivec.Object{ID: rv}
 }
+
 // The four-element Scene Kit vector representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/scnVector4Value
@@ -987,6 +997,7 @@ func (v NSValue) SCNVector4Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("SCNVector4Value"))
 	return objectivec.Object{ID: rv}
 }
+
 // The Scene Kit 4 x 4 matrix representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/scnMatrix4Value
@@ -994,21 +1005,25 @@ func (v NSValue) SCNMatrix4Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("SCNMatrix4Value"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSValue/edgeInsetsValue
 func (v NSValue) EdgeInsetsValue() NSEdgeInsets {
 	rv := objc.Send[NSEdgeInsets](v.ID, objc.Sel("edgeInsetsValue"))
 	return NSEdgeInsets(rv)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSValue/gcPoint2Value
 func (v NSValue) GCPoint2Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("GCPoint2Value"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSValue/videoDimensionsValue
 func (v NSValue) CMVideoDimensionsValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMVideoDimensionsValue"))
 	return objectivec.Object{ID: rv}
 }
+
 // Returns an integer that can be used as a table address in a hash table
 // structure.
 //
@@ -1021,9 +1036,6 @@ func (v NSValue) SetHash(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHash:"), value)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

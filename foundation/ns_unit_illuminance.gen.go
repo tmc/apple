@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,18 +44,18 @@ func (uc UnitIlluminanceClass) Alloc() UnitIlluminance {
 // A unit of measure for illuminance.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitIlluminance] to represent specific
 // quantities of illuminance using the [NSMeasurement] class.
-// 
+//
 // # Illuminance
-// 
+//
 // Illuminance is the luminous flux incident on a surface. The SI unit for
 // illuminance is the lux (lx), which is derived as one lumen per square meter
 // (1lm / 1m2).
-// 
+//
 // The [NSUnitIlluminance] class defines its [BaseUnit] as [Lux].
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitIlluminance
@@ -71,6 +72,7 @@ func UnitIlluminanceFromID(id objc.ID) UnitIlluminance {
 
 // NSUnitIlluminanceFromID is an alias for [UnitIlluminanceFromID] for cross-framework compatibility.
 func NSUnitIlluminanceFromID(id objc.ID) UnitIlluminance { return UnitIlluminanceFromID(id) }
+
 // NOTE: UnitIlluminance adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -100,7 +102,6 @@ func NewUnitIlluminance() UnitIlluminance {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitIlluminanceWithCoder(coder INSCoder) UnitIlluminance {
 	instance := getUnitIlluminanceClass().Alloc()
@@ -113,7 +114,7 @@ func NewUnitIlluminanceWithCoder(coder INSCoder) UnitIlluminance {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -132,11 +133,11 @@ func NewUnitIlluminanceWithSymbol(symbol string) UnitIlluminance {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -145,4 +146,3 @@ func NewUnitIlluminanceWithSymbolConverter(symbol string, converter INSUnitConve
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSymbol:converter:"), objc.String(symbol), converter)
 	return UnitIlluminanceFromID(rv)
 }
-

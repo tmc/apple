@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,6 +53,7 @@ type MLPipeline struct {
 func MLPipelineFromID(id objc.ID) MLPipeline {
 	return MLPipeline{objectivec.Object{ID: id}}
 }
+
 // Ensure MLPipeline implements IMLPipeline.
 var _ IMLPipeline = MLPipeline{}
 
@@ -78,4 +80,3 @@ func NewMLPipeline() MLPipeline {
 	rv := objc.Send[MLPipeline](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

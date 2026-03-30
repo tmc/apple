@@ -49,6 +49,7 @@ type CIDisplacementDistortion interface {
 type CIDisplacementDistortionObject struct {
 	objectivec.Object
 }
+
 func (o CIDisplacementDistortionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -65,19 +66,22 @@ func CIDisplacementDistortionObjectFromID(id objc.ID) CIDisplacementDistortionOb
 func (o CIDisplacementDistortionObject) DisplacementImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("displacementImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDisplacementDistortion/inputImage
 func (o CIDisplacementDistortionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIDisplacementDistortion/scale
 func (o CIDisplacementDistortionObject) Scale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -85,17 +89,21 @@ func (o CIDisplacementDistortionObject) Scale() float32 {
 func (o CIDisplacementDistortionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIDisplacementDistortion/displacementImage
 func (o CIDisplacementDistortionObject) SetDisplacementImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDisplacementImage:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIDisplacementDistortion/inputImage
 func (o CIDisplacementDistortionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIDisplacementDistortion/scale
 func (o CIDisplacementDistortionObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
-

@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSGlassEffectContainerView] class.
@@ -66,6 +67,7 @@ type NSGlassEffectContainerView struct {
 func NSGlassEffectContainerViewFromID(id objc.ID) NSGlassEffectContainerView {
 	return NSGlassEffectContainerView{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSGlassEffectContainerView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,7 +118,7 @@ func NewNSGlassEffectContainerView() NSGlassEffectContainerView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -132,11 +134,11 @@ func NewGlassEffectContainerViewWithCoder(coder foundation.INSCoder) NSGlassEffe
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -152,9 +154,9 @@ func NewGlassEffectContainerViewWithFrame(frameRect corefoundation.CGRect) NSGla
 // to each other.
 //
 // # Discussion
-// 
+//
 // The glass effect container view does the following:
-// 
+//
 // - Elevates the z-order of descendants of `contentView` to position them
 // above the `contentView`. - Merges descendants together if the views are
 // sufficiently similar and within the proximity specified in [Spacing]. -
@@ -168,11 +170,12 @@ func (g NSGlassEffectContainerView) ContentView() INSView {
 func (g NSGlassEffectContainerView) SetContentView(value INSView) {
 	objc.Send[struct{}](g.ID, objc.Sel("setContentView:"), value)
 }
+
 // The proximity at which the glass effect container view begins merging
 // eligible descendent glass effect views.
 //
 // # Discussion
-// 
+//
 // The default value, zero, is sufficient for batch processing eligible glass
 // effect views, while avoiding distortion and merging effects for other views
 // in close proximity.
@@ -185,4 +188,3 @@ func (g NSGlassEffectContainerView) Spacing() float64 {
 func (g NSGlassEffectContainerView) SetSpacing(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setSpacing:"), value)
 }
-

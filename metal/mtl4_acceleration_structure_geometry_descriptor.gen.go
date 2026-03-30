@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (mc MTL4AccelerationStructureGeometryDescriptorClass) Alloc() MTL4Accelerat
 // Base class for all Metal 4 acceleration structure geometry descriptors.
 //
 // # Overview
-// 
+//
 // Don’t use this class directly. Use one of the derived classes instead.
 //
 // # Instance Properties
@@ -76,6 +77,7 @@ type MTL4AccelerationStructureGeometryDescriptor struct {
 func MTL4AccelerationStructureGeometryDescriptorFromID(id objc.ID) MTL4AccelerationStructureGeometryDescriptor {
 	return MTL4AccelerationStructureGeometryDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4AccelerationStructureGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -151,10 +153,8 @@ func NewMTL4AccelerationStructureGeometryDescriptor() MTL4AccelerationStructureG
 // ray-primitive intersection.
 //
 // # Discussion
-// 
-// The property’s default value is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The property’s default value is true.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/allowDuplicateIntersectionFunctionInvocation
 func (m MTL4AccelerationStructureGeometryDescriptor) AllowDuplicateIntersectionFunctionInvocation() bool {
@@ -164,34 +164,35 @@ func (m MTL4AccelerationStructureGeometryDescriptor) AllowDuplicateIntersectionF
 func (m MTL4AccelerationStructureGeometryDescriptor) SetAllowDuplicateIntersectionFunctionInvocation(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAllowDuplicateIntersectionFunctionInvocation:"), value)
 }
+
 // Sets the offset that this geometry contributes to determining the
 // intersection function to invoke when a ray intersects it.
 //
 // # Discussion
-// 
+//
 // When you perform a ray tracing operation in the Metal Shading Language, and
 // provide the ray intersector object with an instance of
 // [MTLIntersectionFunctionTable], Metal adds this offset to the instance
 // offset from structs such as:
-// 
+//
 // - [MTLAccelerationStructureInstanceDescriptor] -
 // [MTLAccelerationStructureUserIDInstanceDescriptor] -
 // [MTLAccelerationStructureMotionInstanceDescriptor] -
 // [MTLIndirectAccelerationStructureInstanceDescriptor] -
 // [MTLIndirectAccelerationStructureMotionInstanceDescriptor]
-// 
+//
 // The sum of these offsets provides an index into the intersection function
 // table that the ray tracing system uses to retrieve and invoke the function
 // at this index, allowing you to customize the intersection evaluation
 // process.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/intersectionFunctionTableOffset
 //
 // [MTLAccelerationStructureInstanceDescriptor]: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureInstanceDescriptor
 // [MTLAccelerationStructureMotionInstanceDescriptor]: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionInstanceDescriptor
 // [MTLAccelerationStructureUserIDInstanceDescriptor]: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureUserIDInstanceDescriptor
 // [MTLIndirectAccelerationStructureInstanceDescriptor]: https://developer.apple.com/documentation/Metal/MTLIndirectAccelerationStructureInstanceDescriptor
 // [MTLIndirectAccelerationStructureMotionInstanceDescriptor]: https://developer.apple.com/documentation/Metal/MTLIndirectAccelerationStructureMotionInstanceDescriptor
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/intersectionFunctionTableOffset
 func (m MTL4AccelerationStructureGeometryDescriptor) IntersectionFunctionTableOffset() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("intersectionFunctionTableOffset"))
 	return rv
@@ -199,6 +200,7 @@ func (m MTL4AccelerationStructureGeometryDescriptor) IntersectionFunctionTableOf
 func (m MTL4AccelerationStructureGeometryDescriptor) SetIntersectionFunctionTableOffset(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIntersectionFunctionTableOffset:"), value)
 }
+
 // Assigns an optional label you can assign to this geometry for debugging
 // purposes.
 //
@@ -210,6 +212,7 @@ func (m MTL4AccelerationStructureGeometryDescriptor) Label() string {
 func (m MTL4AccelerationStructureGeometryDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // Provides a hint to Metal that this geometry is opaque, potentially
 // accelerating the ray/primitive intersection process.
 //
@@ -221,11 +224,12 @@ func (m MTL4AccelerationStructureGeometryDescriptor) Opaque() bool {
 func (m MTL4AccelerationStructureGeometryDescriptor) SetOpaque(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOpaque:"), value)
 }
+
 // Assigns optional buffer containing data to associate with each primitive in
 // this geometry.
 //
 // # Discussion
-// 
+//
 // You can use zero as the buffer address in this buffer range.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer
@@ -236,14 +240,15 @@ func (m MTL4AccelerationStructureGeometryDescriptor) PrimitiveDataBuffer() MTL4B
 func (m MTL4AccelerationStructureGeometryDescriptor) SetPrimitiveDataBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPrimitiveDataBuffer:"), value)
 }
+
 // Sets the size, in bytes, of the data for each primitive in the primitive
 // data buffer [PrimitiveDataBuffer] references.
 //
 // # Discussion
-// 
+//
 // This size needs to be at most [PrimitiveDataStride] in size and a multiple
 // of 4 bytes.
-// 
+//
 // This property defaults to 0 bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataElementSize
@@ -254,14 +259,15 @@ func (m MTL4AccelerationStructureGeometryDescriptor) PrimitiveDataElementSize() 
 func (m MTL4AccelerationStructureGeometryDescriptor) SetPrimitiveDataElementSize(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPrimitiveDataElementSize:"), value)
 }
+
 // Defines the stride, in bytes, between each primitive’s data in the
 // primitive data buffer [PrimitiveDataBuffer] references.
 //
 // # Discussion
-// 
+//
 // You are responsible for ensuring the stride is at least
 // [PrimitiveDataElementSize] in size and a multiple of 4 bytes.
-// 
+//
 // This property defaults to `0` bytes, which indicates the stride is equal to
 // [PrimitiveDataElementSize].
 //
@@ -273,4 +279,3 @@ func (m MTL4AccelerationStructureGeometryDescriptor) PrimitiveDataStride() uint 
 func (m MTL4AccelerationStructureGeometryDescriptor) SetPrimitiveDataStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPrimitiveDataStride:"), value)
 }
-

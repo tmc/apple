@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMetricPlayerItemVariantSwitchEvent] class.
@@ -63,6 +64,7 @@ type AVMetricPlayerItemVariantSwitchEvent struct {
 func AVMetricPlayerItemVariantSwitchEventFromID(id objc.ID) AVMetricPlayerItemVariantSwitchEvent {
 	return AVMetricPlayerItemVariantSwitchEvent{AVMetricEvent: AVMetricEventFromID(id)}
 }
+
 // NOTE: AVMetricPlayerItemVariantSwitchEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,20 +122,23 @@ func (m AVMetricPlayerItemVariantSwitchEvent) DidSucceed() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("didSucceed"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemVariantSwitchEvent/fromVariant
 func (m AVMetricPlayerItemVariantSwitchEvent) FromVariant() IAVAssetVariant {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("fromVariant"))
 	return AVAssetVariantFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemVariantSwitchEvent/toVariant
 func (m AVMetricPlayerItemVariantSwitchEvent) ToVariant() IAVAssetVariant {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("toVariant"))
 	return AVAssetVariantFromID(objc.ID(rv))
 }
+
 // Represents the currently selected video rendition’s identifiers.
 //
 // # Discussion
-// 
+//
 // Subclasses of this type that are used from Swift must fulfill the
 // requirements of a Sendable type.
 //
@@ -142,10 +147,11 @@ func (m AVMetricPlayerItemVariantSwitchEvent) AudioRendition() IAVMetricMediaRen
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("audioRendition"))
 	return AVMetricMediaRenditionFromID(objc.ID(rv))
 }
+
 // Represents the currently selected video rendition’s identifiers.
 //
 // # Discussion
-// 
+//
 // Subclasses of this type that are used from Swift must fulfill the
 // requirements of a Sendable type.
 //
@@ -154,10 +160,11 @@ func (m AVMetricPlayerItemVariantSwitchEvent) VideoRendition() IAVMetricMediaRen
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("videoRendition"))
 	return AVMetricMediaRenditionFromID(objc.ID(rv))
 }
+
 // Represents the currently selected audio rendition’s identifiers.
 //
 // # Discussion
-// 
+//
 // Subclasses of this type that are used from Swift must fulfill the
 // requirements of a Sendable type.
 //
@@ -166,6 +173,7 @@ func (m AVMetricPlayerItemVariantSwitchEvent) SubtitleRendition() IAVMetricMedia
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("subtitleRendition"))
 	return AVMetricMediaRenditionFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemVariantSwitchEvent/loadedTimeRanges-4rhjw
 func (m AVMetricPlayerItemVariantSwitchEvent) LoadedTimeRanges() []foundation.NSValue {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("loadedTimeRanges"))
@@ -173,4 +181,3 @@ func (m AVMetricPlayerItemVariantSwitchEvent) LoadedTimeRanges() []foundation.NS
 		return foundation.NSValueFromID(id)
 	})
 }
-

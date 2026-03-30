@@ -4,10 +4,12 @@ package appkit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // An interface for managing content for the macOS share sheet.
@@ -21,6 +23,7 @@ type NSSharingServicePickerDelegate interface {
 type NSSharingServicePickerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSSharingServicePickerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -44,11 +47,11 @@ func NSSharingServicePickerDelegateObjectFromID(id objc.ID) NSSharingServicePick
 // proposedServices: The proposed services to include in the sharing service picker.
 //
 // # Return Value
-// 
+//
 // An array of services to include in the sharing service picker.
 //
 // # Discussion
-// 
+//
 // Use this method to remove default services, add custom services, or reorder
 // the existing services before the picker appears onscreen. Unless you
 // don’t intend to change the proposed services, create a new mutable array
@@ -62,7 +65,8 @@ func (o NSSharingServicePickerDelegateObject) SharingServicePickerSharingService
 	return objc.ConvertSlice(rv, func(id objc.ID) NSSharingService {
 		return NSSharingServiceFromID(id)
 	})
-	}
+}
+
 // Tells the delegate that the person selected a sharing service for the
 // current item.
 //
@@ -72,7 +76,7 @@ func (o NSSharingServicePickerDelegateObject) SharingServicePickerSharingService
 // service that is about to be executed.
 //
 // # Discussion
-// 
+//
 // After someone chooses a service, the sharing service picker calls this
 // method to let you know which service they picked. The sharing service
 // receives the item sometime after this method returns.
@@ -80,7 +84,8 @@ func (o NSSharingServicePickerDelegateObject) SharingServicePickerSharingService
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:didChoose:)
 func (o NSSharingServicePickerDelegateObject) SharingServicePickerDidChooseSharingService(sharingServicePicker INSSharingServicePicker, service INSSharingService) {
 	objc.Send[struct{}](o.ID, objc.Sel("sharingServicePicker:didChooseSharingService:"), sharingServicePicker, service)
-	}
+}
+
 // Asks your delegate to provide an object that the selected sharing service
 // can use as its delegate.
 //
@@ -89,18 +94,19 @@ func (o NSSharingServicePickerDelegateObject) SharingServicePickerDidChooseShari
 // sharingService: The selected sharing service.
 //
 // # Return Value
-// 
+//
 // An object that adopts the [NSSharingServiceDelegate] protocol.
 //
 // # Discussion
-// 
+//
 // The sharing service assigns the returned object to its [Delegate] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:delegateFor:)
 func (o NSSharingServicePickerDelegateObject) SharingServicePickerDelegateForSharingService(sharingServicePicker INSSharingServicePicker, sharingService INSSharingService) NSSharingServiceDelegate {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingServicePicker:delegateForSharingService:"), sharingServicePicker, sharingService)
 	return NSSharingServiceDelegateObjectFromID(rv)
-	}
+}
+
 // Used to specify the case where the share picker should not support some
 // modes of sharing even if they are supported by the items being shared.
 // Disabling all possible modes at the same time is not supported behavior.
@@ -111,7 +117,7 @@ func (o NSSharingServicePickerDelegateObject) SharingServicePickerCollaborationM
 	return objc.ConvertSlice(rv, func(id objc.ID) NSSharingCollaborationModeRestriction {
 		return NSSharingCollaborationModeRestrictionFromID(id)
 	})
-	}
+}
 
 // NSSharingServicePickerDelegateConfig holds optional typed callbacks for [NSSharingServicePickerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -174,4 +180,3 @@ func NewNSSharingServicePickerDelegate(config NSSharingServicePickerDelegateConf
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSharingServicePickerDelegateObjectFromID(instance)
 }
-

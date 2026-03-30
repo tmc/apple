@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (mc MTLIntersectionFunctionDescriptorClass) Alloc() MTLIntersectionFunction
 // test.
 //
 // # Overview
-// 
+//
 // This class doesn’t add any additional API over its parent class.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionDescriptor
@@ -59,6 +60,7 @@ type MTLIntersectionFunctionDescriptor struct {
 func MTLIntersectionFunctionDescriptorFromID(id objc.ID) MTLIntersectionFunctionDescriptor {
 	return MTLIntersectionFunctionDescriptor{MTLFunctionDescriptor: MTLFunctionDescriptorFromID(id)}
 }
+
 // NOTE: MTLIntersectionFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -87,4 +89,3 @@ func NewMTLIntersectionFunctionDescriptor() MTLIntersectionFunctionDescriptor {
 	rv := objc.Send[MTLIntersectionFunctionDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

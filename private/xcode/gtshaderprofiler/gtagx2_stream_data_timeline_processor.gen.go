@@ -3,8 +3,9 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (gc GTAGX2StreamDataTimelineProcessorClass) Alloc() GTAGX2StreamDataTimelin
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTAGX2StreamDataTimelineProcessor._addDerivedCounterDataToTimelineInfoForWorkloadInfo]
@@ -58,6 +58,7 @@ func (gc GTAGX2StreamDataTimelineProcessorClass) Alloc() GTAGX2StreamDataTimelin
 //   - [GTAGX2StreamDataTimelineProcessor.TimelineInfo]
 //   - [GTAGX2StreamDataTimelineProcessor.WaitUntilFinished]
 //   - [GTAGX2StreamDataTimelineProcessor.InitWithStreamData]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor
 type GTAGX2StreamDataTimelineProcessor struct {
 	objectivec.Object
@@ -67,6 +68,7 @@ type GTAGX2StreamDataTimelineProcessor struct {
 func GTAGX2StreamDataTimelineProcessorFromID(id objc.ID) GTAGX2StreamDataTimelineProcessor {
 	return GTAGX2StreamDataTimelineProcessor{objectivec.Object{ID: id}}
 }
+
 // Ensure GTAGX2StreamDataTimelineProcessor implements IGTAGX2StreamDataTimelineProcessor.
 var _ IGTAGX2StreamDataTimelineProcessor = GTAGX2StreamDataTimelineProcessor{}
 
@@ -128,7 +130,6 @@ func NewGTAGX2StreamDataTimelineProcessor() GTAGX2StreamDataTimelineProcessor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/initWithStreamData:
 func NewGTAGX2StreamDataTimelineProcessorWithStreamData(data objectivec.IObject) GTAGX2StreamDataTimelineProcessor {
 	instance := getGTAGX2StreamDataTimelineProcessorClass().Alloc()
@@ -136,7 +137,6 @@ func NewGTAGX2StreamDataTimelineProcessorWithStreamData(data objectivec.IObject)
 	return GTAGX2StreamDataTimelineProcessorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/_addDerivedCounterDataToTimelineInfo:forWorkloadInfo:
 func (g GTAGX2StreamDataTimelineProcessor) _addDerivedCounterDataToTimelineInfoForWorkloadInfo(info objectivec.IObject, info2 objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_addDerivedCounterDataToTimelineInfo:forWorkloadInfo:"), info, info2)
@@ -146,7 +146,7 @@ func (g GTAGX2StreamDataTimelineProcessor) _addDerivedCounterDataToTimelineInfoF
 func (g GTAGX2StreamDataTimelineProcessor) AddDerivedCounterDataToTimelineInfoForWorkloadInfo(info objectivec.IObject, info2 objectivec.IObject) {
 	g._addDerivedCounterDataToTimelineInfoForWorkloadInfo(info, info2)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/_calculatePerSampleActiveShaders:forWorkloadInfo:
 func (g GTAGX2StreamDataTimelineProcessor) _calculatePerSampleActiveShadersForWorkloadInfo(shaders objectivec.IObject, info objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerSampleActiveShaders:forWorkloadInfo:"), shaders, info)
@@ -156,7 +156,7 @@ func (g GTAGX2StreamDataTimelineProcessor) _calculatePerSampleActiveShadersForWo
 func (g GTAGX2StreamDataTimelineProcessor) CalculatePerSampleActiveShadersForWorkloadInfo(shaders objectivec.IObject, info objectivec.IObject) {
 	g._calculatePerSampleActiveShadersForWorkloadInfo(shaders, info)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/_calculatePerSampleAggregatedActiveShaders:forWorkloadInfo:
 func (g GTAGX2StreamDataTimelineProcessor) _calculatePerSampleAggregatedActiveShadersForWorkloadInfo(shaders objectivec.IObject, info objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_calculatePerSampleAggregatedActiveShaders:forWorkloadInfo:"), shaders, info)
@@ -166,7 +166,7 @@ func (g GTAGX2StreamDataTimelineProcessor) _calculatePerSampleAggregatedActiveSh
 func (g GTAGX2StreamDataTimelineProcessor) CalculatePerSampleAggregatedActiveShadersForWorkloadInfo(shaders objectivec.IObject, info objectivec.IObject) {
 	g._calculatePerSampleAggregatedActiveShadersForWorkloadInfo(shaders, info)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/_updateShaderTimelineInfo:withShaderTimelineDataEx:forGPUTimelineInfo:withEncoderGlobalTraceIdToStateMirrorIdMapping:forRingBuffer:
 func (g GTAGX2StreamDataTimelineProcessor) _updateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer(info objectivec.IObject, ex objectivec.IObject, info2 objectivec.IObject, mapping unsafe.Pointer, buffer uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_updateShaderTimelineInfo:withShaderTimelineDataEx:forGPUTimelineInfo:withEncoderGlobalTraceIdToStateMirrorIdMapping:forRingBuffer:"), info, ex, info2, mapping, buffer)
@@ -176,41 +176,43 @@ func (g GTAGX2StreamDataTimelineProcessor) _updateShaderTimelineInfoWithShaderTi
 func (g GTAGX2StreamDataTimelineProcessor) UpdateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer(info objectivec.IObject, ex objectivec.IObject, info2 objectivec.IObject, mapping unsafe.Pointer, buffer uint32) {
 	g._updateShaderTimelineInfoWithShaderTimelineDataExForGPUTimelineInfoWithEncoderGlobalTraceIdToStateMirrorIdMappingForRingBuffer(info, ex, info2, mapping, buffer)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/process:
 func (g GTAGX2StreamDataTimelineProcessor) Process(process objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("process:"), process)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/processStreamData
 func (g GTAGX2StreamDataTimelineProcessor) ProcessStreamData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("processStreamData"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/processTimelineStreamedResult:
 func (g GTAGX2StreamDataTimelineProcessor) ProcessTimelineStreamedResult(result objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("processTimelineStreamedResult:"), result)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/saveAddressList:size:filename:
 func (g GTAGX2StreamDataTimelineProcessor) SaveAddressListSizeFilename(list unsafe.Pointer, size uint32, filename objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("saveAddressList:size:filename:"), list, size, filename)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/saveAddressMappings:filename:
 func (g GTAGX2StreamDataTimelineProcessor) SaveAddressMappingsFilename(mappings objectivec.IObject, filename objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("saveAddressMappings:filename:"), mappings, filename)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/saveSampleDataFromGPURawCounters:size:filename:withTimeStamps:
 func (g GTAGX2StreamDataTimelineProcessor) SaveSampleDataFromGPURawCountersSizeFilenameWithTimeStamps(counters unsafe.Pointer, size uint32, filename objectivec.IObject, stamps unsafe.Pointer) {
 	objc.Send[objc.ID](g.ID, objc.Sel("saveSampleDataFromGPURawCounters:size:filename:withTimeStamps:"), counters, size, filename, stamps)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/waitUntilFinished
 func (g GTAGX2StreamDataTimelineProcessor) WaitUntilFinished() {
 	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilFinished"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2StreamDataTimelineProcessor/initWithStreamData:
 func (g GTAGX2StreamDataTimelineProcessor) InitWithStreamData(data objectivec.IObject) GTAGX2StreamDataTimelineProcessor {
 	rv := objc.Send[GTAGX2StreamDataTimelineProcessor](g.ID, objc.Sel("initWithStreamData:"), data)
@@ -222,4 +224,3 @@ func (g GTAGX2StreamDataTimelineProcessor) TimelineInfo() IDYWorkloadGPUTimeline
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineInfo"))
 	return DYWorkloadGPUTimelineInfoFromID(objc.ID(rv))
 }
-

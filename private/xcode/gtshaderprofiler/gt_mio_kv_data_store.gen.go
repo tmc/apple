@@ -3,10 +3,11 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (gc GTMioKVDataStoreClass) Alloc() GTMioKVDataStore {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioKVDataStore._blockForName]
@@ -71,6 +71,7 @@ func (gc GTMioKVDataStoreClass) Alloc() GTMioKVDataStore {
 //   - [GTMioKVDataStore.InitWithBlockCompression]
 //   - [GTMioKVDataStore.InitWithData]
 //   - [GTMioKVDataStore.InitWithURL]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore
 type GTMioKVDataStore struct {
 	objectivec.Object
@@ -80,6 +81,7 @@ type GTMioKVDataStore struct {
 func GTMioKVDataStoreFromID(id objc.ID) GTMioKVDataStore {
 	return GTMioKVDataStore{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioKVDataStore implements IGTMioKVDataStore.
 var _ IGTMioKVDataStore = GTMioKVDataStore{}
 
@@ -165,7 +167,6 @@ func NewGTMioKVDataStore() GTMioKVDataStore {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/initWithBlockCompression:
 func NewGTMioKVDataStoreWithBlockCompression(compression bool) GTMioKVDataStore {
 	instance := getGTMioKVDataStoreClass().Alloc()
@@ -173,7 +174,6 @@ func NewGTMioKVDataStoreWithBlockCompression(compression bool) GTMioKVDataStore 
 	return GTMioKVDataStoreFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/initWithData:
 func NewGTMioKVDataStoreWithData(data objectivec.IObject) GTMioKVDataStore {
 	instance := getGTMioKVDataStoreClass().Alloc()
@@ -181,7 +181,6 @@ func NewGTMioKVDataStoreWithData(data objectivec.IObject) GTMioKVDataStore {
 	return GTMioKVDataStoreFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/initWithURL:
 func NewGTMioKVDataStoreWithURL(url foundation.INSURL) GTMioKVDataStore {
 	instance := getGTMioKVDataStoreClass().Alloc()
@@ -189,7 +188,6 @@ func NewGTMioKVDataStoreWithURL(url foundation.INSURL) GTMioKVDataStore {
 	return GTMioKVDataStoreFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/_blockForName:
 func (g GTMioKVDataStore) _blockForName(name objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("_blockForName:"), name)
@@ -200,13 +198,13 @@ func (g GTMioKVDataStore) _blockForName(name objectivec.IObject) unsafe.Pointer 
 func (g GTMioKVDataStore) BlockForName(name objectivec.IObject) unsafe.Pointer {
 	return g._blockForName(name)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/_enumerateBlocks:
 func (g GTMioKVDataStore) _enumerateBlocks(blocks objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("_enumerateBlocks:"), blocks)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/_serialize:data:
 func (g GTMioKVDataStore) _serializeData(_serialize objectivec.IObject, data []objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("_serialize:data:"), _serialize, objectivec.IObjectSliceToNSArray(data))
@@ -217,7 +215,7 @@ func (g GTMioKVDataStore) _serializeData(_serialize objectivec.IObject, data []o
 func (g GTMioKVDataStore) SerializeData(_serialize objectivec.IObject, data []objectivec.IObject) bool {
 	return g._serializeData(_serialize, data)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/_valueForName:
 func (g GTMioKVDataStore) _valueForName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_valueForName:"), name)
@@ -228,113 +226,114 @@ func (g GTMioKVDataStore) _valueForName(name objectivec.IObject) objectivec.IObj
 func (g GTMioKVDataStore) ValueForName(name objectivec.IObject) objectivec.IObject {
 	return g._valueForName(name)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/addChild:forKey:
 func (g GTMioKVDataStore) AddChildForKey(child objectivec.IObject, key objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addChild:forKey:"), child, key)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/addChildArray:forKey:
 func (g GTMioKVDataStore) AddChildArrayForKey(array objectivec.IObject, key objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addChildArray:forKey:"), array, key)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/addData:forKey:
 func (g GTMioKVDataStore) AddDataForKey(data objectivec.IObject, key objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addData:forKey:"), data, key)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/addDataArray:forKey:
 func (g GTMioKVDataStore) AddDataArrayForKey(array objectivec.IObject, key objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addDataArray:forKey:"), array, key)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/addMeta:forKey:
 func (g GTMioKVDataStore) AddMetaForKey(meta objectivec.IObject, key objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addMeta:forKey:"), meta, key)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/addStringArray:forKey:
 func (g GTMioKVDataStore) AddStringArrayForKey(array objectivec.IObject, key objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("addStringArray:forKey:"), array, key)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/descriptionWithLevel:
 func (g GTMioKVDataStore) DescriptionWithLevel(level uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("descriptionWithLevel:"), level)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/enumerateBlocks:
 func (g GTMioKVDataStore) EnumerateBlocks(blocks objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBlocks:"), blocks)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/getChild:
 func (g GTMioKVDataStore) GetChild(child objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("getChild:"), child)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/getChildArray:
 func (g GTMioKVDataStore) GetChildArray(array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("getChildArray:"), array)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/getData:
 func (g GTMioKVDataStore) GetData(data objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("getData:"), data)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/getDataArray:
 func (g GTMioKVDataStore) GetDataArray(array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("getDataArray:"), array)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/getMeta:
 func (g GTMioKVDataStore) GetMeta(meta objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("getMeta:"), meta)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/getStringArray:
 func (g GTMioKVDataStore) GetStringArray(array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("getStringArray:"), array)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/serialize
 func (g GTMioKVDataStore) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/serializeToFile:
 func (g GTMioKVDataStore) SerializeToFile(file objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("serializeToFile:"), file)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/initWithBlockCompression:
 func (g GTMioKVDataStore) InitWithBlockCompression(compression bool) GTMioKVDataStore {
 	rv := objc.Send[GTMioKVDataStore](g.ID, objc.Sel("initWithBlockCompression:"), compression)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/initWithData:
 func (g GTMioKVDataStore) InitWithData(data objectivec.IObject) GTMioKVDataStore {
 	rv := objc.Send[GTMioKVDataStore](g.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioKVDataStore/initWithURL:
 func (g GTMioKVDataStore) InitWithURL(url foundation.INSURL) GTMioKVDataStore {
 	rv := objc.Send[GTMioKVDataStore](g.ID, objc.Sel("initWithURL:"), url)
@@ -349,4 +348,3 @@ func (g GTMioKVDataStore) CompressBlocks() bool {
 func (g GTMioKVDataStore) SetCompressBlocks(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setCompressBlocks:"), value)
 }
-

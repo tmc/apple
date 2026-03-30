@@ -3,8 +3,9 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,10 +43,10 @@ func (ac AVAudioEnvironmentDistanceAttenuationParametersClass) Alloc() AVAudioEn
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioEnvironmentDistanceAttenuationParameters.InitWithEnvironment]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters
 type AVAudioEnvironmentDistanceAttenuationParameters struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type AVAudioEnvironmentDistanceAttenuationParameters struct {
 func AVAudioEnvironmentDistanceAttenuationParametersFromID(id objc.ID) AVAudioEnvironmentDistanceAttenuationParameters {
 	return AVAudioEnvironmentDistanceAttenuationParameters{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioEnvironmentDistanceAttenuationParameters implements IAVAudioEnvironmentDistanceAttenuationParameters.
 var _ IAVAudioEnvironmentDistanceAttenuationParameters = AVAudioEnvironmentDistanceAttenuationParameters{}
 
@@ -92,7 +94,6 @@ func NewAVAudioEnvironmentDistanceAttenuationParameters() AVAudioEnvironmentDist
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters/initWithEnvironment:
 func NewAudioEnvironmentDistanceAttenuationParametersWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentDistanceAttenuationParameters {
 	instance := getAVAudioEnvironmentDistanceAttenuationParametersClass().Alloc()
@@ -100,10 +101,8 @@ func NewAudioEnvironmentDistanceAttenuationParametersWithEnvironment(environment
 	return AVAudioEnvironmentDistanceAttenuationParametersFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentDistanceAttenuationParameters/initWithEnvironment:
 func (a AVAudioEnvironmentDistanceAttenuationParameters) InitWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentDistanceAttenuationParameters {
 	rv := objc.Send[AVAudioEnvironmentDistanceAttenuationParameters](a.ID, objc.Sel("initWithEnvironment:"), environment)
 	return rv
 }
-

@@ -31,7 +31,7 @@ type CFCalendarUnit int
 
 const (
 	// KCFCalendarUnitDay: Specifies the day unit.
-	KCFCalendarUnitDay CFCalendarUnit = 16
+	KCFCalendarUnitDay       CFCalendarUnit = 16
 	KCFCalendarUnitDayOfYear CFCalendarUnit = 65536
 	// KCFCalendarUnitEra: Specifies the era unit.
 	KCFCalendarUnitEra CFCalendarUnit = 2
@@ -118,7 +118,7 @@ const (
 	KCFCharacterSetLetter CFCharacterSetPredefinedSet = 5
 	// KCFCharacterSetLowercaseLetter: Lowercase character set (Unicode General Category Ll).
 	KCFCharacterSetLowercaseLetter CFCharacterSetPredefinedSet = 6
-	// KCFCharacterSetNewline: Newline character set (, , , and ).
+	// KCFCharacterSetNewline: Newline character set (`U000A ~ U000D`, [U0085], [U2028], and [U2029]).
 	KCFCharacterSetNewline CFCharacterSetPredefinedSet = 15
 	// KCFCharacterSetNonBase: Non-base character set (Unicode General Category M*).
 	KCFCharacterSetNonBase CFCharacterSetPredefinedSet = 8
@@ -130,7 +130,7 @@ const (
 	KCFCharacterSetUppercaseLetter CFCharacterSetPredefinedSet = 7
 	// KCFCharacterSetWhitespace: Whitespace character set (Unicode General Category Zs and U0009 CHARACTER TABULATION).
 	KCFCharacterSetWhitespace CFCharacterSetPredefinedSet = 2
-	// KCFCharacterSetWhitespaceAndNewline: Whitespace and Newline character set (Unicode General Category Z*, , and ).
+	// KCFCharacterSetWhitespaceAndNewline: Whitespace and Newline character set (Unicode General Category Z*, `U000A ~ U000D`, and [U0085]).
 	KCFCharacterSetWhitespaceAndNewline CFCharacterSetPredefinedSet = 3
 )
 
@@ -332,20 +332,20 @@ func (e CFGregorianUnitFlags) String() string {
 type CFISO8601DateFormatOptions int
 
 const (
-	KCFISO8601DateFormatWithColonSeparatorInTime CFISO8601DateFormatOptions = 512
+	KCFISO8601DateFormatWithColonSeparatorInTime     CFISO8601DateFormatOptions = 512
 	KCFISO8601DateFormatWithColonSeparatorInTimeZone CFISO8601DateFormatOptions = 1024
-	KCFISO8601DateFormatWithDashSeparatorInDate CFISO8601DateFormatOptions = 256
-	KCFISO8601DateFormatWithDay CFISO8601DateFormatOptions = 16
-	KCFISO8601DateFormatWithFractionalSeconds CFISO8601DateFormatOptions = 2048
-	KCFISO8601DateFormatWithFullDate CFISO8601DateFormatOptions = 1
-	KCFISO8601DateFormatWithFullTime CFISO8601DateFormatOptions = 32
-	KCFISO8601DateFormatWithInternetDateTime CFISO8601DateFormatOptions = 1
-	KCFISO8601DateFormatWithMonth CFISO8601DateFormatOptions = 2
-	KCFISO8601DateFormatWithSpaceBetweenDateAndTime CFISO8601DateFormatOptions = 128
-	KCFISO8601DateFormatWithTime CFISO8601DateFormatOptions = 32
-	KCFISO8601DateFormatWithTimeZone CFISO8601DateFormatOptions = 64
-	KCFISO8601DateFormatWithWeekOfYear CFISO8601DateFormatOptions = 4
-	KCFISO8601DateFormatWithYear CFISO8601DateFormatOptions = 1
+	KCFISO8601DateFormatWithDashSeparatorInDate      CFISO8601DateFormatOptions = 256
+	KCFISO8601DateFormatWithDay                      CFISO8601DateFormatOptions = 16
+	KCFISO8601DateFormatWithFractionalSeconds        CFISO8601DateFormatOptions = 2048
+	KCFISO8601DateFormatWithFullDate                 CFISO8601DateFormatOptions = 1
+	KCFISO8601DateFormatWithFullTime                 CFISO8601DateFormatOptions = 32
+	KCFISO8601DateFormatWithInternetDateTime         CFISO8601DateFormatOptions = 1
+	KCFISO8601DateFormatWithMonth                    CFISO8601DateFormatOptions = 2
+	KCFISO8601DateFormatWithSpaceBetweenDateAndTime  CFISO8601DateFormatOptions = 128
+	KCFISO8601DateFormatWithTime                     CFISO8601DateFormatOptions = 32
+	KCFISO8601DateFormatWithTimeZone                 CFISO8601DateFormatOptions = 64
+	KCFISO8601DateFormatWithWeekOfYear               CFISO8601DateFormatOptions = 4
+	KCFISO8601DateFormatWithYear                     CFISO8601DateFormatOptions = 1
 )
 
 func (e CFISO8601DateFormatOptions) String() string {
@@ -381,7 +381,34 @@ func (e CFISO8601DateFormatOptions) String() string {
 type CFLocaleLanguageDirection int
 
 const (
+	// KCFLocaleLanguageDirectionBottomToTop: # Discussion
+	KCFLocaleLanguageDirectionBottomToTop CFLocaleLanguageDirection = 4
+	// KCFLocaleLanguageDirectionLeftToRight: # Discussion
+	KCFLocaleLanguageDirectionLeftToRight CFLocaleLanguageDirection = 1
+	// KCFLocaleLanguageDirectionRightToLeft: # Discussion
+	KCFLocaleLanguageDirectionRightToLeft CFLocaleLanguageDirection = 2
+	// KCFLocaleLanguageDirectionTopToBottom: # Discussion
+	KCFLocaleLanguageDirectionTopToBottom CFLocaleLanguageDirection = 3
+	// KCFLocaleLanguageDirectionUnknown: # Discussion
+	KCFLocaleLanguageDirectionUnknown CFLocaleLanguageDirection = 0
 )
+
+func (e CFLocaleLanguageDirection) String() string {
+	switch e {
+	case KCFLocaleLanguageDirectionBottomToTop:
+		return "KCFLocaleLanguageDirectionBottomToTop"
+	case KCFLocaleLanguageDirectionLeftToRight:
+		return "KCFLocaleLanguageDirectionLeftToRight"
+	case KCFLocaleLanguageDirectionRightToLeft:
+		return "KCFLocaleLanguageDirectionRightToLeft"
+	case KCFLocaleLanguageDirectionTopToBottom:
+		return "KCFLocaleLanguageDirectionTopToBottom"
+	case KCFLocaleLanguageDirectionUnknown:
+		return "KCFLocaleLanguageDirectionUnknown"
+	default:
+		return fmt.Sprintf("CFLocaleLanguageDirection(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationSuspensionBehavior
 type CFNotificationSuspensionBehavior int
@@ -503,12 +530,16 @@ func (e CFNumberFormatterRoundingMode) String() string {
 type CFNumberFormatterStyle int
 
 const (
+	KCFNumberFormatterCurrencyAccountingStyle CFNumberFormatterStyle = 10
+	KCFNumberFormatterCurrencyISOCodeStyle    CFNumberFormatterStyle = 8
+	KCFNumberFormatterCurrencyPluralStyle     CFNumberFormatterStyle = 9
 	// KCFNumberFormatterCurrencyStyle: Specifies a currency style format.
 	KCFNumberFormatterCurrencyStyle CFNumberFormatterStyle = 2
 	// KCFNumberFormatterDecimalStyle: Specifies a decimal style format.
 	KCFNumberFormatterDecimalStyle CFNumberFormatterStyle = 1
 	// KCFNumberFormatterNoStyle: Specifies no style.
-	KCFNumberFormatterNoStyle CFNumberFormatterStyle = 0
+	KCFNumberFormatterNoStyle      CFNumberFormatterStyle = 0
+	KCFNumberFormatterOrdinalStyle CFNumberFormatterStyle = 6
 	// KCFNumberFormatterPercentStyle: Specifies a percent style format.
 	KCFNumberFormatterPercentStyle CFNumberFormatterStyle = 3
 	// KCFNumberFormatterScientificStyle: Specifies a scientific style format.
@@ -519,12 +550,20 @@ const (
 
 func (e CFNumberFormatterStyle) String() string {
 	switch e {
+	case KCFNumberFormatterCurrencyAccountingStyle:
+		return "KCFNumberFormatterCurrencyAccountingStyle"
+	case KCFNumberFormatterCurrencyISOCodeStyle:
+		return "KCFNumberFormatterCurrencyISOCodeStyle"
+	case KCFNumberFormatterCurrencyPluralStyle:
+		return "KCFNumberFormatterCurrencyPluralStyle"
 	case KCFNumberFormatterCurrencyStyle:
 		return "KCFNumberFormatterCurrencyStyle"
 	case KCFNumberFormatterDecimalStyle:
 		return "KCFNumberFormatterDecimalStyle"
 	case KCFNumberFormatterNoStyle:
 		return "KCFNumberFormatterNoStyle"
+	case KCFNumberFormatterOrdinalStyle:
+		return "KCFNumberFormatterOrdinalStyle"
 	case KCFNumberFormatterPercentStyle:
 		return "KCFNumberFormatterPercentStyle"
 	case KCFNumberFormatterScientificStyle:
@@ -542,25 +581,27 @@ type CFNumberType int
 const (
 	// KCFNumberCFIndexType: CFIndex value.
 	KCFNumberCFIndexType CFNumberType = 14
-	// KCFNumberCGFloatType: value.
+	// KCFNumberCGFloatType: [CGFloat] value.
 	KCFNumberCGFloatType CFNumberType = 16
-	// KCFNumberCharType: Basic C  type.
+	// KCFNumberCharType: Basic C `char` type.
 	KCFNumberCharType CFNumberType = 7
-	// KCFNumberDoubleType: Basic C  type.
+	// KCFNumberDoubleType: Basic C `double` type.
 	KCFNumberDoubleType CFNumberType = 13
 	// KCFNumberFloat32Type: Thirty-two-bit real.
 	KCFNumberFloat32Type CFNumberType = 5
 	// KCFNumberFloat64Type: Sixty-four-bit real.
 	KCFNumberFloat64Type CFNumberType = 6
-	// KCFNumberFloatType: Basic C  type.
+	// KCFNumberFloatType: Basic C `float` type.
 	KCFNumberFloatType CFNumberType = 12
-	// KCFNumberIntType: Basic C  type.
+	// KCFNumberIntType: Basic C `int` type.
 	KCFNumberIntType CFNumberType = 9
-	// KCFNumberLongLongType: Basic C  type.
+	// KCFNumberLongLongType: Basic C `long long` type.
 	KCFNumberLongLongType CFNumberType = 11
-	// KCFNumberLongType: Basic C  type.
+	// KCFNumberLongType: Basic C `long` type.
 	KCFNumberLongType CFNumberType = 10
-	// KCFNumberNSIntegerType: value.
+	// KCFNumberMaxType: Same as CFNumberType.cgFloatType.
+	KCFNumberMaxType CFNumberType = 16
+	// KCFNumberNSIntegerType: [NSInteger] value.
 	KCFNumberNSIntegerType CFNumberType = 15
 	// KCFNumberSInt16Type: Sixteen-bit, signed integer.
 	KCFNumberSInt16Type CFNumberType = 2
@@ -570,7 +611,7 @@ const (
 	KCFNumberSInt64Type CFNumberType = 4
 	// KCFNumberSInt8Type: Eight-bit, signed integer.
 	KCFNumberSInt8Type CFNumberType = 1
-	// KCFNumberShortType: Basic C  type.
+	// KCFNumberShortType: Basic C `short` type.
 	KCFNumberShortType CFNumberType = 8
 )
 
@@ -642,6 +683,8 @@ func (e CFPropertyListFormat) String() string {
 type CFPropertyListMutabilityOptions int
 
 const (
+	// KCFPropertyListImmutable: Specifies that the property list should be immutable.
+	KCFPropertyListImmutable CFPropertyListMutabilityOptions = 0
 	// KCFPropertyListMutableContainers: Specifies that the property list should have mutable containers but immutable leaves.
 	KCFPropertyListMutableContainers CFPropertyListMutabilityOptions = 1
 	// KCFPropertyListMutableContainersAndLeaves: Specifies that the property list should have mutable containers and mutable leaves.
@@ -650,6 +693,8 @@ const (
 
 func (e CFPropertyListMutabilityOptions) String() string {
 	switch e {
+	case KCFPropertyListImmutable:
+		return "KCFPropertyListImmutable"
 	case KCFPropertyListMutableContainers:
 		return "KCFPropertyListMutableContainers"
 	case KCFPropertyListMutableContainersAndLeaves:
@@ -708,7 +753,7 @@ const (
 	KCFRunLoopRunFinished CFRunLoopRunResult = 1
 	// KCFRunLoopRunHandledSource: A source has been processed.
 	KCFRunLoopRunHandledSource CFRunLoopRunResult = 4
-	// KCFRunLoopRunStopped: was called on the run loop.
+	// KCFRunLoopRunStopped: CFRunLoopStop(_:) was called on the run loop.
 	KCFRunLoopRunStopped CFRunLoopRunResult = 2
 	// KCFRunLoopRunTimedOut: The specified time interval for running the run loop has passed.
 	KCFRunLoopRunTimedOut CFRunLoopRunResult = 3
@@ -739,6 +784,8 @@ const (
 	KCFSocketConnectCallBack CFSocketCallBackType = 4
 	// KCFSocketDataCallBack: Incoming data will be read in chunks in the background and the callback is called with the data argument being a CFData object containing the read data.
 	KCFSocketDataCallBack CFSocketCallBackType = 3
+	// KCFSocketNoCallBack: No callback should be made for any activity.
+	KCFSocketNoCallBack CFSocketCallBackType = 0
 	// KCFSocketReadCallBack: The callback is called when data is available to be read or a new connection is waiting to be accepted.
 	KCFSocketReadCallBack CFSocketCallBackType = 1
 	// KCFSocketWriteCallBack: The callback is called when the socket is writable.
@@ -753,6 +800,8 @@ func (e CFSocketCallBackType) String() string {
 		return "KCFSocketConnectCallBack"
 	case KCFSocketDataCallBack:
 		return "KCFSocketDataCallBack"
+	case KCFSocketNoCallBack:
+		return "KCFSocketNoCallBack"
 	case KCFSocketReadCallBack:
 		return "KCFSocketReadCallBack"
 	case KCFSocketWriteCallBack:
@@ -793,9 +842,9 @@ type CFStreamErrorDomain int
 const (
 	// KCFStreamErrorDomainCustom: The error code is a custom error code.
 	KCFStreamErrorDomainCustom CFStreamErrorDomain = -1
-	// KCFStreamErrorDomainMacOSStatus: The error is an OSStatus value defined in .
+	// KCFStreamErrorDomainMacOSStatus: The error is an OSStatus value defined in `MacErrors.H()`.
 	KCFStreamErrorDomainMacOSStatus CFStreamErrorDomain = 2
-	// KCFStreamErrorDomainPOSIX: The error code is an error code defined in .
+	// KCFStreamErrorDomainPOSIX: The error code is an error code defined in `errno.H()`.
 	KCFStreamErrorDomainPOSIX CFStreamErrorDomain = 1
 )
 
@@ -824,6 +873,8 @@ const (
 	KCFStreamEventErrorOccurred CFStreamEventType = 8
 	// KCFStreamEventHasBytesAvailable: The stream has bytes to be read.
 	KCFStreamEventHasBytesAvailable CFStreamEventType = 2
+	// KCFStreamEventNone: No event has occurred.
+	KCFStreamEventNone CFStreamEventType = 0
 	// KCFStreamEventOpenCompleted: The open has completed successfully.
 	KCFStreamEventOpenCompleted CFStreamEventType = 1
 )
@@ -838,6 +889,8 @@ func (e CFStreamEventType) String() string {
 		return "KCFStreamEventErrorOccurred"
 	case KCFStreamEventHasBytesAvailable:
 		return "KCFStreamEventHasBytesAvailable"
+	case KCFStreamEventNone:
+		return "KCFStreamEventNone"
 	case KCFStreamEventOpenCompleted:
 		return "KCFStreamEventOpenCompleted"
 	default:
@@ -904,6 +957,8 @@ const (
 	KCFStringEncodingNextStepLatin CFStringBuiltInEncodings = 2817
 	// KCFStringEncodingNonLossyASCII: An encoding constant that identifies non-lossy ASCII encoding.
 	KCFStringEncodingNonLossyASCII CFStringBuiltInEncodings = 3071
+	// KCFStringEncodingUTF16: An encoding constant that identifies kTextEncodingUnicodeDefault + kUnicodeUTF16Format encoding (alias of kCFStringEncodingUnicode).
+	KCFStringEncodingUTF16 CFStringBuiltInEncodings = 256
 	// KCFStringEncodingUTF16BE: An encoding constant that identifies kTextEncodingUnicodeDefault + kUnicodeUTF16BEFormat encoding.
 	KCFStringEncodingUTF16BE CFStringBuiltInEncodings = 268435712
 	// KCFStringEncodingUTF16LE: An encoding constant that identifies kTextEncodingUnicodeDefault + kUnicodeUTF16LEFormat encoding.
@@ -934,6 +989,8 @@ func (e CFStringBuiltInEncodings) String() string {
 		return "KCFStringEncodingNextStepLatin"
 	case KCFStringEncodingNonLossyASCII:
 		return "KCFStringEncodingNonLossyASCII"
+	case KCFStringEncodingUTF16:
+		return "KCFStringEncodingUTF16"
 	case KCFStringEncodingUTF16BE:
 		return "KCFStringEncodingUTF16BE"
 	case KCFStringEncodingUTF16LE:
@@ -946,8 +1003,6 @@ func (e CFStringBuiltInEncodings) String() string {
 		return "KCFStringEncodingUTF32LE"
 	case KCFStringEncodingUTF8:
 		return "KCFStringEncodingUTF8"
-	case KCFStringEncodingUnicode:
-		return "KCFStringEncodingUnicode"
 	case KCFStringEncodingWindowsLatin1:
 		return "KCFStringEncodingWindowsLatin1"
 	default:
@@ -1077,7 +1132,9 @@ const (
 	// KCFStringEncodingEUC_TW: ISO 646, CNS 11643-1992 Planes 1-16.
 	KCFStringEncodingEUC_TW CFStringEncodings = 2353
 	// KCFStringEncodingGBK_95: Annex to GB 13000-93; for Windows 95.
-	KCFStringEncodingGBK_95 CFStringEncodings = 1585
+	KCFStringEncodingGBK_95        CFStringEncodings = 1585
+	KCFStringEncodingGB_18030_2000 CFStringEncodings = 1586
+	KCFStringEncodingGB_2312_80    CFStringEncodings = 1584
 	// KCFStringEncodingHZ_GB_2312: HZ (RFC 1842, for Chinese mail & news).
 	KCFStringEncodingHZ_GB_2312 CFStringEncodings = 2565
 	// KCFStringEncodingISOLatin10: ISO 8859-16.
@@ -1107,11 +1164,21 @@ const (
 	// KCFStringEncodingISOLatinHebrew: ISO 8859-8.
 	KCFStringEncodingISOLatinHebrew CFStringEncodings = 520
 	// KCFStringEncodingISOLatinThai: ISO 8859-11.
-	KCFStringEncodingISOLatinThai CFStringEncodings = 523
+	KCFStringEncodingISOLatinThai    CFStringEncodings = 523
+	KCFStringEncodingISO_2022_CN     CFStringEncodings = 2096
+	KCFStringEncodingISO_2022_CN_EXT CFStringEncodings = 2097
+	KCFStringEncodingISO_2022_JP     CFStringEncodings = 2080
 	// KCFStringEncodingISO_2022_JP_1: RFC 2237.
 	KCFStringEncodingISO_2022_JP_1 CFStringEncodings = 2082
+	KCFStringEncodingISO_2022_JP_2 CFStringEncodings = 2081
 	// KCFStringEncodingISO_2022_JP_3: JIS X0213.
 	KCFStringEncodingISO_2022_JP_3 CFStringEncodings = 2083
+	KCFStringEncodingISO_2022_KR   CFStringEncodings = 2112
+	KCFStringEncodingJIS_C6226_78  CFStringEncodings = 1572
+	KCFStringEncodingJIS_X0201_76  CFStringEncodings = 1568
+	KCFStringEncodingJIS_X0208_83  CFStringEncodings = 1569
+	KCFStringEncodingJIS_X0208_90  CFStringEncodings = 1570
+	KCFStringEncodingJIS_X0212_90  CFStringEncodings = 1571
 	// KCFStringEncodingKOI8_R: Russian internet standard.
 	KCFStringEncodingKOI8_R CFStringEncodings = 2562
 	// KCFStringEncodingKOI8_U: RFC 2319, Ukrainian.
@@ -1119,21 +1186,63 @@ const (
 	// KCFStringEncodingKSC_5601_87: Same as KSC 5601-92 without Johab annex.
 	KCFStringEncodingKSC_5601_87 CFStringEncodings = 1600
 	// KCFStringEncodingKSC_5601_92_Johab: KSC 5601-92 Johab annex.
-	KCFStringEncodingKSC_5601_92_Johab CFStringEncodings = 1601
+	KCFStringEncodingKSC_5601_92_Johab  CFStringEncodings = 1601
+	KCFStringEncodingMacArabic          CFStringEncodings = 4
+	KCFStringEncodingMacArmenian        CFStringEncodings = 24
+	KCFStringEncodingMacBengali         CFStringEncodings = 13
+	KCFStringEncodingMacBurmese         CFStringEncodings = 19
+	KCFStringEncodingMacCeltic          CFStringEncodings = 39
+	KCFStringEncodingMacCentralEurRoman CFStringEncodings = 29
+	KCFStringEncodingMacChineseSimp     CFStringEncodings = 25
+	KCFStringEncodingMacChineseTrad     CFStringEncodings = 2
+	KCFStringEncodingMacCroatian        CFStringEncodings = 36
+	KCFStringEncodingMacCyrillic        CFStringEncodings = 7
+	KCFStringEncodingMacDevanagari      CFStringEncodings = 9
+	KCFStringEncodingMacDingbats        CFStringEncodings = 34
+	KCFStringEncodingMacEthiopic        CFStringEncodings = 28
+	KCFStringEncodingMacExtArabic       CFStringEncodings = 31
 	// KCFStringEncodingMacFarsi: Like MacArabic but uses Farsi digits.
-	KCFStringEncodingMacFarsi CFStringEncodings = 140
+	KCFStringEncodingMacFarsi    CFStringEncodings = 140
+	KCFStringEncodingMacGaelic   CFStringEncodings = 40
+	KCFStringEncodingMacGeorgian CFStringEncodings = 23
+	KCFStringEncodingMacGreek    CFStringEncodings = 6
+	KCFStringEncodingMacGujarati CFStringEncodings = 11
+	KCFStringEncodingMacGurmukhi CFStringEncodings = 10
 	// KCFStringEncodingMacHFS: Meta-value, should never appear in a table.
-	KCFStringEncodingMacHFS CFStringEncodings = 255
+	KCFStringEncodingMacHFS       CFStringEncodings = 255
+	KCFStringEncodingMacHebrew    CFStringEncodings = 5
+	KCFStringEncodingMacIcelandic CFStringEncodings = 37
+	KCFStringEncodingMacInuit     CFStringEncodings = 236
+	KCFStringEncodingMacJapanese  CFStringEncodings = 1
+	KCFStringEncodingMacKannada   CFStringEncodings = 16
+	KCFStringEncodingMacKhmer     CFStringEncodings = 20
+	KCFStringEncodingMacKorean    CFStringEncodings = 3
+	KCFStringEncodingMacLaotian   CFStringEncodings = 22
+	KCFStringEncodingMacMalayalam CFStringEncodings = 17
+	KCFStringEncodingMacMongolian CFStringEncodings = 27
+	KCFStringEncodingMacOriya     CFStringEncodings = 12
 	// KCFStringEncodingMacRomanLatin1: Mac OS Roman permuted to align with ISO Latin-1.
 	KCFStringEncodingMacRomanLatin1 CFStringEncodings = 2564
+	KCFStringEncodingMacRomanian    CFStringEncodings = 38
+	KCFStringEncodingMacSinhalese   CFStringEncodings = 18
+	KCFStringEncodingMacSymbol      CFStringEncodings = 33
+	KCFStringEncodingMacTamil       CFStringEncodings = 14
+	KCFStringEncodingMacTelugu      CFStringEncodings = 15
+	KCFStringEncodingMacThai        CFStringEncodings = 21
+	KCFStringEncodingMacTibetan     CFStringEncodings = 26
+	KCFStringEncodingMacTurkish     CFStringEncodings = 35
+	KCFStringEncodingMacUkrainian   CFStringEncodings = 152
 	// KCFStringEncodingMacVT100: VT100102 font from Comm Toolbox: Latin-1 repertoire + box drawing etc.
-	KCFStringEncodingMacVT100 CFStringEncodings = 252
+	KCFStringEncodingMacVT100      CFStringEncodings = 252
+	KCFStringEncodingMacVietnamese CFStringEncodings = 30
 	// KCFStringEncodingNextStepJapanese: NextStep Japanese encoding.
 	KCFStringEncodingNextStepJapanese CFStringEncodings = 2818
 	// KCFStringEncodingShiftJIS: Plain Shift-JIS.
 	KCFStringEncodingShiftJIS CFStringEncodings = 2561
 	// KCFStringEncodingShiftJIS_X0213: Shift-JIS format encoding of JIS X0213 planes 1 and 2.
 	KCFStringEncodingShiftJIS_X0213 CFStringEncodings = 1576
+	// KCFStringEncodingShiftJIS_X0213_00: Shift-JIS format encoding of JIS X0213 planes 1 and 2.
+	KCFStringEncodingShiftJIS_X0213_00 CFStringEncodings = 1576
 	// KCFStringEncodingShiftJIS_X0213_MenKuTen: JIS X0213 in plane-row-column notation.
 	KCFStringEncodingShiftJIS_X0213_MenKuTen CFStringEncodings = 1577
 	// KCFStringEncodingUTF7: kTextEncodingUnicodeDefault + kUnicodeUTF7Format RFC2152.
@@ -1234,6 +1343,10 @@ func (e CFStringEncodings) String() string {
 		return "KCFStringEncodingEUC_TW"
 	case KCFStringEncodingGBK_95:
 		return "KCFStringEncodingGBK_95"
+	case KCFStringEncodingGB_18030_2000:
+		return "KCFStringEncodingGB_18030_2000"
+	case KCFStringEncodingGB_2312_80:
+		return "KCFStringEncodingGB_2312_80"
 	case KCFStringEncodingHZ_GB_2312:
 		return "KCFStringEncodingHZ_GB_2312"
 	case KCFStringEncodingISOLatin10:
@@ -1264,10 +1377,30 @@ func (e CFStringEncodings) String() string {
 		return "KCFStringEncodingISOLatinHebrew"
 	case KCFStringEncodingISOLatinThai:
 		return "KCFStringEncodingISOLatinThai"
+	case KCFStringEncodingISO_2022_CN:
+		return "KCFStringEncodingISO_2022_CN"
+	case KCFStringEncodingISO_2022_CN_EXT:
+		return "KCFStringEncodingISO_2022_CN_EXT"
+	case KCFStringEncodingISO_2022_JP:
+		return "KCFStringEncodingISO_2022_JP"
 	case KCFStringEncodingISO_2022_JP_1:
 		return "KCFStringEncodingISO_2022_JP_1"
+	case KCFStringEncodingISO_2022_JP_2:
+		return "KCFStringEncodingISO_2022_JP_2"
 	case KCFStringEncodingISO_2022_JP_3:
 		return "KCFStringEncodingISO_2022_JP_3"
+	case KCFStringEncodingISO_2022_KR:
+		return "KCFStringEncodingISO_2022_KR"
+	case KCFStringEncodingJIS_C6226_78:
+		return "KCFStringEncodingJIS_C6226_78"
+	case KCFStringEncodingJIS_X0201_76:
+		return "KCFStringEncodingJIS_X0201_76"
+	case KCFStringEncodingJIS_X0208_83:
+		return "KCFStringEncodingJIS_X0208_83"
+	case KCFStringEncodingJIS_X0208_90:
+		return "KCFStringEncodingJIS_X0208_90"
+	case KCFStringEncodingJIS_X0212_90:
+		return "KCFStringEncodingJIS_X0212_90"
 	case KCFStringEncodingKOI8_R:
 		return "KCFStringEncodingKOI8_R"
 	case KCFStringEncodingKOI8_U:
@@ -1276,14 +1409,94 @@ func (e CFStringEncodings) String() string {
 		return "KCFStringEncodingKSC_5601_87"
 	case KCFStringEncodingKSC_5601_92_Johab:
 		return "KCFStringEncodingKSC_5601_92_Johab"
+	case KCFStringEncodingMacArabic:
+		return "KCFStringEncodingMacArabic"
+	case KCFStringEncodingMacArmenian:
+		return "KCFStringEncodingMacArmenian"
+	case KCFStringEncodingMacBengali:
+		return "KCFStringEncodingMacBengali"
+	case KCFStringEncodingMacBurmese:
+		return "KCFStringEncodingMacBurmese"
+	case KCFStringEncodingMacCeltic:
+		return "KCFStringEncodingMacCeltic"
+	case KCFStringEncodingMacCentralEurRoman:
+		return "KCFStringEncodingMacCentralEurRoman"
+	case KCFStringEncodingMacChineseSimp:
+		return "KCFStringEncodingMacChineseSimp"
+	case KCFStringEncodingMacChineseTrad:
+		return "KCFStringEncodingMacChineseTrad"
+	case KCFStringEncodingMacCroatian:
+		return "KCFStringEncodingMacCroatian"
+	case KCFStringEncodingMacCyrillic:
+		return "KCFStringEncodingMacCyrillic"
+	case KCFStringEncodingMacDevanagari:
+		return "KCFStringEncodingMacDevanagari"
+	case KCFStringEncodingMacDingbats:
+		return "KCFStringEncodingMacDingbats"
+	case KCFStringEncodingMacEthiopic:
+		return "KCFStringEncodingMacEthiopic"
+	case KCFStringEncodingMacExtArabic:
+		return "KCFStringEncodingMacExtArabic"
 	case KCFStringEncodingMacFarsi:
 		return "KCFStringEncodingMacFarsi"
+	case KCFStringEncodingMacGaelic:
+		return "KCFStringEncodingMacGaelic"
+	case KCFStringEncodingMacGeorgian:
+		return "KCFStringEncodingMacGeorgian"
+	case KCFStringEncodingMacGreek:
+		return "KCFStringEncodingMacGreek"
+	case KCFStringEncodingMacGujarati:
+		return "KCFStringEncodingMacGujarati"
+	case KCFStringEncodingMacGurmukhi:
+		return "KCFStringEncodingMacGurmukhi"
 	case KCFStringEncodingMacHFS:
 		return "KCFStringEncodingMacHFS"
+	case KCFStringEncodingMacHebrew:
+		return "KCFStringEncodingMacHebrew"
+	case KCFStringEncodingMacIcelandic:
+		return "KCFStringEncodingMacIcelandic"
+	case KCFStringEncodingMacInuit:
+		return "KCFStringEncodingMacInuit"
+	case KCFStringEncodingMacJapanese:
+		return "KCFStringEncodingMacJapanese"
+	case KCFStringEncodingMacKannada:
+		return "KCFStringEncodingMacKannada"
+	case KCFStringEncodingMacKhmer:
+		return "KCFStringEncodingMacKhmer"
+	case KCFStringEncodingMacKorean:
+		return "KCFStringEncodingMacKorean"
+	case KCFStringEncodingMacLaotian:
+		return "KCFStringEncodingMacLaotian"
+	case KCFStringEncodingMacMalayalam:
+		return "KCFStringEncodingMacMalayalam"
+	case KCFStringEncodingMacMongolian:
+		return "KCFStringEncodingMacMongolian"
+	case KCFStringEncodingMacOriya:
+		return "KCFStringEncodingMacOriya"
 	case KCFStringEncodingMacRomanLatin1:
 		return "KCFStringEncodingMacRomanLatin1"
+	case KCFStringEncodingMacRomanian:
+		return "KCFStringEncodingMacRomanian"
+	case KCFStringEncodingMacSinhalese:
+		return "KCFStringEncodingMacSinhalese"
+	case KCFStringEncodingMacSymbol:
+		return "KCFStringEncodingMacSymbol"
+	case KCFStringEncodingMacTamil:
+		return "KCFStringEncodingMacTamil"
+	case KCFStringEncodingMacTelugu:
+		return "KCFStringEncodingMacTelugu"
+	case KCFStringEncodingMacThai:
+		return "KCFStringEncodingMacThai"
+	case KCFStringEncodingMacTibetan:
+		return "KCFStringEncodingMacTibetan"
+	case KCFStringEncodingMacTurkish:
+		return "KCFStringEncodingMacTurkish"
+	case KCFStringEncodingMacUkrainian:
+		return "KCFStringEncodingMacUkrainian"
 	case KCFStringEncodingMacVT100:
 		return "KCFStringEncodingMacVT100"
+	case KCFStringEncodingMacVietnamese:
+		return "KCFStringEncodingMacVietnamese"
 	case KCFStringEncodingNextStepJapanese:
 		return "KCFStringEncodingNextStepJapanese"
 	case KCFStringEncodingShiftJIS:
@@ -1364,6 +1577,8 @@ const (
 	KCFStringTokenizerTokenHasSubTokensMask CFStringTokenizerTokenType = 2
 	// KCFStringTokenizerTokenIsCJWordMask: Contains kana and/or ideographs.
 	KCFStringTokenizerTokenIsCJWordMask CFStringTokenizerTokenType = 32
+	// KCFStringTokenizerTokenNone: Has no token.
+	KCFStringTokenizerTokenNone CFStringTokenizerTokenType = 0
 	// KCFStringTokenizerTokenNormal: Has a normal token.
 	KCFStringTokenizerTokenNormal CFStringTokenizerTokenType = 1
 )
@@ -1380,6 +1595,8 @@ func (e CFStringTokenizerTokenType) String() string {
 		return "KCFStringTokenizerTokenHasSubTokensMask"
 	case KCFStringTokenizerTokenIsCJWordMask:
 		return "KCFStringTokenizerTokenIsCJWordMask"
+	case KCFStringTokenizerTokenNone:
+		return "KCFStringTokenizerTokenNone"
 	case KCFStringTokenizerTokenNormal:
 		return "KCFStringTokenizerTokenNormal"
 	default:
@@ -1435,7 +1652,7 @@ const (
 	// KCFURLBookmarkCreationSuitableForBookmarkFile: Specifies that the bookmark data include properties required to create Finder alias files.
 	KCFURLBookmarkCreationSuitableForBookmarkFile CFURLBookmarkCreationOptions = 1024
 	// KCFURLBookmarkCreationWithSecurityScope: Specifies that you want to create a security-scoped bookmark that, when resolved, provides a security-scoped URL allowing read/write access to a file-system resource; for use in an app that adopts App Sandbox.
-	KCFURLBookmarkCreationWithSecurityScope CFURLBookmarkCreationOptions = 2048
+	KCFURLBookmarkCreationWithSecurityScope            CFURLBookmarkCreationOptions = 2048
 	KCFURLBookmarkCreationWithoutImplicitSecurityScope CFURLBookmarkCreationOptions = 536870912
 	// Deprecated.
 	KCFURLBookmarkCreationPreferFileIDResolutionMask CFURLBookmarkCreationOptions = 536870913
@@ -1469,10 +1686,10 @@ const (
 	// KCFBookmarkResolutionWithoutUIMask: Specifies that no UI feedback accompany resolution of the bookmark data.
 	KCFBookmarkResolutionWithoutUIMask CFURLBookmarkResolutionOptions = 256
 	// KCFURLBookmarkResolutionWithSecurityScope: Specifies that the security scope, applied to the bookmark when it was created, should be used during resolution of the bookmark data.
-	KCFURLBookmarkResolutionWithSecurityScope CFURLBookmarkResolutionOptions = 1024
+	KCFURLBookmarkResolutionWithSecurityScope             CFURLBookmarkResolutionOptions = 1024
 	KCFURLBookmarkResolutionWithoutImplicitStartAccessing CFURLBookmarkResolutionOptions = 32768
-	KCFURLBookmarkResolutionWithoutMountingMask CFURLBookmarkResolutionOptions = 512
-	KCFURLBookmarkResolutionWithoutUIMask CFURLBookmarkResolutionOptions = 256
+	KCFURLBookmarkResolutionWithoutMountingMask           CFURLBookmarkResolutionOptions = 512
+	KCFURLBookmarkResolutionWithoutUIMask                 CFURLBookmarkResolutionOptions = 256
 )
 
 func (e CFURLBookmarkResolutionOptions) String() string {
@@ -1555,11 +1772,13 @@ func (e CFURLComponentType) String() string {
 type CFURLEnumeratorOptions int
 
 const (
+	// KCFURLEnumeratorDefaultBehavior: The enumerator performs its default behavior.
+	KCFURLEnumeratorDefaultBehavior CFURLEnumeratorOptions = 0
 	// KCFURLEnumeratorDescendRecursively: The enumerator recurses into each subdirectory enumerated.
 	KCFURLEnumeratorDescendRecursively CFURLEnumeratorOptions = 1
 	// KCFURLEnumeratorGenerateFileReferenceURLs: The enumerator generates file reference URLs instead of file path URLs.
 	KCFURLEnumeratorGenerateFileReferenceURLs CFURLEnumeratorOptions = 4
-	KCFURLEnumeratorGenerateRelativePathURLs CFURLEnumeratorOptions = 64
+	KCFURLEnumeratorGenerateRelativePathURLs  CFURLEnumeratorOptions = 64
 	// KCFURLEnumeratorIncludeDirectoriesPostOrder: If provided along with the KCFURLEnumeratorDescendRecursively option, the recursive enumerator returns a directory’s URL after returning the URLs of the directory’s descendents.
 	KCFURLEnumeratorIncludeDirectoriesPostOrder CFURLEnumeratorOptions = 32
 	// KCFURLEnumeratorIncludeDirectoriesPreOrder: If provided along with the KCFURLEnumeratorDescendRecursively option, the recursive enumerator returns a directory’s URL before returning the URLs of the directory’s descendents.
@@ -1572,6 +1791,8 @@ const (
 
 func (e CFURLEnumeratorOptions) String() string {
 	switch e {
+	case KCFURLEnumeratorDefaultBehavior:
+		return "KCFURLEnumeratorDefaultBehavior"
 	case KCFURLEnumeratorDescendRecursively:
 		return "KCFURLEnumeratorDescendRecursively"
 	case KCFURLEnumeratorGenerateFileReferenceURLs:
@@ -1624,23 +1845,23 @@ func (e CFURLEnumeratorResult) String() string {
 type CFURLError int
 
 const (
-	// KCFURLImproperArgumentsError: Indicates one or more arguments are improper.
+	// Deprecated.
 	KCFURLImproperArgumentsError CFURLError = -15
-	// KCFURLPropertyKeyUnavailableError: Indicates a property key was unavailable.
+	// Deprecated.
 	KCFURLPropertyKeyUnavailableError CFURLError = -17
-	// KCFURLRemoteHostUnavailableError: Indicates a remote host is unavailable.
+	// Deprecated.
 	KCFURLRemoteHostUnavailableError CFURLError = -14
-	// KCFURLResourceAccessViolationError: Indicates an error in accessing a resource.
+	// Deprecated.
 	KCFURLResourceAccessViolationError CFURLError = -13
-	// KCFURLResourceNotFoundError: Indicates a resource was not found.
+	// Deprecated.
 	KCFURLResourceNotFoundError CFURLError = -12
-	// KCFURLTimeoutError: Indicates a timeout.
+	// Deprecated.
 	KCFURLTimeoutError CFURLError = -18
-	// KCFURLUnknownError: Indicates an unknown error.
+	// Deprecated.
 	KCFURLUnknownError CFURLError = -10
-	// KCFURLUnknownPropertyKeyError: Indicates a property key is unknown.
+	// Deprecated.
 	KCFURLUnknownPropertyKeyError CFURLError = -16
-	// KCFURLUnknownSchemeError: Indicates that the scheme is not recognized.
+	// Deprecated.
 	KCFURLUnknownSchemeError CFURLError = -11
 )
 
@@ -1673,22 +1894,22 @@ func (e CFURLError) String() string {
 type CFURLPathStyle int
 
 const (
-	// KCFURLHFSPathStyle: Indicates a HFS style path name.
-	KCFURLHFSPathStyle CFURLPathStyle = 1
 	// KCFURLPOSIXPathStyle: Indicates a POSIX style path name.
 	KCFURLPOSIXPathStyle CFURLPathStyle = 0
 	// KCFURLWindowsPathStyle: Indicates a Windows style path name.
 	KCFURLWindowsPathStyle CFURLPathStyle = 2
+	// Deprecated.
+	KCFURLHFSPathStyle CFURLPathStyle = 1
 )
 
 func (e CFURLPathStyle) String() string {
 	switch e {
-	case KCFURLHFSPathStyle:
-		return "KCFURLHFSPathStyle"
 	case KCFURLPOSIXPathStyle:
 		return "KCFURLPOSIXPathStyle"
 	case KCFURLWindowsPathStyle:
 		return "KCFURLWindowsPathStyle"
+	case KCFURLHFSPathStyle:
+		return "KCFURLHFSPathStyle"
 	default:
 		return fmt.Sprintf("CFURLPathStyle(%d)", e)
 	}
@@ -1735,6 +1956,8 @@ const (
 	KCFXMLParserAddImpliedAttributes CFXMLParserOptions = 32
 	// KCFXMLParserAllOptions: Makes the parser do the most work, returning only the pure elementtree.
 	KCFXMLParserAllOptions CFXMLParserOptions = 16777215
+	// KCFXMLParserNoOptions: Leaves the XML as “intact” as possible (reports all structures; performs no replacements).
+	KCFXMLParserNoOptions CFXMLParserOptions = 0
 	// KCFXMLParserReplacePhysicalEntities: Replaces declared entities like `&lt`;.
 	KCFXMLParserReplacePhysicalEntities CFXMLParserOptions = 4
 	// KCFXMLParserResolveExternalEntities: Resolves all external entities.
@@ -1753,6 +1976,8 @@ func (e CFXMLParserOptions) String() string {
 		return "KCFXMLParserAddImpliedAttributes"
 	case KCFXMLParserAllOptions:
 		return "KCFXMLParserAllOptions"
+	case KCFXMLParserNoOptions:
+		return "KCFXMLParserNoOptions"
 	case KCFXMLParserReplacePhysicalEntities:
 		return "KCFXMLParserReplacePhysicalEntities"
 	case KCFXMLParserResolveExternalEntities:
@@ -1806,6 +2031,8 @@ const (
 	KCFXMLStatusParseInProgress CFXMLParserStatusCode = -1
 	// KCFXMLStatusParseNotBegun: Indicates the parser has not begun.
 	KCFXMLStatusParseNotBegun CFXMLParserStatusCode = -2
+	// KCFXMLStatusParseSuccessful: Indicates the parser was successful.
+	KCFXMLStatusParseSuccessful CFXMLParserStatusCode = 0
 )
 
 func (e CFXMLParserStatusCode) String() string {
@@ -1844,6 +2071,8 @@ func (e CFXMLParserStatusCode) String() string {
 		return "KCFXMLStatusParseInProgress"
 	case KCFXMLStatusParseNotBegun:
 		return "KCFXMLStatusParseNotBegun"
+	case KCFXMLStatusParseSuccessful:
+		return "KCFXMLStatusParseSuccessful"
 	default:
 		return fmt.Sprintf("CFXMLParserStatusCode(%d)", e)
 	}
@@ -1854,6 +2083,7 @@ type CGRectEdge uint32
 
 const (
 	CGRectMaxXEdge CGRectEdge = 2
+	CGRectMaxYEdge CGRectEdge = 3
 	CGRectMinXEdge CGRectEdge = 0
 	CGRectMinYEdge CGRectEdge = 1
 )
@@ -1862,6 +2092,8 @@ func (e CGRectEdge) String() string {
 	switch e {
 	case CGRectMaxXEdge:
 		return "CGRectMaxXEdge"
+	case CGRectMaxYEdge:
+		return "CGRectMaxYEdge"
 	case CGRectMinXEdge:
 		return "CGRectMinXEdge"
 	case CGRectMinYEdge:
@@ -1902,7 +2134,21 @@ func (e KCFBundleExecutableArchitecture) String() string {
 	}
 }
 
-const KCFCalendarComponentsWrap uint = 1
+type KCFCalendarComponents uint
+
+const (
+	// KCFCalendarComponentsWrap: Specifies that the components specified for calendar components should be incremented and wrap around to zero/one on overflow, but should not cause higher units to be incremented.
+	KCFCalendarComponentsWrap KCFCalendarComponents = 1
+)
+
+func (e KCFCalendarComponents) String() string {
+	switch e {
+	case KCFCalendarComponentsWrap:
+		return "KCFCalendarComponentsWrap"
+	default:
+		return fmt.Sprintf("KCFCalendarComponents(%d)", e)
+	}
+}
 
 type KCFFileDescriptor uint
 
@@ -2127,4 +2373,3 @@ func (e KCFUserNotification) String() string {
 		return fmt.Sprintf("KCFUserNotification(%d)", e)
 	}
 }
-

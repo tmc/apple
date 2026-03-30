@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (dc DiskImageGraphNodeClass) Alloc() DiskImageGraphNode {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DiskImageGraphNode.URL]
@@ -75,6 +75,7 @@ func (dc DiskImageGraphNodeClass) Alloc() DiskImageGraphNode {
 //   - [DiskImageGraphNode.ValidateAppendedImageWithInfoError]
 //   - [DiskImageGraphNode.InitWithDictionaryWorkDirError]
 //   - [DiskImageGraphNode.InitWithTagUUIDParentNodeMetadataIsCache]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode
 type DiskImageGraphNode struct {
 	objectivec.Object
@@ -84,6 +85,7 @@ type DiskImageGraphNode struct {
 func DiskImageGraphNodeFromID(id objc.ID) DiskImageGraphNode {
 	return DiskImageGraphNode{objectivec.Object{ID: id}}
 }
+
 // Ensure DiskImageGraphNode implements IDiskImageGraphNode.
 var _ IDiskImageGraphNode = DiskImageGraphNode{}
 
@@ -175,7 +177,6 @@ func NewDiskImageGraphNode() DiskImageGraphNode {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/initWithDictionary:workDir:error:
 func NewDiskImageGraphNodeWithDictionaryWorkDirError(dictionary objectivec.IObject, dir objectivec.IObject) (DiskImageGraphNode, error) {
 	var errorPtr objc.ID
@@ -188,7 +189,6 @@ func NewDiskImageGraphNodeWithDictionaryWorkDirError(dictionary objectivec.IObje
 	return DiskImageGraphNodeFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/initWithTag:UUID:parentNode:metadata:isCache:
 func NewDiskImageGraphNodeWithTagUUIDParentNodeMetadataIsCache(tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) DiskImageGraphNode {
 	instance := getDiskImageGraphNodeClass().Alloc()
@@ -196,12 +196,11 @@ func NewDiskImageGraphNodeWithTagUUIDParentNodeMetadataIsCache(tag objectivec.IO
 	return DiskImageGraphNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/addDecendantsToArray:
 func (d DiskImageGraphNode) AddDecendantsToArray(array objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("addDecendantsToArray:"), array)
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/childrenInfoWithExtra:error:
 func (d DiskImageGraphNode) ChildrenInfoWithExtraError(extra bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -213,22 +212,25 @@ func (d DiskImageGraphNode) ChildrenInfoWithExtraError(extra bool) (objectivec.I
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/deleteImage
 func (d DiskImageGraphNode) DeleteImage() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("deleteImage"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/getChildren
 func (d DiskImageGraphNode) GetChildren() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("getChildren"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/getDescendants
 func (d DiskImageGraphNode) GetDescendants() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("getDescendants"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/infoWithExtra:error:
 func (d DiskImageGraphNode) InfoWithExtraError(extra bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -240,7 +242,7 @@ func (d DiskImageGraphNode) InfoWithExtraError(extra bool) (objectivec.IObject, 
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/recursiveInfoWithExtra:error:
 func (d DiskImageGraphNode) RecursiveInfoWithExtraError(extra bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -252,22 +254,19 @@ func (d DiskImageGraphNode) RecursiveInfoWithExtraError(extra bool) (objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
-// See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/setIsCache:
-func (d DiskImageGraphNode) SetIsCache(cache bool) {
-	objc.Send[objc.ID](d.ID, objc.Sel("setIsCache:"), cache)
-}
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/toDIShadowNode
 func (d DiskImageGraphNode) ToDIShadowNode() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("toDIShadowNode"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/toDictionary
 func (d DiskImageGraphNode) ToDictionary() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("toDictionary"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/validateAppendedImageWithInfo:error:
 func (d DiskImageGraphNode) ValidateAppendedImageWithInfoError(info objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -282,7 +281,7 @@ func (d DiskImageGraphNode) ValidateAppendedImageWithInfoError(info objectivec.I
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/initWithDictionary:workDir:error:
 func (d DiskImageGraphNode) InitWithDictionaryWorkDirError(dictionary objectivec.IObject, dir objectivec.IObject) (DiskImageGraphNode, error) {
 	var errorPtr objc.ID
@@ -294,14 +293,13 @@ func (d DiskImageGraphNode) InitWithDictionaryWorkDirError(dictionary objectivec
 	return DiskImageGraphNodeFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/initWithTag:UUID:parentNode:metadata:isCache:
 func (d DiskImageGraphNode) InitWithTagUUIDParentNodeMetadataIsCache(tag objectivec.IObject, uid objectivec.IObject, node objectivec.IObject, metadata objectivec.IObject, cache bool) DiskImageGraphNode {
 	rv := objc.Send[DiskImageGraphNode](d.ID, objc.Sel("initWithTag:UUID:parentNode:metadata:isCache:"), tag, uid, node, metadata, cache)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/GraphNodeWithDictionary:workDir:error:
 func (_DiskImageGraphNodeClass DiskImageGraphNodeClass) GraphNodeWithDictionaryWorkDirError(dictionary objectivec.IObject, dir objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -313,7 +311,7 @@ func (_DiskImageGraphNodeClass DiskImageGraphNodeClass) GraphNodeWithDictionaryW
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/validateWithDictionary:error:
 func (_DiskImageGraphNodeClass DiskImageGraphNodeClass) ValidateWithDictionaryError(dictionary objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -334,6 +332,7 @@ func (d DiskImageGraphNode) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/UUID
 func (d DiskImageGraphNode) UUID() foundation.NSUUID {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("UUID"))
@@ -342,16 +341,19 @@ func (d DiskImageGraphNode) UUID() foundation.NSUUID {
 func (d DiskImageGraphNode) SetUUID(value foundation.NSUUID) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUUID:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/children
 func (d DiskImageGraphNode) Children() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("children"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/isCache
 func (d DiskImageGraphNode) IsCache() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isCache"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/metadata
 func (d DiskImageGraphNode) Metadata() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("metadata"))
@@ -360,6 +362,7 @@ func (d DiskImageGraphNode) Metadata() foundation.INSDictionary {
 func (d DiskImageGraphNode) SetMetadata(value foundation.INSDictionary) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMetadata:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/mutableChildren
 func (d DiskImageGraphNode) MutableChildren() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("mutableChildren"))
@@ -368,6 +371,7 @@ func (d DiskImageGraphNode) MutableChildren() foundation.INSArray {
 func (d DiskImageGraphNode) SetMutableChildren(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMutableChildren:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/parent
 func (d DiskImageGraphNode) Parent() IDiskImageGraphNode {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("parent"))
@@ -376,11 +380,13 @@ func (d DiskImageGraphNode) Parent() IDiskImageGraphNode {
 func (d DiskImageGraphNode) SetParent(value IDiskImageGraphNode) {
 	objc.Send[struct{}](d.ID, objc.Sel("setParent:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/parentUUID
 func (d DiskImageGraphNode) ParentUUID() foundation.NSUUID {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("parentUUID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/pstackDict
 func (d DiskImageGraphNode) PstackDict() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("pstackDict"))
@@ -389,6 +395,7 @@ func (d DiskImageGraphNode) PstackDict() foundation.INSDictionary {
 func (d DiskImageGraphNode) SetPstackDict(value foundation.INSDictionary) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPstackDict:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraphNode/tag
 func (d DiskImageGraphNode) Tag() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("tag"))
@@ -397,4 +404,3 @@ func (d DiskImageGraphNode) Tag() string {
 func (d DiskImageGraphNode) SetTag(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTag:"), objc.String(value))
 }
-

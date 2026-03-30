@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSSegmentedControlClass) Alloc() NSSegmentedControl {
 // Display one or more buttons in a single horizontal group.
 //
 // # Overview
-// 
+//
 // The [NSSegmentedControl] class uses an [NSSegmentedCell] class to implement
 // much of the control’s functionality. Most methods in [NSSegmentedControl]
 // are simply cover methods that call the corresponding method in
@@ -54,9 +55,9 @@ func (nc NSSegmentedControlClass) Alloc() NSSegmentedControl {
 // relate to accessing and setting values for tags and tooltips,
 // programatically setting the key segment, and establishing the mode of the
 // control.
-// 
+//
 // The features of a segmented control include the following:
-// 
+//
 // - A segment can have an image, text (label), menu, tooltip, and tag. - A
 // segmented control can contain images or text, but not both. - Either the
 // control or individual segments can be enabled or disabled. - Segmented
@@ -68,8 +69,6 @@ func (nc NSSegmentedControlClass) Alloc() NSSegmentedControl {
 // fits. - If an image is too large to fit in a segment, it is clipped. - If
 // Full Keyboard Access is enabled in System Preferences > Keyboard, the
 // keyboard may be used to move between and select segments.
-//
-// [NSSegmentedControl.SwitchTracking]: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/SwitchTracking
 //
 // # Specifying the segment behavior
 //
@@ -143,6 +142,8 @@ func (nc NSSegmentedControlClass) Alloc() NSSegmentedControl {
 //   - [NSSegmentedControl.ToolTipForSegment]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl
+//
+// [NSSegmentedControl.SwitchTracking]: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/SwitchTracking
 type NSSegmentedControl struct {
 	NSControl
 }
@@ -153,6 +154,7 @@ type NSSegmentedControl struct {
 func NSSegmentedControlFromID(id objc.ID) NSSegmentedControl {
 	return NSSegmentedControl{NSControl: NSControlFromID(id)}
 }
+
 // NOTE: NSSegmentedControl adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -362,12 +364,12 @@ func NewSegmentedControlWithCoder(coder foundation.INSCoder) NSSegmentedControl 
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -382,14 +384,12 @@ func NewSegmentedControlWithFrame(frameRect corefoundation.CGRect) NSSegmentedCo
 	return NSSegmentedControlFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/init(images:trackingMode:target:action:)
 func NewSegmentedControlWithImagesTrackingModeTargetAction(images []NSImage, trackingMode NSSegmentSwitchTracking, target objectivec.IObject, action objc.SEL) NSSegmentedControl {
 	rv := objc.Send[objc.ID](objc.ID(getNSSegmentedControlClass().class), objc.Sel("segmentedControlWithImages:trackingMode:target:action:"), objectivec.IObjectSliceToNSArray(images), trackingMode, target, action)
 	return NSSegmentedControlFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/init(labels:trackingMode:target:action:)
 func NewSegmentedControlWithLabelsTrackingModeTargetAction(labels []string, trackingMode NSSegmentSwitchTracking, target objectivec.IObject, action objc.SEL) NSSegmentedControl {
 	rv := objc.Send[objc.ID](objc.ID(getNSSegmentedControlClass().class), objc.Sel("segmentedControlWithLabels:trackingMode:target:action:"), objectivec.StringSliceToNSArray(labels), trackingMode, target, action)
@@ -400,19 +400,20 @@ func NewSegmentedControlWithLabelsTrackingModeTargetAction(labels []string, trac
 //
 // segment: The index of the segment whose label you want to get. This method raises an
 // exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // # Return Value
-// 
+//
 // The label of the segment. The returned string contains the entire text of
 // the label, even if that text is normally truncated during drawing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/label(forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) LabelForSegment(segment int) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("labelForSegment:"), segment)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Sets the label for the specified segment.
 //
 // label: The label you want to display in the segment. If the width of the string is
@@ -421,24 +422,25 @@ func (s NSSegmentedControl) LabelForSegment(segment int) string {
 //
 // segment: The index of the segment whose label you want to set. This method raises an
 // exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setLabel(_:forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) SetLabelForSegment(label string, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setLabel:forSegment:"), objc.String(label), segment)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setAlignment(_:forSegment:)
 func (s NSSegmentedControl) SetAlignmentForSegment(alignment NSTextAlignment, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setAlignment:forSegment:"), alignment, segment)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/alignment(forSegment:)
 func (s NSSegmentedControl) AlignmentForSegment(segment int) NSTextAlignment {
 	rv := objc.Send[NSTextAlignment](s.ID, objc.Sel("alignmentForSegment:"), segment)
 	return NSTextAlignment(rv)
 }
+
 // Sets the image for the specified segment.
 //
 // image: The image to apply to the segment or `nil` if you want to clear the
@@ -447,77 +449,75 @@ func (s NSSegmentedControl) AlignmentForSegment(segment int) NSTextAlignment {
 //
 // segment: The index of the segment whose image you want to set. This method raises an
 // exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setImage(_:forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) SetImageForSegment(image INSImage, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setImage:forSegment:"), image, segment)
 }
+
 // Returns the image associated with the specified segment.
 //
 // segment: The index of the segment whose image you want to get. This method raises an
 // exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // # Return Value
-// 
+//
 // The image associated with the segment; otherwise, `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/image(forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) ImageForSegment(segment int) INSImage {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("imageForSegment:"), segment)
 	return NSImageFromID(rv)
 }
+
 // Sets the scaling mode used to display the specified segment’s image.
 //
 // scaling: One of the image scaling constants. For a list of possible values, see
 // [NSImageScaling].
-// //
-// [NSImageScaling]: https://developer.apple.com/documentation/AppKit/NSImageScaling
 //
 // segment: The index of the segment whose enabled state you want to get. This method
 // raises an exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setImageScaling(_:forSegment:)
+//
+// [NSImageScaling]: https://developer.apple.com/documentation/AppKit/NSImageScaling
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) SetImageScalingForSegment(scaling NSImageScaling, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setImageScaling:forSegment:"), scaling, segment)
 }
+
 // Returns the scaling mode used to display the specified segment’s image.
 //
 // segment: The index of the segment whose enabled state you want to get. This method
 // raises an exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // # Return Value
-// 
-// One of the image scaling constants. For a list of possible values, see
-// [NSImageScaling]. The default value is
-// [NSImageScaling.scaleProportionallyDown].
 //
-// [NSImageScaling.scaleProportionallyDown]: https://developer.apple.com/documentation/AppKit/NSImageScaling/scaleProportionallyDown
-// [NSImageScaling]: https://developer.apple.com/documentation/AppKit/NSImageScaling
+// One of the image scaling constants. For a list of possible values, see
+// [NSImageScaling]. The default value is [NSImageScaleProportionallyDown].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/imageScaling(forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// [NSImageScaling]: https://developer.apple.com/documentation/AppKit/NSImageScaling
 func (s NSSegmentedControl) ImageScalingForSegment(segment int) NSImageScaling {
 	rv := objc.Send[NSImageScaling](s.ID, objc.Sel("imageScalingForSegment:"), segment)
 	return NSImageScaling(rv)
 }
+
 // Sets the menu for the specified segment.
 //
 // menu: The menu you want to add to the segment or `nil` to clear the current menu.
 //
 // segment: The index of the segment whose menu you want to set. This method raises an
 // exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // # Discussion
-// 
+//
 // Adding a menu to a segment allows the segment to be used as a pop-up
 // button. If the segment has a menu only, then the menu displays when the
 // user clicks the segment. If the segment has both a menu and an action, then
@@ -525,36 +525,40 @@ func (s NSSegmentedControl) ImageScalingForSegment(segment int) NSImageScaling {
 // when the user clicks and holds the segment.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setMenu(_:forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) SetMenuForSegment(menu INSMenu, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setMenu:forSegment:"), menu, segment)
 }
+
 // Returns the menu for the specified segment.
 //
 // segment: The index of the segment whose menu you want to get. This method raises an
 // exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // # Return Value
-// 
+//
 // The menu associated with the segment; otherwise, `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/menu(forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) MenuForSegment(segment int) INSMenu {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("menuForSegment:"), segment)
 	return NSMenuFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setShowsMenuIndicator(_:forSegment:)
 func (s NSSegmentedControl) SetShowsMenuIndicatorForSegment(showsMenuIndicator bool, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setShowsMenuIndicator:forSegment:"), showsMenuIndicator, segment)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/showsMenuIndicator(forSegment:)
 func (s NSSegmentedControl) ShowsMenuIndicatorForSegment(segment int) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("showsMenuIndicatorForSegment:"), segment)
 	return rv
 }
+
 // Selects the segment with the specified tag.
 //
 // tag: The tag associated with the desired segment. A tag is an integer value that
@@ -562,16 +566,13 @@ func (s NSSegmentedControl) ShowsMenuIndicatorForSegment(segment int) bool {
 // position in the control.
 //
 // # Return Value
-// 
-// [true] if the segment was selected successfully; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the segment was selected successfully; otherwise, false.
 //
 // # Discussion
-// 
+//
 // Typically, you use Interface Builder to specify the tag for each segment.
-// You may also set this value programmatically using the `` method of
+// You may also set this value programmatically using the “ method of
 // [NSSegmentedCell].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/selectSegment(withTag:)
@@ -579,53 +580,48 @@ func (s NSSegmentedControl) SelectSegmentWithTag(tag int) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("selectSegmentWithTag:"), tag)
 	return rv
 }
+
 // Sets the selection state of the specified segment.
 //
-// selected: [true] if you want to select the segment; otherwise, [false].
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// selected: true if you want to select the segment; otherwise, false.
 //
 // segment: The index of the segment whose selection state you want to set. This method
 // raises an exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // # Discussion
-// 
+//
 // If the control allows only a single selection, this method deselects any
 // other selected segments.
-// 
-// If the [TrackingMode] property of the segment is set to
-// [NSSegmentedControl.SwitchTracking.momentary], then attempting to set the
-// selected state of the segment will have no effect.
 //
-// [NSSegmentedControl.SwitchTracking.momentary]: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/SwitchTracking/momentary
+// If the [TrackingMode] property of the segment is set to
+// [NSSegmentSwitchTrackingMomentary], then attempting to set the selected
+// state of the segment will have no effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setSelected(_:forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) SetSelectedForSegment(selected bool, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setSelected:forSegment:"), selected, segment)
 }
+
 // Returns a Boolean value indicating whether the specified segment is
 // selected.
 //
 // segment: The index of the segment whose selection state you want to get. This method
 // raises an exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // # Return Value
-// 
-// [true] if the segment is selected; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the segment is selected; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/isSelected(forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) IsSelectedForSegment(segment int) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSelectedForSegment:"), segment)
 	return rv
 }
+
 // Sets the width of the specified segment.
 //
 // width: The width of the segment, measured in points. Specify the value `0` if you
@@ -633,94 +629,91 @@ func (s NSSegmentedControl) IsSelectedForSegment(segment int) bool {
 //
 // segment: The index of the segment whose width you want to set. This method raises an
 // exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setWidth(_:forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) SetWidthForSegment(width float64, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setWidth:forSegment:"), width, segment)
 }
+
 // Returns the width of the specified segment.
 //
 // segment: The index of the segment whose width you want to get. This method raises an
 // exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // # Return Value
-// 
+//
 // The width of the segment, measured in points, or 0 if the segment is sized
 // to fit the available space automatically.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/width(forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) WidthForSegment(segment int) float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("widthForSegment:"), segment)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/compress(withPrioritizedCompressionOptions:)
 func (s NSSegmentedControl) CompressWithPrioritizedCompressionOptions(prioritizedOptions []NSUserInterfaceCompressionOptions) {
 	objc.Send[objc.ID](s.ID, objc.Sel("compressWithPrioritizedCompressionOptions:"), objectivec.IObjectSliceToNSArray(prioritizedOptions))
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/minimumSize(withPrioritizedCompressionOptions:)
 func (s NSSegmentedControl) MinimumSizeWithPrioritizedCompressionOptions(prioritizedOptions []NSUserInterfaceCompressionOptions) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("minimumSizeWithPrioritizedCompressionOptions:"), objectivec.IObjectSliceToNSArray(prioritizedOptions))
 	return corefoundation.CGSize(rv)
 }
+
 // Sets the enabled state of the specified segment
 //
-// enabled: [true] to enable the segment; otherwise, [false] to disable it.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// enabled: true to enable the segment; otherwise, false to disable it.
 //
 // segment: The index of the segment you want to enable or disable. This method raises
 // an exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setEnabled(_:forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) SetEnabledForSegment(enabled bool, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setEnabled:forSegment:"), enabled, segment)
 }
+
 // Returns a Boolean value indicating whether the specified segment is
 // enabled.
 //
 // segment: The index of the segment whose enabled state you want to get. This method
 // raises an exception ([rangeException]) if the index is out of bounds.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // # Return Value
-// 
-// [true] if the segment is enabled; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the segment is enabled; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/isEnabled(forSegment:)
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) IsEnabledForSegment(segment int) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isEnabledForSegment:"), segment)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/tag(forSegment:)
 func (s NSSegmentedControl) TagForSegment(segment int) int {
 	rv := objc.Send[int](s.ID, objc.Sel("tagForSegment:"), segment)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setTag(_:forSegment:)
 func (s NSSegmentedControl) SetTagForSegment(tag int, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setTag:forSegment:"), tag, segment)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/setToolTip(_:forSegment:)
 func (s NSSegmentedControl) SetToolTipForSegment(toolTip string, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setToolTip:forSegment:"), objc.String(toolTip), segment)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/toolTip(forSegment:)
 func (s NSSegmentedControl) ToolTipForSegment(segment int) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("toolTipForSegment:"), segment)
@@ -730,15 +723,15 @@ func (s NSSegmentedControl) ToolTipForSegment(segment int) string {
 // The type of tracking behavior the control exhibits.
 //
 // # Discussion
-// 
+//
 // An [NSSegmentedControl.SwitchTracking] value specifies how the control
 // responds when the user presses a keyboard key or clicks, force clicks
 // (applies pressure in a pressure-sensitive system), releases pressure, and
 // so on. For possible values see [NSSegmentedControl.SwitchTracking].
 //
-// [NSSegmentedControl.SwitchTracking]: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/SwitchTracking
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/trackingMode
+//
+// [NSSegmentedControl.SwitchTracking]: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/SwitchTracking
 func (s NSSegmentedControl) TrackingMode() NSSegmentSwitchTracking {
 	rv := objc.Send[NSSegmentSwitchTracking](s.ID, objc.Sel("trackingMode"))
 	return NSSegmentSwitchTracking(rv)
@@ -746,16 +739,17 @@ func (s NSSegmentedControl) TrackingMode() NSSegmentSwitchTracking {
 func (s NSSegmentedControl) SetTrackingMode(value NSSegmentSwitchTracking) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTrackingMode:"), value)
 }
+
 // The visual style used to display the control.
 //
 // # Discussion
-// 
+//
 // An [NSSegmentStyle] value that specifies the visual display used by the
 // control. For possible values, see [NSSegmentedControl.Style].
 //
-// [NSSegmentedControl.Style]: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/Style
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/segmentStyle
+//
+// [NSSegmentedControl.Style]: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/Style
 func (s NSSegmentedControl) SegmentStyle() NSSegmentStyle {
 	rv := objc.Send[NSSegmentStyle](s.ID, objc.Sel("segmentStyle"))
 	return NSSegmentStyle(rv)
@@ -763,6 +757,7 @@ func (s NSSegmentedControl) SegmentStyle() NSSegmentStyle {
 func (s NSSegmentedControl) SetSegmentStyle(value NSSegmentStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSegmentStyle:"), value)
 }
+
 // The number of segments in the control.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/segmentCount
@@ -773,38 +768,36 @@ func (s NSSegmentedControl) SegmentCount() int {
 func (s NSSegmentedControl) SetSegmentCount(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSegmentCount:"), value)
 }
+
 // A Boolean value that indicates whether spring loading is enabled for the
 // control.
 //
 // # Discussion
-// 
-// The value of this property is [true] if spring loading is enabled for the
-// control, and [false] if it is not. The default is [false].
-// 
+//
+// The value of this property is true if spring loading is enabled for the
+// control, and false if it is not. The default is false.
+//
 // On pressure-sensitive systems, such as systems with the Force Touch
 // trackpad, spring loading is a feature that allows a user to activate a
 // segment in a segmented control by dragging selected items over it and force
 // clicking—pressing harder—without dropping the selected items. The user
 // can then continue dragging the items, possibly to perform additional
 // actions.
-// 
+//
 // A practical example of this feature can be found in the Calendar app. A
 // selected calendar event can be dragged over the day, week, month, or year
 // segments in the toolbar. Force clicking on a segment switches the calendar
 // view without releasing the selected calendar event. The calendar event can
 // then be dropped at the desired location in the new calendar view.
-// 
+//
 // When spring loading is enabled on a segmented control and a user drags
 // something over a segment, the segment highlights to indicate that it
 // responds to force clicking. In this situation, if the user presses harder,
 // additional highlighting occurs to indicate that the segment was activated.
-// 
+//
 // On systems that don’t support pressure sensitivity, simply hovering over
 // the segment for a short period of time is sufficient to activate the
 // segment.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/isSpringLoaded
 func (s NSSegmentedControl) SpringLoaded() bool {
@@ -814,18 +807,19 @@ func (s NSSegmentedControl) SpringLoaded() bool {
 func (s NSSegmentedControl) SetSpringLoaded(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpringLoaded:"), value)
 }
+
 // The index of the selected segment of the control, or `-1` if no segment is
 // selected.
 //
 // # Discussion
-// 
+//
 // If the control allows multiple selections, this property contains the most
 // recently selected segment. If the index is out of bounds, an exception
 // ([rangeException]) is raised.
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/selectedSegment
+//
+// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (s NSSegmentedControl) SelectedSegment() int {
 	rv := objc.Send[int](s.ID, objc.Sel("selectedSegment"))
 	return rv
@@ -833,11 +827,13 @@ func (s NSSegmentedControl) SelectedSegment() int {
 func (s NSSegmentedControl) SetSelectedSegment(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelectedSegment:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/indexOfSelectedItem
 func (s NSSegmentedControl) IndexOfSelectedItem() int {
 	rv := objc.Send[int](s.ID, objc.Sel("indexOfSelectedItem"))
 	return rv
 }
+
 // The color of the selected segment’s bezel, in appearances that support
 // it.
 //
@@ -849,27 +845,27 @@ func (s NSSegmentedControl) SelectedSegmentBezelColor() INSColor {
 func (s NSSegmentedControl) SetSelectedSegmentBezelColor(value INSColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelectedSegmentBezelColor:"), value)
 }
+
 // When the tracking mode for the control is set to use a momentary
 // accelerator, returns a value for the selected segment.
 //
 // # Return Value
-// 
+//
 // The value of the selected segment interpreted as a double-precision
 // floating-point number.
-// 
-// # Discussion
-// 
-// This method is intended for use with controls whose tracking mode is set to
-// [NSSegmentedControl.SwitchTracking.momentaryAccelerator]. An assertion will
-// occur if this method is called for other types of segmented controls.
 //
-// [NSSegmentedControl.SwitchTracking.momentaryAccelerator]: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/SwitchTracking/momentaryAccelerator
+// # Discussion
+//
+// This method is intended for use with controls whose tracking mode is set to
+// [NSSegmentSwitchTrackingMomentaryAccelerator]. An assertion will occur if
+// this method is called for other types of segmented controls.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/doubleValueForSelectedSegment
 func (s NSSegmentedControl) DoubleValueForSelectedSegment() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("doubleValueForSelectedSegment"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/segmentDistribution
 func (s NSSegmentedControl) SegmentDistribution() NSSegmentDistribution {
 	rv := objc.Send[NSSegmentDistribution](s.ID, objc.Sel("segmentDistribution"))
@@ -878,11 +874,13 @@ func (s NSSegmentedControl) SegmentDistribution() NSSegmentDistribution {
 func (s NSSegmentedControl) SetSegmentDistribution(value NSSegmentDistribution) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSegmentDistribution:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/activeCompressionOptions
 func (s NSSegmentedControl) ActiveCompressionOptions() INSUserInterfaceCompressionOptions {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("activeCompressionOptions"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/borderShape
 func (s NSSegmentedControl) BorderShape() NSControlBorderShape {
 	rv := objc.Send[NSControlBorderShape](s.ID, objc.Sel("borderShape"))
@@ -892,6 +890,4 @@ func (s NSSegmentedControl) SetBorderShape(value NSControlBorderShape) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBorderShape:"), value)
 }
 
-			// Protocol methods for NSUserInterfaceCompression
-			
-
+// Protocol methods for NSUserInterfaceCompression

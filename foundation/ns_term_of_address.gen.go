@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,32 +45,29 @@ func (nc NSTermOfAddressClass) Alloc() NSTermOfAddress {
 // The type for representing grammatical gender in localized text.
 //
 // # Overview
-// 
+//
 // Many languages rely on gender for their grammar. Without knowing the
 // subject’s gender or pronoun preferences, some localized strings may have
 // grammatical errors, resulting in a poor user experience.
-// 
+//
 // [TermOfAddress] is a type that enables the system to make pronoun
 // substitutions in localized text based on gender. You don’t create
 // instances of this type directly. Instead, use the predefined types to
 // specify the gender to use when referring to people in translated text. Or
 // define your own pronoun terms for a specific language when the predefined
 // types are insufficient.
-// 
+//
 // For example, to substitute the masculine pronoun , for the neutral pronoun
 // , do the following:
-// 
+//
 // If the [NSTermOfAddress.Masculine], [NSTermOfAddress.Feminine], and [NSTermOfAddress.Neutral] terms of address are
 // insufficient, create your own term of address specifying the pronouns and
 // language.
-// 
+//
 // For examples of how to use terms of address, see:
-// 
+//
 // - [AttributeScopes.FoundationAttributes.ReferentConceptAttribute] -
 // [AttributeScopes.FoundationAttributes.AgreementConceptAttribute]
-//
-// [AttributeScopes.FoundationAttributes.AgreementConceptAttribute]: https://developer.apple.com/documentation/Foundation/AttributeScopes/FoundationAttributes/AgreementConceptAttribute
-// [AttributeScopes.FoundationAttributes.ReferentConceptAttribute]: https://developer.apple.com/documentation/Foundation/AttributeScopes/FoundationAttributes/ReferentConceptAttribute
 //
 // # Defining your own terms of address
 //
@@ -80,6 +78,9 @@ func (nc NSTermOfAddressClass) Alloc() NSTermOfAddress {
 //   - [NSTermOfAddress.LanguageIdentifier]: The ISO language code if this is a localized term of address
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTermOfAddress
+//
+// [AttributeScopes.FoundationAttributes.AgreementConceptAttribute]: https://developer.apple.com/documentation/Foundation/AttributeScopes/FoundationAttributes/AgreementConceptAttribute
+// [AttributeScopes.FoundationAttributes.ReferentConceptAttribute]: https://developer.apple.com/documentation/Foundation/AttributeScopes/FoundationAttributes/ReferentConceptAttribute
 type NSTermOfAddress struct {
 	objectivec.Object
 }
@@ -90,6 +91,7 @@ type NSTermOfAddress struct {
 func NSTermOfAddressFromID(id objc.ID) NSTermOfAddress {
 	return NSTermOfAddress{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTermOfAddress adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -143,12 +145,12 @@ func NewNSTermOfAddress() NSTermOfAddress {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (t NSTermOfAddress) InitWithCoder(coder INSCoder) NSTermOfAddress {
 	rv := objc.Send[NSTermOfAddress](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -167,6 +169,7 @@ func (_NSTermOfAddressClass NSTermOfAddressClass) Feminine() NSTermOfAddress {
 	rv := objc.Send[objc.ID](objc.ID(_NSTermOfAddressClass.class), objc.Sel("feminine"))
 	return NSTermOfAddressFromID(rv)
 }
+
 // Term of address that uses masculine pronouns (e.g. he/him/his in English),
 // and a masculine grammatical gender when inflecting verbs and adjectives
 // referring to the person
@@ -176,6 +179,7 @@ func (_NSTermOfAddressClass NSTermOfAddressClass) Masculine() NSTermOfAddress {
 	rv := objc.Send[objc.ID](objc.ID(_NSTermOfAddressClass.class), objc.Sel("masculine"))
 	return NSTermOfAddressFromID(rv)
 }
+
 // Term of address that uses gender-neutral pronouns (e.g. they/them/theirs in
 // English), and an epicene grammatical gender when inflecting verbs and
 // adjectives referring to the person
@@ -185,10 +189,11 @@ func (_NSTermOfAddressClass NSTermOfAddressClass) Neutral() NSTermOfAddress {
 	rv := objc.Send[objc.ID](objc.ID(_NSTermOfAddressClass.class), objc.Sel("neutral"))
 	return NSTermOfAddressFromID(rv)
 }
+
 // The term of address that should be used for addressing the user
 //
 // # Discussion
-// 
+//
 // This term of address will only compare equal to another `+[NSTermOfAddress
 // currentUser]`
 //
@@ -197,6 +202,7 @@ func (_NSTermOfAddressClass NSTermOfAddressClass) CurrentUser() NSTermOfAddress 
 	rv := objc.Send[objc.ID](objc.ID(_NSTermOfAddressClass.class), objc.Sel("currentUser"))
 	return NSTermOfAddressFromID(rv)
 }
+
 // A term of address restricted to a given language
 //
 // language: ISO language code identifier for the language
@@ -219,6 +225,7 @@ func (t NSTermOfAddress) Pronouns() []NSMorphologyPronoun {
 		return NSMorphologyPronounFromID(id)
 	})
 }
+
 // The ISO language code if this is a localized term of address
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTermOfAddress/languageIdentifier
@@ -227,9 +234,6 @@ func (t NSTermOfAddress) LanguageIdentifier() string {
 	return NSStringFromID(rv).String()
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

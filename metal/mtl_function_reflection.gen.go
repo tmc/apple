@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -62,6 +63,7 @@ type MTLFunctionReflection struct {
 func MTLFunctionReflectionFromID(id objc.ID) MTLFunctionReflection {
 	return MTLFunctionReflection{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLFunctionReflection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,6 +114,7 @@ func (f MTLFunctionReflection) Bindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // The string passed to the user annotation attribute for this function. Null
 // if no user annotation is present for this function.
 //
@@ -120,4 +123,3 @@ func (f MTLFunctionReflection) UserAnnotation() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("userAnnotation"))
 	return foundation.NSStringFromID(rv).String()
 }
-

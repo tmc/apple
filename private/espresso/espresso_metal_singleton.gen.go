@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (ec EspressoMetalSingletonClass) Alloc() EspressoMetalSingleton {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoMetalSingleton.Is_memory_tight]
 //   - [EspressoMetalSingleton.SetIs_memory_tight]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalSingleton
 type EspressoMetalSingleton struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type EspressoMetalSingleton struct {
 func EspressoMetalSingletonFromID(id objc.ID) EspressoMetalSingleton {
 	return EspressoMetalSingleton{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoMetalSingleton implements IEspressoMetalSingleton.
 var _ IEspressoMetalSingleton = EspressoMetalSingleton{}
 
@@ -108,4 +110,3 @@ func (e EspressoMetalSingleton) Is_memory_tight() int {
 func (e EspressoMetalSingleton) SetIs_memory_tight(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setIs_memory_tight:"), value)
 }
-

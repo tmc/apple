@@ -4,10 +4,12 @@ package appkit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of methods that provides the name of the promised file and writes the file to the destination directory when the file promise is fulfilled.
@@ -31,6 +33,7 @@ type NSFilePromiseProviderDelegate interface {
 type NSFilePromiseProviderDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSFilePromiseProviderDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -50,7 +53,7 @@ func NSFilePromiseProviderDelegateObjectFromID(id objc.ID) NSFilePromiseProvider
 // fileType: A string describing the type of file being provided.
 //
 // # Discussion
-// 
+//
 // This method is called when the drag destination fulfills the file promise.
 // Determine and return the final filename (a base filename, not a full path).
 //
@@ -58,7 +61,8 @@ func NSFilePromiseProviderDelegateObjectFromID(id objc.ID) NSFilePromiseProvider
 func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderFileNameForType(filePromiseProvider INSFilePromiseProvider, fileType string) string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("filePromiseProvider:fileNameForType:"), filePromiseProvider, objc.String(fileType))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Writes the contents of a promise to the specified URL.
 //
 // filePromiseProvider: The file promise provider.
@@ -68,27 +72,28 @@ func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderFileNameForType(
 // completionHandler: A completion handler to execute after the file has been written.
 //
 // # Discussion
-// 
+//
 // This method is called after the drag is complete. The request executes on
 // the [OperationQueue] supplied by [OperationQueueForFilePromiseProvider].
-// 
+//
 // Call the completion handler with the file contents wrapped in
 // [NSFileCoordinator]. Be sure to write your file to the input `url`
 // parameter.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProviderDelegate/filePromiseProvider(_:writePromiseTo:completionHandler:)
+//
 // [NSFileCoordinator]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator
 // [OperationQueue]: https://developer.apple.com/documentation/Foundation/OperationQueue
-//
-// See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProviderDelegate/filePromiseProvider(_:writePromiseTo:completionHandler:)
 func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderWritePromiseToURLCompletionHandler(filePromiseProvider INSFilePromiseProvider, url foundation.INSURL, completionHandler ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("filePromiseProvider:writePromiseToURL:completionHandler:"), filePromiseProvider, url, completionHandler)
-	}
+}
+
 // Returns the operation queue from which to issue the write request.
 //
 // filePromiseProvider: The file promise provider for the operation queue.
 //
 // # Discussion
-// 
+//
 // If this method isn’t implemented, the main operation queue is used.
 // Although this method is optional, to avoid blocking your main thread,
 // provide an operation queue other than the main operation queue.
@@ -97,7 +102,7 @@ func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderWritePromiseToUR
 func (o NSFilePromiseProviderDelegateObject) OperationQueueForFilePromiseProvider(filePromiseProvider INSFilePromiseProvider) foundation.NSOperationQueue {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("operationQueueForFilePromiseProvider:"), filePromiseProvider)
 	return foundation.NSOperationQueueFromID(rv)
-	}
+}
 
 // NSFilePromiseProviderDelegateConfig holds optional typed callbacks for [NSFilePromiseProviderDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -159,4 +164,3 @@ func NewNSFilePromiseProviderDelegate(config NSFilePromiseProviderDelegateConfig
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSFilePromiseProviderDelegateObjectFromID(instance)
 }
-

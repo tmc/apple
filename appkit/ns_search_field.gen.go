@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,16 +47,16 @@ func (nc NSSearchFieldClass) Alloc() NSSearchField {
 // A text field optimized for performing text-based searches.
 //
 // # Overview
-// 
+//
 // [NSSearchField] provides a customized text field for entering search data.
 // The class also provides a search button, a cancel button, and a pop-up icon
 // menu for listing recent search strings and custom search categories.
-// 
+//
 // An [NSSearchField] object wraps an [NSSearchFieldCell] object. The cell
 // provides access to most search field attributes and a comprehensive
 // programmatic interface for manipulating the search field. You can use an
 // [NSSearchField] object to manipulate some aspects of the search field.
-// 
+//
 // For additional information about search fields and how to implement them,
 // see the [NSSearchFieldCell] class.
 //
@@ -97,6 +98,7 @@ type NSSearchField struct {
 func NSSearchFieldFromID(id objc.ID) NSSearchField {
 	return NSSearchField{NSTextField: NSTextFieldFromID(id)}
 }
+
 // NOTE: NSSearchField adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -195,12 +197,12 @@ func NewNSSearchField() NSSearchField {
 // attributedStringValue: An attributed string to use as the content of the label.
 //
 // # Return Value
-// 
+//
 // A text field that displays the specified attributed string as a static
 // label.
 //
 // # Discussion
-// 
+//
 // The text field determines its line-break mode by inspecting the paragraph
 // style attributes in the attributed string.
 //
@@ -216,7 +218,7 @@ func NewSearchFieldLabelWithAttributedString(attributedStringValue foundation.NS
 // stringValue: A string to use as the content of the label.
 //
 // # Return Value
-// 
+//
 // A text field that displays the specified string as a static label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/init(labelWithString:)
@@ -231,7 +233,7 @@ func NewSearchFieldLabelWithString(stringValue string) NSSearchField {
 // stringValue: A string to use as the initial content of the editable text field.
 //
 // # Return Value
-// 
+//
 // A single-line editable text field that displays the specified string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/init(string:)
@@ -255,12 +257,12 @@ func NewSearchFieldWithCoder(coder foundation.INSCoder) NSSearchField {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -281,7 +283,7 @@ func NewSearchFieldWithFrame(frameRect corefoundation.CGRect) NSSearchField {
 // stringValue: A string to use as the initial content of the editable text field.
 //
 // # Return Value
-// 
+//
 // A multiline text field that displays the specified string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/init(wrappingLabelWithString:)
@@ -301,11 +303,12 @@ func (s NSSearchField) SearchMenuTemplate() INSMenu {
 func (s NSSearchField) SetSearchMenuTemplate(value INSMenu) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSearchMenuTemplate:"), value)
 }
+
 // A Boolean value indicating whether the cell calls its action method
 // immediately when an appropriate action occurs.
 //
 // # Discussion
-// 
+//
 // When the value of this property is YES, the field calls its action method
 // immediately upon notification of any changes to the search field. When the
 // value is NO, the field pauses briefly after receiving a notification and
@@ -321,12 +324,13 @@ func (s NSSearchField) SendsSearchStringImmediately() bool {
 func (s NSSearchField) SetSendsSearchStringImmediately(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSendsSearchStringImmediately:"), value)
 }
+
 // A Boolean value indicating whether the cell calls its search action method
 // when the user clicks the search button or presses Return, or after each
 // keystroke.
 //
 // # Discussion
-// 
+//
 // When the value of this property is yes, the field calls its action method
 // when the user clicks the search button or presses Return. When the value is
 // NO, the field calls the action method after each keystroke. The default
@@ -340,10 +344,11 @@ func (s NSSearchField) SendsWholeSearchString() bool {
 func (s NSSearchField) SetSendsWholeSearchString(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSendsWholeSearchString:"), value)
 }
+
 // The list of recent search strings for the control.
 //
 // # Discussion
-// 
+//
 // An array of [NSString] objects, each of which contains a search string
 // either displayed in the search menu or from a recent autosave archive. If
 // there have been no recent searches and no prior searches saved under an
@@ -357,14 +362,15 @@ func (s NSSearchField) RecentSearches() []string {
 func (s NSSearchField) SetRecentSearches(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRecentSearches:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The maximum number of search strings that can appear in the search menu.
 //
 // # Discussion
-// 
+//
 // The value of this property must be between 0 and 254. Specifying a negative
 // value for the property sets it to the default value, which is 10.
 // Specifying a value greater than 254 sets the property to 254.
-// 
+//
 // When the maximum number of search strings is exceeded, the oldest search
 // string on the menu is dropped.
 //
@@ -376,11 +382,12 @@ func (s NSSearchField) MaximumRecents() int {
 func (s NSSearchField) SetMaximumRecents(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaximumRecents:"), value)
 }
+
 // The name under which the search field automatically archives the list of
 // recent search strings.
 //
 // # Discussion
-// 
+//
 // Used as a key in the standard user defaults to save the recent searches. If
 // you specify `nil` or an empty string for this property, no autosave name is
 // set and searches aren’t autosaved.
@@ -393,10 +400,11 @@ func (s NSSearchField) RecentsAutosaveName() NSSearchFieldRecentsAutosaveName {
 func (s NSSearchField) SetRecentsAutosaveName(value NSSearchFieldRecentsAutosaveName) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRecentsAutosaveName:"), objc.String(string(value)))
 }
+
 // The rectangle for the cancel button within the bounds of the search field.
 //
 // # Discussion
-// 
+//
 // Subclasses can override `cancelButtonBounds` for custom layout purposes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchField/cancelButtonBounds
@@ -404,10 +412,11 @@ func (s NSSearchField) CancelButtonBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("cancelButtonBounds"))
 	return corefoundation.CGRect(rv)
 }
+
 // The rectangle for the search button within the bounds of the search field.
 //
 // # Discussion
-// 
+//
 // Subclasses can override `searchButtonBounds` for custom layout purposes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchField/searchButtonBounds
@@ -415,10 +424,11 @@ func (s NSSearchField) SearchButtonBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("searchButtonBounds"))
 	return corefoundation.CGRect(rv)
 }
+
 // The rectangle for the search text within the bounds of the search field.
 //
 // # Discussion
-// 
+//
 // Subclasses can override `searchTextBounds` for custom layout purposes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchField/searchTextBounds
@@ -426,4 +436,3 @@ func (s NSSearchField) SearchTextBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("searchTextBounds"))
 	return corefoundation.CGRect(rv)
 }
-

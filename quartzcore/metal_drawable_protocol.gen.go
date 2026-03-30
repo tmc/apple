@@ -3,8 +3,8 @@
 package quartzcore
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -30,6 +30,7 @@ type CAMetalDrawable interface {
 type CAMetalDrawableObject struct {
 	metal.MTLDrawableObject
 }
+
 func (o CAMetalDrawableObject) BaseObject() objectivec.Object {
 	return o.MTLDrawableObject.BaseObject()
 }
@@ -48,12 +49,12 @@ func CAMetalDrawableObjectFromID(id objc.ID) CAMetalDrawableObject {
 func (o CAMetalDrawableObject) Texture() metal.MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("texture"))
 	return metal.MTLTextureObjectFromID(rv)
-	}
+}
+
 // The layer that owns this drawable object.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDrawable/layer
 func (o CAMetalDrawableObject) Layer() ICAMetalLayer {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("layer"))
 	return CAMetalLayerFromID(rv)
-	}
-
+}

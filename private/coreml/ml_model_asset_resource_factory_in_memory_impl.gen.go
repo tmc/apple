@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLModelAssetResourceFactoryInMemoryImplClass) Alloc() MLModelAssetResou
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelAssetResourceFactoryInMemoryImpl.CompiledModelURL]
@@ -55,6 +55,7 @@ func (mc MLModelAssetResourceFactoryInMemoryImplClass) Alloc() MLModelAssetResou
 //   - [MLModelAssetResourceFactoryInMemoryImpl.Description]
 //   - [MLModelAssetResourceFactoryInMemoryImpl.Hash]
 //   - [MLModelAssetResourceFactoryInMemoryImpl.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryInMemoryImpl
 type MLModelAssetResourceFactoryInMemoryImpl struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type MLModelAssetResourceFactoryInMemoryImpl struct {
 func MLModelAssetResourceFactoryInMemoryImplFromID(id objc.ID) MLModelAssetResourceFactoryInMemoryImpl {
 	return MLModelAssetResourceFactoryInMemoryImpl{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelAssetResourceFactoryInMemoryImpl implements IMLModelAssetResourceFactoryInMemoryImpl.
 var _ IMLModelAssetResourceFactoryInMemoryImpl = MLModelAssetResourceFactoryInMemoryImpl{}
 
@@ -117,7 +119,6 @@ func NewMLModelAssetResourceFactoryInMemoryImpl() MLModelAssetResourceFactoryInM
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryInMemoryImpl/initWithArchiveData:
 func NewModelAssetResourceFactoryInMemoryImplWithArchiveData(data objectivec.IObject) MLModelAssetResourceFactoryInMemoryImpl {
 	instance := getMLModelAssetResourceFactoryInMemoryImplClass().Alloc()
@@ -125,7 +126,6 @@ func NewModelAssetResourceFactoryInMemoryImplWithArchiveData(data objectivec.IOb
 	return MLModelAssetResourceFactoryInMemoryImplFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryInMemoryImpl/modelAssetDescriptionWithError:
 func (m MLModelAssetResourceFactoryInMemoryImpl) ModelAssetDescriptionWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -137,7 +137,7 @@ func (m MLModelAssetResourceFactoryInMemoryImpl) ModelAssetDescriptionWithError(
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryInMemoryImpl/modelStructureWithError:
 func (m MLModelAssetResourceFactoryInMemoryImpl) ModelStructureWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -149,7 +149,7 @@ func (m MLModelAssetResourceFactoryInMemoryImpl) ModelStructureWithError() (obje
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryInMemoryImpl/modelWithConfiguration:error:
 func (m MLModelAssetResourceFactoryInMemoryImpl) ModelWithConfigurationError(configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -161,7 +161,7 @@ func (m MLModelAssetResourceFactoryInMemoryImpl) ModelWithConfigurationError(con
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryInMemoryImpl/initWithArchiveData:
 func (m MLModelAssetResourceFactoryInMemoryImpl) InitWithArchiveData(data objectivec.IObject) MLModelAssetResourceFactoryInMemoryImpl {
 	rv := objc.Send[MLModelAssetResourceFactoryInMemoryImpl](m.ID, objc.Sel("initWithArchiveData:"), data)
@@ -173,24 +173,27 @@ func (m MLModelAssetResourceFactoryInMemoryImpl) CompiledModelURL() foundation.I
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("compiledModelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryInMemoryImpl/debugDescription
 func (m MLModelAssetResourceFactoryInMemoryImpl) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryInMemoryImpl/description
 func (m MLModelAssetResourceFactoryInMemoryImpl) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryInMemoryImpl/hash
 func (m MLModelAssetResourceFactoryInMemoryImpl) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryInMemoryImpl/superclass
 func (m MLModelAssetResourceFactoryInMemoryImpl) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }
-

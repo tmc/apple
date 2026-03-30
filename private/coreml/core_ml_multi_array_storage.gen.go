@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type CoreMLMultiArrayStorage struct {
 func CoreMLMultiArrayStorageFromID(id objc.ID) CoreMLMultiArrayStorage {
 	return CoreMLMultiArrayStorage{objectivec.Object{ID: id}}
 }
+
 // NOTE: CoreMLMultiArrayStorage struct embeds objectivec.Object (parent type unavailable) but
 // ICoreMLMultiArrayStorage embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewCoreMLMultiArrayStorage() CoreMLMultiArrayStorage {
 	rv := objc.Send[CoreMLMultiArrayStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

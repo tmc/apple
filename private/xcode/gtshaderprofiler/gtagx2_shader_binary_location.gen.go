@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (gc GTAGX2ShaderBinaryLocationClass) Alloc() GTAGX2ShaderBinaryLocation {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTAGX2ShaderBinaryLocation.Binary]
@@ -62,6 +62,7 @@ func (gc GTAGX2ShaderBinaryLocationClass) Alloc() GTAGX2ShaderBinaryLocation {
 //   - [GTAGX2ShaderBinaryLocation.Description]
 //   - [GTAGX2ShaderBinaryLocation.Hash]
 //   - [GTAGX2ShaderBinaryLocation.Superclass]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation
 type GTAGX2ShaderBinaryLocation struct {
 	objectivec.Object
@@ -71,6 +72,7 @@ type GTAGX2ShaderBinaryLocation struct {
 func GTAGX2ShaderBinaryLocationFromID(id objc.ID) GTAGX2ShaderBinaryLocation {
 	return GTAGX2ShaderBinaryLocation{objectivec.Object{ID: id}}
 }
+
 // Ensure GTAGX2ShaderBinaryLocation implements IGTAGX2ShaderBinaryLocation.
 var _ IGTAGX2ShaderBinaryLocation = GTAGX2ShaderBinaryLocation{}
 
@@ -140,7 +142,6 @@ func NewGTAGX2ShaderBinaryLocation() GTAGX2ShaderBinaryLocation {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/initWithCoder:
 func NewGTAGX2ShaderBinaryLocationWithCoder(coder objectivec.IObject) GTAGX2ShaderBinaryLocation {
 	instance := getGTAGX2ShaderBinaryLocationClass().Alloc()
@@ -148,7 +149,6 @@ func NewGTAGX2ShaderBinaryLocationWithCoder(coder objectivec.IObject) GTAGX2Shad
 	return GTAGX2ShaderBinaryLocationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/initWithFunctionNameIndex:fullPathIndex:line:column:binary:
 func NewGTAGX2ShaderBinaryLocationWithFunctionNameIndexFullPathIndexLineColumnBinary(index uint64, index2 uint64, line int, column int, binary objectivec.IObject) GTAGX2ShaderBinaryLocation {
 	instance := getGTAGX2ShaderBinaryLocationClass().Alloc()
@@ -156,23 +156,22 @@ func NewGTAGX2ShaderBinaryLocationWithFunctionNameIndexFullPathIndexLineColumnBi
 	return GTAGX2ShaderBinaryLocationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/encodeWithCoder:
 func (g GTAGX2ShaderBinaryLocation) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/setParent:
 func (g GTAGX2ShaderBinaryLocation) SetParent(parent objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setParent:"), parent)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/initWithCoder:
 func (g GTAGX2ShaderBinaryLocation) InitWithCoder(coder foundation.INSCoder) GTAGX2ShaderBinaryLocation {
 	rv := objc.Send[GTAGX2ShaderBinaryLocation](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/initWithFunctionNameIndex:fullPathIndex:line:column:binary:
 func (g GTAGX2ShaderBinaryLocation) InitWithFunctionNameIndexFullPathIndexLineColumnBinary(index uint64, index2 uint64, line int, column int, binary objectivec.IObject) GTAGX2ShaderBinaryLocation {
 	rv := objc.Send[GTAGX2ShaderBinaryLocation](g.ID, objc.Sel("initWithFunctionNameIndex:fullPathIndex:line:column:binary:"), index, index2, line, column, binary)
@@ -190,6 +189,7 @@ func (g GTAGX2ShaderBinaryLocation) Binary() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binary"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/column
 func (g GTAGX2ShaderBinaryLocation) Column() int {
 	rv := objc.Send[int](g.ID, objc.Sel("column"))
@@ -198,41 +198,49 @@ func (g GTAGX2ShaderBinaryLocation) Column() int {
 func (g GTAGX2ShaderBinaryLocation) SetColumn(value int) {
 	objc.Send[struct{}](g.ID, objc.Sel("setColumn:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/debugDescription
 func (g GTAGX2ShaderBinaryLocation) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/description
 func (g GTAGX2ShaderBinaryLocation) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/fileIndex
 func (g GTAGX2ShaderBinaryLocation) FileIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("fileIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/fullPath
 func (g GTAGX2ShaderBinaryLocation) FullPath() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("fullPath"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/functionName
 func (g GTAGX2ShaderBinaryLocation) FunctionName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("functionName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/functionNameIndex
 func (g GTAGX2ShaderBinaryLocation) FunctionNameIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("functionNameIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/hash
 func (g GTAGX2ShaderBinaryLocation) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/line
 func (g GTAGX2ShaderBinaryLocation) Line() int {
 	rv := objc.Send[int](g.ID, objc.Sel("line"))
@@ -241,9 +249,9 @@ func (g GTAGX2ShaderBinaryLocation) Line() int {
 func (g GTAGX2ShaderBinaryLocation) SetLine(value int) {
 	objc.Send[struct{}](g.ID, objc.Sel("setLine:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryLocation/superclass
 func (g GTAGX2ShaderBinaryLocation) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
 	return rv
 }
-

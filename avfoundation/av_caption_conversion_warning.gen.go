@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type AVCaptionConversionWarning struct {
 func AVCaptionConversionWarningFromID(id objc.ID) AVCaptionConversionWarning {
 	return AVCaptionConversionWarning{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptionConversionWarning adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,10 +118,11 @@ func (c AVCaptionConversionWarning) WarningType() AVCaptionConversionWarningType
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("warningType"))
 	return AVCaptionConversionWarningType(foundation.NSStringFromID(rv).String())
 }
+
 // The range of the captions for which the system issued a warning.
 //
 // # Discussion
-// 
+//
 // This object only references captions with the same time range. If captions
 // with different start times and durations have similar problems, or if
 // individual captions have multiple problems, the validator generates
@@ -130,11 +133,12 @@ func (c AVCaptionConversionWarning) RangeOfCaptions() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](c.ID, objc.Sel("rangeOfCaptions"))
 	return foundation.NSRange(rv)
 }
+
 // A correction the converter makes when it converts a caption to a specific
 // format.
 //
 // # Discussion
-// 
+//
 // If this value is `nil` and you perform the conversion without correcting
 // the problem, the system doesn’t include captions that you indicate in the
 // output media data.
@@ -144,6 +148,7 @@ func (c AVCaptionConversionWarning) Adjustment() IAVCaptionConversionAdjustment 
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("adjustment"))
 	return AVCaptionConversionAdjustmentFromID(objc.ID(rv))
 }
+
 // The collection of warnings the validator encountered.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcaptionconversionvalidator/warnings
@@ -154,4 +159,3 @@ func (c AVCaptionConversionWarning) Warnings() IAVCaptionConversionWarning {
 func (c AVCaptionConversionWarning) SetWarnings(value IAVCaptionConversionWarning) {
 	objc.Send[struct{}](c.ID, objc.Sel("setWarnings:"), value)
 }
-

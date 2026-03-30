@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (nc NEOnDemandRuleDisconnectClass) Alloc() NEOnDemandRuleDisconnect {
 // A VPN On Demand rule that disconnects the VPN.
 //
 // # Overview
-// 
+//
 // When rules of this class match, the VPN connection is not started, and the
 // VPN connection is disconnected if it is not already disconnected.
 //
@@ -58,6 +59,7 @@ type NEOnDemandRuleDisconnect struct {
 func NEOnDemandRuleDisconnectFromID(id objc.ID) NEOnDemandRuleDisconnect {
 	return NEOnDemandRuleDisconnect{NEOnDemandRule: NEOnDemandRuleFromID(id)}
 }
+
 // NOTE: NEOnDemandRuleDisconnect adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewNEOnDemandRuleDisconnect() NEOnDemandRuleDisconnect {
 	rv := objc.Send[NEOnDemandRuleDisconnect](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

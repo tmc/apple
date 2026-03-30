@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -31,6 +31,7 @@ type CIKeystoneCorrectionVertical interface {
 type CIKeystoneCorrectionVerticalObject struct {
 	objectivec.Object
 }
+
 func (o CIKeystoneCorrectionVerticalObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -49,7 +50,8 @@ func CIKeystoneCorrectionVerticalObjectFromID(id objc.ID) CIKeystoneCorrectionVe
 func (o CIKeystoneCorrectionVerticalObject) FocalLength() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("focalLength"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -57,56 +59,70 @@ func (o CIKeystoneCorrectionVerticalObject) FocalLength() float32 {
 func (o CIKeystoneCorrectionVerticalObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomLeft
 func (o CIKeystoneCorrectionVerticalObject) BottomLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomLeft"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomRight
 func (o CIKeystoneCorrectionVerticalObject) BottomRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomRight"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/inputImage
 func (o CIKeystoneCorrectionVerticalObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topLeft
 func (o CIKeystoneCorrectionVerticalObject) TopLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topLeft"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topRight
 func (o CIKeystoneCorrectionVerticalObject) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topRight"))
 	return rv
-	}
+}
 
+// The 35mm equivalent focal length of the input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIKeystoneCorrectionVertical/focalLength
 func (o CIKeystoneCorrectionVerticalObject) SetFocalLength(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFocalLength:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomLeft
 func (o CIKeystoneCorrectionVerticalObject) SetBottomLeft(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBottomLeft:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomRight
 func (o CIKeystoneCorrectionVerticalObject) SetBottomRight(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBottomRight:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/inputImage
 func (o CIKeystoneCorrectionVerticalObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topLeft
 func (o CIKeystoneCorrectionVerticalObject) SetTopLeft(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTopLeft:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topRight
 func (o CIKeystoneCorrectionVerticalObject) SetTopRight(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTopRight:"), value)
 }
-

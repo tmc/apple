@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // An interface for handling incoming messages.
@@ -20,6 +22,7 @@ type NSPortDelegate interface {
 type NSPortDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSPortDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,9 +40,9 @@ func NSPortDelegateObjectFromID(id objc.ID) NSPortDelegateObject {
 // message: An incoming port message.
 //
 // # Discussion
-// 
+//
 // See [NSPort] for more information.
-// 
+//
 // The delegate should implement either [HandlePortMessage] or the
 // [NSMachPortDelegate] protocol method [HandleMachMessage]. You must not
 // implement both delegate methods.
@@ -47,7 +50,7 @@ func NSPortDelegateObjectFromID(id objc.ID) NSPortDelegateObject {
 // See: https://developer.apple.com/documentation/Foundation/PortDelegate/handle(_:)
 func (o NSPortDelegateObject) HandlePortMessage(message INSPortMessage) {
 	objc.Send[struct{}](o.ID, objc.Sel("handlePortMessage:"), message)
-	}
+}
 
 // NSPortDelegateConfig holds optional typed callbacks for [NSPortDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -109,4 +112,3 @@ func NewNSPortDelegate(config NSPortDelegateConfig) NSPortDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSPortDelegateObjectFromID(instance)
 }
-

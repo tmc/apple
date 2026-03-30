@@ -4,8 +4,9 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (ac ANEAnalyticsLayerClass) Alloc() ANEAnalyticsLayer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ANEAnalyticsLayer.LayerName]
 //   - [ANEAnalyticsLayer.Serialize]
 //   - [ANEAnalyticsLayer.Weight]
 //   - [ANEAnalyticsLayer.InitWithNameWeight]
+//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsLayer
 type ANEAnalyticsLayer struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type ANEAnalyticsLayer struct {
 func ANEAnalyticsLayerFromID(id objc.ID) ANEAnalyticsLayer {
 	return ANEAnalyticsLayer{objectivec.Object{ID: id}}
 }
+
 // Ensure ANEAnalyticsLayer implements IANEAnalyticsLayer.
 var _ IANEAnalyticsLayer = ANEAnalyticsLayer{}
 
@@ -101,7 +103,6 @@ func NewANEAnalyticsLayer() ANEAnalyticsLayer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsLayer/initWithName:weight:
 func NewANEAnalyticsLayerWithNameWeight(name objectivec.IObject, weight objectivec.IObject) ANEAnalyticsLayer {
 	instance := getANEAnalyticsLayerClass().Alloc()
@@ -114,14 +115,13 @@ func (a ANEAnalyticsLayer) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsLayer/initWithName:weight:
 func (a ANEAnalyticsLayer) InitWithNameWeight(name objectivec.IObject, weight objectivec.IObject) ANEAnalyticsLayer {
 	rv := objc.Send[ANEAnalyticsLayer](a.ID, objc.Sel("initWithName:weight:"), name, weight)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsLayer/objectWithName:weight:
 func (_ANEAnalyticsLayerClass ANEAnalyticsLayerClass) ObjectWithNameWeight(name objectivec.IObject, weight objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEAnalyticsLayerClass.class), objc.Sel("objectWithName:weight:"), name, weight)
@@ -133,9 +133,9 @@ func (a ANEAnalyticsLayer) LayerName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("layerName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsLayer/weight
 func (a ANEAnalyticsLayer) Weight() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("weight"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-

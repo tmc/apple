@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (mc MLModelStructureNeuralNetworkClass) Alloc() MLModelStructureNeuralNetwo
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelStructureNeuralNetwork.InitWithLayers]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetwork
 type MLModelStructureNeuralNetwork struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type MLModelStructureNeuralNetwork struct {
 func MLModelStructureNeuralNetworkFromID(id objc.ID) MLModelStructureNeuralNetwork {
 	return MLModelStructureNeuralNetwork{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureNeuralNetwork implements IMLModelStructureNeuralNetwork.
 var _ IMLModelStructureNeuralNetwork = MLModelStructureNeuralNetwork{}
 
@@ -91,7 +93,6 @@ func NewMLModelStructureNeuralNetwork() MLModelStructureNeuralNetwork {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetwork/initWithLayers:
 func NewModelStructureNeuralNetworkWithLayers(layers objectivec.IObject) MLModelStructureNeuralNetwork {
 	instance := getMLModelStructureNeuralNetworkClass().Alloc()
@@ -99,10 +100,8 @@ func NewModelStructureNeuralNetworkWithLayers(layers objectivec.IObject) MLModel
 	return MLModelStructureNeuralNetworkFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetwork/initWithLayers:
 func (m MLModelStructureNeuralNetwork) InitWithLayers(layers objectivec.IObject) MLModelStructureNeuralNetwork {
 	rv := objc.Send[MLModelStructureNeuralNetwork](m.ID, objc.Sel("initWithLayers:"), layers)
 	return rv
 }
-

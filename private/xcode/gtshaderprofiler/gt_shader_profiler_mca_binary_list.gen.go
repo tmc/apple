@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (gc GTShaderProfilerMCABinaryListClass) Alloc() GTShaderProfilerMCABinaryLi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTShaderProfilerMCABinaryList.AllocatedGPRCount]
 //   - [GTShaderProfilerMCABinaryList.HighRegisterCount]
 //   - [GTShaderProfilerMCABinaryList.McaBinaries]
 //   - [GTShaderProfilerMCABinaryList.InitWithShaderProfilerResultPipelineStateIdProgramType]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinaryList
 type GTShaderProfilerMCABinaryList struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type GTShaderProfilerMCABinaryList struct {
 func GTShaderProfilerMCABinaryListFromID(id objc.ID) GTShaderProfilerMCABinaryList {
 	return GTShaderProfilerMCABinaryList{objectivec.Object{ID: id}}
 }
+
 // Ensure GTShaderProfilerMCABinaryList implements IGTShaderProfilerMCABinaryList.
 var _ IGTShaderProfilerMCABinaryList = GTShaderProfilerMCABinaryList{}
 
@@ -101,7 +103,6 @@ func NewGTShaderProfilerMCABinaryList() GTShaderProfilerMCABinaryList {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinaryList/initWithShaderProfilerResult:pipelineStateId:programType:
 func NewGTShaderProfilerMCABinaryListWithShaderProfilerResultPipelineStateIdProgramType(result objectivec.IObject, id uint64, type_ uint32) GTShaderProfilerMCABinaryList {
 	instance := getGTShaderProfilerMCABinaryListClass().Alloc()
@@ -109,7 +110,6 @@ func NewGTShaderProfilerMCABinaryListWithShaderProfilerResultPipelineStateIdProg
 	return GTShaderProfilerMCABinaryListFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinaryList/initWithShaderProfilerResult:pipelineStateId:programType:
 func (g GTShaderProfilerMCABinaryList) InitWithShaderProfilerResultPipelineStateIdProgramType(result objectivec.IObject, id uint64, type_ uint32) GTShaderProfilerMCABinaryList {
 	rv := objc.Send[GTShaderProfilerMCABinaryList](g.ID, objc.Sel("initWithShaderProfilerResult:pipelineStateId:programType:"), result, id, type_)
@@ -121,14 +121,15 @@ func (g GTShaderProfilerMCABinaryList) AllocatedGPRCount() int {
 	rv := objc.Send[int](g.ID, objc.Sel("allocatedGPRCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinaryList/highRegisterCount
 func (g GTShaderProfilerMCABinaryList) HighRegisterCount() int {
 	rv := objc.Send[int](g.ID, objc.Sel("highRegisterCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinaryList/mcaBinaries
 func (g GTShaderProfilerMCABinaryList) McaBinaries() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("mcaBinaries"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

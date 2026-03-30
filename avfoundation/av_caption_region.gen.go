@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVCaptionRegionClass) Alloc() AVCaptionRegion {
 // caption.
 //
 // # Overview
-// 
+//
 // The framework defines four regions, and doesn’t support configuring
 // region settings.
 //
@@ -90,6 +91,7 @@ type AVCaptionRegion struct {
 func AVCaptionRegionFromID(id objc.ID) AVCaptionRegion {
 	return AVCaptionRegion{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptionRegion adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -187,15 +189,15 @@ func NewAVCaptionRegion() AVCaptionRegion {
 // encoder: An encoder instance to use.
 //
 // # Discussion
-// 
+//
 // This method throws an exception if the caption region’s [Size] has
 // different units for [width] and [height], or if the units are
 // unrecognizeable.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/encode(with:)
+//
 // [height]: https://developer.apple.com/documentation/AVFoundation/AVCaptionSize/height
 // [width]: https://developer.apple.com/documentation/AVFoundation/AVCaptionSize/width
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/encode(with:)
 func (c AVCaptionRegion) EncodeWithCoder(encoder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), encoder)
 }
@@ -203,11 +205,11 @@ func (c AVCaptionRegion) EncodeWithCoder(encoder foundation.INSCoder) {
 // A string that identifies the region.
 //
 // # Discussion
-// 
+//
 // The system considers two regions the same if their region identifier is
 // equal. Your app needs to ensure that equal caption regions have the same
 // property values.
-// 
+//
 // If this value is `nil`, the system instead treats two regions equal if
 // their `position` and `endPosition` are the same. Captions referring to
 // these regions belong to the same region when the system serializes them to
@@ -218,38 +220,41 @@ func (c AVCaptionRegion) Identifier() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The region’s top-left position.
 //
 // # Discussion
-// 
+//
 // The caption’s origin may not provide undefined [x] and [y] values, which
 // indicates the region doesn’t have positioning information for that
 // dimension.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/origin
+//
 // [x]: https://developer.apple.com/documentation/AVFoundation/AVCaptionPoint/x
 // [y]: https://developer.apple.com/documentation/AVFoundation/AVCaptionPoint/y
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/origin
 func (c AVCaptionRegion) Origin() AVCaptionPoint {
 	rv := objc.Send[AVCaptionPoint](c.ID, objc.Sel("origin"))
 	return AVCaptionPoint(rv)
 }
+
 // The height and width of the region.
 //
 // # Discussion
-// 
+//
 // CEA608 closed captions limit the [height] property’s value to 1 cell,
 // except when the value of its [Scroll] property is
-// [CaptionRegionScrollRollUp]. In this case, the [height] property’s value
-// must be 2, 3 or 4 cells.
-//
-// [height]: https://developer.apple.com/documentation/AVFoundation/AVCaptionSize/height
+// [AVCaptionRegionScrollRollUp]. In this case, the [height] property’s
+// value must be 2, 3 or 4 cells.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/size
+//
+// [height]: https://developer.apple.com/documentation/AVFoundation/AVCaptionSize/height
 func (c AVCaptionRegion) Size() AVCaptionSize {
 	rv := objc.Send[AVCaptionSize](c.ID, objc.Sel("size"))
 	return AVCaptionSize(rv)
 }
+
 // The alignment of lines for the region.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/displayAlignment-swift.property
@@ -257,6 +262,7 @@ func (c AVCaptionRegion) DisplayAlignment() AVCaptionRegionDisplayAlignment {
 	rv := objc.Send[AVCaptionRegionDisplayAlignment](c.ID, objc.Sel("displayAlignment"))
 	return AVCaptionRegionDisplayAlignment(rv)
 }
+
 // The scroll mode of the region.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/scroll-swift.property
@@ -264,6 +270,7 @@ func (c AVCaptionRegion) Scroll() AVCaptionRegionScroll {
 	rv := objc.Send[AVCaptionRegionScroll](c.ID, objc.Sel("scroll"))
 	return AVCaptionRegionScroll(rv)
 }
+
 // The block and inline progression direction of the region.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRegion/writingMode-swift.property
@@ -275,7 +282,7 @@ func (c AVCaptionRegion) WritingMode() AVCaptionRegionWritingMode {
 // The top region for iTT format captions.
 //
 // # Discussion
-// 
+//
 // This region is available when working with iTT captions. It occupies the
 // top 15% of the display area, and it uses a LRTB layout where a line
 // progresses from left to right and the block extends from top to bottom.
@@ -286,10 +293,11 @@ func (_AVCaptionRegionClass AVCaptionRegionClass) AppleITTTopRegion() AVCaptionR
 	rv := objc.Send[objc.ID](objc.ID(_AVCaptionRegionClass.class), objc.Sel("appleITTTopRegion"))
 	return AVCaptionRegionFromID(objc.ID(rv))
 }
+
 // The bottom region for iTT format captions.
 //
 // # Discussion
-// 
+//
 // This region occupies the bottom 15% of the display area, and it uses a LRTB
 // layout where a line progresses from left to right and the block extends
 // from top to bottom. Lines are bottom justified.
@@ -299,10 +307,11 @@ func (_AVCaptionRegionClass AVCaptionRegionClass) AppleITTBottomRegion() AVCapti
 	rv := objc.Send[objc.ID](objc.ID(_AVCaptionRegionClass.class), objc.Sel("appleITTBottomRegion"))
 	return AVCaptionRegionFromID(objc.ID(rv))
 }
+
 // The left region for iTT format captions.
 //
 // # Discussion
-// 
+//
 // This region occupies the left 15% of the display area, and it uses a TBRL
 // layout where a line progresses from top to bottom and the block extends
 // from right to left. Lines are left justified.
@@ -312,10 +321,11 @@ func (_AVCaptionRegionClass AVCaptionRegionClass) AppleITTLeftRegion() AVCaption
 	rv := objc.Send[objc.ID](objc.ID(_AVCaptionRegionClass.class), objc.Sel("appleITTLeftRegion"))
 	return AVCaptionRegionFromID(objc.ID(rv))
 }
+
 // The right region for iTT format captions.
 //
 // # Discussion
-// 
+//
 // This region occupies the right 15% of the display area, and it uses a TBRL
 // layout where a line progresses from top to bottom and the block extends
 // from right to left. Lines are right justified.
@@ -325,13 +335,14 @@ func (_AVCaptionRegionClass AVCaptionRegionClass) AppleITTRightRegion() AVCaptio
 	rv := objc.Send[objc.ID](objc.ID(_AVCaptionRegionClass.class), objc.Sel("appleITTRightRegion"))
 	return AVCaptionRegionFromID(objc.ID(rv))
 }
+
 // The bottom caption region for SubRip Text (SRT) format captions.
 //
 // # Discussion
-// 
+//
 // This region is suitable for SRT format, and it occupies the entire video
 // display area. The region uses a
-// [CaptionRegionWritingModeLeftToRightAndTopToBottom] writing mode, where a
+// [AVCaptionRegionWritingModeLeftToRightAndTopToBottom] writing mode, where a
 // line progresses left to right and the block extends from top to bottom. The
 // system stacks each line of text with bottom justification.
 //
@@ -340,4 +351,3 @@ func (_AVCaptionRegionClass AVCaptionRegionClass) SubRipTextBottomRegion() AVCap
 	rv := objc.Send[objc.ID](objc.ID(_AVCaptionRegionClass.class), objc.Sel("subRipTextBottomRegion"))
 	return AVCaptionRegionFromID(objc.ID(rv))
 }
-

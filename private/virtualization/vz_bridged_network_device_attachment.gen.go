@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,12 +41,12 @@ func (vc VZBridgedNetworkDeviceAttachmentClass) Alloc() VZBridgedNetworkDeviceAt
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZBridgedNetworkDeviceAttachment._macNatEnabled]
 //   - [VZBridgedNetworkDeviceAttachment.Set_macNatEnabled]
 //   - [VZBridgedNetworkDeviceAttachment._setMacNatEnabled]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZBridgedNetworkDeviceAttachment
 type VZBridgedNetworkDeviceAttachment struct {
 	VZNetworkDeviceAttachment
@@ -55,6 +56,7 @@ type VZBridgedNetworkDeviceAttachment struct {
 func VZBridgedNetworkDeviceAttachmentFromID(id objc.ID) VZBridgedNetworkDeviceAttachment {
 	return VZBridgedNetworkDeviceAttachment{VZNetworkDeviceAttachment: VZNetworkDeviceAttachmentFromID(id)}
 }
+
 // Ensure VZBridgedNetworkDeviceAttachment implements IVZBridgedNetworkDeviceAttachment.
 var _ IVZBridgedNetworkDeviceAttachment = VZBridgedNetworkDeviceAttachment{}
 
@@ -96,7 +98,6 @@ func NewVZBridgedNetworkDeviceAttachment() VZBridgedNetworkDeviceAttachment {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZBridgedNetworkDeviceAttachment/_setMacNatEnabled:
 func (b VZBridgedNetworkDeviceAttachment) _setMacNatEnabled(enabled bool) {
 	objc.Send[objc.ID](b.ID, objc.Sel("_setMacNatEnabled:"), enabled)
@@ -115,4 +116,3 @@ func (b VZBridgedNetworkDeviceAttachment) _macNatEnabled() bool {
 func (b VZBridgedNetworkDeviceAttachment) Set_macNatEnabled(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("set_macNatEnabled:"), value)
 }
-

@@ -23,6 +23,7 @@ type MLCustomModel interface {
 type MLCustomModelObject struct {
 	objectivec.Object
 }
+
 func (o MLCustomModelObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,7 +43,7 @@ func MLCustomModelObjectFromID(id objc.ID) MLCustomModelObject {
 // options: The options to be applied to the prediction.
 //
 // # Return Value
-// 
+//
 // A feature provider that represents the model’s prediction.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModel/prediction(from:options:)
@@ -52,7 +53,8 @@ func (o MLCustomModelObject) PredictionFromFeaturesOptionsError(input MLFeatureP
 		return nil, err
 	}
 	return MLFeatureProviderObjectFromID(rv), nil
-	}
+}
+
 // Predicts output values from the given batch of input features.
 //
 // inputBatch: The batch of feature values the model needs to make its predictions.
@@ -60,7 +62,7 @@ func (o MLCustomModelObject) PredictionFromFeaturesOptionsError(input MLFeatureP
 // options: The options to be applied to the predictions.
 //
 // # Return Value
-// 
+//
 // A batch provider that represents the model’s predictions for the batch of
 // inputs.
 //
@@ -71,5 +73,4 @@ func (o MLCustomModelObject) PredictionsFromBatchOptionsError(inputBatch MLBatch
 		return nil, err
 	}
 	return MLBatchProviderObjectFromID(rv), nil
-	}
-
+}

@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSButtonCell] class.
@@ -46,7 +47,7 @@ func (nc NSButtonCellClass) Alloc() NSButtonCell {
 // region of a view.
 //
 // # Overview
-// 
+//
 // Setting the integer, float, double, or object value of an [NSButtonCell]
 // object results in a call to [NSButtonCell.State] with the value converted to integer. In
 // the case of [NSButtonCell.ObjectValue], `nil` is equivalent to `0`, and a non-`nil`
@@ -55,36 +56,30 @@ func (nc NSButtonCellClass) Alloc() NSButtonCell {
 // most button types, querying the integer, float, double, or object value of
 // an [NSButtonCell] returns the current state in the requested
 // representation. In the case of [NSButtonCell.ObjectValue], this is an [NSNumber]
-// containing [true] for on, [false] for off, and integer value `-1` for the
-// mixed state. For accelerator buttons (type [NSAcceleratorButton] or
+// containing true for on, false for off, and integer value `-1` for the mixed
+// state. For accelerator buttons (type [NSAcceleratorButton] or
 // [NSMultiLevelAcceleratorButton]) on systems that support pressure
 // sensitivity, querying [NSButtonCell.DoubleValue] returns the amount of pressure applied
 // while pressing the button.
-// 
+//
 // The configuration of an [NSButtonCell] object controls how the button
 // object appears and behaves, but it’s [NSButton] that sends a message when
 // the control is clicked. For more information on the behavior of
 // [NSButtonCell], see the [NSButton] and [NSMatrix] class specifications, and
 // [Button Programming Topics].
-// 
+//
 // # Exceptions
-// 
+//
 // In its implementation of the [Compare] method (declared in [NSCell]),
 // [NSButtonCell] raises an [NSBadComparisonException] if the `otherCell`
 // argument is not of the [NSButtonCell] class.
-// 
+//
 // # Fonts
-// 
+//
 // Setting the [Font] property does nothing if the button has no title or
 // alternate title. If the button cell has a key equivalent, its font is not
 // changed, but the key equivalent’s font size is changed to match the new
 // title font.
-//
-// [Button Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Button/Button.html#//apple_ref/doc/uid/10000019i
-// [NSAcceleratorButton]: https://developer.apple.com/documentation/AppKit/NSAcceleratorButton
-// [NSMultiLevelAcceleratorButton]: https://developer.apple.com/documentation/AppKit/NSMultiLevelAcceleratorButton
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Setting Titles
 //
@@ -151,6 +146,10 @@ func (nc NSButtonCellClass) Alloc() NSButtonCell {
 //   - [NSButtonCell.DrawTitleWithFrameInView]: Draws the button’s title centered vertically in a specified rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell
+//
+// [Button Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Button/Button.html#//apple_ref/doc/uid/10000019i
+// [NSAcceleratorButton]: https://developer.apple.com/documentation/AppKit/NSAcceleratorButton
+// [NSMultiLevelAcceleratorButton]: https://developer.apple.com/documentation/AppKit/NSMultiLevelAcceleratorButton
 type NSButtonCell struct {
 	NSActionCell
 }
@@ -162,6 +161,7 @@ type NSButtonCell struct {
 func NSButtonCellFromID(id objc.ID) NSButtonCell {
 	return NSButtonCell{NSActionCell: NSActionCellFromID(id)}
 }
+
 // NOTE: NSButtonCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -341,7 +341,6 @@ func NewNSButtonCell() NSButtonCell {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/init(imageCell:)
 func NewButtonCellImageCell(image INSImage) NSButtonCell {
 	instance := getNSButtonCellClass().Alloc()
@@ -349,7 +348,6 @@ func NewButtonCellImageCell(image INSImage) NSButtonCell {
 	return NSButtonCellFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/init(textCell:)
 func NewButtonCellTextCell(string_ string) NSButtonCell {
 	instance := getNSButtonCellClass().Alloc()
@@ -357,7 +355,6 @@ func NewButtonCellTextCell(string_ string) NSButtonCell {
 	return NSButtonCellFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/init(coder:)
 func NewButtonCellWithCoder(coder foundation.INSCoder) NSButtonCell {
 	instance := getNSButtonCellClass().Alloc()
@@ -369,17 +366,17 @@ func NewButtonCellWithCoder(coder foundation.INSCoder) NSButtonCell {
 //
 // delay: The amount of time (in seconds) that a continuous button will pause before
 // starting to periodically send action messages to the target object.
-// 
+//
 // The maximum value is 60.0 seconds; if a larger value is supplied, it’s
 // ignored, and 60.0 seconds is used.
 //
 // interval: The amount of time (in seconds) between each action message.
-// 
+//
 // The maximum value is 60.0 seconds; if a larger value is supplied, it’s
 // ignored, and 60.0 seconds is used.
 //
 // # Discussion
-// 
+//
 // These values are used if the button is configured (by a [Continuous]
 // message) to continuously send the action message to the target object while
 // tracking the mouse.
@@ -388,58 +385,58 @@ func NewButtonCellWithCoder(coder foundation.INSCoder) NSButtonCell {
 func (b NSButtonCell) SetPeriodicDelayInterval(delay float32, interval float32) {
 	objc.Send[objc.ID](b.ID, objc.Sel("setPeriodicDelay:interval:"), delay, interval)
 }
+
 // Sets how the button highlights while pressed and how it shows its state.
 //
 // type: A constant specifying the type of button. This can be one of the constants
 // defined in [NSButton.ButtonType].
-// //
-// [NSButton.ButtonType]: https://developer.apple.com/documentation/AppKit/NSButton/ButtonType
 //
 // # Discussion
-// 
+//
 // The [SetButtonType] method redisplays the button before returning.
-// 
+//
 // The types available are for the most common button types, which are also
 // accessible in Interface Builder; you can configure different behavior with
 // the [HighlightsBy] and [ShowsStateBy] properties.
-// 
+//
 // Note that there is no `-buttonType` method. The set method sets various
 // button properties that together establish the behavior of the type.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/setButtonType(_:)
+//
+// [NSButton.ButtonType]: https://developer.apple.com/documentation/AppKit/NSButton/ButtonType
 func (b NSButtonCell) SetButtonType(type_ NSButtonType) {
 	objc.Send[objc.ID](b.ID, objc.Sel("setButtonType:"), type_)
 }
+
 // Draws the button’s border.
 //
 // event: The event object generated by the mouse movement.
 //
 // # Discussion
-// 
-// This method is called only when the pointer moves onto the button and the
-// value of [ShowsBorderOnlyWhileMouseInside] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This method is called only when the pointer moves onto the button and the
+// value of [ShowsBorderOnlyWhileMouseInside] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/mouseEntered(with:)
 func (b NSButtonCell) MouseEntered(event INSEvent) {
 	objc.Send[objc.ID](b.ID, objc.Sel("mouseEntered:"), event)
 }
+
 // Erases the button’s border.
 //
 // event: The event object generated by the mouse movement.
 //
 // # Discussion
-// 
-// This method is called only when the pointer moves off the button and the
-// value of [ShowsBorderOnlyWhileMouseInside] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This method is called only when the pointer moves off the button and the
+// value of [ShowsBorderOnlyWhileMouseInside] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/mouseExited(with:)
 func (b NSButtonCell) MouseExited(event INSEvent) {
 	objc.Send[objc.ID](b.ID, objc.Sel("mouseExited:"), event)
 }
+
 // Draws the border of the button using the current bezel style.
 //
 // frame: The bounding rectangle of the button.
@@ -447,7 +444,7 @@ func (b NSButtonCell) MouseExited(event INSEvent) {
 // controlView: The control being drawn.
 //
 // # Discussion
-// 
+//
 // This method is called automatically when the button is redrawn; you should
 // not call it directly.
 //
@@ -455,6 +452,7 @@ func (b NSButtonCell) MouseExited(event INSEvent) {
 func (b NSButtonCell) DrawBezelWithFrameInView(frame corefoundation.CGRect, controlView INSView) {
 	objc.Send[objc.ID](b.ID, objc.Sel("drawBezelWithFrame:inView:"), frame, controlView)
 }
+
 // Draws the image associated with the button’s current state.
 //
 // image: The image associated with the button’s current state.
@@ -464,10 +462,10 @@ func (b NSButtonCell) DrawBezelWithFrameInView(frame corefoundation.CGRect, cont
 // controlView: The control being drawn.
 //
 // # Discussion
-// 
+//
 // This method is called automatically when the button is redrawn; you should
 // not call it directly.
-// 
+//
 // You specify the primary and alternate images for the button using Interface
 // Builder.
 //
@@ -475,6 +473,7 @@ func (b NSButtonCell) DrawBezelWithFrameInView(frame corefoundation.CGRect, cont
 func (b NSButtonCell) DrawImageWithFrameInView(image INSImage, frame corefoundation.CGRect, controlView INSView) {
 	objc.Send[objc.ID](b.ID, objc.Sel("drawImage:withFrame:inView:"), image, frame, controlView)
 }
+
 // Draws the button’s title centered vertically in a specified rectangle.
 //
 // title: The title of the button.
@@ -484,11 +483,11 @@ func (b NSButtonCell) DrawImageWithFrameInView(image INSImage, frame corefoundat
 // controlView: The control being drawn.
 //
 // # Return Value
-// 
+//
 // The bounding rectangle for the text of the title.
 //
 // # Discussion
-// 
+//
 // This method is called automatically when the button is redrawn; you should
 // not call it directly.
 //
@@ -501,7 +500,7 @@ func (b NSButtonCell) DrawTitleWithFrameInView(title foundation.NSAttributedStri
 // The string displayed by the button when it’s in its alternate state.
 //
 // # Discussion
-// 
+//
 // The value of this property is the string that appears on the button when
 // it’s in its alternate state, or the empty string if the button doesn’t
 // display an alternate title. Note that some button types don’t display an
@@ -515,17 +514,18 @@ func (b NSButtonCell) AlternateTitle() string {
 func (b NSButtonCell) SetAlternateTitle(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAlternateTitle:"), objc.String(value))
 }
+
 // The title displayed by the button when it’s in its alternate state, as an
 // attributed string.
 //
 // # Discussion
-// 
+//
 // The value of this property is the attributed string that appears on the
 // button when it’s in its alternate state, or the empty string if the
 // button doesn’t display an alternate title. Note that some button types
 // don’t display an alternate title. By default, a button’s alternate
 // title is “Button.”
-// 
+//
 // Graphics attributes that are set on the cell (such as `backgroundColor`,
 // `alignment`, `font`, and so on) are overridden when corresponding
 // properties are set for the attributed string.
@@ -538,11 +538,12 @@ func (b NSButtonCell) AttributedAlternateTitle() foundation.NSAttributedString {
 func (b NSButtonCell) SetAttributedAlternateTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAttributedAlternateTitle:"), value)
 }
+
 // The title displayed by the button when it’s in its normal state as an
 // attributed string.
 //
 // # Discussion
-// 
+//
 // The value of this property is the attributes string that appears on the
 // button when it’s in its normal state, or an empty attributed string if
 // the button doesn’t display a title. A button’s title is always
@@ -550,7 +551,7 @@ func (b NSButtonCell) SetAttributedAlternateTitle(value foundation.NSAttributedS
 // highlighting or displaying the alternate state. By default, a button’s
 // title is “Button.” Setting this property redraws the button if
 // necessary.
-// 
+//
 // Graphics attributes configured for the cell (such as `backgroundColor`,
 // `alignment`, `font`, and so on) are overridden when corresponding
 // properties are set for the attributed string.
@@ -563,10 +564,11 @@ func (b NSButtonCell) AttributedTitle() foundation.NSAttributedString {
 func (b NSButtonCell) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAttributedTitle:"), value)
 }
+
 // The image the button displays in its alternate state.
 //
 // # Discussion
-// 
+//
 // The value of this property is the image displayed by the button when it’s
 // in its alternate state, or `nil` if there is no alternate image. Note that
 // some button types don’t display an alternate image. Buttons don’t
@@ -581,10 +583,11 @@ func (b NSButtonCell) AlternateImage() INSImage {
 func (b NSButtonCell) SetAlternateImage(value INSImage) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAlternateImage:"), value)
 }
+
 // The position of the button’s image relative to its title.
 //
 // # Discussion
-// 
+//
 // The value of this property is one of the image positions described in the
 // “Constants” section of [NSCell]. If the title is above, below, or
 // overlapping the image, or if there is no image, the text is horizontally
@@ -598,6 +601,7 @@ func (b NSButtonCell) ImagePosition() NSCellImagePosition {
 func (b NSButtonCell) SetImagePosition(value NSCellImagePosition) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImagePosition:"), value)
 }
+
 // The scale factor for the button’s image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/imageScaling
@@ -608,11 +612,12 @@ func (b NSButtonCell) ImageScaling() NSImageScaling {
 func (b NSButtonCell) SetImageScaling(value NSImageScaling) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImageScaling:"), value)
 }
+
 // The mask that identifies the modifier keys for the button’s key
 // equivalent.
 //
 // # Discussion
-// 
+//
 // The value of this property is a mask that indicates the modifier keys that
 // are applied to the button’s key equivalent. Mask bits are defined in
 // `NSEvent.H()`. The only mask bits that are relevant in button
@@ -627,10 +632,11 @@ func (b NSButtonCell) KeyEquivalentModifierMask() NSEventModifierFlags {
 func (b NSButtonCell) SetKeyEquivalentModifierMask(value NSEventModifierFlags) {
 	objc.Send[struct{}](b.ID, objc.Sel("setKeyEquivalentModifierMask:"), value)
 }
+
 // The background color of the button.
 //
 // # Discussion
-// 
+//
 // The background color is used only when drawing borderless buttons.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/backgroundColor
@@ -641,21 +647,22 @@ func (b NSButtonCell) BackgroundColor() INSColor {
 func (b NSButtonCell) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBackgroundColor:"), value)
 }
+
 // The appearance of the button’s border, if it has one.
 //
 // # Discussion
-// 
+//
 // The value of this property is a constant that specifies the bezel style
 // used by the button. See [NSButton.BezelStyle] for a list of possible
 // values. If a button is borderless, the value of this property is ignored.
-// 
+//
 // A button uses shading to look like it’s sticking out or pushed in. You
 // can set the shading with the [gradientType] property.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSButtonCell/bezelStyle
+//
 // [NSButton.BezelStyle]: https://developer.apple.com/documentation/AppKit/NSButton/BezelStyle-swift.enum
 // [gradientType]: https://developer.apple.com/documentation/AppKit/NSButtonCell/gradientType
-//
-// See: https://developer.apple.com/documentation/AppKit/NSButtonCell/bezelStyle
 func (b NSButtonCell) BezelStyle() NSBezelStyle {
 	rv := objc.Send[NSBezelStyle](b.ID, objc.Sel("bezelStyle"))
 	return NSBezelStyle(rv)
@@ -663,28 +670,27 @@ func (b NSButtonCell) BezelStyle() NSBezelStyle {
 func (b NSButtonCell) SetBezelStyle(value NSBezelStyle) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBezelStyle:"), value)
 }
+
 // A Boolean value that indicates if the button’s image and text appear
 // “dim” when the button is disabled.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the button’s image and text
-// are dimmed when the button is disabled; when it is [false], the image and
-// text are not dimmed in the disabled state. By default, all button types
-// except [NSSwitchButton] and [NSRadioButton] dim when disabled. When buttons
-// of type [NSSwitchButton] and [NSRadioButton] are disabled, only the
-// associated text dims.
-// 
+//
+// When the value of this property is true, the button’s image and text are
+// dimmed when the button is disabled; when it is false, the image and text
+// are not dimmed in the disabled state. By default, all button types except
+// [NSSwitchButton] and [NSRadioButton] dim when disabled. When buttons of
+// type [NSSwitchButton] and [NSRadioButton] are disabled, only the associated
+// text dims.
+//
 // The default setting for this state is reasserted whenever you invoke
 // [SetButtonType], so be sure to specify the button cell’s type before you
 // set [ImageDimsWhenDisabled].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSButtonCell/imageDimsWhenDisabled
+//
 // [NSRadioButton]: https://developer.apple.com/documentation/AppKit/NSRadioButton
 // [NSSwitchButton]: https://developer.apple.com/documentation/AppKit/NSSwitchButton
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSButtonCell/imageDimsWhenDisabled
 func (b NSButtonCell) ImageDimsWhenDisabled() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("imageDimsWhenDisabled"))
 	return rv
@@ -692,20 +698,18 @@ func (b NSButtonCell) ImageDimsWhenDisabled() bool {
 func (b NSButtonCell) SetImageDimsWhenDisabled(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImageDimsWhenDisabled:"), value)
 }
+
 // A Boolean value that indicates if the button is transparent.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the button is transparent, when
-// it is [false], the button is not transparent. The default value is [false].
-// 
+//
+// When the value of this property is true, the button is transparent, when it
+// is false, the button is not transparent. The default value is false.
+//
 // Setting this property redraws the button if necessary. A transparent button
 // tracks the mouse and sends its action, but doesn’t draw. A transparent
 // button is useful for sensitizing an area on the screen so that an action
 // gets sent to a target when the area receives a mouse click.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/isTransparent
 func (b NSButtonCell) Transparent() bool {
@@ -715,18 +719,16 @@ func (b NSButtonCell) Transparent() bool {
 func (b NSButtonCell) SetTransparent(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTransparent:"), value)
 }
+
 // A Boolean value that indicates if the button displays its border only when
 // the pointer is over it.
 //
 // # Discussion
-// 
-// When the value of this property is [true] if the button’s border is
-// displayed only when the pointer is over the button and the button is
-// active. When it is [false], the border continues to display when the
-// pointer is outside of the button’s bounds.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true if the button’s border is
+// displayed only when the pointer is over the button and the button is
+// active. When it is false, the border continues to display when the pointer
+// is outside of the button’s bounds.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/showsBorderOnlyWhileMouseInside
 func (b NSButtonCell) ShowsBorderOnlyWhileMouseInside() bool {
@@ -736,14 +738,15 @@ func (b NSButtonCell) ShowsBorderOnlyWhileMouseInside() bool {
 func (b NSButtonCell) SetShowsBorderOnlyWhileMouseInside(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setShowsBorderOnlyWhileMouseInside:"), value)
 }
+
 // A set of flags that indicate how the button highlights when it receives a
 // mouse-down event (that is, when the button is pressed).
 //
 // # Discussion
-// 
+//
 // The value of this property is the logical OR of one or more of flags
 // described in the “Constants” section of [NSCell].
-// 
+//
 // If both [NSChangeGrayCellMask] and [NSChangeBackgroundCellMask] are
 // specified, both are recorded, but the resulting behavior depends on the
 // button cell’s image. If the button has no image, or if the image has no
@@ -760,13 +763,14 @@ func (b NSButtonCell) HighlightsBy() NSCellStyleMask {
 func (b NSButtonCell) SetHighlightsBy(value NSCellStyleMask) {
 	objc.Send[struct{}](b.ID, objc.Sel("setHighlightsBy:"), value)
 }
+
 // The flags that indicate how the button cell shows its alternate state.
 //
 // # Discussion
-// 
+//
 // The value of this property is the logical [OR] of one or more of the cell
 // masks described in the “Constants” section of [NSCell].
-// 
+//
 // If both [NSChangeGrayCellMask] and [NSChangeBackgroundCellMask] are
 // specified, both are recorded, but the actual behavior depends on the button
 // cell’s image. If the button has no image, or if the image has no alpha
@@ -783,6 +787,7 @@ func (b NSButtonCell) ShowsStateBy() NSCellStyleMask {
 func (b NSButtonCell) SetShowsStateBy(value NSCellStyleMask) {
 	objc.Send[struct{}](b.ID, objc.Sel("setShowsStateBy:"), value)
 }
+
 // The sound that’s played when the user presses the button (that is during
 // a mouse-down event).
 //
@@ -794,4 +799,3 @@ func (b NSButtonCell) Sound() INSSound {
 func (b NSButtonCell) SetSound(value INSSound) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSound:"), value)
 }
-

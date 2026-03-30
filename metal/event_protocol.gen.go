@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -34,6 +34,7 @@ type MTLEvent interface {
 type MTLEventObject struct {
 	objectivec.Object
 }
+
 func (o MTLEventObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -52,16 +53,27 @@ func MTLEventObjectFromID(id objc.ID) MTLEventObject {
 func (o MTLEventObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-	}
+}
+
 // A string that identifies the event.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLEvent/label
 func (o MTLEventObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
 
+// A string that identifies the event.
+//
+// # Discussion
+//
+// Object and command labels are useful identifiers at runtime or when
+// profiling and debugging your app using any Metal tool. See [Naming
+// resources and commands].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLEvent/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLEventObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

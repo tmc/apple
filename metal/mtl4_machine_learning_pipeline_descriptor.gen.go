@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type MTL4MachineLearningPipelineDescriptor struct {
 func MTL4MachineLearningPipelineDescriptorFromID(id objc.ID) MTL4MachineLearningPipelineDescriptor {
 	return MTL4MachineLearningPipelineDescriptor{MTL4PipelineDescriptor: MTL4PipelineDescriptorFromID(id)}
 }
+
 // NOTE: MTL4MachineLearningPipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -132,12 +134,14 @@ func (m MTL4MachineLearningPipelineDescriptor) InputDimensionsAtBufferIndex(buff
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputDimensionsAtBufferIndex:"), bufferIndex)
 	return MTLTensorExtentsFromID(rv)
 }
+
 // Resets the descriptor to its default values.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineDescriptor/reset()
 func (m MTL4MachineLearningPipelineDescriptor) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
+
 // Sets the dimension of an input tensor at a buffer index.
 //
 // dimensions: The dimensions of the tensor.
@@ -148,6 +152,7 @@ func (m MTL4MachineLearningPipelineDescriptor) Reset() {
 func (m MTL4MachineLearningPipelineDescriptor) SetInputDimensionsAtBufferIndex(dimensions IMTLTensorExtents, bufferIndex int) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setInputDimensions:atBufferIndex:"), dimensions, bufferIndex)
 }
+
 // Sets the dimensions of multiple input tensors on a range of buffer
 // bindings.
 //
@@ -157,10 +162,10 @@ func (m MTL4MachineLearningPipelineDescriptor) SetInputDimensionsAtBufferIndex(d
 // needs to match the dimensions’ `count` property.
 //
 // # Discussion
-// 
+//
 // Use this method to specify the dimensions of multiple input tensors at a
 // range of indices in a single call.
-// 
+//
 // You can indicate that any tensors in the range have unspecified dimensions
 // by providing [NSNull] at the their corresponding index location in the
 // array.
@@ -181,4 +186,3 @@ func (m MTL4MachineLearningPipelineDescriptor) MachineLearningFunctionDescriptor
 func (m MTL4MachineLearningPipelineDescriptor) SetMachineLearningFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMachineLearningFunctionDescriptor:"), value)
 }
-

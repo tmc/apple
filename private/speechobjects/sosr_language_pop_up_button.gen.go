@@ -4,10 +4,11 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (sc SOSRLanguagePopUpButtonClass) Alloc() SOSRLanguagePopUpButton {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SOSRLanguagePopUpButton._clearDownloadStatusFieldAfterPreHeat]
@@ -66,6 +66,7 @@ func (sc SOSRLanguagePopUpButtonClass) Alloc() SOSRLanguagePopUpButton {
 //   - [SOSRLanguagePopUpButton.SelectedLanguageItem]
 //   - [SOSRLanguagePopUpButton.ShowOnlyNetworkSupportedItems]
 //   - [SOSRLanguagePopUpButton.SetShowOnlyNetworkSupportedItems]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton
 type SOSRLanguagePopUpButton struct {
 	appkit.NSPopUpButton
@@ -75,6 +76,7 @@ type SOSRLanguagePopUpButton struct {
 func SOSRLanguagePopUpButtonFromID(id objc.ID) SOSRLanguagePopUpButton {
 	return SOSRLanguagePopUpButton{NSPopUpButton: appkit.NSPopUpButtonFromID(id)}
 }
+
 // Ensure SOSRLanguagePopUpButton implements ISOSRLanguagePopUpButton.
 var _ ISOSRLanguagePopUpButton = SOSRLanguagePopUpButton{}
 
@@ -148,7 +150,6 @@ func NewSOSRLanguagePopUpButton() SOSRLanguagePopUpButton {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/initWithCoder:
 func NewSOSRLanguagePopUpButtonWithCoder(coder objectivec.IObject) SOSRLanguagePopUpButton {
 	instance := getSOSRLanguagePopUpButtonClass().Alloc()
@@ -156,7 +157,6 @@ func NewSOSRLanguagePopUpButtonWithCoder(coder objectivec.IObject) SOSRLanguageP
 	return SOSRLanguagePopUpButtonFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/initWithFrame:
 func NewSOSRLanguagePopUpButtonWithFrame(frame corefoundation.CGRect) SOSRLanguagePopUpButton {
 	instance := getSOSRLanguagePopUpButtonClass().Alloc()
@@ -173,6 +173,7 @@ func (s SOSRLanguagePopUpButton) _clearDownloadStatusFieldAfterPreHeat() {
 func (s SOSRLanguagePopUpButton) ClearDownloadStatusFieldAfterPreHeat() {
 	s._clearDownloadStatusFieldAfterPreHeat()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/_initCommon
 func (s SOSRLanguagePopUpButton) _initCommon() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_initCommon"))
@@ -182,6 +183,7 @@ func (s SOSRLanguagePopUpButton) _initCommon() {
 func (s SOSRLanguagePopUpButton) InitCommon() {
 	s._initCommon()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/_startDelayedPopUpUpdate
 func (s SOSRLanguagePopUpButton) _startDelayedPopUpUpdate() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_startDelayedPopUpUpdate"))
@@ -191,6 +193,7 @@ func (s SOSRLanguagePopUpButton) _startDelayedPopUpUpdate() {
 func (s SOSRLanguagePopUpButton) StartDelayedPopUpUpdate() {
 	s._startDelayedPopUpUpdate()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/_statusStringForActiveDownloads
 func (s SOSRLanguagePopUpButton) _statusStringForActiveDownloads() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_statusStringForActiveDownloads"))
@@ -201,6 +204,7 @@ func (s SOSRLanguagePopUpButton) _statusStringForActiveDownloads() objectivec.IO
 func (s SOSRLanguagePopUpButton) StatusStringForActiveDownloads() objectivec.IObject {
 	return s._statusStringForActiveDownloads()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/_updateDownloadStatusFields
 func (s SOSRLanguagePopUpButton) _updateDownloadStatusFields() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_updateDownloadStatusFields"))
@@ -210,6 +214,7 @@ func (s SOSRLanguagePopUpButton) _updateDownloadStatusFields() {
 func (s SOSRLanguagePopUpButton) UpdateDownloadStatusFields() {
 	s._updateDownloadStatusFields()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/_updateSRLanguageMenu
 func (s SOSRLanguagePopUpButton) _updateSRLanguageMenu() {
 	objc.Send[objc.ID](s.ID, objc.Sel("_updateSRLanguageMenu"))
@@ -219,16 +224,17 @@ func (s SOSRLanguagePopUpButton) _updateSRLanguageMenu() {
 func (s SOSRLanguagePopUpButton) UpdateSRLanguageMenu() {
 	s._updateSRLanguageMenu()
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/buildPopUpButtonAndSelectLocaleIdentifier:networkSupportedLocaleIdentifiers:offlineSupportedLocaleIdentifiers:
 func (s SOSRLanguagePopUpButton) BuildPopUpButtonAndSelectLocaleIdentifierNetworkSupportedLocaleIdentifiersOfflineSupportedLocaleIdentifiers(identifier objectivec.IObject, identifiers objectivec.IObject, identifiers2 objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("buildPopUpButtonAndSelectLocaleIdentifier:networkSupportedLocaleIdentifiers:offlineSupportedLocaleIdentifiers:"), identifier, identifiers, identifiers2)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/installationFinished:
 func (s SOSRLanguagePopUpButton) InstallationFinished(finished objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("installationFinished:"), finished)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/selectedLanguageItem
 func (s SOSRLanguagePopUpButton) SelectedLanguageItem() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("selectedLanguageItem"))
@@ -243,6 +249,7 @@ func (s SOSRLanguagePopUpButton) LanguagesAreDownloadable() bool {
 func (s SOSRLanguagePopUpButton) SetLanguagesAreDownloadable(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLanguagesAreDownloadable:"), value)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/networkBasedLocaleIdentifiers
 func (s SOSRLanguagePopUpButton) NetworkBasedLocaleIdentifiers() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("networkBasedLocaleIdentifiers"))
@@ -251,6 +258,7 @@ func (s SOSRLanguagePopUpButton) NetworkBasedLocaleIdentifiers() foundation.INSA
 func (s SOSRLanguagePopUpButton) SetNetworkBasedLocaleIdentifiers(value foundation.INSArray) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNetworkBasedLocaleIdentifiers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/offlineBasedLocaleIdentifiers
 func (s SOSRLanguagePopUpButton) OfflineBasedLocaleIdentifiers() foundation.INSArray {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("offlineBasedLocaleIdentifiers"))
@@ -259,6 +267,7 @@ func (s SOSRLanguagePopUpButton) OfflineBasedLocaleIdentifiers() foundation.INSA
 func (s SOSRLanguagePopUpButton) SetOfflineBasedLocaleIdentifiers(value foundation.INSArray) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOfflineBasedLocaleIdentifiers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/previouslyChosenLocaleIdentifier
 func (s SOSRLanguagePopUpButton) PreviouslyChosenLocaleIdentifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("previouslyChosenLocaleIdentifier"))
@@ -267,6 +276,7 @@ func (s SOSRLanguagePopUpButton) PreviouslyChosenLocaleIdentifier() string {
 func (s SOSRLanguagePopUpButton) SetPreviouslyChosenLocaleIdentifier(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPreviouslyChosenLocaleIdentifier:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguagePopUpButton/showOnlyNetworkSupportedItems
 func (s SOSRLanguagePopUpButton) ShowOnlyNetworkSupportedItems() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("showOnlyNetworkSupportedItems"))
@@ -275,4 +285,3 @@ func (s SOSRLanguagePopUpButton) ShowOnlyNetworkSupportedItems() bool {
 func (s SOSRLanguagePopUpButton) SetShowOnlyNetworkSupportedItems(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowOnlyNetworkSupportedItems:"), value)
 }
-

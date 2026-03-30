@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSTableColumnClass) Alloc() NSTableColumn {
 // The display characteristics and identifier for a column in a table view.
 //
 // # Overview
-// 
+//
 // A table column object determines the width (including the maximum and
 // minimum widths) of its column in the table view and specifies the
 // column’s resizing and editing behavior. A table column stores two cell
@@ -126,6 +127,7 @@ type NSTableColumn struct {
 func NSTableColumnFromID(id objc.ID) NSTableColumn {
 	return NSTableColumn{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTableColumn adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -289,7 +291,6 @@ func NewNSTableColumn() NSTableColumn {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/init(coder:)
 func NewTableColumnWithCoder(coder foundation.INSCoder) NSTableColumn {
 	instance := getNSTableColumnClass().Alloc()
@@ -302,14 +303,14 @@ func NewTableColumnWithCoder(coder foundation.INSCoder) NSTableColumn {
 // identifier: The string identifier for the column.
 //
 // # Return Value
-// 
+//
 // An initialized table column instance with an [NSTextFieldCell] instance as
 // its default cell.
 //
 // # Discussion
-// 
+//
 // You can set the table column title using the [Title] property.
-// 
+//
 // This method is the designated initializer for the [NSTableColumn] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/init(identifier:)
@@ -324,14 +325,14 @@ func NewTableColumnWithIdentifier(identifier NSUserInterfaceItemIdentifier) NSTa
 // identifier: The string identifier for the column.
 //
 // # Return Value
-// 
+//
 // An initialized table column instance with an [NSTextFieldCell] instance as
 // its default cell.
 //
 // # Discussion
-// 
+//
 // You can set the table column title using the [Title] property.
-// 
+//
 // This method is the designated initializer for the [NSTableColumn] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/init(identifier:)
@@ -339,15 +340,16 @@ func (t NSTableColumn) InitWithIdentifier(identifier NSUserInterfaceItemIdentifi
 	rv := objc.Send[NSTableColumn](t.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return rv
 }
+
 // Resizes the table column to fit the width of its header cell.
 //
 // # Discussion
-// 
+//
 // If the table column’s maximum width is less than the width of the header,
 // the maximum is increased to the header’s width. Similarly, if the table
 // column’s minimum width is greater than the width of the header, the
 // minimum is reduced to the header’s width.
-// 
+//
 // If this method causes the table column’s width to change, the column’s
 // table view is marked as needing display.
 //
@@ -355,40 +357,41 @@ func (t NSTableColumn) InitWithIdentifier(identifier NSUserInterfaceItemIdentifi
 func (t NSTableColumn) SizeToFit() {
 	objc.Send[objc.ID](t.ID, objc.Sel("sizeToFit"))
 }
+
 // Returns the cell object used to display values in the specified row of the
 // table column.
 //
 // row: The table column row.
 //
 // # Return Value
-// 
+//
 // The data cell object.
 //
 // # Discussion
-// 
+//
 // Returns the [NSCell] object used by the table view to draw values for the
 // receiver. The table view calls this method when drawing the row, so you
 // shouldn’t need to call it directly. By default, this method just accesses
 // [DataCell].
-// 
+//
 // To enable per-row customization of the cell used by the table column, you
 // can override this method or use the [NSTableViewDelegate] method
 // [TableViewDataCellForTableColumnRow]. In both cases, the cell that’s
 // returned should properly implement [copy(with:)], because the table view
 // may copy the cell during certain operations.
-// 
+//
 // Subclasses should be prepared for this method to be called with `row` equal
 // to –1 in cases where no actual row is involved but the table view needs
 // to get some generic cell information.
 //
-// [copy(with:)]: https://developer.apple.com/documentation/Foundation/NSCopying/copy(with:)
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/dataCell(forRow:)
+//
+// [copy(with:)]: https://developer.apple.com/documentation/Foundation/NSCopying/copy(with:)
 func (t NSTableColumn) DataCellForRow(row int) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("dataCellForRow:"), row)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/init(coder:)
 func (t NSTableColumn) InitWithCoder(coder foundation.INSCoder) NSTableColumn {
 	rv := objc.Send[NSTableColumn](t.ID, objc.Sel("initWithCoder:"), coder)
@@ -401,7 +404,7 @@ func (t NSTableColumn) EncodeWithCoder(coder foundation.INSCoder) {
 // The table view that contains the table column.
 //
 // # Discussion
-// 
+//
 // You should never need to set this property; it’s set automatically when
 // you add a table column to a table view using the [NSTableView] class’s
 // method [AddTableColumn].
@@ -414,21 +417,22 @@ func (t NSTableColumn) TableView() INSTableView {
 func (t NSTableColumn) SetTableView(value INSTableView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTableView:"), value)
 }
+
 // The table column’s width, in points.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `100.0`.
-// 
+//
 // If the value of this property exceeds the minimum or maximum width, it’s
 // adjusted to the appropriate limiting value.
-// 
+//
 // This property posts [columnDidResizeNotification] on behalf of the table
 // column’s [NSTableView] and marks the table view as needing display.
 //
-// [columnDidResizeNotification]: https://developer.apple.com/documentation/AppKit/NSTableView/columnDidResizeNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/width
+//
+// [columnDidResizeNotification]: https://developer.apple.com/documentation/AppKit/NSTableView/columnDidResizeNotification
 func (t NSTableColumn) Width() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("width"))
 	return rv
@@ -436,12 +440,13 @@ func (t NSTableColumn) Width() float64 {
 func (t NSTableColumn) SetWidth(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWidth:"), value)
 }
+
 // The table column’s minimum width, in points.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `10.0`.
-// 
+//
 // The table column width can’t be less than the value of this property,
 // whether the column is resized by the user or programmatically. If the table
 // column’s current width is less than the value of this property, the width
@@ -455,12 +460,13 @@ func (t NSTableColumn) MinWidth() float64 {
 func (t NSTableColumn) SetMinWidth(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMinWidth:"), value)
 }
+
 // The table column’s maximum width, in points.
 //
 // # Discussion
-// 
+//
 // The default value of this property is [MAXFLOAT].
-// 
+//
 // The table column width can’t be greater than the value of this property,
 // whether the column is resized by the user or programmatically. If the table
 // column’s current width is greater than the value of this property, the
@@ -474,21 +480,22 @@ func (t NSTableColumn) MaxWidth() float64 {
 func (t NSTableColumn) SetMaxWidth(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaxWidth:"), value)
 }
+
 // The table column’s resizing mask.
 //
 // # Discussion
-// 
+//
 // The value of this property specifies the resizability of the table column.
 // See [Resizing Modes] for possible values. Values can be combined using the
 // C bitwise OR operator.
-// 
-// When the value of this property is `0`, the column is not resizable. The
-// default value of this property is [TableColumnUserResizingMask] |
-// [TableColumnAutoresizingMask].
 //
-// [Resizing Modes]: https://developer.apple.com/documentation/AppKit/resizing-modes
+// When the value of this property is `0`, the column is not resizable. The
+// default value of this property is [NSTableColumnUserResizingMask] |
+// [NSTableColumnAutoresizingMask].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/resizingMask
+//
+// [Resizing Modes]: https://developer.apple.com/documentation/AppKit/resizing-modes
 func (t NSTableColumn) ResizingMask() NSTableColumnResizingOptions {
 	rv := objc.Send[NSTableColumnResizingOptions](t.ID, objc.Sel("resizingMask"))
 	return NSTableColumnResizingOptions(rv)
@@ -496,6 +503,7 @@ func (t NSTableColumn) ResizingMask() NSTableColumnResizingOptions {
 func (t NSTableColumn) SetResizingMask(value NSTableColumnResizingOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResizingMask:"), value)
 }
+
 // The title of the table column’s header.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/title
@@ -506,13 +514,14 @@ func (t NSTableColumn) Title() string {
 func (t NSTableColumn) SetTitle(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTitle:"), objc.String(value))
 }
+
 // The cell used to draw the table column’s header.
 //
 // # Discussion
-// 
+//
 // The value of this property must not be `nil`. It’s recommended that the
 // value of this property be an instance or subclass of [NSTableHeaderCell].
-// 
+//
 // You can set the table column title using the [Title] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/headerCell
@@ -523,10 +532,11 @@ func (t NSTableColumn) HeaderCell() INSTableHeaderCell {
 func (t NSTableColumn) SetHeaderCell(value INSTableHeaderCell) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHeaderCell:"), value)
 }
+
 // The identifier string for the table column.
 //
 // # Discussion
-// 
+//
 // This string is used by the data source to identify the table column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/identifier
@@ -537,18 +547,17 @@ func (t NSTableColumn) Identifier() NSUserInterfaceItemIdentifier {
 func (t NSTableColumn) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
+
 // A Boolean that indicates whether a cell-based table’s column cells are
 // user editable.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the user can edit cells in the
-// cell-based table’s column. The default value of this property is [true].
-// 
+//
+// When the value of this property is true, the user can edit cells in the
+// cell-based table’s column. The default value of this property is true.
+//
 // To initiate editing programmatically regardless of the value of this
 // property, use the [NSTableView] [EditColumnRowWithEventSelect] method.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/isEditable
 func (t NSTableColumn) Editable() bool {
@@ -558,10 +567,11 @@ func (t NSTableColumn) Editable() bool {
 func (t NSTableColumn) SetEditable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEditable:"), value)
 }
+
 // The table column’s sort descriptor prototype.
 //
 // # Discussion
-// 
+//
 // A table column is considered sortable if it has a sort descriptor that
 // specifies the sorting direction, a key to sort by, and a selector that
 // defines how to sort.
@@ -574,22 +584,20 @@ func (t NSTableColumn) SortDescriptorPrototype() foundation.INSSortDescriptor {
 func (t NSTableColumn) SetSortDescriptorPrototype(value foundation.INSSortDescriptor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSortDescriptorPrototype:"), value)
 }
+
 // A Boolean that indicates whether the table column is hidden.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the table column is hidden. The
-// default value is [false].
-// 
+//
+// When the value of this property is true, the table column is hidden. The
+// default value is false.
+//
 // Columns that are hidden still exist in the table view object’s
 // [TableColumns] array and are included in the table view’s
 // [NumberOfColumns] count.
-// 
+//
 // The hidden state is stored when the table view autosaves the table column
 // state.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/isHidden
 func (t NSTableColumn) Hidden() bool {
@@ -599,10 +607,11 @@ func (t NSTableColumn) Hidden() bool {
 func (t NSTableColumn) SetHidden(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidden:"), value)
 }
+
 // The string that’s displayed in a help tag over the table column header.
 //
 // # Discussion
-// 
+//
 // When the value of this property is `nil`, the table column header doesn’t
 // display a help tag (also known as a tooltip). Otherwise, the string is
 // displayed in a help tag when the pointer pauses over the header of the
@@ -616,13 +625,14 @@ func (t NSTableColumn) HeaderToolTip() string {
 func (t NSTableColumn) SetHeaderToolTip(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHeaderToolTip:"), objc.String(value))
 }
+
 // The cell prototype used by the table column to draw individual cells.
 //
 // # Discussion
-// 
+//
 // You can use this property to control the font, alignment, and other text
 // attributes for the table column contents.
-// 
+//
 // You can also assign a cell that displays things other than text—for
 // example, you can display images by setting the cell to [NSImageCell].
 //
@@ -635,6 +645,4 @@ func (t NSTableColumn) SetDataCell(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDataCell:"), value)
 }
 
-			// Protocol methods for NSUserInterfaceItemIdentification
-			
-
+// Protocol methods for NSUserInterfaceItemIdentification

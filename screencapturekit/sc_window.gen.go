@@ -4,9 +4,10 @@ package screencapturekit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (sc SCWindowClass) Alloc() SCWindow {
 // An instance that represents an onscreen window.
 //
 // # Overview
-// 
+//
 // Retrieve the available windows from an instance of [SCShareableContent].
 // Select one or more windows to capture and use them to create an instance of
 // [SCContentFilter]. Apply the filter to an instance of [SCStream] to limit
@@ -79,6 +80,7 @@ type SCWindow struct {
 func SCWindowFromID(id objc.ID) SCWindow {
 	return SCWindow{objectivec.Object{ID: id}}
 }
+
 // NOTE: SCWindow adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -154,6 +156,7 @@ func (w SCWindow) WindowID() uint32 {
 	rv := objc.Send[uint32](w.ID, objc.Sel("windowID"))
 	return rv
 }
+
 // The string that displays in a window’s title bar.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/title
@@ -161,6 +164,7 @@ func (w SCWindow) Title() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The app that owns the window.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/owningApplication
@@ -168,6 +172,7 @@ func (w SCWindow) OwningApplication() ISCRunningApplication {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("owningApplication"))
 	return SCRunningApplicationFromID(objc.ID(rv))
 }
+
 // The layer of the window relative to other windows.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/windowLayer
@@ -175,6 +180,7 @@ func (w SCWindow) WindowLayer() int {
 	rv := objc.Send[int](w.ID, objc.Sel("windowLayer"))
 	return rv
 }
+
 // A rectangle the represents the frame of the window within a display.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/frame
@@ -182,10 +188,11 @@ func (w SCWindow) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](w.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
+
 // A Boolean value that indicates whether the window is on screen.
 //
 // # Discussion
-// 
+//
 // This value represents the macOS window server’s onscreen status of the
 // window.
 //
@@ -194,10 +201,11 @@ func (w SCWindow) OnScreen() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isOnScreen"))
 	return rv
 }
+
 // A Boolean value that indicates if the window is currently streaming.
 //
 // # Discussion
-// 
+//
 // When this value is `true`, the window is currently streaming, even if
 // offscreen.
 //
@@ -206,4 +214,3 @@ func (w SCWindow) Active() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isActive"))
 	return rv
 }
-

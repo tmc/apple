@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZVirtioSocketDeviceObserverClass) Alloc() VZVirtioSocketDeviceObserver
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtioSocketDeviceObserver._initWithConnectionQueueDelegate]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioSocketDeviceObserver
 type VZVirtioSocketDeviceObserver struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZVirtioSocketDeviceObserver struct {
 func VZVirtioSocketDeviceObserverFromID(id objc.ID) VZVirtioSocketDeviceObserver {
 	return VZVirtioSocketDeviceObserver{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVirtioSocketDeviceObserver implements IVZVirtioSocketDeviceObserver.
 var _ IVZVirtioSocketDeviceObserver = VZVirtioSocketDeviceObserver{}
 
@@ -91,7 +93,6 @@ func NewVZVirtioSocketDeviceObserver() VZVirtioSocketDeviceObserver {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioSocketDeviceObserver/_initWithConnection:queue:delegate:
 func (v VZVirtioSocketDeviceObserver) _initWithConnectionQueueDelegate(connection objectivec.IObject, queue objectivec.IObject, delegate objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithConnection:queue:delegate:"), connection, queue, delegate)
@@ -102,4 +103,3 @@ func (v VZVirtioSocketDeviceObserver) _initWithConnectionQueueDelegate(connectio
 func (v VZVirtioSocketDeviceObserver) InitWithConnectionQueueDelegate(connection objectivec.IObject, queue objectivec.IObject, delegate objectivec.IObject) objectivec.IObject {
 	return v._initWithConnectionQueueDelegate(connection, queue, delegate)
 }
-

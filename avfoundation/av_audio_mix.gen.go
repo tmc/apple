@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type AVAudioMix struct {
 func AVAudioMixFromID(id objc.ID) AVAudioMix {
 	return AVAudioMix{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioMix adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -99,7 +101,7 @@ func NewAVAudioMix() AVAudioMix {
 // An array of input parameters for the mix.
 //
 // # Discussion
-// 
+//
 // The array contains instances of [AVAudioMixInputParameters].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAudioMix/inputParameters
@@ -109,4 +111,3 @@ func (a AVAudioMix) InputParameters() []AVAudioMixInputParameters {
 		return AVAudioMixInputParametersFromID(id)
 	})
 }
-

@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (oc OnDiskArchiveReaderClass) Alloc() OnDiskArchiveReader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [OnDiskArchiveReader.CopyLayerShapesToContainer]
@@ -58,6 +58,7 @@ func (oc OnDiskArchiveReaderClass) Alloc() OnDiskArchiveReader {
 //   - [OnDiskArchiveReader.Description]
 //   - [OnDiskArchiveReader.Hash]
 //   - [OnDiskArchiveReader.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader
 type OnDiskArchiveReader struct {
 	objectivec.Object
@@ -67,6 +68,7 @@ type OnDiskArchiveReader struct {
 func OnDiskArchiveReaderFromID(id objc.ID) OnDiskArchiveReader {
 	return OnDiskArchiveReader{objectivec.Object{ID: id}}
 }
+
 // Ensure OnDiskArchiveReader implements IOnDiskArchiveReader.
 var _ IOnDiskArchiveReader = OnDiskArchiveReader{}
 
@@ -126,7 +128,6 @@ func NewOnDiskArchiveReader() OnDiskArchiveReader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/initWithNetJson:shapeJson:modelPath:
 func NewOnDiskArchiveReaderWithNetJsonShapeJsonModelPath(json objectivec.IObject, json2 objectivec.IObject, path objectivec.IObject) OnDiskArchiveReader {
 	instance := getOnDiskArchiveReaderClass().Alloc()
@@ -134,23 +135,23 @@ func NewOnDiskArchiveReaderWithNetJsonShapeJsonModelPath(json objectivec.IObject
 	return OnDiskArchiveReaderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/copyLayerShapesToContainer:
 func (o OnDiskArchiveReader) CopyLayerShapesToContainer(container objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("copyLayerShapesToContainer:"), container)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/loadUpdatableParams:
 func (o OnDiskArchiveReader) LoadUpdatableParams(params []objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("loadUpdatableParams:"), objectivec.IObjectSliceToNSArray(params))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/transformParams
 func (o OnDiskArchiveReader) TransformParams() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("transformParams"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/initWithNetJson:shapeJson:modelPath:
 func (o OnDiskArchiveReader) InitWithNetJsonShapeJsonModelPath(json objectivec.IObject, json2 objectivec.IObject, path objectivec.IObject) OnDiskArchiveReader {
 	rv := objc.Send[OnDiskArchiveReader](o.ID, objc.Sel("initWithNetJson:shapeJson:modelPath:"), json, json2, path)
@@ -162,17 +163,19 @@ func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ModelName() objectivec
 	rv := objc.Send[objc.ID](objc.ID(_OnDiskArchiveReaderClass.class), objc.Sel("modelName"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/modelNetFileName
 func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ModelNetFileName() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_OnDiskArchiveReaderClass.class), objc.Sel("modelNetFileName"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/modelShapeFileName
 func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ModelShapeFileName() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_OnDiskArchiveReaderClass.class), objc.Sel("modelShapeFileName"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/parseCompiledNetworkBlobWithName:archive:error:
 func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ParseCompiledNetworkBlobWithNameArchiveError(name objectivec.IObject, archive unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -184,7 +187,7 @@ func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ParseCompiledNetworkBl
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/readerFromArchiver:error:
 func (_OnDiskArchiveReaderClass OnDiskArchiveReaderClass) ReaderFromArchiverError(archiver unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -202,39 +205,45 @@ func (o OnDiskArchiveReader) DebugDescription() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/description
 func (o OnDiskArchiveReader) Description() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/hash
 func (o OnDiskArchiveReader) Hash() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/layerInfos
 func (o OnDiskArchiveReader) LayerInfos() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("layerInfos"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/modelPath
 func (o OnDiskArchiveReader) ModelPath() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelPath"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/netJson
 func (o OnDiskArchiveReader) NetJson() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("netJson"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/shapeJson
 func (o OnDiskArchiveReader) ShapeJson() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("shapeJson"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_OnDiskArchiveReader/superclass
 func (o OnDiskArchiveReader) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](o.ID, objc.Sel("superclass"))
 	return rv
 }
-

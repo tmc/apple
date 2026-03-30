@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechAUParamWrapper struct {
 func TextToSpeechAUParamWrapperFromID(id objc.ID) TextToSpeechAUParamWrapper {
 	return TextToSpeechAUParamWrapper{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechAUParamWrapper struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechAUParamWrapper embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechAUParamWrapper() TextToSpeechAUParamWrapper {
 	rv := objc.Send[TextToSpeechAUParamWrapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

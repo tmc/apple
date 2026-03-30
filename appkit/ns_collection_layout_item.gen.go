@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,25 +45,25 @@ func (nc NSCollectionLayoutItemClass) Alloc() NSCollectionLayoutItem {
 // The most basic component of a collection view’s layout.
 //
 // # Overview
-// 
+//
 // An item is a blueprint for how to size, space, and arrange an individual
 // piece of content in your collection view. An item represents a single view
 // that’s rendered onscreen. Generally, an item is a cell, but items can be
 // supplementary views like headers, footers, and other decorations.
-// 
+//
 // For example, in the Photos app, an item might represent a single photo. In
 // the App Store app, an item might be a cell displaying information about an
 // individual app in a list of featured apps, such as the app icon, app name,
 // tagline, and download button.
-// 
+//
 // [media-3568665]
-// 
+//
 // Each item specifies its own size in terms of a width dimension and a height
 // dimension. Items can express their dimensions relative to their container,
 // as an absolute value, or as an estimated value that might change at
 // runtime, like in response to a change in system font size. For more
 // information, see [NSCollectionLayoutDimension].
-// 
+//
 // You combine items into groups that determine how those items are arranged
 // in relation to each other. For more information, see
 // [NSCollectionLayoutGroup].
@@ -93,6 +94,7 @@ type NSCollectionLayoutItem struct {
 func NSCollectionLayoutItemFromID(id objc.ID) NSCollectionLayoutItem {
 	return NSCollectionLayoutItem{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSCollectionLayoutItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -180,6 +182,7 @@ func (c NSCollectionLayoutItem) LayoutSize() INSCollectionLayoutSize {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutSize"))
 	return NSCollectionLayoutSizeFromID(objc.ID(rv))
 }
+
 // An array of the supplementary items attached to the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutItem/supplementaryItems
@@ -189,19 +192,20 @@ func (c NSCollectionLayoutItem) SupplementaryItems() []NSCollectionLayoutSupplem
 		return NSCollectionLayoutSupplementaryItemFromID(id)
 	})
 }
+
 // The amount of space added around the boundaries of the item between other
 // items and this item’s container.
 //
 // # Discussion
-// 
+//
 // Use this property to adjust the position of the item in relation to its
 // container and other items. For example, you can use this property to apply
 // extra space to the trailing edge of each item. Edge spacing is applied
 // before applying [ContentInsets].
-// 
+//
 // The following diagram shows the result of applying 2 points of trailing
 // edge spacing to the items in a group:
-// 
+//
 // [media-3572326]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutItem/edgeSpacing
@@ -212,18 +216,19 @@ func (c NSCollectionLayoutItem) EdgeSpacing() INSCollectionLayoutEdgeSpacing {
 func (c NSCollectionLayoutItem) SetEdgeSpacing(value INSCollectionLayoutEdgeSpacing) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEdgeSpacing:"), value)
 }
+
 // The amount of space added around the content of the item to adjust its
 // final size after its position is computed.
 //
 // # Discussion
-// 
+//
 // You can use this property within a grid layout to apply even spacing around
 // each edge of each item. Content insets are applied after applying
 // [EdgeSpacing].
-// 
+//
 // The following diagram shows the result of applying 2 points of content
 // insets to each edge of each item in a group.
-// 
+//
 // [media-3570427]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutItem/contentInsets
@@ -234,4 +239,3 @@ func (c NSCollectionLayoutItem) ContentInsets() NSDirectionalEdgeInsets {
 func (c NSCollectionLayoutItem) SetContentInsets(value NSDirectionalEdgeInsets) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContentInsets:"), value)
 }
-

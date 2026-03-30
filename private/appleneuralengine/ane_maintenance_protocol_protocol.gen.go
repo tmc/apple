@@ -18,6 +18,7 @@ type ANEMaintenanceProtocol interface {
 type ANEMaintenanceProtocolObject struct {
 	objectivec.Object
 }
+
 func (o ANEMaintenanceProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,9 +31,7 @@ func ANEMaintenanceProtocolObjectFromID(id objc.ID) ANEMaintenanceProtocolObject
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEMaintenanceProtocol/scheduleMaintenanceWithName:directoryPaths:
 func (o ANEMaintenanceProtocolObject) ScheduleMaintenanceWithNameDirectoryPaths(name objectivec.IObject, paths objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("scheduleMaintenanceWithName:directoryPaths:"), name, paths)
-	}
-
+}

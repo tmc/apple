@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLBroadcastToBrickClass) Alloc() MLBroadcastToBrick {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLBroadcastToBrick.ComputeOnCPUWithInputTensorsOutputTensors]
@@ -59,6 +59,7 @@ func (mc MLBroadcastToBrickClass) Alloc() MLBroadcastToBrick {
 //   - [MLBroadcastToBrick.Description]
 //   - [MLBroadcastToBrick.Hash]
 //   - [MLBroadcastToBrick.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick
 type MLBroadcastToBrick struct {
 	objectivec.Object
@@ -68,6 +69,7 @@ type MLBroadcastToBrick struct {
 func MLBroadcastToBrickFromID(id objc.ID) MLBroadcastToBrick {
 	return MLBroadcastToBrick{objectivec.Object{ID: id}}
 }
+
 // Ensure MLBroadcastToBrick implements IMLBroadcastToBrick.
 var _ IMLBroadcastToBrick = MLBroadcastToBrick{}
 
@@ -131,7 +133,6 @@ func NewMLBroadcastToBrick() MLBroadcastToBrick {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/initWithParameters:
 func NewBroadcastToBrickWithParameters(parameters objectivec.IObject) MLBroadcastToBrick {
 	instance := getMLBroadcastToBrickClass().Alloc()
@@ -139,23 +140,23 @@ func NewBroadcastToBrickWithParameters(parameters objectivec.IObject) MLBroadcas
 	return MLBroadcastToBrickFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/computeOnCPUWithInputTensors:outputTensors:
 func (b MLBroadcastToBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](b.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/hasGPUSupport
 func (b MLBroadcastToBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/setupForInputShapes:withParameters:
 func (b MLBroadcastToBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/initWithParameters:
 func (b MLBroadcastToBrick) InitWithParameters(parameters objectivec.IObject) MLBroadcastToBrick {
 	rv := objc.Send[MLBroadcastToBrick](b.ID, objc.Sel("initWithParameters:"), parameters)
@@ -167,49 +168,57 @@ func (b MLBroadcastToBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/description
 func (b MLBroadcastToBrick) Description() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/hash
 func (b MLBroadcastToBrick) Hash() uint64 {
 	rv := objc.Send[uint64](b.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/inputRanks
 func (b MLBroadcastToBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/inputShapes
 func (b MLBroadcastToBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/outputRanks
 func (b MLBroadcastToBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/outputShapes
 func (b MLBroadcastToBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/shapeInfoNeeded
 func (b MLBroadcastToBrick) ShapeInfoNeeded() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("shapeInfoNeeded"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/superclass
 func (b MLBroadcastToBrick) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](b.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLBroadcastToBrick/targetShape
 func (b MLBroadcastToBrick) TargetShape() foundation.INSArray {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("targetShape"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

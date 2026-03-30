@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLCompilerOptionsClass) Alloc() MLCompilerOptions {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLCompilerOptions.AllowMultipleInputsWithEnumeratedShapes]
@@ -81,6 +81,7 @@ func (mc MLCompilerOptionsClass) Alloc() MLCompilerOptions {
 //   - [MLCompilerOptions.SetUsesCodeSigningIdentityForEncryption]
 //   - [MLCompilerOptions.Warnings]
 //   - [MLCompilerOptions.SetWarnings]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions
 type MLCompilerOptions struct {
 	objectivec.Object
@@ -90,6 +91,7 @@ type MLCompilerOptions struct {
 func MLCompilerOptionsFromID(id objc.ID) MLCompilerOptions {
 	return MLCompilerOptions{objectivec.Object{ID: id}}
 }
+
 // Ensure MLCompilerOptions implements IMLCompilerOptions.
 var _ IMLCompilerOptions = MLCompilerOptions{}
 
@@ -211,6 +213,7 @@ func (c MLCompilerOptions) AllowMultipleInputsWithEnumeratedShapes() bool {
 func (c MLCompilerOptions) SetAllowMultipleInputsWithEnumeratedShapes(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowMultipleInputsWithEnumeratedShapes:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/allowsPixelBufferDirectBinding
 func (c MLCompilerOptions) AllowsPixelBufferDirectBinding() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("allowsPixelBufferDirectBinding"))
@@ -219,6 +222,7 @@ func (c MLCompilerOptions) AllowsPixelBufferDirectBinding() bool {
 func (c MLCompilerOptions) SetAllowsPixelBufferDirectBinding(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsPixelBufferDirectBinding:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/containerIsCloud
 func (c MLCompilerOptions) ContainerIsCloud() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("containerIsCloud"))
@@ -227,6 +231,7 @@ func (c MLCompilerOptions) ContainerIsCloud() bool {
 func (c MLCompilerOptions) SetContainerIsCloud(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContainerIsCloud:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/dryRun
 func (c MLCompilerOptions) DryRun() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("dryRun"))
@@ -235,6 +240,7 @@ func (c MLCompilerOptions) DryRun() bool {
 func (c MLCompilerOptions) SetDryRun(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDryRun:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/encryptModel
 func (c MLCompilerOptions) EncryptModel() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("encryptModel"))
@@ -243,6 +249,7 @@ func (c MLCompilerOptions) EncryptModel() bool {
 func (c MLCompilerOptions) SetEncryptModel(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEncryptModel:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/iv
 func (c MLCompilerOptions) Iv() foundation.INSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("iv"))
@@ -251,6 +258,7 @@ func (c MLCompilerOptions) Iv() foundation.INSData {
 func (c MLCompilerOptions) SetIv(value foundation.INSData) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIv:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/key
 func (c MLCompilerOptions) Key() foundation.INSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("key"))
@@ -259,6 +267,7 @@ func (c MLCompilerOptions) Key() foundation.INSData {
 func (c MLCompilerOptions) SetKey(value foundation.INSData) {
 	objc.Send[struct{}](c.ID, objc.Sel("setKey:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/keyID
 func (c MLCompilerOptions) KeyID() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("keyID"))
@@ -267,6 +276,7 @@ func (c MLCompilerOptions) KeyID() string {
 func (c MLCompilerOptions) SetKeyID(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setKeyID:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/keyInfoVersion
 func (c MLCompilerOptions) KeyInfoVersion() foundation.NSNumber {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("keyInfoVersion"))
@@ -275,6 +285,7 @@ func (c MLCompilerOptions) KeyInfoVersion() foundation.NSNumber {
 func (c MLCompilerOptions) SetKeyInfoVersion(value foundation.NSNumber) {
 	objc.Send[struct{}](c.ID, objc.Sel("setKeyInfoVersion:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/mlProgramAddDuringCompilationMode
 func (c MLCompilerOptions) MlProgramAddDuringCompilationMode() int {
 	rv := objc.Send[int](c.ID, objc.Sel("mlProgramAddDuringCompilationMode"))
@@ -283,6 +294,7 @@ func (c MLCompilerOptions) MlProgramAddDuringCompilationMode() int {
 func (c MLCompilerOptions) SetMlProgramAddDuringCompilationMode(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMlProgramAddDuringCompilationMode:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/mlsinf
 func (c MLCompilerOptions) Mlsinf() foundation.INSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("mlsinf"))
@@ -291,6 +303,7 @@ func (c MLCompilerOptions) Mlsinf() foundation.INSData {
 func (c MLCompilerOptions) SetMlsinf(value foundation.INSData) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMlsinf:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/platform
 func (c MLCompilerOptions) Platform() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("platform"))
@@ -299,6 +312,7 @@ func (c MLCompilerOptions) Platform() string {
 func (c MLCompilerOptions) SetPlatform(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPlatform:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/platformVersion
 func (c MLCompilerOptions) PlatformVersion() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("platformVersion"))
@@ -307,6 +321,7 @@ func (c MLCompilerOptions) PlatformVersion() string {
 func (c MLCompilerOptions) SetPlatformVersion(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPlatformVersion:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/sinf
 func (c MLCompilerOptions) Sinf() foundation.INSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("sinf"))
@@ -315,6 +330,7 @@ func (c MLCompilerOptions) Sinf() foundation.INSData {
 func (c MLCompilerOptions) SetSinf(value foundation.INSData) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSinf:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/specURL
 func (c MLCompilerOptions) SpecURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("specURL"))
@@ -323,6 +339,7 @@ func (c MLCompilerOptions) SpecURL() foundation.INSURL {
 func (c MLCompilerOptions) SetSpecURL(value foundation.INSURL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSpecURL:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/trainWithMLCompute
 func (c MLCompilerOptions) TrainWithMLCompute() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("trainWithMLCompute"))
@@ -331,6 +348,7 @@ func (c MLCompilerOptions) TrainWithMLCompute() bool {
 func (c MLCompilerOptions) SetTrainWithMLCompute(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTrainWithMLCompute:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/usesCodeSigningIdentityForEncryption
 func (c MLCompilerOptions) UsesCodeSigningIdentityForEncryption() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("usesCodeSigningIdentityForEncryption"))
@@ -339,6 +357,7 @@ func (c MLCompilerOptions) UsesCodeSigningIdentityForEncryption() bool {
 func (c MLCompilerOptions) SetUsesCodeSigningIdentityForEncryption(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setUsesCodeSigningIdentityForEncryption:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerOptions/warnings
 func (c MLCompilerOptions) Warnings() foundation.INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("warnings"))
@@ -347,4 +366,3 @@ func (c MLCompilerOptions) Warnings() foundation.INSArray {
 func (c MLCompilerOptions) SetWarnings(value foundation.INSArray) {
 	objc.Send[struct{}](c.ID, objc.Sel("setWarnings:"), value)
 }
-

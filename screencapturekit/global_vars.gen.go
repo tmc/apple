@@ -14,8 +14,8 @@ var (
 	SCStreamErrorDomain string
 )
 
-var (
-)
+var ()
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -134,7 +134,7 @@ var SCStreamFrameInfos struct {
 	// DirtyRects: A key to retrieve the areas of a video frame that contain changes.
 	DirtyRects SCStreamFrameInfo
 	// DisplayTime: A key to retrieve the display time of a video frame.
-	DisplayTime SCStreamFrameInfo
+	DisplayTime                 SCStreamFrameInfo
 	PresenterOverlayContentRect SCStreamFrameInfo
 	// ScaleFactor: A key to retrieve the scale factor of a video frame.
 	ScaleFactor SCStreamFrameInfo
@@ -143,4 +143,3 @@ var SCStreamFrameInfos struct {
 	// Status: A key to retrieve the status of a video frame.
 	Status SCStreamFrameInfo
 }
-

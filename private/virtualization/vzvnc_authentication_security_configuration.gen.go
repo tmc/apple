@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (vc VZVNCAuthenticationSecurityConfigurationClass) Alloc() VZVNCAuthenticat
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVNCAuthenticationSecurityConfiguration.Password]
 //   - [VZVNCAuthenticationSecurityConfiguration.InitWithPassword]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCAuthenticationSecurityConfiguration
 type VZVNCAuthenticationSecurityConfiguration struct {
 	VZVNCSecurityConfiguration
@@ -56,6 +57,7 @@ type VZVNCAuthenticationSecurityConfiguration struct {
 func VZVNCAuthenticationSecurityConfigurationFromID(id objc.ID) VZVNCAuthenticationSecurityConfiguration {
 	return VZVNCAuthenticationSecurityConfiguration{VZVNCSecurityConfiguration: VZVNCSecurityConfigurationFromID(id)}
 }
+
 // Ensure VZVNCAuthenticationSecurityConfiguration implements IVZVNCAuthenticationSecurityConfiguration.
 var _ IVZVNCAuthenticationSecurityConfiguration = VZVNCAuthenticationSecurityConfiguration{}
 
@@ -95,7 +97,6 @@ func NewVZVNCAuthenticationSecurityConfiguration() VZVNCAuthenticationSecurityCo
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCAuthenticationSecurityConfiguration/initWithPassword:
 func NewVZVNCAuthenticationSecurityConfigurationWithPassword(password objectivec.IObject) VZVNCAuthenticationSecurityConfiguration {
 	instance := getVZVNCAuthenticationSecurityConfigurationClass().Alloc()
@@ -103,7 +104,6 @@ func NewVZVNCAuthenticationSecurityConfigurationWithPassword(password objectivec
 	return VZVNCAuthenticationSecurityConfigurationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCAuthenticationSecurityConfiguration/initWithPassword:
 func (v VZVNCAuthenticationSecurityConfiguration) InitWithPassword(password objectivec.IObject) VZVNCAuthenticationSecurityConfiguration {
 	rv := objc.Send[VZVNCAuthenticationSecurityConfiguration](v.ID, objc.Sel("initWithPassword:"), password)
@@ -115,4 +115,3 @@ func (v VZVNCAuthenticationSecurityConfiguration) Password() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("password"))
 	return foundation.NSStringFromID(rv).String()
 }
-

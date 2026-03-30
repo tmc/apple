@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,41 +45,41 @@ func (uc URLSessionUploadTaskClass) Alloc() URLSessionUploadTask {
 // A URL session task that uploads data to the network in a request body.
 //
 // # Overview
-// 
+//
 // The [NSURLSessionUploadTask] class is a subclass of [NSURLSessionDataTask],
 // which in turn is a concrete subclass of [NSURLSessionTask]. The methods
 // associated with the [NSURLSessionUploadTask] class are documented in
 // [NSURLSessionTask].
-// 
+//
 // Upload tasks are used for making HTTP requests that require a request body
 // (such as [POST] or [PUT]). They behave similarly to data tasks, but you
 // create them by calling different methods on the session that are designed
 // to make it easier to provide the content to upload. As with data tasks, if
 // the server provides a response, upload tasks return that response as one or
 // more [NSData] objects in memory.
-// 
+//
 // When you create an upload task, you provide a [URLRequest] instance that
 // contains any additional headers that you might need to send alongside the
 // upload, such as the content type, content disposition, and so on. In iOS,
 // when you create an upload task for a file in a background session, the
 // system copies that file to a temporary location and streams data from
 // there.
-// 
+//
 // While the upload is in progress, the task calls the session delegate’s
 // [URLSessionTaskDidSendBodyDataTotalBytesSentTotalBytesExpectedToSend]
 // method periodically to provide you with status information.
-// 
+//
 // When the upload phase of the request finishes, the task behaves like a data
 // task, calling methods on the session delegate to provide you with the
 // server’s response—headers, status code, content data, and so on.
-//
-// [URLRequest]: https://developer.apple.com/documentation/Foundation/URLRequest
 //
 // # Instance Methods
 //
 //   - [URLSessionUploadTask.CancelByProducingResumeData]: Cancels an upload and calls the completion handler with resume data for later use. resumeData will be nil if the server does not support the latest resumable uploads Internet-Draft from the HTTP Working Group, found at https://datatracker.ietf.org/doc/draft-ietf-httpbis-resumable-upload/
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionUploadTask
+//
+// [URLRequest]: https://developer.apple.com/documentation/Foundation/URLRequest
 type URLSessionUploadTask struct {
 	NSURLSessionDataTask
 }
@@ -91,7 +92,10 @@ func URLSessionUploadTaskFromID(id objc.ID) URLSessionUploadTask {
 }
 
 // NSURLSessionUploadTaskFromID is an alias for [URLSessionUploadTaskFromID] for cross-framework compatibility.
-func NSURLSessionUploadTaskFromID(id objc.ID) URLSessionUploadTask { return URLSessionUploadTaskFromID(id) }
+func NSURLSessionUploadTaskFromID(id objc.ID) URLSessionUploadTask {
+	return URLSessionUploadTaskFromID(id)
+}
+
 // NOTE: URLSessionUploadTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,7 +144,7 @@ func NewURLSessionUploadTask() URLSessionUploadTask {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionUploadTask/cancel(byProducingResumeData:)
 func (u URLSessionUploadTask) CancelByProducingResumeData(completionHandler DataHandler) {
-_block0, _ := NewDataBlock(completionHandler)
+	_block0, _ := NewDataBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("cancelByProducingResumeData:"), _block0)
 }
 
@@ -158,4 +162,3 @@ func (u URLSessionUploadTask) CancelByProducingResumeDataSync(ctx context.Contex
 		return nil, ctx.Err()
 	}
 }
-

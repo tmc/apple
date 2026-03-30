@@ -4,6 +4,7 @@ package security
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -1843,6 +1844,7 @@ var (
 	// See: https://developer.apple.com/documentation/Security/kSecRandomDefault
 	KSecRandomDefault SecRandomRef
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -6899,4 +6901,3 @@ func init() {
 	}
 
 }
-

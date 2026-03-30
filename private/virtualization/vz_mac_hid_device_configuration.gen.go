@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZMacHIDDeviceConfiguration] class.
@@ -41,7 +42,6 @@ func (vc VZMacHIDDeviceConfigurationClass) Alloc() VZMacHIDDeviceConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacHIDDeviceConfiguration.ProductID]
@@ -55,6 +55,7 @@ func (vc VZMacHIDDeviceConfigurationClass) Alloc() VZMacHIDDeviceConfiguration {
 //   - [VZMacHIDDeviceConfiguration.VendorID]
 //   - [VZMacHIDDeviceConfiguration.SetVendorID]
 //   - [VZMacHIDDeviceConfiguration.InitWithVendorIDProductIDUsagePageUsage]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHIDDeviceConfiguration
 type VZMacHIDDeviceConfiguration struct {
 	VZHIDDeviceConfiguration
@@ -64,6 +65,7 @@ type VZMacHIDDeviceConfiguration struct {
 func VZMacHIDDeviceConfigurationFromID(id objc.ID) VZMacHIDDeviceConfiguration {
 	return VZMacHIDDeviceConfiguration{VZHIDDeviceConfiguration: VZHIDDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZMacHIDDeviceConfiguration implements IVZMacHIDDeviceConfiguration.
 var _ IVZMacHIDDeviceConfiguration = VZMacHIDDeviceConfiguration{}
 
@@ -121,7 +123,6 @@ func NewVZMacHIDDeviceConfiguration() VZMacHIDDeviceConfiguration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHIDDeviceConfiguration/initWithVendorID:productID:usagePage:usage:
 func NewVZMacHIDDeviceConfigurationWithVendorIDProductIDUsagePageUsage(id uint16, id2 uint16, page uint32, usage uint32) VZMacHIDDeviceConfiguration {
 	instance := getVZMacHIDDeviceConfigurationClass().Alloc()
@@ -129,7 +130,6 @@ func NewVZMacHIDDeviceConfigurationWithVendorIDProductIDUsagePageUsage(id uint16
 	return VZMacHIDDeviceConfigurationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHIDDeviceConfiguration/initWithVendorID:productID:usagePage:usage:
 func (v VZMacHIDDeviceConfiguration) InitWithVendorIDProductIDUsagePageUsage(id uint16, id2 uint16, page uint32, usage uint32) VZMacHIDDeviceConfiguration {
 	rv := objc.Send[VZMacHIDDeviceConfiguration](v.ID, objc.Sel("initWithVendorID:productID:usagePage:usage:"), id, id2, page, usage)
@@ -144,6 +144,7 @@ func (v VZMacHIDDeviceConfiguration) ProductID() uint16 {
 func (v VZMacHIDDeviceConfiguration) SetProductID(value uint16) {
 	objc.Send[struct{}](v.ID, objc.Sel("setProductID:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHIDDeviceConfiguration/registryProperties
 func (v VZMacHIDDeviceConfiguration) RegistryProperties() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("registryProperties"))
@@ -152,6 +153,7 @@ func (v VZMacHIDDeviceConfiguration) RegistryProperties() foundation.INSDictiona
 func (v VZMacHIDDeviceConfiguration) SetRegistryProperties(value foundation.INSDictionary) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRegistryProperties:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHIDDeviceConfiguration/usage
 func (v VZMacHIDDeviceConfiguration) Usage() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("usage"))
@@ -160,6 +162,7 @@ func (v VZMacHIDDeviceConfiguration) Usage() uint32 {
 func (v VZMacHIDDeviceConfiguration) SetUsage(value uint32) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUsage:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHIDDeviceConfiguration/usagePage
 func (v VZMacHIDDeviceConfiguration) UsagePage() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("usagePage"))
@@ -168,6 +171,7 @@ func (v VZMacHIDDeviceConfiguration) UsagePage() uint32 {
 func (v VZMacHIDDeviceConfiguration) SetUsagePage(value uint32) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUsagePage:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacHIDDeviceConfiguration/vendorID
 func (v VZMacHIDDeviceConfiguration) VendorID() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("vendorID"))
@@ -176,4 +180,3 @@ func (v VZMacHIDDeviceConfiguration) VendorID() uint16 {
 func (v VZMacHIDDeviceConfiguration) SetVendorID(value uint16) {
 	objc.Send[struct{}](v.ID, objc.Sel("setVendorID:"), value)
 }
-

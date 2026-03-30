@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,10 +46,10 @@ func (ac AVPlaybackCoordinatorClass) Alloc() AVPlaybackCoordinator {
 // An object that coordinates the playback of players in a connected group.
 //
 // # Overview
-// 
+//
 // The framework provides two playback coordinator subclasses that manage
 // different types of player objects:
-// 
+//
 // - [AVPlayerPlaybackCoordinator] coordinates the state of [AVPlayer]
 // objects. If your app uses [AVPlayer], continue to use its standard
 // interfaces to control playback. The coordinator intercepts changes to the
@@ -93,6 +94,7 @@ type AVPlaybackCoordinator struct {
 func AVPlaybackCoordinatorFromID(id objc.ID) AVPlaybackCoordinator {
 	return AVPlaybackCoordinator{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlaybackCoordinator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -181,7 +183,7 @@ func NewAVPlaybackCoordinator() AVPlaybackCoordinator {
 // reason: The suspension reason to find a participant limit for.
 //
 // # Return Value
-// 
+//
 // The participant limit.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinator/participantLimitForWaitingOutSuspensions(withReason:)
@@ -189,6 +191,7 @@ func (p AVPlaybackCoordinator) ParticipantLimitForWaitingOutSuspensionsWithReaso
 	rv := objc.Send[int](p.ID, objc.Sel("participantLimitForWaitingOutSuspensionsWithReason:"), objc.String(string(reason)))
 	return rv
 }
+
 // Sets a limit on the number of partipants that a group may contain before
 // the coordinator stops waiting on suspensions that occur for a particular
 // reason.
@@ -198,7 +201,7 @@ func (p AVPlaybackCoordinator) ParticipantLimitForWaitingOutSuspensionsWithReaso
 // reason: The suspension reason to set a limit for.
 //
 // # Discussion
-// 
+//
 // This method provides additional configuration of the values your app sets
 // for the [SuspensionReasonsThatTriggerWaiting] property. When a coordinator
 // decides whether one participant’s suspensions cause others to wait, it
@@ -208,6 +211,7 @@ func (p AVPlaybackCoordinator) ParticipantLimitForWaitingOutSuspensionsWithReaso
 func (p AVPlaybackCoordinator) SetParticipantLimitForWaitingOutSuspensionsWithReason(participantLimit int, reason AVCoordinatedPlaybackSuspensionReason) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setParticipantLimit:forWaitingOutSuspensionsWithReason:"), participantLimit, objc.String(string(reason)))
 }
+
 // Tells the coordinator to stop sending playback commands temporarily when
 // the playback object disconnects from the group activity.
 //
@@ -215,11 +219,11 @@ func (p AVPlaybackCoordinator) SetParticipantLimitForWaitingOutSuspensionsWithRe
 // suspension reason.
 //
 // # Return Value
-// 
+//
 // A suspension object.
 //
 // # Discussion
-// 
+//
 // End a suspension by calling its [End] or [EndProposingNewTime] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinator/beginSuspension(for:)
@@ -227,13 +231,14 @@ func (p AVPlaybackCoordinator) BeginSuspensionForReason(suspensionReason AVCoord
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("beginSuspensionForReason:"), objc.String(string(suspensionReason)))
 	return AVCoordinatedPlaybackSuspensionFromID(rv)
 }
+
 // Returns a time in the current item’s timeline that the coordinator
 // expects to play at the specified host time.
 //
 // hostClockTime: The host time to return a player item time for.
 //
 // # Return Value
-// 
+//
 // A time in the current item’s timeline.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinator/expectedItemTime(atHostTime:)
@@ -252,22 +257,20 @@ func (p AVPlaybackCoordinator) SuspensionReasonsThatTriggerWaiting() []string {
 func (p AVPlaybackCoordinator) SetSuspensionReasonsThatTriggerWaiting(value []string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSuspensionReasonsThatTriggerWaiting:"), objectivec.StringSliceToNSArray(value))
 }
+
 // A Boolean value that indicates whether participants mirror the
 // originator’s stop time when they pause.
 //
 // # Discussion
-// 
-// If this value is [true], all participants seek to the originator’s stop
+//
+// If this value is true, all participants seek to the originator’s stop
 // time after they pause. Use this setting if it counteracts network delays
 // that result from communicating the originator’s pause state to the other
 // participants.
-// 
-// If this value is [false], it’s acceptable for participants to stop at
+//
+// If this value is false, it’s acceptable for participants to stop at
 // slightly different times, and a pause doesn’t cause the time of other
 // participants to jump back.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinator/pauseSnapsToMediaTimeOfOriginator
 func (p AVPlaybackCoordinator) PauseSnapsToMediaTimeOfOriginator() bool {
@@ -277,11 +280,12 @@ func (p AVPlaybackCoordinator) PauseSnapsToMediaTimeOfOriginator() bool {
 func (p AVPlaybackCoordinator) SetPauseSnapsToMediaTimeOfOriginator(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPauseSnapsToMediaTimeOfOriginator:"), value)
 }
+
 // The reasons a coordinator is currently unable to participate in a group
 // playback activity.
 //
 // # Discussion
-// 
+//
 // The coordinator doesn’t respond to changes in group playback state when
 // this property value contains suspension reasons.
 //
@@ -290,10 +294,11 @@ func (p AVPlaybackCoordinator) SuspensionReasons() []string {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("suspensionReasons"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The identifiers of the other participants in a group.
 //
 // # Discussion
-// 
+//
 // Use this property value to create a user interface that informs the user
 // about the state of other participants in the group.
 //
@@ -304,4 +309,3 @@ func (p AVPlaybackCoordinator) OtherParticipants() []AVCoordinatedPlaybackPartic
 		return AVCoordinatedPlaybackParticipantFromID(id)
 	})
 }
-

@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (mc MLModelCollectionEntryClass) Alloc() MLModelCollectionEntry {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelCollectionEntry._initWithModelIdentifierModelUrl]
 //   - [MLModelCollectionEntry.IsEqualToModelCollectionEntry]
 //   - [MLModelCollectionEntry.ModelIdentifier]
 //   - [MLModelCollectionEntry.ModelURL]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollectionEntry
 type MLModelCollectionEntry struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type MLModelCollectionEntry struct {
 func MLModelCollectionEntryFromID(id objc.ID) MLModelCollectionEntry {
 	return MLModelCollectionEntry{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelCollectionEntry implements IMLModelCollectionEntry.
 var _ IMLModelCollectionEntry = MLModelCollectionEntry{}
 
@@ -101,7 +103,6 @@ func NewMLModelCollectionEntry() MLModelCollectionEntry {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollectionEntry/_initWithModelIdentifier:modelUrl:
 func (m MLModelCollectionEntry) _initWithModelIdentifierModelUrl(identifier objectivec.IObject, url foundation.INSURL) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_initWithModelIdentifier:modelUrl:"), identifier, url)
@@ -112,14 +113,13 @@ func (m MLModelCollectionEntry) _initWithModelIdentifierModelUrl(identifier obje
 func (m MLModelCollectionEntry) InitWithModelIdentifierModelUrl(identifier objectivec.IObject, url foundation.INSURL) objectivec.IObject {
 	return m._initWithModelIdentifierModelUrl(identifier, url)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollectionEntry/isEqualToModelCollectionEntry:
 func (m MLModelCollectionEntry) IsEqualToModelCollectionEntry(entry objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isEqualToModelCollectionEntry:"), entry)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollectionEntry/entryWithModelIdentifier:modelURL:
 func (_MLModelCollectionEntryClass MLModelCollectionEntryClass) EntryWithModelIdentifierModelURL(identifier objectivec.IObject, url foundation.INSURL) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelCollectionEntryClass.class), objc.Sel("entryWithModelIdentifier:modelURL:"), identifier, url)
@@ -131,9 +131,9 @@ func (m MLModelCollectionEntry) ModelIdentifier() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelCollectionEntry/modelURL
 func (m MLModelCollectionEntry) ModelURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

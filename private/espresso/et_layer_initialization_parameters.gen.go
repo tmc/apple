@@ -3,10 +3,11 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,11 +44,11 @@ func (ec ETLayerInitializationParametersClass) Alloc() ETLayerInitializationPara
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETLayerInitializationParameters.Parameters]
 //   - [ETLayerInitializationParameters.InitWithModeParametersError]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETLayerInitializationParameters
 type ETLayerInitializationParameters struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type ETLayerInitializationParameters struct {
 func ETLayerInitializationParametersFromID(id objc.ID) ETLayerInitializationParameters {
 	return ETLayerInitializationParameters{objectivec.Object{ID: id}}
 }
+
 // Ensure ETLayerInitializationParameters implements IETLayerInitializationParameters.
 var _ IETLayerInitializationParameters = ETLayerInitializationParameters{}
 
@@ -96,7 +98,6 @@ func NewETLayerInitializationParameters() ETLayerInitializationParameters {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETLayerInitializationParameters/initWithMode:parameters:error:
 func NewETLayerInitializationParametersWithModeParametersError(mode uint64, parameters objectivec.IObject) (ETLayerInitializationParameters, error) {
 	var errorPtr objc.ID
@@ -109,7 +110,6 @@ func NewETLayerInitializationParametersWithModeParametersError(mode uint64, para
 	return ETLayerInitializationParametersFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETLayerInitializationParameters/initWithMode:parameters:error:
 func (e ETLayerInitializationParameters) InitWithModeParametersError(mode uint64, parameters objectivec.IObject) (ETLayerInitializationParameters, error) {
 	var errorPtr objc.ID
@@ -127,4 +127,3 @@ func (e ETLayerInitializationParameters) Parameters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("parameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

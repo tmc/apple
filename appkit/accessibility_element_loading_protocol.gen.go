@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -24,6 +24,7 @@ type NSAccessibilityElementLoading interface {
 type NSAccessibilityElementLoadingObject struct {
 	objectivec.Object
 }
+
 func (o NSAccessibilityElementLoadingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,7 +43,8 @@ func NSAccessibilityElementLoadingObjectFromID(id objc.ID) NSAccessibilityElemen
 func (o NSAccessibilityElementLoadingObject) AccessibilityElementWithToken(token NSAccessibilityLoadingToken) NSAccessibilityElement {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityElementWithToken:"), token)
 	return NSAccessibilityElementFromID(rv)
-	}
+}
+
 // Returns the range that specifies the area of interest in text-based
 // accessibility elements with the specified load token.
 //
@@ -50,5 +52,4 @@ func (o NSAccessibilityElementLoadingObject) AccessibilityElementWithToken(token
 func (o NSAccessibilityElementLoadingObject) AccessibilityRangeInTargetElementWithToken(token NSAccessibilityLoadingToken) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeInTargetElementWithToken:"), token)
 	return rv
-	}
-
+}

@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZPlatformConfigurationClass) Alloc() VZPlatformConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZPlatformConfiguration._init]
@@ -51,6 +51,7 @@ func (vc VZPlatformConfigurationClass) Alloc() VZPlatformConfiguration {
 //   - [VZPlatformConfiguration.Description]
 //   - [VZPlatformConfiguration.Hash]
 //   - [VZPlatformConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration
 type VZPlatformConfiguration struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZPlatformConfiguration struct {
 func VZPlatformConfigurationFromID(id objc.ID) VZPlatformConfiguration {
 	return VZPlatformConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZPlatformConfiguration implements IVZPlatformConfiguration.
 var _ IVZPlatformConfiguration = VZPlatformConfiguration{}
 
@@ -118,24 +120,27 @@ func (p VZPlatformConfiguration) _platform() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("_platform"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/debugDescription
 func (p VZPlatformConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/description
 func (p VZPlatformConfiguration) Description() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/hash
 func (p VZPlatformConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZPlatformConfiguration/superclass
 func (p VZPlatformConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](p.ID, objc.Sel("superclass"))
 	return rv
 }
-

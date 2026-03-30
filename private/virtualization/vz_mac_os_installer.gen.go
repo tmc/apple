@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZMacOSInstallerClass) Alloc() VZMacOSInstaller {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacOSInstaller._disableMobileDeviceUpdate]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller
 type VZMacOSInstaller struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZMacOSInstaller struct {
 func VZMacOSInstallerFromID(id objc.ID) VZMacOSInstaller {
 	return VZMacOSInstaller{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMacOSInstaller implements IVZMacOSInstaller.
 var _ IVZMacOSInstaller = VZMacOSInstaller{}
 
@@ -100,4 +102,3 @@ func (m VZMacOSInstaller) _disableMobileDeviceUpdate() {
 func (m VZMacOSInstaller) DisableMobileDeviceUpdate() {
 	m._disableMobileDeviceUpdate()
 }
-

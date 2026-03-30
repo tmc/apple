@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type HasSmile struct {
 func HasSmileFromID(id objc.ID) HasSmile {
 	return HasSmile{objectivec.Object{ID: id}}
 }
+
 // Ensure HasSmile implements IHasSmile.
 var _ IHasSmile = HasSmile{}
 
@@ -78,4 +80,3 @@ func NewHasSmile() HasSmile {
 	rv := objc.Send[HasSmile](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

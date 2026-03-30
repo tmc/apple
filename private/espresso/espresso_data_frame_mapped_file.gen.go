@@ -4,8 +4,9 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (ec EspressoDataFrameMappedFileClass) Alloc() EspressoDataFrameMappedFile {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoDataFrameMappedFile.BasePtr]
@@ -50,6 +50,7 @@ func (ec EspressoDataFrameMappedFileClass) Alloc() EspressoDataFrameMappedFile {
 //   - [EspressoDataFrameMappedFile.Path]
 //   - [EspressoDataFrameMappedFile.SetPath]
 //   - [EspressoDataFrameMappedFile.InitWithPath]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameMappedFile
 type EspressoDataFrameMappedFile struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type EspressoDataFrameMappedFile struct {
 func EspressoDataFrameMappedFileFromID(id objc.ID) EspressoDataFrameMappedFile {
 	return EspressoDataFrameMappedFile{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoDataFrameMappedFile implements IEspressoDataFrameMappedFile.
 var _ IEspressoDataFrameMappedFile = EspressoDataFrameMappedFile{}
 
@@ -104,7 +106,6 @@ func NewEspressoDataFrameMappedFile() EspressoDataFrameMappedFile {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameMappedFile/initWithPath:
 func NewEspressoDataFrameMappedFileWithPath(path objectivec.IObject) EspressoDataFrameMappedFile {
 	instance := getEspressoDataFrameMappedFileClass().Alloc()
@@ -112,7 +113,6 @@ func NewEspressoDataFrameMappedFileWithPath(path objectivec.IObject) EspressoDat
 	return EspressoDataFrameMappedFileFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameMappedFile/initWithPath:
 func (e EspressoDataFrameMappedFile) InitWithPath(path objectivec.IObject) EspressoDataFrameMappedFile {
 	rv := objc.Send[EspressoDataFrameMappedFile](e.ID, objc.Sel("initWithPath:"), path)
@@ -127,6 +127,7 @@ func (e EspressoDataFrameMappedFile) BasePtr() string {
 func (e EspressoDataFrameMappedFile) SetBasePtr(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBasePtr:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameMappedFile/path
 func (e EspressoDataFrameMappedFile) Path() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("path"))
@@ -135,4 +136,3 @@ func (e EspressoDataFrameMappedFile) Path() string {
 func (e EspressoDataFrameMappedFile) SetPath(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setPath:"), objc.String(value))
 }
-

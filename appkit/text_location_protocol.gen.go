@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -24,6 +24,7 @@ type NSTextLocation interface {
 type NSTextLocationObject struct {
 	objectivec.Object
 }
+
 func (o NSTextLocationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,14 +42,13 @@ func NSTextLocationObjectFromID(id objc.ID) NSTextLocationObject {
 // location: The location to compare the current location to.
 //
 // # Return Value
-// 
+//
 // A [ComparisonResult].
 //
-// [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextLocation/compare(_:)
+//
+// [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
 func (o NSTextLocationObject) Compare(location NSTextLocation) foundation.NSComparisonResult {
 	rv := objc.Send[foundation.NSComparisonResult](o.ID, objc.Sel("compare:"), location)
 	return rv
-	}
-
+}

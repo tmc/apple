@@ -4,6 +4,7 @@ package speechobjects
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VoiceSettingsAlertControllerClass) Alloc() VoiceSettingsAlertController
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VoiceSettingsAlertController.ShowWindowWithVoiceSettingsModalDelegateWindowTitle]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsAlertController
 type VoiceSettingsAlertController struct {
 	VoiceSettingsWindowController
@@ -54,6 +55,7 @@ type VoiceSettingsAlertController struct {
 func VoiceSettingsAlertControllerFromID(id objc.ID) VoiceSettingsAlertController {
 	return VoiceSettingsAlertController{VoiceSettingsWindowController: VoiceSettingsWindowControllerFromID(id)}
 }
+
 // Ensure VoiceSettingsAlertController implements IVoiceSettingsAlertController.
 var _ IVoiceSettingsAlertController = VoiceSettingsAlertController{}
 
@@ -91,7 +93,6 @@ func NewVoiceSettingsAlertController() VoiceSettingsAlertController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsAlertController/showWindowWithVoiceSettings:modalDelegate:windowTitle:
 func (v VoiceSettingsAlertController) ShowWindowWithVoiceSettingsModalDelegateWindowTitle(settings objectivec.IObject, delegate objectivec.IObject, title objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("showWindowWithVoiceSettings:modalDelegate:windowTitle:"), settings, delegate, title)
@@ -102,4 +103,3 @@ func (_VoiceSettingsAlertControllerClass VoiceSettingsAlertControllerClass) Defa
 	rv := objc.Send[objc.ID](objc.ID(_VoiceSettingsAlertControllerClass.class), objc.Sel("defaultVoiceSettingsAlertController"))
 	return objectivec.Object{ID: rv}
 }
-

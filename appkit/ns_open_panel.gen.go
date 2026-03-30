@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSOpenPanel] class.
@@ -45,7 +46,7 @@ func (nc NSOpenPanelClass) Alloc() NSOpenPanel {
 // A panel that prompts the user to select a file to open.
 //
 // # Overview
-// 
+//
 // Apps use the Open panel as a convenient way to query the user for the name
 // of a file to open. In macOS 10.15 and later, the system always draws Open
 // panels in a separate process, regardless of whether the app is sandboxed.
@@ -88,6 +89,7 @@ type NSOpenPanel struct {
 func NSOpenPanelFromID(id objc.ID) NSOpenPanel {
 	return NSOpenPanel{NSSavePanel: NSSavePanelFromID(id)}
 }
+
 // NOTE: NSOpenPanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -178,26 +180,24 @@ func NewNSOpenPanel() NSOpenPanel {
 //
 // contentViewController: The view controller that provides the main content view for the window. The
 // window’s [ContentView] property is set to
-// `contentViewController``XCUIElementTypeView`.
+// `contentViewController“XCUIElementTypeView`.
 //
 // # Return Value
-// 
+//
 // A window with the content view controller set to the passed-in view
 // controller object.
 //
 // # Discussion
-// 
+//
 // This method creates a basic window object that is titled, closable,
 // resizable, and miniaturizable. By default, the window’s title is
 // automatically bound to the title of `contentViewController`. You can
 // control the size of the window by using Auto Layout and applying size
 // constraints to the view or its subviews. The initial size of the window is
 // set to the initial size of [ContentView] (that is, the size of
-// `contentViewController``XCUIElementTypeView`). The newly created window has
-// [ReleasedWhenClosed] set to [false], and it must be explicitly retained to
+// `contentViewController“XCUIElementTypeView`). The newly created window has
+// [ReleasedWhenClosed] set to false, and it must be explicitly retained to
 // keep the window instance alive.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentViewController:)
 func NewOpenPanelWindowWithContentViewController(contentViewController INSViewController) NSOpenPanel {
@@ -229,37 +229,34 @@ func NewOpenPanelWithCoder(coder foundation.INSCoder) NSOpenPanel {
 // purposes; you should normally not need to create them. Also, note that a
 // window’s style mask should include [NSTitledWindowMask] if it includes
 // any of the others.
-// //
-// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
 //
 // backingStoreType: Specifies how the drawing done in the window is buffered by the window
 // device, and possible values are described in [NSWindow.BackingStoreType].
-// //
-// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 //
 // flag: Specifies whether the window server creates a window device for the window
-// immediately. When [true], the window server defers creating the window
-// device until the window is moved onscreen. All display messages sent to the
-// window or its views are postponed until the window is created, just before
-// it’s moved onscreen.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// immediately. When true, the window server defers creating the window device
+// until the window is moved onscreen. All display messages sent to the window
+// or its views are postponed until the window is created, just before it’s
+// moved onscreen.
 //
 // # Return Value
-// 
+//
 // The initialized window.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer for the [NSWindow] class.
-// 
+//
 // Deferring the creation of the window improves launch time and minimizes the
 // virtual memory load on the window server.
-// 
+//
 // The new window creates a view to be its default content view. You can
 // replace it with your own object by setting the [ContentView] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
+//
+// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
+// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 func NewOpenPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation.CGRect, style NSWindowStyleMask, backingStoreType NSBackingStoreType, flag bool) NSOpenPanel {
 	instance := getNSOpenPanelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:"), contentRect, style, backingStoreType, flag)
@@ -280,21 +277,15 @@ func NewOpenPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 // purposes; you should not usually need to create them. Also, note that a
 // window’s style mask should include [NSTitledWindowMask] if it includes
 // any of the others.
-// //
-// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
 //
 // backingStoreType: Specifies how the drawing done in the window is buffered by the window
 // device; possible values are described in [NSWindow.BackingStoreType].
-// //
-// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 //
 // flag: Specifies whether the window server creates a window device for the window
-// immediately. When [true], the window server defers creating the window
-// device until the window is moved onscreen. All display messages sent to the
-// window or its views are postponed until the window is created, just before
-// it’s moved onscreen.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// immediately. When true, the window server defers creating the window device
+// until the window is moved onscreen. All display messages sent to the window
+// or its views are postponed until the window is created, just before it’s
+// moved onscreen.
 //
 // screen: Specifies the screen on which the window is positioned. The content
 // rectangle is positioned relative to the bottom-left corner of `screen`.
@@ -302,11 +293,11 @@ func NewOpenPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 // is the origin of the primary screen.
 //
 // # Return Value
-// 
+//
 // The initialized window.
 //
 // # Discussion
-// 
+//
 // The primary screen is the one that contains the current key window or, if
 // there is no key window, the one that contains the main menu. If there’s
 // neither a key window nor a main menu (if there’s no active application),
@@ -314,20 +305,33 @@ func NewOpenPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 // system is located.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:screen:)
+//
+// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
+// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 func NewOpenPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoundation.CGRect, style NSWindowStyleMask, backingStoreType NSBackingStoreType, flag bool, screen INSScreen) NSOpenPanel {
 	instance := getNSOpenPanelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:screen:"), contentRect, style, backingStoreType, flag, screen)
 	return NSOpenPanelFromID(rv)
 }
 
+// Creates a new Open panel and initializes it with a default configuration.
+//
+// # Return Value
+//
+// The initialized Open panel.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/openPanel
+func (_NSOpenPanelClass NSOpenPanelClass) OpenPanel() NSOpenPanel {
+	rv := objc.Send[objc.ID](objc.ID(_NSOpenPanelClass.class), objc.Sel("openPanel"))
+	return NSOpenPanelFromID(rv)
+}
+
 // A Boolean that indicates whether the user can choose files in the panel.
 //
 // # Discussion
-// 
-// When the value of this property is [true], users can choose files in the
-// panel.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, users can choose files in the
+// panel.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/canChooseFiles
 func (o NSOpenPanel) CanChooseFiles() bool {
@@ -337,15 +341,14 @@ func (o NSOpenPanel) CanChooseFiles() bool {
 func (o NSOpenPanel) SetCanChooseFiles(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanChooseFiles:"), value)
 }
+
 // A Boolean that indicates whether the user can choose directories in the
 // panel.
 //
 // # Discussion
-// 
-// When the value of this property is [true], users can choose directories in
-// the panel.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, users can choose directories in
+// the panel.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/canChooseDirectories
 func (o NSOpenPanel) CanChooseDirectories() bool {
@@ -355,17 +358,15 @@ func (o NSOpenPanel) CanChooseDirectories() bool {
 func (o NSOpenPanel) SetCanChooseDirectories(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanChooseDirectories:"), value)
 }
+
 // A Boolean that indicates whether the panel resolves aliases.
 //
 // # Discussion
-// 
-// When the value of this property is [true], dropping an alias on the panel
-// or asking for filenames or URLs returns the resolved aliases. The default
-// value of this property is [true]. When this value is [false], selecting an
-// alias returns the alias instead of the file or directory it represents.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, dropping an alias on the panel or
+// asking for filenames or URLs returns the resolved aliases. The default
+// value of this property is true. When this value is false, selecting an
+// alias returns the alias instead of the file or directory it represents.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/resolvesAliases
 func (o NSOpenPanel) ResolvesAliases() bool {
@@ -375,17 +376,16 @@ func (o NSOpenPanel) ResolvesAliases() bool {
 func (o NSOpenPanel) SetResolvesAliases(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setResolvesAliases:"), value)
 }
+
 // A Boolean that indicates whether the user may select multiple files and
 // directories.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the user may select multiple
-// items from the browser. When the selection contains multiple items, use the
+//
+// When the value of this property is true, the user may select multiple items
+// from the browser. When the selection contains multiple items, use the
 // [URLs] property to retrieve those items instead of the inherited [URL]
 // property.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/allowsMultipleSelection
 func (o NSOpenPanel) AllowsMultipleSelection() bool {
@@ -395,18 +395,16 @@ func (o NSOpenPanel) AllowsMultipleSelection() bool {
 func (o NSOpenPanel) SetAllowsMultipleSelection(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAllowsMultipleSelection:"), value)
 }
+
 // A Boolean value that indicates whether the panel’s accessory view is
 // visible.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the accessory view is visible,
-// and [false] when it isn’t. Setting the value of this property
-// programmatically changes the visibility of the accessory panel. If no
-// accessory panel is present, setting this property does nothing.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true when the accessory view is visible, and
+// false when it isn’t. Setting the value of this property programmatically
+// changes the visibility of the accessory panel. If no accessory panel is
+// present, setting this property does nothing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/isAccessoryViewDisclosed
 func (o NSOpenPanel) AccessoryViewDisclosed() bool {
@@ -416,11 +414,12 @@ func (o NSOpenPanel) AccessoryViewDisclosed() bool {
 func (o NSOpenPanel) SetAccessoryViewDisclosed(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessoryViewDisclosed:"), value)
 }
+
 // An array of URLs, each of which contains the fully specified location of a
 // selected file or directory.
 //
 // # Discussion
-// 
+//
 // This property contains a valid value when the user selects one item or
 // multiple items.
 //
@@ -431,32 +430,31 @@ func (o NSOpenPanel) URLs() []foundation.NSURL {
 		return foundation.NSURLFromID(id)
 	})
 }
+
 // A Boolean value that indicates how the panel responds to iCloud documents
 // that aren’t fully downloaded locally.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the panel disallows opening
+//
+// When the value of this property is true, the panel disallows opening
 // non-local iCloud files. If the user selects a non-local file, the panel
-// attempts to download that file. When the value of this property is [false],
+// attempts to download that file. When the value of this property is false,
 // the user may select and open non-local files. Your app is responsible for
 // downloading the files and reporting progress or any issues.
-// 
-// The default value of this property is [true], except for applications
-// linked against the OS X v10.9 SDK or earlier that have adopted iCloud by
+//
+// The default value of this property is true, except for applications linked
+// against the OS X v10.9 SDK or earlier that have adopted iCloud by
 // specifying a ubiquitous container identifier entitlement.
-// 
-// For a better user experience, set this property to [false] and download the
+//
+// For a better user experience, set this property to false and download the
 // file’s contents with an [NSFileCoordinator] object. Show the dlownload
 // progress using a [Progress] or [NSMetadataQuery] object.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/canDownloadUbiquitousContents
 //
 // [NSFileCoordinator]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator
 // [NSMetadataQuery]: https://developer.apple.com/documentation/Foundation/NSMetadataQuery
 // [Progress]: https://developer.apple.com/documentation/Foundation/Progress
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/canDownloadUbiquitousContents
 func (o NSOpenPanel) CanDownloadUbiquitousContents() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("canDownloadUbiquitousContents"))
 	return rv
@@ -464,32 +462,31 @@ func (o NSOpenPanel) CanDownloadUbiquitousContents() bool {
 func (o NSOpenPanel) SetCanDownloadUbiquitousContents(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanDownloadUbiquitousContents:"), value)
 }
+
 // A Boolean value that indicates how the panel responds to iCloud documents
 // that have conflicting versions.
 //
 // # Discussion
-// 
-// When the value of this property is [true], and the user attempts to open
-// one or more documents with conflicts, the panel displays the conflict
+//
+// When the value of this property is true, and the user attempts to open one
+// or more documents with conflicts, the panel displays the conflict
 // resolution UI. The user must resolve any conflicts before opening the
-// documents. When the value of this property is [false], the your application
+// documents. When the value of this property is false, the your application
 // is responsible for handling any conflicts.
-// 
-// The default value of this property is [true], except for applications
-// linked against the OS X v10.9 SDK or earlier that have adopted iCloud by
+//
+// The default value of this property is true, except for applications linked
+// against the OS X v10.9 SDK or earlier that have adopted iCloud by
 // specifying a ubiquitous container identifier entitlement.
-// 
-// For a better user experience, set this property to [false] and check the
+//
+// For a better user experience, set this property to false and check the
 // [ubiquitousItemHasUnresolvedConflictsKey] key of each item. When a conflict
 // exists, retrieve a [NSFileVersion] object for each version and present your
 // own UI to resolve that conflict.
 //
-// [NSFileVersion]: https://developer.apple.com/documentation/Foundation/NSFileVersion
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-// [ubiquitousItemHasUnresolvedConflictsKey]: https://developer.apple.com/documentation/Foundation/URLResourceKey/ubiquitousItemHasUnresolvedConflictsKey
-//
 // See: https://developer.apple.com/documentation/AppKit/NSOpenPanel/canResolveUbiquitousConflicts
+//
+// [NSFileVersion]: https://developer.apple.com/documentation/Foundation/NSFileVersion
+// [ubiquitousItemHasUnresolvedConflictsKey]: https://developer.apple.com/documentation/Foundation/URLResourceKey/ubiquitousItemHasUnresolvedConflictsKey
 func (o NSOpenPanel) CanResolveUbiquitousConflicts() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("canResolveUbiquitousConflicts"))
 	return rv
@@ -497,4 +494,3 @@ func (o NSOpenPanel) CanResolveUbiquitousConflicts() bool {
 func (o NSOpenPanel) SetCanResolveUbiquitousConflicts(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanResolveUbiquitousConflicts:"), value)
 }
-

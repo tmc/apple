@@ -3,10 +3,11 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAudioEnvironmentNode] class.
@@ -42,7 +43,6 @@ func (ac AVAudioEnvironmentNodeClass) Alloc() AVAudioEnvironmentNode {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioEnvironmentNode.DebugDescription]
@@ -51,6 +51,7 @@ func (ac AVAudioEnvironmentNodeClass) Alloc() AVAudioEnvironmentNode {
 //   - [AVAudioEnvironmentNode.ListenerHeadTrackingEnabled]
 //   - [AVAudioEnvironmentNode.SetListenerHeadTrackingEnabled]
 //   - [AVAudioEnvironmentNode.Superclass]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentNode
 type AVAudioEnvironmentNode struct {
 	AVAudioNode
@@ -60,6 +61,7 @@ type AVAudioEnvironmentNode struct {
 func AVAudioEnvironmentNodeFromID(id objc.ID) AVAudioEnvironmentNode {
 	return AVAudioEnvironmentNode{AVAudioNode: AVAudioNodeFromID(id)}
 }
+
 // Ensure AVAudioEnvironmentNode implements IAVAudioEnvironmentNode.
 var _ IAVAudioEnvironmentNode = AVAudioEnvironmentNode{}
 
@@ -107,7 +109,6 @@ func NewAVAudioEnvironmentNode() AVAudioEnvironmentNode {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioEnvironmentNodeWithImpl(impl unsafe.Pointer) AVAudioEnvironmentNode {
 	instance := getAVAudioEnvironmentNodeClass().Alloc()
@@ -120,16 +121,19 @@ func (a AVAudioEnvironmentNode) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentNode/description
 func (a AVAudioEnvironmentNode) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentNode/hash
 func (a AVAudioEnvironmentNode) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentNode/listenerHeadTrackingEnabled
 func (a AVAudioEnvironmentNode) ListenerHeadTrackingEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("listenerHeadTrackingEnabled"))
@@ -138,9 +142,9 @@ func (a AVAudioEnvironmentNode) ListenerHeadTrackingEnabled() bool {
 func (a AVAudioEnvironmentNode) SetListenerHeadTrackingEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setListenerHeadTrackingEnabled:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentNode/superclass
 func (a AVAudioEnvironmentNode) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
 	return rv
 }
-

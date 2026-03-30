@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZNetworkDeviceClass) Alloc() VZNetworkDevice {
 // A base class that represents a network device in a virtual machine.
 //
 // # Overview
-// 
+//
 // Don’t instantiate a [VZNetworkDevice] directly. When you create a
 // [VZVirtualMachineConfiguration] instance with a
 // [VZVirtualMachineConfiguration] the system creates the number of network
@@ -53,16 +54,16 @@ func (vc VZNetworkDeviceClass) Alloc() VZNetworkDevice {
 // machine (VM), validate the configuration using [ValidateWithError] to
 // ensure the user’s computer supports the number of network and other
 // devices you’ve specified.
-// 
+//
 // For many purposes, a single network that uses a Network Address Translation
 // (NAT) attachment and connects the VM to the host computer’s network is
 // sufficient. You can use additional network interfaces for purposes of your
 // own design, such as:
-// 
+//
 // - Bridging several physical interfaces to connect to multiple networks. -
 // Using the file descriptor attachment to create specialized connections for
 // different purposes.
-// 
+//
 // You access the network devices through the
 // [VZVirtualMachine].[VZNetworkDevice.NetworkDevices] property. The network devices map to
 // their respective configurations in a one to one relationship, where index
@@ -86,6 +87,7 @@ type VZNetworkDevice struct {
 func VZNetworkDeviceFromID(id objc.ID) VZNetworkDevice {
 	return VZNetworkDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZNetworkDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -133,7 +135,7 @@ func NewVZNetworkDevice() VZNetworkDevice {
 // The network attachment that’s connected to this network device.
 //
 // # Discussion
-// 
+//
 // Setting this property results in an attempt to change the network device
 // attachment which may fail. If the devices fails to attach, the system
 // invokes [VirtualMachineNetworkDeviceAttachmentWasDisconnectedWithError] and
@@ -148,6 +150,7 @@ func (n VZNetworkDevice) Attachment() IVZNetworkDeviceAttachment {
 func (n VZNetworkDevice) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
 }
+
 // The list of configured network devices on the VM.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/networkdevices
@@ -158,4 +161,3 @@ func (n VZNetworkDevice) NetworkDevices() IVZNetworkDevice {
 func (n VZNetworkDevice) SetNetworkDevices(value IVZNetworkDevice) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNetworkDevices:"), value)
 }
-

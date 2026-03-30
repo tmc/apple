@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVPlayerInterstitialEventController] class.
@@ -46,7 +47,7 @@ func (ac AVPlayerInterstitialEventControllerClass) Alloc() AVPlayerInterstitialE
 // primary player.
 //
 // # Overview
-// 
+//
 // This class is a subclass of [AVPlayerInterstitialEventMonitor] that you use
 // to manage the schedule of interstitial events to present during playback of
 // primary content.
@@ -75,6 +76,7 @@ type AVPlayerInterstitialEventController struct {
 func AVPlayerInterstitialEventControllerFromID(id objc.ID) AVPlayerInterstitialEventController {
 	return AVPlayerInterstitialEventController{AVPlayerInterstitialEventMonitor: AVPlayerInterstitialEventMonitorFromID(id)}
 }
+
 // NOTE: AVPlayerInterstitialEventController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -151,7 +153,7 @@ func NewPlayerInterstitialEventControllerWithPrimaryPlayer(primaryPlayer IAVPlay
 // interstitial playback finishes.
 //
 // # Discussion
-// 
+//
 // When you cancel interstitial events using this method, the resumption
 // offset value that you specify overrides the events’s [ResumptionOffset]
 // value.
@@ -160,11 +162,12 @@ func NewPlayerInterstitialEventControllerWithPrimaryPlayer(primaryPlayer IAVPlay
 func (p AVPlayerInterstitialEventController) CancelCurrentEventWithResumptionOffset(resumptionOffset coremedia.CMTime) {
 	objc.Send[objc.ID](p.ID, objc.Sel("cancelCurrentEventWithResumptionOffset:"), resumptionOffset)
 }
+
 // Causes the playback of the currently playing interstital event to be
 // abandoned.
 //
 // # Discussion
-// 
+//
 // Note that coinciding events will NOT be skipped. This results in
 // AVPlayerInterstitialEventMonitorCurrentEventSkippedNotification being
 // posted. Has no effect while the currentEvent is nil.
@@ -190,7 +193,7 @@ func (_AVPlayerInterstitialEventControllerClass AVPlayerInterstitialEventControl
 // AVPlayerInterstitialEventController.
 //
 // # Discussion
-// 
+//
 // If the value of the property is nil, any UI elements triggered by the
 // AVPlayerInterstitialEventController, such as the skip button, may contain a
 // generic label based on the implementation of the UI that’s in use. To
@@ -206,11 +209,12 @@ func (p AVPlayerInterstitialEventController) LocalizedStringsBundle() foundation
 func (p AVPlayerInterstitialEventController) SetLocalizedStringsBundle(value foundation.NSBundle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setLocalizedStringsBundle:"), value)
 }
+
 // The name of the table in the bundle that contains the localized strings to
 // be used by the AVPlayerInterstitialEventController.
 //
 // # Discussion
-// 
+//
 // If the value of the property is nil, it will default to “Localizable”
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventController/localizedStringsTableName
@@ -221,4 +225,3 @@ func (p AVPlayerInterstitialEventController) LocalizedStringsTableName() string 
 func (p AVPlayerInterstitialEventController) SetLocalizedStringsTableName(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setLocalizedStringsTableName:"), objc.String(value))
 }
-

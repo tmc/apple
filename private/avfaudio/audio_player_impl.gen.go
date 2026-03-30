@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type AudioPlayerImpl struct {
 func AudioPlayerImplFromID(id objc.ID) AudioPlayerImpl {
 	return AudioPlayerImpl{objectivec.Object{ID: id}}
 }
+
 // Ensure AudioPlayerImpl implements IAudioPlayerImpl.
 var _ IAudioPlayerImpl = AudioPlayerImpl{}
 
@@ -78,4 +80,3 @@ func NewAudioPlayerImpl() AudioPlayerImpl {
 	rv := objc.Send[AudioPlayerImpl](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

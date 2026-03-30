@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSEPSImageRep] class.
@@ -60,6 +61,7 @@ type NSEPSImageRep struct {
 func NSEPSImageRepFromID(id objc.ID) NSEPSImageRep {
 	return NSEPSImageRep{NSImageRep: NSImageRepFromID(id)}
 }
+
 // NOTE: NSEPSImageRep adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,12 +119,12 @@ func NewEPSImageRepWithCoder(coder foundation.INSCoder) NSEPSImageRep {
 // epsData: The EPS data representing the desired image.
 //
 // # Return Value
-// 
+//
 // The initialized [NSEPSImageRep] object or `nil` if the object could not be
 // initialized
 //
 // # Discussion
-// 
+//
 // The size of the receiver is set using the bounding box information
 // specified in the EPS header comments.
 //
@@ -140,6 +142,7 @@ func (e NSEPSImageRep) BoundingBox() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](e.ID, objc.Sel("boundingBox"))
 	return corefoundation.CGRect(rv)
 }
+
 // The EPS representation of the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEPSImageRep/epsRepresentation
@@ -147,4 +150,3 @@ func (e NSEPSImageRep) EPSRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("EPSRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-

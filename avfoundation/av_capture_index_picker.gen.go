@@ -5,9 +5,10 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (ac AVCaptureIndexPickerClass) Alloc() AVCaptureIndexPicker {
 // A control for selecting from a set of mutually exclusive values by index.
 //
 // # Overview
-// 
+//
 // Index pickers are appropriate for controls that provide an indexed
 // container of values.
 //
@@ -80,6 +81,7 @@ type AVCaptureIndexPicker struct {
 func AVCaptureIndexPickerFromID(id objc.ID) AVCaptureIndexPicker {
 	return AVCaptureIndexPicker{AVCaptureControl: AVCaptureControlFromID(id)}
 }
+
 // NOTE: AVCaptureIndexPicker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -165,7 +167,7 @@ func NewAVCaptureIndexPicker() AVCaptureIndexPicker {
 // localizedIndexTitles: The titles to use for each index. The array must not be empty.
 //
 // # Discussion
-// 
+//
 // Create a picker with this initializer when you already have an array
 // containing a title for each picked value.
 //
@@ -186,7 +188,7 @@ func NewCaptureIndexPickerWithLocalizedTitleSymbolNameLocalizedIndexTitles(local
 // numberOfIndexes: The number of indexes to pick between. This value must be greater than `0`.
 //
 // # Discussion
-// 
+//
 // Create a picker with this initializer when the control’s values don’t
 // require titles.
 //
@@ -207,7 +209,7 @@ func NewCaptureIndexPickerWithLocalizedTitleSymbolNameNumberOfIndexes(localizedT
 // numberOfIndexes: The number of indexes to pick between. This value must be greater than `0`.
 //
 // # Discussion
-// 
+//
 // Create a picker with this initializer when the control’s values don’t
 // require titles.
 //
@@ -216,6 +218,7 @@ func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexes(lo
 	rv := objc.Send[AVCaptureIndexPicker](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:numberOfIndexes:"), objc.String(localizedTitle), objc.String(symbolName), numberOfIndexes)
 	return rv
 }
+
 // Creates a control to pick a value from the specified number of indices.
 //
 // localizedTitle: A localized title that describes the picker’s action.
@@ -228,16 +231,17 @@ func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexes(lo
 // localizedTitleTransform: A transformation from index to localized title.
 //
 // # Discussion
-// 
+//
 // Create a picker with this initializer if your app requires specifying a
 // title for each value lazily.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/init(_:symbolName:numberOfIndexes:localizedTitleTransform:)
 func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform(localizedTitle string, symbolName string, numberOfIndexes int, localizedTitleTransform IntHandler) AVCaptureIndexPicker {
-_block3, _ := NewIntBlock(localizedTitleTransform)
+	_block3, _ := NewIntBlock(localizedTitleTransform)
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:numberOfIndexes:localizedTitleTransform:"), objc.String(localizedTitle), objc.String(symbolName), numberOfIndexes, _block3)
 	return AVCaptureIndexPickerFromID(rv)
 }
+
 // Creates an object to select an index from a set of values.
 //
 // localizedTitle: A localized title that describes the control’s action.
@@ -247,7 +251,7 @@ _block3, _ := NewIntBlock(localizedTitleTransform)
 // localizedIndexTitles: The titles to use for each index. The array must not be empty.
 //
 // # Discussion
-// 
+//
 // Create a picker with this initializer when you already have an array
 // containing a title for each picked value.
 //
@@ -256,6 +260,7 @@ func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameLocalizedIndexTitl
 	rv := objc.Send[AVCaptureIndexPicker](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:localizedIndexTitles:"), objc.String(localizedTitle), objc.String(symbolName), objectivec.StringSliceToNSArray(localizedIndexTitles))
 	return rv
 }
+
 // Sets the action to perform on the specified dispatch queue when the
 // control’s value changes.
 //
@@ -264,23 +269,23 @@ func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameLocalizedIndexTitl
 // action: The action to perform in response to changes to the control’s value.
 //
 // # Discussion
-// 
+//
 // If the action modifies a property of the camera system, the specified
 // dispatch queue must represent the camera system’s same exclusive
 // execution context (see [isSameExclusiveExecutionContext(other:)]).
 //
-// [isSameExclusiveExecutionContext(other:)]: https://developer.apple.com/documentation/Swift/SerialExecutor/isSameExclusiveExecutionContext(other:)-3ptya
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/setActionQueue:action:
+//
+// [isSameExclusiveExecutionContext(other:)]: https://developer.apple.com/documentation/Swift/SerialExecutor/isSameExclusiveExecutionContext(other:)-3ptya
 func (c AVCaptureIndexPicker) SetActionQueueAction(actionQueue dispatch.Queue, action IntHandler) {
-_block1, _ := NewIntBlock(action)
+	_block1, _ := NewIntBlock(action)
 	objc.Send[objc.ID](c.ID, objc.Sel("setActionQueue:action:"), uintptr(actionQueue.Handle()), _block1)
 }
 
 // The currently selected index.
 //
 // # Discussion
-// 
+//
 // The default value is `0`. You can only set a value that’s greater than or
 // equal to `0` and less than [NumberOfIndexes].
 //
@@ -292,6 +297,7 @@ func (c AVCaptureIndexPicker) SelectedIndex() int {
 func (c AVCaptureIndexPicker) SetSelectedIndex(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSelectedIndex:"), value)
 }
+
 // The number of index values the control provides.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/numberOfIndexes
@@ -299,6 +305,7 @@ func (c AVCaptureIndexPicker) NumberOfIndexes() int {
 	rv := objc.Send[int](c.ID, objc.Sel("numberOfIndexes"))
 	return rv
 }
+
 // The name of the SF Symbol that represents this control.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/symbolName
@@ -306,6 +313,7 @@ func (c AVCaptureIndexPicker) SymbolName() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("symbolName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A localized title that describes the control’s action.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/localizedTitle
@@ -313,6 +321,7 @@ func (c AVCaptureIndexPicker) LocalizedTitle() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("localizedTitle"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The titles to present for each index.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/localizedIndexTitles
@@ -350,4 +359,3 @@ func (c AVCaptureIndexPicker) SetActionQueueActionSync(ctx context.Context, acti
 		return 0, ctx.Err()
 	}
 }
-

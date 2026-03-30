@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (vc VZIOHIDEventClass) Alloc() VZIOHIDEvent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZIOHIDEvent.Event]
 //   - [VZIOHIDEvent.InitWithIOHIDEvent]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent
 type VZIOHIDEvent struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type VZIOHIDEvent struct {
 func VZIOHIDEventFromID(id objc.ID) VZIOHIDEvent {
 	return VZIOHIDEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure VZIOHIDEvent implements IVZIOHIDEvent.
 var _ IVZIOHIDEvent = VZIOHIDEvent{}
 
@@ -94,7 +96,6 @@ func NewVZIOHIDEvent() VZIOHIDEvent {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent/initWithIOHIDEvent:
 func NewVZIOHIDEventWithIOHIDEvent(iOHIDEvent objectivec.IObject) VZIOHIDEvent {
 	instance := getVZIOHIDEventClass().Alloc()
@@ -102,7 +103,6 @@ func NewVZIOHIDEventWithIOHIDEvent(iOHIDEvent objectivec.IObject) VZIOHIDEvent {
 	return VZIOHIDEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZIOHIDEvent/initWithIOHIDEvent:
 func (v VZIOHIDEvent) InitWithIOHIDEvent(iOHIDEvent objectivec.IObject) VZIOHIDEvent {
 	rv := objc.Send[VZIOHIDEvent](v.ID, objc.Sel("initWithIOHIDEvent:"), iOHIDEvent)
@@ -114,4 +114,3 @@ func (v VZIOHIDEvent) Event() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("event"))
 	return objectivec.Object{ID: rv}
 }
-

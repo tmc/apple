@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (uc URLResponseClass) Alloc() URLResponse {
 // independent of protocol and URL scheme.
 //
 // # Overview
-// 
+//
 // The related [NSHTTPURLResponse] class is a commonly used subclass of
 // [NSURLResponse] whose objects represent a response to an HTTP URL load
 // request and store additional protocol-specific information such as the
@@ -80,6 +81,7 @@ func URLResponseFromID(id objc.ID) URLResponse {
 
 // NSURLResponseFromID is an alias for [URLResponseFromID] for cross-framework compatibility.
 func NSURLResponseFromID(id objc.ID) URLResponse { return URLResponseFromID(id) }
+
 // NOTE: URLResponse adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -142,7 +144,6 @@ func NewURLResponse() URLResponse {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewURLResponseWithCoder(coder INSCoder) URLResponse {
 	instance := getURLResponseClass().Alloc()
@@ -163,11 +164,11 @@ func NewURLResponseWithCoder(coder INSCoder) URLResponse {
 // name: The text encoding name. This value may be `nil`.
 //
 // # Return Value
-// 
+//
 // The initialized URL response.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer for [NSURLResponse].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)
@@ -190,11 +191,11 @@ func NewURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL INSU
 // name: The text encoding name. This value may be `nil`.
 //
 // # Return Value
-// 
+//
 // The initialized URL response.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer for [NSURLResponse].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)
@@ -202,6 +203,7 @@ func (u URLResponse) InitWithURLMIMETypeExpectedContentLengthTextEncodingName(UR
 	rv := objc.Send[URLResponse](u.ID, objc.Sel("initWithURL:MIMEType:expectedContentLength:textEncodingName:"), URL, objc.String(MIMEType), length, objc.String(name))
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -210,7 +212,7 @@ func (u URLResponse) InitWithURLMIMETypeExpectedContentLengthTextEncodingName(UR
 func (u URLResponse) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u URLResponse) InitWithCoder(coder INSCoder) URLResponse {
 	rv := objc.Send[URLResponse](u.ID, objc.Sel("initWithCoder:"), coder)
@@ -220,34 +222,35 @@ func (u URLResponse) InitWithCoder(coder INSCoder) URLResponse {
 // The expected length of the response’s content.
 //
 // # Discussion
-// 
+//
 // This property’s value is [NSURLResponseUnknownLength] if the length
 // can’t be determined.
-// 
+//
 // Some protocol implementations report the content length as part of the
 // response, but not all protocols guarantee to deliver that amount of data.
 // Your app should be prepared to deal with more or less data.
 //
-// [NSURLResponseUnknownLength]: https://developer.apple.com/documentation/Foundation/NSURLResponseUnknownLength
-//
 // See: https://developer.apple.com/documentation/Foundation/URLResponse/expectedContentLength
+//
+// [NSURLResponseUnknownLength]: https://developer.apple.com/documentation/Foundation/NSURLResponseUnknownLength
 func (u URLResponse) ExpectedContentLength() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("expectedContentLength"))
 	return rv
 }
+
 // A suggested filename for the response data.
 //
 // # Discussion
-// 
+//
 // Accessing this property attempts to generate a filename using the following
 // information, in order:
-// 
+//
 // - A filename specified using the content disposition header. - The last
 // path component of the URL. - The host of the URL.
-// 
+//
 // If the host of URL can’t be converted to a valid filename, the filename
 // “unknown” is used.
-// 
+//
 // In most cases, this property appends the proper file extension based on the
 // MIME type. Accessing this property always returns a valid filename
 // regardless of whether the resource is saved to disk.
@@ -257,15 +260,16 @@ func (u URLResponse) SuggestedFilename() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("suggestedFilename"))
 	return NSStringFromID(rv).String()
 }
+
 // The MIME type of the response.
 //
 // # Discussion
-// 
+//
 // The MIME type is often provided by the response’s originating source.
 // However, that value may be changed or corrected by a protocol
 // implementation if it can be determined that the response’s source
 // reported the information incorrectly.
-// 
+//
 // If the response’s originating source does not provide a MIME type, an
 // attempt to guess the MIME type may be made.
 //
@@ -274,27 +278,29 @@ func (u URLResponse) MIMEType() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("MIMEType"))
 	return NSStringFromID(rv).String()
 }
+
 // The name of the text encoding provided by the response’s originating
 // source.
 //
 // # Discussion
-// 
+//
 // If no text encoding was provided by the protocol, this property’s value
 // is `nil`.
-// 
+//
 // You can convert this string to a [CFStringEncoding] value by calling
 // [CFStringConvertIANACharSetNameToEncoding(_:)]. You can subsequently
 // convert that value to an [NSStringEncoding] value by calling
 // [CFStringConvertEncodingToNSStringEncoding(_:)].
 //
+// See: https://developer.apple.com/documentation/Foundation/URLResponse/textEncodingName
+//
 // [CFStringConvertEncodingToNSStringEncoding(_:)]: https://developer.apple.com/documentation/CoreFoundation/CFStringConvertEncodingToNSStringEncoding(_:)
 // [CFStringConvertIANACharSetNameToEncoding(_:)]: https://developer.apple.com/documentation/CoreFoundation/CFStringConvertIANACharSetNameToEncoding(_:)
-//
-// See: https://developer.apple.com/documentation/Foundation/URLResponse/textEncodingName
 func (u URLResponse) TextEncodingName() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("textEncodingName"))
 	return NSStringFromID(rv).String()
 }
+
 // The URL for the response.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLResponse/url
@@ -303,9 +309,6 @@ func (u URLResponse) URL() INSURL {
 	return NSURLFromID(objc.ID(rv))
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

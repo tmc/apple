@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -69,6 +70,7 @@ type MTLAccelerationStructureBoundingBoxGeometryDescriptor struct {
 func MTLAccelerationStructureBoundingBoxGeometryDescriptorFromID(id objc.ID) MTLAccelerationStructureBoundingBoxGeometryDescriptor {
 	return MTLAccelerationStructureBoundingBoxGeometryDescriptor{MTLAccelerationStructureGeometryDescriptor: MTLAccelerationStructureGeometryDescriptorFromID(id)}
 }
+
 // NOTE: MTLAccelerationStructureBoundingBoxGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -130,14 +132,6 @@ func NewMTLAccelerationStructureBoundingBoxGeometryDescriptor() MTLAccelerationS
 	return rv
 }
 
-// Creates a new bounding box descriptor.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureBoundingBoxGeometryDescriptor/descriptor
-func (_MTLAccelerationStructureBoundingBoxGeometryDescriptorClass MTLAccelerationStructureBoundingBoxGeometryDescriptorClass) Descriptor() MTLAccelerationStructureBoundingBoxGeometryDescriptor {
-	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructureBoundingBoxGeometryDescriptorClass.class), objc.Sel("descriptor"))
-	return MTLAccelerationStructureBoundingBoxGeometryDescriptorFromID(rv)
-}
-
 // The number of bounding boxes in the bounding box buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureBoundingBoxGeometryDescriptor/boundingBoxCount
@@ -148,16 +142,17 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxCount(
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxCount(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxCount:"), value)
 }
+
 // A buffer that contains an array of bounding box structures.
 //
 // # Discussion
-// 
+//
 // The buffer contains an array of [MTLAxisAlignedBoundingBox] structures, one
 // for each bounding box in the geometry.
 //
-// [MTLAxisAlignedBoundingBox]: https://developer.apple.com/documentation/Metal/MTLAxisAlignedBoundingBox-c.struct
-//
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureBoundingBoxGeometryDescriptor/boundingBoxBuffer
+//
+// [MTLAxisAlignedBoundingBox]: https://developer.apple.com/documentation/Metal/MTLAxisAlignedBoundingBox-c.struct
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxBuffer() MTLBuffer {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("boundingBoxBuffer"))
 	return MTLBufferObjectFromID(rv)
@@ -165,14 +160,17 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxBuffer
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxBuffer(value MTLBuffer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxBuffer:"), value)
 }
+
 // The offset, in bytes, to the first bounding box in the buffer.
 //
 // # Discussion
-// 
-// The offset needs be a multiple of [BoundingBoxStride], and you need to
-// align it to the platform’s buffer offset alignment.
+//
+// The offset needs to be a multiple of [BoundingBoxStride]. Check the [Metal
+// feature set tables (PDF)] for potential alignment restrictions.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureBoundingBoxGeometryDescriptor/boundingBoxBufferOffset
+//
+// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxBufferOffset() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("boundingBoxBufferOffset"))
 	return rv
@@ -180,10 +178,11 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxBuffer
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxBufferOffset(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxBufferOffset:"), value)
 }
+
 // The stride, in bytes, between bounding boxes in the buffer.
 //
 // # Discussion
-// 
+//
 // The stride needs be at least 24 bytes, and be a multiple of 4 bytes. The
 // default value is 24 bytes.
 //
@@ -195,4 +194,3 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxStride
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxStride(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxStride:"), value)
 }
-

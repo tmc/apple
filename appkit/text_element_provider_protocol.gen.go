@@ -38,6 +38,7 @@ type NSTextElementProvider interface {
 type NSTextElementProviderObject struct {
 	objectivec.Object
 }
+
 func (o NSTextElementProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -56,7 +57,8 @@ func NSTextElementProviderObjectFromID(id objc.ID) NSTextElementProviderObject {
 func (o NSTextElementProviderObject) DocumentRange() INSTextRange {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("documentRange"))
 	return NSTextRangeFromID(rv)
-	}
+}
+
 // Enumerates text elements starting at the text location you provide.
 //
 // textLocation: The [NSTextLocation] at which to start the enumeration.
@@ -67,29 +69,30 @@ func (o NSTextElementProviderObject) DocumentRange() INSTextRange {
 // method to stop. Return `false` to end the enumeration process.
 //
 // # Return Value
-// 
+//
 // An [NSTextLocation].
 //
 // # Discussion
-// 
+//
 // If `textLocation` is `nil`, the method uses `documentRange.Location()` for
 // forward enumeration and `documentRange.EndLocation()` for reverse
 // enumeration. When enumerating backward, the method starts with the element
 // preceding the one containing `textLocation`. If enumerated at least one
 // element, it returns the edge of the enumerated range.
-// 
+//
 // The enumerated range might not match the range of the last element
 // returned. It enumerates the elements in the sequence, but it can skip a
 // range (it can limit the maximum number of text elements enumerated for a
 // single invocation or hide some elements from the layout).
-// 
+//
 // Returning [NO] or `false` from block breaks out of the enumeration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/enumerateTextElements(from:options:using:)
 func (o NSTextElementProviderObject) EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block TextElementHandler) NSTextLocation {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("enumerateTextElementsFromLocation:options:usingBlock:"), textLocation, options, block)
 	return NSTextLocationObjectFromID(rv)
-	}
+}
+
 // Replaces the characters specified by range with the text elements you
 // provide.
 //
@@ -98,7 +101,7 @@ func (o NSTextElementProviderObject) EnumerateTextElementsFromLocationOptionsUsi
 // textElements: The elements to replace that characters at `range`.
 //
 // # Discussion
-// 
+//
 // If the edges of `range` aren’t at existing element range boundaries, the
 // method either splits the element if it allows the operation (for example,
 // [NSTextParagraph]), or the adjusts the replacement range.
@@ -106,14 +109,15 @@ func (o NSTextElementProviderObject) EnumerateTextElementsFromLocationOptionsUsi
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/replaceContents(in:with:)
 func (o NSTextElementProviderObject) ReplaceContentsInRangeWithTextElements(range_ INSTextRange, textElements []NSTextElement) {
 	objc.Send[struct{}](o.ID, objc.Sel("replaceContentsInRange:withTextElements:"), range_, objectivec.IObjectSliceToNSArray(textElements))
-	}
+}
+
 // Synchronizes changes to the backing store.
 //
 // completionHandler: A completion handler to run upon successful completion, or to process an
 // error upon failure.
 //
 // # Discussion
-// 
+//
 // If `completionHandler` is `nil`, performs the operation synchronously. The
 // `completionHandler` gets passed `error` if the synchronization fails. It
 // should block (or fails if synchronous) when there’s an active
@@ -122,7 +126,8 @@ func (o NSTextElementProviderObject) ReplaceContentsInRangeWithTextElements(rang
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/synchronizeToBackingStore(_:)
 func (o NSTextElementProviderObject) SynchronizeToBackingStore(completionHandler ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("synchronizeToBackingStore:"), completionHandler)
-	}
+}
+
 // Returns a new location from location with offset you provide.
 //
 // location: An [NSTextLocation] in the text element.
@@ -130,7 +135,7 @@ func (o NSTextElementProviderObject) SynchronizeToBackingStore(completionHandler
 // offset: An offset of the number of characters to or from `location`.
 //
 // # Return Value
-// 
+//
 // An new [NSTextLocation], or `nil` of the offset exceeds the bounds of the
 // text.
 //
@@ -138,7 +143,8 @@ func (o NSTextElementProviderObject) SynchronizeToBackingStore(completionHandler
 func (o NSTextElementProviderObject) LocationFromLocationWithOffset(location NSTextLocation, offset int) NSTextLocation {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("locationFromLocation:withOffset:"), location, offset)
 	return NSTextLocationObjectFromID(rv)
-	}
+}
+
 // A method you implement if the location backing store requires manual
 // adjustment after editing.
 //
@@ -148,7 +154,7 @@ func (o NSTextElementProviderObject) LocationFromLocationWithOffset(location NST
 // associated with the edit session.
 //
 // # Return Value
-// 
+//
 // When `textRange` is intersecting or following the current edited range, the
 // method returns the range adjusted for the modification in the editing
 // session. Returns `nil`, when no adjustment necessary.
@@ -157,7 +163,8 @@ func (o NSTextElementProviderObject) LocationFromLocationWithOffset(location NST
 func (o NSTextElementProviderObject) AdjustedRangeFromRangeForEditingTextSelection(textRange INSTextRange, forEditingTextSelection bool) INSTextRange {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("adjustedRangeFromRange:forEditingTextSelection:"), textRange, forEditingTextSelection)
 	return NSTextRangeFromID(rv)
-	}
+}
+
 // Returns the offset between the two specified locations.
 //
 // from: A starting location.
@@ -165,22 +172,21 @@ func (o NSTextElementProviderObject) AdjustedRangeFromRangeForEditingTextSelecti
 // to: An ending location.
 //
 // # Return Value
-// 
+//
 // An [Integer] that represents the offset between the starting and ending
 // locations.
 //
 // # Discussion
-// 
+//
 // The return value could be positive or negative. This method can return
 // [NSNotFound] when the method can’t represent an offset as an integer
 // value. This can occur, for example, if the locations aren’t in the same
 // document).
 //
-// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-4qp9h
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/offset(from:to:)
+//
+// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-4qp9h
 func (o NSTextElementProviderObject) OffsetFromLocationToLocation(from NSTextLocation, to NSTextLocation) int {
 	rv := objc.Send[int](o.ID, objc.Sel("offsetFromLocation:toLocation:"), from, to)
 	return rv
-	}
-
+}

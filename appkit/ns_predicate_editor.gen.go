@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,25 +47,23 @@ func (nc NSPredicateEditorClass) Alloc() NSPredicateEditor {
 // A defined set of rules that allows the editing of predicate objects.
 //
 // # Overview
-// 
+//
 // [NSPredicateEditor] provides an [NSPredicate] property—[NSPredicateEditor.ObjectValue]
 // (inherited from [NSControl])—that you can get and set directly, and that
 // you can bind using Cocoa bindings (you typically configure a predicate
 // editor in Interface Builder). [NSPredicateEditor] depends on another class,
 // [NSPredicateEditorRowTemplate], that describes the available predicates and
 // how to display them.
-// 
+//
 // Unlike [NSRuleEditor], [NSPredicateEditor] does not depend on its delegate
 // to populate its rows (and ). Instead, its rows are populated from its
 // `objectValue` property (an instance of [NSPredicate]). [NSPredicateEditor]
 // relies on instances [NSPredicateEditorRowTemplate], which are responsible
 // for mapping back and forth between the displayed view values and various
 // predicates.
-// 
+//
 // [NSPredicateEditor] exposes one property, [NSPredicateEditor.RowTemplates], which is an array
 // of [NSPredicateEditorRowTemplate] objects.
-//
-// [NSPredicate]: https://developer.apple.com/documentation/Foundation/NSPredicate
 //
 // # Managing Row Templates
 //
@@ -72,6 +71,8 @@ func (nc NSPredicateEditorClass) Alloc() NSPredicateEditor {
 //   - [NSPredicateEditor.SetRowTemplates]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditor
+//
+// [NSPredicate]: https://developer.apple.com/documentation/Foundation/NSPredicate
 type NSPredicateEditor struct {
 	NSRuleEditor
 }
@@ -82,6 +83,7 @@ type NSPredicateEditor struct {
 func NSPredicateEditorFromID(id objc.ID) NSPredicateEditor {
 	return NSPredicateEditor{NSRuleEditor: NSRuleEditorFromID(id)}
 }
+
 // NOTE: NSPredicateEditor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,12 +139,12 @@ func NewPredicateEditorWithCoder(coder foundation.INSCoder) NSPredicateEditor {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -160,7 +162,7 @@ func NewPredicateEditorWithFrame(frameRect corefoundation.CGRect) NSPredicateEdi
 // The row templates for the receiver.
 //
 // # Discussion
-// 
+//
 // The default value is a single compound [NSPredicateEditorRowTemplate]
 // object.
 //
@@ -174,4 +176,3 @@ func (p NSPredicateEditor) RowTemplates() []NSPredicateEditorRowTemplate {
 func (p NSPredicateEditor) SetRowTemplates(value []NSPredicateEditorRowTemplate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRowTemplates:"), objectivec.IObjectSliceToNSArray(value))
 }
-

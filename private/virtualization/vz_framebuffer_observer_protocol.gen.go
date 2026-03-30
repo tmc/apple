@@ -23,6 +23,7 @@ type VZFramebufferObserver interface {
 type VZFramebufferObserverObject struct {
 	objectivec.Object
 }
+
 func (o VZFramebufferObserverObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -35,29 +36,28 @@ func VZFramebufferObserverObjectFromID(id objc.ID) VZFramebufferObserverObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferObserver/framebuffer:didUpdateCursor:
 func (o VZFramebufferObserverObject) FramebufferDidUpdateCursor(framebuffer objectivec.IObject, cursor objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("framebuffer:didUpdateCursor:"), framebuffer, cursor)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferObserver/framebuffer:didUpdateFrame:
 func (o VZFramebufferObserverObject) FramebufferDidUpdateFrame(framebuffer objectivec.IObject, frame objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("framebuffer:didUpdateFrame:"), framebuffer, frame)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferObserver/framebuffer:didUpdateGraphicsOrientation:
 func (o VZFramebufferObserverObject) FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64) {
 	objc.Send[struct{}](o.ID, objc.Sel("framebuffer:didUpdateGraphicsOrientation:"), framebuffer, orientation)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferObserver/framebufferDidUpdateColorSpace:
 func (o VZFramebufferObserverObject) FramebufferDidUpdateColorSpace(space objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("framebufferDidUpdateColorSpace:"), space)
-	}
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZFramebufferObserver/getDisplayProtectionOptions
 func (o VZFramebufferObserverObject) GetDisplayProtectionOptions() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("getDisplayProtectionOptions"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

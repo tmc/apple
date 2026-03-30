@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAssetDownloadURLSession] class.
@@ -67,6 +68,7 @@ type AVAssetDownloadURLSession struct {
 func AVAssetDownloadURLSessionFromID(id objc.ID) AVAssetDownloadURLSession {
 	return AVAssetDownloadURLSession{URLSession: foundation.URLSessionFromID(id)}
 }
+
 // NOTE: AVAssetDownloadURLSession adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -141,7 +143,7 @@ func NewAVAssetDownloadURLSession() AVAssetDownloadURLSession {
 // system provides a serial queue.
 //
 // # Return Value
-// 
+//
 // A new download session.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadURLSession/init(configuration:assetDownloadDelegate:delegateQueue:)
@@ -155,11 +157,11 @@ func NewAssetDownloadURLSessionWithConfigurationAssetDownloadDelegateDelegateQue
 // downloadConfiguration: The configuration that the task uses.
 //
 // # Return Value
-// 
+//
 // A new download task.
 //
 // # Discussion
-// 
+//
 // This method raises an exception if you call it on an invalidated session.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadURLSession/makeAssetDownloadTask(downloadConfiguration:)
@@ -175,6 +177,7 @@ func (a AVAssetDownloadURLSession) AVAssetDownloadTaskMinimumRequiredMediaBitrat
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskMinimumRequiredMediaBitrateKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A key that indicates the minimum presentation size of the variant to
 // download.
 //
@@ -183,6 +186,7 @@ func (a AVAssetDownloadURLSession) AVAssetDownloadTaskMinimumRequiredPresentatio
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskMinimumRequiredPresentationSizeKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A key that indicates which media selection to download.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetdownloadtaskmediaselectionkey
@@ -190,6 +194,7 @@ func (a AVAssetDownloadURLSession) AVAssetDownloadTaskMediaSelectionKey() string
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskMediaSelectionKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A key that indicates whether the task downloads media selections with
 // support for multichannel playback, when available.
 //
@@ -198,6 +203,7 @@ func (a AVAssetDownloadURLSession) AVAssetDownloadTaskMediaSelectionPrefersMulti
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskMediaSelectionPrefersMultichannelKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A key that indicates whether the task downloads HDR instead of SDR video,
 // when available.
 //
@@ -206,6 +212,7 @@ func (a AVAssetDownloadURLSession) AVAssetDownloadTaskPrefersHDRKey() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskPrefersHDRKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A key that indicates whether the task downloads media selections in
 // lossless audio format, when available.
 //
@@ -214,4 +221,3 @@ func (a AVAssetDownloadURLSession) AVAssetDownloadTaskPrefersLosslessAudioKey() 
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAssetDownloadTaskPrefersLosslessAudioKey"))
 	return foundation.NSStringFromID(rv).String()
 }
-

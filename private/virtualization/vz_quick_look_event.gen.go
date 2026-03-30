@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZQuickLookEventClass) Alloc() VZQuickLookEvent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZQuickLookEvent.InitWithEvent]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZQuickLookEvent
 type VZQuickLookEvent struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZQuickLookEvent struct {
 func VZQuickLookEventFromID(id objc.ID) VZQuickLookEvent {
 	return VZQuickLookEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure VZQuickLookEvent implements IVZQuickLookEvent.
 var _ IVZQuickLookEvent = VZQuickLookEvent{}
 
@@ -91,7 +93,6 @@ func NewVZQuickLookEvent() VZQuickLookEvent {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZQuickLookEvent/initWithEvent:
 func NewVZQuickLookEventWithEvent(event objectivec.IObject) VZQuickLookEvent {
 	instance := getVZQuickLookEventClass().Alloc()
@@ -99,10 +100,8 @@ func NewVZQuickLookEventWithEvent(event objectivec.IObject) VZQuickLookEvent {
 	return VZQuickLookEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZQuickLookEvent/initWithEvent:
 func (v VZQuickLookEvent) InitWithEvent(event objectivec.IObject) VZQuickLookEvent {
 	rv := objc.Send[VZQuickLookEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }
-

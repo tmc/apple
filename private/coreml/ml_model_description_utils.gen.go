@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLModelDescriptionUtils struct {
 func MLModelDescriptionUtilsFromID(id objc.ID) MLModelDescriptionUtils {
 	return MLModelDescriptionUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelDescriptionUtils implements IMLModelDescriptionUtils.
 var _ IMLModelDescriptionUtils = MLModelDescriptionUtils{}
 
@@ -82,7 +84,6 @@ func NewMLModelDescriptionUtils() MLModelDescriptionUtils {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/copyFeatureDescriptionFrom:to:error:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CopyFeatureDescriptionFromToError(from objectivec.IObject, to unsafe.Pointer) error {
 	var errorPtr objc.ID
@@ -94,7 +95,7 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CopyFeatureDes
 	return nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/createFeatureTypeFromFeatureDescription:error:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CreateFeatureTypeFromFeatureDescriptionError(description objectivec.IObject) (unsafe.Pointer, error) {
 	var errorPtr objc.ID
@@ -106,13 +107,13 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CreateFeatureT
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/createMetaData:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CreateMetaData(data objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("createMetaData:"), data)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/createModelDescription:error:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CreateModelDescriptionError(description objectivec.IObject) (unsafe.Pointer, error) {
 	var errorPtr objc.ID
@@ -124,13 +125,13 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) CreateModelDes
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/getArrayFeatureTypeFromConstraint:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetArrayFeatureTypeFromConstraint(constraint objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("getArrayFeatureTypeFromConstraint:"), constraint)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/getDictionaryFeatureTypeFromConstraint:error:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetDictionaryFeatureTypeFromConstraintError(constraint objectivec.IObject) (unsafe.Pointer, error) {
 	var errorPtr objc.ID
@@ -142,13 +143,13 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetDictionaryF
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/getImageFeatureTypeFromConstraint:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetImageFeatureTypeFromConstraint(constraint objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("getImageFeatureTypeFromConstraint:"), constraint)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/getSequenceFeatureTypeFromConstraint:error:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetSequenceFeatureTypeFromConstraintError(constraint objectivec.IObject) (unsafe.Pointer, error) {
 	var errorPtr objc.ID
@@ -160,13 +161,13 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetSequenceFea
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/getStateFeatureTypeFromConstraint:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) GetStateFeatureTypeFromConstraint(constraint objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](objc.ID(_MLModelDescriptionUtilsClass.class), objc.Sel("getStateFeatureTypeFromConstraint:"), constraint)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/saveModelDescription:toSpecification:error:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) SaveModelDescriptionToSpecificationError(description objectivec.IObject, specification unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -181,7 +182,7 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) SaveModelDescr
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescriptionUtils/validateAllFeatureDescriptions:hasAnyFeatureTypeIn:minimalCount:maximumCount:debugLabel:error:
 func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) ValidateAllFeatureDescriptionsHasAnyFeatureTypeInMinimalCountMaximumCountDebugLabelError(descriptions objectivec.IObject, in objectivec.IObject, count uint64, count2 uint64, label objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -196,4 +197,3 @@ func (_MLModelDescriptionUtilsClass MLModelDescriptionUtilsClass) ValidateAllFea
 	return rv, nil
 
 }
-

@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSATSTypesetterClass) Alloc() NSATSTypesetter {
 // process.
 //
 // # Overview
-// 
+//
 // An [NSATSTypesetter] object creates line fragment rectangles, positions
 // glyphs within the line fragments, determines line breaks by word wrapping
 // and hyphenation, and handles tab positioning. This object encapsulates the
@@ -64,6 +65,7 @@ type NSATSTypesetter struct {
 func NSATSTypesetterFromID(id objc.ID) NSATSTypesetter {
 	return NSATSTypesetter{NSTypesetter: NSTypesetterFromID(id)}
 }
+
 // NOTE: NSATSTypesetter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -100,4 +102,3 @@ func (_NSATSTypesetterClass NSATSTypesetterClass) SharedTypesetter() NSATSTypese
 	rv := objc.Send[objc.ID](objc.ID(_NSATSTypesetterClass.class), objc.Sel("sharedTypesetter"))
 	return NSATSTypesetterFromID(objc.ID(rv))
 }
-

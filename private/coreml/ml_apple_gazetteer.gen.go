@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,12 +45,12 @@ func (mc MLAppleGazetteerClass) Alloc() MLAppleGazetteer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLAppleGazetteer.Parameters]
 //   - [MLAppleGazetteer.PredictionFromFeaturesOptionsError]
 //   - [MLAppleGazetteer.InitWithParametersModelDescriptionNlpHandleConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteer
 type MLAppleGazetteer struct {
 	MLModel
@@ -59,6 +60,7 @@ type MLAppleGazetteer struct {
 func MLAppleGazetteerFromID(id objc.ID) MLAppleGazetteer {
 	return MLAppleGazetteer{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLAppleGazetteer implements IMLAppleGazetteer.
 var _ IMLAppleGazetteer = MLAppleGazetteer{}
 
@@ -100,7 +102,6 @@ func NewMLAppleGazetteer() MLAppleGazetteer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewAppleGazetteerDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleGazetteer, error) {
 	var errorPtr objc.ID
@@ -113,7 +114,6 @@ func NewAppleGazetteerDescriptionOnlyWithSpecificationConfigurationError(specifi
 	return MLAppleGazetteerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewAppleGazetteerInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleGazetteer, error) {
 	var errorPtr objc.ID
@@ -126,7 +126,6 @@ func NewAppleGazetteerInterfaceAndMetadataWithCompiledArchiveError(archive unsaf
 	return MLAppleGazetteerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewAppleGazetteerWithConfiguration(configuration objectivec.IObject) MLAppleGazetteer {
 	instance := getMLAppleGazetteerClass().Alloc()
@@ -134,7 +133,6 @@ func NewAppleGazetteerWithConfiguration(configuration objectivec.IObject) MLAppl
 	return MLAppleGazetteerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewAppleGazetteerWithDescription(description objectivec.IObject) MLAppleGazetteer {
 	instance := getMLAppleGazetteerClass().Alloc()
@@ -142,7 +140,6 @@ func NewAppleGazetteerWithDescription(description objectivec.IObject) MLAppleGaz
 	return MLAppleGazetteerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewAppleGazetteerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleGazetteer {
 	instance := getMLAppleGazetteerClass().Alloc()
@@ -150,7 +147,6 @@ func NewAppleGazetteerWithDescriptionConfiguration(description objectivec.IObjec
 	return MLAppleGazetteerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewAppleGazetteerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleGazetteer {
 	instance := getMLAppleGazetteerClass().Alloc()
@@ -158,7 +154,6 @@ func NewAppleGazetteerWithNameInputDescriptionOutputDescriptionOrderedInputFeatu
 	return MLAppleGazetteerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteer/initWithParameters:modelDescription:nlpHandle:configuration:error:
 func NewAppleGazetteerWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleGazetteer, error) {
 	var errorPtr objc.ID
@@ -171,7 +166,6 @@ func NewAppleGazetteerWithParametersModelDescriptionNlpHandleConfigurationError(
 	return MLAppleGazetteerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteer/predictionFromFeatures:options:error:
 func (a MLAppleGazetteer) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -183,7 +177,7 @@ func (a MLAppleGazetteer) PredictionFromFeaturesOptionsError(features objectivec
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteer/initWithParameters:modelDescription:nlpHandle:configuration:error:
 func (a MLAppleGazetteer) InitWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleGazetteer, error) {
 	var errorPtr objc.ID
@@ -196,7 +190,6 @@ func (a MLAppleGazetteer) InitWithParametersModelDescriptionNlpHandleConfigurati
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteer/loadModelFromSpecification:configuration:error:
 func (_MLAppleGazetteerClass MLAppleGazetteerClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -208,7 +201,7 @@ func (_MLAppleGazetteerClass MLAppleGazetteerClass) LoadModelFromSpecificationCo
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteer/saveAppleGazetteerModelToURL:gazetteerParameters:error:
 func (_MLAppleGazetteerClass MLAppleGazetteerClass) SaveAppleGazetteerModelToURLGazetteerParametersError(url foundation.INSURL, parameters objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -229,4 +222,3 @@ func (a MLAppleGazetteer) Parameters() IMLAppleGazetteerParameters {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("parameters"))
 	return MLAppleGazetteerParametersFromID(objc.ID(rv))
 }
-

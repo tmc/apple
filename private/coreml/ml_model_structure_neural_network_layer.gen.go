@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (mc MLModelStructureNeuralNetworkLayerClass) Alloc() MLModelStructureNeural
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelStructureNeuralNetworkLayer.Path]
 //   - [MLModelStructureNeuralNetworkLayer.InitWithNameTypeInputNamesOutputNamesPath]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetworkLayer
 type MLModelStructureNeuralNetworkLayer struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type MLModelStructureNeuralNetworkLayer struct {
 func MLModelStructureNeuralNetworkLayerFromID(id objc.ID) MLModelStructureNeuralNetworkLayer {
 	return MLModelStructureNeuralNetworkLayer{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureNeuralNetworkLayer implements IMLModelStructureNeuralNetworkLayer.
 var _ IMLModelStructureNeuralNetworkLayer = MLModelStructureNeuralNetworkLayer{}
 
@@ -94,7 +96,6 @@ func NewMLModelStructureNeuralNetworkLayer() MLModelStructureNeuralNetworkLayer 
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetworkLayer/initWithName:type:inputNames:outputNames:path:
 func NewModelStructureNeuralNetworkLayerWithNameTypeInputNamesOutputNamesPath(name objectivec.IObject, type_ objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, path objectivec.IObject) MLModelStructureNeuralNetworkLayer {
 	instance := getMLModelStructureNeuralNetworkLayerClass().Alloc()
@@ -102,7 +103,6 @@ func NewModelStructureNeuralNetworkLayerWithNameTypeInputNamesOutputNamesPath(na
 	return MLModelStructureNeuralNetworkLayerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetworkLayer/initWithName:type:inputNames:outputNames:path:
 func (m MLModelStructureNeuralNetworkLayer) InitWithNameTypeInputNamesOutputNamesPath(name objectivec.IObject, type_ objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, path objectivec.IObject) MLModelStructureNeuralNetworkLayer {
 	rv := objc.Send[MLModelStructureNeuralNetworkLayer](m.ID, objc.Sel("initWithName:type:inputNames:outputNames:path:"), name, type_, names, names2, path)
@@ -114,4 +114,3 @@ func (m MLModelStructureNeuralNetworkLayer) Path() IMLModelStructurePath {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("path"))
 	return MLModelStructurePathFromID(objc.ID(rv))
 }
-

@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_transform_static_quantize_kernel struct {
 func EspressoPass_transform_static_quantize_kernelFromID(id objc.ID) EspressoPass_transform_static_quantize_kernel {
 	return EspressoPass_transform_static_quantize_kernel{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_transform_static_quantize_kernel implements IEspressoPass_transform_static_quantize_kernel.
 var _ IEspressoPass_transform_static_quantize_kernel = EspressoPass_transform_static_quantize_kernel{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_transform_static_quantize_kernel() EspressoPass_transform_s
 	rv := objc.Send[EspressoPass_transform_static_quantize_kernel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

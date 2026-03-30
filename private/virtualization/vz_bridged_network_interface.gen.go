@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,6 +53,7 @@ type VZBridgedNetworkInterface struct {
 func VZBridgedNetworkInterfaceFromID(id objc.ID) VZBridgedNetworkInterface {
 	return VZBridgedNetworkInterface{objectivec.Object{ID: id}}
 }
+
 // Ensure VZBridgedNetworkInterface implements IVZBridgedNetworkInterface.
 var _ IVZBridgedNetworkInterface = VZBridgedNetworkInterface{}
 
@@ -81,7 +83,6 @@ func NewVZBridgedNetworkInterface() VZBridgedNetworkInterface {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZBridgedNetworkInterface/_interfaceWithIdentifier:error:
 func (_VZBridgedNetworkInterfaceClass VZBridgedNetworkInterfaceClass) _interfaceWithIdentifierError(identifier objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -98,4 +99,3 @@ func (_VZBridgedNetworkInterfaceClass VZBridgedNetworkInterfaceClass) _interface
 func (_VZBridgedNetworkInterfaceClass VZBridgedNetworkInterfaceClass) InterfaceWithIdentifierError(identifier objectivec.IObject) (objectivec.IObject, error) {
 	return _VZBridgedNetworkInterfaceClass._interfaceWithIdentifierError(identifier)
 }
-

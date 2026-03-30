@@ -3,11 +3,12 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZVirtioBlockDeviceConfiguration] class.
@@ -47,13 +48,13 @@ func (vc VZVirtioBlockDeviceConfigurationClass) Alloc() VZVirtioBlockDeviceConfi
 // device in the guest system.
 //
 // # Overview
-// 
+//
 // Use a [VZVirtioBlockDeviceConfiguration] object to create an emulated
 // storage device in your virtual machine. When you add this object to your
 // virtual machine configuration, the virtual machine creates an emulated disk
 // for the guest operating system to use to read and write files. The emulated
 // storage device conforms to the Virtio Block Device specification.
-// 
+//
 // When you create a [VZVirtioBlockDeviceConfiguration] object, specify the
 // attachment object that implements the underlying storage. For example,
 // specify a [VZDiskImageStorageDeviceAttachment] object to configure the
@@ -83,6 +84,7 @@ type VZVirtioBlockDeviceConfiguration struct {
 func VZVirtioBlockDeviceConfigurationFromID(id objc.ID) VZVirtioBlockDeviceConfiguration {
 	return VZVirtioBlockDeviceConfiguration{VZStorageDeviceConfiguration: VZStorageDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioBlockDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -144,7 +146,7 @@ func NewVZVirtioBlockDeviceConfiguration() VZVirtioBlockDeviceConfiguration {
 // the storage using a local disk image on the host computer.
 //
 // # Return Value
-// 
+//
 // A block storage device configuration object to include in your virtual
 // machine’s configuration.
 //
@@ -163,7 +165,7 @@ func NewVirtioBlockDeviceConfigurationWithAttachment(attachment IVZStorageDevice
 // the storage using a local disk image on the host computer.
 //
 // # Return Value
-// 
+//
 // A block storage device configuration object to include in your virtual
 // machine’s configuration.
 //
@@ -180,7 +182,7 @@ func (v VZVirtioBlockDeviceConfiguration) InitWithAttachment(attachment IVZStora
 // isn’t valid.
 //
 // # Discussion
-// 
+//
 // Use [ValidateBlockDeviceIdentifierError] to validate an identifier string
 // before trying to set the [BlockDeviceIdentifier] property. The identifier
 // must be an ASCII encodable string of 20 bytes or less.
@@ -203,14 +205,14 @@ func (_VZVirtioBlockDeviceConfigurationClass VZVirtioBlockDeviceConfigurationCla
 // The string that identifies the VIRTIO block device.
 //
 // # Discussion
-// 
+//
 // Use `blockDeviceIdentifier` to name devices so they’re more discoverable
 // in the Linux guest. The identifier must be an ASCII encodable string of 20
 // bytes or less.
-// 
+//
 // Validate the identifier string using [ValidateBlockDeviceIdentifierError]
 // before attempting to set this property, for example:
-// 
+//
 // In a Linux guest, device identifiers are visible in the `/dev/disk/by-id/`
 // directory.
 //
@@ -222,6 +224,7 @@ func (v VZVirtioBlockDeviceConfiguration) BlockDeviceIdentifier() string {
 func (v VZVirtioBlockDeviceConfiguration) SetBlockDeviceIdentifier(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBlockDeviceIdentifier:"), objc.String(value))
 }
+
 // The array of storage devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/storagedevices
@@ -232,4 +235,3 @@ func (v VZVirtioBlockDeviceConfiguration) StorageDevices() IVZStorageDeviceConfi
 func (v VZVirtioBlockDeviceConfiguration) SetStorageDevices(value IVZStorageDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStorageDevices:"), value)
 }
-

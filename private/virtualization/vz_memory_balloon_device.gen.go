@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZMemoryBalloonDeviceClass) Alloc() VZMemoryBalloonDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMemoryBalloonDevice._init]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMemoryBalloonDevice
 type VZMemoryBalloonDevice struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZMemoryBalloonDevice struct {
 func VZMemoryBalloonDeviceFromID(id objc.ID) VZMemoryBalloonDevice {
 	return VZMemoryBalloonDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMemoryBalloonDevice implements IVZMemoryBalloonDevice.
 var _ IVZMemoryBalloonDevice = VZMemoryBalloonDevice{}
 
@@ -96,4 +98,3 @@ func (m VZMemoryBalloonDevice) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-

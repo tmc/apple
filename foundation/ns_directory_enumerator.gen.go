@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,12 +44,12 @@ func (nc NSDirectoryEnumeratorClass) Alloc() NSDirectoryEnumerator {
 // An object that enumerates the contents of a directory.
 //
 // # Overview
-// 
+//
 // You obtain a directory enumerator using [NSFileManager]’s
 // [EnumeratorAtPath] method. The enumeration provides the pathnames of all
 // files and directories contained within that directory. These pathnames are
 // relative to the directory.
-// 
+//
 // An enumeration is recursive, including the files of all subdirectories, and
 // crosses device boundaries. An enumeration does not resolve symbolic links,
 // or attempt to traverse symbolic links that point to directories.
@@ -79,6 +80,7 @@ type NSDirectoryEnumerator struct {
 func NSDirectoryEnumeratorFromID(id objc.ID) NSDirectoryEnumerator {
 	return NSDirectoryEnumerator{NSEnumerator: NSEnumeratorFromID(id)}
 }
+
 // NOTE: NSDirectoryEnumerator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -150,11 +152,12 @@ func NewNSDirectoryEnumerator() NSDirectoryEnumerator {
 func (d NSDirectoryEnumerator) SkipDescendents() {
 	objc.Send[objc.ID](d.ID, objc.Sel("skipDescendents"))
 }
+
 // Causes the receiver to skip recursion into the most recently obtained
 // subdirectory.
 //
 // # Discussion
-// 
+//
 // This method is identical to [SkipDescendents] except for the spelling.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/DirectoryEnumerator/skipDescendants()
@@ -166,7 +169,7 @@ func (d NSDirectoryEnumerator) SkipDescendants() {
 // started.
 //
 // # Discussion
-// 
+//
 // See the description of the [FileAttributesAtPathTraverseLink] method of
 // [NSFileManager] for details on obtaining the attributes from the
 // dictionary.
@@ -176,11 +179,12 @@ func (d NSDirectoryEnumerator) DirectoryAttributes() INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("directoryAttributes"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // A dictionary with the attributes of the most recently returned file or
 // subdirectory (as referenced by the pathname).
 //
 // # Discussion
-// 
+//
 // See the description of the [FileAttributesAtPathTraverseLink] method of
 // [NSFileManager] for details on obtaining the attributes from the
 // dictionary.
@@ -190,11 +194,12 @@ func (d NSDirectoryEnumerator) FileAttributes() INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileAttributes"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // The number of levels deep the current object is in the directory hierarchy
 // being enumerated.
 //
 // # Discussion
-// 
+//
 // The number of levels, with the directory passed to
 // [EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler]
 // ([NSFileManager]) considered to be level `0`.
@@ -204,9 +209,9 @@ func (d NSDirectoryEnumerator) Level() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("level"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Foundation/FileManager/DirectoryEnumerator/isEnumeratingDirectoryPostOrder
 func (d NSDirectoryEnumerator) IsEnumeratingDirectoryPostOrder() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEnumeratingDirectoryPostOrder"))
 	return rv
 }
-

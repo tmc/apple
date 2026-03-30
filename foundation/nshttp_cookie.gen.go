@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,16 +45,14 @@ func (hc HTTPCookieClass) Alloc() HTTPCookie {
 // A representation of an HTTP cookie.
 //
 // # Overview
-// 
+//
 // An [NSHTTPCookie] object is immutable, initialized from a dictionary that
 // contains the attributes of the cookie. This class supports two different
 // cookie versions:
-// 
+//
 // - Version 0: The original cookie format defined by Netscape. Most cookies
 // are in this format. - Version 1: The cookie format defined in [RFC 6265],
 // HTTP State Management Mechanism.
-//
-// [RFC 6265]: https://tools.ietf.org/html/rfc6265
 //
 // # Creating cookies
 //
@@ -92,6 +91,8 @@ func (hc HTTPCookieClass) Alloc() HTTPCookie {
 //   - [HTTPCookie.CommentURL]: The cookie’s comment URL.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie
+//
+// [RFC 6265]: https://tools.ietf.org/html/rfc6265
 type HTTPCookie struct {
 	objectivec.Object
 }
@@ -105,6 +106,7 @@ func HTTPCookieFromID(id objc.ID) HTTPCookie {
 
 // NSHTTPCookieFromID is an alias for [HTTPCookieFromID] for cross-framework compatibility.
 func NSHTTPCookieFromID(id objc.ID) HTTPCookie { return HTTPCookieFromID(id) }
+
 // NOTE: HTTPCookie adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -226,27 +228,27 @@ func NewHTTPCookie() HTTPCookie {
 // properties: The properties for the new cookie object, expressed as key-value pairs.
 //
 // # Return Value
-// 
+//
 // A new cookie object, with the given properies.
 //
 // # Discussion
-// 
+//
 // This initializer returns `nil` if the provided properties are invalid. To
 // successfully create a cookie, you must provide values for (at least) the
 // [path], [name], and [value] keys, and either the [originURL] key or the
 // [domain] key.
-// 
+//
 // See Accepting cookies for more information on the available cookie
 // attribute constants and the constraints imposed on the values in the
 // dictionary.
+//
+// See: https://developer.apple.com/documentation/Foundation/HTTPCookie/init(properties:)
 //
 // [domain]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/domain
 // [name]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/name
 // [originURL]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/originURL
 // [path]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/path
 // [value]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/value
-//
-// See: https://developer.apple.com/documentation/Foundation/HTTPCookie/init(properties:)
 func NewHTTPCookieWithProperties(properties INSDictionary) HTTPCookie {
 	instance := getHTTPCookieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProperties:"), properties)
@@ -258,27 +260,27 @@ func NewHTTPCookieWithProperties(properties INSDictionary) HTTPCookie {
 // properties: The properties for the new cookie object, expressed as key-value pairs.
 //
 // # Return Value
-// 
+//
 // A new cookie object, with the given properies.
 //
 // # Discussion
-// 
+//
 // This initializer returns `nil` if the provided properties are invalid. To
 // successfully create a cookie, you must provide values for (at least) the
 // [path], [name], and [value] keys, and either the [originURL] key or the
 // [domain] key.
-// 
+//
 // See Accepting cookies for more information on the available cookie
 // attribute constants and the constraints imposed on the values in the
 // dictionary.
+//
+// See: https://developer.apple.com/documentation/Foundation/HTTPCookie/init(properties:)
 //
 // [domain]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/domain
 // [name]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/name
 // [originURL]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/originURL
 // [path]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/path
 // [value]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/value
-//
-// See: https://developer.apple.com/documentation/Foundation/HTTPCookie/init(properties:)
 func (h HTTPCookie) InitWithProperties(properties INSDictionary) HTTPCookie {
 	rv := objc.Send[HTTPCookie](h.ID, objc.Sel("initWithProperties:"), properties)
 	return rv
@@ -292,17 +294,17 @@ func (h HTTPCookie) InitWithProperties(properties INSDictionary) HTTPCookie {
 // URL: The URL associated with the created cookies.
 //
 // # Return Value
-// 
+//
 // The array of created cookies.
 //
 // # Discussion
-// 
+//
 // This method ignores irrelevant header fields in `headerFields`, allowing
 // dictionaries to contain additional data.
-// 
+//
 // If `headerFields` doesn’t specify a domain for a given cookie, the cookie
 // is created with a default domain value of [URL].
-// 
+//
 // If `headerFields` doesn’t specify a path for a given cookie, the cookie
 // is created with a default path value of `"/"`.
 //
@@ -313,16 +315,17 @@ func (_HTTPCookieClass HTTPCookieClass) CookiesWithResponseHeaderFieldsForURL(he
 		return NSHTTPCookieFromID(id)
 	})
 }
+
 // Converts an array of cookies to a dictionary of header fields.
 //
 // cookies: The cookies from which the header fields are created.
 //
 // # Return Value
-// 
+//
 // The dictionary of header fields created from the provided cookies.
 //
 // # Discussion
-// 
+//
 // To send these headers as part of a URL request to a remote server, create
 // an [NSMutableURLRequest] object, then call the [AllHTTPHeaderFields] or
 // [SetValueForHTTPHeaderField] method to set the provided headers for the
@@ -334,33 +337,34 @@ func (_HTTPCookieClass HTTPCookieClass) RequestHeaderFieldsWithCookies(cookies [
 	rv := objc.Send[objc.ID](objc.ID(_HTTPCookieClass.class), objc.Sel("requestHeaderFieldsWithCookies:"), objectivec.IObjectSliceToNSArray(cookies))
 	return NSDictionaryFromID(rv)
 }
+
 // Creates and initializes an HTTP cookie object using the provided
 // properties.
 //
 // properties: The properties for the new cookie object, expressed as key value pairs.
 //
 // # Return Value
-// 
+//
 // The newly created cookie object. Returns `nil` if the provided properties
 // are invalid.
 //
 // # Discussion
-// 
+//
 // To successfully create a cookie, you must provide values for (at least) the
 // [path], [name], and [value] keys, and either the [originURL] key or the
 // [domain] key.
-// 
+//
 // See Accepting cookies for more information on the available cookie
 // attribute constants and the constraints imposed on the values in the
 // dictionary.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSHTTPCookie/cookieWithProperties:
 //
 // [domain]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/domain
 // [name]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/name
 // [originURL]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/originURL
 // [path]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/path
 // [value]: https://developer.apple.com/documentation/Foundation/HTTPCookiePropertyKey/value
-//
-// See: https://developer.apple.com/documentation/Foundation/NSHTTPCookie/cookieWithProperties:
 func (_HTTPCookieClass HTTPCookieClass) CookieWithProperties(properties INSDictionary) HTTPCookie {
 	rv := objc.Send[objc.ID](objc.ID(_HTTPCookieClass.class), objc.Sel("cookieWithProperties:"), properties)
 	return NSHTTPCookieFromID(rv)
@@ -369,23 +373,24 @@ func (_HTTPCookieClass HTTPCookieClass) CookieWithProperties(properties INSDicti
 // The domain of the cookie.
 //
 // # Discussion
-// 
+//
 // If the domain does not start with a dot, then the cookie is only sent to
 // the exact host specified by the domain. If the domain does start with a
 // dot, then the cookie is sent to other hosts in that domain as well, subject
 // to certain restrictions. See [RFC 6265] for more detail.
 //
-// [RFC 6265]: https://tools.ietf.org/html/rfc6265.html
-//
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/domain
+//
+// [RFC 6265]: https://tools.ietf.org/html/rfc6265.html
 func (h HTTPCookie) Domain() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("domain"))
 	return NSStringFromID(rv).String()
 }
+
 // The cookie’s path.
 //
 // # Discussion
-// 
+//
 // The cookie will be sent with requests for this path in the cookie’s
 // domain, and all paths that have this prefix. A path of `"/"` means the
 // cookie will be sent for all URLs in the domain.
@@ -395,10 +400,11 @@ func (h HTTPCookie) Path() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("path"))
 	return NSStringFromID(rv).String()
 }
+
 // The cookie’s port list.
 //
 // # Discussion
-// 
+//
 // The list of ports for the cookie, returned as an array of [NSNumber]
 // objects containing integers. If the cookie has no port list, the value of
 // this property is `nil` and the cookie will be sent to any port. Otherwise,
@@ -411,6 +417,7 @@ func (h HTTPCookie) PortList() []NSNumber {
 		return NSNumberFromID(id)
 	})
 }
+
 // The cookie’s name.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/name
@@ -418,6 +425,7 @@ func (h HTTPCookie) Name() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("name"))
 	return NSStringFromID(rv).String()
 }
+
 // The cookie’s string value.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/value
@@ -425,24 +433,26 @@ func (h HTTPCookie) Value() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("value"))
 	return NSStringFromID(rv).String()
 }
+
 // The cookie’s version.
 //
 // # Discussion
-// 
+//
 // Version 0 maps to “old-style” Netscape cookies. Version 1 maps to [RFC
 // 6265] cookies.
 //
-// [RFC 6265]: https://tools.ietf.org/html/rfc6265
-//
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/version
+//
+// [RFC 6265]: https://tools.ietf.org/html/rfc6265
 func (h HTTPCookie) Version() uint {
 	rv := objc.Send[uint](h.ID, objc.Sel("version"))
 	return rv
 }
+
 // The cookie’s expiration date.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if there is no specific expiration date, as with
 // session-only cookies. The expiration date is the date when the cookie
 // should be deleted.
@@ -452,63 +462,58 @@ func (h HTTPCookie) ExpiresDate() INSDate {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("expiresDate"))
 	return NSDateFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the cookie should be discarded at
 // the end of the session (regardless of expiration date).
 //
 // # Discussion
-// 
-// This value is [true] if the cookie should be discarded at the end of the
-// session (regardless of expiration date), otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This value is true if the cookie should be discarded at the end of the
+// session (regardless of expiration date), otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/isSessionOnly
 func (h HTTPCookie) SessionOnly() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("isSessionOnly"))
 	return rv
 }
+
 // A Boolean value that indicates whether the cookie should only be sent to
 // HTTP servers.
 //
 // # Discussion
-// 
-// The value of this property is [true] if the cookie should only be sent
-// using HTTP headers, [false] otherwise.
-// 
+//
+// The value of this property is true if the cookie should only be sent using
+// HTTP headers, false otherwise.
+//
 // Cookies can be marked as HTTP-only by a server (or by JavaScript code).
 // Cookies marked as such must only be sent via HTTP Headers in HTTP requests
 // for URLs that match both the path and domain of the respective cookies.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/isHTTPOnly
 func (h HTTPCookie) HTTPOnly() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("isHTTPOnly"))
 	return rv
 }
+
 // A Boolean value that indicates whether the cookie may only be sent over
 // secure channels.
 //
 // # Discussion
-// 
-// This value is [true] if this cookie should only be sent over secure
-// channels, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This value is true if this cookie should only be sent over secure channels,
+// otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/isSecure
 func (h HTTPCookie) Secure() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("isSecure"))
 	return rv
 }
+
 // A Boolean value that indicates whether to restrict the cookie to requests
 // sent back to the same site that created it.
 //
 // # Discussion
-// 
+//
 // Along with the policy values defined by [NSHTTPCookieStringPolicy], this
 // property may also be `nil`. In this case, cross-site requests include the
 // cookie.
@@ -518,14 +523,15 @@ func (h HTTPCookie) SameSitePolicy() NSHTTPCookieStringPolicy {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("sameSitePolicy"))
 	return HTTPCookieStringPolicy(NSStringFromID(rv).String())
 }
+
 // The cookie’s properties.
 //
 // # Discussion
-// 
+//
 // This dictionary can be used with [InitWithProperties] (or
 // [CookieWithProperties] in Objective-C) to create an equivalent
 // [NSHTTPCookie] object.
-// 
+//
 // See [InitWithProperties] for more information on the constraints imposed on
 // the `properties` dictionary.
 //
@@ -534,10 +540,11 @@ func (h HTTPCookie) Properties() INSDictionary {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("properties"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // The cookie’s comment string.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if the cookie has no comment. You can present this
 // string to the user, explaining the contents and purpose of this cookie.
 //
@@ -546,10 +553,11 @@ func (h HTTPCookie) Comment() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("comment"))
 	return NSStringFromID(rv).String()
 }
+
 // The cookie’s comment URL.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if the cookie has no comment URL. This value specifies
 // a URL that can be presented to the user as a link for further information
 // about this cookie.
@@ -559,4 +567,3 @@ func (h HTTPCookie) CommentURL() INSURL {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("commentURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-

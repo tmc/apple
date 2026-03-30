@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (ac AVMetadataItemFilterClass) Alloc() AVMetadataItemFilter {
 // An object that filters selected information from a metadata item.
 //
 // # Overview
-// 
+//
 // Filter instances are opaque, unmodifiable objects, that you create with the
 // [AVMetadataItemFilter.MetadataItemFilterForSharing] class method.
 //
@@ -59,6 +60,7 @@ type AVMetadataItemFilter struct {
 func AVMetadataItemFilterFromID(id objc.ID) AVMetadataItemFilter {
 	return AVMetadataItemFilter{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMetadataItemFilter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -91,11 +93,11 @@ func NewAVMetadataItemFilter() AVMetadataItemFilter {
 // Returns a metadata filter to use for sharing assets.
 //
 // # Return Value
-// 
+//
 // An instance of an [AVMetadataItemFilter].
 //
 // # Discussion
-// 
+//
 // Removes user-identifying metadata items, such as location information, and
 // leaves only metadata related to commerce or playback itself. For example,
 // playback, copyright, and commercial-related metadata, such as a
@@ -108,4 +110,3 @@ func (_AVMetadataItemFilterClass AVMetadataItemFilterClass) MetadataItemFilterFo
 	rv := objc.Send[objc.ID](objc.ID(_AVMetadataItemFilterClass.class), objc.Sel("metadataItemFilterForSharing"))
 	return AVMetadataItemFilterFromID(rv)
 }
-

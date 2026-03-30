@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLAppleWordTaggerParametersClass) Alloc() MLAppleWordTaggerParameters {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLAppleWordTaggerParameters.InputFeatureName]
@@ -68,6 +68,7 @@ func (mc MLAppleWordTaggerParametersClass) Alloc() MLAppleWordTaggerParameters {
 //   - [MLAppleWordTaggerParameters.SetTokensOutputFeatureName]
 //   - [MLAppleWordTaggerParameters.InitWithDataLanguageInputFeatureNameTokensFeatureNameTokenTagsFeatureNameTokenLocationsFeatureNameTokenLengthsFeatureNameModelDataTagNamesError]
 //   - [MLAppleWordTaggerParameters.InitWithDataLanguageInputFeatureNameTokensFeatureNameTokenTagsFeatureNameTokenLocationsFeatureNameTokenLengthsFeatureNameModelDataTagNamesMetadataError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters
 type MLAppleWordTaggerParameters struct {
 	objectivec.Object
@@ -77,6 +78,7 @@ type MLAppleWordTaggerParameters struct {
 func MLAppleWordTaggerParametersFromID(id objc.ID) MLAppleWordTaggerParameters {
 	return MLAppleWordTaggerParameters{objectivec.Object{ID: id}}
 }
+
 // Ensure MLAppleWordTaggerParameters implements IMLAppleWordTaggerParameters.
 var _ IMLAppleWordTaggerParameters = MLAppleWordTaggerParameters{}
 
@@ -156,7 +158,6 @@ func NewMLAppleWordTaggerParameters() MLAppleWordTaggerParameters {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/initWithData:language:inputFeatureName:tokensFeatureName:tokenTagsFeatureName:tokenLocationsFeatureName:tokenLengthsFeatureName:modelData:tagNames:error:
 func NewAppleWordTaggerParametersWithDataLanguageInputFeatureNameTokensFeatureNameTokenTagsFeatureNameTokenLocationsFeatureNameTokenLengthsFeatureNameModelDataTagNamesError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject) (MLAppleWordTaggerParameters, error) {
 	var errorPtr objc.ID
@@ -169,7 +170,6 @@ func NewAppleWordTaggerParametersWithDataLanguageInputFeatureNameTokensFeatureNa
 	return MLAppleWordTaggerParametersFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/initWithData:language:inputFeatureName:tokensFeatureName:tokenTagsFeatureName:tokenLocationsFeatureName:tokenLengthsFeatureName:modelData:tagNames:metadata:error:
 func NewAppleWordTaggerParametersWithDataLanguageInputFeatureNameTokensFeatureNameTokenTagsFeatureNameTokenLocationsFeatureNameTokenLengthsFeatureNameModelDataTagNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleWordTaggerParameters, error) {
 	var errorPtr objc.ID
@@ -182,7 +182,6 @@ func NewAppleWordTaggerParametersWithDataLanguageInputFeatureNameTokensFeatureNa
 	return MLAppleWordTaggerParametersFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/initWithData:language:inputFeatureName:tokensFeatureName:tokenTagsFeatureName:tokenLocationsFeatureName:tokenLengthsFeatureName:modelData:tagNames:error:
 func (a MLAppleWordTaggerParameters) InitWithDataLanguageInputFeatureNameTokensFeatureNameTokenTagsFeatureNameTokenLocationsFeatureNameTokenLengthsFeatureNameModelDataTagNamesError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject) (MLAppleWordTaggerParameters, error) {
 	var errorPtr objc.ID
@@ -194,7 +193,7 @@ func (a MLAppleWordTaggerParameters) InitWithDataLanguageInputFeatureNameTokensF
 	return MLAppleWordTaggerParametersFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/initWithData:language:inputFeatureName:tokensFeatureName:tokenTagsFeatureName:tokenLocationsFeatureName:tokenLengthsFeatureName:modelData:tagNames:metadata:error:
 func (a MLAppleWordTaggerParameters) InitWithDataLanguageInputFeatureNameTokensFeatureNameTokenTagsFeatureNameTokenLocationsFeatureNameTokenLengthsFeatureNameModelDataTagNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleWordTaggerParameters, error) {
 	var errorPtr objc.ID
@@ -215,6 +214,7 @@ func (a MLAppleWordTaggerParameters) InputFeatureName() string {
 func (a MLAppleWordTaggerParameters) SetInputFeatureName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInputFeatureName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/language
 func (a MLAppleWordTaggerParameters) Language() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("language"))
@@ -223,6 +223,7 @@ func (a MLAppleWordTaggerParameters) Language() string {
 func (a MLAppleWordTaggerParameters) SetLanguage(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/metadata
 func (a MLAppleWordTaggerParameters) Metadata() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("metadata"))
@@ -231,6 +232,7 @@ func (a MLAppleWordTaggerParameters) Metadata() foundation.INSDictionary {
 func (a MLAppleWordTaggerParameters) SetMetadata(value foundation.INSDictionary) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMetadata:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/modelParameterData
 func (a MLAppleWordTaggerParameters) ModelParameterData() foundation.INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("modelParameterData"))
@@ -239,6 +241,7 @@ func (a MLAppleWordTaggerParameters) ModelParameterData() foundation.INSData {
 func (a MLAppleWordTaggerParameters) SetModelParameterData(value foundation.INSData) {
 	objc.Send[struct{}](a.ID, objc.Sel("setModelParameterData:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/revision
 func (a MLAppleWordTaggerParameters) Revision() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("revision"))
@@ -247,6 +250,7 @@ func (a MLAppleWordTaggerParameters) Revision() uint64 {
 func (a MLAppleWordTaggerParameters) SetRevision(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRevision:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/tagNames
 func (a MLAppleWordTaggerParameters) TagNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("tagNames"))
@@ -255,6 +259,7 @@ func (a MLAppleWordTaggerParameters) TagNames() foundation.INSArray {
 func (a MLAppleWordTaggerParameters) SetTagNames(value foundation.INSArray) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTagNames:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/tokenLengthsOutputFeatureName
 func (a MLAppleWordTaggerParameters) TokenLengthsOutputFeatureName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("tokenLengthsOutputFeatureName"))
@@ -263,6 +268,7 @@ func (a MLAppleWordTaggerParameters) TokenLengthsOutputFeatureName() string {
 func (a MLAppleWordTaggerParameters) SetTokenLengthsOutputFeatureName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTokenLengthsOutputFeatureName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/tokenLocationsOutputFeatureName
 func (a MLAppleWordTaggerParameters) TokenLocationsOutputFeatureName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("tokenLocationsOutputFeatureName"))
@@ -271,6 +277,7 @@ func (a MLAppleWordTaggerParameters) TokenLocationsOutputFeatureName() string {
 func (a MLAppleWordTaggerParameters) SetTokenLocationsOutputFeatureName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTokenLocationsOutputFeatureName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/tokenTagsOutputFeatureName
 func (a MLAppleWordTaggerParameters) TokenTagsOutputFeatureName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("tokenTagsOutputFeatureName"))
@@ -279,6 +286,7 @@ func (a MLAppleWordTaggerParameters) TokenTagsOutputFeatureName() string {
 func (a MLAppleWordTaggerParameters) SetTokenTagsOutputFeatureName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTokenTagsOutputFeatureName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordTaggerParameters/tokensOutputFeatureName
 func (a MLAppleWordTaggerParameters) TokensOutputFeatureName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("tokensOutputFeatureName"))
@@ -287,4 +295,3 @@ func (a MLAppleWordTaggerParameters) TokensOutputFeatureName() string {
 func (a MLAppleWordTaggerParameters) SetTokensOutputFeatureName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTokensOutputFeatureName:"), objc.String(value))
 }
-

@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,12 +48,12 @@ func (nc NSTableCellViewClass) Alloc() NSTableCellView {
 // uses rows for content.
 //
 // # Overview
-// 
+//
 // The [ImageView] and [TextField] properties are connected in Interface
 // Builder. Additional properties can be added by subclassing
 // [NSTableCellView] and adding the required properties and connecting them
 // programmatically or in Interface Builder.
-// 
+//
 // The `objectValue` is used when setting the value of the view cell by the
 // [TableViewObjectValueForTableColumnRow] method in the
 // [NSTableViewDataSource]. If you use your own custom view cells that are not
@@ -97,6 +98,7 @@ type NSTableCellView struct {
 func NSTableCellViewFromID(id objc.ID) NSTableCellView {
 	return NSTableCellView{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSTableCellView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -189,7 +191,7 @@ func NewNSTableCellView() NSTableCellView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -205,11 +207,11 @@ func NewTableCellViewWithCoder(coder foundation.INSCoder) NSTableCellView {
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -224,7 +226,7 @@ func NewTableCellViewWithFrame(frameRect corefoundation.CGRect) NSTableCellView 
 // The object that represents the cell data.
 //
 // # Discussion
-// 
+//
 // The `objectValue` is automatically set by the table when using bindings or
 // is the object returned by the [NSTableViewDataSource] protocol method
 // [TableViewObjectValueForTableColumnRow].
@@ -237,10 +239,11 @@ func (t NSTableCellView) ObjectValue() objectivec.IObject {
 func (t NSTableCellView) SetObjectValue(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setObjectValue:"), value)
 }
+
 // Image displayed by the cell.
 //
 // # Discussion
-// 
+//
 // This property is typically configured when the row is created in the
 // [NSTableViewDataSource] protocol method [TableViewViewForTableColumnRow].
 //
@@ -252,10 +255,11 @@ func (t NSTableCellView) ImageView() INSImageView {
 func (t NSTableCellView) SetImageView(value INSImageView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setImageView:"), value)
 }
+
 // Text displayed by the cell.
 //
 // # Discussion
-// 
+//
 // This property is typically configured when the row is created in the
 // [NSTableViewDelegate] protocol method [TableViewViewForTableColumnRow].
 //
@@ -267,18 +271,19 @@ func (t NSTableCellView) TextField() INSTextField {
 func (t NSTableCellView) SetTextField(value INSTextField) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextField:"), value)
 }
+
 // This property is automatically set by the enclosing row view to let this
 // view know what its background looks like.
 //
 // # Discussion
-// 
+//
 // The property is automatically set by the enclosing [NSTableRowView] to let
 // this view know what its background looks like. For instance, when the
 // `backgroundStyle` is NSBackgroundStyleDark, the view should use a light
 // text color.
-// 
+//
 // The default implementation automatically forwards calls to all subviews
-// that implement `` or are an NSControl, which have [NSCell] classes that
+// that implement “ or are an NSControl, which have [NSCell] classes that
 // respond to [BackgroundStyle].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableCellView/backgroundStyle
@@ -289,19 +294,18 @@ func (t NSTableCellView) BackgroundStyle() NSBackgroundStyle {
 func (t NSTableCellView) SetBackgroundStyle(value NSBackgroundStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundStyle:"), value)
 }
+
 // Returns the row size style.
 //
 // # Discussion
-// 
+//
 // The `rowSizeStyle` property is set by the [NSTableView] to its
 // [EffectiveRowSizeStyle]. The cell view will layout the [TextField] and
 // [ImageView] based on the `rowSizeStyle`.
-// 
-// A value of [NSTableView.RowSizeStyle.default] should never be set on the
-// cell view, as it is an appropriate value only for the table as it returns
-// the effective row size style for the table.
 //
-// [NSTableView.RowSizeStyle.default]: https://developer.apple.com/documentation/AppKit/NSTableView/RowSizeStyle-swift.enum/default
+// A value of [NSTableViewRowSizeStyleDefault] should never be set on the cell
+// view, as it is an appropriate value only for the table as it returns the
+// effective row size style for the table.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableCellView/rowSizeStyle
 func (t NSTableCellView) RowSizeStyle() NSTableViewRowSizeStyle {
@@ -311,14 +315,15 @@ func (t NSTableCellView) RowSizeStyle() NSTableViewRowSizeStyle {
 func (t NSTableCellView) SetRowSizeStyle(value NSTableViewRowSizeStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRowSizeStyle:"), value)
 }
+
 // Returns dragging images for the cell.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method returns an array of up to two
 // [NSDraggingImageComponent] instances – one for the [ImageView] and
 // another for the [TextField] (unless the property is `nil`).
-// 
+//
 // These method can be subclassed and overridden to provide a custom set of
 // [NSDraggingImageComponent] objects to create the drag image from this view.
 //
@@ -329,4 +334,3 @@ func (t NSTableCellView) DraggingImageComponents() []NSDraggingImageComponent {
 		return NSDraggingImageComponentFromID(id)
 	})
 }
-

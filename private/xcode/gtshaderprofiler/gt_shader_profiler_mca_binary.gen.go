@@ -3,8 +3,9 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (gc GTShaderProfilerMCABinaryClass) Alloc() GTShaderProfilerMCABinary {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTShaderProfilerMCABinary.AllocatedGPRCount]
@@ -55,6 +55,7 @@ func (gc GTShaderProfilerMCABinaryClass) Alloc() GTShaderProfilerMCABinary {
 //   - [GTShaderProfilerMCABinary.InitWithAGX2BinaryProgramTypeUniqueIdentifier]
 //   - [GTShaderProfilerMCABinary.InitWithAPSBinaryProgramTypeUniqueIdentifier]
 //   - [GTShaderProfilerMCABinary.InitWithMioBinaryProgramTypeUniqueIdentifier]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary
 type GTShaderProfilerMCABinary struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type GTShaderProfilerMCABinary struct {
 func GTShaderProfilerMCABinaryFromID(id objc.ID) GTShaderProfilerMCABinary {
 	return GTShaderProfilerMCABinary{objectivec.Object{ID: id}}
 }
+
 // Ensure GTShaderProfilerMCABinary implements IGTShaderProfilerMCABinary.
 var _ IGTShaderProfilerMCABinary = GTShaderProfilerMCABinary{}
 
@@ -119,7 +121,6 @@ func NewGTShaderProfilerMCABinary() GTShaderProfilerMCABinary {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/initWithAGX2Binary:programType:uniqueIdentifier:
 func NewGTShaderProfilerMCABinaryWithAGX2BinaryProgramTypeUniqueIdentifier(aGX2Binary unsafe.Pointer, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
 	instance := getGTShaderProfilerMCABinaryClass().Alloc()
@@ -127,7 +128,6 @@ func NewGTShaderProfilerMCABinaryWithAGX2BinaryProgramTypeUniqueIdentifier(aGX2B
 	return GTShaderProfilerMCABinaryFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/initWithAPSBinary:programType:uniqueIdentifier:
 func NewGTShaderProfilerMCABinaryWithAPSBinaryProgramTypeUniqueIdentifier(aPSBinary unsafe.Pointer, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
 	instance := getGTShaderProfilerMCABinaryClass().Alloc()
@@ -135,7 +135,6 @@ func NewGTShaderProfilerMCABinaryWithAPSBinaryProgramTypeUniqueIdentifier(aPSBin
 	return GTShaderProfilerMCABinaryFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/initWithMioBinary:programType:uniqueIdentifier:
 func NewGTShaderProfilerMCABinaryWithMioBinaryProgramTypeUniqueIdentifier(binary objectivec.IObject, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
 	instance := getGTShaderProfilerMCABinaryClass().Alloc()
@@ -148,29 +147,31 @@ func (g GTShaderProfilerMCABinary) GenerateAGX2Assembly() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAGX2Assembly"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/generateAPSAssembly
 func (g GTShaderProfilerMCABinary) GenerateAPSAssembly() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAPSAssembly"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/generateAssemblyContent
 func (g GTShaderProfilerMCABinary) GenerateAssemblyContent() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("generateAssemblyContent"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/initWithAGX2Binary:programType:uniqueIdentifier:
 func (g GTShaderProfilerMCABinary) InitWithAGX2BinaryProgramTypeUniqueIdentifier(aGX2Binary unsafe.Pointer, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
 	rv := objc.Send[GTShaderProfilerMCABinary](g.ID, objc.Sel("initWithAGX2Binary:programType:uniqueIdentifier:"), aGX2Binary, type_, identifier)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/initWithAPSBinary:programType:uniqueIdentifier:
 func (g GTShaderProfilerMCABinary) InitWithAPSBinaryProgramTypeUniqueIdentifier(aPSBinary unsafe.Pointer, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
 	rv := objc.Send[GTShaderProfilerMCABinary](g.ID, objc.Sel("initWithAPSBinary:programType:uniqueIdentifier:"), aPSBinary, type_, identifier)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/initWithMioBinary:programType:uniqueIdentifier:
 func (g GTShaderProfilerMCABinary) InitWithMioBinaryProgramTypeUniqueIdentifier(binary objectivec.IObject, type_ uint32, identifier uint64) GTShaderProfilerMCABinary {
 	rv := objc.Send[GTShaderProfilerMCABinary](g.ID, objc.Sel("initWithMioBinary:programType:uniqueIdentifier:"), binary, type_, identifier)
@@ -182,19 +183,21 @@ func (g GTShaderProfilerMCABinary) AllocatedGPRCount() int {
 	rv := objc.Send[int](g.ID, objc.Sel("allocatedGPRCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/highRegisterCount
 func (g GTShaderProfilerMCABinary) HighRegisterCount() int {
 	rv := objc.Send[int](g.ID, objc.Sel("highRegisterCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/programType
 func (g GTShaderProfilerMCABinary) ProgramType() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("programType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinary/uniqueIdentifier
 func (g GTShaderProfilerMCABinary) UniqueIdentifier() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("uniqueIdentifier"))
 	return rv
 }
-

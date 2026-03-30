@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_fuse_gru_activation struct {
 func EspressoPass_fuse_gru_activationFromID(id objc.ID) EspressoPass_fuse_gru_activation {
 	return EspressoPass_fuse_gru_activation{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_fuse_gru_activation implements IEspressoPass_fuse_gru_activation.
 var _ IEspressoPass_fuse_gru_activation = EspressoPass_fuse_gru_activation{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_fuse_gru_activation() EspressoPass_fuse_gru_activation {
 	rv := objc.Send[EspressoPass_fuse_gru_activation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

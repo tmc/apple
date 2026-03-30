@@ -18,6 +18,7 @@ type OS_sec_protocol_options interface {
 type OS_sec_protocol_optionsObject struct {
 	objectivec.Object
 }
+
 func (o OS_sec_protocol_optionsObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func OS_sec_protocol_optionsObjectFromID(id objc.ID) OS_sec_protocol_optionsObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

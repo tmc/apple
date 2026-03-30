@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,33 +47,31 @@ func (nc NSRunningApplicationClass) Alloc() NSRunningApplication {
 // of an app.
 //
 // # Overview
-// 
+//
 // Some properties of an app are fixed, such as the bundle identifier. Other
 // properties may vary over time, such as whether the app is hidden.
 // Properties that vary can be observed with key-value observing, in which
 // case the description comment for the method notes this capability.
-// 
+//
 // Properties that vary over time are inherently race-prone. For example, a
 // hidden app may unhide itself at any time. To ameliorate this, properties
 // persist until the next turn of the main run loop in a common mode. For
 // example, if you repeatedly poll an unhidden app for its hidden property
-// without allowing the run loop to run, it will continue to return [false],
+// without allowing the run loop to run, it will continue to return false,
 // even if the app hides, until the next turn of the run loop.
-// 
+//
 // [NSRunningApplication] is thread safe, in that its properties are returned
 // atomically. However, it is still subject to the main run loop policy
 // described above. If you access an instance of [NSRunningApplication] from a
 // background thread, be aware that its time-varying properties may change
 // from under you as the main run loop runs (or not).
-// 
+//
 // An [NSRunningApplication] instance remains valid after the app exits.
 // However, most properties lose their significance, and some properties may
 // not be available on a terminated application.
-// 
+//
 // To access the list of all running apps, use the [NSRunningApplication.RunningApplications]
 // method in [NSWorkspace].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // # Activating applications
 //
@@ -118,6 +117,7 @@ type NSRunningApplication struct {
 func NSRunningApplicationFromID(id objc.ID) NSRunningApplication {
 	return NSRunningApplication{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSRunningApplication adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -241,12 +241,12 @@ func NewNSRunningApplication() NSRunningApplication {
 // pid: The process identifier.
 //
 // # Return Value
-// 
+//
 // An instance of [NSRunningApplication] for the specified `pid`, or nil if
 // the application has no process identifier.
 //
 // # Discussion
-// 
+//
 // Applications that do not have [PIDs] cannot be returned from this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/init(processIdentifier:)
@@ -259,28 +259,24 @@ func NewRunningApplicationWithProcessIdentifier(pid int32) NSRunningApplication 
 //
 // options: The options to use when activating the application. See
 // [NSApplication.ActivationOptions] for the possible values.
-// //
-// [NSApplication.ActivationOptions]: https://developer.apple.com/documentation/AppKit/NSApplication/ActivationOptions
 //
 // # Return Value
-// 
-// [true] if the application was activated successfully, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the application was activated successfully, otherwise false.
 //
 // # Discussion
-// 
-// This method will return [false] if the application has quit, or is not a
-// type of application than can be activated.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// This method will return false if the application has quit, or is not a type
+// of application than can be activated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/activate(options:)
+//
+// [NSApplication.ActivationOptions]: https://developer.apple.com/documentation/AppKit/NSApplication/ActivationOptions
 func (r NSRunningApplication) ActivateWithOptions(options NSApplicationActivationOptions) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("activateWithOptions:"), options)
 	return rv
 }
+
 // Attempts to activate the application using the specified options.
 //
 // application: The application to activate.
@@ -288,14 +284,11 @@ func (r NSRunningApplication) ActivateWithOptions(options NSApplicationActivatio
 // options: The options to use during activation.
 //
 // # Return Value
-// 
-// Returns [true] if the request is allowed by the system, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Returns true if the request is allowed by the system, otherwise false.
 //
 // # Discussion
-// 
+//
 // Use this method to request app activation. Calling this method doesn’t
 // guarantee app activation. For cooperative activation, the other application
 // should call [YieldActivationToApplication] or equivalent prior to the
@@ -306,99 +299,82 @@ func (r NSRunningApplication) ActivateFromApplicationOptions(application INSRunn
 	rv := objc.Send[bool](r.ID, objc.Sel("activateFromApplication:options:"), application, options)
 	return rv
 }
+
 // Attempts to hide or the application.
 //
 // # Return Value
-// 
-// [true] if the application was successfully hidden, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the application was successfully hidden, otherwise false.
 //
 // # Discussion
-// 
-// The property of this value will be [false] if the application has already
-// quit, or if of a type that is unable to be hidden.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The property of this value will be false if the application has already
+// quit, or if of a type that is unable to be hidden.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/hide()
 func (r NSRunningApplication) Hide() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("hide"))
 	return rv
 }
+
 // Attempts to unhide or the application.
 //
 // # Return Value
-// 
-// [true] if the application was successfully shown, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the application was successfully shown, otherwise false.
 //
 // # Discussion
-// 
-// The property of this value will be [false] if the application has already
-// quit, or if of a type that is unable to be hidden.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The property of this value will be false if the application has already
+// quit, or if of a type that is unable to be hidden.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/unhide()
 func (r NSRunningApplication) Unhide() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("unhide"))
 	return rv
 }
+
 // Attempts to force the receiver to quit.
 //
 // # Return Value
-// 
-// Returns [true] if the application successfully terminated, otherwise
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Returns true if the application successfully terminated, otherwise false.
 //
 // # Discussion
-// 
-// This method will return [false] if the application is no longer running
-// when the `forceTerminate` message is sent to the receiver.
-// 
+//
+// This method will return false if the application is no longer running when
+// the `forceTerminate` message is sent to the receiver.
+//
 // This method may return before the receiver exits; you should observe the
 // terminated property to determine when the application terminates.
-// 
-// Sandboxed applications can’t use this method to terminate other
-// applciations. This method returns [false] when called from a sandboxed
-// application.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// Sandboxed applications can’t use this method to terminate other
+// applciations. This method returns false when called from a sandboxed
+// application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/forceTerminate()
 func (r NSRunningApplication) ForceTerminate() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("forceTerminate"))
 	return rv
 }
+
 // Attempts to quit the receiver normally.
 //
 // # Return Value
-// 
-// Returns [true] if the request was successfully sent, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Returns true if the request was successfully sent, otherwise false.
 //
 // # Discussion
-// 
-// This method will return [false] if the application is no longer running
-// when the terminate message is sent to the receiver.
-// 
+//
+// This method will return false if the application is no longer running when
+// the terminate message is sent to the receiver.
+//
 // This method may return before the receiver exits; you should observe the
 // terminated property to determine when the application terminates.
-// 
-// Sandboxed applications can’t use this method to terminate other
-// applications. This method returns [false] when called from a sandboxed
-// application.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// Sandboxed applications can’t use this method to terminate other
+// applications. This method returns false when called from a sandboxed
+// application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/terminate()
 func (r NSRunningApplication) Terminate() bool {
@@ -412,7 +388,7 @@ func (r NSRunningApplication) Terminate() bool {
 // bundleIdentifier: The bundle identifier.
 //
 // # Return Value
-// 
+//
 // An array of [NSRunningApplications], or an empty array if no applications
 // match the bundle identifier.
 //
@@ -423,11 +399,12 @@ func (_NSRunningApplicationClass NSRunningApplicationClass) RunningApplicationsW
 		return NSRunningApplicationFromID(id)
 	})
 }
+
 // Terminates invisibly running applications as if triggered by system memory
 // pressure.
 //
 // # Discussion
-// 
+//
 // This method is intended for installer applications and similar applications
 // to ensure that nothing is unexpectedly relying on the files they’re
 // replacing.
@@ -440,7 +417,7 @@ func (_NSRunningApplicationClass NSRunningApplicationClass) TerminateAutomatical
 // Indicates whether the application is currently frontmost.
 //
 // # Discussion
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/isActive
@@ -448,13 +425,14 @@ func (r NSRunningApplication) Active() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isActive"))
 	return rv
 }
+
 // Indicates the activation policy of the application.
 //
 // # Discussion
-// 
+//
 // The value returned by this property is usually fixed, but it may change
 // through a call to [ActivateWithOptions].
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/activationPolicy
@@ -462,10 +440,11 @@ func (r NSRunningApplication) ActivationPolicy() NSApplicationActivationPolicy {
 	rv := objc.Send[NSApplicationActivationPolicy](r.ID, objc.Sel("activationPolicy"))
 	return NSApplicationActivationPolicy(rv)
 }
+
 // Indicates whether the application is currently hidden.
 //
 // # Discussion
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/isHidden
@@ -473,10 +452,11 @@ func (r NSRunningApplication) Hidden() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isHidden"))
 	return rv
 }
+
 // Indicates the localized name of the application.
 //
 // # Discussion
-// 
+//
 // The value of this property is dependent on the current localization of the
 // application and is suitable for presentation to the user.
 //
@@ -485,6 +465,7 @@ func (r NSRunningApplication) LocalizedName() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("localizedName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Returns the icon for the receiver’s application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/icon
@@ -492,10 +473,11 @@ func (r NSRunningApplication) Icon() INSImage {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("icon"))
 	return NSImageFromID(objc.ID(rv))
 }
+
 // Indicates the [CFBundleIdentifier] of the application.
 //
 // # Discussion
-// 
+//
 // The value of this property will be `nil` if the application does not have
 // an Info.plist.
 //
@@ -504,10 +486,11 @@ func (r NSRunningApplication) BundleIdentifier() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Indicates the URL to the application’s bundle.
 //
 // # Discussion
-// 
+//
 // The value of this property is `nil` of the application does not have a
 // bundle structure.
 //
@@ -516,20 +499,22 @@ func (r NSRunningApplication) BundleURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("bundleURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // Indicates the executing processor architecture for the application.
 //
 // # Discussion
-// 
+//
 // The returned value will be one of the constants in Mach-O Architecture in
 // [Bundle].
 //
-// [Bundle]: https://developer.apple.com/documentation/Foundation/Bundle
-//
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/executableArchitecture
+//
+// [Bundle]: https://developer.apple.com/documentation/Foundation/Bundle
 func (r NSRunningApplication) ExecutableArchitecture() int {
 	rv := objc.Send[int](r.ID, objc.Sel("executableArchitecture"))
 	return rv
 }
+
 // Indicates the URL to the application’s executable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/executableURL
@@ -537,10 +522,11 @@ func (r NSRunningApplication) ExecutableURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("executableURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // Indicates the date when the application was launched.
 //
 // # Discussion
-// 
+//
 // This property is only available for applications that were launched by
 // LaunchServices.
 //
@@ -549,46 +535,49 @@ func (r NSRunningApplication) LaunchDate() foundation.INSDate {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("launchDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
+
 // A Boolean value that determines whether the receiver’s process has
 // finished launching.
 //
 // # Discussion
-// 
+//
 // The value of this property corresponds to the running application having
 // received an [didFinishLaunchingNotification] notification internally. Some
 // applications do not post this notification (applications that do not rely
 // on [NSApplication]) and so are never reported as finished launching.
-// 
+//
 // This property is observable using key-value observing.
 //
-// [didFinishLaunchingNotification]: https://developer.apple.com/documentation/AppKit/NSApplication/didFinishLaunchingNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/isFinishedLaunching
+//
+// [didFinishLaunchingNotification]: https://developer.apple.com/documentation/AppKit/NSApplication/didFinishLaunchingNotification
 func (r NSRunningApplication) FinishedLaunching() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isFinishedLaunching"))
 	return rv
 }
+
 // Indicates the process identifier (pid) of the application.
 //
 // # Discussion
-// 
+//
 // Not all applications have a pid. Applications without a pid return a value
 // of -1.
-// 
+//
 // Do not rely on this for comparing processes, instead compare
 // NSRunningApplication instances using [isEqual(_:)].
 //
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
-//
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/processIdentifier
+//
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 func (r NSRunningApplication) ProcessIdentifier() int32 {
 	rv := objc.Send[int32](r.ID, objc.Sel("processIdentifier"))
 	return rv
 }
+
 // Returns whether the application owns the current menu bar.
 //
 // # Discussion
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/ownsMenuBar
@@ -596,23 +585,22 @@ func (r NSRunningApplication) OwnsMenuBar() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("ownsMenuBar"))
 	return rv
 }
+
 // Indicates that the receiver’s application has terminated.
 //
 // # Discussion
-// 
-// The value of terminated is [true] if the receiver’s application has
-// terminated, otherwise [false].
-// 
-// This property is observable using key-value observing.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of terminated is true if the receiver’s application has
+// terminated, otherwise false.
+//
+// This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/isTerminated
 func (r NSRunningApplication) Terminated() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isTerminated"))
 	return rv
 }
+
 // Returns an array of running apps.
 //
 // See: https://developer.apple.com/documentation/appkit/nsworkspace/runningapplications
@@ -627,7 +615,7 @@ func (r NSRunningApplication) SetRunningApplications(value INSRunningApplication
 // Returns an [NSRunningApplication] representing this application.
 //
 // # Return Value
-// 
+//
 // An [NSRunningApplication] instance for the current application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/current
@@ -635,4 +623,3 @@ func (_NSRunningApplicationClass NSRunningApplicationClass) CurrentApplication()
 	rv := objc.Send[objc.ID](objc.ID(_NSRunningApplicationClass.class), objc.Sel("currentApplication"))
 	return NSRunningApplicationFromID(objc.ID(rv))
 }
-

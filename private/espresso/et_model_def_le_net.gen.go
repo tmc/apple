@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (ec ETModelDefLeNetClass) Alloc() ETModelDefLeNet {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETModelDefLeNet.Output_size]
 //   - [ETModelDefLeNet.SetOutput_size]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETModelDefLeNet
 type ETModelDefLeNet struct {
 	ETModelDef
@@ -55,6 +56,7 @@ type ETModelDefLeNet struct {
 func ETModelDefLeNetFromID(id objc.ID) ETModelDefLeNet {
 	return ETModelDefLeNet{ETModelDef: ETModelDefFromID(id)}
 }
+
 // Ensure ETModelDefLeNet implements IETModelDefLeNet.
 var _ IETModelDefLeNet = ETModelDefLeNet{}
 
@@ -94,7 +96,6 @@ func NewETModelDefLeNet() ETModelDefLeNet {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETModelDef/initWithNetwork:
 func NewETModelDefLeNetWithNetwork(network objectivec.IObject) ETModelDefLeNet {
 	instance := getETModelDefLeNetClass().Alloc()
@@ -110,4 +111,3 @@ func (e ETModelDefLeNet) Output_size() int {
 func (e ETModelDefLeNet) SetOutput_size(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setOutput_size:"), value)
 }
-

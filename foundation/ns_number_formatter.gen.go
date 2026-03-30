@@ -3,10 +3,11 @@
 package foundation
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,45 +48,42 @@ func (nc NumberFormatterClass) Alloc() NumberFormatter {
 // representations.
 //
 // # Overview
-// 
+//
 // Instances of [NSNumberFormatter] format the textual representation of cells
 // that contain [NSNumber] objects and convert textual representations of
 // numeric values into [NSNumber] objects. The representation encompasses
 // integers, floats, and doubles; floats and doubles can be formatted to a
 // specified decimal position. [NSNumberFormatter] objects can also impose
 // ranges on the numeric values cells can accept.
-// 
+//
 // # Significant Digits and Fraction Digits
-// 
+//
 // The [NSNumberFormatter] class provides flexible options for displaying
 // non-zero fractional parts of numbers.
-// 
-// If you set the [UsesSignificantDigits] property to [true], you can
-// configure [NSNumberFormatter] to display significant digits using the
+//
+// If you set the [UsesSignificantDigits] property to true, you can configure
+// [NSNumberFormatter] to display significant digits using the
 // [MinimumSignificantDigits] and [MaximumSignificantDigits] properties. If
-// [UsesSignificantDigits] is [false], these properties are ignored. See
+// [UsesSignificantDigits] is false, these properties are ignored. See
 // Configuring Significant Digits.
-// 
+//
 // Otherwise, you can configure the minimum and maximum number of integer and
 // fraction digits, or the numbers before and after the decimal separator,
 // respectively, using the [MinimumIntegerDigits], [MaximumIntegerDigits],
 // [MinimumFractionDigits], and [MaximumFractionDigits] properties. See
 // Configuring Integer and Fraction Digits.
-// 
+//
 // # Thread Safety
-// 
+//
 // On iOS 7 and later [NSNumberFormatter] is thread-safe.
-// 
+//
 // In macOS 10.9 and later [NSNumberFormatter] is thread-safe so long as you
 // are using the modern behavior in a 64-bit app.
-// 
+//
 // On earlier versions of the operating system, or when using the legacy
 // formatter behavior or running in 32-bit in macOS, [NSNumberFormatter] is
 // not thread-safe, and you therefore must not mutate a number formatter
 // simultaneously from multiple threads.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Configuring Formatter Behavior and Style
 //
@@ -288,6 +286,7 @@ func NumberFormatterFromID(id objc.ID) NumberFormatter {
 
 // NSNumberFormatterFromID is an alias for [NumberFormatterFromID] for cross-framework compatibility.
 func NSNumberFormatterFromID(id objc.ID) NumberFormatter { return NumberFormatterFromID(id) }
+
 // NOTE: NumberFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -757,7 +756,6 @@ func NewNumberFormatter() NumberFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewNumberFormatterWithCoder(coder INSCoder) NumberFormatter {
 	instance := getNumberFormatterClass().Alloc()
@@ -779,14 +777,14 @@ func NewNumberFormatterWithCoder(coder INSCoder) NumberFormatter {
 // characters used to create the object.
 //
 // # Discussion
-// 
+//
 // If a string contains any characters other than numerical digits or
 // locale-appropriate group or decimal separators, parsing will fail.
-// 
+//
 // Any leading or trailing space separator characters in a string are ignored.
 // For example, the strings “ 5”, “5 “, and “5” all produce the
 // number `5`.
-// 
+//
 // If there is an error, this method calls `control(_:)` on the delegate.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/getObjectValue(_:for:range:)
@@ -803,20 +801,21 @@ func (n NumberFormatter) GetObjectValueForStringRangeError(obj []objectivec.IObj
 	return rv, nil
 
 }
+
 // Returns an [NSNumber] object created by parsing a given string.
 //
 // string: An [NSString] object that is parsed to generate the returned number object.
 //
 // # Return Value
-// 
+//
 // An [NSNumber] object created by parsing `string` using the receiver’s
 // format, or `nil` if no single number could be parsed.
 //
 // # Discussion
-// 
+//
 // If a string contains any characters other than numerical digits or
 // locale-appropriate group or decimal separators, parsing will fail.
-// 
+//
 // Any leading or trailing space separator characters in a string are ignored.
 // For example, the strings “ 5”, “5 “, and “5” all produce the
 // number `5`.
@@ -826,13 +825,14 @@ func (n NumberFormatter) NumberFromString(string_ string) INSNumber {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("numberFromString:"), objc.String(string_))
 	return NSNumberFromID(rv)
 }
+
 // Returns a string containing the formatted value of the provided number
 // object.
 //
 // number: An [NSNumber] object that is parsed to create the returned string object.
 //
 // # Return Value
-// 
+//
 // A string containing the formatted value of `number` using the receiver’s
 // current settings.
 //
@@ -852,11 +852,12 @@ func (n NumberFormatter) StringFromNumber(number INSNumber) string {
 func (_NumberFormatterClass NumberFormatterClass) SetDefaultFormatterBehavior(behavior NSNumberFormatterBehavior) {
 	objc.Send[objc.ID](objc.ID(_NumberFormatterClass.class), objc.Sel("setDefaultFormatterBehavior:"), behavior)
 }
+
 // Returns an [NSNumberFormatterBehavior] constant that indicates default
 // formatter behavior for new instances of [NSNumberFormatter].
 //
 // # Return Value
-// 
+//
 // An [NSNumberFormatterBehavior] constant that indicates default formatter
 // behavior for new instances of [NSNumberFormatter].
 //
@@ -865,20 +866,21 @@ func (_NumberFormatterClass NumberFormatterClass) DefaultFormatterBehavior() NSN
 	rv := objc.Send[NSNumberFormatterBehavior](objc.ID(_NumberFormatterClass.class), objc.Sel("defaultFormatterBehavior"))
 	return NSNumberFormatterBehavior(rv)
 }
+
 // Returns a localized number string with the specified style.
 //
 // num: The number to localize
 //
 // nstyle: The localization style to use. See [NumberFormatter.Style] for the
 // supported values.
-// //
-// [NumberFormatter.Style]: https://developer.apple.com/documentation/Foundation/NumberFormatter/Style
 //
 // # Return Value
-// 
+//
 // An appropriately formatted [NSString].
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/localizedString(from:number:)
+//
+// [NumberFormatter.Style]: https://developer.apple.com/documentation/Foundation/NumberFormatter/Style
 func (_NumberFormatterClass NumberFormatterClass) LocalizedStringFromNumberNumberStyle(num INSNumber, nstyle NSNumberFormatterStyle) string {
 	rv := objc.Send[objc.ID](objc.ID(_NumberFormatterClass.class), objc.Sel("localizedStringFromNumber:numberStyle:"), num, nstyle)
 	return NSStringFromID(rv).String()
@@ -894,10 +896,11 @@ func (n NumberFormatter) FormatterBehavior() NSNumberFormatterBehavior {
 func (n NumberFormatter) SetFormatterBehavior(value NSNumberFormatterBehavior) {
 	objc.Send[struct{}](n.ID, objc.Sel("setFormatterBehavior:"), value)
 }
+
 // The number style used by the receiver.
 //
 // # Discussion
-// 
+//
 // Styles are essentially predetermined sets of values for certain properties.
 // Examples of number-formatter styles are those used for decimal values,
 // percentage values, and currency.
@@ -910,6 +913,7 @@ func (n NumberFormatter) NumberStyle() NSNumberFormatterStyle {
 func (n NumberFormatter) SetNumberStyle(value NSNumberFormatterStyle) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNumberStyle:"), value)
 }
+
 // Determines whether the receiver creates instances of [NSDecimalNumber] when
 // it converts strings to number objects.
 //
@@ -921,13 +925,14 @@ func (n NumberFormatter) GeneratesDecimalNumbers() bool {
 func (n NumberFormatter) SetGeneratesDecimalNumbers(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setGeneratesDecimalNumbers:"), value)
 }
+
 // Determines whether the dollar sign character (`$`), decimal separator
 // character (`.`), and thousand separator character (`,`) are converted to
 // appropriately localized characters as specified by the user’s
 // localization preference.
 //
 // # Discussion
-// 
+//
 // While the currency-symbol part of this feature may be useful in certain
 // types of applications, it’s probably more likely that you would tie a
 // particular application to a particular currency (that is, that you would
@@ -947,10 +952,11 @@ func (n NumberFormatter) LocalizesFormat() bool {
 func (n NumberFormatter) SetLocalizesFormat(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setLocalizesFormat:"), value)
 }
+
 // The locale of the receiver.
 //
 // # Discussion
-// 
+//
 // The locale determines the default values for many formatter attributes,
 // such as ISO region and language codes, currency code, calendar, system of
 // measurement, and decimal separator.
@@ -963,6 +969,7 @@ func (n NumberFormatter) Locale() INSLocale {
 func (n NumberFormatter) SetLocale(value INSLocale) {
 	objc.Send[struct{}](n.ID, objc.Sel("setLocale:"), value)
 }
+
 // The rounding behavior used by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/roundingBehavior
@@ -973,6 +980,7 @@ func (n NumberFormatter) RoundingBehavior() INSDecimalNumberHandler {
 func (n NumberFormatter) SetRoundingBehavior(value INSDecimalNumberHandler) {
 	objc.Send[struct{}](n.ID, objc.Sel("setRoundingBehavior:"), value)
 }
+
 // The rounding increment used by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/roundingIncrement
@@ -983,8 +991,7 @@ func (n NumberFormatter) RoundingIncrement() INSNumber {
 func (n NumberFormatter) SetRoundingIncrement(value INSNumber) {
 	objc.Send[struct{}](n.ID, objc.Sel("setRoundingIncrement:"), value)
 }
-		
-		
+
 // The rounding mode used by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/roundingMode-swift.property
@@ -995,12 +1002,13 @@ func (n NumberFormatter) RoundingMode() NSNumberFormatterRoundingMode {
 func (n NumberFormatter) SetRoundingMode(value NSNumberFormatterRoundingMode) {
 	objc.Send[struct{}](n.ID, objc.Sel("setRoundingMode:"), value)
 }
+
 // The minimum number of digits before the decimal separator.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to `0`.
-// 
+//
 // The following code demonstrates the effect of setting
 // [MinimumIntegerDigits] when formatting a number:
 //
@@ -1012,12 +1020,13 @@ func (n NumberFormatter) MinimumIntegerDigits() uint {
 func (n NumberFormatter) SetMinimumIntegerDigits(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMinimumIntegerDigits:"), value)
 }
+
 // The maximum number of digits before the decimal separator.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to `42`.
-// 
+//
 // The following code demonstrates the effect of setting
 // [MaximumIntegerDigits] when formatting a number:
 //
@@ -1029,12 +1038,13 @@ func (n NumberFormatter) MaximumIntegerDigits() uint {
 func (n NumberFormatter) SetMaximumIntegerDigits(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMaximumIntegerDigits:"), value)
 }
+
 // The minimum number of digits after the decimal separator.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to `0`.
-// 
+//
 // The following code demonstrates the effect of setting
 // [MinimumFractionDigits] when formatting a number:
 //
@@ -1046,12 +1056,13 @@ func (n NumberFormatter) MinimumFractionDigits() uint {
 func (n NumberFormatter) SetMinimumFractionDigits(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMinimumFractionDigits:"), value)
 }
+
 // The maximum number of digits after the decimal separator.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to `0`.
-// 
+//
 // The following code demonstrates the effect of setting
 // [MaximumFractionDigits] when formatting a number:
 //
@@ -1063,30 +1074,28 @@ func (n NumberFormatter) MaximumFractionDigits() uint {
 func (n NumberFormatter) SetMaximumFractionDigits(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMaximumFractionDigits:"), value)
 }
+
 // A Boolean value indicating whether the formatter uses minimum and maximum
 // significant digits when formatting numbers.
 //
 // # Discussion
-// 
+//
 // The [NSNumberFormatter] class has two ways of determining how many digits
 // to represent:_ _using integer and fraction digits and using significant
 // digits.
-// 
-// When this property is set to [false], numbers are formatted according to
+//
+// When this property is set to false, numbers are formatted according to
 // whether you want them formatted as fractions or as integers. For more
 // information, see Configuring Integer and Fraction Digits. This property is
-// [false] by default.
-// 
-// Set this property to [true] to format numbers according to the significant
+// false by default.
+//
+// Set this property to true to format numbers according to the significant
 // digits configuration specified by the [MinimumSignificantDigits] and
 // [MaximumSignificantDigits] properties. By default, the minimum number of
 // significant digits is 1, and the maximum number of significant digits is 6.
-// 
+//
 // The following code demonstrates the effect of configuring
 // [UsesSignificantDigits] when formatting various numbers:
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/usesSignificantDigits
 func (n NumberFormatter) UsesSignificantDigits() bool {
@@ -1096,18 +1105,17 @@ func (n NumberFormatter) UsesSignificantDigits() bool {
 func (n NumberFormatter) SetUsesSignificantDigits(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setUsesSignificantDigits:"), value)
 }
+
 // The minimum number of significant digits for the number formatter.
 //
 // # Discussion
-// 
-// You must set the [UsesSignificantDigits] property to [true] in order for
-// this property to affect formatting behavior. By default, the minimum number
-// of significant digits is 1.
-// 
+//
+// You must set the [UsesSignificantDigits] property to true in order for this
+// property to affect formatting behavior. By default, the minimum number of
+// significant digits is 1.
+//
 // The following code demonstrates the effect of setting
 // [MinimumSignificantDigits] when formatting various numbers:
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/minimumSignificantDigits
 func (n NumberFormatter) MinimumSignificantDigits() uint {
@@ -1117,18 +1125,17 @@ func (n NumberFormatter) MinimumSignificantDigits() uint {
 func (n NumberFormatter) SetMinimumSignificantDigits(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMinimumSignificantDigits:"), value)
 }
+
 // The maximum number of significant digits for the number formatter.
 //
 // # Discussion
-// 
-// You must set the [UsesSignificantDigits] property to [true] in order for
-// this property to affect formatting behavior. By default, the maximum number
-// of significant digits is 6. Values less than 1 are ignored.
-// 
+//
+// You must set the [UsesSignificantDigits] property to true in order for this
+// property to affect formatting behavior. By default, the maximum number of
+// significant digits is 6. Values less than 1 are ignored.
+//
 // The following code demonstrates the effect of setting
 // [MaximumSignificantDigits] when formatting various numbers:
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/maximumSignificantDigits
 func (n NumberFormatter) MaximumSignificantDigits() uint {
@@ -1138,17 +1145,18 @@ func (n NumberFormatter) MaximumSignificantDigits() uint {
 func (n NumberFormatter) SetMaximumSignificantDigits(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMaximumSignificantDigits:"), value)
 }
+
 // The receiver’s format.
 //
 // # Discussion
-// 
+//
 // The format string uses the format patterns from [Unicode Technical Standard
 // #35]. For more information, see [Data Formatting Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NumberFormatter/format
+//
 // [Data Formatting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DataFormatting/DataFormatting.html#//apple_ref/doc/uid/10000029i
 // [Unicode Technical Standard #35]: http://www.unicode.org/reports/tr35/tr35-numbers.html#Number_Format_Patterns
-//
-// See: https://developer.apple.com/documentation/Foundation/NumberFormatter/format
 func (n NumberFormatter) Format() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("format"))
 	return NSStringFromID(rv).String()
@@ -1156,10 +1164,11 @@ func (n NumberFormatter) Format() string {
 func (n NumberFormatter) SetFormat(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setFormat:"), objc.String(value))
 }
+
 // The capitalization formatting context used when formatting a number.
 //
 // # Discussion
-// 
+//
 // Defaults to NSFormattingContextUnknown.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/formattingContext
@@ -1170,10 +1179,11 @@ func (n NumberFormatter) FormattingContext() NSFormattingContext {
 func (n NumberFormatter) SetFormattingContext(value NSFormattingContext) {
 	objc.Send[struct{}](n.ID, objc.Sel("setFormattingContext:"), value)
 }
+
 // The format width used by the receiver.
 //
 // # Discussion
-// 
+//
 // The format width is the number of characters of a formatted number within a
 // string that is either left justified or right justified based on the value
 // contained in [PaddingPosition].
@@ -1186,6 +1196,7 @@ func (n NumberFormatter) FormatWidth() uint {
 func (n NumberFormatter) SetFormatWidth(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setFormatWidth:"), value)
 }
+
 // The format the receiver uses to display negative values.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/negativeFormat
@@ -1196,6 +1207,7 @@ func (n NumberFormatter) NegativeFormat() string {
 func (n NumberFormatter) SetNegativeFormat(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNegativeFormat:"), objc.String(value))
 }
+
 // The format the receiver uses to display positive values.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/positiveFormat
@@ -1206,10 +1218,11 @@ func (n NumberFormatter) PositiveFormat() string {
 func (n NumberFormatter) SetPositiveFormat(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setPositiveFormat:"), objc.String(value))
 }
+
 // The multiplier of the receiver.
 //
 // # Discussion
-// 
+//
 // A multiplier is a factor used in conversions between numbers and strings
 // (that is, numbers as stored and numbers as displayed). When the input value
 // is a string, the multiplier is used to divide, and when the input value is
@@ -1225,10 +1238,11 @@ func (n NumberFormatter) Multiplier() INSNumber {
 func (n NumberFormatter) SetMultiplier(value INSNumber) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMultiplier:"), value)
 }
+
 // The string used to represent a percent symbol.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to the percent sign (%).
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/percentSymbol
@@ -1239,10 +1253,11 @@ func (n NumberFormatter) PercentSymbol() string {
 func (n NumberFormatter) SetPercentSymbol(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setPercentSymbol:"), objc.String(value))
 }
+
 // The string used to represent a per-mill (per-thousand) symbol.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to the per mille sign (‰).
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/perMillSymbol
@@ -1253,10 +1268,11 @@ func (n NumberFormatter) PerMillSymbol() string {
 func (n NumberFormatter) SetPerMillSymbol(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setPerMillSymbol:"), objc.String(value))
 }
+
 // The string used to represent a minus sign.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to the minus sign (-).
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/minusSign
@@ -1267,10 +1283,11 @@ func (n NumberFormatter) MinusSign() string {
 func (n NumberFormatter) SetMinusSign(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMinusSign:"), objc.String(value))
 }
+
 // The string used to represent a plus sign.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to the plus sign (+).
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/plusSign
@@ -1281,12 +1298,13 @@ func (n NumberFormatter) PlusSign() string {
 func (n NumberFormatter) SetPlusSign(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setPlusSign:"), objc.String(value))
 }
+
 // The string used to represent an exponent symbol.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to the latin capital letter e (E).
-// 
+//
 // The exponent symbol is the “E” or “e” in the scientific notation of
 // numbers, as in “1.0E+42”.
 //
@@ -1298,13 +1316,14 @@ func (n NumberFormatter) ExponentSymbol() string {
 func (n NumberFormatter) SetExponentSymbol(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setExponentSymbol:"), objc.String(value))
 }
+
 // The string used to represent a zero value.
 //
 // # Discussion
-// 
+//
 // If not specified, zero values are formatted normally.
-// 
-// You might, for example, set this property to “` ``-`` `” in a
+//
+// You might, for example, set this property to “` “-“ `” in a
 // spreadsheet used for accounting.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/zeroSymbol
@@ -1315,10 +1334,11 @@ func (n NumberFormatter) ZeroSymbol() string {
 func (n NumberFormatter) SetZeroSymbol(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setZeroSymbol:"), objc.String(value))
 }
+
 // The string used to represent a `nil` value.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to an empty string (””).
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/nilSymbol
@@ -1329,10 +1349,11 @@ func (n NumberFormatter) NilSymbol() string {
 func (n NumberFormatter) SetNilSymbol(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNilSymbol:"), objc.String(value))
 }
+
 // The string used to represent a NaN (“not a number”) value.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to the string “[NaN]”.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/notANumberSymbol
@@ -1343,10 +1364,11 @@ func (n NumberFormatter) NotANumberSymbol() string {
 func (n NumberFormatter) SetNotANumberSymbol(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNotANumberSymbol:"), objc.String(value))
 }
+
 // The string used to represent a negative infinity symbol.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to the string “`-∞`”.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/negativeInfinitySymbol
@@ -1357,10 +1379,11 @@ func (n NumberFormatter) NegativeInfinitySymbol() string {
 func (n NumberFormatter) SetNegativeInfinitySymbol(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNegativeInfinitySymbol:"), objc.String(value))
 }
+
 // The string used to represent a positive infinity symbol.
 //
 // # Discussion
-// 
+//
 // By default, this property is set to the string “`+∞`”.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/positiveInfinitySymbol
@@ -1371,10 +1394,11 @@ func (n NumberFormatter) PositiveInfinitySymbol() string {
 func (n NumberFormatter) SetPositiveInfinitySymbol(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setPositiveInfinitySymbol:"), objc.String(value))
 }
+
 // The string used by the receiver as a local currency symbol.
 //
 // # Discussion
-// 
+//
 // A region typically has a local currency symbol and an international
 // currency symbol. The local symbol is used within the region, while the
 // international currency symbol is used in international contexts to specify
@@ -1389,10 +1413,11 @@ func (n NumberFormatter) CurrencySymbol() string {
 func (n NumberFormatter) SetCurrencySymbol(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setCurrencySymbol:"), objc.String(value))
 }
+
 // The receiver’s currency code.
 //
 // # Discussion
-// 
+//
 // A currency code is a three-letter code that is, in most cases, composed of
 // a region’s two-character Internet region code plus an extra character to
 // denote the currency unit. For example, the currency code for the Australian
@@ -1406,10 +1431,11 @@ func (n NumberFormatter) CurrencyCode() string {
 func (n NumberFormatter) SetCurrencyCode(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setCurrencyCode:"), objc.String(value))
 }
+
 // The international currency symbol used by the receiver.
 //
 // # Discussion
-// 
+//
 // A region typically has a local currency symbol and an international
 // currency symbol. The local symbol is used within the region, while the
 // international currency symbol is used in international contexts to specify
@@ -1424,6 +1450,7 @@ func (n NumberFormatter) InternationalCurrencySymbol() string {
 func (n NumberFormatter) SetInternationalCurrencySymbol(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setInternationalCurrencySymbol:"), objc.String(value))
 }
+
 // The currency grouping separator for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/currencyGroupingSeparator
@@ -1434,6 +1461,7 @@ func (n NumberFormatter) CurrencyGroupingSeparator() string {
 func (n NumberFormatter) SetCurrencyGroupingSeparator(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setCurrencyGroupingSeparator:"), objc.String(value))
 }
+
 // The string the receiver uses as the prefix for positive values.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/positivePrefix
@@ -1444,6 +1472,7 @@ func (n NumberFormatter) PositivePrefix() string {
 func (n NumberFormatter) SetPositivePrefix(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setPositivePrefix:"), objc.String(value))
 }
+
 // The string the receiver uses as the suffix for positive values.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/positiveSuffix
@@ -1454,6 +1483,7 @@ func (n NumberFormatter) PositiveSuffix() string {
 func (n NumberFormatter) SetPositiveSuffix(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setPositiveSuffix:"), objc.String(value))
 }
+
 // The string the receiver uses as a prefix for negative values.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/negativePrefix
@@ -1464,6 +1494,7 @@ func (n NumberFormatter) NegativePrefix() string {
 func (n NumberFormatter) SetNegativePrefix(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNegativePrefix:"), objc.String(value))
 }
+
 // The string the receiver uses as a suffix for negative values.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/negativeSuffix
@@ -1474,10 +1505,11 @@ func (n NumberFormatter) NegativeSuffix() string {
 func (n NumberFormatter) SetNegativeSuffix(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNegativeSuffix:"), objc.String(value))
 }
+
 // The text attributes to be used in displaying negative values.
 //
 // # Discussion
-// 
+//
 // This property is a dictionary that contains the attributes used to display
 // negative values.
 //
@@ -1489,10 +1521,11 @@ func (n NumberFormatter) TextAttributesForNegativeValues() INSDictionary {
 func (n NumberFormatter) SetTextAttributesForNegativeValues(value INSDictionary) {
 	objc.Send[struct{}](n.ID, objc.Sel("setTextAttributesForNegativeValues:"), value)
 }
+
 // The text attributes to be used in displaying positive values.
 //
 // # Discussion
-// 
+//
 // This property is a dictionary that contains the attributes used to display
 // positive values.
 //
@@ -1504,22 +1537,23 @@ func (n NumberFormatter) TextAttributesForPositiveValues() INSDictionary {
 func (n NumberFormatter) SetTextAttributesForPositiveValues(value INSDictionary) {
 	objc.Send[struct{}](n.ID, objc.Sel("setTextAttributesForPositiveValues:"), value)
 }
+
 // The attributed string that the receiver uses to display zero values.
 //
 // # Discussion
-// 
+//
 // By default zero values are displayed according to the format specified for
 // positive values; for more discussion of this subject see [Data Formatting
 // Guide].
-// 
+//
 // # Special Considerations
-// 
+//
 // This method is for use with formatters using
 // `NSNumberFormatterBehavior10_0` behavior.
 //
-// [Data Formatting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DataFormatting/DataFormatting.html#//apple_ref/doc/uid/10000029i
-//
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/attributedStringForZero
+//
+// [Data Formatting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DataFormatting/DataFormatting.html#//apple_ref/doc/uid/10000029i
 func (n NumberFormatter) AttributedStringForZero() INSAttributedString {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("attributedStringForZero"))
 	return NSAttributedStringFromID(objc.ID(rv))
@@ -1527,10 +1561,11 @@ func (n NumberFormatter) AttributedStringForZero() INSAttributedString {
 func (n NumberFormatter) SetAttributedStringForZero(value INSAttributedString) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttributedStringForZero:"), value)
 }
+
 // The text attributes used to display a zero value.
 //
 // # Discussion
-// 
+//
 // This property is a dictionary that contains the text attributes used to
 // display zero values.
 //
@@ -1542,14 +1577,15 @@ func (n NumberFormatter) TextAttributesForZero() INSDictionary {
 func (n NumberFormatter) SetTextAttributesForZero(value INSDictionary) {
 	objc.Send[struct{}](n.ID, objc.Sel("setTextAttributesForZero:"), value)
 }
+
 // The attributed string the receiver uses to display `nil` values.
 //
 // # Discussion
-// 
+//
 // By default `nil` values are displayed as an empty string.
-// 
+//
 // # Special Considerations
-// 
+//
 // This method is for use with formatters using
 // `NSNumberFormatterBehavior10_0` behavior.
 //
@@ -1561,6 +1597,7 @@ func (n NumberFormatter) AttributedStringForNil() INSAttributedString {
 func (n NumberFormatter) SetAttributedStringForNil(value INSAttributedString) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttributedStringForNil:"), value)
 }
+
 // The text attributes used to display the `nil` symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/textAttributesForNil
@@ -1571,15 +1608,16 @@ func (n NumberFormatter) TextAttributesForNil() INSDictionary {
 func (n NumberFormatter) SetTextAttributesForNil(value INSDictionary) {
 	objc.Send[struct{}](n.ID, objc.Sel("setTextAttributesForNil:"), value)
 }
+
 // The attributed string the receiver uses to display “not a number”
 // values.
 //
 // # Discussion
-// 
+//
 // By default “not a number” values are displayed as the string “NaN”.
-// 
+//
 // # Special Considerations
-// 
+//
 // This method is for use with formatters using
 // `NSNumberFormatterBehavior10_0` behavior.
 //
@@ -1591,6 +1629,7 @@ func (n NumberFormatter) AttributedStringForNotANumber() INSAttributedString {
 func (n NumberFormatter) SetAttributedStringForNotANumber(value INSAttributedString) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttributedStringForNotANumber:"), value)
 }
+
 // The text attributes used to display the NaN (“not a number”) string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/textAttributesForNotANumber
@@ -1601,10 +1640,11 @@ func (n NumberFormatter) TextAttributesForNotANumber() INSDictionary {
 func (n NumberFormatter) SetTextAttributesForNotANumber(value INSDictionary) {
 	objc.Send[struct{}](n.ID, objc.Sel("setTextAttributesForNotANumber:"), value)
 }
+
 // The text attributes used to display the positive infinity symbol.
 //
 // # Discussion
-// 
+//
 // This property is a dictionary that contains the text attributes used to
 // display the positive infinity string.
 //
@@ -1616,10 +1656,11 @@ func (n NumberFormatter) TextAttributesForPositiveInfinity() INSDictionary {
 func (n NumberFormatter) SetTextAttributesForPositiveInfinity(value INSDictionary) {
 	objc.Send[struct{}](n.ID, objc.Sel("setTextAttributesForPositiveInfinity:"), value)
 }
+
 // The text attributes used to display the negative infinity symbol.
 //
 // # Discussion
-// 
+//
 // This property is a dictionary that contains the text attributes used to
 // display the negative infinity string.
 //
@@ -1631,10 +1672,11 @@ func (n NumberFormatter) TextAttributesForNegativeInfinity() INSDictionary {
 func (n NumberFormatter) SetTextAttributesForNegativeInfinity(value INSDictionary) {
 	objc.Send[struct{}](n.ID, objc.Sel("setTextAttributesForNegativeInfinity:"), value)
 }
+
 // The string used by the receiver for a grouping separator.
 //
 // # Discussion
-// 
+//
 // For example, the grouping separator used in the United States is the comma
 // (“10,000”) whereas in France it is the space (“10 000”).
 //
@@ -1646,6 +1688,7 @@ func (n NumberFormatter) GroupingSeparator() string {
 func (n NumberFormatter) SetGroupingSeparator(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setGroupingSeparator:"), objc.String(value))
 }
+
 // Determines whether the receiver displays the group separator.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/usesGroupingSeparator
@@ -1656,15 +1699,16 @@ func (n NumberFormatter) UsesGroupingSeparator() bool {
 func (n NumberFormatter) SetUsesGroupingSeparator(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setUsesGroupingSeparator:"), value)
 }
+
 // The character the receiver uses as a thousand separator.
 //
 // # Discussion
-// 
+//
 // If you don’t have thousand separators enabled through any other means
 // (such as [Format]), using this method enables them.
-// 
+//
 // # Special Considerations
-// 
+//
 // This method is for use with formatters using
 // `NSNumberFormatterBehavior10_0` behavior.
 //
@@ -1676,6 +1720,7 @@ func (n NumberFormatter) ThousandSeparator() string {
 func (n NumberFormatter) SetThousandSeparator(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setThousandSeparator:"), objc.String(value))
 }
+
 // Determines whether the receiver uses thousand separators.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/hasThousandSeparators
@@ -1686,6 +1731,7 @@ func (n NumberFormatter) HasThousandSeparators() bool {
 func (n NumberFormatter) SetHasThousandSeparators(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setHasThousandSeparators:"), value)
 }
+
 // The character the receiver uses as a decimal separator.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/decimalSeparator
@@ -1696,6 +1742,7 @@ func (n NumberFormatter) DecimalSeparator() string {
 func (n NumberFormatter) SetDecimalSeparator(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDecimalSeparator:"), objc.String(value))
 }
+
 // Determines whether the receiver always shows the decimal separator, even
 // for integer numbers.
 //
@@ -1707,6 +1754,7 @@ func (n NumberFormatter) AlwaysShowsDecimalSeparator() bool {
 func (n NumberFormatter) SetAlwaysShowsDecimalSeparator(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAlwaysShowsDecimalSeparator:"), value)
 }
+
 // The string used by the receiver as a currency decimal separator.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/currencyDecimalSeparator
@@ -1717,6 +1765,7 @@ func (n NumberFormatter) CurrencyDecimalSeparator() string {
 func (n NumberFormatter) SetCurrencyDecimalSeparator(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setCurrencyDecimalSeparator:"), objc.String(value))
 }
+
 // The grouping size of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/groupingSize
@@ -1727,10 +1776,11 @@ func (n NumberFormatter) GroupingSize() uint {
 func (n NumberFormatter) SetGroupingSize(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setGroupingSize:"), value)
 }
+
 // The secondary grouping size of the receiver.
 //
 // # Discussion
-// 
+//
 // Some locales allow the specification of another grouping size for larger
 // numbers. For example, some locales may represent a number such as 61, 242,
 // 378.46 (as in the United States) as 6,12,42,378.46. In this case, the
@@ -1745,6 +1795,7 @@ func (n NumberFormatter) SecondaryGroupingSize() uint {
 func (n NumberFormatter) SetSecondaryGroupingSize(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setSecondaryGroupingSize:"), value)
 }
+
 // The string that the receiver uses to pad numbers in the formatted string
 // representation.
 //
@@ -1756,6 +1807,7 @@ func (n NumberFormatter) PaddingCharacter() string {
 func (n NumberFormatter) SetPaddingCharacter(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setPaddingCharacter:"), objc.String(value))
 }
+
 // The padding position used by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/paddingPosition
@@ -1766,11 +1818,12 @@ func (n NumberFormatter) PaddingPosition() NSNumberFormatterPadPosition {
 func (n NumberFormatter) SetPaddingPosition(value NSNumberFormatterPadPosition) {
 	objc.Send[struct{}](n.ID, objc.Sel("setPaddingPosition:"), value)
 }
+
 // Determines whether the receiver allows as input floating-point values (that
 // is, values that include the period character [`.`]).
 //
 // # Discussion
-// 
+//
 // By default, floating point values are allowed.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/allowsFloats
@@ -1781,6 +1834,7 @@ func (n NumberFormatter) AllowsFloats() bool {
 func (n NumberFormatter) SetAllowsFloats(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAllowsFloats:"), value)
 }
+
 // The lowest number allowed as input by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/minimum
@@ -1791,6 +1845,7 @@ func (n NumberFormatter) Minimum() INSNumber {
 func (n NumberFormatter) SetMinimum(value INSNumber) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMinimum:"), value)
 }
+
 // The highest number allowed as input by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/maximum
@@ -1801,11 +1856,12 @@ func (n NumberFormatter) Maximum() INSNumber {
 func (n NumberFormatter) SetMaximum(value INSNumber) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMaximum:"), value)
 }
+
 // Determines whether the receiver will use heuristics to guess at the number
 // which is intended by a string.
 //
 // # Discussion
-// 
+//
 // If the formatter is set to be lenient, as with any guessing it may get the
 // result number wrong (that is, a number other than that which was intended).
 //
@@ -1817,6 +1873,7 @@ func (n NumberFormatter) Lenient() bool {
 func (n NumberFormatter) SetLenient(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setLenient:"), value)
 }
+
 // Determines whether partial string validation is enabled for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/isPartialStringValidationEnabled
@@ -1827,6 +1884,7 @@ func (n NumberFormatter) PartialStringValidationEnabled() bool {
 func (n NumberFormatter) SetPartialStringValidationEnabled(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setPartialStringValidationEnabled:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/minimumGroupingDigits
 func (n NumberFormatter) MinimumGroupingDigits() int {
 	rv := objc.Send[int](n.ID, objc.Sel("minimumGroupingDigits"))
@@ -1835,6 +1893,3 @@ func (n NumberFormatter) MinimumGroupingDigits() int {
 func (n NumberFormatter) SetMinimumGroupingDigits(value int) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMinimumGroupingDigits:"), value)
 }
-
-		
-

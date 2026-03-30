@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -29,6 +29,7 @@ type MTL4PipelineDataSetSerializer interface {
 type MTL4PipelineDataSetSerializerObject struct {
 	objectivec.Object
 }
+
 func (o MTL4PipelineDataSetSerializerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -52,11 +53,12 @@ func (o MTL4PipelineDataSetSerializerObject) SerializeAsArchiveAndFlushToURLErro
 		return false, err
 	}
 	return rv, nil
-	}
+}
+
 // Serializes a serializer data set to a pipeline script as raw data.
 //
 // # Return Value
-// 
+//
 // An [NSData] instance containing the pipeline script.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PipelineDataSetSerializer/serializeAsPipelinesScript()
@@ -66,5 +68,4 @@ func (o MTL4PipelineDataSetSerializerObject) SerializeAsPipelinesScriptWithError
 		return nil, err
 	}
 	return foundation.NSDataFromID(rv), nil
-	}
-
+}

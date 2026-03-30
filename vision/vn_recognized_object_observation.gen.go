@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNRecognizedObjectObservation] class.
@@ -45,7 +46,7 @@ func (vc VNRecognizedObjectObservationClass) Alloc() VNRecognizedObjectObservati
 // classify the recognized object.
 //
 // # Overview
-// 
+//
 // The confidence of the classifications sum up to `1.0.` Multiply the
 // classification confidence with the confidence of this observation.
 //
@@ -65,6 +66,7 @@ type VNRecognizedObjectObservation struct {
 func VNRecognizedObjectObservationFromID(id objc.ID) VNRecognizedObjectObservation {
 	return VNRecognizedObjectObservation{VNDetectedObjectObservation: VNDetectedObjectObservationFromID(id)}
 }
+
 // NOTE: VNRecognizedObjectObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -138,4 +140,3 @@ func (r VNRecognizedObjectObservation) Labels() []VNClassificationObservation {
 		return VNClassificationObservationFromID(id)
 	})
 }
-

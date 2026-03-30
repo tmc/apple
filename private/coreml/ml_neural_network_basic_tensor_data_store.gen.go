@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLNeuralNetworkBasicTensorDataStoreClass) Alloc() MLNeuralNetworkBasicT
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLNeuralNetworkBasicTensorDataStore.Data]
@@ -56,6 +56,7 @@ func (mc MLNeuralNetworkBasicTensorDataStoreClass) Alloc() MLNeuralNetworkBasicT
 //   - [MLNeuralNetworkBasicTensorDataStore.Description]
 //   - [MLNeuralNetworkBasicTensorDataStore.Hash]
 //   - [MLNeuralNetworkBasicTensorDataStore.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore
 type MLNeuralNetworkBasicTensorDataStore struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type MLNeuralNetworkBasicTensorDataStore struct {
 func MLNeuralNetworkBasicTensorDataStoreFromID(id objc.ID) MLNeuralNetworkBasicTensorDataStore {
 	return MLNeuralNetworkBasicTensorDataStore{objectivec.Object{ID: id}}
 }
+
 // Ensure MLNeuralNetworkBasicTensorDataStore implements IMLNeuralNetworkBasicTensorDataStore.
 var _ IMLNeuralNetworkBasicTensorDataStore = MLNeuralNetworkBasicTensorDataStore{}
 
@@ -118,7 +120,6 @@ func NewMLNeuralNetworkBasicTensorDataStore() MLNeuralNetworkBasicTensorDataStor
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore/initWithContentsOfFile:error:
 func NewMLNeuralNetworkBasicTensorDataStoreWithContentsOfFileError(file objectivec.IObject) (MLNeuralNetworkBasicTensorDataStore, error) {
 	var errorPtr objc.ID
@@ -131,7 +132,6 @@ func NewMLNeuralNetworkBasicTensorDataStoreWithContentsOfFileError(file objectiv
 	return MLNeuralNetworkBasicTensorDataStoreFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore/initWithData:
 func NewMLNeuralNetworkBasicTensorDataStoreWithData(data objectivec.IObject) MLNeuralNetworkBasicTensorDataStore {
 	instance := getMLNeuralNetworkBasicTensorDataStoreClass().Alloc()
@@ -139,13 +139,12 @@ func NewMLNeuralNetworkBasicTensorDataStoreWithData(data objectivec.IObject) MLN
 	return MLNeuralNetworkBasicTensorDataStoreFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore/tensorDataForOffset:expectedLength:
 func (m MLNeuralNetworkBasicTensorDataStore) TensorDataForOffsetExpectedLength(offset uint64, length uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("tensorDataForOffset:expectedLength:"), offset, length)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore/writeToFile:error:
 func (m MLNeuralNetworkBasicTensorDataStore) WriteToFileError(file objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -160,7 +159,7 @@ func (m MLNeuralNetworkBasicTensorDataStore) WriteToFileError(file objectivec.IO
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore/initWithContentsOfFile:error:
 func (m MLNeuralNetworkBasicTensorDataStore) InitWithContentsOfFileError(file objectivec.IObject) (MLNeuralNetworkBasicTensorDataStore, error) {
 	var errorPtr objc.ID
@@ -172,7 +171,7 @@ func (m MLNeuralNetworkBasicTensorDataStore) InitWithContentsOfFileError(file ob
 	return MLNeuralNetworkBasicTensorDataStoreFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore/initWithData:
 func (m MLNeuralNetworkBasicTensorDataStore) InitWithData(data objectivec.IObject) MLNeuralNetworkBasicTensorDataStore {
 	rv := objc.Send[MLNeuralNetworkBasicTensorDataStore](m.ID, objc.Sel("initWithData:"), data)
@@ -184,24 +183,27 @@ func (m MLNeuralNetworkBasicTensorDataStore) Data() foundation.NSMutableData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("data"))
 	return foundation.NSMutableDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore/debugDescription
 func (m MLNeuralNetworkBasicTensorDataStore) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore/description
 func (m MLNeuralNetworkBasicTensorDataStore) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore/hash
 func (m MLNeuralNetworkBasicTensorDataStore) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_MLNeuralNetworkBasicTensorDataStore/superclass
 func (m MLNeuralNetworkBasicTensorDataStore) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }
-

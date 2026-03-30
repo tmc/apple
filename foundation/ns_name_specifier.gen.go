@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,17 +44,17 @@ func (nc NSNameSpecifierClass) Alloc() NSNameSpecifier {
 // A specifier for an object in a collection (or container) by name.
 //
 // # Overview
-// 
+//
 // As an example, the following script specifies both an application and a
 // window by name. In this script, the named window’s implicitly specified
 // container is the Finder application’s list of open windows.
-// 
+//
 // This specifier works only for objects that have a name property. You
 // don’t normally subclass [NSNameSpecifier].
-// 
+//
 // The evaluation of an instance of [NSNameSpecifier] follows these steps
 // until the specified object is found:
-// 
+//
 // - If the container implements a method whose selector matches the relevant
 // `valueInWithName:` pattern established by scripting key-value coding, the
 // method is invoked. This method can potentially be very fast, and it may be
@@ -88,6 +89,7 @@ type NSNameSpecifier struct {
 func NSNameSpecifierFromID(id objc.ID) NSNameSpecifier {
 	return NSNameSpecifier{NSScriptObjectSpecifier: NSScriptObjectSpecifierFromID(id)}
 }
+
 // NOTE: NSNameSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,7 +139,6 @@ func NewNSNameSpecifier() NSNameSpecifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSNameSpecifier/init(coder:)
 func NewNameSpecifierWithCoder(inCoder INSCoder) NSNameSpecifier {
 	instance := getNSNameSpecifierClass().Alloc()
@@ -149,16 +150,16 @@ func NewNameSpecifierWithCoder(inCoder INSCoder) NSNameSpecifier {
 // attributes.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier`, key `key`, and the class description of the object specifier
 // `classDescription`, derived from the value of the specifier’s key.
 //
 // # Discussion
-// 
+//
 // You should never pass `nil` for the value of `classDescription`. The
 // receiver’s child reference is set to `nil`.
-// 
+//
 // This is the designated initializer for [NSScriptObjectSpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)
@@ -183,12 +184,12 @@ func NewNameSpecifierWithContainerClassDescriptionContainerSpecifierKeyName(clas
 // container specifier and key.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier` and key `key`.
 //
 // # Discussion
-// 
+//
 // The class description of the container is set automatically.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerSpecifier:key:)
@@ -219,4 +220,3 @@ func (n NSNameSpecifier) Name() string {
 func (n NSNameSpecifier) SetName(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setName:"), objc.String(value))
 }
-

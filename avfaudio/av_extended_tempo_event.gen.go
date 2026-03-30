@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -64,6 +65,7 @@ type AVExtendedTempoEvent struct {
 func AVExtendedTempoEventFromID(id objc.ID) AVExtendedTempoEvent {
 	return AVExtendedTempoEvent{AVMusicEvent: AVMusicEventFromID(id)}
 }
+
 // NOTE: AVExtendedTempoEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,7 +120,7 @@ func NewAVExtendedTempoEvent() AVExtendedTempoEvent {
 // tempo: The tempo in beats per minute as a positive value.
 //
 // # Discussion
-// 
+//
 // The new tempo begins at the timestamp for this event.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVExtendedTempoEvent/init(tempo:)
@@ -133,7 +135,7 @@ func NewExtendedTempoEventWithTempo(tempo float64) AVExtendedTempoEvent {
 // tempo: The tempo in beats per minute as a positive value.
 //
 // # Discussion
-// 
+//
 // The new tempo begins at the timestamp for this event.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVExtendedTempoEvent/init(tempo:)
@@ -152,4 +154,3 @@ func (e AVExtendedTempoEvent) Tempo() float64 {
 func (e AVExtendedTempoEvent) SetTempo(value float64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setTempo:"), value)
 }
-

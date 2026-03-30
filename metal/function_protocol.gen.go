@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -79,6 +79,7 @@ type MTLFunction interface {
 type MTLFunctionObject struct {
 	objectivec.Object
 }
+
 func (o MTLFunctionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -97,42 +98,48 @@ func MTLFunctionObjectFromID(id objc.ID) MTLFunctionObject {
 func (o MTLFunctionObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-	}
+}
+
 // A string that identifies the shader function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunction/label
 func (o MTLFunctionObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // The shader function’s type.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunction/functionType
 func (o MTLFunctionObject) FunctionType() MTLFunctionType {
 	rv := objc.Send[MTLFunctionType](o.ID, objc.Sel("functionType"))
 	return rv
-	}
+}
+
 // The function’s name.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunction/name
 func (o MTLFunctionObject) Name() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // The options that Metal used to compile this function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunction/options
 func (o MTLFunctionObject) Options() MTLFunctionOptions {
 	rv := objc.Send[MTLFunctionOptions](o.ID, objc.Sel("options"))
 	return rv
-	}
+}
+
 // The tessellation patch type of a post-tessellation vertex function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunction/patchType
 func (o MTLFunctionObject) PatchType() MTLPatchType {
 	rv := objc.Send[MTLPatchType](o.ID, objc.Sel("patchType"))
 	return rv
-	}
+}
+
 // The number of patch control points in the post-tessellation vertex
 // function.
 //
@@ -140,7 +147,8 @@ func (o MTLFunctionObject) PatchType() MTLPatchType {
 func (o MTLFunctionObject) PatchControlPointCount() int {
 	rv := objc.Send[int](o.ID, objc.Sel("patchControlPointCount"))
 	return rv
-	}
+}
+
 // An array that describes the vertex input attributes to a vertex function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunction/vertexAttributes
@@ -149,7 +157,8 @@ func (o MTLFunctionObject) VertexAttributes() []MTLVertexAttribute {
 	return objc.ConvertSlice(rv, func(id objc.ID) MTLVertexAttribute {
 		return MTLVertexAttributeFromID(id)
 	})
-	}
+}
+
 // An array that describes the input attributes to the function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunction/stageInputAttributes
@@ -158,14 +167,16 @@ func (o MTLFunctionObject) StageInputAttributes() []MTLAttribute {
 	return objc.ConvertSlice(rv, func(id objc.ID) MTLAttribute {
 		return MTLAttributeFromID(id)
 	})
-	}
+}
+
 // A dictionary of function constants for a specialized function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunction/functionConstantsDictionary
 func (o MTLFunctionObject) FunctionConstantsDictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionConstantsDictionary"))
 	return foundation.NSDictionaryFromID(rv)
-	}
+}
+
 // Creates an argument encoder for an argument buffer that’s one of this
 // function’s arguments.
 //
@@ -174,7 +185,7 @@ func (o MTLFunctionObject) FunctionConstantsDictionary() foundation.INSDictionar
 // buffer.
 //
 // # Discussion
-// 
+//
 // Resources encoded into an argument buffer by the [MTLArgumentEncoder]
 // object need to match the structure of the argument buffer located at the
 // specified buffer index. If you want to interpret a regular structure as an
@@ -185,9 +196,19 @@ func (o MTLFunctionObject) FunctionConstantsDictionary() foundation.INSDictionar
 func (o MTLFunctionObject) NewArgumentEncoderWithBufferIndex(bufferIndex uint) MTLArgumentEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newArgumentEncoderWithBufferIndex:"), bufferIndex)
 	return MTLArgumentEncoderObjectFromID(rv)
-	}
+}
 
+// A string that identifies the shader function.
+//
+// # Discussion
+//
+// Object and command labels are useful identifiers at runtime or when
+// profiling and debugging your app using any Metal tool. See [Naming
+// resources and commands].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLFunction/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLFunctionObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

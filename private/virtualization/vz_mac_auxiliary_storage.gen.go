@@ -3,11 +3,12 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (vc VZMacAuxiliaryStorageClass) Alloc() VZMacAuxiliaryStorage {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacAuxiliaryStorage._allNVRAMDataVariablesInPartitionError]
@@ -57,6 +57,7 @@ func (vc VZMacAuxiliaryStorageClass) Alloc() VZMacAuxiliaryStorage {
 //   - [VZMacAuxiliaryStorage._setDataValueForNVRAMVariableNamedError]
 //   - [VZMacAuxiliaryStorage._setValueForNVRAMVariableNamedError]
 //   - [VZMacAuxiliaryStorage._valueForNVRAMVariableNamedError]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage
 type VZMacAuxiliaryStorage struct {
 	objectivec.Object
@@ -66,6 +67,7 @@ type VZMacAuxiliaryStorage struct {
 func VZMacAuxiliaryStorageFromID(id objc.ID) VZMacAuxiliaryStorage {
 	return VZMacAuxiliaryStorage{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMacAuxiliaryStorage implements IVZMacAuxiliaryStorage.
 var _ IVZMacAuxiliaryStorage = VZMacAuxiliaryStorage{}
 
@@ -121,7 +123,6 @@ func NewVZMacAuxiliaryStorage() VZMacAuxiliaryStorage {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_allNVRAMDataVariablesInPartition:error:
 func (m VZMacAuxiliaryStorage) _allNVRAMDataVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -138,7 +139,7 @@ func (m VZMacAuxiliaryStorage) _allNVRAMDataVariablesInPartitionError(partition 
 func (m VZMacAuxiliaryStorage) AllNVRAMDataVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
 	return m._allNVRAMDataVariablesInPartitionError(partition)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_allNVRAMDataVariablesWithError:
 func (m VZMacAuxiliaryStorage) _allNVRAMDataVariablesWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -155,7 +156,7 @@ func (m VZMacAuxiliaryStorage) _allNVRAMDataVariablesWithError() (objectivec.IOb
 func (m VZMacAuxiliaryStorage) AllNVRAMDataVariablesWithError() (objectivec.IObject, error) {
 	return m._allNVRAMDataVariablesWithError()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_allNVRAMVariablesInPartition:error:
 func (m VZMacAuxiliaryStorage) _allNVRAMVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -172,7 +173,7 @@ func (m VZMacAuxiliaryStorage) _allNVRAMVariablesInPartitionError(partition uint
 func (m VZMacAuxiliaryStorage) AllNVRAMVariablesInPartitionError(partition uint64) (objectivec.IObject, error) {
 	return m._allNVRAMVariablesInPartitionError(partition)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_allNVRAMVariablesWithError:
 func (m VZMacAuxiliaryStorage) _allNVRAMVariablesWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -189,7 +190,7 @@ func (m VZMacAuxiliaryStorage) _allNVRAMVariablesWithError() (objectivec.IObject
 func (m VZMacAuxiliaryStorage) AllNVRAMVariablesWithError() (objectivec.IObject, error) {
 	return m._allNVRAMVariablesWithError()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_dataValueForNVRAMVariableNamed:error:
 func (m VZMacAuxiliaryStorage) _dataValueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -206,7 +207,7 @@ func (m VZMacAuxiliaryStorage) _dataValueForNVRAMVariableNamedError(named object
 func (m VZMacAuxiliaryStorage) DataValueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
 	return m._dataValueForNVRAMVariableNamedError(named)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_initializeUIDKeyWithWrappingKey:error:
 func (m VZMacAuxiliaryStorage) _initializeUIDKeyWithWrappingKeyError(key objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -226,7 +227,7 @@ func (m VZMacAuxiliaryStorage) _initializeUIDKeyWithWrappingKeyError(key objecti
 func (m VZMacAuxiliaryStorage) InitializeUIDKeyWithWrappingKeyError(key objectivec.IObject) (bool, error) {
 	return m._initializeUIDKeyWithWrappingKeyError(key)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_removeNVRAMVariableNamed:error:
 func (m VZMacAuxiliaryStorage) _removeNVRAMVariableNamedError(named objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -246,7 +247,7 @@ func (m VZMacAuxiliaryStorage) _removeNVRAMVariableNamedError(named objectivec.I
 func (m VZMacAuxiliaryStorage) RemoveNVRAMVariableNamedError(named objectivec.IObject) (bool, error) {
 	return m._removeNVRAMVariableNamedError(named)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_setDataValue:forNVRAMVariableNamed:error:
 func (m VZMacAuxiliaryStorage) _setDataValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -266,7 +267,7 @@ func (m VZMacAuxiliaryStorage) _setDataValueForNVRAMVariableNamedError(value obj
 func (m VZMacAuxiliaryStorage) SetDataValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
 	return m._setDataValueForNVRAMVariableNamedError(value, named)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_setValue:forNVRAMVariableNamed:error:
 func (m VZMacAuxiliaryStorage) _setValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -286,7 +287,7 @@ func (m VZMacAuxiliaryStorage) _setValueForNVRAMVariableNamedError(value objecti
 func (m VZMacAuxiliaryStorage) SetValueForNVRAMVariableNamedError(value objectivec.IObject, named objectivec.IObject) (bool, error) {
 	return m._setValueForNVRAMVariableNamedError(value, named)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/_valueForNVRAMVariableNamed:error:
 func (m VZMacAuxiliaryStorage) _valueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -303,4 +304,3 @@ func (m VZMacAuxiliaryStorage) _valueForNVRAMVariableNamedError(named objectivec
 func (m VZMacAuxiliaryStorage) ValueForNVRAMVariableNamedError(named objectivec.IObject) (objectivec.IObject, error) {
 	return m._valueForNVRAMVariableNamedError(named)
 }
-

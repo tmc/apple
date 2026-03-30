@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,15 +45,15 @@ func (nc NSDecimalNumberHandlerClass) Alloc() NSDecimalNumberHandler {
 // A class that adopts the decimal number behaviors protocol.
 //
 // # Overview
-// 
+//
 // This class allows you to set the way an [NSDecimalNumber] object rounds off
 // and handles errors, without having to create a custom class.
-// 
+//
 // You can use an instance of this class as an argument to any of the
 // [NSDecimalNumber] methods that end with `...Behavior:`. If you don’t
 // think you need special behavior, you probably don’t need this class—it
 // is likely that [NSDecimalNumber]’s default behavior will suit your needs.
-// 
+//
 // For more information, see the [NSDecimalNumberBehaviors] protocol
 // specification.
 //
@@ -71,6 +72,7 @@ type NSDecimalNumberHandler struct {
 func NSDecimalNumberHandlerFromID(id objc.ID) NSDecimalNumberHandler {
 	return NSDecimalNumberHandler{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSDecimalNumberHandler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,7 +123,6 @@ func NewNSDecimalNumberHandler() NSDecimalNumberHandler {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDecimalNumberHandlerWithCoder(coder INSCoder) NSDecimalNumberHandler {
 	instance := getNSDecimalNumberHandlerClass().Alloc()
@@ -137,38 +138,30 @@ func NewDecimalNumberHandlerWithCoder(coder INSCoder) NSDecimalNumberHandler {
 //
 // scale: The number of digits a rounded value should have after its decimal point.
 //
-// exact: If [true], in the event of an exactness error the handler will raise an
+// exact: If true, in the event of an exactness error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
-// overflow: If [true], in the event of an overflow error the handler will raise an
+// overflow: If true, in the event of an overflow error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
-// underflow: If [true], in the event of an underflow error the handler will raise an
+// underflow: If true, in the event of an underflow error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
-// divideByZero: If [true], in the event of a divide by zero error the handler will raise an
+// divideByZero: If true, in the event of a divide by zero error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // An initialized [NSDecimalNumberHandler] object initialized with customized
 // behavior. The returned object might be different than the original
 // receiver.
 //
 // # Discussion
-// 
+//
 // See the [NSDecimalNumberBehaviors] protocol specification for a complete
 // explanation of the possible behaviors.
 //
@@ -187,38 +180,30 @@ func NewDecimalNumberHandlerWithRoundingModeScaleRaiseOnExactnessRaiseOnOverflow
 //
 // scale: The number of digits a rounded value should have after its decimal point.
 //
-// exact: If [true], in the event of an exactness error the handler will raise an
+// exact: If true, in the event of an exactness error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
-// overflow: If [true], in the event of an overflow error the handler will raise an
+// overflow: If true, in the event of an overflow error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
-// underflow: If [true], in the event of an underflow error the handler will raise an
+// underflow: If true, in the event of an underflow error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
-// divideByZero: If [true], in the event of a divide by zero error the handler will raise an
+// divideByZero: If true, in the event of a divide by zero error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // An initialized [NSDecimalNumberHandler] object initialized with customized
 // behavior. The returned object might be different than the original
 // receiver.
 //
 // # Discussion
-// 
+//
 // See the [NSDecimalNumberBehaviors] protocol specification for a complete
 // explanation of the possible behaviors.
 //
@@ -227,6 +212,7 @@ func (d NSDecimalNumberHandler) InitWithRoundingModeScaleRaiseOnExactnessRaiseOn
 	rv := objc.Send[NSDecimalNumberHandler](d.ID, objc.Sel("initWithRoundingMode:scale:raiseOnExactness:raiseOnOverflow:raiseOnUnderflow:raiseOnDivideByZero:"), roundingMode, scale, exact, overflow, underflow, divideByZero)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -235,6 +221,7 @@ func (d NSDecimalNumberHandler) InitWithRoundingModeScaleRaiseOnExactnessRaiseOn
 func (d NSDecimalNumberHandler) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+
 // Specifies what an [NSDecimalNumber] object will do when it encounters an
 // error.
 //
@@ -247,7 +234,7 @@ func (d NSDecimalNumberHandler) EncodeWithCoder(coder INSCoder) {
 // rightOperand: The right operand.
 //
 // # Discussion
-// 
+//
 // There are four possible values for `error`, described in
 // [NSDecimalNumber.CalculationError]. The first three have to do with limits
 // on the ability of [NSDecimalNumber] to represent decimal numbers. An
@@ -255,10 +242,10 @@ func (d NSDecimalNumberHandler) EncodeWithCoder(coder INSCoder) {
 // mantissa x 10^exponent, where mantissa is a decimal integer up to 38 digits
 // long, and exponent is between –256 and 256. The fourth results from the
 // caller trying to divide by `0`.
-// 
+//
 // In implementing [ExceptionDuringOperationErrorLeftOperandRightOperand], you
 // can handle each of these errors in several ways:
-// 
+//
 // - Raise an exception. For an explanation of exceptions, see [Exception
 // Programming Topics]. - Return `nil`. The calling method will return its
 // value as though no error had occurred. If `error` is
@@ -270,36 +257,37 @@ func (d NSDecimalNumberHandler) EncodeWithCoder(coder INSCoder) {
 // [NSDecimalNumber] object. The calling method will use this as its own
 // return value.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/exceptionDuringOperation(_:error:leftOperand:rightOperand:)
+//
 // [Exception Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Exceptions/Exceptions.html#//apple_ref/doc/uid/10000012i
 // [NSDecimalNumber.CalculationError]: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/CalculationError
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/exceptionDuringOperation(_:error:leftOperand:rightOperand:)
 func (d NSDecimalNumberHandler) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("exceptionDuringOperation:error:leftOperand:rightOperand:"), operation, error_, leftOperand, rightOperand)
 	return NSDecimalNumberFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (d NSDecimalNumberHandler) InitWithCoder(coder INSCoder) NSDecimalNumberHandler {
 	rv := objc.Send[NSDecimalNumberHandler](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Returns the number of digits allowed after the decimal separator.
 //
 // # Return Value
-// 
+//
 // The number of digits allowed after the decimal separator.
 //
 // # Discussion
-// 
+//
 // This method limits the precision of the values returned by
 // [NSDecimalNumber]’s `decimalNumberBy...` methods. If [Scale] returns a
 // negative value, it affects the digits before the decimal separator as well.
 // If [Scale] returns [NSDecimalNoScale], the number of digits is unlimited.
-// 
+//
 // Assuming that [RoundingMode] returns [NSRoundPlain], different values of
 // [Scale] have the following effects on the number 123.456:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/scale()
@@ -315,36 +303,28 @@ func (d NSDecimalNumberHandler) Scale() int16 {
 //
 // scale: The number of digits a rounded value should have after its decimal point.
 //
-// exact: If [true], in the event of an exactness error the handler will raise an
+// exact: If true, in the event of an exactness error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
-// overflow: If [true], in the event of an overflow error the handler will raise an
+// overflow: If true, in the event of an overflow error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
-// underflow: If [true], in the event of an underflow error the handler will raise an
+// underflow: If true, in the event of an underflow error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
-// divideByZero: If [true], in the event of a divide by zero error the handler will raise an
+// divideByZero: If true, in the event of a divide by zero error the handler will raise an
 // exception, otherwise it will ignore the error and return control to the
 // calling method
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // An [NSDecimalNumberHandler] object with customized behavior.
 //
 // # Discussion
-// 
+//
 // See the [NSDecimalNumberBehaviors] protocol specification for a complete
 // explanation of the possible behaviors.
 //
@@ -364,6 +344,7 @@ func (d NSDecimalNumberHandler) RoundingBehavior() INSDecimalNumberHandler {
 func (d NSDecimalNumberHandler) SetRoundingBehavior(value INSDecimalNumberHandler) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRoundingBehavior:"), value)
 }
+
 // The rounding increment used by the receiver.
 //
 // See: https://developer.apple.com/documentation/foundation/numberformatter/roundingincrement
@@ -374,8 +355,7 @@ func (d NSDecimalNumberHandler) RoundingIncrement() INSNumber {
 func (d NSDecimalNumberHandler) SetRoundingIncrement(value INSNumber) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRoundingIncrement:"), value)
 }
-		
-		
+
 // The rounding mode used by the receiver.
 //
 // See: https://developer.apple.com/documentation/foundation/numberformatter/roundingmode-swift.property
@@ -390,11 +370,11 @@ func (d NSDecimalNumberHandler) SetRoundingMode(value NSNumberFormatterRoundingM
 // Returns the default instance of [NSDecimalNumberHandler].
 //
 // # Return Value
-// 
+//
 // The default instance of [NSDecimalNumberHandler].
-// 
+//
 // # Discussion
-// 
+//
 // This default decimal number handler rounds to the closest possible return
 // value. It assumes your need for precision does not exceed 38 significant
 // digits, and it raises an exception when its [NSDecimalNumber] object tries
@@ -406,8 +386,5 @@ func (_NSDecimalNumberHandlerClass NSDecimalNumberHandlerClass) DefaultDecimalNu
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberHandlerClass.class), objc.Sel("defaultDecimalNumberHandler"))
 	return NSDecimalNumberHandlerFromID(objc.ID(rv))
 }
-		
 
-			// Protocol methods for NSCoding
-			
-
+// Protocol methods for NSCoding

@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSDatePicker] class.
@@ -45,7 +46,7 @@ func (nc NSDatePickerClass) Alloc() NSDatePicker {
 // A display of a calendar date with controls for editing the date value.
 //
 // # Overview
-// 
+//
 // [NSDatePicker] uses an [NSDatePickerCell] to implement much of the
 // control’s functionality. [NSDatePicker] provides cover methods for most
 // of [NSDatePickerCell] methods, which invoke the corresponding cell method.
@@ -107,6 +108,7 @@ type NSDatePicker struct {
 func NSDatePickerFromID(id objc.ID) NSDatePicker {
 	return NSDatePicker{NSControl: NSControlFromID(id)}
 }
+
 // NOTE: NSDatePicker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -260,12 +262,12 @@ func NewDatePickerWithCoder(coder foundation.INSCoder) NSDatePicker {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -284,12 +286,9 @@ func NewDatePickerWithFrame(frameRect corefoundation.CGRect) NSDatePicker {
 // border.
 //
 // # Discussion
-// 
-// This property contains [true] if the date picker has a bezeled boarder;
-// otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property contains true if the date picker has a bezeled boarder;
+// otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/isBezeled
 func (d NSDatePicker) Bezeled() bool {
@@ -299,15 +298,13 @@ func (d NSDatePicker) Bezeled() bool {
 func (d NSDatePicker) SetBezeled(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBezeled:"), value)
 }
+
 // A Boolean value that indicates whether the date picker has a plain border.
 //
 // # Discussion
-// 
-// This property contains [true] if the date picker has a plain boarder;
-// otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property contains true if the date picker has a plain boarder;
+// otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/isBordered
 func (d NSDatePicker) Bordered() bool {
@@ -317,6 +314,7 @@ func (d NSDatePicker) Bordered() bool {
 func (d NSDatePicker) SetBordered(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBordered:"), value)
 }
+
 // The date picker’s background color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/backgroundColor
@@ -327,6 +325,7 @@ func (d NSDatePicker) BackgroundColor() INSColor {
 func (d NSDatePicker) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBackgroundColor:"), value)
 }
+
 // A Boolean value that indicates whether the date picker draws the
 // background.
 //
@@ -338,6 +337,7 @@ func (d NSDatePicker) DrawsBackground() bool {
 func (d NSDatePicker) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDrawsBackground:"), value)
 }
+
 // The date picker’s text color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/textColor
@@ -348,6 +348,7 @@ func (d NSDatePicker) TextColor() INSColor {
 func (d NSDatePicker) SetTextColor(value INSColor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTextColor:"), value)
 }
+
 // The date picker’s style.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/datePickerStyle
@@ -358,12 +359,13 @@ func (d NSDatePicker) DatePickerStyle() NSDatePickerStyle {
 func (d NSDatePicker) SetDatePickerStyle(value NSDatePickerStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDatePickerStyle:"), value)
 }
+
 // A Boolean value that indicates whether to present a graphical calendar
 // overlay when editing a calendar element within a text-field style date
 // picker.
 //
 // # Discussion
-// 
+//
 // The default value is [NO]. The overlay only appears for text-style date
 // pickers when you select a calendar element. The overlay doesn’t appear
 // when there are no calendar events or the value of this property is [YES].
@@ -376,10 +378,11 @@ func (d NSDatePicker) PresentsCalendarOverlay() bool {
 func (d NSDatePicker) SetPresentsCalendarOverlay(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPresentsCalendarOverlay:"), value)
 }
+
 // A delegate for the date picker’s cell
 //
 // # Discussion
-// 
+//
 // The date picker’s [NSDatePickerCell] instance handles all delegate
 // methods.
 //
@@ -391,11 +394,12 @@ func (d NSDatePicker) Delegate() NSDatePickerCellDelegate {
 func (d NSDatePicker) SetDelegate(value NSDatePickerCellDelegate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDelegate:"), value)
 }
+
 // A bitmask that indicates which visual elements of the date picker are
 // currently shown, and which won’t be usable because they are hidden.
 //
 // # Discussion
-// 
+//
 // See “Constants” in [NSDatePickerCell] for a description of the possible
 // values.
 //
@@ -407,6 +411,7 @@ func (d NSDatePicker) DatePickerElements() NSDatePickerElementFlags {
 func (d NSDatePicker) SetDatePickerElements(value NSDatePickerElementFlags) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDatePickerElements:"), value)
 }
+
 // The calendar used by the date picker.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/calendar
@@ -417,6 +422,7 @@ func (d NSDatePicker) Calendar() foundation.NSCalendar {
 func (d NSDatePicker) SetCalendar(value foundation.NSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
+
 // The date picker’s locale.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/locale
@@ -427,6 +433,7 @@ func (d NSDatePicker) Locale() foundation.NSLocale {
 func (d NSDatePicker) SetLocale(value foundation.NSLocale) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocale:"), value)
 }
+
 // The date picker’s mode.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/datePickerMode
@@ -437,6 +444,7 @@ func (d NSDatePicker) DatePickerMode() NSDatePickerMode {
 func (d NSDatePicker) SetDatePickerMode(value NSDatePickerMode) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDatePickerMode:"), value)
 }
+
 // The time zone for the date picker.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/timeZone
@@ -447,10 +455,11 @@ func (d NSDatePicker) TimeZone() foundation.NSTimeZone {
 func (d NSDatePicker) SetTimeZone(value foundation.NSTimeZone) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeZone:"), value)
 }
+
 // The date selected by the date picker.
 //
 // # Discussion
-// 
+//
 // When selecting a date range, this property represents the time interval’s
 // starting date.
 //
@@ -462,10 +471,11 @@ func (d NSDatePicker) DateValue() foundation.INSDate {
 func (d NSDatePicker) SetDateValue(value foundation.INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateValue:"), value)
 }
+
 // The time interval selected by the date picker.
 //
 // # Discussion
-// 
+//
 // The time interval that represents the receiver’s date range. The date
 // range begins at the date returned by [DateValue]. This method returns 0
 // when the receiver is not in the NSRangeDateMode mode.
@@ -478,10 +488,11 @@ func (d NSDatePicker) TimeInterval() float64 {
 func (d NSDatePicker) SetTimeInterval(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeInterval:"), value)
 }
+
 // The date picker’s minimum date value.
 //
 // # Discussion
-// 
+//
 // This property represents the minimum value that the date picker allows as
 // input. `nil` indicates no minimum date.
 //
@@ -493,10 +504,11 @@ func (d NSDatePicker) MinDate() foundation.INSDate {
 func (d NSDatePicker) SetMinDate(value foundation.INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinDate:"), value)
 }
+
 // The date picker’s maximum date value.
 //
 // # Discussion
-// 
+//
 // This property represents the maximum value that the date picker allows as
 // input. `nil` indicates no maximum date.
 //
@@ -508,4 +520,3 @@ func (d NSDatePicker) MaxDate() foundation.INSDate {
 func (d NSDatePicker) SetMaxDate(value foundation.INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaxDate:"), value)
 }
-

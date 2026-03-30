@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,6 +53,7 @@ type MPSCNNConvolutionGradientState struct {
 func MPSCNNConvolutionGradientStateFromID(id objc.ID) MPSCNNConvolutionGradientState {
 	return MPSCNNConvolutionGradientState{objectivec.Object{ID: id}}
 }
+
 // Ensure MPSCNNConvolutionGradientState implements IMPSCNNConvolutionGradientState.
 var _ IMPSCNNConvolutionGradientState = MPSCNNConvolutionGradientState{}
 
@@ -78,4 +80,3 @@ func NewMPSCNNConvolutionGradientState() MPSCNNConvolutionGradientState {
 	rv := objc.Send[MPSCNNConvolutionGradientState](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

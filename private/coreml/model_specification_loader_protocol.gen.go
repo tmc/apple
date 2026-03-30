@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -19,6 +20,7 @@ type MLModelSpecificationLoader interface {
 type MLModelSpecificationLoaderObject struct {
 	objectivec.Object
 }
+
 func (o MLModelSpecificationLoaderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -31,7 +33,6 @@ func MLModelSpecificationLoaderObjectFromID(id objc.ID) MLModelSpecificationLoad
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelSpecificationLoader/loadModelFromSpecification:configuration:error:
 func (o MLModelSpecificationLoaderObject) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("loadModelFromSpecification:configuration:error:"), specification, configuration)
@@ -39,5 +40,4 @@ func (o MLModelSpecificationLoaderObject) LoadModelFromSpecificationConfiguratio
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

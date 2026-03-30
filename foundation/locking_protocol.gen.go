@@ -28,6 +28,7 @@ type NSLocking interface {
 type NSLockingObject struct {
 	objectivec.Object
 }
+
 func (o NSLockingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -44,7 +45,7 @@ func NSLockingObjectFromID(id objc.ID) NSLockingObject {
 // can be acquired.
 //
 // # Discussion
-// 
+//
 // An application protects a critical section of code by requiring a thread to
 // acquire a lock before executing the code. Once the critical section is
 // completed, the thread relinquishes the lock by invoking [Unlock].
@@ -52,11 +53,11 @@ func NSLockingObjectFromID(id objc.ID) NSLockingObject {
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/lock()
 func (o NSLockingObject) Lock() {
 	objc.Send[struct{}](o.ID, objc.Sel("lock"))
-	}
+}
+
 // Relinquishes a previously acquired lock.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/unlock()
 func (o NSLockingObject) Unlock() {
 	objc.Send[struct{}](o.ID, objc.Sel("unlock"))
-	}
-
+}

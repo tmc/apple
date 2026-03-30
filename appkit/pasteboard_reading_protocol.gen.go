@@ -18,6 +18,7 @@ type NSPasteboardReading interface {
 type NSPasteboardReadingObject struct {
 	objectivec.Object
 }
+
 func (o NSPasteboardReadingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func NSPasteboardReadingObjectFromID(id objc.ID) NSPasteboardReadingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

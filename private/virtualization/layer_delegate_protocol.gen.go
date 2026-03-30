@@ -3,8 +3,8 @@
 package virtualization
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -19,6 +19,7 @@ type CALayerDelegate interface {
 type CALayerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o CALayerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -31,30 +32,28 @@ func CALayerDelegateObjectFromID(id objc.ID) CALayerDelegateObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/CALayerDelegate/actionForLayer:forKey:
 func (o CALayerDelegateObject) ActionForLayerForKey(layer objectivec.IObject, key objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("actionForLayer:forKey:"), layer, key)
 	return objectivec.Object{ID: rv}
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/CALayerDelegate/displayLayer:
 func (o CALayerDelegateObject) DisplayLayer(layer objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("displayLayer:"), layer)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/CALayerDelegate/drawLayer:inContext:
 func (o CALayerDelegateObject) DrawLayerInContext(layer objectivec.IObject, context *coregraphics.CGContextRef) {
 	objc.Send[struct{}](o.ID, objc.Sel("drawLayer:inContext:"), layer, context)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/CALayerDelegate/layerWillDraw:
 func (o CALayerDelegateObject) LayerWillDraw(draw objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("layerWillDraw:"), draw)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/CALayerDelegate/layoutSublayersOfLayer:
 func (o CALayerDelegateObject) LayoutSublayersOfLayer(layer objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("layoutSublayersOfLayer:"), layer)
-	}
-
+}

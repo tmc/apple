@@ -4,10 +4,12 @@ package appkit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // The optional methods that delegates of content storage objects implement to handle content processing.
@@ -22,6 +24,7 @@ type NSTextContentStorageDelegate interface {
 type NSTextContentStorageDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSTextContentStorageDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,25 +43,26 @@ func NSTextContentStorageDelegateObjectFromID(id objc.ID) NSTextContentStorageDe
 // textContentStorage: The object’s content manager.
 //
 // range: The [NSRange] that describes the extent of the string.
-// //
-// [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
 //
 // # Return Value
-// 
+//
 // A new [NSTextParagraph], or `nil`.
 //
 // # Discussion
-// 
+//
 // When non-`nil`, `textContentStorage` uses the text paragraph instead of
 // creating the standard [NSTextParagraph] with the attributed substring in
 // range. The attributed string for a custom text paragraph must have a length
 // of `range.Length()`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentStorageDelegate/textContentStorage(_:textParagraphWith:)
+//
+// [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
 func (o NSTextContentStorageDelegateObject) TextContentStorageTextParagraphWithRange(textContentStorage INSTextContentStorage, range_ foundation.NSRange) INSTextParagraph {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textContentStorage:textParagraphWithRange:"), textContentStorage, range_)
 	return NSTextParagraphFromID(rv)
-	}
+}
+
 // The method the framework calls to return the text element at a specific
 // location.
 //
@@ -67,11 +71,11 @@ func (o NSTextContentStorageDelegateObject) TextContentStorageTextParagraphWithR
 // location: The location of the element.
 //
 // # Return Value
-// 
+//
 // An [NSTextElement].
 //
 // # Discussion
-// 
+//
 // When non-`nil`, `textContentManager` uses the text element you specify
 // instead of creating one based on its standard mapping logic.
 //
@@ -79,7 +83,8 @@ func (o NSTextContentStorageDelegateObject) TextContentStorageTextParagraphWithR
 func (o NSTextContentStorageDelegateObject) TextContentManagerTextElementAtLocation(textContentManager INSTextContentManager, location NSTextLocation) INSTextElement {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textContentManager:textElementAtLocation:"), textContentManager, location)
 	return NSTextElementFromID(rv)
-	}
+}
+
 // Returns a Boolean value that indicates whether the framework should skip
 // this text element in the enumeration.
 //
@@ -90,7 +95,7 @@ func (o NSTextContentStorageDelegateObject) TextContentManagerTextElementAtLocat
 // options: One of the available [NSTextElementProviderEnumerationOptions] options.
 //
 // # Return Value
-// 
+//
 // A Boolean value that informs the framework to skip this `textElement` in
 // the enumeration. Returning `false` indicates `textElement` to be skipped;
 // otherwise the element is included in the enumeration.
@@ -99,7 +104,7 @@ func (o NSTextContentStorageDelegateObject) TextContentManagerTextElementAtLocat
 func (o NSTextContentStorageDelegateObject) TextContentManagerShouldEnumerateTextElementOptions(textContentManager INSTextContentManager, textElement INSTextElement, options NSTextContentManagerEnumerationOptions) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textContentManager:shouldEnumerateTextElement:options:"), textContentManager, textElement, options)
 	return rv
-	}
+}
 
 // NSTextContentStorageDelegateConfig holds optional typed callbacks for [NSTextContentStorageDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -161,4 +166,3 @@ func NewNSTextContentStorageDelegate(config NSTextContentStorageDelegateConfig) 
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextContentStorageDelegateObjectFromID(instance)
 }
-

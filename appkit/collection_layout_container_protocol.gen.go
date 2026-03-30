@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -39,6 +39,7 @@ type NSCollectionLayoutContainer interface {
 type NSCollectionLayoutContainerObject struct {
 	objectivec.Object
 }
+
 func (o NSCollectionLayoutContainerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func NSCollectionLayoutContainerObjectFromID(id objc.ID) NSCollectionLayoutConta
 func (o NSCollectionLayoutContainerObject) ContentSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("contentSize"))
 	return rv
-	}
+}
+
 // The size of the container after content insets are applied.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutContainer/effectiveContentSize
 func (o NSCollectionLayoutContainerObject) EffectiveContentSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("effectiveContentSize"))
 	return rv
-	}
+}
+
 // The amount of space added around the content of the container to adjust its
 // final size.
 //
@@ -72,7 +75,8 @@ func (o NSCollectionLayoutContainerObject) EffectiveContentSize() corefoundation
 func (o NSCollectionLayoutContainerObject) ContentInsets() NSDirectionalEdgeInsets {
 	rv := objc.Send[NSDirectionalEdgeInsets](o.ID, objc.Sel("contentInsets"))
 	return rv
-	}
+}
+
 // The amount of space added around the content of the container to adjust its
 // final size after item content insets are applied.
 //
@@ -80,5 +84,4 @@ func (o NSCollectionLayoutContainerObject) ContentInsets() NSDirectionalEdgeInse
 func (o NSCollectionLayoutContainerObject) EffectiveContentInsets() NSDirectionalEdgeInsets {
 	rv := objc.Send[NSDirectionalEdgeInsets](o.ID, objc.Sel("effectiveContentInsets"))
 	return rv
-	}
-
+}

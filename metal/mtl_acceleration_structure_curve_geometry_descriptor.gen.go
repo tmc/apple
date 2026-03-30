@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -92,6 +93,7 @@ type MTLAccelerationStructureCurveGeometryDescriptor struct {
 func MTLAccelerationStructureCurveGeometryDescriptorFromID(id objc.ID) MTLAccelerationStructureCurveGeometryDescriptor {
 	return MTLAccelerationStructureCurveGeometryDescriptor{MTLAccelerationStructureGeometryDescriptor: MTLAccelerationStructureGeometryDescriptorFromID(id)}
 }
+
 // NOTE: MTLAccelerationStructureCurveGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -212,18 +214,10 @@ func NewMTLAccelerationStructureCurveGeometryDescriptor() MTLAccelerationStructu
 	return rv
 }
 
-// Creates a curve geometry descriptor.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/descriptor
-func (_MTLAccelerationStructureCurveGeometryDescriptorClass MTLAccelerationStructureCurveGeometryDescriptorClass) Descriptor() MTLAccelerationStructureCurveGeometryDescriptor {
-	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructureCurveGeometryDescriptorClass.class), objc.Sel("descriptor"))
-	return MTLAccelerationStructureCurveGeometryDescriptorFromID(rv)
-}
-
 // A buffer that contains curve control points.
 //
 // # Discussion
-// 
+//
 // You provide control points in the format that matches the
 // [ControlPointFormat] property. This property needs to have a non-nil value
 // when you build an acceleration structure.
@@ -236,10 +230,11 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) ControlPointBuffer() MT
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetControlPointBuffer(value MTLBuffer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setControlPointBuffer:"), value)
 }
+
 // The offset, in bytes, to the control point data in the buffer.
 //
 // # Discussion
-// 
+//
 // The offset needs to be a multiple of the format element size you configure
 // with the [ControlPointFormat] property. You also need to align the offset
 // to the platform’s buffer alignment requirement.
@@ -252,6 +247,7 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) ControlPointBufferOffse
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetControlPointBufferOffset(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setControlPointBufferOffset:"), value)
 }
+
 // The number of control points in the control point buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/controlPointCount
@@ -262,13 +258,16 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) ControlPointCount() uin
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetControlPointCount(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setControlPointCount:"), value)
 }
+
 // The format of the control points in the buffer.
 //
 // # Discussion
-// 
-// The default value is [AttributeFormatFloat3].
+//
+// The default value is [MTLAttributeFormat.float3].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/controlPointFormat
+//
+// [MTLAttributeFormat.float3]: https://developer.apple.com/documentation/Metal/MTLAttributeFormat/float3
 func (a MTLAccelerationStructureCurveGeometryDescriptor) ControlPointFormat() MTLAttributeFormat {
 	rv := objc.Send[MTLAttributeFormat](a.ID, objc.Sel("controlPointFormat"))
 	return MTLAttributeFormat(rv)
@@ -276,10 +275,11 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) ControlPointFormat() MT
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetControlPointFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](a.ID, objc.Sel("setControlPointFormat:"), value)
 }
+
 // The stride, in bytes, between control points in the buffer.
 //
 // # Discussion
-// 
+//
 // The stride needs to be a multiple of the format element size you configure
 // with the [ControlPointFormat] property, and at least the format’s size.
 // The default value is `0`, which indicates that the control point elements
@@ -293,13 +293,16 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) ControlPointStride() ui
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetControlPointStride(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setControlPointStride:"), value)
 }
+
 // The basis function for the curve geometry.
 //
 // # Discussion
-// 
-// The default value is [CurveBasisBSpline].
+//
+// The default value is [MTLCurveBasis.bSpline].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/curveBasis
+//
+// [MTLCurveBasis.bSpline]: https://developer.apple.com/documentation/Metal/MTLCurveBasis/bSpline
 func (a MTLAccelerationStructureCurveGeometryDescriptor) CurveBasis() MTLCurveBasis {
 	rv := objc.Send[MTLCurveBasis](a.ID, objc.Sel("curveBasis"))
 	return MTLCurveBasis(rv)
@@ -307,11 +310,12 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) CurveBasis() MTLCurveBa
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetCurveBasis(value MTLCurveBasis) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurveBasis:"), value)
 }
+
 // An end-cap type for the curves in the geometry.
 //
 // # Discussion
-// 
-// The default value is [CurveEndCapsNone].
+//
+// The default value is [MTLCurveEndCapsNone].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/curveEndCaps
 func (a MTLAccelerationStructureCurveGeometryDescriptor) CurveEndCaps() MTLCurveEndCaps {
@@ -321,11 +325,12 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) CurveEndCaps() MTLCurve
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetCurveEndCaps(value MTLCurveEndCaps) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurveEndCaps:"), value)
 }
+
 // A curve type for curves in the geometry.
 //
 // # Discussion
-// 
-// The default value is [CurveTypeRound].
+//
+// The default value is [MTLCurveTypeRound].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/curveType
 func (a MTLAccelerationStructureCurveGeometryDescriptor) CurveType() MTLCurveType {
@@ -335,11 +340,12 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) CurveType() MTLCurveTyp
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetCurveType(value MTLCurveType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurveType:"), value)
 }
+
 // A buffer that contains references to control points in the control point
 // buffer.
 //
 // # Discussion
-// 
+//
 // This property needs to have a non-nil value when you build an acceleration
 // structure.
 //
@@ -351,10 +357,11 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) IndexBuffer() MTLBuffer
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetIndexBuffer(value MTLBuffer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIndexBuffer:"), value)
 }
+
 // The offset, in bytes, to the index data in the buffer.
 //
 // # Discussion
-// 
+//
 // The offset needs to be a multiple of the index data type you configure with
 // the [IndexType] property. You also need to align the offset to both the
 // index type’s size and the platform’s buffer alignment requirement.
@@ -367,12 +374,14 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) IndexBufferOffset() uin
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetIndexBufferOffset(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIndexBufferOffset:"), value)
 }
+
 // The size of each index in the index buffer.
 //
 // # Discussion
-// 
+//
 // Set this property to a value that reflects the size of the indices in the
-// [IndexBuffer] property, such as [IndexTypeUInt16] or [IndexTypeUInt32].
+// [IndexBuffer] property, such as [MTLIndexTypeUInt16] or
+// [MTLIndexTypeUInt32].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/indexType
 func (a MTLAccelerationStructureCurveGeometryDescriptor) IndexType() MTLIndexType {
@@ -382,10 +391,11 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) IndexType() MTLIndexTyp
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetIndexType(value MTLIndexType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIndexType:"), value)
 }
+
 // A buffer that contains the curve radius for each control point.
 //
 // # Discussion
-// 
+//
 // The buffer contains values that are greater than or equal to `0.0` in the
 // format you configure with the [RadiusFormat] property. This property needs
 // to have a non-nil value when you build an acceleration structure.
@@ -398,10 +408,11 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) RadiusBuffer() MTLBuffe
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetRadiusBuffer(value MTLBuffer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRadiusBuffer:"), value)
 }
+
 // The offset, in bytes, to the radius data in the buffer.
 //
 // # Discussion
-// 
+//
 // The offset needs to be a multiple of the radius format you configure with
 // the [RadiusFormat] property. You also need to align the offset to both the
 // radius format’s size and the platform’s buffer alignment requirement.
@@ -414,13 +425,16 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) RadiusBufferOffset() ui
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetRadiusBufferOffset(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRadiusBufferOffset:"), value)
 }
+
 // The format of each radius in the radius buffer.
 //
 // # Discussion
-// 
-// The property’s default value is [AttributeFormatFloat].
+//
+// The property’s default value is [MTLAttributeFormat.float].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/radiusFormat
+//
+// [MTLAttributeFormat.float]: https://developer.apple.com/documentation/Metal/MTLAttributeFormat/float
 func (a MTLAccelerationStructureCurveGeometryDescriptor) RadiusFormat() MTLAttributeFormat {
 	rv := objc.Send[MTLAttributeFormat](a.ID, objc.Sel("radiusFormat"))
 	return MTLAttributeFormat(rv)
@@ -428,10 +442,11 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) RadiusFormat() MTLAttri
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetRadiusFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRadiusFormat:"), value)
 }
+
 // The stride, in bytes, between the radius elements in the radius buffer.
 //
 // # Discussion
-// 
+//
 // The stride needs to be a multiple of the radius format size you configure
 // with the [RadiusFormat] property. The default value is `0`, which indicates
 // that the radius elements in the buffer have zero bytes of padding between
@@ -445,10 +460,11 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) RadiusStride() uint {
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetRadiusStride(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRadiusStride:"), value)
 }
+
 // The number of control points in each curve segment.
 //
 // # Discussion
-// 
+//
 // This value can be `2`, `3`, or `4`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/segmentControlPointCount
@@ -459,6 +475,7 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SegmentControlPointCoun
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetSegmentControlPointCount(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSegmentControlPointCount:"), value)
 }
+
 // The number of curve segments in each curve of the geometry.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCurveGeometryDescriptor/segmentCount
@@ -469,4 +486,3 @@ func (a MTLAccelerationStructureCurveGeometryDescriptor) SegmentCount() uint {
 func (a MTLAccelerationStructureCurveGeometryDescriptor) SetSegmentCount(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSegmentCount:"), value)
 }
-

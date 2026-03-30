@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (vc VZRotationEventClass) Alloc() VZRotationEvent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZRotationEvent.Phase]
 //   - [VZRotationEvent.Rotation]
 //   - [VZRotationEvent.InitWithEvent]
 //   - [VZRotationEvent.InitWithRotationPhase]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent
 type VZRotationEvent struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type VZRotationEvent struct {
 func VZRotationEventFromID(id objc.ID) VZRotationEvent {
 	return VZRotationEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure VZRotationEvent implements IVZRotationEvent.
 var _ IVZRotationEvent = VZRotationEvent{}
 
@@ -100,7 +102,6 @@ func NewVZRotationEvent() VZRotationEvent {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/initWithEvent:
 func NewVZRotationEventWithEvent(event objectivec.IObject) VZRotationEvent {
 	instance := getVZRotationEventClass().Alloc()
@@ -108,7 +109,6 @@ func NewVZRotationEventWithEvent(event objectivec.IObject) VZRotationEvent {
 	return VZRotationEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/initWithRotation:phase:
 func NewVZRotationEventWithRotationPhase(rotation float64, phase uint64) VZRotationEvent {
 	instance := getVZRotationEventClass().Alloc()
@@ -116,13 +116,12 @@ func NewVZRotationEventWithRotationPhase(rotation float64, phase uint64) VZRotat
 	return VZRotationEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/initWithEvent:
 func (v VZRotationEvent) InitWithEvent(event objectivec.IObject) VZRotationEvent {
 	rv := objc.Send[VZRotationEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/initWithRotation:phase:
 func (v VZRotationEvent) InitWithRotationPhase(rotation float64, phase uint64) VZRotationEvent {
 	rv := objc.Send[VZRotationEvent](v.ID, objc.Sel("initWithRotation:phase:"), rotation, phase)
@@ -134,9 +133,9 @@ func (v VZRotationEvent) Phase() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("phase"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZRotationEvent/rotation
 func (v VZRotationEvent) Rotation() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("rotation"))
 	return rv
 }
-

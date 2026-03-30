@@ -4,9 +4,11 @@ package avfoundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // Methods you can implement to respond to pixel buffer changes.
@@ -20,6 +22,7 @@ type AVPlayerItemOutputPullDelegate interface {
 type AVPlayerItemOutputPullDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVPlayerItemOutputPullDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,21 +40,22 @@ func AVPlayerItemOutputPullDelegateObjectFromID(id objc.ID) AVPlayerItemOutputPu
 // sender: The output object that sent the message.
 //
 // # Discussion
-// 
+//
 // You can use this method to prepare for any new sample data. This method is
-// called at some point after a call to your video output object’s ``
+// called at some point after a call to your video output object’s “
 // method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutputPullDelegate/outputMediaDataWillChange(_:)
 func (o AVPlayerItemOutputPullDelegateObject) OutputMediaDataWillChange(sender IAVPlayerItemOutput) {
 	objc.Send[struct{}](o.ID, objc.Sel("outputMediaDataWillChange:"), sender)
-	}
+}
+
 // Tells the delegate that a new sample sequence is commencing.
 //
 // output: The output object that sent the message.
 //
 // # Discussion
-// 
+//
 // This method is called after any attempt to seek or change the playback
 // direction of the item’s content. If you are maintaining any queued future
 // samples, you can use your implementation of this method to discard those
@@ -60,7 +64,7 @@ func (o AVPlayerItemOutputPullDelegateObject) OutputMediaDataWillChange(sender I
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutputPullDelegate/outputSequenceWasFlushed(_:)
 func (o AVPlayerItemOutputPullDelegateObject) OutputSequenceWasFlushed(output IAVPlayerItemOutput) {
 	objc.Send[struct{}](o.ID, objc.Sel("outputSequenceWasFlushed:"), output)
-	}
+}
 
 // AVPlayerItemOutputPullDelegateConfig holds optional typed callbacks for [AVPlayerItemOutputPullDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -135,4 +139,3 @@ func NewAVPlayerItemOutputPullDelegate(config AVPlayerItemOutputPullDelegateConf
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVPlayerItemOutputPullDelegateObjectFromID(instance)
 }
-

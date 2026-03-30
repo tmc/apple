@@ -4,10 +4,12 @@ package appkit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // The optional methods that delegates of text storage objects implement to handle text-edit processing.
@@ -21,6 +23,7 @@ type NSTextStorageDelegate interface {
 type NSTextStorageDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSTextStorageDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -38,18 +41,18 @@ func NSTextStorageDelegateObjectFromID(id objc.ID) NSTextStorageDelegateObject {
 //
 // textStorage: The text storage object processing edits.
 //
-// editedMask: The types of edits to do: [TextStorageEditedAttributes]
-// [TextStorageEditedCharacters], or both.
+// editedMask: The types of edits to do: [NSTextStorageEditedAttributes]
+// [NSTextStorageEditedCharacters], or both.
 //
 // editedRange: The range in the original string (before the edit).
 //
 // delta: The length delta for the editing changes.
 //
 // # Discussion
-// 
+//
 // Sent inside [ProcessEditing] right before fixing attributes. Delegates can
 // change the characters or attributes.
-// 
+//
 // The delegate can verify the changed state of the text storage object and
 // make changes to the text storage object’s characters or attributes to
 // enforce whatever constraints it establishes. Programmatic changes don’t
@@ -58,24 +61,25 @@ func NSTextStorageDelegateObjectFromID(id objc.ID) NSTextStorageDelegateObject {
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageDelegate/textStorage(_:willProcessEditing:range:changeInLength:)
 func (o NSTextStorageDelegateObject) TextStorageWillProcessEditingRangeChangeInLength(textStorage NSTextStorage, editedMask NSTextStorageEditActions, editedRange foundation.NSRange, delta int) {
 	objc.Send[struct{}](o.ID, objc.Sel("textStorage:willProcessEditing:range:changeInLength:"), textStorage, editedMask, editedRange, delta)
-	}
+}
+
 // The method the framework calls when a text storage object has finished
 // processing edits.
 //
 // textStorage: The text storage object processing edits.
 //
-// editedMask: The types of edits done: [TextStorageEditedAttributes],
-// [TextStorageEditedCharacters], or both.
+// editedMask: The types of edits done: [NSTextStorageEditedAttributes],
+// [NSTextStorageEditedCharacters], or both.
 //
 // editedRange: The range in the original string (before the edit).
 //
 // delta: The length delta for the editing changes.
 //
 // # Discussion
-// 
+//
 // Sent inside [ProcessEditing] right before notifying layout managers.
 // Delegates can change the attributes.
-// 
+//
 // The delegate can verify the final state of the text storage object; it
 // can’t change the text storage object’s characters without leaving it in
 // an inconsistent state, but if necessary it can change attributes. Note that
@@ -87,7 +91,7 @@ func (o NSTextStorageDelegateObject) TextStorageWillProcessEditingRangeChangeInL
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageDelegate/textStorage(_:didProcessEditing:range:changeInLength:)
 func (o NSTextStorageDelegateObject) TextStorageDidProcessEditingRangeChangeInLength(textStorage NSTextStorage, editedMask NSTextStorageEditActions, editedRange foundation.NSRange, delta int) {
 	objc.Send[struct{}](o.ID, objc.Sel("textStorage:didProcessEditing:range:changeInLength:"), textStorage, editedMask, editedRange, delta)
-	}
+}
 
 // NSTextStorageDelegateConfig holds optional typed callbacks for [NSTextStorageDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -162,4 +166,3 @@ func NewNSTextStorageDelegate(config NSTextStorageDelegateConfig) NSTextStorageD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextStorageDelegateObjectFromID(instance)
 }
-

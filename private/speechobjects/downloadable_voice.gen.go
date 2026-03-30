@@ -4,8 +4,9 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (dc DownloadableVoiceClass) Alloc() DownloadableVoice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DownloadableVoice.ByteSize]
@@ -58,6 +58,7 @@ func (dc DownloadableVoiceClass) Alloc() DownloadableVoice {
 //   - [DownloadableVoice.VoiceIdentifierToMarkAsPurgeableAfterInstall]
 //   - [DownloadableVoice.InitWithVoiceIDProperties]
 //   - [DownloadableVoice.Version]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice
 type DownloadableVoice struct {
 	SOVoiceObject
@@ -67,6 +68,7 @@ type DownloadableVoice struct {
 func DownloadableVoiceFromID(id objc.ID) DownloadableVoice {
 	return DownloadableVoice{SOVoiceObject: SOVoiceObjectFromID(id)}
 }
+
 // Ensure DownloadableVoice implements IDownloadableVoice.
 var _ IDownloadableVoice = DownloadableVoice{}
 
@@ -128,7 +130,6 @@ func NewDownloadableVoice() DownloadableVoice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/initWithVoiceID:properties:
 func NewDownloadableVoiceWithVoiceIDProperties(id objectivec.IObject, properties objectivec.IObject) DownloadableVoice {
 	instance := getDownloadableVoiceClass().Alloc()
@@ -136,7 +137,6 @@ func NewDownloadableVoiceWithVoiceIDProperties(id objectivec.IObject, properties
 	return DownloadableVoiceFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceObject/initWithVoice:identifier:
 func NewDownloadableVoiceWithVoiceIdentifier(voice objectivec.IObject, identifier objectivec.IObject) DownloadableVoice {
 	instance := getDownloadableVoiceClass().Alloc()
@@ -149,7 +149,7 @@ func (d DownloadableVoice) DisplayedSize() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("displayedSize"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/initWithVoiceID:properties:
 func (d DownloadableVoice) InitWithVoiceIDProperties(id objectivec.IObject, properties objectivec.IObject) DownloadableVoice {
 	rv := objc.Send[DownloadableVoice](d.ID, objc.Sel("initWithVoiceID:properties:"), id, properties)
@@ -161,26 +161,31 @@ func (d DownloadableVoice) ByteSize() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("byteSize"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/compactSizeBundleIdentifier
 func (d DownloadableVoice) CompactSizeBundleIdentifier() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("compactSizeBundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/compactSizeByteSize
 func (d DownloadableVoice) CompactSizeByteSize() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("compactSizeByteSize"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/compactSizeTagName
 func (d DownloadableVoice) CompactSizeTagName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("compactSizeTagName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/compactSizeVersion
 func (d DownloadableVoice) CompactSizeVersion() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("compactSizeVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/downloadCompactSize
 func (d DownloadableVoice) DownloadCompactSize() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("downloadCompactSize"))
@@ -189,24 +194,27 @@ func (d DownloadableVoice) DownloadCompactSize() bool {
 func (d DownloadableVoice) SetDownloadCompactSize(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDownloadCompactSize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/tagName
 func (d DownloadableVoice) TagName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("tagName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/variant
 func (d DownloadableVoice) Variant() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("variant"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/version
 func (d DownloadableVoice) Version() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("version"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/DownloadableVoice/voiceIdentifierToMarkAsPurgeableAfterInstall
 func (d DownloadableVoice) VoiceIdentifierToMarkAsPurgeableAfterInstall() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("voiceIdentifierToMarkAsPurgeableAfterInstall"))
 	return foundation.NSStringFromID(rv).String()
 }
-

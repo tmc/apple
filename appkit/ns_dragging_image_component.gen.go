@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSDraggingImageComponentClass) Alloc() NSDraggingImageComponent {
 // A single object in a dragging item.
 //
 // # Overview
-// 
+//
 // An array of [NSDraggingImageComponent] instances are composited together to
 // create the dragging image for an [NSDraggingItem].
 // [NSDraggingImageComponent] instances can simply be considered as named
@@ -79,6 +80,7 @@ type NSDraggingImageComponent struct {
 func NSDraggingImageComponentFromID(id objc.ID) NSDraggingImageComponent {
 	return NSDraggingImageComponent{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSDraggingImageComponent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -149,11 +151,11 @@ func NewNSDraggingImageComponent() NSDraggingImageComponent {
 // key: The key.
 //
 // # Return Value
-// 
+//
 // An initialized dragging image component with the specified key.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingImageComponent/init(key:)
@@ -168,11 +170,11 @@ func NewDraggingImageComponentWithKey(key NSDraggingImageComponentKey) NSDraggin
 // key: The key.
 //
 // # Return Value
-// 
+//
 // An initialized dragging image component with the specified key.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingImageComponent/init(key:)
@@ -181,21 +183,35 @@ func (d NSDraggingImageComponent) InitWithKey(key NSDraggingImageComponentKey) N
 	return rv
 }
 
+// Creates and returns a dragging image component with the specified key.
+//
+// key: The key.
+//
+// # Return Value
+//
+// A dragging image component with the specified key.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingImageComponent/draggingImageComponentWithKey:
+func (_NSDraggingImageComponentClass NSDraggingImageComponentClass) DraggingImageComponentWithKey(key NSDraggingImageComponentKey) NSDraggingImageComponent {
+	rv := objc.Send[objc.ID](objc.ID(_NSDraggingImageComponentClass.class), objc.Sel("draggingImageComponentWithKey:"), objc.String(string(key)))
+	return NSDraggingImageComponentFromID(rv)
+}
+
 // The unique name of this image component instance.
 //
 // # Discussion
-// 
+//
 // The key must be unique for each component in an [NSDraggingItem] instance.
 // You can create your own named components, however the keys described in
 // [NSDragImage Component Keys] have special meanings.
-// 
+//
 // When an NSDraggingItem instances [ImageComponents] are changed by one of
-// the `` methods the image associated with this key is morphed into the new
+// the “ methods the image associated with this key is morphed into the new
 // image component’s image associated with the same key.
 //
-// [NSDragImage Component Keys]: https://developer.apple.com/documentation/AppKit/nsdragimage-component-keys
-//
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingImageComponent/key
+//
+// [NSDragImage Component Keys]: https://developer.apple.com/documentation/AppKit/nsdragimage-component-keys
 func (d NSDraggingImageComponent) Key() NSDraggingImageComponentKey {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("key"))
 	return NSDraggingImageComponentKey(foundation.NSStringFromID(rv).String())
@@ -203,15 +219,16 @@ func (d NSDraggingImageComponent) Key() NSDraggingImageComponentKey {
 func (d NSDraggingImageComponent) SetKey(value NSDraggingImageComponentKey) {
 	objc.Send[struct{}](d.ID, objc.Sel("setKey:"), objc.String(string(value)))
 }
+
 // An object providing the image contents of the component.
 //
 // # Discussion
-// 
+//
 // Typically you set an [NSImage] instance or a [CGImage] as content.
 //
-// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
-//
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingImageComponent/contents
+//
+// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 func (d NSDraggingImageComponent) Contents() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("contents"))
 	return objectivec.Object{ID: rv}
@@ -219,13 +236,14 @@ func (d NSDraggingImageComponent) Contents() objectivec.IObject {
 func (d NSDraggingImageComponent) SetContents(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContents:"), value)
 }
+
 // The coordinate space is the bounds of the parent dragging item.
 //
 // # Discussion
-// 
+//
 // The frame is {{0,0}, {`draggingFrame.SizeXCUIElementTypeWidth()`,
 // `draggingFrame.SizeXCUIElementTypeHeight()`}}.
-// 
+//
 // The coordinate space is the bounds of the parent [NSDraggingItem]
 // instance’s [DraggingFrame].
 //
@@ -237,4 +255,3 @@ func (d NSDraggingImageComponent) Frame() corefoundation.CGRect {
 func (d NSDraggingImageComponent) SetFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFrame:"), value)
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,11 +46,11 @@ func (pc PortMessageClass) Alloc() PortMessage {
 // inter-thread) messages.
 //
 // # Overview
-// 
+//
 // Port messages are used primarily by the distributed objects system. You
 // should implement inter-application communication using distributed objects
 // whenever possible and use [NSPortMessage] only when necessary.
-// 
+//
 // An [NSPortMessage] object has three major parts: the send and receive
 // ports, which are [NSPort] objects that link the sender of the message to
 // the receiver, and the components, which form the body of the message. The
@@ -57,13 +58,13 @@ func (pc PortMessageClass) Alloc() PortMessage {
 // objects. The [SendBeforeDate] message sends the components out through the
 // send port; any replies to the message arrive on the receive port. See the
 // [NSPort] class specification for information on handling incoming messages.
-// 
+//
 // An [NSPortMessage] instance can be initialized with a pair of [NSPort]
 // objects and an array of components. A port message’s body can contain
 // only [NSPort] objects or [NSData] objects. In the distributed objects
 // system the byte/character arrays are usually encoded [NSInvocation] objects
 // that are being forwarded from a proxy to the corresponding real object.
-// 
+//
 // An [NSPortMessage] object also maintains a message identifier, which can be
 // used to indicate the class of a message, such as an Objective-C method
 // invocation, a connection request, an error, and so on. Use the [Msgid] and
@@ -106,6 +107,7 @@ func PortMessageFromID(id objc.ID) PortMessage {
 
 // NSPortMessageFromID is an alias for [PortMessageFromID] for cross-framework compatibility.
 func NSPortMessageFromID(id objc.ID) PortMessage { return PortMessageFromID(id) }
+
 // NOTE: PortMessage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -197,15 +199,15 @@ func NewPortMessage() PortMessage {
 // network byte order.
 //
 // # Return Value
-// 
+//
 // An [NSPortMessage] object initialized to send `components` on `sendPort`
 // and to receiver replies on `receivePort`.
 //
 // # Discussion
-// 
+//
 // An [NSPortMessage] object initialized with this method has a message
 // identifier of 0.
-// 
+//
 // This is the designated initializer for [NSPortMessage].
 //
 // See: https://developer.apple.com/documentation/Foundation/PortMessage/init(send:receive:components:)
@@ -227,15 +229,15 @@ func NewPortMessageWithSendPortReceivePortComponents(sendPort INSPort, replyPort
 // network byte order.
 //
 // # Return Value
-// 
+//
 // An [NSPortMessage] object initialized to send `components` on `sendPort`
 // and to receiver replies on `receivePort`.
 //
 // # Discussion
-// 
+//
 // An [NSPortMessage] object initialized with this method has a message
 // identifier of 0.
-// 
+//
 // This is the designated initializer for [NSPortMessage].
 //
 // See: https://developer.apple.com/documentation/Foundation/PortMessage/init(send:receive:components:)
@@ -243,25 +245,23 @@ func (p PortMessage) InitWithSendPortReceivePortComponents(sendPort INSPort, rep
 	rv := objc.Send[PortMessage](p.ID, objc.Sel("initWithSendPort:receivePort:components:"), sendPort, replyPort, components)
 	return rv
 }
+
 // Attempts to send the message before the specified date.
 //
 // date: The instant before which the message should be sent.
 //
 // # Return Value
-// 
-// [true] if the operation is successful, otherwise [false] (for example, if
-// the operation times out).
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the operation is successful, otherwise false (for example, if the
+// operation times out).
 //
 // # Discussion
-// 
+//
 // If an error other than a time out occurs, this method could raise an
 // [NSInvalidSendPortException], [NSInvalidReceivePortException], or an
 // [NSPortSendException], depending on the type of send port and the type of
 // error.
-// 
+//
 // If the message cannot be sent immediately, the sending thread blocks until
 // either the message is sent or `aDate` is reached. Sent messages are queued
 // to minimize blocking, but failure can occur if multiple messages are sent
@@ -280,7 +280,7 @@ func (p PortMessage) SendBeforeDate(date INSDate) bool {
 // Returns the data components of the receiver.
 //
 // # Return Value
-// 
+//
 // The data components of the receiver. See [NSPortMessage] for more
 // information.
 //
@@ -289,12 +289,13 @@ func (p PortMessage) Components() INSArray {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("components"))
 	return NSArrayFromID(objc.ID(rv))
 }
+
 // For an outgoing message, returns the port on which replies to the receiver
 // will arrive. For an incoming message, returns the port the receiver did
 // arrive on.
 //
 // # Return Value
-// 
+//
 // For an outgoing message, the port on which replies to the receiver will
 // arrive. For an incoming message, the port the receiver did arrive on.
 //
@@ -303,12 +304,13 @@ func (p PortMessage) ReceivePort() INSPort {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("receivePort"))
 	return NSPortFromID(objc.ID(rv))
 }
+
 // For an outgoing message, returns the port the receiver will send itself
 // through. For an incoming message, returns the port replies to the receiver
 // should be sent through.
 //
 // # Return Value
-// 
+//
 // For an outgoing message, the port the receiver will send itself through
 // when it receives a [SendBeforeDate] message. For an incoming message, the
 // port replies to the receiver should be sent through.
@@ -318,14 +320,15 @@ func (p PortMessage) SendPort() INSPort {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("sendPort"))
 	return NSPortFromID(objc.ID(rv))
 }
+
 // Returns the identifier for the receiver.
 //
 // # Return Value
-// 
+//
 // The identifier for the receiver.
-// 
+//
 // # Discussion
-// 
+//
 // Cooperating applications can use this to define different types of
 // messages, such as connection requests, RPCs, errors, and so on.
 //
@@ -337,4 +340,3 @@ func (p PortMessage) Msgid() uint32 {
 func (p PortMessage) SetMsgid(value uint32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMsgid:"), value)
 }
-

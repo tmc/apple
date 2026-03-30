@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZSpiceAgentPortAttachment] class.
@@ -59,6 +60,7 @@ type VZSpiceAgentPortAttachment struct {
 func VZSpiceAgentPortAttachmentFromID(id objc.ID) VZSpiceAgentPortAttachment {
 	return VZSpiceAgentPortAttachment{VZSerialPortAttachment: VZSerialPortAttachmentFromID(id)}
 }
+
 // NOTE: VZSpiceAgentPortAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,4 +120,3 @@ func (_VZSpiceAgentPortAttachmentClass VZSpiceAgentPortAttachmentClass) SpiceAge
 	rv := objc.Send[objc.ID](objc.ID(_VZSpiceAgentPortAttachmentClass.class), objc.Sel("spiceAgentPortName"))
 	return foundation.NSStringFromID(rv).String()
 }
-

@@ -11,8 +11,8 @@ type AudioDeviceClockAlgorithmSelector uint32
 
 const (
 	KAudioDeviceClockAlgorithm12PtMovingWindowAverage AudioDeviceClockAlgorithmSelector = 0
-	KAudioDeviceClockAlgorithmRaw AudioDeviceClockAlgorithmSelector = 0
-	KAudioDeviceClockAlgorithmSimpleIIR AudioDeviceClockAlgorithmSelector = 0
+	KAudioDeviceClockAlgorithmRaw                     AudioDeviceClockAlgorithmSelector = 0
+	KAudioDeviceClockAlgorithmSimpleIIR               AudioDeviceClockAlgorithmSelector = 0
 )
 
 func (e AudioDeviceClockAlgorithmSelector) String() string {
@@ -29,7 +29,7 @@ type AudioHardwarePowerHint uint32
 
 const (
 	KAudioHardwarePowerHintFavorSavingPower AudioHardwarePowerHint = 1
-	KAudioHardwarePowerHintNone AudioHardwarePowerHint = 0
+	KAudioHardwarePowerHintNone             AudioHardwarePowerHint = 0
 )
 
 func (e AudioHardwarePowerHint) String() string {
@@ -50,19 +50,19 @@ const (
 	KAudioLevelControlTranferFunction10Over1 AudioLevelControlTransferFunction = 13
 	KAudioLevelControlTranferFunction11Over1 AudioLevelControlTransferFunction = 14
 	KAudioLevelControlTranferFunction12Over1 AudioLevelControlTransferFunction = 15
-	KAudioLevelControlTranferFunction1Over2 AudioLevelControlTransferFunction = 2
-	KAudioLevelControlTranferFunction1Over3 AudioLevelControlTransferFunction = 1
-	KAudioLevelControlTranferFunction2Over1 AudioLevelControlTransferFunction = 5
-	KAudioLevelControlTranferFunction3Over1 AudioLevelControlTransferFunction = 6
-	KAudioLevelControlTranferFunction3Over2 AudioLevelControlTransferFunction = 4
-	KAudioLevelControlTranferFunction3Over4 AudioLevelControlTransferFunction = 3
-	KAudioLevelControlTranferFunction4Over1 AudioLevelControlTransferFunction = 7
-	KAudioLevelControlTranferFunction5Over1 AudioLevelControlTransferFunction = 8
-	KAudioLevelControlTranferFunction6Over1 AudioLevelControlTransferFunction = 9
-	KAudioLevelControlTranferFunction7Over1 AudioLevelControlTransferFunction = 10
-	KAudioLevelControlTranferFunction8Over1 AudioLevelControlTransferFunction = 11
-	KAudioLevelControlTranferFunction9Over1 AudioLevelControlTransferFunction = 12
-	KAudioLevelControlTranferFunctionLinear AudioLevelControlTransferFunction = 0
+	KAudioLevelControlTranferFunction1Over2  AudioLevelControlTransferFunction = 2
+	KAudioLevelControlTranferFunction1Over3  AudioLevelControlTransferFunction = 1
+	KAudioLevelControlTranferFunction2Over1  AudioLevelControlTransferFunction = 5
+	KAudioLevelControlTranferFunction3Over1  AudioLevelControlTransferFunction = 6
+	KAudioLevelControlTranferFunction3Over2  AudioLevelControlTransferFunction = 4
+	KAudioLevelControlTranferFunction3Over4  AudioLevelControlTransferFunction = 3
+	KAudioLevelControlTranferFunction4Over1  AudioLevelControlTransferFunction = 7
+	KAudioLevelControlTranferFunction5Over1  AudioLevelControlTransferFunction = 8
+	KAudioLevelControlTranferFunction6Over1  AudioLevelControlTransferFunction = 9
+	KAudioLevelControlTranferFunction7Over1  AudioLevelControlTransferFunction = 10
+	KAudioLevelControlTranferFunction8Over1  AudioLevelControlTransferFunction = 11
+	KAudioLevelControlTranferFunction9Over1  AudioLevelControlTransferFunction = 12
+	KAudioLevelControlTranferFunctionLinear  AudioLevelControlTransferFunction = 0
 )
 
 func (e AudioLevelControlTransferFunction) String() string {
@@ -108,16 +108,16 @@ func (e AudioLevelControlTransferFunction) String() string {
 type AudioServerPlugInIOOperation uint32
 
 const (
-	KAudioServerPlugInIOOperationConvertInput AudioServerPlugInIOOperation = 0
-	KAudioServerPlugInIOOperationConvertMix AudioServerPlugInIOOperation = 0
-	KAudioServerPlugInIOOperationCycle AudioServerPlugInIOOperation = 0
-	KAudioServerPlugInIOOperationMixOutput AudioServerPlugInIOOperation = 0
-	KAudioServerPlugInIOOperationProcessInput AudioServerPlugInIOOperation = 0
-	KAudioServerPlugInIOOperationProcessMix AudioServerPlugInIOOperation = 0
+	KAudioServerPlugInIOOperationConvertInput  AudioServerPlugInIOOperation = 0
+	KAudioServerPlugInIOOperationConvertMix    AudioServerPlugInIOOperation = 0
+	KAudioServerPlugInIOOperationCycle         AudioServerPlugInIOOperation = 0
+	KAudioServerPlugInIOOperationMixOutput     AudioServerPlugInIOOperation = 0
+	KAudioServerPlugInIOOperationProcessInput  AudioServerPlugInIOOperation = 0
+	KAudioServerPlugInIOOperationProcessMix    AudioServerPlugInIOOperation = 0
 	KAudioServerPlugInIOOperationProcessOutput AudioServerPlugInIOOperation = 0
-	KAudioServerPlugInIOOperationReadInput AudioServerPlugInIOOperation = 0
-	KAudioServerPlugInIOOperationThread AudioServerPlugInIOOperation = 0
-	KAudioServerPlugInIOOperationWriteMix AudioServerPlugInIOOperation = 0
+	KAudioServerPlugInIOOperationReadInput     AudioServerPlugInIOOperation = 0
+	KAudioServerPlugInIOOperationThread        AudioServerPlugInIOOperation = 0
+	KAudioServerPlugInIOOperationWriteMix      AudioServerPlugInIOOperation = 0
 )
 
 func (e AudioServerPlugInIOOperation) String() string {
@@ -133,9 +133,9 @@ func (e AudioServerPlugInIOOperation) String() string {
 type CATapMuteBehavior int
 
 const (
-	CATapMuted CATapMuteBehavior = 0
+	CATapMuted           CATapMuteBehavior = 0
 	CATapMutedWhenTapped CATapMuteBehavior = 0
-	CATapUnmuted CATapMuteBehavior = 0
+	CATapUnmuted         CATapMuteBehavior = 0
 )
 
 func (e CATapMuteBehavior) String() string {
@@ -150,58 +150,58 @@ func (e CATapMuteBehavior) String() string {
 type KAudio uint
 
 const (
-	KAudioBooleanControlClassID KAudio = 't'<<24 | 'o'<<16 | 'g'<<8 | 'l' // 'togl'
-	KAudioClipLightControlClassID KAudio = 'c'<<24 | 'l'<<16 | 'i'<<8 | 'p' // 'clip'
-	KAudioClockSourceControlClassID KAudio = 'c'<<24 | 'l'<<16 | 'c'<<8 | 'k' // 'clck'
-	KAudioDataDestinationControlClassID KAudio = 'd'<<24 | 'e'<<16 | 's'<<8 | 't' // 'dest'
-	KAudioDataSourceControlClassID KAudio = 'd'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'dsrc'
-	KAudioDevicePermissionsError KAudio = '!'<<24 | 'h'<<16 | 'o'<<8 | 'g' // '!hog'
-	KAudioDevicePropertyAvailableNominalSampleRates KAudio = 'n'<<24 | 's'<<16 | 'r'<<8 | '#' // 'nsr#'
-	KAudioDevicePropertyClockDomain KAudio = 'c'<<24 | 'l'<<16 | 'k'<<8 | 'd' // 'clkd'
-	KAudioDevicePropertyConfigurationApplication KAudio = 'c'<<24 | 'a'<<16 | 'p'<<8 | 'p' // 'capp'
-	KAudioDevicePropertyDeviceCanBeDefaultDevice KAudio = 'd'<<24 | 'f'<<16 | 'l'<<8 | 't' // 'dflt'
+	KAudioBooleanControlClassID                        KAudio = 't'<<24 | 'o'<<16 | 'g'<<8 | 'l' // 'togl'
+	KAudioClipLightControlClassID                      KAudio = 'c'<<24 | 'l'<<16 | 'i'<<8 | 'p' // 'clip'
+	KAudioClockSourceControlClassID                    KAudio = 'c'<<24 | 'l'<<16 | 'c'<<8 | 'k' // 'clck'
+	KAudioDataDestinationControlClassID                KAudio = 'd'<<24 | 'e'<<16 | 's'<<8 | 't' // 'dest'
+	KAudioDataSourceControlClassID                     KAudio = 'd'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'dsrc'
+	KAudioDevicePermissionsError                       KAudio = '!'<<24 | 'h'<<16 | 'o'<<8 | 'g' // '!hog'
+	KAudioDevicePropertyAvailableNominalSampleRates    KAudio = 'n'<<24 | 's'<<16 | 'r'<<8 | '#' // 'nsr#'
+	KAudioDevicePropertyClockDomain                    KAudio = 'c'<<24 | 'l'<<16 | 'k'<<8 | 'd' // 'clkd'
+	KAudioDevicePropertyConfigurationApplication       KAudio = 'c'<<24 | 'a'<<16 | 'p'<<8 | 'p' // 'capp'
+	KAudioDevicePropertyDeviceCanBeDefaultDevice       KAudio = 'd'<<24 | 'f'<<16 | 'l'<<8 | 't' // 'dflt'
 	KAudioDevicePropertyDeviceCanBeDefaultSystemDevice KAudio = 's'<<24 | 'f'<<16 | 'l'<<8 | 't' // 'sflt'
-	KAudioDevicePropertyDeviceIsAlive KAudio = 'l'<<24 | 'i'<<16 | 'v'<<8 | 'n' // 'livn'
-	KAudioDevicePropertyDeviceIsRunning KAudio = 'g'<<24 | 'o'<<16 | 'i'<<8 | 'n' // 'goin'
-	KAudioDevicePropertyDeviceUID KAudio = 'u'<<24 | 'i'<<16 | 'd'<<8 | ' ' // 'uid '
-	KAudioDevicePropertyIcon KAudio = 'i'<<24 | 'c'<<16 | 'o'<<8 | 'n' // 'icon'
-	KAudioDevicePropertyIsHidden KAudio = 'h'<<24 | 'i'<<16 | 'd'<<8 | 'n' // 'hidn'
-	KAudioDevicePropertyLatency KAudio = 'l'<<24 | 't'<<16 | 'n'<<8 | 'c' // 'ltnc'
-	KAudioDevicePropertyModelUID KAudio = 'm'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'muid'
-	KAudioDevicePropertyNominalSampleRate KAudio = 'n'<<24 | 's'<<16 | 'r'<<8 | 't' // 'nsrt'
-	KAudioDevicePropertyPreferredChannelLayout KAudio = 's'<<24 | 'r'<<16 | 'n'<<8 | 'd' // 'srnd'
-	KAudioDevicePropertyPreferredChannelsForStereo KAudio = 'd'<<24 | 'c'<<16 | 'h'<<8 | '2' // 'dch2'
-	KAudioDevicePropertyRelatedDevices KAudio = 'a'<<24 | 'k'<<16 | 'i'<<8 | 'n' // 'akin'
-	KAudioDevicePropertySafetyOffset KAudio = 's'<<24 | 'a'<<16 | 'f'<<8 | 't' // 'saft'
-	KAudioDevicePropertyStreams KAudio = 's'<<24 | 't'<<16 | 'm'<<8 | '#' // 'stm#'
-	KAudioDevicePropertyTransportType KAudio = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
-	KAudioDeviceUnsupportedFormatError KAudio = '!'<<24 | 'd'<<16 | 'a'<<8 | 't' // '!dat'
-	KAudioHardwareBadDeviceError KAudio = '!'<<24 | 'd'<<16 | 'e'<<8 | 'v' // '!dev'
-	KAudioHardwareBadObjectError KAudio = '!'<<24 | 'o'<<16 | 'b'<<8 | 'j' // '!obj'
-	KAudioHardwareBadPropertySizeError KAudio = '!'<<24 | 's'<<16 | 'i'<<8 | 'z' // '!siz'
-	KAudioHardwareBadStreamError KAudio = '!'<<24 | 's'<<16 | 't'<<8 | 'r' // '!str'
-	KAudioHardwareIllegalOperationError KAudio = 'n'<<24 | 'o'<<16 | 'p'<<8 | 'e' // 'nope'
-	KAudioHardwareNoError KAudio = 0
-	KAudioHardwareNotReadyError KAudio = 'n'<<24 | 'r'<<16 | 'd'<<8 | 'y' // 'nrdy'
-	KAudioHardwareNotRunningError KAudio = 's'<<24 | 't'<<16 | 'o'<<8 | 'p' // 'stop'
-	KAudioHardwareUnknownPropertyError KAudio = 'w'<<24 | 'h'<<16 | 'o'<<8 | '?' // 'who?'
-	KAudioHardwareUnspecifiedError KAudio = 'w'<<24 | 'h'<<16 | 'a'<<8 | 't' // 'what'
-	KAudioHardwareUnsupportedOperationError KAudio = 'u'<<24 | 'n'<<16 | 'o'<<8 | 'p' // 'unop'
-	KAudioHighPassFilterControlClassID KAudio = 'h'<<24 | 'i'<<16 | 'p'<<8 | 'f' // 'hipf'
-	KAudioJackControlClassID KAudio = 'j'<<24 | 'a'<<16 | 'c'<<8 | 'k' // 'jack'
-	KAudioLFEMuteControlClassID KAudio = 's'<<24 | 'u'<<16 | 'b'<<8 | 'm' // 'subm'
-	KAudioLFEVolumeControlClassID KAudio = 's'<<24 | 'u'<<16 | 'b'<<8 | 'v' // 'subv'
-	KAudioLevelControlClassID KAudio = 'l'<<24 | 'e'<<16 | 'v'<<8 | 'l' // 'levl'
-	KAudioLineLevelControlClassID KAudio = 'n'<<24 | 'l'<<16 | 'v'<<8 | 'l' // 'nlvl'
-	KAudioListenbackControlClassID KAudio = 'l'<<24 | 's'<<16 | 'n'<<8 | 'b' // 'lsnb'
-	KAudioMuteControlClassID KAudio = 'm'<<24 | 'u'<<16 | 't'<<8 | 'e' // 'mute'
-	KAudioObjectPropertyControlList KAudio = 'c'<<24 | 't'<<16 | 'r'<<8 | 'l' // 'ctrl'
-	KAudioPhantomPowerControlClassID KAudio = 'p'<<24 | 'h'<<16 | 'a'<<8 | 'n' // 'phan'
-	KAudioPhaseInvertControlClassID KAudio = 'p'<<24 | 'h'<<16 | 's'<<8 | 'i' // 'phsi'
-	KAudioSelectorControlClassID KAudio = 's'<<24 | 'l'<<16 | 'c'<<8 | 't' // 'slct'
-	KAudioSoloControlClassID KAudio = 's'<<24 | 'o'<<16 | 'l'<<8 | 'o' // 'solo'
-	KAudioTalkbackControlClassID KAudio = 't'<<24 | 'a'<<16 | 'l'<<8 | 'b' // 'talb'
-	KAudioVolumeControlClassID KAudio = 'v'<<24 | 'l'<<16 | 'm'<<8 | 'e' // 'vlme'
+	KAudioDevicePropertyDeviceIsAlive                  KAudio = 'l'<<24 | 'i'<<16 | 'v'<<8 | 'n' // 'livn'
+	KAudioDevicePropertyDeviceIsRunning                KAudio = 'g'<<24 | 'o'<<16 | 'i'<<8 | 'n' // 'goin'
+	KAudioDevicePropertyDeviceUID                      KAudio = 'u'<<24 | 'i'<<16 | 'd'<<8 | ' ' // 'uid '
+	KAudioDevicePropertyIcon                           KAudio = 'i'<<24 | 'c'<<16 | 'o'<<8 | 'n' // 'icon'
+	KAudioDevicePropertyIsHidden                       KAudio = 'h'<<24 | 'i'<<16 | 'd'<<8 | 'n' // 'hidn'
+	KAudioDevicePropertyLatency                        KAudio = 'l'<<24 | 't'<<16 | 'n'<<8 | 'c' // 'ltnc'
+	KAudioDevicePropertyModelUID                       KAudio = 'm'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'muid'
+	KAudioDevicePropertyNominalSampleRate              KAudio = 'n'<<24 | 's'<<16 | 'r'<<8 | 't' // 'nsrt'
+	KAudioDevicePropertyPreferredChannelLayout         KAudio = 's'<<24 | 'r'<<16 | 'n'<<8 | 'd' // 'srnd'
+	KAudioDevicePropertyPreferredChannelsForStereo     KAudio = 'd'<<24 | 'c'<<16 | 'h'<<8 | '2' // 'dch2'
+	KAudioDevicePropertyRelatedDevices                 KAudio = 'a'<<24 | 'k'<<16 | 'i'<<8 | 'n' // 'akin'
+	KAudioDevicePropertySafetyOffset                   KAudio = 's'<<24 | 'a'<<16 | 'f'<<8 | 't' // 'saft'
+	KAudioDevicePropertyStreams                        KAudio = 's'<<24 | 't'<<16 | 'm'<<8 | '#' // 'stm#'
+	KAudioDevicePropertyTransportType                  KAudio = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
+	KAudioDeviceUnsupportedFormatError                 KAudio = '!'<<24 | 'd'<<16 | 'a'<<8 | 't' // '!dat'
+	KAudioHardwareBadDeviceError                       KAudio = '!'<<24 | 'd'<<16 | 'e'<<8 | 'v' // '!dev'
+	KAudioHardwareBadObjectError                       KAudio = '!'<<24 | 'o'<<16 | 'b'<<8 | 'j' // '!obj'
+	KAudioHardwareBadPropertySizeError                 KAudio = '!'<<24 | 's'<<16 | 'i'<<8 | 'z' // '!siz'
+	KAudioHardwareBadStreamError                       KAudio = '!'<<24 | 's'<<16 | 't'<<8 | 'r' // '!str'
+	KAudioHardwareIllegalOperationError                KAudio = 'n'<<24 | 'o'<<16 | 'p'<<8 | 'e' // 'nope'
+	KAudioHardwareNoError                              KAudio = 0
+	KAudioHardwareNotReadyError                        KAudio = 'n'<<24 | 'r'<<16 | 'd'<<8 | 'y' // 'nrdy'
+	KAudioHardwareNotRunningError                      KAudio = 's'<<24 | 't'<<16 | 'o'<<8 | 'p' // 'stop'
+	KAudioHardwareUnknownPropertyError                 KAudio = 'w'<<24 | 'h'<<16 | 'o'<<8 | '?' // 'who?'
+	KAudioHardwareUnspecifiedError                     KAudio = 'w'<<24 | 'h'<<16 | 'a'<<8 | 't' // 'what'
+	KAudioHardwareUnsupportedOperationError            KAudio = 'u'<<24 | 'n'<<16 | 'o'<<8 | 'p' // 'unop'
+	KAudioHighPassFilterControlClassID                 KAudio = 'h'<<24 | 'i'<<16 | 'p'<<8 | 'f' // 'hipf'
+	KAudioJackControlClassID                           KAudio = 'j'<<24 | 'a'<<16 | 'c'<<8 | 'k' // 'jack'
+	KAudioLFEMuteControlClassID                        KAudio = 's'<<24 | 'u'<<16 | 'b'<<8 | 'm' // 'subm'
+	KAudioLFEVolumeControlClassID                      KAudio = 's'<<24 | 'u'<<16 | 'b'<<8 | 'v' // 'subv'
+	KAudioLevelControlClassID                          KAudio = 'l'<<24 | 'e'<<16 | 'v'<<8 | 'l' // 'levl'
+	KAudioLineLevelControlClassID                      KAudio = 'n'<<24 | 'l'<<16 | 'v'<<8 | 'l' // 'nlvl'
+	KAudioListenbackControlClassID                     KAudio = 'l'<<24 | 's'<<16 | 'n'<<8 | 'b' // 'lsnb'
+	KAudioMuteControlClassID                           KAudio = 'm'<<24 | 'u'<<16 | 't'<<8 | 'e' // 'mute'
+	KAudioObjectPropertyControlList                    KAudio = 'c'<<24 | 't'<<16 | 'r'<<8 | 'l' // 'ctrl'
+	KAudioPhantomPowerControlClassID                   KAudio = 'p'<<24 | 'h'<<16 | 'a'<<8 | 'n' // 'phan'
+	KAudioPhaseInvertControlClassID                    KAudio = 'p'<<24 | 'h'<<16 | 's'<<8 | 'i' // 'phsi'
+	KAudioSelectorControlClassID                       KAudio = 's'<<24 | 'l'<<16 | 'c'<<8 | 't' // 'slct'
+	KAudioSoloControlClassID                           KAudio = 's'<<24 | 'o'<<16 | 'l'<<8 | 'o' // 'solo'
+	KAudioTalkbackControlClassID                       KAudio = 't'<<24 | 'a'<<16 | 'l'<<8 | 'b' // 'talb'
+	KAudioVolumeControlClassID                         KAudio = 'v'<<24 | 'l'<<16 | 'm'<<8 | 'e' // 'vlme'
 )
 
 func (e KAudio) String() string {
@@ -334,12 +334,12 @@ type KAudioAggregateDeviceProperty uint
 
 const (
 	KAudioAggregateDevicePropertyActiveSubDeviceList KAudioAggregateDeviceProperty = 'a'<<24 | 'g'<<16 | 'r'<<8 | 'p' // 'agrp'
-	KAudioAggregateDevicePropertyClockDevice KAudioAggregateDeviceProperty = 'a'<<24 | 'p'<<16 | 'c'<<8 | 'd' // 'apcd'
-	KAudioAggregateDevicePropertyComposition KAudioAggregateDeviceProperty = 'a'<<24 | 'c'<<16 | 'o'<<8 | 'm' // 'acom'
-	KAudioAggregateDevicePropertyFullSubDeviceList KAudioAggregateDeviceProperty = 'g'<<24 | 'r'<<16 | 'u'<<8 | 'p' // 'grup'
-	KAudioAggregateDevicePropertyMainSubDevice KAudioAggregateDeviceProperty = 'a'<<24 | 'm'<<16 | 's'<<8 | 't' // 'amst'
-	KAudioAggregateDevicePropertySubTapList KAudioAggregateDeviceProperty = 'a'<<24 | 't'<<16 | 'a'<<8 | 'p' // 'atap'
-	KAudioAggregateDevicePropertyTapList KAudioAggregateDeviceProperty = 't'<<24 | 'a'<<16 | 'p'<<8 | '#' // 'tap#'
+	KAudioAggregateDevicePropertyClockDevice         KAudioAggregateDeviceProperty = 'a'<<24 | 'p'<<16 | 'c'<<8 | 'd' // 'apcd'
+	KAudioAggregateDevicePropertyComposition         KAudioAggregateDeviceProperty = 'a'<<24 | 'c'<<16 | 'o'<<8 | 'm' // 'acom'
+	KAudioAggregateDevicePropertyFullSubDeviceList   KAudioAggregateDeviceProperty = 'g'<<24 | 'r'<<16 | 'u'<<8 | 'p' // 'grup'
+	KAudioAggregateDevicePropertyMainSubDevice       KAudioAggregateDeviceProperty = 'a'<<24 | 'm'<<16 | 's'<<8 | 't' // 'amst'
+	KAudioAggregateDevicePropertySubTapList          KAudioAggregateDeviceProperty = 'a'<<24 | 't'<<16 | 'a'<<8 | 'p' // 'atap'
+	KAudioAggregateDevicePropertyTapList             KAudioAggregateDeviceProperty = 't'<<24 | 'a'<<16 | 'p'<<8 | '#' // 'tap#'
 )
 
 func (e KAudioAggregateDeviceProperty) String() string {
@@ -382,11 +382,11 @@ func (e KAudioAggregateDevicePropertyMasterSub) String() string {
 type KAudioAggregateDriftCompensation uint
 
 const (
-	KAudioAggregateDriftCompensationHighQuality KAudioAggregateDriftCompensation = 0
-	KAudioAggregateDriftCompensationLowQuality KAudioAggregateDriftCompensation = 0
-	KAudioAggregateDriftCompensationMaxQuality KAudioAggregateDriftCompensation = 0
+	KAudioAggregateDriftCompensationHighQuality   KAudioAggregateDriftCompensation = 0
+	KAudioAggregateDriftCompensationLowQuality    KAudioAggregateDriftCompensation = 0
+	KAudioAggregateDriftCompensationMaxQuality    KAudioAggregateDriftCompensation = 0
 	KAudioAggregateDriftCompensationMediumQuality KAudioAggregateDriftCompensation = 0
-	KAudioAggregateDriftCompensationMinQuality KAudioAggregateDriftCompensation = 0
+	KAudioAggregateDriftCompensationMinQuality    KAudioAggregateDriftCompensation = 0
 )
 
 func (e KAudioAggregateDriftCompensation) String() string {
@@ -446,16 +446,16 @@ func (e KAudioBoxClassI) String() string {
 type KAudioBoxProperty uint
 
 const (
-	KAudioBoxPropertyAcquired KAudioBoxProperty = 'b'<<24 | 'x'<<16 | 'o'<<8 | 'n' // 'bxon'
+	KAudioBoxPropertyAcquired          KAudioBoxProperty = 'b'<<24 | 'x'<<16 | 'o'<<8 | 'n' // 'bxon'
 	KAudioBoxPropertyAcquisitionFailed KAudioBoxProperty = 'b'<<24 | 'x'<<16 | 'o'<<8 | 'f' // 'bxof'
-	KAudioBoxPropertyBoxUID KAudioBoxProperty = 'b'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'buid'
-	KAudioBoxPropertyClockDeviceList KAudioBoxProperty = 'b'<<24 | 'c'<<16 | 'l'<<8 | '#' // 'bcl#'
-	KAudioBoxPropertyDeviceList KAudioBoxProperty = 'b'<<24 | 'd'<<16 | 'v'<<8 | '#' // 'bdv#'
-	KAudioBoxPropertyHasAudio KAudioBoxProperty = 'b'<<24 | 'h'<<16 | 'a'<<8 | 'u' // 'bhau'
-	KAudioBoxPropertyHasMIDI KAudioBoxProperty = 'b'<<24 | 'h'<<16 | 'm'<<8 | 'i' // 'bhmi'
-	KAudioBoxPropertyHasVideo KAudioBoxProperty = 'b'<<24 | 'h'<<16 | 'v'<<8 | 'i' // 'bhvi'
-	KAudioBoxPropertyIsProtected KAudioBoxProperty = 'b'<<24 | 'p'<<16 | 'r'<<8 | 'o' // 'bpro'
-	KAudioBoxPropertyTransportType KAudioBoxProperty = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
+	KAudioBoxPropertyBoxUID            KAudioBoxProperty = 'b'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'buid'
+	KAudioBoxPropertyClockDeviceList   KAudioBoxProperty = 'b'<<24 | 'c'<<16 | 'l'<<8 | '#' // 'bcl#'
+	KAudioBoxPropertyDeviceList        KAudioBoxProperty = 'b'<<24 | 'd'<<16 | 'v'<<8 | '#' // 'bdv#'
+	KAudioBoxPropertyHasAudio          KAudioBoxProperty = 'b'<<24 | 'h'<<16 | 'a'<<8 | 'u' // 'bhau'
+	KAudioBoxPropertyHasMIDI           KAudioBoxProperty = 'b'<<24 | 'h'<<16 | 'm'<<8 | 'i' // 'bhmi'
+	KAudioBoxPropertyHasVideo          KAudioBoxProperty = 'b'<<24 | 'h'<<16 | 'v'<<8 | 'i' // 'bhvi'
+	KAudioBoxPropertyIsProtected       KAudioBoxProperty = 'b'<<24 | 'p'<<16 | 'r'<<8 | 'o' // 'bpro'
+	KAudioBoxPropertyTransportType     KAudioBoxProperty = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
 )
 
 func (e KAudioBoxProperty) String() string {
@@ -504,14 +504,14 @@ type KAudioClockDeviceProperty uint
 
 const (
 	KAudioClockDevicePropertyAvailableNominalSampleRates KAudioClockDeviceProperty = 'n'<<24 | 's'<<16 | 'r'<<8 | '#' // 'nsr#'
-	KAudioClockDevicePropertyClockDomain KAudioClockDeviceProperty = 'c'<<24 | 'l'<<16 | 'k'<<8 | 'd' // 'clkd'
-	KAudioClockDevicePropertyControlList KAudioClockDeviceProperty = 'c'<<24 | 't'<<16 | 'r'<<8 | 'l' // 'ctrl'
-	KAudioClockDevicePropertyDeviceIsAlive KAudioClockDeviceProperty = 'l'<<24 | 'i'<<16 | 'v'<<8 | 'n' // 'livn'
-	KAudioClockDevicePropertyDeviceIsRunning KAudioClockDeviceProperty = 'g'<<24 | 'o'<<16 | 'i'<<8 | 'n' // 'goin'
-	KAudioClockDevicePropertyDeviceUID KAudioClockDeviceProperty = 'c'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'cuid'
-	KAudioClockDevicePropertyLatency KAudioClockDeviceProperty = 'l'<<24 | 't'<<16 | 'n'<<8 | 'c' // 'ltnc'
-	KAudioClockDevicePropertyNominalSampleRate KAudioClockDeviceProperty = 'n'<<24 | 's'<<16 | 'r'<<8 | 't' // 'nsrt'
-	KAudioClockDevicePropertyTransportType KAudioClockDeviceProperty = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
+	KAudioClockDevicePropertyClockDomain                 KAudioClockDeviceProperty = 'c'<<24 | 'l'<<16 | 'k'<<8 | 'd' // 'clkd'
+	KAudioClockDevicePropertyControlList                 KAudioClockDeviceProperty = 'c'<<24 | 't'<<16 | 'r'<<8 | 'l' // 'ctrl'
+	KAudioClockDevicePropertyDeviceIsAlive               KAudioClockDeviceProperty = 'l'<<24 | 'i'<<16 | 'v'<<8 | 'n' // 'livn'
+	KAudioClockDevicePropertyDeviceIsRunning             KAudioClockDeviceProperty = 'g'<<24 | 'o'<<16 | 'i'<<8 | 'n' // 'goin'
+	KAudioClockDevicePropertyDeviceUID                   KAudioClockDeviceProperty = 'c'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'cuid'
+	KAudioClockDevicePropertyLatency                     KAudioClockDeviceProperty = 'l'<<24 | 't'<<16 | 'n'<<8 | 'c' // 'ltnc'
+	KAudioClockDevicePropertyNominalSampleRate           KAudioClockDeviceProperty = 'n'<<24 | 's'<<16 | 'r'<<8 | 't' // 'nsrt'
+	KAudioClockDevicePropertyTransportType               KAudioClockDeviceProperty = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
 )
 
 func (e KAudioClockDeviceProperty) String() string {
@@ -588,7 +588,7 @@ type KAudioControlProperty uint
 
 const (
 	KAudioControlPropertyElement KAudioControlProperty = 'c'<<24 | 'e'<<16 | 'l'<<8 | 'm' // 'celm'
-	KAudioControlPropertyScope KAudioControlProperty = 'c'<<24 | 's'<<16 | 'c'<<8 | 'p' // 'cscp'
+	KAudioControlPropertyScope   KAudioControlProperty = 'c'<<24 | 's'<<16 | 'c'<<8 | 'p' // 'cscp'
 	KAudioControlPropertyVariant KAudioControlProperty = 'c'<<24 | 'v'<<16 | 'a'<<8 | 'r' // 'cvar'
 )
 
@@ -608,24 +608,24 @@ func (e KAudioControlProperty) String() string {
 type KAudioDevice uint
 
 const (
-	KAudioDeviceProcessorOverload KAudioDevice = 'o'<<24 | 'v'<<16 | 'e'<<8 | 'r' // 'over'
-	KAudioDevicePropertyActualSampleRate KAudioDevice = 'a'<<24 | 's'<<16 | 'r'<<8 | 't' // 'asrt'
-	KAudioDevicePropertyBufferFrameSize KAudioDevice = 'f'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'fsiz'
-	KAudioDevicePropertyBufferFrameSizeRange KAudioDevice = 'f'<<24 | 's'<<16 | 'z'<<8 | '#' // 'fsz#'
-	KAudioDevicePropertyClockDevice KAudioDevice = 'a'<<24 | 'p'<<16 | 'c'<<8 | 'd' // 'apcd'
-	KAudioDevicePropertyDeviceHasChanged KAudioDevice = 'd'<<24 | 'i'<<16 | 'f'<<8 | 'f' // 'diff'
+	KAudioDeviceProcessorOverload                KAudioDevice = 'o'<<24 | 'v'<<16 | 'e'<<8 | 'r' // 'over'
+	KAudioDevicePropertyActualSampleRate         KAudioDevice = 'a'<<24 | 's'<<16 | 'r'<<8 | 't' // 'asrt'
+	KAudioDevicePropertyBufferFrameSize          KAudioDevice = 'f'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'fsiz'
+	KAudioDevicePropertyBufferFrameSizeRange     KAudioDevice = 'f'<<24 | 's'<<16 | 'z'<<8 | '#' // 'fsz#'
+	KAudioDevicePropertyClockDevice              KAudioDevice = 'a'<<24 | 'p'<<16 | 'c'<<8 | 'd' // 'apcd'
+	KAudioDevicePropertyDeviceHasChanged         KAudioDevice = 'd'<<24 | 'i'<<16 | 'f'<<8 | 'f' // 'diff'
 	KAudioDevicePropertyDeviceIsRunningSomewhere KAudioDevice = 'g'<<24 | 'o'<<16 | 'n'<<8 | 'e' // 'gone'
-	KAudioDevicePropertyHogMode KAudioDevice = 'o'<<24 | 'i'<<16 | 'n'<<8 | 'k' // 'oink'
-	KAudioDevicePropertyIOCycleUsage KAudioDevice = 'n'<<24 | 'c'<<16 | 'y'<<8 | 'c' // 'ncyc'
-	KAudioDevicePropertyIOProcStreamUsage KAudioDevice = 's'<<24 | 'u'<<16 | 's'<<8 | 'e' // 'suse'
-	KAudioDevicePropertyIOStoppedAbnormally KAudioDevice = 's'<<24 | 't'<<16 | 'p'<<8 | 'd' // 'stpd'
+	KAudioDevicePropertyHogMode                  KAudioDevice = 'o'<<24 | 'i'<<16 | 'n'<<8 | 'k' // 'oink'
+	KAudioDevicePropertyIOCycleUsage             KAudioDevice = 'n'<<24 | 'c'<<16 | 'y'<<8 | 'c' // 'ncyc'
+	KAudioDevicePropertyIOProcStreamUsage        KAudioDevice = 's'<<24 | 'u'<<16 | 's'<<8 | 'e' // 'suse'
+	KAudioDevicePropertyIOStoppedAbnormally      KAudioDevice = 's'<<24 | 't'<<16 | 'p'<<8 | 'd' // 'stpd'
 	// KAudioDevicePropertyIOThreadOSWorkgroup: The device’s workgroup object, which you use to coordinate your threads with the threads of the device.
-	KAudioDevicePropertyIOThreadOSWorkgroup KAudioDevice = 'o'<<24 | 's'<<16 | 'w'<<8 | 'g' // 'oswg'
-	KAudioDevicePropertyPlugIn KAudioDevice = 'p'<<24 | 'l'<<16 | 'u'<<8 | 'g' // 'plug'
-	KAudioDevicePropertyProcessMute KAudioDevice = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'm' // 'appm'
-	KAudioDevicePropertyStreamConfiguration KAudioDevice = 's'<<24 | 'l'<<16 | 'a'<<8 | 'y' // 'slay'
+	KAudioDevicePropertyIOThreadOSWorkgroup          KAudioDevice = 'o'<<24 | 's'<<16 | 'w'<<8 | 'g' // 'oswg'
+	KAudioDevicePropertyPlugIn                       KAudioDevice = 'p'<<24 | 'l'<<16 | 'u'<<8 | 'g' // 'plug'
+	KAudioDevicePropertyProcessMute                  KAudioDevice = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'm' // 'appm'
+	KAudioDevicePropertyStreamConfiguration          KAudioDevice = 's'<<24 | 'l'<<16 | 'a'<<8 | 'y' // 'slay'
 	KAudioDevicePropertyUsesVariableBufferFrameSizes KAudioDevice = 'v'<<24 | 'f'<<16 | 's'<<8 | 'z' // 'vfsz'
-	KAudioDeviceUnknown KAudioDevice = 0
+	KAudioDeviceUnknown                              KAudioDevice = 0
 )
 
 func (e KAudioDevice) String() string {
@@ -687,87 +687,87 @@ func (e KAudioDeviceClassI) String() string {
 type KAudioDeviceProperty uint
 
 const (
-	KAudioDevicePropertyBufferSize KAudioDeviceProperty = 'b'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'bsiz'
-	KAudioDevicePropertyBufferSizeRange KAudioDeviceProperty = 'b'<<24 | 's'<<16 | 'z'<<8 | '#' // 'bsz#'
-	KAudioDevicePropertyChannelCategoryName KAudioDeviceProperty = 'c'<<24 | 'c'<<16 | 'n'<<8 | 'm' // 'ccnm'
-	KAudioDevicePropertyChannelCategoryNameCFString KAudioDeviceProperty = 'l'<<24 | 'c'<<16 | 'c'<<8 | 'n' // 'lccn'
-	KAudioDevicePropertyChannelName KAudioDeviceProperty = 'c'<<24 | 'h'<<16 | 'n'<<8 | 'm' // 'chnm'
-	KAudioDevicePropertyChannelNameCFString KAudioDeviceProperty = 'l'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'lchn'
-	KAudioDevicePropertyChannelNominalLineLevel KAudioDeviceProperty = 'n'<<24 | 'l'<<16 | 'v'<<8 | 'l' // 'nlvl'
-	KAudioDevicePropertyChannelNominalLineLevelNameForID KAudioDeviceProperty = 'c'<<24 | 'n'<<16 | 'l'<<8 | 'v' // 'cnlv'
-	KAudioDevicePropertyChannelNominalLineLevelNameForIDCFString KAudioDeviceProperty = 'l'<<24 | 'c'<<16 | 'n'<<8 | 'l' // 'lcnl'
-	KAudioDevicePropertyChannelNominalLineLevels KAudioDeviceProperty = 'n'<<24 | 'l'<<16 | 'v'<<8 | '#' // 'nlv#'
-	KAudioDevicePropertyChannelNumberName KAudioDeviceProperty = 'c'<<24 | 'n'<<16 | 'n'<<8 | 'm' // 'cnnm'
-	KAudioDevicePropertyChannelNumberNameCFString KAudioDeviceProperty = 'l'<<24 | 'c'<<16 | 'n'<<8 | 'n' // 'lcnn'
-	KAudioDevicePropertyClipLight KAudioDeviceProperty = 'c'<<24 | 'l'<<16 | 'i'<<8 | 'p' // 'clip'
-	KAudioDevicePropertyClockAlgorithm KAudioDeviceProperty = 0
-	KAudioDevicePropertyClockIsStable KAudioDeviceProperty = 0
-	KAudioDevicePropertyClockSource KAudioDeviceProperty = 'c'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'csrc'
-	KAudioDevicePropertyClockSourceKindForID KAudioDeviceProperty = 'c'<<24 | 's'<<16 | 'c'<<8 | 'k' // 'csck'
-	KAudioDevicePropertyClockSourceNameForID KAudioDeviceProperty = 'c'<<24 | 's'<<16 | 'c'<<8 | 'n' // 'cscn'
-	KAudioDevicePropertyClockSourceNameForIDCFString KAudioDeviceProperty = 'l'<<24 | 'c'<<16 | 's'<<8 | 'n' // 'lcsn'
-	KAudioDevicePropertyClockSources KAudioDeviceProperty = 'c'<<24 | 's'<<16 | 'c'<<8 | '#' // 'csc#'
-	KAudioDevicePropertyDataSource KAudioDeviceProperty = 's'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'ssrc'
-	KAudioDevicePropertyDataSourceKindForID KAudioDeviceProperty = 's'<<24 | 's'<<16 | 'c'<<8 | 'k' // 'ssck'
-	KAudioDevicePropertyDataSourceNameForID KAudioDeviceProperty = 's'<<24 | 's'<<16 | 'c'<<8 | 'n' // 'sscn'
-	KAudioDevicePropertyDataSourceNameForIDCFString KAudioDeviceProperty = 'l'<<24 | 's'<<16 | 'c'<<8 | 'n' // 'lscn'
-	KAudioDevicePropertyDataSources KAudioDeviceProperty = 's'<<24 | 's'<<16 | 'c'<<8 | '#' // 'ssc#'
-	KAudioDevicePropertyDeviceManufacturer KAudioDeviceProperty = 'm'<<24 | 'a'<<16 | 'k'<<8 | 'r' // 'makr'
-	KAudioDevicePropertyDeviceManufacturerCFString KAudioDeviceProperty = 'l'<<24 | 'm'<<16 | 'a'<<8 | 'k' // 'lmak'
-	KAudioDevicePropertyDeviceName KAudioDeviceProperty = 'n'<<24 | 'a'<<16 | 'm'<<8 | 'e' // 'name'
-	KAudioDevicePropertyDeviceNameCFString KAudioDeviceProperty = 'l'<<24 | 'n'<<16 | 'a'<<8 | 'm' // 'lnam'
-	KAudioDevicePropertyDriverShouldOwniSub KAudioDeviceProperty = 'i'<<24 | 's'<<16 | 'u'<<8 | 'b' // 'isub'
-	KAudioDevicePropertyHighPassFilterSetting KAudioDeviceProperty = 'h'<<24 | 'i'<<16 | 'p'<<8 | 'f' // 'hipf'
-	KAudioDevicePropertyHighPassFilterSettingNameForID KAudioDeviceProperty = 'c'<<24 | 'h'<<16 | 'i'<<8 | 'p' // 'chip'
-	KAudioDevicePropertyHighPassFilterSettingNameForIDCFString KAudioDeviceProperty = 'h'<<24 | 'i'<<16 | 'p'<<8 | 'l' // 'hipl'
-	KAudioDevicePropertyHighPassFilterSettings KAudioDeviceProperty = 'h'<<24 | 'i'<<16 | 'p'<<8 | '#' // 'hip#'
-	KAudioDevicePropertyJackIsConnected KAudioDeviceProperty = 'j'<<24 | 'a'<<16 | 'c'<<8 | 'k' // 'jack'
-	KAudioDevicePropertyListenback KAudioDeviceProperty = 'l'<<24 | 's'<<16 | 'n'<<8 | 'b' // 'lsnb'
-	KAudioDevicePropertyMute KAudioDeviceProperty = 'm'<<24 | 'u'<<16 | 't'<<8 | 'e' // 'mute'
-	KAudioDevicePropertyPhantomPower KAudioDeviceProperty = 'p'<<24 | 'h'<<16 | 'a'<<8 | 'n' // 'phan'
-	KAudioDevicePropertyPhaseInvert KAudioDeviceProperty = 'p'<<24 | 'h'<<16 | 's'<<8 | 'i' // 'phsi'
-	KAudioDevicePropertyPlayThru KAudioDeviceProperty = 't'<<24 | 'h'<<16 | 'r'<<8 | 'u' // 'thru'
-	KAudioDevicePropertyPlayThruDestination KAudioDeviceProperty = 'm'<<24 | 'd'<<16 | 'd'<<8 | 's' // 'mdds'
-	KAudioDevicePropertyPlayThruDestinationNameForID KAudioDeviceProperty = 'm'<<24 | 'd'<<16 | 'd'<<8 | 'n' // 'mddn'
-	KAudioDevicePropertyPlayThruDestinationNameForIDCFString KAudioDeviceProperty = 'm'<<24 | 'd'<<16 | 'd'<<8 | 'c' // 'mddc'
-	KAudioDevicePropertyPlayThruDestinations KAudioDeviceProperty = 'm'<<24 | 'd'<<16 | 'd'<<8 | '#' // 'mdd#'
-	KAudioDevicePropertyPlayThruSolo KAudioDeviceProperty = 't'<<24 | 'h'<<16 | 'r'<<8 | 's' // 'thrs'
-	KAudioDevicePropertyPlayThruStereoPan KAudioDeviceProperty = 'm'<<24 | 's'<<16 | 'p'<<8 | 'n' // 'mspn'
-	KAudioDevicePropertyPlayThruStereoPanChannels KAudioDeviceProperty = 'm'<<24 | 's'<<16 | 'p'<<8 | '#' // 'msp#'
-	KAudioDevicePropertyPlayThruVolumeDecibels KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | 'd'<<8 | 'b' // 'mvdb'
-	KAudioDevicePropertyPlayThruVolumeDecibelsToScalar KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | '2'<<8 | 's' // 'mv2s'
+	KAudioDevicePropertyBufferSize                                     KAudioDeviceProperty = 'b'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'bsiz'
+	KAudioDevicePropertyBufferSizeRange                                KAudioDeviceProperty = 'b'<<24 | 's'<<16 | 'z'<<8 | '#' // 'bsz#'
+	KAudioDevicePropertyChannelCategoryName                            KAudioDeviceProperty = 'c'<<24 | 'c'<<16 | 'n'<<8 | 'm' // 'ccnm'
+	KAudioDevicePropertyChannelCategoryNameCFString                    KAudioDeviceProperty = 'l'<<24 | 'c'<<16 | 'c'<<8 | 'n' // 'lccn'
+	KAudioDevicePropertyChannelName                                    KAudioDeviceProperty = 'c'<<24 | 'h'<<16 | 'n'<<8 | 'm' // 'chnm'
+	KAudioDevicePropertyChannelNameCFString                            KAudioDeviceProperty = 'l'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'lchn'
+	KAudioDevicePropertyChannelNominalLineLevel                        KAudioDeviceProperty = 'n'<<24 | 'l'<<16 | 'v'<<8 | 'l' // 'nlvl'
+	KAudioDevicePropertyChannelNominalLineLevelNameForID               KAudioDeviceProperty = 'c'<<24 | 'n'<<16 | 'l'<<8 | 'v' // 'cnlv'
+	KAudioDevicePropertyChannelNominalLineLevelNameForIDCFString       KAudioDeviceProperty = 'l'<<24 | 'c'<<16 | 'n'<<8 | 'l' // 'lcnl'
+	KAudioDevicePropertyChannelNominalLineLevels                       KAudioDeviceProperty = 'n'<<24 | 'l'<<16 | 'v'<<8 | '#' // 'nlv#'
+	KAudioDevicePropertyChannelNumberName                              KAudioDeviceProperty = 'c'<<24 | 'n'<<16 | 'n'<<8 | 'm' // 'cnnm'
+	KAudioDevicePropertyChannelNumberNameCFString                      KAudioDeviceProperty = 'l'<<24 | 'c'<<16 | 'n'<<8 | 'n' // 'lcnn'
+	KAudioDevicePropertyClipLight                                      KAudioDeviceProperty = 'c'<<24 | 'l'<<16 | 'i'<<8 | 'p' // 'clip'
+	KAudioDevicePropertyClockAlgorithm                                 KAudioDeviceProperty = 0
+	KAudioDevicePropertyClockIsStable                                  KAudioDeviceProperty = 0
+	KAudioDevicePropertyClockSource                                    KAudioDeviceProperty = 'c'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'csrc'
+	KAudioDevicePropertyClockSourceKindForID                           KAudioDeviceProperty = 'c'<<24 | 's'<<16 | 'c'<<8 | 'k' // 'csck'
+	KAudioDevicePropertyClockSourceNameForID                           KAudioDeviceProperty = 'c'<<24 | 's'<<16 | 'c'<<8 | 'n' // 'cscn'
+	KAudioDevicePropertyClockSourceNameForIDCFString                   KAudioDeviceProperty = 'l'<<24 | 'c'<<16 | 's'<<8 | 'n' // 'lcsn'
+	KAudioDevicePropertyClockSources                                   KAudioDeviceProperty = 'c'<<24 | 's'<<16 | 'c'<<8 | '#' // 'csc#'
+	KAudioDevicePropertyDataSource                                     KAudioDeviceProperty = 's'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'ssrc'
+	KAudioDevicePropertyDataSourceKindForID                            KAudioDeviceProperty = 's'<<24 | 's'<<16 | 'c'<<8 | 'k' // 'ssck'
+	KAudioDevicePropertyDataSourceNameForID                            KAudioDeviceProperty = 's'<<24 | 's'<<16 | 'c'<<8 | 'n' // 'sscn'
+	KAudioDevicePropertyDataSourceNameForIDCFString                    KAudioDeviceProperty = 'l'<<24 | 's'<<16 | 'c'<<8 | 'n' // 'lscn'
+	KAudioDevicePropertyDataSources                                    KAudioDeviceProperty = 's'<<24 | 's'<<16 | 'c'<<8 | '#' // 'ssc#'
+	KAudioDevicePropertyDeviceManufacturer                             KAudioDeviceProperty = 'm'<<24 | 'a'<<16 | 'k'<<8 | 'r' // 'makr'
+	KAudioDevicePropertyDeviceManufacturerCFString                     KAudioDeviceProperty = 'l'<<24 | 'm'<<16 | 'a'<<8 | 'k' // 'lmak'
+	KAudioDevicePropertyDeviceName                                     KAudioDeviceProperty = 'n'<<24 | 'a'<<16 | 'm'<<8 | 'e' // 'name'
+	KAudioDevicePropertyDeviceNameCFString                             KAudioDeviceProperty = 'l'<<24 | 'n'<<16 | 'a'<<8 | 'm' // 'lnam'
+	KAudioDevicePropertyDriverShouldOwniSub                            KAudioDeviceProperty = 'i'<<24 | 's'<<16 | 'u'<<8 | 'b' // 'isub'
+	KAudioDevicePropertyHighPassFilterSetting                          KAudioDeviceProperty = 'h'<<24 | 'i'<<16 | 'p'<<8 | 'f' // 'hipf'
+	KAudioDevicePropertyHighPassFilterSettingNameForID                 KAudioDeviceProperty = 'c'<<24 | 'h'<<16 | 'i'<<8 | 'p' // 'chip'
+	KAudioDevicePropertyHighPassFilterSettingNameForIDCFString         KAudioDeviceProperty = 'h'<<24 | 'i'<<16 | 'p'<<8 | 'l' // 'hipl'
+	KAudioDevicePropertyHighPassFilterSettings                         KAudioDeviceProperty = 'h'<<24 | 'i'<<16 | 'p'<<8 | '#' // 'hip#'
+	KAudioDevicePropertyJackIsConnected                                KAudioDeviceProperty = 'j'<<24 | 'a'<<16 | 'c'<<8 | 'k' // 'jack'
+	KAudioDevicePropertyListenback                                     KAudioDeviceProperty = 'l'<<24 | 's'<<16 | 'n'<<8 | 'b' // 'lsnb'
+	KAudioDevicePropertyMute                                           KAudioDeviceProperty = 'm'<<24 | 'u'<<16 | 't'<<8 | 'e' // 'mute'
+	KAudioDevicePropertyPhantomPower                                   KAudioDeviceProperty = 'p'<<24 | 'h'<<16 | 'a'<<8 | 'n' // 'phan'
+	KAudioDevicePropertyPhaseInvert                                    KAudioDeviceProperty = 'p'<<24 | 'h'<<16 | 's'<<8 | 'i' // 'phsi'
+	KAudioDevicePropertyPlayThru                                       KAudioDeviceProperty = 't'<<24 | 'h'<<16 | 'r'<<8 | 'u' // 'thru'
+	KAudioDevicePropertyPlayThruDestination                            KAudioDeviceProperty = 'm'<<24 | 'd'<<16 | 'd'<<8 | 's' // 'mdds'
+	KAudioDevicePropertyPlayThruDestinationNameForID                   KAudioDeviceProperty = 'm'<<24 | 'd'<<16 | 'd'<<8 | 'n' // 'mddn'
+	KAudioDevicePropertyPlayThruDestinationNameForIDCFString           KAudioDeviceProperty = 'm'<<24 | 'd'<<16 | 'd'<<8 | 'c' // 'mddc'
+	KAudioDevicePropertyPlayThruDestinations                           KAudioDeviceProperty = 'm'<<24 | 'd'<<16 | 'd'<<8 | '#' // 'mdd#'
+	KAudioDevicePropertyPlayThruSolo                                   KAudioDeviceProperty = 't'<<24 | 'h'<<16 | 'r'<<8 | 's' // 'thrs'
+	KAudioDevicePropertyPlayThruStereoPan                              KAudioDeviceProperty = 'm'<<24 | 's'<<16 | 'p'<<8 | 'n' // 'mspn'
+	KAudioDevicePropertyPlayThruStereoPanChannels                      KAudioDeviceProperty = 'm'<<24 | 's'<<16 | 'p'<<8 | '#' // 'msp#'
+	KAudioDevicePropertyPlayThruVolumeDecibels                         KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | 'd'<<8 | 'b' // 'mvdb'
+	KAudioDevicePropertyPlayThruVolumeDecibelsToScalar                 KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | '2'<<8 | 's' // 'mv2s'
 	KAudioDevicePropertyPlayThruVolumeDecibelsToScalarTransferFunction KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | 't'<<8 | 'f' // 'mvtf'
-	KAudioDevicePropertyPlayThruVolumeRangeDecibels KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | 'd'<<8 | '#' // 'mvd#'
-	KAudioDevicePropertyPlayThruVolumeScalar KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | 's'<<8 | 'c' // 'mvsc'
-	KAudioDevicePropertyPlayThruVolumeScalarToDecibels KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | '2'<<8 | 'd' // 'mv2d'
-	KAudioDevicePropertyRegisterBufferList KAudioDeviceProperty = 'r'<<24 | 'b'<<16 | 'u'<<8 | 'f' // 'rbuf'
-	KAudioDevicePropertySolo KAudioDeviceProperty = 's'<<24 | 'o'<<16 | 'l'<<8 | 'o' // 'solo'
-	KAudioDevicePropertyStereoPan KAudioDeviceProperty = 's'<<24 | 'p'<<16 | 'a'<<8 | 'n' // 'span'
-	KAudioDevicePropertyStereoPanChannels KAudioDeviceProperty = 's'<<24 | 'p'<<16 | 'n'<<8 | '#' // 'spn#'
-	KAudioDevicePropertyStreamFormat KAudioDeviceProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | 't' // 'sfmt'
-	KAudioDevicePropertyStreamFormatMatch KAudioDeviceProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | 'm' // 'sfmm'
-	KAudioDevicePropertyStreamFormatSupported KAudioDeviceProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | '?' // 'sfm?'
-	KAudioDevicePropertyStreamFormats KAudioDeviceProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | '#' // 'sfm#'
-	KAudioDevicePropertySubMute KAudioDeviceProperty = 's'<<24 | 'm'<<16 | 'u'<<8 | 't' // 'smut'
-	KAudioDevicePropertySubVolumeDecibels KAudioDeviceProperty = 's'<<24 | 'v'<<16 | 'l'<<8 | 'd' // 'svld'
-	KAudioDevicePropertySubVolumeDecibelsToScalar KAudioDeviceProperty = 's'<<24 | 'd'<<16 | '2'<<8 | 'v' // 'sd2v'
-	KAudioDevicePropertySubVolumeDecibelsToScalarTransferFunction KAudioDeviceProperty = 's'<<24 | 'v'<<16 | 't'<<8 | 'f' // 'svtf'
-	KAudioDevicePropertySubVolumeRangeDecibels KAudioDeviceProperty = 's'<<24 | 'v'<<16 | 'd'<<8 | '#' // 'svd#'
-	KAudioDevicePropertySubVolumeScalar KAudioDeviceProperty = 's'<<24 | 'v'<<16 | 'l'<<8 | 'm' // 'svlm'
-	KAudioDevicePropertySubVolumeScalarToDecibels KAudioDeviceProperty = 's'<<24 | 'v'<<16 | '2'<<8 | 'd' // 'sv2d'
-	KAudioDevicePropertySupportsMixing KAudioDeviceProperty = 'm'<<24 | 'i'<<16 | 'x'<<8 | '?' // 'mix?'
-	KAudioDevicePropertyTalkback KAudioDeviceProperty = 't'<<24 | 'a'<<16 | 'l'<<8 | 'b' // 'talb'
-	KAudioDevicePropertyVoiceActivityDetectionEnable KAudioDeviceProperty = 'v'<<24 | 'A'<<16 | 'd'<<8 | '+' // 'vAd+'
-	KAudioDevicePropertyVoiceActivityDetectionState KAudioDeviceProperty = 'v'<<24 | 'A'<<16 | 'd'<<8 | 'S' // 'vAdS'
-	KAudioDevicePropertyVolumeDecibels KAudioDeviceProperty = 'v'<<24 | 'o'<<16 | 'l'<<8 | 'd' // 'vold'
-	KAudioDevicePropertyVolumeDecibelsToScalar KAudioDeviceProperty = 'd'<<24 | 'b'<<16 | '2'<<8 | 'v' // 'db2v'
-	KAudioDevicePropertyVolumeDecibelsToScalarTransferFunction KAudioDeviceProperty = 'v'<<24 | 'c'<<16 | 't'<<8 | 'f' // 'vctf'
-	KAudioDevicePropertyVolumeRangeDecibels KAudioDeviceProperty = 'v'<<24 | 'd'<<16 | 'b'<<8 | '#' // 'vdb#'
-	KAudioDevicePropertyVolumeScalar KAudioDeviceProperty = 'v'<<24 | 'o'<<16 | 'l'<<8 | 'm' // 'volm'
-	KAudioDevicePropertyVolumeScalarToDecibels KAudioDeviceProperty = 'v'<<24 | '2'<<16 | 'd'<<8 | 'b' // 'v2db'
-	KAudioDevicePropertyWantsControlsRestored KAudioDeviceProperty = 'r'<<24 | 'e'<<16 | 's'<<8 | 'c' // 'resc'
-	KAudioDevicePropertyWantsStreamFormatsRestored KAudioDeviceProperty = 'r'<<24 | 'e'<<16 | 's'<<8 | 'f' // 'resf'
-	KAudioDevicePropertyZeroTimeStampPeriod KAudioDeviceProperty = 0
+	KAudioDevicePropertyPlayThruVolumeRangeDecibels                    KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | 'd'<<8 | '#' // 'mvd#'
+	KAudioDevicePropertyPlayThruVolumeScalar                           KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | 's'<<8 | 'c' // 'mvsc'
+	KAudioDevicePropertyPlayThruVolumeScalarToDecibels                 KAudioDeviceProperty = 'm'<<24 | 'v'<<16 | '2'<<8 | 'd' // 'mv2d'
+	KAudioDevicePropertyRegisterBufferList                             KAudioDeviceProperty = 'r'<<24 | 'b'<<16 | 'u'<<8 | 'f' // 'rbuf'
+	KAudioDevicePropertySolo                                           KAudioDeviceProperty = 's'<<24 | 'o'<<16 | 'l'<<8 | 'o' // 'solo'
+	KAudioDevicePropertyStereoPan                                      KAudioDeviceProperty = 's'<<24 | 'p'<<16 | 'a'<<8 | 'n' // 'span'
+	KAudioDevicePropertyStereoPanChannels                              KAudioDeviceProperty = 's'<<24 | 'p'<<16 | 'n'<<8 | '#' // 'spn#'
+	KAudioDevicePropertyStreamFormat                                   KAudioDeviceProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | 't' // 'sfmt'
+	KAudioDevicePropertyStreamFormatMatch                              KAudioDeviceProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | 'm' // 'sfmm'
+	KAudioDevicePropertyStreamFormatSupported                          KAudioDeviceProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | '?' // 'sfm?'
+	KAudioDevicePropertyStreamFormats                                  KAudioDeviceProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | '#' // 'sfm#'
+	KAudioDevicePropertySubMute                                        KAudioDeviceProperty = 's'<<24 | 'm'<<16 | 'u'<<8 | 't' // 'smut'
+	KAudioDevicePropertySubVolumeDecibels                              KAudioDeviceProperty = 's'<<24 | 'v'<<16 | 'l'<<8 | 'd' // 'svld'
+	KAudioDevicePropertySubVolumeDecibelsToScalar                      KAudioDeviceProperty = 's'<<24 | 'd'<<16 | '2'<<8 | 'v' // 'sd2v'
+	KAudioDevicePropertySubVolumeDecibelsToScalarTransferFunction      KAudioDeviceProperty = 's'<<24 | 'v'<<16 | 't'<<8 | 'f' // 'svtf'
+	KAudioDevicePropertySubVolumeRangeDecibels                         KAudioDeviceProperty = 's'<<24 | 'v'<<16 | 'd'<<8 | '#' // 'svd#'
+	KAudioDevicePropertySubVolumeScalar                                KAudioDeviceProperty = 's'<<24 | 'v'<<16 | 'l'<<8 | 'm' // 'svlm'
+	KAudioDevicePropertySubVolumeScalarToDecibels                      KAudioDeviceProperty = 's'<<24 | 'v'<<16 | '2'<<8 | 'd' // 'sv2d'
+	KAudioDevicePropertySupportsMixing                                 KAudioDeviceProperty = 'm'<<24 | 'i'<<16 | 'x'<<8 | '?' // 'mix?'
+	KAudioDevicePropertyTalkback                                       KAudioDeviceProperty = 't'<<24 | 'a'<<16 | 'l'<<8 | 'b' // 'talb'
+	KAudioDevicePropertyVoiceActivityDetectionEnable                   KAudioDeviceProperty = 'v'<<24 | 'A'<<16 | 'd'<<8 | '+' // 'vAd+'
+	KAudioDevicePropertyVoiceActivityDetectionState                    KAudioDeviceProperty = 'v'<<24 | 'A'<<16 | 'd'<<8 | 'S' // 'vAdS'
+	KAudioDevicePropertyVolumeDecibels                                 KAudioDeviceProperty = 'v'<<24 | 'o'<<16 | 'l'<<8 | 'd' // 'vold'
+	KAudioDevicePropertyVolumeDecibelsToScalar                         KAudioDeviceProperty = 'd'<<24 | 'b'<<16 | '2'<<8 | 'v' // 'db2v'
+	KAudioDevicePropertyVolumeDecibelsToScalarTransferFunction         KAudioDeviceProperty = 'v'<<24 | 'c'<<16 | 't'<<8 | 'f' // 'vctf'
+	KAudioDevicePropertyVolumeRangeDecibels                            KAudioDeviceProperty = 'v'<<24 | 'd'<<16 | 'b'<<8 | '#' // 'vdb#'
+	KAudioDevicePropertyVolumeScalar                                   KAudioDeviceProperty = 'v'<<24 | 'o'<<16 | 'l'<<8 | 'm' // 'volm'
+	KAudioDevicePropertyVolumeScalarToDecibels                         KAudioDeviceProperty = 'v'<<24 | '2'<<16 | 'd'<<8 | 'b' // 'v2db'
+	KAudioDevicePropertyWantsControlsRestored                          KAudioDeviceProperty = 'r'<<24 | 'e'<<16 | 's'<<8 | 'c' // 'resc'
+	KAudioDevicePropertyWantsStreamFormatsRestored                     KAudioDeviceProperty = 'r'<<24 | 'e'<<16 | 's'<<8 | 'f' // 'resf'
+	KAudioDevicePropertyZeroTimeStampPeriod                            KAudioDeviceProperty = 0
 )
 
 func (e KAudioDeviceProperty) String() string {
@@ -938,8 +938,8 @@ func (e KAudioDeviceProperty) String() string {
 type KAudioDevicePropertyScope uint
 
 const (
-	KAudioDevicePropertyScopeInput KAudioDevicePropertyScope = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
-	KAudioDevicePropertyScopeOutput KAudioDevicePropertyScope = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
+	KAudioDevicePropertyScopeInput       KAudioDevicePropertyScope = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
+	KAudioDevicePropertyScopeOutput      KAudioDevicePropertyScope = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
 	KAudioDevicePropertyScopePlayThrough KAudioDevicePropertyScope = 0
 )
 
@@ -960,8 +960,8 @@ type KAudioDeviceStartTime uint
 
 const (
 	KAudioDeviceStartTimeDontConsultDeviceFlag KAudioDeviceStartTime = 0
-	KAudioDeviceStartTimeDontConsultHALFlag KAudioDeviceStartTime = 0
-	KAudioDeviceStartTimeIsInputFlag KAudioDeviceStartTime = 0
+	KAudioDeviceStartTimeDontConsultHALFlag    KAudioDeviceStartTime = 0
+	KAudioDeviceStartTimeIsInputFlag           KAudioDeviceStartTime = 0
 )
 
 func (e KAudioDeviceStartTime) String() string {
@@ -976,22 +976,22 @@ func (e KAudioDeviceStartTime) String() string {
 type KAudioDeviceTransportType uint
 
 const (
-	KAudioDeviceTransportTypeAVB KAudioDeviceTransportType = 'e'<<24 | 'a'<<16 | 'v'<<8 | 'b' // 'eavb'
-	KAudioDeviceTransportTypeAggregate KAudioDeviceTransportType = 'g'<<24 | 'r'<<16 | 'u'<<8 | 'p' // 'grup'
-	KAudioDeviceTransportTypeAirPlay KAudioDeviceTransportType = 'a'<<24 | 'i'<<16 | 'r'<<8 | 'p' // 'airp'
-	KAudioDeviceTransportTypeBluetooth KAudioDeviceTransportType = 'b'<<24 | 'l'<<16 | 'u'<<8 | 'e' // 'blue'
-	KAudioDeviceTransportTypeBluetoothLE KAudioDeviceTransportType = 'b'<<24 | 'l'<<16 | 'e'<<8 | 'a' // 'blea'
-	KAudioDeviceTransportTypeBuiltIn KAudioDeviceTransportType = 'b'<<24 | 'l'<<16 | 't'<<8 | 'n' // 'bltn'
-	KAudioDeviceTransportTypeContinuityCaptureWired KAudioDeviceTransportType = 'c'<<24 | 'c'<<16 | 'w'<<8 | 'd' // 'ccwd'
+	KAudioDeviceTransportTypeAVB                       KAudioDeviceTransportType = 'e'<<24 | 'a'<<16 | 'v'<<8 | 'b' // 'eavb'
+	KAudioDeviceTransportTypeAggregate                 KAudioDeviceTransportType = 'g'<<24 | 'r'<<16 | 'u'<<8 | 'p' // 'grup'
+	KAudioDeviceTransportTypeAirPlay                   KAudioDeviceTransportType = 'a'<<24 | 'i'<<16 | 'r'<<8 | 'p' // 'airp'
+	KAudioDeviceTransportTypeBluetooth                 KAudioDeviceTransportType = 'b'<<24 | 'l'<<16 | 'u'<<8 | 'e' // 'blue'
+	KAudioDeviceTransportTypeBluetoothLE               KAudioDeviceTransportType = 'b'<<24 | 'l'<<16 | 'e'<<8 | 'a' // 'blea'
+	KAudioDeviceTransportTypeBuiltIn                   KAudioDeviceTransportType = 'b'<<24 | 'l'<<16 | 't'<<8 | 'n' // 'bltn'
+	KAudioDeviceTransportTypeContinuityCaptureWired    KAudioDeviceTransportType = 'c'<<24 | 'c'<<16 | 'w'<<8 | 'd' // 'ccwd'
 	KAudioDeviceTransportTypeContinuityCaptureWireless KAudioDeviceTransportType = 'c'<<24 | 'c'<<16 | 'w'<<8 | 'l' // 'ccwl'
-	KAudioDeviceTransportTypeDisplayPort KAudioDeviceTransportType = 'd'<<24 | 'p'<<16 | 'r'<<8 | 't' // 'dprt'
-	KAudioDeviceTransportTypeFireWire KAudioDeviceTransportType = '1'<<24 | '3'<<16 | '9'<<8 | '4' // '1394'
-	KAudioDeviceTransportTypeHDMI KAudioDeviceTransportType = 'h'<<24 | 'd'<<16 | 'm'<<8 | 'i' // 'hdmi'
-	KAudioDeviceTransportTypePCI KAudioDeviceTransportType = 'p'<<24 | 'c'<<16 | 'i'<<8 | ' ' // 'pci '
-	KAudioDeviceTransportTypeThunderbolt KAudioDeviceTransportType = 't'<<24 | 'h'<<16 | 'u'<<8 | 'n' // 'thun'
-	KAudioDeviceTransportTypeUSB KAudioDeviceTransportType = 'u'<<24 | 's'<<16 | 'b'<<8 | ' ' // 'usb '
-	KAudioDeviceTransportTypeUnknown KAudioDeviceTransportType = 0
-	KAudioDeviceTransportTypeVirtual KAudioDeviceTransportType = 'v'<<24 | 'i'<<16 | 'r'<<8 | 't' // 'virt'
+	KAudioDeviceTransportTypeDisplayPort               KAudioDeviceTransportType = 'd'<<24 | 'p'<<16 | 'r'<<8 | 't' // 'dprt'
+	KAudioDeviceTransportTypeFireWire                  KAudioDeviceTransportType = '1'<<24 | '3'<<16 | '9'<<8 | '4' // '1394'
+	KAudioDeviceTransportTypeHDMI                      KAudioDeviceTransportType = 'h'<<24 | 'd'<<16 | 'm'<<8 | 'i' // 'hdmi'
+	KAudioDeviceTransportTypePCI                       KAudioDeviceTransportType = 'p'<<24 | 'c'<<16 | 'i'<<8 | ' ' // 'pci '
+	KAudioDeviceTransportTypeThunderbolt               KAudioDeviceTransportType = 't'<<24 | 'h'<<16 | 'u'<<8 | 'n' // 'thun'
+	KAudioDeviceTransportTypeUSB                       KAudioDeviceTransportType = 'u'<<24 | 's'<<16 | 'b'<<8 | ' ' // 'usb '
+	KAudioDeviceTransportTypeUnknown                   KAudioDeviceTransportType = 0
+	KAudioDeviceTransportTypeVirtual                   KAudioDeviceTransportType = 'v'<<24 | 'i'<<16 | 'r'<<8 | 't' // 'virt'
 	// Deprecated.
 	KAudioDeviceTransportTypeContinuityCapture KAudioDeviceTransportType = 0
 )
@@ -1083,9 +1083,9 @@ func (e KAudioEndPointDeviceClassI) String() string {
 type KAudioEndPointDeviceProperty uint
 
 const (
-	KAudioEndPointDevicePropertyComposition KAudioEndPointDeviceProperty = 'a'<<24 | 'c'<<16 | 'o'<<8 | 'm' // 'acom'
+	KAudioEndPointDevicePropertyComposition  KAudioEndPointDeviceProperty = 'a'<<24 | 'c'<<16 | 'o'<<8 | 'm' // 'acom'
 	KAudioEndPointDevicePropertyEndPointList KAudioEndPointDeviceProperty = 'a'<<24 | 'g'<<16 | 'r'<<8 | 'p' // 'agrp'
-	KAudioEndPointDevicePropertyIsPrivate KAudioEndPointDeviceProperty = 'p'<<24 | 'r'<<16 | 'i'<<8 | 'v' // 'priv'
+	KAudioEndPointDevicePropertyIsPrivate    KAudioEndPointDeviceProperty = 'p'<<24 | 'r'<<16 | 'i'<<8 | 'v' // 'priv'
 )
 
 func (e KAudioEndPointDeviceProperty) String() string {
@@ -1104,38 +1104,38 @@ func (e KAudioEndPointDeviceProperty) String() string {
 type KAudioHardwareProperty uint
 
 const (
-	KAudioHardwarePropertyBoxList KAudioHardwareProperty = 'b'<<24 | 'o'<<16 | 'x'<<8 | '#' // 'box#'
-	KAudioHardwarePropertyClockDeviceList KAudioHardwareProperty = 'c'<<24 | 'l'<<16 | 'k'<<8 | '#' // 'clk#'
-	KAudioHardwarePropertyDefaultInputDevice KAudioHardwareProperty = 'd'<<24 | 'I'<<16 | 'n'<<8 | ' ' // 'dIn '
-	KAudioHardwarePropertyDefaultOutputDevice KAudioHardwareProperty = 'd'<<24 | 'O'<<16 | 'u'<<8 | 't' // 'dOut'
-	KAudioHardwarePropertyDefaultSystemOutputDevice KAudioHardwareProperty = 's'<<24 | 'O'<<16 | 'u'<<8 | 't' // 'sOut'
-	KAudioHardwarePropertyDeviceForUID KAudioHardwareProperty = 'd'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'duid'
-	KAudioHardwarePropertyDevices KAudioHardwareProperty = 'd'<<24 | 'e'<<16 | 'v'<<8 | '#' // 'dev#'
-	KAudioHardwarePropertyHogModeIsAllowed KAudioHardwareProperty = 'h'<<24 | 'o'<<16 | 'g'<<8 | 'r' // 'hogr'
-	KAudioHardwarePropertyIsInitingOrExiting KAudioHardwareProperty = 'i'<<24 | 'n'<<16 | 'o'<<8 | 't' // 'inot'
-	KAudioHardwarePropertyMixStereoToMono KAudioHardwareProperty = 's'<<24 | 't'<<16 | 'm'<<8 | 'o' // 'stmo'
-	KAudioHardwarePropertyPlugInForBundleID KAudioHardwareProperty = 'p'<<24 | 'i'<<16 | 'b'<<8 | 'i' // 'pibi'
-	KAudioHardwarePropertyPlugInList KAudioHardwareProperty = 'p'<<24 | 'l'<<16 | 'g'<<8 | '#' // 'plg#'
-	KAudioHardwarePropertyPowerHint KAudioHardwareProperty = 'p'<<24 | 'o'<<16 | 'w'<<8 | 'h' // 'powh'
-	KAudioHardwarePropertyProcessInputMute KAudioHardwareProperty = 'p'<<24 | 'm'<<16 | 'i'<<8 | 'n' // 'pmin'
-	KAudioHardwarePropertyProcessIsAudible KAudioHardwareProperty = 'p'<<24 | 'm'<<16 | 'u'<<8 | 't' // 'pmut'
-	KAudioHardwarePropertyProcessIsMain KAudioHardwareProperty = 'm'<<24 | 'a'<<16 | 'i'<<8 | 'n' // 'main'
-	KAudioHardwarePropertyProcessObjectList KAudioHardwareProperty = 'p'<<24 | 'r'<<16 | 's'<<8 | '#' // 'prs#'
-	KAudioHardwarePropertyRunLoop KAudioHardwareProperty = 'r'<<24 | 'n'<<16 | 'l'<<8 | 'p' // 'rnlp'
-	KAudioHardwarePropertyServiceRestarted KAudioHardwareProperty = 's'<<24 | 'r'<<16 | 's'<<8 | 't' // 'srst'
-	KAudioHardwarePropertySleepingIsAllowed KAudioHardwareProperty = 's'<<24 | 'l'<<16 | 'e'<<8 | 'p' // 'slep'
-	KAudioHardwarePropertyTapList KAudioHardwareProperty = 't'<<24 | 'p'<<16 | 's'<<8 | '#' // 'tps#'
-	KAudioHardwarePropertyTranslateBundleIDToPlugIn KAudioHardwareProperty = 'b'<<24 | 'i'<<16 | 'd'<<8 | 'p' // 'bidp'
+	KAudioHardwarePropertyBoxList                             KAudioHardwareProperty = 'b'<<24 | 'o'<<16 | 'x'<<8 | '#' // 'box#'
+	KAudioHardwarePropertyClockDeviceList                     KAudioHardwareProperty = 'c'<<24 | 'l'<<16 | 'k'<<8 | '#' // 'clk#'
+	KAudioHardwarePropertyDefaultInputDevice                  KAudioHardwareProperty = 'd'<<24 | 'I'<<16 | 'n'<<8 | ' ' // 'dIn '
+	KAudioHardwarePropertyDefaultOutputDevice                 KAudioHardwareProperty = 'd'<<24 | 'O'<<16 | 'u'<<8 | 't' // 'dOut'
+	KAudioHardwarePropertyDefaultSystemOutputDevice           KAudioHardwareProperty = 's'<<24 | 'O'<<16 | 'u'<<8 | 't' // 'sOut'
+	KAudioHardwarePropertyDeviceForUID                        KAudioHardwareProperty = 'd'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'duid'
+	KAudioHardwarePropertyDevices                             KAudioHardwareProperty = 'd'<<24 | 'e'<<16 | 'v'<<8 | '#' // 'dev#'
+	KAudioHardwarePropertyHogModeIsAllowed                    KAudioHardwareProperty = 'h'<<24 | 'o'<<16 | 'g'<<8 | 'r' // 'hogr'
+	KAudioHardwarePropertyIsInitingOrExiting                  KAudioHardwareProperty = 'i'<<24 | 'n'<<16 | 'o'<<8 | 't' // 'inot'
+	KAudioHardwarePropertyMixStereoToMono                     KAudioHardwareProperty = 's'<<24 | 't'<<16 | 'm'<<8 | 'o' // 'stmo'
+	KAudioHardwarePropertyPlugInForBundleID                   KAudioHardwareProperty = 'p'<<24 | 'i'<<16 | 'b'<<8 | 'i' // 'pibi'
+	KAudioHardwarePropertyPlugInList                          KAudioHardwareProperty = 'p'<<24 | 'l'<<16 | 'g'<<8 | '#' // 'plg#'
+	KAudioHardwarePropertyPowerHint                           KAudioHardwareProperty = 'p'<<24 | 'o'<<16 | 'w'<<8 | 'h' // 'powh'
+	KAudioHardwarePropertyProcessInputMute                    KAudioHardwareProperty = 'p'<<24 | 'm'<<16 | 'i'<<8 | 'n' // 'pmin'
+	KAudioHardwarePropertyProcessIsAudible                    KAudioHardwareProperty = 'p'<<24 | 'm'<<16 | 'u'<<8 | 't' // 'pmut'
+	KAudioHardwarePropertyProcessIsMain                       KAudioHardwareProperty = 'm'<<24 | 'a'<<16 | 'i'<<8 | 'n' // 'main'
+	KAudioHardwarePropertyProcessObjectList                   KAudioHardwareProperty = 'p'<<24 | 'r'<<16 | 's'<<8 | '#' // 'prs#'
+	KAudioHardwarePropertyRunLoop                             KAudioHardwareProperty = 'r'<<24 | 'n'<<16 | 'l'<<8 | 'p' // 'rnlp'
+	KAudioHardwarePropertyServiceRestarted                    KAudioHardwareProperty = 's'<<24 | 'r'<<16 | 's'<<8 | 't' // 'srst'
+	KAudioHardwarePropertySleepingIsAllowed                   KAudioHardwareProperty = 's'<<24 | 'l'<<16 | 'e'<<8 | 'p' // 'slep'
+	KAudioHardwarePropertyTapList                             KAudioHardwareProperty = 't'<<24 | 'p'<<16 | 's'<<8 | '#' // 'tps#'
+	KAudioHardwarePropertyTranslateBundleIDToPlugIn           KAudioHardwareProperty = 'b'<<24 | 'i'<<16 | 'd'<<8 | 'p' // 'bidp'
 	KAudioHardwarePropertyTranslateBundleIDToTransportManager KAudioHardwareProperty = 't'<<24 | 'm'<<16 | 'b'<<8 | 'i' // 'tmbi'
-	KAudioHardwarePropertyTranslatePIDToProcessObject KAudioHardwareProperty = 'i'<<24 | 'd'<<16 | '2'<<8 | 'p' // 'id2p'
-	KAudioHardwarePropertyTranslateUIDToBox KAudioHardwareProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'b' // 'uidb'
-	KAudioHardwarePropertyTranslateUIDToClockDevice KAudioHardwareProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'c' // 'uidc'
-	KAudioHardwarePropertyTranslateUIDToDevice KAudioHardwareProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'd' // 'uidd'
-	KAudioHardwarePropertyTranslateUIDToTap KAudioHardwareProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 't' // 'uidt'
-	KAudioHardwarePropertyTransportManagerList KAudioHardwareProperty = 't'<<24 | 'm'<<16 | 'g'<<8 | '#' // 'tmg#'
-	KAudioHardwarePropertyUnloadingIsAllowed KAudioHardwareProperty = 'u'<<24 | 'n'<<16 | 'l'<<8 | 'd' // 'unld'
-	KAudioHardwarePropertyUserIDChanged KAudioHardwareProperty = 'e'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'euid'
-	KAudioHardwarePropertyUserSessionIsActiveOrHeadless KAudioHardwareProperty = 'u'<<24 | 's'<<16 | 'e'<<8 | 'r' // 'user'
+	KAudioHardwarePropertyTranslatePIDToProcessObject         KAudioHardwareProperty = 'i'<<24 | 'd'<<16 | '2'<<8 | 'p' // 'id2p'
+	KAudioHardwarePropertyTranslateUIDToBox                   KAudioHardwareProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'b' // 'uidb'
+	KAudioHardwarePropertyTranslateUIDToClockDevice           KAudioHardwareProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'c' // 'uidc'
+	KAudioHardwarePropertyTranslateUIDToDevice                KAudioHardwareProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'd' // 'uidd'
+	KAudioHardwarePropertyTranslateUIDToTap                   KAudioHardwareProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 't' // 'uidt'
+	KAudioHardwarePropertyTransportManagerList                KAudioHardwareProperty = 't'<<24 | 'm'<<16 | 'g'<<8 | '#' // 'tmg#'
+	KAudioHardwarePropertyUnloadingIsAllowed                  KAudioHardwareProperty = 'u'<<24 | 'n'<<16 | 'l'<<8 | 'd' // 'unld'
+	KAudioHardwarePropertyUserIDChanged                       KAudioHardwareProperty = 'e'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'euid'
+	KAudioHardwarePropertyUserSessionIsActiveOrHeadless       KAudioHardwareProperty = 'u'<<24 | 's'<<16 | 'e'<<8 | 'r' // 'user'
 	// Deprecated.
 	KAudioHardwarePropertyProcessIsMaster KAudioHardwareProperty = 0
 )
@@ -1216,12 +1216,12 @@ func (e KAudioHardwareProperty) String() string {
 type KAudioHardwarePropertyBootChimeVolume uint
 
 const (
-	KAudioHardwarePropertyBootChimeVolumeDecibels KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'b'<<16 | 'v'<<8 | 'd' // 'bbvd'
-	KAudioHardwarePropertyBootChimeVolumeDecibelsToScalar KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'd'<<16 | '2'<<8 | 'v' // 'bd2v'
+	KAudioHardwarePropertyBootChimeVolumeDecibels                         KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'b'<<16 | 'v'<<8 | 'd' // 'bbvd'
+	KAudioHardwarePropertyBootChimeVolumeDecibelsToScalar                 KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'd'<<16 | '2'<<8 | 'v' // 'bd2v'
 	KAudioHardwarePropertyBootChimeVolumeDecibelsToScalarTransferFunction KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'v'<<16 | 't'<<8 | 'f' // 'bvtf'
-	KAudioHardwarePropertyBootChimeVolumeRangeDecibels KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'b'<<16 | 'd'<<8 | '#' // 'bbd#'
-	KAudioHardwarePropertyBootChimeVolumeScalar KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'b'<<16 | 'v'<<8 | 's' // 'bbvs'
-	KAudioHardwarePropertyBootChimeVolumeScalarToDecibels KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'v'<<16 | '2'<<8 | 'd' // 'bv2d'
+	KAudioHardwarePropertyBootChimeVolumeRangeDecibels                    KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'b'<<16 | 'd'<<8 | '#' // 'bbd#'
+	KAudioHardwarePropertyBootChimeVolumeScalar                           KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'b'<<16 | 'v'<<8 | 's' // 'bbvs'
+	KAudioHardwarePropertyBootChimeVolumeScalarToDecibels                 KAudioHardwarePropertyBootChimeVolume = 'b'<<24 | 'v'<<16 | '2'<<8 | 'd' // 'bv2d'
 )
 
 func (e KAudioHardwarePropertyBootChimeVolume) String() string {
@@ -1263,9 +1263,9 @@ type KAudioLevelControlProperty uint
 const (
 	KAudioLevelControlPropertyConvertDecibelsToScalar KAudioLevelControlProperty = 'l'<<24 | 'c'<<16 | 'd'<<8 | 's' // 'lcds'
 	KAudioLevelControlPropertyConvertScalarToDecibels KAudioLevelControlProperty = 'l'<<24 | 'c'<<16 | 's'<<8 | 'd' // 'lcsd'
-	KAudioLevelControlPropertyDecibelRange KAudioLevelControlProperty = 'l'<<24 | 'c'<<16 | 'd'<<8 | 'r' // 'lcdr'
-	KAudioLevelControlPropertyDecibelValue KAudioLevelControlProperty = 'l'<<24 | 'c'<<16 | 'd'<<8 | 'v' // 'lcdv'
-	KAudioLevelControlPropertyScalarValue KAudioLevelControlProperty = 'l'<<24 | 'c'<<16 | 's'<<8 | 'v' // 'lcsv'
+	KAudioLevelControlPropertyDecibelRange            KAudioLevelControlProperty = 'l'<<24 | 'c'<<16 | 'd'<<8 | 'r' // 'lcdr'
+	KAudioLevelControlPropertyDecibelValue            KAudioLevelControlProperty = 'l'<<24 | 'c'<<16 | 'd'<<8 | 'v' // 'lcdv'
+	KAudioLevelControlPropertyScalarValue             KAudioLevelControlProperty = 'l'<<24 | 'c'<<16 | 's'<<8 | 'v' // 'lcsv'
 )
 
 func (e KAudioLevelControlProperty) String() string {
@@ -1318,21 +1318,32 @@ func (e KAudioObject) String() string {
 type KAudioObjectClassI uint
 
 const (
-	KAudioObjectClassID KAudioObjectClassI = 'a'<<24 | 'o'<<16 | 'b'<<8 | 'j' // 'aobj'
+	KAudioObjectClassIDValue KAudioObjectClassI = 'a'<<24 | 'o'<<16 | 'b'<<8 | 'j' // 'aobj'
 )
 
 func (e KAudioObjectClassI) String() string {
 	switch e {
-	case KAudioObjectClassID:
-		return "KAudioObjectClassID"
+	case KAudioObjectClassIDValue:
+		return "KAudioObjectClassIDValue"
 	default:
 		return fmt.Sprintf("KAudioObjectClassI(%d)", e)
 	}
 }
 
+type KAudioObjectClassID uint
+
 const (
-	KAudioObjectClassIDWildcard uint = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
+	KAudioObjectClassIDWildcard KAudioObjectClassID = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
 )
+
+func (e KAudioObjectClassID) String() string {
+	switch e {
+	case KAudioObjectClassIDWildcard:
+		return "KAudioObjectClassIDWildcard"
+	default:
+		return fmt.Sprintf("KAudioObjectClassID(%d)", e)
+	}
+}
 
 type KAudioObjectPlugIn uint
 
@@ -1352,27 +1363,27 @@ func (e KAudioObjectPlugIn) String() string {
 type KAudioObjectProperty uint
 
 const (
-	KAudioObjectPropertyBaseClass KAudioObjectProperty = 'b'<<24 | 'c'<<16 | 'l'<<8 | 's' // 'bcls'
-	KAudioObjectPropertyClass KAudioObjectProperty = 'c'<<24 | 'l'<<16 | 'a'<<8 | 's' // 'clas'
-	KAudioObjectPropertyCreator KAudioObjectProperty = 'o'<<24 | 'p'<<16 | 'l'<<8 | 'g' // 'oplg'
+	KAudioObjectPropertyBaseClass           KAudioObjectProperty = 'b'<<24 | 'c'<<16 | 'l'<<8 | 's' // 'bcls'
+	KAudioObjectPropertyClass               KAudioObjectProperty = 'c'<<24 | 'l'<<16 | 'a'<<8 | 's' // 'clas'
+	KAudioObjectPropertyCreator             KAudioObjectProperty = 'o'<<24 | 'p'<<16 | 'l'<<8 | 'g' // 'oplg'
 	KAudioObjectPropertyElementCategoryName KAudioObjectProperty = 'l'<<24 | 'c'<<16 | 'c'<<8 | 'n' // 'lccn'
-	KAudioObjectPropertyElementMain KAudioObjectProperty = 0
-	KAudioObjectPropertyElementName KAudioObjectProperty = 'l'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'lchn'
-	KAudioObjectPropertyElementNumberName KAudioObjectProperty = 'l'<<24 | 'c'<<16 | 'n'<<8 | 'n' // 'lcnn'
-	KAudioObjectPropertyFirmwareVersion KAudioObjectProperty = 'f'<<24 | 'w'<<16 | 'v'<<8 | 'n' // 'fwvn'
-	KAudioObjectPropertyIdentify KAudioObjectProperty = 'i'<<24 | 'd'<<16 | 'e'<<8 | 'n' // 'iden'
-	KAudioObjectPropertyListenerAdded KAudioObjectProperty = 'l'<<24 | 'i'<<16 | 's'<<8 | 'a' // 'lisa'
-	KAudioObjectPropertyListenerRemoved KAudioObjectProperty = 'l'<<24 | 'i'<<16 | 's'<<8 | 'r' // 'lisr'
-	KAudioObjectPropertyManufacturer KAudioObjectProperty = 'l'<<24 | 'm'<<16 | 'a'<<8 | 'k' // 'lmak'
-	KAudioObjectPropertyModelName KAudioObjectProperty = 'l'<<24 | 'm'<<16 | 'o'<<8 | 'd' // 'lmod'
-	KAudioObjectPropertyName KAudioObjectProperty = 'l'<<24 | 'n'<<16 | 'a'<<8 | 'm' // 'lnam'
-	KAudioObjectPropertyOwnedObjects KAudioObjectProperty = 'o'<<24 | 'w'<<16 | 'n'<<8 | 'd' // 'ownd'
-	KAudioObjectPropertyOwner KAudioObjectProperty = 's'<<24 | 't'<<16 | 'd'<<8 | 'v' // 'stdv'
-	KAudioObjectPropertyScopeGlobal KAudioObjectProperty = 'g'<<24 | 'l'<<16 | 'o'<<8 | 'b' // 'glob'
-	KAudioObjectPropertyScopeInput KAudioObjectProperty = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
-	KAudioObjectPropertyScopeOutput KAudioObjectProperty = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
-	KAudioObjectPropertyScopePlayThrough KAudioObjectProperty = 'p'<<24 | 't'<<16 | 'r'<<8 | 'u' // 'ptru'
-	KAudioObjectPropertySerialNumber KAudioObjectProperty = 's'<<24 | 'n'<<16 | 'u'<<8 | 'm' // 'snum'
+	KAudioObjectPropertyElementMain         KAudioObjectProperty = 0
+	KAudioObjectPropertyElementName         KAudioObjectProperty = 'l'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'lchn'
+	KAudioObjectPropertyElementNumberName   KAudioObjectProperty = 'l'<<24 | 'c'<<16 | 'n'<<8 | 'n' // 'lcnn'
+	KAudioObjectPropertyFirmwareVersion     KAudioObjectProperty = 'f'<<24 | 'w'<<16 | 'v'<<8 | 'n' // 'fwvn'
+	KAudioObjectPropertyIdentify            KAudioObjectProperty = 'i'<<24 | 'd'<<16 | 'e'<<8 | 'n' // 'iden'
+	KAudioObjectPropertyListenerAdded       KAudioObjectProperty = 'l'<<24 | 'i'<<16 | 's'<<8 | 'a' // 'lisa'
+	KAudioObjectPropertyListenerRemoved     KAudioObjectProperty = 'l'<<24 | 'i'<<16 | 's'<<8 | 'r' // 'lisr'
+	KAudioObjectPropertyManufacturer        KAudioObjectProperty = 'l'<<24 | 'm'<<16 | 'a'<<8 | 'k' // 'lmak'
+	KAudioObjectPropertyModelName           KAudioObjectProperty = 'l'<<24 | 'm'<<16 | 'o'<<8 | 'd' // 'lmod'
+	KAudioObjectPropertyName                KAudioObjectProperty = 'l'<<24 | 'n'<<16 | 'a'<<8 | 'm' // 'lnam'
+	KAudioObjectPropertyOwnedObjects        KAudioObjectProperty = 'o'<<24 | 'w'<<16 | 'n'<<8 | 'd' // 'ownd'
+	KAudioObjectPropertyOwner               KAudioObjectProperty = 's'<<24 | 't'<<16 | 'd'<<8 | 'v' // 'stdv'
+	KAudioObjectPropertyScopeGlobal         KAudioObjectProperty = 'g'<<24 | 'l'<<16 | 'o'<<8 | 'b' // 'glob'
+	KAudioObjectPropertyScopeInput          KAudioObjectProperty = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
+	KAudioObjectPropertyScopeOutput         KAudioObjectProperty = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
+	KAudioObjectPropertyScopePlayThrough    KAudioObjectProperty = 'p'<<24 | 't'<<16 | 'r'<<8 | 'u' // 'ptru'
+	KAudioObjectPropertySerialNumber        KAudioObjectProperty = 's'<<24 | 'n'<<16 | 'u'<<8 | 'm' // 'snum'
 	// Deprecated.
 	KAudioObjectPropertyElementMaster KAudioObjectProperty = 0
 )
@@ -1504,7 +1515,7 @@ func (e KAudioObjectSystem) String() string {
 type KAudioPlugIn uint
 
 const (
-	KAudioPlugInCreateAggregateDevice KAudioPlugIn = 'c'<<24 | 'a'<<16 | 'g'<<8 | 'g' // 'cagg'
+	KAudioPlugInCreateAggregateDevice  KAudioPlugIn = 'c'<<24 | 'a'<<16 | 'g'<<8 | 'g' // 'cagg'
 	KAudioPlugInDestroyAggregateDevice KAudioPlugIn = 'd'<<24 | 'a'<<16 | 'g'<<8 | 'g' // 'dagg'
 )
 
@@ -1537,13 +1548,13 @@ func (e KAudioPlugInClassI) String() string {
 type KAudioPlugInProperty uint
 
 const (
-	KAudioPlugInPropertyBoxList KAudioPlugInProperty = 'b'<<24 | 'o'<<16 | 'x'<<8 | '#' // 'box#'
-	KAudioPlugInPropertyBundleID KAudioPlugInProperty = 'p'<<24 | 'i'<<16 | 'i'<<8 | 'd' // 'piid'
-	KAudioPlugInPropertyClockDeviceList KAudioPlugInProperty = 'c'<<24 | 'l'<<16 | 'k'<<8 | '#' // 'clk#'
-	KAudioPlugInPropertyDeviceList KAudioPlugInProperty = 'd'<<24 | 'e'<<16 | 'v'<<8 | '#' // 'dev#'
-	KAudioPlugInPropertyTranslateUIDToBox KAudioPlugInProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'b' // 'uidb'
+	KAudioPlugInPropertyBoxList                   KAudioPlugInProperty = 'b'<<24 | 'o'<<16 | 'x'<<8 | '#' // 'box#'
+	KAudioPlugInPropertyBundleID                  KAudioPlugInProperty = 'p'<<24 | 'i'<<16 | 'i'<<8 | 'd' // 'piid'
+	KAudioPlugInPropertyClockDeviceList           KAudioPlugInProperty = 'c'<<24 | 'l'<<16 | 'k'<<8 | '#' // 'clk#'
+	KAudioPlugInPropertyDeviceList                KAudioPlugInProperty = 'd'<<24 | 'e'<<16 | 'v'<<8 | '#' // 'dev#'
+	KAudioPlugInPropertyTranslateUIDToBox         KAudioPlugInProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'b' // 'uidb'
 	KAudioPlugInPropertyTranslateUIDToClockDevice KAudioPlugInProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'c' // 'uidc'
-	KAudioPlugInPropertyTranslateUIDToDevice KAudioPlugInProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'd' // 'uidd'
+	KAudioPlugInPropertyTranslateUIDToDevice      KAudioPlugInProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'd' // 'uidd'
 )
 
 func (e KAudioPlugInProperty) String() string {
@@ -1600,12 +1611,12 @@ func (e KAudioProcessClassI) String() string {
 type KAudioProcessProperty uint
 
 const (
-	KAudioProcessPropertyBundleID KAudioProcessProperty = 'p'<<24 | 'b'<<16 | 'i'<<8 | 'd' // 'pbid'
-	KAudioProcessPropertyDevices KAudioProcessProperty = 'p'<<24 | 'd'<<16 | 'v'<<8 | '#' // 'pdv#'
-	KAudioProcessPropertyIsRunning KAudioProcessProperty = 'p'<<24 | 'i'<<16 | 'r'<<8 | '?' // 'pir?'
-	KAudioProcessPropertyIsRunningInput KAudioProcessProperty = 'p'<<24 | 'i'<<16 | 'r'<<8 | 'i' // 'piri'
+	KAudioProcessPropertyBundleID        KAudioProcessProperty = 'p'<<24 | 'b'<<16 | 'i'<<8 | 'd' // 'pbid'
+	KAudioProcessPropertyDevices         KAudioProcessProperty = 'p'<<24 | 'd'<<16 | 'v'<<8 | '#' // 'pdv#'
+	KAudioProcessPropertyIsRunning       KAudioProcessProperty = 'p'<<24 | 'i'<<16 | 'r'<<8 | '?' // 'pir?'
+	KAudioProcessPropertyIsRunningInput  KAudioProcessProperty = 'p'<<24 | 'i'<<16 | 'r'<<8 | 'i' // 'piri'
 	KAudioProcessPropertyIsRunningOutput KAudioProcessProperty = 'p'<<24 | 'i'<<16 | 'r'<<8 | 'o' // 'piro'
-	KAudioProcessPropertyPID KAudioProcessProperty = 'p'<<24 | 'p'<<16 | 'i'<<8 | 'd' // 'ppid'
+	KAudioProcessPropertyPID             KAudioProcessProperty = 'p'<<24 | 'p'<<16 | 'i'<<8 | 'd' // 'ppid'
 )
 
 func (e KAudioProcessProperty) String() string {
@@ -1677,9 +1688,9 @@ type KAudioSelectorControlProperty uint
 
 const (
 	KAudioSelectorControlPropertyAvailableItems KAudioSelectorControlProperty = 's'<<24 | 'c'<<16 | 'a'<<8 | 'i' // 'scai'
-	KAudioSelectorControlPropertyCurrentItem KAudioSelectorControlProperty = 's'<<24 | 'c'<<16 | 'c'<<8 | 'i' // 'scci'
-	KAudioSelectorControlPropertyItemKind KAudioSelectorControlProperty = 'c'<<24 | 'l'<<16 | 'k'<<8 | 'k' // 'clkk'
-	KAudioSelectorControlPropertyItemName KAudioSelectorControlProperty = 's'<<24 | 'c'<<16 | 'i'<<8 | 'n' // 'scin'
+	KAudioSelectorControlPropertyCurrentItem    KAudioSelectorControlProperty = 's'<<24 | 'c'<<16 | 'c'<<8 | 'i' // 'scci'
+	KAudioSelectorControlPropertyItemKind       KAudioSelectorControlProperty = 'c'<<24 | 'l'<<16 | 'k'<<8 | 'k' // 'clkk'
+	KAudioSelectorControlPropertyItemName       KAudioSelectorControlProperty = 's'<<24 | 'c'<<16 | 'i'<<8 | 'n' // 'scin'
 )
 
 func (e KAudioSelectorControlProperty) String() string {
@@ -1701,8 +1712,8 @@ type KAudioServerPlugInCustomPropertyDataType uint
 
 const (
 	KAudioServerPlugInCustomPropertyDataTypeCFPropertyList KAudioServerPlugInCustomPropertyDataType = 0
-	KAudioServerPlugInCustomPropertyDataTypeCFString KAudioServerPlugInCustomPropertyDataType = 0
-	KAudioServerPlugInCustomPropertyDataTypeNone KAudioServerPlugInCustomPropertyDataType = 0
+	KAudioServerPlugInCustomPropertyDataTypeCFString       KAudioServerPlugInCustomPropertyDataType = 0
+	KAudioServerPlugInCustomPropertyDataTypeNone           KAudioServerPlugInCustomPropertyDataType = 0
 )
 
 func (e KAudioServerPlugInCustomPropertyDataType) String() string {
@@ -1781,7 +1792,7 @@ type KAudioStereoPanControlProperty uint
 
 const (
 	KAudioStereoPanControlPropertyPanningChannels KAudioStereoPanControlProperty = 's'<<24 | 'p'<<16 | 'c'<<8 | 'c' // 'spcc'
-	KAudioStereoPanControlPropertyValue KAudioStereoPanControlProperty = 's'<<24 | 'p'<<16 | 'c'<<8 | 'v' // 'spcv'
+	KAudioStereoPanControlPropertyValue           KAudioStereoPanControlProperty = 's'<<24 | 'p'<<16 | 'c'<<8 | 'v' // 'spcv'
 )
 
 func (e KAudioStereoPanControlProperty) String() string {
@@ -1829,18 +1840,18 @@ type KAudioStreamProperty uint
 
 const (
 	KAudioStreamPropertyAvailablePhysicalFormats KAudioStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | 'a' // 'pfta'
-	KAudioStreamPropertyAvailableVirtualFormats KAudioStreamProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | 'a' // 'sfma'
-	KAudioStreamPropertyDirection KAudioStreamProperty = 's'<<24 | 'd'<<16 | 'i'<<8 | 'r' // 'sdir'
-	KAudioStreamPropertyIsActive KAudioStreamProperty = 's'<<24 | 'a'<<16 | 'c'<<8 | 't' // 'sact'
-	KAudioStreamPropertyLatency KAudioStreamProperty = 'l'<<24 | 't'<<16 | 'n'<<8 | 'c' // 'ltnc'
-	KAudioStreamPropertyOwningDevice KAudioStreamProperty = 's'<<24 | 't'<<16 | 'd'<<8 | 'v' // 'stdv'
-	KAudioStreamPropertyPhysicalFormat KAudioStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | ' ' // 'pft '
-	KAudioStreamPropertyPhysicalFormatMatch KAudioStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | 'm' // 'pftm'
-	KAudioStreamPropertyPhysicalFormatSupported KAudioStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | '?' // 'pft?'
-	KAudioStreamPropertyPhysicalFormats KAudioStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | '#' // 'pft#'
-	KAudioStreamPropertyStartingChannel KAudioStreamProperty = 's'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'schn'
-	KAudioStreamPropertyTerminalType KAudioStreamProperty = 't'<<24 | 'e'<<16 | 'r'<<8 | 'm' // 'term'
-	KAudioStreamPropertyVirtualFormat KAudioStreamProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | 't' // 'sfmt'
+	KAudioStreamPropertyAvailableVirtualFormats  KAudioStreamProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | 'a' // 'sfma'
+	KAudioStreamPropertyDirection                KAudioStreamProperty = 's'<<24 | 'd'<<16 | 'i'<<8 | 'r' // 'sdir'
+	KAudioStreamPropertyIsActive                 KAudioStreamProperty = 's'<<24 | 'a'<<16 | 'c'<<8 | 't' // 'sact'
+	KAudioStreamPropertyLatency                  KAudioStreamProperty = 'l'<<24 | 't'<<16 | 'n'<<8 | 'c' // 'ltnc'
+	KAudioStreamPropertyOwningDevice             KAudioStreamProperty = 's'<<24 | 't'<<16 | 'd'<<8 | 'v' // 'stdv'
+	KAudioStreamPropertyPhysicalFormat           KAudioStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | ' ' // 'pft '
+	KAudioStreamPropertyPhysicalFormatMatch      KAudioStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | 'm' // 'pftm'
+	KAudioStreamPropertyPhysicalFormatSupported  KAudioStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | '?' // 'pft?'
+	KAudioStreamPropertyPhysicalFormats          KAudioStreamProperty = 'p'<<24 | 'f'<<16 | 't'<<8 | '#' // 'pft#'
+	KAudioStreamPropertyStartingChannel          KAudioStreamProperty = 's'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'schn'
+	KAudioStreamPropertyTerminalType             KAudioStreamProperty = 't'<<24 | 'e'<<16 | 'r'<<8 | 'm' // 'term'
+	KAudioStreamPropertyVirtualFormat            KAudioStreamProperty = 's'<<24 | 'f'<<16 | 'm'<<8 | 't' // 'sfmt'
 )
 
 func (e KAudioStreamProperty) String() string {
@@ -1880,18 +1891,18 @@ type KAudioStreamTerminalType uint
 
 const (
 	KAudioStreamTerminalTypeDigitalAudioInterface KAudioStreamTerminalType = 's'<<24 | 'p'<<16 | 'd'<<8 | 'f' // 'spdf'
-	KAudioStreamTerminalTypeDisplayPort KAudioStreamTerminalType = 'd'<<24 | 'p'<<16 | 'r'<<8 | 't' // 'dprt'
-	KAudioStreamTerminalTypeHDMI KAudioStreamTerminalType = 'h'<<24 | 'd'<<16 | 'm'<<8 | 'i' // 'hdmi'
-	KAudioStreamTerminalTypeHeadphones KAudioStreamTerminalType = 'h'<<24 | 'd'<<16 | 'p'<<8 | 'h' // 'hdph'
-	KAudioStreamTerminalTypeHeadsetMicrophone KAudioStreamTerminalType = 'h'<<24 | 'm'<<16 | 'i'<<8 | 'c' // 'hmic'
-	KAudioStreamTerminalTypeLFESpeaker KAudioStreamTerminalType = 'l'<<24 | 'f'<<16 | 'e'<<8 | 's' // 'lfes'
-	KAudioStreamTerminalTypeLine KAudioStreamTerminalType = 'l'<<24 | 'i'<<16 | 'n'<<8 | 'e' // 'line'
-	KAudioStreamTerminalTypeMicrophone KAudioStreamTerminalType = 'm'<<24 | 'i'<<16 | 'c'<<8 | 'r' // 'micr'
-	KAudioStreamTerminalTypeReceiverMicrophone KAudioStreamTerminalType = 'r'<<24 | 'm'<<16 | 'i'<<8 | 'c' // 'rmic'
-	KAudioStreamTerminalTypeReceiverSpeaker KAudioStreamTerminalType = 'r'<<24 | 's'<<16 | 'p'<<8 | 'k' // 'rspk'
-	KAudioStreamTerminalTypeSpeaker KAudioStreamTerminalType = 's'<<24 | 'p'<<16 | 'k'<<8 | 'r' // 'spkr'
-	KAudioStreamTerminalTypeTTY KAudioStreamTerminalType = 't'<<24 | 't'<<16 | 'y'<<8 | '_' // 'tty_'
-	KAudioStreamTerminalTypeUnknown KAudioStreamTerminalType = 0
+	KAudioStreamTerminalTypeDisplayPort           KAudioStreamTerminalType = 'd'<<24 | 'p'<<16 | 'r'<<8 | 't' // 'dprt'
+	KAudioStreamTerminalTypeHDMI                  KAudioStreamTerminalType = 'h'<<24 | 'd'<<16 | 'm'<<8 | 'i' // 'hdmi'
+	KAudioStreamTerminalTypeHeadphones            KAudioStreamTerminalType = 'h'<<24 | 'd'<<16 | 'p'<<8 | 'h' // 'hdph'
+	KAudioStreamTerminalTypeHeadsetMicrophone     KAudioStreamTerminalType = 'h'<<24 | 'm'<<16 | 'i'<<8 | 'c' // 'hmic'
+	KAudioStreamTerminalTypeLFESpeaker            KAudioStreamTerminalType = 'l'<<24 | 'f'<<16 | 'e'<<8 | 's' // 'lfes'
+	KAudioStreamTerminalTypeLine                  KAudioStreamTerminalType = 'l'<<24 | 'i'<<16 | 'n'<<8 | 'e' // 'line'
+	KAudioStreamTerminalTypeMicrophone            KAudioStreamTerminalType = 'm'<<24 | 'i'<<16 | 'c'<<8 | 'r' // 'micr'
+	KAudioStreamTerminalTypeReceiverMicrophone    KAudioStreamTerminalType = 'r'<<24 | 'm'<<16 | 'i'<<8 | 'c' // 'rmic'
+	KAudioStreamTerminalTypeReceiverSpeaker       KAudioStreamTerminalType = 'r'<<24 | 's'<<16 | 'p'<<8 | 'k' // 'rspk'
+	KAudioStreamTerminalTypeSpeaker               KAudioStreamTerminalType = 's'<<24 | 'p'<<16 | 'k'<<8 | 'r' // 'spkr'
+	KAudioStreamTerminalTypeTTY                   KAudioStreamTerminalType = 't'<<24 | 't'<<16 | 'y'<<8 | '_' // 'tty_'
+	KAudioStreamTerminalTypeUnknown               KAudioStreamTerminalType = 0
 )
 
 func (e KAudioStreamTerminalType) String() string {
@@ -1969,9 +1980,9 @@ func (e KAudioSubDeviceDriftCompensation) String() string {
 type KAudioSubDeviceProperty uint
 
 const (
-	KAudioSubDevicePropertyDriftCompensation KAudioSubDeviceProperty = 'd'<<24 | 'r'<<16 | 'f'<<8 | 't' // 'drft'
+	KAudioSubDevicePropertyDriftCompensation        KAudioSubDeviceProperty = 'd'<<24 | 'r'<<16 | 'f'<<8 | 't' // 'drft'
 	KAudioSubDevicePropertyDriftCompensationQuality KAudioSubDeviceProperty = 'd'<<24 | 'r'<<16 | 'f'<<8 | 'q' // 'drfq'
-	KAudioSubDevicePropertyExtraLatency KAudioSubDeviceProperty = 'x'<<24 | 'l'<<16 | 't'<<8 | 'c' // 'xltc'
+	KAudioSubDevicePropertyExtraLatency             KAudioSubDeviceProperty = 'x'<<24 | 'l'<<16 | 't'<<8 | 'c' // 'xltc'
 )
 
 func (e KAudioSubDeviceProperty) String() string {
@@ -2005,9 +2016,9 @@ func (e KAudioSubTapClassI) String() string {
 type KAudioSubTapProperty uint
 
 const (
-	KAudioSubTapPropertyDriftCompensation KAudioSubTapProperty = 'd'<<24 | 'r'<<16 | 'f'<<8 | 't' // 'drft'
+	KAudioSubTapPropertyDriftCompensation        KAudioSubTapProperty = 'd'<<24 | 'r'<<16 | 'f'<<8 | 't' // 'drft'
 	KAudioSubTapPropertyDriftCompensationQuality KAudioSubTapProperty = 'd'<<24 | 'r'<<16 | 'f'<<8 | 'q' // 'drfq'
-	KAudioSubTapPropertyExtraLatency KAudioSubTapProperty = 'x'<<24 | 'l'<<16 | 't'<<8 | 'c' // 'xltc'
+	KAudioSubTapPropertyExtraLatency             KAudioSubTapProperty = 'x'<<24 | 'l'<<16 | 't'<<8 | 'c' // 'xltc'
 )
 
 func (e KAudioSubTapProperty) String() string {
@@ -2057,8 +2068,8 @@ type KAudioTapProperty uint
 
 const (
 	KAudioTapPropertyDescription KAudioTapProperty = 't'<<24 | 'd'<<16 | 's'<<8 | 'c' // 'tdsc'
-	KAudioTapPropertyFormat KAudioTapProperty = 't'<<24 | 'f'<<16 | 'm'<<8 | 't' // 'tfmt'
-	KAudioTapPropertyUID KAudioTapProperty = 't'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'tuid'
+	KAudioTapPropertyFormat      KAudioTapProperty = 't'<<24 | 'f'<<16 | 'm'<<8 | 't' // 'tfmt'
+	KAudioTapPropertyUID         KAudioTapProperty = 't'<<24 | 'u'<<16 | 'i'<<8 | 'd' // 'tuid'
 )
 
 func (e KAudioTapProperty) String() string {
@@ -2077,7 +2088,7 @@ func (e KAudioTapProperty) String() string {
 type KAudioTransportManager uint
 
 const (
-	KAudioTransportManagerCreateEndPointDevice KAudioTransportManager = 'c'<<24 | 'd'<<16 | 'e'<<8 | 'v' // 'cdev'
+	KAudioTransportManagerCreateEndPointDevice  KAudioTransportManager = 'c'<<24 | 'd'<<16 | 'e'<<8 | 'v' // 'cdev'
 	KAudioTransportManagerDestroyEndPointDevice KAudioTransportManager = 'd'<<24 | 'd'<<16 | 'e'<<8 | 'v' // 'ddev'
 )
 
@@ -2110,9 +2121,9 @@ func (e KAudioTransportManagerClassI) String() string {
 type KAudioTransportManagerProperty uint
 
 const (
-	KAudioTransportManagerPropertyEndPointList KAudioTransportManagerProperty = 'e'<<24 | 'n'<<16 | 'd'<<8 | '#' // 'end#'
+	KAudioTransportManagerPropertyEndPointList           KAudioTransportManagerProperty = 'e'<<24 | 'n'<<16 | 'd'<<8 | '#' // 'end#'
 	KAudioTransportManagerPropertyTranslateUIDToEndPoint KAudioTransportManagerProperty = 'u'<<24 | 'i'<<16 | 'd'<<8 | 'e' // 'uide'
-	KAudioTransportManagerPropertyTransportType KAudioTransportManagerProperty = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
+	KAudioTransportManagerPropertyTransportType          KAudioTransportManagerProperty = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
 )
 
 func (e KAudioTransportManagerProperty) String() string {
@@ -2127,4 +2138,3 @@ func (e KAudioTransportManagerProperty) String() string {
 		return fmt.Sprintf("KAudioTransportManagerProperty(%d)", e)
 	}
 }
-

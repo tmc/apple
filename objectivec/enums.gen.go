@@ -9,12 +9,12 @@ import (
 type ObjC uint
 
 const (
-	OBJC_COLLECT_IF_NEEDED ObjC = 8
-	OBJC_EXHAUSTIVE_COLLECTION ObjC = 3
-	OBJC_FULL_COLLECTION ObjC = 2
+	OBJC_COLLECT_IF_NEEDED       ObjC = 8
+	OBJC_EXHAUSTIVE_COLLECTION   ObjC = 3
+	OBJC_FULL_COLLECTION         ObjC = 2
 	OBJC_GENERATIONAL_COLLECTION ObjC = 1
-	OBJC_RATIO_COLLECTION ObjC = 0
-	OBJC_WAIT_UNTIL_DONE ObjC = 16
+	OBJC_RATIO_COLLECTION        ObjC = 0
+	OBJC_WAIT_UNTIL_DONE         ObjC = 16
 )
 
 func (e ObjC) String() string {
@@ -36,18 +36,18 @@ func (e ObjC) String() string {
 	}
 }
 
-type ObjCClearResidentStack uint
+type ObjCClearResident uint
 
 const (
-	OBJC_CLEAR_RESIDENT_STACK ObjCClearResidentStack = 1
+	OBJC_CLEAR_RESIDENT_STACK ObjCClearResident = 1
 )
 
-func (e ObjCClearResidentStack) String() string {
+func (e ObjCClearResident) String() string {
 	switch e {
 	case OBJC_CLEAR_RESIDENT_STACK:
 		return "OBJC_CLEAR_RESIDENT_STACK"
 	default:
-		return fmt.Sprintf("ObjCClearResidentStack(%d)", e)
+		return fmt.Sprintf("ObjCClearResident(%d)", e)
 	}
 }
 
@@ -55,7 +55,7 @@ type ObjCSync uint
 
 const (
 	OBJC_SYNC_NOT_OWNING_THREAD_ERROR ObjCSync = 0
-	OBJC_SYNC_SUCCESS ObjCSync = 0
+	OBJC_SYNC_SUCCESS                 ObjCSync = 0
 )
 
 func (e ObjCSync) String() string {
@@ -99,4 +99,3 @@ func (e Objc_AssociationPolicy) String() string {
 		return fmt.Sprintf("Objc_AssociationPolicy(%d)", e)
 	}
 }
-

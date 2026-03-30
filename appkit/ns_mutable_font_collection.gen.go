@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSMutableFontCollectionClass) Alloc() NSMutableFontCollection {
 // A mutable collection of font descriptors taken together as a single object.
 //
 // # Overview
-// 
+//
 // You can use this class to modify the search queries for the font
 // descriptors used by the parent [NSFontCollection] class.
 //
@@ -65,6 +66,7 @@ type NSMutableFontCollection struct {
 func NSMutableFontCollectionFromID(id objc.ID) NSMutableFontCollection {
 	return NSMutableFontCollection{NSFontCollection: NSFontCollectionFromID(id)}
 }
+
 // NOTE: NSMutableFontCollection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,7 +115,7 @@ func NewNSMutableFontCollection() NSMutableFontCollection {
 // collection.
 //
 // # Return Value
-// 
+//
 // A mutable font collection object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMutableFontCollection/init(descriptors:)
@@ -128,7 +130,7 @@ func NewMutableFontCollectionWithDescriptors(queryDescriptors []NSFontDescriptor
 // locale: The locale associated with the fonts you want.
 //
 // # Return Value
-// 
+//
 // A mutable collection of fonts matching the specified locale.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMutableFontCollection/init(locale:)
@@ -142,7 +144,7 @@ func NewMutableFontCollectionWithLocale(locale foundation.NSLocale) NSMutableFon
 // name: The name to apply to the font collection.
 //
 // # Return Value
-// 
+//
 // A mutable font collection object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMutableFontCollection/init(name:)
@@ -159,7 +161,7 @@ func NewMutableFontCollectionWithName(name NSFontCollectionName) NSMutableFontCo
 // visibility: The visibility of the fonts in the collection.
 //
 // # Return Value
-// 
+//
 // A mutable font collection object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMutableFontCollection/init(name:visibility:)
@@ -177,6 +179,7 @@ func NewMutableFontCollectionWithNameVisibility(name NSFontCollectionName, visib
 func (m NSMutableFontCollection) AddQueryForDescriptors(descriptors []NSFontDescriptor) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addQueryForDescriptors:"), objectivec.IObjectSliceToNSArray(descriptors))
 }
+
 // Edits the query and exclusion arrays by removing the specified font
 // descriptors.
 //
@@ -186,4 +189,3 @@ func (m NSMutableFontCollection) AddQueryForDescriptors(descriptors []NSFontDesc
 func (m NSMutableFontCollection) RemoveQueryForDescriptors(descriptors []NSFontDescriptor) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeQueryForDescriptors:"), objectivec.IObjectSliceToNSArray(descriptors))
 }
-

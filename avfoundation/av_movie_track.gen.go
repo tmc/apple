@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMovieTrack] class.
@@ -63,6 +64,7 @@ type AVMovieTrack struct {
 func AVMovieTrackFromID(id objc.ID) AVMovieTrack {
 	return AVMovieTrack{AVAssetTrack: AVAssetTrackFromID(id)}
 }
+
 // NOTE: AVMovieTrack adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,10 +120,11 @@ func (m AVMovieTrack) AlternateGroupID() int {
 	rv := objc.Send[int](m.ID, objc.Sel("alternateGroupID"))
 	return rv
 }
+
 // The storage container for media data added to a track.
 //
 // # Discussion
-// 
+//
 // The value of this property is an [AVMediaDataStorage] object that indicates
 // the location to which the system writes media data when it’s inserted or
 // appended.
@@ -131,6 +134,7 @@ func (m AVMovieTrack) MediaDataStorage() IAVMediaDataStorage {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaDataStorage"))
 	return AVMediaDataStorageFromID(objc.ID(rv))
 }
+
 // A range of decode times for the track’s media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovieTrack/mediaDecodeTimeRange
@@ -138,6 +142,7 @@ func (m AVMovieTrack) MediaDecodeTimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](m.ID, objc.Sel("mediaDecodeTimeRange"))
 	return coremedia.CMTimeRange(rv)
 }
+
 // A range of presentation times for the track’s media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovieTrack/mediaPresentationTimeRange
@@ -145,4 +150,3 @@ func (m AVMovieTrack) MediaPresentationTimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](m.ID, objc.Sel("mediaPresentationTimeRange"))
 	return coremedia.CMTimeRange(rv)
 }
-

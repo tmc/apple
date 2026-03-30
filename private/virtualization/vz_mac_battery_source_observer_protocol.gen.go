@@ -18,6 +18,7 @@ type VZMacBatterySourceObserver interface {
 type VZMacBatterySourceObserverObject struct {
 	objectivec.Object
 }
+
 func (o VZMacBatterySourceObserverObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,14 +31,12 @@ func VZMacBatterySourceObserverObjectFromID(id objc.ID) VZMacBatterySourceObserv
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatterySourceObserver/batterySource:didUpdateCharge:
 func (o VZMacBatterySourceObserverObject) BatterySourceDidUpdateCharge(source objectivec.IObject, charge float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("batterySource:didUpdateCharge:"), source, charge)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatterySourceObserver/batterySource:didUpdateConnectivity:
 func (o VZMacBatterySourceObserverObject) BatterySourceDidUpdateConnectivity(source objectivec.IObject, connectivity int64) {
 	objc.Send[struct{}](o.ID, objc.Sel("batterySource:didUpdateConnectivity:"), source, connectivity)
-	}
-
+}

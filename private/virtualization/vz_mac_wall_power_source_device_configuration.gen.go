@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZMacWallPowerSourceDeviceConfiguration struct {
 func VZMacWallPowerSourceDeviceConfigurationFromID(id objc.ID) VZMacWallPowerSourceDeviceConfiguration {
 	return VZMacWallPowerSourceDeviceConfiguration{VZPowerSourceDeviceConfiguration: VZPowerSourceDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZMacWallPowerSourceDeviceConfiguration implements IVZMacWallPowerSourceDeviceConfiguration.
 var _ IVZMacWallPowerSourceDeviceConfiguration = VZMacWallPowerSourceDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZMacWallPowerSourceDeviceConfiguration() VZMacWallPowerSourceDeviceConf
 	rv := objc.Send[VZMacWallPowerSourceDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

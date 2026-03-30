@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSSecureTextFieldCell] class.
@@ -44,7 +45,7 @@ func (nc NSSecureTextFieldCellClass) Alloc() NSSecureTextFieldCell {
 // A text field whose value is hidden from the user.
 //
 // # Overview
-// 
+//
 // [NSSecureTextFieldCell] works with [NSSecureTextField] and overrides the
 // general cell use of the field editor to provide its own field editor, which
 // doesn’t display text or allow the user to cut or copy its value.
@@ -65,6 +66,7 @@ type NSSecureTextFieldCell struct {
 func NSSecureTextFieldCellFromID(id objc.ID) NSSecureTextFieldCell {
 	return NSSecureTextFieldCell{NSTextFieldCell: NSTextFieldCellFromID(id)}
 }
+
 // NOTE: NSSecureTextFieldCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -111,12 +113,12 @@ func NewNSSecureTextFieldCell() NSSecureTextFieldCell {
 // image: The image to use for the cell. If this parameter is `nil`, no image is set.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -132,7 +134,7 @@ func NewSecureTextFieldCellImageCell(image INSImage) NSSecureTextFieldCell {
 // string: The string that the text field cell displays.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(textCell:)
@@ -147,7 +149,7 @@ func NewSecureTextFieldCellTextCell(string_ string) NSSecureTextFieldCell {
 // coder: An unarchiver object.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(coder:)
@@ -161,10 +163,8 @@ func NewSecureTextFieldCellWithCoder(coder foundation.INSCoder) NSSecureTextFiel
 // rather than each character typed.
 //
 // # Discussion
-// 
-// Default is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Default is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSecureTextFieldCell/echosBullets
 func (s NSSecureTextFieldCell) EchosBullets() bool {
@@ -174,4 +174,3 @@ func (s NSSecureTextFieldCell) EchosBullets() bool {
 func (s NSSecureTextFieldCell) SetEchosBullets(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEchosBullets:"), value)
 }
-

@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MLNeuralEngineComputeDevice struct {
 func MLNeuralEngineComputeDeviceFromID(id objc.ID) MLNeuralEngineComputeDevice {
 	return MLNeuralEngineComputeDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLNeuralEngineComputeDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -105,6 +107,4 @@ func (n MLNeuralEngineComputeDevice) TotalCoreCount() int {
 	return rv
 }
 
-			// Protocol methods for MLComputeDeviceProtocol
-			
-
+// Protocol methods for MLComputeDeviceProtocol

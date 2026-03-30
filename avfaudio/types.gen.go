@@ -3,14 +3,15 @@
 package avfaudio
 
 // C struct types
+
 // AVAudio3DAngularOrientation - A structure that represents the angular orientation of the listener in 3D space.
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFAudio/AVAudio3DAngularOrientation
 type AVAudio3DAngularOrientation struct {
-	Yaw float32 // The side-to-side movement of the listener’s head.
+	Yaw   float32 // The side-to-side movement of the listener’s head.
 	Pitch float32 // The up-and-down movement of the listener’s head.
-	Roll float32 // The tilt of the listener’s head.
+	Roll  float32 // The tilt of the listener’s head.
 
 }
 
@@ -31,7 +32,7 @@ type AVAudio3DPoint struct {
 // [Full Topic]: https://developer.apple.com/documentation/AVFAudio/AVAudio3DVectorOrientation
 type AVAudio3DVectorOrientation struct {
 	Forward AVAudio3DVector // The forward vector points in the direction that the listener faces.
-	Up AVAudio3DVector // The up vector is orthogonal to the forward vector and points upward from the listener’s head.
+	Up      AVAudio3DVector // The up vector is orthogonal to the forward vector and points upward from the listener’s head.
 
 }
 
@@ -40,7 +41,7 @@ type AVAudio3DVectorOrientation struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFAudio/AVAudioConverterPrimeInfo
 type AVAudioConverterPrimeInfo struct {
-	LeadingFrames AVAudioFrameCount // The number of leading (previous) input frames the converter requires to perform a high-quality conversion.
+	LeadingFrames  AVAudioFrameCount // The number of leading (previous) input frames the converter requires to perform a high-quality conversion.
 	TrailingFrames AVAudioFrameCount // The number of trailing input frames, past the end input frame, the converter requires to perform a high-quality conversion.
 
 }
@@ -50,8 +51,8 @@ type AVAudioConverterPrimeInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFAudio/AVAudioVoiceProcessingOtherAudioDuckingConfiguration
 type AVAudioVoiceProcessingOtherAudioDuckingConfiguration struct {
-	EnableAdvancedDucking bool // Enables advanced ducking which ducks other audio based on the presence of voice activity from local and remote chat participants.
-	DuckingLevel AVAudioVoiceProcessingOtherAudioDuckingLevel // The ducking level of other audio.
+	EnableAdvancedDucking bool                                         // Enables advanced ducking which ducks other audio based on the presence of voice activity from local and remote chat participants.
+	DuckingLevel          AVAudioVoiceProcessingOtherAudioDuckingLevel // The ducking level of other audio.
 
 }
 
@@ -60,8 +61,6 @@ type AVAudioVoiceProcessingOtherAudioDuckingConfiguration struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFAudio/AVBeatRange-c.struct
 type AVBeatRange struct {
-	Start float64
+	Start  float64
 	Length float64
-
 }
-

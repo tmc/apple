@@ -49,6 +49,7 @@ type CIColorClamp interface {
 type CIColorClampObject struct {
 	objectivec.Object
 }
+
 func (o CIColorClampObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CIColorClampObjectFromID(id objc.ID) CIColorClampObject {
 func (o CIColorClampObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A vector containing the higher clamping values.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/maxComponents
 func (o CIColorClampObject) MaxComponents() ICIVector {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("maxComponents"))
 	return CIVectorFromID(rv)
-	}
+}
+
 // A vector containing the lower clamping values.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/minComponents
 func (o CIColorClampObject) MinComponents() ICIVector {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("minComponents"))
 	return CIVectorFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,25 @@ func (o CIColorClampObject) MinComponents() ICIVector {
 func (o CIColorClampObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/inputImage
 func (o CIColorClampObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// A vector containing the higher clamping values.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/maxComponents
 func (o CIColorClampObject) SetMaxComponents(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaxComponents:"), value)
 }
 
+// A vector containing the lower clamping values.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/minComponents
 func (o CIColorClampObject) SetMinComponents(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMinComponents:"), value)
 }
-

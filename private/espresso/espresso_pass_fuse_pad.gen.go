@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_fuse_pad struct {
 func EspressoPass_fuse_padFromID(id objc.ID) EspressoPass_fuse_pad {
 	return EspressoPass_fuse_pad{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_fuse_pad implements IEspressoPass_fuse_pad.
 var _ IEspressoPass_fuse_pad = EspressoPass_fuse_pad{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_fuse_pad() EspressoPass_fuse_pad {
 	rv := objc.Send[EspressoPass_fuse_pad](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

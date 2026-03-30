@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,25 +46,25 @@ func (nc NSCollectionViewDiffableDataSourceClass) Alloc() NSCollectionViewDiffab
 // The object you use to manage data and provide items for a collection view.
 //
 // # Overview
-// 
+//
 // A object is a specialized type of data source that works together with your
 // collection view object. It provides the behavior you need to manage updates
 // to your collection view’s data and UI in a simple, efficient way. It also
 // conforms to the [NSCollectionViewDataSource] protocol and provides
 // implementations for all of the protocol’s methods.
-// 
+//
 // To fill a collection view with data:
-// 
+//
 // - Connect a diffable data source to your collection view. - Implement an
 // item provider to configure your collection view’s items. - Generate the
 // current state of the data. - Display the data in the UI.
-// 
+//
 // To connect a diffable data source to a collection view, you create the
 // diffable data source using its [NSCollectionViewDiffableDataSource.InitWithCollectionViewItemProvider]
 // initializer, passing in the collection view you want to associate with that
 // data source. You also pass in an item provider, where you configure each of
 // your items to determine how to display your data in the UI.
-// 
+//
 // Then, you generate the current state of the data and display the data in
 // the UI by constructing and applying a snapshot. For more information, see
 // [NSDiffableDataSourceSnapshot].
@@ -98,6 +99,7 @@ type NSCollectionViewDiffableDataSource struct {
 func NSCollectionViewDiffableDataSourceFromID(id objc.ID) NSCollectionViewDiffableDataSource {
 	return NSCollectionViewDiffableDataSource{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSCollectionViewDiffableDataSource adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -202,18 +204,19 @@ func (c NSCollectionViewDiffableDataSource) InitWithCollectionViewItemProvider(c
 	rv := objc.Send[NSCollectionViewDiffableDataSource](c.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, itemProvider)
 	return rv
 }
+
 // Returns an identifier for the item at the specified index path in the
 // collection view.
 //
 // indexPath: The index path of the item in the collection view.
 //
 // # Return Value
-// 
+//
 // The item’s identifier, or `nil` if no item is found at the provided index
 // path.
 //
 // # Discussion
-// 
+//
 // This method is a constant time operation, O(1), which means you can look up
 // an item identifier from its corresponding index path with no significant
 // overhead.
@@ -223,18 +226,19 @@ func (c NSCollectionViewDiffableDataSource) ItemIdentifierForIndexPath(indexPath
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemIdentifierForIndexPath:"), indexPath)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns an index path for the item with the specified identifier in the
 // collection view.
 //
 // identifier: The identifier of the item in the collection view.
 //
 // # Return Value
-// 
+//
 // The item’s index path, or `nil` if no item is found with the provided
 // item identifier.
 //
 // # Discussion
-// 
+//
 // This method is a constant time operation, O(1), which means you can look up
 // an index path from its corresponding item identifier with no significant
 // overhead.
@@ -244,11 +248,12 @@ func (c NSCollectionViewDiffableDataSource) IndexPathForItemIdentifier(identifie
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathForItemIdentifier:"), identifier)
 	return rv
 }
+
 // Returns a representation of the current state of the data in the collection
 // view.
 //
 // # Return Value
-// 
+//
 // A snapshot containing section and item identifiers in the order that they
 // appear in the UI.
 //
@@ -257,25 +262,23 @@ func (c NSCollectionViewDiffableDataSource) Snapshot() INSDiffableDataSourceSnap
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("snapshot"))
 	return NSDiffableDataSourceSnapshotFromID(rv)
 }
+
 // Updates the UI to reflect the state of the data in the specified snapshot,
 // optionally animating the UI changes.
 //
 // snapshot: The snapshot reflecting the new state of the data in the collection view.
 //
-// animatingDifferences: If [true], the diffable data source computes the difference between the
+// animatingDifferences: If true, the diffable data source computes the difference between the
 // collection view’s current state and the new state in the snapshot, which
 // is an O() operation, where is the number of items in the snapshot. The
 // differences in the UI between the current state and new state are animated.
-// If [false], the collection view UI is set to the new state without any
+// If false, the collection view UI is set to the new state without any
 // animations, with no additional overhead for computing a diff. Any ongoing
 // item animations are interrupted and the collection view’s content is
 // reloaded immediately.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Discussion
-// 
+//
 // It’s safe to call this method from a background queue, but you must do so
 // consistently in your app. Always call this method exclusively from the main
 // queue or from a background queue.
@@ -284,6 +287,7 @@ func (c NSCollectionViewDiffableDataSource) Snapshot() INSDiffableDataSourceSnap
 func (c NSCollectionViewDiffableDataSource) ApplySnapshotAnimatingDifferences(snapshot INSDiffableDataSourceSnapshot, animatingDifferences bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("applySnapshot:animatingDifferences:"), snapshot, animatingDifferences)
 }
+
 // Asks your data source object to provide the item at the specified location
 // in the collection view.
 //
@@ -293,11 +297,11 @@ func (c NSCollectionViewDiffableDataSource) ApplySnapshotAnimatingDifferences(sn
 // contains both the section index and the item index within that section.
 //
 // # Return Value
-// 
+//
 // A configured item object. You must not return `nil` from this method.
 //
 // # Discussion
-// 
+//
 // All data source objects must implement this method. Your implementation is
 // responsible for creating, configuring, and returning the appropriate item
 // object based on the specified index path. You do this by calling the
@@ -305,7 +309,7 @@ func (c NSCollectionViewDiffableDataSource) ApplySnapshotAnimatingDifferences(sn
 // an empty item object of the appropriate type. After receiving the item
 // object, update its properties with the data from your app’s data
 // structures and return it.
-// 
+//
 // You do not need to set the frame of an item’s view from this method. The
 // collection view gets the item’s location and other layout-related
 // attributes from the layout object during a separate step.
@@ -315,6 +319,7 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewItemForRepresentedObje
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView:itemForRepresentedObjectAtIndexPath:"), collectionView, indexPath)
 	return NSCollectionViewItemFromID(rv)
 }
+
 // Asks your data source object to provide the number of items in the
 // specified section.
 //
@@ -323,14 +328,14 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewItemForRepresentedObje
 // section: The index number of the section. Section indexes are zero based.
 //
 // # Return Value
-// 
+//
 // The number of items in the specified section.
 //
 // # Discussion
-// 
+//
 // All data source objects must implement this method. Your implementation
 // should quickly return the number of items in the specified section.
-// 
+//
 // Make sure the number of items you return is accurate. The
 // [CollectionViewItemForRepresentedObjectAtIndexPath] method of your data
 // source object must be able to provide a visual representation for each item
@@ -341,6 +346,7 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewNumberOfItemsInSection
 	rv := objc.Send[int](c.ID, objc.Sel("collectionView:numberOfItemsInSection:"), collectionView, section)
 	return rv
 }
+
 // Asks your data source object to provide the supplementary view at the
 // specified location in a section of the collection view.
 //
@@ -355,11 +361,11 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewNumberOfItemsInSection
 // supplementary view.
 //
 // # Return Value
-// 
+//
 // A configured view object. You must not return `nil` from this method.
 //
 // # Discussion
-// 
+//
 // Implement this method if the collection view’s layout object supports
 // supplementary views. Your implementation is responsible for creating,
 // configuring, and returning an appropriate view. You do this by calling the
@@ -367,7 +373,7 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewNumberOfItemsInSection
 // collection view to retrieve an unconfigured view of the appropriate type.
 // After receiving the view, update its properties and content using your
 // app’s data structures and return it.
-// 
+//
 // You do not need to set the location of supplementary views inside the
 // collection view’s bounds. The collection view gets the view’s location
 // and other layout-related attributes from the layout object during a
@@ -378,16 +384,17 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewViewForSupplementaryEl
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView:viewForSupplementaryElementOfKind:atIndexPath:"), collectionView, objc.String(string(kind)), indexPath)
 	return NSViewFromID(rv)
 }
+
 // Asks your data source object to provide the total number of sections.
 //
 // collectionView: The collection view requesting the information.
 //
 // # Return Value
-// 
+//
 // The number of sections in the specified collection view.
 //
 // # Discussion
-// 
+//
 // Implement this method when the organization of your data requires more than
 // one section. If you do not implement this method, the collection view
 // creates only one section.
@@ -411,6 +418,4 @@ func (c NSCollectionViewDiffableDataSource) SetSupplementaryViewProvider(value N
 	objc.Send[struct{}](c.ID, objc.Sel("setSupplementaryViewProvider:"), value)
 }
 
-			// Protocol methods for NSCollectionViewDataSource
-			
-
+// Protocol methods for NSCollectionViewDataSource

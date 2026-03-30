@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for appleneuralengine. DO NOT EDIT.
 
 package appleneuralengine
@@ -6,6 +5,7 @@ package appleneuralengine
 import (
 	"sync"
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -105,4 +105,3 @@ func (_ANEInMemoryModelDescriptorClass ANEInMemoryModelDescriptorClass) ModelWit
 	rv := objc.Send[objc.ID](objc.ID(_ANEInMemoryModelDescriptorClass.class), objc.Sel("modelWithMILText:weights:optionsPlist:isMILModel:"), mILText, weights, plist, isMILModel)
 	return objectivec.Object{ID: rv}
 }
-

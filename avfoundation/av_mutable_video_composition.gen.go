@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,12 +44,12 @@ func (ac AVMutableVideoCompositionClass) Alloc() AVMutableVideoComposition {
 // A mutable video composition subclass.
 //
 // # Overview
-// 
+//
 // If you use the built-in video compositor, the instructions a video
 // composition contain can specify a spatial transformation, an opacity value,
 // and a cropping rectangle for each video source. This values can vary over
 // time by applying linear ramping functions.
-// 
+//
 // You can create a custom video compositor by implementing the
 // [AVVideoCompositing] protocol. The system provides the custom video
 // compositor with pixel buffers for each of its video sources during
@@ -66,6 +67,7 @@ type AVMutableVideoComposition struct {
 func AVMutableVideoCompositionFromID(id objc.ID) AVMutableVideoComposition {
 	return AVMutableVideoComposition{AVVideoComposition: AVVideoCompositionFromID(id)}
 }
+
 // NOTE: AVMutableVideoComposition adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -101,12 +103,12 @@ func NewAVMutableVideoComposition() AVMutableVideoComposition {
 // the asset are already loaded before invoking this method.
 //
 // # Discussion
-// 
+//
 // The returned [AVMutableVideoComposition] has instructions that respect the
 // spatial properties and time ranges of the specified asset’s video tracks.
-// 
+//
 // It also has the following values for its properties:
-// 
+//
 // - A value for [FrameDuration] short enough to accommodate the greatest
 // [nominalFrameRate] among the asset’s video tracks. If the
 // [nominalFrameRate] of all of the asset’s video tracks is 0, a default
@@ -116,9 +118,9 @@ func NewAVMutableVideoComposition() AVMutableVideoComposition {
 // encompasses all of the asset’s video tracks. - A [RenderScale] of 1.0. -
 // The [AnimationTool] property set to `nil`.
 //
-// [nominalFrameRate]: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/nominalFrameRate
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoComposition/init(propertiesOf:)
+//
+// [nominalFrameRate]: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/nominalFrameRate
 func NewMutableVideoCompositionWithPropertiesOfAsset(asset IAVAsset) AVMutableVideoComposition {
 	rv := objc.Send[objc.ID](objc.ID(getAVMutableVideoCompositionClass().class), objc.Sel("videoCompositionWithPropertiesOfAsset:"), asset)
 	return AVMutableVideoCompositionFromID(rv)
@@ -129,13 +131,13 @@ func NewMutableVideoCompositionWithPropertiesOfAsset(asset IAVAsset) AVMutableVi
 //
 // asset: The asset for which to create a video composition. Load the asset’s
 // [duration] and [tracks] properties before invoking this method.
-// //
-// [duration]: https://developer.apple.com/documentation/AVFoundation/AVAsset/duration
-// [tracks]: https://developer.apple.com/documentation/AVFoundation/AVAsset/tracks
 //
 // prototypeInstruction: A video composition instruction to use as a prototype.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoComposition/init(propertiesOf:prototypeInstruction:)
+//
+// [duration]: https://developer.apple.com/documentation/AVFoundation/AVAsset/duration
+// [tracks]: https://developer.apple.com/documentation/AVFoundation/AVAsset/tracks
 func NewMutableVideoCompositionWithPropertiesOfAssetPrototypeInstruction(asset IAVAsset, prototypeInstruction AVVideoCompositionInstruction) AVMutableVideoComposition {
 	rv := objc.Send[objc.ID](objc.ID(getAVMutableVideoCompositionClass().class), objc.Sel("videoCompositionWithPropertiesOfAsset:prototypeInstruction:"), asset, prototypeInstruction)
 	return AVMutableVideoCompositionFromID(rv)
@@ -144,21 +146,20 @@ func NewMutableVideoCompositionWithPropertiesOfAssetPrototypeInstruction(asset I
 // Creates a new mutable video composition.
 //
 // # Return Value
-// 
+//
 // A newly created and initialized instance of [AVMutableVideoComposition].
 //
 // # Discussion
-// 
+//
 // The returned [AVMutableVideoComposition] has the following properties:
-// 
+//
 // - A [FrameDuration] of [zero]. - A [RenderSize] of `{0.0, 0.0}`. - A `nil`
 // array of [Instructions]. - The [AnimationTool] property set to `nil`.
 //
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoComposition/videoComposition
+//
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func (_AVMutableVideoCompositionClass AVMutableVideoCompositionClass) VideoComposition() AVMutableVideoComposition {
 	rv := objc.Send[objc.ID](objc.ID(_AVMutableVideoCompositionClass.class), objc.Sel("videoComposition"))
 	return AVMutableVideoCompositionFromID(rv)
 }
-

@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (ac AVVCDuckOverrideClass) Alloc() AVVCDuckOverride {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVVCDuckOverride.DuckOthers]
@@ -54,6 +54,7 @@ func (ac AVVCDuckOverrideClass) Alloc() AVVCDuckOverride {
 //   - [AVVCDuckOverride.MixWithOthers]
 //   - [AVVCDuckOverride.SetMixWithOthers]
 //   - [AVVCDuckOverride.InitWithDuckOthersDuckToLevelMixWithOthers]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckOverride
 type AVVCDuckOverride struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type AVVCDuckOverride struct {
 func AVVCDuckOverrideFromID(id objc.ID) AVVCDuckOverride {
 	return AVVCDuckOverride{objectivec.Object{ID: id}}
 }
+
 // Ensure AVVCDuckOverride implements IAVVCDuckOverride.
 var _ IAVVCDuckOverride = AVVCDuckOverride{}
 
@@ -116,7 +118,6 @@ func NewAVVCDuckOverride() AVVCDuckOverride {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckOverride/initWithDuckOthers:duckToLevel:mixWithOthers:
 func NewVCDuckOverrideWithDuckOthersDuckToLevelMixWithOthers(others objectivec.IObject, level objectivec.IObject, others2 objectivec.IObject) AVVCDuckOverride {
 	instance := getAVVCDuckOverrideClass().Alloc()
@@ -124,7 +125,6 @@ func NewVCDuckOverrideWithDuckOthersDuckToLevelMixWithOthers(others objectivec.I
 	return AVVCDuckOverrideFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckOverride/initWithDuckOthers:duckToLevel:mixWithOthers:
 func (v AVVCDuckOverride) InitWithDuckOthersDuckToLevelMixWithOthers(others objectivec.IObject, level objectivec.IObject, others2 objectivec.IObject) AVVCDuckOverride {
 	rv := objc.Send[AVVCDuckOverride](v.ID, objc.Sel("initWithDuckOthers:duckToLevel:mixWithOthers:"), others, level, others2)
@@ -139,6 +139,7 @@ func (v AVVCDuckOverride) DuckOthers() foundation.NSNumber {
 func (v AVVCDuckOverride) SetDuckOthers(value foundation.NSNumber) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDuckOthers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckOverride/duckToLevel
 func (v AVVCDuckOverride) DuckToLevel() foundation.NSNumber {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("duckToLevel"))
@@ -147,6 +148,7 @@ func (v AVVCDuckOverride) DuckToLevel() foundation.NSNumber {
 func (v AVVCDuckOverride) SetDuckToLevel(value foundation.NSNumber) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDuckToLevel:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckOverride/isBlur
 func (v AVVCDuckOverride) IsBlur() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isBlur"))
@@ -155,6 +157,7 @@ func (v AVVCDuckOverride) IsBlur() bool {
 func (v AVVCDuckOverride) SetIsBlur(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIsBlur:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckOverride/mixWithOthers
 func (v AVVCDuckOverride) MixWithOthers() foundation.NSNumber {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("mixWithOthers"))
@@ -163,4 +166,3 @@ func (v AVVCDuckOverride) MixWithOthers() foundation.NSNumber {
 func (v AVVCDuckOverride) SetMixWithOthers(value foundation.NSNumber) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMixWithOthers:"), value)
 }
-

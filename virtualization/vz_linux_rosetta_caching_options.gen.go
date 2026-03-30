@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,10 +46,10 @@ func (vc VZLinuxRosettaCachingOptionsClass) Alloc() VZLinuxRosettaCachingOptions
 // Rosetta.
 //
 // # Overview
-// 
+//
 // [VZLinuxRosettaCachingOptions] define the communication mechanism between
 // the Rosetta daemon and the Rosetta runtime.
-// 
+//
 // Don’t instantiate [VZLinuxRosettaCachingOptions] directly. Use one of its
 // subclasses, such as [VZLinuxRosettaUnixSocketCachingOptions] or
 // [VZLinuxRosettaAbstractSocketCachingOptions] instead.
@@ -65,6 +66,7 @@ type VZLinuxRosettaCachingOptions struct {
 func VZLinuxRosettaCachingOptionsFromID(id objc.ID) VZLinuxRosettaCachingOptions {
 	return VZLinuxRosettaCachingOptions{objectivec.Object{ID: id}}
 }
+
 // Ensure VZLinuxRosettaCachingOptions implements IVZLinuxRosettaCachingOptions.
 var _ IVZLinuxRosettaCachingOptions = VZLinuxRosettaCachingOptions{}
 
@@ -93,4 +95,3 @@ func NewVZLinuxRosettaCachingOptions() VZLinuxRosettaCachingOptions {
 	rv := objc.Send[VZLinuxRosettaCachingOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

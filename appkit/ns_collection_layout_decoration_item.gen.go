@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,11 +46,11 @@ func (nc NSCollectionLayoutDecorationItemClass) Alloc() NSCollectionLayoutDecora
 // An object used to add a background to a section of a collection view.
 //
 // # Overview
-// 
+//
 // Each type of decoration item must have a unique element kind. Consider
 // tracking these strings together in a way that makes it straightforward to
 // identify each element, for example:
-// 
+//
 // Add a background to a section by setting that section’s [NSCollectionLayoutDecorationItem.DecorationItems]
 // property:
 //
@@ -73,6 +74,7 @@ type NSCollectionLayoutDecorationItem struct {
 func NSCollectionLayoutDecorationItemFromID(id objc.ID) NSCollectionLayoutDecorationItem {
 	return NSCollectionLayoutDecorationItem{NSCollectionLayoutItem: NSCollectionLayoutItemFromID(id)}
 }
+
 // NOTE: NSCollectionLayoutDecorationItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,11 +160,12 @@ func (c NSCollectionLayoutDecorationItem) ElementKind() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("elementKind"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The vertical stacking order of the decoration item in relation to other
 // items in the section.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `0`, which means the decoration item
 // appears below all other items in the section.
 //
@@ -174,6 +177,7 @@ func (c NSCollectionLayoutDecorationItem) ZIndex() int {
 func (c NSCollectionLayoutDecorationItem) SetZIndex(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setZIndex:"), value)
 }
+
 // An array of the decoration items that are anchored to the section, such as
 // background decoration views.
 //
@@ -185,4 +189,3 @@ func (c NSCollectionLayoutDecorationItem) DecorationItems() INSCollectionLayoutD
 func (c NSCollectionLayoutDecorationItem) SetDecorationItems(value INSCollectionLayoutDecorationItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDecorationItems:"), value)
 }
-

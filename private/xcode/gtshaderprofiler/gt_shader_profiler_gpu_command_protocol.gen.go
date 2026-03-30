@@ -63,6 +63,7 @@ type GTShaderProfilerGPUCommand interface {
 type GTShaderProfilerGPUCommandObject struct {
 	objectivec.Object
 }
+
 func (o GTShaderProfilerGPUCommandObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -79,60 +80,70 @@ func GTShaderProfilerGPUCommandObjectFromID(id objc.ID) GTShaderProfilerGPUComma
 func (o GTShaderProfilerGPUCommandObject) AllBinaryKeys() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("allBinaryKeys"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/binaryKeys
 func (o GTShaderProfilerGPUCommandObject) BinaryKeys() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("binaryKeys"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/commandBufferIndex
 func (o GTShaderProfilerGPUCommandObject) CommandBufferIndex() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("commandBufferIndex"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/commandType
 func (o GTShaderProfilerGPUCommandObject) CommandType() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("commandType"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/encoderInfoIndex
 func (o GTShaderProfilerGPUCommandObject) EncoderInfoIndex() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("encoderInfoIndex"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/encoderObjectId
 func (o GTShaderProfilerGPUCommandObject) EncoderObjectId() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("encoderObjectId"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/functionIndex
 func (o GTShaderProfilerGPUCommandObject) FunctionIndex() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("functionIndex"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/index
 func (o GTShaderProfilerGPUCommandObject) Index() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("index"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/pipelineInfoIndex
 func (o GTShaderProfilerGPUCommandObject) PipelineInfoIndex() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("pipelineInfoIndex"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/pipelineStateObjectId
 func (o GTShaderProfilerGPUCommandObject) PipelineStateObjectId() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("pipelineStateObjectId"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/subCommandIndex
 func (o GTShaderProfilerGPUCommandObject) SubCommandIndex() int {
 	rv := objc.Send[int](o.ID, objc.Sel("subCommandIndex"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerGPUCommand/timingInfo
 func (o GTShaderProfilerGPUCommandObject) TimingInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("timingInfo"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

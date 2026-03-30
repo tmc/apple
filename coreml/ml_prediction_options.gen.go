@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +61,7 @@ type MLPredictionOptions struct {
 func MLPredictionOptionsFromID(id objc.ID) MLPredictionOptions {
 	return MLPredictionOptions{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLPredictionOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,4 +112,3 @@ func (p MLPredictionOptions) OutputBackings() foundation.INSDictionary {
 func (p MLPredictionOptions) SetOutputBackings(value foundation.INSDictionary) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOutputBackings:"), value)
 }
-

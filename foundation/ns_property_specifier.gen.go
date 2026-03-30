@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSPropertySpecifierClass) Alloc() NSPropertySpecifier {
 // elements of a to-many relationship.
 //
 // # Overview
-// 
+//
 // You don’t typically subclass [NSPropertySpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPropertySpecifier
@@ -59,6 +60,7 @@ type NSPropertySpecifier struct {
 func NSPropertySpecifierFromID(id objc.ID) NSPropertySpecifier {
 	return NSPropertySpecifier{NSScriptObjectSpecifier: NSScriptObjectSpecifierFromID(id)}
 }
+
 // NOTE: NSPropertySpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -88,7 +90,6 @@ func NewNSPropertySpecifier() NSPropertySpecifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(coder:)
 func NewPropertySpecifierWithCoder(inCoder INSCoder) NSPropertySpecifier {
 	instance := getNSPropertySpecifierClass().Alloc()
@@ -100,16 +101,16 @@ func NewPropertySpecifierWithCoder(inCoder INSCoder) NSPropertySpecifier {
 // attributes.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier`, key `key`, and the class description of the object specifier
 // `classDescription`, derived from the value of the specifier’s key.
 //
 // # Discussion
-// 
+//
 // You should never pass `nil` for the value of `classDescription`. The
 // receiver’s child reference is set to `nil`.
-// 
+//
 // This is the designated initializer for [NSScriptObjectSpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)
@@ -123,12 +124,12 @@ func NewPropertySpecifierWithContainerClassDescriptionContainerSpecifierKey(clas
 // container specifier and key.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier` and key `key`.
 //
 // # Discussion
-// 
+//
 // The class description of the container is set automatically.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerSpecifier:key:)
@@ -137,4 +138,3 @@ func NewPropertySpecifierWithContainerSpecifierKey(container INSScriptObjectSpec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerSpecifier:key:"), container, objc.String(property))
 	return NSPropertySpecifierFromID(rv)
 }
-

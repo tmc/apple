@@ -22,6 +22,7 @@ var (
 	// See: https://developer.apple.com/documentation/ServiceManagement/kSMDomainUserLaunchd
 	KSMDomainUserLaunchd string
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -58,4 +59,3 @@ func init() {
 	}
 
 }
-

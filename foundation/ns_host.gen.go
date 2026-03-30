@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,12 +45,12 @@ func (hc HostClass) Alloc() Host {
 // A representation of an individual host on the network.
 //
 // # Overview
-// 
+//
 // The [NSHost] class provides methods to access the network name and address
 // information for a host. Instances of the [NSHost] class represent
 // individual on a network. Use [NSHost] objects to get the current host’s
 // names and addresses and to look up other hosts by name or by address.
-// 
+//
 // To create an [NSHost] object, use the [CurrentHost], [HostWithAddress], or
 // [HostWithName] class methods (don’t use `alloc` and `init`). These
 // methods use available network administration services to discover all names
@@ -57,7 +58,7 @@ func (hc HostClass) Alloc() Host {
 // host itself, however. This approach avoids untimely delays due to a host
 // being unavailable, but it may result in incomplete information about the
 // host.
-// 
+//
 // An [NSHost] object contains all of the network addresses and names
 // discovered for a given host by the network administration services. Each
 // [NSHost] object may contain several addresses and have more than one name.
@@ -66,7 +67,7 @@ func (hc HostClass) Alloc() Host {
 // qualified domain name. For example, with a host name `"sales"` in the
 // domain `"anycorp.Com()"`, an [NSHost] object can hold both the names
 // `"sales"` and `"sales.AnycorpXCUIElementTypeCom()"`.
-// 
+//
 // [NSHost] methods are thread-safe.
 //
 // # Getting Host Information
@@ -91,6 +92,7 @@ func HostFromID(id objc.ID) Host {
 
 // NSHostFromID is an alias for [HostFromID] for cross-framework compatibility.
 func NSHostFromID(id objc.ID) Host { return HostFromID(id) }
+
 // NOTE: Host adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -146,7 +148,7 @@ func NewHost() Host {
 // address: Network address to look up. For example, `"127.0.0.1"` or `":1"`.
 //
 // # Return Value
-// 
+//
 // The host for `address`.
 //
 // See: https://developer.apple.com/documentation/Foundation/Host/init(address:)
@@ -162,7 +164,7 @@ func NewHostWithAddress(address string) Host {
 // `"sales.AnycorpXCUIElementTypeCom()"`.
 //
 // # Return Value
-// 
+//
 // The host named `hostname`.
 //
 // See: https://developer.apple.com/documentation/Foundation/Host/init(name:)
@@ -174,7 +176,7 @@ func NewHostWithName(name string) Host {
 // Returns one of the network addresses of the receiver.
 //
 // # Return Value
-// 
+//
 // One of the network address for the receiver. For example, `"192.42.172.1"`
 // or `":1"`.
 //
@@ -183,10 +185,11 @@ func (h Host) Address() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("address"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns all the network addresses of the receiver.
 //
 // # Return Value
-// 
+//
 // All the network addresses of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/Host/addresses
@@ -194,10 +197,11 @@ func (h Host) Addresses() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("addresses"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Returns one of the hostnames of the receiver.
 //
 // # Return Value
-// 
+//
 // One of the hostnames of the receiver. Can be either a simple hostname, such
 // as `"sales"`, or a fully qualified domain name, such as
 // `"sales.AnycorpXCUIElementTypeCom()"`.
@@ -207,20 +211,21 @@ func (h Host) Name() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("name"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns the name used as by default when publishing [NSNetServices].
 //
 // # Return Value
-// 
+//
 // A string containing the computer name.
-// 
+//
 // # Discussion
-// 
+//
 // This is the name displayed in the Finder sidebar, as well as in the Sharing
 // preference panel.
-// 
+//
 // This method only returns an [NSString] when sent to the [CurrentHost]
 // instance, all other instances currently return `nil`.
-// 
+//
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/Foundation/Host/localizedName
@@ -228,10 +233,11 @@ func (h Host) LocalizedName() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("localizedName"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns all the hostnames of the receiver.
 //
 // # Return Value
-// 
+//
 // All the hostnames of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/Host/names
@@ -239,4 +245,3 @@ func (h Host) Names() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("names"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

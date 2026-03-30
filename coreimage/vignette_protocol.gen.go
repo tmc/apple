@@ -49,6 +49,7 @@ type CIVignette interface {
 type CIVignetteObject struct {
 	objectivec.Object
 }
+
 func (o CIVignetteObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CIVignetteObjectFromID(id objc.ID) CIVignetteObject {
 func (o CIVignetteObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The intensity of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignette/intensity
 func (o CIVignetteObject) Intensity() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
-	}
+}
+
 // The distance from the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignette/radius
 func (o CIVignetteObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,25 @@ func (o CIVignetteObject) Radius() float32 {
 func (o CIVignetteObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIVignette/inputImage
 func (o CIVignetteObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The intensity of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIVignette/intensity
 func (o CIVignetteObject) SetIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIntensity:"), value)
 }
 
+// The distance from the center of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIVignette/radius
 func (o CIVignetteObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

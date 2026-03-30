@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TtCC12TextToSpeech13VoiceDatabase11Preferences struct {
 func TtCC12TextToSpeech13VoiceDatabase11PreferencesFromID(id objc.ID) TtCC12TextToSpeech13VoiceDatabase11Preferences {
 	return TtCC12TextToSpeech13VoiceDatabase11Preferences{objectivec.Object{ID: id}}
 }
+
 // NOTE: TtCC12TextToSpeech13VoiceDatabase11Preferences struct embeds objectivec.Object (parent type unavailable) but
 // ITtCC12TextToSpeech13VoiceDatabase11Preferences embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTtCC12TextToSpeech13VoiceDatabase11Preferences() TtCC12TextToSpeech13Voi
 	rv := objc.Send[TtCC12TextToSpeech13VoiceDatabase11Preferences](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMetadataMachineReadableCodeObject] class.
@@ -45,15 +46,15 @@ func (ac AVMetadataMachineReadableCodeObjectClass) Alloc() AVMetadataMachineRead
 // Barcode information detected by a metadata capture output.
 //
 // # Overview
-// 
+//
 // The [AVMetadataMachineReadableCodeObject] class is a concrete subclass of
 // [AVMetadataObject] defining the features of a detected one-dimensional or
 // two-dimensional barcode.
-// 
+//
 // An [AVMetadataMachineReadableCodeObject] instance represents a single
 // detected machine readable code in an image. It’s an immutable object
 // describing the features and payload of a barcode.
-// 
+//
 // On supported platforms, the [AVCaptureMetadataOutput] class outputs arrays
 // of detected machine readable code objects.
 //
@@ -73,6 +74,7 @@ type AVMetadataMachineReadableCodeObject struct {
 func AVMetadataMachineReadableCodeObjectFromID(id objc.ID) AVMetadataMachineReadableCodeObject {
 	return AVMetadataMachineReadableCodeObject{AVMetadataObject: AVMetadataObjectFromID(id)}
 }
+
 // NOTE: AVMetadataMachineReadableCodeObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,10 +126,11 @@ func (m AVMetadataMachineReadableCodeObject) Descriptor() coreimage.CIBarcodeDes
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("descriptor"))
 	return coreimage.CIBarcodeDescriptorFromID(objc.ID(rv))
 }
+
 // Returns the error-corrected data decoded into a human-readable string.
 //
 // # Discussion
-// 
+//
 // The value of this property is an [NSString] created by decoding the binary
 // payload according to the format of the machine-readable code, or `nil` if a
 // string representation cannot be created.
@@ -137,31 +140,31 @@ func (m AVMetadataMachineReadableCodeObject) StringValue() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringValue"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The points defining the (x, y) locations of the corners.
 //
 // # Discussion
-// 
+//
 // The value of this property is an array of [CFDictionary] objects, each of
 // which has been created from a [CGPoint] struct using the
 // [dictionaryRepresentation] function, representing the coordinates of the
 // corners of the object with respect to the image in which it resides.
-// 
+//
 // If the metadata originates from video, the points may be expressed as
 // scalar values from `0` to `1`.
-// 
+//
 // The points in the corners differ from the bounds rectangle in that bounds
 // is axis aligned to orientation of the captured image, and the values of the
 // corners reside within the bounds rectangle.
-// 
+//
 // The points are arranged in counterclockwise order (clockwise if the code or
 // image is mirrored), starting with the top left of the code in its canonical
 // orientation.
 //
-// [dictionaryRepresentation]: https://developer.apple.com/documentation/CoreFoundation/CGPoint/dictionaryRepresentation
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataMachineReadableCodeObject/corners-8f6bv
+//
+// [dictionaryRepresentation]: https://developer.apple.com/documentation/CoreFoundation/CGPoint/dictionaryRepresentation
 func (m AVMetadataMachineReadableCodeObject) Corners() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("corners"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

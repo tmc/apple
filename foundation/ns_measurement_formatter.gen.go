@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (mc MeasurementFormatterClass) Alloc() MeasurementFormatter {
 // measurements.
 //
 // # Overview
-// 
+//
 // You use the [StringFromMeasurement] method to create a localized
 // representation of an [NSMeasurement] object, and you use the
 // [StringFromUnit] method to create a localized representation of an [NSUnit]
@@ -82,7 +83,10 @@ func MeasurementFormatterFromID(id objc.ID) MeasurementFormatter {
 }
 
 // NSMeasurementFormatterFromID is an alias for [MeasurementFormatterFromID] for cross-framework compatibility.
-func NSMeasurementFormatterFromID(id objc.ID) MeasurementFormatter { return MeasurementFormatterFromID(id) }
+func NSMeasurementFormatterFromID(id objc.ID) MeasurementFormatter {
+	return MeasurementFormatterFromID(id)
+}
+
 // NOTE: MeasurementFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -151,7 +155,6 @@ func NewMeasurementFormatter() MeasurementFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMeasurementFormatterWithCoder(coder INSCoder) MeasurementFormatter {
 	instance := getMeasurementFormatterClass().Alloc()
@@ -165,7 +168,7 @@ func NewMeasurementFormatterWithCoder(coder INSCoder) MeasurementFormatter {
 // measurement: The measurement to be represented.
 //
 // # Return Value
-// 
+//
 // A user-readable string that represents the measurement.
 //
 // See: https://developer.apple.com/documentation/Foundation/MeasurementFormatter/string(from:)-wt9y
@@ -173,13 +176,14 @@ func (m MeasurementFormatter) StringFromMeasurement(measurement INSMeasurement) 
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringFromMeasurement:"), measurement)
 	return NSStringFromID(rv).String()
 }
+
 // Creates and returns a localized string representation of the provided unit
 // of measure.
 //
 // unit: The unit of measure to be represented.
 //
 // # Return Value
-// 
+//
 // A user-readable string that represents the unit of measure. If the unit
 // cannot be localized, the unit’s [Symbol] value is used.
 //
@@ -192,11 +196,11 @@ func (m MeasurementFormatter) StringFromUnit(unit INSUnit) string {
 // The options for how the unit is formatted.
 //
 // # Discussion
-// 
+//
 // You can set this property to ensure that the formatter chooses the
 // preferred unit to format for the measurement based on the formatter’s
 // locale. For possible values, see [MeasurementFormatter.UnitOptions].
-// 
+//
 // If no options are specified, the formatter localizes according to the
 // preferences of the formatter’s [Locale]. For example, a measurement in
 // kilocalories may be formatted as [C] instead of `kcal`, or a measurement in
@@ -208,9 +212,9 @@ func (m MeasurementFormatter) StringFromUnit(unit INSUnit) string {
 // `kilometers per hour` for US and UK locales, even though they prefer `miles
 // per hour`.
 //
-// [MeasurementFormatter.UnitOptions]: https://developer.apple.com/documentation/Foundation/MeasurementFormatter/UnitOptions-swift.struct
-//
 // See: https://developer.apple.com/documentation/Foundation/MeasurementFormatter/unitOptions-swift.property
+//
+// [MeasurementFormatter.UnitOptions]: https://developer.apple.com/documentation/Foundation/MeasurementFormatter/UnitOptions-swift.struct
 func (m MeasurementFormatter) UnitOptions() NSMeasurementFormatterUnitOptions {
 	rv := objc.Send[NSMeasurementFormatterUnitOptions](m.ID, objc.Sel("unitOptions"))
 	return NSMeasurementFormatterUnitOptions(rv)
@@ -218,13 +222,14 @@ func (m MeasurementFormatter) UnitOptions() NSMeasurementFormatterUnitOptions {
 func (m MeasurementFormatter) SetUnitOptions(value NSMeasurementFormatterUnitOptions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setUnitOptions:"), value)
 }
+
 // The unit style.
 //
 // # Discussion
-// 
-// The possible values are [FormattingUnitStyleShort],
-// [FormattingUnitStyleMedium], and [FormattingUnitStyleLong]. The default
-// value is [FormattingUnitStyleMedium].
+//
+// The possible values are [NSFormattingUnitStyleShort],
+// [NSFormattingUnitStyleMedium], and [NSFormattingUnitStyleLong]. The default
+// value is [NSFormattingUnitStyleMedium].
 //
 // See: https://developer.apple.com/documentation/Foundation/MeasurementFormatter/unitStyle
 func (m MeasurementFormatter) UnitStyle() NSFormattingUnitStyle {
@@ -234,10 +239,11 @@ func (m MeasurementFormatter) UnitStyle() NSFormattingUnitStyle {
 func (m MeasurementFormatter) SetUnitStyle(value NSFormattingUnitStyle) {
 	objc.Send[struct{}](m.ID, objc.Sel("setUnitStyle:"), value)
 }
+
 // The locale of the formatter.
 //
 // # Discussion
-// 
+//
 // If unspecified, an [NSLocale] object representing the current system locale
 // is used.
 //
@@ -249,12 +255,13 @@ func (m MeasurementFormatter) Locale() INSLocale {
 func (m MeasurementFormatter) SetLocale(value INSLocale) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLocale:"), value)
 }
+
 // The number formatter used to format the quantity of a measurement.
 //
 // # Discussion
-// 
+//
 // If unspecified, an [NSNumberFormatter] object with
-// [NumberFormatterDecimalStyle] style is used.
+// [NSNumberFormatterDecimalStyle] style is used.
 //
 // See: https://developer.apple.com/documentation/Foundation/MeasurementFormatter/numberFormatter
 func (m MeasurementFormatter) NumberFormatter() INSNumberFormatter {
@@ -265,6 +272,4 @@ func (m MeasurementFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumberFormatter:"), value)
 }
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

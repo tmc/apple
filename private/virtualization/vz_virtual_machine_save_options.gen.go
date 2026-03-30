@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (vc VZVirtualMachineSaveOptionsClass) Alloc() VZVirtualMachineSaveOptions {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtualMachineSaveOptions.Compress]
 //   - [VZVirtualMachineSaveOptions.SetCompress]
 //   - [VZVirtualMachineSaveOptions.Encrypt]
 //   - [VZVirtualMachineSaveOptions.SetEncrypt]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineSaveOptions
 type VZVirtualMachineSaveOptions struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type VZVirtualMachineSaveOptions struct {
 func VZVirtualMachineSaveOptionsFromID(id objc.ID) VZVirtualMachineSaveOptions {
 	return VZVirtualMachineSaveOptions{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVirtualMachineSaveOptions implements IVZVirtualMachineSaveOptions.
 var _ IVZVirtualMachineSaveOptions = VZVirtualMachineSaveOptions{}
 
@@ -108,6 +110,7 @@ func (v VZVirtualMachineSaveOptions) Compress() bool {
 func (v VZVirtualMachineSaveOptions) SetCompress(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCompress:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineSaveOptions/encrypt
 func (v VZVirtualMachineSaveOptions) Encrypt() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("encrypt"))
@@ -116,4 +119,3 @@ func (v VZVirtualMachineSaveOptions) Encrypt() bool {
 func (v VZVirtualMachineSaveOptions) SetEncrypt(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEncrypt:"), value)
 }
-

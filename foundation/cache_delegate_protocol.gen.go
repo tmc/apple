@@ -18,6 +18,7 @@ type NSCacheDelegate interface {
 type NSCacheDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSCacheDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,12 +38,11 @@ func NSCacheDelegateObjectFromID(id objc.ID) NSCacheDelegateObject {
 // obj: The object of interest in the cache.
 //
 // # Discussion
-// 
+//
 // It is not possible to modify `cache` from within the implementation of this
 // delegate method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCacheDelegate/cache(_:willEvictObject:)
 func (o NSCacheDelegateObject) CacheWillEvictObject(cache INSCache, obj objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("cache:willEvictObject:"), cache, obj)
-	}
-
+}

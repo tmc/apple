@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MouthPosition struct {
 func MouthPositionFromID(id objc.ID) MouthPosition {
 	return MouthPosition{objectivec.Object{ID: id}}
 }
+
 // Ensure MouthPosition implements IMouthPosition.
 var _ IMouthPosition = MouthPosition{}
 
@@ -78,4 +80,3 @@ func NewMouthPosition() MouthPosition {
 	rv := objc.Send[MouthPosition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

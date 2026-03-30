@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VirtualizationMockEventService struct {
 func VirtualizationMockEventServiceFromID(id objc.ID) VirtualizationMockEventService {
 	return VirtualizationMockEventService{objectivec.Object{ID: id}}
 }
+
 // NOTE: VirtualizationMockEventService struct embeds objectivec.Object (parent type unavailable) but
 // IVirtualizationMockEventService embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewVirtualizationMockEventService() VirtualizationMockEventService {
 	rv := objc.Send[VirtualizationMockEventService](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

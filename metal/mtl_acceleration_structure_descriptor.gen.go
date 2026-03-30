@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (mc MTLAccelerationStructureDescriptorClass) Alloc() MTLAccelerationStructu
 // acceleration structure.
 //
 // # Overview
-// 
+//
 // This is the base class for other acceleration structure descriptors.
 // Don’t use this class directly. Use one of the derived classes instead, as
 // [MTLAccelerationStructure] describes.
@@ -67,6 +68,7 @@ type MTLAccelerationStructureDescriptor struct {
 func MTLAccelerationStructureDescriptorFromID(id objc.ID) MTLAccelerationStructureDescriptor {
 	return MTLAccelerationStructureDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLAccelerationStructureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,4 +119,3 @@ func (a MTLAccelerationStructureDescriptor) Usage() MTLAccelerationStructureUsag
 func (a MTLAccelerationStructureDescriptor) SetUsage(value MTLAccelerationStructureUsage) {
 	objc.Send[struct{}](a.ID, objc.Sel("setUsage:"), value)
 }
-

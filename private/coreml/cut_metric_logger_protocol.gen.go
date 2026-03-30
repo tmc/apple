@@ -18,6 +18,7 @@ type CUTMetricLogger interface {
 type CUTMetricLoggerObject struct {
 	objectivec.Object
 }
+
 func (o CUTMetricLoggerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,9 +31,7 @@ func CUTMetricLoggerObjectFromID(id objc.ID) CUTMetricLoggerObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/CUTMetricLogger/logMetric:
 func (o CUTMetricLoggerObject) LogMetric(metric objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("logMetric:"), metric)
-	}
-
+}

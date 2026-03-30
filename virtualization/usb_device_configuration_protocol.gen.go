@@ -3,8 +3,8 @@
 package virtualization
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -29,6 +29,7 @@ type VZUSBDeviceConfiguration interface {
 type VZUSBDeviceConfigurationObject struct {
 	objectivec.Object
 }
+
 func (o VZUSBDeviceConfigurationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,9 +48,18 @@ func VZUSBDeviceConfigurationObjectFromID(id objc.ID) VZUSBDeviceConfigurationOb
 func (o VZUSBDeviceConfigurationObject) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(rv)
-	}
+}
 
+// The device’s unique identifier.
+//
+// # Discussion
+//
+// The framework autogenerates the device UUID.
+//
+// Before restoring the VM, you need to set the device’s UUID to the UUID of
+// the device with the attachment at the time of saving the VM’s state.
+//
+// See: https://developer.apple.com/documentation/Virtualization/VZUSBDeviceConfiguration/uuid
 func (o VZUSBDeviceConfigurationObject) SetUuid(value foundation.NSUUID) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUuid:"), value)
 }
-

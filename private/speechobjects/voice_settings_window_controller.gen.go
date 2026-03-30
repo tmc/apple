@@ -4,9 +4,10 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (vc VoiceSettingsWindowControllerClass) Alloc() VoiceSettingsWindowControll
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VoiceSettingsWindowController.CancelVoiceSettings]
@@ -66,6 +66,7 @@ func (vc VoiceSettingsWindowControllerClass) Alloc() VoiceSettingsWindowControll
 //   - [VoiceSettingsWindowController.Description]
 //   - [VoiceSettingsWindowController.Hash]
 //   - [VoiceSettingsWindowController.Superclass]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController
 type VoiceSettingsWindowController struct {
 	appkit.NSWindowController
@@ -75,6 +76,7 @@ type VoiceSettingsWindowController struct {
 func VoiceSettingsWindowControllerFromID(id objc.ID) VoiceSettingsWindowController {
 	return VoiceSettingsWindowController{NSWindowController: appkit.NSWindowControllerFromID(id)}
 }
+
 // Ensure VoiceSettingsWindowController implements IVoiceSettingsWindowController.
 var _ IVoiceSettingsWindowController = VoiceSettingsWindowController{}
 
@@ -150,82 +152,83 @@ func NewVoiceSettingsWindowController() VoiceSettingsWindowController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/cancelVoiceSettings:
 func (v VoiceSettingsWindowController) CancelVoiceSettings(settings objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("cancelVoiceSettings:"), settings)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/closeWindow
 func (v VoiceSettingsWindowController) CloseWindow() {
 	objc.Send[objc.ID](v.ID, objc.Sel("closeWindow"))
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/percentOfNormalFromSlider:
 func (v VoiceSettingsWindowController) PercentOfNormalFromSlider(slider objectivec.IObject) float32 {
 	rv := objc.Send[float32](v.ID, objc.Sel("percentOfNormalFromSlider:"), slider)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/playStopVoiceSettings:
 func (v VoiceSettingsWindowController) PlayStopVoiceSettings(settings objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("playStopVoiceSettings:"), settings)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/rateCheckboxClicked:
 func (v VoiceSettingsWindowController) RateCheckboxClicked(clicked objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rateCheckboxClicked:"), clicked)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/rateSliderChanged:
 func (v VoiceSettingsWindowController) RateSliderChanged(changed objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rateSliderChanged:"), changed)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/saveVoiceSettings:
 func (v VoiceSettingsWindowController) SaveVoiceSettings(settings objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("saveVoiceSettings:"), settings)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/setUpWindowWithVoiceSettings:modalDelegate:
 func (v VoiceSettingsWindowController) SetUpWindowWithVoiceSettingsModalDelegate(settings objectivec.IObject, delegate objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setUpWindowWithVoiceSettings:modalDelegate:"), settings, delegate)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/setValueOfSlider:usingPercentOfNormal:
 func (v VoiceSettingsWindowController) SetValueOfSliderUsingPercentOfNormal(slider objectivec.IObject, normal float32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setValueOfSlider:usingPercentOfNormal:"), slider, normal)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/setValueOfSlider:usingWordsPerMinute:
 func (v VoiceSettingsWindowController) SetValueOfSliderUsingWordsPerMinute(slider objectivec.IObject, minute float32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setValueOfSlider:usingWordsPerMinute:"), slider, minute)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/speechSynthesizer:didFinishSpeaking:
 func (v VoiceSettingsWindowController) SpeechSynthesizerDidFinishSpeaking(synthesizer objectivec.IObject, speaking bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("speechSynthesizer:didFinishSpeaking:"), synthesizer, speaking)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/voicePopupMenuChanged:
 func (v VoiceSettingsWindowController) VoicePopupMenuChanged(changed objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("voicePopupMenuChanged:"), changed)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/voiceSettingsFromWindow
 func (v VoiceSettingsWindowController) VoiceSettingsFromWindow() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("voiceSettingsFromWindow"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/volumeCheckboxClicked:
 func (v VoiceSettingsWindowController) VolumeCheckboxClicked(clicked objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("volumeCheckboxClicked:"), clicked)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/volumeSliderChanged:
 func (v VoiceSettingsWindowController) VolumeSliderChanged(changed objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("volumeSliderChanged:"), changed)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/wordsPerMinuteFromSlider:
 func (v VoiceSettingsWindowController) WordsPerMinuteFromSlider(slider objectivec.IObject) float32 {
 	rv := objc.Send[float32](v.ID, objc.Sel("wordsPerMinuteFromSlider:"), slider)
@@ -237,19 +240,21 @@ func (v VoiceSettingsWindowController) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/description
 func (v VoiceSettingsWindowController) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/hash
 func (v VoiceSettingsWindowController) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsWindowController/superclass
 func (v VoiceSettingsWindowController) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

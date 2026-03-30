@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_merge_tf_normalization struct {
 func EspressoPass_merge_tf_normalizationFromID(id objc.ID) EspressoPass_merge_tf_normalization {
 	return EspressoPass_merge_tf_normalization{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_merge_tf_normalization implements IEspressoPass_merge_tf_normalization.
 var _ IEspressoPass_merge_tf_normalization = EspressoPass_merge_tf_normalization{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_merge_tf_normalization() EspressoPass_merge_tf_normalizatio
 	rv := objc.Send[EspressoPass_merge_tf_normalization](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

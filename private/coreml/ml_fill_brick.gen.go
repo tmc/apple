@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLFillBrickClass) Alloc() MLFillBrick {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLFillBrick.ComputeOnCPUWithInputTensorsOutputTensors]
@@ -57,6 +57,7 @@ func (mc MLFillBrickClass) Alloc() MLFillBrick {
 //   - [MLFillBrick.Description]
 //   - [MLFillBrick.Hash]
 //   - [MLFillBrick.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick
 type MLFillBrick struct {
 	objectivec.Object
@@ -66,6 +67,7 @@ type MLFillBrick struct {
 func MLFillBrickFromID(id objc.ID) MLFillBrick {
 	return MLFillBrick{objectivec.Object{ID: id}}
 }
+
 // Ensure MLFillBrick implements IMLFillBrick.
 var _ IMLFillBrick = MLFillBrick{}
 
@@ -125,7 +127,6 @@ func NewMLFillBrick() MLFillBrick {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/initWithParameters:
 func NewFillBrickWithParameters(parameters objectivec.IObject) MLFillBrick {
 	instance := getMLFillBrickClass().Alloc()
@@ -133,23 +134,23 @@ func NewFillBrickWithParameters(parameters objectivec.IObject) MLFillBrick {
 	return MLFillBrickFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/computeOnCPUWithInputTensors:outputTensors:
 func (f MLFillBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](f.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/hasGPUSupport
 func (f MLFillBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/setupForInputShapes:withParameters:
 func (f MLFillBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/initWithParameters:
 func (f MLFillBrick) InitWithParameters(parameters objectivec.IObject) MLFillBrick {
 	rv := objc.Send[MLFillBrick](f.ID, objc.Sel("initWithParameters:"), parameters)
@@ -161,39 +162,45 @@ func (f MLFillBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/description
 func (f MLFillBrick) Description() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/hash
 func (f MLFillBrick) Hash() uint64 {
 	rv := objc.Send[uint64](f.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/inputRanks
 func (f MLFillBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/inputShapes
 func (f MLFillBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/outputRanks
 func (f MLFillBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/outputShapes
 func (f MLFillBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFillBrick/superclass
 func (f MLFillBrick) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](f.ID, objc.Sel("superclass"))
 	return rv
 }
-

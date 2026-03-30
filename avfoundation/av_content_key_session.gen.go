@@ -5,9 +5,10 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -90,6 +91,7 @@ type AVContentKeySession struct {
 func AVContentKeySessionFromID(id objc.ID) AVContentKeySession {
 	return AVContentKeySession{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVContentKeySession adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -179,6 +181,10 @@ type IAVContentKeySession interface {
 	InvalidatePersistableContentKeyOptionsCompletionHandler(persistableContentKeyData foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler)
 	// Invalidates all of an app’s persistable content keys and creates a secure server playback context (SPC) to verify the outcome of an invalidation request.
 	InvalidateAllPersistableContentKeysForAppOptionsCompletionHandler(appIdentifier foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler)
+
+	// Boolean indicating whether advisory keys are enabled on the client.
+	SupportsAdvisoryKeys() bool
+	SetSupportsAdvisoryKeys(value bool)
 }
 
 // Init initializes the instance.
@@ -206,11 +212,11 @@ func NewAVContentKeySession() AVContentKeySession {
 // keySystem: A valid key system used to retrieve keys.
 //
 // # Return Value
-// 
+//
 // Returns a new [AVContentKeySession] instance.
 //
 // # Discussion
-// 
+//
 // The [AVContentKeySession] instance returned is capable of managing a
 // collection of content decryption keys that correspond to the input key
 // system. An [InvalidArgumentException] is raised when the value of
@@ -233,11 +239,11 @@ func NewContentKeySessionWithKeySystem(keySystem AVContentKeySystem) AVContentKe
 // termination.
 //
 // # Return Value
-// 
+//
 // Returns a new AVContentKeySession instance.
 //
 // # Discussion
-// 
+//
 // The [AVContentKeySession] instance returned is capable of managing a
 // collection of content decryption keys that correspond to the input key
 // system. An [InvalidArgumentException] is raised when the value of
@@ -260,13 +266,14 @@ func NewContentKeySessionWithKeySystemStorageDirectoryAtURL(keySystem AVContentK
 func (c AVContentKeySession) SetDelegateQueue(delegate AVContentKeySessionDelegate, delegateQueue dispatch.Queue) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setDelegate:queue:"), delegate, uintptr(delegateQueue.Handle()))
 }
+
 // Tells the delegate that the specified recipient should have access to the
 // decryption keys loaded with the session.
 //
 // recipient: The content key recipient to use for the session.
 //
 // # Discussion
-// 
+//
 // Don’t add a recipient to a session that has expired or had already begun
 // to process media data.
 //
@@ -274,6 +281,7 @@ func (c AVContentKeySession) SetDelegateQueue(delegate AVContentKeySessionDelega
 func (c AVContentKeySession) AddContentKeyRecipient(recipient AVContentKeyRecipient) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addContentKeyRecipient:"), recipient)
 }
+
 // Tells the delegate to remove the specified recipient.
 //
 // recipient: The content key recipient to remove.
@@ -282,6 +290,7 @@ func (c AVContentKeySession) AddContentKeyRecipient(recipient AVContentKeyRecipi
 func (c AVContentKeySession) RemoveContentKeyRecipient(recipient AVContentKeyRecipient) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeContentKeyRecipient:"), recipient)
 }
+
 // Tells the delegate to start loading the content decryption key with the
 // specified identifier and initialization data.
 //
@@ -293,7 +302,7 @@ func (c AVContentKeySession) RemoveContentKeyRecipient(recipient AVContentKeyRec
 // options: No options are currently defined. Set this value to `nil`.
 //
 // # Discussion
-// 
+//
 // Either the `identifier` or `initializationData` parameters must be
 // non-`nil`. If required by the protocol, both parameters can be non-`nil`.
 //
@@ -301,6 +310,7 @@ func (c AVContentKeySession) RemoveContentKeyRecipient(recipient AVContentKeyRec
 func (c AVContentKeySession) ProcessContentKeyRequestWithIdentifierInitializationDataOptions(identifier objectivec.IObject, initializationData foundation.INSData, options foundation.INSDictionary) {
 	objc.Send[objc.ID](c.ID, objc.Sel("processContentKeyRequestWithIdentifier:initializationData:options:"), identifier, initializationData, options)
 }
+
 // Tells the delegate that the session expired as the result of normal,
 // intentional processes.
 //
@@ -308,6 +318,7 @@ func (c AVContentKeySession) ProcessContentKeyRequestWithIdentifierInitializatio
 func (c AVContentKeySession) Expire() {
 	objc.Send[objc.ID](c.ID, objc.Sel("expire"))
 }
+
 // Creates a secure server playback context that the client sends to the key
 // server to get an expiration date for the given persistable content key
 // data.
@@ -315,16 +326,17 @@ func (c AVContentKeySession) Expire() {
 // persistableContentKeyData: The previously created persistable content key data.
 //
 // handler: A block called after the secure token is ready.
-// 
+//
 // secureTokenData: The new secure token. error: A parameter that holds the
 // error object that explains the error. If no error occurred, the value of
 // this parameter is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/makeSecureTokenForExpirationDate(ofPersistableContentKey:completionHandler:)
 func (c AVContentKeySession) MakeSecureTokenForExpirationDateOfPersistableContentKeyCompletionHandler(persistableContentKeyData foundation.INSData, handler DataErrorHandler) {
-_block1, _ := NewDataErrorBlock(handler)
+	_block1, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("makeSecureTokenForExpirationDateOfPersistableContentKey:completionHandler:"), persistableContentKeyData, _block1)
 }
+
 // Tells the delegate that previously provided response data for a content key
 // request is about to expire.
 //
@@ -334,6 +346,7 @@ _block1, _ := NewDataErrorBlock(handler)
 func (c AVContentKeySession) RenewExpiringResponseDataForContentKeyRequest(contentKeyRequest IAVContentKeyRequest) {
 	objc.Send[objc.ID](c.ID, objc.Sel("renewExpiringResponseDataForContentKeyRequest:"), contentKeyRequest)
 }
+
 // Invalidates the persistable content key and creates a secure server
 // playback context (SPC) to verify the outcome of an invalidation request.
 //
@@ -346,9 +359,10 @@ func (c AVContentKeySession) RenewExpiringResponseDataForContentKeyRequest(conte
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/invalidatePersistableContentKey(_:options:completionHandler:)
 func (c AVContentKeySession) InvalidatePersistableContentKeyOptionsCompletionHandler(persistableContentKeyData foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler) {
-_block2, _ := NewDataErrorBlock(handler)
+	_block2, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidatePersistableContentKey:options:completionHandler:"), persistableContentKeyData, options, _block2)
 }
+
 // Invalidates all of an app’s persistable content keys and creates a secure
 // server playback context (SPC) to verify the outcome of an invalidation
 // request.
@@ -357,14 +371,14 @@ _block2, _ := NewDataErrorBlock(handler)
 //
 // options: Additional data necessary to generate the server playback context. Pass
 // `nil` to indicate no additional options.
-// 
+//
 // See [AVContentKeySessionServerPlaybackContextOption] for supported options.
 //
 // handler: The completion handler callback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/invalidateAllPersistableContentKeys(forApp:options:completionHandler:)
 func (c AVContentKeySession) InvalidateAllPersistableContentKeysForAppOptionsCompletionHandler(appIdentifier foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler) {
-_block2, _ := NewDataErrorBlock(handler)
+	_block2, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateAllPersistableContentKeysForApp:options:completionHandler:"), appIdentifier, options, _block2)
 }
 
@@ -376,11 +390,11 @@ _block2, _ := NewDataErrorBlock(handler)
 // storageURL: The URL that points to the directory containing expired session reports.
 //
 // # Return Value
-// 
+//
 // Returns an array of expired session reports.
 //
 // # Discussion
-// 
+//
 // The system only returns expired session reports. It doesn’t include
 // reports for active sessions.
 //
@@ -391,6 +405,7 @@ func (_AVContentKeySessionClass AVContentKeySessionClass) PendingExpiredSessionR
 		return foundation.NSDataFromID(id)
 	})
 }
+
 // Removes expired session reports from storage.
 //
 // expiredSessionReports: An array of expired session reports to delete.
@@ -407,21 +422,22 @@ func (_AVContentKeySessionClass AVContentKeySessionClass) RemovePendingExpiredSe
 // The type of key system used to retrieve keys.
 //
 // # Discussion
-// 
+//
 // Valid values for keySystem are [fairPlayStreaming] and [clearKey].
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/keySystem
 //
 // [clearKey]: https://developer.apple.com/documentation/AVFoundation/AVContentKeySystem/clearKey
 // [fairPlayStreaming]: https://developer.apple.com/documentation/AVFoundation/AVContentKeySystem/fairPlayStreaming
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/keySystem
 func (c AVContentKeySession) KeySystem() AVContentKeySystem {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("keySystem"))
 	return AVContentKeySystem(foundation.NSStringFromID(rv).String())
 }
+
 // A URL that points to a writable storage directory.
 //
 // # Discussion
-// 
+//
 // The writable directory stores expired session reports.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/storageURL
@@ -429,10 +445,11 @@ func (c AVContentKeySession) StorageURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("storageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // The content key session’s delegate object.
 //
 // # Discussion
-// 
+//
 // Set the session’s delegate using the [SetDelegateQueue] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/delegate
@@ -440,6 +457,7 @@ func (c AVContentKeySession) Delegate() AVContentKeySessionDelegate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("delegate"))
 	return AVContentKeySessionDelegateObjectFromID(rv)
 }
+
 // The dispatch queue the session uses to invoke delegate callbacks.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/delegateQueue
@@ -447,6 +465,7 @@ func (c AVContentKeySession) DelegateQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](c.ID, objc.Sel("delegateQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
+
 // An array of content key recipients.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/contentKeyRecipients
@@ -456,10 +475,11 @@ func (c AVContentKeySession) ContentKeyRecipients() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // The identifier for the current content protection session.
 //
 // # Discussion
-// 
+//
 // The content protection session identifier is a unique string the session
 // generates.
 //
@@ -467,6 +487,36 @@ func (c AVContentKeySession) ContentKeyRecipients() []objectivec.IObject {
 func (c AVContentKeySession) ContentProtectionSessionIdentifier() foundation.INSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("contentProtectionSessionIdentifier"))
 	return foundation.NSDataFromID(objc.ID(rv))
+}
+
+// Boolean indicating whether advisory keys are enabled on the client.
+//
+// # Discussion
+//
+// Set to true to enable advisory key loading, false to disable. false by
+// default.
+//
+// Advisory key loading allows applications to make use of content keys
+// provided speculatively by the key server. When enabled, FairPlay may cache
+// these keys and return them immediately on subsequent requests without
+// requiring a round-trip to the key server.
+//
+// The delegate must be prepared to handle advisory key requests by checking
+// the `canBeFulfilledWithAdvisoryKey` property on [AVContentKeyRequest]
+// objects.
+//
+// When an advisory key is already cached by FairPlay,
+// `makeStreamingContentKeyRequestData` will return nil for the SPC data, and
+// `canBeFulfilledWithAdvisoryKey` will return true. In this case, no request
+// to the key server is necessary.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/supportsAdvisoryKeys
+func (c AVContentKeySession) SupportsAdvisoryKeys() bool {
+	rv := objc.Send[bool](c.ID, objc.Sel("supportsAdvisoryKeys"))
+	return rv
+}
+func (c AVContentKeySession) SetSupportsAdvisoryKeys(value bool) {
+	objc.Send[struct{}](c.ID, objc.Sel("setSupportsAdvisoryKeys:"), value)
 }
 
 // MakeSecureTokenForExpirationDateOfPersistableContentKey is a synchronous wrapper around [AVContentKeySession.MakeSecureTokenForExpirationDateOfPersistableContentKeyCompletionHandler].
@@ -525,4 +575,3 @@ func (c AVContentKeySession) InvalidateAllPersistableContentKeysForAppOptions(ct
 		return nil, ctx.Err()
 	}
 }
-

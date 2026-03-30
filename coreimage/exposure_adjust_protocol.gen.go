@@ -39,6 +39,7 @@ type CIExposureAdjust interface {
 type CIExposureAdjustObject struct {
 	objectivec.Object
 }
+
 func (o CIExposureAdjustObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIExposureAdjustObjectFromID(id objc.ID) CIExposureAdjustObject {
 func (o CIExposureAdjustObject) EV() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("EV"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIExposureAdjust/inputImage
 func (o CIExposureAdjustObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIExposureAdjustObject) InputImage() ICIImage {
 func (o CIExposureAdjustObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The amount to adjust the exposure of the image by.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIExposureAdjust/ev
 func (o CIExposureAdjustObject) SetEV(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setEV:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIExposureAdjust/inputImage
 func (o CIExposureAdjustObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

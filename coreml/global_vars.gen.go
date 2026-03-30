@@ -4,13 +4,13 @@ package coreml
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
-var (
-)
+var ()
 
 var (
 	// MLModelAuthorKey is key for the author of the model.
@@ -46,6 +46,7 @@ var (
 	// See: https://developer.apple.com/documentation/CoreML/MLModelErrorDomain
 	MLModelErrorDomain string
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -144,4 +145,3 @@ var MLFeatureValueImageOptions struct {
 	// CropRect: The option you use to crop an image when creating an image feature value.
 	CropRect MLFeatureValueImageOption
 }
-

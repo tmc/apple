@@ -4,6 +4,7 @@ package coremedia
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -360,4 +361,3 @@ type CMVideoCodecType = uint32
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescription
 type CMVideoFormatDescriptionRef uintptr
-

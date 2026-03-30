@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVCaptureMovieFileOutputClass) Alloc() AVCaptureMovieFileOutput {
 // A capture output that records video and audio to a QuickTime movie file.
 //
 // # Overview
-// 
+//
 // A movie file output provides a complete file recording interface for
 // writing media data to QuickTime movie files. It includes the ability to
 // configure QuickTime-specific options, including writing metadata
@@ -90,6 +91,7 @@ type AVCaptureMovieFileOutput struct {
 func AVCaptureMovieFileOutputFromID(id objc.ID) AVCaptureMovieFileOutput {
 	return AVCaptureMovieFileOutput{AVCaptureFileOutput: AVCaptureFileOutputFromID(id)}
 }
+
 // NOTE: AVCaptureMovieFileOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -187,14 +189,14 @@ func NewAVCaptureMovieFileOutput() AVCaptureMovieFileOutput {
 // connection: The connection delivering the media to encode.
 //
 // # Return Value
-// 
+//
 // A dictionary of output settings.
 //
 // # Discussion
-// 
+//
 // If the returned value is an empty dictionary, the format of the media from
 // the connection isn’t changed before writing to the file.
-// 
+//
 // If you call [SetOutputSettingsForConnection] with a `nil` dictionary, this
 // method returns a non-`nil` dictionary that reflects the settings used by
 // the capture session’s [SessionPreset] value.
@@ -204,6 +206,7 @@ func (c AVCaptureMovieFileOutput) OutputSettingsForConnection(connection IAVCapt
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("outputSettingsForConnection:"), connection)
 	return foundation.NSDictionaryFromID(rv)
 }
+
 // Sets the options the output uses to encode media from the given connection
 // while recording.
 //
@@ -215,10 +218,10 @@ func (c AVCaptureMovieFileOutput) OutputSettingsForConnection(connection IAVCapt
 // connection: The connection delivering the media to encode.
 //
 // # Discussion
-// 
+//
 // For details on output settings, see [Video settings] for video connections
 // and [Audio settings] for audio connections.
-// 
+//
 // On iOS, your output settings dictionary may only contain keys listed
 // returned from the [SupportedOutputSettingsKeysForConnection] method. If you
 // specify any other key, the system throws an invalid argument exception.
@@ -226,7 +229,7 @@ func (c AVCaptureMovieFileOutput) OutputSettingsForConnection(connection IAVCapt
 // in the [AvailableVideoCodecTypes] array. If you specify
 // [AVVideoCompressionPropertiesKey], you must also specify a valid value for
 // [AVVideoCodecKey].
-// 
+//
 // On iOS, the [OutputSettingsForConnection] method always provides a fully
 // populated dictionary. If you call [OutputSettingsForConnection] with the
 // intent of overriding a few of the values, you must exclude keys that
@@ -236,41 +239,40 @@ func (c AVCaptureMovieFileOutput) OutputSettingsForConnection(connection IAVCapt
 // missing keys with default values for the current capture session
 // configuration.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/setOutputSettings(_:for:)
+//
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
 // [AVVideoCompressionPropertiesKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCompressionPropertiesKey
 // [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
 // [Video settings]: https://developer.apple.com/documentation/AVFoundation/video-settings
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/setOutputSettings(_:for:)
 func (c AVCaptureMovieFileOutput) SetOutputSettingsForConnection(outputSettings foundation.INSDictionary, connection IAVCaptureConnection) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setOutputSettings:forConnection:"), outputSettings, connection)
 }
+
 // Sets the camera switching behavior to use during recording.
 //
 // switchingBehavior: The switching behavior to set on the movie file output.
-// 
+//
 // Attempting to restrict the switching behavior of a capture device that
 // doesn’t support constituent device switching results in an error.
 //
 // restrictedSwitchingBehaviorConditions: The conditions during which camera switching occurs. Only set a condition
 // when you set the switching behavior to
-// [CapturePrimaryConstituentDeviceSwitchingBehaviorRestricted]. In all other
-// cases, set the value to
-// [CapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditionNone].
+// [AVCapturePrimaryConstituentDeviceSwitchingBehaviorRestricted]. In all
+// other cases, set the value to
+// [AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditionNone].
 //
 // # Discussion
-// 
+//
 // Use this method to control the camera switching behavior the system uses
 // when recording a movie. The behavior you specify takes effect when you
 // enable it by setting the value of
-// [PrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled] to [true].
-// 
+// [PrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled] to true.
+//
 // When a capture device doesn’t support constituent device selection,
 // attempting to set a behavior other than
-// [CapturePrimaryConstituentDeviceSwitchingBehaviorUnsupported] causes the
+// [AVCapturePrimaryConstituentDeviceSwitchingBehaviorUnsupported] causes the
 // system to throw an invalid argument exception.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/setPrimaryConstituentDeviceSwitchingBehaviorForRecording(_:restrictedSwitchingBehaviorConditions:)
 func (c AVCaptureMovieFileOutput) SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingRestrictedSwitchingBehaviorConditions(switchingBehavior AVCapturePrimaryConstituentDeviceSwitchingBehavior, restrictedSwitchingBehaviorConditions AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditions) {
@@ -280,13 +282,13 @@ func (c AVCaptureMovieFileOutput) SetPrimaryConstituentDeviceSwitchingBehaviorFo
 // The number of seconds of output that are written per fragment.
 //
 // # Discussion
-// 
+//
 // The default is 10 seconds. To disable movie fragment writing (not typically
 // recommended), set to [invalid].
-// 
+//
 // A QuickTime movie contains media samples and a table identifying their
 // location in the file. A movie file without a sample table is unreadable.
-// 
+//
 // In a processed file, the sample table typically appears at the beginning of
 // the file. It may also appear at the end of the file, in which case the
 // header contains a pointer to the sample table at the end. When a new movie
@@ -300,9 +302,9 @@ func (c AVCaptureMovieFileOutput) SetPrimaryConstituentDeviceSwitchingBehaviorFo
 // the file is not written completely, the movie file is still usable (up to
 // the point where the last fragment was written).
 //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/movieFragmentInterval
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (c AVCaptureMovieFileOutput) MovieFragmentInterval() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("movieFragmentInterval"))
 	return coremedia.CMTime(rv)
@@ -310,10 +312,11 @@ func (c AVCaptureMovieFileOutput) MovieFragmentInterval() coremedia.CMTime {
 func (c AVCaptureMovieFileOutput) SetMovieFragmentInterval(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMovieFragmentInterval:"), value)
 }
+
 // The metadata for the output file.
 //
 // # Discussion
-// 
+//
 // This array contains [AVMetadataItem] objects. You use it to add metadata,
 // such as copyright, creation date, and so on, to the recorded movie file.
 //
@@ -327,6 +330,7 @@ func (c AVCaptureMovieFileOutput) Metadata() []AVMetadataItem {
 func (c AVCaptureMovieFileOutput) SetMetadata(value []AVMetadataItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMetadata:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // A Boolean value that indicates whether a movie file output supports
 // capturing spatial videos.
 //
@@ -335,19 +339,17 @@ func (c AVCaptureMovieFileOutput) SpatialVideoCaptureSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isSpatialVideoCaptureSupported"))
 	return rv
 }
+
 // A Boolean value that indicates whether a movie file output captures spatial
 // videos.
 //
 // # Discussion
-// 
+//
 // Spatial capture lets you record your favorite moments in 3D for playback on
 // Apple Vision Pro. This feature isn’t supported on all devices, so you can
-// only enable this property when [SpatialVideoCaptureSupported] is [true].
-// 
-// The default value is [false].
+// only enable this property when [SpatialVideoCaptureSupported] is true.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/isSpatialVideoCaptureEnabled
 func (c AVCaptureMovieFileOutput) SpatialVideoCaptureEnabled() bool {
@@ -357,22 +359,21 @@ func (c AVCaptureMovieFileOutput) SpatialVideoCaptureEnabled() bool {
 func (c AVCaptureMovieFileOutput) SetSpatialVideoCaptureEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSpatialVideoCaptureEnabled:"), value)
 }
+
 // A Boolean value that indicates whether to restrict constituent device
 // switching behavior during recording.
 //
 // # Discussion
-// 
+//
 // Use this property to enable camera switching restrictions when recording
 // movies. You set restrictions by calling the output’s
 // [SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingRestrictedSwitchingBehaviorConditions]
 // method. The restrictions take effect when you start recording, and revert
 // to the behavior set by the capture device’s
 // [PrimaryConstituentDeviceSwitchingBehavior] when you stop recording.
-// 
-// By default, this property is [true] when connected to a capture device that
-// supports constituent device switching.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// By default, this property is true when connected to a capture device that
+// supports constituent device switching.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/isPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled
 func (c AVCaptureMovieFileOutput) PrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled() bool {
@@ -382,13 +383,14 @@ func (c AVCaptureMovieFileOutput) PrimaryConstituentDeviceSwitchingBehaviorForRe
 func (c AVCaptureMovieFileOutput) SetPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPrimaryConstituentDeviceSwitchingBehaviorForRecordingEnabled:"), value)
 }
+
 // The camera switching behavior to use for recording.
 //
 // # Discussion
-// 
+//
 // The default value of this property is
-// [CapturePrimaryConstituentDeviceSwitchingBehaviorRestricted].
-// 
+// [AVCapturePrimaryConstituentDeviceSwitchingBehaviorRestricted].
+//
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/primaryConstituentDeviceSwitchingBehaviorForRecording
@@ -396,16 +398,17 @@ func (c AVCaptureMovieFileOutput) PrimaryConstituentDeviceSwitchingBehaviorForRe
 	rv := objc.Send[AVCapturePrimaryConstituentDeviceSwitchingBehavior](c.ID, objc.Sel("primaryConstituentDeviceSwitchingBehaviorForRecording"))
 	return AVCapturePrimaryConstituentDeviceSwitchingBehavior(rv)
 }
+
 // The conditions during which camera switching may occur while recording.
 //
 // # Discussion
-// 
+//
 // The default conditions include
-// [CapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditionVideoZoomChanged],
-// [CapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditionFocusModeChanged],
+// [AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditionVideoZoomChanged],
+// [AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditionFocusModeChanged],
 // and
-// [CapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditionExposureModeChanged].
-// 
+// [AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditionExposureModeChanged].
+//
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/primaryConstituentDeviceRestrictedSwitchingBehaviorConditionsForRecording
@@ -413,4 +416,3 @@ func (c AVCaptureMovieFileOutput) PrimaryConstituentDeviceRestrictedSwitchingBeh
 	rv := objc.Send[AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditions](c.ID, objc.Sel("primaryConstituentDeviceRestrictedSwitchingBehaviorConditionsForRecording"))
 	return AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditions(rv)
 }
-

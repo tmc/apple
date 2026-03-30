@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type MTLAttribute struct {
 func MTLAttributeFromID(id objc.ID) MTLAttribute {
 	return MTLAttribute{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLAttribute adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,6 +128,7 @@ func (a MTLAttribute) Name() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The index of the attribute, as declared in Metal shader source code.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute/attributeIndex
@@ -133,6 +136,7 @@ func (a MTLAttribute) AttributeIndex() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("attributeIndex"))
 	return rv
 }
+
 // The data type for the attribute, as declared in Metal shader source code.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute/attributeType
@@ -140,6 +144,7 @@ func (a MTLAttribute) AttributeType() MTLDataType {
 	rv := objc.Send[MTLDataType](a.ID, objc.Sel("attributeType"))
 	return MTLDataType(rv)
 }
+
 // A Boolean value that indicates whether the attribute is active.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute/isActive
@@ -147,6 +152,7 @@ func (a MTLAttribute) Active() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isActive"))
 	return rv
 }
+
 // A Boolean value that indicates whether the attribute represents control
 // point data.
 //
@@ -155,6 +161,7 @@ func (a MTLAttribute) PatchControlPointData() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPatchControlPointData"))
 	return rv
 }
+
 // A Boolean value that indicates whether the attribute represents
 // tessellation patch data.
 //
@@ -163,4 +170,3 @@ func (a MTLAttribute) PatchData() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPatchData"))
 	return rv
 }
-

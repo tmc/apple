@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,13 +46,13 @@ func (nc NSProxyClass) Alloc() NSProxy {
 // for other objects or for objects that don’t exist yet.
 //
 // # Overview
-// 
+//
 // Typically, a message to a proxy is forwarded to the real object or causes
 // the proxy to load (or transform itself into) the real object. Subclasses of
 // [NSProxy] can be used to implement transparent distributed messaging (for
 // example, [NSDistantObject]) or for lazy instantiation of objects that are
 // expensive to create.
-// 
+//
 // [NSProxy] implements the basic methods required of a root class, including
 // those defined in the [NSObjectProtocol] protocol. However, as an abstract
 // class it doesn’t provide an initialization method, and it raises an
@@ -68,9 +69,6 @@ func (nc NSProxyClass) Alloc() NSProxy {
 // and should construct an [NSMethodSignature] object accordingly. See the
 // [NSDistantObject], [NSInvocation], and [NSMethodSignature] class
 // specifications for more information.
-//
-// [NSDistantObject]: https://developer.apple.com/documentation/Foundation/NSDistantObject
-// [NSObjectProtocol]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol
 //
 // # Deallocating Instances
 //
@@ -90,6 +88,9 @@ func (nc NSProxyClass) Alloc() NSProxy {
 //   - [NSProxy.DebugDescription]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProxy
+//
+// [NSDistantObject]: https://developer.apple.com/documentation/Foundation/NSDistantObject
+// [NSObjectProtocol]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol
 type NSProxy struct {
 	objectivec.Object
 }
@@ -101,6 +102,7 @@ type NSProxy struct {
 func NSProxyFromID(id objc.ID) NSProxy {
 	return NSProxy{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSProxy adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -176,41 +178,43 @@ func NewNSProxy() NSProxy {
 // Deallocates the memory occupied by the receiver.
 //
 // # Discussion
-// 
+//
 // This method behaves as described in the [NSObject] class specification
 // under the [dealloc] instance method.
 //
-// [dealloc]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/dealloc
-//
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/dealloc()
+//
+// [dealloc]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/dealloc
 func (p NSProxy) Dealloc() {
 	objc.Send[objc.ID](p.ID, objc.Sel("dealloc"))
 }
+
 // The garbage collector invokes this method on the receiver before disposing
 // of the memory it uses.
 //
 // # Discussion
-// 
+//
 // This method behaves as described in the [NSObject] class specification
 // under the [finalize()] instance method. Note that a `finalize` method must
 // be thread-safe.
 //
-// [finalize()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/finalize()
-//
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/finalize()
+//
+// [finalize()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/finalize()
 func (p NSProxy) Finalize() {
 	objc.Send[objc.ID](p.ID, objc.Sel("finalize"))
 }
+
 // Passes a given invocation to the real object the proxy represents.
 //
 // invocation: The invocation to forward.
 //
 // # Discussion
-// 
+//
 // [NSProxy]’s implementation merely raises [NSInvalidArgumentException].
 // Override this method in your subclass to handle `invocation` appropriately,
 // at the very least by setting its return value.
-// 
+//
 // For example, if your proxy merely forwards messages to an instance variable
 // named `realObject`, it can implement [ForwardInvocation] like this:
 //
@@ -218,11 +222,13 @@ func (p NSProxy) Finalize() {
 func (p NSProxy) ForwardInvocation(invocation INSInvocation) {
 	objc.Send[objc.ID](p.ID, objc.Sel("forwardInvocation:"), invocation)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/allowsWeakReference
 func (p NSProxy) AllowsWeakReference() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("allowsWeakReference"))
 	return rv
 }
+
 // Raises [NSInvalidArgumentException]. Override this method in your concrete
 // subclass to return a proper [NSMethodSignature] object for the given
 // selector and the class your proxy objects stand in for.
@@ -230,16 +236,16 @@ func (p NSProxy) AllowsWeakReference() bool {
 // sel: The selector for which to return a method signature.
 //
 // # Return Value
-// 
+//
 // Not applicable. The implementation provided by [NSProxy] raises an
 // exception.
 //
 // # Discussion
-// 
+//
 // Be sure to avoid an infinite loop when necessary by checking that `sel`
 // isn’t the selector for this method itself and by not sending any message
 // that might invoke this method.
-// 
+//
 // For example, if your proxy merely forwards messages to an instance variable
 // named `realObject`, it can implement [MethodSignatureForSelector] like
 // this:
@@ -249,6 +255,7 @@ func (p NSProxy) MethodSignatureForSelector(sel objc.SEL) INSMethodSignature {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("methodSignatureForSelector:"), sel)
 	return NSMethodSignatureFromID(rv)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/retainWeakReference
 func (p NSProxy) RetainWeakReference() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("retainWeakReference"))
@@ -263,9 +270,9 @@ func (p NSProxy) Description() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/debugDescription
 func (p NSProxy) DebugDescription() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
 	return NSStringFromID(rv).String()
 }
-

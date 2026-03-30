@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -63,6 +64,7 @@ type AVVideoOutputSpecification struct {
 func AVVideoOutputSpecificationFromID(id objc.ID) AVVideoOutputSpecification {
 	return AVVideoOutputSpecification{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVVideoOutputSpecification adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,7 +108,6 @@ func NewAVVideoOutputSpecification() AVVideoOutputSpecification {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoOutputSpecification/initWithTagCollections:
 func NewVideoOutputSpecificationWithTagCollections(tagCollections foundation.INSArray) AVVideoOutputSpecification {
 	instance := getAVVideoOutputSpecificationClass().Alloc()
@@ -114,13 +115,12 @@ func NewVideoOutputSpecificationWithTagCollections(tagCollections foundation.INS
 	return AVVideoOutputSpecificationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoOutputSpecification/initWithTagCollections:
 func (v AVVideoOutputSpecification) InitWithTagCollections(tagCollections foundation.INSArray) AVVideoOutputSpecification {
 	rv := objc.Send[AVVideoOutputSpecification](v.ID, objc.Sel("initWithTagCollections:"), tagCollections)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoOutputSpecification/setOutputSettings:forTagCollection:
 func (v AVVideoOutputSpecification) SetOutputSettingsForTagCollection(outputSettings foundation.INSDictionary, tagCollection coremedia.CMTagCollectionRef) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setOutputSettings:forTagCollection:"), outputSettings, tagCollection)
@@ -134,9 +134,9 @@ func (v AVVideoOutputSpecification) DefaultOutputSettings() foundation.INSDictio
 func (v AVVideoOutputSpecification) SetDefaultOutputSettings(value foundation.INSDictionary) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDefaultOutputSettings:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoOutputSpecification/preferredTagCollections-2ikbd
 func (v AVVideoOutputSpecification) PreferredTagCollections() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("preferredTagCollections"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

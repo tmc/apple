@@ -4,6 +4,7 @@ package objectivec
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type Protocol struct {
 func ProtocolFromID(id objc.ID) Protocol {
 	return Protocol{Object{ID: id}}
 }
+
 // Ensure Protocol implements IProtocol.
 var _ IProtocol = Protocol{}
 
@@ -77,4 +79,3 @@ func NewProtocol() Protocol {
 	rv := objc.Send[Protocol](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

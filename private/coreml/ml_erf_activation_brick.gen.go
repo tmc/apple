@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLErfActivationBrickClass) Alloc() MLErfActivationBrick {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLErfActivationBrick.ComputeOnCPUWithInputTensorsOutputTensors]
@@ -54,6 +54,7 @@ func (mc MLErfActivationBrickClass) Alloc() MLErfActivationBrick {
 //   - [MLErfActivationBrick.Description]
 //   - [MLErfActivationBrick.Hash]
 //   - [MLErfActivationBrick.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLErfActivationBrick
 type MLErfActivationBrick struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type MLErfActivationBrick struct {
 func MLErfActivationBrickFromID(id objc.ID) MLErfActivationBrick {
 	return MLErfActivationBrick{objectivec.Object{ID: id}}
 }
+
 // Ensure MLErfActivationBrick implements IMLErfActivationBrick.
 var _ IMLErfActivationBrick = MLErfActivationBrick{}
 
@@ -116,7 +118,6 @@ func NewMLErfActivationBrick() MLErfActivationBrick {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLErfActivationBrick/initWithParameters:
 func NewErfActivationBrickWithParameters(parameters objectivec.IObject) MLErfActivationBrick {
 	instance := getMLErfActivationBrickClass().Alloc()
@@ -124,23 +125,23 @@ func NewErfActivationBrickWithParameters(parameters objectivec.IObject) MLErfAct
 	return MLErfActivationBrickFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLErfActivationBrick/computeOnCPUWithInputTensors:outputTensors:
 func (e MLErfActivationBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLErfActivationBrick/hasGPUSupport
 func (e MLErfActivationBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLErfActivationBrick/setupForInputShapes:withParameters:
 func (e MLErfActivationBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLErfActivationBrick/initWithParameters:
 func (e MLErfActivationBrick) InitWithParameters(parameters objectivec.IObject) MLErfActivationBrick {
 	rv := objc.Send[MLErfActivationBrick](e.ID, objc.Sel("initWithParameters:"), parameters)
@@ -152,24 +153,27 @@ func (e MLErfActivationBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLErfActivationBrick/description
 func (e MLErfActivationBrick) Description() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLErfActivationBrick/hash
 func (e MLErfActivationBrick) Hash() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLErfActivationBrick/size
 func (e MLErfActivationBrick) Size() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("size"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLErfActivationBrick/superclass
 func (e MLErfActivationBrick) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
 	return rv
 }
-

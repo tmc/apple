@@ -23,6 +23,7 @@ type MTLIOScratchBufferAllocator interface {
 type MTLIOScratchBufferAllocatorObject struct {
 	objectivec.Object
 }
+
 func (o MTLIOScratchBufferAllocatorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,11 +42,11 @@ func MTLIOScratchBufferAllocatorObjectFromID(id objc.ID) MTLIOScratchBufferAlloc
 // run a command buffer.
 //
 // # Return Value
-// 
+//
 // An [MTLIOScratchBuffer] instance that your app implements or `nil`.
 //
 // # Discussion
-// 
+//
 // Your app can reduce additional callbacks from the framework by providing
 // additional memory above `minimumSize`. If your implementation returns
 // `nil`, the input/output command queue cancels the [MTLIOCommandBuffer]
@@ -55,5 +56,4 @@ func MTLIOScratchBufferAllocatorObjectFromID(id objc.ID) MTLIOScratchBufferAlloc
 func (o MTLIOScratchBufferAllocatorObject) NewScratchBufferWithMinimumSize(minimumSize uint) MTLIOScratchBuffer {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newScratchBufferWithMinimumSize:"), minimumSize)
 	return MTLIOScratchBufferObjectFromID(rv)
-	}
-
+}

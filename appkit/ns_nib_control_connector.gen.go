@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,6 +54,7 @@ type NSNibControlConnector struct {
 func NSNibControlConnectorFromID(id objc.ID) NSNibControlConnector {
 	return NSNibControlConnector{NSNibConnector: NSNibConnectorFromID(id)}
 }
+
 // Ensure NSNibControlConnector implements INSNibControlConnector.
 var _ INSNibControlConnector = NSNibControlConnector{}
 
@@ -81,4 +83,3 @@ func NewNSNibControlConnector() NSNibControlConnector {
 	rv := objc.Send[NSNibControlConnector](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

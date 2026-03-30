@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -75,6 +76,7 @@ type AVMediaSelectionGroup struct {
 func AVMediaSelectionGroupFromID(id objc.ID) AVMediaSelectionGroup {
 	return AVMediaSelectionGroup{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMediaSelectionGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -152,7 +154,7 @@ func NewAVMediaSelectionGroup() AVMediaSelectionGroup {
 // [PropertyList] ([AVMediaSelectionOption]).
 //
 // # Return Value
-// 
+//
 // An [AVMediaSelectionOption] object containing the properites passed by
 // `plist`. Returns `nil` when no match is found.
 //
@@ -161,14 +163,15 @@ func (m AVMediaSelectionGroup) MediaSelectionOptionWithPropertyList(plist object
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaSelectionOptionWithPropertyList:"), plist)
 	return AVMediaSelectionOptionFromID(rv)
 }
+
 // Creates a language option group from the media selection group.
 //
 // # Return Value
-// 
+//
 // The new language option group.
 //
 // # Discussion
-// 
+//
 // Any option from [AVMediaSelectionOption] in the [AVMediaSelectionGroup] not
 // representing an audible or legible selection option is ignored.
 //
@@ -184,7 +187,7 @@ func (m AVMediaSelectionGroup) MakeNowPlayingInfoLanguageOptionGroup() objective
 // mediaSelectionOptions: An array of [AVMediaSelectionOption] objects to be filtered by playability.
 //
 // # Return Value
-// 
+//
 // An array containing the media selection options from `array` that are
 // playable.
 //
@@ -195,6 +198,7 @@ func (_AVMediaSelectionGroupClass AVMediaSelectionGroupClass) PlayableMediaSelec
 		return AVMediaSelectionOptionFromID(id)
 	})
 }
+
 // Returns an array containing the media selection options from a given array
 // that match the specified locale.
 //
@@ -204,7 +208,7 @@ func (_AVMediaSelectionGroupClass AVMediaSelectionGroupClass) PlayableMediaSelec
 // to the output array.
 //
 // # Return Value
-// 
+//
 // An array containing the media selection options from `array` that match the
 // `locale`.
 //
@@ -215,6 +219,7 @@ func (_AVMediaSelectionGroupClass AVMediaSelectionGroupClass) MediaSelectionOpti
 		return AVMediaSelectionOptionFromID(id)
 	})
 }
+
 // Returns an array containing the media selection options from a given array
 // that match given media characteristics.
 //
@@ -224,7 +229,7 @@ func (_AVMediaSelectionGroupClass AVMediaSelectionGroupClass) MediaSelectionOpti
 // to be present in the output array.
 //
 // # Return Value
-// 
+//
 // An array containing the media selection options from `array` that match
 // `mediaCharacteristics`.
 //
@@ -235,6 +240,7 @@ func (_AVMediaSelectionGroupClass AVMediaSelectionGroupClass) MediaSelectionOpti
 		return AVMediaSelectionOptionFromID(id)
 	})
 }
+
 // Returns an array containing the media selection options from a given array
 // that do not match given media characteristics.
 //
@@ -244,7 +250,7 @@ func (_AVMediaSelectionGroupClass AVMediaSelectionGroupClass) MediaSelectionOpti
 // option to be present in the output array.
 //
 // # Return Value
-// 
+//
 // An array containing the media selection options from `array` that lack the
 // media characteristics in `mediaCharacteristics`.
 //
@@ -255,6 +261,7 @@ func (_AVMediaSelectionGroupClass AVMediaSelectionGroupClass) MediaSelectionOpti
 		return AVMediaSelectionOptionFromID(id)
 	})
 }
+
 // Returns an array of media selection options, filtering them according to
 // whether their locales match one of the specified languages.
 //
@@ -265,19 +272,19 @@ func (_AVMediaSelectionGroupClass AVMediaSelectionGroupClass) MediaSelectionOpti
 // preference, with the string corresponding to the most preferred language as
 // the first element in the array. Typically, you retrieve these strings using
 // the [preferredLanguages] class method of the [NSLocale] class.
-// //
-// [NSLocale]: https://developer.apple.com/documentation/Foundation/NSLocale
-// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
-// [preferredLanguages]: https://developer.apple.com/documentation/Foundation/NSLocale/preferredLanguages
 //
 // # Return Value
-// 
+//
 // An array of [AVMediaSelectionOption] objects that match one of the
 // languages in the `preferredLanguages` parameter. The objects in this array
 // are sorted based on the language each one matches, with objects matching
 // the most preferred language first in the array.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionGroup/mediaSelectionOptions(from:filteredAndSortedAccordingToPreferredLanguages:)
+//
+// [NSLocale]: https://developer.apple.com/documentation/Foundation/NSLocale
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
+// [preferredLanguages]: https://developer.apple.com/documentation/Foundation/NSLocale/preferredLanguages
 func (_AVMediaSelectionGroupClass AVMediaSelectionGroupClass) MediaSelectionOptionsFromArrayFilteredAndSortedAccordingToPreferredLanguages(mediaSelectionOptions []AVMediaSelectionOption, preferredLanguages []string) []AVMediaSelectionOption {
 	rv := objc.Send[[]objc.ID](objc.ID(_AVMediaSelectionGroupClass.class), objc.Sel("mediaSelectionOptionsFromArray:filteredAndSortedAccordingToPreferredLanguages:"), objectivec.IObjectSliceToNSArray(mediaSelectionOptions), objectivec.StringSliceToNSArray(preferredLanguages))
 	return objc.ConvertSlice(rv, func(id objc.ID) AVMediaSelectionOption {
@@ -288,7 +295,7 @@ func (_AVMediaSelectionGroupClass AVMediaSelectionGroupClass) MediaSelectionOpti
 // A collection of mutually exclusive media selection options
 //
 // # Discussion
-// 
+//
 // The value of the property is an array of [AVMediaSelectionOption] objects.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionGroup/options
@@ -298,10 +305,11 @@ func (m AVMediaSelectionGroup) Options() []AVMediaSelectionOption {
 		return AVMediaSelectionOptionFromID(id)
 	})
 }
+
 // The default option in the group.
 //
 // # Discussion
-// 
+//
 // The default option is intended for use in the absence of a specific
 // end-user selection or preference. Can be `nil`, indicating that without a
 // specific end-user selection or preference, no option in the group is
@@ -312,23 +320,23 @@ func (m AVMediaSelectionGroup) DefaultOption() IAVMediaSelectionOption {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultOption"))
 	return AVMediaSelectionOptionFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether it’s possible to present none of
 // the options in the group when an associated player item is played.
 //
 // # Discussion
-// 
-// If the value of this property is [true], you can deselect all of the
+//
+// If the value of this property is true, you can deselect all of the
 // available media options in the group by passing `nil` as the specified
 // [AVMediaSelectionOption] object to
 // [SelectMediaOptionInMediaSelectionGroup].
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionGroup/allowsEmptySelection
 func (m AVMediaSelectionGroup) AllowsEmptySelection() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("allowsEmptySelection"))
 	return rv
 }
+
 // For content that has been authored with the express intent of offering an
 // alternative selection interface for AVMediaSelectionOptions,
 // AVCustomMediaSelectionScheme provides a collection of custom settings for
@@ -339,4 +347,3 @@ func (m AVMediaSelectionGroup) CustomMediaSelectionScheme() IAVCustomMediaSelect
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("customMediaSelectionScheme"))
 	return AVCustomMediaSelectionSchemeFromID(objc.ID(rv))
 }
-

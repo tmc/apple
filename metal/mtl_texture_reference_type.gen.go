@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -60,6 +61,7 @@ type MTLTextureReferenceType struct {
 func MTLTextureReferenceTypeFromID(id objc.ID) MTLTextureReferenceType {
 	return MTLTextureReferenceType{MTLType: MTLTypeFromID(id)}
 }
+
 // NOTE: MTLTextureReferenceType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,6 +116,7 @@ func (t MTLTextureReferenceType) TextureType() MTLTextureType {
 	rv := objc.Send[MTLTextureType](t.ID, objc.Sel("textureType"))
 	return MTLTextureType(rv)
 }
+
 // The data type of the texture.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureReferenceType/textureDataType
@@ -121,10 +124,11 @@ func (t MTLTextureReferenceType) TextureDataType() MTLDataType {
 	rv := objc.Send[MTLDataType](t.ID, objc.Sel("textureDataType"))
 	return MTLDataType(rv)
 }
+
 // The texture’s read/write access to the argument.
 //
 // # Discussion
-// 
+//
 // This property indicates the type of access qualifiers (read-only,
 // write-only, or read-write) used in the Metal shading language code. For
 // information on possible values, see [MTLArgumentAccess].
@@ -134,6 +138,7 @@ func (t MTLTextureReferenceType) Access() MTLBindingAccess {
 	rv := objc.Send[MTLBindingAccess](t.ID, objc.Sel("access"))
 	return MTLBindingAccess(rv)
 }
+
 // A Boolean value that indicates whether the texture is a depth texture.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureReferenceType/isDepthTexture
@@ -141,4 +146,3 @@ func (t MTLTextureReferenceType) IsDepthTexture() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isDepthTexture"))
 	return rv
 }
-

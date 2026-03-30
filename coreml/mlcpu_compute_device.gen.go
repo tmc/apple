@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,6 +55,7 @@ type MLCPUComputeDevice struct {
 func MLCPUComputeDeviceFromID(id objc.ID) MLCPUComputeDevice {
 	return MLCPUComputeDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLCPUComputeDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -84,6 +86,4 @@ func NewMLCPUComputeDevice() MLCPUComputeDevice {
 	return rv
 }
 
-			// Protocol methods for MLComputeDeviceProtocol
-			
-
+// Protocol methods for MLComputeDeviceProtocol

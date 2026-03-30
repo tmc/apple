@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +61,7 @@ type AVAssetDownloadStorageManager struct {
 func AVAssetDownloadStorageManagerFromID(id objc.ID) AVAssetDownloadStorageManager {
 	return AVAssetDownloadStorageManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetDownloadStorageManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,7 +108,7 @@ func NewAVAssetDownloadStorageManager() AVAssetDownloadStorageManager {
 // downloadStorageURL: The location of the downloaded asset.
 //
 // # Return Value
-// 
+//
 // The storage management policy for the asset, or `nil` if one isn’t set.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadStorageManager/storageManagementPolicy(for:)
@@ -114,6 +116,7 @@ func (a AVAssetDownloadStorageManager) StorageManagementPolicyForURL(downloadSto
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("storageManagementPolicyForURL:"), downloadStorageURL)
 	return AVAssetDownloadStorageManagementPolicyFromID(rv)
 }
+
 // Sets a storage policy for the downloaded asset.
 //
 // storageManagementPolicy: The policy to set for the downloaded asset.
@@ -128,7 +131,7 @@ func (a AVAssetDownloadStorageManager) SetStorageManagementPolicyForURL(storageM
 // Returns the shared storage manager instance.
 //
 // # Return Value
-// 
+//
 // The download storage manager.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadStorageManager/shared()
@@ -136,4 +139,3 @@ func (_AVAssetDownloadStorageManagerClass AVAssetDownloadStorageManagerClass) Sh
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetDownloadStorageManagerClass.class), objc.Sel("sharedDownloadStorageManager"))
 	return AVAssetDownloadStorageManagerFromID(rv)
 }
-

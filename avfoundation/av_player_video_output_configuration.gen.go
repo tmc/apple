@@ -4,10 +4,11 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -67,6 +68,7 @@ type AVPlayerVideoOutputConfiguration struct {
 func AVPlayerVideoOutputConfigurationFromID(id objc.ID) AVPlayerVideoOutputConfiguration {
 	return AVPlayerVideoOutputConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerVideoOutputConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,6 +128,7 @@ func (p AVPlayerVideoOutputConfiguration) SourcePlayerItem() IAVPlayerItem {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("sourcePlayerItem"))
 	return AVPlayerItemFromID(objc.ID(rv))
 }
+
 // An array of data channels selected for this configuration.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avplayervideooutput/configuration/datachanneldescription
@@ -136,6 +139,7 @@ func (p AVPlayerVideoOutputConfiguration) DataChannelDescription() coremedia.CMT
 func (p AVPlayerVideoOutputConfiguration) SetDataChannelDescription(value coremedia.CMTag) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDataChannelDescription:"), value)
 }
+
 // The host time this configuration became active on its associated player
 // object.
 //
@@ -144,21 +148,23 @@ func (p AVPlayerVideoOutputConfiguration) ActivationTime() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("activationTime"))
 	return coremedia.CMTime(rv)
 }
+
 // The preferred transform of the visual media.
 //
 // # Discussion
-// 
+//
 // The system retrieves the transform from the [AVAssetTrack] that provides
 // the media data. If the source track doesn’t specify a transform, the
 // value of this property is [CGAffineTransformIdentity].
 //
-// [CGAffineTransformIdentity]: https://developer.apple.com/documentation/CoreGraphics/CGAffineTransformIdentity
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerVideoOutput/Configuration/preferredTransform
+//
+// [CGAffineTransformIdentity]: https://developer.apple.com/documentation/CoreGraphics/CGAffineTransformIdentity
 func (p AVPlayerVideoOutputConfiguration) PreferredTransform() corefoundation.CGAffineTransform {
 	rv := objc.Send[corefoundation.CGAffineTransform](p.ID, objc.Sel("preferredTransform"))
 	return corefoundation.CGAffineTransform(rv)
 }
+
 // An array of data channels selected for this configuration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerVideoOutputConfiguration/dataChannelDescriptions
@@ -166,4 +172,3 @@ func (p AVPlayerVideoOutputConfiguration) DataChannelDescriptions() foundation.I
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("dataChannelDescriptions"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

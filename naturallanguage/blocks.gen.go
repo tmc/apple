@@ -78,4 +78,3 @@ func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

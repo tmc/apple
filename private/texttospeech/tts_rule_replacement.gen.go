@@ -5,8 +5,9 @@ package texttospeech
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,14 @@ func (tc TTSRuleReplacementClass) Alloc() TTSRuleReplacement {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSRuleReplacement.EffectiveIndex]
 //   - [TTSRuleReplacement.Group]
 //   - [TTSRuleReplacement.SetGroup]
 //   - [TTSRuleReplacement.Identifier]
+//   - [TTSRuleReplacement.Index]
+//   - [TTSRuleReplacement.SetIndex]
 //   - [TTSRuleReplacement.IsTerminalRule]
 //   - [TTSRuleReplacement.SetIsTerminalRule]
 //   - [TTSRuleReplacement.OriginalRulesetIndex]
@@ -60,8 +62,8 @@ func (tc TTSRuleReplacementClass) Alloc() TTSRuleReplacement {
 //   - [TTSRuleReplacement.SetReplacement]
 //   - [TTSRuleReplacement.Ruleset]
 //   - [TTSRuleReplacement.SetRuleset]
-//   - [TTSRuleReplacement.SetIndex]
 //   - [TTSRuleReplacement.SetPostMatch]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement
 type TTSRuleReplacement struct {
 	objectivec.Object
@@ -71,6 +73,7 @@ type TTSRuleReplacement struct {
 func TTSRuleReplacementFromID(id objc.ID) TTSRuleReplacement {
 	return TTSRuleReplacement{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSRuleReplacement implements ITTSRuleReplacement.
 var _ ITTSRuleReplacement = TTSRuleReplacement{}
 
@@ -82,6 +85,8 @@ var _ ITTSRuleReplacement = TTSRuleReplacement{}
 //   - [ITTSRuleReplacement.Group]
 //   - [ITTSRuleReplacement.SetGroup]
 //   - [ITTSRuleReplacement.Identifier]
+//   - [ITTSRuleReplacement.Index]
+//   - [ITTSRuleReplacement.SetIndex]
 //   - [ITTSRuleReplacement.IsTerminalRule]
 //   - [ITTSRuleReplacement.SetIsTerminalRule]
 //   - [ITTSRuleReplacement.OriginalRulesetIndex]
@@ -92,7 +97,6 @@ var _ ITTSRuleReplacement = TTSRuleReplacement{}
 //   - [ITTSRuleReplacement.SetReplacement]
 //   - [ITTSRuleReplacement.Ruleset]
 //   - [ITTSRuleReplacement.SetRuleset]
-//   - [ITTSRuleReplacement.SetIndex]
 //   - [ITTSRuleReplacement.SetPostMatch]
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement
@@ -105,6 +109,8 @@ type ITTSRuleReplacement interface {
 	Group() ITTSRuleGroup
 	SetGroup(value ITTSRuleGroup)
 	Identifier() string
+	Index() uint64
+	SetIndex(value uint64)
 	IsTerminalRule() bool
 	SetIsTerminalRule(value bool)
 	OriginalRulesetIndex() uint32
@@ -115,7 +121,6 @@ type ITTSRuleReplacement interface {
 	SetReplacement(value string)
 	Ruleset() ITTSRuleset
 	SetRuleset(value ITTSRuleset)
-	SetIndex(index uint64)
 	SetPostMatch(match VoidHandler)
 }
 
@@ -143,15 +148,10 @@ func (t TTSRuleReplacement) EffectiveIndex() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("effectiveIndex"))
 	return rv
 }
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/setIndex:
-func (t TTSRuleReplacement) SetIndex(index uint64) {
-	objc.Send[objc.ID](t.ID, objc.Sel("setIndex:"), index)
-}
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/setPostMatch:
 func (t TTSRuleReplacement) SetPostMatch(match VoidHandler) {
-_block0, _ := NewVoidBlock(match)
+	_block0, _ := NewVoidBlock(match)
 	objc.Send[objc.ID](t.ID, objc.Sel("setPostMatch:"), _block0)
 }
 
@@ -163,11 +163,22 @@ func (t TTSRuleReplacement) Group() ITTSRuleGroup {
 func (t TTSRuleReplacement) SetGroup(value ITTSRuleGroup) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGroup:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/identifier
 func (t TTSRuleReplacement) Identifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/index
+func (t TTSRuleReplacement) Index() uint64 {
+	rv := objc.Send[uint64](t.ID, objc.Sel("index"))
+	return rv
+}
+func (t TTSRuleReplacement) SetIndex(value uint64) {
+	objc.Send[struct{}](t.ID, objc.Sel("setIndex:"), value)
+}
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/isTerminalRule
 func (t TTSRuleReplacement) IsTerminalRule() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isTerminalRule"))
@@ -176,6 +187,7 @@ func (t TTSRuleReplacement) IsTerminalRule() bool {
 func (t TTSRuleReplacement) SetIsTerminalRule(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIsTerminalRule:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/originalRulesetIndex
 func (t TTSRuleReplacement) OriginalRulesetIndex() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("originalRulesetIndex"))
@@ -184,6 +196,7 @@ func (t TTSRuleReplacement) OriginalRulesetIndex() uint32 {
 func (t TTSRuleReplacement) SetOriginalRulesetIndex(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOriginalRulesetIndex:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/regex
 func (t TTSRuleReplacement) Regex() ITTSRegex {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("regex"))
@@ -192,6 +205,7 @@ func (t TTSRuleReplacement) Regex() ITTSRegex {
 func (t TTSRuleReplacement) SetRegex(value ITTSRegex) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRegex:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/replacement
 func (t TTSRuleReplacement) Replacement() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacement"))
@@ -200,6 +214,7 @@ func (t TTSRuleReplacement) Replacement() string {
 func (t TTSRuleReplacement) SetReplacement(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setReplacement:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRuleReplacement/ruleset
 func (t TTSRuleReplacement) Ruleset() ITTSRuleset {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleset"))
@@ -223,4 +238,3 @@ func (t TTSRuleReplacement) SetPostMatchSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

@@ -23,6 +23,7 @@ type MLPreparable interface {
 type MLPreparableObject struct {
 	objectivec.Object
 }
+
 func (o MLPreparableObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -35,7 +36,6 @@ func MLPreparableObjectFromID(id objc.ID) MLPreparableObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPreparable/prepareWithConcurrencyHint:error:
 func (o MLPreparableObject) PrepareWithConcurrencyHintError(hint int64) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("prepareWithConcurrencyHint:error:"), hint)
@@ -43,5 +43,4 @@ func (o MLPreparableObject) PrepareWithConcurrencyHintError(hint int64) (bool, e
 		return false, err
 	}
 	return rv, nil
-	}
-
+}

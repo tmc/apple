@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -64,6 +65,7 @@ type MTL4CounterHeapDescriptor struct {
 func MTL4CounterHeapDescriptorFromID(id objc.ID) MTL4CounterHeapDescriptor {
 	return MTL4CounterHeapDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4CounterHeapDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,7 +116,7 @@ func NewMTL4CounterHeapDescriptor() MTL4CounterHeapDescriptor {
 // Assigns the number of entries in the heap.
 //
 // # Discussion
-// 
+//
 // Each entry represents one item in the heap. The size of the individual
 // entries depends on the heap type.
 //
@@ -126,6 +128,7 @@ func (m MTL4CounterHeapDescriptor) Count() uint {
 func (m MTL4CounterHeapDescriptor) SetCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCount:"), value)
 }
+
 // Assigns the type of data that the heap contains.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeapDescriptor/type
@@ -136,9 +139,9 @@ func (m MTL4CounterHeapDescriptor) Type() MTL4CounterHeapType {
 func (m MTL4CounterHeapDescriptor) SetType(value MTL4CounterHeapType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setType:"), value)
 }
+
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CounterHeapDescriptor) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-

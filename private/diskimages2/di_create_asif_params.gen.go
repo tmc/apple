@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,6 +53,7 @@ type DICreateASIFParams struct {
 func DICreateASIFParamsFromID(id objc.ID) DICreateASIFParams {
 	return DICreateASIFParams{DICreateParams: DICreateParamsFromID(id)}
 }
+
 // Ensure DICreateASIFParams implements IDICreateASIFParams.
 var _ IDICreateASIFParams = DICreateASIFParams{}
 
@@ -81,7 +83,6 @@ func NewDICreateASIFParams() DICreateASIFParams {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithCoder:
 func NewDICreateASIFParamsWithCoder(coder objectivec.IObject) DICreateASIFParams {
 	instance := getDICreateASIFParamsClass().Alloc()
@@ -89,7 +90,6 @@ func NewDICreateASIFParamsWithCoder(coder objectivec.IObject) DICreateASIFParams
 	return DICreateASIFParamsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithURL:error:
 func NewDICreateASIFParamsWithURLError(url foundation.INSURL) (DICreateASIFParams, error) {
 	var errorPtr objc.ID
@@ -102,7 +102,6 @@ func NewDICreateASIFParamsWithURLError(url foundation.INSURL) (DICreateASIFParam
 	return DICreateASIFParamsFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateASIFParams/initWithURL:numBlocks:error:
 func NewDICreateASIFParamsWithURLNumBlocksError(url foundation.INSURL, numBlocks uint64) (DICreateASIFParams, error) {
 	var errorPtr objc.ID
@@ -114,4 +113,3 @@ func NewDICreateASIFParamsWithURLNumBlocksError(url foundation.INSURL, numBlocks
 	}
 	return DICreateASIFParamsFromID(rv), nil
 }
-

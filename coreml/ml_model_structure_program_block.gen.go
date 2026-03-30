@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,6 +61,7 @@ type MLModelStructureProgramBlock struct {
 func MLModelStructureProgramBlockFromID(id objc.ID) MLModelStructureProgramBlock {
 	return MLModelStructureProgramBlock{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgramBlock implements IMLModelStructureProgramBlock.
 var _ IMLModelStructureProgramBlock = MLModelStructureProgramBlock{}
 
@@ -113,6 +115,7 @@ func (m MLModelStructureProgramBlock) Inputs() []MLModelStructureProgramNamedVal
 		return MLModelStructureProgramNamedValueTypeFromID(id)
 	})
 }
+
 // The list of topologically sorted operations in the block.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBlock/operations
@@ -122,6 +125,7 @@ func (m MLModelStructureProgramBlock) Operations() []MLModelStructureProgramOper
 		return MLModelStructureProgramOperationFromID(id)
 	})
 }
+
 // The output names.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBlock/outputNames
@@ -129,4 +133,3 @@ func (m MLModelStructureProgramBlock) OutputNames() []string {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("outputNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

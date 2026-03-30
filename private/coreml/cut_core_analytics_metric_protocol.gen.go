@@ -18,6 +18,7 @@ type CUTCoreAnalyticsMetric interface {
 type CUTCoreAnalyticsMetricObject struct {
 	objectivec.Object
 }
+
 func (o CUTCoreAnalyticsMetricObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,5 +35,4 @@ func CUTCoreAnalyticsMetricObjectFromID(id objc.ID) CUTCoreAnalyticsMetricObject
 func (o CUTCoreAnalyticsMetricObject) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

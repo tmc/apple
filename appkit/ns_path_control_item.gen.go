@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (nc NSPathControlItemClass) Alloc() NSPathControlItem {
 	return rv
 }
 
-//
 // # Instance Properties
 //
 //   - [NSPathControlItem.AttributedTitle]
@@ -52,6 +52,7 @@ func (nc NSPathControlItemClass) Alloc() NSPathControlItem {
 //   - [NSPathControlItem.Title]
 //   - [NSPathControlItem.SetTitle]
 //   - [NSPathControlItem.URL]
+//
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlItem
 type NSPathControlItem struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type NSPathControlItem struct {
 func NSPathControlItemFromID(id objc.ID) NSPathControlItem {
 	return NSPathControlItem{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPathControlItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,6 +120,7 @@ func (p NSPathControlItem) AttributedTitle() foundation.NSAttributedString {
 func (p NSPathControlItem) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAttributedTitle:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlItem/image
 func (p NSPathControlItem) Image() INSImage {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("image"))
@@ -126,6 +129,7 @@ func (p NSPathControlItem) Image() INSImage {
 func (p NSPathControlItem) SetImage(value INSImage) {
 	objc.Send[struct{}](p.ID, objc.Sel("setImage:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlItem/title
 func (p NSPathControlItem) Title() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("title"))
@@ -134,9 +138,9 @@ func (p NSPathControlItem) Title() string {
 func (p NSPathControlItem) SetTitle(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTitle:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlItem/url
 func (p NSPathControlItem) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

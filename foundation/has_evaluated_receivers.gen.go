@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type HasEvaluatedReceivers struct {
 func HasEvaluatedReceiversFromID(id objc.ID) HasEvaluatedReceivers {
 	return HasEvaluatedReceivers{objectivec.Object{ID: id}}
 }
+
 // Ensure HasEvaluatedReceivers implements IHasEvaluatedReceivers.
 var _ IHasEvaluatedReceivers = HasEvaluatedReceivers{}
 
@@ -78,4 +80,3 @@ func NewHasEvaluatedReceivers() HasEvaluatedReceivers {
 	rv := objc.Send[HasEvaluatedReceivers](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (nc NSURLSessionWebSocketMessageClass) Alloc() NSURLSessionWebSocketMessage
 	return rv
 }
 
-//
 // # Instance Properties
 //
 //   - [NSURLSessionWebSocketMessage.Data]
@@ -52,6 +52,7 @@ func (nc NSURLSessionWebSocketMessageClass) Alloc() NSURLSessionWebSocketMessage
 //
 //   - [NSURLSessionWebSocketMessage.InitWithData]
 //   - [NSURLSessionWebSocketMessage.InitWithString]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketMessage
 type NSURLSessionWebSocketMessage struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type NSURLSessionWebSocketMessage struct {
 func NSURLSessionWebSocketMessageFromID(id objc.ID) NSURLSessionWebSocketMessage {
 	return NSURLSessionWebSocketMessage{objectivec.Object{ID: id}}
 }
+
 // Ensure NSURLSessionWebSocketMessage implements INSURLSessionWebSocketMessage.
 var _ INSURLSessionWebSocketMessage = NSURLSessionWebSocketMessage{}
 
@@ -112,7 +114,6 @@ func NewNSURLSessionWebSocketMessage() NSURLSessionWebSocketMessage {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketMessage/initWithData:
 func NewURLSessionWebSocketMessageWithData(data INSData) NSURLSessionWebSocketMessage {
 	instance := getNSURLSessionWebSocketMessageClass().Alloc()
@@ -120,7 +121,6 @@ func NewURLSessionWebSocketMessageWithData(data INSData) NSURLSessionWebSocketMe
 	return NSURLSessionWebSocketMessageFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketMessage/initWithString:
 func NewURLSessionWebSocketMessageWithString(string_ string) NSURLSessionWebSocketMessage {
 	instance := getNSURLSessionWebSocketMessageClass().Alloc()
@@ -128,13 +128,12 @@ func NewURLSessionWebSocketMessageWithString(string_ string) NSURLSessionWebSock
 	return NSURLSessionWebSocketMessageFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketMessage/initWithData:
 func (u NSURLSessionWebSocketMessage) InitWithData(data INSData) NSURLSessionWebSocketMessage {
 	rv := objc.Send[NSURLSessionWebSocketMessage](u.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketMessage/initWithString:
 func (u NSURLSessionWebSocketMessage) InitWithString(string_ string) NSURLSessionWebSocketMessage {
 	rv := objc.Send[NSURLSessionWebSocketMessage](u.ID, objc.Sel("initWithString:"), objc.String(string_))
@@ -146,14 +145,15 @@ func (u NSURLSessionWebSocketMessage) Data() INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("data"))
 	return NSDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketMessage/string
 func (u NSURLSessionWebSocketMessage) String() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("string"))
 	return NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketMessage/type
 func (u NSURLSessionWebSocketMessage) Type() NSURLSessionWebSocketMessageType {
 	rv := objc.Send[NSURLSessionWebSocketMessageType](u.ID, objc.Sel("type"))
 	return NSURLSessionWebSocketMessageType(rv)
 }
-

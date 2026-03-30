@@ -3,11 +3,12 @@
 package vision
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -57,6 +58,7 @@ type VNGeometryUtils struct {
 func VNGeometryUtilsFromID(id objc.ID) VNGeometryUtils {
 	return VNGeometryUtils{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNGeometryUtils adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -91,7 +93,7 @@ func NewVNGeometryUtils() VNGeometryUtils {
 // contour: A contour around which to calculate the bounding circle.
 //
 // # Return Value
-// 
+//
 // The bounding [VNCircle] object.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeometryUtils/boundingCircle(for:)-423ll
@@ -105,12 +107,13 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForContourError(
 	return VNCircleFromID(rv), nil
 
 }
+
 // Calculates a bounding circle for the specified array of points.
 //
 // points: A collection of points around which to calculate the bounding circle.
 //
 // # Return Value
-// 
+//
 // The bounding [VNCircle] object.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeometryUtils/boundingCircle(for:)-9dggv
@@ -124,6 +127,7 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForPointsError(p
 	return VNCircleFromID(rv), nil
 
 }
+
 // Calculates a bounding circle for the specified points.
 //
 // points: A collection of points around which to calculate the bounding circle.
@@ -133,7 +137,7 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForPointsError(p
 // points is a [simd.simd_float2].
 //
 // # Return Value
-// 
+//
 // The bounding [VNCircle] object.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeometryUtils/boundingCircle(forSIMDPoints:pointCount:)
@@ -148,6 +152,7 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForSIMDPointsPoi
 	return VNCircleFromID(rv), nil
 
 }
+
 // Calculates the area for the specified contour.
 //
 // area: The output parameter to populate with the calculated contour area.
@@ -156,13 +161,11 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForSIMDPointsPoi
 //
 // orientedArea: A Boolean value that indicates whether to calculate the signed area
 // (positive for counterclockwise-oriented contours and negative for
-// clockwise-oriented contours). If you specify [false], the returned area is
+// clockwise-oriented contours). If you specify false, the returned area is
 // always positive.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // # Discussion
-// 
+//
 // Attempting to calculate the area for a contour containing random points, or
 // with self-crossing edges, produces undefined results.
 //
@@ -180,6 +183,7 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) CalculateAreaForContourOriente
 	}
 	return area, nil
 }
+
 // Calculates the perimeter of a closed contour.
 //
 // perimeter: The output parameter to populate with the calculated contour perimeter.
@@ -200,4 +204,3 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) CalculatePerimeterForContourEr
 	}
 	return perimeter, nil
 }
-

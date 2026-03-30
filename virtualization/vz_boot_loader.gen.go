@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (vc VZBootLoaderClass) Alloc() VZBootLoader {
 // guest system.
 //
 // # Overview
-// 
+//
 // The [VZBootLoader] abstract class defines the common behaviors for booting
 // a guest operating system into a VM. Don’t create instances of this class
 // directly. Instead, instantiate the subclass that corresponds to the type of
@@ -66,6 +67,7 @@ type VZBootLoader struct {
 func VZBootLoaderFromID(id objc.ID) VZBootLoader {
 	return VZBootLoader{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZBootLoader adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -94,4 +96,3 @@ func NewVZBootLoader() VZBootLoader {
 	rv := objc.Send[VZBootLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

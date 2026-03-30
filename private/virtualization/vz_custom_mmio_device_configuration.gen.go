@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZCustomMMIODeviceConfigurationClass) Alloc() VZCustomMMIODeviceConfigu
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCustomMMIODeviceConfiguration.MMIORegions]
@@ -62,6 +62,7 @@ func (vc VZCustomMMIODeviceConfigurationClass) Alloc() VZCustomMMIODeviceConfigu
 //   - [VZCustomMMIODeviceConfiguration.Description]
 //   - [VZCustomMMIODeviceConfiguration.Hash]
 //   - [VZCustomMMIODeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration
 type VZCustomMMIODeviceConfiguration struct {
 	objectivec.Object
@@ -71,6 +72,7 @@ type VZCustomMMIODeviceConfiguration struct {
 func VZCustomMMIODeviceConfigurationFromID(id objc.ID) VZCustomMMIODeviceConfiguration {
 	return VZCustomMMIODeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZCustomMMIODeviceConfiguration implements IVZCustomMMIODeviceConfiguration.
 var _ IVZCustomMMIODeviceConfiguration = VZCustomMMIODeviceConfiguration{}
 
@@ -140,7 +142,6 @@ func NewVZCustomMMIODeviceConfiguration() VZCustomMMIODeviceConfiguration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/encodeWithEncoder:
 func (v VZCustomMMIODeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
@@ -155,6 +156,7 @@ func (v VZCustomMMIODeviceConfiguration) MMIORegions() foundation.INSArray {
 func (v VZCustomMMIODeviceConfiguration) SetMMIORegions(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMMIORegions:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/additionalProperties
 func (v VZCustomMMIODeviceConfiguration) AdditionalProperties() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("additionalProperties"))
@@ -163,6 +165,7 @@ func (v VZCustomMMIODeviceConfiguration) AdditionalProperties() foundation.INSDi
 func (v VZCustomMMIODeviceConfiguration) SetAdditionalProperties(value foundation.INSDictionary) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAdditionalProperties:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/additionalXPCProperties
 func (v VZCustomMMIODeviceConfiguration) AdditionalXPCProperties() objectivec.Object {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("additionalXPCProperties"))
@@ -171,21 +174,25 @@ func (v VZCustomMMIODeviceConfiguration) AdditionalXPCProperties() objectivec.Ob
 func (v VZCustomMMIODeviceConfiguration) SetAdditionalXPCProperties(value objectivec.Object) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAdditionalXPCProperties:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/debugDescription
 func (v VZCustomMMIODeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/description
 func (v VZCustomMMIODeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/hash
 func (v VZCustomMMIODeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/irqs
 func (v VZCustomMMIODeviceConfiguration) Irqs() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("irqs"))
@@ -194,6 +201,7 @@ func (v VZCustomMMIODeviceConfiguration) Irqs() foundation.INSArray {
 func (v VZCustomMMIODeviceConfiguration) SetIrqs(value foundation.INSArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIrqs:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/provider
 func (v VZCustomMMIODeviceConfiguration) Provider() *VZCustomMMIODeviceProvider {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("provider"))
@@ -210,11 +218,13 @@ func (v VZCustomMMIODeviceConfiguration) SetProvider(value *VZCustomMMIODevicePr
 	}
 	objc.Send[struct{}](v.ID, objc.Sel("setProvider:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/superclass
 func (v VZCustomMMIODeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODeviceConfiguration/supportsSaveRestore
 func (v VZCustomMMIODeviceConfiguration) SupportsSaveRestore() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("supportsSaveRestore"))
@@ -223,4 +233,3 @@ func (v VZCustomMMIODeviceConfiguration) SupportsSaveRestore() bool {
 func (v VZCustomMMIODeviceConfiguration) SetSupportsSaveRestore(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSupportsSaveRestore:"), value)
 }
-

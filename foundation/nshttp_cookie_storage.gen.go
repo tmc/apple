@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,16 +45,16 @@ func (hc HTTPCookieStorageClass) Alloc() HTTPCookieStorage {
 // A container that manages the storage of cookies.
 //
 // # Overview
-// 
+//
 // Each stored cookie is represented by an instance of the [NSHTTPCookie]
 // class.
-// 
+//
 // # Sharing cookie storage
-// 
+//
 // The persistent cookie storage returned by [SharedHTTPCookieStorage] may be
 // available to app extensions or other apps, subject to the following
 // guidelines:
-// 
+//
 // - iOS — Each app and app extension has a unique data container, meaning
 // they have separate cookie stores. You can obtain a common cookie storage by
 // using the [SharedCookieStorageForGroupContainerIdentifier] method. - macOS
@@ -63,32 +64,27 @@ func (hc HTTPCookieStorageClass) Alloc() HTTPCookieStorage {
 // instances within an app inherit the parent app’s shared cookie storage. -
 // [WKWebView] — Each [WKWebView] instance has its own cookie storage. See
 // the [WKHTTPCookieStore] class for more information.
-// 
+//
 // Session cookies (where the cookie object’s [SessionOnly] property is
-// [true]) are local to a single process and are not shared.
-// 
+// true) are local to a single process and are not shared.
+//
 // # Subclassing notes
-// 
+//
 // The [NSHTTPCookieStorage] class is usable as-is, but you can subclass it.
 // For example, you can override the storage methods like
 // [StoreCookiesForTask], [GetCookiesForTaskCompletionHandler] to screen which
 // cookies are stored, or reimplement the storage mechanism for security or
 // other reasons.
-// 
+//
 // When overriding methods of this class, be aware that methods that take a
 // `task` parameter are preferred by the system to equivalent methods that do
 // not. Therefore, you should override the task-based methods when
 // subclassing, as follows:
-// 
+//
 // - Retrieving cookies — Override [GetCookiesForTaskCompletionHandler],
 // instead of or in addition to [CookiesForURL]. - Adding cookies — Override
 // [StoreCookiesForTask], instead of or in addition to
 // [SetCookiesForURLMainDocumentURL].
-//
-// [UIWebView]: https://developer.apple.com/documentation/UIKit/UIWebView
-// [WKHTTPCookieStore]: https://developer.apple.com/documentation/WebKit/WKHTTPCookieStore
-// [WKWebView]: https://developer.apple.com/documentation/WebKit/WKWebView
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Getting and setting the cookie accept policy
 //
@@ -115,6 +111,10 @@ func (hc HTTPCookieStorageClass) Alloc() HTTPCookieStorage {
 //   - [HTTPCookieStorage.NSHTTPCookieManagerAcceptPolicyChanged]: A notification posted when the acceptance policy of the cookie storage has changed.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookieStorage
+//
+// [UIWebView]: https://developer.apple.com/documentation/UIKit/UIWebView
+// [WKHTTPCookieStore]: https://developer.apple.com/documentation/WebKit/WKHTTPCookieStore
+// [WKWebView]: https://developer.apple.com/documentation/WebKit/WKWebView
 type HTTPCookieStorage struct {
 	objectivec.Object
 }
@@ -128,6 +128,7 @@ func HTTPCookieStorageFromID(id objc.ID) HTTPCookieStorage {
 
 // NSHTTPCookieStorageFromID is an alias for [HTTPCookieStorageFromID] for cross-framework compatibility.
 func NSHTTPCookieStorageFromID(id objc.ID) HTTPCookieStorage { return HTTPCookieStorageFromID(id) }
+
 // NOTE: HTTPCookieStorage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -228,6 +229,7 @@ func NewHTTPCookieStorage() HTTPCookieStorage {
 func (h HTTPCookieStorage) RemoveCookiesSinceDate(date INSDate) {
 	objc.Send[objc.ID](h.ID, objc.Sel("removeCookiesSinceDate:"), date)
 }
+
 // Deletes the specified cookie from the cookie storage.
 //
 // cookie: The cookie to delete.
@@ -236,28 +238,26 @@ func (h HTTPCookieStorage) RemoveCookiesSinceDate(date INSDate) {
 func (h HTTPCookieStorage) DeleteCookie(cookie INSHTTPCookie) {
 	objc.Send[objc.ID](h.ID, objc.Sel("deleteCookie:"), cookie)
 }
+
 // Stores a specified cookie in the cookie storage if the cookie accept policy
 // permits.
 //
 // cookie: The cookie to store.
 //
 // # Discussion
-// 
+//
 // The cookie replaces an existing cookie with the same name, domain, and
 // path, if one exists in the cookie storage. This method accepts the cookie
 // only if the storage’s cookie accept policy is
-// [HTTPCookie.AcceptPolicy.always] or
-// [HTTPCookie.AcceptPolicy.onlyFromMainDocumentDomain]. The cookie is ignored
-// if the storage’s cookie accept policy is [HTTPCookie.AcceptPolicy.never].
-//
-// [HTTPCookie.AcceptPolicy.always]: https://developer.apple.com/documentation/Foundation/HTTPCookie/AcceptPolicy/always
-// [HTTPCookie.AcceptPolicy.never]: https://developer.apple.com/documentation/Foundation/HTTPCookie/AcceptPolicy/never
-// [HTTPCookie.AcceptPolicy.onlyFromMainDocumentDomain]: https://developer.apple.com/documentation/Foundation/HTTPCookie/AcceptPolicy/onlyFromMainDocumentDomain
+// [NSHTTPCookieAcceptPolicyAlways] or
+// [NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain]. The cookie is ignored
+// if the storage’s cookie accept policy is [NSHTTPCookieAcceptPolicyNever].
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookieStorage/setCookie(_:)
 func (h HTTPCookieStorage) SetCookie(cookie INSHTTPCookie) {
 	objc.Send[objc.ID](h.ID, objc.Sel("setCookie:"), cookie)
 }
+
 // Adds an array of cookies to the cookie storage if the storage’s cookie
 // acceptance policy permits.
 //
@@ -268,29 +268,26 @@ func (h HTTPCookieStorage) SetCookie(cookie INSHTTPCookie) {
 // mainDocumentURL: The URL of the main HTML document for the top-level frame, if known. The
 // value can be `nil`. This URL is used to determine whether the cookie should
 // be accepted if the cookie accept policy is
-// [HTTPCookie.AcceptPolicy.onlyFromMainDocumentDomain].
-// //
-// [HTTPCookie.AcceptPolicy.onlyFromMainDocumentDomain]: https://developer.apple.com/documentation/Foundation/HTTPCookie/AcceptPolicy/onlyFromMainDocumentDomain
+// [NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain].
 //
 // # Discussion
-// 
+//
 // Cookies in the array will replace existing cookies with the same name,
 // domain, and path in the cookie storage. If the storage has an accept policy
-// of [HTTPCookie.AcceptPolicy.never], the cookies are ignored.
-// 
+// of [NSHTTPCookieAcceptPolicyNever], the cookies are ignored.
+//
 // To store cookies from a set of response headers, an application can use
 // [CookiesWithResponseHeaderFieldsForURL] passing a header field dictionary
 // and then use this method to store the resulting cookies in accordance with
 // the cookie storage’s cookie acceptance policy.
-// 
-// If you override this method, also override [StoreCookiesForTask].
 //
-// [HTTPCookie.AcceptPolicy.never]: https://developer.apple.com/documentation/Foundation/HTTPCookie/AcceptPolicy/never
+// If you override this method, also override [StoreCookiesForTask].
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookieStorage/setCookies(_:for:mainDocumentURL:)
 func (h HTTPCookieStorage) SetCookiesForURLMainDocumentURL(cookies []NSHTTPCookie, URL INSURL, mainDocumentURL INSURL) {
 	objc.Send[objc.ID](h.ID, objc.Sel("setCookies:forURL:mainDocumentURL:"), objectivec.IObjectSliceToNSArray(cookies), URL, mainDocumentURL)
 }
+
 // Stores an array of cookies in the cookie storage, on behalf of the provided
 // task, if the cookie accept policy permits.
 //
@@ -304,33 +301,35 @@ func (h HTTPCookieStorage) SetCookiesForURLMainDocumentURL(cookies []NSHTTPCooki
 func (h HTTPCookieStorage) StoreCookiesForTask(cookies []NSHTTPCookie, task INSURLSessionTask) {
 	objc.Send[objc.ID](h.ID, objc.Sel("storeCookies:forTask:"), objectivec.IObjectSliceToNSArray(cookies), task)
 }
+
 // Returns all the cookie storage’s cookies that are sent to a specified
 // URL.
 //
 // URL: The URL to filter on.
 //
 // # Return Value
-// 
+//
 // An array of cookies whose URL matches the provided URL.
 //
 // # Discussion
-// 
+//
 // You can use the [RequestHeaderFieldsWithCookies] method of [NSHTTPCookie]
 // to turn the array returned by this method into a set of header fields to
 // add to a [URLRequest] object (or [NSMutableURLRequest] in Objective-C).
-// 
+//
 // If you override this method, also override
 // [GetCookiesForTaskCompletionHandler].
 //
-// [URLRequest]: https://developer.apple.com/documentation/Foundation/URLRequest
-//
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookieStorage/cookies(for:)
+//
+// [URLRequest]: https://developer.apple.com/documentation/Foundation/URLRequest
 func (h HTTPCookieStorage) CookiesForURL(URL INSURL) []NSHTTPCookie {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("cookiesForURL:"), URL)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSHTTPCookie {
 		return NSHTTPCookieFromID(id)
 	})
 }
+
 // Returns all of the cookie storage’s cookies, sorted according to a given
 // set of sort descriptors.
 //
@@ -338,7 +337,7 @@ func (h HTTPCookieStorage) CookiesForURL(URL INSURL) []NSHTTPCookie {
 // objects.
 //
 // # Return Value
-// 
+//
 // The cookie storage’s cookies, sorted according to `sortOrder`, as an
 // array of [NSHTTPCookie] objects.
 //
@@ -356,14 +355,14 @@ func (h HTTPCookieStorage) SortedCookiesUsingDescriptors(sortOrder []NSSortDescr
 // identifier: The app group identifier.
 //
 // # Discussion
-// 
+//
 // By default, apps and associated app extensions will have different data
 // containers. As a result, the value of the [NSHTTPCookieStorage] class’s
 // [SharedHTTPCookieStorage] property will refer to different persistent
 // cookie stores when called by the app and by its extensions.You can use this
 // method to create a persistent cookie storage available to all apps and
 // extensions with access to the same app group.
-// 
+//
 // Subsequent calls to the this method with the same identifier will return
 // the same storage instance.
 //
@@ -376,12 +375,10 @@ func (_HTTPCookieStorageClass HTTPCookieStorageClass) SharedCookieStorageForGrou
 // The cookie storage’s cookie accept policy.
 //
 // # Discussion
-// 
-// The default cookie accept policy is [HTTPCookie.AcceptPolicy.always].
+//
+// The default cookie accept policy is [NSHTTPCookieAcceptPolicyAlways].
 // Changing the cookie policy affects all currently running applications using
 // the cookie storage.
-//
-// [HTTPCookie.AcceptPolicy.always]: https://developer.apple.com/documentation/Foundation/HTTPCookie/AcceptPolicy/always
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookieStorage/cookieAcceptPolicy
 func (h HTTPCookieStorage) CookieAcceptPolicy() NSHTTPCookieAcceptPolicy {
@@ -391,10 +388,11 @@ func (h HTTPCookieStorage) CookieAcceptPolicy() NSHTTPCookieAcceptPolicy {
 func (h HTTPCookieStorage) SetCookieAcceptPolicy(value NSHTTPCookieAcceptPolicy) {
 	objc.Send[struct{}](h.ID, objc.Sel("setCookieAcceptPolicy:"), value)
 }
+
 // The cookie storage’s cookies.
 //
 // # Discussion
-// 
+//
 // If you want to sort the cookie storage’s cookies, you should use the
 // [SortedCookiesUsingDescriptors] method instead of sorting the result of
 // this method.
@@ -406,6 +404,7 @@ func (h HTTPCookieStorage) Cookies() []NSHTTPCookie {
 		return NSHTTPCookieFromID(id)
 	})
 }
+
 // A notification posted when the cookies stored in the cookie storage have
 // changed.
 //
@@ -414,6 +413,7 @@ func (h HTTPCookieStorage) NSHTTPCookieManagerCookiesChanged() NSNotificationNam
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("NSHTTPCookieManagerCookiesChangedNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // A notification posted when the acceptance policy of the cookie storage has
 // changed.
 //
@@ -422,6 +422,7 @@ func (h HTTPCookieStorage) NSHTTPCookieManagerAcceptPolicyChanged() NSNotificati
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("NSHTTPCookieManagerAcceptPolicyChangedNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // A Boolean value that indicates whether the cookie should be discarded at
 // the end of the session (regardless of expiration date).
 //
@@ -441,4 +442,3 @@ func (_HTTPCookieStorageClass HTTPCookieStorageClass) SharedHTTPCookieStorage() 
 	rv := objc.Send[objc.ID](objc.ID(_HTTPCookieStorageClass.class), objc.Sel("sharedHTTPCookieStorage"))
 	return NSHTTPCookieStorageFromID(objc.ID(rv))
 }
-

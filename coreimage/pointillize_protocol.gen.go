@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -50,6 +50,7 @@ type CIPointillize interface {
 type CIPointillizeObject struct {
 	objectivec.Object
 }
+
 func (o CIPointillizeObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -68,21 +69,24 @@ func CIPointillizeObjectFromID(id objc.ID) CIPointillizeObject {
 func (o CIPointillizeObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPointillize/inputImage
 func (o CIPointillizeObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The radius of the circles in the resulting pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPointillize/radius
 func (o CIPointillizeObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -90,17 +94,25 @@ func (o CIPointillizeObject) Radius() float32 {
 func (o CIPointillizeObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The x and y position to use as the center of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/center
 func (o CIPointillizeObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/inputImage
 func (o CIPointillizeObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The radius of the circles in the resulting pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPointillize/radius
 func (o CIPointillizeObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

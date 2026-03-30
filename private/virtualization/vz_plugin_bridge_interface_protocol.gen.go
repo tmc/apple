@@ -18,6 +18,7 @@ type VZPluginBridgeInterface interface {
 type VZPluginBridgeInterfaceObject struct {
 	objectivec.Object
 }
+
 func (o VZPluginBridgeInterfaceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func VZPluginBridgeInterfaceObjectFromID(id objc.ID) VZPluginBridgeInterfaceObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

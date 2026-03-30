@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSPrinterClass) Alloc() NSPrinter {
 // An object that describes a printer’s capabilities.
 //
 // # Overview
-// 
+//
 // [NSPrinter] provides information about a printer; it does not modify
 // printer attributes or control a printing job. A printer object can be
 // constructed by specifying either the printer name or the make and model of
@@ -79,6 +80,7 @@ type NSPrinter struct {
 func NSPrinterFromID(id objc.ID) NSPrinter {
 	return NSPrinter{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPrinter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -149,7 +151,7 @@ func NewNSPrinter() NSPrinter {
 // name: The name of the printer.
 //
 // # Return Value
-// 
+//
 // An initialized [NSPrinter] object, or `nil` if the specified printer was
 // not available.
 //
@@ -166,7 +168,7 @@ func NewPrinterWithName(name string) NSPrinter {
 // using the [PrinterTypes] method.
 //
 // # Return Value
-// 
+//
 // An initialized [NSPrinter] object, or `nil` if the specified printer was
 // not available.
 //
@@ -182,7 +184,7 @@ func NewPrinterWithType(type_ NSPrinterTypeName) NSPrinter {
 // PPD file. Typical values are “Letter” and “Legal”.
 //
 // # Return Value
-// 
+//
 // The size of the page, measured in points in the user coordinate space. The
 // returned size is zero if the specified paper name is not recognized or its
 // entry in the PPD file cannot be parsed.
@@ -199,7 +201,7 @@ func (p NSPrinter) EncodeWithCoder(coder foundation.INSCoder) {
 // The printer’s name.
 //
 // # Return Value
-// 
+//
 // The printer name.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrinter/name
@@ -207,10 +209,11 @@ func (p NSPrinter) Name() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A description of the printer’s make and model.
 //
 // # Return Value
-// 
+//
 // A description of the printer’s make and model.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrinter/type
@@ -218,10 +221,11 @@ func (p NSPrinter) Type() NSPrinterTypeName {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("type"))
 	return NSPrinterTypeName(foundation.NSStringFromID(rv).String())
 }
+
 // The PostScript language level recognized by the printer.
 //
 // # Return Value
-// 
+//
 // The PostScript language level. The value is 0 if the receiver is not a
 // PostScript printer.
 //
@@ -230,10 +234,11 @@ func (p NSPrinter) LanguageLevel() int {
 	rv := objc.Send[int](p.ID, objc.Sel("languageLevel"))
 	return rv
 }
+
 // A dictionary of keys and values that describe the device.
 //
 // # Return Value
-// 
+//
 // A dictionary of the device properties. See `NSGraphics.H()` for possible
 // keys. The only key guaranteed to exist is [NSDeviceIsPrinter].
 //
@@ -246,12 +251,12 @@ func (p NSPrinter) DeviceDescription() foundation.INSDictionary {
 // Returns the names of all available printers.
 //
 // # Return Value
-// 
+//
 // An array of [NSString] objects, each of which contains the name of an
 // available printer.
-// 
+//
 // # Discussion
-// 
+//
 // The user constructs the list of available printers when adding a printer in
 // the Print panel or setting up printers in the Print & Scan preferences
 // pane.
@@ -261,10 +266,11 @@ func (_NSPrinterClass NSPrinterClass) PrinterNames() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSPrinterClass.class), objc.Sel("printerNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Returns descriptions of the makes and models of all available printers.
 //
 // # Return Value
-// 
+//
 // An array of [NSString] objects, each of which contains the make and model
 // information for a supported printer.
 //
@@ -273,4 +279,3 @@ func (_NSPrinterClass NSPrinterClass) PrinterTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSPrinterClass.class), objc.Sel("printerTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

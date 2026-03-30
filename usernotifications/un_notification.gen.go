@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,11 +47,11 @@ func (uc UNNotificationClass) Alloc() UNNotification {
 // app.
 //
 // # Overview
-// 
+//
 // A [UNNotification] object contains the initial notification request, which
 // contains the notification’s payload, and the date that the system
 // delivered the notification.
-// 
+//
 // Don’t create notification objects directly. When handling notifications,
 // the system delivers notification objects to your
 // [UNUserNotificationCenterDelegate] object. The [UNUserNotificationCenter]
@@ -75,6 +76,7 @@ type UNNotification struct {
 func UNNotificationFromID(id objc.ID) UNNotification {
 	return UNNotification{objectivec.Object{ID: id}}
 }
+
 // NOTE: UNNotification adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,7 +128,7 @@ func (u UNNotification) EncodeWithCoder(coder foundation.INSCoder) {
 // the notification.
 //
 // # Discussion
-// 
+//
 // For local notifications, the request object is a copy of the one you
 // originally configured. For remote notifications, the system synthesizes the
 // request object from information received from Apple Push Notification
@@ -137,10 +139,11 @@ func (u UNNotification) Request() IUNNotificationRequest {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("request"))
 	return UNNotificationRequestFromID(objc.ID(rv))
 }
+
 // The delivery date of the notification.
 //
 // # Discussion
-// 
+//
 // The system displays this date to the user in Notification Center.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotification/date
@@ -148,4 +151,3 @@ func (u UNNotification) Date() foundation.INSDate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("date"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-

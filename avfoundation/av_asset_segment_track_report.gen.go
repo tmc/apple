@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -64,6 +65,7 @@ type AVAssetSegmentTrackReport struct {
 func AVAssetSegmentTrackReportFromID(id objc.ID) AVAssetSegmentTrackReport {
 	return AVAssetSegmentTrackReport{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetSegmentTrackReport adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,6 +130,7 @@ func (a AVAssetSegmentTrackReport) TrackID() int32 {
 	rv := objc.Send[int32](a.ID, objc.Sel("trackID"))
 	return rv
 }
+
 // The type of media a track contains.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentTrackReport/mediaType
@@ -135,36 +138,39 @@ func (a AVAssetSegmentTrackReport) MediaType() AVMediaType {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("mediaType"))
 	return AVMediaType(foundation.NSStringFromID(rv).String())
 }
+
 // The duration of a track.
 //
 // # Discussion
-// 
+//
 // The value is [invalid] if there’s no information available.
 //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentTrackReport/duration
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (a AVAssetSegmentTrackReport) Duration() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("duration"))
 	return coremedia.CMTime(rv)
 }
+
 // The earliest presentation timestamp (PTS) for this track.
 //
 // # Discussion
-// 
+//
 // The value is [invalid] if there’s no information available.
 //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentTrackReport/earliestPresentationTimeStamp
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (a AVAssetSegmentTrackReport) EarliestPresentationTimeStamp() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("earliestPresentationTimeStamp"))
 	return coremedia.CMTime(rv)
 }
+
 // Information about the first video sample in a track.
 //
 // # Discussion
-// 
+//
 // The value is `nil` if this track isn’t a video track, or if sample
 // information isn’t available.
 //
@@ -173,6 +179,7 @@ func (a AVAssetSegmentTrackReport) FirstVideoSampleInformation() IAVAssetSegment
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("firstVideoSampleInformation"))
 	return AVAssetSegmentReportSampleInformationFromID(objc.ID(rv))
 }
+
 // The type of segment data.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmentreport/segmenttype
@@ -183,6 +190,7 @@ func (a AVAssetSegmentTrackReport) SegmentType() AVAssetSegmentType {
 func (a AVAssetSegmentTrackReport) SetSegmentType(value AVAssetSegmentType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSegmentType:"), value)
 }
+
 // The reports for the segment’s track data.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmentreport/trackreports
@@ -193,4 +201,3 @@ func (a AVAssetSegmentTrackReport) TrackReports() IAVAssetSegmentTrackReport {
 func (a AVAssetSegmentTrackReport) SetTrackReports(value IAVAssetSegmentTrackReport) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTrackReports:"), value)
 }
-

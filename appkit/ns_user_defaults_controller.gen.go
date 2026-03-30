@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,12 +47,10 @@ func (nc NSUserDefaultsControllerClass) Alloc() NSUserDefaultsController {
 // the user’s defaults database.
 //
 // # Overview
-// 
+//
 // [NSUserDefaultsController] is a Cocoa bindings–compatible controller
 // class. Properties of the shared instance of this class can be bound to user
 // interface elements to access and modify values stored in [UserDefaults].
-//
-// [UserDefaults]: https://developer.apple.com/documentation/Foundation/UserDefaults
 //
 // # Initializing a user defaults controller
 //
@@ -71,6 +70,8 @@ func (nc NSUserDefaultsControllerClass) Alloc() NSUserDefaultsController {
 //   - [NSUserDefaultsController.Save]: Saves the values of the receiver’s user default properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController
+//
+// [UserDefaults]: https://developer.apple.com/documentation/Foundation/UserDefaults
 type NSUserDefaultsController struct {
 	NSController
 }
@@ -82,6 +83,7 @@ type NSUserDefaultsController struct {
 func NSUserDefaultsControllerFromID(id objc.ID) NSUserDefaultsController {
 	return NSUserDefaultsController{NSController: NSControllerFromID(id)}
 }
+
 // NOTE: NSUserDefaultsController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -154,7 +156,6 @@ func NewNSUserDefaultsController() NSUserDefaultsController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/init(coder:)
 func NewUserDefaultsControllerWithCoder(coder foundation.INSCoder) NSUserDefaultsController {
 	instance := getNSUserDefaultsControllerClass().Alloc()
@@ -167,10 +168,10 @@ func NewUserDefaultsControllerWithCoder(coder foundation.INSCoder) NSUserDefault
 // values contained in the `initialValues` dictionary.
 //
 // # Discussion
-// 
+//
 // If `defaults` is `nil`, the receiver uses `[NSUserDefaults
 // standardUserDefaults]`.
-// 
+//
 // This method is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/init(defaults:initialValues:)
@@ -185,10 +186,10 @@ func NewUserDefaultsControllerWithDefaultsInitialValues(defaults foundation.NSUs
 // values contained in the `initialValues` dictionary.
 //
 // # Discussion
-// 
+//
 // If `defaults` is `nil`, the receiver uses `[NSUserDefaults
 // standardUserDefaults]`.
-// 
+//
 // This method is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/init(defaults:initialValues:)
@@ -196,30 +197,31 @@ func (u NSUserDefaultsController) InitWithDefaultsInitialValues(defaults foundat
 	rv := objc.Send[NSUserDefaultsController](u.ID, objc.Sel("initWithDefaults:initialValues:"), defaults, initialValues)
 	return rv
 }
+
 // Causes the receiver to discard any unsaved changes to bound user default
 // properties, restoring their previous values.
 //
 // # Discussion
-// 
+//
 // The receiver invokes [discardEditing] on any currently registered editors.
 // The `sender` is typically the object that invoked this method.
-// 
-// If [AppliesImmediately] is [true], this method only causes any bound
-// editors with uncommitted changes to discard their edits.
 //
-// [discardEditing]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/discardEditing
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If [AppliesImmediately] is true, this method only causes any bound editors
+// with uncommitted changes to discard their edits.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/revert(_:)
+//
+// [discardEditing]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/discardEditing
 func (u NSUserDefaultsController) Revert(sender objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("revert:"), sender)
 }
+
 // Causes the receiver to discard all edits and replace the values of all the
 // user default properties with any corresponding values in the
 // [InitialValues] dictionary.
 //
 // # Discussion
-// 
+//
 // This effectively sets the preferences that a user can change to their
 // “out-of-the-box” values. This method has no effect if initial values
 // were not specified. The `sender` is typically the object that invoked this
@@ -229,13 +231,12 @@ func (u NSUserDefaultsController) Revert(sender objectivec.IObject) {
 func (u NSUserDefaultsController) RevertToInitialValues(sender objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("revertToInitialValues:"), sender)
 }
+
 // Saves the values of the receiver’s user default properties.
 //
 // # Discussion
-// 
-// This method has no effect if [AppliesImmediately] returns [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This method has no effect if [AppliesImmediately] returns true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/save(_:)
 func (u NSUserDefaultsController) Save(sender objectivec.IObject) {
@@ -245,7 +246,7 @@ func (u NSUserDefaultsController) Save(sender objectivec.IObject) {
 // Returns the instance of NSUserDefaults in use by the receiver.
 //
 // # Discussion
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/defaults
@@ -253,13 +254,14 @@ func (u NSUserDefaultsController) Defaults() foundation.NSUserDefaults {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("defaults"))
 	return foundation.NSUserDefaultsFromID(objc.ID(rv))
 }
+
 // Returns a dictionary containing the receiver’s initial default values.
 //
 // # Discussion
-// 
+//
 // These values are used when is no value found for the bound property in
 // [Defaults].
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/initialValues
@@ -270,11 +272,12 @@ func (u NSUserDefaultsController) InitialValues() foundation.INSDictionary {
 func (u NSUserDefaultsController) SetInitialValues(value foundation.INSDictionary) {
 	objc.Send[struct{}](u.ID, objc.Sel("setInitialValues:"), value)
 }
+
 // Returns whether the receiver has user default values that have not been
 // saved to NSUserDefaults.
 //
 // # Discussion
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/hasUnappliedChanges
@@ -282,16 +285,15 @@ func (u NSUserDefaultsController) HasUnappliedChanges() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("hasUnappliedChanges"))
 	return rv
 }
+
 // Returns whether any changes made to bound user default properties are saved
 // immediately.
 //
 // # Discussion
-// 
-// Default is [true].
-// 
-// This property is observable using key-value observing.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Default is true.
+//
+// This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/appliesImmediately
 func (u NSUserDefaultsController) AppliesImmediately() bool {
@@ -301,14 +303,15 @@ func (u NSUserDefaultsController) AppliesImmediately() bool {
 func (u NSUserDefaultsController) SetAppliesImmediately(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setAppliesImmediately:"), value)
 }
+
 // Returns a key value coding compliant object that is used to access the user
 // default properties.
 //
 // # Discussion
-// 
+//
 // If present the value for the property in [Defaults] is returned, otherwise
 // a corresponding value in [InitialValues] is returned.
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/values
@@ -321,7 +324,7 @@ func (u NSUserDefaultsController) Values() objectivec.IObject {
 // necessary.
 //
 // # Discussion
-// 
+//
 // This instance has no initial values, and uses `[NSUserDefaults
 // standardUserDefaults]` to create the defaults. An application can get this
 // object when an application launches and configure it as required.
@@ -331,4 +334,3 @@ func (_NSUserDefaultsControllerClass NSUserDefaultsControllerClass) SharedUserDe
 	rv := objc.Send[objc.ID](objc.ID(_NSUserDefaultsControllerClass.class), objc.Sel("sharedUserDefaultsController"))
 	return NSUserDefaultsControllerFromID(objc.ID(rv))
 }
-

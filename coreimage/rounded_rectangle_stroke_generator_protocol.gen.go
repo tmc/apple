@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +70,7 @@ type CIRoundedRectangleStrokeGenerator interface {
 type CIRoundedRectangleStrokeGeneratorObject struct {
 	objectivec.Object
 }
+
 func (o CIRoundedRectangleStrokeGeneratorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -86,22 +87,26 @@ func CIRoundedRectangleStrokeGeneratorObjectFromID(id objc.ID) CIRoundedRectangl
 func (o CIRoundedRectangleStrokeGeneratorObject) Color() ICIColor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleStrokeGenerator/extent
 func (o CIRoundedRectangleStrokeGeneratorObject) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleStrokeGenerator/radius
 func (o CIRoundedRectangleStrokeGeneratorObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleStrokeGenerator/width
 func (o CIRoundedRectangleStrokeGeneratorObject) Width() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
-	}
+}
+
 // A value to control the smoothness of the transition between the curved and
 // linear edges of the shape.
 //
@@ -109,7 +114,8 @@ func (o CIRoundedRectangleStrokeGeneratorObject) Width() float32 {
 func (o CIRoundedRectangleStrokeGeneratorObject) Smoothness() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("smoothness"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -117,25 +123,32 @@ func (o CIRoundedRectangleStrokeGeneratorObject) Smoothness() float32 {
 func (o CIRoundedRectangleStrokeGeneratorObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleStrokeGenerator/color
 func (o CIRoundedRectangleStrokeGeneratorObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleStrokeGenerator/extent
 func (o CIRoundedRectangleStrokeGeneratorObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleStrokeGenerator/radius
 func (o CIRoundedRectangleStrokeGeneratorObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleStrokeGenerator/width
 func (o CIRoundedRectangleStrokeGeneratorObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }
 
+// A value to control the smoothness of the transition between the curved and
+// linear edges of the shape.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleStrokeGenerator/smoothness
 func (o CIRoundedRectangleStrokeGeneratorObject) SetSmoothness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSmoothness:"), value)
 }
-

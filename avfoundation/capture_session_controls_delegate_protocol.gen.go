@@ -4,9 +4,11 @@ package avfoundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that defines the interface to respond to capture control activation and presentation events.
@@ -40,6 +42,7 @@ type AVCaptureSessionControlsDelegate interface {
 type AVCaptureSessionControlsDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVCaptureSessionControlsDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -60,7 +63,8 @@ func AVCaptureSessionControlsDelegateObjectFromID(id objc.ID) AVCaptureSessionCo
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSessionControlsDelegate/sessionControlsDidBecomeActive(_:)
 func (o AVCaptureSessionControlsDelegateObject) SessionControlsDidBecomeActive(session IAVCaptureSession) {
 	objc.Send[struct{}](o.ID, objc.Sel("sessionControlsDidBecomeActive:"), session)
-	}
+}
+
 // Tells the delegate when a capture session’s controls are about to enter a
 // fullscreen appearance.
 //
@@ -68,7 +72,7 @@ func (o AVCaptureSessionControlsDelegateObject) SessionControlsDidBecomeActive(s
 // appearance.
 //
 // # Discussion
-// 
+//
 // When controls enter a fullscreen appearance, your app should hide portions
 // of its user interface, including duplicative or unnecessary elements. Few
 // onscreen elements should be visible so people can focus on their control
@@ -77,23 +81,25 @@ func (o AVCaptureSessionControlsDelegateObject) SessionControlsDidBecomeActive(s
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSessionControlsDelegate/sessionControlsWillEnterFullscreenAppearance(_:)
 func (o AVCaptureSessionControlsDelegateObject) SessionControlsWillEnterFullscreenAppearance(session IAVCaptureSession) {
 	objc.Send[struct{}](o.ID, objc.Sel("sessionControlsWillEnterFullscreenAppearance:"), session)
-	}
+}
+
 // Tells the delegate when a capture session’s controls are about to exit a
 // fullscreen appearance.
 //
 // session: The capture session with controls that are exiting a fullscreen appearance.
 //
 // # Discussion
-// 
+//
 // When your app receives this callback, it should resume showing portions of
 // the interface it hid when controls entered a fullscreen appearance.
-// 
+//
 // The system calls this method before [SessionControlsDidBecomeInactive].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSessionControlsDelegate/sessionControlsWillExitFullscreenAppearance(_:)
 func (o AVCaptureSessionControlsDelegateObject) SessionControlsWillExitFullscreenAppearance(session IAVCaptureSession) {
 	objc.Send[struct{}](o.ID, objc.Sel("sessionControlsWillExitFullscreenAppearance:"), session)
-	}
+}
+
 // Tells the delegate when a capture session’s controls become inactive and
 // unavailable for interaction.
 //
@@ -102,7 +108,7 @@ func (o AVCaptureSessionControlsDelegateObject) SessionControlsWillExitFullscree
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSessionControlsDelegate/sessionControlsDidBecomeInactive(_:)
 func (o AVCaptureSessionControlsDelegateObject) SessionControlsDidBecomeInactive(session IAVCaptureSession) {
 	objc.Send[struct{}](o.ID, objc.Sel("sessionControlsDidBecomeInactive:"), session)
-	}
+}
 
 // AVCaptureSessionControlsDelegateConfig holds optional typed callbacks for [AVCaptureSessionControlsDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -203,4 +209,3 @@ func NewAVCaptureSessionControlsDelegate(config AVCaptureSessionControlsDelegate
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVCaptureSessionControlsDelegateObjectFromID(instance)
 }
-

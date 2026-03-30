@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,22 +45,22 @@ func (nc NSUniqueIDSpecifierClass) Alloc() NSUniqueIDSpecifier {
 // A specifier for an object in a collection (or container) by unique ID.
 //
 // # Overview
-// 
+//
 // This specifier works only for objects that have an ID property. The unique
 // ID object passed to an instance of [NSUniqueIDSpecifier] must be either an
 // [NSNumber] object or an [NSString] object. The exact type should match the
 // scripting dictionary declaration of the ID attribute for the relevant
 // scripting class.
-// 
+//
 // You can expect that the ID property will be for any object that supports
 // it. Therefore a scripter can obtain the unique ID for an object and refer
 // to the object by the ID, but cannot set the unique ID.
-// 
+//
 // You don’t normally subclass [NSUniqueIDSpecifier].
-// 
+//
 // The evaluation of [NSUniqueIDSpecifier] objects follows these steps until
 // the specified object is found:
-// 
+//
 // - If the container implements a method whose selector matches the relevant
 // `valueInWithUniqueID:` pattern established by scripting key-value coding,
 // the method is invoked. This method can potentially be very fast, and it may
@@ -74,8 +75,6 @@ func (nc NSUniqueIDSpecifierClass) Alloc() NSUniqueIDSpecifier {
 // keyed elements in the container, looking for a match. The search is
 // potentially very slow.
 //
-// [indicesOfObjects(byEvaluatingObjectSpecifier:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/indicesOfObjects(byEvaluatingObjectSpecifier:)
-//
 // # Initializing a unique ID specifier
 //
 //   - [NSUniqueIDSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyUniqueID]: Returns an [NSUniqueIDSpecifier] object, initialized with the given arguments.
@@ -86,6 +85,8 @@ func (nc NSUniqueIDSpecifierClass) Alloc() NSUniqueIDSpecifier {
 //   - [NSUniqueIDSpecifier.SetUniqueID]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUniqueIDSpecifier
+//
+// [indicesOfObjects(byEvaluatingObjectSpecifier:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/indicesOfObjects(byEvaluatingObjectSpecifier:)
 type NSUniqueIDSpecifier struct {
 	NSScriptObjectSpecifier
 }
@@ -96,6 +97,7 @@ type NSUniqueIDSpecifier struct {
 func NSUniqueIDSpecifierFromID(id objc.ID) NSUniqueIDSpecifier {
 	return NSUniqueIDSpecifier{NSScriptObjectSpecifier: NSScriptObjectSpecifierFromID(id)}
 }
+
 // NOTE: NSUniqueIDSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -145,7 +147,6 @@ func NewNSUniqueIDSpecifier() NSUniqueIDSpecifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSUniqueIDSpecifier/init(coder:)
 func NewUniqueIDSpecifierWithCoder(inCoder INSCoder) NSUniqueIDSpecifier {
 	instance := getNSUniqueIDSpecifierClass().Alloc()
@@ -157,16 +158,16 @@ func NewUniqueIDSpecifierWithCoder(inCoder INSCoder) NSUniqueIDSpecifier {
 // attributes.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier`, key `key`, and the class description of the object specifier
 // `classDescription`, derived from the value of the specifier’s key.
 //
 // # Discussion
-// 
+//
 // You should never pass `nil` for the value of `classDescription`. The
 // receiver’s child reference is set to `nil`.
-// 
+//
 // This is the designated initializer for [NSScriptObjectSpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)
@@ -186,17 +187,17 @@ func NewUniqueIDSpecifierWithContainerClassDescriptionContainerSpecifierKey(clas
 // property: The property for the new object.
 //
 // uniqueID: The unique ID for the new object.
-// 
+//
 // `uniqueID` must be an instance of [NSNumber] or [NSString]. The type should
 // match the declared type of the attribute of the specified scriptable class
 // whose four-character code is `'ID '`.
 //
 // # Return Value
-// 
+//
 // An [NSUniqueIDSpecifier] object, initialized with the given arguments.
 //
 // # Discussion
-// 
+//
 // Invokes the super class’s
 // [InitWithContainerClassDescriptionContainerSpecifierKey] method and sets
 // the ID to `uniqueID`.
@@ -212,12 +213,12 @@ func NewUniqueIDSpecifierWithContainerClassDescriptionContainerSpecifierKeyUniqu
 // container specifier and key.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier` and key `key`.
 //
 // # Discussion
-// 
+//
 // The class description of the container is set automatically.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerSpecifier:key:)
@@ -237,17 +238,17 @@ func NewUniqueIDSpecifierWithContainerSpecifierKey(container INSScriptObjectSpec
 // property: The property for the new object.
 //
 // uniqueID: The unique ID for the new object.
-// 
+//
 // `uniqueID` must be an instance of [NSNumber] or [NSString]. The type should
 // match the declared type of the attribute of the specified scriptable class
 // whose four-character code is `'ID '`.
 //
 // # Return Value
-// 
+//
 // An [NSUniqueIDSpecifier] object, initialized with the given arguments.
 //
 // # Discussion
-// 
+//
 // Invokes the super class’s
 // [InitWithContainerClassDescriptionContainerSpecifierKey] method and sets
 // the ID to `uniqueID`.
@@ -261,7 +262,7 @@ func (u NSUniqueIDSpecifier) InitWithContainerClassDescriptionContainerSpecifier
 // Returns the ID encapsulated by the receiver.
 //
 // # Return Value
-// 
+//
 // The ID encapsulated by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUniqueIDSpecifier/uniqueID
@@ -272,4 +273,3 @@ func (u NSUniqueIDSpecifier) UniqueID() objectivec.IObject {
 func (u NSUniqueIDSpecifier) SetUniqueID(value objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUniqueID:"), value)
 }
-

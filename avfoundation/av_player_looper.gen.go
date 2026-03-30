@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVPlayerLooperClass) Alloc() AVPlayerLooper {
 // An object that loops media content using a queue player.
 //
 // # Overview
-// 
+//
 // You can manually implement looping playback in your app using
 // [AVQueuePlayer], but [AVPlayerLooper] provides a much simpler interface to
 // loop a single [AVPlayerItem]. You create a player looper by passing it a
@@ -84,6 +85,7 @@ type AVPlayerLooper struct {
 func AVPlayerLooperFromID(id objc.ID) AVPlayerLooper {
 	return AVPlayerLooper{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerLooper adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -166,18 +168,18 @@ func NewAVPlayerLooper() AVPlayerLooper {
 // itemToLoop: The player item to loop, which must not be `nil`.
 //
 // # Return Value
-// 
+//
 // An new instance of [AVPlayerLooper].
 //
 // # Discussion
-// 
+//
 // Creating an instance of this class using this method is equivalent to
 // calling [InitWithPlayerTemplateItemTimeRange] and passing a value of
 // [invalid] for the `timeRange` parameter.
 //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:)
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 func NewPlayerLooperWithPlayerTemplateItem(player IAVQueuePlayer, itemToLoop IAVPlayerItem) AVPlayerLooper {
 	rv := objc.Send[objc.ID](objc.ID(getAVPlayerLooperClass().class), objc.Sel("playerLooperWithPlayer:templateItem:"), player, itemToLoop)
 	return AVPlayerLooperFromID(rv)
@@ -192,15 +194,13 @@ func NewPlayerLooperWithPlayerTemplateItem(player IAVQueuePlayer, itemToLoop IAV
 //
 // loopRange: The player item time range to loop. Passing a value of [invalid] is
 // equivalent to a time range of [0, player item’s duration].
-// //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 //
 // # Return Value
-// 
+//
 // An new instance of [AVPlayerLooper].
 //
 // # Discussion
-// 
+//
 // The player item you specify will be used as a to generate at least 3 player
 // item replicas that will be inserted into the specified player’s queue to
 // accomplish the looping playback. As the player item will only be used as a
@@ -209,13 +209,13 @@ func NewPlayerLooperWithPlayerTemplateItem(player IAVQueuePlayer, itemToLoop IAV
 // need to explicitly configure the replica player items, such as adding
 // instances of [AVPlayerItemOutput] to them, you can access them through the
 // [LoopingPlayerItems] property.
-// 
+//
 // You should not modify the player’s queue while [AVPlayerLooper] is
 // performing looping playback. If you need to perform any additional
 // configuration of the player prior to playback, you should set its [Rate] to
 // `0.0`, perform the required configuration, and then begin playback once the
 // configuration is complete.
-// 
+//
 // The [CMTimeRange] you specify will limit each item’s loop iteration to
 // playing within the specified time range. To loop the full duration of the
 // asset, specify a time range value of [invalid] for the `timeRange`
@@ -223,10 +223,12 @@ func NewPlayerLooperWithPlayerTemplateItem(player IAVQueuePlayer, itemToLoop IAV
 // range’s start time and setting player item’s [ForwardPlaybackEndTime]
 // property on the looping item replicas.
 //
-// [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:timeRange:)
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
+// [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 func NewPlayerLooperWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange coremedia.CMTimeRange) AVPlayerLooper {
 	instance := getAVPlayerLooperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPlayer:templateItem:timeRange:"), player, itemToLoop, loopRange)
@@ -243,14 +245,12 @@ func NewPlayerLooperWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemT
 //
 // loopRange: The player item time range to loop. Passing a value of [invalid] is
 // equivalent to a time range of [0, player item’s duration].
-// //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 //
 // itemOrdering: A value that indicates whether the looper inserts replica items before or
 // after existing items in the specified queue player.
 //
 // # Discussion
-// 
+//
 // The player looper doesn’t use the player item you specify for playback,
 // and instead uses it as a template to create at least three player item
 // replicas that it uses for looping playback. Because the looper only uses
@@ -258,6 +258,8 @@ func NewPlayerLooperWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemT
 // initialization aren’t reflected in the looping playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:timeRange:existingItemsOrdering:)
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 func NewPlayerLooperWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange coremedia.CMTimeRange, itemOrdering AVPlayerLooperItemOrdering) AVPlayerLooper {
 	instance := getAVPlayerLooperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPlayer:templateItem:timeRange:existingItemsOrdering:"), player, itemToLoop, loopRange, itemOrdering)
@@ -274,14 +276,12 @@ func NewPlayerLooperWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player 
 //
 // loopRange: The player item time range to loop. Passing a value of [invalid] is
 // equivalent to a time range of [0, player item’s duration].
-// //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 //
 // itemOrdering: A value that indicates whether the looper inserts replica items before or
 // after existing items in the specified queue player.
 //
 // # Discussion
-// 
+//
 // The player looper doesn’t use the player item you specify for playback,
 // and instead uses it as a template to create at least three player item
 // replicas that it uses for looping playback. Because the looper only uses
@@ -289,10 +289,13 @@ func NewPlayerLooperWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player 
 // initialization aren’t reflected in the looping playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:timeRange:existingItemsOrdering:)
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange coremedia.CMTimeRange, itemOrdering AVPlayerLooperItemOrdering) AVPlayerLooper {
 	rv := objc.Send[AVPlayerLooper](p.ID, objc.Sel("initWithPlayer:templateItem:timeRange:existingItemsOrdering:"), player, itemToLoop, loopRange, itemOrdering)
 	return rv
 }
+
 // Creates a player looper that continuously plays the specified time range of
 // a player item.
 //
@@ -302,15 +305,13 @@ func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering
 //
 // loopRange: The player item time range to loop. Passing a value of [invalid] is
 // equivalent to a time range of [0, player item’s duration].
-// //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 //
 // # Return Value
-// 
+//
 // An new instance of [AVPlayerLooper].
 //
 // # Discussion
-// 
+//
 // The player item you specify will be used as a to generate at least 3 player
 // item replicas that will be inserted into the specified player’s queue to
 // accomplish the looping playback. As the player item will only be used as a
@@ -319,13 +320,13 @@ func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering
 // need to explicitly configure the replica player items, such as adding
 // instances of [AVPlayerItemOutput] to them, you can access them through the
 // [LoopingPlayerItems] property.
-// 
+//
 // You should not modify the player’s queue while [AVPlayerLooper] is
 // performing looping playback. If you need to perform any additional
 // configuration of the player prior to playback, you should set its [Rate] to
 // `0.0`, perform the required configuration, and then begin playback once the
 // configuration is complete.
-// 
+//
 // The [CMTimeRange] you specify will limit each item’s loop iteration to
 // playing within the specified time range. To loop the full duration of the
 // asset, specify a time range value of [invalid] for the `timeRange`
@@ -333,18 +334,21 @@ func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering
 // range’s start time and setting player item’s [ForwardPlaybackEndTime]
 // property on the looping item replicas.
 //
-// [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:timeRange:)
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
+// [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange coremedia.CMTimeRange) AVPlayerLooper {
 	rv := objc.Send[AVPlayerLooper](p.ID, objc.Sel("initWithPlayer:templateItem:timeRange:"), player, itemToLoop, loopRange)
 	return rv
 }
+
 // Disables looping for the player queue.
 //
 // # Discussion
-// 
+//
 // The player looper will stop performing player queue operations for looping
 // and let the current looping item replica play to the end. The player’s
 // original [ActionAtItemEnd] property will be restored afterwards.
@@ -363,15 +367,13 @@ func (p AVPlayerLooper) DisableLooping() {
 //
 // loopRange: The player item time range to loop. Passing a value of [invalid] is
 // equivalent to a time range of [0, player item’s duration].
-// //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 //
 // # Return Value
-// 
+//
 // An new instance of [AVPlayerLooper].
 //
 // # Discussion
-// 
+//
 // The player item you specify will be used as a to generate at least 3 player
 // item replicas that will be inserted into the specified player’s queue to
 // accomplish the looping playback. As the player item will only be used as a
@@ -380,13 +382,13 @@ func (p AVPlayerLooper) DisableLooping() {
 // need to explicitly configure the replica player items, such as adding
 // instances of [AVPlayerItemOutput] to them, you can access them through the
 // [LoopingPlayerItems] property.
-// 
+//
 // You should not modify the player’s queue while [AVPlayerLooper] is
 // performing looping playback. If you need to perform any additional
 // configuration of the player prior to playback, you should set its [Rate] to
 // `0.0`, perform the required configuration, and then begin playback once the
 // configuration is complete.
-// 
+//
 // The [CMTimeRange] you specify will limit each item’s loop iteration to
 // playing within the specified time range. To loop the full duration of the
 // asset, specify a time range value of [invalid] for the `timeRange`
@@ -394,10 +396,12 @@ func (p AVPlayerLooper) DisableLooping() {
 // range’s start time and setting player item’s [ForwardPlaybackEndTime]
 // property on the looping item replicas.
 //
-// [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/playerLooperWithPlayer:templateItem:timeRange:
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
+// [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 func (_AVPlayerLooperClass AVPlayerLooperClass) PlayerLooperWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange coremedia.CMTimeRange) AVPlayerLooper {
 	rv := objc.Send[objc.ID](objc.ID(_AVPlayerLooperClass.class), objc.Sel("playerLooperWithPlayer:templateItem:timeRange:"), player, itemToLoop, loopRange)
 	return AVPlayerLooperFromID(rv)
@@ -407,13 +411,13 @@ func (_AVPlayerLooperClass AVPlayerLooperClass) PlayerLooperWithPlayerTemplateIt
 // the looping.
 //
 // # Discussion
-// 
+//
 // [AVPlayerLooper] creates replicas of the template [AVPlayerItem] using the
 // [copyWithZone:] method and inserts them in the queue player’s queue to
 // accomplish the looping. You can determine the number of replicas created
 // and can listen for notifications and property changes from the replicas if
 // desired.
-// 
+//
 // Access to the [AVPlayerItem] replicas are for informational purposes and to
 // allow you to apply any configuration that is not transferred from the
 // template player item to the replicas. For instance, any instances of
@@ -421,22 +425,23 @@ func (_AVPlayerLooperClass AVPlayerLooperClass) PlayerLooperWithPlayerTemplateIt
 // template player item are not transferred to the replicas so you should add
 // them to each replica item if needed.
 //
-// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/loopingPlayerItems
+//
+// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
 func (p AVPlayerLooper) LoopingPlayerItems() []AVPlayerItem {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("loopingPlayerItems"))
 	return objc.ConvertSlice(rv, func(id objc.ID) AVPlayerItem {
 		return AVPlayerItemFromID(id)
 	})
 }
+
 // The number of times the object played the media.
 //
 // # Discussion
-// 
+//
 // This value starts at 0 and increments as the player continues to loop the
 // replica player items.
-// 
+//
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/loopCount
@@ -444,14 +449,15 @@ func (p AVPlayerLooper) LoopCount() int {
 	rv := objc.Send[int](p.ID, objc.Sel("loopCount"))
 	return rv
 }
+
 // A status that indicates the object’s ability to loop playback.
 //
 // # Discussion
-// 
-// When the value of this property is [PlayerLooperStatusFailed] or
-// [PlayerLooperStatusCancelled], you can no longer use the looper for
+//
+// When the value of this property is [AVPlayerLooperStatusFailed] or
+// [AVPlayerLooperStatusCancelled], you can no longer use the looper for
 // playback. You need to create a new instance to begin looping again.
-// 
+//
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/status-swift.property
@@ -459,18 +465,18 @@ func (p AVPlayerLooper) Status() AVPlayerLooperStatus {
 	rv := objc.Send[AVPlayerLooperStatus](p.ID, objc.Sel("status"))
 	return AVPlayerLooperStatus(rv)
 }
+
 // An error that describes the reason looping failed.
 //
 // # Discussion
-// 
+//
 // The value of this property is `nil` unless the looper’s [Status] changes
-// to [PlayerLooperStatusFailed]. If this occurs, this property value contains
-// an error object that provides the details of the error that prevented
-// looping.
+// to [AVPlayerLooperStatusFailed]. If this occurs, this property value
+// contains an error object that provides the details of the error that
+// prevented looping.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/error
 func (p AVPlayerLooper) Error() foundation.INSError {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
-

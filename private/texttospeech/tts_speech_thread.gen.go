@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (tc TTSSpeechThreadClass) Alloc() TTSSpeechThread {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSSpeechThread.Stop]
 //   - [TTSSpeechThread.Voucher]
 //   - [TTSSpeechThread.SetVoucher]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechThread
 type TTSSpeechThread struct {
 	foundation.Thread
@@ -57,6 +58,7 @@ type TTSSpeechThread struct {
 func TTSSpeechThreadFromID(id objc.ID) TTSSpeechThread {
 	return TTSSpeechThread{Thread: foundation.ThreadFromID(id)}
 }
+
 // Ensure TTSSpeechThread implements ITTSSpeechThread.
 var _ ITTSSpeechThread = TTSSpeechThread{}
 
@@ -111,4 +113,3 @@ func (t TTSSpeechThread) Voucher() objectivec.Object {
 func (t TTSSpeechThread) SetVoucher(value objectivec.Object) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVoucher:"), value)
 }
-

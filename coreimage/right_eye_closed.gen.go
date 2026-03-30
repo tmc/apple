@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type RightEyeClosed struct {
 func RightEyeClosedFromID(id objc.ID) RightEyeClosed {
 	return RightEyeClosed{objectivec.Object{ID: id}}
 }
+
 // Ensure RightEyeClosed implements IRightEyeClosed.
 var _ IRightEyeClosed = RightEyeClosed{}
 
@@ -78,4 +80,3 @@ func NewRightEyeClosed() RightEyeClosed {
 	rv := objc.Send[RightEyeClosed](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

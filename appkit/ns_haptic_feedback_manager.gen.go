@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -56,6 +57,7 @@ type NSHapticFeedbackManager struct {
 func NSHapticFeedbackManagerFromID(id objc.ID) NSHapticFeedbackManager {
 	return NSHapticFeedbackManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSHapticFeedbackManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -89,7 +91,7 @@ func NewNSHapticFeedbackManager() NSHapticFeedbackManager {
 // input device, accessibility settings, and user preferences.
 //
 // # Discussion
-// 
+//
 // This method returns a haptic feedback performer object of type
 // [NSHapticFeedbackPerformer] that is based on the current input device,
 // accessibility settings, and user preferences. Because the current input
@@ -101,4 +103,3 @@ func (_NSHapticFeedbackManagerClass NSHapticFeedbackManagerClass) DefaultPerform
 	rv := objc.Send[objc.ID](objc.ID(_NSHapticFeedbackManagerClass.class), objc.Sel("defaultPerformer"))
 	return NSHapticFeedbackPerformerObjectFromID(rv)
 }
-

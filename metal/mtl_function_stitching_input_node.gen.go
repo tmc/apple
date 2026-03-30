@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (mc MTLFunctionStitchingInputNodeClass) Alloc() MTLFunctionStitchingInputNo
 // A call graph node that describes an input to the call graph.
 //
 // # Overview
-// 
+//
 // An input node contains data from one of the stitched function’s
 // parameters. The output data type of an input node has the same type as the
 // matching parameter.
@@ -69,6 +70,7 @@ type MTLFunctionStitchingInputNode struct {
 func MTLFunctionStitchingInputNodeFromID(id objc.ID) MTLFunctionStitchingInputNode {
 	return MTLFunctionStitchingInputNode{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLFunctionStitchingInputNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -154,6 +156,4 @@ func (f MTLFunctionStitchingInputNode) SetArgumentIndex(value uint) {
 	objc.Send[struct{}](f.ID, objc.Sel("setArgumentIndex:"), value)
 }
 
-			// Protocol methods for MTLFunctionStitchingNode
-			
-
+// Protocol methods for MTLFunctionStitchingNode

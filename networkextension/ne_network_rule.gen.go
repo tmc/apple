@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,13 +54,6 @@ func (nc NENetworkRuleClass) Alloc() NENetworkRule {
 //   - [NENetworkRule.MatchProtocol]: The protocol that the rule matches.
 //   - [NENetworkRule.MatchDirection]: The direction of network traffic that the rule matches.
 //
-// # Instance Properties
-//
-//   - [NENetworkRule.MatchLocalNetworkEndpoint]
-//   - [NENetworkRule.SetMatchLocalNetworkEndpoint]
-//   - [NENetworkRule.MatchRemoteHostOrNetworkEndpoint]
-//   - [NENetworkRule.SetMatchRemoteHostOrNetworkEndpoint]
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule
 type NENetworkRule struct {
 	objectivec.Object
@@ -71,6 +65,7 @@ type NENetworkRule struct {
 func NENetworkRuleFromID(id objc.ID) NENetworkRule {
 	return NENetworkRule{objectivec.Object{ID: id}}
 }
+
 // NOTE: NENetworkRule adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -84,13 +79,6 @@ func NENetworkRuleFromID(id objc.ID) NENetworkRule {
 //   - [INENetworkRule.MatchLocalPrefix]: A number that specifies the local sub-network that the rule matches.
 //   - [INENetworkRule.MatchProtocol]: The protocol that the rule matches.
 //   - [INENetworkRule.MatchDirection]: The direction of network traffic that the rule matches.
-//
-// # Instance Properties
-//
-//   - [INENetworkRule.MatchLocalNetworkEndpoint]
-//   - [INENetworkRule.SetMatchLocalNetworkEndpoint]
-//   - [INENetworkRule.MatchRemoteHostOrNetworkEndpoint]
-//   - [INENetworkRule.SetMatchRemoteHostOrNetworkEndpoint]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule
 type INENetworkRule interface {
@@ -111,13 +99,11 @@ type INENetworkRule interface {
 	// The direction of network traffic that the rule matches.
 	MatchDirection() NETrafficDirection
 
-	// Topic: Instance Properties
-
-	MatchLocalNetworkEndpoint() INWEndpoint
-	SetMatchLocalNetworkEndpoint(value INWEndpoint)
-	MatchRemoteHostOrNetworkEndpoint() INWEndpoint
-	SetMatchRemoteHostOrNetworkEndpoint(value INWEndpoint)
-
+	MatchLocalNetworkEndpoint() objectivec.IObject
+	MatchRemoteHostOrNetworkEndpoint() objectivec.IObject
+	InitWithDestinationHostEndpointProtocol(hostEndpoint objectivec.IObject, protocol_ NENetworkRuleProtocol) NENetworkRule
+	InitWithDestinationNetworkEndpointPrefixProtocol(networkEndpoint objectivec.IObject, destinationPrefix uint, protocol_ NENetworkRuleProtocol) NENetworkRule
+	InitWithRemoteNetworkEndpointRemotePrefixLocalNetworkEndpointLocalPrefixProtocolDirection(remoteNetwork objectivec.IObject, remotePrefix uint, localNetwork objectivec.IObject, localPrefix uint, protocol_ NENetworkRuleProtocol, direction NETrafficDirection) NENetworkRule
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -140,6 +126,14 @@ func NewNENetworkRule() NENetworkRule {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/initWithDestinationHostEndpoint:protocol:
+// hostEndpoint is a [network.nw_endpoint_t].
+func NewNetworkRuleWithDestinationHostEndpointProtocol(hostEndpoint objectivec.IObject, protocol_ NENetworkRuleProtocol) NENetworkRule {
+	instance := getNENetworkRuleClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDestinationHostEndpoint:protocol:"), hostEndpoint, protocol_)
+	return NENetworkRuleFromID(rv)
+}
+
 // Creates a rule that matches network traffic destined for a host within a
 // specific DNS domain.
 //
@@ -149,46 +143,54 @@ func NewNENetworkRule() NENetworkRule {
 // protocol: The protocol that the rule matches.
 //
 // # Discussion
-// 
+//
 // If the port string of `destinationHost` is `0` or is the empty string, then
 // the rule matches traffic on any port destined for the given hostname or
 // domain.
-// 
+//
 // If the hostname string of `destinationHost` consists of a single label,
 // then the rule matches traffic destined to the specific host with that
 // single label as its name.
-// 
+//
 // If the hostname string of `destinationHost` consists of two or more labels,
 // then the rule matches traffic destined to hosts within the domain specified
 // by the hostname string.
-// 
+//
 // # Examples
-// 
+//
 // The following example makes a rule that matches all TCP and UDP traffic to
 // a host named `com` in Swift.
-// 
+//
 // Here’s the same example in ObjectiveC.
-// 
+//
 // The next example matches all TCP and UDP traffic to hosts in the
 // `example.Com()` DNS domain, including all DNS queries for names in the
 // `example.Com()` DNS domain.
-// 
+//
 // Here’s the same example in ObjectiveC.
-// 
+//
 // The next example makes a rule that matches all DNS queries and responses
 // for hosts in the `example.Com()` domain.
-// 
+//
 // Here’s the same example in ObjectiveC.
-// 
+//
 // The last example makes a rule that matches all TCP port 443 traffic to
 // hosts in the `example.Com()` domain.
-// 
+//
 // Here’s the same example in ObjectiveC.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/init(destinationHost:protocol:)
 func NewNetworkRuleWithDestinationHostProtocol(hostEndpoint INWHostEndpoint, protocol_ NENetworkRuleProtocol) NENetworkRule {
 	instance := getNENetworkRuleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDestinationHost:protocol:"), hostEndpoint, protocol_)
+	return NENetworkRuleFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/initWithDestinationNetworkEndpoint:prefix:protocol:
+// networkEndpoint is a [network.nw_endpoint_t].
+func NewNetworkRuleWithDestinationNetworkEndpointPrefixProtocol(networkEndpoint objectivec.IObject, destinationPrefix uint, protocol_ NENetworkRuleProtocol) NENetworkRule {
+	instance := getNENetworkRuleClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDestinationNetworkEndpoint:prefix:protocol:"), networkEndpoint, destinationPrefix, protocol_)
 	return NENetworkRuleFromID(rv)
 }
 
@@ -204,7 +206,7 @@ func NewNetworkRuleWithDestinationHostProtocol(hostEndpoint INWHostEndpoint, pro
 // protocol: The protocol that the rule matches.
 //
 // # Discussion
-// 
+//
 // If the port string of `networkEndpoint` is `0` or the empty string, the
 // rule matches traffic on any port destined for the given address or network.
 //
@@ -212,6 +214,15 @@ func NewNetworkRuleWithDestinationHostProtocol(hostEndpoint INWHostEndpoint, pro
 func NewNetworkRuleWithDestinationNetworkPrefixProtocol(networkEndpoint INWHostEndpoint, destinationPrefix uint, protocol_ NENetworkRuleProtocol) NENetworkRule {
 	instance := getNENetworkRuleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDestinationNetwork:prefix:protocol:"), networkEndpoint, destinationPrefix, protocol_)
+	return NENetworkRuleFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/initWithRemoteNetworkEndpoint:remotePrefix:localNetworkEndpoint:localPrefix:protocol:direction:
+// remoteNetwork is a [network.nw_endpoint_t].
+// localNetwork is a [network.nw_endpoint_t].
+func NewNetworkRuleWithRemoteNetworkEndpointRemotePrefixLocalNetworkEndpointLocalPrefixProtocolDirection(remoteNetwork objectivec.IObject, remotePrefix uint, localNetwork objectivec.IObject, localPrefix uint, protocol_ NENetworkRuleProtocol, direction NETrafficDirection) NENetworkRule {
+	instance := getNENetworkRuleClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRemoteNetworkEndpoint:remotePrefix:localNetworkEndpoint:localPrefix:protocol:direction:"), remoteNetwork, remotePrefix, localNetwork, localPrefix, protocol_, direction)
 	return NENetworkRuleFromID(rv)
 }
 
@@ -238,11 +249,11 @@ func NewNetworkRuleWithDestinationNetworkPrefixProtocol(networkEndpoint INWHostE
 // direction: The direction of network traffic that the rule matches.
 //
 // # Discussion
-// 
+//
 // If the port string of `remoteNetwork` is `0` or the empty string, then the
 // rule matches traffic on any port coming from the remote network. If
 // `remoteNetwork` is `nil`, the rule matches any remote network.
-// 
+//
 // If the port string of `localNetwork` is `0` or the empty string, then the
 // rule matches traffic on any port coming from the local network. If
 // `localNetwork` is `nil`, the rule matches any local network.
@@ -254,6 +265,35 @@ func NewNetworkRuleWithRemoteNetworkRemotePrefixLocalNetworkLocalPrefixProtocolD
 	return NENetworkRuleFromID(rv)
 }
 
+// hostEndpoint is a [network.nw_endpoint_t].
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/initWithDestinationHostEndpoint:protocol:
+// hostEndpoint is a [network.nw_endpoint_t].
+func (n NENetworkRule) InitWithDestinationHostEndpointProtocol(hostEndpoint objectivec.IObject, protocol_ NENetworkRuleProtocol) NENetworkRule {
+	rv := objc.Send[NENetworkRule](n.ID, objc.Sel("initWithDestinationHostEndpoint:protocol:"), hostEndpoint, protocol_)
+	return rv
+}
+
+// networkEndpoint is a [network.nw_endpoint_t].
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/initWithDestinationNetworkEndpoint:prefix:protocol:
+// networkEndpoint is a [network.nw_endpoint_t].
+func (n NENetworkRule) InitWithDestinationNetworkEndpointPrefixProtocol(networkEndpoint objectivec.IObject, destinationPrefix uint, protocol_ NENetworkRuleProtocol) NENetworkRule {
+	rv := objc.Send[NENetworkRule](n.ID, objc.Sel("initWithDestinationNetworkEndpoint:prefix:protocol:"), networkEndpoint, destinationPrefix, protocol_)
+	return rv
+}
+
+// remoteNetwork is a [network.nw_endpoint_t].
+//
+// localNetwork is a [network.nw_endpoint_t].
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/initWithRemoteNetworkEndpoint:remotePrefix:localNetworkEndpoint:localPrefix:protocol:direction:
+// remoteNetwork is a [network.nw_endpoint_t].
+// localNetwork is a [network.nw_endpoint_t].
+func (n NENetworkRule) InitWithRemoteNetworkEndpointRemotePrefixLocalNetworkEndpointLocalPrefixProtocolDirection(remoteNetwork objectivec.IObject, remotePrefix uint, localNetwork objectivec.IObject, localPrefix uint, protocol_ NENetworkRuleProtocol, direction NETrafficDirection) NENetworkRule {
+	rv := objc.Send[NENetworkRule](n.ID, objc.Sel("initWithRemoteNetworkEndpoint:remotePrefix:localNetworkEndpoint:localPrefix:protocol:direction:"), remoteNetwork, remotePrefix, localNetwork, localPrefix, protocol_, direction)
+	return rv
+}
 func (n NENetworkRule) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
@@ -265,20 +305,22 @@ func (n NENetworkRule) MatchRemoteEndpoint() INWHostEndpoint {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("matchRemoteEndpoint"))
 	return NWHostEndpointFromID(objc.ID(rv))
 }
+
 // A number that specifies the remote sub-network that the rule matches.
 //
 // # Discussion
-// 
+//
 // This property is [NSNotFound] for rules where [MatchRemoteEndpoint]
 // doesn’t contain an IP address.
 //
-// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-4qp9h
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/matchRemotePrefix
+//
+// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-4qp9h
 func (n NENetworkRule) MatchRemotePrefix() uint {
 	rv := objc.Send[uint](n.ID, objc.Sel("matchRemotePrefix"))
 	return rv
 }
+
 // The local network that the rule matches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/matchLocalNetwork
@@ -286,20 +328,22 @@ func (n NENetworkRule) MatchLocalNetwork() INWHostEndpoint {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("matchLocalNetwork"))
 	return NWHostEndpointFromID(objc.ID(rv))
 }
+
 // A number that specifies the local sub-network that the rule matches.
 //
 // # Discussion
-// 
+//
 // This property is [NSNotFound] for rules whose [MatchLocalNetwork] property
 // is `nil.`
 //
-// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-4qp9h
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/matchLocalPrefix
+//
+// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-4qp9h
 func (n NENetworkRule) MatchLocalPrefix() uint {
 	rv := objc.Send[uint](n.ID, objc.Sel("matchLocalPrefix"))
 	return rv
 }
+
 // The protocol that the rule matches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/matchProtocol
@@ -307,6 +351,7 @@ func (n NENetworkRule) MatchProtocol() NENetworkRuleProtocol {
 	rv := objc.Send[NENetworkRuleProtocol](n.ID, objc.Sel("matchProtocol"))
 	return NENetworkRuleProtocol(rv)
 }
+
 // The direction of network traffic that the rule matches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/matchDirection
@@ -314,20 +359,15 @@ func (n NENetworkRule) MatchDirection() NETrafficDirection {
 	rv := objc.Send[NETrafficDirection](n.ID, objc.Sel("matchDirection"))
 	return NETrafficDirection(rv)
 }
-// See: https://developer.apple.com/documentation/networkextension/nenetworkrule/matchlocalnetworkendpoint-62ttv
-func (n NENetworkRule) MatchLocalNetworkEndpoint() INWEndpoint {
+
+// See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/matchLocalNetworkEndpoint-9dyor
+func (n NENetworkRule) MatchLocalNetworkEndpoint() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("matchLocalNetworkEndpoint"))
-	return NWEndpointFromID(objc.ID(rv))
-}
-func (n NENetworkRule) SetMatchLocalNetworkEndpoint(value INWEndpoint) {
-	objc.Send[struct{}](n.ID, objc.Sel("setMatchLocalNetworkEndpoint:"), value)
-}
-// See: https://developer.apple.com/documentation/networkextension/nenetworkrule/matchremotehostornetworkendpoint-4a5ht
-func (n NENetworkRule) MatchRemoteHostOrNetworkEndpoint() INWEndpoint {
-	rv := objc.Send[objc.ID](n.ID, objc.Sel("matchRemoteHostOrNetworkEndpoint"))
-	return NWEndpointFromID(objc.ID(rv))
-}
-func (n NENetworkRule) SetMatchRemoteHostOrNetworkEndpoint(value INWEndpoint) {
-	objc.Send[struct{}](n.ID, objc.Sel("setMatchRemoteHostOrNetworkEndpoint:"), value)
+	return objectivec.Object{ID: rv}
 }
 
+// See: https://developer.apple.com/documentation/NetworkExtension/NENetworkRule/matchRemoteHostOrNetworkEndpoint-80s0l
+func (n NENetworkRule) MatchRemoteHostOrNetworkEndpoint() objectivec.IObject {
+	rv := objc.Send[objc.ID](n.ID, objc.Sel("matchRemoteHostOrNetworkEndpoint"))
+	return objectivec.Object{ID: rv}
+}

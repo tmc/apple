@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZMouseClass) Alloc() VZMouse {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMouse.SendMouseEvents]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMouse
 type VZMouse struct {
 	VZPointingDevice
@@ -54,6 +55,7 @@ type VZMouse struct {
 func VZMouseFromID(id objc.ID) VZMouse {
 	return VZMouse{VZPointingDevice: VZPointingDeviceFromID(id)}
 }
+
 // Ensure VZMouse implements IVZMouse.
 var _ IVZMouse = VZMouse{}
 
@@ -91,7 +93,6 @@ func NewVZMouse() VZMouse {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPointingDevice/initWithType:virtualMachine:pointingDeviceIndex:
 func NewVZMouseWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZMouse {
 	instance := getVZMouseClass().Alloc()
@@ -99,9 +100,7 @@ func NewVZMouseWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine ob
 	return VZMouseFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMouse/sendMouseEvents:
 func (v VZMouse) SendMouseEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMouseEvents:"), events)
 }
-

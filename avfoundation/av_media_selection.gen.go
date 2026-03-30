@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,6 +66,7 @@ type AVMediaSelection struct {
 func AVMediaSelectionFromID(id objc.ID) AVMediaSelection {
 	return AVMediaSelection{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMediaSelection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,35 +123,34 @@ func NewAVMediaSelection() AVMediaSelection {
 // mediaSelectionGroup: A media selection group obtained from the associated asset.
 //
 // # Return Value
-// 
+//
 // The currently selected [AVMediaSelectionOption]. The return value may be
 // `nil`.
 //
 // # Discussion
-// 
+//
 // This method returns the currently selected [AVMediaSelectionOption] in the
 // specified [AVMediaSelectionGroup], but may return `nil` if media selection
-// group’s [AllowsEmptySelection] is set to [true].
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
+// group’s [AllowsEmptySelection] is set to true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelection/selectedMediaOption(in:)
 func (m AVMediaSelection) SelectedMediaOptionInMediaSelectionGroup(mediaSelectionGroup IAVMediaSelectionGroup) IAVMediaSelectionOption {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("selectedMediaOptionInMediaSelectionGroup:"), mediaSelectionGroup)
 	return AVMediaSelectionOptionFromID(rv)
 }
+
 // Indicates whether the specified media selection group is subject to
 // automatic media selection.
 //
 // mediaSelectionGroup: A media selection group obtained from the associated asset.
 //
 // # Return Value
-// 
+//
 // A Boolean value indicating whether the group is subject to automatic media
 // selection.
 //
 // # Discussion
-// 
+//
 // The automatic application of media selection criteria is suspended in any
 // group in which a specific selection has been made by calling
 // [SelectMediaOptionInMediaSelectionGroup] on the current [AVPlayerItem].
@@ -167,4 +168,3 @@ func (m AVMediaSelection) Asset() IAVAsset {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("asset"))
 	return AVAssetFromID(objc.ID(rv))
 }
-

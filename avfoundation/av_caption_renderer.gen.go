@@ -4,10 +4,12 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +49,7 @@ func (ac AVCaptionRendererClass) Alloc() AVCaptionRenderer {
 // An object that renders captions for display at a particular time.
 //
 // # Overview
-// 
+//
 // This object renders a caption scene for a given time from a collection of
 // captions. If there aren’t any captions to display at the specified time,
 // the renderer draws an empty flood fill with a zero alpha or a color.
@@ -78,6 +80,7 @@ type AVCaptionRenderer struct {
 func AVCaptionRendererFromID(id objc.ID) AVCaptionRenderer {
 	return AVCaptionRenderer{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptionRenderer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -147,7 +150,7 @@ func NewAVCaptionRenderer() AVCaptionRenderer {
 // consideredTimeRange: The time range to consider for rendering.
 //
 // # Return Value
-// 
+//
 // An array of render scenes for the time range, or an empty array if there
 // are none.
 //
@@ -158,6 +161,7 @@ func (c AVCaptionRenderer) CaptionSceneChangesInRange(consideredTimeRange coreme
 		return AVCaptionRendererSceneFromID(id)
 	})
 }
+
 // Draw the captions for the time you specify.
 //
 // ctx: The drawing content.
@@ -169,10 +173,42 @@ func (c AVCaptionRenderer) RenderInContextForTime(ctx coregraphics.CGContextRef,
 	objc.Send[objc.ID](c.ID, objc.Sel("renderInContext:forTime:"), ctx, time)
 }
 
+// profileID: The identifier of the accessibility profile to use for caption appearance.
+// Profile IDs can be obtained from MACaptionAppearanceCopyProfileIDs(). This
+// determines font, color, background, and other visual characteristics.
+//
+// extendedLanguageTag: The IETF BCP 47 (RFC 4646) language identifier that will be used to
+// generate the localized caption preview text. If nil, the system language
+// will be used.
+//
+// renderSize: The size of the layer into which the captions will be rendered. This
+// determines the layout and positioning of the caption text.
+//
+// # Return Value
+//
+// An NSAttributedString containing the caption preview.
+//
+// # Discussion
+//
+// Generate a caption preview attributed string for the specified profile ID.
+//
+// Returns an attributed string containing a preview of captions rendered
+// using the specified profile ID.
+//
+// It is strongly recommended that the caller take appropriate measures to
+// prevent blocking essential services such as the user interface, for
+// example, by avoiding calling this method in the main thread.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRenderer/captionPreview(forProfileID:extendedLanguageTag:renderSize:)
+func (_AVCaptionRendererClass AVCaptionRendererClass) CaptionPreviewForProfileIDExtendedLanguageTagRenderSize(profileID string, extendedLanguageTag string, renderSize corefoundation.CGSize) foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](objc.ID(_AVCaptionRendererClass.class), objc.Sel("captionPreviewForProfileID:extendedLanguageTag:renderSize:"), objc.String(profileID), objc.String(extendedLanguageTag), renderSize)
+	return foundation.NSAttributedStringFromID(rv)
+}
+
 // The captions to render.
 //
 // # Discussion
-// 
+//
 // This property value is an empty array if there are no captions for the
 // system to render.
 //
@@ -186,10 +222,11 @@ func (c AVCaptionRenderer) Captions() []AVCaption {
 func (c AVCaptionRenderer) SetCaptions(value []AVCaption) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCaptions:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The drawing bounds of caption scenes.
 //
 // # Discussion
-// 
+//
 // Set this property value before drawing. The renderer uses the value in each
 // call to [RenderInContextForTime], until you change it to a new value.
 //
@@ -201,4 +238,3 @@ func (c AVCaptionRenderer) Bounds() corefoundation.CGRect {
 func (c AVCaptionRenderer) SetBounds(value corefoundation.CGRect) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBounds:"), value)
 }
-

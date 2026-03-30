@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,11 +45,11 @@ func (mc MTLHeapDescriptorClass) Alloc() MTLHeapDescriptor {
 // A configuration that customizes the behavior for a Metal memory heap.
 //
 // # Overview
-// 
+//
 // Create an [MTLHeap] by configuring an [MTLHeapDescriptor] instance’s
 // properties and passing it to the [NewHeapWithDescriptor] method of an
 // [MTLDevice].
-// 
+//
 // Each new heap inherits the descriptor’s configuration as you create it,
 // which means you can modify and reuse a descriptor to create other heaps.
 //
@@ -85,6 +86,7 @@ type MTLHeapDescriptor struct {
 func MTLHeapDescriptorFromID(id objc.ID) MTLHeapDescriptor {
 	return MTLHeapDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLHeapDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -170,10 +172,12 @@ func NewMTLHeapDescriptor() MTLHeapDescriptor {
 // you create with this descriptor.
 //
 // # Discussion
-// 
-// This property’s default value is [HeapTypeAutomatic].
+//
+// This property’s default value is [MTLHeapType.automatic].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeapDescriptor/type
+//
+// [MTLHeapType.automatic]: https://developer.apple.com/documentation/Metal/MTLHeapType/automatic
 func (h MTLHeapDescriptor) Type() MTLHeapType {
 	rv := objc.Send[MTLHeapType](h.ID, objc.Sel("type"))
 	return MTLHeapType(rv)
@@ -181,17 +185,18 @@ func (h MTLHeapDescriptor) Type() MTLHeapType {
 func (h MTLHeapDescriptor) SetType(value MTLHeapType) {
 	objc.Send[struct{}](h.ID, objc.Sel("setType:"), value)
 }
+
 // The storage mode for the heaps you create with this descriptor.
 //
 // # Discussion
-// 
+//
 // For devices with Apple silicon, you can create a heap with either the
-// [StorageModePrivate] or the [StorageModeShared] storage mode. However, you
-// can only create heaps with private storage on macOS devices without Apple
-// silicon.
-// 
+// [MTLStorageModePrivate] or the [MTLStorageModeShared] storage mode.
+// However, you can only create heaps with private storage on macOS devices
+// without Apple silicon.
+//
 // The resources you allocate from a heap inherit that heap’s storage mode.
-// This property’s default value is [StorageModePrivate].
+// This property’s default value is [MTLStorageModePrivate].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeapDescriptor/storageMode
 func (h MTLHeapDescriptor) StorageMode() MTLStorageMode {
@@ -201,13 +206,14 @@ func (h MTLHeapDescriptor) StorageMode() MTLStorageMode {
 func (h MTLHeapDescriptor) SetStorageMode(value MTLStorageMode) {
 	objc.Send[struct{}](h.ID, objc.Sel("setStorageMode:"), value)
 }
+
 // The CPU cache behavior for any resources you allocate from the heaps you
 // create with this descriptor.
 //
 // # Discussion
-// 
-// This property’s default value is [CPUCacheModeDefaultCache].
-// 
+//
+// This property’s default value is [MTLCPUCacheModeDefaultCache].
+//
 // The resources you allocate from a heap inherit that heap’s CPU cache
 // mode.
 //
@@ -219,18 +225,21 @@ func (h MTLHeapDescriptor) CpuCacheMode() MTLCPUCacheMode {
 func (h MTLHeapDescriptor) SetCpuCacheMode(value MTLCPUCacheMode) {
 	objc.Send[struct{}](h.ID, objc.Sel("setCpuCacheMode:"), value)
 }
+
 // The hazard tracking behavior for any resources you allocate from the heaps
 // you create with this descriptor.
 //
 // # Discussion
-// 
-// This property’s default value is [HazardTrackingModeDefault], which is
-// equivalent to [HazardTrackingModeUntracked] for a heap.
-// 
+//
+// This property’s default value is [MTLHazardTrackingMode.default], which
+// is equivalent to [MTLHazardTrackingModeUntracked] for a heap.
+//
 // The resources you allocate from a heap inherit that heap’s hazard
 // tracking mode.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeapDescriptor/hazardTrackingMode
+//
+// [MTLHazardTrackingMode.default]: https://developer.apple.com/documentation/Metal/MTLHazardTrackingMode/default
 func (h MTLHeapDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 	rv := objc.Send[MTLHazardTrackingMode](h.ID, objc.Sel("hazardTrackingMode"))
 	return MTLHazardTrackingMode(rv)
@@ -238,11 +247,12 @@ func (h MTLHeapDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 func (h MTLHeapDescriptor) SetHazardTrackingMode(value MTLHazardTrackingMode) {
 	objc.Send[struct{}](h.ID, objc.Sel("setHazardTrackingMode:"), value)
 }
+
 // The combined behavior for any resources you allocate from the heaps you
 // create with this descriptor.
 //
 // # Discussion
-// 
+//
 // This property aggregates the values of [StorageMode], [CpuCacheMode], and
 // [HazardTrackingMode]. Any modifications you make to this property affect
 // the other properties, and vice versa.
@@ -255,22 +265,28 @@ func (h MTLHeapDescriptor) ResourceOptions() MTLResourceOptions {
 func (h MTLHeapDescriptor) SetResourceOptions(value MTLResourceOptions) {
 	objc.Send[struct{}](h.ID, objc.Sel("setResourceOptions:"), value)
 }
+
 // The total amount of memory, in bytes, for the heaps you create with this
 // descriptor.
 //
 // # Discussion
-// 
+//
 // You can use various [MTLDevice] methods to help you estimate an appropriate
 // heap size, including the following:
-// 
-// - [HeapBufferSizeAndAlignWithLengthOptions] -
-// [HeapTextureSizeAndAlignWithDescriptor] -
-// [HeapAccelerationStructureSizeAndAlignWithSize] -
-// [HeapAccelerationStructureSizeAndAlignWithDescriptor]
-// 
+//
+// - [heapBufferSizeAndAlign(length:options:)] -
+// [heapTextureSizeAndAlign(descriptor:)] -
+// [heapAccelerationStructureSizeAndAlign(size:)] -
+// [heapAccelerationStructureSizeAndAlign(descriptor:)]
+//
 // This property’s default value is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeapDescriptor/size
+//
+// [heapAccelerationStructureSizeAndAlign(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapAccelerationStructureSizeAndAlign(descriptor:)
+// [heapAccelerationStructureSizeAndAlign(size:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapAccelerationStructureSizeAndAlign(size:)
+// [heapBufferSizeAndAlign(length:options:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapBufferSizeAndAlign(length:options:)
+// [heapTextureSizeAndAlign(descriptor:)]: https://developer.apple.com/documentation/Metal/MTLDevice/heapTextureSizeAndAlign(descriptor:)
 func (h MTLHeapDescriptor) Size() uint {
 	rv := objc.Send[uint](h.ID, objc.Sel("size"))
 	return rv
@@ -278,22 +294,23 @@ func (h MTLHeapDescriptor) Size() uint {
 func (h MTLHeapDescriptor) SetSize(value uint) {
 	objc.Send[struct{}](h.ID, objc.Sel("setSize:"), value)
 }
+
 // The page size for any resources you allocate from the heaps you create with
 // this descriptor.
 //
 // # Discussion
-// 
-// This property’s default value is 16 kilobytes ([SparsePageSize16]), which
-// is a smaller page size option that can help reduce your app’s memory
-// usage. However, you can reduce operational overhead for sparse textures
-// with larger page sizes, such as [SparsePageSize64] and [SparsePageSize256].
-// These operations include blit commands and the configuration of sparse
-// texture mappings (see [Blit passes] and [MTLResourceStateCommandEncoder],
-// respectively).
 //
-// [Blit passes]: https://developer.apple.com/documentation/Metal/blit-passes
+// This property’s default value is 16 kilobytes ([MTLSparsePageSize16]),
+// which is a smaller page size option that can help reduce your app’s
+// memory usage. However, you can reduce operational overhead for sparse
+// textures with larger page sizes, such as [MTLSparsePageSize64] and
+// [MTLSparsePageSize256]. These operations include blit commands and the
+// configuration of sparse texture mappings (see [Blit passes] and
+// [MTLResourceStateCommandEncoder], respectively).
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeapDescriptor/sparsePageSize
+//
+// [Blit passes]: https://developer.apple.com/documentation/Metal/blit-passes
 func (h MTLHeapDescriptor) SparsePageSize() MTLSparsePageSize {
 	rv := objc.Send[MTLSparsePageSize](h.ID, objc.Sel("sparsePageSize"))
 	return MTLSparsePageSize(rv)
@@ -301,13 +318,14 @@ func (h MTLHeapDescriptor) SparsePageSize() MTLSparsePageSize {
 func (h MTLHeapDescriptor) SetSparsePageSize(value MTLSparsePageSize) {
 	objc.Send[struct{}](h.ID, objc.Sel("setSparsePageSize:"), value)
 }
+
 // Specifies the largest sparse page size that the Metal heap supports.
 //
 // # Discussion
-// 
+//
 // This parameter only affects the heap if you set the [Type] property of this
-// descriptor to [HeapTypePlacement].
-// 
+// descriptor to [MTLHeapTypePlacement].
+//
 // The value you assign to this property determines the compatibility of the
 // Metal heap with with placement sparse resources, because placement sparse
 // resources require that their sparse page size be less than or equal to the
@@ -321,4 +339,3 @@ func (h MTLHeapDescriptor) MaxCompatiblePlacementSparsePageSize() MTLSparsePageS
 func (h MTLHeapDescriptor) SetMaxCompatiblePlacementSparsePageSize(value MTLSparsePageSize) {
 	objc.Send[struct{}](h.ID, objc.Sel("setMaxCompatiblePlacementSparsePageSize:"), value)
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZVirtioConsoleDevice struct {
 func VZVirtioConsoleDeviceFromID(id objc.ID) VZVirtioConsoleDevice {
 	return VZVirtioConsoleDevice{VZConsoleDevice: VZConsoleDeviceFromID(id)}
 }
+
 // Ensure VZVirtioConsoleDevice implements IVZVirtioConsoleDevice.
 var _ IVZVirtioConsoleDevice = VZVirtioConsoleDevice{}
 
@@ -79,11 +81,9 @@ func NewVZVirtioConsoleDevice() VZVirtioConsoleDevice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDevice/initWithVirtualMachine:consoleDeviceIndex:configuration:
 func NewVirtioConsoleDeviceWithVirtualMachineConsoleDeviceIndexConfiguration(machine objectivec.IObject, index uint64, configuration objectivec.IObject) VZVirtioConsoleDevice {
 	instance := getVZVirtioConsoleDeviceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)
 	return VZVirtioConsoleDeviceFromID(rv)
 }
-

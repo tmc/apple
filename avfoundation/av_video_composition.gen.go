@@ -5,10 +5,11 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,12 +50,12 @@ func (ac AVVideoCompositionClass) Alloc() AVVideoComposition {
 // in time.
 //
 // # Overview
-// 
+//
 // If you use the built-in video compositor, the instructions a video
 // composition contain can specify a spatial transformation, an opacity value,
 // and a cropping rectangle for each video source. This values can vary over
 // time by applying linear ramping functions.
-// 
+//
 // You can create a custom video compositor by implementing the
 // [AVVideoCompositing] protocol. The system provides the custom video
 // compositor with pixel buffers for each of its video sources during
@@ -100,6 +101,7 @@ type AVVideoComposition struct {
 func AVVideoCompositionFromID(id objc.ID) AVVideoComposition {
 	return AVVideoComposition{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVVideoComposition adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -209,21 +211,21 @@ func NewAVVideoComposition() AVVideoComposition {
 // composition.
 //
 // # Return Value
-// 
+//
 // A new video composition object.
 //
 // # Discussion
-// 
+//
 // Apple discourages using this method in iOS 16, tvOS 16, and macOS 13 or
 // later. Create a video composition asynchronously using
 // [VideoCompositionWithPropertiesOfAssetCompletionHandler] instead.
-// 
+//
 // This method creates the video composition object and configures it with the
 // values and instructions suitable for presenting the video tracks of the
 // specified asset. The returned object contains instructions that respect the
 // spatial properties and time ranges of the specified asset’s video tracks.
 // It also configures the object properties in the following way:
-// 
+//
 // - The value of the [FrameDuration] property is short enough to accommodate
 // the greatest nominal frame rate value among the asset’s video tracks, as
 // indicated by the [nominalFrameRate] property of each track. If all its
@@ -235,9 +237,9 @@ func NewAVVideoComposition() AVVideoComposition {
 // encompass all of its video tracks. - The value of the [RenderScale]
 // property is `1.0`. - The value of the [AnimationTool] property is `nil`.
 //
-// [nominalFrameRate]: https://developer.apple.com/documentation/AVFoundation/AVPartialAsyncProperty/nominalFrameRate
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/init(propertiesOf:)
+//
+// [nominalFrameRate]: https://developer.apple.com/documentation/AVFoundation/AVPartialAsyncProperty/nominalFrameRate
 func NewVideoCompositionWithPropertiesOfAsset(asset IAVAsset) AVVideoComposition {
 	rv := objc.Send[objc.ID](objc.ID(getAVVideoCompositionClass().class), objc.Sel("videoCompositionWithPropertiesOfAsset:"), asset)
 	return AVVideoCompositionFromID(rv)
@@ -253,8 +255,6 @@ func NewVideoCompositionWithPropertiesOfAsset(asset IAVAsset) AVVideoComposition
 //
 // duration: Pass the asset duration to validate the time ranges of the instructions.
 // Pass [invalid] to skip that validation.
-// //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // timeRange: The composition only validates those instructions with time ranges that
 // overlap with the specified time range. To validate all instructions that
@@ -265,13 +265,12 @@ func NewVideoCompositionWithPropertiesOfAsset(asset IAVAsset) AVVideoComposition
 // validationDelegate: A delegate that handles validation requests. May be `nil`.
 //
 // # Return Value
-// 
-// [true] if the validation succeeds; otherwise; [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the validation succeeds; otherwise; false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/isValid(for:assetDuration:timeRange:validationDelegate:)
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (v AVVideoComposition) IsValidForTracksAssetDurationTimeRangeValidationDelegate(tracks []AVAssetTrack, duration coremedia.CMTime, timeRange coremedia.CMTimeRange, validationDelegate AVVideoCompositionValidationHandling) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isValidForTracks:assetDuration:timeRange:validationDelegate:"), objectivec.IObjectSliceToNSArray(tracks), duration, timeRange, validationDelegate)
 	return rv
@@ -286,13 +285,13 @@ func (v AVVideoComposition) IsValidForTracksAssetDurationTimeRangeValidationDele
 // error if a failure occurs.
 //
 // # Discussion
-// 
+//
 // This method creates the video composition object and configures it with the
 // values and instructions suitable for presenting the video tracks of the
 // specified asset. The returned object contains instructions that respect the
 // spatial properties and time ranges of the specified asset’s video tracks.
 // It also configures the object properties in the following way:
-// 
+//
 // - The value of the [FrameDuration] property is short enough to accommodate
 // the greatest nominal frame rate value among the asset’s video tracks, as
 // indicated by the [nominalFrameRate] property of each track. If all its
@@ -304,13 +303,14 @@ func (v AVVideoComposition) IsValidForTracksAssetDurationTimeRangeValidationDele
 // encompass all of its video tracks. - The value of the [RenderScale]
 // property is `1.0`. - The value of the [AnimationTool] property is `nil`.
 //
-// [nominalFrameRate]: https://developer.apple.com/documentation/AVFoundation/AVPartialAsyncProperty/nominalFrameRate
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/videoComposition(withPropertiesOf:completionHandler:)
+//
+// [nominalFrameRate]: https://developer.apple.com/documentation/AVFoundation/AVPartialAsyncProperty/nominalFrameRate
 func (_AVVideoCompositionClass AVVideoCompositionClass) VideoCompositionWithPropertiesOfAssetCompletionHandler(asset IAVAsset, completionHandler AVVideoCompositionErrorHandler) {
-_block1, _ := NewAVVideoCompositionErrorBlock(completionHandler)
+	_block1, _ := NewAVVideoCompositionErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_AVVideoCompositionClass.class), objc.Sel("videoCompositionWithPropertiesOfAsset:completionHandler:"), asset, _block1)
 }
+
 // Pass-through initializer, for internal use in AVFoundation only
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/videoCompositionWithVideoComposition:
@@ -326,10 +326,11 @@ func (v AVVideoComposition) RenderSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("renderSize"))
 	return corefoundation.CGSize(rv)
 }
+
 // The scale at which the video composition should render.
 //
 // # Discussion
-// 
+//
 // This value must be `1.0` unless you set the composition on an
 // [AVPlayerItem].
 //
@@ -338,6 +339,7 @@ func (v AVVideoComposition) RenderScale() float32 {
 	rv := objc.Send[float32](v.ID, objc.Sel("renderScale"))
 	return rv
 }
+
 // A time interval for which the video composition should render composed
 // video frames.
 //
@@ -346,10 +348,11 @@ func (v AVVideoComposition) FrameDuration() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](v.ID, objc.Sel("frameDuration"))
 	return coremedia.CMTime(rv)
 }
+
 // A video composition tool to use with Core Animation in offline rendering.
 //
 // # Discussion
-// 
+//
 // This attribute may be `nil`. Set an animation tool if you’re using the
 // composition in conjunction with [AVAssetExportSession] for offline
 // rendering, rather than with [AVPlayer].
@@ -359,55 +362,59 @@ func (v AVVideoComposition) AnimationTool() IAVVideoCompositionCoreAnimationTool
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("animationTool"))
 	return AVVideoCompositionCoreAnimationToolFromID(objc.ID(rv))
 }
+
 // The color primaries used for video composition.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`. When the value of this property is `nil`, the
 // source’s color primaries are propagated and used. Valid values are those
 // suitable for [AVVideoColorPrimariesKey].
 //
-// [AVVideoColorPrimariesKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoColorPrimariesKey
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/colorPrimaries
+//
+// [AVVideoColorPrimariesKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoColorPrimariesKey
 func (v AVVideoComposition) ColorPrimaries() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("colorPrimaries"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The transfer function used for video composition.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`. When the value of this property is `nil`, the
 // source’s transfer function is propagated and used. Valid values are those
 // suitable for [AVVideoTransferFunctionKey].
 //
-// [AVVideoTransferFunctionKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoTransferFunctionKey
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/colorTransferFunction
+//
+// [AVVideoTransferFunctionKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoTransferFunctionKey
 func (v AVVideoComposition) ColorTransferFunction() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("colorTransferFunction"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The YCbCr matrix used for video composition.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`. When the value of this property is `nil`, the
 // source’s matrix is propagated and used. Valid values are those suitable
 // for [AVVideoYCbCrMatrixKey].
 //
-// [AVVideoYCbCrMatrixKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoYCbCrMatrixKey
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/colorYCbCrMatrix
+//
+// [AVVideoYCbCrMatrixKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoYCbCrMatrixKey
 func (v AVVideoComposition) ColorYCbCrMatrix() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("colorYCbCrMatrix"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A custom compositor class to use.
 //
 // # Discussion
-// 
+//
 // The default is `nil`, which indicates to use the internal video compositor.
 // The `customVideoCompositorClass` must implement the [AVVideoCompositing]
 // protocol.
@@ -417,10 +424,11 @@ func (v AVVideoComposition) CustomVideoCompositorClass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("customVideoCompositorClass"))
 	return rv
 }
+
 // The video composition instructions.
 //
 // # Discussion
-// 
+//
 // The array contains instances of [AVVideoCompositionInstruction]. For the
 // first instruction in the array, `timeRange.Start()` must be less than or
 // equal to the earliest time for which playback or other processing will be
@@ -438,11 +446,12 @@ func (v AVVideoComposition) Instructions() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // An identifier of the source track from which the video composition derives
 // frame timing.
 //
 // # Discussion
-// 
+//
 // If an empty edit is encountered in the source asset’s track, the
 // compositor composes frames as needed up to the frequency specified in
 // [FrameDuration] property. Otherwise the frame timing for the video
@@ -454,29 +463,31 @@ func (v AVVideoComposition) SourceTrackIDForFrameTiming() int32 {
 	rv := objc.Send[int32](v.ID, objc.Sel("sourceTrackIDForFrameTiming"))
 	return rv
 }
+
 // The policy for display of HDR display metadata on the rendered frame.
 //
 // # Discussion
-// 
+//
 // Allows the system to identify situations where it can generate HDR metadata
 // and attach it to the rendered video frame.
-// 
+//
 // The default value is [propagate], which indicates the system propagates any
 // HDR metadata attached to the composed frame to the rendered video frames.
 //
-// [propagate]: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/PerFrameHDRDisplayMetadataPolicy-swift.struct/propagate
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/perFrameHDRDisplayMetadataPolicy-swift.property
+//
+// [propagate]: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/PerFrameHDRDisplayMetadataPolicy-swift.struct/propagate
 func (v AVVideoComposition) PerFrameHDRDisplayMetadataPolicy() AVVideoCompositionPerFrameHDRDisplayMetadataPolicy {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("perFrameHDRDisplayMetadataPolicy"))
 	return AVVideoCompositionPerFrameHDRDisplayMetadataPolicy(foundation.NSStringFromID(rv).String())
 }
+
 // The output buffers of the video composition can be specified with the
 // outputBufferDescription. The value is an array of CMTagCollectionRef
 // objects that describes the output buffers.
 //
 // # Discussion
-// 
+//
 // If the video composition will output tagged buffers, the details of those
 // buffers should be specified with CMTags. Specifically, the StereoView
 // (eyes) and ProjectionKind must be specified. The behavior is undefined if
@@ -491,6 +502,7 @@ func (v AVVideoComposition) OutputBufferDescription() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("outputBufferDescription"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // The identifiers of source sample data tracks in the composition that the
 // compositor requires to compose frames.
 //
@@ -501,11 +513,12 @@ func (v AVVideoComposition) SourceSampleDataTrackIDs() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // Indicates the spatial configurations that are available to associate with
 // the output of the video composition.
 //
 // # Discussion
-// 
+//
 // A custom compositor can output spatial video by specifying one of these
 // spatial configurations. A spatial configuration with all nil values
 // indicates the video is not spatial. A nil spatial configuration also
@@ -540,4 +553,3 @@ func (vc AVVideoCompositionClass) VideoCompositionWithPropertiesOfAssetSync(ctx 
 		return nil, ctx.Err()
 	}
 }
-

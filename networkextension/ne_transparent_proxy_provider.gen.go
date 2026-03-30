@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,10 +45,10 @@ func (nc NETransparentProxyProviderClass) Alloc() NETransparentProxyProvider {
 // proxy solution.
 //
 // # Overview
-// 
+//
 // The [NETransparentProxyProvider] class has the following behavior
 // differences from its superclass [NEAppProxyProvider]:
-// 
+//
 // - Returning [NO] from [HandleNewFlow] and
 // [HandleNewUDPFlowInitialRemoteEndpoint] causes the flow to proceed to
 // communicate directly with the flow’s ultimate destination, instead of
@@ -60,10 +61,10 @@ func (nc NETransparentProxyProviderClass) Alloc() NETransparentProxyProvider {
 // framework or [URLSession]) that match the [NETransparentProxyProvider.IncludedNetworkRules] don’t
 // bypass DNS resolution.
 //
+// See: https://developer.apple.com/documentation/NetworkExtension/NETransparentProxyProvider
+//
 // [Network]: https://developer.apple.com/documentation/Network
 // [URLSession]: https://developer.apple.com/documentation/Foundation/URLSession
-//
-// See: https://developer.apple.com/documentation/NetworkExtension/NETransparentProxyProvider
 type NETransparentProxyProvider struct {
 	NEAppProxyProvider
 }
@@ -75,6 +76,7 @@ type NETransparentProxyProvider struct {
 func NETransparentProxyProviderFromID(id objc.ID) NETransparentProxyProvider {
 	return NETransparentProxyProvider{NEAppProxyProvider: NEAppProxyProviderFromID(id)}
 }
+
 // NOTE: NETransparentProxyProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,4 +121,3 @@ func (t NETransparentProxyProvider) IncludedNetworkRules() INENetworkRule {
 func (t NETransparentProxyProvider) SetIncludedNetworkRules(value INENetworkRule) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIncludedNetworkRules:"), value)
 }
-

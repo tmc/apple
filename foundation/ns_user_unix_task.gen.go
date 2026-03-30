@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,24 +45,22 @@ func (nc NSUserUnixTaskClass) Alloc() NSUserUnixTask {
 // An object that executes unix applications.
 //
 // # Overview
-// 
+//
 // The [NSUserUnixTask] class is intended to run unix applications, typically
 // a shell script, from your application. It is intended to execute
 // user-supplied scripts, and will execute them outside of the application’s
 // sandbox, if any.
-// 
+//
 // The class is not intended to execute scripts built into an application; for
 // that, use one of the [NSTask], [NSAppleScript], or [AMWorkflow] classes. If
 // the application is sandboxed, then the script must be in the
-// [ApplicationScriptsDirectory] folder. A sandboxed application may read
+// [NSApplicationScriptsDirectory] folder. A sandboxed application may read
 // from, but not write to, this folder.
-// 
+//
 // If you simply need to execute unix scripts without regard to input or
 // output, use [NSUserScriptTask], which can execute any of the specific
 // types. If you need specific control over the input to, or output from, or
 // the error stream of the script, use this class.
-//
-// [AMWorkflow]: https://developer.apple.com/documentation/Automator/AMWorkflow
 //
 // # Executing the Unix Script
 //
@@ -77,6 +76,8 @@ func (nc NSUserUnixTaskClass) Alloc() NSUserUnixTask {
 //   - [NSUserUnixTask.SetStandardOutput]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserUnixTask
+//
+// [AMWorkflow]: https://developer.apple.com/documentation/Automator/AMWorkflow
 type NSUserUnixTask struct {
 	NSUserScriptTask
 }
@@ -87,6 +88,7 @@ type NSUserUnixTask struct {
 func NSUserUnixTaskFromID(id objc.ID) NSUserUnixTask {
 	return NSUserUnixTask{NSUserScriptTask: NSUserScriptTaskFromID(id)}
 }
+
 // NOTE: NSUserUnixTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -151,16 +153,16 @@ func NewNSUserUnixTask() NSUserUnixTask {
 // url: The script URL.
 //
 // # Return Value
-// 
+//
 // An instance of an [NSUserScriptTask] subclass or `nil` if the file does not
 // appear to match any of the known types.
 //
 // # Discussion
-// 
+//
 // The returned object will be of one of the specific sub-classes
 // ([NSUserUnixTask], [NSUserAppleScriptTask], and [NSUserAutomatorTask]), or
 // `nil` if the file does not appear to match any of the known types.
-// 
+//
 // If invoked from a subclass, the result will be that class or `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
@@ -185,25 +187,25 @@ func NewUserUnixTaskWithURLError(url INSURL) (NSUserUnixTask, error) {
 // [NSUserUnixTaskCompletionHandler].
 //
 // # Discussion
-// 
+//
 // This method should be invoked no more than once for a given instance of the
 // class.
-// 
+//
 // If the script completed normally, the completion handler’s `error`
 // parameter will be `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserUnixTask/execute(withArguments:completionHandler:)
 func (u NSUserUnixTask) ExecuteWithArgumentsCompletionHandler(arguments []string, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](u.ID, objc.Sel("executeWithArguments:completionHandler:"), arguments, _block1)
 }
 
 // The standard error stream.
 //
 // # Discussion
-// 
+//
 // Setting to `nil` will bind the stream to `/dev/null`.
-// 
+//
 // The default is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserUnixTask/standardError
@@ -214,12 +216,13 @@ func (u NSUserUnixTask) StandardError() INSFileHandle {
 func (u NSUserUnixTask) SetStandardError(value INSFileHandle) {
 	objc.Send[struct{}](u.ID, objc.Sel("setStandardError:"), value)
 }
+
 // The standard input stream.
 //
 // # Discussion
-// 
+//
 // Setting to `nil` will bind the stream to `/dev/null`.
-// 
+//
 // The default is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserUnixTask/standardInput
@@ -230,12 +233,13 @@ func (u NSUserUnixTask) StandardInput() INSFileHandle {
 func (u NSUserUnixTask) SetStandardInput(value INSFileHandle) {
 	objc.Send[struct{}](u.ID, objc.Sel("setStandardInput:"), value)
 }
+
 // The standard output stream.
 //
 // # Discussion
-// 
+//
 // Setting to `nil` will bind the stream to `/dev/null`.
-// 
+//
 // The default is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserUnixTask/standardOutput
@@ -246,4 +250,3 @@ func (u NSUserUnixTask) StandardOutput() INSFileHandle {
 func (u NSUserUnixTask) SetStandardOutput(value INSFileHandle) {
 	objc.Send[struct{}](u.ID, objc.Sel("setStandardOutput:"), value)
 }
-

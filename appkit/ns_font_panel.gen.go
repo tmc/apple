@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSFontPanel] class.
@@ -47,7 +48,7 @@ func (nc NSFontPanelClass) Alloc() NSFontPanel {
 // text.
 //
 // # Overview
-// 
+//
 // Actual changes to the font panel are made through conversion messages sent
 // to the shared [NSFontManager] instance. There’s only one Font panel for
 // each app.
@@ -84,6 +85,7 @@ type NSFontPanel struct {
 func NSFontPanelFromID(id objc.ID) NSFontPanel {
 	return NSFontPanel{NSPanel: NSPanelFromID(id)}
 }
+
 // NOTE: NSFontPanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -161,26 +163,24 @@ func NewNSFontPanel() NSFontPanel {
 //
 // contentViewController: The view controller that provides the main content view for the window. The
 // window’s [ContentView] property is set to
-// `contentViewController``XCUIElementTypeView`.
+// `contentViewController“XCUIElementTypeView`.
 //
 // # Return Value
-// 
+//
 // A window with the content view controller set to the passed-in view
 // controller object.
 //
 // # Discussion
-// 
+//
 // This method creates a basic window object that is titled, closable,
 // resizable, and miniaturizable. By default, the window’s title is
 // automatically bound to the title of `contentViewController`. You can
 // control the size of the window by using Auto Layout and applying size
 // constraints to the view or its subviews. The initial size of the window is
 // set to the initial size of [ContentView] (that is, the size of
-// `contentViewController``XCUIElementTypeView`). The newly created window has
-// [ReleasedWhenClosed] set to [false], and it must be explicitly retained to
+// `contentViewController“XCUIElementTypeView`). The newly created window has
+// [ReleasedWhenClosed] set to false, and it must be explicitly retained to
 // keep the window instance alive.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentViewController:)
 func NewFontPanelWindowWithContentViewController(contentViewController INSViewController) NSFontPanel {
@@ -212,37 +212,34 @@ func NewFontPanelWithCoder(coder foundation.INSCoder) NSFontPanel {
 // purposes; you should normally not need to create them. Also, note that a
 // window’s style mask should include [NSTitledWindowMask] if it includes
 // any of the others.
-// //
-// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
 //
 // backingStoreType: Specifies how the drawing done in the window is buffered by the window
 // device, and possible values are described in [NSWindow.BackingStoreType].
-// //
-// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 //
 // flag: Specifies whether the window server creates a window device for the window
-// immediately. When [true], the window server defers creating the window
-// device until the window is moved onscreen. All display messages sent to the
-// window or its views are postponed until the window is created, just before
-// it’s moved onscreen.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// immediately. When true, the window server defers creating the window device
+// until the window is moved onscreen. All display messages sent to the window
+// or its views are postponed until the window is created, just before it’s
+// moved onscreen.
 //
 // # Return Value
-// 
+//
 // The initialized window.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer for the [NSWindow] class.
-// 
+//
 // Deferring the creation of the window improves launch time and minimizes the
 // virtual memory load on the window server.
-// 
+//
 // The new window creates a view to be its default content view. You can
 // replace it with your own object by setting the [ContentView] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
+//
+// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
+// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 func NewFontPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation.CGRect, style NSWindowStyleMask, backingStoreType NSBackingStoreType, flag bool) NSFontPanel {
 	instance := getNSFontPanelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:"), contentRect, style, backingStoreType, flag)
@@ -263,21 +260,15 @@ func NewFontPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 // purposes; you should not usually need to create them. Also, note that a
 // window’s style mask should include [NSTitledWindowMask] if it includes
 // any of the others.
-// //
-// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
 //
 // backingStoreType: Specifies how the drawing done in the window is buffered by the window
 // device; possible values are described in [NSWindow.BackingStoreType].
-// //
-// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 //
 // flag: Specifies whether the window server creates a window device for the window
-// immediately. When [true], the window server defers creating the window
-// device until the window is moved onscreen. All display messages sent to the
-// window or its views are postponed until the window is created, just before
-// it’s moved onscreen.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// immediately. When true, the window server defers creating the window device
+// until the window is moved onscreen. All display messages sent to the window
+// or its views are postponed until the window is created, just before it’s
+// moved onscreen.
 //
 // screen: Specifies the screen on which the window is positioned. The content
 // rectangle is positioned relative to the bottom-left corner of `screen`.
@@ -285,11 +276,11 @@ func NewFontPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 // is the origin of the primary screen.
 //
 // # Return Value
-// 
+//
 // The initialized window.
 //
 // # Discussion
-// 
+//
 // The primary screen is the one that contains the current key window or, if
 // there is no key window, the one that contains the main menu. If there’s
 // neither a key window nor a main menu (if there’s no active application),
@@ -297,6 +288,9 @@ func NewFontPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 // system is located.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:screen:)
+//
+// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
+// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 func NewFontPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoundation.CGRect, style NSWindowStyleMask, backingStoreType NSBackingStoreType, flag bool, screen INSScreen) NSFontPanel {
 	instance := getNSFontPanelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:screen:"), contentRect, style, backingStoreType, flag, screen)
@@ -306,7 +300,7 @@ func NewFontPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 // Triggers a reload to the default state, so that the delegate is called.
 //
 // # Discussion
-// 
+//
 // This reloading provides the delegate opportunity to scrutinize the default
 // list of fonts to be displayed in the panel.
 //
@@ -314,18 +308,17 @@ func NewFontPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 func (f NSFontPanel) ReloadDefaultFontFamilies() {
 	objc.Send[objc.ID](f.ID, objc.Sel("reloadDefaultFontFamilies"))
 }
+
 // Sets the selected font in the receiver to the specified font.
 //
 // fontObj: The font to be selected.
 //
-// flag: If [false], selects the specified font; otherwise selects no font and
+// flag: If false, selects the specified font; otherwise selects no font and
 // displays a message in the preview area indicating that multiple fonts are
 // selected.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // # Discussion
-// 
+//
 // You normally don’t use this method directly; instead, you send
 // [SetSelectedFontIsMultiple] to the shared [NSFontManager], which in turn
 // invokes this method.
@@ -334,17 +327,18 @@ func (f NSFontPanel) ReloadDefaultFontFamilies() {
 func (f NSFontPanel) SetPanelFontIsMultiple(fontObj NSFont, flag bool) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setPanelFont:isMultiple:"), fontObj, flag)
 }
+
 // Converts the specified font using the settings in the receiver, with the
 // aid of the shared [NSFontManager] if necessary.
 //
 // fontObj: The font to be converted.
 //
 // # Return Value
-// 
+//
 // The converted font, or `aFont` itself if it can’t be converted.
 //
 // # Discussion
-// 
+//
 // For example, if `aFont` is Helvetica Oblique 12.0 point and the user has
 // selected the Times font family (and nothing else) in the Font panel, the
 // font returned is Times Italic 12.0 point.
@@ -358,7 +352,7 @@ func (f NSFontPanel) PanelConvertFont(fontObj NSFont) NSFont {
 // A Boolean that shows whether the receiver’s Set button is enabled.
 //
 // # Discussion
-// 
+//
 // The receiver continues to reflect the font of the selection for cooperating
 // text objects regardless of this setting.
 //
@@ -370,6 +364,7 @@ func (f NSFontPanel) Enabled() bool {
 func (f NSFontPanel) SetEnabled(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setEnabled:"), value)
 }
+
 // The specified view as the receiver’s accessory view, allowing you to add
 // custom controls to your application’s Font panel without having to create
 // a subclass.
@@ -387,7 +382,7 @@ func (f NSFontPanel) SetAccessoryView(value INSView) {
 // if necessary.
 //
 // # Return Value
-// 
+//
 // The [NSFontPanel] instance for the application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontPanel/shared
@@ -395,20 +390,17 @@ func (_NSFontPanelClass NSFontPanelClass) SharedFontPanel() NSFontPanel {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontPanelClass.class), objc.Sel("sharedFontPanel"))
 	return NSFontPanelFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the shared Font panel has been
 // created.
 //
 // # Discussion
-// 
-// The value is [true] if the shared Font panel has been created, and [false]
-// if it hasn’t.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value is true if the shared Font panel has been created, and false if
+// it hasn’t.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontPanel/sharedFontPanelExists
 func (_NSFontPanelClass NSFontPanelClass) SharedFontPanelExists() bool {
 	rv := objc.Send[bool](objc.ID(_NSFontPanelClass.class), objc.Sel("sharedFontPanelExists"))
 	return rv
 }
-

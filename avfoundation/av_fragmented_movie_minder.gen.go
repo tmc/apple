@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (ac AVFragmentedMovieMinderClass) Alloc() AVFragmentedMovieMinder {
 // fragments.
 //
 // # Overview
-// 
+//
 // This class is identical to [AVFragmentedAssetMinder] except that it’s
 // capable of minding only assets of type [AVFragmentedMovie].
 //
@@ -70,6 +71,7 @@ type AVFragmentedMovieMinder struct {
 func AVFragmentedMovieMinderFromID(id objc.ID) AVFragmentedMovieMinder {
 	return AVFragmentedMovieMinder{AVFragmentedAssetMinder: AVFragmentedAssetMinderFromID(id)}
 }
+
 // NOTE: AVFragmentedMovieMinder adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -132,7 +134,7 @@ func NewAVFragmentedMovieMinder() AVFragmentedMovieMinder {
 // additional fragments to the minded asset.
 //
 // # Return Value
-// 
+//
 // The new fragmented asset minder.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAssetMinder/init(asset:mindingInterval:)
@@ -149,7 +151,7 @@ func NewFragmentedMovieMinderWithAssetMindingInterval(asset IAVAsset, mindingInt
 // mindingInterval: The initial minding interval for the movie minder.
 //
 // # Return Value
-// 
+//
 // A new [AVFragmentedMovieMinder] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedMovieMinder/init(movie:mindingInterval:)
@@ -166,7 +168,7 @@ func NewFragmentedMovieMinderWithMovieMindingInterval(movie IAVFragmentedMovie, 
 // mindingInterval: The initial minding interval for the movie minder.
 //
 // # Return Value
-// 
+//
 // A new [AVFragmentedMovieMinder] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedMovieMinder/init(movie:mindingInterval:)
@@ -174,6 +176,7 @@ func (f AVFragmentedMovieMinder) InitWithMovieMindingInterval(movie IAVFragmente
 	rv := objc.Send[AVFragmentedMovieMinder](f.ID, objc.Sel("initWithMovie:mindingInterval:"), movie, mindingInterval)
 	return rv
 }
+
 // Adds a fragmented movie to the array of movies being minded.
 //
 // movie: The fragmented movie added to the minder.
@@ -182,6 +185,7 @@ func (f AVFragmentedMovieMinder) InitWithMovieMindingInterval(movie IAVFragmente
 func (f AVFragmentedMovieMinder) AddFragmentedMovie(movie IAVFragmentedMovie) {
 	objc.Send[objc.ID](f.ID, objc.Sel("addFragmentedMovie:"), movie)
 }
+
 // Removes a fragmented movie from the array of movies being minded.
 //
 // movie: The fragmented movie removed from the minder.
@@ -198,7 +202,7 @@ func (f AVFragmentedMovieMinder) RemoveFragmentedMovie(movie IAVFragmentedMovie)
 // mindingInterval: The initial minding interval for the movie minder.
 //
 // # Return Value
-// 
+//
 // A new [AVFragmentedMovieMinder] instance.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedMovieMinder/fragmentedMovieMinderWithMovie:mindingInterval:
@@ -216,4 +220,3 @@ func (f AVFragmentedMovieMinder) Movies() []AVFragmentedMovie {
 		return AVFragmentedMovieFromID(id)
 	})
 }
-

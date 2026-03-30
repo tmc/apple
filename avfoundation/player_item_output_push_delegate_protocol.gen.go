@@ -4,9 +4,11 @@ package avfoundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that defines the methods to implement to respond to changes in the media data sequence.
@@ -20,6 +22,7 @@ type AVPlayerItemOutputPushDelegate interface {
 type AVPlayerItemOutputPushDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVPlayerItemOutputPushDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -38,7 +41,7 @@ func AVPlayerItemOutputPushDelegateObjectFromID(id objc.ID) AVPlayerItemOutputPu
 // output: The [AVPlayerItemOutput] object.
 //
 // # Discussion
-// 
+//
 // This method is invoked after any seeking and change in playback direction.
 // If you are maintaining any queued future media data, you may want to
 // discard those objects after receiving this message.
@@ -46,7 +49,7 @@ func AVPlayerItemOutputPushDelegateObjectFromID(id objc.ID) AVPlayerItemOutputPu
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutputPushDelegate/outputSequenceWasFlushed(_:)
 func (o AVPlayerItemOutputPushDelegateObject) OutputSequenceWasFlushed(output IAVPlayerItemOutput) {
 	objc.Send[struct{}](o.ID, objc.Sel("outputSequenceWasFlushed:"), output)
-	}
+}
 
 // AVPlayerItemOutputPushDelegateConfig holds optional typed callbacks for [AVPlayerItemOutputPushDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -108,4 +111,3 @@ func NewAVPlayerItemOutputPushDelegate(config AVPlayerItemOutputPushDelegateConf
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVPlayerItemOutputPushDelegateObjectFromID(instance)
 }
-

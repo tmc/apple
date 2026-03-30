@@ -4,10 +4,11 @@ package avfaudio
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (ac AVVCSessionFactoryClass) Alloc() AVVCSessionFactory {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVVCSessionFactory._wqCreatePrimarySessionManagerIfNeededClientTypeError]
@@ -66,6 +66,7 @@ func (ac AVVCSessionFactoryClass) Alloc() AVVCSessionFactory {
 //   - [AVVCSessionFactory.SetSessionWillBeDestroyedBlock]
 //   - [AVVCSessionFactory.WorkQueue]
 //   - [AVVCSessionFactory.SetWorkQueue]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory
 type AVVCSessionFactory struct {
 	objectivec.Object
@@ -75,6 +76,7 @@ type AVVCSessionFactory struct {
 func AVVCSessionFactoryFromID(id objc.ID) AVVCSessionFactory {
 	return AVVCSessionFactory{objectivec.Object{ID: id}}
 }
+
 // Ensure AVVCSessionFactory implements IAVVCSessionFactory.
 var _ IAVVCSessionFactory = AVVCSessionFactory{}
 
@@ -148,7 +150,6 @@ func NewAVVCSessionFactory() AVVCSessionFactory {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/_wqCreatePrimarySessionManagerIfNeeded:clientType:error:
 func (v AVVCSessionFactory) _wqCreatePrimarySessionManagerIfNeededClientTypeError(needed objectivec.IObject, type_ int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -165,7 +166,7 @@ func (v AVVCSessionFactory) _wqCreatePrimarySessionManagerIfNeededClientTypeErro
 func (v AVVCSessionFactory) WqCreatePrimarySessionManagerIfNeededClientTypeError(needed objectivec.IObject, type_ int64) (objectivec.IObject, error) {
 	return v._wqCreatePrimarySessionManagerIfNeededClientTypeError(needed, type_)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/_wqSessionAndManagerForContext:clientType:session:manager:error:
 func (v AVVCSessionFactory) _wqSessionAndManagerForContextClientTypeSessionManagerError(context objectivec.IObject, type_ int64, session []objectivec.IObject, manager []objectivec.IObject) error {
 	var errorPtr objc.ID
@@ -182,27 +183,29 @@ func (v AVVCSessionFactory) _wqSessionAndManagerForContextClientTypeSessionManag
 func (v AVVCSessionFactory) WqSessionAndManagerForContextClientTypeSessionManagerError(context objectivec.IObject, type_ int64, session []objectivec.IObject, manager []objectivec.IObject) error {
 	return v._wqSessionAndManagerForContextClientTypeSessionManagerError(context, type_, session, manager)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/auxSessionManagers
 func (v AVVCSessionFactory) AuxSessionManagers() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("auxSessionManagers"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/cleanupContext:
 func (v AVVCSessionFactory) CleanupContext(context objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("cleanupContext:"), context)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/releasePrimarySessionManager
 func (v AVVCSessionFactory) ReleasePrimarySessionManager() {
 	objc.Send[objc.ID](v.ID, objc.Sel("releasePrimarySessionManager"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/sessionForContext:clientType:completion:
 func (v AVVCSessionFactory) SessionForContextClientTypeCompletion(context objectivec.IObject, type_ int64, completion VoidHandler) {
-_block2, _ := NewVoidBlock(completion)
+	_block2, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("sessionForContext:clientType:completion:"), context, type_, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/sessionForContext:clientType:error:
 func (v AVVCSessionFactory) SessionForContextClientTypeError(context objectivec.IObject, type_ int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -214,13 +217,13 @@ func (v AVVCSessionFactory) SessionForContextClientTypeError(context objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/sessionForContext:completion:
 func (v AVVCSessionFactory) SessionForContextCompletion(context objectivec.IObject, completion VoidHandler) {
-_block1, _ := NewVoidBlock(completion)
+	_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("sessionForContext:completion:"), context, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/sessionForContext:error:
 func (v AVVCSessionFactory) SessionForContextError(context objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -232,13 +235,13 @@ func (v AVVCSessionFactory) SessionForContextError(context objectivec.IObject) (
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/sessionManagerForContext:clientType:completion:
 func (v AVVCSessionFactory) SessionManagerForContextClientTypeCompletion(context objectivec.IObject, type_ int64, completion VoidHandler) {
-_block2, _ := NewVoidBlock(completion)
+	_block2, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("sessionManagerForContext:clientType:completion:"), context, type_, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/sessionManagerForContext:clientType:error:
 func (v AVVCSessionFactory) SessionManagerForContextClientTypeError(context objectivec.IObject, type_ int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -250,16 +253,16 @@ func (v AVVCSessionFactory) SessionManagerForContextClientTypeError(context obje
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/setSessionWasCreatedBlock:
 func (v AVVCSessionFactory) SetSessionWasCreatedBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setSessionWasCreatedBlock:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/setSessionWillBeDestroyedBlock:
 func (v AVVCSessionFactory) SetSessionWillBeDestroyedBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](v.ID, objc.Sel("setSessionWillBeDestroyedBlock:"), _block0)
 }
 
@@ -277,6 +280,7 @@ func (v AVVCSessionFactory) PrimarySessionManager() IAVVCSessionManager {
 func (v AVVCSessionFactory) SetPrimarySessionManager(value IAVVCSessionManager) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPrimarySessionManager:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/sessionManagerMap
 func (v AVVCSessionFactory) SessionManagerMap() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("sessionManagerMap"))
@@ -285,6 +289,7 @@ func (v AVVCSessionFactory) SessionManagerMap() foundation.INSDictionary {
 func (v AVVCSessionFactory) SetSessionManagerMap(value foundation.INSDictionary) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSessionManagerMap:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCSessionFactory/workQueue
 func (v AVVCSessionFactory) WorkQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("workQueue"))
@@ -368,4 +373,3 @@ func (v AVVCSessionFactory) SetSessionWillBeDestroyedBlockSync(ctx context.Conte
 		return ctx.Err()
 	}
 }
-

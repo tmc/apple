@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,14 +45,14 @@ func (ac AVParameterEventClass) Alloc() AVParameterEvent {
 // destination.
 //
 // # Overview
-// 
+//
 // When you configure an audio unit as the destination for an [AVMusicTrack]
 // that contains this event, you can schedule and automate parameter changes.
-// 
+//
 // When the track is playing as part of a sequence, the destination audio unit
 // receives set-parameter messages whose values change smoothly along a linear
 // ramp between each event’s beat location.
-// 
+//
 // If you add an event to an empty, non-automation track, the track becomes an
 // automation track.
 //
@@ -82,6 +83,7 @@ type AVParameterEvent struct {
 func AVParameterEventFromID(id objc.ID) AVParameterEvent {
 	return AVParameterEvent{AVMusicEvent: AVMusicEventFromID(id)}
 }
+
 // NOTE: AVParameterEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,16 +160,16 @@ func NewAVParameterEvent() AVParameterEvent {
 // value: The value of the parameter to set.
 //
 // # Discussion
-// 
+//
 // For more information about the parameters, see [AudioUnitParameterID],
 // [AudioUnitScope], and [AudioUnitElement]. The valid range of values depend
 // on the parameter you set.
 //
+// See: https://developer.apple.com/documentation/AVFAudio/AVParameterEvent/init(parameterID:scope:element:value:)
+//
 // [AudioUnitElement]: https://developer.apple.com/documentation/AudioToolbox/AudioUnitElement
 // [AudioUnitParameterID]: https://developer.apple.com/documentation/AudioToolbox/AudioUnitParameterID
 // [AudioUnitScope]: https://developer.apple.com/documentation/AudioToolbox/AudioUnitScope
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVParameterEvent/init(parameterID:scope:element:value:)
 func NewParameterEventWithParameterIDScopeElementValue(parameterID uint32, scope uint32, element uint32, value float32) AVParameterEvent {
 	instance := getAVParameterEventClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParameterID:scope:element:value:"), parameterID, scope, element, value)
@@ -186,16 +188,16 @@ func NewParameterEventWithParameterIDScopeElementValue(parameterID uint32, scope
 // value: The value of the parameter to set.
 //
 // # Discussion
-// 
+//
 // For more information about the parameters, see [AudioUnitParameterID],
 // [AudioUnitScope], and [AudioUnitElement]. The valid range of values depend
 // on the parameter you set.
 //
+// See: https://developer.apple.com/documentation/AVFAudio/AVParameterEvent/init(parameterID:scope:element:value:)
+//
 // [AudioUnitElement]: https://developer.apple.com/documentation/AudioToolbox/AudioUnitElement
 // [AudioUnitParameterID]: https://developer.apple.com/documentation/AudioToolbox/AudioUnitParameterID
 // [AudioUnitScope]: https://developer.apple.com/documentation/AudioToolbox/AudioUnitScope
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVParameterEvent/init(parameterID:scope:element:value:)
 func (p AVParameterEvent) InitWithParameterIDScopeElementValue(parameterID uint32, scope uint32, element uint32, value float32) AVParameterEvent {
 	rv := objc.Send[AVParameterEvent](p.ID, objc.Sel("initWithParameterID:scope:element:value:"), parameterID, scope, element, value)
 	return rv
@@ -211,6 +213,7 @@ func (p AVParameterEvent) ParameterID() uint32 {
 func (p AVParameterEvent) SetParameterID(value uint32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setParameterID:"), value)
 }
+
 // The audio unit scope for the parameter.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVParameterEvent/scope
@@ -221,6 +224,7 @@ func (p AVParameterEvent) Scope() uint32 {
 func (p AVParameterEvent) SetScope(value uint32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setScope:"), value)
 }
+
 // The element index in the scope.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVParameterEvent/element
@@ -231,6 +235,7 @@ func (p AVParameterEvent) Element() uint32 {
 func (p AVParameterEvent) SetElement(value uint32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setElement:"), value)
 }
+
 // The value of the parameter to set.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVParameterEvent/value
@@ -241,4 +246,3 @@ func (p AVParameterEvent) Value() float32 {
 func (p AVParameterEvent) SetValue(value float32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setValue:"), value)
 }
-

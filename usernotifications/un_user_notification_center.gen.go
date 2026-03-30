@@ -5,8 +5,9 @@ package usernotifications
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,11 +48,11 @@ func (uc UNUserNotificationCenterClass) Alloc() UNUserNotificationCenter {
 // app or app extension.
 //
 // # Overview
-// 
+//
 // Use the shared [UNUserNotificationCenter] object to manage all
 // notification-related behaviors in your app or app extension. Specifically,
 // use this object to do the following:
-// 
+//
 // - Request authorization to interact with the user through alerts, sounds,
 // and icon badges. See [Asking permission to use notifications]. - Declare
 // the notification types that your app supports and the custom actions the
@@ -66,21 +67,16 @@ func (uc UNUserNotificationCenterClass) Alloc() UNUserNotificationCenter {
 // with your custom notification types. See [Handling notifications and
 // notification-related actions]. - Get the notification-related settings for
 // your app. See Managing Settings and Authorization.
-// 
+//
 // To handle incoming notifications and notification-related actions, create
 // an object that adopts the [UNUserNotificationCenterDelegate] protocol and
 // assign it to the [UNUserNotificationCenter.Delegate] property. Always assign an object to the
 // [UNUserNotificationCenter.Delegate] property before performing any tasks that might interact with
 // that delegate.
-// 
+//
 // You may use the shared user notification center object simultaneously from
 // any of your app’s threads. The object processes requests serially in the
 // order that the system initiates them.
-//
-// [Asking permission to use notifications]: https://developer.apple.com/documentation/UserNotifications/asking-permission-to-use-notifications
-// [Declaring your actionable notification types]: https://developer.apple.com/documentation/UserNotifications/declaring-your-actionable-notification-types
-// [Handling notifications and notification-related actions]: https://developer.apple.com/documentation/UserNotifications/handling-notifications-and-notification-related-actions
-// [Scheduling a notification locally from your app]: https://developer.apple.com/documentation/UserNotifications/scheduling-a-notification-locally-from-your-app
 //
 // # Managing the notification center
 //
@@ -117,6 +113,11 @@ func (uc UNUserNotificationCenterClass) Alloc() UNUserNotificationCenter {
 //   - [UNUserNotificationCenter.UNErrorDomain]: The error domain for notifications.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter
+//
+// [Asking permission to use notifications]: https://developer.apple.com/documentation/UserNotifications/asking-permission-to-use-notifications
+// [Declaring your actionable notification types]: https://developer.apple.com/documentation/UserNotifications/declaring-your-actionable-notification-types
+// [Handling notifications and notification-related actions]: https://developer.apple.com/documentation/UserNotifications/handling-notifications-and-notification-related-actions
+// [Scheduling a notification locally from your app]: https://developer.apple.com/documentation/UserNotifications/scheduling-a-notification-locally-from-your-app
 type UNUserNotificationCenter struct {
 	objectivec.Object
 }
@@ -128,6 +129,7 @@ type UNUserNotificationCenter struct {
 func UNUserNotificationCenterFromID(id objc.ID) UNUserNotificationCenter {
 	return UNUserNotificationCenter{objectivec.Object{ID: id}}
 }
+
 // NOTE: UNUserNotificationCenter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -242,17 +244,17 @@ func NewUNUserNotificationCenter() UNUserNotificationCenter {
 // completionHandler: The block to execute asynchronously with the results. Your app may execute
 // this block on a background thread. The block has no return value and takes
 // the following parameter:
-// 
+//
 // settings: The [UNNotificationSettings] object containing the current
 // authorization settings for your app.
 //
 // # Discussion
-// 
+//
 // Use this method to determine the user interactions and notification-related
 // features that the system authorizes your app to use. You might then use
 // this information to enable or disable specific notification-related
 // features of your app.
-// 
+//
 // When the user initially grants authorization to your app, the system gives
 // your app a set of default notification-related settings. The user may
 // change those settings at any time to enable or disable specific
@@ -261,9 +263,10 @@ func NewUNUserNotificationCenter() UNUserNotificationCenter {
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/getNotificationSettings(completionHandler:)
 func (u UNUserNotificationCenter) GetNotificationSettingsWithCompletionHandler(completionHandler UNNotificationSettingsHandler) {
-_block0, _ := NewUNNotificationSettingsBlock(completionHandler)
+	_block0, _ := NewUNNotificationSettingsBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("getNotificationSettingsWithCompletionHandler:"), _block0)
 }
+
 // Updates the badge count for your app’s icon.
 //
 // newBadgeCount: The new value to display.
@@ -273,14 +276,15 @@ _block0, _ := NewUNNotificationSettingsBlock(completionHandler)
 // failure.
 //
 // # Discussion
-// 
+//
 // Here’s an example that sets the badge count to a specific number.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/setBadgeCount(_:withCompletionHandler:)
 func (u UNUserNotificationCenter) SetBadgeCountWithCompletionHandler(newBadgeCount int, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("setBadgeCount:withCompletionHandler:"), newBadgeCount, _block1)
 }
+
 // Requests a person’s authorization to allow local and remote notifications
 // for your app.
 //
@@ -288,31 +292,26 @@ _block1, _ := NewErrorBlock(completionHandler)
 // available constants to request authorization for multiple items. Request
 // only the authorization options that you plan to use. For a list of possible
 // values, see [UNAuthorizationOptions].
-// //
-// [UNAuthorizationOptions]: https://developer.apple.com/documentation/UserNotifications/UNAuthorizationOptions
 //
 // completionHandler: The block to execute asynchronously with the results. This block may
 // execute on a background thread. The block has no return value and has the
 // following parameters:
-// 
+//
 // granted: A Boolean value indicating whether the person grants
-// authorization. The value of this parameter is [true] when the person grants
-// authorization for one or more options. The value is [false] when the person
+// authorization. The value of this parameter is true when the person grants
+// authorization for one or more options. The value is false when the person
 // denies authorization or authorization is undetermined. Use
 // [GetNotificationSettingsWithCompletionHandler] to check the authorization
 // status. error: An object containing error information or `nil` if no error
 // occurs.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Discussion
-// 
+//
 // If your app’s local or remote notifications involve user interactions,
 // you must request authorization for the system to perform those interactions
 // on your app’s behalf. Interactions include displaying an alert, playing a
 // sound, or badging the app’s icon.
-// 
+//
 // The first time your app calls the method, the system prompts the person to
 // authorize the requested interactions. The person may grant or deny
 // authorization, and the system stores the person’s response. Subsequent
@@ -322,16 +321,19 @@ _block1, _ := NewErrorBlock(completionHandler)
 // adjustments to your app’s behavior. For example, if the person denied
 // authorization, you might notify a remote notification server not to send
 // notifications to the user’s device.
-// 
+//
 // The person may change the interactions they allow at any time in system
 // settings. Use the [GetNotificationSettingsWithCompletionHandler] method to
 // determine what interactions are allowed for your app.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/requestAuthorization(options:completionHandler:)
+//
+// [UNAuthorizationOptions]: https://developer.apple.com/documentation/UserNotifications/UNAuthorizationOptions
 func (u UNUserNotificationCenter) RequestAuthorizationWithOptionsCompletionHandler(options UNAuthorizationOptions, completionHandler BoolErrorHandler) {
-_block1, _ := NewBoolErrorBlock(completionHandler)
+	_block1, _ := NewBoolErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("requestAuthorizationWithOptions:completionHandler:"), options, _block1)
 }
+
 // Schedules the delivery of a local notification.
 //
 // request: The request object containing the notification payload and trigger
@@ -340,28 +342,29 @@ _block1, _ := NewBoolErrorBlock(completionHandler)
 // completionHandler: The block to execute with the results. This block may be executed on a
 // background thread. The block has no return value and takes the following
 // parameter:
-// 
+//
 // error: An error object indicating whether a problem occurred. If the
 // notification was scheduled successfully, this parameter is `nil`;
 // otherwise, it is set to an error object indicating the reason for the
 // failure.
 //
 // # Discussion
-// 
+//
 // This method schedules local notifications only; you cannot use it to
 // schedule the delivery of remote notifications. Upon calling this method,
 // the system begins tracking the trigger conditions associated with your
 // request. When the trigger condition is met, the system delivers your
 // notification. If the request does not contain a [UNNotificationTrigger]
 // object, the notification is delivered right away.
-// 
+//
 // You may call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/add(_:withCompletionHandler:)
 func (u UNUserNotificationCenter) AddNotificationRequestWithCompletionHandler(request IUNNotificationRequest, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("addNotificationRequest:withCompletionHandler:"), request, _block1)
 }
+
 // Removes your app’s local notifications that are pending and match the
 // specified identifiers.
 //
@@ -369,22 +372,23 @@ _block1, _ := NewErrorBlock(completionHandler)
 // an active [UNNotificationRequest] object. If the identifier belongs to a
 // non repeating request, and the trigger condition for that request has
 // already been met, this method ignores the identifier.
-// //
-// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 //
 // # Discussion
-// 
+//
 // This method executes asynchronously, removing the pending notification
 // requests on a secondary thread.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/removePendingNotificationRequests(withIdentifiers:)
+//
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 func (u UNUserNotificationCenter) RemovePendingNotificationRequestsWithIdentifiers(identifiers []string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removePendingNotificationRequestsWithIdentifiers:"), objectivec.StringSliceToNSArray(identifiers))
 }
+
 // Removes all of your app’s pending local notifications.
 //
 // # Discussion
-// 
+//
 // This method executes asynchronously, removing all pending notification
 // requests on a secondary thread.
 //
@@ -392,6 +396,7 @@ func (u UNUserNotificationCenter) RemovePendingNotificationRequestsWithIdentifie
 func (u UNUserNotificationCenter) RemoveAllPendingNotificationRequests() {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeAllPendingNotificationRequests"))
 }
+
 // Removes your app’s notifications from Notification Center that match the
 // specified identifiers.
 //
@@ -399,25 +404,26 @@ func (u UNUserNotificationCenter) RemoveAllPendingNotificationRequests() {
 // [Identifier] property of a [UNNotificationRequest] object. This method
 // ignores the identifiers of requests whose notifications are not currently
 // displayed in Notification Center.
-// //
-// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 //
 // # Discussion
-// 
+//
 // Use this method to selectively remove notifications that you no longer want
 // displayed in Notification Center. The method executes asynchronously,
 // returning immediately and removing the specified notifications on a
 // background thread.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/removeDeliveredNotifications(withIdentifiers:)
+//
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 func (u UNUserNotificationCenter) RemoveDeliveredNotificationsWithIdentifiers(identifiers []string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeDeliveredNotificationsWithIdentifiers:"), objectivec.StringSliceToNSArray(identifiers))
 }
+
 // Removes all of your app’s delivered notifications from Notification
 // Center.
 //
 // # Discussion
-// 
+//
 // Use this method to remove all of your app’s delivered notifications from
 // Notification Center. The method executes asynchronously, returning
 // immediately and removing the identifiers on a background thread. This
@@ -428,6 +434,7 @@ func (u UNUserNotificationCenter) RemoveDeliveredNotificationsWithIdentifiers(id
 func (u UNUserNotificationCenter) RemoveAllDeliveredNotifications() {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeAllDeliveredNotifications"))
 }
+
 // Registers the notification categories that your app supports.
 //
 // categories: A set of [UNNotificationCategory] objects, each of which contains the
@@ -435,12 +442,12 @@ func (u UNUserNotificationCenter) RemoveAllDeliveredNotifications() {
 // must contain all of your app’s supported categories.
 //
 // # Discussion
-// 
+//
 // Call this method at launch time to register your app’s actionable
 // notification types. This method registers all of your categories at once,
 // replacing any previously registered categories with the new ones in the
 // `categories` parameter. Typically, you call this method only once.
-// 
+//
 // Each object in the `categories` parameter contains a string for identifying
 // the notification’s type. It also contains one or more custom actions that
 // the user may perform in response to notifications of that type. When the
@@ -458,11 +465,11 @@ func (u UNUserNotificationCenter) SetNotificationCategories(categories foundatio
 // Returns your app’s notification center.
 //
 // # Return Value
-// 
+//
 // The notification center object to use.
 //
 // # Discussion
-// 
+//
 // Always use this method to retrieve the shared notification center object
 // for your app. Do not try to create instances of the
 // [UNUserNotificationCenter] class directly.
@@ -476,12 +483,12 @@ func (_UNUserNotificationCenterClass UNUserNotificationCenterClass) CurrentNotif
 // The notification center’s delegate.
 //
 // # Discussion
-// 
+//
 // Use the delegate object to respond to user-selected actions and to process
 // incoming notifications when your app is in the foreground. For example, you
 // might use your delegate to silence notifications when your app is in the
 // foreground.
-// 
+//
 // To guarantee that your app responds to all actionable notifications, you
 // must set the value of this property before your app finishes launching. For
 // an iOS app, this means updating this property in the
@@ -489,14 +496,14 @@ func (_UNUserNotificationCenterClass UNUserNotificationCenterClass) CurrentNotif
 // [application(_:didFinishLaunchingWithOptions:)] method of the app delegate.
 // Notifications that cause your app to be launched or delivered shortly after
 // these methods finish executing.
-// 
+//
 // For more information about implementing the delegate methods, see
 // [UNUserNotificationCenterDelegate].
 //
+// See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/delegate
+//
 // [application(_:didFinishLaunchingWithOptions:)]: https://developer.apple.com/documentation/UIKit/UIApplicationDelegate/application(_:didFinishLaunchingWithOptions:)
 // [application(_:willFinishLaunchingWithOptions:)]: https://developer.apple.com/documentation/UIKit/UIApplicationDelegate/application(_:willFinishLaunchingWithOptions:)
-//
-// See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/delegate
 func (u UNUserNotificationCenter) Delegate() UNUserNotificationCenterDelegate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("delegate"))
 	return UNUserNotificationCenterDelegateObjectFromID(rv)
@@ -504,27 +511,27 @@ func (u UNUserNotificationCenter) Delegate() UNUserNotificationCenterDelegate {
 func (u UNUserNotificationCenter) SetDelegate(value UNUserNotificationCenterDelegate) {
 	objc.Send[struct{}](u.ID, objc.Sel("setDelegate:"), value)
 }
+
 // A Boolean value that indicates whether the device supports notification
 // content extensions.
 //
 // # Discussion
-// 
+//
 // Notification content extensions let you customize the appearance of the
 // alerts displayed for your app’s notifications. The value of this property
-// is [true] for devices that support notification content extensions and
-// [false] for devices that do not support them. For information about how to
+// is true for devices that support notification content extensions and false
+// for devices that do not support them. For information about how to
 // implement a notification content extension, see [Customizing the Appearance
 // of Notifications].
 //
-// [Customizing the Appearance of Notifications]: https://developer.apple.com/documentation/UserNotificationsUI/customizing-the-appearance-of-notifications
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/supportsContentExtensions
+//
+// [Customizing the Appearance of Notifications]: https://developer.apple.com/documentation/UserNotificationsUI/customizing-the-appearance-of-notifications
 func (u UNUserNotificationCenter) SupportsContentExtensions() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("supportsContentExtensions"))
 	return rv
 }
+
 // The error domain for notifications.
 //
 // See: https://developer.apple.com/documentation/usernotifications/unerrordomain
@@ -596,4 +603,3 @@ func (u UNUserNotificationCenter) AddNotificationRequest(ctx context.Context, re
 		return ctx.Err()
 	}
 }
-

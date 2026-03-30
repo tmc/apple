@@ -3,8 +3,9 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,10 +43,10 @@ func (ac AVAudioEnvironmentReverbParametersClass) Alloc() AVAudioEnvironmentReve
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioEnvironmentReverbParameters.InitWithEnvironment]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentReverbParameters
 type AVAudioEnvironmentReverbParameters struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type AVAudioEnvironmentReverbParameters struct {
 func AVAudioEnvironmentReverbParametersFromID(id objc.ID) AVAudioEnvironmentReverbParameters {
 	return AVAudioEnvironmentReverbParameters{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioEnvironmentReverbParameters implements IAVAudioEnvironmentReverbParameters.
 var _ IAVAudioEnvironmentReverbParameters = AVAudioEnvironmentReverbParameters{}
 
@@ -92,7 +94,6 @@ func NewAVAudioEnvironmentReverbParameters() AVAudioEnvironmentReverbParameters 
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentReverbParameters/initWithEnvironment:
 func NewAudioEnvironmentReverbParametersWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentReverbParameters {
 	instance := getAVAudioEnvironmentReverbParametersClass().Alloc()
@@ -100,10 +101,8 @@ func NewAudioEnvironmentReverbParametersWithEnvironment(environment unsafe.Point
 	return AVAudioEnvironmentReverbParametersFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentReverbParameters/initWithEnvironment:
 func (a AVAudioEnvironmentReverbParameters) InitWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentReverbParameters {
 	rv := objc.Send[AVAudioEnvironmentReverbParameters](a.ID, objc.Sel("initWithEnvironment:"), environment)
 	return rv
 }
-

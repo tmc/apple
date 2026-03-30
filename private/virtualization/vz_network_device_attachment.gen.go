@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZNetworkDeviceAttachmentClass) Alloc() VZNetworkDeviceAttachment {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZNetworkDeviceAttachment._init]
@@ -51,6 +51,7 @@ func (vc VZNetworkDeviceAttachmentClass) Alloc() VZNetworkDeviceAttachment {
 //   - [VZNetworkDeviceAttachment.Description]
 //   - [VZNetworkDeviceAttachment.Hash]
 //   - [VZNetworkDeviceAttachment.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment
 type VZNetworkDeviceAttachment struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZNetworkDeviceAttachment struct {
 func VZNetworkDeviceAttachmentFromID(id objc.ID) VZNetworkDeviceAttachment {
 	return VZNetworkDeviceAttachment{objectivec.Object{ID: id}}
 }
+
 // Ensure VZNetworkDeviceAttachment implements IVZNetworkDeviceAttachment.
 var _ IVZNetworkDeviceAttachment = VZNetworkDeviceAttachment{}
 
@@ -118,24 +120,27 @@ func (n VZNetworkDeviceAttachment) _attachment() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("_attachment"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/debugDescription
 func (n VZNetworkDeviceAttachment) DebugDescription() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/description
 func (n VZNetworkDeviceAttachment) Description() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/hash
 func (n VZNetworkDeviceAttachment) Hash() uint64 {
 	rv := objc.Send[uint64](n.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceAttachment/superclass
 func (n VZNetworkDeviceAttachment) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](n.ID, objc.Sel("superclass"))
 	return rv
 }
-

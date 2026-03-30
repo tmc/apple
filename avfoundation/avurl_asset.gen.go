@@ -5,8 +5,9 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/uniformtypeidentifiers"
 )
 
@@ -46,10 +47,10 @@ func (ac AVURLAssetClass) Alloc() AVURLAsset {
 // An asset that represents media at a local or remote URL.
 //
 // # Overview
-// 
+//
 // This class is a concrete subclass of [AVAsset]. When you create an asset as
 // shown below, the system creates and returns an instance of [AVURLAsset].
-// 
+//
 // In many cases, this is an appropriate way to create asset instances, but
 // you can also directly instantiate an [AVURLAsset] when you need more
 // fine-grained control over its initialization. The initializer for
@@ -100,6 +101,7 @@ type AVURLAsset struct {
 func AVURLAssetFromID(id objc.ID) AVURLAsset {
 	return AVURLAsset{AVAsset: AVAssetFromID(id)}
 }
+
 // NOTE: AVURLAsset adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -217,16 +219,16 @@ func NewURLAssetWithURL(URL foundation.INSURL) AVURLAsset {
 //
 // options: A dictionary that contains options used to customize the initialization of
 // the asset.
-// 
+//
 // For supported keys and values, see [Initialization options].
-// //
-// [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 //
 // # Return Value
-// 
+//
 // An asset that models the media resource found at [URL].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)
+//
+// [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 func NewURLAssetWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVURLAsset {
 	instance := getAVURLAssetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
@@ -239,20 +241,21 @@ func NewURLAssetWithURLOptions(URL foundation.INSURL, options foundation.INSDict
 //
 // options: A dictionary that contains options used to customize the initialization of
 // the asset.
-// 
+//
 // For supported keys and values, see [Initialization options].
-// //
-// [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 //
 // # Return Value
-// 
+//
 // An asset that models the media resource found at [URL].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)
+//
+// [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 func (u AVURLAsset) InitWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVURLAsset {
 	rv := objc.Send[AVURLAsset](u.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return rv
 }
+
 // Loads an asset track from which you can insert any time range into the
 // composition track.
 //
@@ -260,30 +263,31 @@ func (u AVURLAsset) InitWithURLOptions(URL foundation.INSURL, options foundation
 //
 // completionHandler: A callback the system invokes after it finishes the request. The system
 // calls the completion handler with the following arguments:
-// 
+//
 // track: The compatible asset track, or `nil` if there isn’t one or an
 // error occurs. error: An error object if the request fails; otherwise,
 // `nil`.
 //
 // # Discussion
-// 
+//
 // This method is the logical complement of [MutableTrackCompatibleWithTrack].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/findCompatibleTrack(for:completionHandler:)
 func (u AVURLAsset) FindCompatibleTrackForCompositionTrackCompletionHandler(compositionTrack IAVCompositionTrack, completionHandler AVAssetTrackErrorHandler) {
-_block1, _ := NewAVAssetTrackErrorBlock(completionHandler)
+	_block1, _ := NewAVAssetTrackErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("findCompatibleTrackForCompositionTrack:completionHandler:"), compositionTrack, _block1)
 }
+
 // Tells the recipient that a content key is available.
 //
 // contentKeySession: The current content key session.
 //
 // contentKey: A content key to use with objects that support manual attachment of keys,
 // such as [CMSampleBuffer].
-// //
-// [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRecipient/contentKeySession(_:didProvide:)
+//
+// [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 func (u AVURLAsset) ContentKeySessionDidProvideContentKey(contentKeySession IAVContentKeySession, contentKey IAVContentKey) {
 	objc.Send[objc.ID](u.ID, objc.Sel("contentKeySession:didProvideContentKey:"), contentKeySession, contentKey)
 }
@@ -291,7 +295,7 @@ func (u AVURLAsset) ContentKeySessionDidProvideContentKey(contentKeySession IAVC
 // Returns an array of the MIME types the asset supports.
 //
 // # Return Value
-// 
+//
 // An array of MIME type strings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/audiovisualMIMETypes()
@@ -299,6 +303,7 @@ func (_AVURLAssetClass AVURLAssetClass) AudiovisualMIMETypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_AVURLAssetClass.class), objc.Sel("audiovisualMIMETypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Returns a Boolean value that indicates whether the asset is playable with
 // the specified codecs and container type.
 //
@@ -306,34 +311,32 @@ func (_AVURLAssetClass AVURLAssetClass) AudiovisualMIMETypes() []string {
 // mp4a.E1”` or `audio/aac; codecs=“mp4a.E1”`.
 //
 // # Return Value
-// 
-// [true] if the asset is playable with the specified codec and container
-// type; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the asset is playable with the specified codec and container type;
+// otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/isPlayableExtendedMIMEType(_:)
 func (_AVURLAssetClass AVURLAssetClass) IsPlayableExtendedMIMEType(extendedMIMEType string) bool {
 	rv := objc.Send[bool](objc.ID(_AVURLAssetClass.class), objc.Sel("isPlayableExtendedMIMEType:"), objc.String(extendedMIMEType))
 	return rv
 }
+
 // Returns an asset that models the media resource found at the specified URL.
 //
 // URL: A URL that references the media for the asset to model.
 //
 // options: A dictionary that contains options used to customize the initialization of
 // the asset.
-// 
+//
 // For possible keys and values, see [Initialization options].
-// //
-// [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 //
 // # Return Value
-// 
+//
 // An asset that models the media resource found at [URL].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/URLAssetWithURL:options:
+//
+// [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 func (_AVURLAssetClass AVURLAssetClass) URLAssetWithURLOptions(URL foundation.INSURL, options foundation.INSDictionary) AVURLAsset {
 	rv := objc.Send[objc.ID](objc.ID(_AVURLAssetClass.class), objc.Sel("URLAssetWithURL:options:"), URL, options)
 	return AVURLAssetFromID(rv)
@@ -349,10 +352,11 @@ func (u AVURLAsset) Tracks() IAVAssetTrack {
 func (u AVURLAsset) SetTracks(value IAVAssetTrack) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTracks:"), value)
 }
+
 // The resource loader for the asset.
 //
 // # Discussion
-// 
+//
 // During loading, the system may ask the resource loader to assist loading
 // the resource. For example, a resource that requires decryption may require
 // the resource loader to provide the appropriate decryption keys. You can
@@ -364,6 +368,7 @@ func (u AVURLAsset) ResourceLoader() IAVAssetResourceLoader {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("resourceLoader"))
 	return AVAssetResourceLoaderFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether you can add this asset as a content
 // key recipient to a content key session.
 //
@@ -372,10 +377,11 @@ func (u AVURLAsset) MayRequireContentKeysForMediaDataProcessing() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("mayRequireContentKeysForMediaDataProcessing"))
 	return rv
 }
+
 // The asset’s associated asset cache, if it exists.
 //
 // # Discussion
-// 
+//
 // This property provides access to an instance of [AVAssetCache] to use for
 // inspection of locally cached media data. The value of this property is
 // `nil` if you haven’t configured the asset to store or access media data
@@ -386,6 +392,7 @@ func (u AVURLAsset) AssetCache() IAVAssetCache {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("assetCache"))
 	return AVAssetCacheFromID(objc.ID(rv))
 }
+
 // A URL to the asset’s media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/url
@@ -393,10 +400,11 @@ func (u AVURLAsset) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // A session identifier that the asset sends in HTTP requests that it makes.
 //
 // # Discussion
-// 
+//
 // The asset uses this value to set as the `X-Playback-Session-Id` header of
 // HTTP requests that it creates.
 //
@@ -405,10 +413,11 @@ func (u AVURLAsset) HttpSessionIdentifier() foundation.NSUUID {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("httpSessionIdentifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
+
 // The properties of the media extension format reader that decodes the asset.
 //
 // # Discussion
-// 
+//
 // If the system decodes the asset using a MediaExtension format reader, the
 // property value contains a valid object that describes the extension.
 // Otherwise, this property value is `nil`.
@@ -418,10 +427,11 @@ func (u AVURLAsset) MediaExtensionProperties() IAVMediaExtensionProperties {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("mediaExtensionProperties"))
 	return AVMediaExtensionPropertiesFromID(objc.ID(rv))
 }
+
 // The sidecar URL used by the MediaExtension.
 //
 // # Discussion
-// 
+//
 // The sidecar URL is returned only if the MediaExtension format reader
 // supports sidecar files, and implements this property [MEFileInfo
 // setSidecarFilename:]. Will return nil otherwise.
@@ -435,7 +445,7 @@ func (u AVURLAsset) SidecarURL() foundation.INSURL {
 // Provides the content types the AVURLAsset class understands.
 //
 // # Return Value
-// 
+//
 // An NSArray of UTTypes identifying the content types the AVURLAsset class
 // understands.
 //
@@ -447,8 +457,7 @@ func (_AVURLAssetClass AVURLAssetClass) AudiovisualContentTypes() []uniformtypei
 	})
 }
 
-			// Protocol methods for AVContentKeyRecipient
-			
+// Protocol methods for AVContentKeyRecipient
 
 // FindCompatibleTrackForCompositionTrack is a synchronous wrapper around [AVURLAsset.FindCompatibleTrackForCompositionTrackCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -468,4 +477,3 @@ func (u AVURLAsset) FindCompatibleTrackForCompositionTrack(ctx context.Context, 
 		return nil, ctx.Err()
 	}
 }
-

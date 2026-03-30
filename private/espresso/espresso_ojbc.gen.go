@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type EspressoOJBC struct {
 func EspressoOJBCFromID(id objc.ID) EspressoOJBC {
 	return EspressoOJBC{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoOJBC implements IEspressoOJBC.
 var _ IEspressoOJBC = EspressoOJBC{}
 
@@ -78,4 +80,3 @@ func NewEspressoOJBC() EspressoOJBC {
 	rv := objc.Send[EspressoOJBC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

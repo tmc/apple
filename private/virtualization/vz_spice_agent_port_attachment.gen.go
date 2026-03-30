@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZSpiceAgentPortAttachment struct {
 func VZSpiceAgentPortAttachmentFromID(id objc.ID) VZSpiceAgentPortAttachment {
 	return VZSpiceAgentPortAttachment{VZSerialPortAttachment: VZSerialPortAttachmentFromID(id)}
 }
+
 // Ensure VZSpiceAgentPortAttachment implements IVZSpiceAgentPortAttachment.
 var _ IVZSpiceAgentPortAttachment = VZSpiceAgentPortAttachment{}
 
@@ -77,4 +79,3 @@ func NewVZSpiceAgentPortAttachment() VZSpiceAgentPortAttachment {
 	rv := objc.Send[VZSpiceAgentPortAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

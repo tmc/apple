@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (vc VNDetectBarcodesRequestClass) Alloc() VNDetectBarcodesRequest {
 // A request that detects barcodes in an image.
 //
 // # Overview
-// 
+//
 // This request returns an array of [VNBarcodeObservation] objects, one for
 // each barcode it detects.
 //
@@ -75,6 +76,7 @@ type VNDetectBarcodesRequest struct {
 func VNDetectBarcodesRequestFromID(id objc.ID) VNDetectBarcodesRequest {
 	return VNDetectBarcodesRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectBarcodesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -143,7 +145,7 @@ func NewVNDetectBarcodesRequest() VNDetectBarcodesRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -158,7 +160,7 @@ func NewDetectBarcodesRequestWithCompletionHandler(completionHandler VNRequestCo
 // Returns the barcode symbologies that the request supports.
 //
 // # Return Value
-// 
+//
 // An array of symbologies.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectBarcodesRequest/supportedSymbologies()
@@ -176,7 +178,7 @@ func (d VNDetectBarcodesRequest) SupportedSymbologiesAndReturnError() ([]string,
 // The barcode symbologies that the request detects in an image.
 //
 // # Discussion
-// 
+//
 // By default, a request scans for all symbologies. Specify a subset of
 // symbologies to limit the request’s detection range.
 //
@@ -188,6 +190,7 @@ func (d VNDetectBarcodesRequest) Symbologies() []string {
 func (d VNDetectBarcodesRequest) SetSymbologies(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSymbologies:"), objectivec.StringSliceToNSArray(value))
 }
+
 // A Boolean value that indicates whether to coalesce multiple codes based on
 // the symbology.
 //
@@ -199,6 +202,7 @@ func (d VNDetectBarcodesRequest) CoalesceCompositeSymbologies() bool {
 func (d VNDetectBarcodesRequest) SetCoalesceCompositeSymbologies(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCoalesceCompositeSymbologies:"), value)
 }
+
 // A constant for specifying revision 3 of the barcode detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectbarcodesrequestrevision3
@@ -206,6 +210,7 @@ func (d VNDetectBarcodesRequest) VNDetectBarcodesRequestRevision3() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectBarcodesRequestRevision3"))
 	return rv
 }
+
 // A constant for specifying revision 2 of the barcode detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectbarcodesrequestrevision2
@@ -213,6 +218,7 @@ func (d VNDetectBarcodesRequest) VNDetectBarcodesRequestRevision2() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectBarcodesRequestRevision2"))
 	return rv
 }
+
 // A constant for specifying revision 1 of the barcode detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectbarcodesrequestrevision1
@@ -220,4 +226,3 @@ func (d VNDetectBarcodesRequest) VNDetectBarcodesRequestRevision1() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectBarcodesRequestRevision1"))
 	return rv
 }
-

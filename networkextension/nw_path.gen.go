@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,23 +46,20 @@ func (nc NWPathClass) Alloc() NWPath {
 // viability.
 //
 // # Overview
-// 
-// For example, if the path status is [NWPathStatus.satisfied], then a
+//
+// For example, if the path status is [NWPathStatusSatisfied], then a
 // connection attempt will be made.
-// 
+//
 // When attached to a specific connection, a path takes all of the connection
 // parameters into account. For example, if the route for a connection changes
 // or is removed, the path will reflect that change. Note that every path is
 // evaluated within the context of the process it is running in, and may be
 // different across processes.
-// 
+//
 // [NWPath] is a static object, and properties of the path will never change.
 // To monitor changing network status, use Key-Value Observing (KVO) to watch
 // a path property on another object. For information about KVO, see
 // [Key-Value Observing Programming Guide].
-//
-// [Key-Value Observing Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i
-// [NWPathStatus.satisfied]: https://developer.apple.com/documentation/NetworkExtension/NWPathStatus/satisfied
 //
 // # Getting network path properties
 //
@@ -70,6 +68,8 @@ func (nc NWPathClass) Alloc() NWPath {
 //   - [NWPath.Constrained]: A Boolean that indicates whether or not the path uses a constrained interface, such as when using low-data mode.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWPath
+//
+// [Key-Value Observing Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i
 type NWPath struct {
 	objectivec.Object
 }
@@ -81,6 +81,7 @@ type NWPath struct {
 func NWPathFromID(id objc.ID) NWPath {
 	return NWPath{objectivec.Object{ID: id}}
 }
+
 // NOTE: NWPath adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,7 +129,7 @@ func NewNWPath() NWPath {
 // The evaluated status of the network path.
 //
 // # Discussion
-// 
+//
 // The status of a path indicates whether or not the process is able to make
 // connection attempts to any, or a specific, network endpoint. A satisfied
 // status does not guarantee that a connection will be successful, but it does
@@ -139,11 +140,12 @@ func (n NWPath) Status() NWPathStatus {
 	rv := objc.Send[NWPathStatus](n.ID, objc.Sel("status"))
 	return NWPathStatus(rv)
 }
+
 // A Boolean that indicates whether or not the path uses an expensive
 // interface.
 //
 // # Discussion
-// 
+//
 // Returns YES is the path uses an interface that is considered expensive,
 // such as when using a cellular data plan.
 //
@@ -152,6 +154,7 @@ func (n NWPath) Expensive() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isExpensive"))
 	return rv
 }
+
 // A Boolean that indicates whether or not the path uses a constrained
 // interface, such as when using low-data mode.
 //
@@ -160,4 +163,3 @@ func (n NWPath) Constrained() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isConstrained"))
 	return rv
 }
-

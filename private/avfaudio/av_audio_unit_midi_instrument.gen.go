@@ -3,10 +3,11 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAudioUnitMIDIInstrument] class.
@@ -42,13 +43,13 @@ func (ac AVAudioUnitMIDIInstrumentClass) Alloc() AVAudioUnitMIDIInstrument {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioUnitMIDIInstrument.DebugDescription]
 //   - [AVAudioUnitMIDIInstrument.Description]
 //   - [AVAudioUnitMIDIInstrument.Hash]
 //   - [AVAudioUnitMIDIInstrument.Superclass]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument
 type AVAudioUnitMIDIInstrument struct {
 	AVAudioUnit
@@ -58,6 +59,7 @@ type AVAudioUnitMIDIInstrument struct {
 func AVAudioUnitMIDIInstrumentFromID(id objc.ID) AVAudioUnitMIDIInstrument {
 	return AVAudioUnitMIDIInstrument{AVAudioUnit: AVAudioUnitFromID(id)}
 }
+
 // Ensure AVAudioUnitMIDIInstrument implements IAVAudioUnitMIDIInstrument.
 var _ IAVAudioUnitMIDIInstrument = AVAudioUnitMIDIInstrument{}
 
@@ -101,7 +103,6 @@ func NewAVAudioUnitMIDIInstrument() AVAudioUnitMIDIInstrument {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioUnitMIDIInstrumentWithImpl(impl unsafe.Pointer) AVAudioUnitMIDIInstrument {
 	instance := getAVAudioUnitMIDIInstrumentClass().Alloc()
@@ -114,19 +115,21 @@ func (a AVAudioUnitMIDIInstrument) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/description
 func (a AVAudioUnitMIDIInstrument) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/hash
 func (a AVAudioUnitMIDIInstrument) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/superclass
 func (a AVAudioUnitMIDIInstrument) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
 	return rv
 }
-

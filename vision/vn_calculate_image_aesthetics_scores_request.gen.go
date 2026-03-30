@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,6 +54,7 @@ type VNCalculateImageAestheticsScoresRequest struct {
 func VNCalculateImageAestheticsScoresRequestFromID(id objc.ID) VNCalculateImageAestheticsScoresRequest {
 	return VNCalculateImageAestheticsScoresRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNCalculateImageAestheticsScoresRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -87,7 +89,7 @@ func NewVNCalculateImageAestheticsScoresRequest() VNCalculateImageAestheticsScor
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -98,4 +100,3 @@ func NewCalculateImageAestheticsScoresRequestWithCompletionHandler(completionHan
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNCalculateImageAestheticsScoresRequestFromID(rv)
 }
-

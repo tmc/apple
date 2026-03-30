@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (mc MTLArrayTypeClass) Alloc() MTLArrayType {
 // A description of an array.
 //
 // # Overview
-// 
+//
 // An [MTLArrayType] instance provides details about an array parameter.
 // Don’t create [MTLArrayType] instances directly; other reflection
 // instances contain properties to determine if a parameter is an array and to
@@ -78,6 +79,7 @@ type MTLArrayType struct {
 func MTLArrayTypeFromID(id objc.ID) MTLArrayType {
 	return MTLArrayType{MTLType: MTLTypeFromID(id)}
 }
+
 // NOTE: MTLArrayType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -156,75 +158,81 @@ func NewMTLArrayType() MTLArrayType {
 // arrays as its elements.
 //
 // # Return Value
-// 
+//
 // Returns an object that describes an array. If the array elements aren’t
 // arrays, this method returns `nil`.
 //
 // # Discussion
-// 
-// Use this method if [ElementType] is [DataTypeArray].
+//
+// Use this method if [ElementType] is [MTLDataType.array].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/element()
+//
+// [MTLDataType.array]: https://developer.apple.com/documentation/Metal/MTLDataType/array
 func (a MTLArrayType) ElementArrayType() IMTLArrayType {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("elementArrayType"))
 	return MTLArrayTypeFromID(rv)
 }
+
 // Provides a description of the underlying struct type when an array holds
 // structs as its elements.
 //
 // # Return Value
-// 
+//
 // An object that describes the struct. If the array elements aren’t
 // structs, this method returns `nil`.
 //
 // # Discussion
-// 
-// Use this method if [ElementType] is [DataTypeStruct].
+//
+// Use this method if [ElementType] is [MTLDataTypeStruct].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/elementStructType()
 func (a MTLArrayType) ElementStructType() IMTLStructType {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("elementStructType"))
 	return MTLStructTypeFromID(rv)
 }
+
 // Provides a description of the underlying pointer type when an array holds
 // pointers as its elements.
 //
 // # Return Value
-// 
+//
 // An object that describes the pointer. If the array elements aren’t
 // pointers, this method returns `nil`.
 //
 // # Discussion
-// 
-// Use this method if [ElementType] is [DataTypePointer].
+//
+// Use this method if [ElementType] is [MTLDataTypePointer].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/elementPointerType()
 func (a MTLArrayType) ElementPointerType() IMTLPointerType {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("elementPointerType"))
 	return MTLPointerTypeFromID(rv)
 }
+
 // Provides a description of the underlying texture type when an array holds
 // textures as its elements.
 //
 // # Return Value
-// 
+//
 // An object that describes the texture. If the array elements aren’t
 // textures, this method returns `nil`.
 //
 // # Discussion
-// 
-// Use this method if [ElementType] is [DataTypeTexture].
+//
+// Use this method if [ElementType] is [MTLDataTypeTexture].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/elementTextureReferenceType()
 func (a MTLArrayType) ElementTextureReferenceType() IMTLTextureReferenceType {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("elementTextureReferenceType"))
 	return MTLTextureReferenceTypeFromID(rv)
 }
+
 // Provides a description of the underlying tensor type when this array holds
 // tensors as its elements.
 //
 // # Return Value
-// 
+//
 // A description of the tensor type that this array holds, or `nil` if this
 // struct member doesn’t hold a tensor.
 //
@@ -241,19 +249,21 @@ func (a MTLArrayType) ArrayLength() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("arrayLength"))
 	return rv
 }
+
 // The data type of the array’s elements.
 //
 // # Discussion
-// 
+//
 // For information on possible values, see [MTLDataType].
 //
-// [MTLDataType]: https://developer.apple.com/documentation/Metal/MTLDataType
-//
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/elementType
+//
+// [MTLDataType]: https://developer.apple.com/documentation/Metal/MTLDataType
 func (a MTLArrayType) ElementType() MTLDataType {
 	rv := objc.Send[MTLDataType](a.ID, objc.Sel("elementType"))
 	return MTLDataType(rv)
 }
+
 // The stride between array elements, in bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/stride
@@ -261,6 +271,7 @@ func (a MTLArrayType) Stride() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("stride"))
 	return rv
 }
+
 // The stride, in bytes, between argument indices.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/argumentIndexStride
@@ -268,4 +279,3 @@ func (a MTLArrayType) ArgumentIndexStride() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("argumentIndexStride"))
 	return rv
 }
-

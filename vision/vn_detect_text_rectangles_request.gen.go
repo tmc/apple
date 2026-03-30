@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (vc VNDetectTextRectanglesRequestClass) Alloc() VNDetectTextRectanglesReque
 // An image-analysis request that finds regions of visible text in an image.
 //
 // # Overview
-// 
+//
 // This request returns detected text characters as rectangular bounding boxes
 // with origin and size.
 //
@@ -67,6 +68,7 @@ type VNDetectTextRectanglesRequest struct {
 func VNDetectTextRectanglesRequestFromID(id objc.ID) VNDetectTextRectanglesRequest {
 	return VNDetectTextRectanglesRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectTextRectanglesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,7 +123,7 @@ func NewVNDetectTextRectanglesRequest() VNDetectTextRectanglesRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -137,11 +139,9 @@ func NewDetectTextRectanglesRequestWithCompletionHandler(completionHandler VNReq
 // bounding boxes.
 //
 // # Discussion
-// 
-// Set the value to [true] to have the detector return character bounding
-// boxes as an array of [VNRectangleObservation] objects.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Set the value to true to have the detector return character bounding boxes
+// as an array of [VNRectangleObservation] objects.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTextRectanglesRequest/reportCharacterBoxes
 func (d VNDetectTextRectanglesRequest) ReportCharacterBoxes() bool {
@@ -151,6 +151,7 @@ func (d VNDetectTextRectanglesRequest) ReportCharacterBoxes() bool {
 func (d VNDetectTextRectanglesRequest) SetReportCharacterBoxes(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setReportCharacterBoxes:"), value)
 }
+
 // A constant for specifying revision 1 of the text rectangles detection
 // request.
 //
@@ -159,4 +160,3 @@ func (d VNDetectTextRectanglesRequest) VNDetectTextRectanglesRequestRevision1() 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectTextRectanglesRequestRevision1"))
 	return rv
 }
-

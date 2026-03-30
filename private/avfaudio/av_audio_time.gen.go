@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (ac AVAudioTimeClass) Alloc() AVAudioTime {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioTime.HostTimeValid]
 //   - [AVAudioTime.SampleTimeValid]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime
 type AVAudioTime struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type AVAudioTime struct {
 func AVAudioTimeFromID(id objc.ID) AVAudioTime {
 	return AVAudioTime{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioTime implements IAVAudioTime.
 var _ IAVAudioTime = AVAudioTime{}
 
@@ -99,9 +101,9 @@ func (a AVAudioTime) HostTimeValid() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("hostTimeValid"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioTime/sampleTimeValid
 func (a AVAudioTime) SampleTimeValid() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("sampleTimeValid"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type HasRightEyePosition struct {
 func HasRightEyePositionFromID(id objc.ID) HasRightEyePosition {
 	return HasRightEyePosition{objectivec.Object{ID: id}}
 }
+
 // Ensure HasRightEyePosition implements IHasRightEyePosition.
 var _ IHasRightEyePosition = HasRightEyePosition{}
 
@@ -78,4 +80,3 @@ func NewHasRightEyePosition() HasRightEyePosition {
 	rv := objc.Send[HasRightEyePosition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

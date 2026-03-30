@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type ErrorCorrectionLevel struct {
 func ErrorCorrectionLevelFromID(id objc.ID) ErrorCorrectionLevel {
 	return ErrorCorrectionLevel{objectivec.Object{ID: id}}
 }
+
 // Ensure ErrorCorrectionLevel implements IErrorCorrectionLevel.
 var _ IErrorCorrectionLevel = ErrorCorrectionLevel{}
 
@@ -78,4 +80,3 @@ func NewErrorCorrectionLevel() ErrorCorrectionLevel {
 	rv := objc.Send[ErrorCorrectionLevel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

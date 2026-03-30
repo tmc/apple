@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZUSBMouseConfigurationClass) Alloc() VZUSBMouseConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZUSBMouseConfiguration.EncodeWithEncoder]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBMouseConfiguration
 type VZUSBMouseConfiguration struct {
 	VZPointingDeviceConfiguration
@@ -54,6 +55,7 @@ type VZUSBMouseConfiguration struct {
 func VZUSBMouseConfigurationFromID(id objc.ID) VZUSBMouseConfiguration {
 	return VZUSBMouseConfiguration{VZPointingDeviceConfiguration: VZPointingDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZUSBMouseConfiguration implements IVZUSBMouseConfiguration.
 var _ IVZUSBMouseConfiguration = VZUSBMouseConfiguration{}
 
@@ -91,10 +93,8 @@ func NewVZUSBMouseConfiguration() VZUSBMouseConfiguration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZUSBMouseConfiguration/encodeWithEncoder:
 func (v VZUSBMouseConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-

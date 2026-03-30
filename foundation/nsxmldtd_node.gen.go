@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,30 +45,27 @@ func (xc XMLDTDNodeClass) Alloc() XMLDTDNode {
 // declarations in a Document Type Definition.
 //
 // # Overview
-// 
+//
 // [NSXMLDTDNode] objects are the sole children of a [NSXMLDTD] object
 // (possibly along with comment nodes and processing-instruction nodes). They
 // themselves cannot have any children.
-// 
+//
 // [NSXMLDTDNode] objects can be of four kinds—element, attribute-list,
 // entity, or notation declaration—and can also be of a subkind, as
 // specified by a [XMLDTDNode.DTDKind] constant. For example, a DTD
 // entity-declaration node could represent an unparsed entity declaration
-// ([XMLEntityUnparsedKind]) rather than a parameter entity declaration
-// ([XMLEntityParameterKind]). You can use a DTD node’s subkind to help
+// ([NSXMLEntityUnparsedKind]) rather than a parameter entity declaration
+// ([NSXMLEntityParameterKind]). You can use a DTD node’s subkind to help
 // determine how to handle the value of the node.
-// 
+//
 // You can create an [NSXMLDTDNode] object with the [InitWithXMLString]
 // method, the [NSXMLNode] class method [DTDNodeWithXMLString], or with the
 // [NSXMLNode] initializer [InitWithKindOptions] (in the latter method
 // supplying the appropriate [XMLNode.Kind] constant).
-// 
+//
 // Setting the object value or string value of an [NSXMLDTDNode] objects
 // affects different parts of different kinds of declaration. See the related
 // programming topic for more information.
-//
-// [XMLDTDNode.DTDKind]: https://developer.apple.com/documentation/Foundation/XMLDTDNode/DTDKind-swift.enum
-// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 //
 // # Initializing an NSXMLDTDNode Object
 //
@@ -89,6 +87,9 @@ func (xc XMLDTDNodeClass) Alloc() XMLDTDNode {
 //   - [XMLDTDNode.SetSystemID]
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode
+//
+// [XMLDTDNode.DTDKind]: https://developer.apple.com/documentation/Foundation/XMLDTDNode/DTDKind-swift.enum
+// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 type XMLDTDNode struct {
 	NSXMLNode
 }
@@ -103,6 +104,7 @@ func XMLDTDNodeFromID(id objc.ID) XMLDTDNode {
 
 // NSXMLDTDNodeFromID is an alias for [XMLDTDNodeFromID] for cross-framework compatibility.
 func NSXMLDTDNodeFromID(id objc.ID) XMLDTDNode { return XMLDTDNodeFromID(id) }
+
 // NOTE: XMLDTDNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -180,33 +182,32 @@ func NewXMLDTDNode() XMLDTDNode {
 //
 // kind: An `enum` constant of type [XMLNode.Kind] that indicates the type of node.
 // See Constants for a list of valid NSXMLNodeKind constants.
-// //
-// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 //
 // # Return Value
-// 
+//
 // An [NSXMLNode] object initialized with kind or `nil` if the object
 // couldn’t be created. If `kind` is not a valid NSXMLNodeKind constant, the
 // method returns an [NSXMLNode] object of kind [NSXMLInvalidKind].
 //
 // # Discussion
-// 
+//
 // This method invokes [InitWithKindOptions] with the `options` parameter set
 // to [NSXMLNodeOptionsNone].
-// 
+//
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
 // attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
 // method of this class or the [InitWithXMLString] method of the
 // [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:)
+//
+// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 func NewXMLDTDNodeWithKind(kind NSXMLNodeKind) XMLDTDNode {
 	instance := getXMLDTDNodeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKind:"), kind)
 	return XMLDTDNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/init(kind:options:)
 func NewXMLDTDNodeWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLDTDNode {
 	instance := getXMLDTDNodeClass().Alloc()
@@ -220,17 +221,17 @@ func NewXMLDTDNodeWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) 
 // string: The DTD declaration.
 //
 // # Return Value
-// 
+//
 // An [NSXMLDTDNode] object initialized with the DTD declaration in `string`.
 // Returns `nil` if initialization did not succeed, as might occur if the
 // passed-in declaration is malformed.
 //
 // # Discussion
-// 
+//
 // The node kind (NSXMLNode) assigned to the returned object—element,
 // attribute, entity, or notation declaration— is based on the full XML
 // string that is parsed. To assign a subkind, set the [DTDKind] property.
-// 
+//
 // You may also use the [DTDNodeWithXMLString] or [InitWithKind] methods to
 // create [NSXMLDTDNode] instances. However, you cannot use the latter method
 // to create [NSXMLDTDNode] instances for attribute-list declarations.
@@ -248,17 +249,17 @@ func NewXMLDTDNodeWithXMLString(string_ string) XMLDTDNode {
 // string: The DTD declaration.
 //
 // # Return Value
-// 
+//
 // An [NSXMLDTDNode] object initialized with the DTD declaration in `string`.
 // Returns `nil` if initialization did not succeed, as might occur if the
 // passed-in declaration is malformed.
 //
 // # Discussion
-// 
+//
 // The node kind (NSXMLNode) assigned to the returned object—element,
 // attribute, entity, or notation declaration— is based on the full XML
 // string that is parsed. To assign a subkind, set the [DTDKind] property.
-// 
+//
 // You may also use the [DTDNodeWithXMLString] or [InitWithKind] methods to
 // create [NSXMLDTDNode] instances. However, you cannot use the latter method
 // to create [NSXMLDTDNode] instances for attribute-list declarations.
@@ -272,12 +273,12 @@ func (x XMLDTDNode) InitWithXMLString(string_ string) XMLDTDNode {
 // Returns the receiver’s DTD kind.
 //
 // # Return Value
-// 
+//
 // The receiver’s DTD kind. See Constants for a list of valid
 // NSXMLDTDNodeKind constants.
-// 
+//
 // # Discussion
-// 
+//
 // The DTD kind is distinct from a [NSXMLDTDNode] object’s node kind
 // (returned by the [NSXMLNode] [Kind] method).
 //
@@ -289,9 +290,9 @@ func (x XMLDTDNode) DTDKind() NSXMLDTDNodeKind {
 func (x XMLDTDNode) SetDTDKind(value NSXMLDTDNodeKind) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDTDKind:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // True if the system id is set. Valid for entities and notations.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/isExternal
@@ -299,14 +300,15 @@ func (x XMLDTDNode) External() bool {
 	rv := objc.Send[bool](x.ID, objc.Sel("isExternal"))
 	return rv
 }
+
 // Returns the name of the notation associated with the receiver.
 //
 // # Return Value
-// 
+//
 // The name of the notation associated with the receiver.
-// 
+//
 // # Discussion
-// 
+//
 // Notations are applicable to unparsed external entities, processing
 // instructions, and some attribute values.
 //
@@ -318,14 +320,15 @@ func (x XMLDTDNode) NotationName() string {
 func (x XMLDTDNode) SetNotationName(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setNotationName:"), objc.String(value))
 }
+
 // Returns the public identifier associated with the receiver.
 //
 // # Return Value
-// 
+//
 // The public identifier associated with the receiver.
-// 
+//
 // # Discussion
-// 
+//
 // The public ID is applicable to entities and notations.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/publicID
@@ -336,10 +339,11 @@ func (x XMLDTDNode) PublicID() string {
 func (x XMLDTDNode) SetPublicID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setPublicID:"), objc.String(value))
 }
+
 // Returns the system identifier associated with the receiver.
 //
 // # Return Value
-// 
+//
 // The system identifier associated with the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/systemID
@@ -350,4 +354,3 @@ func (x XMLDTDNode) SystemID() string {
 func (x XMLDTDNode) SetSystemID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setSystemID:"), objc.String(value))
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,13 +45,13 @@ func (vc VZHostAudioInputStreamSourceClass) Alloc() VZHostAudioInputStreamSource
 // system’s default input device.
 //
 // # Overview
-// 
+//
 // The host input data comes from the same device that
 // [AudioQueueNewInput(_:_:_:_:_:_:_:)] uses.
 //
-// [AudioQueueNewInput(_:_:_:_:_:_:_:)]: https://developer.apple.com/documentation/AudioToolbox/AudioQueueNewInput(_:_:_:_:_:_:_:)
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZHostAudioInputStreamSource
+//
+// [AudioQueueNewInput(_:_:_:_:_:_:_:)]: https://developer.apple.com/documentation/AudioToolbox/AudioQueueNewInput(_:_:_:_:_:_:_:)
 type VZHostAudioInputStreamSource struct {
 	VZAudioInputStreamSource
 }
@@ -62,6 +63,7 @@ type VZHostAudioInputStreamSource struct {
 func VZHostAudioInputStreamSourceFromID(id objc.ID) VZHostAudioInputStreamSource {
 	return VZHostAudioInputStreamSource{VZAudioInputStreamSource: VZAudioInputStreamSourceFromID(id)}
 }
+
 // NOTE: VZHostAudioInputStreamSource adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -90,4 +92,3 @@ func NewVZHostAudioInputStreamSource() VZHostAudioInputStreamSource {
 	rv := objc.Send[VZHostAudioInputStreamSource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

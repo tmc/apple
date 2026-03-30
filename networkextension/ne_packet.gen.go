@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type NEPacket struct {
 func NEPacketFromID(id objc.ID) NEPacket {
 	return NEPacket{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEPacket adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,7 +122,6 @@ func NewNEPacket() NEPacket {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacket/init(data:protocolFamily:)
 func NewPacketWithDataProtocolFamily(data foundation.INSData, protocolFamily uint8) NEPacket {
 	instance := getNEPacketClass().Alloc()
@@ -128,7 +129,6 @@ func NewPacketWithDataProtocolFamily(data foundation.INSData, protocolFamily uin
 	return NEPacketFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacket/init(data:protocolFamily:)
 func (p NEPacket) InitWithDataProtocolFamily(data foundation.INSData, protocolFamily uint8) NEPacket {
 	rv := objc.Send[NEPacket](p.ID, objc.Sel("initWithData:protocolFamily:"), data, protocolFamily)
@@ -143,16 +143,19 @@ func (p NEPacket) Data() foundation.INSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacket/metadata
 func (p NEPacket) Metadata() INEFlowMetaData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("metadata"))
 	return NEFlowMetaDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacket/protocolFamily
 func (p NEPacket) ProtocolFamily() uint8 {
 	rv := objc.Send[uint8](p.ID, objc.Sel("protocolFamily"))
 	return rv
 }
+
 // The direction of the packet.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEPacket/direction
@@ -160,4 +163,3 @@ func (p NEPacket) Direction() NETrafficDirection {
 	rv := objc.Send[NETrafficDirection](p.ID, objc.Sel("direction"))
 	return NETrafficDirection(rv)
 }
-

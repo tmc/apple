@@ -1,17 +1,19 @@
 // Code generated from Apple documentation for AVFoundation. DO NOT EDIT.
 
 package avfoundation
+
 import (
 	"github.com/tmc/apple/coremedia"
 )
 
 // C struct types
+
 // AVCaptionDimension - A structure that defines a caption dimension.
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVCaptionDimension
 type AVCaptionDimension struct {
-	Value float64 // The value of the coordinate or length.
+	Value float64            // The value of the coordinate or length.
 	Units AVCaptionUnitsType // The units of the coordinate, such as cells or points.
 
 }
@@ -31,7 +33,7 @@ type AVCaptionPoint struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVCaptionSize
 type AVCaptionSize struct {
-	Width AVCaptionDimension // The width of the caption.
+	Width  AVCaptionDimension // The width of the caption.
 	Height AVCaptionDimension // The height of the caption.
 
 }
@@ -41,13 +43,13 @@ type AVCaptionSize struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode
 type AVCaptureTimecode struct {
-	FrameDuration coremedia.CMTime // Frame duration of the timecode. If unknown, the value is `kCMTimeInvalid`.
-	Frames uint8 // Frame component of the timecode, indicating the frame count within the second.
-	Hours uint8 // Time component representing the current timecode in hours.
-	Minutes uint8 // Time component representing the current timecode in minutes.
-	Seconds uint8 // Time component representing the current timecode in seconds.
-	UserBits uint32 // A 32-bit field carrying SMPTE user bits, which are not strictly standardized. User bits are often used for additional metadata such as scene-take information, reel numbers, or dates, but their exact usage is application-dependent.
-	SourceType AVCaptureTimecodeSourceType // Source type of the timecode, indicating the emitter, carriage, or transport mechanism.
+	FrameDuration coremedia.CMTime            // Frame duration of the timecode. If unknown, the value is `kCMTimeInvalid`.
+	Frames        uint8                       // Frame component of the timecode, indicating the frame count within the second.
+	Hours         uint8                       // Time component representing the current timecode in hours.
+	Minutes       uint8                       // Time component representing the current timecode in minutes.
+	Seconds       uint8                       // Time component representing the current timecode in seconds.
+	UserBits      uint32                      // A 32-bit field carrying SMPTE user bits, which are not strictly standardized. User bits are often used for additional metadata such as scene-take information, reel numbers, or dates, but their exact usage is application-dependent.
+	SourceType    AVCaptureTimecodeSourceType // Source type of the timecode, indicating the emitter, carriage, or transport mechanism.
 
 }
 
@@ -66,9 +68,9 @@ type AVCaptureWhiteBalanceChromaticityValues struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/WhiteBalanceGains
 type AVCaptureWhiteBalanceGains struct {
-	BlueGain float32 // The blue gain component of the white balance value.
+	BlueGain  float32 // The blue gain component of the white balance value.
 	GreenGain float32 // The green gain component of the white balance value.
-	RedGain float32 // The red gain component of the white balance value.
+	RedGain   float32 // The red gain component of the white balance value.
 
 }
 
@@ -78,7 +80,7 @@ type AVCaptureWhiteBalanceGains struct {
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/WhiteBalanceTemperatureAndTintValues
 type AVCaptureWhiteBalanceTemperatureAndTintValues struct {
 	Temperature float32 // The white balance color correlated temperature in kelvin.
-	Tint float32 // The white balance tint value in the range of `-150.0` through `+150.0`.
+	Tint        float32 // The white balance tint value in the range of `-150.0` through `+150.0`.
 
 }
 
@@ -87,9 +89,9 @@ type AVCaptureWhiteBalanceTemperatureAndTintValues struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVEdgeWidths
 type AVEdgeWidths struct {
-	Left float64 // The left-edge width.
-	Top float64 // The top-edge width.
-	Right float64 // The right-edge width.
+	Left   float64 // The left-edge width.
+	Top    float64 // The top-edge width.
+	Right  float64 // The right-edge width.
 	Bottom float64 // The bottom-edge width.
 
 }
@@ -100,7 +102,7 @@ type AVEdgeWidths struct {
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVPixelAspectRatio
 type AVPixelAspectRatio struct {
 	HorizontalSpacing int // The pixel aspect ratio’s horizontal spacing value.
-	VerticalSpacing int // The pixel aspect ratio’s vertical spacing value.
+	VerticalSpacing   int // The pixel aspect ratio’s vertical spacing value.
 
 }
 
@@ -110,7 +112,7 @@ type AVPixelAspectRatio struct {
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVSampleCursorAudioDependencyInfo
 type AVSampleCursorAudioDependencyInfo struct {
 	AudioSampleIsIndependentlyDecodable bool // A Boolean value indicating whether the sample is independently decodable.
-	AudioSamplePacketRefreshCount int // The number of samples, starting at the current sample, that must be fed to the decoder to achieve full decoder refresh.
+	AudioSamplePacketRefreshCount       int  // The number of samples, starting at the current sample, that must be fed to the decoder to achieve full decoder refresh.
 
 }
 
@@ -119,10 +121,10 @@ type AVSampleCursorAudioDependencyInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVSampleCursorChunkInfo
 type AVSampleCursorChunkInfo struct {
-	ChunkSampleCount int64 // The count of media samples in the chunk.
-	ChunkHasUniformSampleSizes bool // The samples in the chunk occupy the same number of bytes in storage.
-	ChunkHasUniformSampleDurations bool // The samples in the chunk have the same duration.
-	ChunkHasUniformFormatDescriptions bool // The samples in the chunk have the same format description.
+	ChunkSampleCount                  int64 // The count of media samples in the chunk.
+	ChunkHasUniformSampleSizes        bool  // The samples in the chunk occupy the same number of bytes in storage.
+	ChunkHasUniformSampleDurations    bool  // The samples in the chunk have the same duration.
+	ChunkHasUniformFormatDescriptions bool  // The samples in the chunk have the same format description.
 
 }
 
@@ -132,11 +134,11 @@ type AVSampleCursorChunkInfo struct {
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVSampleCursorDependencyInfo
 type AVSampleCursorDependencyInfo struct {
 	SampleIndicatesWhetherItHasDependentSamples bool // A Boolean value that determines whether the sample indicates if other samples depend on it.
-	SampleHasDependentSamples bool // A Boolean value that determines whether the sample has dependent samples.
-	SampleIndicatesWhetherItDependsOnOthers bool // A Boolean value that determines whether the sample indicates that it depends on other samples.
-	SampleDependsOnOthers bool // A Boolean value that determines whether the sample depends on other samples.
-	SampleIndicatesWhetherItHasRedundantCoding bool // A Boolean value that determines whether the sample indicates that it has redundant coding.
-	SampleHasRedundantCoding bool // A Boolean value that determines whether the sample has redundant coding.
+	SampleHasDependentSamples                   bool // A Boolean value that determines whether the sample has dependent samples.
+	SampleIndicatesWhetherItDependsOnOthers     bool // A Boolean value that determines whether the sample indicates that it depends on other samples.
+	SampleDependsOnOthers                       bool // A Boolean value that determines whether the sample depends on other samples.
+	SampleIndicatesWhetherItHasRedundantCoding  bool // A Boolean value that determines whether the sample indicates that it has redundant coding.
+	SampleHasRedundantCoding                    bool // A Boolean value that determines whether the sample has redundant coding.
 
 }
 
@@ -155,9 +157,8 @@ type AVSampleCursorStorageRange struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVSampleCursorSyncInfo
 type AVSampleCursorSyncInfo struct {
-	SampleIsFullSync bool // A Boolean value that indicates whether a sample is a full sync sample.
+	SampleIsFullSync    bool // A Boolean value that indicates whether a sample is a full sync sample.
 	SampleIsPartialSync bool // A Boolean value that indicates whether a sample is a partial sync sample.
-	SampleIsDroppable bool // A Boolean value that indicates whether a sample is droppable.
+	SampleIsDroppable   bool // A Boolean value that indicates whether a sample is droppable.
 
 }
-

@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLArchivingUtils struct {
 func MLArchivingUtilsFromID(id objc.ID) MLArchivingUtils {
 	return MLArchivingUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure MLArchivingUtils implements IMLArchivingUtils.
 var _ IMLArchivingUtils = MLArchivingUtils{}
 
@@ -82,25 +84,24 @@ func NewMLArchivingUtils() MLArchivingUtils {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLArchivingUtils/URLOfInputArchive:
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) URLOfInputArchive(archive unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("URLOfInputArchive:"), archive)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLArchivingUtils/codedObjectURLFromInputArchiver:
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) CodedObjectURLFromInputArchiver(archiver unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("codedObjectURLFromInputArchiver:"), archiver)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLArchivingUtils/codedObjectURLFromOutputArchiver:
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) CodedObjectURLFromOutputArchiver(archiver unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLArchivingUtilsClass.class), objc.Sel("codedObjectURLFromOutputArchiver:"), archiver)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLArchivingUtils/parseModelArchive:modelType:compilerVersion:modelVersion:error:
 func (_MLArchivingUtilsClass MLArchivingUtilsClass) ParseModelArchiveModelTypeCompilerVersionModelVersionError(archive unsafe.Pointer, version []objectivec.IObject, version2 []objectivec.IObject) (int, error) {
 	var type_ int
@@ -115,4 +116,3 @@ func (_MLArchivingUtilsClass MLArchivingUtilsClass) ParseModelArchiveModelTypeCo
 	}
 	return type_, nil
 }
-

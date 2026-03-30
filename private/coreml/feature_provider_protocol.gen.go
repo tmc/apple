@@ -18,6 +18,7 @@ type MLFeatureProvider interface {
 type MLFeatureProviderObject struct {
 	objectivec.Object
 }
+
 func (o MLFeatureProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,11 +35,10 @@ func MLFeatureProviderObjectFromID(id objc.ID) MLFeatureProviderObject {
 func (o MLFeatureProviderObject) FeatureNames() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureNames"))
 	return objectivec.Object{ID: rv}
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureValueForName:
 func (o MLFeatureProviderObject) FeatureValueForName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureValueForName:"), name)
 	return objectivec.Object{ID: rv}
-	}
-
+}

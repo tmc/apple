@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type AVCaptionConversionAdjustment struct {
 func AVCaptionConversionAdjustmentFromID(id objc.ID) AVCaptionConversionAdjustment {
 	return AVCaptionConversionAdjustment{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptionConversionAdjustment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,6 +118,7 @@ func (c AVCaptionConversionAdjustment) AdjustmentType() AVCaptionConversionAdjus
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("adjustmentType"))
 	return AVCaptionConversionAdjustmentType(foundation.NSStringFromID(rv).String())
 }
+
 // A correction the converter makes when it converts a caption to a specific
 // format.
 //
@@ -127,6 +130,7 @@ func (c AVCaptionConversionAdjustment) Adjustment() IAVCaptionConversionAdjustme
 func (c AVCaptionConversionAdjustment) SetAdjustment(value IAVCaptionConversionAdjustment) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAdjustment:"), value)
 }
+
 // The range of the captions for which the system issued a warning.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcaptionconversionwarning/rangeofcaptions
@@ -137,6 +141,7 @@ func (c AVCaptionConversionAdjustment) RangeOfCaptions() foundation.NSRange {
 func (c AVCaptionConversionAdjustment) SetRangeOfCaptions(value foundation.NSRange) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRangeOfCaptions:"), value)
 }
+
 // A type that indicates the nature of the validation warning.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcaptionconversionwarning/warningtype-swift.property
@@ -147,4 +152,3 @@ func (c AVCaptionConversionAdjustment) WarningType() AVCaptionConversionWarningT
 func (c AVCaptionConversionAdjustment) SetWarningType(value AVCaptionConversionWarningType) {
 	objc.Send[struct{}](c.ID, objc.Sel("setWarningType:"), objc.String(string(value)))
 }
-

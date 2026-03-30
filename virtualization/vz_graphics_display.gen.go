@@ -3,12 +3,13 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,7 +49,7 @@ func (vc VZGraphicsDisplayClass) Alloc() VZGraphicsDisplay {
 // A class that represents a graphics display in a VM.
 //
 // # Overview
-// 
+//
 // Don’t instantiate a [VZGraphicsDisplay] directly. Graphics displays are
 // first configured on a [VZGraphicsDeviceConfiguration] subclass. When you
 // create a [VZVirtualMachine] from the configuration, the displays are
@@ -80,6 +81,7 @@ type VZGraphicsDisplay struct {
 func VZGraphicsDisplayFromID(id objc.ID) VZGraphicsDisplay {
 	return VZGraphicsDisplay{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZGraphicsDisplay adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -155,6 +157,7 @@ func NewVZGraphicsDisplay() VZGraphicsDisplay {
 func (g VZGraphicsDisplay) AddObserver(observer VZGraphicsDisplayObserver) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addObserver:"), observer)
 }
+
 // Removes a display configuration change observer.
 //
 // observer: The observer to remove from notifications about display configuration
@@ -164,16 +167,17 @@ func (g VZGraphicsDisplay) AddObserver(observer VZGraphicsDisplayObserver) {
 func (g VZGraphicsDisplay) RemoveObserver(observer VZGraphicsDisplayObserver) {
 	objc.Send[objc.ID](g.ID, objc.Sel("removeObserver:"), observer)
 }
+
 // Resize this display with the new dimensions you provide.
 //
 // sizeInPixels: The new display width and height in pixels.
 //
 // # Discussion
-// 
+//
 // If successful, the framework passes the new size to the guest but the guest
 // may or may not respond to the new size. If the guest doesn’t use the new
 // size, the Virtualization framework doesn’t return an error.
-// 
+//
 // Resizing the display triggers a display state change that you can track by
 // adopting the [VZGraphicsDisplayObserver] protocol.
 //
@@ -191,17 +195,18 @@ func (g VZGraphicsDisplay) ReconfigureWithSizeInPixelsError(sizeInPixels corefou
 	return rv, nil
 
 }
+
 // Reconfigure this display with the new display configuration you provide.
 //
 // configuration: The new [VZGraphicsDisplayConfiguration] configuration.
 //
 // # Discussion
-// 
+//
 // If successful, the framework passes the new configuration to the guest, but
 // the guest may or may not respond to parts of the configuration. If the
 // guest doesn’t use the new configuration, the Virtualization framework
 // doesn’t return an error.
-// 
+//
 // Reconfiguration of the display triggers a display state change that you can
 // track by adopting the [VZGraphicsDisplayObserver] protocol.
 //
@@ -227,6 +232,7 @@ func (g VZGraphicsDisplay) SizeInPixels() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](g.ID, objc.Sel("sizeInPixels"))
 	return corefoundation.CGSize(rv)
 }
+
 // The list of graphics displays configured for this graphics device.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzgraphicsdevice/displays
@@ -237,4 +243,3 @@ func (g VZGraphicsDisplay) Displays() IVZGraphicsDisplay {
 func (g VZGraphicsDisplay) SetDisplays(value IVZGraphicsDisplay) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDisplays:"), value)
 }
-

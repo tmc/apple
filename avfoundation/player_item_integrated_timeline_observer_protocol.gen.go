@@ -18,6 +18,7 @@ type AVPlayerItemIntegratedTimelineObserver interface {
 type AVPlayerItemIntegratedTimelineObserverObject struct {
 	objectivec.Object
 }
+
 func (o AVPlayerItemIntegratedTimelineObserverObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func AVPlayerItemIntegratedTimelineObserverObjectFromID(id objc.ID) AVPlayerItem
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

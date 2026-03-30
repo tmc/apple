@@ -23,6 +23,7 @@ type NSCollectionLayoutEnvironment interface {
 type NSCollectionLayoutEnvironmentObject struct {
 	objectivec.Object
 }
+
 func (o NSCollectionLayoutEnvironmentObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,5 +43,4 @@ func NSCollectionLayoutEnvironmentObjectFromID(id objc.ID) NSCollectionLayoutEnv
 func (o NSCollectionLayoutEnvironmentObject) Container() NSCollectionLayoutContainer {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("container"))
 	return NSCollectionLayoutContainerObjectFromID(rv)
-	}
-
+}

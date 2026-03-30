@@ -4,6 +4,7 @@ package remotecoreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MLLog struct {
 func MLLogFromID(id objc.ID) MLLog {
 	return MLLog{objectivec.Object{ID: id}}
 }
+
 // Ensure MLLog implements IMLLog.
 var _ IMLLog = MLLog{}
 
@@ -84,24 +86,27 @@ func (_MLLogClass MLLogClass) ClientFramework() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("clientFramework"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLLog/common
 func (_MLLogClass MLLogClass) Common() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("common"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLLog/daemon
 func (_MLLogClass MLLogClass) Daemon() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("daemon"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLLog/serverFramework
 func (_MLLogClass MLLogClass) ServerFramework() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("serverFramework"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLLog/tool
 func (_MLLogClass MLLogClass) Tool() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLLogClass.class), objc.Sel("tool"))
 	return objectivec.Object{ID: rv}
 }
-

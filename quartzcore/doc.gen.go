@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for QuartzCore. DO NOT EDIT.
 
 // Package quartzcore provides Go bindings for the QuartzCore framework.
@@ -71,7 +70,7 @@
 //
 // # ProMotion
 //
-//   - Optimizing ProMotion refresh rates for iPhone 13 Pro and iPad Pro: Provide custom animated content for ProMotion displays.
+//   - Optimizing iPhone and iPad apps to support ProMotion displays: Improve your app’s visual appearance and save power by requesting preferred refresh rates and synchronizing your animations with the system.
 //
 // # Remote Display of Layer Content
 //
@@ -93,8 +92,8 @@
 //   - [CAEmitterLayer] - A layer that emits, animates, and renders a particle system.
 //   - [CAMetalLayer] - A Core Animation layer that Metal can render into, typically displayed onscreen.
 //   - [CAShapeLayer] - A layer that draws a cubic Bezier spline in its coordinate space.
-//   - [CASpringAnimation] - An animation that applies a spring-like force to a layer’s properties.
 //   - [CAAnimation] - The abstract superclass for animations in Core Animation.
+//   - [CASpringAnimation] - An animation that applies a spring-like force to a layer’s properties.
 //   - [CAKeyframeAnimation] - An object that provides keyframe animation capabilities for a layer object.
 //   - [CAReplicatorLayer] - A layer that creates a specified number of sublayer copies with varying geometric, temporal, and color transformations.
 //   - [CATextLayer] - A layer that provides simple text layout and rendering of plain or attributed strings.
@@ -105,20 +104,28 @@ package quartzcore
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/QuartzCore.framework/QuartzCore"
+// frameworkPaths lists paths to try when loading the QuartzCore library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
+	"/usr/lib/libQuartzCore.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: QuartzCore: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: QuartzCore: failed to load framework from any known path\n")
 }
-

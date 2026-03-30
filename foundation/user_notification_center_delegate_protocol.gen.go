@@ -18,6 +18,7 @@ type NSUserNotificationCenterDelegate interface {
 type NSUserNotificationCenterDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSUserNotificationCenterDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func NSUserNotificationCenterDelegateObjectFromID(id objc.ID) NSUserNotification
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

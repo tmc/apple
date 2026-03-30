@@ -3,8 +3,8 @@
 package avfoundation
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -20,6 +20,7 @@ type AVPlayerItemRenderedLegibleOutputPushDelegate interface {
 type AVPlayerItemRenderedLegibleOutputPushDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVPlayerItemRenderedLegibleOutputPushDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,22 +40,23 @@ func AVPlayerItemRenderedLegibleOutputPushDelegateObjectFromID(id objc.ID) AVPla
 // captionImages: An array of [AVRenderedCaptionImage] objects. A caption object consists of
 // a [CVPixelBuffer] and its associated position, in pixels, relative to the
 // video frame.
-// //
-// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
 //
 // itemTime: The item time at which to present the caption images.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemRenderedLegibleOutputPushDelegate/renderedLegibleOutput(_:didOutputRenderedCaptionImages:forItemTime:)
+//
+// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
 func (o AVPlayerItemRenderedLegibleOutputPushDelegateObject) RenderedLegibleOutputDidOutputRenderedCaptionImagesForItemTime(output IAVPlayerItemRenderedLegibleOutput, captionImages []AVRenderedCaptionImage, itemTime coremedia.CMTime) {
 	objc.Send[struct{}](o.ID, objc.Sel("renderedLegibleOutput:didOutputRenderedCaptionImages:forItemTime:"), output, objectivec.IObjectSliceToNSArray(captionImages), itemTime)
-	}
+}
+
 // Tells the delegate that the output is starting a new sequence of media
 // data.
 //
 // output: The [AVPlayerItemOutput] object.
 //
 // # Discussion
-// 
+//
 // This method is invoked after any seeking and change in playback direction.
 // If you are maintaining any queued future media data, you may want to
 // discard those objects after receiving this message.
@@ -62,5 +64,4 @@ func (o AVPlayerItemRenderedLegibleOutputPushDelegateObject) RenderedLegibleOutp
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutputPushDelegate/outputSequenceWasFlushed(_:)
 func (o AVPlayerItemRenderedLegibleOutputPushDelegateObject) OutputSequenceWasFlushed(output IAVPlayerItemOutput) {
 	objc.Send[struct{}](o.ID, objc.Sel("outputSequenceWasFlushed:"), output)
-	}
-
+}

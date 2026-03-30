@@ -4,8 +4,9 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,12 +47,12 @@ func (cc CADisplayLinkClass) Alloc() CADisplayLink {
 // refresh rate of the display.
 //
 // # Overview
-// 
+//
 // Your app initializes a new display link by providing a target object and a
 // selector to call when the system updates the screen. To synchronize your
 // display loop with the display, your application adds it to a run loop using
 // the [CADisplayLink.AddToRunLoopForMode] method.
-// 
+//
 // Once you associate the display link with a run loop, the system calls the
 // selector on the target when the screen’s contents need to update. The
 // target can read the display link’s [CADisplayLink.Timestamp] property to retrieve the
@@ -59,32 +60,32 @@ func (cc CADisplayLinkClass) Alloc() CADisplayLink {
 // displays movies might use `timestamp` to calculate which video frame to
 // display next. An app that performs its own animations might use `timestamp`
 // to determine where and how visible objects appear in the upcoming frame.
-// 
+//
 // The [CADisplayLink.Duration] property provides the amount of time between frames at the
 // [CADisplayLink.MaximumFramesPerSecond]. To calculate the actual frame duration, use
 // [CADisplayLink.TargetTimestamp] - [CADisplayLink.Timestamp]. You can use this value in your app to
 // calculate the frame rate of the display, the approximate time the system
 // displays the next frame, and to adjust the drawing behavior so that the
 // next frame is ready in time to display.
-// 
+//
 // Your app can disable notifications by setting [CADisplayLink.Paused] to `true`. Also, if
 // your app can’t provide frames in the time the system provides, you may
 // want to choose a slower frame rate. An app with a slower but consistent
 // frame rate appears smoother to the user than an app that skips frames. You
 // can define the number of frames per second by setting
 // [CADisplayLink.PreferredFramesPerSecond].
-// 
+//
 // When your app finishes with a display link, call [CADisplayLink.Invalidate] to remove it
 // from all run loops and to disassociate it from the target.
-// 
+//
 // The code listing below shows how to create a display link and add it to the
 // current run loop. The display link invokes the step function, which prints
 // the target timestamp with each screen update.
-// 
+//
 // You shouldn’t subclass [CADisplayLink].
-// 
+//
 // # Preferred and Actual Frame Rates
-// 
+//
 // You control a display link’s frame rate (the number of times the system
 // calls the selector of its target, per second) by setting
 // [CADisplayLink.PreferredFramesPerSecond]. However, the actual frames per second may
@@ -94,17 +95,17 @@ func (cc CADisplayLinkClass) Alloc() CADisplayLink {
 // [CADisplayLink.MaximumFramesPerSecond]), actual frame rates include 15, 20, 30, and 60
 // frames per second. If you set a display link’s preferred frame rate to a
 // value higher than the maximum, the actual frame rate is the maximum.
-// 
+//
 // In iOS 15, frame rate availability can change due to the system factoring
 // in the system policy and user preference — including Low Power Mode,
 // critical thermal state, and accessibility settings.
-// 
+//
 // The system rounds, to the nearest factor, preferred frame rates that
 // aren’t a divisor of the maximum frame rate. For example, setting a
 // preferred frame rate to either 26 or 35 frames per second on a device with
 // a maximum refresh rate of 60 frames per second yields an actual frame rate
 // of 30 times per second.
-// 
+//
 // The code listing below shows how to calculate the actual frame rate by
 // dividing 1 by your display link’s [CADisplayLink.Timestamp] subtracted from its
 // [CADisplayLink.TargetTimestamp].
@@ -137,6 +138,7 @@ type CADisplayLink struct {
 func CADisplayLinkFromID(id objc.ID) CADisplayLink {
 	return CADisplayLink{objectivec.Object{ID: id}}
 }
+
 // NOTE: CADisplayLink adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -218,14 +220,14 @@ func NewCADisplayLink() CADisplayLink {
 // sel: A selector instance that represents a method for `target`.
 //
 // # Return Value
-// 
+//
 // A new [CADisplayLink] object.
 //
 // # Discussion
-// 
+//
 // The selector on the target must be a method with the following signature,
 // where sender is the display link returned by this method.
-// 
+//
 // The newly constructed display link retains the target.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CADisplayLink/init(target:selector:)
@@ -241,22 +243,23 @@ func NewDisplayLinkWithTargetSelector(target objectivec.IObject, sel objc.SEL) C
 // mode: The mode in which to add the display link to the run loop.
 //
 // # Discussion
-// 
+//
 // You can associate a display link with multiple input modes. While the run
 // loop is executing in a mode you specify, the display link notifies the
 // target when the system requires new frames.
-// 
+//
 // You can specify a custom mode or use one of the modes listed in [RunLoop].
-// 
+//
 // The run loop retains the display link. To remove the display link from all
 // run loops, call [Invalidate].
 //
-// [RunLoop]: https://developer.apple.com/documentation/Foundation/RunLoop
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CADisplayLink/add(to:forMode:)
+//
+// [RunLoop]: https://developer.apple.com/documentation/Foundation/RunLoop
 func (d CADisplayLink) AddToRunLoopForMode(runloop foundation.NSRunLoop, mode foundation.NSString) {
 	objc.Send[objc.ID](d.ID, objc.Sel("addToRunLoop:forMode:"), runloop, mode)
 }
+
 // Removes the display link from the run loop for the given mode.
 //
 // runloop: The run loop you associate with the display link.
@@ -264,7 +267,7 @@ func (d CADisplayLink) AddToRunLoopForMode(runloop foundation.NSRunLoop, mode fo
 // mode: The run loop mode in which the display link is running.
 //
 // # Discussion
-// 
+//
 // The run loop releases the display link if it’s no longer associated with
 // any run modes.
 //
@@ -272,13 +275,14 @@ func (d CADisplayLink) AddToRunLoopForMode(runloop foundation.NSRunLoop, mode fo
 func (d CADisplayLink) RemoveFromRunLoopForMode(runloop foundation.NSRunLoop, mode foundation.NSString) {
 	objc.Send[objc.ID](d.ID, objc.Sel("removeFromRunLoop:forMode:"), runloop, mode)
 }
+
 // Removes the display link from all run loop modes.
 //
 // # Discussion
-// 
+//
 // When you remove the display link from all run loop mode, the system
 // releases it. The display link also releases the target.
-// 
+//
 // This method is thread safe, so you can call it from a thread separate to
 // the one in which the display link runs.
 //
@@ -290,10 +294,10 @@ func (d CADisplayLink) Invalidate() {
 // The time interval between screen refresh updates.
 //
 // # Discussion
-// 
+//
 // This value is in an undefined state until the system calls the target’s
 // selector at least once.
-// 
+//
 // You calculate the expected amount of time your app has to render each frame
 // by using [TargetTimestamp]-[Timestamp]. Use
 // [TargetTimestamp]-[CACurrentMediaTime] to calculate the actual amount of
@@ -304,34 +308,35 @@ func (d CADisplayLink) Duration() float64 {
 	rv := objc.Send[float64](d.ID, objc.Sel("duration"))
 	return rv
 }
+
 // A range of frequencies your app allows for frame updates, affecting how
 // often the system invokes your delegate’s callback.
 //
 // # Discussion
-// 
+//
 // The display link makes a best attempt to invoke your app’s callback
 // within the frequency range you set to this property. However, the system
 // also takes into account the device’s hardware capabilities and the other
 // tasks your game or app is running.
-// 
+//
 // The system can change the available range of frame rates because it factors
 // in system policies and a person’s preferences. For example, Low Power
 // Mode, critical thermal state, and accessibility settings can affect the
 // system’s frame rate.
-// 
+//
 // The system typically provides a consistent frame rate by choosing one
 // that’s a factor of the display’s maximum refresh rate. For example, a
 // display link could invoke your callback 60 times per second for a display
 // with a refresh rate of 60 hertz. However, the display link could invoke
 // your callback less frequently, such as 30, 20, or 15 hertz, by setting a
 // range with smaller values.
-// 
+//
 // See [Optimizing ProMotion refresh rates for iPhone 13 Pro and iPad Pro] for
 // more information.
 //
-// [Optimizing ProMotion refresh rates for iPhone 13 Pro and iPad Pro]: https://developer.apple.com/documentation/QuartzCore/optimizing-promotion-refresh-rates-for-iphone-13-pro-and-ipad-pro
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CADisplayLink/preferredFrameRateRange
+//
+// [Optimizing ProMotion refresh rates for iPhone 13 Pro and iPad Pro]: https://developer.apple.com/documentation/QuartzCore/optimizing-promotion-refresh-rates-for-iphone-13-pro-and-ipad-pro
 func (d CADisplayLink) PreferredFrameRateRange() CAFrameRateRange {
 	rv := objc.Send[CAFrameRateRange](d.ID, objc.Sel("preferredFrameRateRange"))
 	return CAFrameRateRange(rv)
@@ -339,19 +344,17 @@ func (d CADisplayLink) PreferredFrameRateRange() CAFrameRateRange {
 func (d CADisplayLink) SetPreferredFrameRateRange(value CAFrameRateRange) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPreferredFrameRateRange:"), value)
 }
+
 // A Boolean value that indicates whether the system suspends the display
 // link’s notifications to the target.
 //
 // # Discussion
-// 
-// The default value is [false]. If [true], the display link doesn’t send
+//
+// The default value is false. If true, the display link doesn’t send
 // notifications to the target.
-// 
+//
 // This property is thread safe, so you can set it from a thread separate to
 // the one in which the display link runs.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CADisplayLink/isPaused
 func (d CADisplayLink) Paused() bool {
@@ -361,10 +364,11 @@ func (d CADisplayLink) Paused() bool {
 func (d CADisplayLink) SetPaused(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPaused:"), value)
 }
+
 // The time interval that represents when the last frame displayed.
 //
 // # Discussion
-// 
+//
 // If you need to calculate what to display next, use [TargetTimestamp]
 // instead.
 //
@@ -373,28 +377,30 @@ func (d CADisplayLink) Timestamp() float64 {
 	rv := objc.Send[float64](d.ID, objc.Sel("timestamp"))
 	return rv
 }
+
 // The time interval that represents when the next frame displays.
 //
 // # Discussion
-// 
+//
 // You can use the target timestamp to cancel or pause long running processes
 // that may overrun the available time between frames in order to maintain a
 // consistent frame rate.
-// 
+//
 // The following code shows how you can create a display link and register it
-// with a run loop. The `step(``)` function attempts to sum the square roots
+// with a run loop. The `step(“)` function attempts to sum the square roots
 // of all numbers up to [max], but with each iteration checks the current time
 // ([CACurrentMediaTime]) against the [TargetTimestamp]. If the time taken to
 // complete the calculation is later than the target timestamp, the function
 // breaks the loop:
 //
-// [max]: https://developer.apple.com/documentation/Swift/Int/max
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CADisplayLink/targetTimestamp
+//
+// [max]: https://developer.apple.com/documentation/Swift/Int/max
 func (d CADisplayLink) TargetTimestamp() float64 {
 	rv := objc.Send[float64](d.ID, objc.Sel("targetTimestamp"))
 	return rv
 }
+
 // The maximum number of frames per second a screen can render.
 //
 // See: https://developer.apple.com/documentation/UIKit/UIScreen/maximumFramesPerSecond
@@ -405,4 +411,3 @@ func (d CADisplayLink) MaximumFramesPerSecond() int {
 func (d CADisplayLink) SetMaximumFramesPerSecond(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumFramesPerSecond:"), value)
 }
-

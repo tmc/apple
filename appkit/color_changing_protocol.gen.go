@@ -23,6 +23,7 @@ type NSColorChanging interface {
 type NSColorChangingObject struct {
 	objectivec.Object
 }
+
 func (o NSColorChangingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -43,5 +44,4 @@ func NSColorChangingObjectFromID(id objc.ID) NSColorChangingObject {
 // See: https://developer.apple.com/documentation/AppKit/NSColorChanging/changeColor(_:)
 func (o NSColorChangingObject) ChangeColor(sender INSColorPanel) {
 	objc.Send[struct{}](o.ID, objc.Sel("changeColor:"), sender)
-	}
-
+}

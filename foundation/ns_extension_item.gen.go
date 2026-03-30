@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -70,6 +71,7 @@ type NSExtensionItem struct {
 func NSExtensionItemFromID(id objc.ID) NSExtensionItem {
 	return NSExtensionItem{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSExtensionItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,7 +136,6 @@ func NewNSExtensionItem() NSExtensionItem {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewExtensionItemWithCoder(coder INSCoder) NSExtensionItem {
 	instance := getNSExtensionItemClass().Alloc()
@@ -150,7 +151,7 @@ func NewExtensionItemWithCoder(coder INSCoder) NSExtensionItem {
 func (e NSExtensionItem) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (e NSExtensionItem) InitWithCoder(coder INSCoder) NSExtensionItem {
 	rv := objc.Send[NSExtensionItem](e.ID, objc.Sel("initWithCoder:"), coder)
@@ -169,22 +170,23 @@ func (e NSExtensionItem) AttributedTitle() INSAttributedString {
 func (e NSExtensionItem) SetAttributedTitle(value INSAttributedString) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAttributedTitle:"), value)
 }
+
 // An optional dictionary of keys and values corresponding to the extension
 // item’s properties.
 //
 // # Discussion
-// 
+//
 // If applicable to a particular extension type, additional information may be
 // available in the `userInfo` dictionary. For example, in the context of an
 // Action extension, the `userInfo` dictionary may contain values for the keys
 // [NSExtensionItemAttachmentsKey], [NSExtensionItemAttributedContentTextKey],
 // and [NSExtensionItemAttributedTitleKey].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSExtensionItem/userInfo
+//
 // [NSExtensionItemAttachmentsKey]: https://developer.apple.com/documentation/Foundation/NSExtensionItemAttachmentsKey
 // [NSExtensionItemAttributedContentTextKey]: https://developer.apple.com/documentation/Foundation/NSExtensionItemAttributedContentTextKey
 // [NSExtensionItemAttributedTitleKey]: https://developer.apple.com/documentation/Foundation/NSExtensionItemAttributedTitleKey
-//
-// See: https://developer.apple.com/documentation/Foundation/NSExtensionItem/userInfo
 func (e NSExtensionItem) UserInfo() INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("userInfo"))
 	return NSDictionaryFromID(objc.ID(rv))
@@ -192,10 +194,11 @@ func (e NSExtensionItem) UserInfo() INSDictionary {
 func (e NSExtensionItem) SetUserInfo(value INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setUserInfo:"), value)
 }
+
 // An optional array of media data associated with the extension item.
 //
 // # Discussion
-// 
+//
 // Populate this array with images, videos, URLs, and so on. It’s not meant
 // to be an array of alternative data formats or types, but is instead a
 // collection to include in a social media post, for example. These items are
@@ -211,6 +214,7 @@ func (e NSExtensionItem) Attachments() []NSItemProvider {
 func (e NSExtensionItem) SetAttachments(value []NSItemProvider) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAttachments:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // An optional string describing the extension item content.
 //
 // # Discussion
@@ -224,9 +228,6 @@ func (e NSExtensionItem) SetAttributedContentText(value INSAttributedString) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAttributedContentText:"), value)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

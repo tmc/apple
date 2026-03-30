@@ -3,11 +3,12 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNFaceLandmarkRegion2D] class.
@@ -46,7 +47,7 @@ func (vc VNFaceLandmarkRegion2DClass) Alloc() VNFaceLandmarkRegion2D {
 // 2D geometry information for a specific facial feature.
 //
 // # Overview
-// 
+//
 // This class represents the set of all facial landmark regions in 2D, exposed
 // as properties.
 //
@@ -65,6 +66,7 @@ type VNFaceLandmarkRegion2D struct {
 func VNFaceLandmarkRegion2DFromID(id objc.ID) VNFaceLandmarkRegion2D {
 	return VNFaceLandmarkRegion2D{VNFaceLandmarkRegion: VNFaceLandmarkRegionFromID(id)}
 }
+
 // NOTE: VNFaceLandmarkRegion2D adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,13 +118,13 @@ func NewVNFaceLandmarkRegion2D() VNFaceLandmarkRegion2D {
 // imageSize: The pixel dimensions of the image in which to present landmark points.
 //
 // # Return Value
-// 
+//
 // A pointer to a buffer containing a [CGPoint] for each landmark detected in
 // the image, expressed in the coordinate space of the specified image size.
 //
-// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
-//
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion2D/pointsInImageOfSize:
+//
+// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
 func (f VNFaceLandmarkRegion2D) PointsInImageOfSize(imageSize corefoundation.CGSize) *corefoundation.CGPoint {
 	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("pointsInImageOfSize:"), imageSize)
 	return (*corefoundation.CGPoint)(rv)
@@ -136,31 +138,33 @@ func (f VNFaceLandmarkRegion2D) PointsClassification() VNPointsClassification {
 	rv := objc.Send[VNPointsClassification](f.ID, objc.Sel("pointsClassification"))
 	return VNPointsClassification(rv)
 }
+
 // A buffer in memory containing normalized landmark points.
 //
 // # Discussion
-// 
+//
 // This pointer points to the address of a buffer containing [CGPoint] structs
 // representing landmark points.
-// 
+//
 // The target object owns this buffer, which is guaranteed to exist as long as
 // the corresponding [VNFaceLandmarkRegion2D] exists.
 //
-// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
-//
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion2D/normalizedPoints-1o38f
+//
+// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
 func (f VNFaceLandmarkRegion2D) NormalizedPoints() *corefoundation.CGPoint {
 	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("normalizedPoints"))
 	return (*corefoundation.CGPoint)(rv)
 }
+
 // An array of precision estimates for each landmark point.
 //
 // # Discussion
-// 
+//
 // This property is only populated when you configure your
 // [VNDetectFaceLandmarksRequest] object with
-// [RequestFaceLandmarksConstellation76Points]. For other constellation types,
-// this array is set to `nil`.
+// [VNRequestFaceLandmarksConstellation76Points]. For other constellation
+// types, this array is set to `nil`.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion2D/precisionEstimatesPerPoint-3kx5a
 func (f VNFaceLandmarkRegion2D) PrecisionEstimatesPerPoint() []foundation.NSNumber {
@@ -169,4 +173,3 @@ func (f VNFaceLandmarkRegion2D) PrecisionEstimatesPerPoint() []foundation.NSNumb
 		return foundation.NSNumberFromID(id)
 	})
 }
-

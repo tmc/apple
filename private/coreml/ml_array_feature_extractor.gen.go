@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLArrayFeatureExtractorClass) Alloc() MLArrayFeatureExtractor {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLArrayFeatureExtractor.ArrayColumnName]
@@ -51,6 +51,7 @@ func (mc MLArrayFeatureExtractorClass) Alloc() MLArrayFeatureExtractor {
 //   - [MLArrayFeatureExtractor.OutputType]
 //   - [MLArrayFeatureExtractor.PredictionFromFeaturesOptionsError]
 //   - [MLArrayFeatureExtractor.InitWithIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor
 type MLArrayFeatureExtractor struct {
 	MLModel
@@ -60,6 +61,7 @@ type MLArrayFeatureExtractor struct {
 func MLArrayFeatureExtractorFromID(id objc.ID) MLArrayFeatureExtractor {
 	return MLArrayFeatureExtractor{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLArrayFeatureExtractor implements IMLArrayFeatureExtractor.
 var _ IMLArrayFeatureExtractor = MLArrayFeatureExtractor{}
 
@@ -105,7 +107,6 @@ func NewMLArrayFeatureExtractor() MLArrayFeatureExtractor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewArrayFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLArrayFeatureExtractor, error) {
 	var errorPtr objc.ID
@@ -118,7 +119,6 @@ func NewArrayFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(
 	return MLArrayFeatureExtractorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewArrayFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLArrayFeatureExtractor, error) {
 	var errorPtr objc.ID
@@ -131,7 +131,6 @@ func NewArrayFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archiv
 	return MLArrayFeatureExtractorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewArrayFeatureExtractorWithConfiguration(configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
@@ -139,7 +138,6 @@ func NewArrayFeatureExtractorWithConfiguration(configuration objectivec.IObject)
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewArrayFeatureExtractorWithDescription(description objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
@@ -147,7 +145,6 @@ func NewArrayFeatureExtractorWithDescription(description objectivec.IObject) MLA
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewArrayFeatureExtractorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
@@ -155,7 +152,6 @@ func NewArrayFeatureExtractorWithDescriptionConfiguration(description objectivec
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewArrayFeatureExtractorWithIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, indices objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
@@ -163,7 +159,6 @@ func NewArrayFeatureExtractorWithIndicesDataTransformerNameInputDescriptionOutpu
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewArrayFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
@@ -171,7 +166,6 @@ func NewArrayFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInp
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/predictionFromFeatures:options:error:
 func (a MLArrayFeatureExtractor) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -183,26 +177,25 @@ func (a MLArrayFeatureExtractor) PredictionFromFeaturesOptionsError(features obj
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func (a MLArrayFeatureExtractor) InitWithIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, indices objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
 	rv := objc.Send[MLArrayFeatureExtractor](a.ID, objc.Sel("initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, indices, name, description, description2, names, names2, configuration)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/extractArrayElement:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:
 func (_MLArrayFeatureExtractorClass MLArrayFeatureExtractorClass) ExtractArrayElementIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(element objectivec.IObject, indices objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLArrayFeatureExtractorClass.class), objc.Sel("extractArrayElement:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), element, indices, name, description, description2, names, names2)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/extractArrayElement:indices:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:
 func (_MLArrayFeatureExtractorClass MLArrayFeatureExtractorClass) ExtractArrayElementIndicesInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(element objectivec.IObject, indices objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLArrayFeatureExtractorClass.class), objc.Sel("extractArrayElement:indices:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), element, indices, description, description2, names, names2)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/loadModelFromSpecification:configuration:error:
 func (_MLArrayFeatureExtractorClass MLArrayFeatureExtractorClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -220,14 +213,15 @@ func (a MLArrayFeatureExtractor) ArrayColumnName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("arrayColumnName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/extractIndices
 func (a MLArrayFeatureExtractor) ExtractIndices() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("extractIndices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLArrayFeatureExtractor/outputType
 func (a MLArrayFeatureExtractor) OutputType() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("outputType"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_remove_squeeze_expanddims_1d_ops struct {
 func EspressoPass_remove_squeeze_expanddims_1d_opsFromID(id objc.ID) EspressoPass_remove_squeeze_expanddims_1d_ops {
 	return EspressoPass_remove_squeeze_expanddims_1d_ops{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_remove_squeeze_expanddims_1d_ops implements IEspressoPass_remove_squeeze_expanddims_1d_ops.
 var _ IEspressoPass_remove_squeeze_expanddims_1d_ops = EspressoPass_remove_squeeze_expanddims_1d_ops{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_remove_squeeze_expanddims_1d_ops() EspressoPass_remove_sque
 	rv := objc.Send[EspressoPass_remove_squeeze_expanddims_1d_ops](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

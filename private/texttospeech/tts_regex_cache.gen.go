@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (tc TTSRegexCacheClass) Alloc() TTSRegexCache {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSRegexCache.Cache]
 //   - [TTSRegexCache.SetCache]
 //   - [TTSRegexCache.RegexForString]
 //   - [TTSRegexCache.RegexForStringAtStart]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCache
 type TTSRegexCache struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type TTSRegexCache struct {
 func TTSRegexCacheFromID(id objc.ID) TTSRegexCache {
 	return TTSRegexCache{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSRegexCache implements ITTSRegexCache.
 var _ ITTSRegexCache = TTSRegexCache{}
 
@@ -101,13 +103,12 @@ func NewTTSRegexCache() TTSRegexCache {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCache/regexForString:
 func (t TTSRegexCache) RegexForString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("regexForString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegexCache/regexForString:atStart:
 func (t TTSRegexCache) RegexForStringAtStart(string_ objectivec.IObject, start bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("regexForString:atStart:"), string_, start)
@@ -128,4 +129,3 @@ func (t TTSRegexCache) Cache() foundation.INSDictionary {
 func (t TTSRegexCache) SetCache(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCache:"), value)
 }
-

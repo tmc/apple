@@ -29,6 +29,7 @@ type CIColorInvert interface {
 type CIColorInvertObject struct {
 	objectivec.Object
 }
+
 func (o CIColorInvertObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func CIColorInvertObjectFromID(id objc.ID) CIColorInvertObject {
 func (o CIColorInvertObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -55,9 +57,11 @@ func (o CIColorInvertObject) InputImage() ICIImage {
 func (o CIColorInvertObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorInvert/inputImage
 func (o CIColorInvertObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

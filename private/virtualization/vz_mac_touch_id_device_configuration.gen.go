@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZMacTouchIDDeviceConfiguration struct {
 func VZMacTouchIDDeviceConfigurationFromID(id objc.ID) VZMacTouchIDDeviceConfiguration {
 	return VZMacTouchIDDeviceConfiguration{VZBiometricDeviceConfiguration: VZBiometricDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZMacTouchIDDeviceConfiguration implements IVZMacTouchIDDeviceConfiguration.
 var _ IVZMacTouchIDDeviceConfiguration = VZMacTouchIDDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZMacTouchIDDeviceConfiguration() VZMacTouchIDDeviceConfiguration {
 	rv := objc.Send[VZMacTouchIDDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

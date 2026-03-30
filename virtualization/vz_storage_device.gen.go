@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZStorageDeviceClass) Alloc() VZStorageDevice {
 // A class that represents a storage device in a VM.
 //
 // # Overview
-// 
+//
 // Don’t create a [VZStorageDevice] directly. Use one of its subclasses,
 // such as [VZUSBMassStorageDevice], instead.
 //
@@ -59,6 +60,7 @@ type VZStorageDevice struct {
 func VZStorageDeviceFromID(id objc.ID) VZStorageDevice {
 	return VZStorageDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZStorageDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -87,4 +89,3 @@ func NewVZStorageDevice() VZStorageDevice {
 	rv := objc.Send[VZStorageDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

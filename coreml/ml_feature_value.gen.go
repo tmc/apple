@@ -3,12 +3,13 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,12 +49,12 @@ func (mc MLFeatureValueClass) Alloc() MLFeatureValue {
 // A generic wrapper around an underlying value and the value’s type.
 //
 // # Overview
-// 
+//
 // A Core ML wraps an underlying value and bundles it with that value’s
 // type, which is one of the types that [MLFeatureType] defines. Apps
 // typically access feature values indirectly by using the methods in the
 // wrapper class Xcode automatically generates for Core ML model files.
-// 
+//
 // If your app accesses an [MLModel] directly, it must create and consume
 // [MLFeatureProvider] instances. For each prediction, Core ML accepts a
 // feature provider for its inputs, and generates a separate feature provider
@@ -61,8 +62,6 @@ func (mc MLFeatureValueClass) Alloc() MLFeatureValue {
 // instance per input, and the output feature provider contains one per
 // output. See [MLFeatureDescription] for more information about the model
 // input and output features.
-//
-// [MLFeatureType]: https://developer.apple.com/documentation/CoreML/MLFeatureType
 //
 // # Accessing the feature’s type
 //
@@ -84,6 +83,8 @@ func (mc MLFeatureValueClass) Alloc() MLFeatureValue {
 //   - [MLFeatureValue.IsEqualToFeatureValue]: Returns a Boolean value that indicates whether a feature value is equal to another.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue
+//
+// [MLFeatureType]: https://developer.apple.com/documentation/CoreML/MLFeatureType
 type MLFeatureValue struct {
 	objectivec.Object
 }
@@ -94,6 +95,7 @@ type MLFeatureValue struct {
 func MLFeatureValueFromID(id objc.ID) MLFeatureValue {
 	return MLFeatureValue{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLFeatureValue adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -188,17 +190,16 @@ func NewFeatureValueUndefinedFeatureValueWithType(type_ MLFeatureType) MLFeature
 // image and a constraint.
 //
 // cgImage: A [CGImage] instance.
-// //
-// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 //
 // constraint: An [MLImageConstraint] instance.
 //
 // options: A dictionary of [VNImageCropAndScaleOption] values, each keyed by
 // [MLFeatureValueImageOption].
-// //
-// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(CGImage:constraint:options:)
+//
+// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
+// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 func NewFeatureValueWithCGImageConstraintOptionsError(cgImage coregraphics.CGImageRef, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:constraint:options:error:"), cgImage, constraint, options, unsafe.Pointer(&errorPtr))
@@ -213,22 +214,20 @@ func NewFeatureValueWithCGImageConstraintOptionsError(cgImage coregraphics.CGIma
 // image, an orientation, and a constraint.
 //
 // cgImage: A [CGImage] instance.
-// //
-// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 //
 // orientation: A [CGImagePropertyOrientation] instance.
-// //
-// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 //
 // constraint: An [MLImageConstraint] instance.
 //
 // options: A dictionary of [VNImageCropAndScaleOption] values, each keyed by
 // [MLFeatureValueImageOption].
-// //
-// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(CGImage:orientation:constraint:options:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
+// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
+// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 func NewFeatureValueWithCGImageOrientationConstraintOptionsError(cgImage coregraphics.CGImageRef, orientation objectivec.IObject, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:orientation:constraint:options:error:"), cgImage, orientation, constraint, options, unsafe.Pointer(&errorPtr))
@@ -243,28 +242,25 @@ func NewFeatureValueWithCGImageOrientationConstraintOptionsError(cgImage coregra
 // image and its orientation, size, and pixel format.
 //
 // cgImage: A [CGImage] instance.
-// //
-// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 //
 // orientation: A [CGImagePropertyOrientation] instance.
-// //
-// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 //
 // pixelsWide: The image’s width in pixels.
 //
 // pixelsHigh: The image’s height in pixels.
 //
 // pixelFormatType: The image’s pixel format (see [Pixel Format Identifiers]).
-// //
-// [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
 //
 // options: A dictionary of [VNImageCropAndScaleOption] values, each keyed by
 // [MLFeatureValueImageOption].
-// //
-// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(CGImage:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
+// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
+// [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
+// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 func NewFeatureValueWithCGImageOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(cgImage coregraphics.CGImageRef, orientation objectivec.IObject, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), cgImage, orientation, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
@@ -279,23 +275,21 @@ func NewFeatureValueWithCGImageOrientationPixelsWidePixelsHighPixelFormatTypeOpt
 // image and its size and pixel format.
 //
 // cgImage: A [CGImage] instance.
-// //
-// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 //
 // pixelsWide: The image’s width in pixels.
 //
 // pixelsHigh: The image’s height in pixels.
 //
 // pixelFormatType: The image’s pixel format (see [Pixel Format Identifiers]).
-// //
-// [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
 //
 // options: A dictionary of [VNImageCropAndScaleOption] values, each keyed by
 // [MLFeatureValueImageOption].
-// //
-// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(CGImage:pixelsWide:pixelsHigh:pixelFormatType:options:)
+//
+// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
+// [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
+// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 func NewFeatureValueWithCGImagePixelsWidePixelsHighPixelFormatTypeOptionsError(cgImage coregraphics.CGImageRef, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), cgImage, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
@@ -335,18 +329,17 @@ func NewFeatureValueWithDouble(value float64) MLFeatureValue {
 // a constraint.
 //
 // url: A [URL] (Swift) or [NSURL] (Objective-C) to an image.
-// //
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-// [URL]: https://developer.apple.com/documentation/Foundation/URL
 //
 // constraint: An [MLImageConstraint] instance.
 //
 // options: A dictionary of [VNImageCropAndScaleOption] values, each keyed by
 // [MLFeatureValueImageOption].
-// //
-// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(imageAtURL:constraint:options:)
+//
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
+// [URL]: https://developer.apple.com/documentation/Foundation/URL
+// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 func NewFeatureValueWithImageAtURLConstraintOptionsError(url foundation.INSURL, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:constraint:options:error:"), url, constraint, options, unsafe.Pointer(&errorPtr))
@@ -361,23 +354,21 @@ func NewFeatureValueWithImageAtURLConstraintOptionsError(url foundation.INSURL, 
 // orientation, and a constraint.
 //
 // url: A [URL] (Swift) or [NSURL] (Objective-C) to an image.
-// //
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-// [URL]: https://developer.apple.com/documentation/Foundation/URL
 //
 // orientation: A [CGImagePropertyOrientation] instance.
-// //
-// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 //
 // constraint: An [MLImageConstraint] instance.
 //
 // options: A dictionary of [VNImageCropAndScaleOption] values, each keyed by
 // [MLFeatureValueImageOption].
-// //
-// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(imageAtURL:orientation:constraint:options:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
+// [URL]: https://developer.apple.com/documentation/Foundation/URL
+// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
+// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundation.INSURL, orientation objectivec.IObject, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:orientation:constraint:options:error:"), url, orientation, constraint, options, unsafe.Pointer(&errorPtr))
@@ -392,29 +383,26 @@ func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundati
 // the image’s orientation, size, and pixel format.
 //
 // url: A [URL] (Swift) or [NSURL] (Objective-C) to an image.
-// //
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-// [URL]: https://developer.apple.com/documentation/Foundation/URL
 //
 // orientation: A [CGImagePropertyOrientation] instance.
-// //
-// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 //
 // pixelsWide: The image’s width in pixels.
 //
 // pixelsHigh: The image’s height in pixels.
 //
 // pixelFormatType: The image’s pixel format (see [Pixel Format Identifiers]).
-// //
-// [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
 //
 // options: A dictionary of [VNImageCropAndScaleOption] values, each keyed by
 // [MLFeatureValueImageOption].
-// //
-// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(imageAtURL:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
+// [URL]: https://developer.apple.com/documentation/Foundation/URL
+// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
+// [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
+// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.INSURL, orientation objectivec.IObject, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), url, orientation, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
@@ -429,24 +417,22 @@ func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatType
 // the image’s size and pixel format.
 //
 // url: A [URL] (Swift) or [NSURL] (Objective-C) to an image.
-// //
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-// [URL]: https://developer.apple.com/documentation/Foundation/URL
 //
 // pixelsWide: The image’s width in pixels.
 //
 // pixelsHigh: The image’s height in pixels.
 //
 // pixelFormatType: The image’s pixel format (see [Pixel Format Identifiers]).
-// //
-// [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
 //
 // options: A dictionary of [VNImageCropAndScaleOption] values, each keyed by
 // [MLFeatureValueImageOption].
-// //
-// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(imageAtURL:pixelsWide:pixelsHigh:pixelFormatType:options:)
+//
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
+// [URL]: https://developer.apple.com/documentation/Foundation/URL
+// [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
+// [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 func NewFeatureValueWithImageAtURLPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.INSURL, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), url, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
@@ -480,11 +466,9 @@ func NewFeatureValueWithMultiArray(value IMLMultiArray) MLFeatureValue {
 // Creates a feature value that contains an image from a pixel buffer.
 //
 // value: A [CVPixelBuffer] (Swift) or [CVPixelBuffer] (Objective-C) instance.
-// //
-// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/CVPixelBuffer
 //
 // # Discussion
-// 
+//
 // [Core ML] supports different pixel format types depending on the model’s
 // feature description. For information about [ImageFeatureType], see [Core ML
 // Format Reference]. When the image feature’s color space is [GRAYSCALE],
@@ -493,13 +477,14 @@ func NewFeatureValueWithMultiArray(value IMLMultiArray) MLFeatureValue {
 // otherwise, use [kCVPixelFormatType_32BGRA] when it’s set to [RGB] or
 // [BGR].
 //
+// See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(pixelBuffer:)
+//
+// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/CVPixelBuffer
 // [Core ML Format Reference]: https://apple.github.io/coremltools/mlmodel/Format/FeatureTypes.html#imagefeaturetype
 // [Core ML]: https://developer.apple.com/documentation/CoreML
 // [kCVPixelFormatType_32BGRA]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32BGRA
 // [kCVPixelFormatType_OneComponent16Half]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent16Half
 // [kCVPixelFormatType_OneComponent8]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent8
-//
-// See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/init(pixelBuffer:)
 func NewFeatureValueWithPixelBuffer(value corevideo.CVImageBufferRef) MLFeatureValue {
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithPixelBuffer:"), value)
 	return MLFeatureValueFromID(rv)
@@ -546,6 +531,7 @@ func (f MLFeatureValue) Type() MLFeatureType {
 	rv := objc.Send[MLFeatureType](f.ID, objc.Sel("type"))
 	return MLFeatureType(rv)
 }
+
 // A Boolean value that indicates whether the feature value is undefined or
 // missing.
 //
@@ -554,6 +540,7 @@ func (f MLFeatureValue) Undefined() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isUndefined"))
 	return rv
 }
+
 // The underlying integer of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/int64Value
@@ -561,6 +548,7 @@ func (f MLFeatureValue) Int64Value() int64 {
 	rv := objc.Send[int64](f.ID, objc.Sel("int64Value"))
 	return rv
 }
+
 // The underlying double of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/doubleValue
@@ -568,6 +556,7 @@ func (f MLFeatureValue) DoubleValue() float64 {
 	rv := objc.Send[float64](f.ID, objc.Sel("doubleValue"))
 	return rv
 }
+
 // The underlying string of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/stringValue
@@ -575,6 +564,7 @@ func (f MLFeatureValue) StringValue() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("stringValue"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The underlying image of the feature value as a pixel buffer.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/imageBufferValue
@@ -582,6 +572,7 @@ func (f MLFeatureValue) ImageBufferValue() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](f.ID, objc.Sel("imageBufferValue"))
 	return corevideo.CVImageBufferRef(rv)
 }
+
 // The underlying multiarray of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/multiArrayValue
@@ -589,6 +580,7 @@ func (f MLFeatureValue) MultiArrayValue() IMLMultiArray {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("multiArrayValue"))
 	return MLMultiArrayFromID(objc.ID(rv))
 }
+
 // The underlying sequence of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/sequenceValue
@@ -596,6 +588,7 @@ func (f MLFeatureValue) SequenceValue() IMLSequence {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sequenceValue"))
 	return MLSequenceFromID(objc.ID(rv))
 }
+
 // The underlying dictionary of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/dictionaryValue
@@ -603,4 +596,3 @@ func (f MLFeatureValue) DictionaryValue() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("dictionaryValue"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

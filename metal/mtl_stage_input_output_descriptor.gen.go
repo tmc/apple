@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -70,6 +71,7 @@ type MTLStageInputOutputDescriptor struct {
 func MTLStageInputOutputDescriptorFromID(id objc.ID) MTLStageInputOutputDescriptor {
 	return MTLStageInputOutputDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLStageInputOutputDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -156,6 +158,7 @@ func (s MTLStageInputOutputDescriptor) Attributes() IMTLAttributeDescriptorArray
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("attributes"))
 	return MTLAttributeDescriptorArrayFromID(objc.ID(rv))
 }
+
 // An array that describes how the function fetches data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStageInputOutputDescriptor/layouts
@@ -163,6 +166,7 @@ func (s MTLStageInputOutputDescriptor) Layouts() IMTLBufferLayoutDescriptorArray
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("layouts"))
 	return MTLBufferLayoutDescriptorArrayFromID(objc.ID(rv))
 }
+
 // The location of the index buffer for a compute function using indexed
 // thread addressing.
 //
@@ -174,6 +178,7 @@ func (s MTLStageInputOutputDescriptor) IndexBufferIndex() uint {
 func (s MTLStageInputOutputDescriptor) SetIndexBufferIndex(value uint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIndexBufferIndex:"), value)
 }
+
 // The data type of the indices stored in the index buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStageInputOutputDescriptor/indexType
@@ -184,4 +189,3 @@ func (s MTLStageInputOutputDescriptor) IndexType() MTLIndexType {
 func (s MTLStageInputOutputDescriptor) SetIndexType(value MTLIndexType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIndexType:"), value)
 }
-

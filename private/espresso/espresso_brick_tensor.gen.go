@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (ec EspressoBrickTensorClass) Alloc() EspressoBrickTensor {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoBrickTensor.Shape]
 //   - [EspressoBrickTensor.SetShape]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensor
 type EspressoBrickTensor struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type EspressoBrickTensor struct {
 func EspressoBrickTensorFromID(id objc.ID) EspressoBrickTensor {
 	return EspressoBrickTensor{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoBrickTensor implements IEspressoBrickTensor.
 var _ IEspressoBrickTensor = EspressoBrickTensor{}
 
@@ -102,4 +104,3 @@ func (e EspressoBrickTensor) Shape() IEspressoBrickTensorShape {
 func (e EspressoBrickTensor) SetShape(value IEspressoBrickTensorShape) {
 	objc.Send[struct{}](e.ID, objc.Sel("setShape:"), value)
 }
-

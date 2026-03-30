@@ -3,11 +3,12 @@
 package texttospeech
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type TTSExceptionCatcher struct {
 func TTSExceptionCatcherFromID(id objc.ID) TTSExceptionCatcher {
 	return TTSExceptionCatcher{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSExceptionCatcher implements ITTSExceptionCatcher.
 var _ ITTSExceptionCatcher = TTSExceptionCatcher{}
 
@@ -82,7 +84,6 @@ func NewTTSExceptionCatcher() TTSExceptionCatcher {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSExceptionCatcher/catchException:error:
 func (_TTSExceptionCatcherClass TTSExceptionCatcherClass) CatchExceptionError(exception func()) (bool, error) {
 	var errorPtr objc.ID
@@ -97,4 +98,3 @@ func (_TTSExceptionCatcherClass TTSExceptionCatcherClass) CatchExceptionError(ex
 	return rv, nil
 
 }
-

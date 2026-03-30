@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -91,6 +91,7 @@ type CIFlashTransition interface {
 type CIFlashTransitionObject struct {
 	objectivec.Object
 }
+
 func (o CIFlashTransitionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -109,49 +110,56 @@ func CIFlashTransitionObjectFromID(id objc.ID) CIFlashTransitionObject {
 func (o CIFlashTransitionObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The color of the light rays emanating from the flash.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/color
 func (o CIFlashTransitionObject) Color() ICIColor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
-	}
+}
+
 // The extent of the flash.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/extent
 func (o CIFlashTransitionObject) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
-	}
+}
+
 // The amount of fade between the flash and the target image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/fadeThreshold
 func (o CIFlashTransitionObject) FadeThreshold() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("fadeThreshold"))
 	return rv
-	}
+}
+
 // The radius of the light rays emanating from the flash.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/maxStriationRadius
 func (o CIFlashTransitionObject) MaxStriationRadius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("maxStriationRadius"))
 	return rv
-	}
+}
+
 // The contrast of the light rays emanating from the flash.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/striationContrast
 func (o CIFlashTransitionObject) StriationContrast() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("striationContrast"))
 	return rv
-	}
+}
+
 // The strength of the light rays emanating from the flash.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/striationStrength
 func (o CIFlashTransitionObject) StriationStrength() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("striationStrength"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -159,66 +167,106 @@ func (o CIFlashTransitionObject) StriationStrength() float32 {
 func (o CIFlashTransitionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIFlashTransitionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The target image for a transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIFlashTransitionObject) TargetImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The parametric time of the transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIFlashTransitionObject) Time() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
-	}
+}
 
+// The x and y position to use as the center of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/center
 func (o CIFlashTransitionObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The color of the light rays emanating from the flash.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/color
 func (o CIFlashTransitionObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
 
+// The extent of the flash.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/extent
 func (o CIFlashTransitionObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
 
+// The amount of fade between the flash and the target image.
+//
+// # Discussion
+//
+// The higher the value, the more flash time and the less fade time.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/fadeThreshold
 func (o CIFlashTransitionObject) SetFadeThreshold(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFadeThreshold:"), value)
 }
 
+// The radius of the light rays emanating from the flash.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/maxStriationRadius
 func (o CIFlashTransitionObject) SetMaxStriationRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaxStriationRadius:"), value)
 }
 
+// The contrast of the light rays emanating from the flash.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/striationContrast
 func (o CIFlashTransitionObject) SetStriationContrast(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStriationContrast:"), value)
 }
 
+// The strength of the light rays emanating from the flash.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/striationStrength
 func (o CIFlashTransitionObject) SetStriationStrength(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStriationStrength:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIFlashTransitionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The target image for a transition.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIFlashTransitionObject) SetTargetImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTargetImage:"), value)
 }
 
+// The parametric time of the transition.
+//
+// # Discussion
+//
+// This value drives the transition from start, at time 0, to end, at time 1.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIFlashTransitionObject) SetTime(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTime:"), value)
 }
-

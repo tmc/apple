@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,6 +61,7 @@ type AVAssetVariantAudioRenditionSpecificAttributes struct {
 func AVAssetVariantAudioRenditionSpecificAttributesFromID(id objc.ID) AVAssetVariantAudioRenditionSpecificAttributes {
 	return AVAssetVariantAudioRenditionSpecificAttributes{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetVariantAudioRenditionSpecificAttributes adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,7 +116,7 @@ func NewAVAssetVariantAudioRenditionSpecificAttributes() AVAssetVariantAudioRend
 // headphones.
 //
 // # Discussion
-// 
+//
 // A binaural variant may originate from a direct binaural recording or from
 // the processing of a multichannel audio source.
 //
@@ -123,11 +125,12 @@ func (a AVAssetVariantAudioRenditionSpecificAttributes) Binaural() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isBinaural"))
 	return rv
 }
+
 // A Boolean value that indicates whether this variant contains virtualized or
 // otherwise preprocessed audio content suitable for various purposes.
 //
 // # Discussion
-// 
+//
 // If a variant audio redition is immersive it’s eligible for rendering to
 // headphones or speakers.
 //
@@ -136,11 +139,12 @@ func (a AVAssetVariantAudioRenditionSpecificAttributes) Immersive() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isImmersive"))
 	return rv
 }
+
 // A Boolean value that indicates whether the variant is a downmix derivative
 // of other media of greater channel count.
 //
 // # Discussion
-// 
+//
 // If the stream provides one or more multichannel variants, the system
 // assumes the dowmix rendition to be compatible in its internal timing and
 // other attributes with the other variants. Typically, this is because the
@@ -152,6 +156,7 @@ func (a AVAssetVariantAudioRenditionSpecificAttributes) Downmix() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isDownmix"))
 	return rv
 }
+
 // The count of audio channels in the rendition.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariantAudioRenditionSpecificAttributes/channelCount
@@ -159,6 +164,7 @@ func (a AVAssetVariantAudioRenditionSpecificAttributes) ChannelCount() int {
 	rv := objc.Send[int](a.ID, objc.Sel("channelCount"))
 	return rv
 }
+
 // The audio formats of the renditions present in the variant.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/audioattributes-swift.class/formatids
@@ -169,4 +175,3 @@ func (a AVAssetVariantAudioRenditionSpecificAttributes) FormatIDs() objectivec.I
 func (a AVAssetVariantAudioRenditionSpecificAttributes) SetFormatIDs(value objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFormatIDs:"), value)
 }
-

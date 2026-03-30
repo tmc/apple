@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -62,6 +63,7 @@ type MTL4PipelineDescriptor struct {
 func MTL4PipelineDescriptorFromID(id objc.ID) MTL4PipelineDescriptor {
 	return MTL4PipelineDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4PipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,7 +112,7 @@ func NewMTL4PipelineDescriptor() MTL4PipelineDescriptor {
 // Assigns an optional string that uniquely identifies a pipeline descriptor.
 //
 // # Discussion
-// 
+//
 // After you provide this label, you can use it to look up a pipeline state
 // object by name in a binary archive.
 //
@@ -122,6 +124,7 @@ func (m MTL4PipelineDescriptor) Label() string {
 func (m MTL4PipelineDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // Provides compile-time options when you build the pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PipelineDescriptor/options
@@ -132,4 +135,3 @@ func (m MTL4PipelineDescriptor) Options() IMTL4PipelineOptions {
 func (m MTL4PipelineDescriptor) SetOptions(value IMTL4PipelineOptions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOptions:"), value)
 }
-

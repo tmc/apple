@@ -4,9 +4,10 @@ package vision
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // uint values.
@@ -285,20 +286,15 @@ const (
 	VNRecognizeTextRequestRevision2 uint = 2
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
 var (
 	// VNErrorDomain is the domain of errors that the framework generates.
@@ -307,26 +303,19 @@ var (
 	VNErrorDomain string
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
 var (
 	// VNNormalizedIdentityRect is a normalized identity rectangle with an origin of zero and unit length and width.
@@ -352,6 +341,7 @@ var (
 	// See: https://developer.apple.com/documentation/Vision/VNVisionVersionNumber
 	VNVisionVersionNumber float64
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -1464,4 +1454,3 @@ var VNImageOptions struct {
 	// Properties: The dictionary from the image source that contains the metadata for algorithms like horizon detection.
 	Properties VNImageOption
 }
-

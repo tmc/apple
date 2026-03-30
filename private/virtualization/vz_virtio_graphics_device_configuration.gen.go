@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZVirtioGraphicsDeviceConfiguration struct {
 func VZVirtioGraphicsDeviceConfigurationFromID(id objc.ID) VZVirtioGraphicsDeviceConfiguration {
 	return VZVirtioGraphicsDeviceConfiguration{VZGraphicsDeviceConfiguration: VZGraphicsDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioGraphicsDeviceConfiguration implements IVZVirtioGraphicsDeviceConfiguration.
 var _ IVZVirtioGraphicsDeviceConfiguration = VZVirtioGraphicsDeviceConfiguration{}
 
@@ -88,4 +90,3 @@ func (_VZVirtioGraphicsDeviceConfigurationClass VZVirtioGraphicsDeviceConfigurat
 func (_VZVirtioGraphicsDeviceConfigurationClass VZVirtioGraphicsDeviceConfigurationClass) MaximumAllowedDisplayCount() uint64 {
 	return _VZVirtioGraphicsDeviceConfigurationClass._maximumAllowedDisplayCount()
 }
-

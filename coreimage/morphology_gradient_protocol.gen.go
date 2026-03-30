@@ -39,6 +39,7 @@ type CIMorphologyGradient interface {
 type CIMorphologyGradientObject struct {
 	objectivec.Object
 }
+
 func (o CIMorphologyGradientObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIMorphologyGradientObjectFromID(id objc.ID) CIMorphologyGradientObject {
 func (o CIMorphologyGradientObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The radius of the circular morphological structuring element.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyGradient/radius
 func (o CIMorphologyGradientObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIMorphologyGradientObject) Radius() float32 {
 func (o CIMorphologyGradientObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyGradient/inputImage
 func (o CIMorphologyGradientObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The radius of the circular morphological structuring element.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyGradient/radius
 func (o CIMorphologyGradientObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

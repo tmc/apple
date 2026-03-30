@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZPowerSourceDeviceClass) Alloc() VZPowerSourceDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZPowerSourceDevice._init]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPowerSourceDevice
 type VZPowerSourceDevice struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZPowerSourceDevice struct {
 func VZPowerSourceDeviceFromID(id objc.ID) VZPowerSourceDevice {
 	return VZPowerSourceDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure VZPowerSourceDevice implements IVZPowerSourceDevice.
 var _ IVZPowerSourceDevice = VZPowerSourceDevice{}
 
@@ -96,4 +98,3 @@ func (v VZPowerSourceDevice) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-

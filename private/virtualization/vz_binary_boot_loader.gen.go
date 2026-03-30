@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZBinaryBootLoaderClass) Alloc() VZBinaryBootLoader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZBinaryBootLoader._bootLoaderForConfiguration]
@@ -51,6 +51,7 @@ func (vc VZBinaryBootLoaderClass) Alloc() VZBinaryBootLoader {
 //   - [VZBinaryBootLoader.Segments]
 //   - [VZBinaryBootLoader.Validate]
 //   - [VZBinaryBootLoader.InitWithSegmentsEntryPointAddress]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader
 type VZBinaryBootLoader struct {
 	VZBootLoader
@@ -60,6 +61,7 @@ type VZBinaryBootLoader struct {
 func VZBinaryBootLoaderFromID(id objc.ID) VZBinaryBootLoader {
 	return VZBinaryBootLoader{VZBootLoader: VZBootLoaderFromID(id)}
 }
+
 // Ensure VZBinaryBootLoader implements IVZBinaryBootLoader.
 var _ IVZBinaryBootLoader = VZBinaryBootLoader{}
 
@@ -107,7 +109,6 @@ func NewVZBinaryBootLoader() VZBinaryBootLoader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/initWithSegments:entryPointAddress:
 func NewVZBinaryBootLoaderWithSegmentsEntryPointAddress(segments objectivec.IObject, address uint64) VZBinaryBootLoader {
 	instance := getVZBinaryBootLoaderClass().Alloc()
@@ -115,7 +116,6 @@ func NewVZBinaryBootLoaderWithSegmentsEntryPointAddress(segments objectivec.IObj
 	return VZBinaryBootLoaderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/_bootLoaderForConfiguration:
 func (v VZBinaryBootLoader) _bootLoaderForConfiguration(configuration objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_bootLoaderForConfiguration:"), configuration)
@@ -126,18 +126,19 @@ func (v VZBinaryBootLoader) _bootLoaderForConfiguration(configuration objectivec
 func (v VZBinaryBootLoader) BootLoaderForConfiguration(configuration objectivec.IObject) objectivec.IObject {
 	return v._bootLoaderForConfiguration(configuration)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/encodeWithEncoder:
 func (v VZBinaryBootLoader) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/validate
 func (v VZBinaryBootLoader) Validate() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("validate"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/initWithSegments:entryPointAddress:
 func (v VZBinaryBootLoader) InitWithSegmentsEntryPointAddress(segments objectivec.IObject, address uint64) VZBinaryBootLoader {
 	rv := objc.Send[VZBinaryBootLoader](v.ID, objc.Sel("initWithSegments:entryPointAddress:"), segments, address)
@@ -149,9 +150,9 @@ func (v VZBinaryBootLoader) EntryPointAddress() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("entryPointAddress"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoader/segments
 func (v VZBinaryBootLoader) Segments() foundation.INSArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("segments"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

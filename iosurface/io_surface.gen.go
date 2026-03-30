@@ -3,10 +3,11 @@
 package iosurface
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -99,6 +100,7 @@ type IOSurface struct {
 func IOSurfaceFromID(id objc.ID) IOSurface {
 	return IOSurface{objectivec.Object{ID: id}}
 }
+
 // NOTE: IOSurface adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -216,7 +218,6 @@ func NewIOSurface() IOSurface {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/init(properties:)
 func NewSurfaceWithProperties(properties foundation.INSDictionary) IOSurface {
 	instance := getIOSurfaceClass().Alloc()
@@ -224,105 +225,108 @@ func NewSurfaceWithProperties(properties foundation.INSDictionary) IOSurface {
 	return IOSurfaceFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/init(properties:)
 func (s IOSurface) InitWithProperties(properties foundation.INSDictionary) IOSurface {
 	rv := objc.Send[IOSurface](s.ID, objc.Sel("initWithProperties:"), properties)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/allAttachments()
 func (s IOSurface) AllAttachments() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("allAttachments"))
 	return foundation.NSDictionaryFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/attachment(forKey:)
 func (s IOSurface) AttachmentForKey(key string) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("attachmentForKey:"), objc.String(key))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/baseAddressOfPlane(at:)
 func (s IOSurface) BaseAddressOfPlaneAtIndex(planeIndex uint) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("baseAddressOfPlaneAtIndex:"), planeIndex)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/bytesPerElementOfPlane(at:)
 func (s IOSurface) BytesPerElementOfPlaneAtIndex(planeIndex uint) int {
 	rv := objc.Send[int](s.ID, objc.Sel("bytesPerElementOfPlaneAtIndex:"), planeIndex)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/bytesPerRowOfPlane(at:)
 func (s IOSurface) BytesPerRowOfPlaneAtIndex(planeIndex uint) int {
 	rv := objc.Send[int](s.ID, objc.Sel("bytesPerRowOfPlaneAtIndex:"), planeIndex)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/decrementUseCount()
 func (s IOSurface) DecrementUseCount() {
 	objc.Send[objc.ID](s.ID, objc.Sel("decrementUseCount"))
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/elementHeightOfPlane(at:)
 func (s IOSurface) ElementHeightOfPlaneAtIndex(planeIndex uint) int {
 	rv := objc.Send[int](s.ID, objc.Sel("elementHeightOfPlaneAtIndex:"), planeIndex)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/elementWidthOfPlane(at:)
 func (s IOSurface) ElementWidthOfPlaneAtIndex(planeIndex uint) int {
 	rv := objc.Send[int](s.ID, objc.Sel("elementWidthOfPlaneAtIndex:"), planeIndex)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/heightOfPlane(at:)
 func (s IOSurface) HeightOfPlaneAtIndex(planeIndex uint) int {
 	rv := objc.Send[int](s.ID, objc.Sel("heightOfPlaneAtIndex:"), planeIndex)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/incrementUseCount()
 func (s IOSurface) IncrementUseCount() {
 	objc.Send[objc.ID](s.ID, objc.Sel("incrementUseCount"))
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/lock(options:seed:)
 func (s IOSurface) LockWithOptionsSeed(options IOSurfaceLockOptions, seed unsafe.Pointer) int32 {
 	rv := objc.Send[int32](s.ID, objc.Sel("lockWithOptions:seed:"), options, seed)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/removeAllAttachments()
 func (s IOSurface) RemoveAllAttachments() {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeAllAttachments"))
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/removeAttachment(forKey:)
 func (s IOSurface) RemoveAttachmentForKey(key string) {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeAttachmentForKey:"), objc.String(key))
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/setAllAttachments(_:)
 func (s IOSurface) SetAllAttachments(dict foundation.INSDictionary) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setAllAttachments:"), dict)
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/setAttachment(_:forKey:)
 func (s IOSurface) SetAttachmentForKey(anObject objectivec.IObject, key string) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setAttachment:forKey:"), anObject, objc.String(key))
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/setPurgeable(_:oldState:)
 func (s IOSurface) SetPurgeableOldState(newState IOSurfacePurgeabilityState, oldState *IOSurfacePurgeabilityState) int32 {
 	rv := objc.Send[int32](s.ID, objc.Sel("setPurgeable:oldState:"), newState, oldState)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/unlock(options:seed:)
 func (s IOSurface) UnlockWithOptionsSeed(options IOSurfaceLockOptions, seed unsafe.Pointer) int32 {
 	rv := objc.Send[int32](s.ID, objc.Sel("unlockWithOptions:seed:"), options, seed)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/widthOfPlane(at:)
 func (s IOSurface) WidthOfPlaneAtIndex(planeIndex uint) int {
 	rv := objc.Send[int](s.ID, objc.Sel("widthOfPlaneAtIndex:"), planeIndex)
@@ -337,74 +341,87 @@ func (s IOSurface) AllocationSize() int {
 	rv := objc.Send[int](s.ID, objc.Sel("allocationSize"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/allowsPixelSizeCasting
 func (s IOSurface) AllowsPixelSizeCasting() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("allowsPixelSizeCasting"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/baseAddress
 func (s IOSurface) BaseAddress() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("baseAddress"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/bytesPerElement
 func (s IOSurface) BytesPerElement() int {
 	rv := objc.Send[int](s.ID, objc.Sel("bytesPerElement"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/bytesPerRow
 func (s IOSurface) BytesPerRow() int {
 	rv := objc.Send[int](s.ID, objc.Sel("bytesPerRow"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/elementHeight
 func (s IOSurface) ElementHeight() int {
 	rv := objc.Send[int](s.ID, objc.Sel("elementHeight"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/elementWidth
 func (s IOSurface) ElementWidth() int {
 	rv := objc.Send[int](s.ID, objc.Sel("elementWidth"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/height
 func (s IOSurface) Height() int {
 	rv := objc.Send[int](s.ID, objc.Sel("height"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/isInUse
 func (s IOSurface) InUse() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isInUse"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/localUseCount
 func (s IOSurface) LocalUseCount() int32 {
 	rv := objc.Send[int32](s.ID, objc.Sel("localUseCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/pixelFormat
 func (s IOSurface) PixelFormat() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("pixelFormat"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/planeCount
 func (s IOSurface) PlaneCount() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("planeCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/seed
 func (s IOSurface) Seed() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("seed"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/width
 func (s IOSurface) Width() int {
 	rv := objc.Send[int](s.ID, objc.Sel("width"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/surfaceID
 func (s IOSurface) SurfaceID() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("surfaceID"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +61,7 @@ type MTLBinaryArchiveDescriptor struct {
 func MTLBinaryArchiveDescriptorFromID(id objc.ID) MTLBinaryArchiveDescriptor {
 	return MTLBinaryArchiveDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLBinaryArchiveDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,7 +108,7 @@ func NewMTLBinaryArchiveDescriptor() MTLBinaryArchiveDescriptor {
 // A URL to a Metal binary archive file.
 //
 // # Discussion
-// 
+//
 // You can use this method to load a binary archive you created with an
 // [MTLBinaryArchive] instance’s [SerializeToURLError] method.
 //
@@ -118,6 +120,7 @@ func (b MTLBinaryArchiveDescriptor) Url() foundation.INSURL {
 func (b MTLBinaryArchiveDescriptor) SetUrl(value foundation.INSURL) {
 	objc.Send[struct{}](b.ID, objc.Sel("setUrl:"), value)
 }
+
 // The domain for Metal binary archive errors.
 //
 // See: https://developer.apple.com/documentation/metal/mtlbinaryarchivedomain
@@ -125,4 +128,3 @@ func (b MTLBinaryArchiveDescriptor) MTLBinaryArchiveDomain() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("MTLBinaryArchiveDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-

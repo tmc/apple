@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,15 +46,13 @@ func (mc MTLResidencySetDescriptorClass) Alloc() MTLResidencySetDescriptor {
 // A configuration that customizes the behavior for a residency set.
 //
 // # Overview
-// 
+//
 // Make an [MTLResidencySet] by creating and configuring an
 // [MTLResidencySetDescriptor] instance and pass it to the
 // [NewResidencySetWithDescriptorError] method of an [MTLDevice] instance.
-// 
+//
 // See [Simplifying GPU resource management with residency sets] for more
 // information.
-//
-// [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 //
 // # Configuring the residency set
 //
@@ -63,6 +62,8 @@ func (mc MTLResidencySetDescriptorClass) Alloc() MTLResidencySetDescriptor {
 //   - [MTLResidencySetDescriptor.SetInitialCapacity]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySetDescriptor
+//
+// [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 type MTLResidencySetDescriptor struct {
 	objectivec.Object
 }
@@ -73,6 +74,7 @@ type MTLResidencySetDescriptor struct {
 func MTLResidencySetDescriptorFromID(id objc.ID) MTLResidencySetDescriptor {
 	return MTLResidencySetDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLResidencySetDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,7 +124,7 @@ func NewMTLResidencySetDescriptor() MTLResidencySetDescriptor {
 // the descriptor.
 //
 // # Discussion
-// 
+//
 // Metal applies the value of this property to the [Label] property of an
 // [MTLResidencySet] that you create by passing the descriptor to
 // [NewResidencySetWithDescriptorError].
@@ -135,11 +137,12 @@ func (r MTLResidencySetDescriptor) Label() string {
 func (r MTLResidencySetDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // The number of allocations a new residency set can store without
 // reallocating memory.
 //
 // # Discussion
-// 
+//
 // Reduce the memory reallocations the set needs to make by setting the
 // property to a value large enough to hold the allocations you expect. You
 // can leave the property at its default value of `0`, which tells Metal to
@@ -153,4 +156,3 @@ func (r MTLResidencySetDescriptor) InitialCapacity() uint {
 func (r MTLResidencySetDescriptor) SetInitialCapacity(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInitialCapacity:"), value)
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (nc NSFileAccessIntentClass) Alloc() NSFileAccessIntent {
 // The details of a coordinated-read or coordinated-write operation.
 //
 // # Overview
-// 
+//
 // Use this class when performing asynchronous operations with a file
 // coordinator using the coordinator’s
 // [CoordinateAccessWithIntentsQueueByAccessor] method.
@@ -64,6 +65,7 @@ type NSFileAccessIntent struct {
 func NSFileAccessIntentFromID(id objc.ID) NSFileAccessIntent {
 	return NSFileAccessIntent{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSFileAccessIntent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,26 +111,27 @@ func NewNSFileAccessIntent() NSFileAccessIntent {
 //
 // options: The coordinated reading options. For a list of valid values, see
 // [NSFileCoordinator.ReadingOptions] in the [NSFileCoordinator].
-// //
-// [NSFileCoordinator.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/ReadingOptions
 //
 // # Return Value
-// 
+//
 // A newly instantiated and configured file access intent object.
 //
 // # Discussion
-// 
+//
 // When calling a file coordinator’s
 // [CoordinateAccessWithIntentsQueueByAccessor] method, you pass an array of
 // file access intent objects. Each intent object represents a specific read
-// or write operation on a single document or directory. Use `` to create an
+// or write operation on a single document or directory. Use “ to create an
 // intent object suitable for reading.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileAccessIntent/readingIntent(with:options:)
+//
+// [NSFileCoordinator.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/ReadingOptions
 func (_NSFileAccessIntentClass NSFileAccessIntentClass) ReadingIntentWithURLOptions(url INSURL, options NSFileCoordinatorReadingOptions) NSFileAccessIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSFileAccessIntentClass.class), objc.Sel("readingIntentWithURL:options:"), url, options)
 	return NSFileAccessIntentFromID(rv)
 }
+
 // Returns a file access intent object for writing to the given URL with the
 // provided options.
 //
@@ -136,22 +139,22 @@ func (_NSFileAccessIntentClass NSFileAccessIntentClass) ReadingIntentWithURLOpti
 //
 // options: The coordinated writing options. For a list of valid values, see
 // [NSFileCoordinator.WritingOptions] in the [NSFileCoordinator].
-// //
-// [NSFileCoordinator.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/WritingOptions
 //
 // # Return Value
-// 
+//
 // A newly instantiated and configured file access intent object.
 //
 // # Discussion
-// 
+//
 // When calling a file coordinator’s
 // [CoordinateAccessWithIntentsQueueByAccessor] method, you pass an array of
 // file access intent objects. Each intent object represents a specific read
-// or write operation on a single document or directory. Use `` to create an
+// or write operation on a single document or directory. Use “ to create an
 // intent object suitable for writing.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileAccessIntent/writingIntent(with:options:)
+//
+// [NSFileCoordinator.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/WritingOptions
 func (_NSFileAccessIntentClass NSFileAccessIntentClass) WritingIntentWithURLOptions(url INSURL, options NSFileCoordinatorWritingOptions) NSFileAccessIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSFileAccessIntentClass.class), objc.Sel("writingIntentWithURL:options:"), url, options)
 	return NSFileAccessIntentFromID(rv)
@@ -161,7 +164,7 @@ func (_NSFileAccessIntentClass NSFileAccessIntentClass) WritingIntentWithURLOpti
 // (read-only)
 //
 // # Discussion
-// 
+//
 // Always use the URL returned by this property inside the accessor block of a
 // file coordinator’s [CoordinateAccessWithIntentsQueueByAccessor] method.
 // This property’s value may be different from the original URL, because the
@@ -173,4 +176,3 @@ func (f NSFileAccessIntent) URL() INSURL {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("URL"))
 	return NSURLFromID(objc.ID(rv))
 }
-

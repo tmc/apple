@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -59,6 +60,7 @@ type MLGPUComputeDevice struct {
 func MLGPUComputeDeviceFromID(id objc.ID) MLGPUComputeDevice {
 	return MLGPUComputeDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLGPUComputeDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,6 +108,4 @@ func (g MLGPUComputeDevice) MetalDevice() metal.MTLDevice {
 	return metal.MTLDeviceObjectFromID(rv)
 }
 
-			// Protocol methods for MLComputeDeviceProtocol
-			
-
+// Protocol methods for MLComputeDeviceProtocol

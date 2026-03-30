@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -90,6 +90,7 @@ type CIDroste interface {
 type CIDrosteObject struct {
 	objectivec.Object
 }
+
 func (o CIDrosteObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -108,37 +109,44 @@ func CIDrosteObjectFromID(id objc.ID) CIDrosteObject {
 func (o CIDrosteObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIDroste/insetPoint0
 func (o CIDrosteObject) InsetPoint0() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("insetPoint0"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIDroste/insetPoint1
 func (o CIDrosteObject) InsetPoint1() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("insetPoint1"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIDroste/periodicity
 func (o CIDrosteObject) Periodicity() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("periodicity"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIDroste/rotation
 func (o CIDrosteObject) Rotation() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("rotation"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIDroste/strands
 func (o CIDrosteObject) Strands() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("strands"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIDroste/zoom
 func (o CIDrosteObject) Zoom() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("zoom"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -146,33 +154,41 @@ func (o CIDrosteObject) Zoom() float32 {
 func (o CIDrosteObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIDroste/inputImage
 func (o CIDrosteObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIDroste/insetPoint0
 func (o CIDrosteObject) SetInsetPoint0(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInsetPoint0:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIDroste/insetPoint1
 func (o CIDrosteObject) SetInsetPoint1(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInsetPoint1:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIDroste/periodicity
 func (o CIDrosteObject) SetPeriodicity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPeriodicity:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIDroste/rotation
 func (o CIDrosteObject) SetRotation(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRotation:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIDroste/strands
 func (o CIDrosteObject) SetStrands(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStrands:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIDroste/zoom
 func (o CIDrosteObject) SetZoom(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setZoom:"), value)
 }
-

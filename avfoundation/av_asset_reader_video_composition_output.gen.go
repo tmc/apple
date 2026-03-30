@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -72,6 +73,7 @@ type AVAssetReaderVideoCompositionOutput struct {
 func AVAssetReaderVideoCompositionOutputFromID(id objc.ID) AVAssetReaderVideoCompositionOutput {
 	return AVAssetReaderVideoCompositionOutput{AVAssetReaderOutput: AVAssetReaderOutputFromID(id)}
 }
+
 // NOTE: AVAssetReaderVideoCompositionOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -141,13 +143,13 @@ func NewAVAssetReaderVideoCompositionOutput() AVAssetReaderVideoCompositionOutpu
 //
 // videoTracks: An array of asset tracks from which to read video frames for compositing.
 // The media type of each track must be [video].
-// //
-// [video]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/video
 //
 // videoSettings: Specifying a `nil` value configures the output to return samples in an
 // uncompressed format.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderVideoCompositionOutput/init(videoTracks:videoSettings:)
+//
+// [video]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/video
 func NewAssetReaderVideoCompositionOutputWithVideoTracksVideoSettings(videoTracks []AVAssetTrack, videoSettings foundation.INSDictionary) AVAssetReaderVideoCompositionOutput {
 	instance := getAVAssetReaderVideoCompositionOutputClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVideoTracks:videoSettings:"), objectivec.IObjectSliceToNSArray(videoTracks), videoSettings)
@@ -159,13 +161,13 @@ func NewAssetReaderVideoCompositionOutputWithVideoTracksVideoSettings(videoTrack
 //
 // videoTracks: An array of asset tracks from which to read video frames for compositing.
 // The media type of each track must be [video].
-// //
-// [video]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/video
 //
 // videoSettings: Specifying a `nil` value configures the output to return samples in an
 // uncompressed format.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderVideoCompositionOutput/init(videoTracks:videoSettings:)
+//
+// [video]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/video
 func (a AVAssetReaderVideoCompositionOutput) InitWithVideoTracksVideoSettings(videoTracks []AVAssetTrack, videoSettings foundation.INSDictionary) AVAssetReaderVideoCompositionOutput {
 	rv := objc.Send[AVAssetReaderVideoCompositionOutput](a.ID, objc.Sel("initWithVideoTracks:videoSettings:"), objectivec.IObjectSliceToNSArray(videoTracks), videoSettings)
 	return rv
@@ -176,23 +178,22 @@ func (a AVAssetReaderVideoCompositionOutput) InitWithVideoTracksVideoSettings(vi
 //
 // videoTracks: An array of asset tracks from which the created object should read video
 // frames for compositing. The media type of each track must be [video].
-// //
-// [video]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/video
 //
 // videoSettings: A dictionary of video settings to use for sample output, or `nil` if you
 // want to receive decoded samples in a convenient uncompressed format, with
 // properties determined according to the properties of the specified video
 // tracks.
-// 
+//
 // You use keys from [CVPixelBuffer], depending on the output format you want.
-// //
-// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/CVPixelBuffer
 //
 // # Return Value
-// 
+//
 // A new video composition output, or `nil` if initialization fails.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderVideoCompositionOutput/assetReaderVideoCompositionOutputWithVideoTracks:videoSettings:
+//
+// [video]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/video
+// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/CVPixelBuffer
 func (_AVAssetReaderVideoCompositionOutputClass AVAssetReaderVideoCompositionOutputClass) AssetReaderVideoCompositionOutputWithVideoTracksVideoSettings(videoTracks []AVAssetTrack, videoSettings foundation.INSDictionary) AVAssetReaderVideoCompositionOutput {
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetReaderVideoCompositionOutputClass.class), objc.Sel("assetReaderVideoCompositionOutputWithVideoTracks:videoSettings:"), objectivec.IObjectSliceToNSArray(videoTracks), videoSettings)
 	return AVAssetReaderVideoCompositionOutputFromID(rv)
@@ -201,7 +202,7 @@ func (_AVAssetReaderVideoCompositionOutputClass AVAssetReaderVideoCompositionOut
 // The video composition to use for the output.
 //
 // # Discussion
-// 
+//
 // The value is an [AVVideoComposition] object that specifies the visual
 // arrangement of video frames read from each source track over the timeline
 // of the source asset.
@@ -214,10 +215,11 @@ func (a AVAssetReaderVideoCompositionOutput) VideoComposition() IAVVideoComposit
 func (a AVAssetReaderVideoCompositionOutput) SetVideoComposition(value IAVVideoComposition) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVideoComposition:"), value)
 }
+
 // A custom video compositor for the output.
 //
 // # Discussion
-// 
+//
 // This property is `nil` if there isn’t a custom video compositor, or if
 // the internal video compositor is in use.
 //
@@ -226,10 +228,11 @@ func (a AVAssetReaderVideoCompositionOutput) CustomVideoCompositor() AVVideoComp
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("customVideoCompositor"))
 	return AVVideoCompositingObjectFromID(rv)
 }
+
 // The tracks from which the output reads the composited video.
 //
 // # Discussion
-// 
+//
 // The array contains [AVAssetTrack] objects owned by the target asset
 // reader’s asset.
 //
@@ -240,6 +243,7 @@ func (a AVAssetReaderVideoCompositionOutput) VideoTracks() []AVAssetTrack {
 		return AVAssetTrackFromID(id)
 	})
 }
+
 // The video settings that the output uses.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderVideoCompositionOutput/videoSettings
@@ -247,4 +251,3 @@ func (a AVAssetReaderVideoCompositionOutput) VideoSettings() foundation.INSDicti
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("videoSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

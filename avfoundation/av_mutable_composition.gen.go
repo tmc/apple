@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVMutableCompositionClass) Alloc() AVMutableComposition {
 // An object that you use to create a new composition from existing assets.
 //
 // # Overview
-// 
+//
 // Use this object to add and remove composition tracks, and add, remove, and
 // scale their time ranges. You can make an immutable snapshot of a mutable
 // composition for playback and inspection as follows:
@@ -74,6 +75,7 @@ type AVMutableComposition struct {
 func AVMutableCompositionFromID(id objc.ID) AVMutableComposition {
 	return AVMutableComposition{AVComposition: AVCompositionFromID(id)}
 }
+
 // NOTE: AVMutableComposition adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -163,31 +165,32 @@ func NewMutableCompositionWithURLAssetInitializationOptions(URLAssetInitializati
 // track: The asset track to find a composition track for.
 //
 // # Return Value
-// 
+//
 // A mutable composition track, of `nil` if a compatible track isn’t
 // available.
 //
 // # Discussion
-// 
+//
 // To optimize performance, limit the number of tracks to only what you need
 // to present media data in parallel. To present media data of the same type
 // serially, even from multiple assets, use a single track of that media type.
 // You use this method to identify a suitable existing target track for an
 // insertion.
-// 
+//
 // If there’s no compatible track available, you can create a new track of
 // the same media type as `track` using
 // [AddMutableTrackWithMediaTypePreferredTrackID].
-// 
+//
 // This method is the counterpart to [compatibleTrack(for:)] on [AVAsset].
 //
-// [compatibleTrack(for:)]: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/compatibleTrack(for:)
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/mutableTrack(compatibleWith:)
+//
+// [compatibleTrack(for:)]: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/compatibleTrack(for:)
 func (m AVMutableComposition) MutableTrackCompatibleWithTrack(track IAVAssetTrack) IAVMutableCompositionTrack {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mutableTrackCompatibleWithTrack:"), track)
 	return AVMutableCompositionTrackFromID(rv)
 }
+
 // Adds an empty track to a composition.
 //
 // mediaType: The media type of the new track.
@@ -196,39 +199,41 @@ func (m AVMutableComposition) MutableTrackCompatibleWithTrack(track IAVAssetTrac
 // if the value you specify isn’t available. If you don’t need to specify
 // a preferred track ID, pass [kCMPersistentTrackID_Invalid], and the system
 // generates an appropriate identifier.
-// //
-// [kCMPersistentTrackID_Invalid]: https://developer.apple.com/documentation/CoreMedia/kCMPersistentTrackID_Invalid
 //
 // # Return Value
-// 
+//
 // A new mutable composition track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/addMutableTrack(withMediaType:preferredTrackID:)
+//
+// [kCMPersistentTrackID_Invalid]: https://developer.apple.com/documentation/CoreMedia/kCMPersistentTrackID_Invalid
 func (m AVMutableComposition) AddMutableTrackWithMediaTypePreferredTrackID(mediaType AVMediaType, preferredTrackID int32) IAVMutableCompositionTrack {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addMutableTrackWithMediaType:preferredTrackID:"), objc.String(string(mediaType)), preferredTrackID)
 	return AVMutableCompositionTrackFromID(rv)
 }
+
 // Removes a specified track from the composition.
 //
 // track: The track to remove.
 //
 // # Discussion
-// 
+//
 // When you remove a track, the system sets its composition value to nil.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/removeTrack(_:)
 func (m AVMutableComposition) RemoveTrack(track IAVCompositionTrack) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTrack:"), track)
 }
+
 // Removes a specified time range from all tracks of the composition.
 //
 // timeRange: The time range to remove.
 //
 // # Discussion
-// 
+//
 // After removing, existing content after the time range moves forward in the
 // composition timeline.
-// 
+//
 // Removing a time range doesn’t remove any existing tracks from the
 // composition, even if removing it results in an empty track. Instead, it
 // removes or truncates track segments that intersect with the time range.
@@ -237,6 +242,7 @@ func (m AVMutableComposition) RemoveTrack(track IAVCompositionTrack) {
 func (m AVMutableComposition) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTimeRange:"), timeRange)
 }
+
 // Changes the duration of all tracks in a given time range.
 //
 // timeRange: The time range of the composition to scale.
@@ -244,7 +250,7 @@ func (m AVMutableComposition) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 // duration: The new time range duration.
 //
 // # Discussion
-// 
+//
 // A composition presents each track segment affected by the scaling operation
 // at a rate equal to `source.Duration() / target.Duration()` of its resulting
 // time mapping.
@@ -253,12 +259,13 @@ func (m AVMutableComposition) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 func (m AVMutableComposition) ScaleTimeRangeToDuration(timeRange coremedia.CMTimeRange, duration coremedia.CMTime) {
 	objc.Send[objc.ID](m.ID, objc.Sel("scaleTimeRange:toDuration:"), timeRange, duration)
 }
+
 // Adds or extends an empty time range within all tracks of the composition.
 //
 // timeRange: The empty time range to insert.
 //
 // # Discussion
-// 
+//
 // Inserting an empty time range pushes out existing content by the time
 // range’s duration. Use this method to reserve a time range in the
 // composition for a subsequently created track to present its media.
@@ -267,13 +274,14 @@ func (m AVMutableComposition) ScaleTimeRangeToDuration(timeRange coremedia.CMTim
 func (m AVMutableComposition) InsertEmptyTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertEmptyTimeRange:"), timeRange)
 }
+
 // Adds a group of empty tracks associated with a cinematic asset to a mutable
 // composition.
 //
 // assetInfo is a [cinematic.CNAssetInfo].
 //
 // # Return Value
-// 
+//
 // Information about the composition tracks added to the mutable composition.
 // Be sure to call insertTimeRange on the result to specify at least one time
 // range of cinematic asset you’d like in the composition.
@@ -288,7 +296,7 @@ func (m AVMutableComposition) AddTracksForCinematicAssetInfoPreferredStartingTra
 // Returns a new mutable composition.
 //
 // # Return Value
-// 
+//
 // A mutable composition.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/composition
@@ -296,4 +304,3 @@ func (_AVMutableCompositionClass AVMutableCompositionClass) Composition() AVMuta
 	rv := objc.Send[objc.ID](objc.ID(_AVMutableCompositionClass.class), objc.Sel("composition"))
 	return AVMutableCompositionFromID(rv)
 }
-

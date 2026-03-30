@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (mc MyMPSCNNConvolutionGradientStateClass) Alloc() MyMPSCNNConvolutionGradi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MyMPSCNNConvolutionGradientState.SourceHeight]
 //   - [MyMPSCNNConvolutionGradientState.SourceWidth]
+//
 // See: https://developer.apple.com/documentation/Espresso/MyMPSCNNConvolutionGradientState
 type MyMPSCNNConvolutionGradientState struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type MyMPSCNNConvolutionGradientState struct {
 func MyMPSCNNConvolutionGradientStateFromID(id objc.ID) MyMPSCNNConvolutionGradientState {
 	return MyMPSCNNConvolutionGradientState{objectivec.Object{ID: id}}
 }
+
 // NOTE: MyMPSCNNConvolutionGradientState struct embeds objectivec.Object (parent type unavailable) but
 // IMyMPSCNNConvolutionGradientState embeds the parent interface; skip compile-time assertion.
 
@@ -99,9 +101,9 @@ func (m MyMPSCNNConvolutionGradientState) SourceHeight() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("sourceHeight"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/MyMPSCNNConvolutionGradientState/sourceWidth
 func (m MyMPSCNNConvolutionGradientState) SourceWidth() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("sourceWidth"))
 	return rv
 }
-

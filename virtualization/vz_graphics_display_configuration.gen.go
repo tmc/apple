@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZGraphicsDisplayConfigurationClass) Alloc() VZGraphicsDisplayConfigura
 // The base class for a graphics display configuration.
 //
 // # Overview
-// 
+//
 // Don’t instantiate [VZGraphicsDisplayConfiguration] directly. Use one of
 // its subclasses instead.
 //
@@ -59,6 +60,7 @@ type VZGraphicsDisplayConfiguration struct {
 func VZGraphicsDisplayConfigurationFromID(id objc.ID) VZGraphicsDisplayConfiguration {
 	return VZGraphicsDisplayConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZGraphicsDisplayConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -87,4 +89,3 @@ func NewVZGraphicsDisplayConfiguration() VZGraphicsDisplayConfiguration {
 	rv := objc.Send[VZGraphicsDisplayConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

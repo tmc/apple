@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (ac AVVCDuckFadeDurationClass) Alloc() AVVCDuckFadeDuration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVVCDuckFadeDuration.FadeIn]
@@ -50,6 +50,7 @@ func (ac AVVCDuckFadeDurationClass) Alloc() AVVCDuckFadeDuration {
 //   - [AVVCDuckFadeDuration.FadeOut]
 //   - [AVVCDuckFadeDuration.SetFadeOut]
 //   - [AVVCDuckFadeDuration.InitWithFadeInFadeOut]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckFadeDuration
 type AVVCDuckFadeDuration struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type AVVCDuckFadeDuration struct {
 func AVVCDuckFadeDurationFromID(id objc.ID) AVVCDuckFadeDuration {
 	return AVVCDuckFadeDuration{objectivec.Object{ID: id}}
 }
+
 // Ensure AVVCDuckFadeDuration implements IAVVCDuckFadeDuration.
 var _ IAVVCDuckFadeDuration = AVVCDuckFadeDuration{}
 
@@ -104,7 +106,6 @@ func NewAVVCDuckFadeDuration() AVVCDuckFadeDuration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckFadeDuration/initWithFadeIn:fadeOut:
 func NewVCDuckFadeDurationWithFadeInFadeOut(in objectivec.IObject, out objectivec.IObject) AVVCDuckFadeDuration {
 	instance := getAVVCDuckFadeDurationClass().Alloc()
@@ -112,7 +113,6 @@ func NewVCDuckFadeDurationWithFadeInFadeOut(in objectivec.IObject, out objective
 	return AVVCDuckFadeDurationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckFadeDuration/initWithFadeIn:fadeOut:
 func (v AVVCDuckFadeDuration) InitWithFadeInFadeOut(in objectivec.IObject, out objectivec.IObject) AVVCDuckFadeDuration {
 	rv := objc.Send[AVVCDuckFadeDuration](v.ID, objc.Sel("initWithFadeIn:fadeOut:"), in, out)
@@ -127,6 +127,7 @@ func (v AVVCDuckFadeDuration) FadeIn() foundation.NSNumber {
 func (v AVVCDuckFadeDuration) SetFadeIn(value foundation.NSNumber) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFadeIn:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCDuckFadeDuration/fadeOut
 func (v AVVCDuckFadeDuration) FadeOut() foundation.NSNumber {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("fadeOut"))
@@ -135,4 +136,3 @@ func (v AVVCDuckFadeDuration) FadeOut() foundation.NSNumber {
 func (v AVVCDuckFadeDuration) SetFadeOut(value foundation.NSNumber) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFadeOut:"), value)
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZKeyboardConfigurationClass) Alloc() VZKeyboardConfiguration {
 // The base class for a configuring a keyboard.
 //
 // # Overview
-// 
+//
 // [VZKeyboardConfiguration] defines the abstract interface that defines a
 // virtual keyboard that you connect to a guest operating system. Don’t
 // instantiate [VZKeyboardConfiguration] directly, use one of its subclasses
@@ -61,6 +62,7 @@ type VZKeyboardConfiguration struct {
 func VZKeyboardConfigurationFromID(id objc.ID) VZKeyboardConfiguration {
 	return VZKeyboardConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZKeyboardConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -89,4 +91,3 @@ func NewVZKeyboardConfiguration() VZKeyboardConfiguration {
 	rv := objc.Send[VZKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

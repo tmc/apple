@@ -4,11 +4,12 @@ package coreimage
 
 import (
 	"unsafe"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -68,6 +69,7 @@ type CIImageProcessorOutput interface {
 type CIImageProcessorOutputObject struct {
 	objectivec.Object
 }
+
 func (o CIImageProcessorOutputObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -87,14 +89,16 @@ func CIImageProcessorOutputObjectFromID(id objc.ID) CIImageProcessorOutputObject
 func (o CIImageProcessorOutputObject) BaseAddress() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("baseAddress"))
 	return rv
-	}
+}
+
 // A Metal texture object that can be bound for output using Metal.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/metalTexture
 func (o CIImageProcessorOutputObject) MetalTexture() metal.MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metalTexture"))
 	return metal.MTLTextureObjectFromID(rv)
-	}
+}
+
 // An output pixelBuffer object that your Core Image Processor Kernel can
 // write to.
 //
@@ -102,7 +106,8 @@ func (o CIImageProcessorOutputObject) MetalTexture() metal.MTLTexture {
 func (o CIImageProcessorOutputObject) PixelBuffer() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](o.ID, objc.Sel("pixelBuffer"))
 	return rv
-	}
+}
+
 // An output surface object that your Core Image Processor Kernel can write
 // to.
 //
@@ -110,7 +115,8 @@ func (o CIImageProcessorOutputObject) PixelBuffer() corevideo.CVImageBufferRef {
 func (o CIImageProcessorOutputObject) Surface() iosurface.IOSurfaceRef {
 	rv := objc.Send[iosurface.IOSurfaceRef](o.ID, objc.Sel("surface"))
 	return rv
-	}
+}
+
 // The rectangular region of the output image that your Core Image Processor
 // Kernel must provide.
 //
@@ -118,7 +124,8 @@ func (o CIImageProcessorOutputObject) Surface() iosurface.IOSurfaceRef {
 func (o CIImageProcessorOutputObject) Region() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("region"))
 	return rv
-	}
+}
+
 // Returns a Metal command buffer object that can be used for encoding
 // commands.
 //
@@ -126,7 +133,8 @@ func (o CIImageProcessorOutputObject) Region() corefoundation.CGRect {
 func (o CIImageProcessorOutputObject) MetalCommandBuffer() metal.MTLCommandBuffer {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metalCommandBuffer"))
 	return metal.MTLCommandBufferObjectFromID(rv)
-	}
+}
+
 // The bytes per row of the CPU memory that your Core Image Processor Kernel
 // can write pixels to.
 //
@@ -134,7 +142,8 @@ func (o CIImageProcessorOutputObject) MetalCommandBuffer() metal.MTLCommandBuffe
 func (o CIImageProcessorOutputObject) BytesPerRow() uintptr {
 	rv := objc.Send[uintptr](o.ID, objc.Sel("bytesPerRow"))
 	return rv
-	}
+}
+
 // The pixel format of the CPU memory that your Core Image Processor Kernel
 // can write pixels to.
 //
@@ -142,7 +151,8 @@ func (o CIImageProcessorOutputObject) BytesPerRow() uintptr {
 func (o CIImageProcessorOutputObject) Format() CIFormat {
 	rv := objc.Send[CIFormat](o.ID, objc.Sel("format"))
 	return rv
-	}
+}
+
 // A 64-bit digest that uniquely describes the contents of the output of a
 // processor.
 //
@@ -150,5 +160,4 @@ func (o CIImageProcessorOutputObject) Format() CIFormat {
 func (o CIImageProcessorOutputObject) Digest() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("digest"))
 	return rv
-	}
-
+}

@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLTreeEnsembleClassifierClass) Alloc() MLTreeEnsembleClassifier {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLTreeEnsembleClassifier._buildClassificationClassesTopkError]
@@ -56,6 +56,7 @@ func (mc MLTreeEnsembleClassifierClass) Alloc() MLTreeEnsembleClassifier {
 //   - [MLTreeEnsembleClassifier.Description]
 //   - [MLTreeEnsembleClassifier.Hash]
 //   - [MLTreeEnsembleClassifier.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier
 type MLTreeEnsembleClassifier struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type MLTreeEnsembleClassifier struct {
 func MLTreeEnsembleClassifierFromID(id objc.ID) MLTreeEnsembleClassifier {
 	return MLTreeEnsembleClassifier{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLTreeEnsembleClassifier struct embeds objectivec.Object (parent type unavailable) but
 // IMLTreeEnsembleClassifier embeds the parent interface; skip compile-time assertion.
 
@@ -118,7 +120,6 @@ func NewMLTreeEnsembleClassifier() MLTreeEnsembleClassifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/_buildClassificationClasses:topk:error:
 func (t MLTreeEnsembleClassifier) _buildClassificationClassesTopkError(classes []float64, topk uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -135,6 +136,7 @@ func (t MLTreeEnsembleClassifier) _buildClassificationClassesTopkError(classes [
 func (t MLTreeEnsembleClassifier) BuildClassificationClassesTopkError(classes []float64, topk uint64) (objectivec.IObject, error) {
 	return t._buildClassificationClassesTopkError(classes, topk)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/_setSingleArrayLookupField
 func (t MLTreeEnsembleClassifier) _setSingleArrayLookupField() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_setSingleArrayLookupField"))
@@ -144,7 +146,7 @@ func (t MLTreeEnsembleClassifier) _setSingleArrayLookupField() {
 func (t MLTreeEnsembleClassifier) SetSingleArrayLookupField() {
 	t._setSingleArrayLookupField()
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/classify:options:error:
 func (t MLTreeEnsembleClassifier) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -156,12 +158,13 @@ func (t MLTreeEnsembleClassifier) ClassifyOptionsError(classify objectivec.IObje
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/modelData
 func (t MLTreeEnsembleClassifier) ModelData() string {
 	rv := objc.Send[*byte](t.ID, objc.Sel("modelData"))
 	return objc.GoString(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/prepareInput:error:
 func (t MLTreeEnsembleClassifier) PrepareInputError(input objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -174,7 +177,6 @@ func (t MLTreeEnsembleClassifier) PrepareInputError(input objectivec.IObject) (o
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/_convertStringClassVector:int64ClassVector:dimensions:toClassLabel:classType:andReturnError:
 func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) _convertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError(vector unsafe.Pointer, vector2 unsafe.Pointer, dimensions uint64, label []objectivec.IObject) (int64, error) {
 	var type_ int64
@@ -194,7 +196,7 @@ func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) _convertStri
 func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) ConvertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError(vector unsafe.Pointer, vector2 unsafe.Pointer, dimensions uint64, label []objectivec.IObject) (int64, error) {
 	return _MLTreeEnsembleClassifierClass._convertStringClassVectorInt64ClassVectorDimensionsToClassLabelClassTypeAndReturnError(vector, vector2, dimensions, label)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/compileSpecification:toArchive:options:error:
 func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -206,7 +208,7 @@ func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) CompileSpeci
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/compiledVersionForSpecification:options:error:
 func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) CompiledVersionForSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -218,7 +220,7 @@ func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) CompiledVers
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -230,7 +232,7 @@ func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) LoadModelFro
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/loadModelFromSpecification:configuration:error:
 func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -242,7 +244,7 @@ func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) LoadModelFro
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/loadModelFromSpecificationWithCompilationOptions:options:error:
 func (_MLTreeEnsembleClassifierClass MLTreeEnsembleClassifierClass) LoadModelFromSpecificationWithCompilationOptionsOptionsError(options unsafe.Pointer, options2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -260,19 +262,21 @@ func (t MLTreeEnsembleClassifier) DebugDescription() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/description
 func (t MLTreeEnsembleClassifier) Description() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/hash
 func (t MLTreeEnsembleClassifier) Hash() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTreeEnsembleClassifier/superclass
 func (t MLTreeEnsembleClassifier) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](t.ID, objc.Sel("superclass"))
 	return rv
 }
-

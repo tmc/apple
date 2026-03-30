@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type CoreMLIOSurfaceStorage struct {
 func CoreMLIOSurfaceStorageFromID(id objc.ID) CoreMLIOSurfaceStorage {
 	return CoreMLIOSurfaceStorage{objectivec.Object{ID: id}}
 }
+
 // NOTE: CoreMLIOSurfaceStorage struct embeds objectivec.Object (parent type unavailable) but
 // ICoreMLIOSurfaceStorage embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewCoreMLIOSurfaceStorage() CoreMLIOSurfaceStorage {
 	rv := objc.Send[CoreMLIOSurfaceStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

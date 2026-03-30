@@ -4,11 +4,12 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,19 +49,19 @@ func (ac AVCapturePhotoClass) Alloc() AVCapturePhoto {
 // A container for image data from a photo capture output.
 //
 // # Overview
-// 
+//
 // When you capture photos with the [AVCapturePhotoOutput] class, your
 // delegate object receives each resulting image and related data in the form
 // of an [AVCapturePhoto] object. This object is an immutable wrapper from
 // which you can retrieve various results of the photo capture.
-// 
+//
 // In addition to the photo image pixel buffer, an AVCapturePhoto object can
 // also contain a preview-sized pixel buffer, capture metadata, and, on
 // supported devices, depth data and camera calibration data. From an
 // [AVCapturePhoto] object, you can generate data appropriate for writing to a
 // file, such as HEVC encoded image data containerized in the HEIC file format
 // and including a preview image, depth data and other attachments.
-// 
+//
 // An [AVCapturePhoto] instance wraps a single image result. For example, if
 // you request a bracketed capture of three images, your callback is called
 // three times, each time delivering a single [AVCapturePhoto] object.
@@ -97,6 +98,7 @@ type AVCapturePhoto struct {
 func AVCapturePhotoFromID(id objc.ID) AVCapturePhoto {
 	return AVCapturePhoto{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCapturePhoto adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -181,13 +183,13 @@ func NewAVCapturePhoto() AVCapturePhoto {
 // attachments.
 //
 // # Return Value
-// 
+//
 // Data appropriate for writing to a file of the type specified when
 // requesting photo capture, or `nil` if the photo and attachment data cannot
 // be flattened.
 //
 // # Discussion
-// 
+//
 // When you request a photo capture with the [AVCapturePhotoOutput]
 // [CapturePhotoWithSettingsDelegate] method, the [AVCapturePhotoSettings]
 // object you provide specifies image data formats (such as JPEG and HEVC) and
@@ -202,11 +204,12 @@ func (c AVCapturePhoto) FileDataRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("fileDataRepresentation"))
 	return foundation.NSDataFromID(rv)
 }
+
 // Extracts and returns the captured photo’s primary image as a Core
 // Graphics image object.
 //
 // # Return Value
-// 
+//
 // A Core Graphics image representation of the captured photo, or `nil` if the
 // image cannot be converted.
 //
@@ -219,7 +222,7 @@ func (c AVCapturePhoto) CGImageRepresentation() coregraphics.CGImageRef {
 // The settings object that was used to request this photo capture.
 //
 // # Discussion
-// 
+//
 // To determine which [CapturePhotoWithSettingsDelegate] call produced this
 // photo capture result, match this [AVCaptureResolvedPhotoSettings]
 // object’s [UniqueID] value to the [UniqueID] property of the photo
@@ -231,11 +234,12 @@ func (c AVCapturePhoto) ResolvedSettings() IAVCaptureResolvedPhotoSettings {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("resolvedSettings"))
 	return AVCaptureResolvedPhotoSettingsFromID(objc.ID(rv))
 }
+
 // The 1-based index of this photo capture relative to other results from the
 // same capture request.
 //
 // # Discussion
-// 
+//
 // The [ExpectedPhotoCount] property of this capture result’s
 // [ResolvedSettings] object indicates the total number of images that will be
 // returned for a given capture request. When your delegate’s
@@ -248,28 +252,30 @@ func (c AVCapturePhoto) PhotoCount() int {
 	rv := objc.Send[int](c.ID, objc.Sel("photoCount"))
 	return rv
 }
+
 // The time at which the image was captured.
 //
 // # Discussion
-// 
+//
 // This timestamp is always synchronized to the [masterClock] time of the
 // [AVCaptureSession] object to which the photo output is connected.
 //
-// [masterClock]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/masterClock
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/timestamp
+//
+// [masterClock]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/masterClock
 func (c AVCapturePhoto) Timestamp() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("timestamp"))
 	return coremedia.CMTime(rv)
 }
+
 // The uncompressed or RAW image sample buffer for the photo, if requested.
 //
 // # Discussion
-// 
+//
 // If you requested photo capture in a RAW format, or in a processed format
 // without compression such as TIFF, you can use this property to access the
 // underlying sample buffer.
-// 
+//
 // If you requested capture in a compressed format such as JPEG or HEVC/HEIF,
 // this property’s value is `nil`. Use the [FileDataRepresentation] or
 // [CGImageRepresentation] method to obtain compressed image data.
@@ -279,19 +285,20 @@ func (c AVCapturePhoto) PixelBuffer() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](c.ID, objc.Sel("pixelBuffer"))
 	return corevideo.CVImageBufferRef(rv)
 }
+
 // A score that summarizes the overall confidence level of a constant color
 // photo.
 //
 // # Discussion
-// 
+//
 // A value of `1.0` means full confidence and `0.0` means zero confidence. The
 // default is `0.0.`
-// 
+//
 // In most use cases, such as document scanning, the system considers the
 // central region of the photo more important than its edges. The system
 // weights the confidence level of the central pixels more heavily than pixels
 // on the edges of the photo.
-// 
+//
 // Use [ConstantColorConfidenceMap] for more use case specific analyses of the
 // confidence level.
 //
@@ -300,14 +307,15 @@ func (c AVCapturePhoto) ConstantColorCenterWeightedMeanConfidenceLevel() float32
 	rv := objc.Send[float32](c.ID, objc.Sel("constantColorCenterWeightedMeanConfidenceLevel"))
 	return rv
 }
+
 // A pixel buffer where each pixel value indicates how fully the system
 // achieves the constant color effect in the corresponding region of the
 // photo.
 //
 // # Discussion
-// 
+//
 // A value of `255` means full confidence and `0` means zero confidence.
-// 
+//
 // This property provides a valid value only for constant color photos. The
 // value is `nil` in all other cases.
 //
@@ -316,6 +324,7 @@ func (c AVCapturePhoto) ConstantColorConfidenceMap() corevideo.CVImageBufferRef 
 	rv := objc.Send[corevideo.CVImageBufferRef](c.ID, objc.Sel("constantColorConfidenceMap"))
 	return corevideo.CVImageBufferRef(rv)
 }
+
 // A Boolean value that Indicates whether this photo is a fallback photo for a
 // constant color capture.
 //
@@ -324,4 +333,3 @@ func (c AVCapturePhoto) ConstantColorFallbackPhoto() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isConstantColorFallbackPhoto"))
 	return rv
 }
-

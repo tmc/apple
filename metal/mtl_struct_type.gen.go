@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,19 +44,16 @@ func (mc MTLStructTypeClass) Alloc() MTLStructType {
 // A description of a structure.
 //
 // # Overview
-// 
+//
 // [MTLStructType] is part of the reflection API that allows Metal framework
 // code to query details of a struct that is passed as an argument of a Metal
 // shading language function. Don’t create [MTLStructType] instances
-// directly; instead query the [bufferStructType] property of an [MTLArgument]
+// directly; instead query the [MTLStructType.BufferStructType] property of an [MTLArgument]
 // instance, or call the [StructType] method for an [MTLStructMember]
 // instance. To examine the details of the struct, you can recursively drill
 // down the [MTLStructType.Members] property of the [MTLStructType] instance, which contains
 // details about struct members, each of which is represented by an
 // [MTLStructMember] instance.
-//
-// [MTLArgument]: https://developer.apple.com/documentation/Metal/MTLArgument
-// [bufferStructType]: https://developer.apple.com/documentation/Metal/MTLArgument/bufferStructType
 //
 // # Obtaining information about struct members
 //
@@ -63,6 +61,8 @@ func (mc MTLStructTypeClass) Alloc() MTLStructType {
 //   - [MTLStructType.MemberByName]: Provides a representation of a struct member.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructType
+//
+// [MTLArgument]: https://developer.apple.com/documentation/Metal/MTLArgument
 type MTLStructType struct {
 	MTLType
 }
@@ -73,6 +73,7 @@ type MTLStructType struct {
 func MTLStructTypeFromID(id objc.ID) MTLStructType {
 	return MTLStructType{MTLType: MTLTypeFromID(id)}
 }
+
 // NOTE: MTLStructType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -123,7 +124,7 @@ func NewMTLStructType() MTLStructType {
 // name: The name of a member in the struct.
 //
 // # Return Value
-// 
+//
 // An object that represents the named struct member. If `name` does not match
 // a member name, `nil` is returned.
 //
@@ -136,7 +137,7 @@ func (s MTLStructType) MemberByName(name string) IMTLStructMember {
 // An array of instances that describe the fields in the struct.
 //
 // # Discussion
-// 
+//
 // Each array element in [Members] is an [MTLStructMember] instance that
 // corresponds to one of the fields in the struct.
 //
@@ -147,6 +148,7 @@ func (s MTLStructType) Members() []MTLStructMember {
 		return MTLStructMemberFromID(id)
 	})
 }
+
 // A description of the structure data of a buffer argument.
 //
 // See: https://developer.apple.com/documentation/metal/mtlargument/bufferstructtype
@@ -157,4 +159,3 @@ func (s MTLStructType) BufferStructType() IMTLStructType {
 func (s MTLStructType) SetBufferStructType(value IMTLStructType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBufferStructType:"), value)
 }
-

@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,8 +47,6 @@ func (mc MLStateConstraintClass) Alloc() MLStateConstraint {
 //
 // # Inspecting a state constraint
 //
-//   - [MLStateConstraint.BufferShape]: The shape of the state buffer.
-//   - [MLStateConstraint.SetBufferShape]
 //   - [MLStateConstraint.DataType]: The data type of scalars in the state buffer.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint
@@ -61,6 +60,7 @@ type MLStateConstraint struct {
 func MLStateConstraintFromID(id objc.ID) MLStateConstraint {
 	return MLStateConstraint{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLStateConstraint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -68,8 +68,6 @@ func MLStateConstraintFromID(id objc.ID) MLStateConstraint {
 //
 // # Inspecting a state constraint
 //
-//   - [IMLStateConstraint.BufferShape]: The shape of the state buffer.
-//   - [IMLStateConstraint.SetBufferShape]
 //   - [IMLStateConstraint.DataType]: The data type of scalars in the state buffer.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint
@@ -78,12 +76,11 @@ type IMLStateConstraint interface {
 
 	// Topic: Inspecting a state constraint
 
-	// The shape of the state buffer.
-	BufferShape() int
-	SetBufferShape(value int)
 	// The data type of scalars in the state buffer.
 	DataType() MLMultiArrayDataType
 
+	// The shape of the state buffer.
+	BufferShape() []foundation.NSNumber
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -110,16 +107,6 @@ func (s MLStateConstraint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-// The shape of the state buffer.
-//
-// See: https://developer.apple.com/documentation/coreml/mlstateconstraint/buffershape-4zb3w
-func (s MLStateConstraint) BufferShape() int {
-	rv := objc.Send[int](s.ID, objc.Sel("bufferShape"))
-	return rv
-}
-func (s MLStateConstraint) SetBufferShape(value int) {
-	objc.Send[struct{}](s.ID, objc.Sel("setBufferShape:"), value)
-}
 // The data type of scalars in the state buffer.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/dataType
@@ -128,3 +115,12 @@ func (s MLStateConstraint) DataType() MLMultiArrayDataType {
 	return MLMultiArrayDataType(rv)
 }
 
+// The shape of the state buffer.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/bufferShape-6o5vn
+func (s MLStateConstraint) BufferShape() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("bufferShape"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
+}

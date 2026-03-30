@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (vc VZCustomVirtioDeviceProviderClass) Alloc() VZCustomVirtioDeviceProvider
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCustomVirtioDeviceProvider._connectionIdentifier]
 //   - [VZCustomVirtioDeviceProvider._init]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceProvider
 type VZCustomVirtioDeviceProvider struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type VZCustomVirtioDeviceProvider struct {
 func VZCustomVirtioDeviceProviderFromID(id objc.ID) VZCustomVirtioDeviceProvider {
 	return VZCustomVirtioDeviceProvider{objectivec.Object{ID: id}}
 }
+
 // Ensure VZCustomVirtioDeviceProvider implements IVZCustomVirtioDeviceProvider.
 var _ IVZCustomVirtioDeviceProvider = VZCustomVirtioDeviceProvider{}
 
@@ -105,4 +107,3 @@ func (v VZCustomVirtioDeviceProvider) _connectionIdentifier() objectivec.IObject
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_connectionIdentifier"))
 	return objectivec.Object{ID: rv}
 }
-

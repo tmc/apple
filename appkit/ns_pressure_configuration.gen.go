@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSPressureConfigurationClass) Alloc() NSPressureConfiguration {
 // as it responds to specific events.
 //
 // # Overview
-// 
+//
 // Use an [NSPressureConfiguration] object to configure the behavior and
 // progression of a Force Touch trackpad when it responds to a mouse drag or
 // pressure event sequence. Pressure configurations are assigned to views
@@ -72,6 +73,7 @@ type NSPressureConfiguration struct {
 func NSPressureConfigurationFromID(id objc.ID) NSPressureConfiguration {
 	return NSPressureConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPressureConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -129,12 +131,12 @@ func NewNSPressureConfiguration() NSPressureConfiguration {
 // for responding to pressure events.
 //
 // # Return Value
-// 
+//
 // A new pressure configuration object of type [NSPressureConfiguration] that
 // describes how pressure events behave and progress.
 //
 // # Discussion
-// 
+//
 // The initialized pressure configuration object is used to change the
 // behavior and progression of the trackpad when responding to a mouse drag or
 // pressure event sequence.
@@ -153,12 +155,12 @@ func NewPressureConfigurationWithPressureBehavior(pressureBehavior NSPressureBeh
 // for responding to pressure events.
 //
 // # Return Value
-// 
+//
 // A new pressure configuration object of type [NSPressureConfiguration] that
 // describes how pressure events behave and progress.
 //
 // # Discussion
-// 
+//
 // The initialized pressure configuration object is used to change the
 // behavior and progression of the trackpad when responding to a mouse drag or
 // pressure event sequence.
@@ -168,18 +170,19 @@ func (p NSPressureConfiguration) InitWithPressureBehavior(pressureBehavior NSPre
 	rv := objc.Send[NSPressureConfiguration](p.ID, objc.Sel("initWithPressureBehavior:"), pressureBehavior)
 	return rv
 }
+
 // Changes the pressure configuration of the trackpad to the initialized
 // pressure configuration.
 //
 // # Discussion
-// 
+//
 // During a mouse drag or pressure event sequence, this method may be called
 // to change the pressure configuration of the trackpad to the initialized
 // pressure configuration. The trackpad’s pressure configuration is
 // automatically reset when the user releases the mouse or ends the gesture.
 // If called outside of a mouse drag or pressure event sequence, this method
 // has no effect on the trackpad.
-// 
+//
 // Ideally, pressure behavior should be configured by adjusting the
 // `pressureConfiguration` property of a view prior to a mouse drag or gesture
 // event occurring, such as before the view is displayed. Otherwise, the user
@@ -194,7 +197,7 @@ func (p NSPressureConfiguration) Set() {
 // The pressure behavior of the pressure configuration object.
 //
 // # Discussion
-// 
+//
 // The value of this property is set when the pressure configuration object is
 // created and cannot be changed later. It contains the pressure behavior type
 // of the pressure configuration object.
@@ -204,4 +207,3 @@ func (p NSPressureConfiguration) PressureBehavior() NSPressureBehavior {
 	rv := objc.Send[NSPressureBehavior](p.ID, objc.Sel("pressureBehavior"))
 	return NSPressureBehavior(rv)
 }
-

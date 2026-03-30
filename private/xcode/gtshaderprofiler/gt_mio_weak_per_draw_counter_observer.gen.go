@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (gc GTMioWeakPerDrawCounterObserverClass) Alloc() GTMioWeakPerDrawCounterOb
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioWeakPerDrawCounterObserver.Observer]
 //   - [GTMioWeakPerDrawCounterObserver.SetObserver]
 //   - [GTMioWeakPerDrawCounterObserver.InitWithObserver]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioWeakPerDrawCounterObserver
 type GTMioWeakPerDrawCounterObserver struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type GTMioWeakPerDrawCounterObserver struct {
 func GTMioWeakPerDrawCounterObserverFromID(id objc.ID) GTMioWeakPerDrawCounterObserver {
 	return GTMioWeakPerDrawCounterObserver{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioWeakPerDrawCounterObserver implements IGTMioWeakPerDrawCounterObserver.
 var _ IGTMioWeakPerDrawCounterObserver = GTMioWeakPerDrawCounterObserver{}
 
@@ -97,7 +99,6 @@ func NewGTMioWeakPerDrawCounterObserver() GTMioWeakPerDrawCounterObserver {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioWeakPerDrawCounterObserver/initWithObserver:
 func NewGTMioWeakPerDrawCounterObserverWithObserver(observer objectivec.IObject) GTMioWeakPerDrawCounterObserver {
 	instance := getGTMioWeakPerDrawCounterObserverClass().Alloc()
@@ -105,7 +106,6 @@ func NewGTMioWeakPerDrawCounterObserverWithObserver(observer objectivec.IObject)
 	return GTMioWeakPerDrawCounterObserverFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioWeakPerDrawCounterObserver/initWithObserver:
 func (g GTMioWeakPerDrawCounterObserver) InitWithObserver(observer objectivec.IObject) GTMioWeakPerDrawCounterObserver {
 	rv := objc.Send[GTMioWeakPerDrawCounterObserver](g.ID, objc.Sel("initWithObserver:"), observer)
@@ -120,4 +120,3 @@ func (g GTMioWeakPerDrawCounterObserver) Observer() objectivec.IObject {
 func (g GTMioWeakPerDrawCounterObserver) SetObserver(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setObserver:"), value)
 }
-

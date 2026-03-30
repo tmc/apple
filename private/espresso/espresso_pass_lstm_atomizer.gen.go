@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_lstm_atomizer struct {
 func EspressoPass_lstm_atomizerFromID(id objc.ID) EspressoPass_lstm_atomizer {
 	return EspressoPass_lstm_atomizer{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_lstm_atomizer implements IEspressoPass_lstm_atomizer.
 var _ IEspressoPass_lstm_atomizer = EspressoPass_lstm_atomizer{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_lstm_atomizer() EspressoPass_lstm_atomizer {
 	rv := objc.Send[EspressoPass_lstm_atomizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

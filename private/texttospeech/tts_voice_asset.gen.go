@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (tc TTSVoiceAssetClass) Alloc() TTSVoiceAsset {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSVoiceAsset.DictionaryRepresentation]
@@ -65,6 +65,7 @@ func (tc TTSVoiceAssetClass) Alloc() TTSVoiceAsset {
 //   - [TTSVoiceAsset.SetVoiceType]
 //   - [TTSVoiceAsset.InitWithDictionaryRepresentation]
 //   - [TTSVoiceAsset.InitWithNameLanguagesGenderFootprintIsInstalledIsBuiltInMasteredVersionCompatibilityVersionNeural]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset
 type TTSVoiceAsset struct {
 	TTSAssetBase
@@ -74,6 +75,7 @@ type TTSVoiceAsset struct {
 func TTSVoiceAssetFromID(id objc.ID) TTSVoiceAsset {
 	return TTSVoiceAsset{TTSAssetBase: TTSAssetBaseFromID(id)}
 }
+
 // Ensure TTSVoiceAsset implements ITTSVoiceAsset.
 var _ ITTSVoiceAsset = TTSVoiceAsset{}
 
@@ -149,7 +151,6 @@ func NewTTSVoiceAsset() TTSVoiceAsset {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/initWithCoder:
 func NewTTSVoiceAssetWithCoder(coder objectivec.IObject) TTSVoiceAsset {
 	instance := getTTSVoiceAssetClass().Alloc()
@@ -157,7 +158,6 @@ func NewTTSVoiceAssetWithCoder(coder objectivec.IObject) TTSVoiceAsset {
 	return TTSVoiceAssetFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/initWithDictionaryRepresentation:
 func NewTTSVoiceAssetWithDictionaryRepresentation(representation objectivec.IObject) TTSVoiceAsset {
 	instance := getTTSVoiceAssetClass().Alloc()
@@ -165,7 +165,6 @@ func NewTTSVoiceAssetWithDictionaryRepresentation(representation objectivec.IObj
 	return TTSVoiceAssetFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/initWithName:languages:gender:footprint:isInstalled:isBuiltIn:masteredVersion:compatibilityVersion:neural:
 func NewTTSVoiceAssetWithNameLanguagesGenderFootprintIsInstalledIsBuiltInMasteredVersionCompatibilityVersionNeural(name objectivec.IObject, languages objectivec.IObject, gender int64, footprint int64, installed bool, in bool, version objectivec.IObject, version2 objectivec.IObject, neural bool) TTSVoiceAsset {
 	instance := getTTSVoiceAssetClass().Alloc()
@@ -178,13 +177,13 @@ func (t TTSVoiceAsset) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/initWithDictionaryRepresentation:
 func (t TTSVoiceAsset) InitWithDictionaryRepresentation(representation objectivec.IObject) TTSVoiceAsset {
 	rv := objc.Send[TTSVoiceAsset](t.ID, objc.Sel("initWithDictionaryRepresentation:"), representation)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/initWithName:languages:gender:footprint:isInstalled:isBuiltIn:masteredVersion:compatibilityVersion:neural:
 func (t TTSVoiceAsset) InitWithNameLanguagesGenderFootprintIsInstalledIsBuiltInMasteredVersionCompatibilityVersionNeural(name objectivec.IObject, languages objectivec.IObject, gender int64, footprint int64, installed bool, in bool, version objectivec.IObject, version2 objectivec.IObject, neural bool) TTSVoiceAsset {
 	rv := objc.Send[TTSVoiceAsset](t.ID, objc.Sel("initWithName:languages:gender:footprint:isInstalled:isBuiltIn:masteredVersion:compatibilityVersion:neural:"), name, languages, gender, footprint, installed, in, version, version2, neural)
@@ -199,16 +198,19 @@ func (t TTSVoiceAsset) FileSize() int64 {
 func (t TTSVoiceAsset) SetFileSize(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFileSize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/footprint
 func (t TTSVoiceAsset) Footprint() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("footprint"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/gender
 func (t TTSVoiceAsset) Gender() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("gender"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/identifier
 func (t TTSVoiceAsset) Identifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
@@ -217,11 +219,13 @@ func (t TTSVoiceAsset) Identifier() string {
 func (t TTSVoiceAsset) SetIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/isBuiltInVoice
 func (t TTSVoiceAsset) IsBuiltInVoice() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isBuiltInVoice"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/isDownloading
 func (t TTSVoiceAsset) IsDownloading() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isDownloading"))
@@ -230,26 +234,31 @@ func (t TTSVoiceAsset) IsDownloading() bool {
 func (t TTSVoiceAsset) SetIsDownloading(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIsDownloading:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/isInstalled
 func (t TTSVoiceAsset) IsInstalled() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isInstalled"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/languages
 func (t TTSVoiceAsset) Languages() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("languages"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/name
 func (t TTSVoiceAsset) Name() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/neural
 func (t TTSVoiceAsset) Neural() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("neural"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/voicePath
 func (t TTSVoiceAsset) VoicePath() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voicePath"))
@@ -258,6 +267,7 @@ func (t TTSVoiceAsset) VoicePath() string {
 func (t TTSVoiceAsset) SetVoicePath(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVoicePath:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceAsset/voiceType
 func (t TTSVoiceAsset) VoiceType() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("voiceType"))
@@ -266,4 +276,3 @@ func (t TTSVoiceAsset) VoiceType() int64 {
 func (t TTSVoiceAsset) SetVoiceType(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVoiceType:"), value)
 }
-

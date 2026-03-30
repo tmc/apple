@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSScrubberProportionalLayout] class.
@@ -65,6 +66,7 @@ type NSScrubberProportionalLayout struct {
 func NSScrubberProportionalLayoutFromID(id objc.ID) NSScrubberProportionalLayout {
 	return NSScrubberProportionalLayout{NSScrubberLayout: NSScrubberLayoutFromID(id)}
 }
+
 // NOTE: NSScrubberProportionalLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,7 +120,7 @@ func NewNSScrubberProportionalLayout() NSScrubberProportionalLayout {
 // storyboard or nib file.
 //
 // # Return Value
-// 
+//
 // A properly initialized proportional layout object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberProportionalLayout/init(coder:)
@@ -134,7 +136,7 @@ func NewScrubberProportionalLayoutWithCoder(coder foundation.INSCoder) NSScrubbe
 // numberOfVisibleItems: The number of items that should be visible in the scrubber at once.
 //
 // # Return Value
-// 
+//
 // A properly initialized proportional layout object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberProportionalLayout/init(numberOfVisibleItems:)
@@ -150,7 +152,7 @@ func NewScrubberProportionalLayoutWithNumberOfVisibleItems(numberOfVisibleItems 
 // numberOfVisibleItems: The number of items that should be visible in the scrubber at once.
 //
 // # Return Value
-// 
+//
 // A properly initialized proportional layout object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberProportionalLayout/init(numberOfVisibleItems:)
@@ -169,4 +171,3 @@ func (s NSScrubberProportionalLayout) NumberOfVisibleItems() int {
 func (s NSScrubberProportionalLayout) SetNumberOfVisibleItems(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNumberOfVisibleItems:"), value)
 }
-

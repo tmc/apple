@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,27 +47,25 @@ func (nc NSTitlebarAccessoryViewControllerClass) Alloc() NSTitlebarAccessoryView
 // title bar–toolbar area of a window.
 //
 // # Overview
-// 
+//
 // Because a title bar accessory view controller is contained in a visual
 // effect view (that is, [NSVisualEffectView]), it automatically handles the
 // blur behind the accessory view and the size and location changes for the
 // content of the view when a window goes in and out of full screen mode. If
 // you’re currently using [NSToolbar] fullscreen accessory APIs, such as
-// [fullScreenAccessoryView], you should use
+// [NSTitlebarAccessoryViewController.FullScreenAccessoryView], you should use
 // [NSTitlebarAccessoryViewController] APIs instead.
-// 
+//
 // Typically, you create an [NSTitlebarAccessoryViewController] object, give
 // it your custom view, set the [NSTitlebarAccessoryViewController.LayoutAttribute] property to ensure that it
 // displays correctly in relation to the title bar, and add the view
 // controller to your window. For more information about [NSWindow] methods
 // you can use to add and remove a title bar accessory view controller, see
 // Managing Title Bars.
-// 
+//
 // Don’t override the `view` property in your
 // [NSTitlebarAccessoryViewController] subclass. Instead, you can override
 // [LoadView], and set the `view` property in that method.
-//
-// [fullScreenAccessoryView]: https://developer.apple.com/documentation/AppKit/NSToolbar/fullScreenAccessoryView
 //
 // # Configuring a title bar accessory view controller
 //
@@ -99,6 +98,7 @@ type NSTitlebarAccessoryViewController struct {
 func NSTitlebarAccessoryViewControllerFromID(id objc.ID) NSTitlebarAccessoryViewController {
 	return NSTitlebarAccessoryViewController{NSViewController: NSViewControllerFromID(id)}
 }
+
 // NOTE: NSTitlebarAccessoryViewController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -178,7 +178,6 @@ func NewNSTitlebarAccessoryViewController() NSTitlebarAccessoryViewController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(coder:)
 func NewTitlebarAccessoryViewControllerWithCoder(coder foundation.INSCoder) NSTitlebarAccessoryViewController {
 	instance := getNSTitlebarAccessoryViewControllerClass().Alloc()
@@ -195,19 +194,19 @@ func NewTitlebarAccessoryViewControllerWithCoder(coder foundation.INSCoder) NSTi
 // method looks for the nib file in the main bundle.
 //
 // # Return Value
-// 
+//
 // The initialized [NSViewController] object.
 //
 // # Discussion
-// 
+//
 // The [NSViewController] object looks for the nib file in the bundle’s
 // language-specific project directories first, followed by the Resources
 // directory.
-// 
+//
 // The specified nib file should typically have the class of the file’s
 // owner set to [NSViewController], or a custom subclass, with the `view`
 // outlet connected to a view.
-// 
+//
 // If you pass in `nil` for `nibNameOrNil`, [NibName] returns `nil` and
 // [LoadView] throws an exception; in this case you must set [View] before
 // [View] is invoked, or override [LoadView].
@@ -224,7 +223,7 @@ func NewTitlebarAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName,
 // animation: The [NSAnimation] instance that completed its run.
 //
 // # Discussion
-// 
+//
 // When an [NSAnimation] object reaches the end of its planned duration, it
 // has a progress value of 1.0.
 //
@@ -232,6 +231,7 @@ func NewTitlebarAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName,
 func (t NSTitlebarAccessoryViewController) AnimationDidEnd(animation INSAnimation) {
 	objc.Send[objc.ID](t.ID, objc.Sel("animationDidEnd:"), animation)
 }
+
 // Sent to the delegate when an animation reaches a specific progress mark.
 //
 // animation: A running [NSAnimation] object that has reached a progress mark.
@@ -240,26 +240,27 @@ func (t NSTitlebarAccessoryViewController) AnimationDidEnd(animation INSAnimatio
 // mark of `animation`.
 //
 // # Discussion
-// 
+//
 // The delegate typically implements this method to perform some animation
 // effect for the time slice indicated by `progress`, such as redrawing
 // objects in a view with new coordinates or changing the frame location or
 // size of a window or view. As an alternative to this delegation message, you
 // may choose to observe the [progressMarkNotification] notification.
 //
-// [progressMarkNotification]: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animation(_:didReachProgressMark:)
+//
+// [progressMarkNotification]: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkNotification
 func (t NSTitlebarAccessoryViewController) AnimationDidReachProgressMark(animation INSAnimation, progress NSAnimationProgress) {
 	objc.Send[objc.ID](t.ID, objc.Sel("animation:didReachProgressMark:"), animation, progress)
 }
+
 // Sent to the delegate when the specified animation is stopped before it
 // completes its run.
 //
 // animation: The [NSAnimation] instance that was stopped.
 //
 // # Discussion
-// 
+//
 // An [NSAnimation] object stops running when it receives a [StopAnimation]
 // message.
 //
@@ -267,51 +268,49 @@ func (t NSTitlebarAccessoryViewController) AnimationDidReachProgressMark(animati
 func (t NSTitlebarAccessoryViewController) AnimationDidStop(animation INSAnimation) {
 	objc.Send[objc.ID](t.ID, objc.Sel("animationDidStop:"), animation)
 }
+
 // Returns the animation that should be performed for the specified key.
 //
 // key: The action name or property specified as a string.
 //
 // # Return Value
-// 
+//
 // The animation to perform. A subclass of [CAAnimation].
 //
-// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
-//
 // # Discussion
-// 
+//
 // When the action specified by `key` is triggered for an object, this method
 // is consulted to find the animation, if any, that should be performed in
 // response.
-// 
+//
 // Like its Core Animation [CALayer] counterpart, [action(forKey:)], this
 // method is a funnel point that defines the order in which the search for an
 // animation proceeds.It first checks the receiver’s Getting the Animator
 // Proxy dictionary for a value matching `key`, then falls back to [Animator]
 // for the receiver’s class.
-// 
+//
 // Subclasses should not typically need to override this method.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
+//
+// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
 // [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
 // [action(forKey:)]: https://developer.apple.com/documentation/QuartzCore/CALayer/action(forKey:)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
 func (t NSTitlebarAccessoryViewController) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
+
 // Sent to the delegate just after an animation is started.
 //
 // animation: The [NSAnimation] object that was just started.
 //
 // # Return Value
-// 
-// [false] to cancel the animation, [true] to have the animation proceed.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// false to cancel the animation, true to have the animation proceed.
 //
 // # Discussion
-// 
+//
 // The delegate is sent this message just after `animation` receives a
 // [StartAnimation] message. The delegate can use this method to prepare
 // objects and resources for the effect.
@@ -321,6 +320,7 @@ func (t NSTitlebarAccessoryViewController) AnimationShouldStart(animation INSAni
 	rv := objc.Send[bool](t.ID, objc.Sel("animationShouldStart:"), animation)
 	return rv
 }
+
 // Requests a custom curve value for the current progress value.
 //
 // animation: An [NSAnimation] object that is running.
@@ -329,22 +329,22 @@ func (t NSTitlebarAccessoryViewController) AnimationShouldStart(animation INSAni
 // mark of `animation`. This value is always between 0.0 and 1.0.
 //
 // # Return Value
-// 
+//
 // A `float` value representing a custom curve.
 //
 // # Discussion
-// 
+//
 // The delegate can compute and return a custom curve value for the given
 // progress value. If the delegate does not implement this method,
 // [NSAnimation] computes the current curve value.
-// 
+//
 // The animation:valueForProgress: message is sent to the delegate when an
 // [NSAnimation] object receives a [CurrentValue] message. The value the
 // delegate returns is used as the value of [CurrentValue]; if there is no
 // delegate, or it doesn’t implement animation:valueForProgress:,
 // [NSAnimation] computes and returns the current value. [NSAnimation] does
 // not invoke [CurrentValue]itself, but subclasses might.
-// 
+//
 // See the description of [CurrentValue] for more information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animation(_:valueForProgress:)
@@ -352,20 +352,21 @@ func (t NSTitlebarAccessoryViewController) AnimationValueForProgress(animation I
 	rv := objc.Send[float32](t.ID, objc.Sel("animation:valueForProgress:"), animation, progress)
 	return rv
 }
+
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
 //
 // # Return Value
-// 
+//
 // Returns a proxy object for the receiver that can initiate implied
 // animations in response to property changes.
 //
 // # Discussion
-// 
+//
 // The animator proxy object should be treated as if it was the receiver
 // itself, and may be passed to any code that accepts the receiver as a
 // parameter.
-// 
+//
 // Sending key-value coding compliant “set” messages to the proxy will
 // trigger animation for automatically animated properties of its target
 // object, if the active [NSAnimationContext] in the current thread has a
@@ -384,23 +385,21 @@ func (t NSTitlebarAccessoryViewController) Animator() INSTitlebarAccessoryViewCo
 // key: The action name or property specified as a string.
 //
 // # Return Value
-// 
+//
 // The animation to perform. A subclass of [CAAnimation].
 //
-// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
-//
 // # Discussion
-// 
+//
 // The [NSAnimatablePropertyContainer] method consults this class method when
 // its search of the receivers Getting the Animator Proxy dictionary fails to
 // return an animation for `key`.
-// 
+//
 // An animatable property container should implement this method to return a
 // default animation to be performed for each key that it wants to make
 // auto-animatable, where `key` usually references a property of the receiver,
 // but can also specify a special animation trigger
 // ([NSAnimationTriggerOrderIn] or [NSAnimationTriggerOrderOut]).
-// 
+//
 // A developer implementing a custom view subclass, can enable automatic
 // animation for properties by overriding this method, and having it return
 // the desired default [CAAnimation] subclass to use for each of the property
@@ -409,11 +408,13 @@ func (t NSTitlebarAccessoryViewController) Animator() INSTitlebarAccessoryViewCo
 // animation specifications. The following is an example of such an
 // implementation.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/defaultAnimation(forKey:)
+//
 // [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
 // [NSAnimationTriggerOrderIn]: https://developer.apple.com/documentation/AppKit/NSAnimationTriggerOrderIn
 // [NSAnimationTriggerOrderOut]: https://developer.apple.com/documentation/AppKit/NSAnimationTriggerOrderOut
 //
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/defaultAnimation(forKey:)
+// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
 func (_NSTitlebarAccessoryViewControllerClass NSTitlebarAccessoryViewControllerClass) DefaultAnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_NSTitlebarAccessoryViewControllerClass.class), objc.Sel("defaultAnimationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
@@ -423,7 +424,7 @@ func (_NSTitlebarAccessoryViewControllerClass NSTitlebarAccessoryViewControllerC
 // title bar when the window is in full screen mode.
 //
 // # Discussion
-// 
+//
 // The [FullScreenMinHeight] property applies only to an
 // [NSTitlebarAccessoryViewController] object in which [LayoutAttribute] is
 // set to [NSLayoutConstraint.Attribute.bottom]. The minimum height you set
@@ -432,7 +433,7 @@ func (_NSTitlebarAccessoryViewControllerClass NSTitlebarAccessoryViewControllerC
 // which means that the accessory view is hidden when the menu bar is hidden.
 // When a user reveals the menu bar in this scenario, the accessory view is
 // also revealed.
-// 
+//
 // To persistently show a portion of the accessory view, set this property to
 // a value greater than `0`. For example, if you have a fixed height accessory
 // view, you can set [FullScreenMinHeight] to
@@ -441,9 +442,9 @@ func (_NSTitlebarAccessoryViewControllerClass NSTitlebarAccessoryViewControllerC
 // is never actually changed when it is hidden or revealed; instead, it is
 // automatically clipped by an internal clip view.
 //
-// [NSLayoutConstraint.Attribute.bottom]: https://developer.apple.com/documentation/UIKit/NSLayoutConstraint/Attribute/bottom
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/fullScreenMinHeight
+//
+// [NSLayoutConstraint.Attribute.bottom]: https://developer.apple.com/documentation/UIKit/NSLayoutConstraint/Attribute/bottom
 func (t NSTitlebarAccessoryViewController) FullScreenMinHeight() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("fullScreenMinHeight"))
 	return rv
@@ -451,11 +452,12 @@ func (t NSTitlebarAccessoryViewController) FullScreenMinHeight() float64 {
 func (t NSTitlebarAccessoryViewController) SetFullScreenMinHeight(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFullScreenMinHeight:"), value)
 }
+
 // The location of the accessory view, in relation to the window’s title
 // bar.
 //
 // # Discussion
-// 
+//
 // The default value of this property is
 // [NSLayoutConstraint.Attribute.bottom], which means that the accessory view
 // should display below the title bar. You can also set this property to
@@ -463,11 +465,11 @@ func (t NSTitlebarAccessoryViewController) SetFullScreenMinHeight(value float64)
 // later) [NSLayoutConstraint.Attribute.left]. All other values are invalid
 // and will cause an assertion to be raised.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/layoutAttribute
+//
 // [NSLayoutConstraint.Attribute.bottom]: https://developer.apple.com/documentation/UIKit/NSLayoutConstraint/Attribute/bottom
 // [NSLayoutConstraint.Attribute.left]: https://developer.apple.com/documentation/UIKit/NSLayoutConstraint/Attribute/left
 // [NSLayoutConstraint.Attribute.right]: https://developer.apple.com/documentation/UIKit/NSLayoutConstraint/Attribute/right
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/layoutAttribute
 func (t NSTitlebarAccessoryViewController) LayoutAttribute() NSLayoutAttribute {
 	rv := objc.Send[NSLayoutAttribute](t.ID, objc.Sel("layoutAttribute"))
 	return NSLayoutAttribute(rv)
@@ -475,11 +477,12 @@ func (t NSTitlebarAccessoryViewController) LayoutAttribute() NSLayoutAttribute {
 func (t NSTitlebarAccessoryViewController) SetLayoutAttribute(value NSLayoutAttribute) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutAttribute:"), value)
 }
+
 // The titlebar accessory’s preferred effect for content scrolling behind
 // it.
 //
 // # Discussion
-// 
+//
 // To allow for a soft edge on the bottom edge of a titlebar accessory:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/preferredScrollEdgeEffectStyle
@@ -490,6 +493,7 @@ func (t NSTitlebarAccessoryViewController) PreferredScrollEdgeEffectStyle() INSS
 func (t NSTitlebarAccessoryViewController) SetPreferredScrollEdgeEffectStyle(value INSScrollEdgeEffectStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPreferredScrollEdgeEffectStyle:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/automaticallyAdjustsSize
 func (t NSTitlebarAccessoryViewController) AutomaticallyAdjustsSize() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("automaticallyAdjustsSize"))
@@ -498,6 +502,7 @@ func (t NSTitlebarAccessoryViewController) AutomaticallyAdjustsSize() bool {
 func (t NSTitlebarAccessoryViewController) SetAutomaticallyAdjustsSize(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticallyAdjustsSize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/isHidden
 func (t NSTitlebarAccessoryViewController) Hidden() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isHidden"))
@@ -506,6 +511,7 @@ func (t NSTitlebarAccessoryViewController) Hidden() bool {
 func (t NSTitlebarAccessoryViewController) SetHidden(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidden:"), value)
 }
+
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
@@ -517,6 +523,7 @@ func (t NSTitlebarAccessoryViewController) Animations() foundation.INSDictionary
 func (t NSTitlebarAccessoryViewController) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAnimations:"), value)
 }
+
 // The toolbar’s full screen accessory view.
 //
 // See: https://developer.apple.com/documentation/appkit/nstoolbar/fullscreenaccessoryview
@@ -528,6 +535,4 @@ func (t NSTitlebarAccessoryViewController) SetFullScreenAccessoryView(value INSV
 	objc.Send[struct{}](t.ID, objc.Sel("setFullScreenAccessoryView:"), value)
 }
 
-			// Protocol methods for NSAnimationDelegate
-			
-
+// Protocol methods for NSAnimationDelegate

@@ -18,6 +18,7 @@ type NSTextInput interface {
 type NSTextInputObject struct {
 	objectivec.Object
 }
+
 func (o NSTextInputObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func NSTextInputObjectFromID(id objc.ID) NSTextInputObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

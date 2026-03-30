@@ -5,10 +5,11 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,7 +50,7 @@ func (ac AVSampleBufferAudioRendererClass) Alloc() AVSampleBufferAudioRenderer {
 // audio.
 //
 // # Overview
-// 
+//
 // You must add an instance of this class to an
 // [AVSampleBufferRenderSynchronizer] before queuing the first sample buffer.
 //
@@ -97,6 +98,7 @@ type AVSampleBufferAudioRenderer struct {
 func AVSampleBufferAudioRendererFromID(id objc.ID) AVSampleBufferAudioRenderer {
 	return AVSampleBufferAudioRenderer{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSampleBufferAudioRenderer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -207,12 +209,12 @@ func NewAVSampleBufferAudioRenderer() AVSampleBufferAudioRenderer {
 //
 // completionHandler: The block to invoke when the flush operation has either been completed or
 // been interrupted. The block takes one argument:
-// 
+//
 // flushSucceeded: A Boolean value indicating whether the sample buffers were
 // flushed.
 //
 // # Discussion
-// 
+//
 // This method can be used to replace media data scheduled to be rendered in
 // the future, without interrupting playback. One example of this is when the
 // data that has already been enqueued is from a sequence of two songs and the
@@ -220,7 +222,7 @@ func NewAVSampleBufferAudioRenderer() AVSampleBufferAudioRenderer {
 // called with the timestamp of the first sample buffer from the second song.
 // After the completion handler is executed with a [YES] parameter, media data
 // may again be enqueued with time stamps at the specified time.
-// 
+//
 // If [NO] is provided to the completion handler, the flush did not succeed
 // and the set of enqueued sample buffers remains unchanged. A flush can fail
 // because the source time was too close to (or earlier than) the current time
@@ -230,15 +232,16 @@ func NewAVSampleBufferAudioRenderer() AVSampleBufferAudioRenderer {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/flush(fromSourceTime:completionHandler:)
 func (s AVSampleBufferAudioRenderer) FlushFromSourceTimeCompletionHandler(time coremedia.CMTime, completionHandler BoolHandler) {
-_block1, _ := NewBoolBlock(completionHandler)
+	_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("flushFromSourceTime:completionHandler:"), time, _block1)
 }
+
 // Sends a sample buffer to the queue for rendering.
 //
 // sampleBuffer: The sample buffer to be enqueued.
 //
 // # Discussion
-// 
+//
 // For video data, the sample buffer is processed according to the attachments
 // it contains. If it has a true value for its
 // [kCMSampleAttachmentKey_DoNotDisplay] attachment, the frame is decoded but
@@ -247,25 +250,26 @@ _block1, _ := NewBoolBlock(completionHandler)
 // displayed as soon as possible, regardless of its presentation timestamp.
 // Otherwise, the frame is displayed according to its presentation timestamp,
 // relative to the timebase.
-// 
+//
 // To schedule the removal of previous images at a specific timestamp, enqueue
 // a marker sample buffer that doesn’t contain any samples, with the
 // [kCMSampleBufferAttachmentKey_EmptyMedia] attachment set to
 // [kCFBooleanTrue].
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/enqueue(_:)
+//
 // [kCFBooleanTrue]: https://developer.apple.com/documentation/CoreFoundation/kCFBooleanTrue
 // [kCMSampleAttachmentKey_DisplayImmediately]: https://developer.apple.com/documentation/CoreMedia/kCMSampleAttachmentKey_DisplayImmediately
 // [kCMSampleAttachmentKey_DoNotDisplay]: https://developer.apple.com/documentation/CoreMedia/kCMSampleAttachmentKey_DoNotDisplay
 // [kCMSampleBufferAttachmentKey_EmptyMedia]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_EmptyMedia
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/enqueue(_:)
 func (s AVSampleBufferAudioRenderer) EnqueueSampleBuffer(sampleBuffer uintptr) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enqueueSampleBuffer:"), sampleBuffer)
 }
+
 // Discards all pending enqueued sample buffers.
 //
 // # Discussion
-// 
+//
 // It is not possible to determine which sample buffers have been decoded for
 // video. The next frame passed to [EnqueueSampleBuffer] should be an IDR
 // frame (also known as a key frame or sync sample).
@@ -274,6 +278,7 @@ func (s AVSampleBufferAudioRenderer) EnqueueSampleBuffer(sampleBuffer uintptr) {
 func (s AVSampleBufferAudioRenderer) Flush() {
 	objc.Send[objc.ID](s.ID, objc.Sel("flush"))
 }
+
 // A Boolean value that indicates whether the receiver is able to accept more
 // sample buffers.
 //
@@ -282,6 +287,7 @@ func (s AVSampleBufferAudioRenderer) IsReadyForMoreMediaData() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isReadyForMoreMediaData"))
 	return rv
 }
+
 // Tells the target to invoke a client-supplied block in order to gather
 // sample buffers for playback.
 //
@@ -291,7 +297,7 @@ func (s AVSampleBufferAudioRenderer) IsReadyForMoreMediaData() bool {
 // or there is no more data to supply.
 //
 // # Discussion
-// 
+//
 // When this method is called multiple times, only the last call is
 // implemented. Pair each call to [RequestMediaDataWhenReadyOnQueueUsingBlock]
 // with a corresponding call to [StopRequestingMediaData]. Releasing the
@@ -300,13 +306,14 @@ func (s AVSampleBufferAudioRenderer) IsReadyForMoreMediaData() bool {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/requestMediaDataWhenReady(on:using:)
 func (s AVSampleBufferAudioRenderer) RequestMediaDataWhenReadyOnQueueUsingBlock(queue dispatch.Queue, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("requestMediaDataWhenReadyOnQueue:usingBlock:"), uintptr(queue.Handle()), _block1)
 }
+
 // Cancels any current [RequestMediaDataWhenReadyOnQueueUsingBlock] call.
 //
 // # Discussion
-// 
+//
 // Always pair a call to [RequestMediaDataWhenReadyOnQueueUsingBlock] with
 // this method. You can call this method from inside or outside of the
 // requesting method’s block parameter.
@@ -319,13 +326,13 @@ func (s AVSampleBufferAudioRenderer) StopRequestingMediaData() {
 // The status of the audio renderer.
 //
 // # Discussion
-// 
+//
 // A renderer begins with a status of
-// [QueuedSampleBufferRenderingStatusUnknown]. As you add sample buffers to
+// [AVQueuedSampleBufferRenderingStatusUnknown]. As you add sample buffers to
 // the queue for rendering, the renderer transitions to either
-// [QueuedSampleBufferRenderingStatusRendering] or
-// [QueuedSampleBufferRenderingStatusFailed].
-// 
+// [AVQueuedSampleBufferRenderingStatusRendering] or
+// [AVQueuedSampleBufferRenderingStatusFailed].
+//
 // If the status is `AVQueuedSampleBufferRenderingStatus.Failed()`, check the
 // value of the renderer’s error property for information on the error
 // encountered. This property is key value observable.
@@ -335,6 +342,7 @@ func (s AVSampleBufferAudioRenderer) Status() AVQueuedSampleBufferRenderingStatu
 	rv := objc.Send[AVQueuedSampleBufferRenderingStatus](s.ID, objc.Sel("status"))
 	return AVQueuedSampleBufferRenderingStatus(rv)
 }
+
 // The key that indicates the presentation timestamp of the first queued
 // sample that was flushed.
 //
@@ -343,19 +351,20 @@ func (s AVSampleBufferAudioRenderer) AVSampleBufferAudioRendererFlushTimeKey() s
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("AVSampleBufferAudioRendererFlushTimeKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The processing algorithm used to manage audio pitch at different rates.
 //
 // # Discussion
-// 
+//
 // The default value on iOS is [lowQualityZeroLatency]; on macOS, the default
 // is [timeDomain]. The device automatically mutes audio when [Timebase] is
 // not supported by [AVAudioTimePitchAlgorithm]. Modifying this property while
 // [Timebase] is not `0.0` may cause the rate to briefly change to `0.0`.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/audioTimePitchAlgorithm
+//
 // [lowQualityZeroLatency]: https://developer.apple.com/documentation/AVFoundation/AVAudioTimePitchAlgorithm/lowQualityZeroLatency
 // [timeDomain]: https://developer.apple.com/documentation/AVFoundation/AVAudioTimePitchAlgorithm/timeDomain
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/audioTimePitchAlgorithm
 func (s AVSampleBufferAudioRenderer) AudioTimePitchAlgorithm() AVAudioTimePitchAlgorithm {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("audioTimePitchAlgorithm"))
 	return AVAudioTimePitchAlgorithm(foundation.NSStringFromID(rv).String())
@@ -363,20 +372,21 @@ func (s AVSampleBufferAudioRenderer) AudioTimePitchAlgorithm() AVAudioTimePitchA
 func (s AVSampleBufferAudioRenderer) SetAudioTimePitchAlgorithm(value AVAudioTimePitchAlgorithm) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAudioTimePitchAlgorithm:"), objc.String(string(value)))
 }
+
 // The source audio channel layouts the audio renderer supports for
 // spatialization.
 //
 // # Discussion
-// 
-// The default property value is [AudioSpatializationFormatMultichannel],
+//
+// The default property value is [AVAudioSpatializationFormatMultichannel],
 // which tells the player to spatialize any decodable multichannel layout.
-// Setting the value to [AudioSpatializationFormatMonoStereoAndMultichannel]
+// Setting the value to [AVAudioSpatializationFormatMonoStereoAndMultichannel]
 // tells the player to spatialize any decodable mono, stereo, or multichannel
 // layout. When this property value is
-// [AudioSpatializationFormatMonoAndStereo] the player attempts to spatialize
-// content tagged with a stereo channel layout (two-channel content with no
-// layout specified as well as mono).
-// 
+// [AVAudioSpatializationFormatMonoAndStereo] the player attempts to
+// spatialize content tagged with a stereo channel layout (two-channel content
+// with no layout specified as well as mono).
+//
 // This property isn’t key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/allowedAudioSpatializationFormats
@@ -387,10 +397,11 @@ func (s AVSampleBufferAudioRenderer) AllowedAudioSpatializationFormats() AVAudio
 func (s AVSampleBufferAudioRenderer) SetAllowedAudioSpatializationFormats(value AVAudioSpatializationFormats) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowedAudioSpatializationFormats:"), value)
 }
+
 // The current audio volume for the audio renderer.
 //
 // # Discussion
-// 
+//
 // Use this property for frequent vloume changes; for example, a volume knob
 // or fader. A value of `0.0` silences all audio while a value of `1.0` plays
 // all audio at full volume.
@@ -403,11 +414,12 @@ func (s AVSampleBufferAudioRenderer) Volume() float32 {
 func (s AVSampleBufferAudioRenderer) SetVolume(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVolume:"), value)
 }
+
 // A Boolean value that indicates whether audio for the renderer is in a muted
 // state.
 //
 // # Discussion
-// 
+//
 // This property only affects muting the renderer instance and not the device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/isMuted
@@ -418,35 +430,36 @@ func (s AVSampleBufferAudioRenderer) Muted() bool {
 func (s AVSampleBufferAudioRenderer) SetMuted(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMuted:"), value)
 }
+
 // The unique identifier of the output device used to play audio.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `nil`, which indicates the use of the
 // default audio device. Otherwise, set the value to an [NSString] containing
 // the unique identifier of the Core Audio output device to use for audio
 // output. [kAudioDevicePropertyDeviceUID] is a suitable source of audio
 // output device unique IDs.
-// 
+//
 // Modifying this property while the timebase’s rate isn’t `0.0` may cause
 // the rate to briefly change to `0.0`.
-// 
+//
 // On macOS, you can use the audio device clock as the
 // [AVSampleBufferRenderSynchronizer] and all attached
 // [AVQueuedSampleBufferRendering] timebase clocks. If you modify the
 // `audioOutputDeviceUniqueID`, the clocks of all these timebases may also
 // change.
-// 
+//
 // If you attach multiple renderers with different values for
 // `audioOutputDeviceUniqueID` to the same buffer renderer synchronizer, audio
 // may not stay in sync during playback. To avoid this, ensure that all
 // synchronized sample buffer renderers are using the same audio output
 // device.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/audioOutputDeviceUniqueID
+//
 // [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 // [kAudioDevicePropertyDeviceUID]: https://developer.apple.com/documentation/CoreAudio/kAudioDevicePropertyDeviceUID
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/audioOutputDeviceUniqueID
 func (s AVSampleBufferAudioRenderer) AudioOutputDeviceUniqueID() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("audioOutputDeviceUniqueID"))
 	return foundation.NSStringFromID(rv).String()
@@ -454,37 +467,38 @@ func (s AVSampleBufferAudioRenderer) AudioOutputDeviceUniqueID() string {
 func (s AVSampleBufferAudioRenderer) SetAudioOutputDeviceUniqueID(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAudioOutputDeviceUniqueID:"), objc.String(value))
 }
+
 // The error that caused the renderer to no longer render sample buffers.
 //
 // # Discussion
-// 
+//
 // The value of this property is nil unless the value of [Status] is
-// [QueuedSampleBufferRenderingStatusFailed].
+// [AVQueuedSampleBufferRenderingStatusFailed].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/error
 func (s AVSampleBufferAudioRenderer) Error() foundation.INSError {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the enqued media meets the required
 // preroll level for reliable playback.
 //
 // # Discussion
-// 
-// Starting playback when this property is [false] may prevent smooth playback
-// following an immediate start.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// Starting playback when this property is false may prevent smooth playback
+// following an immediate start.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/hasSufficientMediaDataForReliablePlaybackStart
 func (s AVSampleBufferAudioRenderer) HasSufficientMediaDataForReliablePlaybackStart() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("hasSufficientMediaDataForReliablePlaybackStart"))
 	return rv
 }
+
 // The timebase for a renderer.
 //
 // # Discussion
-// 
+//
 // The timebase governs how time stamps are interpreted by the renderer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
@@ -493,8 +507,7 @@ func (s AVSampleBufferAudioRenderer) Timebase() uintptr {
 	return rv
 }
 
-			// Protocol methods for AVQueuedSampleBufferRendering
-			
+// Protocol methods for AVQueuedSampleBufferRendering
 
 // FlushFromSourceTime is a synchronous wrapper around [AVSampleBufferAudioRenderer.FlushFromSourceTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -525,4 +538,3 @@ func (s AVSampleBufferAudioRenderer) RequestMediaDataWhenReadyOnQueueUsingBlockS
 		return ctx.Err()
 	}
 }
-

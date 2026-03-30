@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [MTL4SpecializedFunctionDescriptor] class.
@@ -45,7 +46,7 @@ func (mc MTL4SpecializedFunctionDescriptorClass) Alloc() MTL4SpecializedFunction
 // by passing it to a factory method.
 //
 // # Overview
-// 
+//
 // You can pass an instance of this class to any methods that accept a
 // [MTL4FunctionDescriptor] parameter to provide extra configuration, such as
 // function constants or a name.
@@ -71,6 +72,7 @@ type MTL4SpecializedFunctionDescriptor struct {
 func MTL4SpecializedFunctionDescriptorFromID(id objc.ID) MTL4SpecializedFunctionDescriptor {
 	return MTL4SpecializedFunctionDescriptor{MTL4FunctionDescriptor: MTL4FunctionDescriptorFromID(id)}
 }
+
 // NOTE: MTL4SpecializedFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -132,6 +134,7 @@ func (m MTL4SpecializedFunctionDescriptor) ConstantValues() IMTLFunctionConstant
 func (m MTL4SpecializedFunctionDescriptor) SetConstantValues(value IMTLFunctionConstantValues) {
 	objc.Send[struct{}](m.ID, objc.Sel("setConstantValues:"), value)
 }
+
 // Provides a descriptor that corresponds to a base function that the
 // specialization applies to.
 //
@@ -143,6 +146,7 @@ func (m MTL4SpecializedFunctionDescriptor) FunctionDescriptor() IMTL4FunctionDes
 func (m MTL4SpecializedFunctionDescriptor) SetFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptor:"), value)
 }
+
 // Assigns an optional name to the specialized function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4SpecializedFunctionDescriptor/specializedName
@@ -153,4 +157,3 @@ func (m MTL4SpecializedFunctionDescriptor) SpecializedName() string {
 func (m MTL4SpecializedFunctionDescriptor) SetSpecializedName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSpecializedName:"), objc.String(value))
 }
-

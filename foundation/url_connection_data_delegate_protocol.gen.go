@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that most delegates of a URL connection implement to receive data associated with the connection.
@@ -21,6 +23,7 @@ type NSURLConnectionDataDelegate interface {
 type NSURLConnectionDataDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSURLConnectionDataDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -43,13 +46,13 @@ func NSURLConnectionDataDelegateObjectFromID(id objc.ID) NSURLConnectionDataDele
 // the delegate.
 //
 // # Discussion
-// 
+//
 // In rare cases, for example in the case of an HTTP load where the content
 // type of the load data is `multipart/x-mixed-replace`, the delegate will
-// receive more than one `` message. When this happens, discard (or process)
-// all data previously delivered by ``, and prepare to handle the next part
+// receive more than one “ message. When this happens, discard (or process)
+// all data previously delivered by “, and prepare to handle the next part
 // (which could potentially have a different MIME type).
-// 
+//
 // The only case where this message is not sent to the delegate is when the
 // protocol implementation encounters an error before a response could be
 // created.
@@ -57,7 +60,8 @@ func NSURLConnectionDataDelegateObjectFromID(id objc.ID) NSURLConnectionDataDele
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:didReceive:)-8t66w
 func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveResponse(connection INSURLConnection, response INSURLResponse) {
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didReceiveResponse:"), connection, response)
-	}
+}
+
 // Sent as a connection loads data incrementally.
 //
 // connection: The connection sending the message.
@@ -66,7 +70,7 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveResponse(connecti
 // each `data` object delivered to build up the complete data for a URL load.
 //
 // # Discussion
-// 
+//
 // This method provides the only way for an asynchronous delegate to retrieve
 // the loaded data. It is the responsibility of the delegate to retain or copy
 // this data as it is delivered.
@@ -74,7 +78,8 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveResponse(connecti
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:didReceive:)-8p5vg
 func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveData(connection INSURLConnection, data INSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didReceiveData:"), connection, data)
-	}
+}
+
 // Sent as the body (message data) of a request is transmitted (such as in an
 // HTTP POST request).
 //
@@ -87,9 +92,9 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveData(connection I
 // totalBytesExpectedToWrite: The number of bytes the connection expects to write.
 //
 // # Discussion
-// 
+//
 // This method provides an estimate of the progress of a URL upload.
-// 
+//
 // The value of `totalBytesExpectedToWrite` may change during the upload if
 // the request needs to be retransmitted due to a lost connection or an
 // authentication challenge from the server.
@@ -97,19 +102,21 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveData(connection I
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)
 func (o NSURLConnectionDataDelegateObject) ConnectionDidSendBodyDataTotalBytesWrittenTotalBytesExpectedToWrite(connection INSURLConnection, bytesWritten int, totalBytesWritten int, totalBytesExpectedToWrite int) {
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:"), connection, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
-	}
+}
+
 // Sent when a connection has finished loading successfully.
 //
 // connection: The connection sending the message.
 //
 // # Discussion
-// 
+//
 // The delegate will receive no further messages for `connection`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connectionDidFinishLoading(_:)
 func (o NSURLConnectionDataDelegateObject) ConnectionDidFinishLoading(connection INSURLConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("connectionDidFinishLoading:"), connection)
-	}
+}
+
 // Sent when the connection determines that it must change URLs in order to
 // continue loading a request.
 //
@@ -123,54 +130,55 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidFinishLoading(connection
 // method is called because of URL canonicalization.
 //
 // # Return Value
-// 
+//
 // The actual URL request to use in light of the redirection response. The
 // delegate may return `request` unmodified to allow the redirect, return a
 // new request, or return `nil` to reject the redirect and continue processing
 // the connection.
 //
 // # Discussion
-// 
+//
 // If `redirectResponse` is `nil`, the URL was canonicalized (rewritten into
 // its standard form) by the [NSURLProtocol] object handling the request.
 // Update your user interface to show the standardized form of the URL, then
 // return the original request unmodified.
-// 
+//
 // Otherwise, to cancel the redirect, call the `connection` object’s
 // `cancel` method, then return the provided request object.
-// 
+//
 // To receive the body of the redirect response itself, return `nil` to cancel
 // the redirect. The connection continues to process, eventually sending your
-// delegate a `connectionDidFinishLoading` or `` message, as appropriate.
-// 
+// delegate a `connectionDidFinishLoading` or “ message, as appropriate.
+//
 // To redirect the request to a different URL, create a new request object and
 // return it.
-// 
+//
 // The delegate should be prepared to receive this message multiple times.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:willSend:redirectResponse:)
 func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestRedirectResponse(connection INSURLConnection, request INSURLRequest, response INSURLResponse) INSURLRequest {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection:willSendRequest:redirectResponse:"), connection, request, response)
 	return NSURLRequestFromID(rv)
-	}
+}
+
 // Called when an [NSURLConnection] needs to retransmit a request that has a
 // body stream to provide a new, unopened stream.
 //
 // connection: The NSURLConnection that is requesting a new body stream.
 //
 // # Return Value
-// 
+//
 // This delegate method should return a new, unopened stream that provides the
 // body contents for the request.
-// 
+//
 // If this delegate method returns [NULL], the connection fails.
 //
 // # Discussion
-// 
+//
 // In macOS, if this method is not implemented, body stream data is spooled to
 // disk in case retransmission is required. This spooling may not be desirable
 // for large data sets.
-// 
+//
 // By implementing this delegate method, the client opts out of automatic
 // spooling, and must provide a new, unopened stream for each retransmission.
 //
@@ -178,7 +186,8 @@ func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestRedirectResp
 func (o NSURLConnectionDataDelegateObject) ConnectionNeedNewBodyStream(connection INSURLConnection, request INSURLRequest) INSInputStream {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection:needNewBodyStream:"), connection, request)
 	return NSInputStreamFromID(rv)
-	}
+}
+
 // Sent before the connection stores a cached response in the cache, to give
 // the delegate an opportunity to alter it.
 //
@@ -187,17 +196,17 @@ func (o NSURLConnectionDataDelegateObject) ConnectionNeedNewBodyStream(connectio
 // cachedResponse: The proposed cached response to store in the cache.
 //
 // # Return Value
-// 
+//
 // The actual cached response to store in the cache. The delegate may return
 // `cachedResponse` unmodified, return a modified cached response, or return
 // `nil` if no cached response should be stored for the connection.
 //
 // # Discussion
-// 
+//
 // This method is called only if the [NSURLProtocol] handling the request
 // decides to cache the response. As a rule, responses are cached only when
 // all of the following are true:
-// 
+//
 // - The request is for an HTTP or HTTPS URL (or your own custom networking
 // protocol that supports caching). - The request was successful (with a
 // status code in the `200–299` range). - The provided response came from
@@ -211,7 +220,8 @@ func (o NSURLConnectionDataDelegateObject) ConnectionNeedNewBodyStream(connectio
 func (o NSURLConnectionDataDelegateObject) ConnectionWillCacheResponse(connection INSURLConnection, cachedResponse INSCachedURLResponse) INSCachedURLResponse {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection:willCacheResponse:"), connection, cachedResponse)
 	return NSCachedURLResponseFromID(rv)
-	}
+}
+
 // Tells the delegate that the connection will send a request for an
 // authentication challenge.
 //
@@ -220,23 +230,23 @@ func (o NSURLConnectionDataDelegateObject) ConnectionWillCacheResponse(connectio
 // challenge: The authentication challenge for which a request is being sent.
 //
 // # Discussion
-// 
+//
 // This method allows the delegate to make an informed decision about
 // connection authentication at once. If the delegate implements this method,
 // it has no need to implement
 // [connection(_:canAuthenticateAgainstProtectionSpace:)] or
 // [connection(_:didReceive:)]. In fact, those other methods are not invoked
 // (except on older operating systems, where applicable).
-// 
+//
 // In this method,you invoke one of the challenge-responder methods
 // ([NSURLAuthenticationChallengeSender] protocol):
-// 
+//
 // - [UseCredentialForAuthenticationChallenge] -
 // [ContinueWithoutCredentialForAuthenticationChallenge] -
 // [CancelAuthenticationChallenge] -
 // [PerformDefaultHandlingForAuthenticationChallenge] -
 // [RejectProtectionSpaceAndContinueWithChallenge]
-// 
+//
 // You might also want to analyze `challenge` for the authentication scheme
 // and the proposed credential before calling a
 // [NSURLAuthenticationChallengeSender] method. You should never assume that a
@@ -245,37 +255,36 @@ func (o NSURLConnectionDataDelegateObject) ConnectionWillCacheResponse(connectio
 // (Because this object is immutable, if you want to change it you must copy
 // it and then modify the copy.)
 //
+// See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:willSendRequestFor:)
+//
 // [connection(_:canAuthenticateAgainstProtectionSpace:)]: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:canAuthenticateAgainstProtectionSpace:)
 // [connection(_:didReceive:)]: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didReceive:)
-//
-// See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:willSendRequestFor:)
 func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestForAuthenticationChallenge(connection INSURLConnection, challenge INSURLAuthenticationChallenge) {
 	objc.Send[struct{}](o.ID, objc.Sel("connection:willSendRequestForAuthenticationChallenge:"), connection, challenge)
-	}
+}
+
 // Sent to determine whether the URL loader should use the credential storage
 // for authenticating the connection.
 //
 // connection: The connection sending the message.
 //
 // # Discussion
-// 
+//
 // This method is called before any attempt to authenticate is made.
-// 
-// If you return [false], the connection does not consult the credential
-// storage automatically, and does not store credentials. However, in your
+//
+// If you return false, the connection does not consult the credential storage
+// automatically, and does not store credentials. However, in your
 // connection:didReceiveAuthenticationChallenge: method, you can consult the
 // credential storage yourself and store credentials yourself, as needed.
-// 
-// Not implementing this method is the same as returning [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Not implementing this method is the same as returning true.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connectionShouldUseCredentialStorage(_:)
 func (o NSURLConnectionDataDelegateObject) ConnectionShouldUseCredentialStorage(connection INSURLConnection) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("connectionShouldUseCredentialStorage:"), connection)
 	return rv
-	}
+}
+
 // Sent when a connection fails to load its request successfully.
 //
 // connection: The connection sending the message.
@@ -284,14 +293,14 @@ func (o NSURLConnectionDataDelegateObject) ConnectionShouldUseCredentialStorage(
 // request successfully.
 //
 // # Discussion
-// 
+//
 // Once the delegate receives this message, it will receive no further
 // messages for `connection`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didFailWithError:)
 func (o NSURLConnectionDataDelegateObject) ConnectionDidFailWithError(connection INSURLConnection, error_ INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didFailWithError:"), connection, error_)
-	}
+}
 
 // NSURLConnectionDataDelegateConfig holds optional typed callbacks for [NSURLConnectionDataDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -443,4 +452,3 @@ func NewNSURLConnectionDataDelegate(config NSURLConnectionDataDelegateConfig) NS
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLConnectionDataDelegateObjectFromID(instance)
 }
-

@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (ac AVVCPrepareRecordSettingsClass) Alloc() AVVCPrepareRecordSettings {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVVCPrepareRecordSettings.AvAudioSettings]
@@ -56,6 +56,7 @@ func (ac AVVCPrepareRecordSettingsClass) Alloc() AVVCPrepareRecordSettings {
 //   - [AVVCPrepareRecordSettings.StreamID]
 //   - [AVVCPrepareRecordSettings.SetStreamID]
 //   - [AVVCPrepareRecordSettings.InitWithStreamIDSettingsBufferDuration]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings
 type AVVCPrepareRecordSettings struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type AVVCPrepareRecordSettings struct {
 func AVVCPrepareRecordSettingsFromID(id objc.ID) AVVCPrepareRecordSettings {
 	return AVVCPrepareRecordSettings{objectivec.Object{ID: id}}
 }
+
 // Ensure AVVCPrepareRecordSettings implements IAVVCPrepareRecordSettings.
 var _ IAVVCPrepareRecordSettings = AVVCPrepareRecordSettings{}
 
@@ -122,7 +124,6 @@ func NewAVVCPrepareRecordSettings() AVVCPrepareRecordSettings {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/initWithStreamID:settings:bufferDuration:
 func NewVCPrepareRecordSettingsWithStreamIDSettingsBufferDuration(id uint64, settings objectivec.IObject, duration float64) AVVCPrepareRecordSettings {
 	instance := getAVVCPrepareRecordSettingsClass().Alloc()
@@ -130,7 +131,6 @@ func NewVCPrepareRecordSettingsWithStreamIDSettingsBufferDuration(id uint64, set
 	return AVVCPrepareRecordSettingsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/initWithStreamID:settings:bufferDuration:
 func (v AVVCPrepareRecordSettings) InitWithStreamIDSettingsBufferDuration(id uint64, settings objectivec.IObject, duration float64) AVVCPrepareRecordSettings {
 	rv := objc.Send[AVVCPrepareRecordSettings](v.ID, objc.Sel("initWithStreamID:settings:bufferDuration:"), id, settings, duration)
@@ -145,6 +145,7 @@ func (v AVVCPrepareRecordSettings) AvAudioSettings() foundation.INSDictionary {
 func (v AVVCPrepareRecordSettings) SetAvAudioSettings(value foundation.INSDictionary) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAvAudioSettings:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/deviceBufferFrameSize
 func (v AVVCPrepareRecordSettings) DeviceBufferFrameSize() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("deviceBufferFrameSize"))
@@ -153,6 +154,7 @@ func (v AVVCPrepareRecordSettings) DeviceBufferFrameSize() uint32 {
 func (v AVVCPrepareRecordSettings) SetDeviceBufferFrameSize(value uint32) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDeviceBufferFrameSize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/meteringEnabled
 func (v AVVCPrepareRecordSettings) MeteringEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("meteringEnabled"))
@@ -161,6 +163,7 @@ func (v AVVCPrepareRecordSettings) MeteringEnabled() bool {
 func (v AVVCPrepareRecordSettings) SetMeteringEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMeteringEnabled:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/recordBufferDuration
 func (v AVVCPrepareRecordSettings) RecordBufferDuration() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("recordBufferDuration"))
@@ -169,6 +172,7 @@ func (v AVVCPrepareRecordSettings) RecordBufferDuration() float64 {
 func (v AVVCPrepareRecordSettings) SetRecordBufferDuration(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRecordBufferDuration:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCPrepareRecordSettings/streamID
 func (v AVVCPrepareRecordSettings) StreamID() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("streamID"))
@@ -177,4 +181,3 @@ func (v AVVCPrepareRecordSettings) StreamID() uint64 {
 func (v AVVCPrepareRecordSettings) SetStreamID(value uint64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStreamID:"), value)
 }
-

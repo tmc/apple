@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventReg
 func TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryFromID(id objc.ID) TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry {
 	return TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry{objectivec.Object{ID: id}}
 }
+
 // NOTE: TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry struct embeds objectivec.Object (parent type unavailable) but
 // ITtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEvent
 	rv := objc.Send[TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

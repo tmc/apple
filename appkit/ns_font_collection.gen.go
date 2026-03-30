@@ -3,11 +3,12 @@
 package appkit
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,7 +49,7 @@ func (nc NSFontCollectionClass) Alloc() NSFontCollection {
 // single object.
 //
 // # Overview
-// 
+//
 // You can publicize the font collection as a named collection and it is
 // presented through the System user interface such as the font panel and Font
 // Book. The queries can be modified using the [NSMutableFontCollection]
@@ -75,6 +76,7 @@ type NSFontCollection struct {
 func NSFontCollectionFromID(id objc.ID) NSFontCollection {
 	return NSFontCollection{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSFontCollection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,7 +137,7 @@ func NewNSFontCollection() NSFontCollection {
 // queryDescriptors: The descriptors used to match the returned collection.
 //
 // # Return Value
-// 
+//
 // The font collection matching the given descriptors.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/init(descriptors:)
@@ -149,7 +151,7 @@ func NewFontCollectionWithDescriptors(queryDescriptors []NSFontDescriptor) NSFon
 // locale: The locale to match.
 //
 // # Return Value
-// 
+//
 // A collection of fonts matching the given locale.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/init(locale:)
@@ -163,7 +165,7 @@ func NewFontCollectionWithLocale(locale foundation.NSLocale) NSFontCollection {
 // name: The name of the collection.
 //
 // # Return Value
-// 
+//
 // The named font collection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/init(name:)
@@ -179,7 +181,7 @@ func NewFontCollectionWithName(name NSFontCollectionName) NSFontCollection {
 // visibility: The visibility of the collection.
 //
 // # Return Value
-// 
+//
 // The font collection with the specified name and visibility.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/init(name:visibility:)
@@ -194,7 +196,7 @@ func NewFontCollectionWithNameVisibility(name NSFontCollectionName, visibility N
 // family: The font family whose descriptors are matched.
 //
 // # Return Value
-// 
+//
 // The [MatchingDescriptors] for the given family.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/matchingDescriptors(forFamily:)
@@ -204,6 +206,7 @@ func (f NSFontCollection) MatchingDescriptorsForFamily(family string) []NSFontDe
 		return NSFontDescriptorFromID(id)
 	})
 }
+
 // Returns an array of font descriptors matching the logical descriptors for
 // the given font family and options.
 //
@@ -213,7 +216,7 @@ func (f NSFontCollection) MatchingDescriptorsForFamily(family string) []NSFontDe
 // Options` keys or `nil`.
 //
 // # Return Value
-// 
+//
 // The [MatchingDescriptors] for the given family and options.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/matchingDescriptors(forFamily:options:)
@@ -223,6 +226,7 @@ func (f NSFontCollection) MatchingDescriptorsForFamilyOptions(family string, opt
 		return NSFontDescriptorFromID(id)
 	})
 }
+
 // Returns an array of font descriptors matching the logical descriptors with
 // the given options.
 //
@@ -230,7 +234,7 @@ func (f NSFontCollection) MatchingDescriptorsForFamilyOptions(family string, opt
 // Options` keys or `nil`.
 //
 // # Return Value
-// 
+//
 // The [MatchingDescriptors] for the given options.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/matchingDescriptors(options:)
@@ -254,7 +258,7 @@ func (f NSFontCollection) EncodeWithCoder(coder foundation.INSCoder) {
 // newName: The new name to give to the collection.
 //
 // # Discussion
-// 
+//
 // Named collections are shown by user interfaces such as the Font panel. When
 // you change the collection, you must show it again to see the changes
 // reflected on disk or in the Font panel.
@@ -273,6 +277,7 @@ func (_NSFontCollectionClass NSFontCollectionClass) RenameFontCollectionWithName
 	return rv, nil
 
 }
+
 // Make the given font collection visible by giving it a name.
 //
 // collection: The font collection to make visible.
@@ -282,7 +287,7 @@ func (_NSFontCollectionClass NSFontCollectionClass) RenameFontCollectionWithName
 // visibility: The visibility of the collection to show.
 //
 // # Discussion
-// 
+//
 // Named collections are shown by user interfaces such as the Font panel. When
 // you change the collection, you must show it again to see the changes
 // reflected on disk or in the Font panel.
@@ -301,6 +306,7 @@ func (_NSFontCollectionClass NSFontCollectionClass) ShowFontCollectionWithNameVi
 	return rv, nil
 
 }
+
 // Remove from view the named font collection with the specified visibility.
 //
 // name: The name of the collection.
@@ -308,7 +314,7 @@ func (_NSFontCollectionClass NSFontCollectionClass) ShowFontCollectionWithNameVi
 // visibility: The visibility of the collection.
 //
 // # Discussion
-// 
+//
 // For a persistent font collection, this method deletes the named font
 // collection from disk.
 //
@@ -336,11 +342,12 @@ func (f NSFontCollection) MatchingDescriptors() []NSFontDescriptor {
 		return NSFontDescriptorFromID(id)
 	})
 }
+
 // An array of font descriptors whose matching results produce the
 // collection’s matching descriptors.
 //
 // # Discussion
-// 
+//
 // The font descriptors matching [ExclusionDescriptors] are removed from
 // [MatchingDescriptors]
 //
@@ -351,6 +358,7 @@ func (f NSFontCollection) QueryDescriptors() []NSFontDescriptor {
 		return NSFontDescriptorFromID(id)
 	})
 }
+
 // A list of query font descriptors whose matching results are excluded from
 // the list of matching descriptors.
 //
@@ -365,7 +373,7 @@ func (f NSFontCollection) ExclusionDescriptors() []NSFontDescriptor {
 // The font collection that matches all registered fonts.
 //
 // # Return Value
-// 
+//
 // The collection of all fonts available to the current application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/withAllAvailableDescriptors
@@ -373,10 +381,11 @@ func (_NSFontCollectionClass NSFontCollectionClass) FontCollectionWithAllAvailab
 	rv := objc.Send[objc.ID](objc.ID(_NSFontCollectionClass.class), objc.Sel("fontCollectionWithAllAvailableDescriptors"))
 	return NSFontCollectionFromID(objc.ID(rv))
 }
+
 // Returns all named collections visible to this process.
 //
 // # Return Value
-// 
+//
 // [NSString] objects containing the names of all the named collections.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/allFontCollectionNames
@@ -384,4 +393,3 @@ func (_NSFontCollectionClass NSFontCollectionClass) AllFontCollectionNames() []s
 	rv := objc.Send[[]objc.ID](objc.ID(_NSFontCollectionClass.class), objc.Sel("allFontCollectionNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

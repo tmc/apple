@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (vc VZGenericMachineIdentifierClass) Alloc() VZGenericMachineIdentifier {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZGenericMachineIdentifier.DebugDescription]
 //   - [VZGenericMachineIdentifier.Description]
 //   - [VZGenericMachineIdentifier.Hash]
 //   - [VZGenericMachineIdentifier.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier
 type VZGenericMachineIdentifier struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type VZGenericMachineIdentifier struct {
 func VZGenericMachineIdentifierFromID(id objc.ID) VZGenericMachineIdentifier {
 	return VZGenericMachineIdentifier{objectivec.Object{ID: id}}
 }
+
 // Ensure VZGenericMachineIdentifier implements IVZGenericMachineIdentifier.
 var _ IVZGenericMachineIdentifier = VZGenericMachineIdentifier{}
 
@@ -106,19 +108,21 @@ func (g VZGenericMachineIdentifier) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/description
 func (g VZGenericMachineIdentifier) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/hash
 func (g VZGenericMachineIdentifier) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/superclass
 func (g VZGenericMachineIdentifier) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
 	return rv
 }
-

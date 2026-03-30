@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_fold_constants struct {
 func EspressoPass_fold_constantsFromID(id objc.ID) EspressoPass_fold_constants {
 	return EspressoPass_fold_constants{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_fold_constants implements IEspressoPass_fold_constants.
 var _ IEspressoPass_fold_constants = EspressoPass_fold_constants{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_fold_constants() EspressoPass_fold_constants {
 	rv := objc.Send[EspressoPass_fold_constants](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

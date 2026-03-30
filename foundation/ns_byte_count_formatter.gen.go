@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -91,6 +92,7 @@ func ByteCountFormatterFromID(id objc.ID) ByteCountFormatter {
 
 // NSByteCountFormatterFromID is an alias for [ByteCountFormatterFromID] for cross-framework compatibility.
 func NSByteCountFormatterFromID(id objc.ID) ByteCountFormatter { return ByteCountFormatterFromID(id) }
+
 // NOTE: ByteCountFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -188,7 +190,6 @@ func NewByteCountFormatter() ByteCountFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewByteCountFormatterWithCoder(coder INSCoder) ByteCountFormatter {
 	instance := getByteCountFormatterClass().Alloc()
@@ -201,7 +202,7 @@ func NewByteCountFormatterWithCoder(coder INSCoder) ByteCountFormatter {
 // byteCount: The byte count.
 //
 // # Return Value
-// 
+//
 // A string containing the formatted `byteCount` value.
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/string(fromByteCount:)
@@ -209,7 +210,7 @@ func (b ByteCountFormatter) StringFromByteCount(byteCount int64) string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("stringFromByteCount:"), byteCount)
 	return NSStringFromID(rv).String()
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/string(from:)
 func (b ByteCountFormatter) StringFromMeasurement(measurement INSMeasurement) string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("stringFromMeasurement:"), measurement)
@@ -223,19 +224,19 @@ func (b ByteCountFormatter) StringFromMeasurement(measurement INSMeasurement) st
 //
 // countStyle: The formatter style. See [ByteCountFormatter.CountStyle] for possible
 // values.
-// //
-// [ByteCountFormatter.CountStyle]: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/CountStyle-swift.enum
 //
 // # Return Value
-// 
+//
 // A string containing the formatted `byteCount` value.
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/string(fromByteCount:countStyle:)
+//
+// [ByteCountFormatter.CountStyle]: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/CountStyle-swift.enum
 func (_ByteCountFormatterClass ByteCountFormatterClass) StringFromByteCountCountStyle(byteCount int64, countStyle NSByteCountFormatterCountStyle) string {
 	rv := objc.Send[objc.ID](objc.ID(_ByteCountFormatterClass.class), objc.Sel("stringFromByteCount:countStyle:"), byteCount, countStyle)
 	return NSStringFromID(rv).String()
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/string(from:countStyle:)
 func (_ByteCountFormatterClass ByteCountFormatterClass) StringFromMeasurementCountStyle(measurement INSMeasurement, countStyle NSByteCountFormatterCountStyle) string {
 	rv := objc.Send[objc.ID](objc.ID(_ByteCountFormatterClass.class), objc.Sel("stringFromMeasurement:countStyle:"), measurement, countStyle)
@@ -245,7 +246,7 @@ func (_ByteCountFormatterClass ByteCountFormatterClass) StringFromMeasurementCou
 // Specify the formatting context for the formatted string.
 //
 // # Discussion
-// 
+//
 // The default value is [NSFormattingContextUnknown]. See [NSFormatter] for
 // possible values.
 //
@@ -257,11 +258,12 @@ func (b ByteCountFormatter) FormattingContext() NSFormattingContext {
 func (b ByteCountFormatter) SetFormattingContext(value NSFormattingContext) {
 	objc.Send[struct{}](b.ID, objc.Sel("setFormattingContext:"), value)
 }
+
 // Specify the number of bytes to be used for kilobytes.
 //
 // # Discussion
-// 
-// The default setting is [ByteCountFormatterCountStyleFile], which is the
+//
+// The default setting is [NSByteCountFormatterCountStyleFile], which is the
 // system specific value for file and storage sizes.
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/countStyle-swift.property
@@ -272,22 +274,21 @@ func (b ByteCountFormatter) CountStyle() NSByteCountFormatterCountStyle {
 func (b ByteCountFormatter) SetCountStyle(value NSByteCountFormatterCountStyle) {
 	objc.Send[struct{}](b.ID, objc.Sel("setCountStyle:"), value)
 }
+
 // Determines whether to allow more natural display of some values.
 //
 // # Discussion
-// 
+//
 // Displays a more natural display of some values, such as zero, where it may
 // be displayed as `Zero KB`, ignoring all other flags or options (with the
-// exception of [ByteCountFormatterUseBytes], which would generate `Zero
+// exception of [NSByteCountFormatterUseBytes], which would generate `Zero
 // bytes`).The result is appropriate for standalone output.
-// 
+//
 // Special handling of certain values such as zero is especially important in
 // some languages, so it’s highly recommended that this property be left in
 // its default state.
-// 
-// Default value is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Default value is true.
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/allowsNonnumericFormatting
 func (b ByteCountFormatter) AllowsNonnumericFormatting() bool {
@@ -297,23 +298,21 @@ func (b ByteCountFormatter) AllowsNonnumericFormatting() bool {
 func (b ByteCountFormatter) SetAllowsNonnumericFormatting(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAllowsNonnumericFormatting:"), value)
 }
+
 // Determines whether to include the number of bytes after the formatted
 // string.
 //
 // # Discussion
-// 
-// Setting this value to [true] causes the byte count to be displayed
+//
+// Setting this value to true causes the byte count to be displayed
 // parenthetically (localized as appropriate), for instance `723 KB (722,842
 // bytes)`. This will happen only if needed, that is, the first part is
 // already not showing the exact byte count.
-// 
-// If [IncludesUnit] or [IncludesCount] are [false], then this setting has no
-// effect.
-// 
-// Default value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If [IncludesUnit] or [IncludesCount] are false, then this setting has no
+// effect.
+//
+// Default value is false.
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/includesActualByteCount
 func (b ByteCountFormatter) IncludesActualByteCount() bool {
@@ -323,19 +322,18 @@ func (b ByteCountFormatter) IncludesActualByteCount() bool {
 func (b ByteCountFormatter) SetIncludesActualByteCount(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setIncludesActualByteCount:"), value)
 }
+
 // Determines the display style of the size representation.
 //
 // # Discussion
-// 
+//
 // The “adaptive” algorithm is platform specific and uses a different
 // number of fraction digits based on the magnitude (in OS X v10.8: 0 fraction
 // digits for bytes and KB; 1 fraction digits for MB; 2 for GB and above).
 // Otherwise the result always tries to show at least three significant
 // digits, introducing fraction digits as necessary.
-// 
-// Default is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Default is true.
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/isAdaptive
 func (b ByteCountFormatter) Adaptive() bool {
@@ -345,24 +343,25 @@ func (b ByteCountFormatter) Adaptive() bool {
 func (b ByteCountFormatter) SetAdaptive(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAdaptive:"), value)
 }
+
 // Specify the units that can be used in the output.
 //
 // # Discussion
-// 
-// If the value is [ByteCountFormatterUseDefault], the formatter uses
+//
+// If the value is [NSByteCountFormatterUseDefault], the formatter uses
 // platform-appropriate settings; otherwise will only the specified units are
 // used.
-// 
-// [ByteCountFormatter.Units] values can be combined using the C [OR] operator
-// to specify complex formatting strings. The [ByteCountFormatterUseDefault]
-// or [ByteCountFormatterUseAll] constants can be used with the C [AND] or the
-// C [NOT] operators to create custom formats as well.
-// 
-// This is the default value if [ByteCountFormatterUseDefault].
 //
-// [ByteCountFormatter.Units]: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/Units
+// [ByteCountFormatter.Units] values can be combined using the C [OR] operator
+// to specify complex formatting strings. The [NSByteCountFormatterUseDefault]
+// or [NSByteCountFormatterUseAll] constants can be used with the C [AND] or
+// the C [NOT] operators to create custom formats as well.
+//
+// This is the default value if [NSByteCountFormatterUseDefault].
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/allowedUnits
+//
+// [ByteCountFormatter.Units]: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/Units
 func (b ByteCountFormatter) AllowedUnits() NSByteCountFormatterUnits {
 	rv := objc.Send[NSByteCountFormatterUnits](b.ID, objc.Sel("allowedUnits"))
 	return NSByteCountFormatterUnits(rv)
@@ -370,22 +369,19 @@ func (b ByteCountFormatter) AllowedUnits() NSByteCountFormatterUnits {
 func (b ByteCountFormatter) SetAllowedUnits(value NSByteCountFormatterUnits) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAllowedUnits:"), value)
 }
+
 // Determines whether to include the count in the resulting formatted string.
 //
 // # Discussion
-// 
-// If set to [true] and [IncludesUnit] is set to [false], no unit is
-// displayed. For example, a value of 723 KB is formatted as `723`.
-// 
-// You can get the set this property to [true] and the [IncludesUnit] to
-// [true] individually to get both parts, separately. Note that putting them
-// together yourself via string concatenation may be incorrect for some
-// locales.
-// 
-// The default value is [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If set to true and [IncludesUnit] is set to false, no unit is displayed.
+// For example, a value of 723 KB is formatted as `723`.
+//
+// You can get the set this property to true and the [IncludesUnit] to true
+// individually to get both parts, separately. Note that putting them together
+// yourself via string concatenation may be incorrect for some locales.
+//
+// The default value is true.
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/includesCount
 func (b ByteCountFormatter) IncludesCount() bool {
@@ -395,22 +391,19 @@ func (b ByteCountFormatter) IncludesCount() bool {
 func (b ByteCountFormatter) SetIncludesCount(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setIncludesCount:"), value)
 }
+
 // Determines whether to include the units in the resulting formatted string.
 //
 // # Discussion
-// 
-// If set to [true] and [IncludesCount] is set to [false], no count is
-// displayed. For example, a value of 723 KB is formatted as [KB].
-// 
-// You can get the set this property to [true] and the [IncludesCount] to
-// [true] individually to get both parts, separately. Note that putting them
-// together yourself via string concatenation may be incorrect for some
-// locales.
-// 
-// The default value is [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If set to true and [IncludesCount] is set to false, no count is displayed.
+// For example, a value of 723 KB is formatted as [KB].
+//
+// You can get the set this property to true and the [IncludesCount] to true
+// individually to get both parts, separately. Note that putting them together
+// yourself via string concatenation may be incorrect for some locales.
+//
+// The default value is true.
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/includesUnit
 func (b ByteCountFormatter) IncludesUnit() bool {
@@ -420,20 +413,19 @@ func (b ByteCountFormatter) IncludesUnit() bool {
 func (b ByteCountFormatter) SetIncludesUnit(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setIncludesUnit:"), value)
 }
+
 // Determines whether to zero pad fraction digits so a consistent number of
 // characters is displayed in a representation.
 //
 // # Discussion
-// 
+//
 // Displaying values using zero pad fraction digits causes a consistent number
 // of fraction digits are displayed, causing updating displays to remain more
 // stable. For instance, if the [Adaptive] algorithm is used, this option
 // formats 1.19 and 1.2 GB as `1.19 GB` and `1.20 GB`, respectively, while
 // without the option the latter would be displayed as `1.2 GB`.
-// 
-// The default value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value is false.
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/zeroPadsFractionDigits
 func (b ByteCountFormatter) ZeroPadsFractionDigits() bool {
@@ -443,4 +435,3 @@ func (b ByteCountFormatter) ZeroPadsFractionDigits() bool {
 func (b ByteCountFormatter) SetZeroPadsFractionDigits(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setZeroPadsFractionDigits:"), value)
 }
-

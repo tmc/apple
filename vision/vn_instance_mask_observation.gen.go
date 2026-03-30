@@ -3,11 +3,12 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNInstanceMaskObservation] class.
@@ -69,6 +70,7 @@ type VNInstanceMaskObservation struct {
 func VNInstanceMaskObservationFromID(id objc.ID) VNInstanceMaskObservation {
 	return VNInstanceMaskObservation{VNObservation: VNObservationFromID(id)}
 }
+
 // NOTE: VNInstanceMaskObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -133,7 +135,7 @@ func NewVNInstanceMaskObservation() VNInstanceMaskObservation {
 // instances: The collection of instances.
 //
 // # Return Value
-// 
+//
 // The pixel buffer that contains the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNInstanceMaskObservation/generateMask(forInstances:)
@@ -147,6 +149,7 @@ func (i VNInstanceMaskObservation) GenerateMaskForInstancesError(instances found
 	return rv, nil
 
 }
+
 // Creates a high-resolution image where everything becomes transparent black,
 // except for the instances you specify.
 //
@@ -158,7 +161,7 @@ func (i VNInstanceMaskObservation) GenerateMaskForInstancesError(instances found
 // rectangle that contains all instances.
 //
 // # Return Value
-// 
+//
 // The pixel buffer that contains the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNInstanceMaskObservation/generateMaskedImage(ofInstances:from:croppedToInstancesExtent:)
@@ -172,6 +175,7 @@ func (i VNInstanceMaskObservation) GenerateMaskedImageOfInstancesFromRequestHand
 	return rv, nil
 
 }
+
 // Creates a high-resolution mask where everything becomes transparent black,
 // except for the instances you specify.
 //
@@ -180,7 +184,7 @@ func (i VNInstanceMaskObservation) GenerateMaskedImageOfInstancesFromRequestHand
 // requestHandler: The image request callback.
 //
 // # Return Value
-// 
+//
 // The pixel buffer that contains the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNInstanceMaskObservation/generateScaledMaskForImage(forInstances:from:)
@@ -202,10 +206,11 @@ func (i VNInstanceMaskObservation) AllInstances() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("allInstances"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
+
 // The resulting mask that represents all instances.
 //
 // # Discussion
-// 
+//
 // A pixel can only correspond to one instance. A `0` represents the
 // background, and all other values represent the indices of the instances.
 //
@@ -214,6 +219,7 @@ func (i VNInstanceMaskObservation) InstanceMask() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](i.ID, objc.Sel("instanceMask"))
 	return corevideo.CVImageBufferRef(rv)
 }
+
 // A constant for specifying the first revision of the foreground instance
 // mask request.
 //
@@ -222,4 +228,3 @@ func (i VNInstanceMaskObservation) VNGenerateForegroundInstanceMaskRequestRevisi
 	rv := objc.Send[int](i.ID, objc.Sel("VNGenerateForegroundInstanceMaskRequestRevision1"))
 	return rv
 }
-

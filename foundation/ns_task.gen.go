@@ -3,10 +3,11 @@
 package foundation
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,11 +47,11 @@ func (nc NSTaskClass) Alloc() NSTask {
 // An object that represents a subprocess of the current process.
 //
 // # Overview
-// 
+//
 // Using this class, your program can run another program as a subprocess and
 // monitor that program’s execution. Unlike [NSThread], it doesn’t share
 // memory space with the process that creates it.
-// 
+//
 // A process operates within an environment defined by the current values for
 // several items: the current directory, standard input, standard output,
 // standard error, and the values of any environment variables, inheriting its
@@ -59,7 +60,7 @@ func (nc NSTaskClass) Alloc() NSTask {
 // current directory needs to change), change it in the instance after
 // initialization, before your app launches it. Your app can’t change a
 // process’s environment while it’s running.
-// 
+//
 // You can only run the subprocess once per instance. Subsequent attempts
 // raise an error.
 //
@@ -131,6 +132,7 @@ type NSTask struct {
 func NSTaskFromID(id objc.ID) NSTask {
 	return NSTask{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -311,36 +313,35 @@ func (t NSTask) LaunchAndReturnError() (bool, error) {
 	return rv, nil
 
 }
+
 // Sends an interrupt signal to the receiver and all of its subtasks.
 //
 // # Discussion
-// 
+//
 // If the task terminates as a result, which is the default behavior, an
 // [didTerminateNotification] gets sent to the default notification center.
 // This method has no effect if the receiver was already launched and has
 // already finished executing. If the system hasn’t launched the receiver,
 // this method raises an [NSInvalidArgumentException].
-// 
+//
 // It isn’t always possible to interrupt the receiver because it might be
 // ignoring the interrupt signal. The [Interrupt] method sends [SIGINT].
 //
-// [didTerminateNotification]: https://developer.apple.com/documentation/Foundation/Process/didTerminateNotification
-//
 // See: https://developer.apple.com/documentation/Foundation/Process/interrupt()
+//
+// [didTerminateNotification]: https://developer.apple.com/documentation/Foundation/Process/didTerminateNotification
 func (t NSTask) Interrupt() {
 	objc.Send[objc.ID](t.ID, objc.Sel("interrupt"))
 }
+
 // Resumes execution of a suspended task.
 //
 // # Return Value
-// 
-// [true] if the receiver was able to resume execution, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver was able to resume execution, false otherwise.
 //
 // # Discussion
-// 
+//
 // If the system sent multiple [Suspend] messages to the receiver, an equal
 // number of [Resume] messages must be sent before the task resumes execution.
 //
@@ -349,17 +350,15 @@ func (t NSTask) Resume() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("resume"))
 	return rv
 }
+
 // Suspends execution of the receiver task.
 //
 // # Return Value
-// 
-// [true] if the receiver was successfully suspended, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver was successfully suspended, false otherwise.
 //
 // # Discussion
-// 
+//
 // Multiple [Suspend] messages can be sent, but they must be balanced with an
 // equal number of [Resume] messages before the task resumes execution.
 //
@@ -368,33 +367,35 @@ func (t NSTask) Suspend() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("suspend"))
 	return rv
 }
+
 // Sends a terminate signal to the receiver and all of its subtasks.
 //
 // # Discussion
-// 
+//
 // If the task terminates as a result, which is the default behavior, an
 // [didTerminateNotification] gets sent to the default notification center.
 // This method has no effect if the receiver was already launched and has
 // already finished executing. If the receiver hasn’t been launched yet,
 // this method raises an [NSInvalidArgumentException].
-// 
+//
 // It’s not always possible to terminate the receiver because it might be
 // ignoring the terminate signal. The [Terminate] method sends [SIGTERM].
 //
-// [didTerminateNotification]: https://developer.apple.com/documentation/Foundation/Process/didTerminateNotification
-//
 // See: https://developer.apple.com/documentation/Foundation/Process/terminate()
+//
+// [didTerminateNotification]: https://developer.apple.com/documentation/Foundation/Process/didTerminateNotification
 func (t NSTask) Terminate() {
 	objc.Send[objc.ID](t.ID, objc.Sel("terminate"))
 }
+
 // Blocks the process until the receiver is finished.
 //
 // # Discussion
-// 
+//
 // This method first checks to see if the receiver is still running using
 // [Running]. Then it polls the current run loop using [NSDefaultRunLoopMode]
 // until the task completes.
-// 
+//
 // [WaitUntilExit] does not guarantee that the [TerminationHandler] block has
 // been fully executed before [WaitUntilExit] returns.
 //
@@ -413,12 +414,12 @@ func (t NSTask) WaitUntilExit() {
 // terminationHandler: The system invokes this completion block when the task has completed.
 //
 // # Return Value
-// 
+//
 // An initialized [NSTask] object with the environment of the current process.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/run(_:arguments:terminationHandler:)
 func (_NSTaskClass NSTaskClass) LaunchedTaskWithExecutableURLArgumentsErrorTerminationHandler(url INSURL, arguments []string, error_ INSError, terminationHandler TaskHandler) NSTask {
-_block3, _ := NewTaskBlock(terminationHandler)
+	_block3, _ := NewTaskBlock(terminationHandler)
 	rv := objc.Send[objc.ID](objc.ID(_NSTaskClass.class), objc.Sel("launchedTaskWithExecutableURL:arguments:error:terminationHandler:"), url, arguments, error_, _block3)
 	return NSTaskFromID(rv)
 }
@@ -426,7 +427,7 @@ _block3, _ := NewTaskBlock(terminationHandler)
 // The receiver’s process identifier.
 //
 // # Return Value
-// 
+//
 // The receiver’s process identifier.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/processIdentifier
@@ -434,34 +435,33 @@ func (t NSTask) ProcessIdentifier() int {
 	rv := objc.Send[int](t.ID, objc.Sel("processIdentifier"))
 	return rv
 }
+
 // A status that indicates whether the receiver is still running.
 //
 // # Return Value
-// 
-// [true] if the receiver is still running, otherwise [false]. [false] means
-// either the receiver could not run or it has terminated.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver is still running, otherwise false. false means either
+// the receiver could not run or it has terminated.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/isRunning
 func (t NSTask) Running() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isRunning"))
 	return rv
 }
+
 // The exit status the receiver’s executable returns.
 //
 // # Return Value
-// 
+//
 // The exit status returned by the receiver’s executable.
-// 
+//
 // # Discussion
-// 
+//
 // Each task defines and documents how your app should interpret the return
 // value. For example, many commands return 0 if they complete successfully or
 // an error code if they don’t. You’ll need to look at the documentation
 // for that task to learn what values it returns under what circumstances.
-// 
+//
 // This method raises an [NSInvalidArgumentException] if the receiver is still
 // running. Verify that the receiver isn’t running before you use it.
 //
@@ -470,24 +470,26 @@ func (t NSTask) TerminationStatus() int {
 	rv := objc.Send[int](t.ID, objc.Sel("terminationStatus"))
 	return rv
 }
+
 // The reason the system terminated the task.
 //
 // # Return Value
-// 
+//
 // The termination status. The possible values are described in
 // [Process.TerminationReason].
 //
-// [Process.TerminationReason]: https://developer.apple.com/documentation/Foundation/Process/TerminationReason-swift.enum
-//
 // See: https://developer.apple.com/documentation/Foundation/Process/terminationReason-swift.property
+//
+// [Process.TerminationReason]: https://developer.apple.com/documentation/Foundation/Process/TerminationReason-swift.enum
 func (t NSTask) TerminationReason() NSTaskTerminationReason {
 	rv := objc.Send[NSTaskTerminationReason](t.ID, objc.Sel("terminationReason"))
 	return NSTaskTerminationReason(rv)
 }
+
 // The command arguments that the system uses to launch the executable.
 //
 // # Discussion
-// 
+//
 // The [NSTask] object converts both `path` and the strings in `arguments` to
 // appropriate C-style strings (using [FileSystemRepresentation]) before
 // passing them to the task through `argv[]`. The strings in `arguments`
@@ -502,6 +504,7 @@ func (t NSTask) Arguments() []string {
 func (t NSTask) SetArguments(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setArguments:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The current directory for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/currentDirectoryURL
@@ -512,10 +515,11 @@ func (t NSTask) CurrentDirectoryURL() INSURL {
 func (t NSTask) SetCurrentDirectoryURL(value INSURL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCurrentDirectoryURL:"), value)
 }
+
 // The environment for the receiver.
 //
 // # Discussion
-// 
+//
 // If this method isn’t used, the environment is inherited from the process
 // that created the receiver. This method raises an
 // [NSInvalidArgumentException] if the system has launched the receiver.
@@ -528,6 +532,7 @@ func (t NSTask) Environment() INSDictionary {
 func (t NSTask) SetEnvironment(value INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEnvironment:"), value)
 }
+
 // The receiver’s executable.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/executableURL
@@ -538,6 +543,7 @@ func (t NSTask) ExecutableURL() INSURL {
 func (t NSTask) SetExecutableURL(value INSURL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setExecutableURL:"), value)
 }
+
 // The default quality of service level the system applies to operations the
 // task executes.
 //
@@ -549,15 +555,16 @@ func (t NSTask) QualityOfService() QualityOfService {
 func (t NSTask) SetQualityOfService(value QualityOfService) {
 	objc.Send[struct{}](t.ID, objc.Sel("setQualityOfService:"), value)
 }
+
 // The standard error for the receiver.
 //
 // # Discussion
-// 
+//
 // If `file` is an [NSPipe] object, launching the receiver automatically
 // closes the write end of the pipe in the current task. Don’t create a
 // handle for the pipe and pass that as the argument, or the system won’t
 // automatically close the write end of the pipe.
-// 
+//
 // If this method isn’t used, the standard error is inherited from the
 // process that created the receiver. This method raises an
 // [NSInvalidArgumentException] if the system has lauched the receiver.
@@ -570,15 +577,16 @@ func (t NSTask) StandardError() objectivec.IObject {
 func (t NSTask) SetStandardError(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStandardError:"), value)
 }
+
 // The standard input for the receiver.
 //
 // # Discussion
-// 
+//
 // If `file` is an [NSPipe] object, launching the receiver automatically
 // closes the read end of the pipe in the current task. Don’t create a
 // handle for the pipe and pass that as the argument, or the read end of the
 // pipe won’t be closed automatically.
-// 
+//
 // If this method isn’t used, the standard input is inherited from the
 // process that created the receiver. This method raises an
 // [NSInvalidArgumentException] if the system has lauched the receiver.
@@ -591,15 +599,16 @@ func (t NSTask) StandardInput() objectivec.IObject {
 func (t NSTask) SetStandardInput(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStandardInput:"), value)
 }
+
 // The standard output for the receiver.
 //
 // # Discussion
-// 
+//
 // If `file` is an [NSPipe] object, launching the receiver automatically
 // closes the write end of the pipe in the current task. Don’t create a
 // handle for the pipe and pass that as the argument, or the write end of the
 // pipe won’t be closed automatically.
-// 
+//
 // If this method isn’t used, the standard output is inherited from the
 // process that created the receiver. This method raises an
 // [NSInvalidArgumentException] if the system has lauched the receiver.
@@ -612,13 +621,14 @@ func (t NSTask) StandardOutput() objectivec.IObject {
 func (t NSTask) SetStandardOutput(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStandardOutput:"), value)
 }
+
 // A completion block the system invokes when the task completes.
 //
 // # Discussion
-// 
+//
 // The system passes the task object to the block to allow access to the task
 // parameters, for example to determine if the task completed successfully.
-// 
+//
 // This block isn’t guaranteed to be fully executed prior to [WaitUntilExit]
 // returning.
 //
@@ -633,10 +643,11 @@ func (t NSTask) SetTerminationHandler(value TaskHandler) {
 	defer cleanup()
 	objc.Send[struct{}](t.ID, objc.Sel("setTerminationHandler:"), block)
 }
+
 // Sets the current directory for the receiver.
 //
 // # Discussion
-// 
+//
 // If this method isn’t used, the current directory is inherited from the
 // process that created the receiver. This method raises an
 // [NSInvalidArgumentException] if the receiver has already been launched.
@@ -649,6 +660,7 @@ func (t NSTask) CurrentDirectoryPath() string {
 func (t NSTask) SetCurrentDirectoryPath(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCurrentDirectoryPath:"), objc.String(value))
 }
+
 // Sets the receiver’s executable.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/launchPath
@@ -659,6 +671,7 @@ func (t NSTask) LaunchPath() string {
 func (t NSTask) SetLaunchPath(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLaunchPath:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/foundation/process/launchrequirement
 func (t NSTask) LaunchRequirement() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("launchRequirement"))
@@ -667,6 +680,7 @@ func (t NSTask) LaunchRequirement() objectivec.IObject {
 func (t NSTask) SetLaunchRequirement(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLaunchRequirement:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/Process/launchRequirementData
 func (t NSTask) LaunchRequirementData() INSData {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("launchRequirementData"))
@@ -675,4 +689,3 @@ func (t NSTask) LaunchRequirementData() INSData {
 func (t NSTask) SetLaunchRequirementData(value INSData) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLaunchRequirementData:"), value)
 }
-

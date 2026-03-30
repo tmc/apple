@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,20 +44,20 @@ func (uc UnitConcentrationMassClass) Alloc() UnitConcentrationMass {
 // A unit of measure for concentration of mass.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitConcentrationMass] to represent
 // specific quantities of concentration using the [NSMeasurement] class.
-// 
+//
 // # Concentration of Mass
-// 
+//
 // Concentration is the abundance of a constituent within a volume.
 // Concentration can be expressed by SI derived units in terms of kilograms
 // per cubic meter (kg/m3).
-// 
+//
 // The [NSUnitConcentrationMass] class defines its [BaseUnit] as
 // [GramsPerLiter], and provides the following units, which are initialized
 // using [NSUnitConverterLinear] converters with the specified coefficients:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConcentrationMass
@@ -72,7 +73,10 @@ func UnitConcentrationMassFromID(id objc.ID) UnitConcentrationMass {
 }
 
 // NSUnitConcentrationMassFromID is an alias for [UnitConcentrationMassFromID] for cross-framework compatibility.
-func NSUnitConcentrationMassFromID(id objc.ID) UnitConcentrationMass { return UnitConcentrationMassFromID(id) }
+func NSUnitConcentrationMassFromID(id objc.ID) UnitConcentrationMass {
+	return UnitConcentrationMassFromID(id)
+}
+
 // NOTE: UnitConcentrationMass adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -102,7 +106,6 @@ func NewUnitConcentrationMass() UnitConcentrationMass {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitConcentrationMassWithCoder(coder INSCoder) UnitConcentrationMass {
 	instance := getUnitConcentrationMassClass().Alloc()
@@ -115,7 +118,7 @@ func NewUnitConcentrationMassWithCoder(coder INSCoder) UnitConcentrationMass {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -134,11 +137,11 @@ func NewUnitConcentrationMassWithSymbol(symbol string) UnitConcentrationMass {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -154,7 +157,7 @@ func NewUnitConcentrationMassWithSymbolConverter(symbol string, converter INSUni
 // gramsPerMole: The mass, in grams, for a mole of a given constituent.
 //
 // # Return Value
-// 
+//
 // A unit expressing millimoles per liter with the specified molar mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConcentrationMass/millimolesPerLiter(withGramsPerMole:)
@@ -170,6 +173,7 @@ func (_UnitConcentrationMassClass UnitConcentrationMassClass) GramsPerLiter() Un
 	rv := objc.Send[objc.ID](objc.ID(_UnitConcentrationMassClass.class), objc.Sel("gramsPerLiter"))
 	return NSUnitConcentrationMassFromID(objc.ID(rv))
 }
+
 // The milligrams per deciliter unit of concentration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConcentrationMass/milligramsPerDeciliter
@@ -177,4 +181,3 @@ func (_UnitConcentrationMassClass UnitConcentrationMassClass) MilligramsPerDecil
 	rv := objc.Send[objc.ID](objc.ID(_UnitConcentrationMassClass.class), objc.Sel("milligramsPerDeciliter"))
 	return NSUnitConcentrationMassFromID(objc.ID(rv))
 }
-

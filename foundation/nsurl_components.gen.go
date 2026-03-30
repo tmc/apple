@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,16 +46,16 @@ func (nc NSURLComponentsClass) Alloc() NSURLComponents {
 // parts.
 //
 // # Overview
-// 
+//
 // In Swift, this object bridges to [URLComponents]; use [NSURLComponents]
 // when you need reference semantics or other Foundation-specific behavior.
-// 
+//
 // The [NSURLComponents] class is a class that is designed to parse URLs based
 // on [RFC 3986] and to construct URLs from their constituent parts. Its
 // behavior differs subtly from the [NSURL] class, which conforms to older
 // RFCs. However, you can easily obtain an [NSURL] object based on the
 // contents of a URL components object or vice versa.
-// 
+//
 // You create a URL components object in one of three ways: from an [NSString]
 // object that contains a URL, from an [NSURL] object, or from scratch by
 // using the default initializer. From there, you can modify the URL’s
@@ -62,9 +63,6 @@ func (nc NSURLComponentsClass) Alloc() NSURLComponents {
 // either in unencoded form or in URL-encoded form. If you set the unencoded
 // property, you can then obtain the encoded equivalent by reading the encoded
 // property value and vice versa.
-//
-// [RFC 3986]: http://www.ietf.org/rfc/rfc3986.txt
-// [URLComponents]: https://developer.apple.com/documentation/Foundation/URLComponents
 //
 // # Creating URL components
 //
@@ -130,6 +128,9 @@ func (nc NSURLComponentsClass) Alloc() NSURLComponents {
 //   - [NSURLComponents.RangeOfUser]: Returns the character range of the user in the string returned by the string property.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents
+//
+// [RFC 3986]: http://www.ietf.org/rfc/rfc3986.txt
+// [URLComponents]: https://developer.apple.com/documentation/Foundation/URLComponents
 type NSURLComponents struct {
 	objectivec.Object
 }
@@ -141,6 +142,7 @@ type NSURLComponents struct {
 func NSURLComponentsFromID(id objc.ID) NSURLComponents {
 	return NSURLComponents{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSURLComponents adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -332,7 +334,7 @@ func NewNSURLComponents() NSURLComponents {
 // URLString: The URL string to parse.
 //
 // # Return Value
-// 
+//
 // Returns the initialized URL components object, or `nil` if the URL string
 // could not be parsed.
 //
@@ -352,7 +354,7 @@ func NewURLComponentsWithString(URLString string) NSURLComponents {
 // any invalid characters in [URLString].
 //
 // # Discussion
-// 
+//
 // If `encodingInvalidCharacters` is `true`, this initializer tries to encode
 // the string to create a valid URL. If the URL string is still invalid after
 // encoding, the initializer returns `nil`.
@@ -369,14 +371,12 @@ func NewURLComponentsWithStringEncodingInvalidCharacters(URLString string, encod
 // url: The URL to parse.
 //
 // resolve: Controls whether the URL should be resolved against its base URL before
-// parsing. If [true], and if the `url` parameter contains a relative URL, the
+// parsing. If true, and if the `url` parameter contains a relative URL, the
 // original URL is resolved against its base URL before parsing by calling the
 // [AbsoluteURL] method. Otherwise, the string portion is used by itself.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // Returns the initialized URL components object, or `nil` if the URL could
 // not be parsed.
 //
@@ -392,7 +392,7 @@ func NewURLComponentsWithURLResolvingAgainstBaseURL(url INSURL, resolve bool) NS
 // URLString: The URL string to parse.
 //
 // # Return Value
-// 
+//
 // Returns the initialized URL components object, or `nil` if the URL string
 // could not be parsed.
 //
@@ -401,6 +401,7 @@ func (u NSURLComponents) InitWithString(URLString string) NSURLComponents {
 	rv := objc.Send[NSURLComponents](u.ID, objc.Sel("initWithString:"), objc.String(URLString))
 	return rv
 }
+
 // Creates a URL components instance from the provided string, optionally
 // IDNA- and percent-encoding any invalid characters.
 //
@@ -410,7 +411,7 @@ func (u NSURLComponents) InitWithString(URLString string) NSURLComponents {
 // any invalid characters in [URLString].
 //
 // # Discussion
-// 
+//
 // If `encodingInvalidCharacters` is `true`, this initializer tries to encode
 // the string to create a valid URL. If the URL string is still invalid after
 // encoding, the initializer returns `nil`.
@@ -420,19 +421,18 @@ func (u NSURLComponents) InitWithStringEncodingInvalidCharacters(URLString strin
 	rv := objc.Send[NSURLComponents](u.ID, objc.Sel("initWithString:encodingInvalidCharacters:"), objc.String(URLString), encodingInvalidCharacters)
 	return rv
 }
+
 // Creates a URL components object by parsing the URL from an [NSURL] object.
 //
 // url: The URL to parse.
 //
 // resolve: Controls whether the URL should be resolved against its base URL before
-// parsing. If [true], and if the `url` parameter contains a relative URL, the
+// parsing. If true, and if the `url` parameter contains a relative URL, the
 // original URL is resolved against its base URL before parsing by calling the
 // [AbsoluteURL] method. Otherwise, the string portion is used by itself.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // Returns the initialized URL components object, or `nil` if the URL could
 // not be parsed.
 //
@@ -441,21 +441,22 @@ func (u NSURLComponents) InitWithURLResolvingAgainstBaseURL(url INSURL, resolve 
 	rv := objc.Send[NSURLComponents](u.ID, objc.Sel("initWithURL:resolvingAgainstBaseURL:"), url, resolve)
 	return rv
 }
+
 // Returns a URL object derived from the components object.
 //
 // baseURL: If non-`nil`, this URL is used as the base URL portion of the resulting URL
 // object.
 //
 // # Discussion
-// 
+//
 // If the components object has an authority component (user, password, host,
 // or port) and a path component, then the path must either begin with `"/"`
 // or be an empty string. Otherwise, this property contains `nil`.
-// 
+//
 // If the [NSURLComponents] have an authority component (user, password, host,
 // or port) and has a path component, the path component must not start with
 // `"//"`. If it does, this property contains `nil`.
-// 
+//
 // To configure a components object based on an existing URL, call either the
 // [ComponentsWithURLResolvingAgainstBaseURL] or
 // [InitWithURLResolvingAgainstBaseURL] method.
@@ -471,7 +472,7 @@ func (u NSURLComponents) URLRelativeToURL(baseURL INSURL) INSURL {
 // URLString: The URL string to parse.
 //
 // # Return Value
-// 
+//
 // Returns the new URL components object, or `nil` if the URL string could not
 // be parsed.
 //
@@ -480,6 +481,7 @@ func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithString(URLString
 	rv := objc.Send[objc.ID](objc.ID(_NSURLComponentsClass.class), objc.Sel("componentsWithString:"), objc.String(URLString))
 	return NSURLComponentsFromID(rv)
 }
+
 // Returns a URL components instance from the provided string, optionally
 // IDNA- and percent-encoding any invalid characters.
 //
@@ -489,12 +491,12 @@ func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithString(URLString
 // any invalid characters in [URLString].
 //
 // # Return Value
-// 
+//
 // A URL components instance from the provided string, optionally with invalid
 // characters percent-encoded.
 //
 // # Discussion
-// 
+//
 // If `encodingInvalidCharacters` is `true`, this initializer tries to encode
 // the string to create a valid URL. If the URL string is still invalid after
 // encoding, the method returns `nil`.
@@ -504,19 +506,18 @@ func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithStringEncodingIn
 	rv := objc.Send[objc.ID](objc.ID(_NSURLComponentsClass.class), objc.Sel("componentsWithString:encodingInvalidCharacters:"), objc.String(URLString), encodingInvalidCharacters)
 	return NSURLComponentsFromID(rv)
 }
+
 // Returns a URL components object by parsing the URL from an [NSURL] object.
 //
 // url: The URL to parse.
 //
 // resolve: Controls whether the URL should be resolved against its base URL before
-// parsing. If [true], and if the `url` parameter contains a relative URL, the
+// parsing. If true, and if the `url` parameter contains a relative URL, the
 // original URL is resolved against its base URL before parsing by calling the
 // [AbsoluteURL] method. Otherwise, the string portion is used by itself.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // Returns the new URL components object, or `nil` if the URL could not be
 // parsed.
 //
@@ -529,15 +530,15 @@ func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithURLResolvingAgai
 // A URL derived from the components object, in string form.
 //
 // # Discussion
-// 
+//
 // If the receiver has an authority component (user, password, host, or port)
 // and a path component, then the path must either begin with `"/"` or be an
 // empty string. Otherwise, this property contains `nil`.
-// 
+//
 // If the receiver have an authority component (user, password, host, or port)
 // and has a path component, the path component must not start with `"//"`. If
 // it does, this property contains `nil`.
-// 
+//
 // This property can be used only to obtain a URL string based on the values
 // of the other properties. To configure a components object based on an
 // existing URL string, call either the [ComponentsWithString] or
@@ -548,23 +549,24 @@ func (u NSURLComponents) String() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("string"))
 	return NSStringFromID(rv).String()
 }
+
 // A URL object derived from the components object.
 //
 // # Discussion
-// 
+//
 // If the receiver has an authority component (user, password, host, or port)
 // and a path component, then the path must either begin with `"/"` or be an
 // empty string. Otherwise, this property contains `nil`.
-// 
+//
 // If the receiver have an authority component (user, password, host, or port)
 // and has a path component, the path component must not start with `"//"`. If
 // it does, this property contains `nil`.
-// 
+//
 // If the receiver has `nil` values for all component properties, such as when
 // initializing with [Init], this property returns an [NSURL] object with an
 // empty string, because a URL always has a path—even if it’s an empty
 // string.
-// 
+//
 // This property can be used only to obtain a URL based on the values of the
 // other properties. To configure a components object based on an existing
 // URL, call either the [ComponentsWithURLResolvingAgainstBaseURL] or
@@ -575,11 +577,12 @@ func (u NSURLComponents) URL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URL"))
 	return NSURLFromID(objc.ID(rv))
 }
+
 // The fragment URL component (the part after a `#` symbol), or nil if not
 // present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL
 // `//www.ExampleXCUIElementTypeCom()/index.Html()#jumpLocation`, the fragment
 // is `jumpLocation`.
@@ -592,13 +595,14 @@ func (u NSURLComponents) Fragment() string {
 func (u NSURLComponents) SetFragment(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setFragment:"), objc.String(value))
 }
+
 // The host URL subcomponent, or nil if not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL `//www.ExampleXCUIElementTypeCom()/index.Html()`,
 // the host is `www.ExampleXCUIElementTypeCom()`.
-// 
+//
 // The getter for this property removes any percent encoding this component
 // may have (if the component allows percent encoding). Setting this property
 // assumes the subcomponent or component string isn’t percent encoded and
@@ -612,18 +616,19 @@ func (u NSURLComponents) Host() string {
 func (u NSURLComponents) SetHost(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setHost:"), objc.String(value))
 }
+
 // The host subcomponent, percent-encoded.
 //
 // # Discussion
-// 
+//
 // The getter for this property retains any percent-encoding this component
 // may have. Setting this property assumes the component string already has
 // the correct percent-encoding. Attempting to set an incorrectly
 // percent-encoded string raises [fatalError(_:file:line:)].
 //
-// [fatalError(_:file:line:)]: https://developer.apple.com/documentation/Swift/fatalError(_:file:line:)
-//
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/encodedHost
+//
+// [fatalError(_:file:line:)]: https://developer.apple.com/documentation/Swift/fatalError(_:file:line:)
 func (u NSURLComponents) EncodedHost() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("encodedHost"))
 	return NSStringFromID(rv).String()
@@ -631,10 +636,11 @@ func (u NSURLComponents) EncodedHost() string {
 func (u NSURLComponents) SetEncodedHost(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setEncodedHost:"), objc.String(value))
 }
+
 // The password URL subcomponent, or nil if not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL
 // `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the password is
 // `password`.
@@ -647,10 +653,11 @@ func (u NSURLComponents) Password() string {
 func (u NSURLComponents) SetPassword(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPassword:"), objc.String(value))
 }
+
 // The path URL component, or nil if not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL `//www.ExampleXCUIElementTypeCom()/index.Html()`,
 // the path is `/index.Html()`.
 //
@@ -662,13 +669,14 @@ func (u NSURLComponents) Path() string {
 func (u NSURLComponents) SetPath(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPath:"), objc.String(value))
 }
+
 // The port number URL component, or nil if not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL `//www.Example().8080/index.Php()`, the port number
 // is `8080`.
-// 
+//
 // If you attempt to set the port to a negative port number, this class throws
 // an exception.
 //
@@ -680,10 +688,11 @@ func (u NSURLComponents) Port() INSNumber {
 func (u NSURLComponents) SetPort(value INSNumber) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPort:"), value)
 }
+
 // The query URL component as a string, or nil if not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL
 // `//www.ExampleXCUIElementTypeCom()/index.Php()?key1=value1&key2=value2`,
 // the query string is `key1=value1&key2=value2`.
@@ -696,10 +705,11 @@ func (u NSURLComponents) Query() string {
 func (u NSURLComponents) SetQuery(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setQuery:"), objc.String(value))
 }
+
 // The query URL component as an array of name/value pairs.
 //
 // # Discussion
-// 
+//
 // When you get this property’s value, the [NSURLComponents] class parses
 // the [Query] string and returns an array of [NSURLQueryItem] objects, each
 // of which represents a single key-value pair, in the order in which they
@@ -708,27 +718,27 @@ func (u NSURLComponents) SetQuery(value string) {
 // guaranteed to be unique. If the [Query] property is an empty string, the
 // [QueryItems] property is an empty array. If the [Query] property is `nil`,
 // the [QueryItems] property is also `nil`.
-// 
+//
 // When you set this property’s value, the [NSURLComponents] class joins
 // each name/value pair with a `=` delimiter and joins the array with a `&`
 // delimiter, then sets the [Query] property to the resulting string. Setting
 // the [QueryItems] property to an empty array sets the [Query] property to an
 // empty string, and setting the [QueryItems] property to `nil` sets the
 // [Query] property to `nil`.
-// 
+//
 // To ensure you can compose and decompose URL queries even with empty
 // components, the [NSURLComponents] class has the following behavior for
 // cases where no name or value is present:
-// 
+//
 // - If a name-value pair has nothing before its equals sign, the `name`
 // property of the corresponding query item is a zero-length string. - If a
 // name-value pair has nothing after its equals sign, the `value` property of
 // the corresponding query item is a zero-length string. - If a name-value
 // pair has no equals sign, the `value` property of the corresponding query
 // item is `nil`. - If a name-value pair is empty (that is, the `query` string
-// starts with `&`, ends with `&`, or contains `&``&`), the corresponding
+// starts with `&`, ends with `&`, or contains `&“&`), the corresponding
 // query item has a zero-length `name` and `nil` `value`.
-// 
+//
 // For example, in the URL
 // `//www.ExampleXCUIElementTypeCom()/index.Php()?key1=value1&key2=value2`,
 // this property’s value is an array of two [NSURLQueryItem] objects: one
@@ -745,13 +755,14 @@ func (u NSURLComponents) QueryItems() []NSURLQueryItem {
 func (u NSURLComponents) SetQueryItems(value []NSURLQueryItem) {
 	objc.Send[struct{}](u.ID, objc.Sel("setQueryItems:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The scheme URL component, or nil if not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL `//www.ExampleXCUIElementTypeCom()/index.Html()`,
 // the scheme is `http`.
-// 
+//
 // If you attempt to set the scheme to an invalid scheme string, this class
 // throws an exception.
 //
@@ -763,10 +774,11 @@ func (u NSURLComponents) Scheme() string {
 func (u NSURLComponents) SetScheme(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setScheme:"), objc.String(value))
 }
+
 // The username URL subcomponent, or nil if not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL
 // `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the user is
 // `username`.
@@ -779,15 +791,16 @@ func (u NSURLComponents) User() string {
 func (u NSURLComponents) SetUser(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUser:"), objc.String(value))
 }
+
 // The fragment URL component (the part after a `#` symbol) expressed as a
 // URL-encoded string, or `nil` if not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL
 // `//www.ExampleXCUIElementTypeCom()/index.Html()#jumpLocation`, the fragment
 // is `jumpLocation`.
-// 
+//
 // If you set this value to something that is not a valid, percent-encoded
 // string, this class throws an exception.
 //
@@ -799,14 +812,15 @@ func (u NSURLComponents) PercentEncodedFragment() string {
 func (u NSURLComponents) SetPercentEncodedFragment(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedFragment:"), objc.String(value))
 }
+
 // The host URL subcomponent expressed as a URL-encoded string, or `nil` if
 // not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL `//www.ExampleXCUIElementTypeCom()/index.Html()`,
 // the host is `www.ExampleXCUIElementTypeCom()`.
-// 
+//
 // If you set this value to something that is not a valid, percent-encoded
 // string, this class throws an exception.
 //
@@ -818,15 +832,16 @@ func (u NSURLComponents) PercentEncodedHost() string {
 func (u NSURLComponents) SetPercentEncodedHost(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedHost:"), objc.String(value))
 }
+
 // The password URL subcomponent expressed as a URL-encoded string, or `nil`
 // if not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL
 // `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the password is
 // `password`.
-// 
+//
 // If you set this value to something that is not a valid, percent-encoded
 // string, this class throws an exception.
 //
@@ -838,14 +853,15 @@ func (u NSURLComponents) PercentEncodedPassword() string {
 func (u NSURLComponents) SetPercentEncodedPassword(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedPassword:"), objc.String(value))
 }
+
 // The path URL component expressed as a URL-encoded string, or `nil` if not
 // present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL `//www.ExampleXCUIElementTypeCom()/index.Html()`,
 // the path is `/index.Html()`.
-// 
+//
 // If you set this value to something that is not a valid, percent-encoded
 // string, this class throws an exception.
 //
@@ -857,15 +873,16 @@ func (u NSURLComponents) PercentEncodedPath() string {
 func (u NSURLComponents) SetPercentEncodedPath(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedPath:"), objc.String(value))
 }
+
 // The query URL component expressed as a URL-encoded string, or `nil` if not
 // present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL
 // `//www.ExampleXCUIElementTypeCom()/index.Php()?key1=value1&key2=value2`,
 // the query string is `key1=value1&key2=value2`.
-// 
+//
 // If you set this value to something that is not a valid, percent-encoded
 // string, this class throws an exception.
 //
@@ -877,15 +894,16 @@ func (u NSURLComponents) PercentEncodedQuery() string {
 func (u NSURLComponents) SetPercentEncodedQuery(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedQuery:"), objc.String(value))
 }
+
 // The username URL subcomponent expressed as a URL-encoded string, or `nil`
 // if not present.
 //
 // # Discussion
-// 
+//
 // For example, in the URL
 // `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the user is
 // `username`.
-// 
+//
 // If you set this value to something that is not a valid, percent-encoded
 // string, this class throws an exception.
 //
@@ -897,6 +915,7 @@ func (u NSURLComponents) PercentEncodedUser() string {
 func (u NSURLComponents) SetPercentEncodedUser(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedUser:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/percentEncodedQueryItems
 func (u NSURLComponents) PercentEncodedQueryItems() []NSURLQueryItem {
 	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("percentEncodedQueryItems"))
@@ -907,6 +926,7 @@ func (u NSURLComponents) PercentEncodedQueryItems() []NSURLQueryItem {
 func (u NSURLComponents) SetPercentEncodedQueryItems(value []NSURLQueryItem) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedQueryItems:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Returns the character range of the fragment in the string returned by the
 // string property.
 //
@@ -915,6 +935,7 @@ func (u NSURLComponents) RangeOfFragment() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfFragment"))
 	return NSRange(rv)
 }
+
 // Returns the character range of the host in the string returned by the
 // string property.
 //
@@ -923,6 +944,7 @@ func (u NSURLComponents) RangeOfHost() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfHost"))
 	return NSRange(rv)
 }
+
 // Returns the character range of the password in the string returned by the
 // string property.
 //
@@ -931,6 +953,7 @@ func (u NSURLComponents) RangeOfPassword() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfPassword"))
 	return NSRange(rv)
 }
+
 // Returns the character range of the path in the string returned by the
 // string property.
 //
@@ -939,6 +962,7 @@ func (u NSURLComponents) RangeOfPath() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfPath"))
 	return NSRange(rv)
 }
+
 // Returns the character range of the port in the string returned by the
 // string property.
 //
@@ -947,6 +971,7 @@ func (u NSURLComponents) RangeOfPort() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfPort"))
 	return NSRange(rv)
 }
+
 // Returns the character range of the query in the string returned by the
 // string property.
 //
@@ -955,6 +980,7 @@ func (u NSURLComponents) RangeOfQuery() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfQuery"))
 	return NSRange(rv)
 }
+
 // Returns the character range of the scheme in the string returned by the
 // string property.
 //
@@ -963,6 +989,7 @@ func (u NSURLComponents) RangeOfScheme() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfScheme"))
 	return NSRange(rv)
 }
+
 // Returns the character range of the user in the string returned by the
 // string property.
 //
@@ -972,6 +999,4 @@ func (u NSURLComponents) RangeOfUser() NSRange {
 	return NSRange(rv)
 }
 
-			// Protocol methods for NSCopying
-			
-
+// Protocol methods for NSCopying

@@ -19,6 +19,7 @@ type NSViewLayerContentScaleDelegate interface {
 type NSViewLayerContentScaleDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSViewLayerContentScaleDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,35 +42,32 @@ func NSViewLayerContentScaleDelegateObjectFromID(id objc.ID) NSViewLayerContentS
 // window: The window that hosts the layer.
 //
 // # Return Value
-// 
+//
 // A Boolean value that specifies whether to change the layer’s
 // `contentsScale` property.
 //
 // # Discussion
-// 
+//
 // When a resolution change occurs for a given window, the system traverses
 // the layer trees in that window to decide what action, if any, to take for
 // each layer. The system queries the layer’s delegate to determine whether
 // to change the layer’s `contentsScale` property to the new scale (either
 // `2.0` or `1.0`).
-// 
+//
 // Note that you don’t need to manage [NSImage] contents and that this
 // method is not called on the delegate of a layer whose content is an
 // [NSImage] object.
-// 
-// If the delegate returns [true], it should make any corresponding changes to
+//
+// If the delegate returns true, it should make any corresponding changes to
 // the layer’s properties, as required by the resolution change. For
 // example, a layer whose contents contain a CGImage object needs to determine
 // whether an alternate CGImage object is available for the new scale factor.
 // If the delegate finds a suitable CGImage object, then in addition to
-// returning [true], it should set the appropriate CGImage object as the
+// returning true, it should set the appropriate CGImage object as the
 // layer’s new contents.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewLayerContentScaleDelegate/layer(_:shouldInheritContentsScale:from:)
 func (o NSViewLayerContentScaleDelegateObject) LayerShouldInheritContentsScaleFromWindow(layer quartzcore.CALayer, newScale float64, window INSWindow) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("layer:shouldInheritContentsScale:fromWindow:"), layer, newScale, window)
 	return rv
-	}
-
+}

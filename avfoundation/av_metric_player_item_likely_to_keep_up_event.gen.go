@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMetricPlayerItemLikelyToKeepUpEvent] class.
@@ -61,6 +62,7 @@ type AVMetricPlayerItemLikelyToKeepUpEvent struct {
 func AVMetricPlayerItemLikelyToKeepUpEventFromID(id objc.ID) AVMetricPlayerItemLikelyToKeepUpEvent {
 	return AVMetricPlayerItemLikelyToKeepUpEvent{AVMetricEvent: AVMetricEventFromID(id)}
 }
+
 // NOTE: AVMetricPlayerItemLikelyToKeepUpEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -107,11 +109,13 @@ func (m AVMetricPlayerItemLikelyToKeepUpEvent) TimeTaken() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("timeTaken"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemLikelyToKeepUpEvent/variant
 func (m AVMetricPlayerItemLikelyToKeepUpEvent) Variant() IAVAssetVariant {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("variant"))
 	return AVAssetVariantFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemLikelyToKeepUpEvent/loadedTimeRanges-960vi
 func (m AVMetricPlayerItemLikelyToKeepUpEvent) LoadedTimeRanges() []foundation.NSValue {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("loadedTimeRanges"))
@@ -119,4 +123,3 @@ func (m AVMetricPlayerItemLikelyToKeepUpEvent) LoadedTimeRanges() []foundation.N
 		return foundation.NSValueFromID(id)
 	})
 }
-

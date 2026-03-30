@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_fuse_gelu_with_erf struct {
 func EspressoPass_fuse_gelu_with_erfFromID(id objc.ID) EspressoPass_fuse_gelu_with_erf {
 	return EspressoPass_fuse_gelu_with_erf{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_fuse_gelu_with_erf implements IEspressoPass_fuse_gelu_with_erf.
 var _ IEspressoPass_fuse_gelu_with_erf = EspressoPass_fuse_gelu_with_erf{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_fuse_gelu_with_erf() EspressoPass_fuse_gelu_with_erf {
 	rv := objc.Send[EspressoPass_fuse_gelu_with_erf](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

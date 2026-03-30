@@ -4,8 +4,9 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,38 +47,38 @@ func (cc CABasicAnimationClass) Alloc() CABasicAnimation {
 // layer property.
 //
 // # Overview
-// 
+//
 // You create an instance of [CABasicAnimation] using the inherited
 // [CABasicAnimation.AnimationWithKeyPath] method, specifying the key path of the property to
 // be animated in the render tree.
-// 
+//
 // For example, you can animate a layer’s scalar (i.e. containing a single
 // value) properties such as its [CABasicAnimation.Opacity]. The following code fades in a
 // layer by animating its opacity from `0` to `1`.
-// 
+//
 // Non-scalar properties, such as [CABasicAnimation.BackgroundColor], can also be animated.
 // Core Animation will interpolate between the [CABasicAnimation.FromValue] color and the
 // [CABasicAnimation.ToValue] color. The animation created in the following code fades a
 // layer’s background color from red to blue.
-// 
+//
 // If you want to animate the individual components of a non-scalar property
 // with different values, you pass the values to [CABasicAnimation.ToValue] and [CABasicAnimation.FromValue] as
 // arrays. The following animation moves a layer from `(0, 0)` to `(100,
 // 100)`.
-// 
+//
 // The `keyPath` can access the individual components of a property. For
 // example, the following animation stretches a layer by animating its
 // [CABasicAnimation.Transform] object’s `x` from `1` to `2`.
-// 
+//
 // # Setting Interpolation Values
-// 
+//
 // The [CABasicAnimation.FromValue], [CABasicAnimation.ByValue] and [CABasicAnimation.ToValue] properties define the values being
 // interpolated between. All are optional, and no more than two should be
 // non-`nil`. The object type should match the type of the property being
 // animated.
-// 
+//
 // The interpolation values are used as follows:
-// 
+//
 // - Both [CABasicAnimation.FromValue] and [CABasicAnimation.ToValue] are non-`nil`. Interpolates between
 // [CABasicAnimation.FromValue] and [CABasicAnimation.ToValue]. - [CABasicAnimation.FromValue] and [CABasicAnimation.ByValue] are non-`nil`.
 // Interpolates between [CABasicAnimation.FromValue] and ([CABasicAnimation.FromValue] + [CABasicAnimation.ByValue]). - [CABasicAnimation.ByValue]
@@ -113,6 +114,7 @@ type CABasicAnimation struct {
 func CABasicAnimationFromID(id objc.ID) CABasicAnimation {
 	return CABasicAnimation{CAPropertyAnimation: CAPropertyAnimationFromID(id)}
 }
+
 // NOTE: CABasicAnimation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -179,7 +181,7 @@ func NewCABasicAnimation() CABasicAnimation {
 // path: The key path of the property to be animated.
 //
 // # Return Value
-// 
+//
 // A new instance of [CAPropertyAnimation] with the key path set to `keyPath`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAPropertyAnimation/init(keyPath:)
@@ -191,7 +193,7 @@ func NewBasicAnimationWithKeyPath(path string) CABasicAnimation {
 // Defines the value the receiver uses to start interpolation.
 //
 // # Discussion
-// 
+//
 // See [CABasicAnimation] for details on how `fromValue` interacts with the
 // other interpolation values.
 //
@@ -203,10 +205,11 @@ func (b CABasicAnimation) FromValue() objectivec.IObject {
 func (b CABasicAnimation) SetFromValue(value objectivec.IObject) {
 	objc.Send[struct{}](b.ID, objc.Sel("setFromValue:"), value)
 }
+
 // Defines the value the receiver uses to end interpolation.
 //
 // # Discussion
-// 
+//
 // See [CABasicAnimation] for details on how `toValue` interacts with the
 // other interpolation values.
 //
@@ -218,10 +221,11 @@ func (b CABasicAnimation) ToValue() objectivec.IObject {
 func (b CABasicAnimation) SetToValue(value objectivec.IObject) {
 	objc.Send[struct{}](b.ID, objc.Sel("setToValue:"), value)
 }
+
 // Defines the value the receiver uses to perform relative interpolation.
 //
 // # Discussion
-// 
+//
 // See [CABasicAnimation] for details on how `byValue` interacts with the
 // other interpolation values.
 //
@@ -233,6 +237,7 @@ func (b CABasicAnimation) ByValue() objectivec.IObject {
 func (b CABasicAnimation) SetByValue(value objectivec.IObject) {
 	objc.Send[struct{}](b.ID, objc.Sel("setByValue:"), value)
 }
+
 // The background color of the receiver. Animatable.
 //
 // See: https://developer.apple.com/documentation/quartzcore/calayer/backgroundcolor
@@ -243,6 +248,7 @@ func (b CABasicAnimation) BackgroundColor() coregraphics.CGColorRef {
 func (b CABasicAnimation) SetBackgroundColor(value coregraphics.CGColorRef) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBackgroundColor:"), value)
 }
+
 // The opacity of the receiver. Animatable.
 //
 // See: https://developer.apple.com/documentation/quartzcore/calayer/opacity
@@ -253,6 +259,7 @@ func (b CABasicAnimation) Opacity() float32 {
 func (b CABasicAnimation) SetOpacity(value float32) {
 	objc.Send[struct{}](b.ID, objc.Sel("setOpacity:"), value)
 }
+
 // The transform applied to the layer’s contents. Animatable.
 //
 // See: https://developer.apple.com/documentation/quartzcore/calayer/transform
@@ -263,4 +270,3 @@ func (b CABasicAnimation) Transform() CATransform3D {
 func (b CABasicAnimation) SetTransform(value CATransform3D) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTransform:"), value)
 }
-

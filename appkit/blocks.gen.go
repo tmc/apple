@@ -59,28 +59,12 @@ func NewAppearanceBlock(handler AppearanceHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// ArrayHandler handles The completion handler that is called when the user clicks the OK or Cancel button in the open panel.
+// ArrayHandler handles The Block used to add results to the search.
 //   - items: The items to add to the results array. The `handleMatchedItems` block can be invoked from any thread desired.  If it is called more than once the additional results will be appended after previous items until the maximum is reached.
 //
 // Used by:
-//   - [NSDocumentController.BeginOpenPanelWithCompletionHandler]
-//   - [NSSpellChecker.RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler]
 //   - [NSUserInterfaceItemSearching.SearchForItemsWithSearchStringResultLimitMatchedItemHandler]
-//   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsBoundingBezierPathsForRangeInContextCompletion]
-//   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsPreviewForTextAnimationOfRangeInContextCompletion]
-//   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsSingleContainerSubrangesOfRangeInContextCompletion]
-//   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsUnderlinePathsForRangeInContextCompletion]
-type ArrayHandler = func(*[]foundation.NSTextCheckingResult)
-
-// ArrayOrthographyHandler handles The completion handler block object will be called (in an arbitrary context) when results are available, with the sequence number and results.
-//   - sequenceNumber: A monotonically increasing sequence number.
-//   - results: An array of [NSTextCheckingResult](<doc://com.apple.documentation/documentation/Foundation/NSTextCheckingResult>) objects describing particular items found during checking and their individual ranges, sorted by range origin, then range end, then result type.
-//   - orthography: The orthography of the string.
-//   - wordCount: The number of words in the range of the string.
-//
-// Used by:
-//   - [NSSpellChecker.RequestCheckingOfStringRangeTypesOptionsInSpellDocumentWithTagCompletionHandler]
-type ArrayOrthographyHandler = func(*[]foundation.NSTextCheckingResult, *foundation.NSOrthography)
+type ArrayHandler = func(*foundation.INSArray)
 
 // AttributedStringHandler handles A completion handler to execute with the results of the operation.
 //
@@ -106,8 +90,8 @@ func NewAttributedStringBlock(handler AttributedStringHandler) (objc.ID, func())
 	return objc.ID(block), func() { block.Release() }
 }
 
-// BoolHandler handles The completion handler block object passed in to be invoked after moving is completed, regardless of success, failure, or cancellation of moving action.
-//   - success: A Boolean value indicating whether the sharing attempt was successful. The value is [true](<doc://com.apple.documentation/documentation/Swift/true>) if sharing succeeded, or [false](<doc://com.apple.documentation/documentation/Swift/false>) if it didn’t.
+// BoolHandler handles A completion handler block to execute when the changes made in the `updates` block have finished animating.
+//   - finished: A Boolean value indicating whether the animations completed successfully. The value of this parameter is [true](<doc://com.apple.documentation/documentation/Swift/true>) if the animations ran to completion or [false](<doc://com.apple.documentation/documentation/Swift/false>) if they were interrupted.
 //
 // Used by:
 //   - [NSCollectionView.PerformBatchUpdatesCompletionHandler]
@@ -188,15 +172,6 @@ func NewColorBlock(handler ColorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// DictionaryErrorHandler handles The completion handler block object to call when the operation completes.
-//   - newURLs: A dictionary parameter whose keys and values are [NSURL](<doc://com.apple.documentation/documentation/Foundation/NSURL>) objects. Each key is a URL from the [URLs] parameter. The value of each key is a URL representing the location of the duplicated file. If this method could not duplicate a file, the corresponding URL is not included in the dictionary.
-//   - error: If the operation succeeded for every file, this parameter is `nil`. If the operation failed for one or more files, the parameter contains an error object describing the overall result of the operation in a manner suitable for presentation to the user.
-//
-// Used by:
-//   - [NSWorkspace.DuplicateURLsCompletionHandler]
-//   - [NSWorkspace.RecycleURLsCompletionHandler]
-type DictionaryErrorHandler = func(*foundation.INSDictionary, error)
-
 // DocumentErrorHandler handles The completion handler block object passed in to be called at some point in the future, perhaps after the method invocation has returned.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -255,8 +230,6 @@ func NewDraggingItemBlock(handler DraggingItemHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [NSAccessibilityCustomAction.InitWithNameHandler]
-//   - [NSApplication.RegisterUserInterfaceItemSearchHandler]
-//   - [NSApplication.UnregisterUserInterfaceItemSearchHandler]
 //   - [NSCustomImageRep.InitWithSizeFlippedDrawingHandler]
 //   - [NSDocument.AccommodatePresentedItemDeletionWithCompletionHandler]
 //   - [NSDocument.AutosaveWithImplicitCancellabilityCompletionHandler]
@@ -286,8 +259,6 @@ type ErrorHandler = func(error)
 //
 // Used by:
 //   - [NSAccessibilityCustomAction.InitWithNameHandler]
-//   - [NSApplication.RegisterUserInterfaceItemSearchHandler]
-//   - [NSApplication.UnregisterUserInterfaceItemSearchHandler]
 //   - [NSCustomImageRep.InitWithSizeFlippedDrawingHandler]
 //   - [NSDocument.AccommodatePresentedItemDeletionWithCompletionHandler]
 //   - [NSDocument.AutosaveWithImplicitCancellabilityCompletionHandler]
@@ -317,7 +288,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// EventHandler handles A block that is called to track the events.
+// EventHandler handles The event handler block object.
 //   - event: The event to examine.
 //   - stop: A Boolean value that indicates when tracking should stop.
 //
@@ -343,6 +314,18 @@ func NewEventBlock(handler EventHandler) (objc.ID, func()) {
 			result = &v
 		}
 		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// Float32Handler handles completion with a primitive value.
+type Float32Handler = func(float32)
+
+// NewFloat32Block wraps a Go [Float32Handler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewFloat32Block(handler Float32Handler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal float32) {
+		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -389,6 +372,32 @@ func NewIntBlock(handler IntHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// MenuHandler handles The closure to invoke when someone selects the menu item.
+//
+// Used by:
+//   - [NSMenu.PaletteMenuWithColorsTitlesSelectionHandler]
+//   - [NSMenu.PaletteMenuWithColorsTitlesTemplateImageSelectionHandler]
+type MenuHandler = func(*NSMenu)
+
+// NewMenuBlock wraps a Go [MenuHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSMenu.PaletteMenuWithColorsTitlesSelectionHandler]
+//   - [NSMenu.PaletteMenuWithColorsTitlesTemplateImageSelectionHandler]
+func NewMenuBlock(handler MenuHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *NSMenu
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSMenuFromID(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // ModalResponseHandler handles The completion handler that gets called when the sheet’s modal session ends.
 //   - result: The action taken by the user. The value of this parameter is [NSFileHandlingPanelOKButton](<doc://com.apple.appkit/documentation/AppKit/NSFileHandlingPanelOKButton>) if the user chose the OK button or [NSFileHandlingPanelCancelButton](<doc://com.apple.appkit/documentation/AppKit/NSFileHandlingPanelCancelButton>) if the user chose the Cancel button.
 //
@@ -415,6 +424,29 @@ func NewModalResponseBlock(handler ModalResponseHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
+
+// NSBezierPathArrayHandler handles A handler to execute with the required information.
+//
+// Used by:
+//   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsBoundingBezierPathsForRangeInContextCompletion]
+//   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsUnderlinePathsForRangeInContextCompletion]
+type NSBezierPathArrayHandler = func(*[]NSBezierPath)
+
+// NSTextCheckingResultArrayHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [NSSpellChecker.RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler]
+type NSTextCheckingResultArrayHandler = func(*[]foundation.NSTextCheckingResult)
+
+// NSTextCheckingResultArrayOrthographyHandler handles The completion handler block object will be called (in an arbitrary context) when results are available, with the sequence number and results.
+//   - sequenceNumber: A monotonically increasing sequence number.
+//   - results: An array of [NSTextCheckingResult](<doc://com.apple.documentation/documentation/Foundation/NSTextCheckingResult>) objects describing particular items found during checking and their individual ranges, sorted by range origin, then range end, then result type.
+//   - orthography: The orthography of the string.
+//   - wordCount: The number of words in the range of the string.
+//
+// Used by:
+//   - [NSSpellChecker.RequestCheckingOfStringRangeTypesOptionsInSpellDocumentWithTagCompletionHandler]
+type NSTextCheckingResultArrayOrthographyHandler = func(*[]foundation.NSTextCheckingResult, *foundation.NSOrthography)
 
 // NSTextLocationHandler handles The closure to invoke once for each logical caret edge in the line fragment, in left-to-right visual order.
 //
@@ -444,6 +476,24 @@ func NewNSTextLocationBlock(handler NSTextLocationHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
+
+// NSTextPreviewArrayHandler handles A completion handler to execute when you are done.
+//
+// Used by:
+//   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsPreviewForTextAnimationOfRangeInContextCompletion]
+type NSTextPreviewArrayHandler = func(*[]NSTextPreview)
+
+// NSURLArrayHandler handles The completion handler that is called when the user clicks the OK or Cancel button in the open panel.
+//
+// Used by:
+//   - [NSDocumentController.BeginOpenPanelWithCompletionHandler]
+type NSURLArrayHandler = func(*[]foundation.NSURL)
+
+// NSValueArrayHandler handles A completion handler to execute when you are done.
+//
+// Used by:
+//   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorRequestsSingleContainerSubrangesOfRangeInContextCompletion]
+type NSValueArrayHandler = func(*[]foundation.NSValue)
 
 // ObjectHandler handles completion with a primitive value.
 type ObjectHandler = func(objectivec.IObject)
@@ -518,7 +568,7 @@ func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// RectHandler handles A block that draws the contents of the image representation.
+// RectHandler handles A block that draws the image representation content in the provided graphics context.
 //   - dstRect: The destination rectangle in which to draw. The coordinates of this rectangle are specified in points.
 //
 // Used by:
@@ -544,6 +594,7 @@ func NewRectBlock(handler RectHandler) (objc.ID, func()) {
 // RunningApplicationErrorHandler handles The completion handler block to call asynchronously with the results.
 //   - app: On success, this parameter contains a reference to the app that opened the URL. If the app didn’t open the URL successfully, this parameter is `nil`.
 //   - error: On failure, this parameter contains an [NSError](<doc://com.apple.documentation/documentation/Foundation/NSError>) object indicating the reason for the failure. If the method opened the URL successfully, this parameter is `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -603,12 +654,28 @@ func NewSliderAccessoryBlock(handler SliderAccessoryHandler) (objc.ID, func()) {
 //   - [NSSpellChecker.ShowCorrectionIndicatorOfTypePrimaryStringAlternativeStringsForStringInRectViewCompletionHandler]
 type StringHandler = func(*string)
 
+// StringSetErrorHandler handles A block the system invokes after detecting patterns on the pasteboard.
+//
+// Used by:
+//   - [NSPasteboard.DetectPatternsForPatternsCompletionHandler]
+//   - [NSPasteboardItem.DetectPatternsForPatternsCompletionHandler]
+type StringSetErrorHandler = func(*foundation.INSSet, error)
+
 // StringTextRangeTextRangeHandler handles A closure to invoke to evaluate the substrings; end the enumeration early by returning `false`.
 //
 // Used by:
 //   - [NSTextLayoutManager.EnumerateSubstringsFromLocationOptionsUsingBlock]
 //   - [NSTextSelectionDataSource.EnumerateSubstringsFromLocationOptionsUsingBlock]
 type StringTextRangeTextRangeHandler = func(*string, *NSTextRange, *NSTextRange)
+
+// StringidDictionaryErrorHandler handles A block the system invokes after detecting metadata on the pasteboard.
+//
+// Used by:
+//   - [NSPasteboard.DetectMetadataForTypesCompletionHandler]
+//   - [NSPasteboard.DetectValuesForPatternsCompletionHandler]
+//   - [NSPasteboardItem.DetectMetadataForTypesCompletionHandler]
+//   - [NSPasteboardItem.DetectValuesForPatternsCompletionHandler]
+type StringidDictionaryErrorHandler = func(*foundation.INSDictionary, error)
 
 // TableRowViewHandler handles The [Block] to apply to elements in the set.
 //   - rowView: The view for the row.
@@ -816,6 +883,15 @@ func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// URLNSURLDictionaryErrorHandler handles The completion handler block object to call when the operation completes.
+//   - newURLs: A dictionary parameter whose keys and values are [NSURL](<doc://com.apple.documentation/documentation/Foundation/NSURL>) objects. Each key is a URL from the [URLs] parameter. The value of each key is a URL representing the location of the duplicated file. If this method could not duplicate a file, the corresponding URL is not included in the dictionary.
+//   - error: If the operation succeeded for every file, this parameter is `nil`. If the operation failed for one or more files, the parameter contains an error object describing the overall result of the operation in a manner suitable for presentation to the user.
+//
+// Used by:
+//   - [NSWorkspace.DuplicateURLsCompletionHandler]
+//   - [NSWorkspace.RecycleURLsCompletionHandler]
+type URLNSURLDictionaryErrorHandler = func(*foundation.INSDictionary, error)
+
 // UUIDHandler handles A handler to execute with the required information.
 //
 // Used by:
@@ -864,7 +940,7 @@ func NewViewBlock(handler ViewHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// VoidHandler handles The completion handler block to call when the Versions browser is fully dismissed.
+// VoidHandler handles A Block object called when animations for this transaction group are completed.
 //
 // Used by:
 //   - [NSAnimationContext.RunAnimationGroupCompletionHandler]
@@ -932,7 +1008,7 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// WindowErrorHandler handles A block object to execute with the results of creating the window.
+// WindowErrorHandler handles A Block object to execute with the results of creating the window.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -992,6 +1068,7 @@ func NewWindowBlock(handler WindowHandler) (objc.ID, func()) {
 // WorkspaceAuthorizationErrorHandler handles The completion handler to call when the authorization request is completed.
 //   - authorization: The authorization granted for this app. Use it when creating a new [FileManager](<doc://com.apple.documentation/documentation/Foundation/FileManager>) with [init(authorization:)](<doc://com.apple.documentation/documentation/Foundation/FileManager/init(authorization:)>).
 //   - error: `nil` if the app is authorized; otherwise, a pointer to the authorization error.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -1027,4 +1104,3 @@ func NewstructCGRectBlock(handler structCGRectHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

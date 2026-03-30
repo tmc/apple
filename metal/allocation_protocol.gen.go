@@ -23,6 +23,7 @@ type MTLAllocation interface {
 type MTLAllocationObject struct {
 	objectivec.Object
 }
+
 func (o MTLAllocationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,5 +43,4 @@ func MTLAllocationObjectFromID(id objc.ID) MTLAllocationObject {
 func (o MTLAllocationObject) AllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
-	}
-
+}

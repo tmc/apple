@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,11 +46,11 @@ func (ac AVSpeechSynthesisProviderVoiceClass) Alloc() AVSpeechSynthesisProviderV
 // An object that represents a voice that an audio unit provides to its host.
 //
 // # Overview
-// 
+//
 // This is a voice that an [AVSpeechSynthesisProviderAudioUnit] provides to
 // the system, distinct from [AVSpeechSynthesisVoice]. Use [AVSpeechSynthesisProviderVoice.SpeechVoices] to
 // access the underlying [AVSpeechSynthesisVoice] in the voice quality
-// [SpeechSynthesisVoiceQualityEnhanced].
+// [AVSpeechSynthesisVoiceQualityEnhanced].
 //
 // # Creating a voice
 //
@@ -81,6 +82,7 @@ type AVSpeechSynthesisProviderVoice struct {
 func AVSpeechSynthesisProviderVoiceFromID(id objc.ID) AVSpeechSynthesisProviderVoice {
 	return AVSpeechSynthesisProviderVoice{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSpeechSynthesisProviderVoice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -201,7 +203,7 @@ func (s AVSpeechSynthesisProviderVoice) EncodeWithCoder(coder foundation.INSCode
 // Updates the voices your app provides to the system.
 //
 // # Discussion
-// 
+//
 // Use this method to inform the system when you add or remove voices.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/updateSpeechVoices()
@@ -212,7 +214,7 @@ func (_AVSpeechSynthesisProviderVoiceClass AVSpeechSynthesisProviderVoiceClass) 
 // The age of the voice, in years.
 //
 // # Discussion
-// 
+//
 // The system treats this value as a personality trait and defaults to `0`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/age
@@ -223,6 +225,7 @@ func (s AVSpeechSynthesisProviderVoice) Age() int {
 func (s AVSpeechSynthesisProviderVoice) SetAge(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAge:"), value)
 }
+
 // The gender of the voice.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/gender
@@ -233,10 +236,11 @@ func (s AVSpeechSynthesisProviderVoice) Gender() AVSpeechSynthesisVoiceGender {
 func (s AVSpeechSynthesisProviderVoice) SetGender(value AVSpeechSynthesisVoiceGender) {
 	objc.Send[struct{}](s.ID, objc.Sel("setGender:"), value)
 }
+
 // The unique identifier for the voice.
 //
 // # Discussion
-// 
+//
 // Use reverse domain notation to format the identifier. The behavior is
 // undefined unless all voices within an extension have a unique identifier.
 //
@@ -245,6 +249,7 @@ func (s AVSpeechSynthesisProviderVoice) Identifier() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The localized name of the voice.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/name
@@ -252,10 +257,11 @@ func (s AVSpeechSynthesisProviderVoice) Name() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A list of BCP 47 codes that identify the languages the synthesizer uses.
 //
 // # Discussion
-// 
+//
 // These languages are what a voice primarily supports. For example, if the
 // primary language is `zh-CN —` with no additional [SupportedLanguages] —
 // the system may switch voices to speak a phrase that contains other
@@ -267,10 +273,11 @@ func (s AVSpeechSynthesisProviderVoice) PrimaryLanguages() []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("primaryLanguages"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // A list of BCP 47 codes that identify the languages a voice supports.
 //
 // # Discussion
-// 
+//
 // These languages are what a voice supports — when given a multi-language
 // phrase — without the need to switch voice. For example, if the primary
 // language is `zh-CN`, and this value contains `zh-CN` and `en-US`, a
@@ -282,10 +289,11 @@ func (s AVSpeechSynthesisProviderVoice) SupportedLanguages() []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("supportedLanguages"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The version of the voice.
 //
 // # Discussion
-// 
+//
 // This value is for your own tracking and doesn’t impact the behavior of
 // the system.
 //
@@ -297,10 +305,11 @@ func (s AVSpeechSynthesisProviderVoice) Version() string {
 func (s AVSpeechSynthesisProviderVoice) SetVersion(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVersion:"), objc.String(value))
 }
+
 // The size of the voice package on disk, in bytes.
 //
 // # Discussion
-// 
+//
 // This value defaults to `0`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderVoice/voiceSize
@@ -311,6 +320,7 @@ func (s AVSpeechSynthesisProviderVoice) VoiceSize() int64 {
 func (s AVSpeechSynthesisProviderVoice) SetVoiceSize(value int64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVoiceSize:"), value)
 }
+
 // A list of voices the audio unit provides to the system.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avspeechsynthesisprovideraudiounit/speechvoices
@@ -321,4 +331,3 @@ func (s AVSpeechSynthesisProviderVoice) SpeechVoices() IAVSpeechSynthesisProvide
 func (s AVSpeechSynthesisProviderVoice) SetSpeechVoices(value IAVSpeechSynthesisProviderVoice) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpeechVoices:"), value)
 }
-

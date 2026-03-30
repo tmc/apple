@@ -18,6 +18,7 @@ type readableTypeIdentifiersForItemProvider interface {
 type readableTypeIdentifiersForItemProviderObject struct {
 	objectivec.Object
 }
+
 func (o readableTypeIdentifiersForItemProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func readableTypeIdentifiersForItemProviderObjectFromID(id objc.ID) readableType
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

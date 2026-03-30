@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (vc VZVirtioKeyboardInputDeviceConfigurationClass) Alloc() VZVirtioKeyboard
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtioKeyboardInputDeviceConfiguration._keyboardWithDeviceIdentifier]
 //   - [VZVirtioKeyboardInputDeviceConfiguration.EncodeWithEncoder]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioKeyboardInputDeviceConfiguration
 type VZVirtioKeyboardInputDeviceConfiguration struct {
 	VZKeyboardConfiguration
@@ -55,6 +56,7 @@ type VZVirtioKeyboardInputDeviceConfiguration struct {
 func VZVirtioKeyboardInputDeviceConfigurationFromID(id objc.ID) VZVirtioKeyboardInputDeviceConfiguration {
 	return VZVirtioKeyboardInputDeviceConfiguration{VZKeyboardConfiguration: VZKeyboardConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioKeyboardInputDeviceConfiguration implements IVZVirtioKeyboardInputDeviceConfiguration.
 var _ IVZVirtioKeyboardInputDeviceConfiguration = VZVirtioKeyboardInputDeviceConfiguration{}
 
@@ -94,7 +96,6 @@ func NewVZVirtioKeyboardInputDeviceConfiguration() VZVirtioKeyboardInputDeviceCo
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioKeyboardInputDeviceConfiguration/_keyboardWithDeviceIdentifier:
 func (v VZVirtioKeyboardInputDeviceConfiguration) _keyboardWithDeviceIdentifier(identifier uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_keyboardWithDeviceIdentifier:"), identifier)
@@ -105,10 +106,9 @@ func (v VZVirtioKeyboardInputDeviceConfiguration) _keyboardWithDeviceIdentifier(
 func (v VZVirtioKeyboardInputDeviceConfiguration) KeyboardWithDeviceIdentifier(identifier uint32) objectivec.IObject {
 	return v._keyboardWithDeviceIdentifier(identifier)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioKeyboardInputDeviceConfiguration/encodeWithEncoder:
 func (v VZVirtioKeyboardInputDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-

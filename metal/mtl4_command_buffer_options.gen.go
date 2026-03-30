@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +61,7 @@ type MTL4CommandBufferOptions struct {
 func MTL4CommandBufferOptionsFromID(id objc.ID) MTL4CommandBufferOptions {
 	return MTL4CommandBufferOptions{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4CommandBufferOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -105,11 +107,11 @@ func NewMTL4CommandBufferOptions() MTL4CommandBufferOptions {
 // Contains information related to shader logging.
 //
 // # Discussion
-// 
+//
 // To enable shader logging, call [BeginCommandBufferWithAllocatorOptions]
 // with an instance of [MTL4CommandBufferOptions] that contains a non-`nil`
 // [MTLLogState] instance in this property.
-// 
+//
 // Shader functions log messages until the command buffer ends.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBufferOptions/logState
@@ -120,9 +122,9 @@ func (m MTL4CommandBufferOptions) LogState() MTLLogState {
 func (m MTL4CommandBufferOptions) SetLogState(value MTLLogState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLogState:"), value)
 }
+
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CommandBufferOptions) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-

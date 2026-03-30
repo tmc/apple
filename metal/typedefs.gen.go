@@ -4,6 +4,7 @@ package metal
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/foundation"
 )
 
@@ -134,4 +135,3 @@ type NSDeviceCertification = int
 //
 // See: https://developer.apple.com/documentation/Metal/NSProcessPerformanceProfile
 type NSProcessPerformanceProfile = int
-

@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (mc MLModelExecutionScheduleClass) Alloc() MLModelExecutionSchedule {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelExecutionSchedule.ModelExecutionSchedule]
 //   - [MLModelExecutionSchedule.SetModelExecutionSchedule]
 //   - [MLModelExecutionSchedule.ModelExecutionScheduleByModelStructurePath]
 //   - [MLModelExecutionSchedule.SetModelExecutionScheduleByModelStructurePath]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelExecutionSchedule
 type MLModelExecutionSchedule struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type MLModelExecutionSchedule struct {
 func MLModelExecutionScheduleFromID(id objc.ID) MLModelExecutionSchedule {
 	return MLModelExecutionSchedule{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelExecutionSchedule implements IMLModelExecutionSchedule.
 var _ IMLModelExecutionSchedule = MLModelExecutionSchedule{}
 
@@ -109,6 +111,7 @@ func (m MLModelExecutionSchedule) ModelExecutionSchedule() foundation.INSDiction
 func (m MLModelExecutionSchedule) SetModelExecutionSchedule(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelExecutionSchedule:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelExecutionSchedule/modelExecutionScheduleByModelStructurePath
 func (m MLModelExecutionSchedule) ModelExecutionScheduleByModelStructurePath() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelExecutionScheduleByModelStructurePath"))
@@ -117,4 +120,3 @@ func (m MLModelExecutionSchedule) ModelExecutionScheduleByModelStructurePath() f
 func (m MLModelExecutionSchedule) SetModelExecutionScheduleByModelStructurePath(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelExecutionScheduleByModelStructurePath:"), value)
 }
-

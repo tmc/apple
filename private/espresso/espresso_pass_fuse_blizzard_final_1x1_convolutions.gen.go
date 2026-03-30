@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_fuse_blizzard_final_1x1_convolutions struct {
 func EspressoPass_fuse_blizzard_final_1x1_convolutionsFromID(id objc.ID) EspressoPass_fuse_blizzard_final_1x1_convolutions {
 	return EspressoPass_fuse_blizzard_final_1x1_convolutions{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_fuse_blizzard_final_1x1_convolutions implements IEspressoPass_fuse_blizzard_final_1x1_convolutions.
 var _ IEspressoPass_fuse_blizzard_final_1x1_convolutions = EspressoPass_fuse_blizzard_final_1x1_convolutions{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_fuse_blizzard_final_1x1_convolutions() EspressoPass_fuse_bl
 	rv := objc.Send[EspressoPass_fuse_blizzard_final_1x1_convolutions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

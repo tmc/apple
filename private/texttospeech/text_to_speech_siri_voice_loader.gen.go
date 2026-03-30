@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechSiriVoiceLoader struct {
 func TextToSpeechSiriVoiceLoaderFromID(id objc.ID) TextToSpeechSiriVoiceLoader {
 	return TextToSpeechSiriVoiceLoader{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechSiriVoiceLoader struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechSiriVoiceLoader embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechSiriVoiceLoader() TextToSpeechSiriVoiceLoader {
 	rv := objc.Send[TextToSpeechSiriVoiceLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

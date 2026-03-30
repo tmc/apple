@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (nc NSSymbolDrawOffEffectClass) Alloc() NSSymbolDrawOffEffect {
 // A symbol effect that applies the DrawOff animation to symbol images.
 //
 // # Overview
-// 
+//
 // The DrawOff animation makes the symbol hidden either as a whole, or one
 // motion group at a time, animating parts of the symbol with draw data.
 //
@@ -66,6 +67,7 @@ type NSSymbolDrawOffEffect struct {
 func NSSymbolDrawOffEffectFromID(id objc.ID) NSSymbolDrawOffEffect {
 	return NSSymbolDrawOffEffect{NSSymbolEffect: NSSymbolEffectFromID(id)}
 }
+
 // Ensure NSSymbolDrawOffEffect implements INSSymbolDrawOffEffect.
 var _ INSSymbolDrawOffEffect = NSSymbolDrawOffEffect{}
 
@@ -124,6 +126,7 @@ func (s NSSymbolDrawOffEffect) EffectWithByLayer() INSSymbolDrawOffEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolDrawOffEffectFromID(rv)
 }
+
 // Returns a copy of the effect requesting an animation that applies
 // separately to each motion group, where only one motion group is active at a
 // time.
@@ -133,6 +136,7 @@ func (s NSSymbolDrawOffEffect) EffectWithIndividually() INSSymbolDrawOffEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithIndividually"))
 	return NSSymbolDrawOffEffectFromID(rv)
 }
+
 // Returns a copy of the effect that only animates forwards. This cancels the
 // reversed variant.
 //
@@ -141,6 +145,7 @@ func (s NSSymbolDrawOffEffect) EffectWithNonReversed() INSSymbolDrawOffEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithNonReversed"))
 	return NSSymbolDrawOffEffectFromID(rv)
 }
+
 // Returns a copy of the effect that animates in reverse. This cancels the
 // nonReversed variant.
 //
@@ -149,6 +154,7 @@ func (s NSSymbolDrawOffEffect) EffectWithReversed() INSSymbolDrawOffEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithReversed"))
 	return NSSymbolDrawOffEffectFromID(rv)
 }
+
 // Returns a copy of the effect requesting an animation that applies to all
 // motion groups simultaneously.
 //
@@ -165,4 +171,3 @@ func (_NSSymbolDrawOffEffectClass NSSymbolDrawOffEffectClass) Effect() NSSymbolD
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolDrawOffEffectClass.class), objc.Sel("effect"))
 	return NSSymbolDrawOffEffectFromID(rv)
 }
-

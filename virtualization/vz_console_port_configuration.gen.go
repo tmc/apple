@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZConsolePortConfigurationClass) Alloc() VZConsolePortConfiguration {
 // The base class for a console port configuration.
 //
 // # Overview
-// 
+//
 // Don’t instantiate [VZConsolePortConfiguration] directly, instead use one
 // of its subclasses like [VZVirtioConsolePortConfiguration].
 //
@@ -64,6 +65,7 @@ type VZConsolePortConfiguration struct {
 func VZConsolePortConfigurationFromID(id objc.ID) VZConsolePortConfiguration {
 	return VZConsolePortConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZConsolePortConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,4 +116,3 @@ func (c VZConsolePortConfiguration) Attachment() IVZSerialPortAttachment {
 func (c VZConsolePortConfiguration) SetAttachment(value IVZSerialPortAttachment) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAttachment:"), value)
 }
-

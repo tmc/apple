@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -47,7 +48,7 @@ func (ac AVCustomMediaSelectionSchemeClass) Alloc() AVCustomMediaSelectionScheme
 // controlling the presentation of the media.
 //
 // # Overview
-// 
+//
 // Each selectable setting is associated with a media characteristic that one
 // or more of the AVMediaSelectionOptions in the AVMediaSelectionGroup
 // possesses. By selecting a setting in a user interface based on an
@@ -78,6 +79,7 @@ type AVCustomMediaSelectionScheme struct {
 func AVCustomMediaSelectionSchemeFromID(id objc.ID) AVCustomMediaSelectionScheme {
 	return AVCustomMediaSelectionScheme{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCustomMediaSelectionScheme adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -142,7 +144,7 @@ func NewAVCustomMediaSelectionScheme() AVCustomMediaSelectionScheme {
 // setting for any selector.
 //
 // # Discussion
-// 
+//
 // If the content is authored to provide a collection of
 // AVMediaSelectionOptions that include one or more with all of the
 // combinations of media characteristics of the specified
@@ -163,7 +165,7 @@ func (c AVCustomMediaSelectionScheme) MediaPresentationSettingsForSelectorComple
 // Provides available language choices.
 //
 // # Discussion
-// 
+//
 // Each string in the array is intended to be interpreted as a BCP 47 language
 // tag.
 //
@@ -172,6 +174,7 @@ func (c AVCustomMediaSelectionScheme) AvailableLanguages() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availableLanguages"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Provides custom settings.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCustomMediaSelectionScheme/selectors
@@ -181,6 +184,7 @@ func (c AVCustomMediaSelectionScheme) Selectors() []AVMediaPresentationSelector 
 		return AVMediaPresentationSelectorFromID(id)
 	})
 }
+
 // Indicates whether an alternative selection interface should provide a menu
 // of language choices.
 //
@@ -189,4 +193,3 @@ func (c AVCustomMediaSelectionScheme) ShouldOfferLanguageSelection() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("shouldOfferLanguageSelection"))
 	return rv
 }
-

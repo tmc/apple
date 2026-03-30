@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,6 +53,7 @@ type MLClassifier struct {
 func MLClassifierFromID(id objc.ID) MLClassifier {
 	return MLClassifier{objectivec.Object{ID: id}}
 }
+
 // Ensure MLClassifier implements IMLClassifier.
 var _ IMLClassifier = MLClassifier{}
 
@@ -78,4 +80,3 @@ func NewMLClassifier() MLClassifier {
 	rv := objc.Send[MLClassifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

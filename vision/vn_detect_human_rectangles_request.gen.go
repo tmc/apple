@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -63,6 +64,7 @@ type VNDetectHumanRectanglesRequest struct {
 func VNDetectHumanRectanglesRequestFromID(id objc.ID) VNDetectHumanRectanglesRequest {
 	return VNDetectHumanRectanglesRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectHumanRectanglesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,7 +122,7 @@ func NewVNDetectHumanRectanglesRequest() VNDetectHumanRectanglesRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -136,11 +138,9 @@ func NewDetectHumanRectanglesRequestWithCompletionHandler(completionHandler VNRe
 // full body or upper body only to produce a result.
 //
 // # Discussion
-// 
-// The default value of [true] indicates that the request requires detecting a
-// person’s upper body only to find the bound box around it.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of true indicates that the request requires detecting a
+// person’s upper body only to find the bound box around it.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanRectanglesRequest/upperBodyOnly
 func (d VNDetectHumanRectanglesRequest) UpperBodyOnly() bool {
@@ -150,6 +150,7 @@ func (d VNDetectHumanRectanglesRequest) UpperBodyOnly() bool {
 func (d VNDetectHumanRectanglesRequest) SetUpperBodyOnly(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUpperBodyOnly:"), value)
 }
+
 // A constant for specifying revision 2 of the human rectangles detection
 // request.
 //
@@ -158,6 +159,7 @@ func (d VNDetectHumanRectanglesRequest) VNDetectHumanRectanglesRequestRevision2(
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHumanRectanglesRequestRevision2"))
 	return rv
 }
+
 // A constant for specifying revision 1 of the human rectangles detection
 // request.
 //
@@ -166,4 +168,3 @@ func (d VNDetectHumanRectanglesRequest) VNDetectHumanRectanglesRequestRevision1(
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHumanRectanglesRequestRevision1"))
 	return rv
 }
-

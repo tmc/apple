@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechSSELoaderManager struct {
 func TextToSpeechSSELoaderManagerFromID(id objc.ID) TextToSpeechSSELoaderManager {
 	return TextToSpeechSSELoaderManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechSSELoaderManager struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechSSELoaderManager embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechSSELoaderManager() TextToSpeechSSELoaderManager {
 	rv := objc.Send[TextToSpeechSSELoaderManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

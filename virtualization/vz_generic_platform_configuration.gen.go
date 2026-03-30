@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -60,6 +61,7 @@ type VZGenericPlatformConfiguration struct {
 func VZGenericPlatformConfigurationFromID(id objc.ID) VZGenericPlatformConfiguration {
 	return VZGenericPlatformConfiguration{VZPlatformConfiguration: VZPlatformConfigurationFromID(id)}
 }
+
 // NOTE: VZGenericPlatformConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,6 +117,7 @@ func (g VZGenericPlatformConfiguration) MachineIdentifier() IVZGenericMachineIde
 func (g VZGenericPlatformConfiguration) SetMachineIdentifier(value IVZGenericMachineIdentifier) {
 	objc.Send[struct{}](g.ID, objc.Sel("setMachineIdentifier:"), value)
 }
+
 // A Boolean value that indicates whether nested virtualization is in an
 // enabled state.
 //
@@ -131,7 +134,7 @@ func (g VZGenericPlatformConfiguration) SetNestedVirtualizationEnabled(value boo
 // nested virtualization.
 //
 // # Discussion
-// 
+//
 // Use this property to check whether support is available for the platform.
 // As the following example shows, if the framework supports nested
 // virtualization on the host, use [NestedVirtualizationEnabled] to enable the
@@ -142,4 +145,3 @@ func (_VZGenericPlatformConfigurationClass VZGenericPlatformConfigurationClass) 
 	rv := objc.Send[bool](objc.ID(_VZGenericPlatformConfigurationClass.class), objc.Sel("isNestedVirtualizationSupported"))
 	return rv
 }
-

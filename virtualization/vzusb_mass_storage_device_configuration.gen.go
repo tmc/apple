@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZUSBMassStorageDeviceConfiguration] class.
@@ -58,6 +59,7 @@ type VZUSBMassStorageDeviceConfiguration struct {
 func VZUSBMassStorageDeviceConfigurationFromID(id objc.ID) VZUSBMassStorageDeviceConfiguration {
 	return VZUSBMassStorageDeviceConfiguration{VZStorageDeviceConfiguration: VZStorageDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZUSBMassStorageDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,9 +123,9 @@ func (u VZUSBMassStorageDeviceConfiguration) InitWithAttachment(attachment IVZSt
 // The device’s unique identifier.
 //
 // # Discussion
-// 
+//
 // The framework autogenerates the device UUID.
-// 
+//
 // Before restoring the VM, you need to set the device’s UUID to the UUID of
 // the device with the attachment at the time of saving the VM’s state.
 //
@@ -136,6 +138,4 @@ func (u VZUSBMassStorageDeviceConfiguration) SetUuid(value foundation.NSUUID) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUuid:"), value)
 }
 
-			// Protocol methods for VZUSBDeviceConfiguration
-			
-
+// Protocol methods for VZUSBDeviceConfiguration

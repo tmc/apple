@@ -4,6 +4,7 @@ package vmnet
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 )
 
@@ -53,6 +54,7 @@ var (
 	// See: https://developer.apple.com/documentation/vmnet/vmnet_write_max_packets_key
 	vmnet_write_max_packets_key int8
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -147,4 +149,3 @@ func init() {
 	}
 
 }
-

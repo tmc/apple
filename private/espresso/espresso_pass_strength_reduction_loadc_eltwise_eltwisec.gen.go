@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_strength_reduction_loadc_eltwise__eltwisec struct {
 func EspressoPass_strength_reduction_loadc_eltwise__eltwisecFromID(id objc.ID) EspressoPass_strength_reduction_loadc_eltwise__eltwisec {
 	return EspressoPass_strength_reduction_loadc_eltwise__eltwisec{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_strength_reduction_loadc_eltwise__eltwisec implements IEspressoPass_strength_reduction_loadc_eltwise__eltwisec.
 var _ IEspressoPass_strength_reduction_loadc_eltwise__eltwisec = EspressoPass_strength_reduction_loadc_eltwise__eltwisec{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_strength_reduction_loadc_eltwise__eltwisec() EspressoPass_s
 	rv := objc.Send[EspressoPass_strength_reduction_loadc_eltwise__eltwisec](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

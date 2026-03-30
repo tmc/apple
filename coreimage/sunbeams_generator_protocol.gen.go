@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -90,6 +90,7 @@ type CISunbeamsGenerator interface {
 type CISunbeamsGeneratorObject struct {
 	objectivec.Object
 }
+
 func (o CISunbeamsGeneratorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -108,49 +109,56 @@ func CISunbeamsGeneratorObjectFromID(id objc.ID) CISunbeamsGeneratorObject {
 func (o CISunbeamsGeneratorObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The color of the sun.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/color
 func (o CISunbeamsGeneratorObject) Color() ICIColor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
-	}
+}
+
 // The radius of the sunbeams.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/maxStriationRadius
 func (o CISunbeamsGeneratorObject) MaxStriationRadius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("maxStriationRadius"))
 	return rv
-	}
+}
+
 // The contrast of the sunbeams.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationContrast
 func (o CISunbeamsGeneratorObject) StriationContrast() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("striationContrast"))
 	return rv
-	}
+}
+
 // The intensity of the sunbeams.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationStrength
 func (o CISunbeamsGeneratorObject) StriationStrength() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("striationStrength"))
 	return rv
-	}
+}
+
 // The radius of the sun.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/sunRadius
 func (o CISunbeamsGeneratorObject) SunRadius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("sunRadius"))
 	return rv
-	}
+}
+
 // The duration of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/time
 func (o CISunbeamsGeneratorObject) Time() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -158,33 +166,53 @@ func (o CISunbeamsGeneratorObject) Time() float32 {
 func (o CISunbeamsGeneratorObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The x and y position to use as the center of the sunbeam pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/center
 func (o CISunbeamsGeneratorObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The color of the sun.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/color
 func (o CISunbeamsGeneratorObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
 
+// The radius of the sunbeams.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/maxStriationRadius
 func (o CISunbeamsGeneratorObject) SetMaxStriationRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaxStriationRadius:"), value)
 }
 
+// The contrast of the sunbeams.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationContrast
 func (o CISunbeamsGeneratorObject) SetStriationContrast(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStriationContrast:"), value)
 }
 
+// The intensity of the sunbeams.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationStrength
 func (o CISunbeamsGeneratorObject) SetStriationStrength(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStriationStrength:"), value)
 }
 
+// The radius of the sun.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/sunRadius
 func (o CISunbeamsGeneratorObject) SetSunRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSunRadius:"), value)
 }
 
+// The duration of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/time
 func (o CISunbeamsGeneratorObject) SetTime(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTime:"), value)
 }
-

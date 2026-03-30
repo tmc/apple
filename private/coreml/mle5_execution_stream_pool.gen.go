@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLE5ExecutionStreamPoolClass) Alloc() MLE5ExecutionStreamPool {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLE5ExecutionStreamPool._emitMappingTracepointForStream]
@@ -55,6 +55,7 @@ func (mc MLE5ExecutionStreamPoolClass) Alloc() MLE5ExecutionStreamPool {
 //   - [MLE5ExecutionStreamPool.SerialQueue]
 //   - [MLE5ExecutionStreamPool.TakeOut]
 //   - [MLE5ExecutionStreamPool.InitWithModelConfigurationModelSignpostId]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool
 type MLE5ExecutionStreamPool struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type MLE5ExecutionStreamPool struct {
 func MLE5ExecutionStreamPoolFromID(id objc.ID) MLE5ExecutionStreamPool {
 	return MLE5ExecutionStreamPool{objectivec.Object{ID: id}}
 }
+
 // Ensure MLE5ExecutionStreamPool implements IMLE5ExecutionStreamPool.
 var _ IMLE5ExecutionStreamPool = MLE5ExecutionStreamPool{}
 
@@ -119,7 +121,6 @@ func NewMLE5ExecutionStreamPool() MLE5ExecutionStreamPool {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/initWithModelConfiguration:modelSignpostId:
 func NewE5ExecutionStreamPoolWithModelConfigurationModelSignpostId(configuration objectivec.IObject, id uint64) MLE5ExecutionStreamPool {
 	instance := getMLE5ExecutionStreamPoolClass().Alloc()
@@ -127,7 +128,6 @@ func NewE5ExecutionStreamPoolWithModelConfigurationModelSignpostId(configuration
 	return MLE5ExecutionStreamPoolFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/_emitMappingTracepointForStream:
 func (e MLE5ExecutionStreamPool) _emitMappingTracepointForStream(stream objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("_emitMappingTracepointForStream:"), stream)
@@ -137,21 +137,23 @@ func (e MLE5ExecutionStreamPool) _emitMappingTracepointForStream(stream objectiv
 func (e MLE5ExecutionStreamPool) EmitMappingTracepointForStream(stream objectivec.IObject) {
 	e._emitMappingTracepointForStream(stream)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/enableInstrumentsTracing
 func (e MLE5ExecutionStreamPool) EnableInstrumentsTracing() {
 	objc.Send[objc.ID](e.ID, objc.Sel("enableInstrumentsTracing"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/putBack:
 func (e MLE5ExecutionStreamPool) PutBack(back objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("putBack:"), back)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/takeOut
 func (e MLE5ExecutionStreamPool) TakeOut() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("takeOut"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/initWithModelConfiguration:modelSignpostId:
 func (e MLE5ExecutionStreamPool) InitWithModelConfigurationModelSignpostId(configuration objectivec.IObject, id uint64) MLE5ExecutionStreamPool {
 	rv := objc.Send[MLE5ExecutionStreamPool](e.ID, objc.Sel("initWithModelConfiguration:modelSignpostId:"), configuration, id)
@@ -163,24 +165,27 @@ func (e MLE5ExecutionStreamPool) AllStreams() foundation.INSSet {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("allStreams"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/modelConfiguration
 func (e MLE5ExecutionStreamPool) ModelConfiguration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("modelConfiguration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/modelSignpostId
 func (e MLE5ExecutionStreamPool) ModelSignpostId() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("modelSignpostId"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/pool
 func (e MLE5ExecutionStreamPool) Pool() foundation.INSSet {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("pool"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5ExecutionStreamPool/serialQueue
 func (e MLE5ExecutionStreamPool) SerialQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("serialQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-

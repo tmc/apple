@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNHorizonObservation] class.
@@ -44,7 +45,7 @@ func (vc VNHorizonObservationClass) Alloc() VNHorizonObservation {
 // The horizon angle information that an image-analysis request detects.
 //
 // # Overview
-// 
+//
 // Instances of this class result from invoking a [VNDetectHorizonRequest],
 // and report the [VNHorizonObservation.Angle] and [VNHorizonObservation.Transform] of the horizon in an image.
 //
@@ -65,6 +66,7 @@ type VNHorizonObservation struct {
 func VNHorizonObservationFromID(id objc.ID) VNHorizonObservation {
 	return VNHorizonObservation{VNObservation: VNObservationFromID(id)}
 }
+
 // NOTE: VNHorizonObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,7 +118,7 @@ func NewVNHorizonObservation() VNHorizonObservation {
 // height: The height of the image.
 //
 // # Return Value
-// 
+//
 // An affine transform.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHorizonObservation/transform(forImageWidth:height:)
@@ -128,7 +130,7 @@ func (h VNHorizonObservation) TransformForImageWidthHeight(width uintptr, height
 // The angle of the observed horizon.
 //
 // # Discussion
-// 
+//
 // Use the angle to orient the image in an upright position and make the
 // detected horizon level.
 //
@@ -137,10 +139,11 @@ func (h VNHorizonObservation) Angle() float64 {
 	rv := objc.Send[float64](h.ID, objc.Sel("angle"))
 	return rv
 }
+
 // The transform to apply to the detected horizon.
 //
 // # Discussion
-// 
+//
 // Apply the transform’s inverse to orient the image in an upright position
 // and make the detected horizon level.
 //
@@ -149,4 +152,3 @@ func (h VNHorizonObservation) Transform() corefoundation.CGAffineTransform {
 	rv := objc.Send[corefoundation.CGAffineTransform](h.ID, objc.Sel("transform"))
 	return corefoundation.CGAffineTransform(rv)
 }
-

@@ -3,9 +3,9 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -35,6 +35,7 @@ type NSTextAttachmentLayout interface {
 type NSTextAttachmentLayoutObject struct {
 	objectivec.Object
 }
+
 func (o NSTextAttachmentLayoutObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -50,30 +51,22 @@ func NSTextAttachmentLayoutObjectFromID(id objc.ID) NSTextAttachmentLayoutObject
 // Returns the layout bounds of the attachment you specify.
 //
 // attributes: A dictionary of [NSAttributedString.Key] attributes.
-// //
-// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 //
 // location: An [NSTextLocation] that indicates that start of the string.
 //
 // textContainer: The [NSTextContainer] that contains the source text.
 //
 // proposedLineFragment: A [CGRect] that describes the boundaries of the line fragment.
-// //
-// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 //
 // position: A [CGPoint] inside `proposedLineFragment`.
-// //
-// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
 //
 // # Return Value
-// 
+//
 // Returns a [CGRect] that describes the boundaries of the attachment, or
 // `CGRectZero.`
 //
-// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
-//
 // # Discussion
-// 
+//
 // The framework interprets the bounds origin to match `position` inside
 // `proposedLineFragment`. The default [NSTextAttachment] implementation
 // returns bounds if the value isn’t equivalent to [CGRectZero]; otherwise,
@@ -81,34 +74,36 @@ func NSTextAttachmentLayoutObjectFromID(id objc.ID) NSTextAttachmentLayoutObject
 // implement more sophisticated logic for negotiating the frame size based on
 // the available container space and proposed line fragment rectangle.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/attachmentBounds(for:location:textContainer:proposedLineFragment:position:)
+//
+// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
+// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
+// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
 // [CGRectZero]: https://developer.apple.com/documentation/CoreGraphics/CGRectZero
 //
-// See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/attachmentBounds(for:location:textContainer:proposedLineFragment:position:)
+// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 func (o NSTextAttachmentLayoutObject) AttachmentBoundsForAttributesLocationTextContainerProposedLineFragmentPosition(attributes foundation.INSDictionary, location NSTextLocation, textContainer INSTextContainer, proposedLineFragment corefoundation.CGRect, position corefoundation.CGPoint) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("attachmentBoundsForAttributes:location:textContainer:proposedLineFragment:position:"), attributes, location, textContainer, proposedLineFragment, position)
 	return rv
-	}
+}
+
 // Returns the image object rendered at the bounds and inside the text
 // container you specify.
 //
 // bounds: The [CGRect] that presents the image boundaries inside `textContainer`.
-// //
-// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 //
 // attributes: A dictionary of [NSAttributedString.Key] attributes.
-// //
-// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 //
 // location: An [NSTextLocation] that indicates that start of the string.
 //
 // textContainer: The [NSTextContainer] that contains the source text.
 //
 // # Return Value
-// 
+//
 // An optional image object.
 //
 // # Discussion
-// 
+//
 // A custom implementation should return an image appropriate for the target
 // rendering context that you derive by arguments to this method. The default
 // [NSTextAttachment] implementation returns the contents of the `image`
@@ -116,10 +111,14 @@ func (o NSTextAttachmentLayoutObject) AttachmentBoundsForAttributesLocationTextC
 // image based on the `contents` and `fileType` properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/image(for:attributes:location:textContainer:)
+//
+// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
+// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 func (o NSTextAttachmentLayoutObject) ImageForBoundsAttributesLocationTextContainer(bounds corefoundation.CGRect, attributes foundation.INSDictionary, location NSTextLocation, textContainer INSTextContainer) INSImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageForBounds:attributes:location:textContainer:"), bounds, attributes, location, textContainer)
 	return NSImageFromID(rv)
-	}
+}
+
 // Returns the text attachment view provider corresponding to the file type.
 //
 // parentView: The parent view.
@@ -129,11 +128,11 @@ func (o NSTextAttachmentLayoutObject) ImageForBoundsAttributesLocationTextContai
 // textContainer: The[NSTextContainer] that contains the source text.
 //
 // # Return Value
-// 
+//
 // An [NSTextAttachmentViewProvider].
 //
 // # Discussion
-// 
+//
 // The default implementation queries the text attachment view provider class
 // using the [TextAttachmentViewProviderClassForFileType] method of
 // [NSTextAttachment]. When non-`nil`, it instantiates a view, then, fills
@@ -143,5 +142,4 @@ func (o NSTextAttachmentLayoutObject) ImageForBoundsAttributesLocationTextContai
 func (o NSTextAttachmentLayoutObject) ViewProviderForParentViewLocationTextContainer(parentView INSView, location NSTextLocation, textContainer INSTextContainer) INSTextAttachmentViewProvider {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("viewProviderForParentView:location:textContainer:"), parentView, location, textContainer)
 	return NSTextAttachmentViewProviderFromID(rv)
-	}
-
+}

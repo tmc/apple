@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,11 +46,11 @@ func (nc NSInvocationOperationClass) Alloc() NSInvocationOperation {
 // specified as an invocation.
 //
 // # Overview
-// 
+//
 // The [NSInvocationOperation] class is a concrete subclass of [NSOperation]
 // that you use to initiate an operation that consists of invoking a selector
 // on a specified object. This class implements a non-concurrent operation.
-// 
+//
 // For more information on concurrent versus non-concurrent operations, see
 // [NSOperation].
 //
@@ -75,6 +76,7 @@ type NSInvocationOperation struct {
 func NSInvocationOperationFromID(id objc.ID) NSInvocationOperation {
 	return NSInvocationOperation{NSOperation: NSOperationFromID(id)}
 }
+
 // Ensure NSInvocationOperation implements INSInvocationOperation.
 var _ INSInvocationOperation = NSInvocationOperation{}
 
@@ -135,12 +137,12 @@ func NewNSInvocationOperation() NSInvocationOperation {
 // parameter objects.
 //
 // # Return Value
-// 
+//
 // An initialized [NSInvocationOperation] object or `nil` if the object could
 // not be initialized.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer. The receiver tells the
 // invocation object to retain its arguments.
 //
@@ -165,12 +167,12 @@ func NewInvocationOperationWithInvocation(inv INSInvocation) NSInvocationOperati
 // an argument, specify `nil`.
 //
 // # Return Value
-// 
+//
 // An initialized [NSInvocationOperation] object or `nil` if the target object
 // does not implement the specified selector.
 //
 // # Discussion
-// 
+//
 // If you specify a selector with a non-void return type, you can get the
 // return value by calling the [Result] method after the operation finishes
 // executing. The receiver tells the invocation object to retain its
@@ -197,12 +199,12 @@ func NewInvocationOperationWithTargetSelectorObject(target objectivec.IObject, s
 // an argument, specify `nil`.
 //
 // # Return Value
-// 
+//
 // An initialized [NSInvocationOperation] object or `nil` if the target object
 // does not implement the specified selector.
 //
 // # Discussion
-// 
+//
 // If you specify a selector with a non-void return type, you can get the
 // return value by calling the [Result] method after the operation finishes
 // executing. The receiver tells the invocation object to retain its
@@ -213,6 +215,7 @@ func (i NSInvocationOperation) InitWithTargetSelectorObject(target objectivec.IO
 	rv := objc.Send[NSInvocationOperation](i.ID, objc.Sel("initWithTarget:selector:object:"), target, sel, arg)
 	return rv
 }
+
 // Returns an [NSInvocationOperation] object initialized with the specified
 // invocation object.
 //
@@ -220,12 +223,12 @@ func (i NSInvocationOperation) InitWithTargetSelectorObject(target objectivec.IO
 // parameter objects.
 //
 // # Return Value
-// 
+//
 // An initialized [NSInvocationOperation] object or `nil` if the object could
 // not be initialized.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer. The receiver tells the
 // invocation object to retain its arguments.
 //
@@ -238,7 +241,7 @@ func (i NSInvocationOperation) InitWithInvocation(inv INSInvocation) NSInvocatio
 // The receiver’s invocation object.
 //
 // # Discussion
-// 
+//
 // The invocation object identifying the target object, selector, and
 // parameters to use to execute the operation’s task.
 //
@@ -247,24 +250,24 @@ func (i NSInvocationOperation) Invocation() INSInvocation {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("invocation"))
 	return NSInvocationFromID(objc.ID(rv))
 }
+
 // The result of the invocation or method.
 //
 // # Discussion
-// 
+//
 // The object returned by the method or an [NSValue] object containing the
 // return value if it is not an object. `nil` if the method or invocation is
 // not finished executing.
-// 
+//
 // If an exception was raised during the execution of the method or
 // invocation, accessing this property raises that exception again. If the
 // operation was cancelled or the invocation or method has a `void` return
 // type, accessing this property raises an exception; see [Result Exceptions].
 //
-// [Result Exceptions]: https://developer.apple.com/documentation/Foundation/result-exceptions
-//
 // See: https://developer.apple.com/documentation/Foundation/NSInvocationOperation/result
+//
+// [Result Exceptions]: https://developer.apple.com/documentation/Foundation/result-exceptions
 func (i NSInvocationOperation) Result() objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("result"))
 	return objectivec.Object{ID: rv}
 }
-

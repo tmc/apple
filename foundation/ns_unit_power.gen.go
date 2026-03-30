@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,19 +44,19 @@ func (uc UnitPowerClass) Alloc() UnitPower {
 // A unit of measure for power.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitPower] to represent specific
 // quantities of power using the [NSMeasurement] class.
-// 
+//
 // # Power
-// 
+//
 // Power is the amount of energy used over time. The SI unit for power is the
 // watt (W), which is derived as one joule per second (1W = 1J / 1s).
-// 
+//
 // The [NSUnitPower] class defines its [BaseUnit] as [Watts], and provides the
 // following units, which are initialized using [NSUnitConverterLinear]
 // converters with the specified coefficients:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower
@@ -72,6 +73,7 @@ func UnitPowerFromID(id objc.ID) UnitPower {
 
 // NSUnitPowerFromID is an alias for [UnitPowerFromID] for cross-framework compatibility.
 func NSUnitPowerFromID(id objc.ID) UnitPower { return UnitPowerFromID(id) }
+
 // NOTE: UnitPower adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -101,7 +103,6 @@ func NewUnitPower() UnitPower {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitPowerWithCoder(coder INSCoder) UnitPower {
 	instance := getUnitPowerClass().Alloc()
@@ -114,7 +115,7 @@ func NewUnitPowerWithCoder(coder INSCoder) UnitPower {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -133,11 +134,11 @@ func NewUnitPowerWithSymbol(symbol string) UnitPower {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -154,6 +155,7 @@ func (_UnitPowerClass UnitPowerClass) Terawatts() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("terawatts"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
+
 // The gigawatts unit of power.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower/gigawatts
@@ -161,6 +163,7 @@ func (_UnitPowerClass UnitPowerClass) Gigawatts() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("gigawatts"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
+
 // The megawatts unit of power.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower/megawatts
@@ -168,6 +171,7 @@ func (_UnitPowerClass UnitPowerClass) Megawatts() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("megawatts"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
+
 // The kilowatts unit of power.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower/kilowatts
@@ -175,6 +179,7 @@ func (_UnitPowerClass UnitPowerClass) Kilowatts() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("kilowatts"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
+
 // The watts unit of power.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower/watts
@@ -182,6 +187,7 @@ func (_UnitPowerClass UnitPowerClass) Watts() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("watts"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
+
 // The milliwatts unit of power.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower/milliwatts
@@ -189,6 +195,7 @@ func (_UnitPowerClass UnitPowerClass) Milliwatts() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("milliwatts"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
+
 // The microwatts unit of power.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower/microwatts
@@ -196,6 +203,7 @@ func (_UnitPowerClass UnitPowerClass) Microwatts() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("microwatts"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
+
 // The nanowatts unit of power.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower/nanowatts
@@ -203,6 +211,7 @@ func (_UnitPowerClass UnitPowerClass) Nanowatts() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("nanowatts"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
+
 // The picowatts unit of power.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower/picowatts
@@ -210,6 +219,7 @@ func (_UnitPowerClass UnitPowerClass) Picowatts() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("picowatts"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
+
 // The femtowatts unit of power.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower/femtowatts
@@ -217,6 +227,7 @@ func (_UnitPowerClass UnitPowerClass) Femtowatts() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("femtowatts"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
+
 // The horsepower unit of power.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitPower/horsepower
@@ -224,4 +235,3 @@ func (_UnitPowerClass UnitPowerClass) Horsepower() UnitPower {
 	rv := objc.Send[objc.ID](objc.ID(_UnitPowerClass.class), objc.Sel("horsepower"))
 	return NSUnitPowerFromID(objc.ID(rv))
 }
-

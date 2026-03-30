@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (mc MLModelStructureProgramBindingClass) Alloc() MLModelStructureProgramBin
 // A class representing a binding in the Program
 //
 // # Overview
-// 
+//
 // A Binding is either a previously defined name of a variable or a constant
 // value in the Program.
 //
@@ -65,6 +66,7 @@ type MLModelStructureProgramBinding struct {
 func MLModelStructureProgramBindingFromID(id objc.ID) MLModelStructureProgramBinding {
 	return MLModelStructureProgramBinding{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgramBinding implements IMLModelStructureProgramBinding.
 var _ IMLModelStructureProgramBinding = MLModelStructureProgramBinding{}
 
@@ -113,6 +115,7 @@ func (m MLModelStructureProgramBinding) Name() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The compile time constant value in the Program.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBinding/value
@@ -120,4 +123,3 @@ func (m MLModelStructureProgramBinding) Value() IMLModelStructureProgramValue {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("value"))
 	return MLModelStructureProgramValueFromID(objc.ID(rv))
 }
-

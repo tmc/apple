@@ -18,6 +18,7 @@ type MTLFunctionStitchingAttribute interface {
 type MTLFunctionStitchingAttributeObject struct {
 	objectivec.Object
 }
+
 func (o MTLFunctionStitchingAttributeObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func MTLFunctionStitchingAttributeObjectFromID(id objc.ID) MTLFunctionStitchingA
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for AppKit. DO NOT EDIT.
 
 // Package appkit provides Go bindings for the AppKit framework.
@@ -60,6 +59,10 @@
 //
 //   - Deprecated Symbols: Review symbols that are no longer supported, and find the replacements to use instead. ([NSFormCell], [NSMenuItemCell], [NSEditorRegistration], [NSInputServiceProvider], [NSInputServerMouseTracker])
 //
+// # Variables
+//
+//   - NSAttachmentCharacter
+//
 // # Key Types
 //
 //   - [NSView] - The infrastructure for drawing, printing, and handling events in an app.
@@ -79,20 +82,28 @@ package appkit
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/AppKit.framework/AppKit"
+// frameworkPaths lists paths to try when loading the AppKit library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/AppKit.framework/AppKit",
+	"/usr/lib/libAppKit.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: AppKit: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: AppKit: failed to load framework from any known path\n")
 }
-

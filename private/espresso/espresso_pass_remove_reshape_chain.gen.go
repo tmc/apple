@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_remove_reshape_chain struct {
 func EspressoPass_remove_reshape_chainFromID(id objc.ID) EspressoPass_remove_reshape_chain {
 	return EspressoPass_remove_reshape_chain{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_remove_reshape_chain implements IEspressoPass_remove_reshape_chain.
 var _ IEspressoPass_remove_reshape_chain = EspressoPass_remove_reshape_chain{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_remove_reshape_chain() EspressoPass_remove_reshape_chain {
 	rv := objc.Send[EspressoPass_remove_reshape_chain](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

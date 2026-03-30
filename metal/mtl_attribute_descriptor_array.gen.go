@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (mc MTLAttributeDescriptorArrayClass) Alloc() MTLAttributeDescriptorArray {
 // An array of attribute descriptor objects.
 //
 // # Overview
-// 
+//
 // An [MTLAttributeDescriptorArray] defines the data format and index binding
 // for the attribute argument table, using [MTLAttributeDescriptor] instances.
 //
@@ -63,6 +64,7 @@ type MTLAttributeDescriptorArray struct {
 func MTLAttributeDescriptorArrayFromID(id objc.ID) MTLAttributeDescriptorArray {
 	return MTLAttributeDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLAttributeDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,7 +114,7 @@ func NewMTLAttributeDescriptorArray() MTLAttributeDescriptorArray {
 // index: A specified index in the argument table bindings.
 //
 // # Return Value
-// 
+//
 // The attribute descriptor for data bound at this index.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttributeDescriptorArray/subscript(_:)
@@ -120,6 +122,7 @@ func (a MTLAttributeDescriptorArray) ObjectAtIndexedSubscript(index uint) IMTLAt
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("objectAtIndexedSubscript:"), index)
 	return MTLAttributeDescriptorFromID(rv)
 }
+
 // Sets state for the specified attribute.
 //
 // attributeDesc: A descriptor that contains attribute state.
@@ -141,4 +144,3 @@ func (a MTLAttributeDescriptorArray) StageInputDescriptor() IMTLStageInputOutput
 func (a MTLAttributeDescriptorArray) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStageInputDescriptor:"), value)
 }
-

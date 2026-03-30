@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (vc VZUSBKeyboardConfigurationClass) Alloc() VZUSBKeyboardConfiguration {
 // A device that defines the configuration for a USB keyboard.
 //
 // # Overview
-// 
+//
 // A [VZVirtualMachineView] can use this device to send key events to the VM.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBKeyboardConfiguration
@@ -57,6 +58,7 @@ type VZUSBKeyboardConfiguration struct {
 func VZUSBKeyboardConfigurationFromID(id objc.ID) VZUSBKeyboardConfiguration {
 	return VZUSBKeyboardConfiguration{VZKeyboardConfiguration: VZKeyboardConfigurationFromID(id)}
 }
+
 // NOTE: VZUSBKeyboardConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -85,4 +87,3 @@ func NewVZUSBKeyboardConfiguration() VZUSBKeyboardConfiguration {
 	rv := objc.Send[VZUSBKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

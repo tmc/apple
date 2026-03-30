@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZDirectorySharingDeviceConfigurationClass) Alloc() VZDirectorySharingD
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZDirectorySharingDeviceConfiguration._init]
@@ -52,6 +52,7 @@ func (vc VZDirectorySharingDeviceConfigurationClass) Alloc() VZDirectorySharingD
 //   - [VZDirectorySharingDeviceConfiguration.Description]
 //   - [VZDirectorySharingDeviceConfiguration.Hash]
 //   - [VZDirectorySharingDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration
 type VZDirectorySharingDeviceConfiguration struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZDirectorySharingDeviceConfiguration struct {
 func VZDirectorySharingDeviceConfigurationFromID(id objc.ID) VZDirectorySharingDeviceConfiguration {
 	return VZDirectorySharingDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZDirectorySharingDeviceConfiguration implements IVZDirectorySharingDeviceConfiguration.
 var _ IVZDirectorySharingDeviceConfiguration = VZDirectorySharingDeviceConfiguration{}
 
@@ -115,7 +117,7 @@ func (d VZDirectorySharingDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/_makeDirectorySharingDeviceForVirtualMachine:directorySharingDeviceIndex:
 func (d VZDirectorySharingDeviceConfiguration) _makeDirectorySharingDeviceForVirtualMachineDirectorySharingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("_makeDirectorySharingDeviceForVirtualMachine:directorySharingDeviceIndex:"), machine, index)
@@ -132,24 +134,27 @@ func (d VZDirectorySharingDeviceConfiguration) _directorySharingDevice() objecti
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("_directorySharingDevice"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/debugDescription
 func (d VZDirectorySharingDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/description
 func (d VZDirectorySharingDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/hash
 func (d VZDirectorySharingDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectorySharingDeviceConfiguration/superclass
 func (d VZDirectorySharingDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](d.ID, objc.Sel("superclass"))
 	return rv
 }
-

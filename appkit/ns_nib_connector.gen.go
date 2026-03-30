@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -69,6 +70,7 @@ type NSNibConnector struct {
 func NSNibConnectorFromID(id objc.ID) NSNibConnector {
 	return NSNibConnector{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSNibConnector adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -132,7 +134,7 @@ func NewNSNibConnector() NSNibConnector {
 func (n NSNibConnector) EstablishConnection() {
 	objc.Send[objc.ID](n.ID, objc.Sel("establishConnection"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSNibConnector/replaceObject:withObject:
 func (n NSNibConnector) ReplaceObjectWithObject(oldObject objectivec.IObject, newObject objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("replaceObject:withObject:"), oldObject, newObject)
@@ -149,6 +151,7 @@ func (n NSNibConnector) Destination() objectivec.IObject {
 func (n NSNibConnector) SetDestination(value objectivec.IObject) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDestination:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSNibConnector/label
 func (n NSNibConnector) Label() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("label"))
@@ -157,6 +160,7 @@ func (n NSNibConnector) Label() string {
 func (n NSNibConnector) SetLabel(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSNibConnector/source
 func (n NSNibConnector) Source() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("source"))
@@ -165,4 +169,3 @@ func (n NSNibConnector) Source() objectivec.IObject {
 func (n NSNibConnector) SetSource(value objectivec.IObject) {
 	objc.Send[struct{}](n.ID, objc.Sel("setSource:"), value)
 }
-

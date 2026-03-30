@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -59,6 +60,7 @@ type AVMetricPlayerItemRateChangeEvent struct {
 func AVMetricPlayerItemRateChangeEventFromID(id objc.ID) AVMetricPlayerItemRateChangeEvent {
 	return AVMetricPlayerItemRateChangeEvent{AVMetricEvent: AVMetricEventFromID(id)}
 }
+
 // NOTE: AVMetricPlayerItemRateChangeEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -105,14 +107,15 @@ func (m AVMetricPlayerItemRateChangeEvent) PreviousRate() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("previousRate"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemRateChangeEvent/rate
 func (m AVMetricPlayerItemRateChangeEvent) Rate() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("rate"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemRateChangeEvent/variant
 func (m AVMetricPlayerItemRateChangeEvent) Variant() IAVAssetVariant {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("variant"))
 	return AVAssetVariantFromID(objc.ID(rv))
 }
-

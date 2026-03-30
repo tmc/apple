@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,6 +61,7 @@ type MTLLogicalToPhysicalColorAttachmentMap struct {
 func MTLLogicalToPhysicalColorAttachmentMapFromID(id objc.ID) MTLLogicalToPhysicalColorAttachmentMap {
 	return MTLLogicalToPhysicalColorAttachmentMap{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLLogicalToPhysicalColorAttachmentMap adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -77,8 +79,6 @@ type IMTLLogicalToPhysicalColorAttachmentMap interface {
 
 	Reset()
 
-	// Queries the physical color attachment index corresponding to a logical index.
-	GetPhysicalIndexForLogicalIndex(logicalIndex uint) uint
 	// Maps a physical color attachment index to a logical index.
 	SetPhysicalIndexForLogicalIndex(physicalIndex uint, logicalIndex uint)
 }
@@ -106,14 +106,7 @@ func NewMTLLogicalToPhysicalColorAttachmentMap() MTLLogicalToPhysicalColorAttach
 func (l MTLLogicalToPhysicalColorAttachmentMap) Reset() {
 	objc.Send[objc.ID](l.ID, objc.Sel("reset"))
 }
-// Queries the physical color attachment index corresponding to a logical
-// index.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLLogicalToPhysicalColorAttachmentMap/getPhysicalIndexForLogicalIndex:
-func (l MTLLogicalToPhysicalColorAttachmentMap) GetPhysicalIndexForLogicalIndex(logicalIndex uint) uint {
-	rv := objc.Send[uint](l.ID, objc.Sel("getPhysicalIndexForLogicalIndex:"), logicalIndex)
-	return rv
-}
+
 // Maps a physical color attachment index to a logical index.
 //
 // physicalIndex: Index of the color attachment’s physical mapping.
@@ -124,4 +117,3 @@ func (l MTLLogicalToPhysicalColorAttachmentMap) GetPhysicalIndexForLogicalIndex(
 func (l MTLLogicalToPhysicalColorAttachmentMap) SetPhysicalIndexForLogicalIndex(physicalIndex uint, logicalIndex uint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setPhysicalIndex:forLogicalIndex:"), physicalIndex, logicalIndex)
 }
-

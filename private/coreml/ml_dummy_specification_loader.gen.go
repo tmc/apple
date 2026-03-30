@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (mc MLDummySpecificationLoaderClass) Alloc() MLDummySpecificationLoader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLDummySpecificationLoader.DebugDescription]
 //   - [MLDummySpecificationLoader.Description]
 //   - [MLDummySpecificationLoader.Hash]
 //   - [MLDummySpecificationLoader.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader
 type MLDummySpecificationLoader struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLDummySpecificationLoader struct {
 func MLDummySpecificationLoaderFromID(id objc.ID) MLDummySpecificationLoader {
 	return MLDummySpecificationLoader{objectivec.Object{ID: id}}
 }
+
 // Ensure MLDummySpecificationLoader implements IMLDummySpecificationLoader.
 var _ IMLDummySpecificationLoader = MLDummySpecificationLoader{}
 
@@ -102,7 +104,6 @@ func NewMLDummySpecificationLoader() MLDummySpecificationLoader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/loadModelFromSpecification:configuration:error:
 func (_MLDummySpecificationLoaderClass MLDummySpecificationLoaderClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -120,19 +121,21 @@ func (d MLDummySpecificationLoader) DebugDescription() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/description
 func (d MLDummySpecificationLoader) Description() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/hash
 func (d MLDummySpecificationLoader) Hash() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLDummySpecificationLoader/superclass
 func (d MLDummySpecificationLoader) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](d.ID, objc.Sel("superclass"))
 	return rv
 }
-

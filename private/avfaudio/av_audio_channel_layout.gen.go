@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (ac AVAudioChannelLayoutClass) Alloc() AVAudioChannelLayout {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioChannelLayout.LayoutSize]
 //   - [AVAudioChannelLayout.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout
 type AVAudioChannelLayout struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type AVAudioChannelLayout struct {
 func AVAudioChannelLayoutFromID(id objc.ID) AVAudioChannelLayout {
 	return AVAudioChannelLayout{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioChannelLayout implements IAVAudioChannelLayout.
 var _ IAVAudioChannelLayout = AVAudioChannelLayout{}
 
@@ -95,7 +97,6 @@ func NewAVAudioChannelLayout() AVAudioChannelLayout {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/initWithCoder:
 func NewAudioChannelLayoutWithCoder(coder objectivec.IObject) AVAudioChannelLayout {
 	instance := getAVAudioChannelLayoutClass().Alloc()
@@ -108,7 +109,7 @@ func (a AVAudioChannelLayout) LayoutSize() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("layoutSize"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/initWithCoder:
 func (a AVAudioChannelLayout) InitWithCoder(coder foundation.INSCoder) AVAudioChannelLayout {
 	rv := objc.Send[AVAudioChannelLayout](a.ID, objc.Sel("initWithCoder:"), coder)
@@ -120,4 +121,3 @@ func (_AVAudioChannelLayoutClass AVAudioChannelLayoutClass) SupportsSecureCoding
 	rv := objc.Send[bool](objc.ID(_AVAudioChannelLayoutClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-

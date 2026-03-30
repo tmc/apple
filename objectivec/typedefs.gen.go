@@ -4,6 +4,7 @@ package objectivec
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -91,4 +92,3 @@ type Objc_uncaught_exception_handler = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_zone_t
 type Objc_zone_t = uintptr
-

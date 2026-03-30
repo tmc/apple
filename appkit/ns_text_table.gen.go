@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSTextTable] class.
@@ -45,7 +46,7 @@ func (nc NSTextTableClass) Alloc() NSTextTable {
 // An object that represents a text table as a whole.
 //
 // # Overview
-// 
+//
 // A text table is responsible for laying out and drawing the text table
 // blocks it contains, and it maintains the basic parameters of the table.
 //
@@ -89,6 +90,7 @@ type NSTextTable struct {
 func NSTextTableFromID(id objc.ID) NSTextTable {
 	return NSTextTable{NSTextBlock: NSTextBlockFromID(id)}
 }
+
 // NOTE: NSTextTable adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -199,11 +201,11 @@ func NewNSTextTable() NSTextTable {
 // charRange: The range of the characters whose glyphs are to be drawn.
 //
 // # Return Value
-// 
+//
 // The rectangle within which glyphs should be laid out.
 //
 // # Discussion
-// 
+//
 // This method is called by the text table block `block` to determine the
 // rectangle within which glyphs should be laid out for the text table block.
 //
@@ -212,6 +214,7 @@ func (t NSTextTable) RectForBlockLayoutAtPointInRectTextContainerCharacterRange(
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("rectForBlock:layoutAtPoint:inRect:textContainer:characterRange:"), block, startingPoint, rect, textContainer, charRange)
 	return corefoundation.CGRect(rv)
 }
+
 // Returns the rectangle the text table block actually occupies, including
 // padding, borders, and margins.
 //
@@ -227,12 +230,12 @@ func (t NSTextTable) RectForBlockLayoutAtPointInRectTextContainerCharacterRange(
 // charRange: The range of the characters whose glyphs are to be drawn.
 //
 // # Return Value
-// 
+//
 // The rectangle the text table block actually occupies, including padding,
 // borders, and margins.
 //
 // # Discussion
-// 
+//
 // This method is called by the text table block `block` after it is laid out
 // to determine the rectangle the text table block actually occupies,
 // including padding, borders, and margins.
@@ -242,6 +245,7 @@ func (t NSTextTable) BoundsRectForBlockContentRectInRectTextContainerCharacterRa
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("boundsRectForBlock:contentRect:inRect:textContainer:characterRange:"), block, contentRect, rect, textContainer, charRange)
 	return corefoundation.CGRect(rv)
 }
+
 // Draws any colors and other decorations for a text table block.
 //
 // block: The text table block that wants to draw its background.
@@ -255,7 +259,7 @@ func (t NSTextTable) BoundsRectForBlockContentRectInRectTextContainerCharacterRa
 // layoutManager: The layout manager controlling the typesetting.
 //
 // # Discussion
-// 
+//
 // This methods is called by the text table block `block` to draw any colors
 // and other decorations before the text is drawn.
 //
@@ -274,6 +278,7 @@ func (t NSTextTable) NumberOfColumns() uint {
 func (t NSTextTable) SetNumberOfColumns(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNumberOfColumns:"), value)
 }
+
 // The text table layout algorithm.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextTable/layoutAlgorithm-swift.property
@@ -284,14 +289,13 @@ func (t NSTextTable) LayoutAlgorithm() NSTextTableLayoutAlgorithm {
 func (t NSTextTable) SetLayoutAlgorithm(value NSTextTableLayoutAlgorithm) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutAlgorithm:"), value)
 }
+
 // A Boolean value indicating whether the text table borders are collapsible.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the text table borders are
-// collapsible.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true when the text table borders are
+// collapsible.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextTable/collapsesBorders
 func (t NSTextTable) CollapsesBorders() bool {
@@ -301,15 +305,14 @@ func (t NSTextTable) CollapsesBorders() bool {
 func (t NSTextTable) SetCollapsesBorders(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCollapsesBorders:"), value)
 }
+
 // A Boolean value indicating whether the text table hides empty cells.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the text table hides empty cells.
+//
+// The value of this property is true when the text table hides empty cells.
 // If empty cells are hidden, locations with empty cells allow the background
 // of the enclosing block or text container to show through.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextTable/hidesEmptyCells
 func (t NSTextTable) HidesEmptyCells() bool {
@@ -319,4 +322,3 @@ func (t NSTextTable) HidesEmptyCells() bool {
 func (t NSTextTable) SetHidesEmptyCells(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidesEmptyCells:"), value)
 }
-

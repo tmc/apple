@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (nc NSSymbolMagicReplaceContentTransitionClass) Alloc() NSSymbolMagicReplac
 // A symbol effect applies the MagicReplace animation to symbol images.
 //
 // # Overview
-// 
+//
 // The MagicReplace effect animates common elements across symbol images.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolMagicReplaceContentTransition
@@ -57,6 +58,7 @@ type NSSymbolMagicReplaceContentTransition struct {
 func NSSymbolMagicReplaceContentTransitionFromID(id objc.ID) NSSymbolMagicReplaceContentTransition {
 	return NSSymbolMagicReplaceContentTransition{NSSymbolContentTransition: NSSymbolContentTransitionFromID(id)}
 }
+
 // Ensure NSSymbolMagicReplaceContentTransition implements INSSymbolMagicReplaceContentTransition.
 var _ INSSymbolMagicReplaceContentTransition = NSSymbolMagicReplaceContentTransition{}
 
@@ -85,4 +87,3 @@ func NewNSSymbolMagicReplaceContentTransition() NSSymbolMagicReplaceContentTrans
 	rv := objc.Send[NSSymbolMagicReplaceContentTransition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

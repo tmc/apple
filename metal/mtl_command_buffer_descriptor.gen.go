@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (mc MTLCommandBufferDescriptorClass) Alloc() MTLCommandBufferDescriptor {
 // A configuration that customizes the behavior for a new command buffer.
 //
 // # Overview
-// 
+//
 // Create a command buffer with a custom configuration by creating an
 // [MTLCommandBufferDescriptor] instance and passing it to an
 // [MTLCommandQueue] instance’s [CommandBufferWithDescriptor] method. You
@@ -53,7 +54,7 @@ func (mc MTLCommandBufferDescriptorClass) Alloc() MTLCommandBufferDescriptor {
 // that its commands refer to with the [MTLCommandBufferDescriptor.RetainedReferences] property. The
 // command buffer can save extra error information, which is useful during
 // development, by setting its [MTLCommandBufferDescriptor.ErrorOptions] property to
-// [CommandBufferErrorOptionEncoderExecutionStatus].
+// [MTLCommandBufferErrorOptionEncoderExecutionStatus].
 //
 // # Configuring the command buffer
 //
@@ -75,6 +76,7 @@ type MTLCommandBufferDescriptor struct {
 func MTLCommandBufferDescriptorFromID(id objc.ID) MTLCommandBufferDescriptor {
 	return MTLCommandBufferDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLCommandBufferDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -141,32 +143,31 @@ func (c MTLCommandBufferDescriptor) LogState() MTLLogState {
 func (c MTLCommandBufferDescriptor) SetLogState(value MTLLogState) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLogState:"), value)
 }
+
 // A Boolean value that indicates whether the command buffer the descriptor
 // creates maintains strong references to the resources it uses.
 //
 // # Discussion
-// 
-// Set this property to [true] (its default) to create a command buffer that
+//
+// Set this property to true (its default) to create a command buffer that
 // maintains strong references to resource instances that its commands need.
-// Otherwise, set it to [false] to create a command buffer that doesn’t
+// Otherwise, set it to false to create a command buffer that doesn’t
 // maintain strong references to its resources.
-// 
+//
 // Apps typically create command buffers that don’t maintain references to
 // resources for extremely performance-critical situations. Even though the
 // runtime cost for retaining or releasing a single resource is trivial, the
 // aggregate time savings may be worth it.
-// 
+//
 // It’s your app’s responsibility to maintain strong references to all the
 // resources the command buffer uses until it finishes running on the GPU.
-// 
+//
 // You can determine whether an existing command buffer retains references by
 // checking its [retainedReferences] property.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [retainedReferences]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/retainedReferences
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferDescriptor/retainedReferences
+//
+// [retainedReferences]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/retainedReferences
 func (c MTLCommandBufferDescriptor) RetainedReferences() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("retainedReferences"))
 	return rv
@@ -174,22 +175,23 @@ func (c MTLCommandBufferDescriptor) RetainedReferences() bool {
 func (c MTLCommandBufferDescriptor) SetRetainedReferences(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRetainedReferences:"), value)
 }
+
 // The reporting configuration that indicates which information the GPU driver
 // stores in a command buffer’s error property.
 //
 // # Discussion
-// 
+//
 // By default, a GPU driver doesn’t report additional error information.
-// 
+//
 // To create a command buffer that saves additional GPU runtime error
-// information, add the [CommandBufferErrorOptionEncoderExecutionStatus]
+// information, add the [MTLCommandBufferErrorOptionEncoderExecutionStatus]
 // option to this property. If the GPU encounters an error as it runs the
 // command buffer, you can retrieve the additional information from the
 // command buffer’s [error] property.
 //
-// [error]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/error
-//
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferDescriptor/errorOptions
+//
+// [error]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/error
 func (c MTLCommandBufferDescriptor) ErrorOptions() MTLCommandBufferErrorOption {
 	rv := objc.Send[MTLCommandBufferErrorOption](c.ID, objc.Sel("errorOptions"))
 	return MTLCommandBufferErrorOption(rv)
@@ -197,6 +199,7 @@ func (c MTLCommandBufferDescriptor) ErrorOptions() MTLCommandBufferErrorOption {
 func (c MTLCommandBufferDescriptor) SetErrorOptions(value MTLCommandBufferErrorOption) {
 	objc.Send[struct{}](c.ID, objc.Sel("setErrorOptions:"), value)
 }
+
 // The domain for Metal command buffer errors.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcommandbuffererrordomain
@@ -204,6 +207,7 @@ func (c MTLCommandBufferDescriptor) MTLCommandBufferErrorDomain() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("MTLCommandBufferErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An option that instructs a command buffer to save additional details about
 // a GPU runtime error.
 //
@@ -215,4 +219,3 @@ func (c MTLCommandBufferDescriptor) EncoderExecutionStatus() MTLCommandBufferErr
 func (c MTLCommandBufferDescriptor) SetEncoderExecutionStatus(value MTLCommandBufferErrorOption) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMTLCommandBufferErrorOptionEncoderExecutionStatus:"), value)
 }
-

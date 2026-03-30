@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (nc NSScriptCoercionHandlerClass) Alloc() NSScriptCoercionHandler {
 // A mechanism for converting one kind of scripting data to another.
 //
 // # Overview
-// 
+//
 // A shared instance of this class coerces (converts) object values to objects
 // of another class using information supplied by classes that register with
 // it. Coercions frequently are required during key-value coding.
@@ -65,6 +66,7 @@ type NSScriptCoercionHandler struct {
 func NSScriptCoercionHandlerFromID(id objc.ID) NSScriptCoercionHandler {
 	return NSScriptCoercionHandler{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSScriptCoercionHandler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,7 +115,7 @@ func NewNSScriptCoercionHandler() NSScriptCoercionHandler {
 // toClass: The class with which to represent `value`.
 //
 // # Return Value
-// 
+//
 // An object of the class `toClass` representing the value specified by
 // `value`. Returns `nil` if an error occurs.
 //
@@ -122,6 +124,7 @@ func (s NSScriptCoercionHandler) CoerceValueToClass(value objectivec.IObject, to
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("coerceValue:toClass:"), value, toClass)
 	return objectivec.Object{ID: rv}
 }
+
 // Registers a given object (typically a class) to handle coercions
 // (conversions) from one given class to another.
 //
@@ -145,7 +148,7 @@ func (s NSScriptCoercionHandler) RegisterCoercerSelectorToConvertFromClassToClas
 // Returns the shared [NSScriptCoercionHandler] for the application.
 //
 // # Return Value
-// 
+//
 // The shared [NSScriptCoercionHandler] for the application.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCoercionHandler/shared()
@@ -153,4 +156,3 @@ func (_NSScriptCoercionHandlerClass NSScriptCoercionHandlerClass) SharedCoercion
 	rv := objc.Send[objc.ID](objc.ID(_NSScriptCoercionHandlerClass.class), objc.Sel("sharedCoercionHandler"))
 	return NSScriptCoercionHandlerFromID(rv)
 }
-

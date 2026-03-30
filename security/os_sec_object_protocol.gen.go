@@ -18,6 +18,7 @@ type OS_sec_object interface {
 type OS_sec_objectObject struct {
 	objectivec.Object
 }
+
 func (o OS_sec_objectObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func OS_sec_objectObjectFromID(id objc.ID) OS_sec_objectObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

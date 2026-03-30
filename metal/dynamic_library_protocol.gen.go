@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,6 +44,7 @@ type MTLDynamicLibrary interface {
 type MTLDynamicLibraryObject struct {
 	objectivec.Object
 }
+
 func (o MTLDynamicLibraryObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -62,34 +63,37 @@ func MTLDynamicLibraryObjectFromID(id objc.ID) MTLDynamicLibraryObject {
 func (o MTLDynamicLibraryObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-	}
+}
+
 // A file path for this dynamic library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/installName
 func (o MTLDynamicLibraryObject) InstallName() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("installName"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // A string that identifies the library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/label
 func (o MTLDynamicLibraryObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Writes the contents of the dynamic library to a file.
 //
 // url: The URL for the destination file.
 //
 // # Discussion
-// 
+//
 // When the methods succeeds, the file contains a representation of the
 // [MTLLibrary] from the [MTLDynamicLibrary] that creates it, as well as the
 // binaries it has for the device your app is running on.
-// 
+//
 // Such files may be combined with offline tools to contain the compiled code
 // for multiple devices.
-// 
+//
 // If this MTLDynamicLibrary was created from a file that contained compiled
 // code for multiple devices, the compiled code for all other devices is not
 // written (since only compiled code for the current device was loaded).
@@ -101,9 +105,19 @@ func (o MTLDynamicLibraryObject) SerializeToURLError(url foundation.INSURL) (boo
 		return false, err
 	}
 	return rv, nil
-	}
+}
 
+// A string that identifies the library.
+//
+// # Discussion
+//
+// Object and command labels are useful identifiers at runtime or when
+// profiling and debugging your app using any Metal tool. See [Naming
+// resources and commands].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLDynamicLibraryObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

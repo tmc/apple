@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZFramebufferRemoteSessionNotifier struct {
 func VZFramebufferRemoteSessionNotifierFromID(id objc.ID) VZFramebufferRemoteSessionNotifier {
 	return VZFramebufferRemoteSessionNotifier{objectivec.Object{ID: id}}
 }
+
 // Ensure VZFramebufferRemoteSessionNotifier implements IVZFramebufferRemoteSessionNotifier.
 var _ IVZFramebufferRemoteSessionNotifier = VZFramebufferRemoteSessionNotifier{}
 
@@ -78,4 +80,3 @@ func NewVZFramebufferRemoteSessionNotifier() VZFramebufferRemoteSessionNotifier 
 	rv := objc.Send[VZFramebufferRemoteSessionNotifier](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

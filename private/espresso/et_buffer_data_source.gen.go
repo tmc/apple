@@ -3,10 +3,11 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (ec ETBufferDataSourceClass) Alloc() ETBufferDataSource {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETBufferDataSource.BatchSize]
@@ -64,6 +64,7 @@ func (ec ETBufferDataSourceClass) Alloc() ETBufferDataSource {
 //   - [ETBufferDataSource.Description]
 //   - [ETBufferDataSource.Hash]
 //   - [ETBufferDataSource.Superclass]
+//
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource
 type ETBufferDataSource struct {
 	objectivec.Object
@@ -73,6 +74,7 @@ type ETBufferDataSource struct {
 func ETBufferDataSourceFromID(id objc.ID) ETBufferDataSource {
 	return ETBufferDataSource{objectivec.Object{ID: id}}
 }
+
 // Ensure ETBufferDataSource implements IETBufferDataSource.
 var _ IETBufferDataSource = ETBufferDataSource{}
 
@@ -144,7 +146,6 @@ func NewETBufferDataSource() ETBufferDataSource {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/initWithBlobShapes:numberOfDataPoints:batchSize:error:
 func NewETBufferDataSourceWithBlobShapesNumberOfDataPointsBatchSizeError(shapes unsafe.Pointer, points uint64, size uint64) (ETBufferDataSource, error) {
 	var errorPtr objc.ID
@@ -157,13 +158,12 @@ func NewETBufferDataSourceWithBlobShapesNumberOfDataPointsBatchSizeError(shapes 
 	return ETBufferDataSourceFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/dataAtIndex:key:
 func (e ETBufferDataSource) DataAtIndexKey(index uint64, key unsafe.Pointer) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("dataAtIndex:key:"), index, key)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/dataPointAtIndex:error:
 func (e ETBufferDataSource) DataPointAtIndexError(index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -175,12 +175,13 @@ func (e ETBufferDataSource) DataPointAtIndexError(index uint64) (objectivec.IObj
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/numberOfDataPoints
 func (e ETBufferDataSource) NumberOfDataPoints() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/initWithBlobShapes:numberOfDataPoints:batchSize:error:
 func (e ETBufferDataSource) InitWithBlobShapesNumberOfDataPointsBatchSizeError(shapes unsafe.Pointer, points uint64, size uint64) (ETBufferDataSource, error) {
 	var errorPtr objc.ID
@@ -201,6 +202,7 @@ func (e ETBufferDataSource) BatchSize() uint64 {
 func (e ETBufferDataSource) SetBatchSize(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBatchSize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/blobShapes
 func (e ETBufferDataSource) BlobShapes() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("blobShapes"))
@@ -209,6 +211,7 @@ func (e ETBufferDataSource) BlobShapes() objectivec.IObject {
 func (e ETBufferDataSource) SetBlobShapes(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBlobShapes:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/dataStorage
 func (e ETBufferDataSource) DataStorage() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataStorage"))
@@ -217,21 +220,25 @@ func (e ETBufferDataSource) DataStorage() objectivec.IObject {
 func (e ETBufferDataSource) SetDataStorage(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDataStorage:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/debugDescription
 func (e ETBufferDataSource) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/description
 func (e ETBufferDataSource) Description() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/hash
 func (e ETBufferDataSource) Hash() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/nonBatchBlobNames
 func (e ETBufferDataSource) NonBatchBlobNames() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("nonBatchBlobNames"))
@@ -240,6 +247,7 @@ func (e ETBufferDataSource) NonBatchBlobNames() objectivec.IObject {
 func (e ETBufferDataSource) SetNonBatchBlobNames(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNonBatchBlobNames:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/number_of_data_points
 func (e ETBufferDataSource) Number_of_data_points() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("number_of_data_points"))
@@ -248,9 +256,9 @@ func (e ETBufferDataSource) Number_of_data_points() uint64 {
 func (e ETBufferDataSource) SetNumber_of_data_points(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNumber_of_data_points:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ETBufferDataSource/superclass
 func (e ETBufferDataSource) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
 	return rv
 }
-

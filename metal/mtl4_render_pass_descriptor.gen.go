@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,11 +45,11 @@ func (mc MTL4RenderPassDescriptorClass) Alloc() MTL4RenderPassDescriptor {
 // Describes a render pass.
 //
 // # Overview
-// 
+//
 // You use render pass descriptors to create instances of
 // [MTL4RenderCommandEncoder] and encode draw commands into instances of
 // [MTL4CommandBuffer].
-// 
+//
 // To create render command encoders, you typically call
 // [RenderCommandEncoderWithDescriptor]. The
 // [RenderCommandEncoderWithDescriptorOptions] variant of this method allows
@@ -100,6 +101,7 @@ type MTL4RenderPassDescriptor struct {
 func MTL4RenderPassDescriptorFromID(id objc.ID) MTL4RenderPassDescriptor {
 	return MTL4RenderPassDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4RenderPassDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -193,8 +195,6 @@ type IMTL4RenderPassDescriptor interface {
 	VisibilityResultType() MTLVisibilityResultType
 	SetVisibilityResultType(value MTLVisibilityResultType)
 
-	// Retrieves the previously-configured custom sample positions.
-	GetSamplePositionsCount(positions []MTLSamplePosition, count uint) uint
 	// Configures the custom sample positions to use in MSAA rendering.
 	SetSamplePositionsCount(positions []MTLSamplePosition, count uint)
 }
@@ -218,44 +218,18 @@ func NewMTL4RenderPassDescriptor() MTL4RenderPassDescriptor {
 	return rv
 }
 
-// Retrieves the previously-configured custom sample positions.
-//
-// positions: The destination array where Metal stores [MTLSamplePosition] instances.
-// //
-// [MTLSamplePosition]: https://developer.apple.com/documentation/Metal/MTLSamplePosition
-//
-// count: Number of [MTLSamplePosition] instances in the array. This array needs to
-// be large enough to store all sample positions.
-// //
-// [MTLSamplePosition]: https://developer.apple.com/documentation/Metal/MTLSamplePosition
-//
-// # Return Value
-// 
-// The number of previously-configured custom sample positions.
-//
-// # Discussion
-// 
-// This method stores the app’s last set custom sample positions into an
-// output array. Metal only modifies the array when the `count` parameter
-// consists of a length sufficient to store the number of sample positions.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/getSamplePositions:count:
-func (m MTL4RenderPassDescriptor) GetSamplePositionsCount(positions []MTLSamplePosition, count uint) uint {
-	rv := objc.Send[uint](m.ID, objc.Sel("getSamplePositions:count:"), objc.CArray(positions), count)
-	return rv
-}
 // Configures the custom sample positions to use in MSAA rendering.
 //
 // positions: Array of [MTLSamplePosition] instances.
-// //
-// [MTLSamplePosition]: https://developer.apple.com/documentation/Metal/MTLSamplePosition
 //
 // count: Number of [MTLSamplePosition] instances in the array. This value needs to
 // be a valid sample count, or `0` to disable custom sample positions.
-// //
-// [MTLSamplePosition]: https://developer.apple.com/documentation/Metal/MTLSamplePosition
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/setSamplePositions:count:
+//
+// [MTLSamplePosition]: https://developer.apple.com/documentation/Metal/MTLSamplePosition
+//
+// [MTLSamplePosition]: https://developer.apple.com/documentation/Metal/MTLSamplePosition
 func (m MTL4RenderPassDescriptor) SetSamplePositionsCount(positions []MTLSamplePosition, count uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setSamplePositions:count:"), objc.CArray(positions), count)
 }
@@ -268,6 +242,7 @@ func (m MTL4RenderPassDescriptor) ColorAttachments() IMTLRenderPassColorAttachme
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("colorAttachments"))
 	return MTLRenderPassColorAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
+
 // Sets the default raster sample count for the render pass when it references
 // no attachments.
 //
@@ -279,6 +254,7 @@ func (m MTL4RenderPassDescriptor) DefaultRasterSampleCount() uint {
 func (m MTL4RenderPassDescriptor) SetDefaultRasterSampleCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDefaultRasterSampleCount:"), value)
 }
+
 // Accesses state information for a render attachment that stores depth data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/depthAttachment
@@ -289,6 +265,7 @@ func (m MTL4RenderPassDescriptor) DepthAttachment() IMTLRenderPassDepthAttachmen
 func (m MTL4RenderPassDescriptor) SetDepthAttachment(value IMTLRenderPassDepthAttachmentDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDepthAttachment:"), value)
 }
+
 // Assigns the per-sample size, in bytes, of the largest explicit imageblock
 // layout in the render pass.
 //
@@ -300,15 +277,16 @@ func (m MTL4RenderPassDescriptor) ImageblockSampleLength() uint {
 func (m MTL4RenderPassDescriptor) SetImageblockSampleLength(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setImageblockSampleLength:"), value)
 }
+
 // Assigns an optional variable rasterization rate map that Metal uses in the
 // render pass.
 //
 // # Discussion
-// 
+//
 // Enabling variable rasterization rate allows Metal to decrease the
 // rasterization rate, typically in unimportant regions of color attachments,
 // to accelerate processing.
-// 
+//
 // When set to `nil`, the default, Metal doesn’t use variable rasterization
 // rate.
 //
@@ -320,6 +298,7 @@ func (m MTL4RenderPassDescriptor) RasterizationRateMap() MTLRasterizationRateMap
 func (m MTL4RenderPassDescriptor) SetRasterizationRateMap(value MTLRasterizationRateMap) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRasterizationRateMap:"), value)
 }
+
 // Assigns the number of layers that all attachments this descriptor
 // references have.
 //
@@ -331,13 +310,14 @@ func (m MTL4RenderPassDescriptor) RenderTargetArrayLength() uint {
 func (m MTL4RenderPassDescriptor) SetRenderTargetArrayLength(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRenderTargetArrayLength:"), value)
 }
+
 // Sets the height, in pixels, to which Metal constrains the render target.
 //
 // # Discussion
-// 
+//
 // When this value is non-zero, you need to assign it to be smaller than or
 // equal to the minimum height of all attachments.
-// 
+//
 // The default value of this property is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/renderTargetHeight
@@ -348,13 +328,14 @@ func (m MTL4RenderPassDescriptor) RenderTargetHeight() uint {
 func (m MTL4RenderPassDescriptor) SetRenderTargetHeight(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRenderTargetHeight:"), value)
 }
+
 // Sets the width, in pixels, to which Metal constrains the render target.
 //
 // # Discussion
-// 
+//
 // When this value is non-zero, you need to assign it to be smaller than or
 // equal to the minimum width of all attachments.
-// 
+//
 // The default value of this property is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/renderTargetWidth
@@ -365,6 +346,7 @@ func (m MTL4RenderPassDescriptor) RenderTargetWidth() uint {
 func (m MTL4RenderPassDescriptor) SetRenderTargetWidth(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRenderTargetWidth:"), value)
 }
+
 // Configures the custom sample positions to use in MSAA rendering.
 //
 // See: https://developer.apple.com/documentation/metal/mtl4renderpassdescriptor/samplepositions
@@ -375,6 +357,7 @@ func (m MTL4RenderPassDescriptor) SamplePositions() MTLSamplePosition {
 func (m MTL4RenderPassDescriptor) SetSamplePositions(value MTLSamplePosition) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSamplePositions:"), value)
 }
+
 // Accesses state information for a render attachment that stores stencil
 // data.
 //
@@ -386,6 +369,7 @@ func (m MTL4RenderPassDescriptor) StencilAttachment() IMTLRenderPassStencilAttac
 func (m MTL4RenderPassDescriptor) SetStencilAttachment(value IMTLRenderPassStencilAttachmentDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStencilAttachment:"), value)
 }
+
 // Controls if the render pass supports color attachment mapping.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/supportColorAttachmentMapping
@@ -396,6 +380,7 @@ func (m MTL4RenderPassDescriptor) SupportColorAttachmentMapping() bool {
 func (m MTL4RenderPassDescriptor) SetSupportColorAttachmentMapping(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportColorAttachmentMapping:"), value)
 }
+
 // Assigns the per-tile size, in bytes, of the persistent threadgroup memory
 // allocation of this render pass.
 //
@@ -407,21 +392,22 @@ func (m MTL4RenderPassDescriptor) ThreadgroupMemoryLength() uint {
 func (m MTL4RenderPassDescriptor) SetThreadgroupMemoryLength(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setThreadgroupMemoryLength:"), value)
 }
+
 // The height of the tiles, in pixels, a render pass you create with this
 // descriptor applies to its attachments.
 //
 // # Discussion
-// 
+//
 // For tile-based rendering, Metal divides each render attachment into smaller
 // regions, or . The property’s default is `0`, which tells Metal to select
 // a size that fits in tile memory.
-// 
+//
 // See [Tailor your apps for Apple GPUs and tile-based deferred rendering] for
 // more information about tiles, tile memory, and deferred rendering.
 //
-// [Tailor your apps for Apple GPUs and tile-based deferred rendering]: https://developer.apple.com/documentation/Metal/tailor-your-apps-for-apple-gpus-and-tile-based-deferred-rendering
-//
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/tileHeight
+//
+// [Tailor your apps for Apple GPUs and tile-based deferred rendering]: https://developer.apple.com/documentation/Metal/tailor-your-apps-for-apple-gpus-and-tile-based-deferred-rendering
 func (m MTL4RenderPassDescriptor) TileHeight() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("tileHeight"))
 	return rv
@@ -429,21 +415,22 @@ func (m MTL4RenderPassDescriptor) TileHeight() uint {
 func (m MTL4RenderPassDescriptor) SetTileHeight(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTileHeight:"), value)
 }
+
 // The width of the tiles, in pixels, a render pass you create with this
 // descriptor applies to its attachments.
 //
 // # Discussion
-// 
+//
 // For tile-based rendering, Metal divides each render attachment into smaller
 // regions, or . The property’s default is `0`, which tells Metal to select
 // a size that fits in tile memory.
-// 
+//
 // See [Tailor your apps for Apple GPUs and tile-based deferred rendering] for
 // more information about tiles, tile memory, and deferred rendering.
 //
-// [Tailor your apps for Apple GPUs and tile-based deferred rendering]: https://developer.apple.com/documentation/Metal/tailor-your-apps-for-apple-gpus-and-tile-based-deferred-rendering
-//
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/tileWidth
+//
+// [Tailor your apps for Apple GPUs and tile-based deferred rendering]: https://developer.apple.com/documentation/Metal/tailor-your-apps-for-apple-gpus-and-tile-based-deferred-rendering
 func (m MTL4RenderPassDescriptor) TileWidth() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("tileWidth"))
 	return rv
@@ -451,6 +438,7 @@ func (m MTL4RenderPassDescriptor) TileWidth() uint {
 func (m MTL4RenderPassDescriptor) SetTileWidth(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTileWidth:"), value)
 }
+
 // Configures a buffer into which Metal writes counts of fragments (pixels)
 // passing the depth and stencil tests.
 //
@@ -462,6 +450,7 @@ func (m MTL4RenderPassDescriptor) VisibilityResultBuffer() MTLBuffer {
 func (m MTL4RenderPassDescriptor) SetVisibilityResultBuffer(value MTLBuffer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVisibilityResultBuffer:"), value)
 }
+
 // Determines if Metal accumulates visibility results between render encoders
 // or resets them.
 //
@@ -473,4 +462,3 @@ func (m MTL4RenderPassDescriptor) VisibilityResultType() MTLVisibilityResultType
 func (m MTL4RenderPassDescriptor) SetVisibilityResultType(value MTLVisibilityResultType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVisibilityResultType:"), value)
 }
-

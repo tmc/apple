@@ -39,6 +39,7 @@ type CIDiscBlur interface {
 type CIDiscBlurObject struct {
 	objectivec.Object
 }
+
 func (o CIDiscBlurObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIDiscBlurObjectFromID(id objc.ID) CIDiscBlurObject {
 func (o CIDiscBlurObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The radius of the blur, in pixels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDiscBlur/radius
 func (o CIDiscBlurObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIDiscBlurObject) Radius() float32 {
 func (o CIDiscBlurObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIDiscBlur/inputImage
 func (o CIDiscBlurObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The radius of the blur, in pixels.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIDiscBlur/radius
 func (o CIDiscBlurObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

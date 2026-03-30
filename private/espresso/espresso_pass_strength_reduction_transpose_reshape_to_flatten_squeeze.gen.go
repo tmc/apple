@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze struct
 func EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeezeFromID(id objc.ID) EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze {
 	return EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze implements IEspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze.
 var _ IEspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze = EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze() E
 	rv := objc.Send[EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

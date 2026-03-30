@@ -6,13 +6,56 @@ import (
 	"fmt"
 )
 
-const AddPacketShift uint = 0
+type AddPacket uint
+
+const (
+	AddPacketShift AddPacket = 0
+)
+
+func (e AddPacket) String() string {
+	switch e {
+	case AddPacketShift:
+		return "AddPacketShift"
+	default:
+		return fmt.Sprintf("AddPacket(%d)", e)
+	}
+}
+
+type AddressRange uint
+
+const (
+	AddressRangeErr AddressRange = 0
+)
+
+func (e AddressRange) String() string {
+	switch e {
+	case AddressRangeErr:
+		return "AddressRangeErr"
+	default:
+		return fmt.Sprintf("AddressRange(%d)", e)
+	}
+}
+
+type Alpha uint
+
+const (
+	AlphaStage Alpha = 0
+)
+
+func (e Alpha) String() string {
+	switch e {
+	case AlphaStage:
+		return "AlphaStage"
+	default:
+		return fmt.Sprintf("Alpha(%d)", e)
+	}
+}
 
 type AtaDeviceType uint
 
 const (
-	KATADeviceType AtaDeviceType = 0
-	KATAPIDeviceType AtaDeviceType = 0
+	KATADeviceType        AtaDeviceType = 0
+	KATAPIDeviceType      AtaDeviceType = 0
 	KUnknownATADeviceType AtaDeviceType = 0
 )
 
@@ -29,13 +72,13 @@ type AtaSocketType uint
 
 const (
 	KInternalATASocket AtaSocketType = 0
-	KInternalSATA AtaSocketType = 0
-	KInternalSATA2 AtaSocketType = 0
-	KMediaBaySocket AtaSocketType = 0
-	KPCCardSocket AtaSocketType = 0
-	KSATA2Bay AtaSocketType = 0
-	KSATABay AtaSocketType = 0
-	KUnknownSocket AtaSocketType = 0
+	KInternalSATA      AtaSocketType = 0
+	KInternalSATA2     AtaSocketType = 0
+	KMediaBaySocket    AtaSocketType = 0
+	KPCCardSocket      AtaSocketType = 0
+	KSATA2Bay          AtaSocketType = 0
+	KSATABay           AtaSocketType = 0
+	KUnknownSocket     AtaSocketType = 0
 )
 
 func (e AtaSocketType) String() string {
@@ -47,143 +90,124 @@ func (e AtaSocketType) String() string {
 	}
 }
 
-type BATABadBlock uint
+type BATADCR uint
 
 const (
-	MATAAddressNotFound BATABadBlock = 0
+	BATADCROne BATADCR = 0
 )
 
-func (e BATABadBlock) String() string {
+func (e BATADCR) String() string {
 	switch e {
-	case MATAAddressNotFound:
-		return "MATAAddressNotFound"
+	case BATADCROne:
+		return "BATADCROne"
 	default:
-		return fmt.Sprintf("BATABadBlock(%d)", e)
+		return fmt.Sprintf("BATADCR(%d)", e)
 	}
 }
 
-type BATABusy uint
+type BATAPIuseDM uint
 
 const (
-	MATADataRequest BATABusy = 0
+	BATAPIuseDMA BATAPIuseDM = 0
 )
 
-func (e BATABusy) String() string {
+func (e BATAPIuseDM) String() string {
 	switch e {
-	case MATADataRequest:
-		return "MATADataRequest"
+	case BATAPIuseDMA:
+		return "BATAPIuseDMA"
 	default:
-		return fmt.Sprintf("BATABusy(%d)", e)
+		return fmt.Sprintf("BATAPIuseDM(%d)", e)
 	}
 }
 
-const BATADCROne uint = 0
-
-const BATAPIuseDMA uint = 0
-
-type BTreeKeyLimits uint
+type BidirectionalEchoCanceling uint
 
 const (
-	KMaxKeyLength BTreeKeyLimits = 0
+	BIDIRECTIONAL_ECHO_CANCELING_SPEAKERPHONE BidirectionalEchoCanceling = 0
 )
 
-func (e BTreeKeyLimits) String() string {
-	switch e {
-	case KMaxKeyLength:
-		return "KMaxKeyLength"
-	default:
-		return fmt.Sprintf("BTreeKeyLimits(%d)", e)
-	}
-}
-
-type BacktraceFlagsT uint
-
-const (
-	BTF_KERN_INTERRUPTED BacktraceFlagsT = 0
-)
-
-func (e BacktraceFlagsT) String() string {
-	switch e {
-	case BTF_KERN_INTERRUPTED:
-		return "BTF_KERN_INTERRUPTED"
-	default:
-		return fmt.Sprintf("BacktraceFlagsT(%d)", e)
-	}
-}
-
-type BacktraceInfoT uint
-
-const (
-	BTI_64_BIT BacktraceInfoT = 0
-)
-
-func (e BacktraceInfoT) String() string {
-	switch e {
-	case BTI_64_BIT:
-		return "BTI_64_BIT"
-	default:
-		return fmt.Sprintf("BacktraceInfoT(%d)", e)
-	}
-}
-
-type BacktracePackT uint
-
-const (
-	BTP_KERN_OFFSET_32 BacktracePackT = 0
-)
-
-func (e BacktracePackT) String() string {
-	switch e {
-	case BTP_KERN_OFFSET_32:
-		return "BTP_KERN_OFFSET_32"
-	default:
-		return fmt.Sprintf("BacktracePackT(%d)", e)
-	}
-}
-
-type BidirectionalUndefined uint
-
-const (
-	BIDIRECTIONAL_ECHO_CANCELING_SPEAKERPHONE BidirectionalUndefined = 0
-)
-
-func (e BidirectionalUndefined) String() string {
+func (e BidirectionalEchoCanceling) String() string {
 	switch e {
 	case BIDIRECTIONAL_ECHO_CANCELING_SPEAKERPHONE:
 		return "BIDIRECTIONAL_ECHO_CANCELING_SPEAKERPHONE"
 	default:
-		return fmt.Sprintf("BidirectionalUndefined(%d)", e)
+		return fmt.Sprintf("BidirectionalEchoCanceling(%d)", e)
 	}
 }
 
-type BpfModeDisabled uint
+type BpfMode uint
 
 const (
 	// BPF_MODE_OUTPUT: # Discussion
-	BPF_MODE_OUTPUT BpfModeDisabled = 0
+	BPF_MODE_OUTPUT BpfMode = 0
 )
 
-func (e BpfModeDisabled) String() string {
+func (e BpfMode) String() string {
 	switch e {
 	case BPF_MODE_OUTPUT:
 		return "BPF_MODE_OUTPUT"
 	default:
-		return fmt.Sprintf("BpfModeDisabled(%d)", e)
+		return fmt.Sprintf("BpfMode(%d)", e)
 	}
 }
 
-type BpfTapDisable uint
+type BpfTap uint
 
 const (
-	BPF_TAP_DISABLE BpfTapDisable = 0
+	BPF_TAP_DISABLE BpfTap = 0
 )
 
-func (e BpfTapDisable) String() string {
+func (e BpfTap) String() string {
 	switch e {
 	case BPF_TAP_DISABLE:
 		return "BPF_TAP_DISABLE"
 	default:
-		return fmt.Sprintf("BpfTapDisable(%d)", e)
+		return fmt.Sprintf("BpfTap(%d)", e)
+	}
+}
+
+type BtfKern uint
+
+const (
+	BTF_KERN_INTERRUPTED BtfKern = 0
+)
+
+func (e BtfKern) String() string {
+	switch e {
+	case BTF_KERN_INTERRUPTED:
+		return "BTF_KERN_INTERRUPTED"
+	default:
+		return fmt.Sprintf("BtfKern(%d)", e)
+	}
+}
+
+type Bti64 uint
+
+const (
+	BTI_64_BIT Bti64 = 0
+)
+
+func (e Bti64) String() string {
+	switch e {
+	case BTI_64_BIT:
+		return "BTI_64_BIT"
+	default:
+		return fmt.Sprintf("Bti64(%d)", e)
+	}
+}
+
+type BtpKernOffset uint
+
+const (
+	BTP_KERN_OFFSET_32 BtpKernOffset = 0
+)
+
+func (e BtpKernOffset) String() string {
+	switch e {
+	case BTP_KERN_OFFSET_32:
+		return "BTP_KERN_OFFSET_32"
+	default:
+		return fmt.Sprintf("BtpKernOffset(%d)", e)
 	}
 }
 
@@ -207,7 +231,7 @@ type ClusterTypeT uint
 
 const (
 	CLUSTER_TYPE_E ClusterTypeT = 0
-	MAX_CPU_TYPES ClusterTypeT = 0
+	MAX_CPU_TYPES  ClusterTypeT = 0
 )
 
 func (e ClusterTypeT) String() string {
@@ -216,21 +240,6 @@ func (e ClusterTypeT) String() string {
 		return "CLUSTER_TYPE_E"
 	default:
 		return fmt.Sprintf("ClusterTypeT(%d)", e)
-	}
-}
-
-type ClutType uint
-
-const (
-	RGBDirect ClutType = 0
-)
-
-func (e ClutType) String() string {
-	switch e {
-	case RGBDirect:
-		return "RGBDirect"
-	default:
-		return fmt.Sprintf("ClutType(%d)", e)
 	}
 }
 
@@ -249,221 +258,215 @@ func (e CoalitionFlags) String() string {
 	}
 }
 
-type CpuidRegisterT uint
+type CpustatePanic uint
 
 const (
-	Eax CpuidRegisterT = 0
+	CPUSTATE_PANIC_SPIN CpustatePanic = 0
 )
 
-func (e CpuidRegisterT) String() string {
+func (e CpustatePanic) String() string {
 	switch e {
-	case Eax:
-		return "Eax"
+	case CPUSTATE_PANIC_SPIN:
+		return "CPUSTATE_PANIC_SPIN"
 	default:
-		return fmt.Sprintf("CpuidRegisterT(%d)", e)
+		return fmt.Sprintf("CpustatePanic(%d)", e)
 	}
 }
 
-type CryptexAuthTypeT uint
+type CryptexAuth uint
 
 const (
-	CRYPTEX_AUTH_MAX CryptexAuthTypeT = 0
+	CRYPTEX_AUTH_MAX CryptexAuth = 0
 )
 
-func (e CryptexAuthTypeT) String() string {
+func (e CryptexAuth) String() string {
 	switch e {
 	case CRYPTEX_AUTH_MAX:
 		return "CRYPTEX_AUTH_MAX"
 	default:
-		return fmt.Sprintf("CryptexAuthTypeT(%d)", e)
+		return fmt.Sprintf("CryptexAuth(%d)", e)
 	}
 }
 
-type CsLaunchTypeT uint
+type CsCdhash uint
 
 const (
-	CS_LAUNCH_TYPE_SYSDIAGNOSE CsLaunchTypeT = 0
+	CS_CDHASH_LEN CsCdhash = 0
 )
 
-func (e CsLaunchTypeT) String() string {
-	switch e {
-	case CS_LAUNCH_TYPE_SYSDIAGNOSE:
-		return "CS_LAUNCH_TYPE_SYSDIAGNOSE"
-	default:
-		return fmt.Sprintf("CsLaunchTypeT(%d)", e)
-	}
-}
-
-type CsLinkageApplicationInvalid uint
-
-const (
-	CS_LINKAGE_APPLICATION_INVALID CsLinkageApplicationInvalid = 0
-)
-
-func (e CsLinkageApplicationInvalid) String() string {
-	switch e {
-	case CS_LINKAGE_APPLICATION_INVALID:
-		return "CS_LINKAGE_APPLICATION_INVALID"
-	default:
-		return fmt.Sprintf("CsLinkageApplicationInvalid(%d)", e)
-	}
-}
-
-type CsLinkageApplicationRosettaAot uint
-
-const (
-	CS_LINKAGE_APPLICATION_XOJIT_PREVIEWS CsLinkageApplicationRosettaAot = 0
-)
-
-func (e CsLinkageApplicationRosettaAot) String() string {
-	switch e {
-	case CS_LINKAGE_APPLICATION_XOJIT_PREVIEWS:
-		return "CS_LINKAGE_APPLICATION_XOJIT_PREVIEWS"
-	default:
-		return fmt.Sprintf("CsLinkageApplicationRosettaAot(%d)", e)
-	}
-}
-
-type CscGetMode uint
-
-const (
-	CscGetDetailedTiming CscGetMode = 0
-)
-
-func (e CscGetMode) String() string {
-	switch e {
-	case CscGetDetailedTiming:
-		return "CscGetDetailedTiming"
-	default:
-		return fmt.Sprintf("CscGetMode(%d)", e)
-	}
-}
-
-type CscReset uint
-
-const (
-	CscGrayPage CscReset = 0
-)
-
-func (e CscReset) String() string {
-	switch e {
-	case CscGrayPage:
-		return "CscGrayPage"
-	default:
-		return fmt.Sprintf("CscReset(%d)", e)
-	}
-}
-
-type CsmagicRequirement uint
-
-const (
-	CS_CDHASH_LEN CsmagicRequirement = 0
-)
-
-func (e CsmagicRequirement) String() string {
+func (e CsCdhash) String() string {
 	switch e {
 	case CS_CDHASH_LEN:
 		return "CS_CDHASH_LEN"
 	default:
-		return fmt.Sprintf("CsmagicRequirement(%d)", e)
+		return fmt.Sprintf("CsCdhash(%d)", e)
 	}
 }
 
-type DevelopStage uint
+type CsLaunchType uint
 
 const (
-	AlphaStage DevelopStage = 0
+	CS_LAUNCH_TYPE_SYSDIAGNOSE CsLaunchType = 0
 )
 
-func (e DevelopStage) String() string {
+func (e CsLaunchType) String() string {
 	switch e {
-	case AlphaStage:
-		return "AlphaStage"
+	case CS_LAUNCH_TYPE_SYSDIAGNOSE:
+		return "CS_LAUNCH_TYPE_SYSDIAGNOSE"
 	default:
-		return fmt.Sprintf("DevelopStage(%d)", e)
+		return fmt.Sprintf("CsLaunchType(%d)", e)
 	}
 }
 
-type DirCloneAuthorizerOp uint
+type CsLinkageApplication uint
 
 const (
-	OP_AUTHORIZE DirCloneAuthorizerOp = 0
+	CS_LINKAGE_APPLICATION_INVALID CsLinkageApplication = 0
 )
 
-func (e DirCloneAuthorizerOp) String() string {
+func (e CsLinkageApplication) String() string {
 	switch e {
-	case OP_AUTHORIZE:
-		return "OP_AUTHORIZE"
+	case CS_LINKAGE_APPLICATION_INVALID:
+		return "CS_LINKAGE_APPLICATION_INVALID"
 	default:
-		return fmt.Sprintf("DirCloneAuthorizerOp(%d)", e)
+		return fmt.Sprintf("CsLinkageApplication(%d)", e)
 	}
 }
 
-const Dot3ChipSetAMD7990 uint = 0
-
-type Dot3ChipSetDigitalDC21040 uint
+type CsLinkageApplicationXojit uint
 
 const (
-	Dot3ChipSetDigitalDC21140A Dot3ChipSetDigitalDC21040 = 0
+	CS_LINKAGE_APPLICATION_XOJIT_PREVIEWS CsLinkageApplicationXojit = 0
 )
 
-func (e Dot3ChipSetDigitalDC21040) String() string {
+func (e CsLinkageApplicationXojit) String() string {
+	switch e {
+	case CS_LINKAGE_APPLICATION_XOJIT_PREVIEWS:
+		return "CS_LINKAGE_APPLICATION_XOJIT_PREVIEWS"
+	default:
+		return fmt.Sprintf("CsLinkageApplicationXojit(%d)", e)
+	}
+}
+
+type CscGetDetailed uint
+
+const (
+	CscGetDetailedTiming CscGetDetailed = 0
+)
+
+func (e CscGetDetailed) String() string {
+	switch e {
+	case CscGetDetailedTiming:
+		return "CscGetDetailedTiming"
+	default:
+		return fmt.Sprintf("CscGetDetailed(%d)", e)
+	}
+}
+
+type CscGray uint
+
+const (
+	CscGrayPage CscGray = 0
+)
+
+func (e CscGray) String() string {
+	switch e {
+	case CscGrayPage:
+		return "CscGrayPage"
+	default:
+		return fmt.Sprintf("CscGray(%d)", e)
+	}
+}
+
+type Dot3ChipSet uint
+
+const (
+	Dot3ChipSetFujitsu86950 Dot3ChipSet = 0
+	Dot3ChipSetIntel82557   Dot3ChipSet = 0
+	Dot3ChipSetNational8390 Dot3ChipSet = 0
+)
+
+func (e Dot3ChipSet) String() string {
+	switch e {
+	case Dot3ChipSetFujitsu86950:
+		return "Dot3ChipSetFujitsu86950"
+	default:
+		return fmt.Sprintf("Dot3ChipSet(%d)", e)
+	}
+}
+
+type Dot3ChipSetAM uint
+
+const (
+	Dot3ChipSetAMD7990 Dot3ChipSetAM = 0
+)
+
+func (e Dot3ChipSetAM) String() string {
+	switch e {
+	case Dot3ChipSetAMD7990:
+		return "Dot3ChipSetAMD7990"
+	default:
+		return fmt.Sprintf("Dot3ChipSetAM(%d)", e)
+	}
+}
+
+type Dot3ChipSetDigitalDC21140 uint
+
+const (
+	Dot3ChipSetDigitalDC21140A Dot3ChipSetDigitalDC21140 = 0
+)
+
+func (e Dot3ChipSetDigitalDC21140) String() string {
 	switch e {
 	case Dot3ChipSetDigitalDC21140A:
 		return "Dot3ChipSetDigitalDC21140A"
 	default:
-		return fmt.Sprintf("Dot3ChipSetDigitalDC21040(%d)", e)
+		return fmt.Sprintf("Dot3ChipSetDigitalDC21140(%d)", e)
 	}
 }
 
-const Dot3ChipSetFujitsu86950 uint = 0
-
-type Dot3ChipSetIntel82586 uint
+type Dot3ChipSetWesternDigital83 uint
 
 const (
-	Dot3ChipSetIntel82557 Dot3ChipSetIntel82586 = 0
+	Dot3ChipSetWesternDigital83C690 Dot3ChipSetWesternDigital83 = 0
 )
 
-func (e Dot3ChipSetIntel82586) String() string {
+func (e Dot3ChipSetWesternDigital83) String() string {
 	switch e {
-	case Dot3ChipSetIntel82557:
-		return "Dot3ChipSetIntel82557"
+	case Dot3ChipSetWesternDigital83C690:
+		return "Dot3ChipSetWesternDigital83C690"
 	default:
-		return fmt.Sprintf("Dot3ChipSetIntel82586(%d)", e)
+		return fmt.Sprintf("Dot3ChipSetWesternDigital83(%d)", e)
 	}
 }
 
-const Dot3ChipSetNational8390 uint = 0
-
-const Dot3ChipSetWesternDigital83C690 uint = 0
-
-type Dot3Vendors uint
+type Dot3VendorAM uint
 
 const (
-	Dot3VendorAMD Dot3Vendors = 0
+	Dot3VendorAMD Dot3VendorAM = 0
 )
 
-func (e Dot3Vendors) String() string {
+func (e Dot3VendorAM) String() string {
 	switch e {
 	case Dot3VendorAMD:
 		return "Dot3VendorAMD"
 	default:
-		return fmt.Sprintf("Dot3Vendors(%d)", e)
+		return fmt.Sprintf("Dot3VendorAM(%d)", e)
 	}
 }
 
-type DurationMicrosecond uint
+type Duration uint
 
 const (
-	DurationMinute DurationMicrosecond = 0
+	DurationMinute Duration = 0
 )
 
-func (e DurationMicrosecond) String() string {
+func (e Duration) String() string {
 	switch e {
 	case DurationMinute:
 		return "DurationMinute"
 	default:
-		return fmt.Sprintf("DurationMicrosecond(%d)", e)
+		return fmt.Sprintf("Duration(%d)", e)
 	}
 }
 
@@ -482,184 +485,79 @@ func (e DyldChainedImport) String() string {
 	}
 }
 
-type DyldChainedPtrArm64e uint
+type DyldChainedPtr uint
 
 const (
-	DYLD_CHAINED_PTR_32 DyldChainedPtrArm64e = 0
+	DYLD_CHAINED_PTR_32 DyldChainedPtr = 0
 )
 
-func (e DyldChainedPtrArm64e) String() string {
+func (e DyldChainedPtr) String() string {
 	switch e {
 	case DYLD_CHAINED_PTR_32:
 		return "DYLD_CHAINED_PTR_32"
 	default:
-		return fmt.Sprintf("DyldChainedPtrArm64e(%d)", e)
+		return fmt.Sprintf("DyldChainedPtr(%d)", e)
 	}
 }
 
-type DyldChainedPtrStartNone uint
+type DyldChainedPtrStart uint
 
 const (
-	DYLD_CHAINED_PTR_START_MULTI DyldChainedPtrStartNone = 0
+	DYLD_CHAINED_PTR_START_MULTI DyldChainedPtrStart = 0
 )
 
-func (e DyldChainedPtrStartNone) String() string {
+func (e DyldChainedPtrStart) String() string {
 	switch e {
 	case DYLD_CHAINED_PTR_START_MULTI:
 		return "DYLD_CHAINED_PTR_START_MULTI"
 	default:
-		return fmt.Sprintf("DyldChainedPtrStartNone(%d)", e)
+		return fmt.Sprintf("DyldChainedPtrStart(%d)", e)
 	}
 }
 
-type DyldSharedCacheFlags uint
+type ENoteExitReparented uint
 
 const (
-	KSharedCacheAOT DyldSharedCacheFlags = 0
+	// Deprecated.
+	ENoteExitReparentedDeprecated ENoteExitReparented = 0
 )
 
-func (e DyldSharedCacheFlags) String() string {
+func (e ENoteExitReparented) String() string {
 	switch e {
-	case KSharedCacheAOT:
-		return "KSharedCacheAOT"
+	case ENoteExitReparentedDeprecated:
+		return "ENoteExitReparentedDeprecated"
 	default:
-		return fmt.Sprintf("DyldSharedCacheFlags(%d)", e)
+		return fmt.Sprintf("ENoteExitReparented(%d)", e)
 	}
 }
 
-type EIOAccelSurfaceLockBits uint
+type ENoteReap uint
 
 const (
-	KIOAccelSurfaceLockInAccel EIOAccelSurfaceLockBits = 0
+	// Deprecated.
+	ENoteReapDeprecated ENoteReap = 0
 )
 
-func (e EIOAccelSurfaceLockBits) String() string {
+func (e ENoteReap) String() string {
 	switch e {
-	case KIOAccelSurfaceLockInAccel:
-		return "KIOAccelSurfaceLockInAccel"
+	case ENoteReapDeprecated:
+		return "ENoteReapDeprecated"
 	default:
-		return fmt.Sprintf("EIOAccelSurfaceLockBits(%d)", e)
+		return fmt.Sprintf("ENoteReap(%d)", e)
 	}
 }
 
-type EIOAccelSurfaceMemoryTypes uint
-
-const (
-	KIOAccelNumSurfaceMemoryTypes EIOAccelSurfaceMemoryTypes = 0
-)
-
-func (e EIOAccelSurfaceMemoryTypes) String() string {
-	switch e {
-	case KIOAccelNumSurfaceMemoryTypes:
-		return "KIOAccelNumSurfaceMemoryTypes"
-	default:
-		return fmt.Sprintf("EIOAccelSurfaceMemoryTypes(%d)", e)
-	}
-}
-
-type EIOAccelSurfaceModeBits uint
-
-const (
-	KIOAccelSurfaceModeBeamSync EIOAccelSurfaceModeBits = 0
-)
-
-func (e EIOAccelSurfaceModeBits) String() string {
-	switch e {
-	case KIOAccelSurfaceModeBeamSync:
-		return "KIOAccelSurfaceModeBeamSync"
-	default:
-		return fmt.Sprintf("EIOAccelSurfaceModeBits(%d)", e)
-	}
-}
-
-type EIOAccelSurfaceScaleBits uint
-
-const (
-	KIOAccelSurfaceBeamSyncSwaps EIOAccelSurfaceScaleBits = 0
-)
-
-func (e EIOAccelSurfaceScaleBits) String() string {
-	switch e {
-	case KIOAccelSurfaceBeamSyncSwaps:
-		return "KIOAccelSurfaceBeamSyncSwaps"
-	default:
-		return fmt.Sprintf("EIOAccelSurfaceScaleBits(%d)", e)
-	}
-}
-
-type EIOAccelSurfaceShapeBits uint
-
-const (
-	KIOAccelSurfaceShapeAssemblyBit EIOAccelSurfaceShapeBits = 0
-)
-
-func (e EIOAccelSurfaceShapeBits) String() string {
-	switch e {
-	case KIOAccelSurfaceShapeAssemblyBit:
-		return "KIOAccelSurfaceShapeAssemblyBit"
-	default:
-		return fmt.Sprintf("EIOAccelSurfaceShapeBits(%d)", e)
-	}
-}
-
-type EIOAccelSurfaceStateBits uint
-
-const (
-	KIOAccelSurfaceStateIdleBit EIOAccelSurfaceStateBits = 0
-)
-
-func (e EIOAccelSurfaceStateBits) String() string {
-	switch e {
-	case KIOAccelSurfaceStateIdleBit:
-		return "KIOAccelSurfaceStateIdleBit"
-	default:
-		return fmt.Sprintf("EIOAccelSurfaceStateBits(%d)", e)
-	}
-}
-
-const ENoteExitReparentedDeprecated uint = 0
-
-const ENoteReapDeprecated uint = 0
-
-type EXBrightMessageType uint
-
-const (
-	KLoadALSSCalibration EXBrightMessageType = 0
-)
-
-func (e EXBrightMessageType) String() string {
-	switch e {
-	case KLoadALSSCalibration:
-		return "KLoadALSSCalibration"
-	default:
-		return fmt.Sprintf("EXBrightMessageType(%d)", e)
-	}
-}
-
-type EXDisplayPipeIndicator uint
-
-const (
-	INDICATOR_CAM EXDisplayPipeIndicator = 0
-)
-
-func (e EXDisplayPipeIndicator) String() string {
-	switch e {
-	case INDICATOR_CAM:
-		return "INDICATOR_CAM"
-	default:
-		return fmt.Sprintf("EXDisplayPipeIndicator(%d)", e)
-	}
-}
+const Eax uint = 0
 
 type Ecc uint
 
 const (
-	ECC_DB_CORRUPTED Ecc = 0
-	ECC_DB_ONLY Ecc = 0
+	ECC_DB_CORRUPTED   Ecc = 0
+	ECC_DB_ONLY        Ecc = 0
 	ECC_IS_CORRECTABLE Ecc = 0
-	ECC_IS_TEST_ERROR Ecc = 0
-	ECC_NONE Ecc = 0
-	ECC_REMOVE_ADDR Ecc = 0
+	ECC_IS_TEST_ERROR  Ecc = 0
+	ECC_NONE           Ecc = 0
+	ECC_REMOVE_ADDR    Ecc = 0
 )
 
 func (e Ecc) String() string {
@@ -674,21 +572,21 @@ func (e Ecc) String() string {
 type Efi uint
 
 const (
-	EfiACPIMemoryNVS Efi = 0
-	EfiACPIReclaimMemory Efi = 0
-	EfiBootServicesCode Efi = 0
-	EfiBootServicesData Efi = 0
-	EfiConventionalMemory Efi = 0
-	EfiLoaderCode Efi = 0
-	EfiLoaderData Efi = 0
-	EfiMaxMemoryType Efi = 0
-	EfiMemoryMappedIO Efi = 0
+	EfiACPIMemoryNVS           Efi = 0
+	EfiACPIReclaimMemory       Efi = 0
+	EfiBootServicesCode        Efi = 0
+	EfiBootServicesData        Efi = 0
+	EfiConventionalMemory      Efi = 0
+	EfiLoaderCode              Efi = 0
+	EfiLoaderData              Efi = 0
+	EfiMaxMemoryType           Efi = 0
+	EfiMemoryMappedIO          Efi = 0
 	EfiMemoryMappedIOPortSpace Efi = 0
-	EfiPalCode Efi = 0
-	EfiReservedMemoryType Efi = 0
-	EfiRuntimeServicesCode Efi = 0
-	EfiRuntimeServicesData Efi = 0
-	EfiUnusableMemory Efi = 0
+	EfiPalCode                 Efi = 0
+	EfiReservedMemoryType      Efi = 0
+	EfiRuntimeServicesCode     Efi = 0
+	EfiRuntimeServicesData     Efi = 0
+	EfiUnusableMemory          Efi = 0
 )
 
 func (e Efi) String() string {
@@ -700,78 +598,78 @@ func (e Efi) String() string {
 	}
 }
 
-type EfiResetType uint
+type EfiReset uint
 
 const (
-	EfiResetCold EfiResetType = 0
+	EfiResetCold EfiReset = 0
 )
 
-func (e EfiResetType) String() string {
+func (e EfiReset) String() string {
 	switch e {
 	case EfiResetCold:
 		return "EfiResetCold"
 	default:
-		return fmt.Sprintf("EfiResetType(%d)", e)
+		return fmt.Sprintf("EfiReset(%d)", e)
 	}
 }
 
-type EmbeddedUndefined uint
+type Embedded uint
 
 const (
-	EMBEDDED_PHONOGRAPH EmbeddedUndefined = 0
+	EMBEDDED_PHONOGRAPH Embedded = 0
 )
 
-func (e EmbeddedUndefined) String() string {
+func (e Embedded) String() string {
 	switch e {
 	case EMBEDDED_PHONOGRAPH:
 		return "EMBEDDED_PHONOGRAPH"
 	default:
-		return fmt.Sprintf("EmbeddedUndefined(%d)", e)
+		return fmt.Sprintf("Embedded(%d)", e)
 	}
 }
 
-type EphPanicFlagsT uint
+type EmbeddedPanicHeaderFlagButtonReset uint
 
 const (
-	EMBEDDED_PANIC_HEADER_FLAG_BUTTON_RESET_PANIC EphPanicFlagsT = 0
+	EMBEDDED_PANIC_HEADER_FLAG_BUTTON_RESET_PANIC EmbeddedPanicHeaderFlagButtonReset = 0
 )
 
-func (e EphPanicFlagsT) String() string {
+func (e EmbeddedPanicHeaderFlagButtonReset) String() string {
 	switch e {
 	case EMBEDDED_PANIC_HEADER_FLAG_BUTTON_RESET_PANIC:
 		return "EMBEDDED_PANIC_HEADER_FLAG_BUTTON_RESET_PANIC"
 	default:
-		return fmt.Sprintf("EphPanicFlagsT(%d)", e)
+		return fmt.Sprintf("EmbeddedPanicHeaderFlagButtonReset(%d)", e)
 	}
 }
 
-type ExCbActionT uint
+type ExcbAction uint
 
 const (
-	EXCB_ACTION_NONE ExCbActionT = 0
+	EXCB_ACTION_NONE ExcbAction = 0
 )
 
-func (e ExCbActionT) String() string {
+func (e ExcbAction) String() string {
 	switch e {
 	case EXCB_ACTION_NONE:
 		return "EXCB_ACTION_NONE"
 	default:
-		return fmt.Sprintf("ExCbActionT(%d)", e)
+		return fmt.Sprintf("ExcbAction(%d)", e)
 	}
 }
 
-type ExCbClassT uint
+type ExcbClassIllegalInstr uint
 
 const (
-	EXCB_CLASS_ILLEGAL_INSTR_SET ExCbClassT = 0
+	EXCB_CLASS_ILLEGAL_INSTR_SET ExcbClassIllegalInstr = 0
 )
 
-func (e ExCbClassT) String() string {
+func (e ExcbClassIllegalInstr) String() string {
 	switch e {
 	case EXCB_CLASS_ILLEGAL_INSTR_SET:
 		return "EXCB_CLASS_ILLEGAL_INSTR_SET"
 	default:
-		return fmt.Sprintf("ExCbClassT(%d)", e)
+		return fmt.Sprintf("ExcbClassIllegalInstr(%d)", e)
 	}
 }
 
@@ -790,93 +688,64 @@ func (e ExclaveAddressspaceFlags) String() string {
 	}
 }
 
-type ExclaveScresultFlags uint
+type ExtPaniclogFlagsAddSeparate uint
 
 const (
-	KExclaveScresultHaveIPCStack ExclaveScresultFlags = 0
+	EXT_PANICLOG_FLAGS_ADD_SEPARATE_KEY ExtPaniclogFlagsAddSeparate = 0
 )
 
-func (e ExclaveScresultFlags) String() string {
-	switch e {
-	case KExclaveScresultHaveIPCStack:
-		return "KExclaveScresultHaveIPCStack"
-	default:
-		return fmt.Sprintf("ExclaveScresultFlags(%d)", e)
-	}
-}
-
-type ExtPaniclogCreateOptionsT uint
-
-const (
-	EXT_PANICLOG_OPTIONS_ADD_SEPARATE_KEY ExtPaniclogCreateOptionsT = 0
-)
-
-func (e ExtPaniclogCreateOptionsT) String() string {
-	switch e {
-	case EXT_PANICLOG_OPTIONS_ADD_SEPARATE_KEY:
-		return "EXT_PANICLOG_OPTIONS_ADD_SEPARATE_KEY"
-	default:
-		return fmt.Sprintf("ExtPaniclogCreateOptionsT(%d)", e)
-	}
-}
-
-type ExtPaniclogFlagsT uint
-
-const (
-	EXT_PANICLOG_FLAGS_ADD_SEPARATE_KEY ExtPaniclogFlagsT = 0
-)
-
-func (e ExtPaniclogFlagsT) String() string {
+func (e ExtPaniclogFlagsAddSeparate) String() string {
 	switch e {
 	case EXT_PANICLOG_FLAGS_ADD_SEPARATE_KEY:
 		return "EXT_PANICLOG_FLAGS_ADD_SEPARATE_KEY"
 	default:
-		return fmt.Sprintf("ExtPaniclogFlagsT(%d)", e)
+		return fmt.Sprintf("ExtPaniclogFlagsAddSeparate(%d)", e)
 	}
 }
 
-type ExternalUndefined uint
+type ExtPaniclogOptionsAddSeparate uint
 
 const (
-	EXTERNAL_1394_DA_STREAM ExternalUndefined = 0
+	EXT_PANICLOG_OPTIONS_ADD_SEPARATE_KEY ExtPaniclogOptionsAddSeparate = 0
 )
 
-func (e ExternalUndefined) String() string {
+func (e ExtPaniclogOptionsAddSeparate) String() string {
+	switch e {
+	case EXT_PANICLOG_OPTIONS_ADD_SEPARATE_KEY:
+		return "EXT_PANICLOG_OPTIONS_ADD_SEPARATE_KEY"
+	default:
+		return fmt.Sprintf("ExtPaniclogOptionsAddSeparate(%d)", e)
+	}
+}
+
+type External1394Da uint
+
+const (
+	EXTERNAL_1394_DA_STREAM External1394Da = 0
+)
+
+func (e External1394Da) String() string {
 	switch e {
 	case EXTERNAL_1394_DA_STREAM:
 		return "EXTERNAL_1394_DA_STREAM"
 	default:
-		return fmt.Sprintf("ExternalUndefined(%d)", e)
+		return fmt.Sprintf("External1394Da(%d)", e)
 	}
 }
 
-type FftForward uint
+type Fft uint
 
 const (
-	FFT_FORWARD FftForward = 0
+	FFT_FORWARD Fft = 0
+	FFT_RADIX2  Fft = 0
 )
 
-func (e FftForward) String() string {
+func (e Fft) String() string {
 	switch e {
 	case FFT_FORWARD:
 		return "FFT_FORWARD"
 	default:
-		return fmt.Sprintf("FftForward(%d)", e)
-	}
-}
-
-type FftRadix2 uint
-
-const (
-	FFT_RADIX2 FftRadix2 = 0
-)
-
-func (e FftRadix2) String() string {
-	switch e {
-	case FFT_RADIX2:
-		return "FFT_RADIX2"
-	default:
-		return fmt.Sprintf("FftRadix2(%d)", e)
+		return fmt.Sprintf("Fft(%d)", e)
 	}
 }
 
@@ -884,7 +753,7 @@ type GenericSnapshotFlags uint
 
 const (
 	KKernel64_p GenericSnapshotFlags = 0
-	KUser64_p GenericSnapshotFlags = 0
+	KUser64_p   GenericSnapshotFlags = 0
 )
 
 func (e GenericSnapshotFlags) String() string {
@@ -896,132 +765,132 @@ func (e GenericSnapshotFlags) String() string {
 	}
 }
 
-type GraftdmgTypeT uint
+type GraftdmgCryptex uint
 
 const (
-	GRAFTDMG_CRYPTEX_BOOT GraftdmgTypeT = 0
+	GRAFTDMG_CRYPTEX_BOOT GraftdmgCryptex = 0
 )
 
-func (e GraftdmgTypeT) String() string {
+func (e GraftdmgCryptex) String() string {
 	switch e {
 	case GRAFTDMG_CRYPTEX_BOOT:
 		return "GRAFTDMG_CRYPTEX_BOOT"
 	default:
-		return fmt.Sprintf("GraftdmgTypeT(%d)", e)
+		return fmt.Sprintf("GraftdmgCryptex(%d)", e)
 	}
 }
 
-type GssdMechtype uint
+type GssdKrb5 uint
 
 const (
-	GSSD_NO_MECH GssdMechtype = 0
+	GSSD_KRB5_REFERRAL GssdKrb5 = 0
 )
 
-func (e GssdMechtype) String() string {
-	switch e {
-	case GSSD_NO_MECH:
-		return "GSSD_NO_MECH"
-	default:
-		return fmt.Sprintf("GssdMechtype(%d)", e)
-	}
-}
-
-type GssdNametype uint
-
-const (
-	GSSD_KRB5_REFERRAL GssdNametype = 0
-)
-
-func (e GssdNametype) String() string {
+func (e GssdKrb5) String() string {
 	switch e {
 	case GSSD_KRB5_REFERRAL:
 		return "GSSD_KRB5_REFERRAL"
 	default:
-		return fmt.Sprintf("GssdNametype(%d)", e)
+		return fmt.Sprintf("GssdKrb5(%d)", e)
 	}
 }
 
-type HvTrapTypeT uint
+type GssdNo uint
 
 const (
-	HV_THREAD_TRAP HvTrapTypeT = 0
+	GSSD_NO_MECH GssdNo = 0
 )
 
-func (e HvTrapTypeT) String() string {
+func (e GssdNo) String() string {
 	switch e {
-	case HV_THREAD_TRAP:
-		return "HV_THREAD_TRAP"
+	case GSSD_NO_MECH:
+		return "GSSD_NO_MECH"
 	default:
-		return fmt.Sprintf("HvTrapTypeT(%d)", e)
+		return fmt.Sprintf("GssdNo(%d)", e)
 	}
 }
 
-type HvVolatileStateT uint
+type HvDebug uint
 
 const (
-	HV_DEBUG_STATE HvVolatileStateT = 0
+	HV_DEBUG_STATE HvDebug = 0
 )
 
-func (e HvVolatileStateT) String() string {
+func (e HvDebug) String() string {
 	switch e {
 	case HV_DEBUG_STATE:
 		return "HV_DEBUG_STATE"
 	default:
-		return fmt.Sprintf("HvVolatileStateT(%d)", e)
+		return fmt.Sprintf("HvDebug(%d)", e)
 	}
 }
 
-type HvgHcallCodeT uint
+type HvThread uint
 
 const (
-	HVG_HCALL_GET_BOOTSESSIONUUID HvgHcallCodeT = 0
+	HV_THREAD_TRAP HvThread = 0
 )
 
-func (e HvgHcallCodeT) String() string {
+func (e HvThread) String() string {
 	switch e {
-	case HVG_HCALL_GET_BOOTSESSIONUUID:
-		return "HVG_HCALL_GET_BOOTSESSIONUUID"
+	case HV_THREAD_TRAP:
+		return "HV_THREAD_TRAP"
 	default:
-		return fmt.Sprintf("HvgHcallCodeT(%d)", e)
+		return fmt.Sprintf("HvThread(%d)", e)
 	}
 }
 
-type HvgHcallDumpOptionT uint
+type HvgHcallAccess uint
 
 const (
-	HVG_HCALL_DUMP_OPTION_REGULAR HvgHcallDumpOptionT = 0
+	HVG_HCALL_ACCESS_DENIED HvgHcallAccess = 0
 )
 
-func (e HvgHcallDumpOptionT) String() string {
-	switch e {
-	case HVG_HCALL_DUMP_OPTION_REGULAR:
-		return "HVG_HCALL_DUMP_OPTION_REGULAR"
-	default:
-		return fmt.Sprintf("HvgHcallDumpOptionT(%d)", e)
-	}
-}
-
-type HvgHcallReturnT uint
-
-const (
-	HVG_HCALL_ACCESS_DENIED HvgHcallReturnT = 0
-)
-
-func (e HvgHcallReturnT) String() string {
+func (e HvgHcallAccess) String() string {
 	switch e {
 	case HVG_HCALL_ACCESS_DENIED:
 		return "HVG_HCALL_ACCESS_DENIED"
 	default:
-		return fmt.Sprintf("HvgHcallReturnT(%d)", e)
+		return fmt.Sprintf("HvgHcallAccess(%d)", e)
+	}
+}
+
+type HvgHcallDumpOption uint
+
+const (
+	HVG_HCALL_DUMP_OPTION_REGULAR HvgHcallDumpOption = 0
+)
+
+func (e HvgHcallDumpOption) String() string {
+	switch e {
+	case HVG_HCALL_DUMP_OPTION_REGULAR:
+		return "HVG_HCALL_DUMP_OPTION_REGULAR"
+	default:
+		return fmt.Sprintf("HvgHcallDumpOption(%d)", e)
+	}
+}
+
+type HvgHcallGet uint
+
+const (
+	HVG_HCALL_GET_BOOTSESSIONUUID HvgHcallGet = 0
+)
+
+func (e HvgHcallGet) String() string {
+	switch e {
+	case HVG_HCALL_GET_BOOTSESSIONUUID:
+		return "HVG_HCALL_GET_BOOTSESSIONUUID"
+	default:
+		return fmt.Sprintf("HvgHcallGet(%d)", e)
 	}
 }
 
 type IOCSRKeyType uint
 
 const (
-	KCSRDirectoryKeyType IOCSRKeyType = 0
-	KCSRImmediateKeyType IOCSRKeyType = 0
-	KCSROffsetKeyType IOCSRKeyType = 0
+	KCSRDirectoryKeyType    IOCSRKeyType = 0
+	KCSRImmediateKeyType    IOCSRKeyType = 0
+	KCSROffsetKeyType       IOCSRKeyType = 0
 	KInvalidCSRROMEntryType IOCSRKeyType = 0
 )
 
@@ -1037,9 +906,9 @@ func (e IOCSRKeyType) String() string {
 type IOConfigKeyType uint
 
 const (
-	KConfigDirectoryKeyType IOConfigKeyType = 0
-	KConfigImmediateKeyType IOConfigKeyType = 0
-	KConfigLeafKeyType IOConfigKeyType = 0
+	KConfigDirectoryKeyType    IOConfigKeyType = 0
+	KConfigImmediateKeyType    IOConfigKeyType = 0
+	KConfigLeafKeyType         IOConfigKeyType = 0
 	KInvalidConfigROMEntryType IOConfigKeyType = 0
 )
 
@@ -1052,63 +921,17 @@ func (e IOConfigKeyType) String() string {
 	}
 }
 
-type IODebuggerLockState uint
-
-const (
-	// KIODebuggerLockTaken: # Discussion
-	KIODebuggerLockTaken IODebuggerLockState = 0
-)
-
-func (e IODebuggerLockState) String() string {
-	switch e {
-	case KIODebuggerLockTaken:
-		return "KIODebuggerLockTaken"
-	default:
-		return fmt.Sprintf("IODebuggerLockState(%d)", e)
-	}
-}
-
-type IOEthernetControllerAVBState uint
-
-const (
-	KIOEthernetControllerAVBStateAVBEnabled IOEthernetControllerAVBState = 0
-)
-
-func (e IOEthernetControllerAVBState) String() string {
-	switch e {
-	case KIOEthernetControllerAVBStateAVBEnabled:
-		return "KIOEthernetControllerAVBStateAVBEnabled"
-	default:
-		return fmt.Sprintf("IOEthernetControllerAVBState(%d)", e)
-	}
-}
-
-type IOEthernetControllerAVBTimeSyncSupport uint
-
-const (
-	KIOEthernetControllerAVBTimeSyncSupportHardware IOEthernetControllerAVBTimeSyncSupport = 0
-)
-
-func (e IOEthernetControllerAVBTimeSyncSupport) String() string {
-	switch e {
-	case KIOEthernetControllerAVBTimeSyncSupportHardware:
-		return "KIOEthernetControllerAVBTimeSyncSupportHardware"
-	default:
-		return fmt.Sprintf("IOEthernetControllerAVBTimeSyncSupport(%d)", e)
-	}
-}
-
 type IOFWAVCPlug uint
 
 const (
-	IOFWAVCPlugAsynchInputType IOFWAVCPlug = 0
-	IOFWAVCPlugAsynchOutputType IOFWAVCPlug = 0
-	IOFWAVCPlugExternalInputType IOFWAVCPlug = 0
+	IOFWAVCPlugAsynchInputType    IOFWAVCPlug = 0
+	IOFWAVCPlugAsynchOutputType   IOFWAVCPlug = 0
+	IOFWAVCPlugExternalInputType  IOFWAVCPlug = 0
 	IOFWAVCPlugExternalOutputType IOFWAVCPlug = 0
-	IOFWAVCPlugIsochInputType IOFWAVCPlug = 0
-	IOFWAVCPlugIsochOutputType IOFWAVCPlug = 0
-	IOFWAVCPlugSubunitDestType IOFWAVCPlug = 0
-	IOFWAVCPlugSubunitSourceType IOFWAVCPlug = 0
+	IOFWAVCPlugIsochInputType     IOFWAVCPlug = 0
+	IOFWAVCPlugIsochOutputType    IOFWAVCPlug = 0
+	IOFWAVCPlugSubunitDestType    IOFWAVCPlug = 0
+	IOFWAVCPlugSubunitSourceType  IOFWAVCPlug = 0
 )
 
 func (e IOFWAVCPlug) String() string {
@@ -1132,21 +955,6 @@ func (e IOHIDKeyboardEventOptions) String() string {
 		return "KIOHIDKeyboardEventOptionsNoKeyRepeat"
 	default:
 		return fmt.Sprintf("IOHIDKeyboardEventOptions(%d)", e)
-	}
-}
-
-type IOHIDKind uint
-
-const (
-	KHIKeyboardDevice IOHIDKind = 0
-)
-
-func (e IOHIDKind) String() string {
-	switch e {
-	case KHIKeyboardDevice:
-		return "KHIKeyboardDevice"
-	default:
-		return fmt.Sprintf("IOHIDKind(%d)", e)
 	}
 }
 
@@ -1180,55 +988,40 @@ func (e IOHIDScrollEventOptions) String() string {
 	}
 }
 
-type IOLockState uint
+type IOPMHighest uint
 
 const (
-	KIOLockStateLocked IOLockState = 0
+	IOPMHighestState IOPMHighest = 0
 )
 
-func (e IOLockState) String() string {
-	switch e {
-	case KIOLockStateLocked:
-		return "KIOLockStateLocked"
-	default:
-		return fmt.Sprintf("IOLockState(%d)", e)
-	}
-}
-
-type IOPCIResetType uint
-
-const (
-	KIOPCIResetHot IOPCIResetType = 0
-)
-
-func (e IOPCIResetType) String() string {
-	switch e {
-	case KIOPCIResetHot:
-		return "KIOPCIResetHot"
-	default:
-		return fmt.Sprintf("IOPCIResetType(%d)", e)
-	}
-}
-
-type IOPMNextHigherState uint
-
-const (
-	IOPMHighestState IOPMNextHigherState = 0
-)
-
-func (e IOPMNextHigherState) String() string {
+func (e IOPMHighest) String() string {
 	switch e {
 	case IOPMHighestState:
 		return "IOPMHighestState"
 	default:
-		return fmt.Sprintf("IOPMNextHigherState(%d)", e)
+		return fmt.Sprintf("IOPMHighest(%d)", e)
+	}
+}
+
+type IOPMMaxPower uint
+
+const (
+	IOPMMaxPowerStates IOPMMaxPower = 0
+)
+
+func (e IOPMMaxPower) String() string {
+	switch e {
+	case IOPMMaxPowerStates:
+		return "IOPMMaxPowerStates"
+	default:
+		return fmt.Sprintf("IOPMMaxPower(%d)", e)
 	}
 }
 
 type IOUSBHostCICapabilitiesMessage uint
 
 const (
-	IOUSBHostCICapabilitiesMessageControlPortCount IOUSBHostCICapabilitiesMessage = 0
+	IOUSBHostCICapabilitiesMessageControlPortCount       IOUSBHostCICapabilitiesMessage = 0
 	IOUSBHostCICapabilitiesMessageData0ConnectionLatency IOUSBHostCICapabilitiesMessage = 0
 )
 
@@ -1244,7 +1037,7 @@ func (e IOUSBHostCICapabilitiesMessage) String() string {
 type IOUSBHostCICommandMessageControl uint
 
 const (
-	IOUSBHostCICommandMessageControlStatus IOUSBHostCICommandMessageControl = 0
+	IOUSBHostCICommandMessageControlStatus      IOUSBHostCICommandMessageControl = 0
 	IOUSBHostCICommandMessageControlStatusPhase IOUSBHostCICommandMessageControl = 0
 )
 
@@ -1261,7 +1054,7 @@ type IOUSBHostCIControllerState uint
 
 const (
 	IOUSBHostCIControllerStateActive IOUSBHostCIControllerState = 0
-	IOUSBHostCIControllerStateOff IOUSBHostCIControllerState = 0
+	IOUSBHostCIControllerStateOff    IOUSBHostCIControllerState = 0
 )
 
 func (e IOUSBHostCIControllerState) String() string {
@@ -1273,44 +1066,44 @@ func (e IOUSBHostCIControllerState) String() string {
 	}
 }
 
-type IOUSBHostCIDeviceCreateCommandData0RootPortConstants uint
+type IOUSBHostCIDeviceCreateCommandData0Root uint
 
 const (
-	IOUSBHostCIDeviceCreateCommandData0RootPort IOUSBHostCIDeviceCreateCommandData0RootPortConstants = 0
+	IOUSBHostCIDeviceCreateCommandData0RootPort IOUSBHostCIDeviceCreateCommandData0Root = 0
 )
 
-func (e IOUSBHostCIDeviceCreateCommandData0RootPortConstants) String() string {
+func (e IOUSBHostCIDeviceCreateCommandData0Root) String() string {
 	switch e {
 	case IOUSBHostCIDeviceCreateCommandData0RootPort:
 		return "IOUSBHostCIDeviceCreateCommandData0RootPort"
 	default:
-		return fmt.Sprintf("IOUSBHostCIDeviceCreateCommandData0RootPortConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIDeviceCreateCommandData0Root(%d)", e)
 	}
 }
 
-type IOUSBHostCIDeviceCreateCommandData1DeviceAddressConstants uint
+type IOUSBHostCIDeviceCreateCommandData1Device uint
 
 const (
-	IOUSBHostCIDeviceCreateCommandData1DeviceAddress IOUSBHostCIDeviceCreateCommandData1DeviceAddressConstants = 0
+	IOUSBHostCIDeviceCreateCommandData1DeviceAddress IOUSBHostCIDeviceCreateCommandData1Device = 0
 )
 
-func (e IOUSBHostCIDeviceCreateCommandData1DeviceAddressConstants) String() string {
+func (e IOUSBHostCIDeviceCreateCommandData1Device) String() string {
 	switch e {
 	case IOUSBHostCIDeviceCreateCommandData1DeviceAddress:
 		return "IOUSBHostCIDeviceCreateCommandData1DeviceAddress"
 	default:
-		return fmt.Sprintf("IOUSBHostCIDeviceCreateCommandData1DeviceAddressConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIDeviceCreateCommandData1Device(%d)", e)
 	}
 }
 
 type IOUSBHostCIDeviceSpeed uint
 
 const (
-	IOUSBHostCIDeviceSpeedFull IOUSBHostCIDeviceSpeed = 0
-	IOUSBHostCIDeviceSpeedHigh IOUSBHostCIDeviceSpeed = 0
-	IOUSBHostCIDeviceSpeedLow IOUSBHostCIDeviceSpeed = 0
-	IOUSBHostCIDeviceSpeedNone IOUSBHostCIDeviceSpeed = 0
-	IOUSBHostCIDeviceSpeedSuper IOUSBHostCIDeviceSpeed = 0
+	IOUSBHostCIDeviceSpeedFull      IOUSBHostCIDeviceSpeed = 0
+	IOUSBHostCIDeviceSpeedHigh      IOUSBHostCIDeviceSpeed = 0
+	IOUSBHostCIDeviceSpeedLow       IOUSBHostCIDeviceSpeed = 0
+	IOUSBHostCIDeviceSpeedNone      IOUSBHostCIDeviceSpeed = 0
+	IOUSBHostCIDeviceSpeedSuper     IOUSBHostCIDeviceSpeed = 0
 	IOUSBHostCIDeviceSpeedSuperPlus IOUSBHostCIDeviceSpeed = 0
 )
 
@@ -1326,9 +1119,9 @@ func (e IOUSBHostCIDeviceSpeed) String() string {
 type IOUSBHostCIDeviceState uint
 
 const (
-	IOUSBHostCIDeviceStateActive IOUSBHostCIDeviceState = 0
+	IOUSBHostCIDeviceStateActive    IOUSBHostCIDeviceState = 0
 	IOUSBHostCIDeviceStateDestroyed IOUSBHostCIDeviceState = 0
-	IOUSBHostCIDeviceStatePaused IOUSBHostCIDeviceState = 0
+	IOUSBHostCIDeviceStatePaused    IOUSBHostCIDeviceState = 0
 )
 
 func (e IOUSBHostCIDeviceState) String() string {
@@ -1340,25 +1133,25 @@ func (e IOUSBHostCIDeviceState) String() string {
 	}
 }
 
-type IOUSBHostCIDeviceUpdateCommandData1DescriptorAddressConstants uint
+type IOUSBHostCIDeviceUpdateCommandData1Descriptor uint
 
 const (
-	IOUSBHostCIDeviceUpdateCommandData1DescriptorAddress IOUSBHostCIDeviceUpdateCommandData1DescriptorAddressConstants = 0
+	IOUSBHostCIDeviceUpdateCommandData1DescriptorAddress IOUSBHostCIDeviceUpdateCommandData1Descriptor = 0
 )
 
-func (e IOUSBHostCIDeviceUpdateCommandData1DescriptorAddressConstants) String() string {
+func (e IOUSBHostCIDeviceUpdateCommandData1Descriptor) String() string {
 	switch e {
 	case IOUSBHostCIDeviceUpdateCommandData1DescriptorAddress:
 		return "IOUSBHostCIDeviceUpdateCommandData1DescriptorAddress"
 	default:
-		return fmt.Sprintf("IOUSBHostCIDeviceUpdateCommandData1DescriptorAddressConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIDeviceUpdateCommandData1Descriptor(%d)", e)
 	}
 }
 
 type IOUSBHostCIDoorbellDevice uint
 
 const (
-	IOUSBHostCIDoorbellDeviceAddress IOUSBHostCIDoorbellDevice = 0
+	IOUSBHostCIDoorbellDeviceAddress      IOUSBHostCIDoorbellDevice = 0
 	IOUSBHostCIDoorbellDeviceAddressPhase IOUSBHostCIDoorbellDevice = 0
 )
 
@@ -1371,55 +1164,55 @@ func (e IOUSBHostCIDoorbellDevice) String() string {
 	}
 }
 
-type IOUSBHostCIEndpointCreateCommandData1DescriptorConstants uint
+type IOUSBHostCIEndpointCreateCommandData1 uint
 
 const (
-	IOUSBHostCIEndpointCreateCommandData1Descriptor IOUSBHostCIEndpointCreateCommandData1DescriptorConstants = 0
+	IOUSBHostCIEndpointCreateCommandData1Descriptor IOUSBHostCIEndpointCreateCommandData1 = 0
 )
 
-func (e IOUSBHostCIEndpointCreateCommandData1DescriptorConstants) String() string {
+func (e IOUSBHostCIEndpointCreateCommandData1) String() string {
 	switch e {
 	case IOUSBHostCIEndpointCreateCommandData1Descriptor:
 		return "IOUSBHostCIEndpointCreateCommandData1Descriptor"
 	default:
-		return fmt.Sprintf("IOUSBHostCIEndpointCreateCommandData1DescriptorConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIEndpointCreateCommandData1(%d)", e)
 	}
 }
 
-type IOUSBHostCIEndpointResetCommandData1ClearStateConstants uint
+type IOUSBHostCIEndpointResetCommandData1Clear uint
 
 const (
-	IOUSBHostCIEndpointResetCommandData1ClearState IOUSBHostCIEndpointResetCommandData1ClearStateConstants = 0
+	IOUSBHostCIEndpointResetCommandData1ClearState IOUSBHostCIEndpointResetCommandData1Clear = 0
 )
 
-func (e IOUSBHostCIEndpointResetCommandData1ClearStateConstants) String() string {
+func (e IOUSBHostCIEndpointResetCommandData1Clear) String() string {
 	switch e {
 	case IOUSBHostCIEndpointResetCommandData1ClearState:
 		return "IOUSBHostCIEndpointResetCommandData1ClearState"
 	default:
-		return fmt.Sprintf("IOUSBHostCIEndpointResetCommandData1ClearStateConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIEndpointResetCommandData1Clear(%d)", e)
 	}
 }
 
-type IOUSBHostCIEndpointSetNextTransferCommandData1AddressConstants uint
+type IOUSBHostCIEndpointSetNextTransferCommandData1 uint
 
 const (
-	IOUSBHostCIEndpointSetNextTransferCommandData1Address IOUSBHostCIEndpointSetNextTransferCommandData1AddressConstants = 0
+	IOUSBHostCIEndpointSetNextTransferCommandData1Address IOUSBHostCIEndpointSetNextTransferCommandData1 = 0
 )
 
-func (e IOUSBHostCIEndpointSetNextTransferCommandData1AddressConstants) String() string {
+func (e IOUSBHostCIEndpointSetNextTransferCommandData1) String() string {
 	switch e {
 	case IOUSBHostCIEndpointSetNextTransferCommandData1Address:
 		return "IOUSBHostCIEndpointSetNextTransferCommandData1Address"
 	default:
-		return fmt.Sprintf("IOUSBHostCIEndpointSetNextTransferCommandData1AddressConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIEndpointSetNextTransferCommandData1(%d)", e)
 	}
 }
 
 type IOUSBHostCIEndpointState uint
 
 const (
-	IOUSBHostCIEndpointStateActive IOUSBHostCIEndpointState = 0
+	IOUSBHostCIEndpointStateActive    IOUSBHostCIEndpointState = 0
 	IOUSBHostCIEndpointStateDestroyed IOUSBHostCIEndpointState = 0
 )
 
@@ -1435,7 +1228,7 @@ func (e IOUSBHostCIEndpointState) String() string {
 type IOUSBHostCIEndpointUpdateCommandData1 uint
 
 const (
-	IOUSBHostCIEndpointUpdateCommandData1Descriptor IOUSBHostCIEndpointUpdateCommandData1 = 0
+	IOUSBHostCIEndpointUpdateCommandData1Descriptor      IOUSBHostCIEndpointUpdateCommandData1 = 0
 	IOUSBHostCIEndpointUpdateCommandData1DescriptorPhase IOUSBHostCIEndpointUpdateCommandData1 = 0
 )
 
@@ -1451,7 +1244,7 @@ func (e IOUSBHostCIEndpointUpdateCommandData1) String() string {
 type IOUSBHostCIExceptionType uint
 
 const (
-	IOUSBHostCIExceptionTypeCommandFailure IOUSBHostCIExceptionType = 0
+	IOUSBHostCIExceptionTypeCommandFailure   IOUSBHostCIExceptionType = 0
 	IOUSBHostCIExceptionTypeFrameUpdateError IOUSBHostCIExceptionType = 0
 )
 
@@ -1467,8 +1260,8 @@ func (e IOUSBHostCIExceptionType) String() string {
 type IOUSBHostCIIsochronousTransferControl uint
 
 const (
-	IOUSBHostCIIsochronousTransferControlASAP IOUSBHostCIIsochronousTransferControl = 0
-	IOUSBHostCIIsochronousTransferControlFrameNumber IOUSBHostCIIsochronousTransferControl = 0
+	IOUSBHostCIIsochronousTransferControlASAP             IOUSBHostCIIsochronousTransferControl = 0
+	IOUSBHostCIIsochronousTransferControlFrameNumber      IOUSBHostCIIsochronousTransferControl = 0
 	IOUSBHostCIIsochronousTransferControlFrameNumberPhase IOUSBHostCIIsochronousTransferControl = 0
 )
 
@@ -1481,48 +1274,48 @@ func (e IOUSBHostCIIsochronousTransferControl) String() string {
 	}
 }
 
-type IOUSBHostCIIsochronousTransferData0LengthConstants uint
+type IOUSBHostCIIsochronousTransferData0 uint
 
 const (
-	IOUSBHostCIIsochronousTransferData0Length IOUSBHostCIIsochronousTransferData0LengthConstants = 0
+	IOUSBHostCIIsochronousTransferData0Length IOUSBHostCIIsochronousTransferData0 = 0
 )
 
-func (e IOUSBHostCIIsochronousTransferData0LengthConstants) String() string {
+func (e IOUSBHostCIIsochronousTransferData0) String() string {
 	switch e {
 	case IOUSBHostCIIsochronousTransferData0Length:
 		return "IOUSBHostCIIsochronousTransferData0Length"
 	default:
-		return fmt.Sprintf("IOUSBHostCIIsochronousTransferData0LengthConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIIsochronousTransferData0(%d)", e)
 	}
 }
 
-type IOUSBHostCIIsochronousTransferData1BufferConstants uint
+type IOUSBHostCIIsochronousTransferData1 uint
 
 const (
-	IOUSBHostCIIsochronousTransferData1Buffer IOUSBHostCIIsochronousTransferData1BufferConstants = 0
+	IOUSBHostCIIsochronousTransferData1Buffer IOUSBHostCIIsochronousTransferData1 = 0
 )
 
-func (e IOUSBHostCIIsochronousTransferData1BufferConstants) String() string {
+func (e IOUSBHostCIIsochronousTransferData1) String() string {
 	switch e {
 	case IOUSBHostCIIsochronousTransferData1Buffer:
 		return "IOUSBHostCIIsochronousTransferData1Buffer"
 	default:
-		return fmt.Sprintf("IOUSBHostCIIsochronousTransferData1BufferConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIIsochronousTransferData1(%d)", e)
 	}
 }
 
-type IOUSBHostCILinkData1TransferStructureAddressConstants uint
+type IOUSBHostCILinkData1TransferStructure uint
 
 const (
-	IOUSBHostCILinkData1TransferStructureAddress IOUSBHostCILinkData1TransferStructureAddressConstants = 0
+	IOUSBHostCILinkData1TransferStructureAddress IOUSBHostCILinkData1TransferStructure = 0
 )
 
-func (e IOUSBHostCILinkData1TransferStructureAddressConstants) String() string {
+func (e IOUSBHostCILinkData1TransferStructure) String() string {
 	switch e {
 	case IOUSBHostCILinkData1TransferStructureAddress:
 		return "IOUSBHostCILinkData1TransferStructureAddress"
 	default:
-		return fmt.Sprintf("IOUSBHostCILinkData1TransferStructureAddressConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCILinkData1TransferStructure(%d)", e)
 	}
 }
 
@@ -1541,29 +1334,29 @@ func (e IOUSBHostCILinkState) String() string {
 	}
 }
 
-type IOUSBHostCIMessageControlType uint
+type IOUSBHostCIMessageControlNo uint
 
 const (
-	IOUSBHostCIMessageControlNoResponse IOUSBHostCIMessageControlType = 0
+	IOUSBHostCIMessageControlNoResponse IOUSBHostCIMessageControlNo = 0
 )
 
-func (e IOUSBHostCIMessageControlType) String() string {
+func (e IOUSBHostCIMessageControlNo) String() string {
 	switch e {
 	case IOUSBHostCIMessageControlNoResponse:
 		return "IOUSBHostCIMessageControlNoResponse"
 	default:
-		return fmt.Sprintf("IOUSBHostCIMessageControlType(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIMessageControlNo(%d)", e)
 	}
 }
 
 type IOUSBHostCIMessageStatus int
 
 const (
-	IOUSBHostCIMessageStatusBadArgument IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusEndpointStopped IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusError IOUSBHostCIMessageStatus = 0
+	IOUSBHostCIMessageStatusBadArgument        IOUSBHostCIMessageStatus = 0
+	IOUSBHostCIMessageStatusEndpointStopped    IOUSBHostCIMessageStatus = 0
+	IOUSBHostCIMessageStatusError              IOUSBHostCIMessageStatus = 0
 	IOUSBHostCIMessageStatusMissedServiceError IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusOffline IOUSBHostCIMessageStatus = 0
+	IOUSBHostCIMessageStatusOffline            IOUSBHostCIMessageStatus = 0
 )
 
 func (e IOUSBHostCIMessageStatus) String() string {
@@ -1579,11 +1372,11 @@ type IOUSBHostCIMessageType uint
 
 const (
 	IOUSBHostCIMessageTypeControllerFrameNumber IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeDeviceUpdate IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpointReset IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeNormalTransfer IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortPowerOn IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortSuspend IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeDeviceUpdate          IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeEndpointReset         IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeNormalTransfer        IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypePortPowerOn           IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypePortSuspend           IOUSBHostCIMessageType = 0
 )
 
 func (e IOUSBHostCIMessageType) String() string {
@@ -1595,33 +1388,33 @@ func (e IOUSBHostCIMessageType) String() string {
 	}
 }
 
-type IOUSBHostCINormalTransferData0LengthConstants uint
+type IOUSBHostCINormalTransferData0 uint
 
 const (
-	IOUSBHostCINormalTransferData0Length IOUSBHostCINormalTransferData0LengthConstants = 0
+	IOUSBHostCINormalTransferData0Length IOUSBHostCINormalTransferData0 = 0
 )
 
-func (e IOUSBHostCINormalTransferData0LengthConstants) String() string {
+func (e IOUSBHostCINormalTransferData0) String() string {
 	switch e {
 	case IOUSBHostCINormalTransferData0Length:
 		return "IOUSBHostCINormalTransferData0Length"
 	default:
-		return fmt.Sprintf("IOUSBHostCINormalTransferData0LengthConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCINormalTransferData0(%d)", e)
 	}
 }
 
-type IOUSBHostCINormalTransferData1BufferConstants uint
+type IOUSBHostCINormalTransferData1 uint
 
 const (
-	IOUSBHostCINormalTransferData1Buffer IOUSBHostCINormalTransferData1BufferConstants = 0
+	IOUSBHostCINormalTransferData1Buffer IOUSBHostCINormalTransferData1 = 0
 )
 
-func (e IOUSBHostCINormalTransferData1BufferConstants) String() string {
+func (e IOUSBHostCINormalTransferData1) String() string {
 	switch e {
 	case IOUSBHostCINormalTransferData1Buffer:
 		return "IOUSBHostCINormalTransferData1Buffer"
 	default:
-		return fmt.Sprintf("IOUSBHostCINormalTransferData1BufferConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCINormalTransferData1(%d)", e)
 	}
 }
 
@@ -1629,7 +1422,7 @@ type IOUSBHostCIPortCapabilitiesMessageControl uint
 
 const (
 	IOUSBHostCIPortCapabilitiesMessageControlInternalConnector IOUSBHostCIPortCapabilitiesMessageControl = 0
-	IOUSBHostCIPortCapabilitiesMessageControlPortNumber IOUSBHostCIPortCapabilitiesMessageControl = 0
+	IOUSBHostCIPortCapabilitiesMessageControlPortNumber        IOUSBHostCIPortCapabilitiesMessageControl = 0
 )
 
 func (e IOUSBHostCIPortCapabilitiesMessageControl) String() string {
@@ -1641,26 +1434,26 @@ func (e IOUSBHostCIPortCapabilitiesMessageControl) String() string {
 	}
 }
 
-type IOUSBHostCIPortEventMessageData0PortNumberConstants uint
+type IOUSBHostCIPortEventMessageData0Port uint
 
 const (
-	IOUSBHostCIPortEventMessageData0PortNumber IOUSBHostCIPortEventMessageData0PortNumberConstants = 0
+	IOUSBHostCIPortEventMessageData0PortNumber IOUSBHostCIPortEventMessageData0Port = 0
 )
 
-func (e IOUSBHostCIPortEventMessageData0PortNumberConstants) String() string {
+func (e IOUSBHostCIPortEventMessageData0Port) String() string {
 	switch e {
 	case IOUSBHostCIPortEventMessageData0PortNumber:
 		return "IOUSBHostCIPortEventMessageData0PortNumber"
 	default:
-		return fmt.Sprintf("IOUSBHostCIPortEventMessageData0PortNumberConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIPortEventMessageData0Port(%d)", e)
 	}
 }
 
 type IOUSBHostCIPortState uint
 
 const (
-	IOUSBHostCIPortStateActive IOUSBHostCIPortState = 0
-	IOUSBHostCIPortStateOff IOUSBHostCIPortState = 0
+	IOUSBHostCIPortStateActive  IOUSBHostCIPortState = 0
+	IOUSBHostCIPortStateOff     IOUSBHostCIPortState = 0
 	IOUSBHostCIPortStatePowered IOUSBHostCIPortState = 0
 )
 
@@ -1677,7 +1470,7 @@ type IOUSBHostCIPortStatus int
 
 const (
 	IOUSBHostCIPortStatusConnectChange IOUSBHostCIPortStatus = 0
-	IOUSBHostCIPortStatusLinkState IOUSBHostCIPortStatus = 0
+	IOUSBHostCIPortStatusLinkState     IOUSBHostCIPortStatus = 0
 )
 
 func (e IOUSBHostCIPortStatus) String() string {
@@ -1693,7 +1486,7 @@ type IOUSBHostCIPortStatusCommandData1 int
 
 const (
 	IOUSBHostCIPortStatusCommandData1ChangeMask IOUSBHostCIPortStatusCommandData1 = 0
-	IOUSBHostCIPortStatusCommandData1Speed IOUSBHostCIPortStatusCommandData1 = 0
+	IOUSBHostCIPortStatusCommandData1Speed      IOUSBHostCIPortStatusCommandData1 = 0
 )
 
 func (e IOUSBHostCIPortStatusCommandData1) String() string {
@@ -1708,7 +1501,7 @@ func (e IOUSBHostCIPortStatusCommandData1) String() string {
 type IOUSBHostCISetupTransfer uint
 
 const (
-	IOUSBHostCISetupTransferData1bRequest IOUSBHostCISetupTransfer = 0
+	IOUSBHostCISetupTransferData1bRequest    IOUSBHostCISetupTransfer = 0
 	IOUSBHostCISetupTransferData1wValuePhase IOUSBHostCISetupTransfer = 0
 )
 
@@ -1724,7 +1517,7 @@ func (e IOUSBHostCISetupTransfer) String() string {
 type IOUSBHostCITransferCompletionMessageControl uint
 
 const (
-	IOUSBHostCITransferCompletionMessageControlDeviceAddress IOUSBHostCITransferCompletionMessageControl = 0
+	IOUSBHostCITransferCompletionMessageControlDeviceAddress   IOUSBHostCITransferCompletionMessageControl = 0
 	IOUSBHostCITransferCompletionMessageControlEndpointAddress IOUSBHostCITransferCompletionMessageControl = 0
 )
 
@@ -1737,58 +1530,88 @@ func (e IOUSBHostCITransferCompletionMessageControl) String() string {
 	}
 }
 
-type IOUSBHostCITransferCompletionMessageData0TransferLengthConstants uint
+type IOUSBHostCITransferCompletionMessageData0Transfer uint
 
 const (
-	IOUSBHostCITransferCompletionMessageData0TransferLength IOUSBHostCITransferCompletionMessageData0TransferLengthConstants = 0
+	IOUSBHostCITransferCompletionMessageData0TransferLength IOUSBHostCITransferCompletionMessageData0Transfer = 0
 )
 
-func (e IOUSBHostCITransferCompletionMessageData0TransferLengthConstants) String() string {
+func (e IOUSBHostCITransferCompletionMessageData0Transfer) String() string {
 	switch e {
 	case IOUSBHostCITransferCompletionMessageData0TransferLength:
 		return "IOUSBHostCITransferCompletionMessageData0TransferLength"
 	default:
-		return fmt.Sprintf("IOUSBHostCITransferCompletionMessageData0TransferLengthConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCITransferCompletionMessageData0Transfer(%d)", e)
 	}
 }
 
-type IOUSBHostCITransferCompletionMessageData1TransferStructureConstants uint
+type IOUSBHostCITransferCompletionMessageData1Transfer uint
 
 const (
-	IOUSBHostCITransferCompletionMessageData1TransferStructure IOUSBHostCITransferCompletionMessageData1TransferStructureConstants = 0
+	IOUSBHostCITransferCompletionMessageData1TransferStructure IOUSBHostCITransferCompletionMessageData1Transfer = 0
 )
 
-func (e IOUSBHostCITransferCompletionMessageData1TransferStructureConstants) String() string {
+func (e IOUSBHostCITransferCompletionMessageData1Transfer) String() string {
 	switch e {
 	case IOUSBHostCITransferCompletionMessageData1TransferStructure:
 		return "IOUSBHostCITransferCompletionMessageData1TransferStructure"
 	default:
-		return fmt.Sprintf("IOUSBHostCITransferCompletionMessageData1TransferStructureConstants(%d)", e)
+		return fmt.Sprintf("IOUSBHostCITransferCompletionMessageData1Transfer(%d)", e)
 	}
 }
 
-type IOUSBHostCIUserClientVersion uint
+type IOUSBHostCIUserClient uint
 
 const (
-	IOUSBHostCIUserClientVersion100 IOUSBHostCIUserClientVersion = 0
+	IOUSBHostCIUserClientVersion100 IOUSBHostCIUserClient = 0
 )
 
-func (e IOUSBHostCIUserClientVersion) String() string {
+func (e IOUSBHostCIUserClient) String() string {
 	switch e {
 	case IOUSBHostCIUserClientVersion100:
 		return "IOUSBHostCIUserClientVersion100"
 	default:
-		return fmt.Sprintf("IOUSBHostCIUserClientVersion(%d)", e)
+		return fmt.Sprintf("IOUSBHostCIUserClient(%d)", e)
+	}
+}
+
+type IfInterfaceAdvisoryDirection uint
+
+const (
+	IF_INTERFACE_ADVISORY_DIRECTION_RX IfInterfaceAdvisoryDirection = 0
+)
+
+func (e IfInterfaceAdvisoryDirection) String() string {
+	switch e {
+	case IF_INTERFACE_ADVISORY_DIRECTION_RX:
+		return "IF_INTERFACE_ADVISORY_DIRECTION_RX"
+	default:
+		return fmt.Sprintf("IfInterfaceAdvisoryDirection(%d)", e)
+	}
+}
+
+type IfInterfaceAdvisoryInterfaceType uint
+
+const (
+	IF_INTERFACE_ADVISORY_INTERFACE_TYPE_CELL IfInterfaceAdvisoryInterfaceType = 0
+)
+
+func (e IfInterfaceAdvisoryInterfaceType) String() string {
+	switch e {
+	case IF_INTERFACE_ADVISORY_INTERFACE_TYPE_CELL:
+		return "IF_INTERFACE_ADVISORY_INTERFACE_TYPE_CELL"
+	default:
+		return fmt.Sprintf("IfInterfaceAdvisoryInterfaceType(%d)", e)
 	}
 }
 
 type IfInterfaceAdvisoryNotificationTypeCellular uint
 
 const (
-	IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_CELLULAR_BANDWIDTH_LIMITATION_EVENT IfInterfaceAdvisoryNotificationTypeCellular = 0
-	IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_CELLULAR_DEFAULT IfInterfaceAdvisoryNotificationTypeCellular = 0
+	IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_CELLULAR_BANDWIDTH_LIMITATION_EVENT    IfInterfaceAdvisoryNotificationTypeCellular = 0
+	IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_CELLULAR_DEFAULT                       IfInterfaceAdvisoryNotificationTypeCellular = 0
 	IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_CELLULAR_DISCONTINUOUS_RECEPTION_EVENT IfInterfaceAdvisoryNotificationTypeCellular = 0
-	IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_CELLULAR_MEASUREMENT_UPDATE IfInterfaceAdvisoryNotificationTypeCellular = 0
+	IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_CELLULAR_MEASUREMENT_UPDATE            IfInterfaceAdvisoryNotificationTypeCellular = 0
 )
 
 func (e IfInterfaceAdvisoryNotificationTypeCellular) String() string {
@@ -1800,222 +1623,192 @@ func (e IfInterfaceAdvisoryNotificationTypeCellular) String() string {
 	}
 }
 
-type IfNetemModelT uint
+type IfInterfaceAdvisoryNotificationTypeWifi uint
 
 const (
-	IF_NETEM_MODEL_NULL IfNetemModelT = 0
+	IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_WIFI_UNDEFINED IfInterfaceAdvisoryNotificationTypeWifi = 0
 )
 
-func (e IfNetemModelT) String() string {
-	switch e {
-	case IF_NETEM_MODEL_NULL:
-		return "IF_NETEM_MODEL_NULL"
-	default:
-		return fmt.Sprintf("IfNetemModelT(%d)", e)
-	}
-}
-
-type IfnetCsumIp uint
-
-const (
-	IFNET_HW_TIMESTAMP IfnetCsumIp = 0
-)
-
-func (e IfnetCsumIp) String() string {
-	switch e {
-	case IFNET_HW_TIMESTAMP:
-		return "IFNET_HW_TIMESTAMP"
-	default:
-		return fmt.Sprintf("IfnetCsumIp(%d)", e)
-	}
-}
-
-type IfnetFamilyAny uint
-
-const (
-	// IFNET_FAMILY_BOND: # Discussion
-	IFNET_FAMILY_BOND IfnetFamilyAny = 0
-)
-
-func (e IfnetFamilyAny) String() string {
-	switch e {
-	case IFNET_FAMILY_BOND:
-		return "IFNET_FAMILY_BOND"
-	default:
-		return fmt.Sprintf("IfnetFamilyAny(%d)", e)
-	}
-}
-
-type IfnetInterfaceAdvisoryDirection uint
-
-const (
-	IF_INTERFACE_ADVISORY_DIRECTION_RX IfnetInterfaceAdvisoryDirection = 0
-)
-
-func (e IfnetInterfaceAdvisoryDirection) String() string {
-	switch e {
-	case IF_INTERFACE_ADVISORY_DIRECTION_RX:
-		return "IF_INTERFACE_ADVISORY_DIRECTION_RX"
-	default:
-		return fmt.Sprintf("IfnetInterfaceAdvisoryDirection(%d)", e)
-	}
-}
-
-type IfnetInterfaceAdvisoryInterfaceType uint
-
-const (
-	IF_INTERFACE_ADVISORY_INTERFACE_TYPE_CELL IfnetInterfaceAdvisoryInterfaceType = 0
-)
-
-func (e IfnetInterfaceAdvisoryInterfaceType) String() string {
-	switch e {
-	case IF_INTERFACE_ADVISORY_INTERFACE_TYPE_CELL:
-		return "IF_INTERFACE_ADVISORY_INTERFACE_TYPE_CELL"
-	default:
-		return fmt.Sprintf("IfnetInterfaceAdvisoryInterfaceType(%d)", e)
-	}
-}
-
-type IfnetInterfaceAdvisoryNotificationTypeWifi uint
-
-const (
-	IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_WIFI_UNDEFINED IfnetInterfaceAdvisoryNotificationTypeWifi = 0
-)
-
-func (e IfnetInterfaceAdvisoryNotificationTypeWifi) String() string {
+func (e IfInterfaceAdvisoryNotificationTypeWifi) String() string {
 	switch e {
 	case IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_WIFI_UNDEFINED:
 		return "IF_INTERFACE_ADVISORY_NOTIFICATION_TYPE_WIFI_UNDEFINED"
 	default:
-		return fmt.Sprintf("IfnetInterfaceAdvisoryNotificationTypeWifi(%d)", e)
+		return fmt.Sprintf("IfInterfaceAdvisoryNotificationTypeWifi(%d)", e)
 	}
 }
 
-type IfnetLqmThreshOff uint
+type IfNetemModel uint
 
 const (
-	IFNET_LQM_THRESH_MINIMALLY_VIABLE IfnetLqmThreshOff = 0
+	IF_NETEM_MODEL_NULL IfNetemModel = 0
 )
 
-func (e IfnetLqmThreshOff) String() string {
+func (e IfNetemModel) String() string {
+	switch e {
+	case IF_NETEM_MODEL_NULL:
+		return "IF_NETEM_MODEL_NULL"
+	default:
+		return fmt.Sprintf("IfNetemModel(%d)", e)
+	}
+}
+
+type IfnetFamily uint
+
+const (
+	// IFNET_FAMILY_BOND: # Discussion
+	IFNET_FAMILY_BOND IfnetFamily = 0
+)
+
+func (e IfnetFamily) String() string {
+	switch e {
+	case IFNET_FAMILY_BOND:
+		return "IFNET_FAMILY_BOND"
+	default:
+		return fmt.Sprintf("IfnetFamily(%d)", e)
+	}
+}
+
+type IfnetHw uint
+
+const (
+	IFNET_HW_TIMESTAMP IfnetHw = 0
+)
+
+func (e IfnetHw) String() string {
+	switch e {
+	case IFNET_HW_TIMESTAMP:
+		return "IFNET_HW_TIMESTAMP"
+	default:
+		return fmt.Sprintf("IfnetHw(%d)", e)
+	}
+}
+
+type IfnetLqmThreshMinimally uint
+
+const (
+	IFNET_LQM_THRESH_MINIMALLY_VIABLE IfnetLqmThreshMinimally = 0
+)
+
+func (e IfnetLqmThreshMinimally) String() string {
 	switch e {
 	case IFNET_LQM_THRESH_MINIMALLY_VIABLE:
 		return "IFNET_LQM_THRESH_MINIMALLY_VIABLE"
 	default:
-		return fmt.Sprintf("IfnetLqmThreshOff(%d)", e)
+		return fmt.Sprintf("IfnetLqmThreshMinimally(%d)", e)
 	}
 }
 
-type IfnetNpmThreshUnknown uint
+type IfnetNpmThresh uint
 
 const (
-	IFNET_NPM_THRESH_FAR IfnetNpmThreshUnknown = 0
+	IFNET_NPM_THRESH_FAR IfnetNpmThresh = 0
 )
 
-func (e IfnetNpmThreshUnknown) String() string {
+func (e IfnetNpmThresh) String() string {
 	switch e {
 	case IFNET_NPM_THRESH_FAR:
 		return "IFNET_NPM_THRESH_FAR"
 	default:
-		return fmt.Sprintf("IfnetNpmThreshUnknown(%d)", e)
+		return fmt.Sprintf("IfnetNpmThresh(%d)", e)
 	}
 }
 
-type IfnetRssiUnknown uint
+type IfnetRssi uint
 
 const (
-	IFNET_RSSI_UNKNOWN IfnetRssiUnknown = 0
+	IFNET_RSSI_UNKNOWN IfnetRssi = 0
 )
 
-func (e IfnetRssiUnknown) String() string {
+func (e IfnetRssi) String() string {
 	switch e {
 	case IFNET_RSSI_UNKNOWN:
 		return "IFNET_RSSI_UNKNOWN"
 	default:
-		return fmt.Sprintf("IfnetRssiUnknown(%d)", e)
+		return fmt.Sprintf("IfnetRssi(%d)", e)
 	}
 }
 
-type IfnetSchedModelNormal uint
+type IfnetSchedModelDriver uint
 
 const (
-	IFNET_SCHED_MODEL_DRIVER_MANAGED IfnetSchedModelNormal = 0
+	IFNET_SCHED_MODEL_DRIVER_MANAGED IfnetSchedModelDriver = 0
 )
 
-func (e IfnetSchedModelNormal) String() string {
+func (e IfnetSchedModelDriver) String() string {
 	switch e {
 	case IFNET_SCHED_MODEL_DRIVER_MANAGED:
 		return "IFNET_SCHED_MODEL_DRIVER_MANAGED"
 	default:
-		return fmt.Sprintf("IfnetSchedModelNormal(%d)", e)
+		return fmt.Sprintf("IfnetSchedModelDriver(%d)", e)
 	}
 }
 
-type IfnetThrottleOff uint
+type IfnetThrottle uint
 
 const (
-	IFNET_THROTTLE_OFF IfnetThrottleOff = 0
+	IFNET_THROTTLE_OFF IfnetThrottle = 0
 )
 
-func (e IfnetThrottleOff) String() string {
+func (e IfnetThrottle) String() string {
 	switch e {
 	case IFNET_THROTTLE_OFF:
 		return "IFNET_THROTTLE_OFF"
 	default:
-		return fmt.Sprintf("IfnetThrottleOff(%d)", e)
+		return fmt.Sprintf("IfnetThrottle(%d)", e)
 	}
 }
 
-type IfnetWakeOnMagicPacket uint
+type IfnetWakeOnMagic uint
 
 const (
 	// IFNET_WAKE_ON_MAGIC_PACKET: # Discussion
-	IFNET_WAKE_ON_MAGIC_PACKET IfnetWakeOnMagicPacket = 0
+	IFNET_WAKE_ON_MAGIC_PACKET IfnetWakeOnMagic = 0
 )
 
-func (e IfnetWakeOnMagicPacket) String() string {
+func (e IfnetWakeOnMagic) String() string {
 	switch e {
 	case IFNET_WAKE_ON_MAGIC_PACKET:
 		return "IFNET_WAKE_ON_MAGIC_PACKET"
 	default:
-		return fmt.Sprintf("IfnetWakeOnMagicPacket(%d)", e)
+		return fmt.Sprintf("IfnetWakeOnMagic(%d)", e)
 	}
 }
 
-type In6Clat46EvhdlrCodeT uint
+type In6Clat46EventV4 uint
 
 const (
-	IN6_CLAT46_EVENT_V4_FLOW In6Clat46EvhdlrCodeT = 0
+	IN6_CLAT46_EVENT_V4_FLOW In6Clat46EventV4 = 0
 )
 
-func (e In6Clat46EvhdlrCodeT) String() string {
+func (e In6Clat46EventV4) String() string {
 	switch e {
 	case IN6_CLAT46_EVENT_V4_FLOW:
 		return "IN6_CLAT46_EVENT_V4_FLOW"
 	default:
-		return fmt.Sprintf("In6Clat46EvhdlrCodeT(%d)", e)
+		return fmt.Sprintf("In6Clat46EventV4(%d)", e)
 	}
 }
 
-type InUseErr int
+type Indicator uint
 
 const (
-	AddressRangeErr InUseErr = 0
+	INDICATOR_CAM Indicator = 0
 )
 
-func (e InUseErr) String() string {
+func (e Indicator) String() string {
 	switch e {
-	case AddressRangeErr:
-		return "AddressRangeErr"
+	case INDICATOR_CAM:
+		return "INDICATOR_CAM"
 	default:
-		return fmt.Sprintf("InUseErr(%d)", e)
+		return fmt.Sprintf("Indicator(%d)", e)
 	}
 }
 
 type Input uint
 
 const (
-	INPUT_DESKTOP_MICROPHONE Input = 0
+	INPUT_DESKTOP_MICROPHONE         Input = 0
 	INPUT_OMNIDIRECTIONAL_MICROPHONE Input = 0
 )
 
@@ -2047,7 +1840,7 @@ type Iopm uint
 
 const (
 	IOPMDeviceUsable Iopm = 0
-	IOPMSoftSleep Iopm = 0
+	IOPMSoftSleep    Iopm = 0
 )
 
 func (e Iopm) String() string {
@@ -2059,46 +1852,46 @@ func (e Iopm) String() string {
 	}
 }
 
-type IpsecDscpMappingT uint
+type IpsecDscpMapping uint
 
 const (
-	IPSEC_DSCP_MAPPING_COPY IpsecDscpMappingT = 0
+	IPSEC_DSCP_MAPPING_COPY IpsecDscpMapping = 0
 )
 
-func (e IpsecDscpMappingT) String() string {
+func (e IpsecDscpMapping) String() string {
 	switch e {
 	case IPSEC_DSCP_MAPPING_COPY:
 		return "IPSEC_DSCP_MAPPING_COPY"
 	default:
-		return fmt.Sprintf("IpsecDscpMappingT(%d)", e)
+		return fmt.Sprintf("IpsecDscpMapping(%d)", e)
 	}
 }
 
 type KATA uint
 
 const (
-	KATADevice0DeviceID KATA = 0
-	KATADevice1DeviceID KATA = 0
-	KATAEjectRequest KATA = 0
-	KATAFnBusReset KATA = 0
-	KATAFnExecIO KATA = 0
-	KATAFnQFlush KATA = 0
-	KATAFnRegAccess KATA = 0
-	KATAInvalidDeviceID KATA = 0
+	KATADevice0DeviceID            KATA = 0
+	KATADevice1DeviceID            KATA = 0
+	KATAEjectRequest               KATA = 0
+	KATAFnBusReset                 KATA = 0
+	KATAFnExecIO                   KATA = 0
+	KATAFnQFlush                   KATA = 0
+	KATAFnRegAccess                KATA = 0
+	KATAInvalidDeviceID            KATA = 0
 	KATALogicalSectorAlignmentMask KATA = 0
-	KATAMultipleLogicalSectorsBit KATA = 0
+	KATAMultipleLogicalSectorsBit  KATA = 0
 	KATAMultipleLogicalSectorsMask KATA = 0
-	KATANoOp KATA = 0
-	KATANullEvent KATA = 0
-	KATAOfflineEvent KATA = 0
-	KATAOfflineRequest KATA = 0
-	KATAOnlineEvent KATA = 0
-	KATAPIFnExecIO KATA = 0
-	KATAPIResetEvent KATA = 0
+	KATANoOp                       KATA = 0
+	KATANullEvent                  KATA = 0
+	KATAOfflineEvent               KATA = 0
+	KATAOfflineRequest             KATA = 0
+	KATAOnlineEvent                KATA = 0
+	KATAPIFnExecIO                 KATA = 0
+	KATAPIResetEvent               KATA = 0
 	KATAPhysicalLogicalEnabledBit1 KATA = 0
-	KATARemovedEvent KATA = 0
-	KATAReservedEvent KATA = 0
-	KATAResetEvent KATA = 0
+	KATARemovedEvent               KATA = 0
+	KATAReservedEvent              KATA = 0
+	KATAResetEvent                 KATA = 0
 )
 
 func (e KATA) String() string {
@@ -2110,12 +1903,56 @@ func (e KATA) String() string {
 	}
 }
 
-const KATADefaultSectorSize uint = 0
+type KATADMA uint
+
+const (
+	KATADMAErr KATADMA = 0
+)
+
+func (e KATADMA) String() string {
+	switch e {
+	case KATADMAErr:
+		return "KATADMAErr"
+	default:
+		return fmt.Sprintf("KATADMA(%d)", e)
+	}
+}
+
+type KATADefault uint
+
+const (
+	KATADefaultRetries KATADefault = 0
+	KATADefaultTimeout KATADefault = 0
+)
+
+func (e KATADefault) String() string {
+	switch e {
+	case KATADefaultRetries:
+		return "KATADefaultRetries"
+	default:
+		return fmt.Sprintf("KATADefault(%d)", e)
+	}
+}
+
+type KATADefaultSector uint
+
+const (
+	KATADefaultSectorSize KATADefaultSector = 0
+)
+
+func (e KATADefaultSector) String() string {
+	switch e {
+	case KATADefaultSectorSize:
+		return "KATADefaultSectorSize"
+	default:
+		return fmt.Sprintf("KATADefaultSector(%d)", e)
+	}
+}
 
 type KATAEnable uint
 
 const (
-	KATAEnableAPM KATAEnable = 0
+	KATAEnableAPM        KATAEnable = 0
 	KATAEnableWriteCache KATAEnable = 0
 )
 
@@ -2128,83 +1965,80 @@ func (e KATAEnable) String() string {
 	}
 }
 
-type KATAEnableUltraDMAModeMask uint
+type KATAEnableMultiWordDMAMode uint
 
 const (
-	KATAEnableMultiWordDMAModeMask KATAEnableUltraDMAModeMask = 0
+	KATAEnableMultiWordDMAModeMask KATAEnableMultiWordDMAMode = 0
 )
 
-func (e KATAEnableUltraDMAModeMask) String() string {
+func (e KATAEnableMultiWordDMAMode) String() string {
 	switch e {
 	case KATAEnableMultiWordDMAModeMask:
 		return "KATAEnableMultiWordDMAModeMask"
 	default:
-		return fmt.Sprintf("KATAEnableUltraDMAModeMask(%d)", e)
+		return fmt.Sprintf("KATAEnableMultiWordDMAMode(%d)", e)
 	}
 }
 
-type KATAErrUnknownType int
+type KATAForceUnitAccessFeature uint
 
 const (
-	KATADMAErr KATAErrUnknownType = 0
+	KATAForceUnitAccessFeatureBit  KATAForceUnitAccessFeature = 0
+	KATAForceUnitAccessFeatureMask KATAForceUnitAccessFeature = 0
 )
 
-func (e KATAErrUnknownType) String() string {
+func (e KATAForceUnitAccessFeature) String() string {
 	switch e {
-	case KATADMAErr:
-		return "KATADMAErr"
+	case KATAForceUnitAccessFeatureBit:
+		return "KATAForceUnitAccessFeatureBit"
 	default:
-		return fmt.Sprintf("KATAErrUnknownType(%d)", e)
+		return fmt.Sprintf("KATAForceUnitAccessFeature(%d)", e)
 	}
 }
-
-const KATAForceUnitAccessFeatureBit uint = 0
-
-const KATAForceUnitAccessFeatureMask uint = 0
 
 type KATAIdentify uint
 
 const (
-	KATAIdentifyAdvancedPIOModes KATAIdentify = 0
-	KATAIdentifyCommandExtension1 KATAIdentify = 0
-	KATAIdentifyCommandExtension2 KATAIdentify = 0
-	KATAIdentifyCommandSetSupported KATAIdentify = 0
-	KATAIdentifyCommandSetSupported2 KATAIdentify = 0
-	KATAIdentifyCommandsDefault KATAIdentify = 0
-	KATAIdentifyCommandsEnabled KATAIdentify = 0
-	KATAIdentifyConfiguration KATAIdentify = 0
-	KATAIdentifyCurrentCapacity KATAIdentify = 0
-	KATAIdentifyCurrentCylinders KATAIdentify = 0
-	KATAIdentifyCurrentHeads KATAIdentify = 0
-	KATAIdentifyCurrentMultipleSectors KATAIdentify = 0
-	KATAIdentifyCurrentSectors KATAIdentify = 0
-	KATAIdentifyDriveCapabilities KATAIdentify = 0
-	KATAIdentifyDriveCapabilitiesExtended KATAIdentify = 0
-	KATAIdentifyExtendedInfoSupport KATAIdentify = 0
-	KATAIdentifyFirmwareRevision KATAIdentify = 0
-	KATAIdentifyIntegrity KATAIdentify = 0
-	KATAIdentifyLBACapacity KATAIdentify = 0
-	KATAIdentifyLogicalCylinderCount KATAIdentify = 0
-	KATAIdentifyLogicalHeadCount KATAIdentify = 0
-	KATAIdentifyLogicalSectorAlignment KATAIdentify = 0
-	KATAIdentifyMajorVersion KATAIdentify = 0
-	KATAIdentifyMinMultiWordDMATime KATAIdentify = 0
-	KATAIdentifyMinPIOTime KATAIdentify = 0
-	KATAIdentifyMinPIOTimeWithIORDY KATAIdentify = 0
-	KATAIdentifyMinorVersion KATAIdentify = 0
-	KATAIdentifyModelNumber KATAIdentify = 0
-	KATAIdentifyMultiWordDMA KATAIdentify = 0
-	KATAIdentifyMultipleSectorCount KATAIdentify = 0
-	KATAIdentifyPIOTiming KATAIdentify = 0
-	KATAIdentifyPhysicalLogicalSectorSize KATAIdentify = 0
-	KATAIdentifyQueueDepth KATAIdentify = 0
+	KATAIdentifyAdvancedPIOModes            KATAIdentify = 0
+	KATAIdentifyCommandExtension1           KATAIdentify = 0
+	KATAIdentifyCommandExtension2           KATAIdentify = 0
+	KATAIdentifyCommandSetSupported         KATAIdentify = 0
+	KATAIdentifyCommandSetSupported2        KATAIdentify = 0
+	KATAIdentifyCommandsDefault             KATAIdentify = 0
+	KATAIdentifyCommandsEnabled             KATAIdentify = 0
+	KATAIdentifyConfiguration               KATAIdentify = 0
+	KATAIdentifyCurrentCapacity             KATAIdentify = 0
+	KATAIdentifyCurrentCylinders            KATAIdentify = 0
+	KATAIdentifyCurrentHeads                KATAIdentify = 0
+	KATAIdentifyCurrentMultipleSectors      KATAIdentify = 0
+	KATAIdentifyCurrentSectors              KATAIdentify = 0
+	KATAIdentifyDriveCapabilities           KATAIdentify = 0
+	KATAIdentifyDriveCapabilitiesExtended   KATAIdentify = 0
+	KATAIdentifyExtendedInfoSupport         KATAIdentify = 0
+	KATAIdentifyFirmwareRevision            KATAIdentify = 0
+	KATAIdentifyIntegrity                   KATAIdentify = 0
+	KATAIdentifyLBACapacity                 KATAIdentify = 0
+	KATAIdentifyLogicalCylinderCount        KATAIdentify = 0
+	KATAIdentifyLogicalHeadCount            KATAIdentify = 0
+	KATAIdentifyLogicalSectorAlignment      KATAIdentify = 0
+	KATAIdentifyMajorVersion                KATAIdentify = 0
+	KATAIdentifyMinMultiWordDMATime         KATAIdentify = 0
+	KATAIdentifyMinPIOTime                  KATAIdentify = 0
+	KATAIdentifyMinPIOTimeWithIORDY         KATAIdentify = 0
+	KATAIdentifyMinorVersion                KATAIdentify = 0
+	KATAIdentifyModelNumber                 KATAIdentify = 0
+	KATAIdentifyMultiWordDMA                KATAIdentify = 0
+	KATAIdentifyMultipleSectorCount         KATAIdentify = 0
+	KATAIdentifyPIOTiming                   KATAIdentify = 0
+	KATAIdentifyPhysicalLogicalSectorSize   KATAIdentify = 0
+	KATAIdentifyQueueDepth                  KATAIdentify = 0
 	KATAIdentifyRecommendedMultiWordDMATime KATAIdentify = 0
-	KATAIdentifySectorsPerTrack KATAIdentify = 0
-	KATAIdentifySerialNumber KATAIdentify = 0
-	KATAIdentifySingleWordDMA KATAIdentify = 0
-	KATAIdentifyUltraDMASupported KATAIdentify = 0
-	KATAIdentifyWordsPerLogicalSector1 KATAIdentify = 0
-	KATAIdentifyWordsPerLogicalSector2 KATAIdentify = 0
+	KATAIdentifySectorsPerTrack             KATAIdentify = 0
+	KATAIdentifySerialNumber                KATAIdentify = 0
+	KATAIdentifySingleWordDMA               KATAIdentify = 0
+	KATAIdentifyUltraDMASupported           KATAIdentify = 0
+	KATAIdentifyWordsPerLogicalSector1      KATAIdentify = 0
+	KATAIdentifyWordsPerLogicalSector2      KATAIdentify = 0
 )
 
 func (e KATAIdentify) String() string {
@@ -2220,7 +2054,7 @@ type KATAOperationType uint
 
 const (
 	KATAOperationTypeFlushCache KATAOperationType = 0
-	KATAOperationTypeSMART KATAOperationType = 0
+	KATAOperationTypeSMART      KATAOperationType = 0
 )
 
 func (e KATAOperationType) String() string {
@@ -2235,10 +2069,10 @@ func (e KATAOperationType) String() string {
 type KATAPI uint
 
 const (
-	KATAPIDRQFast KATAPI = 0
-	KATAPIDRQSlow KATAPI = 0
+	KATAPIDRQFast   KATAPI = 0
+	KATAPIDRQSlow   KATAPI = 0
 	KATAPIIRQPacket KATAPI = 0
-	KATAPIUnknown KATAPI = 0
+	KATAPIUnknown   KATAPI = 0
 )
 
 func (e KATAPI) String() string {
@@ -2254,7 +2088,7 @@ type KATASupports uint
 
 const (
 	KATASupportsCompactFlashMask KATASupports = 0
-	KATASupportsFlushCacheMask KATASupports = 0
+	KATASupportsFlushCacheMask   KATASupports = 0
 )
 
 func (e KATASupports) String() string {
@@ -2266,163 +2100,131 @@ func (e KATASupports) String() string {
 	}
 }
 
-type KATASupportsCompactFlashBit uint
+type KATASupports48BitAddressing uint
 
 const (
-	KATASupports48BitAddressingBit KATASupportsCompactFlashBit = 0
+	KATASupports48BitAddressingBit KATASupports48BitAddressing = 0
 )
 
-func (e KATASupportsCompactFlashBit) String() string {
+func (e KATASupports48BitAddressing) String() string {
 	switch e {
 	case KATASupports48BitAddressingBit:
 		return "KATASupports48BitAddressingBit"
 	default:
-		return fmt.Sprintf("KATASupportsCompactFlashBit(%d)", e)
+		return fmt.Sprintf("KATASupports48BitAddressing(%d)", e)
 	}
 }
 
-type KATASupportsSMARTBit uint
+type KATASupportsPowerManagement uint
 
 const (
-	KATASupportsPowerManagementBit KATASupportsSMARTBit = 0
+	KATASupportsPowerManagementBit  KATASupportsPowerManagement = 0
+	KATASupportsPowerManagementMask KATASupportsPowerManagement = 0
 )
 
-func (e KATASupportsSMARTBit) String() string {
+func (e KATASupportsPowerManagement) String() string {
 	switch e {
 	case KATASupportsPowerManagementBit:
 		return "KATASupportsPowerManagementBit"
 	default:
-		return fmt.Sprintf("KATASupportsSMARTBit(%d)", e)
+		return fmt.Sprintf("KATASupportsPowerManagement(%d)", e)
 	}
 }
 
-type KATASupportsSMARTMask uint
+type KATAWriteCacheEnabled uint
 
 const (
-	KATASupportsPowerManagementMask KATASupportsSMARTMask = 0
+	KATAWriteCacheEnabledBit  KATAWriteCacheEnabled = 0
+	KATAWriteCacheEnabledMask KATAWriteCacheEnabled = 0
 )
 
-func (e KATASupportsSMARTMask) String() string {
+func (e KATAWriteCacheEnabled) String() string {
 	switch e {
-	case KATASupportsPowerManagementMask:
-		return "KATASupportsPowerManagementMask"
+	case KATAWriteCacheEnabledBit:
+		return "KATAWriteCacheEnabledBit"
 	default:
-		return fmt.Sprintf("KATASupportsSMARTMask(%d)", e)
+		return fmt.Sprintf("KATAWriteCacheEnabled(%d)", e)
 	}
 }
 
-type KATATimeout10Seconds uint
+type KATAcmdFlushCache uint
 
 const (
-	KATADefaultTimeout KATATimeout10Seconds = 0
+	KATAcmdFlushCacheExtended KATAcmdFlushCache = 0
 )
 
-func (e KATATimeout10Seconds) String() string {
-	switch e {
-	case KATADefaultTimeout:
-		return "KATADefaultTimeout"
-	default:
-		return fmt.Sprintf("KATATimeout10Seconds(%d)", e)
-	}
-}
-
-const KATAWriteCacheEnabledBit uint = 0
-
-const KATAWriteCacheEnabledMask uint = 0
-
-type KATAZeroRetries uint
-
-const (
-	KATADefaultRetries KATAZeroRetries = 0
-)
-
-func (e KATAZeroRetries) String() string {
-	switch e {
-	case KATADefaultRetries:
-		return "KATADefaultRetries"
-	default:
-		return fmt.Sprintf("KATAZeroRetries(%d)", e)
-	}
-}
-
-type KATAcmdWORetry uint
-
-const (
-	KATAcmdFlushCacheExtended KATAcmdWORetry = 0
-)
-
-func (e KATAcmdWORetry) String() string {
+func (e KATAcmdFlushCache) String() string {
 	switch e {
 	case KATAcmdFlushCacheExtended:
 		return "KATAcmdFlushCacheExtended"
 	default:
-		return fmt.Sprintf("KATAcmdWORetry(%d)", e)
+		return fmt.Sprintf("KATAcmdFlushCache(%d)", e)
 	}
 }
 
 type KAVC uint
 
 const (
-	KAVCAcceptedStatus KAVC = 0
-	KAVCAddress KAVC = 0
-	KAVCAudio KAVC = 0
-	KAVCCameraStorage KAVC = 0
-	KAVCChangedStatus KAVC = 0
-	KAVCCommandResponse KAVC = 0
-	KAVCConnectOpcode KAVC = 0
-	KAVCConnectionsOpcode KAVC = 0
-	KAVCControlCommand KAVC = 0
-	KAVCDisconnectOpcode KAVC = 0
-	KAVCDiskRecorder KAVC = 0
-	KAVCGeneralInquiryCommand KAVC = 0
-	KAVCImplementedStatus KAVC = 0
-	KAVCInTransitionStatus KAVC = 0
-	KAVCInputPlugSignalFormatOpcode KAVC = 0
-	KAVCInputSignalModeOpcode KAVC = 0
-	KAVCInterimStatus KAVC = 0
-	KAVCNotImplementedStatus KAVC = 0
-	KAVCNotifyCommand KAVC = 0
-	KAVCNumSubUnitTypes KAVC = 0
-	KAVCOpcode KAVC = 0
-	KAVCOperand0 KAVC = 0
-	KAVCOperand1 KAVC = 0
-	KAVCOperand2 KAVC = 0
-	KAVCOperand3 KAVC = 0
-	KAVCOperand4 KAVC = 0
-	KAVCOperand5 KAVC = 0
-	KAVCOperand6 KAVC = 0
-	KAVCOperand7 KAVC = 0
-	KAVCOperand8 KAVC = 0
+	KAVCAcceptedStatus               KAVC = 0
+	KAVCAddress                      KAVC = 0
+	KAVCAudio                        KAVC = 0
+	KAVCCameraStorage                KAVC = 0
+	KAVCChangedStatus                KAVC = 0
+	KAVCCommandResponse              KAVC = 0
+	KAVCConnectOpcode                KAVC = 0
+	KAVCConnectionsOpcode            KAVC = 0
+	KAVCControlCommand               KAVC = 0
+	KAVCDisconnectOpcode             KAVC = 0
+	KAVCDiskRecorder                 KAVC = 0
+	KAVCGeneralInquiryCommand        KAVC = 0
+	KAVCImplementedStatus            KAVC = 0
+	KAVCInTransitionStatus           KAVC = 0
+	KAVCInputPlugSignalFormatOpcode  KAVC = 0
+	KAVCInputSignalModeOpcode        KAVC = 0
+	KAVCInterimStatus                KAVC = 0
+	KAVCNotImplementedStatus         KAVC = 0
+	KAVCNotifyCommand                KAVC = 0
+	KAVCNumSubUnitTypes              KAVC = 0
+	KAVCOpcode                       KAVC = 0
+	KAVCOperand0                     KAVC = 0
+	KAVCOperand1                     KAVC = 0
+	KAVCOperand2                     KAVC = 0
+	KAVCOperand3                     KAVC = 0
+	KAVCOperand4                     KAVC = 0
+	KAVCOperand5                     KAVC = 0
+	KAVCOperand6                     KAVC = 0
+	KAVCOperand7                     KAVC = 0
+	KAVCOperand8                     KAVC = 0
 	KAVCOutputPlugSignalFormatOpcode KAVC = 0
-	KAVCOutputSignalModeOpcode KAVC = 0
-	KAVCPlugInfoOpcode KAVC = 0
-	KAVCPowerOpcode KAVC = 0
-	KAVCPrinter KAVC = 0
-	KAVCRejectedStatus KAVC = 0
-	KAVCSignalModeDVCPro525_60 KAVC = 0
-	KAVCSignalModeDVCPro625_50 KAVC = 0
-	KAVCSignalModeDummyOperand KAVC = 0
-	KAVCSignalModeHD1125_60 KAVC = 0
-	KAVCSignalModeHD1250_50 KAVC = 0
-	KAVCSignalModeMask_50 KAVC = 0
-	KAVCSignalModeMask_DVCPro25 KAVC = 0
-	KAVCSignalModeMask_SDL KAVC = 0
-	KAVCSignalModeMask_STYPE KAVC = 0
-	KAVCSignalModeSD525_60 KAVC = 0
-	KAVCSignalModeSD625_50 KAVC = 0
-	KAVCSignalModeSDL525_60 KAVC = 0
-	KAVCSignalModeSDL625_50 KAVC = 0
-	KAVCSignalSourceOpcode KAVC = 0
-	KAVCSpecificInquiryCommand KAVC = 0
-	KAVCStatusInquiryCommand KAVC = 0
-	KAVCSubunitInfoOpcode KAVC = 0
-	KAVCTapeRecorder KAVC = 0
-	KAVCTuner KAVC = 0
-	KAVCUnitInfoOpcode KAVC = 0
-	KAVCVendorDependentOpcode KAVC = 0
-	KAVCVendorUnique KAVC = 0
-	KAVCVideoCamera KAVC = 0
-	KAVCVideoMonitor KAVC = 0
+	KAVCOutputSignalModeOpcode       KAVC = 0
+	KAVCPlugInfoOpcode               KAVC = 0
+	KAVCPowerOpcode                  KAVC = 0
+	KAVCPrinter                      KAVC = 0
+	KAVCRejectedStatus               KAVC = 0
+	KAVCSignalModeDVCPro525_60       KAVC = 0
+	KAVCSignalModeDVCPro625_50       KAVC = 0
+	KAVCSignalModeDummyOperand       KAVC = 0
+	KAVCSignalModeHD1125_60          KAVC = 0
+	KAVCSignalModeHD1250_50          KAVC = 0
+	KAVCSignalModeMask_50            KAVC = 0
+	KAVCSignalModeMask_DVCPro25      KAVC = 0
+	KAVCSignalModeMask_SDL           KAVC = 0
+	KAVCSignalModeMask_STYPE         KAVC = 0
+	KAVCSignalModeSD525_60           KAVC = 0
+	KAVCSignalModeSD625_50           KAVC = 0
+	KAVCSignalModeSDL525_60          KAVC = 0
+	KAVCSignalModeSDL625_50          KAVC = 0
+	KAVCSignalSourceOpcode           KAVC = 0
+	KAVCSpecificInquiryCommand       KAVC = 0
+	KAVCStatusInquiryCommand         KAVC = 0
+	KAVCSubunitInfoOpcode            KAVC = 0
+	KAVCTapeRecorder                 KAVC = 0
+	KAVCTuner                        KAVC = 0
+	KAVCUnitInfoOpcode               KAVC = 0
+	KAVCVendorDependentOpcode        KAVC = 0
+	KAVCVendorUnique                 KAVC = 0
+	KAVCVideoCamera                  KAVC = 0
+	KAVCVideoMonitor                 KAVC = 0
 )
 
 func (e KAVC) String() string {
@@ -2437,16 +2239,16 @@ func (e KAVC) String() string {
 type KAVCAsyncCommandState uint
 
 const (
-	KAVCAsyncCommandStateBusReset KAVCAsyncCommandState = 0
-	KAVCAsyncCommandStateCanceled KAVCAsyncCommandState = 0
-	KAVCAsyncCommandStateOutOfMemory KAVCAsyncCommandState = 0
-	KAVCAsyncCommandStatePendingRequest KAVCAsyncCommandState = 0
-	KAVCAsyncCommandStateReceivedFinalResponse KAVCAsyncCommandState = 0
+	KAVCAsyncCommandStateBusReset                KAVCAsyncCommandState = 0
+	KAVCAsyncCommandStateCanceled                KAVCAsyncCommandState = 0
+	KAVCAsyncCommandStateOutOfMemory             KAVCAsyncCommandState = 0
+	KAVCAsyncCommandStatePendingRequest          KAVCAsyncCommandState = 0
+	KAVCAsyncCommandStateReceivedFinalResponse   KAVCAsyncCommandState = 0
 	KAVCAsyncCommandStateReceivedInterimResponse KAVCAsyncCommandState = 0
-	KAVCAsyncCommandStateRequestFailed KAVCAsyncCommandState = 0
-	KAVCAsyncCommandStateRequestSent KAVCAsyncCommandState = 0
-	KAVCAsyncCommandStateTimeOutBeforeResponse KAVCAsyncCommandState = 0
-	KAVCAsyncCommandStateWaitingForResponse KAVCAsyncCommandState = 0
+	KAVCAsyncCommandStateRequestFailed           KAVCAsyncCommandState = 0
+	KAVCAsyncCommandStateRequestSent             KAVCAsyncCommandState = 0
+	KAVCAsyncCommandStateTimeOutBeforeResponse   KAVCAsyncCommandState = 0
+	KAVCAsyncCommandStateWaitingForResponse      KAVCAsyncCommandState = 0
 )
 
 func (e KAVCAsyncCommandState) String() string {
@@ -2462,7 +2264,7 @@ type KAVPower uint
 
 const (
 	KAVPowerOff KAVPower = 0
-	KAVPowerOn KAVPower = 0
+	KAVPowerOn  KAVPower = 0
 )
 
 func (e KAVPower) String() string {
@@ -2474,11 +2276,26 @@ func (e KAVPower) String() string {
 	}
 }
 
+type KActivate uint
+
+const (
+	KActivateConnection KActivate = 0
+)
+
+func (e KActivate) String() string {
+	switch e {
+	case KActivateConnection:
+		return "KActivateConnection"
+	default:
+		return fmt.Sprintf("KActivate(%d)", e)
+	}
+}
+
 type KAllModesValid uint
 
 const (
 	KAllModesValidValue KAllModesValid = 0
-	KFastCheckForDDC KAllModesValid = 0
+	KFastCheckForDDC    KAllModesValid = 0
 )
 
 func (e KAllModesValid) String() string {
@@ -2490,13 +2307,28 @@ func (e KAllModesValid) String() string {
 	}
 }
 
+type KAnd uint
+
+const (
+	KAndConnections KAnd = 0
+)
+
+func (e KAnd) String() string {
+	switch e {
+	case KAndConnections:
+		return "KAndConnections"
+	default:
+		return fmt.Sprintf("KAnd(%d)", e)
+	}
+}
+
 type KAppleBasebandBridgeUserRequest uint
 
 const (
 	KAppleBasebandBridgeUserRequest_BasebandHostWake KAppleBasebandBridgeUserRequest = 0
-	KAppleBasebandBridgeUserRequest_BasebandInReset KAppleBasebandBridgeUserRequest = 0
-	KAppleBasebandBridgeUserRequest_BridgeReady KAppleBasebandBridgeUserRequest = 0
-	KAppleBasebandBridgeUserRequest_MAX KAppleBasebandBridgeUserRequest = 0
+	KAppleBasebandBridgeUserRequest_BasebandInReset  KAppleBasebandBridgeUserRequest = 0
+	KAppleBasebandBridgeUserRequest_BridgeReady      KAppleBasebandBridgeUserRequest = 0
+	KAppleBasebandBridgeUserRequest_MAX              KAppleBasebandBridgeUserRequest = 0
 )
 
 func (e KAppleBasebandBridgeUserRequest) String() string {
@@ -2508,17 +2340,42 @@ func (e KAppleBasebandBridgeUserRequest) String() string {
 	}
 }
 
-const KAppleVendorID uint = 0
+type KAppleVendorI uint
 
-const KBDFeaturesReadBit uint = 0
+const (
+	KAppleVendorID KAppleVendorI = 0
+)
 
-const KBDFeaturesReadMask uint = 0
+func (e KAppleVendorI) String() string {
+	switch e {
+	case KAppleVendorID:
+		return "KAppleVendorID"
+	default:
+		return fmt.Sprintf("KAppleVendorI(%d)", e)
+	}
+}
+
+type KBDFeaturesRead uint
+
+const (
+	KBDFeaturesReadBit  KBDFeaturesRead = 0
+	KBDFeaturesReadMask KBDFeaturesRead = 0
+)
+
+func (e KBDFeaturesRead) String() string {
+	switch e {
+	case KBDFeaturesReadBit:
+		return "KBDFeaturesReadBit"
+	default:
+		return fmt.Sprintf("KBDFeaturesRead(%d)", e)
+	}
+}
 
 type KBDMediaType uint
 
 const (
 	KBDMediaTypeMin KBDMediaType = 0
-	KBDMediaTypeR KBDMediaType = 0
+	KBDMediaTypeR   KBDMediaType = 0
 )
 
 func (e KBDMediaType) String() string {
@@ -2530,20 +2387,48 @@ func (e KBDMediaType) String() string {
 	}
 }
 
-const KBTBadCloseMask uint = 0
-
-type KBTLeafNode uint
+type KBTBadClose uint
 
 const (
-	KBTHeaderNode KBTLeafNode = 0
+	KBTBadCloseMask KBTBadClose = 0
 )
 
-func (e KBTLeafNode) String() string {
+func (e KBTBadClose) String() string {
+	switch e {
+	case KBTBadCloseMask:
+		return "KBTBadCloseMask"
+	default:
+		return fmt.Sprintf("KBTBadClose(%d)", e)
+	}
+}
+
+type KBTHeader uint
+
+const (
+	KBTHeaderNode KBTHeader = 0
+)
+
+func (e KBTHeader) String() string {
 	switch e {
 	case KBTHeaderNode:
 		return "KBTHeaderNode"
 	default:
-		return fmt.Sprintf("KBTLeafNode(%d)", e)
+		return fmt.Sprintf("KBTHeader(%d)", e)
+	}
+}
+
+type KBestEffortService uint
+
+const (
+	KBestEffortServiceLatency KBestEffortService = 0
+)
+
+func (e KBestEffortService) String() string {
+	switch e {
+	case KBestEffortServiceLatency:
+		return "KBestEffortServiceLatency"
+	default:
+		return fmt.Sprintf("KBestEffortService(%d)", e)
 	}
 }
 
@@ -2551,7 +2436,7 @@ type KBluetooth uint
 
 const (
 	KBluetoothACLLogicalChannelLMP KBluetooth = 0
-	KBluetoothL2CAPMaxPacketSize KBluetooth = 0
+	KBluetoothL2CAPMaxPacketSize   KBluetooth = 0
 )
 
 func (e KBluetooth) String() string {
@@ -2579,27 +2464,55 @@ func (e KBluetoothAirMode) String() string {
 	}
 }
 
-const KBluetoothConnectionHandleNone uint = 0
-
-type KBluetoothDeviceClassMajorMiscellaneous uint
+type KBluetoothAllowRole uint
 
 const (
-	KBluetoothDeviceClassMajorAudio KBluetoothDeviceClassMajorMiscellaneous = 0
+	KBluetoothAllowRoleSwitch KBluetoothAllowRole = 0
 )
 
-func (e KBluetoothDeviceClassMajorMiscellaneous) String() string {
+func (e KBluetoothAllowRole) String() string {
+	switch e {
+	case KBluetoothAllowRoleSwitch:
+		return "KBluetoothAllowRoleSwitch"
+	default:
+		return fmt.Sprintf("KBluetoothAllowRole(%d)", e)
+	}
+}
+
+type KBluetoothConnectionHandle uint
+
+const (
+	KBluetoothConnectionHandleNone KBluetoothConnectionHandle = 0
+)
+
+func (e KBluetoothConnectionHandle) String() string {
+	switch e {
+	case KBluetoothConnectionHandleNone:
+		return "KBluetoothConnectionHandleNone"
+	default:
+		return fmt.Sprintf("KBluetoothConnectionHandle(%d)", e)
+	}
+}
+
+type KBluetoothDeviceClassMajor uint
+
+const (
+	KBluetoothDeviceClassMajorAudio KBluetoothDeviceClassMajor = 0
+)
+
+func (e KBluetoothDeviceClassMajor) String() string {
 	switch e {
 	case KBluetoothDeviceClassMajorAudio:
 		return "KBluetoothDeviceClassMajorAudio"
 	default:
-		return fmt.Sprintf("KBluetoothDeviceClassMajorMiscellaneous(%d)", e)
+		return fmt.Sprintf("KBluetoothDeviceClassMajor(%d)", e)
 	}
 }
 
 type KBluetoothDeviceClassMinor uint
 
 const (
-	KBluetoothDeviceClassMinorHealthGlucoseMeter KBluetoothDeviceClassMinor = 0
+	KBluetoothDeviceClassMinorHealthGlucoseMeter    KBluetoothDeviceClassMinor = 0
 	KBluetoothDeviceClassMinorPeripheral2CardReader KBluetoothDeviceClassMinor = 0
 )
 
@@ -2612,20 +2525,18 @@ func (e KBluetoothDeviceClassMinor) String() string {
 	}
 }
 
-const KBluetoothDeviceNameMaxLength uint = 0
-
-type KBluetoothDontAllowRoleSwitch uint
+type KBluetoothDeviceNameMax uint
 
 const (
-	KBluetoothAllowRoleSwitch KBluetoothDontAllowRoleSwitch = 0
+	KBluetoothDeviceNameMaxLength KBluetoothDeviceNameMax = 0
 )
 
-func (e KBluetoothDontAllowRoleSwitch) String() string {
+func (e KBluetoothDeviceNameMax) String() string {
 	switch e {
-	case KBluetoothAllowRoleSwitch:
-		return "KBluetoothAllowRoleSwitch"
+	case KBluetoothDeviceNameMaxLength:
+		return "KBluetoothDeviceNameMaxLength"
 	default:
-		return fmt.Sprintf("KBluetoothDontAllowRoleSwitch(%d)", e)
+		return fmt.Sprintf("KBluetoothDeviceNameMax(%d)", e)
 	}
 }
 
@@ -2633,7 +2544,7 @@ type KBluetoothEncryptionEnable uint
 
 const (
 	KBluetoothEncryptionEnableOff KBluetoothEncryptionEnable = 0
-	KBluetoothEncryptionEnableOn KBluetoothEncryptionEnable = 0
+	KBluetoothEncryptionEnableOn  KBluetoothEncryptionEnable = 0
 )
 
 func (e KBluetoothEncryptionEnable) String() string {
@@ -2648,7 +2559,7 @@ func (e KBluetoothEncryptionEnable) String() string {
 type KBluetoothGAPAppearanceGeneric uint
 
 const (
-	KBluetoothGAPAppearanceGenericBarcodeScanner KBluetoothGAPAppearanceGeneric = 0
+	KBluetoothGAPAppearanceGenericBarcodeScanner       KBluetoothGAPAppearanceGeneric = 0
 	KBluetoothGAPAppearanceGenericHumanInterfaceDevice KBluetoothGAPAppearanceGeneric = 0
 )
 
@@ -2661,13 +2572,26 @@ func (e KBluetoothGAPAppearanceGeneric) String() string {
 	}
 }
 
-const KBluetoothGeneralInquiryAccessCodeIndex uint = 0
+type KBluetoothGeneralInquiryAccessCode uint
+
+const (
+	KBluetoothGeneralInquiryAccessCodeIndex KBluetoothGeneralInquiryAccessCode = 0
+)
+
+func (e KBluetoothGeneralInquiryAccessCode) String() string {
+	switch e {
+	case KBluetoothGeneralInquiryAccessCodeIndex:
+		return "KBluetoothGeneralInquiryAccessCodeIndex"
+	default:
+		return fmt.Sprintf("KBluetoothGeneralInquiryAccessCode(%d)", e)
+	}
+}
 
 type KBluetoothHCICommand uint
 
 const (
 	KBluetoothHCICommandLEWriteSuggestedDefaultDataLength KBluetoothHCICommand = 0
-	KBluetoothHCICommandReadLocalAMPASSOC KBluetoothHCICommand = 0
+	KBluetoothHCICommandReadLocalAMPASSOC                 KBluetoothHCICommand = 0
 )
 
 func (e KBluetoothHCICommand) String() string {
@@ -2679,14 +2603,40 @@ func (e KBluetoothHCICommand) String() string {
 	}
 }
 
-const KBluetoothHCICommandPacketHeaderSize uint = 0
+type KBluetoothHCICommandPacketHeader uint
 
-const KBluetoothHCIErroneousDataReportingDisabled int = 0
+const (
+	KBluetoothHCICommandPacketHeaderSize KBluetoothHCICommandPacketHeader = 0
+)
+
+func (e KBluetoothHCICommandPacketHeader) String() string {
+	switch e {
+	case KBluetoothHCICommandPacketHeaderSize:
+		return "KBluetoothHCICommandPacketHeaderSize"
+	default:
+		return fmt.Sprintf("KBluetoothHCICommandPacketHeader(%d)", e)
+	}
+}
+
+type KBluetoothHCIErroneousDataReporting int
+
+const (
+	KBluetoothHCIErroneousDataReportingDisabled KBluetoothHCIErroneousDataReporting = 0
+)
+
+func (e KBluetoothHCIErroneousDataReporting) String() string {
+	switch e {
+	case KBluetoothHCIErroneousDataReportingDisabled:
+		return "KBluetoothHCIErroneousDataReportingDisabled"
+	default:
+		return fmt.Sprintf("KBluetoothHCIErroneousDataReporting(%d)", e)
+	}
+}
 
 type KBluetoothHCIError int
 
 const (
-	KBluetoothHCIErrorACLConnectionAlreadyExists KBluetoothHCIError = 0
+	KBluetoothHCIErrorACLConnectionAlreadyExists      KBluetoothHCIError = 0
 	KBluetoothHCIErrorConnectionTerminatedByLocalHost KBluetoothHCIError = 0
 )
 
@@ -2699,13 +2649,26 @@ func (e KBluetoothHCIError) String() string {
 	}
 }
 
-const KBluetoothHCIErrorPowerIsOFF int = 0
+type KBluetoothHCIErrorPowerIsOF int
+
+const (
+	KBluetoothHCIErrorPowerIsOFF KBluetoothHCIErrorPowerIsOF = 0
+)
+
+func (e KBluetoothHCIErrorPowerIsOF) String() string {
+	switch e {
+	case KBluetoothHCIErrorPowerIsOFF:
+		return "KBluetoothHCIErrorPowerIsOFF"
+	default:
+		return fmt.Sprintf("KBluetoothHCIErrorPowerIsOF(%d)", e)
+	}
+}
 
 type KBluetoothHCIEventMask uint
 
 const (
 	KBluetoothHCIEventMaskConnectionPacketTypeChanged KBluetoothHCIEventMask = 0
-	KBluetoothHCIEventMaskFlushOccurred KBluetoothHCIEventMask = 0
+	KBluetoothHCIEventMaskFlushOccurred               KBluetoothHCIEventMask = 0
 )
 
 func (e KBluetoothHCIEventMask) String() string {
@@ -2720,7 +2683,7 @@ func (e KBluetoothHCIEventMask) String() string {
 type KBluetoothHCILoopbackMode uint
 
 const (
-	KBluetoothHCILoopbackModeLocal KBluetoothHCILoopbackMode = 0
+	KBluetoothHCILoopbackModeLocal  KBluetoothHCILoopbackMode = 0
 	KBluetoothHCILoopbackModeRemote KBluetoothHCILoopbackMode = 0
 )
 
@@ -2736,7 +2699,7 @@ func (e KBluetoothHCILoopbackMode) String() string {
 type KBluetoothHCISubEventLE uint
 
 const (
-	KBluetoothHCISubEventLEDataLengthChange KBluetoothHCISubEventLE = 0
+	KBluetoothHCISubEventLEDataLengthChange    KBluetoothHCISubEventLE = 0
 	KBluetoothHCISubEventLEScanRequestReceived KBluetoothHCISubEventLE = 0
 )
 
@@ -2749,15 +2712,42 @@ func (e KBluetoothHCISubEventLE) String() string {
 	}
 }
 
-const KBluetoothHCITransportUSBClassCode uint = 0
+type KBluetoothHCITransportUSBClass uint
 
-const KBluetoothKeyFlagSemiPermanent uint = 0
+const (
+	// KBluetoothHCITransportUSBClassCode: # Discussion
+	KBluetoothHCITransportUSBClassCode KBluetoothHCITransportUSBClass = 0
+)
+
+func (e KBluetoothHCITransportUSBClass) String() string {
+	switch e {
+	case KBluetoothHCITransportUSBClassCode:
+		return "KBluetoothHCITransportUSBClassCode"
+	default:
+		return fmt.Sprintf("KBluetoothHCITransportUSBClass(%d)", e)
+	}
+}
+
+type KBluetoothKeyFlagSemi uint
+
+const (
+	KBluetoothKeyFlagSemiPermanent KBluetoothKeyFlagSemi = 0
+)
+
+func (e KBluetoothKeyFlagSemi) String() string {
+	switch e {
+	case KBluetoothKeyFlagSemiPermanent:
+		return "KBluetoothKeyFlagSemiPermanent"
+	default:
+		return fmt.Sprintf("KBluetoothKeyFlagSemi(%d)", e)
+	}
+}
 
 type KBluetoothKeyType uint
 
 const (
 	KBluetoothKeyTypeAuthenticatedCombination KBluetoothKeyType = 0
-	KBluetoothKeyTypeCombination KBluetoothKeyType = 0
+	KBluetoothKeyTypeCombination              KBluetoothKeyType = 0
 )
 
 func (e KBluetoothKeyType) String() string {
@@ -2772,7 +2762,7 @@ func (e KBluetoothKeyType) String() string {
 type KBluetoothL2CAP uint
 
 const (
-	KBluetoothL2CAPMTUDefault KBluetoothL2CAP = 0
+	KBluetoothL2CAPMTUDefault               KBluetoothL2CAP = 0
 	KBluetoothL2CAPQoSDelayVariationDefault KBluetoothL2CAP = 0
 )
 
@@ -2789,7 +2779,7 @@ type KBluetoothL2CAPChannel uint
 
 const (
 	KBluetoothL2CAPChannelLESignalling KBluetoothL2CAPChannel = 0
-	KBluetoothL2CAPChannelMagnet KBluetoothL2CAPChannel = 0
+	KBluetoothL2CAPChannelMagnet       KBluetoothL2CAPChannel = 0
 )
 
 func (e KBluetoothL2CAPChannel) String() string {
@@ -2804,7 +2794,7 @@ func (e KBluetoothL2CAPChannel) String() string {
 type KBluetoothL2CAPConfigurationOption uint
 
 const (
-	KBluetoothL2CAPConfigurationOptionFlushTimeoutLength KBluetoothL2CAPConfigurationOption = 0
+	KBluetoothL2CAPConfigurationOptionFlushTimeoutLength                 KBluetoothL2CAPConfigurationOption = 0
 	KBluetoothL2CAPConfigurationOptionRetransmissionAndFlowControlLength KBluetoothL2CAPConfigurationOption = 0
 )
 
@@ -2820,7 +2810,7 @@ func (e KBluetoothL2CAPConfigurationOption) String() string {
 type KBluetoothL2CAPFlushTimeout uint
 
 const (
-	KBluetoothL2CAPFlushTimeoutForever KBluetoothL2CAPFlushTimeout = 0
+	KBluetoothL2CAPFlushTimeoutForever     KBluetoothL2CAPFlushTimeout = 0
 	KBluetoothL2CAPFlushTimeoutUseExisting KBluetoothL2CAPFlushTimeout = 0
 )
 
@@ -2833,13 +2823,26 @@ func (e KBluetoothL2CAPFlushTimeout) String() string {
 	}
 }
 
-const KBluetoothL2CAPInfoTypeMaxConnectionlessMTUSize uint = 0
+type KBluetoothL2CAPInfoTypeMaxConnectionlessMTU uint
+
+const (
+	KBluetoothL2CAPInfoTypeMaxConnectionlessMTUSize KBluetoothL2CAPInfoTypeMaxConnectionlessMTU = 0
+)
+
+func (e KBluetoothL2CAPInfoTypeMaxConnectionlessMTU) String() string {
+	switch e {
+	case KBluetoothL2CAPInfoTypeMaxConnectionlessMTUSize:
+		return "KBluetoothL2CAPInfoTypeMaxConnectionlessMTUSize"
+	default:
+		return fmt.Sprintf("KBluetoothL2CAPInfoTypeMaxConnectionlessMTU(%d)", e)
+	}
+}
 
 type KBluetoothL2CAPPSM uint
 
 const (
 	KBluetoothL2CAPPSMAVCTP_Browsing KBluetoothL2CAPPSM = 0
-	KBluetoothL2CAPPSMHIDControl KBluetoothL2CAPPSM = 0
+	KBluetoothL2CAPPSMHIDControl     KBluetoothL2CAPPSM = 0
 )
 
 func (e KBluetoothL2CAPPSM) String() string {
@@ -2851,12 +2854,25 @@ func (e KBluetoothL2CAPPSM) String() string {
 	}
 }
 
-const KBluetoothL2CAPPacketHeaderSize uint = 0
+type KBluetoothL2CAPPacketHeader uint
+
+const (
+	KBluetoothL2CAPPacketHeaderSize KBluetoothL2CAPPacketHeader = 0
+)
+
+func (e KBluetoothL2CAPPacketHeader) String() string {
+	switch e {
+	case KBluetoothL2CAPPacketHeaderSize:
+		return "KBluetoothL2CAPPacketHeaderSize"
+	default:
+		return fmt.Sprintf("KBluetoothL2CAPPacketHeader(%d)", e)
+	}
+}
 
 type KBluetoothL2CAPTCICommandL2CA uint
 
 const (
-	KBluetoothL2CAPTCICommandL2CA_ConfigReq KBluetoothL2CAPTCICommandL2CA = 0
+	KBluetoothL2CAPTCICommandL2CA_ConfigReq  KBluetoothL2CAPTCICommandL2CA = 0
 	KBluetoothL2CAPTCICommandL2CA_ConnectReq KBluetoothL2CAPTCICommandL2CA = 0
 )
 
@@ -2872,7 +2888,7 @@ func (e KBluetoothL2CAPTCICommandL2CA) String() string {
 type KBluetoothL2CAPTCIEventIDL2CA uint
 
 const (
-	KBluetoothL2CAPTCIEventIDL2CA_ConfigInd KBluetoothL2CAPTCIEventIDL2CA = 0
+	KBluetoothL2CAPTCIEventIDL2CA_ConfigInd  KBluetoothL2CAPTCIEventIDL2CA = 0
 	KBluetoothL2CAPTCIEventIDL2CA_TimeOutInd KBluetoothL2CAPTCIEventIDL2CA = 0
 )
 
@@ -2885,48 +2901,48 @@ func (e KBluetoothL2CAPTCIEventIDL2CA) String() string {
 	}
 }
 
-type KBluetoothLEMaxTXTimeMin uint
+type KBluetoothLEMaxTXOctets uint
 
 const (
-	KBluetoothLEMaxTXOctetsDefault KBluetoothLEMaxTXTimeMin = 0
+	KBluetoothLEMaxTXOctetsDefault KBluetoothLEMaxTXOctets = 0
 )
 
-func (e KBluetoothLEMaxTXTimeMin) String() string {
+func (e KBluetoothLEMaxTXOctets) String() string {
 	switch e {
 	case KBluetoothLEMaxTXOctetsDefault:
 		return "KBluetoothLEMaxTXOctetsDefault"
 	default:
-		return fmt.Sprintf("KBluetoothLEMaxTXTimeMin(%d)", e)
+		return fmt.Sprintf("KBluetoothLEMaxTXOctets(%d)", e)
 	}
 }
 
-type KBluetoothLESecurityManagerNoBonding uint
+type KBluetoothLESecurityManager uint
 
 const (
-	KBluetoothLESecurityManagerBonding KBluetoothLESecurityManagerNoBonding = 0
+	KBluetoothLESecurityManagerBonding KBluetoothLESecurityManager = 0
 )
 
-func (e KBluetoothLESecurityManagerNoBonding) String() string {
+func (e KBluetoothLESecurityManager) String() string {
 	switch e {
 	case KBluetoothLESecurityManagerBonding:
 		return "KBluetoothLESecurityManagerBonding"
 	default:
-		return fmt.Sprintf("KBluetoothLESecurityManagerNoBonding(%d)", e)
+		return fmt.Sprintf("KBluetoothLESecurityManager(%d)", e)
 	}
 }
 
-type KBluetoothLETXTimeMin uint
+type KBluetoothLETXOctets uint
 
 const (
-	KBluetoothLETXOctetsDefault KBluetoothLETXTimeMin = 0
+	KBluetoothLETXOctetsDefault KBluetoothLETXOctets = 0
 )
 
-func (e KBluetoothLETXTimeMin) String() string {
+func (e KBluetoothLETXOctets) String() string {
 	switch e {
 	case KBluetoothLETXOctetsDefault:
 		return "KBluetoothLETXOctetsDefault"
 	default:
-		return fmt.Sprintf("KBluetoothLETXTimeMin(%d)", e)
+		return fmt.Sprintf("KBluetoothLETXOctets(%d)", e)
 	}
 }
 
@@ -2946,9 +2962,35 @@ func (e KBluetoothPacketType) String() string {
 	}
 }
 
-const KBluetoothPageScanModeMandatory uint = 0
+type KBluetoothPageScanMode uint
 
-const KBluetoothPageScanPeriodModeP0 uint = 0
+const (
+	KBluetoothPageScanModeMandatory KBluetoothPageScanMode = 0
+)
+
+func (e KBluetoothPageScanMode) String() string {
+	switch e {
+	case KBluetoothPageScanModeMandatory:
+		return "KBluetoothPageScanModeMandatory"
+	default:
+		return fmt.Sprintf("KBluetoothPageScanMode(%d)", e)
+	}
+}
+
+type KBluetoothPageScanPeriodMode uint
+
+const (
+	KBluetoothPageScanPeriodModeP0 KBluetoothPageScanPeriodMode = 0
+)
+
+func (e KBluetoothPageScanPeriodMode) String() string {
+	switch e {
+	case KBluetoothPageScanPeriodModeP0:
+		return "KBluetoothPageScanPeriodModeP0"
+	default:
+		return fmt.Sprintf("KBluetoothPageScanPeriodMode(%d)", e)
+	}
+}
 
 type KBluetoothPageScanRepetitionMode uint
 
@@ -2969,7 +3011,7 @@ func (e KBluetoothPageScanRepetitionMode) String() string {
 type KBluetoothRole uint
 
 const (
-	KBluetoothRoleBecomeCentral KBluetoothRole = 0
+	KBluetoothRoleBecomeCentral    KBluetoothRole = 0
 	KBluetoothRoleRemainPeripheral KBluetoothRole = 0
 	// Deprecated.
 	KBluetoothRoleBecomeMaster KBluetoothRole = 0
@@ -2990,7 +3032,7 @@ type KBluetoothSDPAttributeDeviceIdentifier uint
 
 const (
 	KBluetoothSDPAttributeDeviceIdentifierClientExecutableURL KBluetoothSDPAttributeDeviceIdentifier = 0
-	KBluetoothSDPAttributeDeviceIdentifierDocumentationURL KBluetoothSDPAttributeDeviceIdentifier = 0
+	KBluetoothSDPAttributeDeviceIdentifierDocumentationURL    KBluetoothSDPAttributeDeviceIdentifier = 0
 )
 
 func (e KBluetoothSDPAttributeDeviceIdentifier) String() string {
@@ -3002,25 +3044,25 @@ func (e KBluetoothSDPAttributeDeviceIdentifier) String() string {
 	}
 }
 
-type KBluetoothSDPDataElementTypeNil uint
+type KBluetoothSDPDataElementType uint
 
 const (
-	KBluetoothSDPDataElementTypeBoolean KBluetoothSDPDataElementTypeNil = 0
+	KBluetoothSDPDataElementTypeBoolean KBluetoothSDPDataElementType = 0
 )
 
-func (e KBluetoothSDPDataElementTypeNil) String() string {
+func (e KBluetoothSDPDataElementType) String() string {
 	switch e {
 	case KBluetoothSDPDataElementTypeBoolean:
 		return "KBluetoothSDPDataElementTypeBoolean"
 	default:
-		return fmt.Sprintf("KBluetoothSDPDataElementTypeNil(%d)", e)
+		return fmt.Sprintf("KBluetoothSDPDataElementType(%d)", e)
 	}
 }
 
 type KBluetoothSDPErrorCodeReserved int
 
 const (
-	KBluetoothSDPErrorCodeReservedEnd KBluetoothSDPErrorCodeReserved = 0
+	KBluetoothSDPErrorCodeReservedEnd   KBluetoothSDPErrorCodeReserved = 0
 	KBluetoothSDPErrorCodeReservedStart KBluetoothSDPErrorCodeReserved = 0
 )
 
@@ -3036,7 +3078,7 @@ func (e KBluetoothSDPErrorCodeReserved) String() string {
 type KBluetoothSDPPDUID uint
 
 const (
-	KBluetoothSDPPDUIDReserved KBluetoothSDPPDUID = 0
+	KBluetoothSDPPDUIDReserved                       KBluetoothSDPPDUID = 0
 	KBluetoothSDPPDUIDServiceSearchAttributeResponse KBluetoothSDPPDUID = 0
 )
 
@@ -3053,11 +3095,11 @@ type KBluetoothSDPProtocolParameter uint
 
 const (
 	KBluetoothSDPProtocolParameterBNEPSupportedNetworkPacketTypeList KBluetoothSDPProtocolParameter = 0
-	KBluetoothSDPProtocolParameterBNEPVersion KBluetoothSDPProtocolParameter = 0
-	KBluetoothSDPProtocolParameterL2CAPPSM KBluetoothSDPProtocolParameter = 0
-	KBluetoothSDPProtocolParameterRFCOMMChannel KBluetoothSDPProtocolParameter = 0
-	KBluetoothSDPProtocolParameterTCPPort KBluetoothSDPProtocolParameter = 0
-	KBluetoothSDPProtocolParameterUDPPort KBluetoothSDPProtocolParameter = 0
+	KBluetoothSDPProtocolParameterBNEPVersion                        KBluetoothSDPProtocolParameter = 0
+	KBluetoothSDPProtocolParameterL2CAPPSM                           KBluetoothSDPProtocolParameter = 0
+	KBluetoothSDPProtocolParameterRFCOMMChannel                      KBluetoothSDPProtocolParameter = 0
+	KBluetoothSDPProtocolParameterTCPPort                            KBluetoothSDPProtocolParameter = 0
+	KBluetoothSDPProtocolParameterUDPPort                            KBluetoothSDPProtocolParameter = 0
 )
 
 func (e KBluetoothSDPProtocolParameter) String() string {
@@ -3069,27 +3111,27 @@ func (e KBluetoothSDPProtocolParameter) String() string {
 	}
 }
 
-type KBluetoothSDPUUID16Base uint
+type KBluetoothSDPUUID16AVCT uint
 
 const (
-	KBluetoothSDPUUID16AVCTP KBluetoothSDPUUID16Base = 0
+	KBluetoothSDPUUID16AVCTP KBluetoothSDPUUID16AVCT = 0
 )
 
-func (e KBluetoothSDPUUID16Base) String() string {
+func (e KBluetoothSDPUUID16AVCT) String() string {
 	switch e {
 	case KBluetoothSDPUUID16AVCTP:
 		return "KBluetoothSDPUUID16AVCTP"
 	default:
-		return fmt.Sprintf("KBluetoothSDPUUID16Base(%d)", e)
+		return fmt.Sprintf("KBluetoothSDPUUID16AVCT(%d)", e)
 	}
 }
 
 type KBluetoothSDPUUID16ServiceClass uint
 
 const (
-	KBluetoothSDPUUID16ServiceClassAVRemoteControl KBluetoothSDPUUID16ServiceClass = 0
+	KBluetoothSDPUUID16ServiceClassAVRemoteControl  KBluetoothSDPUUID16ServiceClass = 0
 	KBluetoothSDPUUID16ServiceClassDialupNetworking KBluetoothSDPUUID16ServiceClass = 0
-	KBluetoothSDPUUID16ServiceClassGN KBluetoothSDPUUID16ServiceClass = 0
+	KBluetoothSDPUUID16ServiceClassGN               KBluetoothSDPUUID16ServiceClass = 0
 )
 
 func (e KBluetoothSDPUUID16ServiceClass) String() string {
@@ -3104,7 +3146,7 @@ func (e KBluetoothSDPUUID16ServiceClass) String() string {
 type KBluetoothServiceClassMajor uint
 
 const (
-	KBluetoothServiceClassMajorAny KBluetoothServiceClassMajor = 0
+	KBluetoothServiceClassMajorAny       KBluetoothServiceClassMajor = 0
 	KBluetoothServiceClassMajorCapturing KBluetoothServiceClassMajor = 0
 )
 
@@ -3117,55 +3159,55 @@ func (e KBluetoothServiceClassMajor) String() string {
 	}
 }
 
-type KBluetoothSynchronousConnectionPacketTypeNone uint
+type KBluetoothSynchronousConnectionPacketType3EV5 uint
 
 const (
-	KBluetoothSynchronousConnectionPacketType3EV5Omit KBluetoothSynchronousConnectionPacketTypeNone = 0
+	KBluetoothSynchronousConnectionPacketType3EV5Omit KBluetoothSynchronousConnectionPacketType3EV5 = 0
 )
 
-func (e KBluetoothSynchronousConnectionPacketTypeNone) String() string {
+func (e KBluetoothSynchronousConnectionPacketType3EV5) String() string {
 	switch e {
 	case KBluetoothSynchronousConnectionPacketType3EV5Omit:
 		return "KBluetoothSynchronousConnectionPacketType3EV5Omit"
 	default:
-		return fmt.Sprintf("KBluetoothSynchronousConnectionPacketTypeNone(%d)", e)
+		return fmt.Sprintf("KBluetoothSynchronousConnectionPacketType3EV5(%d)", e)
 	}
 }
 
-type KBluetoothVoiceSettingAirCodingFormatMask uint
+type KBluetoothVoiceSettingAirCodingFormatA uint
 
 const (
-	KBluetoothVoiceSettingAirCodingFormatALaw KBluetoothVoiceSettingAirCodingFormatMask = 0
+	KBluetoothVoiceSettingAirCodingFormatALaw KBluetoothVoiceSettingAirCodingFormatA = 0
 )
 
-func (e KBluetoothVoiceSettingAirCodingFormatMask) String() string {
+func (e KBluetoothVoiceSettingAirCodingFormatA) String() string {
 	switch e {
 	case KBluetoothVoiceSettingAirCodingFormatALaw:
 		return "KBluetoothVoiceSettingAirCodingFormatALaw"
 	default:
-		return fmt.Sprintf("KBluetoothVoiceSettingAirCodingFormatMask(%d)", e)
+		return fmt.Sprintf("KBluetoothVoiceSettingAirCodingFormatA(%d)", e)
 	}
 }
 
-type KBluetoothVoiceSettingInputCodingMask uint
+type KBluetoothVoiceSettingInputCodingALawInput uint
 
 const (
-	KBluetoothVoiceSettingInputCodingALawInputCoding KBluetoothVoiceSettingInputCodingMask = 0
+	KBluetoothVoiceSettingInputCodingALawInputCoding KBluetoothVoiceSettingInputCodingALawInput = 0
 )
 
-func (e KBluetoothVoiceSettingInputCodingMask) String() string {
+func (e KBluetoothVoiceSettingInputCodingALawInput) String() string {
 	switch e {
 	case KBluetoothVoiceSettingInputCodingALawInputCoding:
 		return "KBluetoothVoiceSettingInputCodingALawInputCoding"
 	default:
-		return fmt.Sprintf("KBluetoothVoiceSettingInputCodingMask(%d)", e)
+		return fmt.Sprintf("KBluetoothVoiceSettingInputCodingALawInput(%d)", e)
 	}
 }
 
 type KBluetoothVoiceSettingInputDataFormat uint
 
 const (
-	KBluetoothVoiceSettingInputDataFormatMask KBluetoothVoiceSettingInputDataFormat = 0
+	KBluetoothVoiceSettingInputDataFormatMask          KBluetoothVoiceSettingInputDataFormat = 0
 	KBluetoothVoiceSettingInputDataFormatSignMagnitude KBluetoothVoiceSettingInputDataFormat = 0
 )
 
@@ -3178,49 +3220,88 @@ func (e KBluetoothVoiceSettingInputDataFormat) String() string {
 	}
 }
 
-type KBluetoothVoiceSettingInputSampleSizeMask uint
+type KBluetoothVoiceSettingInputSampleSize16 uint
 
 const (
-	KBluetoothVoiceSettingInputSampleSize16Bit KBluetoothVoiceSettingInputSampleSizeMask = 0
+	KBluetoothVoiceSettingInputSampleSize16Bit KBluetoothVoiceSettingInputSampleSize16 = 0
 )
 
-func (e KBluetoothVoiceSettingInputSampleSizeMask) String() string {
+func (e KBluetoothVoiceSettingInputSampleSize16) String() string {
 	switch e {
 	case KBluetoothVoiceSettingInputSampleSize16Bit:
 		return "KBluetoothVoiceSettingInputSampleSize16Bit"
 	default:
-		return fmt.Sprintf("KBluetoothVoiceSettingInputSampleSizeMask(%d)", e)
+		return fmt.Sprintf("KBluetoothVoiceSettingInputSampleSize16(%d)", e)
 	}
 }
 
-const KBluetoothVoiceSettingPCMBitPositionMask uint = 0
-
-const KBootDriverTypeInvalid uint = 0
-
-type KBootROMTypeOldWorld uint
+type KBluetoothVoiceSettingPCMBitPosition uint
 
 const (
-	KBootROMTypeNewWorld KBootROMTypeOldWorld = 0
+	KBluetoothVoiceSettingPCMBitPositionMask KBluetoothVoiceSettingPCMBitPosition = 0
 )
 
-func (e KBootROMTypeOldWorld) String() string {
+func (e KBluetoothVoiceSettingPCMBitPosition) String() string {
+	switch e {
+	case KBluetoothVoiceSettingPCMBitPositionMask:
+		return "KBluetoothVoiceSettingPCMBitPositionMask"
+	default:
+		return fmt.Sprintf("KBluetoothVoiceSettingPCMBitPosition(%d)", e)
+	}
+}
+
+type KBootDriverType uint
+
+const (
+	KBootDriverTypeInvalid KBootDriverType = 0
+)
+
+func (e KBootDriverType) String() string {
+	switch e {
+	case KBootDriverTypeInvalid:
+		return "KBootDriverTypeInvalid"
+	default:
+		return fmt.Sprintf("KBootDriverType(%d)", e)
+	}
+}
+
+type KBootROMTypeNew uint
+
+const (
+	KBootROMTypeNewWorld KBootROMTypeNew = 0
+)
+
+func (e KBootROMTypeNew) String() string {
 	switch e {
 	case KBootROMTypeNewWorld:
 		return "KBootROMTypeNewWorld"
 	default:
-		return fmt.Sprintf("KBootROMTypeOldWorld(%d)", e)
+		return fmt.Sprintf("KBootROMTypeNew(%d)", e)
 	}
 }
 
-const KC0DataMaxStringLen uint = 0
+type KC0DataMaxString uint
+
+const (
+	KC0DataMaxStringLen KC0DataMaxString = 0
+)
+
+func (e KC0DataMaxString) String() string {
+	switch e {
+	case KC0DataMaxStringLen:
+		return "KC0DataMaxStringLen"
+	default:
+		return fmt.Sprintf("KC0DataMaxString(%d)", e)
+	}
+}
 
 type KCDFeatures uint
 
 const (
-	KCDFeaturesAnalogAudioBit KCDFeatures = 0
+	KCDFeaturesAnalogAudioBit  KCDFeatures = 0
 	KCDFeaturesAnalogAudioMask KCDFeatures = 0
-	KCDFeaturesBUFWriteBit KCDFeatures = 0
-	KCDFeaturesTestWriteMask KCDFeatures = 0
+	KCDFeaturesBUFWriteBit     KCDFeatures = 0
+	KCDFeaturesTestWriteMask   KCDFeatures = 0
 )
 
 func (e KCDFeatures) String() string {
@@ -3235,7 +3316,7 @@ func (e KCDFeatures) String() string {
 type KCDMediaType uint
 
 const (
-	KCDMediaTypeMax KCDMediaType = 0
+	KCDMediaTypeMax     KCDMediaType = 0
 	KCDMediaTypeUnknown KCDMediaType = 0
 )
 
@@ -3251,14 +3332,14 @@ func (e KCDMediaType) String() string {
 type KCDSectorArea uint
 
 const (
-	KCDSectorAreaAuxiliary KCDSectorArea = 0
-	KCDSectorAreaErrorFlags KCDSectorArea = 0
-	KCDSectorAreaHeader KCDSectorArea = 0
-	KCDSectorAreaSubChannel KCDSectorArea = 0
+	KCDSectorAreaAuxiliary   KCDSectorArea = 0
+	KCDSectorAreaErrorFlags  KCDSectorArea = 0
+	KCDSectorAreaHeader      KCDSectorArea = 0
+	KCDSectorAreaSubChannel  KCDSectorArea = 0
 	KCDSectorAreaSubChannelQ KCDSectorArea = 0
-	KCDSectorAreaSubHeader KCDSectorArea = 0
-	KCDSectorAreaSync KCDSectorArea = 0
-	KCDSectorAreaUser KCDSectorArea = 0
+	KCDSectorAreaSubHeader   KCDSectorArea = 0
+	KCDSectorAreaSync        KCDSectorArea = 0
+	KCDSectorAreaUser        KCDSectorArea = 0
 )
 
 func (e KCDSectorArea) String() string {
@@ -3273,12 +3354,12 @@ func (e KCDSectorArea) String() string {
 type KCDSectorSize uint
 
 const (
-	KCDSectorSizeCDDA KCDSectorSize = 0
-	KCDSectorSizeMode1 KCDSectorSize = 0
-	KCDSectorSizeMode2 KCDSectorSize = 0
+	KCDSectorSizeCDDA       KCDSectorSize = 0
+	KCDSectorSizeMode1      KCDSectorSize = 0
+	KCDSectorSizeMode2      KCDSectorSize = 0
 	KCDSectorSizeMode2Form1 KCDSectorSize = 0
 	KCDSectorSizeMode2Form2 KCDSectorSize = 0
-	KCDSectorSizeWhole KCDSectorSize = 0
+	KCDSectorSizeWhole      KCDSectorSize = 0
 )
 
 func (e KCDSectorSize) String() string {
@@ -3293,13 +3374,13 @@ func (e KCDSectorSize) String() string {
 type KCDSectorType uint
 
 const (
-	KCDSectorTypeCDDA KCDSectorType = 0
-	KCDSectorTypeCount KCDSectorType = 0
-	KCDSectorTypeMode1 KCDSectorType = 0
-	KCDSectorTypeMode2 KCDSectorType = 0
+	KCDSectorTypeCDDA       KCDSectorType = 0
+	KCDSectorTypeCount      KCDSectorType = 0
+	KCDSectorTypeMode1      KCDSectorType = 0
+	KCDSectorTypeMode2      KCDSectorType = 0
 	KCDSectorTypeMode2Form1 KCDSectorType = 0
 	KCDSectorTypeMode2Form2 KCDSectorType = 0
-	KCDSectorTypeUnknown KCDSectorType = 0
+	KCDSectorTypeUnknown    KCDSectorType = 0
 )
 
 func (e KCDSectorType) String() string {
@@ -3311,25 +3392,25 @@ func (e KCDSectorType) String() string {
 	}
 }
 
-type KCDTOCFormatTOC uint
+type KCDTOCFormatATI uint
 
 const (
-	KCDTOCFormatATIP KCDTOCFormatTOC = 0
+	KCDTOCFormatATIP KCDTOCFormatATI = 0
 )
 
-func (e KCDTOCFormatTOC) String() string {
+func (e KCDTOCFormatATI) String() string {
 	switch e {
 	case KCDTOCFormatATIP:
 		return "KCDTOCFormatATIP"
 	default:
-		return fmt.Sprintf("KCDTOCFormatTOC(%d)", e)
+		return fmt.Sprintf("KCDTOCFormatATI(%d)", e)
 	}
 }
 
 type KCDTrackInfoAddressType uint
 
 const (
-	KCDTrackInfoAddressTypeLBA KCDTrackInfoAddressType = 0
+	KCDTrackInfoAddressTypeLBA         KCDTrackInfoAddressType = 0
 	KCDTrackInfoAddressTypeTrackNumber KCDTrackInfoAddressType = 0
 )
 
@@ -3362,7 +3443,7 @@ type KCKind uint
 
 const (
 	KCKindAuxiliary KCKind = 0
-	KCKindNone KCKind = 0
+	KCKindNone      KCKind = 0
 )
 
 func (e KCKind) String() string {
@@ -3393,7 +3474,7 @@ func (e KCSR) String() string {
 type KCSRState uint
 
 const (
-	KCSRStateOff KCSRState = 0
+	KCSRStateOff          KCSRState = 0
 	KCSRStateStateTesting KCSRState = 0
 )
 
@@ -3409,7 +3490,7 @@ func (e KCSRState) String() string {
 type KChipSetType uint
 
 const (
-	KChipSetTypeCore2001 KChipSetType = 0
+	KChipSetTypeCore2001     KChipSetType = 0
 	KChipSetTypePowerExpress KChipSetType = 0
 )
 
@@ -3422,32 +3503,58 @@ func (e KChipSetType) String() string {
 	}
 }
 
-type KClamshellStateBit uint
+type KClamshellSleep uint
 
 const (
-	KClamshellSleepBit KClamshellStateBit = 0
+	KClamshellSleepBit KClamshellSleep = 0
 )
 
-func (e KClamshellStateBit) String() string {
+func (e KClamshellSleep) String() string {
 	switch e {
 	case KClamshellSleepBit:
 		return "KClamshellSleepBit"
 	default:
-		return fmt.Sprintf("KClamshellStateBit(%d)", e)
+		return fmt.Sprintf("KClamshellSleep(%d)", e)
 	}
 }
 
-const KClearDeviceFeature uint = 0
+type KClearDevice uint
 
-const KClearHubFeature uint = 0
+const (
+	KClearDeviceFeature KClearDevice = 0
+)
+
+func (e KClearDevice) String() string {
+	switch e {
+	case KClearDeviceFeature:
+		return "KClearDeviceFeature"
+	default:
+		return fmt.Sprintf("KClearDevice(%d)", e)
+	}
+}
+
+type KClearHub uint
+
+const (
+	KClearHubFeature KClearHub = 0
+)
+
+func (e KClearHub) String() string {
+	switch e {
+	case KClearHubFeature:
+		return "KClearHubFeature"
+	default:
+		return fmt.Sprintf("KClearHub(%d)", e)
+	}
+}
 
 type KConfig uint
 
 const (
 	KConfigBusDependentInfoKey KConfig = 0
-	KConfigBusInfoBlockLength KConfig = 0
-	KConfigEntryKeyTypePhase KConfig = 0
-	KConfigNodeUniqueIdKey KConfig = 0
+	KConfigBusInfoBlockLength  KConfig = 0
+	KConfigEntryKeyTypePhase   KConfig = 0
+	KConfigNodeUniqueIdKey     KConfig = 0
 )
 
 func (e KConfig) String() string {
@@ -3462,7 +3569,7 @@ func (e KConfig) String() string {
 type KConfigSBP2 uint
 
 const (
-	KConfigSBP2LUN KConfigSBP2 = 0
+	KConfigSBP2LUN      KConfigSBP2 = 0
 	KConfigSBP2Revision KConfigSBP2 = 0
 )
 
@@ -3479,7 +3586,7 @@ type KConfigUnit uint
 
 const (
 	KConfigUnitSWVersIIDC100 KConfigUnit = 0
-	KConfigUnitSpecAppleA27 KConfigUnit = 0
+	KConfigUnitSpecAppleA27  KConfigUnit = 0
 )
 
 func (e KConfigUnit) String() string {
@@ -3494,7 +3601,7 @@ func (e KConfigUnit) String() string {
 type KConnection uint
 
 const (
-	KConnectionBlueGammaScale KConnection = 0
+	KConnectionBlueGammaScale       KConnection = 0
 	KConnectionControllerColorDepth KConnection = 0
 )
 
@@ -3511,7 +3618,7 @@ type KConvolved uint
 
 const (
 	KConvolvedValue KConvolved = 0
-	KConvolvedMask KConvolved = 0
+	KConvolvedMask  KConvolved = 0
 )
 
 func (e KConvolved) String() string {
@@ -3539,33 +3646,72 @@ func (e KCoprocessor) String() string {
 	}
 }
 
-type KDCLInvalidOp uint
+type KDCLCallProc uint
 
 const (
-	KDCLCallProcOp KDCLInvalidOp = 0
+	KDCLCallProcOp KDCLCallProc = 0
 )
 
-func (e KDCLInvalidOp) String() string {
+func (e KDCLCallProc) String() string {
 	switch e {
 	case KDCLCallProcOp:
 		return "KDCLCallProcOp"
 	default:
-		return fmt.Sprintf("KDCLInvalidOp(%d)", e)
+		return fmt.Sprintf("KDCLCallProc(%d)", e)
 	}
 }
 
-const KDDCBlockSize uint = 0
+type KDDCBlock uint
 
-const KDDCBlockTypeEDID uint = 0
+const (
+	KDDCBlockSize KDDCBlock = 0
+)
 
-const KDDCForceReadBit uint = 0
+func (e KDDCBlock) String() string {
+	switch e {
+	case KDDCBlockSize:
+		return "KDDCBlockSize"
+	default:
+		return fmt.Sprintf("KDDCBlock(%d)", e)
+	}
+}
+
+type KDDCBlockTypeEDI uint
+
+const (
+	KDDCBlockTypeEDID KDDCBlockTypeEDI = 0
+)
+
+func (e KDDCBlockTypeEDI) String() string {
+	switch e {
+	case KDDCBlockTypeEDID:
+		return "KDDCBlockTypeEDID"
+	default:
+		return fmt.Sprintf("KDDCBlockTypeEDI(%d)", e)
+	}
+}
+
+type KDDCForceRead uint
+
+const (
+	KDDCForceReadBit KDDCForceRead = 0
+)
+
+func (e KDDCForceRead) String() string {
+	switch e {
+	case KDDCForceReadBit:
+		return "KDDCForceReadBit"
+	default:
+		return fmt.Sprintf("KDDCForceRead(%d)", e)
+	}
+}
 
 type KDMSMode uint
 
 const (
-	KDMSModeFree KDMSMode = 0
+	KDMSModeFree     KDMSMode = 0
 	KDMSModeNotReady KDMSMode = 0
-	KDMSModeReady KDMSMode = 0
+	KDMSModeReady    KDMSMode = 0
 )
 
 func (e KDMSMode) String() string {
@@ -3577,26 +3723,65 @@ func (e KDMSMode) String() string {
 	}
 }
 
-type KDPMSSyncOn uint
+type KDPMSSync uint
 
 const (
-	KDPMSSyncOff KDPMSSyncOn = 0
+	KDPMSSyncOff KDPMSSync = 0
 )
 
-func (e KDPMSSyncOn) String() string {
+func (e KDPMSSync) String() string {
 	switch e {
 	case KDPMSSyncOff:
 		return "KDPMSSyncOff"
 	default:
-		return fmt.Sprintf("KDPMSSyncOn(%d)", e)
+		return fmt.Sprintf("KDPMSSync(%d)", e)
 	}
 }
 
-const KDTMaxEntryNameLength uint = 0
+type KDTMaxEntryName uint
 
-const KDTMaxPropertyNameLength uint = 0
+const (
+	KDTMaxEntryNameLength KDTMaxEntryName = 0
+)
 
-const KDTPathNameSeparator uint = 0
+func (e KDTMaxEntryName) String() string {
+	switch e {
+	case KDTMaxEntryNameLength:
+		return "KDTMaxEntryNameLength"
+	default:
+		return fmt.Sprintf("KDTMaxEntryName(%d)", e)
+	}
+}
+
+type KDTMaxPropertyName uint
+
+const (
+	KDTMaxPropertyNameLength KDTMaxPropertyName = 0
+)
+
+func (e KDTMaxPropertyName) String() string {
+	switch e {
+	case KDTMaxPropertyNameLength:
+		return "KDTMaxPropertyNameLength"
+	default:
+		return fmt.Sprintf("KDTMaxPropertyName(%d)", e)
+	}
+}
+
+type KDTPathName uint
+
+const (
+	KDTPathNameSeparator KDTPathName = 0
+)
+
+func (e KDTPathName) String() string {
+	switch e {
+	case KDTPathNameSeparator:
+		return "KDTPathNameSeparator"
+	default:
+		return fmt.Sprintf("KDTPathName(%d)", e)
+	}
+}
 
 type KDVDBookTypeHDR uint
 
@@ -3614,28 +3799,28 @@ func (e KDVDBookTypeHDR) String() string {
 	}
 }
 
-type KDVDCPRMRegion1 uint
+type KDVDCPRM uint
 
 const (
-	KDVDCPRMRegion2 KDVDCPRMRegion1 = 0
+	KDVDCPRMRegion2 KDVDCPRM = 0
 )
 
-func (e KDVDCPRMRegion1) String() string {
+func (e KDVDCPRM) String() string {
 	switch e {
 	case KDVDCPRMRegion2:
 		return "KDVDCPRMRegion2"
 	default:
-		return fmt.Sprintf("KDVDCPRMRegion1(%d)", e)
+		return fmt.Sprintf("KDVDCPRM(%d)", e)
 	}
 }
 
 type KDVDFeatures uint
 
 const (
-	KDVDFeaturesBUFWriteBit KDVDFeatures = 0
+	KDVDFeaturesBUFWriteBit  KDVDFeatures = 0
 	KDVDFeaturesBUFWriteMask KDVDFeatures = 0
-	KDVDFeaturesHDRBit KDVDFeatures = 0
-	KDVDFeaturesHDRMask KDVDFeatures = 0
+	KDVDFeaturesHDRBit       KDVDFeatures = 0
+	KDVDFeaturesHDRMask      KDVDFeatures = 0
 )
 
 func (e KDVDFeatures) String() string {
@@ -3651,7 +3836,7 @@ type KDVDKeyClass uint
 
 const (
 	KDVDKeyClassCSS_CPPM_CPRM KDVDKeyClass = 0
-	KDVDKeyClassRSSA KDVDKeyClass = 0
+	KDVDKeyClassRSSA          KDVDKeyClass = 0
 )
 
 func (e KDVDKeyClass) String() string {
@@ -3666,7 +3851,7 @@ func (e KDVDKeyClass) String() string {
 type KDVDKeyFormatAGID uint
 
 const (
-	KDVDKeyFormatAGID_CPRM KDVDKeyFormatAGID = 0
+	KDVDKeyFormatAGID_CPRM       KDVDKeyFormatAGID = 0
 	KDVDKeyFormatAGID_Invalidate KDVDKeyFormatAGID = 0
 )
 
@@ -3683,7 +3868,7 @@ type KDVDMediaType uint
 
 const (
 	KDVDMediaTypeMax KDVDMediaType = 0
-	KDVDMediaTypeRW KDVDMediaType = 0
+	KDVDMediaTypeRW  KDVDMediaType = 0
 )
 
 func (e KDVDMediaType) String() string {
@@ -3699,7 +3884,7 @@ type KDVDRZoneInfoAddressType uint
 
 const (
 	KDVDRZoneInfoAddressTypeBorderNumber KDVDRZoneInfoAddressType = 0
-	KDVDRZoneInfoAddressTypeLBA KDVDRZoneInfoAddressType = 0
+	KDVDRZoneInfoAddressTypeLBA          KDVDRZoneInfoAddressType = 0
 )
 
 func (e KDVDRZoneInfoAddressType) String() string {
@@ -3711,59 +3896,85 @@ func (e KDVDRZoneInfoAddressType) String() string {
 	}
 }
 
-const KDVDRegionalPlaybackControlSchemePhase1 uint = 0
-
-type KDVDStructureFormatPhysicalFormatInfo uint
+type KDVDRegionalPlaybackControlScheme uint
 
 const (
-	KDVDStructureFormatCopyrightInfo KDVDStructureFormatPhysicalFormatInfo = 0
+	KDVDRegionalPlaybackControlSchemePhase1 KDVDRegionalPlaybackControlScheme = 0
 )
 
-func (e KDVDStructureFormatPhysicalFormatInfo) String() string {
+func (e KDVDRegionalPlaybackControlScheme) String() string {
+	switch e {
+	case KDVDRegionalPlaybackControlSchemePhase1:
+		return "KDVDRegionalPlaybackControlSchemePhase1"
+	default:
+		return fmt.Sprintf("KDVDRegionalPlaybackControlScheme(%d)", e)
+	}
+}
+
+type KDVDStructureFormatCopyright uint
+
+const (
+	KDVDStructureFormatCopyrightInfo KDVDStructureFormatCopyright = 0
+)
+
+func (e KDVDStructureFormatCopyright) String() string {
 	switch e {
 	case KDVDStructureFormatCopyrightInfo:
 		return "KDVDStructureFormatCopyrightInfo"
 	default:
-		return fmt.Sprintf("KDVDStructureFormatPhysicalFormatInfo(%d)", e)
+		return fmt.Sprintf("KDVDStructureFormatCopyright(%d)", e)
 	}
 }
 
-type KDVIPowerSwitchFeature uint
+type KDVIPowerSwitchActive uint
 
 const (
-	KDVIPowerSwitchActiveMask KDVIPowerSwitchFeature = 0
+	KDVIPowerSwitchActiveMask KDVIPowerSwitchActive = 0
 )
 
-func (e KDVIPowerSwitchFeature) String() string {
+func (e KDVIPowerSwitchActive) String() string {
 	switch e {
 	case KDVIPowerSwitchActiveMask:
 		return "KDVIPowerSwitchActiveMask"
 	default:
-		return fmt.Sprintf("KDVIPowerSwitchFeature(%d)", e)
+		return fmt.Sprintf("KDVIPowerSwitchActive(%d)", e)
 	}
 }
 
-const KDataRotate0 uint = 0
-
-type KDebugTypeNone uint
+type KData uint
 
 const (
-	KDebugTypeDisplay KDebugTypeNone = 0
+	KDataRotate0 KData = 0
 )
 
-func (e KDebugTypeNone) String() string {
+func (e KData) String() string {
+	switch e {
+	case KDataRotate0:
+		return "KDataRotate0"
+	default:
+		return fmt.Sprintf("KData(%d)", e)
+	}
+}
+
+type KDebugType uint
+
+const (
+	KDebugTypeDisplay KDebugType = 0
+)
+
+func (e KDebugType) String() string {
 	switch e {
 	case KDebugTypeDisplay:
 		return "KDebugTypeDisplay"
 	default:
-		return fmt.Sprintf("KDebugTypeNone(%d)", e)
+		return fmt.Sprintf("KDebugType(%d)", e)
 	}
 }
 
 type KDeclROMtables uint
 
 const (
-	KDeclROMtablesValue KDeclROMtables = 0
+	KDeclROMtablesValue   KDeclROMtables = 0
 	KDetailedTimingFormat KDeclROMtables = 0
 )
 
@@ -3779,26 +3990,25 @@ func (e KDeclROMtables) String() string {
 type KDepth uint
 
 const (
-	KDepthMode1 KDepth = 0
-	KDepthMode4 KDepth = 0
+	KDepthDependent KDepth = 0
+	KDepthMode1     KDepth = 0
+	KDepthMode4     KDepth = 0
 )
 
 func (e KDepth) String() string {
 	switch e {
-	case KDepthMode1:
-		return "KDepthMode1"
+	case KDepthDependent:
+		return "KDepthDependent"
 	default:
 		return fmt.Sprintf("KDepth(%d)", e)
 	}
 }
 
-const KDepthDependent uint = 0
-
 type KDigitalSignalBit uint
 
 const (
 	KAnalogSetupExpectedBit KDigitalSignalBit = 0
-	KDigitalSignalBitValue KDigitalSignalBit = 0
+	KDigitalSignalBitValue  KDigitalSignalBit = 0
 )
 
 func (e KDigitalSignalBit) String() string {
@@ -3814,7 +4024,7 @@ type KDisable uint
 
 const (
 	KDisableHorizontalSyncBit KDisable = 0
-	KDisableVerticalSyncBit KDisable = 0
+	KDisableVerticalSyncBit   KDisable = 0
 )
 
 func (e KDisable) String() string {
@@ -3826,17 +4036,30 @@ func (e KDisable) String() string {
 	}
 }
 
-const KDisabledInterruptState uint = 0
+type KDisabledInterrupt uint
+
+const (
+	KDisabledInterruptState KDisabledInterrupt = 0
+)
+
+func (e KDisabledInterrupt) String() string {
+	switch e {
+	case KDisabledInterruptState:
+		return "KDisabledInterruptState"
+	default:
+		return fmt.Sprintf("KDisabledInterrupt(%d)", e)
+	}
+}
 
 type KDiscStatus int
 
 const (
-	KDiscStatusComplete KDiscStatus = 0
-	KDiscStatusEmpty KDiscStatus = 0
+	KDiscStatusComplete     KDiscStatus = 0
+	KDiscStatusEmpty        KDiscStatus = 0
 	KDiscStatusErasableMask KDiscStatus = 0
-	KDiscStatusIncomplete KDiscStatus = 0
-	KDiscStatusMask KDiscStatus = 0
-	KDiscStatusOther KDiscStatus = 0
+	KDiscStatusIncomplete   KDiscStatus = 0
+	KDiscStatusMask         KDiscStatus = 0
+	KDiscStatusOther        KDiscStatus = 0
 )
 
 func (e KDiscStatus) String() string {
@@ -3852,7 +4075,7 @@ type KDisplayMode uint
 
 const (
 	KDisplayModeAcceleratorBackedFlag KDisplayMode = 0
-	KDisplayModeAlwaysShowFlag KDisplayMode = 0
+	KDisplayModeAlwaysShowFlag        KDisplayMode = 0
 )
 
 func (e KDisplayMode) String() string {
@@ -3864,33 +4087,48 @@ func (e KDisplayMode) String() string {
 	}
 }
 
-type KDisplayModeIDCurrent uint
+type KDisplayModeDefault uint
 
 const (
-	KDisplayModeIDBootProgrammable KDisplayModeIDCurrent = 0
+	KDisplayModeDefaultFlag KDisplayModeDefault = 0
 )
 
-func (e KDisplayModeIDCurrent) String() string {
-	switch e {
-	case KDisplayModeIDBootProgrammable:
-		return "KDisplayModeIDBootProgrammable"
-	default:
-		return fmt.Sprintf("KDisplayModeIDCurrent(%d)", e)
-	}
-}
-
-type KDisplayModeValidFlag uint
-
-const (
-	KDisplayModeDefaultFlag KDisplayModeValidFlag = 0
-)
-
-func (e KDisplayModeValidFlag) String() string {
+func (e KDisplayModeDefault) String() string {
 	switch e {
 	case KDisplayModeDefaultFlag:
 		return "KDisplayModeDefaultFlag"
 	default:
-		return fmt.Sprintf("KDisplayModeValidFlag(%d)", e)
+		return fmt.Sprintf("KDisplayModeDefault(%d)", e)
+	}
+}
+
+type KDisplayModeIDBoot uint
+
+const (
+	KDisplayModeIDBootProgrammable KDisplayModeIDBoot = 0
+)
+
+func (e KDisplayModeIDBoot) String() string {
+	switch e {
+	case KDisplayModeIDBootProgrammable:
+		return "KDisplayModeIDBootProgrammable"
+	default:
+		return fmt.Sprintf("KDisplayModeIDBoot(%d)", e)
+	}
+}
+
+type KDisplayProductID uint
+
+const (
+	KDisplayProductIDGeneric KDisplayProductID = 0
+)
+
+func (e KDisplayProductID) String() string {
+	switch e {
+	case KDisplayProductIDGeneric:
+		return "KDisplayProductIDGeneric"
+	default:
+		return fmt.Sprintf("KDisplayProductID(%d)", e)
 	}
 }
 
@@ -3898,7 +4136,7 @@ type KDisplaySubPixel uint
 
 const (
 	KDisplaySubPixelConfigurationDelta KDisplaySubPixel = 0
-	KDisplaySubPixelShapeRound KDisplaySubPixel = 0
+	KDisplaySubPixelShapeRound         KDisplaySubPixel = 0
 )
 
 func (e KDisplaySubPixel) String() string {
@@ -3910,25 +4148,10 @@ func (e KDisplaySubPixel) String() string {
 	}
 }
 
-type KDisplayVendorIDUnknown uint
-
-const (
-	KDisplayProductIDGeneric KDisplayVendorIDUnknown = 0
-)
-
-func (e KDisplayVendorIDUnknown) String() string {
-	switch e {
-	case KDisplayProductIDGeneric:
-		return "KDisplayProductIDGeneric"
-	default:
-		return fmt.Sprintf("KDisplayVendorIDUnknown(%d)", e)
-	}
-}
-
 type KDriver uint
 
 const (
-	KDriverIsForVirtualDevice KDriver = 0
+	KDriverIsForVirtualDevice        KDriver = 0
 	KDriverSupportDMSuspendAndResume KDriver = 0
 )
 
@@ -3941,11 +4164,26 @@ func (e KDriver) String() string {
 	}
 }
 
+type KDriverDescription uint
+
+const (
+	KDriverDescriptionSignature KDriverDescription = 0
+)
+
+func (e KDriverDescription) String() string {
+	switch e {
+	case KDriverDescriptionSignature:
+		return "KDriverDescriptionSignature"
+	default:
+		return fmt.Sprintf("KDriverDescription(%d)", e)
+	}
+}
+
 type KESC uint
 
 const (
 	KESCOnePortraitMono KESC = 0
-	KESCSixStandard KESC = 0
+	KESCSixStandard     KESC = 0
 )
 
 func (e KESC) String() string {
@@ -3961,7 +4199,7 @@ type KEfi uint
 
 const (
 	KEfiACPIReclaimMemory KEfi = 0
-	KEfiBootServicesCode KEfi = 0
+	KEfiBootServicesCode  KEfi = 0
 )
 
 func (e KEfi) String() string {
@@ -3976,7 +4214,7 @@ func (e KEfi) String() string {
 type KEndpointDirection uint
 
 const (
-	KEndpointDirectionIn KEndpointDirection = 0
+	KEndpointDirectionIn  KEndpointDirection = 0
 	KEndpointDirectionOut KEndpointDirection = 0
 )
 
@@ -3989,10 +4227,25 @@ func (e KEndpointDirection) String() string {
 	}
 }
 
+type KEndpointSynchronizationType uint
+
+const (
+	KEndpointSynchronizationTypeAdaptive KEndpointSynchronizationType = 0
+)
+
+func (e KEndpointSynchronizationType) String() string {
+	switch e {
+	case KEndpointSynchronizationTypeAdaptive:
+		return "KEndpointSynchronizationTypeAdaptive"
+	default:
+		return fmt.Sprintf("KEndpointSynchronizationType(%d)", e)
+	}
+}
+
 type KEndpointType uint
 
 const (
-	KEndpointTypeBulk KEndpointType = 0
+	KEndpointTypeBulk        KEndpointType = 0
 	KEndpointTypeIsochronous KEndpointType = 0
 )
 
@@ -4005,12 +4258,27 @@ func (e KEndpointType) String() string {
 	}
 }
 
+type KEndpointUsageTypeInterrupt uint
+
+const (
+	KEndpointUsageTypeInterruptNotification KEndpointUsageTypeInterrupt = 0
+)
+
+func (e KEndpointUsageTypeInterrupt) String() string {
+	switch e {
+	case KEndpointUsageTypeInterruptNotification:
+		return "KEndpointUsageTypeInterruptNotification"
+	default:
+		return fmt.Sprintf("KEndpointUsageTypeInterrupt(%d)", e)
+	}
+}
+
 const KError int = 0
 
 type KExclave uint
 
 const (
-	KExclaveRPCActive KExclave = 0
+	KExclaveRPCActive        KExclave = 0
 	KExclaveSchedulerRequest KExclave = 0
 )
 
@@ -4027,7 +4295,7 @@ type KExclaveIpcStackEntryHave uint
 
 const (
 	KExclaveIpcStackEntryHaveInvocationID KExclaveIpcStackEntryHave = 0
-	KExclaveIpcStackEntryHaveStack KExclaveIpcStackEntryHave = 0
+	KExclaveIpcStackEntryHaveStack        KExclaveIpcStackEntryHave = 0
 )
 
 func (e KExclaveIpcStackEntryHave) String() string {
@@ -4039,11 +4307,26 @@ func (e KExclaveIpcStackEntryHave) String() string {
 	}
 }
 
+type KExclaveScresultHaveIPC uint
+
+const (
+	KExclaveScresultHaveIPCStack KExclaveScresultHaveIPC = 0
+)
+
+func (e KExclaveScresultHaveIPC) String() string {
+	switch e {
+	case KExclaveScresultHaveIPCStack:
+		return "KExclaveScresultHaveIPCStack"
+	default:
+		return fmt.Sprintf("KExclaveScresultHaveIPC(%d)", e)
+	}
+}
+
 type KExclaveTextLayoutLoadAddresses uint
 
 const (
 	KExclaveTextLayoutLoadAddressesSynthetic KExclaveTextLayoutLoadAddresses = 0
-	KExclaveTextLayoutLoadAddressesUnslid KExclaveTextLayoutLoadAddresses = 0
+	KExclaveTextLayoutLoadAddressesUnslid    KExclaveTextLayoutLoadAddresses = 0
 )
 
 func (e KExclaveTextLayoutLoadAddresses) String() string {
@@ -4055,18 +4338,33 @@ func (e KExclaveTextLayoutLoadAddresses) String() string {
 	}
 }
 
-type KFBDisplayUsablePowerState uint
+type KExtInt9 uint
 
 const (
-	KFBDisplayPowerStateMask KFBDisplayUsablePowerState = 0
+	KExtInt9_NMIIntSource KExtInt9 = 0
 )
 
-func (e KFBDisplayUsablePowerState) String() string {
+func (e KExtInt9) String() string {
+	switch e {
+	case KExtInt9_NMIIntSource:
+		return "KExtInt9_NMIIntSource"
+	default:
+		return fmt.Sprintf("KExtInt9(%d)", e)
+	}
+}
+
+type KFBDisplayPowerState uint
+
+const (
+	KFBDisplayPowerStateMask KFBDisplayPowerState = 0
+)
+
+func (e KFBDisplayPowerState) String() string {
 	switch e {
 	case KFBDisplayPowerStateMask:
 		return "KFBDisplayPowerStateMask"
 	default:
-		return fmt.Sprintf("KFBDisplayUsablePowerState(%d)", e)
+		return fmt.Sprintf("KFBDisplayPowerState(%d)", e)
 	}
 }
 
@@ -4108,28 +4406,28 @@ func (e KFFTDirection) String() string {
 type KFW uint
 
 const (
-	KFWAddressBusID KFW = 0
-	KFWAllowMultiMode KFW = 0
-	KFWAlwaysMultiMode KFW = 0
-	KFWBroadcastNodeID KFW = 0
-	KFWDCLInvalidNotification KFW = 0
-	KFWDCLModifyNotification KFW = 0
-	KFWDCLUpdateNotification KFW = 0
-	KFWDefaultIsochResourceFlags KFW = 0
-	KFWNeverMultiMode KFW = 0
+	KFWAddressBusID                KFW = 0
+	KFWAllowMultiMode              KFW = 0
+	KFWAlwaysMultiMode             KFW = 0
+	KFWBroadcastNodeID             KFW = 0
+	KFWDCLInvalidNotification      KFW = 0
+	KFWDCLModifyNotification       KFW = 0
+	KFWDCLUpdateNotification       KFW = 0
+	KFWDefaultIsochResourceFlags   KFW = 0
+	KFWNeverMultiMode              KFW = 0
 	KFWNuDCLModifyJumpNotification KFW = 0
-	KFWNuDCLModifyNotification KFW = 0
-	KFWNuDCLUpdateNotification KFW = 0
-	KFWSpeed100MBit KFW = 0
-	KFWSpeed200MBit KFW = 0
-	KFWSpeed400MBit KFW = 0
-	KFWSpeed800MBit KFW = 0
-	KFWSpeedInvalid KFW = 0
-	KFWSpeedMaximum KFW = 0
-	KFWSpeedReserved KFW = 0
-	KFWSpeedReserved1 KFW = 0
-	KFWSpeedUnknownMask KFW = 0
-	KFWSuggestMultiMode KFW = 0
+	KFWNuDCLModifyNotification     KFW = 0
+	KFWNuDCLUpdateNotification     KFW = 0
+	KFWSpeed100MBit                KFW = 0
+	KFWSpeed200MBit                KFW = 0
+	KFWSpeed400MBit                KFW = 0
+	KFWSpeed800MBit                KFW = 0
+	KFWSpeedInvalid                KFW = 0
+	KFWSpeedMaximum                KFW = 0
+	KFWSpeedReserved               KFW = 0
+	KFWSpeedReserved1              KFW = 0
+	KFWSpeedUnknownMask            KFW = 0
+	KFWSuggestMultiMode            KFW = 0
 )
 
 func (e KFW) String() string {
@@ -4144,7 +4442,7 @@ func (e KFW) String() string {
 type KFWAVCAsync uint
 
 const (
-	KFWAVCAsyncPlug1 KFWAVCAsync = 0
+	KFWAVCAsyncPlug1  KFWAVCAsync = 0
 	KFWAVCAsyncPlug11 KFWAVCAsync = 0
 )
 
@@ -4192,7 +4490,7 @@ func (e KFWAVCProducerMode) String() string {
 type KFWAVCState uint
 
 const (
-	KFWAVCStateBusResumed KFWAVCState = 0
+	KFWAVCStateBusResumed    KFWAVCState = 0
 	KFWAVCStateDeviceRemoved KFWAVCState = 0
 )
 
@@ -4205,25 +4503,25 @@ func (e KFWAVCState) String() string {
 	}
 }
 
-type KFWAckTimeout uint
+type KFWAckBusy uint
 
 const (
-	KFWAckBusyA KFWAckTimeout = 0
+	KFWAckBusyA KFWAckBusy = 0
 )
 
-func (e KFWAckTimeout) String() string {
+func (e KFWAckBusy) String() string {
 	switch e {
 	case KFWAckBusyA:
 		return "KFWAckBusyA"
 	default:
-		return fmt.Sprintf("KFWAckTimeout(%d)", e)
+		return fmt.Sprintf("KFWAckBusy(%d)", e)
 	}
 }
 
 type KFWAsynch uint
 
 const (
-	KFWAsynchAckSent KFWAsynch = 0
+	KFWAsynchAckSent  KFWAsynch = 0
 	KFWAsynchPriority KFWAsynch = 0
 )
 
@@ -4239,7 +4537,7 @@ func (e KFWAsynch) String() string {
 type KFWBIB uint
 
 const (
-	KFWBIBIrmc KFWBIB = 0
+	KFWBIBIrmc        KFWBIB = 0
 	KFWBIBMaxROMPhase KFWBIB = 0
 )
 
@@ -4252,13 +4550,26 @@ func (e KFWBIB) String() string {
 	}
 }
 
-const KFWBusManagerArbitrationTimeoutDuration uint = 0
+type KFWBusManagerArbitrationTimeout uint
+
+const (
+	KFWBusManagerArbitrationTimeoutDuration KFWBusManagerArbitrationTimeout = 0
+)
+
+func (e KFWBusManagerArbitrationTimeout) String() string {
+	switch e {
+	case KFWBusManagerArbitrationTimeoutDuration:
+		return "KFWBusManagerArbitrationTimeoutDuration"
+	default:
+		return fmt.Sprintf("KFWBusManagerArbitrationTimeout(%d)", e)
+	}
+}
 
 type KFWCSRState uint
 
 const (
-	KFWCSRStateCMstr KFWCSRState = 0
-	KFWCSRStateGone KFWCSRState = 0
+	KFWCSRStateCMstr   KFWCSRState = 0
+	KFWCSRStateGone    KFWCSRState = 0
 	KFWCSRStateLinkOff KFWCSRState = 0
 )
 
@@ -4271,12 +4582,25 @@ func (e KFWCSRState) String() string {
 	}
 }
 
-const KFWConfigurationPacketID uint = 0
+type KFWConfigurationPacketI uint
+
+const (
+	KFWConfigurationPacketID KFWConfigurationPacketI = 0
+)
+
+func (e KFWConfigurationPacketI) String() string {
+	switch e {
+	case KFWConfigurationPacketID:
+		return "KFWConfigurationPacketID"
+	default:
+		return fmt.Sprintf("KFWConfigurationPacketI(%d)", e)
+	}
+}
 
 type KFWDCL uint
 
 const (
-	KFWDCLCycleEvent KFWDCL = 0
+	KFWDCLCycleEvent  KFWDCL = 0
 	KFWDCLSyBitsEvent KFWDCL = 0
 )
 
@@ -4293,7 +4617,7 @@ type KFWDCLOp uint
 
 const (
 	KFWDCLOpDynamicFlag KFWDCLOp = 0
-	KFWDCLOpFlagMask KFWDCLOp = 0
+	KFWDCLOpFlagMask    KFWDCLOp = 0
 )
 
 func (e KFWDCLOp) String() string {
@@ -4305,33 +4629,46 @@ func (e KFWDCLOp) String() string {
 	}
 }
 
-const KFWDebugIgnoreNodeNone uint = 0
-
-type KFWExtendedTCodeMaskSwap uint
+type KFWDebugIgnoreNode uint
 
 const (
-	KFWExtendedTCodeBoundedAdd KFWExtendedTCodeMaskSwap = 0
+	KFWDebugIgnoreNodeNone KFWDebugIgnoreNode = 0
 )
 
-func (e KFWExtendedTCodeMaskSwap) String() string {
+func (e KFWDebugIgnoreNode) String() string {
+	switch e {
+	case KFWDebugIgnoreNodeNone:
+		return "KFWDebugIgnoreNodeNone"
+	default:
+		return fmt.Sprintf("KFWDebugIgnoreNode(%d)", e)
+	}
+}
+
+type KFWExtendedTCodeBounded uint
+
+const (
+	KFWExtendedTCodeBoundedAdd KFWExtendedTCodeBounded = 0
+)
+
+func (e KFWExtendedTCodeBounded) String() string {
 	switch e {
 	case KFWExtendedTCodeBoundedAdd:
 		return "KFWExtendedTCodeBoundedAdd"
 	default:
-		return fmt.Sprintf("KFWExtendedTCodeMaskSwap(%d)", e)
+		return fmt.Sprintf("KFWExtendedTCodeBounded(%d)", e)
 	}
 }
 
 type KFWIsoch uint
 
 const (
-	KFWIsochBigEndianUpdates KFWIsoch = 0
-	KFWIsochChanNum KFWIsoch = 0
-	KFWIsochEnableRobustness KFWIsoch = 0
-	KFWIsochPortDefaultOptions KFWIsoch = 0
+	KFWIsochBigEndianUpdates            KFWIsoch = 0
+	KFWIsochChanNum                     KFWIsoch = 0
+	KFWIsochEnableRobustness            KFWIsoch = 0
+	KFWIsochPortDefaultOptions          KFWIsoch = 0
 	KFWIsochPortUseSeparateKernelThread KFWIsoch = 0
-	KFWIsochRequireLastContext KFWIsoch = 0
-	KFWIsochSy KFWIsoch = 0
+	KFWIsochRequireLastContext          KFWIsoch = 0
+	KFWIsochSy                          KFWIsoch = 0
 )
 
 func (e KFWIsoch) String() string {
@@ -4343,48 +4680,87 @@ func (e KFWIsoch) String() string {
 	}
 }
 
-const KFWIsochChannelDefaultFlags uint = 0
-
-type KFWIsochChannelUnknownCondition uint
+type KFWIsochChannelChannelNot uint
 
 const (
-	KFWIsochChannelChannelNotAvailable KFWIsochChannelUnknownCondition = 0
+	KFWIsochChannelChannelNotAvailable KFWIsochChannelChannelNot = 0
 )
 
-func (e KFWIsochChannelUnknownCondition) String() string {
+func (e KFWIsochChannelChannelNot) String() string {
 	switch e {
 	case KFWIsochChannelChannelNotAvailable:
 		return "KFWIsochChannelChannelNotAvailable"
 	default:
-		return fmt.Sprintf("KFWIsochChannelUnknownCondition(%d)", e)
+		return fmt.Sprintf("KFWIsochChannelChannelNot(%d)", e)
 	}
 }
 
-const KFWMaxBusses uint = 0
-
-const KFWPacketTCode uint = 0
-
-type KFWPhyConfigurationR uint
+type KFWIsochChannelDefault uint
 
 const (
-	KFWPhyConfigurationGapCnt KFWPhyConfigurationR = 0
+	KFWIsochChannelDefaultFlags KFWIsochChannelDefault = 0
 )
 
-func (e KFWPhyConfigurationR) String() string {
+func (e KFWIsochChannelDefault) String() string {
+	switch e {
+	case KFWIsochChannelDefaultFlags:
+		return "KFWIsochChannelDefaultFlags"
+	default:
+		return fmt.Sprintf("KFWIsochChannelDefault(%d)", e)
+	}
+}
+
+type KFWMax uint
+
+const (
+	KFWMaxBusses KFWMax = 0
+)
+
+func (e KFWMax) String() string {
+	switch e {
+	case KFWMaxBusses:
+		return "KFWMaxBusses"
+	default:
+		return fmt.Sprintf("KFWMax(%d)", e)
+	}
+}
+
+type KFWPacketT uint
+
+const (
+	KFWPacketTCode KFWPacketT = 0
+)
+
+func (e KFWPacketT) String() string {
+	switch e {
+	case KFWPacketTCode:
+		return "KFWPacketTCode"
+	default:
+		return fmt.Sprintf("KFWPacketT(%d)", e)
+	}
+}
+
+type KFWPhyConfigurationGap uint
+
+const (
+	KFWPhyConfigurationGapCnt KFWPhyConfigurationGap = 0
+)
+
+func (e KFWPhyConfigurationGap) String() string {
 	switch e {
 	case KFWPhyConfigurationGapCnt:
 		return "KFWPhyConfigurationGapCnt"
 	default:
-		return fmt.Sprintf("KFWPhyConfigurationR(%d)", e)
+		return fmt.Sprintf("KFWPhyConfigurationGap(%d)", e)
 	}
 }
 
 type KFWPhyPacket uint
 
 const (
-	KFWPhyPacketID KFWPhyPacket = 0
-	KFWPhyPacketIDPhase KFWPhyPacket = 0
-	KFWPhyPacketPhyID KFWPhyPacket = 0
+	KFWPhyPacketID         KFWPhyPacket = 0
+	KFWPhyPacketIDPhase    KFWPhyPacket = 0
+	KFWPhyPacketPhyID      KFWPhyPacket = 0
 	KFWPhyPacketPhyIDPhase KFWPhyPacket = 0
 )
 
@@ -4401,7 +4777,7 @@ type KFWResponse uint
 
 const (
 	KFWResponseAddressError KFWResponse = 0
-	KFWResponseTypeError KFWResponse = 0
+	KFWResponseTypeError    KFWResponse = 0
 )
 
 func (e KFWResponse) String() string {
@@ -4413,19 +4789,34 @@ func (e KFWResponse) String() string {
 	}
 }
 
+type KFWSBP2Abort uint
+
+const (
+	KFWSBP2AbortTask KFWSBP2Abort = 0
+)
+
+func (e KFWSBP2Abort) String() string {
+	switch e {
+	case KFWSBP2AbortTask:
+		return "KFWSBP2AbortTask"
+	default:
+		return fmt.Sprintf("KFWSBP2Abort(%d)", e)
+	}
+}
+
 type KFWSBP2Command uint
 
 const (
-	KFWSBP2CommandCheckGeneration KFWSBP2Command = 0
-	KFWSBP2CommandCompleteNotify KFWSBP2Command = 0
-	KFWSBP2CommandDummyORB KFWSBP2Command = 0
-	KFWSBP2CommandFixedSize KFWSBP2Command = 0
-	KFWSBP2CommandImmediate KFWSBP2Command = 0
-	KFWSBP2CommandNormalORB KFWSBP2Command = 0
-	KFWSBP2CommandReservedORB KFWSBP2Command = 0
+	KFWSBP2CommandCheckGeneration        KFWSBP2Command = 0
+	KFWSBP2CommandCompleteNotify         KFWSBP2Command = 0
+	KFWSBP2CommandDummyORB               KFWSBP2Command = 0
+	KFWSBP2CommandFixedSize              KFWSBP2Command = 0
+	KFWSBP2CommandImmediate              KFWSBP2Command = 0
+	KFWSBP2CommandNormalORB              KFWSBP2Command = 0
+	KFWSBP2CommandReservedORB            KFWSBP2Command = 0
 	KFWSBP2CommandTransferDataFromTarget KFWSBP2Command = 0
-	KFWSBP2CommandVendorORB KFWSBP2Command = 0
-	KFWSBP2CommandVirtualORBs KFWSBP2Command = 0
+	KFWSBP2CommandVendorORB              KFWSBP2Command = 0
+	KFWSBP2CommandVirtualORBs            KFWSBP2Command = 0
 )
 
 func (e KFWSBP2Command) String() string {
@@ -4437,39 +4828,63 @@ func (e KFWSBP2Command) String() string {
 	}
 }
 
-const KFWSBP2ConstraintForceDoubleBuffer uint = 0
-
-const KFWSBP2DontSynchronizeMgmtAgent uint = 0
-
-const KFWSBP2MaxPageClusterSize uint = 0
-
-type KFWSBP2NormalCommandStatus int
+type KFWSBP2ConstraintForceDouble uint
 
 const (
-	KFWSBP2NormalCommandReset KFWSBP2NormalCommandStatus = 0
+	KFWSBP2ConstraintForceDoubleBuffer KFWSBP2ConstraintForceDouble = 0
 )
 
-func (e KFWSBP2NormalCommandStatus) String() string {
+func (e KFWSBP2ConstraintForceDouble) String() string {
+	switch e {
+	case KFWSBP2ConstraintForceDoubleBuffer:
+		return "KFWSBP2ConstraintForceDoubleBuffer"
+	default:
+		return fmt.Sprintf("KFWSBP2ConstraintForceDouble(%d)", e)
+	}
+}
+
+type KFWSBP2DontSynchronizeMgmt uint
+
+const (
+	KFWSBP2DontSynchronizeMgmtAgent KFWSBP2DontSynchronizeMgmt = 0
+)
+
+func (e KFWSBP2DontSynchronizeMgmt) String() string {
+	switch e {
+	case KFWSBP2DontSynchronizeMgmtAgent:
+		return "KFWSBP2DontSynchronizeMgmtAgent"
+	default:
+		return fmt.Sprintf("KFWSBP2DontSynchronizeMgmt(%d)", e)
+	}
+}
+
+type KFWSBP2MaxPageCluster uint
+
+const (
+	KFWSBP2MaxPageClusterSize KFWSBP2MaxPageCluster = 0
+)
+
+func (e KFWSBP2MaxPageCluster) String() string {
+	switch e {
+	case KFWSBP2MaxPageClusterSize:
+		return "KFWSBP2MaxPageClusterSize"
+	default:
+		return fmt.Sprintf("KFWSBP2MaxPageCluster(%d)", e)
+	}
+}
+
+type KFWSBP2NormalCommand uint
+
+const (
+	KFWSBP2NormalCommandReset KFWSBP2NormalCommand = 0
+)
+
+func (e KFWSBP2NormalCommand) String() string {
 	switch e {
 	case KFWSBP2NormalCommandReset:
 		return "KFWSBP2NormalCommandReset"
 	default:
-		return fmt.Sprintf("KFWSBP2NormalCommandStatus(%d)", e)
-	}
-}
-
-type KFWSBP2QueryLogins uint
-
-const (
-	KFWSBP2AbortTask KFWSBP2QueryLogins = 0
-)
-
-func (e KFWSBP2QueryLogins) String() string {
-	switch e {
-	case KFWSBP2AbortTask:
-		return "KFWSBP2AbortTask"
-	default:
-		return fmt.Sprintf("KFWSBP2QueryLogins(%d)", e)
+		return fmt.Sprintf("KFWSBP2NormalCommand(%d)", e)
 	}
 }
 
@@ -4492,7 +4907,7 @@ func (e KFWSelfIDN) String() string {
 type KFWTCode uint
 
 const (
-	KFWTCodeCycleStart KFWTCode = 0
+	KFWTCodeCycleStart       KFWTCode = 0
 	KFWTCodeIsochronousBlock KFWTCode = 0
 )
 
@@ -4508,7 +4923,7 @@ func (e KFWTCode) String() string {
 type KFirstDepthMode uint
 
 const (
-	KFifthDepthMode KFirstDepthMode = 0
+	KFifthDepthMode  KFirstDepthMode = 0
 	KSecondDepthMode KFirstDepthMode = 0
 )
 
@@ -4525,7 +4940,7 @@ type KFirstIOKitNotificationType uint
 
 const (
 	KFirstIOKitNotificationTypeValue KFirstIOKitNotificationType = 0
-	KLastIOKitNotificationType KFirstIOKitNotificationType = 0
+	KLastIOKitNotificationType       KFirstIOKitNotificationType = 0
 )
 
 func (e KFirstIOKitNotificationType) String() string {
@@ -4540,7 +4955,7 @@ func (e KFirstIOKitNotificationType) String() string {
 type KFixedDeviceBit uint
 
 const (
-	KDMABit KFixedDeviceBit = 0
+	KDMABit              KFixedDeviceBit = 0
 	KFixedDeviceBitValue KFixedDeviceBit = 0
 )
 
@@ -4553,10 +4968,40 @@ func (e KFixedDeviceBit) String() string {
 	}
 }
 
+type KFortyFiveSecondTimeoutInM uint
+
+const (
+	KFortyFiveSecondTimeoutInMS KFortyFiveSecondTimeoutInM = 0
+)
+
+func (e KFortyFiveSecondTimeoutInM) String() string {
+	switch e {
+	case KFortyFiveSecondTimeoutInMS:
+		return "KFortyFiveSecondTimeoutInMS"
+	default:
+		return fmt.Sprintf("KFortyFiveSecondTimeoutInM(%d)", e)
+	}
+}
+
+type KFrameBufferDeepSleep uint
+
+const (
+	KFrameBufferDeepSleepSupported KFrameBufferDeepSleep = 0
+)
+
+func (e KFrameBufferDeepSleep) String() string {
+	switch e {
+	case KFrameBufferDeepSleepSupported:
+		return "KFrameBufferDeepSleepSupported"
+	default:
+		return fmt.Sprintf("KFrameBufferDeepSleep(%d)", e)
+	}
+}
+
 type KFramebuffer uint
 
 const (
-	KFramebufferDisableAltivecAccess KFramebuffer = 0
+	KFramebufferDisableAltivecAccess    KFramebuffer = 0
 	KFramebufferSupportsGammaCorrection KFramebuffer = 0
 )
 
@@ -4569,44 +5014,42 @@ func (e KFramebuffer) String() string {
 	}
 }
 
-const KGammaTableIDFindFirst uint = 0
-
-type KGetConnectionCount uint
+type KGammaTableIDFind uint
 
 const (
-	KActivateConnection KGetConnectionCount = 0
+	KGammaTableIDFindFirst KGammaTableIDFind = 0
 )
 
-func (e KGetConnectionCount) String() string {
+func (e KGammaTableIDFind) String() string {
 	switch e {
-	case KActivateConnection:
-		return "KActivateConnection"
+	case KGammaTableIDFindFirst:
+		return "KGammaTableIDFindFirst"
 	default:
-		return fmt.Sprintf("KGetConnectionCount(%d)", e)
+		return fmt.Sprintf("KGammaTableIDFind(%d)", e)
 	}
 }
 
 type KHFS uint
 
 const (
-	KHFSAutoCandidateMask KHFS = 0
-	KHFSBinaryCompare KHFS = 0
-	KHFSCaseFolding KHFS = 0
+	KHFSAutoCandidateMask       KHFS = 0
+	KHFSBinaryCompare           KHFS = 0
+	KHFSCaseFolding             KHFS = 0
 	KHFSCatalogKeyMaximumLength KHFS = 0
-	KHFSExtentDensity KHFS = 0
-	KHFSFileRecord KHFS = 0
-	KHFSFileThreadRecord KHFS = 0
-	KHFSFolderRecord KHFS = 0
-	KHFSFolderThreadRecord KHFS = 0
-	KHFSHasAttributesMask KHFS = 0
-	KHFSPlusAttrMinNodeSize KHFS = 0
-	KHFSPlusExtentDensity KHFS = 0
-	KHFSPlusFileRecord KHFS = 0
-	KHFSPlusFileThreadRecord KHFS = 0
-	KHFSPlusFolderRecord KHFS = 0
-	KHFSPlusFolderThreadRecord KHFS = 0
-	KHFSUnusedNodeFixMask KHFS = 0
-	KHFSVolumeJournaledMask KHFS = 0
+	KHFSExtentDensity           KHFS = 0
+	KHFSFileRecord              KHFS = 0
+	KHFSFileThreadRecord        KHFS = 0
+	KHFSFolderRecord            KHFS = 0
+	KHFSFolderThreadRecord      KHFS = 0
+	KHFSHasAttributesMask       KHFS = 0
+	KHFSPlusAttrMinNodeSize     KHFS = 0
+	KHFSPlusExtentDensity       KHFS = 0
+	KHFSPlusFileRecord          KHFS = 0
+	KHFSPlusFileThreadRecord    KHFS = 0
+	KHFSPlusFolderRecord        KHFS = 0
+	KHFSPlusFolderThreadRecord  KHFS = 0
+	KHFSUnusedNodeFixMask       KHFS = 0
+	KHFSVolumeJournaledMask     KHFS = 0
 )
 
 func (e KHFS) String() string {
@@ -4618,10 +5061,25 @@ func (e KHFS) String() string {
 	}
 }
 
+type KHFSAllocationFileI uint
+
+const (
+	KHFSAllocationFileID KHFSAllocationFileI = 0
+)
+
+func (e KHFSAllocationFileI) String() string {
+	switch e {
+	case KHFSAllocationFileID:
+		return "KHFSAllocationFileID"
+	default:
+		return fmt.Sprintf("KHFSAllocationFileI(%d)", e)
+	}
+}
+
 type KHFSMax uint
 
 const (
-	KHFSMaxFileNameChars KHFSMax = 0
+	KHFSMaxFileNameChars   KHFSMax = 0
 	KHFSMaxVolumeNameChars KHFSMax = 0
 )
 
@@ -4634,12 +5092,25 @@ func (e KHFSMax) String() string {
 	}
 }
 
-const KHFSMaxAttrNameLen uint = 0
+type KHFSMaxAttrName uint
+
+const (
+	KHFSMaxAttrNameLen KHFSMaxAttrName = 0
+)
+
+func (e KHFSMaxAttrName) String() string {
+	switch e {
+	case KHFSMaxAttrNameLen:
+		return "KHFSMaxAttrNameLen"
+	default:
+		return fmt.Sprintf("KHFSMaxAttrName(%d)", e)
+	}
+}
 
 type KHFSPlusAttr uint
 
 const (
-	KHFSPlusAttrExtents KHFSPlusAttr = 0
+	KHFSPlusAttrExtents  KHFSPlusAttr = 0
 	KHFSPlusAttrForkData KHFSPlusAttr = 0
 )
 
@@ -4649,21 +5120,6 @@ func (e KHFSPlusAttr) String() string {
 		return "KHFSPlusAttrExtents"
 	default:
 		return fmt.Sprintf("KHFSPlusAttr(%d)", e)
-	}
-}
-
-type KHFSRootParentID uint
-
-const (
-	KHFSAllocationFileID KHFSRootParentID = 0
-)
-
-func (e KHFSRootParentID) String() string {
-	switch e {
-	case KHFSAllocationFileID:
-		return "KHFSAllocationFileID"
-	default:
-		return fmt.Sprintf("KHFSRootParentID(%d)", e)
 	}
 }
 
@@ -4683,12 +5139,25 @@ func (e KHFSSigWord) String() string {
 	}
 }
 
-const KHFSUnusedNodesFixDate uint = 0
+type KHFSUnusedNodesFix uint
+
+const (
+	KHFSUnusedNodesFixDate KHFSUnusedNodesFix = 0
+)
+
+func (e KHFSUnusedNodesFix) String() string {
+	switch e {
+	case KHFSUnusedNodesFixDate:
+		return "KHFSUnusedNodesFixDate"
+	default:
+		return fmt.Sprintf("KHFSUnusedNodesFix(%d)", e)
+	}
+}
 
 type KHID uint
 
 const (
-	KHIDBootProtocolValue KHID = 0
+	KHIDBootProtocolValue   KHID = 0
 	KHIDReportProtocolValue KHID = 0
 )
 
@@ -4705,7 +5174,7 @@ type KHIDDispatchOption uint
 
 const (
 	KHIDDispatchOptionDeliveryNotificationForce KHIDDispatchOption = 0
-	KHIDDispatchOptionPhaseCanceled KHIDDispatchOption = 0
+	KHIDDispatchOptionPhaseCanceled             KHIDDispatchOption = 0
 )
 
 func (e KHIDDispatchOption) String() string {
@@ -4717,27 +5186,40 @@ func (e KHIDDispatchOption) String() string {
 	}
 }
 
-const KHIDDispatchOptionKeyboardNoRepeat uint = 0
-
-type KHIDDispatchOptionPointerNoAcceleration uint
+type KHIDDispatchOptionKeyboardNo uint
 
 const (
-	KHIDDispatchOptionPointerAbsolutToRelative KHIDDispatchOptionPointerNoAcceleration = 0
+	KHIDDispatchOptionKeyboardNoRepeat KHIDDispatchOptionKeyboardNo = 0
 )
 
-func (e KHIDDispatchOptionPointerNoAcceleration) String() string {
+func (e KHIDDispatchOptionKeyboardNo) String() string {
+	switch e {
+	case KHIDDispatchOptionKeyboardNoRepeat:
+		return "KHIDDispatchOptionKeyboardNoRepeat"
+	default:
+		return fmt.Sprintf("KHIDDispatchOptionKeyboardNo(%d)", e)
+	}
+}
+
+type KHIDDispatchOptionPointerAbsolutTo uint
+
+const (
+	KHIDDispatchOptionPointerAbsolutToRelative KHIDDispatchOptionPointerAbsolutTo = 0
+)
+
+func (e KHIDDispatchOptionPointerAbsolutTo) String() string {
 	switch e {
 	case KHIDDispatchOptionPointerAbsolutToRelative:
 		return "KHIDDispatchOptionPointerAbsolutToRelative"
 	default:
-		return fmt.Sprintf("KHIDDispatchOptionPointerNoAcceleration(%d)", e)
+		return fmt.Sprintf("KHIDDispatchOptionPointerAbsolutTo(%d)", e)
 	}
 }
 
 type KHIDPage uint
 
 const (
-	KHIDPage_Arcade KHIDPage = 0
+	KHIDPage_Arcade    KHIDPage = 0
 	KHIDPage_Digitizer KHIDPage = 0
 )
 
@@ -4750,18 +5232,18 @@ func (e KHIDPage) String() string {
 	}
 }
 
-type KHIDRqGetReport uint
+type KHIDRqGet uint
 
 const (
-	KHIDRqGetIdle KHIDRqGetReport = 0
+	KHIDRqGetIdle KHIDRqGet = 0
 )
 
-func (e KHIDRqGetReport) String() string {
+func (e KHIDRqGet) String() string {
 	switch e {
 	case KHIDRqGetIdle:
 		return "KHIDRqGetIdle"
 	default:
-		return fmt.Sprintf("KHIDRqGetReport(%d)", e)
+		return fmt.Sprintf("KHIDRqGet(%d)", e)
 	}
 }
 
@@ -4769,7 +5251,7 @@ type KHIDRt uint
 
 const (
 	KHIDRtFeatureReport KHIDRt = 0
-	KHIDRtInputReport KHIDRt = 0
+	KHIDRtInputReport   KHIDRt = 0
 )
 
 func (e KHIDRt) String() string {
@@ -4786,6 +5268,7 @@ type KHIDUsage uint
 const (
 	KHIDUsage_Keyboard3 KHIDUsage = 0
 	KHIDUsage_KeyboardV KHIDUsage = 0
+	KHIDUsage_Undefined KHIDUsage = 0
 )
 
 func (e KHIDUsage) String() string {
@@ -4797,10 +5280,25 @@ func (e KHIDUsage) String() string {
 	}
 }
 
+type KHIKeyboard uint
+
+const (
+	KHIKeyboardDevice KHIKeyboard = 0
+)
+
+func (e KHIKeyboard) String() string {
+	switch e {
+	case KHIKeyboardDevice:
+		return "KHIKeyboardDevice"
+	default:
+		return fmt.Sprintf("KHIKeyboard(%d)", e)
+	}
+}
+
 type KHardLinkFileType uint
 
 const (
-	KHFSPlusCreator KHardLinkFileType = 0
+	KHFSPlusCreator        KHardLinkFileType = 0
 	KHardLinkFileTypeValue KHardLinkFileType = 0
 )
 
@@ -4813,7 +5311,20 @@ func (e KHardLinkFileType) String() string {
 	}
 }
 
-const KHardwareCursorDescriptorMajorVersion uint = 0
+type KHardwareCursorDescriptorMajor uint
+
+const (
+	KHardwareCursorDescriptorMajorVersion KHardwareCursorDescriptorMajor = 0
+)
+
+func (e KHardwareCursorDescriptorMajor) String() string {
+	switch e {
+	case KHardwareCursorDescriptorMajorVersion:
+		return "KHardwareCursorDescriptorMajorVersion"
+	default:
+		return fmt.Sprintf("KHardwareCursorDescriptorMajor(%d)", e)
+	}
+}
 
 type KHardwareCursorInfo uint
 
@@ -4831,50 +5342,48 @@ func (e KHardwareCursorInfo) String() string {
 	}
 }
 
-const KHubLocalPowerStatus int = 0
-
-type KHubPortIndicatorAutomatic uint
+type KHubLocalPower uint
 
 const (
-	KHubPortIndicatorAmber KHubPortIndicatorAutomatic = 0
+	KHubLocalPowerStatus KHubLocalPower = 0
 )
 
-func (e KHubPortIndicatorAutomatic) String() string {
+func (e KHubLocalPower) String() string {
+	switch e {
+	case KHubLocalPowerStatus:
+		return "KHubLocalPowerStatus"
+	default:
+		return fmt.Sprintf("KHubLocalPower(%d)", e)
+	}
+}
+
+type KHubPortIndicator uint
+
+const (
+	KHubPortIndicatorAmber KHubPortIndicator = 0
+)
+
+func (e KHubPortIndicator) String() string {
 	switch e {
 	case KHubPortIndicatorAmber:
 		return "KHubPortIndicatorAmber"
 	default:
-		return fmt.Sprintf("KHubPortIndicatorAutomatic(%d)", e)
+		return fmt.Sprintf("KHubPortIndicator(%d)", e)
 	}
 }
 
-type KHubSuperSpeedProtocol uint
+type KHubPortSetPower uint
 
 const (
-	KUSBInterfaceAssociationDescriptorProtocol KHubSuperSpeedProtocol = 0
+	KHubPortSetPowerOff KHubPortSetPower = 0
 )
 
-func (e KHubSuperSpeedProtocol) String() string {
-	switch e {
-	case KUSBInterfaceAssociationDescriptorProtocol:
-		return "KUSBInterfaceAssociationDescriptorProtocol"
-	default:
-		return fmt.Sprintf("KHubSuperSpeedProtocol(%d)", e)
-	}
-}
-
-type KHubSupportsGangPower uint
-
-const (
-	KHubPortSetPowerOff KHubSupportsGangPower = 0
-)
-
-func (e KHubSupportsGangPower) String() string {
+func (e KHubPortSetPower) String() string {
 	switch e {
 	case KHubPortSetPowerOff:
 		return "KHubPortSetPowerOff"
 	default:
-		return fmt.Sprintf("KHubSupportsGangPower(%d)", e)
+		return fmt.Sprintf("KHubPortSetPower(%d)", e)
 	}
 }
 
@@ -4882,11 +5391,11 @@ type KI uint
 
 const (
 	KIO128RGBAFloatPixelFormat KI = 0
-	KIO16BE555PixelFormat KI = 0
-	KIO16BE565PixelFormat KI = 0
-	KIO24BGRPixelFormat KI = 0
-	KIO2IndexedPixelFormat KI = 0
-	KIO64BGRAPixelFormat KI = 0
+	KIO16BE555PixelFormat      KI = 0
+	KIO16BE565PixelFormat      KI = 0
+	KIO24BGRPixelFormat        KI = 0
+	KIO2IndexedPixelFormat     KI = 0
+	KIO64BGRAPixelFormat       KI = 0
 )
 
 func (e KI) String() string {
@@ -4932,21 +5441,21 @@ func (e KINQUIRY) String() string {
 type KIO uint
 
 const (
-	KIOAnalogSetupExpected KIO = 0
+	KIOAnalogSetupExpected         KIO = 0
 	KIOBufferDescriptorMemoryFlags KIO = 0
-	KIOCLUTPixels KIO = 0
-	KIOCapturedAttribute KIO = 0
+	KIOCLUTPixels                  KIO = 0
+	KIOCapturedAttribute           KIO = 0
 	KIODisplayAssertionConnectType KIO = 0
-	KIOFBDisplayStateValue KIO = 0
-	KIOFBServerConnectType KIO = 0
-	KIOFBSharedConnectType KIO = 0
-	KIOGDiagnoseConnectType KIO = 0
-	KIOGDiagnoseGTraceType KIO = 0
-	KIOInterlacedCEATiming KIO = 0
-	KIOKextSpinDump KIO = 0
-	KIOLogDTree KIO = 0
-	KIOMemoryPageable KIO = 0
-	KIOMonoDirectPixels KIO = 0
+	KIOFBDisplayStateValue         KIO = 0
+	KIOFBServerConnectType         KIO = 0
+	KIOFBSharedConnectType         KIO = 0
+	KIOGDiagnoseConnectType        KIO = 0
+	KIOGDiagnoseGTraceType         KIO = 0
+	KIOInterlacedCEATiming         KIO = 0
+	KIOKextSpinDump                KIO = 0
+	KIOLogDTree                    KIO = 0
+	KIOMemoryPageable              KIO = 0
+	KIOMonoDirectPixels            KIO = 0
 )
 
 func (e KIO) String() string {
@@ -4961,7 +5470,7 @@ func (e KIO) String() string {
 type KIOACPIAddressSpaceIDSystem uint
 
 const (
-	KIOACPIAddressSpaceIDSystemIO KIOACPIAddressSpaceIDSystem = 0
+	KIOACPIAddressSpaceIDSystemIO     KIOACPIAddressSpaceIDSystem = 0
 	KIOACPIAddressSpaceIDSystemMemory KIOACPIAddressSpaceIDSystem = 0
 )
 
@@ -4974,27 +5483,55 @@ func (e KIOACPIAddressSpaceIDSystem) String() string {
 	}
 }
 
-const KIOACPIAddressSpaceOpRead uint = 0
-
-type KIOACPIDevicePowerStateD0 uint
+type KIOACPIAddressSpaceOp uint
 
 const (
-	KIOACPIDevicePowerStateCount KIOACPIDevicePowerStateD0 = 0
+	KIOACPIAddressSpaceOpRead KIOACPIAddressSpaceOp = 0
 )
 
-func (e KIOACPIDevicePowerStateD0) String() string {
+func (e KIOACPIAddressSpaceOp) String() string {
+	switch e {
+	case KIOACPIAddressSpaceOpRead:
+		return "KIOACPIAddressSpaceOpRead"
+	default:
+		return fmt.Sprintf("KIOACPIAddressSpaceOp(%d)", e)
+	}
+}
+
+type KIOACPIBusNumber uint
+
+const (
+	KIOACPIBusNumberRange KIOACPIBusNumber = 0
+)
+
+func (e KIOACPIBusNumber) String() string {
+	switch e {
+	case KIOACPIBusNumberRange:
+		return "KIOACPIBusNumberRange"
+	default:
+		return fmt.Sprintf("KIOACPIBusNumber(%d)", e)
+	}
+}
+
+type KIOACPIDevicePowerState uint
+
+const (
+	KIOACPIDevicePowerStateCount KIOACPIDevicePowerState = 0
+)
+
+func (e KIOACPIDevicePowerState) String() string {
 	switch e {
 	case KIOACPIDevicePowerStateCount:
 		return "KIOACPIDevicePowerStateCount"
 	default:
-		return fmt.Sprintf("KIOACPIDevicePowerStateD0(%d)", e)
+		return fmt.Sprintf("KIOACPIDevicePowerState(%d)", e)
 	}
 }
 
 type KIOACPIFixedEvent uint
 
 const (
-	KIOACPIFixedEventPMTimer KIOACPIFixedEvent = 0
+	KIOACPIFixedEventPMTimer     KIOACPIFixedEvent = 0
 	KIOACPIFixedEventPowerButton KIOACPIFixedEvent = 0
 )
 
@@ -5007,26 +5544,11 @@ func (e KIOACPIFixedEvent) String() string {
 	}
 }
 
-type KIOACPIMemoryRange uint
-
-const (
-	KIOACPIBusNumberRange KIOACPIMemoryRange = 0
-)
-
-func (e KIOACPIMemoryRange) String() string {
-	switch e {
-	case KIOACPIBusNumberRange:
-		return "KIOACPIBusNumberRange"
-	default:
-		return fmt.Sprintf("KIOACPIMemoryRange(%d)", e)
-	}
-}
-
 type KIOAG uint
 
 const (
 	KIOAGP4GbAddressing KIOAG = 0
-	KIOAGP4xDataRate KIOAG = 0
+	KIOAGP4xDataRate    KIOAG = 0
 )
 
 func (e KIOAG) String() string {
@@ -5041,7 +5563,7 @@ func (e KIOAG) String() string {
 type KIOAGP uint
 
 const (
-	KIOAGPIdle KIOAGP = 0
+	KIOAGPIdle             KIOAGP = 0
 	KIOAGPInvalidGARTEntry KIOAGP = 0
 )
 
@@ -5054,13 +5576,26 @@ func (e KIOAGP) String() string {
 	}
 }
 
-const KIOAGPDefaultStatus int = 0
+type KIOAGPDefault uint
+
+const (
+	KIOAGPDefaultStatus KIOAGPDefault = 0
+)
+
+func (e KIOAGPDefault) String() string {
+	switch e {
+	case KIOAGPDefaultStatus:
+		return "KIOAGPDefaultStatus"
+	default:
+		return fmt.Sprintf("KIOAGPDefault(%d)", e)
+	}
+}
 
 type KIOAGPDisable uint
 
 const (
 	KIOAGPDisableAGPWrites KIOAGPDisable = 0
-	KIOAGPDisableFeature6 KIOAGPDisable = 0
+	KIOAGPDisableFeature6  KIOAGPDisable = 0
 )
 
 func (e KIOAGPDisable) String() string {
@@ -5072,94 +5607,107 @@ func (e KIOAGPDisable) String() string {
 	}
 }
 
-const KIOAGPGartInvalidate uint = 0
-
-type KIOAGPStateEnabled uint
+type KIOAGPGart uint
 
 const (
-	KIOAGPStateEnablePending KIOAGPStateEnabled = 0
+	KIOAGPGartInvalidate KIOAGPGart = 0
 )
 
-func (e KIOAGPStateEnabled) String() string {
+func (e KIOAGPGart) String() string {
+	switch e {
+	case KIOAGPGartInvalidate:
+		return "KIOAGPGartInvalidate"
+	default:
+		return fmt.Sprintf("KIOAGPGart(%d)", e)
+	}
+}
+
+type KIOAGPStateEnable uint
+
+const (
+	KIOAGPStateEnablePending KIOAGPStateEnable = 0
+)
+
+func (e KIOAGPStateEnable) String() string {
 	switch e {
 	case KIOAGPStateEnablePending:
 		return "KIOAGPStateEnablePending"
 	default:
-		return fmt.Sprintf("KIOAGPStateEnabled(%d)", e)
+		return fmt.Sprintf("KIOAGPStateEnable(%d)", e)
 	}
 }
 
-type KIOATAFeaturePowerManagement uint
+type KIOATADefault uint
 
 const (
-	KIOATAFeature48BitLBA KIOATAFeaturePowerManagement = 0
+	KIOATADefaultPerformance KIOATADefault = 0
 )
 
-func (e KIOATAFeaturePowerManagement) String() string {
-	switch e {
-	case KIOATAFeature48BitLBA:
-		return "KIOATAFeature48BitLBA"
-	default:
-		return fmt.Sprintf("KIOATAFeaturePowerManagement(%d)", e)
-	}
-}
-
-type KIOATAMaxPerformance uint
-
-const (
-	KIOATADefaultPerformance KIOATAMaxPerformance = 0
-)
-
-func (e KIOATAMaxPerformance) String() string {
+func (e KIOATADefault) String() string {
 	switch e {
 	case KIOATADefaultPerformance:
 		return "KIOATADefaultPerformance"
 	default:
-		return fmt.Sprintf("KIOATAMaxPerformance(%d)", e)
+		return fmt.Sprintf("KIOATADefault(%d)", e)
 	}
 }
 
-type KIOATAMaximumBlockCount8Bit uint
+type KIOATAFeature48BitLB uint
 
 const (
-	KIOATAMaxBlocksPerXfer KIOATAMaximumBlockCount8Bit = 0
+	KIOATAFeature48BitLBA KIOATAFeature48BitLB = 0
 )
 
-func (e KIOATAMaximumBlockCount8Bit) String() string {
+func (e KIOATAFeature48BitLB) String() string {
+	switch e {
+	case KIOATAFeature48BitLBA:
+		return "KIOATAFeature48BitLBA"
+	default:
+		return fmt.Sprintf("KIOATAFeature48BitLB(%d)", e)
+	}
+}
+
+type KIOATAMaxBlocksPer uint
+
+const (
+	KIOATAMaxBlocksPerXfer KIOATAMaxBlocksPer = 0
+)
+
+func (e KIOATAMaxBlocksPer) String() string {
 	switch e {
 	case KIOATAMaxBlocksPerXfer:
 		return "KIOATAMaxBlocksPerXfer"
 	default:
-		return fmt.Sprintf("KIOATAMaximumBlockCount8Bit(%d)", e)
+		return fmt.Sprintf("KIOATAMaxBlocksPer(%d)", e)
 	}
 }
 
-type KIOATASectorCount8Bit uint
+type KIOATASectorCount16 uint
 
 const (
-	KIOATASectorCount16Bit KIOATASectorCount8Bit = 0
+	KIOATASectorCount16Bit KIOATASectorCount16 = 0
 )
 
-func (e KIOATASectorCount8Bit) String() string {
+func (e KIOATASectorCount16) String() string {
 	switch e {
 	case KIOATASectorCount16Bit:
 		return "KIOATASectorCount16Bit"
 	default:
-		return fmt.Sprintf("KIOATASectorCount8Bit(%d)", e)
+		return fmt.Sprintf("KIOATASectorCount16(%d)", e)
 	}
 }
 
 type KIOAccel uint
 
 const (
-	KIOAccelNumClientTypes KIOAccel = 0
-	KIOAccelNumSurfaceMethods KIOAccel = 0
-	KIOAccelSurface2ClientType KIOAccel = 0
-	KIOAccelSurfaceClientType KIOAccel = 0
-	KIOAccelSurfaceControl KIOAccel = 0
-	KIOAccelSurfaceFlush KIOAccel = 0
-	KIOAccelSurfaceRead KIOAccel = 0
-	KIOAccelSurfaceSetShapeBacking KIOAccel = 0
+	KIOAccelNumClientTypes          KIOAccel = 0
+	KIOAccelNumSurfaceMethods       KIOAccel = 0
+	KIOAccelSurface2ClientType      KIOAccel = 0
+	KIOAccelSurfaceClientType       KIOAccel = 0
+	KIOAccelSurfaceControl          KIOAccel = 0
+	KIOAccelSurfaceFlush            KIOAccel = 0
+	KIOAccelSurfaceRead             KIOAccel = 0
+	KIOAccelSurfaceSetShapeBacking  KIOAccel = 0
 	KIOAccelSurfaceWriteLockOptions KIOAccel = 0
 )
 
@@ -5172,31 +5720,147 @@ func (e KIOAccel) String() string {
 	}
 }
 
-const KIOAccelPrivateID uint = 0
-
-const KIOAccelVolatileSurface uint = 0
-
-type KIOAsyncReservedIndex uint
+type KIOAccelNumSurfaceMemory uint
 
 const (
-	KIOAsyncCalloutCount KIOAsyncReservedIndex = 0
+	KIOAccelNumSurfaceMemoryTypes KIOAccelNumSurfaceMemory = 0
 )
 
-func (e KIOAsyncReservedIndex) String() string {
+func (e KIOAccelNumSurfaceMemory) String() string {
+	switch e {
+	case KIOAccelNumSurfaceMemoryTypes:
+		return "KIOAccelNumSurfaceMemoryTypes"
+	default:
+		return fmt.Sprintf("KIOAccelNumSurfaceMemory(%d)", e)
+	}
+}
+
+type KIOAccelPrivateI uint
+
+const (
+	KIOAccelPrivateID KIOAccelPrivateI = 0
+)
+
+func (e KIOAccelPrivateI) String() string {
+	switch e {
+	case KIOAccelPrivateID:
+		return "KIOAccelPrivateID"
+	default:
+		return fmt.Sprintf("KIOAccelPrivateI(%d)", e)
+	}
+}
+
+type KIOAccelSurfaceBeamSync uint
+
+const (
+	KIOAccelSurfaceBeamSyncSwaps KIOAccelSurfaceBeamSync = 0
+)
+
+func (e KIOAccelSurfaceBeamSync) String() string {
+	switch e {
+	case KIOAccelSurfaceBeamSyncSwaps:
+		return "KIOAccelSurfaceBeamSyncSwaps"
+	default:
+		return fmt.Sprintf("KIOAccelSurfaceBeamSync(%d)", e)
+	}
+}
+
+type KIOAccelSurfaceLockIn uint
+
+const (
+	KIOAccelSurfaceLockInAccel KIOAccelSurfaceLockIn = 0
+)
+
+func (e KIOAccelSurfaceLockIn) String() string {
+	switch e {
+	case KIOAccelSurfaceLockInAccel:
+		return "KIOAccelSurfaceLockInAccel"
+	default:
+		return fmt.Sprintf("KIOAccelSurfaceLockIn(%d)", e)
+	}
+}
+
+type KIOAccelSurfaceModeBeam uint
+
+const (
+	KIOAccelSurfaceModeBeamSync KIOAccelSurfaceModeBeam = 0
+)
+
+func (e KIOAccelSurfaceModeBeam) String() string {
+	switch e {
+	case KIOAccelSurfaceModeBeamSync:
+		return "KIOAccelSurfaceModeBeamSync"
+	default:
+		return fmt.Sprintf("KIOAccelSurfaceModeBeam(%d)", e)
+	}
+}
+
+type KIOAccelSurfaceShapeAssembly uint
+
+const (
+	KIOAccelSurfaceShapeAssemblyBit KIOAccelSurfaceShapeAssembly = 0
+)
+
+func (e KIOAccelSurfaceShapeAssembly) String() string {
+	switch e {
+	case KIOAccelSurfaceShapeAssemblyBit:
+		return "KIOAccelSurfaceShapeAssemblyBit"
+	default:
+		return fmt.Sprintf("KIOAccelSurfaceShapeAssembly(%d)", e)
+	}
+}
+
+type KIOAccelSurfaceStateIdle uint
+
+const (
+	KIOAccelSurfaceStateIdleBit KIOAccelSurfaceStateIdle = 0
+)
+
+func (e KIOAccelSurfaceStateIdle) String() string {
+	switch e {
+	case KIOAccelSurfaceStateIdleBit:
+		return "KIOAccelSurfaceStateIdleBit"
+	default:
+		return fmt.Sprintf("KIOAccelSurfaceStateIdle(%d)", e)
+	}
+}
+
+type KIOAccelVolatile uint
+
+const (
+	KIOAccelVolatileSurface KIOAccelVolatile = 0
+)
+
+func (e KIOAccelVolatile) String() string {
+	switch e {
+	case KIOAccelVolatileSurface:
+		return "KIOAccelVolatileSurface"
+	default:
+		return fmt.Sprintf("KIOAccelVolatile(%d)", e)
+	}
+}
+
+type KIOAsyncCallout uint
+
+const (
+	KIOAsyncCalloutCount KIOAsyncCallout = 0
+)
+
+func (e KIOAsyncCallout) String() string {
 	switch e {
 	case KIOAsyncCalloutCount:
 		return "KIOAsyncCalloutCount"
 	default:
-		return fmt.Sprintf("KIOAsyncReservedIndex(%d)", e)
+		return fmt.Sprintf("KIOAsyncCallout(%d)", e)
 	}
 }
 
 type KIOAudio uint
 
 const (
-	KIOAudioBuiltInSystemClockDomain KIOAudio = 0
-	KIOAudioInputPortSubTypeCD KIOAudio = 0
-	KIOAudioNewClockDomain KIOAudio = 0
+	KIOAudioBuiltInSystemClockDomain         KIOAudio = 0
+	KIOAudioInputPortSubTypeCD               KIOAudio = 0
+	KIOAudioNewClockDomain                   KIOAudio = 0
 	KIOAudioOutputPortSubTypeInternalSpeaker KIOAudio = 0
 )
 
@@ -5209,25 +5873,25 @@ func (e KIOAudio) String() string {
 	}
 }
 
-type KIOAudioClockSelectorTypeInternal uint
+type KIOAudioClockSelectorTypeADAT9 uint
 
 const (
-	KIOAudioClockSelectorTypeADAT9Pin KIOAudioClockSelectorTypeInternal = 0
+	KIOAudioClockSelectorTypeADAT9Pin KIOAudioClockSelectorTypeADAT9 = 0
 )
 
-func (e KIOAudioClockSelectorTypeInternal) String() string {
+func (e KIOAudioClockSelectorTypeADAT9) String() string {
 	switch e {
 	case KIOAudioClockSelectorTypeADAT9Pin:
 		return "KIOAudioClockSelectorTypeADAT9Pin"
 	default:
-		return fmt.Sprintf("KIOAudioClockSelectorTypeInternal(%d)", e)
+		return fmt.Sprintf("KIOAudioClockSelectorTypeADAT9(%d)", e)
 	}
 }
 
 type KIOAudioControlChannelID uint
 
 const (
-	KIOAudioControlChannelIDAll KIOAudioControlChannelID = 0
+	KIOAudioControlChannelIDAll             KIOAudioControlChannelID = 0
 	KIOAudioControlChannelIDDefaultLeftRear KIOAudioControlChannelID = 0
 )
 
@@ -5240,18 +5904,18 @@ func (e KIOAudioControlChannelID) String() string {
 	}
 }
 
-type KIOAudioControlTypeLevel uint
+type KIOAudioControlType uint
 
 const (
-	KIOAudioControlTypeToggle KIOAudioControlTypeLevel = 0
+	KIOAudioControlTypeToggle KIOAudioControlType = 0
 )
 
-func (e KIOAudioControlTypeLevel) String() string {
+func (e KIOAudioControlType) String() string {
 	switch e {
 	case KIOAudioControlTypeToggle:
 		return "KIOAudioControlTypeToggle"
 	default:
-		return fmt.Sprintf("KIOAudioControlTypeLevel(%d)", e)
+		return fmt.Sprintf("KIOAudioControlType(%d)", e)
 	}
 }
 
@@ -5259,7 +5923,7 @@ type KIOAudioControlUsage uint
 
 const (
 	KIOAudioControlUsageCoreAudioProperty KIOAudioControlUsage = 0
-	KIOAudioControlUsagePassThru KIOAudioControlUsage = 0
+	KIOAudioControlUsagePassThru          KIOAudioControlUsage = 0
 )
 
 func (e KIOAudioControlUsage) String() string {
@@ -5289,25 +5953,25 @@ func (e KIOAudioDevice) String() string {
 	}
 }
 
-type KIOAudioDeviceCanBeDefaultNothing uint
+type KIOAudioDeviceCanBeDefault uint
 
 const (
-	KIOAudioDeviceCanBeDefaultInput KIOAudioDeviceCanBeDefaultNothing = 0
+	KIOAudioDeviceCanBeDefaultInput KIOAudioDeviceCanBeDefault = 0
 )
 
-func (e KIOAudioDeviceCanBeDefaultNothing) String() string {
+func (e KIOAudioDeviceCanBeDefault) String() string {
 	switch e {
 	case KIOAudioDeviceCanBeDefaultInput:
 		return "KIOAudioDeviceCanBeDefaultInput"
 	default:
-		return fmt.Sprintf("KIOAudioDeviceCanBeDefaultNothing(%d)", e)
+		return fmt.Sprintf("KIOAudioDeviceCanBeDefault(%d)", e)
 	}
 }
 
 type KIOAudioDeviceTransportType uint
 
 const (
-	KIOAudioDeviceTransportTypeAVB KIOAudioDeviceTransportType = 0
+	KIOAudioDeviceTransportTypeAVB       KIOAudioDeviceTransportType = 0
 	KIOAudioDeviceTransportTypeBluetooth KIOAudioDeviceTransportType = 0
 )
 
@@ -5323,12 +5987,12 @@ func (e KIOAudioDeviceTransportType) String() string {
 type KIOAudioEngine uint
 
 const (
-	KIOAudioEngineAllNotifications KIOAudioEngine = 0
-	KIOAudioEngineChangeNotification KIOAudioEngine = 0
-	KIOAudioEnginePausedNotification KIOAudioEngine = 0
-	KIOAudioEngineResumedNotification KIOAudioEngine = 0
-	KIOAudioEngineStartedNotification KIOAudioEngine = 0
-	KIOAudioEngineStoppedNotification KIOAudioEngine = 0
+	KIOAudioEngineAllNotifications               KIOAudioEngine = 0
+	KIOAudioEngineChangeNotification             KIOAudioEngine = 0
+	KIOAudioEnginePausedNotification             KIOAudioEngine = 0
+	KIOAudioEngineResumedNotification            KIOAudioEngine = 0
+	KIOAudioEngineStartedNotification            KIOAudioEngine = 0
+	KIOAudioEngineStoppedNotification            KIOAudioEngine = 0
 	KIOAudioEngineStreamFormatChangeNotification KIOAudioEngine = 0
 )
 
@@ -5341,20 +6005,33 @@ func (e KIOAudioEngine) String() string {
 	}
 }
 
-const KIOAudioLevelControlNegativeInfinity uint = 0
-
-type KIOAudioLevelControlSubTypeVolume uint
+type KIOAudioLevelControlNegative uint
 
 const (
-	KIOAudioLevelControlSubTypeLFEVolume KIOAudioLevelControlSubTypeVolume = 0
+	KIOAudioLevelControlNegativeInfinity KIOAudioLevelControlNegative = 0
 )
 
-func (e KIOAudioLevelControlSubTypeVolume) String() string {
+func (e KIOAudioLevelControlNegative) String() string {
+	switch e {
+	case KIOAudioLevelControlNegativeInfinity:
+		return "KIOAudioLevelControlNegativeInfinity"
+	default:
+		return fmt.Sprintf("KIOAudioLevelControlNegative(%d)", e)
+	}
+}
+
+type KIOAudioLevelControlSubTypeLFE uint
+
+const (
+	KIOAudioLevelControlSubTypeLFEVolume KIOAudioLevelControlSubTypeLFE = 0
+)
+
+func (e KIOAudioLevelControlSubTypeLFE) String() string {
 	switch e {
 	case KIOAudioLevelControlSubTypeLFEVolume:
 		return "KIOAudioLevelControlSubTypeLFEVolume"
 	default:
-		return fmt.Sprintf("KIOAudioLevelControlSubTypeVolume(%d)", e)
+		return fmt.Sprintf("KIOAudioLevelControlSubTypeLFE(%d)", e)
 	}
 }
 
@@ -5377,78 +6054,64 @@ func (e KIOAudioPortType) String() string {
 type KIOAudioSMPTETime uint
 
 const (
-	KIOAudioSMPTETimeType2398 KIOAudioSMPTETime = 0
-	KIOAudioSMPTETimeType24 KIOAudioSMPTETime = 0
-	KIOAudioSMPTETimeType25 KIOAudioSMPTETime = 0
-	KIOAudioSMPTETimeType2997 KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeRunning      KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeType2398     KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeType24       KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeType25       KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeType2997     KIOAudioSMPTETime = 0
 	KIOAudioSMPTETimeType2997Drop KIOAudioSMPTETime = 0
-	KIOAudioSMPTETimeType30 KIOAudioSMPTETime = 0
-	KIOAudioSMPTETimeType30Drop KIOAudioSMPTETime = 0
-	KIOAudioSMPTETimeType50 KIOAudioSMPTETime = 0
-	KIOAudioSMPTETimeType5994 KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeType30       KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeType30Drop   KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeType50       KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeType5994     KIOAudioSMPTETime = 0
 	KIOAudioSMPTETimeType5994Drop KIOAudioSMPTETime = 0
-	KIOAudioSMPTETimeType60 KIOAudioSMPTETime = 0
-	KIOAudioSMPTETimeType60Drop KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeType60       KIOAudioSMPTETime = 0
+	KIOAudioSMPTETimeType60Drop   KIOAudioSMPTETime = 0
 )
 
 func (e KIOAudioSMPTETime) String() string {
 	switch e {
-	case KIOAudioSMPTETimeType2398:
-		return "KIOAudioSMPTETimeType2398"
+	case KIOAudioSMPTETimeRunning:
+		return "KIOAudioSMPTETimeRunning"
 	default:
 		return fmt.Sprintf("KIOAudioSMPTETime(%d)", e)
 	}
 }
 
-type KIOAudioSMPTETimeValid uint
+type KIOAudioSelectorControlSelectionValueC uint
 
 const (
-	KIOAudioSMPTETimeRunning KIOAudioSMPTETimeValid = 0
+	KIOAudioSelectorControlSelectionValueCD KIOAudioSelectorControlSelectionValueC = 0
 )
 
-func (e KIOAudioSMPTETimeValid) String() string {
-	switch e {
-	case KIOAudioSMPTETimeRunning:
-		return "KIOAudioSMPTETimeRunning"
-	default:
-		return fmt.Sprintf("KIOAudioSMPTETimeValid(%d)", e)
-	}
-}
-
-type KIOAudioSelectorControlSelectionValueNone uint
-
-const (
-	KIOAudioSelectorControlSelectionValueCD KIOAudioSelectorControlSelectionValueNone = 0
-)
-
-func (e KIOAudioSelectorControlSelectionValueNone) String() string {
+func (e KIOAudioSelectorControlSelectionValueC) String() string {
 	switch e {
 	case KIOAudioSelectorControlSelectionValueCD:
 		return "KIOAudioSelectorControlSelectionValueCD"
 	default:
-		return fmt.Sprintf("KIOAudioSelectorControlSelectionValueNone(%d)", e)
+		return fmt.Sprintf("KIOAudioSelectorControlSelectionValueC(%d)", e)
 	}
 }
 
-type KIOAudioStreamAlignmentLowByte uint
+type KIOAudioStreamAlignmentHigh uint
 
 const (
-	KIOAudioStreamAlignmentHighByte KIOAudioStreamAlignmentLowByte = 0
+	KIOAudioStreamAlignmentHighByte KIOAudioStreamAlignmentHigh = 0
 )
 
-func (e KIOAudioStreamAlignmentLowByte) String() string {
+func (e KIOAudioStreamAlignmentHigh) String() string {
 	switch e {
 	case KIOAudioStreamAlignmentHighByte:
 		return "KIOAudioStreamAlignmentHighByte"
 	default:
-		return fmt.Sprintf("KIOAudioStreamAlignmentLowByte(%d)", e)
+		return fmt.Sprintf("KIOAudioStreamAlignmentHigh(%d)", e)
 	}
 }
 
 type KIOAudioStreamByteOrder uint
 
 const (
-	KIOAudioStreamByteOrderBigEndian KIOAudioStreamByteOrder = 0
+	KIOAudioStreamByteOrderBigEndian    KIOAudioStreamByteOrder = 0
 	KIOAudioStreamByteOrderLittleEndian KIOAudioStreamByteOrder = 0
 )
 
@@ -5461,65 +6124,78 @@ func (e KIOAudioStreamByteOrder) String() string {
 	}
 }
 
-type KIOAudioStreamNumericRepresentationSignedInt uint
+type KIOAudioStreamNumericRepresentationIEEE754 uint
 
 const (
-	KIOAudioStreamNumericRepresentationIEEE754Float KIOAudioStreamNumericRepresentationSignedInt = 0
+	KIOAudioStreamNumericRepresentationIEEE754Float KIOAudioStreamNumericRepresentationIEEE754 = 0
 )
 
-func (e KIOAudioStreamNumericRepresentationSignedInt) String() string {
+func (e KIOAudioStreamNumericRepresentationIEEE754) String() string {
 	switch e {
 	case KIOAudioStreamNumericRepresentationIEEE754Float:
 		return "KIOAudioStreamNumericRepresentationIEEE754Float"
 	default:
-		return fmt.Sprintf("KIOAudioStreamNumericRepresentationSignedInt(%d)", e)
+		return fmt.Sprintf("KIOAudioStreamNumericRepresentationIEEE754(%d)", e)
 	}
 }
 
-type KIOAudioStreamSampleFormatLinearPCM uint
+type KIOAudioStreamSampleFormat1937A uint
 
 const (
-	KIOAudioStreamSampleFormat1937AC3 KIOAudioStreamSampleFormatLinearPCM = 0
+	KIOAudioStreamSampleFormat1937AC3 KIOAudioStreamSampleFormat1937A = 0
 )
 
-func (e KIOAudioStreamSampleFormatLinearPCM) String() string {
+func (e KIOAudioStreamSampleFormat1937A) String() string {
 	switch e {
 	case KIOAudioStreamSampleFormat1937AC3:
 		return "KIOAudioStreamSampleFormat1937AC3"
 	default:
-		return fmt.Sprintf("KIOAudioStreamSampleFormatLinearPCM(%d)", e)
+		return fmt.Sprintf("KIOAudioStreamSampleFormat1937A(%d)", e)
 	}
 }
 
-const KIOAudioTimeStampSampleHostTimeValid uint = 0
-
-type KIOAudioTimeStampSampleTimeValid uint
+type KIOAudioTimeStampHostTime uint
 
 const (
-	KIOAudioTimeStampHostTimeValid KIOAudioTimeStampSampleTimeValid = 0
+	KIOAudioTimeStampHostTimeValid KIOAudioTimeStampHostTime = 0
 )
 
-func (e KIOAudioTimeStampSampleTimeValid) String() string {
+func (e KIOAudioTimeStampHostTime) String() string {
 	switch e {
 	case KIOAudioTimeStampHostTimeValid:
 		return "KIOAudioTimeStampHostTimeValid"
 	default:
-		return fmt.Sprintf("KIOAudioTimeStampSampleTimeValid(%d)", e)
+		return fmt.Sprintf("KIOAudioTimeStampHostTime(%d)", e)
 	}
 }
 
-type KIOBatteryInstalled uint
+type KIOAudioTimeStampSampleHostTime uint
 
 const (
-	KIOBatteryCharge KIOBatteryInstalled = 0
+	KIOAudioTimeStampSampleHostTimeValid KIOAudioTimeStampSampleHostTime = 0
 )
 
-func (e KIOBatteryInstalled) String() string {
+func (e KIOAudioTimeStampSampleHostTime) String() string {
+	switch e {
+	case KIOAudioTimeStampSampleHostTimeValid:
+		return "KIOAudioTimeStampSampleHostTimeValid"
+	default:
+		return fmt.Sprintf("KIOAudioTimeStampSampleHostTime(%d)", e)
+	}
+}
+
+type KIOBattery uint
+
+const (
+	KIOBatteryCharge KIOBattery = 0
+)
+
+func (e KIOBattery) String() string {
 	switch e {
 	case KIOBatteryCharge:
 		return "KIOBatteryCharge"
 	default:
-		return fmt.Sprintf("KIOBatteryInstalled(%d)", e)
+		return fmt.Sprintf("KIOBattery(%d)", e)
 	}
 }
 
@@ -5542,10 +6218,10 @@ func (e KIOBitsPerColor) String() string {
 type KIOBlit uint
 
 const (
-	KIOBlitAllOptions KIOBlit = 0
-	KIOBlitBeamSyncSpin KIOBlit = 0
+	KIOBlitAllOptions    KIOBlit = 0
+	KIOBlitBeamSyncSpin  KIOBlit = 0
 	KIOBlitFlushWithSwap KIOBlit = 0
-	KIOBlitWaitGlobal KIOBlit = 0
+	KIOBlitWaitGlobal    KIOBlit = 0
 )
 
 func (e KIOBlit) String() string {
@@ -5557,54 +6233,93 @@ func (e KIOBlit) String() string {
 	}
 }
 
-const KIOBlitColorSpaceTypes uint = 0
-
-const KIOBlitFramebufferDestination uint = 0
-
-type KIOBlitHasCGSSurface uint
+type KIOBlitBeamSync uint
 
 const (
-	KIOBlitBeamSyncSwaps KIOBlitHasCGSSurface = 0
+	KIOBlitBeamSyncSwaps KIOBlitBeamSync = 0
 )
 
-func (e KIOBlitHasCGSSurface) String() string {
+func (e KIOBlitBeamSync) String() string {
 	switch e {
 	case KIOBlitBeamSyncSwaps:
 		return "KIOBlitBeamSyncSwaps"
 	default:
-		return fmt.Sprintf("KIOBlitHasCGSSurface(%d)", e)
+		return fmt.Sprintf("KIOBlitBeamSync(%d)", e)
 	}
 }
 
-const KIOBlitMemoryRequiresHostFlush uint = 0
-
-type KIOBlitSourceDefault uint
+type KIOBlitColorSpace uint
 
 const (
-	KIOBlitSourceCGSSurface KIOBlitSourceDefault = 0
+	KIOBlitColorSpaceTypes KIOBlitColorSpace = 0
 )
 
-func (e KIOBlitSourceDefault) String() string {
+func (e KIOBlitColorSpace) String() string {
+	switch e {
+	case KIOBlitColorSpaceTypes:
+		return "KIOBlitColorSpaceTypes"
+	default:
+		return fmt.Sprintf("KIOBlitColorSpace(%d)", e)
+	}
+}
+
+type KIOBlitFramebuffer uint
+
+const (
+	KIOBlitFramebufferDestination KIOBlitFramebuffer = 0
+)
+
+func (e KIOBlitFramebuffer) String() string {
+	switch e {
+	case KIOBlitFramebufferDestination:
+		return "KIOBlitFramebufferDestination"
+	default:
+		return fmt.Sprintf("KIOBlitFramebuffer(%d)", e)
+	}
+}
+
+type KIOBlitMemoryRequiresHost uint
+
+const (
+	KIOBlitMemoryRequiresHostFlush KIOBlitMemoryRequiresHost = 0
+)
+
+func (e KIOBlitMemoryRequiresHost) String() string {
+	switch e {
+	case KIOBlitMemoryRequiresHostFlush:
+		return "KIOBlitMemoryRequiresHostFlush"
+	default:
+		return fmt.Sprintf("KIOBlitMemoryRequiresHost(%d)", e)
+	}
+}
+
+type KIOBlitSourceCGS uint
+
+const (
+	KIOBlitSourceCGSSurface KIOBlitSourceCGS = 0
+)
+
+func (e KIOBlitSourceCGS) String() string {
 	switch e {
 	case KIOBlitSourceCGSSurface:
 		return "KIOBlitSourceCGSSurface"
 	default:
-		return fmt.Sprintf("KIOBlitSourceDefault(%d)", e)
+		return fmt.Sprintf("KIOBlitSourceCGS(%d)", e)
 	}
 }
 
-type KIOBlitSynchronizeWaitBeamExit uint
+type KIOBlitSynchronizeFlushHost uint
 
 const (
-	KIOBlitSynchronizeFlushHostWrites KIOBlitSynchronizeWaitBeamExit = 0
+	KIOBlitSynchronizeFlushHostWrites KIOBlitSynchronizeFlushHost = 0
 )
 
-func (e KIOBlitSynchronizeWaitBeamExit) String() string {
+func (e KIOBlitSynchronizeFlushHost) String() string {
 	switch e {
 	case KIOBlitSynchronizeFlushHostWrites:
 		return "KIOBlitSynchronizeFlushHostWrites"
 	default:
-		return fmt.Sprintf("KIOBlitSynchronizeWaitBeamExit(%d)", e)
+		return fmt.Sprintf("KIOBlitSynchronizeFlushHost(%d)", e)
 	}
 }
 
@@ -5612,7 +6327,7 @@ type KIOBlitType uint
 
 const (
 	KIOBlitTypeSourceKeyColorNotEqual KIOBlitType = 0
-	KIOBlitTypeVerbMask KIOBlitType = 0
+	KIOBlitTypeVerbMask               KIOBlitType = 0
 )
 
 func (e KIOBlitType) String() string {
@@ -5624,7 +6339,35 @@ func (e KIOBlitType) String() string {
 	}
 }
 
-const KIOBlitUnlockWithSwap uint = 0
+type KIOBlitUnlockWith uint
+
+const (
+	KIOBlitUnlockWithSwap KIOBlitUnlockWith = 0
+)
+
+func (e KIOBlitUnlockWith) String() string {
+	switch e {
+	case KIOBlitUnlockWithSwap:
+		return "KIOBlitUnlockWithSwap"
+	default:
+		return fmt.Sprintf("KIOBlitUnlockWith(%d)", e)
+	}
+}
+
+type KIOCSync uint
+
+const (
+	KIOCSyncDisable KIOCSync = 0
+)
+
+func (e KIOCSync) String() string {
+	switch e {
+	case KIOCSyncDisable:
+		return "KIOCSyncDisable"
+	default:
+		return fmt.Sprintf("KIOCSync(%d)", e)
+	}
+}
 
 type KIOCatalog uint
 
@@ -5632,7 +6375,7 @@ const (
 	// KIOCatalogAddDrivers: # Discussion
 	KIOCatalogAddDrivers KIOCatalog = 0
 	// KIOCatalogModuleTerminate: # Discussion
-	KIOCatalogModuleTerminate KIOCatalog = 0
+	KIOCatalogModuleTerminate             KIOCatalog = 0
 	KIOCatalogRemoveKernelLinker__Removed KIOCatalog = 0
 	// KIOCatalogServiceTerminate: # Discussion
 	KIOCatalogServiceTerminate KIOCatalog = 0
@@ -5650,7 +6393,7 @@ func (e KIOCatalog) String() string {
 type KIOCatalogGet uint
 
 const (
-	KIOCatalogGetCacheMissList KIOCatalogGet = 0
+	KIOCatalogGetCacheMissList    KIOCatalogGet = 0
 	KIOCatalogGetModuleDemandList KIOCatalogGet = 0
 )
 
@@ -5663,76 +6406,222 @@ func (e KIOCatalogGet) String() string {
 	}
 }
 
-const KIOCatalogResetDefault uint = 0
-
-type KIOColorimetryNotSupported uint
+type KIOCatalogReset uint
 
 const (
-	KIOColorimetryAdobeRGB KIOColorimetryNotSupported = 0
+	// KIOCatalogResetDefault: # Discussion
+	KIOCatalogResetDefault KIOCatalogReset = 0
 )
 
-func (e KIOColorimetryNotSupported) String() string {
+func (e KIOCatalogReset) String() string {
+	switch e {
+	case KIOCatalogResetDefault:
+		return "KIOCatalogResetDefault"
+	default:
+		return fmt.Sprintf("KIOCatalogReset(%d)", e)
+	}
+}
+
+type KIOColorimetryAdobeRG uint
+
+const (
+	KIOColorimetryAdobeRGB KIOColorimetryAdobeRG = 0
+)
+
+func (e KIOColorimetryAdobeRG) String() string {
 	switch e {
 	case KIOColorimetryAdobeRGB:
 		return "KIOColorimetryAdobeRGB"
 	default:
-		return fmt.Sprintf("KIOColorimetryNotSupported(%d)", e)
+		return fmt.Sprintf("KIOColorimetryAdobeRG(%d)", e)
 	}
 }
 
-const KIOConnectMethodVarOutputSize uint = 0
-
-const KIOConnectionBuiltIn uint = 0
-
-const KIODDCBlockTypeEDID uint = 0
-
-const KIODDCForceRead uint = 0
-
-type KIODDCLow uint
+type KIOConnectMethodVarOutput uint
 
 const (
-	KIODDCHigh KIODDCLow = 0
+	KIOConnectMethodVarOutputSize KIOConnectMethodVarOutput = 0
 )
 
-func (e KIODDCLow) String() string {
+func (e KIOConnectMethodVarOutput) String() string {
+	switch e {
+	case KIOConnectMethodVarOutputSize:
+		return "KIOConnectMethodVarOutputSize"
+	default:
+		return fmt.Sprintf("KIOConnectMethodVarOutput(%d)", e)
+	}
+}
+
+type KIOConnectionBuilt uint
+
+const (
+	KIOConnectionBuiltIn KIOConnectionBuilt = 0
+)
+
+func (e KIOConnectionBuilt) String() string {
+	switch e {
+	case KIOConnectionBuiltIn:
+		return "KIOConnectionBuiltIn"
+	default:
+		return fmt.Sprintf("KIOConnectionBuilt(%d)", e)
+	}
+}
+
+type KIOCopyback uint
+
+const (
+	KIOCopybackCache KIOCopyback = 0
+)
+
+func (e KIOCopyback) String() string {
+	switch e {
+	case KIOCopybackCache:
+		return "KIOCopybackCache"
+	default:
+		return fmt.Sprintf("KIOCopyback(%d)", e)
+	}
+}
+
+type KIODDC uint
+
+const (
+	KIODDCHigh KIODDC = 0
+)
+
+func (e KIODDC) String() string {
 	switch e {
 	case KIODDCHigh:
 		return "KIODDCHigh"
 	default:
-		return fmt.Sprintf("KIODDCLow(%d)", e)
+		return fmt.Sprintf("KIODDC(%d)", e)
 	}
 }
 
-type KIODKEnable uint
+type KIODDCBlockTypeEDI uint
 
 const (
-	KIODKDisableCDHashChecking KIODKEnable = 0
+	KIODDCBlockTypeEDID KIODDCBlockTypeEDI = 0
 )
 
-func (e KIODKEnable) String() string {
+func (e KIODDCBlockTypeEDI) String() string {
+	switch e {
+	case KIODDCBlockTypeEDID:
+		return "KIODDCBlockTypeEDID"
+	default:
+		return fmt.Sprintf("KIODDCBlockTypeEDI(%d)", e)
+	}
+}
+
+type KIODDCForce uint
+
+const (
+	KIODDCForceRead KIODDCForce = 0
+)
+
+func (e KIODDCForce) String() string {
+	switch e {
+	case KIODDCForceRead:
+		return "KIODDCForceRead"
+	default:
+		return fmt.Sprintf("KIODDCForce(%d)", e)
+	}
+}
+
+type KIODKDisableCDHash uint
+
+const (
+	KIODKDisableCDHashChecking KIODKDisableCDHash = 0
+)
+
+func (e KIODKDisableCDHash) String() string {
 	switch e {
 	case KIODKDisableCDHashChecking:
 		return "KIODKDisableCDHashChecking"
 	default:
-		return fmt.Sprintf("KIODKEnable(%d)", e)
+		return fmt.Sprintf("KIODKDisableCDHash(%d)", e)
 	}
 }
 
-const KIODMACommandCompleteDMANoOptions uint = 0
+type KIODMACommandCompleteDMANo uint
 
-const KIODMACommandCreateNoOptions uint = 0
+const (
+	KIODMACommandCompleteDMANoOptions KIODMACommandCompleteDMANo = 0
+)
 
-const KIODMACommandPerformOperationOptionRead uint = 0
+func (e KIODMACommandCompleteDMANo) String() string {
+	switch e {
+	case KIODMACommandCompleteDMANoOptions:
+		return "KIODMACommandCompleteDMANoOptions"
+	default:
+		return fmt.Sprintf("KIODMACommandCompleteDMANo(%d)", e)
+	}
+}
 
-const KIODMACommandPrepareForDMANoOptions uint = 0
+type KIODMACommandCreateNo uint
 
-const KIODMACommandSpecificationNoOptions uint = 0
+const (
+	KIODMACommandCreateNoOptions KIODMACommandCreateNo = 0
+)
+
+func (e KIODMACommandCreateNo) String() string {
+	switch e {
+	case KIODMACommandCreateNoOptions:
+		return "KIODMACommandCreateNoOptions"
+	default:
+		return fmt.Sprintf("KIODMACommandCreateNo(%d)", e)
+	}
+}
+
+type KIODMACommandPerformOperationOption uint
+
+const (
+	KIODMACommandPerformOperationOptionRead KIODMACommandPerformOperationOption = 0
+)
+
+func (e KIODMACommandPerformOperationOption) String() string {
+	switch e {
+	case KIODMACommandPerformOperationOptionRead:
+		return "KIODMACommandPerformOperationOptionRead"
+	default:
+		return fmt.Sprintf("KIODMACommandPerformOperationOption(%d)", e)
+	}
+}
+
+type KIODMACommandPrepareForDMANo uint
+
+const (
+	KIODMACommandPrepareForDMANoOptions KIODMACommandPrepareForDMANo = 0
+)
+
+func (e KIODMACommandPrepareForDMANo) String() string {
+	switch e {
+	case KIODMACommandPrepareForDMANoOptions:
+		return "KIODMACommandPrepareForDMANoOptions"
+	default:
+		return fmt.Sprintf("KIODMACommandPrepareForDMANo(%d)", e)
+	}
+}
+
+type KIODMACommandSpecificationNo uint
+
+const (
+	KIODMACommandSpecificationNoOptions KIODMACommandSpecificationNo = 0
+)
+
+func (e KIODMACommandSpecificationNo) String() string {
+	switch e {
+	case KIODMACommandSpecificationNoOptions:
+		return "KIODMACommandSpecificationNoOptions"
+	default:
+		return fmt.Sprintf("KIODMACommandSpecificationNo(%d)", e)
+	}
+}
 
 type KIODMAMap uint
 
 const (
 	KIODMAMapDeviceMemory KIODMAMap = 0
-	KIODMAMapIdentityMap KIODMAMap = 0
+	KIODMAMapIdentityMap  KIODMAMap = 0
 )
 
 func (e KIODMAMap) String() string {
@@ -5747,7 +6636,7 @@ func (e KIODMAMap) String() string {
 type KIODMAMapOption uint
 
 const (
-	KIODMAMapOptionBypassed KIODMAMapOption = 0
+	KIODMAMapOptionBypassed    KIODMAMapOption = 0
 	KIODMAMapOptionIterateOnly KIODMAMapOption = 0
 )
 
@@ -5764,7 +6653,7 @@ type KIODPEvent uint
 
 const (
 	KIODPEventAutomatedTestRequest KIODPEvent = 0
-	KIODPEventContentProtection KIODPEvent = 0
+	KIODPEventContentProtection    KIODPEvent = 0
 )
 
 func (e KIODPEvent) String() string {
@@ -5776,58 +6665,111 @@ func (e KIODPEvent) String() string {
 	}
 }
 
-const KIODTInterruptShared uint = 0
-
-type KIODTRecursive uint
+type KIODT uint
 
 const (
-	KIODTExclusive KIODTRecursive = 0
+	KIODTExclusive KIODT = 0
 )
 
-func (e KIODTRecursive) String() string {
+func (e KIODT) String() string {
 	switch e {
 	case KIODTExclusive:
 		return "KIODTExclusive"
 	default:
-		return fmt.Sprintf("KIODTRecursive(%d)", e)
+		return fmt.Sprintf("KIODT(%d)", e)
 	}
 }
 
-type KIODefaultCache uint
+type KIODTInterrupt uint
 
 const (
-	KIOCopybackCache KIODefaultCache = 0
+	KIODTInterruptShared KIODTInterrupt = 0
 )
 
-func (e KIODefaultCache) String() string {
+func (e KIODTInterrupt) String() string {
 	switch e {
-	case KIOCopybackCache:
-		return "KIOCopybackCache"
+	case KIODTInterruptShared:
+		return "KIODTInterruptShared"
 	default:
-		return fmt.Sprintf("KIODefaultCache(%d)", e)
+		return fmt.Sprintf("KIODTInterrupt(%d)", e)
 	}
 }
 
-const KIODefaultMemoryType uint = 0
+type KIODebuggerLock uint
 
-const KIODefaultProbeScore uint = 0
+const (
+	// KIODebuggerLockTaken: # Discussion
+	KIODebuggerLockTaken KIODebuggerLock = 0
+)
 
-const KIODetailedTimingValid uint = 0
+func (e KIODebuggerLock) String() string {
+	switch e {
+	case KIODebuggerLockTaken:
+		return "KIODebuggerLockTaken"
+	default:
+		return fmt.Sprintf("KIODebuggerLock(%d)", e)
+	}
+}
+
+type KIODefaultMemory uint
+
+const (
+	KIODefaultMemoryType KIODefaultMemory = 0
+)
+
+func (e KIODefaultMemory) String() string {
+	switch e {
+	case KIODefaultMemoryType:
+		return "KIODefaultMemoryType"
+	default:
+		return fmt.Sprintf("KIODefaultMemory(%d)", e)
+	}
+}
+
+type KIODefaultProbe uint
+
+const (
+	KIODefaultProbeScore KIODefaultProbe = 0
+)
+
+func (e KIODefaultProbe) String() string {
+	switch e {
+	case KIODefaultProbeScore:
+		return "KIODefaultProbeScore"
+	default:
+		return fmt.Sprintf("KIODefaultProbe(%d)", e)
+	}
+}
+
+type KIODetailedTiming uint
+
+const (
+	KIODetailedTimingValid KIODetailedTiming = 0
+)
+
+func (e KIODetailedTiming) String() string {
+	switch e {
+	case KIODetailedTimingValid:
+		return "KIODetailedTimingValid"
+	default:
+		return fmt.Sprintf("KIODetailedTiming(%d)", e)
+	}
+}
 
 type KIODirection uint
 
 const (
 	KIODirectionCompleteWithDataValid KIODirection = 0
-	KIODirectionCompleteWithError KIODirection = 0
-	KIODirectionIn KIODirection = 0
-	KIODirectionInOut KIODirection = 0
-	KIODirectionNone KIODirection = 0
-	KIODirectionOut KIODirection = 0
-	KIODirectionOutIn KIODirection = 0
-	KIODirectionPrepareNoFault KIODirection = 0
-	KIODirectionPrepareNonCoherent KIODirection = 0
-	KIODirectionPrepareReserved1 KIODirection = 0
-	KIODirectionPrepareToPhys32 KIODirection = 0
+	KIODirectionCompleteWithError     KIODirection = 0
+	KIODirectionIn                    KIODirection = 0
+	KIODirectionInOut                 KIODirection = 0
+	KIODirectionNone                  KIODirection = 0
+	KIODirectionOut                   KIODirection = 0
+	KIODirectionOutIn                 KIODirection = 0
+	KIODirectionPrepareNoFault        KIODirection = 0
+	KIODirectionPrepareNonCoherent    KIODirection = 0
+	KIODirectionPrepareReserved1      KIODirection = 0
+	KIODirectionPrepareToPhys32       KIODirection = 0
 )
 
 func (e KIODirection) String() string {
@@ -5839,29 +6781,55 @@ func (e KIODirection) String() string {
 	}
 }
 
-type KIODispatchQueueReentrant uint
+type KIODispatchQueueMethodsNot uint
 
 const (
-	KIODispatchQueueMethodsNotSynchronized KIODispatchQueueReentrant = 0
+	KIODispatchQueueMethodsNotSynchronized KIODispatchQueueMethodsNot = 0
 )
 
-func (e KIODispatchQueueReentrant) String() string {
+func (e KIODispatchQueueMethodsNot) String() string {
 	switch e {
 	case KIODispatchQueueMethodsNotSynchronized:
 		return "KIODispatchQueueMethodsNotSynchronized"
 	default:
-		return fmt.Sprintf("KIODispatchQueueReentrant(%d)", e)
+		return fmt.Sprintf("KIODispatchQueueMethodsNot(%d)", e)
 	}
 }
 
-const KIODispatchQueueSleepReuseEvent uint = 0
+type KIODispatchQueueSleepReuse uint
 
-const KIODispatchQueueWakeupAll uint = 0
+const (
+	KIODispatchQueueSleepReuseEvent KIODispatchQueueSleepReuse = 0
+)
+
+func (e KIODispatchQueueSleepReuse) String() string {
+	switch e {
+	case KIODispatchQueueSleepReuseEvent:
+		return "KIODispatchQueueSleepReuseEvent"
+	default:
+		return fmt.Sprintf("KIODispatchQueueSleepReuse(%d)", e)
+	}
+}
+
+type KIODispatchQueueWakeup uint
+
+const (
+	KIODispatchQueueWakeupAll KIODispatchQueueWakeup = 0
+)
+
+func (e KIODispatchQueueWakeup) String() string {
+	switch e {
+	case KIODispatchQueueWakeupAll:
+		return "KIODispatchQueueWakeupAll"
+	default:
+		return fmt.Sprintf("KIODispatchQueueWakeup(%d)", e)
+	}
+}
 
 type KIODisplay uint
 
 const (
-	KIODisplayMaxPowerState KIODisplay = 0
+	KIODisplayMaxPowerState  KIODisplay = 0
 	KIODisplayNumPowerStates KIODisplay = 0
 )
 
@@ -5874,20 +6842,33 @@ func (e KIODisplay) String() string {
 	}
 }
 
-const KIODisplayColorMode uint = 0
-
-type KIODisplayDitherDisable uint
+type KIODisplayColor uint
 
 const (
-	KIODisplayDitherAll KIODisplayDitherDisable = 0
+	KIODisplayColorMode KIODisplayColor = 0
 )
 
-func (e KIODisplayDitherDisable) String() string {
+func (e KIODisplayColor) String() string {
+	switch e {
+	case KIODisplayColorMode:
+		return "KIODisplayColorMode"
+	default:
+		return fmt.Sprintf("KIODisplayColor(%d)", e)
+	}
+}
+
+type KIODisplayDither uint
+
+const (
+	KIODisplayDitherAll KIODisplayDither = 0
+)
+
+func (e KIODisplayDither) String() string {
 	switch e {
 	case KIODisplayDitherAll:
 		return "KIODisplayDitherAll"
 	default:
-		return fmt.Sprintf("KIODisplayDitherDisable(%d)", e)
+		return fmt.Sprintf("KIODisplayDither(%d)", e)
 	}
 }
 
@@ -5895,7 +6876,7 @@ type KIODisplayModeID uint
 
 const (
 	KIODisplayModeIDBootProgrammable KIODisplayModeID = 0
-	KIODisplayModeIDReservedBase KIODisplayModeID = 0
+	KIODisplayModeIDReservedBase     KIODisplayModeID = 0
 )
 
 func (e KIODisplayModeID) String() string {
@@ -5907,20 +6888,33 @@ func (e KIODisplayModeID) String() string {
 	}
 }
 
-const KIODisplayNeedsCEAUnderscan uint = 0
-
-type KIODisplayPowerStateOff uint
+type KIODisplayNeedsCEA uint
 
 const (
-	KIODisplayPowerStateMinUsable KIODisplayPowerStateOff = 0
+	KIODisplayNeedsCEAUnderscan KIODisplayNeedsCEA = 0
 )
 
-func (e KIODisplayPowerStateOff) String() string {
+func (e KIODisplayNeedsCEA) String() string {
+	switch e {
+	case KIODisplayNeedsCEAUnderscan:
+		return "KIODisplayNeedsCEAUnderscan"
+	default:
+		return fmt.Sprintf("KIODisplayNeedsCEA(%d)", e)
+	}
+}
+
+type KIODisplayPowerStateMin uint
+
+const (
+	KIODisplayPowerStateMinUsable KIODisplayPowerStateMin = 0
+)
+
+func (e KIODisplayPowerStateMin) String() string {
 	switch e {
 	case KIODisplayPowerStateMinUsable:
 		return "KIODisplayPowerStateMinUsable"
 	default:
-		return fmt.Sprintf("KIODisplayPowerStateOff(%d)", e)
+		return fmt.Sprintf("KIODisplayPowerStateMin(%d)", e)
 	}
 }
 
@@ -5940,33 +6934,48 @@ func (e KIODisplayRGBColorComponent) String() string {
 	}
 }
 
-type KIODynamicRangeNotSupported uint
+type KIODynamicRangeDolbyNormal uint
 
 const (
-	KIODynamicRangeDolbyNormalMode KIODynamicRangeNotSupported = 0
+	KIODynamicRangeDolbyNormalMode KIODynamicRangeDolbyNormal = 0
 )
 
-func (e KIODynamicRangeNotSupported) String() string {
+func (e KIODynamicRangeDolbyNormal) String() string {
 	switch e {
 	case KIODynamicRangeDolbyNormalMode:
 		return "KIODynamicRangeDolbyNormalMode"
 	default:
-		return fmt.Sprintf("KIODynamicRangeNotSupported(%d)", e)
+		return fmt.Sprintf("KIODynamicRangeDolbyNormal(%d)", e)
 	}
 }
 
-type KIOEnetPromiscuousModeOff uint
+type KIOEnetMulticastMode uint
 
 const (
-	KIOEnetMulticastModeFilter KIOEnetPromiscuousModeOff = 0
+	KIOEnetMulticastModeFilter KIOEnetMulticastMode = 0
 )
 
-func (e KIOEnetPromiscuousModeOff) String() string {
+func (e KIOEnetMulticastMode) String() string {
 	switch e {
 	case KIOEnetMulticastModeFilter:
 		return "KIOEnetMulticastModeFilter"
 	default:
-		return fmt.Sprintf("KIOEnetPromiscuousModeOff(%d)", e)
+		return fmt.Sprintf("KIOEnetMulticastMode(%d)", e)
+	}
+}
+
+type KIOEthernetControllerAVBStateAVB uint
+
+const (
+	KIOEthernetControllerAVBStateAVBEnabled KIOEthernetControllerAVBStateAVB = 0
+)
+
+func (e KIOEthernetControllerAVBStateAVB) String() string {
+	switch e {
+	case KIOEthernetControllerAVBStateAVBEnabled:
+		return "KIOEthernetControllerAVBStateAVBEnabled"
+	default:
+		return fmt.Sprintf("KIOEthernetControllerAVBStateAVB(%d)", e)
 	}
 }
 
@@ -5974,7 +6983,7 @@ type KIOEthernetControllerAVBStateEvent uint
 
 const (
 	KIOEthernetControllerAVBStateEventDisable KIOEthernetControllerAVBStateEvent = 0
-	KIOEthernetControllerAVBStateEventEnable KIOEthernetControllerAVBStateEvent = 0
+	KIOEthernetControllerAVBStateEventEnable  KIOEthernetControllerAVBStateEvent = 0
 )
 
 func (e KIOEthernetControllerAVBStateEvent) String() string {
@@ -5986,13 +6995,42 @@ func (e KIOEthernetControllerAVBStateEvent) String() string {
 	}
 }
 
-const KIOEthernetWakeOnMagicPacket uint = 0
+type KIOEthernetControllerAVBTimeSyncSupport uint
+
+const (
+	KIOEthernetControllerAVBTimeSyncSupportHardware KIOEthernetControllerAVBTimeSyncSupport = 0
+)
+
+func (e KIOEthernetControllerAVBTimeSyncSupport) String() string {
+	switch e {
+	case KIOEthernetControllerAVBTimeSyncSupportHardware:
+		return "KIOEthernetControllerAVBTimeSyncSupportHardware"
+	default:
+		return fmt.Sprintf("KIOEthernetControllerAVBTimeSyncSupport(%d)", e)
+	}
+}
+
+type KIOEthernetWakeOnMagic uint
+
+const (
+	// KIOEthernetWakeOnMagicPacket: # Discussion
+	KIOEthernetWakeOnMagicPacket KIOEthernetWakeOnMagic = 0
+)
+
+func (e KIOEthernetWakeOnMagic) String() string {
+	switch e {
+	case KIOEthernetWakeOnMagicPacket:
+		return "KIOEthernetWakeOnMagicPacket"
+	default:
+		return fmt.Sprintf("KIOEthernetWakeOnMagic(%d)", e)
+	}
+}
 
 type KIOEventLinkAssociate uint
 
 const (
 	KIOEventLinkAssociateCurrentThread KIOEventLinkAssociate = 0
-	KIOEventLinkAssociateOnWait KIOEventLinkAssociate = 0
+	KIOEventLinkAssociateOnWait        KIOEventLinkAssociate = 0
 )
 
 func (e KIOEventLinkAssociate) String() string {
@@ -6004,13 +7042,66 @@ func (e KIOEventLinkAssociate) String() string {
 	}
 }
 
-const KIOEventLinkClockMachAbsoluteTime uint = 0
+type KIOEventLinkClockMachAbsolute uint
 
-const KIOEventLinkMaxNameLength uint = 0
+const (
+	KIOEventLinkClockMachAbsoluteTime KIOEventLinkClockMachAbsolute = 0
+)
 
-const KIOExternalMethodArgumentsCurrentVersion uint = 0
+func (e KIOEventLinkClockMachAbsolute) String() string {
+	switch e {
+	case KIOEventLinkClockMachAbsoluteTime:
+		return "KIOEventLinkClockMachAbsoluteTime"
+	default:
+		return fmt.Sprintf("KIOEventLinkClockMachAbsolute(%d)", e)
+	}
+}
 
-const KIOExternalMethodScalarInputCountMax uint = 0
+type KIOEventLinkMaxName uint
+
+const (
+	KIOEventLinkMaxNameLength KIOEventLinkMaxName = 0
+)
+
+func (e KIOEventLinkMaxName) String() string {
+	switch e {
+	case KIOEventLinkMaxNameLength:
+		return "KIOEventLinkMaxNameLength"
+	default:
+		return fmt.Sprintf("KIOEventLinkMaxName(%d)", e)
+	}
+}
+
+type KIOExternalMethodArgumentsCurrent uint
+
+const (
+	KIOExternalMethodArgumentsCurrentVersion KIOExternalMethodArgumentsCurrent = 0
+)
+
+func (e KIOExternalMethodArgumentsCurrent) String() string {
+	switch e {
+	case KIOExternalMethodArgumentsCurrentVersion:
+		return "KIOExternalMethodArgumentsCurrentVersion"
+	default:
+		return fmt.Sprintf("KIOExternalMethodArgumentsCurrent(%d)", e)
+	}
+}
+
+type KIOExternalMethodScalarInputCount uint
+
+const (
+	// KIOExternalMethodScalarInputCountMax: # Discussion
+	KIOExternalMethodScalarInputCountMax KIOExternalMethodScalarInputCount = 0
+)
+
+func (e KIOExternalMethodScalarInputCount) String() string {
+	switch e {
+	case KIOExternalMethodScalarInputCountMax:
+		return "KIOExternalMethodScalarInputCountMax"
+	default:
+		return fmt.Sprintf("KIOExternalMethodScalarInputCount(%d)", e)
+	}
+}
 
 type KIOFB uint
 
@@ -6018,10 +7109,10 @@ const (
 	KIOFBChangedInterruptType KIOFB = 0
 	// KIOFBCurrentShmemVersion: # Discussion
 	KIOFBCurrentShmemVersion KIOFB = 0
-	KIOFBMainCursorIndex KIOFB = 0
-	KIOFBNumCursorIndex KIOFB = 0
+	KIOFBMainCursorIndex     KIOFB = 0
+	KIOFBNumCursorIndex      KIOFB = 0
 	KIOFBOnlineInterruptType KIOFB = 0
-	KIOFBShmemVersionMask KIOFB = 0
+	KIOFBShmemVersionMask    KIOFB = 0
 )
 
 func (e KIOFB) String() string {
@@ -6036,11 +7127,11 @@ func (e KIOFB) String() string {
 type KIOFBAVSignalType uint
 
 const (
-	KIOFBAVSignalTypeDP KIOFBAVSignalType = 0
-	KIOFBAVSignalTypeDVI KIOFBAVSignalType = 0
-	KIOFBAVSignalTypeHDMI KIOFBAVSignalType = 0
+	KIOFBAVSignalTypeDP      KIOFBAVSignalType = 0
+	KIOFBAVSignalTypeDVI     KIOFBAVSignalType = 0
+	KIOFBAVSignalTypeHDMI    KIOFBAVSignalType = 0
 	KIOFBAVSignalTypeUnknown KIOFBAVSignalType = 0
-	KIOFBAVSignalTypeVGA KIOFBAVSignalType = 0
+	KIOFBAVSignalTypeVGA     KIOFBAVSignalType = 0
 )
 
 func (e KIOFBAVSignalType) String() string {
@@ -6052,33 +7143,33 @@ func (e KIOFBAVSignalType) String() string {
 	}
 }
 
-type KIOFBBitRateRBR uint
+type KIOFBBitRateHB uint
 
 const (
-	KIOFBBitRateHBR KIOFBBitRateRBR = 0
+	KIOFBBitRateHBR KIOFBBitRateHB = 0
 )
 
-func (e KIOFBBitRateRBR) String() string {
+func (e KIOFBBitRateHB) String() string {
 	switch e {
 	case KIOFBBitRateHBR:
 		return "KIOFBBitRateHBR"
 	default:
-		return fmt.Sprintf("KIOFBBitRateRBR(%d)", e)
+		return fmt.Sprintf("KIOFBBitRateHB(%d)", e)
 	}
 }
 
-type KIOFBCursorImageNew uint
+type KIOFBCursorHW uint
 
 const (
-	KIOFBCursorHWCapable KIOFBCursorImageNew = 0
+	KIOFBCursorHWCapable KIOFBCursorHW = 0
 )
 
-func (e KIOFBCursorImageNew) String() string {
+func (e KIOFBCursorHW) String() string {
 	switch e {
 	case KIOFBCursorHWCapable:
 		return "KIOFBCursorHWCapable"
 	default:
-		return fmt.Sprintf("KIOFBCursorImageNew(%d)", e)
+		return fmt.Sprintf("KIOFBCursorHW(%d)", e)
 	}
 }
 
@@ -6098,12 +7189,40 @@ func (e KIOFBDisplayState) String() string {
 	}
 }
 
-const KIOFBHardwareCursorActive uint = 0
+type KIOFBHDCPLimit uint
+
+const (
+	KIOFBHDCPLimit_AllowAll KIOFBHDCPLimit = 0
+)
+
+func (e KIOFBHDCPLimit) String() string {
+	switch e {
+	case KIOFBHDCPLimit_AllowAll:
+		return "KIOFBHDCPLimit_AllowAll"
+	default:
+		return fmt.Sprintf("KIOFBHDCPLimit(%d)", e)
+	}
+}
+
+type KIOFBHardwareCursor uint
+
+const (
+	KIOFBHardwareCursorActive KIOFBHardwareCursor = 0
+)
+
+func (e KIOFBHardwareCursor) String() string {
+	switch e {
+	case KIOFBHardwareCursorActive:
+		return "KIOFBHardwareCursorActive"
+	default:
+		return fmt.Sprintf("KIOFBHardwareCursor(%d)", e)
+	}
+}
 
 type KIOFBLinkDownspread uint
 
 const (
-	KIOFBLinkDownspreadMax KIOFBLinkDownspread = 0
+	KIOFBLinkDownspreadMax  KIOFBLinkDownspread = 0
 	KIOFBLinkDownspreadNone KIOFBLinkDownspread = 0
 )
 
@@ -6132,18 +7251,18 @@ func (e KIOFBLinkPreEmphasis) String() string {
 	}
 }
 
-type KIOFBLinkScramblerNormal uint
+type KIOFBLinkScrambler uint
 
 const (
-	KIOFBLinkScramblerAlternate KIOFBLinkScramblerNormal = 0
+	KIOFBLinkScramblerAlternate KIOFBLinkScrambler = 0
 )
 
-func (e KIOFBLinkScramblerNormal) String() string {
+func (e KIOFBLinkScrambler) String() string {
 	switch e {
 	case KIOFBLinkScramblerAlternate:
 		return "KIOFBLinkScramblerAlternate"
 	default:
-		return fmt.Sprintf("KIOFBLinkScramblerNormal(%d)", e)
+		return fmt.Sprintf("KIOFBLinkScrambler(%d)", e)
 	}
 }
 
@@ -6169,7 +7288,7 @@ type KIOFBNS uint
 
 const (
 	KIOFBNS_DisplayStateShift KIOFBNS = 0
-	KIOFBNS_Doze KIOFBNS = 0
+	KIOFBNS_Doze              KIOFBNS = 0
 )
 
 func (e KIOFBNS) String() string {
@@ -6184,7 +7303,7 @@ func (e KIOFBNS) String() string {
 type KIOFBNotify uint
 
 const (
-	KIOFBNotifyDidSleep KIOFBNotify = 0
+	KIOFBNotifyDidSleep            KIOFBNotify = 0
 	KIOFBNotifyHDACodecDidPowerOff KIOFBNotify = 0
 )
 
@@ -6200,7 +7319,7 @@ func (e KIOFBNotify) String() string {
 type KIOFBNotifyEvent uint
 
 const (
-	KIOFBNotifyEvent_All KIOFBNotifyEvent = 0
+	KIOFBNotifyEvent_All         KIOFBNotifyEvent = 0
 	KIOFBNotifyEvent_ChangeSpeed KIOFBNotifyEvent = 0
 )
 
@@ -6217,7 +7336,7 @@ type KIOFBNotifyGroupID uint
 
 const (
 	KIOFBNotifyGroupID_AppleGraphicsDevicePolicy KIOFBNotifyGroupID = 0
-	KIOFBNotifyGroupID_Count KIOFBNotifyGroupID = 0
+	KIOFBNotifyGroupID_Count                     KIOFBNotifyGroupID = 0
 )
 
 func (e KIOFBNotifyGroupID) String() string {
@@ -6229,38 +7348,79 @@ func (e KIOFBNotifyGroupID) String() string {
 	}
 }
 
-const KIOFBSystemAperture uint = 0
+type KIOFBNotifyPriority uint
 
-const KIOFBUserRequestProbe uint = 0
+const (
+	KIOFBNotifyPriority_Max KIOFBNotifyPriority = 0
+)
+
+func (e KIOFBNotifyPriority) String() string {
+	switch e {
+	case KIOFBNotifyPriority_Max:
+		return "KIOFBNotifyPriority_Max"
+	default:
+		return fmt.Sprintf("KIOFBNotifyPriority(%d)", e)
+	}
+}
+
+type KIOFBSystem uint
+
+const (
+	KIOFBSystemAperture KIOFBSystem = 0
+)
+
+func (e KIOFBSystem) String() string {
+	switch e {
+	case KIOFBSystemAperture:
+		return "KIOFBSystemAperture"
+	default:
+		return fmt.Sprintf("KIOFBSystem(%d)", e)
+	}
+}
+
+type KIOFBUserRequest uint
+
+const (
+	KIOFBUserRequestProbe KIOFBUserRequest = 0
+)
+
+func (e KIOFBUserRequest) String() string {
+	switch e {
+	case KIOFBUserRequestProbe:
+		return "KIOFBUserRequestProbe"
+	default:
+		return fmt.Sprintf("KIOFBUserRequest(%d)", e)
+	}
+}
 
 type KIOFWAVCProtocolUserClient uint
 
 const (
-	KIOFWAVCProtocolUserClientAVCRequestNotHandled KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientAddSubunit KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientAllocateInputPlug KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientAllocateOutputPlug KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientConnectTargetPlugs KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientDisconnectTargetPlugs KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientFreeInputPlug KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientFreeOutputPlug KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientAVCRequestNotHandled       KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientAddSubunit                 KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientAllocateInputPlug          KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientAllocateOutputPlug         KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientConnectTargetPlugs         KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientDisconnectTargetPlugs      KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientFreeInputPlug              KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientFreeOutputPlug             KIOFWAVCProtocolUserClient = 0
 	KIOFWAVCProtocolUserClientGetSubunitPlugSignalFormat KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientGetTargetPlugConnection KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientInstallAVCCommandHandler KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientNumAsyncCommands KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientNumCommands KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientPublishAVCUnitDirectory KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientReadInputMasterPlug KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientReadInputPlug KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientReadOutputMasterPlug KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientReadOutputPlug KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientSendAVCResponse KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientSetAVCRequestCallback KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientGetTargetPlugConnection    KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientInstallAVCCommandHandler   KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientNumAsyncCommands           KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientNumCommands                KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientPublishAVCUnitDirectory    KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientReadInputMasterPlug        KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientReadInputPlug              KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientReadOutputMasterPlug       KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientReadOutputPlug             KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientSendAVCResponse            KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientSetAVCRequestCallback      KIOFWAVCProtocolUserClient = 0
 	KIOFWAVCProtocolUserClientSetSubunitPlugSignalFormat KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientUpdateInputMasterPlug KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientUpdateInputPlug KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientUpdateOutputMasterPlug KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientUpdateOutputPlug KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientUpdateInputMasterPlug      KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientUpdateInputPlug            KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientUpdateOutputMasterPlug     KIOFWAVCProtocolUserClient = 0
+	KIOFWAVCProtocolUserClientUpdateOutputPlug           KIOFWAVCProtocolUserClient = 0
 )
 
 func (e KIOFWAVCProtocolUserClient) String() string {
@@ -6275,10 +7435,10 @@ func (e KIOFWAVCProtocolUserClient) String() string {
 type KIOFWAVCSubunitPlugMsg uint
 
 const (
-	KIOFWAVCSubunitPlugMsgConnected KIOFWAVCSubunitPlugMsg = 0
+	KIOFWAVCSubunitPlugMsgConnected             KIOFWAVCSubunitPlugMsg = 0
 	KIOFWAVCSubunitPlugMsgConnectedPlugModified KIOFWAVCSubunitPlugMsg = 0
-	KIOFWAVCSubunitPlugMsgDisconnected KIOFWAVCSubunitPlugMsg = 0
-	KIOFWAVCSubunitPlugMsgSignalFormatModified KIOFWAVCSubunitPlugMsg = 0
+	KIOFWAVCSubunitPlugMsgDisconnected          KIOFWAVCSubunitPlugMsg = 0
+	KIOFWAVCSubunitPlugMsgSignalFormatModified  KIOFWAVCSubunitPlugMsg = 0
 )
 
 func (e KIOFWAVCSubunitPlugMsg) String() string {
@@ -6293,25 +7453,25 @@ func (e KIOFWAVCSubunitPlugMsg) String() string {
 type KIOFWAVCUserClient uint
 
 const (
-	KIOFWAVCUserClientAVCCommand KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientAVCCommandInGen KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientBreakP2PInputConnection KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientBreakP2POutputConnection KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientCancelAsyncAVCCommand KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientClose KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientCreateAsyncAVCCommand KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientGetSessionRef KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientAVCCommand                     KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientAVCCommandInGen                KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientBreakP2PInputConnection        KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientBreakP2POutputConnection       KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientCancelAsyncAVCCommand          KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientClose                          KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientCreateAsyncAVCCommand          KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientGetSessionRef                  KIOFWAVCUserClient = 0
 	KIOFWAVCUserClientInstallAsyncAVCCommandCallback KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientMakeP2PInputConnection KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientMakeP2POutputConnection KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientNumAsyncCommands KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientNumCommands KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientOpen KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientOpenWithSessionRef KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientReinitAsyncAVCCommand KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientReleaseAsyncAVCCommand KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientSubmitAsyncAVCCommand KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientUpdateAVCCommandTimeout KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientMakeP2PInputConnection         KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientMakeP2POutputConnection        KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientNumAsyncCommands               KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientNumCommands                    KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientOpen                           KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientOpenWithSessionRef             KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientReinitAsyncAVCCommand          KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientReleaseAsyncAVCCommand         KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientSubmitAsyncAVCCommand          KIOFWAVCUserClient = 0
+	KIOFWAVCUserClientUpdateAVCCommandTimeout        KIOFWAVCUserClient = 0
 )
 
 func (e KIOFWAVCUserClient) String() string {
@@ -6323,28 +7483,28 @@ func (e KIOFWAVCUserClient) String() string {
 	}
 }
 
-type KIOFWDisablePhysicalAccess uint
+type KIOFWDisableAllPhysical uint
 
 const (
 	// KIOFWDisableAllPhysicalAccess: # Discussion
-	KIOFWDisableAllPhysicalAccess KIOFWDisablePhysicalAccess = 0
+	KIOFWDisableAllPhysicalAccess KIOFWDisableAllPhysical = 0
 )
 
-func (e KIOFWDisablePhysicalAccess) String() string {
+func (e KIOFWDisableAllPhysical) String() string {
 	switch e {
 	case KIOFWDisableAllPhysicalAccess:
 		return "KIOFWDisableAllPhysicalAccess"
 	default:
-		return fmt.Sprintf("KIOFWDisablePhysicalAccess(%d)", e)
+		return fmt.Sprintf("KIOFWDisableAllPhysical(%d)", e)
 	}
 }
 
 type KIOFWPhysicalAccess uint
 
 const (
-	KIOFWPhysicalAccessDisabled KIOFWPhysicalAccess = 0
+	KIOFWPhysicalAccessDisabled              KIOFWPhysicalAccess = 0
 	KIOFWPhysicalAccessDisabledForGeneration KIOFWPhysicalAccess = 0
-	KIOFWPhysicalAccessEnabled KIOFWPhysicalAccess = 0
+	KIOFWPhysicalAccessEnabled               KIOFWPhysicalAccess = 0
 )
 
 func (e KIOFWPhysicalAccess) String() string {
@@ -6360,8 +7520,8 @@ type KIOFWRead uint
 
 const (
 	KIOFWReadBlockRequest KIOFWRead = 0
-	KIOFWReadFlagsNone KIOFWRead = 0
-	KIOFWReadPingTime KIOFWRead = 0
+	KIOFWReadFlagsNone    KIOFWRead = 0
+	KIOFWReadPingTime     KIOFWRead = 0
 )
 
 func (e KIOFWRead) String() string {
@@ -6377,7 +7537,7 @@ type KIOFWSBP2 uint
 
 const (
 	KIOFWSBP2DontUsePTPacketLimit KIOFWSBP2 = 0
-	KIOFWSBP2FailsOnAckBusy KIOFWSBP2 = 0
+	KIOFWSBP2FailsOnAckBusy       KIOFWSBP2 = 0
 )
 
 func (e KIOFWSBP2) String() string {
@@ -6392,54 +7552,54 @@ func (e KIOFWSBP2) String() string {
 type KIOFWSBP2UserClient uint
 
 const (
-	KIOFWSBP2UserClientClose KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientCreateLogin KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientCreateMgmtORB KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientCreateORB KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientEnableUnsolicitedStatus KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientGetLoginID KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientGetMaxCommandBlockSize KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientGetSessionRef KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientLSIWorkaroundSetCommandBuffersAsRanges KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientMgmtORBLSIWorkaroundSyncBuffersForInput KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientClose                                    KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientCreateLogin                              KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientCreateMgmtORB                            KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientCreateORB                                KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientEnableUnsolicitedStatus                  KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientGetLoginID                               KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientGetMaxCommandBlockSize                   KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientGetSessionRef                            KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientLSIWorkaroundSetCommandBuffersAsRanges   KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientMgmtORBLSIWorkaroundSyncBuffersForInput  KIOFWSBP2UserClient = 0
 	KIOFWSBP2UserClientMgmtORBLSIWorkaroundSyncBuffersForOutput KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientMgmtORBSetCommandFunction KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientMgmtORBSetManageeLogin KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientMgmtORBSetManageeORB KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientMgmtORBSetResponseBuffer KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientNumCommands KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientOpen KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientOpenWithSessionRef KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientReleaseCommandBuffers KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientReleaseLogin KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientReleaseMgmtORB KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientReleaseORB KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientRingDoorbell KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetBusyTimeoutRegisterValue KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetCommandBlock KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetCommandBuffersAsRanges KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetCommandFlags KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetCommandGeneration KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetCommandTimeout KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetFetchAgentWriteCompletion KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetLoginCallback KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetLoginFlags KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetLogoutCallback KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetMaxORBPayloadSize KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetMaxPayloadSize KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetMessageCallback KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetMgmtORBCallback KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetORBRefCon KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetPassword KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetReconnectTime KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetStatusNotify KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetToDummy KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSetUnsolicitedStatusNotify KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSubmitFetchAgentReset KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSubmitLogin KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSubmitLogout KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSubmitMgmtORB KIOFWSBP2UserClient = 0
-	KIOFWSBP2UserClientSubmitORB KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientMgmtORBSetCommandFunction                KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientMgmtORBSetManageeLogin                   KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientMgmtORBSetManageeORB                     KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientMgmtORBSetResponseBuffer                 KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientNumCommands                              KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientOpen                                     KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientOpenWithSessionRef                       KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientReleaseCommandBuffers                    KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientReleaseLogin                             KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientReleaseMgmtORB                           KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientReleaseORB                               KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientRingDoorbell                             KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetBusyTimeoutRegisterValue              KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetCommandBlock                          KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetCommandBuffersAsRanges                KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetCommandFlags                          KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetCommandGeneration                     KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetCommandTimeout                        KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetFetchAgentWriteCompletion             KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetLoginCallback                         KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetLoginFlags                            KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetLogoutCallback                        KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetMaxORBPayloadSize                     KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetMaxPayloadSize                        KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetMessageCallback                       KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetMgmtORBCallback                       KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetORBRefCon                             KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetPassword                              KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetReconnectTime                         KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetStatusNotify                          KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetToDummy                               KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSetUnsolicitedStatusNotify               KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSubmitFetchAgentReset                    KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSubmitLogin                              KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSubmitLogout                             KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSubmitMgmtORB                            KIOFWSBP2UserClient = 0
+	KIOFWSBP2UserClientSubmitORB                                KIOFWSBP2UserClient = 0
 )
 
 func (e KIOFWSBP2UserClient) String() string {
@@ -6451,11 +7611,26 @@ func (e KIOFWSBP2UserClient) String() string {
 	}
 }
 
+type KIOFWSWVers uint
+
+const (
+	KIOFWSWVers_KPF KIOFWSWVers = 0
+)
+
+func (e KIOFWSWVers) String() string {
+	switch e {
+	case KIOFWSWVers_KPF:
+		return "KIOFWSWVers_KPF"
+	default:
+		return fmt.Sprintf("KIOFWSWVers(%d)", e)
+	}
+}
+
 type KIOFWSecurityMode uint
 
 const (
-	KIOFWSecurityModeNormal KIOFWSecurityMode = 0
-	KIOFWSecurityModeSecure KIOFWSecurityMode = 0
+	KIOFWSecurityModeNormal          KIOFWSecurityMode = 0
+	KIOFWSecurityModeSecure          KIOFWSecurityMode = 0
 	KIOFWSecurityModeSecurePermanent KIOFWSecurityMode = 0
 )
 
@@ -6471,10 +7646,10 @@ func (e KIOFWSecurityMode) String() string {
 type KIOFWWrite uint
 
 const (
-	KIOFWWriteBlockRequest KIOFWWrite = 0
-	KIOFWWriteFastRetryOnBusy KIOFWWrite = 0
+	KIOFWWriteBlockRequest        KIOFWWrite = 0
+	KIOFWWriteFastRetryOnBusy     KIOFWWrite = 0
 	KIOFWWriteFlagsDeferredNotify KIOFWWrite = 0
-	KIOFWWriteFlagsNone KIOFWWrite = 0
+	KIOFWWriteFlagsNone           KIOFWWrite = 0
 )
 
 func (e KIOFWWrite) String() string {
@@ -6490,9 +7665,9 @@ type KIOHID uint
 
 const (
 	KIOHIDActivityDisplayOn KIOHID = 0
-	KIOHIDActivityUserIdle KIOHID = 0
-	KIOHIDCapsLockState KIOHID = 0
-	KIOHIDNumLockState KIOHID = 0
+	KIOHIDActivityUserIdle  KIOHID = 0
+	KIOHIDCapsLockState     KIOHID = 0
+	KIOHIDNumLockState      KIOHID = 0
 )
 
 func (e KIOHID) String() string {
@@ -6504,26 +7679,26 @@ func (e KIOHID) String() string {
 	}
 }
 
-type KIOHIDAccelerationAlgorithmTypeTable uint
+type KIOHIDAccelerationAlgorithmType uint
 
 const (
-	KIOHIDAccelerationAlgorithmTypeDefault KIOHIDAccelerationAlgorithmTypeTable = 0
+	KIOHIDAccelerationAlgorithmTypeDefault KIOHIDAccelerationAlgorithmType = 0
 )
 
-func (e KIOHIDAccelerationAlgorithmTypeTable) String() string {
+func (e KIOHIDAccelerationAlgorithmType) String() string {
 	switch e {
 	case KIOHIDAccelerationAlgorithmTypeDefault:
 		return "KIOHIDAccelerationAlgorithmTypeDefault"
 	default:
-		return fmt.Sprintf("KIOHIDAccelerationAlgorithmTypeTable(%d)", e)
+		return fmt.Sprintf("KIOHIDAccelerationAlgorithmType(%d)", e)
 	}
 }
 
 type KIOHIDButtonMode uint
 
 const (
-	KIOHIDButtonMode_BothLeftClicks KIOHIDButtonMode = 0
-	KIOHIDButtonMode_EnableRightClick KIOHIDButtonMode = 0
+	KIOHIDButtonMode_BothLeftClicks         KIOHIDButtonMode = 0
+	KIOHIDButtonMode_EnableRightClick       KIOHIDButtonMode = 0
 	KIOHIDButtonMode_ReverseLeftRightClicks KIOHIDButtonMode = 0
 )
 
@@ -6536,26 +7711,80 @@ func (e KIOHIDButtonMode) String() string {
 	}
 }
 
-type KIOHIDElementFlagsConstantMask uint
+type KIOHIDElementFlagsBufferedByte uint
 
 const (
-	KIOHIDElementFlagsBufferedByteMask KIOHIDElementFlagsConstantMask = 0
+	KIOHIDElementFlagsBufferedByteMask KIOHIDElementFlagsBufferedByte = 0
 )
 
-func (e KIOHIDElementFlagsConstantMask) String() string {
+func (e KIOHIDElementFlagsBufferedByte) String() string {
 	switch e {
 	case KIOHIDElementFlagsBufferedByteMask:
 		return "KIOHIDElementFlagsBufferedByteMask"
 	default:
-		return fmt.Sprintf("KIOHIDElementFlagsConstantMask(%d)", e)
+		return fmt.Sprintf("KIOHIDElementFlagsBufferedByte(%d)", e)
 	}
 }
 
-const KIOHIDEventNotification uint = 0
+type KIOHIDEvent uint
 
-const KIOHIDEventQueueTypeKernel uint = 0
+const (
+	KIOHIDEventNotification KIOHIDEvent = 0
+)
 
-const KIOHIDGlobalMemory uint = 0
+func (e KIOHIDEvent) String() string {
+	switch e {
+	case KIOHIDEventNotification:
+		return "KIOHIDEventNotification"
+	default:
+		return fmt.Sprintf("KIOHIDEvent(%d)", e)
+	}
+}
+
+type KIOHIDEventQueueType uint
+
+const (
+	KIOHIDEventQueueTypeKernel KIOHIDEventQueueType = 0
+)
+
+func (e KIOHIDEventQueueType) String() string {
+	switch e {
+	case KIOHIDEventQueueTypeKernel:
+		return "KIOHIDEventQueueTypeKernel"
+	default:
+		return fmt.Sprintf("KIOHIDEventQueueType(%d)", e)
+	}
+}
+
+type KIOHIDEventSystemConnect uint
+
+const (
+	KIOHIDEventSystemConnectType KIOHIDEventSystemConnect = 0
+)
+
+func (e KIOHIDEventSystemConnect) String() string {
+	switch e {
+	case KIOHIDEventSystemConnectType:
+		return "KIOHIDEventSystemConnectType"
+	default:
+		return fmt.Sprintf("KIOHIDEventSystemConnect(%d)", e)
+	}
+}
+
+type KIOHIDGlobal uint
+
+const (
+	KIOHIDGlobalMemory KIOHIDGlobal = 0
+)
+
+func (e KIOHIDGlobal) String() string {
+	switch e {
+	case KIOHIDGlobalMemory:
+		return "KIOHIDGlobalMemory"
+	default:
+		return fmt.Sprintf("KIOHIDGlobal(%d)", e)
+	}
+}
 
 type KIOHIDKeyboardPhysicalLayout uint
 
@@ -6573,7 +7802,20 @@ func (e KIOHIDKeyboardPhysicalLayout) String() string {
 	}
 }
 
-const KIOHIDOpenedByEventSystem uint = 0
+type KIOHIDOpenedByEvent uint
+
+const (
+	KIOHIDOpenedByEventSystem KIOHIDOpenedByEvent = 0
+)
+
+func (e KIOHIDOpenedByEvent) String() string {
+	switch e {
+	case KIOHIDOpenedByEventSystem:
+		return "KIOHIDOpenedByEventSystem"
+	default:
+		return fmt.Sprintf("KIOHIDOpenedByEvent(%d)", e)
+	}
+}
 
 type KIOHIDOptionsType uint
 
@@ -6592,34 +7834,19 @@ func (e KIOHIDOptionsType) String() string {
 	}
 }
 
-type KIOHIDQueueOptionsTypeNone uint
+type KIOHIDQueueOptionsTypeEnqueue uint
 
 const (
 	// KIOHIDQueueOptionsTypeEnqueueAll: # Discussion
-	KIOHIDQueueOptionsTypeEnqueueAll KIOHIDQueueOptionsTypeNone = 0
+	KIOHIDQueueOptionsTypeEnqueueAll KIOHIDQueueOptionsTypeEnqueue = 0
 )
 
-func (e KIOHIDQueueOptionsTypeNone) String() string {
+func (e KIOHIDQueueOptionsTypeEnqueue) String() string {
 	switch e {
 	case KIOHIDQueueOptionsTypeEnqueueAll:
 		return "KIOHIDQueueOptionsTypeEnqueueAll"
 	default:
-		return fmt.Sprintf("KIOHIDQueueOptionsTypeNone(%d)", e)
-	}
-}
-
-type KIOHIDServerConnectType uint
-
-const (
-	KIOHIDEventSystemConnectType KIOHIDServerConnectType = 0
-)
-
-func (e KIOHIDServerConnectType) String() string {
-	switch e {
-	case KIOHIDEventSystemConnectType:
-		return "KIOHIDEventSystemConnectType"
-	default:
-		return fmt.Sprintf("KIOHIDServerConnectType(%d)", e)
+		return fmt.Sprintf("KIOHIDQueueOptionsTypeEnqueue(%d)", e)
 	}
 }
 
@@ -6627,7 +7854,7 @@ type KIOHIDStandardType uint
 
 const (
 	// KIOHIDStandardTypeJIS: # Discussion
-	KIOHIDStandardTypeJIS KIOHIDStandardType = 0
+	KIOHIDStandardTypeJIS         KIOHIDStandardType = 0
 	KIOHIDStandardTypeUnspecified KIOHIDStandardType = 0
 )
 
@@ -6643,7 +7870,7 @@ func (e KIOHIDStandardType) String() string {
 type KIOHIDValueOptionsFlag uint
 
 const (
-	KIOHIDValueOptionsFlagPrevious KIOHIDValueOptionsFlag = 0
+	KIOHIDValueOptionsFlagPrevious       KIOHIDValueOptionsFlag = 0
 	KIOHIDValueOptionsFlagRelativeSimple KIOHIDValueOptionsFlag = 0
 )
 
@@ -6661,7 +7888,7 @@ type KIOHIDValueScaleType uint
 const (
 	// KIOHIDValueScaleTypeCalibrated: # Discussion
 	KIOHIDValueScaleTypeCalibrated KIOHIDValueScaleType = 0
-	KIOHIDValueScaleTypeExponent KIOHIDValueScaleType = 0
+	KIOHIDValueScaleTypeExponent   KIOHIDValueScaleType = 0
 )
 
 func (e KIOHIDValueScaleType) String() string {
@@ -6673,48 +7900,100 @@ func (e KIOHIDValueScaleType) String() string {
 	}
 }
 
-type KIOHSyncDisable uint
+type KIOHibernatePreview uint
 
 const (
-	KIOCSyncDisable KIOHSyncDisable = 0
+	KIOHibernatePreviewActive KIOHibernatePreview = 0
 )
 
-func (e KIOHSyncDisable) String() string {
+func (e KIOHibernatePreview) String() string {
 	switch e {
-	case KIOCSyncDisable:
-		return "KIOCSyncDisable"
+	case KIOHibernatePreviewActive:
+		return "KIOHibernatePreviewActive"
 	default:
-		return fmt.Sprintf("KIOHSyncDisable(%d)", e)
+		return fmt.Sprintf("KIOHibernatePreview(%d)", e)
 	}
 }
 
-const KIOHibernatePreviewActive uint = 0
-
-const KIOInterruptDispatchSourceTypeEdge uint = 0
-
-type KIOInterruptSourceIndexMask uint
+type KIOInterruptDispatchSourceType uint
 
 const (
-	KIOInterruptSourceAbsoluteTime KIOInterruptSourceIndexMask = 0
+	KIOInterruptDispatchSourceTypeEdge KIOInterruptDispatchSourceType = 0
 )
 
-func (e KIOInterruptSourceIndexMask) String() string {
+func (e KIOInterruptDispatchSourceType) String() string {
+	switch e {
+	case KIOInterruptDispatchSourceTypeEdge:
+		return "KIOInterruptDispatchSourceTypeEdge"
+	default:
+		return fmt.Sprintf("KIOInterruptDispatchSourceType(%d)", e)
+	}
+}
+
+type KIOInterruptSourceAbsolute uint
+
+const (
+	KIOInterruptSourceAbsoluteTime KIOInterruptSourceAbsolute = 0
+)
+
+func (e KIOInterruptSourceAbsolute) String() string {
 	switch e {
 	case KIOInterruptSourceAbsoluteTime:
 		return "KIOInterruptSourceAbsoluteTime"
 	default:
-		return fmt.Sprintf("KIOInterruptSourceIndexMask(%d)", e)
+		return fmt.Sprintf("KIOInterruptSourceAbsolute(%d)", e)
 	}
 }
 
-const KIOKitDebugUserOptions uint = 0
+type KIOKitDebugUser uint
 
-const KIOKitDiagnosticsClientType uint = 0
+const (
+	KIOKitDebugUserOptions KIOKitDebugUser = 0
+)
+
+func (e KIOKitDebugUser) String() string {
+	switch e {
+	case KIOKitDebugUserOptions:
+		return "KIOKitDebugUserOptions"
+	default:
+		return fmt.Sprintf("KIOKitDebugUser(%d)", e)
+	}
+}
+
+type KIOKitDiagnosticsClient uint
+
+const (
+	KIOKitDiagnosticsClientType KIOKitDiagnosticsClient = 0
+)
+
+func (e KIOKitDiagnosticsClient) String() string {
+	switch e {
+	case KIOKitDiagnosticsClientType:
+		return "KIOKitDiagnosticsClientType"
+	default:
+		return fmt.Sprintf("KIOKitDiagnosticsClient(%d)", e)
+	}
+}
+
+type KIOLockState uint
+
+const (
+	KIOLockStateLocked KIOLockState = 0
+)
+
+func (e KIOLockState) String() string {
+	switch e {
+	case KIOLockStateLocked:
+		return "KIOLockStateLocked"
+	default:
+		return fmt.Sprintf("KIOLockState(%d)", e)
+	}
+}
 
 type KIOMap uint
 
 const (
-	KIOMapAnywhere KIOMap = 0
+	KIOMapAnywhere    KIOMap = 0
 	KIOMapPostedWrite KIOMap = 0
 )
 
@@ -6727,7 +8006,20 @@ func (e KIOMap) String() string {
 	}
 }
 
-const KIOMapperUncached uint = 0
+type KIOMapper uint
+
+const (
+	KIOMapperUncached KIOMapper = 0
+)
+
+func (e KIOMapper) String() string {
+	switch e {
+	case KIOMapperUncached:
+		return "KIOMapperUncached"
+	default:
+		return fmt.Sprintf("KIOMapper(%d)", e)
+	}
+}
 
 type KIOMaxBus uint
 
@@ -6745,30 +8037,57 @@ func (e KIOMaxBus) String() string {
 	}
 }
 
-const KIOMaxPixelBits uint = 0
+type KIOMaxPixel uint
 
-const KIOMediaAttributeEjectableMask uint = 0
+const (
+	KIOMaxPixelBits KIOMaxPixel = 0
+)
 
-type KIOMediaStateOffline uint
+func (e KIOMaxPixel) String() string {
+	switch e {
+	case KIOMaxPixelBits:
+		return "KIOMaxPixelBits"
+	default:
+		return fmt.Sprintf("KIOMaxPixel(%d)", e)
+	}
+}
+
+type KIOMediaAttributeEjectable uint
+
+const (
+	// KIOMediaAttributeEjectableMask: # Discussion
+	KIOMediaAttributeEjectableMask KIOMediaAttributeEjectable = 0
+)
+
+func (e KIOMediaAttributeEjectable) String() string {
+	switch e {
+	case KIOMediaAttributeEjectableMask:
+		return "KIOMediaAttributeEjectableMask"
+	default:
+		return fmt.Sprintf("KIOMediaAttributeEjectable(%d)", e)
+	}
+}
+
+type KIOMediaState uint
 
 const (
 	// KIOMediaStateBusy: # Discussion
-	KIOMediaStateBusy KIOMediaStateOffline = 0
+	KIOMediaStateBusy KIOMediaState = 0
 )
 
-func (e KIOMediaStateOffline) String() string {
+func (e KIOMediaState) String() string {
 	switch e {
 	case KIOMediaStateBusy:
 		return "KIOMediaStateBusy"
 	default:
-		return fmt.Sprintf("KIOMediaStateOffline(%d)", e)
+		return fmt.Sprintf("KIOMediaState(%d)", e)
 	}
 }
 
 type KIOMediumEthernet uint
 
 const (
-	KIOMediumEthernetAuto KIOMediumEthernet = 0
+	KIOMediumEthernetAuto     KIOMediumEthernet = 0
 	KIOMediumEthernetHomePNA1 KIOMediumEthernet = 0
 )
 
@@ -6784,7 +8103,7 @@ func (e KIOMediumEthernet) String() string {
 type KIOMediumIEE uint
 
 const (
-	KIOMediumIEEE80211 KIOMediumIEE = 0
+	KIOMediumIEEE80211       KIOMediumIEE = 0
 	KIOMediumIEEE80211Manual KIOMediumIEE = 0
 )
 
@@ -6800,7 +8119,7 @@ func (e KIOMediumIEE) String() string {
 type KIOMediumOption uint
 
 const (
-	KIOMediumOptionEEE KIOMediumOption = 0
+	KIOMediumOptionEEE         KIOMediumOption = 0
 	KIOMediumOptionFlowControl KIOMediumOption = 0
 )
 
@@ -6813,10 +8132,25 @@ func (e KIOMediumOption) String() string {
 	}
 }
 
+type KIOMemoryClear uint
+
+const (
+	KIOMemoryClearEncrypted KIOMemoryClear = 0
+)
+
+func (e KIOMemoryClear) String() string {
+	switch e {
+	case KIOMemoryClearEncrypted:
+		return "KIOMemoryClearEncrypted"
+	default:
+		return fmt.Sprintf("KIOMemoryClear(%d)", e)
+	}
+}
+
 type KIOMemoryDirection uint
 
 const (
-	KIOMemoryDirectionIn KIOMemoryDirection = 0
+	KIOMemoryDirectionIn   KIOMemoryDirection = 0
 	KIOMemoryDirectionNone KIOMemoryDirection = 0
 )
 
@@ -6829,45 +8163,41 @@ func (e KIOMemoryDirection) String() string {
 	}
 }
 
-type KIOMemoryDirectionMask uint
+type KIOMemoryLedgerFlagNo uint
 
 const (
-	KIOMemoryUseReserve KIOMemoryDirectionMask = 0
+	KIOMemoryLedgerFlagNoFootprint KIOMemoryLedgerFlagNo = 0
 )
 
-func (e KIOMemoryDirectionMask) String() string {
+func (e KIOMemoryLedgerFlagNo) String() string {
 	switch e {
-	case KIOMemoryUseReserve:
-		return "KIOMemoryUseReserve"
+	case KIOMemoryLedgerFlagNoFootprint:
+		return "KIOMemoryLedgerFlagNoFootprint"
 	default:
-		return fmt.Sprintf("KIOMemoryDirectionMask(%d)", e)
+		return fmt.Sprintf("KIOMemoryLedgerFlagNo(%d)", e)
 	}
 }
 
-type KIOMemoryIncoherentIOFlush uint
+type KIOMemoryLedgerTag uint
 
 const (
-	KIOMemoryClearEncrypted KIOMemoryIncoherentIOFlush = 0
+	KIOMemoryLedgerTagDefault KIOMemoryLedgerTag = 0
 )
 
-func (e KIOMemoryIncoherentIOFlush) String() string {
+func (e KIOMemoryLedgerTag) String() string {
 	switch e {
-	case KIOMemoryClearEncrypted:
-		return "KIOMemoryClearEncrypted"
+	case KIOMemoryLedgerTagDefault:
+		return "KIOMemoryLedgerTagDefault"
 	default:
-		return fmt.Sprintf("KIOMemoryIncoherentIOFlush(%d)", e)
+		return fmt.Sprintf("KIOMemoryLedgerTag(%d)", e)
 	}
 }
-
-const KIOMemoryLedgerFlagNoFootprint uint = 0
-
-const KIOMemoryLedgerTagDefault uint = 0
 
 type KIOMemoryMap uint
 
 const (
 	KIOMemoryMapCacheModeDefault KIOMemoryMap = 0
-	KIOMemoryMapGuardedSmall KIOMemoryMap = 0
+	KIOMemoryMapGuardedSmall     KIOMemoryMap = 0
 )
 
 func (e KIOMemoryMap) String() string {
@@ -6882,7 +8212,7 @@ func (e KIOMemoryMap) String() string {
 type KIOMemoryPurgeable uint
 
 const (
-	KIOMemoryPurgeableFaultOnAccess KIOMemoryPurgeable = 0
+	KIOMemoryPurgeableFaultOnAccess  KIOMemoryPurgeable = 0
 	KIOMemoryPurgeableVolatileGroup6 KIOMemoryPurgeable = 0
 )
 
@@ -6895,27 +8225,55 @@ func (e KIOMemoryPurgeable) String() string {
 	}
 }
 
-const KIOMirrorDefault uint = 0
-
-type KIOMirrorIsPrimary uint
+type KIOMemoryUse uint
 
 const (
-	KIOMirrorHWClipped KIOMirrorIsPrimary = 0
+	KIOMemoryUseReserve KIOMemoryUse = 0
 )
 
-func (e KIOMirrorIsPrimary) String() string {
+func (e KIOMemoryUse) String() string {
+	switch e {
+	case KIOMemoryUseReserve:
+		return "KIOMemoryUseReserve"
+	default:
+		return fmt.Sprintf("KIOMemoryUse(%d)", e)
+	}
+}
+
+type KIOMirror uint
+
+const (
+	KIOMirrorDefault KIOMirror = 0
+)
+
+func (e KIOMirror) String() string {
+	switch e {
+	case KIOMirrorDefault:
+		return "KIOMirrorDefault"
+	default:
+		return fmt.Sprintf("KIOMirror(%d)", e)
+	}
+}
+
+type KIOMirrorHW uint
+
+const (
+	KIOMirrorHWClipped KIOMirrorHW = 0
+)
+
+func (e KIOMirrorHW) String() string {
 	switch e {
 	case KIOMirrorHWClipped:
 		return "KIOMirrorHWClipped"
 	default:
-		return fmt.Sprintf("KIOMirrorIsPrimary(%d)", e)
+		return fmt.Sprintf("KIOMirrorHW(%d)", e)
 	}
 }
 
 type KIONDRV uint
 
 const (
-	KIONDRVCloseCommand KIONDRV = 0
+	KIONDRVCloseCommand    KIONDRV = 0
 	KIONDRVFinalizeCommand KIONDRV = 0
 )
 
@@ -6928,29 +8286,29 @@ func (e KIONDRV) String() string {
 	}
 }
 
-type KIONDRVSynchronousIOCommandKind uint
+type KIONDRVAsynchronousIOCommand uint
 
 const (
-	KIONDRVAsynchronousIOCommandKind KIONDRVSynchronousIOCommandKind = 0
+	KIONDRVAsynchronousIOCommandKind KIONDRVAsynchronousIOCommand = 0
 )
 
-func (e KIONDRVSynchronousIOCommandKind) String() string {
+func (e KIONDRVAsynchronousIOCommand) String() string {
 	switch e {
 	case KIONDRVAsynchronousIOCommandKind:
 		return "KIONDRVAsynchronousIOCommandKind"
 	default:
-		return fmt.Sprintf("KIONDRVSynchronousIOCommandKind(%d)", e)
+		return fmt.Sprintf("KIONDRVAsynchronousIOCommand(%d)", e)
 	}
 }
 
 type KIONVRAMOperation uint
 
 const (
-	KIONVRAMOperationDelete KIONVRAMOperation = 0
+	KIONVRAMOperationDelete     KIONVRAMOperation = 0
 	KIONVRAMOperationObliterate KIONVRAMOperation = 0
-	KIONVRAMOperationRead KIONVRAMOperation = 0
-	KIONVRAMOperationReset KIONVRAMOperation = 0
-	KIONVRAMOperationWrite KIONVRAMOperation = 0
+	KIONVRAMOperationRead       KIONVRAMOperation = 0
+	KIONVRAMOperationReset      KIONVRAMOperation = 0
+	KIONVRAMOperationWrite      KIONVRAMOperation = 0
 )
 
 func (e KIONVRAMOperation) String() string {
@@ -6979,23 +8337,36 @@ func (e KIONetworkDataAccessType) String() string {
 	}
 }
 
-type KIONetworkDataBufferTypeInternal uint
+type KIONetworkDataBufferType uint
 
 const (
 	// KIONetworkDataBufferTypeExternal: # Discussion
-	KIONetworkDataBufferTypeExternal KIONetworkDataBufferTypeInternal = 0
+	KIONetworkDataBufferTypeExternal KIONetworkDataBufferType = 0
 )
 
-func (e KIONetworkDataBufferTypeInternal) String() string {
+func (e KIONetworkDataBufferType) String() string {
 	switch e {
 	case KIONetworkDataBufferTypeExternal:
 		return "KIONetworkDataBufferTypeExternal"
 	default:
-		return fmt.Sprintf("KIONetworkDataBufferTypeInternal(%d)", e)
+		return fmt.Sprintf("KIONetworkDataBufferType(%d)", e)
 	}
 }
 
-const KIONetworkEventTypeDLIL uint = 0
+type KIONetworkEventTypeDLI uint
+
+const (
+	KIONetworkEventTypeDLIL KIONetworkEventTypeDLI = 0
+)
+
+func (e KIONetworkEventTypeDLI) String() string {
+	switch e {
+	case KIONetworkEventTypeDLIL:
+		return "KIONetworkEventTypeDLIL"
+	default:
+		return fmt.Sprintf("KIONetworkEventTypeDLI(%d)", e)
+	}
+}
 
 type KIONetworkFeature uint
 
@@ -7013,26 +8384,26 @@ func (e KIONetworkFeature) String() string {
 	}
 }
 
-type KIONetworkInterfaceRegisteredState uint
+type KIONetworkInterfaceDisabled uint
 
 const (
 	// KIONetworkInterfaceDisabledState: # Discussion
-	KIONetworkInterfaceDisabledState KIONetworkInterfaceRegisteredState = 0
+	KIONetworkInterfaceDisabledState KIONetworkInterfaceDisabled = 0
 )
 
-func (e KIONetworkInterfaceRegisteredState) String() string {
+func (e KIONetworkInterfaceDisabled) String() string {
 	switch e {
 	case KIONetworkInterfaceDisabledState:
 		return "KIONetworkInterfaceDisabledState"
 	default:
-		return fmt.Sprintf("KIONetworkInterfaceRegisteredState(%d)", e)
+		return fmt.Sprintf("KIONetworkInterfaceDisabled(%d)", e)
 	}
 }
 
 type KIONetworkLink uint
 
 const (
-	KIONetworkLinkActive KIONetworkLink = 0
+	KIONetworkLinkActive          KIONetworkLink = 0
 	KIONetworkLinkNoNetworkChange KIONetworkLink = 0
 )
 
@@ -7045,7 +8416,21 @@ func (e KIONetworkLink) String() string {
 	}
 }
 
-const KIOOutputCommandMask uint = 0
+type KIOOutputCommand uint
+
+const (
+	// KIOOutputCommandMask: # Discussion
+	KIOOutputCommandMask KIOOutputCommand = 0
+)
+
+func (e KIOOutputCommand) String() string {
+	switch e {
+	case KIOOutputCommandMask:
+		return "KIOOutputCommandMask"
+	default:
+		return fmt.Sprintf("KIOOutputCommand(%d)", e)
+	}
+}
 
 type KIOOutputStatus int
 
@@ -7072,7 +8457,7 @@ type KIOPC uint
 
 const (
 	KIOPCI32BitMemorySpace KIOPC = 0
-	KIOPCIConfigSpace KIOPC = 0
+	KIOPCIConfigSpace      KIOPC = 0
 )
 
 func (e KIOPC) String() string {
@@ -7087,9 +8472,9 @@ func (e KIOPC) String() string {
 type KIOPCI uint
 
 const (
-	KIOPCIAGP8Capability KIOPCI = 0
+	KIOPCIAGP8Capability                         KIOPCI = 0
 	KIOPCIExpressAccessControlServicesCapability KIOPCI = 0
-	KIOPCIExpressErrorReportingCapability KIOPCI = 0
+	KIOPCIExpressErrorReportingCapability        KIOPCI = 0
 )
 
 func (e KIOPCI) String() string {
@@ -7120,7 +8505,7 @@ type KIOPCICommand uint
 
 const (
 	KIOPCICommandAddressStepping KIOPCICommand = 0
-	KIOPCICommandFastBack2Back KIOPCICommand = 0
+	KIOPCICommandFastBack2Back   KIOPCICommand = 0
 )
 
 func (e KIOPCICommand) String() string {
@@ -7135,7 +8520,7 @@ func (e KIOPCICommand) String() string {
 type KIOPCIConfig uint
 
 const (
-	KIOPCIConfigBaseAddress0 KIOPCIConfig = 0
+	KIOPCIConfigBaseAddress0     KIOPCIConfig = 0
 	KIOPCIConfigExpansionROMBase KIOPCIConfig = 0
 )
 
@@ -7148,27 +8533,40 @@ func (e KIOPCIConfig) String() string {
 	}
 }
 
-type KIOPCIConfigAGPStatusOffset int
+type KIOPCIConfigAGPCommand uint
 
 const (
-	KIOPCIConfigAGPCommandOffset KIOPCIConfigAGPStatusOffset = 0
+	KIOPCIConfigAGPCommandOffset KIOPCIConfigAGPCommand = 0
 )
 
-func (e KIOPCIConfigAGPStatusOffset) String() string {
+func (e KIOPCIConfigAGPCommand) String() string {
 	switch e {
 	case KIOPCIConfigAGPCommandOffset:
 		return "KIOPCIConfigAGPCommandOffset"
 	default:
-		return fmt.Sprintf("KIOPCIConfigAGPStatusOffset(%d)", e)
+		return fmt.Sprintf("KIOPCIConfigAGPCommand(%d)", e)
 	}
 }
 
-const KIOPCIConfigShadowPermanent uint = 0
+type KIOPCIConfigShadow uint
+
+const (
+	KIOPCIConfigShadowPermanent KIOPCIConfigShadow = 0
+)
+
+func (e KIOPCIConfigShadow) String() string {
+	switch e {
+	case KIOPCIConfigShadowPermanent:
+		return "KIOPCIConfigShadowPermanent"
+	default:
+		return fmt.Sprintf("KIOPCIConfigShadow(%d)", e)
+	}
+}
 
 type KIOPCICorrectableErrorBit int
 
 const (
-	KIOPCICorrectableErrorBitBadDLLP KIOPCICorrectableErrorBit = 0
+	KIOPCICorrectableErrorBitBadDLLP  KIOPCICorrectableErrorBit = 0
 	KIOPCICorrectableErrorBitReceiver KIOPCICorrectableErrorBit = 0
 )
 
@@ -7181,25 +8579,25 @@ func (e KIOPCICorrectableErrorBit) String() string {
 	}
 }
 
-type KIOPCIDevicePowerStateCount uint
+type KIOPCIDeviceDoze uint
 
 const (
-	KIOPCIDeviceDozeState KIOPCIDevicePowerStateCount = 0
+	KIOPCIDeviceDozeState KIOPCIDeviceDoze = 0
 )
 
-func (e KIOPCIDevicePowerStateCount) String() string {
+func (e KIOPCIDeviceDoze) String() string {
 	switch e {
 	case KIOPCIDeviceDozeState:
 		return "KIOPCIDeviceDozeState"
 	default:
-		return fmt.Sprintf("KIOPCIDevicePowerStateCount(%d)", e)
+		return fmt.Sprintf("KIOPCIDeviceDoze(%d)", e)
 	}
 }
 
 type KIOPCIDeviceResetOption uint
 
 const (
-	KIOPCIDeviceResetOptionNone KIOPCIDeviceResetOption = 0
+	KIOPCIDeviceResetOptionNone      KIOPCIDeviceResetOption = 0
 	KIOPCIDeviceResetOptionTerminate KIOPCIDeviceResetOption = 0
 )
 
@@ -7215,11 +8613,11 @@ func (e KIOPCIDeviceResetOption) String() string {
 type KIOPCIDeviceResetType uint
 
 const (
-	KIOPCIDeviceResetTypeFunctionReset KIOPCIDeviceResetType = 0
-	KIOPCIDeviceResetTypeHotReset KIOPCIDeviceResetType = 0
-	KIOPCIDeviceResetTypeWarmReset KIOPCIDeviceResetType = 0
+	KIOPCIDeviceResetTypeFunctionReset    KIOPCIDeviceResetType = 0
+	KIOPCIDeviceResetTypeHotReset         KIOPCIDeviceResetType = 0
+	KIOPCIDeviceResetTypeWarmReset        KIOPCIDeviceResetType = 0
 	KIOPCIDeviceResetTypeWarmResetDisable KIOPCIDeviceResetType = 0
-	KIOPCIDeviceResetTypeWarmResetEnable KIOPCIDeviceResetType = 0
+	KIOPCIDeviceResetTypeWarmResetEnable  KIOPCIDeviceResetType = 0
 )
 
 func (e KIOPCIDeviceResetType) String() string {
@@ -7235,7 +8633,7 @@ type KIOPCIEvent uint
 
 const (
 	KIOPCIEventLinkEnableChange KIOPCIEvent = 0
-	KIOPCIEventNonFatalError KIOPCIEvent = 0
+	KIOPCIEventNonFatalError    KIOPCIEvent = 0
 )
 
 func (e KIOPCIEvent) String() string {
@@ -7247,16 +8645,29 @@ func (e KIOPCIEvent) String() string {
 	}
 }
 
-const KIOPCILatencySnooped uint = 0
+type KIOPCILatency uint
+
+const (
+	KIOPCILatencySnooped KIOPCILatency = 0
+)
+
+func (e KIOPCILatency) String() string {
+	switch e {
+	case KIOPCILatencySnooped:
+		return "KIOPCILatencySnooped"
+	default:
+		return fmt.Sprintf("KIOPCILatency(%d)", e)
+	}
+}
 
 type KIOPCILinkSpeed uint
 
 const (
-	KIOPCILinkSpeed_16_GTs KIOPCILinkSpeed = 0
+	KIOPCILinkSpeed_16_GTs  KIOPCILinkSpeed = 0
 	KIOPCILinkSpeed_2_5_GTs KIOPCILinkSpeed = 0
-	KIOPCILinkSpeed_32_GTs KIOPCILinkSpeed = 0
-	KIOPCILinkSpeed_5_GTs KIOPCILinkSpeed = 0
-	KIOPCILinkSpeed_8_GTs KIOPCILinkSpeed = 0
+	KIOPCILinkSpeed_32_GTs  KIOPCILinkSpeed = 0
+	KIOPCILinkSpeed_5_GTs   KIOPCILinkSpeed = 0
+	KIOPCILinkSpeed_8_GTs   KIOPCILinkSpeed = 0
 )
 
 func (e KIOPCILinkSpeed) String() string {
@@ -7268,13 +8679,41 @@ func (e KIOPCILinkSpeed) String() string {
 	}
 }
 
-const KIOPCIProbeOptionDone uint = 0
+type KIOPCIProbeOption uint
+
+const (
+	KIOPCIProbeOptionDone KIOPCIProbeOption = 0
+)
+
+func (e KIOPCIProbeOption) String() string {
+	switch e {
+	case KIOPCIProbeOptionDone:
+		return "KIOPCIProbeOptionDone"
+	default:
+		return fmt.Sprintf("KIOPCIProbeOption(%d)", e)
+	}
+}
+
+type KIOPCIReset uint
+
+const (
+	KIOPCIResetHot KIOPCIReset = 0
+)
+
+func (e KIOPCIReset) String() string {
+	switch e {
+	case KIOPCIResetHot:
+		return "KIOPCIResetHot"
+	default:
+		return fmt.Sprintf("KIOPCIReset(%d)", e)
+	}
+}
 
 type KIOPCIStatus int
 
 const (
 	KIOPCIStatusCapabilities KIOPCIStatus = 0
-	KIOPCIStatusDevSel1 KIOPCIStatus = 0
+	KIOPCIStatusDevSel1      KIOPCIStatus = 0
 )
 
 func (e KIOPCIStatus) String() string {
@@ -7289,7 +8728,7 @@ func (e KIOPCIStatus) String() string {
 type KIOPCIUncorrectableErrorBit int
 
 const (
-	KIOPCIUncorrectableErrorBitCompletionTimeout KIOPCIUncorrectableErrorBit = 0
+	KIOPCIUncorrectableErrorBitCompletionTimeout  KIOPCIUncorrectableErrorBit = 0
 	KIOPCIUncorrectableErrorBitUnsupportedRequest KIOPCIUncorrectableErrorBit = 0
 )
 
@@ -7305,20 +8744,21 @@ func (e KIOPCIUncorrectableErrorBit) String() string {
 type KIOPM uint
 
 const (
-	KIOPMACInstalled KIOPM = 0
-	KIOPMAllowSleep KIOPM = 0
-	KIOPMAuxPowerOn KIOPM = 0
-	KIOPMChildClamp KIOPM = 0
-	KIOPMClamshellOpened KIOPM = 0
-	KIOPMConfigRetained KIOPM = 0
-	KIOPMFairValue KIOPM = 0
+	KIOPMACInstalled        KIOPM = 0
+	KIOPMAllowSleep         KIOPM = 0
+	KIOPMAuxPowerOn         KIOPM = 0
+	KIOPMChildClamp         KIOPM = 0
+	KIOPMClamshellOpened    KIOPM = 0
+	KIOPMConfigRetained     KIOPM = 0
+	KIOPMFairValue          KIOPM = 0
 	KIOPMPreventSystemSleep KIOPM = 0
-	KIOPMRawLowBattery KIOPM = 0
+	KIOPMRawLowBattery      KIOPM = 0
 	// KIOPMRestartCapability: # Discussion
 	KIOPMRestartCapability KIOPM = 0
 	// KIOPMSleepCapability: # Discussion
 	KIOPMSleepCapability KIOPM = 0
-	KIOPMUndefinedValue KIOPM = 0
+	KIOPMUndefinedValue  KIOPM = 0
+	KIOPMUnknown         KIOPM = 0
 )
 
 func (e KIOPM) String() string {
@@ -7330,13 +8770,26 @@ func (e KIOPM) String() string {
 	}
 }
 
-const KIOPMBroadcastAggressiveness uint = 0
+type KIOPMBroadcast uint
+
+const (
+	KIOPMBroadcastAggressiveness KIOPMBroadcast = 0
+)
+
+func (e KIOPMBroadcast) String() string {
+	switch e {
+	case KIOPMBroadcastAggressiveness:
+		return "KIOPMBroadcastAggressiveness"
+	default:
+		return fmt.Sprintf("KIOPMBroadcast(%d)", e)
+	}
+}
 
 type KIOPMDriverAssertion uint
 
 const (
 	KIOPMDriverAssertionBluetoothHIDDevicePairedBit KIOPMDriverAssertion = 0
-	KIOPMDriverAssertionCPUBit KIOPMDriverAssertion = 0
+	KIOPMDriverAssertionCPUBit                      KIOPMDriverAssertion = 0
 )
 
 func (e KIOPMDriverAssertion) String() string {
@@ -7348,55 +8801,40 @@ func (e KIOPMDriverAssertion) String() string {
 	}
 }
 
-type KIOPMInternalPower uint
+type KIOPMExternal uint
 
 const (
-	KIOPMExternalPower KIOPMInternalPower = 0
+	KIOPMExternalPower KIOPMExternal = 0
 )
 
-func (e KIOPMInternalPower) String() string {
+func (e KIOPMExternal) String() string {
 	switch e {
 	case KIOPMExternalPower:
 		return "KIOPMExternalPower"
 	default:
-		return fmt.Sprintf("KIOPMInternalPower(%d)", e)
+		return fmt.Sprintf("KIOPMExternal(%d)", e)
 	}
 }
 
-type KIOPMMaxPowerStates uint
+type KIOPMHighest uint
 
 const (
-	IOPMMaxPowerStates KIOPMMaxPowerStates = 0
+	KIOPMHighestState KIOPMHighest = 0
 )
 
-func (e KIOPMMaxPowerStates) String() string {
-	switch e {
-	case IOPMMaxPowerStates:
-		return "IOPMMaxPowerStates"
-	default:
-		return fmt.Sprintf("KIOPMMaxPowerStates(%d)", e)
-	}
-}
-
-type KIOPMNextHigherState uint
-
-const (
-	KIOPMHighestState KIOPMNextHigherState = 0
-)
-
-func (e KIOPMNextHigherState) String() string {
+func (e KIOPMHighest) String() string {
 	switch e {
 	case KIOPMHighestState:
 		return "KIOPMHighestState"
 	default:
-		return fmt.Sprintf("KIOPMNextHigherState(%d)", e)
+		return fmt.Sprintf("KIOPMHighest(%d)", e)
 	}
 }
 
 type KIOPMNoErr int
 
 const (
-	IOPMAckImplied KIOPMNoErr = 0
+	IOPMAckImplied        KIOPMNoErr = 0
 	KIOPMBadSpecification KIOPMNoErr = 0
 )
 
@@ -7409,19 +8847,58 @@ func (e KIOPMNoErr) String() string {
 	}
 }
 
-const KIOPMPSLocationLeft uint = 0
+type KIOPMPSLocation uint
 
-const KIOPMPowerStateVersion1 uint = 0
+const (
+	KIOPMPSLocationLeft KIOPMPSLocation = 0
+)
 
-const KIOPMSupportedOnAC uint = 0
+func (e KIOPMPSLocation) String() string {
+	switch e {
+	case KIOPMPSLocationLeft:
+		return "KIOPMPSLocationLeft"
+	default:
+		return fmt.Sprintf("KIOPMPSLocation(%d)", e)
+	}
+}
+
+type KIOPMPowerState uint
+
+const (
+	KIOPMPowerStateVersion1 KIOPMPowerState = 0
+)
+
+func (e KIOPMPowerState) String() string {
+	switch e {
+	case KIOPMPowerStateVersion1:
+		return "KIOPMPowerStateVersion1"
+	default:
+		return fmt.Sprintf("KIOPMPowerState(%d)", e)
+	}
+}
+
+type KIOPMSupportedOnA uint
+
+const (
+	KIOPMSupportedOnAC KIOPMSupportedOnA = 0
+)
+
+func (e KIOPMSupportedOnA) String() string {
+	switch e {
+	case KIOPMSupportedOnAC:
+		return "KIOPMSupportedOnAC"
+	default:
+		return fmt.Sprintf("KIOPMSupportedOnA(%d)", e)
+	}
+}
 
 type KIOPMSystemCapability uint
 
 const (
-	KIOPMSystemCapabilityAudio KIOPMSystemCapability = 0
-	KIOPMSystemCapabilityCPU KIOPMSystemCapability = 0
+	KIOPMSystemCapabilityAudio    KIOPMSystemCapability = 0
+	KIOPMSystemCapabilityCPU      KIOPMSystemCapability = 0
 	KIOPMSystemCapabilityGraphics KIOPMSystemCapability = 0
-	KIOPMSystemCapabilityNetwork KIOPMSystemCapability = 0
+	KIOPMSystemCapabilityNetwork  KIOPMSystemCapability = 0
 )
 
 func (e KIOPMSystemCapability) String() string {
@@ -7433,19 +8910,19 @@ func (e KIOPMSystemCapability) String() string {
 	}
 }
 
-type KIOPMSystemCapabilityWillChange uint
+type KIOPMSystemCapabilityDid uint
 
 const (
 	// KIOPMSystemCapabilityDidChange: # Discussion
-	KIOPMSystemCapabilityDidChange KIOPMSystemCapabilityWillChange = 0
+	KIOPMSystemCapabilityDidChange KIOPMSystemCapabilityDid = 0
 )
 
-func (e KIOPMSystemCapabilityWillChange) String() string {
+func (e KIOPMSystemCapabilityDid) String() string {
 	switch e {
 	case KIOPMSystemCapabilityDidChange:
 		return "KIOPMSystemCapabilityDidChange"
 	default:
-		return fmt.Sprintf("KIOPMSystemCapabilityWillChange(%d)", e)
+		return fmt.Sprintf("KIOPMSystemCapabilityDid(%d)", e)
 	}
 }
 
@@ -7453,7 +8930,7 @@ type KIOPMThermalLevel uint
 
 const (
 	KIOPMThermalLevelCritical KIOPMThermalLevel = 0
-	KIOPMThermalLevelNormal KIOPMThermalLevel = 0
+	KIOPMThermalLevelNormal   KIOPMThermalLevel = 0
 )
 
 func (e KIOPMThermalLevel) String() string {
@@ -7465,50 +8942,48 @@ func (e KIOPMThermalLevel) String() string {
 	}
 }
 
-const KIOPMUnknown uint = 0
-
-type KIOPSAdapterErrorFlagNoErrors int
+type KIOPSAdapterErrorFlagDeviceNeedsToBe int
 
 const (
-	KIOPSAdapterErrorFlagDeviceNeedsToBeRepositioned KIOPSAdapterErrorFlagNoErrors = 0
+	KIOPSAdapterErrorFlagDeviceNeedsToBeRepositioned KIOPSAdapterErrorFlagDeviceNeedsToBe = 0
 )
 
-func (e KIOPSAdapterErrorFlagNoErrors) String() string {
+func (e KIOPSAdapterErrorFlagDeviceNeedsToBe) String() string {
 	switch e {
 	case KIOPSAdapterErrorFlagDeviceNeedsToBeRepositioned:
 		return "KIOPSAdapterErrorFlagDeviceNeedsToBeRepositioned"
 	default:
-		return fmt.Sprintf("KIOPSAdapterErrorFlagNoErrors(%d)", e)
+		return fmt.Sprintf("KIOPSAdapterErrorFlagDeviceNeedsToBe(%d)", e)
 	}
 }
 
 type KIOPSFamilyCode uint
 
 const (
-	KIOPSFamilyCodeAC KIOPSFamilyCode = 0
-	KIOPSFamilyCodeDisconnected KIOPSFamilyCode = 0
-	KIOPSFamilyCodeExternal KIOPSFamilyCode = 0
-	KIOPSFamilyCodeExternal2 KIOPSFamilyCode = 0
-	KIOPSFamilyCodeExternal3 KIOPSFamilyCode = 0
-	KIOPSFamilyCodeExternal4 KIOPSFamilyCode = 0
-	KIOPSFamilyCodeExternal5 KIOPSFamilyCode = 0
-	KIOPSFamilyCodeExternal6 KIOPSFamilyCode = 0
-	KIOPSFamilyCodeExternal7 KIOPSFamilyCode = 0
-	KIOPSFamilyCodeExternal8 KIOPSFamilyCode = 0
-	KIOPSFamilyCodeFirewire KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUSBAdapter KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUSBCBrick KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUSBCPD KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUSBCTypeC KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUSBChargingPort KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUSBChargingPortDedicated KIOPSFamilyCode = 0
+	KIOPSFamilyCodeAC                        KIOPSFamilyCode = 0
+	KIOPSFamilyCodeDisconnected              KIOPSFamilyCode = 0
+	KIOPSFamilyCodeExternal                  KIOPSFamilyCode = 0
+	KIOPSFamilyCodeExternal2                 KIOPSFamilyCode = 0
+	KIOPSFamilyCodeExternal3                 KIOPSFamilyCode = 0
+	KIOPSFamilyCodeExternal4                 KIOPSFamilyCode = 0
+	KIOPSFamilyCodeExternal5                 KIOPSFamilyCode = 0
+	KIOPSFamilyCodeExternal6                 KIOPSFamilyCode = 0
+	KIOPSFamilyCodeExternal7                 KIOPSFamilyCode = 0
+	KIOPSFamilyCodeExternal8                 KIOPSFamilyCode = 0
+	KIOPSFamilyCodeFirewire                  KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUSBAdapter                KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUSBCBrick                 KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUSBCPD                    KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUSBCTypeC                 KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUSBChargingPort           KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUSBChargingPortDedicated  KIOPSFamilyCode = 0
 	KIOPSFamilyCodeUSBChargingPortDownstream KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUSBDevice KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUSBHost KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUSBHostSuspended KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUSBUnknown KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUnsupported KIOPSFamilyCode = 0
-	KIOPSFamilyCodeUnsupportedRegion KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUSBDevice                 KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUSBHost                   KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUSBHostSuspended          KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUSBUnknown                KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUnsupported               KIOPSFamilyCode = 0
+	KIOPSFamilyCodeUnsupportedRegion         KIOPSFamilyCode = 0
 )
 
 func (e KIOPSFamilyCode) String() string {
@@ -7520,7 +8995,20 @@ func (e KIOPSFamilyCode) String() string {
 	}
 }
 
-const KIOPacketBufferAlign1 uint = 0
+type KIOPacketBuffer uint
+
+const (
+	KIOPacketBufferAlign1 KIOPacketBuffer = 0
+)
+
+func (e KIOPacketBuffer) String() string {
+	switch e {
+	case KIOPacketBufferAlign1:
+		return "KIOPacketBufferAlign1"
+	default:
+		return fmt.Sprintf("KIOPacketBuffer(%d)", e)
+	}
+}
 
 type KIOPacketFilter uint
 
@@ -7544,7 +9032,7 @@ type KIOPixelEncoding uint
 
 const (
 	KIOPixelEncodingNotSupported KIOPixelEncoding = 0
-	KIOPixelEncodingYCbCr422 KIOPixelEncoding = 0
+	KIOPixelEncodingYCbCr422     KIOPixelEncoding = 0
 )
 
 func (e KIOPixelEncoding) String() string {
@@ -7556,25 +9044,40 @@ func (e KIOPixelEncoding) String() string {
 	}
 }
 
-type KIOPreparationIDUnprepared uint
+type KIOPreparationIDAlways uint
 
 const (
-	KIOPreparationIDAlwaysPrepared KIOPreparationIDUnprepared = 0
+	KIOPreparationIDAlwaysPrepared KIOPreparationIDAlways = 0
 )
 
-func (e KIOPreparationIDUnprepared) String() string {
+func (e KIOPreparationIDAlways) String() string {
 	switch e {
 	case KIOPreparationIDAlwaysPrepared:
 		return "KIOPreparationIDAlwaysPrepared"
 	default:
-		return fmt.Sprintf("KIOPreparationIDUnprepared(%d)", e)
+		return fmt.Sprintf("KIOPreparationIDAlways(%d)", e)
+	}
+}
+
+type KIORPC uint
+
+const (
+	KIORPCVersion190615 KIORPC = 0
+)
+
+func (e KIORPC) String() string {
+	switch e {
+	case KIORPCVersion190615:
+		return "KIORPCVersion190615"
+	default:
+		return fmt.Sprintf("KIORPC(%d)", e)
 	}
 }
 
 type KIORPCMessage uint
 
 const (
-	KIORPCMessageError KIORPCMessage = 0
+	KIORPCMessageError     KIORPCMessage = 0
 	KIORPCMessageLocalHost KIORPCMessage = 0
 )
 
@@ -7587,15 +9090,26 @@ func (e KIORPCMessage) String() string {
 	}
 }
 
-const KIORPCMessageIDKernel uint = 0
+type KIORPCMessageID uint
 
-const KIORPCVersion190615 uint = 0
+const (
+	KIORPCMessageIDKernel KIORPCMessageID = 0
+)
+
+func (e KIORPCMessageID) String() string {
+	switch e {
+	case KIORPCMessageIDKernel:
+		return "KIORPCMessageIDKernel"
+	default:
+		return fmt.Sprintf("KIORPCMessageID(%d)", e)
+	}
+}
 
 type KIORangeBitsPerColor uint
 
 const (
 	KIORangeBitsPerColorComponent10 KIORangeBitsPerColor = 0
-	KIORangeBitsPerColorComponent6 KIORangeBitsPerColor = 0
+	KIORangeBitsPerColorComponent6  KIORangeBitsPerColor = 0
 )
 
 func (e KIORangeBitsPerColor) String() string {
@@ -7610,7 +9124,7 @@ func (e KIORangeBitsPerColor) String() string {
 type KIORangeColorimetry uint
 
 const (
-	KIORangeColorimetryBT2100 KIORangeColorimetry = 0
+	KIORangeColorimetryBT2100    KIORangeColorimetry = 0
 	KIORangeColorimetryNativeRGB KIORangeColorimetry = 0
 )
 
@@ -7643,7 +9157,7 @@ type KIORangePixelEncoding uint
 
 const (
 	KIORangePixelEncodingNotSupported KIORangePixelEncoding = 0
-	KIORangePixelEncodingRGB444 KIORangePixelEncoding = 0
+	KIORangePixelEncodingRGB444       KIORangePixelEncoding = 0
 )
 
 func (e KIORangePixelEncoding) String() string {
@@ -7658,7 +9172,7 @@ func (e KIORangePixelEncoding) String() string {
 type KIORangeSupports uint
 
 const (
-	KIORangeSupportsCompositeSync KIORangeSupports = 0
+	KIORangeSupportsCompositeSync  KIORangeSupports = 0
 	KIORangeSupportsVSyncSerration KIORangeSupports = 0
 )
 
@@ -7671,7 +9185,20 @@ func (e KIORangeSupports) String() string {
 	}
 }
 
-const KIORangeSupportsInterlacedCEATiming uint = 0
+type KIORangeSupportsInterlacedCEA uint
+
+const (
+	KIORangeSupportsInterlacedCEATiming KIORangeSupportsInterlacedCEA = 0
+)
+
+func (e KIORangeSupportsInterlacedCEA) String() string {
+	switch e {
+	case KIORangeSupportsInterlacedCEATiming:
+		return "KIORangeSupportsInterlacedCEATiming"
+	default:
+		return fmt.Sprintf("KIORangeSupportsInterlacedCEA(%d)", e)
+	}
+}
 
 type KIORangeSupportsSignal uint
 
@@ -7689,50 +9216,63 @@ func (e KIORangeSupportsSignal) String() string {
 	}
 }
 
-type KIORegistryIterateRecursively uint
+type KIORegistryIterate uint
 
 const (
-	KIORegistryIterateParents KIORegistryIterateRecursively = 0
+	KIORegistryIterateParents KIORegistryIterate = 0
 )
 
-func (e KIORegistryIterateRecursively) String() string {
+func (e KIORegistryIterate) String() string {
 	switch e {
 	case KIORegistryIterateParents:
 		return "KIORegistryIterateParents"
 	default:
-		return fmt.Sprintf("KIORegistryIterateRecursively(%d)", e)
+		return fmt.Sprintf("KIORegistryIterate(%d)", e)
 	}
 }
 
-const KIOReportCopyChannelData uint = 0
-
-type KIOReportEnable uint
+type KIOReport uint
 
 const (
-	KIOReportDisable KIOReportEnable = 0
+	KIOReportDisable KIOReport = 0
 )
 
-func (e KIOReportEnable) String() string {
+func (e KIOReport) String() string {
 	switch e {
 	case KIOReportDisable:
 		return "KIOReportDisable"
 	default:
-		return fmt.Sprintf("KIOReportEnable(%d)", e)
+		return fmt.Sprintf("KIOReport(%d)", e)
 	}
 }
 
-type KIOReportInvalidFormat uint
+type KIOReportCopyChannel uint
 
 const (
-	KIOReportFormatHistogram KIOReportInvalidFormat = 0
+	KIOReportCopyChannelData KIOReportCopyChannel = 0
 )
 
-func (e KIOReportInvalidFormat) String() string {
+func (e KIOReportCopyChannel) String() string {
+	switch e {
+	case KIOReportCopyChannelData:
+		return "KIOReportCopyChannelData"
+	default:
+		return fmt.Sprintf("KIOReportCopyChannel(%d)", e)
+	}
+}
+
+type KIOReportFormat uint
+
+const (
+	KIOReportFormatHistogram KIOReportFormat = 0
+)
+
+func (e KIOReportFormat) String() string {
 	switch e {
 	case KIOReportFormatHistogram:
 		return "KIOReportFormatHistogram"
 	default:
-		return fmt.Sprintf("KIOReportInvalidFormat(%d)", e)
+		return fmt.Sprintf("KIOReportFormat(%d)", e)
 	}
 }
 
@@ -7752,26 +9292,26 @@ func (e KIOReportQuantity) String() string {
 	}
 }
 
-type KIOReturnOutputSuccess uint
+type KIOReturnOutput uint
 
 const (
 	// KIOReturnOutputDropped: # Discussion
-	KIOReturnOutputDropped KIOReturnOutputSuccess = 0
+	KIOReturnOutputDropped KIOReturnOutput = 0
 )
 
-func (e KIOReturnOutputSuccess) String() string {
+func (e KIOReturnOutput) String() string {
 	switch e {
 	case KIOReturnOutputDropped:
 		return "KIOReturnOutputDropped"
 	default:
-		return fmt.Sprintf("KIOReturnOutputSuccess(%d)", e)
+		return fmt.Sprintf("KIOReturnOutput(%d)", e)
 	}
 }
 
 type KIOScaleCan uint
 
 const (
-	KIOScaleCanBorderInsetOnly KIOScaleCan = 0
+	KIOScaleCanBorderInsetOnly  KIOScaleCan = 0
 	KIOScaleCanDownSamplePixels KIOScaleCan = 0
 )
 
@@ -7803,8 +9343,9 @@ func (e KIOScaleInvert) String() string {
 type KIOService uint
 
 const (
-	KIOServiceAsynchronous KIOService = 0
+	KIOServiceAsynchronous                KIOService = 0
 	KIOServiceDextRequirePowerForMatching KIOService = 0
+	KIOServiceSeize                       KIOService = 0
 )
 
 func (e KIOService) String() string {
@@ -7816,22 +9357,48 @@ func (e KIOService) String() string {
 	}
 }
 
-const KIOServiceFamilyCloseOptions uint = 0
-
-const KIOServiceHaltStatePowerOff uint = 0
-
-type KIOServiceInactiveState uint
+type KIOServiceFamilyClose uint
 
 const (
-	KIOServiceFirstMatchState KIOServiceInactiveState = 0
+	KIOServiceFamilyCloseOptions KIOServiceFamilyClose = 0
 )
 
-func (e KIOServiceInactiveState) String() string {
+func (e KIOServiceFamilyClose) String() string {
+	switch e {
+	case KIOServiceFamilyCloseOptions:
+		return "KIOServiceFamilyCloseOptions"
+	default:
+		return fmt.Sprintf("KIOServiceFamilyClose(%d)", e)
+	}
+}
+
+type KIOServiceFirstMatch uint
+
+const (
+	KIOServiceFirstMatchState KIOServiceFirstMatch = 0
+)
+
+func (e KIOServiceFirstMatch) String() string {
 	switch e {
 	case KIOServiceFirstMatchState:
 		return "KIOServiceFirstMatchState"
 	default:
-		return fmt.Sprintf("KIOServiceInactiveState(%d)", e)
+		return fmt.Sprintf("KIOServiceFirstMatch(%d)", e)
+	}
+}
+
+type KIOServiceHaltStatePower uint
+
+const (
+	KIOServiceHaltStatePowerOff KIOServiceHaltStatePower = 0
+)
+
+func (e KIOServiceHaltStatePower) String() string {
+	switch e {
+	case KIOServiceHaltStatePowerOff:
+		return "KIOServiceHaltStatePowerOff"
+	default:
+		return fmt.Sprintf("KIOServiceHaltStatePower(%d)", e)
 	}
 }
 
@@ -7851,31 +9418,42 @@ func (e KIOServiceNotificationType) String() string {
 	}
 }
 
-type KIOServicePowerCapabilityOff uint
+type KIOServicePowerCapability uint
 
 const (
-	KIOServicePowerCapabilityLow KIOServicePowerCapabilityOff = 0
+	KIOServicePowerCapabilityLow KIOServicePowerCapability = 0
 )
 
-func (e KIOServicePowerCapabilityOff) String() string {
+func (e KIOServicePowerCapability) String() string {
 	switch e {
 	case KIOServicePowerCapabilityLow:
 		return "KIOServicePowerCapabilityLow"
 	default:
-		return fmt.Sprintf("KIOServicePowerCapabilityOff(%d)", e)
+		return fmt.Sprintf("KIOServicePowerCapability(%d)", e)
 	}
 }
 
-const KIOServiceSearchPropertyParents uint = 0
+type KIOServiceSearchProperty uint
 
-const KIOServiceSeize uint = 0
+const (
+	KIOServiceSearchPropertyParents KIOServiceSearchProperty = 0
+)
+
+func (e KIOServiceSearchProperty) String() string {
+	switch e {
+	case KIOServiceSearchPropertyParents:
+		return "KIOServiceSearchPropertyParents"
+	default:
+		return fmt.Sprintf("KIOServiceSearchProperty(%d)", e)
+	}
+}
 
 type KIOStorageAccess uint
 
 const (
 	// KIOStorageAccessExclusiveLock: # Discussion
 	KIOStorageAccessExclusiveLock KIOStorageAccess = 0
-	KIOStorageAccessInvalid KIOStorageAccess = 0
+	KIOStorageAccessInvalid       KIOStorageAccess = 0
 )
 
 func (e KIOStorageAccess) String() string {
@@ -7905,55 +9483,55 @@ func (e KIOStorageOption) String() string {
 	}
 }
 
-type KIOStoragePriorityHigh uint
+type KIOStoragePriority uint
 
 const (
-	KIOStoragePriorityBackground KIOStoragePriorityHigh = 0
+	KIOStoragePriorityBackground KIOStoragePriority = 0
 )
 
-func (e KIOStoragePriorityHigh) String() string {
+func (e KIOStoragePriority) String() string {
 	switch e {
 	case KIOStoragePriorityBackground:
 		return "KIOStoragePriorityBackground"
 	default:
-		return fmt.Sprintf("KIOStoragePriorityHigh(%d)", e)
+		return fmt.Sprintf("KIOStoragePriority(%d)", e)
 	}
 }
 
-type KIOStorageProvisionTypeMapped uint
+type KIOStorageProvisionType uint
 
 const (
-	KIOStorageProvisionTypeAnchored KIOStorageProvisionTypeMapped = 0
+	KIOStorageProvisionTypeAnchored KIOStorageProvisionType = 0
 )
 
-func (e KIOStorageProvisionTypeMapped) String() string {
+func (e KIOStorageProvisionType) String() string {
 	switch e {
 	case KIOStorageProvisionTypeAnchored:
 		return "KIOStorageProvisionTypeAnchored"
 	default:
-		return fmt.Sprintf("KIOStorageProvisionTypeMapped(%d)", e)
+		return fmt.Sprintf("KIOStorageProvisionType(%d)", e)
 	}
 }
 
-type KIOStorageSynchronizeOptionNone uint
+type KIOStorageSynchronizeOption uint
 
 const (
-	KIOStorageSynchronizeOptionBarrier KIOStorageSynchronizeOptionNone = 0
+	KIOStorageSynchronizeOptionBarrier KIOStorageSynchronizeOption = 0
 )
 
-func (e KIOStorageSynchronizeOptionNone) String() string {
+func (e KIOStorageSynchronizeOption) String() string {
 	switch e {
 	case KIOStorageSynchronizeOptionBarrier:
 		return "KIOStorageSynchronizeOptionBarrier"
 	default:
-		return fmt.Sprintf("KIOStorageSynchronizeOptionNone(%d)", e)
+		return fmt.Sprintf("KIOStorageSynchronizeOption(%d)", e)
 	}
 }
 
 type KIOStorageUnmapOption uint
 
 const (
-	KIOStorageUnmapOptionNone KIOStorageUnmapOption = 0
+	KIOStorageUnmapOptionNone  KIOStorageUnmapOption = 0
 	KIOStorageUnmapOptionWhole KIOStorageUnmapOption = 0
 )
 
@@ -7966,33 +9544,33 @@ func (e KIOStorageUnmapOption) String() string {
 	}
 }
 
-type KIOStreamEnqueueInputTrap uint
+type KIOStreamBufferID uint
 
 const (
-	KIOStreamEnqueueInputSyncTrap KIOStreamEnqueueInputTrap = 0
+	KIOStreamBufferIDMask KIOStreamBufferID = 0
 )
 
-func (e KIOStreamEnqueueInputTrap) String() string {
-	switch e {
-	case KIOStreamEnqueueInputSyncTrap:
-		return "KIOStreamEnqueueInputSyncTrap"
-	default:
-		return fmt.Sprintf("KIOStreamEnqueueInputTrap(%d)", e)
-	}
-}
-
-type KIOStreamMemoryTypeOutputQueue uint
-
-const (
-	KIOStreamBufferIDMask KIOStreamMemoryTypeOutputQueue = 0
-)
-
-func (e KIOStreamMemoryTypeOutputQueue) String() string {
+func (e KIOStreamBufferID) String() string {
 	switch e {
 	case KIOStreamBufferIDMask:
 		return "KIOStreamBufferIDMask"
 	default:
-		return fmt.Sprintf("KIOStreamMemoryTypeOutputQueue(%d)", e)
+		return fmt.Sprintf("KIOStreamBufferID(%d)", e)
+	}
+}
+
+type KIOStreamEnqueueInputSync uint
+
+const (
+	KIOStreamEnqueueInputSyncTrap KIOStreamEnqueueInputSync = 0
+)
+
+func (e KIOStreamEnqueueInputSync) String() string {
+	switch e {
+	case KIOStreamEnqueueInputSyncTrap:
+		return "KIOStreamEnqueueInputSyncTrap"
+	default:
+		return fmt.Sprintf("KIOStreamEnqueueInputSync(%d)", e)
 	}
 }
 
@@ -8000,7 +9578,7 @@ type KIOStreamMethod uint
 
 const (
 	KIOStreamMethodSetMode KIOStreamMethod = 0
-	KIOStreamMethodStop KIOStreamMethod = 0
+	KIOStreamMethodStop    KIOStreamMethod = 0
 )
 
 func (e KIOStreamMethod) String() string {
@@ -8015,9 +9593,9 @@ func (e KIOStreamMethod) String() string {
 type KIOStreamMode uint
 
 const (
-	KIOStreamModeInput KIOStreamMode = 0
+	KIOStreamModeInput       KIOStreamMode = 0
 	KIOStreamModeInputOutput KIOStreamMode = 0
-	KIOStreamModeOutput KIOStreamMode = 0
+	KIOStreamModeOutput      KIOStreamMode = 0
 )
 
 func (e KIOStreamMode) String() string {
@@ -8029,65 +9607,78 @@ func (e KIOStreamMode) String() string {
 	}
 }
 
-type KIOStreamOptionOpenExclusive uint
+type KIOStreamOptionOpen uint
 
 const (
-	KIOStreamOptionOpenShared KIOStreamOptionOpenExclusive = 0
+	KIOStreamOptionOpenShared KIOStreamOptionOpen = 0
 )
 
-func (e KIOStreamOptionOpenExclusive) String() string {
+func (e KIOStreamOptionOpen) String() string {
 	switch e {
 	case KIOStreamOptionOpenShared:
 		return "KIOStreamOptionOpenShared"
 	default:
-		return fmt.Sprintf("KIOStreamOptionOpenExclusive(%d)", e)
+		return fmt.Sprintf("KIOStreamOptionOpen(%d)", e)
 	}
 }
 
-type KIOStreamPortTypeOutput uint
+type KIOStreamPortType uint
 
 const (
-	KIOStreamPortTypeInput KIOStreamPortTypeOutput = 0
+	KIOStreamPortTypeInput KIOStreamPortType = 0
 )
 
-func (e KIOStreamPortTypeOutput) String() string {
+func (e KIOStreamPortType) String() string {
 	switch e {
 	case KIOStreamPortTypeInput:
 		return "KIOStreamPortTypeInput"
 	default:
-		return fmt.Sprintf("KIOStreamPortTypeOutput(%d)", e)
+		return fmt.Sprintf("KIOStreamPortType(%d)", e)
 	}
 }
 
-const KIOSyncPositivePolarity uint = 0
-
-type KIOSystemStateSleepDescriptionHibernateStateInactive uint
+type KIOSyncPositive uint
 
 const (
-	KIOSystemStateSleepDescriptionHibernateStateHibernating KIOSystemStateSleepDescriptionHibernateStateInactive = 0
+	KIOSyncPositivePolarity KIOSyncPositive = 0
 )
 
-func (e KIOSystemStateSleepDescriptionHibernateStateInactive) String() string {
+func (e KIOSyncPositive) String() string {
+	switch e {
+	case KIOSyncPositivePolarity:
+		return "KIOSyncPositivePolarity"
+	default:
+		return fmt.Sprintf("KIOSyncPositive(%d)", e)
+	}
+}
+
+type KIOSystemStateSleepDescriptionHibernateState uint
+
+const (
+	KIOSystemStateSleepDescriptionHibernateStateHibernating KIOSystemStateSleepDescriptionHibernateState = 0
+)
+
+func (e KIOSystemStateSleepDescriptionHibernateState) String() string {
 	switch e {
 	case KIOSystemStateSleepDescriptionHibernateStateHibernating:
 		return "KIOSystemStateSleepDescriptionHibernateStateHibernating"
 	default:
-		return fmt.Sprintf("KIOSystemStateSleepDescriptionHibernateStateInactive(%d)", e)
+		return fmt.Sprintf("KIOSystemStateSleepDescriptionHibernateState(%d)", e)
 	}
 }
 
-type KIOTimeOptionsWithLeeway uint
+type KIOTimeOptions uint
 
 const (
-	KIOTimeOptionsContinuous KIOTimeOptionsWithLeeway = 0
+	KIOTimeOptionsContinuous KIOTimeOptions = 0
 )
 
-func (e KIOTimeOptionsWithLeeway) String() string {
+func (e KIOTimeOptions) String() string {
 	switch e {
 	case KIOTimeOptionsContinuous:
 		return "KIOTimeOptionsContinuous"
 	default:
-		return fmt.Sprintf("KIOTimeOptionsWithLeeway(%d)", e)
+		return fmt.Sprintf("KIOTimeOptions(%d)", e)
 	}
 }
 
@@ -8095,7 +9686,7 @@ type KIOTimerEventSourceOptions uint
 
 const (
 	KIOTimerEventSourceOptionsAllowReenter KIOTimerEventSourceOptions = 0
-	KIOTimerEventSourceOptionsDefault KIOTimerEventSourceOptions = 0
+	KIOTimerEventSourceOptionsDefault      KIOTimerEventSourceOptions = 0
 )
 
 func (e KIOTimerEventSourceOptions) String() string {
@@ -8110,7 +9701,7 @@ func (e KIOTimerEventSourceOptions) String() string {
 type KIOTimingID uint
 
 const (
-	KIOTimingIDAppleNTSC_FFconv KIOTimingID = 0
+	KIOTimingIDAppleNTSC_FFconv  KIOTimingID = 0
 	KIOTimingIDVESA_848x480_60hz KIOTimingID = 0
 )
 
@@ -8123,18 +9714,18 @@ func (e KIOTimingID) String() string {
 	}
 }
 
-type KIOTimingRangeV2 uint
+type KIOTimingRange uint
 
 const (
-	KIOTimingRangeV1 KIOTimingRangeV2 = 0
+	KIOTimingRangeV1 KIOTimingRange = 0
 )
 
-func (e KIOTimingRangeV2) String() string {
+func (e KIOTimingRange) String() string {
 	switch e {
 	case KIOTimingRangeV1:
 		return "KIOTimingRangeV1"
 	default:
-		return fmt.Sprintf("KIOTimingRangeV2(%d)", e)
+		return fmt.Sprintf("KIOTimingRange(%d)", e)
 	}
 }
 
@@ -8142,7 +9733,7 @@ type KIOTrace uint
 
 const (
 	KIOTraceCommandGates KIOTrace = 0
-	KIOTraceTimers KIOTrace = 0
+	KIOTraceTimers       KIOTrace = 0
 )
 
 func (e KIOTrace) String() string {
@@ -8154,37 +9745,63 @@ func (e KIOTrace) String() string {
 	}
 }
 
-const KIOTrackingCallSiteBTs uint = 0
-
-const KIOTrackingExcludeNames uint = 0
-
-type KIOTrackingGetTracking uint
+type KIOTrackingCallSiteB uint
 
 const (
-	KIOTrackingGetMappings KIOTrackingGetTracking = 0
+	KIOTrackingCallSiteBTs KIOTrackingCallSiteB = 0
 )
 
-func (e KIOTrackingGetTracking) String() string {
+func (e KIOTrackingCallSiteB) String() string {
+	switch e {
+	case KIOTrackingCallSiteBTs:
+		return "KIOTrackingCallSiteBTs"
+	default:
+		return fmt.Sprintf("KIOTrackingCallSiteB(%d)", e)
+	}
+}
+
+type KIOTrackingExclude uint
+
+const (
+	KIOTrackingExcludeNames KIOTrackingExclude = 0
+)
+
+func (e KIOTrackingExclude) String() string {
+	switch e {
+	case KIOTrackingExcludeNames:
+		return "KIOTrackingExcludeNames"
+	default:
+		return fmt.Sprintf("KIOTrackingExclude(%d)", e)
+	}
+}
+
+type KIOTrackingGet uint
+
+const (
+	KIOTrackingGetMappings KIOTrackingGet = 0
+)
+
+func (e KIOTrackingGet) String() string {
 	switch e {
 	case KIOTrackingGetMappings:
 		return "KIOTrackingGetMappings"
 	default:
-		return fmt.Sprintf("KIOTrackingGetTracking(%d)", e)
+		return fmt.Sprintf("KIOTrackingGet(%d)", e)
 	}
 }
 
-type KIOTrackingLeakScanStart uint
+type KIOTrackingLeakScan uint
 
 const (
-	KIOTrackingLeakScanEnd KIOTrackingLeakScanStart = 0
+	KIOTrackingLeakScanEnd KIOTrackingLeakScan = 0
 )
 
-func (e KIOTrackingLeakScanStart) String() string {
+func (e KIOTrackingLeakScan) String() string {
 	switch e {
 	case KIOTrackingLeakScanEnd:
 		return "KIOTrackingLeakScanEnd"
 	default:
-		return fmt.Sprintf("KIOTrackingLeakScanStart(%d)", e)
+		return fmt.Sprintf("KIOTrackingLeakScan(%d)", e)
 	}
 }
 
@@ -8204,7 +9821,21 @@ func (e KIOUC) String() string {
 	}
 }
 
-const KIOUCVariableStructureSize uint = 0
+type KIOUCVariableStructure uint
+
+const (
+	// KIOUCVariableStructureSize: # Discussion
+	KIOUCVariableStructureSize KIOUCVariableStructure = 0
+)
+
+func (e KIOUCVariableStructure) String() string {
+	switch e {
+	case KIOUCVariableStructureSize:
+		return "KIOUCVariableStructureSize"
+	default:
+		return fmt.Sprintf("KIOUCVariableStructure(%d)", e)
+	}
+}
 
 type KIOUSB uint
 
@@ -8212,26 +9843,26 @@ const (
 	// KIOUSBDecriptorTypeHID: The type for a human interaction device descriptor.
 	KIOUSBDecriptorTypeHID KIOUSB = 0
 	// KIOUSBDecriptorTypeReport: The type for a report descriptor.
-	KIOUSBDecriptorTypeReport KIOUSB = 0
-	KIOUSBDescriptorTypeBOS KIOUSB = 0
-	KIOUSBDescriptorTypeConfiguration KIOUSB = 0
-	KIOUSBDescriptorTypeDebug KIOUSB = 0
-	KIOUSBDescriptorTypeDevice KIOUSB = 0
-	KIOUSBDescriptorTypeDeviceCapability KIOUSB = 0
-	KIOUSBDescriptorTypeDeviceQualifier KIOUSB = 0
-	KIOUSBDescriptorTypeEndpoint KIOUSB = 0
-	KIOUSBDescriptorTypeHub KIOUSB = 0
-	KIOUSBDescriptorTypeInterface KIOUSB = 0
-	KIOUSBDescriptorTypeInterfaceAssociation KIOUSB = 0
-	KIOUSBDescriptorTypeInterfacePower KIOUSB = 0
-	KIOUSBDescriptorTypeOTG KIOUSB = 0
+	KIOUSBDecriptorTypeReport                   KIOUSB = 0
+	KIOUSBDescriptorTypeBOS                     KIOUSB = 0
+	KIOUSBDescriptorTypeConfiguration           KIOUSB = 0
+	KIOUSBDescriptorTypeDebug                   KIOUSB = 0
+	KIOUSBDescriptorTypeDevice                  KIOUSB = 0
+	KIOUSBDescriptorTypeDeviceCapability        KIOUSB = 0
+	KIOUSBDescriptorTypeDeviceQualifier         KIOUSB = 0
+	KIOUSBDescriptorTypeEndpoint                KIOUSB = 0
+	KIOUSBDescriptorTypeHub                     KIOUSB = 0
+	KIOUSBDescriptorTypeInterface               KIOUSB = 0
+	KIOUSBDescriptorTypeInterfaceAssociation    KIOUSB = 0
+	KIOUSBDescriptorTypeInterfacePower          KIOUSB = 0
+	KIOUSBDescriptorTypeOTG                     KIOUSB = 0
 	KIOUSBDescriptorTypeOtherSpeedConfiguration KIOUSB = 0
 	// KIOUSBDescriptorTypePhysical: The type for a physical descriptor.
-	KIOUSBDescriptorTypePhysical KIOUSB = 0
-	KIOUSBDescriptorTypeString KIOUSB = 0
-	KIOUSBDescriptorTypeSuperSpeedHub KIOUSB = 0
+	KIOUSBDescriptorTypePhysical                                   KIOUSB = 0
+	KIOUSBDescriptorTypeString                                     KIOUSB = 0
+	KIOUSBDescriptorTypeSuperSpeedHub                              KIOUSB = 0
 	KIOUSBDescriptorTypeSuperSpeedPlusIsochronousEndpointCompanion KIOUSB = 0
-	KIOUSBDescriptorTypeSuperSpeedUSBEndpointCompanion KIOUSB = 0
+	KIOUSBDescriptorTypeSuperSpeedUSBEndpointCompanion             KIOUSB = 0
 )
 
 func (e KIOUSB) String() string {
@@ -8270,8 +9901,8 @@ const (
 	KIOUSB30LinKStateU2RxDetectDelay KIOUSB30 = 0
 	// KIOUSB30LinkStateHotResetActiveTimeout: The hot reset active timeout.
 	KIOUSB30LinkStateHotResetActiveTimeout KIOUSB30 = 0
-	KIOUSB30LinkStateHotResetDeadline KIOUSB30 = 0
-	KIOUSB30LinkStateHotResetExitTimeout KIOUSB30 = 0
+	KIOUSB30LinkStateHotResetDeadline      KIOUSB30 = 0
+	KIOUSB30LinkStateHotResetExitTimeout   KIOUSB30 = 0
 	// KIOUSB30LinkStateLoopbackExitTimeout: The loopback exit timeout.
 	KIOUSB30LinkStateLoopbackExitTimeout KIOUSB30 = 0
 	// KIOUSB30LinkStatePollingActiveTimeout: The polling active timeout.
@@ -8288,7 +9919,7 @@ const (
 	KIOUSB30LinkStateRecoveryActiveTimeout KIOUSB30 = 0
 	// KIOUSB30LinkStateRecoveryConfigurationTimeout: The recovery configuration timeout.
 	KIOUSB30LinkStateRecoveryConfigurationTimeout KIOUSB30 = 0
-	KIOUSB30LinkStateRecoveryDeadline KIOUSB30 = 0
+	KIOUSB30LinkStateRecoveryDeadline             KIOUSB30 = 0
 	// KIOUSB30LinkStateRecoveryIdleTimeout: The recovery idle timeout.
 	KIOUSB30LinkStateRecoveryIdleTimeout KIOUSB30 = 0
 	// KIOUSB30LinkStateRxDetectQuietTimeout: The receive detect quiet timeout.
@@ -8460,15 +10091,57 @@ func (e KIOUSB30TimingParameterBELT) String() string {
 	}
 }
 
-const KIOUSBAnyClass uint = 0
+type KIOUSBAny uint
 
-const KIOUSBAppleVendorID uint = 0
+const (
+	KIOUSBAnyClass KIOUSBAny = 0
+)
+
+func (e KIOUSBAny) String() string {
+	switch e {
+	case KIOUSBAnyClass:
+		return "KIOUSBAnyClass"
+	default:
+		return fmt.Sprintf("KIOUSBAny(%d)", e)
+	}
+}
+
+type KIOUSBAppleVendorI uint
+
+const (
+	KIOUSBAppleVendorID KIOUSBAppleVendorI = 0
+)
+
+func (e KIOUSBAppleVendorI) String() string {
+	switch e {
+	case KIOUSBAppleVendorID:
+		return "KIOUSBAppleVendorID"
+	default:
+		return fmt.Sprintf("KIOUSBAppleVendorI(%d)", e)
+	}
+}
+
+type KIOUSBBusVoltage uint
+
+const (
+	// KIOUSBBusVoltageDefault: The default bus voltage.
+	KIOUSBBusVoltageDefault KIOUSBBusVoltage = 0
+)
+
+func (e KIOUSBBusVoltage) String() string {
+	switch e {
+	case KIOUSBBusVoltageDefault:
+		return "KIOUSBBusVoltageDefault"
+	default:
+		return fmt.Sprintf("KIOUSBBusVoltage(%d)", e)
+	}
+}
 
 type KIOUSBConfigurationDescriptorAttribute uint
 
 const (
 	KIOUSBConfigurationDescriptorAttributeRemoteWakeCapable KIOUSBConfigurationDescriptorAttribute = 0
-	KIOUSBConfigurationDescriptorAttributeSelfPowered KIOUSBConfigurationDescriptorAttribute = 0
+	KIOUSBConfigurationDescriptorAttributeSelfPowered       KIOUSBConfigurationDescriptorAttribute = 0
 )
 
 func (e KIOUSBConfigurationDescriptorAttribute) String() string {
@@ -8483,29 +10156,29 @@ func (e KIOUSBConfigurationDescriptorAttribute) String() string {
 type KIOUSBDescriptor uint
 
 const (
-	KIOUSBDescriptorHeaderSize KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeBOS KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeBillboardDeviceMaximum KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeBillboardDeviceMinimum KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeConfiguration KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeContainerIDCapability KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeDevice KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeDeviceCapability KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeDeviceQualifier KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeEndpoint KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeHubMaximum KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeHubMinimum KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeInterface KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeInterfaceAssociation KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizePlatformCapability KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizePlatformECIDCapability KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeStringMaximum KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeStringMinimum KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeSuperSpeedHub KIOUSBDescriptor = 0
+	KIOUSBDescriptorHeaderSize                                     KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeBOS                                        KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeBillboardDeviceMaximum                     KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeBillboardDeviceMinimum                     KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeConfiguration                              KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeContainerIDCapability                      KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeDevice                                     KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeDeviceCapability                           KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeDeviceQualifier                            KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeEndpoint                                   KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeHubMaximum                                 KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeHubMinimum                                 KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeInterface                                  KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeInterfaceAssociation                       KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizePlatformCapability                         KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizePlatformECIDCapability                     KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeStringMaximum                              KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeStringMinimum                              KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeSuperSpeedHub                              KIOUSBDescriptor = 0
 	KIOUSBDescriptorSizeSuperSpeedPlusIsochronousEndpointCompanion KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeSuperSpeedUSBDeviceCapability KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeSuperSpeedUSBEndpointCompanion KIOUSBDescriptor = 0
-	KIOUSBDescriptorSizeUSB20ExtensionCapability KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeSuperSpeedUSBDeviceCapability              KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeSuperSpeedUSBEndpointCompanion             KIOUSBDescriptor = 0
+	KIOUSBDescriptorSizeUSB20ExtensionCapability                   KIOUSBDescriptor = 0
 )
 
 func (e KIOUSBDescriptor) String() string {
@@ -8517,38 +10190,38 @@ func (e KIOUSBDescriptor) String() string {
 	}
 }
 
-type KIOUSBDeviceCapabilityDescriptorType uint
+type KIOUSBDeviceCapabilityDescriptorLength uint
 
 const (
-	KIOUSBDeviceCapabilityDescriptorLengthMin KIOUSBDeviceCapabilityDescriptorType = 0
+	KIOUSBDeviceCapabilityDescriptorLengthMin KIOUSBDeviceCapabilityDescriptorLength = 0
 )
 
-func (e KIOUSBDeviceCapabilityDescriptorType) String() string {
+func (e KIOUSBDeviceCapabilityDescriptorLength) String() string {
 	switch e {
 	case KIOUSBDeviceCapabilityDescriptorLengthMin:
 		return "KIOUSBDeviceCapabilityDescriptorLengthMin"
 	default:
-		return fmt.Sprintf("KIOUSBDeviceCapabilityDescriptorType(%d)", e)
+		return fmt.Sprintf("KIOUSBDeviceCapabilityDescriptorLength(%d)", e)
 	}
 }
 
 type KIOUSBDeviceCapabilityType uint
 
 const (
-	KIOUSBDeviceCapabilityTypeBatteryInfo KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypeBillboard KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypeBillboardAltMode KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypeContainerID KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypePdConsumerPort KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypePdProviderPort KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypePlatform KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypePowerDelivery KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypeBatteryInfo          KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypeBillboard            KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypeBillboardAltMode     KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypeContainerID          KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypePdConsumerPort       KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypePdProviderPort       KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypePlatform             KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypePowerDelivery        KIOUSBDeviceCapabilityType = 0
 	KIOUSBDeviceCapabilityTypePrecisionMeasurement KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypeSuperSpeed KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypeSuperSpeedPlus KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypeUSB20Extension KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypeWireless KIOUSBDeviceCapabilityType = 0
-	KIOUSBDeviceCapabilityTypeWirelessExt KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypeSuperSpeed           KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypeSuperSpeedPlus       KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypeUSB20Extension       KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypeWireless             KIOUSBDeviceCapabilityType = 0
+	KIOUSBDeviceCapabilityTypeWirelessExt          KIOUSBDeviceCapabilityType = 0
 )
 
 func (e KIOUSBDeviceCapabilityType) String() string {
@@ -8564,7 +10237,7 @@ type KIOUSBDeviceFeatureSelector uint
 
 const (
 	KIOUSBDeviceFeatureSelectorLTMEnable KIOUSBDeviceFeatureSelector = 0
-	KIOUSBDeviceFeatureSelectorU1Enable KIOUSBDeviceFeatureSelector = 0
+	KIOUSBDeviceFeatureSelectorU1Enable  KIOUSBDeviceFeatureSelector = 0
 )
 
 func (e KIOUSBDeviceFeatureSelector) String() string {
@@ -8644,7 +10317,7 @@ type KIOUSBDeviceRequestGet uint
 
 const (
 	KIOUSBDeviceRequestGetConfiguration KIOUSBDeviceRequestGet = 0
-	KIOUSBDeviceRequestGetStatus KIOUSBDeviceRequestGet = 0
+	KIOUSBDeviceRequestGetStatus        KIOUSBDeviceRequestGet = 0
 )
 
 func (e KIOUSBDeviceRequestGet) String() string {
@@ -8701,7 +10374,7 @@ func (e KIOUSBDeviceRequestTypeValue) String() string {
 type KIOUSBDeviceStatusSelfPowered int
 
 const (
-	IOUSBEndpointStatusHalt KIOUSBDeviceStatusSelfPowered = 0
+	IOUSBEndpointStatusHalt            KIOUSBDeviceStatusSelfPowered = 0
 	KIOUSBDeviceStatusRemoteWakeEnable KIOUSBDeviceStatusSelfPowered = 0
 )
 
@@ -8717,7 +10390,7 @@ func (e KIOUSBDeviceStatusSelfPowered) String() string {
 type KIOUSBEndpointDescriptor uint
 
 const (
-	KIOUSBEndpointDescriptorNumber KIOUSBEndpointDescriptor = 0
+	KIOUSBEndpointDescriptorNumber                   KIOUSBEndpointDescriptor = 0
 	KIOUSBEndpointDescriptorSynchronizationTypePhase KIOUSBEndpointDescriptor = 0
 )
 
@@ -8733,8 +10406,8 @@ func (e KIOUSBEndpointDescriptor) String() string {
 type KIOUSBEndpointDirection uint
 
 const (
-	KIOUSBEndpointDirectionIn KIOUSBEndpointDirection = 0
-	KIOUSBEndpointDirectionOut KIOUSBEndpointDirection = 0
+	KIOUSBEndpointDirectionIn      KIOUSBEndpointDirection = 0
+	KIOUSBEndpointDirectionOut     KIOUSBEndpointDirection = 0
 	KIOUSBEndpointDirectionUnknown KIOUSBEndpointDirection = 0
 )
 
@@ -8772,9 +10445,9 @@ func (e KIOUSBEndpointSynchronizationType) String() string {
 type KIOUSBEndpointType uint
 
 const (
-	KIOUSBEndpointTypeBulk KIOUSBEndpointType = 0
-	KIOUSBEndpointTypeControl KIOUSBEndpointType = 0
-	KIOUSBEndpointTypeInterrupt KIOUSBEndpointType = 0
+	KIOUSBEndpointTypeBulk        KIOUSBEndpointType = 0
+	KIOUSBEndpointTypeControl     KIOUSBEndpointType = 0
+	KIOUSBEndpointTypeInterrupt   KIOUSBEndpointType = 0
 	KIOUSBEndpointTypeIsochronous KIOUSBEndpointType = 0
 )
 
@@ -8807,7 +10480,20 @@ func (e KIOUSBEndpointUsageTypeIsoc) String() string {
 	}
 }
 
-const KIOUSBFindInterfaceDontCare uint = 0
+type KIOUSBFindInterfaceDont uint
+
+const (
+	KIOUSBFindInterfaceDontCare KIOUSBFindInterfaceDont = 0
+)
+
+func (e KIOUSBFindInterfaceDont) String() string {
+	switch e {
+	case KIOUSBFindInterfaceDontCare:
+		return "KIOUSBFindInterfaceDontCare"
+	default:
+		return fmt.Sprintf("KIOUSBFindInterfaceDont(%d)", e)
+	}
+}
 
 type KIOUSBGetEndpointDescriptor uint
 
@@ -8857,7 +10543,20 @@ func (e KIOUSBHostConnectionSpeed) String() string {
 	}
 }
 
-const KIOUSBHostPipeBundlingMax uint = 0
+type KIOUSBHostPipeBundling uint
+
+const (
+	KIOUSBHostPipeBundlingMax KIOUSBHostPipeBundling = 0
+)
+
+func (e KIOUSBHostPipeBundling) String() string {
+	switch e {
+	case KIOUSBHostPipeBundlingMax:
+		return "KIOUSBHostPipeBundlingMax"
+	default:
+		return fmt.Sprintf("KIOUSBHostPipeBundling(%d)", e)
+	}
+}
 
 type KIOUSBHostPortStatus int
 
@@ -8941,31 +10640,86 @@ func (e KIOUSBHostPortType) String() string {
 	}
 }
 
-type KIOUSBHubPort2PortExitLatencyNs uint
+type KIOUSBHubDelay uint
 
 const (
-	KIOUSBHubDelayNs KIOUSBHubPort2PortExitLatencyNs = 0
+	KIOUSBHubDelayNs KIOUSBHubDelay = 0
 )
 
-func (e KIOUSBHubPort2PortExitLatencyNs) String() string {
+func (e KIOUSBHubDelay) String() string {
 	switch e {
 	case KIOUSBHubDelayNs:
 		return "KIOUSBHubDelayNs"
 	default:
-		return fmt.Sprintf("KIOUSBHubPort2PortExitLatencyNs(%d)", e)
+		return fmt.Sprintf("KIOUSBHubDelay(%d)", e)
 	}
 }
 
-const KIOUSBInterfaceOpenAlt uint = 0
+type KIOUSBInterfaceOpen uint
 
-const KIOUSBInterfaceSuspendLowPower uint = 0
+const (
+	// KIOUSBInterfaceOpenAlt: # Discussion
+	KIOUSBInterfaceOpenAlt KIOUSBInterfaceOpen = 0
+)
 
-const KIOUSBPingResponseTimeNs uint = 0
+func (e KIOUSBInterfaceOpen) String() string {
+	switch e {
+	case KIOUSBInterfaceOpenAlt:
+		return "KIOUSBInterfaceOpenAlt"
+	default:
+		return fmt.Sprintf("KIOUSBInterfaceOpen(%d)", e)
+	}
+}
+
+type KIOUSBInterfaceSuspendLow uint
+
+const (
+	KIOUSBInterfaceSuspendLowPower KIOUSBInterfaceSuspendLow = 0
+)
+
+func (e KIOUSBInterfaceSuspendLow) String() string {
+	switch e {
+	case KIOUSBInterfaceSuspendLowPower:
+		return "KIOUSBInterfaceSuspendLowPower"
+	default:
+		return fmt.Sprintf("KIOUSBInterfaceSuspendLow(%d)", e)
+	}
+}
+
+type KIOUSBLanguageIDEnglishU uint
+
+const (
+	KIOUSBLanguageIDEnglishUS KIOUSBLanguageIDEnglishU = 0
+)
+
+func (e KIOUSBLanguageIDEnglishU) String() string {
+	switch e {
+	case KIOUSBLanguageIDEnglishUS:
+		return "KIOUSBLanguageIDEnglishUS"
+	default:
+		return fmt.Sprintf("KIOUSBLanguageIDEnglishU(%d)", e)
+	}
+}
+
+type KIOUSBPingResponseTime uint
+
+const (
+	KIOUSBPingResponseTimeNs KIOUSBPingResponseTime = 0
+)
+
+func (e KIOUSBPingResponseTime) String() string {
+	switch e {
+	case KIOUSBPingResponseTimeNs:
+		return "KIOUSBPingResponseTimeNs"
+	default:
+		return fmt.Sprintf("KIOUSBPingResponseTime(%d)", e)
+	}
+}
 
 type KIOUSBSuperSpeedDeviceCapability uint
 
 const (
-	KIOUSBSuperSpeedDeviceCapabilityHighSpeed KIOUSBSuperSpeedDeviceCapability = 0
+	KIOUSBSuperSpeedDeviceCapabilityHighSpeed        KIOUSBSuperSpeedDeviceCapability = 0
 	KIOUSBSuperSpeedDeviceCapabilitySupportHighSpeed KIOUSBSuperSpeedDeviceCapability = 0
 )
 
@@ -8981,7 +10735,7 @@ func (e KIOUSBSuperSpeedDeviceCapability) String() string {
 type KIOUSBSuperSpeedEndpointCompanionDescriptor uint
 
 const (
-	KIOUSBSuperSpeedEndpointCompanionDescriptorBulkMaxStreams KIOUSBSuperSpeedEndpointCompanionDescriptor = 0
+	KIOUSBSuperSpeedEndpointCompanionDescriptorBulkMaxStreams    KIOUSBSuperSpeedEndpointCompanionDescriptor = 0
 	KIOUSBSuperSpeedEndpointCompanionDescriptorIsocReservedPhase KIOUSBSuperSpeedEndpointCompanionDescriptor = 0
 )
 
@@ -8997,7 +10751,7 @@ func (e KIOUSBSuperSpeedEndpointCompanionDescriptor) String() string {
 type KIOUSBSuperSpeedHubCharacteristics uint
 
 const (
-	KIOUSBSuperSpeedHubCharacteristicsCompoundDevice KIOUSBSuperSpeedHubCharacteristics = 0
+	KIOUSBSuperSpeedHubCharacteristicsCompoundDevice    KIOUSBSuperSpeedHubCharacteristics = 0
 	KIOUSBSuperSpeedHubCharacteristicsOverCurrentGlobal KIOUSBSuperSpeedHubCharacteristics = 0
 )
 
@@ -9014,7 +10768,7 @@ type KIOUSBSuperSpeedPlusDeviceCapabilitySublink uint
 
 const (
 	KIOUSBSuperSpeedPlusDeviceCapabilitySublinkDirectionPhase KIOUSBSuperSpeedPlusDeviceCapabilitySublink = 0
-	KIOUSBSuperSpeedPlusDeviceCapabilitySublinkSymmetric KIOUSBSuperSpeedPlusDeviceCapabilitySublink = 0
+	KIOUSBSuperSpeedPlusDeviceCapabilitySublinkSymmetric      KIOUSBSuperSpeedPlusDeviceCapabilitySublink = 0
 )
 
 func (e KIOUSBSuperSpeedPlusDeviceCapabilitySublink) String() string {
@@ -9029,7 +10783,7 @@ func (e KIOUSBSuperSpeedPlusDeviceCapabilitySublink) String() string {
 type KIOUSBUSB20ExtensionCapabilityBES uint
 
 const (
-	KIOUSBUSB20ExtensionCapabilityBESL KIOUSBUSB20ExtensionCapabilityBES = 0
+	KIOUSBUSB20ExtensionCapabilityBESL      KIOUSBUSB20ExtensionCapabilityBES = 0
 	KIOUSBUSB20ExtensionCapabilityBESLValid KIOUSBUSB20ExtensionCapabilityBES = 0
 )
 
@@ -9042,36 +10796,140 @@ func (e KIOUSBUSB20ExtensionCapabilityBES) String() string {
 	}
 }
 
-type KIOUSBVendorIDAppleComputer uint
+type KIOUSBVendorID uint
 
 const (
-	KIOUSBVendorIDApple KIOUSBVendorIDAppleComputer = 0
+	KIOUSBVendorIDApple KIOUSBVendorID = 0
 )
 
-func (e KIOUSBVendorIDAppleComputer) String() string {
+func (e KIOUSBVendorID) String() string {
 	switch e {
 	case KIOUSBVendorIDApple:
 		return "KIOUSBVendorIDApple"
 	default:
-		return fmt.Sprintf("KIOUSBVendorIDAppleComputer(%d)", e)
+		return fmt.Sprintf("KIOUSBVendorID(%d)", e)
 	}
 }
 
-const KIOUserClientAsyncArgumentsCountMax uint = 0
+type KIOUserClientAsyncArgumentsCount uint
 
-const KIOUserClientAsyncReferenceCountMax uint = 0
+const (
+	KIOUserClientAsyncArgumentsCountMax KIOUserClientAsyncArgumentsCount = 0
+)
 
-const KIOUserClientMemoryReadOnly uint = 0
+func (e KIOUserClientAsyncArgumentsCount) String() string {
+	switch e {
+	case KIOUserClientAsyncArgumentsCountMax:
+		return "KIOUserClientAsyncArgumentsCountMax"
+	default:
+		return fmt.Sprintf("KIOUserClientAsyncArgumentsCount(%d)", e)
+	}
+}
 
-const KIOUserClientMethodArgumentsCurrentVersion uint = 0
+type KIOUserClientAsyncReferenceCount uint
 
-const KIOUserClientScalarArrayCountMax uint = 0
+const (
+	KIOUserClientAsyncReferenceCountMax KIOUserClientAsyncReferenceCount = 0
+)
 
-const KIOUserClientVariableStructureSize uint = 0
+func (e KIOUserClientAsyncReferenceCount) String() string {
+	switch e {
+	case KIOUserClientAsyncReferenceCountMax:
+		return "KIOUserClientAsyncReferenceCountMax"
+	default:
+		return fmt.Sprintf("KIOUserClientAsyncReferenceCount(%d)", e)
+	}
+}
 
-const KIOUserNotifyMaxMessageSize uint = 0
+type KIOUserClientMemoryRead uint
 
-const KIOUserNotifyOptionCanDrop uint = 0
+const (
+	KIOUserClientMemoryReadOnly KIOUserClientMemoryRead = 0
+)
+
+func (e KIOUserClientMemoryRead) String() string {
+	switch e {
+	case KIOUserClientMemoryReadOnly:
+		return "KIOUserClientMemoryReadOnly"
+	default:
+		return fmt.Sprintf("KIOUserClientMemoryRead(%d)", e)
+	}
+}
+
+type KIOUserClientMethodArgumentsCurrent uint
+
+const (
+	KIOUserClientMethodArgumentsCurrentVersion KIOUserClientMethodArgumentsCurrent = 0
+)
+
+func (e KIOUserClientMethodArgumentsCurrent) String() string {
+	switch e {
+	case KIOUserClientMethodArgumentsCurrentVersion:
+		return "KIOUserClientMethodArgumentsCurrentVersion"
+	default:
+		return fmt.Sprintf("KIOUserClientMethodArgumentsCurrent(%d)", e)
+	}
+}
+
+type KIOUserClientScalarArrayCount uint
+
+const (
+	KIOUserClientScalarArrayCountMax KIOUserClientScalarArrayCount = 0
+)
+
+func (e KIOUserClientScalarArrayCount) String() string {
+	switch e {
+	case KIOUserClientScalarArrayCountMax:
+		return "KIOUserClientScalarArrayCountMax"
+	default:
+		return fmt.Sprintf("KIOUserClientScalarArrayCount(%d)", e)
+	}
+}
+
+type KIOUserClientVariableStructure uint
+
+const (
+	KIOUserClientVariableStructureSize KIOUserClientVariableStructure = 0
+)
+
+func (e KIOUserClientVariableStructure) String() string {
+	switch e {
+	case KIOUserClientVariableStructureSize:
+		return "KIOUserClientVariableStructureSize"
+	default:
+		return fmt.Sprintf("KIOUserClientVariableStructure(%d)", e)
+	}
+}
+
+type KIOUserNotifyMaxMessage uint
+
+const (
+	KIOUserNotifyMaxMessageSize KIOUserNotifyMaxMessage = 0
+)
+
+func (e KIOUserNotifyMaxMessage) String() string {
+	switch e {
+	case KIOUserNotifyMaxMessageSize:
+		return "KIOUserNotifyMaxMessageSize"
+	default:
+		return fmt.Sprintf("KIOUserNotifyMaxMessage(%d)", e)
+	}
+}
+
+type KIOUserNotifyOptionCan uint
+
+const (
+	KIOUserNotifyOptionCanDrop KIOUserNotifyOptionCan = 0
+)
+
+func (e KIOUserNotifyOptionCan) String() string {
+	switch e {
+	case KIOUserNotifyOptionCanDrop:
+		return "KIOUserNotifyOptionCanDrop"
+	default:
+		return fmt.Sprintf("KIOUserNotifyOptionCan(%d)", e)
+	}
+}
 
 type KIOVideoBooleanControlClassID uint
 
@@ -9131,7 +10989,7 @@ type KIOVideoDeviceMethod uint
 
 const (
 	KIOVideoDeviceMethodClose KIOVideoDeviceMethod = 0
-	KIOVideoDeviceMethodOpen KIOVideoDeviceMethod = 0
+	KIOVideoDeviceMethodOpen  KIOVideoDeviceMethod = 0
 )
 
 func (e KIOVideoDeviceMethod) String() string {
@@ -9143,18 +11001,18 @@ func (e KIOVideoDeviceMethod) String() string {
 	}
 }
 
-type KIOVideoDevicePortTypeNotification uint
+type KIOVideoDevicePortType uint
 
 const (
-	KIOVideoDevicePortTypeInput KIOVideoDevicePortTypeNotification = 0
+	KIOVideoDevicePortTypeInput KIOVideoDevicePortType = 0
 )
 
-func (e KIOVideoDevicePortTypeNotification) String() string {
+func (e KIOVideoDevicePortType) String() string {
 	switch e {
 	case KIOVideoDevicePortTypeInput:
 		return "KIOVideoDevicePortTypeInput"
 	default:
-		return fmt.Sprintf("KIOVideoDevicePortTypeNotification(%d)", e)
+		return fmt.Sprintf("KIOVideoDevicePortType(%d)", e)
 	}
 }
 
@@ -9176,19 +11034,19 @@ func (e KIOVideoFeatureControlClassID) String() string {
 	}
 }
 
-type KIOVideoSelectorControlClassIDDataSource uint
+type KIOVideoSelectorControlClassIDData uint
 
 const (
 	// KIOVideoSelectorControlClassIDDataDestination: # Discussion
-	KIOVideoSelectorControlClassIDDataDestination KIOVideoSelectorControlClassIDDataSource = 0
+	KIOVideoSelectorControlClassIDDataDestination KIOVideoSelectorControlClassIDData = 0
 )
 
-func (e KIOVideoSelectorControlClassIDDataSource) String() string {
+func (e KIOVideoSelectorControlClassIDData) String() string {
 	switch e {
 	case KIOVideoSelectorControlClassIDDataDestination:
 		return "KIOVideoSelectorControlClassIDDataDestination"
 	default:
-		return fmt.Sprintf("KIOVideoSelectorControlClassIDDataSource(%d)", e)
+		return fmt.Sprintf("KIOVideoSelectorControlClassIDData(%d)", e)
 	}
 }
 
@@ -9196,7 +11054,7 @@ type KIOWSAA uint
 
 const (
 	KIOWSAA_Accelerated KIOWSAA = 0
-	KIOWSAA_Hibernate KIOWSAA = 0
+	KIOWSAA_Hibernate   KIOWSAA = 0
 )
 
 func (e KIOWSAA) String() string {
@@ -9208,11 +11066,80 @@ func (e KIOWSAA) String() string {
 	}
 }
 
-const KIOWorkGroupMaxNameLength uint = 0
+type KIOWorkGroupMaxName uint
 
-const KInflowForciblyEnabledBit uint = 0
+const (
+	KIOWorkGroupMaxNameLength KIOWorkGroupMaxName = 0
+)
 
-const KInitialDriverDescriptor uint = 0
+func (e KIOWorkGroupMaxName) String() string {
+	switch e {
+	case KIOWorkGroupMaxNameLength:
+		return "KIOWorkGroupMaxNameLength"
+	default:
+		return fmt.Sprintf("KIOWorkGroupMaxName(%d)", e)
+	}
+}
+
+type KInflowForciblyEnabled uint
+
+const (
+	KInflowForciblyEnabledBit KInflowForciblyEnabled = 0
+)
+
+func (e KInflowForciblyEnabled) String() string {
+	switch e {
+	case KInflowForciblyEnabledBit:
+		return "KInflowForciblyEnabledBit"
+	default:
+		return fmt.Sprintf("KInflowForciblyEnabled(%d)", e)
+	}
+}
+
+type KInitialDriver uint
+
+const (
+	KInitialDriverDescriptor KInitialDriver = 0
+)
+
+func (e KInitialDriver) String() string {
+	switch e {
+	case KInitialDriverDescriptor:
+		return "KInitialDriverDescriptor"
+	default:
+		return fmt.Sprintf("KInitialDriver(%d)", e)
+	}
+}
+
+type KInterrupt uint
+
+const (
+	KInterruptRecord KInterrupt = 0
+)
+
+func (e KInterrupt) String() string {
+	switch e {
+	case KInterruptRecord:
+		return "KInterruptRecord"
+	default:
+		return fmt.Sprintf("KInterrupt(%d)", e)
+	}
+}
+
+type KInverting uint
+
+const (
+	KInvertingEncoding KInverting = 0
+)
+
+func (e KInverting) String() string {
+	switch e {
+	case KInvertingEncoding:
+		return "KInvertingEncoding"
+	default:
+		return fmt.Sprintf("KInverting(%d)", e)
+	}
+}
 
 type KIsochronousTransactionOptions uint
 
@@ -9230,35 +11157,48 @@ func (e KIsochronousTransactionOptions) String() string {
 	}
 }
 
-const KJIJournalInFSMask uint = 0
-
-type KKUNCDefaultResponse uint
+type KJIJournalInFS uint
 
 const (
-	KKUNCAlternateResponse KKUNCDefaultResponse = 0
+	KJIJournalInFSMask KJIJournalInFS = 0
 )
 
-func (e KKUNCDefaultResponse) String() string {
+func (e KJIJournalInFS) String() string {
+	switch e {
+	case KJIJournalInFSMask:
+		return "KJIJournalInFSMask"
+	default:
+		return fmt.Sprintf("KJIJournalInFS(%d)", e)
+	}
+}
+
+type KKUNCAlternate uint
+
+const (
+	KKUNCAlternateResponse KKUNCAlternate = 0
+)
+
+func (e KKUNCAlternate) String() string {
 	switch e {
 	case KKUNCAlternateResponse:
 		return "KKUNCAlternateResponse"
 	default:
-		return fmt.Sprintf("KKUNCDefaultResponse(%d)", e)
+		return fmt.Sprintf("KKUNCAlternate(%d)", e)
 	}
 }
 
-type KKeyMaskCtrl uint
+type KKeyMask uint
 
 const (
-	KKeyMaskAlt KKeyMaskCtrl = 0
+	KKeyMaskAlt KKeyMask = 0
 )
 
-func (e KKeyMaskCtrl) String() string {
+func (e KKeyMask) String() string {
 	switch e {
 	case KKeyMaskAlt:
 		return "KKeyMaskAlt"
 	default:
-		return fmt.Sprintf("KKeyMaskCtrl(%d)", e)
+		return fmt.Sprintf("KKeyMask(%d)", e)
 	}
 }
 
@@ -9278,14 +11218,29 @@ func (e KLinkState) String() string {
 	}
 }
 
+type KLoadALSS uint
+
+const (
+	KLoadALSSCalibration KLoadALSS = 0
+)
+
+func (e KLoadALSS) String() string {
+	switch e {
+	case KLoadALSSCalibration:
+		return "KLoadALSSCalibration"
+	default:
+		return fmt.Sprintf("KLoadALSS(%d)", e)
+	}
+}
+
 type KMMC uint
 
 const (
-	KMMCNumPowerStates KMMC = 0
-	KMMCPowerStateActive KMMC = 0
-	KMMCPowerStateIdle KMMC = 0
-	KMMCPowerStateSleep KMMC = 0
-	KMMCPowerStateStandby KMMC = 0
+	KMMCNumPowerStates        KMMC = 0
+	KMMCPowerStateActive      KMMC = 0
+	KMMCPowerStateIdle        KMMC = 0
+	KMMCPowerStateSleep       KMMC = 0
+	KMMCPowerStateStandby     KMMC = 0
 	KMMCPowerStateSystemSleep KMMC = 0
 )
 
@@ -9298,33 +11253,130 @@ func (e KMMC) String() string {
 	}
 }
 
-const KMachineTypeUnknown uint = 0
-
-const KMaximumNumberOfInquiryAccessCodes uint = 0
-
-type KMediaStateUnlocked uint
+type KMMCCmd uint
 
 const (
-	KMediaStateLocked KMediaStateUnlocked = 0
+	KMMCCmd_BLANK KMMCCmd = 0
 )
 
-func (e KMediaStateUnlocked) String() string {
+func (e KMMCCmd) String() string {
+	switch e {
+	case KMMCCmd_BLANK:
+		return "KMMCCmd_BLANK"
+	default:
+		return fmt.Sprintf("KMMCCmd(%d)", e)
+	}
+}
+
+type KMachineType uint
+
+const (
+	KMachineTypeUnknown KMachineType = 0
+)
+
+func (e KMachineType) String() string {
+	switch e {
+	case KMachineTypeUnknown:
+		return "KMachineTypeUnknown"
+	default:
+		return fmt.Sprintf("KMachineType(%d)", e)
+	}
+}
+
+type KMaxKey uint
+
+const (
+	KMaxKeyLength KMaxKey = 0
+)
+
+func (e KMaxKey) String() string {
+	switch e {
+	case KMaxKeyLength:
+		return "KMaxKeyLength"
+	default:
+		return fmt.Sprintf("KMaxKey(%d)", e)
+	}
+}
+
+type KMaxSelfI uint
+
+const (
+	KMaxSelfIDs KMaxSelfI = 0
+)
+
+func (e KMaxSelfI) String() string {
+	switch e {
+	case KMaxSelfIDs:
+		return "KMaxSelfIDs"
+	default:
+		return fmt.Sprintf("KMaxSelfI(%d)", e)
+	}
+}
+
+type KMaximumNumberOfInquiryAccess uint
+
+const (
+	KMaximumNumberOfInquiryAccessCodes KMaximumNumberOfInquiryAccess = 0
+)
+
+func (e KMaximumNumberOfInquiryAccess) String() string {
+	switch e {
+	case KMaximumNumberOfInquiryAccessCodes:
+		return "KMaximumNumberOfInquiryAccessCodes"
+	default:
+		return fmt.Sprintf("KMaximumNumberOfInquiryAccess(%d)", e)
+	}
+}
+
+type KMediaState uint
+
+const (
+	KMediaStateLocked KMediaState = 0
+)
+
+func (e KMediaState) String() string {
 	switch e {
 	case KMediaStateLocked:
 		return "KMediaStateLocked"
 	default:
-		return fmt.Sprintf("KMediaStateUnlocked(%d)", e)
+		return fmt.Sprintf("KMediaState(%d)", e)
 	}
 }
 
-const KMessageDeterminingMediaPresence uint = 0
+type KMessageDeterminingMedia uint
 
-const KMessageTrayStateChangeRequestAccepted uint = 0
+const (
+	KMessageDeterminingMediaPresence KMessageDeterminingMedia = 0
+)
+
+func (e KMessageDeterminingMedia) String() string {
+	switch e {
+	case KMessageDeterminingMediaPresence:
+		return "KMessageDeterminingMediaPresence"
+	default:
+		return fmt.Sprintf("KMessageDeterminingMedia(%d)", e)
+	}
+}
+
+type KMessageTrayStateChangeRequest uint
+
+const (
+	KMessageTrayStateChangeRequestAccepted KMessageTrayStateChangeRequest = 0
+)
+
+func (e KMessageTrayStateChangeRequest) String() string {
+	switch e {
+	case KMessageTrayStateChangeRequestAccepted:
+		return "KMessageTrayStateChangeRequestAccepted"
+	default:
+		return fmt.Sprintf("KMessageTrayStateChangeRequest(%d)", e)
+	}
+}
 
 type KMirror uint
 
 const (
-	KMirrorAreMirroredMask KMirror = 0
+	KMirrorAreMirroredMask        KMirror = 0
 	KMirrorVAlignCenterMirrorMask KMirror = 0
 )
 
@@ -9337,25 +11389,25 @@ func (e KMirror) String() string {
 	}
 }
 
-type KMirrorSameDepthOnlyMirrorMask uint
+type KMirrorCommonGamma uint
 
 const (
-	KMirrorCommonGammaMask KMirrorSameDepthOnlyMirrorMask = 0
+	KMirrorCommonGammaMask KMirrorCommonGamma = 0
 )
 
-func (e KMirrorSameDepthOnlyMirrorMask) String() string {
+func (e KMirrorCommonGamma) String() string {
 	switch e {
 	case KMirrorCommonGammaMask:
 		return "KMirrorCommonGammaMask"
 	default:
-		return fmt.Sprintf("KMirrorSameDepthOnlyMirrorMask(%d)", e)
+		return fmt.Sprintf("KMirrorCommonGamma(%d)", e)
 	}
 }
 
 type KMode uint
 
 const (
-	KModeInterlaced KMode = 0
+	KModeInterlaced             KMode = 0
 	KModeValidateAgainstDisplay KMode = 0
 )
 
@@ -9372,7 +11424,7 @@ type KModePageControl uint
 
 const (
 	KModePageControlChangeableValues KModePageControl = 0
-	KModePageControlSavedValues KModePageControl = 0
+	KModePageControlSavedValues      KModePageControl = 0
 )
 
 func (e KModePageControl) String() string {
@@ -9381,6 +11433,22 @@ func (e KModePageControl) String() string {
 		return "KModePageControlChangeableValues"
 	default:
 		return fmt.Sprintf("KModePageControl(%d)", e)
+	}
+}
+
+type KModeSenseParameterHeader10 uint
+
+const (
+	// KModeSenseParameterHeader10_LongLBABit: # Discussion
+	KModeSenseParameterHeader10_LongLBABit KModeSenseParameterHeader10 = 0
+)
+
+func (e KModeSenseParameterHeader10) String() string {
+	switch e {
+	case KModeSenseParameterHeader10_LongLBABit:
+		return "KModeSenseParameterHeader10_LongLBABit"
+	default:
+		return fmt.Sprintf("KModeSenseParameterHeader10(%d)", e)
 	}
 }
 
@@ -9402,7 +11470,35 @@ func (e KModeSenseSBCDeviceSpecific) String() string {
 	}
 }
 
-const KNVRAMProperty uint = 0
+type KModifier uint
+
+const (
+	KModifier_DidKeyUp KModifier = 0
+)
+
+func (e KModifier) String() string {
+	switch e {
+	case KModifier_DidKeyUp:
+		return "KModifier_DidKeyUp"
+	default:
+		return fmt.Sprintf("KModifier(%d)", e)
+	}
+}
+
+type KNVRAM uint
+
+const (
+	KNVRAMProperty KNVRAM = 0
+)
+
+func (e KNVRAM) String() string {
+	switch e {
+	case KNVRAMProperty:
+		return "KNVRAMProperty"
+	default:
+		return fmt.Sprintf("KNVRAM(%d)", e)
+	}
+}
 
 type KNanosecondScale uint
 
@@ -9426,7 +11522,7 @@ type KNdrvTypeIs uint
 
 const (
 	KNdrvTypeIsBlockStorage KNdrvTypeIs = 0
-	KNdrvTypeIsBusBridge KNdrvTypeIs = 0
+	KNdrvTypeIsBusBridge    KNdrvTypeIs = 0
 )
 
 func (e KNdrvTypeIs) String() string {
@@ -9438,12 +11534,25 @@ func (e KNdrvTypeIs) String() string {
 	}
 }
 
-const KNilOptions uint = 0
+type KNil uint
+
+const (
+	KNilOptions KNil = 0
+)
+
+func (e KNil) String() string {
+	switch e {
+	case KNilOptions:
+		return "KNilOptions"
+	default:
+		return fmt.Sprintf("KNil(%d)", e)
+	}
+}
 
 type KNuDCL uint
 
 const (
-	KNuDCLDynamic KNuDCL = 0
+	KNuDCLDynamic              KNuDCL = 0
 	KNuDCLUpdateBeforeCallback KNuDCL = 0
 )
 
@@ -9456,13 +11565,26 @@ func (e KNuDCL) String() string {
 	}
 }
 
-const KNumPortBytes uint = 0
+type KNumPort uint
+
+const (
+	KNumPortBytes KNumPort = 0
+)
+
+func (e KNumPort) String() string {
+	switch e {
+	case KNumPortBytes:
+		return "KNumPortBytes"
+	default:
+		return fmt.Sprintf("KNumPort(%d)", e)
+	}
+}
 
 type KOFVariablePerm uint
 
 const (
 	KOFVariablePermKernelOnly KOFVariablePerm = 0
-	KOFVariablePermUserRead KOFVariablePerm = 0
+	KOFVariablePermUserRead   KOFVariablePerm = 0
 )
 
 func (e KOFVariablePerm) String() string {
@@ -9478,9 +11600,9 @@ type KOFVariableType uint
 
 const (
 	KOFVariableTypeBoolean KOFVariableType = 0
-	KOFVariableTypeData KOFVariableType = 0
-	KOFVariableTypeNumber KOFVariableType = 0
-	KOFVariableTypeString KOFVariableType = 0
+	KOFVariableTypeData    KOFVariableType = 0
+	KOFVariableTypeNumber  KOFVariableType = 0
+	KOFVariableTypeString  KOFVariableType = 0
 )
 
 func (e KOFVariableType) String() string {
@@ -9492,16 +11614,55 @@ func (e KOFVariableType) String() string {
 	}
 }
 
-const KOSAsyncRef64Count uint = 0
+type KOSAsyncRef uint
 
-const KOSAsyncRefCount uint = 0
+const (
+	KOSAsyncRefCount KOSAsyncRef = 0
+)
 
-const KOSClassCanRemote uint = 0
+func (e KOSAsyncRef) String() string {
+	switch e {
+	case KOSAsyncRefCount:
+		return "KOSAsyncRefCount"
+	default:
+		return fmt.Sprintf("KOSAsyncRef(%d)", e)
+	}
+}
+
+type KOSAsyncRef64 uint
+
+const (
+	KOSAsyncRef64Count KOSAsyncRef64 = 0
+)
+
+func (e KOSAsyncRef64) String() string {
+	switch e {
+	case KOSAsyncRef64Count:
+		return "KOSAsyncRef64Count"
+	default:
+		return fmt.Sprintf("KOSAsyncRef64(%d)", e)
+	}
+}
+
+type KOSClassCan uint
+
+const (
+	KOSClassCanRemote KOSClassCan = 0
+)
+
+func (e KOSClassCan) String() string {
+	switch e {
+	case KOSClassCanRemote:
+		return "KOSClassCanRemote"
+	default:
+		return fmt.Sprintf("KOSClassCan(%d)", e)
+	}
+}
 
 type KOSNotificationMessageID uint
 
 const (
-	KMaxAsyncArgs KOSNotificationMessageID = 0
+	KMaxAsyncArgs                 KOSNotificationMessageID = 0
 	KOSNotificationMessageIDValue KOSNotificationMessageID = 0
 )
 
@@ -9514,57 +11675,40 @@ func (e KOSNotificationMessageID) String() string {
 	}
 }
 
-const KOSStringNoCopy uint = 0
-
-type KOneSecondTimeoutInMS uint
+type KOSStringNo uint
 
 const (
-	KFortyFiveSecondTimeoutInMS KOneSecondTimeoutInMS = 0
+	KOSStringNoCopy KOSStringNo = 0
 )
 
-func (e KOneSecondTimeoutInMS) String() string {
+func (e KOSStringNo) String() string {
 	switch e {
-	case KFortyFiveSecondTimeoutInMS:
-		return "KFortyFiveSecondTimeoutInMS"
+	case KOSStringNoCopy:
+		return "KOSStringNoCopy"
 	default:
-		return fmt.Sprintf("KOneSecondTimeoutInMS(%d)", e)
+		return fmt.Sprintf("KOSStringNo(%d)", e)
 	}
 }
 
-type KOrConnections uint
+type KPCI2PCIBridge uint
 
 const (
-	KAndConnections KOrConnections = 0
+	KPCI2PCIBridgeControl KPCI2PCIBridge = 0
 )
 
-func (e KOrConnections) String() string {
-	switch e {
-	case KAndConnections:
-		return "KAndConnections"
-	default:
-		return fmt.Sprintf("KOrConnections(%d)", e)
-	}
-}
-
-type KPCI2PCIPrimaryBus uint
-
-const (
-	KPCI2PCIBridgeControl KPCI2PCIPrimaryBus = 0
-)
-
-func (e KPCI2PCIPrimaryBus) String() string {
+func (e KPCI2PCIBridge) String() string {
 	switch e {
 	case KPCI2PCIBridgeControl:
 		return "KPCI2PCIBridgeControl"
 	default:
-		return fmt.Sprintf("KPCI2PCIPrimaryBus(%d)", e)
+		return fmt.Sprintf("KPCI2PCIBridge(%d)", e)
 	}
 }
 
 type KPCIPMC uint
 
 const (
-	KPCIPMCD2Support KPCIPMC = 0
+	KPCIPMCD2Support        KPCIPMC = 0
 	KPCIPMCPMESupportFromD1 KPCIPMC = 0
 )
 
@@ -9581,7 +11725,7 @@ type KPCIPMCS uint
 
 const (
 	KPCIPMCSDefaultEnableBits KPCIPMCS = 0
-	KPCIPMCSPowerStateMask KPCIPMCS = 0
+	KPCIPMCSPowerStateMask    KPCIPMCS = 0
 )
 
 func (e KPCIPMCS) String() string {
@@ -9593,52 +11737,78 @@ func (e KPCIPMCS) String() string {
 	}
 }
 
-const KPEHaltCPU uint = 0
-
-type KPEOptionKey uint
+type KPECommand uint
 
 const (
-	KPECommandKey KPEOptionKey = 0
+	KPECommandKey KPECommand = 0
 )
 
-func (e KPEOptionKey) String() string {
+func (e KPECommand) String() string {
 	switch e {
 	case KPECommandKey:
 		return "KPECommandKey"
 	default:
-		return fmt.Sprintf("KPEOptionKey(%d)", e)
+		return fmt.Sprintf("KPECommand(%d)", e)
 	}
 }
 
-const KPEReadTOD uint = 0
-
-type KPEScaleFactorUnknown uint
+type KPEHaltCP uint
 
 const (
-	KPEScaleFactor1x KPEScaleFactorUnknown = 0
+	KPEHaltCPU KPEHaltCP = 0
 )
 
-func (e KPEScaleFactorUnknown) String() string {
+func (e KPEHaltCP) String() string {
 	switch e {
-	case KPEScaleFactor1x:
-		return "KPEScaleFactor1x"
+	case KPEHaltCPU:
+		return "KPEHaltCPU"
 	default:
-		return fmt.Sprintf("KPEScaleFactorUnknown(%d)", e)
+		return fmt.Sprintf("KPEHaltCP(%d)", e)
 	}
 }
 
-type KPEWaitForInput uint
+type KPERaw uint
 
 const (
-	KPERawInput KPEWaitForInput = 0
+	KPERawInput KPERaw = 0
 )
 
-func (e KPEWaitForInput) String() string {
+func (e KPERaw) String() string {
 	switch e {
 	case KPERawInput:
 		return "KPERawInput"
 	default:
-		return fmt.Sprintf("KPEWaitForInput(%d)", e)
+		return fmt.Sprintf("KPERaw(%d)", e)
+	}
+}
+
+type KPEReadTO uint
+
+const (
+	KPEReadTOD KPEReadTO = 0
+)
+
+func (e KPEReadTO) String() string {
+	switch e {
+	case KPEReadTOD:
+		return "KPEReadTOD"
+	default:
+		return fmt.Sprintf("KPEReadTO(%d)", e)
+	}
+}
+
+type KPEScale uint
+
+const (
+	KPEScaleFactor1x KPEScale = 0
+)
+
+func (e KPEScale) String() string {
+	switch e {
+	case KPEScaleFactor1x:
+		return "KPEScaleFactor1x"
+	default:
+		return fmt.Sprintf("KPEScale(%d)", e)
 	}
 }
 
@@ -9646,7 +11816,7 @@ type KPM uint
 
 const (
 	KPMGeneralAggressiveness KPM = 0
-	KPMMinutesToSleep KPM = 0
+	KPMMinutesToSleep        KPM = 0
 )
 
 func (e KPM) String() string {
@@ -9661,7 +11831,7 @@ func (e KPM) String() string {
 type KPerPortSwitchingBit uint
 
 const (
-	KCompoundDeviceBit KPerPortSwitchingBit = 0
+	KCompoundDeviceBit   KPerPortSwitchingBit = 0
 	KHubPortIndicatorBit KPerPortSwitchingBit = 0
 )
 
@@ -9678,7 +11848,7 @@ type KPeripheralDeviceTypeNoMatch uint
 
 const (
 	KDefaultProbeRanking KPeripheralDeviceTypeNoMatch = 0
-	KThirdOrderRanking KPeripheralDeviceTypeNoMatch = 0
+	KThirdOrderRanking   KPeripheralDeviceTypeNoMatch = 0
 )
 
 func (e KPeripheralDeviceTypeNoMatch) String() string {
@@ -9693,7 +11863,7 @@ func (e KPeripheralDeviceTypeNoMatch) String() string {
 type KPowerState uint
 
 const (
-	KPowerStateNeedsRefresh KPowerState = 0
+	KPowerStateNeedsRefresh                 KPowerState = 0
 	KPowerStateSupportsReducedPower2BitMask KPowerState = 0
 )
 
@@ -9725,7 +11895,7 @@ func (e KPowerStateReduced) String() string {
 type KPrdRootHub uint
 
 const (
-	KPrdRootHubApple KPrdRootHub = 0
+	KPrdRootHubApple  KPrdRootHub = 0
 	KPrdRootHubAppleE KPrdRootHub = 0
 )
 
@@ -9741,7 +11911,7 @@ func (e KPrdRootHub) String() string {
 type KRBC uint
 
 const (
-	KRBCNumPowerStates KRBC = 0
+	KRBCNumPowerStates        KRBC = 0
 	KRBCPowerStateSystemSleep KRBC = 0
 )
 
@@ -9757,8 +11927,8 @@ func (e KRBC) String() string {
 type KRBCCmd uint
 
 const (
-	KRBCCmd_FORMAT_UNIT KRBCCmd = 0
-	KRBCCmd_READ_CAPACITY KRBCCmd = 0
+	KRBCCmd_FORMAT_UNIT     KRBCCmd = 0
+	KRBCCmd_READ_CAPACITY   KRBCCmd = 0
 	KRBCCmd_START_STOP_UNIT KRBCCmd = 0
 )
 
@@ -9790,7 +11960,7 @@ func (e KRSC) String() string {
 type KRangeSupportsCompositeSync uint
 
 const (
-	KRangeSupportsCompositeSyncBit KRangeSupportsCompositeSync = 0
+	KRangeSupportsCompositeSyncBit  KRangeSupportsCompositeSync = 0
 	KRangeSupportsCompositeSyncMask KRangeSupportsCompositeSync = 0
 )
 
@@ -9807,7 +11977,7 @@ type KReg uint
 
 const (
 	KRegModifierMask KReg = 0
-	KRegNoModifiers KReg = 0
+	KRegNoModifiers  KReg = 0
 )
 
 func (e KReg) String() string {
@@ -9819,13 +11989,41 @@ func (e KReg) String() string {
 	}
 }
 
-const KRegCStrMaxEntryNameLength uint = 0
+type KRegCStrMaxEntryName uint
+
+const (
+	KRegCStrMaxEntryNameLength KRegCStrMaxEntryName = 0
+)
+
+func (e KRegCStrMaxEntryName) String() string {
+	switch e {
+	case KRegCStrMaxEntryNameLength:
+		return "KRegCStrMaxEntryNameLength"
+	default:
+		return fmt.Sprintf("KRegCStrMaxEntryName(%d)", e)
+	}
+}
+
+type KRegEntryName uint
+
+const (
+	KRegEntryNameTerminator KRegEntryName = 0
+)
+
+func (e KRegEntryName) String() string {
+	switch e {
+	case KRegEntryNameTerminator:
+		return "KRegEntryNameTerminator"
+	default:
+		return fmt.Sprintf("KRegEntryName(%d)", e)
+	}
+}
 
 type KRegIter uint
 
 const (
 	KRegIterChildren KRegIter = 0
-	KRegIterRoot KRegIter = 0
+	KRegIterRoot     KRegIter = 0
 )
 
 func (e KRegIter) String() string {
@@ -9837,44 +12035,55 @@ func (e KRegIter) String() string {
 	}
 }
 
-const KRegMaxPropertyNameLength uint = 0
-
-const KRegMaximumPropertyNameLength uint = 0
-
-type KRegPathNameSeparator uint
+type KRegMaxPropertyName uint
 
 const (
-	KRegEntryNameTerminator KRegPathNameSeparator = 0
+	KRegMaxPropertyNameLength KRegMaxPropertyName = 0
 )
 
-func (e KRegPathNameSeparator) String() string {
+func (e KRegMaxPropertyName) String() string {
 	switch e {
-	case KRegEntryNameTerminator:
-		return "KRegEntryNameTerminator"
+	case KRegMaxPropertyNameLength:
+		return "KRegMaxPropertyNameLength"
 	default:
-		return fmt.Sprintf("KRegPathNameSeparator(%d)", e)
+		return fmt.Sprintf("KRegMaxPropertyName(%d)", e)
 	}
 }
 
-type KRegPropertyValueIsSavedToNVRAM uint
+type KRegMaximumPropertyName uint
 
 const (
-	KRegPropertyValueIsSavedToDisk KRegPropertyValueIsSavedToNVRAM = 0
+	KRegMaximumPropertyNameLength KRegMaximumPropertyName = 0
 )
 
-func (e KRegPropertyValueIsSavedToNVRAM) String() string {
+func (e KRegMaximumPropertyName) String() string {
+	switch e {
+	case KRegMaximumPropertyNameLength:
+		return "KRegMaximumPropertyNameLength"
+	default:
+		return fmt.Sprintf("KRegMaximumPropertyName(%d)", e)
+	}
+}
+
+type KRegPropertyValueIsSavedTo uint
+
+const (
+	KRegPropertyValueIsSavedToDisk KRegPropertyValueIsSavedTo = 0
+)
+
+func (e KRegPropertyValueIsSavedTo) String() string {
 	switch e {
 	case KRegPropertyValueIsSavedToDisk:
 		return "KRegPropertyValueIsSavedToDisk"
 	default:
-		return fmt.Sprintf("KRegPropertyValueIsSavedToNVRAM(%d)", e)
+		return fmt.Sprintf("KRegPropertyValueIsSavedTo(%d)", e)
 	}
 }
 
 type KRequestDirection uint
 
 const (
-	KRequestDirectionIn KRequestDirection = 0
+	KRequestDirectionIn  KRequestDirection = 0
 	KRequestDirectionOut KRequestDirection = 0
 )
 
@@ -9890,7 +12099,7 @@ func (e KRequestDirection) String() string {
 type KRequestRecipient uint
 
 const (
-	KRequestRecipientDevice KRequestRecipient = 0
+	KRequestRecipientDevice   KRequestRecipient = 0
 	KRequestRecipientEndpoint KRequestRecipient = 0
 )
 
@@ -9903,27 +12112,40 @@ func (e KRequestRecipient) String() string {
 	}
 }
 
-const KResolutionHasMultipleDepthSizes uint = 0
-
-type KRootDomainSleepNotSupported uint
+type KRequestType uint
 
 const (
-	KFrameBufferDeepSleepSupported KRootDomainSleepNotSupported = 0
+	KRequestTypeClass KRequestType = 0
 )
 
-func (e KRootDomainSleepNotSupported) String() string {
+func (e KRequestType) String() string {
 	switch e {
-	case KFrameBufferDeepSleepSupported:
-		return "KFrameBufferDeepSleepSupported"
+	case KRequestTypeClass:
+		return "KRequestTypeClass"
 	default:
-		return fmt.Sprintf("KRootDomainSleepNotSupported(%d)", e)
+		return fmt.Sprintf("KRequestType(%d)", e)
+	}
+}
+
+type KResolutionHasMultipleDepth uint
+
+const (
+	KResolutionHasMultipleDepthSizes KResolutionHasMultipleDepth = 0
+)
+
+func (e KResolutionHasMultipleDepth) String() string {
+	switch e {
+	case KResolutionHasMultipleDepthSizes:
+		return "KResolutionHasMultipleDepthSizes"
+	default:
+		return fmt.Sprintf("KResolutionHasMultipleDepth(%d)", e)
 	}
 }
 
 type KSBC uint
 
 const (
-	KSBCNumPowerStates KSBC = 0
+	KSBCNumPowerStates    KSBC = 0
 	KSBCPowerStateStandby KSBC = 0
 )
 
@@ -9939,7 +12161,7 @@ func (e KSBC) String() string {
 type KSBCCmd uint
 
 const (
-	KSBCCmd_CHANGE_DEFINITION KSBCCmd = 0
+	KSBCCmd_CHANGE_DEFINITION    KSBCCmd = 0
 	KSBCCmd_SEARCH_DATA_EQUAL_10 KSBCCmd = 0
 )
 
@@ -10010,7 +12232,7 @@ type KSBCWOCmd uint
 
 const (
 	KSBCWOCmd_CHANGE_DEFINITION KSBCWOCmd = 0
-	KSBCWOCmd_LOG_SELECT KSBCWOCmd = 0
+	KSBCWOCmd_LOG_SELECT        KSBCWOCmd = 0
 )
 
 func (e KSBCWOCmd) String() string {
@@ -10043,7 +12265,7 @@ func (e KSCSICDBSize) String() string {
 type KSCSICmd uint
 
 const (
-	KSCSICmdVariableLengthCDB KSCSICmd = 0
+	KSCSICmdVariableLengthCDB              KSCSICmd = 0
 	KSCSICmd_GET_EVENT_STATUS_NOTIFICATION KSCSICmd = 0
 )
 
@@ -10056,7 +12278,20 @@ func (e KSCSICmd) String() string {
 	}
 }
 
-const KSCSIControllerNotificationBusReset uint = 0
+type KSCSIControllerNotificationBus uint
+
+const (
+	KSCSIControllerNotificationBusReset KSCSIControllerNotificationBus = 0
+)
+
+func (e KSCSIControllerNotificationBus) String() string {
+	switch e {
+	case KSCSIControllerNotificationBusReset:
+		return "KSCSIControllerNotificationBusReset"
+	default:
+		return fmt.Sprintf("KSCSIControllerNotificationBus(%d)", e)
+	}
+}
 
 type KSCSIDataTransfer uint
 
@@ -10079,33 +12314,33 @@ func (e KSCSIDataTransfer) String() string {
 type KSCSIParallelMessage uint
 
 const (
-	KSCSIParallelMessage_ABORT_TASK KSCSIParallelMessage = 0
-	KSCSIParallelMessage_ABORT_TASK_SET KSCSIParallelMessage = 0
-	KSCSIParallelMessage_ACA KSCSIParallelMessage = 0
-	KSCSIParallelMessage_CLEAR_ACA KSCSIParallelMessage = 0
-	KSCSIParallelMessage_CLEAR_TASK_SET KSCSIParallelMessage = 0
-	KSCSIParallelMessage_DISCONNECT KSCSIParallelMessage = 0
-	KSCSIParallelMessage_EXTENDED_MESSAGE KSCSIParallelMessage = 0
-	KSCSIParallelMessage_HEAD_OF_QUEUE KSCSIParallelMessage = 0
-	KSCSIParallelMessage_IDENTIFY KSCSIParallelMessage = 0
-	KSCSIParallelMessage_IGNORE_WIDE_RESIDUE KSCSIParallelMessage = 0
-	KSCSIParallelMessage_INITIATOR_DETECTED_ERROR KSCSIParallelMessage = 0
-	KSCSIParallelMessage_LINKED_COMMAND_COMPLETE KSCSIParallelMessage = 0
-	KSCSIParallelMessage_LOGICAL_UNIT_RESET KSCSIParallelMessage = 0
-	KSCSIParallelMessage_MESSAGE_PARITY_ERROR KSCSIParallelMessage = 0
-	KSCSIParallelMessage_MESSAGE_REJECT KSCSIParallelMessage = 0
-	KSCSIParallelMessage_MODIFY_DATA_POINTER KSCSIParallelMessage = 0
-	KSCSIParallelMessage_NO_OPERATION KSCSIParallelMessage = 0
-	KSCSIParallelMessage_ORDERED KSCSIParallelMessage = 0
-	KSCSIParallelMessage_PARALLEL_PROTOCOL_REQUEST KSCSIParallelMessage = 0
-	KSCSIParallelMessage_QAS_REQUEST KSCSIParallelMessage = 0
-	KSCSIParallelMessage_RESTORE_POINTERS KSCSIParallelMessage = 0
-	KSCSIParallelMessage_SAVE_DATA_POINTER KSCSIParallelMessage = 0
-	KSCSIParallelMessage_SIMPLE KSCSIParallelMessage = 0
+	KSCSIParallelMessage_ABORT_TASK                       KSCSIParallelMessage = 0
+	KSCSIParallelMessage_ABORT_TASK_SET                   KSCSIParallelMessage = 0
+	KSCSIParallelMessage_ACA                              KSCSIParallelMessage = 0
+	KSCSIParallelMessage_CLEAR_ACA                        KSCSIParallelMessage = 0
+	KSCSIParallelMessage_CLEAR_TASK_SET                   KSCSIParallelMessage = 0
+	KSCSIParallelMessage_DISCONNECT                       KSCSIParallelMessage = 0
+	KSCSIParallelMessage_EXTENDED_MESSAGE                 KSCSIParallelMessage = 0
+	KSCSIParallelMessage_HEAD_OF_QUEUE                    KSCSIParallelMessage = 0
+	KSCSIParallelMessage_IDENTIFY                         KSCSIParallelMessage = 0
+	KSCSIParallelMessage_IGNORE_WIDE_RESIDUE              KSCSIParallelMessage = 0
+	KSCSIParallelMessage_INITIATOR_DETECTED_ERROR         KSCSIParallelMessage = 0
+	KSCSIParallelMessage_LINKED_COMMAND_COMPLETE          KSCSIParallelMessage = 0
+	KSCSIParallelMessage_LOGICAL_UNIT_RESET               KSCSIParallelMessage = 0
+	KSCSIParallelMessage_MESSAGE_PARITY_ERROR             KSCSIParallelMessage = 0
+	KSCSIParallelMessage_MESSAGE_REJECT                   KSCSIParallelMessage = 0
+	KSCSIParallelMessage_MODIFY_DATA_POINTER              KSCSIParallelMessage = 0
+	KSCSIParallelMessage_NO_OPERATION                     KSCSIParallelMessage = 0
+	KSCSIParallelMessage_ORDERED                          KSCSIParallelMessage = 0
+	KSCSIParallelMessage_PARALLEL_PROTOCOL_REQUEST        KSCSIParallelMessage = 0
+	KSCSIParallelMessage_QAS_REQUEST                      KSCSIParallelMessage = 0
+	KSCSIParallelMessage_RESTORE_POINTERS                 KSCSIParallelMessage = 0
+	KSCSIParallelMessage_SAVE_DATA_POINTER                KSCSIParallelMessage = 0
+	KSCSIParallelMessage_SIMPLE                           KSCSIParallelMessage = 0
 	KSCSIParallelMessage_SYNCHONOUS_DATA_TRANSFER_REQUEST KSCSIParallelMessage = 0
-	KSCSIParallelMessage_TARGET_RESET KSCSIParallelMessage = 0
-	KSCSIParallelMessage_TASK_COMPLETE KSCSIParallelMessage = 0
-	KSCSIParallelMessage_WIDE_DATA_TRANSFER_REQUEST KSCSIParallelMessage = 0
+	KSCSIParallelMessage_TARGET_RESET                     KSCSIParallelMessage = 0
+	KSCSIParallelMessage_TASK_COMPLETE                    KSCSIParallelMessage = 0
+	KSCSIParallelMessage_WIDE_DATA_TRANSFER_REQUEST       KSCSIParallelMessage = 0
 )
 
 func (e KSCSIParallelMessage) String() string {
@@ -10117,7 +12352,37 @@ func (e KSCSIParallelMessage) String() string {
 	}
 }
 
-const KSCSIParallelTaskControllerIDQueueHead uint = 0
+type KSCSIParallelTaskControllerIDQueue uint
+
+const (
+	KSCSIParallelTaskControllerIDQueueHead KSCSIParallelTaskControllerIDQueue = 0
+)
+
+func (e KSCSIParallelTaskControllerIDQueue) String() string {
+	switch e {
+	case KSCSIParallelTaskControllerIDQueueHead:
+		return "KSCSIParallelTaskControllerIDQueueHead"
+	default:
+		return fmt.Sprintf("KSCSIParallelTaskControllerIDQueue(%d)", e)
+	}
+}
+
+type KSCSIPort uint
+
+const (
+	KSCSIPort_NotificationStatusChange KSCSIPort = 0
+	// KSCSIPort_StatusFailure: # Discussion
+	KSCSIPort_StatusFailure KSCSIPort = 0
+)
+
+func (e KSCSIPort) String() string {
+	switch e {
+	case KSCSIPort_NotificationStatusChange:
+		return "KSCSIPort_NotificationStatusChange"
+	default:
+		return fmt.Sprintf("KSCSIPort(%d)", e)
+	}
+}
 
 type KSCSIProtocolFeature uint
 
@@ -10171,22 +12436,52 @@ func (e KSCSIProtocolIdentifier) String() string {
 	}
 }
 
-type KSCSIProtocolLayerPowerStateOff uint
+type KSCSIProtocolLayerNumDefault uint
 
 const (
-	KSCSIProtocolLayerNumDefaultStates KSCSIProtocolLayerPowerStateOff = 0
+	KSCSIProtocolLayerNumDefaultStates KSCSIProtocolLayerNumDefault = 0
 )
 
-func (e KSCSIProtocolLayerPowerStateOff) String() string {
+func (e KSCSIProtocolLayerNumDefault) String() string {
 	switch e {
 	case KSCSIProtocolLayerNumDefaultStates:
 		return "KSCSIProtocolLayerNumDefaultStates"
 	default:
-		return fmt.Sprintf("KSCSIProtocolLayerPowerStateOff(%d)", e)
+		return fmt.Sprintf("KSCSIProtocolLayerNumDefault(%d)", e)
 	}
 }
 
-const KSCSIProtocolPowerStateOff uint = 0
+type KSCSIProtocolNotification uint
+
+const (
+	// KSCSIProtocolNotification_DeviceRemoved: # Discussion
+	KSCSIProtocolNotification_DeviceRemoved KSCSIProtocolNotification = 0
+)
+
+func (e KSCSIProtocolNotification) String() string {
+	switch e {
+	case KSCSIProtocolNotification_DeviceRemoved:
+		return "KSCSIProtocolNotification_DeviceRemoved"
+	default:
+		return fmt.Sprintf("KSCSIProtocolNotification(%d)", e)
+	}
+}
+
+type KSCSIProtocolPowerState uint
+
+const (
+	// KSCSIProtocolPowerStateOff: # Discussion
+	KSCSIProtocolPowerStateOff KSCSIProtocolPowerState = 0
+)
+
+func (e KSCSIProtocolPowerState) String() string {
+	switch e {
+	case KSCSIProtocolPowerStateOff:
+		return "KSCSIProtocolPowerStateOff"
+	default:
+		return fmt.Sprintf("KSCSIProtocolPowerState(%d)", e)
+	}
+}
 
 type KSCSIServiceResponse uint
 
@@ -10211,6 +12506,21 @@ func (e KSCSIServiceResponse) String() string {
 		return "KSCSIServiceResponse_FUNCTION_COMPLETE"
 	default:
 		return fmt.Sprintf("KSCSIServiceResponse(%d)", e)
+	}
+}
+
+type KSCSIServicesNotification uint
+
+const (
+	KSCSIServicesNotification_Resume KSCSIServicesNotification = 0
+)
+
+func (e KSCSIServicesNotification) String() string {
+	switch e {
+	case KSCSIServicesNotification_Resume:
+		return "KSCSIServicesNotification_Resume"
+	default:
+		return fmt.Sprintf("KSCSIServicesNotification(%d)", e)
 	}
 }
 
@@ -10239,7 +12549,7 @@ func (e KSCSITask) String() string {
 type KSCSITaskMode uint
 
 const (
-	KSCSITaskMode_Autosense KSCSITaskMode = 0
+	KSCSITaskMode_Autosense        KSCSITaskMode = 0
 	KSCSITaskMode_CommandExecution KSCSITaskMode = 0
 )
 
@@ -10320,12 +12630,26 @@ func (e KSCSITaskStatus) String() string {
 	}
 }
 
-const KSCSIUntaggedTaskIdentifier uint = 0
+type KSCSIUntaggedTask uint
+
+const (
+	// KSCSIUntaggedTaskIdentifier: # Discussion
+	KSCSIUntaggedTaskIdentifier KSCSIUntaggedTask = 0
+)
+
+func (e KSCSIUntaggedTask) String() string {
+	switch e {
+	case KSCSIUntaggedTaskIdentifier:
+		return "KSCSIUntaggedTaskIdentifier"
+	default:
+		return fmt.Sprintf("KSCSIUntaggedTask(%d)", e)
+	}
+}
 
 type KSMCCmd uint
 
 const (
-	KSMCCmd_MODE_SELECT_6 KSMCCmd = 0
+	KSMCCmd_MODE_SELECT_6      KSMCCmd = 0
 	KSMCCmd_RELEASE_ELEMENT_10 KSMCCmd = 0
 )
 
@@ -10341,8 +12665,8 @@ func (e KSMCCmd) String() string {
 type KSOFTRESET uint
 
 const (
-	KID_DRIVE KSOFTRESET = 0
-	KPACKET KSOFTRESET = 0
+	KID_DRIVE       KSOFTRESET = 0
+	KPACKET         KSOFTRESET = 0
 	KSOFTRESETValue KSOFTRESET = 0
 )
 
@@ -10358,7 +12682,7 @@ func (e KSOFTRESET) String() string {
 type KSPCCmd uint
 
 const (
-	KSPCCmd_REPORT_LUNS KSPCCmd = 0
+	KSPCCmd_REPORT_LUNS      KSPCCmd = 0
 	KSPCCmd_SEND_DIAGNOSTICS KSPCCmd = 0
 )
 
@@ -10371,26 +12695,26 @@ func (e KSPCCmd) String() string {
 	}
 }
 
-type KSPCModePagePowerConditionCode uint
+type KSPCModePageAllPages uint
 
 const (
 	// KSPCModePageAllPagesCode: # Discussion
-	KSPCModePageAllPagesCode KSPCModePagePowerConditionCode = 0
+	KSPCModePageAllPagesCode KSPCModePageAllPages = 0
 )
 
-func (e KSPCModePagePowerConditionCode) String() string {
+func (e KSPCModePageAllPages) String() string {
 	switch e {
 	case KSPCModePageAllPagesCode:
 		return "KSPCModePageAllPagesCode"
 	default:
-		return fmt.Sprintf("KSPCModePagePowerConditionCode(%d)", e)
+		return fmt.Sprintf("KSPCModePageAllPages(%d)", e)
 	}
 }
 
 type KSSCSeqCmd uint
 
 const (
-	KSSCSeqCmd_CHANGE_DEFINITION KSSCSeqCmd = 0
+	KSSCSeqCmd_CHANGE_DEFINITION     KSSCSeqCmd = 0
 	KSSCSeqCmd_RECOVER_BUFFERED_DATA KSSCSeqCmd = 0
 )
 
@@ -10403,25 +12727,25 @@ func (e KSSCSeqCmd) String() string {
 	}
 }
 
-type KSSHubPortLinkStateU0 uint
+type KSSHubPortLinkState uint
 
 const (
-	KSSHubPortLinkStateU3 KSSHubPortLinkStateU0 = 0
+	KSSHubPortLinkStateU3 KSSHubPortLinkState = 0
 )
 
-func (e KSSHubPortLinkStateU0) String() string {
+func (e KSSHubPortLinkState) String() string {
 	switch e {
 	case KSSHubPortLinkStateU3:
 		return "KSSHubPortLinkStateU3"
 	default:
-		return fmt.Sprintf("KSSHubPortLinkStateU0(%d)", e)
+		return fmt.Sprintf("KSSHubPortLinkState(%d)", e)
 	}
 }
 
 type KSSHubPortStatusConnectionBit int
 
 const (
-	KHubPortBeingReset KSSHubPortStatusConnectionBit = 0
+	KHubPortBeingReset             KSSHubPortStatusConnectionBit = 0
 	KSSHubPortStatusOverCurrentBit KSSHubPortStatusConnectionBit = 0
 )
 
@@ -10438,7 +12762,7 @@ type KScale uint
 
 const (
 	KScaleCanSupportInsetMask KScale = 0
-	KScaleStretchOnlyMask KScale = 0
+	KScaleStretchOnlyMask     KScale = 0
 )
 
 func (e KScale) String() string {
@@ -10450,25 +12774,25 @@ func (e KScale) String() string {
 	}
 }
 
-type KScaleStretchToFitMask uint
+type KScaleInvertX uint
 
 const (
-	KScaleInvertXMask KScaleStretchToFitMask = 0
+	KScaleInvertXMask KScaleInvertX = 0
 )
 
-func (e KScaleStretchToFitMask) String() string {
+func (e KScaleInvertX) String() string {
 	switch e {
 	case KScaleInvertXMask:
 		return "KScaleInvertXMask"
 	default:
-		return fmt.Sprintf("KScaleStretchToFitMask(%d)", e)
+		return fmt.Sprintf("KScaleInvertX(%d)", e)
 	}
 }
 
 type KSecondsInAMinute uint
 
 const (
-	K5Minutes KSecondsInAMinute = 0
+	K5Minutes              KSecondsInAMinute = 0
 	KSecondsInAMinuteValue KSecondsInAMinute = 0
 )
 
@@ -10481,46 +12805,57 @@ func (e KSecondsInAMinute) String() string {
 	}
 }
 
-const KSecondsPerHour uint = 0
-
-type KSelfIDPacketSize uint
+type KSecondsPer uint
 
 const (
-	KMaxSelfIDs KSelfIDPacketSize = 0
+	KSecondsPerHour KSecondsPer = 0
 )
 
-func (e KSelfIDPacketSize) String() string {
+func (e KSecondsPer) String() string {
 	switch e {
-	case KMaxSelfIDs:
-		return "KMaxSelfIDs"
+	case KSecondsPerHour:
+		return "KSecondsPerHour"
 	default:
-		return fmt.Sprintf("KSelfIDPacketSize(%d)", e)
+		return fmt.Sprintf("KSecondsPer(%d)", e)
 	}
 }
 
-const KSenseDefaultSize uint = 0
+type KSenseDefault uint
+
+const (
+	KSenseDefaultSize KSenseDefault = 0
+)
+
+func (e KSenseDefault) String() string {
+	switch e {
+	case KSenseDefaultSize:
+		return "KSenseDefaultSize"
+	default:
+		return fmt.Sprintf("KSenseDefault(%d)", e)
+	}
+}
 
 type KServiceCategory uint
 
 const (
-	KServiceCategoryADB KServiceCategory = 0
-	KServiceCategoryBlockStorage KServiceCategory = 0
-	KServiceCategoryDFM KServiceCategory = 0
-	KServiceCategoryDisplay KServiceCategory = 0
-	KServiceCategoryFileManager KServiceCategory = 0
-	KServiceCategoryGeneric KServiceCategory = 0
-	KServiceCategoryIDE KServiceCategory = 0
-	KServiceCategoryKeyboard KServiceCategory = 0
-	KServiceCategoryMotherBoard KServiceCategory = 0
-	KServiceCategoryNVRAM KServiceCategory = 0
-	KServiceCategoryNdrvDriver KServiceCategory = 0
+	KServiceCategoryADB           KServiceCategory = 0
+	KServiceCategoryBlockStorage  KServiceCategory = 0
+	KServiceCategoryDFM           KServiceCategory = 0
+	KServiceCategoryDisplay       KServiceCategory = 0
+	KServiceCategoryFileManager   KServiceCategory = 0
+	KServiceCategoryGeneric       KServiceCategory = 0
+	KServiceCategoryIDE           KServiceCategory = 0
+	KServiceCategoryKeyboard      KServiceCategory = 0
+	KServiceCategoryMotherBoard   KServiceCategory = 0
+	KServiceCategoryNVRAM         KServiceCategory = 0
+	KServiceCategoryNdrvDriver    KServiceCategory = 0
 	KServiceCategoryOpenTransport KServiceCategory = 0
-	KServiceCategoryPCI KServiceCategory = 0
-	KServiceCategoryPointing KServiceCategory = 0
-	KServiceCategoryPowerMgt KServiceCategory = 0
-	KServiceCategoryRTC KServiceCategory = 0
-	KServiceCategoryScsiSIM KServiceCategory = 0
-	KServiceCategorySound KServiceCategory = 0
+	KServiceCategoryPCI           KServiceCategory = 0
+	KServiceCategoryPointing      KServiceCategory = 0
+	KServiceCategoryPowerMgt      KServiceCategory = 0
+	KServiceCategoryRTC           KServiceCategory = 0
+	KServiceCategoryScsiSIM       KServiceCategory = 0
+	KServiceCategorySound         KServiceCategory = 0
 )
 
 func (e KServiceCategory) String() string {
@@ -10532,15 +12867,41 @@ func (e KServiceCategory) String() string {
 	}
 }
 
-const KSetCLUTByValue uint = 0
+type KSetCLUTBy uint
 
-const KSetClutAtSetEntries uint = 0
+const (
+	KSetCLUTByValue KSetCLUTBy = 0
+)
+
+func (e KSetCLUTBy) String() string {
+	switch e {
+	case KSetCLUTByValue:
+		return "KSetCLUTByValue"
+	default:
+		return fmt.Sprintf("KSetCLUTBy(%d)", e)
+	}
+}
+
+type KSetClutAtSet uint
+
+const (
+	KSetClutAtSetEntries KSetClutAtSet = 0
+)
+
+func (e KSetClutAtSet) String() string {
+	switch e {
+	case KSetClutAtSetEntries:
+		return "KSetClutAtSetEntries"
+	default:
+		return fmt.Sprintf("KSetClutAtSet(%d)", e)
+	}
+}
 
 type KSetHubDepth uint
 
 const (
 	KGetPortErrorCount KSetHubDepth = 0
-	KSetHubDepthValue KSetHubDepth = 0
+	KSetHubDepthValue  KSetHubDepth = 0
 )
 
 func (e KSetHubDepth) String() string {
@@ -10552,10 +12913,25 @@ func (e KSetHubDepth) String() string {
 	}
 }
 
+type KSharedCacheAO uint
+
+const (
+	KSharedCacheAOT KSharedCacheAO = 0
+)
+
+func (e KSharedCacheAO) String() string {
+	switch e {
+	case KSharedCacheAOT:
+		return "KSharedCacheAOT"
+	default:
+		return fmt.Sprintf("KSharedCacheAO(%d)", e)
+	}
+}
+
 type KSizeOfATA uint
 
 const (
-	KSizeOfATAModelString KSizeOfATA = 0
+	KSizeOfATAModelString    KSizeOfATA = 0
 	KSizeOfATARevisionString KSizeOfATA = 0
 )
 
@@ -10568,25 +12944,25 @@ func (e KSizeOfATA) String() string {
 	}
 }
 
-type KSymLinkFileType uint
+type KSymLink uint
 
 const (
-	KSymLinkCreator KSymLinkFileType = 0
+	KSymLinkCreator KSymLink = 0
 )
 
-func (e KSymLinkFileType) String() string {
+func (e KSymLink) String() string {
 	switch e {
 	case KSymLinkCreator:
 		return "KSymLinkCreator"
 	default:
-		return fmt.Sprintf("KSymLinkFileType(%d)", e)
+		return fmt.Sprintf("KSymLink(%d)", e)
 	}
 }
 
 type KSyncAnalog uint
 
 const (
-	KSyncAnalogBipolarSRGBSyncMask KSyncAnalog = 0
+	KSyncAnalogBipolarSRGBSyncMask  KSyncAnalog = 0
 	KSyncAnalogCompositeSerrateMask KSyncAnalog = 0
 )
 
@@ -10599,33 +12975,46 @@ func (e KSyncAnalog) String() string {
 	}
 }
 
-const KSyncPositivePolarityBit uint = 0
-
-type KTheDescriptionSignature uint
+type KSyncPositivePolarity uint
 
 const (
-	KDriverDescriptionSignature KTheDescriptionSignature = 0
+	KSyncPositivePolarityBit KSyncPositivePolarity = 0
 )
 
-func (e KTheDescriptionSignature) String() string {
+func (e KSyncPositivePolarity) String() string {
 	switch e {
-	case KDriverDescriptionSignature:
-		return "KDriverDescriptionSignature"
+	case KSyncPositivePolarityBit:
+		return "KSyncPositivePolarityBit"
 	default:
-		return fmt.Sprintf("KTheDescriptionSignature(%d)", e)
+		return fmt.Sprintf("KSyncPositivePolarity(%d)", e)
+	}
+}
+
+type KTaskIs uint
+
+const (
+	KTaskIsTerminated KTaskIs = 0
+)
+
+func (e KTaskIs) String() string {
+	switch e {
+	case KTaskIsTerminated:
+		return "KTaskIsTerminated"
+	default:
+		return fmt.Sprintf("KTaskIs(%d)", e)
 	}
 }
 
 type KThreadGroup uint
 
 const (
-	KThreadGroupApplication KThreadGroup = 0
-	KThreadGroupBestEffort KThreadGroup = 0
-	KThreadGroupCritical KThreadGroup = 0
-	KThreadGroupEfficient KThreadGroup = 0
-	KThreadGroupManaged KThreadGroup = 0
-	KThreadGroupStrictTimers KThreadGroup = 0
-	KThreadGroupUIApp KThreadGroup = 0
+	KThreadGroupApplication   KThreadGroup = 0
+	KThreadGroupBestEffort    KThreadGroup = 0
+	KThreadGroupCritical      KThreadGroup = 0
+	KThreadGroupEfficient     KThreadGroup = 0
+	KThreadGroupManaged       KThreadGroup = 0
+	KThreadGroupStrictTimers  KThreadGroup = 0
+	KThreadGroupUIApp         KThreadGroup = 0
 	KThreadGroupUIApplication KThreadGroup = 0
 )
 
@@ -10642,7 +13031,7 @@ type KThreadWait uint
 
 const (
 	KThreadWaitKernelMutex KThreadWait = 0
-	KThreadWaitNone KThreadWait = 0
+	KThreadWaitNone        KThreadWait = 0
 )
 
 func (e KThreadWait) String() string {
@@ -10658,7 +13047,7 @@ type KTimingChangeRestrictedErr int
 
 const (
 	KTimingChangeRestrictedErrValue KTimingChangeRestrictedErr = 0
-	KVideoBufferSizeErr KTimingChangeRestrictedErr = 0
+	KVideoBufferSizeErr             KTimingChangeRestrictedErr = 0
 )
 
 func (e KTimingChangeRestrictedErr) String() string {
@@ -10670,25 +13059,10 @@ func (e KTimingChangeRestrictedErr) String() string {
 	}
 }
 
-type KTransparentEncoding uint
-
-const (
-	KInvertingEncoding KTransparentEncoding = 0
-)
-
-func (e KTransparentEncoding) String() string {
-	switch e {
-	case KInvertingEncoding:
-		return "KInvertingEncoding"
-	default:
-		return fmt.Sprintf("KTransparentEncoding(%d)", e)
-	}
-}
-
 type KTransparentEncodingShift uint
 
 const (
-	KInvertingEncodedPixel KTransparentEncodingShift = 0
+	KInvertingEncodedPixel   KTransparentEncodingShift = 0
 	KTransparentEncodedPixel KTransparentEncodingShift = 0
 )
 
@@ -10705,11 +13079,11 @@ type KUS uint
 
 const (
 	KUSB20ExtensionLPMSupported KUS = 0
-	KUSB3HUBDesc KUS = 0
-	KUSB3HubDescriptorType KUS = 0
-	KUSBDeviceCapabilityValue KUS = 0
-	KUSBHubDescriptorType KUS = 0
-	KUSBSuperSpeedSupportsFS KUS = 0
+	KUSB3HUBDesc                KUS = 0
+	KUSB3HubDescriptorType      KUS = 0
+	KUSBDeviceCapabilityValue   KUS = 0
+	KUSBHubDescriptorType       KUS = 0
+	KUSBSuperSpeedSupportsFS    KUS = 0
 )
 
 func (e KUS) String() string {
@@ -10728,39 +13102,40 @@ const (
 	// KUSBAddExtraResetTimeBit: Request extra time after reset.
 	KUSBAddExtraResetTimeBit KUSB = 0
 	// KUSBAddExtraResetTimeMask: The mask to request extra time after reset.
-	KUSBAddExtraResetTimeMask KUSB = 0
-	KUSBAllStreams KUSB = 0
-	KUSBAnyType KUSB = 0
-	KUSBBulk KUSB = 0
-	KUSBCommEthernetNetworkingSubClass KUSB = 0
-	KUSBCommunicationControlInterfaceClass KUSB = 0
-	KUSBCompositeSubClass KUSB = 0
-	KUSBDevice KUSB = 0
-	KUSBDeviceCountExceededNotificationType KUSB = 0
-	KUSBDeviceIDMask KUSB = 0
-	KUSBDeviceIDShift KUSB = 0
-	KUSBDeviceMask KUSB = 0
-	KUSBEndPtShift KUSB = 0
+	KUSBAddExtraResetTimeMask                 KUSB = 0
+	KUSBAllStreams                            KUSB = 0
+	KUSBAnyType                               KUSB = 0
+	KUSBBulk                                  KUSB = 0
+	KUSBClass                                 KUSB = 0
+	KUSBCommEthernetNetworkingSubClass        KUSB = 0
+	KUSBCommunicationControlInterfaceClass    KUSB = 0
+	KUSBCompositeSubClass                     KUSB = 0
+	KUSBDevice                                KUSB = 0
+	KUSBDeviceCountExceededNotificationType   KUSB = 0
+	KUSBDeviceIDMask                          KUSB = 0
+	KUSBDeviceIDShift                         KUSB = 0
+	KUSBDeviceMask                            KUSB = 0
+	KUSBEndPtShift                            KUSB = 0
 	KUSBEndpointCountExceededNotificationType KUSB = 0
-	KUSBEndpointTransferTypeUCMask KUSB = 0
-	KUSBEndpointbmAttributesUsageTypeShift KUSB = 0
+	KUSBEndpointTransferTypeUCMask            KUSB = 0
+	KUSBEndpointbmAttributesUsageTypeShift    KUSB = 0
 	// KUSBFullSpeedMicrosecondsInFrame: # Discussion
 	KUSBFullSpeedMicrosecondsInFrame KUSB = 0
 	// KUSBHighSpeedMicrosecondsInFrame: # Discussion
 	KUSBHighSpeedMicrosecondsInFrame KUSB = 0
-	KUSBInterfaceIDMask KUSB = 0
-	KUSBInterfaceIDShift KUSB = 0
-	KUSBMaxDevice KUSB = 0
-	KUSBMaxDevices KUSB = 0
-	KUSBMaxInterfaces KUSB = 0
-	KUSBMaxPipes KUSB = 0
-	KUSBMaxStream KUSB = 0
-	KUSBNoPipeIdx KUSB = 0
-	KUSBNoStream KUSB = 0
-	KUSBOther KUSB = 0
-	KUSBPRimeStream KUSB = 0
-	KUSBPhysicalInterfaceClass KUSB = 0
-	KUSBPipeIDMask KUSB = 0
+	KUSBInterfaceIDMask              KUSB = 0
+	KUSBInterfaceIDShift             KUSB = 0
+	KUSBMaxDevice                    KUSB = 0
+	KUSBMaxDevices                   KUSB = 0
+	KUSBMaxInterfaces                KUSB = 0
+	KUSBMaxPipes                     KUSB = 0
+	KUSBMaxStream                    KUSB = 0
+	KUSBNoPipeIdx                    KUSB = 0
+	KUSBNoStream                     KUSB = 0
+	KUSBOther                        KUSB = 0
+	KUSBPRimeStream                  KUSB = 0
+	KUSBPhysicalInterfaceClass       KUSB = 0
+	KUSBPipeIDMask                   KUSB = 0
 	// KUSBReEnumerateCaptureDeviceBit: The bit to capture the device.
 	KUSBReEnumerateCaptureDeviceBit KUSB = 0
 	// KUSBReEnumerateCaptureDeviceMask: The mask to capture the device.
@@ -10768,13 +13143,14 @@ const (
 	// KUSBReEnumerateReleaseDeviceBit: The bit to release the device.
 	KUSBReEnumerateReleaseDeviceBit KUSB = 0
 	// KUSBReEnumerateReleaseDeviceMask: The mask to release the device.
-	KUSBReEnumerateReleaseDeviceMask KUSB = 0
-	KUSBStream0 KUSB = 0
-	KUSBStreamIDAllStreamsMask KUSB = 0
-	KUSBStreamIDMask KUSB = 0
-	KUSBTooManyDevicesAddress KUSB = 0
-	KUSBUCRequestWithoutUSBNotificationMask KUSB = 0
-	KUSB_EPDesc_bmAttributes_SyncType_Shift KUSB = 0
+	KUSBReEnumerateReleaseDeviceMask          KUSB = 0
+	KUSBRel10                                 KUSB = 0
+	KUSBStream0                               KUSB = 0
+	KUSBStreamIDAllStreamsMask                KUSB = 0
+	KUSBStreamIDMask                          KUSB = 0
+	KUSBTooManyDevicesAddress                 KUSB = 0
+	KUSBUCRequestWithoutUSBNotificationMask   KUSB = 0
+	KUSB_EPDesc_bmAttributes_SyncType_Shift   KUSB = 0
 	KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Shift KUSB = 0
 )
 
@@ -10787,37 +13163,108 @@ func (e KUSB) String() string {
 	}
 }
 
-const KUSB100mAAvailable uint = 0
-
-type KUSB3LPMMaxU1SEL uint
+type KUSB100mA uint
 
 const (
-	KUSB2LPMMaxL1Timeout KUSB3LPMMaxU1SEL = 0
+	KUSB100mAAvailable KUSB100mA = 0
 )
 
-func (e KUSB3LPMMaxU1SEL) String() string {
+func (e KUSB100mA) String() string {
+	switch e {
+	case KUSB100mAAvailable:
+		return "KUSB100mAAvailable"
+	default:
+		return fmt.Sprintf("KUSB100mA(%d)", e)
+	}
+}
+
+type KUSB2LPMMaxL1 uint
+
+const (
+	KUSB2LPMMaxL1Timeout KUSB2LPMMaxL1 = 0
+)
+
+func (e KUSB2LPMMaxL1) String() string {
 	switch e {
 	case KUSB2LPMMaxL1Timeout:
 		return "KUSB2LPMMaxL1Timeout"
 	default:
-		return fmt.Sprintf("KUSB3LPMMaxU1SEL(%d)", e)
+		return fmt.Sprintf("KUSB2LPMMaxL1(%d)", e)
 	}
 }
 
-const KUSBBillboardAdditinalInfoNoPower uint = 0
-
-type KUSBBillboardUnspecifiedError int
+type KUSBAddress uint
 
 const (
-	KUSBBillboardAltModeConfigSuccess KUSBBillboardUnspecifiedError = 0
+	KUSBAddress_Mask KUSBAddress = 0
 )
 
-func (e KUSBBillboardUnspecifiedError) String() string {
+func (e KUSBAddress) String() string {
+	switch e {
+	case KUSBAddress_Mask:
+		return "KUSBAddress_Mask"
+	default:
+		return fmt.Sprintf("KUSBAddress(%d)", e)
+	}
+}
+
+type KUSBAny uint
+
+const (
+	KUSBAnyDirn KUSBAny = 0
+)
+
+func (e KUSBAny) String() string {
+	switch e {
+	case KUSBAnyDirn:
+		return "KUSBAnyDirn"
+	default:
+		return fmt.Sprintf("KUSBAny(%d)", e)
+	}
+}
+
+type KUSBApplicationSpecific uint
+
+const (
+	KUSBApplicationSpecificClass KUSBApplicationSpecific = 0
+)
+
+func (e KUSBApplicationSpecific) String() string {
+	switch e {
+	case KUSBApplicationSpecificClass:
+		return "KUSBApplicationSpecificClass"
+	default:
+		return fmt.Sprintf("KUSBApplicationSpecific(%d)", e)
+	}
+}
+
+type KUSBBillboardAdditinalInfoNo uint
+
+const (
+	KUSBBillboardAdditinalInfoNoPower KUSBBillboardAdditinalInfoNo = 0
+)
+
+func (e KUSBBillboardAdditinalInfoNo) String() string {
+	switch e {
+	case KUSBBillboardAdditinalInfoNoPower:
+		return "KUSBBillboardAdditinalInfoNoPower"
+	default:
+		return fmt.Sprintf("KUSBBillboardAdditinalInfoNo(%d)", e)
+	}
+}
+
+type KUSBBillboardAltModeConfig uint
+
+const (
+	KUSBBillboardAltModeConfigSuccess KUSBBillboardAltModeConfig = 0
+)
+
+func (e KUSBBillboardAltModeConfig) String() string {
 	switch e {
 	case KUSBBillboardAltModeConfigSuccess:
 		return "KUSBBillboardAltModeConfigSuccess"
 	default:
-		return fmt.Sprintf("KUSBBillboardUnspecifiedError(%d)", e)
+		return fmt.Sprintf("KUSBBillboardAltModeConfig(%d)", e)
 	}
 }
 
@@ -10825,7 +13272,7 @@ type KUSBBillboardV uint
 
 const (
 	KUSBBillboardVConn1P5Watt KUSBBillboardV = 0
-	KUSBBillboardVConn6Watt KUSBBillboardV = 0
+	KUSBBillboardVConn6Watt   KUSBBillboardV = 0
 )
 
 func (e KUSBBillboardV) String() string {
@@ -10837,44 +13284,71 @@ func (e KUSBBillboardV) String() string {
 	}
 }
 
-const KUSBCapsLockKey uint = 0
-
-type KUSBCompositeClass uint
+type KUSBCapsLock uint
 
 const (
-	KUSBApplicationSpecificClass KUSBCompositeClass = 0
+	KUSBCapsLockKey KUSBCapsLock = 0
 )
 
-func (e KUSBCompositeClass) String() string {
+func (e KUSBCapsLock) String() string {
 	switch e {
-	case KUSBApplicationSpecificClass:
-		return "KUSBApplicationSpecificClass"
+	case KUSBCapsLockKey:
+		return "KUSBCapsLockKey"
 	default:
-		return fmt.Sprintf("KUSBCompositeClass(%d)", e)
+		return fmt.Sprintf("KUSBCapsLock(%d)", e)
 	}
 }
 
-const KUSBDFUAttributesMask uint = 0
-
-type KUSBDefaultControlNoDataTimeoutMS uint
+type KUSBClassSpecific uint
 
 const (
-	KUSBDefaultControlCompletionTimeoutMS KUSBDefaultControlNoDataTimeoutMS = 0
+	// KUSBClassSpecificDescriptor: The class-specific descriptor value.
+	KUSBClassSpecificDescriptor KUSBClassSpecific = 0
 )
 
-func (e KUSBDefaultControlNoDataTimeoutMS) String() string {
+func (e KUSBClassSpecific) String() string {
+	switch e {
+	case KUSBClassSpecificDescriptor:
+		return "KUSBClassSpecificDescriptor"
+	default:
+		return fmt.Sprintf("KUSBClassSpecific(%d)", e)
+	}
+}
+
+type KUSBDFUAttributes uint
+
+const (
+	KUSBDFUAttributesMask KUSBDFUAttributes = 0
+)
+
+func (e KUSBDFUAttributes) String() string {
+	switch e {
+	case KUSBDFUAttributesMask:
+		return "KUSBDFUAttributesMask"
+	default:
+		return fmt.Sprintf("KUSBDFUAttributes(%d)", e)
+	}
+}
+
+type KUSBDefaultControlCompletionTimeoutM uint
+
+const (
+	KUSBDefaultControlCompletionTimeoutMS KUSBDefaultControlCompletionTimeoutM = 0
+)
+
+func (e KUSBDefaultControlCompletionTimeoutM) String() string {
 	switch e {
 	case KUSBDefaultControlCompletionTimeoutMS:
 		return "KUSBDefaultControlCompletionTimeoutMS"
 	default:
-		return fmt.Sprintf("KUSBDefaultControlNoDataTimeoutMS(%d)", e)
+		return fmt.Sprintf("KUSBDefaultControlCompletionTimeoutM(%d)", e)
 	}
 }
 
 type KUSBDeviceCapability uint
 
 const (
-	KUSBDeviceCapabilityContainerID KUSBDeviceCapability = 0
+	KUSBDeviceCapabilityContainerID   KUSBDeviceCapability = 0
 	KUSBDeviceCapabilitySuperSpeedUSB KUSBDeviceCapability = 0
 )
 
@@ -10890,7 +13364,7 @@ func (e KUSBDeviceCapability) String() string {
 type KUSBDeviceLPMStatus int
 
 const (
-	KUSBDeviceLPMStatusDefault KUSBDeviceLPMStatus = 0
+	KUSBDeviceLPMStatusDefault  KUSBDeviceLPMStatus = 0
 	KUSBDeviceLPMStatusDisabled KUSBDeviceLPMStatus = 0
 )
 
@@ -10907,7 +13381,7 @@ type KUSBDeviceSpeed uint
 
 const (
 	// KUSBDeviceSpeedHigh: # Discussion
-	KUSBDeviceSpeedHigh KUSBDeviceSpeed = 0
+	KUSBDeviceSpeedHigh      KUSBDeviceSpeed = 0
 	KUSBDeviceSpeedSuperPlus KUSBDeviceSpeed = 0
 )
 
@@ -10920,15 +13394,42 @@ func (e KUSBDeviceSpeed) String() string {
 	}
 }
 
-const KUSBDisplayClass uint = 0
+type KUSBDisplay uint
 
-const KUSBEndpointPropertiesVersion3 uint = 0
+const (
+	KUSBDisplayClass KUSBDisplay = 0
+)
+
+func (e KUSBDisplay) String() string {
+	switch e {
+	case KUSBDisplayClass:
+		return "KUSBDisplayClass"
+	default:
+		return fmt.Sprintf("KUSBDisplay(%d)", e)
+	}
+}
+
+type KUSBEndpointProperties uint
+
+const (
+	// KUSBEndpointPropertiesVersion3: # Discussion
+	KUSBEndpointPropertiesVersion3 KUSBEndpointProperties = 0
+)
+
+func (e KUSBEndpointProperties) String() string {
+	switch e {
+	case KUSBEndpointPropertiesVersion3:
+		return "KUSBEndpointPropertiesVersion3"
+	default:
+		return fmt.Sprintf("KUSBEndpointProperties(%d)", e)
+	}
+}
 
 type KUSBFeature uint
 
 const (
 	KUSBFeatureEndpointStall KUSBFeature = 0
-	KUSBFeatureTestMode KUSBFeature = 0
+	KUSBFeatureTestMode      KUSBFeature = 0
 )
 
 func (e KUSBFeature) String() string {
@@ -10940,17 +13441,43 @@ func (e KUSBFeature) String() string {
 	}
 }
 
-const KUSBFunctionRemoteWakeCapableBit uint = 0
+type KUSBFunctionRemoteWakeCapable uint
 
-const KUSBHSHubCommandAddHub uint = 0
+const (
+	KUSBFunctionRemoteWakeCapableBit KUSBFunctionRemoteWakeCapable = 0
+)
+
+func (e KUSBFunctionRemoteWakeCapable) String() string {
+	switch e {
+	case KUSBFunctionRemoteWakeCapableBit:
+		return "KUSBFunctionRemoteWakeCapableBit"
+	default:
+		return fmt.Sprintf("KUSBFunctionRemoteWakeCapable(%d)", e)
+	}
+}
+
+type KUSBHSHubCommandAdd uint
+
+const (
+	KUSBHSHubCommandAddHub KUSBHSHubCommandAdd = 0
+)
+
+func (e KUSBHSHubCommandAdd) String() string {
+	switch e {
+	case KUSBHSHubCommandAddHub:
+		return "KUSBHSHubCommandAddHub"
+	default:
+		return fmt.Sprintf("KUSBHSHubCommandAdd(%d)", e)
+	}
+}
 
 type KUSBHost uint
 
 const (
-	KUSBHostClassRequestCompletionTimeout KUSBHost = 0
+	KUSBHostClassRequestCompletionTimeout     KUSBHost = 0
 	KUSBHostDefaultControlCompletionTimeoutMS KUSBHost = 0
-	KUSBHostMaxCountFullSpeedIsochronous KUSBHost = 0
-	KUSBHostVendorIDAppleComputer KUSBHost = 0
+	KUSBHostMaxCountFullSpeedIsochronous      KUSBHost = 0
+	KUSBHostVendorIDAppleComputer             KUSBHost = 0
 )
 
 func (e KUSBHost) String() string {
@@ -10993,8 +13520,8 @@ func (e KUSBHostConnectionSpeed) String() string {
 type KUSBHostConnectorType uint
 
 const (
-	KUSB3TypeMicroABConnector KUSBHostConnectorType = 0
-	KUSBHostConnectorTypeMiniAB KUSBHostConnectorType = 0
+	KUSB3TypeMicroABConnector     KUSBHostConnectorType = 0
+	KUSBHostConnectorTypeMiniAB   KUSBHostConnectorType = 0
 	KUSBHostConnectorTypeUSBTypeC KUSBHostConnectorType = 0
 )
 
@@ -11011,7 +13538,7 @@ type KUSBHostOpenOption uint
 
 const (
 	KUSBHostOpenOptionSelectAlternateSetting KUSBHostOpenOption = 0
-	KUSBHostOpenOptionUserClientSession KUSBHostOpenOption = 0
+	KUSBHostOpenOptionUserClientSession      KUSBHostOpenOption = 0
 )
 
 func (e KUSBHostOpenOption) String() string {
@@ -11020,6 +13547,21 @@ func (e KUSBHostOpenOption) String() string {
 		return "KUSBHostOpenOptionSelectAlternateSetting"
 	default:
 		return fmt.Sprintf("KUSBHostOpenOption(%d)", e)
+	}
+}
+
+type KUSBHostPort uint
+
+const (
+	KUSBHostPortConnectable KUSBHostPort = 0
+)
+
+func (e KUSBHostPort) String() string {
+	switch e {
+	case KUSBHostPortConnectable:
+		return "KUSBHostPortConnectable"
+	default:
+		return fmt.Sprintf("KUSBHostPort(%d)", e)
 	}
 }
 
@@ -11135,11 +13677,26 @@ func (e KUSBHostPortType) String() string {
 	}
 }
 
+type KUSBHostPowerSourceType uint
+
+const (
+	KUSBHostPowerSourceTypeHardware KUSBHostPowerSourceType = 0
+)
+
+func (e KUSBHostPowerSourceType) String() string {
+	switch e {
+	case KUSBHostPowerSourceTypeHardware:
+		return "KUSBHostPowerSourceTypeHardware"
+	default:
+		return fmt.Sprintf("KUSBHostPowerSourceType(%d)", e)
+	}
+}
+
 type KUSBHub uint
 
 const (
 	KUSBHubLocalPowerChangeFeature KUSBHub = 0
-	KUSBHubPortConnectionFeature KUSBHub = 0
+	KUSBHubPortConnectionFeature   KUSBHub = 0
 )
 
 func (e KUSBHub) String() string {
@@ -11189,18 +13746,18 @@ func (e KUSBHubRq) String() string {
 	}
 }
 
-type KUSBHubRqSetHubDepth uint
+type KUSBHubRqGetPortError int
 
 const (
-	KUSBHubRqGetPortErrorCount KUSBHubRqSetHubDepth = 0
+	KUSBHubRqGetPortErrorCount KUSBHubRqGetPortError = 0
 )
 
-func (e KUSBHubRqSetHubDepth) String() string {
+func (e KUSBHubRqGetPortError) String() string {
 	switch e {
 	case KUSBHubRqGetPortErrorCount:
 		return "KUSBHubRqGetPortErrorCount"
 	default:
-		return fmt.Sprintf("KUSBHubRqSetHubDepth(%d)", e)
+		return fmt.Sprintf("KUSBHubRqGetPortError(%d)", e)
 	}
 }
 
@@ -11278,6 +13835,21 @@ func (e KUSBInformation) String() string {
 	}
 }
 
+type KUSBInterfaceAssociationDescriptor uint
+
+const (
+	KUSBInterfaceAssociationDescriptorProtocol KUSBInterfaceAssociationDescriptor = 0
+)
+
+func (e KUSBInterfaceAssociationDescriptor) String() string {
+	switch e {
+	case KUSBInterfaceAssociationDescriptorProtocol:
+		return "KUSBInterfaceAssociationDescriptorProtocol"
+	default:
+		return fmt.Sprintf("KUSBInterfaceAssociationDescriptor(%d)", e)
+	}
+}
+
 type KUSBLowLatency uint
 
 const (
@@ -11298,15 +13870,41 @@ func (e KUSBLowLatency) String() string {
 	}
 }
 
-const KUSBLowLatencyIsochTransferKey uint = 0
+type KUSBLowLatencyIsochTransfer uint
 
-const KUSBMaxFSIsocEndpointReqCount uint = 0
+const (
+	KUSBLowLatencyIsochTransferKey KUSBLowLatencyIsochTransfer = 0
+)
+
+func (e KUSBLowLatencyIsochTransfer) String() string {
+	switch e {
+	case KUSBLowLatencyIsochTransferKey:
+		return "KUSBLowLatencyIsochTransferKey"
+	default:
+		return fmt.Sprintf("KUSBLowLatencyIsochTransfer(%d)", e)
+	}
+}
+
+type KUSBMaxFSIsocEndpointReq uint
+
+const (
+	KUSBMaxFSIsocEndpointReqCount KUSBMaxFSIsocEndpointReq = 0
+)
+
+func (e KUSBMaxFSIsocEndpointReq) String() string {
+	switch e {
+	case KUSBMaxFSIsocEndpointReqCount:
+		return "KUSBMaxFSIsocEndpointReqCount"
+	default:
+		return fmt.Sprintf("KUSBMaxFSIsocEndpointReq(%d)", e)
+	}
+}
 
 type KUSBNotification uint
 
 const (
-	// KUSBNotificationPostForcedResume: The system sends a notification after a resume, which occurs after a forced suspend.
-	KUSBNotificationPostForcedResume KUSBNotification = 0
+	// KUSBNotificationPostForcedResumeValue: The system sends a notification after a resume, which occurs after a forced suspend.
+	KUSBNotificationPostForcedResumeValue KUSBNotification = 0
 	// KUSBNotificationPostForcedSuspend: The system sends a notification after a forced suspend completes.
 	KUSBNotificationPostForcedSuspend KUSBNotification = 0
 	// KUSBNotificationPreForcedResume: The system sends a notification before a resume, which occurs after a forced suspend.
@@ -11317,47 +13915,32 @@ const (
 
 func (e KUSBNotification) String() string {
 	switch e {
-	case KUSBNotificationPostForcedResume:
-		return "KUSBNotificationPostForcedResume"
+	case KUSBNotificationPostForcedResumeValue:
+		return "KUSBNotificationPostForcedResumeValue"
 	default:
 		return fmt.Sprintf("KUSBNotification(%d)", e)
 	}
 }
 
-type KUSBNotificationPreForcedSuspendBit uint
+type KUSBNotificationPostForcedResume uint
 
 const (
-	KUSBNotificationPostForcedResumeBit KUSBNotificationPreForcedSuspendBit = 0
+	KUSBNotificationPostForcedResumeBit KUSBNotificationPostForcedResume = 0
 )
 
-func (e KUSBNotificationPreForcedSuspendBit) String() string {
+func (e KUSBNotificationPostForcedResume) String() string {
 	switch e {
 	case KUSBNotificationPostForcedResumeBit:
 		return "KUSBNotificationPostForcedResumeBit"
 	default:
-		return fmt.Sprintf("KUSBNotificationPreForcedSuspendBit(%d)", e)
-	}
-}
-
-type KUSBOut uint
-
-const (
-	KUSBAnyDirn KUSBOut = 0
-)
-
-func (e KUSBOut) String() string {
-	switch e {
-	case KUSBAnyDirn:
-		return "KUSBAnyDirn"
-	default:
-		return fmt.Sprintf("KUSBOut(%d)", e)
+		return fmt.Sprintf("KUSBNotificationPostForcedResume(%d)", e)
 	}
 }
 
 type KUSBPort uint
 
 const (
-	KUSBPortConnectable KUSBPort = 0
+	KUSBPortConnectable    KUSBPort = 0
 	KUSBPortNotConnectable KUSBPort = 0
 )
 
@@ -11400,65 +13983,63 @@ func (e KUSBPower) String() string {
 	}
 }
 
-const KUSBRel10 uint = 0
-
-type KUSBRqDirnShift uint
+type KUSBRqClear uint
 
 const (
-	KUSBRqDirnMask KUSBRqDirnShift = 0
+	KUSBRqClearFeature KUSBRqClear = 0
 )
 
-func (e KUSBRqDirnShift) String() string {
-	switch e {
-	case KUSBRqDirnMask:
-		return "KUSBRqDirnMask"
-	default:
-		return fmt.Sprintf("KUSBRqDirnShift(%d)", e)
-	}
-}
-
-type KUSBRqGetStatus int
-
-const (
-	KUSBRqClearFeature KUSBRqGetStatus = 0
-)
-
-func (e KUSBRqGetStatus) String() string {
+func (e KUSBRqClear) String() string {
 	switch e {
 	case KUSBRqClearFeature:
 		return "KUSBRqClearFeature"
 	default:
-		return fmt.Sprintf("KUSBRqGetStatus(%d)", e)
+		return fmt.Sprintf("KUSBRqClear(%d)", e)
 	}
 }
 
-type KUSBStandard uint
+type KUSBRqDirn uint
 
 const (
-	KUSBClass KUSBStandard = 0
+	KUSBRqDirnMask KUSBRqDirn = 0
 )
 
-func (e KUSBStandard) String() string {
+func (e KUSBRqDirn) String() string {
 	switch e {
-	case KUSBClass:
-		return "KUSBClass"
+	case KUSBRqDirnMask:
+		return "KUSBRqDirnMask"
 	default:
-		return fmt.Sprintf("KUSBStandard(%d)", e)
+		return fmt.Sprintf("KUSBRqDirn(%d)", e)
 	}
 }
 
-type KUSPrintingClassGetDeviceID uint
+type KUSBTypeCCableType uint
 
 const (
-	KUSPrintingClassGePortStatus KUSPrintingClassGetDeviceID = 0
+	KUSBTypeCCableTypeNone KUSBTypeCCableType = 0
 )
 
-func (e KUSPrintingClassGetDeviceID) String() string {
+func (e KUSBTypeCCableType) String() string {
+	switch e {
+	case KUSBTypeCCableTypeNone:
+		return "KUSBTypeCCableTypeNone"
+	default:
+		return fmt.Sprintf("KUSBTypeCCableType(%d)", e)
+	}
+}
+
+type KUSPrintingClassGePort uint
+
+const (
+	KUSPrintingClassGePortStatus KUSPrintingClassGePort = 0
+)
+
+func (e KUSPrintingClassGePort) String() string {
 	switch e {
 	case KUSPrintingClassGePortStatus:
 		return "KUSPrintingClassGePortStatus"
 	default:
-		return fmt.Sprintf("KUSPrintingClassGetDeviceID(%d)", e)
+		return fmt.Sprintf("KUSPrintingClassGePort(%d)", e)
 	}
 }
 
@@ -11466,7 +14047,7 @@ type KUnknownConnect uint
 
 const (
 	KFixedModeCRTConnect KUnknownConnect = 0
-	KPanelFSTNConnect KUnknownConnect = 0
+	KPanelFSTNConnect    KUnknownConnect = 0
 )
 
 func (e KUnknownConnect) String() string {
@@ -11482,7 +14063,7 @@ type KVBLInterruptServiceType uint
 
 const (
 	KFBOnlineInterruptServiceType KVBLInterruptServiceType = 0
-	KFrameInterruptServiceType KVBLInterruptServiceType = 0
+	KFrameInterruptServiceType    KVBLInterruptServiceType = 0
 )
 
 func (e KVBLInterruptServiceType) String() string {
@@ -11494,30 +14075,56 @@ func (e KVBLInterruptServiceType) String() string {
 	}
 }
 
-type KVCDarkReboot uint
+type KVCAcquire uint
 
 const (
-	KVCAcquireImmediate KVCDarkReboot = 0
+	KVCAcquireImmediate KVCAcquire = 0
 )
 
-func (e KVCDarkReboot) String() string {
+func (e KVCAcquire) String() string {
 	switch e {
 	case KVCAcquireImmediate:
 		return "KVCAcquireImmediate"
 	default:
-		return fmt.Sprintf("KVCDarkReboot(%d)", e)
+		return fmt.Sprintf("KVCAcquire(%d)", e)
 	}
 }
 
-const KVSLClamshellStateGestaltType uint = 0
+type KVSLClamshellStateGestalt uint
 
-const KVariableLengthArray uint = 0
+const (
+	KVSLClamshellStateGestaltType KVSLClamshellStateGestalt = 0
+)
+
+func (e KVSLClamshellStateGestalt) String() string {
+	switch e {
+	case KVSLClamshellStateGestaltType:
+		return "KVSLClamshellStateGestaltType"
+	default:
+		return fmt.Sprintf("KVSLClamshellStateGestalt(%d)", e)
+	}
+}
+
+type KVariableLength uint
+
+const (
+	KVariableLengthArray KVariableLength = 0
+)
+
+func (e KVariableLength) String() string {
+	switch e {
+	case KVariableLengthArray:
+		return "KVariableLengthArray"
+	default:
+		return fmt.Sprintf("KVariableLength(%d)", e)
+	}
+}
 
 type KVideo uint
 
 const (
 	KVideoCombinedI2CTypeMask KVideo = 0
-	KVideoNoTransactionType KVideo = 0
+	KVideoNoTransactionType   KVideo = 0
 )
 
 func (e KVideo) String() string {
@@ -11533,7 +14140,7 @@ type KVideoBusType uint
 
 const (
 	KVideoBusTypeDisplayPort KVideoBusType = 0
-	KVideoBusTypeInvalid KVideoBusType = 0
+	KVideoBusTypeInvalid     KVideoBusType = 0
 )
 
 func (e KVideoBusType) String() string {
@@ -11545,12 +14152,25 @@ func (e KVideoBusType) String() string {
 	}
 }
 
-const KVideoDefaultBus uint = 0
+type KVideoDefault uint
+
+const (
+	KVideoDefaultBus KVideoDefault = 0
+)
+
+func (e KVideoDefault) String() string {
+	switch e {
+	case KVideoDefaultBus:
+		return "KVideoDefaultBus"
+	default:
+		return fmt.Sprintf("KVideoDefault(%d)", e)
+	}
+}
 
 type KVideoUsageAddrSubAddr uint
 
 const (
-	KVideoUsageAddrSubAddrBit KVideoUsageAddrSubAddr = 0
+	KVideoUsageAddrSubAddrBit  KVideoUsageAddrSubAddr = 0
 	KVideoUsageAddrSubAddrMask KVideoUsageAddrSubAddr = 0
 )
 
@@ -11566,7 +14186,7 @@ func (e KVideoUsageAddrSubAddr) String() string {
 type KXHCISSRootHubAddress uint
 
 const (
-	KSuperSpeedBusBitMask KXHCISSRootHubAddress = 0
+	KSuperSpeedBusBitMask      KXHCISSRootHubAddress = 0
 	KXHCISSRootHubAddressValue KXHCISSRootHubAddress = 0
 )
 
@@ -11579,48 +14199,48 @@ func (e KXHCISSRootHubAddress) String() string {
 	}
 }
 
-type Kanalogsignallevel07000300 uint
+type Kanalogsignallevel0700 uint
 
 const (
-	KAnalogSignalLevel_0700_0000 Kanalogsignallevel07000300 = 0
+	KAnalogSignalLevel_0700_0000 Kanalogsignallevel0700 = 0
 )
 
-func (e Kanalogsignallevel07000300) String() string {
+func (e Kanalogsignallevel0700) String() string {
 	switch e {
 	case KAnalogSignalLevel_0700_0000:
 		return "KAnalogSignalLevel_0700_0000"
 	default:
-		return fmt.Sprintf("Kanalogsignallevel07000300(%d)", e)
+		return fmt.Sprintf("Kanalogsignallevel0700(%d)", e)
 	}
 }
 
-type KcdCompressionTypeT uint
+type KcSt uint
 
 const (
-	KCDCT_NONE KcdCompressionTypeT = 0
+	KC_ST_CHAR KcSt = 0
 )
 
-func (e KcdCompressionTypeT) String() string {
-	switch e {
-	case KCDCT_NONE:
-		return "KCDCT_NONE"
-	default:
-		return fmt.Sprintf("KcdCompressionTypeT(%d)", e)
-	}
-}
-
-type KcdataSubtypeTypes uint
-
-const (
-	KC_ST_CHAR KcdataSubtypeTypes = 0
-)
-
-func (e KcdataSubtypeTypes) String() string {
+func (e KcSt) String() string {
 	switch e {
 	case KC_ST_CHAR:
 		return "KC_ST_CHAR"
 	default:
-		return fmt.Sprintf("KcdataSubtypeTypes(%d)", e)
+		return fmt.Sprintf("KcSt(%d)", e)
+	}
+}
+
+type Kcdct uint
+
+const (
+	KCDCT_NONE Kcdct = 0
+)
+
+func (e Kcdct) String() string {
+	switch e {
+	case KCDCT_NONE:
+		return "KCDCT_NONE"
+	default:
+		return fmt.Sprintf("Kcdct(%d)", e)
 	}
 }
 
@@ -11628,8 +14248,8 @@ type KdCallback uint
 
 const (
 	KD_CALLBACK_KDEBUG_DISABLED KdCallback = 0
-	KD_CALLBACK_KDEBUG_ENABLED KdCallback = 0
-	KD_CALLBACK_SYNC_FLUSH KdCallback = 0
+	KD_CALLBACK_KDEBUG_ENABLED  KdCallback = 0
+	KD_CALLBACK_SYNC_FLUSH      KdCallback = 0
 )
 
 func (e KdCallback) String() string {
@@ -11644,10 +14264,10 @@ func (e KdCallback) String() string {
 type Kdbg uint
 
 const (
-	KDBG_BUFINIT Kdbg = 0
+	KDBG_BUFINIT       Kdbg = 0
 	KDBG_MATCH_DISABLE Kdbg = 0
-	KDBG_NOWRAP Kdbg = 0
-	KDBG_WRAPPED Kdbg = 0
+	KDBG_NOWRAP        Kdbg = 0
+	KDBG_WRAPPED       Kdbg = 0
 )
 
 func (e Kdbg) String() string {
@@ -11659,18 +14279,18 @@ func (e Kdbg) String() string {
 	}
 }
 
-type KdebugCoprocFlagsT uint
+type KdcpContinuous uint
 
 const (
-	KDCP_CONTINUOUS_TIME KdebugCoprocFlagsT = 0
+	KDCP_CONTINUOUS_TIME KdcpContinuous = 0
 )
 
-func (e KdebugCoprocFlagsT) String() string {
+func (e KdcpContinuous) String() string {
 	switch e {
 	case KDCP_CONTINUOUS_TIME:
 		return "KDCP_CONTINUOUS_TIME"
 	default:
-		return fmt.Sprintf("KdebugCoprocFlagsT(%d)", e)
+		return fmt.Sprintf("KdcpContinuous(%d)", e)
 	}
 }
 
@@ -11678,7 +14298,7 @@ type KdpEventE uint
 
 const (
 	KDP_EVENT_ENTER KdpEventE = 0
-	KDP_EVENT_EXIT KdpEventE = 0
+	KDP_EVENT_EXIT  KdpEventE = 0
 )
 
 func (e KdpEventE) String() string {
@@ -11693,7 +14313,7 @@ func (e KdpEventE) String() string {
 type Kdtest uint
 
 const (
-	KDTEST_ABSOLUTE_TIMESTAMP Kdtest = 0
+	KDTEST_ABSOLUTE_TIMESTAMP   Kdtest = 0
 	KDTEST_CONTINUOUS_TIMESTAMP Kdtest = 0
 )
 
@@ -11706,36 +14326,21 @@ func (e Kdtest) String() string {
 	}
 }
 
-type Kextint9Nmiintsource uint
-
-const (
-	KExtInt9_NMIIntSource Kextint9Nmiintsource = 0
-)
-
-func (e Kextint9Nmiintsource) String() string {
-	switch e {
-	case KExtInt9_NMIIntSource:
-		return "KExtInt9_NMIIntSource"
-	default:
-		return fmt.Sprintf("Kextint9Nmiintsource(%d)", e)
-	}
-}
-
 type Kf uint
 
 const (
-	KF_COMPRSV_OVRD Kf = 0
-	KF_DISABLE_FP_POPC_ON_PGFLT Kf = 0
-	KF_DISABLE_PROCREF_TRACKING_OVRD Kf = 0
-	KF_DISABLE_PROD_TRC_VALIDATION Kf = 0
-	KF_INTERRUPT_MASKED_DEBUG_OVRD Kf = 0
+	KF_COMPRSV_OVRD                          Kf = 0
+	KF_DISABLE_FP_POPC_ON_PGFLT              Kf = 0
+	KF_DISABLE_PROCREF_TRACKING_OVRD         Kf = 0
+	KF_DISABLE_PROD_TRC_VALIDATION           Kf = 0
+	KF_INTERRUPT_MASKED_DEBUG_OVRD           Kf = 0
 	KF_INTERRUPT_MASKED_DEBUG_STACKSHOT_OVRD Kf = 0
-	KF_IOTRACE_OVRD Kf = 0
-	KF_IO_TIMEOUT_OVRD Kf = 0
-	KF_MACH_ASSERT_OVRD Kf = 0
-	KF_MADVISE_FREE_DEBUG_OVRD Kf = 0
-	KF_MATV_OVRD Kf = 0
-	KF_SERIAL_OVRD Kf = 0
+	KF_IOTRACE_OVRD                          Kf = 0
+	KF_IO_TIMEOUT_OVRD                       Kf = 0
+	KF_MACH_ASSERT_OVRD                      Kf = 0
+	KF_MADVISE_FREE_DEBUG_OVRD               Kf = 0
+	KF_MATV_OVRD                             Kf = 0
+	KF_SERIAL_OVRD                           Kf = 0
 )
 
 func (e Kf) String() string {
@@ -11750,38 +14355,38 @@ func (e Kf) String() string {
 type KguardExc uint
 
 const (
-	KGUARD_EXC_DEALLOC_GAP KguardExc = 0
-	KGUARD_EXC_DESTROY KguardExc = 0
-	KGUARD_EXC_EXCEPTION_BEHAVIOR_ENFORCE KguardExc = 0
-	KGUARD_EXC_IMMOVABLE KguardExc = 0
-	KGUARD_EXC_IMMOVABLE_NON_FATAL KguardExc = 0
-	KGUARD_EXC_INCORRECT_GUARD KguardExc = 0
-	KGUARD_EXC_INVALID_ARGUMENT KguardExc = 0
-	KGUARD_EXC_INVALID_NAME KguardExc = 0
-	KGUARD_EXC_INVALID_OPTIONS KguardExc = 0
-	KGUARD_EXC_INVALID_RIGHT KguardExc = 0
-	KGUARD_EXC_INVALID_VALUE KguardExc = 0
-	KGUARD_EXC_KERN_FAILURE KguardExc = 0
-	KGUARD_EXC_KERN_NO_SPACE KguardExc = 0
-	KGUARD_EXC_KERN_RESOURCE KguardExc = 0
-	KGUARD_EXC_MOD_REFS KguardExc = 0
-	KGUARD_EXC_MOD_REFS_NON_FATAL KguardExc = 0
-	KGUARD_EXC_MSG_FILTERED KguardExc = 0
-	KGUARD_EXC_PROVISIONAL_REPLY_PORT KguardExc = 0
-	KGUARD_EXC_RCV_GUARDED_DESC KguardExc = 0
-	KGUARD_EXC_RCV_INVALID_NAME KguardExc = 0
-	KGUARD_EXC_RECLAIM_COPYIO_FAILURE KguardExc = 0
-	KGUARD_EXC_REQUIRE_REPLY_PORT_SEMANTICS KguardExc = 0
-	KGUARD_EXC_RIGHT_EXISTS KguardExc = 0
-	KGUARD_EXC_SEND_INVALID_REPLY KguardExc = 0
-	KGUARD_EXC_SEND_INVALID_RIGHT KguardExc = 0
-	KGUARD_EXC_SEND_INVALID_VOUCHER KguardExc = 0
-	KGUARD_EXC_SERVICE_PORT_VIOLATION_FATAL KguardExc = 0
+	KGUARD_EXC_DEALLOC_GAP                      KguardExc = 0
+	KGUARD_EXC_DESTROY                          KguardExc = 0
+	KGUARD_EXC_EXCEPTION_BEHAVIOR_ENFORCE       KguardExc = 0
+	KGUARD_EXC_IMMOVABLE                        KguardExc = 0
+	KGUARD_EXC_IMMOVABLE_NON_FATAL              KguardExc = 0
+	KGUARD_EXC_INCORRECT_GUARD                  KguardExc = 0
+	KGUARD_EXC_INVALID_ARGUMENT                 KguardExc = 0
+	KGUARD_EXC_INVALID_NAME                     KguardExc = 0
+	KGUARD_EXC_INVALID_OPTIONS                  KguardExc = 0
+	KGUARD_EXC_INVALID_RIGHT                    KguardExc = 0
+	KGUARD_EXC_INVALID_VALUE                    KguardExc = 0
+	KGUARD_EXC_KERN_FAILURE                     KguardExc = 0
+	KGUARD_EXC_KERN_NO_SPACE                    KguardExc = 0
+	KGUARD_EXC_KERN_RESOURCE                    KguardExc = 0
+	KGUARD_EXC_MOD_REFS                         KguardExc = 0
+	KGUARD_EXC_MOD_REFS_NON_FATAL               KguardExc = 0
+	KGUARD_EXC_MSG_FILTERED                     KguardExc = 0
+	KGUARD_EXC_PROVISIONAL_REPLY_PORT           KguardExc = 0
+	KGUARD_EXC_RCV_GUARDED_DESC                 KguardExc = 0
+	KGUARD_EXC_RCV_INVALID_NAME                 KguardExc = 0
+	KGUARD_EXC_RECLAIM_COPYIO_FAILURE           KguardExc = 0
+	KGUARD_EXC_REQUIRE_REPLY_PORT_SEMANTICS     KguardExc = 0
+	KGUARD_EXC_RIGHT_EXISTS                     KguardExc = 0
+	KGUARD_EXC_SEND_INVALID_REPLY               KguardExc = 0
+	KGUARD_EXC_SEND_INVALID_RIGHT               KguardExc = 0
+	KGUARD_EXC_SEND_INVALID_VOUCHER             KguardExc = 0
+	KGUARD_EXC_SERVICE_PORT_VIOLATION_FATAL     KguardExc = 0
 	KGUARD_EXC_SERVICE_PORT_VIOLATION_NON_FATAL KguardExc = 0
-	KGUARD_EXC_SET_CONTEXT KguardExc = 0
-	KGUARD_EXC_STRICT_REPLY KguardExc = 0
-	KGUARD_EXC_THREAD_SET_STATE KguardExc = 0
-	KGUARD_EXC_UNGUARDED KguardExc = 0
+	KGUARD_EXC_SET_CONTEXT                      KguardExc = 0
+	KGUARD_EXC_STRICT_REPLY                     KguardExc = 0
+	KGUARD_EXC_THREAD_SET_STATE                 KguardExc = 0
+	KGUARD_EXC_UNGUARDED                        KguardExc = 0
 )
 
 func (e KguardExc) String() string {
@@ -11793,25 +14398,25 @@ func (e KguardExc) String() string {
 	}
 }
 
-type KhidusageAdAlphanumericdisplay uint
+type KhidusageAd uint
 
 const (
-	KHIDUsage_AD_ASCIICharacterSet KhidusageAdAlphanumericdisplay = 0
+	KHIDUsage_AD_ASCIICharacterSet KhidusageAd = 0
 )
 
-func (e KhidusageAdAlphanumericdisplay) String() string {
+func (e KhidusageAd) String() string {
 	switch e {
 	case KHIDUsage_AD_ASCIICharacterSet:
 		return "KHIDUsage_AD_ASCIICharacterSet"
 	default:
-		return fmt.Sprintf("KhidusageAdAlphanumericdisplay(%d)", e)
+		return fmt.Sprintf("KhidusageAd(%d)", e)
 	}
 }
 
 type KhidusageBcs uint
 
 const (
-	KHIDUsage_BCS_2DControlReport KhidusageBcs = 0
+	KHIDUsage_BCS_2DControlReport   KhidusageBcs = 0
 	KHIDUsage_BCS_CheckDisablePrice KhidusageBcs = 0
 )
 
@@ -11827,7 +14432,7 @@ func (e KhidusageBcs) String() string {
 type KhidusageBd uint
 
 const (
-	KHIDUsage_BD_6DotBrailleCell KhidusageBd = 0
+	KHIDUsage_BD_6DotBrailleCell      KhidusageBd = 0
 	KHIDUsage_BD_BrailleRightControls KhidusageBd = 0
 )
 
@@ -11844,7 +14449,7 @@ type KhidusageBs uint
 
 const (
 	KHIDUsage_BS_AbsoluteStateOfCharge KhidusageBs = 0
-	KHIDUsage_BS_ConnectionToSMBus KhidusageBs = 0
+	KHIDUsage_BS_ConnectionToSMBus     KhidusageBs = 0
 )
 
 func (e KhidusageBs) String() string {
@@ -11876,7 +14481,7 @@ type KhidusageCc uint
 
 const (
 	KHIDUsage_CC_Autofocus KhidusageCc = 0
-	KHIDUsage_CC_Shutter KhidusageCc = 0
+	KHIDUsage_CC_Shutter   KhidusageCc = 0
 	KHIDUsage_CC_Undefined KhidusageCc = 0
 )
 
@@ -11893,7 +14498,7 @@ type KhidusageCsmr uint
 
 const (
 	KHIDUsage_Csmr_ACSelectTable KhidusageCsmr = 0
-	KHIDUsage_Csmr_Repeat KhidusageCsmr = 0
+	KHIDUsage_Csmr_Repeat        KhidusageCsmr = 0
 )
 
 func (e KhidusageCsmr) String() string {
@@ -11908,7 +14513,7 @@ func (e KhidusageCsmr) String() string {
 type KhidusageDig uint
 
 const (
-	KHIDUsage_Dig_Altitude KhidusageDig = 0
+	KHIDUsage_Dig_Altitude                        KhidusageDig = 0
 	KHIDUsage_Dig_GestureCharacterEncodingUTF16BE KhidusageDig = 0
 )
 
@@ -11921,25 +14526,25 @@ func (e KhidusageDig) String() string {
 	}
 }
 
-type KhidusageGame3dgamecontroller uint
+type KhidusageGame uint
 
 const (
-	KHIDUsage_Game_3DGameController KhidusageGame3dgamecontroller = 0
+	KHIDUsage_Game_3DGameController KhidusageGame = 0
 )
 
-func (e KhidusageGame3dgamecontroller) String() string {
+func (e KhidusageGame) String() string {
 	switch e {
 	case KHIDUsage_Game_3DGameController:
 		return "KHIDUsage_Game_3DGameController"
 	default:
-		return fmt.Sprintf("KhidusageGame3dgamecontroller(%d)", e)
+		return fmt.Sprintf("KhidusageGame(%d)", e)
 	}
 }
 
 type KhidusageGd uint
 
 const (
-	KHIDUsage_GD_ByteCount KhidusageGd = 0
+	KHIDUsage_GD_ByteCount  KhidusageGd = 0
 	KHIDUsage_GD_SystemMenu KhidusageGd = 0
 )
 
@@ -11952,25 +14557,25 @@ func (e KhidusageGd) String() string {
 	}
 }
 
-type KhidusageGendevcontrolsBackgroundcontrols uint
+type KhidusageGendevcontrols uint
 
 const (
-	KHIDUsage_GenDevControls_BackgroundControls KhidusageGendevcontrolsBackgroundcontrols = 0
+	KHIDUsage_GenDevControls_BackgroundControls KhidusageGendevcontrols = 0
 )
 
-func (e KhidusageGendevcontrolsBackgroundcontrols) String() string {
+func (e KhidusageGendevcontrols) String() string {
 	switch e {
 	case KHIDUsage_GenDevControls_BackgroundControls:
 		return "KHIDUsage_GenDevControls_BackgroundControls"
 	default:
-		return fmt.Sprintf("KhidusageGendevcontrolsBackgroundcontrols(%d)", e)
+		return fmt.Sprintf("KhidusageGendevcontrols(%d)", e)
 	}
 }
 
 type KhidusageLed uint
 
 const (
-	KHIDUsage_LED_Compose KhidusageLed = 0
+	KHIDUsage_LED_Compose  KhidusageLed = 0
 	KHIDUsage_LED_Coverage KhidusageLed = 0
 )
 
@@ -11983,40 +14588,40 @@ func (e KhidusageLed) String() string {
 	}
 }
 
-type KhidusageMsrUndefined uint
+type KhidusageMsr uint
 
 const (
-	KHIDUsage_MSR_DeviceReadOnly KhidusageMsrUndefined = 0
+	KHIDUsage_MSR_DeviceReadOnly KhidusageMsr = 0
 )
 
-func (e KhidusageMsrUndefined) String() string {
+func (e KhidusageMsr) String() string {
 	switch e {
 	case KHIDUsage_MSR_DeviceReadOnly:
 		return "KHIDUsage_MSR_DeviceReadOnly"
 	default:
-		return fmt.Sprintf("KhidusageMsrUndefined(%d)", e)
+		return fmt.Sprintf("KhidusageMsr(%d)", e)
 	}
 }
 
-type KhidusageOrdInstance1 uint
+type KhidusageOrd uint
 
 const (
-	KHIDUsage_Ord_Instance1 KhidusageOrdInstance1 = 0
+	KHIDUsage_Ord_Instance1 KhidusageOrd = 0
 )
 
-func (e KhidusageOrdInstance1) String() string {
+func (e KhidusageOrd) String() string {
 	switch e {
 	case KHIDUsage_Ord_Instance1:
 		return "KHIDUsage_Ord_Instance1"
 	default:
-		return fmt.Sprintf("KhidusageOrdInstance1(%d)", e)
+		return fmt.Sprintf("KhidusageOrd(%d)", e)
 	}
 }
 
 type KhidusagePd uint
 
 const (
-	KHIDUsage_PD_PowerSummary KhidusagePd = 0
+	KHIDUsage_PD_PowerSummary      KhidusagePd = 0
 	KHIDUsage_PD_ShutdownRequested KhidusagePd = 0
 )
 
@@ -12032,7 +14637,7 @@ func (e KhidusagePd) String() string {
 type KhidusagePid uint
 
 const (
-	KHIDUsage_PID_ActuatorsEnabled KhidusagePid = 0
+	KHIDUsage_PID_ActuatorsEnabled   KhidusagePid = 0
 	KHIDUsage_PID_PositiveSaturation KhidusagePid = 0
 )
 
@@ -12048,8 +14653,8 @@ func (e KhidusagePid) String() string {
 type KhidusageSim uint
 
 const (
-	KHIDUsage_Sim_Accelerator KhidusageSim = 0
-	KHIDUsage_Sim_CyclicControl KhidusageSim = 0
+	KHIDUsage_Sim_Accelerator                KhidusageSim = 0
+	KHIDUsage_Sim_CyclicControl              KhidusageSim = 0
 	KHIDUsage_Sim_HelicopterSimulationDevice KhidusageSim = 0
 )
 
@@ -12065,7 +14670,7 @@ func (e KhidusageSim) String() string {
 type KhidusageSnsr uint
 
 const (
-	KHIDUsage_Snsr_Data_Motion_AngularVelocityXAxis KhidusageSnsr = 0
+	KHIDUsage_Snsr_Data_Motion_AngularVelocityXAxis  KhidusageSnsr = 0
 	KHIDUsage_Snsr_Event_SensorEvent_RangeMaxReached KhidusageSnsr = 0
 )
 
@@ -12081,7 +14686,7 @@ func (e KhidusageSnsr) String() string {
 type KhidusageSprt uint
 
 const (
-	KHIDUsage_Sprt_11Iron KhidusageSprt = 0
+	KHIDUsage_Sprt_11Iron     KhidusageSprt = 0
 	KHIDUsage_Sprt_PowerWedge KhidusageSprt = 0
 )
 
@@ -12098,7 +14703,7 @@ type KhidusageTfon uint
 
 const (
 	KHIDUsage_Tfon_LineBusyTone KhidusageTfon = 0
-	KHIDUsage_Tfon_Redial KhidusageTfon = 0
+	KHIDUsage_Tfon_Redial       KhidusageTfon = 0
 )
 
 func (e KhidusageTfon) String() string {
@@ -12110,26 +14715,11 @@ func (e KhidusageTfon) String() string {
 	}
 }
 
-type KhidusageUndefined uint
-
-const (
-	KHIDUsage_Undefined KhidusageUndefined = 0
-)
-
-func (e KhidusageUndefined) String() string {
-	switch e {
-	case KHIDUsage_Undefined:
-		return "KHIDUsage_Undefined"
-	default:
-		return fmt.Sprintf("KhidusageUndefined(%d)", e)
-	}
-}
-
 type KhidusageVr uint
 
 const (
 	KHIDUsage_VR_AnimatronicDevice KhidusageVr = 0
-	KHIDUsage_VR_HandTracker KhidusageVr = 0
+	KHIDUsage_VR_HandTracker       KhidusageVr = 0
 )
 
 func (e KhidusageVr) String() string {
@@ -12145,7 +14735,7 @@ type KhidusageWd uint
 
 const (
 	KHIDUsage_WD_ScaleAtrributeReport KhidusageWd = 0
-	KHIDUsage_WD_WeightUnitTaels KhidusageWd = 0
+	KHIDUsage_WD_WeightUnitTaels      KhidusageWd = 0
 )
 
 func (e KhidusageWd) String() string {
@@ -12157,18 +14747,18 @@ func (e KhidusageWd) String() string {
 	}
 }
 
-type KhvIonNone uint
+type KhvIonAny uint
 
 const (
-	KHV_ION_ANY_SIZE KhvIonNone = 0
+	KHV_ION_ANY_SIZE KhvIonAny = 0
 )
 
-func (e KhvIonNone) String() string {
+func (e KhvIonAny) String() string {
 	switch e {
 	case KHV_ION_ANY_SIZE:
 		return "KHV_ION_ANY_SIZE"
 	default:
-		return fmt.Sprintf("KhvIonNone(%d)", e)
+		return fmt.Sprintf("KhvIonAny(%d)", e)
 	}
 }
 
@@ -12213,7 +14803,7 @@ type KinquiryByte56 uint
 const (
 	// KINQUIRY_Byte56_CLOCKING_ONLY_DT: # Discussion
 	KINQUIRY_Byte56_CLOCKING_ONLY_DT KinquiryByte56 = 0
-	KINQUIRY_Byte56_Offset KinquiryByte56 = 0
+	KINQUIRY_Byte56_Offset           KinquiryByte56 = 0
 )
 
 func (e KinquiryByte56) String() string {
@@ -12304,7 +14894,7 @@ type KinquiryPage83Association uint
 const (
 	// KINQUIRY_Page83_AssociationDevice: # Discussion
 	KINQUIRY_Page83_AssociationDevice KinquiryPage83Association = 0
-	KINQUIRY_Page83_AssociationShift KinquiryPage83Association = 0
+	KINQUIRY_Page83_AssociationShift  KinquiryPage83Association = 0
 )
 
 func (e KinquiryPage83Association) String() string {
@@ -12319,7 +14909,7 @@ func (e KinquiryPage83Association) String() string {
 type KinquiryPage83Codeset uint
 
 const (
-	KINQUIRY_Page83_CodeSetMask KinquiryPage83Codeset = 0
+	KINQUIRY_Page83_CodeSetMask     KinquiryPage83Codeset = 0
 	KINQUIRY_Page83_CodeSetReserved KinquiryPage83Codeset = 0
 )
 
@@ -12332,49 +14922,49 @@ func (e KinquiryPage83Codeset) String() string {
 	}
 }
 
-type KinquiryPageb1PageLength uint
+type KinquiryPageb1Page uint
 
 const (
-	KINQUIRY_PageB1_Page_Length KinquiryPageb1PageLength = 0
+	KINQUIRY_PageB1_Page_Length KinquiryPageb1Page = 0
 )
 
-func (e KinquiryPageb1PageLength) String() string {
+func (e KinquiryPageb1Page) String() string {
 	switch e {
 	case KINQUIRY_PageB1_Page_Length:
 		return "KINQUIRY_PageB1_Page_Length"
 	default:
-		return fmt.Sprintf("KinquiryPageb1PageLength(%d)", e)
+		return fmt.Sprintf("KinquiryPageb1Page(%d)", e)
 	}
 }
 
-type KinquiryPagec0FeaturesHassepLun uint
+type KinquiryPagec0FeaturesHassep uint
 
 const (
-	KINQUIRY_PageC0_Features_HasSEP_LUN KinquiryPagec0FeaturesHassepLun = 0
+	KINQUIRY_PageC0_Features_HasSEP_LUN KinquiryPagec0FeaturesHassep = 0
 )
 
-func (e KinquiryPagec0FeaturesHassepLun) String() string {
+func (e KinquiryPagec0FeaturesHassep) String() string {
 	switch e {
 	case KINQUIRY_PageC0_Features_HasSEP_LUN:
 		return "KINQUIRY_PageC0_Features_HasSEP_LUN"
 	default:
-		return fmt.Sprintf("KinquiryPagec0FeaturesHassepLun(%d)", e)
+		return fmt.Sprintf("KinquiryPagec0FeaturesHassep(%d)", e)
 	}
 }
 
-type KinquiryPeripheralQualifierConnected uint
+type KinquiryPeripheralQualifier uint
 
 const (
 	// KINQUIRY_PERIPHERAL_QUALIFIER_Connected: # Discussion
-	KINQUIRY_PERIPHERAL_QUALIFIER_Connected KinquiryPeripheralQualifierConnected = 0
+	KINQUIRY_PERIPHERAL_QUALIFIER_Connected KinquiryPeripheralQualifier = 0
 )
 
-func (e KinquiryPeripheralQualifierConnected) String() string {
+func (e KinquiryPeripheralQualifier) String() string {
 	switch e {
 	case KINQUIRY_PERIPHERAL_QUALIFIER_Connected:
 		return "KINQUIRY_PERIPHERAL_QUALIFIER_Connected"
 	default:
-		return fmt.Sprintf("KinquiryPeripheralQualifierConnected(%d)", e)
+		return fmt.Sprintf("KinquiryPeripheralQualifier(%d)", e)
 	}
 }
 
@@ -12414,94 +15004,49 @@ func (e KinquiryPeripheralType) String() string {
 	}
 }
 
-type KinquiryVendorIdentificationLength uint
+type KinquiryProductIdentification uint
 
 const (
 	// KINQUIRY_PRODUCT_IDENTIFICATION_Length: # Discussion
-	KINQUIRY_PRODUCT_IDENTIFICATION_Length KinquiryVendorIdentificationLength = 0
+	KINQUIRY_PRODUCT_IDENTIFICATION_Length KinquiryProductIdentification = 0
 )
 
-func (e KinquiryVendorIdentificationLength) String() string {
+func (e KinquiryProductIdentification) String() string {
 	switch e {
 	case KINQUIRY_PRODUCT_IDENTIFICATION_Length:
 		return "KINQUIRY_PRODUCT_IDENTIFICATION_Length"
 	default:
-		return fmt.Sprintf("KinquiryVendorIdentificationLength(%d)", e)
+		return fmt.Sprintf("KinquiryProductIdentification(%d)", e)
 	}
 }
 
-type Kioanalogsignallevel07000300 uint
+type Kioanalogsignallevel0700 uint
 
 const (
-	KIOAnalogSignalLevel_0700_0000 Kioanalogsignallevel07000300 = 0
+	KIOAnalogSignalLevel_0700_0000 Kioanalogsignallevel0700 = 0
 )
 
-func (e Kioanalogsignallevel07000300) String() string {
+func (e Kioanalogsignallevel0700) String() string {
 	switch e {
 	case KIOAnalogSignalLevel_0700_0000:
 		return "KIOAnalogSignalLevel_0700_0000"
 	default:
-		return fmt.Sprintf("Kioanalogsignallevel07000300(%d)", e)
+		return fmt.Sprintf("Kioanalogsignallevel0700(%d)", e)
 	}
 }
 
-type KioaudiochannellabelUnknown uint
+type KioaudiochannellabelAmbisonic uint
 
 const (
-	KIOAudioChannelLabel_Ambisonic_W KioaudiochannellabelUnknown = 0
+	KIOAudioChannelLabel_Ambisonic_W KioaudiochannellabelAmbisonic = 0
 )
 
-func (e KioaudiochannellabelUnknown) String() string {
+func (e KioaudiochannellabelAmbisonic) String() string {
 	switch e {
 	case KIOAudioChannelLabel_Ambisonic_W:
 		return "KIOAudioChannelLabel_Ambisonic_W"
 	default:
-		return fmt.Sprintf("KioaudiochannellabelUnknown(%d)", e)
-	}
-}
-
-type KiofbhdcplimitAllowall uint
-
-const (
-	KIOFBHDCPLimit_AllowAll KiofbhdcplimitAllowall = 0
-)
-
-func (e KiofbhdcplimitAllowall) String() string {
-	switch e {
-	case KIOFBHDCPLimit_AllowAll:
-		return "KIOFBHDCPLimit_AllowAll"
-	default:
-		return fmt.Sprintf("KiofbhdcplimitAllowall(%d)", e)
-	}
-}
-
-type KiofbnotifypriorityMin uint
-
-const (
-	KIOFBNotifyPriority_Max KiofbnotifypriorityMin = 0
-)
-
-func (e KiofbnotifypriorityMin) String() string {
-	switch e {
-	case KIOFBNotifyPriority_Max:
-		return "KIOFBNotifyPriority_Max"
-	default:
-		return fmt.Sprintf("KiofbnotifypriorityMin(%d)", e)
-	}
-}
-
-type KiofwspecidAapl uint
-
-const (
-	KIOFWSWVers_KPF KiofwspecidAapl = 0
-)
-
-func (e KiofwspecidAapl) String() string {
-	switch e {
-	case KIOFWSWVers_KPF:
-		return "KIOFWSWVers_KPF"
-	default:
-		return fmt.Sprintf("KiofwspecidAapl(%d)", e)
+		return fmt.Sprintf("KioaudiochannellabelAmbisonic(%d)", e)
 	}
 }
 
@@ -12523,87 +15068,41 @@ func (e KiovideodevicenotificationidControl) String() string {
 	}
 }
 
-type KmmccmdBlank uint
-
-const (
-	KMMCCmd_BLANK KmmccmdBlank = 0
-)
-
-func (e KmmccmdBlank) String() string {
-	switch e {
-	case KMMCCmd_BLANK:
-		return "KMMCCmd_BLANK"
-	default:
-		return fmt.Sprintf("KmmccmdBlank(%d)", e)
-	}
-}
-
-type KmodepageformatPsBit uint
+type KmodepageformatPs uint
 
 const (
 	// KModePageFormat_PS_Bit: # Discussion
-	KModePageFormat_PS_Bit KmodepageformatPsBit = 0
+	KModePageFormat_PS_Bit KmodepageformatPs = 0
 )
 
-func (e KmodepageformatPsBit) String() string {
+func (e KmodepageformatPs) String() string {
 	switch e {
 	case KModePageFormat_PS_Bit:
 		return "KModePageFormat_PS_Bit"
 	default:
-		return fmt.Sprintf("KmodepageformatPsBit(%d)", e)
+		return fmt.Sprintf("KmodepageformatPs(%d)", e)
 	}
 }
 
-type Kmodesenseparameterheader10Longlbabit uint
+type KpcCaptured uint
 
 const (
-	// KModeSenseParameterHeader10_LongLBABit: # Discussion
-	KModeSenseParameterHeader10_LongLBABit Kmodesenseparameterheader10Longlbabit = 0
+	KPC_CAPTURED_PC KpcCaptured = 0
 )
 
-func (e Kmodesenseparameterheader10Longlbabit) String() string {
-	switch e {
-	case KModeSenseParameterHeader10_LongLBABit:
-		return "KModeSenseParameterHeader10_LongLBABit"
-	default:
-		return fmt.Sprintf("Kmodesenseparameterheader10Longlbabit(%d)", e)
-	}
-}
-
-type KmodifierDidperformmodifiy uint
-
-const (
-	KModifier_DidKeyUp KmodifierDidperformmodifiy = 0
-)
-
-func (e KmodifierDidperformmodifiy) String() string {
-	switch e {
-	case KModifier_DidKeyUp:
-		return "KModifier_DidKeyUp"
-	default:
-		return fmt.Sprintf("KmodifierDidperformmodifiy(%d)", e)
-	}
-}
-
-type KperfKpcFlagsT uint
-
-const (
-	KPC_CAPTURED_PC KperfKpcFlagsT = 0
-)
-
-func (e KperfKpcFlagsT) String() string {
+func (e KpcCaptured) String() string {
 	switch e {
 	case KPC_CAPTURED_PC:
 		return "KPC_CAPTURED_PC"
 	default:
-		return fmt.Sprintf("KperfKpcFlagsT(%d)", e)
+		return fmt.Sprintf("KpcCaptured(%d)", e)
 	}
 }
 
 type Krangesupportssignal07000000 uint
 
 const (
-	KRangeSupportsSignal_0700_0000_Bit Krangesupportssignal07000000 = 0
+	KRangeSupportsSignal_0700_0000_Bit  Krangesupportssignal07000000 = 0
 	KRangeSupportsSignal_0700_0000_Mask Krangesupportssignal07000000 = 0
 )
 
@@ -12616,19 +15115,19 @@ func (e Krangesupportssignal07000000) String() string {
 	}
 }
 
-type KreadCapacityProtEnabled uint
+type KreadCapacityProt uint
 
 const (
 	// KREAD_CAPACITY_PROT_Disabled: # Discussion
-	KREAD_CAPACITY_PROT_Disabled KreadCapacityProtEnabled = 0
+	KREAD_CAPACITY_PROT_Disabled KreadCapacityProt = 0
 )
 
-func (e KreadCapacityProtEnabled) String() string {
+func (e KreadCapacityProt) String() string {
 	switch e {
 	case KREAD_CAPACITY_PROT_Disabled:
 		return "KREAD_CAPACITY_PROT_Disabled"
 	default:
-		return fmt.Sprintf("KreadCapacityProtEnabled(%d)", e)
+		return fmt.Sprintf("KreadCapacityProt(%d)", e)
 	}
 }
 
@@ -12650,19 +15149,19 @@ func (e KreadCapacityRto) String() string {
 	}
 }
 
-type KreportCapacityDatasize uint
+type KreportCapacity16 uint
 
 const (
 	// KREPORT_CAPACITY_16_DataSize: # Discussion
-	KREPORT_CAPACITY_16_DataSize KreportCapacityDatasize = 0
+	KREPORT_CAPACITY_16_DataSize KreportCapacity16 = 0
 )
 
-func (e KreportCapacityDatasize) String() string {
+func (e KreportCapacity16) String() string {
 	switch e {
 	case KREPORT_CAPACITY_16_DataSize:
 		return "KREPORT_CAPACITY_16_DataSize"
 	default:
-		return fmt.Sprintf("KreportCapacityDatasize(%d)", e)
+		return fmt.Sprintf("KreportCapacity16(%d)", e)
 	}
 }
 
@@ -12684,315 +15183,237 @@ func (e KreportLunsAddress) String() string {
 	}
 }
 
-type KsbcmodepagecachingDemandWriteMask uint
+type KsbcmodepagecachingDemandRead uint
 
 const (
 	// KSBCModePageCaching_DEMAND_READ_Mask: # Discussion
-	KSBCModePageCaching_DEMAND_READ_Mask KsbcmodepagecachingDemandWriteMask = 0
+	KSBCModePageCaching_DEMAND_READ_Mask KsbcmodepagecachingDemandRead = 0
 )
 
-func (e KsbcmodepagecachingDemandWriteMask) String() string {
+func (e KsbcmodepagecachingDemandRead) String() string {
 	switch e {
 	case KSBCModePageCaching_DEMAND_READ_Mask:
 		return "KSBCModePageCaching_DEMAND_READ_Mask"
 	default:
-		return fmt.Sprintf("KsbcmodepagecachingDemandWriteMask(%d)", e)
+		return fmt.Sprintf("KsbcmodepagecachingDemandRead(%d)", e)
 	}
 }
 
-type KsbcmodepagecachingVs1Bit uint
+type KsbcmodepagecachingDra uint
 
 const (
 	// KSBCModePageCaching_DRA_Bit: # Discussion
-	KSBCModePageCaching_DRA_Bit KsbcmodepagecachingVs1Bit = 0
+	KSBCModePageCaching_DRA_Bit KsbcmodepagecachingDra = 0
 )
 
-func (e KsbcmodepagecachingVs1Bit) String() string {
+func (e KsbcmodepagecachingDra) String() string {
 	switch e {
 	case KSBCModePageCaching_DRA_Bit:
 		return "KSBCModePageCaching_DRA_Bit"
 	default:
-		return fmt.Sprintf("KsbcmodepagecachingVs1Bit(%d)", e)
+		return fmt.Sprintf("KsbcmodepagecachingDra(%d)", e)
 	}
 }
 
-type KsbcmodepageflexiblediskPin1Mask uint
+type KsbcmodepageflexiblediskPin1 uint
 
 const (
 	// KSBCModePageFlexibleDisk_PIN_1_Mask: # Discussion
-	KSBCModePageFlexibleDisk_PIN_1_Mask KsbcmodepageflexiblediskPin1Mask = 0
+	KSBCModePageFlexibleDisk_PIN_1_Mask KsbcmodepageflexiblediskPin1 = 0
 )
 
-func (e KsbcmodepageflexiblediskPin1Mask) String() string {
+func (e KsbcmodepageflexiblediskPin1) String() string {
 	switch e {
 	case KSBCModePageFlexibleDisk_PIN_1_Mask:
 		return "KSBCModePageFlexibleDisk_PIN_1_Mask"
 	default:
-		return fmt.Sprintf("KsbcmodepageflexiblediskPin1Mask(%d)", e)
+		return fmt.Sprintf("KsbcmodepageflexiblediskPin1(%d)", e)
 	}
 }
 
-type KsbcmodepageflexiblediskPin2Mask uint
+type KsbcmodepageflexiblediskPin2 uint
 
 const (
 	// KSBCModePageFlexibleDisk_PIN_2_Mask: # Discussion
-	KSBCModePageFlexibleDisk_PIN_2_Mask KsbcmodepageflexiblediskPin2Mask = 0
+	KSBCModePageFlexibleDisk_PIN_2_Mask KsbcmodepageflexiblediskPin2 = 0
 )
 
-func (e KsbcmodepageflexiblediskPin2Mask) String() string {
+func (e KsbcmodepageflexiblediskPin2) String() string {
 	switch e {
 	case KSBCModePageFlexibleDisk_PIN_2_Mask:
 		return "KSBCModePageFlexibleDisk_PIN_2_Mask"
 	default:
-		return fmt.Sprintf("KsbcmodepageflexiblediskPin2Mask(%d)", e)
+		return fmt.Sprintf("KsbcmodepageflexiblediskPin2(%d)", e)
 	}
 }
 
-type KsbcmodepageflexiblediskSpcMask uint
+type KsbcmodepageflexiblediskSpc uint
 
 const (
 	// KSBCModePageFlexibleDisk_SPC_Mask: # Discussion
-	KSBCModePageFlexibleDisk_SPC_Mask KsbcmodepageflexiblediskSpcMask = 0
+	KSBCModePageFlexibleDisk_SPC_Mask KsbcmodepageflexiblediskSpc = 0
 )
 
-func (e KsbcmodepageflexiblediskSpcMask) String() string {
+func (e KsbcmodepageflexiblediskSpc) String() string {
 	switch e {
 	case KSBCModePageFlexibleDisk_SPC_Mask:
 		return "KSBCModePageFlexibleDisk_SPC_Mask"
 	default:
-		return fmt.Sprintf("KsbcmodepageflexiblediskSpcMask(%d)", e)
+		return fmt.Sprintf("KsbcmodepageflexiblediskSpc(%d)", e)
 	}
 }
 
-type KsbcmodepagerigiddiskgeometryRplMask uint
+type KsbcmodepagerigiddiskgeometryRpl uint
 
 const (
 	// KSBCModePageRigidDiskGeometry_RPL_Mask: # Discussion
-	KSBCModePageRigidDiskGeometry_RPL_Mask KsbcmodepagerigiddiskgeometryRplMask = 0
+	KSBCModePageRigidDiskGeometry_RPL_Mask KsbcmodepagerigiddiskgeometryRpl = 0
 )
 
-func (e KsbcmodepagerigiddiskgeometryRplMask) String() string {
+func (e KsbcmodepagerigiddiskgeometryRpl) String() string {
 	switch e {
 	case KSBCModePageRigidDiskGeometry_RPL_Mask:
 		return "KSBCModePageRigidDiskGeometry_RPL_Mask"
 	default:
-		return fmt.Sprintf("KsbcmodepagerigiddiskgeometryRplMask(%d)", e)
+		return fmt.Sprintf("KsbcmodepagerigiddiskgeometryRpl(%d)", e)
 	}
 }
 
-type KscccmdMaintenanceIn uint
+type KscccmdMaintenance uint
 
 const (
-	KSCCCmd_MAINTENANCE_IN KscccmdMaintenanceIn = 0
+	KSCCCmd_MAINTENANCE_IN KscccmdMaintenance = 0
 )
 
-func (e KscccmdMaintenanceIn) String() string {
+func (e KscccmdMaintenance) String() string {
 	switch e {
 	case KSCCCmd_MAINTENANCE_IN:
 		return "KSCCCmd_MAINTENANCE_IN"
 	default:
-		return fmt.Sprintf("KscccmdMaintenanceIn(%d)", e)
+		return fmt.Sprintf("KscccmdMaintenance(%d)", e)
 	}
 }
 
-type KscsiportNotificationstatuschange uint
+type KscsiserviceactionChange uint
 
 const (
-	KSCSIPort_NotificationStatusChange KscsiportNotificationstatuschange = 0
+	KSCSIServiceAction_CHANGE_ALIASES KscsiserviceactionChange = 0
 )
 
-func (e KscsiportNotificationstatuschange) String() string {
-	switch e {
-	case KSCSIPort_NotificationStatusChange:
-		return "KSCSIPort_NotificationStatusChange"
-	default:
-		return fmt.Sprintf("KscsiportNotificationstatuschange(%d)", e)
-	}
-}
-
-type KscsiportStatusonline int
-
-const (
-	// KSCSIPort_StatusFailure: # Discussion
-	KSCSIPort_StatusFailure KscsiportStatusonline = 0
-)
-
-func (e KscsiportStatusonline) String() string {
-	switch e {
-	case KSCSIPort_StatusFailure:
-		return "KSCSIPort_StatusFailure"
-	default:
-		return fmt.Sprintf("KscsiportStatusonline(%d)", e)
-	}
-}
-
-type KscsiprotocolnotificationDeviceremoved uint
-
-const (
-	// KSCSIProtocolNotification_DeviceRemoved: # Discussion
-	KSCSIProtocolNotification_DeviceRemoved KscsiprotocolnotificationDeviceremoved = 0
-)
-
-func (e KscsiprotocolnotificationDeviceremoved) String() string {
-	switch e {
-	case KSCSIProtocolNotification_DeviceRemoved:
-		return "KSCSIProtocolNotification_DeviceRemoved"
-	default:
-		return fmt.Sprintf("KscsiprotocolnotificationDeviceremoved(%d)", e)
-	}
-}
-
-type KscsiserviceactionChangeAliases uint
-
-const (
-	KSCSIServiceAction_CHANGE_ALIASES KscsiserviceactionChangeAliases = 0
-)
-
-func (e KscsiserviceactionChangeAliases) String() string {
+func (e KscsiserviceactionChange) String() string {
 	switch e {
 	case KSCSIServiceAction_CHANGE_ALIASES:
 		return "KSCSIServiceAction_CHANGE_ALIASES"
 	default:
-		return fmt.Sprintf("KscsiserviceactionChangeAliases(%d)", e)
+		return fmt.Sprintf("KscsiserviceactionChange(%d)", e)
 	}
 }
 
-type KscsiserviceactionGetLbaStatus int
+type KscsiserviceactionGetLba uint
 
 const (
-	KSCSIServiceAction_GET_LBA_STATUS KscsiserviceactionGetLbaStatus = 0
+	KSCSIServiceAction_GET_LBA_STATUS KscsiserviceactionGetLba = 0
 )
 
-func (e KscsiserviceactionGetLbaStatus) String() string {
+func (e KscsiserviceactionGetLba) String() string {
 	switch e {
 	case KSCSIServiceAction_GET_LBA_STATUS:
 		return "KSCSIServiceAction_GET_LBA_STATUS"
 	default:
-		return fmt.Sprintf("KscsiserviceactionGetLbaStatus(%d)", e)
+		return fmt.Sprintf("KscsiserviceactionGetLba(%d)", e)
 	}
 }
 
-type KscsiserviceactionRead32 uint
+type KscsiserviceactionRead uint
 
 const (
-	KSCSIServiceAction_READ_32 KscsiserviceactionRead32 = 0
+	KSCSIServiceAction_READ_32 KscsiserviceactionRead = 0
 )
 
-func (e KscsiserviceactionRead32) String() string {
+func (e KscsiserviceactionRead) String() string {
 	switch e {
 	case KSCSIServiceAction_READ_32:
 		return "KSCSIServiceAction_READ_32"
 	default:
-		return fmt.Sprintf("KscsiserviceactionRead32(%d)", e)
+		return fmt.Sprintf("KscsiserviceactionRead(%d)", e)
 	}
 }
 
-type KscsiserviceactionReportAliases uint
+type KscsiserviceactionReport uint
 
 const (
-	KSCSIServiceAction_REPORT_ALIASES KscsiserviceactionReportAliases = 0
+	KSCSIServiceAction_REPORT_ALIASES KscsiserviceactionReport = 0
 )
 
-func (e KscsiserviceactionReportAliases) String() string {
+func (e KscsiserviceactionReport) String() string {
 	switch e {
 	case KSCSIServiceAction_REPORT_ALIASES:
 		return "KSCSIServiceAction_REPORT_ALIASES"
 	default:
-		return fmt.Sprintf("KscsiserviceactionReportAliases(%d)", e)
+		return fmt.Sprintf("KscsiserviceactionReport(%d)", e)
 	}
 }
 
-type KscsiserviceactionWriteLong16 uint
+type KscsiserviceactionWriteLong uint
 
 const (
-	KSCSIServiceAction_WRITE_LONG_16 KscsiserviceactionWriteLong16 = 0
+	KSCSIServiceAction_WRITE_LONG_16 KscsiserviceactionWriteLong = 0
 )
 
-func (e KscsiserviceactionWriteLong16) String() string {
+func (e KscsiserviceactionWriteLong) String() string {
 	switch e {
 	case KSCSIServiceAction_WRITE_LONG_16:
 		return "KSCSIServiceAction_WRITE_LONG_16"
 	default:
-		return fmt.Sprintf("KscsiserviceactionWriteLong16(%d)", e)
+		return fmt.Sprintf("KscsiserviceactionWriteLong(%d)", e)
 	}
 }
 
-type KscsiservicesnotificationSuspend uint
-
-const (
-	KSCSIServicesNotification_Resume KscsiservicesnotificationSuspend = 0
-)
-
-func (e KscsiservicesnotificationSuspend) String() string {
-	switch e {
-	case KSCSIServicesNotification_Resume:
-		return "KSCSIServicesNotification_Resume"
-	default:
-		return fmt.Sprintf("KscsiservicesnotificationSuspend(%d)", e)
-	}
-}
-
-type KsenseDataValid uint
-
-const (
-	// KSENSE_NOT_DATA_VALID: # Discussion
-	KSENSE_NOT_DATA_VALID KsenseDataValid = 0
-)
-
-func (e KsenseDataValid) String() string {
-	switch e {
-	case KSENSE_NOT_DATA_VALID:
-		return "KSENSE_NOT_DATA_VALID"
-	default:
-		return fmt.Sprintf("KsenseDataValid(%d)", e)
-	}
-}
-
-type KsenseEomSet uint
+type KsenseEom uint
 
 const (
 	// KSENSE_EOM_Mask: # Discussion
-	KSENSE_EOM_Mask KsenseEomSet = 0
+	KSENSE_EOM_Mask KsenseEom = 0
 )
 
-func (e KsenseEomSet) String() string {
+func (e KsenseEom) String() string {
 	switch e {
 	case KSENSE_EOM_Mask:
 		return "KSENSE_EOM_Mask"
 	default:
-		return fmt.Sprintf("KsenseEomSet(%d)", e)
+		return fmt.Sprintf("KsenseEom(%d)", e)
 	}
 }
 
-type KsenseFilemarkSet uint
+type KsenseFilemark uint
 
 const (
 	// KSENSE_FILEMARK_Mask: # Discussion
-	KSENSE_FILEMARK_Mask KsenseFilemarkSet = 0
+	KSENSE_FILEMARK_Mask KsenseFilemark = 0
 )
 
-func (e KsenseFilemarkSet) String() string {
+func (e KsenseFilemark) String() string {
 	switch e {
 	case KSENSE_FILEMARK_Mask:
 		return "KSENSE_FILEMARK_Mask"
 	default:
-		return fmt.Sprintf("KsenseFilemarkSet(%d)", e)
+		return fmt.Sprintf("KsenseFilemark(%d)", e)
 	}
 }
 
-type KsenseIliSet uint
+type KsenseIli uint
 
 const (
 	// KSENSE_ILI_Mask: # Discussion
-	KSENSE_ILI_Mask KsenseIliSet = 0
+	KSENSE_ILI_Mask KsenseIli = 0
 )
 
-func (e KsenseIliSet) String() string {
+func (e KsenseIli) String() string {
 	switch e {
 	case KSENSE_ILI_Mask:
 		return "KSENSE_ILI_Mask"
 	default:
-		return fmt.Sprintf("KsenseIliSet(%d)", e)
+		return fmt.Sprintf("KsenseIli(%d)", e)
 	}
 }
 
@@ -13040,34 +15461,50 @@ func (e KsenseKey) String() string {
 	}
 }
 
-type KsenseResponseCodeCurrentErrors int
+type KsenseNotData uint
+
+const (
+	// KSENSE_NOT_DATA_VALID: # Discussion
+	KSENSE_NOT_DATA_VALID KsenseNotData = 0
+)
+
+func (e KsenseNotData) String() string {
+	switch e {
+	case KSENSE_NOT_DATA_VALID:
+		return "KSENSE_NOT_DATA_VALID"
+	default:
+		return fmt.Sprintf("KsenseNotData(%d)", e)
+	}
+}
+
+type KsenseResponseCodeCurrent uint
 
 const (
 	// KSENSE_RESPONSE_CODE_Current_Errors: # Discussion
-	KSENSE_RESPONSE_CODE_Current_Errors KsenseResponseCodeCurrentErrors = 0
+	KSENSE_RESPONSE_CODE_Current_Errors KsenseResponseCodeCurrent = 0
 )
 
-func (e KsenseResponseCodeCurrentErrors) String() string {
+func (e KsenseResponseCodeCurrent) String() string {
 	switch e {
 	case KSENSE_RESPONSE_CODE_Current_Errors:
 		return "KSENSE_RESPONSE_CODE_Current_Errors"
 	default:
-		return fmt.Sprintf("KsenseResponseCodeCurrentErrors(%d)", e)
+		return fmt.Sprintf("KsenseResponseCodeCurrent(%d)", e)
 	}
 }
 
-type KsescmdModeSelect6 uint
+type KsescmdModeSelect uint
 
 const (
-	KSESCmd_MODE_SELECT_6 KsescmdModeSelect6 = 0
+	KSESCmd_MODE_SELECT_6 KsescmdModeSelect = 0
 )
 
-func (e KsescmdModeSelect6) String() string {
+func (e KsescmdModeSelect) String() string {
 	switch e {
 	case KSESCmd_MODE_SELECT_6:
 		return "KSESCmd_MODE_SELECT_6"
 	default:
-		return fmt.Sprintf("KsescmdModeSelect6(%d)", e)
+		return fmt.Sprintf("KsescmdModeSelect(%d)", e)
 	}
 }
 
@@ -13075,7 +15512,7 @@ type KsgccmdC uint
 
 const (
 	KSGCCmd_CHANGE_DEFINITION KsgccmdC = 0
-	KSGCCmd_COPY_AND_VERIFY KsgccmdC = 0
+	KSGCCmd_COPY_AND_VERIFY   KsgccmdC = 0
 )
 
 func (e KsgccmdC) String() string {
@@ -13087,90 +15524,75 @@ func (e KsgccmdC) String() string {
 	}
 }
 
-type KspcproccmdChangeDefinition uint
+type KspcproccmdChange uint
 
 const (
-	KSPCProcCmd_CHANGE_DEFINITION KspcproccmdChangeDefinition = 0
+	KSPCProcCmd_CHANGE_DEFINITION KspcproccmdChange = 0
 )
 
-func (e KspcproccmdChangeDefinition) String() string {
+func (e KspcproccmdChange) String() string {
 	switch e {
 	case KSPCProcCmd_CHANGE_DEFINITION:
 		return "KSPCProcCmd_CHANGE_DEFINITION"
 	default:
-		return fmt.Sprintf("KspcproccmdChangeDefinition(%d)", e)
+		return fmt.Sprintf("KspcproccmdChange(%d)", e)
 	}
 }
 
-type KsscprintercmdChangeDefinition uint
+type KsscprintercmdChange uint
 
 const (
-	KSSCPrinterCmd_CHANGE_DEFINITION KsscprintercmdChangeDefinition = 0
+	KSSCPrinterCmd_CHANGE_DEFINITION KsscprintercmdChange = 0
 )
 
-func (e KsscprintercmdChangeDefinition) String() string {
+func (e KsscprintercmdChange) String() string {
 	switch e {
 	case KSSCPrinterCmd_CHANGE_DEFINITION:
 		return "KSSCPrinterCmd_CHANGE_DEFINITION"
 	default:
-		return fmt.Sprintf("KsscprintercmdChangeDefinition(%d)", e)
+		return fmt.Sprintf("KsscprintercmdChange(%d)", e)
 	}
 }
 
-type KstateDisabledFlag uint
+type KstateDisabled uint
 
 const (
-	KState_Disabled_Flag KstateDisabledFlag = 0
+	KState_Disabled_Flag KstateDisabled = 0
 )
 
-func (e KstateDisabledFlag) String() string {
+func (e KstateDisabled) String() string {
 	switch e {
 	case KState_Disabled_Flag:
 		return "KState_Disabled_Flag"
 	default:
-		return fmt.Sprintf("KstateDisabledFlag(%d)", e)
+		return fmt.Sprintf("KstateDisabled(%d)", e)
 	}
 }
 
-type KusbSscompdescBulkMaxstreamsMask uint
+type KusbSscompdescBulkMaxstreams uint
 
 const (
-	KUSB_SSCompDesc_Bulk_MaxStreams_Mask KusbSscompdescBulkMaxstreamsMask = 0
+	KUSB_SSCompDesc_Bulk_MaxStreams_Mask KusbSscompdescBulkMaxstreams = 0
 )
 
-func (e KusbSscompdescBulkMaxstreamsMask) String() string {
+func (e KusbSscompdescBulkMaxstreams) String() string {
 	switch e {
 	case KUSB_SSCompDesc_Bulk_MaxStreams_Mask:
 		return "KUSB_SSCompDesc_Bulk_MaxStreams_Mask"
 	default:
-		return fmt.Sprintf("KusbSscompdescBulkMaxstreamsMask(%d)", e)
-	}
-}
-
-type KusbspeedMask uint
-
-const (
-	KUSBAddress_Mask KusbspeedMask = 0
-)
-
-func (e KusbspeedMask) String() string {
-	switch e {
-	case KUSBAddress_Mask:
-		return "KUSBAddress_Mask"
-	default:
-		return fmt.Sprintf("KusbspeedMask(%d)", e)
+		return fmt.Sprintf("KusbSscompdescBulkMaxstreams(%d)", e)
 	}
 }
 
 type LatencyQosTier uint
 
 const (
-	LATENCY_QOS_TIER_0 LatencyQosTier = 0
-	LATENCY_QOS_TIER_1 LatencyQosTier = 0
-	LATENCY_QOS_TIER_2 LatencyQosTier = 0
-	LATENCY_QOS_TIER_3 LatencyQosTier = 0
-	LATENCY_QOS_TIER_4 LatencyQosTier = 0
-	LATENCY_QOS_TIER_5 LatencyQosTier = 0
+	LATENCY_QOS_TIER_0           LatencyQosTier = 0
+	LATENCY_QOS_TIER_1           LatencyQosTier = 0
+	LATENCY_QOS_TIER_2           LatencyQosTier = 0
+	LATENCY_QOS_TIER_3           LatencyQosTier = 0
+	LATENCY_QOS_TIER_4           LatencyQosTier = 0
+	LATENCY_QOS_TIER_5           LatencyQosTier = 0
 	LATENCY_QOS_TIER_UNSPECIFIED LatencyQosTier = 0
 )
 
@@ -13183,40 +15605,40 @@ func (e LatencyQosTier) String() string {
 	}
 }
 
-type LckSleepActionT uint
+type LckSleep uint
 
 const (
-	LCK_SLEEP_DEFAULT LckSleepActionT = 0
+	LCK_SLEEP_DEFAULT LckSleep = 0
 )
 
-func (e LckSleepActionT) String() string {
+func (e LckSleep) String() string {
 	switch e {
 	case LCK_SLEEP_DEFAULT:
 		return "LCK_SLEEP_DEFAULT"
 	default:
-		return fmt.Sprintf("LckSleepActionT(%d)", e)
+		return fmt.Sprintf("LckSleep(%d)", e)
 	}
 }
 
-type LckWakeActionT uint
+type LckWake uint
 
 const (
-	LCK_WAKE_DEFAULT LckWakeActionT = 0
+	LCK_WAKE_DEFAULT LckWake = 0
 )
 
-func (e LckWakeActionT) String() string {
+func (e LckWake) String() string {
 	switch e {
 	case LCK_WAKE_DEFAULT:
 		return "LCK_WAKE_DEFAULT"
 	default:
-		return fmt.Sprintf("LckWakeActionT(%d)", e)
+		return fmt.Sprintf("LckWake(%d)", e)
 	}
 }
 
 type Libsptm uint
 
 const (
-	LIBSPTM_INVALID_ARG Libsptm = 0
+	LIBSPTM_INVALID_ARG   Libsptm = 0
 	LIBSPTM_TYPE_MISMATCH Libsptm = 0
 )
 
@@ -13229,47 +15651,32 @@ func (e Libsptm) String() string {
 	}
 }
 
-type LibsptmCpuStateT uint
-
-const (
-	CPUSTATE_PANIC_SPIN LibsptmCpuStateT = 0
-)
-
-func (e LibsptmCpuStateT) String() string {
-	switch e {
-	case CPUSTATE_PANIC_SPIN:
-		return "CPUSTATE_PANIC_SPIN"
-	default:
-		return fmt.Sprintf("LibsptmCpuStateT(%d)", e)
-	}
-}
-
 type MATA uint
 
 const (
-	MATAAltSDevCValid MATA = 0
-	MATACylinderHiValid MATA = 0
-	MATACylinderLoValid MATA = 0
-	MATADataValid MATA = 0
-	MATAErrFeaturesValid MATA = 0
-	MATAFlag48BitLBA MATA = 0
-	MATAFlagByteSwap MATA = 0
-	MATAFlagDMAQueued MATA = 0
-	MATAFlagIORead MATA = 0
-	MATAFlagIOWrite MATA = 0
-	MATAFlagImmediate MATA = 0
-	MATAFlagOverlapped MATA = 0
-	MATAFlagProtocolATAPI MATA = 0
-	MATAFlagQuiesce MATA = 0
-	MATAFlagTFAccess MATA = 0
+	MATAAltSDevCValid      MATA = 0
+	MATACylinderHiValid    MATA = 0
+	MATACylinderLoValid    MATA = 0
+	MATADataValid          MATA = 0
+	MATAErrFeaturesValid   MATA = 0
+	MATAFlag48BitLBA       MATA = 0
+	MATAFlagByteSwap       MATA = 0
+	MATAFlagDMAQueued      MATA = 0
+	MATAFlagIORead         MATA = 0
+	MATAFlagIOWrite        MATA = 0
+	MATAFlagImmediate      MATA = 0
+	MATAFlagOverlapped     MATA = 0
+	MATAFlagProtocolATAPI  MATA = 0
+	MATAFlagQuiesce        MATA = 0
+	MATAFlagTFAccess       MATA = 0
 	MATAFlagTFAccessResult MATA = 0
 	MATAFlagUseConfigSpeed MATA = 0
-	MATAFlagUseDMA MATA = 0
-	MATAFlagUseNoIRQ MATA = 0
-	MATASDHValid MATA = 0
-	MATASectorCntValid MATA = 0
-	MATASectorNumValid MATA = 0
-	MATAStatusCmdValid MATA = 0
+	MATAFlagUseDMA         MATA = 0
+	MATAFlagUseNoIRQ       MATA = 0
+	MATASDHValid           MATA = 0
+	MATASectorCntValid     MATA = 0
+	MATASectorNumValid     MATA = 0
+	MATAStatusCmdValid     MATA = 0
 )
 
 func (e MATA) String() string {
@@ -13281,18 +15688,48 @@ func (e MATA) String() string {
 	}
 }
 
-type MATAHeadNumber uint
+type MATAAddressNot uint
 
 const (
-	MATADriveSelect MATAHeadNumber = 0
+	MATAAddressNotFound MATAAddressNot = 0
 )
 
-func (e MATAHeadNumber) String() string {
+func (e MATAAddressNot) String() string {
+	switch e {
+	case MATAAddressNotFound:
+		return "MATAAddressNotFound"
+	default:
+		return fmt.Sprintf("MATAAddressNot(%d)", e)
+	}
+}
+
+type MATAData uint
+
+const (
+	MATADataRequest MATAData = 0
+)
+
+func (e MATAData) String() string {
+	switch e {
+	case MATADataRequest:
+		return "MATADataRequest"
+	default:
+		return fmt.Sprintf("MATAData(%d)", e)
+	}
+}
+
+type MATADrive uint
+
+const (
+	MATADriveSelect MATADrive = 0
+)
+
+func (e MATADrive) String() string {
 	switch e {
 	case MATADriveSelect:
 		return "MATADriveSelect"
 	default:
-		return fmt.Sprintf("MATAHeadNumber(%d)", e)
+		return fmt.Sprintf("MATADrive(%d)", e)
 	}
 }
 
@@ -13300,7 +15737,7 @@ type MBaseOffset uint
 
 const (
 	EightBitMode MBaseOffset = 0
-	MCmpCount MBaseOffset = 0
+	MCmpCount    MBaseOffset = 0
 )
 
 func (e MBaseOffset) String() string {
@@ -13312,70 +15749,56 @@ func (e MBaseOffset) String() string {
 	}
 }
 
-type MachAssertTypeT uint
+type MachAssert uint
 
 const (
-	MACH_ASSERT_3P MachAssertTypeT = 0
+	MACH_ASSERT_3P MachAssert = 0
 )
 
-func (e MachAssertTypeT) String() string {
+func (e MachAssert) String() string {
 	switch e {
 	case MACH_ASSERT_3P:
 		return "MACH_ASSERT_3P"
 	default:
-		return fmt.Sprintf("MachAssertTypeT(%d)", e)
+		return fmt.Sprintf("MachAssert(%d)", e)
 	}
 }
 
-type MachVmRangeFlagsT uint
+type MachVmRange uint
 
 const (
-	MACH_VM_RANGE_NONE MachVmRangeFlagsT = 0
+	MACH_VM_RANGE_DATA MachVmRange = 0
+	MACH_VM_RANGE_NONE MachVmRange = 0
 )
 
-func (e MachVmRangeFlagsT) String() string {
-	switch e {
-	case MACH_VM_RANGE_NONE:
-		return "MACH_VM_RANGE_NONE"
-	default:
-		return fmt.Sprintf("MachVmRangeFlagsT(%d)", e)
-	}
-}
-
-type MachVmRangeFlavorT uint
-
-const (
-	MACH_VM_RANGE_FLAVOR_INVALID MachVmRangeFlavorT = 0
-)
-
-func (e MachVmRangeFlavorT) String() string {
-	switch e {
-	case MACH_VM_RANGE_FLAVOR_INVALID:
-		return "MACH_VM_RANGE_FLAVOR_INVALID"
-	default:
-		return fmt.Sprintf("MachVmRangeFlavorT(%d)", e)
-	}
-}
-
-type MachVmRangeTagT uint
-
-const (
-	MACH_VM_RANGE_DATA MachVmRangeTagT = 0
-)
-
-func (e MachVmRangeTagT) String() string {
+func (e MachVmRange) String() string {
 	switch e {
 	case MACH_VM_RANGE_DATA:
 		return "MACH_VM_RANGE_DATA"
 	default:
-		return fmt.Sprintf("MachVmRangeTagT(%d)", e)
+		return fmt.Sprintf("MachVmRange(%d)", e)
+	}
+}
+
+type MachVmRangeFlavor uint
+
+const (
+	MACH_VM_RANGE_FLAVOR_INVALID MachVmRangeFlavor = 0
+)
+
+func (e MachVmRangeFlavor) String() string {
+	switch e {
+	case MACH_VM_RANGE_FLAVOR_INVALID:
+		return "MACH_VM_RANGE_FLAVOR_INVALID"
+	default:
+		return fmt.Sprintf("MachVmRangeFlavor(%d)", e)
 	}
 }
 
 type MacosPanicHeaderFlagCore uint
 
 const (
-	MACOS_PANIC_HEADER_FLAG_COREDUMP_FAILED MacosPanicHeaderFlagCore = 0
+	MACOS_PANIC_HEADER_FLAG_COREDUMP_FAILED   MacosPanicHeaderFlagCore = 0
 	MACOS_PANIC_HEADER_FLAG_COREFILE_UNLINKED MacosPanicHeaderFlagCore = 0
 )
 
@@ -13385,6 +15808,24 @@ func (e MacosPanicHeaderFlagCore) String() string {
 		return "MACOS_PANIC_HEADER_FLAG_COREDUMP_FAILED"
 	default:
 		return fmt.Sprintf("MacosPanicHeaderFlagCore(%d)", e)
+	}
+}
+
+type Mbuf uint
+
+const (
+	// MBUF_BCAST: # Discussion
+	MBUF_BCAST Mbuf = 0
+	// MBUF_DONTWAIT: # Discussion
+	MBUF_DONTWAIT Mbuf = 0
+)
+
+func (e Mbuf) String() string {
+	switch e {
+	case MBUF_BCAST:
+		return "MBUF_BCAST"
+	default:
+		return fmt.Sprintf("Mbuf(%d)", e)
 	}
 }
 
@@ -13406,35 +15847,19 @@ func (e MbufCsum) String() string {
 	}
 }
 
-type MbufCsumReqIp uint
+type MbufCsumReq uint
 
 const (
 	// MBUF_CSUM_REQ_IP: # Discussion
-	MBUF_CSUM_REQ_IP MbufCsumReqIp = 0
+	MBUF_CSUM_REQ_IP MbufCsumReq = 0
 )
 
-func (e MbufCsumReqIp) String() string {
+func (e MbufCsumReq) String() string {
 	switch e {
 	case MBUF_CSUM_REQ_IP:
 		return "MBUF_CSUM_REQ_IP"
 	default:
-		return fmt.Sprintf("MbufCsumReqIp(%d)", e)
-	}
-}
-
-type MbufExt uint
-
-const (
-	// MBUF_BCAST: # Discussion
-	MBUF_BCAST MbufExt = 0
-)
-
-func (e MbufExt) String() string {
-	switch e {
-	case MBUF_BCAST:
-		return "MBUF_BCAST"
-	default:
-		return fmt.Sprintf("MbufExt(%d)", e)
+		return fmt.Sprintf("MbufCsumReq(%d)", e)
 	}
 }
 
@@ -13456,18 +15881,18 @@ func (e MbufTc) String() string {
 	}
 }
 
-type MbufTsoIpv4 uint
+type MbufTso uint
 
 const (
-	MBUF_TSO_IPV4 MbufTsoIpv4 = 0
+	MBUF_TSO_IPV4 MbufTso = 0
 )
 
-func (e MbufTsoIpv4) String() string {
+func (e MbufTso) String() string {
 	switch e {
 	case MBUF_TSO_IPV4:
 		return "MBUF_TSO_IPV4"
 	default:
-		return fmt.Sprintf("MbufTsoIpv4(%d)", e)
+		return fmt.Sprintf("MbufTso(%d)", e)
 	}
 }
 
@@ -13487,64 +15912,18 @@ func (e MbufType) String() string {
 	}
 }
 
-type MbufWaitok uint
+type MccIsMulti uint
 
 const (
-	// MBUF_DONTWAIT: # Discussion
-	MBUF_DONTWAIT MbufWaitok = 0
+	MCC_IS_MULTI_BIT MccIsMulti = 0
 )
 
-func (e MbufWaitok) String() string {
-	switch e {
-	case MBUF_DONTWAIT:
-		return "MBUF_DONTWAIT"
-	default:
-		return fmt.Sprintf("MbufWaitok(%d)", e)
-	}
-}
-
-type MccFlagsT uint
-
-const (
-	MCC_IS_MULTI_BIT MccFlagsT = 0
-)
-
-func (e MccFlagsT) String() string {
+func (e MccIsMulti) String() string {
 	switch e {
 	case MCC_IS_MULTI_BIT:
 		return "MCC_IS_MULTI_BIT"
 	default:
-		return fmt.Sprintf("MccFlagsT(%d)", e)
-	}
-}
-
-type MicroSnapshotFlags uint
-
-const (
-	KInterruptRecord MicroSnapshotFlags = 0
-)
-
-func (e MicroSnapshotFlags) String() string {
-	switch e {
-	case KInterruptRecord:
-		return "KInterruptRecord"
-	default:
-		return fmt.Sprintf("MicroSnapshotFlags(%d)", e)
-	}
-}
-
-type MicrostackshotFlagsT uint
-
-const (
-	STACKSHOT_GET_KERNEL_MICROSTACKSHOT MicrostackshotFlagsT = 0
-)
-
-func (e MicrostackshotFlagsT) String() string {
-	switch e {
-	case STACKSHOT_GET_KERNEL_MICROSTACKSHOT:
-		return "STACKSHOT_GET_KERNEL_MICROSTACKSHOT"
-	default:
-		return fmt.Sprintf("MicrostackshotFlagsT(%d)", e)
+		return fmt.Sprintf("MccIsMulti(%d)", e)
 	}
 }
 
@@ -13579,43 +15958,57 @@ func (e NVRAMPartitionType) String() string {
 	}
 }
 
-type NfsSupportedKerberosEtypes uint
+type Nfattrdi uint
 
 const (
-	NFS_AES128_CTS_HMAC_SHA1_96 NfsSupportedKerberosEtypes = 0
+	NFATTRDIR Nfattrdi = 0
 )
 
-func (e NfsSupportedKerberosEtypes) String() string {
-	switch e {
-	case NFS_AES128_CTS_HMAC_SHA1_96:
-		return "NFS_AES128_CTS_HMAC_SHA1_96"
-	default:
-		return fmt.Sprintf("NfsSupportedKerberosEtypes(%d)", e)
-	}
-}
-
-type Nfstype uint
-
-const (
-	NFATTRDIR Nfstype = 0
-)
-
-func (e Nfstype) String() string {
+func (e Nfattrdi) String() string {
 	switch e {
 	case NFATTRDIR:
 		return "NFATTRDIR"
 	default:
-		return fmt.Sprintf("Nfstype(%d)", e)
+		return fmt.Sprintf("Nfattrdi(%d)", e)
 	}
 }
 
-const NoErr int = 0
+type NfsAes128CtsHmacSha1 uint
+
+const (
+	NFS_AES128_CTS_HMAC_SHA1_96 NfsAes128CtsHmacSha1 = 0
+)
+
+func (e NfsAes128CtsHmacSha1) String() string {
+	switch e {
+	case NFS_AES128_CTS_HMAC_SHA1_96:
+		return "NFS_AES128_CTS_HMAC_SHA1_96"
+	default:
+		return fmt.Sprintf("NfsAes128CtsHmacSha1(%d)", e)
+	}
+}
+
+type No uint
+
+const (
+	// NoErr: No error
+	NoErr No = 0
+)
+
+func (e No) String() string {
+	switch e {
+	case NoErr:
+		return "NoErr"
+	default:
+		return fmt.Sprintf("No(%d)", e)
+	}
+}
 
 type NrLockedErr int
 
 const (
 	GestaltUndefSelectorErr NrLockedErr = 0
-	NrLockedErrValue NrLockedErr = 0
+	NrLockedErrValue        NrLockedErr = 0
 )
 
 func (e NrLockedErr) String() string {
@@ -13630,11 +16023,11 @@ func (e NrLockedErr) String() string {
 type Nx uint
 
 const (
-	NX_BigEndian Nx = 0
-	NX_LeftButton Nx = 0
-	NX_LittleEndian Nx = 0
-	NX_OneButton Nx = 0
-	NX_RightButton Nx = 0
+	NX_BigEndian        Nx = 0
+	NX_LeftButton       Nx = 0
+	NX_LittleEndian     Nx = 0
+	NX_OneButton        Nx = 0
+	NX_RightButton      Nx = 0
 	NX_UnknownByteOrder Nx = 0
 )
 
@@ -13647,10 +16040,25 @@ func (e Nx) String() string {
 	}
 }
 
+type Op uint
+
+const (
+	OP_AUTHORIZE Op = 0
+)
+
+func (e Op) String() string {
+	switch e {
+	case OP_AUTHORIZE:
+		return "OP_AUTHORIZE"
+	default:
+		return fmt.Sprintf("Op(%d)", e)
+	}
+}
+
 type Os uint
 
 const (
-	OSBigEndian Os = 0
+	OSBigEndian    Os = 0
 	OSLittleEndian Os = 0
 )
 
@@ -13663,18 +16071,18 @@ func (e Os) String() string {
 	}
 }
 
-type OsLogCoprocRegT uint
+type OsLogCoprocRegisterHarvestFs uint
 
 const (
-	Os_log_coproc_register_harvest_fs_ftab OsLogCoprocRegT = 0
+	Os_log_coproc_register_harvest_fs_ftab OsLogCoprocRegisterHarvestFs = 0
 )
 
-func (e OsLogCoprocRegT) String() string {
+func (e OsLogCoprocRegisterHarvestFs) String() string {
 	switch e {
 	case Os_log_coproc_register_harvest_fs_ftab:
 		return "Os_log_coproc_register_harvest_fs_ftab"
 	default:
-		return fmt.Sprintf("OsLogCoprocRegT(%d)", e)
+		return fmt.Sprintf("OsLogCoprocRegisterHarvestFs(%d)", e)
 	}
 }
 
@@ -13700,7 +16108,7 @@ type Output uint
 
 const (
 	OUTPUT_COMMUNICATION_SPEAKER Output = 0
-	OUTPUT_UNDEFINED Output = 0
+	OUTPUT_UNDEFINED             Output = 0
 )
 
 func (e Output) String() string {
@@ -13715,7 +16123,7 @@ func (e Output) String() string {
 type OutputNull uint
 
 const (
-	INPUT_NULL OutputNull = 0
+	INPUT_NULL  OutputNull = 0
 	OUTPUT_NULL OutputNull = 0
 )
 
@@ -13747,7 +16155,7 @@ func (e P) String() string {
 type ParamErr int
 
 const (
-	OpenErr ParamErr = 0
+	OpenErr      ParamErr = 0
 	UnitEmptyErr ParamErr = 0
 )
 
@@ -13763,7 +16171,7 @@ func (e ParamErr) String() string {
 type PriorityQueueEntry uint
 
 const (
-	PRIORITY_QUEUE_ENTRY_NONE PriorityQueueEntry = 0
+	PRIORITY_QUEUE_ENTRY_NONE      PriorityQueueEntry = 0
 	PRIORITY_QUEUE_ENTRY_PREEMPTED PriorityQueueEntry = 0
 )
 
@@ -13779,7 +16187,7 @@ func (e PriorityQueueEntry) String() string {
 type Processor uint
 
 const (
-	PROCESSOR_GENERAL Processor = 0
+	PROCESSOR_GENERAL   Processor = 0
 	PROCESSOR_UNDEFINED Processor = 0
 )
 
@@ -13789,6 +16197,21 @@ func (e Processor) String() string {
 		return "PROCESSOR_GENERAL"
 	default:
 		return fmt.Sprintf("Processor(%d)", e)
+	}
+}
+
+type RGB uint
+
+const (
+	RGBDirect RGB = 0
+)
+
+func (e RGB) String() string {
+	switch e {
+	case RGBDirect:
+		return "RGBDirect"
+	default:
+		return fmt.Sprintf("RGB(%d)", e)
 	}
 }
 
@@ -13807,45 +16230,45 @@ func (e SDPAttributeIdentifierCodes) String() string {
 	}
 }
 
-type SfltGlobal uint
+type SecondVid uint
 
 const (
-	// SFLT_EXTENDED: # Discussion
-	SFLT_EXTENDED SfltGlobal = 0
+	SecondVidMode SecondVid = 0
 )
 
-func (e SfltGlobal) String() string {
-	switch e {
-	case SFLT_EXTENDED:
-		return "SFLT_EXTENDED"
-	default:
-		return fmt.Sprintf("SfltGlobal(%d)", e)
-	}
-}
-
-type SixteenBitMode uint
-
-const (
-	SecondVidMode SixteenBitMode = 0
-)
-
-func (e SixteenBitMode) String() string {
+func (e SecondVid) String() string {
 	switch e {
 	case SecondVidMode:
 		return "SecondVidMode"
 	default:
-		return fmt.Sprintf("SixteenBitMode(%d)", e)
+		return fmt.Sprintf("SecondVid(%d)", e)
+	}
+}
+
+type Sflt uint
+
+const (
+	// SFLT_EXTENDED: # Discussion
+	SFLT_EXTENDED Sflt = 0
+)
+
+func (e Sflt) String() string {
+	switch e {
+	case SFLT_EXTENDED:
+		return "SFLT_EXTENDED"
+	default:
+		return fmt.Sprintf("Sflt(%d)", e)
 	}
 }
 
 type SoTrackerAction uint
 
 const (
-	SO_TRACKER_ACTION_ADD SoTrackerAction = 0
-	SO_TRACKER_ACTION_DUMP_ALL SoTrackerAction = 0
+	SO_TRACKER_ACTION_ADD         SoTrackerAction = 0
+	SO_TRACKER_ACTION_DUMP_ALL    SoTrackerAction = 0
 	SO_TRACKER_ACTION_DUMP_BY_APP SoTrackerAction = 0
-	SO_TRACKER_ACTION_DUMP_MAX SoTrackerAction = 0
-	SO_TRACKER_ACTION_INVALID SoTrackerAction = 0
+	SO_TRACKER_ACTION_DUMP_MAX    SoTrackerAction = 0
+	SO_TRACKER_ACTION_INVALID     SoTrackerAction = 0
 )
 
 func (e SoTrackerAction) String() string {
@@ -13860,9 +16283,9 @@ func (e SoTrackerAction) String() string {
 type SoTrackerAttributeA uint
 
 const (
-	SO_TRACKER_ATTRIBUTE_ADDRESS SoTrackerAttributeA = 0
+	SO_TRACKER_ATTRIBUTE_ADDRESS        SoTrackerAttributeA = 0
 	SO_TRACKER_ATTRIBUTE_ADDRESS_FAMILY SoTrackerAttributeA = 0
-	SO_TRACKER_ATTRIBUTE_APP_UUID SoTrackerAttributeA = 0
+	SO_TRACKER_ATTRIBUTE_APP_UUID       SoTrackerAttributeA = 0
 )
 
 func (e SoTrackerAttributeA) String() string {
@@ -13874,50 +16297,50 @@ func (e SoTrackerAttributeA) String() string {
 	}
 }
 
-type SockDataFiltFlagOob uint
+type SockDataFiltFlag uint
 
 const (
 	// Sock_data_filt_flag_oob: # Discussion
-	Sock_data_filt_flag_oob SockDataFiltFlagOob = 0
+	Sock_data_filt_flag_oob SockDataFiltFlag = 0
 )
 
-func (e SockDataFiltFlagOob) String() string {
+func (e SockDataFiltFlag) String() string {
 	switch e {
 	case Sock_data_filt_flag_oob:
 		return "Sock_data_filt_flag_oob"
 	default:
-		return fmt.Sprintf("SockDataFiltFlagOob(%d)", e)
+		return fmt.Sprintf("SockDataFiltFlag(%d)", e)
 	}
 }
 
-type SockEvtConnecting uint
+type SockEvt uint
 
 const (
 	// Sock_evt_bound: # Discussion
-	Sock_evt_bound SockEvtConnecting = 0
+	Sock_evt_bound SockEvt = 0
 )
 
-func (e SockEvtConnecting) String() string {
+func (e SockEvt) String() string {
 	switch e {
 	case Sock_evt_bound:
 		return "Sock_evt_bound"
 	default:
-		return fmt.Sprintf("SockEvtConnecting(%d)", e)
+		return fmt.Sprintf("SockEvt(%d)", e)
 	}
 }
 
-type SockoptGet uint
+type Sockopt uint
 
 const (
-	Sockopt_get SockoptGet = 0
+	Sockopt_get Sockopt = 0
 )
 
-func (e SockoptGet) String() string {
+func (e Sockopt) String() string {
 	switch e {
 	case Sockopt_get:
 		return "Sockopt_get"
 	default:
-		return fmt.Sprintf("SockoptGet(%d)", e)
+		return fmt.Sprintf("Sockopt(%d)", e)
 	}
 }
 
@@ -13925,7 +16348,7 @@ type Sptm uint
 
 const (
 	SPTM_N_VECTOR_TYPES Sptm = 0
-	SPTM_VECTOR_FIQ Sptm = 0
+	SPTM_VECTOR_FIQ     Sptm = 0
 )
 
 func (e Sptm) String() string {
@@ -13937,18 +16360,33 @@ func (e Sptm) String() string {
 	}
 }
 
-type SptmNTraces uint
+type SptmN uint
 
 const (
-	SPTM_N_TRACES SptmNTraces = 0
+	SPTM_N_TRACES SptmN = 0
 )
 
-func (e SptmNTraces) String() string {
+func (e SptmN) String() string {
 	switch e {
 	case SPTM_N_TRACES:
 		return "SPTM_N_TRACES"
 	default:
-		return fmt.Sprintf("SptmNTraces(%d)", e)
+		return fmt.Sprintf("SptmN(%d)", e)
+	}
+}
+
+type SptmNPublic uint
+
+const (
+	SPTM_N_PUBLIC_VIOLATIONS SptmNPublic = 0
+)
+
+func (e SptmNPublic) String() string {
+	switch e {
+	case SPTM_N_PUBLIC_VIOLATIONS:
+		return "SPTM_N_PUBLIC_VIOLATIONS"
+	default:
+		return fmt.Sprintf("SptmNPublic(%d)", e)
 	}
 }
 
@@ -13956,7 +16394,7 @@ type SptmRefcount uint
 
 const (
 	SPTM_REFCOUNT_IOMMU SptmRefcount = 0
-	SPTM_REFCOUNT_NONE SptmRefcount = 0
+	SPTM_REFCOUNT_NONE  SptmRefcount = 0
 )
 
 func (e SptmRefcount) String() string {
@@ -13984,79 +16422,18 @@ func (e Stackshot) String() string {
 	}
 }
 
-type TDeviceRequestType uint
+type StackshotGetKernel uint
 
 const (
-	KRequestTypeClass TDeviceRequestType = 0
+	STACKSHOT_GET_KERNEL_MICROSTACKSHOT StackshotGetKernel = 0
 )
 
-func (e TDeviceRequestType) String() string {
+func (e StackshotGetKernel) String() string {
 	switch e {
-	case KRequestTypeClass:
-		return "KRequestTypeClass"
+	case STACKSHOT_GET_KERNEL_MICROSTACKSHOT:
+		return "STACKSHOT_GET_KERNEL_MICROSTACKSHOT"
 	default:
-		return fmt.Sprintf("TDeviceRequestType(%d)", e)
-	}
-}
-
-type TEndpointSynchronizationType uint
-
-const (
-	KEndpointSynchronizationTypeAdaptive TEndpointSynchronizationType = 0
-)
-
-func (e TEndpointSynchronizationType) String() string {
-	switch e {
-	case KEndpointSynchronizationTypeAdaptive:
-		return "KEndpointSynchronizationTypeAdaptive"
-	default:
-		return fmt.Sprintf("TEndpointSynchronizationType(%d)", e)
-	}
-}
-
-type TEndpointUsageType uint
-
-const (
-	KEndpointUsageTypeInterruptNotification TEndpointUsageType = 0
-)
-
-func (e TEndpointUsageType) String() string {
-	switch e {
-	case KEndpointUsageTypeInterruptNotification:
-		return "KEndpointUsageTypeInterruptNotification"
-	default:
-		return fmt.Sprintf("TEndpointUsageType(%d)", e)
-	}
-}
-
-type TIOUSBBusVoltage uint
-
-const (
-	// KIOUSBBusVoltageDefault: The default bus voltage.
-	KIOUSBBusVoltageDefault TIOUSBBusVoltage = 0
-)
-
-func (e TIOUSBBusVoltage) String() string {
-	switch e {
-	case KIOUSBBusVoltageDefault:
-		return "KIOUSBBusVoltageDefault"
-	default:
-		return fmt.Sprintf("TIOUSBBusVoltage(%d)", e)
-	}
-}
-
-type TIOUSBLanguageID uint
-
-const (
-	KIOUSBLanguageIDEnglishUS TIOUSBLanguageID = 0
-)
-
-func (e TIOUSBLanguageID) String() string {
-	switch e {
-	case KIOUSBLanguageIDEnglishUS:
-		return "KIOUSBLanguageIDEnglishUS"
-	default:
-		return fmt.Sprintf("TIOUSBLanguageID(%d)", e)
+		return fmt.Sprintf("StackshotGetKernel(%d)", e)
 	}
 }
 
@@ -14075,71 +16452,11 @@ func (e TIsochronousTransferOptions) String() string {
 	}
 }
 
-type TUSBCTypeCableType uint
-
-const (
-	KUSBTypeCCableTypeNone TUSBCTypeCableType = 0
-)
-
-func (e TUSBCTypeCableType) String() string {
-	switch e {
-	case KUSBTypeCCableTypeNone:
-		return "KUSBTypeCCableTypeNone"
-	default:
-		return fmt.Sprintf("TUSBCTypeCableType(%d)", e)
-	}
-}
-
-type TUSBHostPortConnectable uint
-
-const (
-	KUSBHostPortConnectable TUSBHostPortConnectable = 0
-)
-
-func (e TUSBHostPortConnectable) String() string {
-	switch e {
-	case KUSBHostPortConnectable:
-		return "KUSBHostPortConnectable"
-	default:
-		return fmt.Sprintf("TUSBHostPortConnectable(%d)", e)
-	}
-}
-
-type TUSBHostPowerSourceType uint
-
-const (
-	KUSBHostPowerSourceTypeHardware TUSBHostPowerSourceType = 0
-)
-
-func (e TUSBHostPowerSourceType) String() string {
-	switch e {
-	case KUSBHostPowerSourceTypeHardware:
-		return "KUSBHostPowerSourceTypeHardware"
-	default:
-		return fmt.Sprintf("TUSBHostPowerSourceType(%d)", e)
-	}
-}
-
-type TUSBLPMExitLatency uint
-
-const (
-	KBestEffortServiceLatency TUSBLPMExitLatency = 0
-)
-
-func (e TUSBLPMExitLatency) String() string {
-	switch e {
-	case KBestEffortServiceLatency:
-		return "KBestEffortServiceLatency"
-	default:
-		return fmt.Sprintf("TUSBLPMExitLatency(%d)", e)
-	}
-}
-
 type Task uint
 
 const (
 	TASK_BACKGROUND_APPLICATION Task = 0
-	TASK_GRAPHICS_SERVER Task = 0
+	TASK_GRAPHICS_SERVER        Task = 0
 )
 
 func (e Task) String() string {
@@ -14151,60 +16468,60 @@ func (e Task) String() string {
 	}
 }
 
-type TaskInspectFlavor uint
+type TaskInspectBasic uint
 
 const (
-	TASK_INSPECT_BASIC_COUNTS TaskInspectFlavor = 0
+	TASK_INSPECT_BASIC_COUNTS TaskInspectBasic = 0
 )
 
-func (e TaskInspectFlavor) String() string {
+func (e TaskInspectBasic) String() string {
 	switch e {
 	case TASK_INSPECT_BASIC_COUNTS:
 		return "TASK_INSPECT_BASIC_COUNTS"
 	default:
-		return fmt.Sprintf("TaskInspectFlavor(%d)", e)
+		return fmt.Sprintf("TaskInspectBasic(%d)", e)
 	}
 }
 
 type TaskSnapshotFlags uint
 
 const (
-	KFrozen TaskSnapshotFlags = 0
-	KPidSuspended TaskSnapshotFlags = 0
-	KTaskAllowIdleExit TaskSnapshotFlags = 0
-	KTaskDarwinBG TaskSnapshotFlags = 0
-	KTaskDyldCompactInfoFaultedIn TaskSnapshotFlags = 0
-	KTaskDyldCompactInfoMissing TaskSnapshotFlags = 0
-	KTaskDyldCompactInfoNone TaskSnapshotFlags = 0
-	KTaskDyldCompactInfoTooBig TaskSnapshotFlags = 0
-	KTaskDyldCompactInfoTriedFault TaskSnapshotFlags = 0
-	KTaskExtDarwinBG TaskSnapshotFlags = 0
-	KTaskIsBoosted TaskSnapshotFlags = 0
-	KTaskIsDirty TaskSnapshotFlags = 0
-	KTaskIsDirtyTracked TaskSnapshotFlags = 0
-	KTaskIsForeground TaskSnapshotFlags = 0
-	KTaskIsImpDonor TaskSnapshotFlags = 0
-	KTaskIsLiveImpDonor TaskSnapshotFlags = 0
-	KTaskIsSuppressed TaskSnapshotFlags = 0
-	KTaskIsTimerThrottled TaskSnapshotFlags = 0
-	KTaskIsTranslated TaskSnapshotFlags = 0
-	KTaskRsrcFlagged TaskSnapshotFlags = 0
-	KTaskSharedRegionInfoUnavailable TaskSnapshotFlags = 0
-	KTaskSharedRegionNone TaskSnapshotFlags = 0
-	KTaskSharedRegionOther TaskSnapshotFlags = 0
-	KTaskSharedRegionSystem TaskSnapshotFlags = 0
-	KTaskTALEngaged TaskSnapshotFlags = 0
-	KTaskUUIDInfoFaultedIn TaskSnapshotFlags = 0
-	KTaskUUIDInfoMissing TaskSnapshotFlags = 0
-	KTaskUUIDInfoTriedFault TaskSnapshotFlags = 0
-	KTaskVisNonvisible TaskSnapshotFlags = 0
-	KTaskVisVisible TaskSnapshotFlags = 0
+	KFrozen                                     TaskSnapshotFlags = 0
+	KPidSuspended                               TaskSnapshotFlags = 0
+	KTaskAllowIdleExit                          TaskSnapshotFlags = 0
+	KTaskDarwinBG                               TaskSnapshotFlags = 0
+	KTaskDyldCompactInfoFaultedIn               TaskSnapshotFlags = 0
+	KTaskDyldCompactInfoMissing                 TaskSnapshotFlags = 0
+	KTaskDyldCompactInfoNone                    TaskSnapshotFlags = 0
+	KTaskDyldCompactInfoTooBig                  TaskSnapshotFlags = 0
+	KTaskDyldCompactInfoTriedFault              TaskSnapshotFlags = 0
+	KTaskExtDarwinBG                            TaskSnapshotFlags = 0
+	KTaskIsBoosted                              TaskSnapshotFlags = 0
+	KTaskIsDirty                                TaskSnapshotFlags = 0
+	KTaskIsDirtyTracked                         TaskSnapshotFlags = 0
+	KTaskIsForeground                           TaskSnapshotFlags = 0
+	KTaskIsImpDonor                             TaskSnapshotFlags = 0
+	KTaskIsLiveImpDonor                         TaskSnapshotFlags = 0
+	KTaskIsSuppressed                           TaskSnapshotFlags = 0
+	KTaskIsTimerThrottled                       TaskSnapshotFlags = 0
+	KTaskIsTranslated                           TaskSnapshotFlags = 0
+	KTaskRsrcFlagged                            TaskSnapshotFlags = 0
+	KTaskSharedRegionInfoUnavailable            TaskSnapshotFlags = 0
+	KTaskSharedRegionNone                       TaskSnapshotFlags = 0
+	KTaskSharedRegionOther                      TaskSnapshotFlags = 0
+	KTaskSharedRegionSystem                     TaskSnapshotFlags = 0
+	KTaskTALEngaged                             TaskSnapshotFlags = 0
+	KTaskUUIDInfoFaultedIn                      TaskSnapshotFlags = 0
+	KTaskUUIDInfoMissing                        TaskSnapshotFlags = 0
+	KTaskUUIDInfoTriedFault                     TaskSnapshotFlags = 0
+	KTaskVisNonvisible                          TaskSnapshotFlags = 0
+	KTaskVisVisible                             TaskSnapshotFlags = 0
 	KTaskWqExceededActiveConstrainedThreadLimit TaskSnapshotFlags = 0
-	KTaskWqExceededConstrainedThreadLimit TaskSnapshotFlags = 0
-	KTaskWqExceededCooperativeThreadLimit TaskSnapshotFlags = 0
-	KTaskWqExceededTotalThreadLimit TaskSnapshotFlags = 0
-	KTaskWqFlagsAvailable TaskSnapshotFlags = 0
-	KTerminatedSnapshot TaskSnapshotFlags = 0
+	KTaskWqExceededConstrainedThreadLimit       TaskSnapshotFlags = 0
+	KTaskWqExceededCooperativeThreadLimit       TaskSnapshotFlags = 0
+	KTaskWqExceededTotalThreadLimit             TaskSnapshotFlags = 0
+	KTaskWqFlagsAvailable                       TaskSnapshotFlags = 0
+	KTerminatedSnapshot                         TaskSnapshotFlags = 0
 )
 
 func (e TaskSnapshotFlags) String() string {
@@ -14216,25 +16533,10 @@ func (e TaskSnapshotFlags) String() string {
 	}
 }
 
-type TaskTransitionType uint
-
-const (
-	KTaskIsTerminated TaskTransitionType = 0
-)
-
-func (e TaskTransitionType) String() string {
-	switch e {
-	case KTaskIsTerminated:
-		return "KTaskIsTerminated"
-	default:
-		return fmt.Sprintf("TaskTransitionType(%d)", e)
-	}
-}
-
 type TcpConnectionClientAccurateEcn uint
 
 const (
-	Tcp_connection_client_accurate_ecn_feature_enabled TcpConnectionClientAccurateEcn = 0
+	Tcp_connection_client_accurate_ecn_feature_enabled                           TcpConnectionClientAccurateEcn = 0
 	Tcp_connection_client_accurate_ecn_negotiation_success_ect_mangling_detected TcpConnectionClientAccurateEcn = 0
 )
 
@@ -14251,7 +16553,7 @@ type TcpConnectionServerAccurateEcn uint
 
 const (
 	Tcp_connection_server_accurate_ecn_negotiation_success_ect_bleaching_detected TcpConnectionServerAccurateEcn = 0
-	Tcp_connection_server_accurate_ecn_requested TcpConnectionServerAccurateEcn = 0
+	Tcp_connection_server_accurate_ecn_requested                                  TcpConnectionServerAccurateEcn = 0
 )
 
 func (e TcpConnectionServerAccurateEcn) String() string {
@@ -14263,18 +16565,18 @@ func (e TcpConnectionServerAccurateEcn) String() string {
 	}
 }
 
-type TelemetryNoticeT uint
+type TelemetryNotice uint
 
 const (
-	TELEMETRY_NOTICE_BASE TelemetryNoticeT = 0
+	TELEMETRY_NOTICE_BASE TelemetryNotice = 0
 )
 
-func (e TelemetryNoticeT) String() string {
+func (e TelemetryNotice) String() string {
 	switch e {
 	case TELEMETRY_NOTICE_BASE:
 		return "TELEMETRY_NOTICE_BASE"
 	default:
-		return fmt.Sprintf("TelemetryNoticeT(%d)", e)
+		return fmt.Sprintf("TelemetryNotice(%d)", e)
 	}
 }
 
@@ -14297,7 +16599,7 @@ type Telephony uint
 
 const (
 	TELEPHONY_DOWN_LINE_PHONE Telephony = 0
-	TELEPHONY_TELEPHONE Telephony = 0
+	TELEPHONY_TELEPHONE       Telephony = 0
 )
 
 func (e Telephony) String() string {
@@ -14313,8 +16615,8 @@ type TerminationState uint
 
 const (
 	KNeedsTermination TerminationState = 0
-	KNotTerminated TerminationState = 0
-	KTerminated TerminationState = 0
+	KNotTerminated    TerminationState = 0
+	KTerminated       TerminationState = 0
 )
 
 func (e TerminationState) String() string {
@@ -14326,18 +16628,18 @@ func (e TerminationState) String() string {
 	}
 }
 
-type ThreadCallOptionsOnce uint
+type ThreadCallOptions uint
 
 const (
-	THREAD_CALL_OPTIONS_ONCE ThreadCallOptionsOnce = 0
+	THREAD_CALL_OPTIONS_ONCE ThreadCallOptions = 0
 )
 
-func (e ThreadCallOptionsOnce) String() string {
+func (e ThreadCallOptions) String() string {
 	switch e {
 	case THREAD_CALL_OPTIONS_ONCE:
 		return "THREAD_CALL_OPTIONS_ONCE"
 	default:
-		return fmt.Sprintf("ThreadCallOptionsOnce(%d)", e)
+		return fmt.Sprintf("ThreadCallOptions(%d)", e)
 	}
 }
 
@@ -14347,7 +16649,7 @@ const (
 	// THREAD_CALL_PRIORITY_HIGH: # Discussion
 	THREAD_CALL_PRIORITY_HIGH ThreadCallPriority = 0
 	// THREAD_CALL_PRIORITY_KERNEL: # Discussion
-	THREAD_CALL_PRIORITY_KERNEL ThreadCallPriority = 0
+	THREAD_CALL_PRIORITY_KERNEL      ThreadCallPriority = 0
 	THREAD_CALL_PRIORITY_KERNEL_HIGH ThreadCallPriority = 0
 	// THREAD_CALL_PRIORITY_LOW: # Discussion
 	THREAD_CALL_PRIORITY_LOW ThreadCallPriority = 0
@@ -14364,39 +16666,24 @@ func (e ThreadCallPriority) String() string {
 	}
 }
 
-type ThreadSelfcountsKindT uint
-
-const (
-	THSC_CPI_PER_PERF_LEVEL ThreadSelfcountsKindT = 0
-)
-
-func (e ThreadSelfcountsKindT) String() string {
-	switch e {
-	case THSC_CPI_PER_PERF_LEVEL:
-		return "THSC_CPI_PER_PERF_LEVEL"
-	default:
-		return fmt.Sprintf("ThreadSelfcountsKindT(%d)", e)
-	}
-}
-
 type ThreadSnapshotFlags uint
 
 const (
-	KGlobalForcedIdle ThreadSnapshotFlags = 0
-	KHasDispatchSerial ThreadSnapshotFlags = 0
-	KStacksPCOnly ThreadSnapshotFlags = 0
-	KThreadDarwinBG ThreadSnapshotFlags = 0
-	KThreadFaultedBT ThreadSnapshotFlags = 0
-	KThreadIOPassive ThreadSnapshotFlags = 0
-	KThreadIdleWorker ThreadSnapshotFlags = 0
-	KThreadMain ThreadSnapshotFlags = 0
-	KThreadOnCore ThreadSnapshotFlags = 0
-	KThreadSuspended ThreadSnapshotFlags = 0
-	KThreadTriedFaultBT ThreadSnapshotFlags = 0
-	KThreadTruncKernBT ThreadSnapshotFlags = 0
+	KGlobalForcedIdle       ThreadSnapshotFlags = 0
+	KHasDispatchSerial      ThreadSnapshotFlags = 0
+	KStacksPCOnly           ThreadSnapshotFlags = 0
+	KThreadDarwinBG         ThreadSnapshotFlags = 0
+	KThreadFaultedBT        ThreadSnapshotFlags = 0
+	KThreadIOPassive        ThreadSnapshotFlags = 0
+	KThreadIdleWorker       ThreadSnapshotFlags = 0
+	KThreadMain             ThreadSnapshotFlags = 0
+	KThreadOnCore           ThreadSnapshotFlags = 0
+	KThreadSuspended        ThreadSnapshotFlags = 0
+	KThreadTriedFaultBT     ThreadSnapshotFlags = 0
+	KThreadTruncKernBT      ThreadSnapshotFlags = 0
 	KThreadTruncUserAsyncBT ThreadSnapshotFlags = 0
-	KThreadTruncUserBT ThreadSnapshotFlags = 0
-	KThreadTruncatedBT ThreadSnapshotFlags = 0
+	KThreadTruncUserBT      ThreadSnapshotFlags = 0
+	KThreadTruncatedBT      ThreadSnapshotFlags = 0
 )
 
 func (e ThreadSnapshotFlags) String() string {
@@ -14411,12 +16698,12 @@ func (e ThreadSnapshotFlags) String() string {
 type ThroughputQosTier uint
 
 const (
-	THROUGHPUT_QOS_TIER_0 ThroughputQosTier = 0
-	THROUGHPUT_QOS_TIER_1 ThroughputQosTier = 0
-	THROUGHPUT_QOS_TIER_2 ThroughputQosTier = 0
-	THROUGHPUT_QOS_TIER_3 ThroughputQosTier = 0
-	THROUGHPUT_QOS_TIER_4 ThroughputQosTier = 0
-	THROUGHPUT_QOS_TIER_5 ThroughputQosTier = 0
+	THROUGHPUT_QOS_TIER_0           ThroughputQosTier = 0
+	THROUGHPUT_QOS_TIER_1           ThroughputQosTier = 0
+	THROUGHPUT_QOS_TIER_2           ThroughputQosTier = 0
+	THROUGHPUT_QOS_TIER_3           ThroughputQosTier = 0
+	THROUGHPUT_QOS_TIER_4           ThroughputQosTier = 0
+	THROUGHPUT_QOS_TIER_5           ThroughputQosTier = 0
 	THROUGHPUT_QOS_TIER_UNSPECIFIED ThroughputQosTier = 0
 )
 
@@ -14426,6 +16713,21 @@ func (e ThroughputQosTier) String() string {
 		return "THROUGHPUT_QOS_TIER_0"
 	default:
 		return fmt.Sprintf("ThroughputQosTier(%d)", e)
+	}
+}
+
+type ThscCpiPerPerf uint
+
+const (
+	THSC_CPI_PER_PERF_LEVEL ThscCpiPerPerf = 0
+)
+
+func (e ThscCpiPerPerf) String() string {
+	switch e {
+	case THSC_CPI_PER_PERF_LEVEL:
+		return "THSC_CPI_PER_PERF_LEVEL"
+	default:
+		return fmt.Sprintf("ThscCpiPerPerf(%d)", e)
 	}
 }
 
@@ -14461,29 +16763,13 @@ func (e TimingVESA) String() string {
 	}
 }
 
-type USBClassSpecificDesc uint
-
-const (
-	// KUSBClassSpecificDescriptor: The class-specific descriptor value.
-	KUSBClassSpecificDescriptor USBClassSpecificDesc = 0
-)
-
-func (e USBClassSpecificDesc) String() string {
-	switch e {
-	case KUSBClassSpecificDescriptor:
-		return "KUSBClassSpecificDescriptor"
-	default:
-		return fmt.Sprintf("USBClassSpecificDesc(%d)", e)
-	}
-}
-
 type Uio uint
 
 const (
-	UIO_READ Uio = 0
-	UIO_SYSSPACE Uio = 0
+	UIO_READ       Uio = 0
+	UIO_SYSSPACE   Uio = 0
 	UIO_SYSSPACE32 Uio = 0
-	UIO_WRITE Uio = 0
+	UIO_WRITE      Uio = 0
 )
 
 func (e Uio) String() string {
@@ -14498,7 +16784,7 @@ func (e Uio) String() string {
 type Uiof uint
 
 const (
-	UIOF_SYSSPACE Uiof = 0
+	UIOF_SYSSPACE    Uiof = 0
 	UIOF_USERSPACE32 Uiof = 0
 )
 
@@ -14534,7 +16820,7 @@ type VdspIir uint
 
 const (
 	VDSP_IIRMonoLeft VdspIir = 0
-	VDSP_IIRStereo VdspIir = 0
+	VDSP_IIRStereo   VdspIir = 0
 )
 
 func (e VdspIir) String() string {
@@ -14550,7 +16836,7 @@ type Vfs uint
 
 const (
 	VFS_RECOVERY_ROLE Vfs = 0
-	VFS_VM_ROLE Vfs = 0
+	VFS_VM_ROLE       Vfs = 0
 )
 
 func (e Vfs) String() string {
@@ -14562,33 +16848,18 @@ func (e Vfs) String() string {
 	}
 }
 
-type VfsRenameSeclude uint
+type VfsRename uint
 
 const (
-	VFS_RENAME_EXCL VfsRenameSeclude = 0
+	VFS_RENAME_EXCL VfsRename = 0
 )
 
-func (e VfsRenameSeclude) String() string {
+func (e VfsRename) String() string {
 	switch e {
 	case VFS_RENAME_EXCL:
 		return "VFS_RENAME_EXCL"
 	default:
-		return fmt.Sprintf("VfsRenameSeclude(%d)", e)
-	}
-}
-
-type ViolationInvalidIOPaddr uint
-
-const (
-	SPTM_N_PUBLIC_VIOLATIONS ViolationInvalidIOPaddr = 0
-)
-
-func (e ViolationInvalidIOPaddr) String() string {
-	switch e {
-	case SPTM_N_PUBLIC_VIOLATIONS:
-		return "SPTM_N_PUBLIC_VIOLATIONS"
-	default:
-		return fmt.Sprintf("ViolationInvalidIOPaddr(%d)", e)
+		return fmt.Sprintf("VfsRename(%d)", e)
 	}
 }
 
@@ -14596,7 +16867,7 @@ type VnodeVerifyContext uint
 
 const (
 	VNODE_VERIFY_CONTEXT_ALLOC VnodeVerifyContext = 0
-	VNODE_VERIFY_CONTEXT_FREE VnodeVerifyContext = 0
+	VNODE_VERIFY_CONTEXT_FREE  VnodeVerifyContext = 0
 )
 
 func (e VnodeVerifyContext) String() string {
@@ -14626,12 +16897,12 @@ func (e Vtagtype) String() string {
 type Vtype uint
 
 const (
-	VBAD Vtype = 0
-	VBLK Vtype = 0
-	VCHR Vtype = 0
+	VBAD  Vtype = 0
+	VBLK  Vtype = 0
+	VCHR  Vtype = 0
 	VCPLX Vtype = 0
-	VDIR Vtype = 0
-	VLNK Vtype = 0
+	VDIR  Vtype = 0
+	VLNK  Vtype = 0
 	VSOCK Vtype = 0
 )
 
@@ -14644,18 +16915,6 @@ func (e Vtype) String() string {
 	}
 }
 
-type XdrbufType uint
-
 const (
-	XDRBUF_BUFFER XdrbufType = 0
+	XDRBUF_BUFFER uint = 0
 )
-
-func (e XdrbufType) String() string {
-	switch e {
-	case XDRBUF_BUFFER:
-		return "XDRBUF_BUFFER"
-	default:
-		return fmt.Sprintf("XdrbufType(%d)", e)
-	}
-}
-

@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (mc MTL4ArgumentTableDescriptorClass) Alloc() MTL4ArgumentTableDescriptor {
 // Groups parameters for the creation of a Metal argument table.
 //
 // # Overview
-// 
+//
 // Argument tables provide resource bindings to your Metal pipeline states.
 //
 // # Instance Properties
@@ -74,6 +75,7 @@ type MTL4ArgumentTableDescriptor struct {
 func MTL4ArgumentTableDescriptorFromID(id objc.ID) MTL4ArgumentTableDescriptor {
 	return MTL4ArgumentTableDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4ArgumentTableDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -145,10 +147,8 @@ func NewMTL4ArgumentTableDescriptor() MTL4ArgumentTableDescriptor {
 // creation of argument table.
 //
 // # Discussion
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTableDescriptor/initializeBindings
 func (m MTL4ArgumentTableDescriptor) InitializeBindings() bool {
@@ -158,6 +158,7 @@ func (m MTL4ArgumentTableDescriptor) InitializeBindings() bool {
 func (m MTL4ArgumentTableDescriptor) SetInitializeBindings(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setInitializeBindings:"), value)
 }
+
 // Assigns an optional label with the argument table for debug purposes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTableDescriptor/label
@@ -168,10 +169,11 @@ func (m MTL4ArgumentTableDescriptor) Label() string {
 func (m MTL4ArgumentTableDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // Determines the number of buffer-binding slots for the argument table.
 //
 // # Discussion
-// 
+//
 // The maximum value of this parameter is 31.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTableDescriptor/maxBufferBindCount
@@ -182,11 +184,12 @@ func (m MTL4ArgumentTableDescriptor) MaxBufferBindCount() uint {
 func (m MTL4ArgumentTableDescriptor) SetMaxBufferBindCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxBufferBindCount:"), value)
 }
+
 // Determines the number of sampler state-binding slots for the argument
 // table.
 //
 // # Discussion
-// 
+//
 // The maximum value of this parameter is 16.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTableDescriptor/maxSamplerStateBindCount
@@ -197,10 +200,11 @@ func (m MTL4ArgumentTableDescriptor) MaxSamplerStateBindCount() uint {
 func (m MTL4ArgumentTableDescriptor) SetMaxSamplerStateBindCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxSamplerStateBindCount:"), value)
 }
+
 // Determines the number of texture-binding slots for the argument table.
 //
 // # Discussion
-// 
+//
 // The maximum value of this parameter is 128.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTableDescriptor/maxTextureBindCount
@@ -211,18 +215,17 @@ func (m MTL4ArgumentTableDescriptor) MaxTextureBindCount() uint {
 func (m MTL4ArgumentTableDescriptor) SetMaxTextureBindCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxTextureBindCount:"), value)
 }
+
 // Controls whether Metal should reserve memory for attribute strides in the
 // argument table.
 //
 // # Discussion
-// 
+//
 // Set this value to true if you intend to provide dynamic attribute strides
 // when binding vertex array buffers to the argument table by calling
 // [SetAddressAttributeStrideAtIndex]
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTableDescriptor/supportAttributeStrides
 func (m MTL4ArgumentTableDescriptor) SupportAttributeStrides() bool {
@@ -232,9 +235,9 @@ func (m MTL4ArgumentTableDescriptor) SupportAttributeStrides() bool {
 func (m MTL4ArgumentTableDescriptor) SetSupportAttributeStrides(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportAttributeStrides:"), value)
 }
+
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4ArgumentTableDescriptor) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-

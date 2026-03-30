@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -79,6 +80,7 @@ type MLModelDescription struct {
 func MLModelDescriptionFromID(id objc.ID) MLModelDescription {
 	return MLModelDescription{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLModelDescription adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -184,6 +186,7 @@ func (m MLModelDescription) StateDescriptionsByName() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stateDescriptionsByName"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // A dictionary of input feature descriptions, which the model keys by the
 // input’s name.
 //
@@ -192,6 +195,7 @@ func (m MLModelDescription) InputDescriptionsByName() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputDescriptionsByName"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // A dictionary of output feature descriptions, which the model keys by the
 // output’s name.
 //
@@ -200,6 +204,7 @@ func (m MLModelDescription) OutputDescriptionsByName() foundation.INSDictionary 
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("outputDescriptionsByName"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // An array of labels, which can be either strings or a numbers, for
 // classifier models.
 //
@@ -210,11 +215,12 @@ func (m MLModelDescription) ClassLabels() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // A dictionary of the model’s creation information, such as its
 // description, author, version, and license.
 //
 // # Discussion
-// 
+//
 // Use the keys defined by [MLModelMetadataKey] to retrieve the dictionary’s
 // entries.
 //
@@ -223,6 +229,7 @@ func (m MLModelDescription) Metadata() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // The name of the primary prediction feature output description.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/predictedFeatureName
@@ -230,6 +237,7 @@ func (m MLModelDescription) PredictedFeatureName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictedFeatureName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The name of the feature output description for all probabilities of a
 // prediction.
 //
@@ -238,6 +246,7 @@ func (m MLModelDescription) PredictedProbabilitiesName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictedProbabilitiesName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A Boolean value that indicates whether you can update the model with
 // additional training.
 //
@@ -246,6 +255,7 @@ func (m MLModelDescription) IsUpdatable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isUpdatable"))
 	return rv
 }
+
 // A dictionary of the training input feature descriptions, which the model
 // keys by the input’s name.
 //
@@ -254,6 +264,7 @@ func (m MLModelDescription) TrainingInputDescriptionsByName() foundation.INSDict
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("trainingInputDescriptionsByName"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // A dictionary of the descriptions for the model’s parameters.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/parameterDescriptionsByKey
@@ -261,6 +272,7 @@ func (m MLModelDescription) ParameterDescriptionsByKey() foundation.INSDictionar
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterDescriptionsByKey"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // The list of available compute devices that the model’s prediction methods
 // use.
 //
@@ -272,6 +284,7 @@ func (m MLModelDescription) AvailableComputeDevices() objectivec.IObject {
 func (m MLModelDescription) SetAvailableComputeDevices(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAvailableComputeDevices:"), value)
 }
+
 // The configuration of the model set during initialization.
 //
 // See: https://developer.apple.com/documentation/coreml/mlmodel/configuration
@@ -282,6 +295,7 @@ func (m MLModelDescription) Configuration() IMLModelConfiguration {
 func (m MLModelDescription) SetConfiguration(value IMLModelConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setConfiguration:"), value)
 }
+
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
 //
@@ -293,4 +307,3 @@ func (m MLModelDescription) ModelDescription() IMLModelDescription {
 func (m MLModelDescription) SetModelDescription(value IMLModelDescription) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
 }
-

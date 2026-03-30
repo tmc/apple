@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (vc VZMacGraphicsDeviceClass) Alloc() VZMacGraphicsDevice {
 // An object that represents a Mac graphics device.
 //
 // # Overview
-// 
+//
 // You don’t instantiate a [VZMacGraphicsDevice] directly. Graphics devices
 // are first configured on the [VZVirtualMachineConfiguration] through a
 // subclass of [VZMacGraphicsDeviceConfiguration]. When the framework creates
@@ -61,6 +62,7 @@ type VZMacGraphicsDevice struct {
 func VZMacGraphicsDeviceFromID(id objc.ID) VZMacGraphicsDevice {
 	return VZMacGraphicsDevice{VZGraphicsDevice: VZGraphicsDeviceFromID(id)}
 }
+
 // NOTE: VZMacGraphicsDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -89,4 +91,3 @@ func NewVZMacGraphicsDevice() VZMacGraphicsDevice {
 	rv := objc.Send[VZMacGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

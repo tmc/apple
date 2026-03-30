@@ -5,8 +5,9 @@ package foundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,16 +49,16 @@ func (nc NSItemProviderClass) Alloc() NSItemProvider {
 // extension.
 //
 // # Overview
-// 
+//
 // Starting in iOS 11, item providers play a central role in drag and drop,
 // and in copy and paste. They continue to play a role with app extensions.
-// 
+//
 // The system uses an internal queue when calling the completion blocks for
 // the [NSItemProvider] class. When using an item provider with drag and drop,
 // ensure that UI updates take place on the main queue as follows:
-// 
+//
 // # App extension support
-// 
+//
 // An app extension typically encounters item providers when examining the
 // [NSItemProvider.Attachments] property of an [NSExtensionItem] object. During that
 // examination, the extension can use the [NSItemProvider.HasItemConformingToTypeIdentifier]
@@ -66,13 +67,13 @@ func (nc NSItemProviderClass) Alloc() NSItemProvider {
 // type of data that your extension can use, it calls the
 // [NSItemProvider.LoadItemForTypeIdentifierOptionsCompletionHandler] method to load the
 // actual data, which is delivered to the provided completion handler.
-// 
+//
 // You can create item providers to vend data to another process. An extension
 // that modifies an original data item can create a new [NSItemProvider]
 // object to send back to the host app. When creating data items, you specify
 // your data object and the type of that object. You can optionally use the
 // [NSItemProvider.PreviewImageHandler] property to generate a preview image for your data.
-// 
+//
 // A single item provider may use custom blocks to provide its data in many
 // different formats. When configuring an item provider, use the
 // [NSItemProvider.RegisterItemForTypeIdentifierLoadHandler] method to register your blocks
@@ -80,8 +81,6 @@ func (nc NSItemProviderClass) Alloc() NSItemProvider {
 // particular format, the item provider executes the corresponding block,
 // which is then responsible for coercing the data to the appropriate type and
 // returning it to the client.
-//
-// [Uniform Type Identifiers]: https://developer.apple.com/documentation/UniformTypeIdentifiers
 //
 // # Creating an item provider
 //
@@ -149,6 +148,8 @@ func (nc NSItemProviderClass) Alloc() NSItemProvider {
 //   - [NSItemProvider.ContainerFrame]: The rectangle of the item’s visible content.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider
+//
+// [Uniform Type Identifiers]: https://developer.apple.com/documentation/UniformTypeIdentifiers
 type NSItemProvider struct {
 	objectivec.Object
 }
@@ -161,6 +162,7 @@ type NSItemProvider struct {
 func NSItemProviderFromID(id objc.ID) NSItemProvider {
 	return NSItemProvider{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSItemProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -375,11 +377,11 @@ func NewNSItemProvider() NSItemProvider {
 // identifier for the associated data.
 //
 // # Return Value
-// 
+//
 // An item provider for the specified file, or `nil` if an error occurs.
 //
 // # Discussion
-// 
+//
 // The system uses the URL’s filename extension to select an appropriate
 // universal type identifier. If the system can’t determine a specific
 // universal type identifier based on the filename extension, it assigns the
@@ -405,19 +407,19 @@ func NewItemProviderWithContentsOfURL(fileURL INSURL) NSItemProvider {
 //
 // visibility: The [NSItemProviderRepresentationVisibility] setting the system uses to
 // identify which processes can see this content.
-// //
-// [NSItemProviderRepresentationVisibility]: https://developer.apple.com/documentation/Foundation/NSItemProviderRepresentationVisibility
 //
 // # Return Value
-// 
+//
 // An item provider for the specified file or `nil` if an error occurred.
 //
 // # Discussion
-// 
-// If [ItemProviderFileOptionOpenInPlace] is set to `false`, the system copies
-// the file provided before the load handler returns.
+//
+// If [NSItemProviderFileOptionOpenInPlace] is set to `false`, the system
+// copies the file provided before the load handler returns.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/initWithContentsOfURL:contentType:openInPlace:coordinated:visibility:
+//
+// [NSItemProviderRepresentationVisibility]: https://developer.apple.com/documentation/Foundation/NSItemProviderRepresentationVisibility
 func NewItemProviderWithContentsOfURLContentTypeOpenInPlaceCoordinatedVisibility(fileURL INSURL, contentType objectivec.IObject, openInPlace bool, coordinated bool, visibility NSItemProviderRepresentationVisibility) NSItemProvider {
 	instance := getNSItemProviderClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:contentType:openInPlace:coordinated:visibility:"), fileURL, contentType, openInPlace, coordinated, visibility)
@@ -434,11 +436,11 @@ func NewItemProviderWithContentsOfURLContentTypeOpenInPlaceCoordinatedVisibility
 // parameter must not be `nil`.
 //
 // # Return Value
-// 
+//
 // An item provider for the specified item.
 //
 // # Discussion
-// 
+//
 // Use this method to initialize an item provider for objects in your app. The
 // item provider registers your object with the specified type. Subsequent
 // requests for that same type return the specified `item`.
@@ -470,11 +472,11 @@ func NewItemProviderWithObject(object NSItemProviderWriting) NSItemProvider {
 // identifier for the associated data.
 //
 // # Return Value
-// 
+//
 // An item provider for the specified file, or `nil` if an error occurs.
 //
 // # Discussion
-// 
+//
 // The system uses the URL’s filename extension to select an appropriate
 // universal type identifier. If the system can’t determine a specific
 // universal type identifier based on the filename extension, it assigns the
@@ -485,6 +487,7 @@ func (i NSItemProvider) InitWithContentsOfURL(fileURL INSURL) NSItemProvider {
 	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("initWithContentsOfURL:"), fileURL)
 	return rv
 }
+
 // Creates an item provider with an object, according to the item provider
 // type coercion policy.
 //
@@ -495,11 +498,11 @@ func (i NSItemProvider) InitWithContentsOfURL(fileURL INSURL) NSItemProvider {
 // parameter must not be `nil`.
 //
 // # Return Value
-// 
+//
 // An item provider for the specified item.
 //
 // # Discussion
-// 
+//
 // Use this method to initialize an item provider for objects in your app. The
 // item provider registers your object with the specified type. Subsequent
 // requests for that same type return the specified `item`.
@@ -509,6 +512,7 @@ func (i NSItemProvider) InitWithItemTypeIdentifier(item NSSecureCoding, typeIden
 	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("initWithItem:typeIdentifier:"), item, objc.String(typeIdentifier))
 	return rv
 }
+
 // Creates a new item provider, employing a specified object’s type
 // identifiers to specify the data representations eligible for the provider
 // to load.
@@ -520,13 +524,14 @@ func (i NSItemProvider) InitWithObject(object NSItemProviderWriting) NSItemProvi
 	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("initWithObject:"), object)
 	return rv
 }
+
 // Returns a Boolean value indicating whether an item provider can load
 // objects of a specified class.
 //
 // aClass: The object class for comparison.
 //
 // # Return Value
-// 
+//
 // `true` if the item provider can load objects of the class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/canLoadObject(ofClass:)-3eig9
@@ -534,6 +539,7 @@ func (i NSItemProvider) CanLoadObjectOfClass(aClass objc.Class) bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("canLoadObjectOfClass:"), aClass)
 	return rv
 }
+
 // Returns a Boolean value indicating whether an item provider contains a data
 // representation conforming to a specified universal type identifier file
 // options parameter with a value of zero.
@@ -545,12 +551,13 @@ func (i NSItemProvider) HasItemConformingToTypeIdentifier(typeIdentifier string)
 	rv := objc.Send[bool](i.ID, objc.Sel("hasItemConformingToTypeIdentifier:"), objc.String(typeIdentifier))
 	return rv
 }
+
 // Returns a Boolean value indicating whether an item provider contains a data
 // representation conforming to a specified universal type identifier and to
 // specified open-in-place behavior.
 //
 // # Discussion
-// 
+//
 // To check all registered UTIs for type conformance, pass the value `0` in
 // the `fileOptions` parameter.
 //
@@ -559,28 +566,30 @@ func (i NSItemProvider) HasRepresentationConformingToTypeIdentifierFileOptions(t
 	rv := objc.Send[bool](i.ID, objc.Sel("hasRepresentationConformingToTypeIdentifier:fileOptions:"), objc.String(typeIdentifier), fileOptions)
 	return rv
 }
+
 // Returns an array with a subset of type identifiers for the item provider,
 // according to the specified file options, in the same order they were
 // registered.
 //
 // fileOptions: An array of [NSItemProviderFileOptions].
-// //
-// [NSItemProviderFileOptions]: https://developer.apple.com/documentation/Foundation/NSItemProviderFileOptions
 //
 // # Return Value
-// 
+//
 // An array of type identifier strings.
 //
 // # Discussion
-// 
+//
 // To access the array of all registered UTIs, pass the value `0` in the
 // `fileOptions` parameter.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registeredTypeIdentifiers(fileOptions:)
+//
+// [NSItemProviderFileOptions]: https://developer.apple.com/documentation/Foundation/NSItemProviderFileOptions
 func (i NSItemProvider) RegisteredTypeIdentifiersWithFileOptions(fileOptions NSItemProviderFileOptions) []string {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredTypeIdentifiersWithFileOptions:"), fileOptions)
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Loads the item’s data and coerces it to the specified type.
 //
 // typeIdentifier: A string that represents the desired UTI.
@@ -588,19 +597,17 @@ func (i NSItemProvider) RegisteredTypeIdentifiersWithFileOptions(fileOptions NSI
 // options: A dictionary of keys and values that provide information about the item,
 // such as the size of an image. (See [NSItemProviderPreferredImageSizeKey]
 // for a key you can use.)
-// //
-// [NSItemProviderPreferredImageSizeKey]: https://developer.apple.com/documentation/Foundation/NSItemProviderPreferredImageSizeKey
 //
 // completionHandler: A completion handler block to execute with the results. For information
 // about the format of this block, see [NSItemProviderCompletionHandler].
 //
 // # Discussion
-// 
+//
 // Call this method when you want to retrieve the item provider’s data. If
 // the item provider object is able to provide data in the requested type, it
 // does so and asynchronously executes your `completionHandler` block with the
 // results. The block may be executed on a background thread.
-// 
+//
 // The type information for the first parameter of your `completionHandler`
 // block should be set to the class of the expected type. For example, when
 // requesting text data, you might set the type of the first parameter to
@@ -610,111 +617,115 @@ func (i NSItemProvider) RegisteredTypeIdentifiersWithFileOptions(fileOptions NSI
 // [NSImage] (in macOS). If the data could not be retrieved or coerced to the
 // specified class, an error is passed to the completion block’s.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadItem(forTypeIdentifier:options:completionHandler:)
+//
+// [NSItemProviderPreferredImageSizeKey]: https://developer.apple.com/documentation/Foundation/NSItemProviderPreferredImageSizeKey
 // [NSImage]: https://developer.apple.com/documentation/AppKit/NSImage
 // [UIImage]: https://developer.apple.com/documentation/UIKit/UIImage
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadItem(forTypeIdentifier:options:completionHandler:)
 func (i NSItemProvider) LoadItemForTypeIdentifierOptionsCompletionHandler(typeIdentifier string, options INSDictionary, completionHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("loadItemForTypeIdentifier:options:completionHandler:"), objc.String(typeIdentifier), options, _block2)
 }
+
 // Asynchronously copies the provided, typed data into a generic data object,
 // returning a progress object.
 //
 // # Discussion
-// 
+//
 // If the source app provides a folder URL, the [Data] object contains a zip
 // archive with the folder as its top-level entry.
 //
-// [Data]: https://developer.apple.com/documentation/Foundation/Data
-//
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadDataRepresentation(forTypeIdentifier:completionHandler:)
+//
+// [Data]: https://developer.apple.com/documentation/Foundation/Data
 func (i NSItemProvider) LoadDataRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-_block1, _ := NewDataErrorBlock(completionHandler)
+	_block1, _ := NewDataErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadDataRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
+
 // Asynchronously writes a copy of the provided, typed data to a temporary
 // file, returning a progress object.
 //
 // # Discussion
-// 
+//
 // This method writes a copy of the file’s data to a temporary file, which
 // the system deletes when the completion handler returns.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadFileRepresentation(forTypeIdentifier:completionHandler:)
 func (i NSItemProvider) LoadFileRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler URLErrorHandler) INSProgress {
-_block1, _ := NewURLErrorBlock(completionHandler)
+	_block1, _ := NewURLErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
+
 // Asynchronously opens a file in place, if possible, returning a progress
 // object.
 //
 // # Discussion
-// 
-// The system sets the `isInPlace` parameter to [true] if the system
-// successfully opened the file in place, or [false] if it made a local copy.
-// In either case, you must access the returned [URL] using an
+//
+// The system sets the `isInPlace` parameter to true if the system
+// successfully opened the file in place, or false if it made a local copy. In
+// either case, you must access the returned [URL] using an
 // [NSFileCoordinator] object.
-// 
+//
 // If the system created a local copy of a file, it will be automatically
 // deleted after your file coordinator relinquishes its read access to the
 // file.
 //
-// [URL]: https://developer.apple.com/documentation/Foundation/URL
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadInPlaceFileRepresentation(forTypeIdentifier:completionHandler:)
+//
+// [URL]: https://developer.apple.com/documentation/Foundation/URL
 func (i NSItemProvider) LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler URLErrorHandler) INSProgress {
-_block1, _ := NewURLErrorBlock(completionHandler)
+	_block1, _ := NewURLErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadInPlaceFileRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
+
 // Asynchronously loads an object of a specified class to an item provider,
 // returning a progress object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadObject(ofClass:completionHandler:)-8ak5d
 func (i NSItemProvider) LoadObjectOfClassCompletionHandler(aClass objc.Class, completionHandler NSItemProviderReadingErrorHandler) INSProgress {
-_block1, _ := NewNSItemProviderReadingErrorBlock(completionHandler)
+	_block1, _ := NewNSItemProviderReadingErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadObjectOfClass:completionHandler:"), aClass, _block1)
 	return NSProgressFromID(rv)
 }
+
 // Loads the preview image for the item that the item provider represents.
 //
 // options: A dictionary of keys and values that provide information about the item,
 // such as the size of an image. For a list of possible keys, see [Options
 // Dictionary Key].
-// //
-// [Options Dictionary Key]: https://developer.apple.com/documentation/Foundation/options-dictionary-key
 //
 // completionHandler: A completion handler block to execute with the results. The first parameter
 // of this block must be a parameter of type [NSData], [NSURL], [UIImage] (in
 // iOS), or [NSImage] (in macOS) for receiving the image data. For more
 // information about implementing the block, see
 // [NSItemProviderCompletionHandler].
-// //
-// [NSImage]: https://developer.apple.com/documentation/AppKit/NSImage
-// [UIImage]: https://developer.apple.com/documentation/UIKit/UIImage
 //
 // # Discussion
-// 
+//
 // To handle image preview yourself, provide a completion handler block that
 // returns an [NSData] or [NSURL] object, or an instance of a
 // platform-specific image class ([UIImage] or [NSImage]).
-// 
+//
 // This method supports implicit type coercion for the item parameter of the
 // completion block.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadPreviewImage(options:completionHandler:)
+//
+// [Options Dictionary Key]: https://developer.apple.com/documentation/Foundation/options-dictionary-key
 // [NSImage]: https://developer.apple.com/documentation/AppKit/NSImage
 // [UIImage]: https://developer.apple.com/documentation/UIKit/UIImage
 //
-// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadPreviewImage(options:completionHandler:)
+// [NSImage]: https://developer.apple.com/documentation/AppKit/NSImage
+// [UIImage]: https://developer.apple.com/documentation/UIKit/UIImage
 func (i NSItemProvider) LoadPreviewImageWithOptionsCompletionHandler(options INSDictionary, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("loadPreviewImageWithOptions:completionHandler:"), options, _block1)
 }
+
 // Registers a CloudKit share for the user to modify.
 //
 // share: The CloudKit share to modify.
@@ -726,41 +737,42 @@ _block1, _ := NewErrorBlock(completionHandler)
 // container is a [cloudkit.CKContainer].
 //
 // # Discussion
-// 
+//
 // Use this method when the CloudKit share already exists on the server and
 // you want to update it. The behavior of the sharing service depends on the
 // role of the current user. An owner can edit the share’s configuration,
 // which includes managing participants and their permissions. A participant
 // can view the share’s configuration and choose to stop participating.
-// 
+//
 // If you’re unsure which container to use, fetch the share’s metadata
 // using [CKFetchShareMetadataOperation]. Then initialize an instance of
 // [CKContainer] using the metadata’s [containerIdentifier] property.
-// 
+//
 // Use the [NSCloudSharingServiceDelegate] protocol to respond to any changes
 // the sharing service makes.
-// 
+//
 // The following example shows how to create an item provider with an existing
 // share. It then invokes the cloud-sharing service with the provider and
 // presents the share’s configuration to the user.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCloudKitShare(_:container:)
+// share is a [cloudkit.CKShare].
+// container is a [cloudkit.CKContainer].
 //
 // [CKContainer]: https://developer.apple.com/documentation/CloudKit/CKContainer
 // [CKFetchShareMetadataOperation]: https://developer.apple.com/documentation/CloudKit/CKFetchShareMetadataOperation
 // [NSCloudSharingServiceDelegate]: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate
 // [containerIdentifier]: https://developer.apple.com/documentation/CloudKit/CKShare/Metadata/containerIdentifier
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCloudKitShare(_:container:)
-// share is a [cloudkit.CKShare].
-// container is a [cloudkit.CKContainer].
 func (i NSItemProvider) RegisterCloudKitShareContainer(share objectivec.IObject, container objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCloudKitShare:container:"), share, container)
 }
+
 // Registers a handler that prepares a new CloudKit share.
 //
 // preparationHandler: The handler the service invokes when it requires the CloudKit share.
 //
 // # Discussion
-// 
+//
 // Use this method to share a hierarchy of CloudKit records with other iCloud
 // users. When the service invokes the handler, create an instance of
 // [CKShare] with a root record. Save the share to the server using
@@ -770,30 +782,31 @@ func (i NSItemProvider) RegisterCloudKitShareContainer(share objectivec.IObject,
 // and its container. If the save fails, pass the error to the completion
 // handler instead. Invoking the sharing service with a share you register
 // using this method prompts the user to begin sharing.
-// 
+//
 // Use the [NSCloudSharingServiceDelegate] protocol to respond to any changes
 // the sharing service makes.
-// 
+//
 // The following example shows how to create an item provider with a handler
 // that saves a share. It then invokes the cloud-sharing service with that
 // provider.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCloudKitShare(preparationHandler:)
+//
 // [CKModifyRecordsOperation]: https://developer.apple.com/documentation/CloudKit/CKModifyRecordsOperation
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
 // [NSCloudSharingServiceDelegate]: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCloudKitShare(preparationHandler:)
 func (i NSItemProvider) RegisterCloudKitShareWithPreparationHandler(preparationHandler VoidHandler) {
-_block0, _ := NewVoidBlock(preparationHandler)
+	_block0, _ := NewVoidBlock(preparationHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCloudKitShareWithPreparationHandler:"), _block0)
 }
+
 // Returns an array of registered content types that conform to a specified
 // content type.
 //
 // contentType: The specified content type.
 //
 // # Return Value
-// 
+//
 // An array of registered content types.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registeredContentTypes(conformingTo:)
@@ -801,14 +814,16 @@ func (i NSItemProvider) RegisteredContentTypesConformingToContentType(contentTyp
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredContentTypesConformingToContentType:"), contentType)
 	return rv
 }
+
 // Registers a data-backed representation for an item, specifiying item
 // visibility and a load handler.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerDataRepresentation(forTypeIdentifier:visibility:loadHandler:)
 func (i NSItemProvider) RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler(typeIdentifier string, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-_block2, _ := NewVoidBlock(loadHandler)
+	_block2, _ := NewVoidBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerDataRepresentationForTypeIdentifier:visibility:loadHandler:"), objc.String(typeIdentifier), visibility, _block2)
 }
+
 // Lazily registers an item, according to the item provider type coercion
 // policy.
 //
@@ -818,7 +833,7 @@ _block2, _ := NewVoidBlock(loadHandler)
 // information about implementing this block, see [NSItemProviderLoadHandler].
 //
 // # Discussion
-// 
+//
 // Use this method to register blocks that can take the item provider’s file
 // or data object and convert it to a specific data format. Your `loadHandler`
 // block is executed when a client passes the same `typeIdentifier` string to
@@ -826,48 +841,48 @@ _block2, _ := NewVoidBlock(loadHandler)
 // implementation of your block, coerce the data to the specified type and
 // call the provided completion handler. You must call the completion handler,
 // either with the requested data or with an error.
-// 
+//
 // Item providers know how to coerce known types of objects, such as images or
 // strings. Use this method to register blocks to coerce your custom data
 // types.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerItem(forTypeIdentifier:loadHandler:)
 func (i NSItemProvider) RegisterItemForTypeIdentifierLoadHandler(typeIdentifier string, loadHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(loadHandler)
+	_block1, _ := NewErrorBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerItemForTypeIdentifier:loadHandler:"), objc.String(typeIdentifier), _block1)
 }
+
 // Registers a file-backed representation for an item, specifying file
 // options, item visibility, and a load handler.
 //
 // # Discussion
-// 
+//
 // If a destination app must access the represented file using a file
 // coordinator, set the `coordinated` parameter in the load handler block to
-// [true].
-// 
+// true.
+//
 // To offer a representation backed by a file provider, return an [NSURL]
 // object that points to your app’s file provider’s container. The file
 // provider extension is then invoked to retrieve the file when requested.
-// 
+//
 // To offer a representation backed by a file to open in place, set the
-// fileOptions parameter to a value of [ItemProviderFileOptionOpenInPlace]; in
-// addition, return an [NSURL] object that points to your app’s file
+// fileOptions parameter to a value of [NSItemProviderFileOptionOpenInPlace];
+// in addition, return an [NSURL] object that points to your app’s file
 // provider’s container. Open-in-place support requires that the file
 // provider is visible in the Files app.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerFileRepresentation(forTypeIdentifier:fileOptions:visibility:loadHandler:)
 func (i NSItemProvider) RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandler(typeIdentifier string, fileOptions NSItemProviderFileOptions, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-_block3, _ := NewVoidBlock(loadHandler)
+	_block3, _ := NewVoidBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerFileRepresentationForTypeIdentifier:fileOptions:visibility:loadHandler:"), objc.String(typeIdentifier), fileOptions, visibility, _block3)
 }
+
 // Adds representations of a specified object to an item provider, based on
 // the object’s implementation of the item provider writing protocol, and
 // adhering to a visibility specification.
 //
 // # Discussion
-// 
+//
 // If a representation for a given UTI is already registered, it is preserved
 // (specifically, duplicate representations are ignored).
 //
@@ -875,15 +890,17 @@ _block3, _ := NewVoidBlock(loadHandler)
 func (i NSItemProvider) RegisterObjectVisibility(object NSItemProviderWriting, visibility NSItemProviderRepresentationVisibility) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerObject:visibility:"), object, visibility)
 }
+
 // Lazily adds representations of a specified object class to an item
 // provider, based on the object’s implementation of the item provider
 // writing protocol, and adhering to a visibility specification.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerObject(ofClass:visibility:loadHandler:)-9sndn
 func (i NSItemProvider) RegisterObjectOfClassVisibilityLoadHandler(aClass objc.Class, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-_block2, _ := NewVoidBlock(loadHandler)
+	_block2, _ := NewVoidBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerObjectOfClass:visibility:loadHandler:"), aClass, visibility, _block2)
 }
+
 // Provides data-backed content from an existing file with the specified
 // parameters.
 //
@@ -897,55 +914,52 @@ _block2, _ := NewVoidBlock(loadHandler)
 //
 // visibility: The [NSItemProviderRepresentationVisibility] setting the system uses to
 // identify which processes can see this content.
-// //
-// [NSItemProviderRepresentationVisibility]: https://developer.apple.com/documentation/Foundation/NSItemProviderRepresentationVisibility
 //
 // # Return Value
-// 
+//
 // An item provider for the specified file or `nil` if an error occurred.
 //
 // # Discussion
-// 
-// If [ItemProviderFileOptionOpenInPlace] is set to `false`, the system copies
-// the file provided before the load handler returns.
+//
+// If [NSItemProviderFileOptionOpenInPlace] is set to `false`, the system
+// copies the file provided before the load handler returns.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/initWithContentsOfURL:contentType:openInPlace:coordinated:visibility:
+//
+// [NSItemProviderRepresentationVisibility]: https://developer.apple.com/documentation/Foundation/NSItemProviderRepresentationVisibility
 func (i NSItemProvider) InitWithContentsOfURLContentTypeOpenInPlaceCoordinatedVisibility(fileURL INSURL, contentType objectivec.IObject, openInPlace bool, coordinated bool, visibility NSItemProviderRepresentationVisibility) NSItemProvider {
 	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("initWithContentsOfURL:contentType:openInPlace:coordinated:visibility:"), fileURL, contentType, openInPlace, coordinated, visibility)
 	return rv
 }
+
 // Asynchronously copies the provided, typed data into a generic data object,
 // returning a progress object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadDataRepresentationForContentType:completionHandler:
 func (i NSItemProvider) LoadDataRepresentationForContentTypeCompletionHandler(contentType objectivec.IObject, completionHandler DataErrorHandler) INSProgress {
-_block1, _ := NewDataErrorBlock(completionHandler)
+	_block1, _ := NewDataErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadDataRepresentationForContentType:completionHandler:"), contentType, _block1)
 	return NSProgressFromID(rv)
 }
+
 // Asynchronously copies the content type data into a generic data object with
 // the specified parameters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadFileRepresentationForContentType:openInPlace:completionHandler:
 func (i NSItemProvider) LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLErrorHandler) INSProgress {
-_block2, _ := NewURLErrorBlock(completionHandler)
+	_block2, _ := NewURLErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForContentType:openInPlace:completionHandler:"), contentType, openInPlace, _block2)
 	return NSProgressFromID(rv)
 }
+
 // Registers an existing collaboration object on a server.
 //
 // share: An existing [CKShare] on the server.
-// //
-// [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
 //
 // container: A [CKContainer] the system uses to coordinate all the interactions between
 // your app and the server.
-// //
-// [CKContainer]: https://developer.apple.com/documentation/CloudKit/CKContainer
 //
 // allowedOptions: The [CKAllowedSharingOptions]. The standard option is the default.
-// //
-// [CKAllowedSharingOptions]: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions
 //
 // share is a [cloudkit.CKShare].
 //
@@ -954,36 +968,35 @@ _block2, _ := NewURLErrorBlock(completionHandler)
 // allowedOptions is a [cloudkit.CKAllowedSharingOptions].
 //
 // # Discussion
-// 
+//
 // Use this method when a [CKShare] currently exists on the server. When the
 // system invokes the share sheet with a [CKShare] that you register with this
 // method, it allows the owner to make modifications to the share settings,
 // and allows a participant to view the share settings.
 //
-// [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
-//
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCKShare:container:allowedSharingOptions:
 // share is a [cloudkit.CKShare].
 // container is a [cloudkit.CKContainer].
 // allowedOptions is a [cloudkit.CKAllowedSharingOptions].
+//
+// [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
+// [CKContainer]: https://developer.apple.com/documentation/CloudKit/CKContainer
+// [CKAllowedSharingOptions]: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions
+//
+// [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
 func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShare:container:allowedSharingOptions:"), share, container, allowedOptions)
 }
+
 // Creates and registers a new collaboration object using a collection of
 // records to share.
 //
 // container: A [CKContainer] the system uses to coordinate all the interactions between
 // your app and the server.
-// //
-// [CKContainer]: https://developer.apple.com/documentation/CloudKit/CKContainer
 //
 // allowedOptions: The [CKAllowedSharingOptions]. The standard option is the default.
-// //
-// [CKAllowedSharingOptions]: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions
 //
 // preparationHandler: The handler the system calls in your app to create a new [CKShare].
-// //
-// [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
 //
 // container is a [cloudkit.CKContainer].
 //
@@ -992,62 +1005,68 @@ func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share obje
 // preparationHandler is a [cloudkit.CKSharePreparationHandler].
 //
 // # Discussion
-// 
+//
 // Use this method to share a collection of [CKRecord] objects that aren’t
 // assigned to an existing [CKShare]. When the system calls the
 // `preparationHandler`, your app creates a new [CKShare] with the appropriate
 // root [CKRecord] or [CKRecordZone.ID].
-// 
+//
 // After the server successfully saves the share, invoke the
 // [CKSharePreparationCompletionHandler] with either the resulting [CKShare]
 // or an `NSError,` if the save failed.
-// 
+//
 // When the system invokes the share sheet with a [CKShare] registered with
 // this method, it prompts the user to start sharing.
-//
-// [CKRecordZone.ID]: https://developer.apple.com/documentation/CloudKit/CKRecordZone/ID
-// [CKRecord]: https://developer.apple.com/documentation/CloudKit/CKRecord
-// [CKSharePreparationCompletionHandler]: https://developer.apple.com/documentation/CloudKit/CKSharePreparationCompletionHandler
-// [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCKShareWithContainer:allowedSharingOptions:preparationHandler:
 // container is a [cloudkit.CKContainer].
 // allowedOptions is a [cloudkit.CKAllowedSharingOptions].
 // preparationHandler is a [cloudkit.CKSharePreparationHandler].
+//
+// [CKContainer]: https://developer.apple.com/documentation/CloudKit/CKContainer
+// [CKAllowedSharingOptions]: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions
+// [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
+// [CKRecordZone.ID]: https://developer.apple.com/documentation/CloudKit/CKRecordZone/ID
+// [CKRecord]: https://developer.apple.com/documentation/CloudKit/CKRecord
+// [CKSharePreparationCompletionHandler]: https://developer.apple.com/documentation/CloudKit/CKSharePreparationCompletionHandler
+//
+// [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
 func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(preparationHandler)
+	_block2, _ := NewErrorBlock(preparationHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShareWithContainer:allowedSharingOptions:preparationHandler:"), container, allowedOptions, _block2)
 }
+
 // Lazily registers an item, according to the item provider type coercion
 // policy.
 //
 // contentType: A string that represents the desired UTI.
 //
 // visibility: The [NSItemProviderRepresentationVisibility] setting.
-// //
-// [NSItemProviderRepresentationVisibility]: https://developer.apple.com/documentation/Foundation/NSItemProviderRepresentationVisibility
 //
 // loadHandler: A block capable of returning the data item as the specified type. For
 // information about implementing this block, see [NSItemProviderLoadHandler].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerDataRepresentationForContentType:visibility:loadHandler:
+//
+// [NSItemProviderRepresentationVisibility]: https://developer.apple.com/documentation/Foundation/NSItemProviderRepresentationVisibility
 func (i NSItemProvider) RegisterDataRepresentationForContentTypeVisibilityLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-_block2, _ := NewVoidBlock(loadHandler)
+	_block2, _ := NewVoidBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerDataRepresentationForContentType:visibility:loadHandler:"), contentType, visibility, _block2)
 }
+
 // Registers a file-backed representation for an item with item visibility, an
 // open-in-place option, and a load handler.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerFileRepresentationForContentType:visibility:openInPlace:loadHandler:
 func (i NSItemProvider) RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, openInPlace bool, loadHandler VoidHandler) {
-_block3, _ := NewVoidBlock(loadHandler)
+	_block3, _ := NewVoidBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerFileRepresentationForContentType:visibility:openInPlace:loadHandler:"), contentType, visibility, openInPlace, _block3)
 }
 
 // The ideal presentation size of the item.
 //
 // # Discussion
-// 
+//
 // When displaying the item, the value in this property represents the ideal
 // size at which to display the item. The size in this property may differ
 // from the size in the [SourceFrame] rectangle. For images, video, and other
@@ -1055,9 +1074,9 @@ _block3, _ := NewVoidBlock(loadHandler)
 // that content. If the value in this property is [NSZeroSize], use the size
 // specified in the [SourceFrame] rectangle.
 //
-// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
-//
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/preferredPresentationSize
+//
+// [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 func (i NSItemProvider) PreferredPresentationSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](i.ID, objc.Sel("preferredPresentationSize"))
 	return corefoundation.CGSize(rv)
@@ -1065,16 +1084,17 @@ func (i NSItemProvider) PreferredPresentationSize() corefoundation.CGSize {
 func (i NSItemProvider) SetPreferredPresentationSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPreferredPresentationSize:"), value)
 }
+
 // The filename to use when writing the provided data to a file on disk.
 //
 // # Discussion
-// 
+//
 // Setting this property is recommended when providing [NSData] or text data
 // from an item provider.
 //
-// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
-//
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/suggestedName
+//
+// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
 func (i NSItemProvider) SuggestedName() string {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("suggestedName"))
 	return NSStringFromID(rv).String()
@@ -1082,6 +1102,7 @@ func (i NSItemProvider) SuggestedName() string {
 func (i NSItemProvider) SetSuggestedName(value string) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSuggestedName:"), objc.String(value))
 }
+
 // Returns the array of type identifiers for the item provider, in the same
 // order they were registered.
 //
@@ -1090,10 +1111,11 @@ func (i NSItemProvider) RegisteredTypeIdentifiers() []string {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredTypeIdentifiers"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The custom preview image handler block for the item provider.
 //
 // # Discussion
-// 
+//
 // In your image handler block, return an [NSURL] object that specifies a
 // file, or return an [NSData] object.
 //
@@ -1105,10 +1127,11 @@ func (i NSItemProvider) PreviewImageHandler() NSItemProviderLoadHandler {
 func (i NSItemProvider) SetPreviewImageHandler(value NSItemProviderLoadHandler) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPreviewImageHandler:"), value)
 }
+
 // Registered content types in the order the app registers each type.
 //
 // # Discussion
-// 
+//
 // You app should register content types in order of fidelity. The system uses
 // content types that appear earlier in the array.
 //
@@ -1117,6 +1140,7 @@ func (i NSItemProvider) RegisteredContentTypes() []objc.ID {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredContentTypes"))
 	return rv
 }
+
 // Registered content types that the system can load as open-in-place files.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registeredContentTypesForOpenInPlace
@@ -1124,10 +1148,11 @@ func (i NSItemProvider) RegisteredContentTypesForOpenInPlace() []objc.ID {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredContentTypesForOpenInPlace"))
 	return rv
 }
+
 // The rectangle that the item occupies in the host app’s source window.
 //
 // # Discussion
-// 
+//
 // This property contains the rectangle, in screen coordinates, that encloses
 // the item. This rectangle includes areas that might be clipped and not
 // currently visible onscreen.
@@ -1137,27 +1162,29 @@ func (i NSItemProvider) SourceFrame() NSRect {
 	rv := objc.Send[NSRect](i.ID, objc.Sel("sourceFrame"))
 	return NSRect(rv)
 }
+
 // The rectangle of the item’s visible content.
 //
 // # Discussion
-// 
+//
 // The rectangle in this property corresponds to the onscreen frame rectangle
 // of the item. This rectangle may or may not intersect the [SourceFrame]
 // rectangle of the item. An intersection of the rectangles means that at
 // least part of the item is visible onscreen.
-// 
+//
 // The rectangle in this property may be a clipped version of the source frame
 // or it might be [NSZeroRect] if the item is offscreen or the system can’t
 // determine the clipping rectangle. The system treats a value of [NSZeroRect]
 // as meaning the item is fully visible.
 //
-// [NSZeroRect]: https://developer.apple.com/documentation/Foundation/NSZeroRect
-//
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/containerFrame
+//
+// [NSZeroRect]: https://developer.apple.com/documentation/Foundation/NSZeroRect
 func (i NSItemProvider) ContainerFrame() NSRect {
 	rv := objc.Send[NSRect](i.ID, objc.Sel("containerFrame"))
 	return NSRect(rv)
 }
+
 // An optional array of media data associated with the extension item.
 //
 // See: https://developer.apple.com/documentation/foundation/nsextensionitem/attachments
@@ -1169,8 +1196,7 @@ func (i NSItemProvider) SetAttachments(value INSItemProvider) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAttachments:"), value)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
 // LoadDataRepresentationForTypeIdentifier is a synchronous wrapper around [NSItemProvider.LoadDataRepresentationForTypeIdentifierCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -1337,4 +1363,3 @@ func (i NSItemProvider) RegisterFileRepresentationForContentTypeVisibilityOpenIn
 		return ctx.Err()
 	}
 }
-

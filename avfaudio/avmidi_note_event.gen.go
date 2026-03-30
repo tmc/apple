@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -68,6 +69,7 @@ type AVMIDINoteEvent struct {
 func AVMIDINoteEventFromID(id objc.ID) AVMIDINoteEvent {
 	return AVMIDINoteEvent{AVMusicEvent: AVMusicEventFromID(id)}
 }
+
 // NOTE: AVMIDINoteEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -175,6 +177,7 @@ func (m AVMIDINoteEvent) Channel() uint32 {
 func (m AVMIDINoteEvent) SetChannel(value uint32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setChannel:"), value)
 }
+
 // The MIDI key number.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDINoteEvent/key
@@ -185,6 +188,7 @@ func (m AVMIDINoteEvent) Key() uint32 {
 func (m AVMIDINoteEvent) SetKey(value uint32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setKey:"), value)
 }
+
 // The MIDI velocity.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDINoteEvent/velocity
@@ -195,6 +199,7 @@ func (m AVMIDINoteEvent) Velocity() uint32 {
 func (m AVMIDINoteEvent) SetVelocity(value uint32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVelocity:"), value)
 }
+
 // The duration for the note, in beats.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDINoteEvent/duration
@@ -205,4 +210,3 @@ func (m AVMIDINoteEvent) Duration() AVMusicTimeStamp {
 func (m AVMIDINoteEvent) SetDuration(value AVMusicTimeStamp) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDuration:"), value)
 }
-

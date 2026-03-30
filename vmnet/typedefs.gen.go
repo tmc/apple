@@ -34,4 +34,3 @@ type Vmnet_network_ref = uintptr
 
 // See: https://developer.apple.com/documentation/vmnet/vmnet_start_interface_completion_handler_t
 type Vmnet_start_interface_completion_handler_t = func(objectivec.IObject, objectivec.Object)
-

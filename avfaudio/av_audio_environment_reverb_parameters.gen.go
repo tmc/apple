@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,16 +46,16 @@ func (ac AVAudioEnvironmentReverbParametersClass) Alloc() AVAudioEnvironmentReve
 // of the environment node class.
 //
 // # Overview
-// 
+//
 // Use reverberation to simulate the acoustic characteristics of an
 // environment. The [AVAudioEnvironmentNode] class has a built-in reverb that
 // describe the space that the listener is in.
-// 
+//
 // The reverb has a single filter that sits at the end of the chain. You use
 // this filter to shape the overall sound of the reverb. For instance, select
 // one of the reverb presets to simulate the general space, and then use the
 // filter to brighten or darken the overall sound.
-// 
+//
 // You can’t create a standalone instance of
 // [AVAudioEnvironmentReverbParameters]. Only an instance vended by a source
 // object is valid, such as an [AVAudioEnvironmentNode] instance.
@@ -83,6 +84,7 @@ type AVAudioEnvironmentReverbParameters struct {
 func AVAudioEnvironmentReverbParametersFromID(id objc.ID) AVAudioEnvironmentReverbParameters {
 	return AVAudioEnvironmentReverbParameters{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioEnvironmentReverbParameters adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -145,7 +147,7 @@ func NewAVAudioEnvironmentReverbParameters() AVAudioEnvironmentReverbParameters 
 // preset: A reverb preset to load.
 //
 // # Discussion
-// 
+//
 // Loading a factory reverb preset changes the sound of the reverb. This is
 // independent of the filter which follows the reverb in the signal chain.
 //
@@ -158,10 +160,8 @@ func (a AVAudioEnvironmentReverbParameters) LoadFactoryReverbPreset(preset AVAud
 // state.
 //
 // # Discussion
-// 
-// The default value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value is false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentReverbParameters/enable
 func (a AVAudioEnvironmentReverbParameters) Enable() bool {
@@ -171,10 +171,11 @@ func (a AVAudioEnvironmentReverbParameters) Enable() bool {
 func (a AVAudioEnvironmentReverbParameters) SetEnable(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setEnable:"), value)
 }
+
 // Controls the amount of reverb, in decibels.
 //
 // # Discussion
-// 
+//
 // The default value is `0.0`. The values must be within the range of `-40` to
 // `40` dB.
 //
@@ -186,6 +187,7 @@ func (a AVAudioEnvironmentReverbParameters) Level() float32 {
 func (a AVAudioEnvironmentReverbParameters) SetLevel(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLevel:"), value)
 }
+
 // A filter that the system applies to the output.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEnvironmentReverbParameters/filterParameters
@@ -193,4 +195,3 @@ func (a AVAudioEnvironmentReverbParameters) FilterParameters() IAVAudioUnitEQFil
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("filterParameters"))
 	return AVAudioUnitEQFilterParametersFromID(objc.ID(rv))
 }
-

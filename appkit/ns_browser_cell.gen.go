@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSBrowserCell] class.
@@ -44,7 +45,7 @@ func (nc NSBrowserCellClass) Alloc() NSBrowserCell {
 // The user interface of a browser.
 //
 // # Overview
-// 
+//
 // The [NSBrowserCell] class is the subclass of [NSCell] used by default to
 // display data in the columns of an [NSBrowser] object. (Each column contains
 // an [NSMatrix] object filled with [NSBrowserCell] objects.)
@@ -75,6 +76,7 @@ type NSBrowserCell struct {
 func NSBrowserCellFromID(id objc.ID) NSBrowserCell {
 	return NSBrowserCell{NSCell: NSCellFromID(id)}
 }
+
 // NOTE: NSBrowserCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,7 +142,6 @@ func NewNSBrowserCell() NSBrowserCell {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/init(imageCell:)
 func NewBrowserCellImageCell(image INSImage) NSBrowserCell {
 	instance := getNSBrowserCellClass().Alloc()
@@ -148,7 +149,6 @@ func NewBrowserCellImageCell(image INSImage) NSBrowserCell {
 	return NSBrowserCellFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/init(textCell:)
 func NewBrowserCellTextCell(string_ string) NSBrowserCell {
 	instance := getNSBrowserCellClass().Alloc()
@@ -156,7 +156,6 @@ func NewBrowserCellTextCell(string_ string) NSBrowserCell {
 	return NSBrowserCellFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/init(coder:)
 func NewBrowserCellWithCoder(coder foundation.INSCoder) NSBrowserCell {
 	instance := getNSBrowserCellClass().Alloc()
@@ -170,18 +169,20 @@ func NewBrowserCellWithCoder(coder foundation.INSCoder) NSBrowserCell {
 func (b NSBrowserCell) Reset() {
 	objc.Send[objc.ID](b.ID, objc.Sel("reset"))
 }
+
 // Highlights the receiver and sets its state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/set()
 func (b NSBrowserCell) Set() {
 	objc.Send[objc.ID](b.ID, objc.Sel("set"))
 }
+
 // Returns the highlight color that the receiver wants to display.
 //
 // controlView: The view for which to return the highlight color.
 //
 // # Return Value
-// 
+//
 // The highlight color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/highlightColor(in:)
@@ -193,15 +194,15 @@ func (b NSBrowserCell) HighlightColorInView(controlView INSView) INSColor {
 // The browser cell’s image for the highlighted state.
 //
 // # Discussion
-// 
+//
 // The image is drawn vertically centered on the left edge of the browser
 // cell.
-// 
+//
 // Note that the image is drawn at the given size of the image.
 // [NSBrowserCell] does not set the size of the image, nor does it clip the
 // drawing of the image. Make sure this image is the correct size for drawing
 // in the browser cell.
-// 
+//
 // When the value of this property is `nil`, it removes the alternate image
 // for the browser cell.
 //
@@ -213,21 +214,20 @@ func (b NSBrowserCell) AlternateImage() INSImage {
 func (b NSBrowserCell) SetAlternateImage(value INSImage) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAlternateImage:"), value)
 }
+
 // A Boolean that indicates whether the browser cell is a leaf or a branch
 // cell.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the browser cell is a leaf cell.
-// 
+//
+// When the value of this property is true, the browser cell is a leaf cell.
+//
 // A branch [NSBrowserCell] has an image near its right edge indicating that
 // more, hierarchically related information is available; when the user
 // selects the cell, the [NSBrowser] displays a new column of [NSBrowserCell]
 // objects. A leaf [NSBrowserCell] has no image, indicating that the user has
 // reached a terminal piece of information; it doesn’t point to additional
 // information.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/isLeaf
 func (b NSBrowserCell) Leaf() bool {
@@ -237,14 +237,13 @@ func (b NSBrowserCell) Leaf() bool {
 func (b NSBrowserCell) SetLeaf(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setLeaf:"), value)
 }
+
 // A Boolean that indicates whether the cell is ready to display.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the browser cell’s state has
-// been set and the cell is ready to display.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the browser cell’s state has
+// been set and the cell is ready to display.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/isLoaded
 func (b NSBrowserCell) Loaded() bool {
@@ -258,12 +257,12 @@ func (b NSBrowserCell) SetLoaded(value bool) {
 // Returns the default image for branch cells in a browser.
 //
 // # Return Value
-// 
+//
 // The default image used for branch [NSBrowserCell] objects. The default
 // image is a right-pointing triangle.
-// 
+//
 // # Discussion
-// 
+//
 // Override this method if you want a different image. To have a branch
 // [NSBrowserCell] with no image (and no space reserved for an image),
 // override this method to return `nil`.
@@ -273,16 +272,17 @@ func (_NSBrowserCellClass NSBrowserCellClass) BranchImage() NSImage {
 	rv := objc.Send[objc.ID](objc.ID(_NSBrowserCellClass.class), objc.Sel("branchImage"))
 	return NSImageFromID(objc.ID(rv))
 }
+
 // Returns the default image for branch browser cells that are highlighted.
 //
 // # Return Value
-// 
+//
 // The default image used for branch [NSBrowserCell] objects that are
 // highlighted. This is a lighter version of the image returned by
 // [BranchImage].
-// 
+//
 // # Discussion
-// 
+//
 // Override this method if you want a different image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/highlightedBranchImage
@@ -290,4 +290,3 @@ func (_NSBrowserCellClass NSBrowserCellClass) HighlightedBranchImage() NSImage {
 	rv := objc.Send[objc.ID](objc.ID(_NSBrowserCellClass.class), objc.Sel("highlightedBranchImage"))
 	return NSImageFromID(objc.ID(rv))
 }
-

@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_complete_fixpoint_optimization struct {
 func EspressoPass_complete_fixpoint_optimizationFromID(id objc.ID) EspressoPass_complete_fixpoint_optimization {
 	return EspressoPass_complete_fixpoint_optimization{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_complete_fixpoint_optimization implements IEspressoPass_complete_fixpoint_optimization.
 var _ IEspressoPass_complete_fixpoint_optimization = EspressoPass_complete_fixpoint_optimization{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_complete_fixpoint_optimization() EspressoPass_complete_fixp
 	rv := objc.Send[EspressoPass_complete_fixpoint_optimization](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

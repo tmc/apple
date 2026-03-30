@@ -301,4 +301,3 @@ func (e VZVirtualMachineState) String() string {
 		return fmt.Sprintf("VZVirtualMachineState(%d)", e)
 	}
 }
-

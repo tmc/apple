@@ -19,6 +19,7 @@ type CIRandomGenerator interface {
 type CIRandomGeneratorObject struct {
 	objectivec.Object
 }
+
 func (o CIRandomGeneratorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -38,5 +39,4 @@ func CIRandomGeneratorObjectFromID(id objc.ID) CIRandomGeneratorObject {
 func (o CIRandomGeneratorObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
-
+}

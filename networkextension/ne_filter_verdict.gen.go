@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NEFilterVerdictClass) Alloc() NEFilterVerdict {
 // The abstract base class for filter verdict classes.
 //
 // # Overview
-// 
+//
 // Filter providers use instances this class to inform the system about how to
 // handle flows of network data.
 //
@@ -65,6 +66,7 @@ type NEFilterVerdict struct {
 func NEFilterVerdictFromID(id objc.ID) NEFilterVerdict {
 	return NEFilterVerdict{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEFilterVerdict adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,26 +117,20 @@ func (f NEFilterVerdict) EncodeWithCoder(coder foundation.INSCoder) {
 // provider when processing this verdict.
 //
 // # Discussion
-// 
-// If the property is equal to [true], the system sends a report to the
-// control provider’s [HandleReport] method when processing this verdict in
-// the data provider. This property has no effect if the verdict originates in
-// the control provider.
-// 
+//
+// If the property is equal to true, the system sends a report to the control
+// provider’s [HandleReport] method when processing this verdict in the data
+// provider. This property has no effect if the verdict originates in the
+// control provider.
+//
 // The data provider doesn’t need to wait for a response from the control
 // provider before continuing to process the flow. Therefore, calling the
 // [HandleReport] method is a more efficient way to report a flow to the
 // control provider than returning a [NeedRulesVerdict] verdict.
-// 
-// This property applies when the action taken on a flow is
-// [NEFilterAction.allow], [NEFilterAction.drop], [NEFilterAction.remediate],
-// or [NEFilterAction.filterData] (the last of which is only for new flows).
 //
-// [NEFilterAction.allow]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/allow
-// [NEFilterAction.drop]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/drop
-// [NEFilterAction.filterData]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/filterData
-// [NEFilterAction.remediate]: https://developer.apple.com/documentation/NetworkExtension/NEFilterAction/remediate
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property applies when the action taken on a flow is
+// [NEFilterActionAllow], [NEFilterActionDrop], [NEFilterActionRemediate], or
+// [NEFilterActionFilterData] (the last of which is only for new flows).
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterVerdict/shouldReport
 func (f NEFilterVerdict) ShouldReport() bool {
@@ -144,4 +140,3 @@ func (f NEFilterVerdict) ShouldReport() bool {
 func (f NEFilterVerdict) SetShouldReport(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setShouldReport:"), value)
 }
-

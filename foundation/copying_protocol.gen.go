@@ -18,6 +18,7 @@ type NSCopying interface {
 type NSCopyingObject struct {
 	objectivec.Object
 }
+
 func (o NSCopyingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func NSCopyingObjectFromID(id objc.ID) NSCopyingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

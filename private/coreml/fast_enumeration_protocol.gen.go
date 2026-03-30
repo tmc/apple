@@ -23,6 +23,7 @@ type NSFastEnumeration interface {
 type NSFastEnumerationObject struct {
 	objectivec.Object
 }
+
 func (o NSFastEnumerationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -35,10 +36,8 @@ func NSFastEnumerationObjectFromID(id objc.ID) NSFastEnumerationObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/NSFastEnumeration/countByEnumeratingWithState:objects:count:
 func (o NSFastEnumerationObject) CountByEnumeratingWithStateObjectsCount(state objectivec.IObject, objects []objectivec.IObject, count uint64) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(objects), count)
 	return rv
-	}
-
+}

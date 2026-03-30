@@ -3,12 +3,13 @@
 package appkit
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/uniformtypeidentifiers"
 )
@@ -49,72 +50,64 @@ func (nc NSPathCellClass) Alloc() NSPathCell {
 // The user interface of a path control object.
 //
 // # Overview
-// 
+//
 // [NSPathCell] maintains a collection of [NSPathComponentCell] objects that
 // represent a particular path to be displayed to the user.
-// 
+//
 // The path shown can be set with the [NSPathCell.ClickedPathComponentCell] method. Doing
 // so removes all displayed [NSPathComponentCell] objects and automatically
 // fills the control with [NSPathComponentCell] objects set to have the
 // appropriate icons, display titles, and [NSURL] values for the particular
 // path component they represent. Alternatively, you can fill the control
 // manually by setting the cell array or directly modifying existing cells.
-// 
+//
 // Both an action and double-click action can be set for the path control. To
 // find out what path component cell was clicked in the action, you can read
 // the value of [NSPathCell.ClickedPathComponentCell]. When the style is set to
-// [NSPathControl.Style.popUp], the action is still sent, and the
+// [NSPathStylePopUp], the action is still sent, and the
 // [NSPathCell.ClickedPathComponentCell] value for the represented menu item is correctly
 // set. The [NSPathCell.ClickedPathComponentCell] value is valid only when the action is
 // being sent. It is also valid when the keyboard is used to invoke the
 // action.
-// 
+//
 // Automatic animated expansion of partially hidden [NSPathComponentCell]
 // objects happens if you correctly call [MouseEntered] and [MouseExited] for
 // each [NSPathComponentCell] in the [NSPathCell] object. This is not required
-// if the [NSPathCell.PathStyle] is set to [NSPathControl.Style.popUp], or if you wish to
-// not have the animation.
-// 
-// [NSPathCell] supports several path display styles.
-// [NSPathControl.Style.standard] has a light blue background with arrows
-// indicating the path. [NSPathStyleNavigationBar] has more defined arrows
-// (chevrons) and looks a little like a segmented button.
-// [NSPathControl.Style.popUp] looks and works like an [NSPopUpButton] object
-// to display the full path, or, if the cell is editable, select a new path.
-// 
-// If the cell’s [Editable] method returns [true] (the default), you can
-// drag and drop into the cell to change the value. You can constrain what can
-// be dropped using UTIs (Uniform Type Identifiers) with [NSPathCell.AllowedTypes] or the
+// if the [NSPathCell.PathStyle] is set to [NSPathStylePopUp], or if you wish to not have
+// the animation.
+//
+// [NSPathCell] supports several path display styles. [NSPathStyleStandard]
+// has a light blue background with arrows indicating the path.
+// [NSPathStyleNavigationBar] has more defined arrows (chevrons) and looks a
+// little like a segmented button. [NSPathStylePopUp] looks and works like an
+// [NSPopUpButton] object to display the full path, or, if the cell is
+// editable, select a new path.
+//
+// If the cell’s [Editable] method returns true (the default), you can drag
+// and drop into the cell to change the value. You can constrain what can be
+// dropped using UTIs (Uniform Type Identifiers) with [NSPathCell.AllowedTypes] or the
 // appropriate delegate methods on [NSPathControl].
-// 
-// If the cell’s [Selectable] method returns [true] (the default), the
+//
+// If the cell’s [Selectable] method returns true (the default), the
 // cell’s contents can automatically be dragged out. The proper UTI,
 // filename, and URL are placed on the pasteboard. You can further control or
 // limit this by using the appropriate delegate methods on [NSPathControl].
-// 
-// If the cell is editable and has the path style set to
-// [NSPathControl.Style.popUp], an additional item in the pop-up menu allows
-// selecting another location. By default, an [NSOpenPanel] object is
-// configured based on the allowed types. The [NSOpenPanel] object can be
-// customized with a delegate method.
-// 
-// # Setting the control size
-// 
-// When setting the [NSPathCell.ControlSize] property, [NSPathCell] properly respects the
-// control size for the [NSPathControl.Style.standard] and
-// [NSPathControl.Style.popUp] styles. When the control size is set, the new
-// size is propagated to subcells. When the path style is set to
-// [NSPathStyleNavigationBar], you cannot change the control size, and it is
-// always set to [NSSmallControlSize]. Attempting to change the control size
-// when the path style is [NSPathStyleNavigationBar] causes an assertion.
-// Setting the path style to [NSPathStyleNavigationBar] forces the control
-// size to be [NSSmallControlSize].
 //
-// [NSPathControl.Style.popUp]: https://developer.apple.com/documentation/AppKit/NSPathControl/Style/popUp
-// [NSPathControl.Style.standard]: https://developer.apple.com/documentation/AppKit/NSPathControl/Style/standard
-// [NSPathStyleNavigationBar]: https://developer.apple.com/documentation/AppKit/NSPathStyle/NSPathStyleNavigationBar
-// [NSSmallControlSize]: https://developer.apple.com/documentation/AppKit/NSSmallControlSize
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the cell is editable and has the path style set to [NSPathStylePopUp],
+// an additional item in the pop-up menu allows selecting another location. By
+// default, an [NSOpenPanel] object is configured based on the allowed types.
+// The [NSOpenPanel] object can be customized with a delegate method.
+//
+// # Setting the control size
+//
+// When setting the [NSPathCell.ControlSize] property, [NSPathCell] properly respects the
+// control size for the [NSPathStyleStandard] and [NSPathStylePopUp] styles.
+// When the control size is set, the new size is propagated to subcells. When
+// the path style is set to [NSPathStyleNavigationBar], you cannot change the
+// control size, and it is always set to [NSSmallControlSize]. Attempting to
+// change the control size when the path style is [NSPathStyleNavigationBar]
+// causes an assertion. Setting the path style to [NSPathStyleNavigationBar]
+// forces the control size to be [NSSmallControlSize].
 //
 // # Displaying Hidden Components
 //
@@ -164,6 +157,8 @@ func (nc NSPathCellClass) Alloc() NSPathCell {
 //   - [NSPathCell.SetDelegate]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell
+//
+// [NSSmallControlSize]: https://developer.apple.com/documentation/AppKit/NSSmallControlSize
 type NSPathCell struct {
 	NSActionCell
 }
@@ -174,6 +169,7 @@ type NSPathCell struct {
 func NSPathCellFromID(id objc.ID) NSPathCell {
 	return NSPathCell{NSActionCell: NSActionCellFromID(id)}
 }
+
 // NOTE: NSPathCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -341,12 +337,12 @@ func NewNSPathCell() NSPathCell {
 // image: The image to use for the cell. If this parameter is `nil`, no image is set.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -363,15 +359,15 @@ func NewPathCellImageCell(image INSImage) NSPathCell {
 // string: The initial string to use for the cell.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If no field editor (a shared [NSText] object) has been created for all
 // [NSCell] objects, one is created.
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -382,7 +378,6 @@ func NewPathCellTextCell(string_ string) NSPathCell {
 	return NSPathCellFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewPathCellWithCoder(coder foundation.INSCoder) NSPathCell {
 	instance := getNSPathCellClass().Alloc()
@@ -399,7 +394,7 @@ func NewPathCellWithCoder(coder foundation.INSCoder) NSPathCell {
 // view: The view in which the cell is located.
 //
 // # Discussion
-// 
+//
 // The [NSPathCell] object dynamically animates to display the component that
 // the mouse is hovering over using mouse-entered and mouse-exited events. The
 // control should call these methods to correctly display the hovered
@@ -410,6 +405,7 @@ func NewPathCellWithCoder(coder foundation.INSCoder) NSPathCell {
 func (p NSPathCell) MouseEnteredWithFrameInView(event INSEvent, frame corefoundation.CGRect, view INSView) {
 	objc.Send[objc.ID](p.ID, objc.Sel("mouseEntered:withFrame:inView:"), event, frame, view)
 }
+
 // Hides the cell component over which the mouse is hovering.
 //
 // event: The mouse-exited event.
@@ -422,6 +418,7 @@ func (p NSPathCell) MouseEnteredWithFrameInView(event INSEvent, frame corefounda
 func (p NSPathCell) MouseExitedWithFrameInView(event INSEvent, frame corefoundation.CGRect, view INSView) {
 	objc.Send[objc.ID](p.ID, objc.Sel("mouseExited:withFrame:inView:"), event, frame, view)
 }
+
 // Returns the current rectangle being displayed for a given path component
 // cell, with respect to a given frame in a given view.
 //
@@ -432,7 +429,7 @@ func (p NSPathCell) MouseExitedWithFrameInView(event INSEvent, frame corefoundat
 // view: The view in which the cell appears.
 //
 // # Return Value
-// 
+//
 // The rectangle occupied by the path component cell. [NSZeroRect] is returned
 // if `cell` is not found or is not currently visible.
 //
@@ -441,6 +438,7 @@ func (p NSPathCell) RectOfPathComponentCellWithFrameInView(cell INSPathComponent
 	rv := objc.Send[corefoundation.CGRect](p.ID, objc.Sel("rectOfPathComponentCell:withFrame:inView:"), cell, frame, view)
 	return corefoundation.CGRect(rv)
 }
+
 // Returns the cell located at the given point within the given frame of the
 // given view.
 //
@@ -451,7 +449,7 @@ func (p NSPathCell) RectOfPathComponentCellWithFrameInView(cell INSPathComponent
 // view: The view within which the frame is located.
 //
 // # Return Value
-// 
+//
 // The component cell within which the given point is located, or `nil` if no
 // cell exists at that location.
 //
@@ -460,6 +458,7 @@ func (p NSPathCell) PathComponentCellAtPointWithFrameInView(point corefoundation
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("pathComponentCellAtPoint:withFrame:inView:"), point, frame, view)
 	return NSPathComponentCellFromID(rv)
 }
+
 // Tells the delegate that the user changed the selected directory to the
 // directory located at the specified URL.
 //
@@ -467,13 +466,14 @@ func (p NSPathCell) PathComponentCellAtPointWithFrameInView(point corefoundation
 //
 // url: The URL of the new directory, or `nil` if it can’t be represented by an
 // [NSURL] object.
-// //
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:didChangeToDirectoryURL:)
+//
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 func (p NSPathCell) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.INSURL) {
 	objc.Send[objc.ID](p.ID, objc.Sel("panel:didChangeToDirectoryURL:"), sender, url)
 }
+
 // [NSSavePanel]: Optional — Sent when the user changes the current type.
 // [NSOpenPanel]: Not sent.
 //
@@ -481,6 +481,7 @@ func (p NSPathCell) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url 
 func (p NSPathCell) PanelDidSelectType(sender objectivec.IObject, type_ uniformtypeidentifiers.UTType) {
 	objc.Send[objc.ID](p.ID, objc.Sel("panel:didSelectType:"), sender, type_)
 }
+
 // [NSSavePanel]: Optional — Sent when the content type popup is displayed
 // and the save panel needs the display name for a type. If `nil` is returned,
 // the save panel will display type’s `localizedDescription`. [NSOpenPanel]:
@@ -491,6 +492,7 @@ func (p NSPathCell) PanelDisplayNameForType(sender objectivec.IObject, type_ uni
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("panel:displayNameForType:"), sender, type_)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Tells the delegate that the user changed the selection in the specified
 // Save panel.
 //
@@ -500,6 +502,7 @@ func (p NSPathCell) PanelDisplayNameForType(sender objectivec.IObject, type_ uni
 func (p NSPathCell) PanelSelectionDidChange(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("panelSelectionDidChange:"), sender)
 }
+
 // Asks the delegate whether the specified URL should be enabled in the Open
 // panel.
 //
@@ -508,15 +511,12 @@ func (p NSPathCell) PanelSelectionDidChange(sender objectivec.IObject) {
 // url: The URL for you to check.
 //
 // # Return Value
-// 
-// [true] if you want the panel to display the item at the specifed URL as
-// enabled, or [false] to display it as disabled.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if you want the panel to display the item at the specifed URL as
+// enabled, or false to display it as disabled.
 //
 // # Discussion
-// 
+//
 // Save panels do not call this method; they always disable URLs.
 // Implementations of this method should be fast to avoid stalling the user
 // interface. Use [PanelValidateURLError] instead if processing will take a
@@ -527,6 +527,7 @@ func (p NSPathCell) PanelShouldEnableURL(sender objectivec.IObject, url foundati
 	rv := objc.Send[bool](p.ID, objc.Sel("panel:shouldEnableURL:"), sender, url)
 	return rv
 }
+
 // Tells the delegate that the user confirmed a filename choice by clicking
 // Save in a Save panel.
 //
@@ -534,41 +535,36 @@ func (p NSPathCell) PanelShouldEnableURL(sender objectivec.IObject, url foundati
 //
 // filename: The user’s filename choice.
 //
-// okFlag: If [true], the user clicked the Save button; if [false], the user did not.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// okFlag: If true, the user clicked the Save button; if false, the user did not.
 //
 // # Return Value
-// 
+//
 // The filename selected by the user, or `nil` if you want to cancel the save
 // operation and leave the Save panel onscreen.
 //
 // # Discussion
-// 
+//
 // The Save panel calls this method before appending any required filename
 // extension information, and before it asks the user whether to replace an
 // existing file, if a file with the specified name already exists in the
 // given location.
-// 
+//
 // The panel may call this method multiple times as the user types. When it
-// does, the `okFlag` parameter is [false]. When the use confirms their
-// choice, the value in the `okFlag` is [true]. If your delegate does
-// extensive validation or puts up alerts, do so only when `okFlag` is [true].
-// 
+// does, the `okFlag` parameter is false. When the use confirms their choice,
+// the value in the `okFlag` is true. If your delegate does extensive
+// validation or puts up alerts, do so only when `okFlag` is true.
+//
 // In macOS 10.15 and later, you cannot change the filename that the user
 // selects. Prior to macOS 10.15, you could sanitize the app’s filename to
 // remove undesirable characters or limit its length only if your app wasn’t
 // running in a sandbox.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:userEnteredFilename:confirmed:)
 func (p NSPathCell) PanelUserEnteredFilenameConfirmed(sender objectivec.IObject, filename string, okFlag bool) string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("panel:userEnteredFilename:confirmed:"), sender, objc.String(filename), okFlag)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Asks the delegate to validate the URL for a file that the user selected.
 //
 // sender: The panel that requests URL validation.
@@ -576,7 +572,7 @@ func (p NSPathCell) PanelUserEnteredFilenameConfirmed(sender objectivec.IObject,
 // url: The URL for you to validate.
 //
 // # Discussion
-// 
+//
 // Save panels call this method when the user clicks the Save button. Open
 // panels call it when the user clicks the Open button. An Open panel calls
 // this method once for each selected filename or directory.
@@ -595,40 +591,36 @@ func (p NSPathCell) PanelValidateURLError(sender objectivec.IObject, url foundat
 	return rv, nil
 
 }
+
 // Tells the delegate that the Save panel is about to expand or collapse
 // because the user clicked the disclosure triangle that displays or hides the
 // file browser.
 //
 // sender: The panel that is about to expand or collapse.
 //
-// expanding: [true] specifies that the panel is expanding; [false] specifies that it is
+// expanding: true specifies that the panel is expanding; false specifies that it is
 // collapsing.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:willExpand:)
 func (p NSPathCell) PanelWillExpand(sender objectivec.IObject, expanding bool) {
 	objc.Send[objc.ID](p.ID, objc.Sel("panel:willExpand:"), sender, expanding)
 }
+
 // Implemented to override the default action of enabling or disabling a
 // specific menu item.
 //
 // menuItem: An [NSMenuItem] object that represents the menu item.
 //
 // # Return Value
-// 
-// [true] to enable `menuItem`, [false] to disable it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to enable `menuItem`, false to disable it.
 //
 // # Discussion
-// 
+//
 // The object implementing this method must be the target of `menuItem`. You
 // can determine which menu item `menuItem` is by querying it for its tag or
 // action.
-// 
+//
 // The following example disables the menu item associated with the
 // `nextRecord` action method when the selected line in a table view is the
 // last one; conversely, it disables the menu item with `priorRecord` as its
@@ -645,13 +637,13 @@ func (p NSPathCell) ValidateMenuItem(menuItem INSMenuItem) bool {
 // Sets the component types allowed in the path when the cell is editable.
 //
 // # Discussion
-// 
+//
 // The `allowedTypes` array can contain file extensions (without the period
 // that begins the extension) or UTIs. To allow folders, include the
 // `public.Folder()` identifier. To allow any type, use `nil`. If the value of
 // `allowedTypes` is an empty array, nothing is allowed. The default value is
 // `nil`, allowing all types.
-// 
+//
 // If the cell is editable and its type is [NSPathStylePopUp], a Choose item
 // is included to enable selection of a different path by invoking an Open
 // panel. The allowed types are passed to the Open panel to filter out other
@@ -666,6 +658,7 @@ func (p NSPathCell) AllowedTypes() []string {
 func (p NSPathCell) SetAllowedTypes(value []string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAllowedTypes:"), objectivec.StringSliceToNSArray(value))
 }
+
 // Sets the receiver’s path style.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/pathStyle
@@ -676,10 +669,11 @@ func (p NSPathCell) PathStyle() NSPathStyle {
 func (p NSPathCell) SetPathStyle(value NSPathStyle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPathStyle:"), value)
 }
+
 // Sets the value of the placeholder attributed string.
 //
 // # Discussion
-// 
+//
 // If the [NSPathCell] object contains no [NSPathComponentCell] objects, the
 // placeholder attributed string is drawn in their place, if it is not `nil`.
 // If the placeholder attributed string is `nil`, the (non-attributed)
@@ -693,14 +687,15 @@ func (p NSPathCell) PlaceholderAttributedString() foundation.NSAttributedString 
 func (p NSPathCell) SetPlaceholderAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPlaceholderAttributedString:"), value)
 }
+
 // Returns the placeholder string.
 //
 // # Return Value
-// 
+//
 // The placeholder string.
-// 
+//
 // # Discussion
-// 
+//
 // If the [NSPathCell] object contains no [NSPathComponentCell] objects, the
 // placeholder attributed string is drawn in their place, if it is not `nil`.
 // If the placeholder attributed string is `nil`, the (non-attributed)
@@ -714,10 +709,11 @@ func (p NSPathCell) PlaceholderString() string {
 func (p NSPathCell) SetPlaceholderString(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPlaceholderString:"), objc.String(value))
 }
+
 // Returns the current background color of the receiver.
 //
 // # Return Value
-// 
+//
 // The background color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/backgroundColor
@@ -728,10 +724,11 @@ func (p NSPathCell) BackgroundColor() INSColor {
 func (p NSPathCell) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBackgroundColor:"), value)
 }
+
 // Sets the array of [NSPathComponentCell] objects currently being displayed.
 //
 // # Discussion
-// 
+//
 // Each item in the array must be an instance of [NSPathComponentCell] or a
 // subclass thereof. You cannot set this value to `nil`, but you can set it to
 // an empty array using, for example, `[NSArray array]`.
@@ -746,6 +743,7 @@ func (p NSPathCell) PathComponentCells() []NSPathComponentCell {
 func (p NSPathCell) SetPathComponentCells(value []NSPathComponentCell) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPathComponentCells:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Sets the receiver’s double-click action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/doubleAction
@@ -756,10 +754,11 @@ func (p NSPathCell) DoubleAction() objc.SEL {
 func (p NSPathCell) SetDoubleAction(value objc.SEL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDoubleAction:"), value)
 }
+
 // Returns the path displayed by the receiver.
 //
 // # Return Value
-// 
+//
 // The path value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/url
@@ -770,27 +769,28 @@ func (p NSPathCell) URL() foundation.INSURL {
 func (p NSPathCell) SetURL(value foundation.INSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
+
 // Sets the value of the path displayed by the receiver.
 //
 // # Discussion
-// 
+//
 // When setting, an array of [NSPathComponentCell] objects is automatically
 // set, based on the path in `url`. The type of [NSPathComponentCell] objects
 // created can be controlled by subclassing [NSPathCell] and overriding
 // [PathComponentCellClass].
-// 
-// If `url` is a file URL (returns [true] from [isFileURL]), the images are
+//
+// If `url` is a file URL (returns true from [isFileURL]), the images are
 // automatically filled with file icons, if the path exists. The URL value
 // itself is stored in the `objectValue` property of the cell.
 //
-// [isFileURL]: https://developer.apple.com/documentation/Foundation/NSURL/isFileURL
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/clickedPathComponentCell
+//
+// [isFileURL]: https://developer.apple.com/documentation/Foundation/NSURL/isFileURL
 func (p NSPathCell) ClickedPathComponentCell() INSPathComponentCell {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("clickedPathComponentCell"))
 	return NSPathComponentCellFromID(objc.ID(rv))
 }
+
 // Sets the receiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/delegate
@@ -801,6 +801,7 @@ func (p NSPathCell) Delegate() NSPathCellDelegate {
 func (p NSPathCell) SetDelegate(value NSPathCellDelegate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDelegate:"), value)
 }
+
 // A Boolean value indicating whether the cell is editable.
 //
 // See: https://developer.apple.com/documentation/appkit/nscell/iseditable
@@ -811,6 +812,7 @@ func (p NSPathCell) IsEditable() bool {
 func (p NSPathCell) SetIsEditable(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEditable:"), value)
 }
+
 // A Boolean value indicating whether the cell’s text can be selected.
 //
 // See: https://developer.apple.com/documentation/appkit/nscell/isselectable
@@ -826,11 +828,11 @@ func (p NSPathCell) SetIsSelectable(value bool) {
 // automatically filling up the control.
 //
 // # Return Value
-// 
+//
 // The class used to create [NSPathComponentCell] objects.
-// 
+//
 // # Discussion
-// 
+//
 // Subclasses can override this method to return a custom cell class that is
 // automatically used. By default, the method returns `[NSPathComponentCell
 // class]`, or a specialized subclass thereof.
@@ -841,6 +843,4 @@ func (_NSPathCellClass NSPathCellClass) PathComponentCellClass() objc.Class {
 	return rv
 }
 
-			// Protocol methods for NSMenuItemValidation
-			
-
+// Protocol methods for NSMenuItemValidation

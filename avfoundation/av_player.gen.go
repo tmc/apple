@@ -5,10 +5,11 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,19 +50,19 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 // behavior.
 //
 // # Overview
-// 
+//
 // A player is a controller object that manages the playback and timing of a
 // media asset. Use an instance of [AVPlayer] to play local and remote
 // file-based media, such as QuickTime movies and MP3 audio files, as well as
 // audiovisual media served using HTTP Live Streaming.
-// 
+//
 // Use a player object to play a single media asset. You can reuse the player
 // instance to play additional media assets using its
 // [AVPlayer.ReplaceCurrentItemWithPlayerItem] method, but it manages the playback of
 // only a single media asset at a time. The framework also provides a subclass
 // called [AVQueuePlayer] that you can use to manage the playback of a queue
 // of media assets.
-// 
+//
 // You use an [AVPlayer] to play media assets, which AVFoundation represents
 // using the [AVAsset] class. [AVAsset] only models the aspects of the media,
 // such as its duration or creation date, and on its own, isn’t suitable for
@@ -69,10 +70,10 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 // its counterpart found in [AVPlayerItem]. This object models the timing and
 // presentation state of an asset played by an instance of [AVPlayer]. See the
 // [AVPlayerItem] reference for more details.
-// 
+//
 // [AVPlayer] is a dynamic object whose state continuously changes. There are
 // two approaches you can use to observe a player’s state:
-// 
+//
 // - You can use key-value observing (KVO) to observe state changes to many of
 // the player’s dynamic properties, such as its [AVPlayer.CurrentItem] or its
 // playback [AVPlayer.Rate]. - KVO works well for general state observations, but
@@ -80,16 +81,16 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 // player’s time. [AVPlayer] provides two methods to observe time changes: -
 // [AVPlayer.AddPeriodicTimeObserverForIntervalQueueUsingBlock] -
 // [AVPlayer.AddBoundaryTimeObserverForTimesQueueUsingBlock]
-// 
+//
 // These methods let you observe time changes either periodically or by
 // boundary, respectively. As changes occur, invoke the callback block or
 // closure you supply to these methods to give you the opportunity to take
 // some action such as updating the state of your player’s user interface.
-// 
+//
 // [AVPlayer] and [AVPlayerItem] are nonvisual objects, meaning that on their
 // own they’re unable to present an asset’s video onscreen. There are two
 // primary approaches you use to present your video content onscreen:
-// 
+//
 // - The best way to present your video content is with the AVKit
 // framework’s [AVPlayerViewController] class in iOS and tvOS, or the
 // [AVPlayerView] class in macOS. These classes present the video content,
@@ -101,7 +102,7 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 // controls—it only presents the visual content onscreen. It’s up to you
 // to build the playback transport controls to play, pause, and seek through
 // the media.
-// 
+//
 // Alongside the visual content presented with AVKit or [AVPlayerLayer], you
 // can also present animated content synchronized with the player’s timing
 // using [AVSynchronizedLayer]. Use a synchronized layer pass along player
@@ -109,9 +110,6 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 // custom effects in Core Animation, such as animated lower thirds or video
 // transitions, and have them play in sync with the timing of the player’s
 // current [AVPlayerItem].
-//
-// [AVPlayerViewController]: https://developer.apple.com/documentation/AVKit/AVPlayerViewController
-// [AVPlayerView]: https://developer.apple.com/documentation/AVKit/AVPlayerView
 //
 // # Creating a player
 //
@@ -235,7 +233,15 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 //   - [AVPlayer.NetworkResourcePriority]: Indicates the priority of this player for network bandwidth resource distribution.
 //   - [AVPlayer.SetNetworkResourcePriority]
 //
+// # Instance Properties
+//
+//   - [AVPlayer.AllowsCaptureOfClearKeyVideo]: Indicates whether the video output of ClearKey Encrypted Video can be captured
+//   - [AVPlayer.SetAllowsCaptureOfClearKeyVideo]
+//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer
+//
+// [AVPlayerViewController]: https://developer.apple.com/documentation/AVKit/AVPlayerViewController
+// [AVPlayerView]: https://developer.apple.com/documentation/AVKit/AVPlayerView
 type AVPlayer struct {
 	objectivec.Object
 }
@@ -247,6 +253,7 @@ type AVPlayer struct {
 func AVPlayerFromID(id objc.ID) AVPlayer {
 	return AVPlayer{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -373,6 +380,11 @@ func AVPlayerFromID(id objc.ID) AVPlayer {
 //
 //   - [IAVPlayer.NetworkResourcePriority]: Indicates the priority of this player for network bandwidth resource distribution.
 //   - [IAVPlayer.SetNetworkResourcePriority]
+//
+// # Instance Properties
+//
+//   - [IAVPlayer.AllowsCaptureOfClearKeyVideo]: Indicates whether the video output of ClearKey Encrypted Video can be captured
+//   - [IAVPlayer.SetAllowsCaptureOfClearKeyVideo]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer
 type IAVPlayer interface {
@@ -546,6 +558,12 @@ type IAVPlayer interface {
 	// Indicates the priority of this player for network bandwidth resource distribution.
 	NetworkResourcePriority() AVPlayerNetworkResourcePriority
 	SetNetworkResourcePriority(value AVPlayerNetworkResourcePriority)
+
+	// Topic: Instance Properties
+
+	// Indicates whether the video output of ClearKey Encrypted Video can be captured
+	AllowsCaptureOfClearKeyVideo() bool
+	SetAllowsCaptureOfClearKeyVideo(value bool)
 }
 
 // Init initializes the instance.
@@ -572,7 +590,7 @@ func NewAVPlayer() AVPlayer {
 // item: The player item to play.
 //
 // # Return Value
-// 
+//
 // A new player initialized to play `item`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(playerItem:)
@@ -588,12 +606,12 @@ func NewPlayerWithPlayerItem(item IAVPlayerItem) AVPlayer {
 // URL: A URL that identifies an audiovisual resource.
 //
 // # Return Value
-// 
+//
 // A new player instance initialized to play the audiovisual resource
 // specified by [URL].
 //
 // # Discussion
-// 
+//
 // This method implicitly creates an [AVPlayerItem] object. You can get the
 // player item using [CurrentItem].
 //
@@ -610,12 +628,12 @@ func NewPlayerWithURL(URL foundation.INSURL) AVPlayer {
 // URL: A URL that identifies an audiovisual resource.
 //
 // # Return Value
-// 
+//
 // A new player instance initialized to play the audiovisual resource
 // specified by [URL].
 //
 // # Discussion
-// 
+//
 // This method implicitly creates an [AVPlayerItem] object. You can get the
 // player item using [CurrentItem].
 //
@@ -624,12 +642,13 @@ func (p AVPlayer) InitWithURL(URL foundation.INSURL) AVPlayer {
 	rv := objc.Send[AVPlayer](p.ID, objc.Sel("initWithURL:"), URL)
 	return rv
 }
+
 // Creates a new player to play the specified player item.
 //
 // item: The player item to play.
 //
 // # Return Value
-// 
+//
 // A new player initialized to play `item`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(playerItem:)
@@ -637,12 +656,13 @@ func (p AVPlayer) InitWithPlayerItem(item IAVPlayerItem) AVPlayer {
 	rv := objc.Send[AVPlayer](p.ID, objc.Sel("initWithPlayerItem:"), item)
 	return rv
 }
+
 // Replaces the current item with a new item.
 //
 // item: The new item for the player object to play.
 //
 // # Discussion
-// 
+//
 // The player item replacement occurs immediately and the item becomes the
 // player’s [CurrentItem]. Calling this method with the player’s current
 // player item has no effect.
@@ -651,34 +671,37 @@ func (p AVPlayer) InitWithPlayerItem(item IAVPlayerItem) AVPlayer {
 func (p AVPlayer) ReplaceCurrentItemWithPlayerItem(item IAVPlayerItem) {
 	objc.Send[objc.ID](p.ID, objc.Sel("replaceCurrentItemWithPlayerItem:"), item)
 }
+
 // Begins playback of the current item.
 //
 // # Discussion
-// 
+//
 // Calling this method is the same as setting the [Rate] to `1.0`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/play()
 func (p AVPlayer) Play() {
 	objc.Send[objc.ID](p.ID, objc.Sel("play"))
 }
+
 // Pauses playback of the current item.
 //
 // # Discussion
-// 
+//
 // Calling this method is the same as setting the [Rate] to `0.0`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/pause()
 func (p AVPlayer) Pause() {
 	objc.Send[objc.ID](p.ID, objc.Sel("pause"))
 }
+
 // Returns the current time of the current player item.
 //
 // # Return Value
-// 
+//
 // The current time of the current player item.
 //
 // # Discussion
-// 
+//
 // This property isn’t key-value observable. To observe the player’s time,
 // use [AddPeriodicTimeObserverForIntervalQueueUsingBlock] or
 // [AddBoundaryTimeObserverForTimesQueueUsingBlock].
@@ -688,6 +711,7 @@ func (p AVPlayer) CurrentTime() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("currentTime"))
 	return coremedia.CMTime(rv)
 }
+
 // Requests the periodic invocation of a given block during playback to report
 // changing time.
 //
@@ -696,28 +720,28 @@ func (p AVPlayer) CurrentTime() coremedia.CMTime {
 //
 // queue: The dispatch queue on which the system calls the block. Passing a
 // concurrent queue isn’t supported and results in undefined behavior.
-// 
+//
 // If you pass [NULL], the system uses the main queue.
 //
 // block: The block that the system periodically invokes.
-// 
+//
 // The block takes a single parameter:
-// 
+//
 // time: The time at which the system invokes the block.
 //
 // # Return Value
-// 
+//
 // An opaque object that you pass as the argument to [RemoveTimeObserver] to
 // cancel observation.
 //
 // # Discussion
-// 
+//
 // You must maintain a strong reference to the returned value as long as you
 // want the time observer to be invoked by the player. You must pair each
 // invocation of this method with a corresponding call to
 // [RemoveTimeObserver]. Releasing the observer object without invoking
 // [RemoveTimeObserver] results in undefined behavior.
-// 
+//
 // The system invokes the block periodically at the interval specified,
 // interpreted according to the timeline of the current item. It also invokes
 // the block whenever time jumps or playback starts or stops. If the interval
@@ -725,47 +749,46 @@ func (p AVPlayer) CurrentTime() coremedia.CMTime {
 // the block less frequently than your app requested. Even so, the player will
 // invoke the block sufficiently often for the client to update indications of
 // the current time appropriately in its end-user interface.
-// 
+//
 // The following example illustrates how you set up a callback the system
 // invokes every half second during normal playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/addPeriodicTimeObserver(forInterval:queue:using:)
 func (p AVPlayer) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval coremedia.CMTime, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject {
-_block2, _ := NewCMTimeBlock(block)
+	_block2, _ := NewCMTimeBlock(block)
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("addPeriodicTimeObserverForInterval:queue:usingBlock:"), interval, uintptr(queue.Handle()), _block2)
 	return objectivec.Object{ID: rv}
 }
+
 // Requests the invocation of a block when specified times are traversed
 // during normal playback.
 //
 // times: An array of [NSValue] objects containing [CMTime] values that represent the
 // times at which to invoke the callback. The system raises an exception if
 // you pass an empty array.
-// //
-// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 //
 // queue: A queue onto which `block` should be enqueued. Passing a concurrent queue
 // is not supported and will result in undefined behavior.
-// 
+//
 // If you pass `nil`, the main queue is used.
 //
 // block: The block to be invoked when any of the times in `times` is crossed during
 // normal playback.
 //
 // # Return Value
-// 
+//
 // An opaque object that you pass as the argument to [RemoveTimeObserver] to
 // stop observation.
 //
 // # Discussion
-// 
+//
 // Boundary times are arbitrary points of interest you define within the media
 // timeline. As these times are traversed during normal playback, the block
 // you provide to this method will be invoked. You must maintain a strong
 // reference to the returned value as long as you want the time observer to be
 // invoked by the player. Each invocation of this method should be paired with
 // a corresponding call to [RemoveTimeObserver].
-// 
+//
 // The player does not guarantee the callback block will always be invoked for
 // each boundary time. If your times are very close together along the
 // timeline (close enough that the execution of the block for one takes longer
@@ -774,16 +797,19 @@ _block2, _ := NewCMTimeBlock(block)
 // not occur. The best practice is therefore to implement the callback block
 // so it always performs its necessary calculations based solely on the
 // player’s [CurrentTime].
-// 
+//
 // The following example shows how you could define boundary times for each
 // quarter of playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/addBoundaryTimeObserver(forTimes:queue:using:)
+//
+// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 func (p AVPlayer) AddBoundaryTimeObserverForTimesQueueUsingBlock(times []foundation.NSValue, queue dispatch.Queue, block VoidHandler) objectivec.IObject {
-_block2, _ := NewVoidBlock(block)
+	_block2, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("addBoundaryTimeObserverForTimes:queue:usingBlock:"), times, uintptr(queue.Handle()), _block2)
 	return objectivec.Object{ID: rv}
 }
+
 // Cancels a previously registered periodic or boundary time observer.
 //
 // observer: An object returned by a previous call to
@@ -791,7 +817,7 @@ _block2, _ := NewVoidBlock(block)
 // [AddBoundaryTimeObserverForTimesQueueUsingBlock].
 //
 // # Discussion
-// 
+//
 // Upon return, the caller is guaranteed that no new time observer blocks will
 // begin executing. Depending on the calling thread and the queue used to add
 // the time observer, an in-flight block may continue to execute after this
@@ -799,11 +825,11 @@ _block2, _ := NewVoidBlock(block)
 // enqueuing the call to `removeTimeObserver` on that queue. Alternatively,
 // call `dispatch_sync(queue, ^{})` after `removeTimeObserver` to wait for any
 // in-flight blocks to finish executing.
-// 
+//
 // You should use this method to explicitly cancel each time observer added
 // using [AddPeriodicTimeObserverForIntervalQueueUsingBlock] and
 // [AddBoundaryTimeObserverForTimesQueueUsingBlock].
-// 
+//
 // The following shows a common implementation to remove a registered time
 // observer:
 //
@@ -811,12 +837,13 @@ _block2, _ := NewVoidBlock(block)
 func (p AVPlayer) RemoveTimeObserver(observer objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("removeTimeObserver:"), observer)
 }
+
 // Requests that the player seek to a specified time.
 //
 // time: The time to which to seek.
 //
 // # Discussion
-// 
+//
 // The time to which the player seeks may differ from the specified requested
 // time for efficiency. For sample accurate seeking see
 // [SeekToTimeToleranceBeforeToleranceAfter].
@@ -825,6 +852,7 @@ func (p AVPlayer) RemoveTimeObserver(observer objectivec.IObject) {
 func (p AVPlayer) SeekToTime(time coremedia.CMTime) {
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:"), time)
 }
+
 // Requests that the player seek to a specified time, and to notify you when
 // the seek is complete.
 //
@@ -832,29 +860,27 @@ func (p AVPlayer) SeekToTime(time coremedia.CMTime) {
 //
 // completionHandler: The block to invoke when the seek operation has either been completed or
 // been interrupted. The block takes one argument:
-// 
+//
 // finished: Indicates whether the seek operation completed.
 //
 // # Discussion
-// 
+//
 // Use this method to seek the current player item to the specified time and
 // be notified when the operation completes. If the seek request completes
 // without being interrupted (either by another seek request or by any other
 // operation), the completion handler you provide is executed with the
-// `finished` parameter set to [true].
-// 
+// `finished` parameter set to true.
+//
 // If another seek request is already in progress when you call this method,
 // the completion handler for the in-progress seek request is executed
-// immediately with the `finished` parameter set to [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// immediately with the `finished` parameter set to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:completionHandler:)-75bls
 func (p AVPlayer) SeekToTimeCompletionHandler(time coremedia.CMTime, completionHandler BoolHandler) {
-_block1, _ := NewBoolBlock(completionHandler)
+	_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:completionHandler:"), time, _block1)
 }
+
 // Requests that the player seek to a specified time with the amount of
 // accuracy specified by the time tolerance values.
 //
@@ -865,14 +891,14 @@ _block1, _ := NewBoolBlock(completionHandler)
 // toleranceAfter: A tolerance after the target time to allow.
 //
 // # Discussion
-// 
+//
 // The player seeks within the range `[time-beforeTolerance,
 // time+afterTolerance]`, and may differ from the specified time for
 // efficiency. You can request sample accurate seeking by passing a time value
 // of`kCMTimeZero` for both `toleranceBefore` and `toleranceAfter`. Sample
 // accurate seeking may incur additional decoding delay which can impact
 // seeking performance.
-// 
+//
 // Passing `kCMTimePositiveInfinity` for both `toleranceBefore` and
 // `toleranceAfter` is the same as messaging [SeekToTime] directly.
 //
@@ -880,6 +906,7 @@ _block1, _ := NewBoolBlock(completionHandler)
 func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfter(time coremedia.CMTime, toleranceBefore coremedia.CMTime, toleranceAfter coremedia.CMTime) {
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:toleranceBefore:toleranceAfter:"), time, toleranceBefore, toleranceAfter)
 }
+
 // Requests that the player seek to a specified time with the amount of
 // accuracy specified by the time tolerance values, and to notify you when the
 // seek is complete.
@@ -892,48 +919,47 @@ func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfter(time coremedia.CMTime,
 //
 // completionHandler: The block to invoke when the seek operation has either been completed or
 // been interrupted.
-// 
+//
 // The block takes one argument:
-// 
+//
 // finished: Indicated whether the seek operation completed.
 //
 // # Discussion
-// 
+//
 // Use this method to seek to a specified time for the current player item and
 // to be notified when the seek operation is complete.
-// 
+//
 // The time seeked to will be within the range `[time-beforeTolerance,
 // time+afterTolerance]`, and may differ from the specified time for
 // efficiency. You can request sample accurate seeking by passing a time value
 // of`kCMTimeZero` for both `toleranceBefore` and `toleranceAfter`. Sample
 // accurate seeking may incur additional decoding delay which can impact
 // seeking performance.
-// 
+//
 // Invoking this method with `toleranceBefore` set to [positiveInfinity] and
 // `toleranceAfter` set to [positiveInfinity] is the same as invoking
 // [SeekToTime].
-// 
-// The completion handler for any prior seek request that is still in process
-// will be invoked immediately with the `finished` parameter set to [false].
-// If the new request completes without being interrupted by another seek
-// request or by any other operation the specified completion handler will be
-// invoked with the `finished` parameter set to [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [positiveInfinity]: https://developer.apple.com/documentation/CoreMedia/CMTime/positiveInfinity
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The completion handler for any prior seek request that is still in process
+// will be invoked immediately with the `finished` parameter set to false. If
+// the new request completes without being interrupted by another seek request
+// or by any other operation the specified completion handler will be invoked
+// with the `finished` parameter set to true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:toleranceBefore:toleranceAfter:completionHandler:)
+//
+// [positiveInfinity]: https://developer.apple.com/documentation/CoreMedia/CMTime/positiveInfinity
 func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time coremedia.CMTime, toleranceBefore coremedia.CMTime, toleranceAfter coremedia.CMTime, completionHandler BoolHandler) {
-_block3, _ := NewBoolBlock(completionHandler)
+	_block3, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:toleranceBefore:toleranceAfter:completionHandler:"), time, toleranceBefore, toleranceAfter, _block3)
 }
+
 // Requests that the player seek to a specified date.
 //
 // date: The time to which to seek.
 //
 // # Discussion
-// 
+//
 // The time to which the player seeks may differ from the specified `date` for
 // efficiency. For sample accurate seeking see
 // [SeekToTimeToleranceBeforeToleranceAfter].
@@ -942,6 +968,7 @@ _block3, _ := NewBoolBlock(completionHandler)
 func (p AVPlayer) SeekToDate(date foundation.INSDate) {
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToDate:"), date)
 }
+
 // Requests that the player seek to a specified date, and to notify you when
 // the seek is complete.
 //
@@ -949,69 +976,69 @@ func (p AVPlayer) SeekToDate(date foundation.INSDate) {
 //
 // completionHandler: The block to invoke when the seek operation has either been completed or
 // been interrupted. The block takes one argument:
-// 
+//
 // finished: Indicates whether the seek operation completed.
 //
 // # Discussion
-// 
+//
 // Use this method to seek the current player item to the specified time and
 // be notified when the operation completes. If the seek request completes
 // without being interrupted (either by another seek request or by any other
 // operation), the completion handler you provide is executed with the
-// `finished` parameter set to [true].
-// 
+// `finished` parameter set to true.
+//
 // If another seek request is already in progress when you call this method,
 // the completion handler for the in-progress seek request is executed
-// immediately with the `finished` parameter set to [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// immediately with the `finished` parameter set to false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:completionHandler:)-wr1l
 func (p AVPlayer) SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler) {
-_block1, _ := NewBoolBlock(completionHandler)
+	_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToDate:completionHandler:"), date, _block1)
 }
+
 // Plays the available media data immediately, at the specified rate.
 //
 // rate: The specified playback rate.
 //
 // # Discussion
-// 
+//
 // This method plays the available media data at the specified `rate`
 // regardless of whether there is sufficient media buffered to ensure smooth
 // playback. If media data exists in the playback buffer, calling this method
 // changes the player’s playback rate to the specified `rate` and its
-// [TimeControlStatus] to a value of [PlayerTimeControlStatusPlaying]. If the
-// player has insufficient media data buffered to begin playback, the player
-// will behave as if it has encountered a stall during playback, except that
-// no [playbackStalledNotification] will be posted.
-//
-// [playbackStalledNotification]: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/playbackStalledNotification
+// [TimeControlStatus] to a value of [AVPlayerTimeControlStatusPlaying]. If
+// the player has insufficient media data buffered to begin playback, the
+// player will behave as if it has encountered a stall during playback, except
+// that no [playbackStalledNotification] will be posted.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/playImmediately(atRate:)
+//
+// [playbackStalledNotification]: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/playbackStalledNotification
 func (p AVPlayer) PlayImmediatelyAtRate(rate float32) {
 	objc.Send[objc.ID](p.ID, objc.Sel("playImmediatelyAtRate:"), rate)
 }
+
 // Returns the automatic selection criteria for media items with the specified
 // media characteristic.
 //
 // mediaCharacteristic: The media characteristic for which the selection criteria is to be
 // returned. Supported values include [audible], [legible], and [visual].
-// //
-// [audible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/audible
-// [legible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/legible
-// [visual]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/visual
 //
 // # Return Value
-// 
+//
 // The [AVPlayerMediaSelectionCriteria] for `mediaCharacteristic`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/mediaSelectionCriteria(forMediaCharacteristic:)
+//
+// [audible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/audible
+// [legible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/legible
+// [visual]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/visual
 func (p AVPlayer) MediaSelectionCriteriaForMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) IAVPlayerMediaSelectionCriteria {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("mediaSelectionCriteriaForMediaCharacteristic:"), objc.String(string(mediaCharacteristic)))
 	return AVPlayerMediaSelectionCriteriaFromID(rv)
 }
+
 // Applies automatic selection criteria for media that has the specified media
 // characteristic.
 //
@@ -1021,31 +1048,32 @@ func (p AVPlayer) MediaSelectionCriteriaForMediaCharacteristic(mediaCharacterist
 // mediaCharacteristic: The media characteristic for which the selection criteria are to be
 // applied. Supported values include [audible], [legible], and [visual]. See
 // Media Characteristics in the `AVFoundation Constants`.
-// //
-// [audible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/audible
-// [legible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/legible
-// [visual]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/visual
 //
 // # Discussion
-// 
+//
 // Criteria will be applied to an [AVPlayerItem] instance when:
-// 
+//
 // - It is made ready to play. - Specific media selections are made by the
 // [AVPlayerItem] instance using the method
 // [SelectMediaOptionInMediaSelectionGroup] in a different group. The
 // automatic choice in one group may be influenced by a specific selection in
 // another group. - Underlying system preferences change, e.g. system
 // language, accessibility captions.
-// 
+//
 // Specific selections made by the [AVPlayerItem] instance using the method
 // [SelectMediaOptionInMediaSelectionGroup] method within any group will
 // override automatic selection in that group until the player item receives a
 // [SelectMediaOptionAutomaticallyInMediaSelectionGroup] message.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/setMediaSelectionCriteria(_:forMediaCharacteristic:)
+//
+// [audible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/audible
+// [legible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/legible
+// [visual]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/visual
 func (p AVPlayer) SetMediaSelectionCriteriaForMediaCharacteristic(criteria IAVPlayerMediaSelectionCriteria, mediaCharacteristic AVMediaCharacteristic) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setMediaSelectionCriteria:forMediaCharacteristic:"), criteria, objc.String(string(mediaCharacteristic)))
 }
+
 // Synchronizes the playback rate and time of the current item with an
 // external source.
 //
@@ -1053,16 +1081,12 @@ func (p AVPlayer) SetMediaSelectionCriteriaForMediaCharacteristic(criteria IAVPl
 //
 // itemTime: The precise time at which to match playback of the item. To use the current
 // item’s current time, specify [invalid].
-// //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // hostClockTime: The host time at which to synchronize playback. If you specify [invalid],
 // the rate and time are set together without any external synchronization.
-// //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // # Discussion
-// 
+//
 // This method adjusts the current item’s timebase so that the time in
 // `itemTime` is in sync with the time in `hostClockTime`. Thus, if
 // `hostClockTime` specifies a time in the past, the item’s timebase is
@@ -1072,48 +1096,50 @@ func (p AVPlayer) SetMediaSelectionCriteriaForMediaCharacteristic(criteria IAVPl
 // `itemTime` occurs at the precise moment the host’s clock reaches the
 // value in `hostClockTime`. If there is no content to play before the time
 // specified by `itemTime`, playback holds until the two times come into sync.
-// 
+//
 // This method does not ensure that media data is loaded before the timebase
 // starts moving. However, if you specify a host time in the near future, that
 // would give you some time to load the media data and prepare for playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/setRate(_:time:atHostTime:)
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 func (p AVPlayer) SetRateTimeAtHostTime(rate float32, itemTime coremedia.CMTime, hostClockTime coremedia.CMTime) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setRate:time:atHostTime:"), rate, itemTime, hostClockTime)
 }
+
 // Begins loading media data to prime the media pipelines for playback.
 //
 // rate: The playback rate to use when determining how much data to load.
 //
 // completionHandler: A block to execute when the player finishes the load attempt. This block
-// takes a single Boolean parameter that contains [true] if the data was
-// loaded or [false] if there was a problem. For example, the value might be
-// [false] if the preroll was interrupted by a time change or incompatible
-// rate change.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// takes a single Boolean parameter that contains true if the data was loaded
+// or false if there was a problem. For example, the value might be false if
+// the preroll was interrupted by a time change or incompatible rate change.
 //
 // # Discussion
-// 
+//
 // This method loads data starting at the item’s current playback time. The
 // current rate for the playback item should always be 0 prior to calling this
 // method. After the method calls the completion handler, you can change the
 // item’s playback rate to begin playback.
-// 
+//
 // If the player object is not ready to play (its [Status] property is not
-// [PlayerStatusReadyToPlay]), this method throws an exception.
+// [AVPlayerStatusReadyToPlay]), this method throws an exception.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/preroll(atRate:completionHandler:)
 func (p AVPlayer) PrerollAtRateCompletionHandler(rate float32, completionHandler BoolHandler) {
-_block1, _ := NewBoolBlock(completionHandler)
+	_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("prerollAtRate:completionHandler:"), rate, _block1)
 }
+
 // Cancels any pending preroll requests and invokes the corresponding
 // completion handlers, if present.
 //
 // # Discussion
-// 
+//
 // This method cancels and releases the completion handlers for any pending
 // prerolls. The finished parameter of the completion handlers passed to
 // [PrerollAtRateCompletionHandler] will be set to `false`.
@@ -1128,7 +1154,7 @@ func (p AVPlayer) CancelPendingPrerolls() {
 // item: The player item to play.
 //
 // # Return Value
-// 
+//
 // A new player initialized to play `item`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/playerWithPlayerItem:
@@ -1136,18 +1162,19 @@ func (_AVPlayerClass AVPlayerClass) PlayerWithPlayerItem(item IAVPlayerItem) AVP
 	rv := objc.Send[objc.ID](objc.ID(_AVPlayerClass.class), objc.Sel("playerWithPlayerItem:"), item)
 	return AVPlayerFromID(rv)
 }
+
 // Returns a new player to play a single audiovisual resource referenced by a
 // given URL.
 //
 // URL: A URL that identifies an audiovisual resource.
 //
 // # Return Value
-// 
+//
 // A new player initialized to play the audiovisual resource specified by
 // [URL].
 //
 // # Discussion
-// 
+//
 // This method implicitly creates an [AVPlayerItem] object. You can get the
 // player item using [CurrentItem].
 //
@@ -1164,15 +1191,16 @@ func (p AVPlayer) CurrentItem() IAVPlayerItem {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentItem"))
 	return AVPlayerItemFromID(objc.ID(rv))
 }
+
 // A value that indicates the readiness of a player object for playback.
 //
 // # Discussion
-// 
-// If the value of this property is [PlayerStatusFailed], check the value of
+//
+// If the value of this property is [AVPlayerStatusFailed], check the value of
 // the player’s [Error] property to determine the nature of the failure. If
 // a player reaches a failed state, you can’t use it for playback, and
 // instead need to create a new instance.
-// 
+//
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/status-swift.property
@@ -1180,12 +1208,13 @@ func (p AVPlayer) Status() AVPlayerStatus {
 	rv := objc.Send[AVPlayerStatus](p.ID, objc.Sel("status"))
 	return AVPlayerStatus(rv)
 }
+
 // An error that caused a failure.
 //
 // # Discussion
-// 
+//
 // By default, this value is `nil`. If a player reaches a
-// [PlayerStatusFailed], the system populates this value with an error that
+// [AVPlayerStatusFailed], the system populates this value with an error that
 // describes the failure.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/error
@@ -1193,10 +1222,11 @@ func (p AVPlayer) Error() foundation.INSError {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
+
 // A default rate at which to begin playback.
 //
 // # Discussion
-// 
+//
 // This value represents the default playback rate the player uses when you
 // call its [Play] method. After playback begins, the rate may differ from the
 // default if you modify the player’s [Rate] value, such as by calling
@@ -1210,6 +1240,7 @@ func (p AVPlayer) DefaultRate() float32 {
 func (p AVPlayer) SetDefaultRate(value float32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDefaultRate:"), value)
 }
+
 // The current playback rate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/rate
@@ -1220,44 +1251,43 @@ func (p AVPlayer) Rate() float32 {
 func (p AVPlayer) SetRate(value float32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRate:"), value)
 }
+
 // A Boolean value that indicates whether the player should automatically
 // delay playback in order to minimize stalling.
 //
 // # Discussion
-// 
+//
 // When playing media delivered over HTTP, this property is used to determine
 // if the player should automatically delay playback in order to minimize
-// stalling. When this property is [true] and the player changes from a paused
+// stalling. When this property is true and the player changes from a paused
 // state ([Rate] of `0.0`) to a played state ([Rate] > `0.0`), the player will
 // try to determine if the current item can play to its end at the currently
 // specified rate. If it determines that it’s likely to encounter a stall,
 // the value of the player’s [TimeControlStatus] will change to
-// [PlayerTimeControlStatusWaitingToPlayAtSpecifiedRate] and playback will
+// [AVPlayerTimeControlStatusWaitingToPlayAtSpecifiedRate] and playback will
 // automatically start when the likelihood of stalling has been minimized. A
 // similar condition will occur during playback if the current player item’s
 // playback buffer is exhausted and playback stalls. Playback will
 // automatically resume when the likelihood of stalling has been minimized.
-// 
-// You will need to set this property to [false] when you require precise
+//
+// You will need to set this property to false when you require precise
 // control over playback start times, such as if you’re are synchronizing
 // multiple player instances using the [SetRateTimeAtHostTime] method. If the
-// value of this property is [false], playback will start immediately when
+// value of this property is false, playback will start immediately when
 // requested as long as the playback buffer is not empty. If the playback
 // buffer becomes empty and playback stalls, the player’s
-// [TimeControlStatus] will switch to [PlayerTimeControlStatusPaused] and the
-// playback rate will change to `0.0`.
-// 
-// Changing the value of this property to [false] while the player’s
+// [TimeControlStatus] will switch to [AVPlayerTimeControlStatusPaused] and
+// the playback rate will change to `0.0`.
+//
+// Changing the value of this property to false while the player’s
 // [TimeControlStatus] is
-// [PlayerTimeControlStatusWaitingToPlayAtSpecifiedRate] and its
+// [AVPlayerTimeControlStatusWaitingToPlayAtSpecifiedRate] and its
 // [ReasonForWaitingToPlay] is [toMinimizeStalls] will cause the player to
 // immediately attempt playback at the specified rate.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [toMinimizeStalls]: https://developer.apple.com/documentation/AVFoundation/AVPlayer/WaitingReason/toMinimizeStalls
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/automaticallyWaitsToMinimizeStalling
+//
+// [toMinimizeStalls]: https://developer.apple.com/documentation/AVFoundation/AVPlayer/WaitingReason/toMinimizeStalls
 func (p AVPlayer) AutomaticallyWaitsToMinimizeStalling() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("automaticallyWaitsToMinimizeStalling"))
 	return rv
@@ -1265,67 +1295,68 @@ func (p AVPlayer) AutomaticallyWaitsToMinimizeStalling() bool {
 func (p AVPlayer) SetAutomaticallyWaitsToMinimizeStalling(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAutomaticallyWaitsToMinimizeStalling:"), value)
 }
+
 // The reason the player is currently waiting for playback to begin or resume.
 //
 // # Discussion
-// 
+//
 // When the value of the player’s [TimeControlStatus] is
-// [PlayerTimeControlStatusWaitingToPlayAtSpecifiedRate], you can use this
+// [AVPlayerTimeControlStatusWaitingToPlayAtSpecifiedRate], you can use this
 // property determine the reason the player is currently waiting for playback
 // to begin or resume. Possible values for this property are:
-// 
+//
 // - [toMinimizeStalls]
 // - [noItemToPlay]
 // - [evaluatingBufferingRate]
-// 
+//
 // The value of this property will be `nil` if the player’s
 // [TimeControlStatus] is a value other than
-// [PlayerTimeControlStatusWaitingToPlayAtSpecifiedRate].
-// 
+// [AVPlayerTimeControlStatusWaitingToPlayAtSpecifiedRate].
+//
 // You can use the value of this property to conditionally show UI indicating
 // the player’s waiting state. This property is observable using key-value
 // observing.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/reasonForWaitingToPlay
+//
 // [evaluatingBufferingRate]: https://developer.apple.com/documentation/AVFoundation/AVPlayer/WaitingReason/evaluatingBufferingRate
 // [noItemToPlay]: https://developer.apple.com/documentation/AVFoundation/AVPlayer/WaitingReason/noItemToPlay
 // [toMinimizeStalls]: https://developer.apple.com/documentation/AVFoundation/AVPlayer/WaitingReason/toMinimizeStalls
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/reasonForWaitingToPlay
 func (p AVPlayer) ReasonForWaitingToPlay() AVPlayerWaitingReason {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("reasonForWaitingToPlay"))
 	return AVPlayerWaitingReason(foundation.NSStringFromID(rv).String())
 }
+
 // A value that indicates whether playback is in progress, paused
 // indefinitely, or waiting for network conditions to improve.
 //
 // # Discussion
-// 
-// When the value of [AutomaticallyWaitsToMinimizeStalling] is [true], the
-// player waits until your app resumes playback.
-// 
-// During playback, the value of the property changes between
-// [PlayerTimeControlStatusPlaying] and
-// [PlayerTimeControlStatusWaitingToPlayAtSpecifiedRate] depending on whether
-// the player has sufficient media data to continue playback.
-// 
-// This property is key-value observable.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of [AutomaticallyWaitsToMinimizeStalling] is true, the
+// player waits until your app resumes playback.
+//
+// During playback, the value of the property changes between
+// [AVPlayerTimeControlStatusPlaying] and
+// [AVPlayerTimeControlStatusWaitingToPlayAtSpecifiedRate] depending on
+// whether the player has sufficient media data to continue playback.
+//
+// This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/timeControlStatus-swift.property
 func (p AVPlayer) TimeControlStatus() AVPlayerTimeControlStatus {
 	rv := objc.Send[AVPlayerTimeControlStatus](p.ID, objc.Sel("timeControlStatus"))
 	return AVPlayerTimeControlStatus(rv)
 }
+
 // The action to perform when the current player item has finished playing.
 //
 // # Discussion
-// 
+//
 // For possible values, see [AVPlayer.ActionAtItemEnd].
 //
-// [AVPlayer.ActionAtItemEnd]: https://developer.apple.com/documentation/AVFoundation/AVPlayer/ActionAtItemEnd-swift.enum
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/actionAtItemEnd-swift.property
+//
+// [AVPlayer.ActionAtItemEnd]: https://developer.apple.com/documentation/AVFoundation/AVPlayer/ActionAtItemEnd-swift.enum
 func (p AVPlayer) ActionAtItemEnd() AVPlayerActionAtItemEnd {
 	rv := objc.Send[AVPlayerActionAtItemEnd](p.ID, objc.Sel("actionAtItemEnd"))
 	return AVPlayerActionAtItemEnd(rv)
@@ -1333,11 +1364,12 @@ func (p AVPlayer) ActionAtItemEnd() AVPlayerActionAtItemEnd {
 func (p AVPlayer) SetActionAtItemEnd(value AVPlayerActionAtItemEnd) {
 	objc.Send[struct{}](p.ID, objc.Sel("setActionAtItemEnd:"), value)
 }
+
 // A Boolean value that indicates whether the receiver should apply the
 // current selection criteria automatically to player items.
 //
 // # Discussion
-// 
+//
 // By default, the [AVPlayer] instance applies selection criteria based on
 // system accessibility preferences. To override the default criteria for any
 // media selection group, use
@@ -1351,10 +1383,11 @@ func (p AVPlayer) AppliesMediaSelectionCriteriaAutomatically() bool {
 func (p AVPlayer) SetAppliesMediaSelectionCriteriaAutomatically(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAppliesMediaSelectionCriteriaAutomatically:"), value)
 }
+
 // The video output for this player.
 //
 // # Discussion
-// 
+//
 // The value of this property is `nil` by default.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/videoOutput
@@ -1365,21 +1398,22 @@ func (p AVPlayer) VideoOutput() IAVPlayerVideoOutput {
 func (p AVPlayer) SetVideoOutput(value IAVPlayerVideoOutput) {
 	objc.Send[struct{}](p.ID, objc.Sel("setVideoOutput:"), value)
 }
+
 // The audio playback volume for the player.
 //
 // # Discussion
-// 
+//
 // A value of `0.0` indicates silence; a value of `1.0` (the default)
 // indicates full audio volume for the player instance.
-// 
+//
 // This property is used to control the player audio volume relative to the
 // system volume. There is no programmatic way to control the system volume in
 // iOS, but you can use the MediaPlayer framework’s [MPVolumeView] class to
 // present a standard user interface for controlling system volume.
 //
-// [MPVolumeView]: https://developer.apple.com/documentation/MediaPlayer/MPVolumeView
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/volume
+//
+// [MPVolumeView]: https://developer.apple.com/documentation/MediaPlayer/MPVolumeView
 func (p AVPlayer) Volume() float32 {
 	rv := objc.Send[float32](p.ID, objc.Sel("volume"))
 	return rv
@@ -1387,6 +1421,7 @@ func (p AVPlayer) Volume() float32 {
 func (p AVPlayer) SetVolume(value float32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setVolume:"), value)
 }
+
 // A Boolean value that indicates whether the audio output of the player is
 // muted.
 //
@@ -1398,6 +1433,7 @@ func (p AVPlayer) Muted() bool {
 func (p AVPlayer) SetMuted(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMuted:"), value)
 }
+
 // The source audio channel layouts the player item supports for
 // spatialization.
 //
@@ -1409,6 +1445,7 @@ func (p AVPlayer) AllowedAudioSpatializationFormats() AVAudioSpatializationForma
 func (p AVPlayer) SetAllowedAudioSpatializationFormats(value AVAudioSpatializationFormats) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAllowedAudioSpatializationFormats:"), value)
 }
+
 // A Boolean value that indicates whether the player item allows spatialized
 // audio playback.
 //
@@ -1420,6 +1457,7 @@ func (p AVPlayer) IsAudioSpatializationAllowed() bool {
 func (p AVPlayer) SetIsAudioSpatializationAllowed(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAudioSpatializationAllowed:"), value)
 }
+
 // A policy that determines how playback of audiovisual media continues when
 // the app transitions to the background.
 //
@@ -1431,14 +1469,13 @@ func (p AVPlayer) AudiovisualBackgroundPlaybackPolicy() AVPlayerAudiovisualBackg
 func (p AVPlayer) SetAudiovisualBackgroundPlaybackPolicy(value AVPlayerAudiovisualBackgroundPlaybackPolicy) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAudiovisualBackgroundPlaybackPolicy:"), value)
 }
+
 // A Boolean value that indicates whether the player allows switching to
 // external playback mode.
 //
 // # Discussion
-// 
-// The default value of this property is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/allowsExternalPlayback
 func (p AVPlayer) AllowsExternalPlayback() bool {
@@ -1448,6 +1485,7 @@ func (p AVPlayer) AllowsExternalPlayback() bool {
 func (p AVPlayer) SetAllowsExternalPlayback(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAllowsExternalPlayback:"), value)
 }
+
 // A Boolean value that indicates whether the player is currently playing
 // video in external playback mode.
 //
@@ -1456,6 +1494,7 @@ func (p AVPlayer) ExternalPlaybackActive() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isExternalPlaybackActive"))
 	return rv
 }
+
 // The playback coordinator for the player.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/playbackCoordinator
@@ -1463,10 +1502,11 @@ func (p AVPlayer) PlaybackCoordinator() IAVPlayerPlaybackCoordinator {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("playbackCoordinator"))
 	return AVPlayerPlaybackCoordinatorFromID(objc.ID(rv))
 }
+
 // A clock the player uses for item time bases.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`. Setting an explicit source clock is useful to
 // synchronize video-only movies with audio that plays through a different
 // audio device.
@@ -1479,10 +1519,11 @@ func (p AVPlayer) SourceClock() uintptr {
 func (p AVPlayer) SetSourceClock(value uintptr) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSourceClock:"), value)
 }
+
 // The host clock for item time bases.
 //
 // # Discussion
-// 
+//
 // The default value of this property is [NULL], which means that the host
 // clock is the automatic choice. When non-[NULL], this property overrides the
 // automatic choice of host clock for item time bases. This is most useful
@@ -1497,20 +1538,18 @@ func (p AVPlayer) MasterClock() uintptr {
 func (p AVPlayer) SetMasterClock(value uintptr) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMasterClock:"), value)
 }
+
 // A Boolean value that indicates whether video playback prevents display and
 // device sleep.
 //
 // # Discussion
-// 
-// The default value is [true] in iOS, tvOS and Mac Catalyst apps, and [false]
-// in macOS.
-// 
-// Setting this property to [false] doesn’t force the display to sleep, it
+//
+// The default value is true in iOS, tvOS and Mac Catalyst apps, and false in
+// macOS.
+//
+// Setting this property to false doesn’t force the display to sleep, it
 // only stops preventing display sleep. Other apps, or frameworks within your
 // app may still prevent display sleep for various reasons.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/preventsDisplaySleepDuringVideoPlayback
 func (p AVPlayer) PreventsDisplaySleepDuringVideoPlayback() bool {
@@ -1520,45 +1559,45 @@ func (p AVPlayer) PreventsDisplaySleepDuringVideoPlayback() bool {
 func (p AVPlayer) SetPreventsDisplaySleepDuringVideoPlayback(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPreventsDisplaySleepDuringVideoPlayback:"), value)
 }
+
 // A Boolean value that indicates whether output is being obscured because of
 // insufficient external protection.
 //
 // # Discussion
-// 
+//
 // Items that incorporate copy protection or other forms of security might
 // have their visual content obscured by the player object if the current
 // device configuration does not meet the requirements for protecting the
 // item. This property reports whether the player is currently obscuring the
 // item. If the current item does not require external protection or if the
 // device configuration sufficiently protects the item, the value of this
-// property is set to [false].
-// 
+// property is set to false.
+//
 // You can use this property to determine whether to change your app’s user
 // interface to reflect the change in visibility. You can observe changes to
 // the value of this property using key-value observing.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/isOutputObscuredDueToInsufficientExternalProtection
 func (p AVPlayer) OutputObscuredDueToInsufficientExternalProtection() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("outputObscuredDueToInsufficientExternalProtection"))
 	return rv
 }
+
 // Specifies the unique ID of the Core Audio output device used to play audio.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `nil`, indicating that the default
 // audio output device is used. Otherwise the value of this property is a
 // string containing the unique ID of the Core Audio output device to be used
 // for audio output.
-// 
+//
 // Core Audio’s [kAudioDevicePropertyDeviceUID] is a suitable source of
 // audio output device unique IDs.
 //
-// [kAudioDevicePropertyDeviceUID]: https://developer.apple.com/documentation/CoreAudio/kAudioDevicePropertyDeviceUID
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/audioOutputDeviceUniqueID
+//
+// [kAudioDevicePropertyDeviceUID]: https://developer.apple.com/documentation/CoreAudio/kAudioDevicePropertyDeviceUID
 func (p AVPlayer) AudioOutputDeviceUniqueID() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("audioOutputDeviceUniqueID"))
 	return foundation.NSStringFromID(rv).String()
@@ -1566,10 +1605,11 @@ func (p AVPlayer) AudioOutputDeviceUniqueID() string {
 func (p AVPlayer) SetAudioOutputDeviceUniqueID(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAudioOutputDeviceUniqueID:"), objc.String(value))
 }
+
 // The registry identifier for the GPU used for video decoding.
 //
 // # Discussion
-// 
+//
 // By default, whenever possible, the GPU associated with the display
 // presenting the [CALayer] performs the video decoding. Decode transitions to
 // a new GPU, if appropriate, when the [CALayer] moves to a new display. This
@@ -1578,11 +1618,11 @@ func (p AVPlayer) SetAudioOutputDeviceUniqueID(value string) {
 // associated [CALayer]. Obtain the GPU registry ID from the GPU [MTLDevice]
 // using [registryID] or from OpenGL or OpenCL.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/preferredVideoDecoderGPURegistryID
+//
 // [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
 // [MTLDevice]: https://developer.apple.com/documentation/Metal/MTLDevice
 // [registryID]: https://developer.apple.com/documentation/Metal/MTLDevice/registryID
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/preferredVideoDecoderGPURegistryID
 func (p AVPlayer) PreferredVideoDecoderGPURegistryID() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("preferredVideoDecoderGPURegistryID"))
 	return rv
@@ -1590,11 +1630,12 @@ func (p AVPlayer) PreferredVideoDecoderGPURegistryID() uint64 {
 func (p AVPlayer) SetPreferredVideoDecoderGPURegistryID(value uint64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPreferredVideoDecoderGPURegistryID:"), value)
 }
+
 // Indicates the priority of this player for network bandwidth resource
 // distribution.
 //
 // # Discussion
-// 
+//
 // This value determines the priority of the player during network resource
 // allocation among all other players within the same application process. The
 // default value for this is AVPlayerNetworkResourcePriorityDefault.
@@ -1608,11 +1649,32 @@ func (p AVPlayer) SetNetworkResourcePriority(value AVPlayerNetworkResourcePriori
 	objc.Send[struct{}](p.ID, objc.Sel("setNetworkResourcePriority:"), value)
 }
 
+// Indicates whether the video output of ClearKey Encrypted Video can be
+// captured
+//
+// # Discussion
+//
+// When set to YES, and the video being played by AVPlayer is Clear Key
+// encrypted, allows video to be captured in screenshots and screen
+// recordings, and via APIs like AVPlayerItemVideoOutput and ScreenCaptureKit.
+// When NO, Clear Key encrypted video will not be included in such captured
+// video. This property has no effect on content protected by FairPlay
+// Streaming. Default is NO.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/allowsCaptureOfClearKeyVideo
+func (p AVPlayer) AllowsCaptureOfClearKeyVideo() bool {
+	rv := objc.Send[bool](p.ID, objc.Sel("allowsCaptureOfClearKeyVideo"))
+	return rv
+}
+func (p AVPlayer) SetAllowsCaptureOfClearKeyVideo(value bool) {
+	objc.Send[struct{}](p.ID, objc.Sel("setAllowsCaptureOfClearKeyVideo:"), value)
+}
+
 // A Boolean value that indicates whether the current device can present
 // content to an HDR display.
 //
 // # Discussion
-// 
+//
 // This property is not key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/eligibleForHDRPlayback
@@ -1620,11 +1682,12 @@ func (_AVPlayerClass AVPlayerClass) EligibleForHDRPlayback() bool {
 	rv := objc.Send[bool](objc.ID(_AVPlayerClass.class), objc.Sel("eligibleForHDRPlayback"))
 	return rv
 }
+
 // AVPlayer and other AVFoundation types can optionally be observed using
 // Swift Observation.
 //
 // # Discussion
-// 
+//
 // When set to YES, new instances of AVPlayer, AVQueuePlayer, AVPlayerItem,
 // and AVPlayerItemTrack are observable with Swift Observation. The default
 // value is NO (not observable). An exception is thrown if this property is
@@ -1632,7 +1695,7 @@ func (_AVPlayerClass AVPlayerClass) EligibleForHDRPlayback() bool {
 // NO after any observable objects are initialized. In other words, all
 // objects of these types must either be observable or not observable in an
 // application instance.
-// 
+//
 // For more information regarding management of class objects in SwiftUI,
 // please refer to https://developer.apple.com/documentation/swiftui/state.
 //
@@ -1719,4 +1782,3 @@ func (p AVPlayer) PrerollAtRate(ctx context.Context, rate float32) (bool, error)
 		return false, ctx.Err()
 	}
 }
-

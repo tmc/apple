@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type AVDateRangeMetadataGroup struct {
 func AVDateRangeMetadataGroupFromID(id objc.ID) AVDateRangeMetadataGroup {
 	return AVDateRangeMetadataGroup{AVMetadataGroup: AVMetadataGroupFromID(id)}
 }
+
 // NOTE: AVDateRangeMetadataGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,11 +128,11 @@ func NewAVDateRangeMetadataGroup() AVDateRangeMetadataGroup {
 // endDate: The ending date for the group of metadata items.
 //
 // # Return Value
-// 
+//
 // A new instance of [AVDateRangeMetadataGroup].
 //
 // # Discussion
-// 
+//
 // Creates a new instance of [AVDateRangeMetadataGroup] with the specified
 // collection of metadata items. The `startDate` and `endDate` arguments
 // define the effective time range on the timeline to which the metadata
@@ -153,11 +155,11 @@ func NewDateRangeMetadataGroupWithItemsStartDateEndDate(items []AVMetadataItem, 
 // endDate: The ending date for the group of metadata items.
 //
 // # Return Value
-// 
+//
 // A new instance of [AVDateRangeMetadataGroup].
 //
 // # Discussion
-// 
+//
 // Creates a new instance of [AVDateRangeMetadataGroup] with the specified
 // collection of metadata items. The `startDate` and `endDate` arguments
 // define the effective time range on the timeline to which the metadata
@@ -172,7 +174,7 @@ func (d AVDateRangeMetadataGroup) InitWithItemsStartDateEndDate(items []AVMetada
 // The start date for the metadata date range group.
 //
 // # Discussion
-// 
+//
 // The `startDate` defines the starting date on the timeline for which the
 // associated metadata is valid.
 //
@@ -181,10 +183,11 @@ func (d AVDateRangeMetadataGroup) StartDate() foundation.INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("startDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
+
 // The end date for the metadata date range group.
 //
 // # Discussion
-// 
+//
 // The `endDate` defines the ending date on the timeline for which the
 // associated metadata is valid.
 //
@@ -193,4 +196,3 @@ func (d AVDateRangeMetadataGroup) EndDate() foundation.INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("endDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-

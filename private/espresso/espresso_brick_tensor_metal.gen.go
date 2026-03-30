@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (ec EspressoBrickTensorMetalClass) Alloc() EspressoBrickTensorMetal {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoBrickTensorMetal.Texture]
 //   - [EspressoBrickTensorMetal.SetTexture]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorMetal
 type EspressoBrickTensorMetal struct {
 	EspressoBrickTensor
@@ -55,6 +56,7 @@ type EspressoBrickTensorMetal struct {
 func EspressoBrickTensorMetalFromID(id objc.ID) EspressoBrickTensorMetal {
 	return EspressoBrickTensorMetal{EspressoBrickTensor: EspressoBrickTensorFromID(id)}
 }
+
 // Ensure EspressoBrickTensorMetal implements IEspressoBrickTensorMetal.
 var _ IEspressoBrickTensorMetal = EspressoBrickTensorMetal{}
 
@@ -102,4 +104,3 @@ func (e EspressoBrickTensorMetal) Texture() objectivec.IObject {
 func (e EspressoBrickTensorMetal) SetTexture(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setTexture:"), value)
 }
-

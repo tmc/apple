@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,20 +44,20 @@ func (uc UnitAccelerationClass) Alloc() UnitAcceleration {
 // A unit of measure for acceleration.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitAcceleration] to represent specific
 // quantities of acceleration using the [NSMeasurement] class.
-// 
+//
 // # Acceleration
-// 
+//
 // Acceleration is the rate of change of velocity. Acceleration can be
 // expressed by SI derived units in terms of meters per second squared (m/s2).
-// 
+//
 // The [NSUnitAcceleration] class defines its [BaseUnit] as
 // [MetersPerSecondSquared], and provides the following units, which are
 // initialized using [NSUnitConverterLinear] converters with the specified
 // coefficients:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAcceleration
@@ -73,6 +74,7 @@ func UnitAccelerationFromID(id objc.ID) UnitAcceleration {
 
 // NSUnitAccelerationFromID is an alias for [UnitAccelerationFromID] for cross-framework compatibility.
 func NSUnitAccelerationFromID(id objc.ID) UnitAcceleration { return UnitAccelerationFromID(id) }
+
 // NOTE: UnitAcceleration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -102,7 +104,6 @@ func NewUnitAcceleration() UnitAcceleration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitAccelerationWithCoder(coder INSCoder) UnitAcceleration {
 	instance := getUnitAccelerationClass().Alloc()
@@ -115,7 +116,7 @@ func NewUnitAccelerationWithCoder(coder INSCoder) UnitAcceleration {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -134,11 +135,11 @@ func NewUnitAccelerationWithSymbol(symbol string) UnitAcceleration {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -155,6 +156,7 @@ func (_UnitAccelerationClass UnitAccelerationClass) MetersPerSecondSquared() Uni
 	rv := objc.Send[objc.ID](objc.ID(_UnitAccelerationClass.class), objc.Sel("metersPerSecondSquared"))
 	return NSUnitAccelerationFromID(objc.ID(rv))
 }
+
 // Returns the gravity unit of acceleration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAcceleration/gravity
@@ -162,4 +164,3 @@ func (_UnitAccelerationClass UnitAccelerationClass) Gravity() UnitAcceleration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAccelerationClass.class), objc.Sel("gravity"))
 	return NSUnitAccelerationFromID(objc.ID(rv))
 }
-

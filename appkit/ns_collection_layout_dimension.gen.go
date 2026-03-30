@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,20 +46,20 @@ func (nc NSCollectionLayoutDimensionClass) Alloc() NSCollectionLayoutDimension {
 // collection view.
 //
 // # Overview
-// 
+//
 // Each item in a collection view has an explicit width dimension and height
 // dimension, which combine to define the item’s size
 // ([NSCollectionLayoutSize]).
-// 
+//
 // You can express an item’s dimensions using an absolute, estimated, or
 // fractional value.
-// 
+//
 // Use an to specify exact dimensions, like a 44 x 44 point square:
-// 
+//
 // Use an if the size of your content might change at runtime, such as when
 // data is loaded or in response to a change in system font size. You provide
 // an initial estimated size and the system computes the actual value later.
-// 
+//
 // Use a to define a value that’s relative to a dimension of the item’s
 // container. This option simplifies specifying aspect ratios. For example,
 // the following item has a width and a height that are both equal to 20% of
@@ -88,6 +89,7 @@ type NSCollectionLayoutDimension struct {
 func NSCollectionLayoutDimensionFromID(id objc.ID) NSCollectionLayoutDimension {
 	return NSCollectionLayoutDimension{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSCollectionLayoutDimension adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -151,10 +153,11 @@ func (_NSCollectionLayoutDimensionClass NSCollectionLayoutDimensionClass) Absolu
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutDimensionClass.class), objc.Sel("absoluteDimension:"), absoluteDimension)
 	return NSCollectionLayoutDimensionFromID(rv)
 }
+
 // Creates a dimension with an estimated point value.
 //
 // # Discussion
-// 
+//
 // The final size of the dimension is determined when the content is rendered.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutDimension/estimated(_:)
@@ -162,6 +165,7 @@ func (_NSCollectionLayoutDimensionClass NSCollectionLayoutDimensionClass) Estima
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutDimensionClass.class), objc.Sel("estimatedDimension:"), estimatedDimension)
 	return NSCollectionLayoutDimensionFromID(rv)
 }
+
 // Creates a dimension that is computed as a fraction of the height of the
 // containing group.
 //
@@ -170,6 +174,7 @@ func (_NSCollectionLayoutDimensionClass NSCollectionLayoutDimensionClass) Fracti
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutDimensionClass.class), objc.Sel("fractionalHeightDimension:"), fractionalHeight)
 	return NSCollectionLayoutDimensionFromID(rv)
 }
+
 // Creates a dimension that is computed as a fraction of the width of the
 // containing group.
 //
@@ -186,6 +191,7 @@ func (c NSCollectionLayoutDimension) Dimension() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("dimension"))
 	return rv
 }
+
 // A Boolean value that indicates whether the dimension is expressed as an
 // absolute value.
 //
@@ -194,6 +200,7 @@ func (c NSCollectionLayoutDimension) IsAbsolute() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAbsolute"))
 	return rv
 }
+
 // A Boolean value that indicates whether the dimension is expressed as an
 // estimated value.
 //
@@ -202,6 +209,7 @@ func (c NSCollectionLayoutDimension) IsEstimated() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEstimated"))
 	return rv
 }
+
 // A Boolean value that indicates whether the dimension is expressed as a
 // fraction of its container’s height.
 //
@@ -210,6 +218,7 @@ func (c NSCollectionLayoutDimension) IsFractionalHeight() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFractionalHeight"))
 	return rv
 }
+
 // A Boolean value that indicates whether the dimension is expressed as a
 // fraction of its container’s width.
 //
@@ -218,4 +227,3 @@ func (c NSCollectionLayoutDimension) IsFractionalWidth() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFractionalWidth"))
 	return rv
 }
-

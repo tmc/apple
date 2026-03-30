@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechTTSSQLiteReader struct {
 func TextToSpeechTTSSQLiteReaderFromID(id objc.ID) TextToSpeechTTSSQLiteReader {
 	return TextToSpeechTTSSQLiteReader{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechTTSSQLiteReader struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechTTSSQLiteReader embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechTTSSQLiteReader() TextToSpeechTTSSQLiteReader {
 	rv := objc.Send[TextToSpeechTTSSQLiteReader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

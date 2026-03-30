@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,6 +53,7 @@ type MLNeuralNetworkV1Container struct {
 func MLNeuralNetworkV1ContainerFromID(id objc.ID) MLNeuralNetworkV1Container {
 	return MLNeuralNetworkV1Container{MLNeuralNetworkContainer: MLNeuralNetworkContainerFromID(id)}
 }
+
 // Ensure MLNeuralNetworkV1Container implements IMLNeuralNetworkV1Container.
 var _ IMLNeuralNetworkV1Container = MLNeuralNetworkV1Container{}
 
@@ -81,7 +83,6 @@ func NewMLNeuralNetworkV1Container() MLNeuralNetworkV1Container {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:
 func NewNeuralNetworkV1ContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLNeuralNetworkV1Container {
 	instance := getMLNeuralNetworkV1ContainerClass().Alloc()
@@ -89,7 +90,6 @@ func NewNeuralNetworkV1ContainerWithFeatureDescriptionsModelDescriptionOutputLay
 	return MLNeuralNetworkV1ContainerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:
 func NewNeuralNetworkV1ContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLNeuralNetworkV1Container {
 	instance := getMLNeuralNetworkV1ContainerClass().Alloc()
@@ -97,7 +97,6 @@ func NewNeuralNetworkV1ContainerWithFeatureDescriptionsModelDescriptionOutputLay
 	return MLNeuralNetworkV1ContainerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkContainer/initWithFilePath:inputLayerNames:outputLayerNames:parameters:
 func NewNeuralNetworkV1ContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLNeuralNetworkV1Container {
 	instance := getMLNeuralNetworkV1ContainerClass().Alloc()
@@ -105,7 +104,6 @@ func NewNeuralNetworkV1ContainerWithFilePathInputLayerNamesOutputLayerNamesParam
 	return MLNeuralNetworkV1ContainerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkV1Container/readerFromArchive:error:
 func (_MLNeuralNetworkV1ContainerClass MLNeuralNetworkV1ContainerClass) ReaderFromArchiveError(archive unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -117,4 +115,3 @@ func (_MLNeuralNetworkV1ContainerClass MLNeuralNetworkV1ContainerClass) ReaderFr
 	return objectivec.Object{ID: rv}, nil
 
 }
-

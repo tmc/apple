@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLDelegateUpdatableModelClass) Alloc() MLDelegateUpdatableModel {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLDelegateUpdatableModel.CancelUpdate]
@@ -55,6 +55,7 @@ func (mc MLDelegateUpdatableModelClass) Alloc() MLDelegateUpdatableModel {
 //   - [MLDelegateUpdatableModel.UpdateModelWithData]
 //   - [MLDelegateUpdatableModel.WriteToURLError]
 //   - [MLDelegateUpdatableModel.Metadata]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel
 type MLDelegateUpdatableModel struct {
 	MLDelegateModel
@@ -64,6 +65,7 @@ type MLDelegateUpdatableModel struct {
 func MLDelegateUpdatableModelFromID(id objc.ID) MLDelegateUpdatableModel {
 	return MLDelegateUpdatableModel{MLDelegateModel: MLDelegateModelFromID(id)}
 }
+
 // Ensure MLDelegateUpdatableModel implements IMLDelegateUpdatableModel.
 var _ IMLDelegateUpdatableModel = MLDelegateUpdatableModel{}
 
@@ -115,7 +117,6 @@ func NewMLDelegateUpdatableModel() MLDelegateUpdatableModel {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewDelegateUpdatableModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLDelegateUpdatableModel, error) {
 	var errorPtr objc.ID
@@ -128,7 +129,6 @@ func NewDelegateUpdatableModelDescriptionOnlyWithSpecificationConfigurationError
 	return MLDelegateUpdatableModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewDelegateUpdatableModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLDelegateUpdatableModel, error) {
 	var errorPtr objc.ID
@@ -141,7 +141,6 @@ func NewDelegateUpdatableModelInterfaceAndMetadataWithCompiledArchiveError(archi
 	return MLDelegateUpdatableModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewDelegateUpdatableModelWithConfiguration(configuration objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
@@ -149,7 +148,6 @@ func NewDelegateUpdatableModelWithConfiguration(configuration objectivec.IObject
 	return MLDelegateUpdatableModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewDelegateUpdatableModelWithDescription(description objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
@@ -157,7 +155,6 @@ func NewDelegateUpdatableModelWithDescription(description objectivec.IObject) ML
 	return MLDelegateUpdatableModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewDelegateUpdatableModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
@@ -165,7 +162,6 @@ func NewDelegateUpdatableModelWithDescriptionConfiguration(description objective
 	return MLDelegateUpdatableModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/initWithEngine:error:
 func NewDelegateUpdatableModelWithEngineError(engine objectivec.IObject) (MLDelegateUpdatableModel, error) {
 	var errorPtr objc.ID
@@ -178,7 +174,6 @@ func NewDelegateUpdatableModelWithEngineError(engine objectivec.IObject) (MLDele
 	return MLDelegateUpdatableModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewDelegateUpdatableModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
@@ -190,27 +185,28 @@ func NewDelegateUpdatableModelWithNameInputDescriptionOutputDescriptionOrderedIn
 func (d MLDelegateUpdatableModel) CancelUpdate() {
 	objc.Send[objc.ID](d.ID, objc.Sel("cancelUpdate"))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/resumeUpdate
 func (d MLDelegateUpdatableModel) ResumeUpdate() {
 	objc.Send[objc.ID](d.ID, objc.Sel("resumeUpdate"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/resumeUpdateWithParameters:
 func (d MLDelegateUpdatableModel) ResumeUpdateWithParameters(parameters objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/setUpdateProgressHandlers:dispatchQueue:
 func (d MLDelegateUpdatableModel) SetUpdateProgressHandlersDispatchQueue(handlers ErrorHandler, queue objectivec.IObject) {
-_block0, _ := NewErrorBlock(handlers)
+	_block0, _ := NewErrorBlock(handlers)
 	objc.Send[objc.ID](d.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), _block0, queue)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/updateModelWithData:
 func (d MLDelegateUpdatableModel) UpdateModelWithData(data objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("updateModelWithData:"), data)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/writeToURL:error:
 func (d MLDelegateUpdatableModel) WriteToURLError(url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -226,7 +222,6 @@ func (d MLDelegateUpdatableModel) WriteToURLError(url foundation.INSURL) (bool, 
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLDelegateUpdatableModelClass MLDelegateUpdatableModelClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -244,9 +239,9 @@ func (d MLDelegateUpdatableModel) Metadata() IMLModelMetadata {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLDelegateUpdatableModel/updatableEngine
 func (d MLDelegateUpdatableModel) UpdatableEngine() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("updatableEngine"))
 	return objectivec.Object{ID: rv}
 }
-

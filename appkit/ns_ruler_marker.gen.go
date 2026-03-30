@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (nc NSRulerMarkerClass) Alloc() NSRulerMarker {
 // represents in the client of the ruler view.
 //
 // # Overview
-// 
+//
 // An example of a marker is the representation of a margin or tab setting, or
 // the edges of a graphic on the page.
 //
@@ -107,6 +108,7 @@ type NSRulerMarker struct {
 func NSRulerMarkerFromID(id objc.ID) NSRulerMarker {
 	return NSRulerMarker{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSRulerMarker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -239,7 +241,6 @@ func NewNSRulerMarker() NSRulerMarker {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/init(coder:)
 func NewRulerMarkerWithCoder(coder foundation.INSCoder) NSRulerMarker {
 	instance := getNSRulerMarkerClass().Alloc()
@@ -263,25 +264,25 @@ func NewRulerMarkerWithCoder(coder foundation.INSCoder) NSRulerMarker {
 // pixels relative to the lower-left corner of the image.
 //
 // # Return Value
-// 
+//
 // An initialized ruler marker object.
 //
 // # Discussion
-// 
+//
 // The image used to draw the marker must be appropriate for the orientation
 // of the ruler. Markers may need to look different on a horizontal ruler than
 // on a vertical ruler, and the ruler view neither scales nor rotates the
 // images.
-// 
+//
 // To add the new ruler marker to `aRulerView`, use either of NSRulerView’s
 // [AddMarker] or [TrackMarkerWithMouseEvent] methods. [AddMarker] immediately
 // puts the marker on the ruler, while [TrackMarkerWithMouseEvent] allows the
 // client view to intercede in the addition and placement of the marker.
-// 
+//
 // A new ruler marker can be moved on its ruler view, but not removed. Use
 // [Movable] and [Removable] to change these attributes. The new ruler marker
 // also has no represented object; use [RepresentedObject] to set one.
-// 
+//
 // This method is the designated initializer for the NSRulerMarker class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/init(rulerView:markerLocation:image:imageOrigin:)
@@ -307,25 +308,25 @@ func NewRulerMarkerWithRulerViewMarkerLocationImageImageOrigin(ruler INSRulerVie
 // pixels relative to the lower-left corner of the image.
 //
 // # Return Value
-// 
+//
 // An initialized ruler marker object.
 //
 // # Discussion
-// 
+//
 // The image used to draw the marker must be appropriate for the orientation
 // of the ruler. Markers may need to look different on a horizontal ruler than
 // on a vertical ruler, and the ruler view neither scales nor rotates the
 // images.
-// 
+//
 // To add the new ruler marker to `aRulerView`, use either of NSRulerView’s
 // [AddMarker] or [TrackMarkerWithMouseEvent] methods. [AddMarker] immediately
 // puts the marker on the ruler, while [TrackMarkerWithMouseEvent] allows the
 // client view to intercede in the addition and placement of the marker.
-// 
+//
 // A new ruler marker can be moved on its ruler view, but not removed. Use
 // [Movable] and [Removable] to change these attributes. The new ruler marker
 // also has no represented object; use [RepresentedObject] to set one.
-// 
+//
 // This method is the designated initializer for the NSRulerMarker class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/init(rulerView:markerLocation:image:imageOrigin:)
@@ -333,6 +334,7 @@ func (r NSRulerMarker) InitWithRulerViewMarkerLocationImageImageOrigin(ruler INS
 	rv := objc.Send[NSRulerMarker](r.ID, objc.Sel("initWithRulerView:markerLocation:image:imageOrigin:"), ruler, location, image, imageOrigin)
 	return rv
 }
+
 // Draws the receiver’s image that appears in the supplied rectangle.
 //
 // rect: The rectangle to be drawn, in the ruler view’s coordinate system.
@@ -341,81 +343,74 @@ func (r NSRulerMarker) InitWithRulerViewMarkerLocationImageImageOrigin(ruler INS
 func (r NSRulerMarker) DrawRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](r.ID, objc.Sel("drawRect:"), rect)
 }
+
 // Handles user manipulation of the receiver in its ruler view.
 //
 // mouseDownEvent: The event that represents the user manipulation being attempted on the
 // ruler marker.
 //
-// isAdding: [true] to indicate that the receiver is a new marker being added to its
-// ruler view, [false] otherwise.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// isAdding: true to indicate that the receiver is a new marker being added to its ruler
+// view, false otherwise.
 //
 // # Return Value
-// 
-// [true] if the user manipulation was allowed, [false] if it was not allowed.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the user manipulation was allowed, false if it was not allowed.
 //
 // # Discussion
-// 
+//
 // [NSRulerView] objects invoke this method automatically to add a new marker
 // or to move or remove an existing marker. You should never need to invoke it
 // directly.
-// 
+//
 // If the receiver is a new marker being added to its ruler view (`flag` is
-// [true]), the receiver queries the ruler view’s client before adding
-// itself to the ruler view. If the client responds to
-// [RulerViewShouldAddMarker] and that method returns [false], this method
-// immediately returns [false], and the new marker isn’t added.
-// 
+// true), the receiver queries the ruler view’s client before adding itself
+// to the ruler view. If the client responds to [RulerViewShouldAddMarker] and
+// that method returns false, this method immediately returns false, and the
+// new marker isn’t added.
+//
 // If the receiver is not a new marker being added to its ruler view (`flag`
-// is [false]), this method attempts to move or remove an existing marker,
-// once again based on responses from the ruler view’s client view. If the
+// is false), this method attempts to move or remove an existing marker, once
+// again based on responses from the ruler view’s client view. If the
 // receiver is neither movable nor removable, this method immediately returns
-// [false]. Further, if the ruler view’s client responds to
-// [RulerViewShouldMoveMarker] and returns [false], this method returns
-// [false], indicating the receiver can’t be moved.
-// 
+// false. Further, if the ruler view’s client responds to
+// [RulerViewShouldMoveMarker] and returns false, this method returns false,
+// indicating the receiver can’t be moved.
+//
 // If the receiver is being added or moved, this method queries the client
 // view using [RulerViewWillAddMarkerAtLocation] or
 // [RulerViewWillMoveMarkerToLocation], respectively. If the client responds
 // to the method, the return value is used as the receiver’s location. These
 // methods are invoked repeatedly as the receiver is dragged within the ruler
 // view.
-// 
+//
 // If the receiver is an existing marker being removed (dragged off the
 // ruler), this method queries the client view using
 // [RulerViewShouldRemoveMarker]. If the client responds to this method and
-// returns [false], the marker is pinned to the ruler view’s baseline
+// returns false, the marker is pinned to the ruler view’s baseline
 // (following the cursor on the baseline if it’s movable).
-// 
+//
 // When the user releases the mouse button, this method informs the client
 // view of the marker’s new status using [RulerViewDidAddMarker],
 // [RulerViewDidMoveMarker], or [RulerViewDidRemoveMarker] as appropriate. The
 // client view can use this notification to set the marker’s represented
 // object, modify its state and redisplay (for example, adjusting text layout
 // around a new tab stop), or take whatever other action it might need.
-// 
-// If `flag` is [true] and the user dragged the new marker away from the
-// ruler, the marker isn’t added, no message is sent, and this method
-// returns [false].
-// 
+//
+// If `flag` is true and the user dragged the new marker away from the ruler,
+// the marker isn’t added, no message is sent, and this method returns
+// false.
+//
 // See [Ruler and Paragraph Style Programming Topics] for more information on
 // these client methods.
 //
-// [Ruler and Paragraph Style Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Rulers/Rulers.html#//apple_ref/doc/uid/10000089i
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/trackMouse(with:adding:)
+//
+// [Ruler and Paragraph Style Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Rulers/Rulers.html#//apple_ref/doc/uid/10000089i
 func (r NSRulerMarker) TrackMouseAdding(mouseDownEvent INSEvent, isAdding bool) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("trackMouse:adding:"), mouseDownEvent, isAdding)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/init(coder:)
 func (r NSRulerMarker) InitWithCoder(coder foundation.INSCoder) NSRulerMarker {
 	rv := objc.Send[NSRulerMarker](r.ID, objc.Sel("initWithCoder:"), coder)
@@ -432,10 +427,11 @@ func (r NSRulerMarker) Ruler() INSRulerView {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("ruler"))
 	return NSRulerViewFromID(objc.ID(rv))
 }
+
 // The receiver’s image.
 //
 // # Discussion
-// 
+//
 // The image used to draw the marker must be appropriate for the orientation
 // of the ruler. Markers may need to look different on a horizontal ruler than
 // on a vertical ruler, and the ruler view neither scales nor rotates the
@@ -449,11 +445,12 @@ func (r NSRulerMarker) Image() INSImage {
 func (r NSRulerMarker) SetImage(value INSImage) {
 	objc.Send[struct{}](r.ID, objc.Sel("setImage:"), value)
 }
+
 // The point in the receiver’s image that is positioned at the receiver’s
 // location on the ruler view.
 //
 // # Discussion
-// 
+//
 // For a horizontal ruler, the x coordinate of the image origin is aligned
 // with the location of the marker, and the y coordinate lies on the baseline
 // of the ruler. For vertical rulers, the y coordinate of the image origin is
@@ -467,10 +464,11 @@ func (r NSRulerMarker) ImageOrigin() corefoundation.CGPoint {
 func (r NSRulerMarker) SetImageOrigin(value corefoundation.CGPoint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setImageOrigin:"), value)
 }
+
 // The rectangle occupied by the receiver’s image.
 //
 // # Discussion
-// 
+//
 // The rectangle occupied by the receiver’s image, in the ruler view’s
 // coordinate system, accounting for whether the ruler view’s coordinate
 // system is flipped.
@@ -480,11 +478,12 @@ func (r NSRulerMarker) ImageRectInRuler() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](r.ID, objc.Sel("imageRectInRuler"))
 	return corefoundation.CGRect(rv)
 }
+
 // The amount of the receiver’s image that’s displayed above or to the
 // left of the ruler view’s baseline.
 //
 // # Discussion
-// 
+//
 // The amount of the receiver’s image that’s displayed above or to the
 // left of the ruler view’s baseline, the height for a horizontal ruler or
 // width for a vertical ruler.
@@ -494,18 +493,16 @@ func (r NSRulerMarker) ThicknessRequiredInRuler() float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("thicknessRequiredInRuler"))
 	return rv
 }
+
 // A Boolean that indicates whether the user can move the receiver in its
 // ruler view.
 //
 // # Discussion
-// 
-// [true] to allow the user to drag the marker image in the ruler, [false] to
-// make it immobile.
-// 
-// By default, ruler markers are movable.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to allow the user to drag the marker image in the ruler, false to make
+// it immobile.
+//
+// By default, ruler markers are movable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/isMovable
 func (r NSRulerMarker) Movable() bool {
@@ -515,18 +512,16 @@ func (r NSRulerMarker) Movable() bool {
 func (r NSRulerMarker) SetMovable(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMovable:"), value)
 }
+
 // A Boolean that indicates whether the user can remove the receiver from its
 // ruler view.
 //
 // # Discussion
-// 
-// [true] to allow the user to drag the marker image off of the ruler and
-// remove the marker, [false] to prevent the user from removing the marker.
-// 
-// By default ruler markers are not removable.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to allow the user to drag the marker image off of the ruler and remove
+// the marker, false to prevent the user from removing the marker.
+//
+// By default ruler markers are not removable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/isRemovable
 func (r NSRulerMarker) Removable() bool {
@@ -536,11 +531,12 @@ func (r NSRulerMarker) Removable() bool {
 func (r NSRulerMarker) SetRemovable(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRemovable:"), value)
 }
+
 // The location of the receiver in the coordinate system of the ruler view’s
 // client view.
 //
 // # Discussion
-// 
+//
 // This is an x position for a horizontal ruler, a y position for a vertical
 // ruler.
 //
@@ -552,15 +548,16 @@ func (r NSRulerMarker) MarkerLocation() float64 {
 func (r NSRulerMarker) SetMarkerLocation(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMarkerLocation:"), value)
 }
+
 // The object the receiver represents.
 //
 // # Discussion
-// 
+//
 // See [About Ruler Markers] for more information on the represented object.
 //
-// [About Ruler Markers]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Rulers/Concepts/AboutRulerMarkers.html#//apple_ref/doc/uid/20000873
-//
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/representedObject
+//
+// [About Ruler Markers]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Rulers/Concepts/AboutRulerMarkers.html#//apple_ref/doc/uid/20000873
 func (r NSRulerMarker) RepresentedObject() foundation.NSCopying {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("representedObject"))
 	return foundation.NSCopyingObjectFromID(rv)
@@ -568,18 +565,15 @@ func (r NSRulerMarker) RepresentedObject() foundation.NSCopying {
 func (r NSRulerMarker) SetRepresentedObject(value foundation.NSCopying) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRepresentedObject:"), value)
 }
+
 // A Boolean that indicates whether the receiver is being dragged.
 //
 // # Discussion
-// 
-// [true] if the receiver is being dragged, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver is being dragged, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/isDragging
 func (r NSRulerMarker) Dragging() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isDragging"))
 	return rv
 }
-

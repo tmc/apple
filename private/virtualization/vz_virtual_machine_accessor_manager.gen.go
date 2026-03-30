@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZVirtualMachineAccessorManager struct {
 func VZVirtualMachineAccessorManagerFromID(id objc.ID) VZVirtualMachineAccessorManager {
 	return VZVirtualMachineAccessorManager{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVirtualMachineAccessorManager implements IVZVirtualMachineAccessorManager.
 var _ IVZVirtualMachineAccessorManager = VZVirtualMachineAccessorManager{}
 
@@ -78,4 +80,3 @@ func NewVZVirtualMachineAccessorManager() VZVirtualMachineAccessorManager {
 	rv := objc.Send[VZVirtualMachineAccessorManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

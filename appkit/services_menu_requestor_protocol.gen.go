@@ -18,6 +18,7 @@ type NSServicesMenuRequestor interface {
 type NSServicesMenuRequestorObject struct {
 	objectivec.Object
 }
+
 func (o NSServicesMenuRequestorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -36,15 +37,12 @@ func NSServicesMenuRequestorObjectFromID(id objc.ID) NSServicesMenuRequestorObje
 // pboard: The pasteboard containing the data to read.
 //
 // # Return Value
-// 
-// [true] if your implementation was able to read the pasteboard data
-// successfully; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if your implementation was able to read the pasteboard data
+// successfully; otherwise, false.
 //
 // # Discussion
-// 
+//
 // You implement this method to replace your application’s current selection
 // (that is, the text or objects that are currently selected) with the data on
 // the pasteboard. The data would have been placed in the pasteboard by
@@ -56,7 +54,8 @@ func NSServicesMenuRequestorObjectFromID(id objc.ID) NSServicesMenuRequestorObje
 func (o NSServicesMenuRequestorObject) ReadSelectionFromPasteboard(pboard INSPasteboard) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("readSelectionFromPasteboard:"), pboard)
 	return rv
-	}
+}
+
 // Writes the current selection to the pasteboard.
 //
 // pboard: The pasteboard to receive your data.
@@ -66,20 +65,17 @@ func (o NSServicesMenuRequestorObject) ReadSelectionFromPasteboard(pboard INSPas
 // many of the types as you support.
 //
 // # Return Value
-// 
-// [true] if your implementation was able to write one or more types to the
-// pasteboard; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if your implementation was able to write one or more types to the
+// pasteboard; otherwise, false.
 //
 // # Discussion
-// 
+//
 // A [WriteSelectionToPasteboardTypes] message is sent to the first responder
 // when the user chooses a command from the Services menu, but only if the
 // receiver didn’t return `nil` to a previous
 // [ValidRequestorForSendTypeReturnType] message.
-// 
+//
 // After your method writes the data to the pasteboard, a remote message is
 // sent to the application that provides the service the user requested. If
 // the service provider supplies return data to replace the selection, the
@@ -89,5 +85,4 @@ func (o NSServicesMenuRequestorObject) ReadSelectionFromPasteboard(pboard INSPas
 func (o NSServicesMenuRequestorObject) WriteSelectionToPasteboardTypes(pboard INSPasteboard, types []string) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("writeSelectionToPasteboard:types:"), pboard, objectivec.StringSliceToNSArray(types))
 	return rv
-	}
-
+}

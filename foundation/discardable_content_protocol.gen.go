@@ -38,6 +38,7 @@ type NSDiscardableContent interface {
 type NSDiscardableContentObject struct {
 	objectivec.Object
 }
+
 func (o NSDiscardableContentObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -54,14 +55,12 @@ func NSDiscardableContentObjectFromID(id objc.ID) NSDiscardableContentObject {
 // still available and have been successfully accessed.
 //
 // # Return Value
-// 
-// YES if the discardable contents are still available and have now been
-// successfully accessed; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// YES if the discardable contents are still available and have now been
+// successfully accessed; otherwise, false.
 //
 // # Discussion
-// 
+//
 // Call this method if the object’s memory is needed or is about to be used.
 // This method increments the counter variable, thus protecting the object’s
 // memory from possibly being discarded. The implementing class may decide
@@ -74,11 +73,12 @@ func NSDiscardableContentObjectFromID(id objc.ID) NSDiscardableContentObject {
 func (o NSDiscardableContentObject) BeginContentAccess() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("beginContentAccess"))
 	return rv
-	}
+}
+
 // Called if the discardable contents are no longer being accessed.
 //
 // # Discussion
-// 
+//
 // This method decrements the counter variable of the object, which will
 // usually bring the value of the counter variable back down to 0, which
 // allows the discardable contents of the object to be thrown away if
@@ -87,31 +87,29 @@ func (o NSDiscardableContentObject) BeginContentAccess() bool {
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/endContentAccess()
 func (o NSDiscardableContentObject) EndContentAccess() {
 	objc.Send[struct{}](o.ID, objc.Sel("endContentAccess"))
-	}
+}
+
 // Called to discard the contents of the receiver if the value of the accessed
 // counter is 0.
 //
 // # Discussion
-// 
+//
 // This method should only discard the contents of the object if the value of
 // the accessed counter is 0. Otherwise, it should do nothing.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/discardContentIfPossible()
 func (o NSDiscardableContentObject) DiscardContentIfPossible() {
 	objc.Send[struct{}](o.ID, objc.Sel("discardContentIfPossible"))
-	}
+}
+
 // Returns a Boolean value indicating whether the content has been discarded.
 //
 // # Return Value
-// 
-// [true] if the content has been discarded; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the content has been discarded; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/isContentDiscarded()
 func (o NSDiscardableContentObject) IsContentDiscarded() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isContentDiscarded"))
 	return rv
-	}
-
+}

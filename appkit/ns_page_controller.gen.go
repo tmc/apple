@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,50 +47,50 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // view content.
 //
 // # Overview
-// 
+//
 // [NSPageController] is useful for user interfaces which control navigating
 // multiple pages as in a book or a web browser history. Page controller
 // inherits from the [NSViewController] class . You must assign the `view`
 // property to a view in your view hierarchy. The [NSPageController] class
 // does not vend a view and does insert itself into the responder chain.
-// 
+//
 // Conceptually, the page controller manages swiping between an array of
 // pages, the [NSPageController.ArrangedObjects]. Using the [NSPageController.SelectedIndex] property, you can
 // determine how many pages forward or backward the user may navigate.
-// 
+//
 // # Page Controller Modes
-// 
+//
 // There are two modes that an [NSPageController] instance may operate in,
 // history mode and book mode. The main difference between the two modes is
 // that expects `pageController.View()` to be the content and expects
 // `pageController.View()` to be be a container for the content that you will
 // supply by returning `viewControllers` in your delegate methods.
-// 
+//
 // # History Mode
-// 
+//
 // History mode is designed to be the easiest way to create a history user
 // interface. The page controller will manage the history (the
 // `arrangedObjects` property), snapshots, and user navigation between pages
 // in the history.
-// 
+//
 // As the user navigates to new content, add to the history by calling
 // [NSPageController.NavigateForwardToObject]. The page controller will remove any
 // `arrangedObjects` after the [NSPageController.SelectedIndex] and then add the object to the
 // end of the `arrangedObjects` array and update the `selectedIndex` property.
 // Just like navigating in a new direction in a web browser, all forward
 // history is lost once the user starts navigating a new path. After returning
-// from `` you are free to update the contents of `pageController.View()`.
-// 
+// from “ you are free to update the contents of `pageController.View()`.
+//
 // # Delegate Method Invocation During History Mode Swiping
-// 
+//
 // During swiping, the following optional delegate methods are called in the
 // specified order:
-// 
+//
 // The [PageControllerWillStartLiveTransition] delegate method is invoked when
 // the user starts a swipe action. This is the appropriate point at which to
 // save information that you may need to restore, such as a page’s scrolled
 // location.
-// 
+//
 // Upon returning from the this delegate method, `pageController.View()` is
 // hidden. In it’s place the page controller shows a private view hierarchy
 // to animate previously taken snapshots of the page history. This allows the
@@ -102,7 +103,7 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // background loading tasks need to be initiated this is the appropriate time
 // to do so. However, do not block the main thread or the animation will
 // stutter or pause.
-// 
+//
 // Finally, the pageControllerDidEndLiveTransition: delegate method is invoked
 // after the swipe and swipe animations are complete. You should any position
 // settings or other display specific state stored in the
@@ -112,53 +113,53 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // to hide the private transition view and show `pageController.View()`. Often
 // you do this immediately, however, if your content is not ready you can call
 // this at a later.
-// 
+//
 // # Book Mode (View Controller Mode)
-// 
+//
 // Book mode is designed to give you more control over the swiping process and
 // to facilitate more user interface designs than just history, although you
 // can use book mode to create a history user interface.
-// 
+//
 // In this mode, `pageController.View()` is a container view and the content
 // views are vended by view controller instances supplied by the delegate
 // object.
-// 
+//
 // To enable book mode, you must implement the following two methods in your
 // delegate: [PageControllerIdentifierForObject] and
 // [PageControllerViewControllerForIdentifier].
-// 
+//
 // The page controller instance caches the view controllers supplied for each
 // identifier and only asks it’s delegate to create more if one does not
 // already exists in its cache. If you have different type of views you want
 // to swipe in, then supply a different identifier for each type.
-// 
+//
 // When needed, you will be asked to prepare a view controller instance with a
 // page via the optional delegate method
 // [PageControllerPrepareViewControllerWithObject]. If you do not implement
 // this method, then the `representedObject` of the view controller that would
 // have been passed to this delegate method is set as the object.
-// 
+//
 // The delegate will be asked to prepare a view controller with a `nil` object
 // for each unique identifier it encounters. The NSPageController instance
 // will use this to generate a default snapshot for that identifier.
-// 
+//
 // When using the book mode, if `pageController.View()` is layer backed, live
 // layers are used during transition instead of snapshots.
-// 
+//
 // Generally, when using book mode, the set of pages are known and it is your
 // responsibility to set the `arrangedObjects` array property and initially
 // selected page using the `selectedIndex` property.
-// 
+//
 // # Delegate Method Invocation During Book Mode Swiping
-// 
+//
 // During swiping, the following optional delegate methods are called in the
 // specified order:
-// 
+//
 // The delegate method [PageControllerWillStartLiveTransition] is invoked when
 // the user starts a swipe action. As in history mode, this is the appropriate
 // point at which to save information that you may need to restore, such as a
 // page’s scrolled location.
-// 
+//
 // After returning from the [PageControllerWillStartLiveTransition] delegate
 // method, the page controller takes a snapshot of the `view` in the specified
 // [NSPageController.SelectedViewController] and then removes it from `pageController.View()`.
@@ -173,7 +174,7 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // that at this point the view does not reside within a window. Once the
 // background threaded drawing completes, the initial snapshot is replaced
 // with the newly generated snapshot.
-// 
+//
 // Next the [PageControllerDidTransitionToObject] delegate method is invoked
 // after a physically successful swipe, but before the animation has
 // completed. The supplied object is the page the user navigated to - the new
@@ -181,7 +182,7 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // page controller’s [NSPageController.SelectedViewController] has not been updated yet. If
 // you need to start some background loading tasks, now is the time to do it.
 // Do not block the main thread or the animation will stutter or pause.
-// 
+//
 // Finally the [PageControllerDidEndLiveTransition] method is invoked after
 // the swipe and swipe animations are complete. The
 // `selectedViewController.View()` is still detached at this point and you
@@ -189,9 +190,9 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // transition view and update the [NSPageController.SelectedViewController]. Often you do this
 // immediately, however, if your content is not ready you can call this at a
 // later.
-// 
+//
 // # Completing the Page Controller Transition
-// 
+//
 // An [NSPageController] instance uses a private view hierarchy during
 // swiping. To create a seamless transition to the new content, it is your
 // responsibility to inform the page controller when you are ready to draw the
@@ -200,7 +201,7 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 // transition by calling [NSPageController.CompleteTransition]. If needed, a view controller is
 // prepared and then the content view is shown (or added) to the view
 // hierarchy and the private transition view is hidden.
-// 
+//
 // During page controller initiated animations,
 // [PageControllerWillStartLiveTransition] and
 // [PageControllerDidEndLiveTransition] are invoked on the delegate. Generally
@@ -254,6 +255,7 @@ type NSPageController struct {
 func NSPageControllerFromID(id objc.ID) NSPageController {
 	return NSPageController{NSViewController: NSViewControllerFromID(id)}
 }
+
 // NOTE: NSPageController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -362,7 +364,6 @@ func NewNSPageController() NSPageController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(coder:)
 func NewPageControllerWithCoder(coder foundation.INSCoder) NSPageController {
 	instance := getNSPageControllerClass().Alloc()
@@ -379,19 +380,19 @@ func NewPageControllerWithCoder(coder foundation.INSCoder) NSPageController {
 // method looks for the nib file in the main bundle.
 //
 // # Return Value
-// 
+//
 // The initialized [NSViewController] object.
 //
 // # Discussion
-// 
+//
 // The [NSViewController] object looks for the nib file in the bundle’s
 // language-specific project directories first, followed by the Resources
 // directory.
-// 
+//
 // The specified nib file should typically have the class of the file’s
 // owner set to [NSViewController], or a custom subclass, with the `view`
 // outlet connected to a view.
-// 
+//
 // If you pass in `nil` for `nibNameOrNil`, [NibName] returns `nil` and
 // [LoadView] throws an exception; in this case you must set [View] before
 // [View] is invoked, or override [LoadView].
@@ -408,7 +409,7 @@ func NewPageControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil f
 // object: The object to display.
 //
 // # Discussion
-// 
+//
 // Clears the [ArrangedObjects] array after the selected index, adds the
 // argument to that array, and sets the [SelectedIndex] to the object’s
 // index.
@@ -417,15 +418,16 @@ func NewPageControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil f
 func (p NSPageController) NavigateForwardToObject(object objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("navigateForwardToObject:"), object)
 }
+
 // Navigates backwards in the page controller’s arranged objects array.
 //
 // sender: The sender.
 //
 // # Discussion
-// 
+//
 // This method is typically invoked in response to a user interacting with a
 // control, the `sender`.
-// 
+//
 // This method is animated and invokes the delegate’s
 // [PageControllerWillStartLiveTransition] and
 // [PageControllerDidEndLiveTransition] methods.
@@ -434,16 +436,17 @@ func (p NSPageController) NavigateForwardToObject(object objectivec.IObject) {
 func (p NSPageController) NavigateBack(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("navigateBack:"), sender)
 }
+
 // Navigates to the next object in the page controller’s arranged objects
 // array, if appropriate.
 //
 // sender: The sender.
 //
 // # Discussion
-// 
+//
 // This method is typically invoked in response to a user interacting with a
 // control, the `sender`.
-// 
+//
 // This method is animated and invokes the delegate’s
 // [PageControllerWillStartLiveTransition] and
 // [PageControllerDidEndLiveTransition] methods.
@@ -452,15 +455,16 @@ func (p NSPageController) NavigateBack(sender objectivec.IObject) {
 func (p NSPageController) NavigateForward(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("navigateForward:"), sender)
 }
+
 // Navigates to the selected index, which is taken from the sender.
 //
 // sender: The control that invoked the action.
 //
 // # Discussion
-// 
+//
 // When invoked, this method causes the page controller’s view to display
 // the object specified by the value taken from the `sender` control.
-// 
+//
 // This method is animated and invokes the delegate’s
 // [PageControllerWillStartLiveTransition] and
 // [PageControllerDidEndLiveTransition] methods.
@@ -469,62 +473,64 @@ func (p NSPageController) NavigateForward(sender objectivec.IObject) {
 func (p NSPageController) TakeSelectedIndexFrom(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("takeSelectedIndexFrom:"), sender)
 }
+
 // Invoked when the page transition is completed.
 //
 // # Discussion
-// 
+//
 // See [NSPageController] for a complete description.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageController/completeTransition()
 func (p NSPageController) CompleteTransition() {
 	objc.Send[objc.ID](p.ID, objc.Sel("completeTransition"))
 }
+
 // Returns the animation that should be performed for the specified key.
 //
 // key: The action name or property specified as a string.
 //
 // # Return Value
-// 
+//
 // The animation to perform. A subclass of [CAAnimation].
 //
-// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
-//
 // # Discussion
-// 
+//
 // When the action specified by `key` is triggered for an object, this method
 // is consulted to find the animation, if any, that should be performed in
 // response.
-// 
+//
 // Like its Core Animation [CALayer] counterpart, [action(forKey:)], this
 // method is a funnel point that defines the order in which the search for an
 // animation proceeds.It first checks the receiver’s Getting the Animator
 // Proxy dictionary for a value matching `key`, then falls back to [Animator]
 // for the receiver’s class.
-// 
+//
 // Subclasses should not typically need to override this method.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
+//
+// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
 // [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
 // [action(forKey:)]: https://developer.apple.com/documentation/QuartzCore/CALayer/action(forKey:)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
 func (p NSPageController) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
+
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
 //
 // # Return Value
-// 
+//
 // Returns a proxy object for the receiver that can initiate implied
 // animations in response to property changes.
 //
 // # Discussion
-// 
+//
 // The animator proxy object should be treated as if it was the receiver
 // itself, and may be passed to any code that accepts the receiver as a
 // parameter.
-// 
+//
 // Sending key-value coding compliant “set” messages to the proxy will
 // trigger animation for automatically animated properties of its target
 // object, if the active [NSAnimationContext] in the current thread has a
@@ -543,23 +549,21 @@ func (p NSPageController) Animator() INSPageController {
 // key: The action name or property specified as a string.
 //
 // # Return Value
-// 
+//
 // The animation to perform. A subclass of [CAAnimation].
 //
-// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
-//
 // # Discussion
-// 
+//
 // The [NSAnimatablePropertyContainer] method consults this class method when
 // its search of the receivers Getting the Animator Proxy dictionary fails to
 // return an animation for `key`.
-// 
+//
 // An animatable property container should implement this method to return a
 // default animation to be performed for each key that it wants to make
 // auto-animatable, where `key` usually references a property of the receiver,
 // but can also specify a special animation trigger
 // ([NSAnimationTriggerOrderIn] or [NSAnimationTriggerOrderOut]).
-// 
+//
 // A developer implementing a custom view subclass, can enable automatic
 // animation for properties by overriding this method, and having it return
 // the desired default [CAAnimation] subclass to use for each of the property
@@ -568,11 +572,13 @@ func (p NSPageController) Animator() INSPageController {
 // animation specifications. The following is an example of such an
 // implementation.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/defaultAnimation(forKey:)
+//
 // [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
 // [NSAnimationTriggerOrderIn]: https://developer.apple.com/documentation/AppKit/NSAnimationTriggerOrderIn
 // [NSAnimationTriggerOrderOut]: https://developer.apple.com/documentation/AppKit/NSAnimationTriggerOrderOut
 //
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/defaultAnimation(forKey:)
+// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
 func (_NSPageControllerClass NSPageControllerClass) DefaultAnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_NSPageControllerClass.class), objc.Sel("defaultAnimationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
@@ -581,7 +587,7 @@ func (_NSPageControllerClass NSPageControllerClass) DefaultAnimationForKey(key N
 // The page controller’s delegate object.
 //
 // # Discussion
-// 
+//
 // The delegate must conform to the [NSPageControllerDelegate] protocol.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageController/delegate
@@ -592,15 +598,16 @@ func (p NSPageController) Delegate() NSPageControllerDelegate {
 func (p NSPageController) SetDelegate(value NSPageControllerDelegate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDelegate:"), value)
 }
+
 // An array containing the objects displayed in the page controller’s view.
 //
 // # Discussion
-// 
+//
 // The delegate will be asked for snapshots as they are needed. Alternatively,
 // you may never directly set this array and use the
 // -[NavigateForwardToObject] method to create a history as the user
 // navigates.
-// 
+//
 // This property is key-value observing compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageController/arrangedObjects
@@ -611,13 +618,14 @@ func (p NSPageController) ArrangedObjects() foundation.INSArray {
 func (p NSPageController) SetArrangedObjects(value foundation.INSArray) {
 	objc.Send[struct{}](p.ID, objc.Sel("setArrangedObjects:"), value)
 }
+
 // The currently selected object in the arranged objects array.
 //
 // # Discussion
-// 
+//
 // To animate a transition to a new index, use the NSPageController class
 // animator object.
-// 
+//
 // This property is key-value observing compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageController/selectedIndex
@@ -628,19 +636,19 @@ func (p NSPageController) SelectedIndex() int {
 func (p NSPageController) SetSelectedIndex(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSelectedIndex:"), value)
 }
+
 // The transition style the page controller uses when changing pages.
 //
 // # Discussion
-// 
+//
 // The possible values for the transition style are discussed in
 // [NSPageController.TransitionStyle].
-// 
-// The default value is [NSPageController.TransitionStyle.stackHistory].
 //
-// [NSPageController.TransitionStyle.stackHistory]: https://developer.apple.com/documentation/AppKit/NSPageController/TransitionStyle-swift.enum/stackHistory
-// [NSPageController.TransitionStyle]: https://developer.apple.com/documentation/AppKit/NSPageController/TransitionStyle-swift.enum
+// The default value is [NSPageControllerTransitionStyleStackHistory].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageController/transitionStyle-swift.property
+//
+// [NSPageController.TransitionStyle]: https://developer.apple.com/documentation/AppKit/NSPageController/TransitionStyle-swift.enum
 func (p NSPageController) TransitionStyle() NSPageControllerTransitionStyle {
 	rv := objc.Send[NSPageControllerTransitionStyle](p.ID, objc.Sel("transitionStyle"))
 	return NSPageControllerTransitionStyle(rv)
@@ -648,12 +656,13 @@ func (p NSPageController) TransitionStyle() NSPageControllerTransitionStyle {
 func (p NSPageController) SetTransitionStyle(value NSPageControllerTransitionStyle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTransitionStyle:"), value)
 }
+
 // The view controller associated with the selected object..
 //
 // # Discussion
-// 
+//
 // May be `nil` if not using view controllers.
-// 
+//
 // This property is only relevant in book mode. See [NSPageController] for
 // details.
 //
@@ -662,6 +671,7 @@ func (p NSPageController) SelectedViewController() INSViewController {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("selectedViewController"))
 	return NSViewControllerFromID(objc.ID(rv))
 }
+
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
@@ -673,4 +683,3 @@ func (p NSPageController) Animations() foundation.INSDictionary {
 func (p NSPageController) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAnimations:"), value)
 }
-

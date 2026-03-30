@@ -4,8 +4,9 @@ package screencapturekit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (sc SCRecordingOutputClass) Alloc() SCRecordingOutput {
 	return rv
 }
 
-//
 // # Creating a recording output
 //
 //   - [SCRecordingOutput.InitWithConfigurationDelegate]
@@ -51,6 +51,7 @@ func (sc SCRecordingOutputClass) Alloc() SCRecordingOutput {
 //
 //   - [SCRecordingOutput.RecordedDuration]
 //   - [SCRecordingOutput.RecordedFileSize]
+//
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput
 type SCRecordingOutput struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type SCRecordingOutput struct {
 func SCRecordingOutputFromID(id objc.ID) SCRecordingOutput {
 	return SCRecordingOutput{objectivec.Object{ID: id}}
 }
+
 // NOTE: SCRecordingOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -107,7 +109,6 @@ func NewSCRecordingOutput() SCRecordingOutput {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput/init(configuration:delegate:)
 func NewRecordingOutputWithConfigurationDelegate(recordingOutputConfiguration ISCRecordingOutputConfiguration, delegate SCRecordingOutputDelegate) SCRecordingOutput {
 	instance := getSCRecordingOutputClass().Alloc()
@@ -115,7 +116,6 @@ func NewRecordingOutputWithConfigurationDelegate(recordingOutputConfiguration IS
 	return SCRecordingOutputFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput/init(configuration:delegate:)
 func (r SCRecordingOutput) InitWithConfigurationDelegate(recordingOutputConfiguration ISCRecordingOutputConfiguration, delegate SCRecordingOutputDelegate) SCRecordingOutput {
 	rv := objc.Send[SCRecordingOutput](r.ID, objc.Sel("initWithConfiguration:delegate:"), recordingOutputConfiguration, delegate)
@@ -127,9 +127,9 @@ func (r SCRecordingOutput) RecordedDuration() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](r.ID, objc.Sel("recordedDuration"))
 	return coremedia.CMTime(rv)
 }
+
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput/recordedFileSize
 func (r SCRecordingOutput) RecordedFileSize() int {
 	rv := objc.Send[int](r.ID, objc.Sel("recordedFileSize"))
 	return rv
 }
-

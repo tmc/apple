@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLMultiArrayShapeConstraintClass) Alloc() MLMultiArrayShapeConstraint {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLMultiArrayShapeConstraint.FindAvailableShape]
@@ -54,6 +54,7 @@ func (mc MLMultiArrayShapeConstraintClass) Alloc() MLMultiArrayShapeConstraint {
 //   - [MLMultiArrayShapeConstraint.InitWithCoder]
 //   - [MLMultiArrayShapeConstraint.InitWithEnumeratedShapes]
 //   - [MLMultiArrayShapeConstraint.InitWithSizeRangeForDimension]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint
 type MLMultiArrayShapeConstraint struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type MLMultiArrayShapeConstraint struct {
 func MLMultiArrayShapeConstraintFromID(id objc.ID) MLMultiArrayShapeConstraint {
 	return MLMultiArrayShapeConstraint{objectivec.Object{ID: id}}
 }
+
 // Ensure MLMultiArrayShapeConstraint implements IMLMultiArrayShapeConstraint.
 var _ IMLMultiArrayShapeConstraint = MLMultiArrayShapeConstraint{}
 
@@ -119,7 +121,6 @@ func NewMultiArrayShapeConstraintUnspecified() MLMultiArrayShapeConstraint {
 	return MLMultiArrayShapeConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/initWithCoder:
 func NewMultiArrayShapeConstraintWithCoder(coder objectivec.IObject) MLMultiArrayShapeConstraint {
 	instance := getMLMultiArrayShapeConstraintClass().Alloc()
@@ -127,7 +128,6 @@ func NewMultiArrayShapeConstraintWithCoder(coder objectivec.IObject) MLMultiArra
 	return MLMultiArrayShapeConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/initWithEnumeratedShapes:
 func NewMultiArrayShapeConstraintWithEnumeratedShapes(shapes objectivec.IObject) MLMultiArrayShapeConstraint {
 	instance := getMLMultiArrayShapeConstraintClass().Alloc()
@@ -135,7 +135,6 @@ func NewMultiArrayShapeConstraintWithEnumeratedShapes(shapes objectivec.IObject)
 	return MLMultiArrayShapeConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/initWithSizeRangeForDimension:
 func NewMultiArrayShapeConstraintWithSizeRangeForDimension(dimension objectivec.IObject) MLMultiArrayShapeConstraint {
 	instance := getMLMultiArrayShapeConstraintClass().Alloc()
@@ -143,13 +142,12 @@ func NewMultiArrayShapeConstraintWithSizeRangeForDimension(dimension objectivec.
 	return MLMultiArrayShapeConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/findAvailableShape:
 func (m MLMultiArrayShapeConstraint) FindAvailableShape(shape objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("findAvailableShape:"), shape)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/isAllowedShape:error:
 func (m MLMultiArrayShapeConstraint) IsAllowedShapeError(shape objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -164,24 +162,25 @@ func (m MLMultiArrayShapeConstraint) IsAllowedShapeError(shape objectivec.IObjec
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/initUnspecified
 func (m MLMultiArrayShapeConstraint) InitUnspecified() MLMultiArrayShapeConstraint {
 	rv := objc.Send[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initUnspecified"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/initWithCoder:
 func (m MLMultiArrayShapeConstraint) InitWithCoder(coder foundation.INSCoder) MLMultiArrayShapeConstraint {
 	rv := objc.Send[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/initWithEnumeratedShapes:
 func (m MLMultiArrayShapeConstraint) InitWithEnumeratedShapes(shapes objectivec.IObject) MLMultiArrayShapeConstraint {
 	rv := objc.Send[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initWithEnumeratedShapes:"), shapes)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/initWithSizeRangeForDimension:
 func (m MLMultiArrayShapeConstraint) InitWithSizeRangeForDimension(dimension objectivec.IObject) MLMultiArrayShapeConstraint {
 	rv := objc.Send[MLMultiArrayShapeConstraint](m.ID, objc.Sel("initWithSizeRangeForDimension:"), dimension)
@@ -199,4 +198,3 @@ func (m MLMultiArrayShapeConstraint) ShapeSet() foundation.INSOrderedSet {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("shapeSet"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }
-

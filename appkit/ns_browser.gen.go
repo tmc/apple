@@ -3,11 +3,12 @@
 package appkit
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,39 +49,33 @@ func (nc NSBrowserClass) Alloc() NSBrowser {
 // that can be navigated and selected.
 //
 // # Overview
-// 
+//
 // A browser displays information using a set of columns, which are indexed
 // from left to right. Each successive column displays the next level down in
 // the data hierarchy. This class uses the [NSBrowserCell] class to implement
 // its user interface.
-// 
+//
 // Browsers have the following components:
-// 
+//
 // - Columns
 // - Scroll views
 // - Matrices
 // - Browser cells
-// 
+//
 // To the user, browsers display data in columns and rows within each column.
 // These components are arranged in the following component hierarchy:
-// 
+//
 // # Superclass overrides
-// 
-// - [isOpaque] returns [true] when the browser doesn’t have a title and its
-// background color’s alpha component is `1.0`; otherwise, it returns
-// [false].
-// 
+//
+// - [Opaque] returns true when the browser doesn’t have a title and its
+// background color’s alpha component is `1.0`; otherwise, it returns false.
+//
 // # Protocol implementations
-// 
+//
 // - The [NSBrowser] implementation of
 // [namesOfPromisedFilesDropped(atDestination:)] provides the names of the
 // files that the browser promises to create at a specified location, the
-// result of sending `` to the delegate.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [isOpaque]: https://developer.apple.com/documentation/AppKit/NSView/isOpaque
-// [namesOfPromisedFilesDropped(atDestination:)]: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/namesOfPromisedFilesDropped(atDestination:)
-// [true]: https://developer.apple.com/documentation/Swift/true
+// result of sending “ to the delegate.
 //
 // # Configuring Browsers
 //
@@ -236,6 +231,8 @@ func (nc NSBrowserClass) Alloc() NSBrowser {
 //   - [NSBrowser.SetRowHeight]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser
+//
+// [namesOfPromisedFilesDropped(atDestination:)]: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/namesOfPromisedFilesDropped(atDestination:)
 type NSBrowser struct {
 	NSControl
 }
@@ -247,6 +244,7 @@ type NSBrowser struct {
 func NSBrowserFromID(id objc.ID) NSBrowser {
 	return NSBrowser{NSControl: NSControlFromID(id)}
 }
+
 // NOTE: NSBrowser adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -641,6 +639,10 @@ type INSBrowser interface {
 	// The height of the browser’s rows.
 	RowHeight() float64
 	SetRowHeight(value float64)
+
+	// A Boolean value indicating whether the view fills its frame rectangle with opaque content.
+	IsOpaque() bool
+	SetIsOpaque(value bool)
 }
 
 // Init initializes the instance.
@@ -677,12 +679,12 @@ func NewBrowserWithCoder(coder foundation.INSCoder) NSBrowser {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -701,7 +703,7 @@ func NewBrowserWithFrame(frameRect corefoundation.CGRect) NSBrowser {
 // and so on—without redrawing.
 //
 // # Discussion
-// 
+//
 // Your code shouldn’t send this message. It’s invoked any time the
 // appearance of the browser changes.
 //
@@ -709,12 +711,13 @@ func NewBrowserWithFrame(frameRect corefoundation.CGRect) NSBrowser {
 func (b NSBrowser) Tile() {
 	objc.Send[objc.ID](b.ID, objc.Sel("tile"))
 }
+
 // Provides the indexes of the selected rows in a given column of the browser.
 //
 // column: The column whose selected rows are provided.
 //
 // # Return Value
-// 
+//
 // Rows selected in column `columnIndex`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/selectedRowIndexes(inColumn:)
@@ -722,6 +725,7 @@ func (b NSBrowser) SelectedRowIndexesInColumn(column int) foundation.NSIndexSet 
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("selectedRowIndexesInColumn:"), column)
 	return foundation.NSIndexSetFromID(rv)
 }
+
 // Specifies the selected rows in a given column of the browser.
 //
 // indexes: Rows to be selected in column `columnIndex`.
@@ -732,12 +736,13 @@ func (b NSBrowser) SelectedRowIndexesInColumn(column int) foundation.NSIndexSet 
 func (b NSBrowser) SelectRowIndexesInColumn(indexes foundation.NSIndexSet, column int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("selectRowIndexes:inColumn:"), indexes, column)
 }
+
 // Returns the last (lowest) cell selected in the given column.
 //
 // column: The column whose last selected cell is to be returned.
 //
 // # Return Value
-// 
+//
 // The last (or lowest) selected cell. Returns `nil` if there is no selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/selectedCell(inColumn:)
@@ -745,13 +750,14 @@ func (b NSBrowser) SelectedCellInColumn(column int) objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("selectedCellInColumn:"), column)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns the row index of the selected cell in the specified column.
 //
 // column: The column index specifying the column for which to return the selected
 // row.
 //
 // # Return Value
-// 
+//
 // The row index of the selected cell in the specified column. Returns `-1` if
 // there is no selection.
 //
@@ -760,6 +766,7 @@ func (b NSBrowser) SelectedRowInColumn(column int) int {
 	rv := objc.Send[int](b.ID, objc.Sel("selectedRowInColumn:"), column)
 	return rv
 }
+
 // Selects the cell at the specified row and column index.
 //
 // row: The row index of the cell to select.
@@ -770,6 +777,7 @@ func (b NSBrowser) SelectedRowInColumn(column int) int {
 func (b NSBrowser) SelectRowInColumn(row int, column int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("selectRow:inColumn:"), row, column)
 }
+
 // Loads, if necessary, and returns the cell at the specified row and column
 // location.
 //
@@ -782,32 +790,31 @@ func (b NSBrowser) LoadedCellAtRowColumn(row int, col int) objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("loadedCellAtRow:column:"), row, col)
 	return objectivec.Object{ID: rv}
 }
+
 // Begins editing the item at the specified path.
 //
 // indexPath: The path of the item.
 //
 // event: The event to use when beginning the edit.
 //
-// select: If [true], the cells contents will be selected; if [false], they will not
-// be selected.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// select: If true, the cells contents will be selected; if false, they will not be
+// selected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/editItem(at:with:select:)
 func (b NSBrowser) EditItemAtIndexPathWithEventSelect(indexPath foundation.INSIndexPath, event INSEvent, select_ bool) {
 	objc.Send[objc.ID](b.ID, objc.Sel("editItemAtIndexPath:withEvent:select:"), indexPath, event, select_)
 }
+
 // Returns the item at the specified index path.
 //
 // indexPath: The index path of the item to return.
 //
 // # Return Value
-// 
+//
 // The item.
 //
 // # Discussion
-// 
+//
 // This method can only be used if the delegate implements the item data
 // source methods. The specified index path must be displayable in the
 // browser.
@@ -817,6 +824,7 @@ func (b NSBrowser) ItemAtIndexPath(indexPath foundation.INSIndexPath) objectivec
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("itemAtIndexPath:"), indexPath)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns the item located at the specified row and column.
 //
 // row: The row of the item.
@@ -824,7 +832,7 @@ func (b NSBrowser) ItemAtIndexPath(indexPath foundation.INSIndexPath) objectivec
 // column: The column of the item.
 //
 // # Return Value
-// 
+//
 // The item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/item(atRow:inColumn:)
@@ -832,17 +840,18 @@ func (b NSBrowser) ItemAtRowInColumn(row int, column int) objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("itemAtRow:inColumn:"), row, column)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns the index path of the item whose children are displayed in the
 // given column.
 //
 // column: The column to find the index path for.
 //
 // # Return Value
-// 
+//
 // The index path of the column.
 //
 // # Discussion
-// 
+//
 // This method can only be used if the delegate implements the item data
 // source methods.
 //
@@ -851,38 +860,35 @@ func (b NSBrowser) IndexPathForColumn(column int) objc.ID {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("indexPathForColumn:"), column)
 	return rv
 }
+
 // Returns whether the specified item is a leaf item.
 //
 // item: The item to be checked.
 //
 // # Return Value
-// 
-// [true] if the item is a leaf item; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the item is a leaf item; otherwise, false.
 //
 // # Discussion
-// 
-// This method may return [false] if the item has never been displayed in the
+//
+// This method may return false if the item has never been displayed in the
 // browser or accessed via [ItemAtIndexPath]. Overriding this method has no
 // effect. It may be used only if the browser’s delegate implements the item
 // data source methods.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/isLeafItem(_:)
 func (b NSBrowser) IsLeafItem(item objectivec.IObject) bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isLeafItem:"), item)
 	return rv
 }
+
 // Returns the item that contains the children located in the specified
 // column.
 //
 // column: The column.
 //
 // # Return Value
-// 
+//
 // The parent item for the specified column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/parentForItems(inColumn:)
@@ -890,15 +896,16 @@ func (b NSBrowser) ParentForItemsInColumn(column int) objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("parentForItemsInColumn:"), column)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns a string representing the browser’s current path.
 //
 // # Return Value
-// 
+//
 // The path representing the current selection. The components of this path
 // are separated with the string returned by [PathSeparator].
 //
 // # Discussion
-// 
+//
 // Invoking this method is equivalent to invoking [PathToColumn] for all
 // columns.
 //
@@ -907,6 +914,7 @@ func (b NSBrowser) Path() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("path"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Sets the path to be displayed by the browser.
 //
 // path: The path to display. If `path` is prefixed by the path separator, the path
@@ -915,37 +923,32 @@ func (b NSBrowser) Path() string {
 // starting at the last column.
 //
 // # Return Value
-// 
-// [true] if the given path is valid; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the given path is valid; otherwise, false.
 //
 // # Discussion
-// 
+//
 // While parsing `path`, the browser compares each component with the entries
 // in the current column. If an exact match is found, the matching entry is
 // selected, and the next component is compared to the next column’s
 // entries. If no match is found for a component, the method exits and returns
-// [false]; the final path is set to the valid portion of `path`. If each
+// false; the final path is set to the valid portion of `path`. If each
 // component of `path` specifies a valid branch or leaf in the browser’s
-// hierarchy, the method returns [true].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// hierarchy, the method returns true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/setPath(_:)
 func (b NSBrowser) SetPath(path string) bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("setPath:"), objc.String(path))
 	return rv
 }
+
 // Returns a string representing the path from the first column up to, but not
 // including, the column at the given index.
 //
 // column: The index of the column at which the path stops.
 //
 // # Return Value
-// 
+//
 // The path of the current selection up to, but not including, the specified
 // column. The components of this path are separated with the string returned
 // by [PathSeparator].
@@ -955,34 +958,38 @@ func (b NSBrowser) PathToColumn(column int) string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("pathToColumn:"), column)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Adds a column to the right of the last column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/addColumn()
 func (b NSBrowser) AddColumn() {
 	objc.Send[objc.ID](b.ID, objc.Sel("addColumn"))
 }
+
 // Validates the browser’s visible columns.
 //
 // # Discussion
-// 
+//
 // This method invokes the delegate method [BrowserIsColumnValid]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/validateVisibleColumns()
 func (b NSBrowser) ValidateVisibleColumns() {
 	objc.Send[objc.ID](b.ID, objc.Sel("validateVisibleColumns"))
 }
+
 // Loads column 0; unloads previously loaded columns.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/loadColumnZero()
 func (b NSBrowser) LoadColumnZero() {
 	objc.Send[objc.ID](b.ID, objc.Sel("loadColumnZero"))
 }
+
 // Reloads the given column.
 //
 // column: The index of the column to reload.
 //
 // # Discussion
-// 
+//
 // If after reloading the selected item no longer exists in the column, the
 // column is set to be the last column.
 //
@@ -990,12 +997,13 @@ func (b NSBrowser) LoadColumnZero() {
 func (b NSBrowser) ReloadColumn(column int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("reloadColumn:"), column)
 }
+
 // Returns the title displayed for the given column.
 //
 // column: The index of the column for which to get the title.
 //
 // # Return Value
-// 
+//
 // The title of the specified column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/title(ofColumn:)
@@ -1003,6 +1011,7 @@ func (b NSBrowser) TitleOfColumn(column int) string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("titleOfColumn:"), column)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Sets the title of the given column.
 //
 // string: The title of the column.
@@ -1013,6 +1022,7 @@ func (b NSBrowser) TitleOfColumn(column int) string {
 func (b NSBrowser) SetTitleOfColumn(string_ string, column int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("setTitle:ofColumn:"), objc.String(string_), column)
 }
+
 // Draws the title for the specified column within the given rectangle.
 //
 // column: The index of the column for which to draw the title.
@@ -1023,12 +1033,13 @@ func (b NSBrowser) SetTitleOfColumn(string_ string, column int) {
 func (b NSBrowser) DrawTitleOfColumnInRect(column int, rect corefoundation.CGRect) {
 	objc.Send[objc.ID](b.ID, objc.Sel("drawTitleOfColumn:inRect:"), column, rect)
 }
+
 // Returns the bounds of the title frame for the specified column.
 //
 // column: The index of the column for which to return the title frame.
 //
 // # Return Value
-// 
+//
 // The rectangle specifying the bounds of the column’s title frame.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/titleFrame(ofColumn:)
@@ -1036,6 +1047,7 @@ func (b NSBrowser) TitleFrameOfColumn(column int) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("titleFrameOfColumn:"), column)
 	return corefoundation.CGRect(rv)
 }
+
 // Immediately retiles the browser’s columns using row heights specified by
 // the browser’s delegate.
 //
@@ -1044,13 +1056,14 @@ func (b NSBrowser) TitleFrameOfColumn(column int) corefoundation.CGRect {
 // columnIndex: The column to retile.
 //
 // # Discussion
-// 
-// The browser’s delegate must implement
+//
+// # The browser’s delegate must implement
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/noteHeightOfRowsWithIndexesChanged(_:inColumn:)
 func (b NSBrowser) NoteHeightOfRowsWithIndexesChangedInColumn(indexSet foundation.NSIndexSet, columnIndex int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("noteHeightOfRowsWithIndexesChanged:inColumn:"), indexSet, columnIndex)
 }
+
 // Updates the rows in the column with the specified column index with indexes
 // in the specified set.
 //
@@ -1062,6 +1075,7 @@ func (b NSBrowser) NoteHeightOfRowsWithIndexesChangedInColumn(indexSet foundatio
 func (b NSBrowser) ReloadDataForRowIndexesInColumn(rowIndexes foundation.NSIndexSet, column int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("reloadDataForRowIndexes:inColumn:"), rowIndexes, column)
 }
+
 // Scrolls to make the specified column visible.
 //
 // column: The index of the column to scroll to.
@@ -1070,6 +1084,7 @@ func (b NSBrowser) ReloadDataForRowIndexesInColumn(rowIndexes foundation.NSIndex
 func (b NSBrowser) ScrollColumnToVisible(column int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("scrollColumnToVisible:"), column)
 }
+
 // Scrolls columns left by the specified number of columns.
 //
 // shiftAmount: The number of columns by which to scroll the browser.
@@ -1078,6 +1093,7 @@ func (b NSBrowser) ScrollColumnToVisible(column int) {
 func (b NSBrowser) ScrollColumnsLeftBy(shiftAmount int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("scrollColumnsLeftBy:"), shiftAmount)
 }
+
 // Scrolls columns right by the specified number of columns.
 //
 // shiftAmount: The number of columns by which to scroll the browser.
@@ -1086,6 +1102,7 @@ func (b NSBrowser) ScrollColumnsLeftBy(shiftAmount int) {
 func (b NSBrowser) ScrollColumnsRightBy(shiftAmount int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("scrollColumnsRightBy:"), shiftAmount)
 }
+
 // Scrolls the specified row to be visible within the specified column.
 //
 // row: The index of the row to scroll.
@@ -1093,7 +1110,7 @@ func (b NSBrowser) ScrollColumnsRightBy(shiftAmount int) {
 // column: The index of the column containing the row to scroll.
 //
 // # Discussion
-// 
+//
 // The row’s column will not be scrolled to visible via this method. To
 // scroll the column to visible, use [ScrollColumnToVisible].
 //
@@ -1101,6 +1118,7 @@ func (b NSBrowser) ScrollColumnsRightBy(shiftAmount int) {
 func (b NSBrowser) ScrollRowToVisibleInColumn(row int, column int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("scrollRowToVisible:inColumn:"), row, column)
 }
+
 // Specifies the drag-operation mask for dragging operations with local or
 // external destinations.
 //
@@ -1108,11 +1126,8 @@ func (b NSBrowser) ScrollRowToVisibleInColumn(row int, column int) {
 // operations, as specified by localDestination.
 //
 // isLocal: Indicates the location of the dragging operation’s destination object:
-// 
-// [true] for this application; [false] for another application.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// true for this application; false for another application.
 //
 // # Discussion
 //
@@ -1120,6 +1135,7 @@ func (b NSBrowser) ScrollRowToVisibleInColumn(row int, column int) {
 func (b NSBrowser) SetDraggingSourceOperationMaskForLocal(mask NSDragOperation, isLocal bool) {
 	objc.Send[objc.ID](b.ID, objc.Sel("setDraggingSourceOperationMask:forLocal:"), mask, isLocal)
 }
+
 // Indicates whether the browser can attempt to initiate a drag of the given
 // rows for the given event.
 //
@@ -1130,18 +1146,16 @@ func (b NSBrowser) SetDraggingSourceOperationMaskForLocal(mask NSDragOperation, 
 // event: Mouse-drag event.
 //
 // # Return Value
-// 
-// [true] when `rowIndexes` identifies at least one row and all the identified
-// rows are enabled; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true when `rowIndexes` identifies at least one row and all the identified
+// rows are enabled; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/canDragRows(with:inColumn:with:)
 func (b NSBrowser) CanDragRowsWithIndexesInColumnWithEvent(rowIndexes foundation.NSIndexSet, column int, event INSEvent) bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("canDragRowsWithIndexes:inColumn:withEvent:"), rowIndexes, column, event)
 	return rv
 }
+
 // Provides an image to represent dragged rows during a drag operation on the
 // browser.
 //
@@ -1152,26 +1166,27 @@ func (b NSBrowser) CanDragRowsWithIndexesInColumnWithEvent(rowIndexes foundation
 // event: Mouse drag event.
 //
 // dragImageOffset: Offset for the returned image:
-// 
+//
 // - [NSZeroPoint]: The image is centered under the pointer.
-// //
-// [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
 //
 // # Return Value
-// 
+//
 // Image representing the visible cells identified by rowIndexes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/draggingImageForRows(with:inColumn:with:offset:)
+//
+// [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
 func (b NSBrowser) DraggingImageForRowsWithIndexesInColumnWithEventOffset(rowIndexes foundation.NSIndexSet, column int, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("draggingImageForRowsWithIndexes:inColumn:withEvent:offset:"), rowIndexes, column, event, dragImageOffset)
 	return NSImageFromID(rv)
 }
+
 // Returns the rectangle containing the given column.
 //
 // column: The index of the column for which to retrieve the frame.
 //
 // # Return Value
-// 
+//
 // The rectangle containing the specified column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/frame(ofColumn:)
@@ -1179,13 +1194,14 @@ func (b NSBrowser) FrameOfColumn(column int) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("frameOfColumn:"), column)
 	return corefoundation.CGRect(rv)
 }
+
 // Returns the rectangle containing the specified column, not including
 // borders.
 //
 // column: The index of the column for which to retrieve the inside frame.
 //
 // # Return Value
-// 
+//
 // The rectangle containing the column, not including the column borders.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/frame(ofInsideOfColumn:)
@@ -1193,6 +1209,7 @@ func (b NSBrowser) FrameOfInsideOfColumn(column int) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("frameOfInsideOfColumn:"), column)
 	return corefoundation.CGRect(rv)
 }
+
 // Returns the frame of the cell at the specified location, including the
 // expandable arrow.
 //
@@ -1201,7 +1218,7 @@ func (b NSBrowser) FrameOfInsideOfColumn(column int) corefoundation.CGRect {
 // column: The column of the cell.
 //
 // # Return Value
-// 
+//
 // The frame of the cell, in the [NSBrowser] coordinate space.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/frame(ofRow:inColumn:)
@@ -1209,6 +1226,7 @@ func (b NSBrowser) FrameOfRowInColumn(row int, column int) corefoundation.CGRect
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("frameOfRow:inColumn:"), row, column)
 	return corefoundation.CGRect(rv)
 }
+
 // Gets the row and column coordinates for the specified point, if a cell
 // exists at that point.
 //
@@ -1221,14 +1239,11 @@ func (b NSBrowser) FrameOfRowInColumn(row int, column int) corefoundation.CGRect
 // point: The point to test.
 //
 // # Return Value
-// 
-// [true] if a cell exists at the specified point; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if a cell exists at the specified point; otherwise, false.
 //
 // # Discussion
-// 
+//
 // If a row does not exist at `point`, then `-1` is set for the row. If a
 // column does not exist at `point`, then `-1` is set for the column.
 //
@@ -1239,38 +1254,39 @@ func (b NSBrowser) GetRowColumnForPoint(point corefoundation.CGPoint) (int, int,
 	rv := objc.Send[bool](b.ID, objc.Sel("getRow:column:forPoint:"), unsafe.Pointer(&row), unsafe.Pointer(&column), point)
 	return row, column, rv
 }
+
 // Sends the action message to the target.
 //
 // # Return Value
-// 
-// [true] if successful; [false] if no target for the message could be found.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if successful; false if no target for the message could be found.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/sendAction()
 func (b NSBrowser) SendAction() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("sendAction"))
 	return rv
 }
+
 // Responds to (single) mouse clicks in a column of the browser.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/doClick(_:)
 func (b NSBrowser) DoClick(sender objectivec.IObject) {
 	objc.Send[objc.ID](b.ID, objc.Sel("doClick:"), sender)
 }
+
 // Responds to double clicks in a column of the browser.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/doDoubleClick(_:)
 func (b NSBrowser) DoDoubleClick(sender objectivec.IObject) {
 	objc.Send[objc.ID](b.ID, objc.Sel("doDoubleClick:"), sender)
 }
+
 // Returns the content width for a given column width.
 //
 // columnWidth: The width of the column. This width is the entire scrolling text view.
 //
 // # Return Value
-// 
+//
 // The width of the content for the column. This is the width of the matrix in
 // the column.
 //
@@ -1279,17 +1295,18 @@ func (b NSBrowser) ColumnContentWidthForColumnWidth(columnWidth float64) float64
 	rv := objc.Send[float64](b.ID, objc.Sel("columnContentWidthForColumnWidth:"), columnWidth)
 	return rv
 }
+
 // Returns the column width for the width of the given column’s content.
 //
 // columnContentWidth: The width of the column’s content (the width of the matrix in the
 // column).
 //
 // # Return Value
-// 
+//
 // The width of the column (the width of the entire scrolling text view).
 //
 // # Discussion
-// 
+//
 // For example, to guarantee that 16 pixels of your browser cell are always
 // visible, call:
 //
@@ -1298,12 +1315,13 @@ func (b NSBrowser) ColumnWidthForColumnContentWidth(columnContentWidth float64) 
 	rv := objc.Send[float64](b.ID, objc.Sel("columnWidthForColumnContentWidth:"), columnContentWidth)
 	return rv
 }
+
 // Returns the width of the specified column.
 //
 // column: The index of the column for which to retrieve the width.
 //
 // # Return Value
-// 
+//
 // The width of the column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/width(ofColumn:)
@@ -1311,6 +1329,7 @@ func (b NSBrowser) WidthOfColumn(column int) float64 {
 	rv := objc.Send[float64](b.ID, objc.Sel("widthOfColumn:"), column)
 	return rv
 }
+
 // Sets the width of the specified column.
 //
 // columnWidth: The new width of the specified column.
@@ -1318,28 +1337,28 @@ func (b NSBrowser) WidthOfColumn(column int) float64 {
 // columnIndex: The index of the column for which to set the width.
 //
 // # Discussion
-// 
+//
 // This method can be used to set the initial width of browser columns unless
 // the column sizing is automatic; [SetWidthOfColumn] does nothing if
-// [ColumnResizingType] is [NSBrowser.ColumnResizingType.autoColumnResizing].
-// To set the default width for new columns (that don’t otherwise have
-// initial widths from defaults or via the delegate), use a `columnIndex` of
-// –1. A value set for `columnIndex` of –1 is persistent. An
+// [ColumnResizingType] is [NSBrowserAutoColumnResizing]. To set the default
+// width for new columns (that don’t otherwise have initial widths from
+// defaults or via the delegate), use a `columnIndex` of –1. A value set for
+// `columnIndex` of –1 is persistent. An
 // [columnConfigurationDidChangeNotification] notification is posted (not
 // immediately), if necessary, so that the browser can autosave the new column
 // configuration.
 //
-// [NSBrowser.ColumnResizingType.autoColumnResizing]: https://developer.apple.com/documentation/AppKit/NSBrowser/ColumnResizingType-swift.enum/autoColumnResizing
-// [columnConfigurationDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSBrowser/columnConfigurationDidChangeNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/setWidth(_:ofColumn:)
+//
+// [columnConfigurationDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSBrowser/columnConfigurationDidChangeNotification
 func (b NSBrowser) SetWidthOfColumn(columnWidth float64, columnIndex int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("setWidth:ofColumn:"), columnWidth, columnIndex)
 }
+
 // Returns the default column width of the browser’s columns.
 //
 // # Return Value
-// 
+//
 // The default column width.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/defaultColumnWidth()
@@ -1347,6 +1366,7 @@ func (b NSBrowser) DefaultColumnWidth() float64 {
 	rv := objc.Send[float64](b.ID, objc.Sel("defaultColumnWidth"))
 	return rv
 }
+
 // Sets the default column width for new browser columns that do not otherwise
 // have an initial width from defaults or the browser’s delegate.
 //
@@ -1371,11 +1391,9 @@ func (_NSBrowserClass NSBrowserClass) RemoveSavedColumnsWithAutosaveName(name NS
 // their columns are unloaded.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the [NSMatrix] objects aren’t
-// freed when their columns are unloaded, so they can be reused.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the [NSMatrix] objects aren’t
+// freed when their columns are unloaded, so they can be reused.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/reusesColumns
 func (b NSBrowser) ReusesColumns() bool {
@@ -1385,6 +1403,7 @@ func (b NSBrowser) ReusesColumns() bool {
 func (b NSBrowser) SetReusesColumns(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setReusesColumns:"), value)
 }
+
 // The maximum number of visible columns.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/maxVisibleColumns
@@ -1395,15 +1414,14 @@ func (b NSBrowser) MaxVisibleColumns() int {
 func (b NSBrowser) SetMaxVisibleColumns(value int) {
 	objc.Send[struct{}](b.ID, objc.Sel("setMaxVisibleColumns:"), value)
 }
+
 // A Boolean that indicates whether the browser automatically hides its
 // scroller.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the scroller is automatically
-// hidden.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the scroller is automatically
+// hidden.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/autohidesScroller
 func (b NSBrowser) AutohidesScroller() bool {
@@ -1413,10 +1431,11 @@ func (b NSBrowser) AutohidesScroller() bool {
 func (b NSBrowser) SetAutohidesScroller(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAutohidesScroller:"), value)
 }
+
 // The browser’s background color.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `[NSColor whiteColor]`. `[NSColor
 // clearColor]` specifies a transparent background.
 //
@@ -1428,6 +1447,7 @@ func (b NSBrowser) BackgroundColor() INSColor {
 func (b NSBrowser) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBackgroundColor:"), value)
 }
+
 // The minimum column width, in pixels.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/minColumnWidth
@@ -1438,17 +1458,15 @@ func (b NSBrowser) MinColumnWidth() float64 {
 func (b NSBrowser) SetMinColumnWidth(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setMinColumnWidth:"), value)
 }
+
 // A Boolean that indicates whether columns are separated by bezeled borders.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the browser’s columns are
-// separated by bezeled borders.
-// 
-// This value is ignored if [Titled] does not return [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the browser’s columns are
+// separated by bezeled borders.
+//
+// This value is ignored if [Titled] does not return false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/separatesColumns
 func (b NSBrowser) SeparatesColumns() bool {
@@ -1458,15 +1476,14 @@ func (b NSBrowser) SeparatesColumns() bool {
 func (b NSBrowser) SetSeparatesColumns(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSeparatesColumns:"), value)
 }
+
 // A Boolean that indicates whether a column takes its title from the selected
 // cell in the previous column.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the title of a column is set to
-// the string value of the selected [NSCell] in the previous column.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the title of a column is set to
+// the string value of the selected [NSCell] in the previous column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/takesTitleFromPreviousColumn
 func (b NSBrowser) TakesTitleFromPreviousColumn() bool {
@@ -1476,6 +1493,7 @@ func (b NSBrowser) TakesTitleFromPreviousColumn() bool {
 func (b NSBrowser) SetTakesTitleFromPreviousColumn(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTakesTitleFromPreviousColumn:"), value)
 }
+
 // The browser’s delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/delegate
@@ -1486,11 +1504,12 @@ func (b NSBrowser) Delegate() NSBrowserDelegate {
 func (b NSBrowser) SetDelegate(value NSBrowserDelegate) {
 	objc.Send[struct{}](b.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The prototype [NSCell] for displaying items in the matrices in the columns
 // of the browser.
 //
 // # Discussion
-// 
+//
 // The prototype [NSCell] instance is copied to display items in the matrices
 // of the browser.
 //
@@ -1502,14 +1521,13 @@ func (b NSBrowser) CellPrototype() objectivec.IObject {
 func (b NSBrowser) SetCellPrototype(value objectivec.IObject) {
 	objc.Send[struct{}](b.ID, objc.Sel("setCellPrototype:"), value)
 }
+
 // A Boolean that indicates whether the user can select branch items.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the user can select branch items
-// when multiple selection is enabled.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the user can select branch items
+// when multiple selection is enabled.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/allowsBranchSelection
 func (b NSBrowser) AllowsBranchSelection() bool {
@@ -1519,14 +1537,13 @@ func (b NSBrowser) AllowsBranchSelection() bool {
 func (b NSBrowser) SetAllowsBranchSelection(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAllowsBranchSelection:"), value)
 }
+
 // A Boolean that indicates whether there can be nothing selected.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the browser allows the selection
-// to be empty.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the browser allows the selection
+// to be empty.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/allowsEmptySelection
 func (b NSBrowser) AllowsEmptySelection() bool {
@@ -1536,14 +1553,13 @@ func (b NSBrowser) AllowsEmptySelection() bool {
 func (b NSBrowser) SetAllowsEmptySelection(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAllowsEmptySelection:"), value)
 }
+
 // A Boolean that indicates whether the user can select multiple items.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the browser allows the user to
-// select multiple items at once.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the browser allows the user to
+// select multiple items at once.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/allowsMultipleSelection
 func (b NSBrowser) AllowsMultipleSelection() bool {
@@ -1553,15 +1569,14 @@ func (b NSBrowser) AllowsMultipleSelection() bool {
 func (b NSBrowser) SetAllowsMultipleSelection(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAllowsMultipleSelection:"), value)
 }
+
 // A Boolean that indicates whether the browser allows keystroke-based
 // selection (type select).
 //
 // # Discussion
-// 
-// When the value of this property is [true], the browser allows
-// keystroke-based selection. The default value of this property is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the browser allows keystroke-based
+// selection. The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/allowsTypeSelect
 func (b NSBrowser) AllowsTypeSelect() bool {
@@ -1571,10 +1586,11 @@ func (b NSBrowser) AllowsTypeSelect() bool {
 func (b NSBrowser) SetAllowsTypeSelect(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAllowsTypeSelect:"), value)
 }
+
 // All cells selected in the rightmost column.
 //
 // # Discussion
-// 
+//
 // When the array is empty, there is no selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/selectedCells
@@ -1584,10 +1600,11 @@ func (b NSBrowser) SelectedCells() []NSCell {
 		return NSCellFromID(id)
 	})
 }
+
 // The index path of the item selected in the browser.
 //
 // # Discussion
-// 
+//
 // When the value of this property is `nil`, there is no selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/selectionIndexPath
@@ -1598,6 +1615,7 @@ func (b NSBrowser) SelectionIndexPath() objc.ID {
 func (b NSBrowser) SetSelectionIndexPath(value objc.ID) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSelectionIndexPath:"), value)
 }
+
 // An array containing the index paths of all items selected in the browser.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/selectionIndexPaths
@@ -1608,10 +1626,11 @@ func (b NSBrowser) SelectionIndexPaths() []objc.ID {
 func (b NSBrowser) SetSelectionIndexPaths(value []objc.ID) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSelectionIndexPaths:"), value)
 }
+
 // The path separator.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `/`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/pathSeparator
@@ -1622,10 +1641,11 @@ func (b NSBrowser) PathSeparator() string {
 func (b NSBrowser) SetPathSeparator(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setPathSeparator:"), objc.String(value))
 }
+
 // The index of the last column with a selected item.
 //
 // # Discussion
-// 
+//
 // When the value of this property is `-1`, there is no column selected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/selectedColumn
@@ -1633,6 +1653,7 @@ func (b NSBrowser) SelectedColumn() int {
 	rv := objc.Send[int](b.ID, objc.Sel("selectedColumn"))
 	return rv
 }
+
 // The index of the last column loaded.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/lastColumn
@@ -1643,6 +1664,7 @@ func (b NSBrowser) LastColumn() int {
 func (b NSBrowser) SetLastColumn(value int) {
 	objc.Send[struct{}](b.ID, objc.Sel("setLastColumn:"), value)
 }
+
 // The index of the first visible column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/firstVisibleColumn
@@ -1650,6 +1672,7 @@ func (b NSBrowser) FirstVisibleColumn() int {
 	rv := objc.Send[int](b.ID, objc.Sel("firstVisibleColumn"))
 	return rv
 }
+
 // The number of visible columns.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/numberOfVisibleColumns
@@ -1657,6 +1680,7 @@ func (b NSBrowser) NumberOfVisibleColumns() int {
 	rv := objc.Send[int](b.ID, objc.Sel("numberOfVisibleColumns"))
 	return rv
 }
+
 // The index of the last visible column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/lastVisibleColumn
@@ -1664,27 +1688,25 @@ func (b NSBrowser) LastVisibleColumn() int {
 	rv := objc.Send[int](b.ID, objc.Sel("lastVisibleColumn"))
 	return rv
 }
+
 // A Boolean that indicates whether column 0 is loaded.
 //
 // # Discussion
-// 
-// When the value of this property is [true], column 0 is loaded.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, column 0 is loaded.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/isLoaded
 func (b NSBrowser) Loaded() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isLoaded"))
 	return rv
 }
+
 // A Boolean that indicates whether columns display titles.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the columns in a browser display
-// titles.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the columns in a browser display
+// titles.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/isTitled
 func (b NSBrowser) Titled() bool {
@@ -1694,6 +1716,7 @@ func (b NSBrowser) Titled() bool {
 func (b NSBrowser) SetTitled(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTitled:"), value)
 }
+
 // The height of the column titles for the browser.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/titleHeight
@@ -1701,14 +1724,13 @@ func (b NSBrowser) TitleHeight() float64 {
 	rv := objc.Send[float64](b.ID, objc.Sel("titleHeight"))
 	return rv
 }
+
 // A Boolean that indicates whether the browser has a horizontal scroller.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the browser uses an [NSScroller]
-// object to scroll horizontally.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the browser uses an [NSScroller]
+// object to scroll horizontally.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/hasHorizontalScroller
 func (b NSBrowser) HasHorizontalScroller() bool {
@@ -1718,6 +1740,7 @@ func (b NSBrowser) HasHorizontalScroller() bool {
 func (b NSBrowser) SetHasHorizontalScroller(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setHasHorizontalScroller:"), value)
 }
+
 // The browser’s double-click action method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/doubleAction
@@ -1728,17 +1751,15 @@ func (b NSBrowser) DoubleAction() objc.SEL {
 func (b NSBrowser) SetDoubleAction(value objc.SEL) {
 	objc.Send[struct{}](b.ID, objc.Sel("setDoubleAction:"), value)
 }
+
 // A Boolean that indicates whether pressing an arrow key causes an action
 // message to be sent.
 //
 // # Discussion
-// 
-// When the value of this property is [false], pressing an arrow key scrolls
-// the browser. When the value of this property is [true], it also sends the
-// action message specified by [Action].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is false, pressing an arrow key scrolls the
+// browser. When the value of this property is true, it also sends the action
+// message specified by [Action].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/sendsActionOnArrowKeys
 func (b NSBrowser) SendsActionOnArrowKeys() bool {
@@ -1748,11 +1769,12 @@ func (b NSBrowser) SendsActionOnArrowKeys() bool {
 func (b NSBrowser) SetSendsActionOnArrowKeys(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSendsActionOnArrowKeys:"), value)
 }
+
 // The column number of the cell that the user clicked to display a context
 // menu.
 //
 // # Discussion
-// 
+//
 // The value of this property is `-1` if no context menu is active.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/clickedColumn
@@ -1760,10 +1782,11 @@ func (b NSBrowser) ClickedColumn() int {
 	rv := objc.Send[int](b.ID, objc.Sel("clickedColumn"))
 	return rv
 }
+
 // The row number of the cell that the user clicked to display a context menu.
 //
 // # Discussion
-// 
+//
 // The value of this property is `-1` if no context menu is active.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/clickedRow
@@ -1771,24 +1794,25 @@ func (b NSBrowser) ClickedRow() int {
 	rv := objc.Send[int](b.ID, objc.Sel("clickedRow"))
 	return rv
 }
+
 // The name used to automatically save the browser’s column configuration.
 //
 // # Discussion
-// 
+//
 // Column configuration is defined as an array of column content widths. One
 // width is saved for each level the user has reached. That is, the browser
 // saves column width based on depth, not on unique paths. To do more complex
 // column persistence, you should register for
 // [columnConfigurationDidChangeNotification] and handle persistence yourself.
 // This setting is persistent.
-// 
+//
 // When this property is set to a value different than its current value, this
 // property also reads in any column configuration data previously saved under
 // the new value and applies the values to the browser.
 //
-// [columnConfigurationDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSBrowser/columnConfigurationDidChangeNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/columnsAutosaveName-swift.property
+//
+// [columnConfigurationDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSBrowser/columnConfigurationDidChangeNotification
 func (b NSBrowser) ColumnsAutosaveName() NSBrowserColumnsAutosaveName {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("columnsAutosaveName"))
 	return NSBrowserColumnsAutosaveName(foundation.NSStringFromID(rv).String())
@@ -1796,17 +1820,17 @@ func (b NSBrowser) ColumnsAutosaveName() NSBrowserColumnsAutosaveName {
 func (b NSBrowser) SetColumnsAutosaveName(value NSBrowserColumnsAutosaveName) {
 	objc.Send[struct{}](b.ID, objc.Sel("setColumnsAutosaveName:"), objc.String(string(value)))
 }
+
 // A constant indicating the browser’s column resizing type.
 //
 // # Discussion
-// 
-// See [NSBrowser.ColumnResizingType] for possible values. The default value
-// of this property is [NSBrowser.ColumnResizingType.autoColumnResizing].
 //
-// [NSBrowser.ColumnResizingType.autoColumnResizing]: https://developer.apple.com/documentation/AppKit/NSBrowser/ColumnResizingType-swift.enum/autoColumnResizing
-// [NSBrowser.ColumnResizingType]: https://developer.apple.com/documentation/AppKit/NSBrowser/ColumnResizingType-swift.enum
+// See [NSBrowser.ColumnResizingType] for possible values. The default value
+// of this property is [NSBrowserAutoColumnResizing].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/columnResizingType-swift.property
+//
+// [NSBrowser.ColumnResizingType]: https://developer.apple.com/documentation/AppKit/NSBrowser/ColumnResizingType-swift.enum
 func (b NSBrowser) ColumnResizingType() NSBrowserColumnResizingType {
 	rv := objc.Send[NSBrowserColumnResizingType](b.ID, objc.Sel("columnResizingType"))
 	return NSBrowserColumnResizingType(rv)
@@ -1814,22 +1838,19 @@ func (b NSBrowser) ColumnResizingType() NSBrowserColumnResizingType {
 func (b NSBrowser) SetColumnResizingType(value NSBrowserColumnResizingType) {
 	objc.Send[struct{}](b.ID, objc.Sel("setColumnResizingType:"), value)
 }
+
 // A Boolean that indicates whether the browser is set to resize all columns
 // simultaneously rather than resizing a single column at a time.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the browser is set to resize all
-// columns simultaneously. The default value of this property is [false].
-// 
-// This setting applies only to browsers that allow the user to resize columns
-// (see the constant [NSBrowser.ColumnResizingType.userColumnResizing]).
-// Holding down the Option key while resizing switches the type of resizing
-// used. This setting is persistent.
 //
-// [NSBrowser.ColumnResizingType.userColumnResizing]: https://developer.apple.com/documentation/AppKit/NSBrowser/ColumnResizingType-swift.enum/userColumnResizing
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the browser is set to resize all
+// columns simultaneously. The default value of this property is false.
+//
+// This setting applies only to browsers that allow the user to resize columns
+// (see the constant [NSBrowserUserColumnResizing]). Holding down the Option
+// key while resizing switches the type of resizing used. This setting is
+// persistent.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/prefersAllColumnUserResizing
 func (b NSBrowser) PrefersAllColumnUserResizing() bool {
@@ -1839,16 +1860,17 @@ func (b NSBrowser) PrefersAllColumnUserResizing() bool {
 func (b NSBrowser) SetPrefersAllColumnUserResizing(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setPrefersAllColumnUserResizing:"), value)
 }
+
 // The height of the browser’s rows.
 //
 // # Discussion
-// 
+//
 // The value of this property must be greater than `0`. The default value of
 // this property is `17.0`. Any fractional value will be forced to an integral
 // value for drawing. For variable row height browsers (ones whose delegates
 // implement [BrowserHeightOfRowInColumn]), the row height will be used to
 // draw alternating rows past the last row in each browser column.
-// 
+//
 // This property is only available when using the item delegate methods. An
 // exception is thrown if you are using the matrix delegate methods.
 //
@@ -1861,3 +1883,14 @@ func (b NSBrowser) SetRowHeight(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setRowHeight:"), value)
 }
 
+// A Boolean value indicating whether the view fills its frame rectangle with
+// opaque content.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/isopaque
+func (b NSBrowser) IsOpaque() bool {
+	rv := objc.Send[bool](b.ID, objc.Sel("opaque"))
+	return rv
+}
+func (b NSBrowser) SetIsOpaque(value bool) {
+	objc.Send[struct{}](b.ID, objc.Sel("setOpaque:"), value)
+}

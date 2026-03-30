@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -74,6 +75,7 @@ type MTLTensorDescriptor struct {
 func MTLTensorDescriptorFromID(id objc.ID) MTLTensorDescriptor {
 	return MTLTensorDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLTensorDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,8 +160,8 @@ func NewMTLTensorDescriptor() MTLTensorDescriptor {
 // with this descriptor.
 //
 // # Discussion
-// 
-// The default value of this property is [CPUCacheModeDefaultCache].
+//
+// The default value of this property is [MTLCPUCacheModeDefaultCache].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorDescriptor/cpuCacheMode
 func (t MTLTensorDescriptor) CpuCacheMode() MTLCPUCacheMode {
@@ -169,13 +171,16 @@ func (t MTLTensorDescriptor) CpuCacheMode() MTLCPUCacheMode {
 func (t MTLTensorDescriptor) SetCpuCacheMode(value MTLCPUCacheMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCpuCacheMode:"), value)
 }
+
 // A data format for the tensors you create with this descriptor.
 //
 // # Discussion
-// 
-// The default value of this property is [TensorDataTypeFloat32].
+//
+// The default value of this property is [MTLTensorDataType.float32].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorDescriptor/dataType
+//
+// [MTLTensorDataType.float32]: https://developer.apple.com/documentation/Metal/MTLTensorDataType/float32
 func (t MTLTensorDescriptor) DataType() MTLTensorDataType {
 	rv := objc.Send[MTLTensorDataType](t.ID, objc.Sel("dataType"))
 	return MTLTensorDataType(rv)
@@ -183,11 +188,12 @@ func (t MTLTensorDescriptor) DataType() MTLTensorDataType {
 func (t MTLTensorDescriptor) SetDataType(value MTLTensorDataType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDataType:"), value)
 }
+
 // An array of sizes, in elements, one for each dimension of the tensors you
 // create with this descriptor.
 //
 // # Discussion
-// 
+//
 // The default value of this property is a rank one extents with size one.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorDescriptor/dimensions
@@ -198,14 +204,17 @@ func (t MTLTensorDescriptor) Dimensions() IMTLTensorExtents {
 func (t MTLTensorDescriptor) SetDimensions(value IMTLTensorExtents) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDimensions:"), value)
 }
+
 // A value that configures the hazard tracking of tensors you create with this
 // descriptor.
 //
 // # Discussion
-// 
-// The default value of this property is [HazardTrackingModeDefault].
+//
+// The default value of this property is [MTLHazardTrackingMode.default].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorDescriptor/hazardTrackingMode
+//
+// [MTLHazardTrackingMode.default]: https://developer.apple.com/documentation/Metal/MTLHazardTrackingMode/default
 func (t MTLTensorDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 	rv := objc.Send[MTLHazardTrackingMode](t.ID, objc.Sel("hazardTrackingMode"))
 	return MTLHazardTrackingMode(rv)
@@ -213,6 +222,7 @@ func (t MTLTensorDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 func (t MTLTensorDescriptor) SetHazardTrackingMode(value MTLHazardTrackingMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHazardTrackingMode:"), value)
 }
+
 // A packed set of the `storageMode`, `cpuCacheMode` and `hazardTrackingMode`
 // properties.
 //
@@ -224,12 +234,13 @@ func (t MTLTensorDescriptor) ResourceOptions() MTLResourceOptions {
 func (t MTLTensorDescriptor) SetResourceOptions(value MTLResourceOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResourceOptions:"), value)
 }
+
 // A value that configures the memory location and access permissions of
 // tensors you create with this descriptor.
 //
 // # Discussion
-// 
-// The default value of this property defaults to [StorageModeShared].
+//
+// The default value of this property defaults to [MTLStorageModeShared].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorDescriptor/storageMode
 func (t MTLTensorDescriptor) StorageMode() MTLStorageMode {
@@ -239,20 +250,21 @@ func (t MTLTensorDescriptor) StorageMode() MTLStorageMode {
 func (t MTLTensorDescriptor) SetStorageMode(value MTLStorageMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStorageMode:"), value)
 }
+
 // An array of strides, in elements, one for each dimension in the tensors you
 // create with this descriptor, if applicable.
 //
 // # Discussion
-// 
+//
 // This property only applies to tensors you create from a buffer, otherwise
 // it is nil. You are responsible for ensuring `strides` meets the following
 // requirements:
-// 
+//
 // - Elements of `strides`are in monotonically non-decreasing order. - The
 // first element of `strides` is one. - For any `i` larger than zero,
 // `strides[i]` is greater than or equal to `strides[i-1] * dimensions[i-1]`.
-// - If `usage` contains [TensorUsageMachineLearning], the second element of
-// `strides` is aligned to 64 bytes, and for any `i` larger than one,
+// - If `usage` contains [MTLTensorUsageMachineLearning], the second element
+// of `strides` is aligned to 64 bytes, and for any `i` larger than one,
 // `strides[i]` is equal to `strides[i-1] * dimensions[i-1]`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorDescriptor/strides
@@ -263,15 +275,16 @@ func (t MTLTensorDescriptor) Strides() IMTLTensorExtents {
 func (t MTLTensorDescriptor) SetStrides(value IMTLTensorExtents) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStrides:"), value)
 }
+
 // A set of contexts in which you can use tensors you create with this
 // descriptor.
 //
 // # Discussion
-// 
+//
 // The default value for this property is a bitwise [OR] of:
-// 
-// - [TensorUsageRender]
-// - [TensorUsageCompute]
+//
+// - [MTLTensorUsageRender]
+// - [MTLTensorUsageCompute]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorDescriptor/usage
 func (t MTLTensorDescriptor) Usage() MTLTensorUsage {
@@ -281,6 +294,7 @@ func (t MTLTensorDescriptor) Usage() MTLTensorUsage {
 func (t MTLTensorDescriptor) SetUsage(value MTLTensorUsage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsage:"), value)
 }
+
 // An error domain for errors that pertain to creating a tensor.
 //
 // See: https://developer.apple.com/documentation/metal/mtltensordomain
@@ -288,6 +302,7 @@ func (t MTLTensorDescriptor) MTLTensorDomain() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTLTensorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/metal/mtl_tensor_max_rank
 func (t MTLTensorDescriptor) MTL_TENSOR_MAX_RANK() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTL_TENSOR_MAX_RANK"))
@@ -296,4 +311,3 @@ func (t MTLTensorDescriptor) MTL_TENSOR_MAX_RANK() objectivec.IObject {
 func (t MTLTensorDescriptor) SetMTL_TENSOR_MAX_RANK(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMTL_TENSOR_MAX_RANK:"), value)
 }
-

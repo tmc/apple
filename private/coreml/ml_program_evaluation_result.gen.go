@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (mc MLProgramEvaluationResultClass) Alloc() MLProgramEvaluationResult {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLProgramEvaluationResult.EvaluationMetrics]
 //   - [MLProgramEvaluationResult.SetEvaluationMetrics]
 //   - [MLProgramEvaluationResult.Loss]
 //   - [MLProgramEvaluationResult.SetLoss]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluationResult
 type MLProgramEvaluationResult struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type MLProgramEvaluationResult struct {
 func MLProgramEvaluationResultFromID(id objc.ID) MLProgramEvaluationResult {
 	return MLProgramEvaluationResult{objectivec.Object{ID: id}}
 }
+
 // Ensure MLProgramEvaluationResult implements IMLProgramEvaluationResult.
 var _ IMLProgramEvaluationResult = MLProgramEvaluationResult{}
 
@@ -108,6 +110,7 @@ func (p MLProgramEvaluationResult) EvaluationMetrics() objectivec.IObject {
 func (p MLProgramEvaluationResult) SetEvaluationMetrics(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEvaluationMetrics:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluationResult/loss
 func (p MLProgramEvaluationResult) Loss() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("loss"))
@@ -116,4 +119,3 @@ func (p MLProgramEvaluationResult) Loss() float64 {
 func (p MLProgramEvaluationResult) SetLoss(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setLoss:"), value)
 }
-

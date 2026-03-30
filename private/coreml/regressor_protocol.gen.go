@@ -18,6 +18,7 @@ type MLRegressorProtocol interface {
 type MLRegressorProtocolObject struct {
 	objectivec.Object
 }
+
 func (o MLRegressorProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,7 +31,6 @@ func MLRegressorProtocolObjectFromID(id objc.ID) MLRegressorProtocolObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLRegressor/regress:options:error:
 func (o MLRegressorProtocolObject) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("regress:options:error:"), regress, options)
@@ -38,5 +38,4 @@ func (o MLRegressorProtocolObject) RegressOptionsError(regress objectivec.IObjec
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

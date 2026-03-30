@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (ac AVVCContextSettingsClass) Alloc() AVVCContextSettings {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVVCContextSettings.ActivationDeviceUID]
@@ -52,6 +52,7 @@ func (ac AVVCContextSettingsClass) Alloc() AVVCContextSettings {
 //   - [AVVCContextSettings.AnnounceCallsEnabled]
 //   - [AVVCContextSettings.SetAnnounceCallsEnabled]
 //   - [AVVCContextSettings.InitWithModeDeviceUID]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCContextSettings
 type AVVCContextSettings struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type AVVCContextSettings struct {
 func AVVCContextSettingsFromID(id objc.ID) AVVCContextSettings {
 	return AVVCContextSettings{objectivec.Object{ID: id}}
 }
+
 // Ensure AVVCContextSettings implements IAVVCContextSettings.
 var _ IAVVCContextSettings = AVVCContextSettings{}
 
@@ -110,7 +112,6 @@ func NewAVVCContextSettings() AVVCContextSettings {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCContextSettings/initWithMode:deviceUID:
 func NewVCContextSettingsWithModeDeviceUID(mode int64, uid objectivec.IObject) AVVCContextSettings {
 	instance := getAVVCContextSettingsClass().Alloc()
@@ -118,7 +119,6 @@ func NewVCContextSettingsWithModeDeviceUID(mode int64, uid objectivec.IObject) A
 	return AVVCContextSettingsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCContextSettings/initWithMode:deviceUID:
 func (v AVVCContextSettings) InitWithModeDeviceUID(mode int64, uid objectivec.IObject) AVVCContextSettings {
 	rv := objc.Send[AVVCContextSettings](v.ID, objc.Sel("initWithMode:deviceUID:"), mode, uid)
@@ -133,6 +133,7 @@ func (v AVVCContextSettings) ActivationDeviceUID() string {
 func (v AVVCContextSettings) SetActivationDeviceUID(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setActivationDeviceUID:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCContextSettings/activationMode
 func (v AVVCContextSettings) ActivationMode() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("activationMode"))
@@ -141,6 +142,7 @@ func (v AVVCContextSettings) ActivationMode() int64 {
 func (v AVVCContextSettings) SetActivationMode(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setActivationMode:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCContextSettings/announceCallsEnabled
 func (v AVVCContextSettings) AnnounceCallsEnabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("announceCallsEnabled"))
@@ -149,4 +151,3 @@ func (v AVVCContextSettings) AnnounceCallsEnabled() bool {
 func (v AVVCContextSettings) SetAnnounceCallsEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAnnounceCallsEnabled:"), value)
 }
-

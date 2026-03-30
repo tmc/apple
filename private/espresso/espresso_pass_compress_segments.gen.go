@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_compress_segments struct {
 func EspressoPass_compress_segmentsFromID(id objc.ID) EspressoPass_compress_segments {
 	return EspressoPass_compress_segments{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_compress_segments implements IEspressoPass_compress_segments.
 var _ IEspressoPass_compress_segments = EspressoPass_compress_segments{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_compress_segments() EspressoPass_compress_segments {
 	rv := objc.Send[EspressoPass_compress_segments](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,18 +45,18 @@ func (nc NSCollectionViewCompositionalLayoutClass) Alloc() NSCollectionViewCompo
 // visual arrangements.
 //
 // # Overview
-// 
+//
 // A compositional layout is a type of collection view layout. It’s designed
 // to be composable, flexible, and fast, letting you build any kind of visual
 // arrangement for your content by combining—or compositing—each smaller
 // component into a full layout.
-// 
+//
 // A compositional layout is composed of one or more sections that break up
 // the layout into distinct visual groupings. Each section is composed of
 // groups of individual items, the smallest unit of data you want to present.
 // A group might lay out its items in a horizontal row, a vertical column, or
 // a custom arrangement.
-// 
+//
 // You combine the components by building up from items into a group, from
 // groups into a section, and finally into a full layout, like in this example
 // of a basic list layout:
@@ -84,6 +85,7 @@ type NSCollectionViewCompositionalLayout struct {
 func NSCollectionViewCompositionalLayoutFromID(id objc.ID) NSCollectionViewCompositionalLayout {
 	return NSCollectionViewCompositionalLayout{NSCollectionViewLayout: NSCollectionViewLayoutFromID(id)}
 }
+
 // NOTE: NSCollectionViewCompositionalLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -188,6 +190,7 @@ func (c NSCollectionViewCompositionalLayout) InitWithSection(section INSCollecti
 	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSection:"), section)
 	return rv
 }
+
 // Creates a compositional layout object with a single section and an
 // additional configuration.
 //
@@ -196,6 +199,7 @@ func (c NSCollectionViewCompositionalLayout) InitWithSectionConfiguration(sectio
 	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSection:configuration:"), section, configuration)
 	return rv
 }
+
 // Creates a compositional layout object with a section provider to supply the
 // layout’s sections.
 //
@@ -204,6 +208,7 @@ func (c NSCollectionViewCompositionalLayout) InitWithSectionProvider(sectionProv
 	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSectionProvider:"), sectionProvider)
 	return rv
 }
+
 // Creates a compositional layout object with a section provider and an
 // additional configuration.
 //
@@ -224,4 +229,3 @@ func (c NSCollectionViewCompositionalLayout) Configuration() INSCollectionViewCo
 func (c NSCollectionViewCompositionalLayout) SetConfiguration(value INSCollectionViewCompositionalLayoutConfiguration) {
 	objc.Send[struct{}](c.ID, objc.Sel("setConfiguration:"), value)
 }
-

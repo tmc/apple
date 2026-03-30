@@ -3,12 +3,13 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,12 +46,12 @@ func (mc MLPixelBufferPoolClass) Alloc() MLPixelBufferPool {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLPixelBufferPool._pixelBufferPoolWithSizePixelFormatTypeError]
 //   - [MLPixelBufferPool.CreatePixelBufferWithSizePixelFormatTypeError]
 //   - [MLPixelBufferPool.PixelBufferPoolCache]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool
 type MLPixelBufferPool struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type MLPixelBufferPool struct {
 func MLPixelBufferPoolFromID(id objc.ID) MLPixelBufferPool {
 	return MLPixelBufferPool{objectivec.Object{ID: id}}
 }
+
 // Ensure MLPixelBufferPool implements IMLPixelBufferPool.
 var _ IMLPixelBufferPool = MLPixelBufferPool{}
 
@@ -101,7 +103,6 @@ func NewMLPixelBufferPool() MLPixelBufferPool {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool/_pixelBufferPoolWithSize:pixelFormatType:error:
 func (p MLPixelBufferPool) _pixelBufferPoolWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
@@ -118,7 +119,7 @@ func (p MLPixelBufferPool) _pixelBufferPoolWithSizePixelFormatTypeError(size cor
 func (p MLPixelBufferPool) PixelBufferPoolWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
 	return p._pixelBufferPoolWithSizePixelFormatTypeError(size, type_)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPixelBufferPool/createPixelBufferWithSize:pixelFormatType:error:
 func (p MLPixelBufferPool) CreatePixelBufferWithSizePixelFormatTypeError(size corefoundation.CGSize, type_ uint32) (corevideo.CVImageBufferRef, error) {
 	var errorPtr objc.ID
@@ -136,4 +137,3 @@ func (p MLPixelBufferPool) PixelBufferPoolCache() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("pixelBufferPoolCache"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

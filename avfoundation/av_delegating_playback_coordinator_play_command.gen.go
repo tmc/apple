@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVDelegatingPlaybackCoordinatorPlayCommand] class.
@@ -60,6 +61,7 @@ type AVDelegatingPlaybackCoordinatorPlayCommand struct {
 func AVDelegatingPlaybackCoordinatorPlayCommandFromID(id objc.ID) AVDelegatingPlaybackCoordinatorPlayCommand {
 	return AVDelegatingPlaybackCoordinatorPlayCommand{AVDelegatingPlaybackCoordinatorPlaybackControlCommand: AVDelegatingPlaybackCoordinatorPlaybackControlCommandFromID(id)}
 }
+
 // NOTE: AVDelegatingPlaybackCoordinatorPlayCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -107,7 +109,7 @@ func NewAVDelegatingPlaybackCoordinatorPlayCommand() AVDelegatingPlaybackCoordin
 // A rate to use when starting playback.
 //
 // # Discussion
-// 
+//
 // This value is always nonzero.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorPlayCommand/rate
@@ -115,6 +117,7 @@ func (d AVDelegatingPlaybackCoordinatorPlayCommand) Rate() float32 {
 	rv := objc.Send[float32](d.ID, objc.Sel("rate"))
 	return rv
 }
+
 // A time in the item timeline to use to begin playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorPlayCommand/itemTime
@@ -122,6 +125,7 @@ func (d AVDelegatingPlaybackCoordinatorPlayCommand) ItemTime() coremedia.CMTime 
 	rv := objc.Send[coremedia.CMTime](d.ID, objc.Sel("itemTime"))
 	return coremedia.CMTime(rv)
 }
+
 // A host clock time to use to begin playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorPlayCommand/hostClockTime
@@ -129,4 +133,3 @@ func (d AVDelegatingPlaybackCoordinatorPlayCommand) HostClockTime() coremedia.CM
 	rv := objc.Send[coremedia.CMTime](d.ID, objc.Sel("hostClockTime"))
 	return coremedia.CMTime(rv)
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZXPCClientMailboxDeviceAttachmentClass) Alloc() VZXPCClientMailboxDevi
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZXPCClientMailboxDeviceAttachment._initWithMailboxHandle]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZXPCClientMailboxDeviceAttachment
 type VZXPCClientMailboxDeviceAttachment struct {
 	VZMailboxDeviceAttachment
@@ -54,6 +55,7 @@ type VZXPCClientMailboxDeviceAttachment struct {
 func VZXPCClientMailboxDeviceAttachmentFromID(id objc.ID) VZXPCClientMailboxDeviceAttachment {
 	return VZXPCClientMailboxDeviceAttachment{VZMailboxDeviceAttachment: VZMailboxDeviceAttachmentFromID(id)}
 }
+
 // Ensure VZXPCClientMailboxDeviceAttachment implements IVZXPCClientMailboxDeviceAttachment.
 var _ IVZXPCClientMailboxDeviceAttachment = VZXPCClientMailboxDeviceAttachment{}
 
@@ -91,7 +93,6 @@ func NewVZXPCClientMailboxDeviceAttachment() VZXPCClientMailboxDeviceAttachment 
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZXPCClientMailboxDeviceAttachment/_initWithMailboxHandle:
 func (v VZXPCClientMailboxDeviceAttachment) _initWithMailboxHandle(handle objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_initWithMailboxHandle:"), handle)
@@ -102,4 +103,3 @@ func (v VZXPCClientMailboxDeviceAttachment) _initWithMailboxHandle(handle object
 func (v VZXPCClientMailboxDeviceAttachment) InitWithMailboxHandle(handle objectivec.IObject) objectivec.IObject {
 	return v._initWithMailboxHandle(handle)
 }
-

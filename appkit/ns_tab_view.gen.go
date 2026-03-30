@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,12 +47,12 @@ func (nc NSTabViewClass) Alloc() NSTabView {
 // A multipage interface that displays one page at a time.
 //
 // # Overview
-// 
+//
 // A tab view contains a row of tabs that give the appearance of folder tabs,
 // as shown in the [Figure 1]. The user selects the desired page by clicking
 // the appropriate tab or using the arrow keys to move between pages. Each
 // page displays a view hierarchy provided by your app.
-// 
+//
 // [media-2555818]
 //
 // # Handling the Selection of Tabs
@@ -132,6 +133,7 @@ type NSTabView struct {
 func NSTabViewFromID(id objc.ID) NSTabView {
 	return NSTabView{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSTabView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -326,7 +328,7 @@ func NewNSTabView() NSTabView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -342,11 +344,11 @@ func NewTabViewWithCoder(coder foundation.INSCoder) NSTabView {
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -363,7 +365,7 @@ func NewTabViewWithFrame(frameRect corefoundation.CGRect) NSTabView {
 // tabViewItem: The tab view item to be added.
 //
 // # Discussion
-// 
+//
 // The item is added at the end of the array of tab items, so the new tab
 // appears on the right side of the view. If the delegate supports it, it
 // invokes the delegate’s [TabViewDidChangeNumberOfTabViewItems] method.
@@ -372,6 +374,7 @@ func NewTabViewWithFrame(frameRect corefoundation.CGRect) NSTabView {
 func (t NSTabView) AddTabViewItem(tabViewItem INSTabViewItem) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addTabViewItem:"), tabViewItem)
 }
+
 // Inserts the specified item into the tab view’s array of tab view items at
 // the specified index.
 //
@@ -381,7 +384,7 @@ func (t NSTabView) AddTabViewItem(tabViewItem INSTabViewItem) {
 // zero-based.
 //
 // # Discussion
-// 
+//
 // If there is a delegate and the delegate supports it, sends the delegate the
 // [TabViewDidChangeNumberOfTabViewItems] message.
 //
@@ -389,12 +392,13 @@ func (t NSTabView) AddTabViewItem(tabViewItem INSTabViewItem) {
 func (t NSTabView) InsertTabViewItemAtIndex(tabViewItem INSTabViewItem, index int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insertTabViewItem:atIndex:"), tabViewItem, index)
 }
+
 // Removes the specified item from the tab view’s array of tab view items.
 //
 // tabViewItem: The tab view item to be removed.
 //
 // # Discussion
-// 
+//
 // If there is a delegate and the delegate supports it, sends the delegate the
 // [TabViewDidChangeNumberOfTabViewItems] message.
 //
@@ -402,17 +406,18 @@ func (t NSTabView) InsertTabViewItemAtIndex(tabViewItem INSTabViewItem, index in
 func (t NSTabView) RemoveTabViewItem(tabViewItem INSTabViewItem) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeTabViewItem:"), tabViewItem)
 }
+
 // Returns the index of the specified item in the tab view.
 //
 // tabViewItem: The tab view item.
 //
 // # Return Value
-// 
+//
 // The zero-based index of `tabViewItem`, or [NSNotFound] if the item is not
 // found.
 //
 // # Discussion
-// 
+//
 // The returned index is zero-based.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/indexOfTabViewItem(_:)
@@ -420,18 +425,19 @@ func (t NSTabView) IndexOfTabViewItem(tabViewItem INSTabViewItem) int {
 	rv := objc.Send[int](t.ID, objc.Sel("indexOfTabViewItem:"), tabViewItem)
 	return rv
 }
+
 // Returns the index of the item that matches the specified identifier or
 // [NSNotFound] if the item is not found.
 //
 // identifier: The identifier of a tab view item.
 //
 // # Return Value
-// 
+//
 // The zero-based index of the tab view item corresponding to `identifier`, or
 // [NSNotFound] if the item is not found.
 //
 // # Discussion
-// 
+//
 // The returned index is zero-based.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/indexOfTabViewItem(withIdentifier:)
@@ -439,13 +445,14 @@ func (t NSTabView) IndexOfTabViewItemWithIdentifier(identifier objectivec.IObjec
 	rv := objc.Send[int](t.ID, objc.Sel("indexOfTabViewItemWithIdentifier:"), identifier)
 	return rv
 }
+
 // Returns the tab view item at `index` in the tab view’s array of items.
 //
 // index: The index at which to insert the tab view item. The `index` parameter is
 // zero-based.
 //
 // # Return Value
-// 
+//
 // The tab view item at the specified index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/tabViewItem(at:)-7r3at
@@ -453,6 +460,7 @@ func (t NSTabView) TabViewItemAtIndex(index int) INSTabViewItem {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tabViewItemAtIndex:"), index)
 	return NSTabViewItemFromID(rv)
 }
+
 // This action method selects the first tab view item.
 //
 // sender: Typically the object that sent the message.
@@ -461,6 +469,7 @@ func (t NSTabView) TabViewItemAtIndex(index int) INSTabViewItem {
 func (t NSTabView) SelectFirstTabViewItem(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("selectFirstTabViewItem:"), sender)
 }
+
 // This action method selects the last tab view item.
 //
 // sender: Typically the object that sent invoked the message.
@@ -469,12 +478,13 @@ func (t NSTabView) SelectFirstTabViewItem(sender objectivec.IObject) {
 func (t NSTabView) SelectLastTabViewItem(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("selectLastTabViewItem:"), sender)
 }
+
 // This action method selects the next tab view item in the sequence.
 //
 // sender: Typically the object that sent the message.
 //
 // # Discussion
-// 
+//
 // If the currently visible item is the last item in the sequence, this method
 // does nothing, and the last pane remains displayed.
 //
@@ -482,12 +492,13 @@ func (t NSTabView) SelectLastTabViewItem(sender objectivec.IObject) {
 func (t NSTabView) SelectNextTabViewItem(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("selectNextTabViewItem:"), sender)
 }
+
 // This action method selects the previous tab view item in the sequence.
 //
 // sender: Typically the object that sent the message.
 //
 // # Discussion
-// 
+//
 // If the currently visible item is the first item in the sequence, this
 // method does nothing, and the first pane remains displayed.
 //
@@ -495,12 +506,13 @@ func (t NSTabView) SelectNextTabViewItem(sender objectivec.IObject) {
 func (t NSTabView) SelectPreviousTabViewItem(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("selectPreviousTabViewItem:"), sender)
 }
+
 // Selects the specified tab view item.
 //
 // tabViewItem: The tab item to select.
 //
 // # Discussion
-// 
+//
 // If there is a delegate and the delegate supports it, sends the delegate the
 // [TabViewShouldSelectTabViewItem] message.
 //
@@ -508,12 +520,13 @@ func (t NSTabView) SelectPreviousTabViewItem(sender objectivec.IObject) {
 func (t NSTabView) SelectTabViewItem(tabViewItem INSTabViewItem) {
 	objc.Send[objc.ID](t.ID, objc.Sel("selectTabViewItem:"), tabViewItem)
 }
+
 // Selects the tab view item specified by `index`.
 //
 // index: The index of the tab item to selected.
 //
 // # Discussion
-// 
+//
 // The `index` parameter is base 0. If there is a delegate and the delegate
 // supports it, sends the delegate the [TabViewShouldSelectTabViewItem]
 // message.
@@ -522,6 +535,7 @@ func (t NSTabView) SelectTabViewItem(tabViewItem INSTabViewItem) {
 func (t NSTabView) SelectTabViewItemAtIndex(index int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("selectTabViewItemAtIndex:"), index)
 }
+
 // Selects the tab view item specified by `identifier`.
 //
 // identifier: The identifier of the tab item to select.
@@ -530,13 +544,14 @@ func (t NSTabView) SelectTabViewItemAtIndex(index int) {
 func (t NSTabView) SelectTabViewItemWithIdentifier(identifier objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("selectTabViewItemWithIdentifier:"), identifier)
 }
+
 // Sets the selected tab view item to the selected item obtained from the
 // sender.
 //
 // sender: Typically the object that sent the message.
 //
 // # Discussion
-// 
+//
 // If `sender` responds to the `indexOfSelectedItem` method, this method
 // invokes that method and selects the tab view item at the specified index.
 //
@@ -544,17 +559,18 @@ func (t NSTabView) SelectTabViewItemWithIdentifier(identifier objectivec.IObject
 func (t NSTabView) TakeSelectedTabViewItemFromSender(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("takeSelectedTabViewItemFromSender:"), sender)
 }
+
 // Returns the tab view item at the specified point.
 //
 // point: The hit point.
 //
 // # Return Value
-// 
+//
 // The tab view item under the hit point, or `nil` if no tab view item is
 // under that location.
 //
 // # Discussion
-// 
+//
 // You can use this method to find a tab view item based on a user’s mouse
 // click.
 //
@@ -567,7 +583,7 @@ func (t NSTabView) TabViewItemAtPoint(point corefoundation.CGPoint) INSTabViewIt
 // The tab view’s delegate.
 //
 // # Discussion
-// 
+//
 // The value of this property must conform to the [NSTabViewDelegate]
 // protocol.
 //
@@ -579,10 +595,11 @@ func (t NSTabView) Delegate() NSTabViewDelegate {
 func (t NSTabView) SetDelegate(value NSTabViewDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The number of items in the tab view’s array of tab view items.
 //
 // # Discussion
-// 
+//
 // The default value of this property is 0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/numberOfTabViewItems
@@ -590,10 +607,11 @@ func (t NSTabView) NumberOfTabViewItems() int {
 	rv := objc.Send[int](t.ID, objc.Sel("numberOfTabViewItems"))
 	return rv
 }
+
 // The tab view’s array of tab view items.
 //
 // # Discussion
-// 
+//
 // A tab view keeps an array containing one tab view item for each tab in the
 // view. The default value of this property is an empty array.
 //
@@ -607,18 +625,17 @@ func (t NSTabView) TabViewItems() []NSTabViewItem {
 func (t NSTabView) SetTabViewItems(value []NSTabViewItem) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabViewItems:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The tab type to display the tabs.
 //
 // # Discussion
-// 
-// The supported values for this property are listed in [NSTabView.TabType].
-// The default value of this property is
-// [NSTabView.TabType.topTabsBezelBorder].
 //
-// [NSTabView.TabType.topTabsBezelBorder]: https://developer.apple.com/documentation/AppKit/NSTabView/TabType/topTabsBezelBorder
-// [NSTabView.TabType]: https://developer.apple.com/documentation/AppKit/NSTabView/TabType
+// The supported values for this property are listed in [NSTabView.TabType].
+// The default value of this property is [NSTopTabsBezelBorder].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/tabViewType
+//
+// [NSTabView.TabType]: https://developer.apple.com/documentation/AppKit/NSTabView/TabType
 func (t NSTabView) TabViewType() NSTabViewType {
 	rv := objc.Send[NSTabViewType](t.ID, objc.Sel("tabViewType"))
 	return NSTabViewType(rv)
@@ -626,6 +643,7 @@ func (t NSTabView) TabViewType() NSTabViewType {
 func (t NSTabView) SetTabViewType(value NSTabViewType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabViewType:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/tabPosition-swift.property
 func (t NSTabView) TabPosition() NSTabPosition {
 	rv := objc.Send[NSTabPosition](t.ID, objc.Sel("tabPosition"))
@@ -634,6 +652,7 @@ func (t NSTabView) TabPosition() NSTabPosition {
 func (t NSTabView) SetTabPosition(value NSTabPosition) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabPosition:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/tabViewBorderType-swift.property
 func (t NSTabView) TabViewBorderType() NSTabViewBorderType {
 	rv := objc.Send[NSTabViewBorderType](t.ID, objc.Sel("tabViewBorderType"))
@@ -642,10 +661,11 @@ func (t NSTabView) TabViewBorderType() NSTabViewBorderType {
 func (t NSTabView) SetTabViewBorderType(value NSTabViewBorderType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabViewBorderType:"), value)
 }
+
 // The tab view item for the currently selected tab.
 //
 // # Discussion
-// 
+//
 // If no item is selected, the value of this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/selectedTabViewItem
@@ -653,10 +673,11 @@ func (t NSTabView) SelectedTabViewItem() INSTabViewItem {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("selectedTabViewItem"))
 	return NSTabViewItemFromID(objc.ID(rv))
 }
+
 // The font used for the tab view’s label text.
 //
 // # Discussion
-// 
+//
 // The default value of this property is the message font of default size (see
 // [MessageFontOfSize]), which is equivalent to the system font of default
 // size. Tab height is adjusted automatically to accommodate a new font size.
@@ -670,18 +691,17 @@ func (t NSTabView) Font() NSFont {
 func (t NSTabView) SetFont(value NSFont) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
+
 // A Boolean value that indicates if the tab view draws a background color
 // when its type is [NSNoTabsNoBorder].
 //
 // # Discussion
-// 
-// When the value of this property is [true], the tab view draws a background
+//
+// When the value of this property is true, the tab view draws a background
 // color when the its type is [NSNoTabsNoBorder], otherwise it does not. If
 // the tab view has a bezeled border or a line border, the appropriate
 // background for that border is used. The default value of this property is
-// [true].
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/drawsBackground
 func (t NSTabView) DrawsBackground() bool {
@@ -691,11 +711,12 @@ func (t NSTabView) DrawsBackground() bool {
 func (t NSTabView) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDrawsBackground:"), value)
 }
+
 // The minimum size necessary for the tab view to display tabs in a useful
 // way.
 //
 // # Discussion
-// 
+//
 // You can use the value of this property to limit how much a user can resize
 // a tab view.
 //
@@ -704,10 +725,11 @@ func (t NSTabView) MinimumSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](t.ID, objc.Sel("minimumSize"))
 	return corefoundation.CGSize(rv)
 }
+
 // The rectangle describing the content area of the tab view.
 //
 // # Discussion
-// 
+//
 // This area does not include the space required for the tab view’s tabs or
 // borders (if any).
 //
@@ -716,16 +738,17 @@ func (t NSTabView) ContentRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("contentRect"))
 	return corefoundation.CGRect(rv)
 }
+
 // The size of the tab view.
 //
 // # Discussion
-// 
+//
 // The valid values for this property are described inControl Sizes in
 // [NSCell]. The default value of this property is [NSRegularControlSize].
 //
-// [NSRegularControlSize]: https://developer.apple.com/documentation/AppKit/NSRegularControlSize
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/controlSize
+//
+// [NSRegularControlSize]: https://developer.apple.com/documentation/AppKit/NSRegularControlSize
 func (t NSTabView) ControlSize() NSControlSize {
 	rv := objc.Send[NSControlSize](t.ID, objc.Sel("controlSize"))
 	return NSControlSize(rv)
@@ -733,17 +756,16 @@ func (t NSTabView) ControlSize() NSControlSize {
 func (t NSTabView) SetControlSize(value NSControlSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setControlSize:"), value)
 }
+
 // A Boolean value that indicates if the tab view allows truncating for labels
 // that don’t fit on a tab.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the tab view allows truncating
-// for labels that don’t fit on a tab, otherwise it does not. The default
-// value is [true]. When truncating is allowed, the tab view inserts an
-// ellipsis, if necessary, to fit a label in the tab.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the tab view allows truncating for
+// labels that don’t fit on a tab, otherwise it does not. The default value
+// is true. When truncating is allowed, the tab view inserts an ellipsis, if
+// necessary, to fit a label in the tab.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/allowsTruncatedLabels
 func (t NSTabView) AllowsTruncatedLabels() bool {
@@ -753,4 +775,3 @@ func (t NSTabView) AllowsTruncatedLabels() bool {
 func (t NSTabView) SetAllowsTruncatedLabels(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsTruncatedLabels:"), value)
 }
-

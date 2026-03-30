@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZNetworkDeviceConfigurationClass) Alloc() VZNetworkDeviceConfiguration
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZNetworkDeviceConfiguration._init]
@@ -52,6 +52,7 @@ func (vc VZNetworkDeviceConfigurationClass) Alloc() VZNetworkDeviceConfiguration
 //   - [VZNetworkDeviceConfiguration.Description]
 //   - [VZNetworkDeviceConfiguration.Hash]
 //   - [VZNetworkDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration
 type VZNetworkDeviceConfiguration struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZNetworkDeviceConfiguration struct {
 func VZNetworkDeviceConfigurationFromID(id objc.ID) VZNetworkDeviceConfiguration {
 	return VZNetworkDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZNetworkDeviceConfiguration implements IVZNetworkDeviceConfiguration.
 var _ IVZNetworkDeviceConfiguration = VZNetworkDeviceConfiguration{}
 
@@ -115,7 +117,7 @@ func (n VZNetworkDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/makeNetworkDeviceForVirtualMachine:networkDeviceIndex:
 func (n VZNetworkDeviceConfiguration) MakeNetworkDeviceForVirtualMachineNetworkDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("makeNetworkDeviceForVirtualMachine:networkDeviceIndex:"), machine, index)
@@ -127,24 +129,27 @@ func (n VZNetworkDeviceConfiguration) _networkDevice() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("_networkDevice"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/debugDescription
 func (n VZNetworkDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/description
 func (n VZNetworkDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/hash
 func (n VZNetworkDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](n.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDeviceConfiguration/superclass
 func (n VZNetworkDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](n.ID, objc.Sel("superclass"))
 	return rv
 }
-

@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -39,6 +39,7 @@ type MTLFunctionLog interface {
 type MTLFunctionLogObject struct {
 	objectivec.Object
 }
+
 func (o MTLFunctionLogObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,26 +58,28 @@ func MTLFunctionLogObjectFromID(id objc.ID) MTLFunctionLogObject {
 func (o MTLFunctionLogObject) Type() MTLFunctionLogType {
 	rv := objc.Send[MTLFunctionLogType](o.ID, objc.Sel("type"))
 	return rv
-	}
+}
+
 // If known, the location of the logging command within a shader source file.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLog/debugLocation
 func (o MTLFunctionLogObject) DebugLocation() MTLFunctionLogDebugLocation {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("debugLocation"))
 	return MTLFunctionLogDebugLocationObjectFromID(rv)
-	}
+}
+
 // The label for the encoder that logged the message.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLog/encoderLabel
 func (o MTLFunctionLogObject) EncoderLabel() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("encoderLabel"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // When known, the function object corresponding to the logged message.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLog/function
 func (o MTLFunctionLogObject) Function() MTLFunction {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("function"))
 	return MTLFunctionObjectFromID(rv)
-	}
-
+}

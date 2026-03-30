@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -59,6 +60,7 @@ type MTLArchitecture struct {
 func MTLArchitectureFromID(id objc.ID) MTLArchitecture {
 	return MTLArchitecture{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLArchitecture adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,24 +133,25 @@ func NewMTLArchitecture() MTLArchitecture {
 // The name of a GPU device’s architecture.
 //
 // # Discussion
-// 
+//
 // The property’s value is equivalent to the output from the `metal-arch`
 // command line tool on the same system.
-// 
+//
 // Apps can use this property’s value to make decisions at runtime. For
 // example, an app could retrieve a GPU-specific file from its developer’s
 // content delivery network (CDN), such as a shader library or binary archive.
 // See [Shader libraries] and [Shader library and archive creation] for more
 // information.
 //
+// See: https://developer.apple.com/documentation/Metal/MTLArchitecture/name
+//
 // [Shader libraries]: https://developer.apple.com/documentation/Metal/shader-libraries
 // [Shader library and archive creation]: https://developer.apple.com/documentation/Metal/shader-library-and-archive-creation
-//
-// See: https://developer.apple.com/documentation/Metal/MTLArchitecture/name
 func (a MTLArchitecture) Name() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The architectural details of the GPU device.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/architecture
@@ -159,6 +162,7 @@ func (a MTLArchitecture) Architecture() IMTLArchitecture {
 func (a MTLArchitecture) SetArchitecture(value IMTLArchitecture) {
 	objc.Send[struct{}](a.ID, objc.Sel("setArchitecture:"), value)
 }
+
 // A Boolean value that indicates whether a GPU device doesn’t have a
 // connection to a display.
 //
@@ -170,6 +174,7 @@ func (a MTLArchitecture) IsHeadless() bool {
 func (a MTLArchitecture) SetIsHeadless(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setHeadless:"), value)
 }
+
 // A Boolean value that indicates whether the GPU lowers its performance to
 // conserve energy.
 //
@@ -181,6 +186,7 @@ func (a MTLArchitecture) IsLowPower() bool {
 func (a MTLArchitecture) SetIsLowPower(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLowPower:"), value)
 }
+
 // A Boolean value that indicates whether the GPU is removable.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/isremovable
@@ -191,6 +197,7 @@ func (a MTLArchitecture) IsRemovable() bool {
 func (a MTLArchitecture) SetIsRemovable(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRemovable:"), value)
 }
+
 // The physical location of the GPU relative to the system.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/location
@@ -201,6 +208,7 @@ func (a MTLArchitecture) Location() MTLDeviceLocation {
 func (a MTLArchitecture) SetLocation(value MTLDeviceLocation) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLocation:"), value)
 }
+
 // A specific GPU position based on its general location.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/locationnumber
@@ -211,6 +219,7 @@ func (a MTLArchitecture) LocationNumber() int {
 func (a MTLArchitecture) SetLocationNumber(value int) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLocationNumber:"), value)
 }
+
 // The total number of GPUs in the peer group, if applicable.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/peercount
@@ -221,6 +230,7 @@ func (a MTLArchitecture) PeerCount() uint32 {
 func (a MTLArchitecture) SetPeerCount(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPeerCount:"), value)
 }
+
 // The peer group ID the GPU belongs to, if applicable.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/peergroupid
@@ -231,6 +241,7 @@ func (a MTLArchitecture) PeerGroupID() uint64 {
 func (a MTLArchitecture) SetPeerGroupID(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPeerGroupID:"), value)
 }
+
 // The unique identifier for a GPU in a peer group.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/peerindex
@@ -241,6 +252,7 @@ func (a MTLArchitecture) PeerIndex() uint32 {
 func (a MTLArchitecture) SetPeerIndex(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPeerIndex:"), value)
 }
+
 // The GPU device’s registry identifier.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/registryid
@@ -251,4 +263,3 @@ func (a MTLArchitecture) RegistryID() uint64 {
 func (a MTLArchitecture) SetRegistryID(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRegistryID:"), value)
 }
-

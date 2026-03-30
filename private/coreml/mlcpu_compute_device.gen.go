@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (mc MLCPUComputeDeviceClass) Alloc() MLCPUComputeDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLCPUComputeDevice.DebugDescription]
 //   - [MLCPUComputeDevice.Description]
 //   - [MLCPUComputeDevice.Hash]
 //   - [MLCPUComputeDevice.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDevice
 type MLCPUComputeDevice struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type MLCPUComputeDevice struct {
 func MLCPUComputeDeviceFromID(id objc.ID) MLCPUComputeDevice {
 	return MLCPUComputeDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure MLCPUComputeDevice implements IMLCPUComputeDevice.
 var _ IMLCPUComputeDevice = MLCPUComputeDevice{}
 
@@ -112,19 +114,21 @@ func (c MLCPUComputeDevice) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDevice/description
 func (c MLCPUComputeDevice) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDevice/hash
 func (c MLCPUComputeDevice) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDevice/superclass
 func (c MLCPUComputeDevice) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
 	return rv
 }
-

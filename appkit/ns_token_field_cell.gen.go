@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSTokenFieldCell] class.
@@ -45,7 +46,7 @@ func (nc NSTokenFieldCellClass) Alloc() NSTokenFieldCell {
 // objects.
 //
 // # Overview
-// 
+//
 // [NSTokenFieldCell] is a subclass of [NSTextFieldCell] that provides
 // tokenized editing of an array of objects similar to the address field in
 // the Mail app. The objects may be strings or objects that can be represented
@@ -84,6 +85,7 @@ type NSTokenFieldCell struct {
 func NSTokenFieldCellFromID(id objc.ID) NSTokenFieldCell {
 	return NSTokenFieldCell{NSTextFieldCell: NSTextFieldCellFromID(id)}
 }
+
 // NOTE: NSTokenFieldCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -163,12 +165,12 @@ func NewNSTokenFieldCell() NSTokenFieldCell {
 // image: The image to use for the cell. If this parameter is `nil`, no image is set.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -184,7 +186,7 @@ func NewTokenFieldCellImageCell(image INSImage) NSTokenFieldCell {
 // string: The string that the text field cell displays.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(textCell:)
@@ -199,7 +201,7 @@ func NewTokenFieldCellTextCell(string_ string) NSTokenFieldCell {
 // coder: An unarchiver object.
 //
 // # Return Value
-// 
+//
 // A text field cell that displays a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/init(coder:)
@@ -212,12 +214,12 @@ func NewTokenFieldCellWithCoder(coder foundation.INSCoder) NSTokenFieldCell {
 // The token style of the receiver.
 //
 // # Discussion
-// 
+//
 // The valid values are described in [NSTokenField.TokenStyle].
 //
-// [NSTokenField.TokenStyle]: https://developer.apple.com/documentation/AppKit/NSTokenField/TokenStyle-swift.enum
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCell/tokenStyle
+//
+// [NSTokenField.TokenStyle]: https://developer.apple.com/documentation/AppKit/NSTokenField/TokenStyle-swift.enum
 func (t NSTokenFieldCell) TokenStyle() NSTokenStyle {
 	rv := objc.Send[NSTokenStyle](t.ID, objc.Sel("tokenStyle"))
 	return NSTokenStyle(rv)
@@ -225,6 +227,7 @@ func (t NSTokenFieldCell) TokenStyle() NSTokenStyle {
 func (t NSTokenFieldCell) SetTokenStyle(value NSTokenStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTokenStyle:"), value)
 }
+
 // The receiver’s tokenizing character set to a given character set.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCell/tokenizingCharacterSet
@@ -235,6 +238,7 @@ func (t NSTokenFieldCell) TokenizingCharacterSet() foundation.NSCharacterSet {
 func (t NSTokenFieldCell) SetTokenizingCharacterSet(value foundation.NSCharacterSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTokenizingCharacterSet:"), value)
 }
+
 // The receiver’s completion delay to a given delay.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCell/completionDelay
@@ -245,6 +249,7 @@ func (t NSTokenFieldCell) CompletionDelay() float64 {
 func (t NSTokenFieldCell) SetCompletionDelay(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCompletionDelay:"), value)
 }
+
 // The receiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCell/delegate
@@ -259,11 +264,11 @@ func (t NSTokenFieldCell) SetDelegate(value NSTokenFieldCellDelegate) {
 // Returns the default tokenizing character set.
 //
 // # Return Value
-// 
+//
 // The default tokenizing character set.
-// 
+//
 // # Discussion
-// 
+//
 // The default tokenizing character set contains the single character
 // “`,`”.
 //
@@ -272,14 +277,15 @@ func (_NSTokenFieldCellClass NSTokenFieldCellClass) DefaultTokenizingCharacterSe
 	rv := objc.Send[objc.ID](objc.ID(_NSTokenFieldCellClass.class), objc.Sel("defaultTokenizingCharacterSet"))
 	return foundation.NSCharacterSetFromID(objc.ID(rv))
 }
+
 // Returns the default completion delay.
 //
 // # Return Value
-// 
+//
 // The default completion delay.
-// 
+//
 // # Discussion
-// 
+//
 // The default completion delay is `0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCell/defaultCompletionDelay
@@ -287,4 +293,3 @@ func (_NSTokenFieldCellClass NSTokenFieldCellClass) DefaultCompletionDelay() flo
 	rv := objc.Send[float64](objc.ID(_NSTokenFieldCellClass.class), objc.Sel("defaultCompletionDelay"))
 	return rv
 }
-

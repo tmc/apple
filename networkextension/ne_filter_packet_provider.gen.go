@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -70,6 +71,7 @@ type NEFilterPacketProvider struct {
 func NEFilterPacketProviderFromID(id objc.ID) NEFilterPacketProvider {
 	return NEFilterPacketProvider{NEFilterProvider: NEFilterProviderFromID(id)}
 }
+
 // NOTE: NEFilterPacketProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,26 +139,25 @@ func NewNEFilterPacketProvider() NEFilterPacketProvider {
 // context: A context for the packet handler.
 //
 // # Discussion
-// 
+//
 // This function is only valid within the [PacketHandler] Swift closure or
-// ObjectiveC block, which must return [NEFilterPacketProvider.Verdict.delay]
+// ObjectiveC block, which must return [NEFilterPacketProviderVerdictDelay]
 // after delaying the packet. The framework prevents further delivery of the
 // packet through the network stack until it’s allowed or dropped. Allow the
 // packet by calling [AllowPacket], or drop it by releasing it.
-//
-// [NEFilterPacketProvider.Verdict.delay]: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketProvider/Verdict/delay
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketProvider/delayCurrentPacket(_:)
 func (f NEFilterPacketProvider) DelayCurrentPacket(context INEFilterPacketContext) INEPacket {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("delayCurrentPacket:"), context)
 	return NEPacketFromID(rv)
 }
+
 // Allow delivery of a previously-delayed packet.
 //
 // packet: The packet previously delayed by the packet handler.
 //
 // # Discussion
-// 
+//
 // Use this method to allow a previously-delayed packet to continue its
 // journey into or out of the networking stack.
 //
@@ -169,18 +170,18 @@ func (f NEFilterPacketProvider) AllowPacket(packet INEPacket) {
 // the filter.
 //
 // # Discussion
-// 
+//
 // Set this property to a handler that returns a
 // [NEFilterPacketProvider.Verdict] for each packet it receives.
-// 
+//
 // Since there may be multiple filtering sources presenting frames to the
 // provider, multiple simultaneous threads may execute this packet handler.
 // Therefore, the packet handler must be able to handle execution in a
 // multi-threaded environment.
 //
-// [NEFilterPacketProvider.Verdict]: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketProvider/Verdict
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketProvider/packetHandler
+//
+// [NEFilterPacketProvider.Verdict]: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketProvider/Verdict
 func (f NEFilterPacketProvider) PacketHandler() NEFilterPacketHandler {
 	rv := objc.Send[NEFilterPacketHandler](f.ID, objc.Sel("packetHandler"))
 	return NEFilterPacketHandler(rv)
@@ -188,6 +189,7 @@ func (f NEFilterPacketProvider) PacketHandler() NEFilterPacketHandler {
 func (f NEFilterPacketProvider) SetPacketHandler(value NEFilterPacketHandler) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPacketHandler:"), value)
 }
+
 // See: https://developer.apple.com/documentation/networkextension/nefilterpacketprovider/handler
 func (f NEFilterPacketProvider) Handler() NEFilterPacketProviderVerdict {
 	rv := objc.Send[NEFilterPacketProviderVerdict](f.ID, objc.Sel("handler"))
@@ -196,4 +198,3 @@ func (f NEFilterPacketProvider) Handler() NEFilterPacketProviderVerdict {
 func (f NEFilterPacketProvider) SetHandler(value NEFilterPacketProviderVerdict) {
 	objc.Send[struct{}](f.ID, objc.Sel("setHandler:"), value)
 }
-

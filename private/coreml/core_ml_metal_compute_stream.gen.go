@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type CoreMLMetalComputeStream struct {
 func CoreMLMetalComputeStreamFromID(id objc.ID) CoreMLMetalComputeStream {
 	return CoreMLMetalComputeStream{objectivec.Object{ID: id}}
 }
+
 // NOTE: CoreMLMetalComputeStream struct embeds objectivec.Object (parent type unavailable) but
 // ICoreMLMetalComputeStream embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewCoreMLMetalComputeStream() CoreMLMetalComputeStream {
 	rv := objc.Send[CoreMLMetalComputeStream](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -301,26 +302,18 @@ var (
 )
 
 var (
-	// AppleScriptErrorAppName is an [NSString] that specifies the name of the application that generated the error.
-	//
-	// See: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorAppName
-	AppleScriptErrorAppName string
-	// AppleScriptErrorBriefMessage is an [NSString] that provides a brief description of the error.
-	//
-	// See: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorBriefMessage
-	AppleScriptErrorBriefMessage string
+	// See: https://developer.apple.com/documentation/foundation/nsapplescript/errorappname
+	NSAppleScriptErrorAppName NSString
+	// See: https://developer.apple.com/documentation/foundation/nsapplescript/errorbriefmessage
+	NSAppleScriptErrorBriefMessage NSString
 	// AppleScriptErrorMessage is an [NSString] that supplies a detailed description of the error condition.
 	//
 	// See: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorMessage
 	AppleScriptErrorMessage string
-	// AppleScriptErrorNumber is an [NSNumber] that specifies the error number.
-	//
-	// See: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorNumber
-	AppleScriptErrorNumber string
-	// AppleScriptErrorRange is an [NSValue] that specifies a range.
-	//
-	// See: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorRange
-	AppleScriptErrorRange string
+	// See: https://developer.apple.com/documentation/foundation/nsapplescript/errornumber
+	NSAppleScriptErrorNumber NSString
+	// See: https://developer.apple.com/documentation/foundation/nsapplescript/errorrange
+	NSAppleScriptErrorRange NSString
 	// ArgumentDomain is the identifier for the domain that contains command-line settings.
 	//
 	// See: https://developer.apple.com/documentation/Foundation/UserDefaults/argumentDomain
@@ -988,8 +981,7 @@ var (
 	UnionOfSetsKeyValueOperator NSKeyValueOperator
 )
 
-var (
-)
+var ()
 
 var (
 	// CharacterConversionException is [NSString] raises an [NSCharacterConversionException] if a string cannot be represented in a file-system or string encoding.
@@ -1580,11 +1572,9 @@ var (
 	KeyValueChangeOldKey NSKeyValueChangeKey
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
 var (
 	// LocalNotificationCenterType is distributes notifications to all tasks on the sender’s computer.
@@ -1711,8 +1701,7 @@ var (
 	ProgressThroughputKey NSProgressUserInfoKey
 )
 
-var (
-)
+var ()
 
 var (
 	// ProgressKindFile is the value that indicates that the progress is tracking a file operation.
@@ -1793,8 +1782,7 @@ var (
 	StreamSOCKSProxyVersion5 NSStreamSOCKSProxyVersion
 )
 
-var (
-)
+var ()
 
 var (
 	// See: https://developer.apple.com/documentation/Foundation/StringEncodingDetectionOptionsKey/allowLossyKey
@@ -1813,8 +1801,7 @@ var (
 	StringEncodingDetectionUseOnlySuggestedEncodingsKey NSStringEncodingDetectionOptionsKey
 )
 
-var (
-)
+var ()
 
 var (
 	// TextCheckingAirlineKey is a key that corresponds to the airline of a transit result.
@@ -2367,8 +2354,7 @@ var (
 	URLFileProtectionNone NSURLFileProtectionType
 )
 
-var (
-)
+var ()
 
 var (
 	// URLSessionTaskPriorityDefault is the default URL session task priority, used implicitly for any task you have not prioritized.
@@ -2392,19 +2378,17 @@ var (
 	URLSessionTransferSizeUnknown int64
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
 var (
 	// See: https://developer.apple.com/documentation/foundation/userdefaults/sizelimitexceedednotification
 	NSUserDefaultsSizeLimitExceededNotification NSNotification
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -2439,23 +2423,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorAppName"); err == nil && ptr != 0 {
-		nsStringID := objc.IDValueAt(ptr)
-		if nsStringID != 0 {
-			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
-			if cstr != nil {
-				AppleScriptErrorAppName = objc.GoString(cstr)
-			}
-		}
+		NSAppleScriptErrorAppName = *(*NSString)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorBriefMessage"); err == nil && ptr != 0 {
-		nsStringID := objc.IDValueAt(ptr)
-		if nsStringID != 0 {
-			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
-			if cstr != nil {
-				AppleScriptErrorBriefMessage = objc.GoString(cstr)
-			}
-		}
+		NSAppleScriptErrorBriefMessage = *(*NSString)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorMessage"); err == nil && ptr != 0 {
@@ -2469,23 +2441,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorNumber"); err == nil && ptr != 0 {
-		nsStringID := objc.IDValueAt(ptr)
-		if nsStringID != 0 {
-			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
-			if cstr != nil {
-				AppleScriptErrorNumber = objc.GoString(cstr)
-			}
-		}
+		NSAppleScriptErrorNumber = *(*NSString)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorRange"); err == nil && ptr != 0 {
-		nsStringID := objc.IDValueAt(ptr)
-		if nsStringID != 0 {
-			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
-			if cstr != nil {
-				AppleScriptErrorRange = objc.GoString(cstr)
-			}
-		}
+		NSAppleScriptErrorRange = *(*NSString)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSArgumentDomain"); err == nil && ptr != 0 {
@@ -9875,14 +9835,14 @@ var NSCalendarIdentifiers struct {
 	Chinese NSCalendarIdentifier
 	// Coptic: Identifier for the Coptic calendar.
 	Coptic NSCalendarIdentifier
-	Dangi NSCalendarIdentifier
+	Dangi  NSCalendarIdentifier
 	// EthiopicAmeteAlem: Identifier for the Ethiopic (Amete Alem) calendar.
 	EthiopicAmeteAlem NSCalendarIdentifier
 	// EthiopicAmeteMihret: Identifier for the Ethiopic (Amete Mihret) calendar.
 	EthiopicAmeteMihret NSCalendarIdentifier
 	// Gregorian: Identifier for the Gregorian calendar.
 	Gregorian NSCalendarIdentifier
-	Gujarati NSCalendarIdentifier
+	Gujarati  NSCalendarIdentifier
 	// Hebrew: Identifier for the Hebrew calendar.
 	Hebrew NSCalendarIdentifier
 	// ISO8601: Identifier for the ISO8601 calendar.
@@ -9898,19 +9858,19 @@ var NSCalendarIdentifiers struct {
 	// IslamicUmmAlQura: Identifier for the Islamic Umm al-Qura calendar.
 	IslamicUmmAlQura NSCalendarIdentifier
 	// Japanese: Identifier for the Japanese calendar.
-	Japanese NSCalendarIdentifier
-	Kannada NSCalendarIdentifier
+	Japanese  NSCalendarIdentifier
+	Kannada   NSCalendarIdentifier
 	Malayalam NSCalendarIdentifier
-	Marathi NSCalendarIdentifier
-	Odia NSCalendarIdentifier
+	Marathi   NSCalendarIdentifier
+	Odia      NSCalendarIdentifier
 	// Persian: Identifier for the Persian calendar.
 	Persian NSCalendarIdentifier
 	// RepublicOfChina: Identifier for the Republic of China calendar.
 	RepublicOfChina NSCalendarIdentifier
-	Tamil NSCalendarIdentifier
-	Telugu NSCalendarIdentifier
-	Vietnamese NSCalendarIdentifier
-	Vikram NSCalendarIdentifier
+	Tamil           NSCalendarIdentifier
+	Telugu          NSCalendarIdentifier
+	Vietnamese      NSCalendarIdentifier
+	Vikram          NSCalendarIdentifier
 }
 
 // NSLinguisticTagSchemes provides typed accessors for [NSLinguisticTagScheme] constants.
@@ -10094,13 +10054,12 @@ var URLUbiquitousItemDownloadingStatuss struct {
 
 // URLUbiquitousSharedItemPermissionss provides typed accessors for [URLUbiquitousSharedItemPermissions] constants.
 var URLUbiquitousSharedItemPermissionss struct {
-	ReadOnly URLUbiquitousSharedItemPermissions
+	ReadOnly  URLUbiquitousSharedItemPermissions
 	ReadWrite URLUbiquitousSharedItemPermissions
 }
 
 // URLUbiquitousSharedItemRoles provides typed accessors for [URLUbiquitousSharedItemRole] constants.
 var URLUbiquitousSharedItemRoles struct {
-	Owner URLUbiquitousSharedItemRole
+	Owner       URLUbiquitousSharedItemRole
 	Participant URLUbiquitousSharedItemRole
 }
-

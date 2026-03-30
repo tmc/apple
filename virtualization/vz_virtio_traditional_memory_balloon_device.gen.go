@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,21 +45,21 @@ func (vc VZVirtioTraditionalMemoryBalloonDeviceClass) Alloc() VZVirtioTraditiona
 // system.
 //
 // # Overview
-// 
+//
 // A [VZVirtioTraditionalMemoryBalloonDevice] object implements a
 // Virtio-compliant balloon memory device, which lets you change the amount of
 // physical memory assigned to the guest operating system. The virtual machine
 // has no insight into the amount of memory its guest operating system uses. A
 // memory balloon device lets you ask the guest operating system to relinquish
 // memory voluntarily, which you might do if memory resources become scarce.
-// 
+//
 // You don’t create a [VZVirtioTraditionalMemoryBalloonDevice] object
 // directly. Instead, create a
 // [VZVirtioTraditionalMemoryBalloonDeviceConfiguration] object and assign it
 // to the [VZVirtioTraditionalMemoryBalloonDevice.MemoryBalloonDevices] property of your virtual machine
 // configuration. In response, the virtual machine creates this object and
 // assigns it to its [VZVirtioTraditionalMemoryBalloonDevice.MemoryBalloonDevices] property.
-// 
+//
 // To use a memory balloon device, change the value in the
 // [VZVirtioTraditionalMemoryBalloonDevice.TargetVirtualMachineMemorySize] property when your virtual machine is
 // running. If the new value is smaller than the amount of currently assigned
@@ -68,7 +69,7 @@ func (vc VZVirtioTraditionalMemoryBalloonDeviceClass) Alloc() VZVirtioTraditiona
 // virtual machine leaves the guest’s memory size unchanged. If the new
 // value is larger than the amount of currently assigned memory, the virtual
 // machine reserves more pages for the guest operating system.
-// 
+//
 // For optimal performance, the guest operating system should compact its
 // memory before returning any pages back to the memory balloon device.
 // Compacting the memory reduces fragmentation, and allows it to return
@@ -91,6 +92,7 @@ type VZVirtioTraditionalMemoryBalloonDevice struct {
 func VZVirtioTraditionalMemoryBalloonDeviceFromID(id objc.ID) VZVirtioTraditionalMemoryBalloonDevice {
 	return VZVirtioTraditionalMemoryBalloonDevice{VZMemoryBalloonDevice: VZMemoryBalloonDeviceFromID(id)}
 }
+
 // NOTE: VZVirtioTraditionalMemoryBalloonDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,7 +137,7 @@ func NewVZVirtioTraditionalMemoryBalloonDevice() VZVirtioTraditionalMemoryBalloo
 // machine.
 //
 // # Discussion
-// 
+//
 // Use this property to change the amount of physical memory currently
 // assigned to the guest operating system. If the new value is less than the
 // current amount of physical memory, the virtual machine asks the guest
@@ -143,7 +145,7 @@ func NewVZVirtioTraditionalMemoryBalloonDevice() VZVirtioTraditionalMemoryBalloo
 // If the guest complies, the virtual machine updates the guest’s physical
 // memory size to the new value. If the guest doesn’t comply, the physical
 // memory size remains unchanged.
-// 
+//
 // The new value you specify must be a multiple of 1 megabyte — that is,
 // 1024 * 1024 bytes. The value must also be less than or equal to the value
 // in the [MemorySize] property of your [VZVirtualMachineConfiguration]
@@ -152,7 +154,7 @@ func NewVZVirtioTraditionalMemoryBalloonDevice() VZVirtioTraditionalMemoryBalloo
 // megabyte. If the resulting value is less than the value in
 // [MinimumAllowedMemorySize], the virtual machine rounds up to the minimum
 // value.
-// 
+//
 // The virtual machine sets the initial value of this property to the value in
 // the [MemorySize] property of your configuration object.
 //
@@ -164,4 +166,3 @@ func (v VZVirtioTraditionalMemoryBalloonDevice) TargetVirtualMachineMemorySize()
 func (v VZVirtioTraditionalMemoryBalloonDevice) SetTargetVirtualMachineMemorySize(value uint64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTargetVirtualMachineMemorySize:"), value)
 }
-

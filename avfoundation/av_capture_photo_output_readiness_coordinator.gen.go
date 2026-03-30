@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,14 +45,14 @@ func (ac AVCapturePhotoOutputReadinessCoordinatorClass) Alloc() AVCapturePhotoOu
 // An object that monitors changes to a photo output’s capture readiness.
 //
 // # Overview
-// 
+//
 // Use this object to coordinate user interface updates on the main queue with
 // a [AVCapturePhotoOutput] that runs on a background queue. Adopt the
 // [AVCapturePhotoOutputReadinessCoordinatorDelegate] protocol in your app and
 // set its implementation as the coordinator’s delegate object to receive
 // callbacks as the associated photo output’s [AVCapturePhotoOutputReadinessCoordinator.CaptureReadiness] state
 // changes.
-// 
+//
 // You can track additional capture requests with this object by calling its
 // [AVCapturePhotoOutputReadinessCoordinator.StartTrackingCaptureRequestUsingPhotoSettings] method. You can use it to
 // synchronously update shutter button availability and appearance and on the
@@ -88,6 +89,7 @@ type AVCapturePhotoOutputReadinessCoordinator struct {
 func AVCapturePhotoOutputReadinessCoordinatorFromID(id objc.ID) AVCapturePhotoOutputReadinessCoordinator {
 	return AVCapturePhotoOutputReadinessCoordinator{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCapturePhotoOutputReadinessCoordinator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -180,6 +182,7 @@ func (c AVCapturePhotoOutputReadinessCoordinator) InitWithPhotoOutput(photoOutpu
 	rv := objc.Send[AVCapturePhotoOutputReadinessCoordinator](c.ID, objc.Sel("initWithPhotoOutput:"), photoOutput)
 	return rv
 }
+
 // Tracks a capture request that uses the specified photo settings.
 //
 // settings: A settings object that the system passes [CapturePhotoWithSettingsDelegate]
@@ -189,6 +192,7 @@ func (c AVCapturePhotoOutputReadinessCoordinator) InitWithPhotoOutput(photoOutpu
 func (c AVCapturePhotoOutputReadinessCoordinator) StartTrackingCaptureRequestUsingPhotoSettings(settings IAVCapturePhotoSettings) {
 	objc.Send[objc.ID](c.ID, objc.Sel("startTrackingCaptureRequestUsingPhotoSettings:"), settings)
 }
+
 // Stop tracking the capture request represented by the specified photo
 // setting’s unique identifier.
 //
@@ -202,12 +206,12 @@ func (c AVCapturePhotoOutputReadinessCoordinator) StopTrackingCaptureRequestUsin
 // The coordinator’s delegate object.
 //
 // # Discussion
-// 
+//
 // The capture delegate receives callbacks when the photo output’s
 // captureReadiness changes. It calls its delegate on the main queue, which
 // allows you to perform user interface updates directly from the delegate’s
 // [ReadinessCoordinatorCaptureReadinessDidChange] method.
-// 
+//
 // The coordinator provides an initial value to the delegate when you first
 // set it on this object.
 //
@@ -219,17 +223,18 @@ func (c AVCapturePhotoOutputReadinessCoordinator) Delegate() AVCapturePhotoOutpu
 func (c AVCapturePhotoOutputReadinessCoordinator) SetDelegate(value AVCapturePhotoOutputReadinessCoordinatorDelegate) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDelegate:"), value)
 }
+
 // A value that indicates whether the coordinator’s photo output is ready to
 // respond to new capture requests in a timely manner.
 //
 // # Discussion
-// 
+//
 // The value incorporates the photo output’s [CaptureReadiness] property
 // value and any requests registered by calling the
 // [StartTrackingCaptureRequestUsingPhotoSettings] method. The system updates
 // this value before calling the
 // [ReadinessCoordinatorCaptureReadinessDidChange] method.
-// 
+//
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutputReadinessCoordinator/captureReadiness
@@ -237,4 +242,3 @@ func (c AVCapturePhotoOutputReadinessCoordinator) CaptureReadiness() AVCapturePh
 	rv := objc.Send[AVCapturePhotoOutputCaptureReadiness](c.ID, objc.Sel("captureReadiness"))
 	return AVCapturePhotoOutputCaptureReadiness(rv)
 }
-

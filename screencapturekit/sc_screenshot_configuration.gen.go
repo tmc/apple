@@ -4,9 +4,10 @@ package screencapturekit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/uniformtypeidentifiers"
 )
@@ -48,7 +49,7 @@ func (sc SCScreenshotConfigurationClass) Alloc() SCScreenshotConfiguration {
 // and image quality specifications.
 //
 // # Overview
-// 
+//
 // [SCScreenshotConfiguration] provides a default image capture configuration
 // for [SCScreenshotManager]. Only configure its properties if you need to
 // customize the output. Additional options for customization include dynamic
@@ -94,6 +95,7 @@ type SCScreenshotConfiguration struct {
 func SCScreenshotConfigurationFromID(id objc.ID) SCScreenshotConfiguration {
 	return SCScreenshotConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: SCScreenshotConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -200,11 +202,12 @@ func (s SCScreenshotConfiguration) ContentType() uniformtypeidentifiers.UTType {
 func (s SCScreenshotConfiguration) SetContentType(value uniformtypeidentifiers.UTType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContentType:"), value)
 }
+
 // A rectangle that specifies whether to output screenshots in a subset of the
 // output image.
 //
 // # Discussion
-// 
+//
 // If you don’t specify a destination rectangle, the system uses the full
 // dimensions of the output surface. The rectangle is specified in pixels in
 // the display’s coordinate system.
@@ -217,11 +220,12 @@ func (s SCScreenshotConfiguration) DestinationRect() corefoundation.CGRect {
 func (s SCScreenshotConfiguration) SetDestinationRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDestinationRect:"), value)
 }
+
 // Specifies whether the screen capture uses attributes of the local or
 // canonical display.
 //
 // # Discussion
-// 
+//
 // Performing a screenshot with either the local or canonical display
 // attributes optimizes output for presentation on either the capture display
 // or any high dynamic range display respectively.
@@ -234,6 +238,7 @@ func (s SCScreenshotConfiguration) DisplayIntent() SCScreenshotDisplayIntent {
 func (s SCScreenshotConfiguration) SetDisplayIntent(value SCScreenshotDisplayIntent) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayIntent:"), value)
 }
+
 // Specifies the type of image returned to the client; standard dynamic range,
 // high dynamic range, or both.
 //
@@ -245,10 +250,11 @@ func (s SCScreenshotConfiguration) DynamicRange() SCScreenshotDynamicRange {
 func (s SCScreenshotConfiguration) SetDynamicRange(value SCScreenshotDynamicRange) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDynamicRange:"), value)
 }
+
 // Specifies the URL where the screenshot process saves the output.
 //
 // # Discussion
-// 
+//
 // If `imageOutputURL` is `nil`, then the file isn’t saved.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/fileURL
@@ -259,10 +265,11 @@ func (s SCScreenshotConfiguration) FileURL() foundation.INSURL {
 func (s SCScreenshotConfiguration) SetFileURL(value foundation.INSURL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFileURL:"), value)
 }
+
 // An integer value that specifies the output height, measured in pixels.
 //
 // # Discussion
-// 
+//
 // The default value is the height of the captured content.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/height
@@ -273,11 +280,12 @@ func (s SCScreenshotConfiguration) Height() int {
 func (s SCScreenshotConfiguration) SetHeight(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHeight:"), value)
 }
+
 // A Boolean value that specifies whether to ignore framing on windows when
 // using content filters.
 //
 // # Discussion
-// 
+//
 // Use [SCNPropertyFilter] in conjunction with this property to ignore window
 // framing on specified apps and windows. Setting this value to `true` ignores
 // shadows.
@@ -290,6 +298,7 @@ func (s SCScreenshotConfiguration) IgnoreClipping() bool {
 func (s SCScreenshotConfiguration) SetIgnoreClipping(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIgnoreClipping:"), value)
 }
+
 // A Boolean value that specifies whether to ignore framing on windows.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/ignoreShadows
@@ -300,11 +309,12 @@ func (s SCScreenshotConfiguration) IgnoreShadows() bool {
 func (s SCScreenshotConfiguration) SetIgnoreShadows(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIgnoreShadows:"), value)
 }
+
 // A Boolean that specifies whether the screenshot captures subwindows of the
 // included apps and windows.
 //
 // # Discussion
-// 
+//
 // By default taking a screenshot captures subwindows. For example, alerts,
 // popovers, and sheets are captured by default.
 //
@@ -316,11 +326,12 @@ func (s SCScreenshotConfiguration) IncludeChildWindows() bool {
 func (s SCScreenshotConfiguration) SetIncludeChildWindows(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncludeChildWindows:"), value)
 }
+
 // A Boolean value that specifies whether the pointer appears in the
 // screenshot.
 //
 // # Discussion
-// 
+//
 // By default the pointer is visible in screenshots.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/showsCursor
@@ -331,11 +342,12 @@ func (s SCScreenshotConfiguration) ShowsCursor() bool {
 func (s SCScreenshotConfiguration) SetShowsCursor(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsCursor:"), value)
 }
+
 // A rectangle that specifies that the screenshot only samples a subset of the
 // frame input.
 //
 // # Discussion
-// 
+//
 // If not set, the screenshot captures the entire frame. Specify the rectangle
 // in points in the display’s logical coordinate system.
 //
@@ -347,10 +359,11 @@ func (s SCScreenshotConfiguration) SourceRect() corefoundation.CGRect {
 func (s SCScreenshotConfiguration) SetSourceRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSourceRect:"), value)
 }
+
 // An integer value that specifies the output width in pixels.
 //
 // # Discussion
-// 
+//
 // The default value is the width of the captured content.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/width
@@ -366,16 +379,15 @@ func (s SCScreenshotConfiguration) SetWidth(value int) {
 // output image supports.
 //
 // # Discussion
-// 
+//
 // You can save the output [CGImage] into HEIC, JPEG, and PNG formats.
 //
-// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
-//
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/supportedContentTypes
+//
+// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 func (_SCScreenshotConfigurationClass SCScreenshotConfigurationClass) SupportedContentTypes() []uniformtypeidentifiers.UTType {
 	rv := objc.Send[[]objc.ID](objc.ID(_SCScreenshotConfigurationClass.class), objc.Sel("supportedContentTypes"))
 	return objc.ConvertSlice(rv, func(id objc.ID) uniformtypeidentifiers.UTType {
 		return uniformtypeidentifiers.UTTypeFromID(id)
 	})
 }
-

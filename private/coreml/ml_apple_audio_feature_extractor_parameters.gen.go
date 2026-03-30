@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (mc MLAppleAudioFeatureExtractorParametersClass) Alloc() MLAppleAudioFeatur
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLAppleAudioFeatureExtractorParameters.FeatureExtractorParameters]
 //   - [MLAppleAudioFeatureExtractorParameters.InitWithSoundPrintParameters]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorParameters
 type MLAppleAudioFeatureExtractorParameters struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type MLAppleAudioFeatureExtractorParameters struct {
 func MLAppleAudioFeatureExtractorParametersFromID(id objc.ID) MLAppleAudioFeatureExtractorParameters {
 	return MLAppleAudioFeatureExtractorParameters{objectivec.Object{ID: id}}
 }
+
 // Ensure MLAppleAudioFeatureExtractorParameters implements IMLAppleAudioFeatureExtractorParameters.
 var _ IMLAppleAudioFeatureExtractorParameters = MLAppleAudioFeatureExtractorParameters{}
 
@@ -94,7 +96,6 @@ func NewMLAppleAudioFeatureExtractorParameters() MLAppleAudioFeatureExtractorPar
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorParameters/initWithSoundPrintParameters:
 func NewAppleAudioFeatureExtractorParametersWithSoundPrintParameters(parameters objectivec.IObject) MLAppleAudioFeatureExtractorParameters {
 	instance := getMLAppleAudioFeatureExtractorParametersClass().Alloc()
@@ -102,7 +103,6 @@ func NewAppleAudioFeatureExtractorParametersWithSoundPrintParameters(parameters 
 	return MLAppleAudioFeatureExtractorParametersFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleAudioFeatureExtractorParameters/initWithSoundPrintParameters:
 func (a MLAppleAudioFeatureExtractorParameters) InitWithSoundPrintParameters(parameters objectivec.IObject) MLAppleAudioFeatureExtractorParameters {
 	rv := objc.Send[MLAppleAudioFeatureExtractorParameters](a.ID, objc.Sel("initWithSoundPrintParameters:"), parameters)
@@ -114,4 +114,3 @@ func (a MLAppleAudioFeatureExtractorParameters) FeatureExtractorParameters() obj
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("featureExtractorParameters"))
 	return objectivec.Object{ID: rv}
 }
-

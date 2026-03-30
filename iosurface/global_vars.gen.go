@@ -7,8 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-var (
-)
+var ()
 
 var (
 	// KIOSurfaceAllocSize is cFNumber of the total allocation size of the buffer including all planes.
@@ -116,6 +115,7 @@ var (
 	// See: https://developer.apple.com/documentation/IOSurface/kIOSurfaceWidth
 	KIOSurfaceWidth string
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -665,27 +665,26 @@ func init() {
 
 // IOSurfacePropertyKeys provides typed accessors for [IOSurfacePropertyKey] constants.
 var IOSurfacePropertyKeys struct {
-	AllocSize IOSurfacePropertyKey
-	BytesPerElement IOSurfacePropertyKey
-	BytesPerRow IOSurfacePropertyKey
-	CacheMode IOSurfacePropertyKey
-	ElementHeight IOSurfacePropertyKey
-	ElementWidth IOSurfacePropertyKey
-	Height IOSurfacePropertyKey
-	Name IOSurfacePropertyKey
-	Offset IOSurfacePropertyKey
-	PixelFormat IOSurfacePropertyKey
+	AllocSize               IOSurfacePropertyKey
+	BytesPerElement         IOSurfacePropertyKey
+	BytesPerRow             IOSurfacePropertyKey
+	CacheMode               IOSurfacePropertyKey
+	ElementHeight           IOSurfacePropertyKey
+	ElementWidth            IOSurfacePropertyKey
+	Height                  IOSurfacePropertyKey
+	Name                    IOSurfacePropertyKey
+	Offset                  IOSurfacePropertyKey
+	PixelFormat             IOSurfacePropertyKey
 	PixelSizeCastingAllowed IOSurfacePropertyKey
-	PlaneBase IOSurfacePropertyKey
-	PlaneBytesPerElement IOSurfacePropertyKey
-	PlaneBytesPerRow IOSurfacePropertyKey
-	PlaneElementHeight IOSurfacePropertyKey
-	PlaneElementWidth IOSurfacePropertyKey
-	PlaneHeight IOSurfacePropertyKey
-	PlaneInfo IOSurfacePropertyKey
-	PlaneOffset IOSurfacePropertyKey
-	PlaneSize IOSurfacePropertyKey
-	PlaneWidth IOSurfacePropertyKey
-	Width IOSurfacePropertyKey
+	PlaneBase               IOSurfacePropertyKey
+	PlaneBytesPerElement    IOSurfacePropertyKey
+	PlaneBytesPerRow        IOSurfacePropertyKey
+	PlaneElementHeight      IOSurfacePropertyKey
+	PlaneElementWidth       IOSurfacePropertyKey
+	PlaneHeight             IOSurfacePropertyKey
+	PlaneInfo               IOSurfacePropertyKey
+	PlaneOffset             IOSurfacePropertyKey
+	PlaneSize               IOSurfacePropertyKey
+	PlaneWidth              IOSurfacePropertyKey
+	Width                   IOSurfacePropertyKey
 }
-

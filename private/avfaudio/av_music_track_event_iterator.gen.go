@@ -3,8 +3,9 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (ac AVMusicTrackEventIteratorClass) Alloc() AVMusicTrackEventIterator {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVMusicTrackEventIterator.DeleteEvent]
@@ -56,6 +56,7 @@ func (ac AVMusicTrackEventIteratorClass) Alloc() AVMusicTrackEventIterator {
 //   - [AVMusicTrackEventIterator.SetEventInfoData]
 //   - [AVMusicTrackEventIterator.SetEventTime]
 //   - [AVMusicTrackEventIterator.InitWithImpl]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator
 type AVMusicTrackEventIterator struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type AVMusicTrackEventIterator struct {
 func AVMusicTrackEventIteratorFromID(id objc.ID) AVMusicTrackEventIterator {
 	return AVMusicTrackEventIterator{objectivec.Object{ID: id}}
 }
+
 // Ensure AVMusicTrackEventIterator implements IAVMusicTrackEventIterator.
 var _ IAVMusicTrackEventIterator = AVMusicTrackEventIterator{}
 
@@ -122,7 +124,6 @@ func NewAVMusicTrackEventIterator() AVMusicTrackEventIterator {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/initWithImpl:
 func NewMusicTrackEventIteratorWithImpl(impl unsafe.Pointer) AVMusicTrackEventIterator {
 	instance := getAVMusicTrackEventIteratorClass().Alloc()
@@ -134,57 +135,61 @@ func NewMusicTrackEventIteratorWithImpl(impl unsafe.Pointer) AVMusicTrackEventIt
 func (m AVMusicTrackEventIterator) DeleteEvent() {
 	objc.Send[objc.ID](m.ID, objc.Sel("deleteEvent"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/getEventInfo:outEventType:eventData:dataSize:
 func (m AVMusicTrackEventIterator) GetEventInfoOutEventTypeEventDataDataSize(info []float64, type_ unsafe.Pointer, data unsafe.Pointer, size unsafe.Pointer) {
 	objc.Send[objc.ID](m.ID, objc.Sel("getEventInfo:outEventType:eventData:dataSize:"), info, type_, data, size)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/hasCurrentEvent
 func (m AVMusicTrackEventIterator) HasCurrentEvent() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasCurrentEvent"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/hasNextEvent
 func (m AVMusicTrackEventIterator) HasNextEvent() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasNextEvent"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/hasPreviousEvent
 func (m AVMusicTrackEventIterator) HasPreviousEvent() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasPreviousEvent"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/nextEvent
 func (m AVMusicTrackEventIterator) NextEvent() int {
 	rv := objc.Send[int](m.ID, objc.Sel("nextEvent"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/previousEvent
 func (m AVMusicTrackEventIterator) PreviousEvent() int {
 	rv := objc.Send[int](m.ID, objc.Sel("previousEvent"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/seek:
 func (m AVMusicTrackEventIterator) Seek(seek float64) {
 	objc.Send[objc.ID](m.ID, objc.Sel("seek:"), seek)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/setEventInfo:data:
 func (m AVMusicTrackEventIterator) SetEventInfoData(info uint32, data unsafe.Pointer) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("setEventInfo:data:"), info, data)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/setEventTime:
 func (m AVMusicTrackEventIterator) SetEventTime(time float64) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("setEventTime:"), time)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrackEventIterator/initWithImpl:
 func (m AVMusicTrackEventIterator) InitWithImpl(impl unsafe.Pointer) AVMusicTrackEventIterator {
 	rv := objc.Send[AVMusicTrackEventIterator](m.ID, objc.Sel("initWithImpl:"), impl)
 	return rv
 }
-

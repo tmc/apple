@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (ac AVAudioUnitTimeEffectClass) Alloc() AVAudioUnitTimeEffect {
 // An object that processes audio in nonreal time.
 //
 // # Overview
-// 
+//
 // A time effect audio unit represents an [AVAudioUnit] with a type
 // `kAudioUnitType_FormatConverter` (`aufc)`. These effects don’t process
 // audio in real time. The [AVAudioUnitVarispeed] class is an example of a
@@ -70,6 +71,7 @@ type AVAudioUnitTimeEffect struct {
 func AVAudioUnitTimeEffectFromID(id objc.ID) AVAudioUnitTimeEffect {
 	return AVAudioUnitTimeEffect{AVAudioUnit: AVAudioUnitFromID(id)}
 }
+
 // NOTE: AVAudioUnitTimeEffect adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,11 +126,11 @@ func NewAVAudioUnitTimeEffect() AVAudioUnitTimeEffect {
 // audioComponentDescription: The description of the audio unit to create.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitTimeEffect] instance.
 //
 // # Discussion
-// 
+//
 // The `componentType` field of the description structure must be
 // `kAudioUnitType_FormatConverter` (”`aufc`”); otherwise, the method
 // raises an exception.
@@ -148,11 +150,11 @@ func NewAudioUnitTimeEffectWithAudioComponentDescription(audioComponentDescripti
 // audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitTimeEffect] instance.
 //
 // # Discussion
-// 
+//
 // The `componentType` field of the description structure must be
 // `kAudioUnitType_FormatConverter` (”`aufc`”); otherwise, the method
 // raises an exception.
@@ -167,10 +169,8 @@ func (a AVAudioUnitTimeEffect) InitWithAudioComponentDescription(audioComponentD
 // The bypass state of the audio unit.
 //
 // # Discussion
-// 
-// If [true], the audio unit bypasses audio processing.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If true, the audio unit bypasses audio processing.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitTimeEffect/bypass
 func (a AVAudioUnitTimeEffect) Bypass() bool {
@@ -180,4 +180,3 @@ func (a AVAudioUnitTimeEffect) Bypass() bool {
 func (a AVAudioUnitTimeEffect) SetBypass(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBypass:"), value)
 }
-

@@ -29,6 +29,7 @@ type CIComicEffect interface {
 type CIComicEffectObject struct {
 	objectivec.Object
 }
+
 func (o CIComicEffectObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func CIComicEffectObjectFromID(id objc.ID) CIComicEffectObject {
 func (o CIComicEffectObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -55,9 +57,11 @@ func (o CIComicEffectObject) InputImage() ICIImage {
 func (o CIComicEffectObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIComicEffect/inputImage
 func (o CIComicEffectObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

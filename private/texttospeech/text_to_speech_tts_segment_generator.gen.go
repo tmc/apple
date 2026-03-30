@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechTTSSegmentGenerator struct {
 func TextToSpeechTTSSegmentGeneratorFromID(id objc.ID) TextToSpeechTTSSegmentGenerator {
 	return TextToSpeechTTSSegmentGenerator{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechTTSSegmentGenerator struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechTTSSegmentGenerator embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechTTSSegmentGenerator() TextToSpeechTTSSegmentGenerator {
 	rv := objc.Send[TextToSpeechTTSSegmentGenerator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,15 +45,15 @@ func (vc VZDirectorySharingDeviceClass) Alloc() VZDirectorySharingDevice {
 // The base class that represents a directory sharing device in a VM.
 //
 // # Overview
-// 
+//
 // Don’t instantiate [VZDirectorySharingDevice] directly; configure a
 // directory sharing device first by using [VZVirtualMachineConfiguration]
 // through a subclass of [VZDirectorySharingDeviceConfiguration].
-// 
+//
 // When you create a [VZVirtualMachine] from the configuration, the directory
 // sharing devices are available through the
 // `VZVirtualMachine.DirectorySharingDevices()` property.
-// 
+//
 // The real type of [VZDirectorySharingDevice] corresponds to the type used by
 // the configuration. For example, a [VZVirtioFileSystemDeviceConfiguration]
 // leads to a device of type [VZVirtioFileSystemDevice].
@@ -68,6 +69,7 @@ type VZDirectorySharingDevice struct {
 func VZDirectorySharingDeviceFromID(id objc.ID) VZDirectorySharingDevice {
 	return VZDirectorySharingDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZDirectorySharingDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -96,4 +98,3 @@ func NewVZDirectorySharingDevice() VZDirectorySharingDevice {
 	rv := objc.Send[VZDirectorySharingDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

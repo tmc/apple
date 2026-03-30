@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,23 +44,23 @@ func (uc UnitSpeedClass) Alloc() UnitSpeed {
 // A unit of measure for speed.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitSpeed] to represent specific
 // quantities of speed using the [NSMeasurement] class.
-// 
+//
 // # Speed
-// 
+//
 // Speed is the magnitude of velocity, or the rate of change of position.
 // Speed can be expressed by SI derived units in terms of meters per second
 // (m/s), and is also commonly expressed in terms of kilometers per hour
 // (km/h) and miles per hour (mph).
-// 
+//
 // The [NSUnitSpeed] class defines its [BaseUnit] as [MetersPerSecond], and
 // provides the following units, which are initialized using
 // [NSUnitConverterLinear] converters with the specified coefficients:
-// 
+//
 // [Table data omitted]
-// 
+//
 // The base unit is [MetersPerSecond] and is accessed via [BaseUnit] on the
 // [NSDimension] protocol.
 //
@@ -77,6 +78,7 @@ func UnitSpeedFromID(id objc.ID) UnitSpeed {
 
 // NSUnitSpeedFromID is an alias for [UnitSpeedFromID] for cross-framework compatibility.
 func NSUnitSpeedFromID(id objc.ID) UnitSpeed { return UnitSpeedFromID(id) }
+
 // NOTE: UnitSpeed adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,7 +108,6 @@ func NewUnitSpeed() UnitSpeed {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitSpeedWithCoder(coder INSCoder) UnitSpeed {
 	instance := getUnitSpeedClass().Alloc()
@@ -119,7 +120,7 @@ func NewUnitSpeedWithCoder(coder INSCoder) UnitSpeed {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -138,11 +139,11 @@ func NewUnitSpeedWithSymbol(symbol string) UnitSpeed {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -159,6 +160,7 @@ func (_UnitSpeedClass UnitSpeedClass) MetersPerSecond() UnitSpeed {
 	rv := objc.Send[objc.ID](objc.ID(_UnitSpeedClass.class), objc.Sel("metersPerSecond"))
 	return NSUnitSpeedFromID(objc.ID(rv))
 }
+
 // The kilometers per hour unit of speed.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitSpeed/kilometersPerHour
@@ -166,6 +168,7 @@ func (_UnitSpeedClass UnitSpeedClass) KilometersPerHour() UnitSpeed {
 	rv := objc.Send[objc.ID](objc.ID(_UnitSpeedClass.class), objc.Sel("kilometersPerHour"))
 	return NSUnitSpeedFromID(objc.ID(rv))
 }
+
 // The miles per hour unit of speed.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitSpeed/milesPerHour
@@ -173,6 +176,7 @@ func (_UnitSpeedClass UnitSpeedClass) MilesPerHour() UnitSpeed {
 	rv := objc.Send[objc.ID](objc.ID(_UnitSpeedClass.class), objc.Sel("milesPerHour"))
 	return NSUnitSpeedFromID(objc.ID(rv))
 }
+
 // The knots unit of speed.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitSpeed/knots
@@ -180,4 +184,3 @@ func (_UnitSpeedClass UnitSpeedClass) Knots() UnitSpeed {
 	rv := objc.Send[objc.ID](objc.ID(_UnitSpeedClass.class), objc.Sel("knots"))
 	return NSUnitSpeedFromID(objc.ID(rv))
 }
-

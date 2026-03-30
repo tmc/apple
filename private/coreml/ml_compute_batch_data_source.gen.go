@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLComputeBatchDataSourceClass) Alloc() MLComputeBatchDataSource {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLComputeBatchDataSource.BatchAtIndexError]
@@ -56,6 +56,7 @@ func (mc MLComputeBatchDataSourceClass) Alloc() MLComputeBatchDataSource {
 //   - [MLComputeBatchDataSource.SizeOfBatchAtIndex]
 //   - [MLComputeBatchDataSource.UseForPrediction]
 //   - [MLComputeBatchDataSource.InitWithBatchProviderBatchSizeForPredictionNeuralNetworkEngineError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource
 type MLComputeBatchDataSource struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type MLComputeBatchDataSource struct {
 func MLComputeBatchDataSourceFromID(id objc.ID) MLComputeBatchDataSource {
 	return MLComputeBatchDataSource{objectivec.Object{ID: id}}
 }
+
 // Ensure MLComputeBatchDataSource implements IMLComputeBatchDataSource.
 var _ IMLComputeBatchDataSource = MLComputeBatchDataSource{}
 
@@ -120,7 +122,6 @@ func NewMLComputeBatchDataSource() MLComputeBatchDataSource {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/initWithBatchProvider:batchSize:forPrediction:neuralNetworkEngine:error:
 func NewComputeBatchDataSourceWithBatchProviderBatchSizeForPredictionNeuralNetworkEngineError(provider objectivec.IObject, size uint64, prediction bool, engine objectivec.IObject) (MLComputeBatchDataSource, error) {
 	var errorPtr objc.ID
@@ -133,7 +134,6 @@ func NewComputeBatchDataSourceWithBatchProviderBatchSizeForPredictionNeuralNetwo
 	return MLComputeBatchDataSourceFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/batchAtIndex:error:
 func (c MLComputeBatchDataSource) BatchAtIndexError(index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -145,7 +145,7 @@ func (c MLComputeBatchDataSource) BatchAtIndexError(index uint64) (objectivec.IO
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/mlcDataSourceAtIndex:error:
 func (c MLComputeBatchDataSource) MlcDataSourceAtIndexError(index int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -157,18 +157,19 @@ func (c MLComputeBatchDataSource) MlcDataSourceAtIndexError(index int64) (object
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/numberOfBatches
 func (c MLComputeBatchDataSource) NumberOfBatches() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("numberOfBatches"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/sizeOfBatchAtIndex:
 func (c MLComputeBatchDataSource) SizeOfBatchAtIndex(index uint64) uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("sizeOfBatchAtIndex:"), index)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/initWithBatchProvider:batchSize:forPrediction:neuralNetworkEngine:error:
 func (c MLComputeBatchDataSource) InitWithBatchProviderBatchSizeForPredictionNeuralNetworkEngineError(provider objectivec.IObject, size uint64, prediction bool, engine objectivec.IObject) (MLComputeBatchDataSource, error) {
 	var errorPtr objc.ID
@@ -186,6 +187,7 @@ func (c MLComputeBatchDataSource) BatchProvider() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("batchProvider"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/batchSize
 func (c MLComputeBatchDataSource) BatchSize() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("batchSize"))
@@ -194,14 +196,15 @@ func (c MLComputeBatchDataSource) BatchSize() uint64 {
 func (c MLComputeBatchDataSource) SetBatchSize(value uint64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBatchSize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/nnEngine
 func (c MLComputeBatchDataSource) NnEngine() IMLNeuralNetworkEngine {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("nnEngine"))
 	return MLNeuralNetworkEngineFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeBatchDataSource/useForPrediction
 func (c MLComputeBatchDataSource) UseForPrediction() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("useForPrediction"))
 	return rv
 }
-

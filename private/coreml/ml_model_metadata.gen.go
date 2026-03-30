@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLModelMetadataClass) Alloc() MLModelMetadata {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelMetadata.Author]
@@ -53,6 +53,7 @@ func (mc MLModelMetadataClass) Alloc() MLModelMetadata {
 //   - [MLModelMetadata.VersionString]
 //   - [MLModelMetadata.InitWithName]
 //   - [MLModelMetadata.InitWithNameShortDescriptionVersionStringAuthorLicenseCreatorDefined]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadata
 type MLModelMetadata struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLModelMetadata struct {
 func MLModelMetadataFromID(id objc.ID) MLModelMetadata {
 	return MLModelMetadata{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelMetadata implements IMLModelMetadata.
 var _ IMLModelMetadata = MLModelMetadata{}
 
@@ -113,7 +115,6 @@ func NewMLModelMetadata() MLModelMetadata {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadata/initWithName:
 func NewModelMetadataWithName(name objectivec.IObject) MLModelMetadata {
 	instance := getMLModelMetadataClass().Alloc()
@@ -121,7 +122,6 @@ func NewModelMetadataWithName(name objectivec.IObject) MLModelMetadata {
 	return MLModelMetadataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadata/initWithName:shortDescription:versionString:author:license:creatorDefined:
 func NewModelMetadataWithNameShortDescriptionVersionStringAuthorLicenseCreatorDefined(name objectivec.IObject, description objectivec.IObject, string_ objectivec.IObject, author objectivec.IObject, license objectivec.IObject, defined objectivec.IObject) MLModelMetadata {
 	instance := getMLModelMetadataClass().Alloc()
@@ -129,13 +129,12 @@ func NewModelMetadataWithNameShortDescriptionVersionStringAuthorLicenseCreatorDe
 	return MLModelMetadataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadata/initWithName:
 func (m MLModelMetadata) InitWithName(name objectivec.IObject) MLModelMetadata {
 	rv := objc.Send[MLModelMetadata](m.ID, objc.Sel("initWithName:"), name)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadata/initWithName:shortDescription:versionString:author:license:creatorDefined:
 func (m MLModelMetadata) InitWithNameShortDescriptionVersionStringAuthorLicenseCreatorDefined(name objectivec.IObject, description objectivec.IObject, string_ objectivec.IObject, author objectivec.IObject, license objectivec.IObject, defined objectivec.IObject) MLModelMetadata {
 	rv := objc.Send[MLModelMetadata](m.ID, objc.Sel("initWithName:shortDescription:versionString:author:license:creatorDefined:"), name, description, string_, author, license, defined)
@@ -147,29 +146,33 @@ func (m MLModelMetadata) Author() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("author"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadata/creatorDefined
 func (m MLModelMetadata) CreatorDefined() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("creatorDefined"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadata/license
 func (m MLModelMetadata) License() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("license"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadata/name
 func (m MLModelMetadata) Name() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadata/shortDescription
 func (m MLModelMetadata) ShortDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("shortDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelMetadata/versionString
 func (m MLModelMetadata) VersionString() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("versionString"))
 	return foundation.NSStringFromID(rv).String()
 }
-

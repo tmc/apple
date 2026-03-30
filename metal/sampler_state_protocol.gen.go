@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -34,6 +34,7 @@ type MTLSamplerState interface {
 type MTLSamplerStateObject struct {
 	objectivec.Object
 }
+
 func (o MTLSamplerStateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -52,17 +53,18 @@ func MTLSamplerStateObjectFromID(id objc.ID) MTLSamplerStateObject {
 func (o MTLSamplerStateObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-	}
+}
+
 // A string that identifies the sampler.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerState/label
 func (o MTLSamplerStateObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerState/gpuResourceID
 func (o MTLSamplerStateObject) GpuResourceID() MTLResourceID {
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
-	}
-
+}

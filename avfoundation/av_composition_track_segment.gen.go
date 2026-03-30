@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVCompositionTrackSegment] class.
@@ -46,7 +47,7 @@ func (ac AVCompositionTrackSegmentClass) Alloc() AVCompositionTrackSegment {
 // composition track.
 //
 // # Overview
-// 
+//
 // You typically use this class to save a low-level representation of a
 // composition.
 //
@@ -72,6 +73,7 @@ type AVCompositionTrackSegment struct {
 func AVCompositionTrackSegmentFromID(id objc.ID) AVCompositionTrackSegment {
 	return AVCompositionTrackSegment{AVAssetTrackSegment: AVAssetTrackSegmentFromID(id)}
 }
+
 // NOTE: AVCompositionTrackSegment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -163,6 +165,7 @@ func (c AVCompositionTrackSegment) InitWithTimeRange(timeRange coremedia.CMTimeR
 	rv := objc.Send[AVCompositionTrackSegment](c.ID, objc.Sel("initWithTimeRange:"), timeRange)
 	return rv
 }
+
 // Creates an object that presents a segment of a media file that the
 // specified URL references.
 //
@@ -185,7 +188,7 @@ func (c AVCompositionTrackSegment) InitWithURLTrackIDSourceTimeRangeTargetTimeRa
 // timeRange: The time range of the empty composition track segment.
 //
 // # Return Value
-// 
+//
 // A new composition track segment.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackSegment/compositionTrackSegmentWithTimeRange:
@@ -193,6 +196,7 @@ func (_AVCompositionTrackSegmentClass AVCompositionTrackSegmentClass) Compositio
 	rv := objc.Send[objc.ID](objc.ID(_AVCompositionTrackSegmentClass.class), objc.Sel("compositionTrackSegmentWithTimeRange:"), timeRange)
 	return AVCompositionTrackSegmentFromID(rv)
 }
+
 // Returns a new an object that presents a segment of a media file that the
 // specified URL references.
 //
@@ -205,7 +209,7 @@ func (_AVCompositionTrackSegmentClass AVCompositionTrackSegmentClass) Compositio
 // targetTimeRange: The time range of the composition track to present the segment’s media.
 //
 // # Return Value
-// 
+//
 // A new composition track segment.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackSegment/compositionTrackSegmentWithURL:trackID:sourceTimeRange:targetTimeRange:
@@ -221,6 +225,7 @@ func (c AVCompositionTrackSegment) SourceURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("sourceURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // An identifier of a track in the container file whose media this track
 // segment presents.
 //
@@ -229,4 +234,3 @@ func (c AVCompositionTrackSegment) SourceTrackID() int32 {
 	rv := objc.Send[int32](c.ID, objc.Sel("sourceTrackID"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NEEthernetTunnelNetworkSettings] class.
@@ -44,11 +45,11 @@ func (nc NEEthernetTunnelNetworkSettingsClass) Alloc() NEEthernetTunnelNetworkSe
 // The network settings for an ethernet-based VPN tunnel.
 //
 // # Overview
-// 
+//
 // You use this type with [NEEthernetTunnelProvider] instances to communicate
 // the desired network settings for the packet tunnel to the framework. The
 // framework takes care of applying the contained settings to the system.
-// 
+//
 // Instances of this class are thread-safe.
 //
 // # Creating a settings instance
@@ -70,6 +71,7 @@ type NEEthernetTunnelNetworkSettings struct {
 func NEEthernetTunnelNetworkSettingsFromID(id objc.ID) NEEthernetTunnelNetworkSettings {
 	return NEEthernetTunnelNetworkSettings{NEPacketTunnelNetworkSettings: NEPacketTunnelNetworkSettingsFromID(id)}
 }
+
 // NOTE: NEEthernetTunnelNetworkSettings adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -154,4 +156,3 @@ func (e NEEthernetTunnelNetworkSettings) EthernetAddress() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("ethernetAddress"))
 	return foundation.NSStringFromID(rv).String()
 }
-

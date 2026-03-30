@@ -1,19 +1,22 @@
 // Code generated from Apple documentation for iokit. DO NOT EDIT.
 
 package iokit
+
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objectivec"
 )
 
 // C struct types
+
 // IOAsyncCompletionContent
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/ioasynccompletioncontent-ieg
 type IOAsyncCompletionContent struct {
 	Result int
-
+	Args   unsafe.Pointer
 }
 
 // IOGraphicsEngineContext
@@ -21,15 +24,10 @@ type IOAsyncCompletionContent struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/iographicsenginecontext
 type IOGraphicsEngineContext struct {
-
-}
-
-// IONDRVControlParameters
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/iondrvcontrolparameters
-type IONDRVControlParameters struct {
-
+	Owner    unsafe.Pointer
+	Reserved unsafe.Pointer
+	State    unsafe.Pointer
+	Version  unsafe.Pointer
 }
 
 // IONamedValue
@@ -38,8 +36,7 @@ type IONDRVControlParameters struct {
 // [Full Topic]: https://developer.apple.com/documentation/iokit/ionamedvalue
 type IONamedValue struct {
 	Value unsafe.Pointer
-	Name unsafe.Pointer
-
+	Name  unsafe.Pointer
 }
 
 // IOPMSystemCapabilityChangeParameters - A structure describing a system capability change.
@@ -47,7 +44,6 @@ type IONamedValue struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/iopmsystemcapabilitychangeparameters
 type IOPMSystemCapabilityChangeParameters struct {
-
 }
 
 // IOPhysicalRange
@@ -56,8 +52,7 @@ type IOPMSystemCapabilityChangeParameters struct {
 // [Full Topic]: https://developer.apple.com/documentation/iokit/iophysicalrange
 type IOPhysicalRange struct {
 	Address IOPhysicalAddress
-	Length uint
-
+	Length  uint
 }
 
 // IORPC
@@ -65,11 +60,10 @@ type IOPhysicalRange struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/iorpc
 type IORPC struct {
-	Message IORPCMessageMach
-	Reply IORPCMessageMach
+	Message   IORPCMessageMach
+	Reply     IORPCMessageMach
 	ReplySize uint32
-	SendSize uint32
-
+	SendSize  uint32
 }
 
 // IORPCMessage
@@ -77,21 +71,10 @@ type IORPC struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/iorpcmessage
 type IORPCMessage struct {
-	Flags uint64
-	Msgid uint64
+	Flags      uint64
+	Msgid      uint64
 	ObjectRefs uint64
-	Objects unsafe.Pointer
-
-}
-
-// IORPCMessageErrorReturn
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/iorpcmessageerrorreturn
-type IORPCMessageErrorReturn struct {
-	Content IORPCMessageErrorReturnContent
-	Mach IORPCMessageMach
-
+	Objects    unsafe.Pointer
 }
 
 // IORPCMessageErrorReturnContent
@@ -99,10 +82,9 @@ type IORPCMessageErrorReturn struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/iorpcmessageerrorreturncontent
 type IORPCMessageErrorReturnContent struct {
-	Hdr IORPCMessage
-	Pad uint32
+	Hdr    IORPCMessage
+	Pad    uint32
 	Result int32
-
 }
 
 // IORPCMessageMach
@@ -110,10 +92,9 @@ type IORPCMessageErrorReturnContent struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/iorpcmessagemach
 type IORPCMessageMach struct {
-	Msgh unsafe.Pointer
+	Msgh      unsafe.Pointer
 	Msgh_body unsafe.Pointer
-	Objects unsafe.Pointer
-
+	Objects   unsafe.Pointer
 }
 
 // IOServiceInterestContent
@@ -121,19 +102,8 @@ type IORPCMessageMach struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/ioserviceinterestcontent-ieh
 type IOServiceInterestContent struct {
+	MessageType     objectivec.IObject
 	MessageArgument unsafe.Pointer
-	MessageType objectivec.IObject
-
-}
-
-// IOServiceInterestContent64
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/ioserviceinterestcontent64
-type IOServiceInterestContent64 struct {
-	MessageType objectivec.IObject
-	MessageArgument unsafe.Pointer
-
 }
 
 // IOStreamBufferQueue
@@ -141,6 +111,8 @@ type IOServiceInterestContent64 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/iostreambufferqueue
 type IOStreamBufferQueue struct {
+	Queue    unsafe.Pointer // The array of queue entries.
+	Reserved unsafe.Pointer // Reserved for future use.
 
 }
 
@@ -149,38 +121,7 @@ type IOStreamBufferQueue struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/iostreambufferqueueentry
 type IOStreamBufferQueueEntry struct {
-
-}
-
-// IOUSB30HubPortStatusExt
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/iousb30hubportstatusext
-type IOUSB30HubPortStatusExt struct {
-
-}
-
-// IOVideoControlDictionary
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/iovideocontroldictionary
-type IOVideoControlDictionary struct {
-
-}
-
-// IOVideoStreamDictionary
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/iovideostreamdictionary
-type IOVideoStreamDictionary struct {
-
-}
-
-// IOVideoStreamFormatDictionary
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/iovideostreamformatdictionary
-type IOVideoStreamFormatDictionary struct {
+	Reserved unsafe.Pointer // Reserved for future use.
 
 }
 
@@ -189,37 +130,8 @@ type IOVideoStreamFormatDictionary struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/iovirtualrange
 type IOVirtualRange struct {
-	Length uint
 	Address IOVirtualAddress
-
-}
-
-// OSClassDescription
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/osclassdescription
-type OSClassDescription struct {
-	DescriptionSize uint32
-	DispatchNames unsafe.Pointer
-	Flags uint64
-	MetaMethodNames unsafe.Pointer
-	MetaMethodNamesOffset uint32
-	MetaMethodNamesSize uint32
-	MetaMethodOptions unsafe.Pointer
-	MetaMethodOptionsOffset uint32
-	MetaMethodOptionsSize uint32
-	MethodNames unsafe.Pointer
-	MethodNamesOffset uint32
-	MethodNamesSize uint32
-	MethodOptions unsafe.Pointer
-	MethodOptionsOffset uint32
-	MethodOptionsSize uint32
-	Name unsafe.Pointer
-	QueueNamesOffset uint32
-	QueueNamesSize uint32
-	Resv1 uint64
-	SuperName unsafe.Pointer
-
+	Length  uint
 }
 
 // OSNotificationHeader
@@ -227,37 +139,10 @@ type OSClassDescription struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/osnotificationheader-iei
 type OSNotificationHeader struct {
+	Size      uint32
+	Type      objectivec.IObject
 	Reference unsafe.Pointer
-	Size uint32
-	Type objectivec.IObject
-
-}
-
-// OSNotificationHeader64
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/osnotificationheader64
-type OSNotificationHeader64 struct {
-	Reference unsafe.Pointer
-	Size uint32
-	Type objectivec.IObject
-
-}
-
-// StdFBShmem_t
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/stdfbshmem_t
-type StdFBShmem_t struct {
-
-}
-
-// Applelabel
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/applelabel
-type Applelabel struct {
-
+	Content   unsafe.Pointer
 }
 
 // Bm12Cursor - Cursor image for 1-bit cursor.
@@ -265,6 +150,9 @@ type Applelabel struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/bm12cursor
 type Bm12Cursor struct {
+	Image unsafe.Pointer // This array contains the cursor images.
+	Mask  unsafe.Pointer // This array contains the cursor mask.
+	Save  unsafe.Pointer // This array stores the pixel values of the region underneath the cursor in its last drawn position.
 
 }
 
@@ -273,6 +161,9 @@ type Bm12Cursor struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/bm18cursor
 type Bm18Cursor struct {
+	Image unsafe.Pointer // This array contains cursor color values, which are converted to displayed colors through the color table. The array is two dimensional and its first index is the cursor frame and the second index is the cursor pixel.
+	Mask  unsafe.Pointer // This array contains the cursor alpha mask. The array is two dimensional with the same indexing as the image. If an alpha mask pixel is 0 and the corresponding image pixel is set to white for the display, then this cursor pixel will invert pixels on the display.
+	Save  unsafe.Pointer // This array stores the color values of the region underneath the cursor in its last drawn position.
 
 }
 
@@ -281,6 +172,8 @@ type Bm18Cursor struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/bm34cursor
 type Bm34Cursor struct {
+	Image unsafe.Pointer // This array defines the cursor color values and transparency. The array is two dimensional and its first index is the cursor frame and the second index is the cursor pixel. A value of 0 means the pixel is transparent.
+	Save  unsafe.Pointer // This array stores the color values of the region underneath the cursor in its last drawn position.
 
 }
 
@@ -289,38 +182,7 @@ type Bm34Cursor struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/iokit/bm38cursor
 type Bm38Cursor struct {
+	Image unsafe.Pointer // This array defines the cursor color values and transparency. The array is two dimensional and its first index is the cursor frame and the second index is the cursor pixel. The lower 24 bits of a pixel's value contain the RGB color, while the upper 8 bits contain the alpha value.
+	Save  unsafe.Pointer // This array stores the color values of the region underneath the cursor in its last drawn position.
 
 }
-
-// Disk_blk0
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/disk_blk0
-type Disk_blk0 struct {
-
-}
-
-// Fdisk_part
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/fdisk_part
-type Fdisk_part struct {
-
-}
-
-// Gpt_ent
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/gpt_ent
-type Gpt_ent struct {
-
-}
-
-// Gpt_hdr
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/iokit/gpt_hdr
-type Gpt_hdr struct {
-
-}
-

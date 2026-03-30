@@ -4,9 +4,11 @@ package avfoundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol for receiving real-time timecode updates and error notifications from a timecode generator.
@@ -35,6 +37,7 @@ type AVCaptureTimecodeGeneratorDelegate interface {
 type AVCaptureTimecodeGeneratorDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVCaptureTimecodeGeneratorDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -59,7 +62,8 @@ func AVCaptureTimecodeGeneratorDelegateObjectFromID(id objc.ID) AVCaptureTimecod
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGeneratorDelegate/timecodeGenerator(_:didReceiveUpdate:from:)
 func (o AVCaptureTimecodeGeneratorDelegateObject) TimecodeGeneratorDidReceiveUpdateFromSource(generator IAVCaptureTimecodeGenerator, timecode AVCaptureTimecode, source IAVCaptureTimecodeSource) {
 	objc.Send[struct{}](o.ID, objc.Sel("timecodeGenerator:didReceiveUpdate:fromSource:"), generator, timecode, source)
-	}
+}
+
 // Notifies the delegate when the list of available timecode synchronization
 // sources is updated.
 //
@@ -71,7 +75,8 @@ func (o AVCaptureTimecodeGeneratorDelegateObject) TimecodeGeneratorDidReceiveUpd
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGeneratorDelegate/timecodeGenerator(_:didUpdateAvailableSources:)
 func (o AVCaptureTimecodeGeneratorDelegateObject) TimecodeGeneratorDidUpdateAvailableSources(generator IAVCaptureTimecodeGenerator, availableSources []AVCaptureTimecodeSource) {
 	objc.Send[struct{}](o.ID, objc.Sel("timecodeGenerator:didUpdateAvailableSources:"), generator, objectivec.IObjectSliceToNSArray(availableSources))
-	}
+}
+
 // Notifies the delegate when the synchronization status of a timecode source
 // changes.
 //
@@ -84,7 +89,7 @@ func (o AVCaptureTimecodeGeneratorDelegateObject) TimecodeGeneratorDidUpdateAvai
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGeneratorDelegate/timecodeGenerator(_:transitionedTo:for:)
 func (o AVCaptureTimecodeGeneratorDelegateObject) TimecodeGeneratorTransitionedToSynchronizationStatusForSource(generator IAVCaptureTimecodeGenerator, synchronizationStatus AVCaptureTimecodeGeneratorSynchronizationStatus, source IAVCaptureTimecodeSource) {
 	objc.Send[struct{}](o.ID, objc.Sel("timecodeGenerator:transitionedToSynchronizationStatus:forSource:"), generator, synchronizationStatus, source)
-	}
+}
 
 // AVCaptureTimecodeGeneratorDelegateConfig holds optional typed callbacks for [AVCaptureTimecodeGeneratorDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -161,4 +166,3 @@ func NewAVCaptureTimecodeGeneratorDelegate(config AVCaptureTimecodeGeneratorDele
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVCaptureTimecodeGeneratorDelegateObjectFromID(instance)
 }
-

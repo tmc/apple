@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLNeuralNetworkMLComputeUpdateEngineClass) Alloc() MLNeuralNetworkMLCom
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLNeuralNetworkMLComputeUpdateEngine.BatchSize]
@@ -80,6 +80,7 @@ func (mc MLNeuralNetworkMLComputeUpdateEngineClass) Alloc() MLNeuralNetworkMLCom
 //   - [MLNeuralNetworkMLComputeUpdateEngine.UpdateParameters]
 //   - [MLNeuralNetworkMLComputeUpdateEngine.WriteToURLError]
 //   - [MLNeuralNetworkMLComputeUpdateEngine.InitWithCompiledArchiveNnContainerConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine
 type MLNeuralNetworkMLComputeUpdateEngine struct {
 	MLNeuralNetworkV1Engine
@@ -89,6 +90,7 @@ type MLNeuralNetworkMLComputeUpdateEngine struct {
 func MLNeuralNetworkMLComputeUpdateEngineFromID(id objc.ID) MLNeuralNetworkMLComputeUpdateEngine {
 	return MLNeuralNetworkMLComputeUpdateEngine{MLNeuralNetworkV1Engine: MLNeuralNetworkV1EngineFromID(id)}
 }
+
 // Ensure MLNeuralNetworkMLComputeUpdateEngine implements IMLNeuralNetworkMLComputeUpdateEngine.
 var _ IMLNeuralNetworkMLComputeUpdateEngine = MLNeuralNetworkMLComputeUpdateEngine{}
 
@@ -190,7 +192,6 @@ func NewMLNeuralNetworkMLComputeUpdateEngine() MLNeuralNetworkMLComputeUpdateEng
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/initWithCompiledArchive:nnContainer:configuration:error:
 func NewNeuralNetworkMLComputeUpdateEngineWithCompiledArchiveNnContainerConfigurationError(archive unsafe.Pointer, container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
 	var errorPtr objc.ID
@@ -203,7 +204,6 @@ func NewNeuralNetworkMLComputeUpdateEngineWithCompiledArchiveNnContainerConfigur
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/initWithContainer:configuration:error:
 func NewNeuralNetworkMLComputeUpdateEngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
 	var errorPtr objc.ID
@@ -216,7 +216,6 @@ func NewNeuralNetworkMLComputeUpdateEngineWithContainerConfigurationError(contai
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkEngine/initWithContainer:error:
 func NewNeuralNetworkMLComputeUpdateEngineWithContainerError(container objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
 	var errorPtr objc.ID
@@ -229,7 +228,6 @@ func NewNeuralNetworkMLComputeUpdateEngineWithContainerError(container objective
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewNeuralNetworkMLComputeUpdateEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkMLComputeUpdateEngine {
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
@@ -237,7 +235,6 @@ func NewNeuralNetworkMLComputeUpdateEngineWithDescriptionConfiguration(descripti
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewNeuralNetworkMLComputeUpdateEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkMLComputeUpdateEngine {
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
@@ -249,19 +246,19 @@ func NewNeuralNetworkMLComputeUpdateEngineWithNameInputDescriptionOutputDescript
 func (n MLNeuralNetworkMLComputeUpdateEngine) CancelUpdate() {
 	objc.Send[objc.ID](n.ID, objc.Sel("cancelUpdate"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/loadLossTargetName:
 func (n MLNeuralNetworkMLComputeUpdateEngine) LoadLossTargetName(name unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("loadLossTargetName:"), name)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/parameterValueForKey:
 func (n MLNeuralNetworkMLComputeUpdateEngine) ParameterValueForKey(key objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("parameterValueForKey:"), key)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/performInferenceWith:outputNameToLayerMap:error:
 func (n MLNeuralNetworkMLComputeUpdateEngine) PerformInferenceWithOutputNameToLayerMapError(with objectivec.IObject, map_ objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -273,7 +270,7 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) PerformInferenceWithOutputNameToLa
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/performTrainingWith:callBacks:numberOfEpochs:error:
 func (n MLNeuralNetworkMLComputeUpdateEngine) PerformTrainingWithCallBacksNumberOfEpochsError(with objectivec.IObject, backs objectivec.IObject, epochs uint64) (bool, error) {
 	var errorPtr objc.ID
@@ -288,37 +285,39 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) PerformTrainingWithCallBacksNumber
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/resumeUpdate
 func (n MLNeuralNetworkMLComputeUpdateEngine) ResumeUpdate() {
 	objc.Send[objc.ID](n.ID, objc.Sel("resumeUpdate"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/resumeUpdateWithParameters:
 func (n MLNeuralNetworkMLComputeUpdateEngine) ResumeUpdateWithParameters(parameters objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("resumeUpdateWithParameters:"), parameters)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/setUpdateProgressHandlers:dispatchQueue:
 func (n MLNeuralNetworkMLComputeUpdateEngine) SetUpdateProgressHandlersDispatchQueue(handlers ErrorHandler, queue objectivec.IObject) {
-_block0, _ := NewErrorBlock(handlers)
+	_block0, _ := NewErrorBlock(handlers)
 	objc.Send[objc.ID](n.ID, objc.Sel("setUpdateProgressHandlers:dispatchQueue:"), _block0, queue)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/updateLearningRateWithValue:
 func (n MLNeuralNetworkMLComputeUpdateEngine) UpdateLearningRateWithValue(value float32) {
 	objc.Send[objc.ID](n.ID, objc.Sel("updateLearningRateWithValue:"), value)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/updateModelWithData:
 func (n MLNeuralNetworkMLComputeUpdateEngine) UpdateModelWithData(data objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("updateModelWithData:"), data)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/updateParameters
 func (n MLNeuralNetworkMLComputeUpdateEngine) UpdateParameters() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("updateParameters"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/writeToURL:error:
 func (n MLNeuralNetworkMLComputeUpdateEngine) WriteToURLError(url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -333,7 +332,7 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) WriteToURLError(url foundation.INS
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/initWithCompiledArchive:nnContainer:configuration:error:
 func (n MLNeuralNetworkMLComputeUpdateEngine) InitWithCompiledArchiveNnContainerConfigurationError(archive unsafe.Pointer, container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
 	var errorPtr objc.ID
@@ -354,11 +353,13 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) BatchSize() uint64 {
 func (n MLNeuralNetworkMLComputeUpdateEngine) SetBatchSize(value uint64) {
 	objc.Send[struct{}](n.ID, objc.Sel("setBatchSize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/classLabelToIndexMap
 func (n MLNeuralNetworkMLComputeUpdateEngine) ClassLabelToIndexMap() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("classLabelToIndexMap"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/classifierOutputIsSigmoidOutput
 func (n MLNeuralNetworkMLComputeUpdateEngine) ClassifierOutputIsSigmoidOutput() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("classifierOutputIsSigmoidOutput"))
@@ -367,6 +368,7 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) ClassifierOutputIsSigmoidOutput() 
 func (n MLNeuralNetworkMLComputeUpdateEngine) SetClassifierOutputIsSigmoidOutput(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setClassifierOutputIsSigmoidOutput:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/continueWithUpdate
 func (n MLNeuralNetworkMLComputeUpdateEngine) ContinueWithUpdate() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("continueWithUpdate"))
@@ -375,6 +377,7 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) ContinueWithUpdate() bool {
 func (n MLNeuralNetworkMLComputeUpdateEngine) SetContinueWithUpdate(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setContinueWithUpdate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/finalLossValue
 func (n MLNeuralNetworkMLComputeUpdateEngine) FinalLossValue() float32 {
 	rv := objc.Send[float32](n.ID, objc.Sel("finalLossValue"))
@@ -383,11 +386,13 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) FinalLossValue() float32 {
 func (n MLNeuralNetworkMLComputeUpdateEngine) SetFinalLossValue(value float32) {
 	objc.Send[struct{}](n.ID, objc.Sel("setFinalLossValue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/lossTargetName
 func (n MLNeuralNetworkMLComputeUpdateEngine) LossTargetName() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("lossTargetName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/mlcGraph
 func (n MLNeuralNetworkMLComputeUpdateEngine) MlcGraph() IMLNeuralNetworkMLComputeGraph {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("mlcGraph"))
@@ -396,6 +401,7 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) MlcGraph() IMLNeuralNetworkMLCompu
 func (n MLNeuralNetworkMLComputeUpdateEngine) SetMlcGraph(value IMLNeuralNetworkMLComputeGraph) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMlcGraph:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/parameterContainer
 func (n MLNeuralNetworkMLComputeUpdateEngine) ParameterContainer() IMLParameterContainer {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("parameterContainer"))
@@ -404,6 +410,7 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) ParameterContainer() IMLParameterC
 func (n MLNeuralNetworkMLComputeUpdateEngine) SetParameterContainer(value IMLParameterContainer) {
 	objc.Send[struct{}](n.ID, objc.Sel("setParameterContainer:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/progressHandlers
 func (n MLNeuralNetworkMLComputeUpdateEngine) ProgressHandlers() IMLUpdateProgressHandlers {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("progressHandlers"))
@@ -412,6 +419,7 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) ProgressHandlers() IMLUpdateProgre
 func (n MLNeuralNetworkMLComputeUpdateEngine) SetProgressHandlers(value IMLUpdateProgressHandlers) {
 	objc.Send[struct{}](n.ID, objc.Sel("setProgressHandlers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/progressHandlersDispatchQueue
 func (n MLNeuralNetworkMLComputeUpdateEngine) ProgressHandlersDispatchQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("progressHandlersDispatchQueue"))
@@ -420,6 +428,7 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) ProgressHandlersDispatchQueue() ob
 func (n MLNeuralNetworkMLComputeUpdateEngine) SetProgressHandlersDispatchQueue(value objectivec.Object) {
 	objc.Send[struct{}](n.ID, objc.Sel("setProgressHandlersDispatchQueue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkMLComputeUpdateEngine/shuffableTrainingData
 func (n MLNeuralNetworkMLComputeUpdateEngine) ShuffableTrainingData() IMLShufflingBatchProvider {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("shuffableTrainingData"))
@@ -428,4 +437,3 @@ func (n MLNeuralNetworkMLComputeUpdateEngine) ShuffableTrainingData() IMLShuffli
 func (n MLNeuralNetworkMLComputeUpdateEngine) SetShuffableTrainingData(value IMLShufflingBatchProvider) {
 	objc.Send[struct{}](n.ID, objc.Sel("setShuffableTrainingData:"), value)
 }
-

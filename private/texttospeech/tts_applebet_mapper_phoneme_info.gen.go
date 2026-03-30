@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (tc TTSApplebetMapperPhonemeInfoClass) Alloc() TTSApplebetMapperPhonemeInfo
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSApplebetMapperPhonemeInfo.EndTime]
@@ -51,6 +51,7 @@ func (tc TTSApplebetMapperPhonemeInfoClass) Alloc() TTSApplebetMapperPhonemeInfo
 //   - [TTSApplebetMapperPhonemeInfo.SetPhoneme]
 //   - [TTSApplebetMapperPhonemeInfo.StartTime]
 //   - [TTSApplebetMapperPhonemeInfo.SetStartTime]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperPhonemeInfo
 type TTSApplebetMapperPhonemeInfo struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type TTSApplebetMapperPhonemeInfo struct {
 func TTSApplebetMapperPhonemeInfoFromID(id objc.ID) TTSApplebetMapperPhonemeInfo {
 	return TTSApplebetMapperPhonemeInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSApplebetMapperPhonemeInfo implements ITTSApplebetMapperPhonemeInfo.
 var _ ITTSApplebetMapperPhonemeInfo = TTSApplebetMapperPhonemeInfo{}
 
@@ -115,6 +117,7 @@ func (t TTSApplebetMapperPhonemeInfo) EndTime() foundation.NSNumber {
 func (t TTSApplebetMapperPhonemeInfo) SetEndTime(value foundation.NSNumber) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEndTime:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperPhonemeInfo/phoneme
 func (t TTSApplebetMapperPhonemeInfo) Phoneme() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("phoneme"))
@@ -123,6 +126,7 @@ func (t TTSApplebetMapperPhonemeInfo) Phoneme() string {
 func (t TTSApplebetMapperPhonemeInfo) SetPhoneme(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPhoneme:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSApplebetMapperPhonemeInfo/startTime
 func (t TTSApplebetMapperPhonemeInfo) StartTime() foundation.NSNumber {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("startTime"))
@@ -131,4 +135,3 @@ func (t TTSApplebetMapperPhonemeInfo) StartTime() foundation.NSNumber {
 func (t TTSApplebetMapperPhonemeInfo) SetStartTime(value foundation.NSNumber) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStartTime:"), value)
 }
-

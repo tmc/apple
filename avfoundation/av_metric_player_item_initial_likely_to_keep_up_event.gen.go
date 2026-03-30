@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -61,6 +62,7 @@ type AVMetricPlayerItemInitialLikelyToKeepUpEvent struct {
 func AVMetricPlayerItemInitialLikelyToKeepUpEventFromID(id objc.ID) AVMetricPlayerItemInitialLikelyToKeepUpEvent {
 	return AVMetricPlayerItemInitialLikelyToKeepUpEvent{AVMetricPlayerItemLikelyToKeepUpEvent: AVMetricPlayerItemLikelyToKeepUpEventFromID(id)}
 }
+
 // NOTE: AVMetricPlayerItemInitialLikelyToKeepUpEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,6 +111,7 @@ func (m AVMetricPlayerItemInitialLikelyToKeepUpEvent) ContentKeyRequestEvents() 
 		return AVMetricContentKeyRequestEventFromID(id)
 	})
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemInitialLikelyToKeepUpEvent/mediaSegmentRequestEvents
 func (m AVMetricPlayerItemInitialLikelyToKeepUpEvent) MediaSegmentRequestEvents() []AVMetricHLSMediaSegmentRequestEvent {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("mediaSegmentRequestEvents"))
@@ -116,6 +119,7 @@ func (m AVMetricPlayerItemInitialLikelyToKeepUpEvent) MediaSegmentRequestEvents(
 		return AVMetricHLSMediaSegmentRequestEventFromID(id)
 	})
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemInitialLikelyToKeepUpEvent/playlistRequestEvents
 func (m AVMetricPlayerItemInitialLikelyToKeepUpEvent) PlaylistRequestEvents() []AVMetricHLSPlaylistRequestEvent {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("playlistRequestEvents"))
@@ -123,4 +127,3 @@ func (m AVMetricPlayerItemInitialLikelyToKeepUpEvent) PlaylistRequestEvents() []
 		return AVMetricHLSPlaylistRequestEventFromID(id)
 	})
 }
-

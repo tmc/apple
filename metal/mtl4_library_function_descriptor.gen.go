@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [MTL4LibraryFunctionDescriptor] class.
@@ -61,6 +62,7 @@ type MTL4LibraryFunctionDescriptor struct {
 func MTL4LibraryFunctionDescriptorFromID(id objc.ID) MTL4LibraryFunctionDescriptor {
 	return MTL4LibraryFunctionDescriptor{MTL4FunctionDescriptor: MTL4FunctionDescriptorFromID(id)}
 }
+
 // NOTE: MTL4LibraryFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,6 +118,7 @@ func (m MTL4LibraryFunctionDescriptor) Library() MTLLibrary {
 func (m MTL4LibraryFunctionDescriptor) SetLibrary(value MTLLibrary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLibrary:"), value)
 }
+
 // Assigns a name to the function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4LibraryFunctionDescriptor/name
@@ -126,4 +129,3 @@ func (m MTL4LibraryFunctionDescriptor) Name() string {
 func (m MTL4LibraryFunctionDescriptor) SetName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
-

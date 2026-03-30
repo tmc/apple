@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,6 +54,7 @@ type VZVirtioGraphicsDevice struct {
 func VZVirtioGraphicsDeviceFromID(id objc.ID) VZVirtioGraphicsDevice {
 	return VZVirtioGraphicsDevice{VZGraphicsDevice: VZGraphicsDeviceFromID(id)}
 }
+
 // NOTE: VZVirtioGraphicsDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -81,4 +83,3 @@ func NewVZVirtioGraphicsDevice() VZVirtioGraphicsDevice {
 	rv := objc.Send[VZVirtioGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

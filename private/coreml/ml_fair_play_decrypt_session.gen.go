@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLFairPlayDecryptSessionClass) Alloc() MLFairPlayDecryptSession {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLFairPlayDecryptSession.ModelPath]
@@ -52,6 +52,7 @@ func (mc MLFairPlayDecryptSessionClass) Alloc() MLFairPlayDecryptSession {
 //   - [MLFairPlayDecryptSession.SetXpcConnection]
 //   - [MLFairPlayDecryptSession.XpcProxy]
 //   - [MLFairPlayDecryptSession.SetXpcProxy]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSession
 type MLFairPlayDecryptSession struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type MLFairPlayDecryptSession struct {
 func MLFairPlayDecryptSessionFromID(id objc.ID) MLFairPlayDecryptSession {
 	return MLFairPlayDecryptSession{objectivec.Object{ID: id}}
 }
+
 // Ensure MLFairPlayDecryptSession implements IMLFairPlayDecryptSession.
 var _ IMLFairPlayDecryptSession = MLFairPlayDecryptSession{}
 
@@ -108,7 +110,6 @@ func NewMLFairPlayDecryptSession() MLFairPlayDecryptSession {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSession/decryptSessionForModelAtPath:usesCodeSigningIdentityForEncryption:keyBlob:error:
 func (_MLFairPlayDecryptSessionClass MLFairPlayDecryptSessionClass) DecryptSessionForModelAtPathUsesCodeSigningIdentityForEncryptionKeyBlobError(path objectivec.IObject, encryption bool, blob objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -129,6 +130,7 @@ func (f MLFairPlayDecryptSession) ModelPath() string {
 func (f MLFairPlayDecryptSession) SetModelPath(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setModelPath:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSession/xpcConnection
 func (f MLFairPlayDecryptSession) XpcConnection() foundation.NSXPCConnection {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("xpcConnection"))
@@ -137,6 +139,7 @@ func (f MLFairPlayDecryptSession) XpcConnection() foundation.NSXPCConnection {
 func (f MLFairPlayDecryptSession) SetXpcConnection(value foundation.NSXPCConnection) {
 	objc.Send[struct{}](f.ID, objc.Sel("setXpcConnection:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSession/xpcProxy
 func (f MLFairPlayDecryptSession) XpcProxy() objectivec.Object {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("xpcProxy"))
@@ -145,4 +148,3 @@ func (f MLFairPlayDecryptSession) XpcProxy() objectivec.Object {
 func (f MLFairPlayDecryptSession) SetXpcProxy(value objectivec.Object) {
 	objc.Send[struct{}](f.ID, objc.Sel("setXpcProxy:"), value)
 }
-

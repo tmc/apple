@@ -18,6 +18,7 @@ type NSStackViewDelegate interface {
 type NSStackViewDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSStackViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,7 +40,7 @@ func NSStackViewDelegateObjectFromID(id objc.ID) NSStackViewDelegateObject {
 // reattached.
 //
 // # Discussion
-// 
+//
 // To configure a custom class to respond to the automatic reattachment of
 // views to a stack view’s view hierarchy, implement this method in the
 // class. This method is not called when your code explicitly adds a view to a
@@ -48,7 +49,8 @@ func NSStackViewDelegateObjectFromID(id objc.ID) NSStackViewDelegateObject {
 // See: https://developer.apple.com/documentation/AppKit/NSStackViewDelegate/stackView(_:didReattach:)
 func (o NSStackViewDelegateObject) StackViewDidReattachViews(stackView INSStackView, views []NSView) {
 	objc.Send[struct{}](o.ID, objc.Sel("stackView:didReattachViews:"), stackView, objectivec.IObjectSliceToNSArray(views))
-	}
+}
+
 // Called when the stack view is about to automatically detach one or more of
 // its views.
 //
@@ -58,7 +60,7 @@ func (o NSStackViewDelegateObject) StackViewDidReattachViews(stackView INSStackV
 // be automatically detached.
 //
 // # Discussion
-// 
+//
 // To configure a custom class to respond to the automatic detachment of views
 // from a stack view’s view hierarchy, implement this method in the class.
 // This method is not called when your code explicitly removes a view from a
@@ -67,5 +69,4 @@ func (o NSStackViewDelegateObject) StackViewDidReattachViews(stackView INSStackV
 // See: https://developer.apple.com/documentation/AppKit/NSStackViewDelegate/stackView(_:willDetach:)
 func (o NSStackViewDelegateObject) StackViewWillDetachViews(stackView INSStackView, views []NSView) {
 	objc.Send[struct{}](o.ID, objc.Sel("stackView:willDetachViews:"), stackView, objectivec.IObjectSliceToNSArray(views))
-	}
-
+}

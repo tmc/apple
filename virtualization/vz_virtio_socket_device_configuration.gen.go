@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VZVirtioSocketDeviceConfigurationClass) Alloc() VZVirtioSocketDeviceCon
 // communicate with the guest system.
 //
 // # Overview
-// 
+//
 // Use a [VZVirtioSocketDeviceConfiguration] object to implement port-based
 // communication between the guest operating system and the host computer.
 // When you add this object to the [VZVirtioSocketDeviceConfiguration.SocketDevices] property of your
@@ -65,6 +66,7 @@ type VZVirtioSocketDeviceConfiguration struct {
 func VZVirtioSocketDeviceConfigurationFromID(id objc.ID) VZVirtioSocketDeviceConfiguration {
 	return VZVirtioSocketDeviceConfiguration{VZSocketDeviceConfiguration: VZSocketDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioSocketDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,4 +111,3 @@ func (v VZVirtioSocketDeviceConfiguration) SocketDevices() IVZSocketDeviceConfig
 func (v VZVirtioSocketDeviceConfiguration) SetSocketDevices(value IVZSocketDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSocketDevices:"), value)
 }
-

@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,12 +45,12 @@ func (mc MLAppleWordEmbeddingClass) Alloc() MLAppleWordEmbedding {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLAppleWordEmbedding.Parameters]
 //   - [MLAppleWordEmbedding.PredictionFromFeaturesOptionsError]
 //   - [MLAppleWordEmbedding.InitWithParametersModelDescriptionNlpHandleConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbedding
 type MLAppleWordEmbedding struct {
 	MLModel
@@ -59,6 +60,7 @@ type MLAppleWordEmbedding struct {
 func MLAppleWordEmbeddingFromID(id objc.ID) MLAppleWordEmbedding {
 	return MLAppleWordEmbedding{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLAppleWordEmbedding implements IMLAppleWordEmbedding.
 var _ IMLAppleWordEmbedding = MLAppleWordEmbedding{}
 
@@ -100,7 +102,6 @@ func NewMLAppleWordEmbedding() MLAppleWordEmbedding {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewAppleWordEmbeddingDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleWordEmbedding, error) {
 	var errorPtr objc.ID
@@ -113,7 +114,6 @@ func NewAppleWordEmbeddingDescriptionOnlyWithSpecificationConfigurationError(spe
 	return MLAppleWordEmbeddingFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewAppleWordEmbeddingInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleWordEmbedding, error) {
 	var errorPtr objc.ID
@@ -126,7 +126,6 @@ func NewAppleWordEmbeddingInterfaceAndMetadataWithCompiledArchiveError(archive u
 	return MLAppleWordEmbeddingFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewAppleWordEmbeddingWithConfiguration(configuration objectivec.IObject) MLAppleWordEmbedding {
 	instance := getMLAppleWordEmbeddingClass().Alloc()
@@ -134,7 +133,6 @@ func NewAppleWordEmbeddingWithConfiguration(configuration objectivec.IObject) ML
 	return MLAppleWordEmbeddingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewAppleWordEmbeddingWithDescription(description objectivec.IObject) MLAppleWordEmbedding {
 	instance := getMLAppleWordEmbeddingClass().Alloc()
@@ -142,7 +140,6 @@ func NewAppleWordEmbeddingWithDescription(description objectivec.IObject) MLAppl
 	return MLAppleWordEmbeddingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewAppleWordEmbeddingWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleWordEmbedding {
 	instance := getMLAppleWordEmbeddingClass().Alloc()
@@ -150,7 +147,6 @@ func NewAppleWordEmbeddingWithDescriptionConfiguration(description objectivec.IO
 	return MLAppleWordEmbeddingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewAppleWordEmbeddingWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleWordEmbedding {
 	instance := getMLAppleWordEmbeddingClass().Alloc()
@@ -158,7 +154,6 @@ func NewAppleWordEmbeddingWithNameInputDescriptionOutputDescriptionOrderedInputF
 	return MLAppleWordEmbeddingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbedding/initWithParameters:modelDescription:nlpHandle:configuration:error:
 func NewAppleWordEmbeddingWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleWordEmbedding, error) {
 	var errorPtr objc.ID
@@ -171,7 +166,6 @@ func NewAppleWordEmbeddingWithParametersModelDescriptionNlpHandleConfigurationEr
 	return MLAppleWordEmbeddingFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbedding/predictionFromFeatures:options:error:
 func (a MLAppleWordEmbedding) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -183,7 +177,7 @@ func (a MLAppleWordEmbedding) PredictionFromFeaturesOptionsError(features object
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbedding/initWithParameters:modelDescription:nlpHandle:configuration:error:
 func (a MLAppleWordEmbedding) InitWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleWordEmbedding, error) {
 	var errorPtr objc.ID
@@ -196,7 +190,6 @@ func (a MLAppleWordEmbedding) InitWithParametersModelDescriptionNlpHandleConfigu
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbedding/loadModelFromSpecification:configuration:error:
 func (_MLAppleWordEmbeddingClass MLAppleWordEmbeddingClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -208,7 +201,7 @@ func (_MLAppleWordEmbeddingClass MLAppleWordEmbeddingClass) LoadModelFromSpecifi
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleWordEmbedding/saveAppleWordEmbeddingModelToURL:wordEmbeddingParameters:error:
 func (_MLAppleWordEmbeddingClass MLAppleWordEmbeddingClass) SaveAppleWordEmbeddingModelToURLWordEmbeddingParametersError(url foundation.INSURL, parameters objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -229,4 +222,3 @@ func (a MLAppleWordEmbedding) Parameters() IMLAppleWordEmbeddingParameters {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("parameters"))
 	return MLAppleWordEmbeddingParametersFromID(objc.ID(rv))
 }
-

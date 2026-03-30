@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (mc MTLVertexAttributeDescriptorClass) Alloc() MTLVertexAttributeDescriptor
 // to the arguments of a vertex function.
 //
 // # Overview
-// 
+//
 // A vertex attribute descriptor provides organization information so a vertex
 // shader function can locate and load data into its arguments. The descriptor
 // maps memory locations to attribute locations. It supports access to
@@ -73,6 +74,7 @@ type MTLVertexAttributeDescriptor struct {
 func MTLVertexAttributeDescriptorFromID(id objc.ID) MTLVertexAttributeDescriptor {
 	return MTLVertexAttributeDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLVertexAttributeDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,37 +130,37 @@ func NewMTLVertexAttributeDescriptor() MTLVertexAttributeDescriptor {
 // The format of the vertex attribute.
 //
 // # Discussion
-// 
+//
 // This property specifies the data type of the vertex attribute that
 // corresponds to an input argument of a shading language function. The
 // [MTLVertexFormat] may be converted to the data type in the shading function
 // argument with the following specified limitations. Invalid type conversion
 // causes a compilation error.
-// 
+//
 // Conversion of vectors of different lengths is valid. The length of vectors
-// can be reduced. For example, [VertexFormatInt4] data can be reduced to a
+// can be reduced. For example, [MTLVertexFormatInt4] data can be reduced to a
 // single `int` shader argument is valid, and the last three values of the
 // vector are discarded. Vectors can also be expanded; for example, expanding
-// [VertexFormatInt] to an `int4` vector shader argument is valid. When
+// [MTLVertexFormatInt] to an `int4` vector shader argument is valid. When
 // expanding, the extra components are filled with the corresponding
 // components of (0,0,0,1).
-// 
+//
 // The sign of an integer [MTLVertexFormat] can not be cast to a shader
 // argument with an integer type of a different sign. For example, casting the
-// signed format [VertexFormatInt] to an `uint` shader argument is invalid.
-// Casting [VertexFormatUInt] to an `int` argument is also invalid.
-// 
-// Integer truncation is not supported. For example, casting the
-// [VertexFormatInt] to a `short` is invalid. However, casting
-// [VertexFormatShort2] to a vector of `int` values is valid.
-// 
-// Casting any [MTLVertexFormat] to a `float` or `half` is valid. Casting
-// normalized [MTLVertexFormat] types (such as [VertexFormatShort2Normalized])
-// are only valid to `float` or `half`.
+// signed format [MTLVertexFormatInt] to an `uint` shader argument is invalid.
+// Casting [MTLVertexFormatUInt] to an `int` argument is also invalid.
 //
-// [MTLVertexFormat]: https://developer.apple.com/documentation/Metal/MTLVertexFormat
+// Integer truncation is not supported. For example, casting the
+// [MTLVertexFormatInt] to a `short` is invalid. However, casting
+// [MTLVertexFormatShort2] to a vector of `int` values is valid.
+//
+// Casting any [MTLVertexFormat] to a `float` or `half` is valid. Casting
+// normalized [MTLVertexFormat] types (such as
+// [MTLVertexFormatShort2Normalized]) are only valid to `float` or `half`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttributeDescriptor/format
+//
+// [MTLVertexFormat]: https://developer.apple.com/documentation/Metal/MTLVertexFormat
 func (v MTLVertexAttributeDescriptor) Format() MTLVertexFormat {
 	rv := objc.Send[MTLVertexFormat](v.ID, objc.Sel("format"))
 	return MTLVertexFormat(rv)
@@ -166,11 +168,12 @@ func (v MTLVertexAttributeDescriptor) Format() MTLVertexFormat {
 func (v MTLVertexAttributeDescriptor) SetFormat(value MTLVertexFormat) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFormat:"), value)
 }
+
 // The location of an attribute in vertex data, determined by the byte offset
 // from the start of the vertex data.
 //
 // # Discussion
-// 
+//
 // The `offset` value needs to be a multiple of `4` bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttributeDescriptor/offset
@@ -181,6 +184,7 @@ func (v MTLVertexAttributeDescriptor) Offset() uint {
 func (v MTLVertexAttributeDescriptor) SetOffset(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setOffset:"), value)
 }
+
 // The index in the argument table for the associated vertex buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttributeDescriptor/bufferIndex
@@ -191,9 +195,9 @@ func (v MTLVertexAttributeDescriptor) BufferIndex() uint {
 func (v MTLVertexAttributeDescriptor) SetBufferIndex(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBufferIndex:"), value)
 }
+
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexAttributeDescriptor) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
-

@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 var (
@@ -300,6 +301,18 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventMonitor/interstitialEventWasUnscheduledEventKey
 	AVPlayerInterstitialEventMonitorInterstitialEventWasUnscheduledEventKey string
+	// AVPlayerInterstitialEventMonitorScheduleRequestErrorKey is userInfo dictionary key for the AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification. Value is NSError. Absent if the request succeeded.
+	//
+	// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventMonitorScheduleRequestErrorKey
+	AVPlayerInterstitialEventMonitorScheduleRequestErrorKey string
+	// AVPlayerInterstitialEventMonitorScheduleRequestIdentifierKey is userInfo dictionary key for the AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification. Value is NSString.
+	//
+	// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventMonitorScheduleRequestIdentifierKey
+	AVPlayerInterstitialEventMonitorScheduleRequestIdentifierKey string
+	// AVPlayerInterstitialEventMonitorScheduleRequestResponseKey is userInfo dictionary key for the AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification. Value is NSData. Absent if the request failed.
+	//
+	// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventMonitorScheduleRequestResponseKey
+	AVPlayerInterstitialEventMonitorScheduleRequestResponseKey string
 	// AVPlayerItemFailedToPlayToEndTimeErrorKey is the key to retrieve the error object from the notification’s user information dictionary.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemFailedToPlayToEndTimeErrorKey
@@ -646,23 +659,17 @@ var (
 	AVVideoYCbCrMatrix_SMPTE_240M_1995 string
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
 var (
 	// AVCaptionConversionAdjustmentTypeTimeRange is indicates a timing adjustment.
@@ -725,8 +732,7 @@ var (
 	AVCaptureDeviceSubjectAreaDidChangeNotification foundation.NSNotification
 )
 
-var (
-)
+var ()
 
 var (
 	// AVCaptureDeviceWasConnectedNotification is a notification the system posts when a new capture device becomes available.
@@ -809,6 +815,10 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventMonitor/interstitialEventWasUnscheduledNotification
 	AVPlayerInterstitialEventMonitorInterstitialEventWasUnscheduledNotification foundation.NSNotificationName
+	// AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification is a notification that is posted whenever a daterange-schedule request completes.
+	//
+	// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification
+	AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification foundation.NSNotificationName
 	// AVPlayerItemDidPlayToEndTimeNotification is a notification the system posts when a player item plays to its end time.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/didPlayToEndTimeNotification
@@ -882,8 +892,7 @@ var (
 	AVCaptureMaxAvailableTorchLevel float32
 )
 
-var (
-)
+var ()
 
 var (
 	// AVCaptureSceneMonitoringStatusNotEnoughLight is the light level of the current scene is insufficient for the current set of features to function optimally.
@@ -931,17 +940,13 @@ var (
 	AVCaptureSessionPresetiFrame960x540 AVCaptureSessionPreset
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
 var (
 	// AVCoreAnimationBeginTimeAtZero is a value that sets an animation begin time to `0`.
@@ -961,17 +966,13 @@ var (
 	AVFileType3GPP2 AVFileType
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
 var (
 	// AVMetadata3GPUserDataKeyAlbumAndTrack is a key that represents the text for the album and track titles.
@@ -2468,8 +2469,7 @@ var (
 	AVMetadataKeySpaceiTunes AVMetadataKeySpace
 )
 
-var (
-)
+var ()
 
 var (
 	// AVOutputSettingsPreset1280x720 is a preset for H.264 video at 1280 by 720 pixels.
@@ -2494,8 +2494,7 @@ var (
 	AVOutputSettingsPreset960x540 AVOutputSettingsPreset
 )
 
-var (
-)
+var ()
 
 var (
 	// AVPlayerInterstitialEventJoinCue is a cue that indicates that playback occurs before starting primary playback, regardless of initial primary playback position.
@@ -2512,11 +2511,9 @@ var (
 	AVPlayerInterstitialEventNoCue AVPlayerInterstitialEventCue
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
 var (
 	// AVPlayerWaitingDuringInterstitialEventReason is the player is waiting for an interstitial event to complete.
@@ -2541,26 +2538,20 @@ var (
 	AVPlayerWaitingWithNoItemToPlayReason AVPlayerWaitingReason
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -11398,6 +11389,46 @@ func init() {
 		}
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification = foundation.NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVPlayerInterstitialEventMonitorScheduleRequestErrorKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AVPlayerInterstitialEventMonitorScheduleRequestErrorKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVPlayerInterstitialEventMonitorScheduleRequestIdentifierKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AVPlayerInterstitialEventMonitorScheduleRequestIdentifierKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVPlayerInterstitialEventMonitorScheduleRequestResponseKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AVPlayerInterstitialEventMonitorScheduleRequestResponseKey = objc.GoString(cstr)
+			}
+		}
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVPlayerInterstitialEventNoCue"); err == nil && ptr != 0 {
 		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
@@ -11584,6 +11615,26 @@ func init() {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
 				AVPlayerRateDidChangeReasonKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVPlayerRateDidChangeReasonPlayheadReachedLiveEdge"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AVPlayerRateDidChangeReasons.PlayheadReachedLiveEdge = AVPlayerRateDidChangeReason(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVPlayerRateDidChangeReasonReversePlaybackReachedStartOfSeekableRange"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AVPlayerRateDidChangeReasons.ReversePlaybackReachedStartOfSeekableRange = AVPlayerRateDidChangeReason(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13201,7 +13252,7 @@ var AVMediaCharacteristics struct {
 // AVMediaTypes provides typed accessors for [AVMediaType] constants.
 var AVMediaTypes struct {
 	// Audio: The media contains audio media.
-	Audio AVMediaType
+	Audio            AVMediaType
 	AuxiliaryPicture AVMediaType
 	// ClosedCaption: The media contains closed-caption content.
 	ClosedCaption AVMediaType
@@ -13745,7 +13796,7 @@ var AVOutputSettingsPresets struct {
 	HEVC3840x2160 AVOutputSettingsPreset
 	// HEVC3840x2160WithAlpha: A preset for HEVC with Alpha video at 3840 by 2160 pixels.
 	HEVC3840x2160WithAlpha AVOutputSettingsPreset
-	HEVC4320x2160 AVOutputSettingsPreset
+	HEVC4320x2160          AVOutputSettingsPreset
 	// HEVC7680x4320: A preset for HEVC video at 7680 by 4320 pixels.
 	HEVC7680x4320 AVOutputSettingsPreset
 	// MVHEVC1440x1440: A preset for MV-HEVC video at 1440 by 1440 pixels.
@@ -13779,7 +13830,9 @@ var AVPlayerRateDidChangeReasons struct {
 	// AppBackgrounded: An app transitions to the background.
 	AppBackgrounded AVPlayerRateDidChangeReason
 	// AudioSessionInterrupted: The system interrupts the app’s audio session.
-	AudioSessionInterrupted AVPlayerRateDidChangeReason
+	AudioSessionInterrupted                    AVPlayerRateDidChangeReason
+	PlayheadReachedLiveEdge                    AVPlayerRateDidChangeReason
+	ReversePlaybackReachedStartOfSeekableRange AVPlayerRateDidChangeReason
 	// SetRateCalled: An app makes a call to set the player’s rate.
 	SetRateCalled AVPlayerRateDidChangeReason
 	// SetRateFailed: An attempt to change the player’s rate fails.
@@ -13848,8 +13901,8 @@ var AVVideoCodecTypes struct {
 	AppleProRes4444 AVVideoCodecType
 	// AppleProRes4444XQ: The Apple ProRes 4444 XQ video codec.
 	AppleProRes4444XQ AVVideoCodecType
-	AppleProResRAW AVVideoCodecType
-	AppleProResRAWHQ AVVideoCodecType
+	AppleProResRAW    AVVideoCodecType
+	AppleProResRAWHQ  AVVideoCodecType
 	// H264: The H.264 video codec.
 	H264 AVVideoCodecType
 	// HEVC: The HEVC video codec.
@@ -13879,4 +13932,3 @@ var AVVideoRanges struct {
 	// SDR: Indicates standard-dynamic-range (SDR) video.
 	SDR AVVideoRange
 }
-

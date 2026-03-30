@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -54,8 +55,6 @@ func (nc NEVPNIKEv2SecurityAssociationParametersClass) Alloc() NEVPNIKEv2Securit
 //   - [NEVPNIKEv2SecurityAssociationParameters.SetDiffieHellmanGroup]
 //   - [NEVPNIKEv2SecurityAssociationParameters.LifetimeMinutes]: The duration of the lifetime of the Security Association, in minutes.
 //   - [NEVPNIKEv2SecurityAssociationParameters.SetLifetimeMinutes]
-//   - [NEVPNIKEv2SecurityAssociationParameters.PostQuantumKeyExchangeMethods]: A list of the quantum-secure key exchange methods the Security Association uses.
-//   - [NEVPNIKEv2SecurityAssociationParameters.SetPostQuantumKeyExchangeMethods]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters
 type NEVPNIKEv2SecurityAssociationParameters struct {
@@ -68,6 +67,7 @@ type NEVPNIKEv2SecurityAssociationParameters struct {
 func NEVPNIKEv2SecurityAssociationParametersFromID(id objc.ID) NEVPNIKEv2SecurityAssociationParameters {
 	return NEVPNIKEv2SecurityAssociationParameters{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEVPNIKEv2SecurityAssociationParameters adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -83,8 +83,6 @@ func NEVPNIKEv2SecurityAssociationParametersFromID(id objc.ID) NEVPNIKEv2Securit
 //   - [INEVPNIKEv2SecurityAssociationParameters.SetDiffieHellmanGroup]
 //   - [INEVPNIKEv2SecurityAssociationParameters.LifetimeMinutes]: The duration of the lifetime of the Security Association, in minutes.
 //   - [INEVPNIKEv2SecurityAssociationParameters.SetLifetimeMinutes]
-//   - [INEVPNIKEv2SecurityAssociationParameters.PostQuantumKeyExchangeMethods]: A list of the quantum-secure key exchange methods the Security Association uses.
-//   - [INEVPNIKEv2SecurityAssociationParameters.SetPostQuantumKeyExchangeMethods]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters
 type INEVPNIKEv2SecurityAssociationParameters interface {
@@ -104,16 +102,16 @@ type INEVPNIKEv2SecurityAssociationParameters interface {
 	// The duration of the lifetime of the Security Association, in minutes.
 	LifetimeMinutes() int32
 	SetLifetimeMinutes(value int32)
-	// A list of the quantum-secure key exchange methods the Security Association uses.
-	PostQuantumKeyExchangeMethods() NEVPNIKEv2PostQuantumKeyExchangeMethod
-	SetPostQuantumKeyExchangeMethods(value NEVPNIKEv2PostQuantumKeyExchangeMethod)
 
-	// An 
+	// An
 	ChildSecurityAssociationParameters() INEVPNIKEv2SecurityAssociationParameters
 	SetChildSecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters)
-	// An 
+	// An
 	IkeSecurityAssociationParameters() INEVPNIKEv2SecurityAssociationParameters
 	SetIkeSecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters)
+	// A list of the quantum-secure key exchange methods the Security Association uses.
+	PostQuantumKeyExchangeMethods() []foundation.NSNumber
+	SetPostQuantumKeyExchangeMethods(value []foundation.NSNumber)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -143,13 +141,10 @@ func (v NEVPNIKEv2SecurityAssociationParameters) EncodeWithCoder(coder foundatio
 // The algorithm used by the Security Association to encrypt and decrypt data.
 //
 // # Discussion
-// 
-// The default value of this property is
-// [NEVPNIKEv2EncryptionAlgorithm.algorithmAES256], except on tvOS where the
-// default is [NEVPNIKEv2EncryptionAlgorithm.algorithmAES256GCM].
 //
-// [NEVPNIKEv2EncryptionAlgorithm.algorithmAES256GCM]: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2EncryptionAlgorithm/algorithmAES256GCM
-// [NEVPNIKEv2EncryptionAlgorithm.algorithmAES256]: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2EncryptionAlgorithm/algorithmAES256
+// The default value of this property is
+// [NEVPNIKEv2EncryptionAlgorithmAES256], except on tvOS where the default is
+// [NEVPNIKEv2EncryptionAlgorithmAES256GCM].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters/encryptionAlgorithm
 func (v NEVPNIKEv2SecurityAssociationParameters) EncryptionAlgorithm() NEVPNIKEv2EncryptionAlgorithm {
@@ -159,18 +154,16 @@ func (v NEVPNIKEv2SecurityAssociationParameters) EncryptionAlgorithm() NEVPNIKEv
 func (v NEVPNIKEv2SecurityAssociationParameters) SetEncryptionAlgorithm(value NEVPNIKEv2EncryptionAlgorithm) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEncryptionAlgorithm:"), value)
 }
+
 // The algorithm used by the Security Association to verify the integrity of
 // data.
 //
 // # Discussion
-// 
-// The default value of this property is
-// [NEVPNIKEv2IntegrityAlgorithm.SHA256].
-// 
+//
+// The default value of this property is [NEVPNIKEv2IntegrityAlgorithmSHA256].
+//
 // The system infers its IKE psedo-random number generation algorithm based on
 // the integrity algorithm.
-//
-// [NEVPNIKEv2IntegrityAlgorithm.SHA256]: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2IntegrityAlgorithm/SHA256
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters/integrityAlgorithm
 func (v NEVPNIKEv2SecurityAssociationParameters) IntegrityAlgorithm() NEVPNIKEv2IntegrityAlgorithm {
@@ -180,20 +173,16 @@ func (v NEVPNIKEv2SecurityAssociationParameters) IntegrityAlgorithm() NEVPNIKEv2
 func (v NEVPNIKEv2SecurityAssociationParameters) SetIntegrityAlgorithm(value NEVPNIKEv2IntegrityAlgorithm) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIntegrityAlgorithm:"), value)
 }
+
 // The Diffie Hellman group used by the Security Association.
 //
 // # Discussion
-// 
-// The default value of this property is
-// [NEVPNIKEv2DiffieHellmanGroup.group14].
-// 
+//
+// The default value of this property is [NEVPNIKEv2DiffieHellmanGroup14].
+//
 // The value of this property on [ChildSecurityAssociationParameters] of
 // [NEVPNProtocolIKEv2] only takes effect if the [EnablePFS] of
-// [NEVPNProtocolIKEv2] is [true] (its default value is [false]).
-//
-// [NEVPNIKEv2DiffieHellmanGroup.group14]: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2DiffieHellmanGroup/group14
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// [NEVPNProtocolIKEv2] is true (its default value is false).
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters/diffieHellmanGroup
 func (v NEVPNIKEv2SecurityAssociationParameters) DiffieHellmanGroup() NEVPNIKEv2DiffieHellmanGroup {
@@ -203,10 +192,11 @@ func (v NEVPNIKEv2SecurityAssociationParameters) DiffieHellmanGroup() NEVPNIKEv2
 func (v NEVPNIKEv2SecurityAssociationParameters) SetDiffieHellmanGroup(value NEVPNIKEv2DiffieHellmanGroup) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDiffieHellmanGroup:"), value)
 }
+
 // The duration of the lifetime of the Security Association, in minutes.
 //
 // # Discussion
-// 
+//
 // The default is 60 for IKE Security Associations, and 30 for Child Security
 // Associations. Before the end of the lifetime is reached, IKEv2 will attempt
 // to negotiate new keys for the Security Association in order to maintain the
@@ -220,17 +210,7 @@ func (v NEVPNIKEv2SecurityAssociationParameters) LifetimeMinutes() int32 {
 func (v NEVPNIKEv2SecurityAssociationParameters) SetLifetimeMinutes(value int32) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLifetimeMinutes:"), value)
 }
-// A list of the quantum-secure key exchange methods the Security Association
-// uses.
-//
-// See: https://developer.apple.com/documentation/networkextension/nevpnikev2securityassociationparameters/postquantumkeyexchangemethods-3173s
-func (v NEVPNIKEv2SecurityAssociationParameters) PostQuantumKeyExchangeMethods() NEVPNIKEv2PostQuantumKeyExchangeMethod {
-	rv := objc.Send[NEVPNIKEv2PostQuantumKeyExchangeMethod](v.ID, objc.Sel("postQuantumKeyExchangeMethods"))
-	return NEVPNIKEv2PostQuantumKeyExchangeMethod(rv)
-}
-func (v NEVPNIKEv2SecurityAssociationParameters) SetPostQuantumKeyExchangeMethods(value NEVPNIKEv2PostQuantumKeyExchangeMethod) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPostQuantumKeyExchangeMethods:"), value)
-}
+
 // An
 //
 // See: https://developer.apple.com/documentation/networkextension/nevpnprotocolikev2/childsecurityassociationparameters
@@ -241,6 +221,7 @@ func (v NEVPNIKEv2SecurityAssociationParameters) ChildSecurityAssociationParamet
 func (v NEVPNIKEv2SecurityAssociationParameters) SetChildSecurityAssociationParameters(value INEVPNIKEv2SecurityAssociationParameters) {
 	objc.Send[struct{}](v.ID, objc.Sel("setChildSecurityAssociationParameters:"), value)
 }
+
 // An
 //
 // See: https://developer.apple.com/documentation/networkextension/nevpnprotocolikev2/ikesecurityassociationparameters
@@ -252,3 +233,21 @@ func (v NEVPNIKEv2SecurityAssociationParameters) SetIkeSecurityAssociationParame
 	objc.Send[struct{}](v.ID, objc.Sel("setIKESecurityAssociationParameters:"), value)
 }
 
+// A list of the quantum-secure key exchange methods the Security Association
+// uses.
+//
+// # Discussion
+//
+// You can specify up to seven key-exchange methods, which correspond to the
+// Additional Key Exchange transform types [ADDKE1]–[ADDKE7] in RFC 9370.
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters/postQuantumKeyExchangeMethods-56672
+func (v NEVPNIKEv2SecurityAssociationParameters) PostQuantumKeyExchangeMethods() []foundation.NSNumber {
+	rv := objc.Send[[]objc.ID](v.ID, objc.Sel("postQuantumKeyExchangeMethods"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
+		return foundation.NSNumberFromID(id)
+	})
+}
+func (v NEVPNIKEv2SecurityAssociationParameters) SetPostQuantumKeyExchangeMethods(value []foundation.NSNumber) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPostQuantumKeyExchangeMethods:"), objectivec.IObjectSliceToNSArray(value))
+}

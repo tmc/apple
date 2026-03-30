@@ -4,9 +4,10 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [SOVoiceRowCheckboxButton] class.
@@ -42,11 +43,11 @@ func (sc SOVoiceRowCheckboxButtonClass) Alloc() SOVoiceRowCheckboxButton {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SOVoiceRowCheckboxButton.VoiceIdentifier]
 //   - [SOVoiceRowCheckboxButton.SetVoiceIdentifier]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOVoiceRowCheckboxButton
 type SOVoiceRowCheckboxButton struct {
 	appkit.NSButton
@@ -56,6 +57,7 @@ type SOVoiceRowCheckboxButton struct {
 func SOVoiceRowCheckboxButtonFromID(id objc.ID) SOVoiceRowCheckboxButton {
 	return SOVoiceRowCheckboxButton{NSButton: appkit.NSButtonFromID(id)}
 }
+
 // Ensure SOVoiceRowCheckboxButton implements ISOVoiceRowCheckboxButton.
 var _ ISOVoiceRowCheckboxButton = SOVoiceRowCheckboxButton{}
 
@@ -103,4 +105,3 @@ func (s SOVoiceRowCheckboxButton) VoiceIdentifier() string {
 func (s SOVoiceRowCheckboxButton) SetVoiceIdentifier(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVoiceIdentifier:"), objc.String(value))
 }
-

@@ -59,6 +59,7 @@ type CIEdgePreserveUpsample interface {
 type CIEdgePreserveUpsampleObject struct {
 	objectivec.Object
 }
+
 func (o CIEdgePreserveUpsampleObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -77,7 +78,8 @@ func CIEdgePreserveUpsampleObjectFromID(id objc.ID) CIEdgePreserveUpsampleObject
 func (o CIEdgePreserveUpsampleObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A value that specifies the influence of the input image’s luma
 // information on the upsampling operation.
 //
@@ -85,14 +87,16 @@ func (o CIEdgePreserveUpsampleObject) InputImage() ICIImage {
 func (o CIEdgePreserveUpsampleObject) LumaSigma() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("lumaSigma"))
 	return rv
-	}
+}
+
 // The image that the filter upsamples.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdgePreserveUpsample/smallImage
 func (o CIEdgePreserveUpsampleObject) SmallImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("smallImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A value that specifies the influence of the input image’s spatial
 // information on the upsampling operation.
 //
@@ -100,7 +104,8 @@ func (o CIEdgePreserveUpsampleObject) SmallImage() ICIImage {
 func (o CIEdgePreserveUpsampleObject) SpatialSigma() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("spatialSigma"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -108,21 +113,34 @@ func (o CIEdgePreserveUpsampleObject) SpatialSigma() float32 {
 func (o CIEdgePreserveUpsampleObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIEdgePreserveUpsample/inputImage
 func (o CIEdgePreserveUpsampleObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// A value that specifies the influence of the input image’s luma
+// information on the upsampling operation.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIEdgePreserveUpsample/lumaSigma
 func (o CIEdgePreserveUpsampleObject) SetLumaSigma(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLumaSigma:"), value)
 }
 
+// The image that the filter upsamples.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIEdgePreserveUpsample/smallImage
 func (o CIEdgePreserveUpsampleObject) SetSmallImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSmallImage:"), value)
 }
 
+// A value that specifies the influence of the input image’s spatial
+// information on the upsampling operation.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIEdgePreserveUpsample/spatialSigma
 func (o CIEdgePreserveUpsampleObject) SetSpatialSigma(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSpatialSigma:"), value)
 }
-

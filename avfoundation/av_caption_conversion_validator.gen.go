@@ -5,9 +5,10 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -76,6 +77,7 @@ type AVCaptionConversionValidator struct {
 func AVCaptionConversionValidatorFromID(id objc.ID) AVCaptionConversionValidator {
 	return AVCaptionConversionValidator{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptionConversionValidator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -178,33 +180,35 @@ func (c AVCaptionConversionValidator) InitWithCaptionsTimeRangeConversionSetting
 	rv := objc.Send[AVCaptionConversionValidator](c.ID, objc.Sel("initWithCaptions:timeRange:conversionSettings:"), objectivec.IObjectSliceToNSArray(captions), timeRange, conversionSettings)
 	return rv
 }
+
 // Validates the object’s captions.
 //
 // handler: The callback the system invokes when it finishes validation.
 //
 // # Discussion
-// 
+//
 // When the object finishes validating and reports all warnings, it invokes
 // the callback once with a value of `nil` for its warning parameter. When
 // this occurs, the validator’s [Status] value changes to
-// [CaptionConversionValidatorStatusCompleted].
-// 
+// [AVCaptionConversionValidatorStatusCompleted].
+//
 // Stop an in-progress validation operation by calling [StopValidating].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/validateCaptionConversion(warningHandler:)
 func (c AVCaptionConversionValidator) ValidateCaptionConversionWithWarningHandler(handler AVCaptionConversionWarningHandler) {
-_block0, _ := NewAVCaptionConversionWarningBlock(handler)
+	_block0, _ := NewAVCaptionConversionWarningBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("validateCaptionConversionWithWarningHandler:"), _block0)
 }
+
 // Stops the active validation operation.
 //
 // # Discussion
-// 
+//
 // You can call this method at any time, even within the validator’s
 // callback to its handler.
-// 
+//
 // Calling this method stops validation and changes the [Status] value to
-// [CaptionConversionValidatorStatusStopped].
+// [AVCaptionConversionValidatorStatusStopped].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/stopValidating()
 func (c AVCaptionConversionValidator) StopValidating() {
@@ -235,32 +239,34 @@ func (c AVCaptionConversionValidator) Captions() []AVCaption {
 		return AVCaptionFromID(id)
 	})
 }
+
 // The time range of the media timeline in which the captions must exist.
 //
 // # Discussion
-// 
+//
 // If captions need to appear only after the start of the associated media,
 // the start time of this time range can be less than the start time of the
 // first caption’s time range.
-// 
+//
 // If the media duration is unknown, this time range can have a duration of
 // [positiveInfinity]. However, to comprehensively validate the conversion of
 // closed captions, set the duration of the time range to the duration of the
 // associated media.
 //
-// [positiveInfinity]: https://developer.apple.com/documentation/CoreMedia/CMTime/positiveInfinity
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/timeRange
+//
+// [positiveInfinity]: https://developer.apple.com/documentation/CoreMedia/CMTime/positiveInfinity
 func (c AVCaptionConversionValidator) TimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](c.ID, objc.Sel("timeRange"))
 	return coremedia.CMTimeRange(rv)
 }
+
 // The collection of warnings the validator encountered.
 //
 // # Discussion
-// 
+//
 // This property value may change while the validator’s status is
-// [CaptionConversionValidatorStatusValidating].
+// [AVCaptionConversionValidatorStatusValidating].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/warnings
 func (c AVCaptionConversionValidator) Warnings() []AVCaptionConversionWarning {
@@ -269,6 +275,7 @@ func (c AVCaptionConversionValidator) Warnings() []AVCaptionConversionWarning {
 		return AVCaptionConversionWarningFromID(id)
 	})
 }
+
 // A value that indicates the status of validation.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/status-swift.property
@@ -291,4 +298,3 @@ func (c AVCaptionConversionValidator) ValidateCaptionConversionWithWarningHandle
 		return nil, ctx.Err()
 	}
 }
-

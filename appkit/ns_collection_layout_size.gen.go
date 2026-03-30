@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (nc NSCollectionLayoutSizeClass) Alloc() NSCollectionLayoutSize {
 // The width and the height of an item in a collection view.
 //
 // # Overview
-// 
+//
 // A size is a pair of dimensions ([NSCollectionLayoutDimension]): a width
 // dimension and a height dimension. Every component of a collection view
 // layout has an explicit size.
@@ -65,6 +66,7 @@ type NSCollectionLayoutSize struct {
 func NSCollectionLayoutSizeFromID(id objc.ID) NSCollectionLayoutSize {
 	return NSCollectionLayoutSize{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSCollectionLayoutSize adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,6 +123,7 @@ func (c NSCollectionLayoutSize) WidthDimension() INSCollectionLayoutDimension {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("widthDimension"))
 	return NSCollectionLayoutDimensionFromID(objc.ID(rv))
 }
+
 // The height dimension of an item in a collection view layout.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSize/heightDimension
@@ -128,4 +131,3 @@ func (c NSCollectionLayoutSize) HeightDimension() INSCollectionLayoutDimension {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("heightDimension"))
 	return NSCollectionLayoutDimensionFromID(objc.ID(rv))
 }
-

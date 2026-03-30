@@ -5,8 +5,9 @@ package networkextension
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NERelayManagerClass) Alloc() NERelayManager {
 // An object you use to create and manage a network relay configuration.
 //
 // # Overview
-// 
+//
 // When your app starts up, access the shared instance of the relay manager,
 // and load existing settings from the preferences using
 // [NERelayManager.LoadFromPreferencesWithCompletionHandler]. You can define your relay
@@ -104,6 +105,7 @@ type NERelayManager struct {
 func NERelayManagerFromID(id objc.ID) NERelayManager {
 	return NERelayManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: NERelayManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -229,71 +231,73 @@ func NewNERelayManager() NERelayManager {
 // application’s main thread after the load operation is complete. If an
 // error occurs while loading the configuration, the block returns an
 // [NSError] object.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // You must call this method at least once before calling
 // [SaveToPreferencesWithCompletionHandler] for the first time after your app
 // launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/loadFromPreferences(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (r NERelayManager) LoadFromPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](r.ID, objc.Sel("loadFromPreferencesWithCompletionHandler:"), _block0)
 }
+
 // Save your relay configuration to the system networking preferences.
 //
 // completionHandler: An optional block that takes an [NSError] object. If specified, this block
 // runs on your application’s main thread after the save operation
 // completes. If an error occurs while saving the configuration, the block
 // returns an [NSError] object.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // You must call [LoadFromPreferencesWithCompletionHandler] at least once
 // before calling this method the first time after your app launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/saveToPreferences(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (r NERelayManager) SaveToPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](r.ID, objc.Sel("saveToPreferencesWithCompletionHandler:"), _block0)
 }
+
 // Remove your relay configuration from the system networking preferences.
 //
 // completionHandler: An optional block that takes an [NSError] object. If specified, this block
 // runs on your application’s main thread after your configuration is
 // removed. If an error occurs while removing the configuration, the block
 // returns an [NSError] object.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // After you remove your configuration, the [NERelayManager] object still
 // contains the configuration parameters. Calling
 // [LoadFromPreferencesWithCompletionHandler] clears out the configuration
 // parameters from the [NERelayManager] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/removeFromPreferences(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (r NERelayManager) RemoveFromPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](r.ID, objc.Sel("removeFromPreferencesWithCompletionHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/getLastClientErrors(_:completionHandler:)
 func (r NERelayManager) GetLastClientErrorsCompletionHandler(seconds float64, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](r.ID, objc.Sel("getLastClientErrors:completionHandler:"), seconds, _block1)
 }
 
 // Access the single instance of a network relay manager.
 //
 // # Return Value
-// 
+//
 // The network relay manager instance for the calling application.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/shared()
@@ -305,7 +309,7 @@ func (_NERelayManagerClass NERelayManagerClass) SharedManager() NERelayManager {
 // A Boolean used to toggle the enabled state of the relay configuration.
 //
 // # Discussion
-// 
+//
 // A relay configuration must be enabled before it can be used to proxy
 // application traffic.
 //
@@ -317,6 +321,7 @@ func (r NERelayManager) Enabled() bool {
 func (r NERelayManager) SetEnabled(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setEnabled:"), value)
 }
+
 // An array of one or two relay server configurations. If multiple relays are
 // configured, application traffic routes through both of them in the order
 // they appear in the array.
@@ -331,11 +336,12 @@ func (r NERelayManager) Relays() []NERelay {
 func (r NERelayManager) SetRelays(value []NERelay) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRelays:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // A list of domain strings used to determine which connections will use the
 // relay configuration contained in this object.
 //
 // # Discussion
-// 
+//
 // This property is used to create a “split DNS” configuration, where only
 // hosts in certain domains route through the relays.
 //
@@ -347,11 +353,12 @@ func (r NERelayManager) MatchDomains() []string {
 func (r NERelayManager) SetMatchDomains(value []string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMatchDomains:"), objectivec.StringSliceToNSArray(value))
 }
+
 // A list of domain strings used to determine which connections won’t use
 // the relay configuration contained in this object.
 //
 // # Discussion
-// 
+//
 // Excluded domains take precedence over domains listed in [MatchDomains].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/excludedDomains
@@ -362,10 +369,11 @@ func (r NERelayManager) ExcludedDomains() []string {
 func (r NERelayManager) SetExcludedDomains(value []string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setExcludedDomains:"), objectivec.StringSliceToNSArray(value))
 }
+
 // A string that contains the display name of the relay configuration.
 //
 // # Discussion
-// 
+//
 // This string is used as the display name of the relay configuration in the
 // system’s settings UI. If this property is set to `nil` at the time that
 // the configuration is created, it is automatically set to the display name
@@ -379,10 +387,11 @@ func (r NERelayManager) LocalizedDescription() string {
 func (r NERelayManager) SetLocalizedDescription(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLocalizedDescription:"), objc.String(value))
 }
+
 // An array of rules you use to determine which networks the relay uses.
 //
 // # Discussion
-// 
+//
 // If this value is `nil`, the associated relay always applies. If non-`nil`,
 // the array describes the networks to which the relay applies.
 //
@@ -396,6 +405,7 @@ func (r NERelayManager) OnDemandRules() []NEOnDemandRule {
 func (r NERelayManager) SetOnDemandRules(value []NEOnDemandRule) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOnDemandRules:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The domain for errors resulting from calls to the relay manager.
 //
 // See: https://developer.apple.com/documentation/networkextension/nerelayerrordomain
@@ -403,9 +413,9 @@ func (r NERelayManager) NERelayErrorDomain() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("NERelayErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-//
+
 // # Discussion
-// 
+//
 // An array of strings containing Fully Qualified Domain Names (FQDNs). If the
 // destination host matches one of these strings then the relay will not be
 // used. An excluded FQDN takes priority over the matchDomain property. This
@@ -421,10 +431,10 @@ func (r NERelayManager) ExcludedFQDNs() []string {
 func (r NERelayManager) SetExcludedFQDNs(value []string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setExcludedFQDNs:"), objectivec.StringSliceToNSArray(value))
 }
-//
+
 // # Discussion
-// 
-// Determines if DNS queries that fail over relay can fallback to default DNS
+//
+// # Determines if DNS queries that fail over relay can fallback to default DNS
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelayManager/isDNSFailoverAllowed
 func (r NERelayManager) AllowDNSFailover() bool {
@@ -434,9 +444,9 @@ func (r NERelayManager) AllowDNSFailover() bool {
 func (r NERelayManager) SetAllowDNSFailover(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setAllowDNSFailover:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // Determines if the user will have the ability to enable and disable the
 // relay
 //
@@ -448,9 +458,9 @@ func (r NERelayManager) UIToggleEnabled() bool {
 func (r NERelayManager) SetUIToggleEnabled(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setUIToggleEnabled:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // An array of strings containing Fully Qualified Domain Names (FQDNs). If
 // this property is non-nil, the relay will be used to access the specified
 // hosts. If this and the matchDomains property is nil, the relay will be used
@@ -524,4 +534,3 @@ func (r NERelayManager) GetLastClientErrors(ctx context.Context, seconds float64
 		return ctx.Err()
 	}
 }
-

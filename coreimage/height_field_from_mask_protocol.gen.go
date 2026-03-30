@@ -39,6 +39,7 @@ type CIHeightFieldFromMask interface {
 type CIHeightFieldFromMaskObject struct {
 	objectivec.Object
 }
+
 func (o CIHeightFieldFromMaskObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIHeightFieldFromMaskObjectFromID(id objc.ID) CIHeightFieldFromMaskObject {
 func (o CIHeightFieldFromMaskObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The length of the height-field transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/radius
 func (o CIHeightFieldFromMaskObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,30 @@ func (o CIHeightFieldFromMaskObject) Radius() float32 {
 func (o CIHeightFieldFromMaskObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// # Discussion
+//
+// The white values of the input image define those pixels that are inside the
+// height field while the black values define those pixels that are outside.
+// The field varies smoothly and continuously inside the mask, reaching the
+// value 0 at the edge of the mask.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/inputImage
 func (o CIHeightFieldFromMaskObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The length of the height-field transition.
+//
+// # Discussion
+//
+// Larger values make the transition smoother and more pronounced. Smaller
+// values make the transition approximate a fillet radius.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIHeightFieldFromMask/radius
 func (o CIHeightFieldFromMaskObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

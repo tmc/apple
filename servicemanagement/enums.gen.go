@@ -21,7 +21,7 @@ const (
 	KSMErrorInvalidSignature KSMError = 3
 	KSMErrorJobMustBeEnabled KSMError = 9
 	// KSMErrorJobNotFound: The system can’t find the specified job.
-	KSMErrorJobNotFound KSMError = 6
+	KSMErrorJobNotFound      KSMError = 6
 	KSMErrorJobPlistNotFound KSMError = 8
 	// KSMErrorLaunchDeniedByUser: The user denied the app’s launch request.
 	KSMErrorLaunchDeniedByUser KSMError = 11
@@ -88,4 +88,3 @@ func (e SMAppServiceStatus) String() string {
 		return fmt.Sprintf("SMAppServiceStatus(%d)", e)
 	}
 }
-

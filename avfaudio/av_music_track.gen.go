@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -114,6 +115,7 @@ type AVMusicTrack struct {
 func AVMusicTrackFromID(id objc.ID) AVMusicTrack {
 	return AVMusicTrack{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMusicTrack adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -282,22 +284,23 @@ func NewAVMusicTrack() AVMusicTrack {
 // beat: The time to add the event at.
 //
 // # Discussion
-// 
+//
 // The system copies event contents into the track, so you can add the same
 // event at different timestamps. You can’t add all [AVMusicEvent]
 // subclasses to a track.
-// 
+//
 // - You can only add [AVExtendedTempoEvent] and [AVMIDIMetaEvent] with
 // certain [AVMIDIMetaEvent.EventType] to a sequencer’s tempo track. - You
 // can add [AVParameterEvent] to automation tracks. - You can’t add other
 // event subclasses to tempo or automation tracks.
 //
-// [AVMIDIMetaEvent.EventType]: https://developer.apple.com/documentation/AVFAudio/AVMIDIMetaEvent/EventType
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/addEvent(_:at:)
+//
+// [AVMIDIMetaEvent.EventType]: https://developer.apple.com/documentation/AVFAudio/AVMIDIMetaEvent/EventType
 func (m AVMusicTrack) AddEventAtBeat(event IAVMusicEvent, beat AVMusicTimeStamp) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addEvent:atBeat:"), event, beat)
 }
+
 // Moves the beat location of all events in the given beat range by the amount
 // you specify.
 //
@@ -309,24 +312,26 @@ func (m AVMusicTrack) AddEventAtBeat(event IAVMusicEvent, beat AVMusicTimeStamp)
 func (m AVMusicTrack) MoveEventsInRangeByAmount(range_ AVBeatRange, beatAmount AVMusicTimeStamp) {
 	objc.Send[objc.ID](m.ID, objc.Sel("moveEventsInRange:byAmount:"), range_, beatAmount)
 }
+
 // Removes all events in the given beat range from the music track.
 //
 // range: The range of beats.
 //
 // # Discussion
-// 
+//
 // The system won’t modify the events outside of the range you specify.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/clearEvents(in:)
 func (m AVMusicTrack) ClearEventsInRange(range_ AVBeatRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("clearEventsInRange:"), range_)
 }
+
 // Splices all events in the beat range from the music track.
 //
 // range: The range of beats.
 //
 // # Discussion
-// 
+//
 // All events past the end of the range you specify shift backward by the
 // duration of the range.
 //
@@ -334,6 +339,7 @@ func (m AVMusicTrack) ClearEventsInRange(range_ AVBeatRange) {
 func (m AVMusicTrack) CutEventsInRange(range_ AVBeatRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("cutEventsInRange:"), range_)
 }
+
 // Copies the events from the source track and splices them into the current
 // music track.
 //
@@ -344,7 +350,7 @@ func (m AVMusicTrack) CutEventsInRange(range_ AVBeatRange) {
 // insertStartBeat: The start beat to splice the events into.
 //
 // # Discussion
-// 
+//
 // All events originally at or past the insertion beat shift forward by the
 // duration of the copied-in range.
 //
@@ -352,6 +358,7 @@ func (m AVMusicTrack) CutEventsInRange(range_ AVBeatRange) {
 func (m AVMusicTrack) CopyEventsInRangeFromTrackInsertAtBeat(range_ AVBeatRange, sourceTrack IAVMusicTrack, insertStartBeat AVMusicTimeStamp) {
 	objc.Send[objc.ID](m.ID, objc.Sel("copyEventsInRange:fromTrack:insertAtBeat:"), range_, sourceTrack, insertStartBeat)
 }
+
 // Copies the events from the source track and merges them into the current
 // music track.
 //
@@ -362,7 +369,7 @@ func (m AVMusicTrack) CopyEventsInRangeFromTrackInsertAtBeat(range_ AVBeatRange,
 // mergeStartBeat: The start beat where the copied events merge into.
 //
 // # Discussion
-// 
+//
 // The system won’t modify events originally at or past the start beat.
 // Copying events from track to track follows the same type-exclusion rules as
 // adding events.
@@ -371,6 +378,7 @@ func (m AVMusicTrack) CopyEventsInRangeFromTrackInsertAtBeat(range_ AVBeatRange,
 func (m AVMusicTrack) CopyAndMergeEventsInRangeFromTrackMergeAtBeat(range_ AVBeatRange, sourceTrack IAVMusicTrack, mergeStartBeat AVMusicTimeStamp) {
 	objc.Send[objc.ID](m.ID, objc.Sel("copyAndMergeEventsInRange:fromTrack:mergeAtBeat:"), range_, sourceTrack, mergeStartBeat)
 }
+
 // Iterates through the music events within the track.
 //
 // range: The range to iterate through.
@@ -378,18 +386,18 @@ func (m AVMusicTrack) CopyAndMergeEventsInRangeFromTrackMergeAtBeat(range_ AVBea
 // block: The block to call for each event.
 //
 // # Discussion
-// 
+//
 // Examine each event the block returns by using [isKind(of:)] to determine
 // the subclass, and then cast and access it accordingly.
-// 
+//
 // The iteration may continue after removing an event.
-// 
+//
 // The event object returned through the block won’t be the same instances
 // you add to the [AVMusicTrack], though the content is identical.
 //
-// [isKind(of:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isKind(of:)
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/enumerateEvents(in:using:)
+//
+// [isKind(of:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isKind(of:)
 func (m AVMusicTrack) EnumerateEventsInRangeUsingBlock(range_ AVBeatRange, block AVMusicEventEnumerationBlock) {
 	objc.Send[objc.ID](m.ID, objc.Sel("enumerateEventsInRange:usingBlock:"), range_, block)
 }
@@ -404,6 +412,7 @@ func (m AVMusicTrack) Muted() bool {
 func (m AVMusicTrack) SetMuted(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMuted:"), value)
 }
+
 // A Boolean value that indicates whether the track is in a soloed state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/isSoloed
@@ -414,10 +423,11 @@ func (m AVMusicTrack) Soloed() bool {
 func (m AVMusicTrack) SetSoloed(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSoloed:"), value)
 }
+
 // The offset of the track’s start time, in beats.
 //
 // # Discussion
-// 
+//
 // By default, this value is `0`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/offsetTime
@@ -428,21 +438,22 @@ func (m AVMusicTrack) OffsetTime() AVMusicTimeStamp {
 func (m AVMusicTrack) SetOffsetTime(value AVMusicTimeStamp) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOffsetTime:"), value)
 }
+
 // The time resolution value for the sequence, in ticks (pulses) per quarter
 // note.
 //
 // # Discussion
-// 
+//
 // If you use a MIDI file to construct the containing sequence, the resolution
 // is the contents of the file. If you want to keep a time resolution when
 // writing a new file, retrieve this value and then specify it when writing to
 // an audio sequencer. It doesn’t affect the rendering or notion of time of
 // the sequence — only it’s MIDI file representation.
-// 
+//
 // By default, the framework sets this value to `480` when creating the
 // sequence manually, or to a value from a MIDI file if you use it to create
 // the sequence.
-// 
+//
 // You can only retrieve this value from the tempo track.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/timeResolution
@@ -450,6 +461,7 @@ func (m AVMusicTrack) TimeResolution() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("timeResolution"))
 	return rv
 }
+
 // A Boolean value that indicates whether the track is an automation track.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/usesAutomatedParameters
@@ -460,18 +472,19 @@ func (m AVMusicTrack) UsesAutomatedParameters() bool {
 func (m AVMusicTrack) SetUsesAutomatedParameters(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setUsesAutomatedParameters:"), value)
 }
+
 // The total duration of the track, in beats.
 //
 // # Discussion
-// 
+//
 // This property returns the beat of the last event in the track, plus any
 // additional time that’s necessary to fade out the ending notes, or to
 // round a loop point to a musical bar.
-// 
+//
 // If the user doesn’t set this value, the track length always adjusts to
 // the end of the last active event in a track, and adjusts dynamically as the
 // user adds or removes events.
-// 
+//
 // This property returns the maximum of the user-set track length or the
 // calculated length.
 //
@@ -483,18 +496,19 @@ func (m AVMusicTrack) LengthInBeats() AVMusicTimeStamp {
 func (m AVMusicTrack) SetLengthInBeats(value AVMusicTimeStamp) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLengthInBeats:"), value)
 }
+
 // The total duration of the track, in seconds.
 //
 // # Discussion
-// 
+//
 // This property returns the time of the last event in the track, plus any
 // additional time that’s necessary to fade out the ending notes, or to
 // round a loop point to a musical bar.
-// 
+//
 // If the user doesn’t set this value, the track length always adjusts to
 // the end of the last active event in a track, and adjusts dynamically as the
 // user adds or removes events.
-// 
+//
 // This property returns the maximum of the user-set track length or the
 // calculated length.
 //
@@ -506,10 +520,11 @@ func (m AVMusicTrack) LengthInSeconds() float64 {
 func (m AVMusicTrack) SetLengthInSeconds(value float64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLengthInSeconds:"), value)
 }
+
 // The audio unit that receives the track’s events.
 //
 // # Discussion
-// 
+//
 // This property and a [DestinationMIDIEndpoint] are mutually exclusive. You
 // must attach the audio to an audio engine to receive events. The track must
 // be part of the [AVAudioSequencer] you associate with the same engine. When
@@ -525,19 +540,20 @@ func (m AVMusicTrack) DestinationAudioUnit() IAVAudioUnit {
 func (m AVMusicTrack) SetDestinationAudioUnit(value IAVAudioUnit) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDestinationAudioUnit:"), value)
 }
+
 // The MIDI endpoint you specify as the track’s target.
 //
 // # Discussion
-// 
+//
 // This property and a [DestinationAudioUnit] are mutually exclusive. Setting
 // this property removes the track’s reference to an [AVAudioUnit]
 // destination. When playing, the track sends events to the MIDI endpoint. For
 // more information, see [MIDIDestinationCreate(_:_:_:_:_:)]. You can’t
 // change the endpoint while the track’s sequence is in a playing state.
 //
-// [MIDIDestinationCreate(_:_:_:_:_:)]: https://developer.apple.com/documentation/CoreMIDI/MIDIDestinationCreate(_:_:_:_:_:)
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/destinationMIDIEndpoint
+//
+// [MIDIDestinationCreate(_:_:_:_:_:)]: https://developer.apple.com/documentation/CoreMIDI/MIDIDestinationCreate(_:_:_:_:_:)
 func (m AVMusicTrack) DestinationMIDIEndpoint() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("destinationMIDIEndpoint"))
 	return objectivec.Object{ID: rv}
@@ -545,10 +561,11 @@ func (m AVMusicTrack) DestinationMIDIEndpoint() objectivec.IObject {
 func (m AVMusicTrack) SetDestinationMIDIEndpoint(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDestinationMIDIEndpoint:"), value)
 }
+
 // A Boolean value that indicates whether the track is in a looping state.
 //
 // # Discussion
-// 
+//
 // If you don’t set [LoopRange], the framework loops the full track.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/isLoopingEnabled
@@ -559,10 +576,11 @@ func (m AVMusicTrack) LoopingEnabled() bool {
 func (m AVMusicTrack) SetLoopingEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLoopingEnabled:"), value)
 }
+
 // The timestamp range for the loop, in beats.
 //
 // # Discussion
-// 
+//
 // You set the loop by specifying its beat range.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/loopRange
@@ -573,11 +591,12 @@ func (m AVMusicTrack) LoopRange() AVBeatRange {
 func (m AVMusicTrack) SetLoopRange(value AVBeatRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLoopRange:"), value)
 }
+
 // The number of times the track’s loop repeats.
 //
 // # Discussion
-// 
-// Use the value [MusicTrackLoopCountForever] to loop the track forever.
+//
+// Use the value [AVMusicTrackLoopCountForever] to loop the track forever.
 // Otherwise, valid values start at `1`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/numberOfLoops
@@ -588,6 +607,7 @@ func (m AVMusicTrack) NumberOfLoops() int {
 func (m AVMusicTrack) SetNumberOfLoops(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumberOfLoops:"), value)
 }
+
 // A timestamp you use to access all events in a music track through a beat
 // range.
 //
@@ -599,4 +619,3 @@ func (m AVMusicTrack) AVMusicTimeStampEndOfTrack() float64 {
 func (m AVMusicTrack) SetAVMusicTimeStampEndOfTrack(value float64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAVMusicTimeStampEndOfTrack:"), value)
 }
-

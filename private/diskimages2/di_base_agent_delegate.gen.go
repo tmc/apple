@@ -4,6 +4,7 @@ package diskimages2
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type DIBaseAgentDelegate struct {
 func DIBaseAgentDelegateFromID(id objc.ID) DIBaseAgentDelegate {
 	return DIBaseAgentDelegate{DIBaseServiceDelegate: DIBaseServiceDelegateFromID(id)}
 }
+
 // Ensure DIBaseAgentDelegate implements IDIBaseAgentDelegate.
 var _ IDIBaseAgentDelegate = DIBaseAgentDelegate{}
 
@@ -77,4 +79,3 @@ func NewDIBaseAgentDelegate() DIBaseAgentDelegate {
 	rv := objc.Send[DIBaseAgentDelegate](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

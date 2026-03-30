@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,24 +44,24 @@ func (nc NSQuitCommandClass) Alloc() NSQuitCommand {
 // A command that quits the specified app.
 //
 // # Overview
-// 
+//
 // The quit command may optionally specify how to handle modified documents
 // (automatically save changes, don’t save them, or ask the user). For
 // details, see the description for the `quit` command in “Apple Events Sent
 // By the Mac OS” in [How Cocoa Applications Handle Apple Events] in [Cocoa
 // Scripting Guide].
-// 
+//
 // [NSQuitCommand] is part of Cocoa’s built-in scripting support. Most
 // applications don’t need to subclass [NSQuitCommand] or call its methods.
-//
-// [Cocoa Scripting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_intro/SAppsIntro.html#//apple_ref/doc/uid/TP40002164
-// [How Cocoa Applications Handle Apple Events]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_handle_AEs/SAppsHandleAEs.html#//apple_ref/doc/uid/20001239
 //
 // # Accessing options
 //
 //   - [NSQuitCommand.SaveOptions]: Returns a constant indicating how to deal with closing any modified documents.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSQuitCommand
+//
+// [Cocoa Scripting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_intro/SAppsIntro.html#//apple_ref/doc/uid/TP40002164
+// [How Cocoa Applications Handle Apple Events]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_handle_AEs/SAppsHandleAEs.html#//apple_ref/doc/uid/20001239
 type NSQuitCommand struct {
 	NSScriptCommand
 }
@@ -71,6 +72,7 @@ type NSQuitCommand struct {
 func NSQuitCommandFromID(id objc.ID) NSQuitCommand {
 	return NSQuitCommand{NSScriptCommand: NSScriptCommandFromID(id)}
 }
+
 // NOTE: NSQuitCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,7 +111,6 @@ func NewNSQuitCommand() NSQuitCommand {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewQuitCommandWithCoder(inCoder INSCoder) NSQuitCommand {
 	instance := getNSQuitCommandClass().Alloc()
@@ -123,11 +124,11 @@ func NewQuitCommandWithCoder(inCoder INSCoder) NSQuitCommand {
 // commandDef: A command description for the command to be created.
 //
 // # Return Value
-// 
+//
 // A newly initialized instance of [NSScriptCommand] or a subclass.
 //
 // # Discussion
-// 
+//
 // To make this command object usable, you must set its receiving objects and
 // arguments (if any) after invoking this method.
 //
@@ -142,7 +143,7 @@ func NewQuitCommandWithCommandDescription(commandDef INSScriptCommandDescription
 // documents.
 //
 // # Return Value
-// 
+//
 // A constant indicating how to deal with closing any modified documents. The
 // default value returned is [NSSaveOptionsAsk]. See “Constants” in
 // [NSCloseCommand] for a list of possible return values.
@@ -152,4 +153,3 @@ func (q NSQuitCommand) SaveOptions() NSSaveOptions {
 	rv := objc.Send[NSSaveOptions](q.ID, objc.Sel("saveOptions"))
 	return NSSaveOptions(rv)
 }
-

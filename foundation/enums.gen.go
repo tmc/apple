@@ -645,16 +645,16 @@ type NSAppleEventSendOptions uint
 
 const (
 	NSAppleEventSendAlwaysInteract NSAppleEventSendOptions = 48
-	NSAppleEventSendCanInteract NSAppleEventSendOptions = 32
+	NSAppleEventSendCanInteract    NSAppleEventSendOptions = 32
 	NSAppleEventSendCanSwitchLayer NSAppleEventSendOptions = 64
 	NSAppleEventSendDefaultOptions NSAppleEventSendOptions = 3
-	NSAppleEventSendDontAnnotate NSAppleEventSendOptions = 65536
-	NSAppleEventSendDontExecute NSAppleEventSendOptions = 8192
-	NSAppleEventSendDontRecord NSAppleEventSendOptions = 4096
-	NSAppleEventSendNeverInteract NSAppleEventSendOptions = 16
-	NSAppleEventSendNoReply NSAppleEventSendOptions = 1
-	NSAppleEventSendQueueReply NSAppleEventSendOptions = 2
-	NSAppleEventSendWaitForReply NSAppleEventSendOptions = 3
+	NSAppleEventSendDontAnnotate   NSAppleEventSendOptions = 65536
+	NSAppleEventSendDontExecute    NSAppleEventSendOptions = 8192
+	NSAppleEventSendDontRecord     NSAppleEventSendOptions = 4096
+	NSAppleEventSendNeverInteract  NSAppleEventSendOptions = 16
+	NSAppleEventSendNoReply        NSAppleEventSendOptions = 1
+	NSAppleEventSendQueueReply     NSAppleEventSendOptions = 2
+	NSAppleEventSendWaitForReply   NSAppleEventSendOptions = 3
 )
 
 func (e NSAppleEventSendOptions) String() string {
@@ -1021,13 +1021,13 @@ const (
 	// NSCalendarUnitCalendar: Identifier for the calendar of a date components object.
 	NSCalendarUnitCalendar NSCalendarUnit = 1048576
 	// NSCalendarUnitDay: Identifier for the day unit.
-	NSCalendarUnitDay NSCalendarUnit = 16
+	NSCalendarUnitDay       NSCalendarUnit = 16
 	NSCalendarUnitDayOfYear NSCalendarUnit = 65536
 	// NSCalendarUnitEra: Identifier for the era unit.
 	NSCalendarUnitEra NSCalendarUnit = 2
 	// NSCalendarUnitHour: Identifier for the hour unit.
-	NSCalendarUnitHour NSCalendarUnit = 32
-	NSCalendarUnitIsLeapMonth NSCalendarUnit = 1073741824
+	NSCalendarUnitHour          NSCalendarUnit = 32
+	NSCalendarUnitIsLeapMonth   NSCalendarUnit = 1073741824
 	NSCalendarUnitIsRepeatedDay NSCalendarUnit = 2147483648
 	// NSCalendarUnitMinute: Identifier for the minute unit.
 	NSCalendarUnitMinute NSCalendarUnit = 64
@@ -1394,7 +1394,7 @@ const (
 	NSDataWritingFileProtectionCompleteUnlessOpen NSDataWritingOptions = 805306368
 	// NSDataWritingFileProtectionCompleteUntilFirstUserAuthentication: An option to allow the file to be accessible after a user first unlocks the device.
 	NSDataWritingFileProtectionCompleteUntilFirstUserAuthentication NSDataWritingOptions = 1073741824
-	NSDataWritingFileProtectionCompleteWhenUserInactive NSDataWritingOptions = 1342177280
+	NSDataWritingFileProtectionCompleteWhenUserInactive             NSDataWritingOptions = 1342177280
 	// NSDataWritingFileProtectionMask: An option the system uses when determining the file protection options that the system assigns to the data.
 	NSDataWritingFileProtectionMask NSDataWritingOptions = 4026531840
 	// NSDataWritingFileProtectionNone: An option to not encrypt the file when writing it out.
@@ -1510,11 +1510,8 @@ func (e NSDateComponentsFormatterZeroFormattingBehavior) String() string {
 type NSDateFormatterBehavior uint
 
 const (
-	// NSDateFormatterBehavior10_0: # Discussion
-	NSDateFormatterBehavior10_0 NSDateFormatterBehavior = 1000
-	// NSDateFormatterBehavior10_4: # Discussion
-	NSDateFormatterBehavior10_4 NSDateFormatterBehavior = 1040
-	// NSDateFormatterBehaviorDefault: # Discussion
+	NSDateFormatterBehavior10_0    NSDateFormatterBehavior = 1000
+	NSDateFormatterBehavior10_4    NSDateFormatterBehavior = 1040
 	NSDateFormatterBehaviorDefault NSDateFormatterBehavior = 0
 )
 
@@ -1623,7 +1620,7 @@ type NSDirectoryEnumerationOptions uint
 
 const (
 	NSDirectoryEnumerationIncludesDirectoriesPostOrder NSDirectoryEnumerationOptions = 8
-	NSDirectoryEnumerationProducesRelativePathURLs NSDirectoryEnumerationOptions = 16
+	NSDirectoryEnumerationProducesRelativePathURLs     NSDirectoryEnumerationOptions = 16
 	// NSDirectoryEnumerationSkipsHiddenFiles: An option to skip hidden files.
 	NSDirectoryEnumerationSkipsHiddenFiles NSDirectoryEnumerationOptions = 4
 	// NSDirectoryEnumerationSkipsPackageDescendants: An option to treat packages like files and not descend into their contents.
@@ -1654,7 +1651,7 @@ type NSDistributedNotificationOptions uint
 
 const (
 	NSDistributedNotificationDeliverImmediately NSDistributedNotificationOptions = 1
-	NSDistributedNotificationPostToAllSessions NSDistributedNotificationOptions = 2
+	NSDistributedNotificationPostToAllSessions  NSDistributedNotificationOptions = 2
 )
 
 func (e NSDistributedNotificationOptions) String() string {
@@ -1725,7 +1722,7 @@ const (
 	// NSAnyKeyExpressionType: An expression that represents any key.
 	NSAnyKeyExpressionType NSExpressionType = 15
 	// NSBlockExpressionType: An expression that uses a Block.
-	NSBlockExpressionType NSExpressionType = 19
+	NSBlockExpressionType       NSExpressionType = 19
 	NSConditionalExpressionType NSExpressionType = 20
 	// NSConstantValueExpressionType: An expression that always returns the same value.
 	NSConstantValueExpressionType NSExpressionType = 0
@@ -2093,19 +2090,21 @@ func (e NSFormattingUnitStyle) String() string {
 type NSGrammaticalCase int
 
 const (
-	NSGrammaticalCaseAblative NSGrammaticalCase = 6
-	NSGrammaticalCaseAccusative NSGrammaticalCase = 2
-	NSGrammaticalCaseAdessive NSGrammaticalCase = 7
-	NSGrammaticalCaseAllative NSGrammaticalCase = 8
-	NSGrammaticalCaseDative NSGrammaticalCase = 3
-	NSGrammaticalCaseElative NSGrammaticalCase = 9
-	NSGrammaticalCaseEssive NSGrammaticalCase = 11
-	NSGrammaticalCaseGenitive NSGrammaticalCase = 4
-	NSGrammaticalCaseInessive NSGrammaticalCase = 12
-	NSGrammaticalCaseLocative NSGrammaticalCase = 13
-	NSGrammaticalCaseNotSet NSGrammaticalCase = 0
+	NSGrammaticalCaseAblative      NSGrammaticalCase = 6
+	NSGrammaticalCaseAccusative    NSGrammaticalCase = 2
+	NSGrammaticalCaseAdessive      NSGrammaticalCase = 7
+	NSGrammaticalCaseAllative      NSGrammaticalCase = 8
+	NSGrammaticalCaseDative        NSGrammaticalCase = 3
+	NSGrammaticalCaseElative       NSGrammaticalCase = 9
+	NSGrammaticalCaseEssive        NSGrammaticalCase = 11
+	NSGrammaticalCaseGenitive      NSGrammaticalCase = 4
+	NSGrammaticalCaseIllative      NSGrammaticalCase = 10
+	NSGrammaticalCaseInessive      NSGrammaticalCase = 12
+	NSGrammaticalCaseLocative      NSGrammaticalCase = 13
+	NSGrammaticalCaseNominative    NSGrammaticalCase = 1
+	NSGrammaticalCaseNotSet        NSGrammaticalCase = 0
 	NSGrammaticalCasePrepositional NSGrammaticalCase = 5
-	NSGrammaticalCaseTranslative NSGrammaticalCase = 14
+	NSGrammaticalCaseTranslative   NSGrammaticalCase = 14
 )
 
 func (e NSGrammaticalCase) String() string {
@@ -2126,10 +2125,14 @@ func (e NSGrammaticalCase) String() string {
 		return "NSGrammaticalCaseEssive"
 	case NSGrammaticalCaseGenitive:
 		return "NSGrammaticalCaseGenitive"
+	case NSGrammaticalCaseIllative:
+		return "NSGrammaticalCaseIllative"
 	case NSGrammaticalCaseInessive:
 		return "NSGrammaticalCaseInessive"
 	case NSGrammaticalCaseLocative:
 		return "NSGrammaticalCaseLocative"
+	case NSGrammaticalCaseNominative:
+		return "NSGrammaticalCaseNominative"
 	case NSGrammaticalCaseNotSet:
 		return "NSGrammaticalCaseNotSet"
 	case NSGrammaticalCasePrepositional:
@@ -2145,9 +2148,9 @@ func (e NSGrammaticalCase) String() string {
 type NSGrammaticalDefiniteness int
 
 const (
-	NSGrammaticalDefinitenessDefinite NSGrammaticalDefiniteness = 2
+	NSGrammaticalDefinitenessDefinite   NSGrammaticalDefiniteness = 2
 	NSGrammaticalDefinitenessIndefinite NSGrammaticalDefiniteness = 1
-	NSGrammaticalDefinitenessNotSet NSGrammaticalDefiniteness = 0
+	NSGrammaticalDefinitenessNotSet     NSGrammaticalDefiniteness = 0
 )
 
 func (e NSGrammaticalDefiniteness) String() string {
@@ -2167,9 +2170,9 @@ func (e NSGrammaticalDefiniteness) String() string {
 type NSGrammaticalDetermination int
 
 const (
-	NSGrammaticalDeterminationDependent NSGrammaticalDetermination = 2
+	NSGrammaticalDeterminationDependent   NSGrammaticalDetermination = 2
 	NSGrammaticalDeterminationIndependent NSGrammaticalDetermination = 1
-	NSGrammaticalDeterminationNotSet NSGrammaticalDetermination = 0
+	NSGrammaticalDeterminationNotSet      NSGrammaticalDetermination = 0
 )
 
 func (e NSGrammaticalDetermination) String() string {
@@ -2332,10 +2335,10 @@ func (e NSGrammaticalPartOfSpeech) String() string {
 type NSGrammaticalPerson int
 
 const (
-	NSGrammaticalPersonFirst NSGrammaticalPerson = 1
+	NSGrammaticalPersonFirst  NSGrammaticalPerson = 1
 	NSGrammaticalPersonNotSet NSGrammaticalPerson = 0
 	NSGrammaticalPersonSecond NSGrammaticalPerson = 2
-	NSGrammaticalPersonThird NSGrammaticalPerson = 3
+	NSGrammaticalPersonThird  NSGrammaticalPerson = 3
 )
 
 func (e NSGrammaticalPerson) String() string {
@@ -2357,10 +2360,10 @@ func (e NSGrammaticalPerson) String() string {
 type NSGrammaticalPronounType int
 
 const (
-	NSGrammaticalPronounTypeNotSet NSGrammaticalPronounType = 0
-	NSGrammaticalPronounTypePersonal NSGrammaticalPronounType = 1
+	NSGrammaticalPronounTypeNotSet     NSGrammaticalPronounType = 0
+	NSGrammaticalPronounTypePersonal   NSGrammaticalPronounType = 1
 	NSGrammaticalPronounTypePossessive NSGrammaticalPronounType = 3
-	NSGrammaticalPronounTypeReflexive NSGrammaticalPronounType = 2
+	NSGrammaticalPronounTypeReflexive  NSGrammaticalPronounType = 2
 )
 
 func (e NSGrammaticalPronounType) String() string {
@@ -2414,7 +2417,7 @@ const (
 	// NSISO8601DateFormatWithDashSeparatorInDate: # Discussion
 	NSISO8601DateFormatWithDashSeparatorInDate NSISO8601DateFormatOptions = 256
 	// NSISO8601DateFormatWithDay: # Discussion
-	NSISO8601DateFormatWithDay NSISO8601DateFormatOptions = 16
+	NSISO8601DateFormatWithDay               NSISO8601DateFormatOptions = 16
 	NSISO8601DateFormatWithFractionalSeconds NSISO8601DateFormatOptions = 2048
 	// NSISO8601DateFormatWithFullDate: # Discussion
 	NSISO8601DateFormatWithFullDate NSISO8601DateFormatOptions = 1
@@ -2686,6 +2689,10 @@ func (e NSJSONWritingOptions) String() string {
 type NSKeyValueChange uint
 
 const (
+	// NSKeyValueChangeInsertion: Indicates that an object has been inserted into the to-many relationship that is being observed.
+	NSKeyValueChangeInsertion NSKeyValueChange = 2
+	// NSKeyValueChangeRemoval: Indicates that an object has been removed from the to-many relationship that is being observed.
+	NSKeyValueChangeRemoval NSKeyValueChange = 3
 	// NSKeyValueChangeReplacement: Indicates that an object has been replaced in the to-many relationship that is being observed.
 	NSKeyValueChangeReplacement NSKeyValueChange = 4
 	// NSKeyValueChangeSetting: Indicates that the value of the observed key path was set to a new value.
@@ -2694,6 +2701,10 @@ const (
 
 func (e NSKeyValueChange) String() string {
 	switch e {
+	case NSKeyValueChangeInsertion:
+		return "NSKeyValueChangeInsertion"
+	case NSKeyValueChangeRemoval:
+		return "NSKeyValueChangeRemoval"
 	case NSKeyValueChangeReplacement:
 		return "NSKeyValueChangeReplacement"
 	case NSKeyValueChangeSetting:
@@ -2737,9 +2748,9 @@ type NSKeyValueSetMutationKind uint
 
 const (
 	NSKeyValueIntersectSetMutation NSKeyValueSetMutationKind = 3
-	NSKeyValueMinusSetMutation NSKeyValueSetMutationKind = 2
-	NSKeyValueSetSetMutation NSKeyValueSetMutationKind = 4
-	NSKeyValueUnionSetMutation NSKeyValueSetMutationKind = 1
+	NSKeyValueMinusSetMutation     NSKeyValueSetMutationKind = 2
+	NSKeyValueSetSetMutation       NSKeyValueSetMutationKind = 4
+	NSKeyValueUnionSetMutation     NSKeyValueSetMutationKind = 1
 )
 
 func (e NSKeyValueSetMutationKind) String() string {
@@ -2895,6 +2906,8 @@ func (e NSLocaleLanguageDirection) String() string {
 type NSMachPortOptions uint
 
 const (
+	// NSMachPortDeallocateNone: Do not remove any send or receive rights.
+	NSMachPortDeallocateNone NSMachPortOptions = 0
 	// NSMachPortDeallocateReceiveRight: Remove a receive right when the [NSMachPort] object is invalidated or destroyed.
 	NSMachPortDeallocateReceiveRight NSMachPortOptions = 2
 	// NSMachPortDeallocateSendRight: Deallocate a send right when the [NSMachPort] object is invalidated or destroyed.
@@ -2903,6 +2916,8 @@ const (
 
 func (e NSMachPortOptions) String() string {
 	switch e {
+	case NSMachPortDeallocateNone:
+		return "NSMachPortDeallocateNone"
 	case NSMachPortDeallocateReceiveRight:
 		return "NSMachPortDeallocateReceiveRight"
 	case NSMachPortDeallocateSendRight:
@@ -3128,8 +3143,7 @@ type NSNotificationSuspensionBehavior uint
 
 const (
 	// NSNotificationSuspensionBehaviorCoalesce: The server only queues the last notification of the specified name and object; earlier notifications are dropped.
-	NSNotificationSuspensionBehaviorCoalesce NSNotificationSuspensionBehavior = 2
-	// NSNotificationSuspensionBehaviorDeliverImmediately: # Discussion
+	NSNotificationSuspensionBehaviorCoalesce           NSNotificationSuspensionBehavior = 2
 	NSNotificationSuspensionBehaviorDeliverImmediately NSNotificationSuspensionBehavior = 4
 	// NSNotificationSuspensionBehaviorDrop: The server doesn’t queue any notifications with this name and object until the notification center resumes notification delivery.
 	NSNotificationSuspensionBehaviorDrop NSNotificationSuspensionBehavior = 1
@@ -3599,6 +3613,8 @@ const (
 	NSPresentationIntentKindParagraph NSPresentationIntentKind = 0
 	// NSPresentationIntentKindTable: A presentation style for a table.
 	NSPresentationIntentKindTable NSPresentationIntentKind = 8
+	// NSPresentationIntentKindTableCell: A presentation style for a single cell of a table.
+	NSPresentationIntentKindTableCell NSPresentationIntentKind = 11
 	// NSPresentationIntentKindTableHeaderRow: A presentation style for the header row of a table.
 	NSPresentationIntentKindTableHeaderRow NSPresentationIntentKind = 9
 	// NSPresentationIntentKindTableRow: A presentation style for a row of a table.
@@ -3625,6 +3641,8 @@ func (e NSPresentationIntentKind) String() string {
 		return "NSPresentationIntentKindParagraph"
 	case NSPresentationIntentKindTable:
 		return "NSPresentationIntentKindTable"
+	case NSPresentationIntentKindTableCell:
+		return "NSPresentationIntentKindTableCell"
 	case NSPresentationIntentKindTableHeaderRow:
 		return "NSPresentationIntentKindTableHeaderRow"
 	case NSPresentationIntentKindTableRow:
@@ -3721,6 +3739,8 @@ func (e NSPropertyListFormat) String() string {
 type NSPropertyListMutabilityOptions uint
 
 const (
+	// NSPropertyListImmutable: Causes the returned property list to contain immutable objects.
+	NSPropertyListImmutable NSPropertyListMutabilityOptions = 0
 	// NSPropertyListMutableContainers: Causes the returned property list to have mutable containers but immutable leaves.
 	NSPropertyListMutableContainers NSPropertyListMutabilityOptions = 1
 	// NSPropertyListMutableContainersAndLeaves: Causes the returned property list to have mutable containers and leaves.
@@ -3729,6 +3749,8 @@ const (
 
 func (e NSPropertyListMutabilityOptions) String() string {
 	switch e {
+	case NSPropertyListImmutable:
+		return "NSPropertyListImmutable"
 	case NSPropertyListMutableContainers:
 		return "NSPropertyListMutableContainers"
 	case NSPropertyListMutableContainersAndLeaves:
@@ -4168,8 +4190,7 @@ func (e NSSortOptions) String() string {
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/SpellingState
 type NSSpellingState int
 
-const (
-)
+const ()
 
 // See: https://developer.apple.com/documentation/Foundation/Stream/Event
 type NSStreamEvent uint
@@ -4183,6 +4204,8 @@ const (
 	NSStreamEventHasBytesAvailable NSStreamEvent = 2
 	// NSStreamEventHasSpaceAvailable: The stream can accept bytes for writing.
 	NSStreamEventHasSpaceAvailable NSStreamEvent = 4
+	// NSStreamEventNone: No event has occurred.
+	NSStreamEventNone NSStreamEvent = 0
 	// NSStreamEventOpenCompleted: The open has completed successfully.
 	NSStreamEventOpenCompleted NSStreamEvent = 1
 )
@@ -4197,6 +4220,8 @@ func (e NSStreamEvent) String() string {
 		return "NSStreamEventHasBytesAvailable"
 	case NSStreamEventHasSpaceAvailable:
 		return "NSStreamEventHasSpaceAvailable"
+	case NSStreamEventNone:
+		return "NSStreamEventNone"
 	case NSStreamEventOpenCompleted:
 		return "NSStreamEventOpenCompleted"
 	default:
@@ -4303,10 +4328,10 @@ type NSStringDrawingOptions uint32
 
 const (
 	OptionsResolvesNaturalAlignmentWithBaseWritingDirection NSStringDrawingOptions = 0
-	TruncatesLastVisibleLine NSStringDrawingOptions = 0
-	UsesDeviceMetrics NSStringDrawingOptions = 0
-	UsesFontLeading NSStringDrawingOptions = 0
-	UsesLineFragmentOrigin NSStringDrawingOptions = 0
+	TruncatesLastVisibleLine                                NSStringDrawingOptions = 0
+	UsesDeviceMetrics                                       NSStringDrawingOptions = 0
+	UsesFontLeading                                         NSStringDrawingOptions = 0
+	UsesLineFragmentOrigin                                  NSStringDrawingOptions = 0
 	// Deprecated.
 	DisableScreenFontSubstitution NSStringDrawingOptions = 0
 	// Deprecated.
@@ -4350,7 +4375,7 @@ const (
 	NSStringEnumerationByCaretPositions NSStringEnumerationOptions = 5
 	// NSStringEnumerationByComposedCharacterSequences: # Discussion
 	NSStringEnumerationByComposedCharacterSequences NSStringEnumerationOptions = 2
-	NSStringEnumerationByDeletionClusters NSStringEnumerationOptions = 6
+	NSStringEnumerationByDeletionClusters           NSStringEnumerationOptions = 6
 	// NSStringEnumerationByLines: # Discussion
 	NSStringEnumerationByLines NSStringEnumerationOptions = 0
 	// NSStringEnumerationByParagraphs: # Discussion
@@ -4679,12 +4704,24 @@ func (e NSURLCacheStoragePolicy) String() string {
 type NSURLCredentialPersistence uint
 
 const (
+	// NSURLCredentialPersistenceForSession: The credential should be stored only for this session.
+	NSURLCredentialPersistenceForSession NSURLCredentialPersistence = 1
+	// NSURLCredentialPersistenceNone: The credential should not be stored.
+	NSURLCredentialPersistenceNone NSURLCredentialPersistence = 0
+	// NSURLCredentialPersistencePermanent: The credential should be stored in the keychain.
+	NSURLCredentialPersistencePermanent NSURLCredentialPersistence = 2
 	// NSURLCredentialPersistenceSynchronizable: The credential should be stored permanently in the keychain, and in addition should be distributed to other devices based on the owning Apple ID.
 	NSURLCredentialPersistenceSynchronizable NSURLCredentialPersistence = 3
 )
 
 func (e NSURLCredentialPersistence) String() string {
 	switch e {
+	case NSURLCredentialPersistenceForSession:
+		return "NSURLCredentialPersistenceForSession"
+	case NSURLCredentialPersistenceNone:
+		return "NSURLCredentialPersistenceNone"
+	case NSURLCredentialPersistencePermanent:
+		return "NSURLCredentialPersistencePermanent"
 	case NSURLCredentialPersistenceSynchronizable:
 		return "NSURLCredentialPersistenceSynchronizable"
 	default:
@@ -4913,7 +4950,7 @@ const (
 	// NSURLErrorNetworkUnavailableReasonConstrained: A reason that indicates network is unavailable because the user enabled “Low Data Mode” in the Settings app.
 	NSURLErrorNetworkUnavailableReasonConstrained NSURLErrorNetworkUnavailableReason = 2
 	// NSURLErrorNetworkUnavailableReasonExpensive: A reason that indicates network is unavailable because the system marked the interface as expensive.
-	NSURLErrorNetworkUnavailableReasonExpensive NSURLErrorNetworkUnavailableReason = 1
+	NSURLErrorNetworkUnavailableReasonExpensive        NSURLErrorNetworkUnavailableReason = 1
 	NSURLErrorNetworkUnavailableReasonUltraConstrained NSURLErrorNetworkUnavailableReason = 3
 )
 
@@ -5011,8 +5048,14 @@ func (e NSURLRequestAttribution) String() string {
 type NSURLRequestCachePolicy uint
 
 const (
+	// NSURLRequestReloadIgnoringCacheData: Replaced by NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData.
+	NSURLRequestReloadIgnoringCacheData NSURLRequestCachePolicy = 1
+	// NSURLRequestReloadIgnoringLocalAndRemoteCacheData: Ignore local cache data, and instruct proxies and other intermediates to disregard their caches so far as the protocol allows.
+	NSURLRequestReloadIgnoringLocalAndRemoteCacheData NSURLRequestCachePolicy = 4
 	// NSURLRequestReloadIgnoringLocalCacheData: The URL load should be loaded only from the originating source.
 	NSURLRequestReloadIgnoringLocalCacheData NSURLRequestCachePolicy = 1
+	// NSURLRequestReloadRevalidatingCacheData: Use cache data if the origin source can validate it; otherwise, load from the origin.
+	NSURLRequestReloadRevalidatingCacheData NSURLRequestCachePolicy = 5
 	// NSURLRequestReturnCacheDataDontLoad: Use existing cache data, regardless or age or expiration date, and fail if no cached data is available.
 	NSURLRequestReturnCacheDataDontLoad NSURLRequestCachePolicy = 3
 	// NSURLRequestReturnCacheDataElseLoad: Use existing cache data, regardless or age or expiration date, loading from originating source only if there is no cached data.
@@ -5023,8 +5066,12 @@ const (
 
 func (e NSURLRequestCachePolicy) String() string {
 	switch e {
-	case NSURLRequestReloadIgnoringLocalCacheData:
-		return "NSURLRequestReloadIgnoringLocalCacheData"
+	case NSURLRequestReloadIgnoringCacheData:
+		return "NSURLRequestReloadIgnoringCacheData"
+	case NSURLRequestReloadIgnoringLocalAndRemoteCacheData:
+		return "NSURLRequestReloadIgnoringLocalAndRemoteCacheData"
+	case NSURLRequestReloadRevalidatingCacheData:
+		return "NSURLRequestReloadRevalidatingCacheData"
 	case NSURLRequestReturnCacheDataDontLoad:
 		return "NSURLRequestReturnCacheDataDontLoad"
 	case NSURLRequestReturnCacheDataElseLoad:
@@ -5054,10 +5101,10 @@ const (
 	NSURLNetworkServiceTypeResponsiveData NSURLRequestNetworkServiceType = 6
 	// NSURLNetworkServiceTypeVideo: A service type for low-delay tolerant, very low-loss tolerant, inelastic flow, and constant packet rate connections.
 	NSURLNetworkServiceTypeVideo NSURLRequestNetworkServiceType = 2
-	// NSURLNetworkServiceTypeVoIP: A service type for VoIP traffic.
-	NSURLNetworkServiceTypeVoIP NSURLRequestNetworkServiceType = 1
 	// NSURLNetworkServiceTypeVoice: A service type for low-delay tolerant, very low-loss tolerant, inelastic flow, and constant packet rate connections.
 	NSURLNetworkServiceTypeVoice NSURLRequestNetworkServiceType = 4
+	// Deprecated.
+	NSURLNetworkServiceTypeVoIP NSURLRequestNetworkServiceType = 1
 )
 
 func (e NSURLRequestNetworkServiceType) String() string {
@@ -5076,10 +5123,10 @@ func (e NSURLRequestNetworkServiceType) String() string {
 		return "NSURLNetworkServiceTypeResponsiveData"
 	case NSURLNetworkServiceTypeVideo:
 		return "NSURLNetworkServiceTypeVideo"
-	case NSURLNetworkServiceTypeVoIP:
-		return "NSURLNetworkServiceTypeVoIP"
 	case NSURLNetworkServiceTypeVoice:
 		return "NSURLNetworkServiceTypeVoice"
+	case NSURLNetworkServiceTypeVoIP:
+		return "NSURLNetworkServiceTypeVoIP"
 	default:
 		return fmt.Sprintf("NSURLRequestNetworkServiceType(%d)", e)
 	}
@@ -5093,6 +5140,8 @@ const (
 	NSURLSessionAuthChallengeCancelAuthenticationChallenge NSURLSessionAuthChallengeDisposition = 2
 	// NSURLSessionAuthChallengePerformDefaultHandling: Use the default handling for the challenge as though this delegate method were not implemented.
 	NSURLSessionAuthChallengePerformDefaultHandling NSURLSessionAuthChallengeDisposition = 1
+	// NSURLSessionAuthChallengeRejectProtectionSpace: Reject this challenge, and call the authentication delegate method again with the next authentication protection space.
+	NSURLSessionAuthChallengeRejectProtectionSpace NSURLSessionAuthChallengeDisposition = 3
 	// NSURLSessionAuthChallengeUseCredential: Use the specified credential, which may be `nil`.
 	NSURLSessionAuthChallengeUseCredential NSURLSessionAuthChallengeDisposition = 0
 )
@@ -5103,6 +5152,8 @@ func (e NSURLSessionAuthChallengeDisposition) String() string {
 		return "NSURLSessionAuthChallengeCancelAuthenticationChallenge"
 	case NSURLSessionAuthChallengePerformDefaultHandling:
 		return "NSURLSessionAuthChallengePerformDefaultHandling"
+	case NSURLSessionAuthChallengeRejectProtectionSpace:
+		return "NSURLSessionAuthChallengeRejectProtectionSpace"
 	case NSURLSessionAuthChallengeUseCredential:
 		return "NSURLSessionAuthChallengeUseCredential"
 	default:
@@ -5170,9 +5221,9 @@ type NSURLSessionResponseDisposition int
 const (
 	// NSURLSessionResponseAllow: Allow the load operation to continue.
 	NSURLSessionResponseAllow NSURLSessionResponseDisposition = 1
-	// NSURLSessionResponseBecomeDownload: Convert the response for this request to use a .
+	// NSURLSessionResponseBecomeDownload: Convert the response for this request to use a URLSessionDownloadTask.
 	NSURLSessionResponseBecomeDownload NSURLSessionResponseDisposition = 2
-	// NSURLSessionResponseBecomeStream: Convert the response for this request to use a .
+	// NSURLSessionResponseBecomeStream: Convert the response for this request to use a URLSessionStreamTask.
 	NSURLSessionResponseBecomeStream NSURLSessionResponseDisposition = 3
 	// NSURLSessionResponseCancel: Cancel the load.
 	NSURLSessionResponseCancel NSURLSessionResponseDisposition = 0
@@ -5197,10 +5248,10 @@ func (e NSURLSessionResponseDisposition) String() string {
 type NSURLSessionTaskMetricsDomainResolutionProtocol int
 
 const (
-	NSURLSessionTaskMetricsDomainResolutionProtocolHTTPS NSURLSessionTaskMetricsDomainResolutionProtocol = 4
-	NSURLSessionTaskMetricsDomainResolutionProtocolTCP NSURLSessionTaskMetricsDomainResolutionProtocol = 2
-	NSURLSessionTaskMetricsDomainResolutionProtocolTLS NSURLSessionTaskMetricsDomainResolutionProtocol = 3
-	NSURLSessionTaskMetricsDomainResolutionProtocolUDP NSURLSessionTaskMetricsDomainResolutionProtocol = 1
+	NSURLSessionTaskMetricsDomainResolutionProtocolHTTPS   NSURLSessionTaskMetricsDomainResolutionProtocol = 4
+	NSURLSessionTaskMetricsDomainResolutionProtocolTCP     NSURLSessionTaskMetricsDomainResolutionProtocol = 2
+	NSURLSessionTaskMetricsDomainResolutionProtocolTLS     NSURLSessionTaskMetricsDomainResolutionProtocol = 3
+	NSURLSessionTaskMetricsDomainResolutionProtocolUDP     NSURLSessionTaskMetricsDomainResolutionProtocol = 1
 	NSURLSessionTaskMetricsDomainResolutionProtocolUnknown NSURLSessionTaskMetricsDomainResolutionProtocol = 0
 )
 
@@ -5348,13 +5399,16 @@ func (e NSURLSessionWebSocketCloseCode) String() string {
 type NSURLSessionWebSocketMessageType int
 
 const (
-	NSURLSessionWebSocketMessageTypeData NSURLSessionWebSocketMessageType = 0
+	NSURLSessionWebSocketMessageTypeData   NSURLSessionWebSocketMessageType = 0
+	NSURLSessionWebSocketMessageTypeString NSURLSessionWebSocketMessageType = 1
 )
 
 func (e NSURLSessionWebSocketMessageType) String() string {
 	switch e {
 	case NSURLSessionWebSocketMessageTypeData:
 		return "NSURLSessionWebSocketMessageTypeData"
+	case NSURLSessionWebSocketMessageTypeString:
+		return "NSURLSessionWebSocketMessageTypeString"
 	default:
 		return fmt.Sprintf("NSURLSessionWebSocketMessageType(%d)", e)
 	}
@@ -5599,19 +5653,19 @@ func (e NSXMLDocumentContentKind) String() string {
 type NSXMLNodeKind int
 
 const (
-	NSXMLAttributeDeclarationKind NSXMLNodeKind = 10
-	NSXMLAttributeKind NSXMLNodeKind = 3
-	NSXMLCommentKind NSXMLNodeKind = 6
-	NSXMLDTDKind NSXMLNodeKind = 8
-	NSXMLDocumentKind NSXMLNodeKind = 1
-	NSXMLElementDeclarationKind NSXMLNodeKind = 11
-	NSXMLElementKind NSXMLNodeKind = 2
-	NSXMLEntityDeclarationKind NSXMLNodeKind = 9
-	NSXMLInvalidKind NSXMLNodeKind = 0
-	NSXMLNamespaceKind NSXMLNodeKind = 4
-	NSXMLNotationDeclarationKind NSXMLNodeKind = 12
+	NSXMLAttributeDeclarationKind  NSXMLNodeKind = 10
+	NSXMLAttributeKind             NSXMLNodeKind = 3
+	NSXMLCommentKind               NSXMLNodeKind = 6
+	NSXMLDTDKind                   NSXMLNodeKind = 8
+	NSXMLDocumentKind              NSXMLNodeKind = 1
+	NSXMLElementDeclarationKind    NSXMLNodeKind = 11
+	NSXMLElementKind               NSXMLNodeKind = 2
+	NSXMLEntityDeclarationKind     NSXMLNodeKind = 9
+	NSXMLInvalidKind               NSXMLNodeKind = 0
+	NSXMLNamespaceKind             NSXMLNodeKind = 4
+	NSXMLNotationDeclarationKind   NSXMLNodeKind = 12
 	NSXMLProcessingInstructionKind NSXMLNodeKind = 5
-	NSXMLTextKind NSXMLNodeKind = 7
+	NSXMLTextKind                  NSXMLNodeKind = 7
 )
 
 func (e NSXMLNodeKind) String() string {
@@ -5650,31 +5704,31 @@ func (e NSXMLNodeKind) String() string {
 type NSXMLNodeOptions uint32
 
 const (
-	NSXMLDocumentIncludeContentTypeDeclaration NSXMLNodeOptions = 262144
-	NSXMLDocumentTidyHTML NSXMLNodeOptions = 512
-	NSXMLDocumentTidyXML NSXMLNodeOptions = 1024
-	NSXMLDocumentValidate NSXMLNodeOptions = 8192
-	NSXMLDocumentXInclude NSXMLNodeOptions = 65536
-	NSXMLNodeCompactEmptyElement NSXMLNodeOptions = 4
-	NSXMLNodeExpandEmptyElement NSXMLNodeOptions = 2
-	NSXMLNodeIsCDATA NSXMLNodeOptions = 1
-	NSXMLNodeLoadExternalEntitiesAlways NSXMLNodeOptions = 16384
-	NSXMLNodeLoadExternalEntitiesNever NSXMLNodeOptions = 524288
+	NSXMLDocumentIncludeContentTypeDeclaration  NSXMLNodeOptions = 262144
+	NSXMLDocumentTidyHTML                       NSXMLNodeOptions = 512
+	NSXMLDocumentTidyXML                        NSXMLNodeOptions = 1024
+	NSXMLDocumentValidate                       NSXMLNodeOptions = 8192
+	NSXMLDocumentXInclude                       NSXMLNodeOptions = 65536
+	NSXMLNodeCompactEmptyElement                NSXMLNodeOptions = 4
+	NSXMLNodeExpandEmptyElement                 NSXMLNodeOptions = 2
+	NSXMLNodeIsCDATA                            NSXMLNodeOptions = 1
+	NSXMLNodeLoadExternalEntitiesAlways         NSXMLNodeOptions = 16384
+	NSXMLNodeLoadExternalEntitiesNever          NSXMLNodeOptions = 524288
 	NSXMLNodeLoadExternalEntitiesSameOriginOnly NSXMLNodeOptions = 32768
-	NSXMLNodeNeverEscapeContents NSXMLNodeOptions = 32
-	NSXMLNodeOptionsNone NSXMLNodeOptions = 0
-	NSXMLNodePreserveAttributeOrder NSXMLNodeOptions = 2097152
-	NSXMLNodePreserveCDATA NSXMLNodeOptions = 16777216
-	NSXMLNodePreserveCharacterReferences NSXMLNodeOptions = 134217728
-	NSXMLNodePreserveDTD NSXMLNodeOptions = 67108864
-	NSXMLNodePreserveEntities NSXMLNodeOptions = 4194304
-	NSXMLNodePreserveNamespaceOrder NSXMLNodeOptions = 1048576
-	NSXMLNodePreservePrefixes NSXMLNodeOptions = 8388608
-	NSXMLNodePreserveWhitespace NSXMLNodeOptions = 33554432
-	NSXMLNodePrettyPrint NSXMLNodeOptions = 131072
-	NSXMLNodePromoteSignificantWhitespace NSXMLNodeOptions = 268435456
-	NSXMLNodeUseDoubleQuotes NSXMLNodeOptions = 16
-	NSXMLNodeUseSingleQuotes NSXMLNodeOptions = 8
+	NSXMLNodeNeverEscapeContents                NSXMLNodeOptions = 32
+	NSXMLNodeOptionsNone                        NSXMLNodeOptions = 0
+	NSXMLNodePreserveAttributeOrder             NSXMLNodeOptions = 2097152
+	NSXMLNodePreserveCDATA                      NSXMLNodeOptions = 16777216
+	NSXMLNodePreserveCharacterReferences        NSXMLNodeOptions = 134217728
+	NSXMLNodePreserveDTD                        NSXMLNodeOptions = 67108864
+	NSXMLNodePreserveEntities                   NSXMLNodeOptions = 4194304
+	NSXMLNodePreserveNamespaceOrder             NSXMLNodeOptions = 1048576
+	NSXMLNodePreservePrefixes                   NSXMLNodeOptions = 8388608
+	NSXMLNodePreserveWhitespace                 NSXMLNodeOptions = 33554432
+	NSXMLNodePrettyPrint                        NSXMLNodeOptions = 131072
+	NSXMLNodePromoteSignificantWhitespace       NSXMLNodeOptions = 268435456
+	NSXMLNodeUseDoubleQuotes                    NSXMLNodeOptions = 16
+	NSXMLNodeUseSingleQuotes                    NSXMLNodeOptions = 8
 )
 
 func (e NSXMLNodeOptions) String() string {
@@ -6123,9 +6177,9 @@ func (e NSXMLParserError) String() string {
 type NSXMLParserExternalEntityResolvingPolicy uint
 
 const (
-	NSXMLParserResolveExternalEntitiesAlways NSXMLParserExternalEntityResolvingPolicy = 3
-	NSXMLParserResolveExternalEntitiesNever NSXMLParserExternalEntityResolvingPolicy = 0
-	NSXMLParserResolveExternalEntitiesNoNetwork NSXMLParserExternalEntityResolvingPolicy = 1
+	NSXMLParserResolveExternalEntitiesAlways         NSXMLParserExternalEntityResolvingPolicy = 3
+	NSXMLParserResolveExternalEntitiesNever          NSXMLParserExternalEntityResolvingPolicy = 0
+	NSXMLParserResolveExternalEntitiesNoNetwork      NSXMLParserExternalEntityResolvingPolicy = 1
 	NSXMLParserResolveExternalEntitiesSameOriginOnly NSXMLParserExternalEntityResolvingPolicy = 2
 )
 
@@ -6164,6 +6218,4 @@ func (e NSXPCConnectionOptions) String() string {
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/PreferredPresentationStyle-swift.enum
 type UIPreferredPresentationStyle int
 
-const (
-)
-
+const ()

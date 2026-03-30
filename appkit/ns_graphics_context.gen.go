@@ -4,11 +4,12 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,28 +49,26 @@ func (nc NSGraphicsContextClass) Alloc() NSGraphicsContext {
 // An object that represents a graphics context.
 //
 // # Overview
-// 
+//
 // You can think of a graphics context as a destination to which drawing and
 // graphics state operations are sent for execution. Each graphics context
 // contains its own graphics environment and state.
-// 
+//
 // The [NSGraphicsContext] class is an abstract superclass for
 // destination-specific graphics contexts. You obtain instances of concrete
 // subclasses with the class methods [NSGraphicsContext.CurrentContext],
 // [NSGraphicsContext.GraphicsContextWithAttributes], [NSGraphicsContext.GraphicsContextWithBitmapImageRep],
 // [NSGraphicsContext.GraphicsContextWithCGContextFlipped], and [init(window:)].
-// 
+//
 // At any time there is the notion of the current context. The current context
 // for the current thread may be set using [NSGraphicsContext.CurrentContext].
-// 
+//
 // Graphics contexts are maintained on a stack. You push a graphics context
 // onto the stack by sending it a [NSGraphicsContext.SaveGraphicsState] message, and pop it off
 // the stack by sending it a [NSGraphicsContext.RestoreGraphicsState] message. By sending
 // [NSGraphicsContext.RestoreGraphicsState] to a graphics context object you remove it from the
 // stack, and the next graphics context on the stack becomes the current
 // graphics context.
-//
-// [init(window:)]: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/init(window:)
 //
 // # Managing the Current Context
 //
@@ -109,6 +108,8 @@ func (nc NSGraphicsContextClass) Alloc() NSGraphicsContext {
 //   - [NSGraphicsContext.SetColorRenderingIntent]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext
+//
+// [init(window:)]: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/init(window:)
 type NSGraphicsContext struct {
 	objectivec.Object
 }
@@ -119,6 +120,7 @@ type NSGraphicsContext struct {
 func NSGraphicsContextFromID(id objc.ID) NSGraphicsContext {
 	return NSGraphicsContext{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSGraphicsContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -240,12 +242,12 @@ func NewNSGraphicsContext() NSGraphicsContext {
 // representation format and destination.
 //
 // # Return Value
-// 
+//
 // A new [NSGraphicsContext] object, or `nil` if the object could not be
 // created.
 //
 // # Discussion
-// 
+//
 // Use this method to create a graphics context for a window or bitmap
 // destination. If you want to create a graphics context for a PDF or
 // PostScript destination, do not use this method; instead, use the
@@ -264,19 +266,19 @@ func NewGraphicsContextWithAttributes(attributes foundation.INSDictionary) NSGra
 // bitmapRep: The [NSBitmapImageRep] object to use as the destination.
 //
 // # Return Value
-// 
+//
 // The created [NSGraphicsContext] object, or `nil` if the object could not be
 // created.
 //
 // # Discussion
-// 
+//
 // This method accepts only single plane [NSBitmapImageRep] instances. It is
 // the equivalent of using [GraphicsContextWithAttributes] and passing
 // `bitmapRep` as the value for the dictionary’s [destination] key.
 //
-// [destination]: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/AttributeKey/destination
-//
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/init(bitmapImageRep:)
+//
+// [destination]: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/AttributeKey/destination
 func NewGraphicsContextWithBitmapImageRep(bitmapRep INSBitmapImageRep) NSGraphicsContext {
 	rv := objc.Send[objc.ID](objc.ID(getNSGraphicsContextClass().class), objc.Sel("graphicsContextWithBitmapImageRep:"), bitmapRep)
 	return NSGraphicsContextFromID(rv)
@@ -287,18 +289,18 @@ func NewGraphicsContextWithBitmapImageRep(bitmapRep INSBitmapImageRep) NSGraphic
 //
 // graphicsPort: The graphics port used to create the graphics-context object, as a
 // [CGContext] (opaque type) object.
-// //
-// [CGContext]: https://developer.apple.com/documentation/CoreGraphics/CGContext
 //
 // initialFlippedState: Specifies the receiver’s initial flipped state. This is the value
 // returned by [Flipped] when no view has focus.
 //
 // # Return Value
-// 
+//
 // The created [NSGraphicsContext] object, or `nil` if the object could not be
 // created.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/init(cgContext:flipped:)
+//
+// [CGContext]: https://developer.apple.com/documentation/CoreGraphics/CGContext
 func NewGraphicsContextWithCGContextFlipped(graphicsPort coregraphics.CGContextRef, initialFlippedState bool) NSGraphicsContext {
 	rv := objc.Send[objc.ID](objc.ID(getNSGraphicsContextClass().class), objc.Sel("graphicsContextWithCGContext:flipped:"), graphicsPort, initialFlippedState)
 	return NSGraphicsContextFromID(rv)
@@ -308,7 +310,7 @@ func NewGraphicsContextWithCGContextFlipped(graphicsPort coregraphics.CGContextR
 // context’s destination.
 //
 // # Discussion
-// 
+//
 // Graphics contexts use buffers to queue pending operations but for
 // efficiency reasons may not always empty those buffers immediately. This
 // method forces the buffers to be emptied.
@@ -325,10 +327,11 @@ func (g NSGraphicsContext) FlushGraphics() {
 func (_NSGraphicsContextClass NSGraphicsContextClass) RestoreGraphicsState() {
 	objc.Send[objc.ID](objc.ID(_NSGraphicsContextClass.class), objc.Sel("restoreGraphicsState"))
 }
+
 // Saves the graphics state of the current graphics context.
 //
 // # Discussion
-// 
+//
 // This method sends the current graphics context a [SaveGraphicsState]
 // message and pushes the context onto the per-thread stack.
 //
@@ -336,18 +339,16 @@ func (_NSGraphicsContextClass NSGraphicsContextClass) RestoreGraphicsState() {
 func (_NSGraphicsContextClass NSGraphicsContextClass) SaveGraphicsState() {
 	objc.Send[objc.ID](objc.ID(_NSGraphicsContextClass.class), objc.Sel("saveGraphicsState"))
 }
+
 // Returns a Boolean value that indicates whether the current context is
 // drawing to the screen.
 //
 // # Return Value
-// 
-// [true] if the current context is drawing to the screen, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the current context is drawing to the screen, otherwise false.
 //
 // # Discussion
-// 
+//
 // This convenience method is equivalent to sending [DrawingToScreen] to the
 // result of [CurrentContext].
 //
@@ -365,28 +366,27 @@ func (g NSGraphicsContext) CGContext() coregraphics.CGContextRef {
 	rv := objc.Send[coregraphics.CGContextRef](g.ID, objc.Sel("CGContext"))
 	return coregraphics.CGContextRef(rv)
 }
+
 // A Boolean value that indicates whether the drawing destination is the
 // screen.
 //
 // # Discussion
-// 
-// [true] if the drawing destination is the screen. If the value of the
-// property is [false] may mean that the drawing destination is a printer, but
-// the destination may also be a PDF or EPS file. You can call [Attributes] to
-// see if additional information is available about the drawing destination.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the drawing destination is the screen. If the value of the property
+// is false may mean that the drawing destination is a printer, but the
+// destination may also be a PDF or EPS file. You can call [Attributes] to see
+// if additional information is available about the drawing destination.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/isDrawingToScreen
 func (g NSGraphicsContext) DrawingToScreen() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isDrawingToScreen"))
 	return rv
 }
+
 // The attributes used to create this instance.
 //
 // # Discussion
-// 
+//
 // Screen-based graphics contexts do not store attributes, even if you create
 // them using [GraphicsContextWithAttributes].
 //
@@ -395,27 +395,26 @@ func (g NSGraphicsContext) Attributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("attributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates the graphics context’s flipped state.
 //
 // # Discussion
-// 
-// The state is determined by sending `flipped` to the receiver’s view that
-// has focus. If no view has focus, returns [false] unless the receiver is
-// instantiated using [GraphicsContextWithCGContextFlipped] specifying [true]
-// as the `flipped` parameter.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The state is determined by sending `flipped` to the receiver’s view that
+// has focus. If no view has focus, returns false unless the receiver is
+// instantiated using [GraphicsContextWithCGContextFlipped] specifying true as
+// the `flipped` parameter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/isFlipped
 func (g NSGraphicsContext) Flipped() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isFlipped"))
 	return rv
 }
+
 // The graphics context’s global compositing operation setting.
 //
 // # Discussion
-// 
+//
 // The compositing operation is a global attribute of the graphics context and
 // affects drawing operations that do not take an explicit compositing
 // operation parameter. For methods that do take an explicit compositing
@@ -425,10 +424,10 @@ func (g NSGraphicsContext) Flipped() bool {
 // ([NSCompositeCopy]) is supported when rendering PDF or PostScript content.
 // See [NSCompositingOperation] for valid constants.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/compositingOperation
+//
 // [NSCompositeCopy]: https://developer.apple.com/documentation/AppKit/NSCompositeCopy
 // [NSCompositingOperation]: https://developer.apple.com/documentation/AppKit/NSCompositingOperation
-//
-// See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/compositingOperation
 func (g NSGraphicsContext) CompositingOperation() NSCompositingOperation {
 	rv := objc.Send[NSCompositingOperation](g.ID, objc.Sel("compositingOperation"))
 	return NSCompositingOperation(rv)
@@ -436,11 +435,12 @@ func (g NSGraphicsContext) CompositingOperation() NSCompositingOperation {
 func (g NSGraphicsContext) SetCompositingOperation(value NSCompositingOperation) {
 	objc.Send[struct{}](g.ID, objc.Sel("setCompositingOperation:"), value)
 }
+
 // A constant that specifies the graphics context’s interpolation, or image
 // smoothing, behavior.
 //
 // # Discussion
-// 
+//
 // Note that this value is not part of the graphics state, so it cannot be
 // reset using [RestoreGraphicsState].
 //
@@ -452,15 +452,14 @@ func (g NSGraphicsContext) ImageInterpolation() NSImageInterpolation {
 func (g NSGraphicsContext) SetImageInterpolation(value NSImageInterpolation) {
 	objc.Send[struct{}](g.ID, objc.Sel("setImageInterpolation:"), value)
 }
+
 // A Boolean value that indicates whether the graphics context uses
 // antialiasing.
 //
 // # Discussion
-// 
-// [true] if the receiver uses antialiasing. This value is part of the
-// graphics state and is restored by [RestoreGraphicsState].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver uses antialiasing. This value is part of the graphics
+// state and is restored by [RestoreGraphicsState].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/shouldAntialias
 func (g NSGraphicsContext) ShouldAntialias() bool {
@@ -470,10 +469,11 @@ func (g NSGraphicsContext) ShouldAntialias() bool {
 func (g NSGraphicsContext) SetShouldAntialias(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setShouldAntialias:"), value)
 }
+
 // The amount to offset the pattern color when filling the graphics context.
 //
 // # Discussion
-// 
+//
 // Use this property when you need to line up the pattern color with another
 // pattern, such as the pattern in a superview. The pattern phase is a
 // translation (width, height) applied before a pattern is drawn in the
@@ -491,20 +491,23 @@ func (g NSGraphicsContext) PatternPhase() corefoundation.CGPoint {
 func (g NSGraphicsContext) SetPatternPhase(value corefoundation.CGPoint) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPatternPhase:"), value)
 }
+
 // A context for Core Image objects that you can use to render into the
 // graphics context.
 //
 // # Discussion
-// 
+//
 // The [CIContext] object is created on demand and remains in existence for
 // the lifetime of its owning [NSGraphicsContext] object. A [CIContext] object
 // is an evaluation context for rendering a [CIImage] object through Quartz 2D
 // or OpenGL. You use [CIContext]` `objects in conjunction with [CIFilter],
 // [CIImage], [CIVector], and [CIColor] objects to take advantage of the
 // built-in Core Image filters when processing images.
-// 
+//
 // For more on [CIContext] objects and related Core Image objects, see [Core
 // Image Programming Guide].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/ciContext
 //
 // [CIColor]: https://developer.apple.com/documentation/CoreImage/CIColor
 // [CIContext]: https://developer.apple.com/documentation/CoreImage/CIContext
@@ -512,16 +515,15 @@ func (g NSGraphicsContext) SetPatternPhase(value corefoundation.CGPoint) {
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 // [CIVector]: https://developer.apple.com/documentation/CoreImage/CIVector
 // [Core Image Programming Guide]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_intro/ci_intro.html#//apple_ref/doc/uid/TP30001185
-//
-// See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/ciContext
 func (g NSGraphicsContext) CIContext() coreimage.CIContext {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("CIContext"))
 	return coreimage.CIContextFromID(objc.ID(rv))
 }
+
 // The color rendering intent in the graphics context’s graphics state.
 //
 // # Discussion
-// 
+//
 // A value that specifies the rendering intent currently used by the graphics
 // context. For possible values, see [NSColorRenderingIntent]. The rendering
 // intent specifies how Cocoa should handle colors that are not located within
@@ -530,9 +532,9 @@ func (g NSGraphicsContext) CIContext() coreimage.CIContext {
 // drawn, [NSGraphicsContext] uses perceptual rendering intent. Otherwise,
 // [NSGraphicsContext] uses relative colorimetric rendering intent.
 //
-// [NSColorRenderingIntent]: https://developer.apple.com/documentation/AppKit/NSColorRenderingIntent
-//
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/colorRenderingIntent
+//
+// [NSColorRenderingIntent]: https://developer.apple.com/documentation/AppKit/NSColorRenderingIntent
 func (g NSGraphicsContext) ColorRenderingIntent() NSColorRenderingIntent {
 	rv := objc.Send[NSColorRenderingIntent](g.ID, objc.Sel("colorRenderingIntent"))
 	return NSColorRenderingIntent(rv)
@@ -544,11 +546,11 @@ func (g NSGraphicsContext) SetColorRenderingIntent(value NSColorRenderingIntent)
 // Returns the current graphics context of the current thread.
 //
 // # Return Value
-// 
+//
 // The current graphics context of the current thread.
-// 
+//
 // # Discussion
-// 
+//
 // Returns an instance of a concrete subclass of [NSGraphicsContext].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/current
@@ -559,4 +561,3 @@ func (_NSGraphicsContextClass NSGraphicsContextClass) CurrentContext() NSGraphic
 func (_NSGraphicsContextClass NSGraphicsContextClass) SetCurrentContext(value NSGraphicsContext) {
 	objc.Send[struct{}](objc.ID(_NSGraphicsContextClass.class), objc.Sel("setCurrentContext:"), value)
 }
-

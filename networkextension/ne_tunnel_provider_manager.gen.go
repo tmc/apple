@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (nc NETunnelProviderManagerClass) Alloc() NETunnelProviderManager {
 // An object to create and manage the tunnel provider’s VPN configuration.
 //
 // # Overview
-// 
+//
 // Like its superclass [NEVPNManager], you use the [NETunnelProviderManager]
 // class to configure and control VPN connections. The difference is that
 // [NETunnelProviderManager] is used to to configure and control VPN
@@ -54,26 +55,26 @@ func (nc NETunnelProviderManagerClass) Alloc() NETunnelProviderManager {
 // [NETunnelProviderManager] to create and manage VPN configurations that use
 // the custom protocol, and to control the VPN connections specified by the
 // configurations.
-// 
+//
 // The [NETunnelProviderManager] class inherits most of its functionality from
 // the [NEVPNManager] class. The key differences to be aware of when using
 // [NETunnelProviderManager] are:
-// 
+//
 // - The [NETunnelProviderManager.ProtocolConfiguration] property can only be set to instances of the
 // [NETunnelProviderProtocol] class - The [NETunnelProviderManager.Connection] read-only property is
 // set to an instance of the [NETunnelProviderSession] class.
-// 
+//
 // # Configuration Model
-// 
+//
 // Each [NETunnelProviderManager] instance corresponds to a single VPN
 // configuration stored in the Network Extension preferences. Multiple VPN
 // configurations can be created and managed by creating multiple
 // [NETunnelProviderManager] instances.
-// 
+//
 // Each VPN configuration is associated with the app that created it. The
 // app’s view of the Network Extension preferences is limited to include
 // only the configurations that were created by the app.
-// 
+//
 // VPN configurations created using [NETunnelProviderManager] are classified
 // as regular enterprise VPN configurations (as opposed to the Personal VPN
 // configurations created by [NEVPNManager]). Only one enterprise VPN
@@ -85,9 +86,9 @@ func (nc NETunnelProviderManagerClass) Alloc() NETunnelProviderManager {
 // is active and connected, and any traffic that is routed to the Personal VPN
 // and is not routed to the enterprise VPN will continue to traverse the
 // Personal VPN.
-// 
+//
 // # Profile Configuration
-// 
+//
 // It is possible to create Packet Tunnel Provider configurations using
 // configuration profiles. See the
 // `com.AppleXCUIElementTypeVpnXCUIElementTypeManaged()` and
@@ -97,9 +98,9 @@ func (nc NETunnelProviderManagerClass) Alloc() NETunnelProviderManager {
 // app (and therefore allow the app to use [NETunnelProviderManager] to manage
 // the configuration), the app’s bundle identifier must be set as the value
 // of the [VPNSubType] field in the profile payload.
-// 
-// Credential Storage
-// 
+//
+// # Credential Storage
+//
 // VPN credentials such as private keys and passwords that are imported into
 // the system via configuration profiles are stored in the keychain in a
 // special access group called
@@ -108,28 +109,28 @@ func (nc NETunnelProviderManagerClass) Alloc() NETunnelProviderManager {
 // extension must have the
 // `com.AppleXCUIElementTypeManagedXCUIElementTypeVpnXCUIElementTypeShared()`
 // keychain access group entitlement.
-// 
+//
 // # Routing Network Data to the VPN
-// 
+//
 // There are two ways or methods by which network data is routed to the VPN:
-// 
+//
 // - By destination IP address
 // - By source application (Per-App VPN)
-// 
-// Routing by Destination IP
-// 
+//
+// # Routing by Destination IP
+//
 // This is the default routing method. The IP routes are specified by the
 // Packet Tunnel Provider extension at the time that the VPN tunnel is fully
 // established. See [NETunnelProvider] for more details.
-// 
-// Per-App VPN
-// 
+//
+// # Per-App VPN
+//
 // The only way to configure Per-App VPN is by enrolling the device in a
 // Mobile Device Management (MDM) system, and then linking apps that are
 // managed by the MDM system with a VPN configuration created from a
 // `com.AppleXCUIElementTypeVpnXCUIElementTypeManagedXCUIElementTypeApplayer()`
 // configuration profile payload. Here are some details about how this works:
-// 
+//
 // - The MDM server creates a configuration profile containing a
 // `com.AppleXCUIElementTypeVpnXCUIElementTypeManagedXCUIElementTypeApplayer()`
 // payload. The
@@ -149,35 +150,35 @@ func (nc NETunnelProviderManagerClass) Alloc() NETunnelProviderManager {
 // `com.AppleXCUIElementTypeVpnXCUIElementTypeManagedXCUIElementTypeApplayer()`
 // payload. - The MDM server pushes the configuration profile and the managed
 // apps to the iOS device using the MDM protocol.
-// 
+//
 // The MDM client running on the device creates one app rule in the VPN
 // configuration for each managed app that is linked to the VPN configuration
 // via the [VPNUUID] app attribute.
-// 
-// Per-App VPN On Demand
-// 
+//
+// # Per-App VPN On Demand
+//
 // The Per-App VPN app rules serve as both routing rules and VPN On Demand
 // rules. This is in contrast to IP destination-based routing, where the VPN
 // On Demand rules are configured separately from the routing rules. When the
-// `onDemandEnabled` property is set to [true] and an app that matches the
+// `onDemandEnabled` property is set to true and an app that matches the
 // Per-App VPN rules attempts to communicate over the network, the VPN will be
 // started automatically.
-// 
+//
 // It is possible to set regular VPN On Demand rules in a Per-App VPN
 // configuration via the [NETunnelProviderManager.OnDemandRules] property, but only
 // [NEOnDemandRuleDisconnect] rules will be used. When a
 // [NEOnDemandRuleDisconnect] rule matches, apps which match the Per-App VPN
 // rules will bypass the VPN.
-// 
-// Testing Per-App VPN
-// 
+//
+// # Testing Per-App VPN
+//
 // As described above, an MDM server is required to configure Per-App VPN for
 // VPN apps distributed via the App Store. To make testing Per-App VPN easier,
 // it is possible to configure Per-App VPN without an MDM server during
 // development by using the [NETestAppMapping] `Info.Plist()` key.
-// 
+//
 // Here is what you need to do to make use of this capability:
-// 
+//
 // - Create a configuration profile containing a
 // `com.AppleXCUIElementTypeVpnXCUIElementTypeManagedXCUIElementTypeApplayer()`
 // payload as described in [Configuration Profile Reference]. In addition to
@@ -186,18 +187,15 @@ func (nc NETunnelProviderManagerClass) Alloc() NETunnelProviderManager {
 // the [NETestAppMapping] key to your app’s `Info.Plist()`. The value of
 // this key should be a dictionary that maps [VPNUUID] values to arrays of app
 // bundle identifiers. Here is a sample:
-// 
+//
 // - Rebuild the app. - Install the app and the configuration profile on the
 // device.
-// 
+//
 // The system will create one app rule in the VPN configuration for each
 // bundle identifier listed in the array in the [NETestAppMapping] dictionary
 // corresponding to the value of the [VPNUUID] field in the
 // `com.AppleXCUIElementTypeVpnXCUIElementTypeManagedXCUIElementTypeApplayer()`
 // payload.
-//
-// [Configuration Profile Reference]: https://developer.apple.com/library/archive/featuredarticles/iPhoneConfigurationProfileRef/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010206
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Managing tunnel configurations
 //
@@ -225,6 +223,8 @@ func (nc NETunnelProviderManagerClass) Alloc() NETunnelProviderManager {
 //   - [NETunnelProviderManager.SetSafariDomains]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderManager
+//
+// [Configuration Profile Reference]: https://developer.apple.com/library/archive/featuredarticles/iPhoneConfigurationProfileRef/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010206
 type NETunnelProviderManager struct {
 	NEVPNManager
 }
@@ -235,6 +235,7 @@ type NETunnelProviderManager struct {
 func NETunnelProviderManagerFromID(id objc.ID) NETunnelProviderManager {
 	return NETunnelProviderManager{NEVPNManager: NEVPNManagerFromID(id)}
 }
+
 // NOTE: NETunnelProviderManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -326,12 +327,12 @@ func NewNETunnelProviderManager() NETunnelProviderManager {
 // Returns a copy of the app rules currently set in the configuration.
 //
 // # Return Value
-// 
+//
 // An array of [NEAppRule] objects, or `nil` if the configuration doesn’t
 // have any app rules.
 //
 // # Discussion
-// 
+//
 // This method provides read-only access to the configuration’s app rules.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderManager/copyAppRules()
@@ -345,7 +346,7 @@ func (t NETunnelProviderManager) CopyAppRules() []NEAppRule {
 // Returns a tunnel provider manager for managing a per-app VPN configuration.
 //
 // # Return Value
-// 
+//
 // An object you use to configure a per-app VPN.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderManager/forPerAppVPN()
@@ -357,20 +358,19 @@ func (_NETunnelProviderManagerClass NETunnelProviderManagerClass) ForPerAppVPN()
 // The method that the system uses to route network traffic to the tunnel.
 //
 // # Discussion
-// 
-// The default is [NETunnelProviderRoutingMethod.destinationIP].
 //
-// [NETunnelProviderRoutingMethod.destinationIP]: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderRoutingMethod/destinationIP
+// The default is [NETunnelProviderRoutingMethodDestinationIP].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderManager/routingMethod
 func (t NETunnelProviderManager) RoutingMethod() NETunnelProviderRoutingMethod {
 	rv := objc.Send[NETunnelProviderRoutingMethod](t.ID, objc.Sel("routingMethod"))
 	return NETunnelProviderRoutingMethod(rv)
 }
+
 // The rules for specific apps in a per-app VPN.
 //
 // # Discussion
-// 
+//
 // For per-app VPNs only, the system routes network traffic originating from
 // an app that matches one of these rules through the VPN.
 //
@@ -384,10 +384,11 @@ func (t NETunnelProviderManager) AppRules() []NEAppRule {
 func (t NETunnelProviderManager) SetAppRules(value []NEAppRule) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAppRules:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The domains that the system excludes from a per-app VPN.
 //
 // # Discussion
-// 
+//
 // For per-app VPNs only, the system doesn’t route network traffic to
 // servers within these domains.
 //
@@ -399,11 +400,12 @@ func (t NETunnelProviderManager) ExcludedDomains() []string {
 func (t NETunnelProviderManager) SetExcludedDomains(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setExcludedDomains:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The domains that the system routes network traffic through for a per-app
 // VPN.
 //
 // # Discussion
-// 
+//
 // For per-app VPNs only, the system routes HTTP requests to download the
 // Apple app site association files for domains in this property through the
 // VPN.
@@ -416,11 +418,12 @@ func (t NETunnelProviderManager) AssociatedDomains() []string {
 func (t NETunnelProviderManager) SetAssociatedDomains(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAssociatedDomains:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The calendar servers that the system routes connections from the Calendar
 // app through for a per-app VPN.
 //
 // # Discussion
-// 
+//
 // This property applies only to per-app VPNs.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderManager/calendarDomains
@@ -431,11 +434,12 @@ func (t NETunnelProviderManager) CalendarDomains() []string {
 func (t NETunnelProviderManager) SetCalendarDomains(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCalendarDomains:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The contacts servers that the system routes connections from the Contacts
 // app through for a per-app VPN.
 //
 // # Discussion
-// 
+//
 // This property applies only to per-app VPNs.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderManager/contactsDomains
@@ -446,11 +450,12 @@ func (t NETunnelProviderManager) ContactsDomains() []string {
 func (t NETunnelProviderManager) SetContactsDomains(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContactsDomains:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The mail servers that the system routes connections from the Mail app
 // through for a per-app VPN.
 //
 // # Discussion
-// 
+//
 // This property applies only to per-app VPNs.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderManager/mailDomains
@@ -461,11 +466,12 @@ func (t NETunnelProviderManager) MailDomains() []string {
 func (t NETunnelProviderManager) SetMailDomains(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMailDomains:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The website domains that the system routes connections from the Safari app
 // through a per-app VPN.
 //
 // # Discussion
-// 
+//
 // For per-app VPNs only, when the user navigates in Safari to a website
 // within one of these domains, the system routes the website traffic through
 // the VPN.
@@ -478,4 +484,3 @@ func (t NETunnelProviderManager) SafariDomains() []string {
 func (t NETunnelProviderManager) SetSafariDomains(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSafariDomains:"), objectivec.StringSliceToNSArray(value))
 }
-

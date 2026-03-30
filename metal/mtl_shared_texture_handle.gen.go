@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (mc MTLSharedTextureHandleClass) Alloc() MTLSharedTextureHandle {
 // boundaries.
 //
 // # Overview
-// 
+//
 // [MTLSharedTextureHandle] objects may be passed between processes using XPC
 // connections and then used to create a reference to the texture in another
 // process. The texture in the other process needs to be created using the
@@ -71,6 +72,7 @@ type MTLSharedTextureHandle struct {
 func MTLSharedTextureHandleFromID(id objc.ID) MTLSharedTextureHandle {
 	return MTLSharedTextureHandle{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLSharedTextureHandle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,7 +123,7 @@ func (s MTLSharedTextureHandle) EncodeWithCoder(coder foundation.INSCoder) {
 // The device object that created the texture.
 //
 // # Discussion
-// 
+//
 // A texture is always associated with the [MTLDevice] that created it and can
 // be used only with that device.
 //
@@ -130,19 +132,19 @@ func (s MTLSharedTextureHandle) Device() MTLDevice {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 }
+
 // A string that identifies the texture.
 //
 // # Discussion
-// 
+//
 // Object and command labels are useful identifiers at runtime or when
 // profiling and debugging your app using any Metal tool. See [Naming
 // resources and commands].
 //
-// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
-//
 // See: https://developer.apple.com/documentation/Metal/MTLSharedTextureHandle/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (s MTLSharedTextureHandle) Label() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 }
-

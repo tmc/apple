@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,6 +55,7 @@ type NSScrollEdgeEffectStyle struct {
 func NSScrollEdgeEffectStyleFromID(id objc.ID) NSScrollEdgeEffectStyle {
 	return NSScrollEdgeEffectStyle{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSScrollEdgeEffectStyle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,6 +108,7 @@ func (_NSScrollEdgeEffectStyleClass NSScrollEdgeEffectStyleClass) AutomaticStyle
 	rv := objc.Send[objc.ID](objc.ID(_NSScrollEdgeEffectStyleClass.class), objc.Sel("automaticStyle"))
 	return NSScrollEdgeEffectStyleFromID(objc.ID(rv))
 }
+
 // A scroll edge effect with a hard cutoff.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollEdgeEffectStyle/hard
@@ -113,6 +116,7 @@ func (_NSScrollEdgeEffectStyleClass NSScrollEdgeEffectStyleClass) HardStyle() NS
 	rv := objc.Send[objc.ID](objc.ID(_NSScrollEdgeEffectStyleClass.class), objc.Sel("hardStyle"))
 	return NSScrollEdgeEffectStyleFromID(objc.ID(rv))
 }
+
 // A scroll edge effect with a soft edge.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollEdgeEffectStyle/soft
@@ -120,4 +124,3 @@ func (_NSScrollEdgeEffectStyleClass NSScrollEdgeEffectStyleClass) SoftStyle() NS
 	rv := objc.Send[objc.ID](objc.ID(_NSScrollEdgeEffectStyleClass.class), objc.Sel("softStyle"))
 	return NSScrollEdgeEffectStyleFromID(objc.ID(rv))
 }
-

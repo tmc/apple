@@ -4,9 +4,10 @@ package metal
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // uint values.
@@ -68,11 +69,9 @@ var (
 	ProcessInfoPerformanceProfileDidChangeNotification foundation.NSNotificationName
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
 var (
 	// MTLDeviceRemovalRequestedNotification is a notification that Metal sends to observers when a person requests to remove a GPU device from the system.
@@ -97,7 +96,12 @@ var (
 )
 
 var (
+	// ProcessPerformanceProfileSustained is the performance profile for a device representing sustained performance.
+	//
+	// See: https://developer.apple.com/documentation/Metal/NSProcessPerformanceProfile/sustained
+	ProcessPerformanceProfileSustained NSProcessPerformanceProfile
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -339,12 +343,8 @@ func init() {
 		}
 	}
 
-	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessPerformanceProfileDefault"); err == nil && ptr != 0 {
-		NSProcessPerformanceProfiles.Default = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
-	}
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessPerformanceProfileSustained"); err == nil && ptr != 0 {
-		NSProcessPerformanceProfiles.Sustained = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
+		ProcessPerformanceProfileSustained = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
 	}
 
 }
@@ -392,12 +392,3 @@ var MTLCommonCounters struct {
 	// VertexInvocations: The common name for the counter that tracks the number of times a render pass calls any vertex shader.
 	VertexInvocations MTLCommonCounter
 }
-
-// NSProcessPerformanceProfiles provides typed accessors for [NSProcessPerformanceProfile] constants.
-var NSProcessPerformanceProfiles struct {
-	// Default: The default performance profile for a device.
-	Default NSProcessPerformanceProfile
-	// Sustained: The performance profile for a device representing sustained performance.
-	Sustained NSProcessPerformanceProfile
-}
-

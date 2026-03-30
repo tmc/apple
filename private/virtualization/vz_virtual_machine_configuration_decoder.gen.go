@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (vc VZVirtualMachineConfigurationDecoderClass) Alloc() VZVirtualMachineConf
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtualMachineConfigurationDecoder.ConfigurationFromDataFormatError]
 //   - [VZVirtualMachineConfigurationDecoder.Delegate]
 //   - [VZVirtualMachineConfigurationDecoder.SetDelegate]
 //   - [VZVirtualMachineConfigurationDecoder.InitWithBaseURL]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationDecoder
 type VZVirtualMachineConfigurationDecoder struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type VZVirtualMachineConfigurationDecoder struct {
 func VZVirtualMachineConfigurationDecoderFromID(id objc.ID) VZVirtualMachineConfigurationDecoder {
 	return VZVirtualMachineConfigurationDecoder{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVirtualMachineConfigurationDecoder implements IVZVirtualMachineConfigurationDecoder.
 var _ IVZVirtualMachineConfigurationDecoder = VZVirtualMachineConfigurationDecoder{}
 
@@ -102,7 +104,6 @@ func NewVZVirtualMachineConfigurationDecoder() VZVirtualMachineConfigurationDeco
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationDecoder/initWithBaseURL:
 func NewVZVirtualMachineConfigurationDecoderWithBaseURL(url foundation.INSURL) VZVirtualMachineConfigurationDecoder {
 	instance := getVZVirtualMachineConfigurationDecoderClass().Alloc()
@@ -110,7 +111,6 @@ func NewVZVirtualMachineConfigurationDecoderWithBaseURL(url foundation.INSURL) V
 	return VZVirtualMachineConfigurationDecoderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationDecoder/configurationFromData:format:error:
 func (v VZVirtualMachineConfigurationDecoder) ConfigurationFromDataFormatError(data objectivec.IObject, format unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -122,7 +122,7 @@ func (v VZVirtualMachineConfigurationDecoder) ConfigurationFromDataFormatError(d
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineConfigurationDecoder/initWithBaseURL:
 func (v VZVirtualMachineConfigurationDecoder) InitWithBaseURL(url foundation.INSURL) VZVirtualMachineConfigurationDecoder {
 	rv := objc.Send[VZVirtualMachineConfigurationDecoder](v.ID, objc.Sel("initWithBaseURL:"), url)
@@ -137,4 +137,3 @@ func (v VZVirtualMachineConfigurationDecoder) Delegate() objectivec.IObject {
 func (v VZVirtualMachineConfigurationDecoder) SetDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
-

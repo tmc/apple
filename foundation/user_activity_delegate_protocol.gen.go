@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // The interface through which a user activity instance notifies its delegate of updates.
@@ -20,6 +22,7 @@ type NSUserActivityDelegate interface {
 type NSUserActivityDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSUserActivityDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -36,9 +39,7 @@ func NSUserActivityDelegateObjectFromID(id objc.ID) NSUserActivityDelegateObject
 // available to open.
 //
 // userActivity: The user activity that is continuing on another device. This user
-// activity’s [SupportsContinuationStreams] property must be [true].
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// activity’s [SupportsContinuationStreams] property must be true.
 //
 // inputStream: The stream from which the originating app can read data written from the
 // continuing app.
@@ -47,24 +48,23 @@ func NSUserActivityDelegateObjectFromID(id objc.ID) NSUserActivityDelegateObject
 // continuing app.
 //
 // # Discussion
-// 
-// If [SupportsContinuationStreams] is [true], the continuing app can request
+//
+// If [SupportsContinuationStreams] is true, the continuing app can request
 // streams back to the originating app. This delegate callback is received
 // with the streams from the continuing side. The streams are provided in an
 // unopened state, and the delegate should open them immediately to start
 // communicating with the continuing side.
-// 
+//
 // Continuation streams are an optional feature of Handoff, and most user
 // activities do not need them for successful continuation. When streams are
 // needed, a simple request from the continuing app accompanied by a response
 // from the originating app is enough for most continuation events.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivityDelegate/userActivity(_:didReceive:outputStream:)
 func (o NSUserActivityDelegateObject) UserActivityDidReceiveInputStreamOutputStream(userActivity INSUserActivity, inputStream INSInputStream, outputStream INSOutputStream) {
 	objc.Send[struct{}](o.ID, objc.Sel("userActivity:didReceiveInputStream:outputStream:"), userActivity, inputStream, outputStream)
-	}
+}
+
 // Notifies the delegate that the user activity was continued on another
 // device.
 //
@@ -73,21 +73,22 @@ func (o NSUserActivityDelegateObject) UserActivityDidReceiveInputStreamOutputStr
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivityDelegate/userActivityWasContinued(_:)
 func (o NSUserActivityDelegateObject) UserActivityWasContinued(userActivity INSUserActivity) {
 	objc.Send[struct{}](o.ID, objc.Sel("userActivityWasContinued:"), userActivity)
-	}
+}
+
 // Notifies the delegate that the user activity will be saved to be continued
 // or persisted.
 //
 // userActivity: The user activity to update.
 //
 // # Discussion
-// 
+//
 // The delegate overrides this method to update the activity with current
 // state.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivityDelegate/userActivityWillSave(_:)
 func (o NSUserActivityDelegateObject) UserActivityWillSave(userActivity INSUserActivity) {
 	objc.Send[struct{}](o.ID, objc.Sel("userActivityWillSave:"), userActivity)
-	}
+}
 
 // NSUserActivityDelegateConfig holds optional typed callbacks for [NSUserActivityDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -179,4 +180,3 @@ func NewNSUserActivityDelegate(config NSUserActivityDelegateConfig) NSUserActivi
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSUserActivityDelegateObjectFromID(instance)
 }
-

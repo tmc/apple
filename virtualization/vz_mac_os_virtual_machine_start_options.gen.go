@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -58,6 +59,7 @@ type VZMacOSVirtualMachineStartOptions struct {
 func VZMacOSVirtualMachineStartOptionsFromID(id objc.ID) VZMacOSVirtualMachineStartOptions {
 	return VZMacOSVirtualMachineStartOptions{VZVirtualMachineStartOptions: VZVirtualMachineStartOptionsFromID(id)}
 }
+
 // NOTE: VZMacOSVirtualMachineStartOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,4 +111,3 @@ func (m VZMacOSVirtualMachineStartOptions) StartUpFromMacOSRecovery() bool {
 func (m VZMacOSVirtualMachineStartOptions) SetStartUpFromMacOSRecovery(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStartUpFromMacOSRecovery:"), value)
 }
-

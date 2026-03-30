@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZSerialPortAttachmentClass) Alloc() VZSerialPortAttachment {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZSerialPortAttachment._init]
@@ -51,6 +51,7 @@ func (vc VZSerialPortAttachmentClass) Alloc() VZSerialPortAttachment {
 //   - [VZSerialPortAttachment.Description]
 //   - [VZSerialPortAttachment.Hash]
 //   - [VZSerialPortAttachment.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment
 type VZSerialPortAttachment struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZSerialPortAttachment struct {
 func VZSerialPortAttachmentFromID(id objc.ID) VZSerialPortAttachment {
 	return VZSerialPortAttachment{objectivec.Object{ID: id}}
 }
+
 // Ensure VZSerialPortAttachment implements IVZSerialPortAttachment.
 var _ IVZSerialPortAttachment = VZSerialPortAttachment{}
 
@@ -118,24 +120,27 @@ func (s VZSerialPortAttachment) _attachment() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_attachment"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/debugDescription
 func (s VZSerialPortAttachment) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/description
 func (s VZSerialPortAttachment) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/hash
 func (s VZSerialPortAttachment) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortAttachment/superclass
 func (s VZSerialPortAttachment) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
 	return rv
 }
-

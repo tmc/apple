@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,13 +45,13 @@ func (dc DIEncryptionChpassClass) Alloc() DIEncryptionChpass {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIEncryptionChpass.PassEntryToChange]
 //   - [DIEncryptionChpass.SetPassEntryToChange]
 //   - [DIEncryptionChpass.ReplacePassWithXpcHandlerParamsError]
 //   - [DIEncryptionChpass.ReplacePassphraseError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionChpass
 type DIEncryptionChpass struct {
 	DIEncryptionFrontend
@@ -60,6 +61,7 @@ type DIEncryptionChpass struct {
 func DIEncryptionChpassFromID(id objc.ID) DIEncryptionChpass {
 	return DIEncryptionChpass{DIEncryptionFrontend: DIEncryptionFrontendFromID(id)}
 }
+
 // Ensure DIEncryptionChpass implements IDIEncryptionChpass.
 var _ IDIEncryptionChpass = DIEncryptionChpass{}
 
@@ -103,7 +105,6 @@ func NewDIEncryptionChpass() DIEncryptionChpass {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionChpass/initWithCoder:
 func NewDIEncryptionChpassWithCoder(coder objectivec.IObject) DIEncryptionChpass {
 	instance := getDIEncryptionChpassClass().Alloc()
@@ -111,7 +112,6 @@ func NewDIEncryptionChpassWithCoder(coder objectivec.IObject) DIEncryptionChpass
 	return DIEncryptionChpassFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionChpass/initWithParams:
 func NewDIEncryptionChpassWithParams(params objectivec.IObject) DIEncryptionChpass {
 	instance := getDIEncryptionChpassClass().Alloc()
@@ -119,7 +119,6 @@ func NewDIEncryptionChpassWithParams(params objectivec.IObject) DIEncryptionChpa
 	return DIEncryptionChpassFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionChpass/replacePassWithXpcHandler:params:error:
 func (d DIEncryptionChpass) ReplacePassWithXpcHandlerParamsError(handler objectivec.IObject, params objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -134,11 +133,11 @@ func (d DIEncryptionChpass) ReplacePassWithXpcHandlerParamsError(handler objecti
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionChpass/replacePassphrase:error:
 func (d DIEncryptionChpass) ReplacePassphraseError(passphrase string) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](d.ID, objc.Sel("replacePassphrase:error:"), unsafe.Pointer(unsafe.StringData(passphrase + "\x00")), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](d.ID, objc.Sel("replacePassphrase:error:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -158,4 +157,3 @@ func (d DIEncryptionChpass) PassEntryToChange() unsafe.Pointer {
 func (d DIEncryptionChpass) SetPassEntryToChange(value unsafe.Pointer) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPassEntryToChange:"), value)
 }
-

@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLE5InputPortClass) Alloc() MLE5InputPort {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLE5InputPort.Binder]
@@ -63,6 +63,7 @@ func (mc MLE5InputPortClass) Alloc() MLE5InputPort {
 //   - [MLE5InputPort.Description]
 //   - [MLE5InputPort.Hash]
 //   - [MLE5InputPort.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort
 type MLE5InputPort struct {
 	objectivec.Object
@@ -72,6 +73,7 @@ type MLE5InputPort struct {
 func MLE5InputPortFromID(id objc.ID) MLE5InputPort {
 	return MLE5InputPort{objectivec.Object{ID: id}}
 }
+
 // Ensure MLE5InputPort implements IMLE5InputPort.
 var _ IMLE5InputPort = MLE5InputPort{}
 
@@ -139,7 +141,6 @@ func NewMLE5InputPort() MLE5InputPort {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/initWithPortHandle:name:featureDescription:
 func NewE5InputPortWithPortHandleNameFeatureDescription(handle objectivec.IObject, name objectivec.IObject, description objectivec.IObject) MLE5InputPort {
 	instance := getMLE5InputPortClass().Alloc()
@@ -147,7 +148,6 @@ func NewE5InputPortWithPortHandleNameFeatureDescription(handle objectivec.IObjec
 	return MLE5InputPortFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/copyFeatureValue:error:
 func (e MLE5InputPort) CopyFeatureValueError(value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -162,7 +162,7 @@ func (e MLE5InputPort) CopyFeatureValueError(value objectivec.IObject) (bool, er
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/prepareForFeatureValue:error:
 func (e MLE5InputPort) PrepareForFeatureValueError(value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -177,18 +177,19 @@ func (e MLE5InputPort) PrepareForFeatureValueError(value objectivec.IObject) (bo
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/reset
 func (e MLE5InputPort) Reset() {
 	objc.Send[objc.ID](e.ID, objc.Sel("reset"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/reusableForFeatureValue:willBindDirectly:
 func (e MLE5InputPort) ReusableForFeatureValueWillBindDirectly(value objectivec.IObject) (bool, bool) {
 	var directly bool
 	rv := objc.Send[bool](e.ID, objc.Sel("reusableForFeatureValue:willBindDirectly:"), value, unsafe.Pointer(&directly))
 	return directly, rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/initWithPortHandle:name:featureDescription:
 func (e MLE5InputPort) InitWithPortHandleNameFeatureDescription(handle objectivec.IObject, name objectivec.IObject, description objectivec.IObject) MLE5InputPort {
 	rv := objc.Send[MLE5InputPort](e.ID, objc.Sel("initWithPortHandle:name:featureDescription:"), handle, name, description)
@@ -203,31 +204,37 @@ func (e MLE5InputPort) Binder() IMLE5InputPortBinder {
 func (e MLE5InputPort) SetBinder(value IMLE5InputPortBinder) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBinder:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/boundFeatureDirectly
 func (e MLE5InputPort) BoundFeatureDirectly() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("boundFeatureDirectly"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/debugDescription
 func (e MLE5InputPort) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/description
 func (e MLE5InputPort) Description() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/hash
 func (e MLE5InputPort) Hash() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/name
 func (e MLE5InputPort) Name() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/pixelBufferPool
 func (e MLE5InputPort) PixelBufferPool() IMLPixelBufferPool {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("pixelBufferPool"))
@@ -236,14 +243,15 @@ func (e MLE5InputPort) PixelBufferPool() IMLPixelBufferPool {
 func (e MLE5InputPort) SetPixelBufferPool(value IMLPixelBufferPool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setPixelBufferPool:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/portHandle
 func (e MLE5InputPort) PortHandle() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("portHandle"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLE5InputPort/superclass
 func (e MLE5InputPort) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
 	return rv
 }
-

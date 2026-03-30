@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +61,7 @@ type CIAreaLogarithmicHistogram interface {
 type CIAreaLogarithmicHistogramObject struct {
 	objectivec.Object
 }
+
 func (o CIAreaLogarithmicHistogramObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -77,34 +78,40 @@ func CIAreaLogarithmicHistogramObjectFromID(id objc.ID) CIAreaLogarithmicHistogr
 func (o CIAreaLogarithmicHistogramObject) Count() int {
 	rv := objc.Send[int](o.ID, objc.Sel("count"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/maximumStop
 func (o CIAreaLogarithmicHistogramObject) MaximumStop() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("maximumStop"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/minimumStop
 func (o CIAreaLogarithmicHistogramObject) MinimumStop() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("minimumStop"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/scale
 func (o CIAreaLogarithmicHistogramObject) Scale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
 func (o CIAreaLogarithmicHistogramObject) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIAreaLogarithmicHistogramObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -112,29 +119,36 @@ func (o CIAreaLogarithmicHistogramObject) InputImage() ICIImage {
 func (o CIAreaLogarithmicHistogramObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/count
 func (o CIAreaLogarithmicHistogramObject) SetCount(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCount:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/maximumStop
 func (o CIAreaLogarithmicHistogramObject) SetMaximumStop(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaximumStop:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/minimumStop
 func (o CIAreaLogarithmicHistogramObject) SetMinimumStop(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMinimumStop:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaLogarithmicHistogram/scale
 func (o CIAreaLogarithmicHistogramObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
 func (o CIAreaLogarithmicHistogramObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIAreaLogarithmicHistogramObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

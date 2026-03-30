@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLModelStructureProgramOperationClass) Alloc() MLModelStructureProgramO
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelStructureProgramOperation.MilId]
@@ -51,6 +51,7 @@ func (mc MLModelStructureProgramOperationClass) Alloc() MLModelStructureProgramO
 //   - [MLModelStructureProgramOperation.Path]
 //   - [MLModelStructureProgramOperation.InitWithMILOperationPath]
 //   - [MLModelStructureProgramOperation.InitWithOperatorNameInputsOutputsBlocksPathMilTextLocationMilId]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation
 type MLModelStructureProgramOperation struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type MLModelStructureProgramOperation struct {
 func MLModelStructureProgramOperationFromID(id objc.ID) MLModelStructureProgramOperation {
 	return MLModelStructureProgramOperation{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgramOperation implements IMLModelStructureProgramOperation.
 var _ IMLModelStructureProgramOperation = MLModelStructureProgramOperation{}
 
@@ -105,7 +107,6 @@ func NewMLModelStructureProgramOperation() MLModelStructureProgramOperation {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/initWithMILOperation:path:
 func NewModelStructureProgramOperationWithMILOperationPath(mILOperation unsafe.Pointer, path unsafe.Pointer) MLModelStructureProgramOperation {
 	instance := getMLModelStructureProgramOperationClass().Alloc()
@@ -113,7 +114,6 @@ func NewModelStructureProgramOperationWithMILOperationPath(mILOperation unsafe.P
 	return MLModelStructureProgramOperationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/initWithOperatorName:inputs:outputs:blocks:path:milTextLocation:milId:
 func NewModelStructureProgramOperationWithOperatorNameInputsOutputsBlocksPathMilTextLocationMilId(name objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject, blocks objectivec.IObject, path objectivec.IObject, location objectivec.IObject, id objectivec.IObject) MLModelStructureProgramOperation {
 	instance := getMLModelStructureProgramOperationClass().Alloc()
@@ -121,13 +121,12 @@ func NewModelStructureProgramOperationWithOperatorNameInputsOutputsBlocksPathMil
 	return MLModelStructureProgramOperationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/initWithMILOperation:path:
 func (m MLModelStructureProgramOperation) InitWithMILOperationPath(mILOperation unsafe.Pointer, path unsafe.Pointer) MLModelStructureProgramOperation {
 	rv := objc.Send[MLModelStructureProgramOperation](m.ID, objc.Sel("initWithMILOperation:path:"), mILOperation, path)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/initWithOperatorName:inputs:outputs:blocks:path:milTextLocation:milId:
 func (m MLModelStructureProgramOperation) InitWithOperatorNameInputsOutputsBlocksPathMilTextLocationMilId(name objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject, blocks objectivec.IObject, path objectivec.IObject, location objectivec.IObject, id objectivec.IObject) MLModelStructureProgramOperation {
 	rv := objc.Send[MLModelStructureProgramOperation](m.ID, objc.Sel("initWithOperatorName:inputs:outputs:blocks:path:milTextLocation:milId:"), name, inputs, outputs, blocks, path, location, id)
@@ -139,14 +138,15 @@ func (m MLModelStructureProgramOperation) MilId() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("milId"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/milTextLocation
 func (m MLModelStructureProgramOperation) MilTextLocation() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("milTextLocation"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/path
 func (m MLModelStructureProgramOperation) Path() IMLModelStructurePath {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("path"))
 	return MLModelStructurePathFromID(objc.ID(rv))
 }
-

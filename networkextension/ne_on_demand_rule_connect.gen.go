@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (nc NEOnDemandRuleConnectClass) Alloc() NEOnDemandRuleConnect {
 // A VPN On Demand rule that connects the VPN.
 //
 // # Overview
-// 
+//
 // When rules of this class match, the system starts the VPN connection
 // whenever an application running on the system opens a network connection.
 //
@@ -58,6 +59,7 @@ type NEOnDemandRuleConnect struct {
 func NEOnDemandRuleConnectFromID(id objc.ID) NEOnDemandRuleConnect {
 	return NEOnDemandRuleConnect{NEOnDemandRule: NEOnDemandRuleFromID(id)}
 }
+
 // NOTE: NEOnDemandRuleConnect adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewNEOnDemandRuleConnect() NEOnDemandRuleConnect {
 	rv := objc.Send[NEOnDemandRuleConnect](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

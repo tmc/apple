@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,6 +45,7 @@ type GTMioCostProvider interface {
 type GTMioCostProviderObject struct {
 	objectivec.Object
 }
+
 func (o GTMioCostProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -60,28 +62,28 @@ func GTMioCostProviderObjectFromID(id objc.ID) GTMioCostProviderObject {
 func (o GTMioCostProviderObject) CostCount() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("costCount"))
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCostProvider/costForScope:scopeIdentifier:cost:
 func (o GTMioCostProviderObject) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCostProvider/costs
 func (o GTMioCostProviderObject) Costs() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("costs"))
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCostProvider/instructionCountForScope:scopeIdentifier:dataMaster:
 func (o GTMioCostProviderObject) InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCostProvider/totalCostForScope:scopeIdentifier:dataMaster:
 func (o GTMioCostProviderObject) TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
-	}
-
+}

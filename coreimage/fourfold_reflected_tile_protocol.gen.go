@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +70,7 @@ type CIFourfoldReflectedTile interface {
 type CIFourfoldReflectedTileObject struct {
 	objectivec.Object
 }
+
 func (o CIFourfoldReflectedTileObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -88,35 +89,40 @@ func CIFourfoldReflectedTileObjectFromID(id objc.ID) CIFourfoldReflectedTileObje
 func (o CIFourfoldReflectedTileObject) AcuteAngle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("acuteAngle"))
 	return rv
-	}
+}
+
 // The angle, in radians, of the tiled pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourfoldReflectedTile/angle
 func (o CIFourfoldReflectedTileObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // The x and y position to use as the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourfoldReflectedTile/center
 func (o CIFourfoldReflectedTileObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourfoldReflectedTile/inputImage
 func (o CIFourfoldReflectedTileObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The width of a tile.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourfoldReflectedTile/width
 func (o CIFourfoldReflectedTileObject) Width() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -124,25 +130,44 @@ func (o CIFourfoldReflectedTileObject) Width() float32 {
 func (o CIFourfoldReflectedTileObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The primary angle for the repeating reflected tile.
+//
+// # Discussion
+//
+// Small values create thin diamond tiles, and higher values create fatter
+// reflected tiles.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFourfoldReflectedTile/acuteAngle
 func (o CIFourfoldReflectedTileObject) SetAcuteAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAcuteAngle:"), value)
 }
 
+// The angle, in radians, of the tiled pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFourfoldReflectedTile/angle
 func (o CIFourfoldReflectedTileObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// The x and y position to use as the center of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFourfoldReflectedTile/center
 func (o CIFourfoldReflectedTileObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFourfoldReflectedTile/inputImage
 func (o CIFourfoldReflectedTileObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The width of a tile.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIFourfoldReflectedTile/width
 func (o CIFourfoldReflectedTileObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }
-

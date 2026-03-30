@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLNeuralEngineComputeDeviceRegistryClass) Alloc() MLNeuralEngineCompute
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLNeuralEngineComputeDeviceRegistry.NeuralEngineDevice]
@@ -52,6 +52,7 @@ func (mc MLNeuralEngineComputeDeviceRegistryClass) Alloc() MLNeuralEngineCompute
 //   - [MLNeuralEngineComputeDeviceRegistry.Description]
 //   - [MLNeuralEngineComputeDeviceRegistry.Hash]
 //   - [MLNeuralEngineComputeDeviceRegistry.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry
 type MLNeuralEngineComputeDeviceRegistry struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type MLNeuralEngineComputeDeviceRegistry struct {
 func MLNeuralEngineComputeDeviceRegistryFromID(id objc.ID) MLNeuralEngineComputeDeviceRegistry {
 	return MLNeuralEngineComputeDeviceRegistry{objectivec.Object{ID: id}}
 }
+
 // Ensure MLNeuralEngineComputeDeviceRegistry implements IMLNeuralEngineComputeDeviceRegistry.
 var _ IMLNeuralEngineComputeDeviceRegistry = MLNeuralEngineComputeDeviceRegistry{}
 
@@ -110,7 +112,6 @@ func NewMLNeuralEngineComputeDeviceRegistry() MLNeuralEngineComputeDeviceRegistr
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/initWithNeuralEngineDevice:
 func NewNeuralEngineComputeDeviceRegistryWithNeuralEngineDevice(device objectivec.IObject) MLNeuralEngineComputeDeviceRegistry {
 	instance := getMLNeuralEngineComputeDeviceRegistryClass().Alloc()
@@ -118,7 +119,6 @@ func NewNeuralEngineComputeDeviceRegistryWithNeuralEngineDevice(device objective
 	return MLNeuralEngineComputeDeviceRegistryFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/initWithNeuralEngineDevice:
 func (n MLNeuralEngineComputeDeviceRegistry) InitWithNeuralEngineDevice(device objectivec.IObject) MLNeuralEngineComputeDeviceRegistry {
 	rv := objc.Send[MLNeuralEngineComputeDeviceRegistry](n.ID, objc.Sel("initWithNeuralEngineDevice:"), device)
@@ -136,29 +136,33 @@ func (n MLNeuralEngineComputeDeviceRegistry) DebugDescription() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/description
 func (n MLNeuralEngineComputeDeviceRegistry) Description() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/hash
 func (n MLNeuralEngineComputeDeviceRegistry) Hash() uint64 {
 	rv := objc.Send[uint64](n.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/neuralEngineDevice
 func (n MLNeuralEngineComputeDeviceRegistry) NeuralEngineDevice() IMLNeuralEngineComputeDevice {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("neuralEngineDevice"))
 	return MLNeuralEngineComputeDeviceFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/registeredComputeDevices
 func (n MLNeuralEngineComputeDeviceRegistry) RegisteredComputeDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("registeredComputeDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDeviceRegistry/superclass
 func (n MLNeuralEngineComputeDeviceRegistry) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](n.ID, objc.Sel("superclass"))
 	return rv
 }
-

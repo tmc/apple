@@ -4,9 +4,10 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (vc VNObservationClass) Alloc() VNObservation {
 // The abstract superclass for analysis results.
 //
 // # Overview
-// 
+//
 // Observations resulting from Vision image analysis requests inherit from
 // this abstract base class. Don’t use this abstract superclass directly.
 //
@@ -70,6 +71,7 @@ type VNObservation struct {
 func VNObservationFromID(id objc.ID) VNObservation {
 	return VNObservation{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,26 +136,28 @@ func (o VNObservation) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
+
 // The time range of the reported observation.
 //
 // # Discussion
-// 
+//
 // When evaluating a sequence of image buffers, use this property to determine
 // each observation’s start time and duration. If a request doesn’t
 // support time ranges, or the time range is unknown, the value of this
 // property is [zero].
 //
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/zero
-//
 // See: https://developer.apple.com/documentation/Vision/VNObservation/timeRange
+//
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/zero
 func (o VNObservation) TimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](o.ID, objc.Sel("timeRange"))
 	return coremedia.CMTimeRange(rv)
 }
+
 // The level of confidence in the observation’s accuracy.
 //
 // # Discussion
-// 
+//
 // The Vision framework normalizes this value to `[0.0, 1.0]` under most
 // circumstances. A value of `0.0` indicates no confidence. A value of `1.0`
 // indicates highest confidence, or the observation doesn’t support or
@@ -164,6 +168,7 @@ func (o VNObservation) Confidence() VNConfidence {
 	rv := objc.Send[VNConfidence](o.ID, objc.Sel("confidence"))
 	return VNConfidence(rv)
 }
+
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //
@@ -173,6 +178,4 @@ func (o VNObservation) RequestRevision() uint {
 	return rv
 }
 
-			// Protocol methods for VNRequestRevisionProviding
-			
-
+// Protocol methods for VNRequestRevisionProviding

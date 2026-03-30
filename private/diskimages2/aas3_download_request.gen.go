@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (ac AAS3DownloadRequestClass) Alloc() AAS3DownloadRequest {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AAS3DownloadRequest.Buf]
@@ -68,6 +68,7 @@ func (ac AAS3DownloadRequestClass) Alloc() AAS3DownloadRequest {
 //   - [AAS3DownloadRequest.UrlRequest]
 //   - [AAS3DownloadRequest.SetUrlRequest]
 //   - [AAS3DownloadRequest.InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest
 type AAS3DownloadRequest struct {
 	objectivec.Object
@@ -77,6 +78,7 @@ type AAS3DownloadRequest struct {
 func AAS3DownloadRequestFromID(id objc.ID) AAS3DownloadRequest {
 	return AAS3DownloadRequest{objectivec.Object{ID: id}}
 }
+
 // Ensure AAS3DownloadRequest implements IAAS3DownloadRequest.
 var _ IAAS3DownloadRequest = AAS3DownloadRequest{}
 
@@ -156,11 +158,10 @@ func NewAAS3DownloadRequest() AAS3DownloadRequest {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:
 func NewAAS3DownloadRequestWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream unsafe.Pointer, semaphore objectivec.IObject) AAS3DownloadRequest {
 	instance := getAAS3DownloadRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), session, size, offset, unsafe.Pointer(unsafe.StringData(buffer + "\x00")), stream, semaphore)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), session, size, offset, unsafe.Pointer(unsafe.StringData(buffer+"\x00")), stream, semaphore)
 	return AAS3DownloadRequestFromID(rv)
 }
 
@@ -169,10 +170,10 @@ func (a AAS3DownloadRequest) CreateAndResumeTask() int {
 	rv := objc.Send[int](a.ID, objc.Sel("createAndResumeTask"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:
 func (a AAS3DownloadRequest) InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream unsafe.Pointer, semaphore objectivec.IObject) AAS3DownloadRequest {
-	rv := objc.Send[AAS3DownloadRequest](a.ID, objc.Sel("initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), session, size, offset, unsafe.Pointer(unsafe.StringData(buffer + "\x00")), stream, semaphore)
+	rv := objc.Send[AAS3DownloadRequest](a.ID, objc.Sel("initWithSession:size:atOffset:destinationBuffer:destinationStream:completionSemaphore:"), session, size, offset, unsafe.Pointer(unsafe.StringData(buffer+"\x00")), stream, semaphore)
 	return rv
 }
 
@@ -184,6 +185,7 @@ func (a AAS3DownloadRequest) Buf() string {
 func (a AAS3DownloadRequest) SetBuf(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBuf:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/downloadSession
 func (a AAS3DownloadRequest) DownloadSession() IAAS3DownloadSession {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("downloadSession"))
@@ -192,6 +194,7 @@ func (a AAS3DownloadRequest) DownloadSession() IAAS3DownloadSession {
 func (a AAS3DownloadRequest) SetDownloadSession(value IAAS3DownloadSession) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDownloadSession:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/nbyte
 func (a AAS3DownloadRequest) Nbyte() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("nbyte"))
@@ -200,6 +203,7 @@ func (a AAS3DownloadRequest) Nbyte() uint64 {
 func (a AAS3DownloadRequest) SetNbyte(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setNbyte:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/offset
 func (a AAS3DownloadRequest) Offset() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("offset"))
@@ -208,6 +212,7 @@ func (a AAS3DownloadRequest) Offset() int64 {
 func (a AAS3DownloadRequest) SetOffset(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOffset:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/pauseInterval
 func (a AAS3DownloadRequest) PauseInterval() float32 {
 	rv := objc.Send[float32](a.ID, objc.Sel("pauseInterval"))
@@ -216,6 +221,7 @@ func (a AAS3DownloadRequest) PauseInterval() float32 {
 func (a AAS3DownloadRequest) SetPauseInterval(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPauseInterval:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/remainingAttempts
 func (a AAS3DownloadRequest) RemainingAttempts() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("remainingAttempts"))
@@ -224,6 +230,7 @@ func (a AAS3DownloadRequest) RemainingAttempts() uint32 {
 func (a AAS3DownloadRequest) SetRemainingAttempts(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRemainingAttempts:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/sem
 func (a AAS3DownloadRequest) Sem() objectivec.Object {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sem"))
@@ -232,6 +239,7 @@ func (a AAS3DownloadRequest) Sem() objectivec.Object {
 func (a AAS3DownloadRequest) SetSem(value objectivec.Object) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSem:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/status
 func (a AAS3DownloadRequest) Status() int {
 	rv := objc.Send[int](a.ID, objc.Sel("status"))
@@ -240,6 +248,7 @@ func (a AAS3DownloadRequest) Status() int {
 func (a AAS3DownloadRequest) SetStatus(value int) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStatus:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/stream
 func (a AAS3DownloadRequest) Stream() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("stream"))
@@ -248,6 +257,7 @@ func (a AAS3DownloadRequest) Stream() unsafe.Pointer {
 func (a AAS3DownloadRequest) SetStream(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStream:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/AAS3DownloadRequest/urlRequest
 func (a AAS3DownloadRequest) UrlRequest() foundation.NSMutableURLRequest {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("urlRequest"))
@@ -256,4 +266,3 @@ func (a AAS3DownloadRequest) UrlRequest() foundation.NSMutableURLRequest {
 func (a AAS3DownloadRequest) SetUrlRequest(value foundation.NSMutableURLRequest) {
 	objc.Send[struct{}](a.ID, objc.Sel("setUrlRequest:"), value)
 }
-

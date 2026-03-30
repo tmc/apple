@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type ETModelWithExtractor struct {
 func ETModelWithExtractorFromID(id objc.ID) ETModelWithExtractor {
 	return ETModelWithExtractor{ETModelDef: ETModelDefFromID(id)}
 }
+
 // Ensure ETModelWithExtractor implements IETModelWithExtractor.
 var _ IETModelWithExtractor = ETModelWithExtractor{}
 
@@ -79,11 +81,9 @@ func NewETModelWithExtractor() ETModelWithExtractor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETModelDef/initWithNetwork:
 func NewETModelWithExtractorWithNetwork(network objectivec.IObject) ETModelWithExtractor {
 	instance := getETModelWithExtractorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return ETModelWithExtractorFromID(rv)
 }
-

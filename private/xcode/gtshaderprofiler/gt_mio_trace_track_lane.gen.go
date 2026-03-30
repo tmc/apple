@@ -3,8 +3,9 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (gc GTMioTraceTrackLaneClass) Alloc() GTMioTraceTrackLane {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioTraceTrackLane.Add]
@@ -51,6 +51,7 @@ func (gc GTMioTraceTrackLaneClass) Alloc() GTMioTraceTrackLane {
 //   - [GTMioTraceTrackLane.IsEmpty]
 //   - [GTMioTraceTrackLane.LaneId]
 //   - [GTMioTraceTrackLane.InitWithId]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrackLane
 type GTMioTraceTrackLane struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type GTMioTraceTrackLane struct {
 func GTMioTraceTrackLaneFromID(id objc.ID) GTMioTraceTrackLane {
 	return GTMioTraceTrackLane{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioTraceTrackLane implements IGTMioTraceTrackLane.
 var _ IGTMioTraceTrackLane = GTMioTraceTrackLane{}
 
@@ -107,7 +109,6 @@ func NewGTMioTraceTrackLane() GTMioTraceTrackLane {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrackLane/initWithId:
 func NewGTMioTraceTrackLaneWithId(id int) GTMioTraceTrackLane {
 	instance := getGTMioTraceTrackLaneClass().Alloc()
@@ -115,17 +116,17 @@ func NewGTMioTraceTrackLaneWithId(id int) GTMioTraceTrackLane {
 	return GTMioTraceTrackLaneFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrackLane/add:
 func (g GTMioTraceTrackLane) Add(add uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("add:"), add)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrackLane/isEmpty
 func (g GTMioTraceTrackLane) IsEmpty() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isEmpty"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrackLane/initWithId:
 func (g GTMioTraceTrackLane) InitWithId(id int) GTMioTraceTrackLane {
 	rv := objc.Send[GTMioTraceTrackLane](g.ID, objc.Sel("initWithId:"), id)
@@ -137,14 +138,15 @@ func (g GTMioTraceTrackLane) IndexCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("indexCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrackLane/indexes
 func (g GTMioTraceTrackLane) Indexes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("indexes"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrackLane/laneId
 func (g GTMioTraceTrackLane) LaneId() int {
 	rv := objc.Send[int](g.ID, objc.Sel("laneId"))
 	return rv
 }
-

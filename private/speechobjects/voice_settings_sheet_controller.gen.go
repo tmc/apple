@@ -4,6 +4,7 @@ package speechobjects
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VoiceSettingsSheetControllerClass) Alloc() VoiceSettingsSheetController
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VoiceSettingsSheetController.ShowSheetWithVoiceSettingsModalDelegateModalForWindow]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsSheetController
 type VoiceSettingsSheetController struct {
 	VoiceSettingsWindowController
@@ -54,6 +55,7 @@ type VoiceSettingsSheetController struct {
 func VoiceSettingsSheetControllerFromID(id objc.ID) VoiceSettingsSheetController {
 	return VoiceSettingsSheetController{VoiceSettingsWindowController: VoiceSettingsWindowControllerFromID(id)}
 }
+
 // Ensure VoiceSettingsSheetController implements IVoiceSettingsSheetController.
 var _ IVoiceSettingsSheetController = VoiceSettingsSheetController{}
 
@@ -91,7 +93,6 @@ func NewVoiceSettingsSheetController() VoiceSettingsSheetController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/VoiceSettingsSheetController/showSheetWithVoiceSettings:modalDelegate:modalForWindow:
 func (v VoiceSettingsSheetController) ShowSheetWithVoiceSettingsModalDelegateModalForWindow(settings objectivec.IObject, delegate objectivec.IObject, window objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("showSheetWithVoiceSettings:modalDelegate:modalForWindow:"), settings, delegate, window)
@@ -102,4 +103,3 @@ func (_VoiceSettingsSheetControllerClass VoiceSettingsSheetControllerClass) Defa
 	rv := objc.Send[objc.ID](objc.ID(_VoiceSettingsSheetControllerClass.class), objc.Sel("defaultVoiceSettingsSheetController"))
 	return objectivec.Object{ID: rv}
 }
-

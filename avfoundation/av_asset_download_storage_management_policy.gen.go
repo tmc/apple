@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -62,6 +63,7 @@ type AVAssetDownloadStorageManagementPolicy struct {
 func AVAssetDownloadStorageManagementPolicyFromID(id objc.ID) AVAssetDownloadStorageManagementPolicy {
 	return AVAssetDownloadStorageManagementPolicy{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetDownloadStorageManagementPolicy adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,6 +112,7 @@ func (a AVAssetDownloadStorageManagementPolicy) ExpirationDate() foundation.INSD
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("expirationDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
+
 // The eviction priority for an asset.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadStorageManagementPolicy/priority
@@ -117,4 +120,3 @@ func (a AVAssetDownloadStorageManagementPolicy) Priority() AVAssetDownloadedAsse
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("priority"))
 	return AVAssetDownloadedAssetEvictionPriority(foundation.NSStringFromID(rv).String())
 }
-

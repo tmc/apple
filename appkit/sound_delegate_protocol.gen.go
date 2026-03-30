@@ -4,9 +4,11 @@ package appkit
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of optional methods implemented by delegates of [NSSound](<doc://com.apple.appkit/documentation/AppKit/NSSound>) objects.
@@ -20,6 +22,7 @@ type NSSoundDelegate interface {
 type NSSoundDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSSoundDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,15 +40,12 @@ func NSSoundDelegateObjectFromID(id objc.ID) NSSoundDelegateObject {
 //
 // sound: The [NSSound] that has completed playback of its sound data.
 //
-// flag: [true] when playback was successful; [false] otherwise.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// flag: true when playback was successful; false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSoundDelegate/sound(_:didFinishPlaying:)
 func (o NSSoundDelegateObject) SoundDidFinishPlaying(sound INSSound, flag bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("sound:didFinishPlaying:"), sound, flag)
-	}
+}
 
 // NSSoundDelegateConfig holds optional typed callbacks for [NSSoundDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -107,4 +107,3 @@ func NewNSSoundDelegate(config NSSoundDelegateConfig) NSSoundDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSoundDelegateObjectFromID(instance)
 }
-

@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -69,6 +70,7 @@ type NSAccessibilityCustomRotorItemResult struct {
 func NSAccessibilityCustomRotorItemResultFromID(id objc.ID) NSAccessibilityCustomRotorItemResult {
 	return NSAccessibilityCustomRotorItemResult{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAccessibilityCustomRotorItemResult adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -161,6 +163,7 @@ func (a NSAccessibilityCustomRotorItemResult) InitWithTargetElement(targetElemen
 	rv := objc.Send[NSAccessibilityCustomRotorItemResult](a.ID, objc.Sel("initWithTargetElement:"), targetElement)
 	return rv
 }
+
 // Creates an item result with the specified item load token and custom label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/init(itemLoadingToken:customLabel:)
@@ -177,6 +180,7 @@ func (a NSAccessibilityCustomRotorItemResult) TargetElement() NSAccessibilityEle
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("targetElement"))
 	return NSAccessibilityElementFromID(objc.ID(rv))
 }
+
 // A token to determine which item to return.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/itemLoadingToken
@@ -184,6 +188,7 @@ func (a NSAccessibilityCustomRotorItemResult) ItemLoadingToken() NSAccessibility
 	rv := objc.Send[NSAccessibilityLoadingToken](a.ID, objc.Sel("itemLoadingToken"))
 	return NSAccessibilityLoadingToken(rv)
 }
+
 // A range that specifies the area of interest for text-based elements.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/ItemResult/targetRange
@@ -194,6 +199,7 @@ func (a NSAccessibilityCustomRotorItemResult) TargetRange() foundation.NSRange {
 func (a NSAccessibilityCustomRotorItemResult) SetTargetRange(value foundation.NSRange) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTargetRange:"), value)
 }
+
 // A localized label to use instead of the default item label to describe the
 // item result.
 //
@@ -205,6 +211,7 @@ func (a NSAccessibilityCustomRotorItemResult) CustomLabel() string {
 func (a NSAccessibilityCustomRotorItemResult) SetCustomLabel(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCustomLabel:"), objc.String(value))
 }
+
 // The current item that determines where the search starts.
 //
 // See: https://developer.apple.com/documentation/appkit/nsaccessibilitycustomrotor/searchparameters/currentitem
@@ -215,4 +222,3 @@ func (a NSAccessibilityCustomRotorItemResult) CurrentItem() INSAccessibilityCust
 func (a NSAccessibilityCustomRotorItemResult) SetCurrentItem(value INSAccessibilityCustomRotorItemResult) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentItem:"), value)
 }
-

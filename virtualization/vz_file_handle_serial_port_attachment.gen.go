@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZFileHandleSerialPortAttachment] class.
@@ -45,11 +46,11 @@ func (vc VZFileHandleSerialPortAttachmentClass) Alloc() VZFileHandleSerialPortAt
 // handles.
 //
 // # Overview
-// 
+//
 // Use a [VZFileHandleSerialPortAttachment] object to configure a serial port
 // using separate file handles for reading and writing data. In your virtual
 // machine, use the file handles in this object in the following way:
-// 
+//
 // - To send data to the guest operating system, write data to the file handle
 // in the [VZFileHandleSerialPortAttachment.FileHandleForReading] property. - To receive data from the guest
 // operating system, read data from the file handle in the
@@ -76,6 +77,7 @@ type VZFileHandleSerialPortAttachment struct {
 func VZFileHandleSerialPortAttachmentFromID(id objc.ID) VZFileHandleSerialPortAttachment {
 	return VZFileHandleSerialPortAttachment{VZSerialPortAttachment: VZSerialPortAttachmentFromID(id)}
 }
+
 // NOTE: VZFileHandleSerialPortAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,7 +139,7 @@ func NewVZFileHandleSerialPortAttachment() VZFileHandleSerialPortAttachment {
 // for the file handle is invalid, this method raises an exception.
 //
 // # Return Value
-// 
+//
 // A serial port attachment object.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZFileHandleSerialPortAttachment/init(fileHandleForReading:fileHandleForWriting:)
@@ -158,7 +160,7 @@ func NewFileHandleSerialPortAttachmentWithFileHandleForReadingFileHandleForWriti
 // for the file handle is invalid, this method raises an exception.
 //
 // # Return Value
-// 
+//
 // A serial port attachment object.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZFileHandleSerialPortAttachment/init(fileHandleForReading:fileHandleForWriting:)
@@ -170,7 +172,7 @@ func (f VZFileHandleSerialPortAttachment) InitWithFileHandleForReadingFileHandle
 // The file handle that the guest operating system uses to read data.
 //
 // # Discussion
-// 
+//
 // When you want to send data to the guest operating system, write data to the
 // file handle in this property.
 //
@@ -179,10 +181,11 @@ func (f VZFileHandleSerialPortAttachment) FileHandleForReading() foundation.NSFi
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fileHandleForReading"))
 	return foundation.NSFileHandleFromID(objc.ID(rv))
 }
+
 // The file handle that the guest operating system uses to write data.
 //
 // # Discussion
-// 
+//
 // When you want to receive data from the guest operating system, read data
 // from the file handle in this property.
 //
@@ -191,4 +194,3 @@ func (f VZFileHandleSerialPortAttachment) FileHandleForWriting() foundation.NSFi
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fileHandleForWriting"))
 	return foundation.NSFileHandleFromID(objc.ID(rv))
 }
-

@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -21,6 +21,7 @@ type CIAreaMinimumAlpha interface {
 type CIAreaMinimumAlphaObject struct {
 	objectivec.Object
 }
+
 func (o CIAreaMinimumAlphaObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,14 +38,16 @@ func CIAreaMinimumAlphaObjectFromID(id objc.ID) CIAreaMinimumAlphaObject {
 func (o CIAreaMinimumAlphaObject) Extent() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIAreaMinimumAlphaObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -52,13 +55,16 @@ func (o CIAreaMinimumAlphaObject) InputImage() ICIImage {
 func (o CIAreaMinimumAlphaObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
 func (o CIAreaMinimumAlphaObject) SetExtent(value corefoundation.CGRect) {
 	objc.Send[struct{}](o.ID, objc.Sel("setExtent:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIAreaMinimumAlphaObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

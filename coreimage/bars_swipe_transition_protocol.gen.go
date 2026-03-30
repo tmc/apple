@@ -50,6 +50,7 @@ type CIBarsSwipeTransition interface {
 type CIBarsSwipeTransitionObject struct {
 	objectivec.Object
 }
+
 func (o CIBarsSwipeTransitionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -68,21 +69,24 @@ func CIBarsSwipeTransitionObjectFromID(id objc.ID) CIBarsSwipeTransitionObject {
 func (o CIBarsSwipeTransitionObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // The offset of one bar with respect to another.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/barOffset
 func (o CIBarsSwipeTransitionObject) BarOffset() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("barOffset"))
 	return rv
-	}
+}
+
 // The width of each bar.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/width
 func (o CIBarsSwipeTransitionObject) Width() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -90,50 +94,74 @@ func (o CIBarsSwipeTransitionObject) Width() float32 {
 func (o CIBarsSwipeTransitionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIBarsSwipeTransitionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The target image for a transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIBarsSwipeTransitionObject) TargetImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The parametric time of the transition.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIBarsSwipeTransitionObject) Time() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
-	}
+}
 
+// The angle, in radians, of the bars.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/angle
 func (o CIBarsSwipeTransitionObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// The offset of one bar with respect to another.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/barOffset
 func (o CIBarsSwipeTransitionObject) SetBarOffset(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBarOffset:"), value)
 }
 
+// The width of each bar.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/width
 func (o CIBarsSwipeTransitionObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIBarsSwipeTransitionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The target image for a transition.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIBarsSwipeTransitionObject) SetTargetImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTargetImage:"), value)
 }
 
+// The parametric time of the transition.
+//
+// # Discussion
+//
+// This value drives the transition from start, at time 0, to end, at time 1.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIBarsSwipeTransitionObject) SetTime(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTime:"), value)
 }
-

@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +70,7 @@ type CIPerspectiveTile interface {
 type CIPerspectiveTileObject struct {
 	objectivec.Object
 }
+
 func (o CIPerspectiveTileObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -88,35 +89,40 @@ func CIPerspectiveTileObjectFromID(id objc.ID) CIPerspectiveTileObject {
 func (o CIPerspectiveTileObject) BottomLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomLeft"))
 	return rv
-	}
+}
+
 // The bottom-right coordinate of a tile.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/bottomRight
 func (o CIPerspectiveTileObject) BottomRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomRight"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/inputImage
 func (o CIPerspectiveTileObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The top-left coordinate of a tile.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/topLeft
 func (o CIPerspectiveTileObject) TopLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topLeft"))
 	return rv
-	}
+}
+
 // The top-right coordinate of a tile.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/topRight
 func (o CIPerspectiveTileObject) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topRight"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -124,25 +130,39 @@ func (o CIPerspectiveTileObject) TopRight() corefoundation.CGPoint {
 func (o CIPerspectiveTileObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The bottom-left coordinate of a tile.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/bottomLeft
 func (o CIPerspectiveTileObject) SetBottomLeft(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBottomLeft:"), value)
 }
 
+// The bottom-right coordinate of a tile.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/bottomRight
 func (o CIPerspectiveTileObject) SetBottomRight(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBottomRight:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/inputImage
 func (o CIPerspectiveTileObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The top-left coordinate of a tile.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/topLeft
 func (o CIPerspectiveTileObject) SetTopLeft(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTopLeft:"), value)
 }
 
+// The top-right coordinate of a tile.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/topRight
 func (o CIPerspectiveTileObject) SetTopRight(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTopRight:"), value)
 }
-

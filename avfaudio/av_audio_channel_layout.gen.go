@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,11 +46,9 @@ func (ac AVAudioChannelLayoutClass) Alloc() AVAudioChannelLayout {
 // An object that describes the roles of a set of audio channels.
 //
 // # Overview
-// 
+//
 // The [AVAudioChannelLayout] class is a thin wrapper for Core Audio’s
 // [AudioChannelLayout].
-//
-// [AudioChannelLayout]: https://developer.apple.com/documentation/CoreAudioTypes/AudioChannelLayout
 //
 // # Creating an Audio Channel Layout
 //
@@ -63,6 +62,8 @@ func (ac AVAudioChannelLayoutClass) Alloc() AVAudioChannelLayout {
 //   - [AVAudioChannelLayout.LayoutTag]: The audio channel’s underlying layout tag.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout
+//
+// [AudioChannelLayout]: https://developer.apple.com/documentation/CoreAudioTypes/AudioChannelLayout
 type AVAudioChannelLayout struct {
 	objectivec.Object
 }
@@ -73,6 +74,7 @@ type AVAudioChannelLayout struct {
 func AVAudioChannelLayoutFromID(id objc.ID) AVAudioChannelLayout {
 	return AVAudioChannelLayout{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioChannelLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,18 +139,18 @@ func NewAVAudioChannelLayout() AVAudioChannelLayout {
 // layout: The existing audio channel layout object.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioChannelLayout] object.
 //
 // # Discussion
-// 
+//
 // If the audio channel layout object’s tag is
 // [kAudioChannelLayoutTag_UseChannelDescriptions], this initializer attempts
 // to convert it to a more specific tag.
 //
-// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/init(layout:)
+//
+// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
 func NewAudioChannelLayoutWithLayout(layout IAVAudioChannelLayout) AVAudioChannelLayout {
 	instance := getAVAudioChannelLayoutClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayout:"), layout)
@@ -160,16 +162,16 @@ func NewAudioChannelLayoutWithLayout(layout IAVAudioChannelLayout) AVAudioChanne
 // layoutTag: The audio channel layout tag.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioChannelLayout] object, or `nil` if `layoutTag` is
 // [kAudioChannelLayoutTag_UseChannelDescriptions] or
 // [kAudioChannelLayoutTag_UseChannelBitmap].
 //
-// [kAudioChannelLayoutTag_UseChannelBitmap]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelBitmap
-// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/init(layoutTag:)
 // layoutTag is a [coreaudiotypes.AudioChannelLayoutTag].
+//
+// [kAudioChannelLayoutTag_UseChannelBitmap]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelBitmap
+// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
 func NewAudioChannelLayoutWithLayoutTag(layoutTag objectivec.IObject) AVAudioChannelLayout {
 	instance := getAVAudioChannelLayoutClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLayoutTag:"), layoutTag)
@@ -181,22 +183,23 @@ func NewAudioChannelLayoutWithLayoutTag(layoutTag objectivec.IObject) AVAudioCha
 // layout: The existing audio channel layout object.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioChannelLayout] object.
 //
 // # Discussion
-// 
+//
 // If the audio channel layout object’s tag is
 // [kAudioChannelLayoutTag_UseChannelDescriptions], this initializer attempts
 // to convert it to a more specific tag.
 //
-// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/init(layout:)
+//
+// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
 func (a AVAudioChannelLayout) InitWithLayout(layout IAVAudioChannelLayout) AVAudioChannelLayout {
 	rv := objc.Send[AVAudioChannelLayout](a.ID, objc.Sel("initWithLayout:"), layout)
 	return rv
 }
+
 // Creates an audio channel layout object from a layout tag.
 //
 // layoutTag: The audio channel layout tag.
@@ -204,16 +207,16 @@ func (a AVAudioChannelLayout) InitWithLayout(layout IAVAudioChannelLayout) AVAud
 // layoutTag is a [coreaudiotypes.AudioChannelLayoutTag].
 //
 // # Return Value
-// 
+//
 // A new [AVAudioChannelLayout] object, or `nil` if `layoutTag` is
 // [kAudioChannelLayoutTag_UseChannelDescriptions] or
 // [kAudioChannelLayoutTag_UseChannelBitmap].
 //
-// [kAudioChannelLayoutTag_UseChannelBitmap]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelBitmap
-// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/init(layoutTag:)
 // layoutTag is a [coreaudiotypes.AudioChannelLayoutTag].
+//
+// [kAudioChannelLayoutTag_UseChannelBitmap]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelBitmap
+// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
 func (a AVAudioChannelLayout) InitWithLayoutTag(layoutTag objectivec.IObject) AVAudioChannelLayout {
 	rv := objc.Send[AVAudioChannelLayout](a.ID, objc.Sel("initWithLayoutTag:"), layoutTag)
 	return rv
@@ -227,21 +230,22 @@ func (a AVAudioChannelLayout) EncodeWithCoder(coder foundation.INSCoder) {
 // layout: The existing audio channel layout object.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioChannelLayout] object.
 //
 // # Discussion
-// 
+//
 // If the layout’s tag is [kAudioChannelLayoutTag_UseChannelDescriptions],
 // the method attempts to convert it to a more specific tag.
 //
-// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/layoutWithLayout:
+//
+// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
 func (_AVAudioChannelLayoutClass AVAudioChannelLayoutClass) LayoutWithLayout(layout IAVAudioChannelLayout) AVAudioChannelLayout {
 	rv := objc.Send[objc.ID](objc.ID(_AVAudioChannelLayoutClass.class), objc.Sel("layoutWithLayout:"), layout)
 	return AVAudioChannelLayoutFromID(rv)
 }
+
 // Creates an audio channel layout object from an audio channel layout tag.
 //
 // layoutTag: The audio channel layout tag.
@@ -249,19 +253,19 @@ func (_AVAudioChannelLayoutClass AVAudioChannelLayoutClass) LayoutWithLayout(lay
 // layoutTag is a [coreaudiotypes.AudioChannelLayoutTag].
 //
 // # Return Value
-// 
+//
 // A new [AVAudioChannelLayout] object.
 //
 // # Discussion
-// 
+//
 // If the provided audio channel layout object’s tag is
 // [kAudioChannelLayoutTag_UseChannelDescriptions], this initializer attempts
 // to convert it to a more specific tag.
 //
-// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/layoutWithLayoutTag:
 // layoutTag is a [coreaudiotypes.AudioChannelLayoutTag].
+//
+// [kAudioChannelLayoutTag_UseChannelDescriptions]: https://developer.apple.com/documentation/CoreAudioTypes/kAudioChannelLayoutTag_UseChannelDescriptions
 func (_AVAudioChannelLayoutClass AVAudioChannelLayoutClass) LayoutWithLayoutTag(layoutTag objectivec.IObject) AVAudioChannelLayout {
 	rv := objc.Send[objc.ID](objc.ID(_AVAudioChannelLayoutClass.class), objc.Sel("layoutWithLayoutTag:"), layoutTag)
 	return AVAudioChannelLayoutFromID(rv)
@@ -274,6 +278,7 @@ func (a AVAudioChannelLayout) ChannelCount() AVAudioChannelCount {
 	rv := objc.Send[AVAudioChannelCount](a.ID, objc.Sel("channelCount"))
 	return AVAudioChannelCount(rv)
 }
+
 // The underlying audio channel layout.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/layout
@@ -281,6 +286,7 @@ func (a AVAudioChannelLayout) Layout() IAVAudioChannelLayout {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("layout"))
 	return AVAudioChannelLayoutFromID(objc.ID(rv))
 }
+
 // The audio channel’s underlying layout tag.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioChannelLayout/layoutTag
@@ -288,9 +294,9 @@ func (a AVAudioChannelLayout) LayoutTag() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("layoutTag"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/avfaudio/avchannellayoutkey
 func (a AVAudioChannelLayout) AVChannelLayoutKey() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVChannelLayoutKey"))
 	return foundation.NSStringFromID(rv).String()
 }
-

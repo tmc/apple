@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,12 +47,10 @@ func (nc NERelayClass) Alloc() NERelay {
 // relays.
 //
 // # Overview
-// 
+//
 // Relay servers are secure HTTP proxies that allow proxying TCP traffic using
 // the [CONNECT] method and UDP traffic using the `connect-udp` protocol
 // defined in [RFC 9298].
-//
-// [RFC 9298]: https://www.rfc-editor.org/rfc/rfc9298.html
 //
 // # Configuring server properties
 //
@@ -78,6 +77,8 @@ func (nc NERelayClass) Alloc() NERelay {
 //   - [NERelay.SetSyntheticDNSAnswerIPv6Prefix]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay
+//
+// [RFC 9298]: https://www.rfc-editor.org/rfc/rfc9298.html
 type NERelay struct {
 	objectivec.Object
 }
@@ -89,6 +90,7 @@ type NERelay struct {
 func NERelayFromID(id objc.ID) NERelay {
 	return NERelay{objectivec.Object{ID: id}}
 }
+
 // NOTE: NERelay adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -191,6 +193,7 @@ func (r NERelay) HTTP3RelayURL() foundation.INSURL {
 func (r NERelay) SetHTTP3RelayURL(value foundation.INSURL) {
 	objc.Send[struct{}](r.ID, objc.Sel("setHTTP3RelayURL:"), value)
 }
+
 // A URL identifying the relay server accessible using HTTP/2.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay/http2RelayURL
@@ -201,6 +204,7 @@ func (r NERelay) HTTP2RelayURL() foundation.INSURL {
 func (r NERelay) SetHTTP2RelayURL(value foundation.INSURL) {
 	objc.Send[struct{}](r.ID, objc.Sel("setHTTP2RelayURL:"), value)
 }
+
 // The URL of a DNS-over-HTTPS (DoH) resolver accessible from the relay.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay/dnsOverHTTPSURL
@@ -211,11 +215,12 @@ func (r NERelay) DnsOverHTTPSURL() foundation.INSURL {
 func (r NERelay) SetDnsOverHTTPSURL(value foundation.INSURL) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDnsOverHTTPSURL:"), value)
 }
+
 // An array of TLS raw public keys that the relay server can present during
 // the TLS handshake.
 //
 // # Discussion
-// 
+//
 // If you set one or more keys, the raw public keys are used to authenticate
 // the relay server. If no keys are set, or if the array is `nil`, default TLS
 // server certificate evaluation is used.
@@ -230,6 +235,7 @@ func (r NERelay) RawPublicKeys() []foundation.NSData {
 func (r NERelay) SetRawPublicKeys(value []foundation.NSData) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRawPublicKeys:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // A dictionary of additional HTTP headers to send as part of [CONNECT]
 // requests to the relay.
 //
@@ -241,15 +247,16 @@ func (r NERelay) AdditionalHTTPHeaderFields() foundation.INSDictionary {
 func (r NERelay) SetAdditionalHTTPHeaderFields(value foundation.INSDictionary) {
 	objc.Send[struct{}](r.ID, objc.Sel("setAdditionalHTTPHeaderFields:"), value)
 }
+
 // The PKCS12 data for the relay client authentication.
 //
 // # Discussion
-// 
+//
 // The value is a [NSData] object in PKCS12 format.
 //
-// [NSData]: https://developer.apple.com/documentation/Foundation/NSData
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay/identityData
+//
+// [NSData]: https://developer.apple.com/documentation/Foundation/NSData
 func (r NERelay) IdentityData() foundation.INSData {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("identityData"))
 	return foundation.NSDataFromID(objc.ID(rv))
@@ -257,6 +264,7 @@ func (r NERelay) IdentityData() foundation.INSData {
 func (r NERelay) SetIdentityData(value foundation.INSData) {
 	objc.Send[struct{}](r.ID, objc.Sel("setIdentityData:"), value)
 }
+
 // The password the relay uses to decrypt the PKCS12 identity data.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NERelay/identityDataPassword
@@ -267,10 +275,11 @@ func (r NERelay) IdentityDataPassword() string {
 func (r NERelay) SetIdentityDataPassword(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setIdentityDataPassword:"), objc.String(value))
 }
+
 // An IPv4 address prefix the relay uses to handle address info requests.
 //
 // # Discussion
-// 
+//
 // The value of this property is an address prefix, such as `192.0.2.0/24`.
 // The relay manager uses this prefix to synthesize DNS answers for apps that
 // use `getaddrinfo()` to resolve domains included in [MatchDomains].
@@ -283,10 +292,11 @@ func (r NERelay) SyntheticDNSAnswerIPv4Prefix() string {
 func (r NERelay) SetSyntheticDNSAnswerIPv4Prefix(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSyntheticDNSAnswerIPv4Prefix:"), objc.String(value))
 }
+
 // An IPv6 address prefix the relay uses to handle address info requests.
 //
 // # Discussion
-// 
+//
 // The value of this property is an address prefix, such as `2001:DB8::/32`.
 // The relay manager uses this prefix to synthesize DNS answers for apps that
 // use `getaddrinfo()` to resolve domains included in [MatchDomains].
@@ -299,4 +309,3 @@ func (r NERelay) SyntheticDNSAnswerIPv6Prefix() string {
 func (r NERelay) SetSyntheticDNSAnswerIPv6Prefix(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSyntheticDNSAnswerIPv6Prefix:"), objc.String(value))
 }
-

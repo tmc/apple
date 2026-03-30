@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,6 +66,7 @@ type MTL4PipelineStageDynamicLinkingDescriptor struct {
 func MTL4PipelineStageDynamicLinkingDescriptorFromID(id objc.ID) MTL4PipelineStageDynamicLinkingDescriptor {
 	return MTL4PipelineStageDynamicLinkingDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4PipelineStageDynamicLinkingDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,7 +120,7 @@ func NewMTL4PipelineStageDynamicLinkingDescriptor() MTL4PipelineStageDynamicLink
 // Provides the array of binary functions to link.
 //
 // # Discussion
-// 
+//
 // Binary functions are shader functions that you compile from Metal IR to
 // machine code ahead of time using instances of [MTL4Compiler].
 //
@@ -132,6 +134,7 @@ func (m MTL4PipelineStageDynamicLinkingDescriptor) BinaryLinkedFunctions() []obj
 func (m MTL4PipelineStageDynamicLinkingDescriptor) SetBinaryLinkedFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBinaryLinkedFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Limits the maximum depth of the call stack for indirect function calls in
 // the pipeline stage function.
 //
@@ -143,6 +146,7 @@ func (m MTL4PipelineStageDynamicLinkingDescriptor) MaxCallStackDepth() uint {
 func (m MTL4PipelineStageDynamicLinkingDescriptor) SetMaxCallStackDepth(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxCallStackDepth:"), value)
 }
+
 // Provides an array of dynamic libraries the compiler loads when it builds
 // the pipeline.
 //
@@ -156,4 +160,3 @@ func (m MTL4PipelineStageDynamicLinkingDescriptor) PreloadedLibraries() []object
 func (m MTL4PipelineStageDynamicLinkingDescriptor) SetPreloadedLibraries(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreloadedLibraries:"), objectivec.IObjectSliceToNSArray(value))
 }
-

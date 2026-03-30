@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type SymbolVersion struct {
 func SymbolVersionFromID(id objc.ID) SymbolVersion {
 	return SymbolVersion{objectivec.Object{ID: id}}
 }
+
 // Ensure SymbolVersion implements ISymbolVersion.
 var _ ISymbolVersion = SymbolVersion{}
 
@@ -78,4 +80,3 @@ func NewSymbolVersion() SymbolVersion {
 	rv := objc.Send[SymbolVersion](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

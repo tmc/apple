@@ -3,11 +3,12 @@
 package avfaudio
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,36 +49,36 @@ func (ac AVAudioEngineClass) Alloc() AVAudioEngine {
 // configures real-time rendering constraints.
 //
 // # Overview
-// 
+//
 // An audio engine object contains a group of [AVAudioNode] instances that you
 // attach to form an audio processing chain.
-// 
+//
 // [media-3901205]
-// 
+//
 // You can connect, disconnect, and remove audio nodes during runtime with
 // minor limitations. Removing an audio node that has differing channel
 // counts, or that’s a mixer, can break the graph. Reconnect audio nodes
 // only when they’re upstream of a mixer.
-// 
+//
 // By default, Audio Engine renders to a connected audio device in real time.
 // You can configure the engine to operate in manual rendering mode when you
 // need to render at, or faster than, real time. In that mode, the engine
 // disconnects from audio devices and your app drives the rendering.
-// 
+//
 // # Create an Engine for Audio File Playback
-// 
+//
 // To play an audio file, you create an [AVAudioFile] with a file that’s
 // open for reading. Create an audio engine object and an [AVAudioPlayerNode]
 // instance, and then attach the player node to the engine. Next, connect the
 // player node to the audio engine’s output node. The engine performs audio
 // output through an output node, which is a singleton that the engine creates
 // the first time you access it.
-// 
+//
 // Then schedule the audio file for full playback. The callback notifies your
 // app when playback completes.
-// 
+//
 // Before you play the audio, start the engine.
-// 
+//
 // When you’re done, stop the player and the engine.
 //
 // # Attaching and Detaching Audio Nodes
@@ -156,6 +157,7 @@ type AVAudioEngine struct {
 func AVAudioEngineFromID(id objc.ID) AVAudioEngine {
 	return AVAudioEngine{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioEngine adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -356,7 +358,7 @@ func NewAVAudioEngine() AVAudioEngine {
 // node: The audio node to attach.
 //
 // # Discussion
-// 
+//
 // An instance of [AVAudioNode] isn’t usable until you attach it to the
 // audio engine using this method.
 //
@@ -364,12 +366,13 @@ func NewAVAudioEngine() AVAudioEngine {
 func (a AVAudioEngine) AttachNode(node IAVAudioNode) {
 	objc.Send[objc.ID](a.ID, objc.Sel("attachNode:"), node)
 }
+
 // Detaches an audio node from the audio engine.
 //
 // node: The audio node to detach.
 //
 // # Discussion
-// 
+//
 // If necessary, the audio engine safely disconnects the audio node before
 // detaching it.
 //
@@ -377,6 +380,7 @@ func (a AVAudioEngine) AttachNode(node IAVAudioNode) {
 func (a AVAudioEngine) DetachNode(node IAVAudioNode) {
 	objc.Send[objc.ID](a.ID, objc.Sel("detachNode:"), node)
 }
+
 // Establishes a connection between two nodes.
 //
 // node1: The source audio node.
@@ -389,7 +393,7 @@ func (a AVAudioEngine) DetachNode(node IAVAudioNode) {
 // output bus.
 //
 // # Discussion
-// 
+//
 // This method calls [ConnectToFromBusToBusFormat] using bus `0` for the
 // source audio node, and bus `0` for the destination audio node, except when
 // a destination is a mixer, in which case, the destination is the mixer’s
@@ -399,6 +403,7 @@ func (a AVAudioEngine) DetachNode(node IAVAudioNode) {
 func (a AVAudioEngine) ConnectToFormat(node1 IAVAudioNode, node2 IAVAudioNode, format IAVAudioFormat) {
 	objc.Send[objc.ID](a.ID, objc.Sel("connect:to:format:"), node1, node2, format)
 }
+
 // Establishes a connection between two nodes, specifying the input and output
 // busses.
 //
@@ -416,7 +421,7 @@ func (a AVAudioEngine) ConnectToFormat(node1 IAVAudioNode, node2 IAVAudioNode, f
 // output bus.
 //
 // # Discussion
-// 
+//
 // Audio nodes have input and output busses ([AVAudioNodeBus]). Use this
 // method to establish connections between audio nodes. Connections are always
 // one-to-one, never one-to-many or many-to-one.
@@ -425,18 +430,20 @@ func (a AVAudioEngine) ConnectToFormat(node1 IAVAudioNode, node2 IAVAudioNode, f
 func (a AVAudioEngine) ConnectToFromBusToBusFormat(node1 IAVAudioNode, node2 IAVAudioNode, bus1 AVAudioNodeBus, bus2 AVAudioNodeBus, format IAVAudioFormat) {
 	objc.Send[objc.ID](a.ID, objc.Sel("connect:to:fromBus:toBus:format:"), node1, node2, bus1, bus2, format)
 }
+
 // Removes all input connections of the node.
 //
 // node: The audio node with the inputs you want to disconnect.
 //
 // # Discussion
-// 
+//
 // Connections break on each of the audio node’s input buses.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/disconnectNodeInput(_:)
 func (a AVAudioEngine) DisconnectNodeInput(node IAVAudioNode) {
 	objc.Send[objc.ID](a.ID, objc.Sel("disconnectNodeInput:"), node)
 }
+
 // Removes the input connection of a node on the specified bus.
 //
 // node: The audio node with the input to disconnect.
@@ -447,6 +454,7 @@ func (a AVAudioEngine) DisconnectNodeInput(node IAVAudioNode) {
 func (a AVAudioEngine) DisconnectNodeInputBus(node IAVAudioNode, bus AVAudioNodeBus) {
 	objc.Send[objc.ID](a.ID, objc.Sel("disconnectNodeInput:bus:"), node, bus)
 }
+
 // Removes all output connections of a node.
 //
 // node: The audio node with the outputs to disconnect.
@@ -455,6 +463,7 @@ func (a AVAudioEngine) DisconnectNodeInputBus(node IAVAudioNode, bus AVAudioNode
 func (a AVAudioEngine) DisconnectNodeOutput(node IAVAudioNode) {
 	objc.Send[objc.ID](a.ID, objc.Sel("disconnectNodeOutput:"), node)
 }
+
 // Removes the output connection of a node on the specified bus.
 //
 // node: The audio node with the output to disconnect.
@@ -465,6 +474,7 @@ func (a AVAudioEngine) DisconnectNodeOutput(node IAVAudioNode) {
 func (a AVAudioEngine) DisconnectNodeOutputBus(node IAVAudioNode, bus AVAudioNodeBus) {
 	objc.Send[objc.ID](a.ID, objc.Sel("disconnectNodeOutput:bus:"), node, bus)
 }
+
 // Establishes a MIDI connection between two nodes.
 //
 // sourceNode: The source node.
@@ -482,27 +492,28 @@ func (a AVAudioEngine) DisconnectNodeOutputBus(node IAVAudioNode, bus AVAudioNod
 // tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
 //
 // # Discussion
-// 
+//
 // Use this to establish a MIDI connection between a source node and a
 // destination node that has MIDI input capability. This method disconnects
 // any existing MIDI connection that involves the destination node. When
 // making the MIDI connection, this method overwrites the source node’s
 // event list block.
-// 
+//
 // The source node can only be an [AVAudioUnit] node with the type
 // [kAudioUnitType_MIDIProcessor]. The destination node types can be
 // [kAudioUnitType_MusicDevice], [kAudioUnitType_MusicEffect], or
 // [kAudioUnitType_MIDIProcessor].
 //
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/connectMIDI(_:to:format:eventListBlock:)-73cd1
+// tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
+//
 // [kAudioUnitType_MIDIProcessor]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MIDIProcessor
 // [kAudioUnitType_MusicDevice]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicDevice
 // [kAudioUnitType_MusicEffect]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicEffect
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/connectMIDI(_:to:format:eventListBlock:)-73cd1
-// tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
 func (a AVAudioEngine) ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode, destinationNode IAVAudioNode, format IAVAudioFormat, tapBlock objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:to:format:eventListBlock:"), sourceNode, destinationNode, format, tapBlock)
 }
+
 // Establishes a MIDI connection between a source node and multiple
 // destination nodes.
 //
@@ -521,31 +532,32 @@ func (a AVAudioEngine) ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode
 // tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
 //
 // # Discussion
-// 
+//
 // Use this to establish a MIDI connection between a source node and multiple
 // destination nodes that have MIDI input capability. This method disconnects
 // any existing MIDI connection that involves the destination node. When
 // making the MIDI connection, this method overwrites the source node’s
 // event list block.
-// 
+//
 // The source node can only be an [AVAudioUnit] node with the type
 // [kAudioUnitType_MIDIProcessor]. The destination node types can be
 // [kAudioUnitType_MusicDevice], [kAudioUnitType_MusicEffect], or
 // [kAudioUnitType_MIDIProcessor].
-// 
+//
 // MIDI connections made with this method specify a single destination
 // connection (one-to-one) or multiple connections (one-to-many), but never
 // many-to-one.
 //
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/connectMIDI(_:to:format:eventListBlock:)-7qtd5
+// tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
+//
 // [kAudioUnitType_MIDIProcessor]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MIDIProcessor
 // [kAudioUnitType_MusicDevice]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicDevice
 // [kAudioUnitType_MusicEffect]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicEffect
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/connectMIDI(_:to:format:eventListBlock:)-7qtd5
-// tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
 func (a AVAudioEngine) ConnectMIDIToNodesFormatEventListBlock(sourceNode IAVAudioNode, destinationNodes []AVAudioNode, format IAVAudioFormat, tapBlock objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:toNodes:format:eventListBlock:"), sourceNode, objectivec.IObjectSliceToNSArray(destinationNodes), format, tapBlock)
 }
+
 // Removes a MIDI connection between two nodes.
 //
 // sourceNode: The node with the MIDI output to disconnect.
@@ -556,6 +568,7 @@ func (a AVAudioEngine) ConnectMIDIToNodesFormatEventListBlock(sourceNode IAVAudi
 func (a AVAudioEngine) DisconnectMIDIFrom(sourceNode IAVAudioNode, destinationNode IAVAudioNode) {
 	objc.Send[objc.ID](a.ID, objc.Sel("disconnectMIDI:from:"), sourceNode, destinationNode)
 }
+
 // Removes a MIDI connection between one source node and multiple destination
 // nodes.
 //
@@ -567,6 +580,7 @@ func (a AVAudioEngine) DisconnectMIDIFrom(sourceNode IAVAudioNode, destinationNo
 func (a AVAudioEngine) DisconnectMIDIFromNodes(sourceNode IAVAudioNode, destinationNodes []AVAudioNode) {
 	objc.Send[objc.ID](a.ID, objc.Sel("disconnectMIDI:fromNodes:"), sourceNode, objectivec.IObjectSliceToNSArray(destinationNodes))
 }
+
 // Disconnects all input MIDI connections from a node.
 //
 // node: The node with the MIDI input to disconnect.
@@ -575,6 +589,7 @@ func (a AVAudioEngine) DisconnectMIDIFromNodes(sourceNode IAVAudioNode, destinat
 func (a AVAudioEngine) DisconnectMIDIInput(node IAVAudioNode) {
 	objc.Send[objc.ID](a.ID, objc.Sel("disconnectMIDIInput:"), node)
 }
+
 // Disconnects all output MIDI connections from a node.
 //
 // node: The node with the MIDI outputs to disconnect.
@@ -583,10 +598,11 @@ func (a AVAudioEngine) DisconnectMIDIInput(node IAVAudioNode) {
 func (a AVAudioEngine) DisconnectMIDIOutput(node IAVAudioNode) {
 	objc.Send[objc.ID](a.ID, objc.Sel("disconnectMIDIOutput:"), node)
 }
+
 // Prepares the audio engine for starting.
 //
 // # Discussion
-// 
+//
 // This method preallocates many resources the audio engine requires to start.
 // Use it to responsively start audio input or output.
 //
@@ -594,22 +610,23 @@ func (a AVAudioEngine) DisconnectMIDIOutput(node IAVAudioNode) {
 func (a AVAudioEngine) Prepare() {
 	objc.Send[objc.ID](a.ID, objc.Sel("prepare"))
 }
+
 // Starts the audio engine.
 //
 // # Discussion
-// 
+//
 // This method calls the [Prepare] method if you don’t call it after
 // invoking [Stop]. It then starts the audio hardware through the
 // [AVAudioInputNode] and [AVAudioOutputNode] instances in the audio engine.
 // This method throws an error when:
-// 
+//
 // - There’s a problem in the structure of the graph, such as the input
 // can’t route to an output or to a recording tap through converter nodes. -
 // An [AVAudioSession] error occurs. - The driver fails to start the hardware.
 //
-// [AVAudioSession]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/start()
+//
+// [AVAudioSession]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession
 func (a AVAudioEngine) StartAndReturnError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("startAndReturnError:"), unsafe.Pointer(&errorPtr))
@@ -623,25 +640,27 @@ func (a AVAudioEngine) StartAndReturnError() (bool, error) {
 	return rv, nil
 
 }
+
 // Pauses the audio engine.
 //
 // # Discussion
-// 
+//
 // This method stops the audio engine and the audio hardware, but doesn’t
 // deallocate the resources for the [Prepare] method. When your app doesn’t
 // need to play audio, consider pausing or stopping the engine to minimize
 // power consumption.
-// 
+//
 // You resume the audio engine by invoking [StartAndReturnError].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/pause()
 func (a AVAudioEngine) Pause() {
 	objc.Send[objc.ID](a.ID, objc.Sel("pause"))
 }
+
 // Stops the audio engine and releases any previously prepared resources.
 //
 // # Discussion
-// 
+//
 // This method stops the audio engine and the audio hardware, and releases any
 // allocated resources for the [Prepare] method. When your app doesn’t need
 // to play audio, consider pausing or stopping the engine to minimize power
@@ -651,10 +670,11 @@ func (a AVAudioEngine) Pause() {
 func (a AVAudioEngine) Stop() {
 	objc.Send[objc.ID](a.ID, objc.Sel("stop"))
 }
+
 // Resets all audio nodes in the audio engine.
 //
 // # Discussion
-// 
+//
 // This methods resets all audio nodes in the audio engine. For example, use
 // it to silence reverb and delay tails.
 //
@@ -662,6 +682,7 @@ func (a AVAudioEngine) Stop() {
 func (a AVAudioEngine) Reset() {
 	objc.Send[objc.ID](a.ID, objc.Sel("reset"))
 }
+
 // Sets the engine to operate in manual rendering mode with the render format
 // and maximum frame count you specify.
 //
@@ -673,12 +694,12 @@ func (a AVAudioEngine) Reset() {
 // render call.
 //
 // # Discussion
-// 
+//
 // Use this method to configure the engine to render in response to requests
 // from the client. You must stop the engine before calling this method. The
 // render format must be a PCM format and match the format of the rendering
 // buffer.
-// 
+//
 // The source nodes can supply the input data in manual rendering mode. For
 // more information, see [AVAudioPlayerNode] and [AVAudioInputNode].
 //
@@ -696,12 +717,14 @@ func (a AVAudioEngine) EnableManualRenderingModeFormatMaximumFrameCountError(mod
 	return rv, nil
 
 }
+
 // Sets the engine to render to or from an audio device.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/disableManualRenderingMode()
 func (a AVAudioEngine) DisableManualRenderingMode() {
 	objc.Send[objc.ID](a.ID, objc.Sel("disableManualRenderingMode"))
 }
+
 // Makes a render call to the engine operating in the offline manual rendering
 // mode.
 //
@@ -710,14 +733,14 @@ func (a AVAudioEngine) DisableManualRenderingMode() {
 // buffer: The PCM buffer the engine must render the audio for.
 //
 // # Return Value
-// 
+//
 // One of the status codes from [AVAudioEngineManualRenderingStatus].
 // Irrespective of the returned status code, on exit, the output buffer’s
 // [FrameLength] indicates the number of PCM samples the engine renders.
 //
-// [AVAudioEngineManualRenderingStatus]: https://developer.apple.com/documentation/AVFAudio/AVAudioEngineManualRenderingStatus
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/renderOffline(_:to:)
+//
+// [AVAudioEngineManualRenderingStatus]: https://developer.apple.com/documentation/AVFAudio/AVAudioEngineManualRenderingStatus
 func (a AVAudioEngine) RenderOfflineToBufferError(numberOfFrames AVAudioFrameCount, buffer IAVAudioPCMBuffer) (AVAudioEngineManualRenderingStatus, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[AVAudioEngineManualRenderingStatus](a.ID, objc.Sel("renderOffline:toBuffer:error:"), numberOfFrames, buffer, unsafe.Pointer(&errorPtr))
@@ -728,6 +751,7 @@ func (a AVAudioEngine) RenderOfflineToBufferError(numberOfFrames AVAudioFrameCou
 	return rv, nil
 
 }
+
 // Establishes a connection between a source node and multiple destination
 // nodes.
 //
@@ -744,13 +768,14 @@ func (a AVAudioEngine) RenderOfflineToBufferError(numberOfFrames AVAudioFrameCou
 // output bus.
 //
 // # Discussion
-// 
+//
 // Connections that use this method are either one-to-one or one-to-many.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/connect(_:to:fromBus:format:)
 func (a AVAudioEngine) ConnectToConnectionPointsFromBusFormat(sourceNode IAVAudioNode, destNodes []AVAudioConnectionPoint, sourceBus AVAudioNodeBus, format IAVAudioFormat) {
 	objc.Send[objc.ID](a.ID, objc.Sel("connect:toConnectionPoints:fromBus:format:"), sourceNode, objectivec.IObjectSliceToNSArray(destNodes), sourceBus, format)
 }
+
 // Returns connection information about a node’s input bus.
 //
 // node: The node with the input connection you’re querying.
@@ -758,12 +783,12 @@ func (a AVAudioEngine) ConnectToConnectionPointsFromBusFormat(sourceNode IAVAudi
 // bus: The node’s input bus for the connection you’re querying.
 //
 // # Return Value
-// 
+//
 // An [AVAudioConnectionPoint] object with connection information on the
 // node’s input bus.
 //
 // # Discussion
-// 
+//
 // Connections are always one-to-one or one-to-many. This method returns `nil`
 // if there’s no connection on the node’s specified input bus.
 //
@@ -772,6 +797,7 @@ func (a AVAudioEngine) InputConnectionPointForNodeInputBus(node IAVAudioNode, bu
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputConnectionPointForNode:inputBus:"), node, bus)
 	return AVAudioConnectionPointFromID(rv)
 }
+
 // Returns connection information about a node’s output bus.
 //
 // node: The node with the output connections you’re querying.
@@ -779,12 +805,12 @@ func (a AVAudioEngine) InputConnectionPointForNodeInputBus(node IAVAudioNode, bu
 // bus: The node’s output bus for connections you’re querying.
 //
 // # Return Value
-// 
+//
 // An array of [AVAudioConnectionPoint] objects with connection information on
 // the node’s output bus.
 //
 // # Discussion
-// 
+//
 // Connections are always one-to-one or one-to-many. This method returns an
 // empty array if there are no connections on the node’s specified output
 // bus.
@@ -804,107 +830,109 @@ func (a AVAudioEngine) AttachedNodes() foundation.INSSet {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attachedNodes"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
+
 // The audio engine’s singleton input audio node.
 //
 // # Discussion
-// 
+//
 // The framework performs audio input through an input node. The audio engine
 // creates a singleton on demand when first accessing this variable. To
 // receive input, connect another node from the output of the input node, or
 // create a recording tap on it.
-// 
+//
 // When the engine renders to and from an audio device, the [AVAudioSession]
 // category and the availability of hardware determines whether an app
 // performs input (for example, input hardware isn’t available in tvOS).
 // Check the input node’s input format (specifically, the hardware format)
 // for a nonzero sample rate and channel count to see if input is in an
 // enabled state.
-// 
+//
 // Trying to perform input through the input node when it isn’t available or
 // in an enabled state causes the engine to throw an error (when possible) or
 // an exception.
-// 
+//
 // In manual rendering mode, the input node can synchronously supply data to
 // the engine while it’s rendering. For more information, see
 // [SetManualRenderingInputPCMFormatInputBlock].
 //
-// [AVAudioSession]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/inputNode
+//
+// [AVAudioSession]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession
 func (a AVAudioEngine) InputNode() IAVAudioInputNode {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputNode"))
 	return AVAudioInputNodeFromID(objc.ID(rv))
 }
+
 // The audio engine’s singleton output audio node.
 //
 // # Discussion
-// 
+//
 // The framework performs audio output through an output node. The audio
 // engine creates a singleton on demand when first accessing this variable.
 // Connect another node to the input of the output node, or get a mixer using
 // the [MainMixerNode] property.
-// 
+//
 // When the engine renders to and from an audio device, the [AVAudioSession]
 // category and the availability of hardware determines whether an app
 // performs output. Check the output node’s output format (specifically, the
 // hardware format) for a nonzero sample rate and channel count to see if
 // output is in an enabled state.
-// 
+//
 // Trying to perform output through the output node when it isn’t available
 // or in an enabled state causes the engine to throw an error (when possible)
 // or an exception.
-// 
+//
 // In manual rendering mode, the output node’s format determines the render
 // format of the engine. For more information about changing it, see
 // [EnableManualRenderingModeFormatMaximumFrameCountError].
 //
-// [AVAudioSession]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/outputNode
+//
+// [AVAudioSession]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession
 func (a AVAudioEngine) OutputNode() IAVAudioOutputNode {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputNode"))
 	return AVAudioOutputNodeFromID(objc.ID(rv))
 }
+
 // The audio engine’s optional singleton main mixer node.
 //
 // # Discussion
-// 
+//
 // The audio engine constructs a singleton main mixer and connects it to the
 // [OutputNode] when first accessing this property. You can then connect
 // additional audio nodes to the mixer.
-// 
+//
 // If the client never sets the connection format between the `mainMixerNode`
 // and the `outputNode`, the engine always updates the format to track the
 // format of the `outputNode` on startup or restart, even after an
 // [AVAudioEngineConfigurationChangeNotification]. Otherwise, it’s the
 // client’s responsibility to update the connection format after an
 // [AVAudioEngineConfigurationChangeNotification].
-// 
+//
 // By default, the mixer’s output format (sample rate and channel count)
 // tracks the format of the output node.
 //
-// [AVAudioEngineConfigurationChangeNotification]: https://developer.apple.com/documentation/AVFAudio/AVAudioEngineConfigurationChangeNotification
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/mainMixerNode
+//
+// [AVAudioEngineConfigurationChangeNotification]: https://developer.apple.com/documentation/AVFAudio/AVAudioEngineConfigurationChangeNotification
 func (a AVAudioEngine) MainMixerNode() IAVAudioMixerNode {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("mainMixerNode"))
 	return AVAudioMixerNodeFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the audio engine is running.
 //
 // # Discussion
-// 
-// The value is [true] if the audio engine is in a running state; otherwise,
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value is true if the audio engine is in a running state; otherwise,
+// false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/isRunning
 func (a AVAudioEngine) Running() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRunning"))
 	return rv
 }
+
 // The music sequence instance that you attach to the audio engine, if any.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/musicSequence
@@ -915,6 +943,7 @@ func (a AVAudioEngine) MusicSequence() objectivec.IObject {
 func (a AVAudioEngine) SetMusicSequence(value objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMusicSequence:"), value)
 }
+
 // The block that renders the engine when operating in manual rendering mode.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/manualRenderingBlock
@@ -922,6 +951,7 @@ func (a AVAudioEngine) ManualRenderingBlock() AVAudioEngineManualRenderingBlock 
 	rv := objc.Send[AVAudioEngineManualRenderingBlock](a.ID, objc.Sel("manualRenderingBlock"))
 	return AVAudioEngineManualRenderingBlock(rv)
 }
+
 // The render format of the engine in manual rendering mode.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/manualRenderingFormat
@@ -929,11 +959,12 @@ func (a AVAudioEngine) ManualRenderingFormat() IAVAudioFormat {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("manualRenderingFormat"))
 	return AVAudioFormatFromID(objc.ID(rv))
 }
+
 // The maximum number of PCM sample frames the engine produces in any single
 // render call in manual rendering mode.
 //
 // # Discussion
-// 
+//
 // If you get this property when the engine isn’t in manual rendering mode,
 // it returns zero.
 //
@@ -942,6 +973,7 @@ func (a AVAudioEngine) ManualRenderingMaximumFrameCount() AVAudioFrameCount {
 	rv := objc.Send[AVAudioFrameCount](a.ID, objc.Sel("manualRenderingMaximumFrameCount"))
 	return AVAudioFrameCount(rv)
 }
+
 // The manual rendering mode configured on the engine.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/manualRenderingMode
@@ -949,6 +981,7 @@ func (a AVAudioEngine) ManualRenderingMode() AVAudioEngineManualRenderingMode {
 	rv := objc.Send[AVAudioEngineManualRenderingMode](a.ID, objc.Sel("manualRenderingMode"))
 	return AVAudioEngineManualRenderingMode(rv)
 }
+
 // An indication of where the engine is on its render timeline in manual
 // rendering mode.
 //
@@ -957,10 +990,11 @@ func (a AVAudioEngine) ManualRenderingSampleTime() AVAudioFramePosition {
 	rv := objc.Send[AVAudioFramePosition](a.ID, objc.Sel("manualRenderingSampleTime"))
 	return AVAudioFramePosition(rv)
 }
+
 // A Boolean value that indicates whether autoshutdown is in an enabled state.
 //
 // # Discussion
-// 
+//
 // If autoshutdown is in an enabled state, the engine can start and stop the
 // audio hardware dynamically to conserve power. In watchOS, autoshutdown is
 // always in an enabled state. For other platforms, it’s in a disabled state
@@ -974,6 +1008,7 @@ func (a AVAudioEngine) AutoShutdownEnabled() bool {
 func (a AVAudioEngine) SetAutoShutdownEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAutoShutdownEnabled:"), value)
 }
+
 // A Boolean value that indicates whether the engine is operating in manual
 // rendering mode.
 //
@@ -982,4 +1017,3 @@ func (a AVAudioEngine) IsInManualRenderingMode() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isInManualRenderingMode"))
 	return rv
 }
-

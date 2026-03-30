@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_quantize_gathers struct {
 func EspressoPass_quantize_gathersFromID(id objc.ID) EspressoPass_quantize_gathers {
 	return EspressoPass_quantize_gathers{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_quantize_gathers implements IEspressoPass_quantize_gathers.
 var _ IEspressoPass_quantize_gathers = EspressoPass_quantize_gathers{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_quantize_gathers() EspressoPass_quantize_gathers {
 	rv := objc.Send[EspressoPass_quantize_gathers](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

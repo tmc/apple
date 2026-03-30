@@ -3,10 +3,11 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAudioInputNode] class.
@@ -42,7 +43,6 @@ func (ac AVAudioInputNodeClass) Alloc() AVAudioInputNode {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioInputNode.DebugDescription]
@@ -55,6 +55,7 @@ func (ac AVAudioInputNodeClass) Alloc() AVAudioInputNode {
 //   - [AVAudioInputNode.SetVoiceProcessingBypassed]
 //   - [AVAudioInputNode.VoiceProcessingInputMuted]
 //   - [AVAudioInputNode.SetVoiceProcessingInputMuted]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode
 type AVAudioInputNode struct {
 	AVAudioIONode
@@ -64,6 +65,7 @@ type AVAudioInputNode struct {
 func AVAudioInputNodeFromID(id objc.ID) AVAudioInputNode {
 	return AVAudioInputNode{AVAudioIONode: AVAudioIONodeFromID(id)}
 }
+
 // Ensure AVAudioInputNode implements IAVAudioInputNode.
 var _ IAVAudioInputNode = AVAudioInputNode{}
 
@@ -119,7 +121,6 @@ func NewAVAudioInputNode() AVAudioInputNode {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/initWithIOUnit:isInput:
 func NewAudioInputNodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioInputNode {
 	instance := getAVAudioInputNodeClass().Alloc()
@@ -127,7 +128,6 @@ func NewAudioInputNodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAud
 	return AVAudioInputNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioInputNodeWithImpl(impl unsafe.Pointer) AVAudioInputNode {
 	instance := getAVAudioInputNodeClass().Alloc()
@@ -140,21 +140,25 @@ func (a AVAudioInputNode) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/description
 func (a AVAudioInputNode) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/hash
 func (a AVAudioInputNode) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/superclass
 func (a AVAudioInputNode) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/voiceProcessingAGCEnabled
 func (a AVAudioInputNode) VoiceProcessingAGCEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("voiceProcessingAGCEnabled"))
@@ -163,6 +167,7 @@ func (a AVAudioInputNode) VoiceProcessingAGCEnabled() bool {
 func (a AVAudioInputNode) SetVoiceProcessingAGCEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVoiceProcessingAGCEnabled:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/voiceProcessingBypassed
 func (a AVAudioInputNode) VoiceProcessingBypassed() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("voiceProcessingBypassed"))
@@ -171,6 +176,7 @@ func (a AVAudioInputNode) VoiceProcessingBypassed() bool {
 func (a AVAudioInputNode) SetVoiceProcessingBypassed(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVoiceProcessingBypassed:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/voiceProcessingInputMuted
 func (a AVAudioInputNode) VoiceProcessingInputMuted() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("voiceProcessingInputMuted"))
@@ -179,4 +185,3 @@ func (a AVAudioInputNode) VoiceProcessingInputMuted() bool {
 func (a AVAudioInputNode) SetVoiceProcessingInputMuted(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVoiceProcessingInputMuted:"), value)
 }
-

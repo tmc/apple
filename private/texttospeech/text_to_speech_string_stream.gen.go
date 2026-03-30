@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechStringStream struct {
 func TextToSpeechStringStreamFromID(id objc.ID) TextToSpeechStringStream {
 	return TextToSpeechStringStream{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechStringStream struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechStringStream embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechStringStream() TextToSpeechStringStream {
 	rv := objc.Send[TextToSpeechStringStream](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

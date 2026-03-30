@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLClassifierResultClass) Alloc() MLClassifierResult {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLClassifierResult.AdditionalFeatures]
@@ -53,6 +53,7 @@ func (mc MLClassifierResultClass) Alloc() MLClassifierResult {
 //   - [MLClassifierResult.InitWithClassProbabilityAdditionalFeaturesClassLabelOfMaxProbability]
 //   - [MLClassifierResult.InitWithIntClassProbabilityClassFeatureTypeAdditionalFeatures]
 //   - [MLClassifierResult.InitWithStringClassProbabilityClassFeatureTypeAdditionalFeatures]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult
 type MLClassifierResult struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLClassifierResult struct {
 func MLClassifierResultFromID(id objc.ID) MLClassifierResult {
 	return MLClassifierResult{objectivec.Object{ID: id}}
 }
+
 // Ensure MLClassifierResult implements IMLClassifierResult.
 var _ IMLClassifierResult = MLClassifierResult{}
 
@@ -113,7 +115,6 @@ func NewMLClassifierResult() MLClassifierResult {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/initWithClassProbability:additionalFeatures:classLabelOfMaxProbability:
 func NewClassifierResultWithClassProbabilityAdditionalFeaturesClassLabelOfMaxProbability(probability objectivec.IObject, features objectivec.IObject, probability2 objectivec.IObject) MLClassifierResult {
 	instance := getMLClassifierResultClass().Alloc()
@@ -121,7 +122,6 @@ func NewClassifierResultWithClassProbabilityAdditionalFeaturesClassLabelOfMaxPro
 	return MLClassifierResultFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/initWithIntClassProbability:classFeatureType:additionalFeatures:
 func NewClassifierResultWithIntClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
 	instance := getMLClassifierResultClass().Alloc()
@@ -129,7 +129,6 @@ func NewClassifierResultWithIntClassProbabilityClassFeatureTypeAdditionalFeature
 	return MLClassifierResultFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/initWithStringClassProbability:classFeatureType:additionalFeatures:
 func NewClassifierResultWithStringClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
 	instance := getMLClassifierResultClass().Alloc()
@@ -137,56 +136,54 @@ func NewClassifierResultWithStringClassProbabilityClassFeatureTypeAdditionalFeat
 	return MLClassifierResultFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/asFeatureDictionaryWithPredictedClassDescription:classProbabilityDescription:
 func (c MLClassifierResult) AsFeatureDictionaryWithPredictedClassDescriptionClassProbabilityDescription(description objectivec.IObject, description2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("asFeatureDictionaryWithPredictedClassDescription:classProbabilityDescription:"), description, description2)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/initWithClassProbability:additionalFeatures:classLabelOfMaxProbability:
 func (c MLClassifierResult) InitWithClassProbabilityAdditionalFeaturesClassLabelOfMaxProbability(probability objectivec.IObject, features objectivec.IObject, probability2 objectivec.IObject) MLClassifierResult {
 	rv := objc.Send[MLClassifierResult](c.ID, objc.Sel("initWithClassProbability:additionalFeatures:classLabelOfMaxProbability:"), probability, features, probability2)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/initWithIntClassProbability:classFeatureType:additionalFeatures:
 func (c MLClassifierResult) InitWithIntClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
 	rv := objc.Send[MLClassifierResult](c.ID, objc.Sel("initWithIntClassProbability:classFeatureType:additionalFeatures:"), probability, type_, features)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/initWithStringClassProbability:classFeatureType:additionalFeatures:
 func (c MLClassifierResult) InitWithStringClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
 	rv := objc.Send[MLClassifierResult](c.ID, objc.Sel("initWithStringClassProbability:classFeatureType:additionalFeatures:"), probability, type_, features)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/resultWithClassProbability:additionalFeatures:classLabelOfMaxProbability:
 func (_MLClassifierResultClass MLClassifierResultClass) ResultWithClassProbabilityAdditionalFeaturesClassLabelOfMaxProbability(probability objectivec.IObject, features objectivec.IObject, probability2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLClassifierResultClass.class), objc.Sel("resultWithClassProbability:additionalFeatures:classLabelOfMaxProbability:"), probability, features, probability2)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/resultWithIntClassProbability:
 func (_MLClassifierResultClass MLClassifierResultClass) ResultWithIntClassProbability(probability objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLClassifierResultClass.class), objc.Sel("resultWithIntClassProbability:"), probability)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/resultWithIntClassProbability:additionalFeatures:
 func (_MLClassifierResultClass MLClassifierResultClass) ResultWithIntClassProbabilityAdditionalFeatures(probability objectivec.IObject, features objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLClassifierResultClass.class), objc.Sel("resultWithIntClassProbability:additionalFeatures:"), probability, features)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/resultWithStringClassProbability:
 func (_MLClassifierResultClass MLClassifierResultClass) ResultWithStringClassProbability(probability objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLClassifierResultClass.class), objc.Sel("resultWithStringClassProbability:"), probability)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/resultWithStringClassProbability:additionalFeatures:
 func (_MLClassifierResultClass MLClassifierResultClass) ResultWithStringClassProbabilityAdditionalFeatures(probability objectivec.IObject, features objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLClassifierResultClass.class), objc.Sel("resultWithStringClassProbability:additionalFeatures:"), probability, features)
@@ -198,19 +195,21 @@ func (c MLClassifierResult) AdditionalFeatures() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("additionalFeatures"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/classProbability
 func (c MLClassifierResult) ClassProbability() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("classProbability"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/predictedClass
 func (c MLClassifierResult) PredictedClass() IMLFeatureValue {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("predictedClass"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifierResult/predictedClassFeatureType
 func (c MLClassifierResult) PredictedClassFeatureType() int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("predictedClassFeatureType"))
 	return rv
 }
-

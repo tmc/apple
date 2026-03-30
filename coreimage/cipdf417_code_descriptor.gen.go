@@ -4,8 +4,9 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [CIPDF417CodeDescriptor] class.
@@ -45,11 +46,11 @@ func (cc CIPDF417CodeDescriptorClass) Alloc() CIPDF417CodeDescriptor {
 // PDF417 symbol.
 //
 // # Overview
-// 
+//
 // PDF417 is a stacked linear barcode symbol format used predominantly in
 // transport, ID cards, and inventory management. Each pattern in the code
 // comprises 4 bars and spaces, 17 units long.
-// 
+//
 // Refer to the ISO/IEC 15438:2006(E) for the PDF417 symbol specification.
 //
 // # Creating a Descriptor
@@ -75,6 +76,7 @@ type CIPDF417CodeDescriptor struct {
 func CIPDF417CodeDescriptorFromID(id objc.ID) CIPDF417CodeDescriptor {
 	return CIPDF417CodeDescriptor{CIBarcodeDescriptor: CIBarcodeDescriptorFromID(id)}
 }
+
 // NOTE: CIPDF417CodeDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -142,7 +144,7 @@ func NewCIPDF417CodeDescriptor() CIPDF417CodeDescriptor {
 // columnCount: The number of columns in the Aztec code, from 1 to 30.
 //
 // # Return Value
-// 
+//
 // An initialized [CIPDF417CodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
@@ -164,7 +166,7 @@ func NewPDF417CodeDescriptorWithPayloadIsCompactRowCountColumnCount(errorCorrect
 // columnCount: The number of columns in the Aztec code, from 1 to 30.
 //
 // # Return Value
-// 
+//
 // An initialized [CIPDF417CodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
@@ -185,7 +187,7 @@ func (p CIPDF417CodeDescriptor) InitWithPayloadIsCompactRowCountColumnCount(erro
 // columnCount: The number of columns in the Aztec code, from 1 to 30.
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIPDF417CodeDescriptor] instance or `nil` if the
 // parameters are invalid
 //
@@ -199,10 +201,10 @@ func (_CIPDF417CodeDescriptorClass CIPDF417CodeDescriptorClass) DescriptorWithPa
 // symbol.
 //
 // # Discussion
-// 
+//
 // The first codeword indicates the number of data codewords in the
 // errorCorrectedPayload.
-// 
+//
 // PDF417 codes are comprised of a start character on the left and a stop
 // character on the right. Each row begins and ends with special characters
 // indicating the current row as well as information about the dimensions of
@@ -219,10 +221,11 @@ func (p CIPDF417CodeDescriptor) ErrorCorrectedPayload() foundation.INSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("errorCorrectedPayload"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // A boolean value telling if the PDF417 code is compact.
 //
 // # Discussion
-// 
+//
 // Compact PDF417 symbols have abbreviated right-side guard bars.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417CodeDescriptor/isCompact-swift.property
@@ -230,10 +233,11 @@ func (p CIPDF417CodeDescriptor) IsCompact() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isCompact"))
 	return rv
 }
+
 // The number of rows in the PDF417 code symbol.
 //
 // # Discussion
-// 
+//
 // Valid row count values are from 3 to 90.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417CodeDescriptor/rowCount-swift.property
@@ -241,10 +245,11 @@ func (p CIPDF417CodeDescriptor) RowCount() int {
 	rv := objc.Send[int](p.ID, objc.Sel("rowCount"))
 	return rv
 }
+
 // The number of columns in the PDF417 code symbol.
 //
 // # Discussion
-// 
+//
 // Valid column count values are from 1 to 30. This count excluded the columns
 // used to indicate the symbol structure.
 //
@@ -253,4 +258,3 @@ func (p CIPDF417CodeDescriptor) ColumnCount() int {
 	rv := objc.Send[int](p.ID, objc.Sel("columnCount"))
 	return rv
 }
-

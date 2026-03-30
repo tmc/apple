@@ -4,8 +4,9 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (cc CAEDRMetadataClass) Alloc() CAEDRMetadata {
 // mapped.
 //
 // # Overview
-// 
+//
 // If you need specific tone-mapping behavior, set the [EDRMetadata] property
 // of a [CAMetalLayer] to point to an instance of this class.
 //
@@ -62,6 +63,7 @@ type CAEDRMetadata struct {
 func CAEDRMetadataFromID(id objc.ID) CAEDRMetadata {
 	return CAEDRMetadata{objectivec.Object{ID: id}}
 }
+
 // NOTE: CAEDRMetadata adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,9 +115,9 @@ func (e CAEDRMetadata) EncodeWithCoder(coder foundation.INSCoder) {
 // output of the reference display.
 //
 // # Discussion
-// 
+//
 // The MDCV and CLLI message formats are defined in ISO/IEC 23008-2:2017.
-// 
+//
 // The values in the drawable’s texture are assumed to be proportional to
 // the optical output (in cd/m^2) of the reference display. For example, if
 // the optical output scale is 100, then a value of 1.0 is assumed to be 100
@@ -126,6 +128,7 @@ func (_CAEDRMetadataClass CAEDRMetadataClass) HDR10MetadataWithDisplayInfoConten
 	rv := objc.Send[objc.ID](objc.ID(_CAEDRMetadataClass.class), objc.Sel("HDR10MetadataWithDisplayInfo:contentInfo:opticalOutputScale:"), displayData, contentData, scale)
 	return CAEDRMetadataFromID(rv)
 }
+
 // Creates EDR metadata for HDR10 content based on the luminance
 // characteristics of a mastering display.
 //
@@ -137,19 +140,19 @@ func (_CAEDRMetadataClass CAEDRMetadataClass) HDR10MetadataWithDisplayInfoConten
 // values to the optical output of a reference display.
 //
 // # Return Value
-// 
+//
 // A new EDR metadata object.
 //
 // # Discussion
-// 
+//
 // Any content greater than the maximum luminance (`maxNits`) may be clamped
 // when displayed.
-// 
+//
 // The values in the drawable’s texture are assumed to be proportional to
 // the optical output (in cd/m^2) of the reference display. For example, if
 // the optical output scale is 100, then a value of 1.0 is assumed to be 100
 // nits.
-// 
+//
 // If the content is in a normalized pixel format, set `opticalOutputScale` to
 // 10000.
 //
@@ -158,7 +161,7 @@ func (_CAEDRMetadataClass CAEDRMetadataClass) HDR10MetadataWithMinLuminanceMaxLu
 	rv := objc.Send[objc.ID](objc.ID(_CAEDRMetadataClass.class), objc.Sel("HDR10MetadataWithMinLuminance:maxLuminance:opticalOutputScale:"), minNits, maxNits, scale)
 	return CAEDRMetadataFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/QuartzCore/CAEDRMetadata/hlg(ambientViewingEnvironment:)
 func (_CAEDRMetadataClass CAEDRMetadataClass) HLGMetadataWithAmbientViewingEnvironment(data foundation.INSData) CAEDRMetadata {
 	rv := objc.Send[objc.ID](objc.ID(_CAEDRMetadataClass.class), objc.Sel("HLGMetadataWithAmbientViewingEnvironment:"), data)
@@ -181,7 +184,7 @@ func (e CAEDRMetadata) SetEdrMetadata(value ICAEDRMetadata) {
 // transfer function.
 //
 // # Discussion
-// 
+//
 // Your content should be scene referred and encoded with the ITU-R BT.2100-2
 // Hybrid Log Gamma (HLG) opto-electrical transfer function (OETF). The system
 // applies the opto-optical transfer function (OOTF) based on peak display
@@ -189,19 +192,19 @@ func (e CAEDRMetadata) SetEdrMetadata(value ICAEDRMetadata) {
 // with a linear colorspace (for floating point EDR layers), you must apply
 // the HLG inverse OETF without normalization, to provide a nominal range of
 // `[0, 12]`.
-// 
+//
 // For more information on HLG, see [https://www.itu.int/rec/R-REC-BT.2100].
 //
-// [https://www.itu.int/rec/R-REC-BT.2100]: https://www.itu.int/rec/R-REC-BT.2100
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CAEDRMetadata/hlg
+//
+// [https://www.itu.int/rec/R-REC-BT.2100]: https://www.itu.int/rec/R-REC-BT.2100
 func (_CAEDRMetadataClass CAEDRMetadataClass) HLGMetadata() CAEDRMetadata {
 	rv := objc.Send[objc.ID](objc.ID(_CAEDRMetadataClass.class), objc.Sel("HLGMetadata"))
 	return CAEDRMetadataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/QuartzCore/CAEDRMetadata/isAvailable
 func (_CAEDRMetadataClass CAEDRMetadataClass) Available() bool {
 	rv := objc.Send[bool](objc.ID(_CAEDRMetadataClass.class), objc.Sel("isAvailable"))
 	return rv
 }
-

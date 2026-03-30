@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLNeuralNetworkUpdateUtils struct {
 func MLNeuralNetworkUpdateUtilsFromID(id objc.ID) MLNeuralNetworkUpdateUtils {
 	return MLNeuralNetworkUpdateUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure MLNeuralNetworkUpdateUtils implements IMLNeuralNetworkUpdateUtils.
 var _ IMLNeuralNetworkUpdateUtils = MLNeuralNetworkUpdateUtils{}
 
@@ -82,19 +84,18 @@ func NewMLNeuralNetworkUpdateUtils() MLNeuralNetworkUpdateUtils {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateUtils/createClassLabelToIndexMapWith:
 func (_MLNeuralNetworkUpdateUtilsClass MLNeuralNetworkUpdateUtilsClass) CreateClassLabelToIndexMapWith(with objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkUpdateUtilsClass.class), objc.Sel("createClassLabelToIndexMapWith:"), with)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateUtils/loadParameterDescriptionsAndContainerFromUpdateParameters:modelDescription:
 func (_MLNeuralNetworkUpdateUtilsClass MLNeuralNetworkUpdateUtilsClass) LoadParameterDescriptionsAndContainerFromUpdateParametersModelDescription(parameters unsafe.Pointer, description objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLNeuralNetworkUpdateUtilsClass.class), objc.Sel("loadParameterDescriptionsAndContainerFromUpdateParameters:modelDescription:"), parameters, description)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkUpdateUtils/loadUpdateParameters:fromCompiledArchive:error:
 func (_MLNeuralNetworkUpdateUtilsClass MLNeuralNetworkUpdateUtilsClass) LoadUpdateParametersFromCompiledArchiveError(parameters unsafe.Pointer, archive unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -109,4 +110,3 @@ func (_MLNeuralNetworkUpdateUtilsClass MLNeuralNetworkUpdateUtilsClass) LoadUpda
 	return rv, nil
 
 }
-

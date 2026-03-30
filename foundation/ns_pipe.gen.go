@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (pc PipeClass) Alloc() Pipe {
 // A one-way communications channel between related processes.
 //
 // # Overview
-// 
+//
 // [NSPipe] objects provide an object-oriented interface for accessing pipes.
 // An [NSPipe] object represents both ends of a pipe and enables communication
 // through the pipe. A pipe is a one-way communications channel between
@@ -72,6 +73,7 @@ func PipeFromID(id objc.ID) Pipe {
 
 // NSPipeFromID is an alias for [PipeFromID] for cross-framework compatibility.
 func NSPipeFromID(id objc.ID) Pipe { return PipeFromID(id) }
+
 // NOTE: Pipe adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,7 +118,7 @@ func NewPipe() Pipe {
 // Returns an [NSPipe] object.
 //
 // # Return Value
-// 
+//
 // An initialized [NSPipe] object. Returns `nil` if the method encounters
 // errors while attempting to create the pipe or the [NSFileHandle] objects
 // that serve as endpoints of the pipe.
@@ -130,14 +132,14 @@ func (_PipeClass PipeClass) Pipe() Pipe {
 // The receiver’s read file handle.
 //
 // # Discussion
-// 
+//
 // The descriptor represented by this object is deleted, and the object itself
 // is automatically deallocated when the receiver is deallocated.
-// 
+//
 // You use the returned file handle to read from the pipe using
 // [NSFileHandle]’s read methods—[AvailableData], [ReadDataToEndOfFile],
 // and [ReadDataOfLength].
-// 
+//
 // You don’t need to send [CloseFile] to this object or explicitly release
 // the object after you have finished using it.
 //
@@ -146,12 +148,13 @@ func (p Pipe) FileHandleForReading() INSFileHandle {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("fileHandleForReading"))
 	return NSFileHandleFromID(objc.ID(rv))
 }
+
 // The receiver’s write file handle.
 //
 // # Discussion
-// 
+//
 // This object is automatically deallocated when the receiver is deallocated.
-// 
+//
 // You use the returned file handle to write to the pipe using
 // [NSFileHandle]’s [WriteData] method. When you are finished writing data
 // to this object, send it a [CloseFile] message to delete the descriptor.
@@ -163,4 +166,3 @@ func (p Pipe) FileHandleForWriting() INSFileHandle {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("fileHandleForWriting"))
 	return NSFileHandleFromID(objc.ID(rv))
 }
-

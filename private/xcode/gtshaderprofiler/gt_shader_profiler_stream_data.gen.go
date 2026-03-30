@@ -4,10 +4,11 @@ package gtshaderprofiler
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (gc GTShaderProfilerStreamDataClass) Alloc() GTShaderProfilerStreamData {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTShaderProfilerStreamData.ArchivedAPSCounterData]
@@ -118,6 +118,7 @@ func (gc GTShaderProfilerStreamDataClass) Alloc() GTShaderProfilerStreamData {
 //   - [GTShaderProfilerStreamData.InitWithNewFileFormatV2Support]
 //   - [GTShaderProfilerStreamData.InitWithPreSiBundle]
 //   - [GTShaderProfilerStreamData.Version]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData
 type GTShaderProfilerStreamData struct {
 	objectivec.Object
@@ -127,6 +128,7 @@ type GTShaderProfilerStreamData struct {
 func GTShaderProfilerStreamDataFromID(id objc.ID) GTShaderProfilerStreamData {
 	return GTShaderProfilerStreamData{objectivec.Object{ID: id}}
 }
+
 // Ensure GTShaderProfilerStreamData implements IGTShaderProfilerStreamData.
 var _ IGTShaderProfilerStreamData = GTShaderProfilerStreamData{}
 
@@ -304,7 +306,6 @@ func NewGTShaderProfilerStreamData() GTShaderProfilerStreamData {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithCoder:
 func NewGTShaderProfilerStreamDataWithCoder(coder objectivec.IObject) GTShaderProfilerStreamData {
 	instance := getGTShaderProfilerStreamDataClass().Alloc()
@@ -312,7 +313,6 @@ func NewGTShaderProfilerStreamDataWithCoder(coder objectivec.IObject) GTShaderPr
 	return GTShaderProfilerStreamDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithNewFileFormatV2Support:
 func NewGTShaderProfilerStreamDataWithNewFileFormatV2Support(v2Support bool) GTShaderProfilerStreamData {
 	instance := getGTShaderProfilerStreamDataClass().Alloc()
@@ -320,7 +320,6 @@ func NewGTShaderProfilerStreamDataWithNewFileFormatV2Support(v2Support bool) GTS
 	return GTShaderProfilerStreamDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithPreSiBundle:
 func NewGTShaderProfilerStreamDataWithPreSiBundle(bundle objectivec.IObject) GTShaderProfilerStreamData {
 	instance := getGTShaderProfilerStreamDataClass().Alloc()
@@ -332,12 +331,13 @@ func NewGTShaderProfilerStreamDataWithPreSiBundle(bundle objectivec.IObject) GTS
 func (g GTShaderProfilerStreamData) CleanupLocalFiles() {
 	objc.Send[objc.ID](g.ID, objc.Sel("cleanupLocalFiles"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/GPUCommandInfoFromFunctionIndex:subCommandIndex:
 func (g GTShaderProfilerStreamData) GPUCommandInfoFromFunctionIndexSubCommandIndex(index uint32, index2 int) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("GPUCommandInfoFromFunctionIndex:subCommandIndex:"), index, index2)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/_setupDataPath
 func (g GTShaderProfilerStreamData) _setupDataPath() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_setupDataPath"))
@@ -348,7 +348,7 @@ func (g GTShaderProfilerStreamData) _setupDataPath() objectivec.IObject {
 func (g GTShaderProfilerStreamData) SetupDataPath() objectivec.IObject {
 	return g._setupDataPath()
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/_writeLocalData:dataPath:to:
 func (g GTShaderProfilerStreamData) _writeLocalDataDataPathTo(data objectivec.IObject, path objectivec.IObject, to objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_writeLocalData:dataPath:to:"), data, path, to)
@@ -358,18 +358,18 @@ func (g GTShaderProfilerStreamData) _writeLocalDataDataPathTo(data objectivec.IO
 func (g GTShaderProfilerStreamData) WriteLocalDataDataPathTo(data objectivec.IObject, path objectivec.IObject, to objectivec.IObject) {
 	g._writeLocalDataDataPathTo(data, path, to)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/dataFromUnarchvedMetadata:
 func (g GTShaderProfilerStreamData) DataFromUnarchvedMetadata(metadata objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("dataFromUnarchvedMetadata:"), metadata)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/debugDump:
 func (g GTShaderProfilerStreamData) DebugDump(dump objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("debugDump:"), dump)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/encode:error:
 func (g GTShaderProfilerStreamData) EncodeError(encode objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -381,103 +381,94 @@ func (g GTShaderProfilerStreamData) EncodeError(encode objectivec.IObject) (obje
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/encodeAPSArrayForOldHost:array:
 func (g GTShaderProfilerStreamData) EncodeAPSArrayForOldHostArray(host objectivec.IObject, array objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeAPSArrayForOldHost:array:"), host, array)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/encodeWithCoder:
 func (g GTShaderProfilerStreamData) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/encoderInfoFromFunctionIndex:
 func (g GTShaderProfilerStreamData) EncoderInfoFromFunctionIndex(index uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("encoderInfoFromFunctionIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/enumerateUnarchivedBatchIdFilteredCounterData:
 func (g GTShaderProfilerStreamData) EnumerateUnarchivedBatchIdFilteredCounterData(data VoidHandler) {
-_block0, _ := NewVoidBlock(data)
+	_block0, _ := NewVoidBlock(data)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUnarchivedBatchIdFilteredCounterData:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/enumerateUnarchivedGPUTimelineData:
 func (g GTShaderProfilerStreamData) EnumerateUnarchivedGPUTimelineData(data VoidHandler) {
-_block0, _ := NewVoidBlock(data)
+	_block0, _ := NewVoidBlock(data)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUnarchivedGPUTimelineData:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/enumerateUnarchivedShaderProfilerData:
 func (g GTShaderProfilerStreamData) EnumerateUnarchivedShaderProfilerData(data VoidHandler) {
-_block0, _ := NewVoidBlock(data)
+	_block0, _ := NewVoidBlock(data)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUnarchivedShaderProfilerData:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/patchObjectIds:
 func (g GTShaderProfilerStreamData) PatchObjectIds(ids objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("patchObjectIds:"), ids)
 }
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/setMetalDeviceName:
-func (g GTShaderProfilerStreamData) SetMetalDeviceName(name objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setMetalDeviceName:"), name)
-}
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/setMetalPluginName:
-func (g GTShaderProfilerStreamData) SetMetalPluginName(name objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setMetalPluginName:"), name)
-}
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithCoder:
 func (g GTShaderProfilerStreamData) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerStreamData {
 	rv := objc.Send[GTShaderProfilerStreamData](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithNewFileFormatV2Support:
 func (g GTShaderProfilerStreamData) InitWithNewFileFormatV2Support(v2Support bool) GTShaderProfilerStreamData {
 	rv := objc.Send[GTShaderProfilerStreamData](g.ID, objc.Sel("initWithNewFileFormatV2Support:"), v2Support)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithPreSiBundle:
 func (g GTShaderProfilerStreamData) InitWithPreSiBundle(bundle objectivec.IObject) GTShaderProfilerStreamData {
 	rv := objc.Send[GTShaderProfilerStreamData](g.ID, objc.Sel("initWithPreSiBundle:"), bundle)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/dataForMetadataFromArchivedDataURL:
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) DataForMetadataFromArchivedDataURL(url foundation.INSURL) GTShaderProfilerStreamData {
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("dataForMetadataFromArchivedDataURL:"), url)
 	return GTShaderProfilerStreamDataFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/dataFromArchivedDataURL:
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) DataFromArchivedDataURL(url foundation.INSURL) GTShaderProfilerStreamData {
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("dataFromArchivedDataURL:"), url)
 	return GTShaderProfilerStreamDataFromID(rv)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/streamDataClasses
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) StreamDataClasses() foundation.INSArray {
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("streamDataClasses"))
 	return foundation.NSArrayFromID(rv)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/supportsSecureCoding
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/savedStreamDataFromCaptureArchive:
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) SavedStreamDataFromCaptureArchive(archive objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("savedStreamDataFromCaptureArchive:"), archive)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/steamDataFromData:
 func (_GTShaderProfilerStreamDataClass GTShaderProfilerStreamDataClass) SteamDataFromData(data objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_GTShaderProfilerStreamDataClass.class), objc.Sel("steamDataFromData:"), data)
@@ -492,166 +483,199 @@ func (g GTShaderProfilerStreamData) DeviceInfo() objectivec.IObject {
 func (g GTShaderProfilerStreamData) SetDeviceInfo(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDeviceInfo:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/gpuGeneration
 func (g GTShaderProfilerStreamData) GpuGeneration() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("gpuGeneration"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/metalDeviceName
 func (g GTShaderProfilerStreamData) MetalDeviceName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("metalDeviceName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/metalPluginName
 func (g GTShaderProfilerStreamData) MetalPluginName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("metalPluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/archivedAPSCounterData
 func (g GTShaderProfilerStreamData) ArchivedAPSCounterData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedAPSCounterData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/archivedAPSData
 func (g GTShaderProfilerStreamData) ArchivedAPSData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedAPSData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/archivedAPSTimelineData
 func (g GTShaderProfilerStreamData) ArchivedAPSTimelineData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedAPSTimelineData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/archivedBatchIdFilteredCounterData
 func (g GTShaderProfilerStreamData) ArchivedBatchIdFilteredCounterData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedBatchIdFilteredCounterData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/archivedGPUTimelineData
 func (g GTShaderProfilerStreamData) ArchivedGPUTimelineData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedGPUTimelineData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/archivedShaderProfilerData
 func (g GTShaderProfilerStreamData) ArchivedShaderProfilerData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("archivedShaderProfilerData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/batchIdFilterableCounters
 func (g GTShaderProfilerStreamData) BatchIdFilterableCounters() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("batchIdFilterableCounters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/blitCallCount
 func (g GTShaderProfilerStreamData) BlitCallCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("blitCallCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/commandBufferInfoCount
 func (g GTShaderProfilerStreamData) CommandBufferInfoCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("commandBufferInfoCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/commandBufferInfoData
 func (g GTShaderProfilerStreamData) CommandBufferInfoData() foundation.INSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("commandBufferInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/commandBuffers
 func (g GTShaderProfilerStreamData) CommandBuffers() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("commandBuffers"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/dataFileURL
 func (g GTShaderProfilerStreamData) DataFileURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("dataFileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/dataSourceCaptureRange
 func (g GTShaderProfilerStreamData) DataSourceCaptureRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](g.ID, objc.Sel("dataSourceCaptureRange"))
 	return foundation.NSRange(rv)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/dataSourceHasUnusedResources
 func (g GTShaderProfilerStreamData) DataSourceHasUnusedResources() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("dataSourceHasUnusedResources"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/encoderInfoCount
 func (g GTShaderProfilerStreamData) EncoderInfoCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("encoderInfoCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/encoderInfoData
 func (g GTShaderProfilerStreamData) EncoderInfoData() foundation.INSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("encoderInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/encoders
 func (g GTShaderProfilerStreamData) Encoders() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("encoders"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/functionInfo
 func (g GTShaderProfilerStreamData) FunctionInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("functionInfo"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/functionInfoCount
 func (g GTShaderProfilerStreamData) FunctionInfoCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("functionInfoCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/functionInfoData
 func (g GTShaderProfilerStreamData) FunctionInfoData() foundation.INSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("functionInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/gpuCommandInfoCount
 func (g GTShaderProfilerStreamData) GpuCommandInfoCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("gpuCommandInfoCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/gpuCommandInfoData
 func (g GTShaderProfilerStreamData) GpuCommandInfoData() foundation.INSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuCommandInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/gpuCommands
 func (g GTShaderProfilerStreamData) GpuCommands() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuCommands"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/isPreSiData
 func (g GTShaderProfilerStreamData) IsPreSiData() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isPreSiData"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/pipelinePerformanceStatistics
 func (g GTShaderProfilerStreamData) PipelinePerformanceStatistics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("pipelinePerformanceStatistics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/pipelineStateInfoCount
 func (g GTShaderProfilerStreamData) PipelineStateInfoCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("pipelineStateInfoCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/pipelineStateInfoData
 func (g GTShaderProfilerStreamData) PipelineStateInfoData() foundation.INSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("pipelineStateInfoData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/pipelineStates
 func (g GTShaderProfilerStreamData) PipelineStates() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("pipelineStates"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/preSiBundleURL
 func (g GTShaderProfilerStreamData) PreSiBundleURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("preSiBundleURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/profiledExecutionMode
 func (g GTShaderProfilerStreamData) ProfiledExecutionMode() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("profiledExecutionMode"))
@@ -660,6 +684,7 @@ func (g GTShaderProfilerStreamData) ProfiledExecutionMode() uint32 {
 func (g GTShaderProfilerStreamData) SetProfiledExecutionMode(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setProfiledExecutionMode:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/profiledPerformanceState
 func (g GTShaderProfilerStreamData) ProfiledPerformanceState() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("profiledPerformanceState"))
@@ -668,6 +693,7 @@ func (g GTShaderProfilerStreamData) ProfiledPerformanceState() uint32 {
 func (g GTShaderProfilerStreamData) SetProfiledPerformanceState(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setProfiledPerformanceState:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/profiledProfilerMode
 func (g GTShaderProfilerStreamData) ProfiledProfilerMode() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("profiledProfilerMode"))
@@ -676,16 +702,19 @@ func (g GTShaderProfilerStreamData) ProfiledProfilerMode() uint32 {
 func (g GTShaderProfilerStreamData) SetProfiledProfilerMode(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setProfiledProfilerMode:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/shortDescription
 func (g GTShaderProfilerStreamData) ShortDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("shortDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/strings
 func (g GTShaderProfilerStreamData) Strings() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("strings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/supportsFileFormatV2
 func (g GTShaderProfilerStreamData) SupportsFileFormatV2() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("supportsFileFormatV2"))
@@ -694,6 +723,7 @@ func (g GTShaderProfilerStreamData) SupportsFileFormatV2() bool {
 func (g GTShaderProfilerStreamData) SetSupportsFileFormatV2(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setSupportsFileFormatV2:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/traceName
 func (g GTShaderProfilerStreamData) TraceName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("traceName"))
@@ -702,41 +732,49 @@ func (g GTShaderProfilerStreamData) TraceName() string {
 func (g GTShaderProfilerStreamData) SetTraceName(value string) {
 	objc.Send[struct{}](g.ID, objc.Sel("setTraceName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/unarchivedAPSCounterData
 func (g GTShaderProfilerStreamData) UnarchivedAPSCounterData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedAPSCounterData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/unarchivedAPSData
 func (g GTShaderProfilerStreamData) UnarchivedAPSData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedAPSData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/unarchivedAPSTimelineData
 func (g GTShaderProfilerStreamData) UnarchivedAPSTimelineData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedAPSTimelineData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/unarchivedBatchIdFilteredCounterData
 func (g GTShaderProfilerStreamData) UnarchivedBatchIdFilteredCounterData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedBatchIdFilteredCounterData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/unarchivedGPUTimelineData
 func (g GTShaderProfilerStreamData) UnarchivedGPUTimelineData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedGPUTimelineData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/unarchivedShaderProfilerData
 func (g GTShaderProfilerStreamData) UnarchivedShaderProfilerData() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("unarchivedShaderProfilerData"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/unixTimestamp
 func (g GTShaderProfilerStreamData) UnixTimestamp() int64 {
 	rv := objc.Send[int64](g.ID, objc.Sel("unixTimestamp"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/version
 func (g GTShaderProfilerStreamData) Version() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("version"))
@@ -787,4 +825,3 @@ func (g GTShaderProfilerStreamData) EnumerateUnarchivedShaderProfilerDataSync(ct
 		return ctx.Err()
 	}
 }
-

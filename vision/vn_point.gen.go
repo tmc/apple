@@ -4,9 +4,10 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -71,6 +72,7 @@ type VNPoint struct {
 func VNPointFromID(id objc.ID) VNPoint {
 	return VNPoint{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNPoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -173,6 +175,7 @@ func (p VNPoint) InitWithXY(x float64, y float64) VNPoint {
 	rv := objc.Send[VNPoint](p.ID, objc.Sel("initWithX:y:"), x, y)
 	return rv
 }
+
 // Creates a point object from the specified Core Graphics point.
 //
 // location: The Core Graphics point.
@@ -182,12 +185,13 @@ func (p VNPoint) InitWithLocation(location corefoundation.CGPoint) VNPoint {
 	rv := objc.Send[VNPoint](p.ID, objc.Sel("initWithLocation:"), location)
 	return rv
 }
+
 // Returns the distance to another point.
 //
 // point: The point for which to calculate the distance.
 //
 // # Return Value
-// 
+//
 // The calculated distance.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint/distance(_:)
@@ -219,6 +223,7 @@ func (p VNPoint) X() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("x"))
 	return rv
 }
+
 // The y-coordinate.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint/y
@@ -226,6 +231,7 @@ func (p VNPoint) Y() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("y"))
 	return rv
 }
+
 // The Core Graphics point for this point.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint/location
@@ -237,7 +243,7 @@ func (p VNPoint) Location() corefoundation.CGPoint {
 // A point object that represents the origin.
 //
 // # Discussion
-// 
+//
 // The origin point is (0.0, 0.0).
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint/zero
@@ -245,4 +251,3 @@ func (_VNPointClass VNPointClass) ZeroPoint() VNPoint {
 	rv := objc.Send[objc.ID](objc.ID(_VNPointClass.class), objc.Sel("zeroPoint"))
 	return VNPointFromID(objc.ID(rv))
 }
-

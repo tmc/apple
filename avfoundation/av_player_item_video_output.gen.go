@@ -4,10 +4,11 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVPlayerItemVideoOutput] class.
@@ -74,6 +75,7 @@ type AVPlayerItemVideoOutput struct {
 func AVPlayerItemVideoOutputFromID(id objc.ID) AVPlayerItemVideoOutput {
 	return AVPlayerItemVideoOutput{AVPlayerItemOutput: AVPlayerItemOutputFromID(id)}
 }
+
 // NOTE: AVPlayerItemVideoOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -150,18 +152,17 @@ func NewAVPlayerItemVideoOutput() AVPlayerItemVideoOutput {
 //
 // outputSettings: The client requirements for output [CVPixelBuffer] objects, expressed using
 // the constants in `AVVideoSettings.H()`.
-// //
-// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
 //
 // # Discussion
-// 
-// For uncompressed video output, start with `kCVPixelBuffer*` keys in ``. In
+//
+// For uncompressed video output, start with `kCVPixelBuffer*` keys in “. In
 // addition to the keys in `CVPixelBuffer.H()`, uncompressed video settings
 // dictionaries may also provide a value for [AVVideoAllowWideColorKey].
 //
-// [AVVideoAllowWideColorKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoAllowWideColorKey
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemVideoOutput/init(outputSettings:)
+//
+// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
+// [AVVideoAllowWideColorKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoAllowWideColorKey
 func NewPlayerItemVideoOutputWithOutputSettings(outputSettings foundation.INSDictionary) AVPlayerItemVideoOutput {
 	instance := getAVPlayerItemVideoOutputClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOutputSettings:"), outputSettings)
@@ -173,22 +174,22 @@ func NewPlayerItemVideoOutputWithOutputSettings(outputSettings foundation.INSDic
 //
 // outputSettings: The client requirements for output [CVPixelBuffer] objects, expressed using
 // the constants in `AVVideoSettings.H()`.
-// //
-// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
 //
 // # Discussion
-// 
-// For uncompressed video output, start with `kCVPixelBuffer*` keys in ``. In
+//
+// For uncompressed video output, start with `kCVPixelBuffer*` keys in “. In
 // addition to the keys in `CVPixelBuffer.H()`, uncompressed video settings
 // dictionaries may also provide a value for [AVVideoAllowWideColorKey].
 //
-// [AVVideoAllowWideColorKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoAllowWideColorKey
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemVideoOutput/init(outputSettings:)
+//
+// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
+// [AVVideoAllowWideColorKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoAllowWideColorKey
 func (p AVPlayerItemVideoOutput) InitWithOutputSettings(outputSettings foundation.INSDictionary) AVPlayerItemVideoOutput {
 	rv := objc.Send[AVPlayerItemVideoOutput](p.ID, objc.Sel("initWithOutputSettings:"), outputSettings)
 	return rv
 }
+
 // Sets the delegate and dispatch queue for the receiver.
 //
 // delegate: The delegate object for the receiver. You may specify `nil` for this
@@ -202,6 +203,7 @@ func (p AVPlayerItemVideoOutput) InitWithOutputSettings(outputSettings foundatio
 func (p AVPlayerItemVideoOutput) SetDelegateQueue(delegate AVPlayerItemOutputPullDelegate, delegateQueue dispatch.Queue) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setDelegate:queue:"), delegate, uintptr(delegateQueue.Handle()))
 }
+
 // Tells the receiver that the video out put client is entering a quiescent
 // state.
 //
@@ -209,23 +211,24 @@ func (p AVPlayerItemVideoOutput) SetDelegateQueue(delegate AVPlayerItemOutputPul
 // change.
 //
 // # Discussion
-// 
+//
 // Call this method before you suspend your use of a [CVDisplayLink] type or a
 // [CADisplayLink] object. After the interval expires, the video output object
 // notifies its delegate that it should resume the display link. If the
 // interval value you specify is large, the delegate is notified as soon as
 // possible rather than waiting.
-// 
+//
 // Do not call this method repeatedly to force the delegate to be notified for
 // each sample.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemVideoOutput/requestNotificationOfMediaDataChange(withAdvanceInterval:)
+//
 // [CADisplayLink]: https://developer.apple.com/documentation/QuartzCore/CADisplayLink
 // [CVDisplayLink]: https://developer.apple.com/documentation/CoreVideo/CVDisplayLink
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemVideoOutput/requestNotificationOfMediaDataChange(withAdvanceInterval:)
 func (p AVPlayerItemVideoOutput) RequestNotificationOfMediaDataChangeWithAdvanceInterval(interval float64) {
 	objc.Send[objc.ID](p.ID, objc.Sel("requestNotificationOfMediaDataChangeWithAdvanceInterval:"), interval)
 }
+
 // Returns a Boolean value that indicates whether video output is available
 // for the specified item time.
 //
@@ -233,22 +236,17 @@ func (p AVPlayerItemVideoOutput) RequestNotificationOfMediaDataChangeWithAdvance
 // object with which the receiver is associated.
 //
 // # Return Value
-// 
-// [true] if there is available video output that has not been previously
-// acquired or [false] if there is not.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if there is available video output that has not been previously
+// acquired or false if there is not.
 //
 // # Discussion
-// 
-// This method returns [true] if the video data at the specified time has not
+//
+// This method returns true if the video data at the specified time has not
 // yet been acquired or is different from the video that was acquired
 // previously. If you require multiple objects to acquire video output from
 // the same [AVPlayerItem] object, you should create separate
 // [AVPlayerItemVideoOutput] objects for each.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemVideoOutput/hasNewPixelBuffer(forItemTime:)
 func (p AVPlayerItemVideoOutput) HasNewPixelBufferForItemTime(itemTime coremedia.CMTime) bool {
@@ -263,6 +261,7 @@ func (p AVPlayerItemVideoOutput) Delegate() AVPlayerItemOutputPullDelegate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("delegate"))
 	return AVPlayerItemOutputPullDelegateObjectFromID(rv)
 }
+
 // The dispatch queue on which to call delegate methods.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemVideoOutput/delegateQueue
@@ -270,4 +269,3 @@ func (p AVPlayerItemVideoOutput) DelegateQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](p.ID, objc.Sel("delegateQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
-

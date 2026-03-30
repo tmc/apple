@@ -5,8 +5,9 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,16 +47,16 @@ func (nc NSAlertClass) Alloc() NSAlert {
 // A modal dialog or sheet attached to a document window.
 //
 // # Overview
-// 
+//
 // The methods of the [NSAlert] class allow you to specify alert level, alert
 // text, button titles, and a custom icon should you require it. The class
 // also lets your alerts display a help button and provides ways for apps to
 // offer help specific to an alert.
-// 
+//
 // To display an alert as a sheet, call the
 // [NSAlert.BeginSheetModalForWindowCompletionHandler] method; to display one as an
 // app-modal dialog, use the [NSAlert.RunModal] method.
-// 
+//
 // By design, an [NSAlert] object is intended for a single alert—that is, an
 // alert with a unique combination of title, buttons, and so on—that is
 // displayed upon a particular condition. You should create an [NSAlert]
@@ -63,20 +64,20 @@ func (nc NSAlertClass) Alloc() NSAlert {
 // alert, and release it when you are done. If you have a particular alert
 // dialog that you need to show repeatedly, you can retain and reuse an
 // instance of [NSAlert] for this dialog.
-// 
+//
 // After creating an alert using one of the alert creation methods, you can
 // customize it further prior to displaying it by customizing its attributes.
 // See [NSAlert].
-// 
+//
 // Unless you must maintain compatibility with existing alert-processing code
 // that uses the function-based API, you should allocate (`alloc`) and
 // initialize (`init`) the alert object, and then set its attributes using the
 // appropriate methods of the [NSAlert] class.
-// 
+//
 // # Instance Attributes
-// 
+//
 // [NSAlert] objects have the following attributes:
-// 
+//
 // - Type An alert’s type helps convey the importance or gravity of its
 // message to the user. Specified with the [NSAlert.AlertStyle] property. - Message
 // text The main message of the alert. Specified with [NSAlert.MessageText]. -
@@ -92,9 +93,9 @@ func (nc NSAlertClass) Alloc() NSAlert {
 // Accessory view An accessory view lets you add additional information to an
 // alert; for example, a text field with contact information. Use
 // [NSAlert.AccessoryView], [NSAlert.Layout].
-// 
+//
 // # Subclassing Notes
-// 
+//
 // The [NSAlert] class is not designed for subclassing.
 //
 // # Configuring Alerts
@@ -151,6 +152,7 @@ type NSAlert struct {
 func NSAlertFromID(id objc.ID) NSAlert {
 	return NSAlert{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAlert adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -287,11 +289,11 @@ func NewNSAlert() NSAlert {
 // error: Error information to display.
 //
 // # Return Value
-// 
+//
 // An initialized alert.
 //
 // # Discussion
-// 
+//
 // The [NSAlert] class extracts the localized error description, recovery
 // suggestion, and recovery options from the `error` parameter and uses them
 // as the alert’s message text, informative text, and button titles,
@@ -307,7 +309,7 @@ func NewAlertWithError(error_ foundation.INSError) NSAlert {
 // before display.
 //
 // # Discussion
-// 
+//
 // You need to call this method only when you need to customize the alert’s
 // layout. Call this method after all the alert’s attributes have been
 // customized, including the suppression checkbox and the accessory layout.
@@ -318,41 +320,43 @@ func NewAlertWithError(error_ foundation.INSError) NSAlert {
 func (a NSAlert) Layout() {
 	objc.Send[objc.ID](a.ID, objc.Sel("layout"))
 }
+
 // Runs the alert as an app-modal dialog and returns the constant that
 // identifies the button clicked.
 //
 // # Return Value
-// 
+//
 // A response to the alert. See this method’s “Special Considerations”
 // section for details.
 //
 // # Discussion
-// 
+//
 // You can create the alert either through the standard allocation and
 // initialization procedure or, if necessary in your app, by using the
 // deprecated compatibility method
 // [alertWithMessageText:defaultButton:alternateButton:otherButton:informativeTextWithFormat:].
-// 
+//
 // # Special Considerations
-// 
+//
 // This method can return values other than those specific to the alert
 // buttons ([alertFirstButtonReturn], [alertSecondButtonReturn], and so on) if
 // the alert is canceled programatically.
-// 
-// If you use `` to create an alert, the [NSAlertDefaultReturn],
+//
+// If you use “ to create an alert, the [NSAlertDefaultReturn],
 // [NSAlertAlternateReturn], and [NSAlertOtherReturn] constants identify the
 // button used to dismiss the alert. Otherwise, the constants used are the
 // ones described in [AddButtonWithTitle].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAlert/runModal()
+//
 // [alertFirstButtonReturn]: https://developer.apple.com/documentation/AppKit/NSApplication/ModalResponse/alertFirstButtonReturn
 // [alertSecondButtonReturn]: https://developer.apple.com/documentation/AppKit/NSApplication/ModalResponse/alertSecondButtonReturn
 // [alertWithMessageText:defaultButton:alternateButton:otherButton:informativeTextWithFormat:]: https://developer.apple.com/documentation/AppKit/NSAlert/alertWithMessageText:defaultButton:alternateButton:otherButton:informativeTextWithFormat:
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAlert/runModal()
 func (a NSAlert) RunModal() NSModalResponse {
 	rv := objc.Send[NSModalResponse](a.ID, objc.Sel("runModal"))
 	return NSModalResponse(rv)
 }
+
 // Runs the alert modally as a sheet attached to the specified window.
 //
 // sheetWindow: The window on which to display the sheet.
@@ -361,42 +365,43 @@ func (a NSAlert) RunModal() NSModalResponse {
 // ends.
 //
 // # Discussion
-// 
+//
 // This method uses the [NSWindow] sheet methods to display the alert (for
 // more information, see Managing Sheets). If the alert has an alert style of
 // [NSCriticalAlertStyle], it is presented as a critical sheet, which means
 // that it can display on top of other sheets that might already be attached
 // to the window. Otherwise, it is presented—or queued for presentation—as
 // a standard sheet.
-// 
+//
 // Note that [OrderOut] no longer needs to be called in the completion
 // handler. If you don’t dismiss the alert, it will be done for you after
 // the completion handler finishes.
 //
-// [NSCriticalAlertStyle]: https://developer.apple.com/documentation/AppKit/NSCriticalAlertStyle
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/beginSheetModal(for:completionHandler:)
+//
+// [NSCriticalAlertStyle]: https://developer.apple.com/documentation/AppKit/NSCriticalAlertStyle
 func (a NSAlert) BeginSheetModalForWindowCompletionHandler(sheetWindow INSWindow, handler ModalResponseHandler) {
-_block1, _ := NewModalResponseBlock(handler)
+	_block1, _ := NewModalResponseBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("beginSheetModalForWindow:completionHandler:"), sheetWindow, _block1)
 }
+
 // Adds a button with a given title to the alert.
 //
 // title: Title of the button to add to the alert. Must not be `nil`.
 //
 // # Return Value
-// 
+//
 // Button added to the alert.
 //
 // # Discussion
-// 
+//
 // Buttons are placed starting near the right side of the alert and going
 // toward the left side (for languages that read left to right). The first
 // three buttons are identified positionally as [NSAlertFirstButtonReturn],
 // [NSAlertSecondButtonReturn], [NSAlertThirdButtonReturn] in the return-code
 // parameter evaluated by the modal delegate. Subsequent buttons are
 // identified as [NSAlertThirdButtonReturn] +`n`, where `n` is an integer
-// 
+//
 // By default, the first button has a key equivalent of Return, any button
 // with a title of “Cancel” has a key equivalent of Escape, and any button
 // with the title “Don’t Save” has a key equivalent of Command-D (but
@@ -414,12 +419,12 @@ func (a NSAlert) AddButtonWithTitle(title string) INSButton {
 // Indicates the alert’s severity level.
 //
 // # Discussion
-// 
+//
 // See the [NSAlert.Style] enumeration for the list of alert style constants.
 //
-// [NSAlert.Style]: https://developer.apple.com/documentation/AppKit/NSAlert/Style
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/alertStyle
+//
+// [NSAlert.Style]: https://developer.apple.com/documentation/AppKit/NSAlert/Style
 func (a NSAlert) AlertStyle() NSAlertStyle {
 	rv := objc.Send[NSAlertStyle](a.ID, objc.Sel("alertStyle"))
 	return NSAlertStyle(rv)
@@ -427,19 +432,20 @@ func (a NSAlert) AlertStyle() NSAlertStyle {
 func (a NSAlert) SetAlertStyle(value NSAlertStyle) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAlertStyle:"), value)
 }
+
 // The alert’s accessory view.
 //
 // # Discussion
-// 
+//
 // The [NSAlert] class places the accessory view between the informative text
 // or suppression checkbox (if present) and the response buttons. Before you
 // change the location of the accessory view, first call the [Layout] method.
-// 
+//
 // [AlertStyle] shows an example of adding an accessory view to an alert.
 // [Buttons] shows the alert generated.
-// 
+//
 // Listing 1. Adding an accessory view to an alert
-// 
+//
 // [media-1965585]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/accessoryView
@@ -450,30 +456,28 @@ func (a NSAlert) AccessoryView() INSView {
 func (a NSAlert) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAccessoryView:"), value)
 }
+
 // Specifies whether the alert has a help button.
 //
 // # Discussion
-// 
-// Set this property’s value to [true] to specify that the alert has a help
-// button, or [false] to specify it does not.
-// 
+//
+// Set this property’s value to true to specify that the alert has a help
+// button, or false to specify it does not.
+//
 // When a user clicks an alert’s help button, the alert delegate
 // ([Delegate]) receives an [AlertShowHelp] message. The delegate is
 // responsible for displaying the help information related to this particular
 // alert.
-// 
+//
 // Clicking an alert’s help button can alternately cause the
 // [OpenHelpAnchorInBook] message to be sent to the app’s help manager with
 // a `nil` book and the anchor specified by the [HelpAnchor] property, if any
 // of the following conditions are true:
-// 
+//
 // - There is no alert delegate. - The alert delegate does not implement
 // [AlertShowHelp]. - The alert delegate implements [AlertShowHelp] but
-// returns [false]. When this is the case, an exception is raised if no help
+// returns false. When this is the case, an exception is raised if no help
 // anchor is set.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/showsHelp
 func (a NSAlert) ShowsHelp() bool {
@@ -483,10 +487,11 @@ func (a NSAlert) ShowsHelp() bool {
 func (a NSAlert) SetShowsHelp(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setShowsHelp:"), value)
 }
+
 // The alert’s HTML help anchor.
 //
 // # Discussion
-// 
+//
 // To provide a help anchor for the alert, set this property to the
 // appropriate string value. To remove the help anchor, set this property’s
 // value to `nil`.
@@ -499,10 +504,11 @@ func (a NSAlert) HelpAnchor() NSHelpAnchorName {
 func (a NSAlert) SetHelpAnchor(value NSHelpAnchorName) {
 	objc.Send[struct{}](a.ID, objc.Sel("setHelpAnchor:"), objc.String(string(value)))
 }
+
 // The alert’s delegate.
 //
 // # Discussion
-// 
+//
 // To set a delegate for the alert, provide an object conforming to the
 // [NSAlertDelegate]protocol to this property. To remove the delegate, set
 // this property’s value to `nil`.
@@ -515,10 +521,11 @@ func (a NSAlert) Delegate() NSAlertDelegate {
 func (a NSAlert) SetDelegate(value NSAlertDelegate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The alert’s suppression checkbox.
 //
 // # Discussion
-// 
+//
 // If you want to customize an alert’s suppression checkbox, access it via
 // this property and then use the methods of the [NSButton] class. For
 // example, you can do this to change the suppression checkbox’s default
@@ -531,31 +538,29 @@ func (a NSAlert) SuppressionButton() INSButton {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("suppressionButton"))
 	return NSButtonFromID(objc.ID(rv))
 }
+
 // Specifies whether the alert includes a suppression checkbox, which you can
 // employ to allow a user to opt out of seeing the alert again.
 //
 // # Discussion
-// 
-// The default value of this property is [false], which specifies the absence
-// of a suppression checkbox in the alert. Set the value to [true] to show a
+//
+// The default value of this property is false, which specifies the absence of
+// a suppression checkbox in the alert. Set the value to true to show a
 // suppression checkbox in the alert.
-// 
+//
 // By default, a suppression checkbox has the title, “Do not show this
 // message again.” In macOS 11.0 and later, if the alert displays multiple
 // buttons that prompt the user to make a choice, the title is “Do not ask
 // again.” To customize it, use the checkbox’s `title` property, as
 // follows:
-// 
+//
 // To create an alert that responds to the selection state of the suppression
 // checkbox, use code like that shown in Listing 1 to produce the alert shown
 // below.
-// 
-// Listing 1. Creating an alert with a suppression checkbox
-// 
-// [media-3686600]
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Listing 1. Creating an alert with a suppression checkbox
+//
+// [media-3686600]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/showsSuppressionButton
 func (a NSAlert) ShowsSuppressionButton() bool {
@@ -565,10 +570,11 @@ func (a NSAlert) ShowsSuppressionButton() bool {
 func (a NSAlert) SetShowsSuppressionButton(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setShowsSuppressionButton:"), value)
 }
+
 // The alert’s informative text.
 //
 // # Discussion
-// 
+//
 // The value of this property must not be `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/informativeText
@@ -579,6 +585,7 @@ func (a NSAlert) InformativeText() string {
 func (a NSAlert) SetInformativeText(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInformativeText:"), objc.String(value))
 }
+
 // The alert’s message text or title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/messageText
@@ -589,14 +596,15 @@ func (a NSAlert) MessageText() string {
 func (a NSAlert) SetMessageText(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMessageText:"), objc.String(value))
 }
+
 // The custom icon displayed in the alert.
 //
 // # Discussion
-// 
+//
 // By default, the image used in an alert is the app icon. If you set this
 // property’s value, your specified custom image is used in place of the app
 // icon.
-// 
+//
 // If you’ve set a custom alert icon, you can clear it by setting this
 // property’s value to `nil`, which restores use of the app icon for the
 // alert.
@@ -609,15 +617,16 @@ func (a NSAlert) Icon() INSImage {
 func (a NSAlert) SetIcon(value INSImage) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIcon:"), value)
 }
+
 // The array of response buttons for the alert.
 //
 // # Discussion
-// 
+//
 // The button displayed rightmost in the alert (for a left-to-right language)
 // corresponds to the button at index `0` in this property’s array, and is
 // considered the default button. A user can invoke this button by pressing
 // the Return key.
-// 
+//
 // Any button with a title of “Cancel” has a key equivalent of Escape, and
 // any button with the title “Don’t Save” has a key equivalent of
 // Command-D (but only if it is not the first button). You can also assign
@@ -631,10 +640,11 @@ func (a NSAlert) Buttons() []NSButton {
 		return NSButtonFromID(id)
 	})
 }
+
 // The app-modal panel or document-modal sheet that corresponds to the alert.
 //
 // # Discussion
-// 
+//
 // The alert’s window is of type [NSPanel]. Use this property when you want
 // to dismiss an alert created with the
 // [BeginSheetModalForWindowCompletionHandler] method within that method’s
@@ -660,4 +670,3 @@ func (a NSAlert) BeginSheetModalForWindow(ctx context.Context, sheetWindow INSWi
 		return 0, ctx.Err()
 	}
 }
-

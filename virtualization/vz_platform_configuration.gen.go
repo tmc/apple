@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZPlatformConfigurationClass) Alloc() VZPlatformConfiguration {
 // The base class for a platform configuration.
 //
 // # Overview
-// 
+//
 // Don’t instantiate directly [VZPlatformConfiguration], use one of its
 // subclasses, such as [VZGenericPlatformConfiguration] or
 // [VZMacPlatformConfiguration] instead.
@@ -60,6 +61,7 @@ type VZPlatformConfiguration struct {
 func VZPlatformConfigurationFromID(id objc.ID) VZPlatformConfiguration {
 	return VZPlatformConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZPlatformConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -88,4 +90,3 @@ func NewVZPlatformConfiguration() VZPlatformConfiguration {
 	rv := objc.Send[VZPlatformConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

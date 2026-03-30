@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -58,6 +59,7 @@ type AVDelegatingPlaybackCoordinatorPauseCommand struct {
 func AVDelegatingPlaybackCoordinatorPauseCommandFromID(id objc.ID) AVDelegatingPlaybackCoordinatorPauseCommand {
 	return AVDelegatingPlaybackCoordinatorPauseCommand{AVDelegatingPlaybackCoordinatorPlaybackControlCommand: AVDelegatingPlaybackCoordinatorPlaybackControlCommandFromID(id)}
 }
+
 // NOTE: AVDelegatingPlaybackCoordinatorPauseCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -103,21 +105,20 @@ func NewAVDelegatingPlaybackCoordinatorPauseCommand() AVDelegatingPlaybackCoordi
 // preparation for a request to begin playback.
 //
 // # Discussion
-// 
-// A [true] value indicates that a participant player requests starting
-// playback at the [AnticipatedPlaybackRate] value.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// A true value indicates that a participant player requests starting playback
+// at the [AnticipatedPlaybackRate] value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorPauseCommand/shouldBufferInAnticipationOfPlayback
 func (d AVDelegatingPlaybackCoordinatorPauseCommand) ShouldBufferInAnticipationOfPlayback() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("shouldBufferInAnticipationOfPlayback"))
 	return rv
 }
+
 // The rate at which the coordinator expects the current item to play.
 //
 // # Discussion
-// 
+//
 // Consider this command complete after the player is ready to start playback
 // at the indicated rate.
 //
@@ -126,4 +127,3 @@ func (d AVDelegatingPlaybackCoordinatorPauseCommand) AnticipatedPlaybackRate() f
 	rv := objc.Send[float32](d.ID, objc.Sel("anticipatedPlaybackRate"))
 	return rv
 }
-

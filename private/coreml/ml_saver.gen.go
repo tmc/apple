@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLSaver struct {
 func MLSaverFromID(id objc.ID) MLSaver {
 	return MLSaver{objectivec.Object{ID: id}}
 }
+
 // Ensure MLSaver implements IMLSaver.
 var _ IMLSaver = MLSaver{}
 
@@ -82,7 +84,6 @@ func NewMLSaver() MLSaver {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSaver/copyModelAtURL:toURL:error:
 func (_MLSaverClass MLSaverClass) CopyModelAtURLToURLError(url foundation.INSURL, url2 foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -97,7 +98,7 @@ func (_MLSaverClass MLSaverClass) CopyModelAtURLToURLError(url foundation.INSURL
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSaver/saveModelToArchive:model:compilerOptions:error:
 func (_MLSaverClass MLSaverClass) SaveModelToArchiveModelCompilerOptionsError(archive unsafe.Pointer, model objectivec.IObject, options objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -112,7 +113,7 @@ func (_MLSaverClass MLSaverClass) SaveModelToArchiveModelCompilerOptionsError(ar
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSaver/saveModelToArchive:model:error:
 func (_MLSaverClass MLSaverClass) SaveModelToArchiveModelError(archive unsafe.Pointer, model objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -127,7 +128,7 @@ func (_MLSaverClass MLSaverClass) SaveModelToArchiveModelError(archive unsafe.Po
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSaver/saveModelToAssetAtURL:model:error:
 func (_MLSaverClass MLSaverClass) SaveModelToAssetAtURLModelError(url foundation.INSURL, model objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -142,4 +143,3 @@ func (_MLSaverClass MLSaverClass) SaveModelToAssetAtURLModelError(url foundation
 	return rv, nil
 
 }
-

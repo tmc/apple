@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,11 +46,11 @@ func (nc NSOrderedCollectionDifferenceClass) Alloc() NSOrderedCollectionDifferen
 // An object representing the difference between two ordered collections.
 //
 // # Overview
-// 
+//
 // Use [DifferenceFromArray] or one of its variations to get an instance of
 // [NSOrderedCollectionDifference], which represents the difference between
 // two ordered collections.
-// 
+//
 // For example, the following sample compares two arrays of strings to create
 // a difference that represents the changes:
 //
@@ -84,6 +85,7 @@ type NSOrderedCollectionDifference struct {
 func NSOrderedCollectionDifferenceFromID(id objc.ID) NSOrderedCollectionDifference {
 	return NSOrderedCollectionDifference{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSOrderedCollectionDifference adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -139,7 +141,7 @@ type INSOrderedCollectionDifference interface {
 	// Topic: Updating Changes from a Difference Object
 
 	// Create a new ordered collection difference by mapping over this difference’s members, processing the change objects with the block provided.
-	DifferenceByTransformingChangesWithBlock(block OrderedCollectionChangeHandler) INSOrderedCollectionDifference
+	DifferenceByTransformingChangesWithBlock(block idOrderedCollectionChangeHandler) INSOrderedCollectionDifference
 }
 
 // Init initializes the instance.
@@ -220,12 +222,12 @@ func NewOrderedCollectionDifferenceWithInsertIndexesInsertedObjectsRemoveIndexes
 // comparison.
 //
 // # Return Value
-// 
+//
 // A copy of the receiver with all removals changed to insertions (and vice
 // versa).
 //
 // # Discussion
-// 
+//
 // Applying a difference to an ordered collection and then applying the
 // inverse difference results in the original ordered collection:
 //
@@ -234,6 +236,7 @@ func (o NSOrderedCollectionDifference) InverseDifference() INSOrderedCollectionD
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inverseDifference"))
 	return NSOrderedCollectionDifferenceFromID(rv)
 }
+
 // Creates an ordered collection difference using an array of ordered
 // collection changes.
 //
@@ -244,6 +247,7 @@ func (o NSOrderedCollectionDifference) InitWithChanges(changes []NSOrderedCollec
 	rv := objc.Send[NSOrderedCollectionDifference](o.ID, objc.Sel("initWithChanges:"), objectivec.IObjectSliceToNSArray(changes))
 	return rv
 }
+
 // Creates an ordered collection difference from arrays of inserted and
 // removed objects with corresponding sets of indices.
 //
@@ -262,6 +266,7 @@ func (o NSOrderedCollectionDifference) InitWithInsertIndexesInsertedObjectsRemov
 	rv := objc.Send[NSOrderedCollectionDifference](o.ID, objc.Sel("initWithInsertIndexes:insertedObjects:removeIndexes:removedObjects:"), inserts, objectivec.IObjectSliceToNSArray(insertedObjects), removes, objectivec.IObjectSliceToNSArray(removedObjects))
 	return rv
 }
+
 // Creates an ordered collection difference from arrays of inserted and
 // removed objects with corresponding sets of indices, in addition to an array
 // of ordered collection changes.
@@ -283,6 +288,7 @@ func (o NSOrderedCollectionDifference) InitWithInsertIndexesInsertedObjectsRemov
 	rv := objc.Send[NSOrderedCollectionDifference](o.ID, objc.Sel("initWithInsertIndexes:insertedObjects:removeIndexes:removedObjects:additionalChanges:"), inserts, objectivec.IObjectSliceToNSArray(insertedObjects), removes, objectivec.IObjectSliceToNSArray(removedObjects), objectivec.IObjectSliceToNSArray(changes))
 	return rv
 }
+
 // Create a new ordered collection difference by mapping over this
 // difference’s members, processing the change objects with the block
 // provided.
@@ -291,15 +297,16 @@ func (o NSOrderedCollectionDifference) InitWithInsertIndexesInsertedObjectsRemov
 // change.
 //
 // # Return Value
-// 
+//
 // A new ordered collection difference.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionDifference/transformingChanges(_:)
-func (o NSOrderedCollectionDifference) DifferenceByTransformingChangesWithBlock(block OrderedCollectionChangeHandler) INSOrderedCollectionDifference {
-_block0, _ := NewOrderedCollectionChangeBlock(block)
+func (o NSOrderedCollectionDifference) DifferenceByTransformingChangesWithBlock(block idOrderedCollectionChangeHandler) INSOrderedCollectionDifference {
+	_block0, _ := NewidOrderedCollectionChangeBlock(block)
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("differenceByTransformingChangesWithBlock:"), _block0)
 	return NSOrderedCollectionDifferenceFromID(rv)
 }
+
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //
@@ -311,12 +318,12 @@ _block0, _ := NewOrderedCollectionChangeBlock(block)
 // len: The maximum number of objects to return in `stackbuf`.
 //
 // # Return Value
-// 
+//
 // The number of objects returned in `stackbuf`. Returns `0` when the
 // iteration is finished.
 //
 // # Discussion
-// 
+//
 // The state structure is assumed to be of stack local memory, so you can
 // recast the passed in state structure to one more suitable for your
 // iteration.
@@ -334,6 +341,7 @@ func (o NSOrderedCollectionDifference) HasChanges() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("hasChanges"))
 	return rv
 }
+
 // A collection of insertion change objects.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionDifference/insertions
@@ -343,6 +351,7 @@ func (o NSOrderedCollectionDifference) Insertions() []NSOrderedCollectionChange 
 		return NSOrderedCollectionChangeFromID(id)
 	})
 }
+
 // A collection of removal change objects.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionDifference/removals
@@ -367,4 +376,3 @@ func (o NSOrderedCollectionDifference) DifferenceByTransformingChangesWithBlockS
 		return nil, ctx.Err()
 	}
 }
-

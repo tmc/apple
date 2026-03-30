@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NWHostEndpoint] class.
@@ -59,6 +60,7 @@ type NWHostEndpoint struct {
 func NWHostEndpointFromID(id objc.ID) NWHostEndpoint {
 	return NWHostEndpoint{NWEndpoint: NWEndpointFromID(id)}
 }
+
 // NOTE: NWHostEndpoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -108,7 +110,7 @@ func NewNWHostEndpoint() NWHostEndpoint {
 // port: A string containing the port on the host, such as `80`.
 //
 // # Discussion
-// 
+//
 // If the hostname is a domain name, such as
 // `www.ExampleXCUIElementTypeCom()`, starting a connection to the host
 // endpoint causes the hostname to be resolved to an address during the
@@ -129,10 +131,11 @@ func (n NWHostEndpoint) Hostname() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("hostname"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The endpoint’s port, represented as a string.
 //
 // # Discussion
-// 
+//
 // Since the port is represented as a string, it is always represented in host
 // byte order. If converting between byte fields and strings, make sure to use
 // host byte ordering.
@@ -142,4 +145,3 @@ func (n NWHostEndpoint) Port() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("port"))
 	return foundation.NSStringFromID(rv).String()
 }
-

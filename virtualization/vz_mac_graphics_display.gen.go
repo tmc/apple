@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -57,6 +58,7 @@ type VZMacGraphicsDisplay struct {
 func VZMacGraphicsDisplayFromID(id objc.ID) VZMacGraphicsDisplay {
 	return VZMacGraphicsDisplay{VZGraphicsDisplay: VZGraphicsDisplayFromID(id)}
 }
+
 // NOTE: VZMacGraphicsDisplay adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -102,4 +104,3 @@ func (m VZMacGraphicsDisplay) PixelsPerInch() int {
 	rv := objc.Send[int](m.ID, objc.Sel("pixelsPerInch"))
 	return rv
 }
-

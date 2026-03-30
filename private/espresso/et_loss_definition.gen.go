@@ -4,8 +4,9 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (ec ETLossDefinitionClass) Alloc() ETLossDefinition {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETLossDefinition.InputName]
@@ -52,6 +52,7 @@ func (ec ETLossDefinitionClass) Alloc() ETLossDefinition {
 //   - [ETLossDefinition.SetOutputName]
 //   - [ETLossDefinition.TargetInputName]
 //   - [ETLossDefinition.InitWithModeInputNameTargetNameLossOutputName]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETLossDefinition
 type ETLossDefinition struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type ETLossDefinition struct {
 func ETLossDefinitionFromID(id objc.ID) ETLossDefinition {
 	return ETLossDefinition{objectivec.Object{ID: id}}
 }
+
 // Ensure ETLossDefinition implements IETLossDefinition.
 var _ IETLossDefinition = ETLossDefinition{}
 
@@ -110,7 +112,6 @@ func NewETLossDefinition() ETLossDefinition {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETLossDefinition/initWithMode:inputName:targetName:lossOutputName:
 func NewETLossDefinitionWithModeInputNameTargetNameLossOutputName(mode uint64, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject) ETLossDefinition {
 	instance := getETLossDefinitionClass().Alloc()
@@ -118,26 +119,24 @@ func NewETLossDefinitionWithModeInputNameTargetNameLossOutputName(mode uint64, n
 	return ETLossDefinitionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETLossDefinition/initWithMode:inputName:targetName:lossOutputName:
 func (e ETLossDefinition) InitWithModeInputNameTargetNameLossOutputName(mode uint64, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject) ETLossDefinition {
 	rv := objc.Send[ETLossDefinition](e.ID, objc.Sel("initWithMode:inputName:targetName:lossOutputName:"), mode, name, name2, name3)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETLossDefinition/BuiltInLoss:
 func (_ETLossDefinitionClass ETLossDefinitionClass) BuiltInLoss(loss objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ETLossDefinitionClass.class), objc.Sel("BuiltInLoss:"), loss)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETLossDefinition/L2LossWithInputName:targetInputName:lossOutputName:
 func (_ETLossDefinitionClass ETLossDefinitionClass) L2LossWithInputNameTargetInputNameLossOutputName(name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ETLossDefinitionClass.class), objc.Sel("L2LossWithInputName:targetInputName:lossOutputName:"), name, name2, name3)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETLossDefinition/crossEntropyLossWithInputName:targetInputName:lossOutputName:
 func (_ETLossDefinitionClass ETLossDefinitionClass) CrossEntropyLossWithInputNameTargetInputNameLossOutputName(name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ETLossDefinitionClass.class), objc.Sel("crossEntropyLossWithInputName:targetInputName:lossOutputName:"), name, name2, name3)
@@ -149,16 +148,19 @@ func (e ETLossDefinition) InputName() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("inputName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETLossDefinition/lossOutputName
 func (e ETLossDefinition) LossOutputName() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("lossOutputName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETLossDefinition/mode
 func (e ETLossDefinition) Mode() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("mode"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETLossDefinition/outputName
 func (e ETLossDefinition) OutputName() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("outputName"))
@@ -167,9 +169,9 @@ func (e ETLossDefinition) OutputName() string {
 func (e ETLossDefinition) SetOutputName(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setOutputName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETLossDefinition/targetInputName
 func (e ETLossDefinition) TargetInputName() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("targetInputName"))
 	return foundation.NSStringFromID(rv).String()
 }
-

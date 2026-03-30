@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type ANEServicesLog struct {
 func ANEServicesLogFromID(id objc.ID) ANEServicesLog {
 	return ANEServicesLog{objectivec.Object{ID: id}}
 }
+
 // Ensure ANEServicesLog implements IANEServicesLog.
 var _ IANEServicesLog = ANEServicesLog{}
 
@@ -84,19 +86,21 @@ func (_ANEServicesLogClass ANEServicesLogClass) Handle() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEServicesLogClass.class), objc.Sel("handle"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ANEServicesLog/services
 func (_ANEServicesLogClass ANEServicesLogClass) Services() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEServicesLogClass.class), objc.Sel("services"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ANEServicesLog/test
 func (_ANEServicesLogClass ANEServicesLogClass) Test() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEServicesLogClass.class), objc.Sel("test"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ANEServicesLog/verbose
 func (_ANEServicesLogClass ANEServicesLogClass) Verbose() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEServicesLogClass.class), objc.Sel("verbose"))
 	return objectivec.Object{ID: rv}
 }
-

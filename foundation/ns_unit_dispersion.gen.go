@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,19 +44,19 @@ func (uc UnitDispersionClass) Alloc() UnitDispersion {
 // A unit of measure for specific quantities of dispersion.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitDispersion] to represent specific
 // quantities of dispersion using the [NSMeasurement] class.
-// 
+//
 // # Dispersion
-// 
+//
 // Dispersion describes the amount of a constituent divided by the amount of
 // all other constituents in a mixture. Dispersion is a dimensionless quantity
 // that is commonly expressed in “parts-per” notation, such as “parts
 // per million” (ppm), to describe small relative quantities.
-// 
+//
 // The [NSUnitDispersion] class defines its [BaseUnit] as [PartsPerMillion].
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDispersion
@@ -72,6 +73,7 @@ func UnitDispersionFromID(id objc.ID) UnitDispersion {
 
 // NSUnitDispersionFromID is an alias for [UnitDispersionFromID] for cross-framework compatibility.
 func NSUnitDispersionFromID(id objc.ID) UnitDispersion { return UnitDispersionFromID(id) }
+
 // NOTE: UnitDispersion adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -101,7 +103,6 @@ func NewUnitDispersion() UnitDispersion {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitDispersionWithCoder(coder INSCoder) UnitDispersion {
 	instance := getUnitDispersionClass().Alloc()
@@ -114,7 +115,7 @@ func NewUnitDispersionWithCoder(coder INSCoder) UnitDispersion {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -133,11 +134,11 @@ func NewUnitDispersionWithSymbol(symbol string) UnitDispersion {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -154,4 +155,3 @@ func (_UnitDispersionClass UnitDispersionClass) PartsPerMillion() UnitDispersion
 	rv := objc.Send[objc.ID](objc.ID(_UnitDispersionClass.class), objc.Sel("partsPerMillion"))
 	return NSUnitDispersionFromID(objc.ID(rv))
 }
-

@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (ac AVFragmentedAssetTrackClass) Alloc() AVFragmentedAssetTrack {
 // asset’s media tracks.
 //
 // # Overview
-// 
+//
 // This class subclasses [AVAssetTrack]. It has no methods or properties of
 // its own.
 //
@@ -60,6 +61,7 @@ type AVFragmentedAssetTrack struct {
 func AVFragmentedAssetTrackFromID(id objc.ID) AVFragmentedAssetTrack {
 	return AVFragmentedAssetTrack{AVAssetTrack: AVAssetTrackFromID(id)}
 }
+
 // NOTE: AVFragmentedAssetTrack adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -88,4 +90,3 @@ func NewAVFragmentedAssetTrack() AVFragmentedAssetTrack {
 	rv := objc.Send[AVFragmentedAssetTrack](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

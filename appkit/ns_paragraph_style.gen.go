@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSParagraphStyleClass) Alloc() NSParagraphStyle {
 // The paragraph or ruler attributes for an attributed string.
 //
 // # Overview
-// 
+//
 // An [NSParagraphStyle] object stores formatting information for a paragraph
 // of text. The formatting information includes the amount of space between
 // lines, indentations for lines of text, line heights, tab-stop positions,
@@ -53,7 +54,7 @@ func (nc NSParagraphStyleClass) Alloc() NSParagraphStyle {
 // adding the [ParagraphStyle] attribute and setting its value to an instance
 // of this class. The text-rendering system uses the paragraph style
 // information in an attributed string to lay out and render the text.
-// 
+//
 // The [NSParagraphStyle] class manages an immutable set of style information,
 // but you can create an [NSMutableParagraphStyle] when you want to modify the
 // style information before applying it to your text.
@@ -109,6 +110,7 @@ type NSParagraphStyle struct {
 func NSParagraphStyleFromID(id objc.ID) NSParagraphStyle {
 	return NSParagraphStyle{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSParagraphStyle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -255,7 +257,7 @@ func (p NSParagraphStyle) EncodeWithCoder(coder foundation.INSCoder) {
 // database.
 //
 // # Return Value
-// 
+//
 // The default writing direction.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/defaultWritingDirection(forLanguage:)
@@ -267,7 +269,7 @@ func (_NSParagraphStyleClass NSParagraphStyleClass) DefaultWritingDirectionForLa
 // The text alignment of the paragraph.
 //
 // # Discussion
-// 
+//
 // The framework displays natural text alignment as left or right alignment
 // depending on the line sweep direction of the first script contained in the
 // paragraph.
@@ -277,10 +279,11 @@ func (p NSParagraphStyle) Alignment() NSTextAlignment {
 	rv := objc.Send[NSTextAlignment](p.ID, objc.Sel("alignment"))
 	return NSTextAlignment(rv)
 }
+
 // The indentation of the first line of the paragraph.
 //
 // # Discussion
-// 
+//
 // This property contains the distance (in points) from the leading margin of
 // a text container to the beginning of the paragraph’s first line. This
 // value is always nonnegative.
@@ -290,10 +293,11 @@ func (p NSParagraphStyle) FirstLineHeadIndent() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("firstLineHeadIndent"))
 	return rv
 }
+
 // The indentation of the paragraph’s lines other than the first.
 //
 // # Discussion
-// 
+//
 // This property contains the distance (in points) from the leading margin of
 // a text container to the beginning of lines other than the first. This value
 // is always nonnegative.
@@ -303,14 +307,15 @@ func (p NSParagraphStyle) HeadIndent() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("headIndent"))
 	return rv
 }
+
 // The trailing indentation of the paragraph.
 //
 // # Discussion
-// 
+//
 // If positive, this value is the distance from the leading margin (for
 // example, the left margin in left-to-right text). If `0` or negative, it’s
 // the distance from the trailing margin.
-// 
+//
 // For example, a paragraph style designed to fit exactly in a two-inch wide
 // container has a head indent of `0.0` and a tail indent of `0.0`. One
 // designed to fit with a quarter-inch margin has a head indent of `0.25` and
@@ -321,10 +326,11 @@ func (p NSParagraphStyle) TailIndent() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("tailIndent"))
 	return rv
 }
+
 // The line height multiple.
 //
 // # Discussion
-// 
+//
 // The framework multiplies the natural line height of the receiver by this
 // factor (if positive), and constrains the resulting value by the minimum and
 // maximum line height. The default value of this property is `0.0`.
@@ -334,14 +340,15 @@ func (p NSParagraphStyle) LineHeightMultiple() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("lineHeightMultiple"))
 	return rv
 }
+
 // The paragraph’s maximum line height.
 //
 // # Discussion
-// 
+//
 // This property contains the maximum height in points that any line in the
 // receiver occupies, regardless of the font size or size of any attached
 // graphic. This value is always nonnegative. The default value is `0`.
-// 
+//
 // Glyphs and graphics exceeding this height overlaps neighboring lines;
 // however, a maximum height of `0` implies no line height limit. Although
 // this limit applies to the line itself, line spacing adds extra space
@@ -352,10 +359,11 @@ func (p NSParagraphStyle) MaximumLineHeight() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("maximumLineHeight"))
 	return rv
 }
+
 // The paragraph’s minimum line height.
 //
 // # Discussion
-// 
+//
 // This property contains the minimum height in points that any line in the
 // receiver occupies, regardless of the font size or size of any attached
 // graphic. This value is always nonnegative.
@@ -365,11 +373,12 @@ func (p NSParagraphStyle) MinimumLineHeight() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("minimumLineHeight"))
 	return rv
 }
+
 // The distance in points between the bottom of one line fragment and the top
 // of the next.
 //
 // # Discussion
-// 
+//
 // This value is always nonnegative. The layout manager uses this value in the
 // line fragment height.
 //
@@ -378,10 +387,11 @@ func (p NSParagraphStyle) LineSpacing() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("lineSpacing"))
 	return rv
 }
+
 // Distance between the bottom of this paragraph and top of next.
 //
 // # Discussion
-// 
+//
 // This property contains the space (measured in points) between paragraphs.
 // This value is always nonnegative. The framework determines the space
 // between paragraphs by adding the previous paragraph’s `paragraphSpacing`
@@ -392,11 +402,12 @@ func (p NSParagraphStyle) ParagraphSpacing() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("paragraphSpacing"))
 	return rv
 }
+
 // The distance between the paragraph’s top and the beginning of its text
 // content.
 //
 // # Discussion
-// 
+//
 // This property contains the space (measured in points) between the current
 // and previous paragraphs. The default value of this property is `0.0`.
 //
@@ -405,10 +416,11 @@ func (p NSParagraphStyle) ParagraphSpacingBefore() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("paragraphSpacingBefore"))
 	return rv
 }
+
 // The text tab objects that represent the paragraph’s tab stops.
 //
 // # Discussion
-// 
+//
 // The [NSTextTab] objects, sorted by location, define the tab stops for the
 // paragraph style. The default value is an array of 12 left-aligned tabs at
 // 28-point intervals.
@@ -420,10 +432,11 @@ func (p NSParagraphStyle) TabStops() []NSTextTab {
 		return NSTextTabFromID(id)
 	})
 }
+
 // The documentwide default tab interval.
 //
 // # Discussion
-// 
+//
 // This property represents the default tab interval in points. Tabs after the
 // last specified in [TabStops] are placed at integer multiples of this
 // distance (if positive). Default value is 0.0.
@@ -433,6 +446,7 @@ func (p NSParagraphStyle) DefaultTabInterval() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("defaultTabInterval"))
 	return rv
 }
+
 // The text blocks that contain the paragraph.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/textBlocks
@@ -442,6 +456,7 @@ func (p NSParagraphStyle) TextBlocks() []NSTextBlock {
 		return NSTextBlockFromID(id)
 	})
 }
+
 // The text lists that contain the paragraph.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/textLists
@@ -451,48 +466,48 @@ func (p NSParagraphStyle) TextLists() []NSTextList {
 		return NSTextListFromID(id)
 	})
 }
+
 // The mode for breaking lines in the paragraph that don’t fit within a
 // container.
 //
 // # Discussion
-// 
+//
 // This property controls how the text system lays out lines that don’t fit
 // in its container, such as by truncating with an ellipsis (…) or clipping
 // the text. This is different from [NSParagraphStyle.LineBreakStrategy],
 // which controls where the system places line breaks in a paragraph.
 //
-// [NSParagraphStyle.LineBreakStrategy]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/LineBreakStrategy-swift.struct
-//
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/lineBreakMode
+//
+// [NSParagraphStyle.LineBreakStrategy]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/LineBreakStrategy-swift.struct
 func (p NSParagraphStyle) LineBreakMode() NSLineBreakMode {
 	rv := objc.Send[NSLineBreakMode](p.ID, objc.Sel("lineBreakMode"))
 	return NSLineBreakMode(rv)
 }
+
 // The strategy for breaking lines while laying out paragraphs.
 //
 // # Discussion
-// 
+//
 // Line-break strategies are collections of options the system uses to
 // determine where to break lines in a paragraph. This is different from
 // [LineBreakMode], which controls how to lay out lines of text that don’t
 // fit in a container. The system ignores this property if the paragraph
 // style’s [LineBreakMode] property specifies a mode that doesn’t support
-// multiple lines, such as [NSLineBreakMode.byClipping].
-// 
-// The default value is [NSLineBreakStrategyNone].
+// multiple lines, such as [NSLineBreakByClipping].
 //
-// [NSLineBreakMode.byClipping]: https://developer.apple.com/documentation/AppKit/NSLineBreakMode/byClipping
-// [NSLineBreakStrategyNone]: https://developer.apple.com/documentation/AppKit/NSLineBreakStrategy/NSLineBreakStrategyNone
+// The default value is [NSLineBreakStrategyNone].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/lineBreakStrategy-swift.property
 func (p NSParagraphStyle) LineBreakStrategy() NSLineBreakStrategy {
 	rv := objc.Send[NSLineBreakStrategy](p.ID, objc.Sel("lineBreakStrategy"))
 	return NSLineBreakStrategy(rv)
 }
+
 // The paragraph’s threshold for hyphenation.
 //
 // # Discussion
-// 
+//
 // The system attempts hyphenation when the ratio of the text width (as broken
 // without hyphenation) to the width of the line fragment is less than the
 // hyphenation factor. When the paragraph’s hyphenation factor is `0.0`, the
@@ -500,13 +515,14 @@ func (p NSParagraphStyle) LineBreakStrategy() NSLineBreakStrategy {
 // disables hyphenation when both are `0.0`. This property detects the
 // user-selected language by examining the first item in [preferredLanguages].
 //
-// [preferredLanguages]: https://developer.apple.com/documentation/Foundation/NSLocale/preferredLanguages
-//
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/hyphenationFactor
+//
+// [preferredLanguages]: https://developer.apple.com/documentation/Foundation/NSLocale/preferredLanguages
 func (p NSParagraphStyle) HyphenationFactor() float32 {
 	rv := objc.Send[float32](p.ID, objc.Sel("hyphenationFactor"))
 	return rv
 }
+
 // A Boolean value that indicates whether the paragraph style uses the system
 // hyphenation settings.
 //
@@ -515,10 +531,11 @@ func (p NSParagraphStyle) UsesDefaultHyphenation() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("usesDefaultHyphenation"))
 	return rv
 }
+
 // The threshold for using tightening as an alternative to truncation.
 //
 // # Discussion
-// 
+//
 // When the line break mode specifies truncation, the text system attempts to
 // tighten character spacing as an alternative to truncation. Provided that
 // the ratio of the text width to the line fragment width doesn’t exceed
@@ -531,35 +548,34 @@ func (p NSParagraphStyle) TighteningFactorForTruncation() float32 {
 	rv := objc.Send[float32](p.ID, objc.Sel("tighteningFactorForTruncation"))
 	return rv
 }
+
 // A Boolean value that indicates whether the system tightens character
 // spacing before truncating text.
 //
 // # Discussion
-// 
-// When this property is [true], the system tries to reduce the space between
+//
+// When this property is true, the system tries to reduce the space between
 // characters before truncating characters. The system performs this
 // tightening in cases where the text wouldn’t otherwise fit in the
 // available space. The maximum amount of tightening performed by the system
 // is dependent on the font, line width, and other factors.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/allowsDefaultTighteningForTruncation
 func (p NSParagraphStyle) AllowsDefaultTighteningForTruncation() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("allowsDefaultTighteningForTruncation"))
 	return rv
 }
+
 // The paragraph’s header level for HTML generation.
 //
 // # Discussion
-// 
+//
 // If the paragraph isn’t a header, the value is `0`. If the paragraph is a
 // header, the value ranges from `1` to `6`, depending on the header’s
 // level.
-// 
+//
 // The default value is `0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/headerLevel
@@ -567,22 +583,22 @@ func (p NSParagraphStyle) HeaderLevel() int {
 	rv := objc.Send[int](p.ID, objc.Sel("headerLevel"))
 	return rv
 }
+
 // The base writing direction for the paragraph.
 //
 // # Discussion
-// 
-// If you the value of this property is [NSWritingDirection.natural], the
-// receiver resolves the writing direction to either
-// [WritingDirectionLeftToRight] or [WritingDirectionRightToLeft], depending
-// on the direction for the user’s language preference setting.
 //
-// [NSWritingDirection.natural]: https://developer.apple.com/documentation/AppKit/NSWritingDirection/natural
+// If you the value of this property is [NSWritingDirectionNatural], the
+// receiver resolves the writing direction to either
+// [NSWritingDirectionLeftToRight] or [NSWritingDirectionRightToLeft],
+// depending on the direction for the user’s language preference setting.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/baseWritingDirection
 func (p NSParagraphStyle) BaseWritingDirection() NSWritingDirection {
 	rv := objc.Send[NSWritingDirection](p.ID, objc.Sel("baseWritingDirection"))
 	return NSWritingDirection(rv)
 }
+
 // The paragraph style of the text.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/paragraphStyle
@@ -594,11 +610,11 @@ func (p NSParagraphStyle) ParagraphStyle() foundation.NSString {
 // The default paragraph style.
 //
 // # Discussion
-// 
+//
 // The default paragraph style has the following default values:
-// 
+//
 // [Table data omitted]
-// 
+//
 // See individual method descriptions for explanations of each subattribute.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/default
@@ -606,4 +622,3 @@ func (_NSParagraphStyleClass NSParagraphStyleClass) DefaultParagraphStyle() NSPa
 	rv := objc.Send[objc.ID](objc.ID(_NSParagraphStyleClass.class), objc.Sel("defaultParagraphStyle"))
 	return NSParagraphStyleFromID(objc.ID(rv))
 }
-

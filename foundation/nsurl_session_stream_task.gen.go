@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,11 +45,11 @@ func (uc URLSessionStreamTaskClass) Alloc() URLSessionStreamTask {
 // A URL session task that is stream-based.
 //
 // # Overview
-// 
+//
 // [NSURLSessionStreamTask] is a concrete subclass of [NSURLSessionTask]. Many
 // of the methods in the [NSURLSessionStreamTask] class are documented in
 // [NSURLSessionTask].
-// 
+//
 // The [NSURLSessionStreamTask] class provides an interface a TCP/IP
 // connection created via [NSURLSession]. Tasks may be created from an
 // [NSURLSession] using the [StreamTaskWithHostNamePort] and
@@ -56,13 +57,13 @@ func (uc URLSessionStreamTaskClass) Alloc() URLSessionStreamTask {
 // an [NSURLSessionDataTask] being upgraded via the HTTP `Upgrade:` response
 // header and appropriate use of the [HTTPShouldUsePipelining] option of
 // [NSURLSessionConfiguration].
-// 
+//
 // A [NSURLSessionStreamTask] object performs asynchronous reads and writes,
 // which are enqueued and executed serially, calling a handler upon completion
 // being on the session delegate queue. If the task is canceled, all enqueued
 // reads and writes will call their completion handlers with an appropriate
 // error.
-// 
+//
 // When working with APIs that accept [NSStream] objects, you can create
 // [NSInputStream] and [NSOutputStream] objects from an
 // [NSURLSessionStreamTask] object by calling the [CaptureStreams] method.
@@ -98,7 +99,10 @@ func URLSessionStreamTaskFromID(id objc.ID) URLSessionStreamTask {
 }
 
 // NSURLSessionStreamTaskFromID is an alias for [URLSessionStreamTaskFromID] for cross-framework compatibility.
-func NSURLSessionStreamTaskFromID(id objc.ID) URLSessionStreamTask { return URLSessionStreamTaskFromID(id) }
+func NSURLSessionStreamTaskFromID(id objc.ID) URLSessionStreamTask {
+	return URLSessionStreamTaskFromID(id)
+}
+
 // NOTE: URLSessionStreamTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -187,9 +191,9 @@ func NewURLSessionStreamTask() URLSessionStreamTask {
 //
 // completionHandler: The completion handler to call when all bytes are read, or an error occurs.
 // This handler is executed on the delegate queue.
-// 
+//
 // This completion handler takes the following parameters:
-// 
+//
 // `data`: The data read from the stream. `atEOF`: Whether or not the stream
 // reached end-of-file (EOF), such that no more data can be read. `error`: An
 // error object that indicates why the read failed, or `nil` if the read was
@@ -197,9 +201,10 @@ func NewURLSessionStreamTask() URLSessionStreamTask {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamTask/readData(ofMinLength:maxLength:timeout:completionHandler:)
 func (u URLSessionStreamTask) ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler(minBytes uint, maxBytes uint, timeout float64, completionHandler DataErrorHandler) {
-_block3, _ := NewDataErrorBlock(completionHandler)
+	_block3, _ := NewDataErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("readDataOfMinLength:maxLength:timeout:completionHandler:"), minBytes, maxBytes, timeout, _block3)
 }
+
 // Asynchronously writes the specified data to the stream, and calls a handler
 // upon completion.
 //
@@ -211,23 +216,24 @@ _block3, _ := NewDataErrorBlock(completionHandler)
 //
 // completionHandler: The completion handler to call when all bytes are written, or an error
 // occurs. This handler is executed on the delegate queue.
-// 
+//
 // This completion handler takes the following parameter:
-// 
+//
 // `error`: An error object that indicates why the write failed, or `nil` if
 // the write was successful.
 //
 // # Discussion
-// 
+//
 // There is no guarantee that the remote side of the stream has received all
 // of the written bytes at the time that `completionHandler` is called, only
 // that all of the data has been written to the kernel.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamTask/write(_:timeout:completionHandler:)
 func (u URLSessionStreamTask) WriteDataTimeoutCompletionHandler(data INSData, timeout float64, completionHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("writeData:timeout:completionHandler:"), data, timeout, _block2)
 }
+
 // Completes any already enqueued reads and writes, and then invokes the
 // [URLSessionStreamTaskDidBecomeInputStreamOutputStream] delegate message.
 //
@@ -235,11 +241,12 @@ _block2, _ := NewErrorBlock(completionHandler)
 func (u URLSessionStreamTask) CaptureStreams() {
 	objc.Send[objc.ID](u.ID, objc.Sel("captureStreams"))
 }
+
 // Completes any enqueued reads and writes, and then closes the read side of
 // the underlying socket.
 //
 // # Discussion
-// 
+//
 // You may continue to write data using the
 // [WriteDataTimeoutCompletionHandler] method after calling this method. Any
 // calls to [ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler] after
@@ -249,16 +256,17 @@ func (u URLSessionStreamTask) CaptureStreams() {
 func (u URLSessionStreamTask) CloseRead() {
 	objc.Send[objc.ID](u.ID, objc.Sel("closeRead"))
 }
+
 // Completes any enqueued reads and writes, and then closes the write side of
 // the underlying socket.
 //
 // # Discussion
-// 
+//
 // You may continue to read data using the
 // [ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler] method after calling
 // this method. Any calls to [WriteDataTimeoutCompletionHandler] after calling
 // this method will result in an error.
-// 
+//
 // Because the server may continue to write bytes to the client, it is
 // recommended that you continue reading until the stream reaches end-of-file
 // (EOF).
@@ -267,11 +275,12 @@ func (u URLSessionStreamTask) CloseRead() {
 func (u URLSessionStreamTask) CloseWrite() {
 	objc.Send[objc.ID](u.ID, objc.Sel("closeWrite"))
 }
+
 // Completes any enqueued reads and writes, and establishes a secure
 // connection.
 //
 // # Discussion
-// 
+//
 // Authentication callbacks are sent to the session’s delegate using the
 // [URLSessionTaskDidReceiveChallengeCompletionHandler] method.
 //
@@ -306,4 +315,3 @@ func (u URLSessionStreamTask) WriteDataTimeout(ctx context.Context, data INSData
 		return ctx.Err()
 	}
 }
-

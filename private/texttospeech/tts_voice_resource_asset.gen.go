@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (tc TTSVoiceResourceAssetClass) Alloc() TTSVoiceResourceAsset {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSVoiceResourceAsset.DefaultFootprintString]
@@ -58,6 +58,7 @@ func (tc TTSVoiceResourceAssetClass) Alloc() TTSVoiceResourceAsset {
 //   - [TTSVoiceResourceAsset.SyncWithConfigFileVoiceType]
 //   - [TTSVoiceResourceAsset.VoiceConfig]
 //   - [TTSVoiceResourceAsset.SetVoiceConfig]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceAsset
 type TTSVoiceResourceAsset struct {
 	TTSAssetBase
@@ -67,6 +68,7 @@ type TTSVoiceResourceAsset struct {
 func TTSVoiceResourceAssetFromID(id objc.ID) TTSVoiceResourceAsset {
 	return TTSVoiceResourceAsset{TTSAssetBase: TTSAssetBaseFromID(id)}
 }
+
 // Ensure TTSVoiceResourceAsset implements ITTSVoiceResourceAsset.
 var _ ITTSVoiceResourceAsset = TTSVoiceResourceAsset{}
 
@@ -128,7 +130,6 @@ func NewTTSVoiceResourceAsset() TTSVoiceResourceAsset {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceAsset/initWithCoder:
 func NewTTSVoiceResourceAssetWithCoder(coder objectivec.IObject) TTSVoiceResourceAsset {
 	instance := getTTSVoiceResourceAssetClass().Alloc()
@@ -141,22 +142,24 @@ func (t TTSVoiceResourceAsset) DefaultFootprintString() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultFootprintString"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceAsset/defaultTypeString
 func (t TTSVoiceResourceAsset) DefaultTypeString() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultTypeString"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceAsset/defaultVoice
 func (t TTSVoiceResourceAsset) DefaultVoice() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultVoice"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceAsset/syncWithConfigData:voiceType:
 func (t TTSVoiceResourceAsset) SyncWithConfigDataVoiceType(data objectivec.IObject, type_ int64) {
 	objc.Send[objc.ID](t.ID, objc.Sel("syncWithConfigData:voiceType:"), data, type_)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceAsset/syncWithConfigFile:voiceType:
 func (t TTSVoiceResourceAsset) SyncWithConfigFileVoiceType(file objectivec.IObject, type_ int64) {
 	objc.Send[objc.ID](t.ID, objc.Sel("syncWithConfigFile:voiceType:"), file, type_)
@@ -176,6 +179,7 @@ func (t TTSVoiceResourceAsset) Languages() foundation.INSArray {
 func (t TTSVoiceResourceAsset) SetLanguages(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLanguages:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceAsset/resourceList
 func (t TTSVoiceResourceAsset) ResourceList() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resourceList"))
@@ -184,6 +188,7 @@ func (t TTSVoiceResourceAsset) ResourceList() foundation.INSArray {
 func (t TTSVoiceResourceAsset) SetResourceList(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResourceList:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceAsset/searchPathURL
 func (t TTSVoiceResourceAsset) SearchPathURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("searchPathURL"))
@@ -192,6 +197,7 @@ func (t TTSVoiceResourceAsset) SearchPathURL() foundation.INSURL {
 func (t TTSVoiceResourceAsset) SetSearchPathURL(value foundation.INSURL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSearchPathURL:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceAsset/voiceConfig
 func (t TTSVoiceResourceAsset) VoiceConfig() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voiceConfig"))
@@ -200,4 +206,3 @@ func (t TTSVoiceResourceAsset) VoiceConfig() foundation.INSDictionary {
 func (t TTSVoiceResourceAsset) SetVoiceConfig(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVoiceConfig:"), value)
 }
-

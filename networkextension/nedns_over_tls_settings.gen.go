@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -65,6 +66,7 @@ type NEDNSOverTLSSettings struct {
 func NEDNSOverTLSSettingsFromID(id objc.ID) NEDNSOverTLSSettings {
 	return NEDNSOverTLSSettings{NEDNSSettings: NEDNSSettingsFromID(id)}
 }
+
 // NOTE: NEDNSOverTLSSettings adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,7 +124,7 @@ func NewNEDNSOverTLSSettings() NEDNSOverTLSSettings {
 // mixture of IPv4 and IPv6 addresses.
 //
 // # Return Value
-// 
+//
 // The initialized [NEDNSSettings] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSSettings/init(servers:)
@@ -135,13 +137,13 @@ func NewDNSOverTLSSettingsWithServers(servers []string) NEDNSOverTLSSettings {
 // The TLS name of a DNS-over-TLS server.
 //
 // # Discussion
-// 
+//
 // The server will be accessed over TCP port 853, as defined in [RFC 7858].
 // The server name is used for TLS validation.
 //
-// [RFC 7858]: https://tools.ietf.org/html/rfc7858
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSOverTLSSettings/serverName
+//
+// [RFC 7858]: https://tools.ietf.org/html/rfc7858
 func (d NEDNSOverTLSSettings) ServerName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("serverName"))
 	return foundation.NSStringFromID(rv).String()
@@ -149,16 +151,17 @@ func (d NEDNSOverTLSSettings) ServerName() string {
 func (d NEDNSOverTLSSettings) SetServerName(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setServerName:"), objc.String(value))
 }
+
 // A persistent keychain reference to a keychain item containing the
 // certificate and private key components of the DNS client credential.
 //
 // # Discussion
-// 
+//
 // The keychain item must have the [kSecClassIdentity] class.
 //
-// [kSecClassIdentity]: https://developer.apple.com/documentation/Security/kSecClassIdentity
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSOverTLSSettings/identityReference
+//
+// [kSecClassIdentity]: https://developer.apple.com/documentation/Security/kSecClassIdentity
 func (d NEDNSOverTLSSettings) IdentityReference() foundation.INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("identityReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
@@ -166,4 +169,3 @@ func (d NEDNSOverTLSSettings) IdentityReference() foundation.INSData {
 func (d NEDNSOverTLSSettings) SetIdentityReference(value foundation.INSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIdentityReference:"), value)
 }
-

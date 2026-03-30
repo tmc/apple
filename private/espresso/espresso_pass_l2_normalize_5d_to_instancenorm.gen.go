@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_l2_normalize_5d_to_instancenorm struct {
 func EspressoPass_l2_normalize_5d_to_instancenormFromID(id objc.ID) EspressoPass_l2_normalize_5d_to_instancenorm {
 	return EspressoPass_l2_normalize_5d_to_instancenorm{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_l2_normalize_5d_to_instancenorm implements IEspressoPass_l2_normalize_5d_to_instancenorm.
 var _ IEspressoPass_l2_normalize_5d_to_instancenorm = EspressoPass_l2_normalize_5d_to_instancenorm{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_l2_normalize_5d_to_instancenorm() EspressoPass_l2_normalize
 	rv := objc.Send[EspressoPass_l2_normalize_5d_to_instancenorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

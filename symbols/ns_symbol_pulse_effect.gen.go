@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSSymbolPulseEffectClass) Alloc() NSSymbolPulseEffect {
 // image.
 //
 // # Overview
-// 
+//
 // A pulse animation applies an opacity ramp to the layers in a symbol. You
 // can choose to animate only layers marked as “always-pulses” or all
 // layers simultaneously. Participating layers reduce their opacity to a
@@ -67,6 +68,7 @@ type NSSymbolPulseEffect struct {
 func NSSymbolPulseEffectFromID(id objc.ID) NSSymbolPulseEffect {
 	return NSSymbolPulseEffect{NSSymbolEffect: NSSymbolEffectFromID(id)}
 }
+
 // Ensure NSSymbolPulseEffect implements INSSymbolPulseEffect.
 var _ INSSymbolPulseEffect = NSSymbolPulseEffect{}
 
@@ -112,7 +114,7 @@ func NewNSSymbolPulseEffect() NSSymbolPulseEffect {
 // marked to always pulse.
 //
 // # Return Value
-// 
+//
 // A copy of the effect options that pulses only the layers marked to always
 // pulse.
 //
@@ -121,11 +123,12 @@ func (s NSSymbolPulseEffect) EffectWithByLayer() INSSymbolPulseEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolPulseEffectFromID(rv)
 }
+
 // A copy of the effect requesting an animation that pulses all layers
 // simultaneously.
 //
 // # Return Value
-// 
+//
 // A copy of the effect options that pulses all layers simultaneously.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolPulseEffect/effectWithWholeSymbol
@@ -137,7 +140,7 @@ func (s NSSymbolPulseEffect) EffectWithWholeSymbol() INSSymbolPulseEffect {
 // The default pulse effect, determined by the system.
 //
 // # Return Value
-// 
+//
 // A new instance of the pulse effect options.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolPulseEffect/effect
@@ -145,4 +148,3 @@ func (_NSSymbolPulseEffectClass NSSymbolPulseEffectClass) Effect() NSSymbolPulse
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolPulseEffectClass.class), objc.Sel("effect"))
 	return NSSymbolPulseEffectFromID(rv)
 }
-

@@ -4,6 +4,7 @@ package diskimages2
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (dc DiskImageParamsASIF_XPCClass) Alloc() DiskImageParamsASIF_XPC {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DiskImageParamsASIF_XPC.SetHeader]
 //   - [DiskImageParamsASIF_XPC.InitWithBackendXPCHeader]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsASIF_XPC
 type DiskImageParamsASIF_XPC struct {
 	DiskImageParamsXPC
@@ -55,6 +56,7 @@ type DiskImageParamsASIF_XPC struct {
 func DiskImageParamsASIF_XPCFromID(id objc.ID) DiskImageParamsASIF_XPC {
 	return DiskImageParamsASIF_XPC{DiskImageParamsXPC: DiskImageParamsXPCFromID(id)}
 }
+
 // Ensure DiskImageParamsASIF_XPC implements IDiskImageParamsASIF_XPC.
 var _ IDiskImageParamsASIF_XPC = DiskImageParamsASIF_XPC{}
 
@@ -94,7 +96,6 @@ func NewDiskImageParamsASIF_XPC() DiskImageParamsASIF_XPC {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:
 func NewDiskImageParamsASIF_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsASIF_XPC {
 	instance := getDiskImageParamsASIF_XPCClass().Alloc()
@@ -102,7 +103,6 @@ func NewDiskImageParamsASIF_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageP
 	return DiskImageParamsASIF_XPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsXPC/initWithBackendXPC:blockSize:
 func NewDiskImageParamsASIF_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsASIF_XPC {
 	instance := getDiskImageParamsASIF_XPCClass().Alloc()
@@ -110,7 +110,6 @@ func NewDiskImageParamsASIF_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, s
 	return DiskImageParamsASIF_XPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsASIF_XPC/initWithBackendXPC:header:
 func NewDiskImageParamsASIF_XPCWithBackendXPCHeader(xpc objectivec.IObject, header objectivec.IObject) DiskImageParamsASIF_XPC {
 	instance := getDiskImageParamsASIF_XPCClass().Alloc()
@@ -118,7 +117,6 @@ func NewDiskImageParamsASIF_XPCWithBackendXPCHeader(xpc objectivec.IObject, head
 	return DiskImageParamsASIF_XPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsASIF_XPC/initWithCoder:
 func NewDiskImageParamsASIF_XPCWithCoder(coder objectivec.IObject) DiskImageParamsASIF_XPC {
 	instance := getDiskImageParamsASIF_XPCClass().Alloc()
@@ -126,15 +124,13 @@ func NewDiskImageParamsASIF_XPCWithCoder(coder objectivec.IObject) DiskImagePara
 	return DiskImageParamsASIF_XPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsASIF_XPC/setHeader:
 func (d DiskImageParamsASIF_XPC) SetHeader(header objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("setHeader:"), header)
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageParamsASIF_XPC/initWithBackendXPC:header:
 func (d DiskImageParamsASIF_XPC) InitWithBackendXPCHeader(xpc objectivec.IObject, header objectivec.IObject) DiskImageParamsASIF_XPC {
 	rv := objc.Send[DiskImageParamsASIF_XPC](d.ID, objc.Sel("initWithBackendXPC:header:"), xpc, header)
 	return rv
 }
-

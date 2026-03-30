@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZUSBTouchScreenConfiguration struct {
 func VZUSBTouchScreenConfigurationFromID(id objc.ID) VZUSBTouchScreenConfiguration {
 	return VZUSBTouchScreenConfiguration{VZMultiTouchDeviceConfiguration: VZMultiTouchDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZUSBTouchScreenConfiguration implements IVZUSBTouchScreenConfiguration.
 var _ IVZUSBTouchScreenConfiguration = VZUSBTouchScreenConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZUSBTouchScreenConfiguration() VZUSBTouchScreenConfiguration {
 	rv := objc.Send[VZUSBTouchScreenConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

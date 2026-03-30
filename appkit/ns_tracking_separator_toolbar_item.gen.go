@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,12 +45,12 @@ func (nc NSTrackingSeparatorToolbarItemClass) Alloc() NSTrackingSeparatorToolbar
 // window.
 //
 // # Overview
-// 
+//
 // Use a [NSTrackingSeparatorToolbarItem] to divide an [NSToolbar] into
 // sections that visually align with the views on either side of the divider
 // of the [SplitView]. This keeps [NSToolbarItem]s above the content that’s
 // the [NSTrackingSeparatorToolbarItem.Target] for the item’s [NSTrackingSeparatorToolbarItem.Target].
-// 
+//
 // The `splitView` must be in the same window as the toolbar containing this
 // item before showing the toolbar.
 //
@@ -72,6 +73,7 @@ type NSTrackingSeparatorToolbarItem struct {
 func NSTrackingSeparatorToolbarItemFromID(id objc.ID) NSTrackingSeparatorToolbarItem {
 	return NSTrackingSeparatorToolbarItem{NSToolbarItem: NSToolbarItemFromID(id)}
 }
+
 // NOTE: NSTrackingSeparatorToolbarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -139,7 +141,7 @@ func NewTrackingSeparatorToolbarItemWithIdentifierSplitViewDividerIndex(identifi
 // toolbar delegate uses this value to identify the specific toolbar item.
 //
 // # Return Value
-// 
+//
 // A new toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/init(itemIdentifier:)
@@ -159,10 +161,11 @@ func (t NSTrackingSeparatorToolbarItem) DividerIndex() int {
 func (t NSTrackingSeparatorToolbarItem) SetDividerIndex(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDividerIndex:"), value)
 }
+
 // The vertical split view to align with the toolbar separator.
 //
 // # Discussion
-// 
+//
 // The `splitView` must be in the same window as the toolbar containing the
 // [NSTrackingSeparatorToolbarItem] before showing the toolbar.
 //
@@ -174,4 +177,3 @@ func (t NSTrackingSeparatorToolbarItem) SplitView() INSSplitView {
 func (t NSTrackingSeparatorToolbarItem) SetSplitView(value INSSplitView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSplitView:"), value)
 }
-

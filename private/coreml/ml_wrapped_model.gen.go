@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLWrappedModelClass) Alloc() MLWrappedModel {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLWrappedModel.ClearInnerModelWithReason]
@@ -57,6 +57,7 @@ func (mc MLWrappedModelClass) Alloc() MLWrappedModel {
 //   - [MLWrappedModel.Reason]
 //   - [MLWrappedModel.SetReason]
 //   - [MLWrappedModel.InitWithInnerModel]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLWrappedModel
 type MLWrappedModel struct {
 	MLModel
@@ -66,6 +67,7 @@ type MLWrappedModel struct {
 func MLWrappedModelFromID(id objc.ID) MLWrappedModel {
 	return MLWrappedModel{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLWrappedModel implements IMLWrappedModel.
 var _ IMLWrappedModel = MLWrappedModel{}
 
@@ -123,7 +125,6 @@ func NewMLWrappedModel() MLWrappedModel {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewWrappedModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLWrappedModel, error) {
 	var errorPtr objc.ID
@@ -136,7 +137,6 @@ func NewWrappedModelDescriptionOnlyWithSpecificationConfigurationError(specifica
 	return MLWrappedModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLWrappedModel, error) {
 	var errorPtr objc.ID
@@ -149,7 +149,6 @@ func NewWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.
 	return MLWrappedModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewWrappedModelWithConfiguration(configuration objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
@@ -157,7 +156,6 @@ func NewWrappedModelWithConfiguration(configuration objectivec.IObject) MLWrappe
 	return MLWrappedModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewWrappedModelWithDescription(description objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
@@ -165,7 +163,6 @@ func NewWrappedModelWithDescription(description objectivec.IObject) MLWrappedMod
 	return MLWrappedModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewWrappedModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
@@ -173,7 +170,6 @@ func NewWrappedModelWithDescriptionConfiguration(description objectivec.IObject,
 	return MLWrappedModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLWrappedModel/initWithInnerModel:
 func NewWrappedModelWithInnerModel(model objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
@@ -181,7 +177,6 @@ func NewWrappedModelWithInnerModel(model objectivec.IObject) MLWrappedModel {
 	return MLWrappedModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewWrappedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
@@ -189,12 +184,11 @@ func NewWrappedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeature
 	return MLWrappedModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLWrappedModel/clearInnerModelWithReason:
 func (w MLWrappedModel) ClearInnerModelWithReason(reason objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("clearInnerModelWithReason:"), reason)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLWrappedModel/parameterValueForKey:error:
 func (w MLWrappedModel) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -206,7 +200,7 @@ func (w MLWrappedModel) ParameterValueForKeyError(key objectivec.IObject) (objec
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLWrappedModel/predictionFromFeatures:error:
 func (w MLWrappedModel) PredictionFromFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -218,7 +212,7 @@ func (w MLWrappedModel) PredictionFromFeaturesError(features objectivec.IObject)
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLWrappedModel/predictionFromFeatures:options:error:
 func (w MLWrappedModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -230,7 +224,7 @@ func (w MLWrappedModel) PredictionFromFeaturesOptionsError(features objectivec.I
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLWrappedModel/predictionsFromBatch:error:
 func (w MLWrappedModel) PredictionsFromBatchError(batch objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -242,7 +236,7 @@ func (w MLWrappedModel) PredictionsFromBatchError(batch objectivec.IObject) (obj
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLWrappedModel/predictionsFromBatch:options:error:
 func (w MLWrappedModel) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -254,7 +248,7 @@ func (w MLWrappedModel) PredictionsFromBatchOptionsError(batch objectivec.IObjec
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLWrappedModel/initWithInnerModel:
 func (w MLWrappedModel) InitWithInnerModel(model objectivec.IObject) MLWrappedModel {
 	rv := objc.Send[MLWrappedModel](w.ID, objc.Sel("initWithInnerModel:"), model)
@@ -269,6 +263,7 @@ func (w MLWrappedModel) InnerModel() IMLModel {
 func (w MLWrappedModel) SetInnerModel(value IMLModel) {
 	objc.Send[struct{}](w.ID, objc.Sel("setInnerModel:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLWrappedModel/reason
 func (w MLWrappedModel) Reason() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("reason"))
@@ -277,4 +272,3 @@ func (w MLWrappedModel) Reason() string {
 func (w MLWrappedModel) SetReason(value string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setReason:"), objc.String(value))
 }
-

@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -19,6 +20,7 @@ type MLSpecificationCompiler interface {
 type MLSpecificationCompilerObject struct {
 	objectivec.Object
 }
+
 func (o MLSpecificationCompilerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -31,7 +33,6 @@ func MLSpecificationCompilerObjectFromID(id objc.ID) MLSpecificationCompilerObje
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSpecificationCompiler/compileSpecification:toArchive:options:error:
 func (o MLSpecificationCompilerObject) CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("compileSpecification:toArchive:options:error:"), specification, archive, options)
@@ -39,8 +40,8 @@ func (o MLSpecificationCompilerObject) CompileSpecificationToArchiveOptionsError
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLSpecificationCompiler/compiledVersionForSpecification:options:error:
 func (o MLSpecificationCompilerObject) CompiledVersionForSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("compiledVersionForSpecification:options:error:"), specification, options)
@@ -48,5 +49,4 @@ func (o MLSpecificationCompilerObject) CompiledVersionForSpecificationOptionsErr
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

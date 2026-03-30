@@ -4,6 +4,7 @@ package accelerate
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 )
 
@@ -28,6 +29,7 @@ var (
 	// See: https://developer.apple.com/documentation/Accelerate/kvImage_YpCbCrToARGBMatrix_ITU_R_709_2
 	KvImage_YpCbCrToARGBMatrix_ITU_R_709_2 VImage_YpCbCrToARGBMatrix
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -50,4 +52,3 @@ func init() {
 	}
 
 }
-

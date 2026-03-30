@@ -5,8 +5,9 @@ package avfaudio
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (ac AVAudioUnitComponentClass) Alloc() AVAudioUnitComponent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioUnitComponent.GetTypeName]
@@ -51,6 +51,7 @@ func (ac AVAudioUnitComponentClass) Alloc() AVAudioUnitComponent {
 //   - [AVAudioUnitComponent.LocaleChanged]
 //   - [AVAudioUnitComponent.ValidateWithResultsInCompletionHandler]
 //   - [AVAudioUnitComponent.SandboxSafe]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent
 type AVAudioUnitComponent struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type AVAudioUnitComponent struct {
 func AVAudioUnitComponentFromID(id objc.ID) AVAudioUnitComponent {
 	return AVAudioUnitComponent{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioUnitComponent implements IAVAudioUnitComponent.
 var _ IAVAudioUnitComponent = AVAudioUnitComponent{}
 
@@ -105,20 +107,20 @@ func NewAVAudioUnitComponent() AVAudioUnitComponent {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/GetTypeName:
 func (a AVAudioUnitComponent) GetTypeName(name uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("GetTypeName:"), name)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/localeChanged
 func (a AVAudioUnitComponent) LocaleChanged() {
 	objc.Send[objc.ID](a.ID, objc.Sel("localeChanged"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/validateWithResults:inCompletionHandler:
 func (a AVAudioUnitComponent) ValidateWithResultsInCompletionHandler(results objectivec.IObject, handler ErrorHandler) bool {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	rv := objc.Send[bool](a.ID, objc.Sel("validateWithResults:inCompletionHandler:"), results, _block1)
 	return rv
 }
@@ -128,6 +130,7 @@ func (a AVAudioUnitComponent) ComponentURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("componentURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/sandboxSafe
 func (a AVAudioUnitComponent) SandboxSafe() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("sandboxSafe"))
@@ -148,4 +151,3 @@ func (a AVAudioUnitComponent) ValidateWithResultsIn(ctx context.Context, results
 		return ctx.Err()
 	}
 }
-

@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNImageBasedRequest] class.
@@ -45,7 +46,7 @@ func (vc VNImageBasedRequestClass) Alloc() VNImageBasedRequest {
 // specific part of an image.
 //
 // # Overview
-// 
+//
 // Other Vision request handlers that operate on still images inherit from
 // this abstract base class. Don’t use it directly.
 //
@@ -66,6 +67,7 @@ type VNImageBasedRequest struct {
 func VNImageBasedRequestFromID(id objc.ID) VNImageBasedRequest {
 	return VNImageBasedRequest{VNRequest: VNRequestFromID(id)}
 }
+
 // NOTE: VNImageBasedRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -111,7 +113,7 @@ func NewVNImageBasedRequest() VNImageBasedRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -126,10 +128,10 @@ func NewImageBasedRequestWithCompletionHandler(completionHandler VNRequestComple
 // The region of the image in which Vision will perform the request.
 //
 // # Discussion
-// 
+//
 // The rectangle is normalized to the dimensions of the processed image. Its
 // origin is specified relative to the image’s lower-left corner.
-// 
+//
 // The default value is `{ { 0, 0 }, { 1, 1 } }`.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageBasedRequest/regionOfInterest
@@ -140,4 +142,3 @@ func (i VNImageBasedRequest) RegionOfInterest() corefoundation.CGRect {
 func (i VNImageBasedRequest) SetRegionOfInterest(value corefoundation.CGRect) {
 	objc.Send[struct{}](i.ID, objc.Sel("setRegionOfInterest:"), value)
 }
-

@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [UNTimeIntervalNotificationTrigger] class.
@@ -45,14 +46,14 @@ func (uc UNTimeIntervalNotificationTriggerClass) Alloc() UNTimeIntervalNotificat
 // the amount of time you specify elapses.
 //
 // # Overview
-// 
+//
 // Create a [UNTimeIntervalNotificationTrigger] object when you want to
 // schedule the delivery of a local notification after the number of seconds
 // you specify elapses. You use this type of trigger to implement timers.
-// 
+//
 // Listing 1 creates a trigger that delivers its notification one time after
 // 30 minutes have elapsed.
-// 
+//
 // Listing 1. Creating a trigger that fires in 30 minutes
 //
 // # Getting the Trigger Information
@@ -72,6 +73,7 @@ type UNTimeIntervalNotificationTrigger struct {
 func UNTimeIntervalNotificationTriggerFromID(id objc.ID) UNTimeIntervalNotificationTrigger {
 	return UNTimeIntervalNotificationTrigger{UNNotificationTrigger: UNNotificationTriggerFromID(id)}
 }
+
 // NOTE: UNTimeIntervalNotificationTrigger adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,20 +120,17 @@ func NewUNTimeIntervalNotificationTrigger() UNTimeIntervalNotificationTrigger {
 // timeInterval: The time (in seconds) that must elapse from the current time before the
 // trigger fires. This value must be greater than zero.
 //
-// repeats: Specify [false] to deliver the notification one time. Specify [true] to
+// repeats: Specify false to deliver the notification one time. Specify true to
 // reschedule the notification request each time the system delivers the
-// notification. If this parameter is [true], the value in the `timeInterval`
+// notification. If this parameter is true, the value in the `timeInterval`
 // parameter must be 60 seconds or greater.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // A new time interval trigger based on the specified temporal information.
 //
 // # Discussion
-// 
+//
 // If you specify `true` for the `repeats` parameter, you must explicitly
 // remove the notification request to stop the delivery of the associated
 // notification. Use the methods of [UNUserNotificationCenter] to remove
@@ -146,11 +145,11 @@ func NewUNTimeIntervalNotificationTriggerWithTimeIntervalRepeats(timeInterval fl
 // The next date at which the trigger conditions are met.
 //
 // # Return Value
-// 
+//
 // The next trigger date.
 //
 // # Discussion
-// 
+//
 // Use this property to find out when a notification associated with this
 // trigger will next be delivered.
 //
@@ -163,7 +162,7 @@ func (u UNTimeIntervalNotificationTrigger) NextTriggerDate() foundation.INSDate 
 // The time interval to create the trigger.
 //
 // # Discussion
-// 
+//
 // This property contains the original time interval that you specified when
 // creating the trigger object. The value in this property isn’t updated as
 // time counts down. To find out when the trigger will fire next, call the
@@ -174,4 +173,3 @@ func (u UNTimeIntervalNotificationTrigger) TimeInterval() float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("timeInterval"))
 	return rv
 }
-

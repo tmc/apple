@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,11 +45,11 @@ func (mc MLSequenceConstraintClass) Alloc() MLSequenceConstraint {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLSequenceConstraint.IsAllowedValueError]
 //   - [MLSequenceConstraint.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLSequenceConstraint
 type MLSequenceConstraint struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type MLSequenceConstraint struct {
 func MLSequenceConstraintFromID(id objc.ID) MLSequenceConstraint {
 	return MLSequenceConstraint{objectivec.Object{ID: id}}
 }
+
 // Ensure MLSequenceConstraint implements IMLSequenceConstraint.
 var _ IMLSequenceConstraint = MLSequenceConstraint{}
 
@@ -97,7 +99,6 @@ func NewMLSequenceConstraint() MLSequenceConstraint {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSequenceConstraint/initWithCoder:
 func NewSequenceConstraintWithCoder(coder objectivec.IObject) MLSequenceConstraint {
 	instance := getMLSequenceConstraintClass().Alloc()
@@ -105,7 +106,6 @@ func NewSequenceConstraintWithCoder(coder objectivec.IObject) MLSequenceConstrai
 	return MLSequenceConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSequenceConstraint/isAllowedValue:error:
 func (s MLSequenceConstraint) IsAllowedValueError(value objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -120,7 +120,7 @@ func (s MLSequenceConstraint) IsAllowedValueError(value objectivec.IObject) (boo
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSequenceConstraint/initWithCoder:
 func (s MLSequenceConstraint) InitWithCoder(coder foundation.INSCoder) MLSequenceConstraint {
 	rv := objc.Send[MLSequenceConstraint](s.ID, objc.Sel("initWithCoder:"), coder)
@@ -132,4 +132,3 @@ func (_MLSequenceConstraintClass MLSequenceConstraintClass) SupportsSecureCoding
 	rv := objc.Send[bool](objc.ID(_MLSequenceConstraintClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-

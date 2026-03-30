@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechAudioRenderer struct {
 func TextToSpeechAudioRendererFromID(id objc.ID) TextToSpeechAudioRenderer {
 	return TextToSpeechAudioRenderer{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechAudioRenderer struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechAudioRenderer embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechAudioRenderer() TextToSpeechAudioRenderer {
 	rv := objc.Send[TextToSpeechAudioRenderer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

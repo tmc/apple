@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,12 +45,12 @@ func (nc NSIndexSpecifierClass) Alloc() NSIndexSpecifier {
 // index number.
 //
 // # Overview
-// 
+//
 // The script terms `first` and `front` specify the object with index `0`,
 // while `last` specifies the object with index of `count-1`. A negative index
 // indicates a location by counting backward from the last object in the
 // collection.
-// 
+//
 // You don’t normally subclass [NSIndexSpecifier].
 //
 // # Creating Index Specifiers
@@ -58,7 +59,7 @@ func (nc NSIndexSpecifierClass) Alloc() NSIndexSpecifier {
 //
 // # Accessing the Index
 //
-//   - [NSIndexSpecifier.Index]: Sets the value of the receiver’s `index` property.
+//   - [NSIndexSpecifier.Index]: Sets the value of the receiver’s
 //   - [NSIndexSpecifier.SetIndex]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSpecifier
@@ -73,6 +74,7 @@ type NSIndexSpecifier struct {
 func NSIndexSpecifierFromID(id objc.ID) NSIndexSpecifier {
 	return NSIndexSpecifier{NSScriptObjectSpecifier: NSScriptObjectSpecifierFromID(id)}
 }
+
 // NOTE: NSIndexSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -84,7 +86,7 @@ func NSIndexSpecifierFromID(id objc.ID) NSIndexSpecifier {
 //
 // # Accessing the Index
 //
-//   - [INSIndexSpecifier.Index]: Sets the value of the receiver’s `index` property.
+//   - [INSIndexSpecifier.Index]: Sets the value of the receiver’s
 //   - [INSIndexSpecifier.SetIndex]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSpecifier
@@ -98,7 +100,7 @@ type INSIndexSpecifier interface {
 
 	// Topic: Accessing the Index
 
-	// Sets the value of the receiver’s `index` property.
+	// Sets the value of the receiver’s
 	Index() int
 	SetIndex(value int)
 }
@@ -122,7 +124,6 @@ func NewNSIndexSpecifier() NSIndexSpecifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(coder:)
 func NewIndexSpecifierWithCoder(inCoder INSCoder) NSIndexSpecifier {
 	instance := getNSIndexSpecifierClass().Alloc()
@@ -134,16 +135,16 @@ func NewIndexSpecifierWithCoder(inCoder INSCoder) NSIndexSpecifier {
 // attributes.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier`, key `key`, and the class description of the object specifier
 // `classDescription`, derived from the value of the specifier’s key.
 //
 // # Discussion
-// 
+//
 // You should never pass `nil` for the value of `classDescription`. The
 // receiver’s child reference is set to `nil`.
-// 
+//
 // This is the designated initializer for [NSScriptObjectSpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)
@@ -165,12 +166,12 @@ func NewIndexSpecifierWithContainerClassDescriptionContainerSpecifierKey(classDe
 // index: The object within the `key` collection the index specifier is to identify.
 //
 // # Return Value
-// 
+//
 // Initialized [NSIndexSpecifier] object with its `index` property set to
 // `objectIndex`.
 //
 // # Discussion
-// 
+//
 // Invokes the super class’s
 // [InitWithContainerClassDescriptionContainerSpecifierKey] method and sets
 // the `index` property of the index specifier to `objectIndex`.
@@ -186,12 +187,12 @@ func NewIndexSpecifierWithContainerClassDescriptionContainerSpecifierKeyIndex(cl
 // container specifier and key.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier` and key `key`.
 //
 // # Discussion
-// 
+//
 // The class description of the container is set automatically.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerSpecifier:key:)
@@ -213,12 +214,12 @@ func NewIndexSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecifi
 // index: The object within the `key` collection the index specifier is to identify.
 //
 // # Return Value
-// 
+//
 // Initialized [NSIndexSpecifier] object with its `index` property set to
 // `objectIndex`.
 //
 // # Discussion
-// 
+//
 // Invokes the super class’s
 // [InitWithContainerClassDescriptionContainerSpecifierKey] method and sets
 // the `index` property of the index specifier to `objectIndex`.
@@ -229,9 +230,9 @@ func (i NSIndexSpecifier) InitWithContainerClassDescriptionContainerSpecifierKey
 	return rv
 }
 
-// Sets the value of the receiver’s `index` property.
+// Sets the value of the receiver’s
 //
-// See: https://developer.apple.com/documentation/Foundation/NSIndexSpecifier/index
+// See: https://developer.apple.com/documentation/foundation/nsindexspecifier/index
 func (i NSIndexSpecifier) Index() int {
 	rv := objc.Send[int](i.ID, objc.Sel("index"))
 	return rv
@@ -239,4 +240,3 @@ func (i NSIndexSpecifier) Index() int {
 func (i NSIndexSpecifier) SetIndex(value int) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIndex:"), value)
 }
-

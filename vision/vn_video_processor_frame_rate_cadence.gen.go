@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -61,6 +62,7 @@ type VNVideoProcessorFrameRateCadence struct {
 func VNVideoProcessorFrameRateCadenceFromID(id objc.ID) VNVideoProcessorFrameRateCadence {
 	return VNVideoProcessorFrameRateCadence{VNVideoProcessorCadence: VNVideoProcessorCadenceFromID(id)}
 }
+
 // NOTE: VNVideoProcessorFrameRateCadence adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -136,4 +138,3 @@ func (v VNVideoProcessorFrameRateCadence) FrameRate() int {
 	rv := objc.Send[int](v.ID, objc.Sel("frameRate"))
 	return rv
 }
-

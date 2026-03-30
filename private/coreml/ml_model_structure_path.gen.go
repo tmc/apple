@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLModelStructurePathClass) Alloc() MLModelStructurePath {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelStructurePath.Components]
@@ -53,6 +53,7 @@ func (mc MLModelStructurePathClass) Alloc() MLModelStructurePath {
 //   - [MLModelStructurePath.InitWithCppPath]
 //   - [MLModelStructurePath.InitWithMLProgramOperationPathComponentsScopedModelNamesError]
 //   - [MLModelStructurePath.InitWithNeuralNetworkLayerNameScopedModelNames]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath
 type MLModelStructurePath struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLModelStructurePath struct {
 func MLModelStructurePathFromID(id objc.ID) MLModelStructurePath {
 	return MLModelStructurePath{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructurePath implements IMLModelStructurePath.
 var _ IMLModelStructurePath = MLModelStructurePath{}
 
@@ -111,7 +113,6 @@ func NewMLModelStructurePath() MLModelStructurePath {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/initWithCppPath:
 func NewModelStructurePathWithCppPath(path objectivec.IObject) MLModelStructurePath {
 	instance := getMLModelStructurePathClass().Alloc()
@@ -119,7 +120,6 @@ func NewModelStructurePathWithCppPath(path objectivec.IObject) MLModelStructureP
 	return MLModelStructurePathFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/initWithMLProgramOperationPathComponents:scopedModelNames:error:
 func NewModelStructurePathWithMLProgramOperationPathComponentsScopedModelNamesError(components objectivec.IObject, names objectivec.IObject) (MLModelStructurePath, error) {
 	var errorPtr objc.ID
@@ -132,7 +132,6 @@ func NewModelStructurePathWithMLProgramOperationPathComponentsScopedModelNamesEr
 	return MLModelStructurePathFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/initWithNeuralNetworkLayerName:scopedModelNames:
 func NewModelStructurePathWithNeuralNetworkLayerNameScopedModelNames(name objectivec.IObject, names objectivec.IObject) MLModelStructurePath {
 	instance := getMLModelStructurePathClass().Alloc()
@@ -140,13 +139,12 @@ func NewModelStructurePathWithNeuralNetworkLayerNameScopedModelNames(name object
 	return MLModelStructurePathFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/initWithCppPath:
 func (m MLModelStructurePath) InitWithCppPath(path objectivec.IObject) MLModelStructurePath {
 	rv := objc.Send[MLModelStructurePath](m.ID, objc.Sel("initWithCppPath:"), path)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/initWithMLProgramOperationPathComponents:scopedModelNames:error:
 func (m MLModelStructurePath) InitWithMLProgramOperationPathComponentsScopedModelNamesError(components objectivec.IObject, names objectivec.IObject) (MLModelStructurePath, error) {
 	var errorPtr objc.ID
@@ -158,7 +156,7 @@ func (m MLModelStructurePath) InitWithMLProgramOperationPathComponentsScopedMode
 	return MLModelStructurePathFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/initWithNeuralNetworkLayerName:scopedModelNames:
 func (m MLModelStructurePath) InitWithNeuralNetworkLayerNameScopedModelNames(name objectivec.IObject, names objectivec.IObject) MLModelStructurePath {
 	rv := objc.Send[MLModelStructurePath](m.ID, objc.Sel("initWithNeuralNetworkLayerName:scopedModelNames:"), name, names)
@@ -170,19 +168,21 @@ func (m MLModelStructurePath) Components() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("components"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/cppPath
 func (m MLModelStructurePath) CppPath() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("cppPath"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/isMLProgramOperationPath
 func (m MLModelStructurePath) IsMLProgramOperationPath() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isMLProgramOperationPath"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePath/isNeuralNetworkLayerPath
 func (m MLModelStructurePath) IsNeuralNetworkLayerPath() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isNeuralNetworkLayerPath"))
 	return rv
 }
-

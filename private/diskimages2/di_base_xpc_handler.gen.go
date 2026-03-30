@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (dc DIBaseXPCHandlerClass) Alloc() DIBaseXPCHandler {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIBaseXPCHandler.CloseConnection]
@@ -65,6 +65,7 @@ func (dc DIBaseXPCHandlerClass) Alloc() DIBaseXPCHandler {
 //   - [DIBaseXPCHandler.SignalCommandCompletedWithXpcError]
 //   - [DIBaseXPCHandler.XpcError]
 //   - [DIBaseXPCHandler.SetXpcError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler
 type DIBaseXPCHandler struct {
 	objectivec.Object
@@ -74,6 +75,7 @@ type DIBaseXPCHandler struct {
 func DIBaseXPCHandlerFromID(id objc.ID) DIBaseXPCHandler {
 	return DIBaseXPCHandler{objectivec.Object{ID: id}}
 }
+
 // Ensure DIBaseXPCHandler implements IDIBaseXPCHandler.
 var _ IDIBaseXPCHandler = DIBaseXPCHandler{}
 
@@ -149,7 +151,7 @@ func NewDIBaseXPCHandler() DIBaseXPCHandler {
 func (d DIBaseXPCHandler) CloseConnection() {
 	objc.Send[objc.ID](d.ID, objc.Sel("closeConnection"))
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/completeCommandWithError:
 func (d DIBaseXPCHandler) CompleteCommandWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -164,7 +166,7 @@ func (d DIBaseXPCHandler) CompleteCommandWithError() (bool, error) {
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/connectWithError:
 func (d DIBaseXPCHandler) ConnectWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -179,11 +181,12 @@ func (d DIBaseXPCHandler) ConnectWithError() (bool, error) {
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/createConnection
 func (d DIBaseXPCHandler) CreateConnection() {
 	objc.Send[objc.ID](d.ID, objc.Sel("createConnection"))
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/dupStderrWithError:
 func (d DIBaseXPCHandler) DupStderrWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -198,17 +201,19 @@ func (d DIBaseXPCHandler) DupStderrWithError() (bool, error) {
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/remoteObjectInterface
 func (d DIBaseXPCHandler) RemoteObjectInterface() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("remoteObjectInterface"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/serviceName
 func (d DIBaseXPCHandler) ServiceName() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("serviceName"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/signalCommandCompletedWithXpcError:
 func (d DIBaseXPCHandler) SignalCommandCompletedWithXpcError(error_ objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("signalCommandCompletedWithXpcError:"), error_)
@@ -222,6 +227,7 @@ func (d DIBaseXPCHandler) Connection() foundation.NSXPCConnection {
 func (d DIBaseXPCHandler) SetConnection(value foundation.NSXPCConnection) {
 	objc.Send[struct{}](d.ID, objc.Sel("setConnection:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/isPrivileged
 func (d DIBaseXPCHandler) IsPrivileged() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isPrivileged"))
@@ -230,6 +236,7 @@ func (d DIBaseXPCHandler) IsPrivileged() bool {
 func (d DIBaseXPCHandler) SetIsPrivileged(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIsPrivileged:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/remoteProxy
 func (d DIBaseXPCHandler) RemoteProxy() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("remoteProxy"))
@@ -238,6 +245,7 @@ func (d DIBaseXPCHandler) RemoteProxy() objectivec.IObject {
 func (d DIBaseXPCHandler) SetRemoteProxy(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRemoteProxy:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/semaphore
 func (d DIBaseXPCHandler) Semaphore() objectivec.Object {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("semaphore"))
@@ -246,6 +254,7 @@ func (d DIBaseXPCHandler) Semaphore() objectivec.Object {
 func (d DIBaseXPCHandler) SetSemaphore(value objectivec.Object) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSemaphore:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseXPCHandler/xpcError
 func (d DIBaseXPCHandler) XpcError() foundation.INSError {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("xpcError"))
@@ -254,4 +263,3 @@ func (d DIBaseXPCHandler) XpcError() foundation.INSError {
 func (d DIBaseXPCHandler) SetXpcError(value foundation.INSError) {
 	objc.Send[struct{}](d.ID, objc.Sel("setXpcError:"), value)
 }
-

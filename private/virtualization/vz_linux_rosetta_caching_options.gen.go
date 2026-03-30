@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZLinuxRosettaCachingOptionsClass) Alloc() VZLinuxRosettaCachingOptions
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZLinuxRosettaCachingOptions._init]
@@ -51,6 +51,7 @@ func (vc VZLinuxRosettaCachingOptionsClass) Alloc() VZLinuxRosettaCachingOptions
 //   - [VZLinuxRosettaCachingOptions.Description]
 //   - [VZLinuxRosettaCachingOptions.Hash]
 //   - [VZLinuxRosettaCachingOptions.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions
 type VZLinuxRosettaCachingOptions struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZLinuxRosettaCachingOptions struct {
 func VZLinuxRosettaCachingOptionsFromID(id objc.ID) VZLinuxRosettaCachingOptions {
 	return VZLinuxRosettaCachingOptions{objectivec.Object{ID: id}}
 }
+
 // Ensure VZLinuxRosettaCachingOptions implements IVZLinuxRosettaCachingOptions.
 var _ IVZLinuxRosettaCachingOptions = VZLinuxRosettaCachingOptions{}
 
@@ -118,24 +120,27 @@ func (l VZLinuxRosettaCachingOptions) _options() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("_options"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/debugDescription
 func (l VZLinuxRosettaCachingOptions) DebugDescription() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/description
 func (l VZLinuxRosettaCachingOptions) Description() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/hash
 func (l VZLinuxRosettaCachingOptions) Hash() uint64 {
 	rv := objc.Send[uint64](l.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaCachingOptions/superclass
 func (l VZLinuxRosettaCachingOptions) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](l.ID, objc.Sel("superclass"))
 	return rv
 }
-

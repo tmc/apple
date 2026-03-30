@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechSSMLParser struct {
 func TextToSpeechSSMLParserFromID(id objc.ID) TextToSpeechSSMLParser {
 	return TextToSpeechSSMLParser{objectivec.Object{ID: id}}
 }
+
 // Ensure TextToSpeechSSMLParser implements ITextToSpeechSSMLParser.
 var _ ITextToSpeechSSMLParser = TextToSpeechSSMLParser{}
 
@@ -78,4 +80,3 @@ func NewTextToSpeechSSMLParser() TextToSpeechSSMLParser {
 	rv := objc.Send[TextToSpeechSSMLParser](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

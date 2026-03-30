@@ -4,10 +4,11 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
+	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TTSPhonemeMarker] class.
@@ -43,7 +44,6 @@ func (tc TTSPhonemeMarkerClass) Alloc() TTSPhonemeMarker {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSPhonemeMarker.Alphabet]
@@ -59,6 +59,7 @@ func (tc TTSPhonemeMarkerClass) Alloc() TTSPhonemeMarker {
 //   - [TTSPhonemeMarker.Description]
 //   - [TTSPhonemeMarker.Hash]
 //   - [TTSPhonemeMarker.Superclass]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker
 type TTSPhonemeMarker struct {
 	objectivec.Object
@@ -68,6 +69,7 @@ type TTSPhonemeMarker struct {
 func TTSPhonemeMarkerFromID(id objc.ID) TTSPhonemeMarker {
 	return TTSPhonemeMarker{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSPhonemeMarker implements ITTSPhonemeMarker.
 var _ ITTSPhonemeMarker = TTSPhonemeMarker{}
 
@@ -129,7 +131,6 @@ func NewTTSPhonemeMarker() TTSPhonemeMarker {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/toAVMarkAtOffset:
 func (t TTSPhonemeMarker) ToAVMarkAtOffset(offset int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("toAVMarkAtOffset:"), offset)
@@ -144,11 +145,13 @@ func (t TTSPhonemeMarker) Alphabet() int64 {
 func (t TTSPhonemeMarker) SetAlphabet(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAlphabet:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/avMark
 func (t TTSPhonemeMarker) AvMark() avfaudio.AVSpeechSynthesisMarker {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("avMark"))
 	return avfaudio.AVSpeechSynthesisMarkerFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/byteOffset
 func (t TTSPhonemeMarker) ByteOffset() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("byteOffset"))
@@ -157,26 +160,31 @@ func (t TTSPhonemeMarker) ByteOffset() int64 {
 func (t TTSPhonemeMarker) SetByteOffset(value int64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setByteOffset:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/debugDescription
 func (t TTSPhonemeMarker) DebugDescription() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/description
 func (t TTSPhonemeMarker) Description() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/hash
 func (t TTSPhonemeMarker) Hash() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/markType
 func (t TTSPhonemeMarker) MarkType() int64 {
 	rv := objc.Send[int64](t.ID, objc.Sel("markType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/phoneme
 func (t TTSPhonemeMarker) Phoneme() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("phoneme"))
@@ -185,9 +193,9 @@ func (t TTSPhonemeMarker) Phoneme() string {
 func (t TTSPhonemeMarker) SetPhoneme(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPhoneme:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeMarker/superclass
 func (t TTSPhonemeMarker) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](t.ID, objc.Sel("superclass"))
 	return rv
 }
-

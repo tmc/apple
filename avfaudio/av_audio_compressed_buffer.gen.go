@@ -3,8 +3,9 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -74,6 +75,7 @@ type AVAudioCompressedBuffer struct {
 func AVAudioCompressedBufferFromID(id objc.ID) AVAudioCompressedBuffer {
 	return AVAudioCompressedBuffer{AVAudioBuffer: AVAudioBufferFromID(id)}
 }
+
 // NOTE: AVAudioCompressedBuffer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -157,11 +159,11 @@ func NewAVAudioCompressedBuffer() AVAudioCompressedBuffer {
 // packetCapacity: The capacity of the buffer, in packets.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioCompressedBuffer] instance.
 //
 // # Discussion
-// 
+//
 // This fails if the format is PCM or if the format has variable bytes per
 // packet (for example, `format.StreamDescription()->mBytesPerPacket == 0`).
 //
@@ -181,14 +183,14 @@ func NewAudioCompressedBufferWithFormatPacketCapacity(format IAVAudioFormat, pac
 // maximumPacketSize: The maximum size in bytes of a packet in a compressed state.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioCompressedBuffer] instance.
 //
 // # Discussion
-// 
+//
 // You can obtain the maximum packet size from the [MaximumOutputPacketSize]
 // property of an [AVAudioConverter] you configure for encoding this format.
-// 
+//
 // The method raises an exception if the format is PCM.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer/init(format:packetCapacity:maximumPacketSize:)
@@ -206,11 +208,11 @@ func NewAudioCompressedBufferWithFormatPacketCapacityMaximumPacketSize(format IA
 // packetCapacity: The capacity of the buffer, in packets.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioCompressedBuffer] instance.
 //
 // # Discussion
-// 
+//
 // This fails if the format is PCM or if the format has variable bytes per
 // packet (for example, `format.StreamDescription()->mBytesPerPacket == 0`).
 //
@@ -219,6 +221,7 @@ func (a AVAudioCompressedBuffer) InitWithFormatPacketCapacity(format IAVAudioFor
 	rv := objc.Send[AVAudioCompressedBuffer](a.ID, objc.Sel("initWithFormat:packetCapacity:"), format, packetCapacity)
 	return rv
 }
+
 // Creates a buffer that contains audio data in a compressed state.
 //
 // format: The format of the audio the buffer contains.
@@ -228,14 +231,14 @@ func (a AVAudioCompressedBuffer) InitWithFormatPacketCapacity(format IAVAudioFor
 // maximumPacketSize: The maximum size in bytes of a packet in a compressed state.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioCompressedBuffer] instance.
 //
 // # Discussion
-// 
+//
 // You can obtain the maximum packet size from the [MaximumOutputPacketSize]
 // property of an [AVAudioConverter] you configure for encoding this format.
-// 
+//
 // The method raises an exception if the format is PCM.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer/init(format:packetCapacity:maximumPacketSize:)
@@ -251,10 +254,11 @@ func (a AVAudioCompressedBuffer) ByteCapacity() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("byteCapacity"))
 	return rv
 }
+
 // The number of valid bytes in the buffer.
 //
 // # Discussion
-// 
+//
 // You can change this value as part of an operation that modifies the
 // contents.
 //
@@ -266,6 +270,7 @@ func (a AVAudioCompressedBuffer) ByteLength() uint32 {
 func (a AVAudioCompressedBuffer) SetByteLength(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setByteLength:"), value)
 }
+
 // The audio buffer’s data bytes.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer/data
@@ -273,6 +278,7 @@ func (a AVAudioCompressedBuffer) Data() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("data"))
 	return rv
 }
+
 // The maximum size of a packet, in bytes.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer/maximumPacketSize
@@ -280,6 +286,7 @@ func (a AVAudioCompressedBuffer) MaximumPacketSize() int {
 	rv := objc.Send[int](a.ID, objc.Sel("maximumPacketSize"))
 	return rv
 }
+
 // The total number of packets that the buffer can contain.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer/packetCapacity
@@ -287,6 +294,7 @@ func (a AVAudioCompressedBuffer) PacketCapacity() AVAudioPacketCount {
 	rv := objc.Send[AVAudioPacketCount](a.ID, objc.Sel("packetCapacity"))
 	return AVAudioPacketCount(rv)
 }
+
 // The number of packets currently in the buffer.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer/packetCount
@@ -297,6 +305,7 @@ func (a AVAudioCompressedBuffer) PacketCount() AVAudioPacketCount {
 func (a AVAudioCompressedBuffer) SetPacketCount(value AVAudioPacketCount) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPacketCount:"), value)
 }
+
 // The buffer’s array of packet descriptions.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer/packetDescriptions
@@ -304,10 +313,11 @@ func (a AVAudioCompressedBuffer) PacketDescriptions() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("packetDescriptions"))
 	return objectivec.Object{ID: rv}
 }
+
 // The buffer’s array of packet dependencies.
 //
 // # Discussion
-// 
+//
 // If the audio format doesn’t use packet dependencies, this value is `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioCompressedBuffer/packetDependencies-5oae6
@@ -315,4 +325,3 @@ func (a AVAudioCompressedBuffer) PacketDependencies() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("packetDependencies"))
 	return objectivec.Object{ID: rv}
 }
-

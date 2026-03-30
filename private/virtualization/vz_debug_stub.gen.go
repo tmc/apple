@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (vc VZDebugStubClass) Alloc() VZDebugStub {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZDebugStub._debugStub]
 //   - [VZDebugStub._init]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZDebugStub
 type VZDebugStub struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type VZDebugStub struct {
 func VZDebugStubFromID(id objc.ID) VZDebugStub {
 	return VZDebugStub{objectivec.Object{ID: id}}
 }
+
 // Ensure VZDebugStub implements IVZDebugStub.
 var _ IVZDebugStub = VZDebugStub{}
 
@@ -105,4 +107,3 @@ func (v VZDebugStub) _debugStub() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_debugStub"))
 	return objectivec.Object{ID: rv}
 }
-

@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (mc MLModelStructureProgramBlockClass) Alloc() MLModelStructureProgramBlock
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelStructureProgramBlock.InitWithInputsOutputNamesOperations]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBlock
 type MLModelStructureProgramBlock struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type MLModelStructureProgramBlock struct {
 func MLModelStructureProgramBlockFromID(id objc.ID) MLModelStructureProgramBlock {
 	return MLModelStructureProgramBlock{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgramBlock implements IMLModelStructureProgramBlock.
 var _ IMLModelStructureProgramBlock = MLModelStructureProgramBlock{}
 
@@ -91,7 +93,6 @@ func NewMLModelStructureProgramBlock() MLModelStructureProgramBlock {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBlock/initWithInputs:outputNames:operations:
 func NewModelStructureProgramBlockWithInputsOutputNamesOperations(inputs objectivec.IObject, names objectivec.IObject, operations objectivec.IObject) MLModelStructureProgramBlock {
 	instance := getMLModelStructureProgramBlockClass().Alloc()
@@ -99,10 +100,8 @@ func NewModelStructureProgramBlockWithInputsOutputNamesOperations(inputs objecti
 	return MLModelStructureProgramBlockFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBlock/initWithInputs:outputNames:operations:
 func (m MLModelStructureProgramBlock) InitWithInputsOutputNamesOperations(inputs objectivec.IObject, names objectivec.IObject, operations objectivec.IObject) MLModelStructureProgramBlock {
 	rv := objc.Send[MLModelStructureProgramBlock](m.ID, objc.Sel("initWithInputs:outputNames:operations:"), inputs, names, operations)
 	return rv
 }
-

@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,7 +47,7 @@ func (nc NSMethodSignatureClass) Alloc() NSMethodSignature {
 // method.
 //
 // # Overview
-// 
+//
 // Use an [NSMethodSignature] object to forward messages that the receiving
 // object does not respond to—most notably in the case of distributed
 // objects. You typically create an [NSMethodSignature] object using the
@@ -59,38 +60,31 @@ func (nc NSMethodSignatureClass) Alloc() NSMethodSignature {
 // objects, the [NSInvocation] object is encoded using the information in the
 // [NSMethodSignature] object and sent to the real object represented by the
 // receiver of the message.
-// 
+//
 // # Type Encodings
-// 
+//
 // An [NSMethodSignature] object is initialized with an array of characters
 // representing the string encoding of return and argument types for a method.
 // You can get the string encoding of a particular type using the `@encode()`
 // compiler directive. Because string encodings are implementation-specific,
 // you should not hard-code these values.
-// 
+//
 // A method signature consists of one or more characters for the method return
 // type, followed by the string encodings of the implicit arguments `self` and
 // `_cmd`, followed by zero or more explicit arguments. You can determine the
 // string encoding and the length of a return type using [NSMethodSignature.MethodReturnType]
 // and [NSMethodSignature.MethodReturnLength] properties. You can access arguments individually
 // using the [NSMethodSignature.GetArgumentTypeAtIndex] method and [NSMethodSignature.NumberOfArguments] property.
-// 
+//
 // For example, the [NSString] instance method [ContainsString] has a method
 // signature with the following arguments:
-// 
+//
 // - `@encode(BOOL)` (`c`) for the return type - `@encode(id)` (`@`) for the
 // receiver (`self`) - `@encode(SEL)` (`:`) for the selector (`_cmd`) -
 // `@encode(NSString *)` (`@`) for the first explicit argument
-// 
+//
 // See [Type Encodings] in [Objective-C Runtime Programming Guide] for more
 // information.
-//
-// [NSObject]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class
-// [Objective-C Runtime Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048
-// [Type Encodings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
-// [doesNotRecognizeSelector(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/doesNotRecognizeSelector(_:)
-// [forwardInvocation:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/forwardInvocation:
-// [methodSignatureForSelector:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/methodSignatureForSelector:
 //
 // # Getting Information on Argument Types
 //
@@ -108,6 +102,13 @@ func (nc NSMethodSignatureClass) Alloc() NSMethodSignature {
 //   - [NSMethodSignature.IsOneway]: Whether the receiver is asynchronous when invoked through distributed objects.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMethodSignature
+//
+// [NSObject]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class
+// [Objective-C Runtime Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048
+// [Type Encodings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
+// [doesNotRecognizeSelector(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/doesNotRecognizeSelector(_:)
+// [forwardInvocation:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/forwardInvocation:
+// [methodSignatureForSelector:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/methodSignatureForSelector:
 type NSMethodSignature struct {
 	objectivec.Object
 }
@@ -119,6 +120,7 @@ type NSMethodSignature struct {
 func NSMethodSignatureFromID(id objc.ID) NSMethodSignature {
 	return NSMethodSignature{objectivec.Object{ID: id}}
 }
+
 // Ensure NSMethodSignature implements INSMethodSignature.
 var _ INSMethodSignature = NSMethodSignature{}
 
@@ -189,11 +191,11 @@ func NewNSMethodSignature() NSMethodSignature {
 // idx: The index of the argument to get.
 //
 // # Return Value
-// 
+//
 // The type encoding for the argument at `idx`.
 //
 // # Discussion
-// 
+//
 // Indexes begin with 0. The implicit arguments `self` (of type `id`) and
 // `_cmd` (of type [SEL]) are at indexes 0 and 1; explicit arguments begin at
 // index 2.
@@ -203,19 +205,17 @@ func (m NSMethodSignature) GetArgumentTypeAtIndex(idx uint) string {
 	rv := objc.Send[*byte](m.ID, objc.Sel("getArgumentTypeAtIndex:"), idx)
 	return objc.GoString(rv)
 }
+
 // Whether the receiver is asynchronous when invoked through distributed
 // objects.
 //
 // # Return Value
-// 
-// [true] if the receiver is asynchronous when invoked through distributed
-// objects, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver is asynchronous when invoked through distributed
+// objects, otherwise false.
 //
 // # Discussion
-// 
+//
 // If the method is `oneway`, the sender of the remote message doesn’t block
 // awaiting a reply.
 //
@@ -232,20 +232,20 @@ func (m NSMethodSignature) IsOneway() bool {
 // arguments.
 //
 // # Return Value
-// 
+//
 // An [NSMethodSignature] object for the given Objective-C method type string
 // in `types`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMethodSignature/signatureWithObjCTypes:
 func (_NSMethodSignatureClass NSMethodSignatureClass) SignatureWithObjCTypes(types string) NSMethodSignature {
-	rv := objc.Send[objc.ID](objc.ID(_NSMethodSignatureClass.class), objc.Sel("signatureWithObjCTypes:"), unsafe.Pointer(unsafe.StringData(types + "\x00")))
+	rv := objc.Send[objc.ID](objc.ID(_NSMethodSignatureClass.class), objc.Sel("signatureWithObjCTypes:"), unsafe.Pointer(unsafe.StringData(types+"\x00")))
 	return NSMethodSignatureFromID(rv)
 }
 
 // The number of arguments recorded in the receiver.
 //
 // # Discussion
-// 
+//
 // There are always at least two arguments, because an [NSMethodSignature]
 // object includes the implicit arguments `self` and `_cmd`, which are the
 // first two arguments passed to every method implementation.
@@ -255,11 +255,12 @@ func (m NSMethodSignature) NumberOfArguments() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("numberOfArguments"))
 	return rv
 }
+
 // The number of bytes that the arguments, taken together, occupy on the
 // stack.
 //
 // # Discussion
-// 
+//
 // This number varies with the hardware architecture the application runs on.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMethodSignature/frameLength
@@ -267,6 +268,7 @@ func (m NSMethodSignature) FrameLength() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("frameLength"))
 	return rv
 }
+
 // A C string encoding the return type of the method in Objective-C type
 // encoding.
 //
@@ -275,6 +277,7 @@ func (m NSMethodSignature) MethodReturnType() string {
 	rv := objc.Send[*byte](m.ID, objc.Sel("methodReturnType"))
 	return objc.GoString(rv)
 }
+
 // The number of bytes required for the return value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMethodSignature/methodReturnLength
@@ -282,4 +285,3 @@ func (m NSMethodSignature) MethodReturnLength() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("methodReturnLength"))
 	return rv
 }
-

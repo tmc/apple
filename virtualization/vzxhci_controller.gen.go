@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VZXHCIControllerClass) Alloc() VZXHCIController {
 // controller in a VM.
 //
 // # Overview
-// 
+//
 // Don’t create [VZXHCIController] objects directly. Instead, you create a
 // [VZXHCIController] object at runtime though the [VZXHCIController.UsbControllers] property
 // of the [VZVirtualMachineConfiguration] object by populating it with
@@ -62,6 +63,7 @@ type VZXHCIController struct {
 func VZXHCIControllerFromID(id objc.ID) VZXHCIController {
 	return VZXHCIController{VZUSBController: VZUSBControllerFromID(id)}
 }
+
 // NOTE: VZXHCIController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -90,4 +92,3 @@ func NewVZXHCIController() VZXHCIController {
 	rv := objc.Send[VZXHCIController](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

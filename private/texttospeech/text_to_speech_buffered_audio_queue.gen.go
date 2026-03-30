@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechBufferedAudioQueue struct {
 func TextToSpeechBufferedAudioQueueFromID(id objc.ID) TextToSpeechBufferedAudioQueue {
 	return TextToSpeechBufferedAudioQueue{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechBufferedAudioQueue struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechBufferedAudioQueue embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechBufferedAudioQueue() TextToSpeechBufferedAudioQueue {
 	rv := objc.Send[TextToSpeechBufferedAudioQueue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

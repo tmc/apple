@@ -4,8 +4,9 @@ package naturallanguage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type NLModelConfiguration struct {
 func NLModelConfigurationFromID(id objc.ID) NLModelConfiguration {
 	return NLModelConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: NLModelConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,7 +119,7 @@ func (m NLModelConfiguration) EncodeWithCoder(coder foundation.INSCoder) {
 // Returns the versions of the Natural Language framework the OS supports.
 //
 // # Return Value
-// 
+//
 // An index set of version numbers.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLModelConfiguration/supportedRevisions(for:)
@@ -125,10 +127,11 @@ func (_NLModelConfigurationClass NLModelConfigurationClass) SupportedRevisionsFo
 	rv := objc.Send[objc.ID](objc.ID(_NLModelConfigurationClass.class), objc.Sel("supportedRevisionsForType:"), type_)
 	return foundation.NSIndexSetFromID(rv)
 }
+
 // Returns the current Natural Language framework version in the OS.
 //
 // # Return Value
-// 
+//
 // A version number.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLModelConfiguration/currentRevision(for:)
@@ -144,6 +147,7 @@ func (m NLModelConfiguration) Language() NLLanguage {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("language"))
 	return NLLanguage(foundation.NSStringFromID(rv).String())
 }
+
 // The version of the Natural Language framework that trained the model.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLModelConfiguration/revision
@@ -151,6 +155,7 @@ func (m NLModelConfiguration) Revision() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("revision"))
 	return rv
 }
+
 // The natural language model type of the model.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLModelConfiguration/type
@@ -158,6 +163,7 @@ func (m NLModelConfiguration) Type() NLModelType {
 	rv := objc.Send[NLModelType](m.ID, objc.Sel("type"))
 	return NLModelType(rv)
 }
+
 // A configuration describing the natural language model.
 //
 // See: https://developer.apple.com/documentation/naturallanguage/nlmodel/configuration
@@ -168,4 +174,3 @@ func (m NLModelConfiguration) Configuration() INLModelConfiguration {
 func (m NLModelConfiguration) SetConfiguration(value INLModelConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setConfiguration:"), value)
 }
-

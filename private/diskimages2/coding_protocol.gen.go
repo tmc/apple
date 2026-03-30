@@ -18,6 +18,7 @@ type NSCoding interface {
 type NSCodingObject struct {
 	objectivec.Object
 }
+
 func (o NSCodingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,9 +31,7 @@ func NSCodingObjectFromID(id objc.ID) NSCodingObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/NSCoding/encodeWithCoder:
 func (o NSCodingObject) EncodeWithCoder(coder objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("encodeWithCoder:"), coder)
-	}
-
+}

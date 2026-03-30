@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for CoreMedia. DO NOT EDIT.
 
 // Package coremedia provides Go bindings for the CoreMedia framework.
@@ -61,20 +60,28 @@ package coremedia
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/CoreMedia.framework/CoreMedia"
+// frameworkPaths lists paths to try when loading the CoreMedia library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
+	"/usr/lib/libCoreMedia.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: CoreMedia: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: CoreMedia: failed to load framework from any known path\n")
 }
-

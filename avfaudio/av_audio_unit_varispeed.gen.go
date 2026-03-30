@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,6 +60,7 @@ type AVAudioUnitVarispeed struct {
 func AVAudioUnitVarispeedFromID(id objc.ID) AVAudioUnitVarispeed {
 	return AVAudioUnitVarispeed{AVAudioUnitTimeEffect: AVAudioUnitTimeEffectFromID(id)}
 }
+
 // NOTE: AVAudioUnitVarispeed adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,11 +106,11 @@ func NewAVAudioUnitVarispeed() AVAudioUnitVarispeed {
 // audioComponentDescription: The description of the audio unit to create.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitTimeEffect] instance.
 //
 // # Discussion
-// 
+//
 // The `componentType` field of the description structure must be
 // `kAudioUnitType_FormatConverter` (”`aufc`”); otherwise, the method
 // raises an exception.
@@ -124,21 +126,21 @@ func NewAudioUnitVarispeedWithAudioComponentDescription(audioComponentDescriptio
 // The audio playback rate.
 //
 // # Discussion
-// 
+//
 // The varispeed audio unit resamples the input signal, and as a result,
 // changing the playback rate also changes the pitch. For example, changing
 // the rate to `2.0` results in the output audio playing one octave higher.
 // Similarly changing the rate to `0.5`, results in the output audio playing
 // one octave lower.
-// 
+//
 // The audio unit measures the pitch in , a logarithmic value you use for
 // measuring musical intervals. One octave is equal to 1200 cents. One musical
 // semitone is equal to 100 cents.
-// 
+//
 // Using the `rate` value you calculate the pitch (in cents) using the formula
 // `pitch = 1200.0 * log2(rate)`. Conversely, you calculate the appropriate
 // `rate` for a desired pitch with the formula `rate = pow(2, cents/1200.0)`.
-// 
+//
 // The default value is `1.0`. The range of values is `0.25` to `4.0`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitVarispeed/rate
@@ -149,4 +151,3 @@ func (a AVAudioUnitVarispeed) Rate() float32 {
 func (a AVAudioUnitVarispeed) SetRate(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRate:"), value)
 }
-

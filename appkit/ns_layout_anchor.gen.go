@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSLayoutAnchorClass) Alloc() NSLayoutAnchor {
 // A factory class for creating layout constraint objects using a fluent API.
 //
 // # Overview
-// 
+//
 // Use these constraints to programatically define your layout using Auto
 // Layout. Instead of creating [NSLayoutConstraint] objects directly, start
 // with an [NSView] or [NSLayoutGuide] object you wish to constrain, and
@@ -54,19 +55,16 @@ func (nc NSLayoutAnchorClass) Alloc() NSLayoutAnchor {
 // Layout, and provide an appropriate [NSLayoutAnchor] subclass for creating
 // constraints to that attribute. Use the anchor’s methods to construct your
 // constraint.
-// 
+//
 // As you can see from these examples, the [NSLayoutAnchor] class provides
 // several advantages over using the [NSLayoutConstraint] API directly.
-// 
+//
 // - The code is cleaner, more concise, and easier to read. - The
 // [NSLayoutConstraint.Attribute] subclasses provide additional type checking,
 // preventing you from creating invalid constraints.
-// 
-// For more information on the anchor properties, see [bottomAnchor] in the
-// [NSView] or [NSLayoutGuide].
 //
-// [NSLayoutConstraint.Attribute]: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/Attribute
-// [bottomAnchor]: https://developer.apple.com/documentation/AppKit/NSView/bottomAnchor
+// For more information on the anchor properties, see [NSLayoutAnchor.BottomAnchor] in the
+// [NSView] or [NSLayoutGuide].
 //
 // # Building constraints
 //
@@ -85,6 +83,8 @@ func (nc NSLayoutAnchorClass) Alloc() NSLayoutAnchor {
 //   - [NSLayoutAnchor.Item]: The layout item used to calculate the anchor’s position.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor
+//
+// [NSLayoutConstraint.Attribute]: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/Attribute
 type NSLayoutAnchor struct {
 	objectivec.Object
 }
@@ -95,6 +95,7 @@ type NSLayoutAnchor struct {
 func NSLayoutAnchorFromID(id objc.ID) NSLayoutAnchor {
 	return NSLayoutAnchor{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSLayoutAnchor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -186,17 +187,17 @@ func NewNSLayoutAnchor() NSLayoutAnchor {
 // must be another [NSLayoutXAxisAnchor].
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines an equal relationship between
 // the attributes represented by the two layout anchors.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute = second attribute`.
 // Where `first attribute` is the layout attribute represented by the anchor
 // receiving this method call, and `second attribute` is the layout attribute
 // represented by the `anchor` parameter.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/constraint(equalTo:)
@@ -204,6 +205,7 @@ func (l NSLayoutAnchor) ConstraintEqualToAnchor(anchor INSLayoutAnchor) INSLayou
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToAnchor:"), anchor)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines one item’s attribute as equal to
 // another item’s attribute plus a constant offset.
 //
@@ -215,13 +217,13 @@ func (l NSLayoutAnchor) ConstraintEqualToAnchor(anchor INSLayoutAnchor) INSLayou
 // c: The constant offset for the constraint.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines an equal relationship between
 // the attributes represented by the two layout anchors plus a constant
 // offset.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute = second attribute +
 // c`. Where `first attribute` is the layout attribute represented by the
 // anchor receiving this method call, and `second attribute` is the layout
@@ -229,7 +231,7 @@ func (l NSLayoutAnchor) ConstraintEqualToAnchor(anchor INSLayoutAnchor) INSLayou
 // a constant offset. All values are measured in points; however, these values
 // can be interpreted in different ways, depending on the type of layout
 // anchor.
-// 
+//
 // - For [NSLayoutXAxisAnchor] objects, the first attribute is positioned `c`
 // points after the second attribute. When using leading or trailing
 // attributes, values increase as you move in the language’s reading
@@ -240,7 +242,7 @@ func (l NSLayoutAnchor) ConstraintEqualToAnchor(anchor INSLayoutAnchor) INSLayou
 // move down. - For [NSLayoutDimension] objects, the size of the first
 // attribute is `c` points larger than the size of the second attribute.
 // Values increase as items increase in size.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/constraint(equalTo:constant:)
@@ -248,6 +250,7 @@ func (l NSLayoutAnchor) ConstraintEqualToAnchorConstant(anchor INSLayoutAnchor, 
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToAnchor:constant:"), anchor, c)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines one item’s attribute as greater than or
 // equal to another.
 //
@@ -257,27 +260,27 @@ func (l NSLayoutAnchor) ConstraintEqualToAnchorConstant(anchor INSLayoutAnchor, 
 // must be another [NSLayoutXAxisAnchor].
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines the attribute represented by
 // this layout anchor as greater than or equal to the attribute represented by
 // the `anchor` parameter.
 //
 // # Discussion
-// 
+//
 // This method creates a relationship where `first attribute >= second
 // attribute`. Where `first attribute` is the layout attribute represented by
 // the anchor receiving this method call, and `second attribute` is the layout
 // attribute represented by the `anchor` parameter. All values are measured in
 // points; however, these values can be interpreted in different ways,
 // depending on the type of layout anchor.
-// 
+//
 // - For leading or trailing anchors, the values increase as you move in the
 // current language’s reading direction. In English, for example, values
 // increase as you move to the right. - For left and right anchors, the values
 // increase as you move to the right. - For [NSLayoutYAxisAnchor] objects, the
 // values increase as you move down. - For [NSLayoutDimension] objects, the
 // values increase as the items increase in size.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/constraint(greaterThanOrEqualTo:)
@@ -285,6 +288,7 @@ func (l NSLayoutAnchor) ConstraintGreaterThanOrEqualToAnchor(anchor INSLayoutAnc
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToAnchor:"), anchor)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines one item’s attribute as greater than or
 // equal to another item’s attribute plus a constant offset.
 //
@@ -296,13 +300,13 @@ func (l NSLayoutAnchor) ConstraintGreaterThanOrEqualToAnchor(anchor INSLayoutAnc
 // c: The constant offset for the constraint.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines the attribute represented by
 // this layout anchor as greater than or equal to the attribute represented by
 // the `anchor` parameter plus a constant offset.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute >= second attribute +
 // c`. Where `first attribute` is the layout attribute represented by the
 // anchor receiving this method call, and `second attribute` is the layout
@@ -310,7 +314,7 @@ func (l NSLayoutAnchor) ConstraintGreaterThanOrEqualToAnchor(anchor INSLayoutAnc
 // a constant offset. All values are measured in points; however, these values
 // can be interpreted in different ways, depending on the type of layout
 // anchor.
-// 
+//
 // - For [NSLayoutXAxisAnchor] objects, the first attribute is positioned `c`
 // points after the second attribute. When using leading or trailing
 // attributes, values increase as you move in the language’s reading
@@ -321,7 +325,7 @@ func (l NSLayoutAnchor) ConstraintGreaterThanOrEqualToAnchor(anchor INSLayoutAnc
 // move down. - For [NSLayoutDimension] objects, the size of the first
 // attribute is `c` points larger than the size of the second attribute.
 // Values increase as items increase in size.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/constraint(greaterThanOrEqualTo:constant:)
@@ -329,6 +333,7 @@ func (l NSLayoutAnchor) ConstraintGreaterThanOrEqualToAnchorConstant(anchor INSL
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToAnchor:constant:"), anchor, c)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines one item’s attribute as less than or
 // equal to another.
 //
@@ -338,27 +343,27 @@ func (l NSLayoutAnchor) ConstraintGreaterThanOrEqualToAnchorConstant(anchor INSL
 // must be another [NSLayoutXAxisAnchor].
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines the attribute represented by
 // this layout anchor as less than or equal to the attribute represented by
 // the `anchor` parameter.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute <= second attribute`.
 // Where `first attribute` is the layout attribute represented by the anchor
 // receiving this method call, and `second attribute` is the layout attribute
 // represented by the `anchor` parameter. All values are measured in points;
 // however, these values can be interpreted in different ways, depending on
 // the type of layout anchor.
-// 
+//
 // - For leading or trailing anchors, the values increase as you move in the
 // current language’s reading direction. For English, values increase as you
 // move to the right. - For left and right anchors, the values increase as you
 // move to the right. - For [NSLayoutYAxisAnchor] objects, the values increase
 // as you move down. - For [NSLayoutDimension] objects, the values increase as
 // the items increase in size.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/constraint(lessThanOrEqualTo:)
@@ -366,6 +371,7 @@ func (l NSLayoutAnchor) ConstraintLessThanOrEqualToAnchor(anchor INSLayoutAnchor
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToAnchor:"), anchor)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines one item’s attribute as less than or
 // equal to another item’s attribute plus a constant offset.
 //
@@ -377,13 +383,13 @@ func (l NSLayoutAnchor) ConstraintLessThanOrEqualToAnchor(anchor INSLayoutAnchor
 // c: The constant offset for the constraint.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that defines the attribute represented by
 // this layout anchor as less than or equal to the attribute represented by
 // the `anchor` parameter plus a constant offset.
 //
 // # Discussion
-// 
+//
 // This method defines the relationship `first attribute <= second attribute +
 // c`. Where `first attribute` is the layout attribute represented by the
 // anchor receiving this method call, and `second attribute` is the layout
@@ -391,7 +397,7 @@ func (l NSLayoutAnchor) ConstraintLessThanOrEqualToAnchor(anchor INSLayoutAnchor
 // a constant offset. All values are measured in points; however, these values
 // can be interpreted in different ways, depending on the type of layout
 // anchor.
-// 
+//
 // - For [NSLayoutXAxisAnchor] objects, the first attribute is positioned `c`
 // points after the second attribute. When using leading or trailing
 // attributes, values increase as you move in the language’s reading
@@ -402,7 +408,7 @@ func (l NSLayoutAnchor) ConstraintLessThanOrEqualToAnchor(anchor INSLayoutAnchor
 // move down. - For [NSLayoutDimension] objects, the size of the first
 // attribute is `c` points larger than the size of the second attribute.
 // Values increase as items increase in size.
-// 
+//
 // The constraints produced by the following two examples are identical.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/constraint(lessThanOrEqualTo:constant:)
@@ -423,6 +429,7 @@ func (l NSLayoutAnchor) ConstraintsAffectingLayout() []NSLayoutConstraint {
 		return NSLayoutConstraintFromID(id)
 	})
 }
+
 // A Boolean value indicating whether the constraints impacting the anchor
 // specify its location ambiguously.
 //
@@ -431,6 +438,7 @@ func (l NSLayoutAnchor) HasAmbiguousLayout() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("hasAmbiguousLayout"))
 	return rv
 }
+
 // The name assigned to the anchor for debugging purposes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/name
@@ -438,6 +446,7 @@ func (l NSLayoutAnchor) Name() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The layout item used to calculate the anchor’s position.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/item
@@ -445,6 +454,7 @@ func (l NSLayoutAnchor) Item() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
 }
+
 // A layout anchor representing the bottom edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/bottomanchor
@@ -455,6 +465,7 @@ func (l NSLayoutAnchor) BottomAnchor() INSLayoutYAxisAnchor {
 func (l NSLayoutAnchor) SetBottomAnchor(value INSLayoutYAxisAnchor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBottomAnchor:"), value)
 }
+
 // A layout anchor representing the leading edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/leadinganchor
@@ -465,6 +476,7 @@ func (l NSLayoutAnchor) LeadingAnchor() INSLayoutXAxisAnchor {
 func (l NSLayoutAnchor) SetLeadingAnchor(value INSLayoutXAxisAnchor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLeadingAnchor:"), value)
 }
+
 // A layout anchor representing the left edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/leftanchor
@@ -475,4 +487,3 @@ func (l NSLayoutAnchor) LeftAnchor() INSLayoutXAxisAnchor {
 func (l NSLayoutAnchor) SetLeftAnchor(value INSLayoutXAxisAnchor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLeftAnchor:"), value)
 }
-

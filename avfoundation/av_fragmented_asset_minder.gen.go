@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -74,6 +75,7 @@ type AVFragmentedAssetMinder struct {
 func AVFragmentedAssetMinderFromID(id objc.ID) AVFragmentedAssetMinder {
 	return AVFragmentedAssetMinder{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVFragmentedAssetMinder adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -153,7 +155,7 @@ func NewAVFragmentedAssetMinder() AVFragmentedAssetMinder {
 // additional fragments to the minded asset.
 //
 // # Return Value
-// 
+//
 // The new fragmented asset minder.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAssetMinder/init(asset:mindingInterval:)
@@ -172,7 +174,7 @@ func NewFragmentedAssetMinderWithAssetMindingInterval(asset IAVAsset, mindingInt
 // additional fragments to the minded asset.
 //
 // # Return Value
-// 
+//
 // The new fragmented asset minder.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAssetMinder/init(asset:mindingInterval:)
@@ -180,6 +182,7 @@ func (f AVFragmentedAssetMinder) InitWithAssetMindingInterval(asset IAVAsset, mi
 	rv := objc.Send[AVFragmentedAssetMinder](f.ID, objc.Sel("initWithAsset:mindingInterval:"), asset, mindingInterval)
 	return rv
 }
+
 // Adds a fragmented asset to the array of minded assets.
 //
 // asset: The fragmented asset to add to the minder.
@@ -188,6 +191,7 @@ func (f AVFragmentedAssetMinder) InitWithAssetMindingInterval(asset IAVAsset, mi
 func (f AVFragmentedAssetMinder) AddFragmentedAsset(asset IAVAsset) {
 	objc.Send[objc.ID](f.ID, objc.Sel("addFragmentedAsset:"), asset)
 }
+
 // Removes a fragmented asset from the array of minded assets.
 //
 // asset: The fragmented asset to remove from the minder.
@@ -206,7 +210,7 @@ func (f AVFragmentedAssetMinder) RemoveFragmentedAsset(asset IAVAsset) {
 // additional fragments to the minded asset.
 //
 // # Return Value
-// 
+//
 // The new fragmented asset minder.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAssetMinder/fragmentedAssetMinderWithAsset:mindingInterval:
@@ -219,7 +223,7 @@ func (_AVFragmentedAssetMinderClass AVFragmentedAssetMinderClass) FragmentedAsse
 // fragments.
 //
 // # Discussion
-// 
+//
 // The default interval in `10.0` seconds.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAssetMinder/mindingInterval
@@ -230,6 +234,7 @@ func (f AVFragmentedAssetMinder) MindingInterval() float64 {
 func (f AVFragmentedAssetMinder) SetMindingInterval(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setMindingInterval:"), value)
 }
+
 // The minded array of fragmented assets.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAssetMinder/assets
@@ -239,4 +244,3 @@ func (f AVFragmentedAssetMinder) Assets() []AVAsset {
 		return AVAssetFromID(id)
 	})
 }
-

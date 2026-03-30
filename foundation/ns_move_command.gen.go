@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,30 +44,30 @@ func (nc NSMoveCommandClass) Alloc() NSMoveCommand {
 // A command that moves one or more scriptable objects.
 //
 // # Overview
-// 
+//
 // An instance of [NSMoveCommand] moves the specified scriptable object or
 // objects; for example, it may move words to a new location in a document or
 // a file to a new directory.
-// 
+//
 // [NSMoveCommand] is part of Cocoa’s built-in scripting support. It works
 // automatically to support the `move` AppleScript command through key-value
 // coding. Most applications don’t need to subclass [NSMoveCommand] or
 // invoke its methods. However, for circumstances where you might choose to
 // subclass this command, see “Modifying a Standard Command” in [Script
 // Commands] in [Cocoa Scripting Guide].
-// 
+//
 // When an instance of [NSMoveCommand] is executed, it does not make copies of
 // moved objects. It removes objects from the source container or containers,
 // then inserts them into the destination container.
-//
-// [Cocoa Scripting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_intro/SAppsIntro.html#//apple_ref/doc/uid/TP40002164
-// [Script Commands]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_script_cmds/SAppsScriptCmds.html#//apple_ref/doc/uid/20001242
 //
 // # Working with specifiers
 //
 //   - [NSMoveCommand.KeySpecifier]: Returns a specifier for the object or objects to be moved.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMoveCommand
+//
+// [Cocoa Scripting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_intro/SAppsIntro.html#//apple_ref/doc/uid/TP40002164
+// [Script Commands]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_script_cmds/SAppsScriptCmds.html#//apple_ref/doc/uid/20001242
 type NSMoveCommand struct {
 	NSScriptCommand
 }
@@ -77,6 +78,7 @@ type NSMoveCommand struct {
 func NSMoveCommandFromID(id objc.ID) NSMoveCommand {
 	return NSMoveCommand{NSScriptCommand: NSScriptCommandFromID(id)}
 }
+
 // NOTE: NSMoveCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,7 +117,6 @@ func NewNSMoveCommand() NSMoveCommand {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewMoveCommandWithCoder(inCoder INSCoder) NSMoveCommand {
 	instance := getNSMoveCommandClass().Alloc()
@@ -129,11 +130,11 @@ func NewMoveCommandWithCoder(inCoder INSCoder) NSMoveCommand {
 // commandDef: A command description for the command to be created.
 //
 // # Return Value
-// 
+//
 // A newly initialized instance of [NSScriptCommand] or a subclass.
 //
 // # Discussion
-// 
+//
 // To make this command object usable, you must set its receiving objects and
 // arguments (if any) after invoking this method.
 //
@@ -147,11 +148,11 @@ func NewMoveCommandWithCommandDescription(commandDef INSScriptCommandDescription
 // Returns a specifier for the object or objects to be moved.
 //
 // # Return Value
-// 
+//
 // A specifier for the object or objects to be moved.
-// 
+//
 // # Discussion
-// 
+//
 // Note that this specifier may be different than the specifier set by
 // [SetReceiversSpecifier], which sets the container specifier. For example,
 // for a command such as `move the third circle to the location of the first
@@ -164,4 +165,3 @@ func (m NSMoveCommand) KeySpecifier() INSScriptObjectSpecifier {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("keySpecifier"))
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
-

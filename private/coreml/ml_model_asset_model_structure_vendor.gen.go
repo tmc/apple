@@ -5,6 +5,7 @@ package coreml
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (mc MLModelAssetModelStructureVendorClass) Alloc() MLModelAssetModelStructu
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelAssetModelStructureVendor._modelStructureWithCompletionHandler]
@@ -51,6 +51,7 @@ func (mc MLModelAssetModelStructureVendorClass) Alloc() MLModelAssetModelStructu
 //   - [MLModelAssetModelStructureVendor.ModelStructureWithCompletionHandler]
 //   - [MLModelAssetModelStructureVendor.ResourceFactory]
 //   - [MLModelAssetModelStructureVendor.InitWithResourceFactory]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelStructureVendor
 type MLModelAssetModelStructureVendor struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type MLModelAssetModelStructureVendor struct {
 func MLModelAssetModelStructureVendorFromID(id objc.ID) MLModelAssetModelStructureVendor {
 	return MLModelAssetModelStructureVendor{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelAssetModelStructureVendor implements IMLModelAssetModelStructureVendor.
 var _ IMLModelAssetModelStructureVendor = MLModelAssetModelStructureVendor{}
 
@@ -107,7 +109,6 @@ func NewMLModelAssetModelStructureVendor() MLModelAssetModelStructureVendor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelStructureVendor/initWithResourceFactory:
 func NewModelAssetModelStructureVendorWithResourceFactory(factory objectivec.IObject) MLModelAssetModelStructureVendor {
 	instance := getMLModelAssetModelStructureVendorClass().Alloc()
@@ -115,19 +116,18 @@ func NewModelAssetModelStructureVendorWithResourceFactory(factory objectivec.IOb
 	return MLModelAssetModelStructureVendorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelStructureVendor/_modelStructureWithCompletionHandler:
 func (m MLModelAssetModelStructureVendor) _modelStructureWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("_modelStructureWithCompletionHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelStructureVendor/modelStructureWithCompletionHandler:
 func (m MLModelAssetModelStructureVendor) ModelStructureWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("modelStructureWithCompletionHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelStructureVendor/initWithResourceFactory:
 func (m MLModelAssetModelStructureVendor) InitWithResourceFactory(factory objectivec.IObject) MLModelAssetModelStructureVendor {
 	rv := objc.Send[MLModelAssetModelStructureVendor](m.ID, objc.Sel("initWithResourceFactory:"), factory)
@@ -142,6 +142,7 @@ func (m MLModelAssetModelStructureVendor) ModelStructure() IMLModelStructure {
 func (m MLModelAssetModelStructureVendor) SetModelStructure(value IMLModelStructure) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelStructure:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetModelStructureVendor/resourceFactory
 func (m MLModelAssetModelStructureVendor) ResourceFactory() IMLModelAssetResourceFactory {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("resourceFactory"))
@@ -177,4 +178,3 @@ func (m MLModelAssetModelStructureVendor) ModelStructureSync(ctx context.Context
 		return ctx.Err()
 	}
 }
-

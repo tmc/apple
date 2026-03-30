@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,41 +46,41 @@ func (mc MTLRenderPassAttachmentDescriptorClass) Alloc() MTLRenderPassAttachment
 // by a render pass.
 //
 // # Overview
-// 
+//
 // Use an [MTLRenderPassAttachmentDescriptor] instance to configure an
 // individual render target of a framebuffer. Each
 // [MTLRenderPassAttachmentDescriptor] instance specifies one texture that a
 // graphics rendering pass can write into.
-// 
+//
 // Typically, you don’t directly create [MTLRenderPassAttachmentDescriptor]
 // instances. Instead, the [MTLRenderPassDescriptor] instance creates a
 // default set of attachment instances. For each attachment that you intend to
 // use as a render target, retrieve the [MTLRenderPassAttachmentDescriptor]
 // instance from the render pass descriptor and configure its properties for
 // use during this rendering pass.
-// 
+//
 // You need to set the attachment’s [MTLRenderPassAttachmentDescriptor.Texture] property. The [MTLRenderPassAttachmentDescriptor.Level],
 // [MTLRenderPassAttachmentDescriptor.Slice], and [MTLRenderPassAttachmentDescriptor.DepthPlane] properties specify the mipmap level, slice, and
 // depth plane (for 3D textures) of the texture, respectively.
-// 
+//
 // The [MTLRenderPassAttachmentDescriptor.LoadAction] and [MTLRenderPassAttachmentDescriptor.StoreAction] properties specify actions to perform at
 // the start and end of a rendering pass for the attachment, respectively. For
 // example, if you set the [MTLRenderPassAttachmentDescriptor.LoadAction] property of an attachment to
-// [LoadActionClear], then the contents of the texture fill with a value for
-// the type of attachment at the start of the rendering pass.
-// 
+// [MTLLoadActionClear], then the contents of the texture fill with a value
+// for the type of attachment at the start of the rendering pass.
+//
 // There are specific [MTLRenderPassAttachmentDescriptor] subclasses for
 // color, depth, and stencil attachments. Each subclass provides additional
 // properties to configure for that kind of attachment. The table below
 // provides the list of subclasses.
-// 
+//
 // [Table data omitted]
-// 
+//
 // # Multisampling
-// 
+//
 // To perform multisampled antialiased rendering, you use two textures. Attach
-// to the [MTLRenderPassAttachmentDescriptor.Texture] property a [TextureType2DMultisample] texture, and a 2D or
-// cube texture to the [MTLRenderPassAttachmentDescriptor.ResolveTexture] property. When a rendering command
+// to the [MTLRenderPassAttachmentDescriptor.Texture] property a [MTLTextureType2DMultisample] texture, and a 2D
+// or cube texture to the [MTLRenderPassAttachmentDescriptor.ResolveTexture] property. When a rendering command
 // executes, it renders to the multisample texture. At the end of the render
 // pass, the GPU resolves the contents of the multisample texture and writes
 // the results into the resolve texture. The [MTLRenderPassAttachmentDescriptor.ResolveLevel], [MTLRenderPassAttachmentDescriptor.ResolveSlice],
@@ -130,6 +131,7 @@ type MTLRenderPassAttachmentDescriptor struct {
 func MTLRenderPassAttachmentDescriptorFromID(id objc.ID) MTLRenderPassAttachmentDescriptor {
 	return MTLRenderPassAttachmentDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLRenderPassAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -235,17 +237,19 @@ func NewMTLRenderPassAttachmentDescriptor() MTLRenderPassAttachmentDescriptor {
 // The texture object associated with this attachment.
 //
 // # Discussion
-// 
+//
 // You need to set the attachment’s `texture` property, choosing an
 // appropriate pixel format for the texture.
-// 
+//
 // - To store color values in an attachment, use a texture with a
 // color-renderable pixel format. - To store depth values, use a texture with
-// a depth-renderable pixel format, such as [PixelFormatDepth32Float]. - To
-// store stencil values, use a texture with a stencil-renderable pixel format,
-// such as [PixelFormatStencil8].
+// a depth-renderable pixel format, such as [MTLPixelFormat.depth32Float]. -
+// To store stencil values, use a texture with a stencil-renderable pixel
+// format, such as [MTLPixelFormatStencil8].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/texture
+//
+// [MTLPixelFormat.depth32Float]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/depth32Float
 func (r MTLRenderPassAttachmentDescriptor) Texture() MTLTexture {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("texture"))
 	return MTLTextureObjectFromID(rv)
@@ -253,10 +257,11 @@ func (r MTLRenderPassAttachmentDescriptor) Texture() MTLTexture {
 func (r MTLRenderPassAttachmentDescriptor) SetTexture(value MTLTexture) {
 	objc.Send[struct{}](r.ID, objc.Sel("setTexture:"), value)
 }
+
 // The mipmap level of the texture used for rendering to the attachment.
 //
 // # Discussion
-// 
+//
 // The default value is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/level
@@ -267,10 +272,11 @@ func (r MTLRenderPassAttachmentDescriptor) Level() uint {
 func (r MTLRenderPassAttachmentDescriptor) SetLevel(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLevel:"), value)
 }
+
 // The slice of the texture used for rendering to the attachment.
 //
 // # Discussion
-// 
+//
 // The default value is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/slice
@@ -281,12 +287,13 @@ func (r MTLRenderPassAttachmentDescriptor) Slice() uint {
 func (r MTLRenderPassAttachmentDescriptor) SetSlice(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSlice:"), value)
 }
+
 // The depth plane of the texture used for rendering to the attachment.
 //
 // # Discussion
-// 
+//
 // If the texture isn’t a 3D texture, then Metal ignores this property.
-// 
+//
 // The default value is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/depthPlane
@@ -297,23 +304,28 @@ func (r MTLRenderPassAttachmentDescriptor) DepthPlane() uint {
 func (r MTLRenderPassAttachmentDescriptor) SetDepthPlane(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDepthPlane:"), value)
 }
+
 // The action performed by this attachment at the start of a rendering pass
 // for a render command encoder.
 //
 // # Discussion
-// 
+//
 // If your app renders all pixels of the render target for a given frame, use
-// the [LoadActionDontCare] action, which allows the GPU to avoid loading the
-// existing contents of the texture. Otherwise, use the [LoadActionClear]
-// action to clear the previous contents of the render target or the
-// [LoadActionLoad] action to preserve them. The [LoadActionClear] action also
-// avoids the cost of loading the existing texture contents, but it still
-// incurs the cost of filling the destination with a clear color.
-// 
-// For color render targets, the default value is [LoadActionDontCare]. For
-// depth or stencil render targets, the default value is [LoadActionClear].
+// the [MTLLoadAction.dontCare] action, which allows the GPU to avoid loading
+// the existing contents of the texture. Otherwise, use the
+// [MTLLoadActionClear] action to clear the previous contents of the render
+// target or the [MTLLoadActionLoad] action to preserve them. The
+// [MTLLoadActionClear] action also avoids the cost of loading the existing
+// texture contents, but it still incurs the cost of filling the destination
+// with a clear color.
+//
+// For color render targets, the default value is [MTLLoadAction.dontCare].
+// For depth or stencil render targets, the default value is
+// [MTLLoadActionClear].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/loadAction
+//
+// [MTLLoadAction.dontCare]: https://developer.apple.com/documentation/Metal/MTLLoadAction/dontCare
 func (r MTLRenderPassAttachmentDescriptor) LoadAction() MTLLoadAction {
 	rv := objc.Send[MTLLoadAction](r.ID, objc.Sel("loadAction"))
 	return MTLLoadAction(rv)
@@ -321,37 +333,38 @@ func (r MTLRenderPassAttachmentDescriptor) LoadAction() MTLLoadAction {
 func (r MTLRenderPassAttachmentDescriptor) SetLoadAction(value MTLLoadAction) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLoadAction:"), value)
 }
+
 // The action performed by this attachment at the end of a rendering pass for
 // a render command encoder.
 //
 // # Discussion
-// 
+//
 // If your app doesn’t need the data in the texture after completing the
-// rendering pass, use the [StoreActionDontCare] action. Otherwise, use the
-// [StoreActionStore] action if the texture is directly stored or the
-// [StoreActionMultisampleResolve] action if the texture is a multisampled
+// rendering pass, use the [MTLStoreActionDontCare] action. Otherwise, use the
+// [MTLStoreActionStore] action if the texture is directly stored or the
+// [MTLStoreActionMultisampleResolve] action if the texture is a multisampled
 // texture. In some feature sets, you can use the
-// [StoreActionStoreAndMultisampleResolve] action to store and resolve the
+// [MTLStoreActionStoreAndMultisampleResolve] action to store and resolve the
 // texture in a single rendering pass. For more information, see:
-// 
+//
 // - [Metal feature set tables (PDF)]
 // - [Metal feature set tables (Numbers)]
-// 
-// When the store action is either [StoreActionMultisampleResolve] or
-// [StoreActionStoreAndMultisampleResolve], the [ResolveTexture] property
+//
+// When the store action is either [MTLStoreActionMultisampleResolve] or
+// [MTLStoreActionStoreAndMultisampleResolve], the [ResolveTexture] property
 // needs to be set to the texture to use as the target for the resolve action.
 // Use the [ResolveLevel], [ResolveSlice], and [ResolveDepthPlane] properties
 // to specify the mipmap level, cube slice, and depth plane of the resolve
 // texture, respectively.
-// 
-// For color render targets, the default value is [StoreActionStore]. For
+//
+// For color render targets, the default value is [MTLStoreActionStore]. For
 // depth or stencil render targets, the default value is
-// [StoreActionDontCare].
+// [MTLStoreActionDontCare].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/storeAction
 //
 // [Metal feature set tables (Numbers)]: https://developer.apple.com/metal/metal-feature-set-tables.zip
 // [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/storeAction
 func (r MTLRenderPassAttachmentDescriptor) StoreAction() MTLStoreAction {
 	rv := objc.Send[MTLStoreAction](r.ID, objc.Sel("storeAction"))
 	return MTLStoreAction(rv)
@@ -359,14 +372,15 @@ func (r MTLRenderPassAttachmentDescriptor) StoreAction() MTLStoreAction {
 func (r MTLRenderPassAttachmentDescriptor) SetStoreAction(value MTLStoreAction) {
 	objc.Send[struct{}](r.ID, objc.Sel("setStoreAction:"), value)
 }
+
 // The options that modify the store action performed by this attachment.
 //
 // # Discussion
-// 
+//
 // This property specifies additional behavior for the store action specified
 // by the [StoreAction] property.
-// 
-// The default value is [StoreActionOptionNone].
+//
+// The default value is [MTLStoreActionOptionNone].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/storeActionOptions
 func (r MTLRenderPassAttachmentDescriptor) StoreActionOptions() MTLStoreActionOptions {
@@ -376,13 +390,14 @@ func (r MTLRenderPassAttachmentDescriptor) StoreActionOptions() MTLStoreActionOp
 func (r MTLRenderPassAttachmentDescriptor) SetStoreActionOptions(value MTLStoreActionOptions) {
 	objc.Send[struct{}](r.ID, objc.Sel("setStoreActionOptions:"), value)
 }
+
 // The destination texture used when resolving multisampled texture data into
 // single sample values.
 //
 // # Discussion
-// 
-// If the [StoreAction] value is set to [StoreActionMultisampleResolve] or
-// [StoreActionStoreAndMultisampleResolve], then the [ResolveTexture] value
+//
+// If the [StoreAction] value is set to [MTLStoreActionMultisampleResolve] or
+// [MTLStoreActionStoreAndMultisampleResolve], then the [ResolveTexture] value
 // needs to point to a valid texture. Otherwise, Metal ignores this property.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/resolveTexture
@@ -393,14 +408,15 @@ func (r MTLRenderPassAttachmentDescriptor) ResolveTexture() MTLTexture {
 func (r MTLRenderPassAttachmentDescriptor) SetResolveTexture(value MTLTexture) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResolveTexture:"), value)
 }
+
 // The mipmap level of the texture used for the multisample resolve action.
 //
 // # Discussion
-// 
-// If the value of [StoreAction] is set to [StoreActionMultisampleResolve] or
-// [StoreActionStoreAndMultisampleResolve], set this property to point to a
-// mipmap in the resolve texture.
-// 
+//
+// If the value of [StoreAction] is set to [MTLStoreActionMultisampleResolve]
+// or [MTLStoreActionStoreAndMultisampleResolve], set this property to point
+// to a mipmap in the resolve texture.
+//
 // The default value is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/resolveLevel
@@ -411,14 +427,15 @@ func (r MTLRenderPassAttachmentDescriptor) ResolveLevel() uint {
 func (r MTLRenderPassAttachmentDescriptor) SetResolveLevel(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResolveLevel:"), value)
 }
+
 // The slice of the texture used for the multisample resolve action.
 //
 // # Discussion
-// 
-// If the value of [StoreAction] is set to [StoreActionMultisampleResolve] or
-// [StoreActionStoreAndMultisampleResolve], set this property to point to a
-// slice in the resolve texture.
-// 
+//
+// If the value of [StoreAction] is set to [MTLStoreActionMultisampleResolve]
+// or [MTLStoreActionStoreAndMultisampleResolve], set this property to point
+// to a slice in the resolve texture.
+//
 // The default value is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/resolveSlice
@@ -429,14 +446,15 @@ func (r MTLRenderPassAttachmentDescriptor) ResolveSlice() uint {
 func (r MTLRenderPassAttachmentDescriptor) SetResolveSlice(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResolveSlice:"), value)
 }
+
 // The depth plane of the texture used for the multisample resolve action.
 //
 // # Discussion
-// 
-// If the value of [StoreAction] is set to [StoreActionMultisampleResolve] or
-// [StoreActionStoreAndMultisampleResolve], set this property to point to a
-// depth plane in the resolve texture.
-// 
+//
+// If the value of [StoreAction] is set to [MTLStoreActionMultisampleResolve]
+// or [MTLStoreActionStoreAndMultisampleResolve], set this property to point
+// to a depth plane in the resolve texture.
+//
 // The default value is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassAttachmentDescriptor/resolveDepthPlane
@@ -447,4 +465,3 @@ func (r MTLRenderPassAttachmentDescriptor) ResolveDepthPlane() uint {
 func (r MTLRenderPassAttachmentDescriptor) SetResolveDepthPlane(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResolveDepthPlane:"), value)
 }
-

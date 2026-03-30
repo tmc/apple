@@ -53,6 +53,7 @@ type GTShaderProfilerEncoder interface {
 type GTShaderProfilerEncoderObject struct {
 	objectivec.Object
 }
+
 func (o GTShaderProfilerEncoderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -69,40 +70,46 @@ func GTShaderProfilerEncoderObjectFromID(id objc.ID) GTShaderProfilerEncoderObje
 func (o GTShaderProfilerEncoderObject) FunctionIndex() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("functionIndex"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerEncoder/gpuCommandStartIndex
 func (o GTShaderProfilerEncoderObject) GpuCommandStartIndex() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("gpuCommandStartIndex"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerEncoder/index
 func (o GTShaderProfilerEncoderObject) Index() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("index"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerEncoder/loadTime
 func (o GTShaderProfilerEncoderObject) LoadTime() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("loadTime"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerEncoder/numGPUCommands
 func (o GTShaderProfilerEncoderObject) NumGPUCommands() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("numGPUCommands"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerEncoder/pointerId
 func (o GTShaderProfilerEncoderObject) PointerId() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("pointerId"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerEncoder/storeTime
 func (o GTShaderProfilerEncoderObject) StoreTime() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("storeTime"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerEncoder/timingInfo
 func (o GTShaderProfilerEncoderObject) TimingInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("timingInfo"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

@@ -4,11 +4,12 @@ package gtshaderprofiler
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,6 @@ func (gc GTMioTraceDataClass) Alloc() GTMioTraceData {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioTraceData.LLVMConnectionHeld]
@@ -138,6 +138,7 @@ func (gc GTMioTraceDataClass) Alloc() GTMioTraceData {
 //   - [GTMioTraceData.InitWithStreamDataLlvmHelperPathOptions]
 //   - [GTMioTraceData.InitWithTraceDatabaseDeallocator]
 //   - [GTMioTraceData.Version]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData
 type GTMioTraceData struct {
 	objectivec.Object
@@ -147,6 +148,7 @@ type GTMioTraceData struct {
 func GTMioTraceDataFromID(id objc.ID) GTMioTraceData {
 	return GTMioTraceData{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioTraceData implements IGTMioTraceData.
 var _ IGTMioTraceData = GTMioTraceData{}
 
@@ -362,7 +364,6 @@ func NewGTMioTraceData() GTMioTraceData {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/initWithArchivedData:error:
 func NewGTMioTraceDataWithArchivedDataError(data objectivec.IObject) (GTMioTraceData, error) {
 	var errorPtr objc.ID
@@ -375,7 +376,6 @@ func NewGTMioTraceDataWithArchivedDataError(data objectivec.IObject) (GTMioTrace
 	return GTMioTraceDataFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/initWithCoder:
 func NewGTMioTraceDataWithCoder(coder objectivec.IObject) GTMioTraceData {
 	instance := getGTMioTraceDataClass().Alloc()
@@ -383,7 +383,6 @@ func NewGTMioTraceDataWithCoder(coder objectivec.IObject) GTMioTraceData {
 	return GTMioTraceDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/initWithStreamData:llvmHelperPath:options:
 func NewGTMioTraceDataWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options uint) GTMioTraceData {
 	instance := getGTMioTraceDataClass().Alloc()
@@ -391,7 +390,6 @@ func NewGTMioTraceDataWithStreamDataLlvmHelperPathOptions(data objectivec.IObjec
 	return GTMioTraceDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/_store:error:
 func (g GTMioTraceData) _storeError(_store bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -408,7 +406,7 @@ func (g GTMioTraceData) _storeError(_store bool) (objectivec.IObject, error) {
 func (g GTMioTraceData) StoreError(_store bool) (objectivec.IObject, error) {
 	return g._storeError(_store)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/archiveToFile:compressData:error:
 func (g GTMioTraceData) ArchiveToFileCompressDataError(file objectivec.IObject, data bool) (bool, error) {
 	var errorPtr objc.ID
@@ -423,7 +421,7 @@ func (g GTMioTraceData) ArchiveToFileCompressDataError(file objectivec.IObject, 
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/archivedData:error:
 func (g GTMioTraceData) ArchivedDataError(data bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -435,370 +433,400 @@ func (g GTMioTraceData) ArchivedDataError(data bool) (objectivec.IObject, error)
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/binaries
 func (g GTMioTraceData) Binaries() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaries"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/binaryForDraw:programType:
 func (g GTMioTraceData) BinaryForDrawProgramType(draw uint32, type_ uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryForDraw:programType:"), draw, type_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/binaryForPipelineState:programType:
 func (g GTMioTraceData) BinaryForPipelineStateProgramType(state uint64, type_ uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryForPipelineState:programType:"), state, type_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/buildNonOverlappingCounters:
 func (g GTMioTraceData) BuildNonOverlappingCounters(counters unsafe.Pointer) {
 	objc.Send[objc.ID](g.ID, objc.Sel("buildNonOverlappingCounters:"), counters)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/cancel
 func (g GTMioTraceData) Cancel() {
 	objc.Send[objc.ID](g.ID, objc.Sel("cancel"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/cancelToken:
 func (g GTMioTraceData) CancelToken(token uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("cancelToken:"), token)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/cliqueFromCliqueIndex:
 func (g GTMioTraceData) CliqueFromCliqueIndex(index unsafe.Pointer) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("cliqueFromCliqueIndex:"), index)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/computePositionCount
 func (g GTMioTraceData) ComputePositionCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("computePositionCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/computePositions
 func (g GTMioTraceData) ComputePositions() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("computePositions"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/costCount
 func (g GTMioTraceData) CostCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("costCount"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/costForContext:cost:
 func (g GTMioTraceData) CostForContextCost(context unsafe.Pointer, cost unsafe.Pointer) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForContext:cost:"), context, cost)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/costForLevel:levelIdentifier:scope:scopeIdentifier:cost:
 func (g GTMioTraceData) CostForLevelLevelIdentifierScopeScopeIdentifierCost(level uint16, identifier uint32, scope uint16, identifier2 uint64, cost unsafe.Pointer) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForLevel:levelIdentifier:scope:scopeIdentifier:cost:"), level, identifier, scope, identifier2, cost)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/costForScope:scopeIdentifier:cost:
 func (g GTMioTraceData) CostForScopeScopeIdentifierCost(scope uint16, identifier uint64, cost unsafe.Pointer) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("costForScope:scopeIdentifier:cost:"), scope, identifier, cost)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/costs
 func (g GTMioTraceData) Costs() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("costs"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/drawCount
 func (g GTMioTraceData) DrawCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("drawCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/drawTraceCount
 func (g GTMioTraceData) DrawTraceCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("drawTraceCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/drawTraces
 func (g GTMioTraceData) DrawTraces() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("drawTraces"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/draws
 func (g GTMioTraceData) Draws() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("draws"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/durationForDraw:dataMaster:
 func (g GTMioTraceData) DurationForDrawDataMaster(draw uint32, master uint16) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("durationForDraw:dataMaster:"), draw, master)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/encodeWithCoder:
 func (g GTMioTraceData) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/encoderCount
 func (g GTMioTraceData) EncoderCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("encoderCount"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/encoderFromFunctionIndex:
 func (g GTMioTraceData) EncoderFromFunctionIndex(index uint32) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("encoderFromFunctionIndex:"), index)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/encoders
 func (g GTMioTraceData) Encoders() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("encoders"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateBinariesForDraw:enumerator:
 func (g GTMioTraceData) EnumerateBinariesForDrawEnumerator(draw uint32, enumerator VoidHandler) {
-_block1, _ := NewVoidBlock(enumerator)
+	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinariesForDraw:enumerator:"), draw, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateBinariesForEncoder:enumerator:
 func (g GTMioTraceData) EnumerateBinariesForEncoderEnumerator(encoder uint32, enumerator VoidHandler) {
-_block1, _ := NewVoidBlock(enumerator)
+	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinariesForEncoder:enumerator:"), encoder, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateBinariesForForCliqueAtIndex:uscIndex:enumerator:
 func (g GTMioTraceData) EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler) {
-_block2, _ := NewVoidBlock(enumerator)
+	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinariesForForCliqueAtIndex:uscIndex:enumerator:"), index, index2, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateBinariesForPipelineState:enumerator:
 func (g GTMioTraceData) EnumerateBinariesForPipelineStateEnumerator(state uint64, enumerator VoidHandler) {
-_block1, _ := NewVoidBlock(enumerator)
+	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinariesForPipelineState:enumerator:"), state, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateBinaryRangesForClique:uscData:enumerator:
 func (g GTMioTraceData) EnumerateBinaryRangesForCliqueUscDataEnumerator(clique unsafe.Pointer, data objectivec.IObject, enumerator VoidHandler) {
-_block2, _ := NewVoidBlock(enumerator)
+	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForClique:uscData:enumerator:"), clique, data, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateBinaryRangesForCliqueAtIndex:uscIndex:enumerator:
 func (g GTMioTraceData) EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler) {
-_block2, _ := NewVoidBlock(enumerator)
+	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateBinaryRangesForCliqueAtIndex:uscIndex:enumerator:"), index, index2, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateDrawsForEncoder:enumerator:
 func (g GTMioTraceData) EnumerateDrawsForEncoderEnumerator(encoder uint32, enumerator VoidHandler) {
-_block1, _ := NewVoidBlock(enumerator)
+	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateDrawsForEncoder:enumerator:"), encoder, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateDrawsForPipelineState:enumerator:
 func (g GTMioTraceData) EnumerateDrawsForPipelineStateEnumerator(state uint64, enumerator VoidHandler) {
-_block1, _ := NewVoidBlock(enumerator)
+	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateDrawsForPipelineState:enumerator:"), state, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateEncoders:
 func (g GTMioTraceData) EnumerateEncoders(encoders VoidHandler) {
-_block0, _ := NewVoidBlock(encoders)
+	_block0, _ := NewVoidBlock(encoders)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateEncoders:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateInstructionsForClique:uscData:enumerator:
 func (g GTMioTraceData) EnumerateInstructionsForCliqueUscDataEnumerator(clique unsafe.Pointer, data objectivec.IObject, enumerator VoidHandler) {
-_block2, _ := NewVoidBlock(enumerator)
+	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructionsForClique:uscData:enumerator:"), clique, data, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateInstructionsForCliqueAtIndex:uscIndex:enumerator:
 func (g GTMioTraceData) EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler) {
-_block2, _ := NewVoidBlock(enumerator)
+	_block2, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateInstructionsForCliqueAtIndex:uscIndex:enumerator:"), index, index2, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateKickAtFunctionIndex:enumerator:
 func (g GTMioTraceData) EnumerateKickAtFunctionIndexEnumerator(index uint32, enumerator VoidHandler) {
-_block1, _ := NewVoidBlock(enumerator)
+	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateKickAtFunctionIndex:enumerator:"), index, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumeratePipelineStates:
 func (g GTMioTraceData) EnumeratePipelineStates(states VoidHandler) {
-_block0, _ := NewVoidBlock(states)
+	_block0, _ := NewVoidBlock(states)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumeratePipelineStates:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/enumerateUniqueTracesForBinary:enumerator:
 func (g GTMioTraceData) EnumerateUniqueTracesForBinaryEnumerator(binary uint32, enumerator VoidHandler) {
-_block1, _ := NewVoidBlock(enumerator)
+	_block1, _ := NewVoidBlock(enumerator)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUniqueTracesForBinary:enumerator:"), binary, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/executionHistoryForClique:uscIndex:delegate:
 func (g GTMioTraceData) ExecutionHistoryForCliqueUscIndexDelegate(clique uint32, index uint32, delegate objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryForClique:uscIndex:delegate:"), clique, index, delegate)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/executionHistoryForDraw:programType:delegate:progressController:
 func (g GTMioTraceData) ExecutionHistoryForDrawProgramTypeDelegateProgressController(draw uint32, type_ uint16, delegate objectivec.IObject, controller objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryForDraw:programType:delegate:progressController:"), draw, type_, delegate, controller)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/executionHistoryForPipelineState:programType:delegate:progressController:
 func (g GTMioTraceData) ExecutionHistoryForPipelineStateProgramTypeDelegateProgressController(state uint64, type_ uint16, delegate objectivec.IObject, controller objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryForPipelineState:programType:delegate:progressController:"), state, type_, delegate, controller)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/fragmentPositionCount
 func (g GTMioTraceData) FragmentPositionCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("fragmentPositionCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/fragmentPositions
 func (g GTMioTraceData) FragmentPositions() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("fragmentPositions"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/gpuCost
 func (g GTMioTraceData) GpuCost() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("gpuCost"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/handleBatchIdFilteredData:
 func (g GTMioTraceData) HandleBatchIdFilteredData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("handleBatchIdFilteredData:"), data)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/instructionCountForScope:scopeIdentifier:dataMaster:
 func (g GTMioTraceData) InstructionCountForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("instructionCountForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/kickDurationForEncoder:
 func (g GTMioTraceData) KickDurationForEncoder(encoder uint32) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("kickDurationForEncoder:"), encoder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/kickDurationForEncoder:dataMaster:
 func (g GTMioTraceData) KickDurationForEncoderDataMaster(encoder uint32, master uint16) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("kickDurationForEncoder:dataMaster:"), encoder, master)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/kicks
 func (g GTMioTraceData) Kicks() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("kicks"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/kicksCount
 func (g GTMioTraceData) KicksCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("kicksCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/loadCostTimeline
 func (g GTMioTraceData) LoadCostTimeline() {
 	objc.Send[objc.ID](g.ID, objc.Sel("loadCostTimeline"))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/loadTimeline
 func (g GTMioTraceData) LoadTimeline() {
 	objc.Send[objc.ID](g.ID, objc.Sel("loadTimeline"))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/mGPUs
 func (g GTMioTraceData) MGPUs() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("mGPUs"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/metalFXCallDuration:
 func (g GTMioTraceData) MetalFXCallDuration(duration uint64) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("metalFXCallDuration:"), duration)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/numDrawsForPipelineState:
 func (g GTMioTraceData) NumDrawsForPipelineState(state uint64) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("numDrawsForPipelineState:"), state)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/observePerDrawCounterUpdates:
 func (g GTMioTraceData) ObservePerDrawCounterUpdates(updates objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("observePerDrawCounterUpdates:"), updates)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/pipelineStateCount
 func (g GTMioTraceData) PipelineStateCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("pipelineStateCount"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/requestCostTimeline:
 func (g GTMioTraceData) RequestCostTimeline(timeline VoidHandler) objectivec.IObject {
-_block0, _ := NewVoidBlock(timeline)
+	_block0, _ := NewVoidBlock(timeline)
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("requestCostTimeline:"), _block0)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/riaTraceCount
 func (g GTMioTraceData) RiaTraceCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("riaTraceCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/riaTraces
 func (g GTMioTraceData) RiaTraces() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("riaTraces"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/shaderBinaryInfo
 func (g GTMioTraceData) ShaderBinaryInfo() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("shaderBinaryInfo"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/shaderBinaryInfoCount
 func (g GTMioTraceData) ShaderBinaryInfoCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("shaderBinaryInfoCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/syncedBatchIDObserverCopy
 func (g GTMioTraceData) SyncedBatchIDObserverCopy() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("syncedBatchIDObserverCopy"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/timelineCounters
 func (g GTMioTraceData) TimelineCounters() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineCounters"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/timestampBegin
 func (g GTMioTraceData) TimestampBegin() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("timestampBegin"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/timestampEnd
 func (g GTMioTraceData) TimestampEnd() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("timestampEnd"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/totalCostForScope:scopeIdentifier:dataMaster:
 func (g GTMioTraceData) TotalCostForScopeScopeIdentifierDataMaster(scope uint16, identifier uint64, master uint16) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("totalCostForScope:scopeIdentifier:dataMaster:"), scope, identifier, master)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/uscs
 func (g GTMioTraceData) Uscs() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("uscs"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/initWithArchivedData:error:
 func (g GTMioTraceData) InitWithArchivedDataError(data objectivec.IObject) (GTMioTraceData, error) {
 	var errorPtr objc.ID
@@ -810,22 +838,22 @@ func (g GTMioTraceData) InitWithArchivedDataError(data objectivec.IObject) (GTMi
 	return GTMioTraceDataFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/initWithCoder:
 func (g GTMioTraceData) InitWithCoder(coder foundation.INSCoder) GTMioTraceData {
 	rv := objc.Send[GTMioTraceData](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/initWithStreamData:llvmHelperPath:options:
 func (g GTMioTraceData) InitWithStreamDataLlvmHelperPathOptions(data objectivec.IObject, path objectivec.IObject, options uint) GTMioTraceData {
 	rv := objc.Send[GTMioTraceData](g.ID, objc.Sel("initWithStreamData:llvmHelperPath:options:"), data, path, options)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/initWithTraceDatabase:deallocator:
 func (g GTMioTraceData) InitWithTraceDatabaseDeallocator(database uint64, deallocator VoidHandler) GTMioTraceData {
-_block1, _ := NewVoidBlock(deallocator)
+	_block1, _ := NewVoidBlock(deallocator)
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("initWithTraceDatabase:deallocator:"), database, _block1)
 	return GTMioTraceDataFromID(rv)
 }
@@ -835,7 +863,7 @@ func (_GTMioTraceDataClass GTMioTraceDataClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_GTMioTraceDataClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/traceDataFromCompressedData:originalSize:compressionAlgorithm:error:
 func (_GTMioTraceDataClass GTMioTraceDataClass) TraceDataFromCompressedDataOriginalSizeCompressionAlgorithmError(data objectivec.IObject, size uint64, algorithm int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -847,7 +875,7 @@ func (_GTMioTraceDataClass GTMioTraceDataClass) TraceDataFromCompressedDataOrigi
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/traceDataFromData:error:
 func (_GTMioTraceDataClass GTMioTraceDataClass) TraceDataFromDataError(data objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -859,7 +887,7 @@ func (_GTMioTraceDataClass GTMioTraceDataClass) TraceDataFromDataError(data obje
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/traceDataFromURL:error:
 func (_GTMioTraceDataClass GTMioTraceDataClass) TraceDataFromURLError(url foundation.INSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -871,7 +899,7 @@ func (_GTMioTraceDataClass GTMioTraceDataClass) TraceDataFromURLError(url founda
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/unarchiverFromData:error:
 func (_GTMioTraceDataClass GTMioTraceDataClass) UnarchiverFromDataError(data objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -889,76 +917,91 @@ func (g GTMioTraceData) LLVMConnectionHeld() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("LLVMConnectionHeld"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/consistentStateAchieved
 func (g GTMioTraceData) ConsistentStateAchieved() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("consistentStateAchieved"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/costTimeline
 func (g GTMioTraceData) CostTimeline() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("costTimeline"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/gpuInfo
 func (g GTMioTraceData) GpuInfo() IGTMioGPUInfo {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuInfo"))
 	return GTMioGPUInfoFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/gpuTime
 func (g GTMioTraceData) GpuTime() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("gpuTime"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/hasSeparateCostsTimeline
 func (g GTMioTraceData) HasSeparateCostsTimeline() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("hasSeparateCostsTimeline"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/isMio
 func (g GTMioTraceData) IsMio() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isMio"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/loadingCostTimeline
 func (g GTMioTraceData) LoadingCostTimeline() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("loadingCostTimeline"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/nonOverlappingCounters
 func (g GTMioTraceData) NonOverlappingCounters() IGTMioNonOverlappingCounters {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("nonOverlappingCounters"))
 	return GTMioNonOverlappingCountersFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/nonOverlappingTimeline
 func (g GTMioTraceData) NonOverlappingTimeline() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("nonOverlappingTimeline"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/overlappingTimeline
 func (g GTMioTraceData) OverlappingTimeline() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("overlappingTimeline"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/profiledState
 func (g GTMioTraceData) ProfiledState() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("profiledState"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/streamData
 func (g GTMioTraceData) StreamData() IGTShaderProfilerStreamData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("streamData"))
 	return GTShaderProfilerStreamDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/unixTimestamp
 func (g GTMioTraceData) UnixTimestamp() int64 {
 	rv := objc.Send[int64](g.ID, objc.Sel("unixTimestamp"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/useMinimumTracingMode
 func (g GTMioTraceData) UseMinimumTracingMode() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("useMinimumTracingMode"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceData/version
 func (g GTMioTraceData) Version() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("version"))
@@ -1204,4 +1247,3 @@ func (g GTMioTraceData) InitWithTraceDatabaseDeallocatorSync(ctx context.Context
 		return ctx.Err()
 	}
 }
-

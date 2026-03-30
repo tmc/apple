@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,6 +53,7 @@ type DICreateRAWParams struct {
 func DICreateRAWParamsFromID(id objc.ID) DICreateRAWParams {
 	return DICreateRAWParams{DICreateParams: DICreateParamsFromID(id)}
 }
+
 // Ensure DICreateRAWParams implements IDICreateRAWParams.
 var _ IDICreateRAWParams = DICreateRAWParams{}
 
@@ -81,7 +83,6 @@ func NewDICreateRAWParams() DICreateRAWParams {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithCoder:
 func NewDICreateRAWParamsWithCoder(coder objectivec.IObject) DICreateRAWParams {
 	instance := getDICreateRAWParamsClass().Alloc()
@@ -89,7 +90,6 @@ func NewDICreateRAWParamsWithCoder(coder objectivec.IObject) DICreateRAWParams {
 	return DICreateRAWParamsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithURL:error:
 func NewDICreateRAWParamsWithURLError(url foundation.INSURL) (DICreateRAWParams, error) {
 	var errorPtr objc.ID
@@ -102,7 +102,6 @@ func NewDICreateRAWParamsWithURLError(url foundation.INSURL) (DICreateRAWParams,
 	return DICreateRAWParamsFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateRAWParams/initWithURL:numBlocks:error:
 func NewDICreateRAWParamsWithURLNumBlocksError(url foundation.INSURL, blocks uint64) (DICreateRAWParams, error) {
 	var errorPtr objc.ID
@@ -114,4 +113,3 @@ func NewDICreateRAWParamsWithURLNumBlocksError(url foundation.INSURL, blocks uin
 	}
 	return DICreateRAWParamsFromID(rv), nil
 }
-

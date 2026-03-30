@@ -5,6 +5,7 @@ package virtualization
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,13 +46,13 @@ func (vc VZUSBControllerClass) Alloc() VZUSBController {
 // A class that represents a USB controller in a VM.
 //
 // # Overview
-// 
+//
 // Don’t create a [VZUSBController] directly. You need to first configure
 // USB controllers on a [VZVirtualMachineConfiguration] through a subclass of
 // [VZUSBControllerConfiguration]. When you create a [VZVirtualMachine] from
 // the configuration, the USB controllers are available through the
 // [VZUSBController.UsbControllers] property.
-// 
+//
 // The concrete type of a [VZUSBController] corresponds to the type the
 // configuration uses. For example, a [VZXHCIControllerConfiguration] leads to
 // a device of type [VZXHCIController].
@@ -76,6 +77,7 @@ type VZUSBController struct {
 func VZUSBControllerFromID(id objc.ID) VZUSBController {
 	return VZUSBController{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZUSBController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -139,25 +141,26 @@ func NewVZUSBController() VZUSBController {
 // successful. The framework calls the block on a VM’s queue.
 //
 // # Discussion
-// 
+//
 // If the device successfully attaches to the controller, it appears in the
 // [UsbDevices] property, the framework sets its [UsbController] property to
 // point to the attached USB controller, and the completion handler returns
 // `nil`.
-// 
+//
 // If the device has a previous attachment to the current USB controller, or
 // to another USB controller, the attach function fails with
-// [ErrorDeviceAlreadyAttached]. If the controller can’t initialize the
+// [VZErrorDeviceAlreadyAttached]. If the controller can’t initialize the
 // device correctly, the attach function fails with
-// [ErrorDeviceInitializationFailure].
-// 
+// [VZErrorDeviceInitializationFailure].
+//
 // You need to call this method on the virtual machine’s queue.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/attach(device:completionHandler:)
 func (u VZUSBController) AttachDeviceCompletionHandler(device VZUSBDevice, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("attachDevice:completionHandler:"), device, _block1)
 }
+
 // Detaches a USB device from the controller.
 //
 // device: The USB device to detach.
@@ -167,26 +170,26 @@ _block1, _ := NewErrorBlock(completionHandler)
 // is successful. The framework calls the block on a VM’s queue.
 //
 // # Discussion
-// 
+//
 // If the device successfully detaches from the controller, it disappears from
 // the [UsbDevices] property, the framework sets its [UsbController] property
 // to `nil,` and the completion handler returns `nil`.
-// 
+//
 // If the device doesn’t have an attachment to the controller at the time of
-// calling the detach method, the process fails with [ErrorDeviceNotFound].
-// 
+// calling the detach method, the process fails with [VZErrorDeviceNotFound].
+//
 // You need to call this method on the virtual machine’s queue.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/detach(device:completionHandler:)
 func (u VZUSBController) DetachDeviceCompletionHandler(device VZUSBDevice, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("detachDevice:completionHandler:"), device, _block1)
 }
 
 // The list of attached USB devices for the controller.
 //
 // # Discussion
-// 
+//
 // If a [VZVirtualMachineConfiguration] contains a USB controller
 // configuration that contains USB devices, those devices appear in the list
 // when you start the virtual machine.
@@ -198,6 +201,7 @@ func (u VZUSBController) UsbDevices() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // The list of runtime USB controller objects.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/usbcontrollers
@@ -238,4 +242,3 @@ func (u VZUSBController) DetachDevice(ctx context.Context, device VZUSBDevice) e
 		return ctx.Err()
 	}
 }
-

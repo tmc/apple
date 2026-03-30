@@ -4,10 +4,12 @@ package avfoundation
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that defines the methods to implement to respond to asset-download events.
@@ -21,6 +23,7 @@ type AVAssetDownloadDelegate interface {
 type AVAssetDownloadDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVAssetDownloadDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -43,14 +46,15 @@ func AVAssetDownloadDelegateObjectFromID(id objc.ID) AVAssetDownloadDelegateObje
 // resolvedMediaSelection: The media selection the task resolved.
 //
 // # Discussion
-// 
+//
 // For the best chance of playing back downloaded content without further
 // network I/O, set this selection on the associated [AVPlayerItem].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadDelegate/urlSession(_:assetDownloadTask:didResolve:)
 func (o AVAssetDownloadDelegateObject) URLSessionAssetDownloadTaskDidResolveMediaSelection(session foundation.NSURLSession, assetDownloadTask IAVAssetDownloadTask, resolvedMediaSelection IAVMediaSelection) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:assetDownloadTask:didResolveMediaSelection:"), session, assetDownloadTask, resolvedMediaSelection)
-	}
+}
+
 // Tells the delegate that a download task completed variant selection.
 //
 // session: The session the asset download task is on.
@@ -62,7 +66,8 @@ func (o AVAssetDownloadDelegateObject) URLSessionAssetDownloadTaskDidResolveMedi
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadDelegate/urlSession(_:assetDownloadTask:willDownloadVariants:)
 func (o AVAssetDownloadDelegateObject) URLSessionAssetDownloadTaskWillDownloadVariants(session foundation.NSURLSession, assetDownloadTask IAVAssetDownloadTask, variants []AVAssetVariant) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:assetDownloadTask:willDownloadVariants:"), session, assetDownloadTask, objectivec.IObjectSliceToNSArray(variants))
-	}
+}
+
 // Tells the delegate when a download task determines its download location.
 //
 // session: The session the asset download task is on.
@@ -72,13 +77,14 @@ func (o AVAssetDownloadDelegateObject) URLSessionAssetDownloadTaskWillDownloadVa
 // location: The URL the task downloads the asset to.
 //
 // # Discussion
-// 
+//
 // Save the returned URL to instantiate the asset in the future.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadDelegate/urlSession(_:assetDownloadTask:willDownloadTo:)
 func (o AVAssetDownloadDelegateObject) URLSessionAssetDownloadTaskWillDownloadToURL(session foundation.NSURLSession, assetDownloadTask IAVAssetDownloadTask, location foundation.INSURL) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:assetDownloadTask:willDownloadToURL:"), session, assetDownloadTask, location)
-	}
+}
+
 // Sent when a download task receives an AVMetricEvent.
 //
 // session: The NSURLSession corresponding to this AVAssetDownloadTask.
@@ -90,7 +96,7 @@ func (o AVAssetDownloadDelegateObject) URLSessionAssetDownloadTaskWillDownloadTo
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadDelegate/urlSession(_:assetDownloadTask:didReceive:)
 func (o AVAssetDownloadDelegateObject) URLSessionAssetDownloadTaskDidReceiveMetricEvent(session foundation.NSURLSession, assetDownloadTask IAVAssetDownloadTask, metricEvent IAVMetricEvent) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:assetDownloadTask:didReceiveMetricEvent:"), session, assetDownloadTask, metricEvent)
-	}
+}
 
 // AVAssetDownloadDelegateConfig holds optional typed callbacks for [AVAssetDownloadDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -184,4 +190,3 @@ func NewAVAssetDownloadDelegate(config AVAssetDownloadDelegateConfig) AVAssetDow
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVAssetDownloadDelegateObjectFromID(instance)
 }
-

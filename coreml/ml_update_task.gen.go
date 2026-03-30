@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [MLUpdateTask] class.
@@ -45,7 +46,7 @@ func (mc MLUpdateTaskClass) Alloc() MLUpdateTask {
 // A task that updates a model with additional training data.
 //
 // # Overview
-// 
+//
 // Use an [MLUpdateTask] to update a machine learning model on a user’s
 // device.
 //
@@ -64,6 +65,7 @@ type MLUpdateTask struct {
 func MLUpdateTaskFromID(id objc.ID) MLUpdateTask {
 	return MLUpdateTask{MLTask: MLTaskFromID(id)}
 }
+
 // NOTE: MLUpdateTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -152,7 +154,7 @@ func NewUpdateTaskForModelAtURLTrainingDataProgressHandlersError(modelURL founda
 // update task.
 //
 // # Discussion
-// 
+//
 // Use this method to resume the model update task with newer parameter
 // values. You use this method within the closures you provide in an
 // [MLUpdateProgressHandlers] instance to resume the [MLUpdateTask].
@@ -183,6 +185,7 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataC
 	return MLUpdateTaskFromID(rv), nil
 
 }
+
 // Creates a task that updates the model at the URL with the training data and
 // configuration, and calls the completion handler when the update completes.
 //
@@ -206,4 +209,3 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataC
 	return MLUpdateTaskFromID(rv), nil
 
 }
-

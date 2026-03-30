@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNDetectAnimalBodyPoseRequest] class.
@@ -62,6 +63,7 @@ type VNDetectAnimalBodyPoseRequest struct {
 func VNDetectAnimalBodyPoseRequestFromID(id objc.ID) VNDetectAnimalBodyPoseRequest {
 	return VNDetectAnimalBodyPoseRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectAnimalBodyPoseRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,7 +119,7 @@ func NewVNDetectAnimalBodyPoseRequest() VNDetectAnimalBodyPoseRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -134,7 +136,7 @@ func NewDetectAnimalBodyPoseRequestWithCompletionHandler(completionHandler VNReq
 // error: If an error occurs, an object that describes the error; otherwise, `nil`.
 //
 // # Return Value
-// 
+//
 // The array of joint names.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectAnimalBodyPoseRequest/supportedJointNamesAndReturnError:
@@ -148,12 +150,13 @@ func (d VNDetectAnimalBodyPoseRequest) SupportedJointNamesAndReturnError() ([]st
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
+
 // Retrieves the joint group names the request supports.
 //
 // error: If an error occurs, an object that describes the error; otherwise, `nil`.
 //
 // # Return Value
-// 
+//
 // The array of joint group names.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectAnimalBodyPoseRequest/supportedJointsGroupNamesAndReturnError:
@@ -178,6 +181,7 @@ func (d VNDetectAnimalBodyPoseRequest) SupportedJointNames() VNAnimalBodyPoseObs
 func (d VNDetectAnimalBodyPoseRequest) SetSupportedJointNames(value VNAnimalBodyPoseObservationJointName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointNames:"), value)
 }
+
 // Retrieves the joint group names the request supports.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectanimalbodyposerequest/supportedjointsgroupnames
@@ -188,4 +192,3 @@ func (d VNDetectAnimalBodyPoseRequest) SupportedJointsGroupNames() VNAnimalBodyP
 func (d VNDetectAnimalBodyPoseRequest) SetSupportedJointsGroupNames(value VNAnimalBodyPoseObservationJointsGroupName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointsGroupNames:"), value)
 }
-

@@ -3,10 +3,11 @@
 package metal
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,25 +48,23 @@ func (mc MTLFunctionConstantValuesClass) Alloc() MTLFunctionConstantValues {
 // function.
 //
 // # Overview
-// 
+//
 // An [MTLFunctionConstantValues] instance sets constant values for function
 // constants. You declare function constants with the `[[
 // function_constant(index) ]]` attribute in MSL (Metal Shading Language)
 // source code. See the [Metal Shading Language specification] for more
 // information.
-// 
+//
 // With an [MTLFunctionConstantValues] instance, you can set each constant
 // value individually with an index or a name, or set multiple constant values
 // with an index range.
-// 
+//
 // You can apply a single [MTLFunctionConstantValues] instance to multiple
 // [MTLFunction] instances of any kind, such as a vertex function and a
 // fragment function. When you create a specialized function, subsequent
 // changes to its constant values have no effect. However, you can reset, add,
 // or modify a constant value in your [MTLFunctionConstantValues] instance and
 // reuse it to create another [MTLFunction] instance.
-//
-// [Metal Shading Language specification]: https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf
 //
 // # Setting constant values
 //
@@ -77,6 +76,8 @@ func (mc MTLFunctionConstantValuesClass) Alloc() MTLFunctionConstantValues {
 //   - [MTLFunctionConstantValues.Reset]: Deletes all previously set constant values.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstantValues
+//
+// [Metal Shading Language specification]: https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf
 type MTLFunctionConstantValues struct {
 	objectivec.Object
 }
@@ -88,6 +89,7 @@ type MTLFunctionConstantValues struct {
 func MTLFunctionConstantValuesFromID(id objc.ID) MTLFunctionConstantValues {
 	return MTLFunctionConstantValues{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLFunctionConstantValues adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -150,15 +152,16 @@ func NewMTLFunctionConstantValues() MTLFunctionConstantValues {
 // index: The index of the function constant.
 //
 // # Discussion
-// 
+//
 // Declare a single function constant in Metal Shading Language (MSL).
-// 
+//
 // Set its value by assigning with a specific index.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstantValues/setConstantValue(_:type:index:)
 func (f MTLFunctionConstantValues) SetConstantValueTypeAtIndex(value unsafe.Pointer, type_ MTLDataType, index uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setConstantValue:type:atIndex:"), value, type_, index)
 }
+
 // Sets a value for a function constant with a specific name.
 //
 // value: A pointer to the constant value.
@@ -168,20 +171,21 @@ func (f MTLFunctionConstantValues) SetConstantValueTypeAtIndex(value unsafe.Poin
 // name: The name of the function constant.
 //
 // # Discussion
-// 
+//
 // The first example declares a single function constant in a Metal Shading
 // Language file.
-// 
+//
 // The next example sets that Boolean value by providing its specific name.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstantValues/setConstantValue(_:type:withName:)
 func (f MTLFunctionConstantValues) SetConstantValueTypeWithName(value unsafe.Pointer, type_ MTLDataType, name string) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setConstantValue:type:withName:"), value, type_, objc.String(name))
 }
+
 // Deletes all previously set constant values.
 //
 // # Discussion
-// 
+//
 // You don’t need to call this method if you don’t set any constant
 // values.
 //
@@ -189,6 +193,7 @@ func (f MTLFunctionConstantValues) SetConstantValueTypeWithName(value unsafe.Poi
 func (f MTLFunctionConstantValues) Reset() {
 	objc.Send[objc.ID](f.ID, objc.Sel("reset"))
 }
+
 // Sets values for a group of function constants within a specific index
 // range.
 //
@@ -199,13 +204,12 @@ func (f MTLFunctionConstantValues) Reset() {
 // range: The range of the function constant indices.
 //
 // # Discussion
-// 
+//
 // Declare multiple function constants in Metal Shading Language (MSL).
-// 
+//
 // Set their values by assigning an index range of an array.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstantValues/setConstantValues:type:withRange:
 func (f MTLFunctionConstantValues) SetConstantValuesTypeWithRange(values unsafe.Pointer, type_ MTLDataType, range_ foundation.NSRange) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setConstantValues:type:withRange:"), values, type_, range_)
 }
-

@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/quartzcore"
 )
 
@@ -46,7 +47,7 @@ func (ac AVCaptureVideoPreviewLayerClass) Alloc() AVCaptureVideoPreviewLayer {
 // A Core Animation layer that displays video from a camera device.
 //
 // # Overview
-// 
+//
 // Use this layer to provide a preview of the content the camera captures. A
 // convenient way to use this class in iOS is to set it as the backing layer
 // for a view as shown below.
@@ -93,6 +94,7 @@ type AVCaptureVideoPreviewLayer struct {
 func AVCaptureVideoPreviewLayerFromID(id objc.ID) AVCaptureVideoPreviewLayer {
 	return AVCaptureVideoPreviewLayer{CALayer: quartzcore.CALayerFromID(id)}
 }
+
 // NOTE: AVCaptureVideoPreviewLayer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -214,7 +216,7 @@ func NewCaptureVideoPreviewLayerWithSession(session IAVCaptureSession) AVCapture
 // session: A capture session to preview.
 //
 // # Discussion
-// 
+//
 // Only use this initializer if you intend to manually connect the layer to a
 // particular [AVCaptureInputPort] by calling the session’s [AddConnection]
 // method.
@@ -235,13 +237,14 @@ func (c AVCaptureVideoPreviewLayer) InitWithSession(session IAVCaptureSession) A
 	rv := objc.Send[AVCaptureVideoPreviewLayer](c.ID, objc.Sel("initWithSession:"), session)
 	return rv
 }
+
 // Creates a layer to preview the visual output of a capture session, without
 // making connections to eligible video inputs.
 //
 // session: A capture session to preview.
 //
 // # Discussion
-// 
+//
 // Only use this initializer if you intend to manually connect the layer to a
 // particular [AVCaptureInputPort] by calling the session’s [AddConnection]
 // method.
@@ -251,13 +254,14 @@ func (c AVCaptureVideoPreviewLayer) InitWithSessionWithNoConnection(session IAVC
 	rv := objc.Send[AVCaptureVideoPreviewLayer](c.ID, objc.Sel("initWithSessionWithNoConnection:"), session)
 	return rv
 }
+
 // Associates a session with the layer without automatically forming a
 // connection to an eligible input port.
 //
 // session: A capture session.
 //
 // # Discussion
-// 
+//
 // Only use this method if you intend to manually create a connection between
 // the layer and a particular [AVCaptureInputPort], and add it to the session
 // using its [AddConnection] method.
@@ -266,81 +270,85 @@ func (c AVCaptureVideoPreviewLayer) InitWithSessionWithNoConnection(session IAVC
 func (c AVCaptureVideoPreviewLayer) SetSessionWithNoConnection(session IAVCaptureSession) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setSessionWithNoConnection:"), session)
 }
+
 // Converts a point from the coordinate space of the capture device to the
 // coordinate space of the layer.
 //
 // captureDevicePointOfInterest: A point in capture device coordinates to convert.
 //
 // # Return Value
-// 
+//
 // A point in layer coordinates.
 //
 // # Discussion
-// 
+//
 // A capture device’s [FocusPointOfInterest] and [ExposurePointOfInterest]
 // properties provide a [CGPoint] value where `{0,0}` represents the top-left
 // and `{1,1}` represents the bottom-right of the unrotated image.
-// 
+//
 // The system takes the layer’s frame size and its [VideoGravity] into
 // consideration when making the conversion.
 //
-// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/layerPointConverted(fromCaptureDevicePoint:)
+//
+// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
 func (c AVCaptureVideoPreviewLayer) PointForCaptureDevicePointOfInterest(captureDevicePointOfInterest corefoundation.CGPoint) corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("pointForCaptureDevicePointOfInterest:"), captureDevicePointOfInterest)
 	return corefoundation.CGPoint(rv)
 }
+
 // Converts a point from layer coordinates to the coordinate space of the
 // capture device.
 //
 // pointInLayer: A point in layer coordinates to convert.
 //
 // # Return Value
-// 
+//
 // A point in capture device coordinates.
 //
 // # Discussion
-// 
+//
 // A capture device’s [FocusPointOfInterest] and [ExposurePointOfInterest]
 // properties provide a [CGPoint] value where `{0,0}` represents the top-left
 // and `{1,1}` represents the bottom-right of the unrotated image.
-// 
+//
 // The conversion performed by this method takes the layer’s frame size and
 // its [VideoGravity] into consideration.
 //
-// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/captureDevicePointConverted(fromLayerPoint:)
+//
+// [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
 func (c AVCaptureVideoPreviewLayer) CaptureDevicePointOfInterestForPoint(pointInLayer corefoundation.CGPoint) corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("captureDevicePointOfInterestForPoint:"), pointInLayer)
 	return corefoundation.CGPoint(rv)
 }
+
 // Converts a rectangle from metadata output coordinates to the coordinate
 // space of the layer.
 //
 // rectInMetadataOutputCoordinates: A rectangle in the [AVCaptureMetadataOutput] coordinate system.
 //
 // # Return Value
-// 
+//
 // A rectangle in the preview layer’s coordinate system.
 //
 // # Discussion
-// 
+//
 // A metadata capture output’s [RectOfInterest] a [CGRect] value where
 // `{0,0}` represents the top-left of the picture area, and `{1,1}` represents
 // the bottom-right on an unrotated image.
-// 
+//
 // The system takes the layer’s frame size and its [VideoGravity] into
 // consideration when making the conversion.
 //
-// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/layerRectConverted(fromMetadataOutputRect:)
+//
+// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 func (c AVCaptureVideoPreviewLayer) RectForMetadataOutputRectOfInterest(rectInMetadataOutputCoordinates corefoundation.CGRect) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("rectForMetadataOutputRectOfInterest:"), rectInMetadataOutputCoordinates)
 	return corefoundation.CGRect(rv)
 }
+
 // Converts a rectangle from layer coordinates to the coordinate space of the
 // metadata output.
 //
@@ -348,25 +356,26 @@ func (c AVCaptureVideoPreviewLayer) RectForMetadataOutputRectOfInterest(rectInMe
 // system.
 //
 // # Return Value
-// 
+//
 // A rectangle in the metadata output’s coordinate system.
 //
 // # Discussion
-// 
+//
 // A metadata capture output’s [RectOfInterest] a [CGRect] value where
 // `{0,0}` represents the top-left of the picture area, and `{1,1}` represents
 // the bottom-right on an unrotated image.
-// 
+//
 // The system takes the layer’s frame size and its [VideoGravity] into
 // consideration when making the conversion.
 //
-// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/metadataOutputRectConverted(fromLayerRect:)
+//
+// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 func (c AVCaptureVideoPreviewLayer) MetadataOutputRectOfInterestForRect(rectInLayerCoordinates corefoundation.CGRect) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("metadataOutputRectOfInterestForRect:"), rectInLayerCoordinates)
 	return corefoundation.CGRect(rv)
 }
+
 // Converts a metadata object’s visual properties to layer coordinates.
 //
 // metadataObject: The metadata object whose visual properties you want to convert. The
@@ -374,18 +383,18 @@ func (c AVCaptureVideoPreviewLayer) MetadataOutputRectOfInterestForRect(rectInLa
 // preview layer.
 //
 // # Return Value
-// 
+//
 // A metadata object with coordinates converted into layer coordinates, or
 // `nil` if the metadata object originates from an input source other than
 // that of the preview layer.
 //
 // # Discussion
-// 
+//
 // The system provides the metadata object’s bounds as a rectangle where
 // `{0,0}` represents the top-left of the picture area, and `{1,1}` represents
 // the bottom-right on an unrotated image. Face metadata objects also provide
 // [YawAngle] and [RollAngle] values with respect to an unrotated picture.
-// 
+//
 // The conversion takes orientation, mirroring, layer bounds and video gravity
 // into consideration.
 //
@@ -400,7 +409,7 @@ func (c AVCaptureVideoPreviewLayer) TransformedMetadataObjectForMetadataObject(m
 // session: The capture session from which to source the preview.
 //
 // # Return Value
-// 
+//
 // A preview layer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/layerWithSession:
@@ -408,17 +417,18 @@ func (_AVCaptureVideoPreviewLayerClass AVCaptureVideoPreviewLayerClass) LayerWit
 	rv := objc.Send[objc.ID](objc.ID(_AVCaptureVideoPreviewLayerClass.class), objc.Sel("layerWithSession:"), session)
 	return AVCaptureVideoPreviewLayerFromID(rv)
 }
+
 // Returns a new layer to preview the visual output of a capture session,
 // without making connections to eligible video inputs.
 //
 // session: A capture session to preview.
 //
 // # Return Value
-// 
-// A preview layer with no connections to a session’s eligible video inputs
+//
+// # A preview layer with no connections to a session’s eligible video inputs
 //
 // # Discussion
-// 
+//
 // Only use this initializer if you intend to manually connect the layer to a
 // particular [AVCaptureInputPort] by calling the session’s [AddConnection]
 // method.
@@ -433,17 +443,17 @@ func (_AVCaptureVideoPreviewLayerClass AVCaptureVideoPreviewLayerClass) LayerWit
 // bounds.
 //
 // # Discussion
-// 
+//
 // Options are [resizeAspect], [resizeAspectFill], and [resize]. The default
 // is [resizeAspect].
-// 
+//
 // This property is animatable.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/videoGravity
 //
 // [resizeAspectFill]: https://developer.apple.com/documentation/AVFoundation/AVLayerVideoGravity/resizeAspectFill
 // [resizeAspect]: https://developer.apple.com/documentation/AVFoundation/AVLayerVideoGravity/resizeAspect
 // [resize]: https://developer.apple.com/documentation/AVFoundation/AVLayerVideoGravity/resize
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/videoGravity
 func (c AVCaptureVideoPreviewLayer) VideoGravity() AVLayerVideoGravity {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("videoGravity"))
 	return AVLayerVideoGravity(foundation.NSStringFromID(rv).String())
@@ -451,11 +461,12 @@ func (c AVCaptureVideoPreviewLayer) VideoGravity() AVLayerVideoGravity {
 func (c AVCaptureVideoPreviewLayer) SetVideoGravity(value AVLayerVideoGravity) {
 	objc.Send[struct{}](c.ID, objc.Sel("setVideoGravity:"), objc.String(string(value)))
 }
+
 // A [BOOL] value that indicates whether the preview layer supports deferred
 // start.
 //
 // # Discussion
-// 
+//
 // You can only set the [DeferredStartEnabled] property to `true` if the
 // preview layer supports deferred start.
 //
@@ -464,17 +475,18 @@ func (c AVCaptureVideoPreviewLayer) DeferredStartSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDeferredStartSupported"))
 	return rv
 }
+
 // A [BOOL] value that indicates whether to defer starting this preview layer.
 //
 // # Discussion
-// 
+//
 // When this value is `true`, the session does not prepare the output’s
 // resources until some time after [StartRunning] returns. You can start the
 // visual parts of your user interface (e.g. preview) prior to other parts
 // (e.g. photo/movie capture, metadata output, etc..) to improve startup
 // performance. Set this value to `false` if your app needs video preview
 // immediately for startup, and `true` if it does not.
-// 
+//
 // By default, this value is `false` for [AVCaptureVideoPreviewLayer] objects,
 // since this object is used to display preview. For best session start
 // performance, set [DeferredStartEnabled] to `false` for preview layers. If
@@ -482,7 +494,7 @@ func (c AVCaptureVideoPreviewLayer) DeferredStartSupported() bool {
 // preview layer as soon as possible and allow the remaining layers to display
 // subsequently. In this case, set [DeferredStartEnabled] to `true` for the
 // remaining layers.
-// 
+//
 // If [DeferredStartSupported] is `false`, setting this property value to
 // `true` results in the session throwing an [NSInvalidArgumentException].
 //
@@ -494,6 +506,7 @@ func (c AVCaptureVideoPreviewLayer) DeferredStartEnabled() bool {
 func (c AVCaptureVideoPreviewLayer) SetDeferredStartEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDeferredStartEnabled:"), value)
 }
+
 // A capture session with visual output to preview.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoPreviewLayer/session
@@ -504,11 +517,12 @@ func (c AVCaptureVideoPreviewLayer) Session() IAVCaptureSession {
 func (c AVCaptureVideoPreviewLayer) SetSession(value IAVCaptureSession) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSession:"), value)
 }
+
 // An object that describes the connection from the layer to a particular
 // input port.
 //
 // # Discussion
-// 
+//
 // When you associate a preview layer with a capture session, the session
 // automatically creates a connection to the first eligible video
 // [AVCaptureInputPort] object. If you detach a preview layer from a session,
@@ -519,4 +533,3 @@ func (c AVCaptureVideoPreviewLayer) Connection() IAVCaptureConnection {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("connection"))
 	return AVCaptureConnectionFromID(objc.ID(rv))
 }
-

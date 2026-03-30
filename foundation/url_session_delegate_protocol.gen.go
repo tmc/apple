@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that defines methods that URL session instances call on their delegates to handle session-level events, like session life cycle changes.
@@ -20,6 +22,7 @@ type NSURLSessionDelegate interface {
 type NSURLSessionDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSURLSessionDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,7 +43,7 @@ func NSURLSessionDelegateObjectFromID(id objc.ID) NSURLSessionDelegateObject {
 // explicit.
 //
 // # Discussion
-// 
+//
 // If you invalidate a session by calling its [FinishTasksAndInvalidate]
 // method, the session waits until after the final task in the session
 // finishes or fails before calling this delegate method. If you call the
@@ -50,14 +53,15 @@ func NSURLSessionDelegateObjectFromID(id objc.ID) NSURLSessionDelegateObject {
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didBecomeInvalidWithError:)
 func (o NSURLSessionDelegateObject) URLSessionDidBecomeInvalidWithError(session INSURLSession, error_ INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didBecomeInvalidWithError:"), session, error_)
-	}
+}
+
 // Tells the delegate that all messages enqueued for a session have been
 // delivered.
 //
 // session: The session that no longer has any outstanding requests.
 //
 // # Discussion
-// 
+//
 // In iOS, when a background transfer completes or requires credentials, if
 // your app is no longer running, your app is automatically relaunched in the
 // background, and the app’s [UIApplicationDelegate] is sent an
@@ -67,7 +71,7 @@ func (o NSURLSessionDelegateObject) URLSessionDidBecomeInvalidWithError(session 
 // creating a background configuration object with the same identifier, and
 // creating a session with that configuration. The newly created session is
 // automatically reassociated with ongoing background activity.
-// 
+//
 // When your app later receives a
 // [URLSessionDidFinishEventsForBackgroundURLSession] message, this indicates
 // that all messages previously enqueued for this session have been delivered,
@@ -75,12 +79,13 @@ func (o NSURLSessionDelegateObject) URLSessionDidBecomeInvalidWithError(session 
 // or to begin any internal updates that may result in invoking the completion
 // handler.
 //
-// [application(_:handleEventsForBackgroundURLSession:completionHandler:)]: https://developer.apple.com/documentation/UIKit/UIApplicationDelegate/application(_:handleEventsForBackgroundURLSession:completionHandler:)
-//
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSessionDidFinishEvents(forBackgroundURLSession:)
+//
+// [application(_:handleEventsForBackgroundURLSession:completionHandler:)]: https://developer.apple.com/documentation/UIKit/UIApplicationDelegate/application(_:handleEventsForBackgroundURLSession:completionHandler:)
 func (o NSURLSessionDelegateObject) URLSessionDidFinishEventsForBackgroundURLSession(session INSURLSession) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSessionDidFinishEventsForBackgroundURLSession:"), session)
-	}
+}
+
 // Requests credentials from the delegate in response to a session-level
 // authentication request from the remote server.
 //
@@ -90,29 +95,29 @@ func (o NSURLSessionDelegateObject) URLSessionDidFinishEventsForBackgroundURLSes
 //
 // completionHandler: A handler that your delegate method must call. This completion handler
 // takes the following parameters::
-// 
+//
 // - `disposition`—One of several constants that describes how the challenge
 // should be handled. - `credential`—The credential that should be used for
 // authentication if disposition is [NSURLSessionAuthChallengeUseCredential],
 // otherwise [NULL].
 //
 // # Discussion
-// 
+//
 // This method is called in two situations:
-// 
+//
 // - When a remote server asks for client certificates or Windows NT LAN
 // Manager (NTLM) authentication, to allow your app to provide appropriate
 // credentials - When a session first establishes a connection to a remote
 // server that uses SSL or TLS, to allow your app to verify the server’s
 // certificate chain
-// 
+//
 // If you do not implement this method, the session calls its delegate’s
 // [URLSessionTaskDidReceiveChallengeCompletionHandler] method instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didReceive:completionHandler:)
 func (o NSURLSessionDelegateObject) URLSessionDidReceiveChallengeCompletionHandler(session INSURLSession, challenge INSURLAuthenticationChallenge, completionHandler URLCredentialHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, completionHandler)
-	}
+}
 
 // NSURLSessionDelegateConfig holds optional typed callbacks for [NSURLSessionDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -188,4 +193,3 @@ func NewNSURLSessionDelegate(config NSURLSessionDelegateConfig) NSURLSessionDele
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLSessionDelegateObjectFromID(instance)
 }
-

@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNImageTranslationAlignmentObservation] class.
@@ -44,7 +45,7 @@ func (vc VNImageTranslationAlignmentObservationClass) Alloc() VNImageTranslation
 // Affine transform information that an image-alignment request produces.
 //
 // # Overview
-// 
+//
 // This type of observation results from a
 // [VNTranslationalImageRegistrationRequest], informing the
 // [VNImageTranslationAlignmentObservation.AlignmentTransform] performed to align the input images.
@@ -68,6 +69,7 @@ type VNImageTranslationAlignmentObservation struct {
 func VNImageTranslationAlignmentObservationFromID(id objc.ID) VNImageTranslationAlignmentObservation {
 	return VNImageTranslationAlignmentObservation{VNImageAlignmentObservation: VNImageAlignmentObservationFromID(id)}
 }
+
 // NOTE: VNImageTranslationAlignmentObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -123,6 +125,7 @@ func (i VNImageTranslationAlignmentObservation) AlignmentTransform() corefoundat
 	rv := objc.Send[corefoundation.CGAffineTransform](i.ID, objc.Sel("alignmentTransform"))
 	return corefoundation.CGAffineTransform(rv)
 }
+
 // A constant for specifying revision 1 of the translational image
 // registration request.
 //
@@ -131,4 +134,3 @@ func (i VNImageTranslationAlignmentObservation) VNTranslationalImageRegistration
 	rv := objc.Send[int](i.ID, objc.Sel("VNTranslationalImageRegistrationRequestRevision1"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZVirtioSocketDeviceConfiguration struct {
 func VZVirtioSocketDeviceConfigurationFromID(id objc.ID) VZVirtioSocketDeviceConfiguration {
 	return VZVirtioSocketDeviceConfiguration{VZSocketDeviceConfiguration: VZSocketDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioSocketDeviceConfiguration implements IVZVirtioSocketDeviceConfiguration.
 var _ IVZVirtioSocketDeviceConfiguration = VZVirtioSocketDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZVirtioSocketDeviceConfiguration() VZVirtioSocketDeviceConfiguration {
 	rv := objc.Send[VZVirtioSocketDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -18,6 +18,7 @@ type MLAsyncClassifier interface {
 type MLAsyncClassifierObject struct {
 	objectivec.Object
 }
+
 func (o MLAsyncClassifierObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,9 +31,7 @@ func MLAsyncClassifierObjectFromID(id objc.ID) MLAsyncClassifierObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAsyncClassifier/classify:options:completionHandler:
 func (o MLAsyncClassifierObject) ClassifyOptionsCompletionHandler(classify objectivec.IObject, options objectivec.IObject, handler MLClassifierResultErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("classify:options:completionHandler:"), classify, options, handler)
-	}
-
+}

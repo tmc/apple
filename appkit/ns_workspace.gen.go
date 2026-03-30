@@ -4,11 +4,12 @@ package appkit
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/uniformtypeidentifiers"
 )
@@ -50,14 +51,14 @@ func (nc NSWorkspaceClass) Alloc() NSWorkspace {
 // file-handling services.
 //
 // # Overview
-// 
+//
 // There is one shared [NSWorkspace] object per app. You use the class method
 // [NSWorkspace.SharedWorkspace] to access it. For example, the following statement uses
 // an [NSWorkspace] object to request that a file be opened in the TextEdit
 // app:
-// 
+//
 // You can use the workspace object to:
-// 
+//
 // - Open, manipulate, and get information about files and devices. - Track
 // changes to the file system, devices, and the user database. - Get and set
 // Finder information for files. - Launch apps.
@@ -164,6 +165,7 @@ type NSWorkspace struct {
 func NSWorkspaceFromID(id objc.ID) NSWorkspace {
 	return NSWorkspace{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSWorkspace adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -427,24 +429,25 @@ func NewNSWorkspace() NSWorkspace {
 // completionHandler: The completion handler block to call asynchronously with the results.
 // AppKit executes the completion handler on a concurrent queue. The handler
 // block has no return value and takes the following parameters:
-// 
+//
 // app: On success, this parameter contains a reference to the app that opened
 // the URL. If the app didn’t open the URL successfully, this parameter is
 // `nil`. error: On failure, this parameter contains an [NSError] object
 // indicating the reason for the failure. If the method opened the URL
 // successfully, this parameter is `nil`.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // You may call this method safely from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/open(_:configuration:completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (w NSWorkspace) OpenURLConfigurationCompletionHandler(url foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
-_block2, _ := NewRunningApplicationErrorBlock(completionHandler)
+	_block2, _ := NewRunningApplicationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("openURL:configuration:completionHandler:"), url, configuration, _block2)
 }
+
 // Opens one or more URLs asynchronously in the specified app using the
 // provided options.
 //
@@ -457,37 +460,35 @@ _block2, _ := NewRunningApplicationErrorBlock(completionHandler)
 // completionHandler: The completion handler block to call asynchronously with the results.
 // AppKit executes the completion handler on a concurrent queue. The handler
 // block has no return value and takes the following parameters:
-// 
+//
 // app: On success, this parameter contains a reference to the app that opened
 // the URLs. If the app didn’t open the URLs successfully, this parameter is
 // `nil`. error: On failure, this parameter contains an [NSError] object
 // indicating the reason for the failure. If the method opened the URLs
 // successfully, this parameter is `nil`.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // You may call this method safely from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/open(_:withApplicationAt:configuration:completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (w NSWorkspace) OpenURLsWithApplicationAtURLConfigurationCompletionHandler(urls []foundation.NSURL, applicationURL foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
-_block3, _ := NewRunningApplicationErrorBlock(completionHandler)
+	_block3, _ := NewRunningApplicationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("openURLs:withApplicationAtURL:configuration:completionHandler:"), urls, applicationURL, configuration, _block3)
 }
+
 // Opens the location at the specified URL.
 //
 // url: A URL specifying the location to open.
 //
 // # Return Value
-// 
-// [true] if the location was successfully opened; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the location was successfully opened; otherwise, false.
 //
 // # Discussion
-// 
+//
 // You can call this method safely from any thread in macOS 10.6 and later.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/open(_:)
@@ -495,6 +496,7 @@ func (w NSWorkspace) OpenURL(url foundation.INSURL) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("openURL:"), url)
 	return rv
 }
+
 // Launches the app at the specified URL and asynchronously reports back on
 // the app’s status.
 //
@@ -505,47 +507,50 @@ func (w NSWorkspace) OpenURL(url foundation.INSURL) bool {
 // completionHandler: The completion handler block to call asynchronously with the results.
 // AppKit executes the completion handler on a concurrent queue. The handler
 // block has no return value and takes the following parameters:
-// 
+//
 // app: On success, this parameter contains a reference to the launched app.
 // If the app wasn’t launched, this parameter is `nil`. error: On failure,
 // this parameter contains an [NSError] object indicating the reason for the
 // failure. If the app launched successfully, this parameter is `nil`.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/openApplication(at:configuration:completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (w NSWorkspace) OpenApplicationAtURLConfigurationCompletionHandler(applicationURL foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
-_block2, _ := NewRunningApplicationErrorBlock(completionHandler)
+	_block2, _ := NewRunningApplicationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("openApplicationAtURL:configuration:completionHandler:"), applicationURL, configuration, _block2)
 }
+
 // Hides all applications other than the sender.
 //
 // # Discussion
-// 
+//
 // In order to hide all apps except the current one, the user can
 // Command-Option-click an app’s Dock icon.
-// 
+//
 // You must call this method from your app’s main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/hideOtherApplications()
 func (w NSWorkspace) HideOtherApplications() {
 	objc.Send[objc.ID](w.ID, objc.Sel("hideOtherApplications"))
 }
+
 // Activates the Finder, and opens one or more windows selecting the specified
 // files.
 //
 // fileURLs: The files to select and display in the Finder.
 //
 // # Discussion
-// 
+//
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/activateFileViewerSelecting(_:)
 func (w NSWorkspace) ActivateFileViewerSelectingURLs(fileURLs []foundation.NSURL) {
 	objc.Send[objc.ID](w.ID, objc.Sel("activateFileViewerSelectingURLs:"), objectivec.IObjectSliceToNSArray(fileURLs))
 }
+
 // Selects the file at the specified path.
 //
 // fullPath: The full path of the file to select.
@@ -555,43 +560,41 @@ func (w NSWorkspace) ActivateFileViewerSelectingURLs(fileURLs []foundation.NSURL
 // (`@""`), this method selects the file in the main viewer.
 //
 // # Return Value
-// 
-// [true] if the file was successfully selected; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the file was successfully selected; otherwise, false.
 //
 // # Discussion
-// 
+//
 // In macOS 10.5 and later, this method does not follow symlinks when
 // selecting the file. If the `fullPath` parameter contains any symlinks, this
 // method selects the symlink instead of the file it targets. If you want to
 // select the target file, use the [resolvingSymlinksInPath] method to resolve
 // any symlinks before calling this method.
-// 
+//
 // You can safely call this method from any thread of your app.
 //
-// [resolvingSymlinksInPath]: https://developer.apple.com/documentation/Foundation/NSString/resolvingSymlinksInPath
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/selectFile(_:inFileViewerRootedAtPath:)
+//
+// [resolvingSymlinksInPath]: https://developer.apple.com/documentation/Foundation/NSString/resolvingSymlinksInPath
 func (w NSWorkspace) SelectFileInFileViewerRootedAtPath(fullPath string, rootFullPath string) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("selectFile:inFileViewerRootedAtPath:"), objc.String(fullPath), objc.String(rootFullPath))
 	return rv
 }
+
 // Returns the URL to the default app to open the specified URL.
 //
 // url: The URL of the file to open.
 //
 // # Return Value
-// 
+//
 // The URL of the default app that would open the specified `url`. Returns
 // `nil` if no app can open the URL, or if the file URL does not exist.
 //
 // # Discussion
-// 
+//
 // This method is the programmatic equivalent of double-clicking a document in
 // the Finder.
-// 
+//
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/urlForApplication(toOpen:)-7qkzf
@@ -599,12 +602,13 @@ func (w NSWorkspace) URLForApplicationToOpenURL(url foundation.INSURL) foundatio
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URLForApplicationToOpenURL:"), url)
 	return foundation.NSURLFromID(rv)
 }
+
 // Returns the URL to the default app to open the specified content type.
 //
 // contentType: The content type to open.
 //
 // # Return Value
-// 
+//
 // The URL of the default app that opens the specified `contentType`. Returns
 // `nil` if no app can open the content type.
 //
@@ -613,19 +617,20 @@ func (w NSWorkspace) URLForApplicationToOpenContentType(contentType uniformtypei
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URLForApplicationToOpenContentType:"), contentType)
 	return foundation.NSURLFromID(rv)
 }
+
 // Returns the URL to the default app with the specified bundle identifier.
 //
 // bundleIdentifier: The bundle identifier for the app.
 //
 // # Return Value
-// 
+//
 // The URL of the app, or `nil` if no app has the bundle identifier.
 //
 // # Discussion
-// 
+//
 // This method uses various heuristics in case multiple apps have the same
 // bundle ID.
-// 
+//
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/urlForApplication(withBundleIdentifier:)
@@ -633,19 +638,20 @@ func (w NSWorkspace) URLForApplicationWithBundleIdentifier(bundleIdentifier stri
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URLForApplicationWithBundleIdentifier:"), objc.String(bundleIdentifier))
 	return foundation.NSURLFromID(rv)
 }
+
 // Returns an array of URLs to all available applications that can open the
 // URL.
 //
 // url: The URL of the file to open.
 //
 // # Return Value
-// 
+//
 // An array of URLs to available apps that can open the specified `url`.
 // Returns an empty array if no app can open the URL, or if the file URL
 // doesn’t exist.
 //
 // # Discussion
-// 
+//
 // The system sorts the resulting array according to each app’s suitability
 // to open the URL. The returned array lists the best match first.
 //
@@ -656,18 +662,19 @@ func (w NSWorkspace) URLsForApplicationsToOpenURL(url foundation.INSURL) []found
 		return foundation.NSURLFromID(id)
 	})
 }
+
 // Returns an array of URLs to all available applications that can open the
 // specified content type.
 //
 // contentType: The content type to open.
 //
 // # Return Value
-// 
+//
 // An array of URLs to available apps that can open the specified
 // `contentType`. Returns an empty array if no app can open the content type.
 //
 // # Discussion
-// 
+//
 // The system sorts the resulting array according to each app’s suitability
 // to open the `contentType`. The returned array lists the best match first.
 //
@@ -678,19 +685,20 @@ func (w NSWorkspace) URLsForApplicationsToOpenContentType(contentType uniformtyp
 		return foundation.NSURLFromID(id)
 	})
 }
+
 // Returns an array of URLs to all available applications that can open the
 // specified bundle identifier.
 //
 // bundleIdentifier: The bundle identifier for the apps to open.
 //
 // # Return Value
-// 
+//
 // An array of URLs to available apps that can open the specified
 // `bundleIdentifier`. Returns an empty array if no app associates with the
 // bundle identifier.
 //
 // # Discussion
-// 
+//
 // The system sorts the resulting array accounts according to each app’s
 // suitability to launch. The returned array lists the best match first.
 //
@@ -701,24 +709,19 @@ func (w NSWorkspace) URLsForApplicationsWithBundleIdentifier(bundleIdentifier st
 		return foundation.NSURLFromID(id)
 	})
 }
+
 // Returns information about the file system at the specified path.
 //
 // fullPath: The path to the file system mount point.
 //
-// removableFlag: On input, a Boolean variable; on return, this variable contains [true] if
-// the file system is on removable media.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// removableFlag: On input, a Boolean variable; on return, this variable contains true if the
+// file system is on removable media.
 //
-// writableFlag: On input, a Boolean variable; on return, this variable contains [true] if
-// the file system writable.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// writableFlag: On input, a Boolean variable; on return, this variable contains true if the
+// file system writable.
 //
-// unmountableFlag: On input, a Boolean variable; on return, this variable contains [true] if
-// the file system is unmountable.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// unmountableFlag: On input, a Boolean variable; on return, this variable contains true if the
+// file system is unmountable.
 //
 // description: On input, a pointer to a string object variable; on return, if the method
 // was successful, this variable contains a string object that describes the
@@ -731,14 +734,11 @@ func (w NSWorkspace) URLsForApplicationsWithBundleIdentifier(bundleIdentifier st
 // include “HFS,” “UFS,” or other values.
 //
 // # Return Value
-// 
-// [true] if the information was returned; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the information was returned; otherwise, false.
 //
 // # Discussion
-// 
+//
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/getFileSystemInfo(forPath:isRemovable:isWritable:isUnmountable:description:type:)
@@ -749,20 +749,18 @@ func (w NSWorkspace) GetFileSystemInfoForPathIsRemovableIsWritableIsUnmountableD
 	rv := objc.Send[bool](w.ID, objc.Sel("getFileSystemInfoForPath:isRemovable:isWritable:isUnmountable:description:type:"), objc.String(fullPath), unsafe.Pointer(&removableFlag), unsafe.Pointer(&writableFlag), unsafe.Pointer(&unmountableFlag), description, fileSystemType)
 	return removableFlag, writableFlag, unmountableFlag, rv
 }
+
 // Determines whether the specified path is a file package.
 //
 // fullPath: The full path to examine.
 //
 // # Return Value
-// 
-// [true] if the path identifies a file package; otherwise, [false] if the
-// path does not exist, is not a directory, or is not a file package.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the path identifies a file package; otherwise, false if the path
+// does not exist, is not a directory, or is not a file package.
 //
 // # Discussion
-// 
+//
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/isFilePackage(atPath:)
@@ -770,6 +768,7 @@ func (w NSWorkspace) IsFilePackageAtPath(fullPath string) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isFilePackageAtPath:"), objc.String(fullPath))
 	return rv
 }
+
 // Sets the default app to use when opening a specific file.
 //
 // applicationURL: The URL of the default app to use when opening the file.
@@ -779,21 +778,22 @@ func (w NSWorkspace) IsFilePackageAtPath(fullPath string) bool {
 // completionHandler: The completion handler to call after the operation completes.
 //
 // # Discussion
-// 
+//
 // This method sets the default app to use for a specific file (rather than
 // all files of that content type). The system requires write access to the
 // specified `url` before it can make the change.
-// 
+//
 // If a change requires user consent, the system asks the user for consent
 // asynchronously before invoking the completion handler.
-// 
+//
 // This function doesn’t apply to non-file URLs.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setDefaultApplication(at:toOpenFileAt:completion:)
 func (w NSWorkspace) SetDefaultApplicationAtURLToOpenFileAtURLCompletionHandler(applicationURL foundation.INSURL, url foundation.INSURL, completionHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenFileAtURL:completionHandler:"), applicationURL, url, _block2)
 }
+
 // Sets the default app to use when opening files of a specific content type.
 //
 // applicationURL: The URL of the default application.
@@ -803,16 +803,17 @@ _block2, _ := NewErrorBlock(completionHandler)
 // completionHandler: The completion handler to call after the operation completes.
 //
 // # Discussion
-// 
+//
 // This method sets the default app to open for files of the specified
 // `contentType`. If a change requires user consent, the system asks the user
 // for consent asynchronously before invoking the completion handler.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setDefaultApplication(at:toOpen:completion:)
 func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeCompletionHandler(applicationURL foundation.INSURL, contentType uniformtypeidentifiers.UTType, completionHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenContentType:completionHandler:"), applicationURL, contentType, _block2)
 }
+
 // Sets the default app to use when opening files of a specific content type
 // defined by a file URL.
 //
@@ -823,16 +824,17 @@ _block2, _ := NewErrorBlock(completionHandler)
 // completionHandler: The completion handler to call after the operation completes.
 //
 // # Discussion
-// 
+//
 // This method sets the default app to open files of the type specified by the
 // file `url`. If a change requires user consent, the system asks the user for
 // consent asynchronously before invoking the completion handler.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setDefaultApplication(at:toOpenContentTypeOfFileAt:completion:)
 func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURLCompletionHandler(applicationURL foundation.INSURL, url foundation.INSURL, completionHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenContentTypeOfFileAtURL:completionHandler:"), applicationURL, url, _block2)
 }
+
 // Sets the default app to use when opening files of a specific scheme.
 //
 // applicationURL: The URL of the default application.
@@ -842,28 +844,29 @@ _block2, _ := NewErrorBlock(completionHandler)
 // completionHandler: The completion handler to call after the operation completes.
 //
 // # Discussion
-// 
+//
 // This method sets the default app to open files of the type specified by the
 // `urlScheme`. If a change requires user consent, the system asks the for
 // consent asynchronously before invoking the completion handler.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setDefaultApplication(at:toOpenURLsWithScheme:completion:)
 func (w NSWorkspace) SetDefaultApplicationAtURLToOpenURLsWithSchemeCompletionHandler(applicationURL foundation.INSURL, urlScheme string, completionHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenURLsWithScheme:completionHandler:"), applicationURL, objc.String(urlScheme), _block2)
 }
+
 // Returns an image containing the icon for the specified file.
 //
 // fullPath: The full path to the file.
 //
 // # Return Value
-// 
+//
 // The icon associated with the file.
 //
 // # Discussion
-// 
+//
 // The returned image has an initial size of 32 pixels by 32 pixels.
-// 
+//
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/icon(forFile:)
@@ -871,21 +874,22 @@ func (w NSWorkspace) IconForFile(fullPath string) INSImage {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("iconForFile:"), objc.String(fullPath))
 	return NSImageFromID(rv)
 }
+
 // Returns an image containing the icon for the specified files.
 //
 // fullPaths: An array of [NSString] objects, each of which contains the full path to a
 // file.
 //
 // # Return Value
-// 
+//
 // The icon associated with the group of files.
 //
 // # Discussion
-// 
+//
 // If `fullPaths` specifies one file, that file’s icon is returned. If
 // `fullPaths` specifies more than one file, an icon representing the multiple
 // selection is returned.
-// 
+//
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/icon(forFiles:)
@@ -893,16 +897,17 @@ func (w NSWorkspace) IconForFiles(fullPaths []string) INSImage {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("iconForFiles:"), objectivec.StringSliceToNSArray(fullPaths))
 	return NSImageFromID(rv)
 }
+
 // Returns an image containing the icon for the specified content type.
 //
 // contentType: An object representing a uniform type of content.
 //
 // # Return Value
-// 
+//
 // The icon associated with the content type.
 //
 // # Discussion
-// 
+//
 // This method returns a default icon if the operation fails.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/icon(for:)
@@ -910,6 +915,7 @@ func (w NSWorkspace) IconForContentType(contentType uniformtypeidentifiers.UTTyp
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("iconForContentType:"), contentType)
 	return NSImageFromID(rv)
 }
+
 // Sets the icon for the file or directory at the specified path.
 //
 // image: The image to use as the icon for the file or directory.
@@ -920,71 +926,67 @@ func (w NSWorkspace) IconForContentType(contentType uniformtypeidentifiers.UTTyp
 // by combining the appropriate [NSWorkspace.IconCreationOptions] constants,
 // using the C bitwise [OR] operator. Specify `0` if you want to generate
 // icons in all available icon representation formats.
-// //
-// [NSWorkspace.IconCreationOptions]: https://developer.apple.com/documentation/AppKit/NSWorkspace/IconCreationOptions
 //
 // # Return Value
-// 
-// [true] if the icon was set; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the icon was set; otherwise, false.
 //
 // # Discussion
-// 
+//
 // The `image` can be an arbitrary image, with or without transparency. The
 // method automatically scales this image (as needed) to generate the icon
 // representations. The file or folder must exist and be writable by the user.
-// 
+//
 // This method uses the image to set an icon with a size of 512 pixels by 512
-// pixels. If you specify the [Exclude10_4ElementsIconCreationOption] option
+// pixels. If you specify the [NSExclude10_4ElementsIconCreationOption] option
 // (not recommended), this method creates an icon that is compatible with the
 // Finder from macOS 10.2 or earlier.
-// 
+//
 // You can safely call this method from any of your app’s threads, but you
 // must call it from only one thread at a time.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setIcon(_:forFile:options:)
+//
+// [NSWorkspace.IconCreationOptions]: https://developer.apple.com/documentation/AppKit/NSWorkspace/IconCreationOptions
 func (w NSWorkspace) SetIconForFileOptions(image INSImage, fullPath string, options NSWorkspaceIconCreationOptions) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("setIcon:forFile:options:"), image, objc.String(fullPath), options)
 	return rv
 }
+
 // Unmounts and ejects the device at the specified path.
 //
 // path: The path to the device.
 //
 // # Return Value
-// 
-// [true] if the system unmounted the device; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the system unmounted the device; otherwise, false.
 //
 // # Discussion
-// 
+//
 // When this method begins, it posts an [willUnmountNotification] to the
 // [NSWorkspace] object’s notification center. When it is finished, it posts
 // an [didUnmountNotification].
-// 
+//
 // Prefer the [UnmountAndEjectDeviceAtURLError] method because it provides
 // more detailed error information.
-// 
+//
 // You can safely call this method from any thread of your app.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/unmountAndEjectDevice(atPath:)
 //
 // [didUnmountNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/didUnmountNotification
 // [willUnmountNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/willUnmountNotification
-//
-// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/unmountAndEjectDevice(atPath:)
 func (w NSWorkspace) UnmountAndEjectDeviceAtPath(path string) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("unmountAndEjectDeviceAtPath:"), objc.String(path))
 	return rv
 }
+
 // Attempts to eject the volume mounted at the given path.
 //
 // url: The URL of the volume to eject.
 //
 // # Discussion
-// 
+//
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/unmountAndEjectDevice(at:)
@@ -1001,16 +1003,17 @@ func (w NSWorkspace) UnmountAndEjectDeviceAtURLError(url foundation.INSURL) (boo
 	return rv, nil
 
 }
+
 // Returns the URL for the desktop image for the given screen.
 //
 // screen: The screen for which to get the desktop image.
 //
 // # Return Value
-// 
+//
 // The desktop image.
 //
 // # Discussion
-// 
+//
 // You must call this method from your app’s main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/desktopImageURL(for:)
@@ -1018,6 +1021,7 @@ func (w NSWorkspace) DesktopImageURLForScreen(screen INSScreen) foundation.INSUR
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("desktopImageURLForScreen:"), screen)
 	return foundation.NSURLFromID(rv)
 }
+
 // Sets the desktop image for the given screen to the image at the specified
 // URL.
 //
@@ -1030,11 +1034,11 @@ func (w NSWorkspace) DesktopImageURLForScreen(screen INSScreen) foundation.INSUR
 // on the screen.
 //
 // # Discussion
-// 
+//
 // Instead of presenting a user interface for picking the options, choose
 // appropriate defaults and allow the user to adjust them in the System
 // Preference Pane.
-// 
+//
 // You must call this method from your app’s main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/setDesktopImageURL(_:for:options:)
@@ -1051,17 +1055,18 @@ func (w NSWorkspace) SetDesktopImageURLForScreenOptionsError(url foundation.INSU
 	return rv, nil
 
 }
+
 // Returns the desktop image options for the given screen.
 //
 // screen: The screen for which to get the desktop image options.
 //
 // # Return Value
-// 
+//
 // A dictionary containing the keys found in
 // [NSWorkspaceDesktopImageOptionKey].
 //
 // # Discussion
-// 
+//
 // You must call this method from your app’s main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/desktopImageOptions(for:)
@@ -1069,24 +1074,21 @@ func (w NSWorkspace) DesktopImageOptionsForScreen(screen INSScreen) foundation.I
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("desktopImageOptionsForScreen:"), screen)
 	return foundation.NSDictionaryFromID(rv)
 }
+
 // Displays a Spotlight search results window in Finder for the specified
 // query string.
 //
 // queryString: The string to search for.
 //
 // # Return Value
-// 
-// [true] if the method communicated successfully with Finder; otherwise,
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the method communicated successfully with Finder; otherwise, false.
 //
 // # Discussion
-// 
+//
 // Finder becomes the active app, if possible. The user can further refine the
 // search via the Finder user interface.
-// 
+//
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/showSearchResults(forQueryString:)
@@ -1094,16 +1096,17 @@ func (w NSWorkspace) ShowSearchResultsForQueryString(queryString string) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("showSearchResultsForQueryString:"), objc.String(queryString))
 	return rv
 }
+
 // Informs the workspace object that the file system changed at the specified
 // path.
 //
 // path: The full path that changed.
 //
 // # Discussion
-// 
+//
 // Avoid calling this method if possible. If you want to track changes to
 // files and directories, use the FSEvents API described in [FSEvents].
-// 
+//
 // The [NSWorkspace] object uses this method to track changes to all the files
 // and directories in which it is interested.
 //
@@ -1111,6 +1114,7 @@ func (w NSWorkspace) ShowSearchResultsForQueryString(queryString string) bool {
 func (w NSWorkspace) NoteFileSystemChanged(path string) {
 	objc.Send[objc.ID](w.ID, objc.Sel("noteFileSystemChanged:"), objc.String(path))
 }
+
 // Requests the system wait for the specified amount of time before turning
 // off the power or logging out the user.
 //
@@ -1118,12 +1122,12 @@ func (w NSWorkspace) NoteFileSystemChanged(path string) {
 // off the user.
 //
 // # Return Value
-// 
+//
 // The number of milliseconds granted by the system. This method currently
 // returns `0`.
 //
 // # Discussion
-// 
+//
 // This method currently does nothing. Do not call it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/extendPowerOff(by:)
@@ -1131,40 +1135,41 @@ func (w NSWorkspace) ExtendPowerOffBy(requested int) int {
 	rv := objc.Send[int](w.ID, objc.Sel("extendPowerOffBy:"), requested)
 	return rv
 }
+
 // Requests authorization to perform a privileged file operation.
 //
 // type: The type of file operation to perform.
 //
 // completionHandler: The completion handler to call when the authorization request is completed.
-// 
+//
 // The completion handler takes two parameters:
-// 
+//
 // authorization: The authorization granted for this app. Use it when creating
 // a new [FileManager] with [init(authorization:)]. error: `nil` if the app is
 // authorized; otherwise, a pointer to the authorization error.
-// //
-// [FileManager]: https://developer.apple.com/documentation/Foundation/FileManager
-// [init(authorization:)]: https://developer.apple.com/documentation/Foundation/FileManager/init(authorization:)
 //
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/requestAuthorization(to:completionHandler:)
+//
+// [FileManager]: https://developer.apple.com/documentation/Foundation/FileManager
+// [init(authorization:)]: https://developer.apple.com/documentation/Foundation/FileManager/init(authorization:)
 func (w NSWorkspace) RequestAuthorizationOfTypeCompletionHandler(type_ NSWorkspaceAuthorizationType, completionHandler WorkspaceAuthorizationErrorHandler) {
-_block1, _ := NewWorkspaceAuthorizationErrorBlock(completionHandler)
+	_block1, _ := NewWorkspaceAuthorizationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("requestAuthorizationOfType:completionHandler:"), type_, _block1)
 }
 
 // The notification center for workspace notifications.
 //
 // # Return Value
-// 
-// The notification center object associated with the workspace
-// 
+//
+// # The notification center object associated with the workspace
+//
 // # Discussion
-// 
+//
 // This notification center object delivers the workspace-related
 // notifications described in Responding to Environment Notifications.
-// 
+//
 // You can access this object safely from any thread in your app in macOS 10.6
 // and later.
 //
@@ -1173,14 +1178,15 @@ func (w NSWorkspace) NotificationCenter() foundation.NSNotificationCenter {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("notificationCenter"))
 	return foundation.NSNotificationCenterFromID(objc.ID(rv))
 }
+
 // Returns the frontmost app, which is the app that receives key events.
 //
 // # Return Value
-// 
+//
 // The running app instance for the app that receives key events.
-// 
+//
 // # Discussion
-// 
+//
 // This value is key-value observing compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/frontmostApplication
@@ -1188,25 +1194,26 @@ func (w NSWorkspace) FrontmostApplication() INSRunningApplication {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("frontmostApplication"))
 	return NSRunningApplicationFromID(objc.ID(rv))
 }
+
 // Returns an array of running apps.
 //
 // # Return Value
-// 
+//
 // An array of [NSRunningApplication] instances. This value is key-value
 // observing compliant.
-// 
+//
 // # Discussion
-// 
+//
 // The order of the array is unspecified, but it is stable, meaning that the
 // relative order of particular apps will not change across multiple calls to
 // `runningApplications`. See [NSRunningApplication] for more information on
 // [NSRunningApplication].
-// 
+//
 // Similar to the [NSRunningApplication] class’s properties, this property
 // will only change when the main run loop runs in a common mode. Instead of
 // polling, use key-value observing to be notified of changes to this array
 // property.
-// 
+//
 // You can safely call this method from any of your app’s threads. The
 // method returns its value atomically.
 //
@@ -1217,10 +1224,11 @@ func (w NSWorkspace) RunningApplications() []NSRunningApplication {
 		return NSRunningApplicationFromID(id)
 	})
 }
+
 // Returns the app that owns the currently displayed menu bar.
 //
 // # Discussion
-// 
+//
 // This property contains the running app instance for the app that owns the
 // displayed menu bar. This value is key-value observing compliant.
 //
@@ -1229,161 +1237,164 @@ func (w NSWorkspace) MenuBarOwningApplication() INSRunningApplication {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("menuBarOwningApplication"))
 	return NSRunningApplicationFromID(objc.ID(rv))
 }
+
 // The array of file labels, returned as strings.
 //
 // # Return Value
-// 
+//
 // An array of strings.
-// 
+//
 // # Discussion
-// 
+//
 // You can listen for notifications named [didChangeFileLabelsNotification] to
 // be notified when file labels change.
-// 
+//
 // You can safely call this method from any thread of your app.
 //
-// [didChangeFileLabelsNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/didChangeFileLabelsNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/fileLabels
+//
+// [didChangeFileLabelsNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/didChangeFileLabelsNotification
 func (w NSWorkspace) FileLabels() []string {
 	rv := objc.Send[[]objc.ID](w.ID, objc.Sel("fileLabels"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The array of colors for the file labels.
 //
 // # Return Value
-// 
+//
 // An array of [NSColor] objects.
-// 
+//
 // # Discussion
-// 
+//
 // This array has the same number of elements as [FileLabels], and the color
 // at a given index corresponds to the label at the same index.
-// 
+//
 // You can listen for notifications named [didChangeFileLabelsNotification] to
 // be notified when file labels change that may result in changes to the order
 // of the `fileLabelColors`.
-// 
+//
 // You can safely call this method from any thread of your app.
 //
-// [didChangeFileLabelsNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/didChangeFileLabelsNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/fileLabelColors
+//
+// [didChangeFileLabelsNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/didChangeFileLabelsNotification
 func (w NSWorkspace) FileLabelColors() []NSColor {
 	rv := objc.Send[[]objc.ID](w.ID, objc.Sel("fileLabelColors"))
 	return objc.ConvertSlice(rv, func(id objc.ID) NSColor {
 		return NSColorFromID(id)
 	})
 }
+
 // A Boolean value that indicates whether the app avoids conveying information
 // through color alone.
 //
 // # Discussion
-// 
-// If this property is [true], the user interface avoids conveying information
+//
+// If this property is true, the user interface avoids conveying information
 // using color alone. Instead, use shapes or glyphs to convey important
 // information.
-// 
+//
 // Users can change this setting by choosing System Preferences >
 // Accessibility > Display and selecting the “Differentiate without color”
 // option. To receive updates when this setting changes, register for the
 // [accessibilityDisplayOptionsDidChangeNotification] notification using
 // [NotificationCenter].
 //
-// [accessibilityDisplayOptionsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayShouldDifferentiateWithoutColor
+//
+// [accessibilityDisplayOptionsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
 func (w NSWorkspace) AccessibilityDisplayShouldDifferentiateWithoutColor() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("accessibilityDisplayShouldDifferentiateWithoutColor"))
 	return rv
 }
+
 // A Boolean value that indicates whether the app presents a high-contrast
 // user interface.
 //
 // # Discussion
-// 
-// When this method returns [true], present a high-contrast UI. For example,
-// use a less subtle color palette or bolder lines.
-// 
+//
+// When this method returns true, present a high-contrast UI. For example, use
+// a less subtle color palette or bolder lines.
+//
 // Users can change this setting by choosing System Preferences >
 // Accessibility > Display and selecting the “Increase contrast” option.
 // To receive updates when this setting changes, register for the
 // [accessibilityDisplayOptionsDidChangeNotification] notification using
 // [NotificationCenter].
 //
-// [accessibilityDisplayOptionsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayShouldIncreaseContrast
+//
+// [accessibilityDisplayOptionsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
 func (w NSWorkspace) AccessibilityDisplayShouldIncreaseContrast() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("accessibilityDisplayShouldIncreaseContrast"))
 	return rv
 }
+
 // A Boolean value that indicates whether the app avoids using semitransparent
 // backgrounds.
 //
 // # Discussion
-// 
-// If this property is [true], don’t use semitransparent backgrounds in the
+//
+// If this property is true, don’t use semitransparent backgrounds in the
 // user interface. For example, use only opaque windows.
-// 
+//
 // Users can change this setting by choosing System Preferences >
 // Accessibility > Display and selecting the “Reduce transparency” option.
 // To receive updates when this setting changes, register to the
 // [accessibilityDisplayOptionsDidChangeNotification] notification using
 // [NotificationCenter].
 //
-// [accessibilityDisplayOptionsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayShouldReduceTransparency
+//
+// [accessibilityDisplayOptionsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
 func (w NSWorkspace) AccessibilityDisplayShouldReduceTransparency() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("accessibilityDisplayShouldReduceTransparency"))
 	return rv
 }
+
 // A Boolean value that indicates whether the accessibility option to invert
 // colors is in an enabled state.
 //
 // # Discussion
-// 
-// If this property’s value is [true], the system inverts the display. In
-// this case, you may need to adjust your app’s drawing for optimal display.
-// To receive updates when this setting changes, register for the
+//
+// If this property’s value is true, the system inverts the display. In this
+// case, you may need to adjust your app’s drawing for optimal display. To
+// receive updates when this setting changes, register for the
 // [accessibilityDisplayOptionsDidChangeNotification] notification using
 // [NotificationCenter].
 //
-// [accessibilityDisplayOptionsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayShouldInvertColors
+//
+// [accessibilityDisplayOptionsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
 func (w NSWorkspace) AccessibilityDisplayShouldInvertColors() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("accessibilityDisplayShouldInvertColors"))
 	return rv
 }
+
 // A Boolean value that indicates whether the accessibility option to reduce
 // motion is in an enabled state.
 //
 // # Discussion
-// 
-// If this property’s value is [true], avoid large animations, especially
+//
+// If this property’s value is true, avoid large animations, especially
 // those that simulate the third dimension. To receive updates when this
 // setting changes, register for the
 // [accessibilityDisplayOptionsDidChangeNotification] notification using
 // [NotificationCenter].
 //
-// [accessibilityDisplayOptionsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayShouldReduceMotion
+//
+// [accessibilityDisplayOptionsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
 func (w NSWorkspace) AccessibilityDisplayShouldReduceMotion() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("accessibilityDisplayShouldReduceMotion"))
 	return rv
 }
+
 // A Boolean value that indicates whether Switch Control is currently running.
 //
 // # Discussion
-// 
+//
 // You can observe this property with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/isSwitchControlEnabled
@@ -1391,10 +1402,11 @@ func (w NSWorkspace) SwitchControlEnabled() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isSwitchControlEnabled"))
 	return rv
 }
+
 // A Boolean value that indicates whether VoiceOver is currently running.
 //
 // # Discussion
-// 
+//
 // You can observe this property with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/isVoiceOverEnabled
@@ -1406,11 +1418,11 @@ func (w NSWorkspace) VoiceOverEnabled() bool {
 // The shared workspace object.
 //
 // # Return Value
-// 
+//
 // The [NSWorkspace] object associated with the process.
-// 
+//
 // # Discussion
-// 
+//
 // You can access this object safely from any thread in your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/shared
@@ -1535,4 +1547,3 @@ func (w NSWorkspace) RequestAuthorizationOfType(ctx context.Context, type_ NSWor
 		return nil, ctx.Err()
 	}
 }
-

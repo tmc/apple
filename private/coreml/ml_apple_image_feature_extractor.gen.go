@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLAppleImageFeatureExtractorClass) Alloc() MLAppleImageFeatureExtractor
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLAppleImageFeatureExtractor.ComputeScenePrintFeaturesHandleUseCPUOnlyError]
@@ -53,6 +53,7 @@ func (mc MLAppleImageFeatureExtractorClass) Alloc() MLAppleImageFeatureExtractor
 //   - [MLAppleImageFeatureExtractor.Parameters]
 //   - [MLAppleImageFeatureExtractor.PredictionFromFeaturesOptionsError]
 //   - [MLAppleImageFeatureExtractor.InitWithParametersModelDescriptionFeatureExtractorTypeConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor
 type MLAppleImageFeatureExtractor struct {
 	MLModel
@@ -62,6 +63,7 @@ type MLAppleImageFeatureExtractor struct {
 func MLAppleImageFeatureExtractorFromID(id objc.ID) MLAppleImageFeatureExtractor {
 	return MLAppleImageFeatureExtractor{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLAppleImageFeatureExtractor implements IMLAppleImageFeatureExtractor.
 var _ IMLAppleImageFeatureExtractor = MLAppleImageFeatureExtractor{}
 
@@ -109,7 +111,6 @@ func NewMLAppleImageFeatureExtractor() MLAppleImageFeatureExtractor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewAppleImageFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleImageFeatureExtractor, error) {
 	var errorPtr objc.ID
@@ -122,7 +123,6 @@ func NewAppleImageFeatureExtractorDescriptionOnlyWithSpecificationConfigurationE
 	return MLAppleImageFeatureExtractorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewAppleImageFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleImageFeatureExtractor, error) {
 	var errorPtr objc.ID
@@ -135,7 +135,6 @@ func NewAppleImageFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(a
 	return MLAppleImageFeatureExtractorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewAppleImageFeatureExtractorWithConfiguration(configuration objectivec.IObject) MLAppleImageFeatureExtractor {
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
@@ -143,7 +142,6 @@ func NewAppleImageFeatureExtractorWithConfiguration(configuration objectivec.IOb
 	return MLAppleImageFeatureExtractorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewAppleImageFeatureExtractorWithDescription(description objectivec.IObject) MLAppleImageFeatureExtractor {
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
@@ -151,7 +149,6 @@ func NewAppleImageFeatureExtractorWithDescription(description objectivec.IObject
 	return MLAppleImageFeatureExtractorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewAppleImageFeatureExtractorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleImageFeatureExtractor {
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
@@ -159,7 +156,6 @@ func NewAppleImageFeatureExtractorWithDescriptionConfiguration(description objec
 	return MLAppleImageFeatureExtractorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewAppleImageFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleImageFeatureExtractor {
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
@@ -167,7 +163,6 @@ func NewAppleImageFeatureExtractorWithNameInputDescriptionOutputDescriptionOrder
 	return MLAppleImageFeatureExtractorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/initWithParameters:modelDescription:featureExtractorType:configuration:error:
 func NewAppleImageFeatureExtractorWithParametersModelDescriptionFeatureExtractorTypeConfigurationError(parameters objectivec.IObject, description objectivec.IObject, type_ int, configuration objectivec.IObject) (MLAppleImageFeatureExtractor, error) {
 	var errorPtr objc.ID
@@ -180,7 +175,6 @@ func NewAppleImageFeatureExtractorWithParametersModelDescriptionFeatureExtractor
 	return MLAppleImageFeatureExtractorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/computeScenePrintFeatures:handle:useCPUOnly:error:
 func (a MLAppleImageFeatureExtractor) ComputeScenePrintFeaturesHandleUseCPUOnlyError(features corevideo.CVImageBufferRef, handle objectivec.IObject, cPUOnly bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -192,19 +186,19 @@ func (a MLAppleImageFeatureExtractor) ComputeScenePrintFeaturesHandleUseCPUOnlyE
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/featureValueFromObjectPrint:key:shape:
 func (a MLAppleImageFeatureExtractor) FeatureValueFromObjectPrintKeyShape(print_ objectivec.IObject, key objectivec.IObject, shape objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("featureValueFromObjectPrint:key:shape:"), print_, key, shape)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/featureValueFromScenePrint:elementSize:
 func (a MLAppleImageFeatureExtractor) FeatureValueFromScenePrintElementSize(print_ objectivec.IObject, size uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("featureValueFromScenePrint:elementSize:"), print_, size)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/predictionFromFeatures:options:error:
 func (a MLAppleImageFeatureExtractor) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -216,7 +210,7 @@ func (a MLAppleImageFeatureExtractor) PredictionFromFeaturesOptionsError(feature
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/initWithParameters:modelDescription:featureExtractorType:configuration:error:
 func (a MLAppleImageFeatureExtractor) InitWithParametersModelDescriptionFeatureExtractorTypeConfigurationError(parameters objectivec.IObject, description objectivec.IObject, type_ int, configuration objectivec.IObject) (MLAppleImageFeatureExtractor, error) {
 	var errorPtr objc.ID
@@ -229,7 +223,6 @@ func (a MLAppleImageFeatureExtractor) InitWithParametersModelDescriptionFeatureE
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleImageFeatureExtractor/loadModelFromSpecification:configuration:error:
 func (_MLAppleImageFeatureExtractorClass MLAppleImageFeatureExtractorClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -247,4 +240,3 @@ func (a MLAppleImageFeatureExtractor) Parameters() IMLAppleImageFeatureExtractor
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("parameters"))
 	return MLAppleImageFeatureExtractorParametersFromID(objc.ID(rv))
 }
-

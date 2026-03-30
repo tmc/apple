@@ -5,10 +5,12 @@ package appkit
 import (
 	"fmt"
 	"unsafe"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of optional methods implemented by delegates of [NSTokenField](<doc://com.apple.appkit/documentation/AppKit/NSTokenField>) objects.
@@ -24,6 +26,7 @@ type NSTokenFieldDelegate interface {
 type NSTokenFieldDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSTokenFieldDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -44,7 +47,7 @@ func NSTokenFieldDelegateObjectFromID(id objc.ID) NSTokenFieldDelegateObject {
 // representedObject: A represented object of the token field.
 //
 // # Return Value
-// 
+//
 // The string to be used as a proxy for `representedObject`. If you return
 // `nil` or do not implement this method, then `representedObject` is
 // displayed as the string.
@@ -53,7 +56,8 @@ func NSTokenFieldDelegateObjectFromID(id objc.ID) NSTokenFieldDelegateObject {
 func (o NSTokenFieldDelegateObject) TokenFieldDisplayStringForRepresentedObject(tokenField INSTokenField, representedObject objectivec.IObject) string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:displayStringForRepresentedObject:"), tokenField, representedObject)
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Allows the delegate to return the token style for editing the specified
 // represented object.
 //
@@ -62,26 +66,27 @@ func (o NSTokenFieldDelegateObject) TokenFieldDisplayStringForRepresentedObject(
 // representedObject: A represented object of the token field.
 //
 // # Return Value
-// 
+//
 // The style that should be used to display the representedObject. Possible
 // values are shown in NSTokenStyle Values.
 //
 // # Discussion
-// 
+//
 // If the delegate implements this method and returns an
 // [NSTokenField.TokenStyle] that differs from the style set by [TokenStyle],
 // the value the delegate returns is preferred.
-// 
+//
 // If the delegate does not implement this method, the token field’s
 // [TokenStyle] is used.
 //
-// [NSTokenField.TokenStyle]: https://developer.apple.com/documentation/AppKit/NSTokenField/TokenStyle-swift.enum
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:styleForRepresentedObject:)
+//
+// [NSTokenField.TokenStyle]: https://developer.apple.com/documentation/AppKit/NSTokenField/TokenStyle-swift.enum
 func (o NSTokenFieldDelegateObject) TokenFieldStyleForRepresentedObject(tokenField INSTokenField, representedObject objectivec.IObject) NSTokenStyle {
 	rv := objc.Send[NSTokenStyle](o.ID, objc.Sel("tokenField:styleForRepresentedObject:"), tokenField, representedObject)
 	return rv
-	}
+}
+
 // Allows the delegate to provide an array of appropriate completions for the
 // contents of the receiver.
 //
@@ -96,11 +101,11 @@ func (o NSTokenFieldDelegateObject) TokenFieldStyleForRepresentedObject(tokenFie
 // none are to be selected, return by reference `-1`.
 //
 // # Return Value
-// 
+//
 // An array of strings that are possible completions.
 //
 // # Discussion
-// 
+//
 // If the delegate does not implement this method, no completions are
 // provided.
 //
@@ -108,7 +113,8 @@ func (o NSTokenFieldDelegateObject) TokenFieldStyleForRepresentedObject(tokenFie
 func (o NSTokenFieldDelegateObject) TokenFieldCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenField INSTokenField, substring string, tokenIndex int, selectedIndex unsafe.Pointer) foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:completionsForSubstring:indexOfToken:indexOfSelectedItem:"), tokenField, objc.String(substring), tokenIndex, selectedIndex)
 	return foundation.NSArrayFromID(rv)
-	}
+}
+
 // Allows the delegate to provide a string to be edited as a proxy for a
 // represented object.
 //
@@ -117,7 +123,7 @@ func (o NSTokenFieldDelegateObject) TokenFieldCompletionsForSubstringIndexOfToke
 // representedObject: A represented object of the token field.
 //
 // # Return Value
-// 
+//
 // A string that’s an editable proxy of the represented object, or `nil` if
 // the token should not be editable.
 //
@@ -125,7 +131,8 @@ func (o NSTokenFieldDelegateObject) TokenFieldCompletionsForSubstringIndexOfToke
 func (o NSTokenFieldDelegateObject) TokenFieldEditingStringForRepresentedObject(tokenField INSTokenField, representedObject objectivec.IObject) string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:editingStringForRepresentedObject:"), tokenField, representedObject)
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Allows the delegate to provide a represented object for the given editing
 // string.
 //
@@ -134,11 +141,11 @@ func (o NSTokenFieldDelegateObject) TokenFieldEditingStringForRepresentedObject(
 // editingString: The edited string representation of a represented object.
 //
 // # Return Value
-// 
+//
 // A represented object that is displayed rather than the editing string.
 //
 // # Discussion
-// 
+//
 // If your application uses some object other than an [NSString] for their
 // represented objects, you should return a new, autoreleased instance of that
 // object from this method.
@@ -147,7 +154,8 @@ func (o NSTokenFieldDelegateObject) TokenFieldEditingStringForRepresentedObject(
 func (o NSTokenFieldDelegateObject) TokenFieldRepresentedObjectForEditingString(tokenField INSTokenField, editingString string) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:representedObjectForEditingString:"), tokenField, objc.String(editingString))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // Allows the delegate to validate the tokens to be added to the receiver at a
 // particular location.
 //
@@ -159,11 +167,11 @@ func (o NSTokenFieldDelegateObject) TokenFieldRepresentedObjectForEditingString(
 // (`tokens`) will be inserted.
 //
 // # Return Value
-// 
+//
 // An array of validated tokens.
 //
 // # Discussion
-// 
+//
 // The delegate can return the array unchanged or return a modified array of
 // tokens. To reject the add completely, return an empty array. Returning
 // `nil` causes an error.
@@ -172,7 +180,8 @@ func (o NSTokenFieldDelegateObject) TokenFieldRepresentedObjectForEditingString(
 func (o NSTokenFieldDelegateObject) TokenFieldShouldAddObjectsAtIndex(tokenField INSTokenField, tokens foundation.INSArray, index uint) foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:shouldAddObjects:atIndex:"), tokenField, tokens, index)
 	return foundation.NSArrayFromID(rv)
-	}
+}
+
 // Allows the delegate to return an array of objects representing the data
 // read from the specified pasteboard.
 //
@@ -181,14 +190,15 @@ func (o NSTokenFieldDelegateObject) TokenFieldShouldAddObjectsAtIndex(tokenField
 // pboard: The pasteboard from which to read the represented objects.
 //
 // # Return Value
-// 
+//
 // An array of represented objects created from the pasteboard data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:readFrom:)
 func (o NSTokenFieldDelegateObject) TokenFieldReadFromPasteboard(tokenField INSTokenField, pboard INSPasteboard) foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:readFromPasteboard:"), tokenField, pboard)
 	return foundation.NSArrayFromID(rv)
-	}
+}
+
 // Sent so the delegate can write represented objects to the pasteboard
 // corresponding to a given array of display strings.
 //
@@ -199,20 +209,19 @@ func (o NSTokenFieldDelegateObject) TokenFieldReadFromPasteboard(tokenField INST
 // pboard: The pasteboard to which to write the represented objects.
 //
 // # Return Value
-// 
-// [true] if the delegate writes the represented objects to the pasteboard,
-// [false] otherwise. If [false], the token field writes the display strings
-// to the [NSStringPboardType] pasteboard.
 //
-// [NSStringPboardType]: https://developer.apple.com/documentation/AppKit/NSStringPboardType
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the delegate writes the represented objects to the pasteboard,
+// false otherwise. If false, the token field writes the display strings to
+// the [NSStringPboardType] pasteboard.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:writeRepresentedObjects:to:)
+//
+// [NSStringPboardType]: https://developer.apple.com/documentation/AppKit/NSStringPboardType
 func (o NSTokenFieldDelegateObject) TokenFieldWriteRepresentedObjectsToPasteboard(tokenField INSTokenField, objects foundation.INSArray, pboard INSPasteboard) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("tokenField:writeRepresentedObjects:toPasteboard:"), tokenField, objects, pboard)
 	return rv
-	}
+}
+
 // Allows the delegate to specify whether the given represented object
 // provides a menu.
 //
@@ -221,21 +230,19 @@ func (o NSTokenFieldDelegateObject) TokenFieldWriteRepresentedObjectsToPasteboar
 // representedObject: A represented object of the token field.
 //
 // # Return Value
-// 
-// [true] if the represented object has a menu, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the represented object has a menu, false otherwise.
 //
 // # Discussion
-// 
+//
 // By default tokens in a token field have no menus.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:hasMenuForRepresentedObject:)
 func (o NSTokenFieldDelegateObject) TokenFieldHasMenuForRepresentedObject(tokenField INSTokenField, representedObject objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("tokenField:hasMenuForRepresentedObject:"), tokenField, representedObject)
 	return rv
-	}
+}
+
 // Allows the delegate to provide a menu for the specified represented object.
 //
 // tokenField: The token field that sent the message.
@@ -243,11 +250,11 @@ func (o NSTokenFieldDelegateObject) TokenFieldHasMenuForRepresentedObject(tokenF
 // representedObject: A represented object of the token field.
 //
 // # Return Value
-// 
+//
 // The menu associated with the represented object.
 //
 // # Discussion
-// 
+//
 // The returned menu should be autoreleased. By default tokens in a token
 // field do not return menus.
 //
@@ -255,7 +262,8 @@ func (o NSTokenFieldDelegateObject) TokenFieldHasMenuForRepresentedObject(tokenF
 func (o NSTokenFieldDelegateObject) TokenFieldMenuForRepresentedObject(tokenField INSTokenField, representedObject objectivec.IObject) INSMenu {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:menuForRepresentedObject:"), tokenField, representedObject)
 	return NSMenuFromID(rv)
-	}
+}
+
 // Invoked when the insertion point leaves a cell belonging to the specified
 // control, but before the value of the cell’s object is displayed.
 //
@@ -264,16 +272,13 @@ func (o NSTokenFieldDelegateObject) TokenFieldMenuForRepresentedObject(tokenFiel
 // obj: The object value to validate.
 //
 // # Return Value
-// 
-// [true] if you want to allow the control to display the specified value;
-// otherwise, [false] to reject the value and return the cursor to the
+//
+// true if you want to allow the control to display the specified value;
+// otherwise, false to reject the value and return the cursor to the
 // control’s cell.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // # Discussion
-// 
+//
 // This method gives the delegate the opportunity to validate the contents of
 // the control’s cell (or selected cell). In validating, the delegate should
 // check the value in the `object` parameter and determine if it falls within
@@ -286,7 +291,8 @@ func (o NSTokenFieldDelegateObject) TokenFieldMenuForRepresentedObject(tokenFiel
 func (o NSTokenFieldDelegateObject) ControlIsValidObject(control INSControl, obj objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("control:isValidObject:"), control, obj)
 	return rv
-	}
+}
+
 // Invoked when the formatter for the cell belonging to `control` (or selected
 // cell) rejects a partial string a user is typing into the cell.
 //
@@ -298,14 +304,15 @@ func (o NSTokenFieldDelegateObject) ControlIsValidObject(control INSControl, obj
 // rejected.
 //
 // # Discussion
-// 
+//
 // You can implement this method to display a warning message or perform a
 // similar action when the user enters improperly formatted text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToValidatePartialString:errorDescription:)
 func (o NSTokenFieldDelegateObject) ControlDidFailToValidatePartialStringErrorDescription(control INSControl, string_ string, error_ string) {
 	objc.Send[struct{}](o.ID, objc.Sel("control:didFailToValidatePartialString:errorDescription:"), control, objc.String(string_), objc.String(error_))
-	}
+}
+
 // Invoked when the formatter for the cell belonging to the specified control
 // cannot convert a string to an underlying object.
 //
@@ -317,15 +324,12 @@ func (o NSTokenFieldDelegateObject) ControlDidFailToValidatePartialStringErrorDe
 // failed.
 //
 // # Return Value
-// 
-// [true] if the value in the string parameter should be accepted as is;
-// otherwise, [false] if the value in the parameter should be rejected.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the value in the string parameter should be accepted as is;
+// otherwise, false if the value in the parameter should be rejected.
 //
 // # Discussion
-// 
+//
 // Your implementation of this method should evaluate the error or query the
 // user an appropriate value indicating whether the string should be accepted
 // or rejected.
@@ -334,7 +338,8 @@ func (o NSTokenFieldDelegateObject) ControlDidFailToValidatePartialStringErrorDe
 func (o NSTokenFieldDelegateObject) ControlDidFailToFormatStringErrorDescription(control INSControl, string_ string, error_ string) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("control:didFailToFormatString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	return rv
-	}
+}
+
 // Invoked when the user tries to enter a character in a cell of a control
 // that allows editing of text (such as a text field or form field).
 //
@@ -343,15 +348,12 @@ func (o NSTokenFieldDelegateObject) ControlDidFailToFormatStringErrorDescription
 // fieldEditor: The field editor of the control.
 //
 // # Return Value
-// 
-// [true] if the control’s field editor should be allowed to start editing
-// the text; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the control’s field editor should be allowed to start editing the
+// text; otherwise, false.
 //
 // # Discussion
-// 
+//
 // You can use this method to allow or disallow editing in a control. This
 // message is sent by the control directly to its delegate object.
 //
@@ -359,7 +361,8 @@ func (o NSTokenFieldDelegateObject) ControlDidFailToFormatStringErrorDescription
 func (o NSTokenFieldDelegateObject) ControlTextShouldBeginEditing(control INSControl, fieldEditor INSText) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldBeginEditing:"), control, fieldEditor)
 	return rv
-	}
+}
+
 // Invoked when the insertion point tries to leave a cell of the control that
 // has been edited.
 //
@@ -369,15 +372,12 @@ func (o NSTokenFieldDelegateObject) ControlTextShouldBeginEditing(control INSCon
 // edited text.
 //
 // # Return Value
-// 
-// [true] if the insertion point should be allowed to end the editing session;
-// otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the insertion point should be allowed to end the editing session;
+// otherwise, false.
 //
 // # Discussion
-// 
+//
 // This message is sent only by controls that allow editing of text (such as a
 // text field or a form field). This message is sent by the control directly
 // to its delegate object.
@@ -386,7 +386,8 @@ func (o NSTokenFieldDelegateObject) ControlTextShouldBeginEditing(control INSCon
 func (o NSTokenFieldDelegateObject) ControlTextShouldEndEditing(control INSControl, fieldEditor INSText) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldEndEditing:"), control, fieldEditor)
 	return rv
-	}
+}
+
 // Invoked to allow you to control the list of proposed text completions
 // generated by text fields and other controls.
 //
@@ -408,13 +409,13 @@ func (o NSTokenFieldDelegateObject) ControlTextShouldEndEditing(control INSContr
 // should not be an initial selection.
 //
 // # Return Value
-// 
+//
 // An array of [NSString] objects containing the list of completions to use in
 // place of the array in the `words` parameter. The returned array should list
 // the completions in their preferred order
 //
 // # Discussion
-// 
+//
 // Each string you return should be a complete word that the user might be
 // trying to type. The strings must be complete words rather than just the
 // remainder of the word, in case completion requires some slight modification
@@ -424,7 +425,7 @@ func (o NSTokenFieldDelegateObject) ControlTextShouldEndEditing(control INSContr
 // characters of the abbreviation. The `index` argument allows you to return
 // by reference an index specifying which of the completions should be
 // selected initially.
-// 
+//
 // The actual means of presentation of the potential completions is determined
 // by the [Complete] method of [NSTextView].
 //
@@ -432,7 +433,8 @@ func (o NSTokenFieldDelegateObject) ControlTextShouldEndEditing(control INSContr
 func (o NSTokenFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
-	}
+}
+
 // Invoked when users press keys with predefined bindings in a cell of the
 // specified control.
 //
@@ -445,20 +447,17 @@ func (o NSTokenFieldDelegateObject) ControlTextViewCompletionsForPartialWordRang
 // commandSelector: The selector that was associated with the binding.
 //
 // # Return Value
-// 
-// [true] if the delegate object handles the key binding; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the delegate object handles the key binding; otherwise, false.
 //
 // # Discussion
-// 
+//
 // These bindings are usually implemented as methods (`command`) defined in
 // the [NSResponder] class; examples of such key bindings are arrow keys (for
 // directional movement) and the Escape key (for name completion). By
 // implementing this method, the delegate can override the default
 // implementation of `command` and supply its own behavior.
-// 
+//
 // For example, the default method for completing partially typed pathnames or
 // symbols (usually when users press the Escape key) is `complete(_:)`. The
 // default implementation of the `complete(_:)` method (in [NSResponder]) does
@@ -471,35 +470,38 @@ func (o NSTokenFieldDelegateObject) ControlTextViewCompletionsForPartialWordRang
 func (o NSTokenFieldDelegateObject) ControlTextViewDoCommandBySelector(control INSControl, textView INSTextView, commandSelector objc.SEL) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textView:doCommandBySelector:"), control, textView, commandSelector)
 	return rv
-	}
+}
+
 // Tells the delegate that the control started editing its text content.
 //
 // obj: A notification object that contains details about the editing
 // configuration.
 //
 // # Discussion
-// 
+//
 // Use the key `“NSFieldEditor”` to obtain the field editor from the
 // notification object’s `userInfo` dictionary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidBeginEditing(_:)
 func (o NSTokenFieldDelegateObject) ControlTextDidBeginEditing(obj foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidBeginEditing:"), obj)
-	}
+}
+
 // Tells the delegate that the control made changes to its text content.
 //
 // obj: A notification object that contains details about the editing
 // configuration.
 //
 // # Discussion
-// 
+//
 // Use the key `“NSFieldEditor”` to obtain the field editor from the
 // notification object’s `userInfo` dictionary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidChange(_:)
 func (o NSTokenFieldDelegateObject) ControlTextDidChange(obj foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidChange:"), obj)
-	}
+}
+
 // Tells the delegate that the control finished editing its text content and
 // committed the changes.
 //
@@ -507,14 +509,17 @@ func (o NSTokenFieldDelegateObject) ControlTextDidChange(obj foundation.NSNotifi
 // configuration.
 //
 // # Discussion
-// 
+//
 // Use the key `“NSFieldEditor”` to obtain the field editor from the
 // notification object’s `userInfo` dictionary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidEndEditing(_:)
 func (o NSTokenFieldDelegateObject) ControlTextDidEndEditing(obj foundation.NSNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
-	}
+}
+
+// Allows customizing the candidate list queried from [NSSpellChecker]. This
+// method returns array of text objects to include in a text selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidates:forSelectedRange:)
 func (o NSTokenFieldDelegateObject) TextFieldWithTextViewCandidatesForSelectedRange(textField INSTextField, textView INSTextView, candidates []foundation.NSTextCheckingResult, selectedRange foundation.NSRange) []foundation.NSTextCheckingResult {
@@ -522,19 +527,42 @@ func (o NSTokenFieldDelegateObject) TextFieldWithTextViewCandidatesForSelectedRa
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSTextCheckingResult {
 		return foundation.NSTextCheckingResultFromID(id)
 	})
-	}
+}
+
+// Provides a customized list of candidates to the text view’s
+// `candidateListTouchBarItem`. This method returns an array of objects that
+// represent the elements of a selection.
+//
+// # Discussion
+//
+// Invoked from `updateCandidates`. [NSTextView] uses the candidates returned
+// from this method and suppress its built-in candidate generation. Returning
+// `nil` from this delegate method allows [NSTextView] to query candidates
+// from [NSSpellChecker].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidatesForSelectedRange:)
 func (o NSTokenFieldDelegateObject) TextFieldTextViewCandidatesForSelectedRange(textField INSTextField, textView INSTextView, selectedRange foundation.NSRange) foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textField:textView:candidatesForSelectedRange:"), textField, textView, selectedRange)
 	return foundation.NSArrayFromID(rv)
-	}
+}
+
+// Notifies the delegate that the user selected the candidate at index in
+// `-[NSCandidateListTouchBarItem candidates]` for the text view’s
+// `candidateListTouchBarItem`. Returns a Boolean value that indicates whether
+// to select the text object at the index.
+//
+// textField: The text field that sent the message.
+//
+// textView: The text view that sent the message.
+//
+// index: The index that represents the start of the candidate text to evaluate, or
+// [NSNotFound] if no candidate is to be selected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:shouldSelectCandidateAt:)
 func (o NSTokenFieldDelegateObject) TextFieldTextViewShouldSelectCandidateAtIndex(textField INSTextField, textView INSTextView, index uint) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textField:textView:shouldSelectCandidateAtIndex:"), textField, textView, index)
 	return rv
-	}
+}
 
 // NSTokenFieldDelegateConfig holds optional typed callbacks for [NSTokenFieldDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -626,4 +654,3 @@ func NewNSTokenFieldDelegate(config NSTokenFieldDelegateConfig) NSTokenFieldDele
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTokenFieldDelegateObjectFromID(instance)
 }
-

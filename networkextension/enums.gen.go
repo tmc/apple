@@ -387,8 +387,11 @@ func (e NEFilterReportFrequency) String() string {
 type NEHotspotConfigurationEAPTLSVersion int
 
 const (
+	// NEHotspotConfigurationEAPTLSVersion_1_0: Network EAPTLS version 1.0.
 	NEHotspotConfigurationEAPTLSVersion_1_0 NEHotspotConfigurationEAPTLSVersion = 0
+	// NEHotspotConfigurationEAPTLSVersion_1_1: Network EAPTLS version 1.1.
 	NEHotspotConfigurationEAPTLSVersion_1_1 NEHotspotConfigurationEAPTLSVersion = 1
+	// NEHotspotConfigurationEAPTLSVersion_1_2: Network EAPTLS version 1.2.
 	NEHotspotConfigurationEAPTLSVersion_1_2 NEHotspotConfigurationEAPTLSVersion = 2
 )
 
@@ -409,13 +412,13 @@ func (e NEHotspotConfigurationEAPTLSVersion) String() string {
 type NEHotspotConfigurationEAPType int
 
 const (
-	// NEHotspotConfigurationEAPTypeEAPFAST: Network EAP type is .
+	// NEHotspotConfigurationEAPTypeEAPFAST: Network EAP type is [EAPFAST].
 	NEHotspotConfigurationEAPTypeEAPFAST NEHotspotConfigurationEAPType = 43
-	// NEHotspotConfigurationEAPTypeEAPPEAP: Network EAP type is .
+	// NEHotspotConfigurationEAPTypeEAPPEAP: Network EAP type is [EAPPEAP].
 	NEHotspotConfigurationEAPTypeEAPPEAP NEHotspotConfigurationEAPType = 25
-	// NEHotspotConfigurationEAPTypeEAPTLS: Network EAP type is .
+	// NEHotspotConfigurationEAPTypeEAPTLS: Network EAP type is [EAPTLS].
 	NEHotspotConfigurationEAPTypeEAPTLS NEHotspotConfigurationEAPType = 13
-	// NEHotspotConfigurationEAPTypeEAPTTLS: Network EAP type is .
+	// NEHotspotConfigurationEAPTypeEAPTTLS: Network EAP type is [EAPTTLS].
 	NEHotspotConfigurationEAPTypeEAPTTLS NEHotspotConfigurationEAPType = 21
 )
 
@@ -466,10 +469,12 @@ const (
 	NEHotspotConfigurationErrorPending NEHotspotConfigurationError = 9
 	// NEHotspotConfigurationErrorSystemConfiguration: The system configuration is not valid.
 	NEHotspotConfigurationErrorSystemConfiguration NEHotspotConfigurationError = 10
+	NEHotspotConfigurationErrorSystemDenied        NEHotspotConfigurationError = 17
 	// NEHotspotConfigurationErrorUnknown: An unknown error has occurred.
 	NEHotspotConfigurationErrorUnknown NEHotspotConfigurationError = 11
 	// NEHotspotConfigurationErrorUserDenied: The user has refused the network configuration.
-	NEHotspotConfigurationErrorUserDenied NEHotspotConfigurationError = 7
+	NEHotspotConfigurationErrorUserDenied       NEHotspotConfigurationError = 7
+	NEHotspotConfigurationErrorUserUnauthorized NEHotspotConfigurationError = 16
 )
 
 func (e NEHotspotConfigurationError) String() string {
@@ -502,10 +507,14 @@ func (e NEHotspotConfigurationError) String() string {
 		return "NEHotspotConfigurationErrorPending"
 	case NEHotspotConfigurationErrorSystemConfiguration:
 		return "NEHotspotConfigurationErrorSystemConfiguration"
+	case NEHotspotConfigurationErrorSystemDenied:
+		return "NEHotspotConfigurationErrorSystemDenied"
 	case NEHotspotConfigurationErrorUnknown:
 		return "NEHotspotConfigurationErrorUnknown"
 	case NEHotspotConfigurationErrorUserDenied:
 		return "NEHotspotConfigurationErrorUserDenied"
+	case NEHotspotConfigurationErrorUserUnauthorized:
+		return "NEHotspotConfigurationErrorUserUnauthorized"
 	default:
 		return fmt.Sprintf("NEHotspotConfigurationError(%d)", e)
 	}
@@ -771,6 +780,7 @@ func (e NEOnDemandRuleInterfaceType) String() string {
 type NEProviderStopReason int
 
 const (
+	NEProviderStopReasonAppUpdate NEProviderStopReason = 16
 	// NEProviderStopReasonAuthenticationCanceled: The authentication process was canceled.
 	NEProviderStopReasonAuthenticationCanceled NEProviderStopReason = 6
 	// NEProviderStopReasonConfigurationDisabled: The configuration was disabled.
@@ -809,6 +819,8 @@ const (
 
 func (e NEProviderStopReason) String() string {
 	switch e {
+	case NEProviderStopReasonAppUpdate:
+		return "NEProviderStopReasonAppUpdate"
 	case NEProviderStopReasonAuthenticationCanceled:
 		return "NEProviderStopReasonAuthenticationCanceled"
 	case NEProviderStopReasonConfigurationDisabled:
@@ -852,16 +864,16 @@ func (e NEProviderStopReason) String() string {
 type NERelayManagerClientError int
 
 const (
-	NERelayManagerClientErrorCertificateExpired NERelayManagerClientError = 7
-	NERelayManagerClientErrorCertificateInvalid NERelayManagerClientError = 6
-	NERelayManagerClientErrorCertificateMissing NERelayManagerClientError = 5
-	NERelayManagerClientErrorDNSFailed NERelayManagerClientError = 2
-	NERelayManagerClientErrorNone NERelayManagerClientError = 1
-	NERelayManagerClientErrorOther NERelayManagerClientError = 10
+	NERelayManagerClientErrorCertificateExpired       NERelayManagerClientError = 7
+	NERelayManagerClientErrorCertificateInvalid       NERelayManagerClientError = 6
+	NERelayManagerClientErrorCertificateMissing       NERelayManagerClientError = 5
+	NERelayManagerClientErrorDNSFailed                NERelayManagerClientError = 2
+	NERelayManagerClientErrorNone                     NERelayManagerClientError = 1
+	NERelayManagerClientErrorOther                    NERelayManagerClientError = 10
 	NERelayManagerClientErrorServerCertificateExpired NERelayManagerClientError = 9
 	NERelayManagerClientErrorServerCertificateInvalid NERelayManagerClientError = 8
-	NERelayManagerClientErrorServerDisconnected NERelayManagerClientError = 4
-	NERelayManagerClientErrorServerUnreachable NERelayManagerClientError = 3
+	NERelayManagerClientErrorServerDisconnected       NERelayManagerClientError = 4
+	NERelayManagerClientErrorServerUnreachable        NERelayManagerClientError = 3
 )
 
 func (e NERelayManagerClientError) String() string {
@@ -1312,10 +1324,6 @@ type NEVPNIKEv2EncryptionAlgorithm int
 const (
 	// NEVPNIKEv2EncryptionAlgorithm3DES: Triple Data Encryption Algorithm (aka 3DES)
 	NEVPNIKEv2EncryptionAlgorithm3DES NEVPNIKEv2EncryptionAlgorithm = 2
-	// NEVPNIKEv2EncryptionAlgorithmAES128: Advanced Encryption Standard 256-bit (AES256).
-	NEVPNIKEv2EncryptionAlgorithmAES128 NEVPNIKEv2EncryptionAlgorithm = 3
-	// NEVPNIKEv2EncryptionAlgorithmAES128GCM: Advanced Encryption Standard 128-bit Galois/Counter Mode (AES128GCM).
-	NEVPNIKEv2EncryptionAlgorithmAES128GCM NEVPNIKEv2EncryptionAlgorithm = 5
 	// NEVPNIKEv2EncryptionAlgorithmAES256: Advanced Encryption Standard 256 bit (AES256).
 	NEVPNIKEv2EncryptionAlgorithmAES256 NEVPNIKEv2EncryptionAlgorithm = 4
 	// NEVPNIKEv2EncryptionAlgorithmAES256GCM: Advanced Encryption Standard 256-bit Galois/Counter Mode (AES256GCM).
@@ -1324,16 +1332,16 @@ const (
 	NEVPNIKEv2EncryptionAlgorithmChaCha20Poly1305 NEVPNIKEv2EncryptionAlgorithm = 7
 	// NEVPNIKEv2EncryptionAlgorithmDES: Data Encryption Standard (DES)
 	NEVPNIKEv2EncryptionAlgorithmDES NEVPNIKEv2EncryptionAlgorithm = 1
+	// Deprecated.
+	NEVPNIKEv2EncryptionAlgorithmAES128 NEVPNIKEv2EncryptionAlgorithm = 3
+	// Deprecated.
+	NEVPNIKEv2EncryptionAlgorithmAES128GCM NEVPNIKEv2EncryptionAlgorithm = 5
 )
 
 func (e NEVPNIKEv2EncryptionAlgorithm) String() string {
 	switch e {
 	case NEVPNIKEv2EncryptionAlgorithm3DES:
 		return "NEVPNIKEv2EncryptionAlgorithm3DES"
-	case NEVPNIKEv2EncryptionAlgorithmAES128:
-		return "NEVPNIKEv2EncryptionAlgorithmAES128"
-	case NEVPNIKEv2EncryptionAlgorithmAES128GCM:
-		return "NEVPNIKEv2EncryptionAlgorithmAES128GCM"
 	case NEVPNIKEv2EncryptionAlgorithmAES256:
 		return "NEVPNIKEv2EncryptionAlgorithmAES256"
 	case NEVPNIKEv2EncryptionAlgorithmAES256GCM:
@@ -1342,6 +1350,10 @@ func (e NEVPNIKEv2EncryptionAlgorithm) String() string {
 		return "NEVPNIKEv2EncryptionAlgorithmChaCha20Poly1305"
 	case NEVPNIKEv2EncryptionAlgorithmDES:
 		return "NEVPNIKEv2EncryptionAlgorithmDES"
+	case NEVPNIKEv2EncryptionAlgorithmAES128:
+		return "NEVPNIKEv2EncryptionAlgorithmAES128"
+	case NEVPNIKEv2EncryptionAlgorithmAES128GCM:
+		return "NEVPNIKEv2EncryptionAlgorithmAES128GCM"
 	default:
 		return fmt.Sprintf("NEVPNIKEv2EncryptionAlgorithm(%d)", e)
 	}
@@ -1475,13 +1487,13 @@ func (e NEVPNStatus) String() string {
 type NWPathStatus int
 
 const (
-	// NWPathStatusInvalid: The path cannot be evaluated.
+	// Deprecated.
 	NWPathStatusInvalid NWPathStatus = 0
-	// NWPathStatusSatisfiable: The path is not currently satisfied, but may become satisfied upon a connection attempt.
+	// Deprecated.
 	NWPathStatusSatisfiable NWPathStatus = 3
-	// NWPathStatusSatisfied: The path is ready to be used for network connections.
+	// Deprecated.
 	NWPathStatusSatisfied NWPathStatus = 1
-	// NWPathStatusUnsatisfied: The path for network connections is not available, either due to lack of network connectivity or being prohibited by system policy.
+	// Deprecated.
 	NWPathStatusUnsatisfied NWPathStatus = 2
 )
 
@@ -1504,17 +1516,17 @@ func (e NWPathStatus) String() string {
 type NWTCPConnectionState int
 
 const (
-	// NWTCPConnectionStateCancelled: The connection has been cancelled by the client calling .
+	// Deprecated.
 	NWTCPConnectionStateCancelled NWTCPConnectionState = 5
-	// NWTCPConnectionStateConnected: The connection is established.
+	// Deprecated.
 	NWTCPConnectionStateConnected NWTCPConnectionState = 3
-	// NWTCPConnectionStateConnecting: The connection is attempting to connect.
+	// Deprecated.
 	NWTCPConnectionStateConnecting NWTCPConnectionState = 1
-	// NWTCPConnectionStateDisconnected: The connection is disconnected.
+	// Deprecated.
 	NWTCPConnectionStateDisconnected NWTCPConnectionState = 4
-	// NWTCPConnectionStateInvalid: The connection is in an invalid or uninitialized state.
+	// Deprecated.
 	NWTCPConnectionStateInvalid NWTCPConnectionState = 0
-	// NWTCPConnectionStateWaiting: The connection has attempted to connect but failed.
+	// Deprecated.
 	NWTCPConnectionStateWaiting NWTCPConnectionState = 2
 )
 
@@ -1541,17 +1553,17 @@ func (e NWTCPConnectionState) String() string {
 type NWUDPSessionState int
 
 const (
-	// NWUDPSessionStateCancelled: The session has been cancelled by the client calling .
+	// Deprecated.
 	NWUDPSessionStateCancelled NWUDPSessionState = 5
-	// NWUDPSessionStateFailed: None of the currently resolved endpoints can be used at this time, either due to problems with the path or the client rejecting the endpoints.
+	// Deprecated.
 	NWUDPSessionStateFailed NWUDPSessionState = 4
-	// NWUDPSessionStateInvalid: The session is in an invalid or uninitialized state.
+	// Deprecated.
 	NWUDPSessionStateInvalid NWUDPSessionState = 0
-	// NWUDPSessionStatePreparing: The remote endpoint is being resolved.
+	// Deprecated.
 	NWUDPSessionStatePreparing NWUDPSessionState = 2
-	// NWUDPSessionStateReady: The session is ready for reading and writing data.
+	// Deprecated.
 	NWUDPSessionStateReady NWUDPSessionState = 3
-	// NWUDPSessionStateWaiting: The session is waiting for better conditions before attempting to make the session ready.
+	// Deprecated.
 	NWUDPSessionStateWaiting NWUDPSessionState = 1
 )
 
@@ -1573,4 +1585,3 @@ func (e NWUDPSessionState) String() string {
 		return fmt.Sprintf("NWUDPSessionState(%d)", e)
 	}
 }
-

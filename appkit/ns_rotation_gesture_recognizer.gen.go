@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,15 +47,13 @@ func (nc NSRotationGestureRecognizerClass) Alloc() NSRotationGestureRecognizer {
 // opposite each other in a circular motion.
 //
 // # Overview
-// 
+//
 // This rotation gesture implies that the underlying view should rotate in a
 // matching direction. The gesture is recognized when the trackpad touches
 // end.
-// 
-// Upon creation, the gesture recognizer sets the value of the
-// [NSRotationGestureRecognizer.DelaysRotationEvents] property to [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Upon creation, the gesture recognizer sets the value of the
+// [NSRotationGestureRecognizer.DelaysRotationEvents] property to true.
 //
 // # Interpreting the Gesture
 //
@@ -75,6 +74,7 @@ type NSRotationGestureRecognizer struct {
 func NSRotationGestureRecognizerFromID(id objc.ID) NSRotationGestureRecognizer {
 	return NSRotationGestureRecognizer{NSGestureRecognizer: NSGestureRecognizerFromID(id)}
 }
+
 // NOTE: NSRotationGestureRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,7 +120,6 @@ func NewNSRotationGestureRecognizer() NSRotationGestureRecognizer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func NewRotationGestureRecognizerWithCoder(coder foundation.INSCoder) NSRotationGestureRecognizer {
 	instance := getNSRotationGestureRecognizerClass().Alloc()
@@ -139,18 +138,18 @@ func NewRotationGestureRecognizerWithCoder(coder foundation.INSCoder) NSRotation
 // must not specify `nil` for this parameter.
 //
 // # Return Value
-// 
+//
 // The initialized gesture recognizer object or `nil` if an error occurred.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer. Subclasses must call this method
 // from their own custom initialization methods. Call the method before
 // performing other tasks.
-// 
+//
 // This method records the specified `target` and `action` values and prepares
 // the gesture recognizer for use.
-// 
+//
 // The `action` method must have one of the following signatures:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(target:action:)
@@ -163,7 +162,7 @@ func NewRotationGestureRecognizerWithTargetAction(target objectivec.IObject, act
 // The rotation of the gesture in radians.
 //
 // # Discussion
-// 
+//
 // This property contains the current rotation in effect for the gesture.
 // Changing the value in this property also updates the value in the
 // [RotationInDegrees] property.
@@ -176,10 +175,11 @@ func (r NSRotationGestureRecognizer) Rotation() float64 {
 func (r NSRotationGestureRecognizer) SetRotation(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRotation:"), value)
 }
+
 // The rotation of the gesture in degrees.
 //
 // # Discussion
-// 
+//
 // This property contains the current rotation in effect for the gesture.
 // Changing the value in this property also updates the value in the
 // [Rotation] property.
@@ -192,4 +192,3 @@ func (r NSRotationGestureRecognizer) RotationInDegrees() float64 {
 func (r NSRotationGestureRecognizer) SetRotationInDegrees(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRotationInDegrees:"), value)
 }
-

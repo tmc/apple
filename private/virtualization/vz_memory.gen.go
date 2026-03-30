@@ -3,8 +3,9 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,12 +43,12 @@ func (vc VZMemoryClass) Alloc() VZMemory {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMemory.Length]
 //   - [VZMemory.MutableBytes]
 //   - [VZMemory.PhysicalAddress]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMemory
 type VZMemory struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type VZMemory struct {
 func VZMemoryFromID(id objc.ID) VZMemory {
 	return VZMemory{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMemory implements IVZMemory.
 var _ IVZMemory = VZMemory{}
 
@@ -103,14 +105,15 @@ func (v VZMemory) Length() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("length"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMemory/mutableBytes
 func (v VZMemory) MutableBytes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("mutableBytes"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMemory/physicalAddress
 func (v VZMemory) PhysicalAddress() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("physicalAddress"))
 	return rv
 }
-

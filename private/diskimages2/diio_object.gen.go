@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (dc DIIOObjectClass) Alloc() DIIOObject {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIIOObject.CopyParentWithError]
@@ -59,6 +59,7 @@ func (dc DIIOObjectClass) Alloc() DIIOObject {
 //   - [DIIOObject.InitWithIOObjectRetain]
 //   - [DIIOObject.InitWithIteratorNext]
 //   - [DIIOObject.InitWithRegistryEntryIDError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject
 type DIIOObject struct {
 	objectivec.Object
@@ -68,6 +69,7 @@ type DIIOObject struct {
 func DIIOObjectFromID(id objc.ID) DIIOObject {
 	return DIIOObject{objectivec.Object{ID: id}}
 }
+
 // Ensure DIIOObject implements IDIIOObject.
 var _ IDIIOObject = DIIOObject{}
 
@@ -129,7 +131,6 @@ func NewDIIOObject() DIIOObject {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithClassName:error:
 func NewDIIOObjectWithClassNameError(name objectivec.IObject) (DIIOObject, error) {
 	var errorPtr objc.ID
@@ -142,7 +143,6 @@ func NewDIIOObjectWithClassNameError(name objectivec.IObject) (DIIOObject, error
 	return DIIOObjectFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithDIIOObject:
 func NewDIIOObjectWithDIIOObject(dIIOObject objectivec.IObject) DIIOObject {
 	instance := getDIIOObjectClass().Alloc()
@@ -150,7 +150,6 @@ func NewDIIOObjectWithDIIOObject(dIIOObject objectivec.IObject) DIIOObject {
 	return DIIOObjectFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIOObject:
 func NewDIIOObjectWithIOObject(iOObject uint32) DIIOObject {
 	instance := getDIIOObjectClass().Alloc()
@@ -158,7 +157,6 @@ func NewDIIOObjectWithIOObject(iOObject uint32) DIIOObject {
 	return DIIOObjectFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIOObject:retain:
 func NewDIIOObjectWithIOObjectRetain(iOObject uint32, retain bool) DIIOObject {
 	instance := getDIIOObjectClass().Alloc()
@@ -166,7 +164,6 @@ func NewDIIOObjectWithIOObjectRetain(iOObject uint32, retain bool) DIIOObject {
 	return DIIOObjectFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIteratorNext:
 func NewDIIOObjectWithIteratorNext(next objectivec.IObject) DIIOObject {
 	instance := getDIIOObjectClass().Alloc()
@@ -174,7 +171,6 @@ func NewDIIOObjectWithIteratorNext(next objectivec.IObject) DIIOObject {
 	return DIIOObjectFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithRegistryEntryID:error:
 func NewDIIOObjectWithRegistryEntryIDError(id uint64) (DIIOObject, error) {
 	var errorPtr objc.ID
@@ -187,7 +183,6 @@ func NewDIIOObjectWithRegistryEntryIDError(id uint64) (DIIOObject, error) {
 	return DIIOObjectFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/copyParentWithError:
 func (d DIIOObject) CopyParentWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -199,13 +194,13 @@ func (d DIIOObject) CopyParentWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/copyPropertyWithClass:key:
 func (d DIIOObject) CopyPropertyWithClassKey(class objc.Class, key objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("copyPropertyWithClass:key:"), class, key)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/ioObjectWithClassName:iterateParent:error:
 func (d DIIOObject) IoObjectWithClassNameIterateParentError(name objectivec.IObject, parent bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -217,7 +212,7 @@ func (d DIIOObject) IoObjectWithClassNameIterateParentError(name objectivec.IObj
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/newIteratorWithOptions:error:
 func (d DIIOObject) NewIteratorWithOptionsError(options uint32) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -229,7 +224,7 @@ func (d DIIOObject) NewIteratorWithOptionsError(options uint32) (objectivec.IObj
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/registryEntryIDWithError:
 func (d DIIOObject) RegistryEntryIDWithError() (uint64, error) {
 	var errorPtr objc.ID
@@ -241,7 +236,7 @@ func (d DIIOObject) RegistryEntryIDWithError() (uint64, error) {
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithClassName:error:
 func (d DIIOObject) InitWithClassNameError(name objectivec.IObject) (DIIOObject, error) {
 	var errorPtr objc.ID
@@ -253,31 +248,31 @@ func (d DIIOObject) InitWithClassNameError(name objectivec.IObject) (DIIOObject,
 	return DIIOObjectFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithDIIOObject:
 func (d DIIOObject) InitWithDIIOObject(dIIOObject objectivec.IObject) DIIOObject {
 	rv := objc.Send[DIIOObject](d.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIOObject:
 func (d DIIOObject) InitWithIOObject(iOObject uint32) DIIOObject {
 	rv := objc.Send[DIIOObject](d.ID, objc.Sel("initWithIOObject:"), iOObject)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIOObject:retain:
 func (d DIIOObject) InitWithIOObjectRetain(iOObject uint32, retain bool) DIIOObject {
 	rv := objc.Send[DIIOObject](d.ID, objc.Sel("initWithIOObject:retain:"), iOObject, retain)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIteratorNext:
 func (d DIIOObject) InitWithIteratorNext(next objectivec.IObject) DIIOObject {
 	rv := objc.Send[DIIOObject](d.ID, objc.Sel("initWithIteratorNext:"), next)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithRegistryEntryID:error:
 func (d DIIOObject) InitWithRegistryEntryIDError(id uint64) (DIIOObject, error) {
 	var errorPtr objc.ID
@@ -290,7 +285,6 @@ func (d DIIOObject) InitWithRegistryEntryIDError(id uint64) (DIIOObject, error) 
 
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/copyDiskImagesControllerWithError:
 func (_DIIOObjectClass DIIOObjectClass) CopyDiskImagesControllerWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -308,9 +302,9 @@ func (d DIIOObject) IoClassName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("ioClassName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/ioObj
 func (d DIIOObject) IoObj() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("ioObj"))
 	return rv
 }
-

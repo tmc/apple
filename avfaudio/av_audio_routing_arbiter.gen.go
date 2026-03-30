@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,13 +47,13 @@ func (ac AVAudioRoutingArbiterClass) Alloc() AVAudioRoutingArbiter {
 // Switching.
 //
 // # Overview
-// 
+//
 // AirPods Automatic Switching is a feature of Apple operating systems that
 // intelligently connects wireless headphones to the most appropriate audio
 // device in a multidevice environment. For example, if a user plays a movie
 // on iPad, and then locks the device and starts playing music on iPhone, the
 // system automatically switches the source audio device from iPad to iPhone.
-// 
+//
 // iOS apps automatically participate in AirPods Automatic Switching. To
 // enable your macOS app to participate in this behavior, use
 // [AVAudioRoutingArbiter] to indicate when your app starts and finishes
@@ -78,6 +79,7 @@ type AVAudioRoutingArbiter struct {
 func AVAudioRoutingArbiterFromID(id objc.ID) AVAudioRoutingArbiter {
 	return AVAudioRoutingArbiter{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioRoutingArbiter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -127,15 +129,13 @@ func NewAVAudioRoutingArbiter() AVAudioRoutingArbiter {
 // handler: A completion handler the system calls asynchronously when the system
 // completes audio routing arbitration. This closure takes the following
 // parameters:
-// 
+//
 // defaultDeviceChanged: A Boolean value that indicates whether the system
 // switched the AirPods to the macOS device. error: An error object that
-// indicates why the request failed, or [nil] if the request succeeded.
-// //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// indicates why the request failed, or nil if the request succeeded.
 //
 // # Discussion
-// 
+//
 // Call this method to tell the operating system to arbitrate with nearby
 // Apple devices to take ownership of a supported Bluetooth audio device. When
 // arbitration completes, the system calls the completion handler, passing a
@@ -144,13 +144,14 @@ func NewAVAudioRoutingArbiter() AVAudioRoutingArbiter {
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioRoutingArbiter/begin(category:completionHandler:)
 func (a AVAudioRoutingArbiter) BeginArbitrationWithCategoryCompletionHandler(category AVAudioRoutingArbitrationCategory, handler BoolErrorHandler) {
-_block1, _ := NewBoolErrorBlock(handler)
+	_block1, _ := NewBoolErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("beginArbitrationWithCategory:completionHandler:"), category, _block1)
 }
+
 // Stops an app’s participation in audio routing arbitration.
 //
 // # Discussion
-// 
+//
 // Configure your app to notify the system when the app stops using audio for
 // an undetermined duration. For example, for a Voice over IP (VoIP) app, call
 // this method when the VoIP call ends. Calling this method allows the system
@@ -188,4 +189,3 @@ func (a AVAudioRoutingArbiter) BeginArbitrationWithCategory(ctx context.Context,
 		return false, ctx.Err()
 	}
 }
-

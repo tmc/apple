@@ -5,6 +5,7 @@ package diskimages2
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,12 +43,12 @@ func (dc DIController2ClientDelegateClass) Alloc() DIController2ClientDelegate {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIController2ClientDelegate.AttachCompletedWithHandleReply]
 //   - [DIController2ClientDelegate.DeviceHandle]
 //   - [DIController2ClientDelegate.SetDeviceHandle]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIController2ClientDelegate
 type DIController2ClientDelegate struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type DIController2ClientDelegate struct {
 func DIController2ClientDelegateFromID(id objc.ID) DIController2ClientDelegate {
 	return DIController2ClientDelegate{objectivec.Object{ID: id}}
 }
+
 // Ensure DIController2ClientDelegate implements IDIController2ClientDelegate.
 var _ IDIController2ClientDelegate = DIController2ClientDelegate{}
 
@@ -98,10 +100,9 @@ func NewDIController2ClientDelegate() DIController2ClientDelegate {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIController2ClientDelegate/attachCompletedWithHandle:reply:
 func (d DIController2ClientDelegate) AttachCompletedWithHandleReply(handle objectivec.IObject, reply VoidHandler) {
-_block1, _ := NewVoidBlock(reply)
+	_block1, _ := NewVoidBlock(reply)
 	objc.Send[objc.ID](d.ID, objc.Sel("attachCompletedWithHandle:reply:"), handle, _block1)
 }
 
@@ -128,4 +129,3 @@ func (d DIController2ClientDelegate) AttachCompletedWithHandleReplySync(ctx cont
 		return ctx.Err()
 	}
 }
-

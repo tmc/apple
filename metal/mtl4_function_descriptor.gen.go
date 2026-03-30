@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,6 +55,7 @@ type MTL4FunctionDescriptor struct {
 func MTL4FunctionDescriptorFromID(id objc.ID) MTL4FunctionDescriptor {
 	return MTL4FunctionDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4FunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -82,4 +84,3 @@ func NewMTL4FunctionDescriptor() MTL4FunctionDescriptor {
 	rv := objc.Send[MTL4FunctionDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

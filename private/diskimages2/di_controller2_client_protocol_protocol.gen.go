@@ -18,6 +18,7 @@ type DIController2ClientProtocol interface {
 type DIController2ClientProtocolObject struct {
 	objectivec.Object
 }
+
 func (o DIController2ClientProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,9 +31,7 @@ func DIController2ClientProtocolObjectFromID(id objc.ID) DIController2ClientProt
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIController2ClientProtocol/attachCompletedWithHandle:reply:
 func (o DIController2ClientProtocolObject) AttachCompletedWithHandleReply(handle objectivec.IObject, reply ErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("attachCompletedWithHandle:reply:"), handle, reply)
-	}
-
+}

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVDelegatingPlaybackCoordinatorBufferingCommand] class.
@@ -45,7 +46,7 @@ func (ac AVDelegatingPlaybackCoordinatorBufferingCommandClass) Alloc() AVDelegat
 // playback.
 //
 // # Overview
-// 
+//
 // When your app receives this command, update its user interface to indicate
 // that playback is buffering.
 //
@@ -66,6 +67,7 @@ type AVDelegatingPlaybackCoordinatorBufferingCommand struct {
 func AVDelegatingPlaybackCoordinatorBufferingCommandFromID(id objc.ID) AVDelegatingPlaybackCoordinatorBufferingCommand {
 	return AVDelegatingPlaybackCoordinatorBufferingCommand{AVDelegatingPlaybackCoordinatorPlaybackControlCommand: AVDelegatingPlaybackCoordinatorPlaybackControlCommandFromID(id)}
 }
+
 // NOTE: AVDelegatingPlaybackCoordinatorBufferingCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,17 +116,18 @@ func (d AVDelegatingPlaybackCoordinatorBufferingCommand) AnticipatedPlaybackRate
 	rv := objc.Send[float32](d.ID, objc.Sel("anticipatedPlaybackRate"))
 	return rv
 }
+
 // The deadline by which the coordinator expects the delegate to complete
 // execution of a command.
 //
 // # Discussion
-// 
+//
 // A command that expects buffering in preparation for playback requires that
 // the delegate call the command’s completion handler by the deadline. The
 // delegate needs to complete the command by this date to keep up with the
 // group. Alternatively, have the delegate begin a stall recovery suspension,
 // and communicate that state to the other participants.
-// 
+//
 // Completing the command after this date means that the coordinator likely
 // sends a play command that isn’t for the current state.
 //
@@ -133,4 +136,3 @@ func (d AVDelegatingPlaybackCoordinatorBufferingCommand) CompletionDueDate() fou
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("completionDueDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-

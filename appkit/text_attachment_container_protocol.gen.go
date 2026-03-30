@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -29,6 +29,7 @@ type NSTextAttachmentContainer interface {
 type NSTextAttachmentContainerObject struct {
 	objectivec.Object
 }
+
 func (o NSTextAttachmentContainerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -54,25 +55,26 @@ func NSTextAttachmentContainerObjectFromID(id objc.ID) NSTextAttachmentContainer
 // character.
 //
 // # Return Value
-// 
+//
 // The [Bounds] rectangle of the text attachment if not [CGRectZero];
 // otherwise, the rectangle of the [size] property of the attachment’s
 // [Image] property.
 //
-// [CGRectZero]: https://developer.apple.com/documentation/CoreGraphics/CGRectZero
-// [size]: https://developer.apple.com/documentation/UIKit/UIImage/size
-//
 // # Discussion
-// 
+//
 // Conforming objects can implement more sophisticated logic for negotiating
 // the attachment bounds based on the available container space and proposed
 // line fragment rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentContainer/attachmentBounds(for:proposedLineFragment:glyphPosition:characterIndex:)
+//
+// [CGRectZero]: https://developer.apple.com/documentation/CoreGraphics/CGRectZero
+// [size]: https://developer.apple.com/documentation/UIKit/UIImage/size
 func (o NSTextAttachmentContainerObject) AttachmentBoundsForTextContainerProposedLineFragmentGlyphPositionCharacterIndex(textContainer INSTextContainer, lineFrag corefoundation.CGRect, position corefoundation.CGPoint, charIndex uint) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("attachmentBoundsForTextContainer:proposedLineFragment:glyphPosition:characterIndex:"), textContainer, lineFrag, position, charIndex)
 	return rv
-	}
+}
+
 // Returns the image object that the layout manager renders in the specified
 // image bounds rectangle inside the text container.
 //
@@ -84,11 +86,11 @@ func (o NSTextAttachmentContainerObject) AttachmentBoundsForTextContainerPropose
 // character.
 //
 // # Return Value
-// 
+//
 // The image rendered in the bounds rectangle.
 //
 // # Discussion
-// 
+//
 // The method should return an image appropriate for the target rendering
 // context derived by arguments passed into this method. The
 // [NSTextAttachment] implementation returns the text attachment’s [Image]
@@ -99,5 +101,4 @@ func (o NSTextAttachmentContainerObject) AttachmentBoundsForTextContainerPropose
 func (o NSTextAttachmentContainerObject) ImageForBoundsTextContainerCharacterIndex(imageBounds corefoundation.CGRect, textContainer INSTextContainer, charIndex uint) INSImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageForBounds:textContainer:characterIndex:"), imageBounds, textContainer, charIndex)
 	return NSImageFromID(rv)
-	}
-
+}

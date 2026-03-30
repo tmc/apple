@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,13 +45,13 @@ func (vc VZVirtioNetworkDeviceConfigurationClass) Alloc() VZVirtioNetworkDeviceC
 // the guest system.
 //
 // # Overview
-// 
+//
 // Use a [VZVirtioNetworkDeviceConfiguration] object to configure one network
 // interface of your virtual machine. After creating this object, assign an
 // appropriate value to its inherited [VZVirtioNetworkDeviceConfiguration.Attachment] property to define the type
 // of network interface you want. You can also assign a specific MAC address,
 // or let the system generate a random address for you.
-// 
+//
 // After creating and configuring a [VZVirtioNetworkDeviceConfiguration]
 // object, assign it to the [VZVirtioNetworkDeviceConfiguration.NetworkDevices] property of your virtual
 // machine’s configuration.
@@ -67,6 +68,7 @@ type VZVirtioNetworkDeviceConfiguration struct {
 func VZVirtioNetworkDeviceConfigurationFromID(id objc.ID) VZVirtioNetworkDeviceConfiguration {
 	return VZVirtioNetworkDeviceConfiguration{VZNetworkDeviceConfiguration: VZNetworkDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioNetworkDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,4 +112,3 @@ func (v VZVirtioNetworkDeviceConfiguration) NetworkDevices() IVZNetworkDeviceCon
 func (v VZVirtioNetworkDeviceConfiguration) SetNetworkDevices(value IVZNetworkDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setNetworkDevices:"), value)
 }
-

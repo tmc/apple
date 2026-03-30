@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,14 +46,14 @@ func (nc NSPredicateEditorRowTemplateClass) Alloc() NSPredicateEditorRowTemplate
 // A template that describes available predicates and how to display them.
 //
 // # Overview
-// 
+//
 // You can create instances of [NSPredicateEditorRowTemplate] programmatically
 // or in Interface Builder. By default, a noncompound row template has three
 // views: a popup (or static text field) on the left, a popup or static text
 // field for operators, and either a popup or other view on the right. You can
 // subclass [NSPredicateEditorRowTemplate] to create a row template with
 // different numbers or types of views.
-// 
+//
 // [NSPredicateEditorRowTemplate] is a concrete class, but it has five
 // primitive methods that are called by [NSPredicateEditor]: [NSPredicateEditorRowTemplate.TemplateViews],
 // [NSPredicateEditorRowTemplate.MatchForPredicate], [NSPredicateEditorRowTemplate.SetPredicate], [NSPredicateEditorRowTemplate.DisplayableSubpredicatesOfPredicate],
@@ -60,25 +61,25 @@ func (nc NSPredicateEditorRowTemplateClass) Alloc() NSPredicateEditorRowTemplate
 // all of these methods, but you can override them for custom templates. The
 // primitive methods are used by an instance of [NSPredicateEditor] as
 // follows.
-// 
+//
 // First, an instance of [NSPredicateEditor] is created, and some row
 // templates are set on it—either through a nib file or programmatically.
 // The first thing predicate editor does is ask each of the templates for
 // their views, using [NSPredicateEditorRowTemplate.TemplateViews].
-// 
+//
 // After setting up the predicate editor, you typically send it a
 // [NSPredicateEditorRowTemplate.ObjectValue] message to restore a saved predicate. [NSPredicateEditor]
 // needs to determine which of its templates should display each predicate in
 // the predicate tree. It does this by sending each of its row templates a
 // [NSPredicateEditorRowTemplate.MatchForPredicate] message and choosing the one that returns the highest
 // value.
-// 
+//
 // After finding the best match for a predicate, [NSPredicateEditor] copies
 // that template to get fresh views, inserts them into the proper row, and
 // then sets the predicate on the template using [NSPredicateEditorRowTemplate.SetPredicate]. Within that
 // method, the [NSPredicateEditorRowTemplate] object must set its views’
 // values to represent that predicate.
-// 
+//
 // [NSPredicateEditorRowTemplate] next asks the template for the
 // “displayable sub-predicates” of the predicate by sending a
 // [NSPredicateEditorRowTemplate.DisplayableSubpredicatesOfPredicate] message. If a template represents a
@@ -86,7 +87,7 @@ func (nc NSPredicateEditorRowTemplateClass) Alloc() NSPredicateEditorRowTemplate
 // return `nil` for this. Otherwise, it should return a list of predicates to
 // be made into sub-rows of that template’s row. The whole process repeats
 // for each sub-predicate.
-// 
+//
 // At this point, the user sees the predicate that was saved. If the user then
 // makes some changes to the views of the templates, this causes
 // [NSPredicateEditor] to recompute its predicate by asking each of the
@@ -94,7 +95,7 @@ func (nc NSPredicateEditorRowTemplateClass) Alloc() NSPredicateEditorRowTemplate
 // passing in the subpredicates represented by the sub-rows (an empty array if
 // there are none, or `nil` if they aren’t supported by that predicate
 // type):
-// 
+//
 // [NSPredicateEditorRowTemplate.PredicateWithSubpredicates]
 //
 // # Initializing a Template
@@ -132,6 +133,7 @@ type NSPredicateEditorRowTemplate struct {
 func NSPredicateEditorRowTemplateFromID(id objc.ID) NSPredicateEditorRowTemplate {
 	return NSPredicateEditorRowTemplate{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPredicateEditorRowTemplate adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -237,20 +239,20 @@ func NewNSPredicateEditorRowTemplate() NSPredicateEditorRowTemplate {
 //
 // compoundTypes: An array of [NSNumber] objects specifying compound predicate types. See
 // [NSCompoundPredicate.LogicalType] for possible values.
-// //
-// [NSCompoundPredicate.LogicalType]: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate/LogicalType
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 //
 // # Return Value
-// 
+//
 // A row template initialized for displaying compound predicates of the types
 // specified by `compoundTypes`.
 //
 // # Discussion
-// 
+//
 // [NSPredicateEditor] contains such a template by default.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(compoundTypes:)
+//
+// [NSCompoundPredicate.LogicalType]: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate/LogicalType
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 func NewPredicateEditorRowTemplateWithCompoundTypes(compoundTypes []foundation.NSNumber) NSPredicateEditorRowTemplate {
 	instance := getNSPredicateEditorRowTemplateClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompoundTypes:"), objectivec.IObjectSliceToNSArray(compoundTypes))
@@ -261,8 +263,6 @@ func NewPredicateEditorRowTemplateWithCompoundTypes(compoundTypes []foundation.N
 //
 // leftExpressions: An array of [NSExpression] objects that represent the left side of a
 // predicate.
-// //
-// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
 //
 // attributeType: An attribute type for the right side of a predicate. This value dictates
 // the type of view created, and how the control’s object value is coerced
@@ -270,43 +270,41 @@ func NewPredicateEditorRowTemplateWithCompoundTypes(compoundTypes []foundation.N
 //
 // modifier: A modifier for the predicate (see [NSComparisonPredicate.Modifier] for
 // possible values).
-// //
-// [NSComparisonPredicate.Modifier]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
 //
 // operators: An array of [NSNumber] objects specifying the operator type (see
 // [NSComparisonPredicate.Operator] for possible values).
-// //
-// [NSComparisonPredicate.Operator]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Operator
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 //
 // options: Options for the predicate (see [NSComparisonPredicate.Options] for possible
 // values).
-// //
-// [NSComparisonPredicate.Options]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
 //
 // # Return Value
-// 
+//
 // A row template initialized using the specified arguments.
 //
 // # Discussion
-// 
+//
 // The type of `attributeType` dictates the type of view created. For example,
 // [NSAttributeType.dateAttributeType] creates an [NSDatePicker] object,
 // [NSAttributeType.integer64AttributeType] creates a short text field, and
 // [NSAttributeType.stringAttributeType] produces a longer text field. You can
 // resize the views as you want.
-// 
+//
 // Predicates do not automatically coerce types for you. For example,
 // comparing a number to a string will raise an exception. Therefore, the
 // attribute type is also needed to determine how the control’s object value
 // must be coerced before putting it into a predicate.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(leftExpressions:rightExpressionAttributeType:modifier:operators:options:)
+// attributeType is a [coredata.NSAttributeType].
+//
+// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
+// [NSComparisonPredicate.Modifier]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
+// [NSComparisonPredicate.Operator]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Operator
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
+// [NSComparisonPredicate.Options]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
 // [NSAttributeType.dateAttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/dateAttributeType
 // [NSAttributeType.integer64AttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/integer64AttributeType
 // [NSAttributeType.stringAttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/stringAttributeType
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(leftExpressions:rightExpressionAttributeType:modifier:operators:options:)
-// attributeType is a [coredata.NSAttributeType].
 func NewPredicateEditorRowTemplateWithLeftExpressionsRightExpressionAttributeTypeModifierOperatorsOptions(leftExpressions []foundation.NSExpression, attributeType objectivec.IObject, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate {
 	instance := getNSPredicateEditorRowTemplateClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLeftExpressions:rightExpressionAttributeType:modifier:operators:options:"), objectivec.IObjectSliceToNSArray(leftExpressions), attributeType, modifier, objectivec.IObjectSliceToNSArray(operators), options)
@@ -317,38 +315,35 @@ func NewPredicateEditorRowTemplateWithLeftExpressionsRightExpressionAttributeTyp
 //
 // leftExpressions: An array of [NSExpression] objects that represent the left side of a
 // predicate.
-// //
-// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
 //
 // rightExpressions: An array of [NSExpression] objects that represent the right side of a
 // predicate.
-// //
-// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
 //
 // modifier: A modifier for the predicate (see [NSComparisonPredicate.Modifier] for
 // possible values).
-// //
-// [NSComparisonPredicate.Modifier]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
 //
 // operators: An array of [NSNumber] objects specifying the operator type (see
 // [NSComparisonPredicate.Operator] for possible values).
-// //
-// [NSComparisonPredicate.Operator]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Operator
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 //
 // options: Options for the predicate (see [NSComparisonPredicate.Options] for possible
 // values).
-// //
-// [NSComparisonPredicate.Options]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
 //
 // # Return Value
-// 
+//
 // A row template of the “pop-up-pop-up-pop-up” form, with the left and
 // right pop-ups representing the left and right expression arrays
 // `leftExpressions` and `rightExpressions`, and the center pop-up
 // representing the operators.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(leftExpressions:rightExpressions:modifier:operators:options:)
+//
+// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
+// [NSComparisonPredicate.Modifier]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
+// [NSComparisonPredicate.Operator]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Operator
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
+// [NSComparisonPredicate.Options]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
+//
+// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
 func NewPredicateEditorRowTemplateWithLeftExpressionsRightExpressionsModifierOperatorsOptions(leftExpressions []foundation.NSExpression, rightExpressions []foundation.NSExpression, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate {
 	instance := getNSPredicateEditorRowTemplateClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLeftExpressions:rightExpressions:modifier:operators:options:"), objectivec.IObjectSliceToNSArray(leftExpressions), objectivec.IObjectSliceToNSArray(rightExpressions), modifier, objectivec.IObjectSliceToNSArray(operators), options)
@@ -359,48 +354,44 @@ func NewPredicateEditorRowTemplateWithLeftExpressionsRightExpressionsModifierOpe
 //
 // leftExpressions: An array of [NSExpression] objects that represent the left side of a
 // predicate.
-// //
-// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
 //
 // rightExpressions: An array of [NSExpression] objects that represent the right side of a
 // predicate.
-// //
-// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
 //
 // modifier: A modifier for the predicate (see [NSComparisonPredicate.Modifier] for
 // possible values).
-// //
-// [NSComparisonPredicate.Modifier]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
 //
 // operators: An array of [NSNumber] objects specifying the operator type (see
 // [NSComparisonPredicate.Operator] for possible values).
-// //
-// [NSComparisonPredicate.Operator]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Operator
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 //
 // options: Options for the predicate (see [NSComparisonPredicate.Options] for possible
 // values).
-// //
-// [NSComparisonPredicate.Options]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
 //
 // # Return Value
-// 
+//
 // A row template of the “pop-up-pop-up-pop-up” form, with the left and
 // right pop-ups representing the left and right expression arrays
 // `leftExpressions` and `rightExpressions`, and the center pop-up
 // representing the operators.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(leftExpressions:rightExpressions:modifier:operators:options:)
+//
+// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
+// [NSComparisonPredicate.Modifier]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
+// [NSComparisonPredicate.Operator]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Operator
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
+// [NSComparisonPredicate.Options]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
+//
+// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
 func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionsModifierOperatorsOptions(leftExpressions []foundation.NSExpression, rightExpressions []foundation.NSExpression, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate {
 	rv := objc.Send[NSPredicateEditorRowTemplate](p.ID, objc.Sel("initWithLeftExpressions:rightExpressions:modifier:operators:options:"), objectivec.IObjectSliceToNSArray(leftExpressions), objectivec.IObjectSliceToNSArray(rightExpressions), modifier, objectivec.IObjectSliceToNSArray(operators), options)
 	return rv
 }
+
 // Initializes and returns a “pop-up-pop-up-view”–style row template.
 //
 // leftExpressions: An array of [NSExpression] objects that represent the left side of a
 // predicate.
-// //
-// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
 //
 // attributeType: An attribute type for the right side of a predicate. This value dictates
 // the type of view created, and how the control’s object value is coerced
@@ -408,84 +399,84 @@ func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionsMod
 //
 // modifier: A modifier for the predicate (see [NSComparisonPredicate.Modifier] for
 // possible values).
-// //
-// [NSComparisonPredicate.Modifier]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
 //
 // operators: An array of [NSNumber] objects specifying the operator type (see
 // [NSComparisonPredicate.Operator] for possible values).
-// //
-// [NSComparisonPredicate.Operator]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Operator
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 //
 // options: Options for the predicate (see [NSComparisonPredicate.Options] for possible
 // values).
-// //
-// [NSComparisonPredicate.Options]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
 //
 // attributeType is a [coredata.NSAttributeType].
 //
 // # Return Value
-// 
+//
 // A row template initialized using the specified arguments.
 //
 // # Discussion
-// 
+//
 // The type of `attributeType` dictates the type of view created. For example,
 // [NSAttributeType.dateAttributeType] creates an [NSDatePicker] object,
 // [NSAttributeType.integer64AttributeType] creates a short text field, and
 // [NSAttributeType.stringAttributeType] produces a longer text field. You can
 // resize the views as you want.
-// 
+//
 // Predicates do not automatically coerce types for you. For example,
 // comparing a number to a string will raise an exception. Therefore, the
 // attribute type is also needed to determine how the control’s object value
 // must be coerced before putting it into a predicate.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(leftExpressions:rightExpressionAttributeType:modifier:operators:options:)
+// attributeType is a [coredata.NSAttributeType].
+//
+// [NSExpression]: https://developer.apple.com/documentation/Foundation/NSExpression
+// [NSComparisonPredicate.Modifier]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
+// [NSComparisonPredicate.Operator]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Operator
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
+// [NSComparisonPredicate.Options]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
 // [NSAttributeType.dateAttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/dateAttributeType
 // [NSAttributeType.integer64AttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/integer64AttributeType
 // [NSAttributeType.stringAttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/stringAttributeType
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(leftExpressions:rightExpressionAttributeType:modifier:operators:options:)
-// attributeType is a [coredata.NSAttributeType].
 func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionAttributeTypeModifierOperatorsOptions(leftExpressions []foundation.NSExpression, attributeType objectivec.IObject, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate {
 	rv := objc.Send[NSPredicateEditorRowTemplate](p.ID, objc.Sel("initWithLeftExpressions:rightExpressionAttributeType:modifier:operators:options:"), objectivec.IObjectSliceToNSArray(leftExpressions), attributeType, modifier, objectivec.IObjectSliceToNSArray(operators), options)
 	return rv
 }
+
 // Initializes and returns a row template suitable for displaying compound
 // predicates.
 //
 // compoundTypes: An array of [NSNumber] objects specifying compound predicate types. See
 // [NSCompoundPredicate.LogicalType] for possible values.
-// //
-// [NSCompoundPredicate.LogicalType]: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate/LogicalType
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 //
 // # Return Value
-// 
+//
 // A row template initialized for displaying compound predicates of the types
 // specified by `compoundTypes`.
 //
 // # Discussion
-// 
+//
 // [NSPredicateEditor] contains such a template by default.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(compoundTypes:)
+//
+// [NSCompoundPredicate.LogicalType]: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate/LogicalType
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 func (p NSPredicateEditorRowTemplate) InitWithCompoundTypes(compoundTypes []foundation.NSNumber) NSPredicateEditorRowTemplate {
 	rv := objc.Send[NSPredicateEditorRowTemplate](p.ID, objc.Sel("initWithCompoundTypes:"), objectivec.IObjectSliceToNSArray(compoundTypes))
 	return rv
 }
+
 // Returns a positive number if the receiver can represent a given predicate,
 // and `0` if it cannot.
 //
 // # Return Value
-// 
+//
 // A positive number if the template can represent `predicate`, and `0` if it
 // cannot.
 //
 // # Discussion
-// 
+//
 // By default, returns values in the range `0` to `1`.
-// 
+//
 // The highest match among all the templates determines which template is
 // responsible for displaying the predicate. You can override this to
 // determine which predicates your custom template handles.
@@ -495,64 +486,67 @@ func (p NSPredicateEditorRowTemplate) MatchForPredicate(predicate foundation.INS
 	rv := objc.Send[float64](p.ID, objc.Sel("matchForPredicate:"), predicate)
 	return rv
 }
+
 // Sets the value of the views according to the given predicate.
 //
 // predicate: The predicate value for the receiver.
 //
 // # Discussion
-// 
+//
 // This method is only called if [MatchForPredicate] returned a positive value
 // for the receiver.
-// 
+//
 // You can override this to set the values of custom views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/setPredicate(_:)
 func (p NSPredicateEditorRowTemplate) SetPredicate(predicate foundation.INSPredicate) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setPredicate:"), predicate)
 }
+
 // Returns the subpredicates that should be made sub-rows of a given
 // predicate.
 //
 // predicate: A predicate object.
 //
 // # Return Value
-// 
+//
 // The subpredicates that should be made sub-rows of `predicate`. For compound
 // predicates (instances of [NSCompoundPredicate]), the array of
 // subpredicates; for other types of predicate, returns `nil`. If a template
 // represents a predicate in its entirety, or if the predicate has no
 // subpredicates, returns `nil`.
 //
-// [NSCompoundPredicate]: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate
-//
 // # Discussion
-// 
+//
 // You can override this method to create custom templates that handle
 // complicated compound predicates.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/displayableSubpredicates(of:)
+//
+// [NSCompoundPredicate]: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate
 func (p NSPredicateEditorRowTemplate) DisplayableSubpredicatesOfPredicate(predicate foundation.INSPredicate) []foundation.NSPredicate {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("displayableSubpredicatesOfPredicate:"), predicate)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSPredicate {
 		return foundation.NSPredicateFromID(id)
 	})
 }
+
 // Returns the predicate represented by the receiver’s views’ values and
 // the given sub-predicates.
 //
 // subpredicates: An array of predicates.
 //
 // # Return Value
-// 
+//
 // The predicate represented by the values of the template’s views and the
 // given subpredicates. You can override this method to return the predicate
 // represented by your custom views.
 //
 // # Discussion
-// 
+//
 // This method is only called if [MatchForPredicate] returned a positive value
 // for the receiver.
-// 
+//
 // You can override this method to return the predicate represented by a
 // custom view.
 //
@@ -576,12 +570,12 @@ func (p NSPredicateEditorRowTemplate) EncodeWithCoder(coder foundation.INSCoder)
 // entityDescription is a [coredata.NSEntityDescription].
 //
 // # Return Value
-// 
+//
 // An array of predicate templates for `keyPaths` originating at
 // `entityDescription`.
 //
 // # Discussion
-// 
+//
 // This method determines which key paths in the entity description can use
 // the same views (that is, share the same attribute type). For each of these
 // groups, it instantiates individual templates via
@@ -599,12 +593,12 @@ func (_NSPredicateEditorRowTemplateClass NSPredicateEditorRowTemplateClass) Temp
 // Returns the views that display this template’s predicate.
 //
 // # Return Value
-// 
+//
 // The views for an [NSPredicateEditor] to display in a row that represents
 // the predicate from [SetPredicate].
-// 
+//
 // # Discussion
-// 
+//
 // [NSPredicateEditor] treats instances of [NSPopUpButton] specially by
 // merging their menu items into a single popup button, and by combining menu
 // items with matching titles. In this way, the editor builds a single tree
@@ -617,11 +611,12 @@ func (p NSPredicateEditorRowTemplate) TemplateViews() []NSView {
 		return NSViewFromID(id)
 	})
 }
+
 // Returns the left hand expressions for the receiver.
 //
 // # Return Value
-// 
-// The left hand expressions for the receiver
+//
+// # The left hand expressions for the receiver
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/leftExpressions
 func (p NSPredicateEditorRowTemplate) LeftExpressions() []foundation.NSExpression {
@@ -630,11 +625,12 @@ func (p NSPredicateEditorRowTemplate) LeftExpressions() []foundation.NSExpressio
 		return foundation.NSExpressionFromID(id)
 	})
 }
+
 // Returns the right hand expressions for the receiver.
 //
 // # Return Value
-// 
-// The right hand expressions for the receiver
+//
+// # The right hand expressions for the receiver
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/rightExpressions
 func (p NSPredicateEditorRowTemplate) RightExpressions() []foundation.NSExpression {
@@ -643,27 +639,29 @@ func (p NSPredicateEditorRowTemplate) RightExpressions() []foundation.NSExpressi
 		return foundation.NSExpressionFromID(id)
 	})
 }
+
 // Returns the compound predicate types.
 //
 // # Return Value
-// 
+//
 // An array of [NSNumber] objects specifying compound predicate types. See
 // [NSCompoundPredicate.LogicalType] for possible values.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/compoundTypes
+//
 // [NSCompoundPredicate.LogicalType]: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate/LogicalType
 // [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/compoundTypes
 func (p NSPredicateEditorRowTemplate) CompoundTypes() []foundation.NSNumber {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("compoundTypes"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // Returns the comparison predicate modifier for the receiver.
 //
 // # Return Value
-// 
+//
 // The comparison predicate modifier for the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/modifier
@@ -671,43 +669,46 @@ func (p NSPredicateEditorRowTemplate) Modifier() foundation.NSComparisonPredicat
 	rv := objc.Send[foundation.NSComparisonPredicateModifier](p.ID, objc.Sel("modifier"))
 	return foundation.NSComparisonPredicateModifier(rv)
 }
+
 // Returns the array of comparison predicate operators.
 //
 // # Return Value
-// 
+//
 // The array of [NSNumber] objects specifying the comparison predicate
 // operators. See [NSComparisonPredicate.Operator] for possible values.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/operators
+//
 // [NSComparisonPredicate.Operator]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Operator
 // [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/operators
 func (p NSPredicateEditorRowTemplate) Operators() []foundation.NSNumber {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("operators"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // Returns the comparison predicate options.
 //
 // # Return Value
-// 
+//
 // The comparison predicate options for the receiver. See
 // [NSComparisonPredicate.Options] for possible values. Returns `0` if this
 // does not apply (for example, for a compound template initialized with
 // [InitWithCompoundTypes]).
 //
-// [NSComparisonPredicate.Options]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
-//
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/options
+//
+// [NSComparisonPredicate.Options]: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
 func (p NSPredicateEditorRowTemplate) Options() uint {
 	rv := objc.Send[uint](p.ID, objc.Sel("options"))
 	return rv
 }
+
 // Returns the attribute type of the receiver’s right expression.
 //
 // # Return Value
-// 
+//
 // The attribute type of the receiver’s right expression.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/rightExpressionAttributeType
@@ -715,6 +716,7 @@ func (p NSPredicateEditorRowTemplate) RightExpressionAttributeType() objectivec.
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("rightExpressionAttributeType"))
 	return objectivec.Object{ID: rv}
 }
+
 // The value of the receiver’s cell as an Objective-C object.
 //
 // See: https://developer.apple.com/documentation/appkit/nscontrol/objectvalue
@@ -725,6 +727,7 @@ func (p NSPredicateEditorRowTemplate) ObjectValue() objectivec.IObject {
 func (p NSPredicateEditorRowTemplate) SetObjectValue(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setObjectValue:"), value)
 }
+
 // The row templates for the receiver.
 //
 // See: https://developer.apple.com/documentation/appkit/nspredicateeditor/rowtemplates
@@ -735,4 +738,3 @@ func (p NSPredicateEditorRowTemplate) RowTemplates() INSPredicateEditorRowTempla
 func (p NSPredicateEditorRowTemplate) SetRowTemplates(value INSPredicateEditorRowTemplate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRowTemplates:"), value)
 }
-

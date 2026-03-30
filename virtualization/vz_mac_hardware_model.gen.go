@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,31 +47,31 @@ func (vc VZMacHardwareModelClass) Alloc() VZMacHardwareModel {
 // particular Mac hardware model.
 //
 // # Overview
-// 
+//
 // The Mac hardware model abstracts a set of virtualized hardware elements and
 // configurations.
-// 
+//
 // A version of macOS may only run on certain hardware models. Additionally,
 // the host may also only provide certain hardware models based on the version
 // of macOS and the underlying hardware.
-// 
+//
 // The [VZMacHardwareModel.Supported] property allows you to discover if the current host
 // supports a particular hardware model.
-// 
+//
 // Choosing the hardware model starts from a restore image with
 // [VZMacOSRestoreImage]. A restore image describes its supported
 // configuration requirements through its
 // [VZMacHardwareModel.MostFeaturefulSupportedConfiguration] property.
-// 
+//
 // A configuration requirements object has a corresponding hardware model that
 // you can use to configure a VM that meets the requirements. After obtaining
 // the hardware model, use the platform configuration’s [VZMacHardwareModel.HardwareModel] to
 // configure the Mac platform object and use
 // [InitCreatingStorageAtURLHardwareModelOptionsError] to create its auxiliary
 // storage.
-// 
+//
 // After creating the VM, use [VZMacOSInstaller] to install macOS on it.
-// 
+//
 // If you serialize the VM on disk, preserve the hardware model used for
 // installation for subsequent boots. The [VZMacHardwareModel.DataRepresentation] property
 // provides a unique binary representation that you serialize to the file
@@ -98,6 +99,7 @@ type VZMacHardwareModel struct {
 func VZMacHardwareModelFromID(id objc.ID) VZMacHardwareModel {
 	return VZMacHardwareModel{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZMacHardwareModel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -181,7 +183,7 @@ func (m VZMacHardwareModel) InitWithDataRepresentation(dataRepresentation founda
 // Returns the opaque data representation of the hardware model.
 //
 // # Discussion
-// 
+//
 // You can use this to recreate the same hardware model with
 // [InitWithDataRepresentation].
 //
@@ -190,14 +192,15 @@ func (m VZMacHardwareModel) DataRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the host supports this hardware
 // model.
 //
 // # Discussion
-// 
+//
 // If this hardware model isn’t supported by the host, the
 // [VZVirtualMachineConfiguration] won’t validate.
-// 
+//
 // The validation error of the [VZVirtualMachineConfiguration] provides more
 // information about why the hardware model isn’t supported.
 //
@@ -206,6 +209,7 @@ func (m VZMacHardwareModel) Supported() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSupported"))
 	return rv
 }
+
 // The Mac hardware model.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/hardwaremodel
@@ -216,6 +220,7 @@ func (m VZMacHardwareModel) HardwareModel() IVZMacHardwareModel {
 func (m VZMacHardwareModel) SetHardwareModel(value IVZMacHardwareModel) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
 }
+
 // This object represents the most fully featured configuration that’s
 // supported by both the current host and by this restore image.
 //
@@ -227,4 +232,3 @@ func (m VZMacHardwareModel) MostFeaturefulSupportedConfiguration() IVZMacOSConfi
 func (m VZMacHardwareModel) SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMostFeaturefulSupportedConfiguration:"), value)
 }
-

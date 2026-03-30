@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -84,6 +85,7 @@ type NEFilterProviderConfiguration struct {
 func NEFilterProviderConfigurationFromID(id objc.ID) NEFilterProviderConfiguration {
 	return NEFilterProviderConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEFilterProviderConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -191,10 +193,8 @@ func (f NEFilterProviderConfiguration) EncodeWithCoder(coder foundation.INSCoder
 // of network data originated from sockets.
 //
 // # Discussion
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration/filterSockets
 func (f NEFilterProviderConfiguration) FilterSockets() bool {
@@ -204,6 +204,7 @@ func (f NEFilterProviderConfiguration) FilterSockets() bool {
 func (f NEFilterProviderConfiguration) SetFilterSockets(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFilterSockets:"), value)
 }
+
 // A Boolean value that indicates that the system applies the filter to
 // packets of network data.
 //
@@ -215,15 +216,16 @@ func (f NEFilterProviderConfiguration) FilterPackets() bool {
 func (f NEFilterProviderConfiguration) SetFilterPackets(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFilterPackets:"), value)
 }
+
 // A dictionary of provider-specific configuration settings.
 //
 // # Discussion
-// 
+//
 // All of the values in this dictionary must be [NSSecureCoding]-compliant.
 //
-// [NSSecureCoding]: https://developer.apple.com/documentation/Foundation/NSSecureCoding
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration/vendorConfiguration
+//
+// [NSSecureCoding]: https://developer.apple.com/documentation/Foundation/NSSecureCoding
 func (f NEFilterProviderConfiguration) VendorConfiguration() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("vendorConfiguration"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -231,6 +233,7 @@ func (f NEFilterProviderConfiguration) VendorConfiguration() foundation.INSDicti
 func (f NEFilterProviderConfiguration) SetVendorConfiguration(value foundation.INSDictionary) {
 	objc.Send[struct{}](f.ID, objc.Sel("setVendorConfiguration:"), value)
 }
+
 // The address of a server that the Filter Control Provider may contact for
 // rules and other configuration information.
 //
@@ -242,6 +245,7 @@ func (f NEFilterProviderConfiguration) ServerAddress() string {
 func (f NEFilterProviderConfiguration) SetServerAddress(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setServerAddress:"), objc.String(value))
 }
+
 // A string that identifies the user.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration/username
@@ -252,6 +256,7 @@ func (f NEFilterProviderConfiguration) Username() string {
 func (f NEFilterProviderConfiguration) SetUsername(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setUsername:"), objc.String(value))
 }
+
 // A string that identifies the organization that administers the filter.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration/organization
@@ -262,6 +267,7 @@ func (f NEFilterProviderConfiguration) Organization() string {
 func (f NEFilterProviderConfiguration) SetOrganization(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setOrganization:"), objc.String(value))
 }
+
 // A persistent reference to a keychain item containing a password associated
 // with the filter.
 //
@@ -273,6 +279,7 @@ func (f NEFilterProviderConfiguration) PasswordReference() foundation.INSData {
 func (f NEFilterProviderConfiguration) SetPasswordReference(value foundation.INSData) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPasswordReference:"), value)
 }
+
 // A persistent reference to a keychain item containing a certificate and
 // private key associated with the filter.
 //
@@ -284,15 +291,16 @@ func (f NEFilterProviderConfiguration) IdentityReference() foundation.INSData {
 func (f NEFilterProviderConfiguration) SetIdentityReference(value foundation.INSData) {
 	objc.Send[struct{}](f.ID, objc.Sel("setIdentityReference:"), value)
 }
+
 // The bundle identifier of the filter data provider system extension.
 //
 // # Discussion
-// 
+//
 // If this property is `nil`, then the framework uses the bundle identifier of
 // the [NEFilterDataProvider] extension in the calling app’s bundle. In this
 // case, make sure the calling app’s bundle contains only one
 // [NEFilterDataProvider], so there’s no ambiguity about which one to use.
-// 
+//
 // This property only applies to system extensions, since macOS doesn’t
 // support implementing a filter data provider as an app extension.
 //
@@ -304,15 +312,16 @@ func (f NEFilterProviderConfiguration) FilterDataProviderBundleIdentifier() stri
 func (f NEFilterProviderConfiguration) SetFilterDataProviderBundleIdentifier(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFilterDataProviderBundleIdentifier:"), objc.String(value))
 }
+
 // The bundle identifier of the filter packet provider system extension.
 //
 // # Discussion
-// 
+//
 // If this property is `nil`, then the framework uses the bundle identifier of
 // the [NEFilterPacketProvider] extension in the calling app’s bundle. In
 // this case, make sure the calling app’s bundle contains only one
 // [NEFilterPacketProvider], so there’s no ambiguity about which one to use.
-// 
+//
 // This property only applies to system extensions, since macOS doesn’t
 // support implementing a filter packet provider as an app extension.
 //
@@ -324,4 +333,3 @@ func (f NEFilterProviderConfiguration) FilterPacketProviderBundleIdentifier() st
 func (f NEFilterProviderConfiguration) SetFilterPacketProviderBundleIdentifier(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFilterPacketProviderBundleIdentifier:"), objc.String(value))
 }
-

@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (mc MLImageSizeClass) Alloc() MLImageSize {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLImageSize.IsEqualToImageSize]
 //   - [MLImageSize.InitWithCoder]
 //   - [MLImageSize.InitWithPixelsWidePixelsHigh]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize
 type MLImageSize struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type MLImageSize struct {
 func MLImageSizeFromID(id objc.ID) MLImageSize {
 	return MLImageSize{objectivec.Object{ID: id}}
 }
+
 // Ensure MLImageSize implements IMLImageSize.
 var _ IMLImageSize = MLImageSize{}
 
@@ -98,7 +100,6 @@ func NewMLImageSize() MLImageSize {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/initWithCoder:
 func NewImageSizeWithCoder(coder objectivec.IObject) MLImageSize {
 	instance := getMLImageSizeClass().Alloc()
@@ -106,7 +107,6 @@ func NewImageSizeWithCoder(coder objectivec.IObject) MLImageSize {
 	return MLImageSizeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/initWithPixelsWide:pixelsHigh:
 func NewImageSizeWithPixelsWidePixelsHigh(wide int64, high int64) MLImageSize {
 	instance := getMLImageSizeClass().Alloc()
@@ -114,19 +114,18 @@ func NewImageSizeWithPixelsWidePixelsHigh(wide int64, high int64) MLImageSize {
 	return MLImageSizeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/isEqualToImageSize:
 func (i MLImageSize) IsEqualToImageSize(size objectivec.IObject) bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isEqualToImageSize:"), size)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/initWithCoder:
 func (i MLImageSize) InitWithCoder(coder foundation.INSCoder) MLImageSize {
 	rv := objc.Send[MLImageSize](i.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/initWithPixelsWide:pixelsHigh:
 func (i MLImageSize) InitWithPixelsWidePixelsHigh(wide int64, high int64) MLImageSize {
 	rv := objc.Send[MLImageSize](i.ID, objc.Sel("initWithPixelsWide:pixelsHigh:"), wide, high)
@@ -138,4 +137,3 @@ func (_MLImageSizeClass MLImageSizeClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLImageSizeClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-

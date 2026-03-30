@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,6 +60,7 @@ type MLModelStructurePipeline struct {
 func MLModelStructurePipelineFromID(id objc.ID) MLModelStructurePipeline {
 	return MLModelStructurePipeline{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructurePipeline implements IMLModelStructurePipeline.
 var _ IMLModelStructurePipeline = MLModelStructurePipeline{}
 
@@ -107,6 +109,7 @@ func (m MLModelStructurePipeline) SubModelNames() []string {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("subModelNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The structure of the sub models in the pipeline.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePipeline/subModels
@@ -116,4 +119,3 @@ func (m MLModelStructurePipeline) SubModels() []MLModelStructure {
 		return MLModelStructureFromID(id)
 	})
 }
-

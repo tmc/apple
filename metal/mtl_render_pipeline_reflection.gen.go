@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,21 +45,19 @@ func (mc MTLRenderPipelineReflectionClass) Alloc() MTLRenderPipelineReflection {
 // Information about the arguments of a graphics function.
 //
 // # Overview
-// 
+//
 // The [MTLRenderPipelineReflection] class is an interface that represents the
 // parameters for the shaders in a render pipeline state (see
 // [MTLRenderPipelineState]). Each pipeline state can include object, mesh,
 // vertex, fragment, and tile shaders.
-// 
+//
 // You create a reflection instance at the same time as the pipeline state
 // that it represents by calling the appropriate [MTLDevice] method. For
 // example, the [NewRenderPipelineStateWithDescriptorOptionsReflectionError]
 // and [NewRenderPipelineStateWithDescriptorOptionsCompletionHandler] methods
 // create the pipeline state and the reflection instances at the same time.
-// 
-// For more information, see [Pipeline state creation].
 //
-// [Pipeline state creation]: https://developer.apple.com/documentation/Metal/pipeline-state-creation
+// For more information, see [Pipeline state creation].
 //
 // # Inspecting a shader’s parameter
 //
@@ -69,6 +68,8 @@ func (mc MTLRenderPipelineReflectionClass) Alloc() MTLRenderPipelineReflection {
 //   - [MTLRenderPipelineReflection.VertexBindings]: An array of binding instances, each of which represents a parameter of the pipeline state’s vertex shader.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineReflection
+//
+// [Pipeline state creation]: https://developer.apple.com/documentation/Metal/pipeline-state-creation
 type MTLRenderPipelineReflection struct {
 	objectivec.Object
 }
@@ -79,6 +80,7 @@ type MTLRenderPipelineReflection struct {
 func MTLRenderPipelineReflectionFromID(id objc.ID) MTLRenderPipelineReflection {
 	return MTLRenderPipelineReflection{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLRenderPipelineReflection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -133,7 +135,7 @@ func NewMTLRenderPipelineReflection() MTLRenderPipelineReflection {
 // pipeline state’s fragment shader.
 //
 // # Discussion
-// 
+//
 // The [MTLBinding] elements in the array are in the same order as the
 // fragment shader’s declaration signature.
 //
@@ -144,11 +146,12 @@ func (r MTLRenderPipelineReflection) FragmentBindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // An array of binding instances, each of which represents a parameter of the
 // pipeline state’s mesh shader.
 //
 // # Discussion
-// 
+//
 // The [MTLBinding] elements in the array are in the same order as the mesh
 // shader’s declaration signature.
 //
@@ -159,11 +162,12 @@ func (r MTLRenderPipelineReflection) MeshBindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // An array of binding instances, each of which represents a parameter of the
 // pipeline state’s object shader.
 //
 // # Discussion
-// 
+//
 // The [MTLBinding] elements in the array are in the same order as the object
 // shader’s declaration signature.
 //
@@ -174,11 +178,12 @@ func (r MTLRenderPipelineReflection) ObjectBindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // An array of binding instances, each of which represents a parameter of the
 // pipeline state’s tile shader.
 //
 // # Discussion
-// 
+//
 // The [MTLBinding] elements in the array are in the same order as the tile
 // shader’s declaration signature.
 //
@@ -189,11 +194,12 @@ func (r MTLRenderPipelineReflection) TileBindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // An array of binding instances, each of which represents a parameter of the
 // pipeline state’s vertex shader.
 //
 // # Discussion
-// 
+//
 // The [MTLBinding] elements in the array are in the same order as the vertex
 // shader’s declaration signature.
 //
@@ -204,4 +210,3 @@ func (r MTLRenderPipelineReflection) VertexBindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-

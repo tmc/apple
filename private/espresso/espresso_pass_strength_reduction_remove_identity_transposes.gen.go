@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_strength_reduction_remove_identity_transposes struct {
 func EspressoPass_strength_reduction_remove_identity_transposesFromID(id objc.ID) EspressoPass_strength_reduction_remove_identity_transposes {
 	return EspressoPass_strength_reduction_remove_identity_transposes{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_strength_reduction_remove_identity_transposes implements IEspressoPass_strength_reduction_remove_identity_transposes.
 var _ IEspressoPass_strength_reduction_remove_identity_transposes = EspressoPass_strength_reduction_remove_identity_transposes{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_strength_reduction_remove_identity_transposes() EspressoPas
 	rv := objc.Send[EspressoPass_strength_reduction_remove_identity_transposes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

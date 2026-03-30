@@ -1,16 +1,17 @@
 // Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+//go:build ios
 // +build ios
 
 package avfaudio
 
 import (
-"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objc"
 )
 
 // Requests the app’s permission to add audio to calls.
 //
 // # Discussion
-// 
+//
 // The system immediately returns a response if a person has already granted
 // or denied the app permission, or if the service is in a disabled state.
 // Otherwise, it presents a dialog to request permission and returns a result
@@ -27,7 +28,6 @@ func (_AVAudioApplicationClass AVAudioApplicationClass) RequestMicrophoneInjecti
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioApplication/microphoneInjectionPermission-swift.property
 func (a AVAudioApplication) MicrophoneInjectionPermission() AVAudioApplicationMicrophoneInjectionPermission {
-rv := objc.Send[AVAudioApplicationMicrophoneInjectionPermission](a.ID, objc.Sel("microphoneInjectionPermission"))
-		return AVAudioApplicationMicrophoneInjectionPermission(rv)
+	rv := objc.Send[AVAudioApplicationMicrophoneInjectionPermission](a.ID, objc.Sel("microphoneInjectionPermission"))
+	return AVAudioApplicationMicrophoneInjectionPermission(rv)
 }
-

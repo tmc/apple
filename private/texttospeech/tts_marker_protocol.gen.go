@@ -33,6 +33,7 @@ type TTSMarker interface {
 type TTSMarkerObject struct {
 	objectivec.Object
 }
+
 func (o TTSMarkerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -49,20 +50,21 @@ func TTSMarkerObjectFromID(id objc.ID) TTSMarkerObject {
 func (o TTSMarkerObject) AvMark() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("avMark"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSMarker/byteOffset
 func (o TTSMarkerObject) ByteOffset() int64 {
 	rv := objc.Send[int64](o.ID, objc.Sel("byteOffset"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSMarker/markType
 func (o TTSMarkerObject) MarkType() int64 {
 	rv := objc.Send[int64](o.ID, objc.Sel("markType"))
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSMarker/setByteOffset:
 func (o TTSMarkerObject) SetByteOffset(offset int64) {
 	objc.Send[struct{}](o.ID, objc.Sel("setByteOffset:"), offset)
-	}
-
+}

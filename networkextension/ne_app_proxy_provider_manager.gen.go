@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,12 +45,12 @@ func (nc NEAppProxyProviderManagerClass) Alloc() NEAppProxyProviderManager {
 // configuration.
 //
 // # Overview
-// 
+//
 // Objects cannot be directly instantiated. Instead, App Proxy configurations
 // are created exclusively from
 // `com.AppleXCUIElementTypeVpnXCUIElementTypeManagedXCUIElementTypeApplayer()`
 // payloads in configuration profiles.
-// 
+//
 // App Proxy configurations can only be used with Per-App VPN routing rules.
 // For more details about how to create App Proxy configurations and configure
 // Per-App VPN, see [NETunnelProviderManager].
@@ -66,6 +67,7 @@ type NEAppProxyProviderManager struct {
 func NEAppProxyProviderManagerFromID(id objc.ID) NEAppProxyProviderManager {
 	return NEAppProxyProviderManager{NETunnelProviderManager: NETunnelProviderManagerFromID(id)}
 }
+
 // NOTE: NEAppProxyProviderManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -94,4 +96,3 @@ func NewNEAppProxyProviderManager() NEAppProxyProviderManager {
 	rv := objc.Send[NEAppProxyProviderManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -5,8 +5,9 @@ package virtualization
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,10 +47,10 @@ func (vc VZMacOSInstallerClass) Alloc() VZMacOSInstaller {
 // An object you use to install macOS on the specified virtual machine.
 //
 // # Overview
-// 
+//
 // Initialize a [VZMacOSInstaller] object with a [VZVirtualMachine] and a file
 // URL that refers to a macOS restore image.
-// 
+//
 // The following code example shows how to use a `VZMacOSInstaller:`
 //
 // # Creating a macOS Installer
@@ -77,6 +78,7 @@ type VZMacOSInstaller struct {
 func VZMacOSInstallerFromID(id objc.ID) VZMacOSInstaller {
 	return VZMacOSInstaller{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZMacOSInstaller adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -163,29 +165,30 @@ func (m VZMacOSInstaller) InitWithVirtualMachineRestoreImageURL(virtualMachine I
 	rv := objc.Send[VZMacOSInstaller](m.ID, objc.Sel("initWithVirtualMachine:restoreImageURL:"), virtualMachine, restoreImageFileURL)
 	return rv
 }
+
 // Start installing macOS.
 //
 // # Discussion
-// 
+//
 // This method starts the installation process. The VM must be in a stopped
 // state. During the installation operation, pausing or stopping the VM
 // results in an undefined behavior.
-// 
+//
 // If you start the installation on the same [VZMacOSInstaller] object more
 // than once, the framework raises an exception.
-// 
+//
 // Call this method only on the VM’s queue.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/install()
 func (m VZMacOSInstaller) InstallWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](m.ID, objc.Sel("installWithCompletionHandler:"), _block0)
 }
 
 // A progress object that you can use to observe or cancel an installation.
 //
 // # Discussion
-// 
+//
 // Canceling the progress object before starting an installation raises an
 // exception.
 //
@@ -194,6 +197,7 @@ func (m VZMacOSInstaller) Progress() foundation.NSProgress {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("progress"))
 	return foundation.NSProgressFromID(objc.ID(rv))
 }
+
 // The restore image URL used to initialize this installer.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/restoreImageURL
@@ -201,6 +205,7 @@ func (m VZMacOSInstaller) RestoreImageURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("restoreImageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // The virtual machine used to initialize this installer.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/virtualMachine
@@ -223,4 +228,3 @@ func (m VZMacOSInstaller) Install(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

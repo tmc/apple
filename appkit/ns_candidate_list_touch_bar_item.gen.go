@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -85,6 +86,7 @@ type NSCandidateListTouchBarItem struct {
 func NSCandidateListTouchBarItemFromID(id objc.ID) NSCandidateListTouchBarItem {
 	return NSCandidateListTouchBarItem{NSTouchBarItem: NSTouchBarItemFromID(id)}
 }
+
 // NOTE: NSCandidateListTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -192,7 +194,7 @@ func NewCandidateListTouchBarItemWithCoder(coder foundation.INSCoder) NSCandidat
 // Creates a new item with the specified identifier.
 //
 // # Discussion
-// 
+//
 // The designated initializer. The identifier must be globally unique for
 // every item, except for space items.
 //
@@ -209,27 +211,27 @@ func NewCandidateListTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentif
 // candidates: The array of candidates you wish to display in the candidate list item.
 //
 // selectedRange: A range ([NSRange]) within the string that the candidates represent.
-// //
-// [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
 //
 // originalString: The original string from which the candidate list was derived.
 //
 // # Discussion
-// 
+//
 // The item uses the block in the [AttributedStringForCandidate] property to
 // convert each candidate in the array into an attributed string. If the value
 // of the [AttributedStringForCandidate] property is `nil` then
 // [NSCandidateListTouchBarItem] can format candidates of type [NSString],
 // [NSAttributedString], and [NSTextCheckingResult].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/setCandidates(_:forSelectedRange:in:)
+//
+// [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
 // [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 // [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 // [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/setCandidates(_:forSelectedRange:in:)
 func (c NSCandidateListTouchBarItem) SetCandidatesForSelectedRangeInString(candidates []objectivec.IObject, selectedRange foundation.NSRange, originalString string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setCandidates:forSelectedRange:inString:"), objectivec.IObjectSliceToNSArray(candidates), selectedRange, objc.String(originalString))
 }
+
 // Updates the candidate list visibility configuration based on the client’s
 // insertion point state.
 //
@@ -241,10 +243,10 @@ func (c NSCandidateListTouchBarItem) UpdateWithInsertionPointVisibility(isVisibl
 // The client object for the candidate list item.
 //
 // # Discussion
-// 
+//
 // This object must be a subclass of [NSView] and adopt the
 // [NSTextInputClient] protocol.
-// 
+//
 // The candidate list item uses this property to show completion candidates as
 // users enter text. You can disable this behavior with the
 // [AllowsTextInputContextCandidates] property.
@@ -257,6 +259,7 @@ func (c NSCandidateListTouchBarItem) Client() INSView {
 func (c NSCandidateListTouchBarItem) SetClient(value INSView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setClient:"), value)
 }
+
 // The delegate of the candidate list item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/delegate
@@ -267,6 +270,7 @@ func (c NSCandidateListTouchBarItem) Delegate() NSCandidateListTouchBarItemDeleg
 func (c NSCandidateListTouchBarItem) SetDelegate(value NSCandidateListTouchBarItemDelegate) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The array of candidate objects previously set by
 // [SetCandidatesForSelectedRangeInString].
 //
@@ -277,26 +281,27 @@ func (c NSCandidateListTouchBarItem) Candidates() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // A block that converts a candidate object into an attributed string for
 // display in the candidate list item.
 //
 // # Discussion
-// 
+//
 // This property is not required if the object type of your candidates is
 // [NSString], [NSAttributedString], or [NSTextCheckingResult]. The default
 // value of this property is `nil`.
-// 
+//
 // If the attributed string you return does not specify [font] or
 // [foregroundColor] then the candidate is displayed with the standard
 // appearance font and color.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/attributedStringForCandidate
 //
 // [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 // [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 // [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
 // [font]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/font
 // [foregroundColor]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/foregroundColor
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/attributedStringForCandidate
 func (c NSCandidateListTouchBarItem) AttributedStringForCandidate() ObjectHandler {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("attributedStringForCandidate"))
 	_ = rv
@@ -307,18 +312,17 @@ func (c NSCandidateListTouchBarItem) SetAttributedStringForCandidate(value Objec
 	defer cleanup()
 	objc.Send[struct{}](c.ID, objc.Sel("setAttributedStringForCandidate:"), block)
 }
+
 // A Boolean value that specifies whether a candidate list item displays
 // candidates from text input providers.
 //
 // # Discussion
-// 
-// When [true], the candidate list item shows candidates from the text input
+//
+// When true, the candidate list item shows candidates from the text input
 // client provided in the [Client] property, before those in the [Candidates]
 // property.
-// 
-// The default value of this property is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/allowsTextInputContextCandidates
 func (c NSCandidateListTouchBarItem) AllowsTextInputContextCandidates() bool {
@@ -328,16 +332,14 @@ func (c NSCandidateListTouchBarItem) AllowsTextInputContextCandidates() bool {
 func (c NSCandidateListTouchBarItem) SetAllowsTextInputContextCandidates(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsTextInputContextCandidates:"), value)
 }
+
 // A Boolean value that specifies whether the item can be collapsed.
 //
 // # Discussion
-// 
-// When [true], the candidate list item can be collapsed, [false] otherwise.
-// 
-// The default value is [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When true, the candidate list item can be collapsed, false otherwise.
+//
+// The default value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/allowsCollapsing
 func (c NSCandidateListTouchBarItem) AllowsCollapsing() bool {
@@ -347,15 +349,14 @@ func (c NSCandidateListTouchBarItem) AllowsCollapsing() bool {
 func (c NSCandidateListTouchBarItem) SetAllowsCollapsing(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsCollapsing:"), value)
 }
+
 // A Boolean value that controls the visibility of the candidate list.
 //
 // # Discussion
-// 
-// When [true], the candidate list is collapsed and not visible to the user.
-// 
-// The default value is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When true, the candidate list is collapsed and not visible to the user.
+//
+// The default value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/isCollapsed
 func (c NSCandidateListTouchBarItem) Collapsed() bool {
@@ -365,25 +366,22 @@ func (c NSCandidateListTouchBarItem) Collapsed() bool {
 func (c NSCandidateListTouchBarItem) SetCollapsed(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCollapsed:"), value)
 }
+
 // A Boolean value that represents the visibility of this item’s candidate
 // list.
 //
 // # Discussion
-// 
-// If [true], then the candidate list is currently visible, [false] otherwise.
-// 
-// When [Collapsed] is [false], and the item is not obscured by UI then this
-// property is true.
-// 
-// This property is KVO compliant, and you should supply a candidate list when
-// its value is [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If true, then the candidate list is currently visible, false otherwise.
+//
+// When [Collapsed] is false, and the item is not obscured by UI then this
+// property is true.
+//
+// This property is KVO compliant, and you should supply a candidate list when
+// its value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/isCandidateListVisible
 func (c NSCandidateListTouchBarItem) CandidateListVisible() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCandidateListVisible"))
 	return rv
 }
-

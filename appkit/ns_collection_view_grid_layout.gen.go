@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,21 +47,21 @@ func (nc NSCollectionViewGridLayoutClass) Alloc() NSCollectionViewGridLayout {
 // A layout that displays a single section of items in a row and column grid.
 //
 // # Overview
-// 
+//
 // The [NSCollectionViewGridLayout] object provides the same layout behavior
 // offered by the [NSCollectionView] class prior to macOS 10.11, and you can
 // use it in cases where you want to maintain the old appearance while still
 // taking advantage of newer collection view features.
-// 
+//
 // # Configuring a Collection View to Use a Grid Layout
-// 
+//
 // You can configure a collection view to use a grid layout object
 // programmatically or at design time:
-// 
+//
 // - At design time, set the Layout attribute of your collection view to Grid.
 // - Create an [NSCollectionViewGridLayout] object programmatically and assign
 // it to the collection view’s [CollectionViewLayout] property.
-// 
+//
 // A grid layout displays only items and does not display supplementary views
 // or decoration views. Use the properties of this class to configure the
 // number of rows and columns in the grid. You can also use these properties
@@ -102,6 +103,7 @@ type NSCollectionViewGridLayout struct {
 func NSCollectionViewGridLayoutFromID(id objc.ID) NSCollectionViewGridLayout {
 	return NSCollectionViewGridLayout{NSCollectionViewLayout: NSCollectionViewLayoutFromID(id)}
 }
+
 // NOTE: NSCollectionViewGridLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -193,7 +195,7 @@ func NewNSCollectionViewGridLayout() NSCollectionViewGridLayout {
 // area.
 //
 // # Discussion
-// 
+//
 // Use this value to specify the maximum number of rows to display in the
 // collection view at any given time. The grid layout object uses this value
 // during layout to configure the position and spacing of items. The default
@@ -208,11 +210,12 @@ func (c NSCollectionViewGridLayout) MaximumNumberOfRows() uint {
 func (c NSCollectionViewGridLayout) SetMaximumNumberOfRows(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumNumberOfRows:"), value)
 }
+
 // The maximum number of columns to display in the collection view’s visible
 // area.
 //
 // # Discussion
-// 
+//
 // Use this value to specify the maximum number of columns that should be
 // visible in the collection view at any given time. The grid layout object
 // uses this value during layout to configure the position and spacing of
@@ -227,10 +230,11 @@ func (c NSCollectionViewGridLayout) MaximumNumberOfColumns() uint {
 func (c NSCollectionViewGridLayout) SetMaximumNumberOfColumns(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumNumberOfColumns:"), value)
 }
+
 // The smallest allowable size for an item’s view.
 //
 // # Discussion
-// 
+//
 // Use this property to ensure that items have a minimum size when displayed
 // in the grid. The default value of this property is (`0.0`, `0.0`), which
 // imposes no minimum size for items.
@@ -243,10 +247,11 @@ func (c NSCollectionViewGridLayout) MinimumItemSize() corefoundation.CGSize {
 func (c NSCollectionViewGridLayout) SetMinimumItemSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumItemSize:"), value)
 }
+
 // The largest allowable size for an item’s view.
 //
 // # Discussion
-// 
+//
 // Use this property to limit the maximum size of items displayed in the grid.
 // The default value of this property is (`0.0`, `0.0`), which imposes no
 // maximum size for items.
@@ -259,18 +264,19 @@ func (c NSCollectionViewGridLayout) MaximumItemSize() corefoundation.CGSize {
 func (c NSCollectionViewGridLayout) SetMaximumItemSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumItemSize:"), value)
 }
+
 // The minimum spacing (in points) to use between items in the same row or
 // column.
 //
 // # Discussion
-// 
+//
 // For a vertically scrolling layout, the value represents the minimum spacing
 // between items in the same row. For a horizontally scrolling layout, the
 // value represents the minimum spacing between items in the same column. The
 // layout object uses this spacing only to compute how many items can fit in a
 // single row or column. The actual spacing may be increased after the number
 // of items has been determined.
-// 
+//
 // The default value of this property is `0.0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewGridLayout/minimumInteritemSpacing
@@ -281,16 +287,17 @@ func (c NSCollectionViewGridLayout) MinimumInteritemSpacing() float64 {
 func (c NSCollectionViewGridLayout) SetMinimumInteritemSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumInteritemSpacing:"), value)
 }
+
 // The minimum spacing (in points) to use between rows or columns.
 //
 // # Discussion
-// 
+//
 // For a vertically scrolling layout, the value represents the minimum spacing
 // between successive rows. For a horizontally scrolling layout, the value
 // represents the minimum spacing between successive columns. This spacing is
 // not applied to the space between the header view and the first line or
 // between the last line and the footer view.
-// 
+//
 // The default value of this property is `0.0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewGridLayout/minimumLineSpacing
@@ -301,10 +308,11 @@ func (c NSCollectionViewGridLayout) MinimumLineSpacing() float64 {
 func (c NSCollectionViewGridLayout) SetMinimumLineSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumLineSpacing:"), value)
 }
+
 // The amount of empty space (in points) around the grid’s content.
 //
 // # Discussion
-// 
+//
 // The default value of this property is [NSEdgeInsetsZero]. Changing this
 // property to a new value invalidates the layout.
 //
@@ -316,14 +324,15 @@ func (c NSCollectionViewGridLayout) Margins() foundation.NSEdgeInsets {
 func (c NSCollectionViewGridLayout) SetMargins(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMargins:"), value)
 }
+
 // The array of background colors to use when drawing the grid.
 //
 // # Discussion
-// 
+//
 // The [NSColor] objects in this property are used to draw the grid’s
 // background. The appearance of the background depends on the value you
 // specify:
-// 
+//
 // - Specifying `nil` fills the background with the collection view’s
 // default background color. - Specifying an empty array causes the collection
 // view to draw no background color. - Specifying an array with one color
@@ -332,7 +341,7 @@ func (c NSCollectionViewGridLayout) SetMargins(value foundation.NSEdgeInsets) {
 // specified colors to create a checkerboard pattern. Each successive grid
 // item is displayed with the next color in the array, cycling back to the
 // beginning of the array when the last color is reached.
-// 
+//
 // The default value of this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewGridLayout/backgroundColors
@@ -345,4 +354,3 @@ func (c NSCollectionViewGridLayout) BackgroundColors() []NSColor {
 func (c NSCollectionViewGridLayout) SetBackgroundColors(value []NSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundColors:"), objectivec.IObjectSliceToNSArray(value))
 }
-

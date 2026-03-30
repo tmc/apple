@@ -29,6 +29,7 @@ type CIGaborGradients interface {
 type CIGaborGradientsObject struct {
 	objectivec.Object
 }
+
 func (o CIGaborGradientsObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func CIGaborGradientsObjectFromID(id objc.ID) CIGaborGradientsObject {
 func (o CIGaborGradientsObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -55,9 +57,11 @@ func (o CIGaborGradientsObject) InputImage() ICIImage {
 func (o CIGaborGradientsObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIGaborGradients/inputImage
 func (o CIGaborGradientsObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

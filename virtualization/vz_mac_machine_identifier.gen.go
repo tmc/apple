@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,19 +46,17 @@ func (vc VZMacMachineIdentifierClass) Alloc() VZMacMachineIdentifier {
 // A unique identifier for a VM.
 //
 // # Overview
-// 
+//
 // This value uniquely identifies a virtual Mac hardware instance. Two VMs
 // running concurrently shouldn’t use the same identifier.
-// 
+//
 // When serializing the VM to disk, you can preserve the identifier in a
 // binary representation by serializing the data in the
 // [VZMacMachineIdentifier].[VZMacMachineIdentifier.DataRepresentation] property. Conversely, you can
 // recreate the identifier with [VZMacMachineIdentifier.InitWithDataRepresentation] from the binary
 // representation.
-// 
-// You can compare the contents of two identifiers with [isEqual(to:)].
 //
-// [isEqual(to:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/isEqual(to:)
+// You can compare the contents of two identifiers with [isEqual(to:)].
 //
 // # Creating a machine identifier
 //
@@ -68,6 +67,8 @@ func (vc VZMacMachineIdentifierClass) Alloc() VZMacMachineIdentifier {
 //   - [VZMacMachineIdentifier.DataRepresentation]: Returns the opaque data representation of the machine identifier.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier
+//
+// [isEqual(to:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/isEqual(to:)
 type VZMacMachineIdentifier struct {
 	objectivec.Object
 }
@@ -78,6 +79,7 @@ type VZMacMachineIdentifier struct {
 func VZMacMachineIdentifierFromID(id objc.ID) VZMacMachineIdentifier {
 	return VZMacMachineIdentifier{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZMacMachineIdentifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -149,7 +151,7 @@ func (m VZMacMachineIdentifier) InitWithDataRepresentation(dataRepresentation fo
 // Returns the opaque data representation of the machine identifier.
 //
 // # Discussion
-// 
+//
 // You can use this to recreate the same machine identifier with
 // [InitWithDataRepresentation].
 //
@@ -158,4 +160,3 @@ func (m VZMacMachineIdentifier) DataRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-

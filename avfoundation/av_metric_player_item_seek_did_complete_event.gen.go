@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -57,6 +58,7 @@ type AVMetricPlayerItemSeekDidCompleteEvent struct {
 func AVMetricPlayerItemSeekDidCompleteEventFromID(id objc.ID) AVMetricPlayerItemSeekDidCompleteEvent {
 	return AVMetricPlayerItemSeekDidCompleteEvent{AVMetricPlayerItemRateChangeEvent: AVMetricPlayerItemRateChangeEventFromID(id)}
 }
+
 // NOTE: AVMetricPlayerItemSeekDidCompleteEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -99,4 +101,3 @@ func (m AVMetricPlayerItemSeekDidCompleteEvent) DidSeekInBuffer() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("didSeekInBuffer"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (mc MTLArgumentDescriptorClass) Alloc() MTLArgumentDescriptor {
 // A representation of an argument within an argument buffer.
 //
 // # Overview
-// 
+//
 // This descriptor can represent arguments within flat structures only. It can
 // represent arrays of allowed argument buffer data types, but it cannot
 // represent arguments within nested structures. Argument buffers with simple,
@@ -83,6 +84,7 @@ type MTLArgumentDescriptor struct {
 func MTLArgumentDescriptorFromID(id objc.ID) MTLArgumentDescriptor {
 	return MTLArgumentDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLArgumentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -153,15 +155,15 @@ func NewMTLArgumentDescriptor() MTLArgumentDescriptor {
 // The data type of the argument.
 //
 // # Discussion
-// 
+//
 // For a constant data argument, this value needs to match the binary format
 // of the data stored in the buffer for that argument. For other parameter
 // types, such as textures or samplers, specify the appropriate constant. See
 // [MTLDataType] for possible values.
 //
-// [MTLDataType]: https://developer.apple.com/documentation/Metal/MTLDataType
-//
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentDescriptor/dataType
+//
+// [MTLDataType]: https://developer.apple.com/documentation/Metal/MTLDataType
 func (a MTLArgumentDescriptor) DataType() MTLDataType {
 	rv := objc.Send[MTLDataType](a.ID, objc.Sel("dataType"))
 	return MTLDataType(rv)
@@ -169,6 +171,7 @@ func (a MTLArgumentDescriptor) DataType() MTLDataType {
 func (a MTLArgumentDescriptor) SetDataType(value MTLDataType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDataType:"), value)
 }
+
 // The index ID of the argument.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentDescriptor/index
@@ -179,6 +182,7 @@ func (a MTLArgumentDescriptor) Index() uint {
 func (a MTLArgumentDescriptor) SetIndex(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIndex:"), value)
 }
+
 // The access permissions of the argument.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentDescriptor/access
@@ -189,10 +193,11 @@ func (a MTLArgumentDescriptor) Access() MTLBindingAccess {
 func (a MTLArgumentDescriptor) SetAccess(value MTLBindingAccess) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAccess:"), value)
 }
+
 // The length of an array argument.
 //
 // # Discussion
-// 
+//
 // For a nonarray argument, this value needs to be `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentDescriptor/arrayLength
@@ -203,10 +208,11 @@ func (a MTLArgumentDescriptor) ArrayLength() uint {
 func (a MTLArgumentDescriptor) SetArrayLength(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setArrayLength:"), value)
 }
+
 // The alignment of the constant block.
 //
 // # Discussion
-// 
+//
 // If set, this property forces the constant block to be aligned to the
 // specified value. It should be set on the first constant only, and is valid
 // only if a corresponding explicit `alignas` specifier is applied to the
@@ -220,10 +226,11 @@ func (a MTLArgumentDescriptor) ConstantBlockAlignment() uint {
 func (a MTLArgumentDescriptor) SetConstantBlockAlignment(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setConstantBlockAlignment:"), value)
 }
+
 // The texture type of a texture argument.
 //
 // # Discussion
-// 
+//
 // For a nontexture argument, this value is ignored.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentDescriptor/textureType
@@ -234,9 +241,9 @@ func (a MTLArgumentDescriptor) TextureType() MTLTextureType {
 func (a MTLArgumentDescriptor) SetTextureType(value MTLTextureType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTextureType:"), value)
 }
+
 // See: https://developer.apple.com/documentation/metal/mtlattributestridestatic
 func (a MTLArgumentDescriptor) MTLAttributeStrideStatic() int {
 	rv := objc.Send[int](a.ID, objc.Sel("MTLAttributeStrideStatic"))
 	return rv
 }
-

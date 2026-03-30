@@ -4,11 +4,12 @@ package avfaudio
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -75,6 +76,7 @@ type AVAudioUnit struct {
 func AVAudioUnitFromID(id objc.ID) AVAudioUnit {
 	return AVAudioUnit{AVAudioNode: AVAudioNodeFromID(id)}
 }
+
 // NOTE: AVAudioUnit adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -174,30 +176,30 @@ func (a AVAudioUnit) LoadAudioUnitPresetAtURLError(url foundation.INSURL) (bool,
 // options is a [audiotoolbox.AudioComponentInstantiationOptions].
 //
 // # Discussion
-// 
+//
 // You must create components with flags that include
 // [requiresAsyncInstantiation] asynchronously through this method if
 // they’re for use with [AVAudioEngine].
-// 
+//
 // The [AVAudioUnit] instance is usually a subclass that the method selects
 // according to the components type. For example, [AVAudioUnitEffect],
 // [AVAudioUnitGenerator], [AVAudioUnitMIDIInstrument], or
 // [AVAudioUnitTimeEffect].
 //
-// [requiresAsyncInstantiation]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentFlags/requiresAsyncInstantiation
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit/instantiate(with:options:completionHandler:)
 // audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
 // options is a [audiotoolbox.AudioComponentInstantiationOptions].
+//
+// [requiresAsyncInstantiation]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentFlags/requiresAsyncInstantiation
 func (_AVAudioUnitClass AVAudioUnitClass) InstantiateWithComponentDescriptionOptionsCompletionHandler(audioComponentDescription objectivec.IObject, options objectivec.IObject, completionHandler AVAudioUnitErrorHandler) {
-_block2, _ := NewAVAudioUnitErrorBlock(completionHandler)
+	_block2, _ := NewAVAudioUnitErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_AVAudioUnitClass.class), objc.Sel("instantiateWithComponentDescription:options:completionHandler:"), audioComponentDescription, options, _block2)
 }
 
 // The underlying Core Audio audio unit.
 //
 // # Discussion
-// 
+//
 // This property is a reference to the underlying audio unit. The
 // [AVAudioUnit] exposes it here so that you can modify parameters, that you
 // don’t see through [AVAudioUnit] subclasses, using the AudioUnit C API.
@@ -209,6 +211,7 @@ func (a AVAudioUnit) AudioUnit() IAVAudioUnit {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioUnit"))
 	return AVAudioUnitFromID(objc.ID(rv))
 }
+
 // The audio component description that represents the underlying Core Audio
 // audio unit.
 //
@@ -217,6 +220,7 @@ func (a AVAudioUnit) AudioComponentDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioComponentDescription"))
 	return objectivec.Object{ID: rv}
 }
+
 // The name of the manufacturer of the audio unit.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit/manufacturerName
@@ -224,6 +228,7 @@ func (a AVAudioUnit) ManufacturerName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("manufacturerName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The name of the audio unit.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit/name
@@ -231,6 +236,7 @@ func (a AVAudioUnit) Name() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The version number of the audio unit.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit/version
@@ -257,4 +263,3 @@ func (ac AVAudioUnitClass) InstantiateWithComponentDescriptionOptions(ctx contex
 		return nil, ctx.Err()
 	}
 }
-

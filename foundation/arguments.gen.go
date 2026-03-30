@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Arguments struct {
 func ArgumentsFromID(id objc.ID) Arguments {
 	return Arguments{objectivec.Object{ID: id}}
 }
+
 // Ensure Arguments implements IArguments.
 var _ IArguments = Arguments{}
 
@@ -78,4 +80,3 @@ func NewArguments() Arguments {
 	rv := objc.Send[Arguments](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

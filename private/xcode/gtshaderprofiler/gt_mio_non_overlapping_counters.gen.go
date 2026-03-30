@@ -3,10 +3,11 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (gc GTMioNonOverlappingCountersClass) Alloc() GTMioNonOverlappingCounters {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioNonOverlappingCounters.CounterValuesForEncoderAtFunctionIndex]
@@ -70,6 +70,7 @@ func (gc GTMioNonOverlappingCountersClass) Alloc() GTMioNonOverlappingCounters {
 //   - [GTMioNonOverlappingCounters.UpdatePerGPUCommandCounterDataDrawIndexesPerDrawPerDMCounters]
 //   - [GTMioNonOverlappingCounters.InitBatchIDCountersDrawFunctionIndexes]
 //   - [GTMioNonOverlappingCounters.InitWithNonOverlappingCountersScopeScopeIndexDatabase]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters
 type GTMioNonOverlappingCounters struct {
 	objectivec.Object
@@ -79,6 +80,7 @@ type GTMioNonOverlappingCounters struct {
 func GTMioNonOverlappingCountersFromID(id objc.ID) GTMioNonOverlappingCounters {
 	return GTMioNonOverlappingCounters{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioNonOverlappingCounters implements IGTMioNonOverlappingCounters.
 var _ IGTMioNonOverlappingCounters = GTMioNonOverlappingCounters{}
 
@@ -162,7 +164,6 @@ func NewGTMioNonOverlappingCounters() GTMioNonOverlappingCounters {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/initWithNonOverlappingCounters:scope:scopeIndex:database:
 func NewGTMioNonOverlappingCountersWithNonOverlappingCountersScopeScopeIndexDatabase(counters unsafe.Pointer, scope uint16, index uint32, database objectivec.IObject) GTMioNonOverlappingCounters {
 	instance := getGTMioNonOverlappingCountersClass().Alloc()
@@ -170,7 +171,6 @@ func NewGTMioNonOverlappingCountersWithNonOverlappingCountersScopeScopeIndexData
 	return GTMioNonOverlappingCountersFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/counterValuesForEncoderAtFunctionIndex:
 func (g GTMioNonOverlappingCounters) CounterValuesForEncoderAtFunctionIndex(index uint32) []float64 {
 	rv := objc.Send[[]objc.ID](g.ID, objc.Sel("counterValuesForEncoderAtFunctionIndex:"), index)
@@ -178,7 +178,7 @@ func (g GTMioNonOverlappingCounters) CounterValuesForEncoderAtFunctionIndex(inde
 		return float64(id)
 	})
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/counterValuesForGPUCommandAtFunctionIndex:subCommandIndex:
 func (g GTMioNonOverlappingCounters) CounterValuesForGPUCommandAtFunctionIndexSubCommandIndex(index uint32, index2 int) []float64 {
 	rv := objc.Send[[]objc.ID](g.ID, objc.Sel("counterValuesForGPUCommandAtFunctionIndex:subCommandIndex:"), index, index2)
@@ -186,7 +186,7 @@ func (g GTMioNonOverlappingCounters) CounterValuesForGPUCommandAtFunctionIndexSu
 		return float64(id)
 	})
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/counterValuesForPipelineStateId:encoderFunctionIndex:
 func (g GTMioNonOverlappingCounters) CounterValuesForPipelineStateIdEncoderFunctionIndex(id uint64, index uint32) []float64 {
 	rv := objc.Send[[]objc.ID](g.ID, objc.Sel("counterValuesForPipelineStateId:encoderFunctionIndex:"), id, index)
@@ -194,72 +194,75 @@ func (g GTMioNonOverlappingCounters) CounterValuesForPipelineStateIdEncoderFunct
 		return float64(id)
 	})
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/dataIndexForEncoderCounter:dataMaster:
 func (g GTMioNonOverlappingCounters) DataIndexForEncoderCounterDataMaster(counter objectivec.IObject, master uint16) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("dataIndexForEncoderCounter:dataMaster:"), counter, master)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/dataIndexForGPUCommandCounter:dataMaster:requiresBatchIDFiltering:
 func (g GTMioNonOverlappingCounters) DataIndexForGPUCommandCounterDataMasterRequiresBatchIDFiltering(counter objectivec.IObject, master uint16, iDFiltering unsafe.Pointer) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("dataIndexForGPUCommandCounter:dataMaster:requiresBatchIDFiltering:"), counter, master, iDFiltering)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/dataIndexForPipelineStateCounter:dataMaster:
 func (g GTMioNonOverlappingCounters) DataIndexForPipelineStateCounterDataMaster(counter objectivec.IObject, master uint16) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("dataIndexForPipelineStateCounter:dataMaster:"), counter, master)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/derivedEncoderCounters
 func (g GTMioNonOverlappingCounters) DerivedEncoderCounters() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("derivedEncoderCounters"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/derivedGPUCommandCounters
 func (g GTMioNonOverlappingCounters) DerivedGPUCommandCounters() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("derivedGPUCommandCounters"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/encoderCounterForName:dataMaster:
 func (g GTMioNonOverlappingCounters) EncoderCounterForNameDataMaster(name objectivec.IObject, master uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("encoderCounterForName:dataMaster:"), name, master)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/gpuCommandCounterForName:dataMaster:
 func (g GTMioNonOverlappingCounters) GpuCommandCounterForNameDataMaster(name objectivec.IObject, master uint16) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuCommandCounterForName:dataMaster:"), name, master)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/statsForDrawCounterAtDataIndex:minValue:maxValue:total:median:
 func (g GTMioNonOverlappingCounters) StatsForDrawCounterAtDataIndexMinValueMaxValueTotalMedian(index uint64, value []float64, value2 []float64, total []float64, median []float64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("statsForDrawCounterAtDataIndex:minValue:maxValue:total:median:"), index, value, value2, total, median)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/statsForEncoderCounterAtDataIndex:minValue:maxValue:total:median:
 func (g GTMioNonOverlappingCounters) StatsForEncoderCounterAtDataIndexMinValueMaxValueTotalMedian(index uint64, value []float64, value2 []float64, total []float64, median []float64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("statsForEncoderCounterAtDataIndex:minValue:maxValue:total:median:"), index, value, value2, total, median)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/updatePerDrawCounters
 func (g GTMioNonOverlappingCounters) UpdatePerDrawCounters() {
 	objc.Send[objc.ID](g.ID, objc.Sel("updatePerDrawCounters"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/updatePerGPUCommandCounterData:drawIndexes:perDrawPerDMCounters:
 func (g GTMioNonOverlappingCounters) UpdatePerGPUCommandCounterDataDrawIndexesPerDrawPerDMCounters(data unsafe.Pointer, indexes objectivec.IObject, dMCounters objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("updatePerGPUCommandCounterData:drawIndexes:perDrawPerDMCounters:"), data, indexes, dMCounters)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/initBatchIDCounters:drawFunctionIndexes:
 func (g GTMioNonOverlappingCounters) InitBatchIDCountersDrawFunctionIndexes(iDCounters unsafe.Pointer, indexes unsafe.Pointer) GTMioNonOverlappingCounters {
 	rv := objc.Send[GTMioNonOverlappingCounters](g.ID, objc.Sel("initBatchIDCounters:drawFunctionIndexes:"), iDCounters, indexes)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/initWithNonOverlappingCounters:scope:scopeIndex:database:
 func (g GTMioNonOverlappingCounters) InitWithNonOverlappingCountersScopeScopeIndexDatabase(counters unsafe.Pointer, scope uint16, index uint32, database objectivec.IObject) GTMioNonOverlappingCounters {
 	rv := objc.Send[GTMioNonOverlappingCounters](g.ID, objc.Sel("initWithNonOverlappingCounters:scope:scopeIndex:database:"), counters, scope, index, database)
@@ -271,39 +274,45 @@ func (g GTMioNonOverlappingCounters) DrawCounterNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("drawCounterNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/encoderCounterNames
 func (g GTMioNonOverlappingCounters) EncoderCounterNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("encoderCounterNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/encoderCounters
 func (g GTMioNonOverlappingCounters) EncoderCounters() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("encoderCounters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/gpuCommandCounters
 func (g GTMioNonOverlappingCounters) GpuCommandCounters() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuCommandCounters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/numDrawCounters
 func (g GTMioNonOverlappingCounters) NumDrawCounters() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("numDrawCounters"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/numEncoderCounters
 func (g GTMioNonOverlappingCounters) NumEncoderCounters() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("numEncoderCounters"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/numPipelineStateCounters
 func (g GTMioNonOverlappingCounters) NumPipelineStateCounters() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("numPipelineStateCounters"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioNonOverlappingCounters/pipelineStateCounterNames
 func (g GTMioNonOverlappingCounters) PipelineStateCounterNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("pipelineStateCounterNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

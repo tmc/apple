@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,10 +45,10 @@ func (vc VZDirectoryShareClass) Alloc() VZDirectoryShare {
 // The base class for a directory share.
 //
 // # Overview
-// 
+//
 // A directory share defines how the system exposes host directories to a
 // guest VM.
-// 
+//
 // Don’t instantiate [VZDirectoryShare] directly, use one of its subclasses
 // such as [VZSingleDirectoryShare] or [VZMultipleDirectoryShare] instead.
 //
@@ -62,6 +63,7 @@ type VZDirectoryShare struct {
 func VZDirectoryShareFromID(id objc.ID) VZDirectoryShare {
 	return VZDirectoryShare{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZDirectoryShare adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -90,4 +92,3 @@ func NewVZDirectoryShare() VZDirectoryShare {
 	rv := objc.Send[VZDirectoryShare](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

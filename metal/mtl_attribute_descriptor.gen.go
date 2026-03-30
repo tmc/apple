@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (mc MTLAttributeDescriptorClass) Alloc() MTLAttributeDescriptor {
 // A descriptor of an argument’s format and where its data is in memory.
 //
 // # Overview
-// 
+//
 // Attribute descriptors are part of an [MTLVertexDescriptor] or
 // [MTLStageInputOutputDescriptor] instance to provide layout information
 // about a function’s arguments. Each descriptor is for a single argument,
@@ -71,6 +72,7 @@ type MTLAttributeDescriptor struct {
 func MTLAttributeDescriptorFromID(id objc.ID) MTLAttributeDescriptor {
 	return MTLAttributeDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLAttributeDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -136,6 +138,7 @@ func (a MTLAttributeDescriptor) BufferIndex() uint {
 func (a MTLAttributeDescriptor) SetBufferIndex(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBufferIndex:"), value)
 }
+
 // The offset, in bytes, from the start of the buffer containing the attribute
 // data to the start of the data itself.
 //
@@ -147,6 +150,7 @@ func (a MTLAttributeDescriptor) Offset() uint {
 func (a MTLAttributeDescriptor) SetOffset(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOffset:"), value)
 }
+
 // The format of the attribute’s data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttributeDescriptor/format
@@ -157,6 +161,7 @@ func (a MTLAttributeDescriptor) Format() MTLAttributeFormat {
 func (a MTLAttributeDescriptor) SetFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFormat:"), value)
 }
+
 // The organization of input and output data for the next kernel call.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcomputepipelinedescriptor/stageinputdescriptor
@@ -167,4 +172,3 @@ func (a MTLAttributeDescriptor) StageInputDescriptor() IMTLStageInputOutputDescr
 func (a MTLAttributeDescriptor) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStageInputDescriptor:"), value)
 }
-

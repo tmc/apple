@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type BottomLeft struct {
 func BottomLeftFromID(id objc.ID) BottomLeft {
 	return BottomLeft{objectivec.Object{ID: id}}
 }
+
 // Ensure BottomLeft implements IBottomLeft.
 var _ IBottomLeft = BottomLeft{}
 
@@ -78,4 +80,3 @@ func NewBottomLeft() BottomLeft {
 	rv := objc.Send[BottomLeft](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

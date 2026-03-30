@@ -39,6 +39,7 @@ type CIEdgeWork interface {
 type CIEdgeWorkObject struct {
 	objectivec.Object
 }
+
 func (o CIEdgeWorkObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIEdgeWorkObjectFromID(id objc.ID) CIEdgeWorkObject {
 func (o CIEdgeWorkObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The thickness of the edges.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdgeWork/radius
 func (o CIEdgeWorkObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIEdgeWorkObject) Radius() float32 {
 func (o CIEdgeWorkObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIEdgeWork/inputImage
 func (o CIEdgeWorkObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The thickness of the edges.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIEdgeWork/radius
 func (o CIEdgeWorkObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

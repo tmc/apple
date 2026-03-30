@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,11 +47,11 @@ func (ac AVAssetReaderTrackOutputClass) Alloc() AVAssetReaderTrackOutput {
 // An object that reads media data from a single track of an asset.
 //
 // # Overview
-// 
+//
 // Read the media data of an asset track by adding a track output to an asset
 // reader. You can read the media samples in their stored format, or you can
 // convert them to an alternative format.
-// 
+//
 // A track output produces uncompressed output. For audio output settings,
 // this means that [AVAssetReaderTrackOutput.AVFormatIDKey] must be [AVAssetReaderTrackOutput.KAudioFormatLinearPCM]. For video
 // output settings, this means that the dictionary must contain values for
@@ -58,13 +59,13 @@ func (ac AVAssetReaderTrackOutputClass) Alloc() AVAssetReaderTrackOutput {
 // doesn’t support the [AVAssetReaderTrackOutput.AVSampleRateConverterAudioQualityKey] audio setting
 // key or the following video settings keys: [AVAssetReaderTrackOutput.AVVideoCleanApertureKey],
 // [AVAssetReaderTrackOutput.AVVideoPixelAspectRatioKey], and [AVAssetReaderTrackOutput.AVVideoScalingModeKey].
-// 
+//
 // When constructing video output settings, the choice of pixel format affects
 // the performance and quality of the decompression. For optimal performance
 // when decompressing video, the requested pixel format should be one that the
 // decoder supports natively to avoid unnecessary conversions. Below are some
 // recommendations:
-// 
+//
 // - For H.264, use [KCVPixelFormatType_420YpCbCr8BiPlanarVideoRange] or
 // [KCVPixelFormatType_420YpCbCr8BiPlanarFullRange] when you know the video is
 // full range. - In iOS, use [KCVPixelFormatType_420YpCbCr8BiPlanarFullRange]
@@ -88,10 +89,6 @@ func (ac AVAssetReaderTrackOutputClass) Alloc() AVAssetReaderTrackOutput {
 // whether your source contains an alpha channel, check that the track’s
 // format description has a [KCMFormatDescriptionExtension_Depth] key with a
 // value of `32`.
-//
-// [AVAssetReaderTrackOutput.AVVideoCleanApertureKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCleanApertureKey
-// [AVAssetReaderTrackOutput.AVVideoPixelAspectRatioKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoPixelAspectRatioKey
-// [AVAssetReaderTrackOutput.AVVideoScalingModeKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoScalingModeKey
 //
 // # Creating a track output
 //
@@ -118,6 +115,7 @@ type AVAssetReaderTrackOutput struct {
 func AVAssetReaderTrackOutputFromID(id objc.ID) AVAssetReaderTrackOutput {
 	return AVAssetReaderTrackOutput{AVAssetReaderOutput: AVAssetReaderOutputFromID(id)}
 }
+
 // NOTE: AVAssetReaderTrackOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -231,16 +229,16 @@ func NewAVAssetReaderTrackOutput() AVAssetReaderTrackOutput {
 //
 // outputSettings: A dictionary of settings to use for sample output. Specify `nil` to receive
 // samples in their storage format.
-// 
+//
 // You use keys and values from [Audio settings], [Video settings], or
 // [CVPixelBuffer], depending on the media type and the output format you
 // require.
-// //
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderTrackOutput/init(track:outputSettings:)
+//
 // [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
 // [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/CVPixelBuffer
 // [Video settings]: https://developer.apple.com/documentation/AVFoundation/video-settings
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderTrackOutput/init(track:outputSettings:)
 func NewAssetReaderTrackOutputWithTrackOutputSettings(track IAVAssetTrack, outputSettings foundation.INSDictionary) AVAssetReaderTrackOutput {
 	instance := getAVAssetReaderTrackOutputClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTrack:outputSettings:"), track, outputSettings)
@@ -253,16 +251,16 @@ func NewAssetReaderTrackOutputWithTrackOutputSettings(track IAVAssetTrack, outpu
 //
 // outputSettings: A dictionary of settings to use for sample output. Specify `nil` to receive
 // samples in their storage format.
-// 
+//
 // You use keys and values from [Audio settings], [Video settings], or
 // [CVPixelBuffer], depending on the media type and the output format you
 // require.
-// //
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderTrackOutput/init(track:outputSettings:)
+//
 // [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
 // [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/CVPixelBuffer
 // [Video settings]: https://developer.apple.com/documentation/AVFoundation/video-settings
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderTrackOutput/init(track:outputSettings:)
 func (a AVAssetReaderTrackOutput) InitWithTrackOutputSettings(track IAVAssetTrack, outputSettings foundation.INSDictionary) AVAssetReaderTrackOutput {
 	rv := objc.Send[AVAssetReaderTrackOutput](a.ID, objc.Sel("initWithTrack:outputSettings:"), track, outputSettings)
 	return rv
@@ -274,20 +272,20 @@ func (a AVAssetReaderTrackOutput) InitWithTrackOutputSettings(track IAVAssetTrac
 //
 // outputSettings: A dictionary of settings to use for sample output. Specify `nil` to receive
 // samples in their storage format.
-// 
+//
 // You use keys and values from [Audio settings], [Video settings], or
 // [CVPixelBuffer], depending on the media type and the output format you
 // require.
-// //
-// [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
-// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/CVPixelBuffer
-// [Video settings]: https://developer.apple.com/documentation/AVFoundation/video-settings
 //
 // # Return Value
-// 
+//
 // A new asset reader, or `nil` if initialization fails.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderTrackOutput/assetReaderTrackOutputWithTrack:outputSettings:
+//
+// [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
+// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/CVPixelBuffer
+// [Video settings]: https://developer.apple.com/documentation/AVFoundation/video-settings
 func (_AVAssetReaderTrackOutputClass AVAssetReaderTrackOutputClass) AssetReaderTrackOutputWithTrackOutputSettings(track IAVAssetTrack, outputSettings foundation.INSDictionary) AVAssetReaderTrackOutput {
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetReaderTrackOutputClass.class), objc.Sel("assetReaderTrackOutputWithTrack:outputSettings:"), track, outputSettings)
 	return AVAssetReaderTrackOutputFromID(rv)
@@ -296,14 +294,14 @@ func (_AVAssetReaderTrackOutputClass AVAssetReaderTrackOutputClass) AssetReaderT
 // The processing algorithm to use for scaled audio edits.
 //
 // # Discussion
-// 
+//
 // See [Time pitch algorithm settings] for possible values. The system throws
 // an exception if you set this property to a value other than one of the
 // defined constants.
 //
-// [Time pitch algorithm settings]: https://developer.apple.com/documentation/AVFoundation/time-pitch-algorithm-settings
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderTrackOutput/audioTimePitchAlgorithm
+//
+// [Time pitch algorithm settings]: https://developer.apple.com/documentation/AVFoundation/time-pitch-algorithm-settings
 func (a AVAssetReaderTrackOutput) AudioTimePitchAlgorithm() AVAudioTimePitchAlgorithm {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioTimePitchAlgorithm"))
 	return AVAudioTimePitchAlgorithm(foundation.NSStringFromID(rv).String())
@@ -311,10 +309,11 @@ func (a AVAssetReaderTrackOutput) AudioTimePitchAlgorithm() AVAudioTimePitchAlgo
 func (a AVAssetReaderTrackOutput) SetAudioTimePitchAlgorithm(value AVAudioTimePitchAlgorithm) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAudioTimePitchAlgorithm:"), objc.String(string(value)))
 }
+
 // The output settings for this track output.
 //
 // # Discussion
-// 
+//
 // The value is a dictionary that contains values for audio and video settings
 // keys. A value of `nil` indicates that the track output vends samples in
 // their original format as stored in the target track.
@@ -324,6 +323,7 @@ func (a AVAssetReaderTrackOutput) OutputSettings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // The track from which the output reads sample buffers.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderTrackOutput/track
@@ -331,6 +331,7 @@ func (a AVAssetReaderTrackOutput) Track() IAVAssetTrack {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("track"))
 	return AVAssetTrackFromID(objc.ID(rv))
 }
+
 // An integer value that represents the format of the audio data.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVFormatIDKey
@@ -338,6 +339,7 @@ func (a AVAssetReaderTrackOutput) AVFormatIDKey() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVFormatIDKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An integer value that represents the audio quality for conversion.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSampleRateConverterAudioQualityKey
@@ -345,6 +347,7 @@ func (a AVAssetReaderTrackOutput) AVSampleRateConverterAudioQualityKey() string 
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVSampleRateConverterAudioQualityKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A key that defines the region within the video dimension displayed during
 // playback.
 //
@@ -353,6 +356,7 @@ func (a AVAssetReaderTrackOutput) AVVideoCleanApertureKey() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVVideoCleanApertureKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A key to access the video’s pixel aspect ratio.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideopixelaspectratiokey
@@ -360,6 +364,7 @@ func (a AVAssetReaderTrackOutput) AVVideoPixelAspectRatioKey() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVVideoPixelAspectRatioKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A key to retrieve the video scaling mode from a dictionary.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideoscalingmodekey
@@ -367,6 +372,7 @@ func (a AVAssetReaderTrackOutput) AVVideoScalingModeKey() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVVideoScalingModeKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A key that specifies the linear PCM codec, and uses the standard flags.
 //
 // See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatLinearPCM
@@ -377,11 +383,13 @@ func (a AVAssetReaderTrackOutput) KAudioFormatLinearPCM() objectivec.IObject {
 func (a AVAssetReaderTrackOutput) SetKAudioFormatLinearPCM(value objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKAudioFormatLinearPCM:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreMedia/kCMFormatDescriptionExtension_Depth
 func (a AVAssetReaderTrackOutput) KCMFormatDescriptionExtension_Depth() corefoundation.CFStringRef {
 	rv := objc.Send[corefoundation.CFStringRef](a.ID, objc.Sel("kCMFormatDescriptionExtension_Depth"))
 	return corefoundation.CFStringRef(rv)
 }
+
 // A key to the height of the pixel buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferHeightKey
@@ -389,6 +397,7 @@ func (a AVAssetReaderTrackOutput) KCVPixelBufferHeightKey() corefoundation.CFStr
 	rv := objc.Send[corefoundation.CFStringRef](a.ID, objc.Sel("kCVPixelBufferHeightKey"))
 	return corefoundation.CFStringRef(rv)
 }
+
 // A key to the width of the pixel buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferWidthKey
@@ -396,6 +405,7 @@ func (a AVAssetReaderTrackOutput) KCVPixelBufferWidthKey() corefoundation.CFStri
 	rv := objc.Send[corefoundation.CFStringRef](a.ID, objc.Sel("kCVPixelBufferWidthKey"))
 	return corefoundation.CFStringRef(rv)
 }
+
 // 32-bit ARGB.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32ARGB
@@ -406,6 +416,7 @@ func (a AVAssetReaderTrackOutput) KCVPixelFormatType_32ARGB() uint32 {
 func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_32ARGB(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_32ARGB:"), value)
 }
+
 // 32-bit BGRA.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32BGRA
@@ -416,6 +427,7 @@ func (a AVAssetReaderTrackOutput) KCVPixelFormatType_32BGRA() uint32 {
 func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_32BGRA(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_32BGRA:"), value)
 }
+
 // Bi-Planar Component Y’CbCr 8-bit 4:2:0, full-range (luma=[0,255]
 // chroma=[1,255]). `baseAddr` points to a big-endian
 // `CVPlanarPixelBufferInfo_YCbCrBiPlanar` struct.
@@ -428,6 +440,7 @@ func (a AVAssetReaderTrackOutput) KCVPixelFormatType_420YpCbCr8BiPlanarFullRange
 func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_420YpCbCr8BiPlanarFullRange(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_420YpCbCr8BiPlanarFullRange:"), value)
 }
+
 // Bi-Planar Component Y’CbCr 8-bit 4:2:0, video-range (luma=[16,235]
 // chroma=[16,240]). `baseAddr` points to a big-endian
 // `CVPlanarPixelBufferInfo_YCbCrBiPlanar` struct.
@@ -440,6 +453,7 @@ func (a AVAssetReaderTrackOutput) KCVPixelFormatType_420YpCbCr8BiPlanarVideoRang
 func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_420YpCbCr8BiPlanarVideoRange(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_420YpCbCr8BiPlanarVideoRange:"), value)
 }
+
 // Component Y’CbCr 10-bit 4:2:2.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_422YpCbCr10
@@ -450,6 +464,7 @@ func (a AVAssetReaderTrackOutput) KCVPixelFormatType_422YpCbCr10() uint32 {
 func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_422YpCbCr10(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_422YpCbCr10:"), value)
 }
+
 // Component Y’CbCr 10,12,14,16-bit 4:2:2.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_422YpCbCr16
@@ -460,6 +475,7 @@ func (a AVAssetReaderTrackOutput) KCVPixelFormatType_422YpCbCr16() uint32 {
 func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_422YpCbCr16(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_422YpCbCr16:"), value)
 }
+
 // Component Y’CbCr 8-bit 4:2:2, ordered Cb Y’0 Cr Y’1.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_422YpCbCr8
@@ -470,6 +486,7 @@ func (a AVAssetReaderTrackOutput) KCVPixelFormatType_422YpCbCr8() uint32 {
 func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_422YpCbCr8(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_422YpCbCr8:"), value)
 }
+
 // Component Y’CbCrA 16-bit 4:4:4:4, ordered A Y’ Cb Cr, full range alpha,
 // video range Y’CbCr, 16-bit little-endian samples.
 //
@@ -481,6 +498,7 @@ func (a AVAssetReaderTrackOutput) KCVPixelFormatType_4444AYpCbCr16() uint32 {
 func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_4444AYpCbCr16(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_4444AYpCbCr16:"), value)
 }
+
 // 64-bit ARGB, 16-bit big-endian samples.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_64ARGB
@@ -491,4 +509,3 @@ func (a AVAssetReaderTrackOutput) KCVPixelFormatType_64ARGB() uint32 {
 func (a AVAssetReaderTrackOutput) SetKCVPixelFormatType_64ARGB(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKCVPixelFormatType_64ARGB:"), value)
 }
-

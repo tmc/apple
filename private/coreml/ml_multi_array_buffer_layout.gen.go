@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLMultiArrayBufferLayoutClass) Alloc() MLMultiArrayBufferLayout {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLMultiArrayBufferLayout.Count]
@@ -52,6 +52,7 @@ func (mc MLMultiArrayBufferLayoutClass) Alloc() MLMultiArrayBufferLayout {
 //   - [MLMultiArrayBufferLayout.Shape]
 //   - [MLMultiArrayBufferLayout.Strides]
 //   - [MLMultiArrayBufferLayout.InitWithShapeStrides]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayBufferLayout
 type MLMultiArrayBufferLayout struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type MLMultiArrayBufferLayout struct {
 func MLMultiArrayBufferLayoutFromID(id objc.ID) MLMultiArrayBufferLayout {
 	return MLMultiArrayBufferLayout{objectivec.Object{ID: id}}
 }
+
 // Ensure MLMultiArrayBufferLayout implements IMLMultiArrayBufferLayout.
 var _ IMLMultiArrayBufferLayout = MLMultiArrayBufferLayout{}
 
@@ -108,7 +110,6 @@ func NewMLMultiArrayBufferLayout() MLMultiArrayBufferLayout {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayBufferLayout/initWithShape:strides:
 func NewMultiArrayBufferLayoutWithShapeStrides(shape objectivec.IObject, strides objectivec.IObject) MLMultiArrayBufferLayout {
 	instance := getMLMultiArrayBufferLayoutClass().Alloc()
@@ -116,19 +117,18 @@ func NewMultiArrayBufferLayoutWithShapeStrides(shape objectivec.IObject, strides
 	return MLMultiArrayBufferLayoutFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayBufferLayout/isSubspaceOfBufferLayout:
 func (m MLMultiArrayBufferLayout) IsSubspaceOfBufferLayout(layout objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSubspaceOfBufferLayout:"), layout)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayBufferLayout/offsetOfScalarAtIndex:contiguousScalars:
 func (m MLMultiArrayBufferLayout) OffsetOfScalarAtIndexContiguousScalars(index int64, scalars unsafe.Pointer) int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("offsetOfScalarAtIndex:contiguousScalars:"), index, scalars)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayBufferLayout/initWithShape:strides:
 func (m MLMultiArrayBufferLayout) InitWithShapeStrides(shape objectivec.IObject, strides objectivec.IObject) MLMultiArrayBufferLayout {
 	rv := objc.Send[MLMultiArrayBufferLayout](m.ID, objc.Sel("initWithShape:strides:"), shape, strides)
@@ -140,14 +140,15 @@ func (m MLMultiArrayBufferLayout) Count() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("count"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayBufferLayout/shape
 func (m MLMultiArrayBufferLayout) Shape() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("shape"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayBufferLayout/strides
 func (m MLMultiArrayBufferLayout) Strides() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("strides"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

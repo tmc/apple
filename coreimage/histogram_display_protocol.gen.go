@@ -59,6 +59,7 @@ type CIHistogramDisplay interface {
 type CIHistogramDisplayObject struct {
 	objectivec.Object
 }
+
 func (o CIHistogramDisplayObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -75,24 +76,28 @@ func CIHistogramDisplayObjectFromID(id objc.ID) CIHistogramDisplayObject {
 func (o CIHistogramDisplayObject) Height() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("height"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/highLimit
 func (o CIHistogramDisplayObject) HighLimit() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("highLimit"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/inputImage
 func (o CIHistogramDisplayObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/lowLimit
 func (o CIHistogramDisplayObject) LowLimit() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("lowLimit"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -100,21 +105,26 @@ func (o CIHistogramDisplayObject) LowLimit() float32 {
 func (o CIHistogramDisplayObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/height
 func (o CIHistogramDisplayObject) SetHeight(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHeight:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/highLimit
 func (o CIHistogramDisplayObject) SetHighLimit(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHighLimit:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/inputImage
 func (o CIHistogramDisplayObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/lowLimit
 func (o CIHistogramDisplayObject) SetLowLimit(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLowLimit:"), value)
 }
-

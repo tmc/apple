@@ -4,8 +4,9 @@ package remotecoreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLNetworkPacketClass) Alloc() MLNetworkPacket {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLNetworkPacket.Buffer]
@@ -57,6 +57,7 @@ func (mc MLNetworkPacketClass) Alloc() MLNetworkPacket {
 //   - [MLNetworkPacket.ResetMetadata]
 //   - [MLNetworkPacket.SizeOfPacket]
 //   - [MLNetworkPacket.SetSizeOfPacket]
+//
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkPacket
 type MLNetworkPacket struct {
 	objectivec.Object
@@ -66,6 +67,7 @@ type MLNetworkPacket struct {
 func MLNetworkPacketFromID(id objc.ID) MLNetworkPacket {
 	return MLNetworkPacket{objectivec.Object{ID: id}}
 }
+
 // Ensure MLNetworkPacket implements IMLNetworkPacket.
 var _ IMLNetworkPacket = MLNetworkPacket{}
 
@@ -129,14 +131,17 @@ func NewMLNetworkPacket() MLNetworkPacket {
 func (m MLNetworkPacket) CleanupDoubleBuffer() {
 	objc.Send[objc.ID](m.ID, objc.Sel("cleanupDoubleBuffer"))
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkPacket/reset
 func (m MLNetworkPacket) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkPacket/resetDoubleBuffer
 func (m MLNetworkPacket) ResetDoubleBuffer() {
 	objc.Send[objc.ID](m.ID, objc.Sel("resetDoubleBuffer"))
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkPacket/resetMetadata
 func (m MLNetworkPacket) ResetMetadata() {
 	objc.Send[objc.ID](m.ID, objc.Sel("resetMetadata"))
@@ -150,6 +155,7 @@ func (m MLNetworkPacket) Buffer() foundation.NSMutableData {
 func (m MLNetworkPacket) SetBuffer(value foundation.NSMutableData) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBuffer:"), value)
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkPacket/command
 func (m MLNetworkPacket) Command() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("command"))
@@ -158,6 +164,7 @@ func (m MLNetworkPacket) Command() uint64 {
 func (m MLNetworkPacket) SetCommand(value uint64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCommand:"), value)
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkPacket/doubleBuffer
 func (m MLNetworkPacket) DoubleBuffer() foundation.NSMutableData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("doubleBuffer"))
@@ -166,6 +173,7 @@ func (m MLNetworkPacket) DoubleBuffer() foundation.NSMutableData {
 func (m MLNetworkPacket) SetDoubleBuffer(value foundation.NSMutableData) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDoubleBuffer:"), value)
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLNetworkPacket/sizeOfPacket
 func (m MLNetworkPacket) SizeOfPacket() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("sizeOfPacket"))
@@ -174,4 +182,3 @@ func (m MLNetworkPacket) SizeOfPacket() uint64 {
 func (m MLNetworkPacket) SetSizeOfPacket(value uint64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSizeOfPacket:"), value)
 }
-

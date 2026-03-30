@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (ac AVExternalSyncDeviceClass) Alloc() AVExternalSyncDevice {
 // drive the timing of an internal component, such as a camera sensor.
 //
 // # Overview
-// 
+//
 // Each instance of [AVExternalSyncDevice] corresponds to a physical external
 // device that can drive an internal component, like a camera readout. You
 // cannot create instances of [AVExternalSyncDevice]. Instead, you obtain an
@@ -76,6 +77,7 @@ type AVExternalSyncDevice struct {
 func AVExternalSyncDeviceFromID(id objc.ID) AVExternalSyncDevice {
 	return AVExternalSyncDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVExternalSyncDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,7 +136,7 @@ func NewAVExternalSyncDevice() AVExternalSyncDevice {
 // A clock representing the source of time from the external sync device.
 //
 // # Discussion
-// 
+//
 // This property returns [NULL] until the [Status] reaches
 // [AVExternalSyncDeviceStatusActiveSync].
 //
@@ -143,10 +145,11 @@ func (e AVExternalSyncDevice) Clock() uintptr {
 	rv := objc.Send[uintptr](e.ID, objc.Sel("clock"))
 	return rv
 }
+
 // The USB product identifier associated with the external sync device.
 //
 // # Discussion
-// 
+//
 // This [UInt32] value comes from the hardware vendor, and returns 0 if not
 // available. Use this value in conjunction with the [VendorID] to determine a
 // specific product.
@@ -156,10 +159,11 @@ func (e AVExternalSyncDevice) ProductID() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("productID"))
 	return rv
 }
+
 // Delay to wait before starting the frame capture.
 //
 // # Discussion
-// 
+//
 // An external sync is generally used to configure multiple devices in the
 // real world. A display and a camera may receive a signal at the same time,
 // but that does not mean the refresh of the display and camera are aligned in
@@ -175,10 +179,11 @@ func (e AVExternalSyncDevice) SignalCompensationDelay() coremedia.CMTime {
 func (e AVExternalSyncDevice) SetSignalCompensationDelay(value coremedia.CMTime) {
 	objc.Send[struct{}](e.ID, objc.Sel("setSignalCompensationDelay:"), value)
 }
+
 // The status of the externally connected device.
 //
 // # Discussion
-// 
+//
 // Use this property to query the current connection status of the external
 // sync device. This property is key-value observable.
 //
@@ -187,10 +192,11 @@ func (e AVExternalSyncDevice) Status() AVExternalSyncDeviceStatus {
 	rv := objc.Send[AVExternalSyncDeviceStatus](e.ID, objc.Sel("status"))
 	return AVExternalSyncDeviceStatus(rv)
 }
+
 // A unique identifier for an external sync device.
 //
 // # Discussion
-// 
+//
 // Use this property to select a specific external sync device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDevice/uuid
@@ -198,10 +204,11 @@ func (e AVExternalSyncDevice) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
+
 // The USB vendor identifier associated with the external sync device.
 //
 // # Discussion
-// 
+//
 // This [UInt32] value is provided by the hardware vendor, and returns 0 if
 // not available.
 //
@@ -210,4 +217,3 @@ func (e AVExternalSyncDevice) VendorID() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("vendorID"))
 	return rv
 }
-

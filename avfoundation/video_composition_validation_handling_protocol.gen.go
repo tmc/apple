@@ -3,8 +3,8 @@
 package avfoundation
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -19,6 +19,7 @@ type AVVideoCompositionValidationHandling interface {
 type AVVideoCompositionValidationHandlingObject struct {
 	objectivec.Object
 }
+
 func (o AVVideoCompositionValidationHandlingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -38,18 +39,16 @@ func AVVideoCompositionValidationHandlingObjectFromID(id objc.ID) AVVideoComposi
 // key: The key being validated.
 //
 // # Return Value
-// 
-// [true] if the video composition should continue validation in order to
-// report additional problems that may exist, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the video composition should continue validation in order to report
+// additional problems that may exist, otherwise false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionValidationHandling/videoComposition(_:shouldContinueValidatingAfterFindingInvalidValueForKey:)
 func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingInvalidValueForKey(videoComposition IAVVideoComposition, key string) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("videoComposition:shouldContinueValidatingAfterFindingInvalidValueForKey:"), videoComposition, objc.String(key))
 	return rv
-	}
+}
+
 // Reports a time range that has no corresponding video composition
 // instruction.
 //
@@ -58,18 +57,16 @@ func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContin
 // timeRange: The time range that has no corresponding video composition instruction.
 //
 // # Return Value
-// 
-// [true] if the video composition should continue validation in order to
-// report additional problems that may exist, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the video composition should continue validation in order to report
+// additional problems that may exist, otherwise false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionValidationHandling/videoComposition(_:shouldContinueValidatingAfterFindingEmptyTimeRange:)
 func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingEmptyTimeRange(videoComposition IAVVideoComposition, timeRange coremedia.CMTimeRange) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("videoComposition:shouldContinueValidatingAfterFindingEmptyTimeRange:"), videoComposition, timeRange)
 	return rv
-	}
+}
+
 // Reports a video composition instruction with a time range that is invalid.
 //
 // videoComposition: The video composition being validated.
@@ -77,15 +74,12 @@ func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContin
 // videoCompositionInstruction: The video composition instruction.
 //
 // # Return Value
-// 
-// [true] if the video composition should continue validation in order to
-// report additional problems that may exist, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the video composition should continue validation in order to report
+// additional problems that may exist, otherwise false.
 //
 // # Discussion
-// 
+//
 // A time range is considered invalid when it overlaps with the time range of
 // a prior instruction, or that contains times earlier than the time range of
 // a prior instruction
@@ -94,7 +88,8 @@ func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContin
 func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingInvalidTimeRangeInInstruction(videoComposition IAVVideoComposition, videoCompositionInstruction AVVideoCompositionInstruction) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("videoComposition:shouldContinueValidatingAfterFindingInvalidTimeRangeInInstruction:"), videoComposition, videoCompositionInstruction)
 	return rv
-	}
+}
+
 // Reports a video composition layer instruction that does not correspond to
 // the track ID used for the composition’s animation or to a track of the
 // asset.
@@ -108,15 +103,12 @@ func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContin
 // asset: The underlying asset.
 //
 // # Return Value
-// 
-// [true] if the video composition should continue validation in order to
-// report additional problems that may exist, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the video composition should continue validation in order to report
+// additional problems that may exist, otherwise false.
 //
 // # Discussion
-// 
+//
 // The asset track is specified in the
 // [IsValidForAssetTimeRangeValidationDelegate] method.
 //
@@ -124,5 +116,4 @@ func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContin
 func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingInvalidTrackIDInInstructionLayerInstructionAsset(videoComposition IAVVideoComposition, videoCompositionInstruction AVVideoCompositionInstruction, layerInstruction IAVVideoCompositionLayerInstruction, asset IAVAsset) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("videoComposition:shouldContinueValidatingAfterFindingInvalidTrackIDInInstruction:layerInstruction:asset:"), videoComposition, videoCompositionInstruction, layerInstruction, asset)
 	return rv
-	}
-
+}

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,8 @@ func (ac AVAssetDownloadConfigurationClass) Alloc() AVAssetDownloadConfiguration
 //   - [AVAssetDownloadConfiguration.SetAuxiliaryContentConfigurations]
 //   - [AVAssetDownloadConfiguration.OptimizesAuxiliaryContentConfigurations]: A Boolean value that indicates whether the task optimizes auxiliary content selection.
 //   - [AVAssetDownloadConfiguration.SetOptimizesAuxiliaryContentConfigurations]
+//   - [AVAssetDownloadConfiguration.DownloadsInterstitialAssets]: Download interstitial assets as listed in the index file. False by default.
+//   - [AVAssetDownloadConfiguration.SetDownloadsInterstitialAssets]
 //   - [AVAssetDownloadConfiguration.SetInterstitialMediaSelectionCriteriaForMediaCharacteristic]: Sets media selection on interstitials for this asset
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadConfiguration
@@ -66,6 +69,7 @@ type AVAssetDownloadConfiguration struct {
 func AVAssetDownloadConfigurationFromID(id objc.ID) AVAssetDownloadConfiguration {
 	return AVAssetDownloadConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetDownloadConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -80,6 +84,8 @@ func AVAssetDownloadConfigurationFromID(id objc.ID) AVAssetDownloadConfiguration
 //   - [IAVAssetDownloadConfiguration.SetAuxiliaryContentConfigurations]
 //   - [IAVAssetDownloadConfiguration.OptimizesAuxiliaryContentConfigurations]: A Boolean value that indicates whether the task optimizes auxiliary content selection.
 //   - [IAVAssetDownloadConfiguration.SetOptimizesAuxiliaryContentConfigurations]
+//   - [IAVAssetDownloadConfiguration.DownloadsInterstitialAssets]: Download interstitial assets as listed in the index file. False by default.
+//   - [IAVAssetDownloadConfiguration.SetDownloadsInterstitialAssets]
 //   - [IAVAssetDownloadConfiguration.SetInterstitialMediaSelectionCriteriaForMediaCharacteristic]: Sets media selection on interstitials for this asset
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadConfiguration
@@ -99,12 +105,11 @@ type IAVAssetDownloadConfiguration interface {
 	// A Boolean value that indicates whether the task optimizes auxiliary content selection.
 	OptimizesAuxiliaryContentConfigurations() bool
 	SetOptimizesAuxiliaryContentConfigurations(value bool)
-	// Sets media selection on interstitials for this asset
-	SetInterstitialMediaSelectionCriteriaForMediaCharacteristic(criteria []AVPlayerMediaSelectionCriteria, mediaCharacteristic AVMediaCharacteristic)
-
 	// Download interstitial assets as listed in the index file. False by default.
 	DownloadsInterstitialAssets() bool
 	SetDownloadsInterstitialAssets(value bool)
+	// Sets media selection on interstitials for this asset
+	SetInterstitialMediaSelectionCriteriaForMediaCharacteristic(criteria []AVPlayerMediaSelectionCriteria, mediaCharacteristic AVMediaCharacteristic)
 }
 
 // Init initializes the instance.
@@ -147,7 +152,7 @@ func NewAssetDownloadConfigurationWithAssetTitle(asset IAVURLAsset, title string
 // mediaCharacteristic: The AVMediaCharacteristic to which the criteria will be applied
 //
 // # Discussion
-// 
+//
 // Typically, interstitial assets have not been discovered when the main
 // download is initiated. This method allows the user to specify
 // AVMediaSelectionCriteria for all interstitials that are discovered. Each
@@ -162,7 +167,7 @@ func (a AVAssetDownloadConfiguration) SetInterstitialMediaSelectionCriteriaForMe
 // A data value that represents the asset’s artwork.
 //
 // # Discussion
-// 
+//
 // The system displays this image in the usage pane of the Settings app.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadConfiguration/artworkData
@@ -173,6 +178,7 @@ func (a AVAssetDownloadConfiguration) ArtworkData() foundation.INSData {
 func (a AVAssetDownloadConfiguration) SetArtworkData(value foundation.INSData) {
 	objc.Send[struct{}](a.ID, objc.Sel("setArtworkData:"), value)
 }
+
 // The configuration for the primary content that the task downloads.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadConfiguration/primaryContentConfiguration
@@ -180,6 +186,7 @@ func (a AVAssetDownloadConfiguration) PrimaryContentConfiguration() IAVAssetDown
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("primaryContentConfiguration"))
 	return AVAssetDownloadContentConfigurationFromID(objc.ID(rv))
 }
+
 // The configuration for the auxiliary content that the task downloads.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadConfiguration/auxiliaryContentConfigurations
@@ -192,11 +199,12 @@ func (a AVAssetDownloadConfiguration) AuxiliaryContentConfigurations() []AVAsset
 func (a AVAssetDownloadConfiguration) SetAuxiliaryContentConfigurations(value []AVAssetDownloadContentConfiguration) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAuxiliaryContentConfigurations:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // A Boolean value that indicates whether the task optimizes auxiliary content
 // selection.
 //
 // # Discussion
-// 
+//
 // By default, a download task optimizes its selection of auxiliary content
 // based on its primary download content. For example, if the primary content
 // configuration represents stereo renditions, and auxiliary content
@@ -212,10 +220,11 @@ func (a AVAssetDownloadConfiguration) OptimizesAuxiliaryContentConfigurations() 
 func (a AVAssetDownloadConfiguration) SetOptimizesAuxiliaryContentConfigurations(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOptimizesAuxiliaryContentConfigurations:"), value)
 }
+
 // Download interstitial assets as listed in the index file. False by default.
 //
 // # Discussion
-// 
+//
 // Ordinarily, interstitial assets are skipped when downloading content for
 // later playback. Setting this property to true will cause interstitial
 // assets to be downloaded as well. Playback of the downloaded content can
@@ -230,4 +239,3 @@ func (a AVAssetDownloadConfiguration) DownloadsInterstitialAssets() bool {
 func (a AVAssetDownloadConfiguration) SetDownloadsInterstitialAssets(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDownloadsInterstitialAssets:"), value)
 }
-

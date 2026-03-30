@@ -4,10 +4,11 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (ac AVVideoCompositionInstructionClass) Alloc() AVVideoCompositionInstructi
 // An operation that a compositor performs.
 //
 // # Overview
-// 
+//
 // An [AVVideoComposition] object maintains an array of [AVVideoCompositionInstruction.Instructions] to
 // perform its composition.
 //
@@ -67,6 +68,7 @@ type AVVideoCompositionInstruction struct {
 func AVVideoCompositionInstructionFromID(id objc.ID) AVVideoCompositionInstruction {
 	return AVVideoCompositionInstruction{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVVideoCompositionInstruction adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,11 +130,11 @@ func (_AVVideoCompositionInstructionClass AVVideoCompositionInstructionClass) Vi
 // The background color of the composition.
 //
 // # Discussion
-// 
+//
 // Only solid BGRA colors are supported; patterns and other supported colors
 // are ignored. If the rendered pixel buffer does not have alpha, the alpha
 // value of the background color is ignored.
-// 
+//
 // If the background color is [NULL], the video compositor uses a default
 // background color of opaque black.
 //
@@ -141,16 +143,17 @@ func (v AVVideoCompositionInstruction) BackgroundColor() coregraphics.CGColorRef
 	rv := objc.Send[coregraphics.CGColorRef](v.ID, objc.Sel("backgroundColor"))
 	return coregraphics.CGColorRef(rv)
 }
+
 // Instructions that specify how to layer and compose video frames from source
 // tracks.
 //
 // # Discussion
-// 
+//
 // Tracks are layered in the composition according to the top-to-bottom order
 // of the `layerInstructions` array; the track with `trackID` of the first
 // instruction in the array will be layered on top, with the track with the
 // `trackID` of the second instruction immediately underneath, and so on.
-// 
+//
 // If the property value is `nil`, the output is a fill of the background
 // color.
 //
@@ -161,10 +164,11 @@ func (v AVVideoCompositionInstruction) LayerInstructions() []AVVideoCompositionL
 		return AVVideoCompositionLayerInstructionFromID(id)
 	})
 }
+
 // The time range to which the instruction applies.
 //
 // # Discussion
-// 
+//
 // If the time range is invalid, the video compositor will ignore it. See also
 // the requirements of the [TimeRange] property in the array of objects
 // implementing the [AVVideoCompositionInstructionProtocol] protocol as
@@ -175,25 +179,24 @@ func (v AVVideoCompositionInstruction) TimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](v.ID, objc.Sel("timeRange"))
 	return coremedia.CMTimeRange(rv)
 }
+
 // A Boolean value that indicates whether the instruction requires post
 // processing.
 //
 // # Discussion
-// 
-// A value of [false] indicates that no post processing is required for the
-// whole duration of the video composition instruction. The composition
-// process is more efficient if the value is [false].
-// 
-// The value is [true] by default.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// A value of false indicates that no post processing is required for the
+// whole duration of the video composition instruction. The composition
+// process is more efficient if the value is false.
+//
+// The value is true by default.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/enablePostProcessing
 func (v AVVideoCompositionInstruction) EnablePostProcessing() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("enablePostProcessing"))
 	return rv
 }
+
 // The identifiers of source video tracks that the compositor requires to
 // compose frames for the instruction.
 //
@@ -204,6 +207,7 @@ func (v AVVideoCompositionInstruction) RequiredSourceTrackIDs() []foundation.NSV
 		return foundation.NSValueFromID(id)
 	})
 }
+
 // The identifiers of source sample data tracks that the compositor requires
 // to compose frames for the instruction.
 //
@@ -214,10 +218,11 @@ func (v AVVideoCompositionInstruction) RequiredSourceSampleDataTrackIDs() []foun
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // The track identifier from an instruction source frame.
 //
 // # Discussion
-// 
+//
 // If the video composition result is one of the source frames for the
 // duration of the instruction, this property returns the corresponding track
 // ID. The compositor won’t be run for the duration of the instruction and
@@ -229,6 +234,7 @@ func (v AVVideoCompositionInstruction) PassthroughTrackID() int32 {
 	rv := objc.Send[int32](v.ID, objc.Sel("passthroughTrackID"))
 	return rv
 }
+
 // The video composition instructions.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/instructions
@@ -240,13 +246,12 @@ func (v AVVideoCompositionInstruction) SetInstructions(value objc.ID) {
 	objc.Send[struct{}](v.ID, objc.Sel("setInstructions:"), value)
 }
 
-			// Protocol methods for AVVideoCompositionInstructionProtocol
-			
+// Protocol methods for AVVideoCompositionInstructionProtocol
+
 // A Boolean value that indicates whether the composition contains tweening.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/containsTweening
 func (o AVVideoCompositionInstruction) ContainsTweening() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("containsTweening"))
 	return rv
-	}
-
+}

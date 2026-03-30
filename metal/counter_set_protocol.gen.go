@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -29,6 +29,7 @@ type MTLCounterSet interface {
 type MTLCounterSetObject struct {
 	objectivec.Object
 }
+
 func (o MTLCounterSetObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func MTLCounterSetObjectFromID(id objc.ID) MTLCounterSetObject {
 func (o MTLCounterSetObject) Name() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // An array of the counter instances a GPU device supports.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSet/counters
@@ -56,5 +58,4 @@ func (o MTLCounterSetObject) Counters() []objectivec.IObject {
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
-	}
-
+}

@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMetadataSalientObjectClass) Alloc() AVMetadataSalientObject {
 // An object representing a single salient area in a picture.
 //
 // # Overview
-// 
+//
 // This object is an immutable type that describes the various features of the
 // salient object in a picture.
 //
@@ -58,6 +59,7 @@ type AVMetadataSalientObject struct {
 func AVMetadataSalientObjectFromID(id objc.ID) AVMetadataSalientObject {
 	return AVMetadataSalientObject{AVMetadataObject: AVMetadataObjectFromID(id)}
 }
+
 // NOTE: AVMetadataSalientObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewAVMetadataSalientObject() AVMetadataSalientObject {
 	rv := objc.Send[AVMetadataSalientObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,10 +4,11 @@ package avfaudio
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAudioSourceNode] class.
@@ -43,13 +44,13 @@ func (ac AVAudioSourceNodeClass) Alloc() AVAudioSourceNode {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioSourceNode.DebugDescription]
 //   - [AVAudioSourceNode.Description]
 //   - [AVAudioSourceNode.Hash]
 //   - [AVAudioSourceNode.Superclass]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode
 type AVAudioSourceNode struct {
 	AVAudioNode
@@ -59,6 +60,7 @@ type AVAudioSourceNode struct {
 func AVAudioSourceNodeFromID(id objc.ID) AVAudioSourceNode {
 	return AVAudioSourceNode{AVAudioNode: AVAudioNodeFromID(id)}
 }
+
 // Ensure AVAudioSourceNode implements IAVAudioSourceNode.
 var _ IAVAudioSourceNode = AVAudioSourceNode{}
 
@@ -102,7 +104,6 @@ func NewAVAudioSourceNode() AVAudioSourceNode {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioSourceNodeWithImpl(impl unsafe.Pointer) AVAudioSourceNode {
 	instance := getAVAudioSourceNodeClass().Alloc()
@@ -110,10 +111,9 @@ func NewAudioSourceNodeWithImpl(impl unsafe.Pointer) AVAudioSourceNode {
 	return AVAudioSourceNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/pullInputBlockFromRenderBlock:
 func (_AVAudioSourceNodeClass AVAudioSourceNodeClass) PullInputBlockFromRenderBlock(block VoidHandler) {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_AVAudioSourceNodeClass.class), objc.Sel("pullInputBlockFromRenderBlock:"), _block0)
 }
 
@@ -122,16 +122,19 @@ func (a AVAudioSourceNode) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/description
 func (a AVAudioSourceNode) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/hash
 func (a AVAudioSourceNode) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/superclass
 func (a AVAudioSourceNode) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
@@ -152,4 +155,3 @@ func (ac AVAudioSourceNodeClass) PullInputBlockFromRenderBlockSync(ctx context.C
 		return ctx.Err()
 	}
 }
-

@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -63,6 +64,7 @@ type AVContentKey struct {
 func AVContentKeyFromID(id objc.ID) AVContentKey {
 	return AVContentKey{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVContentKey adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,11 +126,12 @@ func (c AVContentKey) ContentKeySpecifier() IAVContentKeySpecifier {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("contentKeySpecifier"))
 	return AVContentKeySpecifierFromID(objc.ID(rv))
 }
+
 // The external protection status for the content key based on all attached
 // displays.
 //
 // # Discussion
-// 
+//
 // This property isn’t key-value observable. Instead, use the
 // [ContentKeySessionExternalProtectionStatusDidChangeForContentKey] delegate
 // method to monitor changes to this value.
@@ -138,4 +141,3 @@ func (c AVContentKey) ExternalContentProtectionStatus() AVExternalContentProtect
 	rv := objc.Send[AVExternalContentProtectionStatus](c.ID, objc.Sel("externalContentProtectionStatus"))
 	return AVExternalContentProtectionStatus(rv)
 }
-

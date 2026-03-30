@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSPreviewRepresentingActivityItemClass) Alloc() NSPreviewRepresentingAc
 // A type that adds metadata to an item you share using the macOS share sheet.
 //
 // # Overview
-// 
+//
 // An [NSPreviewRepresentingActivityItem] object provides a concrete
 // implementation of the [NSPreviewRepresentableActivityItem] protocol. Use it
 // to create shareable items for common types such as strings or images, or
@@ -69,6 +70,7 @@ type NSPreviewRepresentingActivityItem struct {
 func NSPreviewRepresentingActivityItemFromID(id objc.ID) NSPreviewRepresentingActivityItem {
 	return NSPreviewRepresentingActivityItem{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPreviewRepresentingActivityItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,8 +119,6 @@ func NewNSPreviewRepresentingActivityItem() NSPreviewRepresentingActivityItem {
 // item: The item to share from the Mac share sheet. The item must conform to the
 // [NSPasteboardWriting] protocol, or be an [NSItemProvider] or [NSDocument]
 // object.
-// //
-// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 //
 // title: The localized name of the item.
 //
@@ -131,10 +131,12 @@ func NewNSPreviewRepresentingActivityItem() NSPreviewRepresentingActivityItem {
 // different source.
 //
 // # Return Value
-// 
+//
 // An initialized item to share.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentingActivityItem/init(item:title:image:icon:)
+//
+// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 func NewPreviewRepresentingActivityItemWithItemTitleImageIcon(item objectivec.IObject, title string, image INSImage, icon INSImage) NSPreviewRepresentingActivityItem {
 	instance := getNSPreviewRepresentingActivityItemClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItem:title:image:icon:"), item, objc.String(title), image, icon)
@@ -147,8 +149,6 @@ func NewPreviewRepresentingActivityItemWithItemTitleImageIcon(item objectivec.IO
 // item: The item to share from the Mac share sheet. The item must conform to the
 // [NSPasteboardWriting] protocol, or be an [NSItemProvider] or [NSDocument]
 // object.
-// //
-// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 //
 // title: The localized name of the item.
 //
@@ -161,10 +161,12 @@ func NewPreviewRepresentingActivityItemWithItemTitleImageIcon(item objectivec.IO
 // content has a different source.
 //
 // # Return Value
-// 
+//
 // An initialized item to share.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentingActivityItem/init(item:title:imageProvider:iconProvider:)
+//
+// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 func NewPreviewRepresentingActivityItemWithItemTitleImageProviderIconProvider(item objectivec.IObject, title string, imageProvider foundation.NSItemProvider, iconProvider foundation.NSItemProvider) NSPreviewRepresentingActivityItem {
 	instance := getNSPreviewRepresentingActivityItemClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItem:title:imageProvider:iconProvider:"), item, objc.String(title), imageProvider, iconProvider)
@@ -177,8 +179,6 @@ func NewPreviewRepresentingActivityItemWithItemTitleImageProviderIconProvider(it
 // item: The item to share from the Mac share sheet. The item must conform to the
 // [NSPasteboardWriting] protocol, or be an [NSItemProvider] or [NSDocument]
 // object.
-// //
-// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 //
 // title: The localized name of the item.
 //
@@ -191,22 +191,23 @@ func NewPreviewRepresentingActivityItemWithItemTitleImageProviderIconProvider(it
 // different source.
 //
 // # Return Value
-// 
+//
 // An initialized item to share.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentingActivityItem/init(item:title:image:icon:)
+//
+// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 func (p NSPreviewRepresentingActivityItem) InitWithItemTitleImageIcon(item objectivec.IObject, title string, image INSImage, icon INSImage) NSPreviewRepresentingActivityItem {
 	rv := objc.Send[NSPreviewRepresentingActivityItem](p.ID, objc.Sel("initWithItem:title:image:icon:"), item, objc.String(title), image, icon)
 	return rv
 }
+
 // Creates a metadata object that provides a title and images for a shareable
 // item.
 //
 // item: The item to share from the Mac share sheet. The item must conform to the
 // [NSPasteboardWriting] protocol, or be an [NSItemProvider] or [NSDocument]
 // object.
-// //
-// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 //
 // title: The localized name of the item.
 //
@@ -219,10 +220,12 @@ func (p NSPreviewRepresentingActivityItem) InitWithItemTitleImageIcon(item objec
 // content has a different source.
 //
 // # Return Value
-// 
+//
 // An initialized item to share.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentingActivityItem/init(item:title:imageProvider:iconProvider:)
+//
+// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 func (p NSPreviewRepresentingActivityItem) InitWithItemTitleImageProviderIconProvider(item objectivec.IObject, title string, imageProvider foundation.NSItemProvider, iconProvider foundation.NSItemProvider) NSPreviewRepresentingActivityItem {
 	rv := objc.Send[NSPreviewRepresentingActivityItem](p.ID, objc.Sel("initWithItem:title:imageProvider:iconProvider:"), item, objc.String(title), imageProvider, iconProvider)
 	return rv
@@ -231,7 +234,7 @@ func (p NSPreviewRepresentingActivityItem) InitWithItemTitleImageProviderIconPro
 // An object that provides an icon that represents the item’s source.
 //
 // # Discussion
-// 
+//
 // Typically, the icon is a thumbnail-sized representation of the source app
 // for the content. For example, provide your app’s icon for content you
 // manage.
@@ -241,10 +244,11 @@ func (p NSPreviewRepresentingActivityItem) IconProvider() foundation.NSItemProvi
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("iconProvider"))
 	return foundation.NSItemProviderFromID(objc.ID(rv))
 }
+
 // An object that provides a visual representation of the item.
 //
 // # Discussion
-// 
+//
 // Provide a full-size representation of the content you’re sharing. For
 // example, if the shared item is a link to a webpage, provide the hero image
 // for that webpage or a rendering of the page.
@@ -254,21 +258,23 @@ func (p NSPreviewRepresentingActivityItem) ImageProvider() foundation.NSItemProv
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("imageProvider"))
 	return foundation.NSItemProviderFromID(objc.ID(rv))
 }
+
 // The app-specific item you want to share.
 //
 // # Discussion
-// 
+//
 // Use this property to provide the data you want to pass to the sharing
 // service. The item must conform to the [NSPasteboardWriting] protocol, or be
 // an [NSItemProvider] or [NSDocument] object.
 //
-// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
-//
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/item
+//
+// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 func (p NSPreviewRepresentingActivityItem) Item() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
 }
+
 // A localized string that contains the name of the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/title
@@ -277,6 +283,4 @@ func (p NSPreviewRepresentingActivityItem) Title() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-			// Protocol methods for NSPreviewRepresentableActivityItem
-			
-
+// Protocol methods for NSPreviewRepresentableActivityItem

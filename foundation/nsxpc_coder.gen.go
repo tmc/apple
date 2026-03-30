@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,13 +47,10 @@ func (nc NSXPCCoderClass) Alloc() NSXPCCoder {
 // connection.
 //
 // # Overview
-// 
+//
 // If you want to perform custom encoding or decoding of [Codable] objects
 // that your app sends over an [NSXPCConnection], use [isKind(of:)] to
 // determine if the coder provided to your object is a kind of [NSXPCCoder].
-//
-// [Codable]: https://developer.apple.com/documentation/Swift/Codable
-// [isKind(of:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isKind(of:)
 //
 // # Inspecting the Coder
 //
@@ -66,6 +64,9 @@ func (nc NSXPCCoderClass) Alloc() NSXPCCoder {
 //   - [NSXPCCoder.DecodeXPCObjectOfTypeForKey]: Decodes an object and validates that its type matches the type a service provides over XPC.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder
+//
+// [Codable]: https://developer.apple.com/documentation/Swift/Codable
+// [isKind(of:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isKind(of:)
 type NSXPCCoder struct {
 	NSCoder
 }
@@ -77,6 +78,7 @@ type NSXPCCoder struct {
 func NSXPCCoderFromID(id objc.ID) NSXPCCoder {
 	return NSXPCCoder{NSCoder: NSCoderFromID(id)}
 }
+
 // NOTE: NSXPCCoder adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -142,6 +144,7 @@ func NewNSXPCCoder() NSXPCCoder {
 func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeXPCObject:forKey:"), xpcObject, objc.String(key))
 }
+
 // Decodes an object and validates that its type matches the type a service
 // provides over XPC.
 //
@@ -150,21 +153,21 @@ func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string) 
 // key: A string that your app uses to reference the decoded object.
 //
 // # Return Value
-// 
+//
 // An object that XPC can encode.
 //
 // # Discussion
-// 
+//
 // The [DecodeXPCObjectOfTypeForKey] method validates that the type of the
 // decoded object matches the type of the encoded object. If they don’t
 // match, the [NSXPCCoder] throws an exception in support of [NSSecureCoding].
-// 
+//
 // Be sure to check the result against [Null] if you call an [XPC] function
 // because calling an [XPC] function on a [Null] object results in a crash.
 //
-// [XPC]: https://developer.apple.com/documentation/XPC
-//
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/decodeXPCObject(ofType:forKey:)
+//
+// [XPC]: https://developer.apple.com/documentation/XPC
 func (x NSXPCCoder) DecodeXPCObjectOfTypeForKey(type_ unsafe.Pointer, key string) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](x.ID, objc.Sel("decodeXPCObjectOfType:forKey:"), type_, objc.String(key))
 	return rv
@@ -177,6 +180,7 @@ func (x NSXPCCoder) Connection() INSXPCConnection {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("connection"))
 	return NSXPCConnectionFromID(objc.ID(rv))
 }
+
 // An optional user information object associated with the coder.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/userInfo
@@ -187,4 +191,3 @@ func (x NSXPCCoder) UserInfo() objectivec.Object {
 func (x NSXPCCoder) SetUserInfo(value objectivec.Object) {
 	objc.Send[struct{}](x.ID, objc.Sel("setUserInfo:"), value)
 }
-

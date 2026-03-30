@@ -4,8 +4,9 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,29 +47,29 @@ func (cc CAReplicatorLayerClass) Alloc() CAReplicatorLayer {
 // geometric, temporal, and color transformations.
 //
 // # Overview
-// 
+//
 // You can use a [CAReplicatorLayer] object to build complex layouts based on
 // a single source layer that is replicated with transformation rules that can
 // affect the position, rotation color, and time.
-// 
+//
 // The following shows a simple example: a red square is added to a replicator
 // layer with an instance count of `5`. The position of each replicated
 // instance is offset along the `x` axis so that it appears to the right of
 // the previous instance. The blue and green color channels are offset so that
 // their values reach `0` at the final instance.
-// 
+//
 // The result of the code above is a row of five squares, with colors
 // graduating from white to red.
-// 
+//
 // [media-2776906]
-// 
+//
 // Replicator layers can be nested. The following code adds `replicatorLayer`
 // to a second replicator layer that offsets the position of each instance
 // vertically and subtracts from the red channel.
-// 
+//
 // The result of adding this code is to create a grid with the value of the
 // red channel being reduced in the vertical direction.
-// 
+//
 // [media-2776908]
 //
 // # Setting Instance Display Properties
@@ -110,6 +111,7 @@ type CAReplicatorLayer struct {
 func CAReplicatorLayerFromID(id objc.ID) CAReplicatorLayer {
 	return CAReplicatorLayer{CALayer: CALayerFromID(id)}
 }
+
 // NOTE: CAReplicatorLayer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -207,20 +209,20 @@ func NewCAReplicatorLayer() CAReplicatorLayer {
 // layer: The layer from which custom fields should be copied.
 //
 // # Return Value
-// 
+//
 // A layer instance with any custom instance variables copied from `layer`.
 //
 // # Discussion
-// 
+//
 // This initializer is used to create shadow copies of layers, for example,
 // for the [PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
-// 
+//
 // If you are implementing a custom layer subclass, you can override this
 // method and use it to copy the values of instance variables into the new
 // object. Subclasses should always invoke the superclass implementation.
-// 
+//
 // This method is the designated initializer for layer objects in the
 // presentation layer.
 //
@@ -234,7 +236,7 @@ func NewReplicatorLayerWithLayer(layer objectivec.IObject) CAReplicatorLayer {
 // The number of copies to create, including the source layers.
 //
 // # Discussion
-// 
+//
 // Default value is `1`, no extra copies are created.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAReplicatorLayer/instanceCount
@@ -245,21 +247,22 @@ func (r CAReplicatorLayer) InstanceCount() int {
 func (r CAReplicatorLayer) SetInstanceCount(value int) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInstanceCount:"), value)
 }
+
 // Specifies the delay, in seconds, between replicated copies. Animatable.
 //
 // # Discussion
-// 
+//
 // The default value is `0.0`, meaning that any animations added to replicated
 // copies will be synchronized.
-// 
+//
 // The following code shows a replicator layer being used to create an
 // animated activity monitor. The replicator layer creates 30 small circles
 // forming a larger circle. The source layer, `circle`, has a 1 second
 // animated fade out and each of the copies offsets the time of the animation
 // by 1 / 30 seconds.
-// 
+//
 // The following illustration shows the result of the above code:
-// 
+//
 // [media-2776911]
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAReplicatorLayer/instanceDelay
@@ -270,14 +273,15 @@ func (r CAReplicatorLayer) InstanceDelay() float64 {
 func (r CAReplicatorLayer) SetInstanceDelay(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInstanceDelay:"), value)
 }
+
 // The transform matrix applied to the previous instance to produce the
 // current instance. Animatable.
 //
 // # Discussion
-// 
+//
 // This transform matrix is applied to instance `k-1` to produce instance `k`.
 // The matrix is applied relative to the center of this layer.
-// 
+//
 // Defaults to the identity matrix.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAReplicatorLayer/instanceTransform
@@ -288,17 +292,15 @@ func (r CAReplicatorLayer) InstanceTransform() CATransform3D {
 func (r CAReplicatorLayer) SetInstanceTransform(value CATransform3D) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInstanceTransform:"), value)
 }
+
 // Defines whether this layer flattens its sublayers into its plane.
 //
 // # Discussion
-// 
-// If [true], the layer acts similarly to the [CATransformLayer] and has the
-// same restrictions.
-// 
-// Default is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If true, the layer acts similarly to the [CATransformLayer] and has the
+// same restrictions.
+//
+// Default is false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAReplicatorLayer/preservesDepth
 func (r CAReplicatorLayer) PreservesDepth() bool {
@@ -308,10 +310,11 @@ func (r CAReplicatorLayer) PreservesDepth() bool {
 func (r CAReplicatorLayer) SetPreservesDepth(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setPreservesDepth:"), value)
 }
+
 // Defines the color used to multiply the source object. Animatable.
 //
 // # Discussion
-// 
+//
 // Defaults to opaque white.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAReplicatorLayer/instanceColor
@@ -322,14 +325,15 @@ func (r CAReplicatorLayer) InstanceColor() coregraphics.CGColorRef {
 func (r CAReplicatorLayer) SetInstanceColor(value coregraphics.CGColorRef) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInstanceColor:"), value)
 }
+
 // Defines the offset added to the red component of the color for each
 // replicated instance. Animatable.
 //
 // # Discussion
-// 
+//
 // The `instanceRedOffset` is added to the red color component of instance
 // `k-1` to produce the modulation color of instance k.
-// 
+//
 // Default is `0.0`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAReplicatorLayer/instanceRedOffset
@@ -340,14 +344,15 @@ func (r CAReplicatorLayer) InstanceRedOffset() float32 {
 func (r CAReplicatorLayer) SetInstanceRedOffset(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInstanceRedOffset:"), value)
 }
+
 // Defines the offset added to the green component of the color for each
 // replicated instance. Animatable.
 //
 // # Discussion
-// 
+//
 // The `instanceGreenOffset` is added to the green color component of instance
 // `k-1` to produce the modulation color of instance k.
-// 
+//
 // Default is `0.0`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAReplicatorLayer/instanceGreenOffset
@@ -358,14 +363,15 @@ func (r CAReplicatorLayer) InstanceGreenOffset() float32 {
 func (r CAReplicatorLayer) SetInstanceGreenOffset(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInstanceGreenOffset:"), value)
 }
+
 // Defines the offset added to the blue component of the color for each
 // replicated instance. Animatable.
 //
 // # Discussion
-// 
+//
 // The `instanceBlueOffset` is added to the blue color component of instance
 // `k-1` to produce the modulation color of instance k.
-// 
+//
 // Default is `0.0`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAReplicatorLayer/instanceBlueOffset
@@ -376,14 +382,15 @@ func (r CAReplicatorLayer) InstanceBlueOffset() float32 {
 func (r CAReplicatorLayer) SetInstanceBlueOffset(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInstanceBlueOffset:"), value)
 }
+
 // Defines the offset added to the alpha component of the color for each
 // replicated instance. Animatable.
 //
 // # Discussion
-// 
+//
 // The `instanceAlphaOffset` is added to the alpha color component of instance
 // `k-1` to produce the modulation color of instance k.
-// 
+//
 // Default is `0.0`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAReplicatorLayer/instanceAlphaOffset
@@ -394,4 +401,3 @@ func (r CAReplicatorLayer) InstanceAlphaOffset() float32 {
 func (r CAReplicatorLayer) SetInstanceAlphaOffset(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInstanceAlphaOffset:"), value)
 }
-

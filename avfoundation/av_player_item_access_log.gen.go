@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVPlayerItemAccessLogClass) Alloc() AVPlayerItemAccessLog {
 // An object used to retrieve the access log associated with a player item.
 //
 // # Overview
-// 
+//
 // An [AVPlayerItemAccessLog] object accumulates key metrics about network
 // playback and presents them as a collection of [AVPlayerItemAccessLogEvent]
 // instances. Each event instance collates the data that relates to each
@@ -68,6 +69,7 @@ type AVPlayerItemAccessLog struct {
 func AVPlayerItemAccessLogFromID(id objc.ID) AVPlayerItemAccessLog {
 	return AVPlayerItemAccessLog{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerItemAccessLog adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,21 +118,21 @@ func NewAVPlayerItemAccessLog() AVPlayerItemAccessLog {
 // File Format.
 //
 // # Return Value
-// 
+//
 // A serialized representation of the access log in the Extended Log File
 // Format.
 //
 // # Discussion
-// 
+//
 // This method converts the web server access log into a textual format that
 // conforms to the W3C Extended Log File Format for web server log files. For
 // more information, see [http://www.w3.org/pub/WWW/TR/WD-logfile.html].
-// 
+//
 // You can generate a string suitable for console output using:
 //
-// [http://www.w3.org/pub/WWW/TR/WD-logfile.html]: http://www.w3.org/pub/WWW/TR/WD-logfile.html
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLog/extendedLogData()
+//
+// [http://www.w3.org/pub/WWW/TR/WD-logfile.html]: http://www.w3.org/pub/WWW/TR/WD-logfile.html
 func (p AVPlayerItemAccessLog) ExtendedLogData() foundation.INSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("extendedLogData"))
 	return foundation.NSDataFromID(rv)
@@ -139,22 +141,23 @@ func (p AVPlayerItemAccessLog) ExtendedLogData() foundation.INSData {
 // A chronologically ordered array of player item access log events.
 //
 // # Discussion
-// 
+//
 // The array contains [AVPlayerItemAccessLogEvent] objects that represent the
 // chronological sequence of events contained in the access log.
-// 
+//
 // This property isn’t observable. For more information about key-value
 // observing, see [Using Key-Value Observing in Swift].
 //
-// [Using Key-Value Observing in Swift]: https://developer.apple.com/documentation/Swift/using-key-value-observing-in-swift
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLog/events
+//
+// [Using Key-Value Observing in Swift]: https://developer.apple.com/documentation/Swift/using-key-value-observing-in-swift
 func (p AVPlayerItemAccessLog) Events() []AVPlayerItemAccessLogEvent {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("events"))
 	return objc.ConvertSlice(rv, func(id objc.ID) AVPlayerItemAccessLogEvent {
 		return AVPlayerItemAccessLogEventFromID(id)
 	})
 }
+
 // The string encoding of the extended log data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLog/extendedLogDataStringEncoding
@@ -162,4 +165,3 @@ func (p AVPlayerItemAccessLog) ExtendedLogDataStringEncoding() uint {
 	rv := objc.Send[uint](p.ID, objc.Sel("extendedLogDataStringEncoding"))
 	return rv
 }
-

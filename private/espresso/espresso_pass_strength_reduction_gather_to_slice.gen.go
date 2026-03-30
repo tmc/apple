@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_strength_reduction_gather_to_slice struct {
 func EspressoPass_strength_reduction_gather_to_sliceFromID(id objc.ID) EspressoPass_strength_reduction_gather_to_slice {
 	return EspressoPass_strength_reduction_gather_to_slice{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_strength_reduction_gather_to_slice implements IEspressoPass_strength_reduction_gather_to_slice.
 var _ IEspressoPass_strength_reduction_gather_to_slice = EspressoPass_strength_reduction_gather_to_slice{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_strength_reduction_gather_to_slice() EspressoPass_strength_
 	rv := objc.Send[EspressoPass_strength_reduction_gather_to_slice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

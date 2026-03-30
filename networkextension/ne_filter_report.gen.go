@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,12 +46,10 @@ func (nc NEFilterReportClass) Alloc() NEFilterReport {
 // The report of the data provider’s action on a flow.
 //
 // # Overview
-// 
+//
 // The system issues a report by calling your control provider’s
 // [HandleReport] method with a report instance when the data provider issues
-// a verdict whose [NEFilterReport.ShouldReport] property is set to [true].
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
+// a verdict whose [NEFilterReport.ShouldReport] property is set to true.
 //
 // # Getting report properties
 //
@@ -71,6 +70,7 @@ type NEFilterReport struct {
 func NEFilterReportFromID(id objc.ID) NEFilterReport {
 	return NEFilterReport{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEFilterReport adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,6 +137,7 @@ func (f NEFilterReport) Flow() INEFilterFlow {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("flow"))
 	return NEFilterFlowFromID(objc.ID(rv))
 }
+
 // The action taken on the reported flow.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterReport/action
@@ -144,6 +145,7 @@ func (f NEFilterReport) Action() NEFilterAction {
 	rv := objc.Send[NEFilterAction](f.ID, objc.Sel("action"))
 	return NEFilterAction(rv)
 }
+
 // The type of event indicated by this report.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterReport/event-swift.property
@@ -151,34 +153,33 @@ func (f NEFilterReport) Event() NEFilterReportEvent {
 	rv := objc.Send[NEFilterReportEvent](f.ID, objc.Sel("event"))
 	return NEFilterReportEvent(rv)
 }
+
 // The number of inbound bytes received from the flow.
 //
 // # Discussion
-// 
-// This property is only non-zero when the report [Event] is
-// [NEFilterReport.Event.flowClosed].
 //
-// [NEFilterReport.Event.flowClosed]: https://developer.apple.com/documentation/NetworkExtension/NEFilterReport/Event-swift.enum/flowClosed
+// This property is only non-zero when the report [Event] is
+// [NEFilterReportEventFlowClosed].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterReport/bytesInboundCount
 func (f NEFilterReport) BytesInboundCount() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("bytesInboundCount"))
 	return rv
 }
+
 // The number of outbound bytes sent on the flow.
 //
 // # Discussion
-// 
-// This property is only non-zero when the report [Event] is
-// [NEFilterReport.Event.flowClosed].
 //
-// [NEFilterReport.Event.flowClosed]: https://developer.apple.com/documentation/NetworkExtension/NEFilterReport/Event-swift.enum/flowClosed
+// This property is only non-zero when the report [Event] is
+// [NEFilterReportEventFlowClosed].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterReport/bytesOutboundCount
 func (f NEFilterReport) BytesOutboundCount() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("bytesOutboundCount"))
 	return rv
 }
+
 // A Boolean value that indicates whether to send a report to the control
 // provider when processing this verdict.
 //
@@ -190,4 +191,3 @@ func (f NEFilterReport) ShouldReport() bool {
 func (f NEFilterReport) SetShouldReport(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setShouldReport:"), value)
 }
-

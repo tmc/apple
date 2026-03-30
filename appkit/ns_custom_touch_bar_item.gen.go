@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSCustomTouchBarItem] class.
@@ -56,6 +57,7 @@ type NSCustomTouchBarItem struct {
 func NSCustomTouchBarItemFromID(id objc.ID) NSCustomTouchBarItem {
 	return NSCustomTouchBarItem{NSTouchBarItem: NSTouchBarItemFromID(id)}
 }
+
 // NOTE: NSCustomTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -97,7 +99,7 @@ func NewCustomTouchBarItemWithCoder(coder foundation.INSCoder) NSCustomTouchBarI
 // Creates a new item with the specified identifier.
 //
 // # Discussion
-// 
+//
 // The designated initializer. The identifier must be globally unique for
 // every item, except for space items.
 //
@@ -107,4 +109,3 @@ func NewCustomTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) NS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return NSCustomTouchBarItemFromID(rv)
 }
-

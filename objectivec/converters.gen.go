@@ -4,6 +4,7 @@ package objectivec
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -54,4 +55,3 @@ func IDSliceToNSArray(slice []objc.ID) objc.ID {
 		return id
 	})
 }
-

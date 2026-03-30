@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (ac AVVCAggregateDeviceClass) Alloc() AVVCAggregateDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVVCAggregateDevice.BuildAggregateDevice]
@@ -51,6 +51,7 @@ func (ac AVVCAggregateDeviceClass) Alloc() AVVCAggregateDevice {
 //   - [AVVCAggregateDevice.GetBuiltinSpeakerDevice]
 //   - [AVVCAggregateDevice.AggregateDeviceID]
 //   - [AVVCAggregateDevice.AggregateDeviceUID]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAggregateDevice
 type AVVCAggregateDevice struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type AVVCAggregateDevice struct {
 func AVVCAggregateDeviceFromID(id objc.ID) AVVCAggregateDevice {
 	return AVVCAggregateDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure AVVCAggregateDevice implements IAVVCAggregateDevice.
 var _ IAVVCAggregateDevice = AVVCAggregateDevice{}
 
@@ -112,34 +114,37 @@ func (v AVVCAggregateDevice) BuildAggregateDevice() int {
 	rv := objc.Send[int](v.ID, objc.Sel("BuildAggregateDevice"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAggregateDevice/CreateDictionaryForDevice:enableTap:
 func (v AVVCAggregateDevice) CreateDictionaryForDeviceEnableTap(device uint32, tap bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CreateDictionaryForDevice:enableTap:"), device, tap)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAggregateDevice/DestroyAggregateDevice
 func (v AVVCAggregateDevice) DestroyAggregateDevice() int {
 	rv := objc.Send[int](v.ID, objc.Sel("DestroyAggregateDevice"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAggregateDevice/GetBuiltinSpeakerDevice
 func (v AVVCAggregateDevice) GetBuiltinSpeakerDevice() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("GetBuiltinSpeakerDevice"))
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAggregateDevice/GetAOPDeviceID:
 func (_AVVCAggregateDeviceClass AVVCAggregateDeviceClass) GetAOPDeviceID(id bool) uint32 {
 	rv := objc.Send[uint32](objc.ID(_AVVCAggregateDeviceClass.class), objc.Sel("GetAOPDeviceID:"), id)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAggregateDevice/IsAOPDevicePresent
 func (_AVVCAggregateDeviceClass AVVCAggregateDeviceClass) IsAOPDevicePresent() bool {
 	rv := objc.Send[bool](objc.ID(_AVVCAggregateDeviceClass.class), objc.Sel("IsAOPDevicePresent"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAggregateDevice/sharedAggregateDevice
 func (_AVVCAggregateDeviceClass AVVCAggregateDeviceClass) SharedAggregateDevice() AVVCAggregateDevice {
 	rv := objc.Send[objc.ID](objc.ID(_AVVCAggregateDeviceClass.class), objc.Sel("sharedAggregateDevice"))
@@ -151,9 +156,9 @@ func (v AVVCAggregateDevice) AggregateDeviceID() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("aggregateDeviceID"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVVCAggregateDevice/aggregateDeviceUID
 func (v AVVCAggregateDevice) AggregateDeviceUID() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("aggregateDeviceUID"))
 	return foundation.NSStringFromID(rv).String()
 }
-

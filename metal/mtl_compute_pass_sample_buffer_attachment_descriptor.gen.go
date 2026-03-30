@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,14 +46,11 @@ func (mc MTLComputePassSampleBufferAttachmentDescriptorClass) Alloc() MTLCompute
 // beginning and end of a compute pass.
 //
 // # Overview
-// 
+//
 // For more context about configuring sample buffer attachments for compute
 // passes, see [Sampling GPU data into counter sample buffers]. That article
 // is one of a series in [GPU counters and counter sample buffers] about
 // sampling Metal hardware counters for performance measurement.
-//
-// [GPU counters and counter sample buffers]: https://developer.apple.com/documentation/Metal/gpu-counters-and-counter-sample-buffers
-// [Sampling GPU data into counter sample buffers]: https://developer.apple.com/documentation/Metal/sampling-gpu-data-into-counter-sample-buffers
 //
 // # Configuring the sample buffer attachment
 //
@@ -64,6 +62,9 @@ func (mc MTLComputePassSampleBufferAttachmentDescriptorClass) Alloc() MTLCompute
 //   - [MTLComputePassSampleBufferAttachmentDescriptor.SetEndOfEncoderSampleIndex]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePassSampleBufferAttachmentDescriptor
+//
+// [GPU counters and counter sample buffers]: https://developer.apple.com/documentation/Metal/gpu-counters-and-counter-sample-buffers
+// [Sampling GPU data into counter sample buffers]: https://developer.apple.com/documentation/Metal/sampling-gpu-data-into-counter-sample-buffers
 type MTLComputePassSampleBufferAttachmentDescriptor struct {
 	objectivec.Object
 }
@@ -75,6 +76,7 @@ type MTLComputePassSampleBufferAttachmentDescriptor struct {
 func MTLComputePassSampleBufferAttachmentDescriptorFromID(id objc.ID) MTLComputePassSampleBufferAttachmentDescriptor {
 	return MTLComputePassSampleBufferAttachmentDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLComputePassSampleBufferAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -129,16 +131,16 @@ func NewMTLComputePassSampleBufferAttachmentDescriptor() MTLComputePassSampleBuf
 // during a compute pass.
 //
 // # Discussion
-// 
+//
 // The property defaults to `nil`, which means the GPU doesn’t save any GPU
 // counter information during the compute pass. For more information, see
 // [Creating a counter sample buffer to store a GPU’s counter data during a
 // pass] and [Sampling GPU data into counter sample buffers].
 //
+// See: https://developer.apple.com/documentation/Metal/MTLComputePassSampleBufferAttachmentDescriptor/sampleBuffer
+//
 // [Creating a counter sample buffer to store a GPU’s counter data during a pass]: https://developer.apple.com/documentation/Metal/creating-a-counter-sample-buffer-to-store-a-gpus-counter-data-during-a-pass
 // [Sampling GPU data into counter sample buffers]: https://developer.apple.com/documentation/Metal/sampling-gpu-data-into-counter-sample-buffers
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePassSampleBufferAttachmentDescriptor/sampleBuffer
 func (c MTLComputePassSampleBufferAttachmentDescriptor) SampleBuffer() MTLCounterSampleBuffer {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("sampleBuffer"))
 	return MTLCounterSampleBufferObjectFromID(rv)
@@ -146,19 +148,18 @@ func (c MTLComputePassSampleBufferAttachmentDescriptor) SampleBuffer() MTLCounte
 func (c MTLComputePassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTLCounterSampleBuffer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSampleBuffer:"), value)
 }
+
 // An index within a counter sample buffer that tells the GPU where to store
 // counter data from the start of a compute pass.
 //
 // # Discussion
-// 
+//
 // This property indicates where the GPU stores the counter data within an
 // [MTLCounterSampleBuffer] instance that it samples at the beginning of a
 // compute pass.
-// 
+//
 // You can tell the GPU to skip sampling at the start of the compute pass by
 // assigning [MTLCounterDontSample] to this property.
-//
-// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePassSampleBufferAttachmentDescriptor/startOfEncoderSampleIndex
 func (c MTLComputePassSampleBufferAttachmentDescriptor) StartOfEncoderSampleIndex() uint {
@@ -168,19 +169,18 @@ func (c MTLComputePassSampleBufferAttachmentDescriptor) StartOfEncoderSampleInde
 func (c MTLComputePassSampleBufferAttachmentDescriptor) SetStartOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setStartOfEncoderSampleIndex:"), value)
 }
+
 // An index within a counter sample buffer that tells the GPU where to store
 // counter data from the end of a compute pass.
 //
 // # Discussion
-// 
+//
 // This property indicates where the GPU stores the counter data within an
 // [MTLCounterSampleBuffer] instance that it samples at the end of a compute
 // pass.
-// 
+//
 // You can tell the GPU to skip sampling at the end of the compute pass by
 // assigning [MTLCounterDontSample] to this property.
-//
-// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePassSampleBufferAttachmentDescriptor/endOfEncoderSampleIndex
 func (c MTLComputePassSampleBufferAttachmentDescriptor) EndOfEncoderSampleIndex() uint {
@@ -190,4 +190,3 @@ func (c MTLComputePassSampleBufferAttachmentDescriptor) EndOfEncoderSampleIndex(
 func (c MTLComputePassSampleBufferAttachmentDescriptor) SetEndOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEndOfEncoderSampleIndex:"), value)
 }
-

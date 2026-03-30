@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZVNCNoSecuritySecurityConfiguration struct {
 func VZVNCNoSecuritySecurityConfigurationFromID(id objc.ID) VZVNCNoSecuritySecurityConfiguration {
 	return VZVNCNoSecuritySecurityConfiguration{VZVNCSecurityConfiguration: VZVNCSecurityConfigurationFromID(id)}
 }
+
 // Ensure VZVNCNoSecuritySecurityConfiguration implements IVZVNCNoSecuritySecurityConfiguration.
 var _ IVZVNCNoSecuritySecurityConfiguration = VZVNCNoSecuritySecurityConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZVNCNoSecuritySecurityConfiguration() VZVNCNoSecuritySecurityConfigurat
 	rv := objc.Send[VZVNCNoSecuritySecurityConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

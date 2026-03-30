@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLCustomModelWrapperClass) Alloc() MLCustomModelWrapper {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLCustomModelWrapper.CustomModel]
@@ -51,6 +51,7 @@ func (mc MLCustomModelWrapperClass) Alloc() MLCustomModelWrapper {
 //   - [MLCustomModelWrapper.PredictionFromFeaturesOptionsError]
 //   - [MLCustomModelWrapper.PredictionsFromBatchOptionsError]
 //   - [MLCustomModelWrapper.InitWithModelDescriptionCustomModelConfiguration]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper
 type MLCustomModelWrapper struct {
 	MLModel
@@ -60,6 +61,7 @@ type MLCustomModelWrapper struct {
 func MLCustomModelWrapperFromID(id objc.ID) MLCustomModelWrapper {
 	return MLCustomModelWrapper{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLCustomModelWrapper implements IMLCustomModelWrapper.
 var _ IMLCustomModelWrapper = MLCustomModelWrapper{}
 
@@ -105,7 +107,6 @@ func NewMLCustomModelWrapper() MLCustomModelWrapper {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewCustomModelWrapperDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLCustomModelWrapper, error) {
 	var errorPtr objc.ID
@@ -118,7 +119,6 @@ func NewCustomModelWrapperDescriptionOnlyWithSpecificationConfigurationError(spe
 	return MLCustomModelWrapperFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewCustomModelWrapperInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLCustomModelWrapper, error) {
 	var errorPtr objc.ID
@@ -131,7 +131,6 @@ func NewCustomModelWrapperInterfaceAndMetadataWithCompiledArchiveError(archive u
 	return MLCustomModelWrapperFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewCustomModelWrapperWithConfiguration(configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
@@ -139,7 +138,6 @@ func NewCustomModelWrapperWithConfiguration(configuration objectivec.IObject) ML
 	return MLCustomModelWrapperFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewCustomModelWrapperWithDescription(description objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
@@ -147,7 +145,6 @@ func NewCustomModelWrapperWithDescription(description objectivec.IObject) MLCust
 	return MLCustomModelWrapperFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewCustomModelWrapperWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
@@ -155,7 +152,6 @@ func NewCustomModelWrapperWithDescriptionConfiguration(description objectivec.IO
 	return MLCustomModelWrapperFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/initWithModelDescription:customModel:configuration:
 func NewCustomModelWrapperWithModelDescriptionCustomModelConfiguration(description objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
@@ -163,7 +159,6 @@ func NewCustomModelWrapperWithModelDescriptionCustomModelConfiguration(descripti
 	return MLCustomModelWrapperFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewCustomModelWrapperWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
@@ -171,7 +166,6 @@ func NewCustomModelWrapperWithNameInputDescriptionOutputDescriptionOrderedInputF
 	return MLCustomModelWrapperFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/predictionFromFeatures:options:error:
 func (c MLCustomModelWrapper) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -183,7 +177,7 @@ func (c MLCustomModelWrapper) PredictionFromFeaturesOptionsError(features object
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/predictionsFromBatch:options:error:
 func (c MLCustomModelWrapper) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -195,7 +189,7 @@ func (c MLCustomModelWrapper) PredictionsFromBatchOptionsError(batch objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModelWrapper/initWithModelDescription:customModel:configuration:
 func (c MLCustomModelWrapper) InitWithModelDescriptionCustomModelConfiguration(description objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	rv := objc.Send[MLCustomModelWrapper](c.ID, objc.Sel("initWithModelDescription:customModel:configuration:"), description, model, configuration)
@@ -210,4 +204,3 @@ func (c MLCustomModelWrapper) CustomModel() objectivec.Object {
 func (c MLCustomModelWrapper) SetCustomModel(value objectivec.Object) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCustomModel:"), value)
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,14 +44,14 @@ func (vc VZVirtioEntropyDeviceConfigurationClass) Alloc() VZVirtioEntropyDeviceC
 // A source of entropy for the guest’s random number generator.
 //
 // # Overview
-// 
+//
 // Use a [VZVirtioEntropyDeviceConfiguration] object to expose a source of
 // entropy for the guest operating system’s random-number generator. When
 // you create this object and add it to your virtual machine’s
 // configuration, the virtual machine configures a Virtio-compliant entropy
 // device. The guest operating system uses this device as a seed to generate
 // random numbers.
-// 
+//
 // Create a [VZVirtioEntropyDeviceConfiguration] object and add it to the
 // [VZVirtioEntropyDeviceConfiguration.EntropyDevices] property of your virtual machine’s configuration.
 //
@@ -65,6 +66,7 @@ type VZVirtioEntropyDeviceConfiguration struct {
 func VZVirtioEntropyDeviceConfigurationFromID(id objc.ID) VZVirtioEntropyDeviceConfiguration {
 	return VZVirtioEntropyDeviceConfiguration{VZEntropyDeviceConfiguration: VZEntropyDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioEntropyDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,4 +111,3 @@ func (v VZVirtioEntropyDeviceConfiguration) EntropyDevices() IVZEntropyDeviceCon
 func (v VZVirtioEntropyDeviceConfiguration) SetEntropyDevices(value IVZEntropyDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEntropyDevices:"), value)
 }
-

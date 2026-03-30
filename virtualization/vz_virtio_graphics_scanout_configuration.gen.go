@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VZVirtioGraphicsScanoutConfigurationClass) Alloc() VZVirtioGraphicsScan
 // dimensions of the graphics device for a Linux VM.
 //
 // # Overview
-// 
+//
 // Use a [VZVirtioGraphicsScanoutConfiguration] to configure the width and
 // height of a Virtio graphics device.
 //
@@ -71,6 +72,7 @@ type VZVirtioGraphicsScanoutConfiguration struct {
 func VZVirtioGraphicsScanoutConfigurationFromID(id objc.ID) VZVirtioGraphicsScanoutConfiguration {
 	return VZVirtioGraphicsScanoutConfiguration{VZGraphicsDisplayConfiguration: VZGraphicsDisplayConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioGraphicsScanoutConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -165,6 +167,7 @@ func (v VZVirtioGraphicsScanoutConfiguration) HeightInPixels() int {
 func (v VZVirtioGraphicsScanoutConfiguration) SetHeightInPixels(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHeightInPixels:"), value)
 }
+
 // An integer value that describes the width of the graphics device in pixels.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanoutConfiguration/widthInPixels
@@ -175,6 +178,7 @@ func (v VZVirtioGraphicsScanoutConfiguration) WidthInPixels() int {
 func (v VZVirtioGraphicsScanoutConfiguration) SetWidthInPixels(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWidthInPixels:"), value)
 }
+
 // The array of output devices.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtiographicsdeviceconfiguration/scanouts
@@ -185,4 +189,3 @@ func (v VZVirtioGraphicsScanoutConfiguration) Scanouts() IVZVirtioGraphicsScanou
 func (v VZVirtioGraphicsScanoutConfiguration) SetScanouts(value IVZVirtioGraphicsScanoutConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setScanouts:"), value)
 }
-

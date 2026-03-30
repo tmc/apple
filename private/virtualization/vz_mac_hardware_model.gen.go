@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZMacHardwareModelClass) Alloc() VZMacHardwareModel {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacHardwareModel._boardID]
@@ -50,6 +50,7 @@ func (vc VZMacHardwareModelClass) Alloc() VZMacHardwareModel {
 //   - [VZMacHardwareModel._variantID]
 //   - [VZMacHardwareModel._variantName]
 //   - [VZMacHardwareModel.Supported]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel
 type VZMacHardwareModel struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type VZMacHardwareModel struct {
 func VZMacHardwareModelFromID(id objc.ID) VZMacHardwareModel {
 	return VZMacHardwareModel{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMacHardwareModel implements IVZMacHardwareModel.
 var _ IVZMacHardwareModel = VZMacHardwareModel{}
 
@@ -104,7 +106,6 @@ func NewVZMacHardwareModel() VZMacHardwareModel {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/_defaultBoardIDForPlatformVersion:
 func (_VZMacHardwareModelClass VZMacHardwareModelClass) _defaultBoardIDForPlatformVersion(version uint32) uint32 {
 	rv := objc.Send[uint32](objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_defaultBoardIDForPlatformVersion:"), version)
@@ -115,6 +116,7 @@ func (_VZMacHardwareModelClass VZMacHardwareModelClass) _defaultBoardIDForPlatfo
 func (_VZMacHardwareModelClass VZMacHardwareModelClass) DefaultBoardIDForPlatformVersion(version uint32) uint32 {
 	return _VZMacHardwareModelClass._defaultBoardIDForPlatformVersion(version)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/_defaultHardwareModel
 func (_VZMacHardwareModelClass VZMacHardwareModelClass) _defaultHardwareModel() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_defaultHardwareModel"))
@@ -125,7 +127,7 @@ func (_VZMacHardwareModelClass VZMacHardwareModelClass) _defaultHardwareModel() 
 func (_VZMacHardwareModelClass VZMacHardwareModelClass) DefaultHardwareModel() objectivec.IObject {
 	return _VZMacHardwareModelClass._defaultHardwareModel()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/_hardwareModelWithDescriptor:
 func (_VZMacHardwareModelClass VZMacHardwareModelClass) _hardwareModelWithDescriptor(descriptor objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_VZMacHardwareModelClass.class), objc.Sel("_hardwareModelWithDescriptor:"), descriptor)
@@ -142,24 +144,27 @@ func (m VZMacHardwareModel) _boardID() uint32 {
 	rv := objc.Send[uint32](m.ID, objc.Sel("_boardID"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/_isa
 func (m VZMacHardwareModel) _isa() int64 {
 	rv := objc.Send[int64](m.ID, objc.Sel("_isa"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/_variantID
 func (m VZMacHardwareModel) _variantID() uint32 {
 	rv := objc.Send[uint32](m.ID, objc.Sel("_variantID"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/_variantName
 func (m VZMacHardwareModel) _variantName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_variantName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacHardwareModel/supported
 func (m VZMacHardwareModel) Supported() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("supported"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type UserInfo struct {
 func UserInfoFromID(id objc.ID) UserInfo {
 	return UserInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure UserInfo implements IUserInfo.
 var _ IUserInfo = UserInfo{}
 
@@ -78,4 +80,3 @@ func NewUserInfo() UserInfo {
 	rv := objc.Send[UserInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

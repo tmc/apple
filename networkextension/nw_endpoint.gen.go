@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (nc NWEndpointClass) Alloc() NWEndpoint {
 // network connection.
 //
 // # Overview
-// 
+//
 // All endpoint objects are static collections of parameters that describe a
 // network resource. They do not directly provide any resolution services, but
 // instead must be used with other classes to be resolved and create
@@ -66,6 +67,7 @@ type NWEndpoint struct {
 func NWEndpointFromID(id objc.ID) NWEndpoint {
 	return NWEndpoint{objectivec.Object{ID: id}}
 }
+
 // NOTE: NWEndpoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -100,4 +102,3 @@ func NewNWEndpoint() NWEndpoint {
 func (n NWEndpoint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-

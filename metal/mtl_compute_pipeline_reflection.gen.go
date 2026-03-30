@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (mc MTLComputePipelineReflectionClass) Alloc() MTLComputePipelineReflection
 // Information about the arguments of a compute function.
 //
 // # Overview
-// 
+//
 // An [MTLComputePipelineReflection] object provides access to the arguments
 // of the compute function used in an [MTLComputePipelineState] object. An
 // [MTLComputePipelineReflection] object can be created along with an
@@ -54,7 +55,7 @@ func (mc MTLComputePipelineReflectionClass) Alloc() MTLComputePipelineReflection
 // [NewComputePipelineStateWithFunctionOptionsCompletionHandler] method of
 // [MTLDevice] to create both an [MTLComputePipelineState] object and an
 // [MTLComputePipelineReflection] object.
-// 
+//
 // [MTLComputePipelineReflection] objects can use a significant amount of
 // memory; release any strong references to them after you finish creating
 // pipeline objects.
@@ -74,6 +75,7 @@ type MTLComputePipelineReflection struct {
 func MTLComputePipelineReflectionFromID(id objc.ID) MTLComputePipelineReflection {
 	return MTLComputePipelineReflection{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLComputePipelineReflection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,4 +120,3 @@ func (c MTLComputePipelineReflection) Bindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-

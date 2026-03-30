@@ -18,6 +18,7 @@ type NSUserInterfaceItemSearching interface {
 type NSUserInterfaceItemSearchingObject struct {
 	objectivec.Object
 }
+
 func (o NSUserInterfaceItemSearchingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -35,7 +36,7 @@ func NSUserInterfaceItemSearchingObjectFromID(id objc.ID) NSUserInterfaceItemSea
 // item: At item in the help menu.
 //
 // # Return Value
-// 
+//
 // An [NSArray] of [NSStrings] (localized for display in the menu) that will
 // be combined with separators to form the menu item title.
 //
@@ -43,14 +44,15 @@ func NSUserInterfaceItemSearchingObjectFromID(id objc.ID) NSUserInterfaceItemSea
 func (o NSUserInterfaceItemSearchingObject) LocalizedTitlesForItem(item objectivec.IObject) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("localizedTitlesForItem:"), item)
 	return objc.ConvertSliceToStrings(rv)
-	}
+}
+
 // If this method is implemented, a “Show All Help Topics” item will
 // appear in the menu and this method is called when the user selects it.
 //
 // searchString: The search string.
 //
 // # Discussion
-// 
+//
 // The application should show all its results for this search, which does not
 // include results for menu items. The string for “Show All Help Topics”
 // is system defined and localized and cannot be changed by the user.
@@ -58,17 +60,17 @@ func (o NSUserInterfaceItemSearchingObject) LocalizedTitlesForItem(item objectiv
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemSearching/showAllHelpTopics(forSearch:)
 func (o NSUserInterfaceItemSearchingObject) ShowAllHelpTopicsForSearchString(searchString string) {
 	objc.Send[struct{}](o.ID, objc.Sel("showAllHelpTopicsForSearchString:"), objc.String(searchString))
-	}
+}
+
 // Invoked when the user selects a search result in Help menu.
 //
 // item: An item in the help menu.
 //
 // # Discussion
-// 
+//
 // The default implementation brings up Help Viewer for a Help item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemSearching/performAction(forItem:)
 func (o NSUserInterfaceItemSearchingObject) PerformActionForItem(item objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("performActionForItem:"), item)
-	}
-
+}

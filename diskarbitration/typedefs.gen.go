@@ -4,7 +4,8 @@ package diskarbitration
 
 import (
 	"unsafe"
-	"github.com/tmc/apple/objectivec"
+
+	"github.com/tmc/apple/kernel"
 )
 
 // See: https://developer.apple.com/documentation/DiskArbitration/DAApprovalSessionRef
@@ -19,6 +20,11 @@ type DADiskAppearedCallback = func(uintptr, unsafe.Pointer)
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskClaimCallback
 type DADiskClaimCallback = func(uintptr, uintptr, unsafe.Pointer)
+
+// DADiskClaimOptions is options for DADiskClaim().
+//
+// See: https://developer.apple.com/documentation/DiskArbitration/DADiskClaimOptions
+type DADiskClaimOptions = uint32
 
 // DADiskClaimReleaseCallback is type of the callback function used by DADiskClaim().
 //
@@ -44,11 +50,6 @@ type DADiskEjectApprovalCallback = func(uintptr, unsafe.Pointer) uintptr
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskEjectCallback
 type DADiskEjectCallback = func(uintptr, uintptr, unsafe.Pointer)
-
-// DADiskEjectOptions is options for DADiskEject().
-//
-// See: https://developer.apple.com/documentation/DiskArbitration/DADiskEjectOptions
-type DADiskEjectOptions = uint32
 
 // DADiskMountApprovalCallback is type of the callback function used by DARegisterDiskMountApprovalCallback().
 //
@@ -113,10 +114,9 @@ type DADissenterRef uintptr
 // DAReturn is a return code.
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DAReturn
-type DAReturn = objectivec.IObject
+type DAReturn = kernel.Mach_error_t
 
 // DASessionRef is type of a reference to DASession instances.
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DASession
 type DASessionRef uintptr
-

@@ -28,6 +28,7 @@ type NSViewControllerPresentationAnimator interface {
 type NSViewControllerPresentationAnimatorObject struct {
 	objectivec.Object
 }
+
 func (o NSViewControllerPresentationAnimatorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -49,13 +50,14 @@ func NSViewControllerPresentationAnimatorObjectFromID(id objc.ID) NSViewControll
 // parameter.
 //
 // # Discussion
-// 
+//
 // To add custom presentation animation, Implement it in this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewControllerPresentationAnimator/animatePresentation(of:from:)
 func (o NSViewControllerPresentationAnimatorObject) AnimatePresentationOfViewControllerFromViewController(viewController INSViewController, fromViewController INSViewController) {
 	objc.Send[struct{}](o.ID, objc.Sel("animatePresentationOfViewController:fromViewController:"), viewController, fromViewController)
-	}
+}
+
 // Called when a previously-presented view controller is about to be
 // dismissed.
 //
@@ -65,12 +67,11 @@ func (o NSViewControllerPresentationAnimatorObject) AnimatePresentationOfViewCon
 // parameter.
 //
 // # Discussion
-// 
+//
 // To add custom view controller dismissal animation, Implement it in this
 // method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewControllerPresentationAnimator/animateDismissal(of:from:)
 func (o NSViewControllerPresentationAnimatorObject) AnimateDismissalOfViewControllerFromViewController(viewController INSViewController, fromViewController INSViewController) {
 	objc.Send[struct{}](o.ID, objc.Sel("animateDismissalOfViewController:fromViewController:"), viewController, fromViewController)
-	}
-
+}

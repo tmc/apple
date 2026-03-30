@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,6 +53,7 @@ type PBRequest struct {
 func PBRequestFromID(id objc.ID) PBRequest {
 	return PBRequest{objectivec.Object{ID: id}}
 }
+
 // Ensure PBRequest implements IPBRequest.
 var _ IPBRequest = PBRequest{}
 
@@ -78,4 +80,3 @@ func NewPBRequest() PBRequest {
 	rv := objc.Send[PBRequest](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,56 +47,52 @@ func (nc NSLayoutConstraintClass) Alloc() NSLayoutConstraint {
 // by the constraint-based layout system.
 //
 // # Overview
-// 
+//
 // Each constraint is a linear equation with the following format:
-// 
+//
 // In this equation, `attribute1` and `attribute2` are the variables that Auto
 // Layout can adjust when solving these constraints. The other values are
 // defined when you create the constraint. For example, If you’re defining
 // the relative position of two buttons, you might say “the leading edge of
 // the second button should be 8 points after the trailing edge of the first
 // button.” The linear equation for this relationship is shown below:
-// 
+//
 // Auto Layout then modifies the values of the specified leading and trailing
 // edges until both sides of the equation are equal. Note that Auto Layout
 // does not simply assign the value of the right side of this equation to the
 // left side. Instead, the system can modify either attribute or both
 // attributes as needed to solve for this constraint.
-// 
+//
 // The fact that constraints are equations (and not assignment operators)
 // means that you can switch the order of the items in the equation as needed
 // to more clearly express the desired relationship. However, if you switch
 // the order, you must also invert the multiplier and constant. For example,
 // the following two equations produce identical constraints:
-// 
+//
 // A valid layout is defined as a set constraints with one and only one
 // possible solution. Valid layouts are also referred to as a nonambiguous,
 // nonconflicting layouts. Constraints with more than one solution are
 // ambiguous. Constraints with no valid solutions are conflicting. For more
 // information on resolving ambiguous and conflicting constraints, see [Types
 // of Errors] in [Auto Layout Guide].
-// 
+//
 // Additionally, constraints are not limited to equality relationships. They
 // can also use greater than or equal to (>=) or less than or equal to (<=) to
 // describe the relationship between the two attributes. Constraints also have
 // priorities between 1 and 1,000. Constraints with a priority of 1,000 are
 // required. All priorities less than 1,000 are optional. By default, all
 // constraints are required (priority = 1,000).
-// 
+//
 // After solving for the required constraints, Auto Layout tries to solve all
 // the optional constraints in priority order from highest to lowest. If it
 // cannot solve for an optional constraint, it tries to come as close as
 // possible to the desired result, and then moves on to the next constraint.
-// 
+//
 // This combination of inequalities, equalities, and priorities gives you a
 // great amount of flexibility and power. By combining multiple constraints,
 // you can define layouts that dynamically adapt as the size and location of
 // the elements in your user interface change. For some example layouts, see
 // [Stack Views] in [Auto Layout Guide].
-//
-// [Auto Layout Guide]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853
-// [Stack Views]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/LayoutUsingStackViews.html#//apple_ref/doc/uid/TP40010853-CH11
-// [Types of Errors]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/TypesofErrors.html#//apple_ref/doc/uid/TP40010853-CH17
 //
 // # Activating and deactivating constraints
 //
@@ -131,6 +128,10 @@ func (nc NSLayoutConstraintClass) Alloc() NSLayoutConstraint {
 //   - [NSLayoutConstraint.SetShouldBeArchived]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint
+//
+// [Auto Layout Guide]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853
+// [Stack Views]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/LayoutUsingStackViews.html#//apple_ref/doc/uid/TP40010853-CH11
+// [Types of Errors]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/TypesofErrors.html#//apple_ref/doc/uid/TP40010853-CH17
 type NSLayoutConstraint struct {
 	objectivec.Object
 }
@@ -142,6 +143,7 @@ type NSLayoutConstraint struct {
 func NSLayoutConstraintFromID(id objc.ID) NSLayoutConstraint {
 	return NSLayoutConstraint{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSLayoutConstraint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -276,18 +278,16 @@ func NewNSLayoutConstraint() NSLayoutConstraint {
 // the constraint to yield the final modified attribute.
 //
 // # Return Value
-// 
+//
 // A constraint object relating the two provided views with the specified
 // relation, attributes, multiplier, and constant.
 //
 // # Discussion
-// 
+//
 // Constraints represent linear equations of the form `view1.Attr1()
 // multiplier × view2.Attr2() + c`. If the constraint you wish to express
 // does not have a second view and attribute, use `nil` and
-// [NSLayoutConstraint.Attribute.notAnAttribute].
-//
-// [NSLayoutConstraint.Attribute.notAnAttribute]: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/Attribute/notAnAttribute
+// [NSLayoutAttributeNotAnAttribute].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/init(item:attribute:relatedBy:toItem:attribute:multiplier:constant:)
 func NewLayoutConstraintWithItemAttributeRelatedByToItemAttributeMultiplierConstant(view1 objectivec.IObject, attr1 NSLayoutAttribute, relation NSLayoutRelation, view2 objectivec.IObject, attr2 NSLayoutAttribute, multiplier float64, c float64) NSLayoutConstraint {
@@ -300,47 +300,47 @@ func NewLayoutConstraintWithItemAttributeRelatedByToItemAttributeMultiplierConst
 // key: The action name or property specified as a string.
 //
 // # Return Value
-// 
+//
 // The animation to perform. A subclass of [CAAnimation].
 //
-// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
-//
 // # Discussion
-// 
+//
 // When the action specified by `key` is triggered for an object, this method
 // is consulted to find the animation, if any, that should be performed in
 // response.
-// 
+//
 // Like its Core Animation [CALayer] counterpart, [action(forKey:)], this
 // method is a funnel point that defines the order in which the search for an
 // animation proceeds.It first checks the receiver’s Getting the Animator
 // Proxy dictionary for a value matching `key`, then falls back to [Animator]
 // for the receiver’s class.
-// 
+//
 // Subclasses should not typically need to override this method.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
+//
+// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
 // [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
 // [action(forKey:)]: https://developer.apple.com/documentation/QuartzCore/CALayer/action(forKey:)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
 func (l NSLayoutConstraint) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
+
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
 //
 // # Return Value
-// 
+//
 // Returns a proxy object for the receiver that can initiate implied
 // animations in response to property changes.
 //
 // # Discussion
-// 
+//
 // The animator proxy object should be treated as if it was the receiver
 // itself, and may be passed to any code that accepts the receiver as a
 // parameter.
-// 
+//
 // Sending key-value coding compliant “set” messages to the proxy will
 // trigger animation for automatically animated properties of its target
 // object, if the active [NSAnimationContext] in the current thread has a
@@ -357,9 +357,6 @@ func (l NSLayoutConstraint) Animator() INSLayoutConstraint {
 //
 // format: The format specification for the constraints. For more information, see
 // [Auto Layout Cookbook] in [Auto Layout Guide].
-// //
-// [Auto Layout Cookbook]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/LayoutUsingStackViews.html#//apple_ref/doc/uid/TP40010853-CH3
-// [Auto Layout Guide]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853
 //
 // opts: Options describing the attribute and the direction of layout for all
 // objects in the visual format string.
@@ -367,93 +364,92 @@ func (l NSLayoutConstraint) Animator() INSLayoutConstraint {
 // metrics: A dictionary of constants that appear in the visual format string. The
 // dictionary’s keys must be the string values used in the visual format
 // string. Their values must be [NSNumber] objects.
-// //
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 //
 // views: A dictionary of views that appear in the visual format string. The keys
 // must be the string values used in the visual format string, and the values
 // must be the view objects.
 //
 // # Return Value
-// 
+//
 // An array of constraints that, combined, express the constraints between the
 // provided views and their parent view as described by the visual format
 // string. The constraints are returned in the same order they were specified
 // in the visual format string.
 //
 // # Discussion
-// 
+//
 // The language used for the visual format string is described in [Auto Layout
 // Cookbook] in [Auto Layout Guide].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/constraints(withVisualFormat:options:metrics:views:)
+//
 // [Auto Layout Cookbook]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/LayoutUsingStackViews.html#//apple_ref/doc/uid/TP40010853-CH3
 // [Auto Layout Guide]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 //
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/constraints(withVisualFormat:options:metrics:views:)
+// [Auto Layout Cookbook]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/LayoutUsingStackViews.html#//apple_ref/doc/uid/TP40010853-CH3
+// [Auto Layout Guide]: https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853
 func (_NSLayoutConstraintClass NSLayoutConstraintClass) ConstraintsWithVisualFormatOptionsMetricsViews(format string, opts NSLayoutFormatOptions, metrics foundation.INSDictionary, views foundation.INSDictionary) []NSLayoutConstraint {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSLayoutConstraintClass.class), objc.Sel("constraintsWithVisualFormat:options:metrics:views:"), objc.String(format), opts, metrics, views)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSLayoutConstraint {
 		return NSLayoutConstraintFromID(id)
 	})
 }
+
 // Activates each constraint in the specified array.
 //
 // constraints: An array of constraints to activate.
 //
 // # Discussion
-// 
+//
 // This convenience method provides an easy way to activate a set of
 // constraints with one call. The effect of this method is the same as setting
-// the [Active] property of each constraint to [true]. Typically, using this
+// the [Active] property of each constraint to true. Typically, using this
 // method is more efficient than activating each constraint individually.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/activate(_:)
 func (_NSLayoutConstraintClass NSLayoutConstraintClass) ActivateConstraints(constraints []NSLayoutConstraint) {
 	objc.Send[objc.ID](objc.ID(_NSLayoutConstraintClass.class), objc.Sel("activateConstraints:"), objectivec.IObjectSliceToNSArray(constraints))
 }
+
 // Deactivates each constraint in the specified array.
 //
 // constraints: An array of constraints to deactivate.
 //
 // # Discussion
-// 
+//
 // This is a convenience method that provides an easy way to deactivate a set
 // of constraints with one call. The effect of this method is the same as
-// setting the [Active] property of each constraint to [false]. Typically,
-// using this method is more efficient than deactivating each constraint
+// setting the [Active] property of each constraint to false. Typically, using
+// this method is more efficient than deactivating each constraint
 // individually.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/deactivate(_:)
 func (_NSLayoutConstraintClass NSLayoutConstraintClass) DeactivateConstraints(constraints []NSLayoutConstraint) {
 	objc.Send[objc.ID](objc.ID(_NSLayoutConstraintClass.class), objc.Sel("deactivateConstraints:"), objectivec.IObjectSliceToNSArray(constraints))
 }
+
 // Returns the default animation that should be performed for the specified
 // key.
 //
 // key: The action name or property specified as a string.
 //
 // # Return Value
-// 
+//
 // The animation to perform. A subclass of [CAAnimation].
 //
-// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
-//
 // # Discussion
-// 
+//
 // The [NSAnimatablePropertyContainer] method consults this class method when
 // its search of the receivers Getting the Animator Proxy dictionary fails to
 // return an animation for `key`.
-// 
+//
 // An animatable property container should implement this method to return a
 // default animation to be performed for each key that it wants to make
 // auto-animatable, where `key` usually references a property of the receiver,
 // but can also specify a special animation trigger
 // ([NSAnimationTriggerOrderIn] or [NSAnimationTriggerOrderOut]).
-// 
+//
 // A developer implementing a custom view subclass, can enable automatic
 // animation for properties by overriding this method, and having it return
 // the desired default [CAAnimation] subclass to use for each of the property
@@ -462,11 +458,13 @@ func (_NSLayoutConstraintClass NSLayoutConstraintClass) DeactivateConstraints(co
 // animation specifications. The following is an example of such an
 // implementation.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/defaultAnimation(forKey:)
+//
 // [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
 // [NSAnimationTriggerOrderIn]: https://developer.apple.com/documentation/AppKit/NSAnimationTriggerOrderIn
 // [NSAnimationTriggerOrderOut]: https://developer.apple.com/documentation/AppKit/NSAnimationTriggerOrderOut
 //
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/defaultAnimation(forKey:)
+// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
 func (_NSLayoutConstraintClass NSLayoutConstraintClass) DefaultAnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_NSLayoutConstraintClass.class), objc.Sel("defaultAnimationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
@@ -475,19 +473,17 @@ func (_NSLayoutConstraintClass NSLayoutConstraintClass) DefaultAnimationForKey(k
 // The active state of the constraint.
 //
 // # Discussion
-// 
+//
 // You can activate or deactivate a constraint by changing this property. Note
 // that only active constraints affect the calculated layout. If you try to
 // activate a constraint whose items have no common ancestor, an exception is
-// thrown. For newly created constraints, the [Active] property is [false] by
+// thrown. For newly created constraints, the [Active] property is false by
 // default.
-// 
+//
 // Activating or deactivating the constraint calls [AddConstraint] and
 // [RemoveConstraint] on the view that is the closest common ancestor of the
 // items managed by this constraint. Use this property instead of calling
 // [AddConstraint] or [RemoveConstraint] directly.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/isActive
 func (l NSLayoutConstraint) Active() bool {
@@ -497,6 +493,7 @@ func (l NSLayoutConstraint) Active() bool {
 func (l NSLayoutConstraint) SetActive(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setActive:"), value)
 }
+
 // The first object participating in the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/firstItem
@@ -504,6 +501,7 @@ func (l NSLayoutConstraint) FirstItem() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("firstItem"))
 	return objectivec.Object{ID: rv}
 }
+
 // The attribute of the first object participating in the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/firstAttribute
@@ -511,6 +509,7 @@ func (l NSLayoutConstraint) FirstAttribute() NSLayoutAttribute {
 	rv := objc.Send[NSLayoutAttribute](l.ID, objc.Sel("firstAttribute"))
 	return NSLayoutAttribute(rv)
 }
+
 // The relation between the two attributes in the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/relation-swift.property
@@ -518,6 +517,7 @@ func (l NSLayoutConstraint) Relation() NSLayoutRelation {
 	rv := objc.Send[NSLayoutRelation](l.ID, objc.Sel("relation"))
 	return NSLayoutRelation(rv)
 }
+
 // The second object participating in the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/secondItem
@@ -525,6 +525,7 @@ func (l NSLayoutConstraint) SecondItem() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("secondItem"))
 	return objectivec.Object{ID: rv}
 }
+
 // The attribute of the second object participating in the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/secondAttribute
@@ -532,6 +533,7 @@ func (l NSLayoutConstraint) SecondAttribute() NSLayoutAttribute {
 	rv := objc.Send[NSLayoutAttribute](l.ID, objc.Sel("secondAttribute"))
 	return NSLayoutAttribute(rv)
 }
+
 // The multiplier applied to the second attribute participating in the
 // constraint.
 //
@@ -540,11 +542,12 @@ func (l NSLayoutConstraint) Multiplier() float64 {
 	rv := objc.Send[float64](l.ID, objc.Sel("multiplier"))
 	return rv
 }
+
 // The constant added to the multiplied second attribute participating in the
 // constraint.
 //
 // # Discussion
-// 
+//
 // Unlike the other properties, the constant can be modified after constraint
 // creation. Setting the constant on an existing constraint performs much
 // better than removing the constraint and adding a new one that’s exactly
@@ -558,6 +561,7 @@ func (l NSLayoutConstraint) Constant() float64 {
 func (l NSLayoutConstraint) SetConstant(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setConstant:"), value)
 }
+
 // The first anchor that defines the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/firstAnchor
@@ -565,6 +569,7 @@ func (l NSLayoutConstraint) FirstAnchor() INSLayoutAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("firstAnchor"))
 	return NSLayoutAnchorFromID(objc.ID(rv))
 }
+
 // The second anchor that defines the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/secondAnchor
@@ -572,32 +577,31 @@ func (l NSLayoutConstraint) SecondAnchor() INSLayoutAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("secondAnchor"))
 	return NSLayoutAnchorFromID(objc.ID(rv))
 }
+
 // The priority of the constraint.
 //
 // # Discussion
-// 
+//
 // By default, all constraints are required; this property is set to
-// [required] in macOS or [UILayoutPriorityRequired] in iOS.
-// 
-// If a constraint’s priority level is less than [required] in macOS or
+// [Required] in macOS or [UILayoutPriorityRequired] in iOS.
+//
+// If a constraint’s priority level is less than [Required] in macOS or
 // [UILayoutPriorityRequired] in iOS, then it is optional. Higher priority
 // constraints are satisfied before lower priority constraints; however,
 // optional constraint satisfaction is not all or nothing. If a constraint `a
 // == b` is optional, the constraint-based layout system will attempt to
 // minimize `abs(a-b)`.
-// 
+//
 // Priorities may not change from nonrequired to required, or from required to
-// nonrequired. An exception will be thrown if a priority of [required] in
+// nonrequired. An exception will be thrown if a priority of [Required] in
 // macOS or [UILayoutPriorityRequired] in iOS is changed to a lower priority,
 // or if a lower priority is changed to a required priority after the
 // constraints is added to a view. Changing from one optional priority to
 // another optional priority is allowed even after the constraint is installed
 // on a view.
-// 
-// Priorities must be greater than 0 and less than or equal to [required] in
-// macOS or [UILayoutPriorityRequired] in iOS.
 //
-// [required]: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/Priority-swift.struct/required
+// Priorities must be greater than 0 and less than or equal to [Required] in
+// macOS or [UILayoutPriorityRequired] in iOS.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/priority-swift.property
 func (l NSLayoutConstraint) Priority() NSLayoutPriority {
@@ -607,10 +611,11 @@ func (l NSLayoutConstraint) Priority() NSLayoutPriority {
 func (l NSLayoutConstraint) SetPriority(value NSLayoutPriority) {
 	objc.Send[struct{}](l.ID, objc.Sel("setPriority:"), value)
 }
+
 // The name that identifies the constraint.
 //
 // # Discussion
-// 
+//
 // A constraint’s identifier is available in its description. Identifiers
 // that start with [NS] are reserved by the system.
 //
@@ -622,22 +627,20 @@ func (l NSLayoutConstraint) Identifier() string {
 func (l NSLayoutConstraint) SetIdentifier(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
+
 // A Boolean value that determines whether the constraint should be archived
 // by its owning view.
 //
 // # Discussion
-// 
+//
 // When a view is archived, it archives some but not all constraints in its
-// [constraints] array. The value of [ShouldBeArchived] informs the view if a
+// [Constraints] array. The value of [ShouldBeArchived] informs the view if a
 // particular constraint should be archived by the view.
-// 
+//
 // If a constraint is created at runtime in response to the state of the
 // object, it isn’t appropriate to archive the constraint. Instead you
 // archive the state that gives rise to the constraint. The default value for
-// this property is [false].
-//
-// [constraints]: https://developer.apple.com/documentation/AppKit/NSView/constraints
-// [false]: https://developer.apple.com/documentation/Swift/false
+// this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/shouldBeArchived
 func (l NSLayoutConstraint) ShouldBeArchived() bool {
@@ -647,6 +650,7 @@ func (l NSLayoutConstraint) ShouldBeArchived() bool {
 func (l NSLayoutConstraint) SetShouldBeArchived(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setShouldBeArchived:"), value)
 }
+
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
@@ -658,4 +662,3 @@ func (l NSLayoutConstraint) Animations() foundation.INSDictionary {
 func (l NSLayoutConstraint) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](l.ID, objc.Sel("setAnimations:"), value)
 }
-

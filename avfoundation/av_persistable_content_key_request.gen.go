@@ -3,10 +3,11 @@
 package avfoundation
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVPersistableContentKeyRequest] class.
@@ -46,7 +47,7 @@ func (ac AVPersistableContentKeyRequestClass) Alloc() AVPersistableContentKeyReq
 // decryption key request issued from a content key session.
 //
 // # Overview
-// 
+//
 // This class allows clients to create and use persistable content keys.
 //
 // # Requesting persistable content key data
@@ -65,6 +66,7 @@ type AVPersistableContentKeyRequest struct {
 func AVPersistableContentKeyRequestFromID(id objc.ID) AVPersistableContentKeyRequest {
 	return AVPersistableContentKeyRequest{AVContentKeyRequest: AVContentKeyRequestFromID(id)}
 }
+
 // NOTE: AVPersistableContentKeyRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,7 +114,7 @@ func NewAVPersistableContentKeyRequest() AVPersistableContentKeyRequest {
 // required.
 //
 // # Return Value
-// 
+//
 // Returns a data object that contains the persistable content key.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPersistableContentKeyRequest/persistableContentKey(fromKeyVendorResponse:options:)
@@ -126,4 +128,3 @@ func (p AVPersistableContentKeyRequest) PersistableContentKeyFromKeyVendorRespon
 	return foundation.NSDataFromID(rv), nil
 
 }
-

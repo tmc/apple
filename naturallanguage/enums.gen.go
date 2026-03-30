@@ -184,4 +184,3 @@ func (e NLTokenizerAttributes) String() string {
 		return fmt.Sprintf("NLTokenizerAttributes(%d)", e)
 	}
 }
-

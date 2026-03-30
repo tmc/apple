@@ -4,8 +4,9 @@ package remotecoreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (cc CoreMLModelSecurityServiceToClientClass) Alloc() CoreMLModelSecuritySer
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [CoreMLModelSecurityServiceToClient.ClientFeatureNamesWithReply]
@@ -53,6 +53,7 @@ func (cc CoreMLModelSecurityServiceToClientClass) Alloc() CoreMLModelSecuritySer
 //   - [CoreMLModelSecurityServiceToClient.SetFeatureProviderMap]
 //   - [CoreMLModelSecurityServiceToClient.ServiceToClientQueue]
 //   - [CoreMLModelSecurityServiceToClient.SetServiceToClientQueue]
+//
 // See: https://developer.apple.com/documentation/RemoteCoreML/CoreMLModelSecurityServiceToClient
 type CoreMLModelSecurityServiceToClient struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type CoreMLModelSecurityServiceToClient struct {
 func CoreMLModelSecurityServiceToClientFromID(id objc.ID) CoreMLModelSecurityServiceToClient {
 	return CoreMLModelSecurityServiceToClient{objectivec.Object{ID: id}}
 }
+
 // Ensure CoreMLModelSecurityServiceToClient implements ICoreMLModelSecurityServiceToClient.
 var _ ICoreMLModelSecurityServiceToClient = CoreMLModelSecurityServiceToClient{}
 
@@ -113,12 +115,11 @@ func NewCoreMLModelSecurityServiceToClient() CoreMLModelSecurityServiceToClient 
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/RemoteCoreML/CoreMLModelSecurityServiceToClient/clientFeatureNames:withReply:
 func (c CoreMLModelSecurityServiceToClient) ClientFeatureNamesWithReply(names objectivec.IObject, reply objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("clientFeatureNames:withReply:"), names, reply)
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/CoreMLModelSecurityServiceToClient/clientFeatureValueForName:uniqueKeyForProvider:withReply:
 func (c CoreMLModelSecurityServiceToClient) ClientFeatureValueForNameUniqueKeyForProviderWithReply(name objectivec.IObject, provider objectivec.IObject, reply objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("clientFeatureValueForName:uniqueKeyForProvider:withReply:"), name, provider, reply)
@@ -132,6 +133,7 @@ func (c CoreMLModelSecurityServiceToClient) FeatureProviderCount() foundation.IN
 func (c CoreMLModelSecurityServiceToClient) SetFeatureProviderCount(value foundation.INSCountedSet) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFeatureProviderCount:"), value)
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/CoreMLModelSecurityServiceToClient/featureProviderMap
 func (c CoreMLModelSecurityServiceToClient) FeatureProviderMap() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("featureProviderMap"))
@@ -140,6 +142,7 @@ func (c CoreMLModelSecurityServiceToClient) FeatureProviderMap() foundation.INSD
 func (c CoreMLModelSecurityServiceToClient) SetFeatureProviderMap(value foundation.INSDictionary) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFeatureProviderMap:"), value)
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/CoreMLModelSecurityServiceToClient/serviceToClientQueue
 func (c CoreMLModelSecurityServiceToClient) ServiceToClientQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("serviceToClientQueue"))
@@ -148,4 +151,3 @@ func (c CoreMLModelSecurityServiceToClient) ServiceToClientQueue() objectivec.Ob
 func (c CoreMLModelSecurityServiceToClient) SetServiceToClientQueue(value objectivec.Object) {
 	objc.Send[struct{}](c.ID, objc.Sel("setServiceToClientQueue:"), value)
 }
-

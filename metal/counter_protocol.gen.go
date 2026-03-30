@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -24,6 +24,7 @@ type MTLCounter interface {
 type MTLCounterObject struct {
 	objectivec.Object
 }
+
 func (o MTLCounterObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,5 +43,4 @@ func MTLCounterObjectFromID(id objc.ID) MTLCounterObject {
 func (o MTLCounterObject) Name() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
-	}
-
+}

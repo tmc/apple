@@ -18,6 +18,7 @@ type NSWindowRestoration interface {
 type NSWindowRestorationObject struct {
 	objectivec.Object
 }
+
 func (o NSWindowRestorationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func NSWindowRestorationObjectFromID(id objc.ID) NSWindowRestorationObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

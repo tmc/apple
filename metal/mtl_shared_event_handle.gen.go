@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (mc MTLSharedEventHandleClass) Alloc() MTLSharedEventHandle {
 // An instance you use to recreate a shareable event.
 //
 // # Overview
-// 
+//
 // To create a [MTLSharedEventHandle] instance, call the
 // [NewSharedEventHandle] method on an [MTLSharedEvent] instance. Use an XPC
 // conection to pass a [MTLSharedEventHandle] instance to another process. To
@@ -67,6 +68,7 @@ type MTLSharedEventHandle struct {
 func MTLSharedEventHandleFromID(id objc.ID) MTLSharedEventHandle {
 	return MTLSharedEventHandle{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLSharedEventHandle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,4 +120,3 @@ func (s MTLSharedEventHandle) Label() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 }
-

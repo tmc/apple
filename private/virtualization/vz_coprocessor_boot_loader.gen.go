@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (vc VZCoprocessorBootLoaderClass) Alloc() VZCoprocessorBootLoader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCoprocessorBootLoader._bootLoaderForConfiguration]
 //   - [VZCoprocessorBootLoader._romFileDescriptor]
 //   - [VZCoprocessorBootLoader.Set_romFileDescriptor]
 //   - [VZCoprocessorBootLoader._setROMFileDescriptor]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorBootLoader
 type VZCoprocessorBootLoader struct {
 	VZBootLoader
@@ -57,6 +58,7 @@ type VZCoprocessorBootLoader struct {
 func VZCoprocessorBootLoaderFromID(id objc.ID) VZCoprocessorBootLoader {
 	return VZCoprocessorBootLoader{VZBootLoader: VZBootLoaderFromID(id)}
 }
+
 // Ensure VZCoprocessorBootLoader implements IVZCoprocessorBootLoader.
 var _ IVZCoprocessorBootLoader = VZCoprocessorBootLoader{}
 
@@ -100,7 +102,6 @@ func NewVZCoprocessorBootLoader() VZCoprocessorBootLoader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorBootLoader/_bootLoaderForConfiguration:
 func (v VZCoprocessorBootLoader) _bootLoaderForConfiguration(configuration objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_bootLoaderForConfiguration:"), configuration)
@@ -111,7 +112,7 @@ func (v VZCoprocessorBootLoader) _bootLoaderForConfiguration(configuration objec
 func (v VZCoprocessorBootLoader) BootLoaderForConfiguration(configuration objectivec.IObject) objectivec.IObject {
 	return v._bootLoaderForConfiguration(configuration)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCoprocessorBootLoader/_setROMFileDescriptor:
 func (v VZCoprocessorBootLoader) _setROMFileDescriptor(descriptor objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setROMFileDescriptor:"), descriptor)
@@ -130,4 +131,3 @@ func (v VZCoprocessorBootLoader) _romFileDescriptor() objectivec.IObject {
 func (v VZCoprocessorBootLoader) Set_romFileDescriptor(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_romFileDescriptor:"), value)
 }
-

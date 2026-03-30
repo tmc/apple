@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type CoreMLMLModelTensorAsyncEvent struct {
 func CoreMLMLModelTensorAsyncEventFromID(id objc.ID) CoreMLMLModelTensorAsyncEvent {
 	return CoreMLMLModelTensorAsyncEvent{objectivec.Object{ID: id}}
 }
+
 // NOTE: CoreMLMLModelTensorAsyncEvent struct embeds objectivec.Object (parent type unavailable) but
 // ICoreMLMLModelTensorAsyncEvent embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewCoreMLMLModelTensorAsyncEvent() CoreMLMLModelTensorAsyncEvent {
 	rv := objc.Send[CoreMLMLModelTensorAsyncEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

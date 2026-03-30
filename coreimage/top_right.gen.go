@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TopRight struct {
 func TopRightFromID(id objc.ID) TopRight {
 	return TopRight{objectivec.Object{ID: id}}
 }
+
 // Ensure TopRight implements ITopRight.
 var _ ITopRight = TopRight{}
 
@@ -78,4 +80,3 @@ func NewTopRight() TopRight {
 	rv := objc.Send[TopRight](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

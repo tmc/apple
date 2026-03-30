@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TTSSSEUtils struct {
 func TTSSSEUtilsFromID(id objc.ID) TTSSSEUtils {
 	return TTSSSEUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSSSEUtils implements ITTSSSEUtils.
 var _ ITTSSSEUtils = TTSSSEUtils{}
 
@@ -79,28 +81,26 @@ func NewTTSSSEUtils() TTSSSEUtils {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSSEUtils/combinedProsodyMarkupForString:rate:pitch:volume:
 func (_TTSSSEUtilsClass TTSSSEUtilsClass) CombinedProsodyMarkupForStringRatePitchVolume(string_ objectivec.IObject, rate objectivec.IObject, pitch objectivec.IObject, volume objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("combinedProsodyMarkupForString:rate:pitch:volume:"), string_, rate, pitch, volume)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSSEUtils/enclosedStringWithPhonemes:originalString:
 func (_TTSSSEUtilsClass TTSSSEUtilsClass) EnclosedStringWithPhonemesOriginalString(phonemes objectivec.IObject, string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("enclosedStringWithPhonemes:originalString:"), phonemes, string_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSSEUtils/genericMarkerMarkupWithName:
 func (_TTSSSEUtilsClass TTSSSEUtilsClass) GenericMarkerMarkupWithName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("genericMarkerMarkupWithName:"), name)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSSEUtils/speechMarkupStringForType:string:
 func (_TTSSSEUtilsClass TTSSSEUtilsClass) SpeechMarkupStringForTypeString(type_ int64, string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSSSEUtilsClass.class), objc.Sel("speechMarkupStringForType:string:"), type_, string_)
 	return objectivec.Object{ID: rv}
 }
-

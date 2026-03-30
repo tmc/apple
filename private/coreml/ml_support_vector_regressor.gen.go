@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (mc MLSupportVectorRegressorClass) Alloc() MLSupportVectorRegressor {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLSupportVectorRegressor.Engine]
 //   - [MLSupportVectorRegressor.SetEngine]
 //   - [MLSupportVectorRegressor.RegressOptionsError]
 //   - [MLSupportVectorRegressor.InitWithEngineDescriptionConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLSupportVectorRegressor
 type MLSupportVectorRegressor struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLSupportVectorRegressor struct {
 func MLSupportVectorRegressorFromID(id objc.ID) MLSupportVectorRegressor {
 	return MLSupportVectorRegressor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLSupportVectorRegressor struct embeds objectivec.Object (parent type unavailable) but
 // IMLSupportVectorRegressor embeds the parent interface; skip compile-time assertion.
 
@@ -102,7 +104,6 @@ func NewMLSupportVectorRegressor() MLSupportVectorRegressor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSupportVectorRegressor/initWithEngine:description:configuration:error:
 func NewSupportVectorRegressorWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLSupportVectorRegressor, error) {
 	var errorPtr objc.ID
@@ -115,7 +116,6 @@ func NewSupportVectorRegressorWithEngineDescriptionConfigurationError(engine obj
 	return MLSupportVectorRegressorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSupportVectorRegressor/regress:options:error:
 func (s MLSupportVectorRegressor) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -127,7 +127,7 @@ func (s MLSupportVectorRegressor) RegressOptionsError(regress objectivec.IObject
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSupportVectorRegressor/initWithEngine:description:configuration:error:
 func (s MLSupportVectorRegressor) InitWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLSupportVectorRegressor, error) {
 	var errorPtr objc.ID
@@ -148,4 +148,3 @@ func (s MLSupportVectorRegressor) Engine() IMLSVREngine {
 func (s MLSupportVectorRegressor) SetEngine(value IMLSVREngine) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEngine:"), value)
 }
-

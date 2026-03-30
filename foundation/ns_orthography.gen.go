@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,33 +46,30 @@ func (nc NSOrthographyClass) Alloc() NSOrthography {
 // used for spelling and grammar checking.
 //
 // # Overview
-// 
+//
 // Use [NSOrthography] objects to describe the linguistic content of a piece
 // of text, including which scripts the text contains, a dominant language
 // (and possibly other languages) for each script, and a dominant script and
 // language for the text as a whole.
-// 
+//
 // Scripts are uniformly described by four-letter ISO 15924 script codes, such
 // as `"Latn"`, `"Grek"`, and `"Cyrl"`. The supertags `"Jpan"` and `"Kore"`
 // are typically used for Japanese and Korean text, and `"Hans"` and `"Hant"`
 // are typically used for Chinese text. The tag `"Zyyy"` is used if a specific
 // script cannot be identified. See [Internationalization and Localization
 // Guide] for more information.
-// 
+//
 // Languages are uniformly described by BCP-47 tags (preferably in canonical
 // form). The tag `"und"` is used if a specific language cannot be determined.
-// 
+//
 // You typically work with orthography objects returned from methods and
 // properties for classes like [NSLinguisticTagger] and [NSSpellChecker].
-// 
+//
 // # Subclassing Notes
-// 
+//
 // Subclasses must override the [NSOrthography.DominantScript] and [NSOrthography.LanguageMap] properties.
 // These properties are set using [NSOrthography.InitWithDominantScriptLanguageMap] or
 // [NSOrthography.OrthographyWithDominantScriptLanguageMap] in Objective-C.
-//
-// [Internationalization and Localization Guide]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/Introduction/Introduction.html#//apple_ref/doc/uid/10000171i
-// [NSSpellChecker]: https://developer.apple.com/documentation/AppKit/NSSpellChecker
 //
 // # Creating Orthography Objects
 //
@@ -88,6 +86,9 @@ func (nc NSOrthographyClass) Alloc() NSOrthography {
 //   - [NSOrthography.AllLanguages]: The languages appearing in values of the language map.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography
+//
+// [Internationalization and Localization Guide]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/Introduction/Introduction.html#//apple_ref/doc/uid/10000171i
+// [NSSpellChecker]: https://developer.apple.com/documentation/AppKit/NSSpellChecker
 type NSOrthography struct {
 	objectivec.Object
 }
@@ -99,6 +100,7 @@ type NSOrthography struct {
 func NSOrthographyFromID(id objc.ID) NSOrthography {
 	return NSOrthography{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSOrthography adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -167,7 +169,6 @@ func NewNSOrthography() NSOrthography {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography/init(coder:)
 func NewOrthographyWithCoder(coder INSCoder) NSOrthography {
 	instance := getNSOrthographyClass().Alloc()
@@ -184,12 +185,12 @@ func NewOrthographyWithCoder(coder INSCoder) NSOrthography {
 // tags.
 //
 // # Return Value
-// 
+//
 // An orthography object initialized with the specified script and language
 // map.
 //
 // # Discussion
-// 
+//
 // You typically use the [DefaultOrthographyForLanguage] method to create
 // orthography objects with automatic language mapping. Use this initializer
 // only if you need to override the script associated with one or more
@@ -211,12 +212,12 @@ func NewOrthographyWithDominantScriptLanguageMap(script string, map_ INSDictiona
 // tags.
 //
 // # Return Value
-// 
+//
 // An orthography object initialized with the specified script and language
 // map.
 //
 // # Discussion
-// 
+//
 // You typically use the [DefaultOrthographyForLanguage] method to create
 // orthography objects with automatic language mapping. Use this initializer
 // only if you need to override the script associated with one or more
@@ -227,12 +228,13 @@ func (o NSOrthography) InitWithDominantScriptLanguageMap(script string, map_ INS
 	rv := objc.Send[NSOrthography](o.ID, objc.Sel("initWithDominantScript:languageMap:"), objc.String(script), map_)
 	return rv
 }
+
 // Returns the dominant language for the specified script.
 //
 // script: The specified script.
 //
 // # Discussion
-// 
+//
 // The value of this property is a BCP-47 language tag, such as `"en"` or
 // `"fr"`, that identifies the dominant language.
 //
@@ -241,12 +243,13 @@ func (o NSOrthography) DominantLanguageForScript(script string) string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dominantLanguageForScript:"), objc.String(script))
 	return NSStringFromID(rv).String()
 }
+
 // Returns the list of languages for the specified script.
 //
 // script: The specified script.
 //
 // # Discussion
-// 
+//
 // The value of this property is an array of BCP-47 language tags, such as
 // `"en"` or `"fr"`, that identify the languages.
 //
@@ -255,12 +258,13 @@ func (o NSOrthography) LanguagesForScript(script string) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("languagesForScript:"), objc.String(script))
 	return objc.ConvertSliceToStrings(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography/init(coder:)
 func (o NSOrthography) InitWithCoder(coder INSCoder) NSOrthography {
 	rv := objc.Send[NSOrthography](o.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -276,7 +280,7 @@ func (o NSOrthography) EncodeWithCoder(coder INSCoder) {
 // language: A BCP-47 tag identifying the language.
 //
 // # Discussion
-// 
+//
 // This method automatically determines the script for the specified language.
 // For example, the default orthography for the Hindi language has a language
 // map with a single key, `"Deva"` (the ISO 15924 script code for Devanagari),
@@ -288,6 +292,7 @@ func (_NSOrthographyClass NSOrthographyClass) DefaultOrthographyForLanguage(lang
 	rv := objc.Send[objc.ID](objc.ID(_NSOrthographyClass.class), objc.Sel("defaultOrthographyForLanguage:"), objc.String(language))
 	return NSOrthographyFromID(rv)
 }
+
 // Creates and returns an orthography object with the specified dominant
 // script and language map.
 //
@@ -297,12 +302,12 @@ func (_NSOrthographyClass NSOrthographyClass) DefaultOrthographyForLanguage(lang
 // tags.
 //
 // # Return Value
-// 
+//
 // An orthography object initialized with the specified script and language
 // map.
 //
 // # Discussion
-// 
+//
 // You typically use the [DefaultOrthographyForLanguage] method to create
 // orthography objects with automatic language mapping. Use this initializer
 // only if you need to override the script associated with one or more
@@ -317,7 +322,7 @@ func (_NSOrthographyClass NSOrthographyClass) OrthographyWithDominantScriptLangu
 // A dictionary that maps script tags to arrays of language tags.
 //
 // # Discussion
-// 
+//
 // The dictionary’s keys are ISO 15924 script codes (such as `"Latn"` or
 // `"Cyrl"`) and its values are arrays of BCP-47 language tags (such as
 // `"en"`, `"fr"`, or `"de"`).
@@ -327,10 +332,11 @@ func (o NSOrthography) LanguageMap() INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("languageMap"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // The first language in the list of languages for the dominant script.
 //
 // # Discussion
-// 
+//
 // The value of this property is a BCP-47 language tag, such as `"en"` or
 // `"fr"`, that identifies the dominant language.
 //
@@ -339,10 +345,11 @@ func (o NSOrthography) DominantLanguage() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dominantLanguage"))
 	return NSStringFromID(rv).String()
 }
+
 // The dominant script for the text.
 //
 // # Discussion
-// 
+//
 // The value of this property is an ISO 15924 script code, such as `"Latn"` or
 // `"Cyrl"`, that identifies the dominant script.
 //
@@ -351,10 +358,11 @@ func (o NSOrthography) DominantScript() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dominantScript"))
 	return NSStringFromID(rv).String()
 }
+
 // The scripts appearing as keys in the language map.
 //
 // # Discussion
-// 
+//
 // The value of this property is an array of ISO 15924 script codes, such as
 // `"Latn"` or `"Cyrl"`, that identify the scripts.
 //
@@ -363,10 +371,11 @@ func (o NSOrthography) AllScripts() []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("allScripts"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The languages appearing in values of the language map.
 //
 // # Discussion
-// 
+//
 // The value of this property is an array of BCP-47 language tags, such as
 // `"en"` or `"fr"`, that identify the languages.
 //
@@ -376,9 +385,6 @@ func (o NSOrthography) AllLanguages() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

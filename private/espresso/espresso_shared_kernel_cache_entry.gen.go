@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (ec EspressoSharedKernelCacheEntryClass) Alloc() EspressoSharedKernelCacheE
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoSharedKernelCacheEntry.Cached]
 //   - [EspressoSharedKernelCacheEntry.SetCached]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoSharedKernelCacheEntry
 type EspressoSharedKernelCacheEntry struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type EspressoSharedKernelCacheEntry struct {
 func EspressoSharedKernelCacheEntryFromID(id objc.ID) EspressoSharedKernelCacheEntry {
 	return EspressoSharedKernelCacheEntry{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoSharedKernelCacheEntry implements IEspressoSharedKernelCacheEntry.
 var _ IEspressoSharedKernelCacheEntry = EspressoSharedKernelCacheEntry{}
 
@@ -102,4 +104,3 @@ func (e EspressoSharedKernelCacheEntry) Cached() IEspressoMetalKernelsCache {
 func (e EspressoSharedKernelCacheEntry) SetCached(value IEspressoMetalKernelsCache) {
 	objc.Send[struct{}](e.ID, objc.Sel("setCached:"), value)
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,7 +41,6 @@ func (vc VZMacOSVirtualMachineStartOptionsClass) Alloc() VZMacOSVirtualMachineSt
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacOSVirtualMachineStartOptions._forceDFU]
@@ -52,6 +52,7 @@ func (vc VZMacOSVirtualMachineStartOptionsClass) Alloc() VZMacOSVirtualMachineSt
 //   - [VZMacOSVirtualMachineStartOptions.Set_stopInIBootStage1]
 //   - [VZMacOSVirtualMachineStartOptions._stopInIBootStage2]
 //   - [VZMacOSVirtualMachineStartOptions.Set_stopInIBootStage2]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSVirtualMachineStartOptions
 type VZMacOSVirtualMachineStartOptions struct {
 	VZVirtualMachineStartOptions
@@ -61,6 +62,7 @@ type VZMacOSVirtualMachineStartOptions struct {
 func VZMacOSVirtualMachineStartOptionsFromID(id objc.ID) VZMacOSVirtualMachineStartOptions {
 	return VZMacOSVirtualMachineStartOptions{VZVirtualMachineStartOptions: VZVirtualMachineStartOptionsFromID(id)}
 }
+
 // Ensure VZMacOSVirtualMachineStartOptions implements IVZMacOSVirtualMachineStartOptions.
 var _ IVZMacOSVirtualMachineStartOptions = VZMacOSVirtualMachineStartOptions{}
 
@@ -114,7 +116,6 @@ func NewVZMacOSVirtualMachineStartOptions() VZMacOSVirtualMachineStartOptions {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSVirtualMachineStartOptions/_setForceDFU:
 func (m VZMacOSVirtualMachineStartOptions) _setForceDFU(dfu bool) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_setForceDFU:"), dfu)
@@ -124,7 +125,7 @@ func (m VZMacOSVirtualMachineStartOptions) _setForceDFU(dfu bool) {
 func (m VZMacOSVirtualMachineStartOptions) SetForceDFU(dfu bool) {
 	m._setForceDFU(dfu)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSVirtualMachineStartOptions/_setStopInIBootStage1:
 func (m VZMacOSVirtualMachineStartOptions) _setStopInIBootStage1(stage1 bool) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_setStopInIBootStage1:"), stage1)
@@ -134,7 +135,7 @@ func (m VZMacOSVirtualMachineStartOptions) _setStopInIBootStage1(stage1 bool) {
 func (m VZMacOSVirtualMachineStartOptions) SetStopInIBootStage1(stage1 bool) {
 	m._setStopInIBootStage1(stage1)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSVirtualMachineStartOptions/_setStopInIBootStage2:
 func (m VZMacOSVirtualMachineStartOptions) _setStopInIBootStage2(stage2 bool) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_setStopInIBootStage2:"), stage2)
@@ -153,6 +154,7 @@ func (m VZMacOSVirtualMachineStartOptions) _forceDFU() bool {
 func (m VZMacOSVirtualMachineStartOptions) Set_forceDFU(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_forceDFU:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSVirtualMachineStartOptions/_stopInIBootStage1
 func (m VZMacOSVirtualMachineStartOptions) _stopInIBootStage1() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_stopInIBootStage1"))
@@ -161,6 +163,7 @@ func (m VZMacOSVirtualMachineStartOptions) _stopInIBootStage1() bool {
 func (m VZMacOSVirtualMachineStartOptions) Set_stopInIBootStage1(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_stopInIBootStage1:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSVirtualMachineStartOptions/_stopInIBootStage2
 func (m VZMacOSVirtualMachineStartOptions) _stopInIBootStage2() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("_stopInIBootStage2"))
@@ -169,4 +172,3 @@ func (m VZMacOSVirtualMachineStartOptions) _stopInIBootStage2() bool {
 func (m VZMacOSVirtualMachineStartOptions) Set_stopInIBootStage2(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_stopInIBootStage2:"), value)
 }
-

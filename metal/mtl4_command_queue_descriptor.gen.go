@@ -4,9 +4,10 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -63,6 +64,7 @@ type MTL4CommandQueueDescriptor struct {
 func MTL4CommandQueueDescriptorFromID(id objc.ID) MTL4CommandQueueDescriptor {
 	return MTL4CommandQueueDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4CommandQueueDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,10 +116,10 @@ func NewMTL4CommandQueueDescriptor() MTL4CommandQueueDescriptor {
 // blocks.
 //
 // # Discussion
-// 
+//
 // When you assign a dispatch queue via this method, Metal requires that the
 // queue parameter you provide is a serial queue.
-// 
+//
 // If you set the value of property to `nil`, the default, Metal allocates an
 // internal dispatch queue to service feedback notifications.
 //
@@ -129,6 +131,7 @@ func (m MTL4CommandQueueDescriptor) FeedbackQueue() dispatch.Queue {
 func (m MTL4CommandQueueDescriptor) SetFeedbackQueue(value dispatch.Queue) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFeedbackQueue:"), uintptr(value.Handle()))
 }
+
 // Assigns an optional label to the command queue instance for debugging
 // purposes.
 //
@@ -140,9 +143,9 @@ func (m MTL4CommandQueueDescriptor) Label() string {
 func (m MTL4CommandQueueDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CommandQueueDescriptor) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-

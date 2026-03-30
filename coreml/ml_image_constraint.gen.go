@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,27 +46,24 @@ func (mc MLImageConstraintClass) Alloc() MLImageConstraint {
 // The width, height, and pixel format constraints of an image feature.
 //
 // # Overview
-// 
+//
 // In CoreML, an is a collection of pixels represented by [CVPixelBuffer]
 // (Swift) or [CVPixelBuffer] (Objective-C). An is a model input or output
 // that accepts or produces, respectively, an image bundled in an
 // [MLFeatureValue]. [MLImageConstraint] defines the image feature’s
 // limitations for the images within an [MLFeatureValue].
-// 
+//
 // If a model has an image feature for an input or output, the model author
 // uses an by creating an [MLFeatureDescription]. The feature description for
 // an image input or output has:
-// 
-// - Its [MLImageConstraint.Type] property set to [MLFeatureType.image] - Its [ImageConstraint]
+//
+// - Its [MLImageConstraint.Type] property set to [MLFeatureTypeImage] - Its [ImageConstraint]
 // property set to an [MLImageConstraint] instance configured to the image
 // feature’s size and format
-// 
+//
 // Image features that support additional image sizes provide a range of
 // sizes, or a list of discrete sizes, in their image constraint’s
 // [MLImageConstraint.SizeConstraint] property.
-//
-// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/CVPixelBuffer
-// [MLFeatureType.image]: https://developer.apple.com/documentation/CoreML/MLFeatureType/image
 //
 // # Accessing the constraints
 //
@@ -78,6 +76,8 @@ func (mc MLImageConstraintClass) Alloc() MLImageConstraint {
 //   - [MLImageConstraint.SizeConstraint]: Additional sizes this image feature supports.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint
+//
+// [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/CVPixelBuffer
 type MLImageConstraint struct {
 	objectivec.Object
 }
@@ -88,6 +88,7 @@ type MLImageConstraint struct {
 func MLImageConstraintFromID(id objc.ID) MLImageConstraint {
 	return MLImageConstraint{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLImageConstraint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -160,6 +161,7 @@ func (i MLImageConstraint) PixelsWide() int {
 	rv := objc.Send[int](i.ID, objc.Sel("pixelsWide"))
 	return rv
 }
+
 // The model’s default height for an image feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/pixelsHigh
@@ -167,6 +169,7 @@ func (i MLImageConstraint) PixelsHigh() int {
 	rv := objc.Send[int](i.ID, objc.Sel("pixelsHigh"))
 	return rv
 }
+
 // The model’s pixel format for an image feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/pixelFormatType
@@ -174,6 +177,7 @@ func (i MLImageConstraint) PixelFormatType() uint32 {
 	rv := objc.Send[uint32](i.ID, objc.Sel("pixelFormatType"))
 	return rv
 }
+
 // Additional sizes this image feature supports.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLImageConstraint/sizeConstraint
@@ -181,6 +185,7 @@ func (i MLImageConstraint) SizeConstraint() IMLImageSizeConstraint {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("sizeConstraint"))
 	return MLImageSizeConstraintFromID(objc.ID(rv))
 }
+
 // The size and format constraints for an image feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/imageconstraint
@@ -191,6 +196,7 @@ func (i MLImageConstraint) ImageConstraint() IMLImageConstraint {
 func (i MLImageConstraint) SetImageConstraint(value IMLImageConstraint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageConstraint:"), value)
 }
+
 // The type of this feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/type
@@ -201,4 +207,3 @@ func (i MLImageConstraint) Type() MLFeatureType {
 func (i MLImageConstraint) SetType(value MLFeatureType) {
 	objc.Send[struct{}](i.ID, objc.Sel("setType:"), value)
 }
-

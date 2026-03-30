@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type TTSSpeechVoice struct {
 func TTSSpeechVoiceFromID(id objc.ID) TTSSpeechVoice {
 	return TTSSpeechVoice{TTSAXResource: TTSAXResourceFromID(id)}
 }
+
 // Ensure TTSSpeechVoice implements ITTSSpeechVoice.
 var _ ITTSSpeechVoice = TTSSpeechVoice{}
 
@@ -77,4 +79,3 @@ func NewTTSSpeechVoice() TTSSpeechVoice {
 	rv := objc.Send[TTSSpeechVoice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

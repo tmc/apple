@@ -4,8 +4,9 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (ac ANEAnalyticsTaskClass) Alloc() ANEAnalyticsTask {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ANEAnalyticsTask.Metrics]
 //   - [ANEAnalyticsTask.Serialize]
 //   - [ANEAnalyticsTask.InitWithMetrics]
+//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask
 type ANEAnalyticsTask struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type ANEAnalyticsTask struct {
 func ANEAnalyticsTaskFromID(id objc.ID) ANEAnalyticsTask {
 	return ANEAnalyticsTask{objectivec.Object{ID: id}}
 }
+
 // Ensure ANEAnalyticsTask implements IANEAnalyticsTask.
 var _ IANEAnalyticsTask = ANEAnalyticsTask{}
 
@@ -98,7 +100,6 @@ func NewANEAnalyticsTask() ANEAnalyticsTask {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask/initWithMetrics:
 func NewANEAnalyticsTaskWithMetrics(metrics objectivec.IObject) ANEAnalyticsTask {
 	instance := getANEAnalyticsTaskClass().Alloc()
@@ -111,14 +112,13 @@ func (a ANEAnalyticsTask) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask/initWithMetrics:
 func (a ANEAnalyticsTask) InitWithMetrics(metrics objectivec.IObject) ANEAnalyticsTask {
 	rv := objc.Send[ANEAnalyticsTask](a.ID, objc.Sel("initWithMetrics:"), metrics)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsTask/objectWithMetrics:
 func (_ANEAnalyticsTaskClass ANEAnalyticsTaskClass) ObjectWithMetrics(metrics objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEAnalyticsTaskClass.class), objc.Sel("objectWithMetrics:"), metrics)
@@ -130,4 +130,3 @@ func (a ANEAnalyticsTask) Metrics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("metrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

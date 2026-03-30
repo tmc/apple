@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (rc RelativeDateTimeFormatterClass) Alloc() RelativeDateTimeFormatter {
 // date or time.
 //
 // # Overview
-// 
+//
 // Use the strings that the formatter produces, such as “1 hour ago”,
 // “in 2 weeks”, “yesterday”, and “tomorrow” as standalone
 // strings. Embedding them in other strings may not be grammatically correct.
@@ -82,7 +83,10 @@ func RelativeDateTimeFormatterFromID(id objc.ID) RelativeDateTimeFormatter {
 }
 
 // NSRelativeDateTimeFormatterFromID is an alias for [RelativeDateTimeFormatterFromID] for cross-framework compatibility.
-func NSRelativeDateTimeFormatterFromID(id objc.ID) RelativeDateTimeFormatter { return RelativeDateTimeFormatterFromID(id) }
+func NSRelativeDateTimeFormatterFromID(id objc.ID) RelativeDateTimeFormatter {
+	return RelativeDateTimeFormatterFromID(id)
+}
+
 // NOTE: RelativeDateTimeFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,7 +162,6 @@ func NewRelativeDateTimeFormatter() RelativeDateTimeFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewRelativeDateTimeFormatterWithCoder(coder INSCoder) RelativeDateTimeFormatter {
 	instance := getRelativeDateTimeFormatterClass().Alloc()
@@ -174,7 +177,7 @@ func NewRelativeDateTimeFormatterWithCoder(coder INSCoder) RelativeDateTimeForma
 // referenceDate: The start date of the interval to format.
 //
 // # Return Value
-// 
+//
 // A string that represents the date interval between two dates.
 //
 // # Discussion
@@ -184,18 +187,19 @@ func (r RelativeDateTimeFormatter) LocalizedStringForDateRelativeToDate(date INS
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("localizedStringForDate:relativeToDate:"), date, referenceDate)
 	return NSStringFromID(rv).String()
 }
+
 // Formats a relative time represented by the specified date components.
 //
 // dateComponents: The date components to format.
 //
 // # Return Value
-// 
+//
 // A string that represents the formatted relative time from date components.
 //
 // # Discussion
-// 
+//
 // The formatter interprets a negative component value as a date in the past.
-// 
+//
 // This method formats the value of the least granular unit in the
 // [NSDateComponents] object, and doesn’t provide a compound format of the
 // date component.
@@ -205,16 +209,17 @@ func (r RelativeDateTimeFormatter) LocalizedStringFromDateComponents(dateCompone
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("localizedStringFromDateComponents:"), dateComponents)
 	return NSStringFromID(rv).String()
 }
+
 // Formats the specified time interval using the formatter’s calendar.
 //
 // timeInterval: The time interval to format.
 //
 // # Return Value
-// 
+//
 // A string that represents the formatted time interval.
 //
 // # Discussion
-// 
+//
 // The formatter interprets a negative time interval as a date in the past.
 //
 // See: https://developer.apple.com/documentation/Foundation/RelativeDateTimeFormatter/localizedString(fromTimeInterval:)
@@ -227,7 +232,7 @@ func (r RelativeDateTimeFormatter) LocalizedStringFromTimeInterval(timeInterval 
 // calendar of their own.
 //
 // # Discussion
-// 
+//
 // Defaults to [AutoupdatingCurrentCalendar]. If you set this property to
 // `nil`, the formatter resets to using [AutoupdatingCurrentCalendar].
 //
@@ -239,10 +244,11 @@ func (r RelativeDateTimeFormatter) Calendar() INSCalendar {
 func (r RelativeDateTimeFormatter) SetCalendar(value INSCalendar) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCalendar:"), value)
 }
+
 // The locale to use when formatting the date.
 //
 // # Discussion
-// 
+//
 // The default value is [AutoupdatingCurrentLocale]. If you set this property
 // to `nil`, the formatter resets to using [AutoupdatingCurrentLocale].
 //
@@ -254,13 +260,14 @@ func (r RelativeDateTimeFormatter) Locale() INSLocale {
 func (r RelativeDateTimeFormatter) SetLocale(value INSLocale) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLocale:"), value)
 }
+
 // The style to use when describing a relative date, for example
 // “yesterday” or “1 day ago”.
 //
 // # Discussion
-// 
+//
 // Default is `numeric`.
-// 
+//
 // To display relative dates using named styles, set this property to `named`.
 //
 // See: https://developer.apple.com/documentation/Foundation/RelativeDateTimeFormatter/dateTimeStyle-swift.property
@@ -271,11 +278,12 @@ func (r RelativeDateTimeFormatter) DateTimeStyle() NSRelativeDateTimeFormatterSt
 func (r RelativeDateTimeFormatter) SetDateTimeStyle(value NSRelativeDateTimeFormatterStyle) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDateTimeStyle:"), value)
 }
+
 // The style to use when formatting the quantity or the name of the unit, such
 // as “1 day ago” or “one day ago”.
 //
 // # Discussion
-// 
+//
 // The default value is `full`.
 //
 // See: https://developer.apple.com/documentation/Foundation/RelativeDateTimeFormatter/unitsStyle-swift.property
@@ -286,17 +294,18 @@ func (r RelativeDateTimeFormatter) UnitsStyle() NSRelativeDateTimeFormatterUnits
 func (r RelativeDateTimeFormatter) SetUnitsStyle(value NSRelativeDateTimeFormatterUnitsStyle) {
 	objc.Send[struct{}](r.ID, objc.Sel("setUnitsStyle:"), value)
 }
+
 // A description of where the formatted string will appear, allowing the
 // formatter to capitalize the output appropriately.
 //
 // # Discussion
-// 
-// The default value is [FormattingContextUnknown]. For additional details
+//
+// The default value is [NSFormattingContextUnknown]. For additional details
 // about specifying contexts, see [Formatter.Context].
 //
-// [Formatter.Context]: https://developer.apple.com/documentation/Foundation/Formatter/Context
-//
 // See: https://developer.apple.com/documentation/Foundation/RelativeDateTimeFormatter/formattingContext
+//
+// [Formatter.Context]: https://developer.apple.com/documentation/Foundation/Formatter/Context
 func (r RelativeDateTimeFormatter) FormattingContext() NSFormattingContext {
 	rv := objc.Send[NSFormattingContext](r.ID, objc.Sel("formattingContext"))
 	return NSFormattingContext(rv)
@@ -304,4 +313,3 @@ func (r RelativeDateTimeFormatter) FormattingContext() NSFormattingContext {
 func (r RelativeDateTimeFormatter) SetFormattingContext(value NSFormattingContext) {
 	objc.Send[struct{}](r.ID, objc.Sel("setFormattingContext:"), value)
 }
-

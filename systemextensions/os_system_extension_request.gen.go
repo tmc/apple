@@ -4,9 +4,10 @@ package systemextensions
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -65,6 +66,7 @@ type OSSystemExtensionRequest struct {
 func OSSystemExtensionRequestFromID(id objc.ID) OSSystemExtensionRequest {
 	return OSSystemExtensionRequest{objectivec.Object{ID: id}}
 }
+
 // NOTE: OSSystemExtensionRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,21 +123,21 @@ func NewOSSystemExtensionRequest() OSSystemExtensionRequest {
 // queue: The dispatch queue to use when calling delegate methods.
 //
 // # Return Value
-// 
+//
 // A new extension request.
 //
 // # Discussion
-// 
+//
 // Create and submit an activation request whenever you want to use a given
 // extension. If the extension is inactive, the system may need to prompt the
 // user for approval. The request succeeds only after the user gives their
 // approval.
-// 
+//
 // If the extension is already active, the request succeeds in short order,
 // without significant delay or user interaction. If you request activation of
 // a new version of an already-active extension, the system prompts the user
 // to resolve the conflict before proceeding.
-// 
+//
 // An activation request may succeed, but also indicate that the extension
 // requires a restart to become active. This can occur when replacing an
 // extension that required a restart to deactivate. The most recently
@@ -146,6 +148,7 @@ func (_OSSystemExtensionRequestClass OSSystemExtensionRequestClass) ActivationRe
 	rv := objc.Send[objc.ID](objc.ID(_OSSystemExtensionRequestClass.class), objc.Sel("activationRequestForExtension:queue:"), objc.String(identifier), uintptr(queue.Handle()))
 	return OSSystemExtensionRequestFromID(rv)
 }
+
 // Creates a request to deactivate a System Extension.
 //
 // identifier: The bundle identifier of the extension to deactivate.
@@ -153,10 +156,10 @@ func (_OSSystemExtensionRequestClass OSSystemExtensionRequestClass) ActivationRe
 // queue: The dispatch queue to use when calling delegate methods.
 //
 // # Discussion
-// 
+//
 // The system discovers existing system extensions in the
 // `Contents/Library/SystemExtensions` directory of the main app bundle.
-// 
+//
 // A deactivation request may require a restart before deactivating the
 // extension. If the request succeeds but requires a restart to complete, the
 // extension may still appear operational until the next restart.
@@ -166,7 +169,7 @@ func (_OSSystemExtensionRequestClass OSSystemExtensionRequestClass) Deactivation
 	rv := objc.Send[objc.ID](objc.ID(_OSSystemExtensionRequestClass.class), objc.Sel("deactivationRequestForExtension:queue:"), objc.String(identifier), uintptr(queue.Handle()))
 	return OSSystemExtensionRequestFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequest/propertiesRequest(forExtensionWithIdentifier:queue:)
 func (_OSSystemExtensionRequestClass OSSystemExtensionRequestClass) PropertiesRequestForExtensionQueue(identifier string, queue dispatch.Queue) OSSystemExtensionRequest {
 	rv := objc.Send[objc.ID](objc.ID(_OSSystemExtensionRequestClass.class), objc.Sel("propertiesRequestForExtension:queue:"), objc.String(identifier), uintptr(queue.Handle()))
@@ -183,6 +186,7 @@ func (o OSSystemExtensionRequest) Delegate() OSSystemExtensionRequestDelegate {
 func (o OSSystemExtensionRequest) SetDelegate(value OSSystemExtensionRequestDelegate) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The bundle identifier of the target extension.
 //
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequest/identifier
@@ -190,4 +194,3 @@ func (o OSSystemExtensionRequest) Identifier() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-

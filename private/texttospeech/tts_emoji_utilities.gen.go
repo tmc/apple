@@ -5,8 +5,9 @@ package texttospeech
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,6 +53,7 @@ type TTSEmojiUtilities struct {
 func TTSEmojiUtilitiesFromID(id objc.ID) TTSEmojiUtilities {
 	return TTSEmojiUtilities{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSEmojiUtilities implements ITTSEmojiUtilities.
 var _ ITTSEmojiUtilities = TTSEmojiUtilities{}
 
@@ -81,7 +83,6 @@ func NewTTSEmojiUtilities() TTSEmojiUtilities {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSEmojiUtilities/_initializeEmojiStructures:
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) _initializeEmojiStructures(structures objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("_initializeEmojiStructures:"), structures)
@@ -91,25 +92,25 @@ func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) _initializeEmojiStructures
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) InitializeEmojiStructures(structures objectivec.IObject) {
 	_TTSEmojiUtilitiesClass._initializeEmojiStructures(structures)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSEmojiUtilities/emojiRangeFromString:withSearchRange:
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) EmojiRangeFromStringWithSearchRange(string_ objectivec.IObject, range_ foundation.NSRange) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("emojiRangeFromString:withSearchRange:"), string_, range_)
 	return foundation.NSRange(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSEmojiUtilities/enumerateEmojiCharactersInString:languageCode:withBlock:
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) EnumerateEmojiCharactersInStringLanguageCodeWithBlock(string_ objectivec.IObject, code objectivec.IObject, block VoidHandler) {
-_block2, _ := NewVoidBlock(block)
+	_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("enumerateEmojiCharactersInString:languageCode:withBlock:"), string_, code, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSEmojiUtilities/stringByRemovingEmojiCharacters:
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) StringByRemovingEmojiCharacters(characters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("stringByRemovingEmojiCharacters:"), characters)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSEmojiUtilities/stringByReplacingEmojiCharactersWithEmojiDescriptions:stringForPauses:language:rangeReplacements:appendEmojiSuffix:
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) StringByReplacingEmojiCharactersWithEmojiDescriptionsStringForPausesLanguageRangeReplacementsAppendEmojiSuffix(descriptions objectivec.IObject, pauses objectivec.IObject, language objectivec.IObject, replacements objectivec.IObject, suffix bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("stringByReplacingEmojiCharactersWithEmojiDescriptions:stringForPauses:language:rangeReplacements:appendEmojiSuffix:"), descriptions, pauses, language, replacements, suffix)
@@ -130,4 +131,3 @@ func (tc TTSEmojiUtilitiesClass) EnumerateEmojiCharactersInStringLanguageCodeWit
 		return ctx.Err()
 	}
 }
-

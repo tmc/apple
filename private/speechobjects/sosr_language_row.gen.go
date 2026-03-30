@@ -4,8 +4,9 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (sc SOSRLanguageRowClass) Alloc() SOSRLanguageRow {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SOSRLanguageRow.IsGroupRow]
@@ -57,6 +57,7 @@ func (sc SOSRLanguageRowClass) Alloc() SOSRLanguageRow {
 //   - [SOSRLanguageRow.SetGroupRow]
 //   - [SOSRLanguageRow.Selected]
 //   - [SOSRLanguageRow.SetSelected]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRow
 type SOSRLanguageRow struct {
 	objectivec.Object
@@ -66,6 +67,7 @@ type SOSRLanguageRow struct {
 func SOSRLanguageRowFromID(id objc.ID) SOSRLanguageRow {
 	return SOSRLanguageRow{objectivec.Object{ID: id}}
 }
+
 // Ensure SOSRLanguageRow implements ISOSRLanguageRow.
 var _ ISOSRLanguageRow = SOSRLanguageRow{}
 
@@ -125,7 +127,6 @@ func NewSOSRLanguageRow() SOSRLanguageRow {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRow/initWithTitle:srLanguageItem:
 func NewSOSRLanguageRowWithTitleSrLanguageItem(title objectivec.IObject, item objectivec.IObject) SOSRLanguageRow {
 	instance := getSOSRLanguageRowClass().Alloc()
@@ -138,24 +139,24 @@ func (s SOSRLanguageRow) IsGroupRow() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isGroupRow"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRow/isSelected
 func (s SOSRLanguageRow) IsSelected() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSelected"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRow/setSelectedUsingLanguageCodeOnlyToSelectItems:
 func (s SOSRLanguageRow) SetSelectedUsingLanguageCodeOnlyToSelectItems(items bool) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setSelectedUsingLanguageCodeOnlyToSelectItems:"), items)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRow/initWithTitle:srLanguageItem:
 func (s SOSRLanguageRow) InitWithTitleSrLanguageItem(title objectivec.IObject, item objectivec.IObject) SOSRLanguageRow {
 	rv := objc.Send[SOSRLanguageRow](s.ID, objc.Sel("initWithTitle:srLanguageItem:"), title, item)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRow/arrangedRowsFromSRLanguageItems:groupCountries:useLanguageCodeOnlyToSelectItems:showCurrentLocaleAtTop:
 func (_SOSRLanguageRowClass SOSRLanguageRowClass) ArrangedRowsFromSRLanguageItemsGroupCountriesUseLanguageCodeOnlyToSelectItemsShowCurrentLocaleAtTop(items objectivec.IObject, countries bool, items2 bool, top bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOSRLanguageRowClass.class), objc.Sel("arrangedRowsFromSRLanguageItems:groupCountries:useLanguageCodeOnlyToSelectItems:showCurrentLocaleAtTop:"), items, countries, items2, top)
@@ -170,6 +171,7 @@ func (s SOSRLanguageRow) GroupRow() bool {
 func (s SOSRLanguageRow) SetGroupRow(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setGroupRow:"), value)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRow/selected
 func (s SOSRLanguageRow) Selected() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("selected"))
@@ -178,11 +180,13 @@ func (s SOSRLanguageRow) Selected() bool {
 func (s SOSRLanguageRow) SetSelected(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelected:"), value)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRow/srLanguageItem
 func (s SOSRLanguageRow) SrLanguageItem() ISOSRLanguageItem {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("srLanguageItem"))
 	return SOSRLanguageItemFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRow/tableIndex
 func (s SOSRLanguageRow) TableIndex() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("tableIndex"))
@@ -191,9 +195,9 @@ func (s SOSRLanguageRow) TableIndex() uint64 {
 func (s SOSRLanguageRow) SetTableIndex(value uint64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTableIndex:"), value)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageRow/title
 func (s SOSRLanguageRow) Title() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
 }
-

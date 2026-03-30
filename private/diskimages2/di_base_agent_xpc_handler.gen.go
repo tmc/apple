@@ -4,6 +4,7 @@ package diskimages2
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,10 +41,10 @@ func (dc DIBaseAgentXPCHandlerClass) Alloc() DIBaseAgentXPCHandler {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIBaseAgentXPCHandler.SetConnectionMode]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseAgentXPCHandler
 type DIBaseAgentXPCHandler struct {
 	DIBaseXPCHandler
@@ -53,6 +54,7 @@ type DIBaseAgentXPCHandler struct {
 func DIBaseAgentXPCHandlerFromID(id objc.ID) DIBaseAgentXPCHandler {
 	return DIBaseAgentXPCHandler{DIBaseXPCHandler: DIBaseXPCHandlerFromID(id)}
 }
+
 // Ensure DIBaseAgentXPCHandler implements IDIBaseAgentXPCHandler.
 var _ IDIBaseAgentXPCHandler = DIBaseAgentXPCHandler{}
 
@@ -94,4 +96,3 @@ func NewDIBaseAgentXPCHandler() DIBaseAgentXPCHandler {
 func (d DIBaseAgentXPCHandler) SetConnectionMode() {
 	objc.Send[objc.ID](d.ID, objc.Sel("setConnectionMode"))
 }
-

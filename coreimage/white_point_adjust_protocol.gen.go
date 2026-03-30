@@ -39,6 +39,7 @@ type CIWhitePointAdjust interface {
 type CIWhitePointAdjustObject struct {
 	objectivec.Object
 }
+
 func (o CIWhitePointAdjustObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIWhitePointAdjustObjectFromID(id objc.ID) CIWhitePointAdjustObject {
 func (o CIWhitePointAdjustObject) Color() ICIColor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIWhitePointAdjust/inputImage
 func (o CIWhitePointAdjustObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIWhitePointAdjustObject) InputImage() ICIImage {
 func (o CIWhitePointAdjustObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// A color to use as the white point.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIWhitePointAdjust/color
 func (o CIWhitePointAdjustObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIWhitePointAdjust/inputImage
 func (o CIWhitePointAdjustObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

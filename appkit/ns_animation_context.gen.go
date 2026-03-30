@@ -5,6 +5,7 @@ package appkit
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/quartzcore"
@@ -47,18 +48,16 @@ func (nc NSAnimationContextClass) Alloc() NSAnimationContext {
 // state.
 //
 // # Overview
-// 
+//
 // [NSAnimationContext] is analogous to [CATransaction] and is similar in
 // overall concept to [NSGraphicsContext]. Each thread maintains its own stack
 // of nestable [NSAnimationContext] instances, with each new instance
 // initialized as a copy of the instance below (so, inheriting its current
 // properties).
-// 
+//
 // Multiple [NSAnimationContext] instances can be nested, allowing a given
 // block of code to initiate animations using its own specified duration
 // without affecting animations initiated by surrounding code.
-//
-// [CATransaction]: https://developer.apple.com/documentation/QuartzCore/CATransaction
 //
 // # Animation Completion Handlers
 //
@@ -78,6 +77,8 @@ func (nc NSAnimationContextClass) Alloc() NSAnimationContext {
 //   - [NSAnimationContext.SetAllowsImplicitAnimation]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext
+//
+// [CATransaction]: https://developer.apple.com/documentation/QuartzCore/CATransaction
 type NSAnimationContext struct {
 	objectivec.Object
 }
@@ -89,6 +90,7 @@ type NSAnimationContext struct {
 func NSAnimationContextFromID(id objc.ID) NSAnimationContext {
 	return NSAnimationContext{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAnimationContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -162,49 +164,51 @@ func NewNSAnimationContext() NSAnimationContext {
 func (_NSAnimationContextClass NSAnimationContextClass) BeginGrouping() {
 	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("beginGrouping"))
 }
+
 // Ends the current animation grouping.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/endGrouping()
 func (_NSAnimationContextClass NSAnimationContextClass) EndGrouping() {
 	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("endGrouping"))
 }
+
 // Allows you to specify a completion block body after the set of animation
 // actions whose completion will trigger the completion block.
 //
 // changes: A block object containing animations for this transaction group.
-// 
+//
 // The `context` parameter passes the thread’s current [NSAnimationContext]
 // to the Block as a convenience, so code within the Block that wants to
 // change or query properties of the current `context` does not have to call
 // [CurrentContext].
-// 
+//
 // The block object returns no value.
 //
 // completionHandler: A Block object called when animations for this transaction group are
 // completed.
-// 
+//
 // The Block object takes no parameters and returns no value.
 //
 // # Discussion
-// 
+//
 // Using this method allows you to more naturally group animations and an
 // completion Block.
-// 
+//
 // An example use is as follows. Using this method you would write the
 // following code fragment:
-// 
+//
 // The above code is semantically equivalent to the following:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/runAnimationGroup(_:completionHandler:)
 func (_NSAnimationContextClass NSAnimationContextClass) RunAnimationGroupCompletionHandler(changes AnimationContextHandler, completionHandler VoidHandler) {
-_block0, _ := NewAnimationContextBlock(changes)
+	_block0, _ := NewAnimationContextBlock(changes)
 	_block1, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("runAnimationGroup:completionHandler:"), _block0, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/runAnimationGroup(_:)
 func (_NSAnimationContextClass NSAnimationContextClass) RunAnimationGroup(changes AnimationContextHandler) {
-_block0, _ := NewAnimationContextBlock(changes)
+	_block0, _ := NewAnimationContextBlock(changes)
 	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("runAnimationGroup:"), _block0)
 }
 
@@ -212,28 +216,28 @@ _block0, _ := NewAnimationContextBlock(changes)
 // completed.
 //
 // # Discussion
-// 
+//
 // If set to a non-`nil` value, a context’s `completionHandler` is
 // guaranteed to be called on the main thread as soon as all animations
 // subsequently added to the current [NSAnimationContext] grouping have
 // completed or been cancelled.
-// 
+//
 // This method drives the underlying [CATransaction][completionBlock()]
 // property, although the Application Kit may assign a different, intermediary
 // `completionBlock` to the current [CATransaction].
-// 
+//
 // The completion handler waits for all animations to which the handler
 // applies, independent of whether they are evaluated by the Application Kit
 // or delegated to Core Animation for evaluation in the render tree before
 // firing.
-// 
+//
 // If no animations are added before the current grouping is ended—or the
 // completionHandler is set to a different value—the handler will be invoked
 // immediately.
 //
-// [completionBlock()]: https://developer.apple.com/documentation/QuartzCore/CATransaction/completionBlock()
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/completionHandler
+//
+// [completionBlock()]: https://developer.apple.com/documentation/QuartzCore/CATransaction/completionBlock()
 func (a NSAnimationContext) CompletionHandler() VoidHandler {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("completionHandler"))
 	_ = rv
@@ -244,11 +248,12 @@ func (a NSAnimationContext) SetCompletionHandler(value VoidHandler) {
 	defer cleanup()
 	objc.Send[struct{}](a.ID, objc.Sel("setCompletionHandler:"), block)
 }
+
 // The duration used by animations created as a result of setting new values
 // for an animatable property.
 //
 // # Discussion
-// 
+//
 // Any animations that occur as a result of setting the values of animatable
 // properties in the current context will run for this duration.
 //
@@ -260,33 +265,34 @@ func (a NSAnimationContext) Duration() float64 {
 func (a NSAnimationContext) SetDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
+
 // The timing function used for all animations within this animation proxy
 // group.
 //
 // # Discussion
-// 
+//
 // The NSAnimationContext timing function is analogous to the CATransaction
 // [setAnimationTimingFunction(_:)] method.
-// 
+//
 // Animations initiated through the “animator” proxy syntax, that do not
 // have an explicitly specified timing functions, will inherit the enclosing
 // [NSAnimationContext] instance’s [TimingFunction] if it is not `nil`
 // (which is the default).
-// 
+//
 // As with the existing [Duration] property, changing a timing function causes
 // the same change in the underlying CATransaction instance’s
 // [animationTimingFunction()].
-// 
+//
 // Also as with the [Duration] property, you may change the timingFunction any
 // number of times within a given NSAnimationContext [BeginGrouping] and
 // [EndGrouping] block. Changes to the `timingFunction` will apply to any
 // animations that are subsequently initiated in that NSAnimationContext
 // grouping, until the `timingFunction` is possibly changed again.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/timingFunction
+//
 // [animationTimingFunction()]: https://developer.apple.com/documentation/QuartzCore/CATransaction/animationTimingFunction()
 // [setAnimationTimingFunction(_:)]: https://developer.apple.com/documentation/QuartzCore/CATransaction/setAnimationTimingFunction(_:)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/timingFunction
 func (a NSAnimationContext) TimingFunction() quartzcore.CAMediaTimingFunction {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("timingFunction"))
 	return quartzcore.CAMediaTimingFunctionFromID(objc.ID(rv))
@@ -294,25 +300,23 @@ func (a NSAnimationContext) TimingFunction() quartzcore.CAMediaTimingFunction {
 func (a NSAnimationContext) SetTimingFunction(value quartzcore.CAMediaTimingFunction) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimingFunction:"), value)
 }
+
 // Determine if animations are enabled or not for animations that occur as a
 // result of another property change.
 //
 // # Discussion
-// 
-// Using the [Animator] proxy will automatically set `allowsImplicitAnimation`
-// to [true]. When [true], other properties can implicitly animate along with
-// the initially changed property.
-// 
-// For instance, calling `[[view animator] frame]` will allow subviews to also
-// animate their frame positions. When the value is [false] the behavior is
-// diabled.
-// 
-// The default value is [false].
-// 
-// This is only applicable when layer backed on OS v10.8 and later.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Using the [Animator] proxy will automatically set `allowsImplicitAnimation`
+// to true. When true, other properties can implicitly animate along with the
+// initially changed property.
+//
+// For instance, calling `[[view animator] frame]` will allow subviews to also
+// animate their frame positions. When the value is false the behavior is
+// diabled.
+//
+// The default value is false.
+//
+// This is only applicable when layer backed on OS v10.8 and later.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/allowsImplicitAnimation
 func (a NSAnimationContext) AllowsImplicitAnimation() bool {
@@ -326,7 +330,7 @@ func (a NSAnimationContext) SetAllowsImplicitAnimation(value bool) {
 // Returns the current animation context.
 //
 // # Return Value
-// 
+//
 // The current animation context.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/current
@@ -364,4 +368,3 @@ func (ac NSAnimationContextClass) RunAnimationGroupSyncSync(ctx context.Context)
 		return nil, ctx.Err()
 	}
 }
-

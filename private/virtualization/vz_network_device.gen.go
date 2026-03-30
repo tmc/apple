@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZNetworkDeviceClass) Alloc() VZNetworkDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZNetworkDevice._type]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkDevice
 type VZNetworkDevice struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZNetworkDevice struct {
 func VZNetworkDeviceFromID(id objc.ID) VZNetworkDevice {
 	return VZNetworkDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure VZNetworkDevice implements IVZNetworkDevice.
 var _ IVZNetworkDevice = VZNetworkDevice{}
 
@@ -96,4 +98,3 @@ func (n VZNetworkDevice) _type() int64 {
 	rv := objc.Send[int64](n.ID, objc.Sel("_type"))
 	return rv
 }
-

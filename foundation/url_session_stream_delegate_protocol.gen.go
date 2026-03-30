@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that defines methods that URL session instances call on their delegates to handle task-level events specific to stream tasks.
@@ -22,6 +24,7 @@ type NSURLSessionStreamDelegate interface {
 type NSURLSessionStreamDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSURLSessionStreamDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,18 +45,19 @@ func NSURLSessionStreamDelegateObjectFromID(id objc.ID) NSURLSessionStreamDelega
 // streamTask: The stream task that discovered a better route.
 //
 // # Discussion
-// 
+//
 // This method is called when the URL loading system determines that a better
 // route to the endpoint host is available. For example, this method may be
 // called when a Wi-Fi interface becomes available.
-// 
+//
 // You should consider completing pending work and creating a new stream task
 // in order to take advantage of better routes when they become available.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamDelegate/urlSession(_:betterRouteDiscoveredFor:)
 func (o NSURLSessionStreamDelegateObject) URLSessionBetterRouteDiscoveredForStreamTask(session INSURLSession, streamTask INSURLSessionStreamTask) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:betterRouteDiscoveredForStreamTask:"), session, streamTask)
-	}
+}
+
 // Tells the delegate that the stream task has been completed as a result of
 // the stream task calling the [CaptureStreams] method.
 //
@@ -66,14 +70,15 @@ func (o NSURLSessionStreamDelegateObject) URLSessionBetterRouteDiscoveredForStre
 // outputStream: The created output stream. This [NSOutputStream] object is unopened
 //
 // # Discussion
-// 
+//
 // This delegate method will only be called after all enqueued reads and
 // writes for the stream task have been completed.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamDelegate/urlSession(_:streamTask:didBecome:outputStream:)
 func (o NSURLSessionStreamDelegateObject) URLSessionStreamTaskDidBecomeInputStreamOutputStream(session INSURLSession, streamTask INSURLSessionStreamTask, inputStream INSInputStream, outputStream INSOutputStream) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:streamTask:didBecomeInputStream:outputStream:"), session, streamTask, inputStream, outputStream)
-	}
+}
+
 // Tells the delegate that the read side of the underlying socket has been
 // closed.
 //
@@ -82,7 +87,7 @@ func (o NSURLSessionStreamDelegateObject) URLSessionStreamTaskDidBecomeInputStre
 // streamTask: The stream task that closed reads.
 //
 // # Discussion
-// 
+//
 // This method may be called even if no reads are currently in progress. This
 // method does not indicate that the stream reached end-of-file (EOF), such
 // that no more data can be read.
@@ -90,7 +95,8 @@ func (o NSURLSessionStreamDelegateObject) URLSessionStreamTaskDidBecomeInputStre
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamDelegate/urlSession(_:readClosedFor:)
 func (o NSURLSessionStreamDelegateObject) URLSessionReadClosedForStreamTask(session INSURLSession, streamTask INSURLSessionStreamTask) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:readClosedForStreamTask:"), session, streamTask)
-	}
+}
+
 // Tells the delegate that the write side of the underlying socket has been
 // closed.
 //
@@ -99,13 +105,14 @@ func (o NSURLSessionStreamDelegateObject) URLSessionReadClosedForStreamTask(sess
 // streamTask: The stream task that closed writes.
 //
 // # Discussion
-// 
+//
 // This method may be called even if no writes are currently in progress.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamDelegate/urlSession(_:writeClosedFor:)
 func (o NSURLSessionStreamDelegateObject) URLSessionWriteClosedForStreamTask(session INSURLSession, streamTask INSURLSessionStreamTask) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:writeClosedForStreamTask:"), session, streamTask)
-	}
+}
+
 // Tells the URL session that the session has been invalidated.
 //
 // session: The session object that was invalidated.
@@ -114,7 +121,7 @@ func (o NSURLSessionStreamDelegateObject) URLSessionWriteClosedForStreamTask(ses
 // explicit.
 //
 // # Discussion
-// 
+//
 // If you invalidate a session by calling its [FinishTasksAndInvalidate]
 // method, the session waits until after the final task in the session
 // finishes or fails before calling this delegate method. If you call the
@@ -124,14 +131,15 @@ func (o NSURLSessionStreamDelegateObject) URLSessionWriteClosedForStreamTask(ses
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didBecomeInvalidWithError:)
 func (o NSURLSessionStreamDelegateObject) URLSessionDidBecomeInvalidWithError(session INSURLSession, error_ INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didBecomeInvalidWithError:"), session, error_)
-	}
+}
+
 // Tells the delegate that all messages enqueued for a session have been
 // delivered.
 //
 // session: The session that no longer has any outstanding requests.
 //
 // # Discussion
-// 
+//
 // In iOS, when a background transfer completes or requires credentials, if
 // your app is no longer running, your app is automatically relaunched in the
 // background, and the app’s [UIApplicationDelegate] is sent an
@@ -141,7 +149,7 @@ func (o NSURLSessionStreamDelegateObject) URLSessionDidBecomeInvalidWithError(se
 // creating a background configuration object with the same identifier, and
 // creating a session with that configuration. The newly created session is
 // automatically reassociated with ongoing background activity.
-// 
+//
 // When your app later receives a
 // [URLSessionDidFinishEventsForBackgroundURLSession] message, this indicates
 // that all messages previously enqueued for this session have been delivered,
@@ -149,12 +157,13 @@ func (o NSURLSessionStreamDelegateObject) URLSessionDidBecomeInvalidWithError(se
 // or to begin any internal updates that may result in invoking the completion
 // handler.
 //
-// [application(_:handleEventsForBackgroundURLSession:completionHandler:)]: https://developer.apple.com/documentation/UIKit/UIApplicationDelegate/application(_:handleEventsForBackgroundURLSession:completionHandler:)
-//
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSessionDidFinishEvents(forBackgroundURLSession:)
+//
+// [application(_:handleEventsForBackgroundURLSession:completionHandler:)]: https://developer.apple.com/documentation/UIKit/UIApplicationDelegate/application(_:handleEventsForBackgroundURLSession:completionHandler:)
 func (o NSURLSessionStreamDelegateObject) URLSessionDidFinishEventsForBackgroundURLSession(session INSURLSession) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSessionDidFinishEventsForBackgroundURLSession:"), session)
-	}
+}
+
 // Requests credentials from the delegate in response to a session-level
 // authentication request from the remote server.
 //
@@ -164,29 +173,30 @@ func (o NSURLSessionStreamDelegateObject) URLSessionDidFinishEventsForBackground
 //
 // completionHandler: A handler that your delegate method must call. This completion handler
 // takes the following parameters::
-// 
+//
 // - `disposition`—One of several constants that describes how the challenge
 // should be handled. - `credential`—The credential that should be used for
 // authentication if disposition is [NSURLSessionAuthChallengeUseCredential],
 // otherwise [NULL].
 //
 // # Discussion
-// 
+//
 // This method is called in two situations:
-// 
+//
 // - When a remote server asks for client certificates or Windows NT LAN
 // Manager (NTLM) authentication, to allow your app to provide appropriate
 // credentials - When a session first establishes a connection to a remote
 // server that uses SSL or TLS, to allow your app to verify the server’s
 // certificate chain
-// 
+//
 // If you do not implement this method, the session calls its delegate’s
 // [URLSessionTaskDidReceiveChallengeCompletionHandler] method instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didReceive:completionHandler:)
 func (o NSURLSessionStreamDelegateObject) URLSessionDidReceiveChallengeCompletionHandler(session INSURLSession, challenge INSURLAuthenticationChallenge, completionHandler URLCredentialHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, completionHandler)
-	}
+}
+
 // Tells the delegate that the task finished transferring data.
 //
 // session: The session containing the task that has finished transferring data.
@@ -197,7 +207,7 @@ func (o NSURLSessionStreamDelegateObject) URLSessionDidReceiveChallengeCompletio
 // otherwise [NULL].
 //
 // # Discussion
-// 
+//
 // The only errors your delegate receives through the `error` parameter are
 // client-side errors, such as being unable to resolve the hostname or connect
 // to the host. To check for server-side errors, inspect the [Response]
@@ -206,7 +216,8 @@ func (o NSURLSessionStreamDelegateObject) URLSessionDidReceiveChallengeCompletio
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didCompleteWithError:)
 func (o NSURLSessionStreamDelegateObject) URLSessionTaskDidCompleteWithError(session INSURLSession, task INSURLSessionTask, error_ INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didCompleteWithError:"), session, task, error_)
-	}
+}
+
 // Tells the delegate that the remote server requested an HTTP redirect.
 //
 // session: The session containing the task whose request resulted in a redirect.
@@ -222,14 +233,15 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskDidCompleteWithError(ses
 // redirect and return the body of the redirect response.
 //
 // # Discussion
-// 
+//
 // This method is called for tasks in default and ephemeral sessions. Tasks in
 // background sessions automatically follow redirects.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)
 func (o NSURLSessionStreamDelegateObject) URLSessionTaskWillPerformHTTPRedirectionNewRequestCompletionHandler(session INSURLSession, task INSURLSessionTask, response INSHTTPURLResponse, request INSURLRequest, completionHandler URLRequestHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:"), session, task, response, request, completionHandler)
-	}
+}
+
 // Periodically informs the delegate of the progress of sending body content
 // to the server.
 //
@@ -244,19 +256,17 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskWillPerformHTTPRedirecti
 //
 // totalBytesExpectedToSend: The expected length of the body data. The URL loading system can determine
 // the length of the upload data in three ways:
-// 
+//
 // - From the length of the [NSData] object provided as the upload body. -
 // From the length of the file on disk provided as the upload body of an
 // upload task ( a download task). - From the `Content-Length` in the request
 // object, if you explicitly set it.
-// 
+//
 // Otherwise, the value is [NSURLSessionTransferSizeUnknown] (`-1`) if you
 // provided a stream or body data object, or zero (`0`) if you did not.
-// //
-// [NSURLSessionTransferSizeUnknown]: https://developer.apple.com/documentation/Foundation/NSURLSessionTransferSizeUnknown
 //
 // # Discussion
-// 
+//
 // The `totalBytesSent` and `totalBytesExpectedToSend` parameters are also
 // available as [NSURLSessionTask] properties [CountOfBytesSent] and
 // [CountOfBytesExpectedToSend]. Or, since [NSURLSessionTask] supports
@@ -266,7 +276,8 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskWillPerformHTTPRedirecti
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)
 func (o NSURLSessionStreamDelegateObject) URLSessionTaskDidSendBodyDataTotalBytesSentTotalBytesExpectedToSend(session INSURLSession, task INSURLSessionTask, bytesSent int64, totalBytesSent int64, totalBytesExpectedToSend int64) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:"), session, task, bytesSent, totalBytesSent, totalBytesExpectedToSend)
-	}
+}
+
 // Tells the delegate when a task requires a new request body stream to send
 // to the remote server.
 //
@@ -278,9 +289,9 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskDidSendBodyDataTotalByte
 // body stream.
 //
 // # Discussion
-// 
+//
 // The task calls this delegate method under two circumstances:
-// 
+//
 // - To provide the initial request body stream if the task was created with
 // [UploadTaskWithStreamedRequest] - To provide a replacement request body
 // stream if the task needs to resend a request that has a body stream because
@@ -289,7 +300,8 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskDidSendBodyDataTotalByte
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:needNewBodyStream:)
 func (o NSURLSessionStreamDelegateObject) URLSessionTaskNeedNewBodyStream(session INSURLSession, task INSURLSessionTask, completionHandler InputStreamHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStream:"), session, task, completionHandler)
-	}
+}
+
 // Requests credentials from the delegate in response to an authentication
 // request from the remote server.
 //
@@ -300,19 +312,19 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskNeedNewBodyStream(sessio
 // challenge: An object that contains the request for authentication.
 //
 // completionHandler: A handler that your delegate method must call. Its parameters are:
-// 
+//
 // - `disposition`—One of several constants that describes how the challenge
 // should be handled. - `credential`—The credential that should be used for
 // authentication if disposition is [NSURLSessionAuthChallengeUseCredential];
 // otherwise, [NULL].
 //
 // # Discussion
-// 
+//
 // This method handles task-level authentication challenges. The
 // [NSURLSessionDelegate] protocol also provides a session-level
 // authentication delegate method. The method called depends on the type of
 // authentication challenge:
-// 
+//
 // - For session-level challenges—[NSURLAuthenticationMethodNTLM],
 // [NSURLAuthenticationMethodNegotiate],
 // [NSURLAuthenticationMethodClientCertificate], or
@@ -331,15 +343,16 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskNeedNewBodyStream(sessio
 // [URLSessionDidReceiveChallengeCompletionHandler] method is called for
 // non-session-level challenges.
 //
+// See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didReceive:completionHandler:)
+//
 // [NSURLAuthenticationMethodClientCertificate]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodClientCertificate
 // [NSURLAuthenticationMethodNTLM]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodNTLM
 // [NSURLAuthenticationMethodNegotiate]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodNegotiate
 // [NSURLAuthenticationMethodServerTrust]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodServerTrust
-//
-// See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didReceive:completionHandler:)
 func (o NSURLSessionStreamDelegateObject) URLSessionTaskDidReceiveChallengeCompletionHandler(session INSURLSession, task INSURLSessionTask, challenge INSURLAuthenticationChallenge, completionHandler URLCredentialHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didReceiveChallenge:completionHandler:"), session, task, challenge, completionHandler)
-	}
+}
+
 // Tells the delegate that a delayed URL session task will now begin loading.
 //
 // session: The session containing the delayed request.
@@ -351,29 +364,26 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskDidReceiveChallengeCompl
 // completionHandler: A completion handler to perform the request. The completion handler takes
 // two parameters: a disposition that tells the task how to proceed, and a new
 // request object that is only used if the disposition is
-// [URLSession.DelayedRequestDisposition.useNewRequest].
-// //
-// [URLSession.DelayedRequestDisposition.useNewRequest]: https://developer.apple.com/documentation/Foundation/URLSession/DelayedRequestDisposition/useNewRequest
+// [NSURLSessionDelayedRequestUseNewRequest].
 //
 // # Discussion
-// 
+//
 // This method is called when a background session task with a delayed start
 // time (as set with the [EarliestBeginDate] property) is ready to start. This
 // delegate method should only be implemented if the request might become
 // stale while waiting for the network load and needs to be replaced by a new
 // request.
-// 
+//
 // For loading to continue, the delegate must call the completion handler,
 // passing in a disposition that indicates how the task should proceed.
-// Passing the [URLSession.DelayedRequestDisposition.cancel] disposition is
-// equivalent to calling [Cancel] on the task directly.
-//
-// [URLSession.DelayedRequestDisposition.cancel]: https://developer.apple.com/documentation/Foundation/URLSession/DelayedRequestDisposition/cancel
+// Passing the [NSURLSessionDelayedRequestCancel] disposition is equivalent to
+// calling [Cancel] on the task directly.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:willBeginDelayedRequest:completionHandler:)
 func (o NSURLSessionStreamDelegateObject) URLSessionTaskWillBeginDelayedRequestCompletionHandler(session INSURLSession, task INSURLSessionTask, request INSURLRequest, completionHandler URLRequestHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:willBeginDelayedRequest:completionHandler:"), session, task, request, completionHandler)
-	}
+}
+
 // Tells the delegate that the task is waiting until suitable connectivity is
 // available before beginning the network load.
 //
@@ -382,13 +392,13 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskWillBeginDelayedRequestC
 // task: The task that is waiting for a change in connectivity.
 //
 // # Discussion
-// 
+//
 // This method is called if the [WaitsForConnectivity] property of
 // [NSURLSessionConfiguration] is `true`, and sufficient connectivity is
 // unavailable. The delegate can use this opportunity to update the user
 // interface; for example, by presenting an offline mode or a cellular-only
 // mode.
-// 
+//
 // This method is called, at most, once per task, and only if connectivity is
 // initially unavailable. It is never called for background sessions because
 // `waitsForConnectivity` is ignored for those sessions.
@@ -396,7 +406,8 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskWillBeginDelayedRequestC
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:taskIsWaitingForConnectivity:)
 func (o NSURLSessionStreamDelegateObject) URLSessionTaskIsWaitingForConnectivity(session INSURLSession, task INSURLSessionTask) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:taskIsWaitingForConnectivity:"), session, task)
-	}
+}
+
 // Tells the delegate that the session finished collecting metrics for the
 // task.
 //
@@ -409,17 +420,18 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskIsWaitingForConnectivity
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didFinishCollecting:)
 func (o NSURLSessionStreamDelegateObject) URLSessionTaskDidFinishCollectingMetrics(session INSURLSession, task INSURLSessionTask, metrics INSURLSessionTaskMetrics) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didFinishCollectingMetrics:"), session, task, metrics)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:didCreateTask:)
 func (o NSURLSessionStreamDelegateObject) URLSessionDidCreateTask(session INSURLSession, task INSURLSessionTask) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didCreateTask:"), session, task)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didReceiveInformationalResponse:)
 func (o NSURLSessionStreamDelegateObject) URLSessionTaskDidReceiveInformationalResponse(session INSURLSession, task INSURLSessionTask, response INSHTTPURLResponse) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didReceiveInformationalResponse:"), session, task, response)
-	}
+}
+
 // Tells the delegate if a task requires a new body stream starting from the
 // given offset. This may be necessary when resuming a failed upload task.
 //
@@ -436,7 +448,7 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskDidReceiveInformationalR
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:needNewBodyStreamFrom:completionHandler:)
 func (o NSURLSessionStreamDelegateObject) URLSessionTaskNeedNewBodyStreamFromOffsetCompletionHandler(session INSURLSession, task INSURLSessionTask, offset int64, completionHandler InputStreamHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStreamFromOffset:completionHandler:"), session, task, offset, completionHandler)
-	}
+}
 
 // NSURLSessionStreamDelegateConfig holds optional typed callbacks for [NSURLSessionStreamDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -543,4 +555,3 @@ func NewNSURLSessionStreamDelegate(config NSURLSessionStreamDelegateConfig) NSUR
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLSessionStreamDelegateObjectFromID(instance)
 }
-

@@ -4,10 +4,11 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -72,6 +73,7 @@ type AVSpatialVideoConfiguration struct {
 func AVSpatialVideoConfigurationFromID(id objc.ID) AVSpatialVideoConfiguration {
 	return AVSpatialVideoConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure AVSpatialVideoConfiguration implements IAVSpatialVideoConfiguration.
 var _ IAVSpatialVideoConfiguration = AVSpatialVideoConfiguration{}
 
@@ -166,11 +168,11 @@ func NewAVSpatialVideoConfiguration() AVSpatialVideoConfiguration {
 // formatDescription: Format description to use to initialize the AVSpatialVideoConfiguration.
 //
 // # Return Value
-// 
-// An instance of AVSpatialVideoConfiguration
+//
+// # An instance of AVSpatialVideoConfiguration
 //
 // # Discussion
-// 
+//
 // The format description is not stored.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSpatialVideoConfiguration-c.class/initWithFormatDescription:
@@ -185,11 +187,11 @@ func NewSpatialVideoConfigurationWithFormatDescription(formatDescription uintptr
 // formatDescription: Format description to use to initialize the AVSpatialVideoConfiguration.
 //
 // # Return Value
-// 
-// An instance of AVSpatialVideoConfiguration
+//
+// # An instance of AVSpatialVideoConfiguration
 //
 // # Discussion
-// 
+//
 // The format description is not stored.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSpatialVideoConfiguration-c.class/initWithFormatDescription:
@@ -201,7 +203,7 @@ func (s AVSpatialVideoConfiguration) InitWithFormatDescription(formatDescription
 // Specifies intrinsic and extrinsic parameters for single or multiple lenses.
 //
 // # Discussion
-// 
+//
 // The property value is an array of dictionaries describing the camera
 // calibration data for each lens. The camera calibration data includes
 // intrinsics and extrinics with other parameters. This property is only
@@ -217,11 +219,12 @@ func (s AVSpatialVideoConfiguration) CameraCalibrationDataLensCollection() found
 func (s AVSpatialVideoConfiguration) SetCameraCalibrationDataLensCollection(value foundation.INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCameraCalibrationDataLensCollection:"), value)
 }
+
 // Specifies the distance between centers of the lenses of the camera system
 // that created the video.
 //
 // # Discussion
-// 
+//
 // The distance is in micrometers or thousandths of a millimeter. Can be nil
 // if the value is unknown.
 //
@@ -233,11 +236,12 @@ func (s AVSpatialVideoConfiguration) CameraSystemBaseline() foundation.NSNumber 
 func (s AVSpatialVideoConfiguration) SetCameraSystemBaseline(value foundation.NSNumber) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCameraSystemBaseline:"), value)
 }
+
 // Specifies a relative shift of the left and right images, which changes the
 // zero parallax plane.
 //
 // # Discussion
-// 
+//
 // The value is in normalized image space and measured over the range of
 // -10000 to 10000 mapping to the uniform range [-1.0…1.0]. The interval of
 // 0.0 to 1.0 or 0 to 10000 maps onto the stereo eye view image width. The
@@ -252,6 +256,7 @@ func (s AVSpatialVideoConfiguration) DisparityAdjustment() foundation.NSNumber {
 func (s AVSpatialVideoConfiguration) SetDisparityAdjustment(value foundation.NSNumber) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisparityAdjustment:"), value)
 }
+
 // Specifies horizontal field of view in thousandths of a degree. Can be nil
 // if the value is unknown.
 //
@@ -263,6 +268,7 @@ func (s AVSpatialVideoConfiguration) HorizontalFieldOfView() foundation.NSNumber
 func (s AVSpatialVideoConfiguration) SetHorizontalFieldOfView(value foundation.NSNumber) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHorizontalFieldOfView:"), value)
 }
+
 // A video composition tool to use with Core Animation in offline rendering.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/animationtool
@@ -273,6 +279,7 @@ func (s AVSpatialVideoConfiguration) AnimationTool() IAVVideoCompositionCoreAnim
 func (s AVSpatialVideoConfiguration) SetAnimationTool(value IAVVideoCompositionCoreAnimationTool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAnimationTool:"), value)
 }
+
 // The color primaries used for video composition.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/colorprimaries
@@ -283,6 +290,7 @@ func (s AVSpatialVideoConfiguration) ColorPrimaries() string {
 func (s AVSpatialVideoConfiguration) SetColorPrimaries(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setColorPrimaries:"), objc.String(value))
 }
+
 // The transfer function used for video composition.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/colortransferfunction
@@ -293,6 +301,7 @@ func (s AVSpatialVideoConfiguration) ColorTransferFunction() string {
 func (s AVSpatialVideoConfiguration) SetColorTransferFunction(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setColorTransferFunction:"), objc.String(value))
 }
+
 // The YCbCr matrix used for video composition.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/colorycbcrmatrix
@@ -303,6 +312,7 @@ func (s AVSpatialVideoConfiguration) ColorYCbCrMatrix() string {
 func (s AVSpatialVideoConfiguration) SetColorYCbCrMatrix(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setColorYCbCrMatrix:"), objc.String(value))
 }
+
 // A custom compositor class to use.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/customvideocompositorclass
@@ -313,6 +323,7 @@ func (s AVSpatialVideoConfiguration) CustomVideoCompositorClass() AVVideoComposi
 func (s AVSpatialVideoConfiguration) SetCustomVideoCompositorClass(value AVVideoCompositing) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCustomVideoCompositorClass:"), value)
 }
+
 // A time interval for which the video composition should render composed
 // video frames.
 //
@@ -324,6 +335,7 @@ func (s AVSpatialVideoConfiguration) FrameDuration() coremedia.CMTime {
 func (s AVSpatialVideoConfiguration) SetFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFrameDuration:"), value)
 }
+
 // The scale at which the video composition should render.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/renderscale
@@ -334,6 +346,7 @@ func (s AVSpatialVideoConfiguration) RenderScale() float32 {
 func (s AVSpatialVideoConfiguration) SetRenderScale(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRenderScale:"), value)
 }
+
 // The size at which the video composition should render.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/rendersize
@@ -344,4 +357,3 @@ func (s AVSpatialVideoConfiguration) RenderSize() corefoundation.CGSize {
 func (s AVSpatialVideoConfiguration) SetRenderSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRenderSize:"), value)
 }
-

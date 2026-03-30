@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLFeatureFlagsClass) Alloc() MLFeatureFlags {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLFeatureFlags.AddFeatureWithControlNameDefaultValue]
@@ -56,6 +56,7 @@ func (mc MLFeatureFlagsClass) Alloc() MLFeatureFlags {
 //   - [MLFeatureFlags.RemoveOverrideForFeature]
 //   - [MLFeatureFlags.SetOverrideForFeature]
 //   - [MLFeatureFlags.UserDefaults]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags
 type MLFeatureFlags struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type MLFeatureFlags struct {
 func MLFeatureFlagsFromID(id objc.ID) MLFeatureFlags {
 	return MLFeatureFlags{objectivec.Object{ID: id}}
 }
+
 // Ensure MLFeatureFlags implements IMLFeatureFlags.
 var _ IMLFeatureFlags = MLFeatureFlags{}
 
@@ -122,44 +124,46 @@ func NewMLFeatureFlags() MLFeatureFlags {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/addFeature:withControlName:defaultValue:
 func (f MLFeatureFlags) AddFeatureWithControlNameDefaultValue(feature objectivec.IObject, name objectivec.IObject, value bool) {
 	objc.Send[objc.ID](f.ID, objc.Sel("addFeature:withControlName:defaultValue:"), feature, name, value)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/controlKeyForFeature:
 func (f MLFeatureFlags) ControlKeyForFeature(feature objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("controlKeyForFeature:"), feature)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/defineFeatures
 func (f MLFeatureFlags) DefineFeatures() {
 	objc.Send[objc.ID](f.ID, objc.Sel("defineFeatures"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/isFeatureEnabled:
 func (f MLFeatureFlags) IsFeatureEnabled(enabled objectivec.IObject) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isFeatureEnabled:"), enabled)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/isMPSGraphEnabled
 func (f MLFeatureFlags) IsMPSGraphEnabled() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isMPSGraphEnabled"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/isMPSGraphFP16Enabled
 func (f MLFeatureFlags) IsMPSGraphFP16Enabled() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isMPSGraphFP16Enabled"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/removeOverrideForFeature:
 func (f MLFeatureFlags) RemoveOverrideForFeature(feature objectivec.IObject) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("removeOverrideForFeature:"), feature)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/setOverride:forFeature:
 func (f MLFeatureFlags) SetOverrideForFeature(override bool, feature objectivec.IObject) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("setOverride:forFeature:"), override, feature)
@@ -177,11 +181,13 @@ func (f MLFeatureFlags) Flags() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("flags"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/overrideOriginalValues
 func (f MLFeatureFlags) OverrideOriginalValues() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("overrideOriginalValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureFlags/userDefaults
 func (f MLFeatureFlags) UserDefaults() *foundation.NSUserDefaults {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("userDefaults"))
@@ -191,4 +197,3 @@ func (f MLFeatureFlags) UserDefaults() *foundation.NSUserDefaults {
 	val := foundation.NSUserDefaultsFromID(objc.ID(rv))
 	return &val
 }
-

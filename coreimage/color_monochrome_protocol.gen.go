@@ -49,6 +49,7 @@ type CIColorMonochrome interface {
 type CIColorMonochromeObject struct {
 	objectivec.Object
 }
+
 func (o CIColorMonochromeObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CIColorMonochromeObjectFromID(id objc.ID) CIColorMonochromeObject {
 func (o CIColorMonochromeObject) Color() ICIColor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/inputImage
 func (o CIColorMonochromeObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The intensity of the monochrome effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/intensity
 func (o CIColorMonochromeObject) Intensity() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,30 @@ func (o CIColorMonochromeObject) Intensity() float32 {
 func (o CIColorMonochromeObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The monochrome color to apply to the image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/color
 func (o CIColorMonochromeObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/inputImage
 func (o CIColorMonochromeObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The intensity of the monochrome effect.
+//
+// # Discussion
+//
+// A value of 1.0 creates a monochrome image using the supplied color. A value
+// of 0.0 has no effect on the image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/intensity
 func (o CIColorMonochromeObject) SetIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIntensity:"), value)
 }
-

@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (uc UNNotificationActionClass) Alloc() UNNotificationAction {
 // delivers.
 //
 // # Overview
-// 
+//
 // Use [UNNotificationAction] objects to define the actions that your app can
 // perform in response to a delivered notification. You define the actions
 // that your app supports. For example, a meeting app might define actions for
@@ -55,12 +56,12 @@ func (uc UNNotificationActionClass) Alloc() UNNotificationAction {
 // appearance. After creating action objects, add them to a
 // [UNNotificationCategory] object and register your categories with the
 // system.
-// 
+//
 // For information on how to define actions and categories, see [Declaring
 // your actionable notification types].
-// 
+//
 // # Responding to the Selection of Actions
-// 
+//
 // When the user selects one of your actions in response to a notification,
 // the system notifies the delegate of the shared [UNUserNotificationCenter]
 // object. Specifically, the system calls the
@@ -68,12 +69,9 @@ func (uc UNNotificationActionClass) Alloc() UNNotificationAction {
 // method of your delegate object. The response object passed to your delegate
 // includes the [UNNotificationAction.Identifier] string of the action the user selects, which you
 // can use to perform the corresponding task.
-// 
+//
 // For information on how to handle actions, see [Handling notifications and
 // notification-related actions].
-//
-// [Declaring your actionable notification types]: https://developer.apple.com/documentation/UserNotifications/declaring-your-actionable-notification-types
-// [Handling notifications and notification-related actions]: https://developer.apple.com/documentation/UserNotifications/handling-notifications-and-notification-related-actions
 //
 // # Getting Information
 //
@@ -86,6 +84,9 @@ func (uc UNNotificationActionClass) Alloc() UNNotificationAction {
 //   - [UNNotificationAction.Options]: The behaviors associated with the action.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAction
+//
+// [Declaring your actionable notification types]: https://developer.apple.com/documentation/UserNotifications/declaring-your-actionable-notification-types
+// [Handling notifications and notification-related actions]: https://developer.apple.com/documentation/UserNotifications/handling-notifications-and-notification-related-actions
 type UNNotificationAction struct {
 	objectivec.Object
 }
@@ -97,6 +98,7 @@ type UNNotificationAction struct {
 func UNNotificationActionFromID(id objc.ID) UNNotificationAction {
 	return UNNotificationAction{objectivec.Object{ID: id}}
 }
+
 // NOTE: UNNotificationAction adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -167,14 +169,14 @@ func NewUNNotificationAction() UNNotificationAction {
 // options: Additional options that describe how the action behaves. Include options
 // when you need the related behavior. For a list of possible values, see
 // [UNNotificationActionOptions].
-// //
-// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 //
 // # Return Value
-// 
+//
 // An action object that the system initializes.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAction/init(identifier:title:options:)
+//
+// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 func NewUNNotificationActionWithIdentifierTitleOptions(identifier string, title string, options UNNotificationActionOptions) UNNotificationAction {
 	rv := objc.Send[objc.ID](objc.ID(getUNNotificationActionClass().class), objc.Sel("actionWithIdentifier:title:options:"), objc.String(identifier), objc.String(title), options)
 	return UNNotificationActionFromID(rv)
@@ -195,16 +197,16 @@ func NewUNNotificationActionWithIdentifierTitleOptions(identifier string, title 
 // options: Additional options that describe how the action behaves. Include options
 // when you need the related behavior. For a list of possible values, see
 // [UNNotificationActionOptions].
-// //
-// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 //
 // icon: The icon that the system displays to the user.
 //
 // # Return Value
-// 
+//
 // An action object that the system initializes.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAction/init(identifier:title:options:icon:)
+//
+// [UNNotificationActionOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationActionOptions
 func NewUNNotificationActionWithIdentifierTitleOptionsIcon(identifier string, title string, options UNNotificationActionOptions, icon IUNNotificationActionIcon) UNNotificationAction {
 	rv := objc.Send[objc.ID](objc.ID(getUNNotificationActionClass().class), objc.Sel("actionWithIdentifier:title:options:icon:"), objc.String(identifier), objc.String(title), options, icon)
 	return UNNotificationActionFromID(rv)
@@ -217,7 +219,7 @@ func (u UNNotificationAction) EncodeWithCoder(coder foundation.INSCoder) {
 // The unique string that your app uses to identify the action.
 //
 // # Discussion
-// 
+//
 // When the user selects an action, the system reports the value of this
 // string to your app. Because your app handles all actions by using a single
 // delegate method, the identifier strings for all of your app’s actions
@@ -228,10 +230,11 @@ func (u UNNotificationAction) Identifier() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The localized string to use as the title of the action.
 //
 // # Discussion
-// 
+//
 // The system displays this string as the title of the button that the user
 // taps or selects in the notification interface.
 //
@@ -240,10 +243,11 @@ func (u UNNotificationAction) Title() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The icon associated with the action.
 //
 // # Discussion
-// 
+//
 // The system displays this icon in the notification interface to help the
 // user identify the app associated with the action.
 //
@@ -252,10 +256,11 @@ func (u UNNotificationAction) Icon() IUNNotificationActionIcon {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("icon"))
 	return UNNotificationActionIconFromID(objc.ID(rv))
 }
+
 // The behaviors associated with the action.
 //
 // # Discussion
-// 
+//
 // You app should define options for an action when your app requires the
 // corresponding behavior.
 //
@@ -264,4 +269,3 @@ func (u UNNotificationAction) Options() UNNotificationActionOptions {
 	rv := objc.Send[UNNotificationActionOptions](u.ID, objc.Sel("options"))
 	return UNNotificationActionOptions(rv)
 }
-

@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type MLNumericConstraint struct {
 func MLNumericConstraintFromID(id objc.ID) MLNumericConstraint {
 	return MLNumericConstraint{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLNumericConstraint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,6 +123,7 @@ func (n MLNumericConstraint) MinNumber() foundation.NSNumber {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("minNumber"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // The largest numerical value allowed by this constraint.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/maxNumber
@@ -128,6 +131,7 @@ func (n MLNumericConstraint) MaxNumber() foundation.NSNumber {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("maxNumber"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // A set of the numbers allowed in this constraint.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/enumeratedNumbers
@@ -135,6 +139,7 @@ func (n MLNumericConstraint) EnumeratedNumbers() foundation.INSSet {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("enumeratedNumbers"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
+
 // The constraints of this paramter description value, if and only if the
 // value is numerical.
 //
@@ -146,4 +151,3 @@ func (n MLNumericConstraint) NumericConstraint() IMLNumericConstraint {
 func (n MLNumericConstraint) SetNumericConstraint(value IMLNumericConstraint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNumericConstraint:"), value)
 }
-

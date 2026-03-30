@@ -8,36 +8,6 @@ import (
 	"github.com/tmc/apple/security"
 )
 
-// ArrayErrorHandler handles A block that takes an NSArray of NEAppProxyProviderManager objects, and an NSError object.
-//
-// Used by:
-//   - [NEAppProxyProviderManager.LoadAllFromPreferencesWithCompletionHandler]
-//   - [NERelayManager.LoadAllManagersFromPreferencesWithCompletionHandler]
-//   - [NETransparentProxyManager.LoadAllFromPreferencesWithCompletionHandler]
-//   - [NETunnelProviderManager.LoadAllFromPreferencesWithCompletionHandler]
-//   - [NWUDPSession.SetReadHandlerMaxDatagrams]
-type ArrayErrorHandler = func(*[]NEAppProxyProviderManager, error)
-
-// ArrayHandler handles The completion handler for passing an identity and certificate chain to the connection.
-//
-// Used by:
-//   - [NEPacketTunnelFlow.ReadPacketObjectsWithCompletionHandler]
-//   - [NWTCPConnectionAuthenticationDelegate.ProvideIdentityForConnectionCompletionHandler]
-type ArrayHandler = func(security.SecIdentityRef)
-
-// NewArrayBlock wraps a Go [ArrayHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NEPacketTunnelFlow.ReadPacketObjectsWithCompletionHandler]
-//   - [NWTCPConnectionAuthenticationDelegate.ProvideIdentityForConnectionCompletionHandler]
-func NewArrayBlock(handler ArrayHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, primitiveVal security.SecIdentityRef) {
-		handler(primitiveVal)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // DataErrorHandler handles A block that will be executed by the system on an internal system thread when some data is read from the flow.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -95,13 +65,16 @@ func NewDataBlock(handler DataHandler) (objc.ID, func()) {
 
 // ErrorHandler handles Called when the open operation is complete.
 //   - error: A `nil` value indicates the flow opened successfully. A non-`nil` value indicates the flow could not be opened. See [NEAppProxyFlowError](<doc://com.apple.networkextension/documentation/NetworkExtension/NEAppProxyFlowError-swift.struct>) for a list of expected error codes.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
 //   - [NEAppProxyFlow.OpenWithLocalEndpointCompletionHandler]
+//   - [NEAppProxyFlow.OpenWithLocalFlowEndpointCompletionHandler]
 //   - [NEAppProxyProvider.StartProxyWithOptionsCompletionHandler]
 //   - [NEAppProxyTCPFlow.WriteDataWithCompletionHandler]
 //   - [NEAppProxyUDPFlow.WriteDatagramsSentByEndpointsCompletionHandler]
+//   - [NEAppProxyUDPFlow.WriteDatagramsSentByFlowEndpointsCompletionHandler]
 //   - [NEDNSProxyManager.LoadFromPreferencesWithCompletionHandler]
 //   - [NEDNSProxyManager.RemoveFromPreferencesWithCompletionHandler]
 //   - [NEDNSProxyManager.SaveToPreferencesWithCompletionHandler]
@@ -134,9 +107,11 @@ type ErrorHandler = func(error)
 //
 // Used by:
 //   - [NEAppProxyFlow.OpenWithLocalEndpointCompletionHandler]
+//   - [NEAppProxyFlow.OpenWithLocalFlowEndpointCompletionHandler]
 //   - [NEAppProxyProvider.StartProxyWithOptionsCompletionHandler]
 //   - [NEAppProxyTCPFlow.WriteDataWithCompletionHandler]
 //   - [NEAppProxyUDPFlow.WriteDatagramsSentByEndpointsCompletionHandler]
+//   - [NEAppProxyUDPFlow.WriteDatagramsSentByFlowEndpointsCompletionHandler]
 //   - [NEDNSProxyManager.LoadFromPreferencesWithCompletionHandler]
 //   - [NEDNSProxyManager.RemoveFromPreferencesWithCompletionHandler]
 //   - [NEDNSProxyManager.SaveToPreferencesWithCompletionHandler]
@@ -169,6 +144,60 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NEAppProxyProviderManagerArrayErrorHandler handles A block that takes an NSArray of NEAppProxyProviderManager objects, and an NSError object.
+//
+// Used by:
+//   - [NEAppProxyProviderManager.LoadAllFromPreferencesWithCompletionHandler]
+type NEAppProxyProviderManagerArrayErrorHandler = func(*[]NEAppProxyProviderManager, error)
+
+// NEPacketArrayHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [NEPacketTunnelFlow.ReadPacketObjectsWithCompletionHandler]
+type NEPacketArrayHandler = func(*[]NEPacket)
+
+// NERelayManagerArrayErrorHandler handles A block that receives an array of NERelayManager objects.
+//
+// Used by:
+//   - [NERelayManager.LoadAllManagersFromPreferencesWithCompletionHandler]
+type NERelayManagerArrayErrorHandler = func(*[]NERelayManager, error)
+
+// NETransparentProxyManagerArrayErrorHandler handles A Swift closure or an ObjectiveC block that receives as parameters an array of transparent proxy manager instances loaded from disk and an error.
+//
+// Used by:
+//   - [NETransparentProxyManager.LoadAllFromPreferencesWithCompletionHandler]
+type NETransparentProxyManagerArrayErrorHandler = func(*[]NETransparentProxyManager, error)
+
+// NETunnelProviderManagerArrayErrorHandler handles A block that takes an NSArray of [NETunnelProviderManager] objects, and an NSError object.
+//
+// Used by:
+//   - [NETunnelProviderManager.LoadAllFromPreferencesWithCompletionHandler]
+type NETunnelProviderManagerArrayErrorHandler = func(*[]NETunnelProviderManager, error)
+
+// NEURLFilterVerdictHandler handles A block that the system calls when it completes validation.
+//
+// Used by:
+//   - [NEURLFilter.VerdictForURLCompletionHandler]
+type NEURLFilterVerdictHandler = func(NEURLFilterVerdict)
+
+// NewNEURLFilterVerdictBlock wraps a Go [NEURLFilterVerdictHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NEURLFilter.VerdictForURLCompletionHandler]
+func NewNEURLFilterVerdictBlock(handler NEURLFilterVerdictHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal NEURLFilterVerdict) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSDataArrayErrorHandler handles A handler called when datagrams have been read, or when an error has occurred.
+//
+// Used by:
+//   - [NWUDPSession.SetReadHandlerMaxDatagrams]
+type NSDataArrayErrorHandler = func(*[]foundation.NSData, error)
+
 // SecTrustRefHandler handles The completion handler for passing the SecTrust object to the connection.
 //
 // Used by:
@@ -191,6 +220,7 @@ func NewSecTrustRefBlock(handler SecTrustRefHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [NEAppProxyProvider.StopProxyWithReasonCompletionHandler]
+//   - [NEAppProxyUDPFlow.ReadDatagramsAndFlowEndpointsWithCompletionHandler]
 //   - [NEAppProxyUDPFlow.ReadDatagramsWithCompletionHandler]
 //   - [NEDNSProxyProvider.StopProxyWithReasonCompletionHandler]
 //   - [NEFilterProvider.StopFilterWithReasonCompletionHandler]
@@ -204,6 +234,7 @@ type VoidHandler = func()
 //
 // Used by:
 //   - [NEAppProxyProvider.StopProxyWithReasonCompletionHandler]
+//   - [NEAppProxyUDPFlow.ReadDatagramsAndFlowEndpointsWithCompletionHandler]
 //   - [NEAppProxyUDPFlow.ReadDatagramsWithCompletionHandler]
 //   - [NEDNSProxyProvider.StopProxyWithReasonCompletionHandler]
 //   - [NEFilterProvider.StopFilterWithReasonCompletionHandler]
@@ -217,3 +248,20 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// idArrayHandler handles The completion handler for passing an identity and certificate chain to the connection.
+//
+// Used by:
+//   - [NWTCPConnectionAuthenticationDelegate.ProvideIdentityForConnectionCompletionHandler]
+type idArrayHandler = func(security.SecIdentityRef)
+
+// NewidArrayBlock wraps a Go [idArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NWTCPConnectionAuthenticationDelegate.ProvideIdentityForConnectionCompletionHandler]
+func NewidArrayBlock(handler idArrayHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal security.SecIdentityRef) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}

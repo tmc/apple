@@ -4,9 +4,10 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (cc CAScrollLayerClass) Alloc() CAScrollLayer {
 // A layer that displays scrollable content larger than its own bounds.
 //
 // # Overview
-// 
+//
 // The [CAScrollLayer] class is a subclass of [CALayer] that simplifies
 // displaying a portion of a layer. The extent of the scrollable area of the
 // [CAScrollLayer] is defined by the layout of its sublayers. The visible
@@ -76,6 +77,7 @@ type CAScrollLayer struct {
 func CAScrollLayerFromID(id objc.ID) CAScrollLayer {
 	return CAScrollLayer{CALayer: CALayerFromID(id)}
 }
+
 // NOTE: CAScrollLayer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -133,20 +135,20 @@ func NewCAScrollLayer() CAScrollLayer {
 // layer: The layer from which custom fields should be copied.
 //
 // # Return Value
-// 
+//
 // A layer instance with any custom instance variables copied from `layer`.
 //
 // # Discussion
-// 
+//
 // This initializer is used to create shadow copies of layers, for example,
 // for the [PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
-// 
+//
 // If you are implementing a custom layer subclass, you can override this
 // method and use it to copy the values of instance variables into the new
 // object. Subclasses should always invoke the superclass implementation.
-// 
+//
 // This method is the designated initializer for layer objects in the
 // presentation layer.
 //
@@ -165,6 +167,7 @@ func NewScrollLayerWithLayer(layer objectivec.IObject) CAScrollLayer {
 func (s CAScrollLayer) ScrollToPoint(p corefoundation.CGPoint) {
 	objc.Send[objc.ID](s.ID, objc.Sel("scrollToPoint:"), p)
 }
+
 // Scroll the contents of the receiver to ensure that the rectangle is
 // visible.
 //
@@ -178,13 +181,13 @@ func (s CAScrollLayer) ScrollToRect(r corefoundation.CGRect) {
 // Defines the axes in which the layer may be scrolled.
 //
 // # Discussion
-// 
+//
 // The possible values are described in [Scroll Modes]. The default is [both].
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAScrollLayer/scrollMode
 //
 // [Scroll Modes]: https://developer.apple.com/documentation/QuartzCore/scroll-modes
 // [both]: https://developer.apple.com/documentation/QuartzCore/CAScrollLayerScrollMode/both
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CAScrollLayer/scrollMode
 func (s CAScrollLayer) ScrollMode() CAScrollLayerScrollMode {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("scrollMode"))
 	return CAScrollLayerScrollMode(foundation.NSStringFromID(rv).String())
@@ -192,4 +195,3 @@ func (s CAScrollLayer) ScrollMode() CAScrollLayerScrollMode {
 func (s CAScrollLayer) SetScrollMode(value CAScrollLayerScrollMode) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScrollMode:"), objc.String(string(value)))
 }
-

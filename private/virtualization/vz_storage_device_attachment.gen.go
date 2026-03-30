@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZStorageDeviceAttachmentClass) Alloc() VZStorageDeviceAttachment {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZStorageDeviceAttachment._init]
@@ -50,6 +50,7 @@ func (vc VZStorageDeviceAttachmentClass) Alloc() VZStorageDeviceAttachment {
 //   - [VZStorageDeviceAttachment.Description]
 //   - [VZStorageDeviceAttachment.Hash]
 //   - [VZStorageDeviceAttachment.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment
 type VZStorageDeviceAttachment struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type VZStorageDeviceAttachment struct {
 func VZStorageDeviceAttachmentFromID(id objc.ID) VZStorageDeviceAttachment {
 	return VZStorageDeviceAttachment{objectivec.Object{ID: id}}
 }
+
 // Ensure VZStorageDeviceAttachment implements IVZStorageDeviceAttachment.
 var _ IVZStorageDeviceAttachment = VZStorageDeviceAttachment{}
 
@@ -115,19 +117,21 @@ func (s VZStorageDeviceAttachment) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/description
 func (s VZStorageDeviceAttachment) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/hash
 func (s VZStorageDeviceAttachment) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceAttachment/superclass
 func (s VZStorageDeviceAttachment) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
 	return rv
 }
-

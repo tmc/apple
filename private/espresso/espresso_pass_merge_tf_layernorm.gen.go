@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_merge_tf_layernorm struct {
 func EspressoPass_merge_tf_layernormFromID(id objc.ID) EspressoPass_merge_tf_layernorm {
 	return EspressoPass_merge_tf_layernorm{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_merge_tf_layernorm implements IEspressoPass_merge_tf_layernorm.
 var _ IEspressoPass_merge_tf_layernorm = EspressoPass_merge_tf_layernorm{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_merge_tf_layernorm() EspressoPass_merge_tf_layernorm {
 	rv := objc.Send[EspressoPass_merge_tf_layernorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

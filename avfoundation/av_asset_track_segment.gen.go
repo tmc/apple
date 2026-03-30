@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +61,7 @@ type AVAssetTrackSegment struct {
 func AVAssetTrackSegmentFromID(id objc.ID) AVAssetTrackSegment {
 	return AVAssetTrackSegment{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetTrackSegment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -108,6 +110,7 @@ func (a AVAssetTrackSegment) TimeMapping() coremedia.CMTimeMapping {
 	rv := objc.Send[coremedia.CMTimeMapping](a.ID, objc.Sel("timeMapping"))
 	return coremedia.CMTimeMapping(rv)
 }
+
 // A Boolean value that indicates whether the segment is empty.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrackSegment/isEmpty
@@ -115,4 +118,3 @@ func (a AVAssetTrackSegment) Empty() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isEmpty"))
 	return rv
 }
-

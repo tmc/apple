@@ -29,6 +29,7 @@ type CIMaskToAlpha interface {
 type CIMaskToAlphaObject struct {
 	objectivec.Object
 }
+
 func (o CIMaskToAlphaObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func CIMaskToAlphaObjectFromID(id objc.ID) CIMaskToAlphaObject {
 func (o CIMaskToAlphaObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -55,9 +57,11 @@ func (o CIMaskToAlphaObject) InputImage() ICIImage {
 func (o CIMaskToAlphaObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMaskToAlpha/inputImage
 func (o CIMaskToAlphaObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

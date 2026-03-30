@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (mc MLPredictionSyncPointClass) Alloc() MLPredictionSyncPoint {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLPredictionSyncPoint.Notify]
 //   - [MLPredictionSyncPoint.SharedEvent]
 //   - [MLPredictionSyncPoint.Value]
 //   - [MLPredictionSyncPoint.InitWithSharedEventValue]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint
 type MLPredictionSyncPoint struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type MLPredictionSyncPoint struct {
 func MLPredictionSyncPointFromID(id objc.ID) MLPredictionSyncPoint {
 	return MLPredictionSyncPoint{objectivec.Object{ID: id}}
 }
+
 // Ensure MLPredictionSyncPoint implements IMLPredictionSyncPoint.
 var _ IMLPredictionSyncPoint = MLPredictionSyncPoint{}
 
@@ -100,7 +102,6 @@ func NewMLPredictionSyncPoint() MLPredictionSyncPoint {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/initWithSharedEvent:value:
 func NewPredictionSyncPointWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint {
 	instance := getMLPredictionSyncPointClass().Alloc()
@@ -112,7 +113,7 @@ func NewPredictionSyncPointWithSharedEventValue(event objectivec.IObject, value 
 func (p MLPredictionSyncPoint) Notify() {
 	objc.Send[objc.ID](p.ID, objc.Sel("notify"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/initWithSharedEvent:value:
 func (p MLPredictionSyncPoint) InitWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint {
 	rv := objc.Send[MLPredictionSyncPoint](p.ID, objc.Sel("initWithSharedEvent:value:"), event, value)
@@ -124,9 +125,9 @@ func (p MLPredictionSyncPoint) SharedEvent() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("sharedEvent"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionSyncPoint/value
 func (p MLPredictionSyncPoint) Value() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("value"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZAudioInputStreamSourceClass) Alloc() VZAudioInputStreamSource {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZAudioInputStreamSource._init]
@@ -51,6 +51,7 @@ func (vc VZAudioInputStreamSourceClass) Alloc() VZAudioInputStreamSource {
 //   - [VZAudioInputStreamSource.Description]
 //   - [VZAudioInputStreamSource.Hash]
 //   - [VZAudioInputStreamSource.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource
 type VZAudioInputStreamSource struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZAudioInputStreamSource struct {
 func VZAudioInputStreamSourceFromID(id objc.ID) VZAudioInputStreamSource {
 	return VZAudioInputStreamSource{objectivec.Object{ID: id}}
 }
+
 // Ensure VZAudioInputStreamSource implements IVZAudioInputStreamSource.
 var _ IVZAudioInputStreamSource = VZAudioInputStreamSource{}
 
@@ -118,24 +120,27 @@ func (a VZAudioInputStreamSource) _attachment() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("_attachment"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/debugDescription
 func (a VZAudioInputStreamSource) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/description
 func (a VZAudioInputStreamSource) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/hash
 func (a VZAudioInputStreamSource) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioInputStreamSource/superclass
 func (a VZAudioInputStreamSource) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
 	return rv
 }
-

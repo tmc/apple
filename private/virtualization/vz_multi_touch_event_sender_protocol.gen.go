@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -24,6 +25,7 @@ type VZMultiTouchEventSender interface {
 type VZMultiTouchEventSenderObject struct {
 	objectivec.Object
 }
+
 func (o VZMultiTouchEventSenderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -36,9 +38,7 @@ func VZMultiTouchEventSenderObjectFromID(id objc.ID) VZMultiTouchEventSenderObje
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchEventSender/sendMultiTouchEvents:multiTouchDeviceIndex:
 func (o VZMultiTouchEventSenderObject) SendMultiTouchEventsMultiTouchDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[struct{}](o.ID, objc.Sel("sendMultiTouchEvents:multiTouchDeviceIndex:"), events, index)
-	}
-
+}

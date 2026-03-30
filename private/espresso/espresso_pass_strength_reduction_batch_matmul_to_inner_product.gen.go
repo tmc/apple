@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_strength_reduction_batch_matmul_to_inner_product struct {
 func EspressoPass_strength_reduction_batch_matmul_to_inner_productFromID(id objc.ID) EspressoPass_strength_reduction_batch_matmul_to_inner_product {
 	return EspressoPass_strength_reduction_batch_matmul_to_inner_product{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_strength_reduction_batch_matmul_to_inner_product implements IEspressoPass_strength_reduction_batch_matmul_to_inner_product.
 var _ IEspressoPass_strength_reduction_batch_matmul_to_inner_product = EspressoPass_strength_reduction_batch_matmul_to_inner_product{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_strength_reduction_batch_matmul_to_inner_product() Espresso
 	rv := objc.Send[EspressoPass_strength_reduction_batch_matmul_to_inner_product](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

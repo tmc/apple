@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLLoader struct {
 func MLLoaderFromID(id objc.ID) MLLoader {
 	return MLLoader{objectivec.Object{ID: id}}
 }
+
 // Ensure MLLoader implements IMLLoader.
 var _ IMLLoader = MLLoader{}
 
@@ -82,7 +84,6 @@ func NewMLLoader() MLLoader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_conformConfiguration:usingModelArchive:
 func (_MLLoaderClass MLLoaderClass) _conformConfigurationUsingModelArchive(configuration objectivec.IObject, archive unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLLoaderClass.class), objc.Sel("_conformConfiguration:usingModelArchive:"), configuration, archive)
@@ -93,7 +94,7 @@ func (_MLLoaderClass MLLoaderClass) _conformConfigurationUsingModelArchive(confi
 func (_MLLoaderClass MLLoaderClass) ConformConfigurationUsingModelArchive(configuration objectivec.IObject, archive unsafe.Pointer) objectivec.IObject {
 	return _MLLoaderClass._conformConfigurationUsingModelArchive(configuration, archive)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_createDecryptSessionForModelAtURL:configuration:decryptSession:loaderEvent:error:
 func (_MLLoaderClass MLLoaderClass) _createDecryptSessionForModelAtURLConfigurationDecryptSessionLoaderEventError(url foundation.INSURL, configuration objectivec.IObject, session []objectivec.IObject, event objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -113,7 +114,7 @@ func (_MLLoaderClass MLLoaderClass) _createDecryptSessionForModelAtURLConfigurat
 func (_MLLoaderClass MLLoaderClass) CreateDecryptSessionForModelAtURLConfigurationDecryptSessionLoaderEventError(url foundation.INSURL, configuration objectivec.IObject, session []objectivec.IObject, event objectivec.IObject) (bool, error) {
 	return _MLLoaderClass._createDecryptSessionForModelAtURLConfigurationDecryptSessionLoaderEventError(url, configuration, session, event)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_findCodedObjectURLInModelArchive:
 func (_MLLoaderClass MLLoaderClass) _findCodedObjectURLInModelArchive(archive unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLLoaderClass.class), objc.Sel("_findCodedObjectURLInModelArchive:"), archive)
@@ -124,7 +125,7 @@ func (_MLLoaderClass MLLoaderClass) _findCodedObjectURLInModelArchive(archive un
 func (_MLLoaderClass MLLoaderClass) FindCodedObjectURLInModelArchive(archive unsafe.Pointer) objectivec.IObject {
 	return _MLLoaderClass._findCodedObjectURLInModelArchive(archive)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadModelAssetDescriptionFromArchive:configuration:modelVersion:compilerVersion:loadingClasses:error:
 func (_MLLoaderClass MLLoaderClass) _loadModelAssetDescriptionFromArchiveConfigurationModelVersionCompilerVersionLoadingClassesError(archive unsafe.Pointer, configuration objectivec.IObject, version objectivec.IObject, version2 objectivec.IObject, classes objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -141,7 +142,7 @@ func (_MLLoaderClass MLLoaderClass) _loadModelAssetDescriptionFromArchiveConfigu
 func (_MLLoaderClass MLLoaderClass) LoadModelAssetDescriptionFromArchiveConfigurationModelVersionCompilerVersionLoadingClassesError(archive unsafe.Pointer, configuration objectivec.IObject, version objectivec.IObject, version2 objectivec.IObject, classes objectivec.IObject) (objectivec.IObject, error) {
 	return _MLLoaderClass._loadModelAssetDescriptionFromArchiveConfigurationModelVersionCompilerVersionLoadingClassesError(archive, configuration, version, version2, classes)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadModelFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:
 func (_MLLoaderClass MLLoaderClass) _loadModelFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError(archive unsafe.Pointer, configuration objectivec.IObject, event objectivec.IObject, loaders bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -158,7 +159,7 @@ func (_MLLoaderClass MLLoaderClass) _loadModelFromArchiveConfigurationLoaderEven
 func (_MLLoaderClass MLLoaderClass) LoadModelFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError(archive unsafe.Pointer, configuration objectivec.IObject, event objectivec.IObject, loaders bool) (objectivec.IObject, error) {
 	return _MLLoaderClass._loadModelFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError(archive, configuration, event, loaders)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadModelFromArchive:configuration:modelVersion:compilerVersion:loaderEvent:useUpdatableModelLoaders:loadingClasses:error:
 func (_MLLoaderClass MLLoaderClass) _loadModelFromArchiveConfigurationModelVersionCompilerVersionLoaderEventUseUpdatableModelLoadersLoadingClassesError(archive unsafe.Pointer, configuration objectivec.IObject, version objectivec.IObject, version2 objectivec.IObject, event objectivec.IObject, loaders bool, classes objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -175,7 +176,7 @@ func (_MLLoaderClass MLLoaderClass) _loadModelFromArchiveConfigurationModelVersi
 func (_MLLoaderClass MLLoaderClass) LoadModelFromArchiveConfigurationModelVersionCompilerVersionLoaderEventUseUpdatableModelLoadersLoadingClassesError(archive unsafe.Pointer, configuration objectivec.IObject, version objectivec.IObject, version2 objectivec.IObject, event objectivec.IObject, loaders bool, classes objectivec.IObject) (objectivec.IObject, error) {
 	return _MLLoaderClass._loadModelFromArchiveConfigurationModelVersionCompilerVersionLoaderEventUseUpdatableModelLoadersLoadingClassesError(archive, configuration, version, version2, event, loaders, classes)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadModelFromAssetAtURL:configuration:loaderEvent:error:
 func (_MLLoaderClass MLLoaderClass) _loadModelFromAssetAtURLConfigurationLoaderEventError(url foundation.INSURL, configuration objectivec.IObject, event objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -192,7 +193,7 @@ func (_MLLoaderClass MLLoaderClass) _loadModelFromAssetAtURLConfigurationLoaderE
 func (_MLLoaderClass MLLoaderClass) LoadModelFromAssetAtURLConfigurationLoaderEventError(url foundation.INSURL, configuration objectivec.IObject, event objectivec.IObject) (objectivec.IObject, error) {
 	return _MLLoaderClass._loadModelFromAssetAtURLConfigurationLoaderEventError(url, configuration, event)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLLoaderClass MLLoaderClass) _loadModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError(class objc.Class, archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -209,7 +210,7 @@ func (_MLLoaderClass MLLoaderClass) _loadModelWithClassFromArchiveModelVersionIn
 func (_MLLoaderClass MLLoaderClass) LoadModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError(class objc.Class, archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	return _MLLoaderClass._loadModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError(class, archive, info, info2, configuration)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadUpdatableModelWithClass:fromArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLLoaderClass MLLoaderClass) _loadUpdatableModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError(class objc.Class, archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -226,7 +227,7 @@ func (_MLLoaderClass MLLoaderClass) _loadUpdatableModelWithClassFromArchiveModel
 func (_MLLoaderClass MLLoaderClass) LoadUpdatableModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError(class objc.Class, archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	return _MLLoaderClass._loadUpdatableModelWithClassFromArchiveModelVersionInfoCompilerVersionInfoConfigurationError(class, archive, info, info2, configuration)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_loadWithModelLoaderFromArchive:configuration:loaderEvent:useUpdatableModelLoaders:error:
 func (_MLLoaderClass MLLoaderClass) _loadWithModelLoaderFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError(archive unsafe.Pointer, configuration objectivec.IObject, event objectivec.IObject, loaders bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -243,7 +244,7 @@ func (_MLLoaderClass MLLoaderClass) _loadWithModelLoaderFromArchiveConfiguration
 func (_MLLoaderClass MLLoaderClass) LoadWithModelLoaderFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError(archive unsafe.Pointer, configuration objectivec.IObject, event objectivec.IObject, loaders bool) (objectivec.IObject, error) {
 	return _MLLoaderClass._loadWithModelLoaderFromArchiveConfigurationLoaderEventUseUpdatableModelLoadersError(archive, configuration, event, loaders)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_populateLoaderAndPredictionEvent:model:configuration:loadTimeDuration:
 func (_MLLoaderClass MLLoaderClass) _populateLoaderAndPredictionEventModelConfigurationLoadTimeDuration(event objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject, duration uint64) {
 	objc.Send[objc.ID](objc.ID(_MLLoaderClass.class), objc.Sel("_populateLoaderAndPredictionEvent:model:configuration:loadTimeDuration:"), event, model, configuration, duration)
@@ -253,7 +254,7 @@ func (_MLLoaderClass MLLoaderClass) _populateLoaderAndPredictionEventModelConfig
 func (_MLLoaderClass MLLoaderClass) PopulateLoaderAndPredictionEventModelConfigurationLoadTimeDuration(event objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject, duration uint64) {
 	_MLLoaderClass._populateLoaderAndPredictionEventModelConfigurationLoadTimeDuration(event, model, configuration, duration)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/_unarchiveCodedModelObjectAtURL:error:
 func (_MLLoaderClass MLLoaderClass) _unarchiveCodedModelObjectAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -270,7 +271,7 @@ func (_MLLoaderClass MLLoaderClass) _unarchiveCodedModelObjectAtURLError(url fou
 func (_MLLoaderClass MLLoaderClass) UnarchiveCodedModelObjectAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
 	return _MLLoaderClass._unarchiveCodedModelObjectAtURLError(url)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/checkAssetPath:error:
 func (_MLLoaderClass MLLoaderClass) CheckAssetPathError(path objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -285,7 +286,7 @@ func (_MLLoaderClass MLLoaderClass) CheckAssetPathError(path objectivec.IObject)
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/loadModelAssetDescriptionFromArchive:error:
 func (_MLLoaderClass MLLoaderClass) LoadModelAssetDescriptionFromArchiveError(archive unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -297,7 +298,7 @@ func (_MLLoaderClass MLLoaderClass) LoadModelAssetDescriptionFromArchiveError(ar
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/loadModelAssetDescriptionFromAssetAtURL:error:
 func (_MLLoaderClass MLLoaderClass) LoadModelAssetDescriptionFromAssetAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -309,7 +310,7 @@ func (_MLLoaderClass MLLoaderClass) LoadModelAssetDescriptionFromAssetAtURLError
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/loadModelFromArchive:configuration:error:
 func (_MLLoaderClass MLLoaderClass) LoadModelFromArchiveConfigurationError(archive unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -321,7 +322,7 @@ func (_MLLoaderClass MLLoaderClass) LoadModelFromArchiveConfigurationError(archi
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/loadModelFromArchive:error:
 func (_MLLoaderClass MLLoaderClass) LoadModelFromArchiveError(archive unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -333,7 +334,7 @@ func (_MLLoaderClass MLLoaderClass) LoadModelFromArchiveError(archive unsafe.Poi
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/loadModelFromAssetAtURL:configuration:error:
 func (_MLLoaderClass MLLoaderClass) LoadModelFromAssetAtURLConfigurationError(url foundation.INSURL, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -345,7 +346,7 @@ func (_MLLoaderClass MLLoaderClass) LoadModelFromAssetAtURLConfigurationError(ur
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/loadModelFromAssetAtURL:error:
 func (_MLLoaderClass MLLoaderClass) LoadModelFromAssetAtURLError(url foundation.INSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -357,7 +358,7 @@ func (_MLLoaderClass MLLoaderClass) LoadModelFromAssetAtURLError(url foundation.
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/loadUpdatableModelFromArchive:configuration:error:
 func (_MLLoaderClass MLLoaderClass) LoadUpdatableModelFromArchiveConfigurationError(archive unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -369,7 +370,7 @@ func (_MLLoaderClass MLLoaderClass) LoadUpdatableModelFromArchiveConfigurationEr
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLoader/loadUpdatableModelFromAssetAtURL:configuration:error:
 func (_MLLoaderClass MLLoaderClass) LoadUpdatableModelFromAssetAtURLConfigurationError(url foundation.INSURL, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -381,4 +382,3 @@ func (_MLLoaderClass MLLoaderClass) LoadUpdatableModelFromAssetAtURLConfiguratio
 	return objectivec.Object{ID: rv}, nil
 
 }
-

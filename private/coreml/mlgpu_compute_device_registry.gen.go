@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLGPUComputeDeviceRegistryClass) Alloc() MLGPUComputeDeviceRegistry {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLGPUComputeDeviceRegistry.AvailableGPUDevices]
@@ -57,6 +57,7 @@ func (mc MLGPUComputeDeviceRegistryClass) Alloc() MLGPUComputeDeviceRegistry {
 //   - [MLGPUComputeDeviceRegistry.Description]
 //   - [MLGPUComputeDeviceRegistry.Hash]
 //   - [MLGPUComputeDeviceRegistry.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry
 type MLGPUComputeDeviceRegistry struct {
 	objectivec.Object
@@ -66,6 +67,7 @@ type MLGPUComputeDeviceRegistry struct {
 func MLGPUComputeDeviceRegistryFromID(id objc.ID) MLGPUComputeDeviceRegistry {
 	return MLGPUComputeDeviceRegistry{objectivec.Object{ID: id}}
 }
+
 // Ensure MLGPUComputeDeviceRegistry implements IMLGPUComputeDeviceRegistry.
 var _ IMLGPUComputeDeviceRegistry = MLGPUComputeDeviceRegistry{}
 
@@ -125,7 +127,6 @@ func NewMLGPUComputeDeviceRegistry() MLGPUComputeDeviceRegistry {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/initWithMetalDeviceObserver:
 func NewGPUComputeDeviceRegistryWithMetalDeviceObserver(observer objectivec.IObject) MLGPUComputeDeviceRegistry {
 	instance := getMLGPUComputeDeviceRegistryClass().Alloc()
@@ -137,19 +138,19 @@ func NewGPUComputeDeviceRegistryWithMetalDeviceObserver(observer objectivec.IObj
 func (g MLGPUComputeDeviceRegistry) RegisterGPUDevices() {
 	objc.Send[objc.ID](g.ID, objc.Sel("registerGPUDevices"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/initWithMetalDeviceObserver:
 func (g MLGPUComputeDeviceRegistry) InitWithMetalDeviceObserver(observer objectivec.IObject) MLGPUComputeDeviceRegistry {
 	rv := objc.Send[MLGPUComputeDeviceRegistry](g.ID, objc.Sel("initWithMetalDeviceObserver:"), observer)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/registryWithMetalDeviceObserver:
 func (_MLGPUComputeDeviceRegistryClass MLGPUComputeDeviceRegistryClass) RegistryWithMetalDeviceObserver(observer objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLGPUComputeDeviceRegistryClass.class), objc.Sel("registryWithMetalDeviceObserver:"), observer)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/sharedRegistry
 func (_MLGPUComputeDeviceRegistryClass MLGPUComputeDeviceRegistryClass) SharedRegistry() MLGPUComputeDeviceRegistry {
 	rv := objc.Send[objc.ID](objc.ID(_MLGPUComputeDeviceRegistryClass.class), objc.Sel("sharedRegistry"))
@@ -161,26 +162,31 @@ func (g MLGPUComputeDeviceRegistry) AvailableGPUDevices() foundation.INSDictiona
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("availableGPUDevices"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/debugDescription
 func (g MLGPUComputeDeviceRegistry) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/description
 func (g MLGPUComputeDeviceRegistry) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/hash
 func (g MLGPUComputeDeviceRegistry) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/metalDeviceObserver
 func (g MLGPUComputeDeviceRegistry) MetalDeviceObserver() IMLMetalDeviceObserver {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("metalDeviceObserver"))
 	return MLMetalDeviceObserverFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/observationToken
 func (g MLGPUComputeDeviceRegistry) ObservationToken() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("observationToken"))
@@ -189,19 +195,21 @@ func (g MLGPUComputeDeviceRegistry) ObservationToken() objectivec.IObject {
 func (g MLGPUComputeDeviceRegistry) SetObservationToken(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setObservationToken:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/pendingChanges
 func (g MLGPUComputeDeviceRegistry) PendingChanges() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("pendingChanges"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/registeredComputeDevices
 func (g MLGPUComputeDeviceRegistry) RegisteredComputeDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("registeredComputeDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDeviceRegistry/superclass
 func (g MLGPUComputeDeviceRegistry) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
 	return rv
 }
-

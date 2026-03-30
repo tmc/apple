@@ -38,6 +38,7 @@ type GTShaderProfilerShaderBinaryLocation interface {
 type GTShaderProfilerShaderBinaryLocationObject struct {
 	objectivec.Object
 }
+
 func (o GTShaderProfilerShaderBinaryLocationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -54,35 +55,40 @@ func GTShaderProfilerShaderBinaryLocationObjectFromID(id objc.ID) GTShaderProfil
 func (o GTShaderProfilerShaderBinaryLocationObject) Binary() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("binary"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerShaderBinaryLocation/column
 func (o GTShaderProfilerShaderBinaryLocationObject) Column() int {
 	rv := objc.Send[int](o.ID, objc.Sel("column"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerShaderBinaryLocation/fileIndex
 func (o GTShaderProfilerShaderBinaryLocationObject) FileIndex() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("fileIndex"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerShaderBinaryLocation/fullPath
 func (o GTShaderProfilerShaderBinaryLocationObject) FullPath() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("fullPath"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerShaderBinaryLocation/functionName
 func (o GTShaderProfilerShaderBinaryLocationObject) FunctionName() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionName"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerShaderBinaryLocation/functionNameIndex
 func (o GTShaderProfilerShaderBinaryLocationObject) FunctionNameIndex() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("functionNameIndex"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerShaderBinaryLocation/line
 func (o GTShaderProfilerShaderBinaryLocationObject) Line() int {
 	rv := objc.Send[int](o.ID, objc.Sel("line"))
 	return rv
-	}
-
+}

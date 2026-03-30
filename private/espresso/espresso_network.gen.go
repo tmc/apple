@@ -3,8 +3,9 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (ec EspressoNetworkClass) Alloc() EspressoNetwork {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoNetwork.Ctx]
@@ -51,6 +51,7 @@ func (ec EspressoNetworkClass) Alloc() EspressoNetwork {
 //   - [EspressoNetwork.Wipe_layers_blobs]
 //   - [EspressoNetwork.InitWithJSFileBinSerializerIdContextComputePath]
 //   - [EspressoNetwork.InitWithJSFileContextComputePath]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork
 type EspressoNetwork struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type EspressoNetwork struct {
 func EspressoNetworkFromID(id objc.ID) EspressoNetwork {
 	return EspressoNetwork{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoNetwork implements IEspressoNetwork.
 var _ IEspressoNetwork = EspressoNetwork{}
 
@@ -107,19 +109,17 @@ func NewEspressoNetwork() EspressoNetwork {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/initWithJSFile:binSerializerId:context:computePath:
 func NewEspressoNetworkWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int) EspressoNetwork {
 	instance := getEspressoNetworkClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithJSFile:binSerializerId:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile + "\x00")), unsafe.Pointer(unsafe.StringData(id + "\x00")), context, path)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithJSFile:binSerializerId:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), unsafe.Pointer(unsafe.StringData(id+"\x00")), context, path)
 	return EspressoNetworkFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/initWithJSFile:context:computePath:
 func NewEspressoNetworkWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int) EspressoNetwork {
 	instance := getEspressoNetworkClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithJSFile:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile + "\x00")), context, path)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithJSFile:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), context, path)
 	return EspressoNetworkFromID(rv)
 }
 
@@ -127,16 +127,16 @@ func NewEspressoNetworkWithJSFileContextComputePath(jSFile string, context objec
 func (e EspressoNetwork) Wipe_layers_blobs() {
 	objc.Send[objc.ID](e.ID, objc.Sel("wipe_layers_blobs"))
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/initWithJSFile:binSerializerId:context:computePath:
 func (e EspressoNetwork) InitWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int) EspressoNetwork {
-	rv := objc.Send[EspressoNetwork](e.ID, objc.Sel("initWithJSFile:binSerializerId:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile + "\x00")), unsafe.Pointer(unsafe.StringData(id + "\x00")), context, path)
+	rv := objc.Send[EspressoNetwork](e.ID, objc.Sel("initWithJSFile:binSerializerId:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), unsafe.Pointer(unsafe.StringData(id+"\x00")), context, path)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/initWithJSFile:context:computePath:
 func (e EspressoNetwork) InitWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int) EspressoNetwork {
-	rv := objc.Send[EspressoNetwork](e.ID, objc.Sel("initWithJSFile:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile + "\x00")), context, path)
+	rv := objc.Send[EspressoNetwork](e.ID, objc.Sel("initWithJSFile:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), context, path)
 	return rv
 }
 
@@ -145,14 +145,15 @@ func (e EspressoNetwork) Ctx() IEspressoContext {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("ctx"))
 	return EspressoContextFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/layers_size
 func (e EspressoNetwork) Layers_size() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("layers_size"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/net
 func (e EspressoNetwork) Net() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("net"))
 	return objectivec.Object{ID: rv}
 }
-

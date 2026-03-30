@@ -33,6 +33,7 @@ type VNRequestProgressProviding interface {
 type VNRequestProgressProvidingObject struct {
 	objectivec.Object
 }
+
 func (o VNRequestProgressProvidingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -52,7 +53,8 @@ func VNRequestProgressProvidingObjectFromID(id objc.ID) VNRequestProgressProvidi
 func (o VNRequestProgressProvidingObject) ProgressHandler() VNRequestProgressHandler {
 	rv := objc.Send[VNRequestProgressHandler](o.ID, objc.Sel("progressHandler"))
 	return rv
-	}
+}
+
 // A Boolean set to true when a request can’t determine its progress in
 // fractions completed.
 //
@@ -60,9 +62,21 @@ func (o VNRequestProgressProvidingObject) ProgressHandler() VNRequestProgressHan
 func (o VNRequestProgressProvidingObject) Indeterminate() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("indeterminate"))
 	return rv
-	}
+}
 
+// A block of code executed periodically during a Vision request to report
+// progress on long-running tasks.
+//
+// # Discussion
+//
+// The progress handler is an optional method that allows clients of the
+// request to report progress to the user or to display partial results as
+// they become available. The Vision framework may call this handler on a
+// different dispatch queue from the thread on which you initiated the
+// original request, so ensure that your handler can execute asynchronously,
+// in a thread-safe manner.
+//
+// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
 func (o VNRequestProgressProvidingObject) SetProgressHandler(value VNRequestProgressHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("setProgressHandler:"), value)
 }
-

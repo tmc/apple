@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -19,6 +19,7 @@ type NSComboBoxCellDataSource interface {
 type NSComboBoxCellDataSourceObject struct {
 	objectivec.Object
 }
+
 func (o NSComboBoxCellDataSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,22 +41,22 @@ func NSComboBoxCellDataSourceObjectFromID(id objc.ID) NSComboBoxCellDataSourceOb
 // combo box cell.
 //
 // # Return Value
-// 
+//
 // The completed string, from the items in the pop-up list, that matches the
 // text entered by the user. Your implementation should return the first
 // complete string that starts with `uncompletedString`.
 //
 // # Discussion
-// 
+//
 // An [NSComboBoxCell] object uses this method to perform incremental—or
 // “smart”—searches when the user types into the text field.
-// 
+//
 // As the user types in the text field, the receiver uses this method to
 // search for items from the pop-up list that start with what the user has
 // typed. The receiver adds the new text to the end of the field and selects
 // the new text, so when the user types another character, it replaces the new
 // text.
-// 
+//
 // If you don’t implement this method, the receiver does not perform
 // incremental searches.
 //
@@ -63,7 +64,8 @@ func NSComboBoxCellDataSourceObjectFromID(id objc.ID) NSComboBoxCellDataSourceOb
 func (o NSComboBoxCellDataSourceObject) ComboBoxCellCompletedString(comboBoxCell INSComboBoxCell, uncompletedString string) string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("comboBoxCell:completedString:"), comboBoxCell, objc.String(uncompletedString))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Invoked by an [NSComboBoxCell] object to synchronize the pop-up list’s
 // selected item with the text field’s contents.
 //
@@ -74,12 +76,12 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellCompletedString(comboBoxCell
 // the text that the user has typed.
 //
 // # Return Value
-// 
+//
 // The index for the pop-up list item matching `aString`, or [NSNotFound] if
 // no item matches.
 //
 // # Discussion
-// 
+//
 // If you don’t implement this method, the receiver does not synchronize the
 // pop-up list’s selected item with the text field’s contents.
 //
@@ -87,7 +89,8 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellCompletedString(comboBoxCell
 func (o NSComboBoxCellDataSourceObject) ComboBoxCellIndexOfItemWithStringValue(comboBoxCell INSComboBoxCell, string_ string) uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("comboBoxCell:indexOfItemWithStringValue:"), comboBoxCell, objc.String(string_))
 	return rv
-	}
+}
+
 // Returns the object that corresponds to the item at the given index in the
 // combo box cell.
 //
@@ -96,12 +99,12 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellIndexOfItemWithStringValue(c
 // index: The index of the item to return.
 //
 // # Return Value
-// 
+//
 // The object corresponding to the item at the specified index in the given
 // combo box cell.
 //
 // # Discussion
-// 
+//
 // An [NSComboBoxCell] object uses this method to populate the items displayed
 // in its pop-up list.
 //
@@ -109,18 +112,19 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellIndexOfItemWithStringValue(c
 func (o NSComboBoxCellDataSourceObject) ComboBoxCellObjectValueForItemAtIndex(comboBoxCell INSComboBoxCell, index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("comboBoxCell:objectValueForItemAtIndex:"), comboBoxCell, index)
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // Returns the number of items managed for the combo box cell by your data
 // source object.
 //
 // comboBoxCell: The combo box cell for which your data source manages items.
 //
 // # Return Value
-// 
+//
 // The number of items your data source object manages.
 //
 // # Discussion
-// 
+//
 // An [NSComboBoxCell] object uses this method to determine how many items it
 // should display in its pop-up list.
 //
@@ -128,5 +132,4 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellObjectValueForItemAtIndex(co
 func (o NSComboBoxCellDataSourceObject) NumberOfItemsInComboBoxCell(comboBoxCell INSComboBoxCell) int {
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfItemsInComboBoxCell:"), comboBoxCell)
 	return rv
-	}
-
+}

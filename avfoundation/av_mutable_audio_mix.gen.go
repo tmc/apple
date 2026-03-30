@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,6 +54,7 @@ type AVMutableAudioMix struct {
 func AVMutableAudioMixFromID(id objc.ID) AVMutableAudioMix {
 	return AVMutableAudioMix{AVAudioMix: AVAudioMixFromID(id)}
 }
+
 // NOTE: AVMutableAudioMix adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -85,7 +87,7 @@ func NewAVMutableAudioMix() AVMutableAudioMix {
 // Returns a new mutable audio mix.
 //
 // # Return Value
-// 
+//
 // A new mutable audio mix.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableAudioMix/audioMix
@@ -93,4 +95,3 @@ func (_AVMutableAudioMixClass AVMutableAudioMixClass) AudioMix() AVMutableAudioM
 	rv := objc.Send[objc.ID](objc.ID(_AVMutableAudioMixClass.class), objc.Sel("audioMix"))
 	return AVMutableAudioMixFromID(rv)
 }
-

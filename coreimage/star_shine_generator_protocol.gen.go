@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -100,6 +100,7 @@ type CIStarShineGenerator interface {
 type CIStarShineGeneratorObject struct {
 	objectivec.Object
 }
+
 func (o CIStarShineGeneratorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -118,56 +119,64 @@ func CIStarShineGeneratorObjectFromID(id objc.ID) CIStarShineGeneratorObject {
 func (o CIStarShineGeneratorObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The color to use for the outer shell of the circular star.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/color
 func (o CIStarShineGeneratorObject) Color() ICIColor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
-	}
+}
+
 // The angle of the cross pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossAngle
 func (o CIStarShineGeneratorObject) CrossAngle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("crossAngle"))
 	return rv
-	}
+}
+
 // The opacity of the cross pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossOpacity
 func (o CIStarShineGeneratorObject) CrossOpacity() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("crossOpacity"))
 	return rv
-	}
+}
+
 // The size of the cross pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossScale
 func (o CIStarShineGeneratorObject) CrossScale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("crossScale"))
 	return rv
-	}
+}
+
 // The width of the cross pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossWidth
 func (o CIStarShineGeneratorObject) CrossWidth() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("crossWidth"))
 	return rv
-	}
+}
+
 // The length of the cross spikes.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/epsilon
 func (o CIStarShineGeneratorObject) Epsilon() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("epsilon"))
 	return rv
-	}
+}
+
 // The radius of the star.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/radius
 func (o CIStarShineGeneratorObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -175,37 +184,60 @@ func (o CIStarShineGeneratorObject) Radius() float32 {
 func (o CIStarShineGeneratorObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The x and y position to use as the center of the star.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/center
 func (o CIStarShineGeneratorObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The color to use for the outer shell of the circular star.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/color
 func (o CIStarShineGeneratorObject) SetColor(value ICIColor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), value)
 }
 
+// The angle of the cross pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossAngle
 func (o CIStarShineGeneratorObject) SetCrossAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCrossAngle:"), value)
 }
 
+// The opacity of the cross pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossOpacity
 func (o CIStarShineGeneratorObject) SetCrossOpacity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCrossOpacity:"), value)
 }
 
+// The size of the cross pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossScale
 func (o CIStarShineGeneratorObject) SetCrossScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCrossScale:"), value)
 }
 
+// The width of the cross pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossWidth
 func (o CIStarShineGeneratorObject) SetCrossWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCrossWidth:"), value)
 }
 
+// The length of the cross spikes.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/epsilon
 func (o CIStarShineGeneratorObject) SetEpsilon(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setEpsilon:"), value)
 }
 
+// The radius of the star.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/radius
 func (o CIStarShineGeneratorObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

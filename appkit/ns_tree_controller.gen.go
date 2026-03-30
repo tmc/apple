@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,37 +46,33 @@ func (nc NSTreeControllerClass) Alloc() NSTreeController {
 // A bindings-compatible controller that manages a tree of objects.
 //
 // # Overview
-// 
+//
 // The [NSTreeController] class provides selection and sort management. Its
 // primary purpose is to act as the controller when binding [NSOutlineView]
 // and [NSBrowser] instances to a hierarchical collection of objects. The root
 // content object of the tree can be a single object, or an array of objects.
-// 
+//
 // An [NSTreeController] object requires that you describe how the tree of
 // objects is traversed by specifying the key-path for child objects specified
 // by [NSTreeController.ChildrenKeyPath]. All child objects for the tree must be key-value
 // coding compliant for the same child key path. If necessary, you should add
 // properties to your model classes that map the child key name to the
 // appropriate class-specific property name.
-// 
+//
 // Child objects can implement a count method (specified to the tree
 // controller using [NSTreeController.CountKeyPath]) that, if provided, returns the number of
 // child objects available. Your model objects are expected to update the
 // value of the count key path in a key-value observing compliant method.
 // Optionally, you can also provide a leaf key path using [NSTreeController.LeafKeyPath] that
-// specifies a key in your model object that returns [true] if the object is a
-// leaf node, and [false] if it is not. Changes to the leaf node value of the
+// specifies a key in your model object that returns true if the object is a
+// leaf node, and false if it is not. Changes to the leaf node value of the
 // child object should be made in a key-value observing compliant manner.
 // Providing the leaf node key path can improve performance, because it
 // prevents the [NSTreeController] from having to examine the child object to
 // determine if it is a leaf node.
-// 
+//
 // For more information about using NSTreeController in your app, see
 // [Navigating Hierarchical Data Using Outline and Split Views].
-//
-// [Navigating Hierarchical Data Using Outline and Split Views]: https://developer.apple.com/documentation/AppKit/navigating-hierarchical-data-using-outline-and-split-views
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Managing Sort Descriptors
 //
@@ -134,6 +131,8 @@ func (nc NSTreeControllerClass) Alloc() NSTreeController {
 //   - [NSTreeController.LeafKeyPathForNode]: Returns the key path that specifies whether the node is a leaf node.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController
+//
+// [Navigating Hierarchical Data Using Outline and Split Views]: https://developer.apple.com/documentation/AppKit/navigating-hierarchical-data-using-outline-and-split-views
 type NSTreeController struct {
 	NSObjectController
 }
@@ -144,6 +143,7 @@ type NSTreeController struct {
 func NSTreeControllerFromID(id objc.ID) NSTreeController {
 	return NSTreeController{NSObjectController: NSObjectControllerFromID(id)}
 }
+
 // NOTE: NSTreeController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -315,7 +315,6 @@ func NewNSTreeController() NSTreeController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/init(coder:)
 func NewTreeControllerWithCoder(coder foundation.INSCoder) NSTreeController {
 	instance := getNSTreeControllerClass().Alloc()
@@ -329,7 +328,7 @@ func NewTreeControllerWithCoder(coder foundation.INSCoder) NSTreeController {
 // content: The content for the receiver.
 //
 // # Return Value
-// 
+//
 // The initialized object controller, with its content object set to
 // `content`.
 //
@@ -343,7 +342,7 @@ func NewTreeControllerWithContent(content objectivec.IObject) NSTreeController {
 // Use this method to trigger reordering of the tree controller’s content.
 //
 // # Discussion
-// 
+//
 // Subclasses should invoke this method if any parameter that affects the
 // arranged objects changes.
 //
@@ -351,56 +350,12 @@ func NewTreeControllerWithContent(content objectivec.IObject) NSTreeController {
 func (t NSTreeController) RearrangeObjects() {
 	objc.Send[objc.ID](t.ID, objc.Sel("rearrangeObjects"))
 }
-// Sets the tree controller’s current selection.
-//
-// indexPath: The proposed new selection.
-//
-// # Return Value
-// 
-// Return [true] if the selection has changed, otherwise [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// Attempting to change the selection may cause a `commitEditing` message
-// which fails, thus denying the selection change.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTreeController/setSelectionIndexPath(_:)
-func (t NSTreeController) SetSelectionIndexPath(indexPath foundation.INSIndexPath) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("setSelectionIndexPath:"), indexPath)
-	return rv
-}
-// Sets the tree controller’s current selection to the specified index
-// paths.
-//
-// indexPaths: An array of [NSIndexPath] objects specifying the selected objects.
-// //
-// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
-//
-// # Return Value
-// 
-// Return [true] if the selection has changed, otherwise [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// Attempting to change the selection may cause a `commitEditing` message
-// which fails, thus denying the selection change.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTreeController/setSelectionIndexPaths(_:)
-func (t NSTreeController) SetSelectionIndexPaths(indexPaths []objc.ID) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("setSelectionIndexPaths:"), objectivec.IDSliceToNSArray(indexPaths))
-	return rv
-}
+
 // Adds the objects at the specified `indexPaths` in the tree controller’s
 // content to the current selection.
 //
 // # Discussion
-// 
+//
 // Attempting to change the selection may cause a `commitEditing` message
 // which fails, thus denying the selection change.
 //
@@ -409,17 +364,16 @@ func (t NSTreeController) AddSelectionIndexPaths(indexPaths []objc.ID) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("addSelectionIndexPaths:"), objectivec.IDSliceToNSArray(indexPaths))
 	return rv
 }
+
 // Removes the objects at the specified index paths from the tree
 // controller’s current selection.
 //
 // # Return Value
-// 
-// [true] if the selection was changed.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the selection was changed.
 //
 // # Discussion
-// 
+//
 // Attempting to change the selection may cause a `commitEditing` message
 // which fails, thus denying the selection change.
 //
@@ -428,19 +382,20 @@ func (t NSTreeController) RemoveSelectionIndexPaths(indexPaths []objc.ID) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("removeSelectionIndexPaths:"), objectivec.IDSliceToNSArray(indexPaths))
 	return rv
 }
+
 // Adds a child object to the currently selected item.
 //
 // # Discussion
-// 
+//
 // The `sender` is typically the object that invoked this method.
-// 
+//
 // If the receiver is in object mode `newObject` is called and the returned
 // object is added as a child. If the receiver is in entity mode a new object
 // is created that is appropriate for the relationship as specified by the
 // entity, and `newObject` is not used.
-// 
+//
 // # Special Considerations
-// 
+//
 // The result of this method is deferred until the next iteration of the run
 // loop so that the error presentation mechanism can provide feedback as a
 // sheet.
@@ -449,20 +404,21 @@ func (t NSTreeController) RemoveSelectionIndexPaths(indexPaths []objc.ID) bool {
 func (t NSTreeController) AddChild(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addChild:"), sender)
 }
+
 // Creates a new object of the class specified by `objectClass` and inserts it
 // into the tree controller’s content.
 //
 // # Discussion
-// 
+//
 // The `sender` is typically the object that invoked this method.
-// 
+//
 // If the receiver is in object mode `newObject` is called and the returned
 // object is inserted into the collection. If the receiver is in entity mode a
 // new object is created that is appropriate as specified by the entity, and
 // `newObject` is not used.
-// 
+//
 // # Special Considerations
-// 
+//
 // The result of this method is deferred until the next iteration of the run
 // loop so that the error presentation mechanism can provide feedback as a
 // sheet.
@@ -471,20 +427,21 @@ func (t NSTreeController) AddChild(sender objectivec.IObject) {
 func (t NSTreeController) Insert(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insert:"), sender)
 }
+
 // Creates a new object of the class specified by `objectClass` and inserts it
 // into the tree controller’s content as a child of the current selection.
 //
 // # Discussion
-// 
+//
 // The `sender` is typically the object that invoked this method.
-// 
+//
 // If the receiver is in object mode `newObject` is called and the returned
 // object is inserted as a child. If the receiver is in entity mode a new
 // object is created that is appropriate for the relationship as specified by
 // the entity, and `newObject` is not used.
-// 
+//
 // # Special Considerations
-// 
+//
 // The result of this method is deferred until the next iteration of the run
 // loop so that the error presentation mechanism can provide feedback as a
 // sheet.
@@ -493,6 +450,7 @@ func (t NSTreeController) Insert(sender objectivec.IObject) {
 func (t NSTreeController) InsertChild(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insertChild:"), sender)
 }
+
 // Inserts `object` into the tree controller’s arranged objects array at the
 // location specified by `indexPath`, and adds it to the tree controller’s
 // content.
@@ -501,6 +459,7 @@ func (t NSTreeController) InsertChild(sender objectivec.IObject) {
 func (t NSTreeController) InsertObjectAtArrangedObjectIndexPath(object objectivec.IObject, indexPath foundation.INSIndexPath) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insertObject:atArrangedObjectIndexPath:"), object, indexPath)
 }
+
 // Inserts `objects` into the tree controller’s arranged objects array at
 // the locations specified in `indexPaths`, and adds them to the tree
 // controller’s content.
@@ -509,6 +468,7 @@ func (t NSTreeController) InsertObjectAtArrangedObjectIndexPath(object objective
 func (t NSTreeController) InsertObjectsAtArrangedObjectIndexPaths(objects foundation.INSArray, indexPaths []objc.ID) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insertObjects:atArrangedObjectIndexPaths:"), objects, objectivec.IDSliceToNSArray(indexPaths))
 }
+
 // Removes the object at the specified `indexPath` in the tree controller’s
 // arranged objects from the tree controller’s content.
 //
@@ -516,6 +476,7 @@ func (t NSTreeController) InsertObjectsAtArrangedObjectIndexPaths(objects founda
 func (t NSTreeController) RemoveObjectAtArrangedObjectIndexPath(indexPath foundation.INSIndexPath) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeObjectAtArrangedObjectIndexPath:"), indexPath)
 }
+
 // Removes the objects at the specified `indexPaths` in the tree
 // controller’s arranged objects from the tree controller’s content.
 //
@@ -523,6 +484,7 @@ func (t NSTreeController) RemoveObjectAtArrangedObjectIndexPath(indexPath founda
 func (t NSTreeController) RemoveObjectsAtArrangedObjectIndexPaths(indexPaths []objc.ID) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeObjectsAtArrangedObjectIndexPaths:"), objectivec.IDSliceToNSArray(indexPaths))
 }
+
 // Moves the specified tree node to the new index path.
 //
 // node: A tree node.
@@ -534,6 +496,7 @@ func (t NSTreeController) RemoveObjectsAtArrangedObjectIndexPaths(indexPaths []o
 func (t NSTreeController) MoveNodeToIndexPath(node INSTreeNode, indexPath foundation.INSIndexPath) {
 	objc.Send[objc.ID](t.ID, objc.Sel("moveNode:toIndexPath:"), node, indexPath)
 }
+
 // Moves the specified tree nodes to the new index path.
 //
 // nodes: An array of tree nodes.
@@ -545,12 +508,13 @@ func (t NSTreeController) MoveNodeToIndexPath(node INSTreeNode, indexPath founda
 func (t NSTreeController) MoveNodesToIndexPath(nodes []NSTreeNode, startingIndexPath foundation.INSIndexPath) {
 	objc.Send[objc.ID](t.ID, objc.Sel("moveNodes:toIndexPath:"), objectivec.IObjectSliceToNSArray(nodes), startingIndexPath)
 }
+
 // Returns the key path used to find the children in the specified tree node.
 //
 // node: A tree node in the tree controller’s content.
 //
 // # Return Value
-// 
+//
 // A string containing the key path in `node` that provides the child nodes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/childrenKeyPath(for:)
@@ -558,13 +522,14 @@ func (t NSTreeController) ChildrenKeyPathForNode(node INSTreeNode) string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("childrenKeyPathForNode:"), node)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Returns the key path that provides the number of children for a specified
 // node.
 //
 // node: A tree node in the tree controller’s content.
 //
 // # Return Value
-// 
+//
 // A string containing the key path in `node` that provides the number of
 // children.
 //
@@ -573,12 +538,13 @@ func (t NSTreeController) CountKeyPathForNode(node INSTreeNode) string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("countKeyPathForNode:"), node)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Returns the key path that specifies whether the node is a leaf node.
 //
 // node: A tree node in the tree controller’s content.
 //
 // # Return Value
-// 
+//
 // A string containing the key path in `node` that specifies that the node is
 // a leaf node.
 //
@@ -592,7 +558,7 @@ func (t NSTreeController) LeafKeyPathForNode(node INSTreeNode) string {
 // controller’s content.
 //
 // # Discussion
-// 
+//
 // When the value of this property is an empty array, the tree controller has
 // no sort descriptors configured, which means that the contents are arranged
 // in their natural order. This property is observable using key-value
@@ -608,10 +574,11 @@ func (t NSTreeController) SortDescriptors() []foundation.NSSortDescriptor {
 func (t NSTreeController) SetSortDescriptors(value []foundation.NSSortDescriptor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSortDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The tree controller’s sorted content objects.
 //
 // # Discussion
-// 
+//
 // The value of this property represents a proxy root tree node containing the
 // tree controller’s sorted content objects. The proxy object responds to
 // [ChildNodes] and [DescendantNodeAtIndexPath] messages. This property is
@@ -622,10 +589,11 @@ func (t NSTreeController) ArrangedObjects() INSTreeNode {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("arrangedObjects"))
 	return NSTreeNodeFromID(objc.ID(rv))
 }
+
 // The index path of the first selected object.
 //
 // # Discussion
-// 
+//
 // The value of this property is `nil` if there is no selection. This property
 // is observable using key-value observing.
 //
@@ -634,21 +602,23 @@ func (t NSTreeController) SelectionIndexPath() objc.ID {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("selectionIndexPath"))
 	return rv
 }
+
 // An array containing the index paths of the currently selected objects.
 //
 // # Discussion
-// 
+//
 // This property contains an array containing [NSIndexPath] objects for each
 // of the selected objects in the tree controller’s content. This property
 // is observable using key-value observing.
 //
-// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/selectionIndexPaths
+//
+// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
 func (t NSTreeController) SelectionIndexPaths() []objc.ID {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("selectionIndexPaths"))
 	return rv
 }
+
 // An array containing the tree controller’s selected tree nodes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/selectedNodes
@@ -658,15 +628,14 @@ func (t NSTreeController) SelectedNodes() []NSTreeNode {
 		return NSTreeNodeFromID(id)
 	})
 }
+
 // A Boolean value that indicates whether the tree controller automatically
 // selects objects as they are inserted.
 //
 // # Discussion
-// 
-// The default value of this property is [true]. This property is observable
-// using key-value observing.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is true. This property is observable
+// using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/selectsInsertedObjects
 func (t NSTreeController) SelectsInsertedObjects() bool {
@@ -676,17 +645,16 @@ func (t NSTreeController) SelectsInsertedObjects() bool {
 func (t NSTreeController) SetSelectsInsertedObjects(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectsInsertedObjects:"), value)
 }
+
 // A Boolean value that indicates whether the tree controller requires the
 // content array to attempt to maintain a selection at all times, avoiding an
 // empty selection.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the tree controller maintains a
-// selection unless there are no objects in the content. The default value is
-// [true]. This property is observable using key-value observing.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the tree controller maintains a
+// selection unless there are no objects in the content. The default value is
+// true. This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/avoidsEmptySelection
 func (t NSTreeController) AvoidsEmptySelection() bool {
@@ -696,16 +664,15 @@ func (t NSTreeController) AvoidsEmptySelection() bool {
 func (t NSTreeController) SetAvoidsEmptySelection(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAvoidsEmptySelection:"), value)
 }
+
 // A Boolean value that indicates whether the tree controller will attempt to
 // preserve the current selection when the content changes.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the selection is preserved, if
-// possible. The default value is [true]. This property is observable using
-// key-value observing.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the selection is preserved, if
+// possible. The default value is true. This property is observable using
+// key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/preservesSelection
 func (t NSTreeController) PreservesSelection() bool {
@@ -715,18 +682,16 @@ func (t NSTreeController) PreservesSelection() bool {
 func (t NSTreeController) SetPreservesSelection(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPreservesSelection:"), value)
 }
+
 // A Boolean value that indicates whether the tree controller always returns
 // the multiple values marker when multiple objects are selected, even if the
 // selected items have the same value.
 //
 // # Discussion
-// 
-// Setting this property to [true] can increase performance if your
-// application doesn’t allow editing multiple values. The default is
-// [false]. This property is observable using key-value observing.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Setting this property to true can increase performance if your application
+// doesn’t allow editing multiple values. The default is false. This
+// property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/alwaysUsesMultipleValuesMarker
 func (t NSTreeController) AlwaysUsesMultipleValuesMarker() bool {
@@ -736,58 +701,56 @@ func (t NSTreeController) AlwaysUsesMultipleValuesMarker() bool {
 func (t NSTreeController) SetAlwaysUsesMultipleValuesMarker(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAlwaysUsesMultipleValuesMarker:"), value)
 }
+
 // A Boolean value that indicates if a child object can be added to the tree
 // controller’s content.
 //
 // # Discussion
-// 
-// The value of this property is [true] if a child object can be added to the
+//
+// The value of this property is true if a child object can be added to the
 // tree controller’s content. This property is observable using key-value
 // observing.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/canAddChild
 func (t NSTreeController) CanAddChild() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("canAddChild"))
 	return rv
 }
+
 // A Boolean value that indicates if an object can be inserted into the tree
 // controller’s content.
 //
 // # Discussion
-// 
-// The value of this property is [true] if an object can be inserted into the
+//
+// The value of this property is true if an object can be inserted into the
 // tree controller’s content. This property is observable using key-value
 // observing.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/canInsert
 func (t NSTreeController) CanInsert() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("canInsert"))
 	return rv
 }
+
 // A Boolean value that indicates if a child object can be inserted into the
 // tree controller’s content.
 //
 // # Discussion
-// 
-// The value of this property is [true] if a child object can be inserted into
+//
+// The value of this property is true if a child object can be inserted into
 // the tree controller’s content. This property is observable using
 // key-value observing.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/canInsertChild
 func (t NSTreeController) CanInsertChild() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("canInsertChild"))
 	return rv
 }
+
 // The key path used to find the children in the tree controller’s objects.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeController/childrenKeyPath
@@ -798,10 +761,11 @@ func (t NSTreeController) ChildrenKeyPath() string {
 func (t NSTreeController) SetChildrenKeyPath(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChildrenKeyPath:"), objc.String(value))
 }
+
 // The key path used to find the number of children for a node.
 //
 // # Discussion
-// 
+//
 // Specifying this key path (if the data is available in the model object) can
 // increase performance, but disables insert and remove functionality.
 //
@@ -813,11 +777,12 @@ func (t NSTreeController) CountKeyPath() string {
 func (t NSTreeController) SetCountKeyPath(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCountKeyPath:"), objc.String(value))
 }
+
 // The key path used by the tree controller to determine if a node is a leaf
 // key.
 //
 // # Discussion
-// 
+//
 // Specifying a key path for this property is optional. If the tree controller
 // is able to determine that a node is a leaf node, it can disable inserting
 // or adding children to those nodes.
@@ -830,4 +795,3 @@ func (t NSTreeController) LeafKeyPath() string {
 func (t NSTreeController) SetLeafKeyPath(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLeafKeyPath:"), objc.String(value))
 }
-

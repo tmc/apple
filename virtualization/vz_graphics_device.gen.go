@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,17 +45,17 @@ func (vc VZGraphicsDeviceClass) Alloc() VZGraphicsDevice {
 // A class that represents a graphics device in a VM.
 //
 // # Overview
-// 
+//
 // You don’t instantiate a [VZGraphicsDevice] directly. Graphics devices are
 // first configured on the [VZVirtualMachineConfiguration] through a subclass
 // of [VZGraphicsDeviceConfiguration].
-// 
+//
 // When the framework creates a [VZVirtualMachine] from the configuration, the
 // graphics devices are available through the [VZGraphicsDevice.GraphicsDevices] property.
-// 
+//
 // The real type of [VZGraphicsDevice] corresponds to the type used by the
 // configuration.
-// 
+//
 // For example, a [VZVirtioGraphicsDeviceConfiguration] leads to a device of
 // type [VZVirtioGraphicsDevice] and a [VZMacGraphicsDeviceConfiguration]
 // leads to a device of type [VZMacGraphicsDevice].
@@ -74,6 +75,7 @@ type VZGraphicsDevice struct {
 func VZGraphicsDeviceFromID(id objc.ID) VZGraphicsDevice {
 	return VZGraphicsDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZGraphicsDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,7 +121,7 @@ func NewVZGraphicsDevice() VZGraphicsDevice {
 // The list of graphics displays configured for this graphics device.
 //
 // # Discussion
-// 
+//
 // This is a list of the graphics displays configured on the graphics device
 // configuration.
 //
@@ -130,6 +132,7 @@ func (g VZGraphicsDevice) Displays() []VZGraphicsDisplay {
 		return VZGraphicsDisplayFromID(id)
 	})
 }
+
 // The list of configured graphics devices on the virtual machine.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/graphicsdevices
@@ -140,4 +143,3 @@ func (g VZGraphicsDevice) GraphicsDevices() IVZGraphicsDevice {
 func (g VZGraphicsDevice) SetGraphicsDevices(value IVZGraphicsDevice) {
 	objc.Send[struct{}](g.ID, objc.Sel("setGraphicsDevices:"), value)
 }
-

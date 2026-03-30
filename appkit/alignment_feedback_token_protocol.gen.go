@@ -18,6 +18,7 @@ type NSAlignmentFeedbackToken interface {
 type NSAlignmentFeedbackTokenObject struct {
 	objectivec.Object
 }
+
 func (o NSAlignmentFeedbackTokenObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func NSAlignmentFeedbackTokenObjectFromID(id objc.ID) NSAlignmentFeedbackTokenOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

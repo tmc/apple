@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (nc NSOrderedCollectionChangeClass) Alloc() NSOrderedCollectionChange {
 // An object that represents an indexed change within an ordered collection.
 //
 // # Overview
-// 
+//
 // An ordered collection change represents changes by adding, removing, or
 // moving objects within an ordered collection. Changes with an associated
 // index indicate a move within the collection.
@@ -58,6 +59,7 @@ func (nc NSOrderedCollectionChangeClass) Alloc() NSOrderedCollectionChange {
 //
 //   - [NSOrderedCollectionChange.ChangeType]: The type of change.
 //   - [NSOrderedCollectionChange.Index]: The index location of the change.
+//   - [NSOrderedCollectionChange.SetIndex]
 //   - [NSOrderedCollectionChange.GetObject]: An object the change inserts or removes.
 //   - [NSOrderedCollectionChange.AssociatedIndex]: When this property is set to a value other than [NSNotFound](<doc://com.apple.foundation/documentation/Foundation/NSNotFound-9t5v2>), the receiver is one half of a move, and this value is the index of the change’s counterpart of the opposite type in the diff.
 //
@@ -72,6 +74,7 @@ type NSOrderedCollectionChange struct {
 func NSOrderedCollectionChangeFromID(id objc.ID) NSOrderedCollectionChange {
 	return NSOrderedCollectionChange{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSOrderedCollectionChange adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,6 +89,7 @@ func NSOrderedCollectionChangeFromID(id objc.ID) NSOrderedCollectionChange {
 //
 //   - [INSOrderedCollectionChange.ChangeType]: The type of change.
 //   - [INSOrderedCollectionChange.Index]: The index location of the change.
+//   - [INSOrderedCollectionChange.SetIndex]
 //   - [INSOrderedCollectionChange.GetObject]: An object the change inserts or removes.
 //   - [INSOrderedCollectionChange.AssociatedIndex]: When this property is set to a value other than [NSNotFound](<doc://com.apple.foundation/documentation/Foundation/NSNotFound-9t5v2>), the receiver is one half of a move, and this value is the index of the change’s counterpart of the opposite type in the diff.
 //
@@ -105,7 +109,8 @@ type INSOrderedCollectionChange interface {
 	// The type of change.
 	ChangeType() NSCollectionChangeType
 	// The index location of the change.
-	Index() uint
+	Index() int
+	SetIndex(value int)
 	// An object the change inserts or removes.
 	GetObject() objectivec.IObject
 	// When this property is set to a value other than [NSNotFound](<doc://com.apple.foundation/documentation/Foundation/NSNotFound-9t5v2>), the receiver is one half of a move, and this value is the index of the change’s counterpart of the opposite type in the diff.
@@ -170,24 +175,24 @@ func NewOrderedCollectionChangeWithObjectTypeIndex(anObject objectivec.IObject, 
 // associatedIndex: The index of the change’s counterpart of the opposite type in the diff.
 //
 // # Discussion
-// 
+//
 // Pairs of changes with opposite types that refer to each other represent the
 // index location of their counterpart with the [AssociatedIndex] property.
 // Initializing an [NSOrderedCollectionDifference] with broken associations
 // (or associations that aren’t reflexive) generates an exception. The
 // following example creates a diff where the object `@”Red”` moves from
 // index `8` to index `3`:
-// 
+//
 // A move pair can have a different `object` in its removal and insertion
 // changes, which can imply that the change represents moving and changing or
 // replacing an element. Diffs that [controller(_:didChangeContentWith:)]
 // passes to delegates of [NSFetchedResultsController] communicate that an
 // object changed even when its position in the results is unaffected.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/init(object:type:index:associatedIndex:)
+//
 // [NSFetchedResultsController]: https://developer.apple.com/documentation/CoreData/NSFetchedResultsController
 // [controller(_:didChangeContentWith:)]: https://developer.apple.com/documentation/CoreData/NSFetchedResultsControllerDelegate/controller(_:didChangeContentWith:)-5ullb
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/init(object:type:index:associatedIndex:)
 func NewOrderedCollectionChangeWithObjectTypeIndexAssociatedIndex(anObject objectivec.IObject, type_ NSCollectionChangeType, index uint, associatedIndex uint) NSOrderedCollectionChange {
 	instance := getNSOrderedCollectionChangeClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObject:type:index:associatedIndex:"), anObject, type_, index, associatedIndex)
@@ -208,6 +213,7 @@ func (o NSOrderedCollectionChange) InitWithObjectTypeIndex(anObject objectivec.I
 	rv := objc.Send[NSOrderedCollectionChange](o.ID, objc.Sel("initWithObject:type:index:"), anObject, type_, index)
 	return rv
 }
+
 // Creates a change object that represents inserting, removing, or moving an
 // object from an ordered collection at a specific index.
 //
@@ -220,24 +226,24 @@ func (o NSOrderedCollectionChange) InitWithObjectTypeIndex(anObject objectivec.I
 // associatedIndex: The index of the change’s counterpart of the opposite type in the diff.
 //
 // # Discussion
-// 
+//
 // Pairs of changes with opposite types that refer to each other represent the
 // index location of their counterpart with the [AssociatedIndex] property.
 // Initializing an [NSOrderedCollectionDifference] with broken associations
 // (or associations that aren’t reflexive) generates an exception. The
 // following example creates a diff where the object `@”Red”` moves from
 // index `8` to index `3`:
-// 
+//
 // A move pair can have a different `object` in its removal and insertion
 // changes, which can imply that the change represents moving and changing or
 // replacing an element. Diffs that [controller(_:didChangeContentWith:)]
 // passes to delegates of [NSFetchedResultsController] communicate that an
 // object changed even when its position in the results is unaffected.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/init(object:type:index:associatedIndex:)
+//
 // [NSFetchedResultsController]: https://developer.apple.com/documentation/CoreData/NSFetchedResultsController
 // [controller(_:didChangeContentWith:)]: https://developer.apple.com/documentation/CoreData/NSFetchedResultsControllerDelegate/controller(_:didChangeContentWith:)-5ullb
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/init(object:type:index:associatedIndex:)
 func (o NSOrderedCollectionChange) InitWithObjectTypeIndexAssociatedIndex(anObject objectivec.IObject, type_ NSCollectionChangeType, index uint, associatedIndex uint) NSOrderedCollectionChange {
 	rv := objc.Send[NSOrderedCollectionChange](o.ID, objc.Sel("initWithObject:type:index:associatedIndex:"), anObject, type_, index, associatedIndex)
 	return rv
@@ -253,7 +259,7 @@ func (o NSOrderedCollectionChange) InitWithObjectTypeIndexAssociatedIndex(anObje
 // index: The index location within an ordered collection where the change applies.
 //
 // # Return Value
-// 
+//
 // An object that represents an indexed change to an ordered collection and
 // references the object to be inserted or removed.
 //
@@ -262,6 +268,7 @@ func (_NSOrderedCollectionChangeClass NSOrderedCollectionChangeClass) ChangeWith
 	rv := objc.Send[objc.ID](objc.ID(_NSOrderedCollectionChangeClass.class), objc.Sel("changeWithObject:type:index:"), anObject, type_, index)
 	return NSOrderedCollectionChangeFromID(rv)
 }
+
 // Creates an change object that represents inserting or removing an object
 // from an ordered collection at a specific index, matched with an associated
 // location that infers a move within the collection.
@@ -275,30 +282,30 @@ func (_NSOrderedCollectionChangeClass NSOrderedCollectionChangeClass) ChangeWith
 // associatedIndex: The index of the change’s counterpart of the opposite type in the diff.
 //
 // # Return Value
-// 
+//
 // An object that represents an indexed change to an ordered collection and
 // references the object to be inserted or removed with an associated index
 // that infers a move within the collection.
 //
 // # Discussion
-// 
+//
 // Pairs of changes with opposite types that refer to each other represent the
 // index location of their counterpart with the [AssociatedIndex] property.
 // Initializing a [NSOrderedCollectionDifference] with broken associations (or
 // associations that aren’t reflexive) will generate an exception. The
 // following example creates a diff where the object `@”Red”` moves from
 // index `8` to index `3`:
-// 
+//
 // A move pair can have a different `object` in its removal and insertion
 // changes, which can imply that the change represents moving and changing or
 // replacing an element. Diffs that [controller(_:didChangeContentWith:)]
 // passes to delegates of [NSFetchedResultsController] communicate that an
 // object changed even when its position in the results is unaffected.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/changeWithObject:type:index:associatedIndex:
+//
 // [NSFetchedResultsController]: https://developer.apple.com/documentation/CoreData/NSFetchedResultsController
 // [controller(_:didChangeContentWith:)]: https://developer.apple.com/documentation/CoreData/NSFetchedResultsControllerDelegate/controller(_:didChangeContentWith:)-5ullb
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/changeWithObject:type:index:associatedIndex:
 func (_NSOrderedCollectionChangeClass NSOrderedCollectionChangeClass) ChangeWithObjectTypeIndexAssociatedIndex(anObject objectivec.IObject, type_ NSCollectionChangeType, index uint, associatedIndex uint) NSOrderedCollectionChange {
 	rv := objc.Send[objc.ID](objc.ID(_NSOrderedCollectionChangeClass.class), objc.Sel("changeWithObject:type:index:associatedIndex:"), anObject, type_, index, associatedIndex)
 	return NSOrderedCollectionChangeFromID(rv)
@@ -311,13 +318,18 @@ func (o NSOrderedCollectionChange) ChangeType() NSCollectionChangeType {
 	rv := objc.Send[NSCollectionChangeType](o.ID, objc.Sel("changeType"))
 	return NSCollectionChangeType(rv)
 }
+
 // The index location of the change.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/index
-func (o NSOrderedCollectionChange) Index() uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("index"))
+// See: https://developer.apple.com/documentation/foundation/nsorderedcollectionchange/index
+func (o NSOrderedCollectionChange) Index() int {
+	rv := objc.Send[int](o.ID, objc.Sel("index"))
 	return rv
 }
+func (o NSOrderedCollectionChange) SetIndex(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setIndex:"), value)
+}
+
 // An object the change inserts or removes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/object
@@ -325,38 +337,39 @@ func (o NSOrderedCollectionChange) GetObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("object"))
 	return objectivec.Object{ID: rv}
 }
+
 // When this property is set to a value other than [NSNotFound], the receiver
 // is one half of a move, and this value is the index of the change’s
 // counterpart of the opposite type in the diff.
 //
-// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-9t5v2
-//
 // # Discussion
-// 
+//
 // Pairs of changes with opposite types that refer to each other represent the
 // index location of their counterpart with the [AssociatedIndex] property.
 // The following example creates a diff where the object `@”Red”` moves
 // from index `8` to index `3`:
-// 
+//
 // A move pair can have a different `object` in its removal and insertion
 // changes, which can imply that the change represents moving and changing or
 // replacing an element. Diffs that [controller(_:didChangeContentWith:)]
 // passes to delegates of [NSFetchedResultsController] communicate that an
 // object changed even when its position in the results is unaffected.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/associatedIndex
+//
 // [NSFetchedResultsController]: https://developer.apple.com/documentation/CoreData/NSFetchedResultsController
 // [controller(_:didChangeContentWith:)]: https://developer.apple.com/documentation/CoreData/NSFetchedResultsControllerDelegate/controller(_:didChangeContentWith:)-5ullb
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/associatedIndex
 func (o NSOrderedCollectionChange) AssociatedIndex() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("associatedIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/foundation/nsnotfound-9t5v2
 func (o NSOrderedCollectionChange) NSNotFound() int {
 	rv := objc.Send[int](o.ID, objc.Sel("NSNotFound"))
 	return rv
 }
+
 // A Boolean value that indicates if the difference has changes.
 //
 // See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/haschanges
@@ -367,6 +380,7 @@ func (o NSOrderedCollectionChange) HasChanges() bool {
 func (o NSOrderedCollectionChange) SetHasChanges(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHasChanges:"), value)
 }
+
 // A collection of insertion change objects.
 //
 // See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/insertions
@@ -377,6 +391,7 @@ func (o NSOrderedCollectionChange) Insertions() INSOrderedCollectionChange {
 func (o NSOrderedCollectionChange) SetInsertions(value INSOrderedCollectionChange) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInsertions:"), value)
 }
+
 // A collection of removal change objects.
 //
 // See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/removals
@@ -387,4 +402,3 @@ func (o NSOrderedCollectionChange) Removals() INSOrderedCollectionChange {
 func (o NSOrderedCollectionChange) SetRemovals(value INSOrderedCollectionChange) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRemovals:"), value)
 }
-

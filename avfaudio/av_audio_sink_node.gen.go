@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,19 +44,19 @@ func (ac AVAudioSinkNodeClass) Alloc() AVAudioSinkNode {
 // An object that receives audio data.
 //
 // # Overview
-// 
+//
 // You use an [AVAudioSinkNode] to receive audio data through
 // [AVAudioSinkNodeReceiverBlock]. You only use it in the input chain.
-// 
+//
 // An audio sink node doesn’t support format conversion. When connecting,
 // use the output format of the input for the format for the connection. The
 // format should match the hardware input sample rate.
-// 
+//
 // The voice processing I/O unit is an exception to the above because it
 // supports sample rate conversion. The input scope format (hardware format)
 // and output scope format (client format) of the input node can differ in
 // that case.
-// 
+//
 // An audio sink node doesn’t support manual rendering mode, and doesn’t
 // have an output bus, so you can’t install a tap on it.
 //
@@ -74,6 +75,7 @@ type AVAudioSinkNode struct {
 func AVAudioSinkNodeFromID(id objc.ID) AVAudioSinkNode {
 	return AVAudioSinkNode{AVAudioNode: AVAudioNodeFromID(id)}
 }
+
 // NOTE: AVAudioSinkNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,13 +119,13 @@ func NewAVAudioSinkNode() AVAudioSinkNode {
 // block: The block that receives audio data from the input.
 //
 // # Discussion
-// 
+//
 // When connecting the audio sink node to another node, the system uses the
 // connection format to set the audio format for the input bus.
-// 
+//
 // The system calls the block on the real-time thread when receiving input
 // data. Avoid making blocking calls within the block.
-// 
+//
 // When receiving data, the system sets the audio format using the node’s
 // input format.
 //
@@ -139,13 +141,13 @@ func NewAudioSinkNodeWithReceiverBlock(block AVAudioSinkNodeReceiverBlock) AVAud
 // block: The block that receives audio data from the input.
 //
 // # Discussion
-// 
+//
 // When connecting the audio sink node to another node, the system uses the
 // connection format to set the audio format for the input bus.
-// 
+//
 // The system calls the block on the real-time thread when receiving input
 // data. Avoid making blocking calls within the block.
-// 
+//
 // When receiving data, the system sets the audio format using the node’s
 // input format.
 //
@@ -154,4 +156,3 @@ func (a AVAudioSinkNode) InitWithReceiverBlock(block AVAudioSinkNodeReceiverBloc
 	rv := objc.Send[AVAudioSinkNode](a.ID, objc.Sel("initWithReceiverBlock:"), block)
 	return rv
 }
-

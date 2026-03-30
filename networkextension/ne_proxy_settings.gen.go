@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,10 +46,10 @@ func (nc NEProxySettingsClass) Alloc() NEProxySettings {
 // [NEProxySettings] contains HTTP proxy settings.
 //
 // # Overview
-// 
+//
 // [NEProxySettings] is used in the context of a VPN configuration to specify
 // the proxy that should be used for network traffic when the VPN is active.
-// 
+//
 // Instances of this class are thread safe.
 //
 // # Accessing Automatic Proxy Properties
@@ -91,6 +92,7 @@ type NEProxySettings struct {
 func NEProxySettingsFromID(id objc.ID) NEProxySettings {
 	return NEProxySettings{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEProxySettings adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -213,17 +215,16 @@ func (p NEProxySettings) AutoProxyConfigurationEnabled() bool {
 func (p NEProxySettings) SetAutoProxyConfigurationEnabled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAutoProxyConfigurationEnabled:"), value)
 }
+
 // A URL specifying the location from where the Proxy Auto Configuration (PAC)
 // script should be downloaded.
 //
 // # Discussion
-// 
-// If [AutoProxyConfigurationEnabled] is set to [true] and
+//
+// If [AutoProxyConfigurationEnabled] is set to true and
 // [ProxyAutoConfigurationJavaScript] is set to nil then the system will
 // download the PAC script from this location and execute the script to
 // determine what proxies to use (if any) for HTTP and HTTPS connections.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProxySettings/proxyAutoConfigurationURL
 func (p NEProxySettings) ProxyAutoConfigurationURL() foundation.INSURL {
@@ -233,16 +234,15 @@ func (p NEProxySettings) ProxyAutoConfigurationURL() foundation.INSURL {
 func (p NEProxySettings) SetProxyAutoConfigurationURL(value foundation.INSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setProxyAutoConfigurationURL:"), value)
 }
+
 // A string containing the Proxy Auto Configuration (PAC) JavaScript source
 // code.
 //
 // # Discussion
-// 
-// If [AutoProxyConfigurationEnabled] is set to [true] then the system will
+//
+// If [AutoProxyConfigurationEnabled] is set to true then the system will
 // execute the PAC script to determine what proxies to use (if any) for HTTP
 // and HTTPS connections.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProxySettings/proxyAutoConfigurationJavaScript
 func (p NEProxySettings) ProxyAutoConfigurationJavaScript() string {
@@ -252,6 +252,7 @@ func (p NEProxySettings) ProxyAutoConfigurationJavaScript() string {
 func (p NEProxySettings) SetProxyAutoConfigurationJavaScript(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setProxyAutoConfigurationJavaScript:"), objc.String(value))
 }
+
 // A Boolean indicating if a static HTTP proxy will be used.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProxySettings/httpEnabled
@@ -262,16 +263,14 @@ func (p NEProxySettings) HTTPEnabled() bool {
 func (p NEProxySettings) SetHTTPEnabled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPEnabled:"), value)
 }
+
 // An [NEProxyServer] object containing the static HTTP proxy server settings.
 //
 // # Discussion
-// 
-// If [AutoProxyConfigurationEnabled] is [false] and [HTTPEnabled] is [true],
-// then the proxy server specified in this property will be used for HTTP
-// connections.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If [AutoProxyConfigurationEnabled] is false and [HTTPEnabled] is true, then
+// the proxy server specified in this property will be used for HTTP
+// connections.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProxySettings/httpServer
 func (p NEProxySettings) HTTPServer() INEProxyServer {
@@ -281,6 +280,7 @@ func (p NEProxySettings) HTTPServer() INEProxyServer {
 func (p NEProxySettings) SetHTTPServer(value INEProxyServer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPServer:"), value)
 }
+
 // A Boolean indicating if a static HTTPS proxy will be used.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProxySettings/httpsEnabled
@@ -291,17 +291,15 @@ func (p NEProxySettings) HTTPSEnabled() bool {
 func (p NEProxySettings) SetHTTPSEnabled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPSEnabled:"), value)
 }
+
 // An [NEProxyServer] object containing the static HTTPS proxy server
 // settings.
 //
 // # Discussion
-// 
-// If [AutoProxyConfigurationEnabled] is [false] and [HTTPSEnabled] is [true],
+//
+// If [AutoProxyConfigurationEnabled] is false and [HTTPSEnabled] is true,
 // then the proxy server specified in this property will be used for HTTPS
 // connections.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProxySettings/httpsServer
 func (p NEProxySettings) HTTPSServer() INEProxyServer {
@@ -311,6 +309,7 @@ func (p NEProxySettings) HTTPSServer() INEProxyServer {
 func (p NEProxySettings) SetHTTPSServer(value INEProxyServer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHTTPSServer:"), value)
 }
+
 // A Boolean indicating if HTTP requests using single-label host names should
 // be excluded from using the proxy settings.
 //
@@ -322,12 +321,13 @@ func (p NEProxySettings) ExcludeSimpleHostnames() bool {
 func (p NEProxySettings) SetExcludeSimpleHostnames(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setExcludeSimpleHostnames:"), value)
 }
+
 // An array of domain name patterns. If the destination host name of an HTTP
 // connection matches one of these patterns then the proxy settings will not
 // be used for the connection.
 //
 // # Discussion
-// 
+//
 // The pattern strings may contain ‘*’ characters as wildcards.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProxySettings/exceptionList
@@ -338,14 +338,15 @@ func (p NEProxySettings) ExceptionList() []string {
 func (p NEProxySettings) SetExceptionList(value []string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setExceptionList:"), objectivec.StringSliceToNSArray(value))
 }
+
 // An array of domain strings.
 //
 // # Discussion
-// 
+//
 // If the destination host name of a HTTP connection shares a suffix with one
 // of these strings then the proxy settings will be used for the HTTP
 // connection. Otherwise the proxy settings will not be used.
-// 
+//
 // This property should be used in conjunction with a split tunnel VPN, where
 // only certain networks are tunneled by the VPN. The domains of those split
 // tunneling networks should be specified in this property.
@@ -358,6 +359,7 @@ func (p NEProxySettings) MatchDomains() []string {
 func (p NEProxySettings) SetMatchDomains(value []string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMatchDomains:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The tunnel DNS settings.
 //
 // See: https://developer.apple.com/documentation/networkextension/netunnelnetworksettings/dnssettings
@@ -368,6 +370,7 @@ func (p NEProxySettings) DnsSettings() INEDNSSettings {
 func (p NEProxySettings) SetDnsSettings(value INEDNSSettings) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDNSSettings:"), value)
 }
+
 // The tunnel HTTP proxy settings.
 //
 // See: https://developer.apple.com/documentation/networkextension/netunnelnetworksettings/proxysettings
@@ -378,6 +381,7 @@ func (p NEProxySettings) ProxySettings() INEProxySettings {
 func (p NEProxySettings) SetProxySettings(value INEProxySettings) {
 	objc.Send[struct{}](p.ID, objc.Sel("setProxySettings:"), value)
 }
+
 // The IP address of the tunnel server.
 //
 // See: https://developer.apple.com/documentation/networkextension/netunnelnetworksettings/tunnelremoteaddress
@@ -388,4 +392,3 @@ func (p NEProxySettings) TunnelRemoteAddress() string {
 func (p NEProxySettings) SetTunnelRemoteAddress(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTunnelRemoteAddress:"), objc.String(value))
 }
-

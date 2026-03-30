@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -63,6 +64,7 @@ type MTLSharedEventListener struct {
 func MTLSharedEventListenerFromID(id objc.ID) MTLSharedEventListener {
 	return MTLSharedEventListener{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLSharedEventListener adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,4 +142,3 @@ func (s MTLSharedEventListener) DispatchQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](s.ID, objc.Sel("dispatchQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
-

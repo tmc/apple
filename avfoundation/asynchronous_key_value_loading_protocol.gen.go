@@ -18,6 +18,7 @@ type AVAsynchronousKeyValueLoading interface {
 type AVAsynchronousKeyValueLoadingObject struct {
 	objectivec.Object
 }
+
 func (o AVAsynchronousKeyValueLoadingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func AVAsynchronousKeyValueLoadingObjectFromID(id objc.ID) AVAsynchronousKeyValu
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

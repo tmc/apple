@@ -3,8 +3,9 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,13 +43,13 @@ func (ec ETDataSourceBufClass) Alloc() ETDataSourceBuf {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETDataSourceBuf.DataAtIndexKey]
 //   - [ETDataSourceBuf.DataPointAtIndex]
 //   - [ETDataSourceBuf.NumberOfDataPoints]
 //   - [ETDataSourceBuf.SetBlobsNumberOfDataPointsNonBatches]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf
 type ETDataSourceBuf struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type ETDataSourceBuf struct {
 func ETDataSourceBufFromID(id objc.ID) ETDataSourceBuf {
 	return ETDataSourceBuf{objectivec.Object{ID: id}}
 }
+
 // Ensure ETDataSourceBuf implements IETDataSourceBuf.
 var _ IETDataSourceBuf = ETDataSourceBuf{}
 
@@ -101,26 +103,25 @@ func NewETDataSourceBuf() ETDataSourceBuf {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf/dataAtIndex:key:
 func (e ETDataSourceBuf) DataAtIndexKey(index uint64, key unsafe.Pointer) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("dataAtIndex:key:"), index, key)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf/dataPointAtIndex:
 func (e ETDataSourceBuf) DataPointAtIndex(index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf/numberOfDataPoints
 func (e ETDataSourceBuf) NumberOfDataPoints() int {
 	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceBuf/setBlobs:numberOfDataPoints:nonBatches:
 func (e ETDataSourceBuf) SetBlobsNumberOfDataPointsNonBatches(blobs unsafe.Pointer, points int, batches unsafe.Pointer) {
 	objc.Send[objc.ID](e.ID, objc.Sel("setBlobs:numberOfDataPoints:nonBatches:"), blobs, points, batches)
 }
-

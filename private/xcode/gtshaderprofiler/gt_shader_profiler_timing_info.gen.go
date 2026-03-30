@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (gc GTShaderProfilerTimingInfoClass) Alloc() GTShaderProfilerTimingInfo {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTShaderProfilerTimingInfo.ComputeTime]
@@ -52,6 +52,7 @@ func (gc GTShaderProfilerTimingInfoClass) Alloc() GTShaderProfilerTimingInfo {
 //   - [GTShaderProfilerTimingInfo.VertexTime]
 //   - [GTShaderProfilerTimingInfo.InitWithCoder]
 //   - [GTShaderProfilerTimingInfo.InitWithTimeVertexTimeFragmentTimeComputeTime]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo
 type GTShaderProfilerTimingInfo struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type GTShaderProfilerTimingInfo struct {
 func GTShaderProfilerTimingInfoFromID(id objc.ID) GTShaderProfilerTimingInfo {
 	return GTShaderProfilerTimingInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure GTShaderProfilerTimingInfo implements IGTShaderProfilerTimingInfo.
 var _ IGTShaderProfilerTimingInfo = GTShaderProfilerTimingInfo{}
 
@@ -110,7 +112,6 @@ func NewGTShaderProfilerTimingInfo() GTShaderProfilerTimingInfo {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/initWithCoder:
 func NewGTShaderProfilerTimingInfoWithCoder(coder objectivec.IObject) GTShaderProfilerTimingInfo {
 	instance := getGTShaderProfilerTimingInfoClass().Alloc()
@@ -118,7 +119,6 @@ func NewGTShaderProfilerTimingInfoWithCoder(coder objectivec.IObject) GTShaderPr
 	return GTShaderProfilerTimingInfoFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/initWithTime:vertexTime:fragmentTime:computeTime:
 func NewGTShaderProfilerTimingInfoWithTimeVertexTimeFragmentTimeComputeTime(time uint64, time2 uint64, time3 uint64, time4 uint64) GTShaderProfilerTimingInfo {
 	instance := getGTShaderProfilerTimingInfoClass().Alloc()
@@ -126,18 +126,17 @@ func NewGTShaderProfilerTimingInfoWithTimeVertexTimeFragmentTimeComputeTime(time
 	return GTShaderProfilerTimingInfoFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/encodeWithCoder:
 func (g GTShaderProfilerTimingInfo) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/initWithCoder:
 func (g GTShaderProfilerTimingInfo) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerTimingInfo {
 	rv := objc.Send[GTShaderProfilerTimingInfo](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/initWithTime:vertexTime:fragmentTime:computeTime:
 func (g GTShaderProfilerTimingInfo) InitWithTimeVertexTimeFragmentTimeComputeTime(time uint64, time2 uint64, time3 uint64, time4 uint64) GTShaderProfilerTimingInfo {
 	rv := objc.Send[GTShaderProfilerTimingInfo](g.ID, objc.Sel("initWithTime:vertexTime:fragmentTime:computeTime:"), time, time2, time3, time4)
@@ -155,19 +154,21 @@ func (g GTShaderProfilerTimingInfo) ComputeTime() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("computeTime"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/fragmentTime
 func (g GTShaderProfilerTimingInfo) FragmentTime() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("fragmentTime"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/time
 func (g GTShaderProfilerTimingInfo) Time() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("time"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/vertexTime
 func (g GTShaderProfilerTimingInfo) VertexTime() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("vertexTime"))
 	return rv
 }
-

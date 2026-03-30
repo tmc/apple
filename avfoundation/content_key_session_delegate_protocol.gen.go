@@ -4,10 +4,12 @@ package avfoundation
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that handles content key requests.
@@ -26,6 +28,7 @@ type AVContentKeySessionDelegate interface {
 type AVContentKeySessionDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVContentKeySessionDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +50,8 @@ func AVContentKeySessionDelegateObjectFromID(id objc.ID) AVContentKeySessionDele
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:didProvide:)-3coq5
 func (o AVContentKeySessionDelegateObject) ContentKeySessionDidProvideContentKeyRequest(session IAVContentKeySession, keyRequest IAVContentKeyRequest) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:didProvideContentKeyRequest:"), session, keyRequest)
-	}
+}
+
 // Provides the receiver with a new content key request object for the renewal
 // of an existing content key.
 //
@@ -58,7 +62,8 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionDidProvideContentKey
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:didProvideRenewingContentKeyRequest:)
 func (o AVContentKeySessionDelegateObject) ContentKeySessionDidProvideRenewingContentKeyRequest(session IAVContentKeySession, keyRequest IAVContentKeyRequest) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:didProvideRenewingContentKeyRequest:"), session, keyRequest)
-	}
+}
+
 // Provides the receiver with a new content key request object to process a
 // persistable content key.
 //
@@ -70,18 +75,20 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionDidProvideRenewingCo
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:didProvide:)-2wdgz
 func (o AVContentKeySessionDelegateObject) ContentKeySessionDidProvidePersistableContentKeyRequest(session IAVContentKeySession, keyRequest IAVPersistableContentKeyRequest) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:didProvidePersistableContentKeyRequest:"), session, keyRequest)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:didProvide:forInitializationData:)
 func (o AVContentKeySessionDelegateObject) ContentKeySessionDidProvideContentKeyRequestsForInitializationData(session IAVContentKeySession, keyRequests []AVContentKeyRequest, initializationData foundation.INSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:didProvideContentKeyRequests:forInitializationData:"), session, objectivec.IObjectSliceToNSArray(keyRequests), initializationData)
-	}
+}
+
 // Tells the delegate when external protection state has changed.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:externalProtectionStatusDidChangeFor:)
 func (o AVContentKeySessionDelegateObject) ContentKeySessionExternalProtectionStatusDidChangeForContentKey(session IAVContentKeySession, contentKey IAVContentKey) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:externalProtectionStatusDidChangeForContentKey:"), session, contentKey)
-	}
+}
+
 // Provides the receiver with an updated persistable content key for a
 // specific key request.
 //
@@ -96,7 +103,7 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionExternalProtectionSt
 // content key.
 //
 // # Discussion
-// 
+//
 // If the content key session provides updated persistable content key data,
 // previous key data is no longer valid and cannot be used to answer future
 // loading requests.
@@ -104,7 +111,8 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionExternalProtectionSt
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:didUpdatePersistableContentKey:forContentKeyIdentifier:)
 func (o AVContentKeySessionDelegateObject) ContentKeySessionDidUpdatePersistableContentKeyForContentKeyIdentifier(session IAVContentKeySession, persistableContentKey foundation.INSData, keyIdentifier objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:didUpdatePersistableContentKey:forContentKeyIdentifier:"), session, persistableContentKey, keyIdentifier)
-	}
+}
+
 // Provides the receiver with a content key request object to retry.
 //
 // session: The content key session that is providing the content key request.
@@ -117,7 +125,8 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionDidUpdatePersistable
 func (o AVContentKeySessionDelegateObject) ContentKeySessionShouldRetryContentKeyRequestReason(session IAVContentKeySession, keyRequest IAVContentKeyRequest, retryReason AVContentKeyRequestRetryReason) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("contentKeySession:shouldRetryContentKeyRequest:reason:"), session, keyRequest, objc.String(string(retryReason)))
 	return rv
-	}
+}
+
 // Tells the receiver the content protection session identifier changed.
 //
 // session: The content key session to be notified.
@@ -125,7 +134,8 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionShouldRetryContentKe
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySessionContentProtectionSessionIdentifierDidChange(_:)
 func (o AVContentKeySessionDelegateObject) ContentKeySessionContentProtectionSessionIdentifierDidChange(session IAVContentKeySession) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySessionContentProtectionSessionIdentifierDidChange:"), session)
-	}
+}
+
 // Tells the receiver that the content key request failed.
 //
 // session: The content key session that initiated the content key request.
@@ -133,13 +143,14 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionContentProtectionSes
 // keyRequest: The content key request that failed.
 //
 // err: An instance of [NSError] that describes the failure that occurred.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:contentKeyRequest:didFailWithError:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (o AVContentKeySessionDelegateObject) ContentKeySessionContentKeyRequestDidFailWithError(session IAVContentKeySession, keyRequest IAVContentKeyRequest, err foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:contentKeyRequest:didFailWithError:"), session, keyRequest, err)
-	}
+}
+
 // Tells the content key session that the response to a content key requeset
 // was successfully processed.
 //
@@ -151,21 +162,22 @@ func (o AVContentKeySessionDelegateObject) ContentKeySessionContentKeyRequestDid
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySession(_:contentKeyRequestDidSucceed:)
 func (o AVContentKeySessionDelegateObject) ContentKeySessionContentKeyRequestDidSucceed(session IAVContentKeySession, keyRequest IAVContentKeyRequest) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:contentKeyRequestDidSucceed:"), session, keyRequest)
-	}
+}
+
 // Notifies the sender that an expired session report has been generated.
 //
 // session: The [AVContentKeySession] object that recorded the generation of an expired
 // session report.
 //
 // # Discussion
-// 
+//
 // This method is invoked when an expired session report is added to the
 // [StorageURL] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySessionDelegate/contentKeySessionDidGenerateExpiredSessionReport(_:)
 func (o AVContentKeySessionDelegateObject) ContentKeySessionDidGenerateExpiredSessionReport(session IAVContentKeySession) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySessionDidGenerateExpiredSessionReport:"), session)
-	}
+}
 
 // AVContentKeySessionDelegateConfig holds optional typed callbacks for [AVContentKeySessionDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -343,4 +355,3 @@ func NewAVContentKeySessionDelegate(config AVContentKeySessionDelegateConfig) AV
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVContentKeySessionDelegateObjectFromID(instance)
 }
-

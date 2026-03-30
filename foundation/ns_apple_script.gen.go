@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,28 +45,26 @@ func (nc NSAppleScriptClass) Alloc() NSAppleScript {
 // An object that provides the ability to load, compile, and execute scripts.
 //
 // # Overview
-// 
-// This class provides applications with the ability to
-// 
+//
+// # This class provides applications with the ability to
+//
 // - load a script from a URL or from a text string - compile or execute a
 // script or an individual Apple event - obtain an [NSAppleEventDescriptor]
 // containing the reply from an executed script or event - obtain an
 // attributed string for a compiled script, suitable for display in a script
 // editor - obtain various kinds of information about any errors that may
 // occur
-// 
+//
 // When you create an instance of [NSAppleScript] object, you can use a URL to
 // specify a script that can be in either text or compiled form, or you can
 // supply the script as a string. Should an error occur when compiling or
 // executing the script, several of the methods return a dictionary containing
 // error information. The keys for obtaining error information, such as
 // [errorMessage], are described in the Constants section.
-// 
+//
 // See also NSAppleScript Additions Reference in the Application Kit
 // framework, which defines a method that returns the syntax-highlighted
 // source code for a script.
-//
-// [errorMessage]: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorMessage
 //
 // # Initializing a Script
 //
@@ -88,6 +87,8 @@ func (nc NSAppleScriptClass) Alloc() NSAppleScript {
 //   - [NSAppleScript.RichTextSource]: Returns the syntax-highlighted source code of the receiver if the receiver has been compiled and its source code is available.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript
+//
+// [errorMessage]: https://developer.apple.com/documentation/Foundation/NSAppleScript/errorMessage
 type NSAppleScript struct {
 	objectivec.Object
 }
@@ -98,6 +99,7 @@ type NSAppleScript struct {
 func NSAppleScriptFromID(id objc.ID) NSAppleScript {
 	return NSAppleScript{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAppleScript adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -185,11 +187,11 @@ func NewNSAppleScript() NSAppleScript {
 // dictionary.
 //
 // # Return Value
-// 
+//
 // The initialized script object, `nil` if an error occurs.
 //
 // # Discussion
-// 
+//
 // This method is a designated initializer for [NSAppleScript].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/init(contentsOf:error:)
@@ -204,11 +206,11 @@ func NewAppleScriptWithContentsOfURLError(url INSURL, errorInfo INSDictionary) N
 // source: A string containing the source code of a script.
 //
 // # Return Value
-// 
+//
 // The initialized script object, `nil` if an error occurs.
 //
 // # Discussion
-// 
+//
 // This method is a designated initializer for [NSAppleScript].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/init(source:)
@@ -227,11 +229,11 @@ func NewAppleScriptWithSource(source string) NSAppleScript {
 // dictionary.
 //
 // # Return Value
-// 
+//
 // The initialized script object, `nil` if an error occurs.
 //
 // # Discussion
-// 
+//
 // This method is a designated initializer for [NSAppleScript].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/init(contentsOf:error:)
@@ -239,16 +241,17 @@ func (a NSAppleScript) InitWithContentsOfURLError(url INSURL, errorInfo INSDicti
 	rv := objc.Send[NSAppleScript](a.ID, objc.Sel("initWithContentsOfURL:error:"), url, errorInfo)
 	return rv
 }
+
 // Initializes a newly allocated script instance from the passed source.
 //
 // source: A string containing the source code of a script.
 //
 // # Return Value
-// 
+//
 // The initialized script object, `nil` if an error occurs.
 //
 // # Discussion
-// 
+//
 // This method is a designated initializer for [NSAppleScript].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/init(source:)
@@ -256,35 +259,33 @@ func (a NSAppleScript) InitWithSource(source string) NSAppleScript {
 	rv := objc.Send[NSAppleScript](a.ID, objc.Sel("initWithSource:"), objc.String(source))
 	return rv
 }
+
 // Compiles the receiver, if it is not already compiled.
 //
 // errorInfo: On return, if an error occurs, a pointer to an error information
 // dictionary.
 //
 // # Return Value
-// 
-// [true] for success or if the script was already compiled, [false]
-// otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true for success or if the script was already compiled, false otherwise.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/compileAndReturnError(_:)
 func (a NSAppleScript) CompileAndReturnError(errorInfo INSDictionary) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("compileAndReturnError:"), errorInfo)
 	return rv
 }
+
 // Executes the receiver, compiling it first if it is not already compiled.
 //
 // errorInfo: On return, if an error occurs, a pointer to an error information
 // dictionary.
 //
 // # Return Value
-// 
+//
 // The result of executing the event, or `nil` if an error occurs.
 //
 // # Discussion
-// 
+//
 // Any changes to property values caused by executing the script do not
 // persist.
 //
@@ -293,6 +294,7 @@ func (a NSAppleScript) ExecuteAndReturnError(errorInfo INSDictionary) INSAppleEv
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("executeAndReturnError:"), errorInfo)
 	return NSAppleEventDescriptorFromID(rv)
 }
+
 // Executes an Apple event in the context of the receiver, as a means of
 // allowing the application to invoke a handler in the script.
 //
@@ -302,11 +304,11 @@ func (a NSAppleScript) ExecuteAndReturnError(errorInfo INSDictionary) INSAppleEv
 // dictionary.
 //
 // # Return Value
-// 
+//
 // The result of executing the event, or `nil` if an error occurs.
 //
 // # Discussion
-// 
+//
 // Compiles the receiver before executing it if it is not already compiled.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/executeAppleEvent(_:error:)
@@ -323,10 +325,11 @@ func (a NSAppleScript) Compiled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isCompiled"))
 	return rv
 }
+
 // The script source for the receiver.
 //
 // # Discussion
-// 
+//
 // It is possible for an [NSAppleScript] that has been instantiated with
 // [InitWithContentsOfURLError] to be a script for which the source code is
 // not available but is nonetheless executable.
@@ -336,11 +339,12 @@ func (a NSAppleScript) Source() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("source"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns the syntax-highlighted source code of the receiver if the receiver
 // has been compiled and its source code is available.
 //
 // # Discussion
-// 
+//
 // Returns `nil` otherwise. It is possible for an instance of [NSAppleScript]
 // that has been instantiated with [InitWithContentsOfURLError] to be a script
 // for which the source code is not available, but is nonetheless executable.
@@ -351,6 +355,4 @@ func (a NSAppleScript) RichTextSource() INSAttributedString {
 	return NSAttributedStringFromID(objc.ID(rv))
 }
 
-			// Protocol methods for NSCopying
-			
-
+// Protocol methods for NSCopying

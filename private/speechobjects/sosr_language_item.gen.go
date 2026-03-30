@@ -3,8 +3,9 @@
 package speechobjects
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,11 +43,11 @@ func (sc SOSRLanguageItemClass) Alloc() SOSRLanguageItem {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SOSRLanguageItem.InitWithLocaleIdentifier]
 //   - [SOSRLanguageItem.InitWithLocaleIdentifierUsingOffline]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem
 type SOSRLanguageItem struct {
 	SOSpeechItem
@@ -56,6 +57,7 @@ type SOSRLanguageItem struct {
 func SOSRLanguageItemFromID(id objc.ID) SOSRLanguageItem {
 	return SOSRLanguageItem{SOSpeechItem: SOSpeechItemFromID(id)}
 }
+
 // Ensure SOSRLanguageItem implements ISOSRLanguageItem.
 var _ ISOSRLanguageItem = SOSRLanguageItem{}
 
@@ -95,7 +97,6 @@ func NewSOSRLanguageItem() SOSRLanguageItem {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/initWithDownloadableBundleIdentifier:properties:
 func NewSOSRLanguageItemWithDownloadableBundleIdentifierProperties(identifier objectivec.IObject, properties objectivec.IObject) SOSRLanguageItem {
 	instance := getSOSRLanguageItemClass().Alloc()
@@ -103,7 +104,6 @@ func NewSOSRLanguageItemWithDownloadableBundleIdentifierProperties(identifier ob
 	return SOSRLanguageItemFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/initWithLocaleIdentifier:
 func NewSOSRLanguageItemWithLocaleIdentifier(identifier objectivec.IObject) SOSRLanguageItem {
 	instance := getSOSRLanguageItemClass().Alloc()
@@ -111,7 +111,6 @@ func NewSOSRLanguageItemWithLocaleIdentifier(identifier objectivec.IObject) SOSR
 	return SOSRLanguageItemFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/initWithLocaleIdentifier:usingOffline:
 func NewSOSRLanguageItemWithLocaleIdentifierUsingOffline(identifier objectivec.IObject, offline bool) SOSRLanguageItem {
 	instance := getSOSRLanguageItemClass().Alloc()
@@ -119,13 +118,12 @@ func NewSOSRLanguageItemWithLocaleIdentifierUsingOffline(identifier objectivec.I
 	return SOSRLanguageItemFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/initWithLocaleIdentifier:
 func (s SOSRLanguageItem) InitWithLocaleIdentifier(identifier objectivec.IObject) SOSRLanguageItem {
 	rv := objc.Send[SOSRLanguageItem](s.ID, objc.Sel("initWithLocaleIdentifier:"), identifier)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/initWithLocaleIdentifier:usingOffline:
 func (s SOSRLanguageItem) InitWithLocaleIdentifierUsingOffline(identifier objectivec.IObject, offline bool) SOSRLanguageItem {
 	rv := objc.Send[SOSRLanguageItem](s.ID, objc.Sel("initWithLocaleIdentifier:usingOffline:"), identifier, offline)
@@ -137,73 +135,73 @@ func (_SOSRLanguageItemClass SOSRLanguageItemClass) AvailableLocalRecognizerLang
 	rv := objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("availableLocalRecognizerLanguageItems"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/bestIndexFromLanguageItems:forLocaleIdentifier:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) BestIndexFromLanguageItemsForLocaleIdentifier(items objectivec.IObject, identifier objectivec.IObject) uint64 {
 	rv := objc.Send[uint64](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("bestIndexFromLanguageItems:forLocaleIdentifier:"), items, identifier)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/downloadableLocalSRLanguageItems
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) DownloadableLocalSRLanguageItems() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("downloadableLocalSRLanguageItems"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/engineIdentifierFromLocaleIdentifier:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) EngineIdentifierFromLocaleIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("engineIdentifierFromLocaleIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/languageItemFromLanguageItems:matchingLocaleIdentifier:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) LanguageItemFromLanguageItemsMatchingLocaleIdentifier(items objectivec.IObject, identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("languageItemFromLanguageItems:matchingLocaleIdentifier:"), items, identifier)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/languageItemsFromLocaleIdentifiers:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) LanguageItemsFromLocaleIdentifiers(identifiers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("languageItemsFromLocaleIdentifiers:"), identifiers)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/languageItemsFromLocaleIdentifiers:usingOffline:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) LanguageItemsFromLocaleIdentifiersUsingOffline(identifiers objectivec.IObject, offline bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("languageItemsFromLocaleIdentifiers:usingOffline:"), identifiers, offline)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/preferredDictationLocaleIdentifierFromAvaiableLocaleIdentifiers:defaultLocaleIdentifier:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) PreferredDictationLocaleIdentifierFromAvaiableLocaleIdentifiersDefaultLocaleIdentifier(identifiers objectivec.IObject, identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("preferredDictationLocaleIdentifierFromAvaiableLocaleIdentifiers:defaultLocaleIdentifier:"), identifiers, identifier)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/setVisibilityValue:forLocaleIdentifier:usingOffline:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) SetVisibilityValueForLocaleIdentifierUsingOffline(value uint64, identifier objectivec.IObject, offline bool) {
 	objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("setVisibilityValue:forLocaleIdentifier:usingOffline:"), value, identifier, offline)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/setVisibleSRLanguageItemsTable:usingOffline:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) SetVisibleSRLanguageItemsTableUsingOffline(table objectivec.IObject, offline bool) {
 	objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("setVisibleSRLanguageItemsTable:usingOffline:"), table, offline)
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/tagNameFromLocaleIdentifier:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) TagNameFromLocaleIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("tagNameFromLocaleIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/visibiltyValueForLocaleIdentifier:entryExists:usingOffline:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) VisibiltyValueForLocaleIdentifierEntryExistsUsingOffline(identifier objectivec.IObject, exists unsafe.Pointer, offline bool) uint64 {
 	rv := objc.Send[uint64](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("visibiltyValueForLocaleIdentifier:entryExists:usingOffline:"), identifier, exists, offline)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOSRLanguageItem/visibleSRLanguageItemsTableUsingOffline:
 func (_SOSRLanguageItemClass SOSRLanguageItemClass) VisibleSRLanguageItemsTableUsingOffline(offline bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SOSRLanguageItemClass.class), objc.Sel("visibleSRLanguageItemsTableUsingOffline:"), offline)
 	return objectivec.Object{ID: rv}
 }
-

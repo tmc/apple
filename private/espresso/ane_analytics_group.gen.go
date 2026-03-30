@@ -4,8 +4,9 @@ package espresso
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (ac ANEAnalyticsGroupClass) Alloc() ANEAnalyticsGroup {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ANEAnalyticsGroup.GroupID]
@@ -50,6 +50,7 @@ func (ac ANEAnalyticsGroupClass) Alloc() ANEAnalyticsGroup {
 //   - [ANEAnalyticsGroup.Serialize]
 //   - [ANEAnalyticsGroup.TaskInfo]
 //   - [ANEAnalyticsGroup.InitWithIDLayersTasks]
+//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsGroup
 type ANEAnalyticsGroup struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type ANEAnalyticsGroup struct {
 func ANEAnalyticsGroupFromID(id objc.ID) ANEAnalyticsGroup {
 	return ANEAnalyticsGroup{objectivec.Object{ID: id}}
 }
+
 // Ensure ANEAnalyticsGroup implements IANEAnalyticsGroup.
 var _ IANEAnalyticsGroup = ANEAnalyticsGroup{}
 
@@ -104,7 +106,6 @@ func NewANEAnalyticsGroup() ANEAnalyticsGroup {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsGroup/initWithID:layers:tasks:
 func NewANEAnalyticsGroupWithIDLayersTasks(id objectivec.IObject, layers objectivec.IObject, tasks objectivec.IObject) ANEAnalyticsGroup {
 	instance := getANEAnalyticsGroupClass().Alloc()
@@ -117,14 +118,13 @@ func (a ANEAnalyticsGroup) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsGroup/initWithID:layers:tasks:
 func (a ANEAnalyticsGroup) InitWithIDLayersTasks(id objectivec.IObject, layers objectivec.IObject, tasks objectivec.IObject) ANEAnalyticsGroup {
 	rv := objc.Send[ANEAnalyticsGroup](a.ID, objc.Sel("initWithID:layers:tasks:"), id, layers, tasks)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsGroup/objectWithID:layers:tasks:
 func (_ANEAnalyticsGroupClass ANEAnalyticsGroupClass) ObjectWithIDLayersTasks(id objectivec.IObject, layers objectivec.IObject, tasks objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEAnalyticsGroupClass.class), objc.Sel("objectWithID:layers:tasks:"), id, layers, tasks)
@@ -136,14 +136,15 @@ func (a ANEAnalyticsGroup) GroupID() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("groupID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsGroup/layerInfo
 func (a ANEAnalyticsGroup) LayerInfo() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("layerInfo"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Espresso/_ANEAnalyticsGroup/taskInfo
 func (a ANEAnalyticsGroup) TaskInfo() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("taskInfo"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

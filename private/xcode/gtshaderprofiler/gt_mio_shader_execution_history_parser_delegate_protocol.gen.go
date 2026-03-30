@@ -5,9 +5,11 @@ package gtshaderprofiler
 import (
 	"fmt"
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // GTMioShaderExecutionHistoryParserDelegate protocol.
@@ -31,6 +33,7 @@ type GTMioShaderExecutionHistoryParserDelegate interface {
 type GTMioShaderExecutionHistoryParserDelegateObject struct {
 	objectivec.Object
 }
+
 func (o GTMioShaderExecutionHistoryParserDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,68 +50,70 @@ func GTMioShaderExecutionHistoryParserDelegateObjectFromID(id objc.ID) GTMioShad
 func (o GTMioShaderExecutionHistoryParserDelegateObject) CacheKey() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("cacheKey"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/cacheObject
 func (o GTMioShaderExecutionHistoryParserDelegateObject) CacheObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("cacheObject"))
 	return objectivec.Object{ID: rv}
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/cliqueExecutionHistoryBegin:usc:
 func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryBeginUsc(begin unsafe.Pointer, usc objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), begin, usc)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/cliqueExecutionHistoryEnd:usc:
 func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryEndUsc(end unsafe.Pointer, usc objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), end, usc)
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/cliqueExecutionHistoryStyle
 func (o GTMioShaderExecutionHistoryParserDelegateObject) CliqueExecutionHistoryStyle() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("cliqueExecutionHistoryStyle"))
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/handleCachedObject:
 func (o GTMioShaderExecutionHistoryParserDelegateObject) HandleCachedObject(object objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("handleCachedObject:"), object)
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/loopBack:instructionEnd:loopCount:currentLoopCount:binary:
 func (o GTMioShaderExecutionHistoryParserDelegateObject) LoopBackInstructionEndLoopCountCurrentLoopCountBinary(back uint32, end uint32, count uint32, count2 uint32, binary objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("loopBack:instructionEnd:loopCount:currentLoopCount:binary:"), back, end, count, count2, binary)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/popFunction:binaryRange:binary:
 func (o GTMioShaderExecutionHistoryParserDelegateObject) PopFunctionBinaryRangeBinary(function unsafe.Pointer, range_ unsafe.Pointer, binary objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("popFunction:binaryRange:binary:"), function, range_, binary)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/popLoop:instructionEnd:loopCount:binary:
 func (o GTMioShaderExecutionHistoryParserDelegateObject) PopLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("popLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/processInstruction:binaryRange:binary:numHits:
 func (o GTMioShaderExecutionHistoryParserDelegateObject) ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ unsafe.Pointer, binary objectivec.IObject, hits uint32) {
 	objc.Send[struct{}](o.ID, objc.Sel("processInstruction:binaryRange:binary:numHits:"), instruction, range_, binary, hits)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:
 func (o GTMioShaderExecutionHistoryParserDelegateObject) PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function unsafe.Pointer, index uint32, inlined bool, binary objectivec.IObject, location unsafe.Pointer, index2 uint32, binary2 objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:"), function, index, inlined, binary, location, index2, binary2)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/pushLoop:instructionEnd:loopCount:binary:
 func (o GTMioShaderExecutionHistoryParserDelegateObject) PushLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("pushLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryParserDelegate/timestamp:next:instructionCount:
 func (o GTMioShaderExecutionHistoryParserDelegateObject) TimestampNextInstructionCount(timestamp uint64, next uint64, count uint32) {
 	objc.Send[struct{}](o.ID, objc.Sel("timestamp:next:instructionCount:"), timestamp, next, count)
-	}
+}
 
 // GTMioShaderExecutionHistoryParserDelegateConfig holds optional typed callbacks for [GTMioShaderExecutionHistoryParserDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -121,7 +126,7 @@ func (o GTMioShaderExecutionHistoryParserDelegateObject) TimestampNextInstructio
 type GTMioShaderExecutionHistoryParserDelegateConfig struct {
 
 	// Other Methods
-	CliqueExecutionHistoryStyle func() uint32
+	CliqueExecutionHistoryStyle   func() uint32
 	TimestampNextInstructionCount func(timestamp uint64, next uint64, count uint32)
 }
 
@@ -179,4 +184,3 @@ func NewGTMioShaderExecutionHistoryParserDelegate(config GTMioShaderExecutionHis
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return GTMioShaderExecutionHistoryParserDelegateObjectFromID(instance)
 }
-

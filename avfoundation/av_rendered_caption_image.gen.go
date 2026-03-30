@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type AVRenderedCaptionImage struct {
 func AVRenderedCaptionImageFromID(id objc.ID) AVRenderedCaptionImage {
 	return AVRenderedCaptionImage{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVRenderedCaptionImage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,6 +116,7 @@ func (r AVRenderedCaptionImage) ReadOnlyPixelBuffer() objectivec.IObject {
 func (r AVRenderedCaptionImage) SetReadOnlyPixelBuffer(value objectivec.IObject) {
 	objc.Send[struct{}](r.ID, objc.Sel("setReadOnlyPixelBuffer:"), value)
 }
+
 // A point that defines the position, in pixels, of the rendered caption image
 // relative to the video frame.
 //
@@ -122,4 +125,3 @@ func (r AVRenderedCaptionImage) Position() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("position"))
 	return corefoundation.CGPoint(rv)
 }
-

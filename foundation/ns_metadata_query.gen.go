@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,32 +46,30 @@ func (nc NSMetadataQueryClass) Alloc() NSMetadataQuery {
 // A query that you perform against Spotlight metadata.
 //
 // # Overview
-// 
+//
 // The [NSMetadataQuery] class encapsulates the functionality provided by the
 // [MDQuery] opaque type for querying the Spotlight metadata.
-// 
+//
 // [NSMetadataQuery] objects provide metadata query results in several ways:
-// 
+//
 // - As individual attribute values for requested attributes. - As value lists
 // that contain the distinct values for given attributes in the query results.
 // - As a result array proxy, containing all the query results. This is
 // suitable for use with Cocoa bindings. - As a hierarchical collection of
 // results, grouping together items with the same values for specified
 // grouping attributes. This is also suitable for use with Cocoa bindings.
-// 
+//
 // Queries have two phases: the initial gathering phase that collects all
 // currently matching results and a second live-update phase.
-// 
+//
 // By default, the receiver has no limitation on its search scope. Use the
 // [NSMetadataQuery.SearchScopes] property to customize.
-// 
+//
 // By default, notification of updated results occurs at 1.0 seconds. Use the
 // [NSMetadataQuery.NotificationBatchingInterval] property to customize.
-// 
+//
 // You must set a predicate with the [Predicate] property before starting a
 // query.
-//
-// [MDQuery]: https://developer.apple.com/documentation/coreservices/file_metadata/mdquery
 //
 // # Configuring Queries
 //
@@ -123,6 +122,8 @@ func (nc NSMetadataQueryClass) Alloc() NSMetadataQuery {
 //   - [NSMetadataQuery.NSMetadataQueryGatheringProgress]: Posted as the receiver is collecting results during the initial result-gathering phase of the query.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery
+//
+// [MDQuery]: https://developer.apple.com/documentation/coreservices/file_metadata/mdquery
 type NSMetadataQuery struct {
 	objectivec.Object
 }
@@ -133,6 +134,7 @@ type NSMetadataQuery struct {
 func NSMetadataQueryFromID(id objc.ID) NSMetadataQuery {
 	return NSMetadataQuery{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSMetadataQuery adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -294,20 +296,17 @@ func NewNSMetadataQuery() NSMetadataQuery {
 // Attempts to start the query.
 //
 // # Return Value
-// 
-// [true] when successful; otherwise, [false].
-// 
+//
+// true when successful; otherwise, false.
+//
 // A query may fail to start if it does not specify a [Predicate], or if the
 // query has already been started.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // # Discussion
-// 
+//
 // A query can’t be started if the receiver is already running a query or no
 // predicate has been specified.
-// 
+//
 // This method must be called from the receiver’s [OperationQueue] or on the
 // main thread. For example:
 //
@@ -316,14 +315,15 @@ func (m NSMetadataQuery) StartQuery() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("startQuery"))
 	return rv
 }
+
 // Stops the receiver’s current query from gathering any further results.
 //
 // # Discussion
-// 
+//
 // The receiver first completes gathering any unprocessed results. If a query
 // is stopped before the gathering phase finishes, it does not post an
 // [NSMetadataQueryDidStartGatheringNotification] notification.
-// 
+//
 // You call this function to stop a query that is generating too many results
 // to be useful but you still want to access the available results. If the
 // receiver is sent a `startQuery` message after performing this method, the
@@ -333,19 +333,20 @@ func (m NSMetadataQuery) StartQuery() bool {
 func (m NSMetadataQuery) StopQuery() {
 	objc.Send[objc.ID](m.ID, objc.Sel("stopQuery"))
 }
+
 // Returns the query result at a specific index.
 //
 // idx: The index of the desired result in the query result array.
 //
 // # Return Value
-// 
+//
 // The query result at the position specified by `idx`. By default, this
 // method returns an [NSMetadataItem] object representing the requested
 // result; however, the query’s delegate can substitute this object with an
 // instance of a different class.
 //
 // # Discussion
-// 
+//
 // For performance reasons, use this method when retrieving a specific result,
 // rather than the array returned by [Results].
 //
@@ -354,13 +355,14 @@ func (m NSMetadataQuery) ResultAtIndex(idx uint) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("resultAtIndex:"), idx)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns the index of a query result object in the receiver’s results
 // array.
 //
 // result: The query result object being inquired about.
 //
 // # Return Value
-// 
+//
 // Index of `result` in the query result array.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/index(ofResult:)
@@ -368,40 +370,43 @@ func (m NSMetadataQuery) IndexOfResult(result objectivec.IObject) uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("indexOfResult:"), result)
 	return rv
 }
+
 // Enumerates the current set of results using the given block.
 //
 // block: The block to execute for each current result.
 //
 // # Discussion
-// 
+//
 // This method disables the query at the start of the iteration and reenables
 // it upon completion. Use [EnumerateResultsWithOptionsUsingBlock] if you want
 // to use concurrent or reverse iteration.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/enumerateResults(_:)
 func (m NSMetadataQuery) EnumerateResultsUsingBlock(block ObjectHandler) {
-_block0, _ := NewObjectBlock(block)
+	_block0, _ := NewObjectBlock(block)
 	objc.Send[objc.ID](m.ID, objc.Sel("enumerateResultsUsingBlock:"), _block0)
 }
+
 // Enumerates the current set of results using the given options and block.
 //
 // opts: Options for the enumeration. For a complete list of options, see
 // [NSEnumerationOptions].
-// //
-// [NSEnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSEnumerationOptions
 //
 // block: The block to execute for each current result.
 //
 // # Discussion
-// 
+//
 // This method disables the query at the start of the iteration and reenables
 // it upon completion.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/enumerateResults(options:using:)
+//
+// [NSEnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSEnumerationOptions
 func (m NSMetadataQuery) EnumerateResultsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectHandler) {
-_block1, _ := NewObjectBlock(block)
+	_block1, _ := NewObjectBlock(block)
 	objc.Send[objc.ID](m.ID, objc.Sel("enumerateResultsWithOptions:usingBlock:"), opts, _block1)
 }
+
 // Returns the value for the attribute name `attrName` at the index in the
 // results specified by `idx`.
 //
@@ -413,7 +418,7 @@ _block1, _ := NewObjectBlock(block)
 // idx: The index of the desired return object in the query results array.
 //
 // # Return Value
-// 
+//
 // Value for `attrName` in the result object at `idx` in the query result
 // array.
 //
@@ -422,10 +427,11 @@ func (m NSMetadataQuery) ValueOfAttributeForResultAtIndex(attrName string, idx u
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("valueOfAttribute:forResultAtIndex:"), objc.String(attrName), idx)
 	return objectivec.Object{ID: rv}
 }
+
 // Enables updates to the query results.
 //
 // # Discussion
-// 
+//
 // Unless you use [EnumerateResultsUsingBlock] or
 // [EnumerateResultsWithOptionsUsingBlock], you should invoke this method
 // after you’re done iterating over the query results.
@@ -434,10 +440,11 @@ func (m NSMetadataQuery) ValueOfAttributeForResultAtIndex(attrName string, idx u
 func (m NSMetadataQuery) EnableUpdates() {
 	objc.Send[objc.ID](m.ID, objc.Sel("enableUpdates"))
 }
+
 // Disables updates to the query results.
 //
 // # Discussion
-// 
+//
 // Unless you use [EnumerateResultsUsingBlock] or
 // [EnumerateResultsWithOptionsUsingBlock], you should invoke this method
 // before iterating over query results that could change due to live updates.
@@ -450,15 +457,15 @@ func (m NSMetadataQuery) DisableUpdates() {
 // An array containing the search scopes.
 //
 // # Discussion
-// 
+//
 // This array can contain [NSURL] or [NSString] objects that represent
 // file-system directories or the search scopes for the query. For a list of
 // valid search scopes, see [Metadata Query Search Scopes]. An empty array
 // indicates that there is no limitation on where the query searches.
 //
-// [Metadata Query Search Scopes]: https://developer.apple.com/documentation/Foundation/metadata-query-search-scopes
-//
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/searchScopes
+//
+// [Metadata Query Search Scopes]: https://developer.apple.com/documentation/Foundation/metadata-query-search-scopes
 func (m NSMetadataQuery) SearchScopes() INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("searchScopes"))
 	return NSArrayFromID(objc.ID(rv))
@@ -466,10 +473,11 @@ func (m NSMetadataQuery) SearchScopes() INSArray {
 func (m NSMetadataQuery) SetSearchScopes(value INSArray) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSearchScopes:"), value)
 }
+
 // The predicate used to filter query results.
 //
 // # Discussion
-// 
+//
 // Setting this property while a query is running stops the query and discards
 // the current results. The receiver immediately starts a new query.
 //
@@ -481,10 +489,11 @@ func (m NSMetadataQuery) Predicate() INSPredicate {
 func (m NSMetadataQuery) SetPredicate(value INSPredicate) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPredicate:"), value)
 }
+
 // An array of sort descriptor objects.
 //
 // # Discussion
-// 
+//
 // Setting this property while a query is running stops the query and discards
 // the current results. The receiver immediately starts a new query.
 //
@@ -498,19 +507,20 @@ func (m NSMetadataQuery) SortDescriptors() []NSSortDescriptor {
 func (m NSMetadataQuery) SetSortDescriptors(value []NSSortDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSortDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // An array of attributes whose values are gathered by the query.
 //
 // # Discussion
-// 
+//
 // The query collects the values of these attributes into uniqued lists that
 // can be used to summarize the results of the query. If `attributes` is
 // `nil`, the query generates no value lists. Note that value list collection
 // increases CPU usage and significantly increases the memory usage of an
 // [NSMetadataQuery] object.
-// 
+//
 // Setting this property while a query is running stops the query and discards
 // the current results. The receiver immediately starts a new query.
-// 
+//
 // For a list of valid attributes, see Attribute Keys and Cloud Storage Keys
 // in [NSMetadataItem].
 //
@@ -522,10 +532,11 @@ func (m NSMetadataQuery) ValueListAttributes() []string {
 func (m NSMetadataQuery) SetValueListAttributes(value []string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setValueListAttributes:"), objectivec.StringSliceToNSArray(value))
 }
+
 // An array of grouping attributes. (read-only)
 //
 // # Discussion
-// 
+//
 // Setting this property while a query is running stops the query and discards
 // the current results. The receiver immediately starts a new query.
 //
@@ -537,6 +548,7 @@ func (m NSMetadataQuery) GroupingAttributes() []string {
 func (m NSMetadataQuery) SetGroupingAttributes(value []string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGroupingAttributes:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The interval at which notification of updated results occurs.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/notificationBatchingInterval
@@ -547,10 +559,11 @@ func (m NSMetadataQuery) NotificationBatchingInterval() float64 {
 func (m NSMetadataQuery) SetNotificationBatchingInterval(value float64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNotificationBatchingInterval:"), value)
 }
+
 // The query’s delegate.
 //
 // # Discussion
-// 
+//
 // This property contains an object that acts as the query’s delegate, or
 // `nil`. The delegate must implement the [NSMetadataQueryDelegate]. Pass
 // `nil` to remove the current delegate.
@@ -563,10 +576,11 @@ func (m NSMetadataQuery) Delegate() NSMetadataQueryDelegate {
 func (m NSMetadataQuery) SetDelegate(value NSMetadataQueryDelegate) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDelegate:"), value)
 }
+
 // An array of objects that define the query’s scope.
 //
 // # Discussion
-// 
+//
 // Use this method to scope the metadata query to a collection of existing
 // URLs and/or metadata items. This array contains the [NSURL] and/or
 // [NSMetadataItem] items to be searched.
@@ -579,80 +593,76 @@ func (m NSMetadataQuery) SearchItems() INSArray {
 func (m NSMetadataQuery) SetSearchItems(value INSArray) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSearchItems:"), value)
 }
+
 // A Boolean value that indicates whether the query has started. (read-only)
 //
 // # Discussion
-// 
-// This property contains [true] when the receiver has executed the
-// `startQuery` method; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property contains true when the receiver has executed the `startQuery`
+// method; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/isStarted
 func (m NSMetadataQuery) Started() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isStarted"))
 	return rv
 }
+
 // A Boolean value that indicates whether the receiver is in the initial
 // gathering phase of the query. (read-only)
 //
 // # Discussion
-// 
-// This property contains [true] when the query is in the initial gathering
-// phase; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property contains true when the query is in the initial gathering
+// phase; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/isGathering
 func (m NSMetadataQuery) Gathering() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isGathering"))
 	return rv
 }
+
 // A Boolean value that indicates whether the query has stopped.
 //
 // # Discussion
-// 
-// This property contains [true] when the receiver has stopped the query;
-// otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property contains true when the receiver has stopped the query;
+// otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/isStopped
 func (m NSMetadataQuery) Stopped() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isStopped"))
 	return rv
 }
+
 // An array containing the query’s results.
 //
 // # Discussion
-// 
+//
 // The array is a proxy object that is primarily intended for use with Cocoa
 // bindings. While it is possible to copy the proxy array and receive a
 // “snapshot” of the complete current query results, it is generally not
 // recommended due to performance and memory issues. To access individual
 // result array elements, use the [ResultCount] and [ResultAtIndex] methods.
-// 
+//
 // The array supports [Key-value observing], which can be used to be notified
 // when items are added, removed, or updated in the array of results.
-// 
+//
 // By default, this array contains [NSMetadataItem] objects, each of which
 // represents the metadata associated with a file. However, the query’s
 // delegate can substitute these objects with instances of a different class.
 //
-// [Key-value observing]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/KVO.html#//apple_ref/doc/uid/TP40008195-CH16
-//
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/results
+//
+// [Key-value observing]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/KVO.html#//apple_ref/doc/uid/TP40008195-CH16
 func (m NSMetadataQuery) Results() INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("results"))
 	return NSArrayFromID(objc.ID(rv))
 }
+
 // The number of results returned by the query. (read-only)
 //
 // # Discussion
-// 
+//
 // For performance reasons, you should use this method, rather than invoking
 // `count` on [Results].
 //
@@ -661,10 +671,11 @@ func (m NSMetadataQuery) ResultCount() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("resultCount"))
 	return rv
 }
+
 // An array containing hierarchical groups of query results. (read-only)
 //
 // # Discussion
-// 
+//
 // These groups are based on the receiver’s grouping attributes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/groupedResults
@@ -674,10 +685,11 @@ func (m NSMetadataQuery) GroupedResults() []NSMetadataQueryResultGroup {
 		return NSMetadataQueryResultGroupFromID(id)
 	})
 }
+
 // A dictionary containing the value lists generated by the query.
 //
 // # Discussion
-// 
+//
 // This property contains a dictionary of [NSMetadataQueryAttributeValueTuple]
 // objects.
 //
@@ -686,10 +698,11 @@ func (m NSMetadataQuery) ValueLists() INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("valueLists"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // The queue on which query result notifications are posted.
 //
 // # Discussion
-// 
+//
 // Use this property to decouple the processing of results from the thread
 // used to execute the query. This makes it easier to synchronize query result
 // processing with other related operations—such as updating the data model
@@ -703,6 +716,7 @@ func (m NSMetadataQuery) OperationQueue() INSOperationQueue {
 func (m NSMetadataQuery) SetOperationQueue(value INSOperationQueue) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOperationQueue:"), value)
 }
+
 // Posted when the receiver has finished with the initial result-gathering
 // phase of the query.
 //
@@ -711,6 +725,7 @@ func (m NSMetadataQuery) NSMetadataQueryDidFinishGathering() NSNotificationName 
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataQueryDidFinishGatheringNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // Posted when the receiver begins with the initial result-gathering phase of
 // the query.
 //
@@ -719,6 +734,7 @@ func (m NSMetadataQuery) NSMetadataQueryDidStartGathering() NSNotificationName {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataQueryDidStartGatheringNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // Posted when the receiver’s results have changed during the live-update
 // phase of the query.
 //
@@ -727,6 +743,7 @@ func (m NSMetadataQuery) NSMetadataQueryDidUpdate() NSNotificationName {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataQueryDidUpdateNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // Posted as the receiver is collecting results during the initial
 // result-gathering phase of the query.
 //
@@ -765,4 +782,3 @@ func (m NSMetadataQuery) EnumerateResultsWithOptionsUsingBlockSync(ctx context.C
 		return nil, ctx.Err()
 	}
 }
-

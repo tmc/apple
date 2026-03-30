@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that URL download delegates implement to interact with a URL download request.
@@ -20,6 +22,7 @@ type NSURLDownloadDelegate interface {
 type NSURLDownloadDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSURLDownloadDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,23 +43,21 @@ func NSURLDownloadDelegateObjectFromID(id objc.ID) NSURLDownloadDelegateObject {
 // protectionSpace: The protection space that generates an authentication challenge.
 //
 // # Discussion
-// 
+//
 // This method is called before [DownloadDidReceiveAuthenticationChallenge],
 // allowing the delegate to inspect a protection space before attempting to
-// authenticate against it. By returning [true], the delegate indicates that
-// it can handle the form of authentication, which it does in the subsequent
-// call to [DownloadDidReceiveAuthenticationChallenge]. Not implementing this
-// method is the same as returning [false], in which case default
-// authentication handling is used.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// authenticate against it. By returning true, the delegate indicates that it
+// can handle the form of authentication, which it does in the subsequent call
+// to [DownloadDidReceiveAuthenticationChallenge]. Not implementing this
+// method is the same as returning false, in which case default authentication
+// handling is used.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:canAuthenticateAgainstProtectionSpace:)
 func (o NSURLDownloadDelegateObject) DownloadCanAuthenticateAgainstProtectionSpace(connection INSURLDownload, protectionSpace INSURLProtectionSpace) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("download:canAuthenticateAgainstProtectionSpace:"), connection, protectionSpace)
 	return rv
-	}
+}
+
 // Sent if an authentication challenge is canceled due to the protocol
 // implementation encountering an error.
 //
@@ -66,14 +67,15 @@ func (o NSURLDownloadDelegateObject) DownloadCanAuthenticateAgainstProtectionSpa
 // download.
 //
 // # Discussion
-// 
+//
 // If the delegate receives this message the download will fail and the
 // delegate will receive a [DownloadDidFailWithError] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didCancel:)
 func (o NSURLDownloadDelegateObject) DownloadDidCancelAuthenticationChallenge(download INSURLDownload, challenge INSURLAuthenticationChallenge) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:didCancelAuthenticationChallenge:"), download, challenge)
-	}
+}
+
 // Sent when the URL download must authenticate a challenge in order to
 // download the request.
 //
@@ -83,15 +85,15 @@ func (o NSURLDownloadDelegateObject) DownloadDidCancelAuthenticationChallenge(do
 // download the request.
 //
 // # Discussion
-// 
+//
 // This method gives the delegate the opportunity to determine the course of
 // action taken for the challenge: provide credentials, continue without
 // providing credentials or cancel the authentication challenge and the
 // download.
-// 
+//
 // The delegate can determine the number of previous authentication challenges
 // by sending the message [PreviousFailureCount] to `challenge`.
-// 
+//
 // If the previous failure count is 0 and the value returned by
 // [ProposedCredential] is `nil`, the delegate can create a new
 // NSURLCredential object, providing information specific to the type of
@@ -100,19 +102,19 @@ func (o NSURLDownloadDelegateObject) DownloadDidCancelAuthenticationChallenge(do
 // If [ProposedCredential] is not `nil`, the value is a credential from the
 // URL or the shared credential storage that can be provided to the user as
 // feedback.
-// 
+//
 // The delegate may decide to abandon further attempts at authentication at
 // any time by sending `[challenge sender]` a
 // [ContinueWithoutCredentialForAuthenticationChallenge] or a
 // [CancelAuthenticationChallenge] message. The specific action is
 // implementation dependent.
-// 
+//
 // If the delegate implements this method, the download will suspend until
 // `[challenge sender]` is sent one of the following messages:
 // [UseCredentialForAuthenticationChallenge],
 // [ContinueWithoutCredentialForAuthenticationChallenge] or
 // [CancelAuthenticationChallenge].
-// 
+//
 // If the delegate does not implement this method the default implementation
 // is used. If a valid credential for the request is provided as part of the
 // URL, or is available from the NSURLCredentialStorage the `[challenge
@@ -125,30 +127,29 @@ func (o NSURLDownloadDelegateObject) DownloadDidCancelAuthenticationChallenge(do
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didReceive:)-1pc0v
 func (o NSURLDownloadDelegateObject) DownloadDidReceiveAuthenticationChallenge(download INSURLDownload, challenge INSURLAuthenticationChallenge) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:didReceiveAuthenticationChallenge:"), download, challenge)
-	}
+}
+
 // Sent to determine whether the URL loader should consult the credential
 // storage to authenticate the download.
 //
 // download: The connection sending the message.
 //
 // # Discussion
-// 
+//
 // This method is called before any attempt to authenticate is made. By
-// returning [false], the delegate tells the download not to consult the
+// returning false, the delegate tells the download not to consult the
 // credential storage and makes itself responsible for providing credentials
 // for any authentication challenges. Not implementing this method is the same
-// as returing [true]. The delegate is free to consult the credential storage
+// as returing true. The delegate is free to consult the credential storage
 // itself when it receives a [DownloadDidReceiveAuthenticationChallenge]
 // message.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/downloadShouldUseCredentialStorage(_:)
 func (o NSURLDownloadDelegateObject) DownloadShouldUseCredentialStorage(download INSURLDownload) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("downloadShouldUseCredentialStorage:"), download)
 	return rv
-	}
+}
+
 // The delegate receives this message when `download` has determined a
 // suggested filename for the downloaded file.
 //
@@ -157,21 +158,22 @@ func (o NSURLDownloadDelegateObject) DownloadShouldUseCredentialStorage(download
 // filename: The suggested filename for the download.
 //
 // # Discussion
-// 
+//
 // The suggested filename is either derived from the last path component of
 // the URL and the MIME type or, if the download was encoded, from the
 // encoding. If the delegate wishes to modify the path, it should send
 // [SetDestinationAllowOverwrite] to `download`.
-// 
+//
 // # Special Considerations
-// 
-// The delegate will not receive this message if `` has already been called
+//
+// The delegate will not receive this message if “ has already been called
 // for the download.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:decideDestinationWithSuggestedFilename:)
 func (o NSURLDownloadDelegateObject) DownloadDecideDestinationWithSuggestedFilename(download INSURLDownload, filename string) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:decideDestinationWithSuggestedFilename:"), download, objc.String(filename))
-	}
+}
+
 // Sent immediately after a download object begins a download.
 //
 // download: The URL download object sending the message.
@@ -179,7 +181,8 @@ func (o NSURLDownloadDelegateObject) DownloadDecideDestinationWithSuggestedFilen
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/downloadDidBegin(_:)
 func (o NSURLDownloadDelegateObject) DownloadDidBegin(download INSURLDownload) {
 	objc.Send[struct{}](o.ID, objc.Sel("downloadDidBegin:"), download)
-	}
+}
+
 // Sent when the destination file is created.
 //
 // download: The URL download object sending the message.
@@ -189,7 +192,8 @@ func (o NSURLDownloadDelegateObject) DownloadDidBegin(download INSURLDownload) {
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didCreateDestination:)
 func (o NSURLDownloadDelegateObject) DownloadDidCreateDestination(download INSURLDownload, path string) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:didCreateDestination:"), download, objc.String(path))
-	}
+}
+
 // Sent when a download object has received sufficient load data to construct
 // the NSURLResponse object for the download.
 //
@@ -199,7 +203,7 @@ func (o NSURLDownloadDelegateObject) DownloadDidCreateDestination(download INSUR
 // immutable and will not be modified after this method is called.
 //
 // # Discussion
-// 
+//
 // In some rare cases, multiple responses may be received for a single
 // download. In this case, the client should assume that each new response
 // resets the download progress to 0 and should check the new response for the
@@ -208,7 +212,8 @@ func (o NSURLDownloadDelegateObject) DownloadDidCreateDestination(download INSUR
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didReceive:)-817z3
 func (o NSURLDownloadDelegateObject) DownloadDidReceiveResponse(download INSURLDownload, response INSURLResponse) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:didReceiveResponse:"), download, response)
-	}
+}
+
 // Sent as a download object receives data incrementally.
 //
 // download: The URL download object sending the message.
@@ -219,7 +224,8 @@ func (o NSURLDownloadDelegateObject) DownloadDidReceiveResponse(download INSURLD
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didReceiveDataOfLength:)
 func (o NSURLDownloadDelegateObject) DownloadDidReceiveDataOfLength(download INSURLDownload, length uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:didReceiveDataOfLength:"), download, length)
-	}
+}
+
 // Sent when a download object determines that the downloaded file is encoded
 // to inquire whether the file should be automatically decoded.
 //
@@ -230,14 +236,11 @@ func (o NSURLDownloadDelegateObject) DownloadDidReceiveDataOfLength(download INS
 // (`"application/mac-binhex40"`) and gzip (`"application/gzip"`).
 //
 // # Return Value
-// 
-// [true] to decode the file, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to decode the file, false otherwise.
 //
 // # Discussion
-// 
+//
 // The delegate may receive this message more than once if the file has been
 // encoded multiple times. This method is not called if the downloaded file is
 // not encoded.
@@ -246,7 +249,8 @@ func (o NSURLDownloadDelegateObject) DownloadDidReceiveDataOfLength(download INS
 func (o NSURLDownloadDelegateObject) DownloadShouldDecodeSourceDataOfMIMEType(download INSURLDownload, encodingType string) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("download:shouldDecodeSourceDataOfMIMEType:"), download, objc.String(encodingType))
 	return rv
-	}
+}
+
 // Sent when a download object has received a response from the server after
 // attempting to resume a download.
 //
@@ -260,7 +264,8 @@ func (o NSURLDownloadDelegateObject) DownloadShouldDecodeSourceDataOfMIMEType(do
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:willResumeWith:fromByte:)
 func (o NSURLDownloadDelegateObject) DownloadWillResumeWithResponseFromByte(download INSURLDownload, response INSURLResponse, startingByte int64) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:willResumeWithResponse:fromByte:"), download, response, startingByte)
-	}
+}
+
 // Sent when the download object determines that it must change URLs in order
 // to continue loading a request.
 //
@@ -275,13 +280,13 @@ func (o NSURLDownloadDelegateObject) DownloadWillResumeWithResponseFromByte(down
 // processing.
 //
 // # Return Value
-// 
+//
 // The actual URL request to use in light of the redirection response. The
 // delegate may copy and modify `request` as necessary to change its
 // attributes, return `request` unmodified, or return `nil`.
 //
 // # Discussion
-// 
+//
 // If the delegate wishes to cancel the redirect, it should call the
 // `download` object’s [Cancel] method. Alternatively, the delegate method
 // can return `nil` to cancel the redirect, and the download will continue to
@@ -289,9 +294,9 @@ func (o NSURLDownloadDelegateObject) DownloadWillResumeWithResponseFromByte(down
 // not `nil`. In this case, any data that is loaded for the download will be
 // sent to the delegate, and the delegate will receive a [DownloadDidFinish]
 // or [DownloadDidFailWithError] message, as appropriate.
-// 
+//
 // # Special Considerations
-// 
+//
 // The delegate can receive this message as a result of transforming a
 // request’s URL to its canonical form, or for protocol-specific reasons,
 // such as an HTTP redirect. The delegate implementation should be prepared to
@@ -301,7 +306,8 @@ func (o NSURLDownloadDelegateObject) DownloadWillResumeWithResponseFromByte(down
 func (o NSURLDownloadDelegateObject) DownloadWillSendRequestRedirectResponse(download INSURLDownload, request INSURLRequest, redirectResponse INSURLResponse) INSURLRequest {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("download:willSendRequest:redirectResponse:"), download, request, redirectResponse)
 	return NSURLRequestFromID(rv)
-	}
+}
+
 // Sent if the download fails or if an I/O error occurs when the file is
 // written to disk.
 //
@@ -310,31 +316,32 @@ func (o NSURLDownloadDelegateObject) DownloadWillSendRequestRedirectResponse(dow
 // error: The error that caused the failure of the download.
 //
 // # Discussion
-// 
+//
 // Any partially downloaded file will be deleted.
-// 
+//
 // # Special Considerations
-// 
+//
 // Once the delegate receives this message, it will receive no further
 // messages for `download`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didFailWithError:)
 func (o NSURLDownloadDelegateObject) DownloadDidFailWithError(download INSURLDownload, error_ INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("download:didFailWithError:"), download, error_)
-	}
+}
+
 // Sent when a download object has completed downloading successfully and has
 // written its results to disk.
 //
 // download: The URL download object sending the message.
 //
 // # Discussion
-// 
+//
 // The delegate will receive no further messages for `download`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/downloadDidFinish(_:)
 func (o NSURLDownloadDelegateObject) DownloadDidFinish(download INSURLDownload) {
 	objc.Send[struct{}](o.ID, objc.Sel("downloadDidFinish:"), download)
-	}
+}
 
 // NSURLDownloadDelegateConfig holds optional typed callbacks for [NSURLDownloadDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -540,4 +547,3 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLDownloadDelegateObjectFromID(instance)
 }
-

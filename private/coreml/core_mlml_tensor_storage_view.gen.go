@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type CoreMLMLTensorStorageView struct {
 func CoreMLMLTensorStorageViewFromID(id objc.ID) CoreMLMLTensorStorageView {
 	return CoreMLMLTensorStorageView{objectivec.Object{ID: id}}
 }
+
 // NOTE: CoreMLMLTensorStorageView struct embeds objectivec.Object (parent type unavailable) but
 // ICoreMLMLTensorStorageView embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewCoreMLMLTensorStorageView() CoreMLMLTensorStorageView {
 	rv := objc.Send[CoreMLMLTensorStorageView](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

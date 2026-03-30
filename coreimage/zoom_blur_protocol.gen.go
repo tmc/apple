@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -50,6 +50,7 @@ type CIZoomBlur interface {
 type CIZoomBlurObject struct {
 	objectivec.Object
 }
+
 func (o CIZoomBlurObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -68,21 +69,24 @@ func CIZoomBlurObjectFromID(id objc.ID) CIZoomBlurObject {
 func (o CIZoomBlurObject) Amount() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
 	return rv
-	}
+}
+
 // The center of the effect, as x and y coordinates.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/center
 func (o CIZoomBlurObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/inputImage
 func (o CIZoomBlurObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -90,17 +94,25 @@ func (o CIZoomBlurObject) InputImage() ICIImage {
 func (o CIZoomBlurObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The zoom-in amount.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/amount
 func (o CIZoomBlurObject) SetAmount(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAmount:"), value)
 }
 
+// The center of the effect, as x and y coordinates.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/center
 func (o CIZoomBlurObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/inputImage
 func (o CIZoomBlurObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

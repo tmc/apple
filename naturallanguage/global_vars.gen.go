@@ -7,20 +7,16 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
-var (
-)
+var ()
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -1619,4 +1615,3 @@ var NLTags struct {
 	// WordJoiner: A tag indicating that the token is a word joiner, signifying that two tokens on each side should not be broken up.
 	WordJoiner NLTag
 }
-

@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,33 +48,33 @@ func (nc NSCollectionViewLayoutAttributesClass) Alloc() NSCollectionViewLayoutAt
 // collection view.
 //
 // # Overview
-// 
+//
 // During the layout, the layout object creates instances of
 // [NSCollectionViewLayoutAttributes] for each element displayed in the
 // collection view. The layout attributes describe the position of an element
 // and other information such as its alpha and position on the z axis. The
 // collection view later applies the layout attributes to the onscreen
 // elements.
-// 
+//
 // The only time you interact with layout attribute objects is when you
 // implement a custom layout, and the interactions are straightforward. When
 // asked for layout attributes for a specific element, your layout object uses
 // the methods of this class to create an appropriate instance of the class
 // based on the type of the requested element. It then configures the
 // properties of the object and returns it to the requester.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // If you implement a custom layout object and your layout object requires
 // additional attributes, you can subclass [NSCollectionViewLayoutAttributes]
 // and add custom properties to your subclass. In your subclass, be sure to do
 // the following:
-// 
+//
 // - Provide an [init()] method with no parameters to initialize your
 // subclass. - Implement support for the [NSCopying] protocol. The collection
 // view caches layout attribute objects for later use. - Override the
 // inherited [isEqual(_:)] method to perform any relevant equality checks.
-// 
+//
 // Supporting equality checks is important because of how the collection view
 // manages layout attributes. As an optimization, the collection view applies
 // layout attributes only when they change. When the layout object returns a
@@ -81,16 +82,12 @@ func (nc NSCollectionViewLayoutAttributesClass) Alloc() NSCollectionViewLayoutAt
 // attributes are equal to any cached attributes. Therefore, if you want to
 // include any new properties in the equality check, you must override the
 // [isEqual(_:)] method.
-// 
+//
 // In addition to defining your [NSCollectionViewLayoutAttributes] subclass,
 // override the [NSCollectionViewLayoutAttributes.LayoutAttributesClass] method of your layout object. That
 // method is a funnel point for creating new layout attribute objects.
 // Returning your custom class from that method ensures that the correct class
 // is instantiated.
-//
-// [NSCopying]: https://developer.apple.com/documentation/Foundation/NSCopying
-// [init()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/init()
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 //
 // # Identifying the Element
 //
@@ -113,6 +110,10 @@ func (nc NSCollectionViewLayoutAttributesClass) Alloc() NSCollectionViewLayoutAt
 //   - [NSCollectionViewLayoutAttributes.SetZIndex]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes
+//
+// [NSCopying]: https://developer.apple.com/documentation/Foundation/NSCopying
+// [init()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/init()
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 type NSCollectionViewLayoutAttributes struct {
 	objectivec.Object
 }
@@ -124,6 +125,7 @@ type NSCollectionViewLayoutAttributes struct {
 func NSCollectionViewLayoutAttributesFromID(id objc.ID) NSCollectionViewLayoutAttributes {
 	return NSCollectionViewLayoutAttributes{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSCollectionViewLayoutAttributes adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -212,12 +214,12 @@ func NewNSCollectionViewLayoutAttributes() NSCollectionViewLayoutAttributes {
 // item in your app’s data structures.
 //
 // # Return Value
-// 
+//
 // A new layout attributes object configured with the initial attributes for
 // the decoration view.
 //
 // # Discussion
-// 
+//
 // Call this method when you need to create a layout attributes object for a
 // decoration view in a collection view. Decoration views are a tertiary type
 // of content that display visual adornments in your collection view
@@ -239,20 +241,18 @@ func NewCollectionViewLayoutAttributesForDecorationViewOfKindWithIndexPath(decor
 // value.
 //
 // # Return Value
-// 
+//
 // A new layout attributes object configured with the initial attributes for
 // the inter-item gap view.
 //
 // # Discussion
-// 
+//
 // Call this method when you need to create a layout attributes object for an
 // inter-item gap view in a collection view. Gap views are used during drag
 // and drop to indicate the area where content will drop. This method uses the
 // parameters to set the initial values of the [IndexPath] property of the
 // returned object. The [RepresentedElementKind] property is set to
-// [elementKindInterItemGapIndicator].
-//
-// [elementKindInterItemGapIndicator]: https://developer.apple.com/documentation/AppKit/NSCollectionView/elementKindInterItemGapIndicator
+// [ElementKindInterItemGapIndicator].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/init(forInterItemGapBefore:)
 func NewCollectionViewLayoutAttributesForInterItemGapBeforeIndexPath(indexPath foundation.INSIndexPath) NSCollectionViewLayoutAttributes {
@@ -268,12 +268,12 @@ func NewCollectionViewLayoutAttributesForInterItemGapBeforeIndexPath(indexPath f
 // value.
 //
 // # Return Value
-// 
+//
 // A new layout attributes object containing the initial attributes for the
 // item.
 //
 // # Discussion
-// 
+//
 // Call this method when you need to create a layout attributes object for an
 // item in a collection view. Items are the main type of content presented by
 // a collection view. Items are grouped into sections, although a collection
@@ -298,12 +298,12 @@ func NewCollectionViewLayoutAttributesForItemWithIndexPath(indexPath foundation.
 // value.
 //
 // # Return Value
-// 
+//
 // A new layout attributes object configured with the initial attributes for
 // the supplementary view.
 //
 // # Discussion
-// 
+//
 // Call this method when you need to create a layout attributes object for a
 // supplementary view in a collection view. Supplementary views are a
 // secondary type of content that display data related to a specific section.
@@ -321,7 +321,7 @@ func NewCollectionViewLayoutAttributesForSupplementaryViewOfKindWithIndexPath(el
 // The type of the element.
 //
 // # Discussion
-// 
+//
 // Use this property to distinguish whether the layout attributes apply to an
 // item, a supplementary view, a decoration view, or another type of element
 // presented by the collection view.
@@ -331,10 +331,11 @@ func (c NSCollectionViewLayoutAttributes) RepresentedElementCategory() NSCollect
 	rv := objc.Send[NSCollectionElementCategory](c.ID, objc.Sel("representedElementCategory"))
 	return NSCollectionElementCategory(rv)
 }
+
 // The index path of the element.
 //
 // # Discussion
-// 
+//
 // Use the index path to locate information about the item in your app’s
 // data structures. For supplementary and decoration views, you must also use
 // the [RepresentedElementKind] property to identify the element.
@@ -347,28 +348,28 @@ func (c NSCollectionViewLayoutAttributes) IndexPath() objc.ID {
 func (c NSCollectionViewLayoutAttributes) SetIndexPath(value objc.ID) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIndexPath:"), value)
 }
+
 // The identifier for specific elements of your collection view interface.
 //
 // # Discussion
-// 
+//
 // For supplementary and decoration views, you use this string to distinguish
 // between views in a given section. You also use this string to identify the
 // intended purpose of the view in your collection view interface.
-// 
-// When the value of the [RepresentedElementCategory] property is
-// [NSCollectionElementCategory.item], this property is `nil`.
 //
-// [NSCollectionElementCategory.item]: https://developer.apple.com/documentation/AppKit/NSCollectionElementCategory/item
+// When the value of the [RepresentedElementCategory] property is
+// [NSCollectionElementCategoryItem], this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/representedElementKind
 func (c NSCollectionViewLayoutAttributes) RepresentedElementKind() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("representedElementKind"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The frame rectangle of the element.
 //
 // # Discussion
-// 
+//
 // The frame rectangle is measured in points and specified in the collection
 // view’s coordinate system. Setting the value of this property also updates
 // the value in the [Size] property.
@@ -381,10 +382,11 @@ func (c NSCollectionViewLayoutAttributes) Frame() corefoundation.CGRect {
 func (c NSCollectionViewLayoutAttributes) SetFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFrame:"), value)
 }
+
 // The size of the element.
 //
 // # Discussion
-// 
+//
 // Setting the value of this property also updates the value in the [Frame]
 // property.
 //
@@ -396,13 +398,14 @@ func (c NSCollectionViewLayoutAttributes) Size() corefoundation.CGSize {
 func (c NSCollectionViewLayoutAttributes) SetSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSize:"), value)
 }
+
 // The transparency of the element.
 //
 // # Discussion
-// 
+//
 // Possible values are between `0.0` (fully transparent) and `1.0` (fully
 // opaque). The default value is `1.0`.
-// 
+//
 // Transparent items continue to participate in hit testing for the collection
 // view.
 //
@@ -414,17 +417,15 @@ func (c NSCollectionViewLayoutAttributes) Alpha() float64 {
 func (c NSCollectionViewLayoutAttributes) SetAlpha(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAlpha:"), value)
 }
+
 // A Boolean value indicating whether the element is hidden.
 //
 // # Discussion
-// 
-// The default value of this property is [false]. As an optimization, the
-// collection view might not create the corresponding view when the value of
-// this property is [true]. Because there might not be a view, hidden elements
-// do not participate in hit testing for the collection view.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is false. As an optimization, the
+// collection view might not create the corresponding view when the value of
+// this property is true. Because there might not be a view, hidden elements
+// do not participate in hit testing for the collection view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/isHidden
 func (c NSCollectionViewLayoutAttributes) Hidden() bool {
@@ -434,14 +435,15 @@ func (c NSCollectionViewLayoutAttributes) Hidden() bool {
 func (c NSCollectionViewLayoutAttributes) SetHidden(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHidden:"), value)
 }
+
 // The element’s position on the z axis.
 //
 // # Discussion
-// 
+//
 // Use this property to specify the front-to-back ordering of items during
 // layout. Items with higher index values appear on top of those with lower
 // values. Items with the same value have an undetermined order.
-// 
+//
 // The default value of this property is `0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/zIndex
@@ -461,6 +463,7 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("NSCollectionElementKindInterItemGapIndicator"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A supplementary view that acts as a footer for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionfooter
@@ -468,6 +471,7 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("NSCollectionElementKindSectionFooter"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A supplementary view that acts as a header for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionheader
@@ -475,6 +479,7 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("NSCollectionElementKindSectionHeader"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Returns the class to use for layout attribute objects
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionviewlayout/layoutattributesclass
@@ -485,4 +490,3 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesClass) SetLayoutAttributesClass(value objc.Class) {
 	objc.Send[struct{}](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("setLayoutAttributesClass:"), value)
 }
-

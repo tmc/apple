@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,12 +47,12 @@ func (nc NSAnimationClass) Alloc() NSAnimation {
 // interface.
 //
 // # Overview
-// 
+//
 // [NSAnimation] also lets you link together multiple animations so that when
 // one animation ends another one starts. It does not provide any drawing
 // support for animation and does not directly deal with views, targets, or
 // actions.
-// 
+//
 // [NSAnimation] objects have several characteristics, including duration,
 // frame rate, and animation curve, which describes the relative speed of the
 // animation over its course. You can set progress marks in an animation, each
@@ -61,9 +62,9 @@ func (nc NSAnimationClass) Alloc() NSAnimation {
 // modes: blocking, non-blocking on the main thread, and non-blocking on a
 // separate thread. The non-blocking modes permit the handling of user events
 // while the animation is running.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // The usual usage pattern for [NSAnimation] is to make a subclass that
 // overrides (at least) the [NSAnimation.CurrentProgress] property to invoke the
 // superclass implementation and then perform whatever animation action is
@@ -73,8 +74,6 @@ func (nc NSAnimationClass) Alloc() NSAnimation {
 // delegate (if there is a delegate that implements the method). For more
 // information on subclassing [NSAnimation], see [Animation Programming Guide
 // for Cocoa].
-//
-// [Animation Programming Guide for Cocoa]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/AnimationGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40003592
 //
 // # Initializing an NSAnimation Object
 //
@@ -125,6 +124,8 @@ func (nc NSAnimationClass) Alloc() NSAnimation {
 //   - [NSAnimation.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation
+//
+// [Animation Programming Guide for Cocoa]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/AnimationGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40003592
 type NSAnimation struct {
 	objectivec.Object
 }
@@ -136,6 +137,7 @@ type NSAnimation struct {
 func NSAnimationFromID(id objc.ID) NSAnimation {
 	return NSAnimation{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAnimation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -282,7 +284,6 @@ func NewNSAnimation() NSAnimation {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/init(coder:)
 func NewAnimationWithCoder(coder foundation.INSCoder) NSAnimation {
 	instance := getNSAnimationClass().Alloc()
@@ -301,12 +302,12 @@ func NewAnimationWithCoder(coder foundation.INSCoder) NSAnimation {
 // ([NSAnimationEaseInOut]) is used.
 //
 // # Return Value
-// 
+//
 // An initialized [NSAnimation] instance. Returns `nil` if the object could
 // not be initialized.
 //
 // # Discussion
-// 
+//
 // You can always later change the duration of an [NSAnimation] object by
 // changing the [Duration] property, even while the animation is running. See
 // “Constants” for descriptions of the NSAnimationCurve constants.
@@ -329,12 +330,12 @@ func NewAnimationWithDurationAnimationCurve(duration float64, animationCurve NSA
 // ([NSAnimationEaseInOut]) is used.
 //
 // # Return Value
-// 
+//
 // An initialized [NSAnimation] instance. Returns `nil` if the object could
 // not be initialized.
 //
 // # Discussion
-// 
+//
 // You can always later change the duration of an [NSAnimation] object by
 // changing the [Duration] property, even while the animation is running. See
 // “Constants” for descriptions of the NSAnimationCurve constants.
@@ -344,26 +345,26 @@ func (a NSAnimation) InitWithDurationAnimationCurve(duration float64, animationC
 	rv := objc.Send[NSAnimation](a.ID, objc.Sel("initWithDuration:animationCurve:"), duration, animationCurve)
 	return rv
 }
+
 // Starts the animation represented by the receiver.
 //
 // # Discussion
-// 
+//
 // A strong reference to the animation is maintained until the end of the
 // animation or until its [StopAnimation] method is called. If the blocking
-// mode is [NSAnimation.BlockingMode.blocking], this method returns after the
-// animation has completed or the delegate sends it [StopAnimation]. If the
-// receiver has a progress of `1.0`, it starts again at `0.0`.
-//
-// [NSAnimation.BlockingMode.blocking]: https://developer.apple.com/documentation/AppKit/NSAnimation/BlockingMode/blocking
+// mode is [NSAnimationBlocking], this method returns after the animation has
+// completed or the delegate sends it [StopAnimation]. If the receiver has a
+// progress of `1.0`, it starts again at `0.0`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/start()
 func (a NSAnimation) StartAnimation() {
 	objc.Send[objc.ID](a.ID, objc.Sel("startAnimation"))
 }
+
 // Stops the animation represented by the receiver.
 //
 // # Discussion
-// 
+//
 // The current progress of the receiver is not reset. When this method is sent
 // to instances of [NSViewAnimation] (a subclass of [NSAnimation]) the
 // receiver moves to the end frame location.
@@ -372,25 +373,27 @@ func (a NSAnimation) StartAnimation() {
 func (a NSAnimation) StopAnimation() {
 	objc.Send[objc.ID](a.ID, objc.Sel("stopAnimation"))
 }
+
 // Adds the progress mark to the receiver.
 //
 // progressMark: A `float` value (typed as NSAnimationProgress) between 0.0 and 1.0. Values
 // outside that range are pinned to 0.0 or 1.0, whichever is nearest.
 //
 // # Discussion
-// 
+//
 // A progress mark represents a percentage of the animation completed. When
 // the animation reaches a progress mark, an [AnimationDidReachProgressMark]
 // message is sent to the delegate and an [progressMarkNotification] is
 // broadcast to all observers. You might receive multiple notifications of
 // progress advances over multiple marks.
 //
-// [progressMarkNotification]: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkNotification
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/addProgressMark(_:)
+//
+// [progressMarkNotification]: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkNotification
 func (a NSAnimation) AddProgressMark(progressMark NSAnimationProgress) {
 	objc.Send[objc.ID](a.ID, objc.Sel("addProgressMark:"), progressMark)
 }
+
 // Removes progress mark from the receiver.
 //
 // progressMark: A `float` value (typed as NSAnimationProgress) that indicates the portion
@@ -401,6 +404,7 @@ func (a NSAnimation) AddProgressMark(progressMark NSAnimationProgress) {
 func (a NSAnimation) RemoveProgressMark(progressMark NSAnimationProgress) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeProgressMark:"), progressMark)
 }
+
 // Starts running the animation represented by the receiver when another
 // animation reaches a specific progress mark.
 //
@@ -410,7 +414,7 @@ func (a NSAnimation) RemoveProgressMark(progressMark NSAnimationProgress) {
 // mark of the other animation.
 //
 // # Discussion
-// 
+//
 // This method links the running of two animations together. You can set only
 // one [NSAnimation] object as a start animation and one as a stop animation
 // at any one time. Setting a new start animation removes any animation
@@ -420,6 +424,7 @@ func (a NSAnimation) RemoveProgressMark(progressMark NSAnimationProgress) {
 func (a NSAnimation) StartWhenAnimationReachesProgress(animation INSAnimation, startProgress NSAnimationProgress) {
 	objc.Send[objc.ID](a.ID, objc.Sel("startWhenAnimation:reachesProgress:"), animation, startProgress)
 }
+
 // Stops running the animation represented by the receiver when another
 // animation reaches a specific progress mark.
 //
@@ -429,7 +434,7 @@ func (a NSAnimation) StartWhenAnimationReachesProgress(animation INSAnimation, s
 // mark of the other animation.
 //
 // # Discussion
-// 
+//
 // This method links the running of two animations together. You can set only
 // one [NSAnimation] object as a start animation and one as a stop animation
 // at any one time. Setting a new stop animation removes any animation
@@ -439,10 +444,11 @@ func (a NSAnimation) StartWhenAnimationReachesProgress(animation INSAnimation, s
 func (a NSAnimation) StopWhenAnimationReachesProgress(animation INSAnimation, stopProgress NSAnimationProgress) {
 	objc.Send[objc.ID](a.ID, objc.Sel("stopWhenAnimation:reachesProgress:"), animation, stopProgress)
 }
+
 // Clears linkage to another animation that causes the receiver to start.
 //
 // # Discussion
-// 
+//
 // The linkage to the other animation is made with
 // [StartWhenAnimationReachesProgress].
 //
@@ -450,10 +456,11 @@ func (a NSAnimation) StopWhenAnimationReachesProgress(animation INSAnimation, st
 func (a NSAnimation) ClearStartAnimation() {
 	objc.Send[objc.ID](a.ID, objc.Sel("clearStartAnimation"))
 }
+
 // Clears linkage to another animation that causes the receiver to stop.
 //
 // # Discussion
-// 
+//
 // The linkage to the other animation is made with
 // [StopWhenAnimationReachesProgress].
 //
@@ -461,7 +468,7 @@ func (a NSAnimation) ClearStartAnimation() {
 func (a NSAnimation) ClearStopAnimation() {
 	objc.Send[objc.ID](a.ID, objc.Sel("clearStopAnimation"))
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/init(coder:)
 func (a NSAnimation) InitWithCoder(coder foundation.INSCoder) NSAnimation {
 	rv := objc.Send[NSAnimation](a.ID, objc.Sel("initWithCoder:"), coder)
@@ -474,24 +481,19 @@ func (a NSAnimation) EncodeWithCoder(coder foundation.INSCoder) {
 // The blocking mode of the animation.
 //
 // # Discussion
-// 
-// The value in this property determines whether the animation blocks a given
-// thread. The default value of this property is
-// [NSAnimation.BlockingMode.blocking], which means that the animation runs on
-// the main thread in a custom run-loop mode that blocks user events. When
-// changing the value of this property, the new blocking mode takes effect the
-// next time the animation is started and has no effect on an in-progress
-// animation.
-// 
-// If you set the block mode to [NSAnimation.BlockingMode.nonblocking], the
-// animation runs in the main thread in one of the standard run-loop modes or
-// in a mode returned from [NSAnimation]. If you set the mode to
-// [NSAnimation.BlockingMode.nonblockingThreaded], a new thread is spawned to
-// run the animation.
 //
-// [NSAnimation.BlockingMode.blocking]: https://developer.apple.com/documentation/AppKit/NSAnimation/BlockingMode/blocking
-// [NSAnimation.BlockingMode.nonblockingThreaded]: https://developer.apple.com/documentation/AppKit/NSAnimation/BlockingMode/nonblockingThreaded
-// [NSAnimation.BlockingMode.nonblocking]: https://developer.apple.com/documentation/AppKit/NSAnimation/BlockingMode/nonblocking
+// The value in this property determines whether the animation blocks a given
+// thread. The default value of this property is [NSAnimationBlocking], which
+// means that the animation runs on the main thread in a custom run-loop mode
+// that blocks user events. When changing the value of this property, the new
+// blocking mode takes effect the next time the animation is started and has
+// no effect on an in-progress animation.
+//
+// If you set the block mode to [NSAnimationNonblocking], the animation runs
+// in the main thread in one of the standard run-loop modes or in a mode
+// returned from [NSAnimation]. If you set the mode to
+// [NSAnimationNonblockingThreaded], a new thread is spawned to run the
+// animation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/animationBlockingMode
 func (a NSAnimation) AnimationBlockingMode() NSAnimationBlockingMode {
@@ -501,43 +503,44 @@ func (a NSAnimation) AnimationBlockingMode() NSAnimationBlockingMode {
 func (a NSAnimation) SetAnimationBlockingMode(value NSAnimationBlockingMode) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAnimationBlockingMode:"), value)
 }
+
 // An array of strings representing the run loop modes in which the animation
 // can run.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `nil`, which indicates that the
 // animation can be run in the default, modal, or event-tracking modes. The
 // value of this property is ignored if the animation blocking mode is
-// something other than [NSAnimation.BlockingMode.nonblocking].
-// 
+// something other than [NSAnimationNonblocking].
+//
 // For information about run loop modes and for constants, see [RunLoop].
 //
-// [NSAnimation.BlockingMode.nonblocking]: https://developer.apple.com/documentation/AppKit/NSAnimation/BlockingMode/nonblocking
-// [RunLoop]: https://developer.apple.com/documentation/Foundation/RunLoop
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/runLoopModesForAnimating
+//
+// [RunLoop]: https://developer.apple.com/documentation/Foundation/RunLoop
 func (a NSAnimation) RunLoopModesForAnimating() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("runLoopModesForAnimating"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The timing curve for the animation.
 //
 // # Discussion
-// 
+//
 // The animation curve describes the relative frame rate over the course of
 // the animation; predefined curves are linear, ease in (slow down near end),
 // ease out (slowly speed up at start), and ease in-ease out (S-curve).
 // Changing the value of this property changes the timing of an in-progress
 // animation. The value of this property is ignored if the delegate implements
 // the [AnimationValueForProgress] method.
-// 
+//
 // Setting this property to an invalid value raises an exception. For a list
 // of valid animation values, see [NSAnimation.Curve].
 //
-// [NSAnimation.Curve]: https://developer.apple.com/documentation/AppKit/NSAnimation/Curve
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/animationCurve
+//
+// [NSAnimation.Curve]: https://developer.apple.com/documentation/AppKit/NSAnimation/Curve
 func (a NSAnimation) AnimationCurve() NSAnimationCurve {
 	rv := objc.Send[NSAnimationCurve](a.ID, objc.Sel("animationCurve"))
 	return NSAnimationCurve(rv)
@@ -545,13 +548,14 @@ func (a NSAnimation) AnimationCurve() NSAnimationCurve {
 func (a NSAnimation) SetAnimationCurve(value NSAnimationCurve) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAnimationCurve:"), value)
 }
+
 // The duration of the animation, in seconds.
 //
 // # Discussion
-// 
+//
 // The value of this property must be greater than or equal to `0`. Setting
 // the duration to a negative value raises an exception.
-// 
+//
 // You can change the duration of an animation while it is running. Setting
 // the duration to a value that is less than the current progress value ends
 // an in-progress animation.
@@ -564,14 +568,15 @@ func (a NSAnimation) Duration() float64 {
 func (a NSAnimation) SetDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
+
 // The number of frame updates per second to generate for the animation.
 //
 // # Discussion
-// 
+//
 // The value of this property must be greater than or equal to `0`. Specifying
 // a value of `0.0` causes the animation to run as fast as possible. Setting
 // the property to a negative value raises an exception.
-// 
+//
 // The frame rate is not guaranteed due to differences among systems for the
 // time needed to process a frame. You can change the frame rate while an
 // animation is running and the new value is used at the next frame. The
@@ -586,10 +591,11 @@ func (a NSAnimation) FrameRate() float32 {
 func (a NSAnimation) SetFrameRate(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFrameRate:"), value)
 }
+
 // The animation delegate.
 //
 // # Discussion
-// 
+//
 // The delegate must conform to the [NSAnimationDelegate].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/delegate
@@ -600,29 +606,28 @@ func (a NSAnimation) Delegate() NSAnimationDelegate {
 func (a NSAnimation) SetDelegate(value NSAnimationDelegate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDelegate:"), value)
 }
+
 // A Boolean value indicating whether the animation is in progress.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the animation is in progress or
-// [false] when it is stopped.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true when the animation is in progress or
+// false when it is stopped.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/isAnimating
 func (a NSAnimation) Animating() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isAnimating"))
 	return rv
 }
+
 // The current progress of the animation.
 //
 // # Discussion
-// 
+//
 // This property contains the completion percentage of the animation. Valid
 // values are in the range `0.0` to `1.0`, where `0.0` represents the
 // beginning of the animation and `1.0` represents the end of the animation.
-// 
+//
 // Changing the value of this property adjusts the progress of a running
 // animation. Setting this property to a value less than `0.0` sets the value
 // of the property to `0.0`. Similarly, specifying a value greater than `1.0`
@@ -639,17 +644,18 @@ func (a NSAnimation) CurrentProgress() NSAnimationProgress {
 func (a NSAnimation) SetCurrentProgress(value NSAnimationProgress) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentProgress:"), value)
 }
+
 // The current value of the animation effect, based on the current progress
 //
 // # Discussion
-// 
+//
 // An [NSAnimation] object gets the current value from delegate’s
 // [AnimationValueForProgress] method. If that method is not implemented, the
 // animation computes the current value from the current progress by factoring
 // in the animation curve. An animation object does not access this property
 // directly. Instances of [NSAnimation] subclasses or other objects can invoke
 // this method on a periodic basis to get the current value.
-// 
+//
 // Subclasses may override this property and return a custom curve value
 // instead of implementing [AnimationValueForProgress], thereby saving on the
 // overhead of using a delegate. The current value can be less than `0.0` or
@@ -662,18 +668,19 @@ func (a NSAnimation) CurrentValue() float32 {
 	rv := objc.Send[float32](a.ID, objc.Sel("currentValue"))
 	return rv
 }
+
 // An array of floating-point numbers representing current progress marks.
 //
 // # Discussion
-// 
+//
 // The value of this property is an array of [NSNumber] objects, each of which
 // contains a float value, which are typed to the [NSAnimationProgress] type.
 // If there are no progress marks, the array is empty. Setting the value of
 // this property is `nil` clears all progress marks.
 //
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarks
+//
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 func (a NSAnimation) ProgressMarks() []foundation.NSNumber {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("progressMarks"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
@@ -683,4 +690,3 @@ func (a NSAnimation) ProgressMarks() []foundation.NSNumber {
 func (a NSAnimation) SetProgressMarks(value []foundation.NSNumber) {
 	objc.Send[struct{}](a.ID, objc.Sel("setProgressMarks:"), objectivec.IObjectSliceToNSArray(value))
 }
-

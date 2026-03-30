@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,18 +44,18 @@ func (nc NSMutableURLRequestClass) Alloc() NSMutableURLRequest {
 // A mutable URL load request that is independent of protocol or URL scheme.
 //
 // # Overview
-// 
+//
 // In Swift, this object bridges to [NSURLRequest] and you use when you need
 // reference semantics or other Foundation-specific behavior.
-// 
+//
 // [NSMutableURLRequest] is a subclass of [NSURLRequest] that allows you to
 // change the request’s properties.
-// 
+//
 // [NSMutableURLRequest] only represents information about the request. Use
 // other classes, such as [NSURLSession], to send the request to a server. See
 // [Fetching website data into memory] and [Uploading data to a website] for
 // an introduction to these techniques.
-// 
+//
 // Classes that create a network operation based on a request make a deep copy
 // of that request. Thus, changing the request after creating a network
 // operation has no effect on the ongoing operation. For example, if you use
@@ -62,15 +63,15 @@ func (nc NSMutableURLRequestClass) Alloc() NSMutableURLRequest {
 // request, and then later change the request, the data task continues using
 // the original request.
 //
-// [Fetching website data into memory]: https://developer.apple.com/documentation/Foundation/fetching-website-data-into-memory
-// [Uploading data to a website]: https://developer.apple.com/documentation/Foundation/uploading-data-to-a-website
-//
 // # Accessing header fields
 //
 //   - [NSMutableURLRequest.AddValueForHTTPHeaderField]: Adds a value to the header field.
 //   - [NSMutableURLRequest.SetValueForHTTPHeaderField]: Sets a value for the header field.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableURLRequest
+//
+// [Fetching website data into memory]: https://developer.apple.com/documentation/Foundation/fetching-website-data-into-memory
+// [Uploading data to a website]: https://developer.apple.com/documentation/Foundation/uploading-data-to-a-website
 type NSMutableURLRequest struct {
 	NSURLRequest
 }
@@ -81,6 +82,7 @@ type NSMutableURLRequest struct {
 func NSMutableURLRequestFromID(id objc.ID) NSMutableURLRequest {
 	return NSMutableURLRequest{NSURLRequest: NSURLRequestFromID(id)}
 }
+
 // NOTE: NSMutableURLRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,7 +124,6 @@ func NewNSMutableURLRequest() NSMutableURLRequest {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMutableURLRequestWithCoder(coder INSCoder) NSMutableURLRequest {
 	instance := getNSMutableURLRequestClass().Alloc()
@@ -135,14 +136,14 @@ func NewMutableURLRequestWithCoder(coder INSCoder) NSMutableURLRequest {
 // URL: The URL for the request.
 //
 // # Return Value
-// 
+//
 // The initialized URL request.
 //
 // # Discussion
-// 
+//
 // The request is created with the with the default cache policy
-// ([URLRequestUseProtocolCachePolicy]), and the default timeout interval (60
-// seconds).
+// ([NSURLRequestUseProtocolCachePolicy]), and the default timeout interval
+// (60 seconds).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:)
 func NewMutableURLRequestWithURL(URL INSURL) NSMutableURLRequest {
@@ -161,11 +162,11 @@ func NewMutableURLRequestWithURL(URL INSURL) NSMutableURLRequest {
 // timeoutInterval: The timeout interval for the request, in seconds.
 //
 // # Return Value
-// 
+//
 // The initialized URL request.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer for [NSURLRequest].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:cachePolicy:timeoutInterval:)
@@ -183,12 +184,12 @@ func NewMutableURLRequestWithURLCachePolicyTimeoutInterval(URL INSURL, cachePoli
 // field names are case insensitive.
 //
 // # Discussion
-// 
+//
 // This method provides the ability to add values to header fields
 // incrementally. If a value was previously set for the specified field, the
 // supplied value is appended to the existing value using the appropriate
 // field delimiter (a comma).
-// 
+//
 // Certain header fields are reserved (see [NSURLRequest]). Do not use this
 // method to change such headers.
 //
@@ -196,6 +197,7 @@ func NewMutableURLRequestWithURLCachePolicyTimeoutInterval(URL INSURL, cachePoli
 func (m NSMutableURLRequest) AddValueForHTTPHeaderField(value string, field string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addValue:forHTTPHeaderField:"), objc.String(value), objc.String(field))
 }
+
 // Sets a value for the header field.
 //
 // value: The new value for the header field. Any existing value for the field is
@@ -205,7 +207,7 @@ func (m NSMutableURLRequest) AddValueForHTTPHeaderField(value string, field stri
 // header field names are case insensitive.
 //
 // # Discussion
-// 
+//
 // Certain header fields are reserved. Do not use this method to set such
 // headers. Specifically, there is no need for you to set the `Content-Length`
 // header. See [NSURLRequest].
@@ -214,4 +216,3 @@ func (m NSMutableURLRequest) AddValueForHTTPHeaderField(value string, field stri
 func (m NSMutableURLRequest) SetValueForHTTPHeaderField(value string, field string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setValue:forHTTPHeaderField:"), objc.String(value), objc.String(field))
 }
-

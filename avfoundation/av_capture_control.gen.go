@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (ac AVCaptureControlClass) Alloc() AVCaptureControl {
 // An abstract base class for controls that interact with the camera system.
 //
 // # Overview
-// 
+//
 // Capture controls provide the interface for interacting with the camera
 // system from the Camera Control button on iPhone 16 devices. The framework
 // provides several concrete subclasses of this class that allow apps to
@@ -66,6 +67,7 @@ type AVCaptureControl struct {
 func AVCaptureControlFromID(id objc.ID) AVCaptureControl {
 	return AVCaptureControl{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureControl adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,11 +112,11 @@ func NewAVCaptureControl() AVCaptureControl {
 // interaction.
 //
 // # Discussion
-// 
+//
 // Controls support user interaction by default. You can temporarily disable
 // user interaction on a control without removing it from a capture session by
 // setting it’s enabled state to `false`.
-// 
+//
 // The default value is `true`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureControl/isEnabled
@@ -125,4 +127,3 @@ func (c AVCaptureControl) Enabled() bool {
 func (c AVCaptureControl) SetEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEnabled:"), value)
 }
-

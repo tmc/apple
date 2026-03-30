@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (mc MLDictionaryFeatureProviderClass) Alloc() MLDictionaryFeatureProvider {
 // A convenience wrapper for the given dictionary of data.
 //
 // # Overview
-// 
+//
 // If your input data is stored in a dictionary, consider this type of
 // [MLFeatureProvider] that is backed by a dictionary. It is a convenience
 // interface, saving you the trouble of iterating through the dictionary to
@@ -72,6 +73,7 @@ type MLDictionaryFeatureProvider struct {
 func MLDictionaryFeatureProviderFromID(id objc.ID) MLDictionaryFeatureProvider {
 	return MLDictionaryFeatureProvider{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLDictionaryFeatureProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -156,6 +158,7 @@ func (d MLDictionaryFeatureProvider) InitWithDictionaryError(dictionary foundati
 	return MLDictionaryFeatureProviderFromID(rv), nil
 
 }
+
 // Subscript interface for the feature provider to pass through to the
 // dictionary.
 //
@@ -164,12 +167,13 @@ func (d MLDictionaryFeatureProvider) ObjectForKeyedSubscript(featureName string)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("objectForKeyedSubscript:"), objc.String(featureName))
 	return MLFeatureValueFromID(rv)
 }
+
 // Accesses the feature value given the feature’s name.
 //
 // featureName: The name of the feature of the desired value.
 //
 // # Return Value
-// 
+//
 // The value of the feature, or nil if no value exists for that name.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureValue(for:)
@@ -188,6 +192,7 @@ func (d MLDictionaryFeatureProvider) Dictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // The set of valid feature names.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureNames
@@ -196,6 +201,4 @@ func (d MLDictionaryFeatureProvider) FeatureNames() foundation.INSSet {
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 
-			// Protocol methods for MLFeatureProvider
-			
-
+// Protocol methods for MLFeatureProvider

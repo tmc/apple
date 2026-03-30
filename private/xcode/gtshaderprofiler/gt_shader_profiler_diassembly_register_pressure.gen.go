@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (gc GTShaderProfilerDiassemblyRegisterPressureClass) Alloc() GTShaderProfil
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTShaderProfilerDiassemblyRegisterPressure.Allocs]
@@ -53,6 +53,7 @@ func (gc GTShaderProfilerDiassemblyRegisterPressureClass) Alloc() GTShaderProfil
 //   - [GTShaderProfilerDiassemblyRegisterPressure.LiveRegisters]
 //   - [GTShaderProfilerDiassemblyRegisterPressure.Uses]
 //   - [GTShaderProfilerDiassemblyRegisterPressure.InitWithDict]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDiassemblyRegisterPressure
 type GTShaderProfilerDiassemblyRegisterPressure struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type GTShaderProfilerDiassemblyRegisterPressure struct {
 func GTShaderProfilerDiassemblyRegisterPressureFromID(id objc.ID) GTShaderProfilerDiassemblyRegisterPressure {
 	return GTShaderProfilerDiassemblyRegisterPressure{objectivec.Object{ID: id}}
 }
+
 // Ensure GTShaderProfilerDiassemblyRegisterPressure implements IGTShaderProfilerDiassemblyRegisterPressure.
 var _ IGTShaderProfilerDiassemblyRegisterPressure = GTShaderProfilerDiassemblyRegisterPressure{}
 
@@ -115,7 +117,6 @@ func NewGTShaderProfilerDiassemblyRegisterPressure() GTShaderProfilerDiassemblyR
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDiassemblyRegisterPressure/initWithDict:
 func NewGTShaderProfilerDiassemblyRegisterPressureWithDict(dict objectivec.IObject) GTShaderProfilerDiassemblyRegisterPressure {
 	instance := getGTShaderProfilerDiassemblyRegisterPressureClass().Alloc()
@@ -123,12 +124,11 @@ func NewGTShaderProfilerDiassemblyRegisterPressureWithDict(dict objectivec.IObje
 	return GTShaderProfilerDiassemblyRegisterPressureFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDiassemblyRegisterPressure/combine:
 func (g GTShaderProfilerDiassemblyRegisterPressure) Combine(combine objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("combine:"), combine)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDiassemblyRegisterPressure/initWithDict:
 func (g GTShaderProfilerDiassemblyRegisterPressure) InitWithDict(dict objectivec.IObject) GTShaderProfilerDiassemblyRegisterPressure {
 	rv := objc.Send[GTShaderProfilerDiassemblyRegisterPressure](g.ID, objc.Sel("initWithDict:"), dict)
@@ -140,34 +140,39 @@ func (g GTShaderProfilerDiassemblyRegisterPressure) Allocs() IGTShaderProfilerRe
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("allocs"))
 	return GTShaderProfilerRegisterUsageFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDiassemblyRegisterPressure/defs
 func (g GTShaderProfilerDiassemblyRegisterPressure) Defs() IGTShaderProfilerRegisterUsage {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("defs"))
 	return GTShaderProfilerRegisterUsageFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDiassemblyRegisterPressure/highRegisterIndex
 func (g GTShaderProfilerDiassemblyRegisterPressure) HighRegisterIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("highRegisterIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDiassemblyRegisterPressure/lastUses
 func (g GTShaderProfilerDiassemblyRegisterPressure) LastUses() IGTShaderProfilerRegisterUsage {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("lastUses"))
 	return GTShaderProfilerRegisterUsageFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDiassemblyRegisterPressure/live
 func (g GTShaderProfilerDiassemblyRegisterPressure) Live() IGTShaderProfilerRegisterUsage {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("live"))
 	return GTShaderProfilerRegisterUsageFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDiassemblyRegisterPressure/liveRegisters
 func (g GTShaderProfilerDiassemblyRegisterPressure) LiveRegisters() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("liveRegisters"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDiassemblyRegisterPressure/uses
 func (g GTShaderProfilerDiassemblyRegisterPressure) Uses() IGTShaderProfilerRegisterUsage {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("uses"))
 	return GTShaderProfilerRegisterUsageFromID(objc.ID(rv))
 }
-

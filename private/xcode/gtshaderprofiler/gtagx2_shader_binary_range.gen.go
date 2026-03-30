@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (gc GTAGX2ShaderBinaryRangeClass) Alloc() GTAGX2ShaderBinaryRange {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTAGX2ShaderBinaryRange.AddrEnd]
@@ -64,6 +64,7 @@ func (gc GTAGX2ShaderBinaryRangeClass) Alloc() GTAGX2ShaderBinaryRange {
 //   - [GTAGX2ShaderBinaryRange.Description]
 //   - [GTAGX2ShaderBinaryRange.Hash]
 //   - [GTAGX2ShaderBinaryRange.Superclass]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange
 type GTAGX2ShaderBinaryRange struct {
 	objectivec.Object
@@ -73,6 +74,7 @@ type GTAGX2ShaderBinaryRange struct {
 func GTAGX2ShaderBinaryRangeFromID(id objc.ID) GTAGX2ShaderBinaryRange {
 	return GTAGX2ShaderBinaryRange{objectivec.Object{ID: id}}
 }
+
 // Ensure GTAGX2ShaderBinaryRange implements IGTAGX2ShaderBinaryRange.
 var _ IGTAGX2ShaderBinaryRange = GTAGX2ShaderBinaryRange{}
 
@@ -146,7 +148,6 @@ func NewGTAGX2ShaderBinaryRange() GTAGX2ShaderBinaryRange {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/initWithCoder:
 func NewGTAGX2ShaderBinaryRangeWithCoder(coder objectivec.IObject) GTAGX2ShaderBinaryRange {
 	instance := getGTAGX2ShaderBinaryRangeClass().Alloc()
@@ -154,7 +155,6 @@ func NewGTAGX2ShaderBinaryRangeWithCoder(coder objectivec.IObject) GTAGX2ShaderB
 	return GTAGX2ShaderBinaryRangeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/initWithLocation:addrStart:addrEnd:parent:
 func NewGTAGX2ShaderBinaryRangeWithLocationAddrStartAddrEndParent(location objectivec.IObject, start uint32, end uint32, parent objectivec.IObject) GTAGX2ShaderBinaryRange {
 	instance := getGTAGX2ShaderBinaryRangeClass().Alloc()
@@ -162,34 +162,28 @@ func NewGTAGX2ShaderBinaryRangeWithLocationAddrStartAddrEndParent(location objec
 	return GTAGX2ShaderBinaryRangeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/costForAddress:
 func (g GTAGX2ShaderBinaryRange) CostForAddress(address uint32) float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("costForAddress:"), address)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/encodeWithCoder:
 func (g GTAGX2ShaderBinaryRange) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/setCallStack:
-func (g GTAGX2ShaderBinaryRange) SetCallStack(stack objectivec.IObject) {
-	objc.Send[objc.ID](g.ID, objc.Sel("setCallStack:"), stack)
-}
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/setParent:
 func (g GTAGX2ShaderBinaryRange) SetParent(parent objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setParent:"), parent)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/initWithCoder:
 func (g GTAGX2ShaderBinaryRange) InitWithCoder(coder foundation.INSCoder) GTAGX2ShaderBinaryRange {
 	rv := objc.Send[GTAGX2ShaderBinaryRange](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/initWithLocation:addrStart:addrEnd:parent:
 func (g GTAGX2ShaderBinaryRange) InitWithLocationAddrStartAddrEndParent(location objectivec.IObject, start uint32, end uint32, parent objectivec.IObject) GTAGX2ShaderBinaryRange {
 	rv := objc.Send[GTAGX2ShaderBinaryRange](g.ID, objc.Sel("initWithLocation:addrStart:addrEnd:parent:"), location, start, end, parent)
@@ -210,6 +204,7 @@ func (g GTAGX2ShaderBinaryRange) AddrEnd() uint32 {
 func (g GTAGX2ShaderBinaryRange) SetAddrEnd(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setAddrEnd:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/addrStart
 func (g GTAGX2ShaderBinaryRange) AddrStart() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("addrStart"))
@@ -218,36 +213,43 @@ func (g GTAGX2ShaderBinaryRange) AddrStart() uint32 {
 func (g GTAGX2ShaderBinaryRange) SetAddrStart(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setAddrStart:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/binary
 func (g GTAGX2ShaderBinaryRange) Binary() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binary"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/callStack
 func (g GTAGX2ShaderBinaryRange) CallStack() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("callStack"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/debugDescription
 func (g GTAGX2ShaderBinaryRange) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/description
 func (g GTAGX2ShaderBinaryRange) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/hash
 func (g GTAGX2ShaderBinaryRange) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/location
 func (g GTAGX2ShaderBinaryRange) Location() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("location"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/numSamples
 func (g GTAGX2ShaderBinaryRange) NumSamples() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("numSamples"))
@@ -256,14 +258,15 @@ func (g GTAGX2ShaderBinaryRange) NumSamples() uint64 {
 func (g GTAGX2ShaderBinaryRange) SetNumSamples(value uint64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setNumSamples:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/superclass
 func (g GTAGX2ShaderBinaryRange) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderBinaryRange/totalCost
 func (g GTAGX2ShaderBinaryRange) TotalCost() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("totalCost"))
 	return rv
 }
-

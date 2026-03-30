@@ -4,8 +4,8 @@ package virtualization
 
 import (
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 var (
@@ -14,6 +14,7 @@ var (
 	// See: https://developer.apple.com/documentation/Virtualization/VZErrorDomain
 	VZErrorDomain foundation.NSErrorDomain
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -30,4 +31,3 @@ func init() {
 	}
 
 }
-

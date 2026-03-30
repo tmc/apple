@@ -3,8 +3,9 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,12 +43,12 @@ func (dc DITemporaryPassphraseClass) Alloc() DITemporaryPassphrase {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DITemporaryPassphrase.Buf]
 //   - [DITemporaryPassphrase.SetBuf]
 //   - [DITemporaryPassphrase.InitWithPassphrase]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DITemporaryPassphrase
 type DITemporaryPassphrase struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type DITemporaryPassphrase struct {
 func DITemporaryPassphraseFromID(id objc.ID) DITemporaryPassphrase {
 	return DITemporaryPassphrase{objectivec.Object{ID: id}}
 }
+
 // Ensure DITemporaryPassphrase implements IDITemporaryPassphrase.
 var _ IDITemporaryPassphrase = DITemporaryPassphrase{}
 
@@ -98,18 +100,16 @@ func NewDITemporaryPassphrase() DITemporaryPassphrase {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DITemporaryPassphrase/initWithPassphrase:
 func NewDITemporaryPassphraseWithPassphrase(passphrase string) DITemporaryPassphrase {
 	instance := getDITemporaryPassphraseClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPassphrase:"), unsafe.Pointer(unsafe.StringData(passphrase + "\x00")))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPassphrase:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")))
 	return DITemporaryPassphraseFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DITemporaryPassphrase/initWithPassphrase:
 func (d DITemporaryPassphrase) InitWithPassphrase(passphrase string) DITemporaryPassphrase {
-	rv := objc.Send[DITemporaryPassphrase](d.ID, objc.Sel("initWithPassphrase:"), unsafe.Pointer(unsafe.StringData(passphrase + "\x00")))
+	rv := objc.Send[DITemporaryPassphrase](d.ID, objc.Sel("initWithPassphrase:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")))
 	return rv
 }
 
@@ -121,4 +121,3 @@ func (d DITemporaryPassphrase) Buf() string {
 func (d DITemporaryPassphrase) SetBuf(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBuf:"), objc.String(value))
 }
-

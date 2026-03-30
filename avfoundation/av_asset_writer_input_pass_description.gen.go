@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type AVAssetWriterInputPassDescription struct {
 func AVAssetWriterInputPassDescriptionFromID(id objc.ID) AVAssetWriterInputPassDescription {
 	return AVAssetWriterInputPassDescription{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetWriterInputPassDescription adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,23 +114,24 @@ func NewAVAssetWriterInputPassDescription() AVAssetWriterInputPassDescription {
 // An array of time ranges.
 //
 // # Discussion
-// 
+//
 // Each element in the array is an [NSValue] object that wraps a [CMTimeRange]
 // structure that represents one source time range. The value of this property
 // is suitable to pass to the [reset(forReadingTimeRanges:)] method of
 // [AVAssetReaderOutput].
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInputPassDescription/sourceTimeRanges
+//
 // [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
 // [NSValue]: https://developer.apple.com/documentation/Foundation/NSValue
 // [reset(forReadingTimeRanges:)]: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderOutput/reset(forReadingTimeRanges:)
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInputPassDescription/sourceTimeRanges
 func (a AVAssetWriterInputPassDescription) SourceTimeRanges() []foundation.NSValue {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("sourceTimeRanges"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
 		return foundation.NSValueFromID(id)
 	})
 }
+
 // A Boolean value that indicates whether the input may perform multiple
 // passes over appended media data.
 //
@@ -140,6 +143,7 @@ func (a AVAssetWriterInputPassDescription) CanPerformMultiplePasses() bool {
 func (a AVAssetWriterInputPassDescription) SetCanPerformMultiplePasses(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCanPerformMultiplePasses:"), value)
 }
+
 // An object that describes the requirements for the current pass.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetwriterinput/currentpassdescription
@@ -150,6 +154,7 @@ func (a AVAssetWriterInputPassDescription) CurrentPassDescription() IAVAssetWrit
 func (a AVAssetWriterInputPassDescription) SetCurrentPassDescription(value IAVAssetWriterInputPassDescription) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentPassDescription:"), value)
 }
+
 // A Boolean value that indicates whether the input attempts to encode the
 // source media data using multiple passes.
 //
@@ -161,4 +166,3 @@ func (a AVAssetWriterInputPassDescription) PerformsMultiPassEncodingIfSupported(
 func (a AVAssetWriterInputPassDescription) SetPerformsMultiPassEncodingIfSupported(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPerformsMultiPassEncodingIfSupported:"), value)
 }
-

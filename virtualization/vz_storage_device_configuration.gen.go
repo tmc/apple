@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZStorageDeviceConfigurationClass) Alloc() VZStorageDeviceConfiguration
 // The common configuration traits for storage device requests.
 //
 // # Overview
-// 
+//
 // Don’t create a [VZStorageDeviceConfiguration] object directly. Instead,
 // instantiate one of its subclasses, such as
 // [VZVirtioBlockDeviceConfiguration]. Use the [VZStorageDeviceConfiguration.Attachment] property of this
@@ -65,6 +66,7 @@ type VZStorageDeviceConfiguration struct {
 func VZStorageDeviceConfigurationFromID(id objc.ID) VZStorageDeviceConfiguration {
 	return VZStorageDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZStorageDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,7 +108,7 @@ func NewVZStorageDeviceConfiguration() VZStorageDeviceConfiguration {
 // The attachment object that provides the underlying storage for the device.
 //
 // # Discussion
-// 
+//
 // The attachment object defines which local resource on the host computer
 // appears as a disk in the virtual machine.
 //
@@ -115,4 +117,3 @@ func (s VZStorageDeviceConfiguration) Attachment() IVZStorageDeviceAttachment {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("attachment"))
 	return VZStorageDeviceAttachmentFromID(objc.ID(rv))
 }
-

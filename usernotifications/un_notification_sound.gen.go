@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,13 +46,13 @@ func (uc UNNotificationSoundClass) Alloc() UNNotificationSound {
 // The sound played upon delivery of a notification.
 //
 // # Overview
-// 
+//
 // Create a [UNNotificationSound] object when you want the system to play a
 // specific sound when it delivers with your notification. To play the default
 // system sound, create your sound object using the [UNNotificationSound.DefaultSound] method. If
 // you want to play a custom sound, create a new sound object and specify the
 // name of the audio file that you want to play.
-// 
+//
 // For local notifications, assign the sound object to the [UNNotificationSound.Sound] property of
 // your [UNMutableNotificationContent] object. For a remote notification,
 // assign the name of your sound file to the `sound` key in the `aps`
@@ -59,34 +60,34 @@ func (uc UNNotificationSoundClass) Alloc() UNNotificationSound {
 // sound file to a notification shortly before delivery. In your extension,
 // create a [UNNotificationSound] object and add it to your notification
 // content in the same way that you’d for a local notification.
-// 
+//
 // Audio files must already be on the user’s device before the system can
 // play them. If you use a predefined set of sounds for your notifications,
 // include the audio files in your app’s bundle. For all other sounds, the
 // [UNNotificationSound] object looks only in the following locations:
-// 
+//
 // - The `/Library/Sounds` directory of the app’s container directory. - The
 // `/Library/Sounds` directory of one of the app’s shared group container
 // directories. - The main bundle of the current executable.
-// 
+//
 // # Prepare Sound Resources
-// 
+//
 // The system sound facility plays custom alert sounds, so they must be in one
 // of the following audio data formats:
-// 
+//
 // - Linear PCM
 // - MA4 (IMA/ADPCM)
 // - µLaw
 // - aLaw
-// 
+//
 // You can package the audio data in an `aiff`, `wav`, or `caf` file. Sound
 // files must be less than 30 seconds in length. If the sound file is longer
 // than 30 seconds, the system plays the default sound instead.
-// 
+//
 // You can use the `afconvert` command-line tool to convert sounds. For
 // example, to convert the system sound `Submarine.Aiff()` to IMA4 audio in a
 // CAF file, use the following command in Terminal:
-// 
+//
 // `afconvert /System/Library/Sounds/Submarine.Aiff() ~/Desktop/sub.Caf() -d
 // ima4 -f caff -v`
 //
@@ -101,6 +102,7 @@ type UNNotificationSound struct {
 func UNNotificationSoundFromID(id objc.ID) UNNotificationSound {
 	return UNNotificationSound{objectivec.Object{ID: id}}
 }
+
 // NOTE: UNNotificationSound adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,24 +142,24 @@ func NewUNNotificationSound() UNNotificationSound {
 // name: The name of the sound file to play. This parameter must not be `nil`.
 //
 // # Return Value
-// 
+//
 // A sound object representing the custom sound.
 //
 // # Discussion
-// 
+//
 // This method searches for sound files in the following locations, in order:
-// 
+//
 // - The `/Library/Sounds` directory, where is the app’s container
 // directory. - The `/Library/Sounds` directory, where is one of the app’s
 // shared group container directories. For information about how to configure
 // group containers for your app, see [Configure app groups]. - The main
 // bundle of the current executable.
-// 
+//
 // The method chooses the first file it finds with the specified name.
 //
-// [Configure app groups]: https://help.apple.com/xcode/mac/current/#/dev8dd3880fe
-//
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationSound/init(named:)
+//
+// [Configure app groups]: https://help.apple.com/xcode/mac/current/#/dev8dd3880fe
 func NewUNNotificationSoundNamed(name UNNotificationSoundName) UNNotificationSound {
 	rv := objc.Send[objc.ID](objc.ID(getUNNotificationSoundClass().class), objc.Sel("soundNamed:"), objc.String(string(name)))
 	return UNNotificationSoundFromID(rv)
@@ -173,12 +175,12 @@ func (u UNNotificationSound) EncodeWithCoder(coder foundation.INSCoder) {
 // volume: The volume must be a value between 0.0 and 1.0.
 //
 // # Return Value
-// 
+//
 // A sound object representing the default critical alert sound at the
 // specified volume.
 //
 // # Discussion
-// 
+//
 // Critical alerts ignore the mute switch and Do Not Disturb. They require a
 // special entitlement issued by Apple.
 //
@@ -187,6 +189,7 @@ func (_UNNotificationSoundClass UNNotificationSoundClass) DefaultCriticalSoundWi
 	rv := objc.Send[objc.ID](objc.ID(_UNNotificationSoundClass.class), objc.Sel("defaultCriticalSoundWithAudioVolume:"), volume)
 	return UNNotificationSoundFromID(rv)
 }
+
 // Creates a custom sound object for critical alerts.
 //
 // name: The name of the sound file to play. This file must be located in the
@@ -196,11 +199,11 @@ func (_UNNotificationSoundClass UNNotificationSoundClass) DefaultCriticalSoundWi
 // must not be `nil`.
 //
 // # Return Value
-// 
+//
 // A sound object representing a custom critical alert sound.
 //
 // # Discussion
-// 
+//
 // Critical alerts ignore the mute switch and Do Not Disturb. They require a
 // special entitlement issued by Apple.
 //
@@ -209,6 +212,7 @@ func (_UNNotificationSoundClass UNNotificationSoundClass) CriticalSoundNamed(nam
 	rv := objc.Send[objc.ID](objc.ID(_UNNotificationSoundClass.class), objc.Sel("criticalSoundNamed:"), objc.String(string(name)))
 	return UNNotificationSoundFromID(rv)
 }
+
 // Creates a custom sound object for critical alerts with the volume you
 // specify.
 //
@@ -221,12 +225,12 @@ func (_UNNotificationSoundClass UNNotificationSoundClass) CriticalSoundNamed(nam
 // volume: The volume must be a value between 0.0 and 1.0.
 //
 // # Return Value
-// 
+//
 // A sound object representing a custom critical alert sound at the specified
 // volume.
 //
 // # Discussion
-// 
+//
 // Critical alerts ignore the mute switch and Do Not Disturb. They require a
 // special entitlement issued by Apple.
 //
@@ -250,7 +254,7 @@ func (u UNNotificationSound) SetSound(value IUNNotificationSound) {
 // Returns an object representing the default sound for notifications.
 //
 // # Return Value
-// 
+//
 // A sound object that represents the default notification sound.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationSound/default
@@ -258,10 +262,11 @@ func (_UNNotificationSoundClass UNNotificationSoundClass) DefaultSound() UNNotif
 	rv := objc.Send[objc.ID](objc.ID(_UNNotificationSoundClass.class), objc.Sel("defaultSound"))
 	return UNNotificationSoundFromID(objc.ID(rv))
 }
+
 // The default sound used for critical alerts.
 //
 // # Discussion
-// 
+//
 // Critical alerts ingore the mute switch and Do Not Disturb. They require a
 // special entitlement issued by Apple.
 //
@@ -270,4 +275,3 @@ func (_UNNotificationSoundClass UNNotificationSoundClass) DefaultCriticalSound()
 	rv := objc.Send[objc.ID](objc.ID(_UNNotificationSoundClass.class), objc.Sel("defaultCriticalSound"))
 	return UNNotificationSoundFromID(objc.ID(rv))
 }
-

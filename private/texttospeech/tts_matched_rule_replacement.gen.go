@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (tc TTSMatchedRuleReplacementClass) Alloc() TTSMatchedRuleReplacement {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSMatchedRuleReplacement.Match]
@@ -51,6 +51,7 @@ func (tc TTSMatchedRuleReplacementClass) Alloc() TTSMatchedRuleReplacement {
 //   - [TTSMatchedRuleReplacement.SetReplacement]
 //   - [TTSMatchedRuleReplacement.RuleReplacement]
 //   - [TTSMatchedRuleReplacement.SetRuleReplacement]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSMatchedRuleReplacement
 type TTSMatchedRuleReplacement struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type TTSMatchedRuleReplacement struct {
 func TTSMatchedRuleReplacementFromID(id objc.ID) TTSMatchedRuleReplacement {
 	return TTSMatchedRuleReplacement{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSMatchedRuleReplacement implements ITTSMatchedRuleReplacement.
 var _ ITTSMatchedRuleReplacement = TTSMatchedRuleReplacement{}
 
@@ -115,6 +117,7 @@ func (t TTSMatchedRuleReplacement) Match() ITTSRegexMatch {
 func (t TTSMatchedRuleReplacement) SetMatch(value ITTSRegexMatch) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMatch:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSMatchedRuleReplacement/replacement
 func (t TTSMatchedRuleReplacement) Replacement() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacement"))
@@ -123,6 +126,7 @@ func (t TTSMatchedRuleReplacement) Replacement() string {
 func (t TTSMatchedRuleReplacement) SetReplacement(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setReplacement:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSMatchedRuleReplacement/ruleReplacement
 func (t TTSMatchedRuleReplacement) RuleReplacement() ITTSRuleReplacement {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("ruleReplacement"))
@@ -131,4 +135,3 @@ func (t TTSMatchedRuleReplacement) RuleReplacement() ITTSRuleReplacement {
 func (t TTSMatchedRuleReplacement) SetRuleReplacement(value ITTSRuleReplacement) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRuleReplacement:"), value)
 }
-

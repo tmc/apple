@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TtCC12TextToSpeech16VoiceDatabaseXPC6Client struct {
 func TtCC12TextToSpeech16VoiceDatabaseXPC6ClientFromID(id objc.ID) TtCC12TextToSpeech16VoiceDatabaseXPC6Client {
 	return TtCC12TextToSpeech16VoiceDatabaseXPC6Client{objectivec.Object{ID: id}}
 }
+
 // NOTE: TtCC12TextToSpeech16VoiceDatabaseXPC6Client struct embeds objectivec.Object (parent type unavailable) but
 // ITtCC12TextToSpeech16VoiceDatabaseXPC6Client embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTtCC12TextToSpeech16VoiceDatabaseXPC6Client() TtCC12TextToSpeech16VoiceD
 	rv := objc.Send[TtCC12TextToSpeech16VoiceDatabaseXPC6Client](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

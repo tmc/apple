@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSRecursiveLockClass) Alloc() NSRecursiveLock {
 // causing a deadlock.
 //
 // # Overview
-// 
+//
 // [NSRecursiveLock] defines a lock that may be acquired multiple times by the
 // same thread without causing a deadlock, a situation where a thread is
 // permanently blocked waiting for itself to relinquish a lock. While the
@@ -74,6 +75,7 @@ type NSRecursiveLock struct {
 func NSRecursiveLockFromID(id objc.ID) NSRecursiveLock {
 	return NSRecursiveLock{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSRecursiveLock adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,14 +133,11 @@ func NewNSRecursiveLock() NSRecursiveLock {
 // limit: The time before which the lock should be acquired.
 //
 // # Return Value
-// 
-// [true] if the lock is acquired before `limit`, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the lock is acquired before `limit`, otherwise false.
 //
 // # Discussion
-// 
+//
 // The thread is blocked until the receiver acquires the lock or `limit` is
 // reached.
 //
@@ -147,26 +146,25 @@ func (r NSRecursiveLock) LockBeforeDate(limit INSDate) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("lockBeforeDate:"), limit)
 	return rv
 }
+
 // Attempts to acquire a lock, and immediately returns a Boolean value that
 // indicates whether the attempt was successful.
 //
 // # Return Value
-// 
-// [true] if successful, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if successful, otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRecursiveLock/try()
 func (r NSRecursiveLock) TryLock() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("tryLock"))
 	return rv
 }
+
 // Attempts to acquire a lock, blocking a thread’s execution until the lock
 // can be acquired.
 //
 // # Discussion
-// 
+//
 // An application protects a critical section of code by requiring a thread to
 // acquire a lock before executing the code. Once the critical section is
 // completed, the thread relinquishes the lock by invoking [Unlock].
@@ -175,6 +173,7 @@ func (r NSRecursiveLock) TryLock() bool {
 func (r NSRecursiveLock) Lock() {
 	objc.Send[objc.ID](r.ID, objc.Sel("lock"))
 }
+
 // Relinquishes a previously acquired lock.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/unlock()
@@ -185,7 +184,7 @@ func (r NSRecursiveLock) Unlock() {
 // The name associated with the receiver.
 //
 // # Discussion
-// 
+//
 // You can use a name string to identify a lock within your code. Cocoa also
 // uses this name as part of any error descriptions involving the receiver.
 //
@@ -197,4 +196,3 @@ func (r NSRecursiveLock) Name() string {
 func (r NSRecursiveLock) SetName(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setName:"), objc.String(value))
 }
-

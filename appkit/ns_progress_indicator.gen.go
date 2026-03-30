@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (nc NSProgressIndicatorClass) Alloc() NSProgressIndicator {
 // an ongoing task.
 //
 // # Overview
-// 
+//
 // Progress indicators can be determinate or indeterminate. A determinate
 // indicator displays the completion percentage of a task. An indeterminate
 // indicator shows that the app is busy without providing a visual indication
@@ -103,6 +104,7 @@ type NSProgressIndicator struct {
 func NSProgressIndicatorFromID(id objc.ID) NSProgressIndicator {
 	return NSProgressIndicator{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSProgressIndicator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -230,7 +232,7 @@ func NewNSProgressIndicator() NSProgressIndicator {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -246,11 +248,11 @@ func NewProgressIndicatorWithCoder(coder foundation.INSCoder) NSProgressIndicato
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -267,25 +269,27 @@ func NewProgressIndicatorWithFrame(frameRect corefoundation.CGRect) NSProgressIn
 // sender: The object sending the message.
 //
 // # Discussion
-// 
+//
 // Does nothing for a determinate progress indicator.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/startAnimation(_:)
 func (p NSProgressIndicator) StartAnimation(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("startAnimation:"), sender)
 }
+
 // Stops the animation of an indeterminate progress indicator.
 //
 // sender: The object sending the message.
 //
 // # Discussion
-// 
+//
 // Does nothing for a determinate progress indicator.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/stopAnimation(_:)
 func (p NSProgressIndicator) StopAnimation(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("stopAnimation:"), sender)
 }
+
 // Advances the progress bar of a determinate progress indicator by the
 // specified amount.
 //
@@ -297,31 +301,33 @@ func (p NSProgressIndicator) StopAnimation(sender objectivec.IObject) {
 func (p NSProgressIndicator) IncrementBy(delta float64) {
 	objc.Send[objc.ID](p.ID, objc.Sel("incrementBy:"), delta)
 }
+
 // This action method resizes the progress indicator to an appropriate size
 // depending on the value of [Style].
 //
 // # Discussion
-// 
+//
 // Use this after you use [Style] to re-size the progress indicator.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/sizeToFit()
 func (p NSProgressIndicator) SizeToFit() {
 	objc.Send[objc.ID](p.ID, objc.Sel("sizeToFit"))
 }
+
 // Returns the progress indicator’s value.
 //
 // # Return Value
-// 
+//
 // The value of the progress indicator.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityValue] property.
 //
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProgressIndicator/accessibilityValue()
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
 func (p NSProgressIndicator) AccessibilityValue() foundation.NSNumber {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSNumberFromID(rv)
@@ -331,14 +337,12 @@ func (p NSProgressIndicator) AccessibilityValue() foundation.NSNumber {
 // animation in a separate thread.
 //
 // # Discussion
-// 
-// When the value of this property is [true], animation of the progress
+//
+// When the value of this property is true, animation of the progress
 // indicator occurs in a separate thread.
-// 
+//
 // If the app becomes multithreaded as a result of an invocation of this
 // method, the app’s performance could become noticeably slower.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/usesThreadedAnimation
 func (p NSProgressIndicator) UsesThreadedAnimation() bool {
@@ -348,14 +352,15 @@ func (p NSProgressIndicator) UsesThreadedAnimation() bool {
 func (p NSProgressIndicator) SetUsesThreadedAnimation(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setUsesThreadedAnimation:"), value)
 }
+
 // The value that indicates the current extent of the progress indicator.
 //
 // # Discussion
-// 
+//
 // By default, a determinate progress indicator goes from `0.0` to `100.0`. If
 // the progress bar has advanced halfway across the view, this value would be
 // `50.0`.
-// 
+//
 // An indeterminate progress indicator does not use this value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/doubleValue
@@ -366,13 +371,14 @@ func (p NSProgressIndicator) DoubleValue() float64 {
 func (p NSProgressIndicator) SetDoubleValue(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDoubleValue:"), value)
 }
+
 // The minimum value for the progress indicator.
 //
 // # Discussion
-// 
+//
 // By default, a determinate progress indicator goes from `0.0` to `100.0`, so
 // the default value of this property is `0.0`.
-// 
+//
 // An indeterminate progress indicator does not use this value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/minValue
@@ -383,13 +389,14 @@ func (p NSProgressIndicator) MinValue() float64 {
 func (p NSProgressIndicator) SetMinValue(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMinValue:"), value)
 }
+
 // The maximum value for the progress indicator.
 //
 // # Discussion
-// 
+//
 // By default, a determinate progress indicator goes from `0.0` to `100.0`, so
 // the default value of this property is `100.0`.
-// 
+//
 // An indeterminate progress indicator does not use this value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/maxValue
@@ -400,22 +407,23 @@ func (p NSProgressIndicator) MaxValue() float64 {
 func (p NSProgressIndicator) SetMaxValue(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMaxValue:"), value)
 }
+
 // The progress object to use for updating the progress view.
 //
 // # Discussion
-// 
+//
 // Set this property when you want the progress view to automatically update
 // its progress value using the information it receives from the [Progress]
 // object. Setting this property also modifies the [Indeterminate],
 // [MinValue], [MaxValue], and [DoubleValue] properties of the indicator. Set
 // the property to `nil` when you want to update the progress manually. The
 // default value of this property is `nil`.
-// 
+//
 // For more information on configuring a progress object, see [Progress].
 //
-// [Progress]: https://developer.apple.com/documentation/Foundation/Progress
-//
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/observedProgress
+//
+// [Progress]: https://developer.apple.com/documentation/Foundation/Progress
 func (p NSProgressIndicator) ObservedProgress() foundation.NSProgress {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("observedProgress"))
 	return foundation.NSProgressFromID(objc.ID(rv))
@@ -423,10 +431,11 @@ func (p NSProgressIndicator) ObservedProgress() foundation.NSProgress {
 func (p NSProgressIndicator) SetObservedProgress(value foundation.NSProgress) {
 	objc.Send[struct{}](p.ID, objc.Sel("setObservedProgress:"), value)
 }
+
 // The size of the progress indicator.
 //
 // # Discussion
-// 
+//
 // See [NSCell] for possible values.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/controlSize
@@ -437,10 +446,11 @@ func (p NSProgressIndicator) ControlSize() NSControlSize {
 func (p NSProgressIndicator) SetControlSize(value NSControlSize) {
 	objc.Send[struct{}](p.ID, objc.Sel("setControlSize:"), value)
 }
+
 // The progress indicator’s control tint.
 //
 // # Discussion
-// 
+//
 // See [NSCell] for possible values.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/controlTint
@@ -451,15 +461,13 @@ func (p NSProgressIndicator) ControlTint() NSControlTint {
 func (p NSProgressIndicator) SetControlTint(value NSControlTint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setControlTint:"), value)
 }
+
 // A Boolean that indicates whether the progress indicator’s frame has a
 // three-dimensional bezel.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the progress indicator is
-// bezeled.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the progress indicator is bezeled.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/isBezeled
 func (p NSProgressIndicator) Bezeled() bool {
@@ -469,17 +477,16 @@ func (p NSProgressIndicator) Bezeled() bool {
 func (p NSProgressIndicator) SetBezeled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBezeled:"), value)
 }
+
 // A Boolean that indicates whether the progress indicator is indeterminate.
 //
 // # Discussion
-// 
+//
 // A determinate indicator displays how much of the task has been completed.
 // An indeterminate indicator shows simply that the app is busy.
-// 
-// When the value of this property is [true], the progress indicator is
-// indeterminate; otherwise, it is determinate.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the progress indicator is
+// indeterminate; otherwise, it is determinate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/isIndeterminate
 func (p NSProgressIndicator) Indeterminate() bool {
@@ -489,15 +496,16 @@ func (p NSProgressIndicator) Indeterminate() bool {
 func (p NSProgressIndicator) SetIndeterminate(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIndeterminate:"), value)
 }
+
 // The style of the progress indicator (bar or spinning).
 //
 // # Discussion
-// 
+//
 // See [NSProgressIndicator.Style] for possible values.
 //
-// [NSProgressIndicator.Style]: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/Style-swift.enum
-//
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/style-swift.property
+//
+// [NSProgressIndicator.Style]: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/Style-swift.enum
 func (p NSProgressIndicator) Style() NSProgressIndicatorStyle {
 	rv := objc.Send[NSProgressIndicatorStyle](p.ID, objc.Sel("style"))
 	return NSProgressIndicatorStyle(rv)
@@ -505,17 +513,14 @@ func (p NSProgressIndicator) Style() NSProgressIndicatorStyle {
 func (p NSProgressIndicator) SetStyle(value NSProgressIndicatorStyle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setStyle:"), value)
 }
+
 // A Boolean that indicates whether the progress indicator hides itself when
 // it isn’t animating.
 //
 // # Discussion
-// 
-// When the value of this property is [false], the progress indicator is
-// hidden when it isn’t animating. The default value of this property is
-// [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is false, the progress indicator is hidden
+// when it isn’t animating. The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/isDisplayedWhenStopped
 func (p NSProgressIndicator) DisplayedWhenStopped() bool {
@@ -526,87 +531,86 @@ func (p NSProgressIndicator) SetDisplayedWhenStopped(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDisplayedWhenStopped:"), value)
 }
 
-			// Protocol methods for NSAccessibilityProgressIndicator
-			
+// Protocol methods for NSAccessibilityProgressIndicator
+
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
-// 
+//
 // The element’s frame in screen coordinates.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityFrame] property. This method is called whenever accessibility
 // clients request the [size] or [position] attributes.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
+//
 // [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
 // [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSProgressIndicator) AccessibilityFrame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
-	}
+}
+
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
 // # Return Value
-// 
+//
 // The element’s parent in the accessibility hierarchy.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityParent] property.
 //
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
+//
+// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 func (o NSProgressIndicator) AccessibilityParent() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // Returns the accessibility element’s identity.
 //
 // # Return Value
-// 
+//
 // Returns the unique ID for the accessibility element. It is often used in
 // automated testing.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityIdentifier] property.
 //
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
+//
+// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 func (o NSProgressIndicator) AccessibilityIdentifier() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
 // # Return Value
-// 
-// [true] if this element has the keyboard focus; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if this element has the keyboard focus; otherwise, false.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityFocused] property.
 //
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
+//
+// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 func (o NSProgressIndicator) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
-	}
-
+}

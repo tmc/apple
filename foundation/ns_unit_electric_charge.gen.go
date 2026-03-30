@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,22 +44,22 @@ func (uc UnitElectricChargeClass) Alloc() UnitElectricCharge {
 // A unit of measure for electric charge.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitElectricCharge] to represent specific
 // quantities of electric charge using the [NSMeasurement] class.
-// 
+//
 // # Electric Charge
-// 
+//
 // Electric charge is a fundamental physical property of matter that causes it
 // to experience a force within an electromagnetic field. The SI unit for
 // electric charge is the coulomb (C), which is defined as the amount of
 // charge carried by a current of one ampere in one second (1C = 1A · 1s).
 // Charge is also commonly expressed in terms of ampere hours (Ah).
-// 
+//
 // The [NSUnitElectricCharge] class defines its [BaseUnit] as [Coulombs], and
 // provides the following units, which are initialized using
 // [NSUnitConverterLinear] converters with the specified coefficients:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge
@@ -75,6 +76,7 @@ func UnitElectricChargeFromID(id objc.ID) UnitElectricCharge {
 
 // NSUnitElectricChargeFromID is an alias for [UnitElectricChargeFromID] for cross-framework compatibility.
 func NSUnitElectricChargeFromID(id objc.ID) UnitElectricCharge { return UnitElectricChargeFromID(id) }
+
 // NOTE: UnitElectricCharge adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,7 +106,6 @@ func NewUnitElectricCharge() UnitElectricCharge {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitElectricChargeWithCoder(coder INSCoder) UnitElectricCharge {
 	instance := getUnitElectricChargeClass().Alloc()
@@ -117,7 +118,7 @@ func NewUnitElectricChargeWithCoder(coder INSCoder) UnitElectricCharge {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -136,11 +137,11 @@ func NewUnitElectricChargeWithSymbol(symbol string) UnitElectricCharge {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -157,6 +158,7 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) Coulombs() UnitElectricC
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("coulombs"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
+
 // The megaampere hours unit of electric charge.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge/megaampereHours
@@ -164,6 +166,7 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) MegaampereHours() UnitEl
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("megaampereHours"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
+
 // The kiloampere hours unit of electric charge.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge/kiloampereHours
@@ -171,6 +174,7 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) KiloampereHours() UnitEl
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("kiloampereHours"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
+
 // The ampere hours unit of electric charge.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge/ampereHours
@@ -178,6 +182,7 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) AmpereHours() UnitElectr
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("ampereHours"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
+
 // The milliampere hours unit of electric charge.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge/milliampereHours
@@ -185,6 +190,7 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) MilliampereHours() UnitE
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("milliampereHours"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
+
 // The microampere hours unit of electric charge.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge/microampereHours
@@ -192,4 +198,3 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) MicroampereHours() UnitE
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("microampereHours"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
-

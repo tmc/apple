@@ -128,7 +128,10 @@ const (
 	// UNErrorCodeAttachmentNotInDataStore: The specified attachment isn’t in the system data store.
 	UNErrorCodeAttachmentNotInDataStore UNErrorCode = 103
 	// UNErrorCodeAttachmentUnrecognizedType: The file type of an attachment isn’t supported.
-	UNErrorCodeAttachmentUnrecognizedType UNErrorCode = 101
+	UNErrorCodeAttachmentUnrecognizedType       UNErrorCode = 101
+	UNErrorCodeBadgeInputInvalid                UNErrorCode = 1600
+	UNErrorCodeContentProvidingInvalid          UNErrorCode = 1501
+	UNErrorCodeContentProvidingObjectNotAllowed UNErrorCode = 1500
 	// UNErrorCodeNotificationInvalidNoContent: The notification has no user-facing content, but should.
 	UNErrorCodeNotificationInvalidNoContent UNErrorCode = 1401
 	// UNErrorCodeNotificationInvalidNoDate: The notification doesn’t have an associated date, but should.
@@ -151,6 +154,12 @@ func (e UNErrorCode) String() string {
 		return "UNErrorCodeAttachmentNotInDataStore"
 	case UNErrorCodeAttachmentUnrecognizedType:
 		return "UNErrorCodeAttachmentUnrecognizedType"
+	case UNErrorCodeBadgeInputInvalid:
+		return "UNErrorCodeBadgeInputInvalid"
+	case UNErrorCodeContentProvidingInvalid:
+		return "UNErrorCodeContentProvidingInvalid"
+	case UNErrorCodeContentProvidingObjectNotAllowed:
+		return "UNErrorCodeContentProvidingObjectNotAllowed"
 	case UNErrorCodeNotificationInvalidNoContent:
 		return "UNErrorCodeNotificationInvalidNoContent"
 	case UNErrorCodeNotificationInvalidNoDate:
@@ -331,4 +340,3 @@ func (e UNShowPreviewsSetting) String() string {
 		return fmt.Sprintf("UNShowPreviewsSetting(%d)", e)
 	}
 }
-

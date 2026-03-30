@@ -4,8 +4,9 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (cc CIPlugInClass) Alloc() CIPlugIn {
 // The mechanism for loading image units in macOS.
 //
 // # Overview
-// 
+//
 // An image unit is an image processing bundle that contains one or more Core
 // Image filters. Th`e.Plugin()` extension indicates one or more filters
 // packaged as an image unit.
@@ -61,6 +62,7 @@ type CIPlugIn struct {
 func CIPlugInFromID(id objc.ID) CIPlugIn {
 	return CIPlugIn{objectivec.Object{ID: id}}
 }
+
 // NOTE: CIPlugIn adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -93,29 +95,29 @@ func NewCIPlugIn() CIPlugIn {
 // Scans directories for plugins.
 //
 // # Discussion
-// 
+//
 // This call scans for plugins with the extension `XCUIElementTypePlugin` in
 // the following directories:
-// 
+//
 // - /Library/Graphics/Image Units
 // - ~Library/Graphics/Image Units
-// 
+//
 // This call adds new plug-ins. It doesn’t remove any plug-ins.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPlugIn/loadNonExecutablePlugIns()
 func (_CIPlugInClass CIPlugInClass) LoadNonExecutablePlugIns() {
 	objc.Send[objc.ID](objc.ID(_CIPlugInClass.class), objc.Sel("loadNonExecutablePlugIns"))
 }
+
 // Loads a non-executable plug-in specified by its URL.
 //
 // url: The location of the plugin to load.
 //
 // # Discussion
-// 
+//
 // If the filters contain executable code the plugin isn’t loaded.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPlugIn/loadNonExecutablePlugIn(_:)
 func (_CIPlugInClass CIPlugInClass) LoadNonExecutablePlugIn(url foundation.INSURL) {
 	objc.Send[objc.ID](objc.ID(_CIPlugInClass.class), objc.Sel("loadNonExecutablePlugIn:"), url)
 }
-

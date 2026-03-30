@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (mc MLMultiArrayAsNSArrayWrapperClass) Alloc() MLMultiArrayAsNSArrayWrapper
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLMultiArrayAsNSArrayWrapper.MultiArray]
 //   - [MLMultiArrayAsNSArrayWrapper.SetMultiArray]
 //   - [MLMultiArrayAsNSArrayWrapper.InitWrappingMultiArray]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayAsNSArrayWrapper
 type MLMultiArrayAsNSArrayWrapper struct {
 	foundation.NSArray
@@ -57,6 +58,7 @@ type MLMultiArrayAsNSArrayWrapper struct {
 func MLMultiArrayAsNSArrayWrapperFromID(id objc.ID) MLMultiArrayAsNSArrayWrapper {
 	return MLMultiArrayAsNSArrayWrapper{NSArray: foundation.NSArrayFromID(id)}
 }
+
 // Ensure MLMultiArrayAsNSArrayWrapper implements IMLMultiArrayAsNSArrayWrapper.
 var _ IMLMultiArrayAsNSArrayWrapper = MLMultiArrayAsNSArrayWrapper{}
 
@@ -98,7 +100,6 @@ func NewMLMultiArrayAsNSArrayWrapper() MLMultiArrayAsNSArrayWrapper {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayAsNSArrayWrapper/initWrappingMultiArray:
 func NewMultiArrayAsNSArrayWrapperWrappingMultiArray(array objectivec.IObject) MLMultiArrayAsNSArrayWrapper {
 	instance := getMLMultiArrayAsNSArrayWrapperClass().Alloc()
@@ -106,7 +107,6 @@ func NewMultiArrayAsNSArrayWrapperWrappingMultiArray(array objectivec.IObject) M
 	return MLMultiArrayAsNSArrayWrapperFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayAsNSArrayWrapper/initWrappingMultiArray:
 func (m MLMultiArrayAsNSArrayWrapper) InitWrappingMultiArray(array objectivec.IObject) MLMultiArrayAsNSArrayWrapper {
 	rv := objc.Send[MLMultiArrayAsNSArrayWrapper](m.ID, objc.Sel("initWrappingMultiArray:"), array)
@@ -121,4 +121,3 @@ func (m MLMultiArrayAsNSArrayWrapper) MultiArray() IMLMultiArray {
 func (m MLMultiArrayAsNSArrayWrapper) SetMultiArray(value IMLMultiArray) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMultiArray:"), value)
 }
-

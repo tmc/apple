@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (vc VZGDBDebugStubClass) Alloc() VZGDBDebugStub {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZGDBDebugStub.Delegate]
 //   - [VZGDBDebugStub.SetDelegate]
 //   - [VZGDBDebugStub.Port]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStub
 type VZGDBDebugStub struct {
 	VZDebugStub
@@ -56,6 +57,7 @@ type VZGDBDebugStub struct {
 func VZGDBDebugStubFromID(id objc.ID) VZGDBDebugStub {
 	return VZGDBDebugStub{VZDebugStub: VZDebugStubFromID(id)}
 }
+
 // Ensure VZGDBDebugStub implements IVZGDBDebugStub.
 var _ IVZGDBDebugStub = VZGDBDebugStub{}
 
@@ -105,9 +107,9 @@ func (v VZGDBDebugStub) Delegate() objectivec.IObject {
 func (v VZGDBDebugStub) SetDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZGDBDebugStub/port
 func (v VZGDBDebugStub) Port() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("port"))
 	return rv
 }
-

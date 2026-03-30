@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,12 +48,12 @@ func (ac AVCaptureTimecodeGeneratorClass) Alloc() AVCaptureTimecodeGenerator {
 // video and audio synchronization.
 //
 // # Overview
-// 
+//
 // The [AVCaptureTimecodeGenerator] class supports multiple timecode sources,
 // including frame counting, system clock synchronization, and MIDI timecode
 // input (MTC). Suitable for playback, recording, or other time-sensitive
 // operations where precise timecode metadata is required.
-// 
+//
 // Use the [AVCaptureTimecodeGenerator.StartSynchronizationWithTimecodeSource] method to set up the
 // desired timecode source.
 //
@@ -93,6 +94,7 @@ type AVCaptureTimecodeGenerator struct {
 func AVCaptureTimecodeGeneratorFromID(id objc.ID) AVCaptureTimecodeGenerator {
 	return AVCaptureTimecodeGenerator{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureTimecodeGenerator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -185,16 +187,17 @@ func NewAVCaptureTimecodeGenerator() AVCaptureTimecodeGenerator {
 // Generates an initial timecode intended to be the first in a sequence.
 //
 // # Return Value
-// 
+//
 // A populated [AVCaptureTimecode] structure.
 //
-// [AVCaptureTimecode]: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator/generateInitialTimecode()
+//
+// [AVCaptureTimecode]: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode
 func (c AVCaptureTimecodeGenerator) GenerateInitialTimecode() AVCaptureTimecode {
 	rv := objc.Send[AVCaptureTimecode](c.ID, objc.Sel("generateInitialTimecode"))
 	return AVCaptureTimecode(rv)
 }
+
 // Synchronizes the generator with the specified timecode source.
 //
 // source: The timecode source for synchronization.
@@ -203,6 +206,7 @@ func (c AVCaptureTimecodeGenerator) GenerateInitialTimecode() AVCaptureTimecode 
 func (c AVCaptureTimecodeGenerator) StartSynchronizationWithTimecodeSource(source IAVCaptureTimecodeSource) {
 	objc.Send[objc.ID](c.ID, objc.Sel("startSynchronizationWithTimecodeSource:"), source)
 }
+
 // Assigns a delegate to receive real-time timecode updates and specifies a
 // queue for callbacks.
 //
@@ -214,7 +218,7 @@ func (c AVCaptureTimecodeGenerator) StartSynchronizationWithTimecodeSource(sourc
 // throws an [NSInvalidArgumentException].
 //
 // # Discussion
-// 
+//
 // Use this method to configure a delegate that handles timecode updates. The
 // specified `queue` ensures thread-safe invocation of delegate methods.
 //
@@ -227,7 +231,7 @@ func (c AVCaptureTimecodeGenerator) SetDelegateQueue(delegate AVCaptureTimecodeG
 // clock synchronization for accurate timecode generation.
 //
 // # Discussion
-// 
+//
 // Indicates the active timecode source, as defined in the
 // [AVCaptureTimecodeSynchronizationSourceType] enum. If an
 // [AVCaptureTimecodeGenerator] becomes disconnected from its source, it
@@ -241,22 +245,23 @@ func (c AVCaptureTimecodeGenerator) CurrentSource() IAVCaptureTimecodeSource {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("currentSource"))
 	return AVCaptureTimecodeSourceFromID(objc.ID(rv))
 }
+
 // An array of available timecode synchronization sources that can be used by
 // the timecode generator.
 //
 // # Return Value
-// 
+//
 // A read-only array of [AVCaptureTimecodeSource] objects representing the
 // available timecode synchronization sources.
-// 
+//
 // # Discussion
-// 
+//
 // This property provides a list of [AVCaptureTimecodeSource] objects
 // representing the available timecode sources with which the generator can
 // synchronize. The sources may include built-in options such as the frame
 // counter and real-time clock, as well as dynamically detected sources such
 // as connected MIDI or HID devices.
-// 
+//
 // This array is key-value observable, allowing you to monitor changes in
 // real-time. For example, when a new MIDI device is connected, the array is
 // updated to include the corresponding timecode source.
@@ -268,11 +273,12 @@ func (c AVCaptureTimecodeGenerator) AvailableSources() []AVCaptureTimecodeSource
 		return AVCaptureTimecodeSourceFromID(id)
 	})
 }
+
 // The maximum time interval allowed for source synchronization attempts
 // before timing out.
 //
 // # Discussion
-// 
+//
 // This property specifies the duration, in seconds, that the
 // [AVCaptureTimecodeGenerator] will attempt to synchronize with a timecode
 // source before timing out if synchronization cannot be achieved. If this
@@ -289,10 +295,11 @@ func (c AVCaptureTimecodeGenerator) SynchronizationTimeout() float64 {
 func (c AVCaptureTimecodeGenerator) SetSynchronizationTimeout(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSynchronizationTimeout:"), value)
 }
+
 // The time offset, in seconds, applied to the generated timecode.
 //
 // # Discussion
-// 
+//
 // This offset allows fine-tuning of time alignment for synchronization with
 // external sources or to accommodate any intentional delay. The default value
 // is 0 seconds.
@@ -305,6 +312,7 @@ func (c AVCaptureTimecodeGenerator) TimecodeAlignmentOffset() float64 {
 func (c AVCaptureTimecodeGenerator) SetTimecodeAlignmentOffset(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimecodeAlignmentOffset:"), value)
 }
+
 // The frame duration that the generator will use to generate timecodes.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator/timecodeFrameDuration
@@ -315,22 +323,24 @@ func (c AVCaptureTimecodeGenerator) TimecodeFrameDuration() coremedia.CMTime {
 func (c AVCaptureTimecodeGenerator) SetTimecodeFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimecodeFrameDuration:"), value)
 }
+
 // The delegate that receives timecode updates from the timecode generator.
 //
 // # Discussion
-// 
+//
 // You can use your [Delegate] to receive real-time timecode updates.
-// Implement the `` method in your delegate to handle updates.
+// Implement the “ method in your delegate to handle updates.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator/delegate
 func (c AVCaptureTimecodeGenerator) Delegate() AVCaptureTimecodeGeneratorDelegate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("delegate"))
 	return AVCaptureTimecodeGeneratorDelegateObjectFromID(rv)
 }
+
 // The dispatch queue on which delegate callbacks are invoked.
 //
 // # Discussion
-// 
+//
 // Provides the queue set in [SetDelegateQueue]. If no delegate is assigned,
 // this property is `nil`.
 //
@@ -344,7 +354,7 @@ func (c AVCaptureTimecodeGenerator) DelegateCallbackQueue() dispatch.Queue {
 // or external synchronization.
 //
 // # Discussion
-// 
+//
 // This class property represents a standalone timecode source that advances
 // based purely on frame count, independent of any real-time or external
 // synchronization. It is ideal for scenarios where a simple, self-contained
@@ -356,10 +366,11 @@ func (_AVCaptureTimecodeGeneratorClass AVCaptureTimecodeGeneratorClass) FrameCou
 	rv := objc.Send[objc.ID](objc.ID(_AVCaptureTimecodeGeneratorClass.class), objc.Sel("frameCountSource"))
 	return AVCaptureTimecodeSourceFromID(objc.ID(rv))
 }
+
 // A predefined timecode source synchronized to the real-time system clock.
 //
 // # Discussion
-// 
+//
 // This class property provides a default timecode source based on the
 // real-time system clock, requiring no external device. It is ideal for live
 // events or scenarios where alignment with the current time of day is
@@ -370,4 +381,3 @@ func (_AVCaptureTimecodeGeneratorClass AVCaptureTimecodeGeneratorClass) RealTime
 	rv := objc.Send[objc.ID](objc.ID(_AVCaptureTimecodeGeneratorClass.class), objc.Sel("realTimeClockSource"))
 	return AVCaptureTimecodeSourceFromID(objc.ID(rv))
 }
-

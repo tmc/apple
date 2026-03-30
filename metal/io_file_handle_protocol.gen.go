@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -29,6 +29,7 @@ type MTLIOFileHandle interface {
 type MTLIOFileHandleObject struct {
 	objectivec.Object
 }
+
 func (o MTLIOFileHandleObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,9 +48,11 @@ func MTLIOFileHandleObjectFromID(id objc.ID) MTLIOFileHandleObject {
 func (o MTLIOFileHandleObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
 
+// An optional name for the file that the handle represents.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLIOFileHandle/label
 func (o MTLIOFileHandleObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

@@ -3,11 +3,12 @@
 package avfoundation
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVPlayerPlaybackCoordinator] class.
@@ -47,11 +48,11 @@ func (ac AVPlayerPlaybackCoordinatorClass) Alloc() AVPlayerPlaybackCoordinator {
 // objects in a connected group.
 //
 // # Overview
-// 
+//
 // This object coordinates the state of [AVPlayer] objects. You don’t create
 // an instance of the coordinator, but instead access the player’s instance
 // through its [PlaybackCoordinator] property.
-// 
+//
 // Use the standard interfaces of [AVPlayer] to control playback in your app.
 // The coordinator automatically intercepts calls that affect transport
 // control state, like [SetRateTimeAtHostTime], [Pause], and
@@ -60,9 +61,9 @@ func (ac AVPlayerPlaybackCoordinatorClass) Alloc() AVPlayerPlaybackCoordinator {
 // time changes from other participants and imposes them on the player. If
 // this occurs, the player item posts notifications that identify the
 // originating participant.
-// 
+//
 // [media-3839391]
-// 
+//
 // This object may automatically suspend coordinated playback when a system
 // state change causes the player’s [AVPlayerPlaybackCoordinator.TimeControlStatus] value to change from
 // a playing state to a waiting or paused state. A suspension that begins
@@ -98,6 +99,7 @@ type AVPlayerPlaybackCoordinator struct {
 func AVPlayerPlaybackCoordinatorFromID(id objc.ID) AVPlayerPlaybackCoordinator {
 	return AVPlayerPlaybackCoordinator{AVPlaybackCoordinator: AVPlaybackCoordinatorFromID(id)}
 }
+
 // NOTE: AVPlayerPlaybackCoordinator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -172,7 +174,7 @@ func NewAVPlayerPlaybackCoordinator() AVPlayerPlaybackCoordinator {
 // playback coordinator disconnects from any existing coordination medium.
 //
 // # Discussion
-// 
+//
 // This connects the playback coordinator to a coordination medium to enable
 // sending and receiving messages from other connected playback coordinators.
 // If the coordination medium is non-NULL, this will connect the playback
@@ -212,6 +214,7 @@ func (p AVPlayerPlaybackCoordinator) Player() IAVPlayer {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("player"))
 	return AVPlayerFromID(objc.ID(rv))
 }
+
 // A delegate object for the playback coordinator.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerPlaybackCoordinator/delegate
@@ -222,10 +225,11 @@ func (p AVPlayerPlaybackCoordinator) Delegate() AVPlayerPlaybackCoordinatorDeleg
 func (p AVPlayerPlaybackCoordinator) SetDelegate(value AVPlayerPlaybackCoordinatorDelegate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The AVPlaybackCoordinationMedium this playback coordinator is connected to.
 //
 // # Discussion
-// 
+//
 // This is the AVPlaybackCoordinationMedium the playback coordinator is
 // connected to. If not NULL, the playback coordinator is connected to the
 // specified coordination medium. The playback coordinator is not available to
@@ -239,6 +243,7 @@ func (p AVPlayerPlaybackCoordinator) PlaybackCoordinationMedium() IAVPlaybackCoo
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("playbackCoordinationMedium"))
 	return AVPlaybackCoordinationMediumFromID(objc.ID(rv))
 }
+
 // The playback coordinator for the player.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avplayer/playbackcoordinator
@@ -249,6 +254,7 @@ func (p AVPlayerPlaybackCoordinator) PlaybackCoordinator() IAVPlayerPlaybackCoor
 func (p AVPlayerPlaybackCoordinator) SetPlaybackCoordinator(value IAVPlayerPlaybackCoordinator) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPlaybackCoordinator:"), value)
 }
+
 // A value that indicates whether playback is in progress, paused
 // indefinitely, or waiting for network conditions to improve.
 //
@@ -260,4 +266,3 @@ func (p AVPlayerPlaybackCoordinator) TimeControlStatus() AVPlayerTimeControlStat
 func (p AVPlayerPlaybackCoordinator) SetTimeControlStatus(value AVPlayerTimeControlStatus) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTimeControlStatus:"), value)
 }
-

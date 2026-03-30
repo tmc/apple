@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVMutableMetadataItemClass) Alloc() AVMutableMetadataItem {
 // A mutable metadata item for an audiovisual asset or for one of its tracks.
 //
 // # Overview
-// 
+//
 // You can initialize a mutable metadata item from an existing
 // [AVMetadataItem] object or with a one or more of the basic properties of a
 // metadata item: a key, a key space, a locale, and a value.
@@ -76,6 +77,7 @@ type AVMutableMetadataItem struct {
 func AVMutableMetadataItemFromID(id objc.ID) AVMutableMetadataItem {
 	return AVMutableMetadataItem{AVMetadataItem: AVMetadataItemFromID(id)}
 }
+
 // NOTE: AVMutableMetadataItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -144,7 +146,7 @@ func NewAVMutableMetadataItem() AVMutableMetadataItem {
 // Returns a new mutable metadata item.
 //
 // # Return Value
-// 
+//
 // A new mutable metadata item.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMetadataItem/metadataItem
@@ -163,6 +165,7 @@ func (m AVMutableMetadataItem) Value() objectivec.IObject {
 func (m AVMutableMetadataItem) SetValue(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setValue:"), value)
 }
+
 // A dictionary of additional attributes for a metadata item.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMetadataItem/extraAttributes
@@ -173,10 +176,11 @@ func (m AVMutableMetadataItem) ExtraAttributes() foundation.INSDictionary {
 func (m AVMutableMetadataItem) SetExtraAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setExtraAttributes:"), value)
 }
+
 // The value of the metadata item as a string.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if the system can’t represent the value as a string.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMetadataItem/stringValue
@@ -187,10 +191,11 @@ func (m AVMutableMetadataItem) StringValue() string {
 func (m AVMutableMetadataItem) SetStringValue(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStringValue:"), objc.String(value))
 }
+
 // The value of the metadata item as a number.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if the system can’t represent the value as a number.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMetadataItem/numberValue
@@ -201,10 +206,11 @@ func (m AVMutableMetadataItem) NumberValue() foundation.NSNumber {
 func (m AVMutableMetadataItem) SetNumberValue(value foundation.NSNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumberValue:"), value)
 }
+
 // The value of the metadata item as a date.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if the system can’t represent the value as a date.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMetadataItem/dateValue
@@ -215,6 +221,7 @@ func (m AVMutableMetadataItem) DateValue() foundation.INSDate {
 func (m AVMutableMetadataItem) SetDateValue(value foundation.INSDate) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDateValue:"), value)
 }
+
 // The value of the metadata item as a data value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMetadataItem/dataValue
@@ -225,4 +232,3 @@ func (m AVMutableMetadataItem) DataValue() foundation.INSData {
 func (m AVMutableMetadataItem) SetDataValue(value foundation.INSData) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDataValue:"), value)
 }
-

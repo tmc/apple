@@ -3,11 +3,12 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (vc VZConsoleDeviceConfigurationClass) Alloc() VZConsoleDeviceConfiguration
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZConsoleDeviceConfiguration._init]
@@ -55,6 +55,7 @@ func (vc VZConsoleDeviceConfigurationClass) Alloc() VZConsoleDeviceConfiguration
 //   - [VZConsoleDeviceConfiguration.Description]
 //   - [VZConsoleDeviceConfiguration.Hash]
 //   - [VZConsoleDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration
 type VZConsoleDeviceConfiguration struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type VZConsoleDeviceConfiguration struct {
 func VZConsoleDeviceConfigurationFromID(id objc.ID) VZConsoleDeviceConfiguration {
 	return VZConsoleDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZConsoleDeviceConfiguration implements IVZConsoleDeviceConfiguration.
 var _ IVZConsoleDeviceConfiguration = VZConsoleDeviceConfiguration{}
 
@@ -120,13 +122,13 @@ func (c VZConsoleDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/makeConsoleDeviceForVirtualMachine:consoleDeviceIndex:
 func (c VZConsoleDeviceConfiguration) MakeConsoleDeviceForVirtualMachineConsoleDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("makeConsoleDeviceForVirtualMachine:consoleDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/validateWithError:
 func (c VZConsoleDeviceConfiguration) ValidateWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -147,24 +149,27 @@ func (c VZConsoleDeviceConfiguration) _consoleDevice() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("_consoleDevice"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/debugDescription
 func (c VZConsoleDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/description
 func (c VZConsoleDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/hash
 func (c VZConsoleDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZConsoleDeviceConfiguration/superclass
 func (c VZConsoleDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
 	return rv
 }
-

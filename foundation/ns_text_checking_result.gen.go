@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSTextCheckingResultClass) Alloc() NSTextCheckingResult {
 // text, such as when matching a regular expression.
 //
 // # Overview
-// 
+//
 // On both iOS and macOS, instances of [NSTextCheckingResult] are returned by
 // the [NSRegularExpression] class and the [NSDataDetector] class to indicate
 // the discovery of content. In those cases, what is found may be a match for
@@ -53,8 +54,6 @@ func (nc NSTextCheckingResultClass) Alloc() NSTextCheckingResult {
 // instances of [NSTextCheckingResult] are returned by the [NSSpellChecker]
 // object to describe the results of spelling, grammar, or text-substitution
 // actions.
-//
-// [NSSpellChecker]: https://developer.apple.com/documentation/AppKit/NSSpellChecker
 //
 // # Text Checking Type Range and Type
 //
@@ -114,6 +113,8 @@ func (nc NSTextCheckingResultClass) Alloc() NSTextCheckingResult {
 //   - [NSTextCheckingResult.RangeWithName]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
+//
+// [NSSpellChecker]: https://developer.apple.com/documentation/AppKit/NSSpellChecker
 type NSTextCheckingResult struct {
 	objectivec.Object
 }
@@ -125,6 +126,7 @@ type NSTextCheckingResult struct {
 func NSTextCheckingResultFromID(id objc.ID) NSTextCheckingResult {
 	return NSTextCheckingResult{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTextCheckingResult adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -291,7 +293,6 @@ func NewNSTextCheckingResult() NSTextCheckingResult {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewTextCheckingResultWithCoder(coder INSCoder) NSTextCheckingResult {
 	instance := getNSTextCheckingResultClass().Alloc()
@@ -304,30 +305,31 @@ func NewTextCheckingResultWithCoder(coder INSCoder) NSTextCheckingResult {
 // idx: The index of the result.
 //
 // # Return Value
-// 
+//
 // The range of the result.
 //
 // # Discussion
-// 
+//
 // A result must have at least one range, but may optionally have more, for
 // example, to represent regular expression capture groups.
-// 
+//
 // Passing [RangeAtIndex] the value `0` always returns the value of the
 // [Range] property. Additional ranges, if any, will have indexes from `1` to
-// `numberOfRanges``-1`.
+// `numberOfRanges“-1`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/range(at:)
 func (t NSTextCheckingResult) RangeAtIndex(idx uint) NSRange {
 	rv := objc.Send[NSRange](t.ID, objc.Sel("rangeAtIndex:"), idx)
 	return NSRange(rv)
 }
+
 // Returns a new text checking result after adjusting the ranges as specified
 // by the offset.
 //
 // offset: The amount the ranges are adjusted.
 //
 // # Return Value
-// 
+//
 // A new [NSTextCheckingResult] instance with the adjusted range or ranges.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/adjustingRanges(offset:)
@@ -335,12 +337,13 @@ func (t NSTextCheckingResult) ResultByAdjustingRangesWithOffset(offset int) INST
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resultByAdjustingRangesWithOffset:"), offset)
 	return NSTextCheckingResultFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/range(withName:)
 func (t NSTextCheckingResult) RangeWithName(name string) NSRange {
 	rv := objc.Send[NSRange](t.ID, objc.Sel("rangeWithName:"), objc.String(name))
 	return NSRange(rv)
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -349,7 +352,7 @@ func (t NSTextCheckingResult) RangeWithName(name string) NSRange {
 func (t NSTextCheckingResult) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (t NSTextCheckingResult) InitWithCoder(coder INSCoder) NSTextCheckingResult {
 	rv := objc.Send[NSTextCheckingResult](t.ID, objc.Sel("initWithCoder:"), coder)
@@ -364,15 +367,16 @@ func (t NSTextCheckingResult) InitWithCoder(coder INSCoder) NSTextCheckingResult
 // replacementString: The replacement string.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeReplacement].
+// [ResultType] of [NSTextCheckingTypeReplacement].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/replacementCheckingResult(range:replacementString:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) ReplacementCheckingResultWithRangeReplacementString(range_ NSRange, replacementString string) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("replacementCheckingResultWithRange:replacementString:"), range_, objc.String(replacementString))
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a type checking result with the specified regular
 // expression data.
 //
@@ -384,15 +388,16 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) ReplacementCheckingR
 // regularExpression: The regular expression.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeRegularExpression].
+// [ResultType] of [NSTextCheckingTypeRegularExpression].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/regularExpressionCheckingResult(ranges:count:regularExpression:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) RegularExpressionCheckingResultWithRangesCountRegularExpression(ranges []NSRangePointer, count uint, regularExpression INSRegularExpression) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("regularExpressionCheckingResultWithRanges:count:regularExpression:"), objc.CArray(ranges), count, regularExpression)
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the specified URL.
 //
 // range: The range of the detected result.
@@ -400,15 +405,16 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) RegularExpressionChe
 // url: The URL.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeLink].
+// [ResultType] of [NSTextCheckingTypeLink].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/linkCheckingResult(range:url:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) LinkCheckingResultWithRangeURL(range_ NSRange, url INSURL) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("linkCheckingResultWithRange:URL:"), range_, url)
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the specified address
 // components.
 //
@@ -416,19 +422,20 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) LinkCheckingResultWi
 //
 // components: A dictionary containing the address components. The dictionary keys are
 // described in [Keys for Address Components].
-// //
-// [Keys for Address Components]: https://developer.apple.com/documentation/Foundation/keys-for-address-components
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeAddress].
+// [ResultType] of [NSTextCheckingTypeAddress].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/addressCheckingResult(range:components:)
+//
+// [Keys for Address Components]: https://developer.apple.com/documentation/Foundation/keys-for-address-components
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) AddressCheckingResultWithRangeComponents(range_ NSRange, components INSDictionary) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("addressCheckingResultWithRange:components:"), range_, components)
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the specified transit
 // information.
 //
@@ -436,20 +443,21 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) AddressCheckingResul
 //
 // components: A dictionary containing the transit components. The currently supported
 // keys are [airline] and [flight].
-// //
-// [airline]: https://developer.apple.com/documentation/Foundation/NSTextCheckingKey/airline
-// [flight]: https://developer.apple.com/documentation/Foundation/NSTextCheckingKey/flight
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeTransitInformation].
+// [ResultType] of [NSTextCheckingTypeTransitInformation].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/transitInformationCheckingResult(range:components:)
+//
+// [airline]: https://developer.apple.com/documentation/Foundation/NSTextCheckingKey/airline
+// [flight]: https://developer.apple.com/documentation/Foundation/NSTextCheckingKey/flight
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) TransitInformationCheckingResultWithRangeComponents(range_ NSRange, components INSDictionary) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("transitInformationCheckingResultWithRange:components:"), range_, components)
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the specified phone number.
 //
 // range: The range of the detected result.
@@ -457,15 +465,16 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) TransitInformationCh
 // phoneNumber: The phone number.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypePhoneNumber].
+// [ResultType] of [NSTextCheckingTypePhoneNumber].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/phoneNumberCheckingResult(range:phoneNumber:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) PhoneNumberCheckingResultWithRangePhoneNumber(range_ NSRange, phoneNumber string) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("phoneNumberCheckingResultWithRange:phoneNumber:"), range_, objc.String(phoneNumber))
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the specified date.
 //
 // range: The range of the detected result.
@@ -473,15 +482,16 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) PhoneNumberCheckingR
 // date: The detected date.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeDate].
+// [ResultType] of [NSTextCheckingTypeDate].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/dateCheckingResult(range:date:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) DateCheckingResultWithRangeDate(range_ NSRange, date INSDate) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("dateCheckingResultWithRange:date:"), range_, date)
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the specified date, time
 // zone, and duration.
 //
@@ -494,15 +504,16 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) DateCheckingResultWi
 // duration: The detected duration.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeDate].
+// [ResultType] of [NSTextCheckingTypeDate].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/dateCheckingResult(range:date:timeZone:duration:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) DateCheckingResultWithRangeDateTimeZoneDuration(range_ NSRange, date INSDate, timeZone INSTimeZone, duration float64) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("dateCheckingResultWithRange:date:timeZone:duration:"), range_, date, timeZone, duration)
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the specified dash
 // corrected replacement string.
 //
@@ -511,15 +522,16 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) DateCheckingResultWi
 // replacementString: The replacement string.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeDash].
+// [ResultType] of [NSTextCheckingTypeDash].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/dashCheckingResult(range:replacementString:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) DashCheckingResultWithRangeReplacementString(range_ NSRange, replacementString string) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("dashCheckingResultWithRange:replacementString:"), range_, objc.String(replacementString))
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the specified
 // quote-balanced replacement string.
 //
@@ -528,30 +540,32 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) DashCheckingResultWi
 // replacementString: The replacement string.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeQuote].
+// [ResultType] of [NSTextCheckingTypeQuote].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/quoteCheckingResult(range:replacementString:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) QuoteCheckingResultWithRangeReplacementString(range_ NSRange, replacementString string) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("quoteCheckingResultWithRange:replacementString:"), range_, objc.String(replacementString))
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the range of a misspelled
 // word.
 //
 // range: The range of the detected result.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeSpelling].
+// [ResultType] of [NSTextCheckingTypeSpelling].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/spellCheckingResult(range:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) SpellCheckingResultWithRange(range_ NSRange) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("spellCheckingResultWithRange:"), range_)
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result after detecting a possible
 // correction.
 //
@@ -560,15 +574,16 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) SpellCheckingResultW
 // replacementString: The suggested replacement string.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeSpelling].
+// [ResultType] of [NSTextCheckingTypeSpelling].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/correctionCheckingResult(range:replacementString:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) CorrectionCheckingResultWithRangeReplacementString(range_ NSRange, replacementString string) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("correctionCheckingResultWithRange:replacementString:"), range_, objc.String(replacementString))
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the specified orthography.
 //
 // range: The range of the detected result.
@@ -576,15 +591,16 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) CorrectionCheckingRe
 // orthography: An orthography object that describes the script.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeOrthography].
+// [ResultType] of [NSTextCheckingTypeOrthography].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/orthographyCheckingResult(range:orthography:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) OrthographyCheckingResultWithRangeOrthography(range_ NSRange, orthography INSOrthography) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("orthographyCheckingResultWithRange:orthography:"), range_, orthography)
 	return NSTextCheckingResultFromID(rv)
 }
+
 // Creates and returns a text checking result with the specified array of
 // grammatical errors.
 //
@@ -594,16 +610,16 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) OrthographyCheckingR
 // is suitable for presenting to the user.
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextCheckingResult] with the specified [Range] and a
-// [ResultType] of [TextCheckingTypeGrammar].
+// [ResultType] of [NSTextCheckingTypeGrammar].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/grammarCheckingResult(range:details:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) GrammarCheckingResultWithRangeDetails(range_ NSRange, details INSDictionary) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("grammarCheckingResultWithRange:details:"), range_, details)
 	return NSTextCheckingResultFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/correctionCheckingResult(range:replacementString:alternativeStrings:)
 func (_NSTextCheckingResultClass NSTextCheckingResultClass) CorrectionCheckingResultWithRangeReplacementStringAlternativeStrings(range_ NSRange, replacementString string, alternativeStrings []string) NSTextCheckingResult {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextCheckingResultClass.class), objc.Sel("correctionCheckingResultWithRange:replacementString:alternativeStrings:"), range_, objc.String(replacementString), objectivec.StringSliceToNSArray(alternativeStrings))
@@ -613,7 +629,7 @@ func (_NSTextCheckingResultClass NSTextCheckingResultClass) CorrectionCheckingRe
 // Returns the range of the result that the receiver represents.
 //
 // # Discussion
-// 
+//
 // This property will be present for all returned [NSTextCheckingResult]
 // instances.
 //
@@ -622,39 +638,42 @@ func (t NSTextCheckingResult) Range() NSRange {
 	rv := objc.Send[NSRange](t.ID, objc.Sel("range"))
 	return NSRange(rv)
 }
+
 // Returns the text checking result type that the receiver represents.
 //
 // # Discussion
-// 
+//
 // The possible result types for the built in checking capabilities are
 // described in [NSTextCheckingResult.CheckingType].
-// 
+//
 // This property will be present for all returned [NSTextCheckingResult]
 // instances.
 //
-// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
-//
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/resultType
+//
+// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
 func (t NSTextCheckingResult) ResultType() NSTextCheckingType {
 	rv := objc.Send[NSTextCheckingType](t.ID, objc.Sel("resultType"))
 	return NSTextCheckingType(rv)
 }
+
 // Returns the number of ranges.
 //
 // # Discussion
-// 
+//
 // A result must have at least one range, but may optionally have more (for
 // example, to represent regular expression capture groups).
-// 
+//
 // Passing [RangeAtIndex] the value `0` always returns the value of the the
 // [Range] property. Additional ranges, if any, will have indexes from `1` to
-// `numberOfRanges``-1`.
+// `numberOfRanges“-1`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/numberOfRanges
 func (t NSTextCheckingResult) NumberOfRanges() uint {
 	rv := objc.Send[uint](t.ID, objc.Sel("numberOfRanges"))
 	return rv
 }
+
 // A replacement string from one of a number of replacement checking results.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/replacementString
@@ -662,6 +681,7 @@ func (t NSTextCheckingResult) ReplacementString() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("replacementString"))
 	return NSStringFromID(rv).String()
 }
+
 // The regular expression of a type checking result.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/regularExpression
@@ -669,20 +689,22 @@ func (t NSTextCheckingResult) RegularExpression() INSRegularExpression {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("regularExpression"))
 	return NSRegularExpressionFromID(objc.ID(rv))
 }
+
 // A dictionary containing the components of a type checking result.
 //
 // # Discussion
-// 
+//
 // Currently used by the transit checking result. The supported keys are
 // located in [Keys for Transit Components].
 //
-// [Keys for Transit Components]: https://developer.apple.com/documentation/Foundation/keys-for-transit-components
-//
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/components
+//
+// [Keys for Transit Components]: https://developer.apple.com/documentation/Foundation/keys-for-transit-components
 func (t NSTextCheckingResult) Components() INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("components"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // The URL of a type checking result.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/url
@@ -690,19 +712,21 @@ func (t NSTextCheckingResult) URL() INSURL {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("URL"))
 	return NSURLFromID(objc.ID(rv))
 }
+
 // The address dictionary of a type checking result.
 //
 // # Discussion
-// 
+//
 // The dictionary keys are described in [Keys for Address Components].
 //
-// [Keys for Address Components]: https://developer.apple.com/documentation/Foundation/keys-for-address-components
-//
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/addressComponents
+//
+// [Keys for Address Components]: https://developer.apple.com/documentation/Foundation/keys-for-address-components
 func (t NSTextCheckingResult) AddressComponents() INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("addressComponents"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // The phone number of a type checking result.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/phoneNumber
@@ -710,6 +734,7 @@ func (t NSTextCheckingResult) PhoneNumber() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("phoneNumber"))
 	return NSStringFromID(rv).String()
 }
+
 // The date component of a type checking result.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/date
@@ -717,6 +742,7 @@ func (t NSTextCheckingResult) Date() INSDate {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("date"))
 	return NSDateFromID(objc.ID(rv))
 }
+
 // The duration component of a type checking result.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/duration
@@ -724,6 +750,7 @@ func (t NSTextCheckingResult) Duration() float64 {
 	rv := objc.Send[NSTimeInterval](t.ID, objc.Sel("duration"))
 	return float64(rv)
 }
+
 // The time zone component of a type checking result.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/timeZone
@@ -731,6 +758,7 @@ func (t NSTextCheckingResult) TimeZone() INSTimeZone {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("timeZone"))
 	return NSTimeZoneFromID(objc.ID(rv))
 }
+
 // The detected orthography of a type checking result.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/orthography
@@ -738,10 +766,11 @@ func (t NSTextCheckingResult) Orthography() INSOrthography {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("orthography"))
 	return NSOrthographyFromID(objc.ID(rv))
 }
+
 // The details of a located grammatical type checking result.
 //
 // # Discussion
-// 
+//
 // This array of strings is suitable for presenting to the user.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/grammarDetails
@@ -749,11 +778,13 @@ func (t NSTextCheckingResult) GrammarDetails() INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("grammarDetails"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/alternativeStrings
 func (t NSTextCheckingResult) AlternativeStrings() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("alternativeStrings"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // A value indicating that a requested item couldn’t be found or doesn’t
 // exist.
 //
@@ -766,9 +797,6 @@ func (t NSTextCheckingResult) SetNSNotFound(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSNotFound:"), value)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

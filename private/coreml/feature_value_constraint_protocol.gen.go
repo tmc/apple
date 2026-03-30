@@ -18,6 +18,7 @@ type MLFeatureValueConstraint interface {
 type MLFeatureValueConstraintObject struct {
 	objectivec.Object
 }
+
 func (o MLFeatureValueConstraintObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,7 +31,6 @@ func MLFeatureValueConstraintObjectFromID(id objc.ID) MLFeatureValueConstraintOb
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValueConstraint/isAllowedValue:error:
 func (o MLFeatureValueConstraintObject) IsAllowedValueError(value objectivec.IObject) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("isAllowedValue:error:"), value)
@@ -38,5 +38,4 @@ func (o MLFeatureValueConstraintObject) IsAllowedValueError(value objectivec.IOb
 		return false, err
 	}
 	return rv, nil
-	}
-
+}

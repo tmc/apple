@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZMacOSConfigurationRequirementsClass) Alloc() VZMacOSConfigurationRequ
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacOSConfigurationRequirements._variants]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSConfigurationRequirements
 type VZMacOSConfigurationRequirements struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZMacOSConfigurationRequirements struct {
 func VZMacOSConfigurationRequirementsFromID(id objc.ID) VZMacOSConfigurationRequirements {
 	return VZMacOSConfigurationRequirements{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMacOSConfigurationRequirements implements IVZMacOSConfigurationRequirements.
 var _ IVZMacOSConfigurationRequirements = VZMacOSConfigurationRequirements{}
 
@@ -101,4 +103,3 @@ func (m VZMacOSConfigurationRequirements) _variants() objectivec.IObject {
 func (m VZMacOSConfigurationRequirements) Variants() objectivec.IObject {
 	return m._variants()
 }
-

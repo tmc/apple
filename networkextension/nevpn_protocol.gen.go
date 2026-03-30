@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,13 +46,13 @@ func (nc NEVPNProtocolClass) Alloc() NEVPNProtocol {
 // Settings common to both IKEv2 and IPsec VPN configurations.
 //
 // # Overview
-// 
+//
 // The [NEVPNProtocol] class is an abstract base class with one subclass for
 // each type of supported VPN configuration. This class provides properties
 // for configuring the VPN, authenticating network connections, and routing
 // network traffic. You can include all network traffic, with some exceptions,
 // and selectively exclude types of network traffic.
-// 
+//
 // Instances of this class are thread-safe.
 //
 // # Configuring the VPN
@@ -105,6 +106,7 @@ type NEVPNProtocol struct {
 func NEVPNProtocolFromID(id objc.ID) NEVPNProtocol {
 	return NEVPNProtocol{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEVPNProtocol adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -236,7 +238,7 @@ func (v NEVPNProtocol) EncodeWithCoder(coder foundation.INSCoder) {
 // The address of the VPN server.
 //
 // # Discussion
-// 
+//
 // The format of the value of this property depends on the type of VPN
 // protocol in use. For example, for IPSec the value should be a hostname or
 // an IP address. For a custom SSL-VPN protocol the value may be a URL. The
@@ -252,14 +254,13 @@ func (v NEVPNProtocol) ServerAddress() string {
 func (v NEVPNProtocol) SetServerAddress(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setServerAddress:"), objc.String(value))
 }
+
 // A Boolean value that indicates whether the VPN disconnects when the device
 // sleeps.
 //
 // # Discussion
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/disconnectOnSleep
 func (v NEVPNProtocol) DisconnectOnSleep() bool {
@@ -269,11 +270,12 @@ func (v NEVPNProtocol) DisconnectOnSleep() bool {
 func (v NEVPNProtocol) SetDisconnectOnSleep(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDisconnectOnSleep:"), value)
 }
+
 // The proxy settings to use for HTTP and HTTPS connections that route through
 // the VPN.
 //
 // # Discussion
-// 
+//
 // While operating under an established VPN tunnel, HTTP and HTTPS connections
 // inside the tunnel use the given proxy settings.
 //
@@ -285,6 +287,7 @@ func (v NEVPNProtocol) ProxySettings() INEProxySettings {
 func (v NEVPNProtocol) SetProxySettings(value INEProxySettings) {
 	objc.Send[struct{}](v.ID, objc.Sel("setProxySettings:"), value)
 }
+
 // The user name component of the tunneling protocol authentication
 // credential.
 //
@@ -296,11 +299,12 @@ func (v NEVPNProtocol) Username() string {
 func (v NEVPNProtocol) SetUsername(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUsername:"), objc.String(value))
 }
+
 // A persistent keychain reference to a keychain item containing the password
 // component of the tunneling protocol authentication credential.
 //
 // # Discussion
-// 
+//
 // The keychain item must have the kSecClassGenericPassword class.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/passwordReference
@@ -311,21 +315,22 @@ func (v NEVPNProtocol) PasswordReference() foundation.INSData {
 func (v NEVPNProtocol) SetPasswordReference(value foundation.INSData) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPasswordReference:"), value)
 }
+
 // A persistent keychain reference to a keychain item containing the
 // certificate and private key components of the tunneling protocol
 // authentication credential.
 //
 // # Discussion
-// 
+//
 // The keychain item must have the [kSecClassIdentity] class. In macOS, the
 // system ignores this property for [NEVPNProtocolIPSec] objects. On iOS, the
 // system ignores this property for [NEVPNProtocolIPSec] and
 // [NEVPNProtocolIKEv2] objects. In these cases where the system ingores this
 // property, set the identity using the [IdentityData] property.
 //
-// [kSecClassIdentity]: https://developer.apple.com/documentation/Security/kSecClassIdentity
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/identityReference
+//
+// [kSecClassIdentity]: https://developer.apple.com/documentation/Security/kSecClassIdentity
 func (v NEVPNProtocol) IdentityReference() foundation.INSData {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("identityReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
@@ -333,11 +338,12 @@ func (v NEVPNProtocol) IdentityReference() foundation.INSData {
 func (v NEVPNProtocol) SetIdentityReference(value foundation.INSData) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIdentityReference:"), value)
 }
+
 // The certificate and private key components of the tunneling protocol
 // authentication credential, in PKCS12 format.
 //
 // # Discussion
-// 
+//
 // In macOS, the system ignores this property for [NEVPNProtocolIKEv2] and
 // [NETunnelProviderProtocol] objects. On iOS, the system ignores this
 // property for [NETunnelProviderProtocol] objects. In cases where the system
@@ -352,10 +358,11 @@ func (v NEVPNProtocol) IdentityData() foundation.INSData {
 func (v NEVPNProtocol) SetIdentityData(value foundation.INSData) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIdentityData:"), value)
 }
+
 // The password for the PKCS12 tunneling protocol authentication credentials.
 //
 // # Discussion
-// 
+//
 // If the PKCS12 data set in the [IdentityData] property uses a password for
 // encryption, you must specify the password here.
 //
@@ -367,31 +374,29 @@ func (v NEVPNProtocol) IdentityDataPassword() string {
 func (v NEVPNProtocol) SetIdentityDataPassword(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIdentityDataPassword:"), objc.String(value))
 }
+
 // A Boolean value that indicates whether the system sends most network
 // traffic over the tunnel.
 //
 // # Discussion
-// 
-// If this property is [true], the system routes network traffic through the
+//
+// If this property is true, the system routes network traffic through the
 // tunnel except traffic for designated system services necessary for
 // maintaining expected device functionality.
-// 
+//
 // You can exclude some types of traffic using the [ExcludeAPNs],
 // [ExcludeLocalNetworks], and [ExcludeCellularServices] properties in
 // combination with this property. The system always excludes the following
 // network traffic from the tunnel regardless of this property value:
-// 
+//
 // - Network control plane traffic that maintains a device’s connection to
 // the local network, such as DHCP. - Captive portal negotiation traffic that
 // authorizes a device with a Wi-Fi hotspot. - Certain cellular services
 // traffic that uses the cellular network only, such as VoLTE. - Traffic that
 // communicates with a companion device, such as an Apple Watch.
-// 
-// [NETransparentProxyManager] doesn’t support this property. The default
-// value for this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// [NETransparentProxyManager] doesn’t support this property. The default
+// value for this property is false.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/includeAllNetworks
 func (v NEVPNProtocol) IncludeAllNetworks() bool {
@@ -401,18 +406,17 @@ func (v NEVPNProtocol) IncludeAllNetworks() bool {
 func (v NEVPNProtocol) SetIncludeAllNetworks(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIncludeAllNetworks:"), value)
 }
+
 // A Boolean value that indicates whether the system excludes all APNs network
 // traffic from the tunnel.
 //
 // # Discussion
-// 
-// If this property is [true], the system excludes Apple Push Notification
-// services (APNs) traffic, but only when the [IncludeAllNetworks] property is
-// also [true]. [NETransparentProxyManager] doesn’t support this property.
-// 
-// The default value for this property is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this property is true, the system excludes Apple Push Notification
+// services (APNs) traffic, but only when the [IncludeAllNetworks] property is
+// also true. [NETransparentProxyManager] doesn’t support this property.
+//
+// The default value for this property is true.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/excludeAPNs
 func (v NEVPNProtocol) ExcludeAPNs() bool {
@@ -422,21 +426,20 @@ func (v NEVPNProtocol) ExcludeAPNs() bool {
 func (v NEVPNProtocol) SetExcludeAPNs(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setExcludeAPNs:"), value)
 }
+
 // A Boolean value that indicates whether the system excludes all cellular
 // services network traffic from the tunnel.
 //
 // # Discussion
-// 
-// If this property is [true], the system excludes cellular services — such
-// as Wi-Fi Calling, MMS, SMS, and Visual Voicemail — but only when the
-// [IncludeAllNetworks] property is also [true]. This property doesn’t
-// impact services that use the cellular network only — such as VoLTE —
-// which the system automatically excludes. [NETransparentProxyManager]
-// doesn’t support this property.
-// 
-// The default value for this property is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this property is true, the system excludes cellular services — such as
+// Wi-Fi Calling, MMS, SMS, and Visual Voicemail — but only when the
+// [IncludeAllNetworks] property is also true. This property doesn’t impact
+// services that use the cellular network only — such as VoLTE — which the
+// system automatically excludes. [NETransparentProxyManager] doesn’t
+// support this property.
+//
+// The default value for this property is true.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/excludeCellularServices
 func (v NEVPNProtocol) ExcludeCellularServices() bool {
@@ -446,21 +449,18 @@ func (v NEVPNProtocol) ExcludeCellularServices() bool {
 func (v NEVPNProtocol) SetExcludeCellularServices(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setExcludeCellularServices:"), value)
 }
+
 // A Boolean value that indicates whether the system excludes all traffic
 // destined for local networks from the tunnel.
 //
 // # Discussion
-// 
-// If this property is [true], the system excludes network connections to
-// hosts on the local network — such as AirPlay, AirDrop, and CarPlay —
-// but only when the [IncludeAllNetworks] or [EnforceRoutes] property is also
-// [true]. [NETransparentProxyManager] doesn’t support this property.
-// 
-// The default value for this property is [false] in macOS and [true] in
-// iOS`.`
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this property is true, the system excludes network connections to hosts
+// on the local network — such as AirPlay, AirDrop, and CarPlay — but only
+// when the [IncludeAllNetworks] or [EnforceRoutes] property is also true.
+// [NETransparentProxyManager] doesn’t support this property.
+//
+// The default value for this property is false in macOS and true in iOS`.`
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/excludeLocalNetworks
 func (v NEVPNProtocol) ExcludeLocalNetworks() bool {
@@ -470,25 +470,23 @@ func (v NEVPNProtocol) ExcludeLocalNetworks() bool {
 func (v NEVPNProtocol) SetExcludeLocalNetworks(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setExcludeLocalNetworks:"), value)
 }
+
 // A Boolean value that indicates whether route rules for the tunnel take
 // precedence over any locally defined routes.
 //
 // # Discussion
-// 
-// If this property is [true] when the [IncludeAllNetworks] property is
-// [false], the system scopes the included routes to the VPN and the excluded
-// routes to the current primary network interface. This property supersedes
-// the system routing table and scoping operations by apps.
-// 
-// If you set both the [EnforceRoutes] and [ExcludeLocalNetworks] properties
-// to [true], the system excludes network connections to hosts on the local
-// network.
-// 
-// [NETransparentProxyManager] doesn’t support this property. The default
-// value for this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this property is true when the [IncludeAllNetworks] property is false,
+// the system scopes the included routes to the VPN and the excluded routes to
+// the current primary network interface. This property supersedes the system
+// routing table and scoping operations by apps.
+//
+// If you set both the [EnforceRoutes] and [ExcludeLocalNetworks] properties
+// to true, the system excludes network connections to hosts on the local
+// network.
+//
+// [NETransparentProxyManager] doesn’t support this property. The default
+// value for this property is false.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/enforceRoutes
 func (v NEVPNProtocol) EnforceRoutes() bool {
@@ -498,6 +496,7 @@ func (v NEVPNProtocol) EnforceRoutes() bool {
 func (v NEVPNProtocol) SetEnforceRoutes(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEnforceRoutes:"), value)
 }
+
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol/excludeDeviceCommunication
 func (v NEVPNProtocol) ExcludeDeviceCommunication() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("excludeDeviceCommunication"))
@@ -506,4 +505,3 @@ func (v NEVPNProtocol) ExcludeDeviceCommunication() bool {
 func (v NEVPNProtocol) SetExcludeDeviceCommunication(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setExcludeDeviceCommunication:"), value)
 }
-

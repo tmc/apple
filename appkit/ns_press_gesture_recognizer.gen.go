@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,18 +47,15 @@ func (nc NSPressGestureRecognizerClass) Alloc() NSPressGestureRecognizer {
 // mouse button for a minimum amount of time before releasing it.
 //
 // # Overview
-// 
+//
 // Use a press gesture recognizer to configure which button the user must hold
 // and the length of time they must hold it. You can also specify how far the
 // mouse can move for a valid gesture.
-// 
+//
 // Upon creation, the gesture recognizer recognizes press gestures involving
 // only the primary button. It also delays sending primary button events to
-// the view by setting the [NSPressGestureRecognizer.DelaysPrimaryMouseButtonEvents] property to
-// [true]. To change the set of buttons to track, modify the [NSPressGestureRecognizer.ButtonMask]
-// property.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
+// the view by setting the [NSPressGestureRecognizer.DelaysPrimaryMouseButtonEvents] property to true.
+// To change the set of buttons to track, modify the [NSPressGestureRecognizer.ButtonMask] property.
 //
 // # Configuring the Gesture Recognizer
 //
@@ -82,6 +80,7 @@ type NSPressGestureRecognizer struct {
 func NSPressGestureRecognizerFromID(id objc.ID) NSPressGestureRecognizer {
 	return NSPressGestureRecognizer{NSGestureRecognizer: NSGestureRecognizerFromID(id)}
 }
+
 // NOTE: NSPressGestureRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,7 +136,6 @@ func NewNSPressGestureRecognizer() NSPressGestureRecognizer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func NewPressGestureRecognizerWithCoder(coder foundation.INSCoder) NSPressGestureRecognizer {
 	instance := getNSPressGestureRecognizerClass().Alloc()
@@ -156,18 +154,18 @@ func NewPressGestureRecognizerWithCoder(coder foundation.INSCoder) NSPressGestur
 // must not specify `nil` for this parameter.
 //
 // # Return Value
-// 
+//
 // The initialized gesture recognizer object or `nil` if an error occurred.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer. Subclasses must call this method
 // from their own custom initialization methods. Call the method before
 // performing other tasks.
-// 
+//
 // This method records the specified `target` and `action` values and prepares
 // the gesture recognizer for use.
-// 
+//
 // The `action` method must have one of the following signatures:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(target:action:)
@@ -180,7 +178,7 @@ func NewPressGestureRecognizerWithTargetAction(target objectivec.IObject, action
 // The maximum movement of the mouse in the view before the gesture fails.
 //
 // # Discussion
-// 
+//
 // The mouse must move by the specified amount along either axis for the
 // gesture to fail. The distance is measured in points. The default value of
 // this property is the same as the double-click distance.
@@ -193,22 +191,21 @@ func (p NSPressGestureRecognizer) AllowableMovement() float64 {
 func (p NSPressGestureRecognizer) SetAllowableMovement(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAllowableMovement:"), value)
 }
+
 // A bit mask of the buttons required to recognize this press.
 //
 // # Discussion
-// 
+//
 // Bit 0 represents the primary button, bit 1 is the secondary button, and so
 // on. So to track clicks of the secondary button, assign the value `0x2`
 // (which corresponds to a `1` in bit 1) to this property. The default value
 // of this property is `0x1`, which detects clicks in the primary mouse
 // button.
-// 
+//
 // Changing the value of this property also sets the values of the
 // [DelaysPrimaryMouseButtonEvents], [DelaysSecondaryMouseButtonEvents], and
-// [DelaysOtherMouseButtonEvents] properties to [true] for each of the buttons
+// [DelaysOtherMouseButtonEvents] properties to true for each of the buttons
 // you specified.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPressGestureRecognizer/buttonMask
 func (p NSPressGestureRecognizer) ButtonMask() uint {
@@ -218,11 +215,12 @@ func (p NSPressGestureRecognizer) ButtonMask() uint {
 func (p NSPressGestureRecognizer) SetButtonMask(value uint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setButtonMask:"), value)
 }
+
 // The minimum time (in seconds) that the user must hold the mouse button in
 // the view for a valid gesture.
 //
 // # Discussion
-// 
+//
 // The default value of this property is the same as the current double-click
 // interval.
 //
@@ -234,6 +232,7 @@ func (p NSPressGestureRecognizer) MinimumPressDuration() float64 {
 func (p NSPressGestureRecognizer) SetMinimumPressDuration(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMinimumPressDuration:"), value)
 }
+
 // The number of necessary touches on a Touch Bar for the gesture recognizer
 // to match.
 //
@@ -245,4 +244,3 @@ func (p NSPressGestureRecognizer) NumberOfTouchesRequired() int {
 func (p NSPressGestureRecognizer) SetNumberOfTouchesRequired(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNumberOfTouchesRequired:"), value)
 }
-

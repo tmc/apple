@@ -2,7 +2,6 @@
 
 package appleneuralengine
 
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/AnalyticsDataRef
 type AnalyticsDataRef uintptr
 
@@ -20,4 +19,3 @@ type AnalyticsProcedureInfoRef uintptr
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/AnalyticsTaskInfoRef
 type AnalyticsTaskInfoRef uintptr
-

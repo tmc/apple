@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VZVirtioTraditionalMemoryBalloonDeviceConfigurationClass) Alloc() VZVir
 // system.
 //
 // # Overview
-// 
+//
 // Create a [VZVirtioTraditionalMemoryBalloonDeviceConfiguration] object when
 // you want the ability to reclaim memory from the guest operating system.
 // After creating this object, add it to the [VZVirtioTraditionalMemoryBalloonDeviceConfiguration.MemoryBalloonDevices] property
@@ -65,6 +66,7 @@ type VZVirtioTraditionalMemoryBalloonDeviceConfiguration struct {
 func VZVirtioTraditionalMemoryBalloonDeviceConfigurationFromID(id objc.ID) VZVirtioTraditionalMemoryBalloonDeviceConfiguration {
 	return VZVirtioTraditionalMemoryBalloonDeviceConfiguration{VZMemoryBalloonDeviceConfiguration: VZMemoryBalloonDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioTraditionalMemoryBalloonDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,4 +111,3 @@ func (v VZVirtioTraditionalMemoryBalloonDeviceConfiguration) MemoryBalloonDevice
 func (v VZVirtioTraditionalMemoryBalloonDeviceConfiguration) SetMemoryBalloonDevices(value IVZMemoryBalloonDevice) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMemoryBalloonDevices:"), value)
 }
-

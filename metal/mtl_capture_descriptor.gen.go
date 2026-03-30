@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -64,6 +65,7 @@ type MTLCaptureDescriptor struct {
 func MTLCaptureDescriptorFromID(id objc.ID) MTLCaptureDescriptor {
 	return MTLCaptureDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLCaptureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,13 +119,13 @@ func NewMTLCaptureDescriptor() MTLCaptureDescriptor {
 // The instance whose contents should be captured.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`, but you need to set an instance before using
 // this descriptor to start a capture session.
-// 
+//
 // The behavior of the capture session depends on the kind of instance being
 // captured:
-// 
+//
 // - Specify an [MTLDevice] instance to capture commands in command buffers
 // created on any command queues created by the device instance. - Specify an
 // [MTLCommandQueue] instance to capture commands in command buffers created
@@ -138,13 +140,16 @@ func (c MTLCaptureDescriptor) CaptureObject() objectivec.IObject {
 func (c MTLCaptureDescriptor) SetCaptureObject(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCaptureObject:"), value)
 }
+
 // The destination for any captured command data.
 //
 // # Discussion
-// 
-// The default value is [CaptureDestinationDeveloperTools].
+//
+// The default value is [MTLCaptureDestination.developerTools].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureDescriptor/destination
+//
+// [MTLCaptureDestination.developerTools]: https://developer.apple.com/documentation/Metal/MTLCaptureDestination/developerTools
 func (c MTLCaptureDescriptor) Destination() MTLCaptureDestination {
 	rv := objc.Send[MTLCaptureDestination](c.ID, objc.Sel("destination"))
 	return MTLCaptureDestination(rv)
@@ -152,15 +157,18 @@ func (c MTLCaptureDescriptor) Destination() MTLCaptureDestination {
 func (c MTLCaptureDescriptor) SetDestination(value MTLCaptureDestination) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDestination:"), value)
 }
+
 // A URL for a file to write the capture data into.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`. If you set [Destination] to
-// [CaptureDestinationGPUTraceDocument], you need to set this property to
+// [MTLCaptureDestination.gpuTraceDocument], you need to set this property to
 // where you want the file to be written to.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureDescriptor/outputURL
+//
+// [MTLCaptureDestination.gpuTraceDocument]: https://developer.apple.com/documentation/Metal/MTLCaptureDestination/gpuTraceDocument
 func (c MTLCaptureDescriptor) OutputURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("outputURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
@@ -168,4 +176,3 @@ func (c MTLCaptureDescriptor) OutputURL() foundation.INSURL {
 func (c MTLCaptureDescriptor) SetOutputURL(value foundation.INSURL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOutputURL:"), value)
 }
-

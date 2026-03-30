@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (ac AVAudioConnectionPointClass) Alloc() AVAudioConnectionPoint {
 // audio engine.
 //
 // # Overview
-// 
+//
 // Instances of this class are immutable.
 //
 // # Creating a Connection Point
@@ -71,6 +72,7 @@ type AVAudioConnectionPoint struct {
 func AVAudioConnectionPointFromID(id objc.ID) AVAudioConnectionPoint {
 	return AVAudioConnectionPoint{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioConnectionPoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,7 +136,7 @@ func NewAVAudioConnectionPoint() AVAudioConnectionPoint {
 // bus: The output or input bus on the node.
 //
 // # Discussion
-// 
+//
 // If the node is `nil`, this method fails and returns `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConnectionPoint/init(node:bus:)
@@ -151,7 +153,7 @@ func NewAudioConnectionPointWithNodeBus(node IAVAudioNode, bus AVAudioNodeBus) A
 // bus: The output or input bus on the node.
 //
 // # Discussion
-// 
+//
 // If the node is `nil`, this method fails and returns `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConnectionPoint/init(node:bus:)
@@ -159,6 +161,7 @@ func (a AVAudioConnectionPoint) InitWithNodeBus(node IAVAudioNode, bus AVAudioNo
 	rv := objc.Send[AVAudioConnectionPoint](a.ID, objc.Sel("initWithNode:bus:"), node, bus)
 	return rv
 }
+
 // Returns connection information about a node’s input bus.
 //
 // node: The node with the input connection you’re querying.
@@ -166,12 +169,12 @@ func (a AVAudioConnectionPoint) InitWithNodeBus(node IAVAudioNode, bus AVAudioNo
 // bus: The node’s input bus for the connection you’re querying.
 //
 // # Return Value
-// 
+//
 // An [AVAudioConnectionPoint] object with connection information on the
 // node’s input bus.
 //
 // # Discussion
-// 
+//
 // Connections are always one-to-one or one-to-many. This method returns `nil`
 // if there’s no connection on the node’s specified input bus.
 //
@@ -180,6 +183,7 @@ func (a AVAudioConnectionPoint) InputConnectionPointForNodeInputBus(node IAVAudi
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputConnectionPointForNode:inputBus:"), node, bus)
 	return AVAudioConnectionPointFromID(rv)
 }
+
 // Returns connection information about a node’s output bus.
 //
 // node: The node with the output connections you’re querying.
@@ -187,12 +191,12 @@ func (a AVAudioConnectionPoint) InputConnectionPointForNodeInputBus(node IAVAudi
 // bus: The node’s output bus for connections you’re querying.
 //
 // # Return Value
-// 
+//
 // An array of [AVAudioConnectionPoint] objects with connection information on
 // the node’s output bus.
 //
 // # Discussion
-// 
+//
 // Connections are always one-to-one or one-to-many. This method returns an
 // empty array if there are no connections on the node’s specified output
 // bus.
@@ -212,6 +216,7 @@ func (a AVAudioConnectionPoint) Bus() AVAudioNodeBus {
 	rv := objc.Send[AVAudioNodeBus](a.ID, objc.Sel("bus"))
 	return AVAudioNodeBus(rv)
 }
+
 // The node in the connection point.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConnectionPoint/node
@@ -219,4 +224,3 @@ func (a AVAudioConnectionPoint) Node() IAVAudioNode {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("node"))
 	return AVAudioNodeFromID(objc.ID(rv))
 }
-

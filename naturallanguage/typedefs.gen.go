@@ -2,7 +2,6 @@
 
 package naturallanguage
 
-
 // NLContextualEmbeddingKey is contextual embedding keys.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbeddingKey
@@ -32,4 +31,3 @@ type NLTag = string
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme
 type NLTagScheme = string
-

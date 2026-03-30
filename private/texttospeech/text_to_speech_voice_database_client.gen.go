@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechVoiceDatabaseClient struct {
 func TextToSpeechVoiceDatabaseClientFromID(id objc.ID) TextToSpeechVoiceDatabaseClient {
 	return TextToSpeechVoiceDatabaseClient{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechVoiceDatabaseClient struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechVoiceDatabaseClient embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechVoiceDatabaseClient() TextToSpeechVoiceDatabaseClient {
 	rv := objc.Send[TextToSpeechVoiceDatabaseClient](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

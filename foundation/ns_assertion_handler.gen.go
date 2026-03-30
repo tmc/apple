@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (nc NSAssertionHandlerClass) Alloc() NSAssertionHandler {
 // An object that logs an assertion to the console.
 //
 // # Overview
-// 
+//
 // [NSAssertionHandler] objects are automatically created to handle false
 // assertions. Assertion macros, such as [NSAssert] and [NSCAssert], are used
 // to evaluate a condition, and if the condition evaluates to false, the
@@ -53,7 +54,7 @@ func (nc NSAssertionHandlerClass) Alloc() NSAssertionHandler {
 // an assertion handler prints an error message that includes the method and
 // class (or function) containing the assertion and raises an
 // [NSInternalInconsistencyException].
-// 
+//
 // You create assertions only using the assertion macros—you rarely need to
 // invoke [NSAssertionHandler] methods directly. The macros for use inside
 // methods and functions send
@@ -75,6 +76,7 @@ type NSAssertionHandler struct {
 func NSAssertionHandlerFromID(id objc.ID) NSAssertionHandler {
 	return NSAssertionHandler{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAssertionHandler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -107,12 +109,11 @@ func NewNSAssertionHandler() NSAssertionHandler {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAssertionHandler/handleFailureInFunction:file:lineNumber:description:
 func (a NSAssertionHandler) HandleFailureInFunctionFileLineNumberDescription(functionName string, fileName string, line int, format string) {
 	objc.Send[objc.ID](a.ID, objc.Sel("handleFailureInFunction:file:lineNumber:description:"), objc.String(functionName), objc.String(fileName), line, objc.String(format))
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSAssertionHandler/handleFailureInMethod:object:file:lineNumber:description:
 func (a NSAssertionHandler) HandleFailureInMethodObjectFileLineNumberDescription(selector objc.SEL, object objectivec.IObject, fileName string, line int, format string) {
 	objc.Send[objc.ID](a.ID, objc.Sel("handleFailureInMethod:object:file:lineNumber:description:"), selector, object, objc.String(fileName), line, objc.String(format))
@@ -121,11 +122,11 @@ func (a NSAssertionHandler) HandleFailureInMethodObjectFileLineNumberDescription
 // Returns the [NSAssertionHandler] object associated with the current thread.
 //
 // # Return Value
-// 
+//
 // The [NSAssertionHandler] object associated with the current thread.
-// 
+//
 // # Discussion
-// 
+//
 // If no assertion handler is associated with the current thread, this method
 // creates one and assigns it to the thread.
 //
@@ -134,4 +135,3 @@ func (_NSAssertionHandlerClass NSAssertionHandlerClass) CurrentHandler() NSAsser
 	rv := objc.Send[objc.ID](objc.ID(_NSAssertionHandlerClass.class), objc.Sel("currentHandler"))
 	return NSAssertionHandlerFromID(objc.ID(rv))
 }
-

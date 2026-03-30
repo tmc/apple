@@ -65,6 +65,7 @@ var (
 	// See: https://developer.apple.com/documentation/NetworkExtension/NEVPNStatusDidChangeNotification
 	NEVPNStatusDidChangeNotification string
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -241,4 +242,3 @@ func init() {
 	}
 
 }
-

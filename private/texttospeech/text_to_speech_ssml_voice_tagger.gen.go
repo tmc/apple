@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (tc TextToSpeechSSMLVoiceTaggerClass) Alloc() TextToSpeechSSMLVoiceTagger {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TextToSpeechSSMLVoiceTagger.TagSSML]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLVoiceTagger
 type TextToSpeechSSMLVoiceTagger struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type TextToSpeechSSMLVoiceTagger struct {
 func TextToSpeechSSMLVoiceTaggerFromID(id objc.ID) TextToSpeechSSMLVoiceTagger {
 	return TextToSpeechSSMLVoiceTagger{objectivec.Object{ID: id}}
 }
+
 // Ensure TextToSpeechSSMLVoiceTagger implements ITextToSpeechSSMLVoiceTagger.
 var _ ITextToSpeechSSMLVoiceTagger = TextToSpeechSSMLVoiceTagger{}
 
@@ -91,10 +93,8 @@ func NewTextToSpeechSSMLVoiceTagger() TextToSpeechSSMLVoiceTagger {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SSMLVoiceTagger/tagSSML:
 func (t TextToSpeechSSMLVoiceTagger) TagSSML(ssml objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tagSSML:"), ssml)
 	return objectivec.Object{ID: rv}
 }
-

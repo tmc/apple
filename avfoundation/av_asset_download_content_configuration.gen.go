@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -62,6 +63,7 @@ type AVAssetDownloadContentConfiguration struct {
 func AVAssetDownloadContentConfigurationFromID(id objc.ID) AVAssetDownloadContentConfiguration {
 	return AVAssetDownloadContentConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetDownloadContentConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -93,6 +95,9 @@ type IAVAssetDownloadContentConfiguration interface {
 	// The configuration for the auxiliary content that the task downloads.
 	AuxiliaryContentConfigurations() IAVAssetDownloadContentConfiguration
 	SetAuxiliaryContentConfigurations(value IAVAssetDownloadContentConfiguration)
+	// Download interstitial assets as listed in the index file. False by default.
+	DownloadsInterstitialAssets() bool
+	SetDownloadsInterstitialAssets(value bool)
 	// A Boolean value that indicates whether the task optimizes auxiliary content selection.
 	OptimizesAuxiliaryContentConfigurations() bool
 	SetOptimizesAuxiliaryContentConfigurations(value bool)
@@ -132,10 +137,11 @@ func (a AVAssetDownloadContentConfiguration) VariantQualifiers() []AVAssetVarian
 func (a AVAssetDownloadContentConfiguration) SetVariantQualifiers(value []AVAssetVariantQualifier) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVariantQualifiers:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The media selections of an asset that a task downloads.
 //
 // # Discussion
-// 
+//
 // If your configuration doesn’t indicate a media selection, the system uses
 // the asset’s automatic media selection.
 //
@@ -149,6 +155,7 @@ func (a AVAssetDownloadContentConfiguration) MediaSelections() []AVMediaSelectio
 func (a AVAssetDownloadContentConfiguration) SetMediaSelections(value []AVMediaSelection) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMediaSelections:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // A data value that represents the asset’s artwork.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetdownloadconfiguration/artworkdata
@@ -159,6 +166,7 @@ func (a AVAssetDownloadContentConfiguration) ArtworkData() foundation.INSData {
 func (a AVAssetDownloadContentConfiguration) SetArtworkData(value foundation.INSData) {
 	objc.Send[struct{}](a.ID, objc.Sel("setArtworkData:"), value)
 }
+
 // The configuration for the auxiliary content that the task downloads.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetdownloadconfiguration/auxiliarycontentconfigurations
@@ -169,6 +177,18 @@ func (a AVAssetDownloadContentConfiguration) AuxiliaryContentConfigurations() IA
 func (a AVAssetDownloadContentConfiguration) SetAuxiliaryContentConfigurations(value IAVAssetDownloadContentConfiguration) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAuxiliaryContentConfigurations:"), value)
 }
+
+// Download interstitial assets as listed in the index file. False by default.
+//
+// See: https://developer.apple.com/documentation/avfoundation/avassetdownloadconfiguration/downloadsinterstitialassets
+func (a AVAssetDownloadContentConfiguration) DownloadsInterstitialAssets() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("downloadsInterstitialAssets"))
+	return rv
+}
+func (a AVAssetDownloadContentConfiguration) SetDownloadsInterstitialAssets(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setDownloadsInterstitialAssets:"), value)
+}
+
 // A Boolean value that indicates whether the task optimizes auxiliary content
 // selection.
 //
@@ -180,6 +200,7 @@ func (a AVAssetDownloadContentConfiguration) OptimizesAuxiliaryContentConfigurat
 func (a AVAssetDownloadContentConfiguration) SetOptimizesAuxiliaryContentConfigurations(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOptimizesAuxiliaryContentConfigurations:"), value)
 }
+
 // The configuration for the primary content that the task downloads.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetdownloadconfiguration/primarycontentconfiguration
@@ -190,4 +211,3 @@ func (a AVAssetDownloadContentConfiguration) PrimaryContentConfiguration() IAVAs
 func (a AVAssetDownloadContentConfiguration) SetPrimaryContentConfiguration(value IAVAssetDownloadContentConfiguration) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPrimaryContentConfiguration:"), value)
 }
-

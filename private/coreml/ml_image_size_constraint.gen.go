@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLImageSizeConstraintClass) Alloc() MLImageSizeConstraint {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLImageSizeConstraint.AllowedImageSizeClosestToPixelsWidePixelsHighPreferDownScalingPreferInputAspectRatio]
@@ -53,6 +53,7 @@ func (mc MLImageSizeConstraintClass) Alloc() MLImageSizeConstraint {
 //   - [MLImageSizeConstraint.InitUnspecified]
 //   - [MLImageSizeConstraint.InitWithCoder]
 //   - [MLImageSizeConstraint.InitWithEnumeratedImageSizes]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint
 type MLImageSizeConstraint struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLImageSizeConstraint struct {
 func MLImageSizeConstraintFromID(id objc.ID) MLImageSizeConstraint {
 	return MLImageSizeConstraint{objectivec.Object{ID: id}}
 }
+
 // Ensure MLImageSizeConstraint implements IMLImageSizeConstraint.
 var _ IMLImageSizeConstraint = MLImageSizeConstraint{}
 
@@ -116,7 +118,6 @@ func NewImageSizeConstraintUnspecified() MLImageSizeConstraint {
 	return MLImageSizeConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/initWithCoder:
 func NewImageSizeConstraintWithCoder(coder objectivec.IObject) MLImageSizeConstraint {
 	instance := getMLImageSizeConstraintClass().Alloc()
@@ -124,7 +125,6 @@ func NewImageSizeConstraintWithCoder(coder objectivec.IObject) MLImageSizeConstr
 	return MLImageSizeConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/initWithEnumeratedImageSizes:
 func NewImageSizeConstraintWithEnumeratedImageSizes(sizes objectivec.IObject) MLImageSizeConstraint {
 	instance := getMLImageSizeConstraintClass().Alloc()
@@ -132,13 +132,12 @@ func NewImageSizeConstraintWithEnumeratedImageSizes(sizes objectivec.IObject) ML
 	return MLImageSizeConstraintFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/allowedImageSizeClosestToPixelsWide:pixelsHigh:preferDownScaling:preferInputAspectRatio:
 func (i MLImageSizeConstraint) AllowedImageSizeClosestToPixelsWidePixelsHighPreferDownScalingPreferInputAspectRatio(wide int64, high int64, scaling bool, ratio bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("allowedImageSizeClosestToPixelsWide:pixelsHigh:preferDownScaling:preferInputAspectRatio:"), wide, high, scaling, ratio)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/isAllowedImageSize:error:
 func (i MLImageSizeConstraint) IsAllowedImageSizeError(size objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -153,30 +152,31 @@ func (i MLImageSizeConstraint) IsAllowedImageSizeError(size objectivec.IObject) 
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/initUnspecified
 func (i MLImageSizeConstraint) InitUnspecified() MLImageSizeConstraint {
 	rv := objc.Send[MLImageSizeConstraint](i.ID, objc.Sel("initUnspecified"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/initWithCoder:
 func (i MLImageSizeConstraint) InitWithCoder(coder foundation.INSCoder) MLImageSizeConstraint {
 	rv := objc.Send[MLImageSizeConstraint](i.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/initWithEnumeratedImageSizes:
 func (i MLImageSizeConstraint) InitWithEnumeratedImageSizes(sizes objectivec.IObject) MLImageSizeConstraint {
 	rv := objc.Send[MLImageSizeConstraint](i.ID, objc.Sel("initWithEnumeratedImageSizes:"), sizes)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/closestImageSizeInArray:toImageSize:preferDownScaling:
 func (_MLImageSizeConstraintClass MLImageSizeConstraintClass) ClosestImageSizeInArrayToImageSizePreferDownScaling(array objectivec.IObject, size objectivec.IObject, scaling bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLImageSizeConstraintClass.class), objc.Sel("closestImageSizeInArray:toImageSize:preferDownScaling:"), array, size, scaling)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraint/supportsSecureCoding
 func (_MLImageSizeConstraintClass MLImageSizeConstraintClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLImageSizeConstraintClass.class), objc.Sel("supportsSecureCoding"))
@@ -188,4 +188,3 @@ func (i MLImageSizeConstraint) ImageSizeSet() foundation.INSOrderedSet {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("imageSizeSet"))
 	return foundation.NSOrderedSetFromID(objc.ID(rv))
 }
-

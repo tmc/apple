@@ -18,6 +18,7 @@ type NSInputServerMouseTracker interface {
 type NSInputServerMouseTrackerObject struct {
 	objectivec.Object
 }
+
 func (o NSInputServerMouseTrackerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func NSInputServerMouseTrackerObjectFromID(id objc.ID) NSInputServerMouseTracker
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

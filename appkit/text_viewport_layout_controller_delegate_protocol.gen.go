@@ -4,10 +4,12 @@ package appkit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // Optional methods that delegates implement to respond to viewport layout changes.
@@ -31,6 +33,7 @@ type NSTextViewportLayoutControllerDelegate interface {
 type NSTextViewportLayoutControllerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSTextViewportLayoutControllerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -52,7 +55,7 @@ func NSTextViewportLayoutControllerDelegateObjectFromID(id objc.ID) NSTextViewpo
 // textLayoutFragment: An [NSTextLayoutFragment].
 //
 // # Discussion
-// 
+//
 // The delegate presents the text layout fragment in the UI, for example, in a
 // sublayer or a subview. Layout information such as `viewportBounds` on
 // `textViewportLayoutController` isn’t up to date at the point of this
@@ -61,37 +64,40 @@ func NSTextViewportLayoutControllerDelegateObjectFromID(id objc.ID) NSTextViewpo
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutControllerDelegate/textViewportLayoutController(_:configureRenderingSurfaceFor:)
 func (o NSTextViewportLayoutControllerDelegateObject) TextViewportLayoutControllerConfigureRenderingSurfaceForTextLayoutFragment(textViewportLayoutController INSTextViewportLayoutController, textLayoutFragment INSTextLayoutFragment) {
 	objc.Send[struct{}](o.ID, objc.Sel("textViewportLayoutController:configureRenderingSurfaceForTextLayoutFragment:"), textViewportLayoutController, textLayoutFragment)
-	}
+}
+
 // Returns the current viewport, which is the view visible bounds plus the
 // overdraw area.
 //
 // textViewportLayoutController: The [NSTextViewportLayoutController].
 //
 // # Return Value
-// 
+//
 // A [CGRect].
 //
-// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutControllerDelegate/viewportBounds(for:)
+//
+// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 func (o NSTextViewportLayoutControllerDelegateObject) ViewportBoundsForTextViewportLayoutController(textViewportLayoutController INSTextViewportLayoutController) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("viewportBoundsForTextViewportLayoutController:"), textViewportLayoutController)
 	return rv
-	}
+}
+
 // The method the framework calls when the text viewport layout controller
 // finishes its layout process.
 //
 // textViewportLayoutController: The [NSTextViewportLayoutController].
 //
 // # Discussion
-// 
+//
 // Layout information on `textViewportLayoutController` is up-to-date at the
 // point of this call.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutControllerDelegate/textViewportLayoutControllerDidLayout(_:)
 func (o NSTextViewportLayoutControllerDelegateObject) TextViewportLayoutControllerDidLayout(textViewportLayoutController INSTextViewportLayoutController) {
 	objc.Send[struct{}](o.ID, objc.Sel("textViewportLayoutControllerDidLayout:"), textViewportLayoutController)
-	}
+}
+
 // The method the framework calls before the text viewport layout controller
 // starts its layout process.
 //
@@ -100,7 +106,7 @@ func (o NSTextViewportLayoutControllerDelegateObject) TextViewportLayoutControll
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutControllerDelegate/textViewportLayoutControllerWillLayout(_:)
 func (o NSTextViewportLayoutControllerDelegateObject) TextViewportLayoutControllerWillLayout(textViewportLayoutController INSTextViewportLayoutController) {
 	objc.Send[struct{}](o.ID, objc.Sel("textViewportLayoutControllerWillLayout:"), textViewportLayoutController)
-	}
+}
 
 // NSTextViewportLayoutControllerDelegateConfig holds optional typed callbacks for [NSTextViewportLayoutControllerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -191,4 +197,3 @@ func NewNSTextViewportLayoutControllerDelegate(config NSTextViewportLayoutContro
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextViewportLayoutControllerDelegateObjectFromID(instance)
 }
-

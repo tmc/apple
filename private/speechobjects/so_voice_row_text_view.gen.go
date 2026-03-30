@@ -4,8 +4,9 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/appkit"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [SOVoiceRowTextView] class.
@@ -50,6 +51,7 @@ type SOVoiceRowTextView struct {
 func SOVoiceRowTextViewFromID(id objc.ID) SOVoiceRowTextView {
 	return SOVoiceRowTextView{NSTextField: appkit.NSTextFieldFromID(id)}
 }
+
 // Ensure SOVoiceRowTextView implements ISOVoiceRowTextView.
 var _ ISOVoiceRowTextView = SOVoiceRowTextView{}
 
@@ -78,4 +80,3 @@ func NewSOVoiceRowTextView() SOVoiceRowTextView {
 	rv := objc.Send[SOVoiceRowTextView](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechVoiceSmuggler struct {
 func TextToSpeechVoiceSmugglerFromID(id objc.ID) TextToSpeechVoiceSmuggler {
 	return TextToSpeechVoiceSmuggler{objectivec.Object{ID: id}}
 }
+
 // Ensure TextToSpeechVoiceSmuggler implements ITextToSpeechVoiceSmuggler.
 var _ ITextToSpeechVoiceSmuggler = TextToSpeechVoiceSmuggler{}
 
@@ -78,4 +80,3 @@ func NewTextToSpeechVoiceSmuggler() TextToSpeechVoiceSmuggler {
 	rv := objc.Send[TextToSpeechVoiceSmuggler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

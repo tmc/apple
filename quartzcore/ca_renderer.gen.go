@@ -4,11 +4,12 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,11 +50,9 @@ func (cc CARendererClass) Alloc() CARenderer {
 // OpenGL context.
 //
 // # Overview
-// 
+//
 // For real-time output you should use an instance of [NSView] to host the
 // layer-tree.
-//
-// [NSView]: https://developer.apple.com/documentation/AppKit/NSView
 //
 // # Getting the Rendered Layer
 //
@@ -79,6 +78,8 @@ func (cc CARendererClass) Alloc() CARenderer {
 //   - [CARenderer.SetDestination]
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer
+//
+// [NSView]: https://developer.apple.com/documentation/AppKit/NSView
 type CARenderer struct {
 	objectivec.Object
 }
@@ -90,6 +91,7 @@ type CARenderer struct {
 func CARendererFromID(id objc.ID) CARenderer {
 	return CARenderer{objectivec.Object{ID: id}}
 }
+
 // NOTE: CARenderer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -191,15 +193,16 @@ func NewRendererWithMTLTextureOptions(tex metal.MTLTexture, dict foundation.INSD
 func (r CARenderer) BeginFrameAtTimeTimeStamp(t float64, ts *corevideo.CVTimeStamp) {
 	objc.Send[objc.ID](r.ID, objc.Sel("beginFrameAtTime:timeStamp:"), t, ts)
 }
+
 // Returns the bounds of the update region that contains all pixels that will
 // be rendered by the current frame.
 //
 // # Return Value
-// 
+//
 // The bounds of the update region..
 //
 // # Discussion
-// 
+//
 // Initially `updateBounds` will include all differences between the current
 // frame and the previously rendered frame.
 //
@@ -208,6 +211,7 @@ func (r CARenderer) UpdateBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](r.ID, objc.Sel("updateBounds"))
 	return corefoundation.CGRect(rv)
 }
+
 // Adds the rectangle to the update region of the current frame.
 //
 // r: A rectangle defining the region to be added to the update region.
@@ -216,20 +220,22 @@ func (r CARenderer) UpdateBounds() corefoundation.CGRect {
 func (r_ CARenderer) AddUpdateRect(r corefoundation.CGRect) {
 	objc.Send[objc.ID](r_.ID, objc.Sel("addUpdateRect:"), r)
 }
+
 // Render the update region of the current frame to the target context.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer/render()
 func (r CARenderer) Render() {
 	objc.Send[objc.ID](r.ID, objc.Sel("render"))
 }
+
 // Returns the time at which the next update should happen.
 //
 // # Return Value
-// 
+//
 // The time at which the next update should happen.
 //
 // # Discussion
-// 
+//
 // If infinite, no update needs to be scheduled yet. If `nextFrameTime` is the
 // current frame time, a continuous animation is running and an update should
 // be scheduled after an appropriate delay.
@@ -239,13 +245,14 @@ func (r CARenderer) NextFrameTime() float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("nextFrameTime"))
 	return rv
 }
+
 // Release any data associated with the current frame.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer/endFrame()
 func (r CARenderer) EndFrame() {
 	objc.Send[objc.ID](r.ID, objc.Sel("endFrame"))
 }
-//
+
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer/setDestination(_:)
 func (r CARenderer) SetDestination(tex metal.MTLTexture) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setDestination:"), tex)
@@ -261,6 +268,7 @@ func (r CARenderer) Layer() ICALayer {
 func (r CARenderer) SetLayer(value ICALayer) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLayer:"), value)
 }
+
 // The bounds of the receiver.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer/bounds
@@ -271,4 +279,3 @@ func (r CARenderer) Bounds() corefoundation.CGRect {
 func (r CARenderer) SetBounds(value corefoundation.CGRect) {
 	objc.Send[struct{}](r.ID, objc.Sel("setBounds:"), value)
 }
-

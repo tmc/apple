@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (mc MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArrayClass)
 	return rv
 }
 
-//
 // # Subscripts
 //
 //   - [MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray.ObjectAtIndexedSubscript]
+//
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray
 type MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray struct {
 func MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArrayFromID(id objc.ID) MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray {
 	return MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -93,15 +95,13 @@ func NewMTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray() MTLA
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray/subscript(_:)
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubscript(attachmentIndex uint) IMTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLAccelerationStructurePassSampleBufferAttachmentDescriptorFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray/setObject:atIndexedSubscript:
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLAccelerationStructurePassSampleBufferAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-

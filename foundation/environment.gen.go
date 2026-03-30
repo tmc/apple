@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Environment struct {
 func EnvironmentFromID(id objc.ID) Environment {
 	return Environment{objectivec.Object{ID: id}}
 }
+
 // Ensure Environment implements IEnvironment.
 var _ IEnvironment = Environment{}
 
@@ -78,4 +80,3 @@ func NewEnvironment() Environment {
 	rv := objc.Send[Environment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

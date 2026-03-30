@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +70,7 @@ type CITriangleKaleidoscope interface {
 type CITriangleKaleidoscopeObject struct {
 	objectivec.Object
 }
+
 func (o CITriangleKaleidoscopeObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -88,14 +89,16 @@ func CITriangleKaleidoscopeObjectFromID(id objc.ID) CITriangleKaleidoscopeObject
 func (o CITriangleKaleidoscopeObject) Decay() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("decay"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/inputImage
 func (o CITriangleKaleidoscopeObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The x and y position to use as the center of the triangular area in the
 // input image.
 //
@@ -103,21 +106,24 @@ func (o CITriangleKaleidoscopeObject) InputImage() ICIImage {
 func (o CITriangleKaleidoscopeObject) Point() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point"))
 	return rv
-	}
+}
+
 // The rotation angle of the triangle.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/rotation
 func (o CITriangleKaleidoscopeObject) Rotation() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("rotation"))
 	return rv
-	}
+}
+
 // The size, in pixels, of the triangle.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/size
 func (o CITriangleKaleidoscopeObject) Size() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("size"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -125,25 +131,40 @@ func (o CITriangleKaleidoscopeObject) Size() float32 {
 func (o CITriangleKaleidoscopeObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// A value that determines how fast the color fades from the center triangle.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/decay
 func (o CITriangleKaleidoscopeObject) SetDecay(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDecay:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/inputImage
 func (o CITriangleKaleidoscopeObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The x and y position to use as the center of the triangular area in the
+// input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/point
 func (o CITriangleKaleidoscopeObject) SetPoint(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPoint:"), value)
 }
 
+// The rotation angle of the triangle.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/rotation
 func (o CITriangleKaleidoscopeObject) SetRotation(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRotation:"), value)
 }
 
+// The size, in pixels, of the triangle.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/size
 func (o CITriangleKaleidoscopeObject) SetSize(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSize:"), value)
 }
-

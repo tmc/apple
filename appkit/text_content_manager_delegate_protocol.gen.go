@@ -4,9 +4,11 @@ package appkit
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // The optional methods that delegates of content manager objects implement for customizing or validating text elements.
@@ -20,6 +22,7 @@ type NSTextContentManagerDelegate interface {
 type NSTextContentManagerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSTextContentManagerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,11 +43,11 @@ func NSTextContentManagerDelegateObjectFromID(id objc.ID) NSTextContentManagerDe
 // location: The location of the element.
 //
 // # Return Value
-// 
+//
 // An [NSTextElement].
 //
 // # Discussion
-// 
+//
 // When non-`nil`, `textContentManager` uses the text element you specify
 // instead of creating one based on its standard mapping logic.
 //
@@ -52,7 +55,8 @@ func NSTextContentManagerDelegateObjectFromID(id objc.ID) NSTextContentManagerDe
 func (o NSTextContentManagerDelegateObject) TextContentManagerTextElementAtLocation(textContentManager INSTextContentManager, location NSTextLocation) INSTextElement {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textContentManager:textElementAtLocation:"), textContentManager, location)
 	return NSTextElementFromID(rv)
-	}
+}
+
 // Returns a Boolean value that indicates whether the framework should skip
 // this text element in the enumeration.
 //
@@ -63,7 +67,7 @@ func (o NSTextContentManagerDelegateObject) TextContentManagerTextElementAtLocat
 // options: One of the available [NSTextElementProviderEnumerationOptions] options.
 //
 // # Return Value
-// 
+//
 // A Boolean value that informs the framework to skip this `textElement` in
 // the enumeration. Returning `false` indicates `textElement` to be skipped;
 // otherwise the element is included in the enumeration.
@@ -72,7 +76,7 @@ func (o NSTextContentManagerDelegateObject) TextContentManagerTextElementAtLocat
 func (o NSTextContentManagerDelegateObject) TextContentManagerShouldEnumerateTextElementOptions(textContentManager INSTextContentManager, textElement INSTextElement, options NSTextContentManagerEnumerationOptions) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("textContentManager:shouldEnumerateTextElement:options:"), textContentManager, textElement, options)
 	return rv
-	}
+}
 
 // NSTextContentManagerDelegateConfig holds optional typed callbacks for [NSTextContentManagerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -135,4 +139,3 @@ func NewNSTextContentManagerDelegate(config NSTextContentManagerDelegateConfig) 
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextContentManagerDelegateObjectFromID(instance)
 }
-

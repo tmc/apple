@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZHIDEventMonitor struct {
 func VZHIDEventMonitorFromID(id objc.ID) VZHIDEventMonitor {
 	return VZHIDEventMonitor{objectivec.Object{ID: id}}
 }
+
 // Ensure VZHIDEventMonitor implements IVZHIDEventMonitor.
 var _ IVZHIDEventMonitor = VZHIDEventMonitor{}
 
@@ -78,4 +80,3 @@ func NewVZHIDEventMonitor() VZHIDEventMonitor {
 	rv := objc.Send[VZHIDEventMonitor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

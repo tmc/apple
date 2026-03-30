@@ -23,6 +23,7 @@ type NSDockTilePlugIn interface {
 type NSDockTilePlugInObject struct {
 	objectivec.Object
 }
+
 func (o NSDockTilePlugInObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,26 +43,26 @@ func NSDockTilePlugInObjectFromID(id objc.ID) NSDockTilePlugInObject {
 // has been removed from the Dock.
 //
 // # Discussion
-// 
+//
 // The plugin is loaded in a system process at login time or when the
 // application tile is added to the Dock.
-// 
+//
 // The principal class of the plug-in must implement the [NSDockTilePlugIn]
 // protocol.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDockTilePlugIn/setDockTile(_:)
 func (o NSDockTilePlugInObject) SetDockTile(dockTile INSDockTile) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDockTile:"), dockTile)
-	}
+}
+
 // Invoked when the user causes the application’s dock menu to be shown.
 //
 // # Return Value
-// 
+//
 // The menu the dock tile displays.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDockTilePlugIn/dockMenu()
 func (o NSDockTilePlugInObject) DockMenu() INSMenu {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dockMenu"))
 	return NSMenuFromID(rv)
-	}
-
+}

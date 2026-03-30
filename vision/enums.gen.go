@@ -308,9 +308,9 @@ func (e VNImageCropAndScaleOption) String() string {
 type VNPointsClassification int
 
 const (
-	VNPointsClassificationClosedPath VNPointsClassification = 2
+	VNPointsClassificationClosedPath   VNPointsClassification = 2
 	VNPointsClassificationDisconnected VNPointsClassification = 0
-	VNPointsClassificationOpenPath VNPointsClassification = 1
+	VNPointsClassificationOpenPath     VNPointsClassification = 1
 )
 
 func (e VNPointsClassification) String() string {
@@ -421,4 +421,3 @@ func (e VNTrackOpticalFlowRequestComputationAccuracy) String() string {
 		return fmt.Sprintf("VNTrackOpticalFlowRequestComputationAccuracy(%d)", e)
 	}
 }
-

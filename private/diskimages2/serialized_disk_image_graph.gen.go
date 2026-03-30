@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (sc SerializedDiskImageGraphClass) Alloc() SerializedDiskImageGraph {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SerializedDiskImageGraph.PstackURL]
 //   - [SerializedDiskImageGraph.InitWithBaseImageURLPstackURLTagError]
 //   - [SerializedDiskImageGraph.InitWithGraphDBPstackURLError]
 //   - [SerializedDiskImageGraph.InitWithPluginNamePluginParamsPstackURLTagError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/SerializedDiskImageGraph
 type SerializedDiskImageGraph struct {
 	DiskImageGraph
@@ -59,6 +60,7 @@ type SerializedDiskImageGraph struct {
 func SerializedDiskImageGraphFromID(id objc.ID) SerializedDiskImageGraph {
 	return SerializedDiskImageGraph{DiskImageGraph: DiskImageGraphFromID(id)}
 }
+
 // Ensure SerializedDiskImageGraph implements ISerializedDiskImageGraph.
 var _ ISerializedDiskImageGraph = SerializedDiskImageGraph{}
 
@@ -102,7 +104,6 @@ func NewSerializedDiskImageGraph() SerializedDiskImageGraph {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithBaseImageURL:newPstackURL:tag:error:
 func NewSerializedDiskImageGraphWithBaseImageURLNewPstackURLTagError(url foundation.INSURL, url2 foundation.INSURL, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -115,7 +116,6 @@ func NewSerializedDiskImageGraphWithBaseImageURLNewPstackURLTagError(url foundat
 	return SerializedDiskImageGraphFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SerializedDiskImageGraph/initWithBaseImageURL:pstackURL:tag:error:
 func NewSerializedDiskImageGraphWithBaseImageURLPstackURLTagError(url foundation.INSURL, url2 foundation.INSURL, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -128,7 +128,6 @@ func NewSerializedDiskImageGraphWithBaseImageURLPstackURLTagError(url foundation
 	return SerializedDiskImageGraphFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithBaseImageURL:tag:error:
 func NewSerializedDiskImageGraphWithBaseImageURLTagError(url foundation.INSURL, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -141,7 +140,6 @@ func NewSerializedDiskImageGraphWithBaseImageURLTagError(url foundation.INSURL, 
 	return SerializedDiskImageGraphFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithGraphDB:error:
 func NewSerializedDiskImageGraphWithGraphDBError(db objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -154,7 +152,6 @@ func NewSerializedDiskImageGraphWithGraphDBError(db objectivec.IObject) (Seriali
 	return SerializedDiskImageGraphFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SerializedDiskImageGraph/initWithGraphDB:pstackURL:error:
 func NewSerializedDiskImageGraphWithGraphDBPstackURLError(db objectivec.IObject, url foundation.INSURL) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -167,7 +164,6 @@ func NewSerializedDiskImageGraphWithGraphDBPstackURLError(db objectivec.IObject,
 	return SerializedDiskImageGraphFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithGraphDB:workDir:error:
 func NewSerializedDiskImageGraphWithGraphDBWorkDirError(db objectivec.IObject, dir objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -180,7 +176,6 @@ func NewSerializedDiskImageGraphWithGraphDBWorkDirError(db objectivec.IObject, d
 	return SerializedDiskImageGraphFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SerializedDiskImageGraph/initWithPluginName:pluginParams:pstackURL:tag:error:
 func NewSerializedDiskImageGraphWithPluginNamePluginParamsPstackURLTagError(name objectivec.IObject, params objectivec.IObject, url foundation.INSURL, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -193,7 +188,6 @@ func NewSerializedDiskImageGraphWithPluginNamePluginParamsPstackURLTagError(name
 	return SerializedDiskImageGraphFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DiskImageGraph/initWithPluginName:pluginParams:tag:error:
 func NewSerializedDiskImageGraphWithPluginNamePluginParamsTagError(name objectivec.IObject, params objectivec.IObject, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -206,7 +200,6 @@ func NewSerializedDiskImageGraphWithPluginNamePluginParamsTagError(name objectiv
 	return SerializedDiskImageGraphFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SerializedDiskImageGraph/initWithPstackURL:error:
 func NewSerializedDiskImageGraphWithPstackURLError(url foundation.INSURL) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -219,7 +212,6 @@ func NewSerializedDiskImageGraphWithPstackURLError(url foundation.INSURL) (Seria
 	return SerializedDiskImageGraphFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SerializedDiskImageGraph/initWithBaseImageURL:pstackURL:tag:error:
 func (s SerializedDiskImageGraph) InitWithBaseImageURLPstackURLTagError(url foundation.INSURL, url2 foundation.INSURL, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -231,7 +223,7 @@ func (s SerializedDiskImageGraph) InitWithBaseImageURLPstackURLTagError(url foun
 	return SerializedDiskImageGraphFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/SerializedDiskImageGraph/initWithGraphDB:pstackURL:error:
 func (s SerializedDiskImageGraph) InitWithGraphDBPstackURLError(db objectivec.IObject, url foundation.INSURL) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -243,7 +235,7 @@ func (s SerializedDiskImageGraph) InitWithGraphDBPstackURLError(db objectivec.IO
 	return SerializedDiskImageGraphFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/SerializedDiskImageGraph/initWithPluginName:pluginParams:pstackURL:tag:error:
 func (s SerializedDiskImageGraph) InitWithPluginNamePluginParamsPstackURLTagError(name objectivec.IObject, params objectivec.IObject, url foundation.INSURL, tag objectivec.IObject) (SerializedDiskImageGraph, error) {
 	var errorPtr objc.ID
@@ -256,7 +248,6 @@ func (s SerializedDiskImageGraph) InitWithPluginNamePluginParamsPstackURLTagErro
 
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/SerializedDiskImageGraph/getRelativeIfContainedWithChildURL:parentURL:
 func (_SerializedDiskImageGraphClass SerializedDiskImageGraphClass) GetRelativeIfContainedWithChildURLParentURL(url foundation.INSURL, url2 foundation.INSURL) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_SerializedDiskImageGraphClass.class), objc.Sel("getRelativeIfContainedWithChildURL:parentURL:"), url, url2)
@@ -268,4 +259,3 @@ func (s SerializedDiskImageGraph) PstackURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("pstackURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

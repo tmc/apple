@@ -4,6 +4,7 @@ package appleneuralengine
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (ac ANEOutputSetEnqueueClass) Alloc() ANEOutputSetEnqueue {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ANEOutputSetEnqueue.IsOpenLoop]
@@ -50,6 +50,7 @@ func (ac ANEOutputSetEnqueueClass) Alloc() ANEOutputSetEnqueue {
 //   - [ANEOutputSetEnqueue.SignalNotRequired]
 //   - [ANEOutputSetEnqueue.SignalValue]
 //   - [ANEOutputSetEnqueue.InitOutputSetWithProcedureIndexSetIndexSignalValueSignalNotRequiredIsOpenLoop]
+//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue
 type ANEOutputSetEnqueue struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type ANEOutputSetEnqueue struct {
 func ANEOutputSetEnqueueFromID(id objc.ID) ANEOutputSetEnqueue {
 	return ANEOutputSetEnqueue{objectivec.Object{ID: id}}
 }
+
 // Ensure ANEOutputSetEnqueue implements IANEOutputSetEnqueue.
 var _ IANEOutputSetEnqueue = ANEOutputSetEnqueue{}
 
@@ -106,7 +108,6 @@ func NewANEOutputSetEnqueue() ANEOutputSetEnqueue {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/initOutputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:
 func NewANEOutputSetEnqueueOutputSetWithProcedureIndexSetIndexSignalValueSignalNotRequiredIsOpenLoop(index uint32, index2 uint32, value uint64, required bool, loop bool) ANEOutputSetEnqueue {
 	instance := getANEOutputSetEnqueueClass().Alloc()
@@ -114,14 +115,12 @@ func NewANEOutputSetEnqueueOutputSetWithProcedureIndexSetIndexSignalValueSignalN
 	return ANEOutputSetEnqueueFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/initOutputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:
 func (a ANEOutputSetEnqueue) InitOutputSetWithProcedureIndexSetIndexSignalValueSignalNotRequiredIsOpenLoop(index uint32, index2 uint32, value uint64, required bool, loop bool) ANEOutputSetEnqueue {
 	rv := objc.Send[ANEOutputSetEnqueue](a.ID, objc.Sel("initOutputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:"), index, index2, value, required, loop)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/outputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:
 func (_ANEOutputSetEnqueueClass ANEOutputSetEnqueueClass) OutputSetWithProcedureIndexSetIndexSignalValueSignalNotRequiredIsOpenLoop(index uint32, index2 uint32, value uint64, required bool, loop bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEOutputSetEnqueueClass.class), objc.Sel("outputSetWithProcedureIndex:setIndex:signalValue:signalNotRequired:isOpenLoop:"), index, index2, value, required, loop)
@@ -133,24 +132,27 @@ func (a ANEOutputSetEnqueue) IsOpenLoop() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isOpenLoop"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/procedureIndex
 func (a ANEOutputSetEnqueue) ProcedureIndex() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("procedureIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/setIndex
 func (a ANEOutputSetEnqueue) SetIndex() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("setIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/signalNotRequired
 func (a ANEOutputSetEnqueue) SignalNotRequired() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("signalNotRequired"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/signalValue
 func (a ANEOutputSetEnqueue) SignalValue() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("signalValue"))
 	return rv
 }
-

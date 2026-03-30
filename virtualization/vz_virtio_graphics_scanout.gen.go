@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -55,6 +56,7 @@ type VZVirtioGraphicsScanout struct {
 func VZVirtioGraphicsScanoutFromID(id objc.ID) VZVirtioGraphicsScanout {
 	return VZVirtioGraphicsScanout{VZGraphicsDisplay: VZGraphicsDisplayFromID(id)}
 }
+
 // NOTE: VZVirtioGraphicsScanout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -83,4 +85,3 @@ func NewVZVirtioGraphicsScanout() VZVirtioGraphicsScanout {
 	rv := objc.Send[VZVirtioGraphicsScanout](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

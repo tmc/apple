@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (ec ETImagePreprocessParamsClass) Alloc() ETImagePreprocessParams {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETImagePreprocessParams.Bias_b]
@@ -53,6 +53,7 @@ func (ec ETImagePreprocessParamsClass) Alloc() ETImagePreprocessParams {
 //   - [ETImagePreprocessParams.Scale]
 //   - [ETImagePreprocessParams.Width]
 //   - [ETImagePreprocessParams.InitWithHeightWidthNumChannelsScaleBiasRBiasGBiasBNetworkWantBGR]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessParams
 type ETImagePreprocessParams struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type ETImagePreprocessParams struct {
 func ETImagePreprocessParamsFromID(id objc.ID) ETImagePreprocessParams {
 	return ETImagePreprocessParams{objectivec.Object{ID: id}}
 }
+
 // Ensure ETImagePreprocessParams implements IETImagePreprocessParams.
 var _ IETImagePreprocessParams = ETImagePreprocessParams{}
 
@@ -115,7 +117,6 @@ func NewETImagePreprocessParams() ETImagePreprocessParams {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessParams/initWithHeight:Width:NumChannels:Scale:BiasR:BiasG:BiasB:NetworkWantBGR:
 func NewETImagePreprocessParamsWithHeightWidthNumChannelsScaleBiasRBiasGBiasBNetworkWantBGR(height uint64, width uint64, channels uint64, scale float32, r float32, g float32, b float32, bgr bool) ETImagePreprocessParams {
 	instance := getETImagePreprocessParamsClass().Alloc()
@@ -123,7 +124,6 @@ func NewETImagePreprocessParamsWithHeightWidthNumChannelsScaleBiasRBiasGBiasBNet
 	return ETImagePreprocessParamsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessParams/initWithHeight:Width:NumChannels:Scale:BiasR:BiasG:BiasB:NetworkWantBGR:
 func (e ETImagePreprocessParams) InitWithHeightWidthNumChannelsScaleBiasRBiasGBiasBNetworkWantBGR(height uint64, width uint64, channels uint64, scale float32, r float32, g float32, b float32, bgr bool) ETImagePreprocessParams {
 	rv := objc.Send[ETImagePreprocessParams](e.ID, objc.Sel("initWithHeight:Width:NumChannels:Scale:BiasR:BiasG:BiasB:NetworkWantBGR:"), height, width, channels, scale, r, g, b, bgr)
@@ -135,39 +135,45 @@ func (e ETImagePreprocessParams) Bias_b() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("bias_b"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessParams/bias_g
 func (e ETImagePreprocessParams) Bias_g() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("bias_g"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessParams/bias_r
 func (e ETImagePreprocessParams) Bias_r() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("bias_r"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessParams/channels
 func (e ETImagePreprocessParams) Channels() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("channels"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessParams/height
 func (e ETImagePreprocessParams) Height() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("height"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessParams/network_wants_bgr
 func (e ETImagePreprocessParams) Network_wants_bgr() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("network_wants_bgr"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessParams/scale
 func (e ETImagePreprocessParams) Scale() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("scale"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETImagePreprocessParams/width
 func (e ETImagePreprocessParams) Width() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("width"))
 	return rv
 }
-

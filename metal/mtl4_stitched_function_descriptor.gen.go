@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -63,6 +64,7 @@ type MTL4StitchedFunctionDescriptor struct {
 func MTL4StitchedFunctionDescriptorFromID(id objc.ID) MTL4StitchedFunctionDescriptor {
 	return MTL4StitchedFunctionDescriptor{MTL4FunctionDescriptor: MTL4FunctionDescriptorFromID(id)}
 }
+
 // NOTE: MTL4StitchedFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,6 +123,7 @@ func (m MTL4StitchedFunctionDescriptor) FunctionDescriptors() []MTL4FunctionDesc
 func (m MTL4StitchedFunctionDescriptor) SetFunctionDescriptors(value []MTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Sets the graph representing how to stitch functions together.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4StitchedFunctionDescriptor/functionGraph
@@ -131,4 +134,3 @@ func (m MTL4StitchedFunctionDescriptor) FunctionGraph() IMTLFunctionStitchingGra
 func (m MTL4StitchedFunctionDescriptor) SetFunctionGraph(value IMTLFunctionStitchingGraph) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionGraph:"), value)
 }
-

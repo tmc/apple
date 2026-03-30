@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MLPlatformUtils struct {
 func MLPlatformUtilsFromID(id objc.ID) MLPlatformUtils {
 	return MLPlatformUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure MLPlatformUtils implements IMLPlatformUtils.
 var _ IMLPlatformUtils = MLPlatformUtils{}
 
@@ -84,4 +86,3 @@ func (_MLPlatformUtilsClass MLPlatformUtilsClass) IsInternalBuild() bool {
 	rv := objc.Send[bool](objc.ID(_MLPlatformUtilsClass.class), objc.Sel("isInternalBuild"))
 	return rv
 }
-

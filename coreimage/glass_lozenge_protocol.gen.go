@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +70,7 @@ type CIGlassLozenge interface {
 type CIGlassLozengeObject struct {
 	objectivec.Object
 }
+
 func (o CIGlassLozengeObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -88,27 +89,32 @@ func CIGlassLozengeObjectFromID(id objc.ID) CIGlassLozengeObject {
 func (o CIGlassLozengeObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassLozenge/point0
 func (o CIGlassLozengeObject) Point0() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point0"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassLozenge/point1
 func (o CIGlassLozengeObject) Point1() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point1"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassLozenge/radius
 func (o CIGlassLozengeObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassLozenge/refraction
 func (o CIGlassLozengeObject) Refraction() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("refraction"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -116,25 +122,31 @@ func (o CIGlassLozengeObject) Refraction() float32 {
 func (o CIGlassLozengeObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIGlassLozenge/inputImage
 func (o CIGlassLozengeObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIGlassLozenge/point0
 func (o CIGlassLozengeObject) SetPoint0(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPoint0:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIGlassLozenge/point1
 func (o CIGlassLozengeObject) SetPoint1(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPoint1:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIGlassLozenge/radius
 func (o CIGlassLozengeObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIGlassLozenge/refraction
 func (o CIGlassLozengeObject) SetRefraction(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRefraction:"), value)
 }
-

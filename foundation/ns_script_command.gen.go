@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,12 +45,12 @@ func (nc NSScriptCommandClass) Alloc() NSScriptCommand {
 // A self-contained scripting statement.
 //
 // # Overview
-// 
+//
 // An instance of [NSScriptCommand] represents a scripting statement, such as
 // `set word 5 of the front document to word 1 of the second document`, and
 // contains the information needed to perform the operation specified by the
 // statement.
-// 
+//
 // When an Apple event reaches a Cocoa application, Cocoa’s built-in
 // scripting support transforms it into a script command (that is, an instance
 // of [NSScriptCommand] or one of the subclasses provided by Cocoa scripting
@@ -58,25 +59,22 @@ func (nc NSScriptCommandClass) Alloc() NSScriptCommand {
 // associated with the command on the object or objects designated to receive
 // the command, or having the command perform its default implementation
 // method ([NSScriptCommand.PerformDefaultImplementation]).
-// 
+//
 // Your application most likely calls methods of [NSScriptCommand] to extract
 // the command arguments. You do this either in the
 // `performDefaultImplementation` method of a command subclass you have
 // created, or in an object method designated as the selector to handle a
 // particular command.
-// 
+//
 // As part of Cocoa’s standard scripting implementation, [NSScriptCommand]
 // and its subclasses can handle the default command set for AppleScript’s
 // Standard suite for most applications without any subclassing. The Standard
 // suite includes commands such as `copy`, `count`, `create`, `delete`,
 // `exists`, and `move`, as well as common object classes such as
 // `application`, `document`, and `window`.
-// 
+//
 // For more information on working with script commands, see [Script Commands]
 // in [Cocoa Scripting Guide].
-//
-// [Cocoa Scripting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_intro/SAppsIntro.html#//apple_ref/doc/uid/TP40002164
-// [Script Commands]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_script_cmds/SAppsScriptCmds.html#//apple_ref/doc/uid/20001242
 //
 // # Initializing a script command
 //
@@ -130,6 +128,9 @@ func (nc NSScriptCommandClass) Alloc() NSScriptCommand {
 //   - [NSScriptCommand.ResumeExecutionWithResult]: If a successful, unmatched, invocation of [suspendExecution()](<doc://com.apple.foundation/documentation/Foundation/NSScriptCommand/suspendExecution()>) has been made, resume the execution of the command.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand
+//
+// [Cocoa Scripting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_intro/SAppsIntro.html#//apple_ref/doc/uid/TP40002164
+// [Script Commands]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_script_cmds/SAppsScriptCmds.html#//apple_ref/doc/uid/20001242
 type NSScriptCommand struct {
 	objectivec.Object
 }
@@ -140,6 +141,7 @@ type NSScriptCommand struct {
 func NSScriptCommandFromID(id objc.ID) NSScriptCommand {
 	return NSScriptCommand{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSScriptCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -289,7 +291,6 @@ func NewNSScriptCommand() NSScriptCommand {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewScriptCommandWithCoder(inCoder INSCoder) NSScriptCommand {
 	instance := getNSScriptCommandClass().Alloc()
@@ -303,11 +304,11 @@ func NewScriptCommandWithCoder(inCoder INSCoder) NSScriptCommand {
 // commandDef: A command description for the command to be created.
 //
 // # Return Value
-// 
+//
 // A newly initialized instance of [NSScriptCommand] or a subclass.
 //
 // # Discussion
-// 
+//
 // To make this command object usable, you must set its receiving objects and
 // arguments (if any) after invoking this method.
 //
@@ -324,11 +325,11 @@ func NewScriptCommandWithCommandDescription(commandDef INSScriptCommandDescripti
 // commandDef: A command description for the command to be created.
 //
 // # Return Value
-// 
+//
 // A newly initialized instance of [NSScriptCommand] or a subclass.
 //
 // # Discussion
-// 
+//
 // To make this command object usable, you must set its receiving objects and
 // arguments (if any) after invoking this method.
 //
@@ -337,16 +338,17 @@ func (s NSScriptCommand) InitWithCommandDescription(commandDef INSScriptCommandD
 	rv := objc.Send[NSScriptCommand](s.ID, objc.Sel("initWithCommandDescription:"), commandDef)
 	return rv
 }
+
 // Executes the command if it is valid and returns the result, if any.
 //
 // # Discussion
-// 
+//
 // Before this method executes the command (through [NSInvocation]
 // mechanisms), it evaluates all object specifiers involved in the command,
 // validates that the receivers can actually handle the command, and verifies
 // that the types of any arguments that were initially object specifiers are
 // valid.
-// 
+//
 // You shouldn’t have to override this method. If the command’s receivers
 // want to handle the command themselves, this method invokes their defined
 // handler. Otherwise, it invokes [PerformDefaultImplementation].
@@ -356,15 +358,16 @@ func (s NSScriptCommand) ExecuteCommand() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("executeCommand"))
 	return objectivec.Object{ID: rv}
 }
+
 // Overridden by subclasses to provide a default implementation for the
 // command represented by the receiver.
 //
 // # Discussion
-// 
+//
 // Do not invoke this method directly. [ExecuteCommand] invokes this method
 // when the command being executed is not supported by the class of the
 // objects receiving the command. The default implementation returns `nil`.
-// 
+//
 // You need to create a subclass of [NSScriptCommand] only if you need to
 // provide a default implementation of a command.
 //
@@ -373,32 +376,34 @@ func (s NSScriptCommand) PerformDefaultImplementation() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("performDefaultImplementation"))
 	return objectivec.Object{ID: rv}
 }
+
 // Suspends the execution of the receiver.
 //
 // # Discussion
-// 
+//
 // Suspends the execution of the receiver only if the receiver is being
 // executed in the current thread by Cocoa scripting’s built-in Apple event
 // handling (that is, the receiver would be returned by `[NSScriptCommand
 // currentCommand]`)—otherwise, does nothing. A matching invocation of
 // [ResumeExecutionWithResult] must be made.
-// 
+//
 // Another command can execute while a command is suspended.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/suspendExecution()
 func (s NSScriptCommand) SuspendExecution() {
 	objc.Send[objc.ID](s.ID, objc.Sel("suspendExecution"))
 }
+
 // If a successful, unmatched, invocation of [SuspendExecution] has been made,
 // resume the execution of the command.
 //
 // # Discussion
-// 
+//
 // Resumes the execution of the command if a successful, unmatched, invocation
 // of [SuspendExecution] has been made—otherwise, does nothing. The value
 // for `result` is dependent on the segment of command execution that was
 // suspended:
-// 
+//
 // - If [SuspendExecution] was invoked from within a command handler of one of
 // the command’s receivers, `result` is considered to be the return value of
 // the handler. Unless the command has received a [ScriptErrorNumber] message
@@ -407,7 +412,7 @@ func (s NSScriptCommand) SuspendExecution() {
 // [SuspendExecution] was invoked from within an override of
 // [PerformDefaultImplementation] the result is treated as if it were the
 // return value of the invocation of [PerformDefaultImplementation].
-// 
+//
 // [ResumeExecutionWithResult] may be invoked in any thread, not just the one
 // in which the corresponding invocation of [SuspendExecution] occurred.
 //
@@ -415,12 +420,13 @@ func (s NSScriptCommand) SuspendExecution() {
 func (s NSScriptCommand) ResumeExecutionWithResult(result objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("resumeExecutionWithResult:"), result)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func (s NSScriptCommand) InitWithCoder(inCoder INSCoder) NSScriptCommand {
 	rv := objc.Send[NSScriptCommand](s.ID, objc.Sel("initWithCoder:"), inCoder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -434,7 +440,7 @@ func (s NSScriptCommand) EncodeWithCoder(coder INSCoder) {
 // built-in Apple event handling, return the command.
 //
 // # Discussion
-// 
+//
 // A command is being executed in the current thread by Cocoa scripting’s
 // built-in Apple event handling if an instance of [NSScriptCommand] is
 // handling an [ExecuteCommand] message at this instant as the result of the
@@ -442,7 +448,7 @@ func (s NSScriptCommand) EncodeWithCoder(coder INSCoder) {
 // and [ScriptErrorString] messages sent to the returned command object will
 // affect the reply event sent to the sender of the event from which the
 // command was constructed, if the sender has requested a reply.
-// 
+//
 // A suspended command is not considered the current command. If a command is
 // suspended and no other command is being executed in the current thread,
 // [CurrentCommand] returns `nil`.
@@ -457,7 +463,7 @@ func (_NSScriptCommandClass NSScriptCommandClass) CurrentCommand() NSScriptComma
 // handling, returns the Apple event descriptor from which it was constructed.
 //
 // # Discussion
-// 
+//
 // The effects of mutating or retaining this descriptor are undefined,
 // although it may be copied.
 //
@@ -466,11 +472,12 @@ func (s NSScriptCommand) AppleEvent() INSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("appleEvent"))
 	return NSAppleEventDescriptorFromID(objc.ID(rv))
 }
+
 // Returns the object or objects to which the command is to be sent (called
 // both the “receivers” or “targets” of script commands).
 //
 // # Discussion
-// 
+//
 // It evaluates receivers, which are always object specifiers, to a proper
 // object. If the command does not specify a receiver, or if the receiver
 // doesn’t accept the command, it returns `nil`.
@@ -480,11 +487,12 @@ func (s NSScriptCommand) EvaluatedReceivers() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("evaluatedReceivers"))
 	return objectivec.Object{ID: rv}
 }
+
 // Sets the object specifier to `receiversSpec` that, when evaluated,
 // indicates the receiver or receivers of the command.
 //
 // # Discussion
-// 
+//
 // If you create a subclass of [NSScriptCommand], you don’t necessarily need
 // to override this method, though some of Cocoa’s subclasses do. An
 // override should perform the same function as the superclass method, with a
@@ -503,10 +511,11 @@ func (s NSScriptCommand) ReceiversSpecifier() INSScriptObjectSpecifier {
 func (s NSScriptCommand) SetReceiversSpecifier(value INSScriptObjectSpecifier) {
 	objc.Send[struct{}](s.ID, objc.Sel("setReceiversSpecifier:"), value)
 }
+
 // Sets the arguments of the command to `args`.
 //
 // # Discussion
-// 
+//
 // Each argument in the dictionary is identified by the same name key used for
 // the argument in the command’s class declaration in the script suite file.
 //
@@ -518,12 +527,13 @@ func (s NSScriptCommand) Arguments() INSDictionary {
 func (s NSScriptCommand) SetArguments(value INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setArguments:"), value)
 }
+
 // Returns a dictionary containing the arguments of the command, evaluated
 // from object specifiers to objects if necessary. The keys in the dictionary
 // are the argument names.
 //
 // # Discussion
-// 
+//
 // Arguments initially can be either a normal object or an object specifier
 // such as `word 5` (represented as an instance of an
 // [NSScriptObjectSpecifier] subclass). If arguments are object specifiers,
@@ -537,11 +547,12 @@ func (s NSScriptCommand) EvaluatedArguments() INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("evaluatedArguments"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // Sets the object that corresponds to the direct parameter of the Apple event
 // from which the receiver derives.
 //
 // # Discussion
-// 
+//
 // You don’t normally override this method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/directParameter
@@ -552,10 +563,11 @@ func (s NSScriptCommand) DirectParameter() objectivec.IObject {
 func (s NSScriptCommand) SetDirectParameter(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDirectParameter:"), value)
 }
+
 // Returns the command description for the command.
 //
 // # Discussion
-// 
+//
 // Once a command is created, its command description is immutable.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/commandDescription
@@ -563,11 +575,12 @@ func (s NSScriptCommand) CommandDescription() INSScriptCommandDescription {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("commandDescription"))
 	return NSScriptCommandDescriptionFromID(objc.ID(rv))
 }
+
 // Returns a Boolean value indicating whether the receiver is well formed
 // according to its command description.
 //
 // # Discussion
-// 
+//
 // The method ensures that there is a description of the command and that the
 // number of arguments and the types of non-specifier arguments conform to the
 // command description.
@@ -577,6 +590,7 @@ func (s NSScriptCommand) WellFormed() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isWellFormed"))
 	return rv
 }
+
 // Sets a descriptor for the expected type that will be put in the reply Apple
 // event if the sender requested a reply, execution of the receiver completes,
 // and an error number was set.
@@ -589,24 +603,25 @@ func (s NSScriptCommand) ScriptErrorExpectedTypeDescriptor() INSAppleEventDescri
 func (s NSScriptCommand) SetScriptErrorExpectedTypeDescriptor(value INSAppleEventDescriptor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScriptErrorExpectedTypeDescriptor:"), value)
 }
+
 // Sets a script error number that is associated with the execution of the
 // command and is returned in the reply Apple event, if a reply was requested
 // by the sender.
 //
 // # Discussion
-// 
+//
 // If you override [PerformDefaultImplementation] and an error occurs, you
 // should call this method to supply an appropriate error number. In fact, any
 // script handler should call this method when an error occurs. The error
 // number you supply is returned in the reply Apple event.
-// 
-// Invoking `` causes an error message to be displayed. To associate a
+//
+// Invoking “ causes an error message to be displayed. To associate a
 // specific error message with the error number, you invoke
 // [ScriptErrorString]. This make sense, for example, when you set an error
 // number that is specific to your application, or when you can supply a
 // specific and useful error message to the user.
-// 
-// If `` is invoked on an [NSScriptCommand] with multiple receivers, the
+//
+// If “ is invoked on an [NSScriptCommand] with multiple receivers, the
 // command will stop sending command handling messages to more receivers.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/scriptErrorNumber
@@ -617,6 +632,7 @@ func (s NSScriptCommand) ScriptErrorNumber() int {
 func (s NSScriptCommand) SetScriptErrorNumber(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScriptErrorNumber:"), value)
 }
+
 // Sets a descriptor for an object that will be put in the reply Apple event
 // if the sender requested a reply, execution of the receiver completes, and
 // an error number was set.
@@ -629,16 +645,17 @@ func (s NSScriptCommand) ScriptErrorOffendingObjectDescriptor() INSAppleEventDes
 func (s NSScriptCommand) SetScriptErrorOffendingObjectDescriptor(value INSAppleEventDescriptor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScriptErrorOffendingObjectDescriptor:"), value)
 }
+
 // Sets a script error string that is associated with execution of the
 // command.
 //
 // # Discussion
-// 
+//
 // If you override [PerformDefaultImplementation] and an error occurs, you
 // should call this method to supply a string that provides a useful
 // explanation. In fact, any script handler should call this method when an
 // error occurs.
-// 
+//
 // Calling this method alone does not cause an error message to be
 // displayed—you must also call [ScriptErrorNumber] to supply an error
 // number.
@@ -652,6 +669,4 @@ func (s NSScriptCommand) SetScriptErrorString(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScriptErrorString:"), objc.String(value))
 }
 
-			// Protocol methods for NSCoding
-			
-
+// Protocol methods for NSCoding

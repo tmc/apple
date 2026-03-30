@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLLocalOutlierFactorClass) Alloc() MLLocalOutlierFactor {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLLocalOutlierFactor.ComputeLOFForQueryPoint]
@@ -58,6 +58,7 @@ func (mc MLLocalOutlierFactorClass) Alloc() MLLocalOutlierFactor {
 //   - [MLLocalOutlierFactor.PredictionFromFeaturesOptionsError]
 //   - [MLLocalOutlierFactor.UpdateToValidDistance]
 //   - [MLLocalOutlierFactor.InitWithKNearestNeighborsModelAtURLConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor
 type MLLocalOutlierFactor struct {
 	MLModel
@@ -67,6 +68,7 @@ type MLLocalOutlierFactor struct {
 func MLLocalOutlierFactorFromID(id objc.ID) MLLocalOutlierFactor {
 	return MLLocalOutlierFactor{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLLocalOutlierFactor implements IMLLocalOutlierFactor.
 var _ IMLLocalOutlierFactor = MLLocalOutlierFactor{}
 
@@ -126,7 +128,6 @@ func NewMLLocalOutlierFactor() MLLocalOutlierFactor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewLocalOutlierFactorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID
@@ -139,7 +140,6 @@ func NewLocalOutlierFactorDescriptionOnlyWithSpecificationConfigurationError(spe
 	return MLLocalOutlierFactorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewLocalOutlierFactorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID
@@ -152,7 +152,6 @@ func NewLocalOutlierFactorInterfaceAndMetadataWithCompiledArchiveError(archive u
 	return MLLocalOutlierFactorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewLocalOutlierFactorWithConfiguration(configuration objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
@@ -160,7 +159,6 @@ func NewLocalOutlierFactorWithConfiguration(configuration objectivec.IObject) ML
 	return MLLocalOutlierFactorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewLocalOutlierFactorWithDescription(description objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
@@ -168,7 +166,6 @@ func NewLocalOutlierFactorWithDescription(description objectivec.IObject) MLLoca
 	return MLLocalOutlierFactorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewLocalOutlierFactorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
@@ -176,7 +173,6 @@ func NewLocalOutlierFactorWithDescriptionConfiguration(description objectivec.IO
 	return MLLocalOutlierFactorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/initWithKNearestNeighborsModelAtURL:configuration:error:
 func NewLocalOutlierFactorWithKNearestNeighborsModelAtURLConfigurationError(url foundation.INSURL, configuration objectivec.IObject) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID
@@ -189,7 +185,6 @@ func NewLocalOutlierFactorWithKNearestNeighborsModelAtURLConfigurationError(url 
 	return MLLocalOutlierFactorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewLocalOutlierFactorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
@@ -197,25 +192,24 @@ func NewLocalOutlierFactorWithNameInputDescriptionOutputDescriptionOrderedInputF
 	return MLLocalOutlierFactorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/computeLOFForQueryPoint:
 func (l MLLocalOutlierFactor) ComputeLOFForQueryPoint(point objectivec.IObject) float64 {
 	rv := objc.Send[float64](l.ID, objc.Sel("computeLOFForQueryPoint:"), point)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/findNearestNeighborsToIndex:
 func (l MLLocalOutlierFactor) FindNearestNeighborsToIndex(index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("findNearestNeighborsToIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/findNearestNeighborsToQueryPoint:
 func (l MLLocalOutlierFactor) FindNearestNeighborsToQueryPoint(point unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("findNearestNeighborsToQueryPoint:"), point)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/inputMultiArray:error:
 func (l MLLocalOutlierFactor) InputMultiArrayError(array objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -227,31 +221,31 @@ func (l MLLocalOutlierFactor) InputMultiArrayError(array objectivec.IObject) (ob
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/kDistanceToIndex:
 func (l MLLocalOutlierFactor) KDistanceToIndex(index uint64) float32 {
 	rv := objc.Send[float32](l.ID, objc.Sel("kDistanceToIndex:"), index)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/localReachabilityDensityForIndex:
 func (l MLLocalOutlierFactor) LocalReachabilityDensityForIndex(index uint64) float64 {
 	rv := objc.Send[float64](l.ID, objc.Sel("localReachabilityDensityForIndex:"), index)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/localReachabilityDensityForQeuryPoint:
 func (l MLLocalOutlierFactor) LocalReachabilityDensityForQeuryPoint(point unsafe.Pointer) float64 {
 	rv := objc.Send[float64](l.ID, objc.Sel("localReachabilityDensityForQeuryPoint:"), point)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/localReachabilityDensityOfNeighbors:
 func (l MLLocalOutlierFactor) LocalReachabilityDensityOfNeighbors(neighbors unsafe.Pointer) float64 {
 	rv := objc.Send[float64](l.ID, objc.Sel("localReachabilityDensityOfNeighbors:"), neighbors)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/parameterValueForKey:error:
 func (l MLLocalOutlierFactor) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -263,7 +257,7 @@ func (l MLLocalOutlierFactor) ParameterValueForKeyError(key objectivec.IObject) 
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/predictionFromFeatures:options:error:
 func (l MLLocalOutlierFactor) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -275,12 +269,12 @@ func (l MLLocalOutlierFactor) PredictionFromFeaturesOptionsError(features object
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/updateToValidDistance:
 func (l MLLocalOutlierFactor) UpdateToValidDistance(distance unsafe.Pointer) {
 	objc.Send[objc.ID](l.ID, objc.Sel("updateToValidDistance:"), distance)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLocalOutlierFactor/initWithKNearestNeighborsModelAtURL:configuration:error:
 func (l MLLocalOutlierFactor) InitWithKNearestNeighborsModelAtURLConfigurationError(url foundation.INSURL, configuration objectivec.IObject) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID
@@ -292,4 +286,3 @@ func (l MLLocalOutlierFactor) InitWithKNearestNeighborsModelAtURLConfigurationEr
 	return MLLocalOutlierFactorFromID(rv), nil
 
 }
-

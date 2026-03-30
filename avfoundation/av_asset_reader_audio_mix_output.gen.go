@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVAssetReaderAudioMixOutputClass) Alloc() AVAssetReaderAudioMixOutput {
 // or more tracks.
 //
 // # Overview
-// 
+//
 // Read audio data that you mix from one or more asset tracks by adding an
 // audio mix output to an asset reader. You can read the samples in their
 // stored format or you can convert them to an alternative format.
@@ -79,6 +80,7 @@ type AVAssetReaderAudioMixOutput struct {
 func AVAssetReaderAudioMixOutputFromID(id objc.ID) AVAssetReaderAudioMixOutput {
 	return AVAssetReaderAudioMixOutput{AVAssetReaderOutput: AVAssetReaderOutputFromID(id)}
 }
+
 // NOTE: AVAssetReaderAudioMixOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -149,22 +151,21 @@ func NewAVAssetReaderAudioMixOutput() AVAssetReaderAudioMixOutput {
 //
 // audioTracks: An array of track objects of type [audio] from which to source the sample
 // buffers to mix.
-// //
-// [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
 //
 // audioSettings: Optional audio settings to use for audio output. Pass `nil` to receive the
 // decoded samples in an uncompressed format. To determine the specific
 // format, examine the value of the sample buffer’s [formatDescription]
 // property.
-// 
+//
 // For non-`nil` audio settings, the dictionary must contain values for the
 // [Linear PCM format settings] keys. The output doesn’t support the
 // [AVSampleRateConverterAudioQualityKey] constant.
-// //
-// [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
-// [formatDescription]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/formatDescription
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderAudioMixOutput/init(audioTracks:audioSettings:)
+//
+// [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
+// [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
+// [formatDescription]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/formatDescription
 func NewAssetReaderAudioMixOutputWithAudioTracksAudioSettings(audioTracks []AVAssetTrack, audioSettings foundation.INSDictionary) AVAssetReaderAudioMixOutput {
 	instance := getAVAssetReaderAudioMixOutputClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioTracks:audioSettings:"), objectivec.IObjectSliceToNSArray(audioTracks), audioSettings)
@@ -175,22 +176,21 @@ func NewAssetReaderAudioMixOutputWithAudioTracksAudioSettings(audioTracks []AVAs
 //
 // audioTracks: An array of track objects of type [audio] from which to source the sample
 // buffers to mix.
-// //
-// [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
 //
 // audioSettings: Optional audio settings to use for audio output. Pass `nil` to receive the
 // decoded samples in an uncompressed format. To determine the specific
 // format, examine the value of the sample buffer’s [formatDescription]
 // property.
-// 
+//
 // For non-`nil` audio settings, the dictionary must contain values for the
 // [Linear PCM format settings] keys. The output doesn’t support the
 // [AVSampleRateConverterAudioQualityKey] constant.
-// //
-// [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
-// [formatDescription]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/formatDescription
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderAudioMixOutput/init(audioTracks:audioSettings:)
+//
+// [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
+// [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
+// [formatDescription]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/formatDescription
 func (a AVAssetReaderAudioMixOutput) InitWithAudioTracksAudioSettings(audioTracks []AVAssetTrack, audioSettings foundation.INSDictionary) AVAssetReaderAudioMixOutput {
 	rv := objc.Send[AVAssetReaderAudioMixOutput](a.ID, objc.Sel("initWithAudioTracks:audioSettings:"), objectivec.IObjectSliceToNSArray(audioTracks), audioSettings)
 	return rv
@@ -200,26 +200,25 @@ func (a AVAssetReaderAudioMixOutput) InitWithAudioTracksAudioSettings(audioTrack
 //
 // audioTracks: An array of track objects of type [audio] from which to source the sample
 // buffers to mix.
-// //
-// [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
 //
 // audioSettings: Optional audio settings to use for audio output. Pass `nil` to receive the
 // decoded samples in an uncompressed format. To determine the specific
 // format, examine the value of the sample buffer’s [formatDescription]
 // property.
-// 
+//
 // For non-`nil` audio settings, the dictionary must contain values for the
 // [Linear PCM format settings] keys. The output doesn’t support the
 // [AVSampleRateConverterAudioQualityKey] constant.
-// //
-// [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
-// [formatDescription]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/formatDescription
 //
 // # Return Value
-// 
+//
 // A new audio mix output, or `nil` if initialization fails.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderAudioMixOutput/assetReaderAudioMixOutputWithAudioTracks:audioSettings:
+//
+// [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
+// [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
+// [formatDescription]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/formatDescription
 func (_AVAssetReaderAudioMixOutputClass AVAssetReaderAudioMixOutputClass) AssetReaderAudioMixOutputWithAudioTracksAudioSettings(audioTracks []AVAssetTrack, audioSettings foundation.INSDictionary) AVAssetReaderAudioMixOutput {
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetReaderAudioMixOutputClass.class), objc.Sel("assetReaderAudioMixOutputWithAudioTracks:audioSettings:"), objectivec.IObjectSliceToNSArray(audioTracks), audioSettings)
 	return AVAssetReaderAudioMixOutputFromID(rv)
@@ -228,7 +227,7 @@ func (_AVAssetReaderAudioMixOutputClass AVAssetReaderAudioMixOutputClass) AssetR
 // The audio mix to use with this output.
 //
 // # Discussion
-// 
+//
 // Use an audio mix to specify how an audio track’s volume changes over the
 // media’s timeline.
 //
@@ -240,17 +239,18 @@ func (a AVAssetReaderAudioMixOutput) AudioMix() IAVAudioMix {
 func (a AVAssetReaderAudioMixOutput) SetAudioMix(value IAVAudioMix) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAudioMix:"), value)
 }
+
 // The processing algorithm to use for scaled audio edits.
 //
 // # Discussion
-// 
+//
 // See [Time pitch algorithm settings] for possible values. The system throws
 // an exception if you set this property to a value other than one of the
 // defined constants.
 //
-// [Time pitch algorithm settings]: https://developer.apple.com/documentation/AVFoundation/time-pitch-algorithm-settings
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderAudioMixOutput/audioTimePitchAlgorithm
+//
+// [Time pitch algorithm settings]: https://developer.apple.com/documentation/AVFoundation/time-pitch-algorithm-settings
 func (a AVAssetReaderAudioMixOutput) AudioTimePitchAlgorithm() AVAudioTimePitchAlgorithm {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioTimePitchAlgorithm"))
 	return AVAudioTimePitchAlgorithm(foundation.NSStringFromID(rv).String())
@@ -258,6 +258,7 @@ func (a AVAssetReaderAudioMixOutput) AudioTimePitchAlgorithm() AVAudioTimePitchA
 func (a AVAssetReaderAudioMixOutput) SetAudioTimePitchAlgorithm(value AVAudioTimePitchAlgorithm) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAudioTimePitchAlgorithm:"), objc.String(string(value)))
 }
+
 // The tracks from which the output reads audio.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderAudioMixOutput/audioTracks
@@ -267,21 +268,21 @@ func (a AVAssetReaderAudioMixOutput) AudioTracks() []AVAssetTrack {
 		return AVAssetTrackFromID(id)
 	})
 }
+
 // The audio settings that the output uses.
 //
 // # Discussion
-// 
+//
 // The dictionary must contain values for the keys in [Linear PCM format
 // settings].
-// 
+//
 // Setting the property value to `nil` indicates that the output returns audio
 // samples in an uncompressed format.
 //
-// [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderAudioMixOutput/audioSettings
+//
+// [Linear PCM format settings]: https://developer.apple.com/documentation/AVFoundation/linear-pcm-format-settings
 func (a AVAssetReaderAudioMixOutput) AudioSettings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

@@ -4,9 +4,10 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,22 +47,20 @@ func (mc MLModelConfigurationClass) Alloc() MLModelConfiguration {
 // The settings for creating or updating a machine learning model.
 //
 // # Overview
-// 
+//
 // Use a model configuration to:
-// 
+//
 // - Set or override model parameters. - Designate which device the model uses
 // to make predictions, such as a GPU. - Restrict the model to use a specific
 // computational device category, such as a CPU.
-// 
+//
 // You typically use a model configuration instance to configure an [MLModel]
 // instance as you create it with [ModelWithContentsOfURLConfigurationError]
 // or create an [MLUpdateTask]. See [Personalizing a Model with On-Device
 // Updates].
-// 
+//
 // Configure your model parameters by setting values for each relevant
 // [MLParameterKey] in the [MLModelConfiguration.Parameters] property.
-//
-// [Personalizing a Model with On-Device Updates]: https://developer.apple.com/documentation/CoreML/personalizing-a-model-with-on-device-updates
 //
 // # Configuring model parameters
 //
@@ -84,12 +83,9 @@ func (mc MLModelConfigurationClass) Alloc() MLModelConfiguration {
 //   - [MLModelConfiguration.ComputeUnits]: The processing unit or units the model uses to make predictions.
 //   - [MLModelConfiguration.SetComputeUnits]
 //
-// # Getting optimization hints
-//
-//   - [MLModelConfiguration.OptimizationHints]: A group of hints for CoreML to optimize
-//   - [MLModelConfiguration.SetOptimizationHints]
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration
+//
+// [Personalizing a Model with On-Device Updates]: https://developer.apple.com/documentation/CoreML/personalizing-a-model-with-on-device-updates
 type MLModelConfiguration struct {
 	objectivec.Object
 }
@@ -100,6 +96,7 @@ type MLModelConfiguration struct {
 func MLModelConfigurationFromID(id objc.ID) MLModelConfiguration {
 	return MLModelConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLModelConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -125,11 +122,6 @@ func MLModelConfigurationFromID(id objc.ID) MLModelConfiguration {
 //
 //   - [IMLModelConfiguration.ComputeUnits]: The processing unit or units the model uses to make predictions.
 //   - [IMLModelConfiguration.SetComputeUnits]
-//
-// # Getting optimization hints
-//
-//   - [IMLModelConfiguration.OptimizationHints]: A group of hints for CoreML to optimize
-//   - [IMLModelConfiguration.SetOptimizationHints]
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration
 type IMLModelConfiguration interface {
@@ -162,12 +154,9 @@ type IMLModelConfiguration interface {
 	ComputeUnits() MLComputeUnits
 	SetComputeUnits(value MLComputeUnits)
 
-	// Topic: Getting optimization hints
-
 	// A group of hints for CoreML to optimize
 	OptimizationHints() IMLOptimizationHints
 	SetOptimizationHints(value IMLOptimizationHints)
-
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -197,11 +186,11 @@ func (m MLModelConfiguration) EncodeWithCoder(coder foundation.INSCoder) {
 // Function name that [MLModel] will use.
 //
 // # Discussion
-// 
+//
 // Some model types (e.g. ML Program) supports multiple functions in a model
 // asset, where each [MLModel] instance is associated with a particular
 // function.
-// 
+//
 // Use [MLModelAsset] to get the list of available functions. Use `nil` to use
 // a default function.
 //
@@ -213,6 +202,7 @@ func (m MLModelConfiguration) FunctionName() string {
 func (m MLModelConfiguration) SetFunctionName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionName:"), objc.String(value))
 }
+
 // A human readable name of a model for display purposes.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration/modelDisplayName
@@ -223,6 +213,7 @@ func (m MLModelConfiguration) ModelDisplayName() string {
 func (m MLModelConfiguration) SetModelDisplayName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelDisplayName:"), objc.String(value))
 }
+
 // A dictionary of configuration settings your app can override when loading a
 // model.
 //
@@ -234,11 +225,12 @@ func (m MLModelConfiguration) Parameters() foundation.INSDictionary {
 func (m MLModelConfiguration) SetParameters(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setParameters:"), value)
 }
+
 // The metal device you prefer this model use to make predictions (inference)
 // and update the model.
 //
 // # Discussion
-// 
+//
 // If [PreferredMetalDevice] is `nil`, the default value, Core ML chooses a
 // metal device for you.
 //
@@ -250,6 +242,7 @@ func (m MLModelConfiguration) PreferredMetalDevice() metal.MTLDevice {
 func (m MLModelConfiguration) SetPreferredMetalDevice(value metal.MTLDevice) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreferredMetalDevice:"), value)
 }
+
 // A Boolean value that determines whether to allow low-precision accumulation
 // on a GPU.
 //
@@ -261,6 +254,7 @@ func (m MLModelConfiguration) AllowLowPrecisionAccumulationOnGPU() bool {
 func (m MLModelConfiguration) SetAllowLowPrecisionAccumulationOnGPU(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAllowLowPrecisionAccumulationOnGPU:"), value)
 }
+
 // The processing unit or units the model uses to make predictions.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration/computeUnits
@@ -271,9 +265,10 @@ func (m MLModelConfiguration) ComputeUnits() MLComputeUnits {
 func (m MLModelConfiguration) SetComputeUnits(value MLComputeUnits) {
 	objc.Send[struct{}](m.ID, objc.Sel("setComputeUnits:"), value)
 }
+
 // A group of hints for CoreML to optimize
 //
-// See: https://developer.apple.com/documentation/coreml/mlmodelconfiguration/optimizationhints-1oq0g
+// See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration/optimizationHints-81u6f
 func (m MLModelConfiguration) OptimizationHints() IMLOptimizationHints {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("optimizationHints"))
 	return MLOptimizationHintsFromID(objc.ID(rv))
@@ -281,4 +276,3 @@ func (m MLModelConfiguration) OptimizationHints() IMLOptimizationHints {
 func (m MLModelConfiguration) SetOptimizationHints(value IMLOptimizationHints) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOptimizationHints:"), value)
 }
-

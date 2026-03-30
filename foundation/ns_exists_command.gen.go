@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,14 +44,14 @@ func (nc NSExistsCommandClass) Alloc() NSExistsCommand {
 // A command that determines whether a scriptable object exists.
 //
 // # Overview
-// 
+//
 // An instance of [NSExistsCommand] determines whether a specified scriptable
 // object, such as a word, paragraph, or image, exists.
-// 
+//
 // When an instance of [NSExistsCommand] is executed, it evaluates the
 // receiver specifier for the command to determine if it specifies any
 // objects.
-// 
+//
 // [NSExistsCommand] is part of Cocoa’s built-in scripting support. Most
 // applications don’t need to subclass [NSExistsCommand].
 //
@@ -65,6 +66,7 @@ type NSExistsCommand struct {
 func NSExistsCommandFromID(id objc.ID) NSExistsCommand {
 	return NSExistsCommand{NSScriptCommand: NSScriptCommandFromID(id)}
 }
+
 // NOTE: NSExistsCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -94,7 +96,6 @@ func NewNSExistsCommand() NSExistsCommand {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewExistsCommandWithCoder(inCoder INSCoder) NSExistsCommand {
 	instance := getNSExistsCommandClass().Alloc()
@@ -108,11 +109,11 @@ func NewExistsCommandWithCoder(inCoder INSCoder) NSExistsCommand {
 // commandDef: A command description for the command to be created.
 //
 // # Return Value
-// 
+//
 // A newly initialized instance of [NSScriptCommand] or a subclass.
 //
 // # Discussion
-// 
+//
 // To make this command object usable, you must set its receiving objects and
 // arguments (if any) after invoking this method.
 //
@@ -122,4 +123,3 @@ func NewExistsCommandWithCommandDescription(commandDef INSScriptCommandDescripti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCommandDescription:"), commandDef)
 	return NSExistsCommandFromID(rv)
 }
-

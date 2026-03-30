@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (dc DIIOIteratorClass) Alloc() DIIOIterator {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIIOIterator.CopyNextObject]
 //   - [DIIOIterator.StartedOver]
 //   - [DIIOIterator.SetStartedOver]
 //   - [DIIOIterator.InitWithIOIteratorRetain]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOIterator
 type DIIOIterator struct {
 	DIIOObject
@@ -59,6 +60,7 @@ type DIIOIterator struct {
 func DIIOIteratorFromID(id objc.ID) DIIOIterator {
 	return DIIOIterator{DIIOObject: DIIOObjectFromID(id)}
 }
+
 // Ensure DIIOIterator implements IDIIOIterator.
 var _ IDIIOIterator = DIIOIterator{}
 
@@ -102,7 +104,6 @@ func NewDIIOIterator() DIIOIterator {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithClassName:error:
 func NewDIIOIteratorWithClassNameError(name objectivec.IObject) (DIIOIterator, error) {
 	var errorPtr objc.ID
@@ -115,7 +116,6 @@ func NewDIIOIteratorWithClassNameError(name objectivec.IObject) (DIIOIterator, e
 	return DIIOIteratorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithDIIOObject:
 func NewDIIOIteratorWithDIIOObject(dIIOObject objectivec.IObject) DIIOIterator {
 	instance := getDIIOIteratorClass().Alloc()
@@ -123,7 +123,6 @@ func NewDIIOIteratorWithDIIOObject(dIIOObject objectivec.IObject) DIIOIterator {
 	return DIIOIteratorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOIterator/initWithIOIterator:retain:
 func NewDIIOIteratorWithIOIteratorRetain(iOIterator uint32, retain bool) DIIOIterator {
 	instance := getDIIOIteratorClass().Alloc()
@@ -131,7 +130,6 @@ func NewDIIOIteratorWithIOIteratorRetain(iOIterator uint32, retain bool) DIIOIte
 	return DIIOIteratorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIOObject:
 func NewDIIOIteratorWithIOObject(iOObject uint32) DIIOIterator {
 	instance := getDIIOIteratorClass().Alloc()
@@ -139,7 +137,6 @@ func NewDIIOIteratorWithIOObject(iOObject uint32) DIIOIterator {
 	return DIIOIteratorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIOObject:retain:
 func NewDIIOIteratorWithIOObjectRetain(iOObject uint32, retain bool) DIIOIterator {
 	instance := getDIIOIteratorClass().Alloc()
@@ -147,7 +144,6 @@ func NewDIIOIteratorWithIOObjectRetain(iOObject uint32, retain bool) DIIOIterato
 	return DIIOIteratorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithIteratorNext:
 func NewDIIOIteratorWithIteratorNext(next objectivec.IObject) DIIOIterator {
 	instance := getDIIOIteratorClass().Alloc()
@@ -155,7 +151,6 @@ func NewDIIOIteratorWithIteratorNext(next objectivec.IObject) DIIOIterator {
 	return DIIOIteratorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOObject/initWithRegistryEntryID:error:
 func NewDIIOIteratorWithRegistryEntryIDError(id uint64) (DIIOIterator, error) {
 	var errorPtr objc.ID
@@ -173,7 +168,7 @@ func (d DIIOIterator) CopyNextObject() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("copyNextObject"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIIOIterator/initWithIOIterator:retain:
 func (d DIIOIterator) InitWithIOIteratorRetain(iOIterator uint32, retain bool) DIIOIterator {
 	rv := objc.Send[DIIOIterator](d.ID, objc.Sel("initWithIOIterator:retain:"), iOIterator, retain)
@@ -188,4 +183,3 @@ func (d DIIOIterator) StartedOver() bool {
 func (d DIIOIterator) SetStartedOver(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setStartedOver:"), value)
 }
-

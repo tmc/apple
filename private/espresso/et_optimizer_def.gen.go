@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (ec ETOptimizerDefClass) Alloc() ETOptimizerDef {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETOptimizerDef.Batch_size]
 //   - [ETOptimizerDef.SetBatch_size]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETOptimizerDef
 type ETOptimizerDef struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type ETOptimizerDef struct {
 func ETOptimizerDefFromID(id objc.ID) ETOptimizerDef {
 	return ETOptimizerDef{objectivec.Object{ID: id}}
 }
+
 // Ensure ETOptimizerDef implements IETOptimizerDef.
 var _ IETOptimizerDef = ETOptimizerDef{}
 
@@ -102,4 +104,3 @@ func (e ETOptimizerDef) Batch_size() uint32 {
 func (e ETOptimizerDef) SetBatch_size(value uint32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBatch_size:"), value)
 }
-

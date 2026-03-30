@@ -3,10 +3,11 @@
 package foundation
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,29 +47,29 @@ func (nc NSDataClass) Alloc() NSData {
 // A static byte buffer in memory.
 //
 // # Overview
-// 
+//
 // In Swift, the buffer bridges to [Data]; use [NSData] when you need
 // reference semantics or other Foundation-specific behavior.
-// 
+//
 // [NSData] and its mutable subclass [NSMutableData] provide data objects, or
 // object-oriented wrappers for byte buffers. Data objects let simple
 // allocated buffers (that is, data with no embedded pointers) take on the
 // behavior of Foundation objects.
-// 
+//
 // The size of the data is subject to a theoretical limit of about 8 exabytes
 // (1 EB = 10¹⁸ bytes; in practice, the limit should not be a factor).
-// 
+//
 // [NSData] is with its Core Foundation counterpart, [CFData]. See [Toll-Free
 // Bridging] for more information on toll-free bridging.
-// 
+//
 // # Writing Data Atomically
-// 
+//
 // [NSData] provides methods for atomically saving their contents to a file,
 // which guarantee that the data is either saved in its entirety, or it fails
 // completely. An atomic write first writes the data to a temporary file and
 // then, only if this write succeeds, moves the temporary file to its final
 // location.
-// 
+//
 // Although atomic write operations minimize the risk of data loss due to
 // corrupt or partially written files, they may not be appropriate when
 // writing to a temporary directory, the user’s home directory or other
@@ -77,20 +78,13 @@ func (nc NSDataClass) Alloc() NSData {
 // An attacker may compromise or corrupt these files. The attacker can also
 // replace the files with hard or symbolic links, causing your write
 // operations to overwrite or corrupt other system resources.
-// 
+//
 // Avoid using the [NSData.WriteToURLAtomically] method (and the related methods)
 // when working inside a publicly accessible directory. Instead, use
 // [NSFileHandle] with an existing file descriptor to securely write the file.
-// 
+//
 // For more information, see [Securing File Operations] in [Secure Coding
 // Guide].
-//
-// [CFData]: https://developer.apple.com/documentation/CoreFoundation/CFData
-// [Data]: https://developer.apple.com/documentation/Foundation/Data
-// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
-// [Secure Coding Guide]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Introduction.html#//apple_ref/doc/uid/TP40002415
-// [Securing File Operations]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Articles/RaceConditions.html#//apple_ref/doc/uid/TP40002585-SW9
-// [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
 //
 // # Creating Data
 //
@@ -159,6 +153,13 @@ func (nc NSDataClass) Alloc() NSData {
 //   - [NSData.InitWithContentsOfURLOptionsError]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData
+//
+// [CFData]: https://developer.apple.com/documentation/CoreFoundation/CFData
+// [Data]: https://developer.apple.com/documentation/Foundation/Data
+// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
+// [Secure Coding Guide]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Introduction.html#//apple_ref/doc/uid/TP40002415
+// [Securing File Operations]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Articles/RaceConditions.html#//apple_ref/doc/uid/TP40002585-SW9
+// [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
 type NSData struct {
 	objectivec.Object
 }
@@ -169,6 +170,7 @@ type NSData struct {
 func NSDataFromID(id objc.ID) NSData {
 	return NSData{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSData adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -362,7 +364,6 @@ func NewNSData() NSData {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-4t5yq
 func NewDataWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSData {
 	instance := getNSDataClass().Alloc()
@@ -370,7 +371,6 @@ func NewDataWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase6
 	return NSDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-3ksry
 func NewDataWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSData {
 	instance := getNSDataClass().Alloc()
@@ -383,20 +383,20 @@ func NewDataWithBase64EncodedStringOptions(base64String string, options NSDataBa
 // base64String: A Base-64 encoded string.
 //
 // # Return Value
-// 
+//
 // A data object built by Base-64 decoding the provided string. Returns `nil`
 // if the data object could not be decoded.
 //
 // # Discussion
-// 
+//
 // Although this method was only introduced publicly for iOS 7, it has existed
 // since iOS 4; you can use it if your application needs to target an
 // operating system prior to iOS 7. This method behaves like
 // [init(base64EncodedString:options:)], but ignores all unknown characters.
 //
-// [init(base64EncodedString:options:)]: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoding:)
+//
+// [init(base64EncodedString:options:)]: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
 func NewDataWithBase64Encoding(base64String string) NSData {
 	instance := getNSDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64Encoding:"), objc.String(base64String))
@@ -407,7 +407,7 @@ func NewDataWithBase64Encoding(base64String string) NSData {
 // given buffer.
 //
 // # Discussion
-// 
+//
 // A data object initialized by adding to it `length` bytes of data copied
 // from the buffer `bytes`. The returned object might be different than the
 // original receiver.
@@ -429,13 +429,13 @@ func NewDataWithBytesLength(bytes []byte) NSData {
 // length of `bytes`.
 //
 // # Return Value
-// 
+//
 // A data object initialized by adding to it `length` bytes of data from the
 // buffer `bytes`. The returned object might be different than the original
 // receiver.
 //
 // # Discussion
-// 
+//
 // The returned object takes ownership of the `bytes` pointer and frees it on
 // deallocation. Therefore, `bytes` must point to a memory block allocated
 // with `malloc`.
@@ -450,18 +450,14 @@ func NewDataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSData {
 // Initializes a newly allocated data object by adding the given number of
 // bytes from the given buffer.
 //
-// bytes: A buffer containing data for the new object. If `flag` is [true], `bytes`
+// bytes: A buffer containing data for the new object. If `flag` is true, `bytes`
 // must point to a memory block allocated with `malloc`.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // length: The number of bytes to hold from `bytes`. This value must not exceed the
 // length of `bytes`.
 //
-// b: If [true], the returned object takes ownership of the `bytes` pointer and
+// b: If true, the returned object takes ownership of the `bytes` pointer and
 // frees it on deallocation.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:freeWhenDone:)
 func NewDataWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length uint, b bool) NSData {
@@ -470,7 +466,6 @@ func NewDataWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length uint,
 	return NSDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDataWithCoder(coder INSCoder) NSData {
 	instance := getNSDataClass().Alloc()
@@ -483,12 +478,12 @@ func NewDataWithCoder(coder INSCoder) NSData {
 // path: The absolute path of the file from which to read data.
 //
 // # Return Value
-// 
+//
 // A data object initialized by reading into it the data from the file
 // specified by `path`.
 //
 // # Discussion
-// 
+//
 // This method is equivalent to [InitWithContentsOfFileOptionsError] with no
 // options.
 //
@@ -505,17 +500,17 @@ func NewDataWithContentsOfFile(path string) NSData {
 //
 // readOptionsMask: A mask that specifies options for reading the data. Constant components are
 // described in [NSData.ReadingOptions].
-// //
-// [NSData.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
 //
 // # Return Value
-// 
+//
 // A data object initialized by reading into it the data from the file
 // specified by `path`.
 //
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOfFile:options:)
+//
+// [NSData.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
 func NewDataWithContentsOfFileOptionsError(path string, readOptionsMask NSDataReadingOptions) (NSData, error) {
 	var errorPtr objc.ID
 	instance := getNSDataClass().Alloc()
@@ -527,7 +522,6 @@ func NewDataWithContentsOfFileOptionsError(path string, readOptionsMask NSDataRe
 	return NSDataFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:)
 func NewDataWithContentsOfURL(url INSURL) NSData {
 	instance := getNSDataClass().Alloc()
@@ -535,7 +529,6 @@ func NewDataWithContentsOfURL(url INSURL) NSData {
 	return NSDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:options:)
 func NewDataWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSDataReadingOptions) (NSData, error) {
 	var errorPtr objc.ID
@@ -553,7 +546,7 @@ func NewDataWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSDataRead
 // data: A data object.
 //
 // # Return Value
-// 
+//
 // A data object initialized with the contents `data`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(data:)
@@ -567,7 +560,7 @@ func NewDataWithData(data INSData) NSData {
 // given buffer.
 //
 // # Discussion
-// 
+//
 // A data object initialized by adding to it `length` bytes of data copied
 // from the buffer `bytes`. The returned object might be different than the
 // original receiver.
@@ -577,6 +570,7 @@ func (d NSData) InitWithBytesLength(bytes []byte) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
 	return rv
 }
+
 // Initializes a data object filled with a given number of bytes of data from
 // a given buffer.
 //
@@ -587,13 +581,13 @@ func (d NSData) InitWithBytesLength(bytes []byte) NSData {
 // length of `bytes`.
 //
 // # Return Value
-// 
+//
 // A data object initialized by adding to it `length` bytes of data from the
 // buffer `bytes`. The returned object might be different than the original
 // receiver.
 //
 // # Discussion
-// 
+//
 // The returned object takes ownership of the `bytes` pointer and frees it on
 // deallocation. Therefore, `bytes` must point to a memory block allocated
 // with `malloc`.
@@ -603,6 +597,7 @@ func (d NSData) InitWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSD
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytesNoCopy:length:"), bytes, length)
 	return rv
 }
+
 // Initializes a data object filled with a given number of bytes of data from
 // a given buffer, with a custom deallocator block.
 //
@@ -614,16 +609,16 @@ func (d NSData) InitWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSD
 // deallocator: A block to invoke when the resulting [NSData] object is deallocated.
 //
 // # Return Value
-// 
+//
 // A data object initialized by adding to it `length` bytes of data from the
 // buffer `bytes`. The returned object might be different than the original
 // receiver.
 //
 // # Discussion
-// 
+//
 // Use this method to define your own deallocation behavior for the data
 // buffer you provide.
-// 
+//
 // In order to avoid any inadvertent strong reference cycles, you should avoid
 // capturing pointers to any objects that may in turn maintain strong
 // references to the [NSData] object. This includes explicit references to
@@ -640,33 +635,31 @@ func (d NSData) InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, lengt
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, objc.ID(_block2))
 	return rv
 }
+
 // Initializes a newly allocated data object by adding the given number of
 // bytes from the given buffer.
 //
-// bytes: A buffer containing data for the new object. If `flag` is [true], `bytes`
+// bytes: A buffer containing data for the new object. If `flag` is true, `bytes`
 // must point to a memory block allocated with `malloc`.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // length: The number of bytes to hold from `bytes`. This value must not exceed the
 // length of `bytes`.
 //
-// b: If [true], the returned object takes ownership of the `bytes` pointer and
+// b: If true, the returned object takes ownership of the `bytes` pointer and
 // frees it on deallocation.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:freeWhenDone:)
 func (d NSData) InitWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length uint, b bool) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytesNoCopy:length:freeWhenDone:"), bytes, length, b)
 	return rv
 }
+
 // Initializes a data object with the contents of another data object.
 //
 // data: A data object.
 //
 // # Return Value
-// 
+//
 // A data object initialized with the contents `data`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(data:)
@@ -674,17 +667,18 @@ func (d NSData) InitWithData(data INSData) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
+
 // Initializes a data object with the content of the file at a given path.
 //
 // path: The absolute path of the file from which to read data.
 //
 // # Return Value
-// 
+//
 // A data object initialized by reading into it the data from the file
 // specified by `path`.
 //
 // # Discussion
-// 
+//
 // This method is equivalent to [InitWithContentsOfFileOptionsError] with no
 // options.
 //
@@ -693,23 +687,24 @@ func (d NSData) InitWithContentsOfFile(path string) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithContentsOfFile:"), objc.String(path))
 	return rv
 }
+
 // Initializes a data object with the content of the file at a given path.
 //
 // path: The absolute path of the file from which to read data.
 //
 // readOptionsMask: A mask that specifies options for reading the data. Constant components are
 // described in [NSData.ReadingOptions].
-// //
-// [NSData.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
 //
 // # Return Value
-// 
+//
 // A data object initialized by reading into it the data from the file
 // specified by `path`.
 //
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOfFile:options:)
+//
+// [NSData.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
 func (d NSData) InitWithContentsOfFileOptionsError(path string, readOptionsMask NSDataReadingOptions) (NSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithContentsOfFile:options:error:"), objc.String(path), readOptionsMask, unsafe.Pointer(&errorPtr))
@@ -720,60 +715,56 @@ func (d NSData) InitWithContentsOfFileOptionsError(path string, readOptionsMask 
 	return NSDataFromID(rv), nil
 
 }
+
 // Writes the data object’s bytes to the file specified by a given path.
 //
 // path: The location to which to write the receiver’s bytes. If `path` contains a
 // tilde (~) character, you must expand it with [StringByExpandingTildeInPath]
 // before invoking this method.
 //
-// useAuxiliaryFile: If [true], the data is written to a backup file, and then—assuming no
+// useAuxiliaryFile: If true, the data is written to a backup file, and then—assuming no
 // errors occur—the backup file is renamed to the name specified by `path`;
 // otherwise, the data is written directly to `path`.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
-// [true] if the operation succeeds, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the operation succeeds, otherwise false.
 //
 // # Discussion
-// 
+//
 // This method may not be appropriate when writing to publicly accessible
 // files. To securely write data to a public location, use [NSFileHandle]
 // instead. For more information, see [Securing File Operations] in [Secure
 // Coding Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSData/write(toFile:atomically:)
+//
 // [Secure Coding Guide]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Introduction.html#//apple_ref/doc/uid/TP40002415
 // [Securing File Operations]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Articles/RaceConditions.html#//apple_ref/doc/uid/TP40002585-SW9
-//
-// See: https://developer.apple.com/documentation/Foundation/NSData/write(toFile:atomically:)
 func (d NSData) WriteToFileAtomically(path string, useAuxiliaryFile bool) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("writeToFile:atomically:"), objc.String(path), useAuxiliaryFile)
 	return rv
 }
+
 // Writes the data object’s bytes to the file specified by a given path.
 //
 // path: The location to which to write the receiver’s bytes.
 //
 // writeOptionsMask: A mask that specifies options for writing the data. Constant components are
 // described in [NSData.WritingOptions].
-// //
-// [NSData.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSData/WritingOptions
 //
 // # Discussion
-// 
+//
 // This method may not be appropriate when writing to publicly accessible
 // files. To securely write data to a public location, use [NSFileHandle]
 // instead. For more information, see [Securing File Operations] in [Secure
 // Coding Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSData/write(toFile:options:)
+//
+// [NSData.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSData/WritingOptions
 // [Secure Coding Guide]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Introduction.html#//apple_ref/doc/uid/TP40002415
 // [Securing File Operations]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Articles/RaceConditions.html#//apple_ref/doc/uid/TP40002585-SW9
-//
-// See: https://developer.apple.com/documentation/Foundation/NSData/write(toFile:options:)
 func (d NSData) WriteToFileOptionsError(path string, writeOptionsMask NSDataWritingOptions) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("writeToFile:options:error:"), objc.String(path), writeOptionsMask, unsafe.Pointer(&errorPtr))
@@ -787,68 +778,64 @@ func (d NSData) WriteToFileOptionsError(path string, writeOptionsMask NSDataWrit
 	return rv, nil
 
 }
+
 // Writes the data object’s bytes to the location specified by a given URL.
 //
 // url: The location to which to write the receiver’s bytes. Only `//` URLs are
 // supported.
 //
-// atomically: If [true], the data is written to a backup location, and then—assuming no
+// atomically: If true, the data is written to a backup location, and then—assuming no
 // errors occur—the backup location is renamed to the name specified by
 // `aURL`; otherwise, the data is written directly to `aURL`. `atomically` is
 // ignored if `aURL` is not of a type the supports atomic writes.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
-// [true] if the operation succeeds, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the operation succeeds, otherwise false.
 //
 // # Discussion
-// 
+//
 // Since at present only `//` URLs are supported, there is no difference
 // between this method and [WriteToFileAtomically], except for the type of the
 // first argument.
-// 
+//
 // This method may not be appropriate when writing to publicly accessible
 // files. To securely write data to a public location, use [NSFileHandle]
 // instead. For more information, see [Securing File Operations] in [Secure
 // Coding Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSData/write(to:atomically:)
+//
 // [Secure Coding Guide]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Introduction.html#//apple_ref/doc/uid/TP40002415
 // [Securing File Operations]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Articles/RaceConditions.html#//apple_ref/doc/uid/TP40002585-SW9
-//
-// See: https://developer.apple.com/documentation/Foundation/NSData/write(to:atomically:)
 func (d NSData) WriteToURLAtomically(url INSURL, atomically bool) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("writeToURL:atomically:"), url, atomically)
 	return rv
 }
+
 // Writes the data object’s bytes to the location specified by a given URL.
 //
 // url: The location to which to write the receiver’s bytes.
 //
 // writeOptionsMask: A mask that specifies options for writing the data. Constant components are
 // described in [NSData.WritingOptions].
-// //
-// [NSData.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSData/WritingOptions
 //
 // # Discussion
-// 
+//
 // Since at present only `//` URLs are supported, there is no difference
 // between this method and [WriteToFileOptionsError], except for the type of
 // the first argument.
-// 
+//
 // This method may not be appropriate when writing to publicly accessible
 // files. To securely write data to a public location, use [NSFileHandle]
 // instead. For more information, see[Securing File Operations] in [Secure
 // Coding Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSData/write(to:options:)
+//
+// [NSData.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSData/WritingOptions
 // [Secure Coding Guide]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Introduction.html#//apple_ref/doc/uid/TP40002415
 // [Securing File Operations]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Articles/RaceConditions.html#//apple_ref/doc/uid/TP40002585-SW9
-//
-// See: https://developer.apple.com/documentation/Foundation/NSData/write(to:options:)
 func (d NSData) WriteToURLOptionsError(url INSURL, writeOptionsMask NSDataWritingOptions) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("writeToURL:options:error:"), url, writeOptionsMask, unsafe.Pointer(&errorPtr))
@@ -862,88 +849,89 @@ func (d NSData) WriteToURLOptionsError(url INSURL, writeOptionsMask NSDataWritin
 	return rv, nil
 
 }
+
 // Creates a Base64, UTF-8 encoded data object from the string using the given
 // options.
 //
 // options: A mask that specifies options for Base64 encoding the data. Possible values
 // are given in [NSData.Base64EncodingOptions].
-// //
-// [NSData.Base64EncodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64EncodingOptions
 //
 // # Return Value
-// 
+//
 // A Base64, UTF-8 encoded data object.
 //
 // # Discussion
-// 
+//
 // By default, no line endings are inserted.
-// 
+//
 // If you specify one of the line length options
-// ([DataBase64Encoding64CharacterLineLength] or
-// [DataBase64Encoding76CharacterLineLength]) but don’t specify the kind of
-// line ending to insert, the default line ending is Carriage Return + Line
+// ([NSDataBase64Encoding64CharacterLineLength] or
+// [NSDataBase64Encoding76CharacterLineLength]) but don’t specify the kind
+// of line ending to insert, the default line ending is Carriage Return + Line
 // Feed.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/base64EncodedData(options:)
+//
+// [NSData.Base64EncodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64EncodingOptions
 func (d NSData) Base64EncodedDataWithOptions(options NSDataBase64EncodingOptions) INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("base64EncodedDataWithOptions:"), options)
 	return NSDataFromID(rv)
 }
+
 // Creates a Base64 encoded string from the string using the given options.
 //
 // options: A mask that specifies options for Base-64 encoding the data. Possible
 // values are given in [NSData.Base64EncodingOptions].
-// //
-// [NSData.Base64EncodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64EncodingOptions
 //
 // # Return Value
-// 
+//
 // A Base64 encoded string.
 //
 // # Discussion
-// 
+//
 // By default, no line endings are inserted.
-// 
+//
 // If you specify one of the line length options
-// ([DataBase64Encoding64CharacterLineLength] or
-// [DataBase64Encoding76CharacterLineLength]) but don’t specify the kind of
-// line ending to insert, the default line ending is Carriage Return + Line
+// ([NSDataBase64Encoding64CharacterLineLength] or
+// [NSDataBase64Encoding76CharacterLineLength]) but don’t specify the kind
+// of line ending to insert, the default line ending is Carriage Return + Line
 // Feed.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/base64EncodedString(options:)
+//
+// [NSData.Base64EncodingOptions]: https://developer.apple.com/documentation/Foundation/NSData/Base64EncodingOptions
 func (d NSData) Base64EncodedStringWithOptions(options NSDataBase64EncodingOptions) string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("base64EncodedStringWithOptions:"), options)
 	return NSStringFromID(rv).String()
 }
+
 // Enumerates each range of bytes in the data object using a block.
 //
 // block: The block to apply to byte ranges in the array.
-// 
+//
 // The block takes three arguments:
-// 
+//
 // bytes: The bytes for the current range. This pointer is valid until the
 // data object is deallocated. byteRange: The range of the current data bytes.
-// stop: A reference to a Boolean value. The block can set the value to [true]
+// stop: A reference to a Boolean value. The block can set the value to true
 // to stop further processing of the data. The stop argument is an out-only
-// argument. You should only ever set this Boolean to [true] within the Block.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// argument. You should only ever set this Boolean to true within the Block.
 //
 // # Discussion
-// 
+//
 // The enumeration block is called once for each contiguous region of memory
 // in the receiver (once total for a contiguous [NSData] object), until either
-// all bytes have been enumerated, or the `stop` parameter is set to [true].
-//
-// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
-// [true]: https://developer.apple.com/documentation/Swift/true
+// all bytes have been enumerated, or the `stop` parameter is set to true.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/enumerateBytes(_:)
+//
+// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
 func (d NSData) EnumerateByteRangesUsingBlock(block func(unsafe.Pointer, unsafe.Pointer, *bool)) {
 	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 *bool) { block(arg0, arg1, arg2) })
 	defer _block0.Release()
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateByteRangesUsingBlock:"), objc.ID(_block0))
 }
+
 // Copies a number of bytes from the start of the data object into a given
 // buffer.
 //
@@ -953,7 +941,7 @@ func (d NSData) EnumerateByteRangesUsingBlock(block func(unsafe.Pointer, unsafe.
 // `buffer`.
 //
 // # Discussion
-// 
+//
 // The number of bytes copied is the smaller of the `length` parameter and the
 // [Length] of the data encapsulated in the object.
 //
@@ -961,6 +949,7 @@ func (d NSData) EnumerateByteRangesUsingBlock(block func(unsafe.Pointer, unsafe.
 func (d NSData) GetBytesLength(buffer unsafe.Pointer, length uint) {
 	objc.Send[objc.ID](d.ID, objc.Sel("getBytes:length:"), buffer, length)
 }
+
 // Copies a range of bytes from the data object into a given buffer.
 //
 // buffer: A buffer into which to copy data.
@@ -969,40 +958,38 @@ func (d NSData) GetBytesLength(buffer unsafe.Pointer, length uint) {
 // must lie within the range of bytes of the receiver’s data.
 //
 // # Discussion
-// 
-// If `range` isn’t within the receiver’s range of bytes, an
-// [rangeException] is raised.
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// If `range` isn’t within the receiver’s range of bytes, an
+// [RangeException] is raised.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/getBytes(_:range:)
 func (d NSData) GetBytesRange(buffer unsafe.Pointer, range_ NSRange) {
 	objc.Send[objc.ID](d.ID, objc.Sel("getBytes:range:"), buffer, range_)
 }
+
 // Returns a new data object containing the data object’s bytes that fall
 // within the limits specified by a given range.
 //
 // range: The range in the receiver from which to get the data. If this range is not
-// within the data object’s range of bytes, [rangeException] is raised.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// within the data object’s range of bytes, [RangeException] is raised.
 //
 // # Return Value
-// 
+//
 // A data object containing the receiver’s bytes that fall within the limits
 // specified by `range`.
 //
 // # Discussion
-// 
+//
 // A sample using this method can be found in [Working With Binary Data].
 //
-// [Working With Binary Data]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/BinaryData/Tasks/WorkingBinaryData.html#//apple_ref/doc/uid/20000717
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/subdata(with:)
+//
+// [Working With Binary Data]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/BinaryData/Tasks/WorkingBinaryData.html#//apple_ref/doc/uid/20000717
 func (d NSData) SubdataWithRange(range_ NSRange) INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("subdataWithRange:"), range_)
 	return NSDataFromID(rv)
 }
+
 // Finds and returns the range of the first occurrence of the given data,
 // within the given range, subject to given options.
 //
@@ -1010,44 +997,39 @@ func (d NSData) SubdataWithRange(range_ NSRange) INSData {
 //
 // mask: A mask specifying search options. The [NSData.SearchOptions] options may be
 // specified singly or by combining them with the C bitwise [OR] operator.
-// //
-// [NSData.SearchOptions]: https://developer.apple.com/documentation/Foundation/NSData/SearchOptions
 //
 // searchRange: The range within the receiver in which to search for `dataToFind`. If this
-// range is not within the data object’s range of bytes, [rangeException] is
+// range is not within the data object’s range of bytes, [RangeException] is
 // raised.
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // # Return Value
-// 
+//
 // An [NSRange] structure giving the location and length of `dataToFind`
 // within `searchRange`, modulo the options in `mask`. The range returned is
 // relative to the start of the searched data, not the passed-in search range.
-// Returns `{``NSNotFound``, 0}` if `dataToFind` is not found or is empty.
-//
-// [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
+// Returns `{“NSNotFound“, 0}` if `dataToFind` is not found or is empty.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/range(of:options:in:)
+//
+// [NSData.SearchOptions]: https://developer.apple.com/documentation/Foundation/NSData/SearchOptions
+// [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
 func (d NSData) RangeOfDataOptionsRange(dataToFind INSData, mask NSDataSearchOptions, searchRange NSRange) NSRange {
 	rv := objc.Send[NSRange](d.ID, objc.Sel("rangeOfData:options:range:"), dataToFind, mask, searchRange)
 	return NSRange(rv)
 }
+
 // Returns a Boolean value indicating whether this data object is the same as
 // another.
 //
 // other: The data object with which to compare the receiver.
 //
 // # Return Value
-// 
-// [true] if the contents of `otherData` are equal to the contents of the
-// receiver, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the contents of `otherData` are equal to the contents of the
+// receiver, otherwise false.
 //
 // # Discussion
-// 
+//
 // Two data objects are equal if they hold the same number of bytes, and if
 // the bytes at the same position in the objects are the same.
 //
@@ -1056,33 +1038,34 @@ func (d NSData) IsEqualToData(other INSData) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEqualToData:"), other)
 	return rv
 }
+
 // Returns a new data object by compressing the data object’s bytes.
 //
 // algorithm: An algorithm used to compress the data. For a list of available algorithms,
 // see [NSData.CompressionAlgorithm].
-// //
-// [NSData.CompressionAlgorithm]: https://developer.apple.com/documentation/Foundation/NSData/CompressionAlgorithm
 //
 // # Return Value
-// 
+//
 // An [NSData] instance that contains the compressed buffer data.
 //
 // # Discussion
-// 
+//
 // Use this method to compress in-memory data when you want to reduce memory
 // usage and can afford the time to compress and decompress it. If your data
 // object is already in a compressed format, such as media formats like JPEG
 // images or AAC audio, additional compression may provide minimal or no
 // reduction in memory usage.
-// 
+//
 // To restore this data, use [DecompressedDataUsingAlgorithmError], and
 // specify the algorithm originally used to compress the data.
-// 
+//
 // The following example shows how to compress the data from a string and
 // prints the sizes of the data instances to illustrate the amount of
 // compression:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/compressed(using:)
+//
+// [NSData.CompressionAlgorithm]: https://developer.apple.com/documentation/Foundation/NSData/CompressionAlgorithm
 func (d NSData) CompressedDataUsingAlgorithmError(algorithm NSDataCompressionAlgorithm) (INSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("compressedDataUsingAlgorithm:error:"), algorithm, unsafe.Pointer(&errorPtr))
@@ -1093,27 +1076,28 @@ func (d NSData) CompressedDataUsingAlgorithmError(algorithm NSDataCompressionAlg
 	return NSDataFromID(rv), nil
 
 }
+
 // Returns a new data object by decompressing data object’s bytes.
 //
 // algorithm: An algorithm used to decompress the data. For a list of available
 // algorithms, see [NSData.CompressionAlgorithm].
-// //
-// [NSData.CompressionAlgorithm]: https://developer.apple.com/documentation/Foundation/NSData/CompressionAlgorithm
 //
 // # Return Value
-// 
+//
 // An [NSData] instance that contains the decompressed buffer data.
 //
 // # Discussion
-// 
+//
 // Use this method to inflate in-memory data when you need uncompressed bytes.
 // Specify the same algorithm used to compress the data to successfully
 // decompress it.
-// 
+//
 // The following example shows how to create a new [NSData] instance from data
-// compressed with the [DataCompressionAlgorithmZlib] algorithm:
+// compressed with the [NSDataCompressionAlgorithmZlib] algorithm:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/decompressed(using:)
+//
+// [NSData.CompressionAlgorithm]: https://developer.apple.com/documentation/Foundation/NSData/CompressionAlgorithm
 func (d NSData) DecompressedDataUsingAlgorithmError(algorithm NSDataCompressionAlgorithm) (INSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decompressedDataUsingAlgorithm:error:"), algorithm, unsafe.Pointer(&errorPtr))
@@ -1124,25 +1108,25 @@ func (d NSData) DecompressedDataUsingAlgorithmError(algorithm NSDataCompressionA
 	return NSDataFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-3ksry
 func (d NSData) InitWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBase64EncodedString:options:"), objc.String(base64String), options)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-4t5yq
 func (d NSData) InitWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBase64EncodedData:options:"), base64Data, options)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:)
 func (d NSData) InitWithContentsOfURL(url INSURL) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:options:)
 func (d NSData) InitWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSDataReadingOptions) (NSData, error) {
 	var errorPtr objc.ID
@@ -1154,6 +1138,7 @@ func (d NSData) InitWithContentsOfURLOptionsError(url INSURL, readOptionsMask NS
 	return NSDataFromID(rv), nil
 
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1162,7 +1147,7 @@ func (d NSData) InitWithContentsOfURLOptionsError(url INSURL, readOptionsMask NS
 func (d NSData) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (d NSData) InitWithCoder(coder INSCoder) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithCoder:"), coder)
@@ -1172,17 +1157,18 @@ func (d NSData) InitWithCoder(coder INSCoder) NSData {
 // Creates an empty data object.
 //
 // # Discussion
-// 
+//
 // This method is declared primarily for the use of mutable subclasses of
 // [NSData].
 //
-// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/data
+//
+// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
 func (_NSDataClass NSDataClass) Data() NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("data"))
 	return NSDataFromID(rv)
 }
+
 // Creates a data object containing a given number of bytes copied from a
 // given buffer.
 //
@@ -1196,6 +1182,7 @@ func (_NSDataClass NSDataClass) DataWithBytesLength(bytes []byte) NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
 	return NSDataFromID(rv)
 }
+
 // Creates a data object that holds a given number of bytes from a given
 // buffer.
 //
@@ -1206,7 +1193,7 @@ func (_NSDataClass NSDataClass) DataWithBytesLength(bytes []byte) NSData {
 // length of `bytes`.
 //
 // # Discussion
-// 
+//
 // The returned object takes ownership of the `bytes` pointer and frees it on
 // deallocation. Therefore, `bytes` must point to a memory block allocated
 // with `malloc`.
@@ -1216,67 +1203,66 @@ func (_NSDataClass NSDataClass) DataWithBytesNoCopyLength(bytes unsafe.Pointer, 
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithBytesNoCopy:length:"), bytes, length)
 	return NSDataFromID(rv)
 }
+
 // Creates a data object that holds a given number of bytes from a given
 // buffer.
 //
-// bytes: A buffer containing data for the new object. If `freeWhenDone` is [true],
+// bytes: A buffer containing data for the new object. If `freeWhenDone` is true,
 // `bytes` must point to a memory block allocated with `malloc`.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // length: The number of bytes to hold from `bytes`. This value must not exceed the
 // length of `bytes`.
 //
-// b: If [true], the returned object takes ownership of the `bytes` pointer and
+// b: If true, the returned object takes ownership of the `bytes` pointer and
 // frees it on deallocation.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/dataWithBytesNoCopy:length:freeWhenDone:
 func (_NSDataClass NSDataClass) DataWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length uint, b bool) NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithBytesNoCopy:length:freeWhenDone:"), bytes, length, b)
 	return NSDataFromID(rv)
 }
+
 // Creates a data object by reading every byte from the file at a given path.
 //
 // path: The absolute path of the file from which to read data.
 //
 // # Discussion
-// 
+//
 // This method returns `nil` if the data object could not be created. If you
 // need to know the reason for failure, use
 // [DataWithContentsOfFileOptionsError].
-// 
+//
 // This method is equivalent to calling [DataWithContentsOfFileOptionsError]
 // and passing no options.
-// 
+//
 // A sample using this method can be found in [Working With Binary Data].
 //
-// [Working With Binary Data]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/BinaryData/Tasks/WorkingBinaryData.html#//apple_ref/doc/uid/20000717
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/dataWithContentsOfFile:
+//
+// [Working With Binary Data]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/BinaryData/Tasks/WorkingBinaryData.html#//apple_ref/doc/uid/20000717
 func (_NSDataClass NSDataClass) DataWithContentsOfFile(path string) NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithContentsOfFile:"), objc.String(path))
 	return NSDataFromID(rv)
 }
+
 // Creates a data object by reading every byte from the file at a given path.
 //
 // path: The absolute path of the file from which to read data.
 //
 // readOptionsMask: A mask that specifies options for reading the data. Constant components are
 // described in [NSData.ReadingOptions].
-// //
-// [NSData.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
 //
 // errorPtr: If an error occurs, upon return contains an error object that describes the
 // problem.
 //
 // # Discussion
-// 
+//
 // This method returns `nil` if the data object could not be created. In this
 // case, `errorPtr` will contain an [NSError] indicating the problem.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/dataWithContentsOfFile:options:error:
+//
+// [NSData.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
 func (_NSDataClass NSDataClass) DataWithContentsOfFileOptionsError(path string, readOptionsMask NSDataReadingOptions) (NSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithContentsOfFile:options:error:"), objc.String(path), readOptionsMask, unsafe.Pointer(&errorPtr))
@@ -1287,13 +1273,13 @@ func (_NSDataClass NSDataClass) DataWithContentsOfFileOptionsError(path string, 
 	return NSDataFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSData/dataWithContentsOfURL:
 func (_NSDataClass NSDataClass) DataWithContentsOfURL(url INSURL) NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithContentsOfURL:"), url)
 	return NSDataFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSData/dataWithContentsOfURL:options:error:
 func (_NSDataClass NSDataClass) DataWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSDataReadingOptions) (NSData, error) {
 	var errorPtr objc.ID
@@ -1305,6 +1291,7 @@ func (_NSDataClass NSDataClass) DataWithContentsOfURLOptionsError(url INSURL, re
 	return NSDataFromID(rv), nil
 
 }
+
 // Creates a data object containing the contents of another data object.
 //
 // data: A data object.
@@ -1318,20 +1305,21 @@ func (_NSDataClass NSDataClass) DataWithData(data INSData) NSData {
 // A pointer to the data object’s contents.
 //
 // # Discussion
-// 
+//
 // If the [Length] of the [NSData] object is 0, this property returns `nil`.
-// 
+//
 // For an immutable data object, the returned pointer is valid until the data
 // object is deallocated. For a mutable data object, the returned pointer is
 // valid until the data object is deallocated or the data is mutated.
 //
-// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/bytes
+//
+// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
 func (d NSData) Bytes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("bytes"))
 	return rv
 }
+
 // The number of bytes contained by the data object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/length
@@ -1339,6 +1327,7 @@ func (d NSData) Length() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("length"))
 	return rv
 }
+
 // A string that contains a hexadecimal representation of the data object’s
 // contents in a property list format.
 //
@@ -1347,6 +1336,7 @@ func (d NSData) Description() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
 }
+
 // The end of the range of error codes reserved for compression errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nscompressionerrormaximum-swift.var
@@ -1357,6 +1347,7 @@ func (d NSData) NSCompressionErrorMaximum() int {
 func (d NSData) SetNSCompressionErrorMaximum(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSCompressionErrorMaximum:"), value)
 }
+
 // The start of the range of error codes reserved for compression errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nscompressionerrorminimum-swift.var
@@ -1367,6 +1358,7 @@ func (d NSData) NSCompressionErrorMinimum() int {
 func (d NSData) SetNSCompressionErrorMinimum(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSCompressionErrorMinimum:"), value)
 }
+
 // An error code value that indicates a failure to compress data using the
 // provided algorithm.
 //
@@ -1378,6 +1370,7 @@ func (d NSData) NSCompressionFailedError() int {
 func (d NSData) SetNSCompressionFailedError(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSCompressionFailedError:"), value)
 }
+
 // An error code value that indicates a failure to decompress data using the
 // provided algorithm.
 //
@@ -1390,12 +1383,8 @@ func (d NSData) SetNSDecompressionFailedError(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSDecompressionFailedError:"), value)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSMutableCopying
-			
+// Protocol methods for NSMutableCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

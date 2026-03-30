@@ -37,6 +37,8 @@ const (
 	NSDeleteFunctionKey NS = 63272
 	// NSDeleteLineFunctionKey: The delete line key.
 	NSDeleteLineFunctionKey NS = 63292
+	// NSDisplayWindowRunLoopOrdering: The priority at which windows are displayed.
+	NSDisplayWindowRunLoopOrdering NS = 600000
 	// NSDownArrowFunctionKey: The down arrow key.
 	NSDownArrowFunctionKey NS = 63233
 	// NSDownTextMovement: The down arrow key was pressed.
@@ -118,10 +120,10 @@ const (
 	// NSF9FunctionKey: The F9 key.
 	NSF9FunctionKey NS = 63244
 	// NSFindFunctionKey: The find key.
-	NSFindFunctionKey NS = 63301
+	NSFindFunctionKey        NS = 63301
 	NSFontAssetDownloadError NS = 66304
-	NSFontErrorMaximum NS = 66335
-	NSFontErrorMinimum NS = 66304
+	NSFontErrorMaximum       NS = 66335
+	NSFontErrorMinimum       NS = 66304
 	// NSFormFeedCharacter: The form feed character: `0x000c`
 	NSFormFeedCharacter NS = 12
 	// NSHelpFunctionKey: The help key.
@@ -159,13 +161,13 @@ const (
 	// NSPageUpFunctionKey: The page up key.
 	NSPageUpFunctionKey NS = 63276
 	// NSParagraphSeparatorCharacter: The paragraph separator character: `0x2029`
-	NSParagraphSeparatorCharacter NS = 8233
-	NSPasteboardCommunicationError NS = 67585
+	NSParagraphSeparatorCharacter         NS = 8233
+	NSPasteboardCommunicationError        NS = 67585
 	NSPasteboardContentsNotAvailableError NS = 67587
-	NSPasteboardErrorMaximum NS = 67839
-	NSPasteboardErrorMinimum NS = 67584
-	NSPasteboardInvalidArgumentError NS = 67586
-	NSPasteboardMiscellaneousError NS = 67584
+	NSPasteboardErrorMaximum              NS = 67839
+	NSPasteboardErrorMinimum              NS = 67584
+	NSPasteboardInvalidArgumentError      NS = 67586
+	NSPasteboardMiscellaneousError        NS = 67584
 	// NSPauseFunctionKey: The pause key.
 	NSPauseFunctionKey NS = 63280
 	// NSPrevFunctionKey: Previous key.
@@ -176,6 +178,8 @@ const (
 	NSPrintScreenFunctionKey NS = 63278
 	// NSRedoFunctionKey: The redo key.
 	NSRedoFunctionKey NS = 63300
+	// NSResetCursorRectsRunLoopOrdering: The priority at which cursor rects are reset.
+	NSResetCursorRectsRunLoopOrdering NS = 700000
 	// NSResetFunctionKey: The reset key.
 	NSResetFunctionKey NS = 63283
 	// NSReturnTextMovement: The Return key was pressed.
@@ -203,9 +207,9 @@ const (
 	// NSServiceMiscellaneousError: Other errors, representing programmatic mistakes in the service consuming application.
 	NSServiceMiscellaneousError NS = 66800
 	// NSServiceRequestTimedOutError: The service providing application did not open its service listening port in time, or the app didn’t respond to the request in time; see the Console log to figure out which (the errors are typically reported the same way to the user).
-	NSServiceRequestTimedOutError NS = 66562
-	NSSharingServiceErrorMaximum NS = 67327
-	NSSharingServiceErrorMinimum NS = 67072
+	NSServiceRequestTimedOutError      NS = 66562
+	NSSharingServiceErrorMaximum       NS = 67327
+	NSSharingServiceErrorMinimum       NS = 67072
 	NSSharingServiceNotConfiguredError NS = 67072
 	// NSShowControlGlyphs: Generates displayable glyphs for control characters.
 	NSShowControlGlyphs NS = 1
@@ -238,16 +242,16 @@ const (
 	// NSUserFunctionKey: The user key.
 	NSUserFunctionKey NS = 63286
 	// NSWantsBidiLevels: Generates directional formatting codes for bidirectional text.
-	NSWantsBidiLevels NS = 4
-	NSWindowSharingErrorMaximum NS = 67466
-	NSWindowSharingErrorMinimum NS = 67456
-	NSWindowSharingRequestAlreadyRequested NS = 67456
+	NSWantsBidiLevels                       NS = 4
+	NSWindowSharingErrorMaximum             NS = 67466
+	NSWindowSharingErrorMinimum             NS = 67456
+	NSWindowSharingRequestAlreadyRequested  NS = 67456
 	NSWindowSharingRequestNoEligibleSession NS = 67457
-	NSWindowSharingRequestUnspecifiedError NS = 67458
+	NSWindowSharingRequestUnspecifiedError  NS = 67458
 	// NSWorkspaceAuthorizationInvalidError: The provided workspace authorization credentials expired or are invalid.
 	NSWorkspaceAuthorizationInvalidError NS = 67328
-	NSWorkspaceErrorMaximum NS = 67455
-	NSWorkspaceErrorMinimum NS = 67328
+	NSWorkspaceErrorMaximum              NS = 67455
+	NSWorkspaceErrorMinimum              NS = 67328
 	// Deprecated.
 	NSAnyType NS = 0
 	// Deprecated.
@@ -310,6 +314,8 @@ func (e NS) String() string {
 		return "NSDeleteFunctionKey"
 	case NSDeleteLineFunctionKey:
 		return "NSDeleteLineFunctionKey"
+	case NSDisplayWindowRunLoopOrdering:
+		return "NSDisplayWindowRunLoopOrdering"
 	case NSDownArrowFunctionKey:
 		return "NSDownArrowFunctionKey"
 	case NSDownTextMovement:
@@ -450,6 +456,8 @@ func (e NS) String() string {
 		return "NSPrintScreenFunctionKey"
 	case NSRedoFunctionKey:
 		return "NSRedoFunctionKey"
+	case NSResetCursorRectsRunLoopOrdering:
+		return "NSResetCursorRectsRunLoopOrdering"
 	case NSResetFunctionKey:
 		return "NSResetFunctionKey"
 	case NSReturnTextMovement:
@@ -534,19 +542,19 @@ func (e NS) String() string {
 }
 
 const (
-	NSAccessibilityHourMinuteDateTimeComponentsFlag uint = 12
+	NSAccessibilityHourMinuteDateTimeComponentsFlag       uint = 12
 	NSAccessibilityHourMinuteSecondDateTimeComponentsFlag uint = 14
-	NSAccessibilityYearMonthDateTimeComponentsFlag uint = 192
-	NSAccessibilityYearMonthDayDateTimeComponentsFlag uint = 224
+	NSAccessibilityYearMonthDateTimeComponentsFlag        uint = 192
+	NSAccessibilityYearMonthDayDateTimeComponentsFlag     uint = 224
 )
 
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityAnnotationPosition
 type NSAccessibilityAnnotationPosition int
 
 const (
-	NSAccessibilityAnnotationPositionEnd NSAccessibilityAnnotationPosition = 2
+	NSAccessibilityAnnotationPositionEnd       NSAccessibilityAnnotationPosition = 2
 	NSAccessibilityAnnotationPositionFullRange NSAccessibilityAnnotationPosition = 0
-	NSAccessibilityAnnotationPositionStart NSAccessibilityAnnotationPosition = 1
+	NSAccessibilityAnnotationPositionStart     NSAccessibilityAnnotationPosition = 1
 )
 
 func (e NSAccessibilityAnnotationPosition) String() string {
@@ -590,7 +598,8 @@ const (
 	// NSAccessibilityCustomRotorTypeAnnotation: An annotation.
 	NSAccessibilityCustomRotorTypeAnnotation NSAccessibilityCustomRotorType = 2
 	// NSAccessibilityCustomRotorTypeAny: Any type of item.
-	NSAccessibilityCustomRotorTypeAny NSAccessibilityCustomRotorType = 1
+	NSAccessibilityCustomRotorTypeAny        NSAccessibilityCustomRotorType = 1
+	NSAccessibilityCustomRotorTypeAudiograph NSAccessibilityCustomRotorType = 21
 	// NSAccessibilityCustomRotorTypeBoldText: Any bold text.
 	NSAccessibilityCustomRotorTypeBoldText NSAccessibilityCustomRotorType = 3
 	// NSAccessibilityCustomRotorTypeCustom: A rotor with a custom label.
@@ -637,6 +646,8 @@ func (e NSAccessibilityCustomRotorType) String() string {
 		return "NSAccessibilityCustomRotorTypeAnnotation"
 	case NSAccessibilityCustomRotorTypeAny:
 		return "NSAccessibilityCustomRotorTypeAny"
+	case NSAccessibilityCustomRotorTypeAudiograph:
+		return "NSAccessibilityCustomRotorTypeAudiograph"
 	case NSAccessibilityCustomRotorTypeBoldText:
 		return "NSAccessibilityCustomRotorTypeBoldText"
 	case NSAccessibilityCustomRotorTypeCustom:
@@ -877,7 +888,7 @@ const (
 	NSAnimationBlocking NSAnimationBlockingMode = 0
 	// NSAnimationNonblocking: Requests the animation to run in a standard or specified run-loop mode that allows user input.
 	NSAnimationNonblocking NSAnimationBlockingMode = 1
-	// NSAnimationNonblockingThreaded: Requests the animation to run in a separate thread that is spawned by the  object.
+	// NSAnimationNonblockingThreaded: Requests the animation to run in a separate thread that is spawned by the [NSAnimation] object.
 	NSAnimationNonblockingThreaded NSAnimationBlockingMode = 2
 )
 
@@ -927,9 +938,9 @@ func (e NSAnimationCurve) String() string {
 type NSAnimationEffect uint
 
 const (
-	// NSAnimationEffectDisappearingItemDefault: The default effect.
+	// Deprecated.
 	NSAnimationEffectDisappearingItemDefault NSAnimationEffect = 0
-	// NSAnimationEffectPoof: An effect showing a puff of smoke.
+	// Deprecated.
 	NSAnimationEffectPoof NSAnimationEffect = 10
 )
 
@@ -1015,6 +1026,23 @@ func (e NSApplicationDelegateReply) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/OcclusionState-swift.struct
+type NSApplicationOcclusionState uint
+
+const (
+	// NSApplicationOcclusionStateVisible: If set, at least part of any window owned by this app is visible.
+	NSApplicationOcclusionStateVisible NSApplicationOcclusionState = 2
+)
+
+func (e NSApplicationOcclusionState) String() string {
+	switch e {
+	case NSApplicationOcclusionStateVisible:
+		return "NSApplicationOcclusionStateVisible"
+	default:
+		return fmt.Sprintf("NSApplicationOcclusionState(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/PresentationOptions-swift.struct
 type NSApplicationPresentationOptions uint
 
@@ -1025,6 +1053,8 @@ const (
 	NSApplicationPresentationAutoHideMenuBar NSApplicationPresentationOptions = 4
 	// NSApplicationPresentationAutoHideToolbar: When in fullscreen mode the window toolbar is detached from window and hides and shows with autoHidden menuBar.
 	NSApplicationPresentationAutoHideToolbar NSApplicationPresentationOptions = 2048
+	// NSApplicationPresentationDefault: This is the default presentation mode.
+	NSApplicationPresentationDefault NSApplicationPresentationOptions = 0
 	// NSApplicationPresentationDisableAppleMenu: All Apple Menu items are disabled.
 	NSApplicationPresentationDisableAppleMenu NSApplicationPresentationOptions = 16
 	// NSApplicationPresentationDisableCursorLocationAssistance: The behavior that allows the user to shake the mouse to locate the cursor is disabled.
@@ -1055,6 +1085,8 @@ func (e NSApplicationPresentationOptions) String() string {
 		return "NSApplicationPresentationAutoHideMenuBar"
 	case NSApplicationPresentationAutoHideToolbar:
 		return "NSApplicationPresentationAutoHideToolbar"
+	case NSApplicationPresentationDefault:
+		return "NSApplicationPresentationDefault"
 	case NSApplicationPresentationDisableAppleMenu:
 		return "NSApplicationPresentationDisableAppleMenu"
 	case NSApplicationPresentationDisableCursorLocationAssistance:
@@ -1088,6 +1120,8 @@ const (
 	NSPrintingCancelled NSApplicationPrintReply = 0
 	// NSPrintingFailure: Printing failed.
 	NSPrintingFailure NSApplicationPrintReply = 3
+	// NSPrintingReplyLater: # Discussion
+	NSPrintingReplyLater NSApplicationPrintReply = 2
 	// NSPrintingSuccess: Printing was successful.
 	NSPrintingSuccess NSApplicationPrintReply = 1
 )
@@ -1098,6 +1132,8 @@ func (e NSApplicationPrintReply) String() string {
 		return "NSPrintingCancelled"
 	case NSPrintingFailure:
 		return "NSPrintingFailure"
+	case NSPrintingReplyLater:
+		return "NSPrintingReplyLater"
 	case NSPrintingSuccess:
 		return "NSPrintingSuccess"
 	default:
@@ -1111,6 +1147,8 @@ type NSApplicationTerminateReply uint
 const (
 	// NSTerminateCancel: The app should not be terminated.
 	NSTerminateCancel NSApplicationTerminateReply = 0
+	// NSTerminateLater: # Discussion
+	NSTerminateLater NSApplicationTerminateReply = 2
 	// NSTerminateNow: It is OK to proceed with termination.
 	NSTerminateNow NSApplicationTerminateReply = 1
 )
@@ -1119,10 +1157,68 @@ func (e NSApplicationTerminateReply) String() string {
 	switch e {
 	case NSTerminateCancel:
 		return "NSTerminateCancel"
+	case NSTerminateLater:
+		return "NSTerminateLater"
 	case NSTerminateNow:
 		return "NSTerminateNow"
 	default:
 		return fmt.Sprintf("NSApplicationTerminateReply(%d)", e)
+	}
+}
+
+type NSAttachment uint
+
+const (
+	NSAttachmentCharacter NSAttachment = 65532
+)
+
+func (e NSAttachment) String() string {
+	switch e {
+	case NSAttachmentCharacter:
+		return "NSAttachmentCharacter"
+	default:
+		return fmt.Sprintf("NSAttachment(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSView/AutoresizingMask-swift.struct
+type NSAutoresizingMaskOptions uint
+
+const (
+	// NSViewHeightSizable: The view’s height is flexible.
+	NSViewHeightSizable NSAutoresizingMaskOptions = 16
+	// NSViewMaxXMargin: The right margin between the view and its superview is flexible.
+	NSViewMaxXMargin NSAutoresizingMaskOptions = 4
+	// NSViewMaxYMargin: The top margin between the view and its superview is flexible.
+	NSViewMaxYMargin NSAutoresizingMaskOptions = 32
+	// NSViewMinXMargin: The left margin between the view and its superview is flexible.
+	NSViewMinXMargin NSAutoresizingMaskOptions = 1
+	// NSViewMinYMargin: The bottom margin between the view and its superview is flexible.
+	NSViewMinYMargin NSAutoresizingMaskOptions = 8
+	// NSViewNotSizable: The view cannot be resized.
+	NSViewNotSizable NSAutoresizingMaskOptions = 0
+	// NSViewWidthSizable: The view’s width is flexible.
+	NSViewWidthSizable NSAutoresizingMaskOptions = 2
+)
+
+func (e NSAutoresizingMaskOptions) String() string {
+	switch e {
+	case NSViewHeightSizable:
+		return "NSViewHeightSizable"
+	case NSViewMaxXMargin:
+		return "NSViewMaxXMargin"
+	case NSViewMaxYMargin:
+		return "NSViewMaxYMargin"
+	case NSViewMinXMargin:
+		return "NSViewMinXMargin"
+	case NSViewMinYMargin:
+		return "NSViewMinYMargin"
+	case NSViewNotSizable:
+		return "NSViewNotSizable"
+	case NSViewWidthSizable:
+		return "NSViewWidthSizable"
+	default:
+		return fmt.Sprintf("NSAutoresizingMaskOptions(%d)", e)
 	}
 }
 
@@ -1161,9 +1257,9 @@ type NSBackingStoreType uint
 const (
 	// NSBackingStoreBuffered: The window renders all drawing into a display buffer and then flushes it to the screen.
 	NSBackingStoreBuffered NSBackingStoreType = 2
-	// NSBackingStoreNonretained: The window draws directly to the screen without using any buffer.
+	// Deprecated.
 	NSBackingStoreNonretained NSBackingStoreType = 1
-	// NSBackingStoreRetained: The window uses a buffer, but draws directly to the screen where possible and to the buffer for obscured portions.
+	// Deprecated.
 	NSBackingStoreRetained NSBackingStoreType = 0
 )
 
@@ -1210,6 +1306,24 @@ const (
 	NSBezelStyleSmallSquare NSBezelStyle = 10
 	// NSBezelStyleToolbar: A button style that’s appropriate for a toolbar item.
 	NSBezelStyleToolbar NSBezelStyle = 11
+	// Deprecated.
+	NSBezelStyleInline NSBezelStyle = 15
+	// Deprecated.
+	NSBezelStyleRecessed NSBezelStyle = 13
+	// Deprecated.
+	NSBezelStyleRegularSquare NSBezelStyle = 2
+	// Deprecated.
+	NSBezelStyleRoundRect NSBezelStyle = 12
+	// Deprecated.
+	NSBezelStyleRounded NSBezelStyle = 1
+	// Deprecated.
+	NSBezelStyleRoundedDisclosure NSBezelStyle = 14
+	// Deprecated.
+	NSBezelStyleShadowlessSquare NSBezelStyle = 6
+	// Deprecated.
+	NSBezelStyleTexturedRounded NSBezelStyle = 11
+	// Deprecated.
+	NSBezelStyleTexturedSquare NSBezelStyle = 8
 )
 
 func (e NSBezelStyle) String() string {
@@ -1240,6 +1354,10 @@ func (e NSBezelStyle) String() string {
 		return "NSBezelStyleSmallSquare"
 	case NSBezelStyleToolbar:
 		return "NSBezelStyleToolbar"
+	case NSBezelStyleShadowlessSquare:
+		return "NSBezelStyleShadowlessSquare"
+	case NSBezelStyleTexturedSquare:
+		return "NSBezelStyleTexturedSquare"
 	default:
 		return fmt.Sprintf("NSBezelStyle(%d)", e)
 	}
@@ -1250,21 +1368,29 @@ type NSBezierPathElement uint
 
 const (
 	// NSBezierPathElementClosePath: Marks the end of the current subpath at the specified point.
-	NSBezierPathElementClosePath NSBezierPathElement = 3
+	NSBezierPathElementClosePath    NSBezierPathElement = 3
+	NSBezierPathElementCubicCurveTo NSBezierPathElement = 2
 	// NSBezierPathElementLineTo: Creates a straight line from the current drawing point to the specified point.
 	NSBezierPathElementLineTo NSBezierPathElement = 1
 	// NSBezierPathElementMoveTo: Moves the path object’s current drawing point to the specified point.
-	NSBezierPathElementMoveTo NSBezierPathElement = 0
+	NSBezierPathElementMoveTo           NSBezierPathElement = 0
+	NSBezierPathElementQuadraticCurveTo NSBezierPathElement = 4
+	// Deprecated.
+	NSBezierPathElementCurveTo NSBezierPathElement = 2
 )
 
 func (e NSBezierPathElement) String() string {
 	switch e {
 	case NSBezierPathElementClosePath:
 		return "NSBezierPathElementClosePath"
+	case NSBezierPathElementCubicCurveTo:
+		return "NSBezierPathElementCubicCurveTo"
 	case NSBezierPathElementLineTo:
 		return "NSBezierPathElementLineTo"
 	case NSBezierPathElementMoveTo:
 		return "NSBezierPathElementMoveTo"
+	case NSBezierPathElementQuadraticCurveTo:
+		return "NSBezierPathElementQuadraticCurveTo"
 	default:
 		return fmt.Sprintf("NSBezierPathElement(%d)", e)
 	}
@@ -1381,8 +1507,11 @@ func (e NSBorderType) String() string {
 type NSBoxType uint
 
 const (
+	// NSBoxCustom: # Discussion
 	NSBoxCustom NSBoxType = 4
+	// NSBoxPrimary: # Discussion
 	NSBoxPrimary NSBoxType = 0
+	// NSBoxSeparator: # Discussion
 	NSBoxSeparator NSBoxType = 2
 )
 
@@ -1403,8 +1532,11 @@ func (e NSBoxType) String() string {
 type NSBrowserColumnResizingType uint
 
 const (
+	// NSBrowserAutoColumnResizing: # Discussion
 	NSBrowserAutoColumnResizing NSBrowserColumnResizingType = 1
+	// NSBrowserNoColumnResizing: # Discussion
 	NSBrowserNoColumnResizing NSBrowserColumnResizingType = 0
+	// NSBrowserUserColumnResizing: # Discussion
 	NSBrowserUserColumnResizing NSBrowserColumnResizingType = 2
 )
 
@@ -1425,7 +1557,9 @@ func (e NSBrowserColumnResizingType) String() string {
 type NSBrowserDropOperation uint
 
 const (
+	// NSBrowserDropAbove: # Discussion
 	NSBrowserDropAbove NSBrowserDropOperation = 1
+	// NSBrowserDropOn: # Discussion
 	NSBrowserDropOn NSBrowserDropOperation = 0
 )
 
@@ -1497,9 +1631,9 @@ func (e NSButtonType) String() string {
 type NSCellAttribute uint
 
 const (
-	// NSCellAllowsMixedState: Lets the cell’s state be , as well as  and .
+	// NSCellAllowsMixedState: Lets the cell’s state be [NSMixedState], as well as [NSOffState] and [NSOnState].
 	NSCellAllowsMixedState NSCellAttribute = 16
-	// NSCellChangesContents: If the cell’s state is  or , displays the cell’s alternate image.
+	// NSCellChangesContents: If the cell’s state is [NSMixedState] or [NSOnState], displays the cell’s alternate image.
 	NSCellChangesContents NSCellAttribute = 14
 	// NSCellDisabled: Does not let the user manipulate the cell.
 	NSCellDisabled NSCellAttribute = 0
@@ -1525,9 +1659,9 @@ const (
 	NSCellLightsByGray NSCellAttribute = 7
 	// NSCellState: The cell’s state.
 	NSCellState NSCellAttribute = 1
-	// NSChangeBackgroundCell: If the cell’s state is  or , changes the cell’s background color from gray to white.
+	// NSChangeBackgroundCell: If the cell’s state is [NSMixedState] or [NSOnState], changes the cell’s background color from gray to white.
 	NSChangeBackgroundCell NSCellAttribute = 8
-	// NSChangeGrayCell: If the cell’s state is  or , displays the cell’s image as darkened.
+	// NSChangeGrayCell: If the cell’s state is [NSMixedState] or [NSOnState], displays the cell’s image as darkened.
 	NSChangeGrayCell NSCellAttribute = 4
 	// NSPushInCell: Determines whether the cell’s image and text appear to be shifted down and to the right.
 	NSPushInCell NSCellAttribute = 2
@@ -1582,6 +1716,8 @@ const (
 	NSCellHitContentArea NSCellHitResult = 1
 	// NSCellHitEditableTextArea: An editable text area of the cell.
 	NSCellHitEditableTextArea NSCellHitResult = 2
+	// NSCellHitNone: An empty area, or did not hit in the cell.
+	NSCellHitNone NSCellHitResult = 0
 	// NSCellHitTrackableArea: A trackable area in the cell.
 	NSCellHitTrackableArea NSCellHitResult = 4
 )
@@ -1592,6 +1728,8 @@ func (e NSCellHitResult) String() string {
 		return "NSCellHitContentArea"
 	case NSCellHitEditableTextArea:
 		return "NSCellHitEditableTextArea"
+	case NSCellHitNone:
+		return "NSCellHitNone"
 	case NSCellHitTrackableArea:
 		return "NSCellHitTrackableArea"
 	default:
@@ -1658,6 +1796,8 @@ const (
 	NSChangeGrayCellMask NSCellStyleMask = 4
 	// NSContentsCellMask: The button cell displays its alternate icon and/or title.
 	NSContentsCellMask NSCellStyleMask = 1
+	// NSNoCellMask: The button cell doesn’t change.
+	NSNoCellMask NSCellStyleMask = 0
 	// NSPushInCellMask: The button cell “pushes in” if it has a border.
 	NSPushInCellMask NSCellStyleMask = 2
 )
@@ -1670,6 +1810,8 @@ func (e NSCellStyleMask) String() string {
 		return "NSChangeGrayCellMask"
 	case NSContentsCellMask:
 		return "NSContentsCellMask"
+	case NSNoCellMask:
+		return "NSNoCellMask"
 	case NSPushInCellMask:
 		return "NSPushInCellMask"
 	default:
@@ -1960,6 +2102,8 @@ const (
 	NSCollectionViewScrollPositionNearestHorizontalEdge NSCollectionViewScrollPosition = 512
 	// NSCollectionViewScrollPositionNearestVerticalEdge: Scroll so that the bounding box is adjacent to the nearest edge (leading or trailing) of the collection view.
 	NSCollectionViewScrollPositionNearestVerticalEdge NSCollectionViewScrollPosition = 256
+	// NSCollectionViewScrollPositionNone: Do not scroll.
+	NSCollectionViewScrollPositionNone NSCollectionViewScrollPosition = 0
 	// NSCollectionViewScrollPositionRight: Scroll so that the right edge of the selected items’ bounding box is adjacent to the right edge of the collection view’s bounds.
 	NSCollectionViewScrollPositionRight NSCollectionViewScrollPosition = 32
 	// NSCollectionViewScrollPositionTop: Scroll so that the top edge of the selected items’ bounding box is adjacent to the top edge of the collection view’s bounds.
@@ -1984,6 +2128,8 @@ func (e NSCollectionViewScrollPosition) String() string {
 		return "NSCollectionViewScrollPositionNearestHorizontalEdge"
 	case NSCollectionViewScrollPositionNearestVerticalEdge:
 		return "NSCollectionViewScrollPositionNearestVerticalEdge"
+	case NSCollectionViewScrollPositionNone:
+		return "NSCollectionViewScrollPositionNone"
 	case NSCollectionViewScrollPositionRight:
 		return "NSCollectionViewScrollPositionRight"
 	case NSCollectionViewScrollPositionTop:
@@ -2335,6 +2481,8 @@ const (
 	NSCompositingOperationSourceOver NSCompositingOperation = 2
 	// NSCompositingOperationXOR: Exclusive OR of the source and destination images.
 	NSCompositingOperationXOR NSCompositingOperation = 10
+	// Deprecated.
+	NSCompositingOperationHighlight NSCompositingOperation = 12
 )
 
 func (e NSCompositingOperation) String() string {
@@ -2395,6 +2543,8 @@ func (e NSCompositingOperation) String() string {
 		return "NSCompositingOperationSourceOver"
 	case NSCompositingOperationXOR:
 		return "NSCompositingOperationXOR"
+	case NSCompositingOperationHighlight:
+		return "NSCompositingOperationHighlight"
 	default:
 		return fmt.Sprintf("NSCompositingOperation(%d)", e)
 	}
@@ -2470,6 +2620,7 @@ func (e NSControlCharacterAction) String() string {
 type NSControlSize uint
 
 const (
+	NSControlSizeExtraLarge NSControlSize = 4
 	// NSControlSizeLarge: A size larger than the default control size.
 	NSControlSizeLarge NSControlSize = 3
 	// NSControlSizeMini: The smallest control size.
@@ -2482,6 +2633,8 @@ const (
 
 func (e NSControlSize) String() string {
 	switch e {
+	case NSControlSizeExtraLarge:
+		return "NSControlSizeExtraLarge"
 	case NSControlSizeLarge:
 		return "NSControlSizeLarge"
 	case NSControlSizeMini:
@@ -2590,12 +2743,18 @@ func (e NSCorrectionResponse) String() string {
 type NSCursorFrameResizeDirections uint
 
 const (
+	// NSCursorFrameResizeDirectionsAll: Indicates that the shape can be resized inwards or wards to be either smaller or larger, respectively.
+	NSCursorFrameResizeDirectionsAll NSCursorFrameResizeDirections = 0
+	// NSCursorFrameResizeDirectionsInward: Indicates that the shape can be resized inwards to be smaller.
 	NSCursorFrameResizeDirectionsInward NSCursorFrameResizeDirections = 1
+	// NSCursorFrameResizeDirectionsOutward: Indicates that the shape can be resized outwards to be larger.
 	NSCursorFrameResizeDirectionsOutward NSCursorFrameResizeDirections = 2
 )
 
 func (e NSCursorFrameResizeDirections) String() string {
 	switch e {
+	case NSCursorFrameResizeDirectionsAll:
+		return "NSCursorFrameResizeDirectionsAll"
 	case NSCursorFrameResizeDirectionsInward:
 		return "NSCursorFrameResizeDirectionsInward"
 	case NSCursorFrameResizeDirectionsOutward:
@@ -2605,16 +2764,55 @@ func (e NSCursorFrameResizeDirections) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSCursor/FrameResizePosition
+type NSCursorFrameResizePosition uint
+
+const (
+	// NSCursorFrameResizePositionBottom: The bottom edge of the frame.
+	NSCursorFrameResizePositionBottom NSCursorFrameResizePosition = 4
+	// NSCursorFrameResizePositionBottomLeft: The bottom left corner of the frame.
+	NSCursorFrameResizePositionBottomLeft NSCursorFrameResizePosition = 0
+	// NSCursorFrameResizePositionBottomRight: The bottom right corner of the frame.
+	NSCursorFrameResizePositionBottomRight NSCursorFrameResizePosition = 0
+	// NSCursorFrameResizePositionLeft: The left edge of the frame.
+	NSCursorFrameResizePositionLeft NSCursorFrameResizePosition = 2
+	// NSCursorFrameResizePositionRight: The right edge of the frame.
+	NSCursorFrameResizePositionRight NSCursorFrameResizePosition = 8
+	// NSCursorFrameResizePositionTop: The top edge of the frame.
+	NSCursorFrameResizePositionTop NSCursorFrameResizePosition = 1
+	// NSCursorFrameResizePositionTopLeft: The top left corner of the frame.
+	NSCursorFrameResizePositionTopLeft NSCursorFrameResizePosition = 0
+	// NSCursorFrameResizePositionTopRight: The top right corner of the frame.
+	NSCursorFrameResizePositionTopRight NSCursorFrameResizePosition = 0
+)
+
+func (e NSCursorFrameResizePosition) String() string {
+	switch e {
+	case NSCursorFrameResizePositionBottom:
+		return "NSCursorFrameResizePositionBottom"
+	case NSCursorFrameResizePositionBottomLeft:
+		return "NSCursorFrameResizePositionBottomLeft"
+	case NSCursorFrameResizePositionLeft:
+		return "NSCursorFrameResizePositionLeft"
+	case NSCursorFrameResizePositionRight:
+		return "NSCursorFrameResizePositionRight"
+	case NSCursorFrameResizePositionTop:
+		return "NSCursorFrameResizePositionTop"
+	default:
+		return fmt.Sprintf("NSCursorFrameResizePosition(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/ElementFlags
 type NSDatePickerElementFlags uint
 
 const (
-	NSDatePickerElementFlagEra NSDatePickerElementFlags = 256
-	NSDatePickerElementFlagHourMinute NSDatePickerElementFlags = 12
+	NSDatePickerElementFlagEra              NSDatePickerElementFlags = 256
+	NSDatePickerElementFlagHourMinute       NSDatePickerElementFlags = 12
 	NSDatePickerElementFlagHourMinuteSecond NSDatePickerElementFlags = 14
-	NSDatePickerElementFlagTimeZone NSDatePickerElementFlags = 16
-	NSDatePickerElementFlagYearMonth NSDatePickerElementFlags = 192
-	NSDatePickerElementFlagYearMonthDay NSDatePickerElementFlags = 224
+	NSDatePickerElementFlagTimeZone         NSDatePickerElementFlags = 16
+	NSDatePickerElementFlagYearMonth        NSDatePickerElementFlags = 192
+	NSDatePickerElementFlagYearMonthDay     NSDatePickerElementFlags = 224
 )
 
 func (e NSDatePickerElementFlags) String() string {
@@ -2640,7 +2838,7 @@ func (e NSDatePickerElementFlags) String() string {
 type NSDatePickerMode uint
 
 const (
-	NSDatePickerModeRange NSDatePickerMode = 1
+	NSDatePickerModeRange  NSDatePickerMode = 1
 	NSDatePickerModeSingle NSDatePickerMode = 0
 )
 
@@ -2659,8 +2857,8 @@ func (e NSDatePickerMode) String() string {
 type NSDatePickerStyle uint
 
 const (
-	NSDatePickerStyleClockAndCalendar NSDatePickerStyle = 1
-	NSDatePickerStyleTextField NSDatePickerStyle = 2
+	NSDatePickerStyleClockAndCalendar    NSDatePickerStyle = 1
+	NSDatePickerStyleTextField           NSDatePickerStyle = 2
 	NSDatePickerStyleTextFieldAndStepper NSDatePickerStyle = 0
 )
 
@@ -2681,10 +2879,11 @@ func (e NSDatePickerStyle) String() string {
 type NSDirectionalRectEdge uint
 
 const (
-	NSDirectionalRectEdgeAll NSDirectionalRectEdge = 1
-	NSDirectionalRectEdgeBottom NSDirectionalRectEdge = 4
-	NSDirectionalRectEdgeLeading NSDirectionalRectEdge = 2
-	NSDirectionalRectEdgeTop NSDirectionalRectEdge = 1
+	NSDirectionalRectEdgeAll      NSDirectionalRectEdge = 1
+	NSDirectionalRectEdgeBottom   NSDirectionalRectEdge = 4
+	NSDirectionalRectEdgeLeading  NSDirectionalRectEdge = 2
+	NSDirectionalRectEdgeNone     NSDirectionalRectEdge = 0
+	NSDirectionalRectEdgeTop      NSDirectionalRectEdge = 1
 	NSDirectionalRectEdgeTrailing NSDirectionalRectEdge = 8
 )
 
@@ -2696,6 +2895,8 @@ func (e NSDirectionalRectEdge) String() string {
 		return "NSDirectionalRectEdgeBottom"
 	case NSDirectionalRectEdgeLeading:
 		return "NSDirectionalRectEdgeLeading"
+	case NSDirectionalRectEdgeNone:
+		return "NSDirectionalRectEdgeNone"
 	case NSDirectionalRectEdgeTrailing:
 		return "NSDirectionalRectEdgeTrailing"
 	default:
@@ -2707,7 +2908,7 @@ func (e NSDirectionalRectEdge) String() string {
 type NSDisplayGamut int
 
 const (
-	NSDisplayGamutP3 NSDisplayGamut = 2
+	NSDisplayGamutP3   NSDisplayGamut = 2
 	NSDisplayGamutSRGB NSDisplayGamut = 1
 )
 
@@ -2734,7 +2935,7 @@ const (
 	NSChangeDiscardable NSDocumentChangeType = 256
 	// NSChangeDone: Increment change count.
 	NSChangeDone NSDocumentChangeType = 0
-	// NSChangeReadOtherContents: The document has been initialized with the contents of a file or file package other than the one whose location is in the  property, and therefore can’t possibly be synchronized with its persistent representation.
+	// NSChangeReadOtherContents: The document has been initialized with the contents of a file or file package other than the one whose location is in the `fileURL` property, and therefore can’t possibly be synchronized with its persistent representation.
 	NSChangeReadOtherContents NSDocumentChangeType = 3
 	// NSChangeRedone: A single change has been redone.
 	NSChangeRedone NSDocumentChangeType = 5
@@ -2779,6 +2980,8 @@ const (
 	NSDragOperationLink NSDragOperation = 2
 	// NSDragOperationMove: A constant that indicates the drag can move the data.
 	NSDragOperationMove NSDragOperation = 16
+	// NSDragOperationNone: A constant that indicates that the drag cannot perform any operations.
+	NSDragOperationNone NSDragOperation = 0
 	// NSDragOperationPrivate: A constant that indicates the source and destination negotiate the drag operation privately.
 	NSDragOperationPrivate NSDragOperation = 8
 	// Deprecated.
@@ -2889,9 +3092,13 @@ func (e NSDraggingItemEnumerationOptions) String() string {
 type NSDrawerState uint
 
 const (
+	// Deprecated.
 	NSDrawerClosedState NSDrawerState = 0
+	// Deprecated.
 	NSDrawerClosingState NSDrawerState = 3
+	// Deprecated.
 	NSDrawerOpenState NSDrawerState = 2
+	// Deprecated.
 	NSDrawerOpeningState NSDrawerState = 1
 )
 
@@ -2995,7 +3202,7 @@ const (
 	// NSEventMaskLeftMouseUp: A mask for left mouse-up events.
 	NSEventMaskLeftMouseUp NSEventMask = 4
 	// NSEventMaskMagnify: A mask for magnify-gesture events.
-	NSEventMaskMagnify NSEventMask = 1073741824
+	NSEventMaskMagnify        NSEventMask = 1073741824
 	NSEventMaskMouseCancelled NSEventMask = 1099511627776
 	// NSEventMaskMouseEntered: A mask for mouse-entered events.
 	NSEventMaskMouseEntered NSEventMask = 256
@@ -3175,6 +3382,8 @@ const (
 	NSEventPhaseEnded NSEventPhase = 1
 	// NSEventPhaseMayBegin: The system event phase may begin.
 	NSEventPhaseMayBegin NSEventPhase = 1
+	// NSEventPhaseNone: The event is not associated with a phase.
+	NSEventPhaseNone NSEventPhase = 0
 	// NSEventPhaseStationary: An event phase is in progress but hasn’t moved since the previous event.
 	NSEventPhaseStationary NSEventPhase = 1
 )
@@ -3183,6 +3392,8 @@ func (e NSEventPhase) String() string {
 	switch e {
 	case NSEventPhaseBegan:
 		return "NSEventPhaseBegan"
+	case NSEventPhaseNone:
+		return "NSEventPhaseNone"
 	default:
 		return fmt.Sprintf("NSEventPhase(%d)", e)
 	}
@@ -3196,8 +3407,16 @@ const (
 	NSEventSubtypeApplicationActivated NSEventSubtype = 1
 	// NSEventSubtypeApplicationDeactivated: An app-deactivation event occurred.
 	NSEventSubtypeApplicationDeactivated NSEventSubtype = 2
+	// NSEventSubtypeMouseEvent: A mouse event occurred.
+	NSEventSubtypeMouseEvent NSEventSubtype = 0
+	// NSEventSubtypePowerOff: An event that indicates a system shutdown or restart operation is in progress.
+	NSEventSubtypePowerOff NSEventSubtype = 1
 	// NSEventSubtypeScreenChanged: An event that indicates a window changed screens.
 	NSEventSubtypeScreenChanged NSEventSubtype = 8
+	// NSEventSubtypeTabletPoint: A tablet-pointer event occurred.
+	NSEventSubtypeTabletPoint NSEventSubtype = 1
+	// NSEventSubtypeTabletProximity: A tablet-proximity event occurred.
+	NSEventSubtypeTabletProximity NSEventSubtype = 2
 	// NSEventSubtypeTouch: A touch event occurred.
 	NSEventSubtypeTouch NSEventSubtype = 3
 	// NSEventSubtypeWindowExposed: An event that indicates a window’s contents are visible again.
@@ -3212,12 +3431,12 @@ func (e NSEventSubtype) String() string {
 		return "NSEventSubtypeApplicationActivated"
 	case NSEventSubtypeApplicationDeactivated:
 		return "NSEventSubtypeApplicationDeactivated"
+	case NSEventSubtypeMouseEvent:
+		return "NSEventSubtypeMouseEvent"
 	case NSEventSubtypeScreenChanged:
 		return "NSEventSubtypeScreenChanged"
 	case NSEventSubtypeTouch:
 		return "NSEventSubtypeTouch"
-	case NSEventSubtypeWindowExposed:
-		return "NSEventSubtypeWindowExposed"
 	case NSEventSubtypeWindowMoved:
 		return "NSEventSubtypeWindowMoved"
 	default:
@@ -3277,7 +3496,8 @@ const (
 	// NSEventTypeLeftMouseUp: The user released the left mouse button.
 	NSEventTypeLeftMouseUp NSEventType = 2
 	// NSEventTypeMagnify: The user performed a pinch-open or pinch-close gesture.
-	NSEventTypeMagnify NSEventType = 30
+	NSEventTypeMagnify        NSEventType = 30
+	NSEventTypeMouseCancelled NSEventType = 40
 	// NSEventTypeMouseEntered: The cursor entered a well-defined area, such as a view.
 	NSEventTypeMouseEntered NSEventType = 8
 	// NSEventTypeMouseExited: The cursor exited a well-defined area, such as a view.
@@ -3350,6 +3570,8 @@ func (e NSEventType) String() string {
 		return "NSEventTypeLeftMouseUp"
 	case NSEventTypeMagnify:
 		return "NSEventTypeMagnify"
+	case NSEventTypeMouseCancelled:
+		return "NSEventTypeMouseCancelled"
 	case NSEventTypeMouseEntered:
 		return "NSEventTypeMouseEntered"
 	case NSEventTypeMouseExited:
@@ -3468,9 +3690,13 @@ func (e NSFindPanelAction) String() string {
 type NSFindPanelSubstringMatchType uint
 
 const (
+	// NSFindPanelSubstringMatchTypeContains: # Discussion
 	NSFindPanelSubstringMatchTypeContains NSFindPanelSubstringMatchType = 0
+	// NSFindPanelSubstringMatchTypeEndsWith: # Discussion
 	NSFindPanelSubstringMatchTypeEndsWith NSFindPanelSubstringMatchType = 3
+	// NSFindPanelSubstringMatchTypeFullWord: # Discussion
 	NSFindPanelSubstringMatchTypeFullWord NSFindPanelSubstringMatchType = 2
+	// NSFindPanelSubstringMatchTypeStartsWith: # Discussion
 	NSFindPanelSubstringMatchTypeStartsWith NSFindPanelSubstringMatchType = 1
 )
 
@@ -3582,21 +3808,21 @@ const (
 type NSFontAction uint
 
 const (
-	// NSAddTraitFontAction: Converts the font to have an additional trait using .
+	// NSAddTraitFontAction: Converts the font to have an additional trait using convert(_:toHaveTrait:).
 	NSAddTraitFontAction NSFontAction = 2
-	// NSHeavierFontAction: Converts the font to a heavier weight using .
+	// NSHeavierFontAction: Converts the font to a heavier weight using convertWeight(_:of:).
 	NSHeavierFontAction NSFontAction = 5
-	// NSLighterFontAction: Converts the font to a lighter weight using .
+	// NSLighterFontAction: Converts the font to a lighter weight using convertWeight(_:of:).
 	NSLighterFontAction NSFontAction = 6
 	// NSNoFontChangeAction: No action; the font is returned unchanged.
 	NSNoFontChangeAction NSFontAction = 0
-	// NSRemoveTraitFontAction: Converts the font to remove a trait using .
+	// NSRemoveTraitFontAction: Converts the font to remove a trait using convert(_:toNotHaveTrait:).
 	NSRemoveTraitFontAction NSFontAction = 7
-	// NSSizeDownFontAction: Converts the font to a smaller size using .
+	// NSSizeDownFontAction: Converts the font to a smaller size using convert(_:toSize:).
 	NSSizeDownFontAction NSFontAction = 4
-	// NSSizeUpFontAction: Converts the font to a larger size using .
+	// NSSizeUpFontAction: Converts the font to a larger size using convert(_:toSize:).
 	NSSizeUpFontAction NSFontAction = 3
-	// NSViaPanelFontAction: Converts the font according to the  method .
+	// NSViaPanelFontAction: Converts the font according to the [NSFontPanel] method ``.
 	NSViaPanelFontAction NSFontAction = 1
 )
 
@@ -3707,10 +3933,13 @@ const (
 	NSFontDescriptorClassSymbolic NSFontDescriptorSymbolicTraits = 3221225472
 	// NSFontDescriptorClassTransitionalSerifs: The font’s characters include serifs, and reflect the Latin printing style of the 18th to 19th centuries.
 	NSFontDescriptorClassTransitionalSerifs NSFontDescriptorSymbolicTraits = 536870912
+	// NSFontDescriptorClassUnknown: The font has no design classification.
+	NSFontDescriptorClassUnknown NSFontDescriptorSymbolicTraits = 0
 	// NSFontDescriptorTraitBold: The font’s style is boldface.
 	NSFontDescriptorTraitBold NSFontDescriptorSymbolicTraits = 2
 	// NSFontDescriptorTraitCondensed: The font’s characters have a condensed width.
-	NSFontDescriptorTraitCondensed NSFontDescriptorSymbolicTraits = 64
+	NSFontDescriptorTraitCondensed  NSFontDescriptorSymbolicTraits = 64
+	NSFontDescriptorTraitEmphasized NSFontDescriptorSymbolicTraits = 2
 	// NSFontDescriptorTraitExpanded: The font’s characters have an expanded width.
 	NSFontDescriptorTraitExpanded NSFontDescriptorSymbolicTraits = 32
 	// NSFontDescriptorTraitItalic: The font’s style is italic.
@@ -3751,6 +3980,8 @@ func (e NSFontDescriptorSymbolicTraits) String() string {
 		return "NSFontDescriptorClassSymbolic"
 	case NSFontDescriptorClassTransitionalSerifs:
 		return "NSFontDescriptorClassTransitionalSerifs"
+	case NSFontDescriptorClassUnknown:
+		return "NSFontDescriptorClassUnknown"
 	case NSFontDescriptorTraitBold:
 		return "NSFontDescriptorTraitBold"
 	case NSFontDescriptorTraitCondensed:
@@ -3774,19 +4005,19 @@ func (e NSFontDescriptorSymbolicTraits) String() string {
 	}
 }
 
-type NSFontFamilyClassMaskConstants uint
+type NSFontFamilyClass uint
 
 const (
 	// NSFontFamilyClassMask: Constant you use to access [NSFontFamilyClass] values in the upper four bits of [NSFontSymbolicTraits].
-	NSFontFamilyClassMask NSFontFamilyClassMaskConstants = 4026531840
+	NSFontFamilyClassMask NSFontFamilyClass = 4026531840
 )
 
-func (e NSFontFamilyClassMaskConstants) String() string {
+func (e NSFontFamilyClass) String() string {
 	switch e {
 	case NSFontFamilyClassMask:
 		return "NSFontFamilyClassMask"
 	default:
-		return fmt.Sprintf("NSFontFamilyClassMaskConstants(%d)", e)
+		return fmt.Sprintf("NSFontFamilyClass(%d)", e)
 	}
 }
 
@@ -3819,17 +4050,17 @@ const (
 type NSFontPanelModeMask uint
 
 const (
-	NSFontPanelModeMaskAllEffects NSFontPanelModeMask = 1048320
-	NSFontPanelModeMaskCollection NSFontPanelModeMask = 4
+	NSFontPanelModeMaskAllEffects          NSFontPanelModeMask = 1048320
+	NSFontPanelModeMaskCollection          NSFontPanelModeMask = 4
 	NSFontPanelModeMaskDocumentColorEffect NSFontPanelModeMask = 2048
-	NSFontPanelModeMaskFace NSFontPanelModeMask = 1
-	NSFontPanelModeMaskShadowEffect NSFontPanelModeMask = 4096
-	NSFontPanelModeMaskSize NSFontPanelModeMask = 2
+	NSFontPanelModeMaskFace                NSFontPanelModeMask = 1
+	NSFontPanelModeMaskShadowEffect        NSFontPanelModeMask = 4096
+	NSFontPanelModeMaskSize                NSFontPanelModeMask = 2
 	NSFontPanelModeMaskStrikethroughEffect NSFontPanelModeMask = 512
-	NSFontPanelModeMaskTextColorEffect NSFontPanelModeMask = 1024
-	NSFontPanelModeMaskUnderlineEffect NSFontPanelModeMask = 256
-	NSFontPanelModesMaskAllModes NSFontPanelModeMask = 4294967295
-	NSFontPanelModesMaskStandardModes NSFontPanelModeMask = 65535
+	NSFontPanelModeMaskTextColorEffect     NSFontPanelModeMask = 1024
+	NSFontPanelModeMaskUnderlineEffect     NSFontPanelModeMask = 256
+	NSFontPanelModesMaskAllModes           NSFontPanelModeMask = 4294967295
+	NSFontPanelModesMaskStandardModes      NSFontPanelModeMask = 65535
 )
 
 func (e NSFontPanelModeMask) String() string {
@@ -3967,6 +4198,8 @@ const (
 	NSGestureRecognizerStateFailed NSGestureRecognizerState = 5
 	// NSGestureRecognizerStatePossible: The gesture recognizer has not yet recognized its gesture but may be evaluating events.
 	NSGestureRecognizerStatePossible NSGestureRecognizerState = 0
+	// NSGestureRecognizerStateRecognized: The gesture recognizer successfully recognized its gesture.
+	NSGestureRecognizerStateRecognized NSGestureRecognizerState = 3
 )
 
 func (e NSGestureRecognizerState) String() string {
@@ -3985,6 +4218,27 @@ func (e NSGestureRecognizerState) String() string {
 		return "NSGestureRecognizerStatePossible"
 	default:
 		return fmt.Sprintf("NSGestureRecognizerState(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSGlassEffectView/Style-swift.enum
+type NSGlassEffectViewStyle int
+
+const (
+	// NSGlassEffectViewStyleClear: Clear glass effect style.
+	NSGlassEffectViewStyleClear NSGlassEffectViewStyle = 1
+	// NSGlassEffectViewStyleRegular: Standard glass effect style.
+	NSGlassEffectViewStyleRegular NSGlassEffectViewStyle = 0
+)
+
+func (e NSGlassEffectViewStyle) String() string {
+	switch e {
+	case NSGlassEffectViewStyleClear:
+		return "NSGlassEffectViewStyleClear"
+	case NSGlassEffectViewStyleRegular:
+		return "NSGlassEffectViewStyleRegular"
+	default:
+		return fmt.Sprintf("NSGlassEffectViewStyle(%d)", e)
 	}
 }
 
@@ -4020,10 +4274,15 @@ func (e NSGlyphAttribute) String() string {
 type NSGlyphInscription uint
 
 const (
+	// Deprecated.
 	NSGlyphInscribeAbove NSGlyphInscription = 2
+	// Deprecated.
 	NSGlyphInscribeBase NSGlyphInscription = 0
+	// Deprecated.
 	NSGlyphInscribeBelow NSGlyphInscription = 1
+	// Deprecated.
 	NSGlyphInscribeOverBelow NSGlyphInscription = 4
+	// Deprecated.
 	NSGlyphInscribeOverstrike NSGlyphInscription = 3
 )
 
@@ -4098,15 +4357,15 @@ func (e NSGradientDrawingOptions) String() string {
 type NSGradientType uint
 
 const (
-	// NSGradientConcaveStrong: As with , the top-left corner is light gray, and the bottom-right corner is dark gray, but the difference between the grays is greater, so the appearance of being pushed in is stronger.
+	// Deprecated.
 	NSGradientConcaveStrong NSGradientType = 2
-	// NSGradientConcaveWeak: The top-left corner is light gray, and the bottom-right corner is dark gray, so the button appears to be pushed in.
+	// Deprecated.
 	NSGradientConcaveWeak NSGradientType = 1
-	// NSGradientConvexStrong: As with , the top-left corner is dark gray, and the bottom-right corner is light gray, but the difference between the grays is greater, so the appearance of sticking out is stronger.
+	// Deprecated.
 	NSGradientConvexStrong NSGradientType = 4
-	// NSGradientConvexWeak: The top-left corner is dark gray, and the bottom-right corner is light gray, so the button appears to be sticking out.
+	// Deprecated.
 	NSGradientConvexWeak NSGradientType = 3
-	// NSGradientNone: There is no gradient, so the button looks flat.
+	// Deprecated.
 	NSGradientNone NSGradientType = 0
 )
 
@@ -4131,14 +4390,14 @@ func (e NSGradientType) String() string {
 type NSGridCellPlacement int
 
 const (
-	NSGridCellPlacementBottom NSGridCellPlacement = 3
-	NSGridCellPlacementCenter NSGridCellPlacement = 4
-	NSGridCellPlacementFill NSGridCellPlacement = 5
+	NSGridCellPlacementBottom    NSGridCellPlacement = 3
+	NSGridCellPlacementCenter    NSGridCellPlacement = 4
+	NSGridCellPlacementFill      NSGridCellPlacement = 5
 	NSGridCellPlacementInherited NSGridCellPlacement = 0
-	NSGridCellPlacementLeading NSGridCellPlacement = 2
-	NSGridCellPlacementNone NSGridCellPlacement = 1
-	NSGridCellPlacementTop NSGridCellPlacement = 2
-	NSGridCellPlacementTrailing NSGridCellPlacement = 3
+	NSGridCellPlacementLeading   NSGridCellPlacement = 2
+	NSGridCellPlacementNone      NSGridCellPlacement = 1
+	NSGridCellPlacementTop       NSGridCellPlacement = 2
+	NSGridCellPlacementTrailing  NSGridCellPlacement = 3
 )
 
 func (e NSGridCellPlacement) String() string {
@@ -4165,9 +4424,9 @@ type NSGridRowAlignment int
 
 const (
 	NSGridRowAlignmentFirstBaseline NSGridRowAlignment = 2
-	NSGridRowAlignmentInherited NSGridRowAlignment = 0
-	NSGridRowAlignmentLastBaseline NSGridRowAlignment = 3
-	NSGridRowAlignmentNone NSGridRowAlignment = 1
+	NSGridRowAlignmentInherited     NSGridRowAlignment = 0
+	NSGridRowAlignmentLastBaseline  NSGridRowAlignment = 3
+	NSGridRowAlignmentNone          NSGridRowAlignment = 1
 )
 
 func (e NSGridRowAlignment) String() string {
@@ -4239,12 +4498,18 @@ func (e NSHapticFeedbackPerformanceTime) String() string {
 type NSHorizontalDirections uint
 
 const (
+	// NSHorizontalDirectionsAll: All horizontal directions (left and right).
+	NSHorizontalDirectionsAll NSHorizontalDirections = 0
+	// NSHorizontalDirectionsLeft: The left direction.
 	NSHorizontalDirectionsLeft NSHorizontalDirections = 1
+	// NSHorizontalDirectionsRight: The right direction.
 	NSHorizontalDirectionsRight NSHorizontalDirections = 2
 )
 
 func (e NSHorizontalDirections) String() string {
 	switch e {
+	case NSHorizontalDirectionsAll:
+		return "NSHorizontalDirectionsAll"
 	case NSHorizontalDirectionsLeft:
 		return "NSHorizontalDirectionsLeft"
 	case NSHorizontalDirectionsRight:
@@ -4258,14 +4523,23 @@ func (e NSHorizontalDirections) String() string {
 type NSImageAlignment uint
 
 const (
+	// NSImageAlignBottom: # Discussion
 	NSImageAlignBottom NSImageAlignment = 5
+	// NSImageAlignBottomLeft: # Discussion
 	NSImageAlignBottomLeft NSImageAlignment = 6
+	// NSImageAlignBottomRight: # Discussion
 	NSImageAlignBottomRight NSImageAlignment = 7
+	// NSImageAlignCenter: # Discussion
 	NSImageAlignCenter NSImageAlignment = 0
+	// NSImageAlignLeft: # Discussion
 	NSImageAlignLeft NSImageAlignment = 4
+	// NSImageAlignRight: # Discussion
 	NSImageAlignRight NSImageAlignment = 8
+	// NSImageAlignTop: # Discussion
 	NSImageAlignTop NSImageAlignment = 1
+	// NSImageAlignTopLeft: # Discussion
 	NSImageAlignTopLeft NSImageAlignment = 2
+	// NSImageAlignTopRight: # Discussion
 	NSImageAlignTopRight NSImageAlignment = 3
 )
 
@@ -4513,19 +4787,19 @@ func (e NSImageRepLoadStatus) String() string {
 	}
 }
 
-type NSImageRepMatchesDeviceConstants uint
+type NSImageRepMatches uint
 
 const (
 	// NSImageRepMatchesDevice: A constant indicating that the value of certain attributes, such as the number of colors or bits per sample, will change to match the display device.
-	NSImageRepMatchesDevice NSImageRepMatchesDeviceConstants = 0
+	NSImageRepMatchesDevice NSImageRepMatches = 0
 )
 
-func (e NSImageRepMatchesDeviceConstants) String() string {
+func (e NSImageRepMatches) String() string {
 	switch e {
 	case NSImageRepMatchesDevice:
 		return "NSImageRepMatchesDevice"
 	default:
-		return fmt.Sprintf("NSImageRepMatchesDeviceConstants(%d)", e)
+		return fmt.Sprintf("NSImageRepMatches(%d)", e)
 	}
 }
 
@@ -4562,6 +4836,12 @@ const (
 	NSImageScaleProportionallyDown NSImageScaling = 0
 	// NSImageScaleProportionallyUpOrDown: Scale the image to its maximum possible dimensions while both staying within the destination area and preserving its aspect ratio.
 	NSImageScaleProportionallyUpOrDown NSImageScaling = 3
+	// Deprecated.
+	NSScaleNone NSImageScaling = 2
+	// Deprecated.
+	NSScaleProportionally NSImageScaling = 0
+	// Deprecated.
+	NSScaleToFit NSImageScaling = 1
 )
 
 func (e NSImageScaling) String() string {
@@ -4658,6 +4938,7 @@ func (e NSImageSymbolVariableValueMode) String() string {
 type NSLayoutAttribute int
 
 const (
+	NSLayoutAttributeBaseline NSLayoutAttribute = 11
 	// NSLayoutAttributeBottom: The bottom of the object’s alignment rectangle.
 	NSLayoutAttributeBottom NSLayoutAttribute = 4
 	// NSLayoutAttributeCenterX: The center along the x-axis of the object’s alignment rectangle.
@@ -4688,6 +4969,8 @@ const (
 
 func (e NSLayoutAttribute) String() string {
 	switch e {
+	case NSLayoutAttributeBaseline:
+		return "NSLayoutAttributeBaseline"
 	case NSLayoutAttributeBottom:
 		return "NSLayoutAttributeBottom"
 	case NSLayoutAttributeCenterX:
@@ -4698,8 +4981,6 @@ func (e NSLayoutAttribute) String() string {
 		return "NSLayoutAttributeFirstBaseline"
 	case NSLayoutAttributeHeight:
 		return "NSLayoutAttributeHeight"
-	case NSLayoutAttributeLastBaseline:
-		return "NSLayoutAttributeLastBaseline"
 	case NSLayoutAttributeLeading:
 		return "NSLayoutAttributeLeading"
 	case NSLayoutAttributeLeft:
@@ -4744,6 +5025,7 @@ func (e NSLayoutConstraintOrientation) String() string {
 type NSLayoutFormatOptions uint
 
 const (
+	NSLayoutFormatAlignAllBaseline NSLayoutFormatOptions = 2048
 	// NSLayoutFormatAlignAllBottom: Align all specified interface elements using NSLayoutConstraint.Attribute.bottom on each.
 	NSLayoutFormatAlignAllBottom NSLayoutFormatOptions = 16
 	// NSLayoutFormatAlignAllCenterX: Align all specified interface elements using NSLayoutConstraint.Attribute.centerX on each.
@@ -4778,6 +5060,8 @@ const (
 
 func (e NSLayoutFormatOptions) String() string {
 	switch e {
+	case NSLayoutFormatAlignAllBaseline:
+		return "NSLayoutFormatAlignAllBaseline"
 	case NSLayoutFormatAlignAllBottom:
 		return "NSLayoutFormatAlignAllBottom"
 	case NSLayoutFormatAlignAllCenterX:
@@ -4786,8 +5070,6 @@ func (e NSLayoutFormatOptions) String() string {
 		return "NSLayoutFormatAlignAllCenterY"
 	case NSLayoutFormatAlignAllFirstBaseline:
 		return "NSLayoutFormatAlignAllFirstBaseline"
-	case NSLayoutFormatAlignAllLastBaseline:
-		return "NSLayoutFormatAlignAllLastBaseline"
 	case NSLayoutFormatAlignAllLeading:
 		return "NSLayoutFormatAlignAllLeading"
 	case NSLayoutFormatAlignAllLeft:
@@ -4842,8 +5124,8 @@ func (e NSLayoutRelation) String() string {
 type NSLevelIndicatorPlaceholderVisibility int
 
 const (
-	NSLevelIndicatorPlaceholderVisibilityAlways NSLevelIndicatorPlaceholderVisibility = 1
-	NSLevelIndicatorPlaceholderVisibilityAutomatic NSLevelIndicatorPlaceholderVisibility = 0
+	NSLevelIndicatorPlaceholderVisibilityAlways       NSLevelIndicatorPlaceholderVisibility = 1
+	NSLevelIndicatorPlaceholderVisibilityAutomatic    NSLevelIndicatorPlaceholderVisibility = 0
 	NSLevelIndicatorPlaceholderVisibilityWhileEditing NSLevelIndicatorPlaceholderVisibility = 2
 )
 
@@ -4932,6 +5214,8 @@ type NSLineBreakStrategy uint
 const (
 	// NSLineBreakStrategyHangulWordPriority: The text system prohibits breaking between Hangul characters.
 	NSLineBreakStrategyHangulWordPriority NSLineBreakStrategy = 2
+	// NSLineBreakStrategyNone: The text system doesn’t use any line-break strategies.
+	NSLineBreakStrategyNone NSLineBreakStrategy = 0
 	// NSLineBreakStrategyPushOut: The text system pushes out individual lines to avoid an orphan word on the last line of the paragraph.
 	NSLineBreakStrategyPushOut NSLineBreakStrategy = 1
 	// NSLineBreakStrategyStandard: The text system uses the same configuration of line-break strategies that it uses for standard UI labels.
@@ -4942,6 +5226,8 @@ func (e NSLineBreakStrategy) String() string {
 	switch e {
 	case NSLineBreakStrategyHangulWordPriority:
 		return "NSLineBreakStrategyHangulWordPriority"
+	case NSLineBreakStrategyNone:
+		return "NSLineBreakStrategyNone"
 	case NSLineBreakStrategyPushOut:
 		return "NSLineBreakStrategyPushOut"
 	case NSLineBreakStrategyStandard:
@@ -5005,10 +5291,15 @@ func (e NSLineJoinStyle) String() string {
 type NSLineMovementDirection uint
 
 const (
+	// NSLineDoesntMove: Line has no movement.
 	NSLineDoesntMove NSLineMovementDirection = 0
+	// NSLineMovesDown: Lines move from top to bottom.
 	NSLineMovesDown NSLineMovementDirection = 3
+	// NSLineMovesLeft: Lines move from right to left.
 	NSLineMovesLeft NSLineMovementDirection = 1
+	// NSLineMovesRight: Lines move from left to right.
 	NSLineMovesRight NSLineMovementDirection = 2
+	// NSLineMovesUp: Lines move from bottom to top.
 	NSLineMovesUp NSLineMovementDirection = 4
 )
 
@@ -5033,9 +5324,13 @@ func (e NSLineMovementDirection) String() string {
 type NSLineSweepDirection uint
 
 const (
+	// NSLineSweepDown: Characters move from top to bottom.
 	NSLineSweepDown NSLineSweepDirection = 2
+	// NSLineSweepLeft: Characters move from right to left.
 	NSLineSweepLeft NSLineSweepDirection = 0
+	// NSLineSweepRight: Characters move from left to right.
 	NSLineSweepRight NSLineSweepDirection = 1
+	// NSLineSweepUp: Characters move from bottom to top.
 	NSLineSweepUp NSLineSweepDirection = 3
 )
 
@@ -5058,13 +5353,13 @@ func (e NSLineSweepDirection) String() string {
 type NSMatrixMode uint
 
 const (
-	// NSHighlightModeMatrix: An  is highlighted before it’s asked to track the mouse, then unhighlighted when it’s done tracking.
+	// NSHighlightModeMatrix: An NSCell is highlighted before it’s asked to track the mouse, then unhighlighted when it’s done tracking.
 	NSHighlightModeMatrix NSMatrixMode = 1
-	// NSListModeMatrix: objects are highlighted, but don’t track the mouse.
+	// NSListModeMatrix: NSCell objects are highlighted, but don’t track the mouse.
 	NSListModeMatrix NSMatrixMode = 2
-	// NSRadioModeMatrix: Selects no more than one  at a time.
+	// NSRadioModeMatrix: Selects no more than one NSCell at a time.
 	NSRadioModeMatrix NSMatrixMode = 0
-	// NSTrackModeMatrix: The  objects are asked to track the mouse with  whenever the cursor is inside their bounds.
+	// NSTrackModeMatrix: The NSCell objects are asked to track the mouse with trackMouse(with:in:of:untilMouseUp:) whenever the cursor is inside their bounds.
 	NSTrackModeMatrix NSMatrixMode = 3
 )
 
@@ -5224,7 +5519,7 @@ func (e NSMenuSelectionMode) String() string {
 type NSMultibyteGlyphPacking uint
 
 const (
-	// NSNativeShortGlyphPacking: The native format for macOS.
+	// Deprecated.
 	NSNativeShortGlyphPacking NSMultibyteGlyphPacking = 5
 )
 
@@ -5241,33 +5536,35 @@ func (e NSMultibyteGlyphPacking) String() string {
 type NSOpenGLContextParameter int
 
 const (
-	// NSOpenGLContextParameterCurrentRendererID: Get the current renderer ID.
+	// Deprecated.
 	NSOpenGLContextParameterCurrentRendererID NSOpenGLContextParameter = 5
-	// NSOpenGLContextParameterGPUFragmentProcessing: Get whether the CPU is currently processing fragments with the GPU.
+	// Deprecated.
 	NSOpenGLContextParameterGPUFragmentProcessing NSOpenGLContextParameter = 7
-	// NSOpenGLContextParameterGPUVertexProcessing: Get whether the CPU is currently processing vertices with the GPU.
+	// Deprecated.
 	NSOpenGLContextParameterGPUVertexProcessing NSOpenGLContextParameter = 6
-	// NSOpenGLContextParameterHasDrawable: Returns a Boolean that indicates whether a drawable is attached to the context.
+	// Deprecated.
 	NSOpenGLContextParameterHasDrawable NSOpenGLContextParameter = 8
-	// NSOpenGLContextParameterMPSwapsInFlight: The number of frames that the multithreaded OpenGL engine can process before stalling.
+	// Deprecated.
 	NSOpenGLContextParameterMPSwapsInFlight NSOpenGLContextParameter = 9
-	// NSOpenGLContextParameterRasterizationEnable: If disabled, all rasterization of 2D and 3D primitives is disabled.
+	// Deprecated.
 	NSOpenGLContextParameterRasterizationEnable NSOpenGLContextParameter = 221
-	// NSOpenGLContextParameterReclaimResources: Enable or disable reclaiming resources.
+	// Deprecated.
 	NSOpenGLContextParameterReclaimResources NSOpenGLContextParameter = 4
-	// NSOpenGLContextParameterStateValidation: If enabled, OpenGL inspects the context state each time the update method is called to ensure that it is in an appropriate state for switching between renderers.
+	// Deprecated.
 	NSOpenGLContextParameterStateValidation NSOpenGLContextParameter = 301
-	// NSOpenGLContextParameterSurfaceBackingSize: Set or get the height and width of the back buffer.
+	// Deprecated.
 	NSOpenGLContextParameterSurfaceBackingSize NSOpenGLContextParameter = 3
-	// NSOpenGLContextParameterSurfaceOpacity: Set or get the surface opacity.
+	// Deprecated.
 	NSOpenGLContextParameterSurfaceOpacity NSOpenGLContextParameter = 2
-	// NSOpenGLContextParameterSurfaceOrder: Set or get the surface order.
+	// Deprecated.
 	NSOpenGLContextParameterSurfaceOrder NSOpenGLContextParameter = 1
-	// NSOpenGLContextParameterSwapInterval: Set or get the swap interval.
+	// Deprecated.
+	NSOpenGLContextParameterSurfaceSurfaceVolatile NSOpenGLContextParameter = 306
+	// Deprecated.
 	NSOpenGLContextParameterSwapInterval NSOpenGLContextParameter = 0
-	// NSOpenGLContextParameterSwapRectangle: Sets or gets the swap rectangle.
+	// Deprecated.
 	NSOpenGLContextParameterSwapRectangle NSOpenGLContextParameter = 200
-	// NSOpenGLContextParameterSwapRectangleEnable: Enables or disables the swap rectangle in the context’s drawable object.
+	// Deprecated.
 	NSOpenGLContextParameterSwapRectangleEnable NSOpenGLContextParameter = 201
 )
 
@@ -5295,6 +5592,8 @@ func (e NSOpenGLContextParameter) String() string {
 		return "NSOpenGLContextParameterSurfaceOpacity"
 	case NSOpenGLContextParameterSurfaceOrder:
 		return "NSOpenGLContextParameterSurfaceOrder"
+	case NSOpenGLContextParameterSurfaceSurfaceVolatile:
+		return "NSOpenGLContextParameterSurfaceSurfaceVolatile"
 	case NSOpenGLContextParameterSwapInterval:
 		return "NSOpenGLContextParameterSwapInterval"
 	case NSOpenGLContextParameterSwapRectangle:
@@ -5310,13 +5609,15 @@ func (e NSOpenGLContextParameter) String() string {
 type NSOpenGLGlobalOption uint32
 
 const (
-	// NSOpenGLGOClearFormatCache: Resets the pixel format cache if true.
+	// Deprecated.
 	NSOpenGLGOClearFormatCache NSOpenGLGlobalOption = 1
-	// NSOpenGLGOFormatCacheSize: Sets the size of the pixel format cache.
+	// Deprecated.
 	NSOpenGLGOFormatCacheSize NSOpenGLGlobalOption = 0
-	// NSOpenGLGORetainRenderers: Whether to retain loaded renderers in memory.
+	// Deprecated.
+	NSOpenGLGOResetLibrary NSOpenGLGlobalOption = 504
+	// Deprecated.
 	NSOpenGLGORetainRenderers NSOpenGLGlobalOption = 2
-	// NSOpenGLGOUseBuildCache: Whether to enable the function compilation block cache.
+	// Deprecated.
 	NSOpenGLGOUseBuildCache NSOpenGLGlobalOption = 3
 )
 
@@ -5326,6 +5627,8 @@ func (e NSOpenGLGlobalOption) String() string {
 		return "NSOpenGLGOClearFormatCache"
 	case NSOpenGLGOFormatCacheSize:
 		return "NSOpenGLGOFormatCacheSize"
+	case NSOpenGLGOResetLibrary:
+		return "NSOpenGLGOResetLibrary"
 	case NSOpenGLGORetainRenderers:
 		return "NSOpenGLGORetainRenderers"
 	case NSOpenGLGOUseBuildCache:
@@ -5525,19 +5828,19 @@ func (e NSOpenGLProfile) String() string {
 	}
 }
 
-type NSOutlineViewDropOnItemIndexConstants int
+type NSOutlineViewDropOnItem int
 
 const (
 	// NSOutlineViewDropOnItemIndex: May be used as a valid child index of a drop target item.
-	NSOutlineViewDropOnItemIndex NSOutlineViewDropOnItemIndexConstants = -1
+	NSOutlineViewDropOnItemIndex NSOutlineViewDropOnItem = -1
 )
 
-func (e NSOutlineViewDropOnItemIndexConstants) String() string {
+func (e NSOutlineViewDropOnItem) String() string {
 	switch e {
 	case NSOutlineViewDropOnItemIndex:
 		return "NSOutlineViewDropOnItemIndex"
 	default:
-		return fmt.Sprintf("NSOutlineViewDropOnItemIndexConstants(%d)", e)
+		return fmt.Sprintf("NSOutlineViewDropOnItem(%d)", e)
 	}
 }
 
@@ -5596,7 +5899,7 @@ type NSPageLayoutResult int
 
 const (
 	NSPageLayoutResultCancelled NSPageLayoutResult = 0
-	NSPageLayoutResultChanged NSPageLayoutResult = 1
+	NSPageLayoutResultChanged   NSPageLayoutResult = 1
 )
 
 func (e NSPageLayoutResult) String() string {
@@ -5727,19 +6030,22 @@ func (e NSPasteboardWritingOptions) String() string {
 type NSPathStyle int
 
 const (
-	NSPathStyleNavigationBar NSPathStyle = 1
+	// NSPathStylePopUp: # Discussion
 	NSPathStylePopUp NSPathStyle = 2
+	// NSPathStyleStandard: # Discussion
 	NSPathStyleStandard NSPathStyle = 0
+	// Deprecated.
+	NSPathStyleNavigationBar NSPathStyle = 1
 )
 
 func (e NSPathStyle) String() string {
 	switch e {
-	case NSPathStyleNavigationBar:
-		return "NSPathStyleNavigationBar"
 	case NSPathStylePopUp:
 		return "NSPathStylePopUp"
 	case NSPathStyleStandard:
 		return "NSPathStyleStandard"
+	case NSPathStyleNavigationBar:
+		return "NSPathStyleNavigationBar"
 	default:
 		return fmt.Sprintf("NSPathStyle(%d)", e)
 	}
@@ -5828,9 +6134,9 @@ func (e NSPointingDeviceType) String() string {
 type NSPopUpArrowPosition uint
 
 const (
-	// NSPopUpArrowAtBottom: Arrow is drawn at the edge of the button, pointing toward the .
+	// NSPopUpArrowAtBottom: Arrow is drawn at the edge of the button, pointing toward the preferredEdge.
 	NSPopUpArrowAtBottom NSPopUpArrowPosition = 2
-	// NSPopUpArrowAtCenter: Arrow is centered vertically, pointing toward the .
+	// NSPopUpArrowAtCenter: Arrow is centered vertically, pointing toward the preferredEdge.
 	NSPopUpArrowAtCenter NSPopUpArrowPosition = 1
 	// NSPopUpNoArrow: Does not display any arrow in the control.
 	NSPopUpNoArrow NSPopUpArrowPosition = 0
@@ -5853,9 +6159,9 @@ func (e NSPopUpArrowPosition) String() string {
 type NSPopoverAppearance int
 
 const (
-	// NSPopoverAppearanceHUD: The popover draws with a HUD appearance.
+	// Deprecated.
 	NSPopoverAppearanceHUD NSPopoverAppearance = 1
-	// NSPopoverAppearanceMinimal: The popover draws with a minimal appearance.
+	// Deprecated.
 	NSPopoverAppearanceMinimal NSPopoverAppearance = 0
 )
 
@@ -5986,7 +6292,7 @@ type NSPrintPanelResult int
 
 const (
 	NSPrintPanelResultCancelled NSPrintPanelResult = 0
-	NSPrintPanelResultPrinted NSPrintPanelResult = 1
+	NSPrintPanelResultPrinted   NSPrintPanelResult = 1
 )
 
 func (e NSPrintPanelResult) String() string {
@@ -6050,9 +6356,9 @@ func (e NSPrinterTableStatus) String() string {
 type NSPrintingOrientation uint
 
 const (
-	// NSLandscapeOrientation: Orientation is landscape (page is wider than it is tall).
+	// Deprecated.
 	NSLandscapeOrientation NSPrintingOrientation = 1
-	// NSPortraitOrientation: Orientation is portrait (page is taller than it is wide).
+	// Deprecated.
 	NSPortraitOrientation NSPrintingOrientation = 0
 )
 
@@ -6101,8 +6407,8 @@ type NSPrintingPaginationMode uint
 
 const (
 	NSPrintingPaginationModeAutomatic NSPrintingPaginationMode = 0
-	NSPrintingPaginationModeClip NSPrintingPaginationMode = 2
-	NSPrintingPaginationModeFit NSPrintingPaginationMode = 1
+	NSPrintingPaginationModeClip      NSPrintingPaginationMode = 2
+	NSPrintingPaginationModeFit       NSPrintingPaginationMode = 1
 )
 
 func (e NSPrintingPaginationMode) String() string {
@@ -6143,9 +6449,13 @@ func (e NSProgressIndicatorStyle) String() string {
 type NSProgressIndicatorThickness uint
 
 const (
+	// Deprecated.
 	NSProgressIndicatorPreferredAquaThickness NSProgressIndicatorThickness = 12
+	// Deprecated.
 	NSProgressIndicatorPreferredLargeThickness NSProgressIndicatorThickness = 18
+	// Deprecated.
 	NSProgressIndicatorPreferredSmallThickness NSProgressIndicatorThickness = 10
+	// Deprecated.
 	NSProgressIndicatorPreferredThickness NSProgressIndicatorThickness = 14
 )
 
@@ -6221,6 +6531,8 @@ const (
 	NSRemoteNotificationTypeAlert NSRemoteNotificationType = 4
 	// NSRemoteNotificationTypeBadge: The app should display a badge.
 	NSRemoteNotificationTypeBadge NSRemoteNotificationType = 1
+	// NSRemoteNotificationTypeNone: The app shouldn’t display a badge.
+	NSRemoteNotificationTypeNone NSRemoteNotificationType = 0
 	// NSRemoteNotificationTypeSound: The app should play a sound.
 	NSRemoteNotificationTypeSound NSRemoteNotificationType = 2
 )
@@ -6231,6 +6543,8 @@ func (e NSRemoteNotificationType) String() string {
 		return "NSRemoteNotificationTypeAlert"
 	case NSRemoteNotificationTypeBadge:
 		return "NSRemoteNotificationTypeBadge"
+	case NSRemoteNotificationTypeNone:
+		return "NSRemoteNotificationTypeNone"
 	case NSRemoteNotificationTypeSound:
 		return "NSRemoteNotificationTypeSound"
 	default:
@@ -6370,6 +6684,8 @@ const (
 	NSSaveOperation NSSaveOperationType = 0
 	// NSSaveToOperation: An operation that writes a copy of the document’s contents to the specified location, without changing the original document’s location.
 	NSSaveToOperation NSSaveOperationType = 2
+	// Deprecated.
+	NSAutosaveOperation NSSaveOperationType = 3
 )
 
 func (e NSSaveOperationType) String() string {
@@ -6395,18 +6711,20 @@ func (e NSSaveOperationType) String() string {
 type NSScrollArrowPosition uint
 
 const (
-	// NSScrollerArrowsMaxEnd: Buttons at bottom or right.
+	// Deprecated.
+	NSScrollerArrowsDefaultSetting NSScrollArrowPosition = 0
+	// Deprecated.
 	NSScrollerArrowsMaxEnd NSScrollArrowPosition = 0
-	// NSScrollerArrowsMinEnd: Buttons at top or left.
+	// Deprecated.
 	NSScrollerArrowsMinEnd NSScrollArrowPosition = 1
-	// NSScrollerArrowsNone: No buttons.
+	// Deprecated.
 	NSScrollerArrowsNone NSScrollArrowPosition = 2
 )
 
 func (e NSScrollArrowPosition) String() string {
 	switch e {
-	case NSScrollerArrowsMaxEnd:
-		return "NSScrollerArrowsMaxEnd"
+	case NSScrollerArrowsDefaultSetting:
+		return "NSScrollerArrowsDefaultSetting"
 	case NSScrollerArrowsMinEnd:
 		return "NSScrollerArrowsMinEnd"
 	case NSScrollerArrowsNone:
@@ -6470,9 +6788,9 @@ func (e NSScrollViewFindBarPosition) String() string {
 type NSScrollerArrow uint
 
 const (
-	// NSScrollerDecrementArrow: The up or left scroll button.
+	// Deprecated.
 	NSScrollerDecrementArrow NSScrollerArrow = 1
-	// NSScrollerIncrementArrow: The down or right scroll button.
+	// Deprecated.
 	NSScrollerIncrementArrow NSScrollerArrow = 0
 )
 
@@ -6516,30 +6834,26 @@ func (e NSScrollerKnobStyle) String() string {
 type NSScrollerPart uint
 
 const (
-	// NSScrollerDecrementLine: Up or left by a small amount.
-	NSScrollerDecrementLine NSScrollerPart = 4
 	// NSScrollerDecrementPage: Up or left by a large amount.
 	NSScrollerDecrementPage NSScrollerPart = 1
-	// NSScrollerIncrementLine: Down or right by a small amount.
-	NSScrollerIncrementLine NSScrollerPart = 5
 	// NSScrollerIncrementPage: Down or right by a large amount.
 	NSScrollerIncrementPage NSScrollerPart = 3
-	// NSScrollerKnob: Directly to the scroller’s value, as given by .
+	// NSScrollerKnob: Directly to the scroller’s value, as given by floatValue.
 	NSScrollerKnob NSScrollerPart = 2
-	// NSScrollerKnobSlot: Directly to the scroller’s value, as given by .
+	// NSScrollerKnobSlot: Directly to the scroller’s value, as given by floatValue.
 	NSScrollerKnobSlot NSScrollerPart = 6
 	// NSScrollerNoPart: Don’t scroll at all.
 	NSScrollerNoPart NSScrollerPart = 0
+	// Deprecated.
+	NSScrollerDecrementLine NSScrollerPart = 4
+	// Deprecated.
+	NSScrollerIncrementLine NSScrollerPart = 5
 )
 
 func (e NSScrollerPart) String() string {
 	switch e {
-	case NSScrollerDecrementLine:
-		return "NSScrollerDecrementLine"
 	case NSScrollerDecrementPage:
 		return "NSScrollerDecrementPage"
-	case NSScrollerIncrementLine:
-		return "NSScrollerIncrementLine"
 	case NSScrollerIncrementPage:
 		return "NSScrollerIncrementPage"
 	case NSScrollerKnob:
@@ -6548,6 +6862,10 @@ func (e NSScrollerPart) String() string {
 		return "NSScrollerKnobSlot"
 	case NSScrollerNoPart:
 		return "NSScrollerNoPart"
+	case NSScrollerDecrementLine:
+		return "NSScrollerDecrementLine"
+	case NSScrollerIncrementLine:
+		return "NSScrollerIncrementLine"
 	default:
 		return fmt.Sprintf("NSScrollerPart(%d)", e)
 	}
@@ -6628,9 +6946,13 @@ func (e NSScrubberMode) String() string {
 type NSSegmentDistribution int
 
 const (
+	// NSSegmentDistributionFill: Dynamically sized segments will be sized to fill the available space, with extra space being distributed equally among them.
 	NSSegmentDistributionFill NSSegmentDistribution = 1
+	// NSSegmentDistributionFillEqually: Dynamically sized segments will be sized to fill the available space, and kept the same size as each other.
 	NSSegmentDistributionFillEqually NSSegmentDistribution = 2
+	// NSSegmentDistributionFillProportionally: Dynamically sized segments will be sized to fill the available space, and kept proportional to their fitting size.
 	NSSegmentDistributionFillProportionally NSSegmentDistribution = 3
+	// NSSegmentDistributionFit: Dynamically sized segments will be sized to fit their contents, any remaining space will be left blank.
 	NSSegmentDistributionFit NSSegmentDistribution = 0
 )
 
@@ -6799,7 +7121,7 @@ type NSSharingCollaborationMode int
 
 const (
 	NSSharingCollaborationModeCollaborate NSSharingCollaborationMode = 1
-	NSSharingCollaborationModeSendCopy NSSharingCollaborationMode = 0
+	NSSharingCollaborationModeSendCopy    NSSharingCollaborationMode = 0
 )
 
 func (e NSSharingCollaborationMode) String() string {
@@ -6863,11 +7185,11 @@ func (e NSSliderType) String() string {
 type NSSpeechBoundary uint
 
 const (
-	// NSSpeechImmediateBoundary: Speech should be paused or stopped immediately.
+	// Deprecated.
 	NSSpeechImmediateBoundary NSSpeechBoundary = 0
-	// NSSpeechSentenceBoundary: Speech should be paused or stopped at the end of the sentence.
+	// Deprecated.
 	NSSpeechSentenceBoundary NSSpeechBoundary = 2
-	// NSSpeechWordBoundary: Speech should be paused or stopped at the end of the word.
+	// Deprecated.
 	NSSpeechWordBoundary NSSpeechBoundary = 1
 )
 
@@ -6888,7 +7210,9 @@ func (e NSSpeechBoundary) String() string {
 type NSSpellingState int
 
 const (
+	// NSSpellingStateGrammarFlag: Flag for grammar issues.
 	NSSpellingStateGrammarFlag NSSpellingState = 2
+	// NSSpellingStateSpellingFlag: Flag for spelling issues.
 	NSSpellingStateSpellingFlag NSSpellingState = 1
 )
 
@@ -7044,11 +7368,17 @@ func (e NSSpringLoadingOptions) String() string {
 type NSStackViewDistribution int
 
 const (
+	// NSStackViewDistributionEqualCentering: Equal center-to-center spacing of the items is maintained as much as possible while still maintaining the minimum spacing between each view.
 	NSStackViewDistributionEqualCentering NSStackViewDistribution = 4
+	// NSStackViewDistributionEqualSpacing: The space separating stacked views along the stacking axis are maintained to be equal as much as possible while still maintaining the minimum spacing.
 	NSStackViewDistributionEqualSpacing NSStackViewDistribution = 3
+	// NSStackViewDistributionFill: The effective hugging priority in the stacking axis is [NSLayoutPriorityRequired], causing the stacked views to tightly fill the container along the stacking axis.
 	NSStackViewDistributionFill NSStackViewDistribution = 0
+	// NSStackViewDistributionFillEqually: Stacked views will have sizes maintained to be equal as much as possible along the stacking axis.
 	NSStackViewDistributionFillEqually NSStackViewDistribution = 1
+	// NSStackViewDistributionFillProportionally: Stacked views will have sizes maintained to be equal, proportionally to their `intrinsicContentSize`s, as much as possible.
 	NSStackViewDistributionFillProportionally NSStackViewDistribution = 2
+	// NSStackViewDistributionGravityAreas: Stacked views will not have any special distribution behavior, relying on behavior described by gravity areas and set hugging priorities along the stacking axis.
 	NSStackViewDistributionGravityAreas NSStackViewDistribution = -1
 )
 
@@ -7079,8 +7409,12 @@ const (
 	NSStackViewGravityBottom NSStackViewGravity = 3
 	// NSStackViewGravityCenter: The center gravity area, regardless of stack view layout direction or user interface language.
 	NSStackViewGravityCenter NSStackViewGravity = 2
+	// NSStackViewGravityLeading: The leftmost or rightmost gravity area in a horizontally oriented stack view, based on the user interface language or the explicitly set user interface layout direction.
+	NSStackViewGravityLeading NSStackViewGravity = 1
 	// NSStackViewGravityTop: The topmost gravity area in a vertically oriented stack view.
 	NSStackViewGravityTop NSStackViewGravity = 1
+	// NSStackViewGravityTrailing: The leftmost or rightmost gravity area in a horizontally oriented stack view, based on the user interface language or the explicitly set user interface layout direction.
+	NSStackViewGravityTrailing NSStackViewGravity = 3
 )
 
 func (e NSStackViewGravity) String() string {
@@ -7089,8 +7423,8 @@ func (e NSStackViewGravity) String() string {
 		return "NSStackViewGravityBottom"
 	case NSStackViewGravityCenter:
 		return "NSStackViewGravityCenter"
-	case NSStackViewGravityTop:
-		return "NSStackViewGravityTop"
+	case NSStackViewGravityLeading:
+		return "NSStackViewGravityLeading"
 	default:
 		return fmt.Sprintf("NSStackViewGravity(%d)", e)
 	}
@@ -7121,21 +7455,24 @@ func (e NSStatusItemBehavior) String() string {
 type NSStringDrawingOptions int
 
 const (
-	NSStringDrawingDisableScreenFontSubstitution NSStringDrawingOptions = 4
-	NSStringDrawingOneShot NSStringDrawingOptions = 16
+	// NSStringDrawingOptionsResolvesNaturalAlignmentWithBaseWritingDirection: Specifies the behavior for resolving `NSTextAlignment.Natural()` to the visual alignment.
 	NSStringDrawingOptionsResolvesNaturalAlignmentWithBaseWritingDirection NSStringDrawingOptions = 512
+	// NSStringDrawingTruncatesLastVisibleLine: Truncates and adds the ellipsis character to the last visible line if the text doesn’t fit into the specified bounds.
 	NSStringDrawingTruncatesLastVisibleLine NSStringDrawingOptions = 32
+	// NSStringDrawingUsesDeviceMetrics: Uses image glyph bounds instead of typographic bounds.
 	NSStringDrawingUsesDeviceMetrics NSStringDrawingOptions = 8
+	// NSStringDrawingUsesFontLeading: Uses the font leading for calculating line heights.
 	NSStringDrawingUsesFontLeading NSStringDrawingOptions = 2
+	// NSStringDrawingUsesLineFragmentOrigin: Uses the line fragment origin instead of the baseline origin.
 	NSStringDrawingUsesLineFragmentOrigin NSStringDrawingOptions = 1
+	// Deprecated.
+	NSStringDrawingDisableScreenFontSubstitution NSStringDrawingOptions = 4
+	// Deprecated.
+	NSStringDrawingOneShot NSStringDrawingOptions = 16
 )
 
 func (e NSStringDrawingOptions) String() string {
 	switch e {
-	case NSStringDrawingDisableScreenFontSubstitution:
-		return "NSStringDrawingDisableScreenFontSubstitution"
-	case NSStringDrawingOneShot:
-		return "NSStringDrawingOneShot"
 	case NSStringDrawingOptionsResolvesNaturalAlignmentWithBaseWritingDirection:
 		return "NSStringDrawingOptionsResolvesNaturalAlignmentWithBaseWritingDirection"
 	case NSStringDrawingTruncatesLastVisibleLine:
@@ -7146,6 +7483,10 @@ func (e NSStringDrawingOptions) String() string {
 		return "NSStringDrawingUsesFontLeading"
 	case NSStringDrawingUsesLineFragmentOrigin:
 		return "NSStringDrawingUsesLineFragmentOrigin"
+	case NSStringDrawingDisableScreenFontSubstitution:
+		return "NSStringDrawingDisableScreenFontSubstitution"
+	case NSStringDrawingOneShot:
+		return "NSStringDrawingOneShot"
 	default:
 		return fmt.Sprintf("NSStringDrawingOptions(%d)", e)
 	}
@@ -7201,10 +7542,10 @@ type NSTabPosition uint
 
 const (
 	NSTabPositionBottom NSTabPosition = 3
-	NSTabPositionLeft NSTabPosition = 2
-	NSTabPositionNone NSTabPosition = 0
-	NSTabPositionRight NSTabPosition = 4
-	NSTabPositionTop NSTabPosition = 1
+	NSTabPositionLeft   NSTabPosition = 2
+	NSTabPositionNone   NSTabPosition = 0
+	NSTabPositionRight  NSTabPosition = 4
+	NSTabPositionTop    NSTabPosition = 1
 )
 
 func (e NSTabPosition) String() string {
@@ -7254,8 +7595,8 @@ type NSTabViewBorderType uint
 
 const (
 	NSTabViewBorderTypeBezel NSTabViewBorderType = 2
-	NSTabViewBorderTypeLine NSTabViewBorderType = 1
-	NSTabViewBorderTypeNone NSTabViewBorderType = 0
+	NSTabViewBorderTypeLine  NSTabViewBorderType = 1
+	NSTabViewBorderTypeNone  NSTabViewBorderType = 0
 )
 
 func (e NSTabViewBorderType) String() string {
@@ -7347,6 +7688,8 @@ type NSTableColumnResizingOptions uint
 const (
 	// NSTableColumnAutoresizingMask: Allows the table column to resize automatically in response to resizing the table view.
 	NSTableColumnAutoresizingMask NSTableColumnResizingOptions = 1
+	// NSTableColumnNoResizing: Prevents the table column from resizing.
+	NSTableColumnNoResizing NSTableColumnResizingOptions = 0
 	// NSTableColumnUserResizingMask: Allows the table column to be resized by the user.
 	NSTableColumnUserResizingMask NSTableColumnResizingOptions = 2
 )
@@ -7355,6 +7698,8 @@ func (e NSTableColumnResizingOptions) String() string {
 	switch e {
 	case NSTableColumnAutoresizingMask:
 		return "NSTableColumnAutoresizingMask"
+	case NSTableColumnNoResizing:
+		return "NSTableColumnNoResizing"
 	case NSTableColumnUserResizingMask:
 		return "NSTableColumnUserResizingMask"
 	default:
@@ -7391,6 +7736,8 @@ const (
 	NSTableViewAnimationEffectFade NSTableViewAnimationOptions = 1
 	// NSTableViewAnimationEffectGap: Creates a gap for newly inserted rows.
 	NSTableViewAnimationEffectGap NSTableViewAnimationOptions = 2
+	// NSTableViewAnimationEffectNone: Use no animation effects.
+	NSTableViewAnimationEffectNone NSTableViewAnimationOptions = 0
 	// NSTableViewAnimationSlideDown: Animates a row insertion or removal by sliding downward.
 	NSTableViewAnimationSlideDown NSTableViewAnimationOptions = 32
 	// NSTableViewAnimationSlideLeft: Animates a row insertion by sliding from the left.
@@ -7407,6 +7754,8 @@ func (e NSTableViewAnimationOptions) String() string {
 		return "NSTableViewAnimationEffectFade"
 	case NSTableViewAnimationEffectGap:
 		return "NSTableViewAnimationEffectGap"
+	case NSTableViewAnimationEffectNone:
+		return "NSTableViewAnimationEffectNone"
 	case NSTableViewAnimationSlideDown:
 		return "NSTableViewAnimationSlideDown"
 	case NSTableViewAnimationSlideLeft:
@@ -7513,6 +7862,8 @@ type NSTableViewGridLineStyle uint
 const (
 	// NSTableViewDashedHorizontalGridLineMask: Specifies that the horizontal grid lines should be drawn dashed.
 	NSTableViewDashedHorizontalGridLineMask NSTableViewGridLineStyle = 8
+	// NSTableViewGridNone: Specifies that no grid lines should be displayed.
+	NSTableViewGridNone NSTableViewGridLineStyle = 0
 	// NSTableViewSolidHorizontalGridLineMask: Specifies that horizontal grid lines should be displayed.
 	NSTableViewSolidHorizontalGridLineMask NSTableViewGridLineStyle = 2
 	// NSTableViewSolidVerticalGridLineMask: Specifies that vertical grid lines should be displayed.
@@ -7523,6 +7874,8 @@ func (e NSTableViewGridLineStyle) String() string {
 	switch e {
 	case NSTableViewDashedHorizontalGridLineMask:
 		return "NSTableViewDashedHorizontalGridLineMask"
+	case NSTableViewGridNone:
+		return "NSTableViewGridNone"
 	case NSTableViewSolidHorizontalGridLineMask:
 		return "NSTableViewSolidHorizontalGridLineMask"
 	case NSTableViewSolidVerticalGridLineMask:
@@ -7557,7 +7910,7 @@ func (e NSTableViewRowActionStyle) String() string {
 type NSTableViewRowSizeStyle int
 
 const (
-	// NSTableViewRowSizeStyleCustom: The table will use the  or invoke the delegate method , if implemented.
+	// NSTableViewRowSizeStyleCustom: The table will use the rowHeight or invoke the delegate method tableView(_:heightOfRow:), if implemented.
 	NSTableViewRowSizeStyleCustom NSTableViewRowSizeStyle = 0
 	// NSTableViewRowSizeStyleDefault: The table will use the system default layout size: small, medium or large.
 	NSTableViewRowSizeStyleDefault NSTableViewRowSizeStyle = -1
@@ -7590,8 +7943,11 @@ func (e NSTableViewRowSizeStyle) String() string {
 type NSTableViewSelectionHighlightStyle int
 
 const (
+	// NSTableViewSelectionHighlightStyleNone: # Discussion
 	NSTableViewSelectionHighlightStyleNone NSTableViewSelectionHighlightStyle = -1
+	// NSTableViewSelectionHighlightStyleRegular: # Discussion
 	NSTableViewSelectionHighlightStyleRegular NSTableViewSelectionHighlightStyle = 0
+	// Deprecated.
 	NSTableViewSelectionHighlightStyleSourceList NSTableViewSelectionHighlightStyle = 1
 )
 
@@ -7790,12 +8146,15 @@ func (e NSTextBlockVerticalAlignment) String() string {
 type NSTextContentManagerEnumerationOptions uint
 
 const (
+	NSTextContentManagerEnumerationOptionsNone NSTextContentManagerEnumerationOptions = 0
 	// NSTextContentManagerEnumerationOptionsReverse: Returns whether enumerations start from the end of the text element.
 	NSTextContentManagerEnumerationOptionsReverse NSTextContentManagerEnumerationOptions = 1
 )
 
 func (e NSTextContentManagerEnumerationOptions) String() string {
 	switch e {
+	case NSTextContentManagerEnumerationOptionsNone:
+		return "NSTextContentManagerEnumerationOptionsNone"
 	case NSTextContentManagerEnumerationOptionsReverse:
 		return "NSTextContentManagerEnumerationOptionsReverse"
 	default:
@@ -7807,15 +8166,15 @@ func (e NSTextContentManagerEnumerationOptions) String() string {
 type NSTextCursorAccessoryPlacement int
 
 const (
-	NSTextCursorAccessoryPlacementBackward NSTextCursorAccessoryPlacement = 1
-	NSTextCursorAccessoryPlacementCenter NSTextCursorAccessoryPlacement = 4
-	NSTextCursorAccessoryPlacementForward NSTextCursorAccessoryPlacement = 2
-	NSTextCursorAccessoryPlacementInvisible NSTextCursorAccessoryPlacement = 3
+	NSTextCursorAccessoryPlacementBackward        NSTextCursorAccessoryPlacement = 1
+	NSTextCursorAccessoryPlacementCenter          NSTextCursorAccessoryPlacement = 4
+	NSTextCursorAccessoryPlacementForward         NSTextCursorAccessoryPlacement = 2
+	NSTextCursorAccessoryPlacementInvisible       NSTextCursorAccessoryPlacement = 3
 	NSTextCursorAccessoryPlacementOffscreenBottom NSTextCursorAccessoryPlacement = 8
-	NSTextCursorAccessoryPlacementOffscreenLeft NSTextCursorAccessoryPlacement = 5
-	NSTextCursorAccessoryPlacementOffscreenRight NSTextCursorAccessoryPlacement = 7
-	NSTextCursorAccessoryPlacementOffscreenTop NSTextCursorAccessoryPlacement = 6
-	NSTextCursorAccessoryPlacementUnspecified NSTextCursorAccessoryPlacement = 0
+	NSTextCursorAccessoryPlacementOffscreenLeft   NSTextCursorAccessoryPlacement = 5
+	NSTextCursorAccessoryPlacementOffscreenRight  NSTextCursorAccessoryPlacement = 7
+	NSTextCursorAccessoryPlacementOffscreenTop    NSTextCursorAccessoryPlacement = 6
+	NSTextCursorAccessoryPlacementUnspecified     NSTextCursorAccessoryPlacement = 0
 )
 
 func (e NSTextCursorAccessoryPlacement) String() string {
@@ -7963,8 +8322,8 @@ type NSTextInputTraitType int
 
 const (
 	NSTextInputTraitTypeDefault NSTextInputTraitType = 0
-	NSTextInputTraitTypeNo NSTextInputTraitType = 1
-	NSTextInputTraitTypeYes NSTextInputTraitType = 2
+	NSTextInputTraitTypeNo      NSTextInputTraitType = 1
+	NSTextInputTraitTypeYes     NSTextInputTraitType = 2
 )
 
 func (e NSTextInputTraitType) String() string {
@@ -8006,8 +8365,8 @@ type NSTextInsertionIndicatorDisplayMode int
 
 const (
 	NSTextInsertionIndicatorDisplayModeAutomatic NSTextInsertionIndicatorDisplayMode = 0
-	NSTextInsertionIndicatorDisplayModeHidden NSTextInsertionIndicatorDisplayMode = 1
-	NSTextInsertionIndicatorDisplayModeVisible NSTextInsertionIndicatorDisplayMode = 2
+	NSTextInsertionIndicatorDisplayModeHidden    NSTextInsertionIndicatorDisplayMode = 1
+	NSTextInsertionIndicatorDisplayModeVisible   NSTextInsertionIndicatorDisplayMode = 2
 )
 
 func (e NSTextInsertionIndicatorDisplayMode) String() string {
@@ -8033,6 +8392,7 @@ const (
 	NSTextLayoutFragmentEnumerationOptionsEnsuresLayout NSTextLayoutFragmentEnumerationOptions = 4
 	// NSTextLayoutFragmentEnumerationOptionsEstimatesSize: When enumerating, tell the layout fragments to estimate their size.
 	NSTextLayoutFragmentEnumerationOptionsEstimatesSize NSTextLayoutFragmentEnumerationOptions = 2
+	NSTextLayoutFragmentEnumerationOptionsNone          NSTextLayoutFragmentEnumerationOptions = 0
 	// NSTextLayoutFragmentEnumerationOptionsReverse: Causes the enumeration to start from the last element.
 	NSTextLayoutFragmentEnumerationOptionsReverse NSTextLayoutFragmentEnumerationOptions = 1
 )
@@ -8045,6 +8405,8 @@ func (e NSTextLayoutFragmentEnumerationOptions) String() string {
 		return "NSTextLayoutFragmentEnumerationOptionsEnsuresLayout"
 	case NSTextLayoutFragmentEnumerationOptionsEstimatesSize:
 		return "NSTextLayoutFragmentEnumerationOptionsEstimatesSize"
+	case NSTextLayoutFragmentEnumerationOptionsNone:
+		return "NSTextLayoutFragmentEnumerationOptionsNone"
 	case NSTextLayoutFragmentEnumerationOptionsReverse:
 		return "NSTextLayoutFragmentEnumerationOptionsReverse"
 	default:
@@ -8089,6 +8451,7 @@ const (
 	NSTextLayoutManagerSegmentOptionsHeadSegmentExtended NSTextLayoutManagerSegmentOptions = 4
 	// NSTextLayoutManagerSegmentOptionsMiddleFragmentsExcluded: Returns the value that causes the framework to enumerate segments in only the first and last line fragments.
 	NSTextLayoutManagerSegmentOptionsMiddleFragmentsExcluded NSTextLayoutManagerSegmentOptions = 2
+	NSTextLayoutManagerSegmentOptionsNone                    NSTextLayoutManagerSegmentOptions = 0
 	// NSTextLayoutManagerSegmentOptionsRangeNotRequired: Returns the value that causes the framework enumerate text segment rectangles, but avoids preparing a range object.
 	NSTextLayoutManagerSegmentOptionsRangeNotRequired NSTextLayoutManagerSegmentOptions = 1
 	// NSTextLayoutManagerSegmentOptionsTailSegmentExtended: Returns the value that causes the framework to extend the segment to the tail edge.
@@ -8103,6 +8466,8 @@ func (e NSTextLayoutManagerSegmentOptions) String() string {
 		return "NSTextLayoutManagerSegmentOptionsHeadSegmentExtended"
 	case NSTextLayoutManagerSegmentOptionsMiddleFragmentsExcluded:
 		return "NSTextLayoutManagerSegmentOptionsMiddleFragmentsExcluded"
+	case NSTextLayoutManagerSegmentOptionsNone:
+		return "NSTextLayoutManagerSegmentOptionsNone"
 	case NSTextLayoutManagerSegmentOptionsRangeNotRequired:
 		return "NSTextLayoutManagerSegmentOptionsRangeNotRequired"
 	case NSTextLayoutManagerSegmentOptionsTailSegmentExtended:
@@ -8182,14 +8547,14 @@ type NSTextMovement int
 
 const (
 	NSTextMovementBacktab NSTextMovement = 18
-	NSTextMovementCancel NSTextMovement = 23
-	NSTextMovementDown NSTextMovement = 22
-	NSTextMovementLeft NSTextMovement = 19
-	NSTextMovementOther NSTextMovement = 0
-	NSTextMovementReturn NSTextMovement = 16
-	NSTextMovementRight NSTextMovement = 20
-	NSTextMovementTab NSTextMovement = 17
-	NSTextMovementUp NSTextMovement = 21
+	NSTextMovementCancel  NSTextMovement = 23
+	NSTextMovementDown    NSTextMovement = 22
+	NSTextMovementLeft    NSTextMovement = 19
+	NSTextMovementOther   NSTextMovement = 0
+	NSTextMovementReturn  NSTextMovement = 16
+	NSTextMovementRight   NSTextMovement = 20
+	NSTextMovementTab     NSTextMovement = 17
+	NSTextMovementUp      NSTextMovement = 21
 )
 
 func (e NSTextMovement) String() string {
@@ -8536,6 +8901,10 @@ const (
 	NSTickMarkPositionAbove NSTickMarkPosition = 1
 	// NSTickMarkPositionBelow: A constant indicating that tick marks are displayed below the slider.
 	NSTickMarkPositionBelow NSTickMarkPosition = 0
+	// NSTickMarkPositionLeading: A constant indicating that tick marks are displayed on the leading side of the slider.
+	NSTickMarkPositionLeading NSTickMarkPosition = 1
+	// NSTickMarkPositionTrailing: A constant indicating that tick marks are displayed on the trailing side of the slider.
+	NSTickMarkPositionTrailing NSTickMarkPosition = 0
 )
 
 func (e NSTickMarkPosition) String() string {
@@ -8554,8 +8923,8 @@ type NSTintProminence int
 
 const (
 	NSTintProminenceAutomatic NSTintProminence = 0
-	NSTintProminenceNone NSTintProminence = 1
-	NSTintProminencePrimary NSTintProminence = 2
+	NSTintProminenceNone      NSTintProminence = 1
+	NSTintProminencePrimary   NSTintProminence = 2
 	NSTintProminenceSecondary NSTintProminence = 3
 )
 
@@ -8578,12 +8947,19 @@ func (e NSTintProminence) String() string {
 type NSTitlePosition uint
 
 const (
+	// NSAboveBottom: # Discussion
 	NSAboveBottom NSTitlePosition = 4
+	// NSAboveTop: # Discussion
 	NSAboveTop NSTitlePosition = 1
+	// NSAtBottom: # Discussion
 	NSAtBottom NSTitlePosition = 5
+	// NSAtTop: # Discussion
 	NSAtTop NSTitlePosition = 2
+	// NSBelowBottom: # Discussion
 	NSBelowBottom NSTitlePosition = 6
+	// NSBelowTop: # Discussion
 	NSBelowTop NSTitlePosition = 3
+	// NSNoTitle: # Discussion
 	NSNoTitle NSTitlePosition = 0
 )
 
@@ -8641,11 +9017,11 @@ func (e NSTitlebarSeparatorStyle) String() string {
 type NSTokenStyle uint
 
 const (
-	NSTokenStyleDefault NSTokenStyle = 0
-	NSTokenStyleNone NSTokenStyle = 1
+	NSTokenStyleDefault      NSTokenStyle = 0
+	NSTokenStyleNone         NSTokenStyle = 1
 	NSTokenStylePlainSquared NSTokenStyle = 4
-	NSTokenStyleRounded NSTokenStyle = 2
-	NSTokenStyleSquared NSTokenStyle = 3
+	NSTokenStyleRounded      NSTokenStyle = 2
+	NSTokenStyleSquared      NSTokenStyle = 3
 )
 
 func (e NSTokenStyle) String() string {
@@ -8700,7 +9076,7 @@ type NSToolbarItemGroupControlRepresentation int
 const (
 	NSToolbarItemGroupControlRepresentationAutomatic NSToolbarItemGroupControlRepresentation = 0
 	NSToolbarItemGroupControlRepresentationCollapsed NSToolbarItemGroupControlRepresentation = 2
-	NSToolbarItemGroupControlRepresentationExpanded NSToolbarItemGroupControlRepresentation = 1
+	NSToolbarItemGroupControlRepresentationExpanded  NSToolbarItemGroupControlRepresentation = 1
 )
 
 func (e NSToolbarItemGroupControlRepresentation) String() string {
@@ -8745,7 +9121,7 @@ func (e NSToolbarItemGroupSelectionMode) String() string {
 type NSToolbarItemStyle int
 
 const (
-	NSToolbarItemStylePlain NSToolbarItemStyle = 0
+	NSToolbarItemStylePlain     NSToolbarItemStyle = 0
 	NSToolbarItemStyleProminent NSToolbarItemStyle = 1
 )
 
@@ -8764,11 +9140,11 @@ func (e NSToolbarItemStyle) String() string {
 type NSToolbarSizeMode uint
 
 const (
-	// NSToolbarSizeModeDefault: The toolbar uses the system-defined default size, which is .
+	// Deprecated.
 	NSToolbarSizeModeDefault NSToolbarSizeMode = 0
-	// NSToolbarSizeModeRegular: The toolbar uses regular-sized controls and 32 by 32 pixel icons.
+	// Deprecated.
 	NSToolbarSizeModeRegular NSToolbarSizeMode = 1
-	// NSToolbarSizeModeSmall: The toolbar uses small-sized controls and 24 by 24 pixel icons.
+	// Deprecated.
 	NSToolbarSizeModeSmall NSToolbarSizeMode = 2
 )
 
@@ -9001,6 +9377,8 @@ const (
 	NSUnderlineStyleByWord NSUnderlineStyle = 32768
 	// NSUnderlineStyleDouble: Draw a double line.
 	NSUnderlineStyleDouble NSUnderlineStyle = 9
+	// NSUnderlineStyleNone: Don’t draw a line.
+	NSUnderlineStyleNone NSUnderlineStyle = 0
 	// NSUnderlineStylePatternDash: Draw a line of dashes.
 	NSUnderlineStylePatternDash NSUnderlineStyle = 512
 	// NSUnderlineStylePatternDashDot: Draw a line of alternating dashes and dots.
@@ -9009,6 +9387,8 @@ const (
 	NSUnderlineStylePatternDashDotDot NSUnderlineStyle = 1024
 	// NSUnderlineStylePatternDot: Draw a line of dots.
 	NSUnderlineStylePatternDot NSUnderlineStyle = 256
+	// NSUnderlineStylePatternSolid: Draw a solid line.
+	NSUnderlineStylePatternSolid NSUnderlineStyle = 0
 	// NSUnderlineStyleSingle: Draw a single line.
 	NSUnderlineStyleSingle NSUnderlineStyle = 1
 	// NSUnderlineStyleThick: Draw a thick line.
@@ -9021,6 +9401,8 @@ func (e NSUnderlineStyle) String() string {
 		return "NSUnderlineStyleByWord"
 	case NSUnderlineStyleDouble:
 		return "NSUnderlineStyleDouble"
+	case NSUnderlineStyleNone:
+		return "NSUnderlineStyleNone"
 	case NSUnderlineStylePatternDash:
 		return "NSUnderlineStylePatternDash"
 	case NSUnderlineStylePatternDashDot:
@@ -9038,6 +9420,22 @@ func (e NSUnderlineStyle) String() string {
 	}
 }
 
+type NSUpdateWindowsRunLoop uint
+
+const (
+	// NSUpdateWindowsRunLoopOrdering: Run-loop message priority for handling window updates.
+	NSUpdateWindowsRunLoopOrdering NSUpdateWindowsRunLoop = 500000
+)
+
+func (e NSUpdateWindowsRunLoop) String() string {
+	switch e {
+	case NSUpdateWindowsRunLoopOrdering:
+		return "NSUpdateWindowsRunLoopOrdering"
+	default:
+		return fmt.Sprintf("NSUpdateWindowsRunLoop(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/UsableParts-swift.enum
 type NSUsableScrollerParts uint
 
@@ -9046,7 +9444,7 @@ const (
 	NSAllScrollerParts NSUsableScrollerParts = 2
 	// NSNoScrollerParts: Specifies that the scroller has neither a knob nor scroll buttons, only the knob slot.
 	NSNoScrollerParts NSUsableScrollerParts = 0
-	// NSOnlyScrollerArrows: Specifies that the scroller has only scroll buttons, no knob.
+	// Deprecated.
 	NSOnlyScrollerArrows NSUsableScrollerParts = 1
 )
 
@@ -9109,12 +9507,18 @@ func (e NSUserInterfaceLayoutOrientation) String() string {
 type NSVerticalDirections uint
 
 const (
+	// NSVerticalDirectionsAll: All vertical directions (up and down).
+	NSVerticalDirectionsAll NSVerticalDirections = 0
+	// NSVerticalDirectionsDown: The downward direction.
 	NSVerticalDirectionsDown NSVerticalDirections = 2
+	// NSVerticalDirectionsUp: The upwards direction.
 	NSVerticalDirectionsUp NSVerticalDirections = 1
 )
 
 func (e NSVerticalDirections) String() string {
 	switch e {
+	case NSVerticalDirectionsAll:
+		return "NSVerticalDirectionsAll"
 	case NSVerticalDirectionsDown:
 		return "NSVerticalDirectionsDown"
 	case NSVerticalDirectionsUp:
@@ -9132,6 +9536,8 @@ const (
 	NSViewControllerTransitionAllowUserInteraction NSViewControllerTransitionOptions = 4096
 	// NSViewControllerTransitionCrossfade: A transition animation that fades the new view in and simultaneously fades the old view out.
 	NSViewControllerTransitionCrossfade NSViewControllerTransitionOptions = 1
+	// NSViewControllerTransitionNone: A transition with no animation (the default).
+	NSViewControllerTransitionNone NSViewControllerTransitionOptions = 0
 	// NSViewControllerTransitionSlideBackward: A transition animation that reflects the user interface layout direction (userInterfaceLayoutDirection) in a “backward” manner, as follows
 	NSViewControllerTransitionSlideBackward NSViewControllerTransitionOptions = 384
 	// NSViewControllerTransitionSlideDown: A transition animation that slides the old view down while the new view slides into view from the top.
@@ -9152,6 +9558,8 @@ func (e NSViewControllerTransitionOptions) String() string {
 		return "NSViewControllerTransitionAllowUserInteraction"
 	case NSViewControllerTransitionCrossfade:
 		return "NSViewControllerTransitionCrossfade"
+	case NSViewControllerTransitionNone:
+		return "NSViewControllerTransitionNone"
 	case NSViewControllerTransitionSlideBackward:
 		return "NSViewControllerTransitionSlideBackward"
 	case NSViewControllerTransitionSlideDown:
@@ -9169,13 +9577,107 @@ func (e NSViewControllerTransitionOptions) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSView/LayerContentsPlacement-swift.enum
+type NSViewLayerContentsPlacement int
+
+const (
+	// NSViewLayerContentsPlacementBottom: The content is horizontally centered at the bottom-edge of the bounds rectangle.
+	NSViewLayerContentsPlacementBottom NSViewLayerContentsPlacement = 8
+	// NSViewLayerContentsPlacementBottomLeft: The content is positioned in the bottom-left corner of the bounds rectangle.
+	NSViewLayerContentsPlacementBottomLeft NSViewLayerContentsPlacement = 9
+	// NSViewLayerContentsPlacementBottomRight: The content is positioned in the bottom-right corner of the bounds rectangle.
+	NSViewLayerContentsPlacementBottomRight NSViewLayerContentsPlacement = 7
+	// NSViewLayerContentsPlacementCenter: The content is horizontally and vertically centered in the bounds rectangle.
+	NSViewLayerContentsPlacementCenter NSViewLayerContentsPlacement = 3
+	// NSViewLayerContentsPlacementLeft: The content is vertically centered at the left-edge of the bounds rectangle.
+	NSViewLayerContentsPlacementLeft NSViewLayerContentsPlacement = 10
+	// NSViewLayerContentsPlacementRight: The content is vertically centered at the right-edge of the bounds rectangle.
+	NSViewLayerContentsPlacementRight NSViewLayerContentsPlacement = 6
+	// NSViewLayerContentsPlacementScaleAxesIndependently: The content is resized to fit the entire bounds rectangle.
+	NSViewLayerContentsPlacementScaleAxesIndependently NSViewLayerContentsPlacement = 0
+	// NSViewLayerContentsPlacementScaleProportionallyToFill: The content is resized to completely fill the bounds rectangle, while still preserving the aspect of the content.
+	NSViewLayerContentsPlacementScaleProportionallyToFill NSViewLayerContentsPlacement = 2
+	// NSViewLayerContentsPlacementScaleProportionallyToFit: The content is resized to fit the bounds rectangle, preserving the aspect of the content.
+	NSViewLayerContentsPlacementScaleProportionallyToFit NSViewLayerContentsPlacement = 1
+	// NSViewLayerContentsPlacementTop: The content is horizontally centered at the top-edge of the bounds rectangle.
+	NSViewLayerContentsPlacementTop NSViewLayerContentsPlacement = 4
+	// NSViewLayerContentsPlacementTopLeft: The content is positioned in the top-left corner of the bounds rectangle.
+	NSViewLayerContentsPlacementTopLeft NSViewLayerContentsPlacement = 11
+	// NSViewLayerContentsPlacementTopRight: The content is positioned in the top-right corner of the bounds rectangle.
+	NSViewLayerContentsPlacementTopRight NSViewLayerContentsPlacement = 5
+)
+
+func (e NSViewLayerContentsPlacement) String() string {
+	switch e {
+	case NSViewLayerContentsPlacementBottom:
+		return "NSViewLayerContentsPlacementBottom"
+	case NSViewLayerContentsPlacementBottomLeft:
+		return "NSViewLayerContentsPlacementBottomLeft"
+	case NSViewLayerContentsPlacementBottomRight:
+		return "NSViewLayerContentsPlacementBottomRight"
+	case NSViewLayerContentsPlacementCenter:
+		return "NSViewLayerContentsPlacementCenter"
+	case NSViewLayerContentsPlacementLeft:
+		return "NSViewLayerContentsPlacementLeft"
+	case NSViewLayerContentsPlacementRight:
+		return "NSViewLayerContentsPlacementRight"
+	case NSViewLayerContentsPlacementScaleAxesIndependently:
+		return "NSViewLayerContentsPlacementScaleAxesIndependently"
+	case NSViewLayerContentsPlacementScaleProportionallyToFill:
+		return "NSViewLayerContentsPlacementScaleProportionallyToFill"
+	case NSViewLayerContentsPlacementScaleProportionallyToFit:
+		return "NSViewLayerContentsPlacementScaleProportionallyToFit"
+	case NSViewLayerContentsPlacementTop:
+		return "NSViewLayerContentsPlacementTop"
+	case NSViewLayerContentsPlacementTopLeft:
+		return "NSViewLayerContentsPlacementTopLeft"
+	case NSViewLayerContentsPlacementTopRight:
+		return "NSViewLayerContentsPlacementTopRight"
+	default:
+		return fmt.Sprintf("NSViewLayerContentsPlacement(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSView/LayerContentsRedrawPolicy-swift.enum
+type NSViewLayerContentsRedrawPolicy int
+
+const (
+	// NSViewLayerContentsRedrawBeforeViewResize: Resize the layer and redraw the view to the layer when the view’s size changes.
+	NSViewLayerContentsRedrawBeforeViewResize NSViewLayerContentsRedrawPolicy = 3
+	// NSViewLayerContentsRedrawCrossfade: Redraw the layer contents at the new size and crossfade from the old contents to the new contents.
+	NSViewLayerContentsRedrawCrossfade NSViewLayerContentsRedrawPolicy = 4
+	// NSViewLayerContentsRedrawDuringViewResize: Resize the view’s backing-layer and redraw the view to the layer when the view’s size changes.
+	NSViewLayerContentsRedrawDuringViewResize NSViewLayerContentsRedrawPolicy = 2
+	// NSViewLayerContentsRedrawNever: Leave the layer’s contents alone.
+	NSViewLayerContentsRedrawNever NSViewLayerContentsRedrawPolicy = 0
+	// NSViewLayerContentsRedrawOnSetNeedsDisplay: Any of the `setNeedsDisplay` methods sent to the view will cause the view redraw the affected layer parts by invoking the view’s draw(_:), but neither the layer or the view are marked as needing display when the view’s size changes.
+	NSViewLayerContentsRedrawOnSetNeedsDisplay NSViewLayerContentsRedrawPolicy = 1
+)
+
+func (e NSViewLayerContentsRedrawPolicy) String() string {
+	switch e {
+	case NSViewLayerContentsRedrawBeforeViewResize:
+		return "NSViewLayerContentsRedrawBeforeViewResize"
+	case NSViewLayerContentsRedrawCrossfade:
+		return "NSViewLayerContentsRedrawCrossfade"
+	case NSViewLayerContentsRedrawDuringViewResize:
+		return "NSViewLayerContentsRedrawDuringViewResize"
+	case NSViewLayerContentsRedrawNever:
+		return "NSViewLayerContentsRedrawNever"
+	case NSViewLayerContentsRedrawOnSetNeedsDisplay:
+		return "NSViewLayerContentsRedrawOnSetNeedsDisplay"
+	default:
+		return fmt.Sprintf("NSViewLayerContentsRedrawPolicy(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSViewLayoutRegionAdaptivityAxis
 type NSViewLayoutRegionAdaptivityAxis int
 
 const (
 	NSViewLayoutRegionAdaptivityAxisHorizontal NSViewLayoutRegionAdaptivityAxis = 1
-	NSViewLayoutRegionAdaptivityAxisNone NSViewLayoutRegionAdaptivityAxis = 0
-	NSViewLayoutRegionAdaptivityAxisVertical NSViewLayoutRegionAdaptivityAxis = 2
+	NSViewLayoutRegionAdaptivityAxisNone       NSViewLayoutRegionAdaptivityAxis = 0
+	NSViewLayoutRegionAdaptivityAxisVertical   NSViewLayoutRegionAdaptivityAxis = 2
 )
 
 func (e NSViewLayoutRegionAdaptivityAxis) String() string {
@@ -9216,22 +9718,14 @@ func (e NSVisualEffectBlendingMode) String() string {
 type NSVisualEffectMaterial int
 
 const (
-	// NSVisualEffectMaterialAppearanceBased: A default material for the view’s effective appearance.
-	NSVisualEffectMaterialAppearanceBased NSVisualEffectMaterial = 0
 	// NSVisualEffectMaterialContentBackground: The material for the background of opaque content.
 	NSVisualEffectMaterialContentBackground NSVisualEffectMaterial = 18
-	// NSVisualEffectMaterialDark: A material with a dark effect.
-	NSVisualEffectMaterialDark NSVisualEffectMaterial = 2
 	// NSVisualEffectMaterialFullScreenUI: The material for the background of a full-screen modal interface.
 	NSVisualEffectMaterialFullScreenUI NSVisualEffectMaterial = 15
 	// NSVisualEffectMaterialHUDWindow: The material for the background of heads-up display (HUD) windows.
 	NSVisualEffectMaterialHUDWindow NSVisualEffectMaterial = 13
 	// NSVisualEffectMaterialHeaderView: The material for in-line header or footer views.
 	NSVisualEffectMaterialHeaderView NSVisualEffectMaterial = 10
-	// NSVisualEffectMaterialLight: A material with a light effect.
-	NSVisualEffectMaterialLight NSVisualEffectMaterial = 1
-	// NSVisualEffectMaterialMediumLight: A material with a medium-light effect.
-	NSVisualEffectMaterialMediumLight NSVisualEffectMaterial = 8
 	// NSVisualEffectMaterialMenu: The material for menus.
 	NSVisualEffectMaterialMenu NSVisualEffectMaterial = 5
 	// NSVisualEffectMaterialPopover: The material for the background of popover windows.
@@ -9246,34 +9740,34 @@ const (
 	NSVisualEffectMaterialTitlebar NSVisualEffectMaterial = 3
 	// NSVisualEffectMaterialToolTip: The material for the background of a tool tip.
 	NSVisualEffectMaterialToolTip NSVisualEffectMaterial = 17
-	// NSVisualEffectMaterialUltraDark: A material with an ultra-dark effect.
-	NSVisualEffectMaterialUltraDark NSVisualEffectMaterial = 9
 	// NSVisualEffectMaterialUnderPageBackground: The material for the area behind the pages of a document.
 	NSVisualEffectMaterialUnderPageBackground NSVisualEffectMaterial = 22
 	// NSVisualEffectMaterialUnderWindowBackground: The material to show under a window’s background.
 	NSVisualEffectMaterialUnderWindowBackground NSVisualEffectMaterial = 21
 	// NSVisualEffectMaterialWindowBackground: The material for the background of opaque windows.
 	NSVisualEffectMaterialWindowBackground NSVisualEffectMaterial = 12
+	// Deprecated.
+	NSVisualEffectMaterialAppearanceBased NSVisualEffectMaterial = 0
+	// Deprecated.
+	NSVisualEffectMaterialDark NSVisualEffectMaterial = 2
+	// Deprecated.
+	NSVisualEffectMaterialLight NSVisualEffectMaterial = 1
+	// Deprecated.
+	NSVisualEffectMaterialMediumLight NSVisualEffectMaterial = 8
+	// Deprecated.
+	NSVisualEffectMaterialUltraDark NSVisualEffectMaterial = 9
 )
 
 func (e NSVisualEffectMaterial) String() string {
 	switch e {
-	case NSVisualEffectMaterialAppearanceBased:
-		return "NSVisualEffectMaterialAppearanceBased"
 	case NSVisualEffectMaterialContentBackground:
 		return "NSVisualEffectMaterialContentBackground"
-	case NSVisualEffectMaterialDark:
-		return "NSVisualEffectMaterialDark"
 	case NSVisualEffectMaterialFullScreenUI:
 		return "NSVisualEffectMaterialFullScreenUI"
 	case NSVisualEffectMaterialHUDWindow:
 		return "NSVisualEffectMaterialHUDWindow"
 	case NSVisualEffectMaterialHeaderView:
 		return "NSVisualEffectMaterialHeaderView"
-	case NSVisualEffectMaterialLight:
-		return "NSVisualEffectMaterialLight"
-	case NSVisualEffectMaterialMediumLight:
-		return "NSVisualEffectMaterialMediumLight"
 	case NSVisualEffectMaterialMenu:
 		return "NSVisualEffectMaterialMenu"
 	case NSVisualEffectMaterialPopover:
@@ -9288,14 +9782,22 @@ func (e NSVisualEffectMaterial) String() string {
 		return "NSVisualEffectMaterialTitlebar"
 	case NSVisualEffectMaterialToolTip:
 		return "NSVisualEffectMaterialToolTip"
-	case NSVisualEffectMaterialUltraDark:
-		return "NSVisualEffectMaterialUltraDark"
 	case NSVisualEffectMaterialUnderPageBackground:
 		return "NSVisualEffectMaterialUnderPageBackground"
 	case NSVisualEffectMaterialUnderWindowBackground:
 		return "NSVisualEffectMaterialUnderWindowBackground"
 	case NSVisualEffectMaterialWindowBackground:
 		return "NSVisualEffectMaterialWindowBackground"
+	case NSVisualEffectMaterialAppearanceBased:
+		return "NSVisualEffectMaterialAppearanceBased"
+	case NSVisualEffectMaterialDark:
+		return "NSVisualEffectMaterialDark"
+	case NSVisualEffectMaterialLight:
+		return "NSVisualEffectMaterialLight"
+	case NSVisualEffectMaterialMediumLight:
+		return "NSVisualEffectMaterialMediumLight"
+	case NSVisualEffectMaterialUltraDark:
+		return "NSVisualEffectMaterialUltraDark"
 	default:
 		return fmt.Sprintf("NSVisualEffectMaterial(%d)", e)
 	}
@@ -9380,6 +9882,31 @@ func (e NSWindowAnimationBehavior) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSWindow/BackingLocation-swift.enum
+type NSWindowBackingLocation uint
+
+const (
+	// Deprecated.
+	NSWindowBackingLocationDefault NSWindowBackingLocation = 0
+	// Deprecated.
+	NSWindowBackingLocationMainMemory NSWindowBackingLocation = 2
+	// Deprecated.
+	NSWindowBackingLocationVideoMemory NSWindowBackingLocation = 1
+)
+
+func (e NSWindowBackingLocation) String() string {
+	switch e {
+	case NSWindowBackingLocationDefault:
+		return "NSWindowBackingLocationDefault"
+	case NSWindowBackingLocationMainMemory:
+		return "NSWindowBackingLocationMainMemory"
+	case NSWindowBackingLocationVideoMemory:
+		return "NSWindowBackingLocationVideoMemory"
+	default:
+		return fmt.Sprintf("NSWindowBackingLocation(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/ButtonType
 type NSWindowButton uint
 
@@ -9427,6 +9954,8 @@ const (
 	NSWindowCollectionBehaviorCanJoinAllApplications NSWindowCollectionBehavior = 262144
 	// NSWindowCollectionBehaviorCanJoinAllSpaces: The window can appear in all spaces.
 	NSWindowCollectionBehaviorCanJoinAllSpaces NSWindowCollectionBehavior = 1
+	// NSWindowCollectionBehaviorDefault: The window appears in only one space at a time.
+	NSWindowCollectionBehaviorDefault NSWindowCollectionBehavior = 0
 	// NSWindowCollectionBehaviorFullScreenAllowsTiling: The window can be a secondary full screen tile even if it can’t be a full screen window itself.
 	NSWindowCollectionBehaviorFullScreenAllowsTiling NSWindowCollectionBehavior = 2048
 	// NSWindowCollectionBehaviorFullScreenAuxiliary: The window displays on the same space as the full screen window.
@@ -9461,6 +9990,8 @@ func (e NSWindowCollectionBehavior) String() string {
 		return "NSWindowCollectionBehaviorCanJoinAllApplications"
 	case NSWindowCollectionBehaviorCanJoinAllSpaces:
 		return "NSWindowCollectionBehaviorCanJoinAllSpaces"
+	case NSWindowCollectionBehaviorDefault:
+		return "NSWindowCollectionBehaviorDefault"
 	case NSWindowCollectionBehaviorFullScreenAllowsTiling:
 		return "NSWindowCollectionBehaviorFullScreenAllowsTiling"
 	case NSWindowCollectionBehaviorFullScreenAuxiliary:
@@ -9512,6 +10043,23 @@ func (e NSWindowDepth) String() string {
 		return "NSWindowDepthTwentyfourBitRGB"
 	default:
 		return fmt.Sprintf("NSWindowDepth(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/WindowListOptions
+type NSWindowListOptions int
+
+const (
+	// NSWindowListOrderedFrontToBack: The app’s onscreen windows in front-to-back order.
+	NSWindowListOrderedFrontToBack NSWindowListOptions = 1
+)
+
+func (e NSWindowListOptions) String() string {
+	switch e {
+	case NSWindowListOrderedFrontToBack:
+		return "NSWindowListOrderedFrontToBack"
+	default:
+		return fmt.Sprintf("NSWindowListOptions(%d)", e)
 	}
 }
 
@@ -9584,12 +10132,16 @@ type NSWindowSharingType uint
 const (
 	// NSWindowSharingNone: A legacy constant that macOS no longer uses.
 	NSWindowSharingNone NSWindowSharingType = 0
+	// NSWindowSharingReadOnly: # Discussion
+	NSWindowSharingReadOnly NSWindowSharingType = 1
 )
 
 func (e NSWindowSharingType) String() string {
 	switch e {
 	case NSWindowSharingNone:
 		return "NSWindowSharingNone"
+	case NSWindowSharingReadOnly:
+		return "NSWindowSharingReadOnly"
 	default:
 		return fmt.Sprintf("NSWindowSharingType(%d)", e)
 	}
@@ -9689,12 +10241,16 @@ func (e NSWindowTabbingMode) String() string {
 type NSWindowTitleVisibility int
 
 const (
+	// NSWindowTitleHidden: # Discussion
+	NSWindowTitleHidden NSWindowTitleVisibility = 1
 	// NSWindowTitleVisible: The window has the regular window title and title bar buttons.
 	NSWindowTitleVisible NSWindowTitleVisibility = 0
 )
 
 func (e NSWindowTitleVisibility) String() string {
 	switch e {
+	case NSWindowTitleHidden:
+		return "NSWindowTitleHidden"
 	case NSWindowTitleVisible:
 		return "NSWindowTitleVisible"
 	default:
@@ -9806,12 +10362,73 @@ func (e NSWorkspaceIconCreationOptions) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/LaunchOptions
+type NSWorkspaceLaunchOptions uint
+
+const (
+	// Deprecated.
+	NSWorkspaceLaunchAllowingClassicStartup NSWorkspaceLaunchOptions = 131072
+	// Deprecated.
+	NSWorkspaceLaunchAndHide NSWorkspaceLaunchOptions = 1048576
+	// Deprecated.
+	NSWorkspaceLaunchAndHideOthers NSWorkspaceLaunchOptions = 2097152
+	// Deprecated.
+	NSWorkspaceLaunchAndPrint NSWorkspaceLaunchOptions = 2
+	// Deprecated.
+	NSWorkspaceLaunchAsync NSWorkspaceLaunchOptions = 65536
+	// Deprecated.
+	NSWorkspaceLaunchDefault NSWorkspaceLaunchOptions = 65536
+	// Deprecated.
+	NSWorkspaceLaunchInhibitingBackgroundOnly NSWorkspaceLaunchOptions = 128
+	// Deprecated.
+	NSWorkspaceLaunchNewInstance NSWorkspaceLaunchOptions = 524288
+	// Deprecated.
+	NSWorkspaceLaunchPreferringClassic NSWorkspaceLaunchOptions = 262144
+	// Deprecated.
+	NSWorkspaceLaunchWithErrorPresentation NSWorkspaceLaunchOptions = 64
+	// Deprecated.
+	NSWorkspaceLaunchWithoutActivation NSWorkspaceLaunchOptions = 512
+	// Deprecated.
+	NSWorkspaceLaunchWithoutAddingToRecents NSWorkspaceLaunchOptions = 256
+)
+
+func (e NSWorkspaceLaunchOptions) String() string {
+	switch e {
+	case NSWorkspaceLaunchAllowingClassicStartup:
+		return "NSWorkspaceLaunchAllowingClassicStartup"
+	case NSWorkspaceLaunchAndHide:
+		return "NSWorkspaceLaunchAndHide"
+	case NSWorkspaceLaunchAndHideOthers:
+		return "NSWorkspaceLaunchAndHideOthers"
+	case NSWorkspaceLaunchAndPrint:
+		return "NSWorkspaceLaunchAndPrint"
+	case NSWorkspaceLaunchAsync:
+		return "NSWorkspaceLaunchAsync"
+	case NSWorkspaceLaunchInhibitingBackgroundOnly:
+		return "NSWorkspaceLaunchInhibitingBackgroundOnly"
+	case NSWorkspaceLaunchNewInstance:
+		return "NSWorkspaceLaunchNewInstance"
+	case NSWorkspaceLaunchPreferringClassic:
+		return "NSWorkspaceLaunchPreferringClassic"
+	case NSWorkspaceLaunchWithErrorPresentation:
+		return "NSWorkspaceLaunchWithErrorPresentation"
+	case NSWorkspaceLaunchWithoutActivation:
+		return "NSWorkspaceLaunchWithoutActivation"
+	case NSWorkspaceLaunchWithoutAddingToRecents:
+		return "NSWorkspaceLaunchWithoutAddingToRecents"
+	default:
+		return fmt.Sprintf("NSWorkspaceLaunchOptions(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSWritingDirection
 type NSWritingDirection int
 
 const (
 	// NSWritingDirectionLeftToRight: The writing direction is left to right.
 	NSWritingDirectionLeftToRight NSWritingDirection = 0
+	// NSWritingDirectionNatural: The writing direction of the current script that the system determines using the Unicode Bidi Algorithm rules P2 and P3.
+	NSWritingDirectionNatural NSWritingDirection = -1
 	// NSWritingDirectionRightToLeft: The writing direction is right to left.
 	NSWritingDirectionRightToLeft NSWritingDirection = 1
 )
@@ -9820,6 +10437,8 @@ func (e NSWritingDirection) String() string {
 	switch e {
 	case NSWritingDirectionLeftToRight:
 		return "NSWritingDirectionLeftToRight"
+	case NSWritingDirectionNatural:
+		return "NSWritingDirectionNatural"
 	case NSWritingDirectionRightToLeft:
 		return "NSWritingDirectionRightToLeft"
 	default:
@@ -10010,10 +10629,11 @@ func (e NSWritingToolsCoordinatorTextUpdateReason) String() string {
 type NSWritingToolsResultOptions int
 
 const (
+	NSWritingToolsResultDefault NSWritingToolsResultOptions = 0
 	// NSWritingToolsResultList: An option to allow list-style formatting in the returned text.
 	NSWritingToolsResultList NSWritingToolsResultOptions = 4
 	// NSWritingToolsResultPlainText: An option to allow only plain text without any attributes in the returned text.
-	NSWritingToolsResultPlainText NSWritingToolsResultOptions = 1
+	NSWritingToolsResultPlainText          NSWritingToolsResultOptions = 1
 	NSWritingToolsResultPresentationIntent NSWritingToolsResultOptions = 16
 	// NSWritingToolsResultRichText: An option to include style attributes consistent with the RTF format in the returned text.
 	NSWritingToolsResultRichText NSWritingToolsResultOptions = 2
@@ -10023,6 +10643,8 @@ const (
 
 func (e NSWritingToolsResultOptions) String() string {
 	switch e {
+	case NSWritingToolsResultDefault:
+		return "NSWritingToolsResultDefault"
 	case NSWritingToolsResultList:
 		return "NSWritingToolsResultList"
 	case NSWritingToolsResultPlainText:
@@ -10077,4 +10699,3 @@ func (e Nsfp) String() string {
 		return fmt.Sprintf("Nsfp(%d)", e)
 	}
 }
-

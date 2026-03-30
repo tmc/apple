@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZStorageDeviceConfigurationClass) Alloc() VZStorageDeviceConfiguration
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZStorageDeviceConfiguration._initWithAttachment]
@@ -52,6 +52,7 @@ func (vc VZStorageDeviceConfigurationClass) Alloc() VZStorageDeviceConfiguration
 //   - [VZStorageDeviceConfiguration.Description]
 //   - [VZStorageDeviceConfiguration.Hash]
 //   - [VZStorageDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration
 type VZStorageDeviceConfiguration struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZStorageDeviceConfiguration struct {
 func VZStorageDeviceConfigurationFromID(id objc.ID) VZStorageDeviceConfiguration {
 	return VZStorageDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZStorageDeviceConfiguration implements IVZStorageDeviceConfiguration.
 var _ IVZStorageDeviceConfiguration = VZStorageDeviceConfiguration{}
 
@@ -110,7 +112,6 @@ func NewVZStorageDeviceConfiguration() VZStorageDeviceConfiguration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/_initWithAttachment:
 func (s VZStorageDeviceConfiguration) _initWithAttachment(attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_initWithAttachment:"), attachment)
@@ -121,7 +122,7 @@ func (s VZStorageDeviceConfiguration) _initWithAttachment(attachment objectivec.
 func (s VZStorageDeviceConfiguration) InitWithAttachment(attachment objectivec.IObject) objectivec.IObject {
 	return s._initWithAttachment(attachment)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/_setAttachment:
 func (s VZStorageDeviceConfiguration) _setAttachment(attachment objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_setAttachment:"), attachment)
@@ -131,7 +132,7 @@ func (s VZStorageDeviceConfiguration) _setAttachment(attachment objectivec.IObje
 func (s VZStorageDeviceConfiguration) SetAttachment(attachment objectivec.IObject) {
 	s._setAttachment(attachment)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/makeStorageDeviceForVirtualMachine:storageDeviceIndex:
 func (s VZStorageDeviceConfiguration) MakeStorageDeviceForVirtualMachineStorageDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeStorageDeviceForVirtualMachine:storageDeviceIndex:"), machine, index)
@@ -143,19 +144,21 @@ func (s VZStorageDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/description
 func (s VZStorageDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/hash
 func (s VZStorageDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDeviceConfiguration/superclass
 func (s VZStorageDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
 	return rv
 }
-

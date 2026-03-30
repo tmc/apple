@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -65,6 +66,7 @@ type AVCaptionGrouper struct {
 func AVCaptionGrouperFromID(id objc.ID) AVCaptionGrouper {
 	return AVCaptionGrouper{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptionGrouper adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,12 +122,13 @@ func NewAVCaptionGrouper() AVCaptionGrouper {
 func (c AVCaptionGrouper) AddCaption(input IAVCaption) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addCaption:"), input)
 }
+
 // Creates caption groups for the captions you enqueue up to the time.
 //
 // upToTime: The time up to which the system flushes the queue.
 //
 // # Return Value
-// 
+//
 // An array of zero or more caption groups.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionGrouper/flushAddedCaptions(upTo:)
@@ -135,4 +138,3 @@ func (c AVCaptionGrouper) FlushAddedCaptionsIntoGroupsUpToTime(upToTime coremedi
 		return AVCaptionGroupFromID(id)
 	})
 }
-

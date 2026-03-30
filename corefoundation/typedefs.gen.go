@@ -620,4 +620,3 @@ type CFSet = CFSetRef
 // CFUUID is a bare alias for CFUUIDRef.
 
 type CFUUID = CFUUIDRef
-

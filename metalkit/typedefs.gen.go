@@ -42,4 +42,3 @@ type MTKTextureLoaderOption = string
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/Origin
 type MTKTextureLoaderOrigin = string
-

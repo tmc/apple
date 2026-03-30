@@ -18,6 +18,7 @@ type MLProgramInternal interface {
 type MLProgramInternalObject struct {
 	objectivec.Object
 }
+
 func (o MLProgramInternalObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,7 +31,6 @@ func MLProgramInternalObjectFromID(id objc.ID) MLProgramInternalObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramInternal/evaluateFunction:arguments:error:
 func (o MLProgramInternalObject) EvaluateFunctionArgumentsError(function objectivec.IObject, arguments objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("evaluateFunction:arguments:error:"), function, arguments)
@@ -38,8 +38,8 @@ func (o MLProgramInternalObject) EvaluateFunctionArgumentsError(function objecti
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramInternal/newContextAndReturnError:
 func (o MLProgramInternalObject) NewContextAndReturnError() (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newContextAndReturnError:"))
@@ -47,5 +47,4 @@ func (o MLProgramInternalObject) NewContextAndReturnError() (objectivec.IObject,
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

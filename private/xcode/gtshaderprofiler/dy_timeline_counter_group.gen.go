@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (dc DYTimelineCounterGroupClass) Alloc() DYTimelineCounterGroup {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DYTimelineCounterGroup.CounterNames]
@@ -53,6 +53,7 @@ func (dc DYTimelineCounterGroupClass) Alloc() DYTimelineCounterGroup {
 //   - [DYTimelineCounterGroup.Timestamps]
 //   - [DYTimelineCounterGroup.SetTimestamps]
 //   - [DYTimelineCounterGroup.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYTimelineCounterGroup
 type DYTimelineCounterGroup struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type DYTimelineCounterGroup struct {
 func DYTimelineCounterGroupFromID(id objc.ID) DYTimelineCounterGroup {
 	return DYTimelineCounterGroup{objectivec.Object{ID: id}}
 }
+
 // Ensure DYTimelineCounterGroup implements IDYTimelineCounterGroup.
 var _ IDYTimelineCounterGroup = DYTimelineCounterGroup{}
 
@@ -113,7 +115,6 @@ func NewDYTimelineCounterGroup() DYTimelineCounterGroup {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYTimelineCounterGroup/initWithCoder:
 func NewDYTimelineCounterGroupWithCoder(coder objectivec.IObject) DYTimelineCounterGroup {
 	instance := getDYTimelineCounterGroupClass().Alloc()
@@ -121,12 +122,11 @@ func NewDYTimelineCounterGroupWithCoder(coder objectivec.IObject) DYTimelineCoun
 	return DYTimelineCounterGroupFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYTimelineCounterGroup/encodeWithCoder:
 func (d DYTimelineCounterGroup) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYTimelineCounterGroup/initWithCoder:
 func (d DYTimelineCounterGroup) InitWithCoder(coder foundation.INSCoder) DYTimelineCounterGroup {
 	rv := objc.Send[DYTimelineCounterGroup](d.ID, objc.Sel("initWithCoder:"), coder)
@@ -147,6 +147,7 @@ func (d DYTimelineCounterGroup) CounterNames() foundation.INSArray {
 func (d DYTimelineCounterGroup) SetCounterNames(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCounterNames:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYTimelineCounterGroup/counters
 func (d DYTimelineCounterGroup) Counters() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("counters"))
@@ -155,6 +156,7 @@ func (d DYTimelineCounterGroup) Counters() foundation.INSArray {
 func (d DYTimelineCounterGroup) SetCounters(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCounters:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/DYTimelineCounterGroup/timestamps
 func (d DYTimelineCounterGroup) Timestamps() foundation.INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("timestamps"))
@@ -163,4 +165,3 @@ func (d DYTimelineCounterGroup) Timestamps() foundation.INSData {
 func (d DYTimelineCounterGroup) SetTimestamps(value foundation.INSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimestamps:"), value)
 }
-

@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -65,6 +66,7 @@ type MTLRenderPassStencilAttachmentDescriptor struct {
 func MTLRenderPassStencilAttachmentDescriptorFromID(id objc.ID) MTLRenderPassStencilAttachmentDescriptor {
 	return MTLRenderPassStencilAttachmentDescriptor{MTLRenderPassAttachmentDescriptor: MTLRenderPassAttachmentDescriptorFromID(id)}
 }
+
 // NOTE: MTLRenderPassStencilAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,8 +121,8 @@ func NewMTLRenderPassStencilAttachmentDescriptor() MTLRenderPassStencilAttachmen
 // The filter used for stencil multisample resolve.
 //
 // # Discussion
-// 
-// The default value is [MultisampleStencilResolveFilterSample0].
+//
+// The default value is [MTLMultisampleStencilResolveFilterSample0].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassStencilAttachmentDescriptor/stencilResolveFilter
 func (r MTLRenderPassStencilAttachmentDescriptor) StencilResolveFilter() MTLMultisampleStencilResolveFilter {
@@ -130,15 +132,16 @@ func (r MTLRenderPassStencilAttachmentDescriptor) StencilResolveFilter() MTLMult
 func (r MTLRenderPassStencilAttachmentDescriptor) SetStencilResolveFilter(value MTLMultisampleStencilResolveFilter) {
 	objc.Send[struct{}](r.ID, objc.Sel("setStencilResolveFilter:"), value)
 }
+
 // The value to use when clearing the stencil attachment.
 //
 // # Discussion
-// 
-// If the [LoadAction] property of the attachment is set to [LoadActionClear],
-// then at the start of a render pass, the GPU fills the contents of the
-// attachment with the value stored in the [ClearStencil] property. Otherwise,
-// the GPU ignores [ClearStencil].
-// 
+//
+// If the [LoadAction] property of the attachment is set to
+// [MTLLoadActionClear], then at the start of a render pass, the GPU fills the
+// contents of the attachment with the value stored in the [ClearStencil]
+// property. Otherwise, the GPU ignores [ClearStencil].
+//
 // The default value is `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassStencilAttachmentDescriptor/clearStencil
@@ -149,4 +152,3 @@ func (r MTLRenderPassStencilAttachmentDescriptor) ClearStencil() uint32 {
 func (r MTLRenderPassStencilAttachmentDescriptor) SetClearStencil(value uint32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setClearStencil:"), value)
 }
-

@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSViewAnimation] class.
@@ -45,7 +46,7 @@ func (nc NSViewAnimationClass) Alloc() NSViewAnimation {
 // size, and to fade-in and fade-out effects.
 //
 // # Overview
-// 
+//
 // An [NSViewAnimation] object takes an array of dictionaries from which it
 // determines the objects to animate and the effects to apply to them. Each
 // dictionary must have a target object and, optionally, properties that
@@ -57,7 +58,7 @@ func (nc NSViewAnimationClass) Alloc() NSViewAnimation {
 // You may also set progress marks, assign a delegate, and implement
 // delegation methods in order to animate view and windows concurrent with the
 // ones specified as targets in the view-animation dictionary.
-// 
+//
 // Invoking the [NSAnimation] [StopAnimation] method on a running
 // [NSViewAnimation] object moves the animation to the end frame.
 //
@@ -82,6 +83,7 @@ type NSViewAnimation struct {
 func NSViewAnimationFromID(id objc.ID) NSViewAnimation {
 	return NSViewAnimation{NSAnimation: NSAnimationFromID(id)}
 }
+
 // NOTE: NSViewAnimation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,7 +133,6 @@ func NewNSViewAnimation() NSViewAnimation {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/init(coder:)
 func NewViewAnimationWithCoder(coder foundation.INSCoder) NSViewAnimation {
 	instance := getNSViewAnimationClass().Alloc()
@@ -150,12 +151,12 @@ func NewViewAnimationWithCoder(coder foundation.INSCoder) NSViewAnimation {
 // ([NSAnimationEaseInOut]) is used.
 //
 // # Return Value
-// 
+//
 // An initialized [NSAnimation] instance. Returns `nil` if the object could
 // not be initialized.
 //
 // # Discussion
-// 
+//
 // You can always later change the duration of an [NSAnimation] object by
 // changing the [Duration] property, even while the animation is running. See
 // “Constants” for descriptions of the NSAnimationCurve constants.
@@ -176,15 +177,15 @@ func NewViewAnimationWithDurationAnimationCurve(duration float64, animationCurve
 // [ViewAnimations] if you want to use the capabilities of the
 // [NSViewAnimation] class. See`View Animation Dictionary Keys` for a
 // description of valid keys and values for dictionaries in `viewAnimations`.
-// //
-// [NSDictionary]: https://developer.apple.com/documentation/Foundation/NSDictionary
 //
 // # Return Value
-// 
+//
 // The created [NSViewAnimation] object or `nil` if there was a problem
 // initializing the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewAnimation/init(viewAnimations:)
+//
+// [NSDictionary]: https://developer.apple.com/documentation/Foundation/NSDictionary
 func NewViewAnimationWithViewAnimations(viewAnimations foundation.INSDictionary) NSViewAnimation {
 	instance := getNSViewAnimationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithViewAnimations:"), viewAnimations)
@@ -200,15 +201,15 @@ func NewViewAnimationWithViewAnimations(viewAnimations foundation.INSDictionary)
 // [ViewAnimations] if you want to use the capabilities of the
 // [NSViewAnimation] class. See`View Animation Dictionary Keys` for a
 // description of valid keys and values for dictionaries in `viewAnimations`.
-// //
-// [NSDictionary]: https://developer.apple.com/documentation/Foundation/NSDictionary
 //
 // # Return Value
-// 
+//
 // The created [NSViewAnimation] object or `nil` if there was a problem
 // initializing the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewAnimation/init(viewAnimations:)
+//
+// [NSDictionary]: https://developer.apple.com/documentation/Foundation/NSDictionary
 func (v NSViewAnimation) InitWithViewAnimations(viewAnimations foundation.INSDictionary) NSViewAnimation {
 	rv := objc.Send[NSViewAnimation](v.ID, objc.Sel("initWithViewAnimations:"), viewAnimations)
 	return rv
@@ -224,4 +225,3 @@ func (v NSViewAnimation) ViewAnimations() foundation.INSDictionary {
 func (v NSViewAnimation) SetViewAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](v.ID, objc.Sel("setViewAnimations:"), value)
 }
-

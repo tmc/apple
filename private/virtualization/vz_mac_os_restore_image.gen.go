@@ -5,8 +5,9 @@ package virtualization
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,11 +44,11 @@ func (vc VZMacOSRestoreImageClass) Alloc() VZMacOSRestoreImage {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacOSRestoreImage._configurations]
 //   - [VZMacOSRestoreImage.Supported]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage
 type VZMacOSRestoreImage struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type VZMacOSRestoreImage struct {
 func VZMacOSRestoreImageFromID(id objc.ID) VZMacOSRestoreImage {
 	return VZMacOSRestoreImage{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMacOSRestoreImage implements IVZMacOSRestoreImage.
 var _ IVZMacOSRestoreImage = VZMacOSRestoreImage{}
 
@@ -96,10 +98,9 @@ func NewVZMacOSRestoreImage() VZMacOSRestoreImage {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_fetchAvailableImagesWithCompletionHandler:
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _fetchAvailableImagesWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchAvailableImagesWithCompletionHandler:"), _block0)
 }
 
@@ -107,10 +108,10 @@ _block0, _ := NewErrorBlock(handler)
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) FetchAvailableImagesWithCompletionHandler(handler ErrorHandler) {
 	_VZMacOSRestoreImageClass._fetchAvailableImagesWithCompletionHandler(handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_fetchLatestSupportedWithOptions:completionHandler:
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _fetchLatestSupportedWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_fetchLatestSupportedWithOptions:completionHandler:"), options, _block1)
 }
 
@@ -118,10 +119,10 @@ _block1, _ := NewErrorBlock(handler)
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) FetchLatestSupportedWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) {
 	_VZMacOSRestoreImageClass._fetchLatestSupportedWithOptionsCompletionHandler(options, handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_loadCatalogWithOptions:completionHandler:
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _loadCatalogWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadCatalogWithOptions:completionHandler:"), options, _block1)
 }
 
@@ -129,10 +130,10 @@ _block1, _ := NewErrorBlock(handler)
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadCatalogWithOptionsCompletionHandler(options objectivec.IObject, handler ErrorHandler) {
 	_VZMacOSRestoreImageClass._loadCatalogWithOptionsCompletionHandler(options, handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/_loadFileURL:deviceClassParser:completionHandler:
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) _loadFileURLDeviceClassParserCompletionHandler(url foundation.INSURL, parser objectivec.IObject, handler ErrorHandler) {
-_block2, _ := NewErrorBlock(handler)
+	_block2, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("_loadFileURL:deviceClassParser:completionHandler:"), url, parser, _block2)
 }
 
@@ -146,6 +147,7 @@ func (m VZMacOSRestoreImage) _configurations() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("_configurations"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/supported
 func (m VZMacOSRestoreImage) Supported() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("supported"))
@@ -211,4 +213,3 @@ func (mc VZMacOSRestoreImageClass) _loadFileURLDeviceClassParser(ctx context.Con
 		return ctx.Err()
 	}
 }
-

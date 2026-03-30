@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -73,6 +74,7 @@ type NSGroupTouchBarItem struct {
 func NSGroupTouchBarItemFromID(id objc.ID) NSGroupTouchBarItem {
 	return NSGroupTouchBarItem{NSTouchBarItem: NSTouchBarItemFromID(id)}
 }
+
 // NOTE: NSGroupTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -146,16 +148,16 @@ func NewNSGroupTouchBarItem() NSGroupTouchBarItem {
 // Initializes and returns a group item configured to match system alerts.
 //
 // # Discussion
-// 
+//
 // You can control spacing between items, but it is recommended to use
 // [fixedSpaceLarge] to maintain consistency.
-// 
+//
 // The [GroupUserInterfaceLayoutDirection] is set to match the application’s
 // [UserInterfaceLayoutDirection].
 //
-// [fixedSpaceLarge]: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/Identifier-swift.struct/fixedSpaceLarge
-//
 // See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/init(alertStyleWithIdentifier:)
+//
+// [fixedSpaceLarge]: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/Identifier-swift.struct/fixedSpaceLarge
 func NewGroupTouchBarItemAlertStyleGroupItemWithIdentifier(identifier NSTouchBarItemIdentifier) NSGroupTouchBarItem {
 	rv := objc.Send[objc.ID](objc.ID(getNSGroupTouchBarItemClass().class), objc.Sel("alertStyleGroupItemWithIdentifier:"), objc.String(string(identifier)))
 	return NSGroupTouchBarItemFromID(rv)
@@ -174,11 +176,11 @@ func NewGroupTouchBarItemGroupItemWithIdentifierItems(identifier NSTouchBarItemI
 // supplied items, and with the specified compression options.
 //
 // # Discussion
-// 
+//
 // Use this initializer to specify which compression options are applied to
 // the group item. The system applies options in the following default order:
 // `breakEqualWidths`, `reduceMetrics`, `hideText`, `hideImages`.
-// 
+//
 // If you want to use non-standard compression options, add them by using the
 // [PrioritizedCompressionOptions] property.
 //
@@ -200,7 +202,7 @@ func NewGroupTouchBarItemWithCoder(coder foundation.INSCoder) NSGroupTouchBarIte
 // Creates a new item with the specified identifier.
 //
 // # Discussion
-// 
+//
 // The designated initializer. The identifier must be globally unique for
 // every item, except for space items.
 //
@@ -214,14 +216,12 @@ func NewGroupTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) NSG
 // The user interface direction that controls the layout order of the items.
 //
 // # Discussion
-// 
-// The default value is [NSUserInterfaceLayoutDirection.leftToRight].
-// 
+//
+// The default value is [NSUserInterfaceLayoutDirectionLeftToRight].
+//
 // If you want the order of the items in the group to respect the user’s
 // preferred layout, set this property to the value of
 // [UserInterfaceLayoutDirection] on the [NSApplication].
-//
-// [NSUserInterfaceLayoutDirection.leftToRight]: https://developer.apple.com/documentation/AppKit/NSUserInterfaceLayoutDirection/leftToRight
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/groupUserInterfaceLayoutDirection
 func (g NSGroupTouchBarItem) GroupUserInterfaceLayoutDirection() NSUserInterfaceLayoutDirection {
@@ -231,18 +231,16 @@ func (g NSGroupTouchBarItem) GroupUserInterfaceLayoutDirection() NSUserInterface
 func (g NSGroupTouchBarItem) SetGroupUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirection) {
 	objc.Send[struct{}](g.ID, objc.Sel("setGroupUserInterfaceLayoutDirection:"), value)
 }
+
 // A Boolean value that specifies that items should have equal widths when
 // possible.
 //
 // # Discussion
-// 
-// When [true], items in the [GroupTouchBar] are sized to have equal widths
-// when possible.
-// 
-// The default value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When true, items in the [GroupTouchBar] are sized to have equal widths when
+// possible.
+//
+// The default value is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/prefersEqualWidths
 func (g NSGroupTouchBarItem) PrefersEqualWidths() bool {
@@ -252,18 +250,17 @@ func (g NSGroupTouchBarItem) PrefersEqualWidths() bool {
 func (g NSGroupTouchBarItem) SetPrefersEqualWidths(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPrefersEqualWidths:"), value)
 }
+
 // The preferred width for items in the group.
 //
 // # Discussion
-// 
-// This width applies when [PrefersEqualWidths] is [true].
-// 
+//
+// This width applies when [PrefersEqualWidths] is true.
+//
 // This is the width that items are set to if there is enough room, and if the
 // items don’t clip.
-// 
-// This value is ignored if it is negative. The default value is `-1`.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This value is ignored if it is negative. The default value is `-1`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/preferredItemWidth
 func (g NSGroupTouchBarItem) PreferredItemWidth() float64 {
@@ -273,6 +270,7 @@ func (g NSGroupTouchBarItem) PreferredItemWidth() float64 {
 func (g NSGroupTouchBarItem) SetPreferredItemWidth(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPreferredItemWidth:"), value)
 }
+
 // The compression options that are currently active on the group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/effectiveCompressionOptions
@@ -280,13 +278,14 @@ func (g NSGroupTouchBarItem) EffectiveCompressionOptions() INSUserInterfaceCompr
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("effectiveCompressionOptions"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
+
 // The allowed compression options, in the order they should be applied.
 //
 // # Discussion
-// 
+//
 // Use this property when you want to control the order of the system
 // compression options, or if you want to use custom compression options.
-// 
+//
 // The default value is an array containing all standard AppKit options, in
 // the AppKit-defined order.
 //
@@ -300,4 +299,3 @@ func (g NSGroupTouchBarItem) PrioritizedCompressionOptions() []NSUserInterfaceCo
 func (g NSGroupTouchBarItem) SetPrioritizedCompressionOptions(value []NSUserInterfaceCompressionOptions) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPrioritizedCompressionOptions:"), objectivec.IObjectSliceToNSArray(value))
 }
-

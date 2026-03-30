@@ -1256,9 +1256,6 @@ type DriverType = unsafe.Pointer
 // See: https://developer.apple.com/documentation/kernel/drivertypeptr
 type DriverTypePtr = unsafe.Pointer
 
-// See: https://developer.apple.com/documentation/kernel/duration
-type Duration = int32
-
 // See: https://developer.apple.com/documentation/kernel/efi_boolean
 type EFI_BOOLEAN = uint8
 
@@ -1367,11 +1364,17 @@ type EVScreen = unsafe.Pointer
 // See: https://developer.apple.com/documentation/kernel/exbrightmessage
 type EXBrightMessage = unsafe.Pointer
 
+// See: https://developer.apple.com/documentation/kernel/exbrightmessagetype
+type EXBrightMessageType = unsafe.Pointer
+
 // See: https://developer.apple.com/documentation/kernel/exdisplaypipehealthrecord
 type EXDisplayPipeHealthRecord = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/exdisplaypipehealthreport
 type EXDisplayPipeHealthReport = unsafe.Pointer
+
+// See: https://developer.apple.com/documentation/kernel/exdisplaypipeindicator
+type EXDisplayPipeIndicator = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/exdisplaypipeindicatorparams
 type EXDisplayPipeIndicatorParams = unsafe.Pointer
@@ -1786,6 +1789,9 @@ type IODataQueueClientDequeueEntryBlock = func(unsafe.Pointer, uintptr)
 // See: https://developer.apple.com/documentation/kernel/iodataqueueclientenqueueentryblock
 type IODataQueueClientEnqueueEntryBlock = func(unsafe.Pointer, uintptr)
 
+// See: https://developer.apple.com/documentation/kernel/iodebuggerlockstate
+type IODebuggerLockState = unsafe.Pointer
+
 // See: https://developer.apple.com/documentation/kernel/iodetailedtiminginformation
 type IODetailedTimingInformation = unsafe.Pointer
 
@@ -1840,8 +1846,14 @@ type IOEnetMulticastMode = bool
 // See: https://developer.apple.com/documentation/kernel/ioenetpromiscuousmode
 type IOEnetPromiscuousMode = bool
 
+// See: https://developer.apple.com/documentation/kernel/ioethernetcontrolleravbstate
+type IOEthernetControllerAVBState = unsafe.Pointer
+
 // See: https://developer.apple.com/documentation/kernel/ioethernetcontrolleravbstateevent
 type IOEthernetControllerAVBStateEvent = unsafe.Pointer
+
+// See: https://developer.apple.com/documentation/kernel/ioethernetcontrolleravbtimesyncsupport
+type IOEthernetControllerAVBTimeSyncSupport = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/iofbcursorcontrolattribute
 type IOFBCursorControlAttribute = unsafe.Pointer
@@ -1956,6 +1968,9 @@ type IOHIDEventType = uint32
 // See: https://developer.apple.com/documentation/kernel/iohidkeyboardphysicallayouttype
 type IOHIDKeyboardPhysicalLayoutType = uint32
 
+// See: https://developer.apple.com/documentation/kernel/iohidkind
+type IOHIDKind = uint
+
 // IOHIDOptionsType is options for opening a device via IOHIDLib.
 //
 // See: https://developer.apple.com/documentation/kernel/iohidoptionstype
@@ -2027,6 +2042,9 @@ type IOKitDiagnosticsParameters = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/iolock
 type IOLock = unsafe.Pointer
+
+// See: https://developer.apple.com/documentation/kernel/iolockstate
+type IOLockState = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/iologicaladdress
 type IOLogicalAddress = unsafe.Pointer
@@ -2554,6 +2572,9 @@ type IOUSBHostCIDoorbell = uint32
 
 // See: https://developer.apple.com/documentation/kernel/iousbhostcimessage
 type IOUSBHostCIMessage = unsafe.Pointer
+
+// See: https://developer.apple.com/documentation/kernel/iousbhostciuserclientversion
+type IOUSBHostCIUserClientVersion = int
 
 // IOUSBHostIOSourceClientRecordLink is a structure that represents a USB host input/output source client record entry.
 //
@@ -4290,6 +4311,21 @@ type Dyld_kernel_image_info_t = unsafe.Pointer
 // See: https://developer.apple.com/documentation/kernel/dyld_kernel_process_info_t
 type Dyld_kernel_process_info_t = unsafe.Pointer
 
+// See: https://developer.apple.com/documentation/kernel/eioaccelsurfacelockbits
+type EIOAccelSurfaceLockBits = int
+
+// See: https://developer.apple.com/documentation/kernel/eioaccelsurfacemodebits
+type EIOAccelSurfaceModeBits = int
+
+// See: https://developer.apple.com/documentation/kernel/eioaccelsurfacescalebits
+type EIOAccelSurfaceScaleBits = int
+
+// See: https://developer.apple.com/documentation/kernel/eioaccelsurfaceshapebits
+type EIOAccelSurfaceShapeBits = int
+
+// See: https://developer.apple.com/documentation/kernel/eioaccelsurfacestatebits
+type EIOAccelSurfaceStateBits = int
+
 // See: https://developer.apple.com/documentation/kernel/ecc_event_t
 type Ecc_event_t = unsafe.Pointer
 
@@ -5954,6 +5990,9 @@ type Nfs_supported_kerberos_etypes = unsafe.Pointer
 // See: https://developer.apple.com/documentation/kernel/nfserr_info_t
 type Nfserr_info_t = unsafe.Pointer
 
+// See: https://developer.apple.com/documentation/kernel/nfstype
+type Nfstype = unsafe.Pointer
+
 // See: https://developer.apple.com/documentation/kernel/nfsuint64
 type Nfsuint64 = unsafe.Pointer
 
@@ -6702,11 +6741,20 @@ type TDeviceRequestDirection = unsafe.Pointer
 // See: https://developer.apple.com/documentation/kernel/tdevicerequestrecipient
 type TDeviceRequestRecipient = unsafe.Pointer
 
+// See: https://developer.apple.com/documentation/kernel/tdevicerequesttype
+type TDeviceRequestType = unsafe.Pointer
+
 // See: https://developer.apple.com/documentation/kernel/tendpointdirection
 type TEndpointDirection = unsafe.Pointer
 
+// See: https://developer.apple.com/documentation/kernel/tendpointsynchronizationtype
+type TEndpointSynchronizationType = unsafe.Pointer
+
 // See: https://developer.apple.com/documentation/kernel/tendpointtype
 type TEndpointType = unsafe.Pointer
+
+// See: https://developer.apple.com/documentation/kernel/tendpointusagetype
+type TEndpointUsageType = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/tiopcideviceresetoptions
 type TIOPCIDeviceResetOptions = uint
@@ -6767,6 +6815,14 @@ type TIOUSBEndpointType = int
 // See: https://developer.apple.com/documentation/kernel/tiousbendpointusagetype
 type TIOUSBEndpointUsageType = int
 
+// TIOUSBLanguageID is constants for the USB language identifiers.
+//
+// See: https://developer.apple.com/documentation/kernel/tiousblanguageid
+type TIOUSBLanguageID = string
+
+// See: https://developer.apple.com/documentation/kernel/tusbctypecabletype
+type TUSBCTypeCableType = unsafe.Pointer
+
 // See: https://developer.apple.com/documentation/kernel/tusbdevicelpmstatus
 type TUSBDeviceLPMStatus = unsafe.Pointer
 
@@ -6777,6 +6833,15 @@ type TUSBHostConnectorType = unsafe.Pointer
 //
 // See: https://developer.apple.com/documentation/kernel/tusbhostdeviceaddress
 type TUSBHostDeviceAddress = uint16
+
+// See: https://developer.apple.com/documentation/kernel/tusbhostportconnectable
+type TUSBHostPortConnectable = unsafe.Pointer
+
+// See: https://developer.apple.com/documentation/kernel/tusbhostpowersourcetype
+type TUSBHostPowerSourceType = unsafe.Pointer
+
+// See: https://developer.apple.com/documentation/kernel/tusblpmexitlatency
+type TUSBLPMExitLatency = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/kernel/tusblinkstate
 type TUSBLinkState = unsafe.Pointer
@@ -7931,4 +7996,3 @@ type Zone_name_array_t = Zone_name_t
 
 // See: https://developer.apple.com/documentation/kernel/zone_name_t
 type Zone_name_t = unsafe.Pointer
-

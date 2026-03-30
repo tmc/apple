@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (ac AVMetricDownloadSummaryEventClass) Alloc() AVMetricDownloadSummaryEvent
 // download task.
 //
 // # Overview
-// 
+//
 // Subclasses of this type that are used from Swift must fulfill the
 // requirements of a Sendable type.
 //
@@ -69,6 +70,7 @@ type AVMetricDownloadSummaryEvent struct {
 func AVMetricDownloadSummaryEventFromID(id objc.ID) AVMetricDownloadSummaryEvent {
 	return AVMetricDownloadSummaryEvent{AVMetricEvent: AVMetricEventFromID(id)}
 }
+
 // NOTE: AVMetricDownloadSummaryEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -129,6 +131,7 @@ func (m AVMetricDownloadSummaryEvent) BytesDownloadedCount() int {
 	rv := objc.Send[int](m.ID, objc.Sel("bytesDownloadedCount"))
 	return rv
 }
+
 // Returns the total duration of the download in seconds.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricDownloadSummaryEvent/downloadDuration
@@ -136,6 +139,7 @@ func (m AVMetricDownloadSummaryEvent) DownloadDuration() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("downloadDuration"))
 	return rv
 }
+
 // Returns the error event if any. If no value is available, returns nil.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricDownloadSummaryEvent/errorEvent
@@ -143,6 +147,7 @@ func (m AVMetricDownloadSummaryEvent) ErrorEvent() IAVMetricErrorEvent {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("errorEvent"))
 	return AVMetricErrorEventFromID(objc.ID(rv))
 }
+
 // Returns the total number of media requests performed by the download task.
 // This includes playlist requests, media segment requests, and content key
 // requests.
@@ -152,11 +157,12 @@ func (m AVMetricDownloadSummaryEvent) MediaResourceRequestCount() int {
 	rv := objc.Send[int](m.ID, objc.Sel("mediaResourceRequestCount"))
 	return rv
 }
+
 // Returns the total count of recoverable errors encountered during the
 // download. If no errors were encountered, returns 0.
 //
 // # Discussion
-// 
+//
 // Error counts may not be consistent across OS versions. Comparisons should
 // be made within a given OS version, as error reporting is subject to change
 // with OS updates.
@@ -166,6 +172,7 @@ func (m AVMetricDownloadSummaryEvent) RecoverableErrorCount() int {
 	rv := objc.Send[int](m.ID, objc.Sel("recoverableErrorCount"))
 	return rv
 }
+
 // Returns the variants that were downloaded.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricDownloadSummaryEvent/variants
@@ -175,4 +182,3 @@ func (m AVMetricDownloadSummaryEvent) Variants() []AVAssetVariant {
 		return AVAssetVariantFromID(id)
 	})
 }
-

@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSLayoutGuideClass) Alloc() NSLayoutGuide {
 // A rectangular area that can interact with Auto Layout.
 //
 // # Overview
-// 
+//
 // Use layout guides to replace the placeholder views you may have created to
 // represent inter-view spaces or encapsulation in your user interface.
 // Traditionally, there were a number of Auto Layout techniques that required
@@ -60,7 +61,7 @@ func (nc NSLayoutGuideClass) Alloc() NSLayoutGuide {
 // of your user interface. Placeholder views let you break up a large, complex
 // user interface into self-contained, modular chunks. When used properly,
 // they could greatly simplify your Auto Layout constraint logic.
-// 
+//
 // There are a number of costs associated with adding placeholder views to
 // your view hierarchy. First, there is the cost of creating and maintaining
 // the view itself. Second, the placeholder view is a full member of the view
@@ -68,26 +69,26 @@ func (nc NSLayoutGuideClass) Alloc() NSLayoutGuide {
 // performs. Worst of all, the invisible placeholder view can intercept
 // messages that are intended for other views, causing problems that are very
 // difficult to find.
-// 
+//
 // The [NSLayoutGuide] class is designed to perform all the tasks previously
 // performed by placeholder views, but to do it in a safer, more efficient
 // manner. Layout guides are not views. They do not use as much memory, and
 // they do not participate in the view hierarchy. Instead, they simply define
 // a rectangular region in their owning view’s coordinate system that can
 // interact with Auto Layout.
-// 
+//
 // # Creating Layout Guides
-// 
+//
 // To create a layout guide, perform the following steps:
-// 
+//
 // - Instantiate a new layout guide. - Add the layout guide to a view by
 // calling the view’s [AddLayoutGuide] method . - Define the position and
 // size of the layout guide using Auto Layout.
-// 
+//
 // You can use these guides to define the space between elements in your
 // layout. The following example shows how to use layout guides to define an
 // equal spacing between a series of views.
-// 
+//
 // A layout guide can also act as an opaque box that contains other views and
 // controls, letting you encapsulate parts of your view and break up your
 // layout into modular chunks.
@@ -130,6 +131,7 @@ type NSLayoutGuide struct {
 func NSLayoutGuideFromID(id objc.ID) NSLayoutGuide {
 	return NSLayoutGuide{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSLayoutGuide adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -228,7 +230,6 @@ func NewNSLayoutGuide() NSLayoutGuide {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/constraintsAffectingLayout(for:)
 func (l NSLayoutGuide) ConstraintsAffectingLayoutForOrientation(orientation NSLayoutConstraintOrientation) []NSLayoutConstraint {
 	rv := objc.Send[[]objc.ID](l.ID, objc.Sel("constraintsAffectingLayoutForOrientation:"), orientation)
@@ -243,13 +244,13 @@ func (l NSLayoutGuide) EncodeWithCoder(coder foundation.INSCoder) {
 // A string used to identify the layout guide.
 //
 // # Discussion
-// 
+//
 // By default, the `identifier` property is `nil`. You can assign a string to
 // help identify this guide. This string appears as part of the guide’s
 // description when the guide is printed to the console. You can also use the
 // identifier to find a particular layout guide from among the guides owned by
 // a view.
-// 
+//
 // Identifiers starting with “NS” or “UI” are reserved by the system.
 // The system may assign these identifiers to the guides it creates.
 //
@@ -261,25 +262,27 @@ func (l NSLayoutGuide) Identifier() NSUserInterfaceItemIdentifier {
 func (l NSLayoutGuide) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](l.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
+
 // The layout guide’s frame in its owning view’s coordinate system.
 //
 // # Discussion
-// 
+//
 // The layout guide defines a rectangular space in its owning view’s
 // coordinate system. This property contains a valid [CGRect] value by the
 // time its owning view’s [Layout] method is called.
 //
-// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
-//
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/frame
+//
+// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 func (l NSLayoutGuide) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
+
 // The view that owns this layout guide.
 //
 // # Discussion
-// 
+//
 // By default, this property is `nil`. To participate in Auto Layout, the
 // layout guide must be added to a view by calling its [AddLayoutGuide]
 // method. Do not modify this property directly. Instead, use the view’s
@@ -294,184 +297,193 @@ func (l NSLayoutGuide) OwningView() INSView {
 func (l NSLayoutGuide) SetOwningView(value INSView) {
 	objc.Send[struct{}](l.ID, objc.Sel("setOwningView:"), value)
 }
+
 // A layout anchor representing the bottom edge of the layout guide’s frame.
 //
 // # Discussion
-// 
+//
 // Use this anchor to create constraints with the layout guide’s bottom
 // edge. You can combine this anchor only with other [NSLayoutYAxisAnchor]
 // anchors. For more information, see [NSLayoutAnchor].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/bottomAnchor
+//
 // [NSLayoutAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutAnchor
 // [NSLayoutYAxisAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutYAxisAnchor
-//
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/bottomAnchor
 func (l NSLayoutGuide) BottomAnchor() INSLayoutYAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("bottomAnchor"))
 	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
 }
+
 // A layout anchor representing the horizontal center of the layout guide’s
 // frame.
 //
 // # Discussion
-// 
+//
 // Use this anchor to create constraints with the layout guide’s horizontal
 // center. You can combine this anchor only with other [NSLayoutXAxisAnchor]
 // anchors. For more information, see [NSLayoutAnchor].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/centerXAnchor
+//
 // [NSLayoutAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutAnchor
 // [NSLayoutXAxisAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutXAxisAnchor
-//
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/centerXAnchor
 func (l NSLayoutGuide) CenterXAnchor() INSLayoutXAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("centerXAnchor"))
 	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
 }
+
 // A layout anchor representing the vertical center of the layout guide’s
 // frame.
 //
 // # Discussion
-// 
+//
 // Use this anchor to create constraints with the layout guide’s vertical
 // center. You can combine this anchor only with other [NSLayoutYAxisAnchor]
 // anchors. For more information, see [NSLayoutAnchor].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/centerYAnchor
+//
 // [NSLayoutAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutAnchor
 // [NSLayoutYAxisAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutYAxisAnchor
-//
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/centerYAnchor
 func (l NSLayoutGuide) CenterYAnchor() INSLayoutYAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("centerYAnchor"))
 	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
 }
+
 // A layout anchor representing the height of the layout guide’s frame.
 //
 // # Discussion
-// 
+//
 // Use this anchor to create constraints with the layout guide’s height. You
 // can combine this anchor only with other [NSLayoutDimension] anchors. For
 // more information, see [NSLayoutAnchor].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/heightAnchor
+//
 // [NSLayoutAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutAnchor
 // [NSLayoutDimension]: https://developer.apple.com/documentation/UIKit/NSLayoutDimension
-//
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/heightAnchor
 func (l NSLayoutGuide) HeightAnchor() INSLayoutDimension {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("heightAnchor"))
 	return NSLayoutDimensionFromID(objc.ID(rv))
 }
+
 // A layout anchor representing the leading edge of the layout guide’s
 // frame.
 //
 // # Discussion
-// 
+//
 // Use this anchor to create constraints with the layout guide’s leading
 // edge. You can combine this anchor only with a subset of the
 // [NSLayoutXAxisAnchor] anchors. You can combine a [LeadingAnchor] with
 // another `leadingAnchor`, a `trailingAnchor`, or a `centerXAnchor`. For more
 // information, see [NSLayoutAnchor].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/leadingAnchor
+//
 // [NSLayoutAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutAnchor
 // [NSLayoutXAxisAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutXAxisAnchor
-//
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/leadingAnchor
 func (l NSLayoutGuide) LeadingAnchor() INSLayoutXAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("leadingAnchor"))
 	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
 }
+
 // A layout anchor representing the left edge of the layout guide’s frame.
 //
 // # Discussion
-// 
+//
 // Use this anchor to create constraints with the layout guide’s left edge.
 // You can combine this anchor only with a subset of the [NSLayoutXAxisAnchor]
 // anchors. You can combine a [LeftAnchor] with another `leftAnchor`, a
 // `rightAnchor`, or a `centerXAnchor`. For more information, see
 // [NSLayoutAnchor].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/leftAnchor
+//
 // [NSLayoutAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutAnchor
 // [NSLayoutXAxisAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutXAxisAnchor
-//
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/leftAnchor
 func (l NSLayoutGuide) LeftAnchor() INSLayoutXAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("leftAnchor"))
 	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
 }
+
 // A layout anchor representing the right edge of the layout guide’s frame.
 //
 // # Discussion
-// 
+//
 // Use this anchor to create constraints with the layout guide’s right edge.
 // You can combine this anchor only with a subset of the [NSLayoutXAxisAnchor]
 // anchors. You can combine a [RightAnchor] with another `rightAnchor`, a
 // `leftAnchor`, or a `centerXAnchor`. For more information, see
 // [NSLayoutAnchor].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/rightAnchor
+//
 // [NSLayoutAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutAnchor
 // [NSLayoutXAxisAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutXAxisAnchor
-//
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/rightAnchor
 func (l NSLayoutGuide) RightAnchor() INSLayoutXAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("rightAnchor"))
 	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
 }
+
 // A layout anchor representing the top edge of the layout guide’s frame.
 //
 // # Discussion
-// 
+//
 // Use this anchor to create constraints with the layout guide’s top edge.
 // You can combine this anchor only with other [NSLayoutYAxisAnchor] anchors.
 // For more information, see [NSLayoutAnchor].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/topAnchor
+//
 // [NSLayoutAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutAnchor
 // [NSLayoutYAxisAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutYAxisAnchor
-//
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/topAnchor
 func (l NSLayoutGuide) TopAnchor() INSLayoutYAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("topAnchor"))
 	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
 }
+
 // A layout anchor representing the trailing edge of the layout guide’s
 // frame.
 //
 // # Discussion
-// 
+//
 // Use this anchor to create constraints with the layout guide’s trailing
 // edge. You can combine this anchor only with a subset of the
 // [NSLayoutXAxisAnchor] anchors. You can combine a [TrailingAnchor] with
 // another `trailingAnchor`, a `leadingAnchor`, or a `centerXAnchor`. For more
 // information, see [NSLayoutAnchor].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/trailingAnchor
+//
 // [NSLayoutAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutAnchor
 // [NSLayoutXAxisAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutXAxisAnchor
-//
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/trailingAnchor
 func (l NSLayoutGuide) TrailingAnchor() INSLayoutXAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("trailingAnchor"))
 	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
 }
+
 // A layout anchor representing the width of the layout guide’s frame.
 //
 // # Discussion
-// 
+//
 // Use this anchor to create constraints with the layout guide’s width. You
 // can combine this anchor only with other [NSLayoutDimension] anchors. For
 // more information, see [NSLayoutAnchor].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/widthAnchor
+//
 // [NSLayoutAnchor]: https://developer.apple.com/documentation/UIKit/NSLayoutAnchor
 // [NSLayoutDimension]: https://developer.apple.com/documentation/UIKit/NSLayoutDimension
-//
-// See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/widthAnchor
 func (l NSLayoutGuide) WidthAnchor() INSLayoutDimension {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("widthAnchor"))
 	return NSLayoutDimensionFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/hasAmbiguousLayout
 func (l NSLayoutGuide) HasAmbiguousLayout() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("hasAmbiguousLayout"))
 	return rv
 }
 
-			// Protocol methods for NSUserInterfaceItemIdentification
-			
-
+// Protocol methods for NSUserInterfaceItemIdentification

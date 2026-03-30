@@ -1,11 +1,10 @@
-
 // Code generated from Apple documentation for Vision. DO NOT EDIT.
 
 // Package vision provides Go bindings for the Vision framework.
 //
-// Apply computer vision algorithms to perform a variety of tasks on input images and videos.
+// Analyze image and video content in your app using computer vision algorithms for object detection, text recognition, and image segmentation.
 //
-// The Vision framework combines machine learning technologies and Swift’s concurrency features to perform computer vision tasks in your app. Use the Vision framework to analyze images for a variety of purposes:
+// The Vision framework provides pretrained machine learning models for computer vision tasks. Use Vision to analyze still images and video for a variety of purposes, including:
 //
 // # Text and document analysis
 //
@@ -129,20 +128,28 @@ package vision
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/Vision.framework/Vision"
+// frameworkPaths lists paths to try when loading the Vision library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/Vision.framework/Vision",
+	"/usr/lib/libVision.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: Vision: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: Vision: failed to load framework from any known path\n")
 }
-

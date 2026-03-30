@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (ec ETModelDefMLPClass) Alloc() ETModelDefMLP {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETModelDefMLP.BuildNetwork]
@@ -51,6 +51,7 @@ func (ec ETModelDefMLPClass) Alloc() ETModelDefMLP {
 //   - [ETModelDefMLP.SetInput_size]
 //   - [ETModelDefMLP.Output_size]
 //   - [ETModelDefMLP.SetOutput_size]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETModelDefMLP
 type ETModelDefMLP struct {
 	ETModelDef
@@ -60,6 +61,7 @@ type ETModelDefMLP struct {
 func ETModelDefMLPFromID(id objc.ID) ETModelDefMLP {
 	return ETModelDefMLP{ETModelDef: ETModelDefFromID(id)}
 }
+
 // Ensure ETModelDefMLP implements IETModelDefMLP.
 var _ IETModelDefMLP = ETModelDefMLP{}
 
@@ -109,7 +111,6 @@ func NewETModelDefMLP() ETModelDefMLP {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETModelDef/initWithNetwork:
 func NewETModelDefMLPWithNetwork(network objectivec.IObject) ETModelDefMLP {
 	instance := getETModelDefMLPClass().Alloc()
@@ -130,6 +131,7 @@ func (e ETModelDefMLP) Hidden_size() int {
 func (e ETModelDefMLP) SetHidden_size(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setHidden_size:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETModelDefMLP/input_size
 func (e ETModelDefMLP) Input_size() int {
 	rv := objc.Send[int](e.ID, objc.Sel("input_size"))
@@ -138,6 +140,7 @@ func (e ETModelDefMLP) Input_size() int {
 func (e ETModelDefMLP) SetInput_size(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInput_size:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETModelDefMLP/output_size
 func (e ETModelDefMLP) Output_size() int {
 	rv := objc.Send[int](e.ID, objc.Sel("output_size"))
@@ -146,4 +149,3 @@ func (e ETModelDefMLP) Output_size() int {
 func (e ETModelDefMLP) SetOutput_size(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setOutput_size:"), value)
 }
-

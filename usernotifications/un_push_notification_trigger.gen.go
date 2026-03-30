@@ -4,6 +4,7 @@ package usernotifications
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (uc UNPushNotificationTriggerClass) Alloc() UNPushNotificationTrigger {
 // has sent the notification.
 //
 // # Overview
-// 
+//
 // You don’t create instances of this class yourself. The system creates
 // [UNPushNotificationTrigger] objects and associates them with requests that
 // originated from Apple Push Notification service. You encounter instances of
@@ -63,6 +64,7 @@ type UNPushNotificationTrigger struct {
 func UNPushNotificationTriggerFromID(id objc.ID) UNPushNotificationTrigger {
 	return UNPushNotificationTrigger{UNNotificationTrigger: UNNotificationTriggerFromID(id)}
 }
+
 // NOTE: UNPushNotificationTrigger adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,4 +108,3 @@ func (u UNPushNotificationTrigger) Trigger() IUNNotificationTrigger {
 func (u UNPushNotificationTrigger) SetTrigger(value IUNNotificationTrigger) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTrigger:"), value)
 }
-

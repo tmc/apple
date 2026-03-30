@@ -23,6 +23,7 @@ type NSFastEnumeration interface {
 type NSFastEnumerationObject struct {
 	objectivec.Object
 }
+
 func (o NSFastEnumerationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -46,12 +47,12 @@ func NSFastEnumerationObjectFromID(id objc.ID) NSFastEnumerationObject {
 // len: The maximum number of objects to return in `stackbuf`.
 //
 // # Return Value
-// 
+//
 // The number of objects returned in `stackbuf`. Returns `0` when the
 // iteration is finished.
 //
 // # Discussion
-// 
+//
 // The state structure is assumed to be of stack local memory, so you can
 // recast the passed in state structure to one more suitable for your
 // iteration.
@@ -60,5 +61,4 @@ func NSFastEnumerationObjectFromID(id objc.ID) NSFastEnumerationObject {
 func (o NSFastEnumerationObject) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
-	}
-
+}

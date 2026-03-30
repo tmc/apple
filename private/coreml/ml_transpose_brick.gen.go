@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLTransposeBrickClass) Alloc() MLTransposeBrick {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLTransposeBrick.Axes]
@@ -58,6 +58,7 @@ func (mc MLTransposeBrickClass) Alloc() MLTransposeBrick {
 //   - [MLTransposeBrick.Description]
 //   - [MLTransposeBrick.Hash]
 //   - [MLTransposeBrick.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick
 type MLTransposeBrick struct {
 	objectivec.Object
@@ -67,6 +68,7 @@ type MLTransposeBrick struct {
 func MLTransposeBrickFromID(id objc.ID) MLTransposeBrick {
 	return MLTransposeBrick{objectivec.Object{ID: id}}
 }
+
 // Ensure MLTransposeBrick implements IMLTransposeBrick.
 var _ IMLTransposeBrick = MLTransposeBrick{}
 
@@ -128,7 +130,6 @@ func NewMLTransposeBrick() MLTransposeBrick {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/initWithParameters:
 func NewTransposeBrickWithParameters(parameters objectivec.IObject) MLTransposeBrick {
 	instance := getMLTransposeBrickClass().Alloc()
@@ -136,23 +137,23 @@ func NewTransposeBrickWithParameters(parameters objectivec.IObject) MLTransposeB
 	return MLTransposeBrickFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/computeOnCPUWithInputTensors:outputTensors:
 func (t MLTransposeBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/hasGPUSupport
 func (t MLTransposeBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/setupForInputShapes:withParameters:
 func (t MLTransposeBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/initWithParameters:
 func (t MLTransposeBrick) InitWithParameters(parameters objectivec.IObject) MLTransposeBrick {
 	rv := objc.Send[MLTransposeBrick](t.ID, objc.Sel("initWithParameters:"), parameters)
@@ -164,44 +165,51 @@ func (t MLTransposeBrick) Axes() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("axes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/debugDescription
 func (t MLTransposeBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/description
 func (t MLTransposeBrick) Description() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/hash
 func (t MLTransposeBrick) Hash() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/inputRanks
 func (t MLTransposeBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/inputShapes
 func (t MLTransposeBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/outputRanks
 func (t MLTransposeBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/outputShapes
 func (t MLTransposeBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLTransposeBrick/superclass
 func (t MLTransposeBrick) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](t.ID, objc.Sel("superclass"))
 	return rv
 }
-

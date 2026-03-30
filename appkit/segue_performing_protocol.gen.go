@@ -18,6 +18,7 @@ type NSSeguePerforming interface {
 type NSSeguePerformingObject struct {
 	objectivec.Object
 }
+
 func (o NSSeguePerformingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -33,7 +34,7 @@ func NSSeguePerformingObjectFromID(id objc.ID) NSSeguePerformingObject {
 // Performs the specified segue.
 //
 // identifier: The string that uniquely identifies the segue in the storyboard file.
-// 
+//
 // In Interface Builder, you can provide an identifier string to a segue using
 // the inspector. Pass this string to this parameter.
 //
@@ -41,12 +42,12 @@ func NSSeguePerformingObjectFromID(id objc.ID) NSSeguePerformingObject {
 // the object available to your implementation during the segue.
 //
 // # Discussion
-// 
+//
 // Apps typically do not need to trigger segues programmatically. If needed,
 // you can call this method to trigger a segue for an action that cannot be
 // expressed in a storyboard file, such as a transition between scenes in
 // different storyboards.
-// 
+//
 // Typically, a segue is triggered by a user action, such as clicking a
 // button. In Interface Builder, configure an object, such as a control
 // embedded in the view controller’s view hierarchy, to trigger the segue.
@@ -54,7 +55,8 @@ func NSSeguePerformingObjectFromID(id objc.ID) NSSeguePerformingObject {
 // See: https://developer.apple.com/documentation/AppKit/NSSeguePerforming/performSegue(withIdentifier:sender:)
 func (o NSSeguePerformingObject) PerformSegueWithIdentifierSender(identifier NSStoryboardSegueIdentifier, sender objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("performSegueWithIdentifier:sender:"), objc.String(string(identifier)), sender)
-	}
+}
+
 // Called when a segue is about to be performed.
 //
 // segue: The segue object containing information about the view controllers involved
@@ -65,13 +67,13 @@ func (o NSSeguePerformingObject) PerformSegueWithIdentifierSender(identifier NSS
 // initiated the segue.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing; you can override it
 // to pass relevant data to the new view controller or window controller,
 // based on the context of the segue. The `segue` object describes the
 // transition and includes references to both controllers involved in the
 // segue.
-// 
+//
 // Segues can be triggered from multiple sources, so use the information in
 // the `segue` and `sender` parameters to disambiguate between different
 // logical paths in your app. For example, if the segue originated from a
@@ -82,11 +84,12 @@ func (o NSSeguePerformingObject) PerformSegueWithIdentifierSender(identifier NSS
 // See: https://developer.apple.com/documentation/AppKit/NSSeguePerforming/prepare(for:sender:)
 func (o NSSeguePerformingObject) PrepareForSegueSender(segue INSStoryboardSegue, sender objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("prepareForSegue:sender:"), segue, sender)
-	}
+}
+
 // Called immediately prior to the performance of a storyboard segue.
 //
 // identifier: The string that identifies the segue to be performed.
-// 
+//
 // Using the Interface Builder inspector, provide a unique identifier string
 // for each segue in a storyboard. The system provides a segue’s identifier
 // to this parameter when it calls this method. The identifier string is used
@@ -97,23 +100,17 @@ func (o NSSeguePerformingObject) PrepareForSegueSender(segue INSStoryboardSegue,
 // informational purposes during the segue.
 //
 // # Return Value
-// 
-// [true] to allow a segue to proceed or [false] to stop it from proceeding.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to allow a segue to proceed or false to stop it from proceeding.
 //
 // # Discussion
-// 
-// Override this method to return [false] for cases where you want to prevent
+//
+// Override this method to return false for cases where you want to prevent
 // the performance of a segue. By default, invocation of a segue results in
 // the segue being performed.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSeguePerforming/shouldPerformSegue(withIdentifier:sender:)
 func (o NSSeguePerformingObject) ShouldPerformSegueWithIdentifierSender(identifier NSStoryboardSegueIdentifier, sender objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("shouldPerformSegueWithIdentifier:sender:"), objc.String(string(identifier)), sender)
 	return rv
-	}
-
+}

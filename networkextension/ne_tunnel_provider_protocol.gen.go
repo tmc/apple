@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NETunnelProviderProtocol] class.
@@ -44,7 +45,7 @@ func (nc NETunnelProviderProtocolClass) Alloc() NETunnelProviderProtocol {
 // Configuration parameters for a VPN tunnel.
 //
 // # Overview
-// 
+//
 // [NETunnelProviderProtocol] objects are used to specify configuration
 // parameters for Tunnel Provider extensions.
 //
@@ -66,6 +67,7 @@ type NETunnelProviderProtocol struct {
 func NETunnelProviderProtocolFromID(id objc.ID) NETunnelProviderProtocol {
 	return NETunnelProviderProtocol{NEVPNProtocol: NEVPNProtocolFromID(id)}
 }
+
 // NOTE: NETunnelProviderProtocol adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,14 +117,14 @@ func NewNETunnelProviderProtocol() NETunnelProviderProtocol {
 // developer.
 //
 // # Discussion
-// 
+//
 // All of the keys and values in this dictionary must conform to the
 // [NSSecureCoding] and [NSCopying] protocols.
 //
+// See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderProtocol/providerConfiguration
+//
 // [NSCopying]: https://developer.apple.com/documentation/Foundation/NSCopying
 // [NSSecureCoding]: https://developer.apple.com/documentation/Foundation/NSSecureCoding
-//
-// See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderProtocol/providerConfiguration
 func (t NETunnelProviderProtocol) ProviderConfiguration() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("providerConfiguration"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -130,11 +132,12 @@ func (t NETunnelProviderProtocol) ProviderConfiguration() foundation.INSDictiona
 func (t NETunnelProviderProtocol) SetProviderConfiguration(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setProviderConfiguration:"), value)
 }
+
 // A string identifying the specific Tunnel Provider extension that should be
 // used with this configuration.
 //
 // # Discussion
-// 
+//
 // A single app may contain multiple Tunnel Provider extensions. This property
 // is used to specify which Tunnel Provider extension should be used with this
 // configuration.
@@ -147,4 +150,3 @@ func (t NETunnelProviderProtocol) ProviderBundleIdentifier() string {
 func (t NETunnelProviderProtocol) SetProviderBundleIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setProviderBundleIdentifier:"), objc.String(value))
 }
-

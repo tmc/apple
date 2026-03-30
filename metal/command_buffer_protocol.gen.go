@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -149,36 +149,6 @@ type MTLCommandBuffer interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/useResidencySets:count:
 	UseResidencySetsCount(residencySets []MTLResidencySet, count uint)
 
-	// The host time, in seconds, when the GPU finishes execution of the command buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuEndTime
-	GPUEndTime() float64
-
-	// The host time, in seconds, when the GPU starts command buffer execution.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuStartTime
-	GPUStartTime() float64
-
-	// The command queue that creates the command buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/commandQueue
-	CommandQueue() MTLCommandQueue
-
-	// The GPU device that indirectly owns the command buffer because you create it from a command queue the device also owns.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/device
-	Device() MTLDevice
-
-	// A description of an error when the GPU encounters an issue as it runs the command buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/error
-	Error() foundation.INSError
-
-	// Settings that determine which information the command buffer records about execution errors, and how it does it.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/errorOptions
-	ErrorOptions() MTLCommandBufferErrorOption
-
 	// The host time, in seconds, when the CPU finishes scheduling the command buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelEndTime
@@ -210,6 +180,7 @@ type MTLCommandBuffer interface {
 type MTLCommandBufferObject struct {
 	objectivec.Object
 }
+
 func (o MTLCommandBufferObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -228,23 +199,24 @@ func MTLCommandBufferObjectFromID(id objc.ID) MTLCommandBufferObject {
 // [MTLTexture], and [MTLHeap] instances.
 //
 // # Discussion
-// 
+//
 // Each command buffer can maintain a list of up to 32 different residency
 // sets. See [Simplifying GPU resource management with residency sets] and
 // [MTLResidencySet] for more information.
 //
-// [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
-//
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/useResidencySet(_:)
+//
+// [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 func (o MTLCommandBufferObject) UseResidencySet(residencySet MTLResidencySet) {
 	objc.Send[struct{}](o.ID, objc.Sel("useResidencySet:"), residencySet)
-	}
+}
+
 // Encodes a command into the command buffer that pauses the GPU from running
 // the buffer’s subsequent passes until the event equals or exceeds a value.
 //
 // event: An [MTLEvent] instance the GPU driver waits for between passes as it runs
 // the command buffer.
-// 
+//
 // If `event` is an [MTLSharedEvent] instance, a command buffer from any GPU
 // device can signal this command buffer. Otherwise, only command buffers from
 // the same GPU device can signal this command buffer.
@@ -253,16 +225,16 @@ func (o MTLCommandBufferObject) UseResidencySet(residencySet MTLResidencySet) {
 // remaining passes in the command buffer.
 //
 // # Discussion
-// 
+//
 // This method prevents the GPU from starting the next pass in the command
 // buffer until another command buffer signals `event` (see
 // [EncodeSignalEventValue].
-// 
+//
 // A command buffer can instruct the GPU to wait for an event only between
 // passes, not within a pass. If a command buffer has an active encoder,
 // finish using the encoder, call its [EndEncoding] method, and then call this
 // method before creating another encoder.
-// 
+//
 // When the GPU device reaches the wait command that this method encodes into
 // the buffer, it checks the event’s current value. If the event’s value
 // — which increases monotonically — is less than the `value` parameter,
@@ -275,19 +247,20 @@ func (o MTLCommandBufferObject) UseResidencySet(residencySet MTLResidencySet) {
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/encodeWaitForEvent(_:value:)
 func (o MTLCommandBufferObject) EncodeWaitForEventValue(event MTLEvent, value uint64) {
 	objc.Send[struct{}](o.ID, objc.Sel("encodeWaitForEvent:value:"), event, value)
-	}
+}
+
 // Encodes a command that updates an event’s value, which can clear the GPU
 // to run passes from other command buffers waiting for the event.
 //
 // event: An [MTLEvent] instance the GPU driver signals between passes as it runs the
 // command buffer.
-// 
+//
 // If `event` is an [MTLSharedEvent] instance, the update:
-// 
+//
 // - Signals any command buffers waiting for the shared event, including those
 // on other GPU devices - Invokes any notification handlers waiting for the
 // shared event (see [NotifyListenerAtValueBlock])
-// 
+//
 // Otherwise, the method can signal only command buffers from the same GPU
 // device.
 //
@@ -295,16 +268,16 @@ func (o MTLCommandBufferObject) EncodeWaitForEventValue(event MTLEvent, value ui
 // otherwise, the command has no effect.
 //
 // # Discussion
-// 
+//
 // The method can unblock one or more command buffers that are waiting for
 // `event`, including those in other command queues (see
 // [EncodeWaitForEventValue]).
-// 
+//
 // A command buffer can signal an event only between passes, not within a
 // pass. If a command buffer has an active encoder, finish using the encoder,
 // call its [EndEncoding] method, and then call this method before creating
 // another encoder.
-// 
+//
 // When the GPU device reaches the signal command that this method encodes,
 // Metal updates the event after the GPU finishes the buffer’s prior
 // commands. Updating the event’s value can signal any command buffer
@@ -313,14 +286,15 @@ func (o MTLCommandBufferObject) EncodeWaitForEventValue(event MTLEvent, value ui
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/encodeSignalEvent(_:value:)
 func (o MTLCommandBufferObject) EncodeSignalEventValue(event MTLEvent, value uint64) {
 	objc.Send[struct{}](o.ID, objc.Sel("encodeSignalEvent:value:"), event, value)
-	}
+}
+
 // Presents a drawable as early as possible.
 //
 // drawable: An [MTLDrawable] instance that contains a texture the system can show on a
 // display.
 //
 // # Discussion
-// 
+//
 // This convenience method calls the drawable’s [Present] method after the
 // command queue schedules the command buffer for execution. The command
 // buffer does this by adding a completion handler by calling its own
@@ -329,7 +303,8 @@ func (o MTLCommandBufferObject) EncodeSignalEventValue(event MTLEvent, value uin
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/present(_:)
 func (o MTLCommandBufferObject) PresentDrawable(drawable MTLDrawable) {
 	objc.Send[struct{}](o.ID, objc.Sel("presentDrawable:"), drawable)
-	}
+}
+
 // Presents a drawable at a specific time.
 //
 // drawable: An [MTLDrawable] instance that contains a texture the system can show on a
@@ -338,7 +313,7 @@ func (o MTLCommandBufferObject) PresentDrawable(drawable MTLDrawable) {
 // presentationTime: The Mach absolute time, in seconds, that you want to present the drawable.
 //
 // # Discussion
-// 
+//
 // This convenience method calls the drawable’s [PresentAtTime] method after
 // the command queue schedules the command buffer for execution. The command
 // buffer does this by adding a completion handler by calling its own
@@ -347,7 +322,8 @@ func (o MTLCommandBufferObject) PresentDrawable(drawable MTLDrawable) {
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/present(_:atTime:)
 func (o MTLCommandBufferObject) PresentDrawableAtTime(drawable MTLDrawable, presentationTime float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("presentDrawable:atTime:"), drawable, presentationTime)
-	}
+}
+
 // Presents a drawable after the system presents the previous drawable for an
 // amount of time.
 //
@@ -358,7 +334,7 @@ func (o MTLCommandBufferObject) PresentDrawableAtTime(drawable MTLDrawable, pres
 // drawable before presenting this one.
 //
 // # Discussion
-// 
+//
 // This convenience method calls the drawable’s
 // [PresentAfterMinimumDuration] method after the command queue schedules the
 // command buffer for execution. The command buffer does this by adding a
@@ -367,7 +343,8 @@ func (o MTLCommandBufferObject) PresentDrawableAtTime(drawable MTLDrawable, pres
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/present(_:afterMinimumDuration:)
 func (o MTLCommandBufferObject) PresentDrawableAfterMinimumDuration(drawable MTLDrawable, duration float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("presentDrawable:afterMinimumDuration:"), drawable, duration)
-	}
+}
+
 // Registers a completion handler the GPU device calls immediately after it
 // schedules the command buffer to run on the GPU.
 //
@@ -375,27 +352,29 @@ func (o MTLCommandBufferObject) PresentDrawableAfterMinimumDuration(drawable MTL
 // the command buffer to run on the GPU.
 //
 // # Discussion
-// 
+//
 // You can register one or more scheduling completion handlers for the same
 // command buffer. The GPU device’s driver (on the CPU) calls the completion
 // handlers after it finishes scheduling the command buffer to run on the GPU.
-// 
+//
 // The GPU device schedules each command buffer — along with tasks from
 // other command buffers — after it identifies the command buffer’s
 // dependencies. At that time, the GPU device sets the command buffer’s
-// status to [CommandBufferStatusScheduled] and calls your completion handler.
-// 
+// status to [MTLCommandBufferStatusScheduled] and calls your completion
+// handler.
+//
 // You can use the command buffer’s [kernelEndTime] and [kernelStartTime]
 // properties to calculate how much time the CPU spends scheduling the command
 // buffer.
 //
+// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/addScheduledHandler(_:)
+//
 // [kernelEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelEndTime
 // [kernelStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelStartTime
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/addScheduledHandler(_:)
 func (o MTLCommandBufferObject) AddScheduledHandler(block MTLCommandBufferHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("addScheduledHandler:"), block)
-	}
+}
+
 // Registers a completion handler the GPU device calls immediately after the
 // GPU finishes running the commands in the command buffer.
 //
@@ -403,43 +382,45 @@ func (o MTLCommandBufferObject) AddScheduledHandler(block MTLCommandBufferHandle
 // finishes running the commands in the command buffer.
 //
 // # Discussion
-// 
+//
 // You can register one or more completion handlers for the same command
 // buffer. The GPU device’s driver (on the CPU) calls the completion
 // handlers after the GPU finishes executing the command buffer.
-// 
+//
 // For example, you can use the command buffer’s [gpuEndTime] and
 // [gpuStartTime] properties to calculate how much time the GPU spends running
 // the command buffer.
-// 
+//
 // The completion handler is also a good place to check the [Status] property
 // to determine whether the GPU successfully completes the buffer’s
-// commands. If the status is equal to [CommandBufferStatusError], you can
+// commands. If the status is equal to [MTLCommandBufferStatus.error], you can
 // investigate further by checking the [error] and log properties for more
 // details about the issue. See [Command buffer debugging] for more methods
 // and properties that can help you isolate the issue.
 //
+// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/addCompletedHandler(_:)
+//
 // [Command buffer debugging]: https://developer.apple.com/documentation/Metal/command-buffer-debugging
+// [MTLCommandBufferStatus.error]: https://developer.apple.com/documentation/Metal/MTLCommandBufferStatus/error
 // [error]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/error
 // [gpuEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuEndTime
 // [gpuStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuStartTime
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/addCompletedHandler(_:)
 func (o MTLCommandBufferObject) AddCompletedHandler(block MTLCommandBufferHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("addCompletedHandler:"), block)
-	}
+}
+
 // Reserves the next available place for the command buffer in its command
 // queue.
 //
 // # Discussion
-// 
+//
 // The [Enqueue] method adds the command buffer to the [MTLCommandQueue]
 // instance that owns it, but doesn’t commit the command buffer to run on
 // the GPU. You can call the command buffer’s [Commit] method at a later
 // time when it’s ready to run on the GPU. You can call a command buffer’s
 // [Enqueue] method any time before you call [Commit], including before,
 // after, or as you encode commands to it.
-// 
+//
 // Enqueuing your command buffers first gives you the flexibility to arrange
 // their relative order of execution before encoding commands to any of them.
 // This approach lets you potentially encode each command buffer on a thread,
@@ -450,68 +431,73 @@ func (o MTLCommandBufferObject) AddCompletedHandler(block MTLCommandBufferHandle
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/enqueue()
 func (o MTLCommandBufferObject) Enqueue() {
 	objc.Send[struct{}](o.ID, objc.Sel("enqueue"))
-	}
+}
+
 // Submits the command buffer to run on the GPU.
 //
 // # Discussion
-// 
+//
 // The [Commit] method sends the command buffer to the [MTLCommandQueue]
 // instance that owns it, which then schedules it to run on the GPU. If your
 // app calls [Commit] for a command buffer that isn’t enqueued, the method
 // effectively calls [Enqueue] for you.
-// 
+//
 // The [Commit] method has several restrictions, including:
-// 
+//
 // - You can commit a command buffer to its command queue only one time. - You
 // can only commit a command buffer when it doesn’t have an active encoder
 // (see [MTLCommandBuffer] and [MTLCommandEncoder]). - You can’t encode
 // additional commands to a command buffer after you commit it. - You can’t
 // call the [AddScheduledHandler] or [AddCompletedHandler] methods after you
 // commit a command buffer.
-// 
+//
 // The GPU starts the command buffer after it starts any command buffers that
 // are ahead of it in the same command queue.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/commit()
 func (o MTLCommandBufferObject) Commit() {
 	objc.Send[struct{}](o.ID, objc.Sel("commit"))
-	}
+}
+
 // Blocks the current thread until the command queue schedules the buffer.
 //
 // # Discussion
-// 
+//
 // This method returns after the following events:
-// 
-// - The command queue (see [Status] and [CommandBufferStatusScheduled]) the
-// command buffer to run on the GPU. - The command buffer invokes all the
+//
+// - The command queue (see [Status] and [MTLCommandBufferStatusScheduled])
+// the command buffer to run on the GPU. - The command buffer invokes all the
 // completion handlers your app submits with [AddScheduledHandler].
-// 
+//
 // Use the [WaitUntilCompleted] method to check for completion of the
 // scheduled work.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/waitUntilScheduled()
 func (o MTLCommandBufferObject) WaitUntilScheduled() {
 	objc.Send[struct{}](o.ID, objc.Sel("waitUntilScheduled"))
-	}
+}
+
 // Blocks the current thread until the GPU finishes executing the command
 // buffer and all of its completion handlers.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/waitUntilCompleted()
 func (o MTLCommandBufferObject) WaitUntilCompleted() {
 	objc.Send[struct{}](o.ID, objc.Sel("waitUntilCompleted"))
-	}
+}
+
 // The command buffer’s current state.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/status
 func (o MTLCommandBufferObject) Status() MTLCommandBufferStatus {
 	rv := objc.Send[MTLCommandBufferStatus](o.ID, objc.Sel("status"))
 	return rv
-	}
+}
+
 // Creates a ray-tracing acceleration structure command encoder that uses
 // default settings.
 //
 // # Discussion
-// 
+//
 // Use an [MTLAccelerationStructureCommandEncoder] instance’s methods to set
 // up a single ray-tracing pass.
 //
@@ -519,7 +505,8 @@ func (o MTLCommandBufferObject) Status() MTLCommandBufferStatus {
 func (o MTLCommandBufferObject) AccelerationStructureCommandEncoder() MTLAccelerationStructureCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accelerationStructureCommandEncoder"))
 	return MTLAccelerationStructureCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Creates a ray-tracing acceleration structure command encoder from a
 // descriptor.
 //
@@ -527,7 +514,7 @@ func (o MTLCommandBufferObject) AccelerationStructureCommandEncoder() MTLAcceler
 // [MTLAccelerationStructureCommandEncoder] the method returns.
 //
 // # Discussion
-// 
+//
 // Use an [MTLAccelerationStructureCommandEncoder] instance’s methods to set
 // up a single ray-tracing pass.
 //
@@ -535,11 +522,12 @@ func (o MTLCommandBufferObject) AccelerationStructureCommandEncoder() MTLAcceler
 func (o MTLCommandBufferObject) AccelerationStructureCommandEncoderWithDescriptor(descriptor IMTLAccelerationStructurePassDescriptor) MTLAccelerationStructureCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accelerationStructureCommandEncoderWithDescriptor:"), descriptor)
 	return MTLAccelerationStructureCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Creates a block information transfer (blit) encoder.
 //
 // # Discussion
-// 
+//
 // Use an [MTLBlitCommandEncoder] instance’s methods to create a block
 // information transfer (blit) pass that quickly copies memory between a GPU
 // device’s resources.
@@ -548,14 +536,15 @@ func (o MTLCommandBufferObject) AccelerationStructureCommandEncoderWithDescripto
 func (o MTLCommandBufferObject) BlitCommandEncoder() MTLBlitCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("blitCommandEncoder"))
 	return MTLBlitCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Creates a block information transfer (blit) encoder from a descriptor.
 //
 // blitPassDescriptor: An [MTLBlitPassDescriptor] instance that configures the
 // [MTLBlitCommandEncoder] the method returns.
 //
 // # Discussion
-// 
+//
 // Use an [MTLBlitCommandEncoder] instance’s methods to create a block
 // information transfer (blit) pass that quickly copies memory between a GPU
 // device’s resources.
@@ -564,30 +553,35 @@ func (o MTLCommandBufferObject) BlitCommandEncoder() MTLBlitCommandEncoder {
 func (o MTLCommandBufferObject) BlitCommandEncoderWithDescriptor(blitPassDescriptor IMTLBlitPassDescriptor) MTLBlitCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("blitCommandEncoderWithDescriptor:"), blitPassDescriptor)
 	return MTLBlitCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Creates a compute command encoder that uses default settings.
 //
 // # Discussion
-// 
+//
 // Use an [MTLComputeCommandEncoder] instance’s methods to set up a single
 // compute pass. The encoder this method returns dispatches its compute
-// commands serially (see [DispatchTypeSerial]). To create a compute command
-// encoder that dispatches commands concurrently (see
-// [DispatchTypeConcurrent]), use the [ComputeCommandEncoderWithDispatchType]
-// or [ComputeCommandEncoderWithDescriptor] method.
+// commands serially (see [MTLDispatchTypeSerial]). To create a compute
+// command encoder that dispatches commands concurrently (see
+// [MTLDispatchType.concurrent]), use the
+// [ComputeCommandEncoderWithDispatchType] or
+// [ComputeCommandEncoderWithDescriptor] method.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/makeComputeCommandEncoder()
+//
+// [MTLDispatchType.concurrent]: https://developer.apple.com/documentation/Metal/MTLDispatchType/concurrent
 func (o MTLCommandBufferObject) ComputeCommandEncoder() MTLComputeCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("computeCommandEncoder"))
 	return MTLComputeCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Creates a compute command encoder from a descriptor.
 //
 // computePassDescriptor: An [MTLComputePassDescriptor] instance that configures the
 // [MTLComputeCommandEncoder] the method returns.
 //
 // # Discussion
-// 
+//
 // Use an [MTLComputeCommandEncoder] instance’s methods to set up a single
 // compute pass.
 //
@@ -595,31 +589,33 @@ func (o MTLCommandBufferObject) ComputeCommandEncoder() MTLComputeCommandEncoder
 func (o MTLCommandBufferObject) ComputeCommandEncoderWithDescriptor(computePassDescriptor IMTLComputePassDescriptor) MTLComputeCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("computeCommandEncoderWithDescriptor:"), computePassDescriptor)
 	return MTLComputeCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Creates a compute command encoder with a dispatch type.
 //
 // dispatchType: An [MTLDispatchType] instance that indicates whether the compute pass the
 // encoder creates runs commands serially or concurrently.
-// //
-// [MTLDispatchType]: https://developer.apple.com/documentation/Metal/MTLDispatchType
 //
 // # Discussion
-// 
+//
 // Use an [MTLComputeCommandEncoder] instance’s methods to set up a single
 // compute pass.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/makeComputeCommandEncoder(dispatchType:)
+//
+// [MTLDispatchType]: https://developer.apple.com/documentation/Metal/MTLDispatchType
 func (o MTLCommandBufferObject) ComputeCommandEncoderWithDispatchType(dispatchType MTLDispatchType) MTLComputeCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("computeCommandEncoderWithDispatchType:"), dispatchType)
 	return MTLComputeCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Creates a parallel render command encoder from a descriptor.
 //
 // renderPassDescriptor: An [MTLRenderPassDescriptor] instance that configures the
 // [MTLParallelRenderCommandEncoder] the method returns.
 //
 // # Discussion
-// 
+//
 // An [MTLParallelRenderCommandEncoder] instance can create multiple,
 // independent render command encoders that contribute to the same render pass
 // on different threads.
@@ -628,60 +624,63 @@ func (o MTLCommandBufferObject) ComputeCommandEncoderWithDispatchType(dispatchTy
 func (o MTLCommandBufferObject) ParallelRenderCommandEncoderWithDescriptor(renderPassDescriptor IMTLRenderPassDescriptor) MTLParallelRenderCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("parallelRenderCommandEncoderWithDescriptor:"), renderPassDescriptor)
 	return MTLParallelRenderCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Marks the end of a debug group and, if applicable, restores the previous
 // group from a stack.
 //
 // # Discussion
-// 
+//
 // Use [PushDebugGroup] to group commands within the command buffer, which
 // adds a new group to a stack, effectively nesting a group within any
 // previous group. Call [PopDebugGroup] to mark the end of a group of commands
 // within the command buffer, and restore the previous group, if applicable.
 // You can inspect the group and the commands it contains when viewing the
 // contents of a frame capture with Metal Debugger.
-// 
+//
 // Labels can help you profile and debug your app at runtime with Metal
 // Debugger and other tools. See [Naming resources and commands] for more
 // information about using labels and other debugging techniques.
 //
-// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
-//
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/popDebugGroup()
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLCommandBufferObject) PopDebugGroup() {
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
-	}
+}
+
 // Marks the beginning of a debug group and gives it an identifying label,
 // which temporarily replaces the previous group, if applicable.
 //
 // string: A name for the debug group.
 //
 // # Discussion
-// 
+//
 // Use [PushDebugGroup] to group commands within the command buffer, which
 // adds a new group to a stack, effectively nesting a group within any
 // previous group. Call [PopDebugGroup] to mark the end of a group of commands
 // within the command buffer, and restore the previous group, if applicable.
 // You can inspect the group and the commands it contains when viewing the
 // contents of a frame capture with Metal Debugger.
-// 
+//
 // Labels can help you profile and debug your app at runtime with Metal
 // Debugger and other tools. See [Naming resources and commands] for more
 // information about using labels and other debugging techniques.
 //
-// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
-//
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/pushDebugGroup(_:)
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLCommandBufferObject) PushDebugGroup(string_ string) {
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
-	}
+}
+
 // Creates a render command encoder from a descriptor.
 //
 // renderPassDescriptor: An [MTLRenderPassDescriptor] instance that configures the
 // [MTLRenderCommandEncoder] the method returns.
 //
 // # Discussion
-// 
+//
 // Use an [MTLRenderCommandEncoder] instance’s methods to set up a single
 // graphics-rendering pass.
 //
@@ -689,11 +688,12 @@ func (o MTLCommandBufferObject) PushDebugGroup(string_ string) {
 func (o MTLCommandBufferObject) RenderCommandEncoderWithDescriptor(renderPassDescriptor IMTLRenderPassDescriptor) MTLRenderCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("renderCommandEncoderWithDescriptor:"), renderPassDescriptor)
 	return MTLRenderCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Creates a resource state command encoder that uses default settings.
 //
 // # Discussion
-// 
+//
 // Use an [MTLResourceStateCommandEncoder] instance’s methods to create a
 // pass that updates the state of one or more sparse textures.
 //
@@ -701,14 +701,15 @@ func (o MTLCommandBufferObject) RenderCommandEncoderWithDescriptor(renderPassDes
 func (o MTLCommandBufferObject) ResourceStateCommandEncoder() MTLResourceStateCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("resourceStateCommandEncoder"))
 	return MTLResourceStateCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Creates a resource state command encoder from a descriptor.
 //
 // resourceStatePassDescriptor: An [MTLResourceStatePassDescriptor] instance that configures the
 // [MTLResourceStateCommandEncoder] the method returns.
 //
 // # Discussion
-// 
+//
 // Use an [MTLResourceStateCommandEncoder] instance’s methods to create a
 // pass that updates the state of one or more sparse textures.
 //
@@ -716,7 +717,8 @@ func (o MTLCommandBufferObject) ResourceStateCommandEncoder() MTLResourceStateCo
 func (o MTLCommandBufferObject) ResourceStateCommandEncoderWithDescriptor(resourceStatePassDescriptor IMTLResourceStatePassDescriptor) MTLResourceStateCommandEncoder {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("resourceStateCommandEncoderWithDescriptor:"), resourceStatePassDescriptor)
 	return MTLResourceStateCommandEncoderObjectFromID(rv)
-	}
+}
+
 // Applies multiple residency sets to a command buffer.
 //
 // residencySets: A C array of residency sets, each of which contains resource allocations,
@@ -725,146 +727,34 @@ func (o MTLCommandBufferObject) ResourceStateCommandEncoderWithDescriptor(resour
 // count: The number of elements in `residencySets`.
 //
 // # Discussion
-// 
+//
 // Each command buffer can maintain a list of up to 32 different residency
 // sets. See [Simplifying GPU resource management with residency sets] and
 // [MTLResidencySet] for more information.
 //
-// [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
-//
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/useResidencySets:count:
+//
+// [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 func (o MTLCommandBufferObject) UseResidencySetsCount(residencySets []MTLResidencySet, count uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("useResidencySets:count:"), objc.CArray(residencySets), count)
-	}
-
-// The host time, in seconds, when the GPU finishes execution of the command
-// buffer.
-//
-// # Discussion
-// 
-// You can calculate how much time the GPU spends running a command buffer by
-// subtracting [gpuStartTime] from this value. Both values are relative to
-// system mach time.
-// 
-// The GPU start and end times remain `0.0` until the GPU finishes running the
-// command buffer. Check this value after the [WaitUntilCompleted] method
-// returns, or within a completion handler passed to the [AddCompletedHandler]
-// method.
-//
-// [gpuStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuStartTime
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuEndTime
-func (o MTLCommandBufferObject) GPUEndTime() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("GPUEndTime"))
-	return float64(rv)
-}
-
-// The host time, in seconds, when the GPU starts command buffer execution.
-//
-// # Discussion
-// 
-// You can calculate how much time the GPU spends running a command buffer by
-// subtracting this value from [gpuEndTime]. Both values are relative to
-// system mach time.
-// 
-// The GPU start and end times remain `0.0` until the GPU finishes running the
-// command buffer. Check this value after the [WaitUntilCompleted] method
-// returns, or within a completion handler passed to the [AddCompletedHandler]
-// method.
-//
-// [gpuEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuEndTime
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuStartTime
-func (o MTLCommandBufferObject) GPUStartTime() float64 {
-	rv := objc.Send[float64](o.ID, objc.Sel("GPUStartTime"))
-	return float64(rv)
-}
-
-// The command queue that creates the command buffer.
-//
-// # Discussion
-// 
-// Each command buffer can only submit its commands to the queue that creates
-// it.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/commandQueue
-func (o MTLCommandBufferObject) CommandQueue() MTLCommandQueue {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("commandQueue"))
-	return MTLCommandQueueObjectFromID(rv)
-}
-
-// The GPU device that indirectly owns the command buffer because you create
-// it from a command queue the device also owns.
-//
-// # Discussion
-// 
-// The command buffer can only work with other instances that [device]
-// creates, directly or indirectly, such as buffers and textures.
-//
-// [device]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/device
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/device
-func (o MTLCommandBufferObject) Device() MTLDevice {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
-	return MTLDeviceObjectFromID(rv)
-}
-
-// A description of an error when the GPU encounters an issue as it runs the
-// command buffer.
-//
-// # Discussion
-// 
-// You typically check this property during development to get more
-// information about a runtime issue. The property remains `nil` unless the
-// GPU can’t successfully run the command buffer.
-// 
-// An error’s [userInfo] dictionary property contains additional information
-// if the command buffer’s [errorOptions] property includes
-// [CommandBufferErrorOptionEncoderExecutionStatus]. You can retrieve an
-// [MTLCommandBufferEncoderInfo] instance from the dictionary by accessing it
-// with [MTLCommandBufferEncoderInfoErrorKey].
-//
-// [MTLCommandBufferEncoderInfoErrorKey]: https://developer.apple.com/documentation/Metal/MTLCommandBufferEncoderInfoErrorKey
-// [errorOptions]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/errorOptions
-// [userInfo]: https://developer.apple.com/documentation/Foundation/NSError/userInfo
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/error
-func (o MTLCommandBufferObject) Error() foundation.INSError {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("error"))
-	return foundation.NSErrorFromID(rv)
-}
-
-// Settings that determine which information the command buffer records about
-// execution errors, and how it does it.
-//
-// # Discussion
-// 
-// The property reflects the [ErrorOptions] property of the
-// [MTLCommandBufferDescriptor] instance at the time you create the command
-// buffer.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/errorOptions
-func (o MTLCommandBufferObject) ErrorOptions() MTLCommandBufferErrorOption {
-	rv := objc.Send[MTLCommandBufferErrorOption](o.ID, objc.Sel("errorOptions"))
-	return MTLCommandBufferErrorOption(rv)
 }
 
 // The host time, in seconds, when the CPU finishes scheduling the command
 // buffer.
 //
 // # Discussion
-// 
+//
 // You can calculate how much time the kernel spends scheduling a command
 // buffer by subtracting [kernelStartTime] from this value.
-// 
+//
 // The kernel start and end times remain `0.0` until the GPU driver (on the
 // CPU) schedules the command buffer to run on the GPU. Apps typically use
 // these values after the [WaitUntilScheduled] method returns, or within a
 // completion handler (see [AddScheduledHandler] and [AddCompletedHandler]).
 //
-// [kernelStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelStartTime
-//
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelEndTime
+//
+// [kernelStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelStartTime
 func (o MTLCommandBufferObject) KernelEndTime() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("kernelEndTime"))
 	return float64(rv)
@@ -874,18 +764,18 @@ func (o MTLCommandBufferObject) KernelEndTime() float64 {
 // buffer.
 //
 // # Discussion
-// 
+//
 // You can calculate how much time the kernel spends scheduling a command
 // buffer by subtracting this value from [kernelEndTime].
-// 
+//
 // The kernel start and end times remain `0.0` until the GPU driver (on the
 // CPU) schedules the command buffer to run on the GPU. Apps typically use
 // these values after the [WaitUntilScheduled] method returns, or within a
 // completion handler (see [AddScheduledHandler] and [AddCompletedHandler]).
 //
-// [kernelEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelEndTime
-//
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelStartTime
+//
+// [kernelEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelEndTime
 func (o MTLCommandBufferObject) KernelStartTime() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("kernelStartTime"))
 	return float64(rv)
@@ -894,13 +784,13 @@ func (o MTLCommandBufferObject) KernelStartTime() float64 {
 // An optional name that can help you identify the command buffer.
 //
 // # Discussion
-// 
+//
 // Set labels to help you quickly identify a command buffer at runtime in the
 // Metal debugging and profiling tools. See [Naming resources and commands].
 //
-// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
-//
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLCommandBufferObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
@@ -913,7 +803,7 @@ func (o MTLCommandBufferObject) SetLabel(value string) {
 // The messages the command buffer records as the GPU runs its commands.
 //
 // # Discussion
-// 
+//
 // The value of this property is valid only after the command buffer finishes
 // executing.
 //
@@ -927,22 +817,18 @@ func (o MTLCommandBufferObject) Logs() MTLLogContainer {
 // references to the resources it uses.
 //
 // # Discussion
-// 
+//
 // You can configure this property when you create a command buffer by setting
 // [RetainedReferences] of an [MTLCommandBufferDescriptor] instance and
 // calling the [CommandBufferWithDescriptor] method. The [CommandBuffer]
-// method sets this property to [true], and
-// [CommandBufferWithUnretainedReferences] sets it to [false].
-// 
-// If [false], your app is responsible for maintaining strong references to
-// all the resources the command buffer relies on until it completes.
+// method sets this property to true, and
+// [CommandBufferWithUnretainedReferences] sets it to false.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If false, your app is responsible for maintaining strong references to all
+// the resources the command buffer relies on until it completes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/retainedReferences
 func (o MTLCommandBufferObject) RetainedReferences() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("retainedReferences"))
 	return bool(rv)
 }
-

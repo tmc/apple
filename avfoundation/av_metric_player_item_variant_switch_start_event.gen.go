@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMetricPlayerItemVariantSwitchStartEvent] class.
@@ -62,6 +63,7 @@ type AVMetricPlayerItemVariantSwitchStartEvent struct {
 func AVMetricPlayerItemVariantSwitchStartEventFromID(id objc.ID) AVMetricPlayerItemVariantSwitchStartEvent {
 	return AVMetricPlayerItemVariantSwitchStartEvent{AVMetricEvent: AVMetricEventFromID(id)}
 }
+
 // NOTE: AVMetricPlayerItemVariantSwitchStartEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,14 +116,15 @@ func (m AVMetricPlayerItemVariantSwitchStartEvent) FromVariant() IAVAssetVariant
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("fromVariant"))
 	return AVAssetVariantFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemVariantSwitchStartEvent/toVariant
 func (m AVMetricPlayerItemVariantSwitchStartEvent) ToVariant() IAVAssetVariant {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("toVariant"))
 	return AVAssetVariantFromID(objc.ID(rv))
 }
-//
+
 // # Discussion
-// 
+//
 // Contains information corresponding to the currently selected audio
 // rendition.
 //
@@ -130,9 +133,9 @@ func (m AVMetricPlayerItemVariantSwitchStartEvent) AudioRendition() IAVMetricMed
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("audioRendition"))
 	return AVMetricMediaRenditionFromID(objc.ID(rv))
 }
-//
+
 // # Discussion
-// 
+//
 // Contains information corresponding to the currently selected video
 // rendition.
 //
@@ -141,9 +144,9 @@ func (m AVMetricPlayerItemVariantSwitchStartEvent) VideoRendition() IAVMetricMed
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("videoRendition"))
 	return AVMetricMediaRenditionFromID(objc.ID(rv))
 }
-//
+
 // # Discussion
-// 
+//
 // Contains information corresponding to the currently selected subtitle
 // rendition.
 //
@@ -152,6 +155,7 @@ func (m AVMetricPlayerItemVariantSwitchStartEvent) SubtitleRendition() IAVMetric
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("subtitleRendition"))
 	return AVMetricMediaRenditionFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemVariantSwitchStartEvent/loadedTimeRanges-3svh3
 func (m AVMetricPlayerItemVariantSwitchStartEvent) LoadedTimeRanges() []foundation.NSValue {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("loadedTimeRanges"))
@@ -159,4 +163,3 @@ func (m AVMetricPlayerItemVariantSwitchStartEvent) LoadedTimeRanges() []foundati
 		return foundation.NSValueFromID(id)
 	})
 }
-

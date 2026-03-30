@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MLSupervisedOnlineUpdateOptions struct {
 func MLSupervisedOnlineUpdateOptionsFromID(id objc.ID) MLSupervisedOnlineUpdateOptions {
 	return MLSupervisedOnlineUpdateOptions{MLPredictionOptions: MLPredictionOptionsFromID(id)}
 }
+
 // Ensure MLSupervisedOnlineUpdateOptions implements IMLSupervisedOnlineUpdateOptions.
 var _ IMLSupervisedOnlineUpdateOptions = MLSupervisedOnlineUpdateOptions{}
 
@@ -79,7 +81,6 @@ func NewMLSupervisedOnlineUpdateOptions() MLSupervisedOnlineUpdateOptions {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/initWithCoder:
 func NewSupervisedOnlineUpdateOptionsWithCoder(coder objectivec.IObject) MLSupervisedOnlineUpdateOptions {
 	instance := getMLSupervisedOnlineUpdateOptionsClass().Alloc()
@@ -87,11 +88,9 @@ func NewSupervisedOnlineUpdateOptionsWithCoder(coder objectivec.IObject) MLSuper
 	return MLSupervisedOnlineUpdateOptionsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/initWithUsesCPUOnly:
 func NewSupervisedOnlineUpdateOptionsWithUsesCPUOnly(cPUOnly bool) MLSupervisedOnlineUpdateOptions {
 	instance := getMLSupervisedOnlineUpdateOptionsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)
 	return MLSupervisedOnlineUpdateOptionsFromID(rv)
 }
-

@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZUSBControllerConfigurationClass) Alloc() VZUSBControllerConfiguration
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZUSBControllerConfiguration._init]
@@ -52,6 +52,7 @@ func (vc VZUSBControllerConfigurationClass) Alloc() VZUSBControllerConfiguration
 //   - [VZUSBControllerConfiguration.Description]
 //   - [VZUSBControllerConfiguration.Hash]
 //   - [VZUSBControllerConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration
 type VZUSBControllerConfiguration struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZUSBControllerConfiguration struct {
 func VZUSBControllerConfigurationFromID(id objc.ID) VZUSBControllerConfiguration {
 	return VZUSBControllerConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZUSBControllerConfiguration implements IVZUSBControllerConfiguration.
 var _ IVZUSBControllerConfiguration = VZUSBControllerConfiguration{}
 
@@ -115,7 +117,7 @@ func (u VZUSBControllerConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/makeUSBControllerForVirtualMachine:usbControllerIndex:usbDevices:
 func (u VZUSBControllerConfiguration) MakeUSBControllerForVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("makeUSBControllerForVirtualMachine:usbControllerIndex:usbDevices:"), machine, index, devices)
@@ -127,24 +129,27 @@ func (u VZUSBControllerConfiguration) _usbDevices() foundation.INSArray {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("_usbDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/debugDescription
 func (u VZUSBControllerConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/description
 func (u VZUSBControllerConfiguration) Description() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/hash
 func (u VZUSBControllerConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](u.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/superclass
 func (u VZUSBControllerConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](u.ID, objc.Sel("superclass"))
 	return rv
 }
-

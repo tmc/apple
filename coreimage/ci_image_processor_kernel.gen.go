@@ -3,12 +3,13 @@
 package coreimage
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,7 +50,7 @@ func (cc CIImageProcessorKernelClass) Alloc() CIImageProcessorKernel {
 // integrate with Core Image workflows.
 //
 // # Overview
-// 
+//
 // Unlike the [CIKernel] class and its other subclasses that allow you to
 // create new image-processing effects with the Core Image Kernel Language,
 // the [CIImageProcessorKernel] class provides direct access to the underlying
@@ -58,7 +59,7 @@ func (cc CIImageProcessorKernelClass) Alloc() CIImageProcessorKernel {
 // image-processing technologies—such as Metal compute shaders, [Metal
 // Performance Shaders], [Accelerate] [vImage] operations, or your own
 // CPU-based image-processing routines—with a Core Image filter chain.
-// 
+//
 // Your custom image processing operation is invoked by your subclassed image
 // processor kernel’s [CIImageProcessorKernel.ProcessWithInputsArgumentsOutputError] method. The
 // method can accept zero, one or more inputs: kernels that generate imagery
@@ -67,54 +68,54 @@ func (cc CIImageProcessorKernelClass) Alloc() CIImageProcessorKernel {
 // dictionary allows the caller to pass in additional parameter values (such
 // as the radius of a blur) and the `output` contains the destination for your
 // image processing code to write to.
-// 
+//
 // The following code shows how you can subclass [CIImageProcessorKernel] to
 // apply the Metal Performance Shader [MPSImageThresholdBinary] kernel to a
 // [CIImage]:
-// 
+//
 // To apply to kernel to an image, the calling side invokes the image
 // processor’s [CIImageProcessorKernel.ApplyWithExtentInputsArgumentsError] method. The following
 // code generates a new [CIImage] object named `result` which contains a
 // thresholded version of the source image, `inputImage`.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // The [CIImageProcessorKernel] class is abstract; to create a custom image
 // processor, you define a subclass of this class.
-// 
+//
 // You do not directly create instances of a custom [CIImageProcessorKernel]
 // subclass. Image processors must not carry or use state specific to any
 // single invocation of the processor, so all methods (and accessors for
 // readonly properties) of an image processor kernel class are class methods.
-// 
+//
 // Your subclass should override at least the
 // [CIImageProcessorKernel.ProcessWithInputsArgumentsOutputError] method to perform its image
 // processing.
-// 
+//
 // If your image processor needs to work with a larger or smaller region of
 // interest in the input image than each corresponding region of the output
 // image (for example, a blur filter, which samples several input pixels for
 // each output pixel), you should also override the
 // [CIImageProcessorKernel.RoiForInputArgumentsOutputRect] method.
-// 
+//
 // You can also override the [CIImageProcessorKernel.FormatForInputAtIndex] method and [CIImageProcessorKernel.OutputFormat]
 // property getter to customize the input and output pixel formats for your
 // processor (for example, as part of a multi-step workflow where you extract
 // a single channel from an RGBA image, apply an effect to that channel only,
 // then recombine the channels).
-// 
+//
 // # Using a Custom Image Processor
-// 
+//
 // To apply your custom image processor class to filter one or more images,
 // call the [CIImageProcessorKernel.ApplyWithExtentInputsArgumentsError] class method. (Do not
 // override this method.)
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel
 //
 // [Accelerate]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/CoreOSLayer/CoreOSLayer.html#//apple_ref/doc/uid/TP40001067-CH9-SW6
 // [MPSImageThresholdBinary]: https://developer.apple.com/documentation/MetalPerformanceShaders/MPSImageThresholdBinary
 // [Metal Performance Shaders]: https://developer.apple.com/library/archive/releasenotes/General/WhatsNewIniOS/Articles/iOS9.html#//apple_ref/doc/uid/TP40016198-SW7
 // [vImage]: https://developer.apple.com/library/archive/releasenotes/Performance/RN-vecLib/index.html#//apple_ref/doc/uid/TP40001049-CH2-SW2
-//
-// See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel
 type CIImageProcessorKernel struct {
 	objectivec.Object
 }
@@ -126,6 +127,7 @@ type CIImageProcessorKernel struct {
 func CIImageProcessorKernelFromID(id objc.ID) CIImageProcessorKernel {
 	return CIImageProcessorKernel{objectivec.Object{ID: id}}
 }
+
 // NOTE: CIImageProcessorKernel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -171,16 +173,16 @@ func NewCIImageProcessorKernel() CIImageProcessorKernel {
 // [CGColorSpace], or [MLModel].
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIImage]
 //
 // # Discussion
-// 
+//
 // The inputs and arguments will be retained so that your subclass can be
 // called when the image is drawn.
-// 
+//
 // This method will return `nil` and an error if:
-// 
+//
 // - calling [OutputFormat] on your subclass returns an unsupported format. -
 // calling [FormatForInputAtIndex] on your subclass returns an unsupported
 // format. - your subclass does not implement
@@ -197,19 +199,20 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ApplyWithExtentI
 	return CIImageFromID(rv), nil
 
 }
+
 // Override this class method if you want your any of the inputs to be in a
 // specific pixel format.
 //
 // # Discussion
-// 
+//
 // The format must be one of `kCIFormatBGRA8`, `kCIFormatRGBAh`,
 // `kCIFormatRGBAf` or `kCIFormatR8`. On iOS 12 and macOS 10.14, the formats
 // `kCIFormatRh` and `kCIFormatRf` are also supported.
-// 
+//
 // If the requested inputFormat is `0`, then the input will be a supported
 // format that best matches the rendering context’s
 // `/CIContext/workingFormat`.
-// 
+//
 // If a processor wants data in a colorspace other than the context’s
 // working color space, then call `/CIImage/` on the processor input. If a
 // processor wants it input as alpha-unpremultiplied RGBA data, then call
@@ -220,6 +223,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) FormatForInputAt
 	rv := objc.Send[CIFormat](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("formatForInputAtIndex:"), inputIndex)
 	return CIFormat(rv)
 }
+
 // Override this class method to implement your Core Image Processor Kernel
 // subclass.
 //
@@ -233,12 +237,12 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) FormatForInputAt
 // output: The `id` that the [CIImageProcessorKernel] must provide results to.
 //
 // # Discussion
-// 
+//
 // When a [CIImage] containing your [CIImageProcessorKernel] class is
 // rendered, your class’ implementation of this method will be called as
 // needed for that render. The method may be called more than once if Core
 // Image needs to tile to limit memory usage.
-// 
+//
 // When your implementation of this class method is called, use the provided
 // `inputs` and `arguments` objects to return processed pixel data to Core
 // Image via `output`.
@@ -257,6 +261,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ProcessWithInput
 	return rv, nil
 
 }
+
 // Override this class method to implement your processor’s ROI callback.
 //
 // inputIndex: The index that tells you which processor input for which to return the ROI
@@ -268,16 +273,16 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ProcessWithInput
 // outputRect: The output [CGRect] that processor will be asked to output.
 //
 // # Return Value
-// 
+//
 // The [CGRect] of the `inputIndex`th input that is required for the above
 // `outputRect`
 //
 // # Discussion
-// 
+//
 // This will be called one or more times per render to determine what portion
 // of the input images are needed to render a given ‘outputRect’ of the
 // output. This will not be called if processor has no input images.
-// 
+//
 // The default implementation would return outputRect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/roi(forInput:arguments:outputRect:)
@@ -285,6 +290,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiForInputArgum
 	rv := objc.Send[corefoundation.CGRect](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("roiForInput:arguments:outputRect:"), inputIndex, arguments, outputRect)
 	return corefoundation.CGRect(rv)
 }
+
 // Override this class method to implement your processor’s tiled ROI
 // callback.
 //
@@ -297,7 +303,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiForInputArgum
 // outputRect: The output [CGRect] that processor will be asked to output.
 //
 // # Return Value
-// 
+//
 // An array of [CIVector] that specify tile regions of the `inputIndex`’th
 // input that is required for the above `outputRect` Each region tile in the
 // array is a created by calling `/CIVector//` The tiles may overlap but
@@ -306,12 +312,12 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiForInputArgum
 // region tiles.
 //
 // # Discussion
-// 
+//
 // This will be called one or more times per render to determine what tiles of
 // the input images are needed to render a given `outputRect` of the output.
-// 
+//
 // If the processor implements this method, then when rendered;
-// 
+//
 // - as CoreImage prepares for a render, this method will be called for each
 // input to return an ROI tile array. - as CoreImage performs the render, the
 // method [ProcessWithInputsArgumentsOutputError] will be called once for each
@@ -324,6 +330,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiTileArrayForI
 		return CIVectorFromID(id)
 	})
 }
+
 // Call this method on your multiple-output Core Image Processor Kernel
 // subclass to create an array of new image objects given the specified array
 // of extents.
@@ -343,16 +350,16 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiTileArrayForI
 // [CGColorSpace], or [MLModel].
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIImage]
 //
 // # Discussion
-// 
+//
 // The inputs and arguments will be retained so that your subclass can be
 // called when the image is drawn.
-// 
+//
 // This method will return `nil` and an error if:
-// 
+//
 // - calling [OutputFormatAtIndexArguments] on your subclass returns an
 // unsupported format. - calling [FormatForInputAtIndex] on your subclass
 // returns an unsupported format. - your subclass does not implement
@@ -371,6 +378,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ApplyWithExtents
 	}), nil
 
 }
+
 // Override this class method if your processor has more than one output and
 // you want your processor’s output to be in a specific supported
 // [CIPixelFormat].
@@ -382,15 +390,15 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ApplyWithExtents
 // [ApplyWithExtentInputsArgumentsError].
 //
 // # Return Value
-// 
+//
 // Return the desired [CIPixelFormat]
 //
 // # Discussion
-// 
+//
 // The format must be one of `kCIFormatBGRA8`, `kCIFormatRGBAh`,
 // `kCIFormatRGBAf` or `kCIFormatR8`. On iOS 12 and macOS 10.14, the formats
 // `kCIFormatRh` and `kCIFormatRf` are also supported.
-// 
+//
 // If the outputFormat is `0`, then the output will be a supported format that
 // best matches the rendering context’s `/CIContext/workingFormat`.
 //
@@ -399,6 +407,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormatAtIn
 	rv := objc.Send[CIFormat](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("outputFormatAtIndex:arguments:"), outputIndex, arguments)
 	return CIFormat(rv)
 }
+
 // Override this class method of your Core Image Processor Kernel subclass if
 // it needs to produce multiple outputs.
 //
@@ -412,14 +421,14 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormatAtIn
 // outputs: An array `id` that the [CIImageProcessorKernel] must provide results to.
 //
 // # Discussion
-// 
+//
 // This supports 0, 1, 2 or more input images and 2 or more output images.
-// 
+//
 // When a [CIImage] containing your [CIImageProcessorKernel] class is
 // rendered, your class’ implementation of this method will be called as
 // needed for that render. The method may be called more than once if Core
 // Image needs to tile to limit memory usage.
-// 
+//
 // When your implementation of this class method is called, use the provided
 // `inputs` and `arguments` objects to return processed pixel data to Core
 // Image via multiple `outputs`.
@@ -443,14 +452,14 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ProcessWithInput
 // a specific pixel format.
 //
 // # Discussion
-// 
+//
 // The format must be one of `kCIFormatBGRA8`, `kCIFormatRGBAh`,
 // `kCIFormatRGBAf` or `kCIFormatR8`. On iOS 12 and macOS 10.14, the formats
 // `kCIFormatRh` and `kCIFormatRf` are also supported.
-// 
+//
 // If the outputFormat is `0`, then the output will be a supported format that
 // best matches the rendering context’s `/CIContext/workingFormat`.
-// 
+//
 // If a processor returns data in a color space other than the context working
 // color space, then call `/CIImage/` on the processor output. If a processor
 // returns data as alpha-unpremultiplied RGBA data, then call,
@@ -461,11 +470,12 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormat() C
 	rv := objc.Send[CIFormat](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("outputFormat"))
 	return CIFormat(rv)
 }
+
 // Override this class property if your processor’s output stores 1.0 into
 // the alpha channel of all pixels within the output extent.
 //
 // # Discussion
-// 
+//
 // If not overridden, false is returned.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/outputIsOpaque
@@ -473,11 +483,12 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputIsOpaque()
 	rv := objc.Send[bool](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("outputIsOpaque"))
 	return rv
 }
+
 // Override this class property to return false if you want your processor to
 // be given input objects that have not been synchronized for CPU access.
 //
 // # Discussion
-// 
+//
 // Generally, if your subclass uses the GPU your should override this method
 // to return false. If not overridden, true is returned.
 //
@@ -486,4 +497,3 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) SynchronizeInput
 	rv := objc.Send[bool](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("synchronizeInputs"))
 	return rv
 }
-

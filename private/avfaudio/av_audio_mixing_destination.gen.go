@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (ac AVAudioMixingDestinationClass) Alloc() AVAudioMixingDestination {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioMixingDestination.DebugDescription]
 //   - [AVAudioMixingDestination.Description]
 //   - [AVAudioMixingDestination.Hash]
 //   - [AVAudioMixingDestination.Superclass]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixingDestination
 type AVAudioMixingDestination struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type AVAudioMixingDestination struct {
 func AVAudioMixingDestinationFromID(id objc.ID) AVAudioMixingDestination {
 	return AVAudioMixingDestination{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioMixingDestination implements IAVAudioMixingDestination.
 var _ IAVAudioMixingDestination = AVAudioMixingDestination{}
 
@@ -106,19 +108,21 @@ func (a AVAudioMixingDestination) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixingDestination/description
 func (a AVAudioMixingDestination) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixingDestination/hash
 func (a AVAudioMixingDestination) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixingDestination/superclass
 func (a AVAudioMixingDestination) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
 	return rv
 }
-

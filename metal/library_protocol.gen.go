@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -89,6 +89,7 @@ type MTLLibrary interface {
 type MTLLibraryObject struct {
 	objectivec.Object
 }
+
 func (o MTLLibraryObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -107,36 +108,39 @@ func MTLLibraryObjectFromID(id objc.ID) MTLLibraryObject {
 func (o MTLLibraryObject) InstallName() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("installName"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // The library’s basic type.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/type
 func (o MTLLibraryObject) Type() MTLLibraryType {
 	rv := objc.Send[MTLLibraryType](o.ID, objc.Sel("type"))
 	return rv
-	}
+}
+
 // The names of all public functions in the library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/functionNames
 func (o MTLLibraryObject) FunctionNames() []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("functionNames"))
 	return objc.ConvertSliceToStrings(rv)
-	}
+}
+
 // Creates an instance that represents a shader function in the library.
 //
 // functionName: The name of the function.
 //
 // # Return Value
-// 
+//
 // An [MTLFunction], or `nil` if the named function isn’t found in the
 // library.
 //
 // # Discussion
-// 
+//
 // If you call this method to retrieve a function that doesn’t use function
 // constants, it returns an [MTLFunction] instance that you can use to build a
 // render or compute pipeline.
-// 
+//
 // If you call this method to retrieve a function that uses function constants
 // to specialize its behavior, you can only use the returned instance to query
 // the `functionConstants` property for the list of function constants. You
@@ -150,7 +154,8 @@ func (o MTLLibraryObject) FunctionNames() []string {
 func (o MTLLibraryObject) NewFunctionWithName(functionName string) MTLFunction {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newFunctionWithName:"), objc.String(functionName))
 	return MTLFunctionObjectFromID(rv)
-	}
+}
+
 // Asynchronously creates a specialized shader function.
 //
 // name: The name of the specialized function.
@@ -160,7 +165,7 @@ func (o MTLLibraryObject) NewFunctionWithName(functionName string) MTLFunction {
 // function constants.
 //
 // completionHandler: A block of code that Metal calls after it creates the specialized function.
-// 
+//
 // function: A specialized function, or `nil` if an error occurred. error: An
 // error object that describes compilation problems, if any. This object
 // contains compiler errors if the specialized function is `nil`, and compiler
@@ -169,7 +174,7 @@ func (o MTLLibraryObject) NewFunctionWithName(functionName string) MTLFunction {
 // `nil`.
 //
 // # Discussion
-// 
+//
 // Function constant values are first looked up by their index, then by their
 // name. Metal ignores any values that don’t correspond to a function
 // constant in the named function without generating errors or warnings.
@@ -177,7 +182,8 @@ func (o MTLLibraryObject) NewFunctionWithName(functionName string) MTLFunction {
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeFunction(name:constantValues:completionHandler:)
 func (o MTLLibraryObject) NewFunctionWithNameConstantValuesCompletionHandler(name string, constantValues IMTLFunctionConstantValues, completionHandler MTLFunctionErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("newFunctionWithName:constantValues:completionHandler:"), objc.String(name), constantValues, completionHandler)
-	}
+}
+
 // Synchronously creates a specialized shader function.
 //
 // name: The name of the specialized function.
@@ -187,12 +193,12 @@ func (o MTLLibraryObject) NewFunctionWithNameConstantValuesCompletionHandler(nam
 // requires.
 //
 // # Return Value
-// 
+//
 // A new [MTLFunction] instance if the method completes successfully;
 // otherwise Swift throws an error and Objective-C returns `nil`.
 //
 // # Discussion
-// 
+//
 // Function constant values are first looked up by their index, then by their
 // name. The compiler ignores any values that don’t correspond to a function
 // constant in the named function, and doesn’t generate errors or warnings.
@@ -204,7 +210,8 @@ func (o MTLLibraryObject) NewFunctionWithNameConstantValuesError(name string, co
 		return nil, err
 	}
 	return MTLFunctionObjectFromID(rv), nil
-	}
+}
+
 // Asynchronously creates an object representing a shader function, using the
 // specified descriptor.
 //
@@ -216,14 +223,15 @@ func (o MTLLibraryObject) NewFunctionWithNameConstantValuesError(name string, co
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeFunction(descriptor:completionHandler:)
 func (o MTLLibraryObject) NewFunctionWithDescriptorCompletionHandler(descriptor IMTLFunctionDescriptor, completionHandler MTLFunctionErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("newFunctionWithDescriptor:completionHandler:"), descriptor, completionHandler)
-	}
+}
+
 // Synchronously creates an object representing a shader function, using the
 // specified descriptor.
 //
 // descriptor: The description of the function object to create.
 //
 // # Return Value
-// 
+//
 // A new [MTLFunction] instance if the method finds the function in the
 // library; otherwise Swift throws an error and Objective-C returns `nil`.
 //
@@ -234,14 +242,16 @@ func (o MTLLibraryObject) NewFunctionWithDescriptorError(descriptor IMTLFunction
 		return nil, err
 	}
 	return MTLFunctionObjectFromID(rv), nil
-	}
+}
+
 // Asynchronously creates an object representing a ray-tracing intersection
 // function, using the specified descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeIntersectionFunction(descriptor:completionHandler:)
 func (o MTLLibraryObject) NewIntersectionFunctionWithDescriptorCompletionHandler(descriptor IMTLIntersectionFunctionDescriptor, completionHandler MTLFunctionErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("newIntersectionFunctionWithDescriptor:completionHandler:"), descriptor, completionHandler)
-	}
+}
+
 // Synchronously creates an object representing a ray-tracing intersection
 // function, using the specified descriptor.
 //
@@ -252,42 +262,45 @@ func (o MTLLibraryObject) NewIntersectionFunctionWithDescriptorError(descriptor 
 		return nil, err
 	}
 	return MTLFunctionObjectFromID(rv), nil
-	}
+}
+
 // The Metal device object that created the library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/device
 func (o MTLLibraryObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-	}
+}
+
 // A string that identifies the library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/label
 func (o MTLLibraryObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Retrieves reflection information for a function in the library.
 //
 // functionName: The name of a GPU function in the library. The name needs to match one of
 // the elements in the string array of library’s [FunctionNames] property.
 //
 // # Return Value
-// 
+//
 // An [MTLFunctionReflection] instance when the method succeeds; otherwise
 // `nil`.
 //
 // # Discussion
-// 
+//
 // The reflection instance contains metadata information about a specific GPU
 // function, which can include:
-// 
+//
 // - Function parameters - Return types - Bindings - Annotations from a
 // developer, if available
-// 
+//
 // The method only returns reflection information if all of the following
 // conditions apply:
-// 
+//
 // - The library has a function with a name that matches `functionName`. - The
 // deployment target is macOS 13.0 or later, or iOS 16.0 or later, or visionOS
 // 2.0 or later.
@@ -296,9 +309,19 @@ func (o MTLLibraryObject) Label() string {
 func (o MTLLibraryObject) ReflectionForFunctionWithName(functionName string) IMTLFunctionReflection {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflectionForFunctionWithName:"), objc.String(functionName))
 	return MTLFunctionReflectionFromID(rv)
-	}
+}
 
+// A string that identifies the library.
+//
+// # Discussion
+//
+// Object and command labels are useful identifiers at runtime or when
+// profiling and debugging your app using any Metal tool. See [Naming
+// resources and commands].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLLibrary/label
+//
+// [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 func (o MTLLibraryObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

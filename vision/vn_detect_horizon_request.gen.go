@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -57,6 +58,7 @@ type VNDetectHorizonRequest struct {
 func VNDetectHorizonRequestFromID(id objc.ID) VNDetectHorizonRequest {
 	return VNDetectHorizonRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectHorizonRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -100,7 +102,7 @@ func NewVNDetectHorizonRequest() VNDetectHorizonRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -119,4 +121,3 @@ func (d VNDetectHorizonRequest) VNDetectHorizonRequestRevision1() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHorizonRequestRevision1"))
 	return rv
 }
-

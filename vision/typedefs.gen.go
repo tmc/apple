@@ -100,4 +100,3 @@ type VNRequestCompletionHandler = func(VNRequest, foundation.NSError)
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequestProgressHandler
 type VNRequestProgressHandler = func(VNRequest, float64, foundation.NSError)
-

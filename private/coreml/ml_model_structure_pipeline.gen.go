@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (mc MLModelStructurePipelineClass) Alloc() MLModelStructurePipeline {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelStructurePipeline.InitWithSubModelNamesSubModels]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePipeline
 type MLModelStructurePipeline struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type MLModelStructurePipeline struct {
 func MLModelStructurePipelineFromID(id objc.ID) MLModelStructurePipeline {
 	return MLModelStructurePipeline{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructurePipeline implements IMLModelStructurePipeline.
 var _ IMLModelStructurePipeline = MLModelStructurePipeline{}
 
@@ -91,7 +93,6 @@ func NewMLModelStructurePipeline() MLModelStructurePipeline {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePipeline/initWithSubModelNames:subModels:
 func NewModelStructurePipelineWithSubModelNamesSubModels(names objectivec.IObject, models objectivec.IObject) MLModelStructurePipeline {
 	instance := getMLModelStructurePipelineClass().Alloc()
@@ -99,10 +100,8 @@ func NewModelStructurePipelineWithSubModelNamesSubModels(names objectivec.IObjec
 	return MLModelStructurePipelineFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePipeline/initWithSubModelNames:subModels:
 func (m MLModelStructurePipeline) InitWithSubModelNamesSubModels(names objectivec.IObject, models objectivec.IObject) MLModelStructurePipeline {
 	rv := objc.Send[MLModelStructurePipeline](m.ID, objc.Sel("initWithSubModelNames:subModels:"), names, models)
 	return rv
 }
-

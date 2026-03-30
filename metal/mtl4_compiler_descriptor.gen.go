@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -62,6 +63,7 @@ type MTL4CompilerDescriptor struct {
 func MTL4CompilerDescriptorFromID(id objc.ID) MTL4CompilerDescriptor {
 	return MTL4CompilerDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4CompilerDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,6 +120,7 @@ func (m MTL4CompilerDescriptor) Label() string {
 func (m MTL4CompilerDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // Assigns a pipeline data set serializer into which this compiler stores data
 // for all pipelines it creates.
 //
@@ -129,4 +132,3 @@ func (m MTL4CompilerDescriptor) PipelineDataSetSerializer() MTL4PipelineDataSetS
 func (m MTL4CompilerDescriptor) SetPipelineDataSetSerializer(value MTL4PipelineDataSetSerializer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPipelineDataSetSerializer:"), value)
 }
-

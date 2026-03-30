@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +61,7 @@ type AVCompositionTrackFormatDescriptionReplacement struct {
 func AVCompositionTrackFormatDescriptionReplacementFromID(id objc.ID) AVCompositionTrackFormatDescriptionReplacement {
 	return AVCompositionTrackFormatDescriptionReplacement{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCompositionTrackFormatDescriptionReplacement adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,6 +122,7 @@ func (c AVCompositionTrackFormatDescriptionReplacement) OriginalFormatDescriptio
 	rv := objc.Send[uintptr](c.ID, objc.Sel("originalFormatDescription"))
 	return rv
 }
+
 // The replacement format description.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackFormatDescriptionReplacement/replacementFormatDescription
@@ -127,6 +130,7 @@ func (c AVCompositionTrackFormatDescriptionReplacement) ReplacementFormatDescrip
 	rv := objc.Send[uintptr](c.ID, objc.Sel("replacementFormatDescription"))
 	return rv
 }
+
 // The replacement format descriptions.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcompositiontrack/formatdescriptionreplacements
@@ -137,6 +141,7 @@ func (c AVCompositionTrackFormatDescriptionReplacement) FormatDescriptionReplace
 func (c AVCompositionTrackFormatDescriptionReplacement) SetFormatDescriptionReplacements(value IAVCompositionTrackFormatDescriptionReplacement) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFormatDescriptionReplacements:"), value)
 }
+
 // The format descriptions of the media samples that a track references.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcompositiontrack/formatdescriptions
@@ -147,4 +152,3 @@ func (c AVCompositionTrackFormatDescriptionReplacement) FormatDescriptions() obj
 func (c AVCompositionTrackFormatDescriptionReplacement) SetFormatDescriptions(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFormatDescriptions:"), value)
 }
-

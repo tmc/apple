@@ -3,11 +3,12 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (vc VNRequestClass) Alloc() VNRequest {
 // The abstract superclass for analysis requests.
 //
 // # Overview
-// 
+//
 // Other Vision request handlers that perform image analysis inherit from this
 // abstract base class. Instantiate one of its subclasses to perform image
 // analysis.
@@ -87,6 +88,7 @@ type VNRequest struct {
 func VNRequestFromID(id objc.ID) VNRequest {
 	return VNRequest{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -184,7 +186,7 @@ func NewVNRequest() VNRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -201,29 +203,31 @@ func NewRequestWithCompletionHandler(completionHandler VNRequestCompletionHandle
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func (r VNRequest) InitWithCompletionHandler(completionHandler ErrorHandler) VNRequest {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNRequestFromID(rv)
 }
+
 // Cancels the request before it can finish executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/cancel()
 func (r VNRequest) Cancel() {
 	objc.Send[objc.ID](r.ID, objc.Sel("cancel"))
 }
+
 // Returns the compute device for a compute stage.
 //
 // computeStage: The compute stage to inspect.
 //
 // # Return Value
-// 
+//
 // The current compute device; otherwise, `nil` if one isn’t assigned.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/computeDeviceForComputeStage:
@@ -231,6 +235,7 @@ func (r VNRequest) ComputeDeviceForComputeStage(computeStage VNComputeStage) cor
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("computeDeviceForComputeStage:"), objc.String(string(computeStage)))
 	return coreml.MLComputeDeviceProtocolObjectFromID(rv)
 }
+
 // Assigns a compute device for a compute stage.
 //
 // computeDevice: The compute device to assign to the compute stage.
@@ -238,11 +243,11 @@ func (r VNRequest) ComputeDeviceForComputeStage(computeStage VNComputeStage) cor
 // computeStage: The compute stage.
 //
 // # Discussion
-// 
+//
 // If the parameter `computeDevice` is `nil`, the framework removes any
 // explicit compute device assignment and allows the framework to select the
 // device.
-// 
+//
 // Configure any compute device for a given compute stage. When performing a
 // request, the system makes a validity check. Call
 // [SupportedComputeStageDevicesAndReturnError] to get valid compute devices
@@ -252,10 +257,11 @@ func (r VNRequest) ComputeDeviceForComputeStage(computeStage VNComputeStage) cor
 func (r VNRequest) SetComputeDeviceForComputeStage(computeDevice coreml.MLComputeDeviceProtocol, computeStage VNComputeStage) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setComputeDevice:forComputeStage:"), computeDevice, objc.String(string(computeStage)))
 }
+
 // The collection of compute devices per stage that a request supports.
 //
 // # Return Value
-// 
+//
 // A dictionary of per-stage compute devices; otherwise, `nil` if an error
 // occurs.
 //
@@ -275,7 +281,7 @@ func (r VNRequest) SupportedComputeStageDevicesAndReturnError() (foundation.INSD
 // processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -285,18 +291,17 @@ func (r VNRequest) CompletionHandler() VNRequestCompletionHandler {
 	rv := objc.Send[VNRequestCompletionHandler](r.ID, objc.Sel("completionHandler"))
 	return VNRequestCompletionHandler(rv)
 }
+
 // A hint to minimize the resource burden of the request.
 //
 // # Discussion
-// 
-// If set to [true], this property reduces the request’s memory footprint,
+//
+// If set to true, this property reduces the request’s memory footprint,
 // processing footprint, and CPU/GPU contention at the potential cost of
 // longer execution time.
-// 
+//
 // Setting this value can help ensure that Vision processing doesn’t block
 // UI updates and other rendering on the main thread.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/preferBackgroundProcessing
 func (r VNRequest) PreferBackgroundProcessing() bool {
@@ -306,16 +311,15 @@ func (r VNRequest) PreferBackgroundProcessing() bool {
 func (r VNRequest) SetPreferBackgroundProcessing(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setPreferBackgroundProcessing:"), value)
 }
+
 // The collection of observation results generated by request processing.
 //
 // # Discussion
-// 
-// If the request fails, this property is [nil]. Otherwise, it contains an
-// array of [VNObservation] subclasses specific to the [VNRequest] subclass.
-// 
-// Don’t access this property until the request has finished processing.
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// If the request fails, this property is nil. Otherwise, it contains an array
+// of [VNObservation] subclasses specific to the [VNRequest] subclass.
+//
+// Don’t access this property until the request has finished processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/results
 func (r VNRequest) Results() []VNObservation {
@@ -324,6 +328,7 @@ func (r VNRequest) Results() []VNObservation {
 		return VNObservationFromID(id)
 	})
 }
+
 // The specific algorithm or implementation revision that’s used to perform
 // the request.
 //
@@ -335,15 +340,14 @@ func (r VNRequest) Revision() uint {
 func (r VNRequest) SetRevision(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRevision:"), value)
 }
+
 // A Boolean signifying that the Vision request should execute exclusively on
 // the CPU.
 //
 // # Discussion
-// 
-// This value defaults to [false] to signify that the Vision request is free
-// to leverage the GPU to accelerate its processing.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// This value defaults to false to signify that the Vision request is free to
+// leverage the GPU to accelerate its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/usesCPUOnly
 func (r VNRequest) UsesCPUOnly() bool {
@@ -353,6 +357,7 @@ func (r VNRequest) UsesCPUOnly() bool {
 func (r VNRequest) SetUsesCPUOnly(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setUsesCPUOnly:"), value)
 }
+
 // The collection of compute devices per stage that a request supports.
 //
 // See: https://developer.apple.com/documentation/vision/vnrequest/supportedcomputestagedevices
@@ -371,6 +376,7 @@ func (_VNRequestClass VNRequestClass) CurrentRevision() uint {
 	rv := objc.Send[uint](objc.ID(_VNRequestClass.class), objc.Sel("currentRevision"))
 	return rv
 }
+
 // The revision of the latest request for the particular SDK linked with the
 // client application.
 //
@@ -379,11 +385,12 @@ func (_VNRequestClass VNRequestClass) DefaultRevision() uint {
 	rv := objc.Send[uint](objc.ID(_VNRequestClass.class), objc.Sel("defaultRevision"))
 	return rv
 }
+
 // The collection of currently-supported algorithm versions for the class of
 // request.
 //
 // # Discussion
-// 
+//
 // This method allows clients to inspect at runtime what capabilities are
 // available for each class of [VNRequest] in the Vision framework.
 //
@@ -392,4 +399,3 @@ func (_VNRequestClass VNRequestClass) SupportedRevisions() foundation.NSIndexSet
 	rv := objc.Send[objc.ID](objc.ID(_VNRequestClass.class), objc.Sel("supportedRevisions"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
-

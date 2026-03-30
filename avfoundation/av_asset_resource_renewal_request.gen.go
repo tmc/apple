@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAssetResourceRenewalRequest] class.
@@ -45,7 +46,7 @@ func (ac AVAssetResourceRenewalRequestClass) Alloc() AVAssetResourceRenewalReque
 // resource loader to renew a previously issued request.
 //
 // # Overview
-// 
+//
 // When an [AVURLAsset] needs to renew a resource, because the [AVAssetResourceRenewalRequest.RenewalDate]
 // has been set on a previous loading request, it asks its
 // [AVAssetResourceLoader] object to assist. The resource loader encapsulates
@@ -53,7 +54,7 @@ func (ac AVAssetResourceRenewalRequestClass) Alloc() AVAssetResourceRenewalReque
 // then hands to its delegate for processing. The delegate uses the
 // information in this object to perform the request and report on the success
 // or failure of the operation.
-// 
+//
 // The [AVAssetResourceRenewalRequest] class is a subclass of
 // [AVAssetResourceLoadingRequest].
 //
@@ -69,6 +70,7 @@ type AVAssetResourceRenewalRequest struct {
 func AVAssetResourceRenewalRequestFromID(id objc.ID) AVAssetResourceRenewalRequest {
 	return AVAssetResourceRenewalRequest{AVAssetResourceLoadingRequest: AVAssetResourceLoadingRequestFromID(id)}
 }
+
 // NOTE: AVAssetResourceRenewalRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,4 +115,3 @@ func (a AVAssetResourceRenewalRequest) RenewalDate() foundation.INSDate {
 func (a AVAssetResourceRenewalRequest) SetRenewalDate(value foundation.INSDate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRenewalDate:"), value)
 }
-

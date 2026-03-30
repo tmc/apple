@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZMacTrackpadConfiguration struct {
 func VZMacTrackpadConfigurationFromID(id objc.ID) VZMacTrackpadConfiguration {
 	return VZMacTrackpadConfiguration{VZPointingDeviceConfiguration: VZPointingDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZMacTrackpadConfiguration implements IVZMacTrackpadConfiguration.
 var _ IVZMacTrackpadConfiguration = VZMacTrackpadConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZMacTrackpadConfiguration() VZMacTrackpadConfiguration {
 	rv := objc.Send[VZMacTrackpadConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

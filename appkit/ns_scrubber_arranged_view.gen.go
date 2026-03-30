@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSScrubberArrangedView] class.
@@ -66,6 +67,7 @@ type NSScrubberArrangedView struct {
 func NSScrubberArrangedViewFromID(id objc.ID) NSScrubberArrangedView {
 	return NSScrubberArrangedView{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSScrubberArrangedView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -125,7 +127,7 @@ func NewNSScrubberArrangedView() NSScrubberArrangedView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -141,11 +143,11 @@ func NewScrubberArrangedViewWithCoder(coder foundation.INSCoder) NSScrubberArran
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -178,6 +180,7 @@ func (s NSScrubberArrangedView) Highlighted() bool {
 func (s NSScrubberArrangedView) SetHighlighted(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHighlighted:"), value)
 }
+
 // A Boolean value that specifies whether the current view is selected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberArrangedView/isSelected
@@ -188,4 +191,3 @@ func (s NSScrubberArrangedView) Selected() bool {
 func (s NSScrubberArrangedView) SetSelected(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelected:"), value)
 }
-

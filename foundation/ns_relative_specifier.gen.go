@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSRelativeSpecifierClass) Alloc() NSRelativeSpecifier {
 // relative to another object.
 //
 // # Overview
-// 
+//
 // You don’t normally subclass [NSRelativeSpecifier].
 //
 // # Initializing a relative specifier
@@ -70,6 +71,7 @@ type NSRelativeSpecifier struct {
 func NSRelativeSpecifierFromID(id objc.ID) NSRelativeSpecifier {
 	return NSRelativeSpecifier{NSScriptObjectSpecifier: NSScriptObjectSpecifierFromID(id)}
 }
+
 // NOTE: NSRelativeSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,7 +126,6 @@ func NewNSRelativeSpecifier() NSRelativeSpecifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSRelativeSpecifier/init(coder:)
 func NewRelativeSpecifierWithCoder(inCoder INSCoder) NSRelativeSpecifier {
 	instance := getNSRelativeSpecifierClass().Alloc()
@@ -136,16 +137,16 @@ func NewRelativeSpecifierWithCoder(inCoder INSCoder) NSRelativeSpecifier {
 // attributes.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier`, key `key`, and the class description of the object specifier
 // `classDescription`, derived from the value of the specifier’s key.
 //
 // # Discussion
-// 
+//
 // You should never pass `nil` for the value of `classDescription`. The
 // receiver’s child reference is set to `nil`.
-// 
+//
 // This is the designated initializer for [NSScriptObjectSpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)
@@ -171,12 +172,12 @@ func NewRelativeSpecifierWithContainerClassDescriptionContainerSpecifierKeyRelat
 // container specifier and key.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier` and key `key`.
 //
 // # Discussion
-// 
+//
 // The class description of the container is set automatically.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerSpecifier:key:)
@@ -207,6 +208,7 @@ func (r NSRelativeSpecifier) BaseSpecifier() INSScriptObjectSpecifier {
 func (r NSRelativeSpecifier) SetBaseSpecifier(value INSScriptObjectSpecifier) {
 	objc.Send[struct{}](r.ID, objc.Sel("setBaseSpecifier:"), value)
 }
+
 // Sets the relative position encapsulated by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRelativeSpecifier/relativePosition-swift.property
@@ -217,4 +219,3 @@ func (r NSRelativeSpecifier) RelativePosition() NSRelativePosition {
 func (r NSRelativeSpecifier) SetRelativePosition(value NSRelativePosition) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRelativePosition:"), value)
 }
-

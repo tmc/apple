@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,14 +44,14 @@ func (nc NSSharingServicePickerToolbarItemClass) Alloc() NSSharingServicePickerT
 // A toolbar item that displays the macOS share sheet.
 //
 // # Overview
-// 
+//
 // An [NSSharingServicePickerToolbarItem] object is a standard item you add to
 // your window’s toolbar. When someone clicks it, the item displays the
 // macOS share sheet. Use this item to share the selected or focal content
 // from the current window. For example, you might share the photo someone is
 // viewing, the currently selected text, or the window’s associated
 // document.
-// 
+//
 // Provide the items to share using the associated [NSSharingServicePickerToolbarItem.Delegate] object. For an
 // app built using Mac Catalyst, provide the items from the object in the
 // [NSSharingServicePickerToolbarItem.ActivityItemsConfiguration] property.
@@ -71,6 +72,7 @@ type NSSharingServicePickerToolbarItem struct {
 func NSSharingServicePickerToolbarItemFromID(id objc.ID) NSSharingServicePickerToolbarItem {
 	return NSSharingServicePickerToolbarItem{NSToolbarItem: NSToolbarItemFromID(id)}
 }
+
 // NOTE: NSSharingServicePickerToolbarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,7 +120,7 @@ func NewNSSharingServicePickerToolbarItem() NSSharingServicePickerToolbarItem {
 // toolbar delegate uses this value to identify the specific toolbar item.
 //
 // # Return Value
-// 
+//
 // A new toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/init(itemIdentifier:)
@@ -131,7 +133,7 @@ func NewSharingServicePickerToolbarItemWithItemIdentifier(itemIdentifier NSToolb
 // The custom object from your app that provides the items to share.
 //
 // # Discussion
-// 
+//
 // Use your delegate object to provide the set of items you want to share from
 // your window. If this property is `nil`, AppKit disables the toolbar item.
 //
@@ -143,4 +145,3 @@ func (s NSSharingServicePickerToolbarItem) Delegate() NSSharingServicePickerTool
 func (s NSSharingServicePickerToolbarItem) SetDelegate(value NSSharingServicePickerToolbarItemDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-

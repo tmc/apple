@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -63,6 +64,7 @@ type AVMediaDataStorage struct {
 func AVMediaDataStorageFromID(id objc.ID) AVMediaDataStorage {
 	return AVMediaDataStorage{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMediaDataStorage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,7 +120,7 @@ func NewAVMediaDataStorage() AVMediaDataStorage {
 // No keys are currently defined.
 //
 // # Return Value
-// 
+//
 // An [AVMediaDataStorage] object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/init(url:options:)
@@ -136,7 +138,7 @@ func NewMediaDataStorageWithURLOptions(URL foundation.INSURL, options foundation
 // No keys are currently defined.
 //
 // # Return Value
-// 
+//
 // An [AVMediaDataStorage] object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/init(url:options:)
@@ -144,18 +146,18 @@ func (m AVMediaDataStorage) InitWithURLOptions(URL foundation.INSURL, options fo
 	rv := objc.Send[AVMediaDataStorage](m.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return rv
 }
+
 // Returns the URL used to initialize the receiver.
 //
 // # Return Value
-// 
+//
 // The [NSURL] object used to initialize the receiver. This value can be
 // `nil`.
 //
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/url()
+//
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 func (m AVMediaDataStorage) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(rv)
 }
-

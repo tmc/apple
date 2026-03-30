@@ -49,6 +49,7 @@ type CINoiseReduction interface {
 type CINoiseReductionObject struct {
 	objectivec.Object
 }
+
 func (o CINoiseReductionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CINoiseReductionObjectFromID(id objc.ID) CINoiseReductionObject {
 func (o CINoiseReductionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The amount of noise reduction.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CINoiseReduction/noiseLevel
 func (o CINoiseReductionObject) NoiseLevel() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("noiseLevel"))
 	return rv
-	}
+}
+
 // The sharpness of the final image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CINoiseReduction/sharpness
 func (o CINoiseReductionObject) Sharpness() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,33 @@ func (o CINoiseReductionObject) Sharpness() float32 {
 func (o CINoiseReductionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CINoiseReduction/inputImage
 func (o CINoiseReductionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The amount of noise reduction.
+//
+// # Discussion
+//
+// The larger the value, the more noise reduction.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CINoiseReduction/noiseLevel
 func (o CINoiseReductionObject) SetNoiseLevel(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNoiseLevel:"), value)
 }
 
+// The sharpness of the final image.
+//
+// # Discussion
+//
+// The larger the value, the sharper the result.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CINoiseReduction/sharpness
 func (o CINoiseReductionObject) SetSharpness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSharpness:"), value)
 }
-

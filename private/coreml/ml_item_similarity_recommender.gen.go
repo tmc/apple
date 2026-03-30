@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLItemSimilarityRecommenderClass) Alloc() MLItemSimilarityRecommender {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLItemSimilarityRecommender._itemForIndexError]
@@ -52,6 +52,7 @@ func (mc MLItemSimilarityRecommenderClass) Alloc() MLItemSimilarityRecommender {
 //   - [MLItemSimilarityRecommender.ModelData]
 //   - [MLItemSimilarityRecommender.PredictionFromFeaturesOptionsError]
 //   - [MLItemSimilarityRecommender.Metadata]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender
 type MLItemSimilarityRecommender struct {
 	MLModel
@@ -61,6 +62,7 @@ type MLItemSimilarityRecommender struct {
 func MLItemSimilarityRecommenderFromID(id objc.ID) MLItemSimilarityRecommender {
 	return MLItemSimilarityRecommender{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLItemSimilarityRecommender implements IMLItemSimilarityRecommender.
 var _ IMLItemSimilarityRecommender = MLItemSimilarityRecommender{}
 
@@ -106,7 +108,6 @@ func NewMLItemSimilarityRecommender() MLItemSimilarityRecommender {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewItemSimilarityRecommenderDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLItemSimilarityRecommender, error) {
 	var errorPtr objc.ID
@@ -119,7 +120,6 @@ func NewItemSimilarityRecommenderDescriptionOnlyWithSpecificationConfigurationEr
 	return MLItemSimilarityRecommenderFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewItemSimilarityRecommenderInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLItemSimilarityRecommender, error) {
 	var errorPtr objc.ID
@@ -132,7 +132,6 @@ func NewItemSimilarityRecommenderInterfaceAndMetadataWithCompiledArchiveError(ar
 	return MLItemSimilarityRecommenderFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewItemSimilarityRecommenderWithConfiguration(configuration objectivec.IObject) MLItemSimilarityRecommender {
 	instance := getMLItemSimilarityRecommenderClass().Alloc()
@@ -140,7 +139,6 @@ func NewItemSimilarityRecommenderWithConfiguration(configuration objectivec.IObj
 	return MLItemSimilarityRecommenderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewItemSimilarityRecommenderWithDescription(description objectivec.IObject) MLItemSimilarityRecommender {
 	instance := getMLItemSimilarityRecommenderClass().Alloc()
@@ -148,7 +146,6 @@ func NewItemSimilarityRecommenderWithDescription(description objectivec.IObject)
 	return MLItemSimilarityRecommenderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewItemSimilarityRecommenderWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLItemSimilarityRecommender {
 	instance := getMLItemSimilarityRecommenderClass().Alloc()
@@ -156,7 +153,6 @@ func NewItemSimilarityRecommenderWithDescriptionConfiguration(description object
 	return MLItemSimilarityRecommenderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewItemSimilarityRecommenderWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLItemSimilarityRecommender {
 	instance := getMLItemSimilarityRecommenderClass().Alloc()
@@ -164,7 +160,6 @@ func NewItemSimilarityRecommenderWithNameInputDescriptionOutputDescriptionOrdere
 	return MLItemSimilarityRecommenderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/_itemForIndex:error:
 func (i MLItemSimilarityRecommender) _itemForIndexError(index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -181,7 +176,7 @@ func (i MLItemSimilarityRecommender) _itemForIndexError(index uint64) (objective
 func (i MLItemSimilarityRecommender) ItemForIndexError(index uint64) (objectivec.IObject, error) {
 	return i._itemForIndexError(index)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/_mapItemSequence:dest:error:
 func (i MLItemSimilarityRecommender) _mapItemSequenceDestError(sequence objectivec.IObject, dest unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -201,12 +196,13 @@ func (i MLItemSimilarityRecommender) _mapItemSequenceDestError(sequence objectiv
 func (i MLItemSimilarityRecommender) MapItemSequenceDestError(sequence objectivec.IObject, dest unsafe.Pointer) (bool, error) {
 	return i._mapItemSequenceDestError(sequence, dest)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/modelData
 func (i MLItemSimilarityRecommender) ModelData() string {
 	rv := objc.Send[*byte](i.ID, objc.Sel("modelData"))
 	return objc.GoString(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/predictionFromFeatures:options:error:
 func (i MLItemSimilarityRecommender) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -219,7 +215,6 @@ func (i MLItemSimilarityRecommender) PredictionFromFeaturesOptionsError(features
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/compileSpecification:toArchive:options:error:
 func (_MLItemSimilarityRecommenderClass MLItemSimilarityRecommenderClass) CompileSpecificationToArchiveOptionsError(specification unsafe.Pointer, archive unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -231,7 +226,7 @@ func (_MLItemSimilarityRecommenderClass MLItemSimilarityRecommenderClass) Compil
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/compiledVersionForSpecification:options:error:
 func (_MLItemSimilarityRecommenderClass MLItemSimilarityRecommenderClass) CompiledVersionForSpecificationOptionsError(specification unsafe.Pointer, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -243,7 +238,7 @@ func (_MLItemSimilarityRecommenderClass MLItemSimilarityRecommenderClass) Compil
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (_MLItemSimilarityRecommenderClass MLItemSimilarityRecommenderClass) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -255,7 +250,7 @@ func (_MLItemSimilarityRecommenderClass MLItemSimilarityRecommenderClass) LoadMo
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/loadModelFromSpecification:configuration:error:
 func (_MLItemSimilarityRecommenderClass MLItemSimilarityRecommenderClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -267,7 +262,7 @@ func (_MLItemSimilarityRecommenderClass MLItemSimilarityRecommenderClass) LoadMo
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLItemSimilarityRecommender/loadModelFromSpecificationWithCompilationOptions:options:error:
 func (_MLItemSimilarityRecommenderClass MLItemSimilarityRecommenderClass) LoadModelFromSpecificationWithCompilationOptionsOptionsError(options unsafe.Pointer, options2 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -285,4 +280,3 @@ func (i MLItemSimilarityRecommender) Metadata() IMLModelMetadata {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
-

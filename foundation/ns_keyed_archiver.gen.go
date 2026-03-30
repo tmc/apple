@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSKeyedArchiverClass) Alloc() NSKeyedArchiver {
 // An encoder that stores an object’s data to an archive referenced by keys.
 //
 // # Overview
-// 
+//
 // [NSKeyedArchiver], a concrete subclass of [NSCoder], provides a way to
 // encode objects (and scalar values) into an architecture-independent format
 // suitable for storage in a file. When you archive a set of objects, the
@@ -53,7 +54,7 @@ func (nc NSKeyedArchiverClass) Alloc() NSKeyedArchiver {
 // object to the archive. The companion class [NSKeyedUnarchiver] decodes the
 // data in an archive and creates a set of objects equivalent to the original
 // set.
-// 
+//
 // A keyed archive differs from a non-keyed archive in that all the objects
 // and values encoded into the archive have names, or keys. When decoding a
 // non-keyed archive, the decoder must decode values in the same order the
@@ -61,18 +62,16 @@ func (nc NSKeyedArchiverClass) Alloc() NSKeyedArchiver {
 // values by name, meaning it can decode values out of sequence or not at all.
 // Keyed archives, therefore, provide better support for forward and backward
 // compatibility.
-// 
+//
 // The keys given to encoded values must be unique only within the scope of
 // the currently-encoding object. A keyed archive is hierarchical, so the keys
 // used by object A to encode its instance variables don’t conflict with the
 // keys used by object B. This is true even if A and B are instances of the
 // same class. Within a single object, however, the keys used by a subclass
 // can conflict with keys used in its superclasses.
-// 
+//
 // An [NSArchiver] object can write the archive data to a file or to a
 // mutable-data object (an instance of [NSMutableData]) that you provide.
-//
-// [NSArchiver]: https://developer.apple.com/documentation/Foundation/NSArchiver
 //
 // # Creating a Keyed Archiver
 //
@@ -91,6 +90,8 @@ func (nc NSKeyedArchiverClass) Alloc() NSKeyedArchiver {
 //   - [NSKeyedArchiver.SetDelegate]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver
+//
+// [NSArchiver]: https://developer.apple.com/documentation/Foundation/NSArchiver
 type NSKeyedArchiver struct {
 	NSCoder
 }
@@ -101,6 +102,7 @@ type NSKeyedArchiver struct {
 func NSKeyedArchiverFromID(id objc.ID) NSKeyedArchiver {
 	return NSKeyedArchiver{NSCoder: NSCoderFromID(id)}
 }
+
 // NOTE: NSKeyedArchiver adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -173,12 +175,10 @@ func NewNSKeyedArchiver() NSKeyedArchiver {
 // [NSSecureCoding].
 //
 // # Discussion
-// 
-// To prevent the possibility of encoding an object that [NSKeyedUnarchiver]
-// can’t decode, set `requiresSecureCoding` to [true] whenever possible.
-// This ensures that all encoded objects conform to [NSSecureCoding].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// To prevent the possibility of encoding an object that [NSKeyedUnarchiver]
+// can’t decode, set `requiresSecureCoding` to true whenever possible. This
+// ensures that all encoded objects conform to [NSSecureCoding].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/init(requiringSecureCoding:)
 func NewKeyedArchiverRequiringSecureCoding(requiresSecureCoding bool) NSKeyedArchiver {
@@ -193,22 +193,21 @@ func NewKeyedArchiverRequiringSecureCoding(requiresSecureCoding bool) NSKeyedArc
 // [NSSecureCoding].
 //
 // # Discussion
-// 
-// To prevent the possibility of encoding an object that [NSKeyedUnarchiver]
-// can’t decode, set `requiresSecureCoding` to [true] whenever possible.
-// This ensures that all encoded objects conform to [NSSecureCoding].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// To prevent the possibility of encoding an object that [NSKeyedUnarchiver]
+// can’t decode, set `requiresSecureCoding` to true whenever possible. This
+// ensures that all encoded objects conform to [NSSecureCoding].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/init(requiringSecureCoding:)
 func (k NSKeyedArchiver) InitRequiringSecureCoding(requiresSecureCoding bool) NSKeyedArchiver {
 	rv := objc.Send[NSKeyedArchiver](k.ID, objc.Sel("initRequiringSecureCoding:"), requiresSecureCoding)
 	return rv
 }
+
 // Instructs the receiver to construct the final data stream.
 //
 // # Discussion
-// 
+//
 // No more values can be encoded after this method is called. You must call
 // this method when finished.
 //
@@ -226,7 +225,7 @@ func (k NSKeyedArchiver) FinishEncoding() {
 // [NSSecureCoding].
 //
 // # Discussion
-// 
+//
 // To prevent the possibility of encoding an object that [NSKeyedUnarchiver]
 // can’t decode, set `requiresSecureCoding` to true whenever possible. This
 // ensures that all encoded objects conform to [NSSecureCoding].
@@ -242,6 +241,7 @@ func (_NSKeyedArchiverClass NSKeyedArchiverClass) ArchivedDataWithRootObjectRequ
 	return NSDataFromID(rv), nil
 
 }
+
 // Sets a global translation mapping to encode instances of a given class with
 // the provided name, rather than their real name.
 //
@@ -250,7 +250,7 @@ func (_NSKeyedArchiverClass NSKeyedArchiverClass) ArchivedDataWithRootObjectRequ
 // cls: The class for which to set up a translation mapping.
 //
 // # Discussion
-// 
+//
 // When encoding, an archiver consults its own translation map before using
 // the class’ translation map.
 //
@@ -258,13 +258,14 @@ func (_NSKeyedArchiverClass NSKeyedArchiverClass) ArchivedDataWithRootObjectRequ
 func (_NSKeyedArchiverClass NSKeyedArchiverClass) SetClassNameForClass(codedName string, cls objc.Class) {
 	objc.Send[objc.ID](objc.ID(_NSKeyedArchiverClass.class), objc.Sel("setClassName:forClass:"), objc.String(codedName), cls)
 }
+
 // Returns the class name with which the archiver class encodes instances of a
 // given class.
 //
 // cls: The class for which to determine the translation mapping.
 //
 // # Return Value
-// 
+//
 // The class name with which [NSKeyedArchiver] encodes instances of `cls`.
 // Returns `nil` if [NSKeyedArchiver] does not have a translation mapping for
 // `cls`.
@@ -278,29 +279,26 @@ func (_NSKeyedArchiverClass NSKeyedArchiverClass) ClassNameForClassWithCls(cls o
 // The encoded data for the archiver.
 //
 // # Discussion
-// 
+//
 // If encoding has not yet finished, invoking this property calls
 // [FinishEncoding] and populates this property with the encoded data. If you
 // initialized the keyed archiver with [init(forWritingWith:)] and a specific
 // mutable data instance, this property contains that instance.
 //
-// [init(forWritingWith:)]: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/init(forWritingWith:)
-//
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/encodedData
+//
+// [init(forWritingWith:)]: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/init(forWritingWith:)
 func (k NSKeyedArchiver) EncodedData() INSData {
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("encodedData"))
 	return NSDataFromID(objc.ID(rv))
 }
+
 // The format in which the receiver encodes its data.
 //
 // # Discussion
-// 
-// The available formats are
-// [PropertyListSerialization.PropertyListFormat.xml] and
-// [PropertyListSerialization.PropertyListFormat.binary].
 //
-// [PropertyListSerialization.PropertyListFormat.binary]: https://developer.apple.com/documentation/Foundation/PropertyListSerialization/PropertyListFormat/binary
-// [PropertyListSerialization.PropertyListFormat.xml]: https://developer.apple.com/documentation/Foundation/PropertyListSerialization/PropertyListFormat/xml
+// The available formats are [NSPropertyListXMLFormat_v1_0] and
+// [NSPropertyListBinaryFormat_v1_0].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/outputFormat
 func (k NSKeyedArchiver) OutputFormat() NSPropertyListFormat {
@@ -310,6 +308,7 @@ func (k NSKeyedArchiver) OutputFormat() NSPropertyListFormat {
 func (k NSKeyedArchiver) SetOutputFormat(value NSPropertyListFormat) {
 	objc.Send[struct{}](k.ID, objc.Sel("setOutputFormat:"), value)
 }
+
 // The archiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/delegate
@@ -320,4 +319,3 @@ func (k NSKeyedArchiver) Delegate() NSKeyedArchiverDelegate {
 func (k NSKeyedArchiver) SetDelegate(value NSKeyedArchiverDelegate) {
 	objc.Send[struct{}](k.ID, objc.Sel("setDelegate:"), value)
 }
-

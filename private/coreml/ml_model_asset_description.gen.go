@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLModelAssetDescriptionClass) Alloc() MLModelAssetDescription {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelAssetDescription.AssetDescriptionBySettingClassLabels]
@@ -61,6 +61,7 @@ func (mc MLModelAssetDescriptionClass) Alloc() MLModelAssetDescription {
 //   - [MLModelAssetDescription.InitWithModelDescription]
 //   - [MLModelAssetDescription.InitWithModelDescriptionsByFunctionNameFunctionNamesDefaultFunctionName]
 //   - [MLModelAssetDescription.InitWithRawModelDescription]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription
 type MLModelAssetDescription struct {
 	objectivec.Object
@@ -70,6 +71,7 @@ type MLModelAssetDescription struct {
 func MLModelAssetDescriptionFromID(id objc.ID) MLModelAssetDescription {
 	return MLModelAssetDescription{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelAssetDescription implements IMLModelAssetDescription.
 var _ IMLModelAssetDescription = MLModelAssetDescription{}
 
@@ -135,7 +137,6 @@ func NewMLModelAssetDescription() MLModelAssetDescription {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initFromModelDescriptionSpecification:
 func NewModelAssetDescriptionFromModelDescriptionSpecification(specification unsafe.Pointer) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
@@ -143,7 +144,6 @@ func NewModelAssetDescriptionFromModelDescriptionSpecification(specification uns
 	return MLModelAssetDescriptionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initFromModelSpecification:
 func NewModelAssetDescriptionFromModelSpecification(specification unsafe.Pointer) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
@@ -151,7 +151,6 @@ func NewModelAssetDescriptionFromModelSpecification(specification unsafe.Pointer
 	return MLModelAssetDescriptionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initWithCompiledModelArchive:error:
 func NewModelAssetDescriptionWithCompiledModelArchiveError(archive unsafe.Pointer) (MLModelAssetDescription, error) {
 	var errorPtr objc.ID
@@ -164,7 +163,6 @@ func NewModelAssetDescriptionWithCompiledModelArchiveError(archive unsafe.Pointe
 	return MLModelAssetDescriptionFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initWithModelDescription:
 func NewModelAssetDescriptionWithModelDescription(description objectivec.IObject) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
@@ -172,7 +170,6 @@ func NewModelAssetDescriptionWithModelDescription(description objectivec.IObject
 	return MLModelAssetDescriptionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initWithModelDescriptionsByFunctionName:functionNames:defaultFunctionName:
 func NewModelAssetDescriptionWithModelDescriptionsByFunctionNameFunctionNamesDefaultFunctionName(name objectivec.IObject, names objectivec.IObject, name2 objectivec.IObject) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
@@ -180,7 +177,6 @@ func NewModelAssetDescriptionWithModelDescriptionsByFunctionNameFunctionNamesDef
 	return MLModelAssetDescriptionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initWithRawModelDescription:
 func NewModelAssetDescriptionWithRawModelDescription(description objectivec.IObject) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
@@ -188,37 +184,36 @@ func NewModelAssetDescriptionWithRawModelDescription(description objectivec.IObj
 	return MLModelAssetDescriptionFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/assetDescriptionBySettingClassLabels:
 func (m MLModelAssetDescription) AssetDescriptionBySettingClassLabels(labels objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("assetDescriptionBySettingClassLabels:"), labels)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/assetDescriptionBySettingClassLabels:functionName:
 func (m MLModelAssetDescription) AssetDescriptionBySettingClassLabelsFunctionName(labels objectivec.IObject, name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("assetDescriptionBySettingClassLabels:functionName:"), labels, name)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/modelDescriptionOfFunctionNamed:
 func (m MLModelAssetDescription) ModelDescriptionOfFunctionNamed(named objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionOfFunctionNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initFromModelDescriptionSpecification:
 func (m MLModelAssetDescription) InitFromModelDescriptionSpecification(specification unsafe.Pointer) MLModelAssetDescription {
 	rv := objc.Send[MLModelAssetDescription](m.ID, objc.Sel("initFromModelDescriptionSpecification:"), specification)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initFromModelSpecification:
 func (m MLModelAssetDescription) InitFromModelSpecification(specification unsafe.Pointer) MLModelAssetDescription {
 	rv := objc.Send[MLModelAssetDescription](m.ID, objc.Sel("initFromModelSpecification:"), specification)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initWithCompiledModelArchive:error:
 func (m MLModelAssetDescription) InitWithCompiledModelArchiveError(archive unsafe.Pointer) (MLModelAssetDescription, error) {
 	var errorPtr objc.ID
@@ -230,19 +225,19 @@ func (m MLModelAssetDescription) InitWithCompiledModelArchiveError(archive unsaf
 	return MLModelAssetDescriptionFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initWithModelDescription:
 func (m MLModelAssetDescription) InitWithModelDescription(description objectivec.IObject) MLModelAssetDescription {
 	rv := objc.Send[MLModelAssetDescription](m.ID, objc.Sel("initWithModelDescription:"), description)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initWithModelDescriptionsByFunctionName:functionNames:defaultFunctionName:
 func (m MLModelAssetDescription) InitWithModelDescriptionsByFunctionNameFunctionNamesDefaultFunctionName(name objectivec.IObject, names objectivec.IObject, name2 objectivec.IObject) MLModelAssetDescription {
 	rv := objc.Send[MLModelAssetDescription](m.ID, objc.Sel("initWithModelDescriptionsByFunctionName:functionNames:defaultFunctionName:"), name, names, name2)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/initWithRawModelDescription:
 func (m MLModelAssetDescription) InitWithRawModelDescription(description objectivec.IObject) MLModelAssetDescription {
 	rv := objc.Send[MLModelAssetDescription](m.ID, objc.Sel("initWithRawModelDescription:"), description)
@@ -254,29 +249,33 @@ func (m MLModelAssetDescription) DefaultFunctionName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultFunctionName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/defaultFunctionNameOrEmptyString
 func (m MLModelAssetDescription) DefaultFunctionNameOrEmptyString() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultFunctionNameOrEmptyString"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/defaultModelDescription
 func (m MLModelAssetDescription) DefaultModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("defaultModelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/functionNames
 func (m MLModelAssetDescription) FunctionNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("functionNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/modelDescriptionsByFunctionName
 func (m MLModelAssetDescription) ModelDescriptionsByFunctionName() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionsByFunctionName"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetDescription/usesMultiFunctionSyntax
 func (m MLModelAssetDescription) UsesMultiFunctionSyntax() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("usesMultiFunctionSyntax"))
 	return rv
 }
-

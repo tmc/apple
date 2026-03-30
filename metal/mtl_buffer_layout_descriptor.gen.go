@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,6 +66,7 @@ type MTLBufferLayoutDescriptor struct {
 func MTLBufferLayoutDescriptorFromID(id objc.ID) MTLBufferLayoutDescriptor {
 	return MTLBufferLayoutDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLBufferLayoutDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,13 +124,13 @@ func NewMTLBufferLayoutDescriptor() MTLBufferLayoutDescriptor {
 // The number of bytes from one buffer entry to the next.
 //
 // # Discussion
-// 
+//
 // The default value is `1`. See [Metal feature set tables (PDF)] for `stride`
 // alignment restrictions on GPU architectures.
 //
-// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
-//
 // See: https://developer.apple.com/documentation/Metal/MTLBufferLayoutDescriptor/stride
+//
+// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
 func (b MTLBufferLayoutDescriptor) Stride() uint {
 	rv := objc.Send[uint](b.ID, objc.Sel("stride"))
 	return rv
@@ -136,6 +138,7 @@ func (b MTLBufferLayoutDescriptor) Stride() uint {
 func (b MTLBufferLayoutDescriptor) SetStride(value uint) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStride:"), value)
 }
+
 // Determines how and when compute functions fetch data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBufferLayoutDescriptor/stepFunction
@@ -146,10 +149,11 @@ func (b MTLBufferLayoutDescriptor) StepFunction() MTLStepFunction {
 func (b MTLBufferLayoutDescriptor) SetStepFunction(value MTLStepFunction) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStepFunction:"), value)
 }
+
 // How frequently the step function should load data.
 //
 // # Discussion
-// 
+//
 // The interpretation of this value depends on the setting of `stepFunction`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBufferLayoutDescriptor/stepRate
@@ -160,6 +164,7 @@ func (b MTLBufferLayoutDescriptor) StepRate() uint {
 func (b MTLBufferLayoutDescriptor) SetStepRate(value uint) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStepRate:"), value)
 }
+
 // The organization of input and output data for the next kernel call.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcomputepipelinedescriptor/stageinputdescriptor
@@ -170,4 +175,3 @@ func (b MTLBufferLayoutDescriptor) StageInputDescriptor() IMTLStageInputOutputDe
 func (b MTLBufferLayoutDescriptor) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStageInputDescriptor:"), value)
 }
-

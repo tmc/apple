@@ -41,6 +41,7 @@ const (
 	KCMProjectionType_Fisheye CMProjectionType = 'f'<<24 | 'i'<<16 | 's'<<8 | 'h' // 'fish'
 	// KCMProjectionType_HalfEquirectangular: Video content displays as a 180 degree equirectangular projection.
 	KCMProjectionType_HalfEquirectangular CMProjectionType = 'h'<<24 | 'e'<<16 | 'q'<<8 | 'u' // 'hequ'
+	KCMProjectionType_ParametricImmersive CMProjectionType = 'p'<<24 | 'r'<<16 | 'i'<<8 | 'm' // 'prim'
 	// KCMProjectionType_Rectangular: Video content displays on a flat, rectangular 2D surface.
 	KCMProjectionType_Rectangular CMProjectionType = 'r'<<24 | 'e'<<16 | 'c'<<8 | 't' // 'rect'
 )
@@ -53,6 +54,8 @@ func (e CMProjectionType) String() string {
 		return "KCMProjectionType_Fisheye"
 	case KCMProjectionType_HalfEquirectangular:
 		return "KCMProjectionType_HalfEquirectangular"
+	case KCMProjectionType_ParametricImmersive:
+		return "KCMProjectionType_ParametricImmersive"
 	case KCMProjectionType_Rectangular:
 		return "KCMProjectionType_Rectangular"
 	default:
@@ -66,6 +69,8 @@ type CMStereoViewComponents uint64
 const (
 	// KCMStereoView_LeftEye: The stereo video track includes a left eye layer.
 	KCMStereoView_LeftEye CMStereoViewComponents = 1
+	// KCMStereoView_None: A constant for video metadata to have no available stereo frames.
+	KCMStereoView_None CMStereoViewComponents = 0
 	// KCMStereoView_RightEye: The stereo video track includes a right eye layer.
 	KCMStereoView_RightEye CMStereoViewComponents = 2
 )
@@ -74,6 +79,8 @@ func (e CMStereoViewComponents) String() string {
 	switch e {
 	case KCMStereoView_LeftEye:
 		return "KCMStereoView_LeftEye"
+	case KCMStereoView_None:
+		return "KCMStereoView_None"
 	case KCMStereoView_RightEye:
 		return "KCMStereoView_RightEye"
 	default:
@@ -87,6 +94,8 @@ type CMStereoViewInterpretationOptions uint64
 const (
 	// KCMStereoViewInterpretation_AdditionalViews: A flag indicating that the video content contains additional views beyond the left or right eye.
 	KCMStereoViewInterpretation_AdditionalViews CMStereoViewInterpretationOptions = 2
+	// KCMStereoViewInterpretation_Default: The default options for stereo video views.
+	KCMStereoViewInterpretation_Default CMStereoViewInterpretationOptions = 0
 	// KCMStereoViewInterpretation_StereoOrderReversed: Changes the default ordering of eye data, switching it from left-to-right to right-to-left.
 	KCMStereoViewInterpretation_StereoOrderReversed CMStereoViewInterpretationOptions = 1
 )
@@ -95,6 +104,8 @@ func (e CMStereoViewInterpretationOptions) String() string {
 	switch e {
 	case KCMStereoViewInterpretation_AdditionalViews:
 		return "KCMStereoViewInterpretation_AdditionalViews"
+	case KCMStereoViewInterpretation_Default:
+		return "KCMStereoViewInterpretation_Default"
 	case KCMStereoViewInterpretation_StereoOrderReversed:
 		return "KCMStereoViewInterpretation_StereoOrderReversed"
 	default:
@@ -106,15 +117,27 @@ func (e CMStereoViewInterpretationOptions) String() string {
 type CMTagCategory int
 
 const (
+	// KCMTagCategory_ChannelID: A category used for tagging a channel ID.
 	KCMTagCategory_ChannelID CMTagCategory = 'v'<<24 | 'c'<<16 | 'h'<<8 | 'n' // 'vchn'
+	// KCMTagCategory_MediaSubType: A category used for tagging media subtype metadata.
 	KCMTagCategory_MediaSubType CMTagCategory = 'm'<<24 | 's'<<16 | 'u'<<8 | 'b' // 'msub'
+	// KCMTagCategory_MediaType: A category used for tagging media type metadata.
 	KCMTagCategory_MediaType CMTagCategory = 'm'<<24 | 'd'<<16 | 'i'<<8 | 'a' // 'mdia'
+	// KCMTagCategory_PackingType: A category used for tagging frame-packing information.
 	KCMTagCategory_PackingType CMTagCategory = 'p'<<24 | 'a'<<16 | 'c'<<8 | 'k' // 'pack'
+	// KCMTagCategory_PixelFormat: A category used for tagging pixel format information.
 	KCMTagCategory_PixelFormat CMTagCategory = 'p'<<24 | 'i'<<16 | 'x'<<8 | 'f' // 'pixf'
+	// KCMTagCategory_ProjectionType: A category used for tagging projection surface information.
 	KCMTagCategory_ProjectionType CMTagCategory = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'j' // 'proj'
+	// KCMTagCategory_StereoView: A category used for tagging eye information for 3D video.
 	KCMTagCategory_StereoView CMTagCategory = 'e'<<24 | 'y'<<16 | 'e'<<8 | 's' // 'eyes'
+	// KCMTagCategory_StereoViewInterpretation: A category used for tagging how to interpret stereo view metadata.
 	KCMTagCategory_StereoViewInterpretation CMTagCategory = 'e'<<24 | 'y'<<16 | 'i'<<8 | 'p' // 'eyip'
+	// KCMTagCategory_TrackID: A category used for tagging a track ID.
 	KCMTagCategory_TrackID CMTagCategory = 't'<<24 | 'r'<<16 | 'a'<<8 | 'k' // 'trak'
+	// KCMTagCategory_Undefined: An unknown or undefined tag category.
+	KCMTagCategory_Undefined CMTagCategory = 0
+	// KCMTagCategory_VideoLayerID: A category used for tagging a video layer ID.
 	KCMTagCategory_VideoLayerID CMTagCategory = 'v'<<24 | 'l'<<16 | 'a'<<8 | 'y' // 'vlay'
 )
 
@@ -138,6 +161,8 @@ func (e CMTagCategory) String() string {
 		return "KCMTagCategory_StereoViewInterpretation"
 	case KCMTagCategory_TrackID:
 		return "KCMTagCategory_TrackID"
+	case KCMTagCategory_Undefined:
+		return "KCMTagCategory_Undefined"
 	case KCMTagCategory_VideoLayerID:
 		return "KCMTagCategory_VideoLayerID"
 	default:
@@ -149,25 +174,133 @@ func (e CMTagCategory) String() string {
 type CMTagCollectionError int
 
 const (
+	// KCMTagCollectionError_AllocationFailed: Indicates an internal allocation failed.
+	KCMTagCollectionError_AllocationFailed CMTagCollectionError = -15741
+	// KCMTagCollectionError_ExhaustedBufferSize: Indicates that a buffer was smaller than the number of requested tags.
+	KCMTagCollectionError_ExhaustedBufferSize CMTagCollectionError = -15748
+	// KCMTagCollectionError_InternalError: Indicates an error occurred inside of the Core Media framework.
+	KCMTagCollectionError_InternalError CMTagCollectionError = -15742
+	// KCMTagCollectionError_InvalidTag: Indicates that the collection contains an invalid tag.
+	KCMTagCollectionError_InvalidTag CMTagCollectionError = -15743
+	// KCMTagCollectionError_InvalidTagCollectionData: Indicates that a Core Foundation data instance failed to initialize a new tag collection.
+	KCMTagCollectionError_InvalidTagCollectionData CMTagCollectionError = -15745
+	// KCMTagCollectionError_InvalidTagCollectionDataVersion: Indicates that a Core Foundation data instance failed to initialize a new tag collection due to a versioning problem.
+	KCMTagCollectionError_InvalidTagCollectionDataVersion CMTagCollectionError = -15747
+	// KCMTagCollectionError_InvalidTagCollectionDictionary: Indicates that a Core Foundation dictionary instance failed to initialize a new tag collection.
+	KCMTagCollectionError_InvalidTagCollectionDictionary CMTagCollectionError = -15744
+	// KCMTagCollectionError_NotYetImplemented: Indicates a function lacks a necessary backing implementation in Core Media.
+	KCMTagCollectionError_NotYetImplemented CMTagCollectionError = -15749
+	// KCMTagCollectionError_ParamErr: Indicates a parameter to a function was of the wrong type or didn’t meet a necessary condition.
+	KCMTagCollectionError_ParamErr CMTagCollectionError = -15740
+	// KCMTagCollectionError_TagNotFound: Indicates that there was no match in a collection for a tag.
+	KCMTagCollectionError_TagNotFound CMTagCollectionError = -15746
 )
+
+func (e CMTagCollectionError) String() string {
+	switch e {
+	case KCMTagCollectionError_AllocationFailed:
+		return "KCMTagCollectionError_AllocationFailed"
+	case KCMTagCollectionError_ExhaustedBufferSize:
+		return "KCMTagCollectionError_ExhaustedBufferSize"
+	case KCMTagCollectionError_InternalError:
+		return "KCMTagCollectionError_InternalError"
+	case KCMTagCollectionError_InvalidTag:
+		return "KCMTagCollectionError_InvalidTag"
+	case KCMTagCollectionError_InvalidTagCollectionData:
+		return "KCMTagCollectionError_InvalidTagCollectionData"
+	case KCMTagCollectionError_InvalidTagCollectionDataVersion:
+		return "KCMTagCollectionError_InvalidTagCollectionDataVersion"
+	case KCMTagCollectionError_InvalidTagCollectionDictionary:
+		return "KCMTagCollectionError_InvalidTagCollectionDictionary"
+	case KCMTagCollectionError_NotYetImplemented:
+		return "KCMTagCollectionError_NotYetImplemented"
+	case KCMTagCollectionError_ParamErr:
+		return "KCMTagCollectionError_ParamErr"
+	case KCMTagCollectionError_TagNotFound:
+		return "KCMTagCollectionError_TagNotFound"
+	default:
+		return fmt.Sprintf("CMTagCollectionError(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagDataType
 type CMTagDataType uint32
 
 const (
+	// KCMTagDataType_Flags: The tag value is a 64-bit wide bitflag field.
+	KCMTagDataType_Flags CMTagDataType = 7
+	// KCMTagDataType_Float64: The tag value is a 64-bit floating point number.
+	KCMTagDataType_Float64 CMTagDataType = 3
+	// KCMTagDataType_Invalid: The tag value isn’t associated with any known data type.
+	KCMTagDataType_Invalid CMTagDataType = 0
+	// KCMTagDataType_OSType: The tag value is a 64-bit identifier used by the operating system.
+	KCMTagDataType_OSType CMTagDataType = 5
+	// KCMTagDataType_SInt64: The tag value is a signed 64-bit integer.
+	KCMTagDataType_SInt64 CMTagDataType = 2
 )
+
+func (e CMTagDataType) String() string {
+	switch e {
+	case KCMTagDataType_Flags:
+		return "KCMTagDataType_Flags"
+	case KCMTagDataType_Float64:
+		return "KCMTagDataType_Float64"
+	case KCMTagDataType_Invalid:
+		return "KCMTagDataType_Invalid"
+	case KCMTagDataType_OSType:
+		return "KCMTagDataType_OSType"
+	case KCMTagDataType_SInt64:
+		return "KCMTagDataType_SInt64"
+	default:
+		return fmt.Sprintf("CMTagDataType(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagError
 type CMTagError int
 
 const (
+	// KCMTagError_AllocationFailed: An error where the system can’t allocate enough memory for the tag.
+	KCMTagError_AllocationFailed CMTagError = -15731
+	// KCMTagError_ParamErr: An error where input or output parameters didn’t match the requirements of Core Media.
+	KCMTagError_ParamErr CMTagError = -15730
 )
+
+func (e CMTagError) String() string {
+	switch e {
+	case KCMTagError_AllocationFailed:
+		return "KCMTagError_AllocationFailed"
+	case KCMTagError_ParamErr:
+		return "KCMTagError_ParamErr"
+	default:
+		return fmt.Sprintf("CMTagError(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMTaggedBufferGroupError
 type CMTaggedBufferGroupError int
 
 const (
+	// KCMTaggedBufferGroupError_AllocationFailed: Indicates an internal allocation failed.
+	KCMTaggedBufferGroupError_AllocationFailed CMTaggedBufferGroupError = -15781
+	// KCMTaggedBufferGroupError_InternalError: Indicates an error occurred inside of the Core Media framework.
+	KCMTaggedBufferGroupError_InternalError CMTaggedBufferGroupError = -15782
+	// KCMTaggedBufferGroupError_ParamErr: Indicates a parameter to a function was of the wrong type or didn’t meet a necessary condition.
+	KCMTaggedBufferGroupError_ParamErr CMTaggedBufferGroupError = -15780
 )
+
+func (e CMTaggedBufferGroupError) String() string {
+	switch e {
+	case KCMTaggedBufferGroupError_AllocationFailed:
+		return "KCMTaggedBufferGroupError_AllocationFailed"
+	case KCMTaggedBufferGroupError_InternalError:
+		return "KCMTaggedBufferGroupError_InternalError"
+	case KCMTaggedBufferGroupError_ParamErr:
+		return "KCMTaggedBufferGroupError_ParamErr"
+	default:
+		return fmt.Sprintf("CMTaggedBufferGroupError(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMTimeFlags
 type CMTimeFlags uint32
@@ -208,6 +341,8 @@ func (e CMTimeFlags) String() string {
 type CMTimeRoundingMethod uint32
 
 const (
+	// KCMTimeRoundingMethod_Default: The default rounding method.
+	KCMTimeRoundingMethod_Default CMTimeRoundingMethod = 1
 	// KCMTimeRoundingMethod_QuickTime: Rounds using the QuickTime method.
 	KCMTimeRoundingMethod_QuickTime CMTimeRoundingMethod = 4
 	// KCMTimeRoundingMethod_RoundAwayFromZero: Rounds away from zero.
@@ -224,12 +359,12 @@ const (
 
 func (e CMTimeRoundingMethod) String() string {
 	switch e {
+	case KCMTimeRoundingMethod_Default:
+		return "KCMTimeRoundingMethod_Default"
 	case KCMTimeRoundingMethod_QuickTime:
 		return "KCMTimeRoundingMethod_QuickTime"
 	case KCMTimeRoundingMethod_RoundAwayFromZero:
 		return "KCMTimeRoundingMethod_RoundAwayFromZero"
-	case KCMTimeRoundingMethod_RoundHalfAwayFromZero:
-		return "KCMTimeRoundingMethod_RoundHalfAwayFromZero"
 	case KCMTimeRoundingMethod_RoundTowardNegativeInfinity:
 		return "KCMTimeRoundingMethod_RoundTowardNegativeInfinity"
 	case KCMTimeRoundingMethod_RoundTowardPositiveInfinity:
@@ -307,7 +442,21 @@ func (e KCMBlockBuffer) String() string {
 	}
 }
 
-const KCMBlockBufferCustomBlockSourceVersion uint = 0
+type KCMBlockBufferCustomBlockSource uint
+
+const (
+	// KCMBlockBufferCustomBlockSourceVersion: The value is the block source version.
+	KCMBlockBufferCustomBlockSourceVersion KCMBlockBufferCustomBlockSource = 0
+)
+
+func (e KCMBlockBufferCustomBlockSource) String() string {
+	switch e {
+	case KCMBlockBufferCustomBlockSourceVersion:
+		return "KCMBlockBufferCustomBlockSourceVersion"
+	default:
+		return fmt.Sprintf("KCMBlockBufferCustomBlockSource(%d)", e)
+	}
+}
 
 type KCMBufferQueueError int
 
@@ -527,7 +676,8 @@ type KCMMediaType uint
 
 const (
 	// KCMMediaType_Audio: Audio media.
-	KCMMediaType_Audio KCMMediaType = 0
+	KCMMediaType_Audio            KCMMediaType = 0
+	KCMMediaType_AuxiliaryPicture KCMMediaType = 0
 	// KCMMediaType_ClosedCaption: Closed-caption media.
 	KCMMediaType_ClosedCaption KCMMediaType = 0
 	// KCMMediaType_Metadata: Meta data.
@@ -604,7 +754,7 @@ type KCMMetadataFormatType uint
 const (
 	// KCMMetadataFormatType_Boxed: CoreMedia boxed format.
 	KCMMetadataFormatType_Boxed KCMMetadataFormatType = 0
-	KCMMetadataFormatType_EMSG KCMMetadataFormatType = 0
+	KCMMetadataFormatType_EMSG  KCMMetadataFormatType = 0
 	// KCMMetadataFormatType_ICY: SHOUTCast format.
 	KCMMetadataFormatType_ICY KCMMetadataFormatType = 0
 	// KCMMetadataFormatType_ID3: ID3 format.
@@ -656,7 +806,7 @@ type KCMMuxedStreamType uint
 
 const (
 	// KCMMuxedStreamType_DV: DV stream.
-	KCMMuxedStreamType_DV KCMMuxedStreamType = 0
+	KCMMuxedStreamType_DV                            KCMMuxedStreamType = 0
 	KCMMuxedStreamType_EmbeddedDeviceScreenRecording KCMMuxedStreamType = 0
 	// KCMMuxedStreamType_MPEG1System: MPEG-1 System stream.
 	KCMMuxedStreamType_MPEG1System KCMMuxedStreamType = 0
@@ -672,6 +822,22 @@ func (e KCMMuxedStreamType) String() string {
 		return "KCMMuxedStreamType_DV"
 	default:
 		return fmt.Sprintf("KCMMuxedStreamType(%d)", e)
+	}
+}
+
+type KCMPersistentTrackID uint
+
+const (
+	// KCMPersistentTrackID_Invalid: Indicates an invalid track ID.
+	KCMPersistentTrackID_Invalid KCMPersistentTrackID = 0
+)
+
+func (e KCMPersistentTrackID) String() string {
+	switch e {
+	case KCMPersistentTrackID_Invalid:
+		return "KCMPersistentTrackID_Invalid"
+	default:
+		return fmt.Sprintf("KCMPersistentTrackID(%d)", e)
 	}
 }
 
@@ -829,6 +995,21 @@ func (e KCMSyncError) String() string {
 	}
 }
 
+type KCMTaggedBufferGroupFormatType uint
+
+const (
+	KCMTaggedBufferGroupFormatType_TaggedBufferGroup KCMTaggedBufferGroupFormatType = 0
+)
+
+func (e KCMTaggedBufferGroupFormatType) String() string {
+	switch e {
+	case KCMTaggedBufferGroupFormatType_TaggedBufferGroup:
+		return "KCMTaggedBufferGroupFormatType_TaggedBufferGroup"
+	default:
+		return fmt.Sprintf("KCMTaggedBufferGroupFormatType(%d)", e)
+	}
+}
+
 type KCMTextDisplayFlag uint
 
 const (
@@ -978,7 +1159,7 @@ type KCMVideoCodecType uint
 const (
 	// KCMVideoCodecType_422YpCbCr8: A type that identifies a component with the format of Y’CbCr 8-bit 4:2:2 ordered Cb Y’0 Cr Y’1.
 	KCMVideoCodecType_422YpCbCr8 KCMVideoCodecType = 0
-	KCMVideoCodecType_AV1 KCMVideoCodecType = 0
+	KCMVideoCodecType_AV1        KCMVideoCodecType = 0
 	// KCMVideoCodecType_Animation: A type that identifies the apple animation format.
 	KCMVideoCodecType_Animation KCMVideoCodecType = 0
 	// KCMVideoCodecType_AppleProRes422: A type that identifies the Apple ProRes 422 format.
@@ -1039,7 +1220,7 @@ const (
 	KCMVideoCodecType_JPEG KCMVideoCodecType = 0
 	// KCMVideoCodecType_JPEG_OpenDML: A type that identifies the JPEG format with Open-DML extensions.
 	KCMVideoCodecType_JPEG_OpenDML KCMVideoCodecType = 0
-	KCMVideoCodecType_JPEG_XL KCMVideoCodecType = 0
+	KCMVideoCodecType_JPEG_XL      KCMVideoCodecType = 0
 	// KCMVideoCodecType_MPEG1Video: A type that identifies the MPEG-1 video format.
 	KCMVideoCodecType_MPEG1Video KCMVideoCodecType = 0
 	// KCMVideoCodecType_MPEG2Video: A type that identifies the MPEG-2 video format.
@@ -1111,7 +1292,7 @@ const (
 	// KCMBufferQueueTrigger_WhenDurationBecomesGreaterThan: Trigger fires when queue duration becomes greater than the specified duration.
 	KCMBufferQueueTrigger_WhenDurationBecomesGreaterThan KcmbufferqueuetriggerWhen = 0
 	// KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo: Trigger fires when queue duration becomes greater than or equal to the specified duration.
-	KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo                                 KcmbufferqueuetriggerWhen = 0
 	KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualToAndBufferCountBecomesGreaterThan KcmbufferqueuetriggerWhen = 0
 	// KCMBufferQueueTrigger_WhenDurationBecomesLessThan: Trigger fires when queue duration becomes less than the specified duration.
 	KCMBufferQueueTrigger_WhenDurationBecomesLessThan KcmbufferqueuetriggerWhen = 0
@@ -1136,65 +1317,18 @@ func (e KcmbufferqueuetriggerWhen) String() string {
 	}
 }
 
-type KcmmediatypeAuxiliarypicture uint
-
-const (
-	KCMMediaType_AuxiliaryPicture KcmmediatypeAuxiliarypicture = 0
-)
-
-func (e KcmmediatypeAuxiliarypicture) String() string {
-	switch e {
-	case KCMMediaType_AuxiliaryPicture:
-		return "KCMMediaType_AuxiliaryPicture"
-	default:
-		return fmt.Sprintf("KcmmediatypeAuxiliarypicture(%d)", e)
-	}
-}
-
-type KcmpersistenttrackidInvalid uint
-
-const (
-	// KCMPersistentTrackID_Invalid: Indicates an invalid track ID.
-	KCMPersistentTrackID_Invalid KcmpersistenttrackidInvalid = 0
-)
-
-func (e KcmpersistenttrackidInvalid) String() string {
-	switch e {
-	case KCMPersistentTrackID_Invalid:
-		return "KCMPersistentTrackID_Invalid"
-	default:
-		return fmt.Sprintf("KcmpersistenttrackidInvalid(%d)", e)
-	}
-}
-
-type KcmsamplebufferflagAudiobufferlistAssure16bytealignment uint
+type KcmsamplebufferflagAudiobufferlist uint
 
 const (
 	// KCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment: Indicates that memory involved in audio buffer lists is 16-byte aligned.
-	KCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment KcmsamplebufferflagAudiobufferlistAssure16bytealignment = 0
+	KCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment KcmsamplebufferflagAudiobufferlist = 0
 )
 
-func (e KcmsamplebufferflagAudiobufferlistAssure16bytealignment) String() string {
+func (e KcmsamplebufferflagAudiobufferlist) String() string {
 	switch e {
 	case KCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment:
 		return "KCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment"
 	default:
-		return fmt.Sprintf("KcmsamplebufferflagAudiobufferlistAssure16bytealignment(%d)", e)
+		return fmt.Sprintf("KcmsamplebufferflagAudiobufferlist(%d)", e)
 	}
 }
-
-type KcmtaggedbuffergroupformattypeTaggedbuffergroup uint
-
-const (
-	KCMTaggedBufferGroupFormatType_TaggedBufferGroup KcmtaggedbuffergroupformattypeTaggedbuffergroup = 0
-)
-
-func (e KcmtaggedbuffergroupformattypeTaggedbuffergroup) String() string {
-	switch e {
-	case KCMTaggedBufferGroupFormatType_TaggedBufferGroup:
-		return "KCMTaggedBufferGroupFormatType_TaggedBufferGroup"
-	default:
-		return fmt.Sprintf("KcmtaggedbuffergroupformattypeTaggedbuffergroup(%d)", e)
-	}
-}
-

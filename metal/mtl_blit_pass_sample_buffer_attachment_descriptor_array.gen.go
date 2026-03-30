@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,11 +46,9 @@ func (mc MTLBlitPassSampleBufferAttachmentDescriptorArrayClass) Alloc() MTLBlitP
 // pass.
 //
 // # Overview
-// 
-// The number of elements in the array is at least the number of elements in
-// an [MTLDevice] instance’s [counterSets] property.
 //
-// [counterSets]: https://developer.apple.com/documentation/Metal/MTLDevice/counterSets
+// The number of elements in the array is at least the number of elements in
+// an [MTLDevice] instance’s [MTLBlitPassSampleBufferAttachmentDescriptorArray.CounterSets] property.
 //
 // # Accessing a sample buffer attachment descriptor
 //
@@ -67,6 +66,7 @@ type MTLBlitPassSampleBufferAttachmentDescriptorArray struct {
 func MTLBlitPassSampleBufferAttachmentDescriptorArrayFromID(id objc.ID) MTLBlitPassSampleBufferAttachmentDescriptorArray {
 	return MTLBlitPassSampleBufferAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLBlitPassSampleBufferAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,21 +122,22 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubscri
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLBlitPassSampleBufferAttachmentDescriptorFromID(rv)
 }
+
 // Copies the properties of a blit pass sample buffer attachment descriptor
 // instance to the properties of one of the array’s instances.
 //
 // attachment: An [MTLBlitPassSampleBufferAttachmentDescriptor] instance that the method
 // assigns its properties values to the properties of the array’s instance
 // at `attachmentIndex`.
-// 
+//
 // You can reset the property configuration of the array’s instance at
 // `attachmentIndex` to its default values by passing `nil`.
 //
 // attachmentIndex: An index into the array’s copies of attachment descriptor instances.
 //
 // # Discussion
-// 
-// The array has at
+//
+// # The array has at
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitPassSampleBufferAttachmentDescriptorArray/setObject:atIndexedSubscript:
 func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLBlitPassSampleBufferAttachmentDescriptor, attachmentIndex uint) {
@@ -153,4 +154,3 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) CounterSets() MTLCount
 func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) SetCounterSets(value MTLCounterSet) {
 	objc.Send[struct{}](b.ID, objc.Sel("setCounterSets:"), value)
 }
-

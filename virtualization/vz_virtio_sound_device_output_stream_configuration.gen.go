@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (vc VZVirtioSoundDeviceOutputStreamConfigurationClass) Alloc() VZVirtioSoun
 // An object that defines a Virtio sound device output stream configuration.
 //
 // # Overview
-// 
+//
 // A PCM stream of output audio data, such as to a speaker.
 //
 // # Accessing the sound sink
@@ -62,6 +63,7 @@ type VZVirtioSoundDeviceOutputStreamConfiguration struct {
 func VZVirtioSoundDeviceOutputStreamConfigurationFromID(id objc.ID) VZVirtioSoundDeviceOutputStreamConfiguration {
 	return VZVirtioSoundDeviceOutputStreamConfiguration{VZVirtioSoundDeviceStreamConfiguration: VZVirtioSoundDeviceStreamConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioSoundDeviceOutputStreamConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,7 +108,7 @@ func NewVZVirtioSoundDeviceOutputStreamConfiguration() VZVirtioSoundDeviceOutput
 // by the guest.
 //
 // # Discussion
-// 
+//
 // Not specifying a sink results in a default handler that suppresses the
 // audio. The default is `nil`.
 //
@@ -118,4 +120,3 @@ func (v VZVirtioSoundDeviceOutputStreamConfiguration) Sink() IVZAudioOutputStrea
 func (v VZVirtioSoundDeviceOutputStreamConfiguration) SetSink(value IVZAudioOutputStreamSink) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSink:"), value)
 }
-

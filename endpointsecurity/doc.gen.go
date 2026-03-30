@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for EndpointSecurity. DO NOT EDIT.
 
 // Package endpointsecurity provides Go bindings for the EndpointSecurity framework.
@@ -31,6 +30,13 @@
 //   - ES_CS_VALIDATION_CATEGORY_ROSETTA
 //   - ES_CS_VALIDATION_CATEGORY_TESTFLIGHT
 //   - ES_EVENT_TYPE_NOTIFY_TCC_MODIFY
+//   - ES_EVENT_TYPE_RESERVED_0
+//   - ES_EVENT_TYPE_RESERVED_1
+//   - ES_EVENT_TYPE_RESERVED_2
+//   - ES_EVENT_TYPE_RESERVED_3
+//   - ES_EVENT_TYPE_RESERVED_4
+//   - ES_EVENT_TYPE_RESERVED_5
+//   - ES_EVENT_TYPE_RESERVED_6
 //   - ES_TCC_AUTHORIZATION_REASON_APP_TYPE_POLICY: A system process changed the authorization right
 //   - ES_TCC_AUTHORIZATION_REASON_ENTITLED: A system process changed the authorization right
 //   - ES_TCC_AUTHORIZATION_REASON_ERROR
@@ -71,20 +77,28 @@ package endpointsecurity
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/EndpointSecurity.framework/EndpointSecurity"
+// frameworkPaths lists paths to try when loading the EndpointSecurity library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/EndpointSecurity.framework/EndpointSecurity",
+	"/usr/lib/libEndpointSecurity.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: EndpointSecurity: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: EndpointSecurity: failed to load framework from any known path\n")
 }
-

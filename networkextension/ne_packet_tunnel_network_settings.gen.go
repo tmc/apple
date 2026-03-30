@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NEPacketTunnelNetworkSettings] class.
@@ -65,6 +66,7 @@ type NEPacketTunnelNetworkSettings struct {
 func NEPacketTunnelNetworkSettingsFromID(id objc.ID) NEPacketTunnelNetworkSettings {
 	return NEPacketTunnelNetworkSettings{NETunnelNetworkSettings: NETunnelNetworkSettingsFromID(id)}
 }
+
 // NOTE: NEPacketTunnelNetworkSettings adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,7 +136,7 @@ func NewPacketTunnelNetworkSettingsWithTunnelRemoteAddress(address string) NEPac
 // The tunnel IP version 4 settings.
 //
 // # Discussion
-// 
+//
 // This property contains the IPv4 routes specifying what IPv4 traffic to
 // route to the tunnel, as well as the IPv4 address and netmask to assign to
 // the TUN interface.
@@ -147,10 +149,11 @@ func (p NEPacketTunnelNetworkSettings) IPv4Settings() INEIPv4Settings {
 func (p NEPacketTunnelNetworkSettings) SetIPv4Settings(value INEIPv4Settings) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIPv4Settings:"), value)
 }
+
 // The tunnel IP version 6 settings.
 //
 // # Discussion
-// 
+//
 // This property contains the IPv6 routes specifying what IPv6 traffic to
 // route to the tunnel, as well as the IPv6 address and network prefix to
 // assign to the TUN interface.
@@ -163,11 +166,12 @@ func (p NEPacketTunnelNetworkSettings) IPv6Settings() INEIPv6Settings {
 func (p NEPacketTunnelNetworkSettings) SetIPv6Settings(value INEIPv6Settings) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIPv6Settings:"), value)
 }
+
 // The number of bytes added to each tunneled packet for storing tunneling
 // protocol headers.
 //
 // # Discussion
-// 
+//
 // The value of this property is subtracted from the Maximum Transmission Unit
 // (MTU) of the tunnel’s underlying physical network interface to compute
 // the MTU of the TUN interface.
@@ -180,10 +184,11 @@ func (p NEPacketTunnelNetworkSettings) TunnelOverheadBytes() foundation.NSNumber
 func (p NEPacketTunnelNetworkSettings) SetTunnelOverheadBytes(value foundation.NSNumber) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTunnelOverheadBytes:"), value)
 }
+
 // The size of the maximum trasnmission unit, in bytes.
 //
 // # Discussion
-// 
+//
 // The maximum transmission unit (MTU) size represents the largest number of
 // bytes that anything can assign to the TUN interface.
 //
@@ -195,4 +200,3 @@ func (p NEPacketTunnelNetworkSettings) MTU() foundation.NSNumber {
 func (p NEPacketTunnelNetworkSettings) SetMTU(value foundation.NSNumber) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMTU:"), value)
 }
-

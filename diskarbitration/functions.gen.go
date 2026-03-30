@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/dispatch"
@@ -85,12 +86,12 @@ func DAApprovalSessionUnscheduleFromRunLoop(session DAApprovalSessionRef, runLoo
 	_dAApprovalSessionUnscheduleFromRunLoop(session, runLoop, runLoopMode)
 }
 
-var _dADiskClaim func(disk DADiskRef, options uint, release DADiskClaimReleaseCallback, releaseContext unsafe.Pointer, callback DADiskClaimCallback, callbackContext unsafe.Pointer)
+var _dADiskClaim func(disk DADiskRef, options DADiskClaimOptions, release DADiskClaimReleaseCallback, releaseContext unsafe.Pointer, callback DADiskClaimCallback, callbackContext unsafe.Pointer)
 
 // DADiskClaim claims the specified disk object for exclusive use.
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskClaim(_:_:_:_:_:_:)
-func DADiskClaim(disk DADiskRef, options uint, release DADiskClaimReleaseCallback, releaseContext unsafe.Pointer, callback DADiskClaimCallback, callbackContext unsafe.Pointer) {
+func DADiskClaim(disk DADiskRef, options DADiskClaimOptions, release DADiskClaimReleaseCallback, releaseContext unsafe.Pointer, callback DADiskClaimCallback, callbackContext unsafe.Pointer) {
 	if _dADiskClaim == nil {
 		panic("DiskArbitration: symbol DADiskClaim not loaded")
 	}
@@ -169,12 +170,12 @@ func DADiskCreateFromVolumePath(allocator corefoundation.CFAllocatorRef, session
 	return _dADiskCreateFromVolumePath(allocator, session, path)
 }
 
-var _dADiskEject func(disk DADiskRef, options DADiskEjectOptions, callback DADiskEjectCallback, context unsafe.Pointer)
+var _dADiskEject func(disk DADiskRef, options uint, callback DADiskEjectCallback, context unsafe.Pointer)
 
 // DADiskEject ejects the specified disk object.
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskEject(_:_:_:_:)
-func DADiskEject(disk DADiskRef, options DADiskEjectOptions, callback DADiskEjectCallback, context unsafe.Pointer) {
+func DADiskEject(disk DADiskRef, options uint, callback DADiskEjectCallback, context unsafe.Pointer) {
 	if _dADiskEject == nil {
 		panic("DiskArbitration: symbol DADiskEject not loaded")
 	}
@@ -509,44 +510,43 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_dAApprovalSessionCreate, frameworkHandle, "DAApprovalSessionCreate")
-		registerFunc(&_dAApprovalSessionGetTypeID, frameworkHandle, "DAApprovalSessionGetTypeID")
-		registerFunc(&_dAApprovalSessionScheduleWithRunLoop, frameworkHandle, "DAApprovalSessionScheduleWithRunLoop")
-		registerFunc(&_dAApprovalSessionUnscheduleFromRunLoop, frameworkHandle, "DAApprovalSessionUnscheduleFromRunLoop")
-		registerFunc(&_dADiskClaim, frameworkHandle, "DADiskClaim")
-		registerFunc(&_dADiskCopyDescription, frameworkHandle, "DADiskCopyDescription")
-		registerFunc(&_dADiskCopyIOMedia, frameworkHandle, "DADiskCopyIOMedia")
-		registerFunc(&_dADiskCopyWholeDisk, frameworkHandle, "DADiskCopyWholeDisk")
-		registerFunc(&_dADiskCreateFromBSDName, frameworkHandle, "DADiskCreateFromBSDName")
-		registerFunc(&_dADiskCreateFromIOMedia, frameworkHandle, "DADiskCreateFromIOMedia")
-		registerFunc(&_dADiskCreateFromVolumePath, frameworkHandle, "DADiskCreateFromVolumePath")
-		registerFunc(&_dADiskEject, frameworkHandle, "DADiskEject")
-		registerFunc(&_dADiskGetBSDName, frameworkHandle, "DADiskGetBSDName")
-		registerFunc(&_dADiskGetOptions, frameworkHandle, "DADiskGetOptions")
-		registerFunc(&_dADiskGetTypeID, frameworkHandle, "DADiskGetTypeID")
-		registerFunc(&_dADiskIsClaimed, frameworkHandle, "DADiskIsClaimed")
-		registerFunc(&_dADiskMount, frameworkHandle, "DADiskMount")
-		registerFunc(&_dADiskMountWithArguments, frameworkHandle, "DADiskMountWithArguments")
-		registerFunc(&_dADiskRename, frameworkHandle, "DADiskRename")
-		registerFunc(&_dADiskSetOptions, frameworkHandle, "DADiskSetOptions")
-		registerFunc(&_dADiskUnclaim, frameworkHandle, "DADiskUnclaim")
-		registerFunc(&_dADiskUnmount, frameworkHandle, "DADiskUnmount")
-		registerFunc(&_dADissenterCreate, frameworkHandle, "DADissenterCreate")
-		registerFunc(&_dADissenterGetStatus, frameworkHandle, "DADissenterGetStatus")
-		registerFunc(&_dADissenterGetStatusString, frameworkHandle, "DADissenterGetStatusString")
-		registerFunc(&_dARegisterDiskAppearedCallback, frameworkHandle, "DARegisterDiskAppearedCallback")
-		registerFunc(&_dARegisterDiskDescriptionChangedCallback, frameworkHandle, "DARegisterDiskDescriptionChangedCallback")
-		registerFunc(&_dARegisterDiskDisappearedCallback, frameworkHandle, "DARegisterDiskDisappearedCallback")
-		registerFunc(&_dARegisterDiskEjectApprovalCallback, frameworkHandle, "DARegisterDiskEjectApprovalCallback")
-		registerFunc(&_dARegisterDiskMountApprovalCallback, frameworkHandle, "DARegisterDiskMountApprovalCallback")
-		registerFunc(&_dARegisterDiskPeekCallback, frameworkHandle, "DARegisterDiskPeekCallback")
-		registerFunc(&_dARegisterDiskUnmountApprovalCallback, frameworkHandle, "DARegisterDiskUnmountApprovalCallback")
-		registerFunc(&_dASessionCreate, frameworkHandle, "DASessionCreate")
-		registerFunc(&_dASessionGetTypeID, frameworkHandle, "DASessionGetTypeID")
-		registerFunc(&_dASessionScheduleWithRunLoop, frameworkHandle, "DASessionScheduleWithRunLoop")
-		registerFunc(&_dASessionSetDispatchQueue, frameworkHandle, "DASessionSetDispatchQueue")
-		registerFunc(&_dASessionUnscheduleFromRunLoop, frameworkHandle, "DASessionUnscheduleFromRunLoop")
-		registerFunc(&_dAUnregisterApprovalCallback, frameworkHandle, "DAUnregisterApprovalCallback")
-		registerFunc(&_dAUnregisterCallback, frameworkHandle, "DAUnregisterCallback")
-	}
-
+	registerFunc(&_dAApprovalSessionCreate, frameworkHandle, "DAApprovalSessionCreate")
+	registerFunc(&_dAApprovalSessionGetTypeID, frameworkHandle, "DAApprovalSessionGetTypeID")
+	registerFunc(&_dAApprovalSessionScheduleWithRunLoop, frameworkHandle, "DAApprovalSessionScheduleWithRunLoop")
+	registerFunc(&_dAApprovalSessionUnscheduleFromRunLoop, frameworkHandle, "DAApprovalSessionUnscheduleFromRunLoop")
+	registerFunc(&_dADiskClaim, frameworkHandle, "DADiskClaim")
+	registerFunc(&_dADiskCopyDescription, frameworkHandle, "DADiskCopyDescription")
+	registerFunc(&_dADiskCopyIOMedia, frameworkHandle, "DADiskCopyIOMedia")
+	registerFunc(&_dADiskCopyWholeDisk, frameworkHandle, "DADiskCopyWholeDisk")
+	registerFunc(&_dADiskCreateFromBSDName, frameworkHandle, "DADiskCreateFromBSDName")
+	registerFunc(&_dADiskCreateFromIOMedia, frameworkHandle, "DADiskCreateFromIOMedia")
+	registerFunc(&_dADiskCreateFromVolumePath, frameworkHandle, "DADiskCreateFromVolumePath")
+	registerFunc(&_dADiskEject, frameworkHandle, "DADiskEject")
+	registerFunc(&_dADiskGetBSDName, frameworkHandle, "DADiskGetBSDName")
+	registerFunc(&_dADiskGetOptions, frameworkHandle, "DADiskGetOptions")
+	registerFunc(&_dADiskGetTypeID, frameworkHandle, "DADiskGetTypeID")
+	registerFunc(&_dADiskIsClaimed, frameworkHandle, "DADiskIsClaimed")
+	registerFunc(&_dADiskMount, frameworkHandle, "DADiskMount")
+	registerFunc(&_dADiskMountWithArguments, frameworkHandle, "DADiskMountWithArguments")
+	registerFunc(&_dADiskRename, frameworkHandle, "DADiskRename")
+	registerFunc(&_dADiskSetOptions, frameworkHandle, "DADiskSetOptions")
+	registerFunc(&_dADiskUnclaim, frameworkHandle, "DADiskUnclaim")
+	registerFunc(&_dADiskUnmount, frameworkHandle, "DADiskUnmount")
+	registerFunc(&_dADissenterCreate, frameworkHandle, "DADissenterCreate")
+	registerFunc(&_dADissenterGetStatus, frameworkHandle, "DADissenterGetStatus")
+	registerFunc(&_dADissenterGetStatusString, frameworkHandle, "DADissenterGetStatusString")
+	registerFunc(&_dARegisterDiskAppearedCallback, frameworkHandle, "DARegisterDiskAppearedCallback")
+	registerFunc(&_dARegisterDiskDescriptionChangedCallback, frameworkHandle, "DARegisterDiskDescriptionChangedCallback")
+	registerFunc(&_dARegisterDiskDisappearedCallback, frameworkHandle, "DARegisterDiskDisappearedCallback")
+	registerFunc(&_dARegisterDiskEjectApprovalCallback, frameworkHandle, "DARegisterDiskEjectApprovalCallback")
+	registerFunc(&_dARegisterDiskMountApprovalCallback, frameworkHandle, "DARegisterDiskMountApprovalCallback")
+	registerFunc(&_dARegisterDiskPeekCallback, frameworkHandle, "DARegisterDiskPeekCallback")
+	registerFunc(&_dARegisterDiskUnmountApprovalCallback, frameworkHandle, "DARegisterDiskUnmountApprovalCallback")
+	registerFunc(&_dASessionCreate, frameworkHandle, "DASessionCreate")
+	registerFunc(&_dASessionGetTypeID, frameworkHandle, "DASessionGetTypeID")
+	registerFunc(&_dASessionScheduleWithRunLoop, frameworkHandle, "DASessionScheduleWithRunLoop")
+	registerFunc(&_dASessionSetDispatchQueue, frameworkHandle, "DASessionSetDispatchQueue")
+	registerFunc(&_dASessionUnscheduleFromRunLoop, frameworkHandle, "DASessionUnscheduleFromRunLoop")
+	registerFunc(&_dAUnregisterApprovalCallback, frameworkHandle, "DAUnregisterApprovalCallback")
+	registerFunc(&_dAUnregisterCallback, frameworkHandle, "DAUnregisterCallback")
+}

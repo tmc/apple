@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,6 +60,7 @@ type MTLIntersectionFunctionTableDescriptor struct {
 func MTLIntersectionFunctionTableDescriptorFromID(id objc.ID) MTLIntersectionFunctionTableDescriptor {
 	return MTLIntersectionFunctionTableDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLIntersectionFunctionTableDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,4 +119,3 @@ func (i MTLIntersectionFunctionTableDescriptor) FunctionCount() uint {
 func (i MTLIntersectionFunctionTableDescriptor) SetFunctionCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setFunctionCount:"), value)
 }
-

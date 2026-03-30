@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSPICTImageRep] class.
@@ -68,6 +69,7 @@ type NSPICTImageRep struct {
 func NSPICTImageRepFromID(id objc.ID) NSPICTImageRep {
 	return NSPICTImageRep{NSImageRep: NSImageRepFromID(id)}
 }
+
 // NOTE: NSPICTImageRep adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,13 +136,13 @@ func NewPICTImageRepWithCoder(coder foundation.INSCoder) NSPICTImageRep {
 // pictData: A data object containing the PICT data.
 //
 // # Return Value
-// 
+//
 // An initialized [NSPICTImageRep], or `nil` if the object could not be
 // initialized. Initialization may fail if the data does not conform to the
 // PICT file format.
 //
 // # Discussion
-// 
+//
 // If the PICT data is obtained directly from a PICT file or document, this
 // method ignores most of the 512-byte header that occurs before the start of
 // the actual picture data. It may retrieve some relevant meta information
@@ -159,13 +161,13 @@ func NewPICTImageRepWithData(pictData foundation.INSData) NSPICTImageRep {
 // pictData: A data object containing the PICT data.
 //
 // # Return Value
-// 
+//
 // An initialized [NSPICTImageRep], or `nil` if the object could not be
 // initialized. Initialization may fail if the data does not conform to the
 // PICT file format.
 //
 // # Discussion
-// 
+//
 // If the PICT data is obtained directly from a PICT file or document, this
 // method ignores most of the 512-byte header that occurs before the start of
 // the actual picture data. It may retrieve some relevant meta information
@@ -177,10 +179,27 @@ func (p NSPICTImageRep) InitWithData(pictData foundation.INSData) NSPICTImageRep
 	return rv
 }
 
+// Creates and returns a representation of an image from the specified data in
+// the PICT file format.
+//
+// pictData: A data object containing the PICT data.
+//
+// # Return Value
+//
+// An initialized [NSPICTImageRep], or `nil` if the object could not be
+// initialized. Initialization may fail if the data does not conform to the
+// PICT file format.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPICTImageRep/imageRepWithData:
+func (_NSPICTImageRepClass NSPICTImageRepClass) ImageRepWithData(pictData foundation.INSData) NSPICTImageRep {
+	rv := objc.Send[objc.ID](objc.ID(_NSPICTImageRepClass.class), objc.Sel("imageRepWithData:"), pictData)
+	return NSPICTImageRepFromID(rv)
+}
+
 // The rectangle that bounds the image representation.
 //
 // # Discussion
-// 
+//
 // The rectangle bounding the receiver. This rectangle is obtained from the
 // the `picFrame` field in the picture header. See the Carbon QuickDraw
 // Manager documentation for information on the picture header
@@ -190,10 +209,11 @@ func (p NSPICTImageRep) BoundingBox() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](p.ID, objc.Sel("boundingBox"))
 	return corefoundation.CGRect(rv)
 }
+
 // The image representation’s PICT data.
 //
 // # Discussion
-// 
+//
 // The data does not include the 512-byte header, if it was present in the
 // original data. If you want to write the data to a file, you must precede it
 // with a 512-byte header (containing all zeros) if you want to conform to the
@@ -204,4 +224,3 @@ func (p NSPICTImageRep) PICTRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("PICTRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-

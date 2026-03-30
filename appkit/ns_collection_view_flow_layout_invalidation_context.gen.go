@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,13 +45,13 @@ func (nc NSCollectionViewFlowLayoutInvalidationContextClass) Alloc() NSCollectio
 // be updated.
 //
 // # Overview
-// 
+//
 // Layout objects use invalidation contexts to optimize the layout process and
 // avoid unnecessary work. You use this class to specify whether the
 // [NSCollectionViewFlowLayout] object should fetch new size information from
 // its delegate. You can also prevent the flow layout object from updating its
 // layout information altogether.
-// 
+//
 // When you want to invalidate your flow layout object, call the
 // [NSCollectionViewFlowLayoutInvalidationContext.InvalidationContextClass] method of your layout object and instantiate the
 // resulting class. (The implementation of that method in
@@ -77,6 +78,7 @@ type NSCollectionViewFlowLayoutInvalidationContext struct {
 func NSCollectionViewFlowLayoutInvalidationContextFromID(id objc.ID) NSCollectionViewFlowLayoutInvalidationContext {
 	return NSCollectionViewFlowLayoutInvalidationContext{NSCollectionViewLayoutInvalidationContext: NSCollectionViewLayoutInvalidationContextFromID(id)}
 }
+
 // NOTE: NSCollectionViewFlowLayoutInvalidationContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,18 +128,15 @@ func NewNSCollectionViewFlowLayoutInvalidationContext() NSCollectionViewFlowLayo
 // its current attributes.
 //
 // # Discussion
-// 
-// Setting this property to [false] tells the flow layout object to keep its
+//
+// Setting this property to false tells the flow layout object to keep its
 // existing layout information, effectively stopping the invalidation process.
-// Typically, you set this property to [false] only if you subclass
+// Typically, you set this property to false only if you subclass
 // [NSCollectionViewFlowLayout] and update changed layout information
 // directly.
-// 
-// The default value of this property is [true], which causes the flow layout
-// object to throw out its existing layout information and recompute it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is true, which causes the flow layout
+// object to throw out its existing layout information and recompute it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayoutInvalidationContext/invalidateFlowLayoutAttributes
 func (c NSCollectionViewFlowLayoutInvalidationContext) InvalidateFlowLayoutAttributes() bool {
@@ -147,25 +146,22 @@ func (c NSCollectionViewFlowLayoutInvalidationContext) InvalidateFlowLayoutAttri
 func (c NSCollectionViewFlowLayoutInvalidationContext) SetInvalidateFlowLayoutAttributes(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInvalidateFlowLayoutAttributes:"), value)
 }
+
 // A Boolean value indicating whether the flow layout object should fetch new
 // size information from its delegate.
 //
 // # Discussion
-// 
+//
 // As part of the invalidation process, the flow layout object normally asks
 // its delegate to provide size information for the items in the flow layout.
 // This behavior is necessary when the size of the items can change because it
 // ensures that the corresponding layout attributes are always updated.
 // However, if you know that the size of items has not changed, you can set
-// this property to [false]. Doing so causes the flow layout to use its
-// existing size information rather than querying the delegate, which saves
-// time.
-// 
-// The default value of this property is [true], which causes the flow layout
-// object to query the delegate for new size information.
+// this property to false. Doing so causes the flow layout to use its existing
+// size information rather than querying the delegate, which saves time.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is true, which causes the flow layout
+// object to query the delegate for new size information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayoutInvalidationContext/invalidateFlowLayoutDelegateMetrics
 func (c NSCollectionViewFlowLayoutInvalidationContext) InvalidateFlowLayoutDelegateMetrics() bool {
@@ -187,4 +183,3 @@ func (_NSCollectionViewFlowLayoutInvalidationContextClass NSCollectionViewFlowLa
 func (_NSCollectionViewFlowLayoutInvalidationContextClass NSCollectionViewFlowLayoutInvalidationContextClass) SetInvalidationContextClass(value objc.Class) {
 	objc.Send[struct{}](objc.ID(_NSCollectionViewFlowLayoutInvalidationContextClass.class), objc.Sel("setInvalidationContextClass:"), value)
 }
-

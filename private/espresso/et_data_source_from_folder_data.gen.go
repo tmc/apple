@@ -3,10 +3,11 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (ec ETDataSourceFromFolderDataClass) Alloc() ETDataSourceFromFolderData {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETDataSourceFromFolderData.BalanceClassesForTraining]
@@ -64,6 +64,7 @@ func (ec ETDataSourceFromFolderDataClass) Alloc() ETDataSourceFromFolderData {
 //   - [ETDataSourceFromFolderData.PathToClassIndex]
 //   - [ETDataSourceFromFolderData.SetPathToClassIndex]
 //   - [ETDataSourceFromFolderData.InitWithFolderBalanceClassesForTraining]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData
 type ETDataSourceFromFolderData struct {
 	objectivec.Object
@@ -73,6 +74,7 @@ type ETDataSourceFromFolderData struct {
 func ETDataSourceFromFolderDataFromID(id objc.ID) ETDataSourceFromFolderData {
 	return ETDataSourceFromFolderData{objectivec.Object{ID: id}}
 }
+
 // Ensure ETDataSourceFromFolderData implements IETDataSourceFromFolderData.
 var _ IETDataSourceFromFolderData = ETDataSourceFromFolderData{}
 
@@ -144,7 +146,6 @@ func NewETDataSourceFromFolderData() ETDataSourceFromFolderData {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/initWithFolder:balanceClassesForTraining:
 func NewETDataSourceFromFolderDataWithFolderBalanceClassesForTraining(folder objectivec.IObject, training bool) ETDataSourceFromFolderData {
 	instance := getETDataSourceFromFolderDataClass().Alloc()
@@ -152,24 +153,24 @@ func NewETDataSourceFromFolderDataWithFolderBalanceClassesForTraining(folder obj
 	return ETDataSourceFromFolderDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/bufferWithPath:
 func (e ETDataSourceFromFolderData) BufferWithPath(path objectivec.IObject) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("bufferWithPath:"), path)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/dataPointAtIndex:
 func (e ETDataSourceFromFolderData) DataPointAtIndex(index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/numberOfDataPoints
 func (e ETDataSourceFromFolderData) NumberOfDataPoints() int {
 	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/initWithFolder:balanceClassesForTraining:
 func (e ETDataSourceFromFolderData) InitWithFolderBalanceClassesForTraining(folder objectivec.IObject, training bool) ETDataSourceFromFolderData {
 	rv := objc.Send[ETDataSourceFromFolderData](e.ID, objc.Sel("initWithFolder:balanceClassesForTraining:"), folder, training)
@@ -184,6 +185,7 @@ func (e ETDataSourceFromFolderData) BalanceClassesForTraining() bool {
 func (e ETDataSourceFromFolderData) SetBalanceClassesForTraining(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBalanceClassesForTraining:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/classNames
 func (e ETDataSourceFromFolderData) ClassNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("classNames"))
@@ -192,6 +194,7 @@ func (e ETDataSourceFromFolderData) ClassNames() foundation.INSArray {
 func (e ETDataSourceFromFolderData) SetClassNames(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setClassNames:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/folderToImages
 func (e ETDataSourceFromFolderData) FolderToImages() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("folderToImages"))
@@ -200,6 +203,7 @@ func (e ETDataSourceFromFolderData) FolderToImages() foundation.INSDictionary {
 func (e ETDataSourceFromFolderData) SetFolderToImages(value foundation.INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFolderToImages:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/imageFileNames
 func (e ETDataSourceFromFolderData) ImageFileNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageFileNames"))
@@ -208,6 +212,7 @@ func (e ETDataSourceFromFolderData) ImageFileNames() foundation.INSArray {
 func (e ETDataSourceFromFolderData) SetImageFileNames(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImageFileNames:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/imagesDir
 func (e ETDataSourceFromFolderData) ImagesDir() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("imagesDir"))
@@ -216,6 +221,7 @@ func (e ETDataSourceFromFolderData) ImagesDir() string {
 func (e ETDataSourceFromFolderData) SetImagesDir(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImagesDir:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/numberOfClasses
 func (e ETDataSourceFromFolderData) NumberOfClasses() int {
 	rv := objc.Send[int](e.ID, objc.Sel("numberOfClasses"))
@@ -224,6 +230,7 @@ func (e ETDataSourceFromFolderData) NumberOfClasses() int {
 func (e ETDataSourceFromFolderData) SetNumberOfClasses(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNumberOfClasses:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceFromFolderData/pathToClassIndex
 func (e ETDataSourceFromFolderData) PathToClassIndex() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("pathToClassIndex"))
@@ -232,4 +239,3 @@ func (e ETDataSourceFromFolderData) PathToClassIndex() foundation.INSDictionary 
 func (e ETDataSourceFromFolderData) SetPathToClassIndex(value foundation.INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setPathToClassIndex:"), value)
 }
-

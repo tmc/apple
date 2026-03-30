@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (mc MLTaskClass) Alloc() MLTask {
 // An abstract base class for machine learning tasks.
 //
 // # Overview
-// 
+//
 // You don’t create use this class directly. Instead, use a class that
 // inherits from this one, such as [MLUpdateTask].
 //
@@ -74,6 +75,7 @@ type MLTask struct {
 func MLTaskFromID(id objc.ID) MLTask {
 	return MLTask{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -139,7 +141,7 @@ func NewMLTask() MLTask {
 // Begins or resumes a machine learning task.
 //
 // # Discussion
-// 
+//
 // Use this method to start a task for the first time or resumes a task that
 // has paused. Tasks pause when they notify your app’s progress handlers,
 // such as those you provide to an [MLUpdateProgressHandlers] instance.
@@ -148,6 +150,7 @@ func NewMLTask() MLTask {
 func (t MLTask) Resume() {
 	objc.Send[objc.ID](t.ID, objc.Sel("resume"))
 }
+
 // Cancels a machine learning task before it completes.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLTask/cancel()
@@ -163,6 +166,7 @@ func (t MLTask) TaskIdentifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("taskIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The current state of the machine learning task.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLTask/state
@@ -170,6 +174,7 @@ func (t MLTask) State() MLTaskState {
 	rv := objc.Send[MLTaskState](t.ID, objc.Sel("state"))
 	return MLTaskState(rv)
 }
+
 // The underlying error if the task is in a failed state.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLTask/error
@@ -177,4 +182,3 @@ func (t MLTask) Error() foundation.INSError {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
-

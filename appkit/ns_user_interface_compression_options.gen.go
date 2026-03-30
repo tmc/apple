@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,16 +47,16 @@ func (nc NSUserInterfaceCompressionOptionsClass) Alloc() NSUserInterfaceCompress
 // space is constrained.
 //
 // # Overview
-// 
+//
 // An instance of [NSUserInterfaceCompressionOptions] contains zero or more
 // options. Because a compression options object behaves like a set, you can
 // use common operations like intersection, union and subtraction to interact
 // with instances and their members.
-// 
+//
 // You can access system-defined options through the class methods detailed in
 // Creating standard options, or you can create your own custom options with
 // the [NSUserInterfaceCompressionOptions.InitWithIdentifier] initializer.
-// 
+//
 // To compare two different compression options objects, use the methods
 // described in the Comparing compression options section.
 //
@@ -88,6 +89,7 @@ type NSUserInterfaceCompressionOptions struct {
 func NSUserInterfaceCompressionOptionsFromID(id objc.ID) NSUserInterfaceCompressionOptions {
 	return NSUserInterfaceCompressionOptions{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSUserInterfaceCompressionOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -184,7 +186,7 @@ func NewUserInterfaceCompressionOptionsWithCompressionOptions(options foundation
 // Creates an option object with the given identifier string.
 //
 // # Discussion
-// 
+//
 // Use this initializer to create custom compression options.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompressionOptions/init(identifier:)
@@ -203,10 +205,11 @@ func (u NSUserInterfaceCompressionOptions) InitWithCompressionOptions(options fo
 	rv := objc.Send[NSUserInterfaceCompressionOptions](u.ID, objc.Sel("initWithCompressionOptions:"), options)
 	return rv
 }
+
 // Creates an option object with the given identifier string.
 //
 // # Discussion
-// 
+//
 // Use this initializer to create custom compression options.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompressionOptions/init(identifier:)
@@ -214,6 +217,7 @@ func (u NSUserInterfaceCompressionOptions) InitWithIdentifier(identifier string)
 	rv := objc.Send[NSUserInterfaceCompressionOptions](u.ID, objc.Sel("initWithIdentifier:"), objc.String(identifier))
 	return rv
 }
+
 // Creates an option object from data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompressionOptions/init(coder:)
@@ -221,49 +225,46 @@ func (u NSUserInterfaceCompressionOptions) InitWithCoder(coder foundation.INSCod
 	rv := objc.Send[NSUserInterfaceCompressionOptions](u.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Determines whether the supplied compression options are all present in the
 // current instance.
 //
 // options: A compression options object to compare with the current instance.
 //
 // # Return Value
-// 
-// Returns [true] if all the supplied options are present in the instance’s
-// options, or [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Returns true if all the supplied options are present in the instance’s
+// options, or false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompressionOptions/contains(_:)
 func (u NSUserInterfaceCompressionOptions) ContainsOptions(options INSUserInterfaceCompressionOptions) bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("containsOptions:"), options)
 	return rv
 }
+
 // Determines whether the supplied compression options intersect with the
 // current instance’s options.
 //
 // options: A compression options object to compare with the current instance.
 //
 // # Return Value
-// 
-// Returns [true] if at least one of the supplied options is present in the
-// instance’s options, or [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Returns true if at least one of the supplied options is present in the
+// instance’s options, or false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompressionOptions/intersects(_:)
 func (u NSUserInterfaceCompressionOptions) IntersectsOptions(options INSUserInterfaceCompressionOptions) bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("intersectsOptions:"), options)
 	return rv
 }
+
 // Creates a new compression options object representing the union with the
 // provided options.
 //
 // options: A set of compression options to add to the current object.
 //
 // # Return Value
-// 
+//
 // A new [NSCompressibleUserInterfaceOptions] object which represents the
 // union with the supplied compression options.
 //
@@ -272,12 +273,13 @@ func (u NSUserInterfaceCompressionOptions) OptionsByAddingOptions(options INSUse
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("optionsByAddingOptions:"), options)
 	return NSUserInterfaceCompressionOptionsFromID(rv)
 }
+
 // Creates a new compression options object with the supplied options removed.
 //
 // options: A set of compression options to remove from the current object.
 //
 // # Return Value
-// 
+//
 // A new [NSCompressibleUserInterfaceOptions] object with the supplied options
 // removed.
 //
@@ -293,12 +295,9 @@ func (u NSUserInterfaceCompressionOptions) EncodeWithCoder(coder foundation.INSC
 // A Boolean value that denotes whether the option is empty.
 //
 // # Discussion
-// 
-// Returns [true] if the option is equivalent to the empty set, or [false]
-// otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Returns true if the option is equivalent to the empty set, or false
+// otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompressionOptions/isEmpty
 func (u NSUserInterfaceCompressionOptions) Empty() bool {
@@ -313,6 +312,7 @@ func (_NSUserInterfaceCompressionOptionsClass NSUserInterfaceCompressionOptionsC
 	rv := objc.Send[objc.ID](objc.ID(_NSUserInterfaceCompressionOptionsClass.class), objc.Sel("hideImagesOption"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
+
 // An option specifying that views should hide their text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompressionOptions/hideText
@@ -320,10 +320,11 @@ func (_NSUserInterfaceCompressionOptionsClass NSUserInterfaceCompressionOptionsC
 	rv := objc.Send[objc.ID](objc.ID(_NSUserInterfaceCompressionOptionsClass.class), objc.Sel("hideTextOption"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
+
 // An option specifying that views should reduce their internal metrics.
 //
 // # Discussion
-// 
+//
 // Use this compression option to reduce the padding in system controls.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompressionOptions/reduceMetrics
@@ -331,11 +332,12 @@ func (_NSUserInterfaceCompressionOptionsClass NSUserInterfaceCompressionOptionsC
 	rv := objc.Send[objc.ID](objc.ID(_NSUserInterfaceCompressionOptionsClass.class), objc.Sel("reduceMetricsOption"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
+
 // An option specifying that views should no longer maintain equal width
 // constraints.
 //
 // # Discussion
-// 
+//
 // This option is handled by the system, and no action is required by the
 // views.
 //
@@ -344,6 +346,7 @@ func (_NSUserInterfaceCompressionOptionsClass NSUserInterfaceCompressionOptionsC
 	rv := objc.Send[objc.ID](objc.ID(_NSUserInterfaceCompressionOptionsClass.class), objc.Sel("breakEqualWidthsOption"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
+
 // An option that represents the union of all standard compression options.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompressionOptions/standardOptions
@@ -351,4 +354,3 @@ func (_NSUserInterfaceCompressionOptionsClass NSUserInterfaceCompressionOptionsC
 	rv := objc.Send[objc.ID](objc.ID(_NSUserInterfaceCompressionOptionsClass.class), objc.Sel("standardOptions"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
-

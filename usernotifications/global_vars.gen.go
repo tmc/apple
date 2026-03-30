@@ -73,6 +73,7 @@ var (
 	// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationDismissActionIdentifier
 	UNNotificationDismissActionIdentifier string
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -149,4 +150,3 @@ func init() {
 	}
 
 }
-

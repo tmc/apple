@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,11 +46,11 @@ func (ac AVCaptureDeskViewApplicationClass) Alloc() AVCaptureDeskViewApplication
 // An object that programmatically presents Desk View.
 //
 // # Overview
-// 
+//
 // Use this class to programmatically launch Desk View from your app. You can
 // optionally customize the presentation and specifiy an action to take
 // afterward.
-// 
+//
 // The following example shows how to configure and present Desk View with a
 // completion handler:
 //
@@ -69,6 +70,7 @@ type AVCaptureDeskViewApplication struct {
 func AVCaptureDeskViewApplicationFromID(id objc.ID) AVCaptureDeskViewApplication {
 	return AVCaptureDeskViewApplication{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureDeskViewApplication adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,11 +118,11 @@ func NewAVCaptureDeskViewApplication() AVCaptureDeskViewApplication {
 // completionHandler: The code to perform after the system displays Desk View.
 //
 // # Discussion
-// 
+//
 // If the Desk View app is already running, this method brings it to the
 // front. If Desk View is in the Dock, this method opens it and brings it to
 // the front.
-// 
+//
 // Desk View launches in setup mode. This mode shows the full field of view of
 // an ultrawide camera with a superimposed trapezoid that indicates the
 // cropped desk region to display. The system displays this region after the
@@ -128,9 +130,10 @@ func NewAVCaptureDeskViewApplication() AVCaptureDeskViewApplication {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeskViewApplication/present(completionHandler:)
 func (c AVCaptureDeskViewApplication) PresentWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("presentWithCompletionHandler:"), _block0)
 }
+
 // Launches Desk View with the configuration and completion handler that you
 // specify.
 //
@@ -140,22 +143,22 @@ _block0, _ := NewErrorBlock(completionHandler)
 // transitions to Desk View after setup, depending on the configuration.
 //
 // # Discussion
-// 
+//
 // If Desk View is already running, this method brings it to the front. If
 // Desk View is in the Dock, this method opens it and brings it to the front.
-// 
+//
 // Desk View launches in setup mode. This mode shows the full field of view of
 // an ultrawide camera with a superimposed trapezoid that indicates the
 // cropped desk region to display. The system displays this region after the
 // user completes setup and starts Desk View.
-// 
+//
 // Create an instance of [AVCaptureDeskViewApplicationLaunchConfiguration] and
 // set it for `launchConfiguration` to specify the frame for Desk View and
 // when to perform the `completionHandler`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeskViewApplication/present(launchConfiguration:completionHandler:)
 func (c AVCaptureDeskViewApplication) PresentWithLaunchConfigurationCompletionHandler(launchConfiguration IAVCaptureDeskViewApplicationLaunchConfiguration, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("presentWithLaunchConfiguration:completionHandler:"), launchConfiguration, _block1)
 }
 
@@ -188,4 +191,3 @@ func (c AVCaptureDeskViewApplication) PresentWithLaunchConfiguration(ctx context
 		return ctx.Err()
 	}
 }
-

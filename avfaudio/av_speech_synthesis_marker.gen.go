@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -77,6 +78,7 @@ type AVSpeechSynthesisMarker struct {
 func AVSpeechSynthesisMarkerFromID(id objc.ID) AVSpeechSynthesisMarker {
 	return AVSpeechSynthesisMarker{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSpeechSynthesisMarker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -263,6 +265,7 @@ func (s AVSpeechSynthesisMarker) InitWithMarkerTypeForTextRangeAtByteSampleOffse
 	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("initWithMarkerType:forTextRange:atByteSampleOffset:"), type_, range_, byteSampleOffset)
 	return rv
 }
+
 // Creates a word marker with a range of the word and offset into the audio
 // buffer.
 //
@@ -275,6 +278,7 @@ func (s AVSpeechSynthesisMarker) InitWithWordRangeAtByteSampleOffset(range_ foun
 	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("initWithWordRange:atByteSampleOffset:"), range_, byteSampleOffset)
 	return rv
 }
+
 // Creates a sentence marker with a range of the sentence and offset into the
 // audio buffer.
 //
@@ -287,6 +291,7 @@ func (s AVSpeechSynthesisMarker) InitWithSentenceRangeAtByteSampleOffset(range_ 
 	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("initWithSentenceRange:atByteSampleOffset:"), range_, byteSampleOffset)
 	return rv
 }
+
 // Creates a paragraph marker with a range of the paragraph and offset into
 // the audio buffer.
 //
@@ -299,6 +304,7 @@ func (s AVSpeechSynthesisMarker) InitWithParagraphRangeAtByteSampleOffset(range_
 	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("initWithParagraphRange:atByteSampleOffset:"), range_, byteSampleOffset)
 	return rv
 }
+
 // Creates a phoneme marker with a range of the phoneme and offset into the
 // audio buffer.
 //
@@ -311,6 +317,7 @@ func (s AVSpeechSynthesisMarker) InitWithPhonemeStringAtByteSampleOffset(phoneme
 	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("initWithPhonemeString:atByteSampleOffset:"), objc.String(phoneme), byteSampleOffset)
 	return rv
 }
+
 // Creates a bookmark marker with a name and offset into the audio buffer.
 //
 // mark: The name of the bookmark.
@@ -336,6 +343,7 @@ func (s AVSpeechSynthesisMarker) Mark() AVSpeechSynthesisMarkerMark {
 func (s AVSpeechSynthesisMarker) SetMark(value AVSpeechSynthesisMarkerMark) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMark:"), value)
 }
+
 // A string that represents the name of a bookmark.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/bookmarkName
@@ -346,6 +354,7 @@ func (s AVSpeechSynthesisMarker) BookmarkName() string {
 func (s AVSpeechSynthesisMarker) SetBookmarkName(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBookmarkName:"), objc.String(value))
 }
+
 // A string that represents a distinct sound.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/phoneme
@@ -356,6 +365,7 @@ func (s AVSpeechSynthesisMarker) Phoneme() string {
 func (s AVSpeechSynthesisMarker) SetPhoneme(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPhoneme:"), objc.String(value))
 }
+
 // The location and length of the request’s text.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/textRange
@@ -366,6 +376,7 @@ func (s AVSpeechSynthesisMarker) TextRange() foundation.NSRange {
 func (s AVSpeechSynthesisMarker) SetTextRange(value foundation.NSRange) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTextRange:"), value)
 }
+
 // The byte offset into the audio buffer.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/byteSampleOffset
@@ -376,6 +387,7 @@ func (s AVSpeechSynthesisMarker) ByteSampleOffset() uint {
 func (s AVSpeechSynthesisMarker) SetByteSampleOffset(value uint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setByteSampleOffset:"), value)
 }
+
 // A block that subclasses use to send marker information to the host.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avspeechsynthesisprovideraudiounit/speechsynthesisoutputmetadatablock
@@ -386,4 +398,3 @@ func (s AVSpeechSynthesisMarker) SpeechSynthesisOutputMetadataBlock() AVSpeechSy
 func (s AVSpeechSynthesisMarker) SetSpeechSynthesisOutputMetadataBlock(value AVSpeechSynthesisProviderOutputBlock) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpeechSynthesisOutputMetadataBlock:"), value)
 }
-

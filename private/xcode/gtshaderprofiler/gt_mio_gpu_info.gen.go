@@ -3,8 +3,9 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (gc GTMioGPUInfoClass) Alloc() GTMioGPUInfo {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioGPUInfo.FormattedName]
@@ -54,6 +54,7 @@ func (gc GTMioGPUInfoClass) Alloc() GTMioGPUInfo {
 //   - [GTMioGPUInfo.NumMGPUs]
 //   - [GTMioGPUInfo.NumShaderCores]
 //   - [GTMioGPUInfo.InitWithGPUInfo]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo
 type GTMioGPUInfo struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type GTMioGPUInfo struct {
 func GTMioGPUInfoFromID(id objc.ID) GTMioGPUInfo {
 	return GTMioGPUInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioGPUInfo implements IGTMioGPUInfo.
 var _ IGTMioGPUInfo = GTMioGPUInfo{}
 
@@ -116,7 +118,6 @@ func NewGTMioGPUInfo() GTMioGPUInfo {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/initWithGPUInfo:
 func NewGTMioGPUInfoWithGPUInfo(gPUInfo unsafe.Pointer) GTMioGPUInfo {
 	instance := getGTMioGPUInfoClass().Alloc()
@@ -124,18 +125,18 @@ func NewGTMioGPUInfoWithGPUInfo(gPUInfo unsafe.Pointer) GTMioGPUInfo {
 	return GTMioGPUInfoFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/formattedName:
 func (g GTMioGPUInfo) FormattedName(name bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("formattedName:"), name)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/gpuType
 func (g GTMioGPUInfo) GpuType() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("gpuType"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/initWithGPUInfo:
 func (g GTMioGPUInfo) InitWithGPUInfo(gPUInfo unsafe.Pointer) GTMioGPUInfo {
 	rv := objc.Send[GTMioGPUInfo](g.ID, objc.Sel("initWithGPUInfo:"), gPUInfo)
@@ -147,29 +148,33 @@ func (g GTMioGPUInfo) GpuGeneration() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("gpuGeneration"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/gpuRevision
 func (g GTMioGPUInfo) GpuRevision() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("gpuRevision"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/gpuVariant
 func (g GTMioGPUInfo) GpuVariant() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("gpuVariant"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/numGPs
 func (g GTMioGPUInfo) NumGPs() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("numGPs"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/numMGPUs
 func (g GTMioGPUInfo) NumMGPUs() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("numMGPUs"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioGPUInfo/numShaderCores
 func (g GTMioGPUInfo) NumShaderCores() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("numShaderCores"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,13 +46,10 @@ func (mc MTLBlitPassSampleBufferAttachmentDescriptorClass) Alloc() MTLBlitPassSa
 // beginning and end of a blit pass.
 //
 // # Overview
-// 
+//
 // See [Sampling GPU data into counter sample buffers] for more context about
 // configuring instances of this type. That article is one of a series of
 // articles in [GPU counters and counter sample buffers].
-//
-// [GPU counters and counter sample buffers]: https://developer.apple.com/documentation/Metal/gpu-counters-and-counter-sample-buffers
-// [Sampling GPU data into counter sample buffers]: https://developer.apple.com/documentation/Metal/sampling-gpu-data-into-counter-sample-buffers
 //
 // # Configuring the sample buffer attachment
 //
@@ -63,6 +61,9 @@ func (mc MTLBlitPassSampleBufferAttachmentDescriptorClass) Alloc() MTLBlitPassSa
 //   - [MTLBlitPassSampleBufferAttachmentDescriptor.SetEndOfEncoderSampleIndex]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitPassSampleBufferAttachmentDescriptor
+//
+// [GPU counters and counter sample buffers]: https://developer.apple.com/documentation/Metal/gpu-counters-and-counter-sample-buffers
+// [Sampling GPU data into counter sample buffers]: https://developer.apple.com/documentation/Metal/sampling-gpu-data-into-counter-sample-buffers
 type MTLBlitPassSampleBufferAttachmentDescriptor struct {
 	objectivec.Object
 }
@@ -74,6 +75,7 @@ type MTLBlitPassSampleBufferAttachmentDescriptor struct {
 func MTLBlitPassSampleBufferAttachmentDescriptorFromID(id objc.ID) MTLBlitPassSampleBufferAttachmentDescriptor {
 	return MTLBlitPassSampleBufferAttachmentDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLBlitPassSampleBufferAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,16 +130,16 @@ func NewMTLBlitPassSampleBufferAttachmentDescriptor() MTLBlitPassSampleBufferAtt
 // during the blit pass.
 //
 // # Discussion
-// 
+//
 // The property defaults to `nil`, which means the GPU doesn’t save any GPU
 // counter information during the blit pass. For more information, see
 // [Creating a counter sample buffer to store a GPU’s counter data during a
 // pass] and [Sampling GPU data into counter sample buffers].
 //
+// See: https://developer.apple.com/documentation/Metal/MTLBlitPassSampleBufferAttachmentDescriptor/sampleBuffer
+//
 // [Creating a counter sample buffer to store a GPU’s counter data during a pass]: https://developer.apple.com/documentation/Metal/creating-a-counter-sample-buffer-to-store-a-gpus-counter-data-during-a-pass
 // [Sampling GPU data into counter sample buffers]: https://developer.apple.com/documentation/Metal/sampling-gpu-data-into-counter-sample-buffers
-//
-// See: https://developer.apple.com/documentation/Metal/MTLBlitPassSampleBufferAttachmentDescriptor/sampleBuffer
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) SampleBuffer() MTLCounterSampleBuffer {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("sampleBuffer"))
 	return MTLCounterSampleBufferObjectFromID(rv)
@@ -145,19 +147,18 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptor) SampleBuffer() MTLCounterSa
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTLCounterSampleBuffer) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSampleBuffer:"), value)
 }
+
 // An index within a counter sample buffer that tells the GPU where to store
 // counter data from the start of a blit pass.
 //
 // # Discussion
-// 
+//
 // This property indicates where the GPU stores the counter data within an
 // [MTLCounterSampleBuffer] instance that it samples at the beginning of a
 // blit pass.
-// 
+//
 // You can tell the GPU to skip sampling at the start of the blit pass by
 // assigning [MTLCounterDontSample] to this property.
-//
-// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitPassSampleBufferAttachmentDescriptor/startOfEncoderSampleIndex
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) StartOfEncoderSampleIndex() uint {
@@ -167,19 +168,18 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptor) StartOfEncoderSampleIndex()
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) SetStartOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStartOfEncoderSampleIndex:"), value)
 }
+
 // An index within a counter sample buffer that tells the GPU where to store
 // counter data from the end of a blit pass.
 //
 // # Discussion
-// 
+//
 // This property indicates where the GPU stores the counter data within an
 // [MTLCounterSampleBuffer] instance that it samples at the end of a blit
 // pass.
-// 
+//
 // You can tell the GPU to skip sampling at the end of the blit pass by
 // assigning [MTLCounterDontSample] to this property.
-//
-// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitPassSampleBufferAttachmentDescriptor/endOfEncoderSampleIndex
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) EndOfEncoderSampleIndex() uint {
@@ -189,4 +189,3 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptor) EndOfEncoderSampleIndex() u
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) SetEndOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](b.ID, objc.Sel("setEndOfEncoderSampleIndex:"), value)
 }
-

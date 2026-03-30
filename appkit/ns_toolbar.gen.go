@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,23 +47,21 @@ func (nc NSToolbarClass) Alloc() NSToolbar {
 // either below or integrated with the window’s title bar.
 //
 // # Overview
-// 
+//
 // An [NSToolbar] object manages the controls and views that apply to the main
 // window’s content area. Toolbars provide convenient access to the commands
 // and features people use most often. Toolbars are also user-configurable and
 // support the display of an interactive customization palette.
-// 
+//
 // Create and configure your toolbar programmatically or using Interface
 // Builder. Add items to the toolbar that correspond to the commands you want
 // to feature in your window. Each item has a corresponding [NSToolbarItem]
 // object, which you use to make changes. Each toolbar manages a unique set of
 // items, but you can synchronize the items and state of multiple toolbars by
 // assigning the same value to their [NSToolbar.Identifier] properties.
-// 
+//
 // For more information about how to use toolbars, see [Integrating a Toolbar
 // and Touch Bar into Your App].
-//
-// [Integrating a Toolbar and Touch Bar into Your App]: https://developer.apple.com/documentation/AppKit/integrating-a-toolbar-and-touch-bar-into-your-app
 //
 // # Creating an toolbar object
 //
@@ -135,6 +134,8 @@ func (nc NSToolbarClass) Alloc() NSToolbar {
 //   - [NSToolbar.RemoveItemWithItemIdentifier]: Removes the item with matching `itemIdentifier` in the receiving toolbar. If multiple items share the same identifier (as is the case with space items) all matching items will be removed. To remove only a single space item, use `-` instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar
+//
+// [Integrating a Toolbar and Touch Bar into Your App]: https://developer.apple.com/documentation/AppKit/integrating-a-toolbar-and-touch-bar-into-your-app
 type NSToolbar struct {
 	objectivec.Object
 }
@@ -146,6 +147,7 @@ type NSToolbar struct {
 func NSToolbarFromID(id objc.ID) NSToolbar {
 	return NSToolbar{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSToolbar adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -344,11 +346,11 @@ func NewNSToolbar() NSToolbar {
 // identifier: A string used by the class to identify the kind of the toolbar.
 //
 // # Return Value
-// 
+//
 // The initialized toolbar object.
 //
 // # Discussion
-// 
+//
 // `identifier` is never seen by users and should not be localized. See the
 // [Identifier] property for important information.
 //
@@ -364,11 +366,11 @@ func NewToolbarWithIdentifier(identifier NSToolbarIdentifier) NSToolbar {
 // identifier: A string used by the class to identify the kind of the toolbar.
 //
 // # Return Value
-// 
+//
 // The initialized toolbar object.
 //
 // # Discussion
-// 
+//
 // `identifier` is never seen by users and should not be localized. See the
 // [Identifier] property for important information.
 //
@@ -377,6 +379,7 @@ func (t NSToolbar) InitWithIdentifier(identifier NSToolbarIdentifier) NSToolbar 
 	rv := objc.Send[NSToolbar](t.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return rv
 }
+
 // Inserts an item into the toolbar at the specified index.
 //
 // itemIdentifier: The identifier of the toolbar item to insert.
@@ -384,11 +387,11 @@ func (t NSToolbar) InitWithIdentifier(identifier NSToolbarIdentifier) NSToolbar 
 // index: The index at which to insert the item.
 //
 // # Discussion
-// 
+//
 // Typically, you don’t call this method directly from your code. Instead,
 // you specify your toolbar’s allowed items, and the set of default items
 // you want to appear. After that, you let the user customize the toolbar.
-// 
+//
 // Any changes you make to the toolbar appear in all [NSToolbar] objects with
 // the same [Identifier] value. If a toolbar item with the specified
 // identifier isn’t available, the toolbar calls the
@@ -400,16 +403,17 @@ func (t NSToolbar) InitWithIdentifier(identifier NSToolbarIdentifier) NSToolbar 
 func (t NSToolbar) InsertItemWithItemIdentifierAtIndex(itemIdentifier NSToolbarItemIdentifier, index int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insertItemWithItemIdentifier:atIndex:"), objc.String(string(itemIdentifier)), index)
 }
+
 // Removes the item at the specified index in the toolbar.
 //
 // index: The index of the item to remove.
 //
 // # Discussion
-// 
+//
 // Typically, you don’t call this method directly from your code. Instead,
 // you specify your toolbar’s allowed items, and the set of default items
 // you want to appear. After that, you let the user customize the toolbar.
-// 
+//
 // Any changes you make to the toolbar appear in all [NSToolbar] objects with
 // the same [Identifier] value. This method does not trigger a call to your
 // delegate’s [ToolbarItemIdentifierCanBeInsertedAtIndex] method for the
@@ -419,13 +423,14 @@ func (t NSToolbar) InsertItemWithItemIdentifierAtIndex(itemIdentifier NSToolbarI
 func (t NSToolbar) RemoveItemAtIndex(index int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeItemAtIndex:"), index)
 }
+
 // Displays the toolbar’s customization palette and handles any
 // user-initiated customizations.
 //
 // sender: The control sending the message.
 //
 // # Discussion
-// 
+//
 // While the customization palette is visible, the toolbar calls methods of
 // its delegate to manage configuration changes.
 //
@@ -433,16 +438,17 @@ func (t NSToolbar) RemoveItemAtIndex(index int) {
 func (t NSToolbar) RunCustomizationPalette(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("runCustomizationPalette:"), sender)
 }
+
 // Validates the toolbar’s visible items during a window update.
 //
 // # Discussion
-// 
+//
 // Typically, you override this method and use it to customize the validation
 // process. The default implementation calls the [Validate] method of each
 // visible item in the toolbar, including items that have their
-// [Autovalidates] property set to [false]. If you override this method, call
+// [Autovalidates] property set to false. If you override this method, call
 // `super` at some point during your implementation.
-// 
+//
 // The toolbar doesn’t validate its content for some events, including
 // [NSLeftMouseDragged], [NSRightMouseDragged], [NSOtherMouseDragged],
 // [NSMouseEntered], [NSMouseExited], [NSScrollWheel], [NSCursorUpdate],
@@ -450,9 +456,11 @@ func (t NSToolbar) RunCustomizationPalette(sender objectivec.IObject) {
 // [NSFlagsChanged] events until a pause of 0.85 seconds occurs or the window
 // processes an event other than [NSKeyUp] or [NSFlagsChanged]. So a rapid
 // sequence of key events doesn’t trigger any validation.
-// 
+//
 // To trigger validation for all toolbars, call the app’s
-// [SetWindowsNeedUpdate] method with a value of [true].
+// [SetWindowsNeedUpdate] method with a value of true.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSToolbar/validateVisibleItems()
 //
 // [NSCursorUpdate]: https://developer.apple.com/documentation/AppKit/NSCursorUpdate
 // [NSFlagsChanged]: https://developer.apple.com/documentation/AppKit/NSFlagsChanged
@@ -464,20 +472,17 @@ func (t NSToolbar) RunCustomizationPalette(sender objectivec.IObject) {
 // [NSOtherMouseDragged]: https://developer.apple.com/documentation/AppKit/NSOtherMouseDragged
 // [NSRightMouseDragged]: https://developer.apple.com/documentation/AppKit/NSRightMouseDragged
 // [NSScrollWheel]: https://developer.apple.com/documentation/AppKit/NSScrollWheel
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSToolbar/validateVisibleItems()
 func (t NSToolbar) ValidateVisibleItems() {
 	objc.Send[objc.ID](t.ID, objc.Sel("validateVisibleItems"))
 }
+
 // Removes the item with matching `itemIdentifier` in the receiving toolbar.
 // If multiple items share the same identifier (as is the case with space
 // items) all matching items will be removed. To remove only a single space
 // item, use `-` instead.
 //
 // # Discussion
-// 
+//
 // Any change made will be propagated immediately to all other toolbars with
 // the same identifier.
 //
@@ -489,7 +494,7 @@ func (t NSToolbar) RemoveItemWithItemIdentifier(itemIdentifier NSToolbarItemIden
 // The object you use to customize the toolbar contents and configuration.
 //
 // # Discussion
-// 
+//
 // Assign an object to this property if you customize the toolbar’s
 // behavior. The object you assign to this property must adopt the
 // [NSToolbarDelegate] protocol.
@@ -502,15 +507,16 @@ func (t NSToolbar) Delegate() NSToolbarDelegate {
 func (t NSToolbar) SetDelegate(value NSToolbarDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The value you use to identify the toolbar in your app.
 //
 // # Discussion
-// 
+//
 // Use this property to distinguish toolbars in your app. Multiple toolbars
 // can share the same identifier, and you might do so for windows that display
 // similar content. When two or more toolbars share an identifier, they
 // synchronize their state and display the same set of items.
-// 
+//
 // If the toolbar autosaves its contents, the system associates the
 // configuration data with this identifier.
 //
@@ -519,15 +525,13 @@ func (t NSToolbar) Identifier() NSToolbarIdentifier {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
 	return NSToolbarIdentifier(foundation.NSStringFromID(rv).String())
 }
+
 // A Boolean value that indicates whether the toolbar is visible.
 //
 // # Discussion
-// 
-// If the value of this property is [true], the toolbar is visible; otherwise,
-// it’s [false]. Change the value to hide or show the toolbar.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the value of this property is true, the toolbar is visible; otherwise,
+// it’s false. Change the value to hide or show the toolbar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/isVisible
 func (t NSToolbar) Visible() bool {
@@ -537,18 +541,18 @@ func (t NSToolbar) Visible() bool {
 func (t NSToolbar) SetVisible(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVisible:"), value)
 }
+
 // A value that indicates whether the toolbar displays items using a name,
 // icon, or combination of elements.
 //
 // # Discussion
-// 
-// The default value of this property is [NSToolbar.DisplayMode.default]. For
-// a list of possible values, see [NSToolbar.DisplayMode].
 //
-// [NSToolbar.DisplayMode.default]: https://developer.apple.com/documentation/AppKit/NSToolbar/DisplayMode-swift.enum/default
-// [NSToolbar.DisplayMode]: https://developer.apple.com/documentation/AppKit/NSToolbar/DisplayMode-swift.enum
+// The default value of this property is [NSToolbarDisplayModeDefault]. For a
+// list of possible values, see [NSToolbar.DisplayMode].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/displayMode-swift.property
+//
+// [NSToolbar.DisplayMode]: https://developer.apple.com/documentation/AppKit/NSToolbar/DisplayMode-swift.enum
 func (t NSToolbar) DisplayMode() NSToolbarDisplayMode {
 	rv := objc.Send[NSToolbarDisplayMode](t.ID, objc.Sel("displayMode"))
 	return NSToolbarDisplayMode(rv)
@@ -556,17 +560,15 @@ func (t NSToolbar) DisplayMode() NSToolbarDisplayMode {
 func (t NSToolbar) SetDisplayMode(value NSToolbarDisplayMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDisplayMode:"), value)
 }
+
 // A Boolean value that indicates whether the toolbar shows the separator
 // between the toolbar and the main window contents.
 //
 // # Discussion
-// 
-// If the value of this property is [true], the toolbar shows the separator
-// between the toolbar and the main window contents. If the value is [false],
-// the toolbar doesn’t show the separator. The default value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the value of this property is true, the toolbar shows the separator
+// between the toolbar and the main window contents. If the value is false,
+// the toolbar doesn’t show the separator. The default value is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/showsBaselineSeparator
 func (t NSToolbar) ShowsBaselineSeparator() bool {
@@ -576,26 +578,24 @@ func (t NSToolbar) ShowsBaselineSeparator() bool {
 func (t NSToolbar) SetShowsBaselineSeparator(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setShowsBaselineSeparator:"), value)
 }
+
 // A Boolean value that indicates whether users can modify the contents of the
 // toolbar.
 //
 // # Discussion
-// 
-// If the value of this property is [true], the toolbar enables the Customize
-// Toolbar… menu item. If the value is [false], the toolbar disables this
-// menu item. The Customize Toolbar… menu item lets people change the items
-// on the toolbar, rearrange their positions, and change the toolbar’s
-// display mode. This attribute does not affect someone’s ability to show or
-// hide the toolbar. The default value of this property is [false].
-// 
+//
+// If the value of this property is true, the toolbar enables the Customize
+// Toolbar… menu item. If the value is false, the toolbar disables this menu
+// item. The Customize Toolbar… menu item lets people change the items on
+// the toolbar, rearrange their positions, and change the toolbar’s display
+// mode. This attribute does not affect someone’s ability to show or hide
+// the toolbar. The default value of this property is false.
+//
 // You can change the value of this property at any time to change your
 // toolbar’s customization behavior. For example, you might prevent toolbar
 // customizations while your app processes some other event. If you set this
-// property to [true], set the [AutosavesConfiguration] property to true to
+// property to true, set the [AutosavesConfiguration] property to true to
 // persist any customizations.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/allowsUserCustomization
 func (t NSToolbar) AllowsUserCustomization() bool {
@@ -605,22 +605,21 @@ func (t NSToolbar) AllowsUserCustomization() bool {
 func (t NSToolbar) SetAllowsUserCustomization(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsUserCustomization:"), value)
 }
+
 // A Boolean value that indicates whether the toolbar can add items for Action
 // extensions.
 //
 // # Discussion
-// 
-// If the value of this property is [true], the toolbar can dynamically create
+//
+// If the value of this property is true, the toolbar can dynamically create
 // toolbar items for Action extensions in the toolbar configuration panel. The
 // toolbar can only add an Action extension if its `Info.Plist()` file
-// contains the [NSExtensionServiceAllowsToolbarItem] key with the value
-// [true]. The default value of this property is [false].
-//
-// [NSExtensionServiceAllowsToolbarItem]: https://developer.apple.com/documentation/BundleResources/Information-Property-List/NSExtension/NSExtensionAttributes/NSExtensionServiceAllowsToolbarItem
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// contains the [NSExtensionServiceAllowsToolbarItem] key with the value true.
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/allowsExtensionItems
+//
+// [NSExtensionServiceAllowsToolbarItem]: https://developer.apple.com/documentation/BundleResources/Information-Property-List/NSExtension/NSExtensionAttributes/NSExtensionServiceAllowsToolbarItem
 func (t NSToolbar) AllowsExtensionItems() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("allowsExtensionItems"))
 	return rv
@@ -628,10 +627,11 @@ func (t NSToolbar) AllowsExtensionItems() bool {
 func (t NSToolbar) SetAllowsExtensionItems(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsExtensionItems:"), value)
 }
+
 // An array containing the toolbar’s current items, in order.
 //
 // # Discussion
-// 
+//
 // To specify the default order of your toolbar’s items, implement the
 // [ToolbarDefaultItemIdentifiers] method in your toolbar delegate object. Use
 // other methods of your delegate object to manage the placement of items in
@@ -644,10 +644,11 @@ func (t NSToolbar) Items() []NSToolbarItem {
 		return NSToolbarItemFromID(id)
 	})
 }
+
 // An array containing the toolbar’s currently visible items.
 //
 // # Discussion
-// 
+//
 // This property doesn’t contain items in the overflow menu because those
 // items aren’t visible.
 //
@@ -658,10 +659,11 @@ func (t NSToolbar) VisibleItems() []NSToolbarItem {
 		return NSToolbarItemFromID(id)
 	})
 }
+
 // The set of custom items to display in the center of the toolbar.
 //
 // # Discussion
-// 
+//
 // Set this property to the items you want to appear together in the center of
 // the toolbar. Specify the initial order of the items using the
 // [ToolbarDefaultItemIdentifiers] method of your toolbar delegate object.
@@ -674,10 +676,11 @@ func (t NSToolbar) CenteredItemIdentifiers() foundation.INSSet {
 func (t NSToolbar) SetCenteredItemIdentifiers(value foundation.INSSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCenteredItemIdentifiers:"), value)
 }
+
 // The identifier of the toolbar’s currently selected item.
 //
 // # Discussion
-// 
+//
 // The value of this property is `nil` if the toolbar doesn’t have a
 // selected item.
 //
@@ -689,22 +692,20 @@ func (t NSToolbar) SelectedItemIdentifier() NSToolbarItemIdentifier {
 func (t NSToolbar) SetSelectedItemIdentifier(value NSToolbarItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedItemIdentifier:"), objc.String(string(value)))
 }
+
 // A Boolean value that indicates whether the toolbar autosaves its
 // configuration.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the toolbar automatically writes
+//
+// When the value of this property is true, the toolbar automatically writes
 // any configuration changes to user defaults. It associates the configuration
 // details with the value in its identifier property. If mutliple toolbars
 // share the same identifier, they all share the same configuration settings.
-// When the value of this property is [false], the toolbar doesn’t save
+// When the value of this property is false, the toolbar doesn’t save
 // changes and reverts to the default configuration when the app relaunches.
-// 
-// The default of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/autosavesConfiguration
 func (t NSToolbar) AutosavesConfiguration() bool {
@@ -714,10 +715,11 @@ func (t NSToolbar) AutosavesConfiguration() bool {
 func (t NSToolbar) SetAutosavesConfiguration(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutosavesConfiguration:"), value)
 }
+
 // A dictionary containing the current configuration details for the toolbar.
 //
 // # Discussion
-// 
+//
 // Use this property to retrieve the toolbar’s configuration details so you
 // can save them to disk yourself. The dictionary in this property contains
 // the identifiers of the current toolbar items and the values of important
@@ -728,22 +730,21 @@ func (t NSToolbar) ConfigurationDictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("configurationDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the toolbar’s customization
 // palette is in use.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the toolbar’s customization
-// palette is running; otherwise, it’s [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true when the toolbar’s customization
+// palette is running; otherwise, it’s false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/customizationPaletteIsRunning
 func (t NSToolbar) CustomizationPaletteIsRunning() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("customizationPaletteIsRunning"))
 	return rv
 }
+
 // The item to display in the center of the toolbar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/centeredItemIdentifier
@@ -754,10 +755,11 @@ func (t NSToolbar) CenteredItemIdentifier() NSToolbarItemIdentifier {
 func (t NSToolbar) SetCenteredItemIdentifier(value NSToolbarItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCenteredItemIdentifier:"), objc.String(string(value)))
 }
+
 // The toolbar’s size mode.
 //
 // # Discussion
-// 
+//
 // If there’s no icon of the given size for a toolbar item, the toolbar item
 // creates one by scaling an icon of another size.
 //
@@ -769,6 +771,7 @@ func (t NSToolbar) SizeMode() NSToolbarSizeMode {
 func (t NSToolbar) SetSizeMode(value NSToolbarSizeMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSizeMode:"), value)
 }
+
 // Whether or not the user is allowed to change display modes at run time.
 // This functionality is independent of customizing the order of the items
 // themselves. Only disable when the functionality or legibility of your
@@ -785,6 +788,7 @@ func (t NSToolbar) AllowsDisplayModeCustomization() bool {
 func (t NSToolbar) SetAllowsDisplayModeCustomization(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsDisplayModeCustomization:"), value)
 }
+
 // An array of itemIdentifiers that represent the current items in the
 // toolbar. Setting this property will set the current items in the toolbar by
 // diffing against items that already exist. Use this with great caution if
@@ -799,4 +803,3 @@ func (t NSToolbar) ItemIdentifiers() []string {
 func (t NSToolbar) SetItemIdentifiers(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setItemIdentifiers:"), objectivec.StringSliceToNSArray(value))
 }
-

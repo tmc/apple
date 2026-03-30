@@ -18,8 +18,7 @@ var (
 	CMIOExtensionMachServiceNameKey string
 )
 
-var (
-)
+var ()
 
 var (
 	// See: https://developer.apple.com/documentation/CoreMediaIO/kCMIOBlockBufferAttachmentKey_CVPixelBufferReference
@@ -85,6 +84,7 @@ var (
 	// See: https://developer.apple.com/documentation/CoreMediaIO/kCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_MouseButtonState
 	KCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_MouseButtonState string
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -600,7 +600,7 @@ var CMIOExtensionPropertys struct {
 	DeviceCanBeDefaultOutputDevice CMIOExtensionProperty
 	// DeviceIsSuspended: A property key for a Boolean value that indicates whether the device is in a suspended state.
 	DeviceIsSuspended CMIOExtensionProperty
-	DeviceLatency CMIOExtensionProperty
+	DeviceLatency     CMIOExtensionProperty
 	// DeviceLinkedCoreAudioDeviceUID: A property key for the UID of the linked Core Audio device.
 	DeviceLinkedCoreAudioDeviceUID CMIOExtensionProperty
 	// DeviceModel: A property key for the device model.
@@ -615,7 +615,7 @@ var CMIOExtensionPropertys struct {
 	StreamActiveFormatIndex CMIOExtensionProperty
 	// StreamFrameDuration: A property key for the frame duration.
 	StreamFrameDuration CMIOExtensionProperty
-	StreamLatency CMIOExtensionProperty
+	StreamLatency       CMIOExtensionProperty
 	// StreamMaxFrameDuration: A property key for the maximum frame duration.
 	StreamMaxFrameDuration CMIOExtensionProperty
 	// StreamSinkBufferQueueSize: A property key for the sink buffer queue size.
@@ -627,4 +627,3 @@ var CMIOExtensionPropertys struct {
 	// StreamSinkEndOfData: A property key for a Boolean value that indicates whether the stream has more data.
 	StreamSinkEndOfData CMIOExtensionProperty
 }
-

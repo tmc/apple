@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MTLTileRenderPipelineColorAttachmentDescriptorArray struct {
 func MTLTileRenderPipelineColorAttachmentDescriptorArrayFromID(id objc.ID) MTLTileRenderPipelineColorAttachmentDescriptorArray {
 	return MTLTileRenderPipelineColorAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLTileRenderPipelineColorAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,7 +106,7 @@ func NewMTLTileRenderPipelineColorAttachmentDescriptorArray() MTLTileRenderPipel
 // attachmentIndex: An index in the color attachment array.
 //
 // # Return Value
-// 
+//
 // An [MTLTileRenderPipelineColorAttachmentDescriptor] that describes the
 // render pipeline information for a color attachment.
 //
@@ -113,6 +115,7 @@ func (t MTLTileRenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubs
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLTileRenderPipelineColorAttachmentDescriptorFromID(rv)
 }
+
 // Sets the render pipeline state for a specified color attachment.
 //
 // attachment: A descriptor that contains the render pipeline description for a color
@@ -121,7 +124,7 @@ func (t MTLTileRenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubs
 // attachmentIndex: An index in the color attachment array.
 //
 // # Discussion
-// 
+//
 // This method copies the pipeline state from the descriptor into the
 // specified attachment in the array. Afterwards, you can modify and reuse the
 // descriptior without affecting a previously set attachment.
@@ -130,4 +133,3 @@ func (t MTLTileRenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubs
 func (t MTLTileRenderPipelineColorAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLTileRenderPipelineColorAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-

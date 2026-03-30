@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,11 +45,11 @@ func (nc NSLayoutYAxisAnchorClass) Alloc() NSLayoutYAxisAnchor {
 // fluent API.
 //
 // # Overview
-// 
+//
 // [NSLayoutYAxisAnchor] adds type information to the methods inherited from
 // [NSLayoutAnchor]. Specifically, the generic methods declared by
 // [NSLayoutAnchor] must now take a matching [NSLayoutYAxisAnchor] object.
-// 
+//
 // For more information on using layout anchors, see [NSLayoutAnchor].
 //
 // # Building system spacing constraints
@@ -73,6 +74,7 @@ type NSLayoutYAxisAnchor struct {
 func NSLayoutYAxisAnchorFromID(id objc.ID) NSLayoutYAxisAnchor {
 	return NSLayoutYAxisAnchor{NSLayoutAnchor: NSLayoutAnchorFromID(id)}
 }
+
 // NOTE: NSLayoutYAxisAnchor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,12 +137,12 @@ func NewNSLayoutYAxisAnchor() NSLayoutYAxisAnchor {
 // anchors.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that imposes a specific distance between the
 // current anchor and the object in the `anchor` parameter.
 //
 // # Discussion
-// 
+//
 // The constraint causes the current anchor to be positioned below the object
 // in the `anchor` parameter. The distance between the two anchors is
 // determined by multiplying the system spacing by the value in the
@@ -154,6 +156,7 @@ func (l NSLayoutYAxisAnchor) ConstraintEqualToSystemSpacingBelowAnchorMultiplier
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToSystemSpacingBelowAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the minimum distance by which the current
 // anchor is positioned below the specified anchor.
 //
@@ -163,12 +166,12 @@ func (l NSLayoutYAxisAnchor) ConstraintEqualToSystemSpacingBelowAnchorMultiplier
 // anchors.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that imposes a minimum distance between the
 // current anchor and the object in the `anchor` parameter.
 //
 // # Discussion
-// 
+//
 // The constraint causes the current anchor to be positioned below the object
 // in the `anchor` parameter. The minimum distance between the two anchors is
 // determined by multiplying the system spacing by the value in the
@@ -182,6 +185,7 @@ func (l NSLayoutYAxisAnchor) ConstraintGreaterThanOrEqualToSystemSpacingBelowAnc
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Returns a constraint that defines the maximum distance by which the current
 // anchor is positioned below the specified anchor.
 //
@@ -191,12 +195,12 @@ func (l NSLayoutYAxisAnchor) ConstraintGreaterThanOrEqualToSystemSpacingBelowAnc
 // anchors.
 //
 // # Return Value
-// 
+//
 // An [NSLayoutConstraint] object that imposes a minimum distance between the
 // current anchor and the object in the `anchor` parameter.
 //
 // # Discussion
-// 
+//
 // The constraint causes the current anchor to be positioned below the object
 // in the `anchor` parameter. The maximum distance between the two anchors is
 // determined by multiplying the system spacing by the value in the
@@ -210,16 +214,17 @@ func (l NSLayoutYAxisAnchor) ConstraintLessThanOrEqualToSystemSpacingBelowAnchor
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToSystemSpacingBelowAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
+
 // Creates a layout dimension object from two anchors.
 //
 // otherAnchor: The second anchor to use when creating the layout dimension.
 //
 // # Return Value
-// 
+//
 // The [NSLayoutDimension] object represented by the two anchors.
 //
 // # Discussion
-// 
+//
 // Use the returned object to define constraints relative to the space between
 // the current anchor and the object in the `otherAnchor` parameter.
 //
@@ -228,4 +233,3 @@ func (l NSLayoutYAxisAnchor) AnchorWithOffsetToAnchor(otherAnchor INSLayoutYAxis
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("anchorWithOffsetToAnchor:"), otherAnchor)
 	return NSLayoutDimensionFromID(rv)
 }
-

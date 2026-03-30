@@ -49,6 +49,7 @@ type CIBlendWithMask interface {
 type CIBlendWithMaskObject struct {
 	objectivec.Object
 }
+
 func (o CIBlendWithMaskObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CIBlendWithMaskObjectFromID(id objc.ID) CIBlendWithMaskObject {
 func (o CIBlendWithMaskObject) BackgroundImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("backgroundImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The image to use as a foreground image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlendWithMask/inputImage
 func (o CIBlendWithMaskObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A grayscale mask that defines the blend.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlendWithMask/maskImage
 func (o CIBlendWithMaskObject) MaskImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("maskImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,30 @@ func (o CIBlendWithMaskObject) MaskImage() ICIImage {
 func (o CIBlendWithMaskObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as a background image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBlendWithMask/backgroundImage
 func (o CIBlendWithMaskObject) SetBackgroundImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBackgroundImage:"), value)
 }
 
+// The image to use as a foreground image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBlendWithMask/inputImage
 func (o CIBlendWithMaskObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// A grayscale mask that defines the blend.
+//
+// # Discussion
+//
+// When a mask value is 0.0, the result is the background. When the mask value
+// is 1.0, the result is the image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBlendWithMask/maskImage
 func (o CIBlendWithMaskObject) SetMaskImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaskImage:"), value)
 }
-

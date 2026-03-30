@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSSymbolBounceEffectClass) Alloc() NSSymbolBounceEffect {
 // in a symbol-based image separately or as a whole.
 //
 // # Overview
-// 
+//
 // A bounce animation draws attention to a symbol by applying a brief scaling
 // operation to the symbol’s layers. You can choose to scale the symbol up
 // or down as it bounces.
@@ -66,6 +67,7 @@ type NSSymbolBounceEffect struct {
 func NSSymbolBounceEffectFromID(id objc.ID) NSSymbolBounceEffect {
 	return NSSymbolBounceEffect{NSSymbolEffect: NSSymbolEffectFromID(id)}
 }
+
 // Ensure NSSymbolBounceEffect implements INSSymbolBounceEffect.
 var _ INSSymbolBounceEffect = NSSymbolBounceEffect{}
 
@@ -110,7 +112,7 @@ func NewNSSymbolBounceEffect() NSSymbolBounceEffect {
 // An effect that bounces each layer separately.
 //
 // # Return Value
-// 
+//
 // A copy of the effect options that bounces each layer separately.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolBounceEffect/effectWithByLayer
@@ -118,10 +120,11 @@ func (s NSSymbolBounceEffect) EffectWithByLayer() INSSymbolBounceEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolBounceEffectFromID(rv)
 }
+
 // An effect that bounces all layers simultaneously.
 //
 // # Return Value
-// 
+//
 // A copy of the effect options that bounces all layers simultaneously.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolBounceEffect/effectWithWholeSymbol
@@ -133,7 +136,7 @@ func (s NSSymbolBounceEffect) EffectWithWholeSymbol() INSSymbolBounceEffect {
 // An effect that bounces the symbol downward.
 //
 // # Return Value
-// 
+//
 // A new instance of the bounce effect options that bounces the symbol
 // downward.
 //
@@ -142,10 +145,11 @@ func (_NSSymbolBounceEffectClass NSSymbolBounceEffectClass) BounceDownEffect() N
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolBounceEffectClass.class), objc.Sel("bounceDownEffect"))
 	return NSSymbolBounceEffectFromID(rv)
 }
+
 // An effect that bounces the symbol upward.
 //
 // # Return Value
-// 
+//
 // A new instance of the bounce effect options that bounces the symbol upward.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolBounceEffect/bounceUpEffect
@@ -153,11 +157,12 @@ func (_NSSymbolBounceEffectClass NSSymbolBounceEffectClass) BounceUpEffect() NSS
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolBounceEffectClass.class), objc.Sel("bounceUpEffect"))
 	return NSSymbolBounceEffectFromID(rv)
 }
+
 // An animation that applies a transitory scaling effect, or bounce, to the
 // layers in a symbol-based image separately or as a whole.
 //
 // # Return Value
-// 
+//
 // A new instance of the bounce effect options.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolBounceEffect/effect
@@ -165,4 +170,3 @@ func (_NSSymbolBounceEffectClass NSSymbolBounceEffectClass) Effect() NSSymbolBou
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolBounceEffectClass.class), objc.Sel("effect"))
 	return NSSymbolBounceEffectFromID(rv)
 }
-

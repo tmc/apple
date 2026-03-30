@@ -4,9 +4,10 @@ package screencapturekit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -65,6 +66,7 @@ type SCScreenshotOutput struct {
 func SCScreenshotOutputFromID(id objc.ID) SCScreenshotOutput {
 	return SCScreenshotOutput{objectivec.Object{ID: id}}
 }
+
 // NOTE: SCScreenshotOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,7 +120,7 @@ func NewSCScreenshotOutput() SCScreenshotOutput {
 // A URL property that specifies the location of the saved image.
 //
 // # Discussion
-// 
+//
 // If `fileURL` is `nil`, then the file isn’t saved.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotOutput/fileURL
@@ -129,16 +131,17 @@ func (s SCScreenshotOutput) FileURL() foundation.INSURL {
 func (s SCScreenshotOutput) SetFileURL(value foundation.INSURL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFileURL:"), value)
 }
+
 // An output property that specifies the high dynamic range version of the
 // screenshot.
 //
 // # Discussion
-// 
+//
 // The output [CGImage] uses the extended sRGB color space.
 //
-// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
-//
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotOutput/hdrImage
+//
+// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 func (s SCScreenshotOutput) HdrImage() coregraphics.CGImageRef {
 	rv := objc.Send[coregraphics.CGImageRef](s.ID, objc.Sel("hdrImage"))
 	return coregraphics.CGImageRef(rv)
@@ -146,17 +149,18 @@ func (s SCScreenshotOutput) HdrImage() coregraphics.CGImageRef {
 func (s SCScreenshotOutput) SetHdrImage(value coregraphics.CGImageRef) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHdrImage:"), value)
 }
+
 // An output property that specifies the standard dynamic range version of the
 // screenshot.
 //
 // # Discussion
-// 
+//
 // The output [CGImage] uses the same color space as the content capture
 // display.
 //
-// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
-//
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotOutput/sdrImage
+//
+// [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 func (s SCScreenshotOutput) SdrImage() coregraphics.CGImageRef {
 	rv := objc.Send[coregraphics.CGImageRef](s.ID, objc.Sel("sdrImage"))
 	return coregraphics.CGImageRef(rv)
@@ -164,4 +168,3 @@ func (s SCScreenshotOutput) SdrImage() coregraphics.CGImageRef {
 func (s SCScreenshotOutput) SetSdrImage(value coregraphics.CGImageRef) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSdrImage:"), value)
 }
-

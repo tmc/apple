@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLComputePlanClass) Alloc() MLComputePlan {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLComputePlan.ComputeDevicesBySupportedComputeUnits]
@@ -52,6 +52,7 @@ func (mc MLComputePlanClass) Alloc() MLComputePlan {
 //   - [MLComputePlan.ModelAssetStorageType]
 //   - [MLComputePlan.ModelDescription]
 //   - [MLComputePlan.InitWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan
 type MLComputePlan struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type MLComputePlan struct {
 func MLComputePlanFromID(id objc.ID) MLComputePlan {
 	return MLComputePlan{objectivec.Object{ID: id}}
 }
+
 // Ensure MLComputePlan implements IMLComputePlan.
 var _ IMLComputePlan = MLComputePlan{}
 
@@ -108,7 +110,6 @@ func NewMLComputePlan() MLComputePlan {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:
 func NewComputePlanWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration(structure objectivec.IObject, description objectivec.IObject, type_ int64, schedule objectivec.IObject, configuration objectivec.IObject) MLComputePlan {
 	instance := getMLComputePlanClass().Alloc()
@@ -116,14 +117,12 @@ func NewComputePlanWithModelStructureModelDescriptionModelAssetStorageTypeExecut
 	return MLComputePlanFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:
 func (c MLComputePlan) InitWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration(structure objectivec.IObject, description objectivec.IObject, type_ int64, schedule objectivec.IObject, configuration objectivec.IObject) MLComputePlan {
 	rv := objc.Send[MLComputePlan](c.ID, objc.Sel("initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:"), structure, description, type_, schedule, configuration)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/computePlanOfModelStructure:modelAsset:configuration:error:
 func (_MLComputePlanClass MLComputePlanClass) ComputePlanOfModelStructureModelAssetConfigurationError(structure objectivec.IObject, asset objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -141,24 +140,27 @@ func (c MLComputePlan) ComputeDevicesBySupportedComputeUnits() foundation.INSDic
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("computeDevicesBySupportedComputeUnits"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/configuration
 func (c MLComputePlan) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/executionScheduleByModelStructurePath
 func (c MLComputePlan) ExecutionScheduleByModelStructurePath() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("executionScheduleByModelStructurePath"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/modelAssetStorageType
 func (c MLComputePlan) ModelAssetStorageType() int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("modelAssetStorageType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan/modelDescription
 func (c MLComputePlan) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
-

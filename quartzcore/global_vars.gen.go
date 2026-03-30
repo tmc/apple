@@ -4,17 +4,19 @@ package quartzcore
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
 
-var (
-)
+var ()
 
 var (
 	// See: https://developer.apple.com/documentation/QuartzCore/CAFrameRateRange/default
 	CAFrameRateRangeDefault CAFrameRateRange
 )
+
+var ()
 
 var (
 	// CATransform3DIdentity is the identity transform: `[1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1]`.
@@ -476,6 +478,7 @@ var (
 	// See: https://developer.apple.com/documentation/QuartzCore/CAValueFunctionName/translateZ
 	KCAValueFunctionTranslateZ CAValueFunctionName
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -523,6 +526,36 @@ func init() {
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CAFrameRateRangeDefault"); err == nil && ptr != 0 {
 		CAFrameRateRangeDefault = *(*CAFrameRateRange)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "CAToneMapModeAutomatic"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				CAToneMapModes.Automatic = CAToneMapMode(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "CAToneMapModeIfSupported"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				CAToneMapModes.IfSupported = CAToneMapMode(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "CAToneMapModeNever"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				CAToneMapModes.Never = CAToneMapMode(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CATransform3DIdentity"); err == nil && ptr != 0 {
@@ -1573,9 +1606,15 @@ func init() {
 
 // CADynamicRanges provides typed accessors for [CADynamicRange] constants.
 var CADynamicRanges struct {
-	Automatic CADynamicRange
+	Automatic       CADynamicRange
 	ConstrainedHigh CADynamicRange
-	High CADynamicRange
-	Standard CADynamicRange
+	High            CADynamicRange
+	Standard        CADynamicRange
 }
 
+// CAToneMapModes provides typed accessors for [CAToneMapMode] constants.
+var CAToneMapModes struct {
+	Automatic   CAToneMapMode
+	IfSupported CAToneMapMode
+	Never       CAToneMapMode
+}

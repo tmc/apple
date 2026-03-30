@@ -57,6 +57,37 @@ func NewMLComputePlanErrorBlock(handler MLComputePlanErrorHandler) (objc.ID, fun
 	return objc.ID(block), func() { block.Release() }
 }
 
+// MLFeatureProviderErrorHandler handles The callback the system invokes when it completes the prediction.
+//   - output: A feature provider that contains the outputs of the prediction.
+//   - error: If an error occurs, an error object that describes the error; otherwise, `nil`.
+//
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
+// Used by:
+//   - [MLModel.PredictionFromFeaturesCompletionHandler]
+//   - [MLModel.PredictionFromFeaturesOptionsCompletionHandler]
+//   - [MLModel.PredictionFromFeaturesUsingStateOptionsCompletionHandler]
+type MLFeatureProviderErrorHandler = func(MLFeatureProvider, error)
+
+// NewMLFeatureProviderErrorBlock wraps a Go [MLFeatureProviderErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [MLModel.PredictionFromFeaturesCompletionHandler]
+//   - [MLModel.PredictionFromFeaturesOptionsCompletionHandler]
+//   - [MLModel.PredictionFromFeaturesUsingStateOptionsCompletionHandler]
+func NewMLFeatureProviderErrorBlock(handler MLFeatureProviderErrorHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result MLFeatureProvider
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			result = MLFeatureProviderObjectFromID(resultID)
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // MLModelDescriptionErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -87,6 +118,7 @@ func NewMLModelDescriptionErrorBlock(handler MLModelDescriptionErrorHandler) (ob
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
+//   - [MLModel.LoadContentsOfURLConfigurationCompletionHandler]
 //   - [MLModel.LoadModelAssetConfigurationCompletionHandler]
 type MLModelErrorHandler = func(*MLModel, error)
 
@@ -94,6 +126,7 @@ type MLModelErrorHandler = func(*MLModel, error)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
+//   - [MLModel.LoadContentsOfURLConfigurationCompletionHandler]
 //   - [MLModel.LoadModelAssetConfigurationCompletionHandler]
 func NewMLModelErrorBlock(handler MLModelErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
@@ -135,6 +168,30 @@ func NewMLModelStructureErrorBlock(handler MLModelStructureErrorHandler) (objc.I
 	return objc.ID(block), func() { block.Release() }
 }
 
+// MLMultiArrayHandler handles Block to access the state buffer through [MLMultiArray].
+//
+// Used by:
+//   - [MLState.GetMultiArrayForStateNamedHandler]
+type MLMultiArrayHandler = func(*MLMultiArray)
+
+// NewMLMultiArrayBlock wraps a Go [MLMultiArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [MLState.GetMultiArrayForStateNamedHandler]
+func NewMLMultiArrayBlock(handler MLMultiArrayHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *MLMultiArray
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := MLMultiArrayFromID(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // MLUpdateContextHandler handles The closure an update task uses to notify your app.
 //
 // Used by:
@@ -163,6 +220,39 @@ func NewMLUpdateContextBlock(handler MLUpdateContextHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSNumberArrayHandler handles The block to receive the buffer pointer, its size in bytes, and strides.
+//   - bytes: The pointer to the buffer.
+//   - size: The size of the buffer.
+//   - strides: The strides of the buffer in scalars. Note that this may be different from `strides`’s value prior to this method invocation.
+//
+// Used by:
+//   - [MLMultiArray.GetMutableBytesWithHandler]
+type NSNumberArrayHandler = func(*[]foundation.NSNumber)
+
+// URLErrorHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [MLModel.CompileModelAtURLCompletionHandler]
+type URLErrorHandler = func(*foundation.NSURL, error)
+
+// NewURLErrorBlock wraps a Go [URLErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [MLModel.CompileModelAtURLCompletionHandler]
+func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *foundation.NSURL
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := foundation.NSURLFromID(resultID)
+			result = &v
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // VoidHandler handles In Swift, a closure the multiarray calls in its deinitializer.
 //
 // Used by:
@@ -180,4 +270,3 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

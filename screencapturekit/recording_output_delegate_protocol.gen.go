@@ -4,10 +4,12 @@ package screencapturekit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // SCRecordingOutputDelegate protocol.
@@ -21,6 +23,7 @@ type SCRecordingOutputDelegate interface {
 type SCRecordingOutputDelegateObject struct {
 	objectivec.Object
 }
+
 func (o SCRecordingOutputDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -33,21 +36,20 @@ func SCRecordingOutputDelegateObjectFromID(id objc.ID) SCRecordingOutputDelegate
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputDelegate/recordingOutput(_:didFailWithError:)
 func (o SCRecordingOutputDelegateObject) RecordingOutputDidFailWithError(recordingOutput ISCRecordingOutput, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("recordingOutput:didFailWithError:"), recordingOutput, error_)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputDelegate/recordingOutputDidFinishRecording(_:)
 func (o SCRecordingOutputDelegateObject) RecordingOutputDidFinishRecording(recordingOutput ISCRecordingOutput) {
 	objc.Send[struct{}](o.ID, objc.Sel("recordingOutputDidFinishRecording:"), recordingOutput)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputDelegate/recordingOutputDidStartRecording(_:)
 func (o SCRecordingOutputDelegateObject) RecordingOutputDidStartRecording(recordingOutput ISCRecordingOutput) {
 	objc.Send[struct{}](o.ID, objc.Sel("recordingOutputDidStartRecording:"), recordingOutput)
-	}
+}
 
 // SCRecordingOutputDelegateConfig holds optional typed callbacks for [SCRecordingOutputDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -60,9 +62,9 @@ func (o SCRecordingOutputDelegateObject) RecordingOutputDidStartRecording(record
 type SCRecordingOutputDelegateConfig struct {
 
 	// Instance Methods
-	RecordingOutputDidFailWithError func(recordingOutput SCRecordingOutput, error_ foundation.NSError)
+	RecordingOutputDidFailWithError   func(recordingOutput SCRecordingOutput, error_ foundation.NSError)
 	RecordingOutputDidFinishRecording func(recordingOutput SCRecordingOutput)
-	RecordingOutputDidStartRecording func(recordingOutput SCRecordingOutput)
+	RecordingOutputDidStartRecording  func(recordingOutput SCRecordingOutput)
 }
 
 // NewSCRecordingOutputDelegate creates an Objective-C object implementing the [SCRecordingOutputDelegate] protocol.
@@ -133,4 +135,3 @@ func NewSCRecordingOutputDelegate(config SCRecordingOutputDelegateConfig) SCReco
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return SCRecordingOutputDelegateObjectFromID(instance)
 }
-

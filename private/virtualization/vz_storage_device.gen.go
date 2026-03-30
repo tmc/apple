@@ -5,6 +5,7 @@ package virtualization
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (vc VZStorageDeviceClass) Alloc() VZStorageDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZStorageDevice._attachment]
@@ -51,6 +51,7 @@ func (vc VZStorageDeviceClass) Alloc() VZStorageDevice {
 //   - [VZStorageDevice._initWithVirtualMachineStorageDeviceIndexAttachment]
 //   - [VZStorageDevice._setAttachmentCompletionHandler]
 //   - [VZStorageDevice._setVirtualMachine]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice
 type VZStorageDevice struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZStorageDevice struct {
 func VZStorageDeviceFromID(id objc.ID) VZStorageDevice {
 	return VZStorageDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure VZStorageDevice implements IVZStorageDevice.
 var _ IVZStorageDevice = VZStorageDevice{}
 
@@ -117,7 +119,7 @@ func (s VZStorageDevice) _attachment() objectivec.IObject {
 func (s VZStorageDevice) Attachment() objectivec.IObject {
 	return s._attachment()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_initWithAttachment:
 func (s VZStorageDevice) _initWithAttachment(attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_initWithAttachment:"), attachment)
@@ -128,7 +130,7 @@ func (s VZStorageDevice) _initWithAttachment(attachment objectivec.IObject) obje
 func (s VZStorageDevice) InitWithAttachment(attachment objectivec.IObject) objectivec.IObject {
 	return s._initWithAttachment(attachment)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_initWithVirtualMachine:attachment:
 func (s VZStorageDevice) _initWithVirtualMachineAttachment(machine objectivec.IObject, attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_initWithVirtualMachine:attachment:"), machine, attachment)
@@ -139,7 +141,7 @@ func (s VZStorageDevice) _initWithVirtualMachineAttachment(machine objectivec.IO
 func (s VZStorageDevice) InitWithVirtualMachineAttachment(machine objectivec.IObject, attachment objectivec.IObject) objectivec.IObject {
 	return s._initWithVirtualMachineAttachment(machine, attachment)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_initWithVirtualMachine:storageDeviceIndex:attachment:
 func (s VZStorageDevice) _initWithVirtualMachineStorageDeviceIndexAttachment(machine objectivec.IObject, index uint64, attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_initWithVirtualMachine:storageDeviceIndex:attachment:"), machine, index, attachment)
@@ -150,10 +152,10 @@ func (s VZStorageDevice) _initWithVirtualMachineStorageDeviceIndexAttachment(mac
 func (s VZStorageDevice) InitWithVirtualMachineStorageDeviceIndexAttachment(machine objectivec.IObject, index uint64, attachment objectivec.IObject) objectivec.IObject {
 	return s._initWithVirtualMachineStorageDeviceIndexAttachment(machine, index, attachment)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_setAttachment:completionHandler:
 func (s VZStorageDevice) _setAttachmentCompletionHandler(attachment objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("_setAttachment:completionHandler:"), attachment, _block1)
 }
 
@@ -161,7 +163,7 @@ _block1, _ := NewErrorBlock(handler)
 func (s VZStorageDevice) SetAttachmentCompletionHandler(attachment objectivec.IObject, handler ErrorHandler) {
 	s._setAttachmentCompletionHandler(attachment, handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZStorageDevice/_setVirtualMachine:
 func (s VZStorageDevice) _setVirtualMachine(machine objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_setVirtualMachine:"), machine)
@@ -186,4 +188,3 @@ func (s VZStorageDevice) _setAttachment(ctx context.Context, attachment objectiv
 		return ctx.Err()
 	}
 }
-

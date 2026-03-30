@@ -4,10 +4,11 @@ package virtualization
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (vc VZTemporaryRAMStorageDeviceAttachmentClass) Alloc() VZTemporaryRAMStora
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZTemporaryRAMStorageDeviceAttachment.URL]
@@ -53,6 +53,7 @@ func (vc VZTemporaryRAMStorageDeviceAttachmentClass) Alloc() VZTemporaryRAMStora
 //   - [VZTemporaryRAMStorageDeviceAttachment.IsReadOnly]
 //   - [VZTemporaryRAMStorageDeviceAttachment.InitWithURLReadOnlyError]
 //   - [VZTemporaryRAMStorageDeviceAttachment.ReadOnly]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZTemporaryRAMStorageDeviceAttachment
 type VZTemporaryRAMStorageDeviceAttachment struct {
 	VZStorageDeviceAttachment
@@ -62,6 +63,7 @@ type VZTemporaryRAMStorageDeviceAttachment struct {
 func VZTemporaryRAMStorageDeviceAttachmentFromID(id objc.ID) VZTemporaryRAMStorageDeviceAttachment {
 	return VZTemporaryRAMStorageDeviceAttachment{VZStorageDeviceAttachment: VZStorageDeviceAttachmentFromID(id)}
 }
+
 // Ensure VZTemporaryRAMStorageDeviceAttachment implements IVZTemporaryRAMStorageDeviceAttachment.
 var _ IVZTemporaryRAMStorageDeviceAttachment = VZTemporaryRAMStorageDeviceAttachment{}
 
@@ -109,7 +111,6 @@ func NewVZTemporaryRAMStorageDeviceAttachment() VZTemporaryRAMStorageDeviceAttac
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZTemporaryRAMStorageDeviceAttachment/initWithURL:readOnly:error:
 func NewVZTemporaryRAMStorageDeviceAttachmentWithURLReadOnlyError(url foundation.INSURL, only bool) (VZTemporaryRAMStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
@@ -122,10 +123,9 @@ func NewVZTemporaryRAMStorageDeviceAttachmentWithURLReadOnlyError(url foundation
 	return VZTemporaryRAMStorageDeviceAttachmentFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZTemporaryRAMStorageDeviceAttachment/_getAttachmentWithQueue:completionHandler:
 func (v VZTemporaryRAMStorageDeviceAttachment) _getAttachmentWithQueueCompletionHandler(queue objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](v.ID, objc.Sel("_getAttachmentWithQueue:completionHandler:"), queue, _block1)
 }
 
@@ -133,18 +133,19 @@ _block1, _ := NewErrorBlock(handler)
 func (v VZTemporaryRAMStorageDeviceAttachment) GetAttachmentWithQueueCompletionHandler(queue objectivec.IObject, handler ErrorHandler) {
 	v._getAttachmentWithQueueCompletionHandler(queue, handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZTemporaryRAMStorageDeviceAttachment/encodeWithEncoder:
 func (v VZTemporaryRAMStorageDeviceAttachment) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZTemporaryRAMStorageDeviceAttachment/isReadOnly
 func (v VZTemporaryRAMStorageDeviceAttachment) IsReadOnly() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isReadOnly"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZTemporaryRAMStorageDeviceAttachment/initWithURL:readOnly:error:
 func (v VZTemporaryRAMStorageDeviceAttachment) InitWithURLReadOnlyError(url foundation.INSURL, only bool) (VZTemporaryRAMStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
@@ -162,6 +163,7 @@ func (v VZTemporaryRAMStorageDeviceAttachment) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZTemporaryRAMStorageDeviceAttachment/readOnly
 func (v VZTemporaryRAMStorageDeviceAttachment) ReadOnly() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
@@ -182,4 +184,3 @@ func (v VZTemporaryRAMStorageDeviceAttachment) _getAttachmentWithQueue(ctx conte
 		return ctx.Err()
 	}
 }
-

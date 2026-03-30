@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type HasFaceAngle struct {
 func HasFaceAngleFromID(id objc.ID) HasFaceAngle {
 	return HasFaceAngle{objectivec.Object{ID: id}}
 }
+
 // Ensure HasFaceAngle implements IHasFaceAngle.
 var _ IHasFaceAngle = HasFaceAngle{}
 
@@ -78,4 +80,3 @@ func NewHasFaceAngle() HasFaceAngle {
 	rv := objc.Send[HasFaceAngle](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

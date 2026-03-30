@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,11 +45,11 @@ func (nc NSCountCommandClass) Alloc() NSCountCommand {
 // specified object container.
 //
 // # Overview
-// 
+//
 // An instance of [NSCountCommand] counts the number of objects of a specified
 // class in the specified object container (such as the number of words in a
 // paragraph or document) and returns the result.
-// 
+//
 // [NSCountCommand] is part of Cocoa’s built-in scripting support. It works
 // automatically to support the `count` command through key-value coding. Most
 // applications don’t need to subclass [NSCountCommand] or call its methods.
@@ -65,6 +66,7 @@ type NSCountCommand struct {
 func NSCountCommandFromID(id objc.ID) NSCountCommand {
 	return NSCountCommand{NSScriptCommand: NSScriptCommandFromID(id)}
 }
+
 // NOTE: NSCountCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -94,7 +96,6 @@ func NewNSCountCommand() NSCountCommand {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewCountCommandWithCoder(inCoder INSCoder) NSCountCommand {
 	instance := getNSCountCommandClass().Alloc()
@@ -108,11 +109,11 @@ func NewCountCommandWithCoder(inCoder INSCoder) NSCountCommand {
 // commandDef: A command description for the command to be created.
 //
 // # Return Value
-// 
+//
 // A newly initialized instance of [NSScriptCommand] or a subclass.
 //
 // # Discussion
-// 
+//
 // To make this command object usable, you must set its receiving objects and
 // arguments (if any) after invoking this method.
 //
@@ -122,4 +123,3 @@ func NewCountCommandWithCommandDescription(commandDef INSScriptCommandDescriptio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCommandDescription:"), commandDef)
 	return NSCountCommandFromID(rv)
 }
-

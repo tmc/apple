@@ -23,6 +23,7 @@ type NSCoding interface {
 type NSCodingObject struct {
 	objectivec.Object
 }
+
 func (o NSCodingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,5 +43,4 @@ func NSCodingObjectFromID(id objc.ID) NSCodingObject {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (o NSCodingObject) EncodeWithCoder(coder INSCoder) {
 	objc.Send[struct{}](o.ID, objc.Sel("encodeWithCoder:"), coder)
-	}
-
+}

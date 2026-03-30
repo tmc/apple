@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,24 +44,24 @@ func (vc VZMacPlatformConfigurationClass) Alloc() VZMacPlatformConfiguration {
 // The platform configuration for booting macOS on Apple silicon.
 //
 // # Overview
-// 
+//
 // When creating a VM, the [VZMacPlatformConfiguration.HardwareModel] and [VZMacPlatformConfiguration.AuxiliaryStorage] depend on
 // the restore image that you use to install macOS.
-// 
+//
 // To choose the hardware model, start from
 // [VZMacOSRestoreImage].[VZMacPlatformConfiguration.MostFeaturefulSupportedConfiguration] to get a
 // supported configuration, then use its
 // [VZMacOSConfigurationRequirements].[VZMacPlatformConfiguration.HardwareModel] property to get the
 // hardware model.
-// 
+//
 // Use the hardware model to set up [VZMacPlatformConfiguration] and to
 // initialize a new auxiliary storage with
 // [InitCreatingStorageAtURLHardwareModelOptionsError].
-// 
+//
 // When you save a VM to disk and load it again, you must restore the
 // [VZMacPlatformConfiguration.HardwareModel], [VZMacPlatformConfiguration.MachineIdentifier] and [VZMacPlatformConfiguration.AuxiliaryStorage] properties to
 // their original values.
-// 
+//
 // If you create multiple VMs from the same configuration, each should have a
 // unique `auxiliaryStorage` and `machineIdentifier`.
 //
@@ -84,6 +85,7 @@ type VZMacPlatformConfiguration struct {
 func VZMacPlatformConfigurationFromID(id objc.ID) VZMacPlatformConfiguration {
 	return VZMacPlatformConfiguration{VZPlatformConfiguration: VZPlatformConfigurationFromID(id)}
 }
+
 // NOTE: VZMacPlatformConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -141,7 +143,7 @@ func NewVZMacPlatformConfiguration() VZMacPlatformConfiguration {
 // The Mac auxiliary storage.
 //
 // # Discussion
-// 
+//
 // When creating a VM, the hardware model of the `auxiliaryStorage` must match
 // the hardware model of the `hardwareModel` property. Defaults to `nil`, but
 // you must set a value for a configuration to be valid.
@@ -154,13 +156,14 @@ func (m VZMacPlatformConfiguration) AuxiliaryStorage() IVZMacAuxiliaryStorage {
 func (m VZMacPlatformConfiguration) SetAuxiliaryStorage(value IVZMacAuxiliaryStorage) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAuxiliaryStorage:"), value)
 }
+
 // The Mac hardware model.
 //
 // # Discussion
-// 
+//
 // When creating a VM, the [HardwareModel] depends on the restore image that
 // you use to install macOS.
-// 
+//
 // To choose the hardware model, start from
 // [VZMacOSRestoreImage].[MostFeaturefulSupportedConfiguration] to get a
 // supported configuration, then use its
@@ -175,10 +178,11 @@ func (m VZMacPlatformConfiguration) HardwareModel() IVZMacHardwareModel {
 func (m VZMacPlatformConfiguration) SetHardwareModel(value IVZMacHardwareModel) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
 }
+
 // The Mac machine identifier.
 //
 // # Discussion
-// 
+//
 // This value uniquely identifies an instance of a VM. Running two VMs
 // concurrently with the same identifier results in undefined behavior in the
 // guest operating system.
@@ -191,6 +195,7 @@ func (m VZMacPlatformConfiguration) MachineIdentifier() IVZMacMachineIdentifier 
 func (m VZMacPlatformConfiguration) SetMachineIdentifier(value IVZMacMachineIdentifier) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMachineIdentifier:"), value)
 }
+
 // This object represents the most fully featured configuration that’s
 // supported by both the current host and by this restore image.
 //
@@ -202,4 +207,3 @@ func (m VZMacPlatformConfiguration) MostFeaturefulSupportedConfiguration() IVZMa
 func (m VZMacPlatformConfiguration) SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMostFeaturefulSupportedConfiguration:"), value)
 }
-

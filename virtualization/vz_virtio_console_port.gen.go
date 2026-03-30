@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (vc VZVirtioConsolePortClass) Alloc() VZVirtioConsolePort {
 // A class that represents a Virtio console port in a VM.
 //
 // # Overview
-// 
+//
 // Don’t instantiate a [VZVirtioConsolePort] directly. You retrieve this
 // object from the [VZVirtioConsoleDevice] [VZVirtioConsolePort.Ports] property.
 //
@@ -66,6 +67,7 @@ type VZVirtioConsolePort struct {
 func VZVirtioConsolePortFromID(id objc.ID) VZVirtioConsolePort {
 	return VZVirtioConsolePort{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZVirtioConsolePort adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,7 +118,7 @@ func NewVZVirtioConsolePort() VZVirtioConsolePort {
 // The name of the port.
 //
 // # Discussion
-// 
+//
 // This property can’t change while the VM is running. A null value
 // indicates a name isn’t set.
 //
@@ -125,10 +127,11 @@ func (v VZVirtioConsolePort) Name() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An array of serial port attachments.
 //
 // # Discussion
-// 
+//
 // This property may change at any time while the VM is running.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsolePort/attachment
@@ -139,6 +142,7 @@ func (v VZVirtioConsolePort) Attachment() IVZSerialPortAttachment {
 func (v VZVirtioConsolePort) SetAttachment(value IVZSerialPortAttachment) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
+
 // The array of console ports that a specific device uses.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtioconsoledevice/ports
@@ -149,4 +153,3 @@ func (v VZVirtioConsolePort) Ports() IVZVirtioConsolePortArray {
 func (v VZVirtioConsolePort) SetPorts(value IVZVirtioConsolePortArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPorts:"), value)
 }
-

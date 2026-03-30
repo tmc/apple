@@ -3,11 +3,12 @@
 package appkit
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,16 +48,16 @@ func (nc NSPersistentDocumentClass) Alloc() NSPersistentDocument {
 // A document object that can integrate with Core Data.
 //
 // # Overview
-// 
+//
 // The [NSPersistentDocument] class is a subclass of [NSDocument] that is
 // designed to easily integrate into the Core Data framework. It provides
 // methods to access a document-wide [NSManagedObjectContext] object, and
 // provides default implementations of methods to read and write files using
 // the persistence framework. In a persistent document, the undo manager
 // functionality is taken over by managed object context.
-// 
+//
 // Standard document behavior is implemented as follows:
-// 
+//
 // - Opening a document invokes
 // [NSPersistentDocument.ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError]
 // with the new URL, and adds a store of the default type (XML). Objects are
@@ -68,30 +69,25 @@ func (nc NSPersistentDocumentClass) Alloc() NSPersistentDocument {
 // store to the new URL and invokes [save()] on the context. - Revert resets
 // the document’s managed object context. Objects are subsequently loaded
 // from the persistent store on demand, as with opening a new document.
-// 
+//
 // By default an [NSPersistentDocument] instance creates its own ready-to-use
 // persistence stack including managed object context, persistent object store
 // coordinator and persistent store. There is a one-to-one mapping between the
 // document and the backing object store.
-// 
+//
 // You can customize the architecture of the persistence stack by overriding
 // the [NSPersistentDocument.ManagedObjectModel] property and
 // [NSPersistentDocument.ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError]
 // method. You might wish to do this, for example, to specify a particular
 // managed object model.
-// 
-// # Undo Support
-// 
-// The persistent document uses the managed object context’s undo manager.
-// 
-// The [DocumentEdited] method returns [true] if the persistent document’s
-// managed object context, or editors registered with the context, have
-// uncommitted changes, otherwise it returns [false].
 //
-// [NSManagedObjectContext]: https://developer.apple.com/documentation/CoreData/NSManagedObjectContext
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [save()]: https://developer.apple.com/documentation/CoreData/NSManagedObjectContext/save()
-// [true]: https://developer.apple.com/documentation/Swift/true
+// # Undo Support
+//
+// The persistent document uses the managed object context’s undo manager.
+//
+// The [DocumentEdited] method returns true if the persistent document’s
+// managed object context, or editors registered with the context, have
+// uncommitted changes, otherwise it returns false.
 //
 // # Managing the Persistence Objects
 //
@@ -102,6 +98,9 @@ func (nc NSPersistentDocumentClass) Alloc() NSPersistentDocument {
 //   - [NSPersistentDocument.PersistentStoreTypeForFileType]: Returns the type of persistent store associated with the specified file type.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPersistentDocument
+//
+// [NSManagedObjectContext]: https://developer.apple.com/documentation/CoreData/NSManagedObjectContext
+// [save()]: https://developer.apple.com/documentation/CoreData/NSManagedObjectContext/save()
 type NSPersistentDocument struct {
 	NSDocument
 }
@@ -112,6 +111,7 @@ type NSPersistentDocument struct {
 func NSPersistentDocumentFromID(id objc.ID) NSPersistentDocument {
 	return NSPersistentDocument{NSDocument: NSDocumentFromID(id)}
 }
+
 // NOTE: NSPersistentDocument adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -179,16 +179,16 @@ func NewNSPersistentDocument() NSPersistentDocument {
 // typeName: The string that identifies the document type.
 //
 // # Return Value
-// 
+//
 // The initialized document object, or `nil` if the document could not be
 // created.
 //
 // # Discussion
-// 
+//
 // The system calls this method to open a document that has an associated
 // autosave file . You can override this method to handle any document
 // initialization specific to autosave contents.
-// 
+//
 // After reading the contents from the specified autosave file, this method
 // updates the document’s change count using the [NSChangeReadOtherContents]
 // change type.
@@ -212,30 +212,30 @@ func NewPersistentDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation
 // typeName: The string that identifies the document type.
 //
 // # Return Value
-// 
+//
 // The initialized [NSDocument] object, or, if the document could not be
 // created, `nil`.
 //
 // # Discussion
-// 
+//
 // You can override this method to customize the reopening of autosaved
 // documents.
-// 
+//
 // This method is invoked by the [NSDocumentController] method
 // [DocumentWithContentsOfURLOfTypeError]. The default implementation of this
 // method calls the [Init] and [ReadFromURLOfTypeError] methods and sets
 // values for the [FileURL], [FileType], and [FileModificationDate]
 // properties.
-// 
+//
 // For backward binary compatibility with OS X v10.3 and earlier, the default
 // implementation of this method instead invokes
 // [initWithContentsOfFile:ofType:] if it is overridden and the URL uses the
-// `` scheme. It still updates the [FileModificationDate] property in this
+// “ scheme. It still updates the [FileModificationDate] property in this
 // situation.
 //
-// [initWithContentsOfFile:ofType:]: https://developer.apple.com/documentation/AppKit/NSDocument/initWithContentsOfFile:ofType:
-//
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/init(contentsOf:ofType:)
+//
+// [initWithContentsOfFile:ofType:]: https://developer.apple.com/documentation/AppKit/NSDocument/initWithContentsOfFile:ofType:
 func NewPersistentDocumentWithContentsOfURLOfTypeError(url foundation.INSURL, typeName string) (NSPersistentDocument, error) {
 	var errorPtr objc.ID
 	instance := getNSPersistentDocumentClass().Alloc()
@@ -252,15 +252,15 @@ func NewPersistentDocumentWithContentsOfURLOfTypeError(url foundation.INSURL, ty
 // typeName: The string that identifies the document type.
 //
 // # Return Value
-// 
+//
 // The initialized [NSDocument] object, or, if the document could not be
 // created, `nil`.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method just invokes `[self init]` and
 // `[self typeName]`.
-// 
+//
 // You can override this method to perform initialization that must be done
 // when creating new documents but should not be done when opening existing
 // documents. Your override should typically invoke `super`, or at least it
@@ -292,22 +292,22 @@ func NewPersistentDocumentWithTypeError(typeName string) (NSPersistentDocument, 
 //
 // storeOptions: Options for the store. See “Store Options” in
 // [NSPersistentStoreCoordinator] for possible values.
-// //
-// [NSPersistentStoreCoordinator]: https://developer.apple.com/documentation/CoreData/NSPersistentStoreCoordinator
 //
 // # Discussion
-// 
+//
 // This method is invoked automatically when an existing document is opened.
 // You override this method to customize creation of a persistent store for a
 // given document or store type. You can retrieve the persistent store
 // coordinator with the following code:
-// 
+//
 // You can override this method to create the store to save to or load from
 // (invoked from within the other [NSDocument] methods to read/write files),
 // which gives developers the ability to load/save from/to different
 // persistent store types (default type is XML).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPersistentDocument/configurePersistentStoreCoordinator(for:ofType:modelConfiguration:storeOptions:)
+//
+// [NSPersistentStoreCoordinator]: https://developer.apple.com/documentation/CoreData/NSPersistentStoreCoordinator
 func (p NSPersistentDocument) ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError(url foundation.INSURL, fileType string, configuration string, storeOptions foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](p.ID, objc.Sel("configurePersistentStoreCoordinatorForURL:ofType:modelConfiguration:storeOptions:error:"), url, objc.String(fileType), objc.String(configuration), storeOptions, unsafe.Pointer(&errorPtr))
@@ -321,23 +321,24 @@ func (p NSPersistentDocument) ConfigurePersistentStoreCoordinatorForURLOfTypeMod
 	return rv, nil
 
 }
+
 // Returns the type of persistent store associated with the specified file
 // type.
 //
 // fileType: A document file type.
 //
 // # Return Value
-// 
+//
 // The type of persistent store associated with `fileType`. For possible
 // values, see [NSPersistentStoreCoordinator].
 //
-// [NSPersistentStoreCoordinator]: https://developer.apple.com/documentation/CoreData/NSPersistentStoreCoordinator
-//
 // # Discussion
-// 
+//
 // You set the persistent store type in the application’s property list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPersistentDocument/persistentStoreType(forFileType:)
+//
+// [NSPersistentStoreCoordinator]: https://developer.apple.com/documentation/CoreData/NSPersistentStoreCoordinator
 func (p NSPersistentDocument) PersistentStoreTypeForFileType(fileType string) string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("persistentStoreTypeForFileType:"), objc.String(fileType))
 	return foundation.NSStringFromID(rv).String()
@@ -346,7 +347,7 @@ func (p NSPersistentDocument) PersistentStoreTypeForFileType(fileType string) st
 // The managed object context for the document.
 //
 // # Discussion
-// 
+//
 // If a managed object context for the document does not exist, one is created
 // automatically. If you want to customize the creation of the persistence
 // stack, reimplement this property in your custom subclass and use your
@@ -360,18 +361,19 @@ func (p NSPersistentDocument) ManagedObjectContext() objectivec.IObject {
 func (p NSPersistentDocument) SetManagedObjectContext(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setManagedObjectContext:"), value)
 }
+
 // The managed object model of the document.
 //
 // # Discussion
-// 
+//
 // By default the Core Data framework creates a merged model from all models
 // in the application bundle (`[NSBundle mainBundle]`). You can reimplement
 // this property and return a specific model to use to create persistent
 // stores. A typical implementation might include code similar to the
 // following fragment:
-// 
+//
 // # Special Considerations
-// 
+//
 // In applications built in OS X v10.4, by default the Core Data framework
 // creates a merged model from all the models found in the application bundle
 // .
@@ -381,6 +383,7 @@ func (p NSPersistentDocument) ManagedObjectModel() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("managedObjectModel"))
 	return objectivec.Object{ID: rv}
 }
+
 // A Boolean value that indicates whether the document has unsaved changes.
 //
 // See: https://developer.apple.com/documentation/appkit/nsdocument/isdocumentedited
@@ -391,4 +394,3 @@ func (p NSPersistentDocument) IsDocumentEdited() bool {
 func (p NSPersistentDocument) SetIsDocumentEdited(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDocumentEdited:"), value)
 }
-

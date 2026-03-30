@@ -18,6 +18,7 @@ type OS_la_object interface {
 type OS_la_objectObject struct {
 	objectivec.Object
 }
+
 func (o OS_la_objectObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func OS_la_objectObjectFromID(id objc.ID) OS_la_objectObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZPvPanicDeviceConfiguration struct {
 func VZPvPanicDeviceConfigurationFromID(id objc.ID) VZPvPanicDeviceConfiguration {
 	return VZPvPanicDeviceConfiguration{VZPanicDeviceConfiguration: VZPanicDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZPvPanicDeviceConfiguration implements IVZPvPanicDeviceConfiguration.
 var _ IVZPvPanicDeviceConfiguration = VZPvPanicDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZPvPanicDeviceConfiguration() VZPvPanicDeviceConfiguration {
 	rv := objc.Send[VZPvPanicDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

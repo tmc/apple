@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -904,6 +905,7 @@ var (
 	// See: https://developer.apple.com/documentation/CoreImage/CIImageRepresentationOption/semanticSegmentationTeethMatteImage
 	KCIImageRepresentationSemanticSegmentationTeethMatteImage CIImageRepresentationOption
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -3078,4 +3080,3 @@ func init() {
 	}
 
 }
-

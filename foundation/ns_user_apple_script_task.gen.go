@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,16 +45,16 @@ func (nc NSUserAppleScriptTaskClass) Alloc() NSUserAppleScriptTask {
 // An object that executes AppleScript scripts.
 //
 // # Overview
-// 
+//
 // The [NSUserAppleScriptTask] class is intended to run AppleScript scripts
 // from your application. It is intended to execute user-supplied scripts and
 // will execute them outside of the application’s sandbox, if any.
-// 
+//
 // The class is not intended to execute scripts built into an application; for
 // that, use one of the [NSTask] classes. If the application is sandboxed,
-// then the script must be in the [ApplicationScriptsDirectory] folder. A
+// then the script must be in the [NSApplicationScriptsDirectory] folder. A
 // sandboxed application may read from, but not write to, this folder.
-// 
+//
 // If you simply need to execute scripts without regard to input or output,
 // use [NSUserScriptTask], which can execute any of the specific types. If you
 // need specific control over the input to or output from the script, use this
@@ -74,6 +75,7 @@ type NSUserAppleScriptTask struct {
 func NSUserAppleScriptTaskFromID(id objc.ID) NSUserAppleScriptTask {
 	return NSUserAppleScriptTask{NSUserScriptTask: NSUserScriptTaskFromID(id)}
 }
+
 // NOTE: NSUserAppleScriptTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,16 +119,16 @@ func NewNSUserAppleScriptTask() NSUserAppleScriptTask {
 // url: The script URL.
 //
 // # Return Value
-// 
+//
 // An instance of an [NSUserScriptTask] subclass or `nil` if the file does not
 // appear to match any of the known types.
 //
 // # Discussion
-// 
+//
 // The returned object will be of one of the specific sub-classes
 // ([NSUserUnixTask], [NSUserAppleScriptTask], and [NSUserAutomatorTask]), or
 // `nil` if the file does not appear to match any of the known types.
-// 
+//
 // If invoked from a subclass, the result will be that class or `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
@@ -149,18 +151,17 @@ func NewUserAppleScriptTaskWithURLError(url INSURL) (NSUserAppleScriptTask, erro
 // [NSUserAppleScriptTaskCompletionHandler].
 //
 // # Discussion
-// 
+//
 // Pass `nil` as `event` to execute the script’s default “run” handler.
-// 
+//
 // This method should be invoked no more than once for a given instance of the
 // class.
-// 
+//
 // If the script completed normally, the completion handler’s `error`
 // parameter will be `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserAppleScriptTask/execute(withAppleEvent:completionHandler:)
 func (u NSUserAppleScriptTask) ExecuteWithAppleEventCompletionHandler(event INSAppleEventDescriptor, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](u.ID, objc.Sel("executeWithAppleEvent:completionHandler:"), event, _block1)
 }
-

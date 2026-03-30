@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (ac AVAudioBufferClass) Alloc() AVAudioBuffer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioBuffer.ByteCapacity]
 //   - [AVAudioBuffer.ByteLength]
 //   - [AVAudioBuffer.SetByteLength]
 //   - [AVAudioBuffer.InitWithFormatByteCapacity]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer
 type AVAudioBuffer struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type AVAudioBuffer struct {
 func AVAudioBufferFromID(id objc.ID) AVAudioBuffer {
 	return AVAudioBuffer{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioBuffer implements IAVAudioBuffer.
 var _ IAVAudioBuffer = AVAudioBuffer{}
 
@@ -100,7 +102,6 @@ func NewAVAudioBuffer() AVAudioBuffer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/initWithFormat:byteCapacity:
 func NewAudioBufferWithFormatByteCapacity(format objectivec.IObject, capacity uint32) AVAudioBuffer {
 	instance := getAVAudioBufferClass().Alloc()
@@ -113,20 +114,20 @@ func (a AVAudioBuffer) ByteCapacity() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("byteCapacity"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/byteLength
 func (a AVAudioBuffer) ByteLength() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("byteLength"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/setByteLength:
 func (a AVAudioBuffer) SetByteLength(length uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setByteLength:"), length)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/initWithFormat:byteCapacity:
 func (a AVAudioBuffer) InitWithFormatByteCapacity(format objectivec.IObject, capacity uint32) AVAudioBuffer {
 	rv := objc.Send[AVAudioBuffer](a.ID, objc.Sel("initWithFormat:byteCapacity:"), format, capacity)
 	return rv
 }
-

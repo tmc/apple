@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MTLRenderPassColorAttachmentDescriptorArray struct {
 func MTLRenderPassColorAttachmentDescriptorArrayFromID(id objc.ID) MTLRenderPassColorAttachmentDescriptorArray {
 	return MTLRenderPassColorAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLRenderPassColorAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,7 +106,7 @@ func NewMTLRenderPassColorAttachmentDescriptorArray() MTLRenderPassColorAttachme
 // attachmentIndex: An index in the color attachment array.
 //
 // # Return Value
-// 
+//
 // A descriptor object that contains color attachment information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassColorAttachmentDescriptorArray/subscript(_:)
@@ -112,6 +114,7 @@ func (r MTLRenderPassColorAttachmentDescriptorArray) ObjectAtIndexedSubscript(at
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLRenderPassColorAttachmentDescriptorFromID(rv)
 }
+
 // Sets the descriptor for the specified color attachment.
 //
 // attachment: A descriptor that contains color attachment information. Specify `nil` to
@@ -120,7 +123,7 @@ func (r MTLRenderPassColorAttachmentDescriptorArray) ObjectAtIndexedSubscript(at
 // attachmentIndex: An index in the color attachment array.
 //
 // # Discussion
-// 
+//
 // This method copies the color attachment information from the descriptor
 // into the specified attachment in the array. Because the method copies the
 // information, you can modify and reuse the descriptor without affecting a
@@ -130,4 +133,3 @@ func (r MTLRenderPassColorAttachmentDescriptorArray) ObjectAtIndexedSubscript(at
 func (r MTLRenderPassColorAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLRenderPassColorAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-

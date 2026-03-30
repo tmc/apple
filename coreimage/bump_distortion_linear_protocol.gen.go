@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +70,7 @@ type CIBumpDistortionLinear interface {
 type CIBumpDistortionLinearObject struct {
 	objectivec.Object
 }
+
 func (o CIBumpDistortionLinearObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -86,29 +87,34 @@ func CIBumpDistortionLinearObjectFromID(id objc.ID) CIBumpDistortionLinearObject
 func (o CIBumpDistortionLinearObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/center
 func (o CIBumpDistortionLinearObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/inputImage
 func (o CIBumpDistortionLinearObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/radius
 func (o CIBumpDistortionLinearObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/scale
 func (o CIBumpDistortionLinearObject) Scale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -116,25 +122,31 @@ func (o CIBumpDistortionLinearObject) Scale() float32 {
 func (o CIBumpDistortionLinearObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/angle
 func (o CIBumpDistortionLinearObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/center
 func (o CIBumpDistortionLinearObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/inputImage
 func (o CIBumpDistortionLinearObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/radius
 func (o CIBumpDistortionLinearObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/scale
 func (o CIBumpDistortionLinearObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
-

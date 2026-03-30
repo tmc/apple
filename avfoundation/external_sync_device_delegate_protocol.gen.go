@@ -4,10 +4,12 @@ package avfoundation
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // Defines an interface for delegates of [AVCaptureDeviceInput](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureDeviceInput>) to respond to events that occur when connecting, calibrating, and disconnecting external sync devices.
@@ -21,6 +23,7 @@ type AVExternalSyncDeviceDelegate interface {
 type AVExternalSyncDeviceDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVExternalSyncDeviceDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -33,17 +36,17 @@ func AVExternalSyncDeviceDelegateObjectFromID(id objc.ID) AVExternalSyncDeviceDe
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDeviceDelegate/externalSyncDevice(_:failedWithError:)
 func (o AVExternalSyncDeviceDelegateObject) ExternalSyncDeviceFailedWithError(device IAVExternalSyncDevice, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("externalSyncDevice:failedWithError:"), device, error_)
-	}
+}
+
 // Informs your delegate when the external sync device status has changed.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDeviceDelegate/externalSyncDeviceStatusDidChange(_:)
 func (o AVExternalSyncDeviceDelegateObject) ExternalSyncDeviceStatusDidChange(device IAVExternalSyncDevice) {
 	objc.Send[struct{}](o.ID, objc.Sel("externalSyncDeviceStatusDidChange:"), device)
-	}
+}
 
 // AVExternalSyncDeviceDelegateConfig holds optional typed callbacks for [AVExternalSyncDeviceDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -118,4 +121,3 @@ func NewAVExternalSyncDeviceDelegate(config AVExternalSyncDeviceDelegateConfig) 
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVExternalSyncDeviceDelegateObjectFromID(instance)
 }
-

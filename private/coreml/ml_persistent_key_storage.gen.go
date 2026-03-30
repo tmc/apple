@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLPersistentKeyStorage struct {
 func MLPersistentKeyStorageFromID(id objc.ID) MLPersistentKeyStorage {
 	return MLPersistentKeyStorage{objectivec.Object{ID: id}}
 }
+
 // Ensure MLPersistentKeyStorage implements IMLPersistentKeyStorage.
 var _ IMLPersistentKeyStorage = MLPersistentKeyStorage{}
 
@@ -87,13 +89,13 @@ func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) PersistentKeySto
 	rv := objc.Send[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("persistentKeyStorageURL"))
 	return foundation.NSURLFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPersistentKeyStorage/retrieveKeyBlobForKeyIdentifier:
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) RetrieveKeyBlobForKeyIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("retrieveKeyBlobForKeyIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPersistentKeyStorage/storeKeyBlob:forKeyIdentifier:error:
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) StoreKeyBlobForKeyIdentifierError(blob objectivec.IObject, identifier objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -108,9 +110,9 @@ func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) StoreKeyBlobForK
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPersistentKeyStorage/syncQueue
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) SyncQueue() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("syncQueue"))
 	return objectivec.Object{ID: rv}
 }
-

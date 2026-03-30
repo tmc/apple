@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,13 +45,11 @@ func (ic ISO8601DateFormatterClass) Alloc() ISO8601DateFormatter {
 // representations.
 //
 // # Overview
-// 
+//
 // The [NSISO8601DateFormatter] class generates and parses string
 // representations of dates following the [ISO 8601] standard. Use this class
 // to create ISO 8601 representations of dates and create dates from text
 // strings in ISO 8601 format.
-//
-// [ISO 8601]: http://www.iso.org/iso/home/standards/iso8601
 //
 // # Configuring the Formatter
 //
@@ -65,6 +64,8 @@ func (ic ISO8601DateFormatterClass) Alloc() ISO8601DateFormatter {
 //   - [ISO8601DateFormatter.DateFromString]: Creates and returns a date object from the specified ISO 8601 formatted string representation.
 //
 // See: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter
+//
+// [ISO 8601]: http://www.iso.org/iso/home/standards/iso8601
 type ISO8601DateFormatter struct {
 	NSFormatter
 }
@@ -78,7 +79,10 @@ func ISO8601DateFormatterFromID(id objc.ID) ISO8601DateFormatter {
 }
 
 // NSISO8601DateFormatterFromID is an alias for [ISO8601DateFormatterFromID] for cross-framework compatibility.
-func NSISO8601DateFormatterFromID(id objc.ID) ISO8601DateFormatter { return ISO8601DateFormatterFromID(id) }
+func NSISO8601DateFormatterFromID(id objc.ID) ISO8601DateFormatter {
+	return ISO8601DateFormatterFromID(id)
+}
+
 // NOTE: ISO8601DateFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,7 +141,6 @@ func NewISO8601DateFormatter() ISO8601DateFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewISO8601DateFormatterWithCoder(coder INSCoder) ISO8601DateFormatter {
 	instance := getISO8601DateFormatterClass().Alloc()
@@ -151,7 +154,7 @@ func NewISO8601DateFormatterWithCoder(coder INSCoder) ISO8601DateFormatter {
 // date: The date to be represented.
 //
 // # Return Value
-// 
+//
 // A user-readable string representing the date.
 //
 // See: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/string(from:)
@@ -159,13 +162,14 @@ func (i ISO8601DateFormatter) StringFromDate(date INSDate) string {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("stringFromDate:"), date)
 	return NSStringFromID(rv).String()
 }
+
 // Creates and returns a date object from the specified ISO 8601 formatted
 // string representation.
 //
 // string: The ISO 8601 formatted string representation of a date.
 //
 // # Return Value
-// 
+//
 // A date object, or `nil` if no valid date was found.
 //
 // See: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/date(from:)
@@ -182,20 +186,20 @@ func (i ISO8601DateFormatter) DateFromString(string_ string) INSDate {
 // timeZone: The time zone used.
 //
 // formatOptions: The options used. For possible values, see [ISO8601DateFormatter.Options].
-// //
-// [ISO8601DateFormatter.Options]: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/Options
 //
 // # Return Value
-// 
+//
 // A user-readable string representing the date.
 //
 // # Discussion
-// 
+//
 // This method uses a date formatter configured with the specified time zone
 // and format options. The following code examples produce the same string
 // value:
 //
 // See: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/string(from:timeZone:formatOptions:)
+//
+// [ISO8601DateFormatter.Options]: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/Options
 func (_ISO8601DateFormatterClass ISO8601DateFormatterClass) StringFromDateTimeZoneFormatOptions(date INSDate, timeZone INSTimeZone, formatOptions NSISO8601DateFormatOptions) string {
 	rv := objc.Send[objc.ID](objc.ID(_ISO8601DateFormatterClass.class), objc.Sel("stringFromDate:timeZone:formatOptions:"), date, timeZone, formatOptions)
 	return NSStringFromID(rv).String()
@@ -204,17 +208,17 @@ func (_ISO8601DateFormatterClass ISO8601DateFormatterClass) StringFromDateTimeZo
 // Options for generating and parsing ISO 8601 date representations. See
 // [ISO8601DateFormatter.Options] for possible values.
 //
-// [ISO8601DateFormatter.Options]: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/Options
-//
 // # Discussion
-// 
+//
 // The ISO 8601 specification allows for dates to be expressed in a variety of
 // ways. You can configure the format used to parse and generate
 // representations by specifying various combinations of format options.
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/formatOptions
+//
+// [ISO8601DateFormatter.Options]: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/Options
 func (i ISO8601DateFormatter) FormatOptions() NSISO8601DateFormatOptions {
 	rv := objc.Send[NSISO8601DateFormatOptions](i.ID, objc.Sel("formatOptions"))
 	return NSISO8601DateFormatOptions(rv)
@@ -222,11 +226,12 @@ func (i ISO8601DateFormatter) FormatOptions() NSISO8601DateFormatOptions {
 func (i ISO8601DateFormatter) SetFormatOptions(value NSISO8601DateFormatOptions) {
 	objc.Send[struct{}](i.ID, objc.Sel("setFormatOptions:"), value)
 }
+
 // The time zone used to create and parse date representations. When
 // unspecified, GMT is used.
 //
 // # Discussion
-// 
+//
 // Resetting this property can incur a significant performance cost, as it may
 // cause internal state to be regenerated.
 //
@@ -239,6 +244,4 @@ func (i ISO8601DateFormatter) SetTimeZone(value INSTimeZone) {
 	objc.Send[struct{}](i.ID, objc.Sel("setTimeZone:"), value)
 }
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

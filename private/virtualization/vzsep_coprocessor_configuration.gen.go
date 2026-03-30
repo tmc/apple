@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZSEPCoprocessorConfigurationClass) Alloc() VZSEPCoprocessorConfigurati
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZSEPCoprocessorConfiguration.DebugStub]
@@ -52,6 +52,7 @@ func (vc VZSEPCoprocessorConfigurationClass) Alloc() VZSEPCoprocessorConfigurati
 //   - [VZSEPCoprocessorConfiguration.Storage]
 //   - [VZSEPCoprocessorConfiguration.InitWithStorage]
 //   - [VZSEPCoprocessorConfiguration.InitWithStorageURL]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessorConfiguration
 type VZSEPCoprocessorConfiguration struct {
 	VZCoprocessorConfiguration
@@ -61,6 +62,7 @@ type VZSEPCoprocessorConfiguration struct {
 func VZSEPCoprocessorConfigurationFromID(id objc.ID) VZSEPCoprocessorConfiguration {
 	return VZSEPCoprocessorConfiguration{VZCoprocessorConfiguration: VZCoprocessorConfigurationFromID(id)}
 }
+
 // Ensure VZSEPCoprocessorConfiguration implements IVZSEPCoprocessorConfiguration.
 var _ IVZSEPCoprocessorConfiguration = VZSEPCoprocessorConfiguration{}
 
@@ -110,7 +112,6 @@ func NewVZSEPCoprocessorConfiguration() VZSEPCoprocessorConfiguration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessorConfiguration/initWithStorage:
 func NewVZSEPCoprocessorConfigurationWithStorage(storage objectivec.IObject) VZSEPCoprocessorConfiguration {
 	instance := getVZSEPCoprocessorConfigurationClass().Alloc()
@@ -118,7 +119,6 @@ func NewVZSEPCoprocessorConfigurationWithStorage(storage objectivec.IObject) VZS
 	return VZSEPCoprocessorConfigurationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessorConfiguration/initWithStorageURL:
 func NewVZSEPCoprocessorConfigurationWithStorageURL(url foundation.INSURL) VZSEPCoprocessorConfiguration {
 	instance := getVZSEPCoprocessorConfigurationClass().Alloc()
@@ -126,13 +126,12 @@ func NewVZSEPCoprocessorConfigurationWithStorageURL(url foundation.INSURL) VZSEP
 	return VZSEPCoprocessorConfigurationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessorConfiguration/initWithStorage:
 func (v VZSEPCoprocessorConfiguration) InitWithStorage(storage objectivec.IObject) VZSEPCoprocessorConfiguration {
 	rv := objc.Send[VZSEPCoprocessorConfiguration](v.ID, objc.Sel("initWithStorage:"), storage)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessorConfiguration/initWithStorageURL:
 func (v VZSEPCoprocessorConfiguration) InitWithStorageURL(url foundation.INSURL) VZSEPCoprocessorConfiguration {
 	rv := objc.Send[VZSEPCoprocessorConfiguration](v.ID, objc.Sel("initWithStorageURL:"), url)
@@ -155,6 +154,7 @@ func (v VZSEPCoprocessorConfiguration) SetDebugStub(value *VZDebugStubConfigurat
 	}
 	objc.Send[struct{}](v.ID, objc.Sel("setDebugStub:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessorConfiguration/romBinaryURL
 func (v VZSEPCoprocessorConfiguration) RomBinaryURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("romBinaryURL"))
@@ -163,6 +163,7 @@ func (v VZSEPCoprocessorConfiguration) RomBinaryURL() foundation.INSURL {
 func (v VZSEPCoprocessorConfiguration) SetRomBinaryURL(value foundation.INSURL) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRomBinaryURL:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPCoprocessorConfiguration/storage
 func (v VZSEPCoprocessorConfiguration) Storage() *VZSEPStorage {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("storage"))
@@ -172,4 +173,3 @@ func (v VZSEPCoprocessorConfiguration) Storage() *VZSEPStorage {
 	val := VZSEPStorageFromID(objc.ID(rv))
 	return &val
 }
-

@@ -3,8 +3,9 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (ac AVAudioClockClass) Alloc() AVAudioClock {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioClock.AwaitIOCycle]
@@ -50,6 +50,7 @@ func (ac AVAudioClockClass) Alloc() AVAudioClock {
 //   - [AVAudioClock.CurrentIONumberFrames]
 //   - [AVAudioClock.CurrentTime]
 //   - [AVAudioClock.InitWithNode]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock
 type AVAudioClock struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type AVAudioClock struct {
 func AVAudioClockFromID(id objc.ID) AVAudioClock {
 	return AVAudioClock{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioClock implements IAVAudioClock.
 var _ IAVAudioClock = AVAudioClock{}
 
@@ -104,7 +106,6 @@ func NewAVAudioClock() AVAudioClock {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/initWithNode:
 func NewAudioClockWithNode(node unsafe.Pointer) AVAudioClock {
 	instance := getAVAudioClockClass().Alloc()
@@ -112,23 +113,24 @@ func NewAudioClockWithNode(node unsafe.Pointer) AVAudioClock {
 	return AVAudioClockFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/awaitIOCycle:
 func (a AVAudioClock) AwaitIOCycle(iOCycle unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("awaitIOCycle:"), iOCycle)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/currentAudioTimeStamp
 func (a AVAudioClock) CurrentAudioTimeStamp() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("currentAudioTimeStamp"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/currentIONumberFrames
 func (a AVAudioClock) CurrentIONumberFrames() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("currentIONumberFrames"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioClock/initWithNode:
 func (a AVAudioClock) InitWithNode(node unsafe.Pointer) AVAudioClock {
 	rv := objc.Send[AVAudioClock](a.ID, objc.Sel("initWithNode:"), node)
@@ -140,4 +142,3 @@ func (a AVAudioClock) CurrentTime() IAVAudioTime {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("currentTime"))
 	return AVAudioTimeFromID(objc.ID(rv))
 }
-

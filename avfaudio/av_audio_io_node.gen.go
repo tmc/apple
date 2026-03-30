@@ -3,11 +3,12 @@
 package avfaudio
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAudioIONode] class.
@@ -46,18 +47,16 @@ func (ac AVAudioIONodeClass) Alloc() AVAudioIONode {
 // An object that performs audio input or output in the engine.
 //
 // # Overview
-// 
+//
 // When rendering to and from an audio device in macOS, [AVAudioInputNode] and
 // [AVAudioOutputNode] communicate with the system’s default input and
 // output devices. In iOS, they communicate with the devices appropriate to
 // the app’s [AVAudioSession] category, configurations, and user actions,
 // such as connecting or disconnecting external devices.
-// 
+//
 // In the manual rendering mode, [AVAudioInputNode] and [AVAudioOutputNode]
 // perform the input and output in the engine in response to the client’s
 // request.
-//
-// [AVAudioSession]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession
 //
 // # Getting the Audio Unit
 //
@@ -73,6 +72,8 @@ func (ac AVAudioIONodeClass) Alloc() AVAudioIONode {
 //   - [AVAudioIONode.VoiceProcessingEnabled]: A Boolean value that indicates whether voice processing is in an enabled state.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode
+//
+// [AVAudioSession]: https://developer.apple.com/documentation/AVFAudio/AVAudioSession
 type AVAudioIONode struct {
 	AVAudioNode
 }
@@ -83,6 +84,7 @@ type AVAudioIONode struct {
 func AVAudioIONodeFromID(id objc.ID) AVAudioIONode {
 	return AVAudioIONode{AVAudioNode: AVAudioNodeFromID(id)}
 }
+
 // NOTE: AVAudioIONode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -168,11 +170,12 @@ func (a AVAudioIONode) AudioUnit() IAVAudioUnit {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioUnit"))
 	return AVAudioUnitFromID(objc.ID(rv))
 }
+
 // The presentation or hardware latency, applicable when rendering to or from
 // an audio device.
 //
 // # Discussion
-// 
+//
 // This corresponds to `kAudioDevicePropertyLatency` and
 // `kAudioStreamPropertyLatency`. For more information, see
 // `AudioHardwareBase.H()` in `CoreAudio.Framework`.
@@ -182,6 +185,7 @@ func (a AVAudioIONode) PresentationLatency() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("presentationLatency"))
 	return rv
 }
+
 // A Boolean value that indicates whether voice processing is in an enabled
 // state.
 //
@@ -190,4 +194,3 @@ func (a AVAudioIONode) VoiceProcessingEnabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isVoiceProcessingEnabled"))
 	return rv
 }
-

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 )
 
@@ -155,40 +156,16 @@ func Es_mute_path(client *Es_client_t, path string, type_ unsafe.Pointer) unsafe
 	return _es_mute_path(client, path, type_)
 }
 
-var _es_mute_path_events func(client *Es_client_t, path string, type_ unsafe.Pointer, events uintptr, event_count uintptr) unsafe.Pointer
+var _es_mute_path_events func(client *Es_client_t, path string, type_ unsafe.Pointer, events unsafe.Pointer, event_count uintptr) unsafe.Pointer
 
 // Es_mute_path_events suppresses a subset of events from executables that match a given path.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_mute_path_events(_:_:_:_:_:)
-func Es_mute_path_events(client *Es_client_t, path string, type_ unsafe.Pointer, events uintptr, event_count uintptr) unsafe.Pointer {
+func Es_mute_path_events(client *Es_client_t, path string, type_ unsafe.Pointer, events unsafe.Pointer, event_count uintptr) unsafe.Pointer {
 	if _es_mute_path_events == nil {
 		panic("EndpointSecurity: symbol es_mute_path_events not loaded")
 	}
 	return _es_mute_path_events(client, path, type_, events, event_count)
-}
-
-var _es_mute_process func(client *Es_client_t, audit_token uintptr) unsafe.Pointer
-
-// Es_mute_process suppresses events from a given process.
-//
-// See: https://developer.apple.com/documentation/EndpointSecurity/es_mute_process(_:_:)
-func Es_mute_process(client *Es_client_t, audit_token uintptr) unsafe.Pointer {
-	if _es_mute_process == nil {
-		panic("EndpointSecurity: symbol es_mute_process not loaded")
-	}
-	return _es_mute_process(client, audit_token)
-}
-
-var _es_mute_process_events func(client *Es_client_t, audit_token uintptr, events uintptr, event_count uintptr) unsafe.Pointer
-
-// Es_mute_process_events suppresses a subset of events from a given process.
-//
-// See: https://developer.apple.com/documentation/EndpointSecurity/es_mute_process_events(_:_:_:_:)
-func Es_mute_process_events(client *Es_client_t, audit_token uintptr, events uintptr, event_count uintptr) unsafe.Pointer {
-	if _es_mute_process_events == nil {
-		panic("EndpointSecurity: symbol es_mute_process_events not loaded")
-	}
-	return _es_mute_process_events(client, audit_token, events, event_count)
 }
 
 var _es_muted_paths_events func(client *Es_client_t, muted_paths *Es_muted_paths_t) unsafe.Pointer
@@ -227,12 +204,12 @@ func Es_muting_inverted(client *Es_client_t, mute_type unsafe.Pointer) unsafe.Po
 	return _es_muting_inverted(client, mute_type)
 }
 
-var _es_new_client func(client *Es_client_t, handler Es_handler_block_t) unsafe.Pointer
+var _es_new_client func(client **Es_client_t, handler Es_handler_block_t) EsNewClientResult
 
 // Es_new_client creates a new client instance and connects it to the Endpoint Security system.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_new_client(_:_:)
-func Es_new_client(client *Es_client_t, handler Es_handler_block_t) unsafe.Pointer {
+func Es_new_client(client **Es_client_t, handler Es_handler_block_t) EsNewClientResult {
 	if _es_new_client == nil {
 		panic("EndpointSecurity: symbol es_new_client not loaded")
 	}
@@ -275,24 +252,24 @@ func Es_release_muted_processes(muted_processes *Es_muted_processes_t) {
 	_es_release_muted_processes(muted_processes)
 }
 
-var _es_respond_auth_result func(client *Es_client_t, message *Es_message_t, result unsafe.Pointer, cache bool) unsafe.Pointer
+var _es_respond_auth_result func(client *Es_client_t, message *Es_message_t, result EsAuthResult, cache bool) EsRespondResult
 
 // Es_respond_auth_result responds to an event that requires an authorization response.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_respond_auth_result(_:_:_:_:)
-func Es_respond_auth_result(client *Es_client_t, message *Es_message_t, result unsafe.Pointer, cache bool) unsafe.Pointer {
+func Es_respond_auth_result(client *Es_client_t, message *Es_message_t, result EsAuthResult, cache bool) EsRespondResult {
 	if _es_respond_auth_result == nil {
 		panic("EndpointSecurity: symbol es_respond_auth_result not loaded")
 	}
 	return _es_respond_auth_result(client, message, result, cache)
 }
 
-var _es_respond_flags_result func(client *Es_client_t, message *Es_message_t, authorized_flags uint32, cache bool) unsafe.Pointer
+var _es_respond_flags_result func(client *Es_client_t, message *Es_message_t, authorized_flags uint32, cache bool) EsRespondResult
 
 // Es_respond_flags_result responds to an event that requires authorization flags as a response.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_respond_flags_result(_:_:_:_:)
-func Es_respond_flags_result(client *Es_client_t, message *Es_message_t, authorized_flags uint32, cache bool) unsafe.Pointer {
+func Es_respond_flags_result(client *Es_client_t, message *Es_message_t, authorized_flags uint32, cache bool) EsRespondResult {
 	if _es_respond_flags_result == nil {
 		panic("EndpointSecurity: symbol es_respond_flags_result not loaded")
 	}
@@ -311,24 +288,24 @@ func Es_retain_message(msg *Es_message_t) {
 	_es_retain_message(msg)
 }
 
-var _es_subscribe func(client *Es_client_t, events uintptr, event_count uint32) unsafe.Pointer
+var _es_subscribe func(client *Es_client_t, events *EsEventType, event_count uint32) EsReturn
 
 // Es_subscribe subscribes a client to a set of events.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_subscribe(_:_:_:)
-func Es_subscribe(client *Es_client_t, events uintptr, event_count uint32) unsafe.Pointer {
+func Es_subscribe(client *Es_client_t, events *EsEventType, event_count uint32) EsReturn {
 	if _es_subscribe == nil {
 		panic("EndpointSecurity: symbol es_subscribe not loaded")
 	}
 	return _es_subscribe(client, events, event_count)
 }
 
-var _es_subscriptions func(client *Es_client_t, count *uintptr, subscriptions uintptr) unsafe.Pointer
+var _es_subscriptions func(client *Es_client_t, count *uintptr, subscriptions unsafe.Pointer) unsafe.Pointer
 
 // Es_subscriptions returns a list of the client’s subscriptions.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_subscriptions(_:_:_:)
-func Es_subscriptions(client *Es_client_t, count *uintptr, subscriptions uintptr) unsafe.Pointer {
+func Es_subscriptions(client *Es_client_t, count *uintptr, subscriptions unsafe.Pointer) unsafe.Pointer {
 	if _es_subscriptions == nil {
 		panic("EndpointSecurity: symbol es_subscriptions not loaded")
 	}
@@ -371,48 +348,24 @@ func Es_unmute_path(client *Es_client_t, path string, type_ unsafe.Pointer) unsa
 	return _es_unmute_path(client, path, type_)
 }
 
-var _es_unmute_path_events func(client *Es_client_t, path string, type_ unsafe.Pointer, events uintptr, event_count uintptr) unsafe.Pointer
+var _es_unmute_path_events func(client *Es_client_t, path string, type_ unsafe.Pointer, events unsafe.Pointer, event_count uintptr) unsafe.Pointer
 
 // Es_unmute_path_events restores event delivery of a subset of events from a previously-muted path.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_unmute_path_events(_:_:_:_:_:)
-func Es_unmute_path_events(client *Es_client_t, path string, type_ unsafe.Pointer, events uintptr, event_count uintptr) unsafe.Pointer {
+func Es_unmute_path_events(client *Es_client_t, path string, type_ unsafe.Pointer, events unsafe.Pointer, event_count uintptr) unsafe.Pointer {
 	if _es_unmute_path_events == nil {
 		panic("EndpointSecurity: symbol es_unmute_path_events not loaded")
 	}
 	return _es_unmute_path_events(client, path, type_, events, event_count)
 }
 
-var _es_unmute_process func(client *Es_client_t, audit_token uintptr) unsafe.Pointer
-
-// Es_unmute_process restores event delivery from a previously-muted process.
-//
-// See: https://developer.apple.com/documentation/EndpointSecurity/es_unmute_process(_:_:)
-func Es_unmute_process(client *Es_client_t, audit_token uintptr) unsafe.Pointer {
-	if _es_unmute_process == nil {
-		panic("EndpointSecurity: symbol es_unmute_process not loaded")
-	}
-	return _es_unmute_process(client, audit_token)
-}
-
-var _es_unmute_process_events func(client *Es_client_t, audit_token uintptr, events uintptr, event_count uintptr) unsafe.Pointer
-
-// Es_unmute_process_events restores event delivery of a subset of events from a previously-muted process.
-//
-// See: https://developer.apple.com/documentation/EndpointSecurity/es_unmute_process_events(_:_:_:_:)
-func Es_unmute_process_events(client *Es_client_t, audit_token uintptr, events uintptr, event_count uintptr) unsafe.Pointer {
-	if _es_unmute_process_events == nil {
-		panic("EndpointSecurity: symbol es_unmute_process_events not loaded")
-	}
-	return _es_unmute_process_events(client, audit_token, events, event_count)
-}
-
-var _es_unsubscribe func(client *Es_client_t, events uintptr, event_count uint32) unsafe.Pointer
+var _es_unsubscribe func(client *Es_client_t, events unsafe.Pointer, event_count uint32) unsafe.Pointer
 
 // Es_unsubscribe unsubscribes the provided client from a set of events.
 //
 // See: https://developer.apple.com/documentation/EndpointSecurity/es_unsubscribe(_:_:_:)
-func Es_unsubscribe(client *Es_client_t, events uintptr, event_count uint32) unsafe.Pointer {
+func Es_unsubscribe(client *Es_client_t, events unsafe.Pointer, event_count uint32) unsafe.Pointer {
 	if _es_unsubscribe == nil {
 		panic("EndpointSecurity: symbol es_unsubscribe not loaded")
 	}
@@ -435,38 +388,33 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_es_clear_cache, frameworkHandle, "es_clear_cache")
-		registerFunc(&_es_delete_client, frameworkHandle, "es_delete_client")
-		registerFunc(&_es_exec_arg, frameworkHandle, "es_exec_arg")
-		registerFunc(&_es_exec_arg_count, frameworkHandle, "es_exec_arg_count")
-		registerFunc(&_es_exec_env, frameworkHandle, "es_exec_env")
-		registerFunc(&_es_exec_env_count, frameworkHandle, "es_exec_env_count")
-		registerFunc(&_es_exec_fd, frameworkHandle, "es_exec_fd")
-		registerFunc(&_es_exec_fd_count, frameworkHandle, "es_exec_fd_count")
-		registerFunc(&_es_invert_muting, frameworkHandle, "es_invert_muting")
-		registerFunc(&_es_mute_path, frameworkHandle, "es_mute_path")
-		registerFunc(&_es_mute_path_events, frameworkHandle, "es_mute_path_events")
-		registerFunc(&_es_mute_process, frameworkHandle, "es_mute_process")
-		registerFunc(&_es_mute_process_events, frameworkHandle, "es_mute_process_events")
-		registerFunc(&_es_muted_paths_events, frameworkHandle, "es_muted_paths_events")
-		registerFunc(&_es_muted_processes_events, frameworkHandle, "es_muted_processes_events")
-		registerFunc(&_es_muting_inverted, frameworkHandle, "es_muting_inverted")
-		registerFunc(&_es_new_client, frameworkHandle, "es_new_client")
-		registerFunc(&_es_release_message, frameworkHandle, "es_release_message")
-		registerFunc(&_es_release_muted_paths, frameworkHandle, "es_release_muted_paths")
-		registerFunc(&_es_release_muted_processes, frameworkHandle, "es_release_muted_processes")
-		registerFunc(&_es_respond_auth_result, frameworkHandle, "es_respond_auth_result")
-		registerFunc(&_es_respond_flags_result, frameworkHandle, "es_respond_flags_result")
-		registerFunc(&_es_retain_message, frameworkHandle, "es_retain_message")
-		registerFunc(&_es_subscribe, frameworkHandle, "es_subscribe")
-		registerFunc(&_es_subscriptions, frameworkHandle, "es_subscriptions")
-		registerFunc(&_es_unmute_all_paths, frameworkHandle, "es_unmute_all_paths")
-		registerFunc(&_es_unmute_all_target_paths, frameworkHandle, "es_unmute_all_target_paths")
-		registerFunc(&_es_unmute_path, frameworkHandle, "es_unmute_path")
-		registerFunc(&_es_unmute_path_events, frameworkHandle, "es_unmute_path_events")
-		registerFunc(&_es_unmute_process, frameworkHandle, "es_unmute_process")
-		registerFunc(&_es_unmute_process_events, frameworkHandle, "es_unmute_process_events")
-		registerFunc(&_es_unsubscribe, frameworkHandle, "es_unsubscribe")
-		registerFunc(&_es_unsubscribe_all, frameworkHandle, "es_unsubscribe_all")
-	}
-
+	registerFunc(&_es_clear_cache, frameworkHandle, "es_clear_cache")
+	registerFunc(&_es_delete_client, frameworkHandle, "es_delete_client")
+	registerFunc(&_es_exec_arg, frameworkHandle, "es_exec_arg")
+	registerFunc(&_es_exec_arg_count, frameworkHandle, "es_exec_arg_count")
+	registerFunc(&_es_exec_env, frameworkHandle, "es_exec_env")
+	registerFunc(&_es_exec_env_count, frameworkHandle, "es_exec_env_count")
+	registerFunc(&_es_exec_fd, frameworkHandle, "es_exec_fd")
+	registerFunc(&_es_exec_fd_count, frameworkHandle, "es_exec_fd_count")
+	registerFunc(&_es_invert_muting, frameworkHandle, "es_invert_muting")
+	registerFunc(&_es_mute_path, frameworkHandle, "es_mute_path")
+	registerFunc(&_es_mute_path_events, frameworkHandle, "es_mute_path_events")
+	registerFunc(&_es_muted_paths_events, frameworkHandle, "es_muted_paths_events")
+	registerFunc(&_es_muted_processes_events, frameworkHandle, "es_muted_processes_events")
+	registerFunc(&_es_muting_inverted, frameworkHandle, "es_muting_inverted")
+	registerFunc(&_es_new_client, frameworkHandle, "es_new_client")
+	registerFunc(&_es_release_message, frameworkHandle, "es_release_message")
+	registerFunc(&_es_release_muted_paths, frameworkHandle, "es_release_muted_paths")
+	registerFunc(&_es_release_muted_processes, frameworkHandle, "es_release_muted_processes")
+	registerFunc(&_es_respond_auth_result, frameworkHandle, "es_respond_auth_result")
+	registerFunc(&_es_respond_flags_result, frameworkHandle, "es_respond_flags_result")
+	registerFunc(&_es_retain_message, frameworkHandle, "es_retain_message")
+	registerFunc(&_es_subscribe, frameworkHandle, "es_subscribe")
+	registerFunc(&_es_subscriptions, frameworkHandle, "es_subscriptions")
+	registerFunc(&_es_unmute_all_paths, frameworkHandle, "es_unmute_all_paths")
+	registerFunc(&_es_unmute_all_target_paths, frameworkHandle, "es_unmute_all_target_paths")
+	registerFunc(&_es_unmute_path, frameworkHandle, "es_unmute_path")
+	registerFunc(&_es_unmute_path_events, frameworkHandle, "es_unmute_path_events")
+	registerFunc(&_es_unsubscribe, frameworkHandle, "es_unsubscribe")
+	registerFunc(&_es_unsubscribe_all, frameworkHandle, "es_unsubscribe_all")
+}

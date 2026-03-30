@@ -5,9 +5,10 @@ package foundation
 import (
 	"math"
 	"math/bits"
+
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // CF bridging (pointer casts in purego — no ARC)
@@ -57,18 +58,18 @@ func nsMakeRange(loc, len uint) NSRange {
 
 // Geometry queries
 
-func nsMaxX(aRect NSRect) float64 { return aRect.Origin.X + aRect.Size.Width }
-func nsMaxY(aRect NSRect) float64 { return aRect.Origin.Y + aRect.Size.Height }
-func nsMidX(aRect NSRect) float64 { return aRect.Origin.X + aRect.Size.Width/2 }
-func nsMidY(aRect NSRect) float64 { return aRect.Origin.Y + aRect.Size.Height/2 }
-func nsMinX(aRect NSRect) float64 { return aRect.Origin.X }
-func nsMinY(aRect NSRect) float64 { return aRect.Origin.Y }
+func nsMaxX(aRect NSRect) float64   { return aRect.Origin.X + aRect.Size.Width }
+func nsMaxY(aRect NSRect) float64   { return aRect.Origin.Y + aRect.Size.Height }
+func nsMidX(aRect NSRect) float64   { return aRect.Origin.X + aRect.Size.Width/2 }
+func nsMidY(aRect NSRect) float64   { return aRect.Origin.Y + aRect.Size.Height/2 }
+func nsMinX(aRect NSRect) float64   { return aRect.Origin.X }
+func nsMinY(aRect NSRect) float64   { return aRect.Origin.Y }
 func nsWidth(aRect NSRect) float64  { return aRect.Size.Width }
 func nsHeight(aRect NSRect) float64 { return aRect.Size.Height }
 
 // Range queries
 
-func nsMaxRange(range_ NSRange) uint   { return range_.Location + range_.Length }
+func nsMaxRange(range_ NSRange) uint { return range_.Location + range_.Length }
 func nsLocationInRange(loc uint, range_ NSRange) bool {
 	return loc >= range_.Location && (loc-range_.Location) < range_.Length
 }
@@ -321,10 +322,10 @@ func nsHostByteOrder() int {
 
 // Integer byte swapping
 
-func nsSwapShort(inv uint16) uint16     { return bits.ReverseBytes16(inv) }
-func nsSwapInt(inv uint) uint           { return uint(bits.ReverseBytes32(uint32(inv))) }
-func nsSwapLong(inv uint) uint          { return uint(bits.ReverseBytes64(uint64(inv))) }
-func nsSwapLongLong(inv uint64) uint64  { return bits.ReverseBytes64(inv) }
+func nsSwapShort(inv uint16) uint16    { return bits.ReverseBytes16(inv) }
+func nsSwapInt(inv uint) uint          { return uint(bits.ReverseBytes32(uint32(inv))) }
+func nsSwapLong(inv uint) uint         { return uint(bits.ReverseBytes64(uint64(inv))) }
+func nsSwapLongLong(inv uint64) uint64 { return bits.ReverseBytes64(inv) }
 
 func nsSwapBigShortToHost(x uint16) uint16    { return nsSwapShort(x) }
 func nsSwapBigIntToHost(x uint) uint          { return nsSwapInt(x) }
@@ -405,4 +406,3 @@ func nsSwapHostFloatToLittle(x float32) NSSwappedFloat {
 func nsSwapHostDoubleToLittle(x float64) NSSwappedDouble {
 	return NSSwappedDouble{V: math.Float64bits(x)}
 }
-

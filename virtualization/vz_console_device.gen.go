@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,13 +45,13 @@ func (vc VZConsoleDeviceClass) Alloc() VZConsoleDevice {
 // A class that represents a console device in a VM.
 //
 // # Overview
-// 
+//
 // Don’t instantiate a [VZConsoleDevice] directly: You first configure
 // console devices on the [VZVirtualMachineConfiguration] through a subclass
 // of [VZConsoleDeviceConfiguration]. After you create [VZVirtualMachine] from
 // the configuration, the console devices are available through the
 // [VZConsoleDevice.ConsoleDevices] property.
-// 
+//
 // The actual type of [VZConsoleDevice] corresponds to the type that the
 // configuration uses. For example, a [VZVirtioConsoleDeviceConfiguration] is
 // a device of type [VZVirtioConsoleDevice].
@@ -66,6 +67,7 @@ type VZConsoleDevice struct {
 func VZConsoleDeviceFromID(id objc.ID) VZConsoleDevice {
 	return VZConsoleDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZConsoleDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,4 +111,3 @@ func (c VZConsoleDevice) ConsoleDevices() IVZConsoleDevice {
 func (c VZConsoleDevice) SetConsoleDevices(value IVZConsoleDevice) {
 	objc.Send[struct{}](c.ID, objc.Sel("setConsoleDevices:"), value)
 }
-

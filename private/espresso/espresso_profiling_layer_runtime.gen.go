@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (ec EspressoProfilingLayerRuntimeClass) Alloc() EspressoProfilingLayerRunti
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoProfilingLayerRuntime.End_t]
 //   - [EspressoProfilingLayerRuntime.SetEnd_t]
 //   - [EspressoProfilingLayerRuntime.Start_t]
 //   - [EspressoProfilingLayerRuntime.SetStart_t]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerRuntime
 type EspressoProfilingLayerRuntime struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type EspressoProfilingLayerRuntime struct {
 func EspressoProfilingLayerRuntimeFromID(id objc.ID) EspressoProfilingLayerRuntime {
 	return EspressoProfilingLayerRuntime{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoProfilingLayerRuntime implements IEspressoProfilingLayerRuntime.
 var _ IEspressoProfilingLayerRuntime = EspressoProfilingLayerRuntime{}
 
@@ -108,6 +110,7 @@ func (e EspressoProfilingLayerRuntime) End_t() float64 {
 func (e EspressoProfilingLayerRuntime) SetEnd_t(value float64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setEnd_t:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerRuntime/start_t
 func (e EspressoProfilingLayerRuntime) Start_t() float64 {
 	rv := objc.Send[float64](e.ID, objc.Sel("start_t"))
@@ -116,4 +119,3 @@ func (e EspressoProfilingLayerRuntime) Start_t() float64 {
 func (e EspressoProfilingLayerRuntime) SetStart_t(value float64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setStart_t:"), value)
 }
-

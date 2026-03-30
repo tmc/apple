@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -55,6 +56,7 @@ type AVMutableVideoCompositionLayerInstruction struct {
 func AVMutableVideoCompositionLayerInstructionFromID(id objc.ID) AVMutableVideoCompositionLayerInstruction {
 	return AVMutableVideoCompositionLayerInstruction{AVVideoCompositionLayerInstruction: AVVideoCompositionLayerInstructionFromID(id)}
 }
+
 // NOTE: AVMutableVideoCompositionLayerInstruction adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -90,7 +92,7 @@ func NewAVMutableVideoCompositionLayerInstruction() AVMutableVideoCompositionLay
 // track: The asset track to which to apply the instruction.
 //
 // # Return Value
-// 
+//
 // A new mutable video composition layer instruction with no transform or
 // opacity ramps and [TrackID] initialized to the track ID of `track`.
 //
@@ -103,15 +105,14 @@ func NewMutableVideoCompositionLayerInstructionWithAssetTrack(track IAVAssetTrac
 // Returns a new mutable video composition layer instruction.
 //
 // # Return Value
-// 
+//
 // A new mutable video composition layer instruction with no transform or
 // opacity ramps and [TrackID] initialized to [kCMPersistentTrackID_Invalid].
 //
-// [kCMPersistentTrackID_Invalid]: https://developer.apple.com/documentation/CoreMedia/kCMPersistentTrackID_Invalid
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoCompositionLayerInstruction/videoCompositionLayerInstruction
+//
+// [kCMPersistentTrackID_Invalid]: https://developer.apple.com/documentation/CoreMedia/kCMPersistentTrackID_Invalid
 func (_AVMutableVideoCompositionLayerInstructionClass AVMutableVideoCompositionLayerInstructionClass) VideoCompositionLayerInstruction() AVMutableVideoCompositionLayerInstruction {
 	rv := objc.Send[objc.ID](objc.ID(_AVMutableVideoCompositionLayerInstructionClass.class), objc.Sel("videoCompositionLayerInstruction"))
 	return AVMutableVideoCompositionLayerInstructionFromID(rv)
 }
-

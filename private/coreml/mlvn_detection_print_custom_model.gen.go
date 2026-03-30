@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLVNDetectionPrintCustomModelClass) Alloc() MLVNDetectionPrintCustomMod
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLVNDetectionPrintCustomModel.Configuration]
@@ -53,6 +53,7 @@ func (mc MLVNDetectionPrintCustomModelClass) Alloc() MLVNDetectionPrintCustomMod
 //   - [MLVNDetectionPrintCustomModel.ModelDescription]
 //   - [MLVNDetectionPrintCustomModel.PredictionFromFeaturesOptionsError]
 //   - [MLVNDetectionPrintCustomModel.InitWithModelDescriptionParameterDictionaryError]
+//
 // See: https://developer.apple.com/documentation/CoreML/_MLVNDetectionPrintCustomModel
 type MLVNDetectionPrintCustomModel struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLVNDetectionPrintCustomModel struct {
 func MLVNDetectionPrintCustomModelFromID(id objc.ID) MLVNDetectionPrintCustomModel {
 	return MLVNDetectionPrintCustomModel{objectivec.Object{ID: id}}
 }
+
 // Ensure MLVNDetectionPrintCustomModel implements IMLVNDetectionPrintCustomModel.
 var _ IMLVNDetectionPrintCustomModel = MLVNDetectionPrintCustomModel{}
 
@@ -111,7 +113,6 @@ func NewMLVNDetectionPrintCustomModel() MLVNDetectionPrintCustomModel {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLVNDetectionPrintCustomModel/initWithModelDescription:parameterDictionary:error:
 func NewMLVNDetectionPrintCustomModelWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLVNDetectionPrintCustomModel, error) {
 	var errorPtr objc.ID
@@ -124,13 +125,12 @@ func NewMLVNDetectionPrintCustomModelWithModelDescriptionParameterDictionaryErro
 	return MLVNDetectionPrintCustomModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLVNDetectionPrintCustomModel/featureValueFromDetectionPrint:featureName:
 func (m MLVNDetectionPrintCustomModel) FeatureValueFromDetectionPrintFeatureName(print_ objectivec.IObject, name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValueFromDetectionPrint:featureName:"), print_, name)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLVNDetectionPrintCustomModel/predictionFromFeatures:options:error:
 func (m MLVNDetectionPrintCustomModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -142,7 +142,7 @@ func (m MLVNDetectionPrintCustomModel) PredictionFromFeaturesOptionsError(featur
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLVNDetectionPrintCustomModel/initWithModelDescription:parameterDictionary:error:
 func (m MLVNDetectionPrintCustomModel) InitWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLVNDetectionPrintCustomModel, error) {
 	var errorPtr objc.ID
@@ -160,19 +160,21 @@ func (m MLVNDetectionPrintCustomModel) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_MLVNDetectionPrintCustomModel/detectionPrintRequestRevision
 func (m MLVNDetectionPrintCustomModel) DetectionPrintRequestRevision() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("detectionPrintRequestRevision"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_MLVNDetectionPrintCustomModel/expectedOutputShapeV1
 func (m MLVNDetectionPrintCustomModel) ExpectedOutputShapeV1() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("expectedOutputShapeV1"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_MLVNDetectionPrintCustomModel/modelDescription
 func (m MLVNDetectionPrintCustomModel) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
-

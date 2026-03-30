@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (ac AVAssetSegmentReportClass) Alloc() AVAssetSegmentReport {
 // An object that provides information about segment data.
 //
 // # Overview
-// 
+//
 // You receive a segment report through the
 // [AssetWriterDidOutputSegmentDataSegmentTypeSegmentReport] delegate method.
 //
@@ -64,6 +65,7 @@ type AVAssetSegmentReport struct {
 func AVAssetSegmentReportFromID(id objc.ID) AVAssetSegmentReport {
 	return AVAssetSegmentReport{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetSegmentReport adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,6 +114,7 @@ func (a AVAssetSegmentReport) SegmentType() AVAssetSegmentType {
 	rv := objc.Send[AVAssetSegmentType](a.ID, objc.Sel("segmentType"))
 	return AVAssetSegmentType(rv)
 }
+
 // The reports for the segment’s track data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentReport/trackReports
@@ -121,4 +124,3 @@ func (a AVAssetSegmentReport) TrackReports() []AVAssetSegmentTrackReport {
 		return AVAssetSegmentTrackReportFromID(id)
 	})
 }
-

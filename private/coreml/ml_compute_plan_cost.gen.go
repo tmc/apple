@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (mc MLComputePlanCostClass) Alloc() MLComputePlanCost {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLComputePlanCost.InitWithWeight]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanCost
 type MLComputePlanCost struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type MLComputePlanCost struct {
 func MLComputePlanCostFromID(id objc.ID) MLComputePlanCost {
 	return MLComputePlanCost{objectivec.Object{ID: id}}
 }
+
 // Ensure MLComputePlanCost implements IMLComputePlanCost.
 var _ IMLComputePlanCost = MLComputePlanCost{}
 
@@ -91,7 +93,6 @@ func NewMLComputePlanCost() MLComputePlanCost {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanCost/initWithWeight:
 func NewComputePlanCostWithWeight(weight float64) MLComputePlanCost {
 	instance := getMLComputePlanCostClass().Alloc()
@@ -99,10 +100,8 @@ func NewComputePlanCostWithWeight(weight float64) MLComputePlanCost {
 	return MLComputePlanCostFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanCost/initWithWeight:
 func (c MLComputePlanCost) InitWithWeight(weight float64) MLComputePlanCost {
 	rv := objc.Send[MLComputePlanCost](c.ID, objc.Sel("initWithWeight:"), weight)
 	return rv
 }
-

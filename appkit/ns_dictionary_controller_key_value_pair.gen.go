@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSDictionaryControllerKeyValuePairClass) Alloc() NSDictionaryController
 // information about those objects.
 //
 // # Overview
-// 
+//
 // [NSDictionaryControllerKeyValuePair] is an informal protocol that is
 // implemented by objects returned by the [NSDictionaryController] method
 // arrangedObjects. See [NSDictionaryController] for more information.
@@ -73,6 +74,7 @@ type NSDictionaryControllerKeyValuePair struct {
 func NSDictionaryControllerKeyValuePairFromID(id objc.ID) NSDictionaryControllerKeyValuePair {
 	return NSDictionaryControllerKeyValuePair{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSDictionaryControllerKeyValuePair adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -127,6 +129,7 @@ func (d NSDictionaryControllerKeyValuePair) ExplicitlyIncluded() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isExplicitlyIncluded"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryControllerKeyValuePair/key
 func (d NSDictionaryControllerKeyValuePair) Key() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("key"))
@@ -135,6 +138,7 @@ func (d NSDictionaryControllerKeyValuePair) Key() string {
 func (d NSDictionaryControllerKeyValuePair) SetKey(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setKey:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryControllerKeyValuePair/localizedKey
 func (d NSDictionaryControllerKeyValuePair) LocalizedKey() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("localizedKey"))
@@ -143,6 +147,7 @@ func (d NSDictionaryControllerKeyValuePair) LocalizedKey() string {
 func (d NSDictionaryControllerKeyValuePair) SetLocalizedKey(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocalizedKey:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryControllerKeyValuePair/value
 func (d NSDictionaryControllerKeyValuePair) Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("value"))
@@ -151,4 +156,3 @@ func (d NSDictionaryControllerKeyValuePair) Value() objectivec.IObject {
 func (d NSDictionaryControllerKeyValuePair) SetValue(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setValue:"), value)
 }
-

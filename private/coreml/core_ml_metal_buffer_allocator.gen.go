@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type CoreMLMetalBufferAllocator struct {
 func CoreMLMetalBufferAllocatorFromID(id objc.ID) CoreMLMetalBufferAllocator {
 	return CoreMLMetalBufferAllocator{objectivec.Object{ID: id}}
 }
+
 // NOTE: CoreMLMetalBufferAllocator struct embeds objectivec.Object (parent type unavailable) but
 // ICoreMLMetalBufferAllocator embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewCoreMLMetalBufferAllocator() CoreMLMetalBufferAllocator {
 	rv := objc.Send[CoreMLMetalBufferAllocator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

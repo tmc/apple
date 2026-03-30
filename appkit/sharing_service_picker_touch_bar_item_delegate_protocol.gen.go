@@ -4,10 +4,12 @@ package appkit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that a sharing service picker item delegate uses to provide a list of items eligible for sharing.
@@ -27,6 +29,7 @@ type NSSharingServicePickerTouchBarItemDelegate interface {
 type NSSharingServicePickerTouchBarItemDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSSharingServicePickerTouchBarItemDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -44,18 +47,19 @@ func NSSharingServicePickerTouchBarItemDelegateObjectFromID(id objc.ID) NSSharin
 // pickerTouchBarItem: The sharing service picker item that is requesting the items to be shared.
 //
 // # Return Value
-// 
+//
 // An array of items that represents the objects to be shared. Each element of
 // the array must either conform to the [NSPasteboardWriting] protocol, or be
 // an [NSItemProvider].
 //
-// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerTouchBarItemDelegate/items(for:)
+//
+// [NSItemProvider]: https://developer.apple.com/documentation/Foundation/NSItemProvider
 func (o NSSharingServicePickerTouchBarItemDelegateObject) ItemsForSharingServicePickerTouchBarItem(pickerTouchBarItem INSSharingServicePickerTouchBarItem) foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("itemsForSharingServicePickerTouchBarItem:"), pickerTouchBarItem)
 	return foundation.NSArrayFromID(rv)
-	}
+}
+
 // Asks the delegate to specify which services to make available from the
 // sharing service picker.
 //
@@ -67,11 +71,11 @@ func (o NSSharingServicePickerTouchBarItemDelegateObject) ItemsForSharingService
 // proposedServices: The proposed services to include in the sharing service picker.
 //
 // # Return Value
-// 
+//
 // An array of services to include in the sharing service picker.
 //
 // # Discussion
-// 
+//
 // Use this method to remove default services, add custom services, or reorder
 // the existing services before the picker appears onscreen. Unless you
 // don’t intend to change the proposed services, create a new mutable array
@@ -85,7 +89,8 @@ func (o NSSharingServicePickerTouchBarItemDelegateObject) SharingServicePickerSh
 	return objc.ConvertSlice(rv, func(id objc.ID) NSSharingService {
 		return NSSharingServiceFromID(id)
 	})
-	}
+}
+
 // Tells the delegate that the person selected a sharing service for the
 // current item.
 //
@@ -95,7 +100,7 @@ func (o NSSharingServicePickerTouchBarItemDelegateObject) SharingServicePickerSh
 // service that is about to be executed.
 //
 // # Discussion
-// 
+//
 // After someone chooses a service, the sharing service picker calls this
 // method to let you know which service they picked. The sharing service
 // receives the item sometime after this method returns.
@@ -103,7 +108,8 @@ func (o NSSharingServicePickerTouchBarItemDelegateObject) SharingServicePickerSh
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:didChoose:)
 func (o NSSharingServicePickerTouchBarItemDelegateObject) SharingServicePickerDidChooseSharingService(sharingServicePicker INSSharingServicePicker, service INSSharingService) {
 	objc.Send[struct{}](o.ID, objc.Sel("sharingServicePicker:didChooseSharingService:"), sharingServicePicker, service)
-	}
+}
+
 // Asks your delegate to provide an object that the selected sharing service
 // can use as its delegate.
 //
@@ -112,18 +118,19 @@ func (o NSSharingServicePickerTouchBarItemDelegateObject) SharingServicePickerDi
 // sharingService: The selected sharing service.
 //
 // # Return Value
-// 
+//
 // An object that adopts the [NSSharingServiceDelegate] protocol.
 //
 // # Discussion
-// 
+//
 // The sharing service assigns the returned object to its [Delegate] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:delegateFor:)
 func (o NSSharingServicePickerTouchBarItemDelegateObject) SharingServicePickerDelegateForSharingService(sharingServicePicker INSSharingServicePicker, sharingService INSSharingService) NSSharingServiceDelegate {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingServicePicker:delegateForSharingService:"), sharingServicePicker, sharingService)
 	return NSSharingServiceDelegateObjectFromID(rv)
-	}
+}
+
 // Used to specify the case where the share picker should not support some
 // modes of sharing even if they are supported by the items being shared.
 // Disabling all possible modes at the same time is not supported behavior.
@@ -134,7 +141,7 @@ func (o NSSharingServicePickerTouchBarItemDelegateObject) SharingServicePickerCo
 	return objc.ConvertSlice(rv, func(id objc.ID) NSSharingCollaborationModeRestriction {
 		return NSSharingCollaborationModeRestrictionFromID(id)
 	})
-	}
+}
 
 // NSSharingServicePickerTouchBarItemDelegateConfig holds optional typed callbacks for [NSSharingServicePickerTouchBarItemDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -196,4 +203,3 @@ func NewNSSharingServicePickerTouchBarItemDelegate(config NSSharingServicePicker
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSharingServicePickerTouchBarItemDelegateObjectFromID(instance)
 }
-

@@ -4,9 +4,11 @@ package virtualization
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // An interface you use to manage connections between the guest operating system and host computer.
@@ -20,6 +22,7 @@ type VZVirtioSocketListenerDelegate interface {
 type VZVirtioSocketListenerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o VZVirtioSocketListenerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -43,30 +46,25 @@ func VZVirtioSocketListenerDelegateObjectFromID(id objc.ID) VZVirtioSocketListen
 // socketDevice: The Virtio socket device that requested the connection.
 //
 // # Return Value
-// 
-// [true] to establish the connection, or [false] to reject it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to establish the connection, or false to reject it.
 //
 // # Discussion
-// 
+//
 // Use your method’s implementation to quickly determine whether to accept
 // or reject connection attempts. A typical implementation verifies that a
 // connection between the specified ports is permissible. Return a result as
 // quickly as possible, and don’t perform any long-running operations in
 // this method.
-// 
-// If you don’t implement this method, the virtual machine refuses all
-// connection requests as if this method returned [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// If you don’t implement this method, the virtual machine refuses all
+// connection requests as if this method returned false.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketListenerDelegate/listener(_:shouldAcceptNewConnection:from:)
 func (o VZVirtioSocketListenerDelegateObject) ListenerShouldAcceptNewConnectionFromSocketDevice(listener IVZVirtioSocketListener, connection IVZVirtioSocketConnection, socketDevice IVZVirtioSocketDevice) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("listener:shouldAcceptNewConnection:fromSocketDevice:"), listener, connection, socketDevice)
 	return rv
-	}
+}
 
 // VZVirtioSocketListenerDelegateConfig holds optional typed callbacks for [VZVirtioSocketListenerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -130,4 +128,3 @@ func NewVZVirtioSocketListenerDelegate(config VZVirtioSocketListenerDelegateConf
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return VZVirtioSocketListenerDelegateObjectFromID(instance)
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (vc VZVirtioSocketConnectionClass) Alloc() VZVirtioSocketConnection {
 // computer.
 //
 // # Overview
-// 
+//
 // A [VZVirtioSocketConnection] object contains the port information for the
 // guest operating system and host computer. You don’t create connection
 // objects directly. When the guest operating system initiates a connection,
@@ -55,8 +56,6 @@ func (vc VZVirtioSocketConnectionClass) Alloc() VZVirtioSocketConnection {
 // the [ConnectToPortCompletionHandler] method (Objective-C) or
 // [connect(toPort:completionHandler:)] method (Swift) pass the connection
 // object to your completion handler.
-//
-// [connect(toPort:completionHandler:)]: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice/connect(toPort:completionHandler:)
 //
 // # Getting the connection details
 //
@@ -69,6 +68,8 @@ func (vc VZVirtioSocketConnectionClass) Alloc() VZVirtioSocketConnection {
 //   - [VZVirtioSocketConnection.Close]: Close the file descriptor associated with the socket.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketConnection
+//
+// [connect(toPort:completionHandler:)]: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice/connect(toPort:completionHandler:)
 type VZVirtioSocketConnection struct {
 	objectivec.Object
 }
@@ -80,6 +81,7 @@ type VZVirtioSocketConnection struct {
 func VZVirtioSocketConnectionFromID(id objc.ID) VZVirtioSocketConnection {
 	return VZVirtioSocketConnection{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZVirtioSocketConnection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -143,7 +145,7 @@ func (v VZVirtioSocketConnection) Close() {
 // The port number of the system that opened the connection.
 //
 // # Discussion
-// 
+//
 // When the guest operating system opens a connection, this property contains
 // the port number that the guest specified. When you open a connection to the
 // guest operating system from your [VZVirtioSocketDevice] object, this
@@ -154,6 +156,7 @@ func (v VZVirtioSocketConnection) SourcePort() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("sourcePort"))
 	return rv
 }
+
 // The destination port number of the connection.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketConnection/destinationPort
@@ -161,10 +164,11 @@ func (v VZVirtioSocketConnection) DestinationPort() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("destinationPort"))
 	return rv
 }
+
 // The file descriptor to use when sending data.
 //
 // # Discussion
-// 
+//
 // To send data to the other side of the connection, write to the file
 // descriptor. To read data from connection, read from the file descriptor. If
 // the socket connection is closed, the value of this property is `-1`.
@@ -174,4 +178,3 @@ func (v VZVirtioSocketConnection) FileDescriptor() int {
 	rv := objc.Send[int](v.ID, objc.Sel("fileDescriptor"))
 	return rv
 }
-

@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -40,6 +40,7 @@ type CIQRCodeGenerator interface {
 type CIQRCodeGeneratorObject struct {
 	objectivec.Object
 }
+
 func (o CIQRCodeGeneratorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -58,14 +59,16 @@ func CIQRCodeGeneratorObjectFromID(id objc.ID) CIQRCodeGeneratorObject {
 func (o CIQRCodeGeneratorObject) CorrectionLevel() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("correctionLevel"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // The message to encode in the QR code.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/message
 func (o CIQRCodeGeneratorObject) Message() foundation.INSData {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
 	return foundation.NSDataFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -73,13 +76,18 @@ func (o CIQRCodeGeneratorObject) Message() foundation.INSData {
 func (o CIQRCodeGeneratorObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The QR code correction level: L, M, Q, or H.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/correctionLevel
 func (o CIQRCodeGeneratorObject) SetCorrectionLevel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCorrectionLevel:"), objc.String(value))
 }
 
+// The message to encode in the QR code.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/message
 func (o CIQRCodeGeneratorObject) SetMessage(value foundation.INSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMessage:"), value)
 }
-

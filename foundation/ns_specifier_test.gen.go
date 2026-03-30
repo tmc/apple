@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,41 +45,41 @@ func (nc NSSpecifierTestClass) Alloc() NSSpecifierTest {
 // A comparison between an object specifier and a test object.
 //
 // # Overview
-// 
+//
 // Instances of this class represent a Boolean expression; they evaluate an
 // object specifier and compare the resulting object to another object using a
 // given comparison method. For more information on [NSSpecifierTest], see the
 // method description for its sole public method, its initializer,
 // [NSSpecifierTest.InitWithObjectSpecifierComparisonOperatorTestObject].
-// 
+//
 // When an [NSSpecifierTest] object is properly initialized, it holds two
 // objects:
-// 
+//
 // - A “value” or “test” object used as the basis of the comparison;
 // this object can be a regular object or object specifier (such as “blue”
 // in “words whose color is blue”). - An object specifier evaluating to
 // the container (“words”).
-// 
+//
 // The instance also encapsulates a selector identifying the method performing
 // this comparison. The informal protocol [NSComparisonMethods] defines a set
 // of comparison methods useful for this purpose, while
 // [NSScriptingComparisonMethods] describes additional methods you may need to
 // use for scripting.
-// 
+//
 // The test object is compared, using the selector, against each object in the
 // container. Specifiers in these tests usually have
 // [NSSpecifierTest.ContainerIsObjectBeingTested] invoked on their topmost container.
-// 
-// You should rarely need to subclass [NSSpecifierTest].
 //
-// [NSComparisonMethods]: https://developer.apple.com/documentation/Foundation/nscomparisonmethods
-// [NSScriptingComparisonMethods]: https://developer.apple.com/documentation/ObjectiveC/nsscriptingcomparisonmethods
+// You should rarely need to subclass [NSSpecifierTest].
 //
 // # Initializing a specifier test
 //
 //   - [NSSpecifierTest.InitWithObjectSpecifierComparisonOperatorTestObject]: Returns a specifier test initialized to evaluate a test object against an object specified by an object specifier using a given comparison operation.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpecifierTest
+//
+// [NSComparisonMethods]: https://developer.apple.com/documentation/Foundation/nscomparisonmethods
+// [NSScriptingComparisonMethods]: https://developer.apple.com/documentation/ObjectiveC/nsscriptingcomparisonmethods
 type NSSpecifierTest struct {
 	NSScriptWhoseTest
 }
@@ -89,6 +90,7 @@ type NSSpecifierTest struct {
 func NSSpecifierTestFromID(id objc.ID) NSSpecifierTest {
 	return NSSpecifierTest{NSScriptWhoseTest: NSScriptWhoseTestFromID(id)}
 }
+
 // NOTE: NSSpecifierTest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,7 +133,6 @@ func NewNSSpecifierTest() NSSpecifierTest {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSSpecifierTest/init(coder:)
 func NewSpecifierTestWithCoder(inCoder INSCoder) NSSpecifierTest {
 	instance := getNSSpecifierTestClass().Alloc()
@@ -149,7 +150,7 @@ func NewSpecifierTestWithCoder(inCoder INSCoder) NSSpecifierTest {
 // obj2: The object against which to evaluate the object specified by `obj1`.
 //
 // # Return Value
-// 
+//
 // A specifier test initialized to evaluate (`obj2`) against an object
 // specified by `obj1` using the comparison operation `compOp`.
 //
@@ -170,7 +171,7 @@ func NewSpecifierTestWithObjectSpecifierComparisonOperatorTestObject(obj1 INSScr
 // obj2: The object against which to evaluate the object specified by `obj1`.
 //
 // # Return Value
-// 
+//
 // A specifier test initialized to evaluate (`obj2`) against an object
 // specified by `obj1` using the comparison operation `compOp`.
 //
@@ -191,4 +192,3 @@ func (s NSSpecifierTest) ContainerIsObjectBeingTested() bool {
 func (s NSSpecifierTest) SetContainerIsObjectBeingTested(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContainerIsObjectBeingTested:"), value)
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZGuestTraceEventClass) Alloc() VZGuestTraceEvent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZGuestTraceEvent._init]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZGuestTraceEvent
 type VZGuestTraceEvent struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZGuestTraceEvent struct {
 func VZGuestTraceEventFromID(id objc.ID) VZGuestTraceEvent {
 	return VZGuestTraceEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure VZGuestTraceEvent implements IVZGuestTraceEvent.
 var _ IVZGuestTraceEvent = VZGuestTraceEvent{}
 
@@ -96,4 +98,3 @@ func (v VZGuestTraceEvent) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-

@@ -3,11 +3,12 @@
 package avfaudio
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,16 +48,16 @@ func (ac AVAudioConverterClass) Alloc() AVAudioConverter {
 // An object that converts streams of audio between formats.
 //
 // # Overview
-// 
+//
 // The audio converter class transforms audio between file formats and audio
 // encodings.
-// 
+//
 // Supported transformations include:
-// 
+//
 // - PCM float, integer, or bit depth conversions - PCM sample rate conversion
 // - PCM interleaving and deinterleaving - Encoding PCM to compressed formats
 // - Decoding compressed formats to PCM
-// 
+//
 // A single audio converter instance may perform more than one of the above
 // transformations.
 //
@@ -133,6 +134,7 @@ type AVAudioConverter struct {
 func AVAudioConverterFromID(id objc.ID) AVAudioConverter {
 	return AVAudioConverter{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioConverter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -316,7 +318,7 @@ func NewAVAudioConverter() AVAudioConverter {
 // toFormat: The audio format to convert to.
 //
 // # Return Value
-// 
+//
 // An [AVAudioConverter] instance, or `nil` if the format conversion isn’t
 // possible.
 //
@@ -335,7 +337,7 @@ func NewAudioConverterFromFormatToFormat(fromFormat IAVAudioFormat, toFormat IAV
 // toFormat: The audio format to convert to.
 //
 // # Return Value
-// 
+//
 // An [AVAudioConverter] instance, or `nil` if the format conversion isn’t
 // possible.
 //
@@ -344,6 +346,7 @@ func (a AVAudioConverter) InitFromFormatToFormat(fromFormat IAVAudioFormat, toFo
 	rv := objc.Send[AVAudioConverter](a.ID, objc.Sel("initFromFormat:toFormat:"), fromFormat, toFormat)
 	return rv
 }
+
 // Performs a conversion between audio formats, if the system supports it.
 //
 // outputBuffer: The output audio buffer.
@@ -353,23 +356,24 @@ func (a AVAudioConverter) InitFromFormatToFormat(fromFormat IAVAudioFormat, toFo
 // inputBlock: A block the framework calls to get input data.
 //
 // # Return Value
-// 
+//
 // An [AVAudioConverterOutputStatus] type that indicates the conversion
 // status.
 //
-// [AVAudioConverterOutputStatus]: https://developer.apple.com/documentation/AVFAudio/AVAudioConverterOutputStatus
-//
 // # Discussion
-// 
+//
 // The method attempts to fill the buffer to its capacity. On return, the
 // buffer’s length indicates the number of sample frames the framework
 // successfully converts.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/convert(to:error:withInputFrom:)
+//
+// [AVAudioConverterOutputStatus]: https://developer.apple.com/documentation/AVFAudio/AVAudioConverterOutputStatus
 func (a AVAudioConverter) ConvertToBufferErrorWithInputFromBlock(outputBuffer IAVAudioBuffer, outError foundation.INSError, inputBlock AVAudioConverterInputBlock) AVAudioConverterOutputStatus {
 	rv := objc.Send[AVAudioConverterOutputStatus](a.ID, objc.Sel("convertToBuffer:error:withInputFromBlock:"), outputBuffer, outError, inputBlock)
 	return AVAudioConverterOutputStatus(rv)
 }
+
 // Performs a basic conversion between audio formats that doesn’t involve
 // converting codecs or sample rates.
 //
@@ -378,7 +382,7 @@ func (a AVAudioConverter) ConvertToBufferErrorWithInputFromBlock(outputBuffer IA
 // inputBuffer: The input audio buffer.
 //
 // # Discussion
-// 
+//
 // The output buffer’s [FrameCapacity] value needs to be at least at large
 // as the [FrameLength] value of the `inputBuffer`.
 //
@@ -396,6 +400,7 @@ func (a AVAudioConverter) ConvertToBufferFromBufferError(outputBuffer IAVAudioPC
 	return rv, nil
 
 }
+
 // Resets the converter so you can convert a new audio stream.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/reset()
@@ -406,14 +411,14 @@ func (a AVAudioConverter) Reset() {
 // An array of integers that indicates which input to derive each output from.
 //
 // # Discussion
-// 
+//
 // The array size equals the number of output channels. Each element’s value
 // is the input channel number, starting with zero, that the framework copies
 // to that output.
-// 
+//
 // A negative value means that the output channel doesn’t have a source and
 // is silent.
-// 
+//
 // Setting a channel map overrides channel mapping due to any channel layouts
 // in the input and output formats that you supply.
 //
@@ -427,10 +432,11 @@ func (a AVAudioConverter) ChannelMap() []foundation.NSNumber {
 func (a AVAudioConverter) SetChannelMap(value []foundation.NSNumber) {
 	objc.Send[struct{}](a.ID, objc.Sel("setChannelMap:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // A Boolean value that indicates whether dither is on.
 //
 // # Discussion
-// 
+//
 // This property defaults to `false`. When `true`, the framework determines
 // whether dithering makes sense for the formats and settings.
 //
@@ -442,11 +448,12 @@ func (a AVAudioConverter) Dither() bool {
 func (a AVAudioConverter) SetDither(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDither:"), value)
 }
+
 // A Boolean value that indicates whether the framework mixes the channels
 // instead of remapping.
 //
 // # Discussion
-// 
+//
 // This property defaults to `false`, indicating that the framework remaps the
 // channels. When `true`, and channel remapping is necessary, the framework
 // mixes the channels.
@@ -459,6 +466,7 @@ func (a AVAudioConverter) Downmix() bool {
 func (a AVAudioConverter) SetDownmix(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDownmix:"), value)
 }
+
 // The format of the input audio stream.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/inputFormat
@@ -466,6 +474,7 @@ func (a AVAudioConverter) InputFormat() IAVAudioFormat {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputFormat"))
 	return AVAudioFormatFromID(objc.ID(rv))
 }
+
 // The format of the output audio stream.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/outputFormat
@@ -473,6 +482,7 @@ func (a AVAudioConverter) OutputFormat() IAVAudioFormat {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputFormat"))
 	return AVAudioFormatFromID(objc.ID(rv))
 }
+
 // An object that contains metadata for encoders and decoders.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/magicCookie
@@ -483,6 +493,7 @@ func (a AVAudioConverter) MagicCookie() foundation.INSData {
 func (a AVAudioConverter) SetMagicCookie(value foundation.INSData) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMagicCookie:"), value)
 }
+
 // The maximum size of an output packet, in bytes.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/maximumOutputPacketSize
@@ -490,11 +501,12 @@ func (a AVAudioConverter) MaximumOutputPacketSize() int {
 	rv := objc.Send[int](a.ID, objc.Sel("maximumOutputPacketSize"))
 	return rv
 }
+
 // An array of bit rates the framework applies during encoding according to
 // the current formats and settings.
 //
 // # Discussion
-// 
+//
 // This property returns `nil` if you’re not encoding.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/applicableEncodeBitRates
@@ -504,10 +516,11 @@ func (a AVAudioConverter) ApplicableEncodeBitRates() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // An array of all bit rates the codec provides when encoding.
 //
 // # Discussion
-// 
+//
 // This property returns `nil` if you’re not encoding.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/availableEncodeBitRates
@@ -517,11 +530,12 @@ func (a AVAudioConverter) AvailableEncodeBitRates() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // An array of all output channel layout tags the codec provides when
 // encoding.
 //
 // # Discussion
-// 
+//
 // This property returns `nil` if you’re not encoding.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/availableEncodeChannelLayoutTags
@@ -531,10 +545,11 @@ func (a AVAudioConverter) AvailableEncodeChannelLayoutTags() []foundation.NSNumb
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // The bit rate, in bits per second.
 //
 // # Discussion
-// 
+//
 // This value only applies when encoding.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/bitRate
@@ -545,16 +560,17 @@ func (a AVAudioConverter) BitRate() int {
 func (a AVAudioConverter) SetBitRate(value int) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBitRate:"), value)
 }
+
 // A key value constant the framework uses during encoding.
 //
 // # Discussion
-// 
+//
 // This property returns `nil` if you’re not encoding. For information about
 // possible values, see [AVEncoderBitRateStrategyKey].
 //
-// [AVEncoderBitRateStrategyKey]: https://developer.apple.com/documentation/AVFAudio/AVEncoderBitRateStrategyKey
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/bitRateStrategy
+//
+// [AVEncoderBitRateStrategyKey]: https://developer.apple.com/documentation/AVFAudio/AVEncoderBitRateStrategyKey
 func (a AVAudioConverter) BitRateStrategy() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("bitRateStrategy"))
 	return foundation.NSStringFromID(rv).String()
@@ -562,16 +578,17 @@ func (a AVAudioConverter) BitRateStrategy() string {
 func (a AVAudioConverter) SetBitRateStrategy(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBitRateStrategy:"), objc.String(value))
 }
+
 // A sample rate converter algorithm key value.
 //
 // # Discussion
-// 
+//
 // For information about possible key values, see
 // [AVSampleRateConverterAlgorithmKey].
 //
-// [AVSampleRateConverterAlgorithmKey]: https://developer.apple.com/documentation/AVFAudio/AVSampleRateConverterAlgorithmKey
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/sampleRateConverterQuality
+//
+// [AVSampleRateConverterAlgorithmKey]: https://developer.apple.com/documentation/AVFAudio/AVSampleRateConverterAlgorithmKey
 func (a AVAudioConverter) SampleRateConverterQuality() int {
 	rv := objc.Send[int](a.ID, objc.Sel("sampleRateConverterQuality"))
 	return rv
@@ -579,6 +596,7 @@ func (a AVAudioConverter) SampleRateConverterQuality() int {
 func (a AVAudioConverter) SetSampleRateConverterQuality(value int) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSampleRateConverterQuality:"), value)
 }
+
 // The priming method the sample rate converter or decoder uses.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/sampleRateConverterAlgorithm
@@ -589,11 +607,12 @@ func (a AVAudioConverter) SampleRateConverterAlgorithm() string {
 func (a AVAudioConverter) SetSampleRateConverterAlgorithm(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSampleRateConverterAlgorithm:"), objc.String(value))
 }
+
 // An array of output sample rates that the converter applies according to the
 // current formats and settings, when encoding.
 //
 // # Discussion
-// 
+//
 // This property returns `nil` if you’re not encoding.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/applicableEncodeSampleRates
@@ -603,10 +622,11 @@ func (a AVAudioConverter) ApplicableEncodeSampleRates() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // An array of all output sample rates the codec provides when encoding.
 //
 // # Discussion
-// 
+//
 // This property returns `nil` if you’re not encoding.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/availableEncodeSampleRates
@@ -616,6 +636,7 @@ func (a AVAudioConverter) AvailableEncodeSampleRates() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // The number of priming frames the converter uses.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/primeInfo
@@ -626,6 +647,7 @@ func (a AVAudioConverter) PrimeInfo() AVAudioConverterPrimeInfo {
 func (a AVAudioConverter) SetPrimeInfo(value AVAudioConverterPrimeInfo) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPrimeInfo:"), value)
 }
+
 // The priming method the sample rate converter or decoder uses.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/primeMethod
@@ -636,11 +658,11 @@ func (a AVAudioConverter) PrimeMethod() AVAudioConverterPrimeMethod {
 func (a AVAudioConverter) SetPrimeMethod(value AVAudioConverterPrimeMethod) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPrimeMethod:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // Number of packets between consecutive sync packets.
-// 
+//
 // A sync packet is an independently-decodable packet that completely
 // refreshes the decoder without needing to decode other packets. When
 // compressing to a format which supports it (such as APAC), the audio sync
@@ -658,9 +680,9 @@ func (a AVAudioConverter) AudioSyncPacketFrequency() int {
 func (a AVAudioConverter) SetAudioSyncPacketFrequency(value int) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAudioSyncPacketFrequency:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // Index to select a pre-defined content source type that describes the
 // content type and how it was generated. Note: This is only supported when
 // compressing audio to formats which support it.
@@ -673,11 +695,11 @@ func (a AVAudioConverter) ContentSource() AVAudioContentSource {
 func (a AVAudioConverter) SetContentSource(value AVAudioContentSource) {
 	objc.Send[struct{}](a.ID, objc.Sel("setContentSource:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // Encoder Dynamic Range Control (DRC) configuration.
-// 
+//
 // When supported by the encoder, this property controls which configuration
 // is applied when a bitstream is generated. Note: This is only supported when
 // compressing audio to formats which support it.
@@ -690,4 +712,3 @@ func (a AVAudioConverter) DynamicRangeControlConfiguration() AVAudioDynamicRange
 func (a AVAudioConverter) SetDynamicRangeControlConfiguration(value AVAudioDynamicRangeControlConfiguration) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDynamicRangeControlConfiguration:"), value)
 }
-

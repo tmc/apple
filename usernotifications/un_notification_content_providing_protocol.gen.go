@@ -18,6 +18,7 @@ type UNNotificationContentProviding interface {
 type UNNotificationContentProvidingObject struct {
 	objectivec.Object
 }
+
 func (o UNNotificationContentProvidingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func UNNotificationContentProvidingObjectFromID(id objc.ID) UNNotificationConten
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

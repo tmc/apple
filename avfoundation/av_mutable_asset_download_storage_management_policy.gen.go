@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,6 +54,7 @@ type AVMutableAssetDownloadStorageManagementPolicy struct {
 func AVMutableAssetDownloadStorageManagementPolicyFromID(id objc.ID) AVMutableAssetDownloadStorageManagementPolicy {
 	return AVMutableAssetDownloadStorageManagementPolicy{AVAssetDownloadStorageManagementPolicy: AVAssetDownloadStorageManagementPolicyFromID(id)}
 }
+
 // NOTE: AVMutableAssetDownloadStorageManagementPolicy adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -81,4 +83,3 @@ func NewAVMutableAssetDownloadStorageManagementPolicy() AVMutableAssetDownloadSt
 	rv := objc.Send[AVMutableAssetDownloadStorageManagementPolicy](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -23,6 +23,7 @@ type NSPasteboardItemDataProvider interface {
 type NSPasteboardItemDataProviderObject struct {
 	objectivec.Object
 }
+
 func (o NSPasteboardItemDataProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -45,21 +46,22 @@ func NSPasteboardItemDataProviderObjectFromID(id objc.ID) NSPasteboardItemDataPr
 // type: A UTI type string.
 //
 // # Discussion
-// 
+//
 // The receiver was previously set as the provider using
 // [SetDataProviderForTypes].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardItemDataProvider/pasteboard(_:item:provideDataForType:)
 func (o NSPasteboardItemDataProviderObject) PasteboardItemProvideDataForType(pasteboard INSPasteboard, item INSPasteboardItem, type_ NSPasteboardType) {
 	objc.Send[struct{}](o.ID, objc.Sel("pasteboard:item:provideDataForType:"), pasteboard, item, objc.String(string(type_)))
-	}
+}
+
 // Informs the receiver that the pasteboard no longer needs the data provider
 // for any of its pasteboard items.
 //
 // pasteboard: A pasteboard.
 //
 // # Discussion
-// 
+//
 // One data provider can provide data for more than one pasteboard item. This
 // method is called when the pasteboard no longer needs the data provider for
 // any of its pasteboard items. This can be either because the data provider
@@ -69,5 +71,4 @@ func (o NSPasteboardItemDataProviderObject) PasteboardItemProvideDataForType(pas
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardItemDataProvider/pasteboardFinishedWithDataProvider(_:)
 func (o NSPasteboardItemDataProviderObject) PasteboardFinishedWithDataProvider(pasteboard INSPasteboard) {
 	objc.Send[struct{}](o.ID, objc.Sel("pasteboardFinishedWithDataProvider:"), pasteboard)
-	}
-
+}

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZVirtioSoundDeviceConfiguration struct {
 func VZVirtioSoundDeviceConfigurationFromID(id objc.ID) VZVirtioSoundDeviceConfiguration {
 	return VZVirtioSoundDeviceConfiguration{VZAudioDeviceConfiguration: VZAudioDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioSoundDeviceConfiguration implements IVZVirtioSoundDeviceConfiguration.
 var _ IVZVirtioSoundDeviceConfiguration = VZVirtioSoundDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZVirtioSoundDeviceConfiguration() VZVirtioSoundDeviceConfiguration {
 	rv := objc.Send[VZVirtioSoundDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

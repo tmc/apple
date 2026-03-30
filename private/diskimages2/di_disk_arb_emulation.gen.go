@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [DIDiskArbEmulation] class.
@@ -51,6 +52,7 @@ type DIDiskArbEmulation struct {
 func DIDiskArbEmulationFromID(id objc.ID) DIDiskArbEmulation {
 	return DIDiskArbEmulation{DIDiskArb: DIDiskArbFromID(id)}
 }
+
 // Ensure DIDiskArbEmulation implements IDIDiskArbEmulation.
 var _ IDIDiskArbEmulation = DIDiskArbEmulation{}
 
@@ -80,7 +82,6 @@ func NewDIDiskArbEmulation() DIDiskArbEmulation {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/initWithError:
 func NewDIDiskArbEmulationWithError() (DIDiskArbEmulation, error) {
 	var errorPtr objc.ID
@@ -92,4 +93,3 @@ func NewDIDiskArbEmulationWithError() (DIDiskArbEmulation, error) {
 	}
 	return DIDiskArbEmulationFromID(rv), nil
 }
-

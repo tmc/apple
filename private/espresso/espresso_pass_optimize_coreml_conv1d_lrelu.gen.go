@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_optimize_coreml_conv1d_lrelu struct {
 func EspressoPass_optimize_coreml_conv1d_lreluFromID(id objc.ID) EspressoPass_optimize_coreml_conv1d_lrelu {
 	return EspressoPass_optimize_coreml_conv1d_lrelu{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_optimize_coreml_conv1d_lrelu implements IEspressoPass_optimize_coreml_conv1d_lrelu.
 var _ IEspressoPass_optimize_coreml_conv1d_lrelu = EspressoPass_optimize_coreml_conv1d_lrelu{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_optimize_coreml_conv1d_lrelu() EspressoPass_optimize_coreml
 	rv := objc.Send[EspressoPass_optimize_coreml_conv1d_lrelu](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

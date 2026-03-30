@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type AVMIDINoteEvent struct {
 func AVMIDINoteEventFromID(id objc.ID) AVMIDINoteEvent {
 	return AVMIDINoteEvent{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMIDINoteEvent struct embeds objectivec.Object (parent type unavailable) but
 // IAVMIDINoteEvent embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewAVMIDINoteEvent() AVMIDINoteEvent {
 	rv := objc.Send[AVMIDINoteEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

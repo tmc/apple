@@ -4,8 +4,9 @@ package systemextensions
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (oc OSSystemExtensionInfoClass) Alloc() OSSystemExtensionInfo {
 	return rv
 }
 
-//
 // # Instance Properties
 //
 //   - [OSSystemExtensionInfo.BundleIdentifier]
 //   - [OSSystemExtensionInfo.BundleShortVersion]
 //   - [OSSystemExtensionInfo.BundleVersion]
+//
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionInfo
 type OSSystemExtensionInfo struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type OSSystemExtensionInfo struct {
 func OSSystemExtensionInfoFromID(id objc.ID) OSSystemExtensionInfo {
 	return OSSystemExtensionInfo{objectivec.Object{ID: id}}
 }
+
 // NOTE: OSSystemExtensionInfo adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -98,9 +100,8 @@ func NewOSSystemExtensionInfo() OSSystemExtensionInfo {
 	return rv
 }
 
-//
 // # Discussion
-// 
+//
 // The bundle identifier of the extension (CFBundleIdentifier)
 //
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionInfo/bundleIdentifier
@@ -108,9 +109,9 @@ func (o OSSystemExtensionInfo) BundleIdentifier() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-//
+
 // # Discussion
-// 
+//
 // The bundle short version string of the extension
 // (CFBundleShortVersionString)
 //
@@ -119,9 +120,9 @@ func (o OSSystemExtensionInfo) BundleShortVersion() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("bundleShortVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
-//
+
 // # Discussion
-// 
+//
 // The bundle version of the extension (CFBundleVersion)
 //
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionInfo/bundleVersion
@@ -129,4 +130,3 @@ func (o OSSystemExtensionInfo) BundleVersion() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("bundleVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
-

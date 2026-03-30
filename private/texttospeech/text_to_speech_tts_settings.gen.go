@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechTTSSettings struct {
 func TextToSpeechTTSSettingsFromID(id objc.ID) TextToSpeechTTSSettings {
 	return TextToSpeechTTSSettings{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechTTSSettings struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechTTSSettings embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechTTSSettings() TextToSpeechTTSSettings {
 	rv := objc.Send[TextToSpeechTTSSettings](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

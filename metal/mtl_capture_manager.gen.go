@@ -3,11 +3,12 @@
 package metal
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,24 +48,20 @@ func (mc MTLCaptureManagerClass) Alloc() MTLCaptureManager {
 // An instance you use to capture Metal command data in your app.
 //
 // # Overview
-// 
+//
 // A capture manager works with the frame capture feature to:
-// 
+//
 // - Capture data about Metal commands programmatically. See [Capturing a
 // Metal workload programmatically]. - Only capture commands that apply to a
 // specific [MTLDevice], command queue, or [MTLCaptureScope] instance. -
 // Assign a default [MTLCaptureScope] instance for captures you create in
 // Xcode by clicking the Capture GPU workload button in the debug bar, which
 // has an icon with the Metal logo.
-// 
+//
 // The Metal debugger requires you to enable GPU Frame Capture in your project
 // settings; see [Capturing a Metal workload in Xcode].
-// 
-// For more information about Metal frame capture, see [Metal debugger].
 //
-// [Capturing a Metal workload in Xcode]: https://developer.apple.com/documentation/Xcode/Capturing-a-Metal-workload-in-Xcode
-// [Capturing a Metal workload programmatically]: https://developer.apple.com/documentation/Xcode/Capturing-a-Metal-workload-programmatically
-// [Metal debugger]: https://developer.apple.com/documentation/Xcode/Metal-debugger
+// For more information about Metal frame capture, see [Metal debugger].
 //
 // # Querying support for a capture destination
 //
@@ -94,6 +91,10 @@ func (mc MTLCaptureManagerClass) Alloc() MTLCaptureManager {
 //   - [MTLCaptureManager.NewCaptureScopeWithMTL4CommandQueue]
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureManager
+//
+// [Capturing a Metal workload in Xcode]: https://developer.apple.com/documentation/Xcode/Capturing-a-Metal-workload-in-Xcode
+// [Capturing a Metal workload programmatically]: https://developer.apple.com/documentation/Xcode/Capturing-a-Metal-workload-programmatically
+// [Metal debugger]: https://developer.apple.com/documentation/Xcode/Metal-debugger
 type MTLCaptureManager struct {
 	objectivec.Object
 }
@@ -104,6 +105,7 @@ type MTLCaptureManager struct {
 func MTLCaptureManagerFromID(id objc.ID) MTLCaptureManager {
 	return MTLCaptureManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLCaptureManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -203,12 +205,13 @@ func (c MTLCaptureManager) SupportsDestination(destination MTLCaptureDestination
 	rv := objc.Send[bool](c.ID, objc.Sel("supportsDestination:"), destination)
 	return rv
 }
+
 // Creates a capture scope for commands submitted to a specific device object.
 //
 // device: The device object whose commands you want to capture.
 //
 // # Discussion
-// 
+//
 // The capture scope captures commands in command buffers created on any
 // command queues created by the device object.
 //
@@ -217,6 +220,7 @@ func (c MTLCaptureManager) NewCaptureScopeWithDevice(device MTLDevice) MTLCaptur
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("newCaptureScopeWithDevice:"), device)
 	return MTLCaptureScopeObjectFromID(rv)
 }
+
 // Creates a capture scope for commands submitted to a specific command queue.
 //
 // commandQueue: The command queue whose commands you want to capture.
@@ -226,6 +230,7 @@ func (c MTLCaptureManager) NewCaptureScopeWithCommandQueue(commandQueue MTLComma
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("newCaptureScopeWithCommandQueue:"), commandQueue)
 	return MTLCaptureScopeObjectFromID(rv)
 }
+
 // Starts capturing any of your app’s Metal commands, with the capture
 // session defined by a descriptor object.
 //
@@ -245,13 +250,14 @@ func (c MTLCaptureManager) StartCaptureWithDescriptorError(descriptor IMTLCaptur
 	return rv, nil
 
 }
+
 // Stops capturing Metal commands.
 //
 // # Discussion
-// 
+//
 // Calling this method stops a capture that was started manually in Xcode or
 // programmatically by calling one of the methods on [MTLCaptureManager].
-// 
+//
 // When using a custom capture scope, calling this function preempts any
 // [EndScope] demarcations of the capture scope.
 //
@@ -259,7 +265,7 @@ func (c MTLCaptureManager) StartCaptureWithDescriptorError(descriptor IMTLCaptur
 func (c MTLCaptureManager) StopCapture() {
 	objc.Send[objc.ID](c.ID, objc.Sel("stopCapture"))
 }
-//
+
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureManager/makeCaptureScope(commandQueue:)-9wie3
 func (c MTLCaptureManager) NewCaptureScopeWithMTL4CommandQueue(commandQueue MTL4CommandQueue) MTLCaptureScope {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("newCaptureScopeWithMTL4CommandQueue:"), commandQueue)
@@ -269,7 +275,7 @@ func (c MTLCaptureManager) NewCaptureScopeWithMTL4CommandQueue(commandQueue MTL4
 // Provides the shared capture manager for your Metal app.
 //
 // # Discussion
-// 
+//
 // There is only one capture manager per process.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureManager/shared()
@@ -281,11 +287,11 @@ func (_MTLCaptureManagerClass MTLCaptureManagerClass) SharedCaptureManager() MTL
 // The capture scope to use when a capture is initiated in Xcode.
 //
 // # Discussion
-// 
+//
 // Use this property to specify a default capture scope for Xcode to use when
 // the user presses the capture button. You can still long-press the button to
 // select a different capture scope.
-// 
+//
 // The default value is `nil.` When the value is `nil`, the capture scope is
 // defined by drawable presentation boundaries; such as those created by calls
 // to [PresentDrawable] or [Present].
@@ -298,6 +304,7 @@ func (c MTLCaptureManager) DefaultCaptureScope() MTLCaptureScope {
 func (c MTLCaptureManager) SetDefaultCaptureScope(value MTLCaptureScope) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDefaultCaptureScope:"), value)
 }
+
 // A Boolean value that indicates whether Metal commands are being captured.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureManager/isCapturing
@@ -305,4 +312,3 @@ func (c MTLCaptureManager) IsCapturing() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCapturing"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZSpiceAgentCorePasteboardState struct {
 func VZSpiceAgentCorePasteboardStateFromID(id objc.ID) VZSpiceAgentCorePasteboardState {
 	return VZSpiceAgentCorePasteboardState{objectivec.Object{ID: id}}
 }
+
 // Ensure VZSpiceAgentCorePasteboardState implements IVZSpiceAgentCorePasteboardState.
 var _ IVZSpiceAgentCorePasteboardState = VZSpiceAgentCorePasteboardState{}
 
@@ -78,4 +80,3 @@ func NewVZSpiceAgentCorePasteboardState() VZSpiceAgentCorePasteboardState {
 	rv := objc.Send[VZSpiceAgentCorePasteboardState](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

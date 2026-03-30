@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZDirectoryShareClass) Alloc() VZDirectoryShare {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZDirectoryShare._init]
@@ -51,6 +51,7 @@ func (vc VZDirectoryShareClass) Alloc() VZDirectoryShare {
 //   - [VZDirectoryShare.Description]
 //   - [VZDirectoryShare.Hash]
 //   - [VZDirectoryShare.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare
 type VZDirectoryShare struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZDirectoryShare struct {
 func VZDirectoryShareFromID(id objc.ID) VZDirectoryShare {
 	return VZDirectoryShare{objectivec.Object{ID: id}}
 }
+
 // Ensure VZDirectoryShare implements IVZDirectoryShare.
 var _ IVZDirectoryShare = VZDirectoryShare{}
 
@@ -118,24 +120,27 @@ func (d VZDirectoryShare) _share() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("_share"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/debugDescription
 func (d VZDirectoryShare) DebugDescription() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/description
 func (d VZDirectoryShare) Description() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/hash
 func (d VZDirectoryShare) Hash() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDirectoryShare/superclass
 func (d VZDirectoryShare) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](d.ID, objc.Sel("superclass"))
 	return rv
 }
-

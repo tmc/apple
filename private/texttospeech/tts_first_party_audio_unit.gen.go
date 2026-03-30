@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (tc TTSFirstPartyAudioUnitClass) Alloc() TTSFirstPartyAudioUnit {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSFirstPartyAudioUnit.Channel]
@@ -52,6 +52,7 @@ func (tc TTSFirstPartyAudioUnitClass) Alloc() TTSFirstPartyAudioUnit {
 //   - [TTSFirstPartyAudioUnit.PrewarmWithVoice]
 //   - [TTSFirstPartyAudioUnit.RequireFirstUnlockForVoiceLoad]
 //   - [TTSFirstPartyAudioUnit.VoicesExternallyManaged]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSFirstPartyAudioUnit
 type TTSFirstPartyAudioUnit struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type TTSFirstPartyAudioUnit struct {
 func TTSFirstPartyAudioUnitFromID(id objc.ID) TTSFirstPartyAudioUnit {
 	return TTSFirstPartyAudioUnit{objectivec.Object{ID: id}}
 }
+
 // NOTE: TTSFirstPartyAudioUnit struct embeds objectivec.Object (parent type unavailable) but
 // ITTSFirstPartyAudioUnit embeds the parent interface; skip compile-time assertion.
 
@@ -112,34 +114,35 @@ func NewTTSFirstPartyAudioUnit() TTSFirstPartyAudioUnit {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSFirstPartyAudioUnit/defaultSettingsForVoice:
 func (t TTSFirstPartyAudioUnit) DefaultSettingsForVoice(voice objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("defaultSettingsForVoice:"), voice)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSFirstPartyAudioUnit/echo:
 func (t TTSFirstPartyAudioUnit) Echo(echo objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("echo:"), echo)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSFirstPartyAudioUnit/messageChannelFor:
 func (t TTSFirstPartyAudioUnit) MessageChannelFor(for_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("messageChannelFor:"), for_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSFirstPartyAudioUnit/prewarmWithVoice:
 func (t TTSFirstPartyAudioUnit) PrewarmWithVoice(voice objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("prewarmWithVoice:"), voice)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSFirstPartyAudioUnit/requireFirstUnlockForVoiceLoad
 func (t TTSFirstPartyAudioUnit) RequireFirstUnlockForVoiceLoad() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("requireFirstUnlockForVoiceLoad"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSFirstPartyAudioUnit/voicesExternallyManaged
 func (t TTSFirstPartyAudioUnit) VoicesExternallyManaged() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("voicesExternallyManaged"))
@@ -150,6 +153,7 @@ func (t TTSFirstPartyAudioUnit) VoicesExternallyManaged() objectivec.IObject {
 func (_TTSFirstPartyAudioUnitClass TTSFirstPartyAudioUnitClass) RegisterInProcess() {
 	objc.Send[objc.ID](objc.ID(_TTSFirstPartyAudioUnitClass.class), objc.Sel("registerInProcess"))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSFirstPartyAudioUnit/shouldLogSensitiveSpeech
 func (_TTSFirstPartyAudioUnitClass TTSFirstPartyAudioUnitClass) ShouldLogSensitiveSpeech() bool {
 	rv := objc.Send[bool](objc.ID(_TTSFirstPartyAudioUnitClass.class), objc.Sel("shouldLogSensitiveSpeech"))
@@ -164,4 +168,3 @@ func (t TTSFirstPartyAudioUnit) Channel() ITTSAUMessagingAU {
 func (t TTSFirstPartyAudioUnit) SetChannel(value ITTSAUMessagingAU) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChannel:"), value)
 }
-

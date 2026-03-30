@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +71,7 @@ type VNVector struct {
 func VNVectorFromID(id objc.ID) VNVector {
 	return VNVector{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNVector adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -229,6 +231,7 @@ func (v VNVector) InitWithRTheta(r float64, theta float64) VNVector {
 	rv := objc.Send[VNVector](v.ID, objc.Sel("initWithR:theta:"), r, theta)
 	return rv
 }
+
 // Creates a new vector in Cartesian coordinate space.
 //
 // head: The vector’s head point.
@@ -240,6 +243,7 @@ func (v VNVector) InitWithVectorHeadTail(head IVNPoint, tail IVNPoint) VNVector 
 	rv := objc.Send[VNVector](v.ID, objc.Sel("initWithVectorHead:tail:"), head, tail)
 	return rv
 }
+
 // Creates a new vector in Cartesian coordinate space, based on its x-axis and
 // y-axis projections.
 //
@@ -263,7 +267,7 @@ func (v VNVector) EncodeWithCoder(coder foundation.INSCoder) {
 // v2: The second vector.
 //
 // # Return Value
-// 
+//
 // The dot product value.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/dotProduct(of:vector:)
@@ -271,13 +275,14 @@ func (_VNVectorClass VNVectorClass) DotProductOfVectorVector(v1 IVNVector, v2 IV
 	rv := objc.Send[float64](objc.ID(_VNVectorClass.class), objc.Sel("dotProductOfVector:vector:"), v1, v2)
 	return rv
 }
+
 // Calculates a vector that’s normalized by preserving its direction, so
 // that the vector length equals 1.0.
 //
 // vector: The vector whose unit vector you want to calculate.
 //
 // # Return Value
-// 
+//
 // The unit vector.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/unitVector(for:)
@@ -293,6 +298,7 @@ func (v VNVector) Length() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("length"))
 	return rv
 }
+
 // The radius, absolute value, or length of the vector.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/r
@@ -300,6 +306,7 @@ func (v VNVector) R() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("r"))
 	return rv
 }
+
 // The angle between the vector direction and the positive direction of the
 // x-axis.
 //
@@ -308,6 +315,7 @@ func (v VNVector) Theta() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("theta"))
 	return rv
 }
+
 // The squared length of the vector.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/squaredLength
@@ -315,6 +323,7 @@ func (v VNVector) SquaredLength() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("squaredLength"))
 	return rv
 }
+
 // A signed projection that indicates the vector’s direction on the x-axis.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/x
@@ -322,6 +331,7 @@ func (v VNVector) X() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("x"))
 	return rv
 }
+
 // A signed projection that indicates the vector’s direction on the y-axis.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/y
@@ -337,4 +347,3 @@ func (_VNVectorClass VNVectorClass) ZeroVector() VNVector {
 	rv := objc.Send[objc.ID](objc.ID(_VNVectorClass.class), objc.Sel("zeroVector"))
 	return VNVectorFromID(objc.ID(rv))
 }
-

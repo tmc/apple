@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type IsCompact struct {
 func IsCompactFromID(id objc.ID) IsCompact {
 	return IsCompact{objectivec.Object{ID: id}}
 }
+
 // Ensure IsCompact implements IIsCompact.
 var _ IIsCompact = IsCompact{}
 
@@ -78,4 +80,3 @@ func NewIsCompact() IsCompact {
 	rv := objc.Send[IsCompact](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

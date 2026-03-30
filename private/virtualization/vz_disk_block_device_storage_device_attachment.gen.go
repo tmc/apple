@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (vc VZDiskBlockDeviceStorageDeviceAttachmentClass) Alloc() VZDiskBlockDevic
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZDiskBlockDeviceStorageDeviceAttachment._initWithURLReadOnlySynchronizationModeError]
 //   - [VZDiskBlockDeviceStorageDeviceAttachment._url]
 //   - [VZDiskBlockDeviceStorageDeviceAttachment.ReadOnly]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskBlockDeviceStorageDeviceAttachment
 type VZDiskBlockDeviceStorageDeviceAttachment struct {
 	VZStorageDeviceAttachment
@@ -58,6 +59,7 @@ type VZDiskBlockDeviceStorageDeviceAttachment struct {
 func VZDiskBlockDeviceStorageDeviceAttachmentFromID(id objc.ID) VZDiskBlockDeviceStorageDeviceAttachment {
 	return VZDiskBlockDeviceStorageDeviceAttachment{VZStorageDeviceAttachment: VZStorageDeviceAttachmentFromID(id)}
 }
+
 // Ensure VZDiskBlockDeviceStorageDeviceAttachment implements IVZDiskBlockDeviceStorageDeviceAttachment.
 var _ IVZDiskBlockDeviceStorageDeviceAttachment = VZDiskBlockDeviceStorageDeviceAttachment{}
 
@@ -99,7 +101,6 @@ func NewVZDiskBlockDeviceStorageDeviceAttachment() VZDiskBlockDeviceStorageDevic
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskBlockDeviceStorageDeviceAttachment/_initWithURL:readOnly:synchronizationMode:error:
 func (d VZDiskBlockDeviceStorageDeviceAttachment) _initWithURLReadOnlySynchronizationModeError(url foundation.INSURL, only bool, mode int64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -122,9 +123,9 @@ func (d VZDiskBlockDeviceStorageDeviceAttachment) _url() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("_url"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskBlockDeviceStorageDeviceAttachment/readOnly
 func (d VZDiskBlockDeviceStorageDeviceAttachment) ReadOnly() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("readOnly"))
 	return rv
 }
-

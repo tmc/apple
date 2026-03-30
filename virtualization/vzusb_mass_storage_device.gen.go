@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZUSBMassStorageDevice] class.
@@ -44,7 +45,7 @@ func (vc VZUSBMassStorageDeviceClass) Alloc() VZUSBMassStorageDevice {
 // A class that represents a hot-pluggable USB mass storage device.
 //
 // # Overview
-// 
+//
 // Create this device either by instantiating it directly and passing
 // [VZUSBMassStorageDeviceConfiguration] to its initializer, or instantiating
 // a [VZUSBMassStorageDeviceConfiguration] in a
@@ -68,6 +69,7 @@ type VZUSBMassStorageDevice struct {
 func VZUSBMassStorageDeviceFromID(id objc.ID) VZUSBMassStorageDevice {
 	return VZUSBMassStorageDevice{VZStorageDevice: VZStorageDeviceFromID(id)}
 }
+
 // NOTE: VZUSBMassStorageDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,7 +137,7 @@ func (u VZUSBMassStorageDevice) InitWithConfiguration(configuration IVZUSBMassSt
 // The USB controller that has an attachment to the device.
 //
 // # Discussion
-// 
+//
 // If a USB device object that conforms to this protocol has a current
 // attachment to a USB controller, this property includes a pointer to the
 // device’s USB controller object. Otherwise, it’s `nil`.
@@ -145,6 +147,7 @@ func (u VZUSBMassStorageDevice) UsbController() IVZUSBController {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("usbController"))
 	return VZUSBControllerFromID(objc.ID(rv))
 }
+
 // The list of attached USB devices for the controller.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzusbcontroller/usbdevices
@@ -155,10 +158,11 @@ func (u VZUSBMassStorageDevice) UsbDevices() VZUSBDevice {
 func (u VZUSBMassStorageDevice) SetUsbDevices(value VZUSBDevice) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUsbDevices:"), value)
 }
+
 // The device’s unique identifier.
 //
 // # Discussion
-// 
+//
 // This is the identifier the system creates from device configuration objects
 // that conform to [VZUSBDeviceConfiguration].
 //
@@ -168,6 +172,4 @@ func (u VZUSBMassStorageDevice) Uuid() foundation.NSUUID {
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
 
-			// Protocol methods for VZUSBDevice
-			
-
+// Protocol methods for VZUSBDevice

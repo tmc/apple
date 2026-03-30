@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VZUSBScreenCoordinatePointingDeviceConfigurationClass) Alloc() VZUSBScr
 // reports absolute coordinates.
 //
 // # Overview
-// 
+//
 // A [VZVirtualMachineView] can use this device to send pointer events to the
 // VM.
 //
@@ -60,6 +61,7 @@ type VZUSBScreenCoordinatePointingDeviceConfiguration struct {
 func VZUSBScreenCoordinatePointingDeviceConfigurationFromID(id objc.ID) VZUSBScreenCoordinatePointingDeviceConfiguration {
 	return VZUSBScreenCoordinatePointingDeviceConfiguration{VZPointingDeviceConfiguration: VZPointingDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZUSBScreenCoordinatePointingDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -88,4 +90,3 @@ func NewVZUSBScreenCoordinatePointingDeviceConfiguration() VZUSBScreenCoordinate
 	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZSerialPortConfigurationClass) Alloc() VZSerialPortConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZSerialPortConfiguration._init]
@@ -52,6 +52,7 @@ func (vc VZSerialPortConfigurationClass) Alloc() VZSerialPortConfiguration {
 //   - [VZSerialPortConfiguration.Description]
 //   - [VZSerialPortConfiguration.Hash]
 //   - [VZSerialPortConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortConfiguration
 type VZSerialPortConfiguration struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZSerialPortConfiguration struct {
 func VZSerialPortConfigurationFromID(id objc.ID) VZSerialPortConfiguration {
 	return VZSerialPortConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZSerialPortConfiguration implements IVZSerialPortConfiguration.
 var _ IVZSerialPortConfiguration = VZSerialPortConfiguration{}
 
@@ -115,7 +117,7 @@ func (s VZSerialPortConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortConfiguration/makeSerialPortForVirtualMachine:serialPortIndex:
 func (s VZSerialPortConfiguration) MakeSerialPortForVirtualMachineSerialPortIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeSerialPortForVirtualMachine:serialPortIndex:"), machine, index)
@@ -133,24 +135,27 @@ func (s VZSerialPortConfiguration) _serialPort() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("_serialPort"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortConfiguration/debugDescription
 func (s VZSerialPortConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortConfiguration/description
 func (s VZSerialPortConfiguration) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortConfiguration/hash
 func (s VZSerialPortConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZSerialPortConfiguration/superclass
 func (s VZSerialPortConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
 	return rv
 }
-

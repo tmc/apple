@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,16 +46,13 @@ func (nc NSScrubberLayoutAttributesClass) Alloc() NSScrubberLayoutAttributes {
 // The layout of a scrubber item.
 //
 // # Overview
-// 
+//
 // A layout attributes object is the model for the layout of a single item in
 // a scrubber control.
-// 
+//
 // If you require model attributes in addition to those provided by this
 // class, create a subclass and add appropriate attributes. Subclasses must
 // implement [isEqual(_:)], [NSScrubberLayoutAttributes.Hash] and the [NSCopying] protocol.
-//
-// [NSCopying]: https://developer.apple.com/documentation/Foundation/NSCopying
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 //
 // # Controlling the layout
 //
@@ -66,6 +64,9 @@ func (nc NSScrubberLayoutAttributesClass) Alloc() NSScrubberLayoutAttributes {
 //   - [NSScrubberLayoutAttributes.SetItemIndex]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberLayoutAttributes
+//
+// [NSCopying]: https://developer.apple.com/documentation/Foundation/NSCopying
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 type NSScrubberLayoutAttributes struct {
 	objectivec.Object
 }
@@ -76,6 +77,7 @@ type NSScrubberLayoutAttributes struct {
 func NSScrubberLayoutAttributesFromID(id objc.ID) NSScrubberLayoutAttributes {
 	return NSScrubberLayoutAttributes{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSScrubberLayoutAttributes adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,7 +139,7 @@ func NewNSScrubberLayoutAttributes() NSScrubberLayoutAttributes {
 // represents.
 //
 // # Return Value
-// 
+//
 // A layout attributes object configured for the specified index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberLayoutAttributes/init(forItemAt:)
@@ -156,6 +158,7 @@ func (s NSScrubberLayoutAttributes) Alpha() float64 {
 func (s NSScrubberLayoutAttributes) SetAlpha(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAlpha:"), value)
 }
+
 // The frame of the scrubber item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberLayoutAttributes/frame
@@ -166,6 +169,7 @@ func (s NSScrubberLayoutAttributes) Frame() corefoundation.CGRect {
 func (s NSScrubberLayoutAttributes) SetFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFrame:"), value)
 }
+
 // The index of the scrubber item that is represented by the item’s layout
 // attributes.
 //
@@ -177,6 +181,7 @@ func (s NSScrubberLayoutAttributes) ItemIndex() int {
 func (s NSScrubberLayoutAttributes) SetItemIndex(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemIndex:"), value)
 }
+
 // Returns an integer that can be used as a table address in a hash table
 // structure.
 //
@@ -188,4 +193,3 @@ func (s NSScrubberLayoutAttributes) Hash() int {
 func (s NSScrubberLayoutAttributes) SetHash(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHash:"), value)
 }
-

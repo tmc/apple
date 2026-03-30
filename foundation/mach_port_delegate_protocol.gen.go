@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -20,6 +21,7 @@ type NSMachPortDelegate interface {
 type NSMachPortDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSMachPortDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,26 +39,27 @@ func NSMachPortDelegateObjectFromID(id objc.ID) NSMachPortDelegateObject {
 // msg: A pointer to a Mach message, cast as a pointer to void.
 //
 // # Discussion
-// 
+//
 // The delegate should interpret this data as a pointer to a Mach message
 // beginning with a msg_header_t structure and should handle the message
 // appropriately.
-// 
-// The delegate should implement either `` or the [NSPortDelegate] protocol
+//
+// The delegate should implement either “ or the [NSPortDelegate] protocol
 // method handlePortMessage:.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMachPortDelegate/handleMachMessage(_:)
 func (o NSMachPortDelegateObject) HandleMachMessage(msg unsafe.Pointer) {
 	objc.Send[struct{}](o.ID, objc.Sel("handleMachMessage:"), msg)
-	}
+}
+
 // Processes a given incoming message on the port.
 //
 // message: An incoming port message.
 //
 // # Discussion
-// 
+//
 // See [NSPort] for more information.
-// 
+//
 // The delegate should implement either [HandlePortMessage] or the
 // [NSMachPortDelegate] protocol method [HandleMachMessage]. You must not
 // implement both delegate methods.
@@ -64,5 +67,4 @@ func (o NSMachPortDelegateObject) HandleMachMessage(msg unsafe.Pointer) {
 // See: https://developer.apple.com/documentation/Foundation/PortDelegate/handle(_:)
 func (o NSMachPortDelegateObject) HandlePortMessage(message INSPortMessage) {
 	objc.Send[struct{}](o.ID, objc.Sel("handlePortMessage:"), message)
-	}
-
+}

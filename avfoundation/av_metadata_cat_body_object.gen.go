@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMetadataCatBodyObjectClass) Alloc() AVMetadataCatBodyObject {
 // An object representing a single detected cat body in a picture.
 //
 // # Overview
-// 
+//
 // This object is an immutable type that describes the various features found
 // in the cat body in a picture.
 //
@@ -58,6 +59,7 @@ type AVMetadataCatBodyObject struct {
 func AVMetadataCatBodyObjectFromID(id objc.ID) AVMetadataCatBodyObject {
 	return AVMetadataCatBodyObject{AVMetadataBodyObject: AVMetadataBodyObjectFromID(id)}
 }
+
 // NOTE: AVMetadataCatBodyObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewAVMetadataCatBodyObject() AVMetadataCatBodyObject {
 	rv := objc.Send[AVMetadataCatBodyObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

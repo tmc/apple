@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (mc MTLVertexAttributeClass) Alloc() MTLVertexAttribute {
 // An instance that represents an attribute of a vertex function.
 //
 // # Overview
-// 
+//
 // An [MTLVertexAttribute] instance represents an attribute for per-vertex
 // input in a vertex function. You use vertex attribute instances to inspect
 // the inputs of a vertex function by examining the [MTLVertexAttribute.VertexAttributes]
@@ -71,6 +72,7 @@ type MTLVertexAttribute struct {
 func MTLVertexAttributeFromID(id objc.ID) MTLVertexAttribute {
 	return MTLVertexAttribute{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLVertexAttribute adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,6 +137,7 @@ func (v MTLVertexAttribute) Name() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The index of the attribute, as declared in Metal shader source code.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute/attributeIndex
@@ -142,6 +145,7 @@ func (v MTLVertexAttribute) AttributeIndex() uint {
 	rv := objc.Send[uint](v.ID, objc.Sel("attributeIndex"))
 	return rv
 }
+
 // The data type for the attribute, as declared in Metal shader source code.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute/attributeType
@@ -149,49 +153,47 @@ func (v MTLVertexAttribute) AttributeType() MTLDataType {
 	rv := objc.Send[MTLDataType](v.ID, objc.Sel("attributeType"))
 	return MTLDataType(rv)
 }
+
 // A Boolean value that indicates whether this vertex attribute is active.
 //
 // # Discussion
-// 
-// If [false], this attribute is inactive and can be ignored.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// If false, this attribute is inactive and can be ignored.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute/isActive
 func (v MTLVertexAttribute) Active() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isActive"))
 	return rv
 }
+
 // A Boolean value that indicates whether this vertex attribute represents
 // control point data.
 //
 // # Discussion
-// 
-// This value is always [false] if the vertex function is not a
-// post-tessellation vertex function.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// This value is always false if the vertex function is not a
+// post-tessellation vertex function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute/isPatchControlPointData
 func (v MTLVertexAttribute) PatchControlPointData() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPatchControlPointData"))
 	return rv
 }
+
 // A Boolean value that indicates whether this vertex attribute represents
 // patch data.
 //
 // # Discussion
-// 
-// This value is always [false] if the vertex function is not a
-// post-tessellation vertex function.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// This value is always false if the vertex function is not a
+// post-tessellation vertex function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute/isPatchData
 func (v MTLVertexAttribute) PatchData() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPatchData"))
 	return rv
 }
+
 // An array that describes the vertex input attributes to a vertex function.
 //
 // See: https://developer.apple.com/documentation/metal/mtlfunction/vertexattributes
@@ -202,4 +204,3 @@ func (v MTLVertexAttribute) VertexAttributes() IMTLVertexAttribute {
 func (v MTLVertexAttribute) SetVertexAttributes(value IMTLVertexAttribute) {
 	objc.Send[struct{}](v.ID, objc.Sel("setVertexAttributes:"), value)
 }
-

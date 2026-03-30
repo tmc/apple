@@ -3,11 +3,12 @@
 package naturallanguage
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,7 +49,7 @@ func (nc NLGazetteerClass) Alloc() NLGazetteer {
 // tagger.
 //
 // # Overview
-// 
+//
 // Use an [NLGazetteer] to augment an [NLTagger] when you need to tag a
 // specific set of terms (single words or short phrases) with a label.
 // Typically, you add one gazetteer per language, or one language-independent
@@ -56,12 +57,10 @@ func (nc NLGazetteerClass) Alloc() NLGazetteer {
 // The tagger uses its gazetteers to look up each term it processes. If a
 // gazetteer has a label for a term, the tagger uses that label to tag the
 // term, instead of inferring a tag itself.
-// 
+//
 // Typically, you create a gazetteer at development time, such as in a macOS
 // playground, with Create ML’s [MLGazetteer]. Alternatively, you can create
 // an [NLGazetteer] at runtime by using [NLGazetteer.InitWithDictionaryLanguageError].
-//
-// [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
 //
 // # Creating a Gazetteer
 //
@@ -79,6 +78,8 @@ func (nc NLGazetteerClass) Alloc() NLGazetteer {
 //   - [NLGazetteer.Language]: The language of the gazetteer.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer
+//
+// [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
 type NLGazetteer struct {
 	objectivec.Object
 }
@@ -90,6 +91,7 @@ type NLGazetteer struct {
 func NLGazetteerFromID(id objc.ID) NLGazetteer {
 	return NLGazetteer{objectivec.Object{ID: id}}
 }
+
 // NOTE: NLGazetteer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -161,14 +163,14 @@ func NewNLGazetteer() NLGazetteer {
 // url: The location of the .`mlmodel` file that contains a gazetteer.
 //
 // # Discussion
-// 
+//
 // Use this initializer to create an [NLGazetteer] from an
 // `XCUIElementTypeMlmodel` file saved by [MLGazetteer] in the `Create ML`
 // framework.
 //
-// [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
-//
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/init(contentsOf:)
+//
+// [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
 func NewGazetteerWithContentsOfURLError(url foundation.INSURL) (NLGazetteer, error) {
 	var errorPtr objc.ID
 	instance := getNLGazetteerClass().Alloc()
@@ -221,14 +223,14 @@ func NewGazetteerWithDictionaryLanguageError(dictionary foundation.INSDictionary
 // url: The location of the .`mlmodel` file that contains a gazetteer.
 //
 // # Discussion
-// 
+//
 // Use this initializer to create an [NLGazetteer] from an
 // `XCUIElementTypeMlmodel` file saved by [MLGazetteer] in the `Create ML`
 // framework.
 //
-// [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
-//
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/init(contentsOf:)
+//
+// [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
 func (g NLGazetteer) InitWithContentsOfURLError(url foundation.INSURL) (NLGazetteer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -239,6 +241,7 @@ func (g NLGazetteer) InitWithContentsOfURLError(url foundation.INSURL) (NLGazett
 	return NLGazetteerFromID(rv), nil
 
 }
+
 // Creates a gazetteer from a data instance.
 //
 // data: A gazetteer contained in a data instance.
@@ -254,6 +257,7 @@ func (g NLGazetteer) InitWithDataError(data foundation.INSData) (NLGazetteer, er
 	return NLGazetteerFromID(rv), nil
 
 }
+
 // Creates a gazetteer from a set of labels for terms represented by a
 // dictionary.
 //
@@ -272,12 +276,13 @@ func (g NLGazetteer) InitWithDictionaryLanguageError(dictionary foundation.INSDi
 	return NLGazetteerFromID(rv), nil
 
 }
+
 // Retrieves the label for the given term.
 //
 // string: The term used to find a label.
 //
 // # Return Value
-// 
+//
 // A string if the term is in the vocabulary; otherwise `nil`.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/label(for:)
@@ -309,20 +314,21 @@ func (_NLGazetteerClass NLGazetteerClass) WriteGazetteerForDictionaryLanguageToU
 	return rv, nil
 
 }
+
 // Creates a Natural Language gazetteer from a model created with the Create
 // ML framework.
 //
 // url: The location of the .`mlmodel` file that contains a gazetteer.
 //
 // # Discussion
-// 
+//
 // Use this initializer to create an [NLGazetteer] from an
 // `XCUIElementTypeMlmodel` file saved by [MLGazetteer] in the `Create ML`
 // framework.
 //
-// [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
-//
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/gazetteerWithContentsOfURL:error:
+//
+// [MLGazetteer]: https://developer.apple.com/documentation/CreateML/MLGazetteer
 func (_NLGazetteerClass NLGazetteerClass) GazetteerWithContentsOfURLError(url foundation.INSURL) (NLGazetteer, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NLGazetteerClass.class), objc.Sel("gazetteerWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -341,6 +347,7 @@ func (g NLGazetteer) Data() foundation.INSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // The language of the gazetteer.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLGazetteer/language
@@ -348,4 +355,3 @@ func (g NLGazetteer) Language() NLLanguage {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("language"))
 	return NLLanguage(foundation.NSStringFromID(rv).String())
 }
-

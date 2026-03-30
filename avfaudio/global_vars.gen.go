@@ -4,9 +4,10 @@ package avfaudio
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 var (
@@ -177,8 +178,7 @@ var (
 	AVSpeechSynthesisVoiceIdentifierAlex string
 )
 
-var (
-)
+var ()
 
 var (
 	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/availableinputschangenotification
@@ -313,6 +313,7 @@ var (
 	// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtteranceMinimumSpeechRate
 	AVSpeechUtteranceMinimumSpeechRate float32
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -1235,4 +1236,3 @@ var AVAudioSequencerInfoDictionaryKeys struct {
 	// Year: A key that represents the year.
 	Year AVAudioSequencerInfoDictionaryKey
 }
-

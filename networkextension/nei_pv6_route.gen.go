@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type NEIPv6Route struct {
 func NEIPv6RouteFromID(id objc.ID) NEIPv6Route {
 	return NEIPv6Route{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEIPv6Route adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -139,7 +141,7 @@ func NewNEIPv6Route() NEIPv6Route {
 // must be an integer between 0 and 128.
 //
 // # Return Value
-// 
+//
 // The initialized [NEIPv6Route] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEIPv6Route/init(destinationAddress:networkPrefixLength:)
@@ -159,7 +161,7 @@ func NewIPv6RouteWithDestinationAddressNetworkPrefixLength(address string, netwo
 // must be an integer between 0 and 128.
 //
 // # Return Value
-// 
+//
 // The initialized [NEIPv6Route] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEIPv6Route/init(destinationAddress:networkPrefixLength:)
@@ -174,11 +176,11 @@ func (i NEIPv6Route) EncodeWithCoder(coder foundation.INSCoder) {
 // A convenience method for creating the default IPv4 route.
 //
 // # Return Value
-// 
+//
 // A [NEIPv6Route] object containing the default IPv6 route.
 //
 // # Discussion
-// 
+//
 // Set this route in the `includedRoutes` array in [NEIPv6Settings] to specify
 // that all IPv6 network traffic be routed to the TUN interface by default.
 //
@@ -191,7 +193,7 @@ func (_NEIPv6RouteClass NEIPv6RouteClass) DefaultRoute() NEIPv6Route {
 // The destination network address of the route.
 //
 // # Discussion
-// 
+//
 // This string is combined with `destinationNetworkPrefixLength` to specify
 // the destination network of the route.
 //
@@ -200,10 +202,11 @@ func (i NEIPv6Route) DestinationAddress() string {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("destinationAddress"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The destination network prefix length of the route.
 //
 // # Discussion
-// 
+//
 // This string is combined with `destinationAddress` to specify the
 // destination network of the route.
 //
@@ -212,10 +215,11 @@ func (i NEIPv6Route) DestinationNetworkPrefixLength() foundation.NSNumber {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("destinationNetworkPrefixLength"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // The address of the next-hop gateway of the route.
 //
 // # Discussion
-// 
+//
 // The default value of this property is nil. When this property is nil, the
 // route’s next-hop gateway will be set to the TUN interface.
 //
@@ -227,6 +231,7 @@ func (i NEIPv6Route) GatewayAddress() string {
 func (i NEIPv6Route) SetGatewayAddress(value string) {
 	objc.Send[struct{}](i.ID, objc.Sel("setGatewayAddress:"), objc.String(value))
 }
+
 // The IPv6 network traffic that the system routes to the primary physical
 // interface, not the TUN interface.
 //
@@ -238,6 +243,7 @@ func (i NEIPv6Route) ExcludedRoutes() INEIPv6Route {
 func (i NEIPv6Route) SetExcludedRoutes(value INEIPv6Route) {
 	objc.Send[struct{}](i.ID, objc.Sel("setExcludedRoutes:"), value)
 }
+
 // The IPv6 network traffic that the system routes to the TUN interface.
 //
 // See: https://developer.apple.com/documentation/networkextension/neipv6settings/includedroutes
@@ -248,4 +254,3 @@ func (i NEIPv6Route) IncludedRoutes() INEIPv6Route {
 func (i NEIPv6Route) SetIncludedRoutes(value INEIPv6Route) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIncludedRoutes:"), value)
 }
-

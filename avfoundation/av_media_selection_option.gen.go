@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -92,6 +93,7 @@ type AVMediaSelectionOption struct {
 func AVMediaSelectionOptionFromID(id objc.ID) AVMediaSelectionOption {
 	return AVMediaSelectionOption{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMediaSelectionOption adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -210,31 +212,29 @@ func NewAVMediaSelectionOption() AVMediaSelectionOption {
 //
 // mediaCharacteristic: The media characteristic of interest, for example, [visual], [audible], or
 // [legible].
-// //
+//
+// # Return Value
+//
+// true if the media selection option has media with mediaCharacteristic,
+// otherwise false.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionOption/hasMediaCharacteristic(_:)
+//
 // [audible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/audible
 // [legible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/legible
 // [visual]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/visual
-//
-// # Return Value
-// 
-// [true] if the media selection option has media with mediaCharacteristic,
-// otherwise [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionOption/hasMediaCharacteristic(_:)
 func (m AVMediaSelectionOption) HasMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasMediaCharacteristic:"), objc.String(string(mediaCharacteristic)))
 	return rv
 }
+
 // Returns an array of metadata items—one for each metadata item in the
 // container of a given format.
 //
 // format: The metadata format for which items are requested.
 //
 // # Return Value
-// 
+//
 // An array of [AVMetadataItem] objects, one for each metadata item in the
 // container of format, or `nil` if there is no metadata of the specified
 // format.
@@ -246,16 +246,17 @@ func (m AVMediaSelectionOption) MetadataForFormat(format string) []AVMetadataIte
 		return AVMetadataItemFromID(id)
 	})
 }
+
 // Returns a string suitable for display using the specified locale.
 //
 // locale: The locale to use in generating the display name.
 //
 // # Return Value
-// 
+//
 // A string containing the localized display name.
 //
 // # Discussion
-// 
+//
 // The string takes into account this option’s common metadata, media
 // characteristics and locale properties in addition to the provided locale to
 // formulate a string intended for display
@@ -265,34 +266,36 @@ func (m AVMediaSelectionOption) DisplayNameWithLocale(locale foundation.NSLocale
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("displayNameWithLocale:"), locale)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Returns a media selection option associated with the receiver in a given
 // group.
 //
 // mediaSelectionGroup: A media selection group in which an associated option is to be sought.
 //
 // # Return Value
-// 
+//
 // A media selection option associated with the receiver in
 // `mediaSelectionGroup`, or `nil` if none were found.
 //
 // # Discussion
-// 
+//
 // Audible media selection options often have associated legible media
 // selection options; in particular, audible options are typically associated
 // with forced-only subtitle options with the same locale. See
 // [containsOnlyForcedSubtitles] for a discussion of forced-only subtitles.
 //
-// [containsOnlyForcedSubtitles]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/containsOnlyForcedSubtitles
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionOption/associatedMediaSelectionOption(in:)
+//
+// [containsOnlyForcedSubtitles]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/containsOnlyForcedSubtitles
 func (m AVMediaSelectionOption) AssociatedMediaSelectionOptionInMediaSelectionGroup(mediaSelectionGroup IAVMediaSelectionGroup) IAVMediaSelectionOption {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("associatedMediaSelectionOptionInMediaSelectionGroup:"), mediaSelectionGroup)
 	return AVMediaSelectionOptionFromID(rv)
 }
+
 // Creates a language option for a media selection option.
 //
 // # Return Value
-// 
+//
 // A new language option, or `nil` if the media selection option isn’t an
 // audible or legible option.
 //
@@ -301,23 +304,24 @@ func (m AVMediaSelectionOption) MakeNowPlayingInfoLanguageOption() objectivec.IO
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("makeNowPlayingInfoLanguageOption"))
 	return objectivec.Object{ID: rv}
 }
+
 // Returns a serializable property list that’s sufficient to identify the
 // option within its group.
 //
 // # Return Value
-// 
+//
 // A serializable property list that you can use to obtain an instance of
 // [AVMediaSelectionOption] representing the same option as the receiver using
 // [MediaSelectionOptionWithPropertyList].
 //
 // # Discussion
-// 
+//
 // You can serialize the returned property list using
 // [PropertyListSerialization].
 //
-// [PropertyListSerialization]: https://developer.apple.com/documentation/Foundation/PropertyListSerialization
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionOption/propertyList()
+//
+// [PropertyListSerialization]: https://developer.apple.com/documentation/Foundation/PropertyListSerialization
 func (m AVMediaSelectionOption) PropertyList() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("propertyList"))
 	return objectivec.Object{ID: rv}
@@ -326,47 +330,49 @@ func (m AVMediaSelectionOption) PropertyList() objectivec.IObject {
 // The media type of the media data.
 //
 // # Discussion
-// 
+//
 // The value of the property might be, for example, [audio] or [subtitle].
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionOption/mediaType
 //
 // [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
 // [subtitle]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/subtitle
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionOption/mediaType
 func (m AVMediaSelectionOption) MediaType() AVMediaType {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaType"))
 	return AVMediaType(foundation.NSStringFromID(rv).String())
 }
+
 // The media sub-types of the media data associated with the option.
 //
 // # Discussion
-// 
+//
 // The value is an array of [NSNumber] objects carrying four character codes
 // (of type FourCharCode) as defined in `CoreAudioTypes.H()` for audio media
 // and in `CMFormatDescription.H()` for video media.
-// 
+//
 // Also see [CMFormatDescriptionGetMediaSubType(_:)] for more information
 // about media subtypes.
 //
-// [CMFormatDescriptionGetMediaSubType(_:)]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescriptionGetMediaSubType(_:)
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionOption/mediaSubTypes
+//
+// [CMFormatDescriptionGetMediaSubType(_:)]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescriptionGetMediaSubType(_:)
 func (m AVMediaSelectionOption) MediaSubTypes() []foundation.NSNumber {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("mediaSubTypes"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // An array of metadata items for each common metadata key for which a value
 // is available.
 //
 // # Discussion
-// 
+//
 // You can filter the array of [AVMetadataItem] objects according to locale
 // using [MetadataItemsFromArrayWithLocale], key using
 // [MetadataItemsFromArrayWithKeyKeySpace], or language using
 // [MetadataItemsFromArrayFilteredAndSortedAccordingToPreferredLanguages].
-// 
+//
 // Clients that are filtering media selection options by language should be
 // prepared to handle cases in which the [ExtendedLanguageTag] property value
 // is `nil`. Further, they should be prepared to handle cases in which an
@@ -381,10 +387,11 @@ func (m AVMediaSelectionOption) CommonMetadata() []AVMetadataItem {
 		return AVMetadataItemFromID(id)
 	})
 }
+
 // The metadata formats that contain metadata associated with the option.
 //
 // # Discussion
-// 
+//
 // The array contains [NSString] objects, each representing a metadata format
 // that contains metadata associated with the option (for example, ID3, iTunes
 // metadata, and so on).
@@ -394,25 +401,25 @@ func (m AVMediaSelectionOption) AvailableMetadataFormats() []string {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("availableMetadataFormats"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // A Boolean value that indicates whether the media selection option is
 // playable.
 //
 // # Discussion
-// 
-// If the media data associated with the option cannot be decoded or otherwise
-// rendered, the value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// If the media data associated with the option cannot be decoded or otherwise
+// rendered, the value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionOption/isPlayable
 func (m AVMediaSelectionOption) Playable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isPlayable"))
 	return rv
 }
+
 // A string suitable for display using the current system locale.
 //
 // # Discussion
-// 
+//
 // The string takes into account this option’s common metadata, media
 // characteristics, and locale properties in addition to the provided locale
 // to formulate a string intended for display
@@ -422,6 +429,7 @@ func (m AVMediaSelectionOption) DisplayName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("displayName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The locale for which the media option was authored.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaSelectionOption/locale
@@ -429,16 +437,17 @@ func (m AVMediaSelectionOption) Locale() foundation.NSLocale {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("locale"))
 	return foundation.NSLocaleFromID(objc.ID(rv))
 }
+
 // The IETF BCP 47 language tag associated with the option
 //
 // # Discussion
-// 
+//
 // This property may be `nil` indicating that the underlying media presented
 // when the option is selected carries no language information. This can occur
 // with media formats for which language information is optional, such as HTTP
 // Live Streaming playlists, or that do not accommodate language information
 // in machine-readable form.
-// 
+//
 // Clients that are filtering media selection options by language should be
 // prepared to handle cases in which this value is `nil`. Further, they should
 // be prepared to handle cases in which an `extendedLanguageTag` is present
@@ -450,4 +459,3 @@ func (m AVMediaSelectionOption) ExtendedLanguageTag() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("extendedLanguageTag"))
 	return foundation.NSStringFromID(rv).String()
 }
-

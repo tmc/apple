@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZSmartMagnifyEventClass) Alloc() VZSmartMagnifyEvent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZSmartMagnifyEvent.InitWithEvent]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSmartMagnifyEvent
 type VZSmartMagnifyEvent struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZSmartMagnifyEvent struct {
 func VZSmartMagnifyEventFromID(id objc.ID) VZSmartMagnifyEvent {
 	return VZSmartMagnifyEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure VZSmartMagnifyEvent implements IVZSmartMagnifyEvent.
 var _ IVZSmartMagnifyEvent = VZSmartMagnifyEvent{}
 
@@ -91,7 +93,6 @@ func NewVZSmartMagnifyEvent() VZSmartMagnifyEvent {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSmartMagnifyEvent/initWithEvent:
 func NewVZSmartMagnifyEventWithEvent(event objectivec.IObject) VZSmartMagnifyEvent {
 	instance := getVZSmartMagnifyEventClass().Alloc()
@@ -99,10 +100,8 @@ func NewVZSmartMagnifyEventWithEvent(event objectivec.IObject) VZSmartMagnifyEve
 	return VZSmartMagnifyEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSmartMagnifyEvent/initWithEvent:
 func (v VZSmartMagnifyEvent) InitWithEvent(event objectivec.IObject) VZSmartMagnifyEvent {
 	rv := objc.Send[VZSmartMagnifyEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }
-

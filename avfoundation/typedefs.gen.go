@@ -222,4 +222,3 @@ type AVVideoCompositionPerFrameHDRDisplayMetadataPolicy = string
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoRange
 type AVVideoRange = string
-

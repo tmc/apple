@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVAssetReaderOutputClass) Alloc() AVAssetReaderOutput {
 // asset reader.
 //
 // # Overview
-// 
+//
 // You add concrete output instances, such as [AVAssetReaderTrackOutput] or
 // [AVAssetReaderVideoCompositionOutput], to an asset reader to perform
 // specific tasks.
@@ -67,6 +68,7 @@ type AVAssetReaderOutput struct {
 func AVAssetReaderOutputFromID(id objc.ID) AVAssetReaderOutput {
 	return AVAssetReaderOutput{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetReaderOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,4 +114,3 @@ func (a AVAssetReaderOutput) MediaType() AVMediaType {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("mediaType"))
 	return AVMediaType(foundation.NSStringFromID(rv).String())
 }
-

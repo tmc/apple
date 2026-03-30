@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,13 +48,13 @@ func (nc NSSliderClass) Alloc() NSSlider {
 // a knob representing the currently selected value.
 //
 // # Overview
-// 
+//
 // A slider is a UI element that displays a range of values in the app.
 // Sliders can be vertical or horizontal bars or circular dials. An indicator,
 // or knob, notes the current setting. The user can move the knob in the
 // slider’s bar—or rotate the knob in a circular slider—to change the
 // setting.
-// 
+//
 // The [NSSlider] class uses the [NSSliderCell] class to implement its user
 // interface.
 //
@@ -108,6 +109,7 @@ type NSSlider struct {
 func NSSliderFromID(id objc.ID) NSSlider {
 	return NSSlider{NSControl: NSControlFromID(id)}
 }
+
 // NOTE: NSSlider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -247,12 +249,12 @@ func NewSliderWithCoder(coder foundation.INSCoder) NSSlider {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -275,7 +277,7 @@ func NewSliderWithFrame(frameRect corefoundation.CGRect) NSSlider {
 // action: The action message sent by the control.
 //
 // # Return Value
-// 
+//
 // An initialized slider control.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/init(target:action:)
@@ -298,7 +300,7 @@ func NewSliderWithTargetAction(target objectivec.IObject, action objc.SEL) NSSli
 // action: The action message sent by the control.
 //
 // # Return Value
-// 
+//
 // An initialized slider control.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/init(value:minValue:maxValue:target:action:)
@@ -312,11 +314,11 @@ func NewSliderWithValueMinValueMaxValueTargetAction(value float64, minValue floa
 // value: The value for which to return the closest tick mark.
 //
 // # Return Value
-// 
+//
 // The value of the tick mark closest to `aValue`.
 //
 // # Discussion
-// 
+//
 // In its implementation of this method, the slider invokes the method of the
 // same name of its [NSSliderCell] instance.
 //
@@ -325,19 +327,20 @@ func (s NSSlider) ClosestTickMarkValueToValue(value float64) float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("closestTickMarkValueToValue:"), value)
 	return rv
 }
+
 // Returns the index of the tick mark closest to the location of the slider
 // represented by the given point.
 //
 // point: The point representing the location for which to retrieve the tick mark.
 //
 // # Return Value
-// 
+//
 // The index of the tick mark closest to the location specified by `point`. If
 // `point` is not within the bounding rectangle (plus an extra pixel of space)
 // of any tick mark, the method returns [NSNotFound].
 //
 // # Discussion
-// 
+//
 // In its implementation of this method, the receiving [NSSlider] instance
 // invokes the method of the same name of its [NSSliderCell] instance. This
 // method invokes [RectOfTickMarkAtIndex] for each tick mark on the slider
@@ -348,17 +351,18 @@ func (s NSSlider) IndexOfTickMarkAtPoint(point corefoundation.CGPoint) int {
 	rv := objc.Send[int](s.ID, objc.Sel("indexOfTickMarkAtPoint:"), point)
 	return rv
 }
+
 // Returns the bounding rectangle of the tick mark at the given index.
 //
 // index: The index of the tick mark for which to retrieve the bounds. The
 // minimum-value tick mark is at index `0`.
 //
 // # Return Value
-// 
+//
 // The bounding rectangle of the specified tick mark.
 //
 // # Discussion
-// 
+//
 // If no tick mark is associated with `index`, the method raises
 // [NSRangeException]. In its implementation of this method, the receiving
 // [NSSlider] instance invokes the method of the same name of its
@@ -369,6 +373,7 @@ func (s NSSlider) RectOfTickMarkAtIndex(index int) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("rectOfTickMarkAtIndex:"), index)
 	return corefoundation.CGRect(rv)
 }
+
 // Returns the slider’s value represented by the tick mark at the specified
 // index.
 //
@@ -376,11 +381,11 @@ func (s NSSlider) RectOfTickMarkAtIndex(index int) corefoundation.CGRect {
 // tick mark has an index of `0`.
 //
 // # Return Value
-// 
+//
 // The value of the specified tick mark.
 //
 // # Discussion
-// 
+//
 // In its implementation of this method, the receiving [NSSlider] instance
 // invokes the method of the same name of its [NSSliderCell] instance.
 //
@@ -389,66 +394,63 @@ func (s NSSlider) TickMarkValueAtIndex(index int) float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("tickMarkValueAtIndex:"), index)
 	return rv
 }
+
 // Decrements the slider’s value.
 //
 // # Return Value
-// 
-// [true] if the action was successfully triggered; otherwise, [false]. This
+//
+// true if the action was successfully triggered; otherwise, false. This
 // method does not indicate the success or failure of the action, just the
 // fact that the action was successfully triggered.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // # Discussion
-// 
+//
 // This method must post an [valueChanged] notification after changing the
 // slider’s value.
 //
-// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySlider/accessibilityPerformDecrement()
+//
+// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
 func (s NSSlider) AccessibilityPerformDecrement() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformDecrement"))
 	return rv
 }
+
 // Increments the slider’s value.
 //
 // # Return Value
-// 
-// [true] if the action was successfully triggered; otherwise, [false]. This
+//
+// true if the action was successfully triggered; otherwise, false. This
 // method does not indicate the success or failure of the action, just the
 // fact that the action was successfully triggered.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // # Discussion
-// 
+//
 // This method must post an [valueChanged] notification after changing the
 // slider’s value.
 //
-// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySlider/accessibilityPerformIncrement()
+//
+// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
 func (s NSSlider) AccessibilityPerformIncrement() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformIncrement"))
 	return rv
 }
+
 // Returns the slider’s value.
 //
 // # Return Value
-// 
+//
 // The value for the slider.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityValue] property.
 //
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySlider/accessibilityValue()
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
 func (s NSSlider) AccessibilityValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityValue"))
 	return objectivec.Object{ID: rv}
@@ -457,12 +459,12 @@ func (s NSSlider) AccessibilityValue() objectivec.IObject {
 // The type of the slider, such as vertical or circular.
 //
 // # Discussion
-// 
+//
 // See [NSSlider.SliderType] for possible values.
 //
-// [NSSlider.SliderType]: https://developer.apple.com/documentation/AppKit/NSSlider/SliderType-swift.enum
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/sliderType-swift.property
+//
+// [NSSlider.SliderType]: https://developer.apple.com/documentation/AppKit/NSSlider/SliderType-swift.enum
 func (s NSSlider) SliderType() NSSliderType {
 	rv := objc.Send[NSSliderType](s.ID, objc.Sel("sliderType"))
 	return NSSliderType(rv)
@@ -470,11 +472,12 @@ func (s NSSlider) SliderType() NSSliderType {
 func (s NSSlider) SetSliderType(value NSSliderType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSliderType:"), value)
 }
+
 // The amount by which the slider changes its value when the user Option-drags
 // the slider knob.
 //
 // # Discussion
-// 
+//
 // By default, the value of this property is `-1.0`, and the slider behaves no
 // differently with the Option key down than with it up. The value of this
 // property must fit the range of values the slider can represent—for
@@ -489,10 +492,11 @@ func (s NSSlider) AltIncrementValue() float64 {
 func (s NSSlider) SetAltIncrementValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAltIncrementValue:"), value)
 }
+
 // The knob’s thickness, in pixels.
 //
 // # Discussion
-// 
+//
 // The thickness is defined to be the extent of the knob along the long
 // dimension of the bar. In a vertical slider, a knob’s thickness is its
 // height; in a horizontal slider, a knob’s thickness is its width.
@@ -502,11 +506,12 @@ func (s NSSlider) KnobThickness() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("knobThickness"))
 	return rv
 }
+
 // An integer indicating the orientation (horizontal or vertical) of the
 // slider.
 //
 // # Discussion
-// 
+//
 // The value of this property is `1` if the slider is vertical, `0` if it’s
 // horizontal, and `-1` if the orientation is unknown (for example, if the
 // slider hasn’t been displayed yet). A slider is defined as vertical if its
@@ -520,6 +525,7 @@ func (s NSSlider) Vertical() bool {
 func (s NSSlider) SetVertical(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVertical:"), value)
 }
+
 // The color of the filled portion of the slider track, in appearances that
 // support it.
 //
@@ -531,15 +537,16 @@ func (s NSSlider) TrackFillColor() INSColor {
 func (s NSSlider) SetTrackFillColor(value INSColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTrackFillColor:"), value)
 }
+
 // The tint prominence of the slider. The automatic behavior for a regular
 // slider tints its track fill, while a slider with tick marks is untinted.
 // Setting the tint prominence will override this default behavior and choose
 // an explicit track fill tint behavior. See [NSTintProminence] for a list of
 // possible values.
 //
-// [NSTintProminence]: https://developer.apple.com/documentation/AppKit/NSTintProminence
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/tintProminence
+//
+// [NSTintProminence]: https://developer.apple.com/documentation/AppKit/NSTintProminence
 func (s NSSlider) TintProminence() NSTintProminence {
 	rv := objc.Send[NSTintProminence](s.ID, objc.Sel("tintProminence"))
 	return NSTintProminence(rv)
@@ -547,10 +554,11 @@ func (s NSSlider) TintProminence() NSTintProminence {
 func (s NSSlider) SetTintProminence(value NSTintProminence) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTintProminence:"), value)
 }
+
 // The maximum value the slider can send to its target.
 //
 // # Discussion
-// 
+//
 // The slider’s maximum value. A horizontal slider sends the maximum value
 // when the knob is all the way to the trailing end of the bar. A vertical
 // slider sends the maximum value when the knob is at the top.
@@ -563,10 +571,11 @@ func (s NSSlider) MaxValue() float64 {
 func (s NSSlider) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
+
 // The minimum value the slider can send to its target.
 //
 // # Discussion
-// 
+//
 // A horizontal slider sends the minimum value when the knob is all the way to
 // the leading end of the bar. A vertical slider sends the minimum value when
 // its knob is at the bottom.
@@ -579,23 +588,21 @@ func (s NSSlider) MinValue() float64 {
 func (s NSSlider) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
+
 // A Boolean value that indicates whether the slider fixes its values to those
 // values represented by its tick marks.
 //
 // # Discussion
-// 
-// This value is [true] if the slider fixes its values to the values
-// represented by its tick marks; otherwise it’s [false]. For example, if a
-// slider has a minimum value of `0`, a maximum value of `100`, and five
-// markers, the allowable values are `0`, `25`, `50`, `75`, and `100`. When
-// users move the slider’s knob, it jumps to the tick mark nearest the
-// cursor when the mouse button is released. This method has no effect if the
-// slider has no tick marks. In its implementation of this method, the
-// receiving [NSSlider] instance invokes the method of the same name of its
-// [NSSliderCell] instance.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This value is true if the slider fixes its values to the values represented
+// by its tick marks; otherwise it’s false. For example, if a slider has a
+// minimum value of `0`, a maximum value of `100`, and five markers, the
+// allowable values are `0`, `25`, `50`, `75`, and `100`. When users move the
+// slider’s knob, it jumps to the tick mark nearest the cursor when the
+// mouse button is released. This method has no effect if the slider has no
+// tick marks. In its implementation of this method, the receiving [NSSlider]
+// instance invokes the method of the same name of its [NSSliderCell]
+// instance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/allowsTickMarkValuesOnly
 func (s NSSlider) AllowsTickMarkValuesOnly() bool {
@@ -605,10 +612,11 @@ func (s NSSlider) AllowsTickMarkValuesOnly() bool {
 func (s NSSlider) SetAllowsTickMarkValuesOnly(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsTickMarkValuesOnly:"), value)
 }
+
 // The number of tick marks associated with the slider.
 //
 // # Discussion
-// 
+//
 // This property includes tick marks assigned to the minimum and maximum
 // values. In its implementation of this property, the receiving [NSSlider]
 // instance invokes the method of the same name of its [NSSliderCell]
@@ -624,22 +632,19 @@ func (s NSSlider) NumberOfTickMarks() int {
 func (s NSSlider) SetNumberOfTickMarks(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNumberOfTickMarks:"), value)
 }
+
 // Determines where the slider’s tick marks are displayed.
 //
 // # Discussion
-// 
-// For horizontal sliders, use [NSSlider.TickMarkPosition.below] and
-// [NSSlider.TickMarkPosition.above]. For vertical sliders, use [leading], and
-// [trailing]. The default positions are `below` for horizontal and `leading`
-// for vertical. This property has no effect if [NumberOfTickMarks] is `0`, or
-// if the slider is circular. In its implementation of this property, the
-// receiving [NSSlider] instance invokes the method of the same name of its
-// [NSSliderCell] instance.
 //
-// [NSSlider.TickMarkPosition.above]: https://developer.apple.com/documentation/AppKit/NSSlider/TickMarkPosition-swift.enum/above
-// [NSSlider.TickMarkPosition.below]: https://developer.apple.com/documentation/AppKit/NSSlider/TickMarkPosition-swift.enum/below
-// [leading]: https://developer.apple.com/documentation/AppKit/NSSlider/TickMarkPosition-swift.enum/leading
-// [trailing]: https://developer.apple.com/documentation/AppKit/NSSlider/TickMarkPosition-swift.enum/trailing
+// For horizontal sliders, use [NSTickMarkPositionBelow] and
+// [NSTickMarkPositionAbove]. For vertical sliders, use
+// [NSTickMarkPositionLeading], and [NSTickMarkPositionTrailing]. The default
+// positions are `below` for horizontal and `leading` for vertical. This
+// property has no effect if [NumberOfTickMarks] is `0`, or if the slider is
+// circular. In its implementation of this property, the receiving [NSSlider]
+// instance invokes the method of the same name of its [NSSliderCell]
+// instance.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/tickMarkPosition-swift.property
 func (s NSSlider) TickMarkPosition() NSTickMarkPosition {
@@ -649,6 +654,7 @@ func (s NSSlider) TickMarkPosition() NSTickMarkPosition {
 func (s NSSlider) SetTickMarkPosition(value NSTickMarkPosition) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTickMarkPosition:"), value)
 }
+
 // The value this slider will be filled from. This slider will be filled from
 // its `neutralValue` to its current value. If `neutralValue` has not been
 // explicitly set before, access to `neutralValue` will return `minValue`.
@@ -662,87 +668,86 @@ func (s NSSlider) SetNeutralValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNeutralValue:"), value)
 }
 
-			// Protocol methods for NSAccessibilitySlider
-			
+// Protocol methods for NSAccessibilitySlider
+
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
-// 
+//
 // The element’s frame in screen coordinates.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityFrame] property. This method is called whenever accessibility
 // clients request the [size] or [position] attributes.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
+//
 // [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
 // [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSSlider) AccessibilityFrame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
-	}
+}
+
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
 // # Return Value
-// 
+//
 // The element’s parent in the accessibility hierarchy.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityParent] property.
 //
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
+//
+// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 func (o NSSlider) AccessibilityParent() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // Returns the accessibility element’s identity.
 //
 // # Return Value
-// 
+//
 // Returns the unique ID for the accessibility element. It is often used in
 // automated testing.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityIdentifier] property.
 //
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
+//
+// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 func (o NSSlider) AccessibilityIdentifier() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
 // # Return Value
-// 
-// [true] if this element has the keyboard focus; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if this element has the keyboard focus; otherwise, false.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityFocused] property.
 //
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
+//
+// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 func (o NSSlider) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
-	}
-
+}

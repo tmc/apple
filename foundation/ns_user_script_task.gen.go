@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,12 +46,12 @@ func (nc NSUserScriptTaskClass) Alloc() NSUserScriptTask {
 // An object that executes scripts.
 //
 // # Overview
-// 
+//
 // The [NSUserScriptTask] class is able to run all the scripts normally run by
 // the one of its subclasses, however it ignores the results. It is intended
 // to execute user-supplied scripts and will execute them outside of the
 // application’s sandbox, if any.
-// 
+//
 // If you need to execute scripts and get the input and output information use
 // the [NSUserUnixTask], [NSUserAppleScriptTask], and [NSUserAutomatorTask]
 // sub classes.
@@ -75,6 +76,7 @@ type NSUserScriptTask struct {
 func NSUserScriptTaskFromID(id objc.ID) NSUserScriptTask {
 	return NSUserScriptTask{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSUserScriptTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -130,16 +132,16 @@ func NewNSUserScriptTask() NSUserScriptTask {
 // url: The script URL.
 //
 // # Return Value
-// 
+//
 // An instance of an [NSUserScriptTask] subclass or `nil` if the file does not
 // appear to match any of the known types.
 //
 // # Discussion
-// 
+//
 // The returned object will be of one of the specific sub-classes
 // ([NSUserUnixTask], [NSUserAppleScriptTask], and [NSUserAutomatorTask]), or
 // `nil` if the file does not appear to match any of the known types.
-// 
+//
 // If invoked from a subclass, the result will be that class or `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
@@ -159,16 +161,16 @@ func NewUserScriptTaskWithURLError(url INSURL) (NSUserScriptTask, error) {
 // url: The script URL.
 //
 // # Return Value
-// 
+//
 // An instance of an [NSUserScriptTask] subclass or `nil` if the file does not
 // appear to match any of the known types.
 //
 // # Discussion
-// 
+//
 // The returned object will be of one of the specific sub-classes
 // ([NSUserUnixTask], [NSUserAppleScriptTask], and [NSUserAutomatorTask]), or
 // `nil` if the file does not appear to match any of the known types.
-// 
+//
 // If invoked from a subclass, the result will be that class or `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
@@ -182,29 +184,30 @@ func (u NSUserScriptTask) InitWithURLError(url INSURL) (NSUserScriptTask, error)
 	return NSUserScriptTaskFromID(rv), nil
 
 }
+
 // Executes the script with no input and ignoring any result.
 //
 // handler: The completion handler Block that returns the result or an error. See
 // [NSUserScriptTaskCompletionHandler].
 //
 // # Discussion
-// 
+//
 // This method should be invoked no more than once for a given instance of the
 // class.
-// 
+//
 // If the script completed normally, the completion handler’s `error`
 // parameter will be `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/execute(completionHandler:)
 func (u NSUserScriptTask) ExecuteWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](u.ID, objc.Sel("executeWithCompletionHandler:"), _block0)
 }
 
 // The URL of the script file.
 //
 // # Return Value
-// 
+//
 // The URL of the script file.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/scriptURL
@@ -212,4 +215,3 @@ func (u NSUserScriptTask) ScriptURL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("scriptURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-

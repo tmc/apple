@@ -4,9 +4,11 @@ package avfoundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // Methods for receiving audio sample data from an audio capture.
@@ -20,6 +22,7 @@ type AVCaptureAudioDataOutputSampleBufferDelegate interface {
 type AVCaptureAudioDataOutputSampleBufferDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVCaptureAudioDataOutputSampleBufferDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -43,7 +46,7 @@ func AVCaptureAudioDataOutputSampleBufferDelegateObjectFromID(id objc.ID) AVCapt
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutputSampleBufferDelegate/captureOutput(_:didOutput:from:)
 func (o AVCaptureAudioDataOutputSampleBufferDelegateObject) CaptureOutputDidOutputSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer uintptr, connection IAVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didOutputSampleBuffer:fromConnection:"), output, sampleBuffer, connection)
-	}
+}
 
 // AVCaptureAudioDataOutputSampleBufferDelegateConfig holds optional typed callbacks for [AVCaptureAudioDataOutputSampleBufferDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -106,4 +109,3 @@ func NewAVCaptureAudioDataOutputSampleBufferDelegate(config AVCaptureAudioDataOu
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVCaptureAudioDataOutputSampleBufferDelegateObjectFromID(instance)
 }
-

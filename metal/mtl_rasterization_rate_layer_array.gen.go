@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,6 +61,7 @@ type MTLRasterizationRateLayerArray struct {
 func MTLRasterizationRateLayerArrayFromID(id objc.ID) MTLRasterizationRateLayerArray {
 	return MTLRasterizationRateLayerArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLRasterizationRateLayerArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,17 +114,18 @@ func NewMTLRasterizationRateLayerArray() MTLRasterizationRateLayerArray {
 // layerIndex: The index of the sample you want to retrieve.
 //
 // # Return Value
-// 
+//
 // An [NSNumber] instance describing the value of the sample at the specified
 // index, or `0` if the index is out of range.
 //
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
-//
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerArray/subscript(_:)
+//
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 func (r MTLRasterizationRateLayerArray) ObjectAtIndexedSubscript(layerIndex uint) IMTLRasterizationRateLayerDescriptor {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectAtIndexedSubscript:"), layerIndex)
 	return MTLRasterizationRateLayerDescriptorFromID(rv)
 }
+
 // Stores a sample value at the specified index.
 //
 // layer: The layer descriptor to set
@@ -130,7 +133,7 @@ func (r MTLRasterizationRateLayerArray) ObjectAtIndexedSubscript(layerIndex uint
 // layerIndex: The index of the sample you want to set.
 //
 // # Discussion
-// 
+//
 // The method converts the value to a single precision floating point value.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerArray/setObject:atIndexedSubscript:
@@ -148,6 +151,7 @@ func (r MTLRasterizationRateLayerArray) LayerCount() int {
 func (r MTLRasterizationRateLayerArray) SetLayerCount(value int) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLayerCount:"), value)
 }
+
 // The rasterization rates for one or more layers in the rate map.
 //
 // See: https://developer.apple.com/documentation/metal/mtlrasterizationratemapdescriptor/layers
@@ -158,4 +162,3 @@ func (r MTLRasterizationRateLayerArray) Layers() IMTLRasterizationRateLayerArray
 func (r MTLRasterizationRateLayerArray) SetLayers(value IMTLRasterizationRateLayerArray) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLayers:"), value)
 }
-

@@ -3,10 +3,11 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (gc GTMioCounterDataClass) Alloc() GTMioCounterData {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioCounterData.CounterIndex]
@@ -59,6 +59,7 @@ func (gc GTMioCounterDataClass) Alloc() GTMioCounterData {
 //   - [GTMioCounterData.ValueType]
 //   - [GTMioCounterData.Values]
 //   - [GTMioCounterData.InitWithContainerIndexScopeScopeIndex]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData
 type GTMioCounterData struct {
 	objectivec.Object
@@ -68,6 +69,7 @@ type GTMioCounterData struct {
 func GTMioCounterDataFromID(id objc.ID) GTMioCounterData {
 	return GTMioCounterData{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioCounterData implements IGTMioCounterData.
 var _ IGTMioCounterData = GTMioCounterData{}
 
@@ -129,7 +131,6 @@ func NewGTMioCounterData() GTMioCounterData {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/initWithContainer:index:scope:scopeIndex:
 func NewGTMioCounterDataWithContainerIndexScopeScopeIndex(container unsafe.Pointer, index uint64, scope uint16, index2 uint64) GTMioCounterData {
 	instance := getGTMioCounterDataClass().Alloc()
@@ -137,7 +138,6 @@ func NewGTMioCounterDataWithContainerIndexScopeScopeIndex(container unsafe.Point
 	return GTMioCounterDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/initWithContainer:index:scope:scopeIndex:
 func (g GTMioCounterData) InitWithContainerIndexScopeScopeIndex(container unsafe.Pointer, index uint64, scope uint16, index2 uint64) GTMioCounterData {
 	rv := objc.Send[GTMioCounterData](g.ID, objc.Sel("initWithContainer:index:scope:scopeIndex:"), container, index, scope, index2)
@@ -149,56 +149,67 @@ func (g GTMioCounterData) CounterIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("counterIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/dataType
 func (g GTMioCounterData) DataType() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("dataType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/maxValue
 func (g GTMioCounterData) MaxValue() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("maxValue"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/minValue
 func (g GTMioCounterData) MinValue() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("minValue"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/name
 func (g GTMioCounterData) Name() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/sampleCount
 func (g GTMioCounterData) SampleCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("sampleCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/sampleInterval
 func (g GTMioCounterData) SampleInterval() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("sampleInterval"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/scope
 func (g GTMioCounterData) Scope() uint16 {
 	rv := objc.Send[uint16](g.ID, objc.Sel("scope"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/scopeIndex
 func (g GTMioCounterData) ScopeIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("scopeIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/timestamps
 func (g GTMioCounterData) Timestamps() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("timestamps"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/valueType
 func (g GTMioCounterData) ValueType() uint16 {
 	rv := objc.Send[uint16](g.ID, objc.Sel("valueType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioCounterData/values
 func (g GTMioCounterData) Values() []float64 {
 	rv := objc.Send[[]objc.ID](g.ID, objc.Sel("values"))
@@ -206,4 +217,3 @@ func (g GTMioCounterData) Values() []float64 {
 		return float64(id)
 	})
 }
-

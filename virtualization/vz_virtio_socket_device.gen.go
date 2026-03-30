@@ -5,6 +5,7 @@ package virtualization
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -45,14 +46,14 @@ func (vc VZVirtioSocketDeviceClass) Alloc() VZVirtioSocketDevice {
 // the host computer.
 //
 // # Overview
-// 
+//
 // Use a [VZVirtioSocketDevice] object to configure services and other
 // communication end points in your virtual machine. Host computers make
 // services available using ports, which identify the type of service and the
 // protocol to use when transmitting data. Use this object to specify the
 // ports available to your guest operating system, and to register handlers to
 // manage the communication on those ports.
-// 
+//
 // Don’t create a [VZVirtioSocketDevice] object directly. Instead, when you
 // request a socket device in your configuration, the virtual machine creates
 // it and stores it in the [VZVirtioSocketDevice.SocketDevices] property. For each port you want to
@@ -80,6 +81,7 @@ type VZVirtioSocketDevice struct {
 func VZVirtioSocketDeviceFromID(id objc.ID) VZVirtioSocketDevice {
 	return VZVirtioSocketDevice{VZSocketDevice: VZSocketDeviceFromID(id)}
 }
+
 // NOTE: VZVirtioSocketDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -138,7 +140,7 @@ func NewVZVirtioSocketDevice() VZVirtioSocketDevice {
 // port: The port number to monitor.
 //
 // # Discussion
-// 
+//
 // You can register the same listener object on multiple ports. When the guest
 // operating system opens a connection to the port, the listener object
 // notifies its associated delegate.
@@ -147,6 +149,7 @@ func NewVZVirtioSocketDevice() VZVirtioSocketDevice {
 func (v VZVirtioSocketDevice) SetSocketListenerForPort(listener IVZVirtioSocketListener, port uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setSocketListener:forPort:"), listener, port)
 }
+
 // Removes the listener object from the specfied port.
 //
 // port: The port number to clear. If the specified port doesn’t have a listener
@@ -156,23 +159,24 @@ func (v VZVirtioSocketDevice) SetSocketListenerForPort(listener IVZVirtioSocketL
 func (v VZVirtioSocketDevice) RemoveSocketListenerForPort(port uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeSocketListenerForPort:"), port)
 }
+
 // Initiates a connection to the specified port of the guest operating system.
 //
 // port: The destination port number in the guest operating system.
 //
 // # Discussion
-// 
+//
 // This method initiates the connection asynchronously, and executes the
 // completion handler when the results are available. If the guest operating
 // system doesn’t listen for connections to the specifed port, this method
 // does nothing.
-// 
+//
 // For a successful connection, this method sets the [SourcePort] property of
 // the resulting [VZVirtioSocketConnection] object to a random port number.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice/connect(toPort:)
 func (v VZVirtioSocketDevice) ConnectToPortCompletionHandler(port uint32, completionHandler VirtioSocketConnectionErrorHandler) {
-_block1, _ := NewVirtioSocketConnectionErrorBlock(completionHandler)
+	_block1, _ := NewVirtioSocketConnectionErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("connectToPort:completionHandler:"), port, _block1)
 }
 
@@ -194,4 +198,3 @@ func (v VZVirtioSocketDevice) ConnectToPort(ctx context.Context, port uint32) (*
 		return nil, ctx.Err()
 	}
 }
-

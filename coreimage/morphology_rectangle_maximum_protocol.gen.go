@@ -49,6 +49,7 @@ type CIMorphologyRectangleMaximum interface {
 type CIMorphologyRectangleMaximumObject struct {
 	objectivec.Object
 }
+
 func (o CIMorphologyRectangleMaximumObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CIMorphologyRectangleMaximumObjectFromID(id objc.ID) CIMorphologyRectangleM
 func (o CIMorphologyRectangleMaximumObject) Height() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("height"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMaximum/inputImage
 func (o CIMorphologyRectangleMaximumObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The width, in pixels, of the morphological structuring element.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMaximum/width
 func (o CIMorphologyRectangleMaximumObject) Width() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,33 @@ func (o CIMorphologyRectangleMaximumObject) Width() float32 {
 func (o CIMorphologyRectangleMaximumObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The height, in pixels, of the morphological structuring element.
+//
+// # Discussion
+//
+// The value is rounded to the nearest odd integer.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMaximum/height
 func (o CIMorphologyRectangleMaximumObject) SetHeight(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHeight:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMaximum/inputImage
 func (o CIMorphologyRectangleMaximumObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The width, in pixels, of the morphological structuring element.
+//
+// # Discussion
+//
+// The value is rounded to the nearest odd integer.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMaximum/width
 func (o CIMorphologyRectangleMaximumObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }
-

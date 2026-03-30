@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (gc GTAGX2ShaderProfilerTimingClass) Alloc() GTAGX2ShaderProfilerTiming {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTAGX2ShaderProfilerTiming.Cycles]
@@ -51,6 +51,7 @@ func (gc GTAGX2ShaderProfilerTimingClass) Alloc() GTAGX2ShaderProfilerTiming {
 //   - [GTAGX2ShaderProfilerTiming.MinTime]
 //   - [GTAGX2ShaderProfilerTiming.Time]
 //   - [GTAGX2ShaderProfilerTiming.InitWithTiming]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerTiming
 type GTAGX2ShaderProfilerTiming struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type GTAGX2ShaderProfilerTiming struct {
 func GTAGX2ShaderProfilerTimingFromID(id objc.ID) GTAGX2ShaderProfilerTiming {
 	return GTAGX2ShaderProfilerTiming{objectivec.Object{ID: id}}
 }
+
 // Ensure GTAGX2ShaderProfilerTiming implements IGTAGX2ShaderProfilerTiming.
 var _ IGTAGX2ShaderProfilerTiming = GTAGX2ShaderProfilerTiming{}
 
@@ -109,7 +111,6 @@ func NewGTAGX2ShaderProfilerTiming() GTAGX2ShaderProfilerTiming {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerTiming/initWithTiming:
 func NewGTAGX2ShaderProfilerTimingWithTiming(timing IGTAGX2ShaderProfilerTiming) GTAGX2ShaderProfilerTiming {
 	instance := getGTAGX2ShaderProfilerTimingClass().Alloc()
@@ -122,35 +123,39 @@ func (g GTAGX2ShaderProfilerTiming) Cycles() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("cycles"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerTiming/maxCycles
 func (g GTAGX2ShaderProfilerTiming) MaxCycles() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("maxCycles"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerTiming/maxTime
 func (g GTAGX2ShaderProfilerTiming) MaxTime() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("maxTime"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerTiming/minCycles
 func (g GTAGX2ShaderProfilerTiming) MinCycles() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("minCycles"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerTiming/minTime
 func (g GTAGX2ShaderProfilerTiming) MinTime() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("minTime"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerTiming/time
 func (g GTAGX2ShaderProfilerTiming) Time() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("time"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2ShaderProfilerTiming/initWithTiming:
 func (g GTAGX2ShaderProfilerTiming) InitWithTiming(timing IGTAGX2ShaderProfilerTiming) GTAGX2ShaderProfilerTiming {
 	rv := objc.Send[GTAGX2ShaderProfilerTiming](g.ID, objc.Sel("initWithTiming:"), timing)
 	return rv
 }
-

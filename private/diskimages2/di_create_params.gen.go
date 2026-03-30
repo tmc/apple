@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (dc DICreateParamsClass) Alloc() DICreateParams {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DICreateParams.Certificate]
@@ -77,6 +77,7 @@ func (dc DICreateParamsClass) Alloc() DICreateParams {
 //   - [DICreateParams.TraverseSrcFolderAsRootWithURLParallelModeProgressFolderSizeNumFilesError]
 //   - [DICreateParams.ValidateBlockSizeSupport]
 //   - [DICreateParams.InitWithURLNumBlocksError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams
 type DICreateParams struct {
 	DIBaseParams
@@ -86,6 +87,7 @@ type DICreateParams struct {
 func DICreateParamsFromID(id objc.ID) DICreateParams {
 	return DICreateParams{DIBaseParams: DIBaseParamsFromID(id)}
 }
+
 // Ensure DICreateParams implements IDICreateParams.
 var _ IDICreateParams = DICreateParams{}
 
@@ -181,7 +183,6 @@ func NewDICreateParams() DICreateParams {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithCoder:
 func NewDICreateParamsWithCoder(coder objectivec.IObject) DICreateParams {
 	instance := getDICreateParamsClass().Alloc()
@@ -189,7 +190,6 @@ func NewDICreateParamsWithCoder(coder objectivec.IObject) DICreateParams {
 	return DICreateParamsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithURL:error:
 func NewDICreateParamsWithURLError(url foundation.INSURL) (DICreateParams, error) {
 	var errorPtr objc.ID
@@ -202,7 +202,6 @@ func NewDICreateParamsWithURLError(url foundation.INSURL) (DICreateParams, error
 	return DICreateParamsFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithURL:numBlocks:error:
 func NewDICreateParamsWithURLNumBlocksError(url foundation.INSURL, blocks uint64) (DICreateParams, error) {
 	var errorPtr objc.ID
@@ -215,7 +214,6 @@ func NewDICreateParamsWithURLNumBlocksError(url foundation.INSURL, blocks uint64
 	return DICreateParamsFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/createDiskImageParamsWithError:
 func (d DICreateParams) CreateDiskImageParamsWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -230,11 +228,12 @@ func (d DICreateParams) CreateDiskImageParamsWithError() (bool, error) {
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/createDiskImageParamsXPC
 func (d DICreateParams) CreateDiskImageParamsXPC() {
 	objc.Send[objc.ID](d.ID, objc.Sel("createDiskImageParamsXPC"))
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/createEncryptionWithXPCHandler:error:
 func (d DICreateParams) CreateEncryptionWithXPCHandlerError(xPCHandler objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -249,7 +248,7 @@ func (d DICreateParams) CreateEncryptionWithXPCHandlerError(xPCHandler objective
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/createInternalWithError:
 func (d DICreateParams) CreateInternalWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -261,7 +260,7 @@ func (d DICreateParams) CreateInternalWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/createWithError:
 func (d DICreateParams) CreateWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -273,12 +272,13 @@ func (d DICreateParams) CreateWithError() (objectivec.IObject, error) {
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/onErrorCleanup
 func (d DICreateParams) OnErrorCleanup() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("onErrorCleanup"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/resizeWithDiskImage:numberOfBlocks:error:
 func (d DICreateParams) ResizeWithDiskImageNumberOfBlocksError(image unsafe.Pointer, blocks uint64) (bool, error) {
 	var errorPtr objc.ID
@@ -293,7 +293,7 @@ func (d DICreateParams) ResizeWithDiskImageNumberOfBlocksError(image unsafe.Poin
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/resizeWithNumBlocks:error:
 func (d DICreateParams) ResizeWithNumBlocksError(blocks uint64) (bool, error) {
 	var errorPtr objc.ID
@@ -308,7 +308,7 @@ func (d DICreateParams) ResizeWithNumBlocksError(blocks uint64) (bool, error) {
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/rootCopierWithDstFolderURL:srcFolderURL:progress:error:
 func (d DICreateParams) RootCopierWithDstFolderURLSrcFolderURLProgressError(url foundation.INSURL, url2 foundation.INSURL, progress objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -323,11 +323,11 @@ func (d DICreateParams) RootCopierWithDstFolderURLSrcFolderURLProgressError(url 
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/setPassphrase:encryptionMethod:error:
 func (d DICreateParams) SetPassphraseEncryptionMethodError(passphrase string, method uint64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](d.ID, objc.Sel("setPassphrase:encryptionMethod:error:"), unsafe.Pointer(unsafe.StringData(passphrase + "\x00")), method, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](d.ID, objc.Sel("setPassphrase:encryptionMethod:error:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")), method, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -338,7 +338,7 @@ func (d DICreateParams) SetPassphraseEncryptionMethodError(passphrase string, me
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/traverseSrcFolderAsRootWithURL:parallelMode:progress:folderSize:numFiles:error:
 func (d DICreateParams) TraverseSrcFolderAsRootWithURLParallelModeProgressFolderSizeNumFilesError(url foundation.NSURL, mode bool, progress objectivec.IObject) (uint64, uint64, error) {
 	var size uint64
@@ -354,12 +354,13 @@ func (d DICreateParams) TraverseSrcFolderAsRootWithURLParallelModeProgressFolder
 	}
 	return size, files, nil
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/validateBlockSizeSupport
 func (d DICreateParams) ValidateBlockSizeSupport() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("validateBlockSizeSupport"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithURL:numBlocks:error:
 func (d DICreateParams) InitWithURLNumBlocksError(url foundation.INSURL, blocks uint64) (DICreateParams, error) {
 	var errorPtr objc.ID
@@ -372,7 +373,6 @@ func (d DICreateParams) InitWithURLNumBlocksError(url foundation.INSURL, blocks 
 
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/checkExistingFileWithURL:isDirectory:error:
 func (_DICreateParamsClass DICreateParamsClass) CheckExistingFileWithURLIsDirectoryError(url foundation.INSURL, directory bool) (bool, error) {
 	var errorPtr objc.ID
@@ -387,7 +387,7 @@ func (_DICreateParamsClass DICreateParamsClass) CheckExistingFileWithURLIsDirect
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/eraseIfExistingWithURL:error:
 func (_DICreateParamsClass DICreateParamsClass) EraseIfExistingWithURLError(url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -402,7 +402,7 @@ func (_DICreateParamsClass DICreateParamsClass) EraseIfExistingWithURLError(url 
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/toHeaderEncryptionMode:headerEncMode:error:
 func (_DICreateParamsClass DICreateParamsClass) ToHeaderEncryptionModeHeaderEncModeError(mode uint64, mode2 unsafe.Pointer) (bool, error) {
 	var errorPtr objc.ID
@@ -426,6 +426,7 @@ func (d DICreateParams) Certificate() string {
 func (d DICreateParams) SetCertificate(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCertificate:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/createFromAuthRef
 func (d DICreateParams) CreateFromAuthRef() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("createFromAuthRef"))
@@ -434,6 +435,7 @@ func (d DICreateParams) CreateFromAuthRef() unsafe.Pointer {
 func (d DICreateParams) SetCreateFromAuthRef(value unsafe.Pointer) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCreateFromAuthRef:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/encryptionMethod
 func (d DICreateParams) EncryptionMethod() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("encryptionMethod"))
@@ -442,6 +444,7 @@ func (d DICreateParams) EncryptionMethod() uint64 {
 func (d DICreateParams) SetEncryptionMethod(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEncryptionMethod:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/folderCopyXPCHandler
 func (d DICreateParams) FolderCopyXPCHandler() IDIClient2Controller_XPCHandler {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("folderCopyXPCHandler"))
@@ -450,6 +453,7 @@ func (d DICreateParams) FolderCopyXPCHandler() IDIClient2Controller_XPCHandler {
 func (d DICreateParams) SetFolderCopyXPCHandler(value IDIClient2Controller_XPCHandler) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFolderCopyXPCHandler:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/numBlocks
 func (d DICreateParams) NumBlocks() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("numBlocks"))
@@ -458,6 +462,7 @@ func (d DICreateParams) NumBlocks() uint64 {
 func (d DICreateParams) SetNumBlocks(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNumBlocks:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/passphrase
 func (d DICreateParams) Passphrase() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("passphrase"))
@@ -466,6 +471,7 @@ func (d DICreateParams) Passphrase() bool {
 func (d DICreateParams) SetPassphrase(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPassphrase:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/publicKey
 func (d DICreateParams) PublicKey() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("publicKey"))
@@ -474,6 +480,7 @@ func (d DICreateParams) PublicKey() string {
 func (d DICreateParams) SetPublicKey(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPublicKey:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/systemKeychainAccount
 func (d DICreateParams) SystemKeychainAccount() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("systemKeychainAccount"))
@@ -482,9 +489,9 @@ func (d DICreateParams) SystemKeychainAccount() string {
 func (d DICreateParams) SetSystemKeychainAccount(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSystemKeychainAccount:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/temporaryPassphrase
 func (d DICreateParams) TemporaryPassphrase() IDITemporaryPassphrase {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("temporaryPassphrase"))
 	return DITemporaryPassphraseFromID(objc.ID(rv))
 }
-

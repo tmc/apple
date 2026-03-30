@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,10 +41,10 @@ func (vc VZPCIPassthroughDeviceConfigurationClass) Alloc() VZPCIPassthroughDevic
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZPCIPassthroughDeviceConfiguration.InitWithDomainBusDeviceFunction]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPCIPassthroughDeviceConfiguration
 type VZPCIPassthroughDeviceConfiguration struct {
 	VZPCIDeviceConfiguration
@@ -53,6 +54,7 @@ type VZPCIPassthroughDeviceConfiguration struct {
 func VZPCIPassthroughDeviceConfigurationFromID(id objc.ID) VZPCIPassthroughDeviceConfiguration {
 	return VZPCIPassthroughDeviceConfiguration{VZPCIDeviceConfiguration: VZPCIDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZPCIPassthroughDeviceConfiguration implements IVZPCIPassthroughDeviceConfiguration.
 var _ IVZPCIPassthroughDeviceConfiguration = VZPCIPassthroughDeviceConfiguration{}
 
@@ -90,7 +92,6 @@ func NewVZPCIPassthroughDeviceConfiguration() VZPCIPassthroughDeviceConfiguratio
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPCIPassthroughDeviceConfiguration/initWithDomain:bus:device:function:
 func NewVZPCIPassthroughDeviceConfigurationWithDomainBusDeviceFunction(domain uint32, bus byte, device byte, function byte) VZPCIPassthroughDeviceConfiguration {
 	instance := getVZPCIPassthroughDeviceConfigurationClass().Alloc()
@@ -98,10 +99,8 @@ func NewVZPCIPassthroughDeviceConfigurationWithDomainBusDeviceFunction(domain ui
 	return VZPCIPassthroughDeviceConfigurationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPCIPassthroughDeviceConfiguration/initWithDomain:bus:device:function:
 func (v VZPCIPassthroughDeviceConfiguration) InitWithDomainBusDeviceFunction(domain uint32, bus byte, device byte, function byte) VZPCIPassthroughDeviceConfiguration {
 	rv := objc.Send[VZPCIPassthroughDeviceConfiguration](v.ID, objc.Sel("initWithDomain:bus:device:function:"), domain, bus, device, function)
 	return rv
 }
-

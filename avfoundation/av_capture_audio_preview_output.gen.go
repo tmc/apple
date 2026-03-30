@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVCaptureAudioPreviewOutput] class.
@@ -61,6 +62,7 @@ type AVCaptureAudioPreviewOutput struct {
 func AVCaptureAudioPreviewOutputFromID(id objc.ID) AVCaptureAudioPreviewOutput {
 	return AVCaptureAudioPreviewOutput{AVCaptureOutput: AVCaptureOutputFromID(id)}
 }
+
 // NOTE: AVCaptureAudioPreviewOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,7 +111,7 @@ func NewAVCaptureAudioPreviewOutput() AVCaptureAudioPreviewOutput {
 // The output volume of the audio preview.
 //
 // # Discussion
-// 
+//
 // A value of `1.0` indicates maximum volume, and a value of `0.0` mutes the
 // audio preview.
 //
@@ -121,11 +123,12 @@ func (c AVCaptureAudioPreviewOutput) Volume() float32 {
 func (c AVCaptureAudioPreviewOutput) SetVolume(value float32) {
 	objc.Send[struct{}](c.ID, objc.Sel("setVolume:"), value)
 }
+
 // The unique identifier of the Core Audio output device to use for audio
 // preview.
 //
 // # Discussion
-// 
+//
 // Set the value to the unique identifier of the audio output device, or `nil`
 // to use default system output.
 //
@@ -137,4 +140,3 @@ func (c AVCaptureAudioPreviewOutput) OutputDeviceUniqueID() string {
 func (c AVCaptureAudioPreviewOutput) SetOutputDeviceUniqueID(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOutputDeviceUniqueID:"), objc.String(value))
 }
-

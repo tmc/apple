@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +70,7 @@ type CIHueSaturationValueGradient interface {
 type CIHueSaturationValueGradientObject struct {
 	objectivec.Object
 }
+
 func (o CIHueSaturationValueGradientObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -88,35 +89,40 @@ func CIHueSaturationValueGradientObjectFromID(id objc.ID) CIHueSaturationValueGr
 func (o CIHueSaturationValueGradientObject) ColorSpace() coregraphics.CGColorSpaceRef {
 	rv := objc.Send[coregraphics.CGColorSpaceRef](o.ID, objc.Sel("colorSpace"))
 	return rv
-	}
+}
+
 // A Boolean value specifying whether the dither the generated output.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/dither
 func (o CIHueSaturationValueGradientObject) Dither() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("dither"))
 	return rv
-	}
+}
+
 // The distance from the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/radius
 func (o CIHueSaturationValueGradientObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // The softness of the generated color wheel.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/softness
 func (o CIHueSaturationValueGradientObject) Softness() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("softness"))
 	return rv
-	}
+}
+
 // The lightness of the hue-saturation gradient.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/value
 func (o CIHueSaturationValueGradientObject) Value() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("value"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -124,25 +130,39 @@ func (o CIHueSaturationValueGradientObject) Value() float32 {
 func (o CIHueSaturationValueGradientObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The color space for the generated color wheel.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/colorSpace
 func (o CIHueSaturationValueGradientObject) SetColorSpace(value coregraphics.CGColorSpaceRef) {
 	objc.Send[struct{}](o.ID, objc.Sel("setColorSpace:"), value)
 }
 
+// A Boolean value specifying whether the dither the generated output.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/dither
 func (o CIHueSaturationValueGradientObject) SetDither(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDither:"), value)
 }
 
+// The distance from the center of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/radius
 func (o CIHueSaturationValueGradientObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
 
+// The softness of the generated color wheel.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/softness
 func (o CIHueSaturationValueGradientObject) SetSoftness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSoftness:"), value)
 }
 
+// The lightness of the hue-saturation gradient.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/value
 func (o CIHueSaturationValueGradientObject) SetValue(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setValue:"), value)
 }
-

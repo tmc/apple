@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (xc XMLElementClass) Alloc() XMLElement {
 // The element nodes in an XML tree structure.
 //
 // # Overview
-// 
+//
 // An [NSXMLElement] object may have child nodes, specifically comment nodes,
 // processing-instruction nodes, text nodes, and other [NSXMLElement] nodes.
 // It may also have attribute nodes and namespace nodes associated with it
@@ -55,29 +56,29 @@ func (xc XMLElementClass) Alloc() XMLElement {
 // an [NSXMLElement] object and that child already has a parent,
 // [NSXMLElement] raises an exception; the child must be detached or copied
 // first.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // You can subclass [NSXMLElement] if you want element nodes with more
 // specialized attributes or behavior, for example, paragraph and font
 // attributes that specify how the string value of the element should appear.
-// 
+//
 // # Methods to Override
-// 
+//
 // To subclass [NSXMLElement] you need to override the primary initializer,
 // [InitWithNameURI], and the methods listed below. In most cases, you need
 // only invoke the superclass implementation, adding any subclass-specific
 // code before or after the invocation, as necessary.
-// 
+//
 // [Table data omitted]
-// 
+//
 // [NSXMLElement] implements [isEqual(_:)] to perform a deep comparison: two
 // [NSXMLDocument] objects are not considered equal unless they have the same
 // name, same child nodes, same attributes, and so on. If you want a different
-// standard of comparison, override ``.
-// 
+// standard of comparison, override “.
+//
 // # Special Considerations
-// 
+//
 // Because of the architecture and data model of NSXML, when it parses and
 // processes a source of XML it cannot know about your subclass unless you
 // override the class method [ReplacementClassForClass] to return your custom
@@ -85,14 +86,12 @@ func (xc XMLElementClass) Alloc() XMLElement {
 // counterpart—for example, it is a subclass of [NSXMLNode] that represents
 // CDATA sections—then you can walk the tree after it has been created and
 // insert the new node where appropriate.
-// 
+//
 // Note that you can safely set the root element of the XML document (using
 // the [NSXMLDocument] [SetRootElement]method) to be an instance of your
 // subclass because this method only checks to see if the added node is of an
 // element kind ([NSXMLElementKind]). These precautions do not apply, of
 // course, if you are creating an XML tree programmatically.
-//
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 //
 // # Initializing NSXMLElement Objects
 //
@@ -136,6 +135,8 @@ func (xc XMLElementClass) Alloc() XMLElement {
 //   - [XMLElement.ResolvePrefixForNamespaceURI]: Returns the prefix associated with the specified URI.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement
+//
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 type XMLElement struct {
 	NSXMLNode
 }
@@ -149,6 +150,7 @@ func XMLElementFromID(id objc.ID) XMLElement {
 
 // NSXMLElementFromID is an alias for [XMLElementFromID] for cross-framework compatibility.
 func NSXMLElementFromID(id objc.ID) XMLElement { return XMLElementFromID(id) }
+
 // NOTE: XMLElement adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -289,33 +291,32 @@ func NewXMLElement() XMLElement {
 //
 // kind: An `enum` constant of type [XMLNode.Kind] that indicates the type of node.
 // See Constants for a list of valid NSXMLNodeKind constants.
-// //
-// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 //
 // # Return Value
-// 
+//
 // An [NSXMLNode] object initialized with kind or `nil` if the object
 // couldn’t be created. If `kind` is not a valid NSXMLNodeKind constant, the
 // method returns an [NSXMLNode] object of kind [NSXMLInvalidKind].
 //
 // # Discussion
-// 
+//
 // This method invokes [InitWithKindOptions] with the `options` parameter set
 // to [NSXMLNodeOptionsNone].
-// 
+//
 // Do not use this initializer for creating instances of [NSXMLDTDNode] for
 // attribute-list declarations. Instead, use the [DTDNodeWithXMLString] class
 // method of this class or the [InitWithXMLString] method of the
 // [NSXMLDTDNode] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/init(kind:)
+//
+// [XMLNode.Kind]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum
 func NewXMLElementWithKind(kind NSXMLNodeKind) XMLElement {
 	instance := getXMLElementClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKind:"), kind)
 	return XMLElementFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(kind:options:)
 func NewXMLElementWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLElement {
 	instance := getXMLElementClass().Alloc()
@@ -328,13 +329,13 @@ func NewXMLElementWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) 
 // name: A string specifying the name of the element.
 //
 // # Return Value
-// 
+//
 // The initialized [NSXMLElement] object or `nil` if initialization did not
 // succeed.
 //
 // # Discussion
-// 
-// The XML string representation of this object is ``. This method invokes
+//
+// The XML string representation of this object is “. This method invokes
 // [InitWithNameURI] with the URI parameter set to `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:)
@@ -352,12 +353,12 @@ func NewXMLElementWithName(name string) XMLElement {
 // string: The string value of the receiver’s text node.
 //
 // # Return Value
-// 
+//
 // The initialized [NSXMLElement] object or `nil` if initialization did not
 // succeed.
 //
 // # Discussion
-// 
+//
 // The string representation of this object is ```string```.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:stringValue:)
@@ -375,12 +376,12 @@ func NewXMLElementWithNameStringValue(name string, string_ string) XMLElement {
 // URI: A string that specifies the namespace URI associated with the element.
 //
 // # Return Value
-// 
+//
 // The initialized [NSXMLElement] object or `nil` if initialization did not
 // succeed.
 //
 // # Discussion
-// 
+//
 // You can look up the namespace prefix for this element node based on its URI
 // using [ResolvePrefixForNamespaceURI]. This method is the primary
 // initializer for the [NSXMLElement] class.
@@ -398,7 +399,7 @@ func NewXMLElementWithNameURI(name string, URI string) XMLElement {
 // string: A string containing XML markup for an element.
 //
 // # Return Value
-// 
+//
 // The initialized [NSXMLElement] object or `nil` if initialization did not
 // succeed.
 //
@@ -421,13 +422,13 @@ func NewXMLElementWithXMLStringError(string_ string) (XMLElement, error) {
 // name: A string specifying the name of the element.
 //
 // # Return Value
-// 
+//
 // The initialized [NSXMLElement] object or `nil` if initialization did not
 // succeed.
 //
 // # Discussion
-// 
-// The XML string representation of this object is ``. This method invokes
+//
+// The XML string representation of this object is “. This method invokes
 // [InitWithNameURI] with the URI parameter set to `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:)
@@ -435,6 +436,7 @@ func (x XMLElement) InitWithName(name string) XMLElement {
 	rv := objc.Send[XMLElement](x.ID, objc.Sel("initWithName:"), objc.String(name))
 	return rv
 }
+
 // Returns an [NSXMLElement] object initialized with a specified name and a
 // single text-node child containing a specified value.
 //
@@ -443,12 +445,12 @@ func (x XMLElement) InitWithName(name string) XMLElement {
 // string: The string value of the receiver’s text node.
 //
 // # Return Value
-// 
+//
 // The initialized [NSXMLElement] object or `nil` if initialization did not
 // succeed.
 //
 // # Discussion
-// 
+//
 // The string representation of this object is ```string```.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:stringValue:)
@@ -456,6 +458,7 @@ func (x XMLElement) InitWithNameStringValue(name string, string_ string) XMLElem
 	rv := objc.Send[XMLElement](x.ID, objc.Sel("initWithName:stringValue:"), objc.String(name), objc.String(string_))
 	return rv
 }
+
 // Returns an [NSXMLElement] object initialized with the specified name and
 // URI.
 //
@@ -464,12 +467,12 @@ func (x XMLElement) InitWithNameStringValue(name string, string_ string) XMLElem
 // URI: A string that specifies the namespace URI associated with the element.
 //
 // # Return Value
-// 
+//
 // The initialized [NSXMLElement] object or `nil` if initialization did not
 // succeed.
 //
 // # Discussion
-// 
+//
 // You can look up the namespace prefix for this element node based on its URI
 // using [ResolvePrefixForNamespaceURI]. This method is the primary
 // initializer for the [NSXMLElement] class.
@@ -479,13 +482,14 @@ func (x XMLElement) InitWithNameURI(name string, URI string) XMLElement {
 	rv := objc.Send[XMLElement](x.ID, objc.Sel("initWithName:URI:"), objc.String(name), objc.String(URI))
 	return rv
 }
+
 // Returns an [NSXMLElement] object created from a specified string containing
 // XML markup.
 //
 // string: A string containing XML markup for an element.
 //
 // # Return Value
-// 
+//
 // The initialized [NSXMLElement] object or `nil` if initialization did not
 // succeed.
 //
@@ -502,6 +506,7 @@ func (x XMLElement) InitWithXMLStringError(string_ string) (XMLElement, error) {
 	return NSXMLElementFromID(rv), nil
 
 }
+
 // Returns the child element nodes (as [NSXMLElement] objects) of the receiver
 // that have a specified name.
 //
@@ -512,7 +517,7 @@ func (x XMLElement) InitWithXMLStringError(string_ string) (XMLElement, error) {
 // qualified or non-qualified name.
 //
 // # Return Value
-// 
+//
 // An array of of [NSXMLElement] objects or an empty array if no matching
 // children can be found.
 //
@@ -523,6 +528,7 @@ func (x XMLElement) ElementsForName(name string) []NSXMLElement {
 		return NSXMLElementFromID(id)
 	})
 }
+
 // Returns the child element nodes (as [NSXMLElement] objects) of the receiver
 // that are matched with the specified local name and URI.
 //
@@ -531,7 +537,7 @@ func (x XMLElement) ElementsForName(name string) []NSXMLElement {
 // URI: A string specifying a URI associated with an element.
 //
 // # Return Value
-// 
+//
 // An array of [NSXMLElement] objects or an empty array if no matching
 // children could be found.
 //
@@ -542,12 +548,13 @@ func (x XMLElement) ElementsForLocalNameURI(localName string, URI string) []NSXM
 		return NSXMLElementFromID(id)
 	})
 }
+
 // Adds a child node at the end of the receiver’s current list of children.
 //
 // child: An XML node object to add to the receiver’s children.
 //
 // # Discussion
-// 
+//
 // The new node has an index value that is one greater than the last of the
 // current children.
 //
@@ -555,6 +562,7 @@ func (x XMLElement) ElementsForLocalNameURI(localName string, URI string) []NSXM
 func (x XMLElement) AddChild(child INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("addChild:"), child)
 }
+
 // Inserts a new child node at a specified location in the receiver’s list
 // of child nodes.
 //
@@ -564,13 +572,14 @@ func (x XMLElement) AddChild(child INSXMLNode) {
 // exception is raised if `index` is out of bounds.
 //
 // # Discussion
-// 
+//
 // Insertion of the node increments the indexes of sibling nodes after it.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/insertChild(_:at:)
 func (x XMLElement) InsertChildAtIndex(child INSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChild:atIndex:"), child, index)
 }
+
 // Inserts an array of child nodes at a specified location in the receiver’s
 // list of children.
 //
@@ -580,7 +589,7 @@ func (x XMLElement) InsertChildAtIndex(child INSXMLNode, index uint) {
 // exception is raised if `index` is out of bounds.
 //
 // # Discussion
-// 
+//
 // Insertion of the node increases the indexes of sibling nodes after it by
 // the count of `children`.
 //
@@ -588,13 +597,14 @@ func (x XMLElement) InsertChildAtIndex(child INSXMLNode, index uint) {
 func (x XMLElement) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChildren:atIndex:"), objectivec.IObjectSliceToNSArray(children), index)
 }
+
 // Removes the child node of the receiver identified by a given index.
 //
 // index: An integer identifying the node in the receiver’s list of children to
 // remove. An exception is raised if `index` is out of bounds.
 //
 // # Discussion
-// 
+//
 // The XML node object is released upon removal. The indices of subsequent
 // children are decremented by one.
 //
@@ -602,6 +612,7 @@ func (x XMLElement) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 func (x XMLElement) RemoveChildAtIndex(index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("removeChildAtIndex:"), index)
 }
+
 // Replaces a child node at a specified location with another child node.
 //
 // index: An integer identifying a position in the receiver’s list of children. An
@@ -610,42 +621,39 @@ func (x XMLElement) RemoveChildAtIndex(index uint) {
 // node: An XML node object that will replace the current child.
 //
 // # Discussion
-// 
+//
 // The replaced XML node object is released upon removal.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/replaceChild(at:with:)
 func (x XMLElement) ReplaceChildAtIndexWithNode(index uint, node INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("replaceChildAtIndex:withNode:"), index, node)
 }
+
 // Coalesces adjacent text nodes of the receiver that you have explicitly
 // added, optionally including CDATA sections.
 //
-// preserve: [true] if CDATA sections are left alone as text nodes, [false] otherwise.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// preserve: true if CDATA sections are left alone as text nodes, false otherwise.
 //
 // # Discussion
-// 
+//
 // A text node with a value of an empty string is removed. When you process an
 // input source of XML, adjacent text nodes are automatically normalized. You
-// should invoke this method (with `preserve` as [false]) before using the
+// should invoke this method (with `preserve` as false) before using the
 // [NSXMLNode] methods [ObjectsForXQueryConstantsError] or
 // [NodesForXPathError].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/normalizeAdjacentTextNodesPreservingCDATA(_:)
 func (x XMLElement) NormalizeAdjacentTextNodesPreservingCDATA(preserve bool) {
 	objc.Send[objc.ID](x.ID, objc.Sel("normalizeAdjacentTextNodesPreservingCDATA:"), preserve)
 }
+
 // Adds an attribute node to the receiver.
 //
 // attribute: An XML node object representing an attribute. If the receiver already has
 // an attribute with the same name, `anAttribute` replaces the old attribute.
 //
 // # Discussion
-// 
+//
 // The order of multiple attributes is preserved if the
 // [NSXMLPreserveAttributeOrder] option is specified when the element is
 // created.
@@ -654,17 +662,18 @@ func (x XMLElement) NormalizeAdjacentTextNodesPreservingCDATA(preserve bool) {
 func (x XMLElement) AddAttribute(attribute INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("addAttribute:"), attribute)
 }
+
 // Returns the attribute node of the receiver with the specified name.
 //
 // name: A string specifying the name of an attribute.
 //
 // # Return Value
-// 
+//
 // An XML node object representing a matching attribute or `nil` if no such
 // node was found.
 //
 // # Discussion
-// 
+//
 // If `name` is a qualified name, then this method invokes
 // [AttributeForLocalNameURI] with the URI parameter set to the URI associated
 // with the prefix. Otherwise comparison is based on string equality of the
@@ -675,6 +684,7 @@ func (x XMLElement) AttributeForName(name string) INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("attributeForName:"), objc.String(name))
 	return NSXMLNodeFromID(rv)
 }
+
 // Returns the attribute node of the receiver that is identified by a local
 // name and URI.
 //
@@ -683,7 +693,7 @@ func (x XMLElement) AttributeForName(name string) INSXMLNode {
 // URI: A sting identifying the URI associated with an attribute.
 //
 // # Return Value
-// 
+//
 // An XML node object representing a matching attribute or `nil` if no such
 // node was found.
 //
@@ -692,6 +702,7 @@ func (x XMLElement) AttributeForLocalNameURI(localName string, URI string) INSXM
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("attributeForLocalName:URI:"), objc.String(localName), objc.String(URI))
 	return NSXMLNodeFromID(rv)
 }
+
 // Removes an attribute node identified by name.
 //
 // name: A string specifying the name of an attribute.
@@ -700,6 +711,7 @@ func (x XMLElement) AttributeForLocalNameURI(localName string, URI string) INSXM
 func (x XMLElement) RemoveAttributeForName(name string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("removeAttributeForName:"), objc.String(name))
 }
+
 // Sets the attributes of the receiver based on the key-value pairs specified
 // in the passed dictionary.
 //
@@ -707,55 +719,59 @@ func (x XMLElement) RemoveAttributeForName(name string) {
 // object value of the attribute is the dictionary value.
 //
 // # Discussion
-// 
+//
 // The method uses these names and object values to create [NSXMLNode] objects
 // of kind [XMLNode.Kind.attribute]. Existing attributes are removed.
 //
-// [XMLNode.Kind.attribute]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum/attribute
-//
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/setAttributesWith(_:)
+//
+// [XMLNode.Kind.attribute]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum/attribute
 func (x XMLElement) SetAttributesWithDictionary(attributes INSDictionary) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setAttributesWithDictionary:"), attributes)
 }
+
 // Adds a namespace node to the receiver.
 //
 // aNamespace: An XML node object of kind [XMLNode.Kind.namespace]. If the receiver
 // already has a namespace with the same name, `aNamespace` is not added.
-// //
-// [XMLNode.Kind.namespace]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum/namespace
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/addNamespace(_:)
+//
+// [XMLNode.Kind.namespace]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum/namespace
 func (x XMLElement) AddNamespace(aNamespace INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("addNamespace:"), aNamespace)
 }
+
 // Returns the namespace node with a specified prefix.
 //
 // name: A string specifying a namespace prefix.
 //
 // # Return Value
-// 
+//
 // An [NSXMLNode] object of kind [XMLNode.Kind.namespace] or `nil` if there is
 // no namespace node with that prefix.
 //
-// [XMLNode.Kind.namespace]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum/namespace
-//
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/namespace(forPrefix:)
+//
+// [XMLNode.Kind.namespace]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum/namespace
 func (x XMLElement) NamespaceForPrefix(name string) INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("namespaceForPrefix:"), objc.String(name))
 	return NSXMLNodeFromID(rv)
 }
+
 // Removes a namespace node that is identified by a given prefix.
 //
 // name: A string that is the prefix for a namespace.
 //
 // # Discussion
-// 
+//
 // The removed XML node object is removed.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/removeNamespace(forPrefix:)
 func (x XMLElement) RemoveNamespaceForPrefix(name string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("removeNamespaceForPrefix:"), objc.String(name))
 }
+
 // Returns the namespace node with the prefix matching the given qualified
 // name.
 //
@@ -763,32 +779,33 @@ func (x XMLElement) RemoveNamespaceForPrefix(name string) {
 // prefix plus local name).
 //
 // # Return Value
-// 
+//
 // An [NSXMLNode] object of kind [XMLNode.Kind.namespace] or `nil` if there is
 // no matching namespace node.
 //
-// [XMLNode.Kind.namespace]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum/namespace
-//
 // # Discussion
-// 
+//
 // The method looks in the entire namespace chain for the prefix.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/resolveNamespace(forName:)
+//
+// [XMLNode.Kind.namespace]: https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum/namespace
 func (x XMLElement) ResolveNamespaceForName(name string) INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("resolveNamespaceForName:"), objc.String(name))
 	return NSXMLNodeFromID(rv)
 }
+
 // Returns the prefix associated with the specified URI.
 //
 // namespaceURI: A string identifying the URI associated with the namespace.
 //
 // # Return Value
-// 
+//
 // A string that is the matching prefix or `nil` if it finds no matching
 // prefix.
 //
 // # Discussion
-// 
+//
 // The method looks in the entire namespace chain for the URI.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/resolvePrefix(forNamespaceURI:)
@@ -801,7 +818,7 @@ func (x XMLElement) ResolvePrefixForNamespaceURI(namespaceURI string) string {
 // attribute nodes.
 //
 // # Discussion
-// 
+//
 // To set attributes in an element node using an [NSDictionary] object as the
 // input parameter, see [SetAttributesWithDictionary].
 //
@@ -815,6 +832,7 @@ func (x XMLElement) Attributes() []NSXMLNode {
 func (x XMLElement) SetAttributes(value []NSXMLNode) {
 	objc.Send[struct{}](x.ID, objc.Sel("setAttributes:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Sets all of the namespace nodes of the receiver at once, replacing any
 // existing namespace nodes.
 //
@@ -828,4 +846,3 @@ func (x XMLElement) Namespaces() []NSXMLNode {
 func (x XMLElement) SetNamespaces(value []NSXMLNode) {
 	objc.Send[struct{}](x.ID, objc.Sel("setNamespaces:"), objectivec.IObjectSliceToNSArray(value))
 }
-

@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,6 +54,7 @@ type AVMetricPlayerItemStallEvent struct {
 func AVMetricPlayerItemStallEventFromID(id objc.ID) AVMetricPlayerItemStallEvent {
 	return AVMetricPlayerItemStallEvent{AVMetricPlayerItemRateChangeEvent: AVMetricPlayerItemRateChangeEventFromID(id)}
 }
+
 // NOTE: AVMetricPlayerItemStallEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -81,4 +83,3 @@ func NewAVMetricPlayerItemStallEvent() AVMetricPlayerItemStallEvent {
 	rv := objc.Send[AVMetricPlayerItemStallEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

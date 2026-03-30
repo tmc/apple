@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type MLModelEncryptionUtils struct {
 func MLModelEncryptionUtilsFromID(id objc.ID) MLModelEncryptionUtils {
 	return MLModelEncryptionUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelEncryptionUtils implements IMLModelEncryptionUtils.
 var _ IMLModelEncryptionUtils = MLModelEncryptionUtils{}
 
@@ -82,7 +84,6 @@ func NewMLModelEncryptionUtils() MLModelEncryptionUtils {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEncryptionUtils/addEncryptionHeaderToUnencryptedFile:saveToFile:error:
 func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) AddEncryptionHeaderToUnencryptedFileSaveToFileError(file objectivec.IObject, file2 objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -97,7 +98,7 @@ func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) AddEncryptionHea
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEncryptionUtils/encryptFile:withKey:iv:saveToFile:error:
 func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) EncryptFileWithKeyIvSaveToFileError(file objectivec.IObject, key objectivec.IObject, iv objectivec.IObject, file2 objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -112,9 +113,9 @@ func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) EncryptFileWithK
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEncryptionUtils/sinfData
 func (_MLModelEncryptionUtilsClass MLModelEncryptionUtilsClass) SinfData() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLModelEncryptionUtilsClass.class), objc.Sel("sinfData"))
 	return objectivec.Object{ID: rv}
 }
-

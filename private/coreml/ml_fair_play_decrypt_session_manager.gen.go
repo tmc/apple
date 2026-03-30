@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLFairPlayDecryptSessionManagerClass) Alloc() MLFairPlayDecryptSessionM
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLFairPlayDecryptSessionManager.ModelPathToSessionID]
@@ -53,6 +53,7 @@ func (mc MLFairPlayDecryptSessionManagerClass) Alloc() MLFairPlayDecryptSessionM
 //   - [MLFairPlayDecryptSessionManager.StopDecryptionOfModelAtPath]
 //   - [MLFairPlayDecryptSessionManager.StopDecryptionOfModelAtPathError]
 //   - [MLFairPlayDecryptSessionManager.SyncQueue]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSessionManager
 type MLFairPlayDecryptSessionManager struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLFairPlayDecryptSessionManager struct {
 func MLFairPlayDecryptSessionManagerFromID(id objc.ID) MLFairPlayDecryptSessionManager {
 	return MLFairPlayDecryptSessionManager{objectivec.Object{ID: id}}
 }
+
 // Ensure MLFairPlayDecryptSessionManager implements IMLFairPlayDecryptSessionManager.
 var _ IMLFairPlayDecryptSessionManager = MLFairPlayDecryptSessionManager{}
 
@@ -109,7 +111,6 @@ func NewMLFairPlayDecryptSessionManager() MLFairPlayDecryptSessionManager {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSessionManager/startDecryptionOfModelAtPath:usingKeyBlob:teamIdentifier:error:
 func (f MLFairPlayDecryptSessionManager) StartDecryptionOfModelAtPathUsingKeyBlobTeamIdentifierError(path objectivec.IObject, blob objectivec.IObject, identifier objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -124,13 +125,13 @@ func (f MLFairPlayDecryptSessionManager) StartDecryptionOfModelAtPathUsingKeyBlo
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSessionManager/stopDecryptionOfModelAtPath:
 func (f MLFairPlayDecryptSessionManager) StopDecryptionOfModelAtPath(path objectivec.IObject) int {
 	rv := objc.Send[int](f.ID, objc.Sel("stopDecryptionOfModelAtPath:"), path)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSessionManager/stopDecryptionOfModelAtPath:error:
 func (f MLFairPlayDecryptSessionManager) StopDecryptionOfModelAtPathError(path objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -151,14 +152,15 @@ func (f MLFairPlayDecryptSessionManager) ModelPathToSessionID() foundation.INSDi
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("modelPathToSessionID"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSessionManager/sessionContext
 func (f MLFairPlayDecryptSessionManager) SessionContext() objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sessionContext"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFairPlayDecryptSessionManager/syncQueue
 func (f MLFairPlayDecryptSessionManager) SyncQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("syncQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-

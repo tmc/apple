@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,12 +45,12 @@ func (mc MessagePortClass) Alloc() MessagePort {
 // (or raw messaging).
 //
 // # Overview
-// 
+//
 // [NSMessagePort] is a subclass of [NSPort] that allows for local (on the
 // same machine) communication only. A companion class, [NSSocketPort], allows
 // for both local and remote communication, but may be more expensive than
 // [NSMessagePort] for the local case.
-// 
+//
 // [NSMessagePort] defines no additional methods over those already defined by
 // [NSPort].
 //
@@ -68,6 +69,7 @@ func MessagePortFromID(id objc.ID) MessagePort {
 
 // NSMessagePortFromID is an alias for [MessagePortFromID] for cross-framework compatibility.
 func NSMessagePortFromID(id objc.ID) MessagePort { return MessagePortFromID(id) }
+
 // NOTE: MessagePort adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -97,11 +99,9 @@ func NewMessagePort() MessagePort {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMessagePortWithCoder(coder INSCoder) MessagePort {
 	instance := getMessagePortClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MessagePortFromID(rv)
 }
-

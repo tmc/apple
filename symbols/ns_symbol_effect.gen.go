@@ -4,8 +4,9 @@ package symbols
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSSymbolEffectClass) Alloc() NSSymbolEffect {
 // image.
 //
 // # Overview
-// 
+//
 // You don’t use this class directly. Instead, use a class that inherits
 // from this one, such as [NSSymbolBounceEffect].
 //
@@ -62,6 +63,7 @@ type NSSymbolEffect struct {
 func NSSymbolEffectFromID(id objc.ID) NSSymbolEffect {
 	return NSSymbolEffect{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSSymbolEffect adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -96,4 +98,3 @@ func NewNSSymbolEffect() NSSymbolEffect {
 func (s NSSymbolEffect) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-

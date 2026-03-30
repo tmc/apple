@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLNeuralNetworkFunctionInfoClass) Alloc() MLNeuralNetworkFunctionInfo {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLNeuralNetworkFunctionInfo.ClassLabels]
@@ -51,6 +51,7 @@ func (mc MLNeuralNetworkFunctionInfoClass) Alloc() MLNeuralNetworkFunctionInfo {
 //   - [MLNeuralNetworkFunctionInfo.IsClassifier]
 //   - [MLNeuralNetworkFunctionInfo.OutputNames]
 //   - [MLNeuralNetworkFunctionInfo.InitWithCompiledModelArchiveCompilerVersionInfoError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo
 type MLNeuralNetworkFunctionInfo struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type MLNeuralNetworkFunctionInfo struct {
 func MLNeuralNetworkFunctionInfoFromID(id objc.ID) MLNeuralNetworkFunctionInfo {
 	return MLNeuralNetworkFunctionInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure MLNeuralNetworkFunctionInfo implements IMLNeuralNetworkFunctionInfo.
 var _ IMLNeuralNetworkFunctionInfo = MLNeuralNetworkFunctionInfo{}
 
@@ -105,7 +107,6 @@ func NewMLNeuralNetworkFunctionInfo() MLNeuralNetworkFunctionInfo {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo/initWithCompiledModelArchive:compilerVersionInfo:error:
 func NewNeuralNetworkFunctionInfoWithCompiledModelArchiveCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject) (MLNeuralNetworkFunctionInfo, error) {
 	var errorPtr objc.ID
@@ -118,7 +119,6 @@ func NewNeuralNetworkFunctionInfoWithCompiledModelArchiveCompilerVersionInfoErro
 	return MLNeuralNetworkFunctionInfoFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo/initWithCompiledModelArchive:compilerVersionInfo:error:
 func (n MLNeuralNetworkFunctionInfo) InitWithCompiledModelArchiveCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject) (MLNeuralNetworkFunctionInfo, error) {
 	var errorPtr objc.ID
@@ -136,19 +136,21 @@ func (n MLNeuralNetworkFunctionInfo) ClassLabels() foundation.INSArray {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("classLabels"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo/classScoreVectorName
 func (n MLNeuralNetworkFunctionInfo) ClassScoreVectorName() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("classScoreVectorName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo/isClassifier
 func (n MLNeuralNetworkFunctionInfo) IsClassifier() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isClassifier"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetworkFunctionInfo/outputNames
 func (n MLNeuralNetworkFunctionInfo) OutputNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("outputNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

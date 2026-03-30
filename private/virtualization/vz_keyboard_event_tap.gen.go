@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZKeyboardEventTap struct {
 func VZKeyboardEventTapFromID(id objc.ID) VZKeyboardEventTap {
 	return VZKeyboardEventTap{objectivec.Object{ID: id}}
 }
+
 // Ensure VZKeyboardEventTap implements IVZKeyboardEventTap.
 var _ IVZKeyboardEventTap = VZKeyboardEventTap{}
 
@@ -78,4 +80,3 @@ func NewVZKeyboardEventTap() VZKeyboardEventTap {
 	rv := objc.Send[VZKeyboardEventTap](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -61,6 +62,7 @@ type VZVirtioGraphicsDeviceConfiguration struct {
 func VZVirtioGraphicsDeviceConfigurationFromID(id objc.ID) VZVirtioGraphicsDeviceConfiguration {
 	return VZVirtioGraphicsDeviceConfiguration{VZGraphicsDeviceConfiguration: VZGraphicsDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioGraphicsDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,4 +115,3 @@ func (v VZVirtioGraphicsDeviceConfiguration) Scanouts() []VZVirtioGraphicsScanou
 func (v VZVirtioGraphicsDeviceConfiguration) SetScanouts(value []VZVirtioGraphicsScanoutConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setScanouts:"), objectivec.IObjectSliceToNSArray(value))
 }
-

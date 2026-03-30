@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,21 +44,21 @@ func (uc UnitConverterLinearClass) Alloc() UnitConverterLinear {
 // A description of how to convert between units using a linear equation.
 //
 // # Overview
-// 
+//
 // A linear equation for unit conversion takes the form `y = mx + b`, such
 // that the following is true:
-// 
+//
 // - `y` is the value in terms of the base unit of the dimension. - `m` is the
 // known coefficient to use for this unit’s conversion. - `x` is the value
 // in terms of the unit on which you call this method. - `b` is the known
 // constant to use for this unit’s conversion.
-// 
-// The `` method performs the conversion in the form of `y = mx + b`, where
+//
+// The “ method performs the conversion in the form of `y = mx + b`, where
 // `x` represents the value passed in and `y` represents the value returned.
-// The `` method performs the inverse conversion in the form of `x = (y - b) /
+// The “ method performs the inverse conversion in the form of `x = (y - b) /
 // m`, where `y` represents the value passed in and `x` represents the value
 // returned.
-// 
+//
 // For example, consider the [Fahrenheit] unit that [NSUnitTemperature]
 // defines. The [BaseUnitValueFromValue] method calculates the value in the
 // base unit, [Kelvin], using the formula `K = (0.55555555555556) × °F +
@@ -65,7 +66,7 @@ func (uc UnitConverterLinearClass) Alloc() UnitConverterLinear {
 // value in [Fahrenheit] using the formula `°F = (K — 255.37222222222427) /
 // (0.55555555555556)`, where the [Coefficient] is `(0.55555555555556)` and
 // the [Constant] is `255.37222222222427`.
-// 
+//
 // Units that perform conversion using only a scale factor have a
 // [Coefficient] equal to the scale factor and a [Constant] equal to `0`. For
 // example, consider the [Kilometers] unit [NSUnitLength] defines. The
@@ -98,7 +99,10 @@ func UnitConverterLinearFromID(id objc.ID) UnitConverterLinear {
 }
 
 // NSUnitConverterLinearFromID is an alias for [UnitConverterLinearFromID] for cross-framework compatibility.
-func NSUnitConverterLinearFromID(id objc.ID) UnitConverterLinear { return UnitConverterLinearFromID(id) }
+func NSUnitConverterLinearFromID(id objc.ID) UnitConverterLinear {
+	return UnitConverterLinearFromID(id)
+}
+
 // NOTE: UnitConverterLinear adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -154,7 +158,6 @@ func NewUnitConverterLinear() UnitConverterLinear {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitConverterLinearWithCoder(coder INSCoder) UnitConverterLinear {
 	instance := getUnitConverterLinearClass().Alloc()
@@ -167,11 +170,11 @@ func NewUnitConverterLinearWithCoder(coder INSCoder) UnitConverterLinear {
 // coefficient: The coefficient used in the linear unit conversion calculation.
 //
 // # Return Value
-// 
+//
 // A unit converter initialized with the specified coefficient.
 //
 // # Discussion
-// 
+//
 // Calling this initializer is equivalent to calling
 // [InitWithCoefficientConstant], passing `0` for the `constant` parameter.
 //
@@ -200,11 +203,11 @@ func NewUnitConverterLinearWithCoefficientConstant(coefficient float64, constant
 // coefficient: The coefficient used in the linear unit conversion calculation.
 //
 // # Return Value
-// 
+//
 // A unit converter initialized with the specified coefficient.
 //
 // # Discussion
-// 
+//
 // Calling this initializer is equivalent to calling
 // [InitWithCoefficientConstant], passing `0` for the `constant` parameter.
 //
@@ -213,6 +216,7 @@ func (u UnitConverterLinear) InitWithCoefficient(coefficient float64) UnitConver
 	rv := objc.Send[UnitConverterLinear](u.ID, objc.Sel("initWithCoefficient:"), coefficient)
 	return rv
 }
+
 // Creates a unit converter with the coefficient and constant you specify.
 //
 // coefficient: The coefficient used in the linear unit conversion calculation.
@@ -232,6 +236,7 @@ func (u UnitConverterLinear) Coefficient() float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("coefficient"))
 	return rv
 }
+
 // The constant to use in the linear unit conversion calculation.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConverterLinear/constant
@@ -250,6 +255,7 @@ func (_UnitConverterLinearClass UnitConverterLinearClass) Fahrenheit() UnitTempe
 func (_UnitConverterLinearClass UnitConverterLinearClass) SetFahrenheit(value UnitTemperature) {
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setFahrenheit:"), value)
 }
+
 // The kelvin unit of temperature.
 //
 // See: https://developer.apple.com/documentation/foundation/unittemperature/kelvin
@@ -260,6 +266,7 @@ func (_UnitConverterLinearClass UnitConverterLinearClass) Kelvin() UnitTemperatu
 func (_UnitConverterLinearClass UnitConverterLinearClass) SetKelvin(value UnitTemperature) {
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKelvin:"), value)
 }
+
 // The kilometers unit of length.
 //
 // See: https://developer.apple.com/documentation/foundation/unitlength/kilometers
@@ -271,6 +278,4 @@ func (_UnitConverterLinearClass UnitConverterLinearClass) SetKilometers(value Un
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKilometers:"), value)
 }
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_style_transfer_parameterize_transplant struct {
 func EspressoPass_style_transfer_parameterize_transplantFromID(id objc.ID) EspressoPass_style_transfer_parameterize_transplant {
 	return EspressoPass_style_transfer_parameterize_transplant{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_style_transfer_parameterize_transplant implements IEspressoPass_style_transfer_parameterize_transplant.
 var _ IEspressoPass_style_transfer_parameterize_transplant = EspressoPass_style_transfer_parameterize_transplant{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_style_transfer_parameterize_transplant() EspressoPass_style
 	rv := objc.Send[EspressoPass_style_transfer_parameterize_transplant](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VZVirtioConsoleDeviceSerialPortConfigurationClass) Alloc() VZVirtioCons
 // communicate with the guest system.
 //
 // # Overview
-// 
+//
 // A [VZVirtioConsoleDeviceSerialPortConfiguration] object enables serial
 // communication between the guest operating system and host computer through
 // the Virtio interface. After you create this configuration object, configure
@@ -66,6 +67,7 @@ type VZVirtioConsoleDeviceSerialPortConfiguration struct {
 func VZVirtioConsoleDeviceSerialPortConfigurationFromID(id objc.ID) VZVirtioConsoleDeviceSerialPortConfiguration {
 	return VZVirtioConsoleDeviceSerialPortConfiguration{VZSerialPortConfiguration: VZSerialPortConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioConsoleDeviceSerialPortConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -94,4 +96,3 @@ func NewVZVirtioConsoleDeviceSerialPortConfiguration() VZVirtioConsoleDeviceSeri
 	rv := objc.Send[VZVirtioConsoleDeviceSerialPortConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

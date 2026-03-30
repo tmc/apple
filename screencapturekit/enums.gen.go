@@ -232,9 +232,9 @@ type SCStreamConfigurationPreset int
 const (
 	SCStreamConfigurationPresetCaptureHDRRecordingPreservedSDRHDR10 SCStreamConfigurationPreset = 4
 	SCStreamConfigurationPresetCaptureHDRScreenshotCanonicalDisplay SCStreamConfigurationPreset = 3
-	SCStreamConfigurationPresetCaptureHDRScreenshotLocalDisplay SCStreamConfigurationPreset = 2
-	SCStreamConfigurationPresetCaptureHDRStreamCanonicalDisplay SCStreamConfigurationPreset = 1
-	SCStreamConfigurationPresetCaptureHDRStreamLocalDisplay SCStreamConfigurationPreset = 0
+	SCStreamConfigurationPresetCaptureHDRScreenshotLocalDisplay     SCStreamConfigurationPreset = 2
+	SCStreamConfigurationPresetCaptureHDRStreamCanonicalDisplay     SCStreamConfigurationPreset = 1
+	SCStreamConfigurationPresetCaptureHDRStreamLocalDisplay         SCStreamConfigurationPreset = 0
 )
 
 func (e SCStreamConfigurationPreset) String() string {
@@ -356,7 +356,8 @@ type SCStreamOutputType int
 
 const (
 	// SCStreamOutputTypeAudio: An output type that represents an audio capture sample buffer.
-	SCStreamOutputTypeAudio SCStreamOutputType = 1
+	SCStreamOutputTypeAudio      SCStreamOutputType = 1
+	SCStreamOutputTypeMicrophone SCStreamOutputType = 2
 	// SCStreamOutputTypeScreen: An output type that represents a screen capture sample buffer.
 	SCStreamOutputTypeScreen SCStreamOutputType = 0
 )
@@ -365,6 +366,8 @@ func (e SCStreamOutputType) String() string {
 	switch e {
 	case SCStreamOutputTypeAudio:
 		return "SCStreamOutputTypeAudio"
+	case SCStreamOutputTypeMicrophone:
+		return "SCStreamOutputTypeMicrophone"
 	case SCStreamOutputTypeScreen:
 		return "SCStreamOutputTypeScreen"
 	default:
@@ -376,9 +379,9 @@ func (e SCStreamOutputType) String() string {
 type SCStreamType int
 
 const (
-	// SCStreamTypeDisplay: The stream is currently on a complete display.
+	// Deprecated.
 	SCStreamTypeDisplay SCStreamType = 1
-	// SCStreamTypeWindow: The stream is currently presented as a window.
+	// Deprecated.
 	SCStreamTypeWindow SCStreamType = 0
 )
 
@@ -392,4 +395,3 @@ func (e SCStreamType) String() string {
 		return fmt.Sprintf("SCStreamType(%d)", e)
 	}
 }
-

@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -62,6 +63,7 @@ type VNHumanBodyRecognizedPoint3D struct {
 func VNHumanBodyRecognizedPoint3DFromID(id objc.ID) VNHumanBodyRecognizedPoint3D {
 	return VNHumanBodyRecognizedPoint3D{VNRecognizedPoint3D: VNRecognizedPoint3DFromID(id)}
 }
+
 // NOTE: VNHumanBodyRecognizedPoint3D adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,6 +130,7 @@ func (h VNHumanBodyRecognizedPoint3D) LocalPosition() objectivec.IObject {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("localPosition"))
 	return objectivec.Object{ID: rv}
 }
+
 // The parent joint in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyRecognizedPoint3D/parentJoint
@@ -135,4 +138,3 @@ func (h VNHumanBodyRecognizedPoint3D) ParentJoint() VNHumanBodyPose3DObservation
 	rv := objc.Send[VNHumanBodyPose3DObservationJointName](h.ID, objc.Sel("parentJoint"))
 	return VNHumanBodyPose3DObservationJointName(rv)
 }
-

@@ -4,8 +4,9 @@ package naturallanguage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,21 +46,21 @@ func (nc NLLanguageRecognizerClass) Alloc() NLLanguageRecognizer {
 // The language of a body of text.
 //
 // # Overview
-// 
+//
 // An [NLLanguageRecognizer] object automatically detects the language of a
 // piece of text. It performs language identification by:
-// 
+//
 // - Identifying the dominant script of a piece of text. Some languages have a
 // unique script (like Greek), but others share the same script (like English,
 // French, and German, which all share the Latin script). - Identifying the
 // language itself.
-// 
+//
 // The identification obtained from an [NLLanguageRecognizer] object can be
 // either a single most likely language, access through [NLLanguageRecognizer.DominantLanguage], or
 // a set of language candidates with probabilities, using
 // [NLLanguageRecognizer.LanguageHypothesesWithMaximum]. You can reset the recognizer to its
 // initial state, to be reused for new analysis.
-// 
+//
 // Use the convenience method, [NLLanguageRecognizer.DominantLanguageForString], to get the most
 // likely language without creating an [NLLanguageRecognizer].
 //
@@ -85,6 +86,7 @@ type NLLanguageRecognizer struct {
 func NLLanguageRecognizerFromID(id objc.ID) NLLanguageRecognizer {
 	return NLLanguageRecognizer{objectivec.Object{ID: id}}
 }
+
 // NOTE: NLLanguageRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -149,7 +151,7 @@ func NewNLLanguageRecognizer() NLLanguageRecognizer {
 // Analyzes the piece of text to determine its dominant language.
 //
 // # Discussion
-// 
+//
 // Use this method to process the provided text and to update the
 // [DominantLanguage] result and `languageHypotheses()` probabilities.
 //
@@ -157,18 +159,20 @@ func NewNLLanguageRecognizer() NLLanguageRecognizer {
 func (l NLLanguageRecognizer) ProcessString(string_ string) {
 	objc.Send[objc.ID](l.ID, objc.Sel("processString:"), objc.String(string_))
 }
+
 // Resets the recognizer to its initial state.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLLanguageRecognizer/reset()
 func (l NLLanguageRecognizer) Reset() {
 	objc.Send[objc.ID](l.ID, objc.Sel("reset"))
 }
+
 // Generates the probabilities of possible languages for the processed text.
 //
 // maxHypotheses: The maximum number of languages to return.
 //
 // # Return Value
-// 
+//
 // A dictionary mapping languages with their probabilities, up to
 // `maxHypotheses` languages.
 //
@@ -183,7 +187,7 @@ func (l NLLanguageRecognizer) LanguageHypothesesWithMaximum(maxHypotheses uint) 
 // string: The text to analyze.
 //
 // # Return Value
-// 
+//
 // The most probable language of the piece of text.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLLanguageRecognizer/dominantLanguage(for:)
@@ -199,6 +203,7 @@ func (l NLLanguageRecognizer) DominantLanguage() NLLanguage {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("dominantLanguage"))
 	return NLLanguage(foundation.NSStringFromID(rv).String())
 }
+
 // Limits the set of possible languages that the recognizer will return.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLLanguageRecognizer/languageConstraints
@@ -209,11 +214,12 @@ func (l NLLanguageRecognizer) LanguageConstraints() []string {
 func (l NLLanguageRecognizer) SetLanguageConstraints(value []string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLanguageConstraints:"), objectivec.StringSliceToNSArray(value))
 }
+
 // A dictionary that maps languages to their probabilities in the language
 // identification process.
 //
 // # Discussion
-// 
+//
 // This is a dictionary mapping languages to their probabilities and used by
 // [ProcessString].
 //
@@ -225,4 +231,3 @@ func (l NLLanguageRecognizer) LanguageHints() foundation.INSDictionary {
 func (l NLLanguageRecognizer) SetLanguageHints(value foundation.INSDictionary) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLanguageHints:"), value)
 }
-

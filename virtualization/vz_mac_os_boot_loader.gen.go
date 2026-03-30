@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VZMacOSBootLoaderClass) Alloc() VZMacOSBootLoader {
 // Apple silicon as a guest system of your VM.
 //
 // # Overview
-// 
+//
 // You must use a [VZMacPlatformConfiguration] in conjunction with the macOS
 // boot loader. It’s invalid to use it with any other platform
 // configuration.
@@ -61,6 +62,7 @@ type VZMacOSBootLoader struct {
 func VZMacOSBootLoaderFromID(id objc.ID) VZMacOSBootLoader {
 	return VZMacOSBootLoader{VZBootLoader: VZBootLoaderFromID(id)}
 }
+
 // NOTE: VZMacOSBootLoader adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,4 +106,3 @@ func (m VZMacOSBootLoader) Platform() IVZPlatformConfiguration {
 func (m VZMacOSBootLoader) SetPlatform(value IVZPlatformConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPlatform:"), value)
 }
-

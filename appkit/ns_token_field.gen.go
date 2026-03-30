@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSTokenField] class.
@@ -45,13 +46,13 @@ func (nc NSTokenFieldClass) Alloc() NSTokenField {
 // A text field that converts text into visually distinct tokens.
 //
 // # Overview
-// 
+//
 // Use a token field when you want typed text to be transformed into
 // “tokens”, which are visually distinct elements in the text field
 // interface. For example, you might use a token field in a mail app to
 // display email addresses for individual users. The distinct appearance of
 // tokens makes them easy for users to distinguish from surrounding text.
-// 
+//
 // [NSTokenField] uses an [NSTokenFieldCell] to implement much of the
 // control’s functionality. [NSTokenField] provides cover methods for most
 // methods of [NSTokenFieldCell], which invoke the corresponding cell method.
@@ -82,6 +83,7 @@ type NSTokenField struct {
 func NSTokenFieldFromID(id objc.ID) NSTokenField {
 	return NSTokenField{NSTextField: NSTextFieldFromID(id)}
 }
+
 // NOTE: NSTokenField adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -150,12 +152,12 @@ func NewNSTokenField() NSTokenField {
 // attributedStringValue: An attributed string to use as the content of the label.
 //
 // # Return Value
-// 
+//
 // A text field that displays the specified attributed string as a static
 // label.
 //
 // # Discussion
-// 
+//
 // The text field determines its line-break mode by inspecting the paragraph
 // style attributes in the attributed string.
 //
@@ -171,7 +173,7 @@ func NewTokenFieldLabelWithAttributedString(attributedStringValue foundation.NSA
 // stringValue: A string to use as the content of the label.
 //
 // # Return Value
-// 
+//
 // A text field that displays the specified string as a static label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/init(labelWithString:)
@@ -186,7 +188,7 @@ func NewTokenFieldLabelWithString(stringValue string) NSTokenField {
 // stringValue: A string to use as the initial content of the editable text field.
 //
 // # Return Value
-// 
+//
 // A single-line editable text field that displays the specified string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/init(string:)
@@ -210,12 +212,12 @@ func NewTokenFieldWithCoder(coder foundation.INSCoder) NSTokenField {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -236,7 +238,7 @@ func NewTokenFieldWithFrame(frameRect corefoundation.CGRect) NSTokenField {
 // stringValue: A string to use as the initial content of the editable text field.
 //
 // # Return Value
-// 
+//
 // A multiline text field that displays the specified string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/init(wrappingLabelWithString:)
@@ -255,6 +257,7 @@ func (t NSTokenField) TokenStyle() NSTokenStyle {
 func (t NSTokenField) SetTokenStyle(value NSTokenStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTokenStyle:"), value)
 }
+
 // The recevier’s tokenizing character set to `characterSet`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/tokenizingCharacterSet
@@ -265,6 +268,7 @@ func (t NSTokenField) TokenizingCharacterSet() foundation.NSCharacterSet {
 func (t NSTokenField) SetTokenizingCharacterSet(value foundation.NSCharacterSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTokenizingCharacterSet:"), value)
 }
+
 // The receiver’s completion delay.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/completionDelay
@@ -279,7 +283,7 @@ func (t NSTokenField) SetCompletionDelay(value float64) {
 // Returns the default tokenizing character set.
 //
 // # Discussion
-// 
+//
 // The default tokenizing character set is “,”.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/defaultTokenizingCharacterSet
@@ -287,10 +291,11 @@ func (_NSTokenFieldClass NSTokenFieldClass) DefaultTokenizingCharacterSet() foun
 	rv := objc.Send[objc.ID](objc.ID(_NSTokenFieldClass.class), objc.Sel("defaultTokenizingCharacterSet"))
 	return foundation.NSCharacterSetFromID(objc.ID(rv))
 }
+
 // Returns the default completion delay.
 //
 // # Discussion
-// 
+//
 // The default completion delay is 0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/defaultCompletionDelay
@@ -298,4 +303,3 @@ func (_NSTokenFieldClass NSTokenFieldClass) DefaultCompletionDelay() float64 {
 	rv := objc.Send[float64](objc.ID(_NSTokenFieldClass.class), objc.Sel("defaultCompletionDelay"))
 	return rv
 }
-

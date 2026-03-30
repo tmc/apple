@@ -3,10 +3,11 @@
 package texttospeech
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,10 +44,10 @@ func (tc TextToSpeechTTSMagicFirstPartyAudioUnitClass) Alloc() TextToSpeechTTSMa
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TextToSpeechTTSMagicFirstPartyAudioUnit.InitWithComponentDescriptionOptionsError]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit
 type TextToSpeechTTSMagicFirstPartyAudioUnit struct {
 	TTSFirstPartyAudioUnit
@@ -56,6 +57,7 @@ type TextToSpeechTTSMagicFirstPartyAudioUnit struct {
 func TextToSpeechTTSMagicFirstPartyAudioUnitFromID(id objc.ID) TextToSpeechTTSMagicFirstPartyAudioUnit {
 	return TextToSpeechTTSMagicFirstPartyAudioUnit{TTSFirstPartyAudioUnit: TTSFirstPartyAudioUnitFromID(id)}
 }
+
 // Ensure TextToSpeechTTSMagicFirstPartyAudioUnit implements ITextToSpeechTTSMagicFirstPartyAudioUnit.
 var _ ITextToSpeechTTSMagicFirstPartyAudioUnit = TextToSpeechTTSMagicFirstPartyAudioUnit{}
 
@@ -93,7 +95,6 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnit() TextToSpeechTTSMagicFirstParty
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit/initWithComponentDescription:options:error:
 func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsError(description objectivec.IObject, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
@@ -106,7 +107,6 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsEr
 	return TextToSpeechTTSMagicFirstPartyAudioUnitFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit/initWithComponentDescription:options:error:
 func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOptionsError(description objectivec.IObject, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
@@ -118,4 +118,3 @@ func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOpt
 	return TextToSpeechTTSMagicFirstPartyAudioUnitFromID(rv), nil
 
 }
-

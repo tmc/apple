@@ -32,4 +32,3 @@ func ExampleGroup() {
 	fmt.Println(g.Wait(dispatch.TimeNow))
 	// Output: true
 }
-

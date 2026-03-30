@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -19,6 +20,7 @@ type MLCompiledModelLoader interface {
 type MLCompiledModelLoaderObject struct {
 	objectivec.Object
 }
+
 func (o MLCompiledModelLoaderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -31,7 +33,6 @@ func MLCompiledModelLoaderObjectFromID(id objc.ID) MLCompiledModelLoaderObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCompiledModelLoader/loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:
 func (o MLCompiledModelLoaderObject) LoadModelFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("loadModelFromCompiledArchive:modelVersionInfo:compilerVersionInfo:configuration:error:"), archive, info, info2, configuration)
@@ -39,5 +40,4 @@ func (o MLCompiledModelLoaderObject) LoadModelFromCompiledArchiveModelVersionInf
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

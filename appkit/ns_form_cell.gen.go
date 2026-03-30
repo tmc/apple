@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSFormCell] class.
@@ -46,10 +47,8 @@ func (nc NSFormCellClass) Alloc() NSFormCell {
 // contains an editable text entry field.
 //
 // # Overview
-// 
-// An [NSFormCell] object implements the user interface of an [NSForm] object.
 //
-// [NSForm]: https://developer.apple.com/documentation/AppKit/NSForm
+// An [NSFormCell] object implements the user interface of an [NSForm] object.
 //
 // # Accessing a Cell’s Title
 //
@@ -75,6 +74,8 @@ func (nc NSFormCellClass) Alloc() NSFormCell {
 //   - [NSFormCell.SetPreferredTextFieldWidth]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFormCell
+//
+// [NSForm]: https://developer.apple.com/documentation/AppKit/NSForm
 type NSFormCell struct {
 	NSActionCell
 }
@@ -87,6 +88,7 @@ type NSFormCell struct {
 func NSFormCellFromID(id objc.ID) NSFormCell {
 	return NSFormCell{NSActionCell: NSActionCellFromID(id)}
 }
+
 // NOTE: NSFormCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -175,12 +177,12 @@ func NewNSFormCell() NSFormCell {
 // image: The image to use for the cell. If this parameter is `nil`, no image is set.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -196,11 +198,11 @@ func NewFormCellImageCell(image INSImage) NSFormCell {
 // string: The title for the new form cell object.
 //
 // # Return Value
-// 
+//
 // An initialized [NSFormCell] object.
 //
 // # Discussion
-// 
+//
 // The contents of the cell’s editable text entry field are set to the empty
 // string (`@""`). The font for both title and text is the user’s chosen
 // system font in 12.0 point, and the text area is drawn with a bezel. This
@@ -213,7 +215,6 @@ func NewFormCellTextCell(string_ string) NSFormCell {
 	return NSFormCellFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSFormCell/init(coder:)
 func NewFormCellWithCoder(coder foundation.INSCoder) NSFormCell {
 	instance := getNSFormCellClass().Alloc()
@@ -231,10 +232,11 @@ func (f NSFormCell) AttributedTitle() foundation.NSAttributedString {
 func (f NSFormCell) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAttributedTitle:"), value)
 }
+
 // The alignment of the title.
 //
 // # Discussion
-// 
+//
 // The alignment can be one of the following values: [NSLeftTextAlignment],
 // [NSCenterTextAlignment], or [NSRightTextAlignment]. The default alignment
 // is [NSRightTextAlignment].
@@ -247,10 +249,11 @@ func (f NSFormCell) TitleAlignment() NSTextAlignment {
 func (f NSFormCell) SetTitleAlignment(value NSTextAlignment) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleAlignment:"), value)
 }
+
 // The default writing direction used to render the form cell’s title.
 //
 // # Discussion
-// 
+//
 // Can be one of the following constants: [NSWritingDirectionNatural],
 // [NSWritingDirectionLeftToRight], or [NSWritingDirectionRightToLeft].
 //
@@ -262,6 +265,7 @@ func (f NSFormCell) TitleBaseWritingDirection() NSWritingDirection {
 func (f NSFormCell) SetTitleBaseWritingDirection(value NSWritingDirection) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleBaseWritingDirection:"), value)
 }
+
 // The font used to draw cell’s title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFormCell/titleFont
@@ -272,10 +276,11 @@ func (f NSFormCell) TitleFont() NSFont {
 func (f NSFormCell) SetTitleFont(value NSFont) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleFont:"), value)
 }
+
 // The cell’s attributed placeholder string.
 //
 // # Discussion
-// 
+//
 // If this property returns `nil`, you can also call `placeholderString` to
 // see if the cell has a plain text placeholder string.
 //
@@ -287,10 +292,11 @@ func (f NSFormCell) PlaceholderAttributedString() foundation.NSAttributedString 
 func (f NSFormCell) SetPlaceholderAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPlaceholderAttributedString:"), value)
 }
+
 // The cell’s plain text placeholder string.
 //
 // # Discussion
-// 
+//
 // If this property returns `nil`, you can also call
 // `placeholderAttributedString` to see if the cell has an attributed
 // placeholder string. Note that invoking this method clears out any
@@ -304,31 +310,31 @@ func (f NSFormCell) PlaceholderString() string {
 func (f NSFormCell) SetPlaceholderString(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPlaceholderString:"), objc.String(value))
 }
+
 // The preferred text field width.
 //
 // # Discussion
-// 
+//
 // The preferred width is reflected in the cell’s `cellSize`, which will be
 // large enough to accommodate the title, bezel, and a text field of width
-// `preferredTextWidth`. It is also reflected in the [intrinsicContentSize] of
+// `preferredTextWidth`. It is also reflected in the [IntrinsicContentSize] of
 // the [NSForm] object. That is, under Auto Layout, the form will try to size
 // itself so that the text field cell is the given width, according to the
 // usual content size constraint priorities.
-// 
+//
 // If the width is negative, the cel size matches the historic behavior, which
 // is that it is large enough to accommodate the title, bezel, and the current
 // text.
-// 
+//
 // This property can aid migration to Auto Layout, and is sufficient for
 // simple cases. However, for new apps, it’s recommended that you use an
 // [NSTextField] instance directly instead of a form.
-// 
+//
 // The default value of this property is `-1`.
 //
-// [NSForm]: https://developer.apple.com/documentation/AppKit/NSForm
-// [intrinsicContentSize]: https://developer.apple.com/documentation/AppKit/NSView/intrinsicContentSize
-//
 // See: https://developer.apple.com/documentation/AppKit/NSFormCell/preferredTextFieldWidth
+//
+// [NSForm]: https://developer.apple.com/documentation/AppKit/NSForm
 func (f NSFormCell) PreferredTextFieldWidth() float64 {
 	rv := objc.Send[float64](f.ID, objc.Sel("preferredTextFieldWidth"))
 	return rv
@@ -336,4 +342,3 @@ func (f NSFormCell) PreferredTextFieldWidth() float64 {
 func (f NSFormCell) SetPreferredTextFieldWidth(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPreferredTextFieldWidth:"), value)
 }
-

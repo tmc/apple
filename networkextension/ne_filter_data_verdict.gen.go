@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NEFilterDataVerdictClass) Alloc() NEFilterDataVerdict {
 // flow.
 //
 // # Overview
-// 
+//
 // Return this verdict type from the various methods of
 // [NEFilterDataProvider].
 //
@@ -65,6 +66,7 @@ type NEFilterDataVerdict struct {
 func NEFilterDataVerdictFromID(id objc.ID) NEFilterDataVerdict {
 	return NEFilterDataVerdict{NEFilterVerdict: NEFilterVerdictFromID(id)}
 }
+
 // NOTE: NEFilterDataVerdict adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,13 +117,11 @@ func NewNEFilterDataVerdict() NEFilterDataVerdict {
 // [HandleOutboundDataFromFlowReadBytesStartOffsetReadBytes] or
 // [HandleInboundDataFromFlowReadBytesStartOffsetReadBytes]. The Filter Data
 // Provider uses this chunk of data to make its next filtering decision.
-// 
+//
 // To see all subsequent bytes, set this parameter to [NEFilterFlowBytesMax].
-// //
-// [NEFilterFlowBytesMax]: https://developer.apple.com/documentation/NetworkExtension/NEFilterFlowBytesMax
 //
 // # Return Value
-// 
+//
 // A [NEFilterDataVerdict] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataVerdict/init(passBytes:peekBytes:)
@@ -135,7 +135,7 @@ func NewFilterDataVerdictWithPassBytesPeekBytes(passBytes uint, peekBytes uint) 
 // destination.
 //
 // # Return Value
-// 
+//
 // A [NEFilterDataVerdict] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataVerdict/allow()
@@ -143,11 +143,12 @@ func (_NEFilterDataVerdictClass NEFilterDataVerdictClass) AllowVerdict() NEFilte
 	rv := objc.Send[objc.ID](objc.ID(_NEFilterDataVerdictClass.class), objc.Sel("allowVerdict"))
 	return NEFilterDataVerdictFromID(rv)
 }
+
 // Creates a verdict that tells the system to drop the current chunk of
 // network data and all subsequent data for the current flow.
 //
 // # Return Value
-// 
+//
 // A [NEFilterDataVerdict] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataVerdict/drop()
@@ -155,18 +156,19 @@ func (_NEFilterDataVerdictClass NEFilterDataVerdictClass) DropVerdict() NEFilter
 	rv := objc.Send[objc.ID](objc.ID(_NEFilterDataVerdictClass.class), objc.Sel("dropVerdict"))
 	return NEFilterDataVerdictFromID(rv)
 }
+
 // Creates a verdict that tells the system to pause the flow.
 //
 // # Return Value
-// 
+//
 // A [NEFilterDataVerdict] object.
 //
 // # Discussion
-// 
+//
 // After pausing the flow, the system doesn’t call any of the data
 // provider’s handler callbacks until you resume the flow by calling
 // [ResumeFlowWithVerdict].
-// 
+//
 // You can pause TCP flows indefinitely. You can pause UDP flows for up to 10
 // seconds, after which the system drops the flow. Pausing a flow that’s
 // already paused is an invalid operation.
@@ -180,16 +182,13 @@ func (_NEFilterDataVerdictClass NEFilterDataVerdictClass) PauseVerdict() NEFilte
 // The frequencty at which to provide flow statistics to the data provider.
 //
 // # Discussion
-// 
-// This property determines the frequency at which the provider receives a
-// call to its [HandleReport] method with an [NEFilterReport.Event.statistics]
-// event.
-// 
-// The default value of this property [NEFilterReport.Frequency.none], meaning
-// that the provider receives no statistics by default.
 //
-// [NEFilterReport.Event.statistics]: https://developer.apple.com/documentation/NetworkExtension/NEFilterReport/Event-swift.enum/statistics
-// [NEFilterReport.Frequency.none]: https://developer.apple.com/documentation/NetworkExtension/NEFilterReport/Frequency/none
+// This property determines the frequency at which the provider receives a
+// call to its [HandleReport] method with an [NEFilterReportEventStatistics]
+// event.
+//
+// The default value of this property [NEFilterReportFrequencyNone], meaning
+// that the provider receives no statistics by default.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterDataVerdict/statisticsReportFrequency
 func (f NEFilterDataVerdict) StatisticsReportFrequency() NEFilterReportFrequency {
@@ -199,4 +198,3 @@ func (f NEFilterDataVerdict) StatisticsReportFrequency() NEFilterReportFrequency
 func (f NEFilterDataVerdict) SetStatisticsReportFrequency(value NEFilterReportFrequency) {
 	objc.Send[struct{}](f.ID, objc.Sel("setStatisticsReportFrequency:"), value)
 }
-

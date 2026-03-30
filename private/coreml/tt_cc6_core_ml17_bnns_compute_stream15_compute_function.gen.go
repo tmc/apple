@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TtCC6CoreML17BNNSComputeStream15ComputeFunction struct {
 func TtCC6CoreML17BNNSComputeStream15ComputeFunctionFromID(id objc.ID) TtCC6CoreML17BNNSComputeStream15ComputeFunction {
 	return TtCC6CoreML17BNNSComputeStream15ComputeFunction{objectivec.Object{ID: id}}
 }
+
 // NOTE: TtCC6CoreML17BNNSComputeStream15ComputeFunction struct embeds objectivec.Object (parent type unavailable) but
 // ITtCC6CoreML17BNNSComputeStream15ComputeFunction embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTtCC6CoreML17BNNSComputeStream15ComputeFunction() TtCC6CoreML17BNNSCompu
 	rv := objc.Send[TtCC6CoreML17BNNSComputeStream15ComputeFunction](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

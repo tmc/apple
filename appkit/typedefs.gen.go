@@ -4,11 +4,17 @@ package appkit
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
+// NSAboutPanelOptionKey is keys to include in the options dictionary when displaying an About panel.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/AboutPanelOptionKey
+type NSAboutPanelOptionKey = string
 
 // NSAccessibilityActionName is constants that describe types of actions.
 //
@@ -175,6 +181,11 @@ type NSCollectionViewTransitionLayoutAnimatedKey = string
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/Name-swift.typealias
 type NSColorListName = string
 
+// NSColorName is the name of a color.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSColor/Name
+type NSColorName = string
+
 // NSColorSpaceName is constants that specify color space names.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorSpaceName
@@ -189,6 +200,16 @@ type NSControlStateValue = int
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDataAsset/Name-swift.typealias
 type NSDataAssetName = string
+
+// NSDefinitionOptionKey is keys to include in your definition.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/DefinitionOptionKey
+type NSDefinitionOptionKey = string
+
+// NSDefinitionPresentationType is presentation options for the window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/DefinitionPresentationType
+type NSDefinitionPresentationType = string
 
 // NSDeviceDescriptionKey is these constants are the keys for device description dictionaries.
 //
@@ -244,11 +265,6 @@ type NSFontDescriptorTraitKey = string
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/VariationKey
 type NSFontDescriptorVariationKey = string
-
-// NSFontFamilyClass is constants that classify certain stylistic qualities of the font.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSFontFamilyClass
-type NSFontFamilyClass = uint32
 
 // NSFontSymbolicTraits is a symbolic description of stylistic aspects of a font.
 //
@@ -316,6 +332,11 @@ type NSLayoutPriority = float32
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/ModalResponse
 type NSModalResponse = int
+
+// NSModalSession is variables of type [NSModalSession] point to information used by the system between [NSApplication]’s [beginModalSession(for:)] and [endModalSession(_:)] messages.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/ModalSession
+type NSModalSession = uintptr
 
 // See: https://developer.apple.com/documentation/AppKit/NSNib/Name
 type NSNibName = string
@@ -484,7 +505,6 @@ type NSSpeechStatusKey = string
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/SynthesizerInfoKey
 type NSSpeechSynthesizerInfoKey = string
 
-//
 // Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceName
@@ -587,6 +607,11 @@ type NSTextStorageEditedOptions = uint
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/OptionKey
 type NSTextTabOptionKey = string
 
+// NSToolTipTag is this type describes the rectangle used to identify a tooltip rectangle.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/ToolTipTag
+type NSToolTipTag = int
+
 // NSToolbarIdentifier is a string value that you use to differentiate your app’s toolbars.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/Identifier-swift.typealias
@@ -622,6 +647,11 @@ type NSTouchBarItemIdentifier = string
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/Priority
 type NSTouchBarItemPriority = float32
 
+// NSTrackingRectTag is this type describes the rectangle used to track the mouse.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/TrackingRectTag
+type NSTrackingRectTag = int
+
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentifier
 type NSUserInterfaceItemIdentifier = string
 
@@ -634,6 +664,11 @@ type NSViewAnimationEffectName = string
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewAnimation/Key
 type NSViewAnimationKey = string
+
+// NSViewFullScreenModeOptionKey is these constants are keys that you can use in the options dictionary in [enterFullScreenMode(_:withOptions:)] and [exitFullScreenMode(options:)].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/FullScreenModeOptionKey
+type NSViewFullScreenModeOptionKey = string
 
 // NSVoiceAttributeKey is the following constants are keys for the dictionary returned by [attributes(forVoice:)].
 //
@@ -677,4 +712,3 @@ type NSWorkspaceDesktopImageOptionKey = string
 // WindowRef is an opaque Carbon window reference.
 
 type WindowRef = unsafe.Pointer
-

@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TTSPhonemeSupport struct {
 func TTSPhonemeSupportFromID(id objc.ID) TTSPhonemeSupport {
 	return TTSPhonemeSupport{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSPhonemeSupport implements ITTSPhonemeSupport.
 var _ ITTSPhonemeSupport = TTSPhonemeSupport{}
 
@@ -79,7 +81,6 @@ func NewTTSPhonemeSupport() TTSPhonemeSupport {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/_getPhonemeMapForSynth:language:
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _getPhonemeMapForSynthLanguage(synth objectivec.IObject, language objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_getPhonemeMapForSynth:language:"), synth, language)
@@ -90,7 +91,7 @@ func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _getPhonemeMapForSynthLang
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) GetPhonemeMapForSynthLanguage(synth objectivec.IObject, language objectivec.IObject) objectivec.IObject {
 	return _TTSPhonemeSupportClass._getPhonemeMapForSynthLanguage(synth, language)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/_ipaVectorFromString:
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _ipaVectorFromString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_ipaVectorFromString:"), string_)
@@ -101,7 +102,7 @@ func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _ipaVectorFromString(strin
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) IpaVectorFromString(string_ objectivec.IObject) objectivec.IObject {
 	return _TTSPhonemeSupportClass._ipaVectorFromString(string_)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/_phonemesFromIPA:language:synth:
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _phonemesFromIPALanguageSynth(ipa objectivec.IObject, language objectivec.IObject, synth objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_phonemesFromIPA:language:synth:"), ipa, language, synth)
@@ -112,39 +113,39 @@ func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _phonemesFromIPALanguageSy
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) PhonemesFromIPALanguageSynth(ipa objectivec.IObject, language objectivec.IObject, synth objectivec.IObject) objectivec.IObject {
 	return _TTSPhonemeSupportClass._phonemesFromIPALanguageSynth(ipa, language, synth)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/applebetPhonemesFromIPA:
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) ApplebetPhonemesFromIPA(ipa objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("applebetPhonemesFromIPA:"), ipa)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/applebetPhonemesFromLH:
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) ApplebetPhonemesFromLH(lh objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("applebetPhonemesFromLH:"), lh)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/eloquencePhonemesFromIPA:language:
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) EloquencePhonemesFromIPALanguage(ipa objectivec.IObject, language objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("eloquencePhonemesFromIPA:language:"), ipa, language)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/lhPhonemesFromIPA:language:
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) LhPhonemesFromIPALanguage(ipa objectivec.IObject, language objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("lhPhonemesFromIPA:language:"), ipa, language)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/phonemesFromIPA:language:
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) PhonemesFromIPALanguage(ipa objectivec.IObject, language objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("phonemesFromIPA:language:"), ipa, language)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSPhonemeSupport/supportedIPAPhonemeLanguages
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) SupportedIPAPhonemeLanguages() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("supportedIPAPhonemeLanguages"))
 	return objectivec.Object{ID: rv}
 }
-

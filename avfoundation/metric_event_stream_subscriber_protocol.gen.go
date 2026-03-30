@@ -23,6 +23,7 @@ type AVMetricEventStreamSubscriber interface {
 type AVMetricEventStreamSubscriberObject struct {
 	objectivec.Object
 }
+
 func (o AVMetricEventStreamSubscriberObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -44,5 +45,4 @@ func AVMetricEventStreamSubscriberObjectFromID(id objc.ID) AVMetricEventStreamSu
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEventStreamSubscriber/publisher:didReceiveEvent:
 func (o AVMetricEventStreamSubscriberObject) PublisherDidReceiveEvent(publisher AVMetricEventStreamPublisher, event IAVMetricEvent) {
 	objc.Send[struct{}](o.ID, objc.Sel("publisher:didReceiveEvent:"), publisher, event)
-	}
-
+}

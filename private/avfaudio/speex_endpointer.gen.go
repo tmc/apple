@@ -3,10 +3,11 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (sc SpeexEndpointerClass) Alloc() SpeexEndpointer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SpeexEndpointer.ConfigureWithASBDAndFrameRate]
@@ -63,6 +63,7 @@ func (sc SpeexEndpointerClass) Alloc() SpeexEndpointer {
 //   - [SpeexEndpointer.Description]
 //   - [SpeexEndpointer.Hash]
 //   - [SpeexEndpointer.Superclass]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer
 type SpeexEndpointer struct {
 	objectivec.Object
@@ -72,6 +73,7 @@ type SpeexEndpointer struct {
 func SpeexEndpointerFromID(id objc.ID) SpeexEndpointer {
 	return SpeexEndpointer{objectivec.Object{ID: id}}
 }
+
 // Ensure SpeexEndpointer implements ISpeexEndpointer.
 var _ ISpeexEndpointer = SpeexEndpointer{}
 
@@ -141,30 +143,30 @@ func NewSpeexEndpointer() SpeexEndpointer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/configureWithASBD:andFrameRate:
 func (s SpeexEndpointer) ConfigureWithASBDAndFrameRate(asbd unsafe.Pointer, rate uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("configureWithASBD:andFrameRate:"), asbd, rate)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/configureWithSampleRate:andFrameRate:
 func (s SpeexEndpointer) ConfigureWithSampleRateAndFrameRate(rate float64, rate2 uint32) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("configureWithSampleRate:andFrameRate:"), rate, rate2)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/getStatus:
 func (s SpeexEndpointer) GetStatus(status unsafe.Pointer) int {
 	rv := objc.Send[int](s.ID, objc.Sel("getStatus:"), status)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/getStatus:count:
 func (s SpeexEndpointer) GetStatusCount(status []float32, count uint32) int {
 	rv := objc.Send[int](s.ID, objc.Sel("getStatus:count:"), objc.CArray(status), count)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/reset
 func (s SpeexEndpointer) Reset() {
 	objc.Send[objc.ID](s.ID, objc.Sel("reset"))
@@ -175,11 +177,13 @@ func (s SpeexEndpointer) DebugDescription() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/description
 func (s SpeexEndpointer) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/endWaitTime
 func (s SpeexEndpointer) EndWaitTime() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("endWaitTime"))
@@ -188,6 +192,7 @@ func (s SpeexEndpointer) EndWaitTime() float64 {
 func (s SpeexEndpointer) SetEndWaitTime(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEndWaitTime:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/endpointMode
 func (s SpeexEndpointer) EndpointMode() int {
 	rv := objc.Send[int](s.ID, objc.Sel("endpointMode"))
@@ -196,11 +201,13 @@ func (s SpeexEndpointer) EndpointMode() int {
 func (s SpeexEndpointer) SetEndpointMode(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEndpointMode:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/hash
 func (s SpeexEndpointer) Hash() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/interspeechWaitTime
 func (s SpeexEndpointer) InterspeechWaitTime() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("interspeechWaitTime"))
@@ -209,6 +216,7 @@ func (s SpeexEndpointer) InterspeechWaitTime() float64 {
 func (s SpeexEndpointer) SetInterspeechWaitTime(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setInterspeechWaitTime:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/startWaitTime
 func (s SpeexEndpointer) StartWaitTime() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("startWaitTime"))
@@ -217,9 +225,9 @@ func (s SpeexEndpointer) StartWaitTime() float64 {
 func (s SpeexEndpointer) SetStartWaitTime(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStartWaitTime:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/SpeexEndpointer/superclass
 func (s SpeexEndpointer) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](s.ID, objc.Sel("superclass"))
 	return rv
 }
-

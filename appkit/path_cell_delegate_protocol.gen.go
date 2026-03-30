@@ -4,9 +4,11 @@ package appkit
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A set of methods that enable the delegate of a path cell object to customize the Open panel or pop-up menu of a path whose style is set to [NSPathControl.Style.popUp](<doc://com.apple.appkit/documentation/AppKit/NSPathControl/Style/popUp>).
@@ -20,6 +22,7 @@ type NSPathCellDelegate interface {
 type NSPathCellDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSPathCellDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,18 +43,19 @@ func NSPathCellDelegateObjectFromID(id objc.ID) NSPathCellDelegateObject {
 // openPanel: The Open panel to be displayed.
 //
 // # Discussion
-// 
+//
 // This method is called before the Open panel is shown but after its allowed
 // file types are set to the cell’s allowed types. At this time, you can
 // further customize the Open panel as required. This method is called only
 // when the style is set to [NSPathStylePopUp].
-// 
+//
 // Implementation of this method is optional.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCellDelegate/pathCell(_:willDisplay:)
 func (o NSPathCellDelegateObject) PathCellWillDisplayOpenPanel(pathCell INSPathCell, openPanel INSOpenPanel) {
 	objc.Send[struct{}](o.ID, objc.Sel("pathCell:willDisplayOpenPanel:"), pathCell, openPanel)
-	}
+}
+
 // Implement this method to customize the menu of a pop-up–style path.
 //
 // pathCell: The path cell that sent the message.
@@ -59,17 +63,17 @@ func (o NSPathCellDelegateObject) PathCellWillDisplayOpenPanel(pathCell INSPathC
 // menu: The pop-up menu to be displayed.
 //
 // # Discussion
-// 
+//
 // This method is called before the pop-up menu is shown. At this time, you
 // can further customize the menu as required, adding and removing items. This
 // method is called only when the style is set to [NSPathStylePopUp].
-// 
+//
 // Implementation of this method is optional.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCellDelegate/pathCell(_:willPopUp:)
 func (o NSPathCellDelegateObject) PathCellWillPopUpMenu(pathCell INSPathCell, menu INSMenu) {
 	objc.Send[struct{}](o.ID, objc.Sel("pathCell:willPopUpMenu:"), pathCell, menu)
-	}
+}
 
 // NSPathCellDelegateConfig holds optional typed callbacks for [NSPathCellDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -146,4 +150,3 @@ func NewNSPathCellDelegate(config NSPathCellDelegateConfig) NSPathCellDelegateOb
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSPathCellDelegateObjectFromID(instance)
 }
-

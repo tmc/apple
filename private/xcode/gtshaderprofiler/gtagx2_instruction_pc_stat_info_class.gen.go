@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (gc GTAGX2InstructionPCStatInfoClassClass) Alloc() GTAGX2InstructionPCStatI
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTAGX2InstructionPCStatInfoClass.InstructionPCStatInfo]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTAGX2InstructionPCStatInfoClass
 type GTAGX2InstructionPCStatInfoClass struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type GTAGX2InstructionPCStatInfoClass struct {
 func GTAGX2InstructionPCStatInfoClassFromID(id objc.ID) GTAGX2InstructionPCStatInfoClass {
 	return GTAGX2InstructionPCStatInfoClass{objectivec.Object{ID: id}}
 }
+
 // Ensure GTAGX2InstructionPCStatInfoClass implements IGTAGX2InstructionPCStatInfoClass.
 var _ IGTAGX2InstructionPCStatInfoClass = GTAGX2InstructionPCStatInfoClass{}
 
@@ -96,4 +98,3 @@ func (g GTAGX2InstructionPCStatInfoClass) InstructionPCStatInfo() objectivec.IOb
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("instructionPCStatInfo"))
 	return objectivec.Object{ID: rv}
 }
-

@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TTSSpeakUPAUManager struct {
 func TTSSpeakUPAUManagerFromID(id objc.ID) TTSSpeakUPAUManager {
 	return TTSSpeakUPAUManager{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSSpeakUPAUManager implements ITTSSpeakUPAUManager.
 var _ ITTSSpeakUPAUManager = TTSSpeakUPAUManager{}
 
@@ -84,8 +86,8 @@ func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) Component() objectivec
 	rv := objc.Send[objc.ID](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("component"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeakUPAUManager/registerAU
 func (_TTSSpeakUPAUManagerClass TTSSpeakUPAUManagerClass) RegisterAU() {
 	objc.Send[objc.ID](objc.ID(_TTSSpeakUPAUManagerClass.class), objc.Sel("registerAU"))
 }
-

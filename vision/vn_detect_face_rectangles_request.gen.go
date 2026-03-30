@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (vc VNDetectFaceRectanglesRequestClass) Alloc() VNDetectFaceRectanglesReque
 // A request that finds faces within an image.
 //
 // # Overview
-// 
+//
 // This request returns faces as rectangular bounding boxes with origin and
 // size.
 //
@@ -64,6 +65,7 @@ type VNDetectFaceRectanglesRequest struct {
 func VNDetectFaceRectanglesRequestFromID(id objc.ID) VNDetectFaceRectanglesRequest {
 	return VNDetectFaceRectanglesRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectFaceRectanglesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,7 +115,7 @@ func NewVNDetectFaceRectanglesRequest() VNDetectFaceRectanglesRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -133,6 +135,7 @@ func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision3() 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceRectanglesRequestRevision3"))
 	return rv
 }
+
 // A constant for specifying revision 2 of the face rectangles detection
 // request.
 //
@@ -141,6 +144,7 @@ func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision2() 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceRectanglesRequestRevision2"))
 	return rv
 }
+
 // A constant for specifying revision 1 of the face rectangles detection
 // request.
 //
@@ -149,4 +153,3 @@ func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision1() 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceRectanglesRequestRevision1"))
 	return rv
 }
-

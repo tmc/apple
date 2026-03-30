@@ -17,4 +17,3 @@ func nsEventMaskFromType(type_ NSEventType) NSEventMask {
 func nsTouchTypeMaskFromType(type_ NSTouchType) NSTouchTypeMask {
 	return 1 << NSTouchTypeMask(type_)
 }
-

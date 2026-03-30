@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type RemotePort struct {
 func RemotePortFromID(id objc.ID) RemotePort {
 	return RemotePort{objectivec.Object{ID: id}}
 }
+
 // Ensure RemotePort implements IRemotePort.
 var _ IRemotePort = RemotePort{}
 
@@ -78,4 +80,3 @@ func NewRemotePort() RemotePort {
 	rv := objc.Send[RemotePort](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

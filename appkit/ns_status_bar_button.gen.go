@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (nc NSStatusBarButtonClass) Alloc() NSStatusBarButton {
 //
 // # Instance Properties
 //
-//   - [NSStatusBarButton.AppearsDisabled]
+//   - [NSStatusBarButton.AppearsDisabled]: Determines whether the status bar icon has a disabled/off appearance while still being functional, such as allowing selection and actions.
 //   - [NSStatusBarButton.SetAppearsDisabled]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBarButton
@@ -61,6 +62,7 @@ type NSStatusBarButton struct {
 func NSStatusBarButtonFromID(id objc.ID) NSStatusBarButton {
 	return NSStatusBarButton{NSButton: NSButtonFromID(id)}
 }
+
 // NOTE: NSStatusBarButton adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -68,7 +70,7 @@ func NSStatusBarButtonFromID(id objc.ID) NSStatusBarButton {
 //
 // # Instance Properties
 //
-//   - [INSStatusBarButton.AppearsDisabled]
+//   - [INSStatusBarButton.AppearsDisabled]: Determines whether the status bar icon has a disabled/off appearance while still being functional, such as allowing selection and actions.
 //   - [INSStatusBarButton.SetAppearsDisabled]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBarButton
@@ -77,6 +79,7 @@ type INSStatusBarButton interface {
 
 	// Topic: Instance Properties
 
+	// Determines whether the status bar icon has a disabled/off appearance while still being functional, such as allowing selection and actions.
 	AppearsDisabled() bool
 	SetAppearsDisabled(value bool)
 }
@@ -143,12 +146,12 @@ func NewStatusBarButtonWithCoder(coder foundation.INSCoder) NSStatusBarButton {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -172,7 +175,7 @@ func NewStatusBarButtonWithFrame(frameRect corefoundation.CGRect) NSStatusBarBut
 // action: The action message the button sends to the target.
 //
 // # Discussion
-// 
+//
 // Set the image’s [AccessibilityDescription] property to ensure
 // accessibility for this control.
 //
@@ -212,6 +215,13 @@ func NewStatusBarButtonWithTitleTargetAction(title string, target objectivec.IOb
 	return NSStatusBarButtonFromID(rv)
 }
 
+// Determines whether the status bar icon has a disabled/off appearance while
+// still being functional, such as allowing selection and actions.
+//
+// # Discussion
+//
+// The default value is `false`.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBarButton/appearsDisabled
 func (s NSStatusBarButton) AppearsDisabled() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("appearsDisabled"))
@@ -220,4 +230,3 @@ func (s NSStatusBarButton) AppearsDisabled() bool {
 func (s NSStatusBarButton) SetAppearsDisabled(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAppearsDisabled:"), value)
 }
-

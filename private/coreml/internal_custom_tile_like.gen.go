@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (ic InternalCustomTileLikeClass) Alloc() InternalCustomTileLike {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [InternalCustomTileLike.EvaluateOnCPUWithInputsOutputsError]
@@ -55,6 +55,7 @@ func (ic InternalCustomTileLikeClass) Alloc() InternalCustomTileLike {
 //   - [InternalCustomTileLike.OutputShapesForInputShapesError]
 //   - [InternalCustomTileLike.SetWeightDataError]
 //   - [InternalCustomTileLike.InitWithParameterDictionaryError]
+//
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomTileLike
 type InternalCustomTileLike struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type InternalCustomTileLike struct {
 func InternalCustomTileLikeFromID(id objc.ID) InternalCustomTileLike {
 	return InternalCustomTileLike{objectivec.Object{ID: id}}
 }
+
 // Ensure InternalCustomTileLike implements IInternalCustomTileLike.
 var _ IInternalCustomTileLike = InternalCustomTileLike{}
 
@@ -115,7 +117,6 @@ func NewInternalCustomTileLike() InternalCustomTileLike {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomTileLike/initWithParameterDictionary:error:
 func NewInternalCustomTileLikeWithParameterDictionaryError(dictionary objectivec.IObject) (InternalCustomTileLike, error) {
 	var errorPtr objc.ID
@@ -128,7 +129,6 @@ func NewInternalCustomTileLikeWithParameterDictionaryError(dictionary objectivec
 	return InternalCustomTileLikeFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomTileLike/evaluateOnCPUWithInputs:outputs:error:
 func (i InternalCustomTileLike) EvaluateOnCPUWithInputsOutputsError(inputs objectivec.IObject, outputs objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -143,7 +143,7 @@ func (i InternalCustomTileLike) EvaluateOnCPUWithInputsOutputsError(inputs objec
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomTileLike/outputShapesForInputShapes:error:
 func (i InternalCustomTileLike) OutputShapesForInputShapesError(shapes objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -155,7 +155,7 @@ func (i InternalCustomTileLike) OutputShapesForInputShapesError(shapes objective
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomTileLike/setWeightData:error:
 func (i InternalCustomTileLike) SetWeightDataError(data objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -170,7 +170,7 @@ func (i InternalCustomTileLike) SetWeightDataError(data objectivec.IObject) (boo
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomTileLike/initWithParameterDictionary:error:
 func (i InternalCustomTileLike) InitWithParameterDictionaryError(dictionary objectivec.IObject) (InternalCustomTileLike, error) {
 	var errorPtr objc.ID
@@ -188,19 +188,21 @@ func (i InternalCustomTileLike) InputRank() uint64 {
 	rv := objc.Send[uint64](i.ID, objc.Sel("inputRank"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomTileLike/inputShape
 func (i InternalCustomTileLike) InputShape() objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("inputShape"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomTileLike/multiples
 func (i InternalCustomTileLike) Multiples() objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("multiples"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/InternalCustomTileLike/outputShape
 func (i InternalCustomTileLike) OutputShape() objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("outputShape"))
 	return objectivec.Object{ID: rv}
 }
-

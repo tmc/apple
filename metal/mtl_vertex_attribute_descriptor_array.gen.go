@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (mc MTLVertexAttributeDescriptorArrayClass) Alloc() MTLVertexAttributeDescr
 // An array of vertex attribute descriptor instances.
 //
 // # Overview
-// 
+//
 // An [MTLVertexAttributeDescriptorArray] instance is an array of instances
 // that defines how vertex attribute data is formatted and assigned to an
 // index in the attribute argument table. The methods of
@@ -66,6 +67,7 @@ type MTLVertexAttributeDescriptorArray struct {
 func MTLVertexAttributeDescriptorArrayFromID(id objc.ID) MTLVertexAttributeDescriptorArray {
 	return MTLVertexAttributeDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLVertexAttributeDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,7 +115,7 @@ func NewMTLVertexAttributeDescriptorArray() MTLVertexAttributeDescriptorArray {
 // index: A specified index in the array of vertex attribute states.
 //
 // # Return Value
-// 
+//
 // A descriptor that contains the vertex attribute state.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttributeDescriptorArray/subscript(_:)
@@ -121,6 +123,7 @@ func (v MTLVertexAttributeDescriptorArray) ObjectAtIndexedSubscript(index uint) 
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("objectAtIndexedSubscript:"), index)
 	return MTLVertexAttributeDescriptorFromID(rv)
 }
+
 // Sets state for the specified vertex attribute.
 //
 // attributeDesc: A descriptor that contains vertex attribute state.
@@ -128,7 +131,7 @@ func (v MTLVertexAttributeDescriptorArray) ObjectAtIndexedSubscript(index uint) 
 // index: A specified index in the array of vertex attribute states.
 //
 // # Discussion
-// 
+//
 // If this method is called with `nil` for `attributeDesc` for any legal
 // `index`, its vertex attribute state is set to the default values.
 //
@@ -142,4 +145,3 @@ func (v MTLVertexAttributeDescriptorArray) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
-

@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,11 +44,11 @@ func (mc MLCompilerResultClass) Alloc() MLCompilerResult {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLCompilerResult.OutputFiles]
 //   - [MLCompilerResult.SetOutputFiles]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerResult
 type MLCompilerResult struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type MLCompilerResult struct {
 func MLCompilerResultFromID(id objc.ID) MLCompilerResult {
 	return MLCompilerResult{objectivec.Object{ID: id}}
 }
+
 // Ensure MLCompilerResult implements IMLCompilerResult.
 var _ IMLCompilerResult = MLCompilerResult{}
 
@@ -96,13 +98,12 @@ func NewMLCompilerResult() MLCompilerResult {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerResult/resultWithArchive:
 func (_MLCompilerResultClass MLCompilerResultClass) ResultWithArchive(archive unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerResultClass.class), objc.Sel("resultWithArchive:"), archive)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCompilerResult/resultWithOutputFiles:
 func (_MLCompilerResultClass MLCompilerResultClass) ResultWithOutputFiles(files objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLCompilerResultClass.class), objc.Sel("resultWithOutputFiles:"), files)
@@ -117,4 +118,3 @@ func (c MLCompilerResult) OutputFiles() foundation.INSArray {
 func (c MLCompilerResult) SetOutputFiles(value foundation.INSArray) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOutputFiles:"), value)
 }
-

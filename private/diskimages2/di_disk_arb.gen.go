@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (dc DIDiskArbClass) Alloc() DIDiskArb {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIDiskArb.AddDisappearedCallbackWithMountPointShadowMountPointsDelegate]
@@ -68,6 +68,7 @@ func (dc DIDiskArbClass) Alloc() DIDiskArb {
 //   - [DIDiskArb.UnmountWithMountPointError]
 //   - [DIDiskArb.WaitForDAIdleWithError]
 //   - [DIDiskArb.InitWithError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb
 type DIDiskArb struct {
 	objectivec.Object
@@ -77,6 +78,7 @@ type DIDiskArb struct {
 func DIDiskArbFromID(id objc.ID) DIDiskArb {
 	return DIDiskArb{objectivec.Object{ID: id}}
 }
+
 // Ensure DIDiskArb implements IDIDiskArb.
 var _ IDIDiskArb = DIDiskArb{}
 
@@ -154,7 +156,6 @@ func NewDIDiskArb() DIDiskArb {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/initWithError:
 func NewDIDiskArbWithError() (DIDiskArb, error) {
 	var errorPtr objc.ID
@@ -167,18 +168,17 @@ func NewDIDiskArbWithError() (DIDiskArb, error) {
 	return DIDiskArbFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:
 func (d DIDiskArb) AddDisappearedCallbackWithMountPointShadowMountPointsDelegate(point objectivec.IObject, points objectivec.IObject, delegate objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:"), point, points, delegate)
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/copyDescriptionWithBSDName:
 func (d DIDiskArb) CopyDescriptionWithBSDName(bSDName objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("copyDescriptionWithBSDName:"), bSDName)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/ejectWithBSDName:error:
 func (d DIDiskArb) EjectWithBSDNameError(bSDName objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -193,7 +193,7 @@ func (d DIDiskArb) EjectWithBSDNameError(bSDName objectivec.IObject) (bool, erro
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/mountWithDeviceName:args:filesystem:mountURL:error:
 func (d DIDiskArb) MountWithDeviceNameArgsFilesystemMountURLError(name objectivec.IObject, args objectivec.IObject, filesystem objectivec.IObject, url foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
@@ -208,16 +208,17 @@ func (d DIDiskArb) MountWithDeviceNameArgsFilesystemMountURLError(name objective
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/onDiskDisappearedWithDisk:
 func (d DIDiskArb) OnDiskDisappearedWithDisk(disk objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("onDiskDisappearedWithDisk:"), disk)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/stop
 func (d DIDiskArb) Stop() {
 	objc.Send[objc.ID](d.ID, objc.Sel("stop"))
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/unmountWithMountPoint:error:
 func (d DIDiskArb) UnmountWithMountPointError(point objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -232,7 +233,7 @@ func (d DIDiskArb) UnmountWithMountPointError(point objectivec.IObject) (bool, e
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/waitForDAIdleWithError:
 func (d DIDiskArb) WaitForDAIdleWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -247,7 +248,7 @@ func (d DIDiskArb) WaitForDAIdleWithError() (bool, error) {
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/initWithError:
 func (d DIDiskArb) InitWithError() (DIDiskArb, error) {
 	var errorPtr objc.ID
@@ -260,7 +261,6 @@ func (d DIDiskArb) InitWithError() (DIDiskArb, error) {
 
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/diskArbWithError:
 func (_DIDiskArbClass DIDiskArbClass) DiskArbWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -281,6 +281,7 @@ func (d DIDiskArb) CallbackReached() bool {
 func (d DIDiskArb) SetCallbackReached(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCallbackReached:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/daSession
 func (d DIDiskArb) DaSession() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("daSession"))
@@ -289,6 +290,7 @@ func (d DIDiskArb) DaSession() objectivec.IObject {
 func (d DIDiskArb) SetDaSession(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDaSession:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/delegate
 func (d DIDiskArb) Delegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("delegate"))
@@ -297,6 +299,7 @@ func (d DIDiskArb) Delegate() objectivec.IObject {
 func (d DIDiskArb) SetDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDelegate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/inputMountedOnURL
 func (d DIDiskArb) InputMountedOnURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("inputMountedOnURL"))
@@ -305,6 +308,7 @@ func (d DIDiskArb) InputMountedOnURL() foundation.INSURL {
 func (d DIDiskArb) SetInputMountedOnURL(value foundation.INSURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setInputMountedOnURL:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/operationError
 func (d DIDiskArb) OperationError() foundation.INSError {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("operationError"))
@@ -313,6 +317,7 @@ func (d DIDiskArb) OperationError() foundation.INSError {
 func (d DIDiskArb) SetOperationError(value foundation.INSError) {
 	objc.Send[struct{}](d.ID, objc.Sel("setOperationError:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIDiskArb/shadowMountedOnURLs
 func (d DIDiskArb) ShadowMountedOnURLs() foundation.INSArray {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowMountedOnURLs"))
@@ -321,4 +326,3 @@ func (d DIDiskArb) ShadowMountedOnURLs() foundation.INSArray {
 func (d DIDiskArb) SetShadowMountedOnURLs(value foundation.INSArray) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShadowMountedOnURLs:"), value)
 }
-

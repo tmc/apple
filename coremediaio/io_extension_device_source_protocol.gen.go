@@ -18,6 +18,7 @@ type CMIOExtensionDeviceSource interface {
 type CMIOExtensionDeviceSourceObject struct {
 	objectivec.Object
 }
+
 func (o CMIOExtensionDeviceSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func CMIOExtensionDeviceSourceObjectFromID(id objc.ID) CMIOExtensionDeviceSource
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

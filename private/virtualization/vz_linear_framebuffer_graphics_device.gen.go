@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZLinearFramebufferGraphicsDevice struct {
 func VZLinearFramebufferGraphicsDeviceFromID(id objc.ID) VZLinearFramebufferGraphicsDevice {
 	return VZLinearFramebufferGraphicsDevice{VZGraphicsDevice: VZGraphicsDeviceFromID(id)}
 }
+
 // Ensure VZLinearFramebufferGraphicsDevice implements IVZLinearFramebufferGraphicsDevice.
 var _ IVZLinearFramebufferGraphicsDevice = VZLinearFramebufferGraphicsDevice{}
 
@@ -77,4 +79,3 @@ func NewVZLinearFramebufferGraphicsDevice() VZLinearFramebufferGraphicsDevice {
 	rv := objc.Send[VZLinearFramebufferGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

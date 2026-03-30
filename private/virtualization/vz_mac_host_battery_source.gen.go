@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZMacHostBatterySource struct {
 func VZMacHostBatterySourceFromID(id objc.ID) VZMacHostBatterySource {
 	return VZMacHostBatterySource{VZMacBatterySource: VZMacBatterySourceFromID(id)}
 }
+
 // Ensure VZMacHostBatterySource implements IVZMacHostBatterySource.
 var _ IVZMacHostBatterySource = VZMacHostBatterySource{}
 
@@ -77,4 +79,3 @@ func NewVZMacHostBatterySource() VZMacHostBatterySource {
 	rv := objc.Send[VZMacHostBatterySource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

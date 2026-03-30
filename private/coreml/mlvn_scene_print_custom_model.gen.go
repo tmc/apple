@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLVNScenePrintCustomModelClass) Alloc() MLVNScenePrintCustomModel {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLVNScenePrintCustomModel.Configuration]
@@ -52,6 +52,7 @@ func (mc MLVNScenePrintCustomModelClass) Alloc() MLVNScenePrintCustomModel {
 //   - [MLVNScenePrintCustomModel.PredictionFromFeaturesOptionsError]
 //   - [MLVNScenePrintCustomModel.ScenePrintRequestRevision]
 //   - [MLVNScenePrintCustomModel.InitWithModelDescriptionParameterDictionaryError]
+//
 // See: https://developer.apple.com/documentation/CoreML/_MLVNScenePrintCustomModel
 type MLVNScenePrintCustomModel struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type MLVNScenePrintCustomModel struct {
 func MLVNScenePrintCustomModelFromID(id objc.ID) MLVNScenePrintCustomModel {
 	return MLVNScenePrintCustomModel{objectivec.Object{ID: id}}
 }
+
 // Ensure MLVNScenePrintCustomModel implements IMLVNScenePrintCustomModel.
 var _ IMLVNScenePrintCustomModel = MLVNScenePrintCustomModel{}
 
@@ -108,7 +110,6 @@ func NewMLVNScenePrintCustomModel() MLVNScenePrintCustomModel {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLVNScenePrintCustomModel/initWithModelDescription:parameterDictionary:error:
 func NewMLVNScenePrintCustomModelWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLVNScenePrintCustomModel, error) {
 	var errorPtr objc.ID
@@ -121,13 +122,12 @@ func NewMLVNScenePrintCustomModelWithModelDescriptionParameterDictionaryError(de
 	return MLVNScenePrintCustomModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLVNScenePrintCustomModel/featureValueFromScenePrint:elementSize:
 func (m MLVNScenePrintCustomModel) FeatureValueFromScenePrintElementSize(print_ objectivec.IObject, size uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("featureValueFromScenePrint:elementSize:"), print_, size)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLVNScenePrintCustomModel/predictionFromFeatures:options:error:
 func (m MLVNScenePrintCustomModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -139,7 +139,7 @@ func (m MLVNScenePrintCustomModel) PredictionFromFeaturesOptionsError(features o
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLVNScenePrintCustomModel/initWithModelDescription:parameterDictionary:error:
 func (m MLVNScenePrintCustomModel) InitWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLVNScenePrintCustomModel, error) {
 	var errorPtr objc.ID
@@ -157,14 +157,15 @@ func (m MLVNScenePrintCustomModel) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_MLVNScenePrintCustomModel/modelDescription
 func (m MLVNScenePrintCustomModel) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_MLVNScenePrintCustomModel/scenePrintRequestRevision
 func (m MLVNScenePrintCustomModel) ScenePrintRequestRevision() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("scenePrintRequestRevision"))
 	return rv
 }
-

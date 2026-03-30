@@ -18,6 +18,7 @@ type MLComputeDeviceProtocol interface {
 type MLComputeDeviceProtocolObject struct {
 	objectivec.Object
 }
+
 func (o MLComputeDeviceProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func MLComputeDeviceProtocolObjectFromID(id objc.ID) MLComputeDeviceProtocolObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

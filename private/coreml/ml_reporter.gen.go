@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLReporterClass) Alloc() MLReporter {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLReporter.LogMetric]
@@ -50,6 +50,7 @@ func (mc MLReporterClass) Alloc() MLReporter {
 //   - [MLReporter.Description]
 //   - [MLReporter.Hash]
 //   - [MLReporter.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLReporter
 type MLReporter struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLReporter struct {
 func MLReporterFromID(id objc.ID) MLReporter {
 	return MLReporter{objectivec.Object{ID: id}}
 }
+
 // Ensure MLReporter implements IMLReporter.
 var _ IMLReporter = MLReporter{}
 
@@ -104,7 +106,6 @@ func NewMLReporter() MLReporter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLReporter/logMetric:
 func (r MLReporter) LogMetric(metric objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("logMetric:"), metric)
@@ -121,19 +122,21 @@ func (r MLReporter) DebugDescription() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLReporter/description
 func (r MLReporter) Description() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLReporter/hash
 func (r MLReporter) Hash() uint64 {
 	rv := objc.Send[uint64](r.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLReporter/superclass
 func (r MLReporter) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](r.ID, objc.Sel("superclass"))
 	return rv
 }
-

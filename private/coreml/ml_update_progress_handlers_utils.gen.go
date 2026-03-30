@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MLUpdateProgressHandlersUtils struct {
 func MLUpdateProgressHandlersUtilsFromID(id objc.ID) MLUpdateProgressHandlersUtils {
 	return MLUpdateProgressHandlersUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure MLUpdateProgressHandlersUtils implements IMLUpdateProgressHandlersUtils.
 var _ IMLUpdateProgressHandlersUtils = MLUpdateProgressHandlersUtils{}
 
@@ -79,10 +81,8 @@ func NewMLUpdateProgressHandlersUtils() MLUpdateProgressHandlersUtils {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlersUtils/progressEventsToString:
 func (_MLUpdateProgressHandlersUtilsClass MLUpdateProgressHandlersUtilsClass) ProgressEventsToString(string_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateProgressHandlersUtilsClass.class), objc.Sel("progressEventsToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-

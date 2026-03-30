@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +70,7 @@ type CITextImageGenerator interface {
 type CITextImageGeneratorObject struct {
 	objectivec.Object
 }
+
 func (o CITextImageGeneratorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -88,33 +89,38 @@ func CITextImageGeneratorObjectFromID(id objc.ID) CITextImageGeneratorObject {
 func (o CITextImageGeneratorObject) FontName() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("fontName"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // The size of the font to use for the generated text.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/fontSize
 func (o CITextImageGeneratorObject) FontSize() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("fontSize"))
 	return rv
-	}
+}
+
 // The scale of the font to use for the generated text.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/scaleFactor
 func (o CITextImageGeneratorObject) ScaleFactor() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scaleFactor"))
 	return rv
-	}
+}
+
 // The text to render.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/text
 func (o CITextImageGeneratorObject) Text() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("text"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/padding
 func (o CITextImageGeneratorObject) Padding() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("padding"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -122,25 +128,37 @@ func (o CITextImageGeneratorObject) Padding() float32 {
 func (o CITextImageGeneratorObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The name of the font to use for the generated text.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/fontName
 func (o CITextImageGeneratorObject) SetFontName(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFontName:"), objc.String(value))
 }
 
+// The size of the font to use for the generated text.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/fontSize
 func (o CITextImageGeneratorObject) SetFontSize(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFontSize:"), value)
 }
 
+// The scale of the font to use for the generated text.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/scaleFactor
 func (o CITextImageGeneratorObject) SetScaleFactor(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScaleFactor:"), value)
 }
 
+// The text to render.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/text
 func (o CITextImageGeneratorObject) SetText(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setText:"), objc.String(value))
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/padding
 func (o CITextImageGeneratorObject) SetPadding(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPadding:"), value)
 }
-

@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (mc MLProgramTrainingDeltaClass) Alloc() MLProgramTrainingDelta {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLProgramTrainingDelta.FlattenedModelUpdate]
 //   - [MLProgramTrainingDelta.InitWithFlattenedModelUpdate]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainingDelta
 type MLProgramTrainingDelta struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type MLProgramTrainingDelta struct {
 func MLProgramTrainingDeltaFromID(id objc.ID) MLProgramTrainingDelta {
 	return MLProgramTrainingDelta{objectivec.Object{ID: id}}
 }
+
 // Ensure MLProgramTrainingDelta implements IMLProgramTrainingDelta.
 var _ IMLProgramTrainingDelta = MLProgramTrainingDelta{}
 
@@ -95,7 +97,6 @@ func NewMLProgramTrainingDelta() MLProgramTrainingDelta {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainingDelta/initWithFlattenedModelUpdate:
 func NewProgramTrainingDeltaWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta {
 	instance := getMLProgramTrainingDeltaClass().Alloc()
@@ -103,7 +104,6 @@ func NewProgramTrainingDeltaWithFlattenedModelUpdate(update objectivec.IObject) 
 	return MLProgramTrainingDeltaFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramTrainingDelta/initWithFlattenedModelUpdate:
 func (p MLProgramTrainingDelta) InitWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta {
 	rv := objc.Send[MLProgramTrainingDelta](p.ID, objc.Sel("initWithFlattenedModelUpdate:"), update)
@@ -115,4 +115,3 @@ func (p MLProgramTrainingDelta) FlattenedModelUpdate() foundation.INSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("flattenedModelUpdate"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-

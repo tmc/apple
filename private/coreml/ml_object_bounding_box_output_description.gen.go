@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLObjectBoundingBoxOutputDescriptionClass) Alloc() MLObjectBoundingBoxO
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLObjectBoundingBoxOutputDescription.ConfidenceFeatureName]
@@ -53,6 +53,7 @@ func (mc MLObjectBoundingBoxOutputDescriptionClass) Alloc() MLObjectBoundingBoxO
 //   - [MLObjectBoundingBoxOutputDescription.SetFormat]
 //   - [MLObjectBoundingBoxOutputDescription.LabelNames]
 //   - [MLObjectBoundingBoxOutputDescription.SetLabelNames]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLObjectBoundingBoxOutputDescription
 type MLObjectBoundingBoxOutputDescription struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLObjectBoundingBoxOutputDescription struct {
 func MLObjectBoundingBoxOutputDescriptionFromID(id objc.ID) MLObjectBoundingBoxOutputDescription {
 	return MLObjectBoundingBoxOutputDescription{objectivec.Object{ID: id}}
 }
+
 // Ensure MLObjectBoundingBoxOutputDescription implements IMLObjectBoundingBoxOutputDescription.
 var _ IMLObjectBoundingBoxOutputDescription = MLObjectBoundingBoxOutputDescription{}
 
@@ -121,6 +123,7 @@ func (o MLObjectBoundingBoxOutputDescription) ConfidenceFeatureName() string {
 func (o MLObjectBoundingBoxOutputDescription) SetConfidenceFeatureName(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setConfidenceFeatureName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLObjectBoundingBoxOutputDescription/coordinatesFeatureName
 func (o MLObjectBoundingBoxOutputDescription) CoordinatesFeatureName() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("coordinatesFeatureName"))
@@ -129,6 +132,7 @@ func (o MLObjectBoundingBoxOutputDescription) CoordinatesFeatureName() string {
 func (o MLObjectBoundingBoxOutputDescription) SetCoordinatesFeatureName(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCoordinatesFeatureName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLObjectBoundingBoxOutputDescription/format
 func (o MLObjectBoundingBoxOutputDescription) Format() int {
 	rv := objc.Send[int](o.ID, objc.Sel("format"))
@@ -137,6 +141,7 @@ func (o MLObjectBoundingBoxOutputDescription) Format() int {
 func (o MLObjectBoundingBoxOutputDescription) SetFormat(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFormat:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLObjectBoundingBoxOutputDescription/labelNames
 func (o MLObjectBoundingBoxOutputDescription) LabelNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("labelNames"))
@@ -145,4 +150,3 @@ func (o MLObjectBoundingBoxOutputDescription) LabelNames() foundation.INSArray {
 func (o MLObjectBoundingBoxOutputDescription) SetLabelNames(value foundation.INSArray) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabelNames:"), value)
 }
-

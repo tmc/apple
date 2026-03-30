@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNTextObservation] class.
@@ -44,7 +45,7 @@ func (vc VNTextObservationClass) Alloc() VNTextObservation {
 // Information about regions of text that an image-analysis request detects.
 //
 // # Overview
-// 
+//
 // This type of observation results from a [VNDetectTextRectanglesRequest]. It
 // expresses the location of each detected character by its bounding box.
 //
@@ -63,6 +64,7 @@ type VNTextObservation struct {
 func VNTextObservationFromID(id objc.ID) VNTextObservation {
 	return VNTextObservation{VNRectangleObservation: VNRectangleObservationFromID(id)}
 }
+
 // NOTE: VNTextObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -168,13 +170,11 @@ func NewTextObservationWithRequestRevisionBoundingBox(requestRevision uint, boun
 // An array of detected individual character bounding boxes.
 //
 // # Discussion
-// 
+//
 // If the associated [VNDetectTextRectanglesRequest] request indicates
 // interest in character boxes by setting the option `reportCharacterBoxes` to
-// [true], this property is non-`nil`. If no characters are found, it remains
+// true, this property is non-`nil`. If no characters are found, it remains
 // empty.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Vision/VNTextObservation/characterBoxes
 func (t VNTextObservation) CharacterBoxes() []VNRectangleObservation {
@@ -183,4 +183,3 @@ func (t VNTextObservation) CharacterBoxes() []VNRectangleObservation {
 		return VNRectangleObservationFromID(id)
 	})
 }
-

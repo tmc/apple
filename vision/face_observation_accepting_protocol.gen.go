@@ -28,6 +28,7 @@ type VNFaceObservationAccepting interface {
 type VNFaceObservationAcceptingObject struct {
 	objectivec.Object
 }
+
 func (o VNFaceObservationAcceptingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -48,9 +49,11 @@ func (o VNFaceObservationAcceptingObject) InputFaceObservations() []VNFaceObserv
 	return objc.ConvertSlice(rv, func(id objc.ID) VNFaceObservation {
 		return VNFaceObservationFromID(id)
 	})
-	}
+}
 
+// An array of [VNFaceObservation] objects to process as part of the request.
+//
+// See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
 func (o VNFaceObservationAcceptingObject) SetInputFaceObservations(value []VNFaceObservation) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputFaceObservations:"), objectivec.IObjectSliceToNSArray(value))
 }
-

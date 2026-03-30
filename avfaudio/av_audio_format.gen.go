@@ -4,9 +4,10 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,15 +47,13 @@ func (ac AVAudioFormatClass) Alloc() AVAudioFormat {
 // An object that describes the representation of an audio format.
 //
 // # Overview
-// 
+//
 // The [AVAudioFormat] class wraps Core Audio’s
 // [AudioStreamBasicDescription], and includes convenience initializers and
 // accessors for common formats, including Core Audio’s standard
 // deinterleaved 32-bit floating point format.
-// 
-// Instances of this class are immutable.
 //
-// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
+// Instances of this class are immutable.
 //
 // # Creating a New Audio Format Representation
 //
@@ -88,6 +87,8 @@ func (ac AVAudioFormatClass) Alloc() AVAudioFormat {
 //   - [AVAudioFormat.SetMagicCookie]
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat
+//
+// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
 type AVAudioFormat struct {
 	objectivec.Object
 }
@@ -98,6 +99,7 @@ type AVAudioFormat struct {
 func AVAudioFormatFromID(id objc.ID) AVAudioFormat {
 	return AVAudioFormat{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioFormat adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -218,12 +220,12 @@ func NewAVAudioFormat() AVAudioFormat {
 // layout: The channel layout, which must not be `nil`.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance.
 //
 // # Discussion
-// 
-// The returned [AVAudioFormat] instance uses the [AudioPCMFormatFloat32]
+//
+// The returned [AVAudioFormat] instance uses the [AVAudioPCMFormatFloat32]
 // format.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(standardFormatWithSampleRate:channelLayout:)
@@ -241,12 +243,12 @@ func NewAudioFormatStandardFormatWithSampleRateChannelLayout(sampleRate float64,
 // channels: The channel count.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if the initialization fails.
 //
 // # Discussion
-// 
-// The returned [AVAudioFormat] instance uses the [AudioPCMFormatFloat32]
+//
+// The returned [AVAudioFormat] instance uses the [AVAudioPCMFormatFloat32]
 // format.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(standardFormatWithSampleRate:channels:)
@@ -262,7 +264,7 @@ func NewAudioFormatStandardFormatWithSampleRateChannels(sampleRate float64, chan
 // formatDescription: The Core Media audio format description.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if `formatDescription` isn’t
 // valid.
 //
@@ -285,16 +287,16 @@ func NewAudioFormatWithCMAudioFormatDescription(formatDescription coremedia.CMFo
 // state.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if the initialization fails.
 //
 // # Discussion
-// 
+//
 // For information about possible `format` values, see [AVAudioCommonFormat].
 //
-// [AVAudioCommonFormat]: https://developer.apple.com/documentation/AVFAudio/AVAudioCommonFormat
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(commonFormat:sampleRate:channels:interleaved:)
+//
+// [AVAudioCommonFormat]: https://developer.apple.com/documentation/AVFAudio/AVAudioCommonFormat
 func NewAudioFormatWithCommonFormatSampleRateChannelsInterleaved(format AVAudioCommonFormat, sampleRate float64, channels AVAudioChannelCount, interleaved bool) AVAudioFormat {
 	instance := getAVAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCommonFormat:sampleRate:channels:interleaved:"), format, sampleRate, channels, interleaved)
@@ -314,16 +316,16 @@ func NewAudioFormatWithCommonFormatSampleRateChannelsInterleaved(format AVAudioC
 // layout: The channel layout, which must not be `nil`.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance.
 //
 // # Discussion
-// 
+//
 // For information about possible `format` values, see [AVAudioCommonFormat].
 //
-// [AVAudioCommonFormat]: https://developer.apple.com/documentation/AVFAudio/AVAudioCommonFormat
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(commonFormat:sampleRate:interleaved:channelLayout:)
+//
+// [AVAudioCommonFormat]: https://developer.apple.com/documentation/AVFAudio/AVAudioCommonFormat
 func NewAudioFormatWithCommonFormatSampleRateInterleavedChannelLayout(format AVAudioCommonFormat, sampleRate float64, interleaved bool, layout IAVAudioChannelLayout) AVAudioFormat {
 	instance := getAVAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCommonFormat:sampleRate:interleaved:channelLayout:"), format, sampleRate, interleaved, layout)
@@ -335,18 +337,18 @@ func NewAudioFormatWithCommonFormatSampleRateInterleavedChannelLayout(format AVA
 // settings: The settings dictionary.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if the initialization fails.
 //
 // # Discussion
-// 
+//
 // Note that many settings dictionary elements aren’t relevant for the
 // format, so this method ignores them. For information about supported
 // dictionary values, see [Audio settings].
 //
-// [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(settings:)
+//
+// [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
 func NewAudioFormatWithSettings(settings foundation.INSDictionary) AVAudioFormat {
 	instance := getAVAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSettings:"), settings)
@@ -358,18 +360,18 @@ func NewAudioFormatWithSettings(settings foundation.INSDictionary) AVAudioFormat
 // asbd: The audio stream description.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if the initialization fails.
 //
 // # Discussion
-// 
+//
 // If the [AudioStreamBasicDescription] specifies more than two channels, this
 // method fails and returns `nil`. Instead, use the
 // [InitWithStreamDescriptionChannelLayout] method.
 //
-// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(streamDescription:)
+//
+// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
 func NewAudioFormatWithStreamDescription(asbd objectivec.IObject) AVAudioFormat {
 	instance := getAVAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:"), asbd)
@@ -384,20 +386,20 @@ func NewAudioFormatWithStreamDescription(asbd objectivec.IObject) AVAudioFormat 
 // layout: The channel layout.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if the initialization fails.
 //
 // # Discussion
-// 
+//
 // When `layout` is `nil`, and `asbd` specifies one or two channels, this
 // method assumes mono or stereo layout, respectively.
-// 
+//
 // If the [AudioStreamBasicDescription] specifies more than two channels and
 // `layout` is `nil`, this method fails and returns `nil`.
 //
-// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(streamDescription:channelLayout:)
+//
+// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
 func NewAudioFormatWithStreamDescriptionChannelLayout(asbd objectivec.IObject, layout IAVAudioChannelLayout) AVAudioFormat {
 	instance := getAVAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:channelLayout:"), asbd, layout)
@@ -412,12 +414,12 @@ func NewAudioFormatWithStreamDescriptionChannelLayout(asbd objectivec.IObject, l
 // layout: The channel layout, which must not be `nil`.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance.
 //
 // # Discussion
-// 
-// The returned [AVAudioFormat] instance uses the [AudioPCMFormatFloat32]
+//
+// The returned [AVAudioFormat] instance uses the [AVAudioPCMFormatFloat32]
 // format.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(standardFormatWithSampleRate:channelLayout:)
@@ -425,6 +427,7 @@ func (a AVAudioFormat) InitStandardFormatWithSampleRateChannelLayout(sampleRate 
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initStandardFormatWithSampleRate:channelLayout:"), sampleRate, layout)
 	return rv
 }
+
 // Creates an audio format instance with the specified sample rate and channel
 // count.
 //
@@ -433,12 +436,12 @@ func (a AVAudioFormat) InitStandardFormatWithSampleRateChannelLayout(sampleRate 
 // channels: The channel count.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if the initialization fails.
 //
 // # Discussion
-// 
-// The returned [AVAudioFormat] instance uses the [AudioPCMFormatFloat32]
+//
+// The returned [AVAudioFormat] instance uses the [AVAudioPCMFormatFloat32]
 // format.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(standardFormatWithSampleRate:channels:)
@@ -446,6 +449,7 @@ func (a AVAudioFormat) InitStandardFormatWithSampleRateChannels(sampleRate float
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initStandardFormatWithSampleRate:channels:"), sampleRate, channels)
 	return rv
 }
+
 // Creates an audio format instance.
 //
 // format: The audio format.
@@ -458,20 +462,21 @@ func (a AVAudioFormat) InitStandardFormatWithSampleRateChannels(sampleRate float
 // state.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if the initialization fails.
 //
 // # Discussion
-// 
+//
 // For information about possible `format` values, see [AVAudioCommonFormat].
 //
-// [AVAudioCommonFormat]: https://developer.apple.com/documentation/AVFAudio/AVAudioCommonFormat
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(commonFormat:sampleRate:channels:interleaved:)
+//
+// [AVAudioCommonFormat]: https://developer.apple.com/documentation/AVFAudio/AVAudioCommonFormat
 func (a AVAudioFormat) InitWithCommonFormatSampleRateChannelsInterleaved(format AVAudioCommonFormat, sampleRate float64, channels AVAudioChannelCount, interleaved bool) AVAudioFormat {
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithCommonFormat:sampleRate:channels:interleaved:"), format, sampleRate, channels, interleaved)
 	return rv
 }
+
 // Creates an audio format instance with the specified audio format, sample
 // rate, interleaved state, and channel layout.
 //
@@ -485,62 +490,65 @@ func (a AVAudioFormat) InitWithCommonFormatSampleRateChannelsInterleaved(format 
 // layout: The channel layout, which must not be `nil`.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance.
 //
 // # Discussion
-// 
+//
 // For information about possible `format` values, see [AVAudioCommonFormat].
 //
-// [AVAudioCommonFormat]: https://developer.apple.com/documentation/AVFAudio/AVAudioCommonFormat
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(commonFormat:sampleRate:interleaved:channelLayout:)
+//
+// [AVAudioCommonFormat]: https://developer.apple.com/documentation/AVFAudio/AVAudioCommonFormat
 func (a AVAudioFormat) InitWithCommonFormatSampleRateInterleavedChannelLayout(format AVAudioCommonFormat, sampleRate float64, interleaved bool, layout IAVAudioChannelLayout) AVAudioFormat {
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithCommonFormat:sampleRate:interleaved:channelLayout:"), format, sampleRate, interleaved, layout)
 	return rv
 }
+
 // Creates an audio format instance using the specified settings dictionary.
 //
 // settings: The settings dictionary.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if the initialization fails.
 //
 // # Discussion
-// 
+//
 // Note that many settings dictionary elements aren’t relevant for the
 // format, so this method ignores them. For information about supported
 // dictionary values, see [Audio settings].
 //
-// [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(settings:)
+//
+// [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
 func (a AVAudioFormat) InitWithSettings(settings foundation.INSDictionary) AVAudioFormat {
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithSettings:"), settings)
 	return rv
 }
+
 // Creates an audio format instance from a stream description.
 //
 // asbd: The audio stream description.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if the initialization fails.
 //
 // # Discussion
-// 
+//
 // If the [AudioStreamBasicDescription] specifies more than two channels, this
 // method fails and returns `nil`. Instead, use the
 // [InitWithStreamDescriptionChannelLayout] method.
 //
-// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(streamDescription:)
+//
+// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
 func (a AVAudioFormat) InitWithStreamDescription(asbd objectivec.IObject) AVAudioFormat {
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithStreamDescription:"), asbd)
 	return rv
 }
+
 // Creates an audio format instance from a stream description and channel
 // layout.
 //
@@ -549,31 +557,32 @@ func (a AVAudioFormat) InitWithStreamDescription(asbd objectivec.IObject) AVAudi
 // layout: The channel layout.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if the initialization fails.
 //
 // # Discussion
-// 
+//
 // When `layout` is `nil`, and `asbd` specifies one or two channels, this
 // method assumes mono or stereo layout, respectively.
-// 
+//
 // If the [AudioStreamBasicDescription] specifies more than two channels and
 // `layout` is `nil`, this method fails and returns `nil`.
 //
-// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(streamDescription:channelLayout:)
+//
+// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
 func (a AVAudioFormat) InitWithStreamDescriptionChannelLayout(asbd objectivec.IObject, layout IAVAudioChannelLayout) AVAudioFormat {
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithStreamDescription:channelLayout:"), asbd, layout)
 	return rv
 }
+
 // Creates an audio format instance from a Core Media audio format
 // description.
 //
 // formatDescription: The Core Media audio format description.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFormat] instance, or `nil` if `formatDescription` isn’t
 // valid.
 //
@@ -589,17 +598,18 @@ func (a AVAudioFormat) EncodeWithCoder(coder foundation.INSCoder) {
 // The audio format properties of a stream of audio data.
 //
 // # Discussion
-// 
+//
 // Returns an [AudioStreamBasicDescription] that you use with lower-level
 // audio APIs.
 //
-// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/streamDescription
+//
+// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
 func (a AVAudioFormat) StreamDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("streamDescription"))
 	return objectivec.Object{ID: rv}
 }
+
 // The audio format sampling rate, in hertz.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/sampleRate
@@ -607,6 +617,7 @@ func (a AVAudioFormat) SampleRate() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("sampleRate"))
 	return rv
 }
+
 // The number of channels of audio data.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/channelCount
@@ -614,10 +625,11 @@ func (a AVAudioFormat) ChannelCount() AVAudioChannelCount {
 	rv := objc.Send[AVAudioChannelCount](a.ID, objc.Sel("channelCount"))
 	return AVAudioChannelCount(rv)
 }
+
 // The underlying audio channel layout.
 //
 // # Discussion
-// 
+//
 // Only formats with more than two channels require channel layouts.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/channelLayout
@@ -625,6 +637,7 @@ func (a AVAudioFormat) ChannelLayout() IAVAudioChannelLayout {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("channelLayout"))
 	return AVAudioChannelLayoutFromID(objc.ID(rv))
 }
+
 // The audio format description to use with Core Media APIs.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/formatDescription
@@ -632,10 +645,11 @@ func (a AVAudioFormat) FormatDescription() coremedia.CMFormatDescriptionRef {
 	rv := objc.Send[coremedia.CMFormatDescriptionRef](a.ID, objc.Sel("formatDescription"))
 	return coremedia.CMFormatDescriptionRef(rv)
 }
+
 // A Boolean value that indicates whether the samples mix into one stream.
 //
 // # Discussion
-// 
+//
 // This value is only valid for PCM formats.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/isInterleaved
@@ -643,22 +657,21 @@ func (a AVAudioFormat) Interleaved() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isInterleaved"))
 	return rv
 }
+
 // A Boolean value that indicates whether the format is in a deinterleaved
 // native-endian float state.
 //
 // # Discussion
-// 
-// This value returns [true] if the format is [AudioPCMFormatFloat32];
-// otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This value returns true if the format is [AVAudioPCMFormatFloat32];
+// otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/isStandard
 func (a AVAudioFormat) Standard() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isStandard"))
 	return rv
 }
+
 // The common format identifier instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/commonFormat
@@ -666,26 +679,28 @@ func (a AVAudioFormat) CommonFormat() AVAudioCommonFormat {
 	rv := objc.Send[AVAudioCommonFormat](a.ID, objc.Sel("commonFormat"))
 	return AVAudioCommonFormat(rv)
 }
+
 // A dictionary that represents the format as a dictionary using audio setting
 // keys.
 //
 // # Discussion
-// 
+//
 // The settings dictionary doesn’t support all formats that
 // [AudioStreamBasicDescription] represents (the underlying implementation),
 // in which case, this property returns `nil`.
 //
-// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/settings
+//
+// [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
 func (a AVAudioFormat) Settings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("settings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // An object that contains metadata that encoders and decoders require.
 //
 // # Discussion
-// 
+//
 // Encoders produce a `magicCookie` object, and some decoders require it to
 // decode properly.
 //
@@ -697,9 +712,9 @@ func (a AVAudioFormat) MagicCookie() foundation.INSData {
 func (a AVAudioFormat) SetMagicCookie(value foundation.INSData) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMagicCookie:"), value)
 }
+
 // See: https://developer.apple.com/documentation/avfaudio/avchannellayoutkey
 func (a AVAudioFormat) AVChannelLayoutKey() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVChannelLayoutKey"))
 	return foundation.NSStringFromID(rv).String()
 }
-

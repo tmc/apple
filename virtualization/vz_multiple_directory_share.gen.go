@@ -3,11 +3,12 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZMultipleDirectoryShare] class.
@@ -46,7 +47,7 @@ func (vc VZMultipleDirectoryShareClass) Alloc() VZMultipleDirectoryShare {
 // An object that describes a directory share for multiple directories.
 //
 // # Overview
-// 
+//
 // This directory share exposes multiple directories from the host file system
 // to the guest VM.
 //
@@ -69,6 +70,7 @@ type VZMultipleDirectoryShare struct {
 func VZMultipleDirectoryShareFromID(id objc.ID) VZMultipleDirectoryShare {
 	return VZMultipleDirectoryShare{VZDirectoryShare: VZDirectoryShareFromID(id)}
 }
+
 // NOTE: VZMultipleDirectoryShare adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,7 +123,7 @@ func NewVZMultipleDirectoryShare() VZMultipleDirectoryShare {
 // directories: Directories on the host to expose to the guest VM by name.
 //
 // # Discussion
-// 
+//
 // The dictionary string keys are the names for the directory. The keys must
 // be valid names or the system raises an exception and the app exits.
 //
@@ -137,7 +139,7 @@ func NewMultipleDirectoryShareWithDirectories(directories foundation.INSDictiona
 // directories: Directories on the host to expose to the guest VM by name.
 //
 // # Discussion
-// 
+//
 // The dictionary string keys are the names for the directory. The keys must
 // be valid names or the system raises an exception and the app exits.
 //
@@ -152,7 +154,7 @@ func (m VZMultipleDirectoryShare) InitWithDirectories(directories foundation.INS
 // name: The name to transform.
 //
 // # Return Value
-// 
+//
 // Returns a String with the canonicalized name, or `nil` if there was an
 // error.
 //
@@ -161,12 +163,13 @@ func (_VZMultipleDirectoryShareClass VZMultipleDirectoryShareClass) Canonicalize
 	rv := objc.Send[objc.ID](objc.ID(_VZMultipleDirectoryShareClass.class), objc.Sel("canonicalizedNameFromName:"), objc.String(name))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Check if a name is a valid directory name.
 //
 // name: The name to validate.
 //
 // # Discussion
-// 
+//
 // The name must not be empty, have characters unsafe for file systems, be
 // longer than `NAME_MAX`, or using a reserved name such as the Unix “.”
 // or “..” current and parent directory filenames.
@@ -189,7 +192,7 @@ func (_VZMultipleDirectoryShareClass VZMultipleDirectoryShareClass) ValidateName
 // The directories on the host to expose to the guest.
 //
 // # Discussion
-// 
+//
 // The dictionary string keys are the names for the directory. The keys must
 // be valid names or the system raises an exception.
 //
@@ -198,4 +201,3 @@ func (m VZMultipleDirectoryShare) Directories() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("directories"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

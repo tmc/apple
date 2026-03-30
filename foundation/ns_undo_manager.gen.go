@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,17 +46,17 @@ func (uc UndoManagerClass) Alloc() UndoManager {
 // A general-purpose recorder of operations that enables undo and redo.
 //
 // # Overview
-// 
+//
 // You register an undo operation by calling one of the methods described in
 // Registering undo operations. You specify the name of the object that’s
 // changing (or the owner of that object) and provide a closure, method, or
 // invocation to revert its state.
-// 
+//
 // After you register an undo operation, you can call [Undo] on the undo
 // manager to revert to the state of the last undo operation. When undoing an
 // action, [NSUndoManager] saves the operations you revert to so that you can
 // call [Redo] automatically.
-// 
+//
 // Typically, apps with UI interactions work with [NSUndoManager]. For
 // example, UIKit implements undo and redo in its text view object, making it
 // easy for you to undo and redo actions in objects along the responder chain.
@@ -170,6 +171,7 @@ func UndoManagerFromID(id objc.ID) UndoManager {
 
 // NSUndoManagerFromID is an alias for [UndoManagerFromID] for cross-framework compatibility.
 func NSUndoManagerFromID(id objc.ID) UndoManager { return UndoManagerFromID(id) }
+
 // NOTE: UndoManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -433,26 +435,26 @@ func NewUndoManager() UndoManager {
 // operation that the target receives.
 //
 // target: The target of the undo operation.
-// 
+//
 // The undo manager maintains an unowned reference to `target` to prevent
 // retain cycles.
 //
 // selector: The selector for the undo operation.
 //
 // object: The argument sent with the selector.
-// 
-// The undo manager maintains a strong reference to `anO``bject`.
+//
+// The undo manager maintains a strong reference to `anO“bject`.
 //
 // # Discussion
-// 
+//
 // Use [RegisterUndoWithTargetSelectorObject] to register a selector for an
 // undo operation. To register a selector on the undo stack, you also need to
 // make the method available to the Objective-C runtime by applying the
 // @`objc` attribute to the method. For more on how to create a selector, see
 // [Selectors].
-// 
+//
 // Calling this method also clears the redo stack.
-// 
+//
 // The following example demonstrates how to register and use a selector on
 // the undo stack by modeling a [Garden] class with two methods: `plant()` and
 // `pluck()`. The `plant()` method removes a flower from the garden while
@@ -460,21 +462,22 @@ func NewUndoManager() UndoManager {
 // operations of each other. This inverse quality makes it ideal to register
 // `plant()` and `pluck()` to be each other’s undo operation.
 //
-// [Selectors]: https://developer.apple.com/library/archive/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID59
-//
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/registerUndo(withTarget:selector:object:)
+//
+// [Selectors]: https://developer.apple.com/library/archive/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID59
 func (u UndoManager) RegisterUndoWithTargetSelectorObject(target objectivec.IObject, selector objc.SEL, object objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("registerUndoWithTarget:selector:object:"), target, selector, object)
 }
+
 // Prepares the undo manager for invocation-based undo with the given target
 // as the subject of the next undo operation.
 //
 // target: The target of the undo operation.
-// 
+//
 // The undo manager maintains a weak reference to `target`.
 //
 // # Return Value
-// 
+//
 // A proxy object that forwards messages to the undo manager for recording as
 // undo actions.
 //
@@ -483,117 +486,108 @@ func (u UndoManager) PrepareWithInvocationTarget(target objectivec.IObject) obje
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("prepareWithInvocationTarget:"), target)
 	return objectivec.Object{ID: rv}
 }
+
 // Closes the top-level undo group if necessary, and then performs undo
 // operations on the group.
 //
 // # Discussion
-// 
+//
 // After closing the top-level undo group, this method invokes
 // [UndoNestedGroup].
-// 
+//
 // This method also invokes [EndUndoGrouping] if the nesting level is 1.
 // Raises an [NSInternalInconsistencyException] if more than one undo group is
 // open (that is, if the last group isn’t at the top level).
-// 
-// This method posts an [NSUndoManagerCheckpoint].
 //
-// [NSUndoManagerCheckpoint]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerCheckpoint
+// This method posts an [NSUndoManagerCheckpoint].
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/undo()
 func (u UndoManager) Undo() {
 	objc.Send[objc.ID](u.ID, objc.Sel("undo"))
 }
+
 // Performs the undo operations in the last undo group (whether top-level or
 // nested), recording the operations on the redo stack as a single group.
 //
 // # Discussion
-// 
+//
 // Raises an [NSInternalInconsistencyException] if any undo operations have
 // been registered since the last [EnableUndoRegistration] message.
-// 
+//
 // This method posts an [NSUndoManagerCheckpoint] and
 // [NSUndoManagerWillUndoChange] before it performs the undo operation, and it
 // posts an [NSUndoManagerDidUndoChange] after it performs the undo operation.
-//
-// [NSUndoManagerCheckpoint]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerCheckpoint
-// [NSUndoManagerDidUndoChange]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerDidUndoChange
-// [NSUndoManagerWillUndoChange]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerWillUndoChange
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/undoNestedGroup()
 func (u UndoManager) UndoNestedGroup() {
 	objc.Send[objc.ID](u.ID, objc.Sel("undoNestedGroup"))
 }
+
 // Performs the operations in the last group on the redo stack, if there are
 // any, recording them on the undo stack as a single group.
 //
 // # Discussion
-// 
+//
 // Raises an [internalInconsistencyException] if the method is invoked during
 // an undo operation.
-// 
+//
 // This method posts an [NSUndoManagerCheckpoint] and
 // [NSUndoManagerWillRedoChange] before it performs the redo operation, and it
 // posts the [NSUndoManagerDidRedoChange] after it performs the redo
 // operation.
 //
-// [NSUndoManagerCheckpoint]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerCheckpoint
-// [NSUndoManagerDidRedoChange]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerDidRedoChange
-// [NSUndoManagerWillRedoChange]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerWillRedoChange
-// [internalInconsistencyException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/internalInconsistencyException
-//
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/redo()
+//
+// [internalInconsistencyException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/internalInconsistencyException
 func (u UndoManager) Redo() {
 	objc.Send[objc.ID](u.ID, objc.Sel("redo"))
 }
+
 // Marks the beginning of an undo group.
 //
 // # Discussion
-// 
+//
 // All individual undo operations before a subsequent [EndUndoGrouping]
 // message are grouped together and reversed by a later [Undo] message. By
 // default undo groups are begun automatically at the start of the event loop,
 // but you can begin your own undo groups with this method, and nest them
 // within other groups.
-// 
+//
 // This method posts an [NSUndoManagerCheckpoint] unless a top-level undo is
 // in progress. It posts an [NSUndoManagerDidOpenUndoGroup] if a new group was
 // successfully created.
-//
-// [NSUndoManagerCheckpoint]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerCheckpoint
-// [NSUndoManagerDidOpenUndoGroup]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerDidOpenUndoGroup
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/beginUndoGrouping()
 func (u UndoManager) BeginUndoGrouping() {
 	objc.Send[objc.ID](u.ID, objc.Sel("beginUndoGrouping"))
 }
+
 // Marks the end of an undo group.
 //
 // # Discussion
-// 
+//
 // All individual undo operations back to the matching [BeginUndoGrouping]
 // message are grouped together and reversed by a later [Undo] or
 // [UndoNestedGroup] message. Undo groups can be nested, thus providing
 // functionality similar to nested transactions. Raises an
 // [NSInternalInconsistencyException] if there’s no [BeginUndoGrouping]
 // message in effect.
-// 
+//
 // This method posts an [NSUndoManagerCheckpoint] and an
 // [NSUndoManagerDidCloseUndoGroup] just before the group is closed.
-//
-// [NSUndoManagerCheckpoint]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerCheckpoint
-// [NSUndoManagerDidCloseUndoGroup]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerDidCloseUndoGroup
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/endUndoGrouping()
 func (u UndoManager) EndUndoGrouping() {
 	objc.Send[objc.ID](u.ID, objc.Sel("endUndoGrouping"))
 }
+
 // Disables the recording of undo operations.
 //
 // # Discussion
-// 
+//
 // This method disables undos recorded by
 // [RegisterUndoWithTargetSelectorObject] or invocation-based undo.
-// 
+//
 // This method can be invoked multiple times by multiple clients. The
 // [EnableUndoRegistration] method must be invoked an equal number of times to
 // re-enable undo registration.
@@ -602,10 +596,11 @@ func (u UndoManager) EndUndoGrouping() {
 func (u UndoManager) DisableUndoRegistration() {
 	objc.Send[objc.ID](u.ID, objc.Sel("disableUndoRegistration"))
 }
+
 // Enables the recording of undo operations.
 //
 // # Discussion
-// 
+//
 // Because undo registration is enabled by default, it is often used to
 // balance a prior [DisableUndoRegistration] message. Undo registration
 // isn’t actually re-enabled until an enable message balances the last
@@ -616,31 +611,34 @@ func (u UndoManager) DisableUndoRegistration() {
 func (u UndoManager) EnableUndoRegistration() {
 	objc.Send[objc.ID](u.ID, objc.Sel("enableUndoRegistration"))
 }
+
 // Clears the undo and redo stacks and reenables the manager.
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/removeAllActions()
 func (u UndoManager) RemoveAllActions() {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeAllActions"))
 }
+
 // Clears the undo and redo stacks of all operations involving the specified
 // target as the recipient of the undo message.
 //
 // target: The recipient of the undo messages to be removed.
 //
 // # Discussion
-// 
+//
 // Doesn’t re-enable the manager if it’s disabled.
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/removeAllActions(withTarget:)
 func (u UndoManager) RemoveAllActionsWithTarget(target objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeAllActionsWithTarget:"), target)
 }
+
 // Sets the name of the action associated with the Undo or Redo command.
 //
 // actionName: The name of the action.
 //
 // # Discussion
-// 
+//
 // If `actionName` is an empty string, the undo manager removes the action
 // name currently associated with the menu command.
 //
@@ -648,17 +646,18 @@ func (u UndoManager) RemoveAllActionsWithTarget(target objectivec.IObject) {
 func (u UndoManager) SetActionName(actionName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setActionName:"), objc.String(actionName))
 }
+
 // Returns the localized title of the Undo menu command for the identified
 // action.
 //
 // actionName: The name of the undo action.
 //
 // # Return Value
-// 
+//
 // The localized title of the undo menu item.
 //
 // # Discussion
-// 
+//
 // Override this method if you want to customize the localization behavior.
 // This method is invoked by [UndoMenuItemTitle].
 //
@@ -667,17 +666,18 @@ func (u UndoManager) UndoMenuTitleForUndoActionName(actionName string) string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("undoMenuTitleForUndoActionName:"), objc.String(actionName))
 	return NSStringFromID(rv).String()
 }
+
 // Returns the localized title of the Redo menu command for the identified
 // action.
 //
 // actionName: The name of the undo action.
 //
 // # Return Value
-// 
+//
 // The localized title of the redo menu item.
 //
 // # Discussion
-// 
+//
 // Override this method if you want to customize the localization behavior.
 // This method is invoked by [RedoMenuItemTitle].
 //
@@ -686,6 +686,7 @@ func (u UndoManager) RedoMenuTitleForUndoActionName(actionName string) string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("redoMenuTitleForUndoActionName:"), objc.String(actionName))
 	return NSStringFromID(rv).String()
 }
+
 // Sets a user info value for an undo or redo action.
 //
 // info: The value to save in the action’s user info.
@@ -693,15 +694,15 @@ func (u UndoManager) RedoMenuTitleForUndoActionName(actionName string) string {
 // key: The key to associate with the user info value.
 //
 // # Discussion
-// 
+//
 // Set user info on an undo action to provide custom information to the action
 // beyond its action name. You can use this for things like an icon to
 // represent the undoable action, or a timestamp of when the undo manager
 // registers the action.
-// 
+//
 // Start by extending [NSUndoManagerUserInfoKey] with key names to identify
 // the user info values you want to associate with undo actions.
-// 
+//
 // Then set the user info value with this key as part of registering the
 // undoable action. In this example, an app’s `insertLayer()` method
 // provides a custom icon before setting up an undo action that calls the
@@ -711,20 +712,21 @@ func (u UndoManager) RedoMenuTitleForUndoActionName(actionName string) string {
 func (u UndoManager) SetActionUserInfoValueForKey(info objectivec.IObject, key NSUndoManagerUserInfoKey) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setActionUserInfoValue:forKey:"), info, objc.String(string(key)))
 }
+
 // Retrieves the undo action’s user info value for the given key.
 //
 // key: The key associated with the value to return.
 //
 // # Return Value
-// 
+//
 // The value that you previously registered to this key with
 // [SetActionUserInfoValueForKey], or `nil` if the key is absent.
 //
 // # Discussion
-// 
+//
 // Use this method to retrieve a user info value for the undo action you
 // previously set with [SetActionUserInfoValueForKey].
-// 
+//
 // In this example, an app’s `undoButton()` method provides a SwiftUI view
 // that incorporates a previously assigned icon for the undo action:
 //
@@ -733,20 +735,21 @@ func (u UndoManager) UndoActionUserInfoValueForKey(key NSUndoManagerUserInfoKey)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("undoActionUserInfoValueForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
+
 // Retrieves the redo action’s user info value for the given key.
 //
 // key: The key associated with the value to return.
 //
 // # Return Value
-// 
+//
 // The value that you previously registered to this key with
 // [SetActionUserInfoValueForKey], or `nil` if the key is absent.
 //
 // # Discussion
-// 
+//
 // Use this method to retrieve a user info value for the redo action you
 // previously set with [SetActionUserInfoValueForKey].
-// 
+//
 // In this example, an app’s `redoButton()` method provides a SwiftUI view
 // that incorporates a previously assigned icon for the action:
 //
@@ -755,94 +758,86 @@ func (u UndoManager) RedoActionUserInfoValueForKey(key NSUndoManagerUserInfoKey)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("redoActionUserInfoValueForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
+
 // Sets whether the next undo or redo action is discardable.
 //
-// discardable: Specifies if the action is discardable. [true] if the next undo or redo
-// action can be discarded; [false] otherwise.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// discardable: Specifies if the action is discardable. true if the next undo or redo
+// action can be discarded; false otherwise.
 //
 // # Discussion
-// 
+//
 // Specifies that the latest undo action may be safely discarded when a
 // document can not be saved for any reason.
-// 
+//
 // An example might be an undo action that changes the viewable area of a
 // document.
-// 
+//
 // To find out if an undo group contains only discardable actions, look for
 // the [NSUndoManagerGroupIsDiscardableKey] in the [UserInfo] dictionary of
 // the [NSUndoManagerWillCloseUndoGroup].
-//
-// [NSUndoManagerWillCloseUndoGroup]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerWillCloseUndoGroup
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/setActionIsDiscardable(_:)
 func (u UndoManager) SetActionIsDiscardable(discardable bool) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setActionIsDiscardable:"), discardable)
 }
+
 // Records a single undo operation for a given target so that when the manager
 // performs an undo, it executes the specified block.
 //
 // target: The target of the undo operation.
 //
 // undoHandler: A block to be executed when an operation is undone.
-// 
+//
 // The block takes a single argument, the target of the undo operation.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUndoManager/registerUndoWithTarget:handler:
 func (u UndoManager) RegisterUndoWithTargetHandler(target objectivec.IObject, undoHandler ObjectHandler) {
-_block1, _ := NewObjectBlock(undoHandler)
+	_block1, _ := NewObjectBlock(undoHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("registerUndoWithTarget:handler:"), target, _block1)
 }
 
 // A Boolean value that indicates whether the manager has any actions to undo.
 //
 // # Discussion
-// 
-// [true] if the manager has any actions to undo, otherwise [false].
-// 
+//
+// true if the manager has any actions to undo, otherwise false.
+//
 // The return value doesn’t mean you can safely invoke [Undo] or
 // [UndoNestedGroup]—you may have to close open undo groups first.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/canUndo
 func (u UndoManager) CanUndo() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("canUndo"))
 	return rv
 }
+
 // A Boolean value that indicates whether the manager has any actions to redo.
 //
 // # Discussion
-// 
-// [true] if the manager has any actions to redo, otherwise [false].
-// 
+//
+// true if the manager has any actions to redo, otherwise false.
+//
 // Because any undo operation registered clears the redo stack, this method
 // posts an [NSUndoManagerCheckpoint] to allow clients to apply their pending
 // operations before testing the redo stack.
-//
-// [NSUndoManagerCheckpoint]: https://developer.apple.com/documentation/Foundation/NSNotification/Name-swift.struct/NSUndoManagerCheckpoint
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/canRedo
 func (u UndoManager) CanRedo() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("canRedo"))
 	return rv
 }
+
 // The maximum number of top-level undo groups the undo manager holds.
 //
 // # Discussion
-// 
+//
 // An integer specifying the number of undo groups. A limit of `0` indicates
 // no limit, so the manager never drops old undo groups.
-// 
+//
 // When ending an undo group results in the number of groups exceeding this
 // limit, the manager drops the oldest groups from the stack. The default is
 // `0`.
-// 
+//
 // If you change the limit to a level below the prior limit, the manager
 // immediately drops old undo groups.
 //
@@ -854,11 +849,12 @@ func (u UndoManager) LevelsOfUndo() uint {
 func (u UndoManager) SetLevelsOfUndo(value uint) {
 	objc.Send[struct{}](u.ID, objc.Sel("setLevelsOfUndo:"), value)
 }
+
 // The number of times you can invoke undo before there are no actions left to
 // undo.
 //
 // # Discussion
-// 
+//
 // A nonzero value doesn’t imply you can safely invoke [Undo] immediately,
 // because you may have to close open undo groups first.
 //
@@ -867,6 +863,7 @@ func (u UndoManager) UndoCount() uint {
 	rv := objc.Send[uint](u.ID, objc.Sel("undoCount"))
 	return rv
 }
+
 // The number of times you can invoke redo before there are no actions left to
 // redo.
 //
@@ -875,19 +872,17 @@ func (u UndoManager) RedoCount() uint {
 	rv := objc.Send[uint](u.ID, objc.Sel("redoCount"))
 	return rv
 }
+
 // A Boolean value that indicates whether the manager automatically creates
 // undo groups around each pass of the run loop.
 //
 // # Discussion
-// 
-// [true] if the manager automatically creates undo groups around each pass of
-// the run loop, otherwise [false].
-// 
-// The default is [true]. If you turn automatic grouping off, you must close
-// groups explicitly before invoking either [Undo] or [UndoNestedGroup].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the manager automatically creates undo groups around each pass of
+// the run loop, otherwise false.
+//
+// The default is true. If you turn automatic grouping off, you must close
+// groups explicitly before invoking either [Undo] or [UndoNestedGroup].
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/groupsByEvent
 func (u UndoManager) GroupsByEvent() bool {
@@ -897,11 +892,12 @@ func (u UndoManager) GroupsByEvent() bool {
 func (u UndoManager) SetGroupsByEvent(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setGroupsByEvent:"), value)
 }
+
 // The number of nested undo groups (or redo groups, if redo is the most
 // recent operation) in the current event loop.
 //
 // # Discussion
-// 
+//
 // An integer indicating the number of nested groups. If 0 is returned, there
 // is no open undo or redo group.
 //
@@ -910,62 +906,57 @@ func (u UndoManager) GroupingLevel() int {
 	rv := objc.Send[int](u.ID, objc.Sel("groupingLevel"))
 	return rv
 }
+
 // A Boolean value that indicates whether the recording of undo operations is
 // enabled.
 //
 // # Discussion
-// 
-// [true] if registration is enabled; otherwise, [false].
-// 
-// The default is [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if registration is enabled; otherwise, false.
+//
+// The default is true.
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/isUndoRegistrationEnabled
 func (u UndoManager) UndoRegistrationEnabled() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isUndoRegistrationEnabled"))
 	return rv
 }
+
 // Returns a Boolean value that indicates whether the manager is in the
 // process of performing an undo action.
 //
 // # Discussion
-// 
-// The value is [true] if the manager is performing its [Undo] or
-// [UndoNestedGroup] method, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value is true if the manager is performing its [Undo] or
+// [UndoNestedGroup] method, otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/isUndoing
 func (u UndoManager) Undoing() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isUndoing"))
 	return rv
 }
+
 // Returns a Boolean value that indicates whether the manager is in the
 // process of performing a redo action.
 //
 // # Discussion
-// 
-// The value is [true] if the manager is performing its [Redo] method,
-// otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value is true if the manager is performing its [Redo] method, otherwise
+// false.
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/isRedoing
 func (u UndoManager) Redoing() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isRedoing"))
 	return rv
 }
+
 // The name identifying the undo action.
 //
 // # Discussion
-// 
+//
 // The undo action name. Returns an empty string (`@""`) if no action name has
 // been assigned or if there is nothing to undo.
-// 
+//
 // For example, if the menu title is “Undo Delete,” the string returned is
 // “Delete.”
 //
@@ -974,13 +965,14 @@ func (u UndoManager) UndoActionName() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("undoActionName"))
 	return NSStringFromID(rv).String()
 }
+
 // The name identifying the redo action.
 //
 // # Discussion
-// 
+//
 // The redo action name. Returns an empty string (`@""`) if no action name has
 // been assigned or if there is nothing to redo.
-// 
+//
 // For example, if the menu title is “Redo Delete,” the string returned is
 // “Delete.”
 //
@@ -989,10 +981,11 @@ func (u UndoManager) RedoActionName() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("redoActionName"))
 	return NSStringFromID(rv).String()
 }
+
 // The title of the Undo menu command, such as Undo Paste.
 //
 // # Discussion
-// 
+//
 // Returns “Undo” if no action name has been assigned or `nil` if there is
 // nothing to undo.
 //
@@ -1001,10 +994,11 @@ func (u UndoManager) UndoMenuItemTitle() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("undoMenuItemTitle"))
 	return NSStringFromID(rv).String()
 }
+
 // The title of the Redo menu command, such as Redo Paste.
 //
 // # Discussion
-// 
+//
 // Returns “Redo” if no action name has been assigned or `nil` if there is
 // nothing to redo.
 //
@@ -1013,13 +1007,14 @@ func (u UndoManager) RedoMenuItemTitle() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("redoMenuItemTitle"))
 	return NSStringFromID(rv).String()
 }
+
 // The modes governing the types of input to handle during a cycle of the run
 // loop.
 //
 // # Discussion
-// 
+//
 // An array of string constants specifying the current run-loop modes.
-// 
+//
 // By default, the sole run-loop mode is [NSDefaultRunLoopMode] (which
 // excludes data from [NSConnection] objects). Some examples of other uses are
 // to limit the input to data received during a mouse-tracking session by
@@ -1034,6 +1029,7 @@ func (u UndoManager) RunLoopModes() []string {
 func (u UndoManager) SetRunLoopModes(value []string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setRunLoopModes:"), objectivec.StringSliceToNSArray(value))
 }
+
 // A priority to use when using a run loop to close an undo group.
 //
 // See: https://developer.apple.com/documentation/foundation/nsundoclosegroupingrunloopordering
@@ -1044,48 +1040,45 @@ func (u UndoManager) NSUndoCloseGroupingRunLoopOrdering() int {
 func (u UndoManager) SetNSUndoCloseGroupingRunLoopOrdering(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUndoCloseGroupingRunLoopOrdering:"), value)
 }
+
 // A Boolean value that indicates whether the next undo action is discardable.
 //
 // # Discussion
-// 
-// [true] if the action is discardable; [false] otherwise.
-// 
+//
+// true if the action is discardable; false otherwise.
+//
 // Specifies that the latest undo action may be safely discarded when a
 // document can not be saved for any reason. These are typically actions that
 // don’t affect persistent state.
-// 
+//
 // An example might be an undo action that changes the viewable area of a
 // document.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/undoActionIsDiscardable
 func (u UndoManager) UndoActionIsDiscardable() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("undoActionIsDiscardable"))
 	return rv
 }
+
 // A Boolean value that indicates whether the next redo action is discardable.
 //
 // # Discussion
-// 
-// [true] if the action is discardable; [false] otherwise.
-// 
+//
+// true if the action is discardable; false otherwise.
+//
 // Specifies that the latest redo action may be safely discarded when a
 // document can not be saved for any reason. These are typically actions that
 // don’t affect persistent state.
-// 
+//
 // An example might be an redo action that changes the viewable area of a
 // document.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/redoActionIsDiscardable
 func (u UndoManager) RedoActionIsDiscardable() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("redoActionIsDiscardable"))
 	return rv
 }
+
 // Posted just before an undo manager performs an undo operation.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsundomanagerwillundochange
@@ -1093,6 +1086,7 @@ func (u UndoManager) NSUndoManagerWillUndoChange() NSNotificationName {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUndoManagerWillUndoChangeNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // Posted just after an undo manager performs an undo operation.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsundomanagerdidundochange
@@ -1100,6 +1094,7 @@ func (u UndoManager) NSUndoManagerDidUndoChange() NSNotificationName {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUndoManagerDidUndoChangeNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // Posted just before an undo manager performs a redo operation.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsundomanagerwillredochange
@@ -1107,6 +1102,7 @@ func (u UndoManager) NSUndoManagerWillRedoChange() NSNotificationName {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUndoManagerWillRedoChangeNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // Posted just after an undo manager performs a redo operation.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsundomanagerdidredochange
@@ -1114,6 +1110,7 @@ func (u UndoManager) NSUndoManagerDidRedoChange() NSNotificationName {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUndoManagerDidRedoChangeNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // Posted whenever an undo manager opens or closes an undo group (except when
 // it opens a top-level group) and when checking the redo stack.
 //
@@ -1122,6 +1119,7 @@ func (u UndoManager) NSUndoManagerCheckpoint() NSNotificationName {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUndoManagerCheckpointNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // Posted whenever an undo manager opens an undo group.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsundomanagerdidopenundogroup
@@ -1129,6 +1127,7 @@ func (u UndoManager) NSUndoManagerDidOpenUndoGroup() NSNotificationName {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUndoManagerDidOpenUndoGroupNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // Posted before an undo manager closes an undo group.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsundomanagerwillcloseundogroup
@@ -1136,6 +1135,7 @@ func (u UndoManager) NSUndoManagerWillCloseUndoGroup() NSNotificationName {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUndoManagerWillCloseUndoGroupNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // Posted after an undo manager closes an undo group.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsundomanagerdidcloseundogroup
@@ -1143,6 +1143,7 @@ func (u UndoManager) NSUndoManagerDidCloseUndoGroup() NSNotificationName {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUndoManagerDidCloseUndoGroupNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
+
 // A key, used in a notification’s user info, that indicates the undo group
 // contains only discardable actions.
 //
@@ -1166,4 +1167,3 @@ func (u UndoManager) RegisterUndoWithTargetHandlerSync(ctx context.Context, targ
 		return nil, ctx.Err()
 	}
 }
-

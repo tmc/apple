@@ -4,10 +4,11 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,7 +49,7 @@ func (cc CATextLayerClass) Alloc() CATextLayer {
 // attributed strings.
 //
 // # Overview
-// 
+//
 // The first line is aligned to the top of the layer.
 //
 // # Text Visual Properties
@@ -83,6 +84,7 @@ type CATextLayer struct {
 func CATextLayerFromID(id objc.ID) CATextLayer {
 	return CATextLayer{CALayer: CALayerFromID(id)}
 }
+
 // NOTE: CATextLayer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -164,20 +166,20 @@ func NewCATextLayer() CATextLayer {
 // layer: The layer from which custom fields should be copied.
 //
 // # Return Value
-// 
+//
 // A layer instance with any custom instance variables copied from `layer`.
 //
 // # Discussion
-// 
+//
 // This initializer is used to create shadow copies of layers, for example,
 // for the [PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
-// 
+//
 // If you are implementing a custom layer subclass, you can override this
 // method and use it to copy the values of instance variables into the new
 // object. Subclasses should always invoke the superclass implementation.
-// 
+//
 // This method is the designated initializer for layer objects in the
 // presentation layer.
 //
@@ -191,19 +193,19 @@ func NewTextLayerWithLayer(layer objectivec.IObject) CATextLayer {
 // The font used to render the receiver’s text.
 //
 // # Discussion
-// 
+//
 // May be either a [CTFont], a [CGFont], an instance of [NSFont] (macOS only),
 // or a string naming the font. In iOS, you cannot assign a [UIFont] object to
 // this property. Defaults to Helvetica.
-// 
+//
 // The `font` property is only used when the [String] property is not an
 // [NSAttributedString].
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/font
 //
 // [CGFont]: https://developer.apple.com/documentation/CoreGraphics/CGFont
 // [CTFont]: https://developer.apple.com/documentation/CoreText/CTFont
 // [UIFont]: https://developer.apple.com/documentation/UIKit/UIFont
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/font
 func (t CATextLayer) Font() corefoundation.CFTypeRef {
 	rv := objc.Send[corefoundation.CFTypeRef](t.ID, objc.Sel("font"))
 	return corefoundation.CFTypeRef(rv)
@@ -211,12 +213,13 @@ func (t CATextLayer) Font() corefoundation.CFTypeRef {
 func (t CATextLayer) SetFont(value corefoundation.CFTypeRef) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
+
 // The font size used to render the receiver’s text. Animatable.
 //
 // # Discussion
-// 
+//
 // Defaults to 36.0.
-// 
+//
 // The `fontSize` property is only used when the [String] property is not an
 // [NSAttributedString].
 //
@@ -228,12 +231,13 @@ func (t CATextLayer) FontSize() float64 {
 func (t CATextLayer) SetFontSize(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFontSize:"), value)
 }
+
 // The color used to render the receiver’s text. Animatable.
 //
 // # Discussion
-// 
+//
 // Defaults to opaque white.
-// 
+//
 // The `foregroundColor` property is only used when the [String] property is
 // not an [NSAttributedString].
 //
@@ -245,11 +249,12 @@ func (t CATextLayer) ForegroundColor() coregraphics.CGColorRef {
 func (t CATextLayer) SetForegroundColor(value coregraphics.CGColorRef) {
 	objc.Send[struct{}](t.ID, objc.Sel("setForegroundColor:"), value)
 }
+
 // Determines whether to allow subpixel quantization for the graphics context
 // used for text rendering.
 //
 // # Discussion
-// 
+//
 // When enabled, the graphics context used for text rendering may quantize the
 // subpixel positions of glyphs.
 //
@@ -261,14 +266,13 @@ func (t CATextLayer) AllowsFontSubpixelQuantization() bool {
 func (t CATextLayer) SetAllowsFontSubpixelQuantization(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsFontSubpixelQuantization:"), value)
 }
+
 // Determines whether the text is wrapped to fit within the receiver’s
 // bounds.
 //
 // # Discussion
-// 
-// Defaults to [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// Defaults to false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/isWrapped
 func (t CATextLayer) Wrapped() bool {
@@ -278,18 +282,19 @@ func (t CATextLayer) Wrapped() bool {
 func (t CATextLayer) SetWrapped(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWrapped:"), value)
 }
+
 // Determines how individual lines of text are horizontally aligned within the
 // receiver’s bounds.
 //
 // # Discussion
-// 
+//
 // The possible values are described in [Horizontal alignment modes]. Defaults
 // to [natural].
 //
+// See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/alignmentMode
+//
 // [Horizontal alignment modes]: https://developer.apple.com/documentation/QuartzCore/horizontal-alignment-modes
 // [natural]: https://developer.apple.com/documentation/QuartzCore/CATextLayerAlignmentMode/natural
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/alignmentMode
 func (t CATextLayer) AlignmentMode() CATextLayerAlignmentMode {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("alignmentMode"))
 	return CATextLayerAlignmentMode(foundation.NSStringFromID(rv).String())
@@ -297,17 +302,18 @@ func (t CATextLayer) AlignmentMode() CATextLayerAlignmentMode {
 func (t CATextLayer) SetAlignmentMode(value CATextLayerAlignmentMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAlignmentMode:"), objc.String(string(value)))
 }
+
 // Determines how the text is truncated to fit within the receiver’s bounds.
 //
 // # Discussion
-// 
+//
 // The possible values are described in [Truncation modes]. Defaults to
 // [none].
 //
+// See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/truncationMode
+//
 // [Truncation modes]: https://developer.apple.com/documentation/QuartzCore/truncation-modes
 // [none]: https://developer.apple.com/documentation/QuartzCore/CATextLayerTruncationMode/none
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CATextLayer/truncationMode
 func (t CATextLayer) TruncationMode() CATextLayerTruncationMode {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("truncationMode"))
 	return CATextLayerTruncationMode(foundation.NSStringFromID(rv).String())
@@ -315,4 +321,3 @@ func (t CATextLayer) TruncationMode() CATextLayerTruncationMode {
 func (t CATextLayer) SetTruncationMode(value CATextLayerTruncationMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTruncationMode:"), objc.String(string(value)))
 }
-

@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -91,6 +92,7 @@ type NSTextSelectionNavigation struct {
 func NSTextSelectionNavigationFromID(id objc.ID) NSTextSelectionNavigation {
 	return NSTextSelectionNavigation{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTextSelectionNavigation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -219,44 +221,47 @@ func (t NSTextSelectionNavigation) InitWithDataSource(dataSource NSTextSelection
 	rv := objc.Send[NSTextSelectionNavigation](t.ID, objc.Sel("initWithDataSource:"), dataSource)
 	return rv
 }
+
 // Returns a text selection that expands to the nearest boundaries for
 // selection granularity and an enclosing point you specify.
 //
 // selectionGranularity: One of the available [NSTextSelection.Granularity] options.
-// //
-// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 //
 // point: The point that encloses the text.
 //
 // location: An [NSTextLocation] that describes the container.
 //
 // # Return Value
-// 
+//
 // A new [NSTextSelection], or `nil` if the text selection is not found.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/textSelection(for:enclosing:inContainerAt:)
+//
+// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 func (t NSTextSelectionNavigation) TextSelectionForSelectionGranularityEnclosingPointInContainerAtLocation(selectionGranularity NSTextSelectionGranularity, point corefoundation.CGPoint, location NSTextLocation) INSTextSelection {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textSelectionForSelectionGranularity:enclosingPoint:inContainerAtLocation:"), selectionGranularity, point, location)
 	return NSTextSelectionFromID(rv)
 }
+
 // Returns a text selection expanded to the nearest boundaries for the
 // selection granularity and enclosing text selection text ranges you specify.
 //
 // selectionGranularity: One of the available [NSTextSelection.Granularity] options.
-// //
-// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 //
 // textSelection: The text selection that describes the text range of interest.
 //
 // # Return Value
-// 
+//
 // A new text selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/textSelection(for:enclosing:)
+//
+// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 func (t NSTextSelectionNavigation) TextSelectionForSelectionGranularityEnclosingTextSelection(selectionGranularity NSTextSelectionGranularity, textSelection INSTextSelection) INSTextSelection {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textSelectionForSelectionGranularity:enclosingTextSelection:"), selectionGranularity, textSelection)
 	return NSTextSelectionFromID(rv)
 }
+
 // Returns an array of text selections produced by a tap or click at the point
 // you specify.
 //
@@ -267,8 +272,6 @@ func (t NSTextSelectionNavigation) TextSelectionForSelectionGranularityEnclosing
 // anchors: An array of [NSTextSelection] objects.
 //
 // modifiers: One or more [NSTextSelectionNavigation.Modifier] options.
-// //
-// [NSTextSelectionNavigation.Modifier]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Modifier
 //
 // selecting: A Boolean value that indicates if the selection is in drag session.
 //
@@ -276,77 +279,82 @@ func (t NSTextSelectionNavigation) TextSelectionForSelectionGranularityEnclosing
 // system that can interact with events.
 //
 // # Return Value
-// 
+//
 // An array of text selections.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/textSelections(interactingAt:inContainerAt:anchors:modifiers:selecting:bounds:)
+//
+// [NSTextSelectionNavigation.Modifier]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Modifier
 func (t NSTextSelectionNavigation) TextSelectionsInteractingAtPointInContainerAtLocationAnchorsModifiersSelectingBounds(point corefoundation.CGPoint, containerLocation NSTextLocation, anchors []NSTextSelection, modifiers NSTextSelectionNavigationModifier, selecting bool, bounds corefoundation.CGRect) []NSTextSelection {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textSelectionsInteractingAtPoint:inContainerAtLocation:anchors:modifiers:selecting:bounds:"), point, containerLocation, objectivec.IObjectSliceToNSArray(anchors), modifiers, selecting, bounds)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSTextSelection {
 		return NSTextSelectionFromID(id)
 	})
 }
+
 // Returns a new selection that results from applying the navigation
 // operations you specify to the text selection you provide.
 //
 // textSelection: The source selection.
 //
 // direction: One of the available [NSTextSelectionNavigation.Direction] directions.
-// //
-// [NSTextSelectionNavigation.Direction]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Direction
 //
 // destination: One of the available [NSTextSelectionNavigation.Destination] destinations.
-// //
-// [NSTextSelectionNavigation.Destination]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Destination
 //
 // extending: Whether this selection extends an existing selection.
 //
 // confined: Whether to confine movement to the existing selection.
 //
 // # Return Value
-// 
+//
 // A new [NSTextSelection], or `nil` if the operation doesn’t produce a
 // logically valid result.
 //
 // # Discussion
-// 
+//
 // If `confined` is `true`, confine any movement to the text element that the
 // selection already lies within.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/destinationSelection(for:direction:destination:extending:confined:)
+//
+// [NSTextSelectionNavigation.Direction]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Direction
+// [NSTextSelectionNavigation.Destination]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Destination
 func (t NSTextSelectionNavigation) DestinationSelectionForTextSelectionDirectionDestinationExtendingConfined(textSelection INSTextSelection, direction NSTextSelectionNavigationDirection, destination NSTextSelectionNavigationDestination, extending bool, confined bool) INSTextSelection {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("destinationSelectionForTextSelection:direction:destination:extending:confined:"), textSelection, direction, destination, extending, confined)
 	return NSTextSelectionFromID(rv)
 }
+
 // Flushes cached layout information.
 //
 // # Discussion
-// 
+//
 // You call this method whenever the contents of the document change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/flushLayoutCache()
 func (t NSTextSelectionNavigation) FlushLayoutCache() {
 	objc.Send[objc.ID](t.ID, objc.Sel("flushLayoutCache"))
 }
+
 // Returns the location for inserting the next input depending on the state of
 // the current and secondary selections.
 //
 // textSelection: The text selection.
 //
 // writingDirection: The [NSTextSelectionNavigation.WritingDirection] direction.
-// //
-// [NSTextSelectionNavigation.WritingDirection]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/WritingDirection
 //
 // # Return Value
-// 
+//
 // Returns an [NSTextLocation] when the `textSelection.IsLogical() = false
 // AND` `secondarySelectionLocation != nil`. Otherwise, returns nil.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/resolvedInsertionLocation(for:writingDirection:)
+//
+// [NSTextSelectionNavigation.WritingDirection]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/WritingDirection
 func (t NSTextSelectionNavigation) ResolvedInsertionLocationForTextSelectionWritingDirection(textSelection INSTextSelection, writingDirection NSTextSelectionNavigationWritingDirection) NSTextLocation {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resolvedInsertionLocationForTextSelection:writingDirection:"), textSelection, writingDirection)
 	return NSTextLocationObjectFromID(rv)
 }
+
 // Returns the ranges for deleting the text based on the current selection and
 // movement arguments.
 //
@@ -354,36 +362,31 @@ func (t NSTextSelectionNavigation) ResolvedInsertionLocationForTextSelectionWrit
 //
 // direction: The [NSTextSelectionNavigation.Direction] to consider when calculating the
 // deletion ranges.
-// //
-// [NSTextSelectionNavigation.Direction]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Direction
 //
 // destination: The [NSTextSelectionNavigation.Destination] that describes the scope of the
 // text selection to consider when calculating the deletion ranges.
-// //
-// [NSTextSelectionNavigation.Destination]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Destination
 //
 // allowsDecomposition: A Boolean value that determines if this method operates on composite
 // characters which may be present depending on the characteristics of the
 // script used by `textSelection`.
 //
 // # Return Value
-// 
+//
 // An array of text ranges to delete.
 //
 // # Discussion
-// 
+//
 // The selection after deletion contains a zero-length range starting at the
 // location of the first range returned. The framework ignores the destination
 // when `textSelection` has a non-empty selection. The `allowsDecomposition`
-// parameter only applies to the
-// [NSTextSelectionNavigation.Direction.backward] direction and
-// [NSTextSelectionNavigation.Destination.character] with a zero-length
-// selection.
-//
-// [NSTextSelectionNavigation.Destination.character]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Destination/character
-// [NSTextSelectionNavigation.Direction.backward]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Direction/backward
+// parameter only applies to the [NSTextSelectionNavigationDirectionBackward]
+// direction and [NSTextSelectionNavigationDestinationCharacter] with a
+// zero-length selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/deletionRanges(for:direction:destination:allowsDecomposition:)
+//
+// [NSTextSelectionNavigation.Direction]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Direction
+// [NSTextSelectionNavigation.Destination]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Destination
 func (t NSTextSelectionNavigation) DeletionRangesForTextSelectionDirectionDestinationAllowsDecomposition(textSelection INSTextSelection, direction NSTextSelectionNavigationDirection, destination NSTextSelectionNavigationDestination, allowsDecomposition bool) []NSTextRange {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("deletionRangesForTextSelection:direction:destination:allowsDecomposition:"), textSelection, direction, destination, allowsDecomposition)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSTextRange {
@@ -402,11 +405,12 @@ func (t NSTextSelectionNavigation) AllowsNonContiguousRanges() bool {
 func (t NSTextSelectionNavigation) SetAllowsNonContiguousRanges(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsNonContiguousRanges:"), value)
 }
+
 // Determines if the framework rotates the coordinate system to match the
 // layout orientation.
 //
 // # Discussion
-// 
+//
 // If set to `true`, the framework rotates the coordinate system for arguments
 // passed to the navigation methods such as
 // [TextSelectionsInteractingAtPointInContainerAtLocationAnchorsModifiersSelectingBounds]:
@@ -420,6 +424,7 @@ func (t NSTextSelectionNavigation) RotatesCoordinateSystemForLayoutOrientation()
 func (t NSTextSelectionNavigation) SetRotatesCoordinateSystemForLayoutOrientation(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRotatesCoordinateSystemForLayoutOrientation:"), value)
 }
+
 // The data source associated with this selection navigation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/textSelectionDataSource
@@ -427,4 +432,3 @@ func (t NSTextSelectionNavigation) TextSelectionDataSource() NSTextSelectionData
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textSelectionDataSource"))
 	return NSTextSelectionDataSourceObjectFromID(rv)
 }
-

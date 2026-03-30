@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,26 +47,26 @@ func (uc UNNotificationTriggerClass) Alloc() UNNotificationTrigger {
 // remote notification.
 //
 // # Overview
-// 
+//
 // The [UNNotificationTrigger] class is an abstract class for representing an
 // event that triggers the delivery of a notification. You don’t create
 // instances of this class directly. Instead, you instantiate the concrete
 // subclass that defines the trigger condition you want for your notification.
 // You then assign the resulting object to the [UNNotificationRequest] object
 // that you use to schedule your notification.
-// 
+//
 // Concrete trigger classes include the following:
-// 
+//
 // - [UNTimeIntervalNotificationTrigger] - [UNCalendarNotificationTrigger] -
 // [UNLocationNotificationTrigger] - [UNPushNotificationTrigger]
-//
-// [UNLocationNotificationTrigger]: https://developer.apple.com/documentation/UserNotifications/UNLocationNotificationTrigger
 //
 // # Configuring the Trigger’s Behavior
 //
 //   - [UNNotificationTrigger.Repeats]: A Boolean value indicating whether the system reschedules the notification after it’s delivered.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationTrigger
+//
+// [UNLocationNotificationTrigger]: https://developer.apple.com/documentation/UserNotifications/UNLocationNotificationTrigger
 type UNNotificationTrigger struct {
 	objectivec.Object
 }
@@ -77,6 +78,7 @@ type UNNotificationTrigger struct {
 func UNNotificationTriggerFromID(id objc.ID) UNNotificationTrigger {
 	return UNNotificationTrigger{objectivec.Object{ID: id}}
 }
+
 // NOTE: UNNotificationTrigger adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -125,20 +127,16 @@ func (u UNNotificationTrigger) EncodeWithCoder(coder foundation.INSCoder) {
 // after it’s delivered.
 //
 // # Discussion
-// 
-// When this property is [false], the system delivers the notification only
-// once. When this property is [true], the system reschedules the notification
+//
+// When this property is false, the system delivers the notification only
+// once. When this property is true, the system reschedules the notification
 // request automatically, resulting in the system delivering the notification
 // each time the trigger condition is met. To unschedule the notification
 // request, use the methods of the [UNUserNotificationCenter] to remove the
 // notification request.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationTrigger/repeats
 func (u UNNotificationTrigger) Repeats() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("repeats"))
 	return rv
 }
-

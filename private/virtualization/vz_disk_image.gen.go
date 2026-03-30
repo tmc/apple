@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (vc VZDiskImageClass) Alloc() VZDiskImage {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZDiskImage.URL]
@@ -56,6 +56,7 @@ func (vc VZDiskImageClass) Alloc() VZDiskImage {
 //   - [VZDiskImage.InitWithDescriptorError]
 //   - [VZDiskImage.InitWithURLReadOnlyError]
 //   - [VZDiskImage.ReadOnly]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZDiskImage
 type VZDiskImage struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type VZDiskImage struct {
 func VZDiskImageFromID(id objc.ID) VZDiskImage {
 	return VZDiskImage{objectivec.Object{ID: id}}
 }
+
 // Ensure VZDiskImage implements IVZDiskImage.
 var _ IVZDiskImage = VZDiskImage{}
 
@@ -120,7 +122,6 @@ func NewVZDiskImage() VZDiskImage {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZDiskImage/initWithDescriptor:error:
 func NewVZDiskImageWithDescriptorError(descriptor objectivec.IObject) (VZDiskImage, error) {
 	var errorPtr objc.ID
@@ -133,7 +134,6 @@ func NewVZDiskImageWithDescriptorError(descriptor objectivec.IObject) (VZDiskIma
 	return VZDiskImageFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZDiskImage/initWithURL:readOnly:error:
 func NewVZDiskImageWithURLReadOnlyError(url foundation.INSURL, only bool) (VZDiskImage, error) {
 	var errorPtr objc.ID
@@ -151,7 +151,7 @@ func (v VZDiskImage) IsReadOnly() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isReadOnly"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDiskImage/initWithDescriptor:error:
 func (v VZDiskImage) InitWithDescriptorError(descriptor objectivec.IObject) (VZDiskImage, error) {
 	var errorPtr objc.ID
@@ -163,7 +163,7 @@ func (v VZDiskImage) InitWithDescriptorError(descriptor objectivec.IObject) (VZD
 	return VZDiskImageFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDiskImage/initWithURL:readOnly:error:
 func (v VZDiskImage) InitWithURLReadOnlyError(url foundation.INSURL, only bool) (VZDiskImage, error) {
 	var errorPtr objc.ID
@@ -181,26 +181,31 @@ func (v VZDiskImage) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDiskImage/cachingMode
 func (v VZDiskImage) CachingMode() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("cachingMode"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDiskImage/identifier
 func (v VZDiskImage) Identifier() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDiskImage/readOnly
 func (v VZDiskImage) ReadOnly() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("readOnly"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDiskImage/synchronizationMode
 func (v VZDiskImage) SynchronizationMode() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("synchronizationMode"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDiskImage/updateDiskSize
 func (v VZDiskImage) UpdateDiskSize() foundation.NSNumber {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("updateDiskSize"))
@@ -209,4 +214,3 @@ func (v VZDiskImage) UpdateDiskSize() foundation.NSNumber {
 func (v VZDiskImage) SetUpdateDiskSize(value foundation.NSNumber) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUpdateDiskSize:"), value)
 }
-

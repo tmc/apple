@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (vc VZVirtioSocketDeviceClass) Alloc() VZVirtioSocketDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtioSocketDevice._configurationOptions]
 //   - [VZVirtioSocketDevice._setDelegate]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice
 type VZVirtioSocketDevice struct {
 	VZSocketDevice
@@ -55,6 +56,7 @@ type VZVirtioSocketDevice struct {
 func VZVirtioSocketDeviceFromID(id objc.ID) VZVirtioSocketDevice {
 	return VZVirtioSocketDevice{VZSocketDevice: VZSocketDeviceFromID(id)}
 }
+
 // Ensure VZVirtioSocketDevice implements IVZVirtioSocketDevice.
 var _ IVZVirtioSocketDevice = VZVirtioSocketDevice{}
 
@@ -104,7 +106,7 @@ func (v VZVirtioSocketDevice) _configurationOptions() objectivec.IObject {
 func (v VZVirtioSocketDevice) ConfigurationOptions() objectivec.IObject {
 	return v._configurationOptions()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice/_setDelegate:
 func (v VZVirtioSocketDevice) _setDelegate(delegate objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setDelegate:"), delegate)
@@ -114,4 +116,3 @@ func (v VZVirtioSocketDevice) _setDelegate(delegate objectivec.IObject) {
 func (v VZVirtioSocketDevice) SetDelegate(delegate objectivec.IObject) {
 	v._setDelegate(delegate)
 }
-

@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -67,6 +68,7 @@ type VZEFIVariableStore struct {
 func VZEFIVariableStoreFromID(id objc.ID) VZEFIVariableStore {
 	return VZEFIVariableStore{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZEFIVariableStore adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,10 +126,10 @@ func NewVZEFIVariableStore() VZEFIVariableStore {
 // information.
 //
 // options: An array of possible [VZEFIVariableStore.InitializationOptions].
-// //
-// [VZEFIVariableStore.InitializationOptions]: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/InitializationOptions
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(creatingVariableStoreAt:options:)
+//
+// [VZEFIVariableStore.InitializationOptions]: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/InitializationOptions
 func NewEFIVariableStoreCreatingVariableStoreAtURLOptionsError(URL foundation.INSURL, options VZEFIVariableStoreInitializationOptions) (VZEFIVariableStore, error) {
 	var errorPtr objc.ID
 	instance := getVZEFIVariableStoreClass().Alloc()
@@ -157,10 +159,10 @@ func NewEFIVariableStoreWithURL(URL foundation.INSURL) VZEFIVariableStore {
 // information.
 //
 // options: An array of possible [VZEFIVariableStore.InitializationOptions].
-// //
-// [VZEFIVariableStore.InitializationOptions]: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/InitializationOptions
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(creatingVariableStoreAt:options:)
+//
+// [VZEFIVariableStore.InitializationOptions]: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/InitializationOptions
 func (e VZEFIVariableStore) InitCreatingVariableStoreAtURLOptionsError(URL foundation.INSURL, options VZEFIVariableStoreInitializationOptions) (VZEFIVariableStore, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("initCreatingVariableStoreAtURL:options:error:"), URL, options, unsafe.Pointer(&errorPtr))
@@ -171,6 +173,7 @@ func (e VZEFIVariableStore) InitCreatingVariableStoreAtURLOptionsError(URL found
 	return VZEFIVariableStoreFromID(rv), nil
 
 }
+
 // Initialize the variable store from the URL of an existing file.
 //
 // URL: The URL of the location on disk that contains the stored EFI information.
@@ -188,4 +191,3 @@ func (e VZEFIVariableStore) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

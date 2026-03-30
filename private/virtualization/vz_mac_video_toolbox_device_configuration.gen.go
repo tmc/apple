@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZMacVideoToolboxDeviceConfiguration struct {
 func VZMacVideoToolboxDeviceConfigurationFromID(id objc.ID) VZMacVideoToolboxDeviceConfiguration {
 	return VZMacVideoToolboxDeviceConfiguration{VZAcceleratorDeviceConfiguration: VZAcceleratorDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZMacVideoToolboxDeviceConfiguration implements IVZMacVideoToolboxDeviceConfiguration.
 var _ IVZMacVideoToolboxDeviceConfiguration = VZMacVideoToolboxDeviceConfiguration{}
 
@@ -88,4 +90,3 @@ func (_VZMacVideoToolboxDeviceConfigurationClass VZMacVideoToolboxDeviceConfigur
 func (_VZMacVideoToolboxDeviceConfigurationClass VZMacVideoToolboxDeviceConfigurationClass) IsSupported() bool {
 	return _VZMacVideoToolboxDeviceConfigurationClass._isSupported()
 }
-

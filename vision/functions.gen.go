@@ -5,6 +5,7 @@ package vision
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 )
@@ -183,17 +184,16 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_vNElementTypeSize, frameworkHandle, "VNElementTypeSize")
-		registerFunc(&_vNImagePointForFaceLandmarkPoint, frameworkHandle, "VNImagePointForFaceLandmarkPoint")
-		registerFunc(&_vNImagePointForNormalizedPoint, frameworkHandle, "VNImagePointForNormalizedPoint")
-		registerFunc(&_vNImagePointForNormalizedPointUsingRegionOfInterest, frameworkHandle, "VNImagePointForNormalizedPointUsingRegionOfInterest")
-		registerFunc(&_vNImageRectForNormalizedRect, frameworkHandle, "VNImageRectForNormalizedRect")
-		registerFunc(&_vNImageRectForNormalizedRectUsingRegionOfInterest, frameworkHandle, "VNImageRectForNormalizedRectUsingRegionOfInterest")
-		registerFunc(&_vNNormalizedFaceBoundingBoxPointForLandmarkPoint, frameworkHandle, "VNNormalizedFaceBoundingBoxPointForLandmarkPoint")
-		registerFunc(&_vNNormalizedPointForImagePoint, frameworkHandle, "VNNormalizedPointForImagePoint")
-		registerFunc(&_vNNormalizedPointForImagePointUsingRegionOfInterest, frameworkHandle, "VNNormalizedPointForImagePointUsingRegionOfInterest")
-		registerFunc(&_vNNormalizedRectForImageRect, frameworkHandle, "VNNormalizedRectForImageRect")
-		registerFunc(&_vNNormalizedRectForImageRectUsingRegionOfInterest, frameworkHandle, "VNNormalizedRectForImageRectUsingRegionOfInterest")
-		registerFunc(&_vNNormalizedRectIsIdentityRect, frameworkHandle, "VNNormalizedRectIsIdentityRect")
-	}
-
+	registerFunc(&_vNElementTypeSize, frameworkHandle, "VNElementTypeSize")
+	registerFunc(&_vNImagePointForFaceLandmarkPoint, frameworkHandle, "VNImagePointForFaceLandmarkPoint")
+	registerFunc(&_vNImagePointForNormalizedPoint, frameworkHandle, "VNImagePointForNormalizedPoint")
+	registerFunc(&_vNImagePointForNormalizedPointUsingRegionOfInterest, frameworkHandle, "VNImagePointForNormalizedPointUsingRegionOfInterest")
+	registerFunc(&_vNImageRectForNormalizedRect, frameworkHandle, "VNImageRectForNormalizedRect")
+	registerFunc(&_vNImageRectForNormalizedRectUsingRegionOfInterest, frameworkHandle, "VNImageRectForNormalizedRectUsingRegionOfInterest")
+	registerFunc(&_vNNormalizedFaceBoundingBoxPointForLandmarkPoint, frameworkHandle, "VNNormalizedFaceBoundingBoxPointForLandmarkPoint")
+	registerFunc(&_vNNormalizedPointForImagePoint, frameworkHandle, "VNNormalizedPointForImagePoint")
+	registerFunc(&_vNNormalizedPointForImagePointUsingRegionOfInterest, frameworkHandle, "VNNormalizedPointForImagePointUsingRegionOfInterest")
+	registerFunc(&_vNNormalizedRectForImageRect, frameworkHandle, "VNNormalizedRectForImageRect")
+	registerFunc(&_vNNormalizedRectForImageRectUsingRegionOfInterest, frameworkHandle, "VNNormalizedRectForImageRectUsingRegionOfInterest")
+	registerFunc(&_vNNormalizedRectIsIdentityRect, frameworkHandle, "VNNormalizedRectIsIdentityRect")
+}

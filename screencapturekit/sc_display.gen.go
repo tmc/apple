@@ -4,8 +4,9 @@ package screencapturekit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,10 +46,10 @@ func (sc SCDisplayClass) Alloc() SCDisplay {
 // An instance that represents a display device.
 //
 // # Overview
-// 
+//
 // A display object represents a physical display connected to a Mac. Query
 // the display to retrieve its unique identifier and onscreen coordinates.
-// 
+//
 // Retrieve the available displays from an instance of [SCShareableContent].
 // Select a display to capture and use it to create an instance of
 // [SCContentFilter]. Apply the filter to an instance of [SCStream] to limit
@@ -75,6 +76,7 @@ type SCDisplay struct {
 func SCDisplayFromID(id objc.ID) SCDisplay {
 	return SCDisplay{objectivec.Object{ID: id}}
 }
+
 // NOTE: SCDisplay adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,6 +137,7 @@ func (d SCDisplay) DisplayID() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("displayID"))
 	return rv
 }
+
 // The frame of the display.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCDisplay/frame
@@ -142,6 +145,7 @@ func (d SCDisplay) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](d.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
+
 // The width of the display in points.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCDisplay/width
@@ -149,6 +153,7 @@ func (d SCDisplay) Width() int {
 	rv := objc.Send[int](d.ID, objc.Sel("width"))
 	return rv
 }
+
 // The height of the display in points.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCDisplay/height
@@ -156,4 +161,3 @@ func (d SCDisplay) Height() int {
 	rv := objc.Send[int](d.ID, objc.Sel("height"))
 	return rv
 }
-

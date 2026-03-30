@@ -5,6 +5,7 @@ package appkit
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,7 +47,7 @@ func (nc NSColorSamplerClass) Alloc() NSColorSampler {
 // the selected color to your app.
 //
 // # Overview
-// 
+//
 // Create an [NSColorSampler] object when you want the user to select a color
 // based on existing onscreen colors. When you call the
 // [NSColorSampler.ShowSamplerWithSelectionHandler] method, AppKit shows the system’s color
@@ -69,6 +70,7 @@ type NSColorSampler struct {
 func NSColorSamplerFromID(id objc.ID) NSColorSampler {
 	return NSColorSampler{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSColorSampler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,11 +115,11 @@ func NewNSColorSampler() NSColorSampler {
 // selectionHandler: The handler block for processing the user-selected color. AppKit calls this
 // block on your app’s main thread. This block has no return value and takes
 // the following parameter:
-// 
+//
 // selectedColor: The selected color.
 //
 // # Discussion
-// 
+//
 // This method displays the color-sampling interface and returns immediately.
 // The color-sampling interface magnifies the onscreen pixels and makes it
 // easier for the user to select a single pixel. When the user clicks any
@@ -126,7 +128,7 @@ func NewNSColorSampler() NSColorSampler {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorSampler/show(selectionHandler:)
 func (c NSColorSampler) ShowSamplerWithSelectionHandler(selectionHandler ColorHandler) {
-_block0, _ := NewColorBlock(selectionHandler)
+	_block0, _ := NewColorBlock(selectionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("showSamplerWithSelectionHandler:"), _block0)
 }
 
@@ -144,4 +146,3 @@ func (c NSColorSampler) ShowSamplerWithSelectionHandlerSync(ctx context.Context)
 		return nil, ctx.Err()
 	}
 }
-

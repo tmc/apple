@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSScrubberSelectionView] class.
@@ -46,7 +47,7 @@ func (nc NSScrubberSelectionViewClass) Alloc() NSScrubberSelectionView {
 // selected item in a scrubber.
 //
 // # Overview
-// 
+//
 // Create a subclass to customize the selection or highlight appearance of an
 // item in your scrubber control. You need to return an instance of your
 // subclass from the [SelectionView] method on [NSScrubberSelectionStyle].
@@ -63,6 +64,7 @@ type NSScrubberSelectionView struct {
 func NSScrubberSelectionViewFromID(id objc.ID) NSScrubberSelectionView {
 	return NSScrubberSelectionView{NSScrubberArrangedView: NSScrubberArrangedViewFromID(id)}
 }
+
 // NOTE: NSScrubberSelectionView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -97,7 +99,7 @@ func NewNSScrubberSelectionView() NSScrubberSelectionView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -113,11 +115,11 @@ func NewScrubberSelectionViewWithCoder(coder foundation.INSCoder) NSScrubberSele
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -128,4 +130,3 @@ func NewScrubberSelectionViewWithFrame(frameRect corefoundation.CGRect) NSScrubb
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSScrubberSelectionViewFromID(rv)
 }
-

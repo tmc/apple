@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVVideoCompositionRenderContextClass) Alloc() AVVideoCompositionRenderC
 // buffers.
 //
 // # Overview
-// 
+//
 // A render context provides size and scaling information and offers a service
 // for efficiently providing pixel buffers from a managed pool of buffers.
 //
@@ -75,6 +76,7 @@ type AVVideoCompositionRenderContext struct {
 func AVVideoCompositionRenderContextFromID(id objc.ID) AVVideoCompositionRenderContext {
 	return AVVideoCompositionRenderContext{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVVideoCompositionRenderContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -144,22 +146,22 @@ func (v AVVideoCompositionRenderContext) VideoComposition() IAVVideoComposition 
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("videoComposition"))
 	return AVVideoCompositionFromID(objc.ID(rv))
 }
+
 // The rendering quality to use.
 //
 // # Discussion
-// 
+//
 // Specifies that the custom compositor should use higher quality, potentially
 // slower algorithms.
-// 
-// Generally this property is [true] for non-real-time use cases.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Generally this property is true for non-real-time use cases.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionRenderContext/highQualityRendering
 func (v AVVideoCompositionRenderContext) HighQualityRendering() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("highQualityRendering"))
 	return rv
 }
+
 // A scaling ratio that is applied when rendering frames.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionRenderContext/renderScale
@@ -167,13 +169,14 @@ func (v AVVideoCompositionRenderContext) RenderScale() float32 {
 	rv := objc.Send[float32](v.ID, objc.Sel("renderScale"))
 	return rv
 }
+
 // A transform to apply to the source image.
 //
 // # Discussion
-// 
+//
 // The transform to apply to the source image incorporating the [RenderScale],
 // [PixelAspectRatio], and [EdgeWidths].
-// 
+//
 // The coordinate system origin is the top left corner of the buffer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionRenderContext/renderTransform
@@ -181,6 +184,7 @@ func (v AVVideoCompositionRenderContext) RenderTransform() corefoundation.CGAffi
 	rv := objc.Send[corefoundation.CGAffineTransform](v.ID, objc.Sel("renderTransform"))
 	return corefoundation.CGAffineTransform(rv)
 }
+
 // The width and height for the rendering frames.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionRenderContext/size
@@ -188,6 +192,7 @@ func (v AVVideoCompositionRenderContext) Size() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)
 }
+
 // The width of the edge processing region on the left, top, right, and bottom
 // edges, in pixels.
 //
@@ -196,6 +201,7 @@ func (v AVVideoCompositionRenderContext) EdgeWidths() AVEdgeWidths {
 	rv := objc.Send[AVEdgeWidths](v.ID, objc.Sel("edgeWidths"))
 	return AVEdgeWidths(rv)
 }
+
 // The pixel aspect ratio for rendered frames.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionRenderContext/pixelAspectRatio
@@ -203,4 +209,3 @@ func (v AVVideoCompositionRenderContext) PixelAspectRatio() AVPixelAspectRatio {
 	rv := objc.Send[AVPixelAspectRatio](v.ID, objc.Sel("pixelAspectRatio"))
 	return AVPixelAspectRatio(rv)
 }
-

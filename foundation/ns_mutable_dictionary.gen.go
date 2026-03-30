@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,42 +46,38 @@ func (nc NSMutableDictionaryClass) Alloc() NSMutableDictionary {
 // A dynamic collection of objects associated with unique keys.
 //
 // # Overview
-// 
+//
 // In Swift, you can use this type instead of a [Dictionary] variable in cases
 // that require reference semantics.
-// 
+//
 // The [NSMutableDictionary] class declares the programmatic interface to
 // objects that manage mutable associations of keys and values. It adds
 // modification operations to the basic operations it inherits from
 // [NSDictionary].
-// 
+//
 // [NSMutableDictionary] is “toll-free bridged” with its Core Foundation
 // counterpart, [CFMutableDictionary]. See [Toll-Free Bridging] for more
 // information on toll-free bridging.
-// 
+//
 // # Setting Values Using Subscripting
-// 
+//
 // In addition to the provided instance methods, such as [NSMutableDictionary.SetObjectForKey],
 // you can access [NSDictionary] values by their keys using .
-// 
+//
 // # Subclassing Notes
-// 
+//
 // There should typically be little need to subclass [NSMutableDictionary]. If
 // you do need to customize behavior, it is often better to consider
 // composition rather than subclassing.
-// 
+//
 // # Methods to Override
-// 
+//
 // In a subclass, you must override both of its primitive methods:
-// 
+//
 // - [NSMutableDictionary.SetObjectForKey]
 // - [NSMutableDictionary.RemoveObjectForKey]
-// 
-// You must also override the primitive methods of the [NSDictionary] class.
 //
-// [CFMutableDictionary]: https://developer.apple.com/documentation/CoreFoundation/CFMutableDictionary
-// [Dictionary]: https://developer.apple.com/documentation/Swift/Dictionary
-// [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
+// You must also override the primitive methods of the [NSDictionary] class.
 //
 // # Creating and Initializing a Mutable Dictionary
 //
@@ -123,6 +120,10 @@ func (nc NSMutableDictionaryClass) Alloc() NSMutableDictionary {
 //   - [NSMutableDictionary.GetHeaderBytes]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary
+//
+// [CFMutableDictionary]: https://developer.apple.com/documentation/CoreFoundation/CFMutableDictionary
+// [Dictionary]: https://developer.apple.com/documentation/Swift/Dictionary
+// [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
 type NSMutableDictionary struct {
 	NSDictionary
 }
@@ -133,6 +134,7 @@ type NSMutableDictionary struct {
 func NSMutableDictionaryFromID(id objc.ID) NSMutableDictionary {
 	return NSMutableDictionary{NSDictionary: NSDictionaryFromID(id)}
 }
+
 // NOTE: NSMutableDictionary adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -258,15 +260,15 @@ func NewNSMutableDictionary() NSMutableDictionary {
 // numItems: The initial capacity of the initialized dictionary.
 //
 // # Return Value
-// 
+//
 // An initialized mutable dictionary, which might be different than the
 // original receiver.
 //
 // # Discussion
-// 
+//
 // Mutable dictionaries allocate additional memory as needed, so `numItems`
 // simply establishes the object’s initial capacity.
-// 
+//
 // This method is a designated initializer of [NSMutableDictionary].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/init(capacity:)
@@ -276,7 +278,6 @@ func NewMutableDictionaryWithCapacity(numItems uint) NSMutableDictionary {
 	return NSMutableDictionaryFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/init(coder:)
 func NewMutableDictionaryWithCoder(coder INSCoder) NSMutableDictionary {
 	instance := getNSMutableDictionaryClass().Alloc()
@@ -291,7 +292,7 @@ func NewMutableDictionaryWithCoder(coder INSCoder) NSMutableDictionary {
 // new dictionary.
 //
 // # Return Value
-// 
+//
 // An initialized dictionary—which might be different than the original
 // receiver—containing the keys and values found in `otherDictionary`.
 //
@@ -308,54 +309,47 @@ func NewMutableDictionaryWithDictionary(otherDictionary INSDictionary) NSMutable
 // otherDictionary: A dictionary containing the keys and values with which to initialize the
 // new dictionary.
 //
-// flag: If [true], each object in `otherDictionary` receives a [copyWithZone:]
+// flag: If true, each object in `otherDictionary` receives a [copyWithZone:]
 // message to create a copy of the object—objects must conform to the
 // [NSCopying] protocol. In a managed memory environment, this is instead of
 // the `retain` message the object would otherwise receive. The object copy is
 // then added to the returned dictionary.
-// 
-// If [false], then in a managed memory environment each object in
+//
+// If false, then in a managed memory environment each object in
 // `otherDictionary` simply receives a `retain` message when it is added to
 // the returned dictionary.
-// //
-// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // An initialized object—which might be different than the original
 // receiver—containing the keys and values found in `otherDictionary`.
 //
 // # Discussion
-// 
+//
 // After an immutable dictionary has been initialized in this way, it cannot
 // be modified.
-// 
-// The [CopyWithZone] method performs a shallow copy. If you have a collection
-// of arbitrary depth, passing [true] for the `flag` parameter will perform an
-// immutable copy of the first level below the surface. If you pass [false]
-// the mutability of the first level is unaffected. In either case, the
-// mutability of all deeper levels is unaffected.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The [CopyWithZone] method performs a shallow copy. If you have a collection
+// of arbitrary depth, passing true for the `flag` parameter will perform an
+// immutable copy of the first level below the surface. If you pass false the
+// mutability of the first level is unaffected. In either case, the mutability
+// of all deeper levels is unaffected.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/init(dictionary:copyItems:)
+//
+// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
 func NewMutableDictionaryWithDictionaryCopyItems(otherDictionary INSDictionary, flag bool) NSMutableDictionary {
 	instance := getNSMutableDictionaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionary:copyItems:"), otherDictionary, flag)
 	return NSMutableDictionaryFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/init(OBEXHeadersData:)
 func NewMutableDictionaryWithOBEXHeadersData(inHeadersData INSData) NSMutableDictionary {
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableDictionaryClass().class), objc.Sel("dictionaryWithOBEXHeadersData:"), inHeadersData)
 	return NSMutableDictionaryFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/init(OBEXHeadersData:headersDataSize:)
 func NewMutableDictionaryWithOBEXHeadersDataHeadersDataSize(inHeadersData unsafe.Pointer, inDataSize uintptr) NSMutableDictionary {
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableDictionaryClass().class), objc.Sel("dictionaryWithOBEXHeadersData:headersDataSize:"), inHeadersData, inDataSize)
@@ -365,19 +359,15 @@ func NewMutableDictionaryWithOBEXHeadersDataHeadersDataSize(inHeadersData unsafe
 // Creates a dictionary containing a given key and value.
 //
 // object: The value corresponding to `aKey`.
-// 
-// If this value is `nil`, an [invalidArgumentException] is raised.
-// //
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+//
+// If this value is `nil`, an [InvalidArgumentException] is raised.
 //
 // key: The key for `anObject`.
-// 
-// If this value is `nil`, an [invalidArgumentException] is raised.
-// //
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+//
+// If this value is `nil`, an [InvalidArgumentException] is raised.
 //
 // # Return Value
-// 
+//
 // A new dictionary containing a single object, `object`, for a single key,
 // `aKey`.
 //
@@ -393,17 +383,15 @@ func NewMutableDictionaryWithObjectForKey(object objectivec.IObject, key NSCopyi
 // firstObject: The first value to add to the new dictionary.
 //
 // # Discussion
-// 
+//
 // After the `firstObject` value, pass the key for `firstObject`, then a
 // null-terminated list of alternating values and keys. If any key is `nil`,
-// an [invalidArgumentException] is raised.
-// 
+// an [InvalidArgumentException] is raised.
+//
 // This method is similar to [InitWithObjectsForKeys], differing only in the
 // way in which the key-value pairs are specified.
-// 
-// For example:
 //
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+// For example:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/initWithObjectsAndKeys:
 func NewMutableDictionaryWithObjectsAndKeys(firstObject objectivec.IObject) NSMutableDictionary {
@@ -422,7 +410,7 @@ func NewMutableDictionaryWithObjectsAndKeys(firstObject objectivec.IObject) NSMu
 // the copy is added to the new dictionary.
 //
 // # Discussion
-// 
+//
 // This method steps through the `objects` and `keys` arrays, creating entries
 // in the new dictionary as it goes. An [NSInvalidArgumentException] is raised
 // if the objects and keys arrays do not have the same number of elements.
@@ -440,15 +428,15 @@ func NewMutableDictionaryWithObjectsForKeys(objects []objectivec.IObject, keys [
 // numItems: The initial capacity of the initialized dictionary.
 //
 // # Return Value
-// 
+//
 // An initialized mutable dictionary, which might be different than the
 // original receiver.
 //
 // # Discussion
-// 
+//
 // Mutable dictionaries allocate additional memory as needed, so `numItems`
 // simply establishes the object’s initial capacity.
-// 
+//
 // This method is a designated initializer of [NSMutableDictionary].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/init(capacity:)
@@ -456,6 +444,7 @@ func (m NSMutableDictionary) InitWithCapacity(numItems uint) NSMutableDictionary
 	rv := objc.Send[NSMutableDictionary](m.ID, objc.Sel("initWithCapacity:"), numItems)
 	return rv
 }
+
 // Adds a given key-value pair to the dictionary.
 //
 // anObject: The value for `aKey`. A strong reference to the object is maintained by the
@@ -469,34 +458,36 @@ func (m NSMutableDictionary) InitWithCapacity(numItems uint) NSMutableDictionary
 func (m NSMutableDictionary) SetObjectForKey(anObject objectivec.IObject, aKey NSCopying) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setObject:forKey:"), anObject, aKey)
 }
+
 // Adds to the receiving dictionary the entries from another dictionary.
 //
 // otherDictionary: The dictionary from which to add entries
 //
 // # Discussion
-// 
+//
 // Each value object from `otherDictionary` is sent a [retain] message before
 // being added to the receiving dictionary. In contrast, each key object is
 // copied (using [CopyWithZone]—keys must conform to the [NSCopying]
 // protocol), and the copy is added to the receiving dictionary.
-// 
+//
 // If both dictionaries contain the same key, the receiving dictionary’s
 // previous value object for that key is sent a `release` message, and the new
 // value object takes its place.
 //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
-//
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addEntries(from:)
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func (m NSMutableDictionary) AddEntriesFromDictionary(otherDictionary INSDictionary) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addEntriesFromDictionary:"), otherDictionary)
 }
+
 // Sets the contents of the receiving dictionary to entries in a given
 // dictionary.
 //
 // otherDictionary: A dictionary containing the new entries.
 //
 // # Discussion
-// 
+//
 // All entries are removed from the receiving dictionary (with
 // [RemoveAllObjects]), then each entry from `otherDictionary` added into the
 // receiving dictionary.
@@ -505,14 +496,15 @@ func (m NSMutableDictionary) AddEntriesFromDictionary(otherDictionary INSDiction
 func (m NSMutableDictionary) SetDictionary(otherDictionary INSDictionary) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setDictionary:"), otherDictionary)
 }
+
 // Removes a given key and its associated value from the dictionary.
 //
 // aKey: The key to remove.
 //
 // # Discussion
-// 
+//
 // Does nothing if `aKey` does not exist.
-// 
+//
 // For example, assume you have an archived dictionary that records the call
 // letters and associated frequencies of radio stations. To remove an entry
 // for a defunct station, you could write code similar to the following:
@@ -521,160 +513,164 @@ func (m NSMutableDictionary) SetDictionary(otherDictionary INSDictionary) {
 func (m NSMutableDictionary) RemoveObjectForKey(aKey objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectForKey:"), aKey)
 }
+
 // Empties the dictionary of its entries.
 //
 // # Discussion
-// 
+//
 // Each key and corresponding value object is sent a [release] message.
 //
-// [release]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
-//
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/removeAllObjects()
+//
+// [release]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
 func (m NSMutableDictionary) RemoveAllObjects() {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeAllObjects"))
 }
+
 // Removes from the dictionary entries specified by elements in a given array.
 //
 // keyArray: An array of objects specifying the keys to remove.
 //
 // # Discussion
-// 
+//
 // If a key in `keyArray` does not exist, the entry is ignored.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/removeObjects(forKeys:)
 func (m NSMutableDictionary) RemoveObjectsForKeys(keyArray []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectsForKeys:"), objectivec.IObjectSliceToNSArray(keyArray))
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addApplicationParameterHeader(_:length:)
 func (m NSMutableDictionary) AddApplicationParameterHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addApplicationParameterHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addAuthorizationChallengeHeader(_:length:)
 func (m NSMutableDictionary) AddAuthorizationChallengeHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addAuthorizationChallengeHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addAuthorizationResponseHeader(_:length:)
 func (m NSMutableDictionary) AddAuthorizationResponseHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addAuthorizationResponseHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addBodyHeader(_:length:endOfBody:)
 func (m NSMutableDictionary) AddBodyHeaderLengthEndOfBody(inHeaderData unsafe.Pointer, inHeaderDataLength uint32, isEndOfBody bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addBodyHeader:length:endOfBody:"), inHeaderData, inHeaderDataLength, isEndOfBody)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addByteSequenceHeader(_:length:)
 func (m NSMutableDictionary) AddByteSequenceHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addByteSequenceHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addConnectionIDHeader(_:length:)
 func (m NSMutableDictionary) AddConnectionIDHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addConnectionIDHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addCountHeader(_:)
 func (m NSMutableDictionary) AddCountHeader(inCount uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addCountHeader:"), inCount)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addDescriptionHeader(_:)
 func (m NSMutableDictionary) AddDescriptionHeader(inDescriptionString string) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addDescriptionHeader:"), objc.String(inDescriptionString))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addHTTPHeader(_:length:)
 func (m NSMutableDictionary) AddHTTPHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addHTTPHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addImageDescriptorHeader(_:length:)
 func (m NSMutableDictionary) AddImageDescriptorHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addImageDescriptorHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addImageHandleHeader(_:)
 func (m NSMutableDictionary) AddImageHandleHeader(type_ string) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addImageHandleHeader:"), objc.String(type_))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addLengthHeader(_:)
 func (m NSMutableDictionary) AddLengthHeader(length uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addLengthHeader:"), length)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addNameHeader(_:)
 func (m NSMutableDictionary) AddNameHeader(inNameString string) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addNameHeader:"), objc.String(inNameString))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addObjectClassHeader(_:length:)
 func (m NSMutableDictionary) AddObjectClassHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addObjectClassHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addTargetHeader(_:length:)
 func (m NSMutableDictionary) AddTargetHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addTargetHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addTime4ByteHeader(_:)
 func (m NSMutableDictionary) AddTime4ByteHeader(time4Byte uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addTime4ByteHeader:"), time4Byte)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addTimeISOHeader(_:length:)
 func (m NSMutableDictionary) AddTimeISOHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addTimeISOHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addTypeHeader(_:)
 func (m NSMutableDictionary) AddTypeHeader(type_ string) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addTypeHeader:"), objc.String(type_))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addUserDefinedHeader(_:length:)
 func (m NSMutableDictionary) AddUserDefinedHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addUserDefinedHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/addWhoHeader(_:length:)
 func (m NSMutableDictionary) AddWhoHeaderLength(inHeaderData unsafe.Pointer, inHeaderDataLength uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addWhoHeader:length:"), inHeaderData, inHeaderDataLength)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/getHeaderBytes()
 func (m NSMutableDictionary) GetHeaderBytes() INSMutableData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("getHeaderBytes"))
 	return NSMutableDataFromID(rv)
 }
+
 // Adds a given key-value pair to the dictionary.
 //
 // obj: The value for `key`. A strong reference to the object is maintained by the
 // dictionary.
-// 
+//
 // Passing `nil` will cause any object corresponding to `key` to be removed
 // from the dictionary.
 //
@@ -683,9 +679,9 @@ func (m NSMutableDictionary) GetHeaderBytes() INSMutableData {
 // dictionary, `anObject` takes its place.
 //
 // # Discussion
-// 
+//
 // This method has the same behavior as the [SetObjectForKey] method.
-// 
+//
 // You shouldn’t need to call this method directly. Instead, this method is
 // called when setting an object for a key using subscripting.
 //
@@ -701,11 +697,11 @@ func (m NSMutableDictionary) SetObjectForKeyedSubscript(obj objectivec.IObject, 
 // [SharedKeySetForKeys].
 //
 // # Return Value
-// 
+//
 // A new mutable dictionary optimized for a known set of keys.
 //
 // # Discussion
-// 
+//
 // Keys that are not in the key set can still be set in the dictionary, but
 // that usage is not optimal.
 //
@@ -714,18 +710,19 @@ func (_NSMutableDictionaryClass NSMutableDictionaryClass) DictionaryWithSharedKe
 	rv := objc.Send[objc.ID](objc.ID(_NSMutableDictionaryClass.class), objc.Sel("dictionaryWithSharedKeySet:"), keyset)
 	return NSDictionaryFromID(rv)
 }
+
 // Creates and returns a mutable dictionary, initially giving it enough
 // allocated memory to hold a given number of entries.
 //
 // numItems: The initial capacity of the new dictionary.
 //
 // # Return Value
-// 
+//
 // A new mutable dictionary with enough allocated memory to hold `numItems`
 // entries.
 //
 // # Discussion
-// 
+//
 // Mutable dictionaries allocate additional memory as needed, so `numItems`
 // simply establishes the object’s initial capacity.
 //
@@ -734,4 +731,3 @@ func (_NSMutableDictionaryClass NSMutableDictionaryClass) DictionaryWithCapacity
 	rv := objc.Send[objc.ID](objc.ID(_NSMutableDictionaryClass.class), objc.Sel("dictionaryWithCapacity:"), numItems)
 	return NSMutableDictionaryFromID(rv)
 }
-

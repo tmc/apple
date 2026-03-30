@@ -3,8 +3,9 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,11 +43,11 @@ func (cc CryptoBackendXPCClass) Alloc() CryptoBackendXPC {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [CryptoBackendXPC.BaseBackendXPC]
 //   - [CryptoBackendXPC.InitWithFormatBaseBackendXPC]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/CryptoBackendXPC
 type CryptoBackendXPC struct {
 	BackendXPC
@@ -56,6 +57,7 @@ type CryptoBackendXPC struct {
 func CryptoBackendXPCFromID(id objc.ID) CryptoBackendXPC {
 	return CryptoBackendXPC{BackendXPC: BackendXPCFromID(id)}
 }
+
 // Ensure CryptoBackendXPC implements ICryptoBackendXPC.
 var _ ICryptoBackendXPC = CryptoBackendXPC{}
 
@@ -95,7 +97,6 @@ func NewCryptoBackendXPC() CryptoBackendXPC {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/CryptoBackendXPC/initWithCoder:
 func NewCryptoBackendXPCWithCoder(coder objectivec.IObject) CryptoBackendXPC {
 	instance := getCryptoBackendXPCClass().Alloc()
@@ -103,7 +104,6 @@ func NewCryptoBackendXPCWithCoder(coder objectivec.IObject) CryptoBackendXPC {
 	return CryptoBackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/CryptoBackendXPC/initWithFormat:baseBackendXPC:
 func NewCryptoBackendXPCWithFormatBaseBackendXPC(format unsafe.Pointer, xpc objectivec.IObject) CryptoBackendXPC {
 	instance := getCryptoBackendXPCClass().Alloc()
@@ -111,7 +111,6 @@ func NewCryptoBackendXPCWithFormatBaseBackendXPC(format unsafe.Pointer, xpc obje
 	return CryptoBackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/CryptoBackendXPC/initWithFormat:baseBackendXPC:
 func (c CryptoBackendXPC) InitWithFormatBaseBackendXPC(format unsafe.Pointer, xpc objectivec.IObject) CryptoBackendXPC {
 	rv := objc.Send[CryptoBackendXPC](c.ID, objc.Sel("initWithFormat:baseBackendXPC:"), format, xpc)
@@ -123,4 +122,3 @@ func (c CryptoBackendXPC) BaseBackendXPC() IBackendXPC {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("baseBackendXPC"))
 	return BackendXPCFromID(objc.ID(rv))
 }
-

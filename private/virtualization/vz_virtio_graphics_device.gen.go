@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZVirtioGraphicsDevice struct {
 func VZVirtioGraphicsDeviceFromID(id objc.ID) VZVirtioGraphicsDevice {
 	return VZVirtioGraphicsDevice{VZGraphicsDevice: VZGraphicsDeviceFromID(id)}
 }
+
 // Ensure VZVirtioGraphicsDevice implements IVZVirtioGraphicsDevice.
 var _ IVZVirtioGraphicsDevice = VZVirtioGraphicsDevice{}
 
@@ -77,4 +79,3 @@ func NewVZVirtioGraphicsDevice() VZVirtioGraphicsDevice {
 	rv := objc.Send[VZVirtioGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

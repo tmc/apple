@@ -28,6 +28,7 @@ type NSItemProviderWriting interface {
 type NSItemProviderWritingObject struct {
 	objectivec.Object
 }
+
 func (o NSItemProviderWritingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,11 +48,11 @@ func NSItemProviderWritingObjectFromID(id objc.ID) NSItemProviderWritingObject {
 // completionHandler: The handler that’s called after the data is loaded.
 //
 // # Return Value
-// 
+//
 // The progress of the data load process.
 //
 // # Discussion
-// 
+//
 // When the system calls this method, the `typeIdentifier` parameter is set to
 // one of the elements in the `writableTypeIdentifiersForItemProvider` array.
 //
@@ -59,7 +60,8 @@ func NSItemProviderWritingObjectFromID(id objc.ID) NSItemProviderWritingObject {
 func (o NSItemProviderWritingObject) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), completionHandler)
 	return NSProgressFromID(rv)
-	}
+}
+
 // An array of UTI strings representing the types of data that can be loaded
 // for an item provider.
 //
@@ -67,19 +69,19 @@ func (o NSItemProviderWritingObject) LoadDataWithTypeIdentifierForItemProviderCo
 func (o NSItemProviderWritingObject) WritableTypeIdentifiersForItemProvider() []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
 	return objc.ConvertSliceToStrings(rv)
-	}
+}
+
 // Asks the item provider for the representation visibility specification for
 // the given UTI.
 //
 // typeIdentifier: A uniform type identifier (UTI).
 //
 // # Return Value
-// 
+//
 // A representation visibility specification for the given UTI.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
 func (o NSItemProviderWritingObject) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
 	rv := objc.Send[NSItemProviderRepresentationVisibility](o.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
 	return rv
-	}
-
+}

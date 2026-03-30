@@ -4,8 +4,9 @@ package metalkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -65,6 +66,7 @@ type MTKMeshBufferAllocator struct {
 func MTKMeshBufferAllocatorFromID(id objc.ID) MTKMeshBufferAllocator {
 	return MTKMeshBufferAllocator{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTKMeshBufferAllocator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,7 +119,7 @@ func NewMTKMeshBufferAllocator() MTKMeshBufferAllocator {
 // device: The Metal device on which to create buffers.
 //
 // # Return Value
-// 
+//
 // An initialized allocator object.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBufferAllocator/init(device:)
@@ -132,7 +134,7 @@ func NewMeshBufferAllocatorWithDevice(device metal.MTLDevice) MTKMeshBufferAlloc
 // device: The Metal device on which to create buffers.
 //
 // # Return Value
-// 
+//
 // An initialized allocator object.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBufferAllocator/init(device:)
@@ -144,7 +146,7 @@ func (m MTKMeshBufferAllocator) InitWithDevice(device metal.MTLDevice) MTKMeshBu
 // The device used to create Metal objects.
 //
 // # Discussion
-// 
+//
 // A Metal device must be specialized at initialization.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBufferAllocator/device
@@ -152,4 +154,3 @@ func (m MTKMeshBufferAllocator) Device() metal.MTLDevice {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("device"))
 	return metal.MTLDeviceObjectFromID(rv)
 }
-

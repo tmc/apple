@@ -3,9 +3,9 @@
 package avfoundation
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -50,6 +50,7 @@ type AVVideoCompositionInstructionProtocol interface {
 type AVVideoCompositionInstructionProtocolObject struct {
 	objectivec.Object
 }
+
 func (o AVVideoCompositionInstructionProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -68,7 +69,8 @@ func AVVideoCompositionInstructionProtocolObjectFromID(id objc.ID) AVVideoCompos
 func (o AVVideoCompositionInstructionProtocolObject) PassthroughTrackID() int32 {
 	rv := objc.Send[int32](o.ID, objc.Sel("passthroughTrackID"))
 	return rv
-	}
+}
+
 // The identifiers of the video tracks the instruction requires to compose
 // frames.
 //
@@ -78,7 +80,8 @@ func (o AVVideoCompositionInstructionProtocolObject) RequiredSourceTrackIDs() []
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
 		return foundation.NSValueFromID(id)
 	})
-	}
+}
+
 // The identifiers of the sample data tracks the instruction requires to
 // compose frames.
 //
@@ -88,14 +91,16 @@ func (o AVVideoCompositionInstructionProtocolObject) RequiredSourceSampleDataTra
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
-	}
+}
+
 // A Boolean value that indicates whether the composition contains tweening.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/containsTweening
 func (o AVVideoCompositionInstructionProtocolObject) ContainsTweening() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("containsTweening"))
 	return rv
-	}
+}
+
 // A Boolean value that indicates whether the composition enables
 // post-processing.
 //
@@ -103,12 +108,12 @@ func (o AVVideoCompositionInstructionProtocolObject) ContainsTweening() bool {
 func (o AVVideoCompositionInstructionProtocolObject) EnablePostProcessing() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("enablePostProcessing"))
 	return rv
-	}
+}
+
 // The time range during which the instruction is effective.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/timeRange
 func (o AVVideoCompositionInstructionProtocolObject) TimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](o.ID, objc.Sel("timeRange"))
 	return rv
-	}
-
+}

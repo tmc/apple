@@ -4,10 +4,12 @@ package screencapturekit
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A delegate protocol your app implements to respond to stream events.
@@ -21,6 +23,7 @@ type SCStreamDelegate interface {
 type SCStreamDelegateObject struct {
 	objectivec.Object
 }
+
 func (o SCStreamDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,7 +43,8 @@ func SCStreamDelegateObjectFromID(id objc.ID) SCStreamDelegateObject {
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/outputVideoEffectDidStart(for:)
 func (o SCStreamDelegateObject) OutputVideoEffectDidStartForStream(stream ISCStream) {
 	objc.Send[struct{}](o.ID, objc.Sel("outputVideoEffectDidStartForStream:"), stream)
-	}
+}
+
 // Tells the delegate that Presenter Overlay stopped.
 //
 // stream: The stream that was using Presenter Overlay.
@@ -48,7 +52,8 @@ func (o SCStreamDelegateObject) OutputVideoEffectDidStartForStream(stream ISCStr
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/outputVideoEffectDidStop(for:)
 func (o SCStreamDelegateObject) OutputVideoEffectDidStopForStream(stream ISCStream) {
 	objc.Send[struct{}](o.ID, objc.Sel("outputVideoEffectDidStopForStream:"), stream)
-	}
+}
+
 // Tells the delegate that the stream stopped with an error.
 //
 // stream: The stream that stopped.
@@ -60,14 +65,14 @@ func (o SCStreamDelegateObject) OutputVideoEffectDidStopForStream(stream ISCStre
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/stream(_:didStopWithError:)
 func (o SCStreamDelegateObject) StreamDidStopWithError(stream ISCStream, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("stream:didStopWithError:"), stream, error_)
-	}
-//
+}
+
 // stream: The SCStream object
 //
 // # Discussion
-// 
+//
 // streamDidBecomeActive:
-// 
+//
 // notifies the delegate the first time any window that was being shared in
 // the stream is re-opened after all the windows being shared are closed. When
 // all the windows being shared are closed, the client will receive
@@ -76,21 +81,21 @@ func (o SCStreamDelegateObject) StreamDidStopWithError(stream ISCStream, error_ 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/streamDidBecomeActive(_:)
 func (o SCStreamDelegateObject) StreamDidBecomeActive(stream ISCStream) {
 	objc.Send[struct{}](o.ID, objc.Sel("streamDidBecomeActive:"), stream)
-	}
-//
+}
+
 // stream: The SCStream object
 //
 // # Discussion
-// 
+//
 // streamDidBecomeInactive:
-// 
+//
 // notifies the delegate that all the windows that are currently being shared
 // are exited. This callback occurs for all content filter types.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/streamDidBecomeInactive(_:)
 func (o SCStreamDelegateObject) StreamDidBecomeInactive(stream ISCStream) {
 	objc.Send[struct{}](o.ID, objc.Sel("streamDidBecomeInactive:"), stream)
-	}
+}
 
 // SCStreamDelegateConfig holds optional typed callbacks for [SCStreamDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -107,7 +112,7 @@ type SCStreamDelegateConfig struct {
 	StreamDidStopWithError func(stream SCStream, error_ foundation.NSError)
 
 	// Instance Methods
-	StreamDidBecomeActive func(stream SCStream)
+	StreamDidBecomeActive   func(stream SCStream)
 	StreamDidBecomeInactive func(stream SCStream)
 
 	// Other Methods
@@ -207,4 +212,3 @@ func NewSCStreamDelegate(config SCStreamDelegateConfig) SCStreamDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return SCStreamDelegateObjectFromID(instance)
 }
-

@@ -96,4 +96,3 @@ func (e CIRenderDestinationAlphaMode) String() string {
 		return fmt.Sprintf("CIRenderDestinationAlphaMode(%d)", e)
 	}
 }
-

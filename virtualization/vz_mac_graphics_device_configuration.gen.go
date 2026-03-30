@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZMacGraphicsDeviceConfigurationClass) Alloc() VZMacGraphicsDeviceConfi
 // Configuration for a display attached to a Mac graphics device.
 //
 // # Overview
-// 
+//
 // Use this device to attach a display that’s shown in a
 // [VZVirtualMachineView].
 //
@@ -64,6 +65,7 @@ type VZMacGraphicsDeviceConfiguration struct {
 func VZMacGraphicsDeviceConfigurationFromID(id objc.ID) VZMacGraphicsDeviceConfiguration {
 	return VZMacGraphicsDeviceConfiguration{VZGraphicsDeviceConfiguration: VZGraphicsDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZMacGraphicsDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,4 +118,3 @@ func (m VZMacGraphicsDeviceConfiguration) Displays() []VZMacGraphicsDisplayConfi
 func (m VZMacGraphicsDeviceConfiguration) SetDisplays(value []VZMacGraphicsDisplayConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDisplays:"), objectivec.IObjectSliceToNSArray(value))
 }
-

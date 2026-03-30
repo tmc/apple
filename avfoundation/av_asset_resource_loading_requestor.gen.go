@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -60,6 +61,7 @@ type AVAssetResourceLoadingRequestor struct {
 func AVAssetResourceLoadingRequestorFromID(id objc.ID) AVAssetResourceLoadingRequestor {
 	return AVAssetResourceLoadingRequestor{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetResourceLoadingRequestor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,4 +108,3 @@ func (a AVAssetResourceLoadingRequestor) ProvidesExpiredSessionReports() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("providesExpiredSessionReports"))
 	return rv
 }
-

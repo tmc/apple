@@ -4,9 +4,11 @@ package usernotifications
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // An interface for processing incoming notifications and responding to notification actions.
@@ -20,6 +22,7 @@ type UNUserNotificationCenterDelegate interface {
 type UNUserNotificationCenterDelegateObject struct {
 	objectivec.Object
 }
+
 func (o UNUserNotificationCenterDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -48,7 +51,7 @@ func UNUserNotificationCenterDelegateObjectFromID(id objc.ID) UNUserNotification
 // no return value or parameters.
 //
 // # Discussion
-// 
+//
 // Use this method to process the user’s response to a notification. If the
 // user selected one of your app’s custom actions, the `response` parameter
 // contains the identifier for that action. (The response can also indicate
@@ -57,18 +60,19 @@ func UNUserNotificationCenterDelegateObjectFromID(id objc.ID) UNUserNotification
 // the `completionHandler` block to let the system know that you are done
 // processing the user’s response. If you do not implement this method, your
 // app never responds to custom actions.
-// 
+//
 // You specify your app’s notification types at app launch using
 // [UNNotificationCategory] objects, and you specify the custom actions for
 // each type using [UNNotificationAction] objects. For information, see
 // [Declaring your actionable notification types].
 //
-// [Declaring your actionable notification types]: https://developer.apple.com/documentation/UserNotifications/declaring-your-actionable-notification-types
-//
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenterDelegate/userNotificationCenter(_:didReceive:withCompletionHandler:)
+//
+// [Declaring your actionable notification types]: https://developer.apple.com/documentation/UserNotifications/declaring-your-actionable-notification-types
 func (o UNUserNotificationCenterDelegateObject) UserNotificationCenterDidReceiveNotificationResponseWithCompletionHandler(center IUNUserNotificationCenter, response IUNNotificationResponse, completionHandler VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:"), center, response, completionHandler)
-	}
+}
+
 // Asks the delegate how to handle a notification that arrived while the app
 // was running in the foreground.
 //
@@ -83,42 +87,43 @@ func (o UNUserNotificationCenterDelegateObject) UserNotificationCenterDidReceive
 // method. Use the `options` parameter to specify how you want the system to
 // alert the user, if at all. This block has no return value and takes the
 // following parameter:
-// 
+//
 // options: The option for notifying the user. Specify
 // [UNNotificationPresentationOptionNone] to silence the notification
 // completely. Specify other values to interact with the user. For a list of
 // possible options, see [UNNotificationPresentationOptions].
-// //
-// [UNNotificationPresentationOptionNone]: https://developer.apple.com/documentation/UserNotifications/UNNotificationPresentationOptionNone
-// [UNNotificationPresentationOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationPresentationOptions
 //
 // # Discussion
-// 
+//
 // If your app is in the foreground when a notification arrives, the shared
 // user notification center calls this method to deliver the notification
 // directly to your app. If you implement this method, you can take whatever
 // actions are necessary to process the notification and update your app. When
 // you finish, call the `completionHandler` block and specify how you want the
 // system to alert the user, if at all.
-// 
+//
 // If your delegate does not implement this method, the system behaves as if
 // you had passed the [UNNotificationPresentationOptionNone] option to the
 // `completionHandler` block. If you do not provide a delegate at all for the
 // [UNUserNotificationCenter] object, the system uses the notification’s
 // original options to alert the user.
 //
-// [UNNotificationPresentationOptionNone]: https://developer.apple.com/documentation/UserNotifications/UNNotificationPresentationOptionNone
-//
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenterDelegate/userNotificationCenter(_:willPresent:withCompletionHandler:)
+//
+// [UNNotificationPresentationOptionNone]: https://developer.apple.com/documentation/UserNotifications/UNNotificationPresentationOptionNone
+// [UNNotificationPresentationOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationPresentationOptions
+//
+// [UNNotificationPresentationOptionNone]: https://developer.apple.com/documentation/UserNotifications/UNNotificationPresentationOptionNone
 func (o UNUserNotificationCenterDelegateObject) UserNotificationCenterWillPresentNotificationWithCompletionHandler(center IUNUserNotificationCenter, notification IUNNotification, completionHandler UNNotificationPresentationOptionsHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("userNotificationCenter:willPresentNotification:withCompletionHandler:"), center, notification, completionHandler)
-	}
+}
+
 // Asks the delegate to display the in-app notification settings.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenterDelegate/userNotificationCenter(_:openSettingsFor:)
 func (o UNUserNotificationCenterDelegateObject) UserNotificationCenterOpenSettingsForNotification(center IUNUserNotificationCenter, notification IUNNotification) {
 	objc.Send[struct{}](o.ID, objc.Sel("userNotificationCenter:openSettingsForNotification:"), center, notification)
-	}
+}
 
 // UNUserNotificationCenterDelegateConfig holds optional typed callbacks for [UNUserNotificationCenterDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -181,4 +186,3 @@ func NewUNUserNotificationCenterDelegate(config UNUserNotificationCenterDelegate
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return UNUserNotificationCenterDelegateObjectFromID(instance)
 }
-

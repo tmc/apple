@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZHIDDeviceClass) Alloc() VZHIDDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZHIDDevice.SendIOHIDEvents]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDevice
 type VZHIDDevice struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZHIDDevice struct {
 func VZHIDDeviceFromID(id objc.ID) VZHIDDevice {
 	return VZHIDDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure VZHIDDevice implements IVZHIDDevice.
 var _ IVZHIDDevice = VZHIDDevice{}
 
@@ -91,9 +93,7 @@ func NewVZHIDDevice() VZHIDDevice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZHIDDevice/sendIOHIDEvents:
 func (v VZHIDDevice) SendIOHIDEvents(iOHIDEvents objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendIOHIDEvents:"), iOHIDEvents)
 }
-

@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NWBonjourServiceEndpoint] class.
@@ -44,7 +45,7 @@ func (nc NWBonjourServiceEndpointClass) Alloc() NWBonjourServiceEndpoint {
 // A network endpoint specified as a Bonjour service name, type, and domain.
 //
 // # Overview
-// 
+//
 // For example, the Bonjour service `MyMusicStudio._music._tcp.Local().` has
 // the name `"MyMusicStudio"`, the type `"_music._tcp"`, and the domain
 // `"local"`.
@@ -66,6 +67,7 @@ type NWBonjourServiceEndpoint struct {
 func NWBonjourServiceEndpointFromID(id objc.ID) NWBonjourServiceEndpoint {
 	return NWBonjourServiceEndpoint{NWEndpoint: NWEndpointFromID(id)}
 }
+
 // NOTE: NWBonjourServiceEndpoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,7 +122,7 @@ func NewNWBonjourServiceEndpoint() NWBonjourServiceEndpoint {
 // domain: The Bonjour service domain.
 //
 // # Return Value
-// 
+//
 // The new [NWBonjourServiceEndpoint] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWBonjourServiceEndpoint/init(name:type:domain:)
@@ -136,10 +138,11 @@ func (n NWBonjourServiceEndpoint) Name() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The endpoint’s Bonjour service type.
 //
 // # Discussion
-// 
+//
 // For example, the service type could be `"_music._tcp"`.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWBonjourServiceEndpoint/type
@@ -147,6 +150,7 @@ func (n NWBonjourServiceEndpoint) Type() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("type"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The endpoint’s Bonjour service domain, such as `"local"`.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWBonjourServiceEndpoint/domain
@@ -154,4 +158,3 @@ func (n NWBonjourServiceEndpoint) Domain() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("domain"))
 	return foundation.NSStringFromID(rv).String()
 }
-

@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNDetectHumanBodyPoseRequest] class.
@@ -45,7 +46,7 @@ func (vc VNDetectHumanBodyPoseRequestClass) Alloc() VNDetectHumanBodyPoseRequest
 // A request that detects a human body pose.
 //
 // # Overview
-// 
+//
 // The framework provides the detected body pose as a
 // [VNHumanBodyPoseObservation].
 //
@@ -71,6 +72,7 @@ type VNDetectHumanBodyPoseRequest struct {
 func VNDetectHumanBodyPoseRequestFromID(id objc.ID) VNDetectHumanBodyPoseRequest {
 	return VNDetectHumanBodyPoseRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectHumanBodyPoseRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,7 +137,7 @@ func NewVNDetectHumanBodyPoseRequest() VNDetectHumanBodyPoseRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -163,6 +165,7 @@ func (d VNDetectHumanBodyPoseRequest) SupportedJointNamesAndReturnError() ([]str
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
+
 // Retrieves the supported joint group names.
 //
 // error: If an error occurs, an error object that describes the error; otherwise,
@@ -190,6 +193,7 @@ func (d VNDetectHumanBodyPoseRequest) SupportedJointNames() VNHumanBodyPoseObser
 func (d VNDetectHumanBodyPoseRequest) SetSupportedJointNames(value VNHumanBodyPoseObservationJointName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointNames:"), value)
 }
+
 // Retrieves the supported joint group names.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanbodyposerequest/supportedjointsgroupnames
@@ -200,6 +204,7 @@ func (d VNDetectHumanBodyPoseRequest) SupportedJointsGroupNames() VNHumanBodyPos
 func (d VNDetectHumanBodyPoseRequest) SetSupportedJointsGroupNames(value VNHumanBodyPoseObservationJointsGroupName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointsGroupNames:"), value)
 }
+
 // A constant for specifying revision 1 of the body pose detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanbodyposerequestrevision1
@@ -207,4 +212,3 @@ func (d VNDetectHumanBodyPoseRequest) VNDetectHumanBodyPoseRequestRevision1() in
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHumanBodyPoseRequestRevision1"))
 	return rv
 }
-

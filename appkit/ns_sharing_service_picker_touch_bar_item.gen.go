@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -74,6 +75,7 @@ type NSSharingServicePickerTouchBarItem struct {
 func NSSharingServicePickerTouchBarItemFromID(id objc.ID) NSSharingServicePickerTouchBarItem {
 	return NSSharingServicePickerTouchBarItem{NSTouchBarItem: NSTouchBarItemFromID(id)}
 }
+
 // NOTE: NSSharingServicePickerTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -153,7 +155,7 @@ func NewSharingServicePickerTouchBarItemWithCoder(coder foundation.INSCoder) NSS
 // Creates a new item with the specified identifier.
 //
 // # Discussion
-// 
+//
 // The designated initializer. The identifier must be globally unique for
 // every item, except for space items.
 //
@@ -175,10 +177,11 @@ func (s NSSharingServicePickerTouchBarItem) Delegate() NSSharingServicePickerTou
 func (s NSSharingServicePickerTouchBarItem) SetDelegate(value NSSharingServicePickerTouchBarItemDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The image displayed in the sharing service picker item button.
 //
 // # Discussion
-// 
+//
 // The default value of this property is a sharing service picker image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerTouchBarItem/buttonImage
@@ -189,10 +192,11 @@ func (s NSSharingServicePickerTouchBarItem) ButtonImage() objectivec.Object {
 func (s NSSharingServicePickerTouchBarItem) SetButtonImage(value objectivec.Object) {
 	objc.Send[struct{}](s.ID, objc.Sel("setButtonImage:"), value)
 }
+
 // The text displayed in the sharing service picker item button.
 //
 // # Discussion
-// 
+//
 // The default value of this property is the empty string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerTouchBarItem/buttonTitle
@@ -203,18 +207,16 @@ func (s NSSharingServicePickerTouchBarItem) ButtonTitle() string {
 func (s NSSharingServicePickerTouchBarItem) SetButtonTitle(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setButtonTitle:"), objc.String(value))
 }
+
 // A Boolean value that specifies whether the sharing service picker item is
 // enabled.
 //
 // # Discussion
-// 
-// If [true], the sharing button is enabled.
-// 
-// If the sharing popover is currently visible when this property is changed
-// to [false], the popover is dismissed.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If true, the sharing button is enabled.
+//
+// If the sharing popover is currently visible when this property is changed
+// to false, the popover is dismissed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerTouchBarItem/isEnabled
 func (s NSSharingServicePickerTouchBarItem) Enabled() bool {
@@ -224,4 +226,3 @@ func (s NSSharingServicePickerTouchBarItem) Enabled() bool {
 func (s NSSharingServicePickerTouchBarItem) SetEnabled(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEnabled:"), value)
 }
-

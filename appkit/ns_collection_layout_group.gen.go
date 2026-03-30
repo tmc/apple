@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,31 +46,31 @@ func (nc NSCollectionLayoutGroupClass) Alloc() NSCollectionLayoutGroup {
 // A container for a set of items that lays out the items along a path.
 //
 // # Overview
-// 
+//
 // Groups determine how the items in a collection view lay out in relation to
 // each other. A group might lay out its items in a horizontal row, a vertical
 // column, or a custom arrangement. A group determines the rules for how items
 // are rendered in relation to each other, but in itself doesn’t render any
 // content.
-// 
+//
 // For example, in the Photos app, a group of items is a row of photos. In the
 // App Store app, a group might be a single column of cells (items) arranged
 // in a vertical column.
-// 
+//
 // [media-3568663]
-// 
+//
 // Each group specifies its own size in terms of a width dimension and a
 // height dimension. Groups can express their dimensions relative to their
 // container, as an absolute value, or as an estimated value that might change
 // at runtime, like in response to a change in system font size. For more
 // information, see [NSCollectionLayoutDimension].
-// 
+//
 // Because a group is a subclass of [NSCollectionLayoutItem], it behaves like
 // an item. You can combine a group with other items and groups into more
 // complex layouts.
-// 
+//
 // [media-3568666]
-// 
+//
 // After you configure a group, you must initialize a section
 // ([NSCollectionLayoutSection]) of your collection view layout with that
 // group.
@@ -98,6 +99,7 @@ type NSCollectionLayoutGroup struct {
 func NSCollectionLayoutGroupFromID(id objc.ID) NSCollectionLayoutGroup {
 	return NSCollectionLayoutGroup{NSCollectionLayoutItem: NSCollectionLayoutItemFromID(id)}
 }
+
 // NOTE: NSCollectionLayoutGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -193,11 +195,12 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) HorizontalGrou
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("horizontalGroupWithLayoutSize:subitems:"), layoutSize, objectivec.IObjectSliceToNSArray(subitems))
 	return NSCollectionLayoutGroupFromID(rv)
 }
+
 // Creates a group of the specified size, containing an array of equally sized
 // items arranged in a horizontal line up to the number specified by count.
 //
 // # Discussion
-// 
+//
 // When you set a value for the [InterItemSpacing] property after using this
 // initializer, the group keeps the same number of items and automatically
 // resizes them to add the extra specified spacing between them.
@@ -207,6 +210,7 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) HorizontalGrou
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("horizontalGroupWithLayoutSize:subitem:count:"), layoutSize, subitem, count)
 	return NSCollectionLayoutGroupFromID(rv)
 }
+
 // Creates a group of the specified size, containing an array of items
 // arranged in a vertical line.
 //
@@ -219,11 +223,12 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) VerticalGroupW
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("verticalGroupWithLayoutSize:subitems:"), layoutSize, objectivec.IObjectSliceToNSArray(subitems))
 	return NSCollectionLayoutGroupFromID(rv)
 }
+
 // Creates a group of the specified size, containing an array of equally sized
 // items arranged in a vertical line up to the number specified by count.
 //
 // # Discussion
-// 
+//
 // When you set a value for the [InterItemSpacing] property after using this
 // initializer, the group keeps the same number of items and automatically
 // resizes them to add the extra specified spacing between them.
@@ -233,6 +238,7 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) VerticalGroupW
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("verticalGroupWithLayoutSize:subitem:count:"), layoutSize, subitem, count)
 	return NSCollectionLayoutGroupFromID(rv)
 }
+
 // Creates a group of the specified size, with an item provider that creates a
 // custom arrangement for those items.
 //
@@ -251,6 +257,7 @@ func (c NSCollectionLayoutGroup) Subitems() []NSCollectionLayoutItem {
 		return NSCollectionLayoutItemFromID(id)
 	})
 }
+
 // The amount of space between the items in the group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroup/interItemSpacing
@@ -261,4 +268,3 @@ func (c NSCollectionLayoutGroup) InterItemSpacing() INSCollectionLayoutSpacing {
 func (c NSCollectionLayoutGroup) SetInterItemSpacing(value INSCollectionLayoutSpacing) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInterItemSpacing:"), value)
 }
-

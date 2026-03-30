@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type HasTrackingFrameCount struct {
 func HasTrackingFrameCountFromID(id objc.ID) HasTrackingFrameCount {
 	return HasTrackingFrameCount{objectivec.Object{ID: id}}
 }
+
 // Ensure HasTrackingFrameCount implements IHasTrackingFrameCount.
 var _ IHasTrackingFrameCount = HasTrackingFrameCount{}
 
@@ -78,4 +80,3 @@ func NewHasTrackingFrameCount() HasTrackingFrameCount {
 	rv := objc.Send[HasTrackingFrameCount](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

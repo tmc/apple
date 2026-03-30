@@ -4,9 +4,10 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,18 +48,18 @@ func (cc CAGradientLayerClass) Alloc() CAGradientLayer {
 // shape of the layer.
 //
 // # Overview
-// 
+//
 // You use a gradient layer to create a color gradient containing an arbitrary
 // number of colors. By default, the colors are spread uniformly across the
 // layer, but you can optionally specify locations for control over the color
 // positions through the gradient.
-// 
+//
 // The following code shows how to create a gradient layer containing four
 // colors that are evenly distributed through the gradient. Rotating the layer
 // by 90° ([CAGradientLayer.Pi] ⁄ `2` radians) gives a horizontal gradient.
-// 
+//
 // The following figure shows the appearance of the gradient layer.
-// 
+//
 // [media-2825193]
 //
 // # Gradient Style Properties
@@ -86,6 +87,7 @@ type CAGradientLayer struct {
 func CAGradientLayerFromID(id objc.ID) CAGradientLayer {
 	return CAGradientLayer{CALayer: CALayerFromID(id)}
 }
+
 // NOTE: CAGradientLayer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -155,20 +157,20 @@ func NewCAGradientLayer() CAGradientLayer {
 // layer: The layer from which custom fields should be copied.
 //
 // # Return Value
-// 
+//
 // A layer instance with any custom instance variables copied from `layer`.
 //
 // # Discussion
-// 
+//
 // This initializer is used to create shadow copies of layers, for example,
 // for the [PresentationLayer] method. Using this method in any other
 // situation will produce undefined behavior. For example, do not use this
 // method to initialize a new layer with an existing layer’s content.
-// 
+//
 // If you are implementing a custom layer subclass, you can override this
 // method and use it to copy the values of instance variables into the new
 // object. Subclasses should always invoke the superclass implementation.
-// 
+//
 // This method is the designated initializer for layer objects in the
 // presentation layer.
 //
@@ -183,7 +185,7 @@ func NewGradientLayerWithLayer(layer objectivec.IObject) CAGradientLayer {
 // Animatable.
 //
 // # Discussion
-// 
+//
 // Defaults to `nil`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAGradientLayer/colors
@@ -194,15 +196,16 @@ func (g CAGradientLayer) Colors() foundation.INSArray {
 func (g CAGradientLayer) SetColors(value foundation.INSArray) {
 	objc.Send[struct{}](g.ID, objc.Sel("setColors:"), value)
 }
+
 // An optional array of NSNumber objects defining the location of each
 // gradient stop. Animatable.
 //
 // # Discussion
-// 
+//
 // The gradient stops are specified as values between `0` and `1`. The values
 // must be monotonically increasing. If `nil`, the stops are spread uniformly
 // across the range. Defaults to `nil`.
-// 
+//
 // When rendered, the colors are mapped to the output color space before being
 // interpolated.
 //
@@ -216,15 +219,16 @@ func (g CAGradientLayer) Locations() []foundation.NSNumber {
 func (g CAGradientLayer) SetLocations(value []foundation.NSNumber) {
 	objc.Send[struct{}](g.ID, objc.Sel("setLocations:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The end point of the gradient when drawn in the layer’s coordinate space.
 // Animatable.
 //
 // # Discussion
-// 
+//
 // The end point corresponds to the last stop of the gradient. The point is
 // defined in the unit coordinate space and is then mapped to the layer’s
 // bounds rectangle when drawn.
-// 
+//
 // Default value is `(0.5,1.0)`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAGradientLayer/endPoint
@@ -235,15 +239,16 @@ func (g CAGradientLayer) EndPoint() corefoundation.CGPoint {
 func (g CAGradientLayer) SetEndPoint(value corefoundation.CGPoint) {
 	objc.Send[struct{}](g.ID, objc.Sel("setEndPoint:"), value)
 }
+
 // The start point of the gradient when drawn in the layer’s coordinate
 // space. Animatable.
 //
 // # Discussion
-// 
+//
 // The start point corresponds to the first stop of the gradient. The point is
 // defined in the unit coordinate space and is then mapped to the layer’s
 // bounds rectangle when drawn.
-// 
+//
 // Default value is `(0.5,0.0)`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAGradientLayer/startPoint
@@ -254,15 +259,16 @@ func (g CAGradientLayer) StartPoint() corefoundation.CGPoint {
 func (g CAGradientLayer) SetStartPoint(value corefoundation.CGPoint) {
 	objc.Send[struct{}](g.ID, objc.Sel("setStartPoint:"), value)
 }
+
 // Style of gradient drawn by the layer.
 //
 // # Discussion
-// 
+//
 // Defaults to [axial].
 //
-// [axial]: https://developer.apple.com/documentation/QuartzCore/CAGradientLayerType/axial
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CAGradientLayer/type
+//
+// [axial]: https://developer.apple.com/documentation/QuartzCore/CAGradientLayerType/axial
 func (g CAGradientLayer) Type() CAGradientLayerType {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("type"))
 	return CAGradientLayerType(foundation.NSStringFromID(rv).String())
@@ -270,6 +276,7 @@ func (g CAGradientLayer) Type() CAGradientLayerType {
 func (g CAGradientLayer) SetType(value CAGradientLayerType) {
 	objc.Send[struct{}](g.ID, objc.Sel("setType:"), objc.String(string(value)))
 }
+
 // The mathematical constant pi (π), approximately equal to 3.14159.
 //
 // See: https://developer.apple.com/documentation/Swift/FloatingPoint/pi
@@ -280,4 +287,3 @@ func (g CAGradientLayer) Pi() objectivec.IObject {
 func (g CAGradientLayer) SetPi(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPi:"), value)
 }
-

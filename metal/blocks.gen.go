@@ -7,7 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// ErrorHandler handles A completetion handler that you provide, which the task calls when it finishes compiling the binary function.
+// ErrorHandler handles A Swift closure or an Objective-C block the method calls when it finishes creating the compute pipeline state.
 //
 // Used by:
 //   - [MTL4Compiler.NewBinaryFunctionWithDescriptorCompilerTaskOptionsCompletionHandler]
@@ -64,6 +64,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 // MTLFunctionErrorHandler handles A block of code that Metal calls after it creates the specialized function.
 //   - function: A specialized function, or `nil` if an error occurred.
 //   - error: An error object that describes compilation problems, if any. This object contains compiler errors if the specialized function is `nil`, and compiler warnings if Metal created the specialized function with warnings. If Metal created the function without errors or warnings, this error object is `nil`.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -108,4 +109,3 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

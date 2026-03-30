@@ -23,6 +23,7 @@ type NSExtensionRequestHandling interface {
 type NSExtensionRequestHandlingObject struct {
 	objectivec.Object
 }
+
 func (o NSExtensionRequestHandlingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,7 +43,7 @@ func NSExtensionRequestHandlingObjectFromID(id objc.ID) NSExtensionRequestHandli
 // extension can work on.
 //
 // # Discussion
-// 
+//
 // An extension prepares for a host app’s request by getting the context
 // passed in this method and requesting related data items, if appropriate.
 // This method is received after the extension is initialized, but before the
@@ -51,15 +52,14 @@ func NSExtensionRequestHandlingObjectFromID(id objc.ID) NSExtensionRequestHandli
 // [loadView()] is called. After an extension receives this message, the
 // [extensionContext] property of the view controller returns a non`nil`
 // value.
-// 
-// If your subclass conforms to this protocol and overrides ``, the subclass
+//
+// If your subclass conforms to this protocol and overrides “, the subclass
 // is expected to call `[super ]`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSExtensionRequestHandling/beginRequest(with:)
 //
 // [extensionContext]: https://developer.apple.com/documentation/UIKit/UIViewController/extensionContext
 // [loadView()]: https://developer.apple.com/documentation/UIKit/UIViewController/loadView()
-//
-// See: https://developer.apple.com/documentation/Foundation/NSExtensionRequestHandling/beginRequest(with:)
 func (o NSExtensionRequestHandlingObject) BeginRequestWithExtensionContext(context INSExtensionContext) {
 	objc.Send[struct{}](o.ID, objc.Sel("beginRequestWithExtensionContext:"), context)
-	}
-
+}

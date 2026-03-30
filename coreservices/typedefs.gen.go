@@ -4,7 +4,9 @@ package coreservices
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/security"
 )
@@ -336,9 +338,6 @@ type CommonChunk = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/commonchunkptr
 type CommonChunkPtr = unsafe.Pointer
-
-// See: https://developer.apple.com/documentation/coreservices/component
-type Component = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentaliasresource
 type ComponentAliasResource = unsafe.Pointer
@@ -1375,7 +1374,7 @@ type QHdr = unsafe.Pointer
 type QHdrPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/qtypes
-type QTypes = unsafe.Pointer
+type QTypes = kernel.SignedByte
 
 // See: https://developer.apple.com/documentation/coreservices/rdflagstype
 type RDFlagsType = uint8
@@ -2027,4 +2026,3 @@ type Relop = int16
 
 // See: https://developer.apple.com/documentation/coreservices/voidptr
 type VoidPtr = unsafe.Pointer
-

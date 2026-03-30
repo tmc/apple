@@ -29,6 +29,7 @@ type CISobelGradients interface {
 type CISobelGradientsObject struct {
 	objectivec.Object
 }
+
 func (o CISobelGradientsObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func CISobelGradientsObjectFromID(id objc.ID) CISobelGradientsObject {
 func (o CISobelGradientsObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -55,9 +57,11 @@ func (o CISobelGradientsObject) InputImage() ICIImage {
 func (o CISobelGradientsObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISobelGradients/inputImage
 func (o CISobelGradientsObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

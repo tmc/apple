@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type DIKeyRetriever struct {
 func DIKeyRetrieverFromID(id objc.ID) DIKeyRetriever {
 	return DIKeyRetriever{objectivec.Object{ID: id}}
 }
+
 // Ensure DIKeyRetriever implements IDIKeyRetriever.
 var _ IDIKeyRetriever = DIKeyRetriever{}
 
@@ -82,11 +84,10 @@ func NewDIKeyRetriever() DIKeyRetriever {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/KKMSKeyWithURL:destKey:destKeySize:error:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) KKMSKeyWithURLDestKeyDestKeySizeError(url foundation.INSURL, key string, size uint64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("KKMSKeyWithURL:destKey:destKeySize:error:"), url, unsafe.Pointer(unsafe.StringData(key + "\x00")), size, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("KKMSKeyWithURL:destKey:destKeySize:error:"), url, unsafe.Pointer(unsafe.StringData(key+"\x00")), size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -97,11 +98,11 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) KKMSKeyWithURLDestKeyDestKeySize
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/WKMSKeyWithURL:authData:destKey:destKeySize:error:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSKeyWithURLAuthDataDestKeyDestKeySizeError(url foundation.INSURL, data unsafe.Pointer, key string, size uint64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("WKMSKeyWithURL:authData:destKey:destKeySize:error:"), url, data, unsafe.Pointer(unsafe.StringData(key + "\x00")), size, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("WKMSKeyWithURL:authData:destKey:destKeySize:error:"), url, data, unsafe.Pointer(unsafe.StringData(key+"\x00")), size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -112,11 +113,11 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) WKMSKeyWithURLAuthDataDestKeyDes
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/decryptKeyWithData:destKey:destKeySize:error:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) DecryptKeyWithDataDestKeyDestKeySizeError(data objectivec.IObject, key string, size uint64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("decryptKeyWithData:destKey:destKeySize:error:"), data, unsafe.Pointer(unsafe.StringData(key + "\x00")), size, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("decryptKeyWithData:destKey:destKeySize:error:"), data, unsafe.Pointer(unsafe.StringData(key+"\x00")), size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -127,7 +128,7 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) DecryptKeyWithDataDestKeyDestKey
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/getRequestWithURL:error:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) GetRequestWithURLError(url foundation.INSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -139,13 +140,13 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) GetRequestWithURLError(url found
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/hintFormat:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) HintFormat(format objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("hintFormat:"), format)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/jsonResponseWithRequest:session:error:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) JsonResponseWithRequestSessionError(request objectivec.IObject, session objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -157,7 +158,7 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) JsonResponseWithRequestSessionEr
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/newACEndpointWithEnvironment:error:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewACEndpointWithEnvironmentError(environment objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -169,7 +170,7 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewACEndpointWithEnvironmentErro
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/newDawTokenWithError:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewDawTokenWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -181,7 +182,7 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewDawTokenWithError() (objectiv
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/newEnvWithDictionary:error:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewEnvWithDictionaryError(dictionary objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -193,7 +194,7 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewEnvWithDictionaryError(dictio
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/newSessionWithError:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewSessionWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -205,13 +206,13 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewSessionWithError() (objective
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/newUrl:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewUrl(url foundation.INSURL) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("newUrl:"), url)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/postRequestWithURL:session:data:error:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) PostRequestWithURLSessionDataError(url foundation.INSURL, session objectivec.IObject, data objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -223,7 +224,7 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) PostRequestWithURLSessionDataErr
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/requestSynchronousDataWithRequest:session:error:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) RequestSynchronousDataWithRequestSessionError(request objectivec.IObject, session objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -235,11 +236,11 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) RequestSynchronousDataWithReques
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIKeyRetriever/writeHexKeyToBuffer:hexKey:error:
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) WriteHexKeyToBufferHexKeyError(buffer string, key objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("writeHexKeyToBuffer:hexKey:error:"), unsafe.Pointer(unsafe.StringData(buffer + "\x00")), key, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("writeHexKeyToBuffer:hexKey:error:"), unsafe.Pointer(unsafe.StringData(buffer+"\x00")), key, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -250,4 +251,3 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) WriteHexKeyToBufferHexKeyError(b
 	return rv, nil
 
 }
-

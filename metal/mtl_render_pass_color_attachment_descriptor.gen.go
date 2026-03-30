@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -60,6 +61,7 @@ type MTLRenderPassColorAttachmentDescriptor struct {
 func MTLRenderPassColorAttachmentDescriptorFromID(id objc.ID) MTLRenderPassColorAttachmentDescriptor {
 	return MTLRenderPassColorAttachmentDescriptor{MTLRenderPassAttachmentDescriptor: MTLRenderPassAttachmentDescriptorFromID(id)}
 }
+
 // NOTE: MTLRenderPassColorAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -103,19 +105,19 @@ func NewMTLRenderPassColorAttachmentDescriptor() MTLRenderPassColorAttachmentDes
 // The color to use when clearing the color attachment.
 //
 // # Discussion
-// 
-// If the [LoadAction] property of the attachment is set to [LoadActionClear],
-// then at the start of a render pass, the GPU fills the texture with the
-// value stored in the [ClearColor] property. Otherwise, the GPU ignores the
-// [ClearColor] property.
-// 
+//
+// If the [LoadAction] property of the attachment is set to
+// [MTLLoadActionClear], then at the start of a render pass, the GPU fills the
+// texture with the value stored in the [ClearColor] property. Otherwise, the
+// GPU ignores the [ClearColor] property.
+//
 // The [ClearColor] property represents a set of RGBA components. The default
 // value is `(0.0, 0.0, 0.0, 1.0)` (black). Use the [MTLClearColorMake]
 // function to construct an [MTLClearColor] value.
 //
-// [MTLClearColor]: https://developer.apple.com/documentation/Metal/MTLClearColor
-//
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassColorAttachmentDescriptor/clearColor
+//
+// [MTLClearColor]: https://developer.apple.com/documentation/Metal/MTLClearColor
 func (r MTLRenderPassColorAttachmentDescriptor) ClearColor() MTLClearColor {
 	rv := objc.Send[MTLClearColor](r.ID, objc.Sel("clearColor"))
 	return MTLClearColor(rv)
@@ -123,4 +125,3 @@ func (r MTLRenderPassColorAttachmentDescriptor) ClearColor() MTLClearColor {
 func (r MTLRenderPassColorAttachmentDescriptor) SetClearColor(value MTLClearColor) {
 	objc.Send[struct{}](r.ID, objc.Sel("setClearColor:"), value)
 }
-

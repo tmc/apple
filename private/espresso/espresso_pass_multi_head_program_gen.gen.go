@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_multi_head_program_gen struct {
 func EspressoPass_multi_head_program_genFromID(id objc.ID) EspressoPass_multi_head_program_gen {
 	return EspressoPass_multi_head_program_gen{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_multi_head_program_gen implements IEspressoPass_multi_head_program_gen.
 var _ IEspressoPass_multi_head_program_gen = EspressoPass_multi_head_program_gen{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_multi_head_program_gen() EspressoPass_multi_head_program_ge
 	rv := objc.Send[EspressoPass_multi_head_program_gen](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,13 +47,13 @@ func (nc NSLinguisticTaggerClass) Alloc() NSLinguisticTagger {
 // script.
 //
 // # Overview
-// 
+//
 // [NSLinguisticTagger] provides a uniform interface to a variety of natural
 // language processing functionality with support for many different languages
 // and scripts. You can use this class to segment natural language text into
 // paragraphs, sentences, or words, and tag information about those segments,
 // such as part of speech, lexical class, lemma, script, and language.
-// 
+//
 // When you create a linguistic tagger, you specify what kind of information
 // you’re interested in by passing one or more [NSLinguisticTagScheme]
 // values. Set the [String] property to the natural language text you want to
@@ -60,9 +61,9 @@ func (nc NSLinguisticTaggerClass) Alloc() NSLinguisticTagger {
 // tag schemes. You can then enumerate over the tags in a specified range,
 // using the methods described in Enumerating Linguistic Tags, to get the
 // information requested for a given scheme and unit.
-// 
+//
 // # Thread Safety
-// 
+//
 // A single instance of [NSLinguisticTagger] should not be used simultaneously
 // from multiple threads.
 //
@@ -92,6 +93,7 @@ type NSLinguisticTagger struct {
 func NSLinguisticTaggerFromID(id objc.ID) NSLinguisticTagger {
 	return NSLinguisticTagger{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSLinguisticTagger adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -159,11 +161,11 @@ func NewNSLinguisticTagger() NSLinguisticTagger {
 // opts: Reserved for future use. Specify `0` for this parameter.
 //
 // # Return Value
-// 
+//
 // An initialized linguistic tagger.
 //
 // # Discussion
-// 
+//
 // Pass any tag schemes to `tagSchemes` that you intend to use with the
 // methods described in Enumerating Linguistic Tags and Getting Linguistic
 // Tags.
@@ -185,6 +187,7 @@ func (l NSLinguisticTagger) String() string {
 func (l NSLinguisticTagger) SetString(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setString:"), objc.String(value))
 }
+
 // Returns the tag schemes configured for this linguistic tagger. For possible
 // values, see [NSLinguisticTagScheme].
 //
@@ -193,30 +196,30 @@ func (l NSLinguisticTagger) TagSchemes() []string {
 	rv := objc.Send[[]objc.ID](l.ID, objc.Sel("tagSchemes"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Returns the dominant language of the string set for the linguistic tagger.
 //
 // # Return Value
-// 
+//
 // The BCP-47 tag identifying the dominant language of the string, or the tag
 // “und” if a specific language cannot be determined.
-// 
+//
 // # Discussion
-// 
+//
 // If you want to know the dominant language of a string that you’re
 // analyzing with a linguistic tagger (for example, identifying part of speech
 // for each word), specify the [language] tag scheme in the initializer. After
 // you set the [String] property of the linguistic tagger, the dominant
 // language can be determined with the [DominantLanguage] property, as shown
 // in this example:
-// 
+//
 // In the example, the BCP-47 language tag “de” is returned as the
 // dominant language, indicating that the text is in German.
 //
-// [language]: https://developer.apple.com/documentation/Foundation/NSLinguisticTagScheme/language
-//
 // See: https://developer.apple.com/documentation/Foundation/NSLinguisticTagger/dominantLanguage
+//
+// [language]: https://developer.apple.com/documentation/Foundation/NSLinguisticTagScheme/language
 func (l NSLinguisticTagger) DominantLanguage() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("dominantLanguage"))
 	return NSStringFromID(rv).String()
 }
-

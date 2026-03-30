@@ -4,9 +4,11 @@ package avfoundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // Methods for monitoring or controlling the output of a media file capture.
@@ -25,6 +27,7 @@ type AVCaptureFileOutputDelegate interface {
 type AVCaptureFileOutputDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVCaptureFileOutputDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -43,14 +46,11 @@ func AVCaptureFileOutputDelegateObjectFromID(id objc.ID) AVCaptureFileOutputDele
 // output: The capture file output instance that is associated with the delegate.
 //
 // # Return Value
-// 
-// [true] if frame accurate recording is required; otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if frame accurate recording is required; otherwise false.
 //
 // # Discussion
-// 
+//
 // In apps linked before OS X Mountain Lion, delegates that implement the
 // [CaptureOutputDidOutputSampleBufferFromConnection] method can ensure that
 // starting and stopping a recording is frame accurate by calling
@@ -60,22 +60,21 @@ func AVCaptureFileOutputDelegateObjectFromID(id objc.ID) AVCaptureFileOutputDele
 // start and/or stop recording on any given frame boundary. Applying
 // compression settings for the entire length of the session has power,
 // thermal, and CPU implications.
-// 
+//
 // In apps linked on or after OS X Mountain Lion, delegates must implement
 // this method to indicate whether frame accurate recording is required. The
 // capture file output calls this method only once when the delegate is added
-// and never again. If your delegate returns [false], the capture file output
+// and never again. If your delegate returns false, the capture file output
 // applies compression settings only when
 // [StartRecordingToOutputFileURLRecordingDelegate] is called and disables
 // these settings once the recording stops.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputDelegate/fileOutputShouldProvideSampleAccurateRecordingStart(_:)
 func (o AVCaptureFileOutputDelegateObject) CaptureOutputShouldProvideSampleAccurateRecordingStart(output IAVCaptureOutput) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("captureOutputShouldProvideSampleAccurateRecordingStart:"), output)
 	return rv
-	}
+}
+
 // Gives the delegate the opportunity to inspect samples as they are received
 // by the output and start and stop recording at exact times.
 //
@@ -88,7 +87,7 @@ func (o AVCaptureFileOutputDelegateObject) CaptureOutputShouldProvideSampleAccur
 // sample data was received.
 //
 // # Discussion
-// 
+//
 // This method is called whenever the file output receives a single sample
 // buffer (a single video frame or audio buffer, for example) from the given
 // connection. This gives delegates an opportunity to start and stop recording
@@ -99,17 +98,17 @@ func (o AVCaptureFileOutputDelegateObject) CaptureOutputShouldProvideSampleAccur
 // file, whereas calls to [StopRecording] and [PauseRecording] are guaranteed
 // to include all samples leading up to those in the current sample buffer in
 // the existing file.
-// 
+//
 // You can gather information particular to the samples by inspecting the
 // [CMSampleBuffer] object. Sample buffers always contain a single frame of
 // video if called from this method but may also contain multiple samples of
 // audio. For B-frame video formats, samples are always delivered in
 // presentation order.
-// 
+//
 // If you need to reference the [CMSampleBuffer] object outside of the scope
 // of this method, you must retain it and then release it when you have
 // finished with it.
-// 
+//
 // To maintain optimal performance, some sample buffers directly reference
 // pools of memory that may need to be reused by the device system and other
 // capture inputs. This is frequently the case for uncompressed device native
@@ -121,7 +120,7 @@ func (o AVCaptureFileOutputDelegateObject) CaptureOutputShouldProvideSampleAccur
 // the sample data for a long period of time, consider copying the data into a
 // new buffer and then calling [CFRelease] on the sample buffer (if it was
 // previously retained) so that the memory it references can be reused.
-// 
+//
 // You should not assume that this method will be called on a specific thread.
 // In addition, this method is called frequently, so it must be efficient to
 // prevent capture performance problems.
@@ -129,7 +128,7 @@ func (o AVCaptureFileOutputDelegateObject) CaptureOutputShouldProvideSampleAccur
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputDelegate/fileOutput(_:didOutputSampleBuffer:from:)
 func (o AVCaptureFileOutputDelegateObject) CaptureOutputDidOutputSampleBufferFromConnection(output IAVCaptureFileOutput, sampleBuffer uintptr, connection IAVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didOutputSampleBuffer:fromConnection:"), output, sampleBuffer, connection)
-	}
+}
 
 // AVCaptureFileOutputDelegateConfig holds optional typed callbacks for [AVCaptureFileOutputDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -205,4 +204,3 @@ func NewAVCaptureFileOutputDelegate(config AVCaptureFileOutputDelegateConfig) AV
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVCaptureFileOutputDelegateObjectFromID(instance)
 }
-

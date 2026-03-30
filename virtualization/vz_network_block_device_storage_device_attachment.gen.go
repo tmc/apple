@@ -3,11 +3,12 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZNetworkBlockDeviceStorageDeviceAttachment] class.
@@ -46,44 +47,40 @@ func (vc VZNetworkBlockDeviceStorageDeviceAttachmentClass) Alloc() VZNetworkBloc
 // A storage device attachment backed by a Network Block Device (NBD) client.
 //
 // # Overview
-// 
+//
 // This storage device attachment provides a Network Block Device (NBD) client
 // implementation. The NBD client connects to an NBD server referred to by an
 // NBD Uniform Resource Indicator (URI), represented as an URL in this API.
 // The NBD server runs outside of and isn’t controlled by the Virtualization
 // framework. The NBD client forwards the guest’s I/O operations to the NBD
 // server, which handles the I/O operations.
-// 
+//
 // The NBD client attempts to connect to the NBD server referred to by the URL
 // used when you started the VM with [StartWithCompletionHandler]. However,
 // it’s important to note that a connection attempt isn’t made when the
 // framework initializes the attachment object.
-// 
+//
 // Reconnection attempts take place throughout the life cycle of the VM when
 // the NBD client encounters a recoverable error such as connection timeout
 // and unexpected connection errors. The NBD client disconnects from the
 // server when the VM shuts down.
-// 
+//
 // Using this attachment requires the app to have the
 // [com.apple.security.network.client] entitlement because this attachment
 // opens an outgoing network connection.
-// 
+//
 // To create a device that uses an NBD service, first initialize a
 // [VZNetworkBlockDeviceStorageDeviceAttachment] with the URI of an NBD
 // server, then use the attachment to configure a
 // [VZStorageDeviceConfiguration] as shown in the example below (the
 // attachment works with any subclass of [VZStorageDeviceConfiguration], not
 // just [VZVirtioBlockDeviceConfiguration]):
-// 
+//
 // For more information about Network Block Devices, see the [Network Block
 // Device Specification] on GitHub.
-// 
+//
 // For more information about the NBD URL format, see the [Network Block
 // Device URL specification] on GitHub.
-//
-// [Network Block Device Specification]: https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md
-// [Network Block Device URL specification]: https://github.com/NetworkBlockDevice/nbd/blob/master/doc/uri.md
-// [com.apple.security.network.client]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.security.network.client
 //
 // # Creating network block device attachments
 //
@@ -103,6 +100,10 @@ func (vc VZNetworkBlockDeviceStorageDeviceAttachmentClass) Alloc() VZNetworkBloc
 //   - [VZNetworkBlockDeviceStorageDeviceAttachment.SetDelegate]
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment
+//
+// [Network Block Device Specification]: https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md
+// [Network Block Device URL specification]: https://github.com/NetworkBlockDevice/nbd/blob/master/doc/uri.md
+// [com.apple.security.network.client]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.security.network.client
 type VZNetworkBlockDeviceStorageDeviceAttachment struct {
 	VZStorageDeviceAttachment
 }
@@ -113,6 +114,7 @@ type VZNetworkBlockDeviceStorageDeviceAttachment struct {
 func VZNetworkBlockDeviceStorageDeviceAttachmentFromID(id objc.ID) VZNetworkBlockDeviceStorageDeviceAttachment {
 	return VZNetworkBlockDeviceStorageDeviceAttachment{VZStorageDeviceAttachment: VZStorageDeviceAttachmentFromID(id)}
 }
+
 // NOTE: VZNetworkBlockDeviceStorageDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -210,25 +212,21 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLError(URL foundation.INS
 // server. When the timeout expires, an attempt to reconnect with the server
 // takes place.
 //
-// forcedReadOnly: If [true], the framework forces the disk attachment to be read-only,
+// forcedReadOnly: If true, the framework forces the disk attachment to be read-only,
 // regardless of whether or not the NBD server supports write requests.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // synchronizationMode: The mode in which the disk attachment synchronizes data with the underlying
 // storage device.
 //
 // # Discussion
-// 
+//
 // The `forcedReadOnly` parameter affects how framework exposes the NBD client
 // to the guest operating system by the storage controller. As part of the NBD
 // protocol, the NBD server advertises whether or not the disk exposed by the
 // NBD client is read-only during the handshake phase of the protocol. Setting
-// `forcedReadOnly` to [true] forces the NBD client to show up as read-only to
+// `forcedReadOnly` to true forces the NBD client to show up as read-only to
 // the guest regardless of whether or not the NBD server advertises itself as
 // read-only.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:timeout:isForcedReadOnly:synchronizationMode:)
 func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.INSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
@@ -258,6 +256,7 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLError(URL founda
 	return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), nil
 
 }
+
 // Creates a new network block device storage attachment from an NBD Uniform
 // Resource Indicator (URI) represented as a URL, timeout value, and read-only
 // and synchronization modes that you provide.
@@ -268,25 +267,21 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLError(URL founda
 // server. When the timeout expires, an attempt to reconnect with the server
 // takes place.
 //
-// forcedReadOnly: If [true], the framework forces the disk attachment to be read-only,
+// forcedReadOnly: If true, the framework forces the disk attachment to be read-only,
 // regardless of whether or not the NBD server supports write requests.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // synchronizationMode: The mode in which the disk attachment synchronizes data with the underlying
 // storage device.
 //
 // # Discussion
-// 
+//
 // The `forcedReadOnly` parameter affects how framework exposes the NBD client
 // to the guest operating system by the storage controller. As part of the NBD
 // protocol, the NBD server advertises whether or not the disk exposed by the
 // NBD client is read-only during the handshake phase of the protocol. Setting
-// `forcedReadOnly` to [true] forces the NBD client to show up as read-only to
+// `forcedReadOnly` to true forces the NBD client to show up as read-only to
 // the guest regardless of whether or not the NBD server advertises itself as
 // read-only.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:timeout:isForcedReadOnly:synchronizationMode:)
 func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.INSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
@@ -305,14 +300,14 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLTimeoutForcedRea
 // URL: The NBD URL to validate.
 //
 // # Discussion
-// 
+//
 // This method checks that the URL is well-formed; however, it doesn’t
 // attempt to access the URL. See the [NBD URL specification] on GitHub for
 // more detailed descriptions of valid URIs.
 //
-// [NBD URL specification]: https://github.com/NetworkBlockDevice/nbd/blob/master/doc/uri.md
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/validate(_:)
+//
+// [NBD URL specification]: https://github.com/NetworkBlockDevice/nbd/blob/master/doc/uri.md
 func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) ValidateURLError(URL foundation.INSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("validateURL:error:"), URL, unsafe.Pointer(&errorPtr))
@@ -331,43 +326,43 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 // attachment network is in a read-only state.
 //
 // # Discussion
-// 
+//
 // The `forcedReadOnly` parameter affects how the Virtualization framework
 // exposes the network block device (NBD) client to the guest operating system
 // by the storage controller.
-// 
+//
 // As part of the NBD protocol, during the handshake phase, the server
 // advertises whether or not the disk the server exposes is read-only. Setting
-// `forcedReadOnly` to [true] forces the NBD client to show up as read-only to
+// `forcedReadOnly` to true forces the NBD client to show up as read-only to
 // the guest regardless of whether or not the NBD server advertises itself as
 // read-only.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/isForcedReadOnly
 func (n VZNetworkBlockDeviceStorageDeviceAttachment) ForcedReadOnly() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isForcedReadOnly"))
 	return rv
 }
+
 // The mode in which the NBD client synchronizes data with the NBD server.
 //
 // # Discussion
-// 
+//
 // See [VZDiskSynchronizationMode] for details on how the specific mode
 // affects data synchronization between the NBD client and server.
 //
-// [VZDiskSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskSynchronizationMode
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/synchronizationMode
+//
+// [VZDiskSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskSynchronizationMode
 func (n VZNetworkBlockDeviceStorageDeviceAttachment) SynchronizationMode() VZDiskSynchronizationMode {
 	rv := objc.Send[VZDiskSynchronizationMode](n.ID, objc.Sel("synchronizationMode"))
 	return VZDiskSynchronizationMode(rv)
 }
+
 // The timeout value in seconds for the connection between the client and
 // server.
 //
 // # Discussion
-// 
+//
 // When the timeout expires, the client attempts to reconnect with the server.
 // If after several retries, the client can’t reestablish a connection to
 // the server, the framework invokes the [AttachmentDidEncounterError]
@@ -378,6 +373,7 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) Timeout() float64 {
 	rv := objc.Send[float64](n.ID, objc.Sel("timeout"))
 	return rv
 }
+
 // The URL that refers to the NBD server to which the NBD client will connect.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/url
@@ -385,6 +381,7 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // The object that receives messages about changes to the network block device
 // attachment.
 //
@@ -396,4 +393,3 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) Delegate() VZNetworkBlockDe
 func (n VZNetworkBlockDeviceStorageDeviceAttachment) SetDelegate(value VZNetworkBlockDeviceStorageDeviceAttachmentDelegate) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDelegate:"), value)
 }
-

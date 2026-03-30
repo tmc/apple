@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVCaptureDeskViewApplicationLaunchConfigurationClass) Alloc() AVCapture
 // An object that configures how to present Desk View.
 //
 // # Overview
-// 
+//
 // Use this object to specify the frame for Desk View when it launches, and
 // when to execute the completion handler. You can specify whether to perform
 // the completion handler as soon as Desk View is visible to the user, or only
@@ -69,6 +70,7 @@ type AVCaptureDeskViewApplicationLaunchConfiguration struct {
 func AVCaptureDeskViewApplicationLaunchConfigurationFromID(id objc.ID) AVCaptureDeskViewApplicationLaunchConfiguration {
 	return AVCaptureDeskViewApplicationLaunchConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureDeskViewApplicationLaunchConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,17 +119,17 @@ func NewAVCaptureDeskViewApplicationLaunchConfiguration() AVCaptureDeskViewAppli
 // The frame for Desk View after it launches.
 //
 // # Discussion
-// 
+//
 // The default value is [zero], which tells the system to use the previously
 // set frame. The system uses global screen coordinates to display the frame.
 // When Desk View launches from a native macOS app, the window origin is
 // bottom-left. When it launches from a [Mac Catalyst] app, the window origin
 // is top-left.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeskViewApplication/LaunchConfiguration/mainWindowFrame
+//
 // [Mac Catalyst]: https://developer.apple.com/documentation/UIKit/mac-catalyst
 // [zero]: https://developer.apple.com/documentation/CoreFoundation/CGRect/zero
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeskViewApplication/LaunchConfiguration/mainWindowFrame
 func (c AVCaptureDeskViewApplicationLaunchConfiguration) MainWindowFrame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("mainWindowFrame"))
 	return corefoundation.CGRect(rv)
@@ -135,18 +137,16 @@ func (c AVCaptureDeskViewApplicationLaunchConfiguration) MainWindowFrame() coref
 func (c AVCaptureDeskViewApplicationLaunchConfiguration) SetMainWindowFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMainWindowFrame:"), value)
 }
+
 // A Boolean value that specifies whether the system requires the user to
 // complete setup mode before it executes the completion handler.
 //
 // # Discussion
-// 
-// The default value is [false], which tells the system to execute the
-// completion handler as soon as it displays Desk View. If [true], the system
+//
+// The default value is false, which tells the system to execute the
+// completion handler as soon as it displays Desk View. If true, the system
 // executes the completion handler after the user completes setup and starts
 // Desk View.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeskViewApplication/LaunchConfiguration/requiresSetUpModeCompletion
 func (c AVCaptureDeskViewApplicationLaunchConfiguration) RequiresSetUpModeCompletion() bool {
@@ -156,4 +156,3 @@ func (c AVCaptureDeskViewApplicationLaunchConfiguration) RequiresSetUpModeComple
 func (c AVCaptureDeskViewApplicationLaunchConfiguration) SetRequiresSetUpModeCompletion(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRequiresSetUpModeCompletion:"), value)
 }
-

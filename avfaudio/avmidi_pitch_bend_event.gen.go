@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -62,6 +63,7 @@ type AVMIDIPitchBendEvent struct {
 func AVMIDIPitchBendEventFromID(id objc.ID) AVMIDIPitchBendEvent {
 	return AVMIDIPitchBendEvent{AVMIDIChannelEvent: AVMIDIChannelEventFromID(id)}
 }
+
 // NOTE: AVMIDIPitchBendEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -146,4 +148,3 @@ func (m AVMIDIPitchBendEvent) Value() uint32 {
 func (m AVMIDIPitchBendEvent) SetValue(value uint32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setValue:"), value)
 }
-

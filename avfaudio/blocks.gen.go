@@ -116,6 +116,7 @@ func NewAVSpeechSynthesisPersonalVoiceAuthorizationStatusBlock(handler AVSpeechS
 // BoolErrorHandler handles A completion handler the system calls asynchronously when the system completes audio routing arbitration.
 //   - defaultDeviceChanged: A Boolean value that indicates whether the system switched the AirPods to the macOS device.
 //   - error: An error object that indicates why the request failed, or [nil](<doc://com.apple.documentation/documentation/ObjectiveC/nil-227m0>) if the request succeeded.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -211,4 +212,3 @@ func NewconstAudioBufferListBlock(handler constAudioBufferListHandler) (objc.ID,
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

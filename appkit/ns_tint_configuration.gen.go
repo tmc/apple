@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type NSTintConfiguration struct {
 func NSTintConfigurationFromID(id objc.ID) NSTintConfiguration {
 	return NSTintConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTintConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,7 +136,7 @@ func NewTintConfigurationWithFixedColor(color INSColor) NSTintConfiguration {
 // color: The color used when the system accent color is [Multicolor].
 //
 // # Discussion
-// 
+//
 // Use this tint configuration for custom colors designed to match
 // app-specific accent colors, but doesn’t look appropriate matched with a
 // user-selected color. The tint configuation only uses the preferred color
@@ -155,7 +157,7 @@ func (t NSTintConfiguration) EncodeWithCoder(coder foundation.INSCoder) {
 // effect based on the user’s preferred accent color choice.
 //
 // # Discussion
-// 
+//
 // When this property is [YES], the tint configuration alters it effect based
 // on the user’s preferred accent color. Otherwise, the tint configuration
 // produces a constant effect regardless of the accent color preference.
@@ -165,10 +167,11 @@ func (t NSTintConfiguration) AdaptsToUserAccentColor() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("adaptsToUserAccentColor"))
 	return rv
 }
+
 // The color the system supplies when you create a tint configuration.
 //
 // # Discussion
-// 
+//
 // This property is `nil` if the tint configuration wasn’t created using an
 // [NSColor] object.
 //
@@ -177,10 +180,11 @@ func (t NSTintConfiguration) BaseTintColor() INSColor {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("baseTintColor"))
 	return NSColorFromID(objc.ID(rv))
 }
+
 // A color object that matches the effective content tint.
 //
 // # Discussion
-// 
+//
 // The value of this property is an [NSColor] that matches the represented
 // content tint. This property is `nil` if the system can’t represent the
 // content tint as an [NSColor].
@@ -199,10 +203,11 @@ func (_NSTintConfigurationClass NSTintConfigurationClass) DefaultTintConfigurati
 	rv := objc.Send[objc.ID](objc.ID(_NSTintConfigurationClass.class), objc.Sel("defaultTintConfiguration"))
 	return NSTintConfigurationFromID(objc.ID(rv))
 }
+
 // The content always displays in monochrome.
 //
 // # Discussion
-// 
+//
 // Content marked as monochrome remains monochrome regardless of the system
 // accent color.
 //
@@ -211,4 +216,3 @@ func (_NSTintConfigurationClass NSTintConfigurationClass) MonochromeTintConfigur
 	rv := objc.Send[objc.ID](objc.ID(_NSTintConfigurationClass.class), objc.Sel("monochromeTintConfiguration"))
 	return NSTintConfigurationFromID(objc.ID(rv))
 }
-

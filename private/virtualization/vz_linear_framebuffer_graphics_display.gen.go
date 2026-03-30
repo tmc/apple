@@ -3,12 +3,13 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,13 +46,13 @@ func (vc VZLinearFramebufferGraphicsDisplayClass) Alloc() VZLinearFramebufferGra
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZLinearFramebufferGraphicsDisplay._displayConfiguration]
 //   - [VZLinearFramebufferGraphicsDisplay.ReconfigureWithConfigurationError]
 //   - [VZLinearFramebufferGraphicsDisplay.ReconfigureWithSizeInPixelsError]
 //   - [VZLinearFramebufferGraphicsDisplay.SizeInPixels]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDisplay
 type VZLinearFramebufferGraphicsDisplay struct {
 	VZGraphicsDisplay
@@ -61,6 +62,7 @@ type VZLinearFramebufferGraphicsDisplay struct {
 func VZLinearFramebufferGraphicsDisplayFromID(id objc.ID) VZLinearFramebufferGraphicsDisplay {
 	return VZLinearFramebufferGraphicsDisplay{VZGraphicsDisplay: VZGraphicsDisplayFromID(id)}
 }
+
 // Ensure VZLinearFramebufferGraphicsDisplay implements IVZLinearFramebufferGraphicsDisplay.
 var _ IVZLinearFramebufferGraphicsDisplay = VZLinearFramebufferGraphicsDisplay{}
 
@@ -104,7 +106,6 @@ func NewVZLinearFramebufferGraphicsDisplay() VZLinearFramebufferGraphicsDisplay 
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:
 func NewVZLinearFramebufferGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZLinearFramebufferGraphicsDisplay {
 	instance := getVZLinearFramebufferGraphicsDisplayClass().Alloc()
@@ -122,7 +123,7 @@ func (v VZLinearFramebufferGraphicsDisplay) _displayConfiguration() objectivec.I
 func (v VZLinearFramebufferGraphicsDisplay) DisplayConfiguration() objectivec.IObject {
 	return v._displayConfiguration()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDisplay/reconfigureWithConfiguration:error:
 func (v VZLinearFramebufferGraphicsDisplay) ReconfigureWithConfigurationError(configuration objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -137,7 +138,7 @@ func (v VZLinearFramebufferGraphicsDisplay) ReconfigureWithConfigurationError(co
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDisplay/reconfigureWithSizeInPixels:error:
 func (v VZLinearFramebufferGraphicsDisplay) ReconfigureWithSizeInPixelsError(pixels corefoundation.CGSize) (bool, error) {
 	var errorPtr objc.ID
@@ -152,9 +153,9 @@ func (v VZLinearFramebufferGraphicsDisplay) ReconfigureWithSizeInPixelsError(pix
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDisplay/sizeInPixels
 func (v VZLinearFramebufferGraphicsDisplay) SizeInPixels() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("sizeInPixels"))
 	return corefoundation.CGSize(rv)
 }
-

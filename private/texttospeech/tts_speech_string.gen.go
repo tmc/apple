@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (tc TTSSpeechStringClass) Alloc() TTSSpeechString {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSSpeechString._insertTransformationForEncapsulatedTerminator]
@@ -71,6 +71,7 @@ func (tc TTSSpeechStringClass) Alloc() TTSSpeechString {
 //   - [TTSSpeechString.InitWithOriginalString]
 //   - [TTSSpeechString.InitWithParentSpeechString]
 //   - [TTSSpeechString.InitWithSSMLString]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString
 type TTSSpeechString struct {
 	objectivec.Object
@@ -80,6 +81,7 @@ type TTSSpeechString struct {
 func TTSSpeechStringFromID(id objc.ID) TTSSpeechString {
 	return TTSSpeechString{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSSpeechString implements ITTSSpeechString.
 var _ ITTSSpeechString = TTSSpeechString{}
 
@@ -167,7 +169,6 @@ func NewTTSSpeechString() TTSSpeechString {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/initWithOriginalString:
 func NewTTSSpeechStringWithOriginalString(string_ objectivec.IObject) TTSSpeechString {
 	instance := getTTSSpeechStringClass().Alloc()
@@ -175,7 +176,6 @@ func NewTTSSpeechStringWithOriginalString(string_ objectivec.IObject) TTSSpeechS
 	return TTSSpeechStringFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/initWithParentSpeechString:
 func NewTTSSpeechStringWithParentSpeechString(string_ objectivec.IObject) TTSSpeechString {
 	instance := getTTSSpeechStringClass().Alloc()
@@ -183,7 +183,6 @@ func NewTTSSpeechStringWithParentSpeechString(string_ objectivec.IObject) TTSSpe
 	return TTSSpeechStringFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/initWithSSMLString:
 func NewTTSSpeechStringWithSSMLString(sSMLString objectivec.IObject) TTSSpeechString {
 	instance := getTTSSpeechStringClass().Alloc()
@@ -191,7 +190,6 @@ func NewTTSSpeechStringWithSSMLString(sSMLString objectivec.IObject) TTSSpeechSt
 	return TTSSpeechStringFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/_insertTransformation:forEncapsulatedTerminator:
 func (t TTSSpeechString) _insertTransformationForEncapsulatedTerminator(transformation objectivec.IObject, terminator bool) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_insertTransformation:forEncapsulatedTerminator:"), transformation, terminator)
@@ -201,7 +199,7 @@ func (t TTSSpeechString) _insertTransformationForEncapsulatedTerminator(transfor
 func (t TTSSpeechString) InsertTransformationForEncapsulatedTerminator(transformation objectivec.IObject, terminator bool) {
 	t._insertTransformationForEncapsulatedTerminator(transformation, terminator)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/_rangeIsValid:
 func (t TTSSpeechString) _rangeIsValid(valid foundation.NSRange) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("_rangeIsValid:"), valid)
@@ -212,6 +210,7 @@ func (t TTSSpeechString) _rangeIsValid(valid foundation.NSRange) bool {
 func (t TTSSpeechString) RangeIsValid(valid foundation.NSRange) bool {
 	return t._rangeIsValid(valid)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/_transformedStringNonMutating
 func (t TTSSpeechString) _transformedStringNonMutating() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_transformedStringNonMutating"))
@@ -222,7 +221,7 @@ func (t TTSSpeechString) _transformedStringNonMutating() objectivec.IObject {
 func (t TTSSpeechString) TransformedStringNonMutating() objectivec.IObject {
 	return t._transformedStringNonMutating()
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/_translateRangeInTransformedString:withParent:
 func (t TTSSpeechString) _translateRangeInTransformedStringWithParent(string_ foundation.NSRange, parent objectivec.IObject) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("_translateRangeInTransformedString:withParent:"), string_, parent)
@@ -233,58 +232,60 @@ func (t TTSSpeechString) _translateRangeInTransformedStringWithParent(string_ fo
 func (t TTSSpeechString) TranslateRangeInTransformedStringWithParent(string_ foundation.NSRange, parent objectivec.IObject) foundation.NSRange {
 	return t._translateRangeInTransformedStringWithParent(string_, parent)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/encapsulateSubstringAtRange:withPrefix:andSuffix:
 func (t TTSSpeechString) EncapsulateSubstringAtRangeWithPrefixAndSuffix(range_ foundation.NSRange, prefix objectivec.IObject, suffix objectivec.IObject) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("encapsulateSubstringAtRange:withPrefix:andSuffix:"), range_, prefix, suffix)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/insertAtLocation:string:
 func (t TTSSpeechString) InsertAtLocationString(location uint64, string_ objectivec.IObject) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("insertAtLocation:string:"), location, string_)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/replaceOccurencesOfString:withString:
 func (t TTSSpeechString) ReplaceOccurencesOfStringWithString(string_ objectivec.IObject, string_2 objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("replaceOccurencesOfString:withString:"), string_, string_2)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/transformRange:to:
 func (t TTSSpeechString) TransformRangeTo(range_ foundation.NSRange, to objectivec.IObject) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("transformRange:to:"), range_, to)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/translateRangeInTransformedString:
 func (t TTSSpeechString) TranslateRangeInTransformedString(string_ foundation.NSRange) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("translateRangeInTransformedString:"), string_)
 	return foundation.NSRange(rv)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/xmlEscaped
 func (t TTSSpeechString) XmlEscaped() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("xmlEscaped"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/xmlUnescaped
 func (t TTSSpeechString) XmlUnescaped() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("xmlUnescaped"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/initWithOriginalString:
 func (t TTSSpeechString) InitWithOriginalString(string_ objectivec.IObject) TTSSpeechString {
 	rv := objc.Send[TTSSpeechString](t.ID, objc.Sel("initWithOriginalString:"), string_)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/initWithParentSpeechString:
 func (t TTSSpeechString) InitWithParentSpeechString(string_ objectivec.IObject) TTSSpeechString {
 	rv := objc.Send[TTSSpeechString](t.ID, objc.Sel("initWithParentSpeechString:"), string_)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/initWithSSMLString:
 func (t TTSSpeechString) InitWithSSMLString(sSMLString objectivec.IObject) TTSSpeechString {
 	rv := objc.Send[TTSSpeechString](t.ID, objc.Sel("initWithSSMLString:"), sSMLString)
@@ -296,11 +297,13 @@ func (t TTSSpeechString) DefrostedTransformedString() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("defrostedTransformedString"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/finalized
 func (t TTSSpeechString) Finalized() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("finalized"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/originalString
 func (t TTSSpeechString) OriginalString() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("originalString"))
@@ -309,6 +312,7 @@ func (t TTSSpeechString) OriginalString() string {
 func (t TTSSpeechString) SetOriginalString(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOriginalString:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/parentString
 func (t TTSSpeechString) ParentString() ITTSSpeechString {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("parentString"))
@@ -317,6 +321,7 @@ func (t TTSSpeechString) ParentString() ITTSSpeechString {
 func (t TTSSpeechString) SetParentString(value ITTSSpeechString) {
 	objc.Send[struct{}](t.ID, objc.Sel("setParentString:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/transformations
 func (t TTSSpeechString) Transformations() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("transformations"))
@@ -325,6 +330,7 @@ func (t TTSSpeechString) Transformations() foundation.INSArray {
 func (t TTSSpeechString) SetTransformations(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTransformations:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/transformedString
 func (t TTSSpeechString) TransformedString() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("transformedString"))
@@ -333,6 +339,7 @@ func (t TTSSpeechString) TransformedString() string {
 func (t TTSSpeechString) SetTransformedString(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTransformedString:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechString/type
 func (t TTSSpeechString) Type() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("type"))
@@ -341,4 +348,3 @@ func (t TTSSpeechString) Type() uint64 {
 func (t TTSSpeechString) SetType(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setType:"), value)
 }
-

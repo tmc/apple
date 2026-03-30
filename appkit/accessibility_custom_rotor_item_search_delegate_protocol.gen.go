@@ -4,9 +4,11 @@ package appkit
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A delegate for a custom rotor that finds the next item result after performing a search with the specified search parameters.
@@ -25,6 +27,7 @@ type NSAccessibilityCustomRotorItemSearchDelegate interface {
 type NSAccessibilityCustomRotorItemSearchDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSAccessibilityCustomRotorItemSearchDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -44,7 +47,7 @@ func NSAccessibilityCustomRotorItemSearchDelegateObjectFromID(id objc.ID) NSAcce
 func (o NSAccessibilityCustomRotorItemSearchDelegateObject) RotorResultForSearchParameters(rotor INSAccessibilityCustomRotor, searchParameters INSAccessibilityCustomRotorSearchParameters) INSAccessibilityCustomRotorItemResult {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("rotor:resultForSearchParameters:"), rotor, searchParameters)
 	return NSAccessibilityCustomRotorItemResultFromID(rv)
-	}
+}
 
 // NSAccessibilityCustomRotorItemSearchDelegateConfig holds optional typed callbacks for [NSAccessibilityCustomRotorItemSearchDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -107,4 +110,3 @@ func NewNSAccessibilityCustomRotorItemSearchDelegate(config NSAccessibilityCusto
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSAccessibilityCustomRotorItemSearchDelegateObjectFromID(instance)
 }
-

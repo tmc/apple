@@ -6,8 +6,10 @@ import (
 	"fmt"
 	"os"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/kernel"
 )
 
 // registerFunc resolves a framework symbol and registers it as a Go function.
@@ -588,12 +590,12 @@ func IOSurfaceRemoveValue(buffer IOSurfaceRef, key corefoundation.CFStringRef) {
 	_iOSurfaceRemoveValue(buffer, key)
 }
 
-var _iOSurfaceSetOwnershipIdentity func(buffer IOSurfaceRef, task_id_token uintptr, newLedgerTag int, newLedgerOptions uint32) int32
+var _iOSurfaceSetOwnershipIdentity func(buffer IOSurfaceRef, task_id_token kernel.Task_id_token_t, newLedgerTag int, newLedgerOptions uint32) int32
 
 // IOSurfaceSetOwnershipIdentity.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceSetOwnershipIdentity(_:_:_:_:)
-func IOSurfaceSetOwnershipIdentity(buffer IOSurfaceRef, task_id_token uintptr, newLedgerTag int, newLedgerOptions uint32) int32 {
+func IOSurfaceSetOwnershipIdentity(buffer IOSurfaceRef, task_id_token kernel.Task_id_token_t, newLedgerTag int, newLedgerOptions uint32) int32 {
 	if _iOSurfaceSetOwnershipIdentity == nil {
 		panic("IOSurface: symbol IOSurfaceSetOwnershipIdentity not loaded")
 	}
@@ -652,56 +654,55 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_iOSurfaceAlignProperty, frameworkHandle, "IOSurfaceAlignProperty")
-		registerFunc(&_iOSurfaceAllowsPixelSizeCasting, frameworkHandle, "IOSurfaceAllowsPixelSizeCasting")
-		registerFunc(&_iOSurfaceCopyAllValues, frameworkHandle, "IOSurfaceCopyAllValues")
-		registerFunc(&_iOSurfaceCopyValue, frameworkHandle, "IOSurfaceCopyValue")
-		registerFunc(&_iOSurfaceCreate, frameworkHandle, "IOSurfaceCreate")
-		registerFunc(&_iOSurfaceCreateMachPort, frameworkHandle, "IOSurfaceCreateMachPort")
-		registerFunc(&_iOSurfaceCreateXPCObject, frameworkHandle, "IOSurfaceCreateXPCObject")
-		registerFunc(&_iOSurfaceDecrementUseCount, frameworkHandle, "IOSurfaceDecrementUseCount")
-		registerFunc(&_iOSurfaceGetAllocSize, frameworkHandle, "IOSurfaceGetAllocSize")
-		registerFunc(&_iOSurfaceGetBaseAddress, frameworkHandle, "IOSurfaceGetBaseAddress")
-		registerFunc(&_iOSurfaceGetBaseAddressOfPlane, frameworkHandle, "IOSurfaceGetBaseAddressOfPlane")
-		registerFunc(&_iOSurfaceGetBitDepthOfComponentOfPlane, frameworkHandle, "IOSurfaceGetBitDepthOfComponentOfPlane")
-		registerFunc(&_iOSurfaceGetBitOffsetOfComponentOfPlane, frameworkHandle, "IOSurfaceGetBitOffsetOfComponentOfPlane")
-		registerFunc(&_iOSurfaceGetBytesPerElement, frameworkHandle, "IOSurfaceGetBytesPerElement")
-		registerFunc(&_iOSurfaceGetBytesPerElementOfPlane, frameworkHandle, "IOSurfaceGetBytesPerElementOfPlane")
-		registerFunc(&_iOSurfaceGetBytesPerRow, frameworkHandle, "IOSurfaceGetBytesPerRow")
-		registerFunc(&_iOSurfaceGetBytesPerRowOfPlane, frameworkHandle, "IOSurfaceGetBytesPerRowOfPlane")
-		registerFunc(&_iOSurfaceGetElementHeight, frameworkHandle, "IOSurfaceGetElementHeight")
-		registerFunc(&_iOSurfaceGetElementHeightOfPlane, frameworkHandle, "IOSurfaceGetElementHeightOfPlane")
-		registerFunc(&_iOSurfaceGetElementWidth, frameworkHandle, "IOSurfaceGetElementWidth")
-		registerFunc(&_iOSurfaceGetElementWidthOfPlane, frameworkHandle, "IOSurfaceGetElementWidthOfPlane")
-		registerFunc(&_iOSurfaceGetHeight, frameworkHandle, "IOSurfaceGetHeight")
-		registerFunc(&_iOSurfaceGetHeightOfPlane, frameworkHandle, "IOSurfaceGetHeightOfPlane")
-		registerFunc(&_iOSurfaceGetID, frameworkHandle, "IOSurfaceGetID")
-		registerFunc(&_iOSurfaceGetNameOfComponentOfPlane, frameworkHandle, "IOSurfaceGetNameOfComponentOfPlane")
-		registerFunc(&_iOSurfaceGetNumberOfComponentsOfPlane, frameworkHandle, "IOSurfaceGetNumberOfComponentsOfPlane")
-		registerFunc(&_iOSurfaceGetPixelFormat, frameworkHandle, "IOSurfaceGetPixelFormat")
-		registerFunc(&_iOSurfaceGetPlaneCount, frameworkHandle, "IOSurfaceGetPlaneCount")
-		registerFunc(&_iOSurfaceGetPropertyAlignment, frameworkHandle, "IOSurfaceGetPropertyAlignment")
-		registerFunc(&_iOSurfaceGetPropertyMaximum, frameworkHandle, "IOSurfaceGetPropertyMaximum")
-		registerFunc(&_iOSurfaceGetRangeOfComponentOfPlane, frameworkHandle, "IOSurfaceGetRangeOfComponentOfPlane")
-		registerFunc(&_iOSurfaceGetSeed, frameworkHandle, "IOSurfaceGetSeed")
-		registerFunc(&_iOSurfaceGetSubsampling, frameworkHandle, "IOSurfaceGetSubsampling")
-		registerFunc(&_iOSurfaceGetTypeID, frameworkHandle, "IOSurfaceGetTypeID")
-		registerFunc(&_iOSurfaceGetTypeOfComponentOfPlane, frameworkHandle, "IOSurfaceGetTypeOfComponentOfPlane")
-		registerFunc(&_iOSurfaceGetUseCount, frameworkHandle, "IOSurfaceGetUseCount")
-		registerFunc(&_iOSurfaceGetWidth, frameworkHandle, "IOSurfaceGetWidth")
-		registerFunc(&_iOSurfaceGetWidthOfPlane, frameworkHandle, "IOSurfaceGetWidthOfPlane")
-		registerFunc(&_iOSurfaceIncrementUseCount, frameworkHandle, "IOSurfaceIncrementUseCount")
-		registerFunc(&_iOSurfaceIsInUse, frameworkHandle, "IOSurfaceIsInUse")
-		registerFunc(&_iOSurfaceLock, frameworkHandle, "IOSurfaceLock")
-		registerFunc(&_iOSurfaceLookup, frameworkHandle, "IOSurfaceLookup")
-		registerFunc(&_iOSurfaceLookupFromMachPort, frameworkHandle, "IOSurfaceLookupFromMachPort")
-		registerFunc(&_iOSurfaceLookupFromXPCObject, frameworkHandle, "IOSurfaceLookupFromXPCObject")
-		registerFunc(&_iOSurfaceRemoveAllValues, frameworkHandle, "IOSurfaceRemoveAllValues")
-		registerFunc(&_iOSurfaceRemoveValue, frameworkHandle, "IOSurfaceRemoveValue")
-		registerFunc(&_iOSurfaceSetOwnershipIdentity, frameworkHandle, "IOSurfaceSetOwnershipIdentity")
-		registerFunc(&_iOSurfaceSetPurgeable, frameworkHandle, "IOSurfaceSetPurgeable")
-		registerFunc(&_iOSurfaceSetValue, frameworkHandle, "IOSurfaceSetValue")
-		registerFunc(&_iOSurfaceSetValues, frameworkHandle, "IOSurfaceSetValues")
-		registerFunc(&_iOSurfaceUnlock, frameworkHandle, "IOSurfaceUnlock")
-	}
-
+	registerFunc(&_iOSurfaceAlignProperty, frameworkHandle, "IOSurfaceAlignProperty")
+	registerFunc(&_iOSurfaceAllowsPixelSizeCasting, frameworkHandle, "IOSurfaceAllowsPixelSizeCasting")
+	registerFunc(&_iOSurfaceCopyAllValues, frameworkHandle, "IOSurfaceCopyAllValues")
+	registerFunc(&_iOSurfaceCopyValue, frameworkHandle, "IOSurfaceCopyValue")
+	registerFunc(&_iOSurfaceCreate, frameworkHandle, "IOSurfaceCreate")
+	registerFunc(&_iOSurfaceCreateMachPort, frameworkHandle, "IOSurfaceCreateMachPort")
+	registerFunc(&_iOSurfaceCreateXPCObject, frameworkHandle, "IOSurfaceCreateXPCObject")
+	registerFunc(&_iOSurfaceDecrementUseCount, frameworkHandle, "IOSurfaceDecrementUseCount")
+	registerFunc(&_iOSurfaceGetAllocSize, frameworkHandle, "IOSurfaceGetAllocSize")
+	registerFunc(&_iOSurfaceGetBaseAddress, frameworkHandle, "IOSurfaceGetBaseAddress")
+	registerFunc(&_iOSurfaceGetBaseAddressOfPlane, frameworkHandle, "IOSurfaceGetBaseAddressOfPlane")
+	registerFunc(&_iOSurfaceGetBitDepthOfComponentOfPlane, frameworkHandle, "IOSurfaceGetBitDepthOfComponentOfPlane")
+	registerFunc(&_iOSurfaceGetBitOffsetOfComponentOfPlane, frameworkHandle, "IOSurfaceGetBitOffsetOfComponentOfPlane")
+	registerFunc(&_iOSurfaceGetBytesPerElement, frameworkHandle, "IOSurfaceGetBytesPerElement")
+	registerFunc(&_iOSurfaceGetBytesPerElementOfPlane, frameworkHandle, "IOSurfaceGetBytesPerElementOfPlane")
+	registerFunc(&_iOSurfaceGetBytesPerRow, frameworkHandle, "IOSurfaceGetBytesPerRow")
+	registerFunc(&_iOSurfaceGetBytesPerRowOfPlane, frameworkHandle, "IOSurfaceGetBytesPerRowOfPlane")
+	registerFunc(&_iOSurfaceGetElementHeight, frameworkHandle, "IOSurfaceGetElementHeight")
+	registerFunc(&_iOSurfaceGetElementHeightOfPlane, frameworkHandle, "IOSurfaceGetElementHeightOfPlane")
+	registerFunc(&_iOSurfaceGetElementWidth, frameworkHandle, "IOSurfaceGetElementWidth")
+	registerFunc(&_iOSurfaceGetElementWidthOfPlane, frameworkHandle, "IOSurfaceGetElementWidthOfPlane")
+	registerFunc(&_iOSurfaceGetHeight, frameworkHandle, "IOSurfaceGetHeight")
+	registerFunc(&_iOSurfaceGetHeightOfPlane, frameworkHandle, "IOSurfaceGetHeightOfPlane")
+	registerFunc(&_iOSurfaceGetID, frameworkHandle, "IOSurfaceGetID")
+	registerFunc(&_iOSurfaceGetNameOfComponentOfPlane, frameworkHandle, "IOSurfaceGetNameOfComponentOfPlane")
+	registerFunc(&_iOSurfaceGetNumberOfComponentsOfPlane, frameworkHandle, "IOSurfaceGetNumberOfComponentsOfPlane")
+	registerFunc(&_iOSurfaceGetPixelFormat, frameworkHandle, "IOSurfaceGetPixelFormat")
+	registerFunc(&_iOSurfaceGetPlaneCount, frameworkHandle, "IOSurfaceGetPlaneCount")
+	registerFunc(&_iOSurfaceGetPropertyAlignment, frameworkHandle, "IOSurfaceGetPropertyAlignment")
+	registerFunc(&_iOSurfaceGetPropertyMaximum, frameworkHandle, "IOSurfaceGetPropertyMaximum")
+	registerFunc(&_iOSurfaceGetRangeOfComponentOfPlane, frameworkHandle, "IOSurfaceGetRangeOfComponentOfPlane")
+	registerFunc(&_iOSurfaceGetSeed, frameworkHandle, "IOSurfaceGetSeed")
+	registerFunc(&_iOSurfaceGetSubsampling, frameworkHandle, "IOSurfaceGetSubsampling")
+	registerFunc(&_iOSurfaceGetTypeID, frameworkHandle, "IOSurfaceGetTypeID")
+	registerFunc(&_iOSurfaceGetTypeOfComponentOfPlane, frameworkHandle, "IOSurfaceGetTypeOfComponentOfPlane")
+	registerFunc(&_iOSurfaceGetUseCount, frameworkHandle, "IOSurfaceGetUseCount")
+	registerFunc(&_iOSurfaceGetWidth, frameworkHandle, "IOSurfaceGetWidth")
+	registerFunc(&_iOSurfaceGetWidthOfPlane, frameworkHandle, "IOSurfaceGetWidthOfPlane")
+	registerFunc(&_iOSurfaceIncrementUseCount, frameworkHandle, "IOSurfaceIncrementUseCount")
+	registerFunc(&_iOSurfaceIsInUse, frameworkHandle, "IOSurfaceIsInUse")
+	registerFunc(&_iOSurfaceLock, frameworkHandle, "IOSurfaceLock")
+	registerFunc(&_iOSurfaceLookup, frameworkHandle, "IOSurfaceLookup")
+	registerFunc(&_iOSurfaceLookupFromMachPort, frameworkHandle, "IOSurfaceLookupFromMachPort")
+	registerFunc(&_iOSurfaceLookupFromXPCObject, frameworkHandle, "IOSurfaceLookupFromXPCObject")
+	registerFunc(&_iOSurfaceRemoveAllValues, frameworkHandle, "IOSurfaceRemoveAllValues")
+	registerFunc(&_iOSurfaceRemoveValue, frameworkHandle, "IOSurfaceRemoveValue")
+	registerFunc(&_iOSurfaceSetOwnershipIdentity, frameworkHandle, "IOSurfaceSetOwnershipIdentity")
+	registerFunc(&_iOSurfaceSetPurgeable, frameworkHandle, "IOSurfaceSetPurgeable")
+	registerFunc(&_iOSurfaceSetValue, frameworkHandle, "IOSurfaceSetValue")
+	registerFunc(&_iOSurfaceSetValues, frameworkHandle, "IOSurfaceSetValues")
+	registerFunc(&_iOSurfaceUnlock, frameworkHandle, "IOSurfaceUnlock")
+}

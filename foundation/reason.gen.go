@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Reason struct {
 func ReasonFromID(id objc.ID) Reason {
 	return Reason{objectivec.Object{ID: id}}
 }
+
 // Ensure Reason implements IReason.
 var _ IReason = Reason{}
 
@@ -78,4 +80,3 @@ func NewReason() Reason {
 	rv := objc.Send[Reason](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

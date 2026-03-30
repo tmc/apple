@@ -4,6 +4,8 @@ package iokit
 
 import (
 	"unsafe"
+
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -1430,7 +1432,7 @@ type IOUSBFindInterfaceRequest = unsafe.Pointer
 type IOUSBGetFrameStruct = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbhiddataptr
-type IOUSBHIDDataPtr = unsafe.Pointer
+type IOUSBHIDDataPtr = kernel.IOUSBHIDData
 
 // See: https://developer.apple.com/documentation/iokit/iousbhiddescriptor
 type IOUSBHIDDescriptor = unsafe.Pointer
@@ -1606,7 +1608,7 @@ type IOVideoDeviceRef uintptr
 type IOVideoStreamDescription = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iovirtualaddress
-type IOVirtualAddress = uint64
+type IOVirtualAddress = kernel.Mach_vm_address_t
 
 // See: https://developer.apple.com/documentation/iokit/longlbamodeparameterblockdescriptor
 type LongLBAModeParameterBlockDescriptor = objectivec.IObject
@@ -2551,14 +2553,13 @@ type TIOUSBLanguageID = string
 type Uext_object_t = uintptr
 
 // See: https://developer.apple.com/documentation/iokit/user_shspeed_t
-type User_shspeed_t = unsafe.Pointer
+type User_shspeed_t = uint32
 
 // See: https://developer.apple.com/documentation/iokit/user_speed_t
-type User_speed_t = unsafe.Pointer
+type User_speed_t = uint64
 
 // See: https://developer.apple.com/documentation/iokit/user_ul_t
-type User_ul_t = unsafe.Pointer
+type User_ul_t = uint64
 
 // See: https://developer.apple.com/documentation/iokit/user_us_t
-type User_us_t = unsafe.Pointer
-
+type User_us_t = uint32

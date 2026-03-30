@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/dispatch"
 )
@@ -160,15 +161,14 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_vmnet_copy_shared_interface_list, frameworkHandle, "vmnet_copy_shared_interface_list")
-		registerFunc(&_vmnet_interface_start_with_network, frameworkHandle, "vmnet_interface_start_with_network")
-		registerFunc(&_vmnet_network_configuration_disable_dhcp, frameworkHandle, "vmnet_network_configuration_disable_dhcp")
-		registerFunc(&_vmnet_network_configuration_disable_dns_proxy, frameworkHandle, "vmnet_network_configuration_disable_dns_proxy")
-		registerFunc(&_vmnet_network_configuration_disable_nat44, frameworkHandle, "vmnet_network_configuration_disable_nat44")
-		registerFunc(&_vmnet_network_configuration_disable_nat66, frameworkHandle, "vmnet_network_configuration_disable_nat66")
-		registerFunc(&_vmnet_network_configuration_disable_router_advertisement, frameworkHandle, "vmnet_network_configuration_disable_router_advertisement")
-		registerFunc(&_vmnet_network_get_ipv4_subnet, frameworkHandle, "vmnet_network_get_ipv4_subnet")
-		registerFunc(&_vmnet_network_get_ipv6_prefix, frameworkHandle, "vmnet_network_get_ipv6_prefix")
-		registerFunc(&_vmnet_start_interface, frameworkHandle, "vmnet_start_interface")
-	}
-
+	registerFunc(&_vmnet_copy_shared_interface_list, frameworkHandle, "vmnet_copy_shared_interface_list")
+	registerFunc(&_vmnet_interface_start_with_network, frameworkHandle, "vmnet_interface_start_with_network")
+	registerFunc(&_vmnet_network_configuration_disable_dhcp, frameworkHandle, "vmnet_network_configuration_disable_dhcp")
+	registerFunc(&_vmnet_network_configuration_disable_dns_proxy, frameworkHandle, "vmnet_network_configuration_disable_dns_proxy")
+	registerFunc(&_vmnet_network_configuration_disable_nat44, frameworkHandle, "vmnet_network_configuration_disable_nat44")
+	registerFunc(&_vmnet_network_configuration_disable_nat66, frameworkHandle, "vmnet_network_configuration_disable_nat66")
+	registerFunc(&_vmnet_network_configuration_disable_router_advertisement, frameworkHandle, "vmnet_network_configuration_disable_router_advertisement")
+	registerFunc(&_vmnet_network_get_ipv4_subnet, frameworkHandle, "vmnet_network_get_ipv4_subnet")
+	registerFunc(&_vmnet_network_get_ipv6_prefix, frameworkHandle, "vmnet_network_get_ipv6_prefix")
+	registerFunc(&_vmnet_start_interface, frameworkHandle, "vmnet_start_interface")
+}

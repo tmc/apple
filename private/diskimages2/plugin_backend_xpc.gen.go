@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (pc PluginBackendXPCClass) Alloc() PluginBackendXPC {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [PluginBackendXPC.URL]
 //   - [PluginBackendXPC.PluginHeader]
 //   - [PluginBackendXPC.InitWithURLOpenMode]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC
 type PluginBackendXPC struct {
 	BackendXPC
@@ -58,6 +59,7 @@ type PluginBackendXPC struct {
 func PluginBackendXPCFromID(id objc.ID) PluginBackendXPC {
 	return PluginBackendXPC{BackendXPC: BackendXPCFromID(id)}
 }
+
 // Ensure PluginBackendXPC implements IPluginBackendXPC.
 var _ IPluginBackendXPC = PluginBackendXPC{}
 
@@ -99,7 +101,6 @@ func NewPluginBackendXPC() PluginBackendXPC {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC/initWithCoder:
 func NewPluginBackendXPCWithCoder(coder objectivec.IObject) PluginBackendXPC {
 	instance := getPluginBackendXPCClass().Alloc()
@@ -107,7 +108,6 @@ func NewPluginBackendXPCWithCoder(coder objectivec.IObject) PluginBackendXPC {
 	return PluginBackendXPCFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC/initWithURL:openMode:
 func NewPluginBackendXPCWithURLOpenMode(url foundation.INSURL, mode int) PluginBackendXPC {
 	instance := getPluginBackendXPCClass().Alloc()
@@ -120,7 +120,7 @@ func (p PluginBackendXPC) PluginHeader() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("pluginHeader"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/PluginBackendXPC/initWithURL:openMode:
 func (p PluginBackendXPC) InitWithURLOpenMode(url foundation.INSURL, mode int) PluginBackendXPC {
 	rv := objc.Send[PluginBackendXPC](p.ID, objc.Sel("initWithURL:openMode:"), url, mode)
@@ -132,4 +132,3 @@ func (p PluginBackendXPC) URL() IDIURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))
 	return DIURLFromID(objc.ID(rv))
 }
-

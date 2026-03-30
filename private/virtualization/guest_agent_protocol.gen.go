@@ -18,6 +18,7 @@ type VZGuestAgent interface {
 type VZGuestAgentObject struct {
 	objectivec.Object
 }
+
 func (o VZGuestAgentObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func VZGuestAgentObjectFromID(id objc.ID) VZGuestAgentObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZConsolePortConfigurationClass) Alloc() VZConsolePortConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZConsolePortConfiguration._init]
@@ -50,6 +50,7 @@ func (vc VZConsolePortConfigurationClass) Alloc() VZConsolePortConfiguration {
 //   - [VZConsolePortConfiguration.Description]
 //   - [VZConsolePortConfiguration.Hash]
 //   - [VZConsolePortConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration
 type VZConsolePortConfiguration struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type VZConsolePortConfiguration struct {
 func VZConsolePortConfigurationFromID(id objc.ID) VZConsolePortConfiguration {
 	return VZConsolePortConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZConsolePortConfiguration implements IVZConsolePortConfiguration.
 var _ IVZConsolePortConfiguration = VZConsolePortConfiguration{}
 
@@ -115,19 +117,21 @@ func (c VZConsolePortConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/description
 func (c VZConsolePortConfiguration) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/hash
 func (c VZConsolePortConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/superclass
 func (c VZConsolePortConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
 	return rv
 }
-

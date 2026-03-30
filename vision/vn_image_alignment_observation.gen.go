@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VNImageAlignmentObservationClass) Alloc() VNImageAlignmentObservation {
 // relative alignment of two images.
 //
 // # Overview
-// 
+//
 // This abstract superclass forms the basis of image alignment or registration
 // output. You receive its subclasses, such as
 // [VNImageTranslationAlignmentObservation] and
@@ -63,6 +64,7 @@ type VNImageAlignmentObservation struct {
 func VNImageAlignmentObservationFromID(id objc.ID) VNImageAlignmentObservation {
 	return VNImageAlignmentObservation{VNObservation: VNObservationFromID(id)}
 }
+
 // NOTE: VNImageAlignmentObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -91,4 +93,3 @@ func NewVNImageAlignmentObservation() VNImageAlignmentObservation {
 	rv := objc.Send[VNImageAlignmentObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

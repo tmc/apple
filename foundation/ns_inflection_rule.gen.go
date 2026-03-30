@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,13 +46,13 @@ func (nc NSInflectionRuleClass) Alloc() NSInflectionRule {
 // agreement.
 //
 // # Overview
-// 
+//
 // Most apps can rely on loading localized strings to perform automatic
 // grammar agreement. Typically, your app’s strings files use the Markdown
 // extension syntax to indicate portions of the string that may require
 // inflection to agree grammatically. This transformation occurs when you load
 // the attributed string with methods like [NSLocalizedAttributedString].
-// 
+//
 // However, if the system lacks information about the words in the string, you
 // may need to apply an inflection rule programmatically. For example, a
 // social networking app may have gender information about other users that
@@ -62,9 +63,9 @@ func (nc NSInflectionRuleClass) Alloc() NSInflectionRule {
 // then call [AttributedStringByInflectingString] to perform the grammar
 // agreement and produce an edited string.
 //
-// [inflectionRule]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/inflectionRule
-//
 // See: https://developer.apple.com/documentation/Foundation/NSInflectionRule
+//
+// [inflectionRule]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/inflectionRule
 type NSInflectionRule struct {
 	objectivec.Object
 }
@@ -76,6 +77,7 @@ type NSInflectionRule struct {
 func NSInflectionRuleFromID(id objc.ID) NSInflectionRule {
 	return NSInflectionRule{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSInflectionRule adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -111,12 +113,12 @@ func NewNSInflectionRule() NSInflectionRule {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (i NSInflectionRule) InitWithCoder(coder INSCoder) NSInflectionRule {
 	rv := objc.Send[NSInflectionRule](i.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -145,11 +147,12 @@ func (_NSInflectionRuleClass NSInflectionRuleClass) AutomaticRule() NSInflection
 	rv := objc.Send[objc.ID](objc.ID(_NSInflectionRuleClass.class), objc.Sel("automaticRule"))
 	return NSInflectionRuleFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the rule can inflect the user’s
 // current preferred localization.
 //
 // # Discussion
-// 
+//
 // This value doesn’t change throughout the lifetime of a process.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInflectionRule/canInflectPreferredLocalization
@@ -158,9 +161,6 @@ func (_NSInflectionRuleClass NSInflectionRuleClass) CanInflectPreferredLocalizat
 	return rv
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

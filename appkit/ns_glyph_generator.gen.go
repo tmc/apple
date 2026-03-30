@@ -3,8 +3,9 @@
 package appkit
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,12 +47,12 @@ func (nc NSGlyphGeneratorClass) Alloc() NSGlyphGenerator {
 // layout process.
 //
 // # Overview
-// 
+//
 // The nominal glyph generation pass essentially generates one glyph per
 // character; the typesetter may later make substitutions in the glyph stream,
 // for example, changing an acute accent glyph followed by an “e” glyph
 // into a single acute-accented “é” glyph.
-// 
+//
 // [NSGlyphGenerator] communicates via the [NSGlyphStorage] protocol. An
 // example of a class that conforms to the protocol is [NSLayoutManager].
 //
@@ -71,6 +72,7 @@ type NSGlyphGenerator struct {
 func NSGlyphGeneratorFromID(id objc.ID) NSGlyphGenerator {
 	return NSGlyphGenerator{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSGlyphGenerator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,7 +115,7 @@ func NewNSGlyphGenerator() NSGlyphGenerator {
 // by default).
 //
 // # Discussion
-// 
+//
 // Generates glyphs for the glyph storage object specified by `glyphStorage`,
 // beginning with the character at `charIndex` and continuing for `nChars`
 // characters. The `glyphIndex` specifies the index of the first glyph
@@ -131,4 +133,3 @@ func (_NSGlyphGeneratorClass NSGlyphGeneratorClass) SharedGlyphGenerator() NSGly
 	rv := objc.Send[objc.ID](objc.ID(_NSGlyphGeneratorClass.class), objc.Sel("sharedGlyphGenerator"))
 	return NSGlyphGeneratorFromID(objc.ID(rv))
 }
-

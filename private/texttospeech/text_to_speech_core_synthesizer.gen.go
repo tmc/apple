@@ -4,11 +4,12 @@ package texttospeech
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,6 @@ func (tc TextToSpeechCoreSynthesizerClass) Alloc() TextToSpeechCoreSynthesizer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TextToSpeechCoreSynthesizer._audioQueue]
@@ -84,6 +84,7 @@ func (tc TextToSpeechCoreSynthesizerClass) Alloc() TextToSpeechCoreSynthesizer {
 //   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackSynthCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer
 type TextToSpeechCoreSynthesizer struct {
 	objectivec.Object
@@ -93,6 +94,7 @@ type TextToSpeechCoreSynthesizer struct {
 func TextToSpeechCoreSynthesizerFromID(id objc.ID) TextToSpeechCoreSynthesizer {
 	return TextToSpeechCoreSynthesizer{objectivec.Object{ID: id}}
 }
+
 // Ensure TextToSpeechCoreSynthesizer implements ITextToSpeechCoreSynthesizer.
 var _ ITextToSpeechCoreSynthesizer = TextToSpeechCoreSynthesizer{}
 
@@ -205,71 +207,71 @@ func (t TextToSpeechCoreSynthesizer) ContinueSpeaking() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("continueSpeaking"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/pauseSpeakingAt:completionHandler:
 func (t TextToSpeechCoreSynthesizer) PauseSpeakingAtCompletionHandler(at int64, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("pauseSpeakingAt:completionHandler:"), at, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/setLegacySubstitutions:
 func (t TextToSpeechCoreSynthesizer) SetLegacySubstitutions(substitutions objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setLegacySubstitutions:"), substitutions)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/speak:synth:completionHandler:
 func (t TextToSpeechCoreSynthesizer) SpeakSynthCompletionHandler(speak avfaudio.AVSpeechUtterance, synth avfaudio.AVSpeechSynthesizer, handler ErrorHandler) {
-_block2, _ := NewErrorBlock(handler)
+	_block2, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("speak:synth:completionHandler:"), speak, synth, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/speakWithRequest:language:synthesizer:completionHandler:
 func (t TextToSpeechCoreSynthesizer) SpeakWithRequestLanguageSynthesizerCompletionHandler(request objectivec.IObject, language objectivec.IObject, synthesizer objectivec.IObject, handler ErrorHandler) {
-_block3, _ := NewErrorBlock(handler)
+	_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("speakWithRequest:language:synthesizer:completionHandler:"), request, language, synthesizer, _block3)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/stopSpeakingAt:completionHandler:
 func (t TextToSpeechCoreSynthesizer) StopSpeakingAtCompletionHandler(at int64, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("stopSpeakingAt:completionHandler:"), at, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/stopWithCompletionHandler:
 func (t TextToSpeechCoreSynthesizer) StopWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("stopWithCompletionHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/voiceWithIdentifier:completionHandler:
 func (t TextToSpeechCoreSynthesizer) VoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/voiceWithLocale:completionHandler:
 func (t TextToSpeechCoreSynthesizer) VoiceWithLocaleCompletionHandler(locale foundation.NSLocale, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithLocale:completionHandler:"), locale, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/write:toBufferCallback:synth:completionHandler:
 func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, synth objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(callback)
+	_block1, _ := NewErrorBlock(callback)
 	_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("write:toBufferCallback:synth:completionHandler:"), write, _block1, synth, _block3)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/write:toBufferCallback:toMarkerCallback:synth:completionHandler:
 func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(callback)
+	_block1, _ := NewErrorBlock(callback)
 	_block4, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("write:toBufferCallback:toMarkerCallback:synth:completionHandler:"), write, _block1, callback2, synth, _block4)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/writeWithSpeechPhrase:toAudioFile:withAudioSettings:completionHandler:
 func (t TextToSpeechCoreSynthesizer) WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler(phrase string, file foundation.INSURL, settings foundation.INSDictionary, handler ErrorHandler) {
-_block3, _ := NewErrorBlock(handler)
+	_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("writeWithSpeechPhrase:toAudioFile:withAudioSettings:completionHandler:"), objc.String(phrase), file, settings, _block3)
 }
 
@@ -281,6 +283,7 @@ func (t TextToSpeechCoreSynthesizer) _audioQueue() ITTSWrappedAudioQueue {
 func (t TextToSpeechCoreSynthesizer) Set_audioQueue(value ITTSWrappedAudioQueue) {
 	objc.Send[struct{}](t.ID, objc.Sel("set_audioQueue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/_bundleIdentifier
 func (t TextToSpeechCoreSynthesizer) _bundleIdentifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_bundleIdentifier"))
@@ -289,6 +292,7 @@ func (t TextToSpeechCoreSynthesizer) _bundleIdentifier() string {
 func (t TextToSpeechCoreSynthesizer) Set_bundleIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("set_bundleIdentifier:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/_effects
 func (t TextToSpeechCoreSynthesizer) _effects() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_effects"))
@@ -297,6 +301,7 @@ func (t TextToSpeechCoreSynthesizer) _effects() foundation.INSArray {
 func (t TextToSpeechCoreSynthesizer) Set_effects(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("set_effects:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/_voiceResolver
 func (t TextToSpeechCoreSynthesizer) _voiceResolver() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("_voiceResolver"))
@@ -305,6 +310,7 @@ func (t TextToSpeechCoreSynthesizer) _voiceResolver() unsafe.Pointer {
 func (t TextToSpeechCoreSynthesizer) Set_voiceResolver(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("set_voiceResolver:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/audioDevice
 func (t TextToSpeechCoreSynthesizer) AudioDevice() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("audioDevice"))
@@ -313,6 +319,7 @@ func (t TextToSpeechCoreSynthesizer) AudioDevice() uint32 {
 func (t TextToSpeechCoreSynthesizer) SetAudioDevice(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAudioDevice:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/audioQueue
 func (t TextToSpeechCoreSynthesizer) AudioQueue() ITTSWrappedAudioQueue {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("audioQueue"))
@@ -321,6 +328,7 @@ func (t TextToSpeechCoreSynthesizer) AudioQueue() ITTSWrappedAudioQueue {
 func (t TextToSpeechCoreSynthesizer) SetAudioQueue(value ITTSWrappedAudioQueue) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAudioQueue:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/audioQueueFlags
 func (t TextToSpeechCoreSynthesizer) AudioQueueFlags() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("audioQueueFlags"))
@@ -329,6 +337,7 @@ func (t TextToSpeechCoreSynthesizer) AudioQueueFlags() uint32 {
 func (t TextToSpeechCoreSynthesizer) SetAudioQueueFlags(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/bundleIdentifier
 func (t TextToSpeechCoreSynthesizer) BundleIdentifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("bundleIdentifier"))
@@ -337,6 +346,7 @@ func (t TextToSpeechCoreSynthesizer) BundleIdentifier() string {
 func (t TextToSpeechCoreSynthesizer) SetBundleIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/effects
 func (t TextToSpeechCoreSynthesizer) Effects() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("effects"))
@@ -345,16 +355,19 @@ func (t TextToSpeechCoreSynthesizer) Effects() foundation.INSArray {
 func (t TextToSpeechCoreSynthesizer) SetEffects(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEffects:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/isPaused
 func (t TextToSpeechCoreSynthesizer) IsPaused() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isPaused"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/isSpeaking
 func (t TextToSpeechCoreSynthesizer) IsSpeaking() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSpeaking"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/offlineChain
 func (t TextToSpeechCoreSynthesizer) OfflineChain() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("offlineChain"))
@@ -363,6 +376,7 @@ func (t TextToSpeechCoreSynthesizer) OfflineChain() foundation.INSArray {
 func (t TextToSpeechCoreSynthesizer) SetOfflineChain(value foundation.INSArray) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOfflineChain:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/voiceResolver
 func (t TextToSpeechCoreSynthesizer) VoiceResolver() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("voiceResolver"))
@@ -506,4 +520,3 @@ func (t TextToSpeechCoreSynthesizer) WriteWithSpeechPhraseToAudioFileWithAudioSe
 		return ctx.Err()
 	}
 }
-

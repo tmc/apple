@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSGlyphInfoClass) Alloc() NSGlyphInfo {
 // A glyph attribute in an attributed string.
 //
 // # Overview
-// 
+//
 // Glyphs are the graphic representations of characters, stored in a font,
 // that the text system draws on a display or printed page. Before text can be
 // laid out, the layout manager (<[NSLayoutManager]) generates a stream of
@@ -56,7 +57,7 @@ func (nc NSGlyphInfoClass) Alloc() NSGlyphInfo {
 // string ([NSAttributedString]) and provides a means to override the standard
 // glyph generation process and substitute a specified glyph over the
 // attribute’s range.
-// 
+//
 // Glyph attributes are integer values that the layout manager uses to denote
 // special handling for particular glyphs during rendering. [NSGlyphInfo]
 // enables you to override a font’s built-in mapping from a Unicode
@@ -64,9 +65,6 @@ func (nc NSGlyphInfoClass) Alloc() NSGlyphInfo {
 // you to specify a variant glyph for a given character if the font contains
 // multiple variations for that character or to specify a glyph that doesn’t
 // have a standard mapping (such as some ligature glyphs).
-//
-// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
-// [NSGlyphInfoAttributeName]: https://developer.apple.com/documentation/AppKit/NSGlyphInfoAttributeName
 //
 // # Getting information about a glyph info object
 //
@@ -80,6 +78,9 @@ func (nc NSGlyphInfoClass) Alloc() NSGlyphInfo {
 //   - [NSGlyphInfo.GlyphName]: The receiver’s glyph name.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo
+//
+// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
+// [NSGlyphInfoAttributeName]: https://developer.apple.com/documentation/AppKit/NSGlyphInfoAttributeName
 type NSGlyphInfo struct {
 	objectivec.Object
 }
@@ -90,6 +91,7 @@ type NSGlyphInfo struct {
 func NSGlyphInfoFromID(id objc.ID) NSGlyphInfo {
 	return NSGlyphInfo{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSGlyphInfo adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -152,19 +154,19 @@ func NewNSGlyphInfo() NSGlyphInfo {
 // informaton.
 //
 // glyph: The requested [CGGlyph] object.
-// //
-// [CGGlyph]: https://developer.apple.com/documentation/CoreGraphics/CGGlyph
 //
 // font: The font containing the glyph.
 //
 // string: A string containing the character represented by the glyph.
 //
 // # Return Value
-// 
+//
 // A glyph info object for the specified glyph or `nil` if the glyph
 // information is not available.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(cgGlyph:for:baseString:)
+//
+// [CGGlyph]: https://developer.apple.com/documentation/CoreGraphics/CGGlyph
 func NewGlyphInfoWithCGGlyphForFontBaseString(glyph coregraphics.CGFontIndex, font NSFont, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithCGGlyph:forFont:baseString:"), glyph, font, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
@@ -177,60 +179,30 @@ func NewGlyphInfoWithCGGlyphForFontBaseString(glyph coregraphics.CGFontIndex, fo
 //
 // characterCollection: A string constant representing a character collection. Possible values are
 // described in [NSCharacterCollection].
-// //
-// [NSCharacterCollection]: https://developer.apple.com/documentation/AppKit/NSCharacterCollection
 //
 // string: The part of the attributed string the returned instance is intended to
 // override.
 //
 // # Return Value
-// 
+//
 // The created [NSGlyphInfo] object or `nil` if the object couldn’t be
 // created.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(characterIdentifier:collection:baseString:)
+//
+// [NSCharacterCollection]: https://developer.apple.com/documentation/AppKit/NSCharacterCollection
 func NewGlyphInfoWithCharacterIdentifierCollectionBaseString(cid uint, characterCollection NSCharacterCollection, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithCharacterIdentifier:collection:baseString:"), cid, characterCollection, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
 }
 
-// Instantiates and returns a glyph information object using a glyph index and
-// a specified font.
-//
-// glyph: The identifier of the glyph.
-//
-// font: The font object to be associated with the returned [NSGlyphInfo] object,
-//
-// string: The part of the attributed string the returned instance is intended to
-// override.
-//
-// # Return Value
-// 
-// The created [NSGlyphInfo] object or `nil` if the object couldn’t be
-// created.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyph:forFont:baseString:)
+// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyph:for:baseString:)
 func NewGlyphInfoWithGlyphForFontBaseString(glyph NSGlyph, font NSFont, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithGlyph:forFont:baseString:"), glyph, font, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
 }
 
-// Instantiates and returns a glyph information object using a glyph name and
-// a specified font.
-//
-// glyphName: The name of the glyph.
-//
-// font: The font object to be associated with the returned [NSGlyphInfo] object,
-//
-// string: The part of the attributed string the returned instance is intended to
-// override.
-//
-// # Return Value
-// 
-// The created [NSGlyphInfo] object or `nil` if the object couldn’t be
-// created.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyphName:forFont:baseString:)
+// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyphName:for:baseString:)
 func NewGlyphInfoWithGlyphNameForFontBaseString(glyphName string, font NSFont, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithGlyphName:forFont:baseString:"), objc.String(glyphName), font, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
@@ -247,6 +219,7 @@ func (g NSGlyphInfo) BaseString() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("baseString"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The glyph identifier, specified as the index into the internal glyph table
 // of the font.
 //
@@ -255,6 +228,7 @@ func (g NSGlyphInfo) GlyphID() coregraphics.CGFontIndex {
 	rv := objc.Send[coregraphics.CGFontIndex](g.ID, objc.Sel("glyphID"))
 	return coregraphics.CGFontIndex(rv)
 }
+
 // The receiver’s character identifier (CID).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/characterIdentifier
@@ -262,6 +236,7 @@ func (g NSGlyphInfo) CharacterIdentifier() uint {
 	rv := objc.Send[uint](g.ID, objc.Sel("characterIdentifier"))
 	return rv
 }
+
 // A value specifying the glyph–to–character identifier mapping of the
 // receiver.
 //
@@ -270,6 +245,7 @@ func (g NSGlyphInfo) CharacterCollection() NSCharacterCollection {
 	rv := objc.Send[NSCharacterCollection](g.ID, objc.Sel("characterCollection"))
 	return NSCharacterCollection(rv)
 }
+
 // The receiver’s glyph name.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/glyphName
@@ -277,4 +253,3 @@ func (g NSGlyphInfo) GlyphName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("glyphName"))
 	return foundation.NSStringFromID(rv).String()
 }
-

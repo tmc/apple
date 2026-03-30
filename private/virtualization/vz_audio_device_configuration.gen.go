@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZAudioDeviceConfigurationClass) Alloc() VZAudioDeviceConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZAudioDeviceConfiguration._init]
@@ -55,6 +55,7 @@ func (vc VZAudioDeviceConfigurationClass) Alloc() VZAudioDeviceConfiguration {
 //   - [VZAudioDeviceConfiguration.Description]
 //   - [VZAudioDeviceConfiguration.Hash]
 //   - [VZAudioDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration
 type VZAudioDeviceConfiguration struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type VZAudioDeviceConfiguration struct {
 func VZAudioDeviceConfigurationFromID(id objc.ID) VZAudioDeviceConfiguration {
 	return VZAudioDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZAudioDeviceConfiguration implements IVZAudioDeviceConfiguration.
 var _ IVZAudioDeviceConfiguration = VZAudioDeviceConfiguration{}
 
@@ -124,7 +126,7 @@ func (a VZAudioDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_makeAudioDeviceForVirtualMachine:audioDeviceIndex:
 func (a VZAudioDeviceConfiguration) _makeAudioDeviceForVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("_makeAudioDeviceForVirtualMachine:audioDeviceIndex:"), machine, index)
@@ -135,7 +137,7 @@ func (a VZAudioDeviceConfiguration) _makeAudioDeviceForVirtualMachineAudioDevice
 func (a VZAudioDeviceConfiguration) MakeAudioDeviceForVirtualMachineAudioDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject {
 	return a._makeAudioDeviceForVirtualMachineAudioDeviceIndex(machine, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_setRole:
 func (a VZAudioDeviceConfiguration) _setRole(role int64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("_setRole:"), role)
@@ -151,6 +153,7 @@ func (a VZAudioDeviceConfiguration) _audioDevice() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("_audioDevice"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/_role
 func (a VZAudioDeviceConfiguration) _role() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("_role"))
@@ -159,24 +162,27 @@ func (a VZAudioDeviceConfiguration) _role() int64 {
 func (a VZAudioDeviceConfiguration) Set_role(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("set_role:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/debugDescription
 func (a VZAudioDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/description
 func (a VZAudioDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/hash
 func (a VZAudioDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZAudioDeviceConfiguration/superclass
 func (a VZAudioDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
 	return rv
 }
-

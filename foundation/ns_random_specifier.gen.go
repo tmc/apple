@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -55,6 +56,7 @@ type NSRandomSpecifier struct {
 func NSRandomSpecifierFromID(id objc.ID) NSRandomSpecifier {
 	return NSRandomSpecifier{NSScriptObjectSpecifier: NSScriptObjectSpecifierFromID(id)}
 }
+
 // NOTE: NSRandomSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -84,7 +86,6 @@ func NewNSRandomSpecifier() NSRandomSpecifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(coder:)
 func NewRandomSpecifierWithCoder(inCoder INSCoder) NSRandomSpecifier {
 	instance := getNSRandomSpecifierClass().Alloc()
@@ -96,16 +97,16 @@ func NewRandomSpecifierWithCoder(inCoder INSCoder) NSRandomSpecifier {
 // attributes.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier`, key `key`, and the class description of the object specifier
 // `classDescription`, derived from the value of the specifier’s key.
 //
 // # Discussion
-// 
+//
 // You should never pass `nil` for the value of `classDescription`. The
 // receiver’s child reference is set to `nil`.
-// 
+//
 // This is the designated initializer for [NSScriptObjectSpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)
@@ -119,12 +120,12 @@ func NewRandomSpecifierWithContainerClassDescriptionContainerSpecifierKey(classD
 // container specifier and key.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier` and key `key`.
 //
 // # Discussion
-// 
+//
 // The class description of the container is set automatically.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerSpecifier:key:)
@@ -133,4 +134,3 @@ func NewRandomSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecif
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerSpecifier:key:"), container, objc.String(property))
 	return NSRandomSpecifierFromID(rv)
 }
-

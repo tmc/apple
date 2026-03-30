@@ -4,7 +4,9 @@ package security
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,11 +68,33 @@ type AuthorizationString = *byte
 // See: https://developer.apple.com/documentation/Security/CE_CrlNumber
 type CE_CrlNumber = uint32
 
+// Deprecated: Deprecated since macOS 10.7.
+//
+// See: https://developer.apple.com/documentation/Security/CE_CrlReason
+type CE_CrlReason = uint32
+
 // See: https://developer.apple.com/documentation/Security/CE_DeltaCrl
 type CE_DeltaCrl = uint32
 
-// See: https://developer.apple.com/documentation/Security/CE_ExtendedKeyUsage-swift.typealias
-type CE_ExtendedKeyUsage = unsafe.Pointer
+// Deprecated: Deprecated since macOS 10.7.
+//
+// See: https://developer.apple.com/documentation/Security/CE_InhibitAnyPolicy
+type CE_InhibitAnyPolicy = uint32
+
+// Deprecated: Deprecated since macOS 10.7.
+//
+// See: https://developer.apple.com/documentation/Security/CE_KeyUsage
+type CE_KeyUsage = uint16
+
+// Deprecated: Deprecated since macOS 10.7.
+//
+// See: https://developer.apple.com/documentation/Security/CE_NetscapeCertType
+type CE_NetscapeCertType = uint16
+
+// Deprecated: Deprecated since macOS 10.7.
+//
+// See: https://developer.apple.com/documentation/Security/CE_SubjectKeyID
+type CE_SubjectKeyID = string
 
 // CMSDecoderRef is an opaque reference to a CMS decoder object.
 //
@@ -592,6 +616,13 @@ type SecAccessOwnerType = uint32
 // See: https://developer.apple.com/documentation/Security/SecAccess
 type SecAccessRef uintptr
 
+// SecAsn1Item is a structure holding DER encoded data.
+//
+// Deprecated: Deprecated since macOS 12.0. SecAsn1 is not supported
+//
+// See: https://developer.apple.com/documentation/Security/SecAsn1Item
+type SecAsn1Item = Cssm_data
+
 // SecCertificateRef is an abstract Core Foundation-type object representing an X.509 certificate.
 //
 // See: https://developer.apple.com/documentation/Security/SecCertificate
@@ -605,7 +636,7 @@ type SecCodeRef uintptr
 // SecGuestRef is a reference to a guest object, which identifies a particular block of guest code in the context of its code signing host.
 //
 // See: https://developer.apple.com/documentation/Security/SecGuestRef
-type SecGuestRef = uint32
+type SecGuestRef = kernel.U_int32_t
 
 // SecIdentityRef is an abstract Core Foundation-type object representing an identity.
 //
@@ -778,7 +809,7 @@ type Sec_protocol_challenge_t = func(*objectivec.Object)
 type Sec_protocol_key_update_complete_t = func()
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_key_update_t
-type Sec_protocol_key_update_t = func(*objectivec.Object, )
+type Sec_protocol_key_update_t = func(*objectivec.Object)
 
 // Sec_protocol_metadata_t is a `sec_protocol_metadata` instance conatins read-only properties of a connected and configured security protocol. Clients use this object to read information about a protocol instance. Properties include, for example, the negotiated TLS version, ciphersuite, and peer certificates.
 //
@@ -800,7 +831,7 @@ type Sec_protocol_pre_shared_key_selection_t = func(*objectivec.Object)
 type Sec_protocol_verify_complete_t = func(bool)
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_verify_t
-type Sec_protocol_verify_t = func(*objectivec.Object, )
+type Sec_protocol_verify_t = func(*objectivec.Object)
 
 // Sec_trust_t is these are os_object compatible and ARC-able wrappers around existing CoreFoundation Security types, including: SecTrustRef, SecIdentityRef, and SecCertificateRef. They allow clients to use these types in os_object-type APIs and data structures. The underlying CoreFoundation types may be extracted and used by clients as needed.
 //
@@ -818,4 +849,3 @@ type Sint64 = int64
 
 // See: https://developer.apple.com/documentation/Security/sint8
 type Sint8 = int8
-

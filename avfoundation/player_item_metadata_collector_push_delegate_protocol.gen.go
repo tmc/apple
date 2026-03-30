@@ -3,8 +3,8 @@
 package avfoundation
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -24,6 +24,7 @@ type AVPlayerItemMetadataCollectorPushDelegate interface {
 type AVPlayerItemMetadataCollectorPushDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVPlayerItemMetadataCollectorPushDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -51,7 +52,7 @@ func AVPlayerItemMetadataCollectorPushDelegateObjectFromID(id objc.ID) AVPlayerI
 // invocation of this method.
 //
 // # Discussion
-// 
+//
 // This method is called when additions or modifications are made to the array
 // of collected metadata groups. The initial invocation will have
 // `indexesOfNewGroup` referring to every index in `metadataGroups`.
@@ -62,5 +63,4 @@ func AVPlayerItemMetadataCollectorPushDelegateObjectFromID(id objc.ID) AVPlayerI
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemMetadataCollectorPushDelegate/metadataCollector(_:didCollect:indexesOfNewGroups:indexesOfModifiedGroups:)
 func (o AVPlayerItemMetadataCollectorPushDelegateObject) MetadataCollectorDidCollectDateRangeMetadataGroupsIndexesOfNewGroupsIndexesOfModifiedGroups(metadataCollector IAVPlayerItemMetadataCollector, metadataGroups []AVDateRangeMetadataGroup, indexesOfNewGroups foundation.NSIndexSet, indexesOfModifiedGroups foundation.NSIndexSet) {
 	objc.Send[struct{}](o.ID, objc.Sel("metadataCollector:didCollectDateRangeMetadataGroups:indexesOfNewGroups:indexesOfModifiedGroups:"), metadataCollector, objectivec.IObjectSliceToNSArray(metadataGroups), indexesOfNewGroups, indexesOfModifiedGroups)
-	}
-
+}

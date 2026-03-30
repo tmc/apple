@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // The interface an XML parser uses to inform its delegate about the content of the parsed document.
@@ -20,6 +22,7 @@ type NSXMLParserDelegate interface {
 type NSXMLParserDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSXMLParserDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,7 +43,8 @@ func NSXMLParserDelegateObjectFromID(id objc.ID) NSXMLParserDelegateObject {
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parserDidStartDocument(_:)
 func (o NSXMLParserDelegateObject) ParserDidStartDocument(parser INSXMLParser) {
 	objc.Send[struct{}](o.ID, objc.Sel("parserDidStartDocument:"), parser)
-	}
+}
+
 // Sent by the parser object to the delegate when it has successfully
 // completed parsing.
 //
@@ -49,7 +53,8 @@ func (o NSXMLParserDelegateObject) ParserDidStartDocument(parser INSXMLParser) {
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parserDidEndDocument(_:)
 func (o NSXMLParserDelegateObject) ParserDidEndDocument(parser INSXMLParser) {
 	objc.Send[struct{}](o.ID, objc.Sel("parserDidEndDocument:"), parser)
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters a start tag for
 // a given element.
 //
@@ -69,7 +74,8 @@ func (o NSXMLParserDelegateObject) ParserDidEndDocument(parser INSXMLParser) {
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:didStartElement:namespaceURI:qualifiedName:attributes:)
 func (o NSXMLParserDelegateObject) ParserDidStartElementNamespaceURIQualifiedNameAttributes(parser INSXMLParser, elementName string, namespaceURI string, qName string, attributeDict INSDictionary) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:didStartElement:namespaceURI:qualifiedName:attributes:"), parser, objc.String(elementName), objc.String(namespaceURI), objc.String(qName), attributeDict)
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters an end tag for a
 // specific element.
 //
@@ -86,7 +92,8 @@ func (o NSXMLParserDelegateObject) ParserDidStartElementNamespaceURIQualifiedNam
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:didEndElement:namespaceURI:qualifiedName:)
 func (o NSXMLParserDelegateObject) ParserDidEndElementNamespaceURIQualifiedName(parser INSXMLParser, elementName string, namespaceURI string, qName string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:didEndElement:namespaceURI:qualifiedName:"), parser, objc.String(elementName), objc.String(namespaceURI), objc.String(qName))
-	}
+}
+
 // Sent by a parser object to its delegate the first time it encounters a
 // given namespace prefix, which is mapped to a URI.
 //
@@ -97,14 +104,15 @@ func (o NSXMLParserDelegateObject) ParserDidEndElementNamespaceURIQualifiedName(
 // namespaceURI: A string that specifies a namespace URI.
 //
 // # Discussion
-// 
+//
 // The parser object sends this message only when namespace-prefix reporting
 // is turned on through the [ShouldReportNamespacePrefixes] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:didStartMappingPrefix:toURI:)
 func (o NSXMLParserDelegateObject) ParserDidStartMappingPrefixToURI(parser INSXMLParser, prefix string, namespaceURI string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:didStartMappingPrefix:toURI:"), parser, objc.String(prefix), objc.String(namespaceURI))
-	}
+}
+
 // Sent by a parser object to its delegate when a given namespace prefix goes
 // out of scope.
 //
@@ -113,14 +121,15 @@ func (o NSXMLParserDelegateObject) ParserDidStartMappingPrefixToURI(parser INSXM
 // prefix: A string that is a namespace prefix.
 //
 // # Discussion
-// 
+//
 // The parser sends this message only when namespace-prefix reporting is
 // turned on through the [ShouldReportNamespacePrefixes] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:didEndMappingPrefix:)
 func (o NSXMLParserDelegateObject) ParserDidEndMappingPrefix(parser INSXMLParser, prefix string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:didEndMappingPrefix:"), parser, objc.String(prefix))
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters a given external
 // entity with a specific system ID.
 //
@@ -131,12 +140,12 @@ func (o NSXMLParserDelegateObject) ParserDidEndMappingPrefix(parser INSXMLParser
 // systemID: A string that specifies the system ID for the external entity.
 //
 // # Return Value
-// 
+//
 // An [NSData] object that contains the resolution of the given external
 // entity.
 //
 // # Discussion
-// 
+//
 // The delegate can resolve the external entity (for example, locating and
 // reading an externally declared DTD) and provide the result to the parser
 // object as an [NSData] object.
@@ -145,7 +154,8 @@ func (o NSXMLParserDelegateObject) ParserDidEndMappingPrefix(parser INSXMLParser
 func (o NSXMLParserDelegateObject) ParserResolveExternalEntityNameSystemID(parser INSXMLParser, name string, systemID string) INSData {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("parser:resolveExternalEntityName:systemID:"), parser, objc.String(name), objc.String(systemID))
 	return NSDataFromID(rv)
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters a fatal error.
 //
 // parser: A parser object.
@@ -153,7 +163,7 @@ func (o NSXMLParserDelegateObject) ParserResolveExternalEntityNameSystemID(parse
 // parseError: An [NSError] object describing the parsing error that occurred.
 //
 // # Discussion
-// 
+//
 // When this method is invoked, parsing is stopped. For further information
 // about the error, you can query `parseError` or you can send the `parser` a
 // [ParserError] message. You can also send the parser [LineNumber] and
@@ -164,7 +174,8 @@ func (o NSXMLParserDelegateObject) ParserResolveExternalEntityNameSystemID(parse
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:parseErrorOccurred:)
 func (o NSXMLParserDelegateObject) ParserParseErrorOccurred(parser INSXMLParser, parseError INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:parseErrorOccurred:"), parser, parseError)
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters a fatal
 // validation error. [NSXMLParser] currently does not invoke this method and
 // does not perform validation.
@@ -176,7 +187,8 @@ func (o NSXMLParserDelegateObject) ParserParseErrorOccurred(parser INSXMLParser,
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:validationErrorOccurred:)
 func (o NSXMLParserDelegateObject) ParserValidationErrorOccurred(parser INSXMLParser, validationError INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:validationErrorOccurred:"), parser, validationError)
-	}
+}
+
 // Sent by a parser object to provide its delegate with a string representing
 // all or part of the characters of the current element.
 //
@@ -186,7 +198,7 @@ func (o NSXMLParserDelegateObject) ParserValidationErrorOccurred(parser INSXMLPa
 // current element.
 //
 // # Discussion
-// 
+//
 // The parser object may send the delegate several [ParserFoundCharacters]
 // messages to report the characters of an element. Because `string` may be
 // only part of the total character content for the current element, you
@@ -196,7 +208,8 @@ func (o NSXMLParserDelegateObject) ParserValidationErrorOccurred(parser INSXMLPa
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundCharacters:)
 func (o NSXMLParserDelegateObject) ParserFoundCharacters(parser INSXMLParser, string_ string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundCharacters:"), parser, objc.String(string_))
-	}
+}
+
 // Reported by a parser object to provide its delegate with a string
 // representing all or part of the ignorable whitespace characters of the
 // current element.
@@ -207,7 +220,7 @@ func (o NSXMLParserDelegateObject) ParserFoundCharacters(parser INSXMLParser, st
 // the current element.
 //
 // # Discussion
-// 
+//
 // All the whitespace characters of the element (including carriage returns,
 // tabs, and new-line characters) may not be provided through an individual
 // invocation of this method. The parser may send the delegate several
@@ -218,7 +231,8 @@ func (o NSXMLParserDelegateObject) ParserFoundCharacters(parser INSXMLParser, st
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundIgnorableWhitespace:)
 func (o NSXMLParserDelegateObject) ParserFoundIgnorableWhitespace(parser INSXMLParser, whitespaceString string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundIgnorableWhitespace:"), parser, objc.String(whitespaceString))
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters a processing
 // instruction.
 //
@@ -231,7 +245,8 @@ func (o NSXMLParserDelegateObject) ParserFoundIgnorableWhitespace(parser INSXMLP
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundProcessingInstructionWithTarget:data:)
 func (o NSXMLParserDelegateObject) ParserFoundProcessingInstructionWithTargetData(parser INSXMLParser, target string, data string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundProcessingInstructionWithTarget:data:"), parser, objc.String(target), objc.String(data))
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters a comment in the
 // XML.
 //
@@ -242,7 +257,8 @@ func (o NSXMLParserDelegateObject) ParserFoundProcessingInstructionWithTargetDat
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundComment:)
 func (o NSXMLParserDelegateObject) ParserFoundComment(parser INSXMLParser, comment string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundComment:"), parser, objc.String(comment))
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters a CDATA block.
 //
 // parser: An [NSXMLParser] object parsing XML.
@@ -250,7 +266,7 @@ func (o NSXMLParserDelegateObject) ParserFoundComment(parser INSXMLParser, comme
 // CDATABlock: A data object containing a block of CDATA.
 //
 // # Discussion
-// 
+//
 // Through this method the parser object passes the contents of the block to
 // its delegate in an [NSData] object. The CDATA block is character data that
 // is ignored by the parser. The encoding of the character data is UTF-8. To
@@ -260,7 +276,8 @@ func (o NSXMLParserDelegateObject) ParserFoundComment(parser INSXMLParser, comme
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundCDATA:)
 func (o NSXMLParserDelegateObject) ParserFoundCDATA(parser INSXMLParser, CDATABlock INSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundCDATA:"), parser, CDATABlock)
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters a declaration of
 // an attribute that is associated with a specific element.
 //
@@ -279,7 +296,8 @@ func (o NSXMLParserDelegateObject) ParserFoundCDATA(parser INSXMLParser, CDATABl
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundAttributeDeclarationWithName:forElement:type:defaultValue:)
 func (o NSXMLParserDelegateObject) ParserFoundAttributeDeclarationWithNameForElementTypeDefaultValue(parser INSXMLParser, attributeName string, elementName string, type_ string, defaultValue string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundAttributeDeclarationWithName:forElement:type:defaultValue:"), parser, objc.String(attributeName), objc.String(elementName), objc.String(type_), objc.String(defaultValue))
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters a declaration of
 // an element with a given model.
 //
@@ -292,7 +310,8 @@ func (o NSXMLParserDelegateObject) ParserFoundAttributeDeclarationWithNameForEle
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundElementDeclarationWithName:model:)
 func (o NSXMLParserDelegateObject) ParserFoundElementDeclarationWithNameModel(parser INSXMLParser, elementName string, model string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundElementDeclarationWithName:model:"), parser, objc.String(elementName), objc.String(model))
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters an external
 // entity declaration.
 //
@@ -307,7 +326,8 @@ func (o NSXMLParserDelegateObject) ParserFoundElementDeclarationWithNameModel(pa
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundExternalEntityDeclarationWithName:publicID:systemID:)
 func (o NSXMLParserDelegateObject) ParserFoundExternalEntityDeclarationWithNamePublicIDSystemID(parser INSXMLParser, name string, publicID string, systemID string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundExternalEntityDeclarationWithName:publicID:systemID:"), parser, objc.String(name), objc.String(publicID), objc.String(systemID))
-	}
+}
+
 // Sent by a parser object to the delegate when it encounters an internal
 // entity declaration.
 //
@@ -320,7 +340,8 @@ func (o NSXMLParserDelegateObject) ParserFoundExternalEntityDeclarationWithNameP
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundInternalEntityDeclarationWithName:value:)
 func (o NSXMLParserDelegateObject) ParserFoundInternalEntityDeclarationWithNameValue(parser INSXMLParser, name string, value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundInternalEntityDeclarationWithName:value:"), parser, objc.String(name), objc.String(value))
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters an unparsed
 // entity declaration.
 //
@@ -337,7 +358,8 @@ func (o NSXMLParserDelegateObject) ParserFoundInternalEntityDeclarationWithNameV
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundUnparsedEntityDeclarationWithName:publicID:systemID:notationName:)
 func (o NSXMLParserDelegateObject) ParserFoundUnparsedEntityDeclarationWithNamePublicIDSystemIDNotationName(parser INSXMLParser, name string, publicID string, systemID string, notationName string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundUnparsedEntityDeclarationWithName:publicID:systemID:notationName:"), parser, objc.String(name), objc.String(publicID), objc.String(systemID), objc.String(notationName))
-	}
+}
+
 // Sent by a parser object to its delegate when it encounters a notation
 // declaration.
 //
@@ -352,7 +374,7 @@ func (o NSXMLParserDelegateObject) ParserFoundUnparsedEntityDeclarationWithNameP
 // See: https://developer.apple.com/documentation/Foundation/XMLParserDelegate/parser(_:foundNotationDeclarationWithName:publicID:systemID:)
 func (o NSXMLParserDelegateObject) ParserFoundNotationDeclarationWithNamePublicIDSystemID(parser INSXMLParser, name string, publicID string, systemID string) {
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundNotationDeclarationWithName:publicID:systemID:"), parser, objc.String(name), objc.String(publicID), objc.String(systemID))
-	}
+}
 
 // NSXMLParserDelegateConfig holds optional typed callbacks for [NSXMLParserDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -469,4 +491,3 @@ func NewNSXMLParserDelegate(config NSXMLParserDelegateConfig) NSXMLParserDelegat
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSXMLParserDelegateObjectFromID(instance)
 }
-

@@ -5,11 +5,12 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,7 +50,7 @@ func (ac AVAssetImageGeneratorClass) Alloc() AVAssetImageGenerator {
 // An object that generates images from a video asset.
 //
 // # Overview
-// 
+//
 // Use an image generator to extract images from a video asset at particular
 // times within its timeline.
 //
@@ -99,6 +100,7 @@ type AVAssetImageGenerator struct {
 func AVAssetImageGeneratorFromID(id objc.ID) AVAssetImageGenerator {
 	return AVAssetImageGenerator{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetImageGenerator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -231,6 +233,7 @@ func (a AVAssetImageGenerator) InitWithAsset(asset IAVAsset) AVAssetImageGenerat
 	rv := objc.Send[AVAssetImageGenerator](a.ID, objc.Sel("initWithAsset:"), asset)
 	return rv
 }
+
 // Generates an image asynchronously for a requested time, and returns the
 // result in a callback.
 //
@@ -241,16 +244,17 @@ func (a AVAssetImageGenerator) InitWithAsset(asset IAVAsset) AVAssetImageGenerat
 // handler: A callback that the image generator invokes with the result of the request.
 //
 // # Discussion
-// 
+//
 // Swift clients should use the asynchronous [image(at:)] method instead.
 //
-// [image(at:)]: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/image(at:)
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/generateCGImageAsynchronously(for:completionHandler:)
+//
+// [image(at:)]: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/image(at:)
 func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime coremedia.CMTime, handler CGImageRefErrorHandler) {
-_block1, _ := NewCGImageRefErrorBlock(handler)
+	_block1, _ := NewCGImageRefErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("generateCGImageAsynchronouslyForTime:completionHandler:"), requestedTime, _block1)
 }
+
 // Generates images asynchronously for an array of requested times, and
 // returns the results in a callback.
 //
@@ -260,20 +264,21 @@ _block1, _ := NewCGImageRefErrorBlock(handler)
 // handler: A callback that the image generator invokes for each requested image time.
 //
 // # Discussion
-// 
+//
 // Swift clients should prefer the asynchronous `images()` method instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/generateCGImagesAsynchronously(forTimes:completionHandler:)
 func (a AVAssetImageGenerator) GenerateCGImagesAsynchronouslyForTimesCompletionHandler(requestedTimes []foundation.NSValue, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("generateCGImagesAsynchronouslyForTimes:completionHandler:"), requestedTimes, _block1)
 }
+
 // Cancels all pending image generation requests.
 //
 // # Discussion
-// 
+//
 // Calling this method invokes the handler block with a result of
-// [AssetImageGeneratorCancelled] for all requested times for which the
+// [AVAssetImageGeneratorCancelled] for all requested times for which the
 // generator hasn’t yet produced an image.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/cancelAllCGImageGeneration()
@@ -286,7 +291,7 @@ func (a AVAssetImageGenerator) CancelAllCGImageGeneration() {
 // asset: A video asset from which to generate images.
 //
 // # Return Value
-// 
+//
 // A new image generator.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/assetImageGeneratorWithAsset:
@@ -298,17 +303,17 @@ func (_AVAssetImageGeneratorClass AVAssetImageGeneratorClass) AssetImageGenerato
 // The maximum size of images to generate.
 //
 // # Discussion
-// 
+//
 // The default value is [zero], which generates images at the asset’s
 // unscaled dimensions.
-// 
+//
 // Setting a size scales images to fit their defined bounding boxes. You
 // define the aspect ratio of the scaled image by setting a value for the
 // [ApertureMode] property.
 //
-// [zero]: https://developer.apple.com/documentation/CoreFoundation/CGSize/zero
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/maximumSize
+//
+// [zero]: https://developer.apple.com/documentation/CoreFoundation/CGSize/zero
 func (a AVAssetImageGenerator) MaximumSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](a.ID, objc.Sel("maximumSize"))
 	return corefoundation.CGSize(rv)
@@ -316,20 +321,21 @@ func (a AVAssetImageGenerator) MaximumSize() corefoundation.CGSize {
 func (a AVAssetImageGenerator) SetMaximumSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMaximumSize:"), value)
 }
+
 // A maximum length of time before the requested time to allow image
 // generation to occur.
 //
 // # Discussion
-// 
+//
 // The default value is [positiveInfinity]. Set the values of
 // [RequestedTimeToleranceBefore] and [RequestedTimeToleranceAfter] to [zero]
 // to request frame-accurate image generation; this may incur additional
 // decoding delay.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/requestedTimeToleranceBefore
+//
 // [positiveInfinity]: https://developer.apple.com/documentation/CoreMedia/CMTime/positiveInfinity
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/requestedTimeToleranceBefore
 func (a AVAssetImageGenerator) RequestedTimeToleranceBefore() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("requestedTimeToleranceBefore"))
 	return coremedia.CMTime(rv)
@@ -337,20 +343,21 @@ func (a AVAssetImageGenerator) RequestedTimeToleranceBefore() coremedia.CMTime {
 func (a AVAssetImageGenerator) SetRequestedTimeToleranceBefore(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRequestedTimeToleranceBefore:"), value)
 }
+
 // A maximum length of time after the requested time to allow image generation
 // to occur.
 //
 // # Discussion
-// 
+//
 // The default value is [positiveInfinity]. Set the values of
 // [RequestedTimeToleranceBefore] and [RequestedTimeToleranceAfter] to [zero]
 // to request frame-accurate image generation; this may incur additional
 // decoding delay.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/requestedTimeToleranceAfter
+//
 // [positiveInfinity]: https://developer.apple.com/documentation/CoreMedia/CMTime/positiveInfinity
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/requestedTimeToleranceAfter
 func (a AVAssetImageGenerator) RequestedTimeToleranceAfter() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("requestedTimeToleranceAfter"))
 	return coremedia.CMTime(rv)
@@ -358,15 +365,16 @@ func (a AVAssetImageGenerator) RequestedTimeToleranceAfter() coremedia.CMTime {
 func (a AVAssetImageGenerator) SetRequestedTimeToleranceAfter(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRequestedTimeToleranceAfter:"), value)
 }
+
 // The dynamic range policy to use when generating images.
 //
 // # Discussion
-// 
+//
 // This property defaults to [forceSDR].
 //
-// [forceSDR]: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/DynamicRangePolicy-swift.struct/forceSDR
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/dynamicRangePolicy-swift.property
+//
+// [forceSDR]: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/DynamicRangePolicy-swift.struct/forceSDR
 func (a AVAssetImageGenerator) DynamicRangePolicy() AVAssetImageGeneratorDynamicRangePolicy {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dynamicRangePolicy"))
 	return AVAssetImageGeneratorDynamicRangePolicy(foundation.NSStringFromID(rv).String())
@@ -374,18 +382,17 @@ func (a AVAssetImageGenerator) DynamicRangePolicy() AVAssetImageGeneratorDynamic
 func (a AVAssetImageGenerator) SetDynamicRangePolicy(value AVAssetImageGeneratorDynamicRangePolicy) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDynamicRangePolicy:"), objc.String(string(value)))
 }
+
 // A Boolean value that specifies whether to apply the track matrix or
 // matrices when generating an image from the asset.
 //
 // # Discussion
-// 
-// The default value is [false]. This class only supports rotation by 90, 180,
+//
+// The default value is false. This class only supports rotation by 90, 180,
 // or 270 degrees.
-// 
+//
 // The image generator ignores this property if you set a value for the
 // [VideoComposition] property.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/appliesPreferredTrackTransform
 func (a AVAssetImageGenerator) AppliesPreferredTrackTransform() bool {
@@ -395,15 +402,16 @@ func (a AVAssetImageGenerator) AppliesPreferredTrackTransform() bool {
 func (a AVAssetImageGenerator) SetAppliesPreferredTrackTransform(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAppliesPreferredTrackTransform:"), value)
 }
+
 // Specifies the aperture mode for the generated image.
 //
 // # Discussion
-// 
+//
 // The default value is [cleanAperture].
 //
-// [cleanAperture]: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/ApertureMode-swift.struct/cleanAperture
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/apertureMode-swift.property
+//
+// [cleanAperture]: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/ApertureMode-swift.struct/cleanAperture
 func (a AVAssetImageGenerator) ApertureMode() AVAssetImageGeneratorApertureMode {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("apertureMode"))
 	return AVAssetImageGeneratorApertureMode(foundation.NSStringFromID(rv).String())
@@ -411,27 +419,28 @@ func (a AVAssetImageGenerator) ApertureMode() AVAssetImageGeneratorApertureMode 
 func (a AVAssetImageGenerator) SetApertureMode(value AVAssetImageGeneratorApertureMode) {
 	objc.Send[struct{}](a.ID, objc.Sel("setApertureMode:"), objc.String(string(value)))
 }
+
 // A video composition to use when extracting images from assets with multiple
 // video tracks.
 //
 // # Discussion
-// 
+//
 // If you don’t specify a video composition, the generator only uses the
 // first enabled video track.
-// 
+//
 // If specify a video composition, the image generator ignores the value of
 // the [AppliesPreferredTrackTransform] property.
-// 
+//
 // Setting a video composition with any of the following attributes generates
 // an exception:
-// 
+//
 // - A [RenderScale] not equal to `1.0`. - A [RenderSize] with a width or
 // height less than `0`. - A [FrameDuration] that’s invalid, or less than or
 // equal to [zero]. - A [SourceTrackIDForFrameTiming] less than [zero].
 //
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/videoComposition
+//
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func (a AVAssetImageGenerator) VideoComposition() IAVVideoComposition {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("videoComposition"))
 	return AVVideoCompositionFromID(objc.ID(rv))
@@ -439,6 +448,7 @@ func (a AVAssetImageGenerator) VideoComposition() IAVVideoComposition {
 func (a AVAssetImageGenerator) SetVideoComposition(value IAVVideoComposition) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVideoComposition:"), value)
 }
+
 // A custom video compositor to use when extracting images from assets with
 // multiple video tracks.
 //
@@ -447,6 +457,7 @@ func (a AVAssetImageGenerator) CustomVideoCompositor() AVVideoCompositing {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("customVideoCompositor"))
 	return AVVideoCompositingObjectFromID(rv)
 }
+
 // The asset that initialized the image generator.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/asset
@@ -473,4 +484,3 @@ func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTime(ctx context.
 		return 0, ctx.Err()
 	}
 }
-

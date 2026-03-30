@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,19 +47,17 @@ func (nc NSClickGestureRecognizerClass) Alloc() NSClickGestureRecognizer {
 // clicks.
 //
 // # Overview
-// 
+//
 // When configuring this gesture recognizer, you can specify which mouse
 // buttons must be clicked and how many clicks must occur before the action
 // method is called. The user must click the specified mouse button the
 // required number of times without dragging the mouse for the gesture to be
 // recognized.
-// 
+//
 // The gesture recognizer automatically sets the values of the
 // [NSClickGestureRecognizer.DelaysPrimaryMouseButtonEvents], [NSClickGestureRecognizer.DelaysSecondaryMouseButtonEvents], and
-// [NSClickGestureRecognizer.DelaysOtherMouseButtonEvents] properties to [true] for each button in the
+// [NSClickGestureRecognizer.DelaysOtherMouseButtonEvents] properties to true for each button in the
 // [NSClickGestureRecognizer.ButtonMask] property.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Configuring the Gesture
 //
@@ -81,6 +80,7 @@ type NSClickGestureRecognizer struct {
 func NSClickGestureRecognizerFromID(id objc.ID) NSClickGestureRecognizer {
 	return NSClickGestureRecognizer{NSGestureRecognizer: NSGestureRecognizerFromID(id)}
 }
+
 // NOTE: NSClickGestureRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,7 +131,6 @@ func NewNSClickGestureRecognizer() NSClickGestureRecognizer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func NewClickGestureRecognizerWithCoder(coder foundation.INSCoder) NSClickGestureRecognizer {
 	instance := getNSClickGestureRecognizerClass().Alloc()
@@ -150,18 +149,18 @@ func NewClickGestureRecognizerWithCoder(coder foundation.INSCoder) NSClickGestur
 // must not specify `nil` for this parameter.
 //
 // # Return Value
-// 
+//
 // The initialized gesture recognizer object or `nil` if an error occurred.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer. Subclasses must call this method
 // from their own custom initialization methods. Call the method before
 // performing other tasks.
-// 
+//
 // This method records the specified `target` and `action` values and prepares
 // the gesture recognizer for use.
-// 
+//
 // The `action` method must have one of the following signatures:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(target:action:)
@@ -174,19 +173,17 @@ func NewClickGestureRecognizerWithTargetAction(target objectivec.IObject, action
 // A bit mask of the button (or buttons) required to recognize this click.
 //
 // # Discussion
-// 
+//
 // Bit `0` represents the primary button, bit `1` is the secondary button, and
 // so on. So to track clicks of the secondary button, assign the value `0x2`
 // (which corresponds to a `1` in bit `1`) to this property. The default value
 // of this property is `0x1`, which detects clicks in the primary mouse
 // button.
-// 
+//
 // Changing the value of this property also sets the values of the
 // [DelaysPrimaryMouseButtonEvents], [DelaysSecondaryMouseButtonEvents], and
-// [DelaysOtherMouseButtonEvents] properties to [true] for each of the buttons
+// [DelaysOtherMouseButtonEvents] properties to true for each of the buttons
 // you specified.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClickGestureRecognizer/buttonMask
 func (c NSClickGestureRecognizer) ButtonMask() uint {
@@ -196,10 +193,11 @@ func (c NSClickGestureRecognizer) ButtonMask() uint {
 func (c NSClickGestureRecognizer) SetButtonMask(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setButtonMask:"), value)
 }
+
 // The number of clicks required to match.
 //
 // # Discussion
-// 
+//
 // The value in this property should always be a positive integer. Negative
 // integers or `0` cause this object to never recognize its gesture. The
 // default value of this property is `1`.
@@ -212,6 +210,7 @@ func (c NSClickGestureRecognizer) NumberOfClicksRequired() int {
 func (c NSClickGestureRecognizer) SetNumberOfClicksRequired(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNumberOfClicksRequired:"), value)
 }
+
 // The number of touches required in an [NSTouchBar] object for the gesture
 // recognizer to match.
 //
@@ -223,4 +222,3 @@ func (c NSClickGestureRecognizer) NumberOfTouchesRequired() int {
 func (c NSClickGestureRecognizer) SetNumberOfTouchesRequired(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNumberOfTouchesRequired:"), value)
 }
-

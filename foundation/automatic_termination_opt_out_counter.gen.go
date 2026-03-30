@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type AutomaticTerminationOptOutCounter struct {
 func AutomaticTerminationOptOutCounterFromID(id objc.ID) AutomaticTerminationOptOutCounter {
 	return AutomaticTerminationOptOutCounter{objectivec.Object{ID: id}}
 }
+
 // Ensure AutomaticTerminationOptOutCounter implements IAutomaticTerminationOptOutCounter.
 var _ IAutomaticTerminationOptOutCounter = AutomaticTerminationOptOutCounter{}
 
@@ -78,4 +80,3 @@ func NewAutomaticTerminationOptOutCounter() AutomaticTerminationOptOutCounter {
 	rv := objc.Send[AutomaticTerminationOptOutCounter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

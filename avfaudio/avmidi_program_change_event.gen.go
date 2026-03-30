@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMIDIProgramChangeEventClass) Alloc() AVMIDIProgramChangeEvent {
 // An object that represents a MIDI program or patch change message.
 //
 // # Overview
-// 
+//
 // The effect of this message depends on the [AVMusicTrack] destination audio
 // unit.
 //
@@ -67,6 +68,7 @@ type AVMIDIProgramChangeEvent struct {
 func AVMIDIProgramChangeEventFromID(id objc.ID) AVMIDIProgramChangeEvent {
 	return AVMIDIProgramChangeEvent{AVMIDIChannelEvent: AVMIDIChannelEventFromID(id)}
 }
+
 // NOTE: AVMIDIProgramChangeEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -123,9 +125,9 @@ func NewAVMIDIProgramChangeEvent() AVMIDIProgramChangeEvent {
 // programNumber: The program number to send, between `0` and `127`.
 //
 // # Discussion
-// 
+//
 // The instrument this chooses depends on
-// [MIDIControlChangeMessageTypeBankSelect] events sent prior to this event.
+// [AVMIDIControlChangeMessageTypeBankSelect] events sent prior to this event.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIProgramChangeEvent/init(channel:programNumber:)
 func NewMIDIProgramChangeEventWithChannelProgramNumber(channel uint32, programNumber uint32) AVMIDIProgramChangeEvent {
@@ -141,9 +143,9 @@ func NewMIDIProgramChangeEventWithChannelProgramNumber(channel uint32, programNu
 // programNumber: The program number to send, between `0` and `127`.
 //
 // # Discussion
-// 
+//
 // The instrument this chooses depends on
-// [MIDIControlChangeMessageTypeBankSelect] events sent prior to this event.
+// [AVMIDIControlChangeMessageTypeBankSelect] events sent prior to this event.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIProgramChangeEvent/init(channel:programNumber:)
 func (m AVMIDIProgramChangeEvent) InitWithChannelProgramNumber(channel uint32, programNumber uint32) AVMIDIProgramChangeEvent {
@@ -161,4 +163,3 @@ func (m AVMIDIProgramChangeEvent) ProgramNumber() uint32 {
 func (m AVMIDIProgramChangeEvent) SetProgramNumber(value uint32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setProgramNumber:"), value)
 }
-

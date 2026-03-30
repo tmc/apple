@@ -296,15 +296,15 @@ func fastSend(id ID, sel SEL, args []uintptr) uintptr {
 // On arm64/amd64, purego's RegisterFunc produces direct assembly stubs when
 // all parameters are uintptr, avoiding reflect.MakeFunc entirely.
 var (
-	msgSend0 func(id, sel uintptr) uintptr
-	msgSend1 func(id, sel, a1 uintptr) uintptr
-	msgSend2 func(id, sel, a1, a2 uintptr) uintptr
-	msgSend3 func(id, sel, a1, a2, a3 uintptr) uintptr
-	msgSend4 func(id, sel, a1, a2, a3, a4 uintptr) uintptr
-	msgSend5 func(id, sel, a1, a2, a3, a4, a5 uintptr) uintptr
-	msgSend6 func(id, sel, a1, a2, a3, a4, a5, a6 uintptr) uintptr
-	msgSend7 func(id, sel, a1, a2, a3, a4, a5, a6, a7 uintptr) uintptr
-	msgSend8 func(id, sel, a1, a2, a3, a4, a5, a6, a7, a8 uintptr) uintptr
+	msgSend0        func(id, sel uintptr) uintptr
+	msgSend1        func(id, sel, a1 uintptr) uintptr
+	msgSend2        func(id, sel, a1, a2 uintptr) uintptr
+	msgSend3        func(id, sel, a1, a2, a3 uintptr) uintptr
+	msgSend4        func(id, sel, a1, a2, a3, a4 uintptr) uintptr
+	msgSend5        func(id, sel, a1, a2, a3, a4, a5 uintptr) uintptr
+	msgSend6        func(id, sel, a1, a2, a3, a4, a5, a6 uintptr) uintptr
+	msgSend7        func(id, sel, a1, a2, a3, a4, a5, a6, a7 uintptr) uintptr
+	msgSend8        func(id, sel, a1, a2, a3, a4, a5, a6, a7, a8 uintptr) uintptr
 	objcMsgSendAddr uintptr
 )
 
@@ -333,7 +333,6 @@ func initFastSend() {
 func init() {
 	initFastSend()
 }
-
 
 func cArrayArgIndexes(selector string, argc int) map[int]struct{} {
 	if selector == "" || !strings.Contains(selector, "count:") || argc < 2 {
@@ -542,11 +541,11 @@ func selName(sel SEL) string {
 }
 
 var (
-	class_addMethod                func(Class, SEL, uintptr, string) bool
-	objc_registerClassPair         func(Class)
-	objc_autoreleasePoolPush       func() uintptr
-	objc_autoreleasePoolPop        func(uintptr)
-	libobjc                        uintptr
+	class_addMethod          func(Class, SEL, uintptr, string) bool
+	objc_registerClassPair   func(Class)
+	objc_autoreleasePoolPush func() uintptr
+	objc_autoreleasePoolPop  func(uintptr)
+	libobjc                  uintptr
 )
 
 func ensureLibObjC() {
@@ -613,4 +612,3 @@ func CallWithError(id ID, sel SEL, args ...any) error {
 	_, err := SendWithError[ID](id, sel, args...)
 	return err
 }
-

@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (mc MTL4PipelineOptionsClass) Alloc() MTL4PipelineOptions {
 // Provides options controlling how to compile a pipeline state.
 //
 // # Overview
-// 
+//
 // You provide these options through the [MTL4PipelineDescriptor] class at
 // compilation time.
 //
@@ -66,6 +67,7 @@ type MTL4PipelineOptions struct {
 func MTL4PipelineOptionsFromID(id objc.ID) MTL4PipelineOptions {
 	return MTL4PipelineOptions{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4PipelineOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,6 +123,7 @@ func (m MTL4PipelineOptions) ShaderReflection() MTL4ShaderReflection {
 func (m MTL4PipelineOptions) SetShaderReflection(value MTL4ShaderReflection) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShaderReflection:"), value)
 }
+
 // Controls whether to enable or disable Metal Shader Validation for the
 // pipeline.
 //
@@ -132,4 +135,3 @@ func (m MTL4PipelineOptions) ShaderValidation() MTLShaderValidation {
 func (m MTL4PipelineOptions) SetShaderValidation(value MTLShaderValidation) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShaderValidation:"), value)
 }
-

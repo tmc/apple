@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,22 +45,20 @@ func (nc NSMutableIndexSetClass) Alloc() NSMutableIndexSet {
 // another collection.
 //
 // # Overview
-// 
+//
 // In Swift, this type bridges to [IndexSet]; use [NSMutableIndexSet] when you
 // need reference semantics or other Foundation-specific behavior.
-// 
+//
 // The [NSMutableIndexSet] class represents a mutable collection of unique
 // unsigned integers, known as because of the way they are used. This
 // collection is referred to as a . The inclusive range of valid indexes is
 // `0...(NSNotFound - 1)`; trying to use indexes outside this range is
 // invalid.
-// 
+//
 // The values in a mutable index set are always sorted, so the order in which
 // values are added is irrelevant.
-// 
-// Do not subclass the [NSMutableIndexSet] class.
 //
-// [IndexSet]: https://developer.apple.com/documentation/Foundation/IndexSet
+// Do not subclass the [NSMutableIndexSet] class.
 //
 // # Adding Indexes
 //
@@ -79,6 +78,8 @@ func (nc NSMutableIndexSetClass) Alloc() NSMutableIndexSet {
 //   - [NSMutableIndexSet.ShiftIndexesStartingAtIndexBy]: Shifts a group of indexes to the left or the right within the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableIndexSet
+//
+// [IndexSet]: https://developer.apple.com/documentation/Foundation/IndexSet
 type NSMutableIndexSet struct {
 	NSIndexSet
 }
@@ -90,6 +91,7 @@ type NSMutableIndexSet struct {
 func NSMutableIndexSetFromID(id objc.ID) NSMutableIndexSet {
 	return NSMutableIndexSet{NSIndexSet: NSIndexSetFromID(id)}
 }
+
 // NOTE: NSMutableIndexSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -161,7 +163,6 @@ func NewNSMutableIndexSet() NSMutableIndexSet {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMutableIndexSetWithCoder(coder INSCoder) NSMutableIndexSet {
 	instance := getNSMutableIndexSetClass().Alloc()
@@ -174,7 +175,7 @@ func NewMutableIndexSetWithCoder(coder INSCoder) NSMutableIndexSet {
 // value: An index. Must be in the range `0 .. NSNotFound - 1`.
 //
 // # Return Value
-// 
+//
 // Initialized [NSIndexSet] object with `index`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/init(index:)
@@ -189,11 +190,11 @@ func NewMutableIndexSetWithIndex(value uint) NSMutableIndexSet {
 // indexSet: An index set.
 //
 // # Return Value
-// 
+//
 // Initialized [NSIndexSet] object with `indexSet`.
 //
 // # Discussion
-// 
+//
 // This method is a designated initializer for [NSIndexSet].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/init(indexSet:)
@@ -208,21 +209,19 @@ func NewMutableIndexSetWithIndexSet(indexSet INSIndexSet) NSMutableIndexSet {
 // range: An index range. Must be in the range `0 .. NSNotFound - 1`..
 //
 // # Return Value
-// 
+//
 // Initialized [NSIndexSet] object with `indexRange`.
 //
 // # Discussion
-// 
-// This method raises an [rangeException] when `indexRange` would add an index
+//
+// This method raises an [RangeException] when `indexRange` would add an index
 // that exceeds the maximum allowed value for unsigned integers.
-// 
+//
 // The resulting index set has a [FirstIndex] equal to the `location` of
 // `indexRange`, and a [Count] equal to the `length` of `indexRange`.
 // Specifying a zero-length range results in an empty index set.
-// 
-// This method is a designated initializer for [NSIndexSet].
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// This method is a designated initializer for [NSIndexSet].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/init(indexesIn:)
 func NewMutableIndexSetWithIndexesInRange(range_ NSRange) NSMutableIndexSet {
@@ -239,6 +238,7 @@ func NewMutableIndexSetWithIndexesInRange(range_ NSRange) NSMutableIndexSet {
 func (m NSMutableIndexSet) AddIndex(value uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addIndex:"), value)
 }
+
 // Adds the indexes in an index set to the receiver.
 //
 // indexSet: Index set to add.
@@ -247,21 +247,21 @@ func (m NSMutableIndexSet) AddIndex(value uint) {
 func (m NSMutableIndexSet) AddIndexes(indexSet INSIndexSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addIndexes:"), indexSet)
 }
+
 // Adds the indexes in an index range to the receiver.
 //
 // range: Index range to add. Must be in the range `0 .. NSNotFound - 1`.
 //
 // # Discussion
-// 
-// This method raises an [rangeException] when `range` would add an index that
-// exceeds the maximum allowed value for unsigned integers.
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// This method raises an [RangeException] when `range` would add an index that
+// exceeds the maximum allowed value for unsigned integers.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableIndexSet/add(in:)
 func (m NSMutableIndexSet) AddIndexesInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addIndexesInRange:"), range_)
 }
+
 // Removes an index from the receiver.
 //
 // value: Index to remove.
@@ -270,6 +270,7 @@ func (m NSMutableIndexSet) AddIndexesInRange(range_ NSRange) {
 func (m NSMutableIndexSet) RemoveIndex(value uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeIndex:"), value)
 }
+
 // Removes the indexes in an index set from the receiver.
 //
 // indexSet: Index set to remove.
@@ -278,12 +279,14 @@ func (m NSMutableIndexSet) RemoveIndex(value uint) {
 func (m NSMutableIndexSet) RemoveIndexes(indexSet INSIndexSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeIndexes:"), indexSet)
 }
+
 // Removes the receiver’s indexes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableIndexSet/removeAllIndexes()
 func (m NSMutableIndexSet) RemoveAllIndexes() {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeAllIndexes"))
 }
+
 // Removes the indexes in an index range from the receiver.
 //
 // range: Index range to remove.
@@ -292,6 +295,7 @@ func (m NSMutableIndexSet) RemoveAllIndexes() {
 func (m NSMutableIndexSet) RemoveIndexesInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeIndexesInRange:"), range_)
 }
+
 // Shifts a group of indexes to the left or the right within the receiver.
 //
 // index: Head of the group of indexes to shift.
@@ -300,20 +304,19 @@ func (m NSMutableIndexSet) RemoveIndexesInRange(range_ NSRange) {
 // the right. Negative integers shift the indexes to the left.
 //
 // # Discussion
-// 
+//
 // The group of indexes shifted is made up by `index` and the indexes that
 // follow it in the set.
-// 
+//
 // A left shift deletes the indexes in a range the length of `delta` preceding
 // `index` from the set.
-// 
-// A right shift inserts empty space in the range `(``index``,``delta``)` in
+//
+// A right shift inserts empty space in the range `(“index“,“delta“)` in
 // the receiver.
-// 
+//
 // The resulting indexes must all be in the range `0 .. NSNotFound - 1`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableIndexSet/shiftIndexesStarting(at:by:)
 func (m NSMutableIndexSet) ShiftIndexesStartingAtIndexBy(index uint, delta int) {
 	objc.Send[objc.ID](m.ID, objc.Sel("shiftIndexesStartingAtIndex:by:"), index, delta)
 }
-

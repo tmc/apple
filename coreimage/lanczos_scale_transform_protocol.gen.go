@@ -49,6 +49,7 @@ type CILanczosScaleTransform interface {
 type CILanczosScaleTransformObject struct {
 	objectivec.Object
 }
+
 func (o CILanczosScaleTransformObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CILanczosScaleTransformObjectFromID(id objc.ID) CILanczosScaleTransformObje
 func (o CILanczosScaleTransformObject) AspectRatio() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("aspectRatio"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/inputImage
 func (o CILanczosScaleTransformObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The scaling factor to use on the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/scale
 func (o CILanczosScaleTransformObject) Scale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,30 @@ func (o CILanczosScaleTransformObject) Scale() float32 {
 func (o CILanczosScaleTransformObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The additional horizontal scaling factor to use on the image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/aspectRatio
 func (o CILanczosScaleTransformObject) SetAspectRatio(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAspectRatio:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/inputImage
 func (o CILanczosScaleTransformObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The scaling factor to use on the image.
+//
+// # Discussion
+//
+// Values less than 1.0 scale down the images. Values greater than 1.0 scale
+// up the image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CILanczosScaleTransform/scale
 func (o CILanczosScaleTransformObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
-

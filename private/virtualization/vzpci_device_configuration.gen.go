@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZPCIDeviceConfigurationClass) Alloc() VZPCIDeviceConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZPCIDeviceConfiguration._init]
@@ -52,6 +52,7 @@ func (vc VZPCIDeviceConfigurationClass) Alloc() VZPCIDeviceConfiguration {
 //   - [VZPCIDeviceConfiguration.Description]
 //   - [VZPCIDeviceConfiguration.Hash]
 //   - [VZPCIDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration
 type VZPCIDeviceConfiguration struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZPCIDeviceConfiguration struct {
 func VZPCIDeviceConfigurationFromID(id objc.ID) VZPCIDeviceConfiguration {
 	return VZPCIDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZPCIDeviceConfiguration implements IVZPCIDeviceConfiguration.
 var _ IVZPCIDeviceConfiguration = VZPCIDeviceConfiguration{}
 
@@ -115,6 +117,7 @@ func (v VZPCIDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/_pciDevice
 func (v VZPCIDeviceConfiguration) _pciDevice() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_pciDevice"))
@@ -125,7 +128,7 @@ func (v VZPCIDeviceConfiguration) _pciDevice() objectivec.IObject {
 func (v VZPCIDeviceConfiguration) PciDevice() objectivec.IObject {
 	return v._pciDevice()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/encodeWithEncoder:
 func (v VZPCIDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
@@ -137,19 +140,21 @@ func (v VZPCIDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/description
 func (v VZPCIDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/hash
 func (v VZPCIDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPCIDeviceConfiguration/superclass
 func (v VZPCIDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

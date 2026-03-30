@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSVisualEffectView] class.
@@ -46,33 +47,33 @@ func (nc NSVisualEffectViewClass) Alloc() NSVisualEffectView {
 // interface.
 //
 // # Overview
-// 
+//
 // Use visual effect views primarily as background views for your app’s
 // content. A visual effect view makes your foreground content more prominent
 // by employing the following effects:
-// 
+//
 // - and the blurring of background content adds depth to your interface. - is
 // a subtle blending of foreground and background colors to increase the
 // contrast and make the foreground content stand out visually.
-// 
+//
 // The material and blending mode you assign determines the exact appearance
 // of the visual effect. Not all materials support transparency, and materials
 // apply vibrancy in different ways. The appearance and behavior of materials
 // can also change based on system settings, so always pick a material based
-// on its intended use. For example, use the
-// [NSVisualEffectView.Material.sidebar] material when your view serves as the
-// background of your window’s sidebar. Don’t select materials based on
-// the apparent colors they impart on your interface.
-// 
+// on its intended use. For example, use the [NSVisualEffectMaterialSidebar]
+// material when your view serves as the background of your window’s
+// sidebar. Don’t select materials based on the apparent colors they impart
+// on your interface.
+//
 // AppKit creates visual effect views automatically for window titlebars,
 // popovers, and source list table views. You don’t need to add visual
 // effect views to those elements of your interface.
-// 
+//
 // # Choosing a Translucency Effect for Your View
-// 
+//
 // For visual effect views you create yourself, use the [NSVisualEffectView.BlendingMode]
 // property to specify how and where you want the translucency applied.
-// 
+//
 // - uses the content behind the window as the background for your visual
 // effect view. Behind-window blending makes your entire window stand out
 // above other windows and apps on the desktop. Sheets and popovers use
@@ -81,22 +82,22 @@ func (nc NSVisualEffectViewClass) Alloc() NSVisualEffectView {
 // scrolling content, so that the scrolled content remains partially visible
 // under other parts of your window chrome. Toolbars always use in-window
 // blending.
-// 
+//
 // [media-3198506]
-// 
+//
 // # Enabling Vibrancy for Foreground Content
-// 
+//
 // The presence of a visual effect view in your view hierarchy does not
 // automatically add vibrancy to your content. For custom views, you must
-// explicitly enable vibrancy by overriding the [allowsVibrancy] property and
-// returning [true].
-// 
+// explicitly enable vibrancy by overriding the [NSVisualEffectView.AllowsVibrancy] property and
+// returning true.
+//
 // It is recommended that you enable vibrancy only in the leaf views of your
 // view hierarchy. Subviews inherit the vibrancy of their parent. Once enabled
 // in a parent view, a subview cannot turn off vibrancy. As a result, enabling
 // vibrancy in a parent view can lead to subviews that look incorrect if they
 // are not designed to take advantage of the vibrancy effect.
-// 
+//
 // Vibrancy works best when your custom views contain grayscale content.
 // Combining a grayscale foreground with a color background works well,
 // because AppKit improves the contrast while only subtly changing the
@@ -104,28 +105,20 @@ func (nc NSVisualEffectViewClass) Alloc() NSVisualEffectView {
 // color values. Dramatically different foreground and background hues can
 // cancel each other out or result in colors that don’t match your original
 // designs.
-// 
+//
 // Instead of defining custom grayscale color assets, consider using the
-// built-in colors [labelColor], [secondaryLabelColor], [tertiaryLabelColor],
-// and [quaternaryLabelColor]. While typically used with text, these colors
+// built-in colors [NSVisualEffectView.LabelColor], [NSVisualEffectView.SecondaryLabelColor], [NSVisualEffectView.TertiaryLabelColor],
+// and [NSVisualEffectView.QuaternaryLabelColor]. While typically used with text, these colors
 // are applicable with any app content. The built-in colors represent varying
-// levels of contrast for your content, with [labelColor] offering the most
-// contrast, and [quaternaryLabelColor] offering the least contrast.
-// 
+// levels of contrast for your content, with [NSVisualEffectView.LabelColor] offering the most
+// contrast, and [NSVisualEffectView.QuaternaryLabelColor] offering the least contrast.
+//
 // # Subclassing Notes
-// 
+//
 // If you subclass [NSVisualEffectView]:
-// 
+//
 // - Always call `super` if you override [NSVisualEffectView.ViewDidMoveToWindow] or
 // [NSVisualEffectView.ViewWillMoveToWindow]. - Do not override [DrawRect] or [UpdateLayer].
-//
-// [NSVisualEffectView.Material.sidebar]: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/Material-swift.enum/sidebar
-// [allowsVibrancy]: https://developer.apple.com/documentation/AppKit/NSView/allowsVibrancy
-// [labelColor]: https://developer.apple.com/documentation/AppKit/NSColor/labelColor
-// [quaternaryLabelColor]: https://developer.apple.com/documentation/AppKit/NSColor/quaternaryLabelColor
-// [secondaryLabelColor]: https://developer.apple.com/documentation/AppKit/NSColor/secondaryLabelColor
-// [tertiaryLabelColor]: https://developer.apple.com/documentation/AppKit/NSColor/tertiaryLabelColor
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Specifying the Background Material
 //
@@ -162,6 +155,7 @@ type NSVisualEffectView struct {
 func NSVisualEffectViewFromID(id objc.ID) NSVisualEffectView {
 	return NSVisualEffectView{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSVisualEffectView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -248,7 +242,7 @@ func NewNSVisualEffectView() NSVisualEffectView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -264,11 +258,11 @@ func NewVisualEffectViewWithCoder(coder foundation.INSCoder) NSVisualEffectView 
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -283,12 +277,9 @@ func NewVisualEffectViewWithFrame(frameRect corefoundation.CGRect) NSVisualEffec
 // The material shown by the visual effect view.
 //
 // # Discussion
-// 
-// The default value is [NSVisualEffectView.Material.appearanceBased]; the
-// material updates to the correct material based on the appearance set on
-// this view.
 //
-// [NSVisualEffectView.Material.appearanceBased]: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/Material-swift.enum/appearanceBased
+// The default value is [NSVisualEffectMaterialAppearanceBased]; the material
+// updates to the correct material based on the appearance set on this view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/material-swift.property
 func (v NSVisualEffectView) Material() NSVisualEffectMaterial {
@@ -298,24 +289,19 @@ func (v NSVisualEffectView) Material() NSVisualEffectMaterial {
 func (v NSVisualEffectView) SetMaterial(value NSVisualEffectMaterial) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMaterial:"), value)
 }
+
 // A value indicating how the view’s contents blend with the surrounding
 // content.
 //
 // # Discussion
-// 
-// When the value of this property is
-// [NSVisualEffectView.BlendingMode.behindWindow] (the default), the visual
-// effect view blurs the content behind the window. When the value is
-// [NSVisualEffectView.BlendingMode.withinWindow], it blurs the content behind
-// the view of the current window.
-// 
-// If the visual effect view’s material is
-// [NSVisualEffectView.Material.titlebar], set the blending mode to
-// [NSVisualEffectView.BlendingMode.withinWindow].
 //
-// [NSVisualEffectView.BlendingMode.behindWindow]: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/BlendingMode-swift.enum/behindWindow
-// [NSVisualEffectView.BlendingMode.withinWindow]: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/BlendingMode-swift.enum/withinWindow
-// [NSVisualEffectView.Material.titlebar]: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/Material-swift.enum/titlebar
+// When the value of this property is [NSVisualEffectBlendingModeBehindWindow]
+// (the default), the visual effect view blurs the content behind the window.
+// When the value is [NSVisualEffectBlendingModeWithinWindow], it blurs the
+// content behind the view of the current window.
+//
+// If the visual effect view’s material is [NSVisualEffectMaterialTitlebar],
+// set the blending mode to [NSVisualEffectBlendingModeWithinWindow].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/blendingMode-swift.property
 func (v NSVisualEffectView) BlendingMode() NSVisualEffectBlendingMode {
@@ -325,16 +311,15 @@ func (v NSVisualEffectView) BlendingMode() NSVisualEffectBlendingMode {
 func (v NSVisualEffectView) SetBlendingMode(value NSVisualEffectBlendingMode) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBlendingMode:"), value)
 }
+
 // A Boolean value indicating whether to emphasize the look of the material.
 //
 // # Discussion
-// 
+//
 // Some materials change their appearance when they are emphasized. For
 // example, the first responder view conveys its status.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/isEmphasized
 func (v NSVisualEffectView) Emphasized() bool {
@@ -344,10 +329,11 @@ func (v NSVisualEffectView) Emphasized() bool {
 func (v NSVisualEffectView) SetEmphasized(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEmphasized:"), value)
 }
+
 // The view’s interior background style.
 //
 // # Discussion
-// 
+//
 // The background style may be light or dark, depending on the selected
 // material.
 //
@@ -356,15 +342,16 @@ func (v NSVisualEffectView) InteriorBackgroundStyle() NSBackgroundStyle {
 	rv := objc.Send[NSBackgroundStyle](v.ID, objc.Sel("interiorBackgroundStyle"))
 	return NSBackgroundStyle(rv)
 }
+
 // An image whose alpha channel masks the visual effect view’s material.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `nil`, which is the equivalent of
 // allowing all of the visual effect view’s content to show through.
 // Assigning an image to this property masks the portions of the visual effect
 // view using the image’s alpha channel.
-// 
+//
 // If the visual effect view is the content view of a window, the mask is
 // applied in an appropriate way to the window’s shadow.
 //
@@ -376,14 +363,13 @@ func (v NSVisualEffectView) MaskImage() INSImage {
 func (v NSVisualEffectView) SetMaskImage(value INSImage) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMaskImage:"), value)
 }
+
 // A value that indicates whether a view has a visual effect applied.
 //
 // # Discussion
-// 
-// The default value of this property is
-// [NSVisualEffectView.State.followsWindowActiveState].
 //
-// [NSVisualEffectView.State.followsWindowActiveState]: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/State-swift.enum/followsWindowActiveState
+// The default value of this property is
+// [NSVisualEffectStateFollowsWindowActiveState].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSVisualEffectView/state-swift.property
 func (v NSVisualEffectView) State() NSVisualEffectState {
@@ -404,6 +390,7 @@ func (_NSVisualEffectViewClass NSVisualEffectViewClass) LabelColor() NSColor {
 func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setLabelColor:"), value)
 }
+
 // The quaternary color to use for text labels and separators.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/quaternarylabelcolor
@@ -414,6 +401,7 @@ func (_NSVisualEffectViewClass NSVisualEffectViewClass) QuaternaryLabelColor() N
 func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetQuaternaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setQuaternaryLabelColor:"), value)
 }
+
 // The secondary color to use for text labels.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/secondarylabelcolor
@@ -424,6 +412,7 @@ func (_NSVisualEffectViewClass NSVisualEffectViewClass) SecondaryLabelColor() NS
 func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetSecondaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setSecondaryLabelColor:"), value)
 }
+
 // The tertiary color to use for text labels.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/tertiarylabelcolor
@@ -434,4 +423,3 @@ func (_NSVisualEffectViewClass NSVisualEffectViewClass) TertiaryLabelColor() NSC
 func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetTertiaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setTertiaryLabelColor:"), value)
 }
-

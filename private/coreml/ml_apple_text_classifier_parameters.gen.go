@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLAppleTextClassifierParametersClass) Alloc() MLAppleTextClassifierPara
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLAppleTextClassifierParameters.InputFeatureName]
@@ -62,6 +62,7 @@ func (mc MLAppleTextClassifierParametersClass) Alloc() MLAppleTextClassifierPara
 //   - [MLAppleTextClassifierParameters.SetRevision]
 //   - [MLAppleTextClassifierParameters.InitWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesError]
 //   - [MLAppleTextClassifierParameters.InitWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters
 type MLAppleTextClassifierParameters struct {
 	objectivec.Object
@@ -71,6 +72,7 @@ type MLAppleTextClassifierParameters struct {
 func MLAppleTextClassifierParametersFromID(id objc.ID) MLAppleTextClassifierParameters {
 	return MLAppleTextClassifierParameters{objectivec.Object{ID: id}}
 }
+
 // Ensure MLAppleTextClassifierParameters implements IMLAppleTextClassifierParameters.
 var _ IMLAppleTextClassifierParameters = MLAppleTextClassifierParameters{}
 
@@ -138,7 +140,6 @@ func NewMLAppleTextClassifierParameters() MLAppleTextClassifierParameters {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters/initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:error:
 func NewAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject) (MLAppleTextClassifierParameters, error) {
 	var errorPtr objc.ID
@@ -151,7 +152,6 @@ func NewAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatu
 	return MLAppleTextClassifierParametersFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters/initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:metadata:error:
 func NewAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleTextClassifierParameters, error) {
 	var errorPtr objc.ID
@@ -164,7 +164,6 @@ func NewAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatu
 	return MLAppleTextClassifierParametersFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters/initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:error:
 func (a MLAppleTextClassifierParameters) InitWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject) (MLAppleTextClassifierParameters, error) {
 	var errorPtr objc.ID
@@ -176,7 +175,7 @@ func (a MLAppleTextClassifierParameters) InitWithDataLanguageInputFeatureNameOut
 	return MLAppleTextClassifierParametersFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters/initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:metadata:error:
 func (a MLAppleTextClassifierParameters) InitWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleTextClassifierParameters, error) {
 	var errorPtr objc.ID
@@ -197,6 +196,7 @@ func (a MLAppleTextClassifierParameters) InputFeatureName() string {
 func (a MLAppleTextClassifierParameters) SetInputFeatureName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInputFeatureName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters/labelNames
 func (a MLAppleTextClassifierParameters) LabelNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("labelNames"))
@@ -205,6 +205,7 @@ func (a MLAppleTextClassifierParameters) LabelNames() foundation.INSArray {
 func (a MLAppleTextClassifierParameters) SetLabelNames(value foundation.INSArray) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLabelNames:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters/language
 func (a MLAppleTextClassifierParameters) Language() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("language"))
@@ -213,6 +214,7 @@ func (a MLAppleTextClassifierParameters) Language() string {
 func (a MLAppleTextClassifierParameters) SetLanguage(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters/metadata
 func (a MLAppleTextClassifierParameters) Metadata() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("metadata"))
@@ -221,6 +223,7 @@ func (a MLAppleTextClassifierParameters) Metadata() foundation.INSDictionary {
 func (a MLAppleTextClassifierParameters) SetMetadata(value foundation.INSDictionary) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMetadata:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters/modelParameterData
 func (a MLAppleTextClassifierParameters) ModelParameterData() foundation.INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("modelParameterData"))
@@ -229,6 +232,7 @@ func (a MLAppleTextClassifierParameters) ModelParameterData() foundation.INSData
 func (a MLAppleTextClassifierParameters) SetModelParameterData(value foundation.INSData) {
 	objc.Send[struct{}](a.ID, objc.Sel("setModelParameterData:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters/outputFeatureName
 func (a MLAppleTextClassifierParameters) OutputFeatureName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputFeatureName"))
@@ -237,6 +241,7 @@ func (a MLAppleTextClassifierParameters) OutputFeatureName() string {
 func (a MLAppleTextClassifierParameters) SetOutputFeatureName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOutputFeatureName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleTextClassifierParameters/revision
 func (a MLAppleTextClassifierParameters) Revision() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("revision"))
@@ -245,4 +250,3 @@ func (a MLAppleTextClassifierParameters) Revision() uint64 {
 func (a MLAppleTextClassifierParameters) SetRevision(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRevision:"), value)
 }
-

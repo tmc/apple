@@ -4,6 +4,7 @@ package systemextensions
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (oc OSSystemExtensionManagerClass) Alloc() OSSystemExtensionManager {
 // A type that facilitates activation and deactivation of system extensions.
 //
 // # Overview
-// 
+//
 // Create an instance of [OSSystemExtensionRequest] with the class methods on
 // that type, and submit it to the shared instance of the extension manager
 // with [OSSystemExtensionManager.SubmitRequest]. Set the [OSSystemExtensionManager.Delegate] on the request to receive the
@@ -67,6 +68,7 @@ type OSSystemExtensionManager struct {
 func OSSystemExtensionManagerFromID(id objc.ID) OSSystemExtensionManager {
 	return OSSystemExtensionManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: OSSystemExtensionManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -136,4 +138,3 @@ func (_OSSystemExtensionManagerClass OSSystemExtensionManagerClass) SharedManage
 	rv := objc.Send[objc.ID](objc.ID(_OSSystemExtensionManagerClass.class), objc.Sel("sharedManager"))
 	return OSSystemExtensionManagerFromID(objc.ID(rv))
 }
-

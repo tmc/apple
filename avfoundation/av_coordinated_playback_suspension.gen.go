@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVCoordinatedPlaybackSuspensionClass) Alloc() AVCoordinatedPlaybackSusp
 // An object that represents a temporary suspension of coordinated playback.
 //
 // # Overview
-// 
+//
 // See the playback coordinator’s [BeginSuspensionForReason] method for
 // details about suspending playback.
 //
@@ -71,6 +72,7 @@ type AVCoordinatedPlaybackSuspension struct {
 func AVCoordinatedPlaybackSuspensionFromID(id objc.ID) AVCoordinatedPlaybackSuspension {
 	return AVCoordinatedPlaybackSuspension{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCoordinatedPlaybackSuspension adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -127,10 +129,10 @@ func NewAVCoordinatedPlaybackSuspension() AVCoordinatedPlaybackSuspension {
 // Ends a suspension.
 //
 // # Discussion
-// 
+//
 // If this is the last suspension, the coordinator adjusts the timing of its
 // playback object to match the group.
-// 
+//
 // To end a suspension and simultaneously propose a new playback time to the
 // group, call the [EndProposingNewTime] method.
 //
@@ -138,17 +140,18 @@ func NewAVCoordinatedPlaybackSuspension() AVCoordinatedPlaybackSuspension {
 func (c AVCoordinatedPlaybackSuspension) End() {
 	objc.Send[objc.ID](c.ID, objc.Sel("end"))
 }
+
 // Ends a suspension and proposes a new playback time to the group.
 //
 // time: The proposed playback time. Passing a nonnumeric time results in the same
 // behavior as calling the [End] method.
 //
 // # Discussion
-// 
+//
 // If this is the last suspension, the coordinator proposes a new time to the
 // group without changing the group’s playback rate. If it isn’t, the
 // coordinator only proposes the new time after all other suspensions end.
-// 
+//
 // A suspension that ends after this one ends can override the proposed time.
 // Similarly, playback commands from the group that arrive after this
 // suspension ends, override a pending proposal.
@@ -165,10 +168,11 @@ func (c AVCoordinatedPlaybackSuspension) BeginDate() foundation.INSDate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("beginDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
+
 // The reason for the suspension.
 //
 // # Discussion
-// 
+//
 // The coordinator communicates the suspension reason to other participants.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCoordinatedPlaybackSuspension/reason-swift.property
@@ -176,4 +180,3 @@ func (c AVCoordinatedPlaybackSuspension) Reason() AVCoordinatedPlaybackSuspensio
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("reason"))
 	return AVCoordinatedPlaybackSuspensionReason(foundation.NSStringFromID(rv).String())
 }
-

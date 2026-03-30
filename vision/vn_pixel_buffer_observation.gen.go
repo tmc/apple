@@ -4,10 +4,11 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNPixelBufferObservation] class.
@@ -46,18 +47,16 @@ func (vc VNPixelBufferObservationClass) Alloc() VNPixelBufferObservation {
 // An object that represents an image that an image-analysis request produces.
 //
 // # Overview
-// 
+//
 // This type of observation results from performing a [VNCoreMLRequest] image
 // analysis with a Core ML model that has an image-to-image processing role.
 // For example, this observation might result from a model that analyzes the
 // style of one image and then transfers that style to a different image.
-// 
+//
 // Vision infers that an [MLModel] object is an image-to-image model if that
 // model includes an image. Its [VNPixelBufferObservation.ModelDescription] object includes an
 // image-typed feature description in its [VNPixelBufferObservation.OutputDescriptionsByName]
 // dictionary.
-//
-// [MLModel]: https://developer.apple.com/documentation/CoreML/MLModel
 //
 // # Parsing Observation Content
 //
@@ -65,6 +64,8 @@ func (vc VNPixelBufferObservationClass) Alloc() VNPixelBufferObservation {
 //   - [VNPixelBufferObservation.FeatureName]: A feature name that the CoreML model defines.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPixelBufferObservation
+//
+// [MLModel]: https://developer.apple.com/documentation/CoreML/MLModel
 type VNPixelBufferObservation struct {
 	VNObservation
 }
@@ -75,6 +76,7 @@ type VNPixelBufferObservation struct {
 func VNPixelBufferObservationFromID(id objc.ID) VNPixelBufferObservation {
 	return VNPixelBufferObservation{VNObservation: VNObservationFromID(id)}
 }
+
 // NOTE: VNPixelBufferObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,7 +128,7 @@ func NewVNPixelBufferObservation() VNPixelBufferObservation {
 // The image that results from a request with image output.
 //
 // # Discussion
-// 
+//
 // [VNCoreMLRequest] produces observations that contain images in pixel buffer
 // format. The confidence level is always `1.0`.
 //
@@ -135,20 +137,20 @@ func (p VNPixelBufferObservation) PixelBuffer() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](p.ID, objc.Sel("pixelBuffer"))
 	return corevideo.CVImageBufferRef(rv)
 }
+
 // A feature name that the CoreML model defines.
 //
 // # Discussion
-// 
-// This value is [nil] if the observation isn’t the result of a
-// [VNCoreMLRequest] operation.
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// This value is nil if the observation isn’t the result of a
+// [VNCoreMLRequest] operation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPixelBufferObservation/featureName
 func (p VNPixelBufferObservation) FeatureName() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("featureName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
 //
@@ -160,6 +162,7 @@ func (p VNPixelBufferObservation) ModelDescription() coreml.MLModelDescription {
 func (p VNPixelBufferObservation) SetModelDescription(value coreml.MLModelDescription) {
 	objc.Send[struct{}](p.ID, objc.Sel("setModelDescription:"), value)
 }
+
 // A dictionary of output feature descriptions, which the model keys by the
 // output’s name.
 //
@@ -171,4 +174,3 @@ func (p VNPixelBufferObservation) OutputDescriptionsByName() coreml.MLFeatureDes
 func (p VNPixelBufferObservation) SetOutputDescriptionsByName(value coreml.MLFeatureDescription) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOutputDescriptionsByName:"), value)
 }
-

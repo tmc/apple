@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MLSNFrameworkHandle struct {
 func MLSNFrameworkHandleFromID(id objc.ID) MLSNFrameworkHandle {
 	return MLSNFrameworkHandle{objectivec.Object{ID: id}}
 }
+
 // Ensure MLSNFrameworkHandle implements IMLSNFrameworkHandle.
 var _ IMLSNFrameworkHandle = MLSNFrameworkHandle{}
 
@@ -88,4 +90,3 @@ func (_MLSNFrameworkHandleClass MLSNFrameworkHandleClass) SharedHandle() *MLSNFr
 	val := MLSNFrameworkHandleFromID(rv)
 	return &val
 }
-

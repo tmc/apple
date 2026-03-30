@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Addresses struct {
 func AddressesFromID(id objc.ID) Addresses {
 	return Addresses{objectivec.Object{ID: id}}
 }
+
 // Ensure Addresses implements IAddresses.
 var _ IAddresses = Addresses{}
 
@@ -78,4 +80,3 @@ func NewAddresses() Addresses {
 	rv := objc.Send[Addresses](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

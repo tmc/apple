@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -68,6 +69,7 @@ type AVMetricPlayerItemPlaybackSummaryEvent struct {
 func AVMetricPlayerItemPlaybackSummaryEventFromID(id objc.ID) AVMetricPlayerItemPlaybackSummaryEvent {
 	return AVMetricPlayerItemPlaybackSummaryEvent{AVMetricEvent: AVMetricEventFromID(id)}
 }
+
 // NOTE: AVMetricPlayerItemPlaybackSummaryEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,49 +130,57 @@ func (m AVMetricPlayerItemPlaybackSummaryEvent) ErrorEvent() IAVMetricErrorEvent
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("errorEvent"))
 	return AVMetricErrorEventFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/mediaResourceRequestCount
 func (m AVMetricPlayerItemPlaybackSummaryEvent) MediaResourceRequestCount() int {
 	rv := objc.Send[int](m.ID, objc.Sel("mediaResourceRequestCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/playbackDuration
 func (m AVMetricPlayerItemPlaybackSummaryEvent) PlaybackDuration() int {
 	rv := objc.Send[int](m.ID, objc.Sel("playbackDuration"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/recoverableErrorCount
 func (m AVMetricPlayerItemPlaybackSummaryEvent) RecoverableErrorCount() int {
 	rv := objc.Send[int](m.ID, objc.Sel("recoverableErrorCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/stallCount
 func (m AVMetricPlayerItemPlaybackSummaryEvent) StallCount() int {
 	rv := objc.Send[int](m.ID, objc.Sel("stallCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/timeSpentInInitialStartup
 func (m AVMetricPlayerItemPlaybackSummaryEvent) TimeSpentInInitialStartup() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("timeSpentInInitialStartup"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/timeSpentRecoveringFromStall
 func (m AVMetricPlayerItemPlaybackSummaryEvent) TimeSpentRecoveringFromStall() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("timeSpentRecoveringFromStall"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/timeWeightedAverageBitrate
 func (m AVMetricPlayerItemPlaybackSummaryEvent) TimeWeightedAverageBitrate() int {
 	rv := objc.Send[int](m.ID, objc.Sel("timeWeightedAverageBitrate"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/timeWeightedPeakBitrate
 func (m AVMetricPlayerItemPlaybackSummaryEvent) TimeWeightedPeakBitrate() int {
 	rv := objc.Send[int](m.ID, objc.Sel("timeWeightedPeakBitrate"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlayerItemPlaybackSummaryEvent/variantSwitchCount
 func (m AVMetricPlayerItemPlaybackSummaryEvent) VariantSwitchCount() int {
 	rv := objc.Send[int](m.ID, objc.Sel("variantSwitchCount"))
 	return rv
 }
-

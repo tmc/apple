@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,30 +48,30 @@ func (nc NSRulerViewClass) Alloc() NSRulerView {
 // view.
 //
 // # Overview
-// 
+//
 // Views within the scroll view can become clients of the ruler view, having
 // it display markers for their elements, and receiving messages from the
 // ruler view when the user manipulates the markers.
-// 
+//
 // # Principal Attributes
-// 
+//
 // - Displays markers that represent elements of the client view. - Displays
 // in arbitrary units. - Provides for an accessory view containing extra
 // controls.
-// 
+//
 // # Creation
-// 
+//
 // - [NSRulerView.HasHorizontalRuler] ([NSScrollView]) - [NSRulerView.HasVerticalRuler]
 // ([NSScrollView]) - [NSRulerView.InitWithScrollViewOrientation] Designated initializer.
-// 
+//
 // # Commonly Used Methods
-// 
+//
 // [NSRulerView.ClientView]: Changes the ruler’s client view. [NSRulerView.Markers]: Sets the
 // markers displayed by the ruler view. [NSRulerView.AccessoryView]: Sets the accessory
 // view. [NSRulerView.TrackMarkerWithMouseEvent]: Allows the user to add a new marker.
-// 
+//
 // # Overview
-// 
+//
 // See NSRulerMarkerClientViewDelegation for delegate methods that may be of
 // interest.
 //
@@ -130,7 +131,6 @@ func (nc NSRulerViewClass) Alloc() NSRulerView {
 //   - [NSRulerView.SetRuleThickness]
 //   - [NSRulerView.RequiredThickness]: The thickness needed for proper tiling of the receiver within an NSScrollView.
 //   - [NSRulerView.BaselineLocation]: The location of the receiver’s baseline, in its own coordinate system.
-//   - [NSRulerView.Flipped]: A Boolean that indicates if the ruler view’s coordinate system is flipped.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView
 type NSRulerView struct {
@@ -144,6 +144,7 @@ type NSRulerView struct {
 func NSRulerViewFromID(id objc.ID) NSRulerView {
 	return NSRulerView{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSRulerView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -205,7 +206,6 @@ func NSRulerViewFromID(id objc.ID) NSRulerView {
 //   - [INSRulerView.SetRuleThickness]
 //   - [INSRulerView.RequiredThickness]: The thickness needed for proper tiling of the receiver within an NSScrollView.
 //   - [INSRulerView.BaselineLocation]: The location of the receiver’s baseline, in its own coordinate system.
-//   - [INSRulerView.Flipped]: A Boolean that indicates if the ruler view’s coordinate system is flipped.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView
 type INSRulerView interface {
@@ -287,8 +287,6 @@ type INSRulerView interface {
 	RequiredThickness() float64
 	// The location of the receiver’s baseline, in its own coordinate system.
 	BaselineLocation() float64
-	// A Boolean that indicates if the ruler view’s coordinate system is flipped.
-	Flipped() bool
 
 	// A Boolean that indicates whether the scroll view keeps a horizontal ruler object.
 	HasHorizontalRuler() bool
@@ -317,7 +315,6 @@ func NewNSRulerView() NSRulerView {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView/init(coder:)
 func NewRulerViewWithCoder(coder foundation.INSCoder) NSRulerView {
 	instance := getNSRulerViewClass().Alloc()
@@ -331,11 +328,11 @@ func NewRulerViewWithCoder(coder foundation.INSCoder) NSRulerView {
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -351,12 +348,12 @@ func NewRulerViewWithFrame(frameRect corefoundation.CGRect) NSRulerView {
 // ([NSHorizontalRuler] or [NSVerticalRuler]) within `aScrollView`.
 //
 // # Discussion
-// 
+//
 // The new ruler view displays the user’s preferred measurement units and
 // has no client, markers, or accessory view. Unlike most subclasses of
 // NSView, no initial frame rectangle is given for NSRulerView; its containing
 // NSScrollView adjusts its frame rectangle as needed.
-// 
+//
 // This method is the designated initializer for the NSRulerView class.
 // Returns an initialized object.
 //
@@ -371,12 +368,12 @@ func NewRulerViewWithScrollViewOrientation(scrollView INSScrollView, orientation
 // ([NSHorizontalRuler] or [NSVerticalRuler]) within `aScrollView`.
 //
 // # Discussion
-// 
+//
 // The new ruler view displays the user’s preferred measurement units and
 // has no client, markers, or accessory view. Unlike most subclasses of
 // NSView, no initial frame rectangle is given for NSRulerView; its containing
 // NSScrollView adjusts its frame rectangle as needed.
-// 
+//
 // This method is the designated initializer for the NSRulerView class.
 // Returns an initialized object.
 //
@@ -385,11 +382,12 @@ func (r NSRulerView) InitWithScrollViewOrientation(scrollView INSScrollView, ori
 	rv := objc.Send[NSRulerView](r.ID, objc.Sel("initWithScrollView:orientation:"), scrollView, orientation)
 	return rv
 }
+
 // Adds `aMarker` to the receiver, without consulting the client view for
 // approval.
 //
 // # Discussion
-// 
+//
 // Raises an [NSInternalInconsistencyException] if the receiver has no client
 // view.
 //
@@ -397,6 +395,7 @@ func (r NSRulerView) InitWithScrollViewOrientation(scrollView INSScrollView, ori
 func (r NSRulerView) AddMarker(marker INSRulerMarker) {
 	objc.Send[objc.ID](r.ID, objc.Sel("addMarker:"), marker)
 }
+
 // Removes `aMarker` from the receiver, without consulting the client view for
 // approval.
 //
@@ -404,15 +403,16 @@ func (r NSRulerView) AddMarker(marker INSRulerMarker) {
 func (r NSRulerView) RemoveMarker(marker INSRulerMarker) {
 	objc.Send[objc.ID](r.ID, objc.Sel("removeMarker:"), marker)
 }
+
 // Tracks the mouse to add `aMarker` based on the initial mouse-down or
 // mouse-dragged event `theEvent`.
 //
 // # Discussion
-// 
-// Returns [true] if the receiver adds `aMarker`, [false] if it doesn’t.
-// This method works by sending [TrackMouseAdding] to `aMarker` with
-// `theEvent` and [true] as arguments.
-// 
+//
+// Returns true if the receiver adds `aMarker`, false if it doesn’t. This
+// method works by sending [TrackMouseAdding] to `aMarker` with `theEvent` and
+// true as arguments.
+//
 // An application typically invokes this method in one of two cases. In the
 // simpler case, the client view can implement [NSRulerView] to invoke this
 // method when the user presses the mouse button while the cursor is in the
@@ -425,18 +425,16 @@ func (r NSRulerView) RemoveMarker(marker INSRulerMarker) {
 // hands over control to the ruler view by invoking
 // [TrackMarkerWithMouseEvent].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView/trackMarker(_:withMouseEvent:)
 func (r NSRulerView) TrackMarkerWithMouseEvent(marker INSRulerMarker, event INSEvent) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("trackMarker:withMouseEvent:"), marker, event)
 	return rv
 }
+
 // Draws temporary lines in the ruler area.
 //
 // # Discussion
-// 
+//
 // If `oldLoc` is 0 or greater, erases the ruler line at that location; if
 // `newLoc` is 0 or greater, draws a new rulerline at that location. `oldLoc`
 // and `newLoc` are expressed in the coordinate system of the NSRulerView, not
@@ -444,7 +442,7 @@ func (r NSRulerView) TrackMarkerWithMouseEvent(marker INSRulerMarker, event INSE
 // and y coordinates for vertical rulers. Use NSView’s `convert...` methods
 // to convert coordinates from the client or document view’s coordinate
 // system to that of the NSRulerView.
-// 
+//
 // This method is useful for drawing highlight lines in the ruler to show the
 // position or extent of an object while it’s being dragged in the client
 // view. The sender is responsible for keeping track of the number and
@@ -454,11 +452,12 @@ func (r NSRulerView) TrackMarkerWithMouseEvent(marker INSRulerMarker, event INSE
 func (r NSRulerView) MoveRulerlineFromLocationToLocation(oldLocation float64, newLocation float64) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveRulerlineFromLocation:toLocation:"), oldLocation, newLocation)
 }
+
 // Draws the receiver’s hash marks and labels in `aRect`, which is expressed
 // in the receiver’s coordinate system.
 //
 // # Discussion
-// 
+//
 // This method is invoked by [DrawRect]—you should never need to invoke it
 // directly. You can define custom measurement units using the class method
 // [RegisterUnitWithNameAbbreviationUnitToPointsConversionFactorStepUpCycleStepDownCycle].
@@ -469,11 +468,12 @@ func (r NSRulerView) MoveRulerlineFromLocationToLocation(oldLocation float64, ne
 func (r NSRulerView) DrawHashMarksAndLabelsInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](r.ID, objc.Sel("drawHashMarksAndLabelsInRect:"), rect)
 }
+
 // Draws the receiver’s markers in `aRect`, which is expressed in the
 // receiver’s coordinate system.
 //
 // # Discussion
-// 
+//
 // This method is invoked by [DrawRect]; you should never need to invoke it
 // directly, but you might want to override it if you want to do something
 // different when drawing markers.
@@ -482,11 +482,12 @@ func (r NSRulerView) DrawHashMarksAndLabelsInRect(rect corefoundation.CGRect) {
 func (r NSRulerView) DrawMarkersInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](r.ID, objc.Sel("drawMarkersInRect:"), rect)
 }
+
 // Forces recalculation of the hash mark spacing for the next time the
 // receiver is displayed.
 //
 // # Discussion
-// 
+//
 // You should never need to invoke this method directly, but might need to
 // override it if you override [DrawHashMarksAndLabelsInRect].
 //
@@ -499,7 +500,7 @@ func (r NSRulerView) InvalidateHashMarks() {
 // available to all instances of NSRulerView.
 //
 // # Discussion
-// 
+//
 // `unitName` is the name of the unit in English, in plural form and
 // capitalized by convention—“Inches”, for example. The unit name is
 // used as a key to identify the measurement units and so shouldn’t be
@@ -510,14 +511,14 @@ func (r NSRulerView) InvalidateHashMarks() {
 // hash marks are calculated, as explained in [Setting Up a Ruler View]. All
 // numbers in `stepUpCycle` should be greater than 1.0, those in
 // `stepDownCycle` should be less than 1.0.
-// 
+//
 // NSRulerView supports these units by default:
-// 
+//
 // [Table data omitted]
 //
-// [Setting Up a Ruler View]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Rulers/Tasks/SettingUpRulerView.html#//apple_ref/doc/uid/20000874
-//
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView/registerUnit(withName:abbreviation:unitToPointsConversionFactor:stepUpCycle:stepDownCycle:)
+//
+// [Setting Up a Ruler View]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Rulers/Tasks/SettingUpRulerView.html#//apple_ref/doc/uid/20000874
 func (_NSRulerViewClass NSRulerViewClass) RegisterUnitWithNameAbbreviationUnitToPointsConversionFactorStepUpCycleStepDownCycle(unitName NSRulerViewUnitName, abbreviation string, conversionFactor float64, stepUpCycle []foundation.NSNumber, stepDownCycle []foundation.NSNumber) {
 	objc.Send[objc.ID](objc.ID(_NSRulerViewClass.class), objc.Sel("registerUnitWithName:abbreviation:unitToPointsConversionFactor:stepUpCycle:stepDownCycle:"), objc.String(string(unitName)), objc.String(abbreviation), conversionFactor, objectivec.IObjectSliceToNSArray(stepUpCycle), objectivec.IObjectSliceToNSArray(stepDownCycle))
 }
@@ -525,7 +526,7 @@ func (_NSRulerViewClass NSRulerViewClass) RegisterUnitWithNameAbbreviationUnitTo
 // The measurement units used by the ruler to `unitName`.
 //
 // # Discussion
-// 
+//
 // `unitName` must have been registered with the NSRulerView class object
 // prior to invoking this method. See the description of the class method
 // [RegisterUnitWithNameAbbreviationUnitToPointsConversionFactorStepUpCycleStepDownCycle]
@@ -539,10 +540,11 @@ func (r NSRulerView) MeasurementUnits() NSRulerViewUnitName {
 func (r NSRulerView) SetMeasurementUnits(value NSRulerViewUnitName) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMeasurementUnits:"), objc.String(string(value)))
 }
+
 // The receiver’s client view, if it has one.
 //
 // # Discussion
-// 
+//
 // `aView` is either the document view of the NSScrollView that contains the
 // receiver or a subview of the document view.
 //
@@ -554,10 +556,11 @@ func (r NSRulerView) ClientView() INSView {
 func (r NSRulerView) SetClientView(value INSView) {
 	objc.Send[struct{}](r.ID, objc.Sel("setClientView:"), value)
 }
+
 // The receiver’s accessory view to `aView`.
 //
 // # Discussion
-// 
+//
 // Raises an [NSInternalInconsistencyException] if `aView` is not `nil` and
 // the receiver has no client view.
 //
@@ -569,12 +572,13 @@ func (r NSRulerView) AccessoryView() INSView {
 func (r NSRulerView) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](r.ID, objc.Sel("setAccessoryView:"), value)
 }
+
 // The distance to the zero hash mark from the bounds origin of the
 // NSScrollView’s document view (not of the receiver’s client view), in
 // the document view’s coordinate system.
 //
 // # Discussion
-// 
+//
 // The default offset is 0.0, meaning that the ruler origin coincides with the
 // bounds origin of the document view.
 //
@@ -586,11 +590,12 @@ func (r NSRulerView) OriginOffset() float64 {
 func (r NSRulerView) SetOriginOffset(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOriginOffset:"), value)
 }
+
 // The receiver’s ruler markers to `markers`, removing any existing ruler
 // markers and not consulting with the client view about the new markers.
 //
 // # Discussion
-// 
+//
 // `markers` can be `nil` or empty to remove all ruler markers. Raises an
 // [NSInternalInconsistencyException] if `markers` is not `nil` and the
 // receiver has no client view.
@@ -605,11 +610,12 @@ func (r NSRulerView) Markers() []NSRulerMarker {
 func (r NSRulerView) SetMarkers(value []NSRulerMarker) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMarkers:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The NSScrollView that owns the receiver to `scrollView`, without retaining
 // it.
 //
 // # Discussion
-// 
+//
 // This method is generally invoked only by the ruler’s scroll view; you
 // should rarely need to invoke it directly.
 //
@@ -621,10 +627,11 @@ func (r NSRulerView) ScrollView() INSScrollView {
 func (r NSRulerView) SetScrollView(value INSScrollView) {
 	objc.Send[struct{}](r.ID, objc.Sel("setScrollView:"), value)
 }
+
 // The orientation of the receiver to `orientation`.
 //
 // # Discussion
-// 
+//
 // Possible values for `orientation` are described in [Constants].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView/orientation-swift.property
@@ -635,14 +642,15 @@ func (r NSRulerView) Orientation() NSRulerOrientation {
 func (r NSRulerView) SetOrientation(value NSRulerOrientation) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOrientation:"), value)
 }
+
 // The room available for the receiver’s accessory view to `thickness`.
 //
 // # Discussion
-// 
+//
 // If the ruler is horizontal, `thickness` is the height of the accessory
 // view; otherwise, it’s the width. NSRulerViews by default reserve no space
 // for an accessory view.
-// 
+//
 // An NSRulerView automatically increases the reserved thickness as necessary
 // to that of the accessory view. When the accessory view is thinner than the
 // reserved space, it’s centered in that space. If you plan to use several
@@ -658,16 +666,17 @@ func (r NSRulerView) ReservedThicknessForAccessoryView() float64 {
 func (r NSRulerView) SetReservedThicknessForAccessoryView(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setReservedThicknessForAccessoryView:"), value)
 }
+
 // The room available for ruler markers to `thickness`.
 //
 // # Discussion
-// 
+//
 // The default thickness reserved for markers is 15.0 PostScript units for a
 // horizontal ruler and 0.0 PostScript units for a vertical ruler (under the
 // assumption that vertical rulers rarely contain markers). If you don’t
 // expect to have any markers on the ruler, you can set the reserved thickness
 // to 0.0.
-// 
+//
 // An NSRulerView automatically increases the reserved thickness as necessary
 // to that of its thickest marker. If you plan to use markers of varying
 // sizes, you should set the reserved thickness beforehand to that of the
@@ -681,10 +690,11 @@ func (r NSRulerView) ReservedThicknessForMarkers() float64 {
 func (r NSRulerView) SetReservedThicknessForMarkers(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setReservedThicknessForMarkers:"), value)
 }
+
 // The thickness of the area where ruler hash marks and labels are drawn.
 //
 // # Discussion
-// 
+//
 // This value is the height of the ruler area for a horizontal ruler or the
 // width of the ruler area for a vertical ruler. Rulers are by default 16.0
 // PostScript units thick. You should rarely need to change this layout
@@ -698,11 +708,12 @@ func (r NSRulerView) RuleThickness() float64 {
 func (r NSRulerView) SetRuleThickness(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRuleThickness:"), value)
 }
+
 // The thickness needed for proper tiling of the receiver within an
 // NSScrollView.
 //
 // # Discussion
-// 
+//
 // This thickness is the height of a horizontal ruler and the width of a
 // vertical ruler. The required thickness is the sum of the thicknesses of the
 // ruler area, the marker area, and the accessory view.
@@ -712,10 +723,11 @@ func (r NSRulerView) RequiredThickness() float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("requiredThickness"))
 	return rv
 }
+
 // The location of the receiver’s baseline, in its own coordinate system.
 //
 // # Discussion
-// 
+//
 // This is a y position for horizontal rulers and an x position for vertical
 // ones.
 //
@@ -724,25 +736,7 @@ func (r NSRulerView) BaselineLocation() float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("baselineLocation"))
 	return rv
 }
-// A Boolean that indicates if the ruler view’s coordinate system is
-// flipped.
-//
-// # Discussion
-// 
-// [true] if the receiver’s coordinate system is flipped, [false] otherwise.
-// 
-// A vertical ruler takes into account whether the coordinate system of the
-// [NSScrollView]‘s document view—not the receiver’s client view—is
-// flipped. A horizontal ruler is always flipped.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSRulerView/isFlipped
-func (r NSRulerView) Flipped() bool {
-	rv := objc.Send[bool](r.ID, objc.Sel("isFlipped"))
-	return rv
-}
+
 // A Boolean that indicates whether the scroll view keeps a horizontal ruler
 // object.
 //
@@ -754,6 +748,7 @@ func (r NSRulerView) HasHorizontalRuler() bool {
 func (r NSRulerView) SetHasHorizontalRuler(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setHasHorizontalRuler:"), value)
 }
+
 // A Boolean that indicates whether the scroll view keeps a vertical ruler
 // object.
 //
@@ -765,4 +760,3 @@ func (r NSRulerView) HasVerticalRuler() bool {
 func (r NSRulerView) SetHasVerticalRuler(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setHasVerticalRuler:"), value)
 }
-

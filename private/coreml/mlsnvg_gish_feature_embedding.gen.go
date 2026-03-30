@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (mc MLSNVGGishFeatureEmbeddingClass) Alloc() MLSNVGGishFeatureEmbedding {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLSNVGGishFeatureEmbedding.ModelDescription]
 //   - [MLSNVGGishFeatureEmbedding.PredictionFromFeaturesOptionsError]
 //   - [MLSNVGGishFeatureEmbedding.InitWithModelDescriptionParameterDictionaryError]
+//
 // See: https://developer.apple.com/documentation/CoreML/_MLSNVGGishFeatureEmbedding
 type MLSNVGGishFeatureEmbedding struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type MLSNVGGishFeatureEmbedding struct {
 func MLSNVGGishFeatureEmbeddingFromID(id objc.ID) MLSNVGGishFeatureEmbedding {
 	return MLSNVGGishFeatureEmbedding{objectivec.Object{ID: id}}
 }
+
 // Ensure MLSNVGGishFeatureEmbedding implements IMLSNVGGishFeatureEmbedding.
 var _ IMLSNVGGishFeatureEmbedding = MLSNVGGishFeatureEmbedding{}
 
@@ -99,7 +101,6 @@ func NewMLSNVGGishFeatureEmbedding() MLSNVGGishFeatureEmbedding {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLSNVGGishFeatureEmbedding/initWithModelDescription:parameterDictionary:error:
 func NewMLSNVGGishFeatureEmbeddingWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLSNVGGishFeatureEmbedding, error) {
 	var errorPtr objc.ID
@@ -112,7 +113,6 @@ func NewMLSNVGGishFeatureEmbeddingWithModelDescriptionParameterDictionaryError(d
 	return MLSNVGGishFeatureEmbeddingFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_MLSNVGGishFeatureEmbedding/predictionFromFeatures:options:error:
 func (m MLSNVGGishFeatureEmbedding) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -124,7 +124,7 @@ func (m MLSNVGGishFeatureEmbedding) PredictionFromFeaturesOptionsError(features 
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_MLSNVGGishFeatureEmbedding/initWithModelDescription:parameterDictionary:error:
 func (m MLSNVGGishFeatureEmbedding) InitWithModelDescriptionParameterDictionaryError(description objectivec.IObject, dictionary objectivec.IObject) (MLSNVGGishFeatureEmbedding, error) {
 	var errorPtr objc.ID
@@ -142,4 +142,3 @@ func (m MLSNVGGishFeatureEmbedding) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
-

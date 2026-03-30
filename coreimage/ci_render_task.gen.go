@@ -3,10 +3,11 @@
 package coreimage
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,9 +47,9 @@ func (cc CIRenderTaskClass) Alloc() CIRenderTask {
 // A single render task.
 //
 // # Overview
-// 
+//
 // A single render task issued in conjunction with [CIRenderDestination].
-// 
+//
 // A [CIRenderTask] object appears in Xcode Quick Look as a graph.
 //
 // # Instance Methods
@@ -66,6 +67,7 @@ type CIRenderTask struct {
 func CIRenderTaskFromID(id objc.ID) CIRenderTask {
 	return CIRenderTask{objectivec.Object{ID: id}}
 }
+
 // NOTE: CIRenderTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -107,7 +109,7 @@ func NewCIRenderTask() CIRenderTask {
 // Waits until the [CIRenderTask] finishes and returns.
 //
 // # Discussion
-// 
+//
 // Synchronously blocks execution until the [CIRenderTask] either completes or
 // fails (with error). Calling this method after
 // [StartTaskToRenderToDestinationError] or
@@ -126,4 +128,3 @@ func (r CIRenderTask) WaitUntilCompletedAndReturnError() (ICIRenderInfo, error) 
 	return CIRenderInfoFromID(rv), nil
 
 }
-

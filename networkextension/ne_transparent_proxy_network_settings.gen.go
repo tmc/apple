@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (nc NETransparentProxyNetworkSettingsClass) Alloc() NETransparentProxyNetwo
 // A specification of what traffic to route through a transparent proxy.
 //
 // # Overview
-// 
+//
 // A proxy network settings object contains two properties: an array of rules
 // to include traffic ([NETransparentProxyNetworkSettings.IncludedNetworkRules]) and an array of rules to
 // exclude traffic ([NETransparentProxyNetworkSettings.ExcludedNetworkRules]). The exclusion rules take
@@ -71,6 +72,7 @@ type NETransparentProxyNetworkSettings struct {
 func NETransparentProxyNetworkSettingsFromID(id objc.ID) NETransparentProxyNetworkSettings {
 	return NETransparentProxyNetworkSettings{NETunnelNetworkSettings: NETunnelNetworkSettingsFromID(id)}
 }
+
 // NOTE: NETransparentProxyNetworkSettings adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,9 +133,9 @@ func NewTransparentProxyNetworkSettingsWithTunnelRemoteAddress(address string) N
 // the transparent proxy.
 //
 // # Discussion
-// 
+//
 // The following restrictions apply to each rule in the array:
-// 
+//
 // - If the port string of the endpoint is `0` or is the empty string, then
 // the address of the endpoint must be a non-wildcard address, such as
 // `0.0.0.0` or `::`. - If the address is a wildcard address (such as
@@ -141,9 +143,7 @@ func NewTransparentProxyNetworkSettingsWithTunnelRemoteAddress(address string) N
 // and must not be `0`. - A port string of `53` is not allowed. Use
 // Destination Domain-based rules to match DNS traffic. - The
 // [MatchLocalNetwork] property must be `nil`. - The [MatchDirection] property
-// must be [NETrafficDirection.outbound].
-//
-// [NETrafficDirection.outbound]: https://developer.apple.com/documentation/NetworkExtension/NETrafficDirection/outbound
+// must be [NETrafficDirectionOutbound].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETransparentProxyNetworkSettings/includedNetworkRules
 func (t NETransparentProxyNetworkSettings) IncludedNetworkRules() []NENetworkRule {
@@ -155,13 +155,14 @@ func (t NETransparentProxyNetworkSettings) IncludedNetworkRules() []NENetworkRul
 func (t NETransparentProxyNetworkSettings) SetIncludedNetworkRules(value []NENetworkRule) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIncludedNetworkRules:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // An array of rules that collectively specify what traffic to not route
 // through the transparent proxy.
 //
 // # Discussion
-// 
+//
 // The following restrictions apply to each rule in the array:
-// 
+//
 // - If the port string of the endpoint is `0` or is the empty string, then
 // the address of the endpoint must be a non-wildcard address, such as
 // `0.0.0.0` or `::`. - If the address is a wildcard address (such as
@@ -169,9 +170,7 @@ func (t NETransparentProxyNetworkSettings) SetIncludedNetworkRules(value []NENet
 // and must not be `0`. - A port string of `53` is not allowed. Use
 // Destination Domain-based rules to match DNS traffic. - The
 // [MatchLocalNetwork] property must be `nil`. - The [MatchDirection] property
-// must be [NETrafficDirection.outbound].
-//
-// [NETrafficDirection.outbound]: https://developer.apple.com/documentation/NetworkExtension/NETrafficDirection/outbound
+// must be [NETrafficDirectionOutbound].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETransparentProxyNetworkSettings/excludedNetworkRules
 func (t NETransparentProxyNetworkSettings) ExcludedNetworkRules() []NENetworkRule {
@@ -183,4 +182,3 @@ func (t NETransparentProxyNetworkSettings) ExcludedNetworkRules() []NENetworkRul
 func (t NETransparentProxyNetworkSettings) SetExcludedNetworkRules(value []NENetworkRule) {
 	objc.Send[struct{}](t.ID, objc.Sel("setExcludedNetworkRules:"), objectivec.IObjectSliceToNSArray(value))
 }
-

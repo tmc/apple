@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (vc VZScrollWheelEventClass) Alloc() VZScrollWheelEvent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZScrollWheelEvent.AcceleratedScrollingDeltaX]
@@ -52,6 +52,7 @@ func (vc VZScrollWheelEventClass) Alloc() VZScrollWheelEvent {
 //   - [VZScrollWheelEvent.ScrollingDeltaY]
 //   - [VZScrollWheelEvent.InitWithEvent]
 //   - [VZScrollWheelEvent.InitWithScrollingDeltaXScrollingDeltaYAcceleratedScrollingDeltaXAcceleratedScrollingDeltaYScrollPhaseMomentumPhase]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZScrollWheelEvent
 type VZScrollWheelEvent struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZScrollWheelEvent struct {
 func VZScrollWheelEventFromID(id objc.ID) VZScrollWheelEvent {
 	return VZScrollWheelEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure VZScrollWheelEvent implements IVZScrollWheelEvent.
 var _ IVZScrollWheelEvent = VZScrollWheelEvent{}
 
@@ -112,7 +114,6 @@ func NewVZScrollWheelEvent() VZScrollWheelEvent {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZScrollWheelEvent/initWithEvent:
 func NewVZScrollWheelEventWithEvent(event objectivec.IObject) VZScrollWheelEvent {
 	instance := getVZScrollWheelEventClass().Alloc()
@@ -120,7 +121,6 @@ func NewVZScrollWheelEventWithEvent(event objectivec.IObject) VZScrollWheelEvent
 	return VZScrollWheelEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZScrollWheelEvent/initWithScrollingDeltaX:scrollingDeltaY:acceleratedScrollingDeltaX:acceleratedScrollingDeltaY:scrollPhase:momentumPhase:
 func NewVZScrollWheelEventWithScrollingDeltaXScrollingDeltaYAcceleratedScrollingDeltaXAcceleratedScrollingDeltaYScrollPhaseMomentumPhase(x float64, y float64, x2 float64, y2 float64, phase uint64, phase2 uint64) VZScrollWheelEvent {
 	instance := getVZScrollWheelEventClass().Alloc()
@@ -128,13 +128,12 @@ func NewVZScrollWheelEventWithScrollingDeltaXScrollingDeltaYAcceleratedScrolling
 	return VZScrollWheelEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZScrollWheelEvent/initWithEvent:
 func (v VZScrollWheelEvent) InitWithEvent(event objectivec.IObject) VZScrollWheelEvent {
 	rv := objc.Send[VZScrollWheelEvent](v.ID, objc.Sel("initWithEvent:"), event)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZScrollWheelEvent/initWithScrollingDeltaX:scrollingDeltaY:acceleratedScrollingDeltaX:acceleratedScrollingDeltaY:scrollPhase:momentumPhase:
 func (v VZScrollWheelEvent) InitWithScrollingDeltaXScrollingDeltaYAcceleratedScrollingDeltaXAcceleratedScrollingDeltaYScrollPhaseMomentumPhase(x float64, y float64, x2 float64, y2 float64, phase uint64, phase2 uint64) VZScrollWheelEvent {
 	rv := objc.Send[VZScrollWheelEvent](v.ID, objc.Sel("initWithScrollingDeltaX:scrollingDeltaY:acceleratedScrollingDeltaX:acceleratedScrollingDeltaY:scrollPhase:momentumPhase:"), x, y, x2, y2, phase, phase2)
@@ -146,29 +145,33 @@ func (v VZScrollWheelEvent) AcceleratedScrollingDeltaX() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("acceleratedScrollingDeltaX"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZScrollWheelEvent/acceleratedScrollingDeltaY
 func (v VZScrollWheelEvent) AcceleratedScrollingDeltaY() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("acceleratedScrollingDeltaY"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZScrollWheelEvent/momentumPhase
 func (v VZScrollWheelEvent) MomentumPhase() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("momentumPhase"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZScrollWheelEvent/scrollPhase
 func (v VZScrollWheelEvent) ScrollPhase() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("scrollPhase"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZScrollWheelEvent/scrollingDeltaX
 func (v VZScrollWheelEvent) ScrollingDeltaX() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("scrollingDeltaX"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZScrollWheelEvent/scrollingDeltaY
 func (v VZScrollWheelEvent) ScrollingDeltaY() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("scrollingDeltaY"))
 	return rv
 }
-

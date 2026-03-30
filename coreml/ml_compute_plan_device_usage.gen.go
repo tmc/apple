@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,6 +60,7 @@ type MLComputePlanDeviceUsage struct {
 func MLComputePlanDeviceUsageFromID(id objc.ID) MLComputePlanDeviceUsage {
 	return MLComputePlanDeviceUsage{objectivec.Object{ID: id}}
 }
+
 // Ensure MLComputePlanDeviceUsage implements IMLComputePlanDeviceUsage.
 var _ IMLComputePlanDeviceUsage = MLComputePlanDeviceUsage{}
 
@@ -108,6 +110,7 @@ func (c MLComputePlanDeviceUsage) PreferredComputeDevice() MLComputeDeviceProtoc
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("preferredComputeDevice"))
 	return MLComputeDeviceProtocolObjectFromID(rv)
 }
+
 // The compute devices that can execute the layer/operation.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsage/supportedComputeDevices
@@ -117,4 +120,3 @@ func (c MLComputePlanDeviceUsage) SupportedComputeDevices() []objectivec.IObject
 		return objectivec.Object{ID: id}
 	})
 }
-

@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/uniformtypeidentifiers"
 )
@@ -46,14 +47,14 @@ func (nc NSAdaptiveImageGlyphClass) Alloc() NSAdaptiveImageGlyph {
 // A data object for an emoji-like image that can appear in attributed text.
 //
 // # Overview
-// 
+//
 // An [NSAdaptiveImageGlyph] contains an image that automatically adapts to
 // different sizes and resolutions. The text system creates instances of this
 // type to represent custom emojis that people create using the system
 // interfaces. This type manages multiple images, along with metadata
 // describing how to adapt those images correctly to different fonts and font
 // attributes.
-// 
+//
 // Typically, you receive new [NSAdaptiveImageGlyph] objects only from the
 // text-input system. When someone creates a new emoji and inserts it into
 // their text, TextKit creates an instance of this type to represent it. If
@@ -90,6 +91,7 @@ type NSAdaptiveImageGlyph struct {
 func NSAdaptiveImageGlyphFromID(id objc.ID) NSAdaptiveImageGlyph {
 	return NSAdaptiveImageGlyph{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAdaptiveImageGlyph adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -155,7 +157,6 @@ func NewNSAdaptiveImageGlyph() NSAdaptiveImageGlyph {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyph/init(coder:)
 func NewAdaptiveImageGlyphWithCoder(coder foundation.INSCoder) NSAdaptiveImageGlyph {
 	instance := getNSAdaptiveImageGlyphClass().Alloc()
@@ -171,12 +172,12 @@ func NewAdaptiveImageGlyphWithCoder(coder foundation.INSCoder) NSAdaptiveImageGl
 // adaptive image later.
 //
 // # Return Value
-// 
+//
 // A new adaptive image glyph with the identifier and details from the image
 // data.
 //
 // # Discussion
-// 
+//
 // Use this initializer to create an adaptive image glyph from data you
 // previously saved.
 //
@@ -195,12 +196,12 @@ func NewAdaptiveImageGlyphWithImageContent(imageContent foundation.INSData) NSAd
 // adaptive image later.
 //
 // # Return Value
-// 
+//
 // A new adaptive image glyph with the identifier and details from the image
 // data.
 //
 // # Discussion
-// 
+//
 // Use this initializer to create an adaptive image glyph from data you
 // previously saved.
 //
@@ -209,7 +210,7 @@ func (a NSAdaptiveImageGlyph) InitWithImageContent(imageContent foundation.INSDa
 	rv := objc.Send[NSAdaptiveImageGlyph](a.ID, objc.Sel("initWithImageContent:"), imageContent)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyph/init(coder:)
 func (a NSAdaptiveImageGlyph) InitWithCoder(coder foundation.INSCoder) NSAdaptiveImageGlyph {
 	rv := objc.Send[NSAdaptiveImageGlyph](a.ID, objc.Sel("initWithCoder:"), coder)
@@ -222,7 +223,7 @@ func (a NSAdaptiveImageGlyph) EncodeWithCoder(coder foundation.INSCoder) {
 // The raw data for the image.
 //
 // # Discussion
-// 
+//
 // This property contains the image data, the unique identifier for the image,
 // the image description, and additional metadata. When saving your content to
 // disk, save the data for any adaptive images with the rest of your content.
@@ -234,10 +235,11 @@ func (a NSAdaptiveImageGlyph) ImageContent() foundation.INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("imageContent"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // A unique identifier for this image.
 //
 // # Discussion
-// 
+//
 // Use this property to create a persistent reference to this specific image
 // in your code. The image data contains this content identifier, so the value
 // persists between instantiations.
@@ -247,10 +249,11 @@ func (a NSAdaptiveImageGlyph) ContentIdentifier() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("contentIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An alternate textual description of the image contents.
 //
 // # Discussion
-// 
+//
 // This string contains a brief description of the image, which is useful for
 // searches or places where you need a text-based description. The adaptive
 // image derives the content of this property from the underlying image data.
@@ -260,6 +263,7 @@ func (a NSAdaptiveImageGlyph) ContentDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("contentDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The adaptive image glyph for the text.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/adaptiveImageGlyph
@@ -271,7 +275,7 @@ func (a NSAdaptiveImageGlyph) AdaptiveImageGlyph() foundation.NSString {
 // The image data format to use for this image type.
 //
 // # Discussion
-// 
+//
 // Use this type when you need to specify the type of the image data. Adaptive
 // images are compatible with the HEIC format, but include extra metadata
 // about the supported resolutions and sizes.
@@ -281,4 +285,3 @@ func (_NSAdaptiveImageGlyphClass NSAdaptiveImageGlyphClass) ContentType() unifor
 	rv := objc.Send[objc.ID](objc.ID(_NSAdaptiveImageGlyphClass.class), objc.Sel("contentType"))
 	return uniformtypeidentifiers.UTTypeFromID(objc.ID(rv))
 }
-

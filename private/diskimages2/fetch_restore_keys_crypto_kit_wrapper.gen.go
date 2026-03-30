@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,6 +53,7 @@ type FetchRestoreKeysCryptoKitWrapper struct {
 func FetchRestoreKeysCryptoKitWrapperFromID(id objc.ID) FetchRestoreKeysCryptoKitWrapper {
 	return FetchRestoreKeysCryptoKitWrapper{objectivec.Object{ID: id}}
 }
+
 // Ensure FetchRestoreKeysCryptoKitWrapper implements IFetchRestoreKeysCryptoKitWrapper.
 var _ IFetchRestoreKeysCryptoKitWrapper = FetchRestoreKeysCryptoKitWrapper{}
 
@@ -81,7 +83,6 @@ func NewFetchRestoreKeysCryptoKitWrapper() FetchRestoreKeysCryptoKitWrapper {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/FetchRestoreKeys.CryptoKitWrapper/convertPrivateKeyToPEMWithX963PrivateKey:error:
 func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperClass) ConvertPrivateKeyToPEMWithX963PrivateKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -93,7 +94,7 @@ func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperCla
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/FetchRestoreKeys.CryptoKitWrapper/convertPrivateKeyTox963WithPemPrivateKey:error:
 func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperClass) ConvertPrivateKeyTox963WithPemPrivateKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -105,7 +106,7 @@ func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperCla
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/FetchRestoreKeys.CryptoKitWrapper/unwrapEncryptionKeyWithWrappedKey:encapsulatedKey:privateKey:error:
 func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperClass) UnwrapEncryptionKeyWithWrappedKeyEncapsulatedKeyPrivateKeyError(key objectivec.IObject, key2 objectivec.IObject, key3 objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -117,7 +118,7 @@ func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperCla
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/FetchRestoreKeys.CryptoKitWrapper/wrappedDataDictionaryWithCertWithPlainText:certificate:error:
 func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperClass) WrappedDataDictionaryWithCertWithPlainTextCertificateError(text objectivec.IObject, certificate objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -129,4 +130,3 @@ func (_FetchRestoreKeysCryptoKitWrapperClass FetchRestoreKeysCryptoKitWrapperCla
 	return objectivec.Object{ID: rv}, nil
 
 }
-

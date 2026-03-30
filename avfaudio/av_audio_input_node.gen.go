@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,23 +45,23 @@ func (ac AVAudioInputNodeClass) Alloc() AVAudioInputNode {
 // An object that connects to the system’s audio input.
 //
 // # Overview
-// 
+//
 // This node connects to the system’s audio input when rendering to or from
 // an audio device. In manual rendering mode, this node supplies input data to
 // the engine.
-// 
+//
 // This audio node has one element. The format of the input scope reflects:
-// 
+//
 // - The audio hardware sample rate and channel count when it connects to
 // hardware. - The format of the PCM audio data that the node supplies to the
 // engine in manual rendering mode. For more information, see
 // [AVAudioInputNode.SetManualRenderingInputPCMFormatInputBlock]
-// 
+//
 // When rendering from an audio device, the input node doesn’t support
 // format conversion. In this case, the format of the output scope must be the
 // same as the input and the formats for all nodes connected to the input
 // chain.
-// 
+//
 // In manual rendering mode, the format of the output scope is initially the
 // same as the input, but you may set it to a different format, which converts
 // the node.
@@ -95,6 +96,7 @@ type AVAudioInputNode struct {
 func AVAudioInputNodeFromID(id objc.ID) AVAudioInputNode {
 	return AVAudioInputNode{AVAudioIONode: AVAudioIONodeFromID(id)}
 }
+
 // NOTE: AVAudioInputNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -180,7 +182,7 @@ func NewAVAudioInputNode() AVAudioInputNode {
 // information, see [AVAudioIONodeInputBlock].
 //
 // # Discussion
-// 
+//
 // The block must be non-`nil` when using an input node while the engine is
 // operating in manual rendering mode. If you switch the engine to render to
 // and from an audio device, it invalidates any previous block.
@@ -190,13 +192,14 @@ func (a AVAudioInputNode) SetManualRenderingInputPCMFormatInputBlock(format IAVA
 	rv := objc.Send[bool](a.ID, objc.Sel("setManualRenderingInputPCMFormat:inputBlock:"), format, block)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/setMutedSpeechActivityEventListener(_:)
 func (a AVAudioInputNode) SetMutedSpeechActivityEventListener(listenerBlock AVAudioVoiceProcessingSpeechActivityEventHandler) bool {
-_block0, _ := NewAVAudioVoiceProcessingSpeechActivityEventBlock(listenerBlock)
+	_block0, _ := NewAVAudioVoiceProcessingSpeechActivityEventBlock(listenerBlock)
 	rv := objc.Send[bool](a.ID, objc.Sel("setMutedSpeechActivityEventListener:"), _block0)
 	return rv
 }
+
 // Gets the audio mixing destination object that corresponds to the specified
 // mixer node and input bus.
 //
@@ -205,20 +208,20 @@ _block0, _ := NewAVAudioVoiceProcessingSpeechActivityEventBlock(listenerBlock)
 // bus: The input bus.
 //
 // # Return Value
-// 
+//
 // Returns `self` if the specified mixer or input bus matches its connection
 // point. If the mixer or input bus doesn’t match its connection point, or
 // if the source node isn’t in a connected state to the mixer or input bus,
 // the method returns `nil.`
 //
 // # Discussion
-// 
+//
 // When you connect a source node to multiple mixers downstream, setting
 // [AVAudioMixing] properties directly on the source node applies the change
 // to all of them. Use this method to get the corresponding
 // [AVAudioMixingDestination] for a specific mixer. Properties set on
 // individual destination instances don’t reflect at the source node level.
-// 
+//
 // If there’s any disconnection between the source and mixer nodes, the
 // return value can be invalid. Fetch the return value every time you want to
 // set or get properties on a specific mixer.
@@ -240,6 +243,7 @@ func (a AVAudioInputNode) VoiceProcessingInputMuted() bool {
 func (a AVAudioInputNode) SetVoiceProcessingInputMuted(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVoiceProcessingInputMuted:"), value)
 }
+
 // A Boolean that indicates whether the node bypasses all microphone uplink
 // processing of the voice-processing unit.
 //
@@ -251,11 +255,12 @@ func (a AVAudioInputNode) VoiceProcessingBypassed() bool {
 func (a AVAudioInputNode) SetVoiceProcessingBypassed(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVoiceProcessingBypassed:"), value)
 }
+
 // A Boolean that indicates whether automatic gain control on the processed
 // microphone uplink signal is active.
 //
 // # Discussion
-// 
+//
 // This property is in an enabled state by default.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/isVoiceProcessingAGCEnabled
@@ -266,17 +271,18 @@ func (a AVAudioInputNode) VoiceProcessingAGCEnabled() bool {
 func (a AVAudioInputNode) SetVoiceProcessingAGCEnabled(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVoiceProcessingAGCEnabled:"), value)
 }
+
 // The ducking configuration of nonvoice audio.
 //
 // # Discussion
-// 
+//
 // Use this property to configures the ducking of nonvoice audio, including
 // advanced enablement and ducking level. Typically, when playing other audio
 // during voice chat, applying a higher level of ducking can increase the
 // intelligibility of the voice chat.
-// 
+//
 // If not set, the default behavior is to disable advanced ducking, with a
-// ducking level set to [AudioVoiceProcessingOtherAudioDuckingLevelDefault].
+// ducking level set to [AVAudioVoiceProcessingOtherAudioDuckingLevelDefault].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/voiceProcessingOtherAudioDuckingConfiguration
 func (a AVAudioInputNode) VoiceProcessingOtherAudioDuckingConfiguration() AVAudioVoiceProcessingOtherAudioDuckingConfiguration {
@@ -286,14 +292,15 @@ func (a AVAudioInputNode) VoiceProcessingOtherAudioDuckingConfiguration() AVAudi
 func (a AVAudioInputNode) SetVoiceProcessingOtherAudioDuckingConfiguration(value AVAudioVoiceProcessingOtherAudioDuckingConfiguration) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVoiceProcessingOtherAudioDuckingConfiguration:"), value)
 }
+
 // A value that simulates filtering of the direct path of sound due to an
 // obstacle.
 //
 // # Discussion
-// 
+//
 // The value of `obstruction` is in decibels. The system blocks only the
 // direct path of sound between the source and listener.
-// 
+//
 // The default value is `0.0`, and the range of valid values is `-100` to `0`.
 // Only the [AVAudioEnvironmentNode] class implements this property.
 //
@@ -305,14 +312,15 @@ func (a AVAudioInputNode) Obstruction() float32 {
 func (a AVAudioInputNode) SetObstruction(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setObstruction:"), value)
 }
+
 // A value that simulates filtering of the direct and reverb paths of sound
 // due to an obstacle.
 //
 // # Discussion
-// 
+//
 // The value of `obstruction` is in decibels. The system blocks the direct and
 // reverb paths of sound between the source and listener.
-// 
+//
 // The default value is `0.0`, and the range of valid values is `-100` to `0`.
 // Only the [AVAudioEnvironmentNode] class implements this property.
 //
@@ -324,10 +332,11 @@ func (a AVAudioInputNode) Occlusion() float32 {
 func (a AVAudioInputNode) SetOcclusion(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOcclusion:"), value)
 }
+
 // The bus’s stereo pan.
 //
 // # Discussion
-// 
+//
 // The default value is `0.0`, and the range of valid values is `-1.0` to
 // `1.0`. Only the [AVAudioEnvironmentNode] class implements this property.
 //
@@ -339,6 +348,7 @@ func (a AVAudioInputNode) Pan() float32 {
 func (a AVAudioInputNode) SetPan(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPan:"), value)
 }
+
 // The in-head mode for a point source.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/pointSourceInHeadMode
@@ -349,10 +359,11 @@ func (a AVAudioInputNode) PointSourceInHeadMode() AVAudio3DMixingPointSourceInHe
 func (a AVAudioInputNode) SetPointSourceInHeadMode(value AVAudio3DMixingPointSourceInHeadMode) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPointSourceInHeadMode:"), value)
 }
+
 // The location of the source in the 3D environment.
 //
 // # Discussion
-// 
+//
 // The system specifies the coordinates in meters. Only the
 // [AVAudioEnvironmentNode] class implements this property.
 //
@@ -364,13 +375,14 @@ func (a AVAudioInputNode) Position() AVAudio3DPoint {
 func (a AVAudioInputNode) SetPosition(value AVAudio3DPoint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPosition:"), value)
 }
+
 // A value that changes the playback rate of the input signal.
 //
 // # Discussion
-// 
+//
 // A value of `2.0` results in the output audio playing one octave higher. A
 // value of `0.5` results in the output audio playing one octave lower.
-// 
+//
 // The default value is `1.0`, and the range of valid values is `0.5` to
 // `2.0`. Only the [AVAudioEnvironmentNode] class implements this property.
 //
@@ -382,18 +394,19 @@ func (a AVAudioInputNode) Rate() float32 {
 func (a AVAudioInputNode) SetRate(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRate:"), value)
 }
+
 // The type of rendering algorithm the mixer uses.
 //
 // # Discussion
-// 
+//
 // Depending on the current output format of the [AVAudioEnvironmentNode]
 // instance, the system may only support a subset of the rendering algorithms.
 // You can retrieve an array of valid rendering algorithms by calling the
 // [ApplicableRenderingAlgorithms] function of the [AVAudioEnvironmentNode]
 // instance.
-// 
+//
 // The default rendering algorithm is
-// [Audio3DMixingRenderingAlgorithmEqualPowerPanning]. Only the
+// [AVAudio3DMixingRenderingAlgorithmEqualPowerPanning]. Only the
 // [AVAudioEnvironmentNode] class implements this property.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/renderingAlgorithm
@@ -404,14 +417,15 @@ func (a AVAudioInputNode) RenderingAlgorithm() AVAudio3DMixingRenderingAlgorithm
 func (a AVAudioInputNode) SetRenderingAlgorithm(value AVAudio3DMixingRenderingAlgorithm) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRenderingAlgorithm:"), value)
 }
+
 // A value that controls the blend of dry and reverb processed audio.
 //
 // # Discussion
-// 
+//
 // This property controls the amount of the source’s audio that the
 // [AVAudioEnvironmentNode] instance processes. A value of `0.5` results in an
 // equal blend of dry and processed (wet) audio.
-// 
+//
 // The default is `0.0`, and the range of valid values is `0.0` (completely
 // dry) to `1.0` (completely wet). Only the [AVAudioEnvironmentNode] class
 // implements this property.
@@ -424,6 +438,7 @@ func (a AVAudioInputNode) ReverbBlend() float32 {
 func (a AVAudioInputNode) SetReverbBlend(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setReverbBlend:"), value)
 }
+
 // The source mode for the input bus of the audio environment node.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudio3DMixing/sourceMode
@@ -434,10 +449,11 @@ func (a AVAudioInputNode) SourceMode() AVAudio3DMixingSourceMode {
 func (a AVAudioInputNode) SetSourceMode(value AVAudio3DMixingSourceMode) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSourceMode:"), value)
 }
+
 // The bus’s input volume.
 //
 // # Discussion
-// 
+//
 // The default value is `1.0`, and the range of valid values is `0.0` to
 // `1.0`. Only the [AVAudioEnvironmentNode] and the [AVAudioMixerNode]
 // implement this property.
@@ -451,8 +467,7 @@ func (a AVAudioInputNode) SetVolume(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVolume:"), value)
 }
 
-			// Protocol methods for AVAudioMixing
-			
+// Protocol methods for AVAudioMixing
 
 // SetMutedSpeechActivityEventListenerSync is a synchronous wrapper around [AVAudioInputNode.SetMutedSpeechActivityEventListener].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -468,4 +483,3 @@ func (a AVAudioInputNode) SetMutedSpeechActivityEventListenerSync(ctx context.Co
 		return 0, ctx.Err()
 	}
 }
-

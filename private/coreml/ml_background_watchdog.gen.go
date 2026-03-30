@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (mc MLBackgroundWatchdogClass) Alloc() MLBackgroundWatchdog {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLBackgroundWatchdog.Invalidate]
 //   - [MLBackgroundWatchdog.Timer]
 //   - [MLBackgroundWatchdog.SetTimer]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundWatchdog
 type MLBackgroundWatchdog struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type MLBackgroundWatchdog struct {
 func MLBackgroundWatchdogFromID(id objc.ID) MLBackgroundWatchdog {
 	return MLBackgroundWatchdog{objectivec.Object{ID: id}}
 }
+
 // Ensure MLBackgroundWatchdog implements IMLBackgroundWatchdog.
 var _ IMLBackgroundWatchdog = MLBackgroundWatchdog{}
 
@@ -102,13 +104,12 @@ func (b MLBackgroundWatchdog) Invalidate() {
 	objc.Send[objc.ID](b.ID, objc.Sel("invalidate"))
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundWatchdog/watchdogWithTimeout:label:queue:
 func (_MLBackgroundWatchdogClass MLBackgroundWatchdogClass) WatchdogWithTimeoutLabelQueue(timeout float64, label objectivec.IObject, queue objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLBackgroundWatchdogClass.class), objc.Sel("watchdogWithTimeout:label:queue:"), timeout, label, queue)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLBackgroundWatchdog/watchdogWithTimeout:queue:
 func (_MLBackgroundWatchdogClass MLBackgroundWatchdogClass) WatchdogWithTimeoutQueue(timeout float64, queue objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLBackgroundWatchdogClass.class), objc.Sel("watchdogWithTimeout:queue:"), timeout, queue)
@@ -123,4 +124,3 @@ func (b MLBackgroundWatchdog) Timer() objectivec.Object {
 func (b MLBackgroundWatchdog) SetTimer(value objectivec.Object) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTimer:"), value)
 }
-

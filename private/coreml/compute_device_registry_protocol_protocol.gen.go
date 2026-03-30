@@ -18,6 +18,7 @@ type MLComputeDeviceRegistryProtocol interface {
 type MLComputeDeviceRegistryProtocolObject struct {
 	objectivec.Object
 }
+
 func (o MLComputeDeviceRegistryProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,10 +35,10 @@ func MLComputeDeviceRegistryProtocolObjectFromID(id objc.ID) MLComputeDeviceRegi
 func (o MLComputeDeviceRegistryProtocolObject) RegisteredComputeDevices() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("registeredComputeDevices"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputeDeviceRegistryProtocol/sharedRegistry
 func (o MLComputeDeviceRegistryProtocolObject) SharedRegistry() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharedRegistry"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

@@ -3,11 +3,12 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,7 +49,7 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 // configuration of macOS or Linux VMs.
 //
 // # Overview
-// 
+//
 // Use a [VZVirtualMachineConfiguration] object to configure the environment
 // for a macOS or Linux VM. This configuration object contains information
 // about the VM environment, including the devices that the VM exposes to the
@@ -57,7 +58,7 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 // system may access. For more information on the devices that macOS and Linux
 // guests can support, see the Devices section on the [Virtualization]
 // framework page.
-// 
+//
 // You create and configure [VZVirtualMachineConfiguration] objects directly.
 // After validating the configuration object, use it to initialize the
 // [VZVirtualMachine] object that manages the virtual environment. The
@@ -68,15 +69,10 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 // method to determine whether a VM can successfully support your
 // configuration. A configuration object is invalid if your app doesn’t have
 // the [com.apple.security.virtualization] entitlement.
-// 
+//
 // For more information on using [VZVirtualMachineConfiguration], see
 // [Installing macOS on a Virtual Machine] and [Creating and Running a Linux
 // Virtual Machine].
-//
-// [Creating and Running a Linux Virtual Machine]: https://developer.apple.com/documentation/Virtualization/creating-and-running-a-linux-virtual-machine
-// [Installing macOS on a Virtual Machine]: https://developer.apple.com/documentation/Virtualization/installing-macos-on-a-virtual-machine
-// [Virtualization]: https://developer.apple.com/documentation/Virtualization
-// [com.apple.security.virtualization]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.security.virtualization
 //
 // # Configuring the guest system
 //
@@ -130,6 +126,11 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 //   - [VZVirtualMachineConfiguration.ValidateSaveRestoreSupportWithError]: Determines whether the framework can save or restore the VM’s current configuration.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration
+//
+// [Creating and Running a Linux Virtual Machine]: https://developer.apple.com/documentation/Virtualization/creating-and-running-a-linux-virtual-machine
+// [Installing macOS on a Virtual Machine]: https://developer.apple.com/documentation/Virtualization/installing-macos-on-a-virtual-machine
+// [Virtualization]: https://developer.apple.com/documentation/Virtualization
+// [com.apple.security.virtualization]: https://developer.apple.com/documentation/BundleResources/Entitlements/com.apple.security.virtualization
 type VZVirtualMachineConfiguration struct {
 	objectivec.Object
 }
@@ -141,6 +142,7 @@ type VZVirtualMachineConfiguration struct {
 func VZVirtualMachineConfigurationFromID(id objc.ID) VZVirtualMachineConfiguration {
 	return VZVirtualMachineConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZVirtualMachineConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -308,14 +310,15 @@ func (v VZVirtualMachineConfiguration) ValidateWithError() (bool, error) {
 	return rv, nil
 
 }
+
 // Determines whether the framework can save or restore the VM’s current
 // configuration.
 //
 // # Discussion
-// 
+//
 // Use this method to verify that a virtual machine with this configuration is
 // savable.
-// 
+//
 // - Not all configuration options can be safely saved and restored from the
 // configuration file on disk. - If this method returns `false`, the caller
 // should expect future calls to [SaveMachineStateToURLCompletionHandler] to
@@ -339,7 +342,7 @@ func (v VZVirtualMachineConfiguration) ValidateSaveRestoreSupportWithError() (bo
 // The guest system to boot when the VM starts.
 //
 // # Discussion
-// 
+//
 // Assign the boot loader object that contains information about how to load
 // your guest operating system. For example, to configure your VM with a Linux
 // operating system, assign a [VZLinuxBootLoader] object.
@@ -352,6 +355,7 @@ func (v VZVirtualMachineConfiguration) BootLoader() IVZBootLoader {
 func (v VZVirtualMachineConfiguration) SetBootLoader(value IVZBootLoader) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBootLoader:"), value)
 }
+
 // The number of CPUs for the virtual machine. Must be between
 // minimumAllowedCPUCount and maximumAllowedCPUCount.
 //
@@ -363,6 +367,7 @@ func (v VZVirtualMachineConfiguration) CPUCount() uint {
 func (v VZVirtualMachineConfiguration) SetCPUCount(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCPUCount:"), value)
 }
+
 // The memory size in bytes for the virtual machine. Must be a multiple of 1MB
 // and between minimumAllowedMemorySize and maximumAllowedMemorySize.
 //
@@ -374,18 +379,19 @@ func (v VZVirtualMachineConfiguration) MemorySize() uint64 {
 func (v VZVirtualMachineConfiguration) SetMemorySize(value uint64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMemorySize:"), value)
 }
+
 // An array that you configure with a memory balloon device, used to update
 // the memory in the VM.
 //
 // # Discussion
-// 
+//
 // Use this property to request a memory balloon device from the VM. The VM
 // initially reserves the amount of memory in the [MemorySize] property for
 // the guest operating system. A balloon memory device asks the guest system
 // to return memory pages that it isn’t using to the VM. You might use the
 // device to reclaim memory when the amount of free memory on the host system
 // runs low.
-// 
+//
 // The default value of this property is an empty array, which doesn’t
 // result in the creation of a balloon memory device. To create a balloon
 // memory device, add a single
@@ -404,10 +410,11 @@ func (v VZVirtualMachineConfiguration) MemoryBalloonDevices() []VZMemoryBalloonD
 func (v VZVirtualMachineConfiguration) SetMemoryBalloonDevices(value []VZMemoryBalloonDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMemoryBalloonDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The array of console devices that you expose to the guest operating system.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/consoleDevices
@@ -420,10 +427,11 @@ func (v VZVirtualMachineConfiguration) ConsoleDevices() []VZConsoleDeviceConfigu
 func (v VZVirtualMachineConfiguration) SetConsoleDevices(value []VZConsoleDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConsoleDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The array of network devices that you expose to the guest operating system.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. If your VM supports
 // one or more network devices, assign an array of supported network
 // configurations to this property.
@@ -438,11 +446,12 @@ func (v VZVirtualMachineConfiguration) NetworkDevices() []VZNetworkDeviceConfigu
 func (v VZVirtualMachineConfiguration) SetNetworkDevices(value []VZNetworkDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setNetworkDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The socket device that you use to implement port-based communication with
 // the guest operating system.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. If your VM supports
 // port-based communication with sockets, create a single
 // [VZVirtioSocketDeviceConfiguration] object, add it to an array, and assign
@@ -460,10 +469,11 @@ func (v VZVirtualMachineConfiguration) SocketDevices() []VZSocketDeviceConfigura
 func (v VZVirtualMachineConfiguration) SetSocketDevices(value []VZSocketDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSocketDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The array of serial ports that you expose to the guest operating system.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. If your VM supports
 // one or more serial communication ports, assign an array of supported serial
 // configurations to this property. Don’t include more than 10
@@ -479,10 +489,11 @@ func (v VZVirtualMachineConfiguration) SerialPorts() []VZSerialPortConfiguration
 func (v VZVirtualMachineConfiguration) SetSerialPorts(value []VZSerialPortConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSerialPorts:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The array of storage devices that you expose to the guest operating system.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. If your VM exposes
 // one or more storage devices, assign an array of
 // [VZVirtioBlockDeviceConfiguration] objects to this property.
@@ -497,11 +508,12 @@ func (v VZVirtualMachineConfiguration) StorageDevices() []VZStorageDeviceConfigu
 func (v VZVirtualMachineConfiguration) SetStorageDevices(value []VZStorageDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStorageDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The array of randomization devices that you expose to the guest operating
 // system.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. Add one or more
 // entropy configuration objects if you want to provide the guest operating
 // system with a source of entropy for its random number generator.
@@ -516,10 +528,11 @@ func (v VZVirtualMachineConfiguration) EntropyDevices() []VZEntropyDeviceConfigu
 func (v VZVirtualMachineConfiguration) SetEntropyDevices(value []VZEntropyDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEntropyDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The list of audio devices.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. If your VM exposes
 // one or more audio devices, assign an array of [VZAudioDeviceConfiguration]
 // objects to this property.
@@ -534,10 +547,11 @@ func (v VZVirtualMachineConfiguration) AudioDevices() []VZAudioDeviceConfigurati
 func (v VZVirtualMachineConfiguration) SetAudioDevices(value []VZAudioDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAudioDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The list of directory sharing devices.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. If your VM exposes
 // one or more directory sharing devices, assign an array of
 // [VZDirectorySharingDeviceConfiguration] objects to this property.
@@ -552,10 +566,11 @@ func (v VZVirtualMachineConfiguration) DirectorySharingDevices() []VZDirectorySh
 func (v VZVirtualMachineConfiguration) SetDirectorySharingDevices(value []VZDirectorySharingDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDirectorySharingDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The list of graphics devices.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. If your VM exposes
 // one or more graphics devices, assign an array of
 // [VZGraphicsDeviceConfiguration] objects to this property.
@@ -570,10 +585,11 @@ func (v VZVirtualMachineConfiguration) GraphicsDevices() []VZGraphicsDeviceConfi
 func (v VZVirtualMachineConfiguration) SetGraphicsDevices(value []VZGraphicsDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setGraphicsDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The list of keyboards.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. The default value of
 // this property is an empty array. If your VM exposes one or more keyboards,
 // assign an array of [VZKeyboardConfiguration] objects to this property.
@@ -588,10 +604,11 @@ func (v VZVirtualMachineConfiguration) Keyboards() []VZKeyboardConfiguration {
 func (v VZVirtualMachineConfiguration) SetKeyboards(value []VZKeyboardConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setKeyboards:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The hardware platform to use.
 //
 // # Discussion
-// 
+//
 // This can be an instance of either [VZGenericPlatformConfiguration] or
 // [VZMacPlatformConfiguration]. The default is
 // [VZGenericPlatformConfiguration].
@@ -604,10 +621,11 @@ func (v VZVirtualMachineConfiguration) Platform() IVZPlatformConfiguration {
 func (v VZVirtualMachineConfiguration) SetPlatform(value IVZPlatformConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPlatform:"), value)
 }
+
 // The list of pointing devices.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an empty array. If your VM exposes
 // one or more pointing devices, assign an array of
 // [VZPointingDeviceConfiguration] objects to this property.
@@ -622,13 +640,14 @@ func (v VZVirtualMachineConfiguration) PointingDevices() []VZPointingDeviceConfi
 func (v VZVirtualMachineConfiguration) SetPointingDevices(value []VZPointingDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPointingDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The list of configured USB controllers for the VM.
 //
 // # Discussion
-// 
+//
 // Use this property to attach USB controllers to the VM configuration, as in
 // the following example:
-// 
+//
 // This property contains an empty array if the
 // [VZVirtualMachineConfiguration] doesn’t have any configured USB
 // controllers.
@@ -647,7 +666,7 @@ func (v VZVirtualMachineConfiguration) SetUsbControllers(value []VZUSBController
 // The minimum number of CPUs you may configure for the VM.
 //
 // # Discussion
-// 
+//
 // The value in the [CPUCount] property must be greater than or equal to the
 // value in this property.
 //
@@ -656,10 +675,11 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Mi
 	rv := objc.Send[uint](objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("minimumAllowedCPUCount"))
 	return rv
 }
+
 // The maximum number of CPUs you may configure for the VM.
 //
 // # Discussion
-// 
+//
 // The value in the [CPUCount] property must be less than or equal to the
 // value in this property.
 //
@@ -668,10 +688,11 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Ma
 	rv := objc.Send[uint](objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("maximumAllowedCPUCount"))
 	return rv
 }
+
 // The minimum amount of memory that you may configure for the VM.
 //
 // # Discussion
-// 
+//
 // The value in the [MemorySize] property must be greater than or equal to the
 // value in this property.
 //
@@ -680,10 +701,11 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Mi
 	rv := objc.Send[uint64](objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("minimumAllowedMemorySize"))
 	return rv
 }
+
 // The maximum amount of memory that you may configure for the VM.
 //
 // # Discussion
-// 
+//
 // The value in the [MemorySize] property must be less than or equal to the
 // value in this property.
 //
@@ -692,4 +714,3 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Ma
 	rv := objc.Send[uint64](objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("maximumAllowedMemorySize"))
 	return rv
 }
-

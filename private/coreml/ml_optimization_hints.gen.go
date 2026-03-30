@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLOptimizationHintsClass) Alloc() MLOptimizationHints {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLOptimizationHints.HotHandDuration]
@@ -50,6 +50,7 @@ func (mc MLOptimizationHintsClass) Alloc() MLOptimizationHints {
 //   - [MLOptimizationHints.ReshapeFrequencyToString]
 //   - [MLOptimizationHints.SpecializationStrategyToString]
 //   - [MLOptimizationHints.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLOptimizationHints
 type MLOptimizationHints struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLOptimizationHints struct {
 func MLOptimizationHintsFromID(id objc.ID) MLOptimizationHints {
 	return MLOptimizationHints{objectivec.Object{ID: id}}
 }
+
 // Ensure MLOptimizationHints implements IMLOptimizationHints.
 var _ IMLOptimizationHints = MLOptimizationHints{}
 
@@ -104,7 +106,6 @@ func NewMLOptimizationHints() MLOptimizationHints {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLOptimizationHints/initWithCoder:
 func NewOptimizationHintsWithCoder(coder objectivec.IObject) MLOptimizationHints {
 	instance := getMLOptimizationHintsClass().Alloc()
@@ -112,19 +113,18 @@ func NewOptimizationHintsWithCoder(coder objectivec.IObject) MLOptimizationHints
 	return MLOptimizationHintsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLOptimizationHints/reshapeFrequencyToString:
 func (o MLOptimizationHints) ReshapeFrequencyToString(string_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("reshapeFrequencyToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLOptimizationHints/specializationStrategyToString:
 func (o MLOptimizationHints) SpecializationStrategyToString(string_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("specializationStrategyToString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLOptimizationHints/initWithCoder:
 func (o MLOptimizationHints) InitWithCoder(coder foundation.INSCoder) MLOptimizationHints {
 	rv := objc.Send[MLOptimizationHints](o.ID, objc.Sel("initWithCoder:"), coder)
@@ -145,4 +145,3 @@ func (o MLOptimizationHints) HotHandDuration() float64 {
 func (o MLOptimizationHints) SetHotHandDuration(value float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHotHandDuration:"), value)
 }
-

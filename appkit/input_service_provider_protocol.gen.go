@@ -18,6 +18,7 @@ type NSInputServiceProvider interface {
 type NSInputServiceProviderObject struct {
 	objectivec.Object
 }
+
 func (o NSInputServiceProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func NSInputServiceProviderObjectFromID(id objc.ID) NSInputServiceProviderObject
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

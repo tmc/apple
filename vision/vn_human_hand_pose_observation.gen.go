@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNHumanHandPoseObservation] class.
@@ -66,6 +67,7 @@ type VNHumanHandPoseObservation struct {
 func VNHumanHandPoseObservationFromID(id objc.ID) VNHumanHandPoseObservation {
 	return VNHumanHandPoseObservation{VNRecognizedPointsObservation: VNRecognizedPointsObservationFromID(id)}
 }
+
 // NOTE: VNHumanHandPoseObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -127,7 +129,7 @@ func NewVNHumanHandPoseObservation() VNHumanHandPoseObservation {
 // jointName: The joint name of the point to retrieve.
 //
 // # Return Value
-// 
+//
 // The point for the joint name.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanHandPoseObservation/recognizedPoint(_:)
@@ -141,12 +143,13 @@ func (h VNHumanHandPoseObservation) RecognizedPointForJointNameError(jointName V
 	return VNRecognizedPointFromID(rv), nil
 
 }
+
 // Retrieves the recognized points associated with the joint group name.
 //
 // jointsGroupName: The joint group name of the points to retrieve.
 //
 // # Return Value
-// 
+//
 // The array of points associated with the joint group name.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanHandPoseObservation/recognizedPoints(_:)
@@ -168,6 +171,7 @@ func (h VNHumanHandPoseObservation) AvailableJointNames() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("availableJointNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The joint group names available in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanHandPoseObservation/availableJointsGroupNames
@@ -175,6 +179,7 @@ func (h VNHumanHandPoseObservation) AvailableJointsGroupNames() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("availableJointsGroupNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The chirality, or handedness, of a pose.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanHandPoseObservation/chirality
@@ -182,4 +187,3 @@ func (h VNHumanHandPoseObservation) Chirality() VNChirality {
 	rv := objc.Send[VNChirality](h.ID, objc.Sel("chirality"))
 	return VNChirality(rv)
 }
-

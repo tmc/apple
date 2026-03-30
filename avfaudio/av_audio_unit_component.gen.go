@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVAudioUnitComponentClass) Alloc() AVAudioUnitComponent {
 // An object that provides details about an audio unit.
 //
 // # Overview
-// 
+//
 // Details can include information such as type, subtype, manufacturer, and
 // location. An [AVAudioUnitComponent] can include user tags, which you can
 // query later for display.
@@ -108,6 +109,7 @@ type AVAudioUnitComponent struct {
 func AVAudioUnitComponentFromID(id objc.ID) AVAudioUnitComponent {
 	return AVAudioUnitComponent{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioUnitComponent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -270,12 +272,9 @@ func NewAVAudioUnitComponent() AVAudioUnitComponent {
 // numOutputChannels: The number of output channels.
 //
 // # Return Value
-// 
-// A value of [true] if the audio unit component supports the specified number
-// of input and output channels; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// A value of true if the audio unit component supports the specified number
+// of input and output channels; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/supportsNumberInputChannels(_:outputChannels:)
 func (a AVAudioUnitComponent) SupportsNumberInputChannelsOutputChannels(numInputChannels int, numOutputChannels int) bool {
@@ -290,6 +289,7 @@ func (a AVAudioUnitComponent) AudioComponent() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioComponent"))
 	return objectivec.Object{ID: rv}
 }
+
 // The audio component description.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/audioComponentDescription
@@ -297,22 +297,24 @@ func (a AVAudioUnitComponent) AudioComponentDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioComponentDescription"))
 	return objectivec.Object{ID: rv}
 }
+
 // An array of architectures that the audio unit supports.
 //
 // # Discussion
-// 
+//
 // This is an [NSArray] of [NSNumbers] where each entry corresponds to one of
 // the constants in Mach-O Architecture in [Bundle].
 //
-// [Bundle]: https://developer.apple.com/documentation/Foundation/Bundle
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/availableArchitectures
+//
+// [Bundle]: https://developer.apple.com/documentation/Foundation/Bundle
 func (a AVAudioUnitComponent) AvailableArchitectures() []foundation.NSNumber {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("availableArchitectures"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // The audio unit component’s configuration dictionary.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/configurationDictionary
@@ -320,54 +322,46 @@ func (a AVAudioUnitComponent) ConfigurationDictionary() foundation.INSDictionary
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("configurationDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the audio unit component has a
 // custom view.
 //
 // # Discussion
-// 
-// This property is [true] if the component has a custom view; otherwise,
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property is true if the component has a custom view; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/hasCustomView
 func (a AVAudioUnitComponent) HasCustomView() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("hasCustomView"))
 	return rv
 }
+
 // A Boolean value that indicates whether the audio unit component has MIDI
 // input.
 //
 // # Discussion
-// 
-// This property is [true] if the component has MIDI input; otherwise,
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property is true if the component has MIDI input; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/hasMIDIInput
 func (a AVAudioUnitComponent) HasMIDIInput() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("hasMIDIInput"))
 	return rv
 }
+
 // A Boolean value that indicates whether the audio unit component has MIDI
 // output.
 //
 // # Discussion
-// 
-// This property is [true] if the component has MIDI output; otherwise,
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property is true if the component has MIDI output; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/hasMIDIOutput
 func (a AVAudioUnitComponent) HasMIDIOutput() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("hasMIDIOutput"))
 	return rv
 }
+
 // The name of the manufacturer of the audio unit component.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/manufacturerName
@@ -375,6 +369,7 @@ func (a AVAudioUnitComponent) ManufacturerName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("manufacturerName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The name of the audio unit component.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/name
@@ -382,42 +377,39 @@ func (a AVAudioUnitComponent) Name() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A Boolean value that indicates whether the audio unit component passes the
 // validation tests.
 //
 // # Discussion
-// 
-// This property is [true] if the component passes the validation tests;
-// otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property is true if the component passes the validation tests;
+// otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/passesAUVal
 func (a AVAudioUnitComponent) PassesAUVal() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("passesAUVal"))
 	return rv
 }
+
 // A Boolean value that indicates whether the audio unit component is safe for
 // sandboxing.
 //
 // # Discussion
-// 
-// This property is [true] if the component is safe for sandboxing; otherwise,
-// [false]. This only applies to the current process.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This property is true if the component is safe for sandboxing; otherwise,
+// false. This only applies to the current process.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/isSandboxSafe
 func (a AVAudioUnitComponent) SandboxSafe() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isSandboxSafe"))
 	return rv
 }
+
 // The audio unit component type.
 //
 // # Discussion
-// 
+//
 // For information about possible values, see the “Audio Unit Types” topic
 // under [AVAudioUnitComponent].
 //
@@ -426,10 +418,11 @@ func (a AVAudioUnitComponent) TypeName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("typeName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The audio unit component version number.
 //
 // # Discussion
-// 
+//
 // The version number is an [NSNumber] made of a hexadecimal number with a
 // major, minor, and dot-release format, such as `0xMMMMmmDD`.
 //
@@ -438,6 +431,7 @@ func (a AVAudioUnitComponent) Version() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("version"))
 	return rv
 }
+
 // A string that represents the audio unit component version number.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/versionString
@@ -445,6 +439,7 @@ func (a AVAudioUnitComponent) VersionString() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("versionString"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The URL of an icon that represents the audio unit component.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/iconURL
@@ -452,6 +447,7 @@ func (a AVAudioUnitComponent) IconURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("iconURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // An icon that represents the component.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/icon
@@ -459,6 +455,7 @@ func (a AVAudioUnitComponent) Icon() objc.ID {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("icon"))
 	return rv
 }
+
 // The localized type name of the component.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/localizedTypeName
@@ -466,6 +463,7 @@ func (a AVAudioUnitComponent) LocalizedTypeName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("localizedTypeName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An array of tag names for the audio unit component.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/allTagNames
@@ -473,6 +471,7 @@ func (a AVAudioUnitComponent) AllTagNames() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("allTagNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // An array of tags the user creates.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/userTagNames
@@ -483,6 +482,7 @@ func (a AVAudioUnitComponent) UserTagNames() []string {
 func (a AVAudioUnitComponent) SetUserTagNames(value []string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setUserTagNames:"), objectivec.StringSliceToNSArray(value))
 }
+
 // The audio unit manufacturer is Apple.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounitmanufacturernameapple
@@ -490,6 +490,7 @@ func (a AVAudioUnitComponent) AVAudioUnitManufacturerNameApple() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitManufacturerNameApple"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An audio unit type that represents an output.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounittypeoutput
@@ -497,6 +498,7 @@ func (a AVAudioUnitComponent) AVAudioUnitTypeOutput() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeOutput"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An audio unit type that represents a music device.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounittypemusicdevice
@@ -504,6 +506,7 @@ func (a AVAudioUnitComponent) AVAudioUnitTypeMusicDevice() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeMusicDevice"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An audio unit type that represents a music effect.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounittypemusiceffect
@@ -511,6 +514,7 @@ func (a AVAudioUnitComponent) AVAudioUnitTypeMusicEffect() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeMusicEffect"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An audio unit type that represents a format converter.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounittypeformatconverter
@@ -518,6 +522,7 @@ func (a AVAudioUnitComponent) AVAudioUnitTypeFormatConverter() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeFormatConverter"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An audio unit type that represents an effect.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounittypeeffect
@@ -525,6 +530,7 @@ func (a AVAudioUnitComponent) AVAudioUnitTypeEffect() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeEffect"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An audio unit type that represents a mixer.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounittypemixer
@@ -532,6 +538,7 @@ func (a AVAudioUnitComponent) AVAudioUnitTypeMixer() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeMixer"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An audio unit type that represents a panner.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounittypepanner
@@ -539,6 +546,7 @@ func (a AVAudioUnitComponent) AVAudioUnitTypePanner() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypePanner"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An audio unit type that represents a generator.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounittypegenerator
@@ -546,6 +554,7 @@ func (a AVAudioUnitComponent) AVAudioUnitTypeGenerator() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeGenerator"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An audio unit type that represents an offline effect.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounittypeofflineeffect
@@ -553,6 +562,7 @@ func (a AVAudioUnitComponent) AVAudioUnitTypeOfflineEffect() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeOfflineEffect"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An audio unit type that represents a MIDI processor.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiounittypemidiprocessor
@@ -560,4 +570,3 @@ func (a AVAudioUnitComponent) AVAudioUnitTypeMIDIProcessor() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioUnitTypeMIDIProcessor"))
 	return foundation.NSStringFromID(rv).String()
 }
-

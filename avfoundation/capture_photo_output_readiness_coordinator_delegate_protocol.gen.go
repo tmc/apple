@@ -4,9 +4,11 @@ package avfoundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A delegate protocol to receive updates about a photo output’s capture readiness.
@@ -20,6 +22,7 @@ type AVCapturePhotoOutputReadinessCoordinatorDelegate interface {
 type AVCapturePhotoOutputReadinessCoordinatorDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVCapturePhotoOutputReadinessCoordinatorDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,7 +43,7 @@ func AVCapturePhotoOutputReadinessCoordinatorDelegateObjectFromID(id objc.ID) AV
 // captureReadiness: An updated capture readiness value.
 //
 // # Discussion
-// 
+//
 // The system always performs this call on the main queue, so you can use it
 // to update your user interface’s shutter button availability and
 // appearance.
@@ -48,7 +51,7 @@ func AVCapturePhotoOutputReadinessCoordinatorDelegateObjectFromID(id objc.ID) AV
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutputReadinessCoordinatorDelegate/readinessCoordinator(_:captureReadinessDidChange:)
 func (o AVCapturePhotoOutputReadinessCoordinatorDelegateObject) ReadinessCoordinatorCaptureReadinessDidChange(coordinator IAVCapturePhotoOutputReadinessCoordinator, captureReadiness AVCapturePhotoOutputCaptureReadiness) {
 	objc.Send[struct{}](o.ID, objc.Sel("readinessCoordinator:captureReadinessDidChange:"), coordinator, captureReadiness)
-	}
+}
 
 // AVCapturePhotoOutputReadinessCoordinatorDelegateConfig holds optional typed callbacks for [AVCapturePhotoOutputReadinessCoordinatorDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -110,4 +113,3 @@ func NewAVCapturePhotoOutputReadinessCoordinatorDelegate(config AVCapturePhotoOu
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVCapturePhotoOutputReadinessCoordinatorDelegateObjectFromID(instance)
 }
-

@@ -5,8 +5,9 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,24 +47,22 @@ func (ac AVAssetClass) Alloc() AVAsset {
 // An object that models timed audiovisual media.
 //
 // # Overview
-// 
+//
 // An asset models file-based media like a QuickTime movie or an MP3 audio
 // file, and also media streamed using HTTP Live Streaming (HLS). An asset is
 // a container object for one or more instances of [AVAssetTrack] that model
 // the uniformly typed tracks of media. The most commonly used track types are
 // audio and video, but assets may also contain supplementary tracks, like
 // closed captions, subtitles, and timed metadata.
-// 
+//
 // [media-3845943]
-// 
+//
 // You load the tracks for an asset by asynchronously loading its [tracks]
 // property. In some cases, you may want to perform operations on a subset of
 // an asset’s tracks rather than on its complete collection. For those
 // situations, an asset provides methods to retrieve subsets of tracks
 // according to particular criteria, such as identifier, media type, or
 // characteristic.
-//
-// [tracks]: https://developer.apple.com/documentation/AVFoundation/AVPartialAsyncProperty/tracks-48zyw
 //
 // # Loading tracks
 //
@@ -83,6 +82,8 @@ func (ac AVAssetClass) Alloc() AVAsset {
 //   - [AVAsset.ReferenceRestrictions]: The restrictions that an asset places on how it resolves references to external media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset
+//
+// [tracks]: https://developer.apple.com/documentation/AVFoundation/AVPartialAsyncProperty/tracks-48zyw
 type AVAsset struct {
 	objectivec.Object
 }
@@ -93,6 +94,7 @@ type AVAsset struct {
 func AVAssetFromID(id objc.ID) AVAsset {
 	return AVAsset{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAsset adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -178,57 +180,60 @@ func NewAssetWithURL(URL foundation.INSURL) AVAsset {
 //
 // completionHandler: A callback that the system invokes after it finishes the loading request.
 // It passes the completion handler the following parameters:
-// 
+//
 // track: The loaded track, or `nil` if no track with the specified identifier
 // exists or if an error occurs. error: An error object if the request fails;
 // otherwise, `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/loadTrack(withTrackID:completionHandler:)
 func (a AVAsset) LoadTrackWithTrackIDCompletionHandler(trackID int32, completionHandler AVAssetTrackErrorHandler) {
-_block1, _ := NewAVAssetTrackErrorBlock(completionHandler)
+	_block1, _ := NewAVAssetTrackErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("loadTrackWithTrackID:completionHandler:"), trackID, _block1)
 }
+
 // Loads an identifier that no other track in the asset uses.
 //
 // completionHandler: A completion handler the system calls after it finishes the request.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/findUnusedTrackID(completionHandler:)
 func (a AVAsset) FindUnusedTrackIDWithCompletionHandler(completionHandler CMPersistentTrackIDErrorHandler) {
-_block0, _ := NewCMPersistentTrackIDErrorBlock(completionHandler)
+	_block0, _ := NewCMPersistentTrackIDErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("findUnusedTrackIDWithCompletionHandler:"), _block0)
 }
+
 // Loads a media selection group that contains one or more options with the
 // specified media characteristic.
 //
 // mediaCharacteristic: A media characteristic to load the available media selection options for.
 // The supported characterisics are:
-// 
+//
 // - [audible] to return the group of available options for audio media in
 // various languages and for various purposes, such as descriptive audio -
 // [legible] to return the group of available options for subtitles in various
 // languages and for various purposes - [visual] to return the group of
 // available options for video media
-// //
-// [audible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/audible
-// [legible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/legible
-// [visual]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/visual
 //
 // completionHandler: A callback that the system invokes after it finishes the loading request.
 // It passes the completion handler the following parameters:
-// 
+//
 // mediaSelectionGroup: The loaded media selection group, or `nil` if no group
 // is available or if an error occurs. error: An error object if the request
 // fails; otherwise, `nil`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/loadMediaSelectionGroup(for:completionHandler:)
+//
+// [audible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/audible
+// [legible]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/legible
+// [visual]: https://developer.apple.com/documentation/AVFoundation/AVMediaCharacteristic/visual
 func (a AVAsset) LoadMediaSelectionGroupForMediaCharacteristicCompletionHandler(mediaCharacteristic AVMediaCharacteristic, completionHandler AVMediaSelectionGroupErrorHandler) {
-_block1, _ := NewAVMediaSelectionGroupErrorBlock(completionHandler)
+	_block1, _ := NewAVMediaSelectionGroupErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("loadMediaSelectionGroupForMediaCharacteristic:completionHandler:"), mediaCharacteristic, _block1)
 }
+
 // Cancels all pending requests to asynchronously load property values.
 //
 // # Discussion
-// 
+//
 // Calling this method cancels pending requests to load an asset’s property
 // values. Call this method only when you’re done using an asset and you
 // want to cancel any outstanding requests. Deallocating an asset implicitly
@@ -243,25 +248,24 @@ func (a AVAsset) CancelLoading() {
 // external media.
 //
 // # Discussion
-// 
+//
 // For [AVURLAsset], this property reflects the value passed in for
 // [AVURLAssetReferenceRestrictionsKey], if any.
-// 
+//
 // The default value for this property is
-// [AssetReferenceRestrictionDefaultPolicy]. See
+// [AVAssetReferenceRestrictionDefaultPolicy]. See
 // [AVURLAssetReferenceRestrictionsKey] for more information about reference
 // restrictions.
 //
-// [AVURLAssetReferenceRestrictionsKey]: https://developer.apple.com/documentation/AVFoundation/AVURLAssetReferenceRestrictionsKey
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/referenceRestrictions
+//
+// [AVURLAssetReferenceRestrictionsKey]: https://developer.apple.com/documentation/AVFoundation/AVURLAssetReferenceRestrictionsKey
 func (a AVAsset) ReferenceRestrictions() AVAssetReferenceRestrictions {
 	rv := objc.Send[AVAssetReferenceRestrictions](a.ID, objc.Sel("referenceRestrictions"))
 	return AVAssetReferenceRestrictions(rv)
 }
 
-			// Protocol methods for AVAsynchronousKeyValueLoading
-			
+// Protocol methods for AVAsynchronousKeyValueLoading
 
 // LoadTrackWithTrackID is a synchronous wrapper around [AVAsset.LoadTrackWithTrackIDCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -319,4 +323,3 @@ func (a AVAsset) LoadMediaSelectionGroupForMediaCharacteristic(ctx context.Conte
 		return nil, ctx.Err()
 	}
 }
-

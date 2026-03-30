@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TTSFormatArgument struct {
 func TTSFormatArgumentFromID(id objc.ID) TTSFormatArgument {
 	return TTSFormatArgument{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSFormatArgument implements ITTSFormatArgument.
 var _ ITTSFormatArgument = TTSFormatArgument{}
 
@@ -78,4 +80,3 @@ func NewTTSFormatArgument() TTSFormatArgument {
 	rv := objc.Send[TTSFormatArgument](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

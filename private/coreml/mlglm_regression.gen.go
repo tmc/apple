@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLGLMRegressionClass) Alloc() MLGLMRegression {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLGLMRegression.RegressOptionsError]
@@ -53,6 +53,7 @@ func (mc MLGLMRegressionClass) Alloc() MLGLMRegression {
 //   - [MLGLMRegression.Description]
 //   - [MLGLMRegression.Hash]
 //   - [MLGLMRegression.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression
 type MLGLMRegression struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLGLMRegression struct {
 func MLGLMRegressionFromID(id objc.ID) MLGLMRegression {
 	return MLGLMRegression{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLGLMRegression struct embeds objectivec.Object (parent type unavailable) but
 // IMLGLMRegression embeds the parent interface; skip compile-time assertion.
 
@@ -111,7 +113,6 @@ func NewMLGLMRegression() MLGLMRegression {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/initWithLRSpec:configuration:error:
 func NewGLMRegressionWithLRSpecConfigurationError(lRSpec unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
 	var errorPtr objc.ID
@@ -124,7 +125,6 @@ func NewGLMRegressionWithLRSpecConfigurationError(lRSpec unsafe.Pointer, configu
 	return MLGLMRegressionFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/initWithSpecification:configuration:error:
 func NewGLMRegressionWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
 	var errorPtr objc.ID
@@ -137,7 +137,6 @@ func NewGLMRegressionWithSpecificationConfigurationError(specification unsafe.Po
 	return MLGLMRegressionFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/regress:options:error:
 func (g MLGLMRegression) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -149,7 +148,7 @@ func (g MLGLMRegression) RegressOptionsError(regress objectivec.IObject, options
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/initWithLRSpec:configuration:error:
 func (g MLGLMRegression) InitWithLRSpecConfigurationError(lRSpec unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
 	var errorPtr objc.ID
@@ -161,7 +160,7 @@ func (g MLGLMRegression) InitWithLRSpecConfigurationError(lRSpec unsafe.Pointer,
 	return MLGLMRegressionFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/initWithSpecification:configuration:error:
 func (g MLGLMRegression) InitWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
 	var errorPtr objc.ID
@@ -174,7 +173,6 @@ func (g MLGLMRegression) InitWithSpecificationConfigurationError(specification u
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/loadModelFromSpecification:configuration:error:
 func (_MLGLMRegressionClass MLGLMRegressionClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -192,19 +190,21 @@ func (g MLGLMRegression) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/description
 func (g MLGLMRegression) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/hash
 func (g MLGLMRegression) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLGLMRegression/superclass
 func (g MLGLMRegression) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
 	return rv
 }
-

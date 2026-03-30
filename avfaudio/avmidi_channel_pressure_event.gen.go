@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMIDIChannelPressureEventClass) Alloc() AVMIDIChannelPressureEvent {
 // An object that represents a MIDI channel pressure message.
 //
 // # Overview
-// 
+//
 // The effect of this message depends on the [AVMusicTrack] destination audio
 // unit, and the capabilities of the destination’s loaded instrument.
 //
@@ -67,6 +68,7 @@ type AVMIDIChannelPressureEvent struct {
 func AVMIDIChannelPressureEventFromID(id objc.ID) AVMIDIChannelPressureEvent {
 	return AVMIDIChannelPressureEvent{AVMIDIChannelEvent: AVMIDIChannelEventFromID(id)}
 }
+
 // NOTE: AVMIDIChannelPressureEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -143,4 +145,3 @@ func (m AVMIDIChannelPressureEvent) Pressure() uint32 {
 func (m AVMIDIChannelPressureEvent) SetPressure(value uint32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPressure:"), value)
 }
-

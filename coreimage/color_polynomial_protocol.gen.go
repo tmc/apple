@@ -69,6 +69,7 @@ type CIColorPolynomial interface {
 type CIColorPolynomialObject struct {
 	objectivec.Object
 }
+
 func (o CIColorPolynomialObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -87,35 +88,40 @@ func CIColorPolynomialObjectFromID(id objc.ID) CIColorPolynomialObject {
 func (o CIColorPolynomialObject) AlphaCoefficients() ICIVector {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("alphaCoefficients"))
 	return CIVectorFromID(rv)
-	}
+}
+
 // Polynomial coefficients for the blue channel.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorPolynomial/blueCoefficients
 func (o CIColorPolynomialObject) BlueCoefficients() ICIVector {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("blueCoefficients"))
 	return CIVectorFromID(rv)
-	}
+}
+
 // Polynomial coefficients for the green channel.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorPolynomial/greenCoefficients
 func (o CIColorPolynomialObject) GreenCoefficients() ICIVector {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("greenCoefficients"))
 	return CIVectorFromID(rv)
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorPolynomial/inputImage
 func (o CIColorPolynomialObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // Polynomial coefficients for the red channel.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorPolynomial/redCoefficients
 func (o CIColorPolynomialObject) RedCoefficients() ICIVector {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("redCoefficients"))
 	return CIVectorFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -123,25 +129,39 @@ func (o CIColorPolynomialObject) RedCoefficients() ICIVector {
 func (o CIColorPolynomialObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// Polynomial coefficients for the alpha channel.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorPolynomial/alphaCoefficients
 func (o CIColorPolynomialObject) SetAlphaCoefficients(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAlphaCoefficients:"), value)
 }
 
+// Polynomial coefficients for the blue channel.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorPolynomial/blueCoefficients
 func (o CIColorPolynomialObject) SetBlueCoefficients(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBlueCoefficients:"), value)
 }
 
+// Polynomial coefficients for the green channel.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorPolynomial/greenCoefficients
 func (o CIColorPolynomialObject) SetGreenCoefficients(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setGreenCoefficients:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorPolynomial/inputImage
 func (o CIColorPolynomialObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// Polynomial coefficients for the red channel.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIColorPolynomial/redCoefficients
 func (o CIColorPolynomialObject) SetRedCoefficients(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRedCoefficients:"), value)
 }
-

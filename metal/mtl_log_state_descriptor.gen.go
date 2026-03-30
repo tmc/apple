@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,10 +45,10 @@ func (mc MTLLogStateDescriptorClass) Alloc() MTLLogStateDescriptor {
 // An interface that represents a log state configuration.
 //
 // # Overview
-// 
+//
 // Configure the descriptor to create an [MTLLogState] by calling
 // [NewLogStateWithDescriptorError].
-// 
+//
 // If you’ve set the environment variables `MTL_LOG_BUFFER_SIZE` or
 // `MTL_LOG_LEVEL`, then the system automatically enables logging. If any
 // command buffer or command queue has an attached log state, then the system
@@ -71,6 +72,7 @@ type MTLLogStateDescriptor struct {
 func MTLLogStateDescriptorFromID(id objc.ID) MTLLogStateDescriptor {
 	return MTLLogStateDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLLogStateDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,10 +121,10 @@ func NewMTLLogStateDescriptor() MTLLogStateDescriptor {
 // The size of the internal buffer the log state uses, specified in bytes.
 //
 // # Discussion
-// 
+//
 // The default value is 1MB. The minimum size of log buffer is 1KB and the
 // maximum size is 1GB.
-// 
+//
 // Carefully consider the size of this buffer based on how many messages you
 // expect your shader to log and be useful to diagnose problems. A smaller
 // size might lead to the shader dropping more messages while a larger size
@@ -137,17 +139,20 @@ func (l MTLLogStateDescriptor) BufferSize() int {
 func (l MTLLogStateDescriptor) SetBufferSize(value int) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBufferSize:"), value)
 }
+
 // The minimum level of messages that the shader can log.
 //
 // # Discussion
-// 
-// The default value is [LogLevelDebug].
-// 
+//
+// The default value is [MTLLogLevel.debug].
+//
 // Use this value to limit which logs from your shader the log state stores.
 // The log state doesn’t store messages at a lower level. Increase the level
 // to reduce verbosity of logging.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLogStateDescriptor/level
+//
+// [MTLLogLevel.debug]: https://developer.apple.com/documentation/Metal/MTLLogLevel/debug
 func (l MTLLogStateDescriptor) Level() MTLLogLevel {
 	rv := objc.Send[MTLLogLevel](l.ID, objc.Sel("level"))
 	return MTLLogLevel(rv)
@@ -155,4 +160,3 @@ func (l MTLLogStateDescriptor) Level() MTLLogLevel {
 func (l MTLLogStateDescriptor) SetLevel(value MTLLogLevel) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLevel:"), value)
 }
-

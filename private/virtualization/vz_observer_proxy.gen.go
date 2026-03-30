@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZObserverProxy struct {
 func VZObserverProxyFromID(id objc.ID) VZObserverProxy {
 	return VZObserverProxy{objectivec.Object{ID: id}}
 }
+
 // Ensure VZObserverProxy implements IVZObserverProxy.
 var _ IVZObserverProxy = VZObserverProxy{}
 
@@ -78,4 +80,3 @@ func NewVZObserverProxy() VZObserverProxy {
 	rv := objc.Send[VZObserverProxy](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

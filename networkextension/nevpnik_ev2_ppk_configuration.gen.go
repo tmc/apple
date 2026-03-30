@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NEVPNIKEv2PPKConfigurationClass) Alloc() NEVPNIKEv2PPKConfiguration {
 // A class that manages parameters of a post-quantum pre-shared key (PPK).
 //
 // # Discussion
-// 
+//
 // Instances of this class are thread safe. The class conforms to RFC 8784.
 //
 // # Creating a PPK configuration
@@ -70,6 +71,7 @@ type NEVPNIKEv2PPKConfiguration struct {
 func NEVPNIKEv2PPKConfigurationFromID(id objc.ID) NEVPNIKEv2PPKConfiguration {
 	return NEVPNIKEv2PPKConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEVPNIKEv2PPKConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -138,10 +140,10 @@ func NewNEVPNIKEv2PPKConfiguration() NEVPNIKEv2PPKConfiguration {
 //
 // keychainReference: A persistent reference to a keychain item with the class
 // [kSecClassGenericPassword] that contains the PPK.
-// //
-// [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2PPKConfiguration/init(identifier:keychainReference:)
+//
+// [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
 func NewVPNIKEv2PPKConfigurationWithIdentifierKeychainReference(identifier string, keychainReference foundation.INSData) NEVPNIKEv2PPKConfiguration {
 	instance := getNEVPNIKEv2PPKConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:keychainReference:"), objc.String(identifier), keychainReference)
@@ -154,10 +156,10 @@ func NewVPNIKEv2PPKConfigurationWithIdentifierKeychainReference(identifier strin
 //
 // keychainReference: A persistent reference to a keychain item with the class
 // [kSecClassGenericPassword] that contains the PPK.
-// //
-// [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2PPKConfiguration/init(identifier:keychainReference:)
+//
+// [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
 func (v NEVPNIKEv2PPKConfiguration) InitWithIdentifierKeychainReference(identifier string, keychainReference foundation.INSData) NEVPNIKEv2PPKConfiguration {
 	rv := objc.Send[NEVPNIKEv2PPKConfiguration](v.ID, objc.Sel("initWithIdentifier:keychainReference:"), objc.String(identifier), keychainReference)
 	return rv
@@ -170,24 +172,26 @@ func (v NEVPNIKEv2PPKConfiguration) Identifier() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A persistent reference to the key in the keychain.
 //
 // # Discussion
-// 
+//
 // The keychain item needs to have the class [kSecClassGenericPassword].
 //
-// [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2PPKConfiguration/keychainReference
+//
+// [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
 func (v NEVPNIKEv2PPKConfiguration) KeychainReference() foundation.INSData {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("keychainReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether it’s mandatory for the VPN server
 // to use this PPK.
 //
 // # Discussion
-// 
+//
 // The default value is `true`.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2PPKConfiguration/isMandatory
@@ -198,6 +202,7 @@ func (v NEVPNIKEv2PPKConfiguration) IsMandatory() bool {
 func (v NEVPNIKEv2PPKConfiguration) SetIsMandatory(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIsMandatory:"), value)
 }
+
 // A Boolean value that indicates whether servers that don’t support
 // post-quantum key exchanges can skip them.
 //
@@ -209,6 +214,7 @@ func (v NEVPNIKEv2PPKConfiguration) AllowPostQuantumKeyExchangeFallback() bool {
 func (v NEVPNIKEv2PPKConfiguration) SetAllowPostQuantumKeyExchangeFallback(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAllowPostQuantumKeyExchangeFallback:"), value)
 }
+
 // The configuration for a post-quantum pre-shared key (PPK).
 //
 // See: https://developer.apple.com/documentation/networkextension/nevpnprotocolikev2/ppkconfiguration
@@ -219,4 +225,3 @@ func (v NEVPNIKEv2PPKConfiguration) PpkConfiguration() INEVPNIKEv2PPKConfigurati
 func (v NEVPNIKEv2PPKConfiguration) SetPpkConfiguration(value INEVPNIKEv2PPKConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPpkConfiguration:"), value)
 }
-

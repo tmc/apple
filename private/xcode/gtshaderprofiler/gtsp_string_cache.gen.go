@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type GTSPStringCache struct {
 func GTSPStringCacheFromID(id objc.ID) GTSPStringCache {
 	return GTSPStringCache{GTShaderProfilerStringCache: GTShaderProfilerStringCacheFromID(id)}
 }
+
 // Ensure GTSPStringCache implements IGTSPStringCache.
 var _ IGTSPStringCache = GTSPStringCache{}
 
@@ -79,11 +81,9 @@ func NewGTSPStringCache() GTSPStringCache {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/initWithCoder:
 func NewGTSPStringCacheWithCoder(coder objectivec.IObject) GTSPStringCache {
 	instance := getGTSPStringCacheClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return GTSPStringCacheFromID(rv)
 }
-

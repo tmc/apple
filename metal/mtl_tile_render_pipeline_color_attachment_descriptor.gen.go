@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,6 +60,7 @@ type MTLTileRenderPipelineColorAttachmentDescriptor struct {
 func MTLTileRenderPipelineColorAttachmentDescriptorFromID(id objc.ID) MTLTileRenderPipelineColorAttachmentDescriptor {
 	return MTLTileRenderPipelineColorAttachmentDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLTileRenderPipelineColorAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -102,8 +104,8 @@ func NewMTLTileRenderPipelineColorAttachmentDescriptor() MTLTileRenderPipelineCo
 // The pixel format associated with the tile shading render pipeline.
 //
 // # Discussion
-// 
-// The default value is [PixelFormatInvalid].
+//
+// The default value is [MTLPixelFormatInvalid].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTileRenderPipelineColorAttachmentDescriptor/pixelFormat
 func (t MTLTileRenderPipelineColorAttachmentDescriptor) PixelFormat() MTLPixelFormat {
@@ -113,4 +115,3 @@ func (t MTLTileRenderPipelineColorAttachmentDescriptor) PixelFormat() MTLPixelFo
 func (t MTLTileRenderPipelineColorAttachmentDescriptor) SetPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPixelFormat:"), value)
 }
-

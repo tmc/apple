@@ -3,11 +3,12 @@
 package avfaudio
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -114,6 +115,7 @@ type AVAudioSequencer struct {
 func AVAudioSequencerFromID(id objc.ID) AVAudioSequencer {
 	return AVAudioSequencer{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioSequencer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -299,6 +301,7 @@ func (a AVAudioSequencer) InitWithAudioEngine(engine IAVAudioEngine) AVAudioSequ
 	rv := objc.Send[AVAudioSequencer](a.ID, objc.Sel("initWithAudioEngine:"), engine)
 	return rv
 }
+
 // Creates and writes a MIDI file from the events in the sequence.
 //
 // fileURL: The URL of the file you want to write to.
@@ -311,7 +314,7 @@ func (a AVAudioSequencer) InitWithAudioEngine(engine IAVAudioEngine) AVAudioSequ
 // specified path exists.
 //
 // # Discussion
-// 
+//
 // The framework writes only MIDI events when writing to the MIDI file. MIDI
 // files are normally beat-based, but can also have an SMPTE (or real-time,
 // rather than beat time) representation. The relationship between tick and
@@ -332,10 +335,11 @@ func (a AVAudioSequencer) WriteToURLSMPTEResolutionReplaceExistingError(fileURL 
 	return rv, nil
 
 }
+
 // Creates a new music track and appends it to the sequencer’s list.
 //
 // # Return Value
-// 
+//
 // A new music track appended to the sequencer.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/createAndAppendTrack()
@@ -343,6 +347,7 @@ func (a AVAudioSequencer) CreateAndAppendTrack() IAVMusicTrack {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("createAndAppendTrack"))
 	return AVMusicTrackFromID(rv)
 }
+
 // Reverses the order of all events in all music tracks, including the tempo
 // track.
 //
@@ -350,16 +355,17 @@ func (a AVAudioSequencer) CreateAndAppendTrack() IAVMusicTrack {
 func (a AVAudioSequencer) ReverseEvents() {
 	objc.Send[objc.ID](a.ID, objc.Sel("reverseEvents"))
 }
+
 // Removes the music track from the sequencer.
 //
 // track: The music track to remove.
 //
 // # Return Value
-// 
+//
 // A Boolean value that indicates whether the call succeeds.
 //
 // # Discussion
-// 
+//
 // This method doesn’t destroy the method track since you can reuse it.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/removeTrack(_:)
@@ -367,6 +373,7 @@ func (a AVAudioSequencer) RemoveTrack(track IAVMusicTrack) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("removeTrack:"), track)
 	return rv
 }
+
 // Parses the data and adds its events to the sequence.
 //
 // data: The data to load from.
@@ -387,6 +394,7 @@ func (a AVAudioSequencer) LoadFromDataOptionsError(data foundation.INSData, opti
 	return rv, nil
 
 }
+
 // Loads the file the URL references and adds the events to the sequence.
 //
 // fileURL: The URL to the file.
@@ -407,10 +415,11 @@ func (a AVAudioSequencer) LoadFromURLOptionsError(fileURL foundation.INSURL, opt
 	return rv, nil
 
 }
+
 // Gets ready to play the sequence by prerolling all events.
 //
 // # Discussion
-// 
+//
 // The framework invokes this method automatically on play if you don’t call
 // it, but it may delay startup.
 //
@@ -418,10 +427,11 @@ func (a AVAudioSequencer) LoadFromURLOptionsError(fileURL foundation.INSURL, opt
 func (a AVAudioSequencer) PrepareToPlay() {
 	objc.Send[objc.ID](a.ID, objc.Sel("prepareToPlay"))
 }
+
 // Starts the sequencer’s player.
 //
 // # Discussion
-// 
+//
 // If you don’t call [PrepareToPlay], the framework calls it and then starts
 // the player.
 //
@@ -439,10 +449,11 @@ func (a AVAudioSequencer) StartAndReturnError() (bool, error) {
 	return rv, nil
 
 }
+
 // Stops the sequencer’s player.
 //
 // # Discussion
-// 
+//
 // Stopping the player leaves it in an unprerolled state, but stores the
 // playback position so that a subsequent call to [StartAndReturnError]
 // resumes where it stops. This action doesn’t stop an audio engine you
@@ -452,6 +463,7 @@ func (a AVAudioSequencer) StartAndReturnError() (bool, error) {
 func (a AVAudioSequencer) Stop() {
 	objc.Send[objc.ID](a.ID, objc.Sel("stop"))
 }
+
 // Gets the host time the sequence plays at the specified position.
 //
 // inBeats: The timestamp for the beat position.
@@ -459,7 +471,7 @@ func (a AVAudioSequencer) Stop() {
 // outError: On exit, if an error occurs, a description of the error.
 //
 // # Discussion
-// 
+//
 // This call is valid when the player is in a playing state. It returns `0`
 // with an error, otherwise, or if the starting position of the player is
 // after the specified beat. The method uses the sequence’s tempo map to
@@ -476,6 +488,7 @@ func (a AVAudioSequencer) HostTimeForBeatsError(inBeats AVMusicTimeStamp) (uint6
 	return rv, nil
 
 }
+
 // Gets the time for the specified beat position (timestamp) in the track, in
 // seconds.
 //
@@ -486,6 +499,7 @@ func (a AVAudioSequencer) SecondsForBeats(beats AVMusicTimeStamp) float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("secondsForBeats:"), beats)
 	return rv
 }
+
 // Gets the beat the system plays at the specified host time.
 //
 // inHostTime: The host time for the beat position.
@@ -493,7 +507,7 @@ func (a AVAudioSequencer) SecondsForBeats(beats AVMusicTimeStamp) float64 {
 // outError: On exit, if an error occurs, a description of the error.
 //
 // # Discussion
-// 
+//
 // This call is valid when the player is in a playing state. It returns `0`
 // with an error, otherwise, or if the starting position of the player is
 // after the specified host time. This method uses the sequence’s tempo map
@@ -510,6 +524,7 @@ func (a AVAudioSequencer) BeatsForHostTimeError(inHostTime uint64) (AVMusicTimeS
 	return rv, nil
 
 }
+
 // Gets the beat position (timestamp) for the specified time in the track.
 //
 // seconds: The time to retrieve the beat timestamp for.
@@ -519,13 +534,14 @@ func (a AVAudioSequencer) BeatsForSeconds(seconds float64) AVMusicTimeStamp {
 	rv := objc.Send[AVMusicTimeStamp](a.ID, objc.Sel("beatsForSeconds:"), seconds)
 	return AVMusicTimeStamp(rv)
 }
+
 // Adds a callback that the sequencer calls each time it encounters a user
 // event during playback.
 //
 // userCallback: The user callback that the system calls.
 //
 // # Discussion
-// 
+//
 // The system calls the same callback for events that occur on any track in
 // the sequencer. Set the callback to `nil` to disable it.
 //
@@ -533,6 +549,7 @@ func (a AVAudioSequencer) BeatsForSeconds(seconds float64) AVMusicTimeStamp {
 func (a AVAudioSequencer) SetUserCallback(userCallback AVAudioSequencerUserCallback) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setUserCallback:"), userCallback)
 }
+
 // Gets a data object that contains the events from the sequence.
 //
 // SMPTEResolution: The relationship between tick and quarter note for saving to a Standard
@@ -541,7 +558,7 @@ func (a AVAudioSequencer) SetUserCallback(userCallback AVAudioSequencerUserCallb
 // outError: On exit, if an error occurs, a description of the error.
 //
 // # Discussion
-// 
+//
 // The client controls the lifetime of the data value this method returns.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/data(withSMPTEResolution:error:)
@@ -560,22 +577,21 @@ func (a AVAudioSequencer) DataWithSMPTEResolutionError(SMPTEResolution int) (fou
 // playing state.
 //
 // # Discussion
-// 
-// This value returns [true] if the sequencer’s player is in a started
-// state. The framework considers it to be playing until it explicitly stops,
-// including when playing past the end of the events in a sequence.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This value returns true if the sequencer’s player is in a started state.
+// The framework considers it to be playing until it explicitly stops,
+// including when playing past the end of the events in a sequence.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/isPlaying
 func (a AVAudioSequencer) Playing() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPlaying"))
 	return rv
 }
+
 // The playback rate of the sequencer’s player.
 //
 // # Discussion
-// 
+//
 // The default playback rate is `1.0`, and must be greater than `0.0`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/rate
@@ -586,10 +602,11 @@ func (a AVAudioSequencer) Rate() float32 {
 func (a AVAudioSequencer) SetRate(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRate:"), value)
 }
+
 // An array that contains all the tracks in the sequence.
 //
 // # Discussion
-// 
+//
 // The track indices start at `0`, and don’t include the tempo track.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/tracks
@@ -599,10 +616,11 @@ func (a AVAudioSequencer) Tracks() []AVMusicTrack {
 		return AVMusicTrackFromID(id)
 	})
 }
+
 // The current playback position, in beats.
 //
 // # Discussion
-// 
+//
 // Setting this property positions the sequencer’s player to the specified
 // beat. You can update this property while the player is in a playing state,
 // in which case, playback resumes at the new position.
@@ -615,10 +633,11 @@ func (a AVAudioSequencer) CurrentPositionInBeats() float64 {
 func (a AVAudioSequencer) SetCurrentPositionInBeats(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentPositionInBeats:"), value)
 }
+
 // The current playback position, in seconds.
 //
 // # Discussion
-// 
+//
 // This property positions the sequencer’s player to the specified time. You
 // can update this property while the player is in a playing state, in which
 // case, playback resumes at the new position.
@@ -631,14 +650,15 @@ func (a AVAudioSequencer) CurrentPositionInSeconds() float64 {
 func (a AVAudioSequencer) SetCurrentPositionInSeconds(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentPositionInSeconds:"), value)
 }
+
 // The track that contains tempo information about the sequence.
 //
 // # Discussion
-// 
+//
 // Each sequence has a single tempo track. The framework places all tempo
 // events into this track along with other appropriate events, such as the
 // time signature from a MIDI file.
-// 
+//
 // You can edit the tempo track like any other track. The framework ignores
 // nontempo events in the track.
 //
@@ -647,10 +667,11 @@ func (a AVAudioSequencer) TempoTrack() IAVMusicTrack {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("tempoTrack"))
 	return AVMusicTrackFromID(objc.ID(rv))
 }
+
 // A dictionary that contains metadata from a sequence.
 //
 // # Discussion
-// 
+//
 // This property contains one or more of the values from
 // [AVAudioSequencerInfoDictionaryKey].
 //
@@ -659,6 +680,7 @@ func (a AVAudioSequencer) UserInfo() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("userInfo"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // A timestamp you use to access all events in a music track through a beat
 // range.
 //
@@ -670,4 +692,3 @@ func (a AVAudioSequencer) AVMusicTimeStampEndOfTrack() float64 {
 func (a AVAudioSequencer) SetAVMusicTimeStampEndOfTrack(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAVMusicTimeStampEndOfTrack:"), value)
 }
-

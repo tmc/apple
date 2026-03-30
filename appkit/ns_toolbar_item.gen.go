@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,20 +46,20 @@ func (nc NSToolbarItemClass) Alloc() NSToolbarItem {
 // A single item that appears in a window’s toolbar.
 //
 // # Overview
-// 
+//
 // An [NSToolbarItem] object displays an image and text string in the toolbar
 // area of a window. You can also create toolbar items that display custom
 // views you provide. Toolbar items provide fast access to common commands or
 // features in the window. For example, the Finder window uses toolbar items
 // to help someone navigate the file system.
-// 
+//
 // You typically create toolbar items at the same time you create your
 // window’s toolbar. The system provides some standard items like spacers
 // you can include in your toolbar. It also provides items that display
 // standard interfaces like the color panel or font panel. For any custom
 // toolbar items you create, provide an action method to call when someone
 // clicks the item.
-// 
+//
 // You can display your toolbar item’s content using a custom view if you
 // prefer, rather than an image and text label. If you specify an
 // [NSSearchField] object for the view, the system automatically adjusts the
@@ -115,8 +116,6 @@ func (nc NSToolbarItemClass) Alloc() NSToolbarItem {
 //   - [NSToolbarItem.SetNavigational]
 //   - [NSToolbarItem.Enabled]: A Boolean value that indicates whether the item is enabled.
 //   - [NSToolbarItem.SetEnabled]
-//   - [NSToolbarItem.Badge]: A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
-//   - [NSToolbarItem.SetBadge]
 //   - [NSToolbarItem.Style]: Defines the toolbar item’s appearance. The default style is plain. Prominent style tints the background. If a background tint color is set, it uses it; otherwise, it uses the app’s or system’s accent color. If grouped with other items, it moves to its own to avoid tinting other items’ background.
 //   - [NSToolbarItem.SetStyle]
 //   - [NSToolbarItem.VisibilityPriority]: The display priority associated with the toolbar item.
@@ -147,6 +146,7 @@ type NSToolbarItem struct {
 func NSToolbarItemFromID(id objc.ID) NSToolbarItem {
 	return NSToolbarItem{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSToolbarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -203,8 +203,6 @@ func NSToolbarItemFromID(id objc.ID) NSToolbarItem {
 //   - [INSToolbarItem.SetNavigational]
 //   - [INSToolbarItem.Enabled]: A Boolean value that indicates whether the item is enabled.
 //   - [INSToolbarItem.SetEnabled]
-//   - [INSToolbarItem.Badge]: A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
-//   - [INSToolbarItem.SetBadge]
 //   - [INSToolbarItem.Style]: Defines the toolbar item’s appearance. The default style is plain. Prominent style tints the background. If a background tint color is set, it uses it; otherwise, it uses the app’s or system’s accent color. If grouped with other items, it moves to its own to avoid tinting other items’ background.
 //   - [INSToolbarItem.SetStyle]
 //   - [INSToolbarItem.VisibilityPriority]: The display priority associated with the toolbar item.
@@ -296,9 +294,6 @@ type INSToolbarItem interface {
 	// A Boolean value that indicates whether the item is enabled.
 	Enabled() bool
 	SetEnabled(value bool)
-	// A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
-	Badge() INSItemBadge
-	SetBadge(value INSItemBadge)
 	// Defines the toolbar item’s appearance. The default style is plain. Prominent style tints the background. If a background tint color is set, it uses it; otherwise, it uses the app’s or system’s accent color. If grouped with other items, it moves to its own to avoid tinting other items’ background.
 	Style() NSToolbarItemStyle
 	SetStyle(value NSToolbarItemStyle)
@@ -323,6 +318,10 @@ type INSToolbarItem interface {
 
 	// A Boolean value that indicates whether the toolbar item can appear more than once in a toolbar.
 	AllowsDuplicatesInToolbar() bool
+
+	// A badge that can be attached to an NSToolbarItem. This provides a way to display small visual indicators that can be used to highlight important information, such as unread notifications or status indicators.
+	Badge() INSItemBadge
+	SetBadge(value INSItemBadge)
 }
 
 // Init initializes the instance.
@@ -351,7 +350,7 @@ func NewNSToolbarItem() NSToolbarItem {
 // toolbar delegate uses this value to identify the specific toolbar item.
 //
 // # Return Value
-// 
+//
 // A new toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/init(itemIdentifier:)
@@ -368,7 +367,7 @@ func NewToolbarItemWithItemIdentifier(itemIdentifier NSToolbarItemIdentifier) NS
 // toolbar delegate uses this value to identify the specific toolbar item.
 //
 // # Return Value
-// 
+//
 // A new toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/init(itemIdentifier:)
@@ -376,10 +375,11 @@ func (t NSToolbarItem) InitWithItemIdentifier(itemIdentifier NSToolbarItemIdenti
 	rv := objc.Send[NSToolbarItem](t.ID, objc.Sel("initWithItemIdentifier:"), objc.String(string(itemIdentifier)))
 	return rv
 }
+
 // Validates the toolbar item’s menu and its ability to perfrom its action.
 //
 // # Discussion
-// 
+//
 // Typically, you don’t call this method directly. When automatic validation
 // is enabled, the toolbar calls this method to validate the item. For
 // standard toolbar items — that is, items without a custom view — the
@@ -388,12 +388,12 @@ func (t NSToolbarItem) InitWithItemIdentifier(itemIdentifier NSToolbarItemIdenti
 // process also validates the associated menu item. When someone switches to
 // another app or window, the automatic validation process disables the item
 // automatically.
-// 
+//
 // If the toolbar item has a custom view, subclass [NSToolbarItem] and
 // override this method to perform the validation yourself. After you validate
 // your custom toolbar item, update the [Enabled] property. You don’t need
 // to call `super` in your implementation.
-// 
+//
 // If you disable automatic validation, toolbar items remain enabled and
 // clickable, including when someone switches to another app or window.
 // However, you can still call this method manually to validate the toolbar
@@ -403,24 +403,22 @@ func (t NSToolbarItem) InitWithItemIdentifier(itemIdentifier NSToolbarItemIdenti
 func (t NSToolbarItem) Validate() {
 	objc.Send[objc.ID](t.ID, objc.Sel("validate"))
 }
+
 // Implemented to override the default action of enabling or disabling a
 // specific menu item.
 //
 // menuItem: An [NSMenuItem] object that represents the menu item.
 //
 // # Return Value
-// 
-// [true] to enable `menuItem`, [false] to disable it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to enable `menuItem`, false to disable it.
 //
 // # Discussion
-// 
+//
 // The object implementing this method must be the target of `menuItem`. You
 // can determine which menu item `menuItem` is by querying it for its tag or
 // action.
-// 
+//
 // The following example disables the menu item associated with the
 // `nextRecord` action method when the selected line in a table view is the
 // last one; conversely, it disables the menu item with `priorRecord` as its
@@ -437,7 +435,7 @@ func (t NSToolbarItem) ValidateMenuItem(menuItem INSMenuItem) bool {
 // The value you use to identify the toolbar item.
 //
 // # Discussion
-// 
+//
 // Use this property to distinguish one toolbar item from another on the same
 // toolbar.
 //
@@ -446,10 +444,11 @@ func (t NSToolbarItem) ItemIdentifier() NSToolbarItemIdentifier {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("itemIdentifier"))
 	return NSToolbarItemIdentifier(foundation.NSStringFromID(rv).String())
 }
+
 // The set of labels that the item might display.
 //
 // # Discussion
-// 
+//
 // Use this property to specify all of the labels you might possibly use for
 // the toolbar item. Specify all strings in the current locale. To ensure
 // there’s space for the longest label, the item sizes itself using the
@@ -463,16 +462,17 @@ func (t NSToolbarItem) PossibleLabels() foundation.INSSet {
 func (t NSToolbarItem) SetPossibleLabels(value foundation.INSSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPossibleLabels:"), value)
 }
+
 // The label that appears for this item in the toolbar.
 //
 // # Discussion
-// 
+//
 // For a discussion on labels, see [Setting a Toolbar Item’s
 // Representation].
 //
-// [Setting a Toolbar Item’s Representation]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Toolbars/Tasks/SettingTBItemRep.html#//apple_ref/doc/uid/20000722
-//
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/label
+//
+// [Setting a Toolbar Item’s Representation]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Toolbars/Tasks/SettingTBItemRep.html#//apple_ref/doc/uid/20000722
 func (t NSToolbarItem) Label() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
@@ -480,11 +480,12 @@ func (t NSToolbarItem) Label() string {
 func (t NSToolbarItem) SetLabel(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // The label that appears when the toolbar item is in the customization
 // palette.
 //
 // # Discussion
-// 
+//
 // If you support toolbar customizations, you must provide palette labels for
 // your items. In most cases, you can apply the same value to this property
 // and the [Label] property. However, you might use this property to offer a
@@ -499,10 +500,11 @@ func (t NSToolbarItem) PaletteLabel() string {
 func (t NSToolbarItem) SetPaletteLabel(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPaletteLabel:"), objc.String(value))
 }
+
 // The title of the toolbar item.
 //
 // # Discussion
-// 
+//
 // If you assign a custom view to the toolbar item, modifying this property
 // updates the [Title] property of the view if one exists. If the toolbar item
 // contains a button, modifying this property updates the button title. If the
@@ -517,6 +519,7 @@ func (t NSToolbarItem) Title() string {
 func (t NSToolbarItem) SetTitle(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTitle:"), objc.String(value))
 }
+
 // The tooltip to display when someone hovers over the item in the toolbar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/toolTip
@@ -527,10 +530,11 @@ func (t NSToolbarItem) ToolTip() string {
 func (t NSToolbarItem) SetToolTip(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setToolTip:"), objc.String(value))
 }
+
 // The image to display for the toolbar item.
 //
 // # Discussion
-// 
+//
 // If you assign a custom view to the toolbar item, modifying this property
 // updates the `image` property of the view, if one exists. If the item
 // doesn’t contain a custom view, the toolbar item manages the image content
@@ -544,6 +548,7 @@ func (t NSToolbarItem) Image() objectivec.Object {
 func (t NSToolbarItem) SetImage(value objectivec.Object) {
 	objc.Send[struct{}](t.ID, objc.Sel("setImage:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/backgroundTintColor
 func (t NSToolbarItem) BackgroundTintColor() objectivec.Object {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("backgroundTintColor"))
@@ -552,10 +557,11 @@ func (t NSToolbarItem) BackgroundTintColor() objectivec.Object {
 func (t NSToolbarItem) SetBackgroundTintColor(value objectivec.Object) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundTintColor:"), value)
 }
+
 // The custom view you use to draw the toolbar item.
 //
 // # Discussion
-// 
+//
 // Many properties of [NSToolbarItem] automatically forward changes to the
 // associated custom [NSView] object, if the view has a property or accessor
 // method with a matching name.
@@ -568,16 +574,17 @@ func (t NSToolbarItem) View() INSView {
 func (t NSToolbarItem) SetView(value INSView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setView:"), value)
 }
+
 // The object that defines the action method the toolbar item calls when
 // clicked.
 //
 // # Discussion
-// 
+//
 // If you set this property to `nil`, the toolbar item attempts to execute its
 // action method on the first responder. If the first responder doesn’t
 // implement the action method, it forwards the request up the responder
 // chain.
-// 
+//
 // If you assign a custom view to the toolbar item, modifying this property
 // updates the `target` property of the view, if one exists. If the item
 // doesn’t contain a custom view, the toolbar item manages the target object
@@ -591,12 +598,13 @@ func (t NSToolbarItem) Target() objectivec.IObject {
 func (t NSToolbarItem) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTarget:"), value)
 }
+
 // The action method to call when someone clicks on the toolbar item.
 //
 // # Discussion
-// 
+//
 // If you assign a custom view to the toolbar item, modifying this property
-// updates the `action` property of the view or calls the `` method, if one of
+// updates the `action` property of the view or calls the “ method, if one of
 // them exists. If the item doesn’t contain a custom view, the toolbar item
 // manages the action directly.
 //
@@ -608,10 +616,11 @@ func (t NSToolbarItem) Action() objc.SEL {
 func (t NSToolbarItem) SetAction(value objc.SEL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAction:"), value)
 }
+
 // The menu item to use when the toolbar item is in the overflow menu.
 //
 // # Discussion
-// 
+//
 // The toolbar provides an initial default menu form representation that uses
 // the toolbar item’s label as the menu item’s title. You can customize
 // this menu item by changing the title or adding a submenu. When the toolbar
@@ -620,13 +629,13 @@ func (t NSToolbarItem) SetAction(value objc.SEL) {
 // clicking the toolbar item displays that submenu. If the toolbar item
 // isn’t visible because it’s in the overflow menu, the menu item and
 // submenu appear there.
-// 
+//
 // For a discussion on menu forms, see [Setting a Toolbar Item’s
 // Representation].
 //
-// [Setting a Toolbar Item’s Representation]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Toolbars/Tasks/SettingTBItemRep.html#//apple_ref/doc/uid/20000722
-//
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/menuFormRepresentation
+//
+// [Setting a Toolbar Item’s Representation]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Toolbars/Tasks/SettingTBItemRep.html#//apple_ref/doc/uid/20000722
 func (t NSToolbarItem) MenuFormRepresentation() INSMenuItem {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("menuFormRepresentation"))
 	return NSMenuItemFromID(objc.ID(rv))
@@ -634,24 +643,22 @@ func (t NSToolbarItem) MenuFormRepresentation() INSMenuItem {
 func (t NSToolbarItem) SetMenuFormRepresentation(value INSMenuItem) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMenuFormRepresentation:"), value)
 }
+
 // A Boolean value that indicates whether the item is currently visible in the
 // toolbar, and not in the overflow menu.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the item is visible in the
-// toolbar, and [false] when it isn’t in the toolbar or is present in the
-// toolbar’s overflow menu. This property is key-value observing (KVO)
-// compliant.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true when the item is visible in the toolbar,
+// and false when it isn’t in the toolbar or is present in the toolbar’s
+// overflow menu. This property is key-value observing (KVO) compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isVisible
 func (t NSToolbarItem) Visible() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isVisible"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isHidden
 func (t NSToolbarItem) Hidden() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isHidden"))
@@ -660,16 +667,15 @@ func (t NSToolbarItem) Hidden() bool {
 func (t NSToolbarItem) SetHidden(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidden:"), value)
 }
+
 // A Boolean value that indicates whether the toolbar item has a bordered
 // style.
 //
 // # Discussion
-// 
+//
 // If your toolbar item displays a custom view, modifying this property
 // applies the image to the view’s [Bordered] property, if one exists. The
-// default value of this property is [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
+// default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isBordered
 func (t NSToolbarItem) Bordered() bool {
@@ -679,20 +685,19 @@ func (t NSToolbarItem) Bordered() bool {
 func (t NSToolbarItem) SetBordered(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBordered:"), value)
 }
+
 // A Boolean value that indicates whether the item behaves as a navigation
 // item in the toolbar.
 //
 // # Discussion
-// 
+//
 // Mark a toolbar item as navigation if you use it to navigate around your
-// content. When you set this property to [true], the system can position
+// content. When you set this property to true, the system can position
 // navigation items outside of the normal list of items in the toolbar. For
 // example, the back and forward buttons in Finder windows are navigational,
 // and the system positions them at the leading edge of the window’s title
 // area. Specify the initial order of the items using the
 // [ToolbarDefaultItemIdentifiers] method of the toolbar delegate object.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isNavigational
 func (t NSToolbarItem) Navigational() bool {
@@ -702,16 +707,15 @@ func (t NSToolbarItem) Navigational() bool {
 func (t NSToolbarItem) SetNavigational(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNavigational:"), value)
 }
+
 // A Boolean value that indicates whether the item is enabled.
 //
 // # Discussion
-// 
-// If the value of this property is [true], the item is enabled. If the
+//
+// If the value of this property is true, the item is enabled. If the
 // [Autovalidates] property is true, changing the value of this property has
 // no effect. Instead, the validation process enables and disables the toolbar
 // item as appropriate.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/isEnabled
 func (t NSToolbarItem) Enabled() bool {
@@ -721,18 +725,7 @@ func (t NSToolbarItem) Enabled() bool {
 func (t NSToolbarItem) SetEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEnabled:"), value)
 }
-// A badge that can be attached to an NSToolbarItem. This provides a way to
-// display small visual indicators that can be used to highlight important
-// information, such as unread notifications or status indicators.
-//
-// See: https://developer.apple.com/documentation/appkit/nstoolbaritem/badge-17r3r
-func (t NSToolbarItem) Badge() INSItemBadge {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("badge"))
-	return NSItemBadgeFromID(objc.ID(rv))
-}
-func (t NSToolbarItem) SetBadge(value INSItemBadge) {
-	objc.Send[struct{}](t.ID, objc.Sel("setBadge:"), value)
-}
+
 // Defines the toolbar item’s appearance. The default style is plain.
 // Prominent style tints the background. If a background tint color is set, it
 // uses it; otherwise, it uses the app’s or system’s accent color. If
@@ -747,21 +740,22 @@ func (t NSToolbarItem) Style() NSToolbarItemStyle {
 func (t NSToolbarItem) SetStyle(value NSToolbarItemStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStyle:"), value)
 }
+
 // The display priority associated with the toolbar item.
 //
 // # Discussion
-// 
+//
 // The default value of this property is [standard]. Assign a higher priority
 // to give preference to the toolbar item when space is limited.
-// 
+//
 // When a toolbar doesn’t have enough space to fit all of its items, it
 // pushes lower-priority items to the overflow menu first. When two or more
 // items have the same priority, the toolbar removes them one at a time
 // starting from the trailing edge.
 //
-// [standard]: https://developer.apple.com/documentation/AppKit/NSToolbarItem/VisibilityPriority-swift.struct/standard
-//
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/visibilityPriority-swift.property
+//
+// [standard]: https://developer.apple.com/documentation/AppKit/NSToolbarItem/VisibilityPriority-swift.struct/standard
 func (t NSToolbarItem) VisibilityPriority() NSToolbarItemVisibilityPriority {
 	rv := objc.Send[NSToolbarItemVisibilityPriority](t.ID, objc.Sel("visibilityPriority"))
 	return NSToolbarItemVisibilityPriority(rv)
@@ -769,10 +763,11 @@ func (t NSToolbarItem) VisibilityPriority() NSToolbarItemVisibilityPriority {
 func (t NSToolbarItem) SetVisibilityPriority(value NSToolbarItemVisibilityPriority) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVisibilityPriority:"), value)
 }
+
 // An integer tag you can use to identify the toolbar item.
 //
 // # Discussion
-// 
+//
 // The toolbar doesn’t use this value. You can use it for your own custom
 // purposes.
 //
@@ -784,6 +779,7 @@ func (t NSToolbarItem) Tag() int {
 func (t NSToolbarItem) SetTag(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTag:"), value)
 }
+
 // The toolbar that currently includes the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/toolbar
@@ -791,16 +787,15 @@ func (t NSToolbarItem) Toolbar() INSToolbar {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("toolbar"))
 	return NSToolbarFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the toolbar automatically validates
 // the item.
 //
 // # Discussion
-// 
-// If the value of this property is [true], the toolbar automatically
-// validates the item; otherwise, it doesn’t validate the item
-// automatically. The default value of this property is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the value of this property is true, the toolbar automatically validates
+// the item; otherwise, it doesn’t validate the item automatically. The
+// default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/autovalidates
 func (t NSToolbarItem) Autovalidates() bool {
@@ -810,21 +805,19 @@ func (t NSToolbarItem) Autovalidates() bool {
 func (t NSToolbarItem) SetAutovalidates(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutovalidates:"), value)
 }
+
 // A Boolean value that indicates whether the toolbar item can appear more
 // than once in a toolbar.
 //
 // # Discussion
-// 
-// If the value in this property is [true], the toolbar allows someone to drag
+//
+// If the value in this property is true, the toolbar allows someone to drag
 // more than one copy of the toolbar item from the customization palette. If
-// the value of this property is [false], the toolbar prevents someone from
+// the value of this property is false, the toolbar prevents someone from
 // dragging more than one copy of the item from the customization palette.
-// 
+//
 // By default, if an item with the same identifier is already in the toolbar,
 // dragging it in again will effectively move it to the new position.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/allowsDuplicatesInToolbar
 func (t NSToolbarItem) AllowsDuplicatesInToolbar() bool {
@@ -832,9 +825,19 @@ func (t NSToolbarItem) AllowsDuplicatesInToolbar() bool {
 	return rv
 }
 
-			// Protocol methods for NSMenuItemValidation
-			
+// A badge that can be attached to an NSToolbarItem. This provides a way to
+// display small visual indicators that can be used to highlight important
+// information, such as unread notifications or status indicators.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/badge-2b38p
+func (t NSToolbarItem) Badge() INSItemBadge {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("badge"))
+	return NSItemBadgeFromID(objc.ID(rv))
+}
+func (t NSToolbarItem) SetBadge(value INSItemBadge) {
+	objc.Send[struct{}](t.ID, objc.Sel("setBadge:"), value)
+}
 
-			// Protocol methods for NSValidatedUserInterfaceItem
-			
+// Protocol methods for NSMenuItemValidation
 
+// Protocol methods for NSValidatedUserInterfaceItem

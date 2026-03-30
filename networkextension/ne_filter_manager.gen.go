@@ -5,8 +5,9 @@ package networkextension
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,37 +47,34 @@ func (nc NEFilterManagerClass) Alloc() NEFilterManager {
 // An object to create and manage a content filter’s configuration.
 //
 // # Overview
-// 
+//
 // Each app is allowed to create a single filter configuration. The
 // [NEFilterManager] class has a class method ([NEFilterManager.SharedManager]) that provides
 // access to a single [NEFilterManager] instance. This single instance
 // corresponds to a single filter configuration.
-// 
+//
 // The filter configuration is stored in the Network Extension preferences
 // which are managed by the Network Extension framework. The filter
 // configuration must be explicitly loaded into memory from the Network
 // Extension preferences before it can be used, and any changes must be
 // explicitly saved to the Network Extension preferences before taking effect
 // on the system.
-// 
+//
 // # Profile Configuration
-// 
+//
 // Filter configurations are created using configuration profiles. See
 // [WebContentFilter] for more information. To specify that a filter
 // configuration created via a profile payload is associated with a particular
 // app (and therefore allow the app to use [NEFilterManager] to manage the
 // configuration), the app’s bundle identifier must be set as the value of
 // the [PluginBundleID] field in the profile payload.
-// 
+//
 // # Filter Provider Extensions
-// 
+//
 // Apps that use [NEFilterManager] are required to contain two Filter Provider
 // extensions that together perform the task of examining network content and
 // making pass and block decisions. See the [NEFilterControlProvider] and
 // [NEFilterDataProvider] classes for more details about these extensions.
-//
-// [NEFilterControlProvider]: https://developer.apple.com/documentation/NetworkExtension/NEFilterControlProvider
-// [WebContentFilter]: https://developer.apple.com/documentation/DeviceManagement/WebContentFilter
 //
 // # Managing the filter configuration
 //
@@ -112,6 +110,9 @@ func (nc NEFilterManagerClass) Alloc() NEFilterManager {
 //   - [NEFilterManager.SetDisableEncryptedDNSSettings]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager
+//
+// [NEFilterControlProvider]: https://developer.apple.com/documentation/NetworkExtension/NEFilterControlProvider
+// [WebContentFilter]: https://developer.apple.com/documentation/DeviceManagement/WebContentFilter
 type NEFilterManager struct {
 	objectivec.Object
 }
@@ -122,6 +123,7 @@ type NEFilterManager struct {
 func NEFilterManagerFromID(id objc.ID) NEFilterManager {
 	return NEFilterManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEFilterManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -235,20 +237,21 @@ func NewNEFilterManager() NEFilterManager {
 // while loading the configuration, the error parameter will be set to an
 // [NSError] object containing details about the error. See
 // [NEFilterManagerError] for a list of possible errors.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // You must call this method at least once before calling
 // `saveToPreferencesWithCompletionHandler`: for the first time after your app
 // launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/loadFromPreferences(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (f NEFilterManager) LoadFromPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("loadFromPreferencesWithCompletionHandler:"), _block0)
 }
+
 // Save the filter configuration in the Network Extension preferences.
 //
 // completionHandler: A block that takes an [NSError] object. This block will be executed on the
@@ -257,19 +260,20 @@ _block0, _ := NewErrorBlock(completionHandler)
 // will be set to an [NSError] object containing details about the error. See
 // [NEFilterManagerError] for a list of possible errors. If the configuration
 // is saved successfully then the error parameter will be set to nil.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
-// You must call `` at least once before calling this method the first time
+//
+// You must call “ at least once before calling this method the first time
 // after your app launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/saveToPreferences(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (f NEFilterManager) SaveToPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("saveToPreferencesWithCompletionHandler:"), _block0)
 }
+
 // Remove the filter configuration from the Network Extension preferences.
 //
 // completionHandler: A block that takes an [NSError] object. This block will be executed on the
@@ -279,26 +283,26 @@ _block0, _ := NewErrorBlock(completionHandler)
 // [NSError] object containing details about the error. See
 // [NEFilterManagerError] for a list of possible errors. If the configuration
 // is removed successfully the error parameter will be set to nil.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // After the configuration is removed from the preferences the
 // [NEFilterManager] object will still contain the configuration parameters.
-// Calling `` will clear out the configuration parameters from the
+// Calling “ will clear out the configuration parameters from the
 // [NEFilterManager] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/removeFromPreferences(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (f NEFilterManager) RemoveFromPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("removeFromPreferencesWithCompletionHandler:"), _block0)
 }
 
 // Access the single instance of [NEFilterManager].
 //
 // # Return Value
-// 
+//
 // The [NEFilterManager] instance for the calling application.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/shared()
@@ -310,14 +314,12 @@ func (_NEFilterManagerClass NEFilterManagerClass) SharedManager() NEFilterManage
 // A Boolean used to toggle the enabled state of the filter.
 //
 // # Discussion
-// 
-// Setting this property to [true] and saving the configuration will disable
-// all other network content filters on the system, and will start the
-// filter’s Filter Provider extensions. Setting this property to false and
-// saving the configuration will disable the filter and stop the filter’s
-// Filter Provider extensions.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Setting this property to true and saving the configuration will disable all
+// other network content filters on the system, and will start the filter’s
+// Filter Provider extensions. Setting this property to false and saving the
+// configuration will disable the filter and stop the filter’s Filter
+// Provider extensions.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/isEnabled
 func (f NEFilterManager) Enabled() bool {
@@ -327,12 +329,13 @@ func (f NEFilterManager) Enabled() bool {
 func (f NEFilterManager) SetEnabled(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setEnabled:"), value)
 }
+
 // A [NEFilterProviderConfiguration] object containing the filter
 // configuration settings.
 //
 // # Discussion
-// 
-// If this property is nil after calling ``, then the filter configuration
+//
+// If this property is nil after calling “, then the filter configuration
 // does not exist in the Network Extension preferences.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/providerConfiguration
@@ -343,10 +346,11 @@ func (f NEFilterManager) ProviderConfiguration() INEFilterProviderConfiguration 
 func (f NEFilterManager) SetProviderConfiguration(value INEFilterProviderConfiguration) {
 	objc.Send[struct{}](f.ID, objc.Sel("setProviderConfiguration:"), value)
 }
+
 // A string containing a description of the filter configuration.
 //
 // # Discussion
-// 
+//
 // If this property is set to nil at the time that the configuration is
 // created, it will be automatically set to the display name of the calling
 // app.
@@ -359,14 +363,13 @@ func (f NEFilterManager) LocalizedDescription() string {
 func (f NEFilterManager) SetLocalizedDescription(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setLocalizedDescription:"), objc.String(value))
 }
+
 // The grade of the filter, which determines when it acts relative to other
 // filters.
 //
 // # Discussion
-// 
-// The default grade is [NEFilterManager.Grade.firewall].
 //
-// [NEFilterManager.Grade.firewall]: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/Grade-swift.enum/firewall
+// The default grade is [NEFilterManagerGradeFirewall].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/grade-swift.property
 func (f NEFilterManager) Grade() NEFilterManagerGrade {
@@ -376,6 +379,7 @@ func (f NEFilterManager) Grade() NEFilterManagerGrade {
 func (f NEFilterManager) SetGrade(value NEFilterManagerGrade) {
 	objc.Send[struct{}](f.ID, objc.Sel("setGrade:"), value)
 }
+
 // The domain for errors resulting from calls to the filter manager.
 //
 // See: https://developer.apple.com/documentation/networkextension/nefiltererrordomain
@@ -383,6 +387,7 @@ func (f NEFilterManager) NEFilterErrorDomain() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("NEFilterErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Posted after the filter configuration stored in the Network Extension
 // preferences changes.
 //
@@ -391,6 +396,7 @@ func (f NEFilterManager) NEFilterConfigurationDidChange() foundation.NSString {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("NEFilterConfigurationDidChange"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterManager/disableEncryptedDNSSettings
 func (f NEFilterManager) DisableEncryptedDNSSettings() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("disableEncryptedDNSSettings"))
@@ -444,4 +450,3 @@ func (f NEFilterManager) RemoveFromPreferences(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

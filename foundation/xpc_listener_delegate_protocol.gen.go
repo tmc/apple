@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // The protocol that delegates to the XPC listener use to accept or reject new connections.
@@ -20,6 +22,7 @@ type NSXPCListenerDelegate interface {
 type NSXPCListenerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSXPCListenerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -35,26 +38,23 @@ func NSXPCListenerDelegateObjectFromID(id objc.ID) NSXPCListenerDelegateObject {
 // Accepts or rejects a new connection to the listener.
 //
 // # Discussion
-// 
+//
 // To accept the connection, first configure the connection if desired, then
-// call [Resume] on the new connection, then return [true].
-// 
-// To reject the connect, return a value of [false]. This causes the
-// connection object to be invalidated.
-// 
+// call [Resume] on the new connection, then return true.
+//
+// To reject the connect, return a value of false. This causes the connection
+// object to be invalidated.
+//
 // In this method, you can also set up properties on the connection object,
 // such as its exported object and interfaces. Be sure to call [Resume] when
 // you are finished configuring the connection object and are ready for it to
 // receive messages.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/Foundation/NSXPCListenerDelegate/listener(_:shouldAcceptNewConnection:)
 func (o NSXPCListenerDelegateObject) ListenerShouldAcceptNewConnection(listener INSXPCListener, newConnection INSXPCConnection) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("listener:shouldAcceptNewConnection:"), listener, newConnection)
 	return rv
-	}
+}
 
 // NSXPCListenerDelegateConfig holds optional typed callbacks for [NSXPCListenerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -117,4 +117,3 @@ func NewNSXPCListenerDelegate(config NSXPCListenerDelegateConfig) NSXPCListenerD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSXPCListenerDelegateObjectFromID(instance)
 }
-

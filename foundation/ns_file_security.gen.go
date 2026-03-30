@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,13 +45,13 @@ func (nc NSFileSecurityClass) Alloc() NSFileSecurity {
 // A stub class that encapsulates security information about a file.
 //
 // # Overview
-// 
+//
 // [NSFileSecurity] contains no methods of its own. Instead, it is
 // transparently bridged to [CFFileSecurity].
 //
-// [CFFileSecurity]: https://developer.apple.com/documentation/CoreFoundation/CFFileSecurity
-//
 // See: https://developer.apple.com/documentation/Foundation/NSFileSecurity
+//
+// [CFFileSecurity]: https://developer.apple.com/documentation/CoreFoundation/CFFileSecurity
 type NSFileSecurity struct {
 	objectivec.Object
 }
@@ -61,6 +62,7 @@ type NSFileSecurity struct {
 func NSFileSecurityFromID(id objc.ID) NSFileSecurity {
 	return NSFileSecurity{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSFileSecurity adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -93,7 +95,6 @@ func NewNSFileSecurity() NSFileSecurity {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSFileSecurity/init(coder:)
 func NewFileSecurityWithCoder(coder INSCoder) NSFileSecurity {
 	instance := getNSFileSecurityClass().Alloc()
@@ -101,12 +102,12 @@ func NewFileSecurityWithCoder(coder INSCoder) NSFileSecurity {
 	return NSFileSecurityFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSFileSecurity/init(coder:)
 func (f NSFileSecurity) InitWithCoder(coder INSCoder) NSFileSecurity {
 	rv := objc.Send[NSFileSecurity](f.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -116,9 +117,6 @@ func (f NSFileSecurity) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

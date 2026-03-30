@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MTLResourceStatePassSampleBufferAttachmentDescriptorArray struct {
 func MTLResourceStatePassSampleBufferAttachmentDescriptorArrayFromID(id objc.ID) MTLResourceStatePassSampleBufferAttachmentDescriptorArray {
 	return MTLResourceStatePassSampleBufferAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLResourceStatePassSampleBufferAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,7 +106,7 @@ func NewMTLResourceStatePassSampleBufferAttachmentDescriptorArray() MTLResourceS
 // attachmentIndex: An index for the object to fetch.
 //
 // # Return Value
-// 
+//
 // The requested [MTLResourceStatePassSampleBufferAttachmentDescriptor]
 // object.
 //
@@ -113,6 +115,7 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptorArray) ObjectAtIndex
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLResourceStatePassSampleBufferAttachmentDescriptorFromID(rv)
 }
+
 // Sets the descriptor object for the specified sample buffer attachment.
 //
 // attachment: A sample buffer attachment descriptor. If you specify `nil`, the attachment
@@ -121,7 +124,7 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptorArray) ObjectAtIndex
 // attachmentIndex: The item in the array to replace.
 //
 // # Discussion
-// 
+//
 // The method copies the `attachment` parameter’s contents into the
 // attachment at the specified index..
 //
@@ -129,4 +132,3 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptorArray) ObjectAtIndex
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLResourceStatePassSampleBufferAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-

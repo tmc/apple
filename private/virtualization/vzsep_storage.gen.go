@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (vc VZSEPStorageClass) Alloc() VZSEPStorage {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZSEPStorage.URL]
 //   - [VZSEPStorage.InitCreatingStorageAtURLError]
 //   - [VZSEPStorage.InitWithURL]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage
 type VZSEPStorage struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type VZSEPStorage struct {
 func VZSEPStorageFromID(id objc.ID) VZSEPStorage {
 	return VZSEPStorage{objectivec.Object{ID: id}}
 }
+
 // Ensure VZSEPStorage implements IVZSEPStorage.
 var _ IVZSEPStorage = VZSEPStorage{}
 
@@ -99,7 +101,6 @@ func NewVZSEPStorage() VZSEPStorage {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage/initCreatingStorageAtURL:error:
 func NewVZSEPStorageCreatingStorageAtURLError(url foundation.INSURL) (VZSEPStorage, error) {
 	var errorPtr objc.ID
@@ -112,7 +113,6 @@ func NewVZSEPStorageCreatingStorageAtURLError(url foundation.INSURL) (VZSEPStora
 	return VZSEPStorageFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage/initWithURL:
 func NewVZSEPStorageWithURL(url foundation.INSURL) VZSEPStorage {
 	instance := getVZSEPStorageClass().Alloc()
@@ -120,7 +120,6 @@ func NewVZSEPStorageWithURL(url foundation.INSURL) VZSEPStorage {
 	return VZSEPStorageFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage/initCreatingStorageAtURL:error:
 func (v VZSEPStorage) InitCreatingStorageAtURLError(url foundation.INSURL) (VZSEPStorage, error) {
 	var errorPtr objc.ID
@@ -132,7 +131,7 @@ func (v VZSEPStorage) InitCreatingStorageAtURLError(url foundation.INSURL) (VZSE
 	return VZSEPStorageFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZSEPStorage/initWithURL:
 func (v VZSEPStorage) InitWithURL(url foundation.INSURL) VZSEPStorage {
 	rv := objc.Send[VZSEPStorage](v.ID, objc.Sel("initWithURL:"), url)
@@ -144,4 +143,3 @@ func (v VZSEPStorage) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

@@ -4,8 +4,9 @@ package symbols
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -67,6 +68,7 @@ type NSSymbolEffectOptions struct {
 func NSSymbolEffectOptionsFromID(id objc.ID) NSSymbolEffectOptions {
 	return NSSymbolEffectOptions{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSSymbolEffectOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,7 +130,7 @@ func NewNSSymbolEffectOptions() NSSymbolEffectOptions {
 // A set of effect options that prefers to not repeat.
 //
 // # Return Value
-// 
+//
 // A copy of the effect options that prefers to not repeat.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolEffectOptions/optionsWithNonRepeating-c.method
@@ -136,13 +138,14 @@ func (s NSSymbolEffectOptions) OptionsWithNonRepeating() INSSymbolEffectOptions 
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("optionsWithNonRepeating"))
 	return NSSymbolEffectOptionsFromID(rv)
 }
+
 // Creates a set of effect options with a preferred speed multiplier.
 //
 // speed: The preferred speed multiplier to play the effect with. The default
 // multiplier is `1.0`. The function may clamp very large or small values.
 //
 // # Return Value
-// 
+//
 // A copy of the effect options with the preferred speed multiplier.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolEffectOptions/optionsWithSpeed:-c.method
@@ -150,12 +153,13 @@ func (s NSSymbolEffectOptions) OptionsWithSpeedWithSpeed(speed float64) INSSymbo
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("optionsWithSpeed:"), speed)
 	return NSSymbolEffectOptionsFromID(rv)
 }
+
 // Return a copy of the options setting a preferred repeat behavior.
 //
 // behavior: The preferred behavior when the effect is repeated.
 //
 // # Return Value
-// 
+//
 // A new options object with the preferred repeat behavior.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolEffectOptions/optionsWithRepeatBehavior:-c.method
@@ -170,7 +174,7 @@ func (s NSSymbolEffectOptions) EncodeWithCoder(coder foundation.INSCoder) {
 // The default set of effect options.
 //
 // # Return Value
-// 
+//
 // A new instance of effect options.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolEffectOptions/options
@@ -178,4 +182,3 @@ func (_NSSymbolEffectOptionsClass NSSymbolEffectOptionsClass) Options() NSSymbol
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolEffectOptionsClass.class), objc.Sel("options"))
 	return NSSymbolEffectOptionsFromID(rv)
 }
-

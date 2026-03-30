@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNDetectTrajectoriesRequest] class.
@@ -45,7 +46,7 @@ func (vc VNDetectTrajectoriesRequestClass) Alloc() VNDetectTrajectoriesRequest {
 // path.
 //
 // # Overview
-// 
+//
 // After the request detects a trajectory, it produces an observation that
 // contains the shape’s detected points and an equation describing the
 // parabola.
@@ -80,6 +81,7 @@ type VNDetectTrajectoriesRequest struct {
 func VNDetectTrajectoriesRequestFromID(id objc.ID) VNDetectTrajectoriesRequest {
 	return VNDetectTrajectoriesRequest{VNStatefulRequest: VNStatefulRequestFromID(id)}
 }
+
 // NOTE: VNDetectTrajectoriesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -156,7 +158,7 @@ func NewVNDetectTrajectoriesRequest() VNDetectTrajectoriesRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -173,15 +175,15 @@ func NewDetectTrajectoriesRequestWithCompletionHandler(completionHandler VNReque
 // frameAnalysisSpacing: A [CMTime] value that indicates the duration between analysis operations.
 // Increase this value to reduce the number of frames analyzed on slower
 // devices. Set this argument to [zero] to analyze all frames.
-// //
-// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // completionHandler: A closure that’s invoked after the request has completed its processing.
 // The system invokes the completion handler on the same dispatch queue as the
 // request performs its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
+//
+// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNDetectTrajectoriesRequest {
 	instance := getVNDetectTrajectoriesRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
@@ -193,9 +195,6 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingCompletionHandler(frame
 // frameAnalysisSpacing: A [CMTime] value that indicates the duration between analysis operations.
 // Increase this value to reduce the number of frames analyzed on slower
 // devices. Set this argument to [zero] to analyze all frames.
-// //
-// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // trajectoryLength: The number of points required to analyze to determine that a shape follows
 // a parabolic path. This argument value must be at least 5.
@@ -205,6 +204,9 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingCompletionHandler(frame
 // request uses to perform its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/init(frameAnalysisSpacing:trajectoryLength:completionHandler:)
+//
+// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler VNRequestCompletionHandler) VNDetectTrajectoriesRequest {
 	instance := getVNDetectTrajectoriesRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, completionHandler)
@@ -216,9 +218,6 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthComplet
 // frameAnalysisSpacing: A [CMTime] value that indicates the duration between analysis operations.
 // Increase this value to reduce the number of frames analyzed on slower
 // devices. Set this argument to [zero] to analyze all frames.
-// //
-// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // trajectoryLength: The number of points required to analyze to determine that a shape follows
 // a parabolic path. This argument value must be at least 5.
@@ -228,8 +227,11 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthComplet
 // request uses to perform its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/init(frameAnalysisSpacing:trajectoryLength:completionHandler:)
+//
+// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func (d VNDetectTrajectoriesRequest) InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler ErrorHandler) VNDetectTrajectoriesRequest {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, _block2)
 	return VNDetectTrajectoriesRequestFromID(rv)
 }
@@ -237,7 +239,7 @@ _block2, _ := NewErrorBlock(completionHandler)
 // The requested target frame time for processing trajectory detection.
 //
 // # Discussion
-// 
+//
 // Use this property value for real-time processing of frames, which requires
 // execution within a specific amount of time. The request evaluates from
 // frame-to-frame. If processing takes longer than the targeted time for the
@@ -245,13 +247,13 @@ _block2, _ := NewErrorBlock(completionHandler)
 // accuracy (down to a set minimum) for the next frame. If a frame takes less
 // time than the targeted time, the request increases the accuracy (up to a
 // set maximum) of the next frame.
-// 
+//
 // The default value is [indefinite], which indicates that accuracy stays at
 // the predefined maximum.
 //
-// [indefinite]: https://developer.apple.com/documentation/CoreMedia/CMTime/indefinite
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/targetFrameTime
+//
+// [indefinite]: https://developer.apple.com/documentation/CoreMedia/CMTime/indefinite
 func (d VNDetectTrajectoriesRequest) TargetFrameTime() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](d.ID, objc.Sel("targetFrameTime"))
 	return coremedia.CMTime(rv)
@@ -259,6 +261,7 @@ func (d VNDetectTrajectoriesRequest) TargetFrameTime() coremedia.CMTime {
 func (d VNDetectTrajectoriesRequest) SetTargetFrameTime(value coremedia.CMTime) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTargetFrameTime:"), value)
 }
+
 // The number of points to detect before calculating a trajectory.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/trajectoryLength
@@ -266,6 +269,7 @@ func (d VNDetectTrajectoriesRequest) TrajectoryLength() int {
 	rv := objc.Send[int](d.ID, objc.Sel("trajectoryLength"))
 	return rv
 }
+
 // The minimum radius of the bounding circle of the object to track.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/objectMinimumNormalizedRadius
@@ -276,6 +280,7 @@ func (d VNDetectTrajectoriesRequest) ObjectMinimumNormalizedRadius() float32 {
 func (d VNDetectTrajectoriesRequest) SetObjectMinimumNormalizedRadius(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setObjectMinimumNormalizedRadius:"), value)
 }
+
 // The maximum radius of the bounding circle of the object to track.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/objectMaximumNormalizedRadius
@@ -286,6 +291,7 @@ func (d VNDetectTrajectoriesRequest) ObjectMaximumNormalizedRadius() float32 {
 func (d VNDetectTrajectoriesRequest) SetObjectMaximumNormalizedRadius(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setObjectMaximumNormalizedRadius:"), value)
 }
+
 // A constant for specifying revision 1 of the trajectories detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecttrajectoriesrequestrevision1
@@ -293,4 +299,3 @@ func (d VNDetectTrajectoriesRequest) VNDetectTrajectoriesRequestRevision1() int 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectTrajectoriesRequestRevision1"))
 	return rv
 }
-

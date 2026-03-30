@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZVirtioFileSystemDeviceConfiguration struct {
 func VZVirtioFileSystemDeviceConfigurationFromID(id objc.ID) VZVirtioFileSystemDeviceConfiguration {
 	return VZVirtioFileSystemDeviceConfiguration{VZDirectorySharingDeviceConfiguration: VZDirectorySharingDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioFileSystemDeviceConfiguration implements IVZVirtioFileSystemDeviceConfiguration.
 var _ IVZVirtioFileSystemDeviceConfiguration = VZVirtioFileSystemDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZVirtioFileSystemDeviceConfiguration() VZVirtioFileSystemDeviceConfigur
 	rv := objc.Send[VZVirtioFileSystemDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

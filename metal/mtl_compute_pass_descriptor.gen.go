@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,6 +66,7 @@ type MTLComputePassDescriptor struct {
 func MTLComputePassDescriptorFromID(id objc.ID) MTLComputePassDescriptor {
 	return MTLComputePassDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLComputePassDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,24 +116,12 @@ func NewMTLComputePassDescriptor() MTLComputePassDescriptor {
 	return rv
 }
 
-// Creates a default compute pass descriptor.
-//
-// # Return Value
-// 
-// A new compute pass descriptor populated with default values.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePassDescriptor/computePassDescriptor
-func (_MTLComputePassDescriptorClass MTLComputePassDescriptorClass) ComputePassDescriptor() MTLComputePassDescriptor {
-	rv := objc.Send[objc.ID](objc.ID(_MTLComputePassDescriptorClass.class), objc.Sel("computePassDescriptor"))
-	return MTLComputePassDescriptorFromID(rv)
-}
-
 // The strategy for dispatching any compute commands encoded in the compute
 // pass.
 //
 // # Discussion
-// 
-// The default dispatch type is [DispatchTypeSerial].
+//
+// The default dispatch type is [MTLDispatchTypeSerial].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePassDescriptor/dispatchType
 func (c MTLComputePassDescriptor) DispatchType() MTLDispatchType {
@@ -141,20 +131,20 @@ func (c MTLComputePassDescriptor) DispatchType() MTLDispatchType {
 func (c MTLComputePassDescriptor) SetDispatchType(value MTLDispatchType) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDispatchType:"), value)
 }
+
 // The sample buffers that the compute pass can access.
 //
 // # Discussion
-// 
+//
 // The GPU uses sample buffers to record performance information. See [GPU
 // counters and counter sample buffers], [Sampling GPU data into counter
 // sample buffers], and [MTLCounter] for more information.
 //
+// See: https://developer.apple.com/documentation/Metal/MTLComputePassDescriptor/sampleBufferAttachments
+//
 // [GPU counters and counter sample buffers]: https://developer.apple.com/documentation/Metal/gpu-counters-and-counter-sample-buffers
 // [Sampling GPU data into counter sample buffers]: https://developer.apple.com/documentation/Metal/sampling-gpu-data-into-counter-sample-buffers
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputePassDescriptor/sampleBufferAttachments
 func (c MTLComputePassDescriptor) SampleBufferAttachments() IMTLComputePassSampleBufferAttachmentDescriptorArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("sampleBufferAttachments"))
 	return MTLComputePassSampleBufferAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-

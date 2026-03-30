@@ -4,9 +4,10 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,35 +47,32 @@ func (cc CAConstraintLayoutManagerClass) Alloc() CAConstraintLayoutManager {
 // An object that provides a constraint-based layout manager.
 //
 // # Overview
-// 
+//
 // You use the shared instance of this object by assigning it to the
 // [CAConstraintLayoutManager.LayoutManager] property of any layer objects to which you have added
 // constraints. During a layout update, Core Animation uses the layout manager
 // to update the size and position of the sublayers based on the registered
 // set of constraints.
-// 
+//
 // Constraints let you define a set of geometric relationships between a layer
 // and its sibling layers or between a layer and its superlayer. These
 // relationships are expressed using constraint objects, which are instances
 // of the [CAConstraint] class. When creating constraints, you can reference a
 // layer by name using that object’s [CAConstraintLayoutManager.Name] property. You can also use the
 // special name `superlayer` to refer to the layer’s superlayer.
-// 
+//
 // The following example shows how you can use [CAConstraintLayoutManager] to
 // create a layer containing two constrained sublayers: `leftLayer` and
 // `rightLayer`. A series of [CAConstraint] objects are created so that the
 // sublayers match their superlayer’s height and are half of its width.
-// `leftConstraint` matches the [CAConstraintAttribute.minX] attribute and
-// `rightConstraint` matches the [CAConstraintAttribute.maxX] attribute.
-// 
+// `leftConstraint` matches the [KCAConstraintMinX] attribute and
+// `rightConstraint` matches the [KCAConstraintMaxX] attribute.
+//
 // The end result is that the two sublayers are always laid out so that
 // `leftLayer` fills the left half of `layer` and `rightLayer` fills the right
 // half of layer.
-// 
-// This class is not meant to be subclassed.
 //
-// [CAConstraintAttribute.maxX]: https://developer.apple.com/documentation/QuartzCore/CAConstraintAttribute/maxX
-// [CAConstraintAttribute.minX]: https://developer.apple.com/documentation/QuartzCore/CAConstraintAttribute/minX
+// This class is not meant to be subclassed.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAConstraintLayoutManager
 type CAConstraintLayoutManager struct {
@@ -87,6 +85,7 @@ type CAConstraintLayoutManager struct {
 func CAConstraintLayoutManagerFromID(id objc.ID) CAConstraintLayoutManager {
 	return CAConstraintLayoutManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: CAConstraintLayoutManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,6 +130,7 @@ func NewCAConstraintLayoutManager() CAConstraintLayoutManager {
 func (c CAConstraintLayoutManager) InvalidateLayoutOfLayer(layer ICALayer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateLayoutOfLayer:"), layer)
 }
+
 // Override to customize layout of sublayers whenever the layer needs
 // redrawing.
 //
@@ -138,12 +138,30 @@ func (c CAConstraintLayoutManager) InvalidateLayoutOfLayer(layer ICALayer) {
 func (c CAConstraintLayoutManager) LayoutSublayersOfLayer(layer ICALayer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("layoutSublayersOfLayer:"), layer)
 }
+
 // Override to customize layer size.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayoutManager/preferredSize(of:)
 func (c CAConstraintLayoutManager) PreferredSizeOfLayer(layer ICALayer) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("preferredSizeOfLayer:"), layer)
 	return corefoundation.CGSize(rv)
+}
+
+// Returns the shared layout manager object.
+//
+// # Return Value
+//
+// The shared layout manager object.
+//
+// # Discussion
+//
+// You can assign the returned object to any layers that manage layout using
+// constraints.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAConstraintLayoutManager/layoutManager
+func (_CAConstraintLayoutManagerClass CAConstraintLayoutManagerClass) LayoutManager() CAConstraintLayoutManager {
+	rv := objc.Send[objc.ID](objc.ID(_CAConstraintLayoutManagerClass.class), objc.Sel("layoutManager"))
+	return CAConstraintLayoutManagerFromID(rv)
 }
 
 // The object responsible for laying out the layer’s sublayers.
@@ -156,6 +174,7 @@ func (c CAConstraintLayoutManager) LayoutManager() CALayoutManager {
 func (c CAConstraintLayoutManager) SetLayoutManager(value CALayoutManager) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLayoutManager:"), value)
 }
+
 // The name of the receiver.
 //
 // See: https://developer.apple.com/documentation/quartzcore/calayer/name
@@ -167,6 +186,4 @@ func (c CAConstraintLayoutManager) SetName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setName:"), objc.String(value))
 }
 
-			// Protocol methods for CALayoutManager
-			
-
+// Protocol methods for CALayoutManager

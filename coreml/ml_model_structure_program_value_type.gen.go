@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,6 +55,7 @@ type MLModelStructureProgramValueType struct {
 func MLModelStructureProgramValueTypeFromID(id objc.ID) MLModelStructureProgramValueType {
 	return MLModelStructureProgramValueType{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgramValueType implements IMLModelStructureProgramValueType.
 var _ IMLModelStructureProgramValueType = MLModelStructureProgramValueType{}
 
@@ -82,4 +84,3 @@ func NewMLModelStructureProgramValueType() MLModelStructureProgramValueType {
 	rv := objc.Send[MLModelStructureProgramValueType](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

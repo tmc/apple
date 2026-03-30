@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,10 +47,10 @@ func (nc NotificationCenterClass) Alloc() NotificationCenter {
 // to registered observers.
 //
 // # Overview
-// 
+//
 // Callers register with a notification center to receive one or both of the
 // following:
-// 
+//
 // - [NSNotification] objects, when working in Objective-C or with frameworks
 // that only support [NSNotification]. Objects register with a notification
 // center to receive notifications ([NSNotification] objects) using the
@@ -65,24 +66,19 @@ func (nc NotificationCenterClass) Alloc() NotificationCenter {
 // [NotificationCenter.MessageIdentifier] to identify the notification
 // messages to receive. See [Notification center messages] for more
 // information about this API.
-// 
+//
 // Callers may add observers for many different notifications, or even the
 // same notification name or message type as produced by different source
 // objects.
-// 
+//
 // Each running app has a [DefaultCenter] notification center, and you can
 // create new notification centers to organize communications in particular
 // contexts.
-// 
+//
 // A notification center can deliver notifications only within a single
 // program. On macOS, if you want to post a notification to other processes or
 // receive notifications from other processes, use
 // [NSDistributedNotificationCenter] instead.
-//
-// [Notification center messages]: https://developer.apple.com/documentation/Foundation/notification-center-messages
-// [NotificationCenter.AsyncMessage]: https://developer.apple.com/documentation/Foundation/NotificationCenter/AsyncMessage
-// [NotificationCenter.MainActorMessage]: https://developer.apple.com/documentation/Foundation/NotificationCenter/MainActorMessage
-// [NotificationCenter.MessageIdentifier]: https://developer.apple.com/documentation/Foundation/NotificationCenter/MessageIdentifier
 //
 // # Adding and removing notification observers
 //
@@ -98,6 +94,11 @@ func (nc NotificationCenterClass) Alloc() NotificationCenter {
 //   - [NotificationCenter.PostNotificationNameObject]: Creates a notification with a given name and sender and posts it to the notification center.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter
+//
+// [Notification center messages]: https://developer.apple.com/documentation/Foundation/notification-center-messages
+// [NotificationCenter.AsyncMessage]: https://developer.apple.com/documentation/Foundation/NotificationCenter/AsyncMessage
+// [NotificationCenter.MainActorMessage]: https://developer.apple.com/documentation/Foundation/NotificationCenter/MainActorMessage
+// [NotificationCenter.MessageIdentifier]: https://developer.apple.com/documentation/Foundation/NotificationCenter/MessageIdentifier
 type NotificationCenter struct {
 	objectivec.Object
 }
@@ -112,6 +113,7 @@ func NotificationCenterFromID(id objc.ID) NotificationCenter {
 
 // NSNotificationCenterFromID is an alias for [NotificationCenterFromID] for cross-framework compatibility.
 func NSNotificationCenterFromID(id objc.ID) NotificationCenter { return NotificationCenterFromID(id) }
+
 // NOTE: NotificationCenter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -180,66 +182,67 @@ func NewNotificationCenter() NotificationCenter {
 // name: The name of the notification to register for delivery to the observer
 // block. Specify a notification name to deliver only entries with this
 // notification name.
-// 
+//
 // When `nil`, the sender doesn’t use notification names as criteria for
 // delivery.
 //
 // obj: The object that sends notifications to the observer block. Specify a sender
 // to deliver only notifications from this sender.
-// 
+//
 // When `nil`, the notification center doesn’t use the sender as criteria
 // for the delivery.
 //
 // queue: The operation queue where the `block` runs.
-// 
+//
 // When `nil`, the block runs synchronously on the posting thread.
 //
 // block: The block that executes when receiving a notification.
-// 
+//
 // The notification center copies the block. The notification center strongly
 // holds the copied block until you remove the observer registration.
-// 
+//
 // The block takes one argument: the notification.
 //
 // # Return Value
-// 
+//
 // An opaque object to act as the observer. Notification center strongly holds
 // this return value until you remove the observer registration.
 //
 // # Discussion
-// 
+//
 // If a notification triggers more than one observer block, the blocks can all
 // execute concurrently (but on their queue or on the current thread).
-// 
+//
 // The following example shows how you can register to receive locale change
 // notifications. It stores the return value from
 // [AddObserverForNameObjectQueueUsingBlock] in an instance property called
 // `localeChangeObserver`.
-// 
+//
 // Unregister an observer to stop receiving notifications. To unregister an
 // observer, use `NotificationCenter/removeObserver(_:)` or
 // [RemoveObserverNameObject] with the most specific detail possible. For
 // example, if you used a name and object to register the observer, use the
 // name and object to remove it.
-// 
+//
 // You must invoke `NotificationCenter/removeObserver(_:)` or
 // [RemoveObserverNameObject] before the system deallocates any object that
 // [AddObserverForNameObjectQueueUsingBlock] specifies.
-// 
+//
 // Another common practice is to create a one-time notification by removing
 // the observer from within the observation block, as in the following
 // example.
-// 
+//
 // This example stores the opaque observer object in an instance property
 // called `token`, which you can use to remove the observer prior to receiving
 // the notification.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/addObserver(forName:object:queue:using:)
 func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlock(name NSNotificationName, obj objectivec.IObject, queue INSOperationQueue, block NotificationHandler) objectivec.Object {
-_block3, _ := NewNotificationBlock(block)
+	_block3, _ := NewNotificationBlock(block)
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("addObserverForName:object:queue:usingBlock:"), objc.String(string(name)), obj, queue, _block3)
 	return objectivec.ObjectFromID(rv)
 }
+
 // Adds an entry to the notification center to call the provided selector with
 // the notification.
 //
@@ -252,25 +255,25 @@ _block3, _ := NewNotificationBlock(block)
 // aName: The name of the notification to register for delivery to the observer.
 // Specify a notification name to deliver only entries with this notification
 // name.
-// 
+//
 // When `nil`, the sender doesn’t use notification names as criteria for the
 // delivery.
 //
 // anObject: The object that sends notifications to the observer. Specify a notification
 // sender to deliver only notifications from this sender.
-// 
+//
 // When `nil`, the notification center doesn’t use sender names as criteria
 // for delivery.
 //
 // # Discussion
-// 
+//
 // Unregister an observer to stop receiving notifications.
-// 
+//
 // To unregister an observer, use `NotificationCenter/removeObserver(_:)` or
 // [RemoveObserverNameObject] with the most specific detail possible. For
 // example, if you used a name and object to register the observer, use the
 // name and object to remove it.
-// 
+//
 // If your app targets iOS 9.0 and later or macOS 10.11 and later, you do not
 // need to unregister an observer that you created with this function. If you
 // forget or are unable to remove an observer, the system cleans up the next
@@ -280,6 +283,7 @@ _block3, _ := NewNotificationBlock(block)
 func (n NotificationCenter) AddObserverSelectorNameObject(observer objectivec.IObject, aSelector objc.SEL, aName NSNotificationName, anObject objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("addObserver:selector:name:object:"), observer, aSelector, objc.String(string(aName)), anObject)
 }
+
 // Removes matching entries from the notification center’s dispatch table.
 //
 // observer: The observer to remove from the dispatch table. Specify an observer to
@@ -295,19 +299,19 @@ func (n NotificationCenter) AddObserverSelectorNameObject(observer objectivec.IO
 // use a sender as criteria for removal.
 //
 // # Discussion
-// 
+//
 // Removing the observer stops it from receiving notifications.
-// 
+//
 // If you used [AddObserverForNameObjectQueueUsingBlock] to create your
 // observer, you should call this method or
 // `NotificationCenter/removeObserver(_:)` before the system deallocates any
 // object that [AddObserverForNameObjectQueueUsingBlock] specifies.
-// 
+//
 // If your app targets iOS 9.0 and later or macOS 10.11 and later, and you
 // used [AddObserverSelectorNameObject] to create your observer, you do not
 // need to unregister the observer. If you forget or are unable to remove the
 // observer, the system cleans up the next time it would have posted to it.
-// 
+//
 // When unregistering an observer, use the most specific detail possible. For
 // example, if you used a name and object to register the observer, use
 // [RemoveObserverNameObject] with the name and object.
@@ -316,6 +320,7 @@ func (n NotificationCenter) AddObserverSelectorNameObject(observer objectivec.IO
 func (n NotificationCenter) RemoveObserverNameObject(observer objectivec.IObject, aName NSNotificationName, anObject objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("removeObserver:name:object:"), observer, objc.String(string(aName)), anObject)
 }
+
 // Removes all entries specifying an observer from the notification center’s
 // dispatch table.
 //
@@ -323,34 +328,35 @@ func (n NotificationCenter) RemoveObserverNameObject(observer objectivec.IObject
 // remove only entries for this observer.
 //
 // # Discussion
-// 
+//
 // Removing the observer stops it from receiving notifications.
-// 
+//
 // If you used [AddObserverForNameObjectQueueUsingBlock] to create your
 // observer, you should call this method or [RemoveObserverNameObject] before
 // the system deallocates any object that
 // [AddObserverForNameObjectQueueUsingBlock] specifies.
-// 
+//
 // If your app targets iOS 9.0 and later or macOS 10.11 and later, and you
 // used [AddObserverSelectorNameObject], you do not need to unregister the
 // observer. If you forget or are unable to remove the observer, the system
 // cleans up the next time it would have posted to it.
-// 
+//
 // When removing an observer, remove it with the most specific detail
 // possible. For example, if you used a name and object to register the
 // observer, use [RemoveObserverNameObject] with the name and object.
-// 
+//
 // The following example illustrates how to unregister `someObserver` for all
 // previously registered notifications. This is safe to do in the [dealloc]
 // method, but you shouldn’t use it otherwise (use
 // [RemoveObserverNameObject] instead).
 //
-// [dealloc]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/dealloc
-//
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/removeObserver(_:)-2yciv
+//
+// [dealloc]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/dealloc
 func (n NotificationCenter) RemoveObserver(observer objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("removeObserver:"), observer)
 }
+
 // Posts a given notification to the notification center.
 //
 // notification: The notification to post.
@@ -359,6 +365,7 @@ func (n NotificationCenter) RemoveObserver(observer objectivec.IObject) {
 func (n NotificationCenter) PostNotification(notification INSNotification) {
 	objc.Send[objc.ID](n.ID, objc.Sel("postNotification:"), notification)
 }
+
 // Creates a notification with a given name, sender, and information and posts
 // it to the notification center.
 //
@@ -372,6 +379,7 @@ func (n NotificationCenter) PostNotification(notification INSNotification) {
 func (n NotificationCenter) PostNotificationNameObjectUserInfo(aName NSNotificationName, anObject objectivec.IObject, aUserInfo INSDictionary) {
 	objc.Send[objc.ID](n.ID, objc.Sel("postNotificationName:object:userInfo:"), objc.String(string(aName)), anObject, aUserInfo)
 }
+
 // Creates a notification with a given name and sender and posts it to the
 // notification center.
 //
@@ -380,7 +388,7 @@ func (n NotificationCenter) PostNotificationNameObjectUserInfo(aName NSNotificat
 // anObject: The object posting the notification.
 //
 // # Discussion
-// 
+//
 // This is a convenience method for calling
 // [PostNotificationNameObjectUserInfo] and passing `nil` to `aUserInfo`.
 //
@@ -392,10 +400,10 @@ func (n NotificationCenter) PostNotificationNameObject(aName NSNotificationName,
 // The app’s default notification center.
 //
 // # Discussion
-// 
+//
 // All system notifications sent to an app are posted to the [DefaultCenter]
 // notification center. You can also post your own notifications there.
-// 
+//
 // If your app uses notifications extensively, you may want to create and post
 // to your own notification centers rather than posting only to the
 // [DefaultCenter] notification center. When a notification is posted to a
@@ -425,4 +433,3 @@ func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlockSync(ctx cont
 		return nil, ctx.Err()
 	}
 }
-

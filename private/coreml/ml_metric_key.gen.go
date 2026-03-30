@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MLMetricKey struct {
 func MLMetricKeyFromID(id objc.ID) MLMetricKey {
 	return MLMetricKey{MLKey: MLKeyFromID(id)}
 }
+
 // Ensure MLMetricKey implements IMLMetricKey.
 var _ IMLMetricKey = MLMetricKey{}
 
@@ -79,7 +81,6 @@ func NewMLMetricKey() MLMetricKey {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLKey/initWithCoder:
 func NewMetricKeyWithCoder(coder objectivec.IObject) MLMetricKey {
 	instance := getMLMetricKeyClass().Alloc()
@@ -87,7 +88,6 @@ func NewMetricKeyWithCoder(coder objectivec.IObject) MLMetricKey {
 	return MLMetricKeyFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLMetricKey/initWithKeyName:
 func NewMetricKeyWithKeyName(name objectivec.IObject) MLMetricKey {
 	instance := getMLMetricKeyClass().Alloc()
@@ -95,11 +95,9 @@ func NewMetricKeyWithKeyName(name objectivec.IObject) MLMetricKey {
 	return MLMetricKeyFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLKey/initWithKeyName:scope:
 func NewMetricKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLMetricKey {
 	instance := getMLMetricKeyClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return MLMetricKeyFromID(rv)
 }
-

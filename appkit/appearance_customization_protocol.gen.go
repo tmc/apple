@@ -33,6 +33,7 @@ type NSAppearanceCustomization interface {
 type NSAppearanceCustomizationObject struct {
 	objectivec.Object
 }
+
 func (o NSAppearanceCustomizationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -51,7 +52,8 @@ func NSAppearanceCustomizationObjectFromID(id objc.ID) NSAppearanceCustomization
 func (o NSAppearanceCustomizationObject) Appearance() INSAppearance {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("appearance"))
 	return NSAppearanceFromID(rv)
-	}
+}
+
 // The appearance that will be used when the receiver is drawn onscreen, in an
 // [NSAppearance] object. (read-only)
 //
@@ -59,9 +61,18 @@ func (o NSAppearanceCustomizationObject) Appearance() INSAppearance {
 func (o NSAppearanceCustomizationObject) EffectiveAppearance() INSAppearance {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("effectiveAppearance"))
 	return NSAppearanceFromID(rv)
-	}
+}
 
+// The appearance of the receiver, in an [NSAppearance] object.
+//
+// # Discussion
+//
+// The default value for this property is `nil`, which means that the receiver
+// uses the appearance it inherits from the nearest ancestor that has set an
+// appearance. When you set `appearance` to a non-`nil` value, the receiver
+// and the views it contains use the specified appearance.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
 func (o NSAppearanceCustomizationObject) SetAppearance(value INSAppearance) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAppearance:"), value)
 }
-

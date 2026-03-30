@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (uc URLSessionTaskMetricsClass) Alloc() URLSessionTaskMetrics {
 // An object encapsulating the metrics for a session task.
 //
 // # Overview
-// 
+//
 // Each [NSURLSessionTaskMetrics] object contains the [TaskInterval] and
 // [RedirectCount], as well as metrics for each request-and-response
 // transaction made during the execution of the task.
@@ -68,7 +69,10 @@ func URLSessionTaskMetricsFromID(id objc.ID) URLSessionTaskMetrics {
 }
 
 // NSURLSessionTaskMetricsFromID is an alias for [URLSessionTaskMetricsFromID] for cross-framework compatibility.
-func NSURLSessionTaskMetricsFromID(id objc.ID) URLSessionTaskMetrics { return URLSessionTaskMetricsFromID(id) }
+func NSURLSessionTaskMetricsFromID(id objc.ID) URLSessionTaskMetrics {
+	return URLSessionTaskMetricsFromID(id)
+}
+
 // NOTE: URLSessionTaskMetrics adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -123,6 +127,7 @@ func (u URLSessionTaskMetrics) TransactionMetrics() []NSURLSessionTaskTransactio
 		return NSURLSessionTaskTransactionMetricsFromID(id)
 	})
 }
+
 // The time interval between when a task is instantiated and when the task is
 // completed.
 //
@@ -131,6 +136,7 @@ func (u URLSessionTaskMetrics) TaskInterval() INSDateInterval {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("taskInterval"))
 	return NSDateIntervalFromID(objc.ID(rv))
 }
+
 // The number of redirects that occurred during the execution of the task.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskMetrics/redirectCount
@@ -138,4 +144,3 @@ func (u URLSessionTaskMetrics) RedirectCount() uint {
 	rv := objc.Send[uint](u.ID, objc.Sel("redirectCount"))
 	return rv
 }
-

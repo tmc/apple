@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // An interface that delegates of a stream instance use to handle events on the stream.
@@ -20,6 +22,7 @@ type NSStreamDelegate interface {
 type NSStreamDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSStreamDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,7 +43,7 @@ func NSStreamDelegateObjectFromID(id objc.ID) NSStreamDelegateObject {
 // eventCode: The stream event that occurred.
 //
 // # Discussion
-// 
+//
 // The delegate receives this message only if `theStream` is scheduled on a
 // run loop. The message is sent on the stream object’s thread. The delegate
 // should examine `streamEvent` to determine the appropriate action it should
@@ -49,7 +52,7 @@ func NSStreamDelegateObjectFromID(id objc.ID) NSStreamDelegateObject {
 // See: https://developer.apple.com/documentation/Foundation/StreamDelegate/stream(_:handle:)
 func (o NSStreamDelegateObject) StreamHandleEvent(aStream INSStream, eventCode NSStreamEvent) {
 	objc.Send[struct{}](o.ID, objc.Sel("stream:handleEvent:"), aStream, eventCode)
-	}
+}
 
 // NSStreamDelegateConfig holds optional typed callbacks for [NSStreamDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -111,4 +114,3 @@ func NewNSStreamDelegate(config NSStreamDelegateConfig) NSStreamDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSStreamDelegateObjectFromID(instance)
 }
-

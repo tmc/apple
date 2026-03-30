@@ -3,11 +3,12 @@
 package naturallanguage
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,24 +48,20 @@ func (nc NLModelClass) Alloc() NLModel {
 // A custom model trained to classify or tag natural language text.
 //
 // # Overview
-// 
+//
 // With [Natural Language], you can create text classifier
 // ([MLTextClassifier]) or word tagger ([MLWordTagger]) models. Use [NLModel]
 // to integrate those models into your app. This integration ensures that your
 // tokenization and tagger configurations are identical when you train your
 // model and use it in your app.
-// 
+//
 // If you create a text classifier as described in
 // doc:creating-a-text-classifier-model, you can integrate that model into
 // your app and use it to make predictions like this:
-// 
+//
 // If you create a custom word tagger as described in
 // doc:creating-a-word-tagger-model, you can integrate that model into your
 // app and generate tags for new text input like this:
-//
-// [MLTextClassifier]: https://developer.apple.com/documentation/CreateML/MLTextClassifier
-// [MLWordTagger]: https://developer.apple.com/documentation/CreateML/MLWordTagger
-// [Natural Language]: https://developer.apple.com/documentation/NaturalLanguage
 //
 // # Making predictions
 //
@@ -76,6 +73,10 @@ func (nc NLModelClass) Alloc() NLModel {
 //   - [NLModel.Configuration]: A configuration describing the natural language model.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLModel
+//
+// [MLTextClassifier]: https://developer.apple.com/documentation/CreateML/MLTextClassifier
+// [MLWordTagger]: https://developer.apple.com/documentation/CreateML/MLWordTagger
+// [Natural Language]: https://developer.apple.com/documentation/NaturalLanguage
 type NLModel struct {
 	objectivec.Object
 }
@@ -86,6 +87,7 @@ type NLModel struct {
 func NLModelFromID(id objc.ID) NLModel {
 	return NLModel{objectivec.Object{ID: id}}
 }
+
 // NOTE: NLModel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -181,7 +183,7 @@ func NewModelWithMLModelError(mlModel coreml.MLModel) (NLModel, error) {
 // string: The input text for the model to analyze.
 //
 // # Return Value
-// 
+//
 // The model’s predicted label for the input string.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLModel/predictedLabel(for:)
@@ -189,12 +191,13 @@ func (m NLModel) PredictedLabelForString(string_ string) string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictedLabelForString:"), objc.String(string_))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Predicts a label for each string in the given array.
 //
 // tokens: An array of input strings for the model to analyze.
 //
 // # Return Value
-// 
+//
 // The model’s predicted labels for each of the input strings.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLModel/predictedLabels(forTokens:)
@@ -202,6 +205,7 @@ func (m NLModel) PredictedLabelsForTokens(tokens []string) []string {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("predictedLabelsForTokens:"), objectivec.StringSliceToNSArray(tokens))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Predicts multiple possible labels for the given input string.
 //
 // string: The input string for the model to analyze.
@@ -209,7 +213,7 @@ func (m NLModel) PredictedLabelsForTokens(tokens []string) []string {
 // maximumCount: The maximum number of label predictions to return for each input string.
 //
 // # Return Value
-// 
+//
 // A dictionary of label hypotheses. Each dictionary entry is a predicted
 // label with its associated probability score. These labels are the top
 // candidates proposed as possible labels for the input string. The dictionary
@@ -220,6 +224,7 @@ func (m NLModel) PredictedLabelHypothesesForStringMaximumCount(string_ string, m
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictedLabelHypothesesForString:maximumCount:"), objc.String(string_), maximumCount)
 	return foundation.NSDictionaryFromID(rv)
 }
+
 // Predicts multiple possible labels for each string in the given array.
 //
 // tokens: An array of input tokens for the model to analyze.
@@ -227,7 +232,7 @@ func (m NLModel) PredictedLabelHypothesesForStringMaximumCount(string_ string, m
 // maximumCount: The maximum number of label predictions to return for each input string.
 //
 // # Return Value
-// 
+//
 // An array of dictionaries. Each dictionary corresponds to the token at the
 // same index in the input array `tokens`. Within each dictionary, each entry
 // is a predicted label with its associated probability score. These labels
@@ -247,4 +252,3 @@ func (m NLModel) Configuration() INLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return NLModelConfigurationFromID(objc.ID(rv))
 }
-

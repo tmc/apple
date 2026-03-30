@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Vec struct {
 func VecFromID(id objc.ID) Vec {
 	return Vec{objectivec.Object{ID: id}}
 }
+
 // Ensure Vec implements IVec.
 var _ IVec = Vec{}
 
@@ -78,4 +80,3 @@ func NewVec() Vec {
 	rv := objc.Send[Vec](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

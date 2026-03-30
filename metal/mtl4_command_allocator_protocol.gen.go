@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -39,6 +39,7 @@ type MTL4CommandAllocator interface {
 type MTL4CommandAllocatorObject struct {
 	objectivec.Object
 }
+
 func (o MTL4CommandAllocatorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,7 +58,8 @@ func MTL4CommandAllocatorObjectFromID(id objc.ID) MTL4CommandAllocatorObject {
 func (o MTL4CommandAllocatorObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
-	}
+}
+
 // Provides the optional label you specify at creation time for debug
 // purposes.
 //
@@ -65,26 +67,28 @@ func (o MTL4CommandAllocatorObject) Device() MTLDevice {
 func (o MTL4CommandAllocatorObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Queries the size of the internal memory heaps of this command allocator
 // that support encoding commands into command buffers.
 //
 // # Return Value
-// 
+//
 // A size in bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/allocatedSize()
 func (o MTL4CommandAllocatorObject) AllocatedSize() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("allocatedSize"))
 	return rv
-	}
+}
+
 // Marks the command allocator’s heaps for reuse.
 //
 // # Discussion
-// 
+//
 // Calling this method allows new [MTL4CommandBuffer] to reuse its existing
 // internal memory heaps to encode new GPU commands.
-// 
+//
 // You are responsible to ensure that all command buffers with memory
 // originating from this allocator instance are complete before calling
 // resetting it.
@@ -92,5 +96,4 @@ func (o MTL4CommandAllocatorObject) AllocatedSize() uint64 {
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/reset()
 func (o MTL4CommandAllocatorObject) Reset() {
 	objc.Send[struct{}](o.ID, objc.Sel("reset"))
-	}
-
+}

@@ -3,8 +3,9 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,11 +43,11 @@ func (ac AVAudioOutputNodeClass) Alloc() AVAudioOutputNode {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioOutputNode.ManualRenderingMaximumFrameCount]
 //   - [AVAudioOutputNode.SetManualRenderingPCMFormatMaximumFrameCount]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioOutputNode
 type AVAudioOutputNode struct {
 	AVAudioIONode
@@ -56,6 +57,7 @@ type AVAudioOutputNode struct {
 func AVAudioOutputNodeFromID(id objc.ID) AVAudioOutputNode {
 	return AVAudioOutputNode{AVAudioIONode: AVAudioIONodeFromID(id)}
 }
+
 // Ensure AVAudioOutputNode implements IAVAudioOutputNode.
 var _ IAVAudioOutputNode = AVAudioOutputNode{}
 
@@ -95,7 +97,6 @@ func NewAVAudioOutputNode() AVAudioOutputNode {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/initWithIOUnit:isInput:
 func NewAudioOutputNodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioOutputNode {
 	instance := getAVAudioOutputNodeClass().Alloc()
@@ -103,7 +104,6 @@ func NewAudioOutputNodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAu
 	return AVAudioOutputNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioOutputNodeWithImpl(impl unsafe.Pointer) AVAudioOutputNode {
 	instance := getAVAudioOutputNodeClass().Alloc()
@@ -116,10 +116,9 @@ func (a AVAudioOutputNode) ManualRenderingMaximumFrameCount() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("manualRenderingMaximumFrameCount"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioOutputNode/setManualRenderingPCMFormat:maximumFrameCount:
 func (a AVAudioOutputNode) SetManualRenderingPCMFormatMaximumFrameCount(pCMFormat objectivec.IObject, count uint32) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("setManualRenderingPCMFormat:maximumFrameCount:"), pCMFormat, count)
 	return rv
 }
-

@@ -4,10 +4,12 @@ package avfaudio
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A delegate protocol that contains optional methods you can implement to respond to events that occur during speech synthesis.
@@ -21,6 +23,7 @@ type AVSpeechSynthesizerDelegate interface {
 type AVSpeechSynthesizerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVSpeechSynthesizerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,14 +43,15 @@ func AVSpeechSynthesizerDelegateObjectFromID(id objc.ID) AVSpeechSynthesizerDele
 // utterance: The utterance that the speech synthesizer starts speaking.
 //
 // # Discussion
-// 
+//
 // If the utterance’s [PreUtteranceDelay] property is greater than zero, the
 // system calls this method after the delay completes and speech begins.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:didStart:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidStartSpeechUtterance(synthesizer IAVSpeechSynthesizer, utterance IAVSpeechUtterance) {
 	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:didStartSpeechUtterance:"), synthesizer, utterance)
-	}
+}
+
 // Tells the delegate when the synthesizer is about to speak a portion of an
 // utterance’s text.
 //
@@ -59,14 +63,15 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidStartSpeechUttera
 // utterance: The utterance that the speech synthesizer is about to speak.
 //
 // # Discussion
-// 
+//
 // The system calls this method once for each unit of speech in the
 // utterance’s text, which is generally a word.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:willSpeakRangeOfSpeechString:utterance:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerWillSpeakRangeOfSpeechStringUtterance(synthesizer IAVSpeechSynthesizer, characterRange foundation.NSRange, utterance IAVSpeechUtterance) {
 	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:willSpeakRangeOfSpeechString:utterance:"), synthesizer, characterRange, utterance)
-	}
+}
+
 // Tells the delegate when the synthesizer is about to speak a marker of an
 // utterance’s text.
 //
@@ -79,7 +84,8 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerWillSpeakRangeOfSpee
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:willSpeak:utterance:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerWillSpeakMarkerUtterance(synthesizer IAVSpeechSynthesizer, marker IAVSpeechSynthesisMarker, utterance IAVSpeechUtterance) {
 	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:willSpeakMarker:utterance:"), synthesizer, marker, utterance)
-	}
+}
+
 // Tells the delegate when the synthesizer pauses while speaking an utterance.
 //
 // synthesizer: The speech synthesizer that pauses speaking the utterance.
@@ -87,7 +93,7 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerWillSpeakMarkerUtter
 // utterance: The utterance that the speech synthesizer pauses speaking.
 //
 // # Discussion
-// 
+//
 // The system only calls this method if a speech synthesizer is speaking an
 // utterance and the system calls its [PauseSpeakingAtBoundary] method. The
 // system doesn’t call this method if the synthesizer is in a delay between
@@ -96,7 +102,8 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerWillSpeakMarkerUtter
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:didPause:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidPauseSpeechUtterance(synthesizer IAVSpeechSynthesizer, utterance IAVSpeechUtterance) {
 	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:didPauseSpeechUtterance:"), synthesizer, utterance)
-	}
+}
+
 // Tells the delegate when the synthesizer resumes speaking an utterance after
 // pausing.
 //
@@ -105,7 +112,7 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidPauseSpeechUttera
 // utterance: The utterance that the speech synthesizer resumes speaking.
 //
 // # Discussion
-// 
+//
 // The system only calls this method if a speech synthesizer pauses speaking
 // and the system calls its [PauseSpeakingAtBoundary] method. The system
 // doesn’t call this method if the synthesizer pauses while in a delay
@@ -114,7 +121,8 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidPauseSpeechUttera
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:didContinue:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidContinueSpeechUtterance(synthesizer IAVSpeechSynthesizer, utterance IAVSpeechUtterance) {
 	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:didContinueSpeechUtterance:"), synthesizer, utterance)
-	}
+}
+
 // Tells the delegate when the synthesizer finishes speaking an utterance.
 //
 // synthesizer: The speech synthesizer that finishes speaking the utterance.
@@ -122,14 +130,15 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidContinueSpeechUtt
 // utterance: The utterance that the speech synthesizer finishes speaking.
 //
 // # Discussion
-// 
+//
 // The system ignores the final utterance’s [PostUtteranceDelay] and calls
 // this method immediately when speech ends.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:didFinish:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidFinishSpeechUtterance(synthesizer IAVSpeechSynthesizer, utterance IAVSpeechUtterance) {
 	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:didFinishSpeechUtterance:"), synthesizer, utterance)
-	}
+}
+
 // Tells the delegate when the synthesizer cancels speaking an utterance.
 //
 // synthesizer: The speech synthesizer that cancels speaking the utterance.
@@ -137,7 +146,7 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidFinishSpeechUtter
 // utterance: The utterance that the speech synthesizer cancels speaking.
 //
 // # Discussion
-// 
+//
 // The system only calls this method if a speech synthesizer is speaking an
 // utterance and the system calls its [StopSpeakingAtBoundary] method. The
 // system doesn’t call this method if the synthesizer is in a delay between
@@ -147,7 +156,7 @@ func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidFinishSpeechUtter
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizerDelegate/speechSynthesizer(_:didCancel:)
 func (o AVSpeechSynthesizerDelegateObject) SpeechSynthesizerDidCancelSpeechUtterance(synthesizer IAVSpeechSynthesizer, utterance IAVSpeechUtterance) {
 	objc.Send[struct{}](o.ID, objc.Sel("speechSynthesizer:didCancelSpeechUtterance:"), synthesizer, utterance)
-	}
+}
 
 // AVSpeechSynthesizerDelegateConfig holds optional typed callbacks for [AVSpeechSynthesizerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -297,4 +306,3 @@ func NewAVSpeechSynthesizerDelegate(config AVSpeechSynthesizerDelegateConfig) AV
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVSpeechSynthesizerDelegateObjectFromID(instance)
 }
-

@@ -3,10 +3,11 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (gc GTMioShaderExecutionHistoryDefaultDelegateClass) Alloc() GTMioShaderExe
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioShaderExecutionHistoryDefaultDelegate.ExecutionHistoryProcessCliqueTotal]
@@ -52,6 +52,7 @@ func (gc GTMioShaderExecutionHistoryDefaultDelegateClass) Alloc() GTMioShaderExe
 //   - [GTMioShaderExecutionHistoryDefaultDelegate.Description]
 //   - [GTMioShaderExecutionHistoryDefaultDelegate.Hash]
 //   - [GTMioShaderExecutionHistoryDefaultDelegate.Superclass]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate
 type GTMioShaderExecutionHistoryDefaultDelegate struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type GTMioShaderExecutionHistoryDefaultDelegate struct {
 func GTMioShaderExecutionHistoryDefaultDelegateFromID(id objc.ID) GTMioShaderExecutionHistoryDefaultDelegate {
 	return GTMioShaderExecutionHistoryDefaultDelegate{objectivec.Object{ID: id}}
 }
+
 // Ensure GTMioShaderExecutionHistoryDefaultDelegate implements IGTMioShaderExecutionHistoryDefaultDelegate.
 var _ IGTMioShaderExecutionHistoryDefaultDelegate = GTMioShaderExecutionHistoryDefaultDelegate{}
 
@@ -108,12 +110,11 @@ func NewGTMioShaderExecutionHistoryDefaultDelegate() GTMioShaderExecutionHistory
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/executionHistoryProcessClique:total:
 func (g GTMioShaderExecutionHistoryDefaultDelegate) ExecutionHistoryProcessCliqueTotal(clique unsafe.Pointer, total uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("executionHistoryProcessClique:total:"), clique, total)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/uniqueIdentifierForFile:debugFunctionName:line:column:
 func (g GTMioShaderExecutionHistoryDefaultDelegate) UniqueIdentifierForFileDebugFunctionNameLineColumn(file objectivec.IObject, name objectivec.IObject, line uint32, column uint32) uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("uniqueIdentifierForFile:debugFunctionName:line:column:"), file, name, line, column)
@@ -131,19 +132,21 @@ func (g GTMioShaderExecutionHistoryDefaultDelegate) DebugDescription() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/description
 func (g GTMioShaderExecutionHistoryDefaultDelegate) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/hash
 func (g GTMioShaderExecutionHistoryDefaultDelegate) Hash() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryDefaultDelegate/superclass
 func (g GTMioShaderExecutionHistoryDefaultDelegate) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](g.ID, objc.Sel("superclass"))
 	return rv
 }
-

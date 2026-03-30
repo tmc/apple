@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -59,6 +60,7 @@ type VNRecognizedPoint3D struct {
 func VNRecognizedPoint3DFromID(id objc.ID) VNRecognizedPoint3D {
 	return VNRecognizedPoint3D{VNPoint3D: VNPoint3DFromID(id)}
 }
+
 // NOTE: VNRecognizedPoint3D adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,4 +119,3 @@ func (r VNRecognizedPoint3D) Identifier() VNRecognizedPointKey {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("identifier"))
 	return VNRecognizedPointKey(foundation.NSStringFromID(rv).String())
 }
-

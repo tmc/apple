@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,6 +66,7 @@ type MTLVertexBufferLayoutDescriptor struct {
 func MTLVertexBufferLayoutDescriptorFromID(id objc.ID) MTLVertexBufferLayoutDescriptor {
 	return MTLVertexBufferLayoutDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLVertexBufferLayoutDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,24 +123,26 @@ func NewMTLVertexBufferLayoutDescriptor() MTLVertexBufferLayoutDescriptor {
 // to the vertex function.
 //
 // # Discussion
-// 
-// The default value is [VertexStepFunctionPerVertex].
-// 
-// If `stepFunction` is [VertexStepFunctionPerVertex], the function fetches
+//
+// The default value is [MTLVertexStepFunctionPerVertex].
+//
+// If `stepFunction` is [MTLVertexStepFunctionPerVertex], the function fetches
 // new attribute data based on the `[[ vertex_id ]]` attribute qualifier. The
 // function fetches new attribute data each time a new vertex is processed. In
 // this case, `stepRate` needs to be set to `1`, which is its default value.
-// 
-// If `stepFunction` is [VertexStepFunctionPerInstance], the function fetches
-// new attribute data based on the `[[ instance_id ]]` attribute qualifier. In
-// this case, `stepRate` needs to be greater than `0` and its value determines
-// how often the function fetches new attribute data.
-// 
-// If `stepFunction` is [VertexStepFunctionConstant], the function fetches
+//
+// If `stepFunction` is [MTLVertexStepFunctionPerInstance], the function
+// fetches new attribute data based on the `[[ instance_id ]]` attribute
+// qualifier. In this case, `stepRate` needs to be greater than `0` and its
+// value determines how often the function fetches new attribute data.
+//
+// If `stepFunction` is [MTLVertexStepFunction.constant], the function fetches
 // attribute data just once, and that attribute data is used for every vertex.
 // In this case,`stepRate` needs to be set to `0`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexBufferLayoutDescriptor/stepFunction
+//
+// [MTLVertexStepFunction.constant]: https://developer.apple.com/documentation/Metal/MTLVertexStepFunction/constant
 func (v MTLVertexBufferLayoutDescriptor) StepFunction() MTLVertexStepFunction {
 	rv := objc.Send[MTLVertexStepFunction](v.ID, objc.Sel("stepFunction"))
 	return MTLVertexStepFunction(rv)
@@ -146,18 +150,19 @@ func (v MTLVertexBufferLayoutDescriptor) StepFunction() MTLVertexStepFunction {
 func (v MTLVertexBufferLayoutDescriptor) SetStepFunction(value MTLVertexStepFunction) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStepFunction:"), value)
 }
+
 // The interval at which the vertex and its attributes are presented to the
 // vertex function.
 //
 // # Discussion
-// 
+//
 // The default value is `1`. The `stepRate` value, in conjunction with the
 // [StepFunction] property, determines how often the function fetches new
 // attribute data. The `stepRate` property is generally used when
-// `stepFunction` is [VertexStepFunctionPerInstance]. If `stepRate` is equal
-// to `1`, new attribute data is fetched for every instance; if `stepRate` is
-// equal to `2`, new attribute data is fetched for every two instances, and so
-// forth.
+// `stepFunction` is [MTLVertexStepFunctionPerInstance]. If `stepRate` is
+// equal to `1`, new attribute data is fetched for every instance; if
+// `stepRate` is equal to `2`, new attribute data is fetched for every two
+// instances, and so forth.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexBufferLayoutDescriptor/stepRate
 func (v MTLVertexBufferLayoutDescriptor) StepRate() uint {
@@ -167,17 +172,18 @@ func (v MTLVertexBufferLayoutDescriptor) StepRate() uint {
 func (v MTLVertexBufferLayoutDescriptor) SetStepRate(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStepRate:"), value)
 }
+
 // The number of bytes between the first byte of two consecutive vertices in a
 // buffer.
 //
 // # Discussion
-// 
+//
 // Check the [Metal feature set tables (PDF)] for potential alignment
 // restrictions for `stride`.
 //
-// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
-//
 // See: https://developer.apple.com/documentation/Metal/MTLVertexBufferLayoutDescriptor/stride
+//
+// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
 func (v MTLVertexBufferLayoutDescriptor) Stride() uint {
 	rv := objc.Send[uint](v.ID, objc.Sel("stride"))
 	return rv
@@ -185,9 +191,9 @@ func (v MTLVertexBufferLayoutDescriptor) Stride() uint {
 func (v MTLVertexBufferLayoutDescriptor) SetStride(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStride:"), value)
 }
+
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexBufferLayoutDescriptor) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
-

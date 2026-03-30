@@ -3,10 +3,11 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAudioMixerNode] class.
@@ -42,7 +43,6 @@ func (ac AVAudioMixerNodeClass) Alloc() AVAudioMixerNode {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioMixerNode.InputConnected]
@@ -52,6 +52,7 @@ func (ac AVAudioMixerNodeClass) Alloc() AVAudioMixerNode {
 //   - [AVAudioMixerNode.Description]
 //   - [AVAudioMixerNode.Hash]
 //   - [AVAudioMixerNode.Superclass]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixerNode
 type AVAudioMixerNode struct {
 	AVAudioNode
@@ -61,6 +62,7 @@ type AVAudioMixerNode struct {
 func AVAudioMixerNodeFromID(id objc.ID) AVAudioMixerNode {
 	return AVAudioMixerNode{AVAudioNode: AVAudioNodeFromID(id)}
 }
+
 // Ensure AVAudioMixerNode implements IAVAudioMixerNode.
 var _ IAVAudioMixerNode = AVAudioMixerNode{}
 
@@ -110,7 +112,6 @@ func NewAVAudioMixerNode() AVAudioMixerNode {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioMixerNodeWithImpl(impl unsafe.Pointer) AVAudioMixerNode {
 	instance := getAVAudioMixerNodeClass().Alloc()
@@ -118,17 +119,16 @@ func NewAudioMixerNodeWithImpl(impl unsafe.Pointer) AVAudioMixerNode {
 	return AVAudioMixerNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixerNode/inputConnected:
 func (a AVAudioMixerNode) InputConnected(connected uint64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("inputConnected:"), connected)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixerNode/setInputPan:bus:
 func (a AVAudioMixerNode) SetInputPanBus(pan float32, bus uint64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setInputPan:bus:"), pan, bus)
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixerNode/setInputVolume:bus:
 func (a AVAudioMixerNode) SetInputVolumeBus(volume float32, bus uint64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setInputVolume:bus:"), volume, bus)
@@ -139,19 +139,21 @@ func (a AVAudioMixerNode) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixerNode/description
 func (a AVAudioMixerNode) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixerNode/hash
 func (a AVAudioMixerNode) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioMixerNode/superclass
 func (a AVAudioMixerNode) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
 	return rv
 }
-

@@ -3,11 +3,12 @@
 package virtualization
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZVirtioFileSystemDeviceConfiguration] class.
@@ -46,48 +47,48 @@ func (vc VZVirtioFileSystemDeviceConfigurationClass) Alloc() VZVirtioFileSystemD
 // An object that represents the configuration of a Virtio file system device.
 //
 // # Overview
-// 
+//
 // Use [VZVirtioFileSystemDeviceConfiguration] to create a Virtio file system
 // device which allows the host to expose directories to a guest using a [VZVirtioFileSystemDeviceConfiguration.Tag]
 // label.
-// 
+//
 // The example below shows the creation of a
 // [VZVirtioFileSystemDeviceConfiguration] that shares a single directory that
 // the user can manually mount after creating a mount point in the guest VM:
-// 
+//
 // A [VZVirtioFileSystemDeviceConfiguration] can also share multiple
 // directories. The example below demonstrates sharing the `~/Invoices` and
 // `~/Projects` directories from the user’s home directory to the guest VM:
-// 
+//
 // # Mounting shared directories
-// 
+//
 // Mounting a shared directory requires the user to execute a command in a
 // terminal window, the specific mount command depends on the guest VM’s
 // operating system:
-// 
+//
 // - In macOS guests, use `mount_virtiofs tag directory`. - In Linux guests,
 // use `mount -t virtiofs tag directory`.
-// 
+//
 // The `tag` argument is the file system device configuration label —
 // [Projects] in the single directory case and `myfiles` in the multiple
 // directory case in these examples — and `directory` is the mount point in
 // the guest file system to which the framework attaches the shared
 // directories.
-// 
+//
 // # Automounting shared directories in macOS VMs
-// 
+//
 // In macOS 13 and later, it’s possible to specify a file system device that
 // macOS 13 or later guest VMs automount using the [VZVirtioFileSystemDeviceConfiguration.MacOSGuestAutomountTag]
 // property. The example below demonstrates sharing a single macOS directory,
 // to a macOS guest:
-// 
+//
 // The macOS guest automounts the user’s `~/Projects` directory from the
 // host and shares it under `/Volumes/My Shared Files/` in the macOS guest.
-// 
+//
 // It’s also possible to automount multiple directories in macOS guests. The
 // example below demonstrates sharing the `~/Invoices` and `~/Projects`
 // directories from the user’s home directory to the macOS guest VM:
-// 
+//
 // In the guest, the framework lists each shared directory by its specified
 // name under `/Volumes/My Shared Files`. Here, the shared directories in the
 // macOS guest are `/Volumes/My Shared Files/My Projects` and `/Volumes/My
@@ -115,6 +116,7 @@ type VZVirtioFileSystemDeviceConfiguration struct {
 func VZVirtioFileSystemDeviceConfigurationFromID(id objc.ID) VZVirtioFileSystemDeviceConfiguration {
 	return VZVirtioFileSystemDeviceConfiguration{VZDirectorySharingDeviceConfiguration: VZDirectorySharingDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioFileSystemDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -174,7 +176,7 @@ func NewVZVirtioFileSystemDeviceConfiguration() VZVirtioFileSystemDeviceConfigur
 // tag: The label identifying this device in the guest.
 //
 // # Discussion
-// 
+//
 // The system presents the `tag` as a label in the guest identifying this
 // device for mounting. The `tag` must be valid, which you can check with
 // [ValidateTagError].
@@ -191,7 +193,7 @@ func NewVirtioFileSystemDeviceConfigurationWithTag(tag string) VZVirtioFileSyste
 // tag: The label identifying this device in the guest.
 //
 // # Discussion
-// 
+//
 // The system presents the `tag` as a label in the guest identifying this
 // device for mounting. The `tag` must be valid, which you can check with
 // [ValidateTagError].
@@ -207,7 +209,7 @@ func (v VZVirtioFileSystemDeviceConfiguration) InitWithTag(tag string) VZVirtioF
 // tag: The tag to validate.
 //
 // # Discussion
-// 
+//
 // The tag can’t be empty and must be fewer than 36 bytes when encoded in
 // UTF-8.
 //
@@ -237,6 +239,7 @@ func (v VZVirtioFileSystemDeviceConfiguration) Share() IVZDirectoryShare {
 func (v VZVirtioFileSystemDeviceConfiguration) SetShare(value IVZDirectoryShare) {
 	objc.Send[struct{}](v.ID, objc.Sel("setShare:"), value)
 }
+
 // A label that identifies this device in the guest VM.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioFileSystemDeviceConfiguration/tag
@@ -252,7 +255,7 @@ func (v VZVirtioFileSystemDeviceConfiguration) SetTag(value string) {
 // device in the guest VM.
 //
 // # Discussion
-// 
+//
 // A device configured with this tag is automatically mounted in a macOS
 // guest.
 //
@@ -261,4 +264,3 @@ func (_VZVirtioFileSystemDeviceConfigurationClass VZVirtioFileSystemDeviceConfig
 	rv := objc.Send[objc.ID](objc.ID(_VZVirtioFileSystemDeviceConfigurationClass.class), objc.Sel("macOSGuestAutomountTag"))
 	return foundation.NSStringFromID(rv).String()
 }
-

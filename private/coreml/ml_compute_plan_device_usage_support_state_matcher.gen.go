@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (mc MLComputePlanDeviceUsageSupportStateMatcherClass) Alloc() MLComputePlan
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLComputePlanDeviceUsageSupportStateMatcher.MatchingSupportStateForValidationMessage]
 //   - [MLComputePlanDeviceUsageSupportStateMatcher.SupportStatePatterns]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStateMatcher
 type MLComputePlanDeviceUsageSupportStateMatcher struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type MLComputePlanDeviceUsageSupportStateMatcher struct {
 func MLComputePlanDeviceUsageSupportStateMatcherFromID(id objc.ID) MLComputePlanDeviceUsageSupportStateMatcher {
 	return MLComputePlanDeviceUsageSupportStateMatcher{objectivec.Object{ID: id}}
 }
+
 // Ensure MLComputePlanDeviceUsageSupportStateMatcher implements IMLComputePlanDeviceUsageSupportStateMatcher.
 var _ IMLComputePlanDeviceUsageSupportStateMatcher = MLComputePlanDeviceUsageSupportStateMatcher{}
 
@@ -95,7 +97,6 @@ func NewMLComputePlanDeviceUsageSupportStateMatcher() MLComputePlanDeviceUsageSu
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportStateMatcher/matchingSupportStateForValidationMessage:
 func (c MLComputePlanDeviceUsageSupportStateMatcher) MatchingSupportStateForValidationMessage(message objectivec.IObject) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("matchingSupportStateForValidationMessage:"), message)
@@ -113,4 +114,3 @@ func (c MLComputePlanDeviceUsageSupportStateMatcher) SupportStatePatterns() foun
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("supportStatePatterns"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

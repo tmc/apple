@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSTextBlockClass) Alloc() NSTextBlock {
 // A block of text laid out in a subregion of the text container.
 //
 // # Overview
-// 
+//
 // A text block appears as an attribute of a paragraph, and as part of the
 // paragraph style. The most important subclass of [NSTextBlock] is
 // [NSTextTableBlock], which represents a block of text that appears as a cell
@@ -102,6 +103,7 @@ type NSTextBlock struct {
 func NSTextBlockFromID(id objc.ID) NSTextBlock {
 	return NSTextBlock{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTextBlock adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -239,10 +241,11 @@ func NewNSTextBlock() NSTextBlock {
 func (t NSTextBlock) SetValueTypeForDimension(val float64, type_ NSTextBlockValueType, dimension NSTextBlockDimension) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setValue:type:forDimension:"), val, type_, dimension)
 }
+
 // Returns the value of the specified text block dimension.
 //
 // # Return Value
-// 
+//
 // The value for the specified dimension. This value should be interpreted
 // according to the value type returned by [ValueTypeForDimension].
 //
@@ -251,10 +254,11 @@ func (t NSTextBlock) ValueForDimension(dimension NSTextBlockDimension) float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("valueForDimension:"), dimension)
 	return rv
 }
+
 // Returns the value type of the specified text block dimension.
 //
 // # Return Value
-// 
+//
 // The value type for the specified text block dimension. This result
 // determines how the value for the dimension should be interpreted.
 //
@@ -263,6 +267,7 @@ func (t NSTextBlock) ValueTypeForDimension(dimension NSTextBlockDimension) NSTex
 	rv := objc.Send[NSTextBlockValueType](t.ID, objc.Sel("valueTypeForDimension:"), dimension)
 	return NSTextBlockValueType(rv)
 }
+
 // Sets the width of the text block.
 //
 // val: The new value for the width.
@@ -273,6 +278,7 @@ func (t NSTextBlock) ValueTypeForDimension(dimension NSTextBlockDimension) NSTex
 func (t NSTextBlock) SetContentWidthType(val float64, type_ NSTextBlockValueType) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setContentWidth:type:"), val, type_)
 }
+
 // Sets the width of a specified edge of a specified layer of the text block.
 //
 // val: The new value for the specified edge width.
@@ -287,6 +293,7 @@ func (t NSTextBlock) SetContentWidthType(val float64, type_ NSTextBlockValueType
 func (t NSTextBlock) SetWidthTypeForLayerEdge(val float64, type_ NSTextBlockValueType, layer NSTextBlockLayer, edge foundation.NSRectEdge) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setWidth:type:forLayer:edge:"), val, type_, layer, edge)
 }
+
 // Sets the width of all edges of a specified layer of the text block.
 //
 // val: The new value for the specified edge width.
@@ -299,6 +306,7 @@ func (t NSTextBlock) SetWidthTypeForLayerEdge(val float64, type_ NSTextBlockValu
 func (t NSTextBlock) SetWidthTypeForLayer(val float64, type_ NSTextBlockValueType, layer NSTextBlockLayer) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setWidth:type:forLayer:"), val, type_, layer)
 }
+
 // Returns the width of an edge of a specified layer of the text block.
 //
 // layer: The layer to examine.
@@ -306,7 +314,7 @@ func (t NSTextBlock) SetWidthTypeForLayer(val float64, type_ NSTextBlockValueTyp
 // edge: The edge of the layer to examine.
 //
 // # Return Value
-// 
+//
 // The width of the `edge` of `layer`. This value must be interpreted
 // according to the value type returned by [WidthValueTypeForLayerEdge].
 //
@@ -315,6 +323,7 @@ func (t NSTextBlock) WidthForLayerEdge(layer NSTextBlockLayer, edge foundation.N
 	rv := objc.Send[float64](t.ID, objc.Sel("widthForLayer:edge:"), layer, edge)
 	return rv
 }
+
 // Returns the value type of an edge of a specified layer of the text block.
 //
 // layer: The layer to examine.
@@ -322,7 +331,7 @@ func (t NSTextBlock) WidthForLayerEdge(layer NSTextBlockLayer, edge foundation.N
 // edge: The edge of the layer to examine.
 //
 // # Return Value
-// 
+//
 // The value type of the `edge` of `layer`. This determines how the value for
 // this `edge` of `layer` should be interpreted.
 //
@@ -331,6 +340,7 @@ func (t NSTextBlock) WidthValueTypeForLayerEdge(layer NSTextBlockLayer, edge fou
 	rv := objc.Send[NSTextBlockValueType](t.ID, objc.Sel("widthValueTypeForLayer:edge:"), layer, edge)
 	return NSTextBlockValueType(rv)
 }
+
 // Sets the border color of the specified edge of the text block.
 //
 // color: The new color.
@@ -338,7 +348,7 @@ func (t NSTextBlock) WidthValueTypeForLayerEdge(layer NSTextBlockLayer, edge fou
 // edge: The edge whose color is to be set.
 //
 // # Discussion
-// 
+//
 // This setting has no visible effect unless the border width is larger than
 // the default, which is 0.
 //
@@ -346,12 +356,13 @@ func (t NSTextBlock) WidthValueTypeForLayerEdge(layer NSTextBlockLayer, edge fou
 func (t NSTextBlock) SetBorderColorForEdge(color INSColor, edge foundation.NSRectEdge) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setBorderColor:forEdge:"), color, edge)
 }
+
 // Sets the color of all borders of the text block.
 //
 // color: The new color.
 //
 // # Discussion
-// 
+//
 // This setting has no visible effect unless the border width is larger than
 // the default, which is 0.
 //
@@ -359,12 +370,13 @@ func (t NSTextBlock) SetBorderColorForEdge(color INSColor, edge foundation.NSRec
 func (t NSTextBlock) SetBorderColor(color INSColor) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setBorderColor:"), color)
 }
+
 // Returns the border color of the specified text block edge.
 //
 // edge: The edge of the text block in question.
 //
 // # Return Value
-// 
+//
 // The border color of the text block edge `edge`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/borderColor(for:)
@@ -372,6 +384,7 @@ func (t NSTextBlock) BorderColorForEdge(edge foundation.NSRectEdge) INSColor {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("borderColorForEdge:"), edge)
 	return NSColorFromID(rv)
 }
+
 // Returns the rectangle within which glyphs should be laid out for the
 // specified arguments.
 //
@@ -387,11 +400,11 @@ func (t NSTextBlock) BorderColorForEdge(edge foundation.NSRectEdge) INSColor {
 // to be drawn.
 //
 // # Return Value
-// 
+//
 // The rectangle within which glyphs should be laid out.
 //
 // # Discussion
-// 
+//
 // This method is called by the typesetter before the text block is laid out
 // to return the rectangle within which glyphs should be laid out.
 //
@@ -400,6 +413,7 @@ func (t NSTextBlock) RectForLayoutAtPointInRectTextContainerCharacterRange(start
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("rectForLayoutAtPoint:inRect:textContainer:characterRange:"), startingPoint, rect, textContainer, charRange)
 	return corefoundation.CGRect(rv)
 }
+
 // Returns the rectangle the text in the block actually occupies, including
 // padding, borders, and margins.
 //
@@ -414,12 +428,12 @@ func (t NSTextBlock) RectForLayoutAtPointInRectTextContainerCharacterRange(start
 // to be drawn.
 //
 // # Return Value
-// 
+//
 // The rectangle the text in the block actually occupies, including padding,
 // borders, and margins.
 //
 // # Discussion
-// 
+//
 // This methods is called by the typesetter after the text block is laid out
 // to return the rectangle the text in the block actually occupies, including
 // padding, borders, and margins.
@@ -429,6 +443,7 @@ func (t NSTextBlock) BoundsRectForContentRectInRectTextContainerCharacterRange(c
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("boundsRectForContentRect:inRect:textContainer:characterRange:"), contentRect, rect, textContainer, charRange)
 	return corefoundation.CGRect(rv)
 }
+
 // Called by the layout manager to draw any colors and other decorations
 // before the text is drawn.
 //
@@ -452,7 +467,7 @@ func (t NSTextBlock) EncodeWithCoder(coder foundation.INSCoder) {
 // The width of the text block.
 //
 // # Discussion
-// 
+//
 // This property interpreted according to the value type returned by
 // [ContentWidthValueType].
 //
@@ -461,10 +476,11 @@ func (t NSTextBlock) ContentWidth() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("contentWidth"))
 	return rv
 }
+
 // The type of value stored for the text block width.
 //
 // # Discussion
-// 
+//
 // This property determines how the width value should be interpreted.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/contentWidthValueType
@@ -472,6 +488,7 @@ func (t NSTextBlock) ContentWidthValueType() NSTextBlockValueType {
 	rv := objc.Send[NSTextBlockValueType](t.ID, objc.Sel("contentWidthValueType"))
 	return NSTextBlockValueType(rv)
 }
+
 // The vertical alignment of the text block.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/verticalAlignment-swift.property
@@ -482,6 +499,7 @@ func (t NSTextBlock) VerticalAlignment() NSTextBlockVerticalAlignment {
 func (t NSTextBlock) SetVerticalAlignment(value NSTextBlockVerticalAlignment) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVerticalAlignment:"), value)
 }
+
 // The background color of the text block.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/backgroundColor
@@ -492,4 +510,3 @@ func (t NSTextBlock) BackgroundColor() INSColor {
 func (t NSTextBlock) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
-

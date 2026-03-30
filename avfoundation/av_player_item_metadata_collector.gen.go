@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVPlayerItemMetadataCollectorClass) Alloc() AVPlayerItemMetadataCollect
 // Streaming asset.
 //
 // # Overview
-// 
+//
 // You can use the HLS `#EXT-X-DATERANGE` tag to define date range metadata in
 // a media playlist. This tag is useful for defining timed metadata for
 // interstitial regions such as advertisements, but can be used to define any
@@ -55,7 +56,7 @@ func (ac AVPlayerItemMetadataCollectorClass) Alloc() AVPlayerItemMetadataCollect
 // [AVPlayerItemMetadataCollector], configure its delegate object (see
 // [AVPlayerItemMetadataCollectorPushDelegate]), and add it as a media data
 // collector to the [AVPlayerItem] (see example).
-// 
+//
 // Creating an [AVPlayerItemMetadataCollector] as shown in the example, will
 // capture all `#EXT-X-DATERANGE` metadata defined in your stream. If you
 // would like to filter the output to only the metadata of interest, you can
@@ -84,6 +85,7 @@ type AVPlayerItemMetadataCollector struct {
 func AVPlayerItemMetadataCollectorFromID(id objc.ID) AVPlayerItemMetadataCollector {
 	return AVPlayerItemMetadataCollector{AVPlayerItemMediaDataCollector: AVPlayerItemMediaDataCollectorFromID(id)}
 }
+
 // NOTE: AVPlayerItemMetadataCollector adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -147,21 +149,21 @@ func NewAVPlayerItemMetadataCollector() AVPlayerItemMetadataCollector {
 // the output should provide.
 //
 // # Return Value
-// 
+//
 // An instance of [AVPlayerItemMetadataCollector].
 //
 // # Discussion
-// 
+//
 // You can use the `identifiers` and `classifyingLabels` arguments to
 // configure the metadata collector to filter its output to only the metadata
 // items matching the specified criteria.
-// 
+//
 // You use the `identifiers` argument to filter the output to a particular set
 // of metadata identifiers. For instance, if the stream’s `#EXT-X-DATERANGE`
 // tags define multiple metadata attributes, but you are only interested in
 // the values for the `X-AD-ID` and `X-AD-URL` attributes, you could configure
 // the collector as follows:
-// 
+//
 // The `classifyingLabels` argument is used to filter by the
 // `#EXT-X-DATERANGE` tag’s [CLASS] attribute. The [CLASS] attribute can be
 // used to define a set of attribute/value pairs for a particular purpose
@@ -170,10 +172,10 @@ func NewAVPlayerItemMetadataCollector() AVPlayerItemMetadataCollector {
 // party advertising SDK to filter the output to only the metadata relevant to
 // its needs. It could define an “Advertiser-ad” [CLASS] with the
 // following attributes:
-// 
+//
 // - `X-ADVERTISER-AD-GUID` (the unique identifier for the ad) -
 // `X-ADVERTISER-AD-AGE` (the number of days in its inventory)
-// 
+//
 // The SDK could require clients to pass it any player items the app creates
 // so it could configure them to output its needed data as shown below:
 //
@@ -194,21 +196,21 @@ func NewPlayerItemMetadataCollectorWithIdentifiersClassifyingLabels(identifiers 
 // the output should provide.
 //
 // # Return Value
-// 
+//
 // An instance of [AVPlayerItemMetadataCollector].
 //
 // # Discussion
-// 
+//
 // You can use the `identifiers` and `classifyingLabels` arguments to
 // configure the metadata collector to filter its output to only the metadata
 // items matching the specified criteria.
-// 
+//
 // You use the `identifiers` argument to filter the output to a particular set
 // of metadata identifiers. For instance, if the stream’s `#EXT-X-DATERANGE`
 // tags define multiple metadata attributes, but you are only interested in
 // the values for the `X-AD-ID` and `X-AD-URL` attributes, you could configure
 // the collector as follows:
-// 
+//
 // The `classifyingLabels` argument is used to filter by the
 // `#EXT-X-DATERANGE` tag’s [CLASS] attribute. The [CLASS] attribute can be
 // used to define a set of attribute/value pairs for a particular purpose
@@ -217,10 +219,10 @@ func NewPlayerItemMetadataCollectorWithIdentifiersClassifyingLabels(identifiers 
 // party advertising SDK to filter the output to only the metadata relevant to
 // its needs. It could define an “Advertiser-ad” [CLASS] with the
 // following attributes:
-// 
+//
 // - `X-ADVERTISER-AD-GUID` (the unique identifier for the ad) -
 // `X-ADVERTISER-AD-AGE` (the number of days in its inventory)
-// 
+//
 // The SDK could require clients to pass it any player items the app creates
 // so it could configure them to output its needed data as shown below:
 //
@@ -229,6 +231,7 @@ func (p AVPlayerItemMetadataCollector) InitWithIdentifiersClassifyingLabels(iden
 	rv := objc.Send[AVPlayerItemMetadataCollector](p.ID, objc.Sel("initWithIdentifiers:classifyingLabels:"), objectivec.StringSliceToNSArray(identifiers), objectivec.StringSliceToNSArray(classifyingLabels))
 	return rv
 }
+
 // Sets the delegate and a dispatch queue on which the delegate will be
 // called.
 //
@@ -245,11 +248,11 @@ func (p AVPlayerItemMetadataCollector) SetDelegateQueue(delegate AVPlayerItemMet
 // Accesses the metadata collector’s delegate object.
 //
 // # Discussion
-// 
+//
 // The delegate is held using a zeroing-weak reference, so this property will
 // have a value of `nil` after a delegate that was previously set has been
 // deallocated.
-// 
+//
 // This property is not key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemMetadataCollector/delegate
@@ -257,10 +260,11 @@ func (p AVPlayerItemMetadataCollector) Delegate() AVPlayerItemMetadataCollectorP
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("delegate"))
 	return AVPlayerItemMetadataCollectorPushDelegateObjectFromID(rv)
 }
+
 // The dispatch queue on which the delegate’s methods are called.
 //
 // # Discussion
-// 
+//
 // This property is not key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemMetadataCollector/delegateQueue
@@ -268,4 +272,3 @@ func (p AVPlayerItemMetadataCollector) DelegateQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](p.ID, objc.Sel("delegateQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
-

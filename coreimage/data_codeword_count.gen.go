@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type DataCodewordCount struct {
 func DataCodewordCountFromID(id objc.ID) DataCodewordCount {
 	return DataCodewordCount{objectivec.Object{ID: id}}
 }
+
 // Ensure DataCodewordCount implements IDataCodewordCount.
 var _ IDataCodewordCount = DataCodewordCount{}
 
@@ -78,4 +80,3 @@ func NewDataCodewordCount() DataCodewordCount {
 	rv := objc.Send[DataCodewordCount](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

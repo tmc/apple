@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +61,7 @@ type MLImageSize struct {
 func MLImageSizeFromID(id objc.ID) MLImageSize {
 	return MLImageSize{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLImageSize adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,6 +119,7 @@ func (i MLImageSize) PixelsHigh() int {
 	rv := objc.Send[int](i.ID, objc.Sel("pixelsHigh"))
 	return rv
 }
+
 // The width of an image feature in pixels.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/pixelsWide
@@ -124,6 +127,7 @@ func (i MLImageSize) PixelsWide() int {
 	rv := objc.Send[int](i.ID, objc.Sel("pixelsWide"))
 	return rv
 }
+
 // An array of image sizes a model’s image feature accepts as input or
 // produces as output.
 //
@@ -135,4 +139,3 @@ func (i MLImageSize) EnumeratedImageSizes() IMLImageSize {
 func (i MLImageSize) SetEnumeratedImageSizes(value IMLImageSize) {
 	objc.Send[struct{}](i.ID, objc.Sel("setEnumeratedImageSizes:"), value)
 }
-

@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (mc MLModelStructureProgramClass) Alloc() MLModelStructureProgram {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelStructureProgram.MainFunction]
 //   - [MLModelStructureProgram.InitWithFunctions]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgram
 type MLModelStructureProgram struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type MLModelStructureProgram struct {
 func MLModelStructureProgramFromID(id objc.ID) MLModelStructureProgram {
 	return MLModelStructureProgram{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgram implements IMLModelStructureProgram.
 var _ IMLModelStructureProgram = MLModelStructureProgram{}
 
@@ -94,7 +96,6 @@ func NewMLModelStructureProgram() MLModelStructureProgram {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgram/initWithFunctions:
 func NewModelStructureProgramWithFunctions(functions objectivec.IObject) MLModelStructureProgram {
 	instance := getMLModelStructureProgramClass().Alloc()
@@ -102,7 +103,6 @@ func NewModelStructureProgramWithFunctions(functions objectivec.IObject) MLModel
 	return MLModelStructureProgramFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgram/initWithFunctions:
 func (m MLModelStructureProgram) InitWithFunctions(functions objectivec.IObject) MLModelStructureProgram {
 	rv := objc.Send[MLModelStructureProgram](m.ID, objc.Sel("initWithFunctions:"), functions)
@@ -114,4 +114,3 @@ func (m MLModelStructureProgram) MainFunction() IMLModelStructureProgramFunction
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mainFunction"))
 	return MLModelStructureProgramFunctionFromID(objc.ID(rv))
 }
-

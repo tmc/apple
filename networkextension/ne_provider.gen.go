@@ -5,6 +5,7 @@ package networkextension
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,25 +46,25 @@ func (nc NEProviderClass) Alloc() NEProvider {
 // An abstract base class for all NetworkExtension providers.
 //
 // # Overview
-// 
+//
 // See the documentation for the [NEProvider] subclasses for details about how
 // to create Network Extension Provider extensions.
-// 
+//
 // The [NEProvider] class and its subclasses expose methods and properties
 // that allow Network Extension Provider extensions to participate in and
-// affect the network data path on iOS and macOS. For example, the `` method
+// affect the network data path on iOS and macOS. For example, the “ method
 // in [NEFilterDataProvider] allows Filter Data Provider extensions to make
 // pass/block decisions on TCP connections as the connections are established
 // on the system.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // The [NEProvider] class should not be subclassed directly. Instead, you
 // should create subclasses of [NEProvider] subclasses (and in some cases
 // subsubclasses).
-// 
+//
 // # Methods to Override
-// 
+//
 // - [NEProvider.SleepWithCompletionHandler]
 // - [NEProvider.Wake]
 //
@@ -87,6 +88,7 @@ type NEProvider struct {
 func NEProviderFromID(id objc.ID) NEProvider {
 	return NEProvider{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -143,26 +145,27 @@ func NewNEProvider() NEProvider {
 // finished handling the sleep event.
 //
 // # Discussion
-// 
+//
 // This method is called by the system when the device is about to go to
 // sleep.
-// 
+//
 // [NEProvider] subclasses should override this method if the provider needs
 // to perform any tasks before the device sleeps, such as disconnecting a
 // tunnel connection.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEProvider/sleep(completionHandler:)
 func (p NEProvider) SleepWithCompletionHandler(completionHandler VoidHandler) {
-_block0, _ := NewVoidBlock(completionHandler)
+	_block0, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("sleepWithCompletionHandler:"), _block0)
 }
+
 // Handle a wake event.
 //
 // # Discussion
-// 
+//
 // This method is called by the system when the device wakes up from sleep
 // mode.
-// 
+//
 // [NEProvider] subclasses should override this method if the provider needs
 // to perform any tasks when the device wakes up, such as reconnecting a
 // tunnel connection.
@@ -175,9 +178,9 @@ func (p NEProvider) Wake() {
 // Starts the Network Extension machinery from inside a System Extension.
 //
 // # Discussion
-// 
+//
 // Call this method as early as possible after your system extension starts.
-// 
+//
 // Once called, this class method causes your system extension to start
 // handling requests from the Network Extension session manager daemon to
 // instantiate appropriate [NEProvider] subclass instances. The system
@@ -194,7 +197,7 @@ func (_NEProviderClass NEProviderClass) StartSystemExtensionMode() {
 // provider.
 //
 // # Discussion
-// 
+//
 // This NWPath object contains information about which physical network
 // interface will be used by connections opened by the Network Extension
 // provider. You can determine when this physical interface changes by
@@ -220,4 +223,3 @@ func (p NEProvider) Sleep(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

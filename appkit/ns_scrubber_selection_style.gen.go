@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSScrubberSelectionStyleClass) Alloc() NSScrubberSelectionStyle {
 // highlighted items within a scrubber control.
 //
 // # Overview
-// 
+//
 // Choose a selection style ([NSScrubberSelectionStyle.OutlineOverlayStyle] or
 // [NSScrubberSelectionStyle.RoundedBackgroundStyle]), or create a custom selection style by
 // subclassing [NSScrubberSelectionStyle] and overriding [SelectionView].
@@ -68,6 +69,7 @@ type NSScrubberSelectionStyle struct {
 func NSScrubberSelectionStyleFromID(id objc.ID) NSScrubberSelectionStyle {
 	return NSScrubberSelectionStyle{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSScrubberSelectionStyle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,7 +117,7 @@ func NewNSScrubberSelectionStyle() NSScrubberSelectionStyle {
 // Storyboard.
 //
 // # Return Value
-// 
+//
 // A properly initialized scrubber selection style object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberSelectionStyle/init(coder:)
@@ -129,7 +131,7 @@ func NewScrubberSelectionStyleWithCoder(coder foundation.INSCoder) NSScrubberSel
 // Storyboard.
 //
 // # Return Value
-// 
+//
 // A properly initialized scrubber selection style object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberSelectionStyle/init(coder:)
@@ -137,15 +139,16 @@ func (s NSScrubberSelectionStyle) InitWithCoder(coder foundation.INSCoder) NSScr
 	rv := objc.Send[NSScrubberSelectionStyle](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Provides an opportunity to create a customized scrubber selection style.
 //
 // # Return Value
-// 
+//
 // A correctly configured scrubber selection view that represents the
 // appearance of your custom selection style.
 //
 // # Discussion
-// 
+//
 // In an [NSScrubberSelectionStyle] subclass that you create, override this
 // method to create a custom selection style.
 //
@@ -165,6 +168,7 @@ func (_NSScrubberSelectionStyleClass NSScrubberSelectionStyleClass) OutlineOverl
 	rv := objc.Send[objc.ID](objc.ID(_NSScrubberSelectionStyleClass.class), objc.Sel("outlineOverlayStyle"))
 	return NSScrubberSelectionStyleFromID(objc.ID(rv))
 }
+
 // A built-in selection style that draws a rounded rectangle as the background
 // of the scrubber item.
 //
@@ -173,4 +177,3 @@ func (_NSScrubberSelectionStyleClass NSScrubberSelectionStyleClass) RoundedBackg
 	rv := objc.Send[objc.ID](objc.ID(_NSScrubberSelectionStyleClass.class), objc.Sel("roundedBackgroundStyle"))
 	return NSScrubberSelectionStyleFromID(objc.ID(rv))
 }
-

@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (vc VZMultiTouchEventClass) Alloc() VZMultiTouchEvent {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMultiTouchEvent.Touches]
 //   - [VZMultiTouchEvent.InitWithEventView]
 //   - [VZMultiTouchEvent.InitWithTouches]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchEvent
 type VZMultiTouchEvent struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type VZMultiTouchEvent struct {
 func VZMultiTouchEventFromID(id objc.ID) VZMultiTouchEvent {
 	return VZMultiTouchEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMultiTouchEvent implements IVZMultiTouchEvent.
 var _ IVZMultiTouchEvent = VZMultiTouchEvent{}
 
@@ -98,7 +100,6 @@ func NewVZMultiTouchEvent() VZMultiTouchEvent {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchEvent/initWithEvent:view:
 func NewVZMultiTouchEventWithEventView(event objectivec.IObject, view objectivec.IObject) VZMultiTouchEvent {
 	instance := getVZMultiTouchEventClass().Alloc()
@@ -106,7 +107,6 @@ func NewVZMultiTouchEventWithEventView(event objectivec.IObject, view objectivec
 	return VZMultiTouchEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchEvent/initWithTouches:
 func NewVZMultiTouchEventWithTouches(touches objectivec.IObject) VZMultiTouchEvent {
 	instance := getVZMultiTouchEventClass().Alloc()
@@ -114,13 +114,12 @@ func NewVZMultiTouchEventWithTouches(touches objectivec.IObject) VZMultiTouchEve
 	return VZMultiTouchEventFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchEvent/initWithEvent:view:
 func (v VZMultiTouchEvent) InitWithEventView(event objectivec.IObject, view objectivec.IObject) VZMultiTouchEvent {
 	rv := objc.Send[VZMultiTouchEvent](v.ID, objc.Sel("initWithEvent:view:"), event, view)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchEvent/initWithTouches:
 func (v VZMultiTouchEvent) InitWithTouches(touches objectivec.IObject) VZMultiTouchEvent {
 	rv := objc.Send[VZMultiTouchEvent](v.ID, objc.Sel("initWithTouches:"), touches)
@@ -132,4 +131,3 @@ func (v VZMultiTouchEvent) Touches() foundation.INSSet {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("touches"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-

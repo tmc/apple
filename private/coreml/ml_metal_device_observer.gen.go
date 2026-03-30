@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (mc MLMetalDeviceObserverClass) Alloc() MLMetalDeviceObserver {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLMetalDeviceObserver.CopyAllMTLDevicesWithHandlerDeviceObserver]
 //   - [MLMetalDeviceObserver.StartObservingWithBlockDeviceObserver]
 //   - [MLMetalDeviceObserver.StopObserving]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLMetalDeviceObserver
 type MLMetalDeviceObserver struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type MLMetalDeviceObserver struct {
 func MLMetalDeviceObserverFromID(id objc.ID) MLMetalDeviceObserver {
 	return MLMetalDeviceObserver{objectivec.Object{ID: id}}
 }
+
 // Ensure MLMetalDeviceObserver implements IMLMetalDeviceObserver.
 var _ IMLMetalDeviceObserver = MLMetalDeviceObserver{}
 
@@ -97,23 +99,21 @@ func NewMLMetalDeviceObserver() MLMetalDeviceObserver {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLMetalDeviceObserver/copyAllMTLDevicesWithHandler:deviceObserver:
 func (m MLMetalDeviceObserver) CopyAllMTLDevicesWithHandlerDeviceObserver(handler VoidHandler, observer []objectivec.IObject) objectivec.IObject {
-_block0, _ := NewVoidBlock(handler)
+	_block0, _ := NewVoidBlock(handler)
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("copyAllMTLDevicesWithHandler:deviceObserver:"), _block0, observer)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLMetalDeviceObserver/startObservingWithBlock:deviceObserver:
 func (m MLMetalDeviceObserver) StartObservingWithBlockDeviceObserver(block VoidHandler, observer []objectivec.IObject) objectivec.IObject {
-_block0, _ := NewVoidBlock(block)
+	_block0, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("startObservingWithBlock:deviceObserver:"), _block0, observer)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLMetalDeviceObserver/stopObserving:
 func (m MLMetalDeviceObserver) StopObserving(observing objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("stopObserving:"), observing)
 }
-

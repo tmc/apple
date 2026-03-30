@@ -4,9 +4,11 @@ package virtualization
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // Optional methods that you use to respond when a console port opens or closes in the virtual machine.
@@ -20,6 +22,7 @@ type VZVirtioConsoleDeviceDelegate interface {
 type VZVirtioConsoleDeviceDelegateObject struct {
 	objectivec.Object
 }
+
 func (o VZVirtioConsoleDeviceDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,7 +42,7 @@ func VZVirtioConsoleDeviceDelegateObjectFromID(id objc.ID) VZVirtioConsoleDevice
 // consolePort: The [VZVirtioConsolePort] port that the framework opened.
 //
 // # Discussion
-// 
+//
 // Be sure to process or flush any pending data from the [VZVirtioConsolePort]
 // attachment before communicating with a new virtual machine process, or
 // additional data might remain on the serial port from the previous session.
@@ -47,7 +50,8 @@ func VZVirtioConsoleDeviceDelegateObjectFromID(id objc.ID) VZVirtioConsoleDevice
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceDelegate/consoleDevice(_:didOpen:)
 func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidOpenPort(consoleDevice IVZVirtioConsoleDevice, consolePort IVZVirtioConsolePort) {
 	objc.Send[struct{}](o.ID, objc.Sel("consoleDevice:didOpenPort:"), consoleDevice, consolePort)
-	}
+}
+
 // Tells the delegate that the framework closed a console port.
 //
 // consoleDevice: The console port’s console device.
@@ -55,7 +59,7 @@ func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidOpenPort(consoleDev
 // consolePort: The [VZVirtioConsolePort] port that the framework closed.
 //
 // # Discussion
-// 
+//
 // Be sure to finish processing or flushing any remaining data from the
 // [VZVirtioConsolePort] attachment after closing a port, or the additional
 // data might remain on the serial port.
@@ -63,7 +67,7 @@ func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidOpenPort(consoleDev
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceDelegate/consoleDevice(_:didClose:)
 func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidClosePort(consoleDevice IVZVirtioConsoleDevice, consolePort IVZVirtioConsolePort) {
 	objc.Send[struct{}](o.ID, objc.Sel("consoleDevice:didClosePort:"), consoleDevice, consolePort)
-	}
+}
 
 // VZVirtioConsoleDeviceDelegateConfig holds optional typed callbacks for [VZVirtioConsoleDeviceDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -140,4 +144,3 @@ func NewVZVirtioConsoleDeviceDelegate(config VZVirtioConsoleDeviceDelegateConfig
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return VZVirtioConsoleDeviceDelegateObjectFromID(instance)
 }
-

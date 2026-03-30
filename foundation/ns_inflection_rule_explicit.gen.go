@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -63,6 +64,7 @@ type NSInflectionRuleExplicit struct {
 func NSInflectionRuleExplicitFromID(id objc.ID) NSInflectionRuleExplicit {
 	return NSInflectionRuleExplicit{NSInflectionRule: NSInflectionRuleFromID(id)}
 }
+
 // Ensure NSInflectionRuleExplicit implements INSInflectionRuleExplicit.
 var _ INSInflectionRuleExplicit = NSInflectionRuleExplicit{}
 
@@ -115,7 +117,7 @@ func NewNSInflectionRuleExplicit() NSInflectionRuleExplicit {
 // morphology: The morphology this rule applies when inflecting.
 //
 // # Return Value
-// 
+//
 // An inflection rule that uses the given morphology.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInflectionRuleExplicit/initWithMorphology:
@@ -130,7 +132,7 @@ func NewInflectionRuleExplicitWithMorphology(morphology INSMorphology) NSInflect
 // morphology: The morphology this rule applies when inflecting.
 //
 // # Return Value
-// 
+//
 // An inflection rule that uses the given morphology.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInflectionRuleExplicit/initWithMorphology:
@@ -146,4 +148,3 @@ func (i NSInflectionRuleExplicit) Morphology() INSMorphology {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("morphology"))
 	return NSMorphologyFromID(objc.ID(rv))
 }
-

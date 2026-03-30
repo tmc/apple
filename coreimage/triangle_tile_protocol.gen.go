@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +60,7 @@ type CITriangleTile interface {
 type CITriangleTileObject struct {
 	objectivec.Object
 }
+
 func (o CITriangleTileObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -78,28 +79,32 @@ func CITriangleTileObjectFromID(id objc.ID) CITriangleTileObject {
 func (o CITriangleTileObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // The x and y position to use as the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleTile/center
 func (o CITriangleTileObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleTile/inputImage
 func (o CITriangleTileObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The width of a tile.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleTile/width
 func (o CITriangleTileObject) Width() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -107,21 +112,32 @@ func (o CITriangleTileObject) Width() float32 {
 func (o CITriangleTileObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The angle, in radians, of the tiled pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITriangleTile/angle
 func (o CITriangleTileObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// The x and y position to use as the center of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITriangleTile/center
 func (o CITriangleTileObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITriangleTile/inputImage
 func (o CITriangleTileObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The width of a tile.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CITriangleTile/width
 func (o CITriangleTileObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }
-

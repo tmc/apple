@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLSVREngineClass) Alloc() MLSVREngine {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLSVREngine.AllocSVMNodeVector]
@@ -59,6 +59,7 @@ func (mc MLSVREngineClass) Alloc() MLSVREngine {
 //   - [MLSVREngine.InitWithLibSVMFile]
 //   - [MLSVREngine.InitWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSize]
 //   - [MLSVREngine.InitWithSpecificationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine
 type MLSVREngine struct {
 	objectivec.Object
@@ -68,6 +69,7 @@ type MLSVREngine struct {
 func MLSVREngineFromID(id objc.ID) MLSVREngine {
 	return MLSVREngine{objectivec.Object{ID: id}}
 }
+
 // Ensure MLSVREngine implements IMLSVREngine.
 var _ IMLSVREngine = MLSVREngine{}
 
@@ -129,7 +131,6 @@ func NewMLSVREngine() MLSVREngine {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/initWithLibSVMFile:
 func NewSVREngineWithLibSVMFile(sVMFile objectivec.IObject) MLSVREngine {
 	instance := getMLSVREngineClass().Alloc()
@@ -137,7 +138,6 @@ func NewSVREngineWithLibSVMFile(sVMFile objectivec.IObject) MLSVREngine {
 	return MLSVREngineFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:
 func NewSVREngineWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSize(sVMModel objectivec.IObject, dealloc bool, only bool, size uint64) MLSVREngine {
 	instance := getMLSVREngineClass().Alloc()
@@ -145,7 +145,6 @@ func NewSVREngineWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSize(sVM
 	return MLSVREngineFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/initWithSpecification:error:
 func NewSVREngineWithSpecificationError(specification unsafe.Pointer) (MLSVREngine, error) {
 	var errorPtr objc.ID
@@ -158,41 +157,40 @@ func NewSVREngineWithSpecificationError(specification unsafe.Pointer) (MLSVREngi
 	return MLSVREngineFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/allocSVMNodeVector:
 func (s MLSVREngine) AllocSVMNodeVector(vector uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("allocSVMNodeVector:"), vector)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/deallocSVMNodeVector:
 func (s MLSVREngine) DeallocSVMNodeVector(vector objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("deallocSVMNodeVector:"), vector)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/fillSVMNodeVector:values:count:
 func (s MLSVREngine) FillSVMNodeVectorValuesCount(vector objectivec.IObject, values []float64, count uint64) {
 	objc.Send[objc.ID](s.ID, objc.Sel("fillSVMNodeVector:values:count:"), vector, objc.CArray(values), count)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/predict:
 func (s MLSVREngine) Predict(predict objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("predict:"), predict)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/initWithLibSVMFile:
 func (s MLSVREngine) InitWithLibSVMFile(sVMFile objectivec.IObject) MLSVREngine {
 	rv := objc.Send[MLSVREngine](s.ID, objc.Sel("initWithLibSVMFile:"), sVMFile)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:
 func (s MLSVREngine) InitWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSize(sVMModel objectivec.IObject, dealloc bool, only bool, size uint64) MLSVREngine {
 	rv := objc.Send[MLSVREngine](s.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:"), sVMModel, dealloc, only, size)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/initWithSpecification:error:
 func (s MLSVREngine) InitWithSpecificationError(specification unsafe.Pointer) (MLSVREngine, error) {
 	var errorPtr objc.ID
@@ -213,16 +211,19 @@ func (s MLSVREngine) FreeModelOnDealloc() bool {
 func (s MLSVREngine) SetFreeModelOnDealloc(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFreeModelOnDealloc:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/inputSize
 func (s MLSVREngine) InputSize() uint64 {
 	rv := objc.Send[uint64](s.ID, objc.Sel("inputSize"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/isInputSizeLowerBoundOnly
 func (s MLSVREngine) IsInputSizeLowerBoundOnly() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isInputSizeLowerBoundOnly"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLSVREngine/model
 func (s MLSVREngine) Model() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("model"))
@@ -231,4 +232,3 @@ func (s MLSVREngine) Model() objectivec.IObject {
 func (s MLSVREngine) SetModel(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setModel:"), value)
 }
-

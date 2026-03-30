@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,19 +45,19 @@ func (uc UnitClass) Alloc() Unit {
 // An abstract class representing a unit of measure.
 //
 // # Overview
-// 
+//
 // Each instance of an [NSUnit] subclass consists of a [Symbol], which can be
 // used to create string representations of [NSMeasurement] objects with the
 // [NSMeasurementFormatter] class.
-// 
+//
 // The [NSDimension] subclass is an abstract class that represents a
 // dimensional unit, which can be converted into different units of the same
 // type. The Foundation framework provides several concrete [NSDimension]
 // subclasses to represent the most common physical quantities, including
 // mass, length, duration, and speed.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // [NSUnit] is intended for subclassing. For dimensional units, you should use
 // one of the Apple provided [NSDimension] subclasses listed in Table 1 of
 // [NSDimension], or create a custom subclass of [NSDimension]. You can create
@@ -85,6 +86,7 @@ func UnitFromID(id objc.ID) Unit {
 
 // NSUnitFromID is an alias for [UnitFromID] for cross-framework compatibility.
 func NSUnitFromID(id objc.ID) Unit { return UnitFromID(id) }
+
 // NOTE: Unit adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,7 +137,6 @@ func NewUnit() Unit {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitWithCoder(coder INSCoder) Unit {
 	instance := getUnitClass().Alloc()
@@ -148,7 +149,7 @@ func NewUnitWithCoder(coder INSCoder) Unit {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -163,7 +164,7 @@ func NewUnitWithSymbol(symbol string) Unit {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -171,6 +172,7 @@ func (u Unit) InitWithSymbol(symbol string) Unit {
 	rv := objc.Send[Unit](u.ID, objc.Sel("initWithSymbol:"), objc.String(symbol))
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -179,7 +181,7 @@ func (u Unit) InitWithSymbol(symbol string) Unit {
 func (u Unit) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u Unit) InitWithCoder(coder INSCoder) Unit {
 	rv := objc.Send[Unit](u.ID, objc.Sel("initWithCoder:"), coder)
@@ -189,7 +191,7 @@ func (u Unit) InitWithCoder(coder INSCoder) Unit {
 // The symbolic representation of the unit.
 //
 // # Discussion
-// 
+//
 // The symbol of a unit is a string that can be used to designate a number as
 // a quantity of a particular unit in user-readable representations. Units
 // typically have symbols that are abbreviated and standardized, so as to be
@@ -197,7 +199,7 @@ func (u Unit) InitWithCoder(coder INSCoder) Unit {
 // the symbol `mph`. If a unit does not have a standardized or well-understood
 // symbol, the lowercase name of the unit can be used. For example, the
 // `metricCup` unit has the symbol `metric cup`.
-// 
+//
 // Unit symbols may incorporate a metric prefix to indicate a multiple or
 // fraction of existing unit symbols. For example, the `kilogram` unit has the
 // symbol `kg`, which uses the SI prefix k for kilo- to indicate a magnitude
@@ -211,9 +213,6 @@ func (u Unit) Symbol() string {
 	return NSStringFromID(rv).String()
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

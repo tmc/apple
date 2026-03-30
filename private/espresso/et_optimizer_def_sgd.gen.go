@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,7 +41,6 @@ func (ec ETOptimizerDefSGDClass) Alloc() ETOptimizerDefSGD {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETOptimizerDefSGD.Lr]
@@ -51,6 +51,7 @@ func (ec ETOptimizerDefSGDClass) Alloc() ETOptimizerDefSGD {
 //   - [ETOptimizerDefSGD.SetMomentum]
 //   - [ETOptimizerDefSGD.Weight_decay]
 //   - [ETOptimizerDefSGD.SetWeight_decay]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefSGD
 type ETOptimizerDefSGD struct {
 	ETOptimizerDef
@@ -60,6 +61,7 @@ type ETOptimizerDefSGD struct {
 func ETOptimizerDefSGDFromID(id objc.ID) ETOptimizerDefSGD {
 	return ETOptimizerDefSGD{ETOptimizerDef: ETOptimizerDefFromID(id)}
 }
+
 // Ensure ETOptimizerDefSGD implements IETOptimizerDefSGD.
 var _ IETOptimizerDefSGD = ETOptimizerDefSGD{}
 
@@ -119,6 +121,7 @@ func (e ETOptimizerDefSGD) Lr() float32 {
 func (e ETOptimizerDefSGD) SetLr(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setLr:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefSGD/lr_decay_epoch
 func (e ETOptimizerDefSGD) Lr_decay_epoch() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("lr_decay_epoch"))
@@ -127,6 +130,7 @@ func (e ETOptimizerDefSGD) Lr_decay_epoch() float32 {
 func (e ETOptimizerDefSGD) SetLr_decay_epoch(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setLr_decay_epoch:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefSGD/momentum
 func (e ETOptimizerDefSGD) Momentum() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("momentum"))
@@ -135,6 +139,7 @@ func (e ETOptimizerDefSGD) Momentum() float32 {
 func (e ETOptimizerDefSGD) SetMomentum(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMomentum:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETOptimizerDefSGD/weight_decay
 func (e ETOptimizerDefSGD) Weight_decay() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("weight_decay"))
@@ -143,4 +148,3 @@ func (e ETOptimizerDefSGD) Weight_decay() float32 {
 func (e ETOptimizerDefSGD) SetWeight_decay(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setWeight_decay:"), value)
 }
-

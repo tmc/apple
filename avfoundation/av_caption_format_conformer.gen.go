@@ -3,10 +3,11 @@
 package avfoundation
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type AVCaptionFormatConformer struct {
 func AVCaptionFormatConformerFromID(id objc.ID) AVCaptionFormatConformer {
 	return AVCaptionFormatConformer{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptionFormatConformer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,12 +142,13 @@ func (c AVCaptionFormatConformer) InitWithConversionSettings(conversionSettings 
 	rv := objc.Send[AVCaptionFormatConformer](c.ID, objc.Sel("initWithConversionSettings:"), conversionSettings)
 	return rv
 }
+
 // Creates a caption that conforms to a specific format.
 //
 // caption: The caption to conform.
 //
 // # Return Value
-// 
+//
 // A caption that conforms to the defined caption format.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionFormatConformer/conformedCaption(for:)
@@ -166,7 +169,7 @@ func (c AVCaptionFormatConformer) ConformedCaptionForCaptionError(caption IAVCap
 // uses.
 //
 // # Return Value
-// 
+//
 // A new instance of [AVCaptionFormatConformer].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionFormatConformer/captionFormatConformerWithConversionSettings:
@@ -179,16 +182,13 @@ func (_AVCaptionFormatConformerClass AVCaptionFormatConformerClass) CaptionForma
 // canonical caption.
 //
 // # Discussion
-// 
-// By default, this property value is [false]. If you set the value to [true],
+//
+// By default, this property value is false. If you set the value to true,
 // this object conforms the time range of captions to fit its encoded data.
-// 
+//
 // When this object conforms captions to CAE608 format, it encodes them so
 // that each CAE608 2-byte control code fits into one frame duration
 // (1001/30000).
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionFormatConformer/conformsCaptionsToTimeRange
 func (c AVCaptionFormatConformer) ConformsCaptionsToTimeRange() bool {
@@ -198,4 +198,3 @@ func (c AVCaptionFormatConformer) ConformsCaptionsToTimeRange() bool {
 func (c AVCaptionFormatConformer) SetConformsCaptionsToTimeRange(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setConformsCaptionsToTimeRange:"), value)
 }
-

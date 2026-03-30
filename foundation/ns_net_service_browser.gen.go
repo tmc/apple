@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,20 +46,20 @@ func (nc NetServiceBrowserClass) Alloc() NetServiceBrowser {
 // multicast DNS.
 //
 // # Overview
-// 
+//
 // Services can range from standard services, such as HTTP and FTP, to custom
 // services defined by other applications. You can use a network service
 // browser in your code to obtain the list of accessible domains and then to
 // obtain an [NSNetService] object for each discovered service. Each network
 // service browser performs one search at a time, so if you want to perform
 // multiple simultaneous searches, use multiple network service browsers.
-// 
+//
 // A network service browser performs all searches asynchronously using the
 // current run loop to execute the search in the background. Results from a
 // search are returned through the associated delegate object, which your
 // client application must provide. Searching proceeds in the background until
 // the object receives a [Stop] message.
-// 
+//
 // To use an [NSNetServiceBrowser] object to search for services, allocate it,
 // initialize it, and assign a delegate. (If you wish, you can also use the
 // [ScheduleInRunLoopForMode] and [RemoveFromRunLoopForMode] methods to
@@ -68,7 +69,7 @@ func (nc NetServiceBrowserClass) Alloc() NetServiceBrowser {
 // [SearchForBrowsableDomains] methods. From the list of returned domains, you
 // can pick one and use the [SearchForServicesOfTypeInDomain] method to search
 // for services in that domain.
-// 
+//
 // The [NSNetServiceBrowser] class provides two ways to search for domains. In
 // most cases, your client should use the [SearchForRegistrationDomains]
 // method to search only for local domains to which the host machine has
@@ -98,6 +99,7 @@ func NetServiceBrowserFromID(id objc.ID) NetServiceBrowser {
 
 // NSNetServiceBrowserFromID is an alias for [NetServiceBrowserFromID] for cross-framework compatibility.
 func NSNetServiceBrowserFromID(id objc.ID) NetServiceBrowser { return NetServiceBrowserFromID(id) }
+
 // NOTE: NetServiceBrowser adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -153,10 +155,11 @@ func (n NetServiceBrowser) Delegate() NSNetServiceBrowserDelegate {
 func (n NetServiceBrowser) SetDelegate(value NSNetServiceBrowserDelegate) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDelegate:"), value)
 }
+
 // Whether to browse over peer-to-peer Bluetooth and Wi-Fi, if available.
 //
 // # Discussion
-// 
+//
 // This property must be set before initiating a search to have an effect.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceBrowser/includesPeerToPeer
@@ -167,4 +170,3 @@ func (n NetServiceBrowser) IncludesPeerToPeer() bool {
 func (n NetServiceBrowser) SetIncludesPeerToPeer(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setIncludesPeerToPeer:"), value)
 }
-

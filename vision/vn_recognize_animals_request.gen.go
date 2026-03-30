@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNRecognizeAnimalsRequest] class.
@@ -45,11 +46,9 @@ func (vc VNRecognizeAnimalsRequestClass) Alloc() VNRecognizeAnimalsRequest {
 // A request that recognizes animals in an image.
 //
 // # Overview
-// 
+//
 // Use the [knownAnimalIdentifiers(forRevision:)] method to determine which
 // animals the request supports.
-//
-// [knownAnimalIdentifiers(forRevision:)]: https://developer.apple.com/documentation/Vision/VNRecognizeAnimalsRequest/knownAnimalIdentifiers(forRevision:)
 //
 // # Identifying Animals
 //
@@ -61,6 +60,8 @@ func (vc VNRecognizeAnimalsRequestClass) Alloc() VNRecognizeAnimalsRequest {
 //   - [VNRecognizeAnimalsRequest.VNRecognizeAnimalsRequestRevision1]: A constant for specifying revision 1 of the animal recognition request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeAnimalsRequest
+//
+// [knownAnimalIdentifiers(forRevision:)]: https://developer.apple.com/documentation/Vision/VNRecognizeAnimalsRequest/knownAnimalIdentifiers(forRevision:)
 type VNRecognizeAnimalsRequest struct {
 	VNImageBasedRequest
 }
@@ -71,6 +72,7 @@ type VNRecognizeAnimalsRequest struct {
 func VNRecognizeAnimalsRequestFromID(id objc.ID) VNRecognizeAnimalsRequest {
 	return VNRecognizeAnimalsRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNRecognizeAnimalsRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,7 +128,7 @@ func NewVNRecognizeAnimalsRequest() VNRecognizeAnimalsRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -141,7 +143,7 @@ func NewRecognizeAnimalsRequestWithCompletionHandler(completionHandler VNRequest
 // Returns the identifiers of the animals that the request detects.
 //
 // # Return Value
-// 
+//
 // The animal identifiers.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeAnimalsRequest/supportedIdentifiers()
@@ -163,6 +165,7 @@ func (r VNRecognizeAnimalsRequest) VNRecognizeAnimalsRequestRevision2() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeAnimalsRequestRevision2"))
 	return rv
 }
+
 // A constant for specifying revision 1 of the animal recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizeanimalsrequestrevision1
@@ -170,4 +173,3 @@ func (r VNRecognizeAnimalsRequest) VNRecognizeAnimalsRequestRevision1() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeAnimalsRequestRevision1"))
 	return rv
 }
-

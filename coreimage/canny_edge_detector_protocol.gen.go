@@ -79,6 +79,7 @@ type CICannyEdgeDetector interface {
 type CICannyEdgeDetectorObject struct {
 	objectivec.Object
 }
+
 func (o CICannyEdgeDetectorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -95,34 +96,40 @@ func CICannyEdgeDetectorObjectFromID(id objc.ID) CICannyEdgeDetectorObject {
 func (o CICannyEdgeDetectorObject) GaussianSigma() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("gaussianSigma"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/hysteresisPasses
 func (o CICannyEdgeDetectorObject) HysteresisPasses() int {
 	rv := objc.Send[int](o.ID, objc.Sel("hysteresisPasses"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/inputImage
 func (o CICannyEdgeDetectorObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/perceptual
 func (o CICannyEdgeDetectorObject) Perceptual() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("perceptual"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/thresholdHigh
 func (o CICannyEdgeDetectorObject) ThresholdHigh() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("thresholdHigh"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/thresholdLow
 func (o CICannyEdgeDetectorObject) ThresholdLow() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("thresholdLow"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -130,29 +137,36 @@ func (o CICannyEdgeDetectorObject) ThresholdLow() float32 {
 func (o CICannyEdgeDetectorObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/gaussianSigma
 func (o CICannyEdgeDetectorObject) SetGaussianSigma(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setGaussianSigma:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/hysteresisPasses
 func (o CICannyEdgeDetectorObject) SetHysteresisPasses(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHysteresisPasses:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/inputImage
 func (o CICannyEdgeDetectorObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/perceptual
 func (o CICannyEdgeDetectorObject) SetPerceptual(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPerceptual:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/thresholdHigh
 func (o CICannyEdgeDetectorObject) SetThresholdHigh(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setThresholdHigh:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CICannyEdgeDetector/thresholdLow
 func (o CICannyEdgeDetectorObject) SetThresholdLow(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setThresholdLow:"), value)
 }
-

@@ -4,10 +4,11 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (ac AVCaptionClass) Alloc() AVCaption {
 // An object that represents text to present over a time range.
 //
 // # Overview
-// 
+//
 // A caption contains a cue, which is a single sentence or paragraph of text
 // for a time range in the video timeline. Within the active range, the
 // caption may animate (for example, Karaoke lyrics) by rolling-up, changing
@@ -85,6 +86,7 @@ type AVCaption struct {
 func AVCaptionFromID(id objc.ID) AVCaption {
 	return AVCaption{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaption adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -202,6 +204,7 @@ func (c AVCaption) InitWithTextTimeRange(text string, timeRange coremedia.CMTime
 	rv := objc.Send[AVCaption](c.ID, objc.Sel("initWithText:timeRange:"), objc.String(text), timeRange)
 	return rv
 }
+
 // Returns the background color at the index position.
 //
 // index: A character position in the caption text.
@@ -210,7 +213,7 @@ func (c AVCaption) InitWithTextTimeRange(text string, timeRange coremedia.CMTime
 // applies.
 //
 // # Return Value
-// 
+//
 // The background color.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/backgroundColorAtIndex:range:
@@ -218,6 +221,7 @@ func (c AVCaption) BackgroundColorAtIndexRange(index int, outRange *foundation.N
 	rv := objc.Send[coregraphics.CGColorRef](c.ID, objc.Sel("backgroundColorAtIndex:range:"), index, outRange)
 	return coregraphics.CGColorRef(rv)
 }
+
 // Returns the text decoration at the index position.
 //
 // index: A character position in the caption text.
@@ -225,7 +229,7 @@ func (c AVCaption) BackgroundColorAtIndexRange(index int, outRange *foundation.N
 // outRange: A pointer to store the range to which the returned decoration applies.
 //
 // # Return Value
-// 
+//
 // The text decoration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/decorationAtIndex:range:
@@ -233,6 +237,7 @@ func (c AVCaption) DecorationAtIndexRange(index int, outRange *foundation.NSRang
 	rv := objc.Send[AVCaptionDecoration](c.ID, objc.Sel("decorationAtIndex:range:"), index, outRange)
 	return AVCaptionDecoration(rv)
 }
+
 // Returns the font style and range at the index position.
 //
 // index: A character position in the caption text.
@@ -240,7 +245,7 @@ func (c AVCaption) DecorationAtIndexRange(index int, outRange *foundation.NSRang
 // outRange: A pointer that stores the range to which the returned style applies.
 //
 // # Return Value
-// 
+//
 // The font style.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/fontStyleAtIndex:range:
@@ -248,6 +253,7 @@ func (c AVCaption) FontStyleAtIndexRange(index int, outRange *foundation.NSRange
 	rv := objc.Send[AVCaptionFontStyle](c.ID, objc.Sel("fontStyleAtIndex:range:"), index, outRange)
 	return AVCaptionFontStyle(rv)
 }
+
 // Returns the font weight and range at the index position.
 //
 // index: A character position in the caption text.
@@ -255,7 +261,7 @@ func (c AVCaption) FontStyleAtIndexRange(index int, outRange *foundation.NSRange
 // outRange: A pointer that stores the range to which the returned weight applies.
 //
 // # Return Value
-// 
+//
 // The font weight.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/fontWeightAtIndex:range:
@@ -263,6 +269,7 @@ func (c AVCaption) FontWeightAtIndexRange(index int, outRange *foundation.NSRang
 	rv := objc.Send[AVCaptionFontWeight](c.ID, objc.Sel("fontWeightAtIndex:range:"), index, outRange)
 	return AVCaptionFontWeight(rv)
 }
+
 // Returns the ruby text at the index position.
 //
 // index: A character position in the caption text.
@@ -270,7 +277,7 @@ func (c AVCaption) FontWeightAtIndexRange(index int, outRange *foundation.NSRang
 // outRange: A pointer that stores the range to which the returned ruby text applies.
 //
 // # Return Value
-// 
+//
 // The ruby text.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/rubyAtIndex:range:
@@ -278,6 +285,7 @@ func (c AVCaption) RubyAtIndexRange(index int, outRange *foundation.NSRange) IAV
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("rubyAtIndex:range:"), index, outRange)
 	return AVCaptionRubyFromID(rv)
 }
+
 // Returns the text color at the index position.
 //
 // index: A character position in the caption text.
@@ -285,7 +293,7 @@ func (c AVCaption) RubyAtIndexRange(index int, outRange *foundation.NSRange) IAV
 // outRange: A pointer that stores the range to which the returned text color applies.
 //
 // # Return Value
-// 
+//
 // The text color.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/textColorAtIndex:range:
@@ -293,6 +301,7 @@ func (c AVCaption) TextColorAtIndexRange(index int, outRange *foundation.NSRange
 	rv := objc.Send[coregraphics.CGColorRef](c.ID, objc.Sel("textColorAtIndex:range:"), index, outRange)
 	return coregraphics.CGColorRef(rv)
 }
+
 // Returns the text combine at the index position.
 //
 // index: A character position in the caption text.
@@ -300,7 +309,7 @@ func (c AVCaption) TextColorAtIndexRange(index int, outRange *foundation.NSRange
 // outRange: A pointer that stores the range to which the returned text combine applies.
 //
 // # Return Value
-// 
+//
 // The text combine.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/textCombineAtIndex:range:
@@ -315,16 +324,16 @@ func (c AVCaption) EncodeWithCoder(coder foundation.INSCoder) {
 // The caption text.
 //
 // # Discussion
-// 
+//
 // Apple iTT format text supports the same Unicode code points that an XML
 // document supports. The system converts XML special characters like ‘&’
 // to corresponding character-reference syntax when it writes the caption to a
 // file. The text may contain the line-breaking character sequences LF, CR, or
 // CF+LF.
-// 
+//
 // CEA608 closed captions support the following Unicode characters. They
 // don’t support the line-breaking character sequences LF, CR, or CF+LF.
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/text
@@ -332,13 +341,14 @@ func (c AVCaption) Text() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("text"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The time range over which the system presents the caption.
 //
 // # Discussion
-// 
+//
 // Apple iTT format only permits captions to have overlapping time ranges if
 // they’re associated with different regions.
-// 
+//
 // CEA608 closed caption time ranges can’t start with zero, because the
 // decoder needs transmission time. Align time ranges with the video frame
 // rate.
@@ -348,10 +358,11 @@ func (c AVCaption) TimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](c.ID, objc.Sel("timeRange"))
 	return coremedia.CMTimeRange(rv)
 }
+
 // The region in which the caption exists.
 //
 // # Discussion
-// 
+//
 // This property is `nil` when the underlying caption format doesn’t support
 // or use regions.
 //
@@ -360,6 +371,7 @@ func (c AVCaption) Region() IAVCaptionRegion {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("region"))
 	return AVCaptionRegionFromID(objc.ID(rv))
 }
+
 // The alignment for the caption text.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/textAlignment-swift.property
@@ -367,6 +379,7 @@ func (c AVCaption) TextAlignment() AVCaptionTextAlignment {
 	rv := objc.Send[AVCaptionTextAlignment](c.ID, objc.Sel("textAlignment"))
 	return AVCaptionTextAlignment(rv)
 }
+
 // The animation that the system applies to this caption.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/animation-swift.property
@@ -374,4 +387,3 @@ func (c AVCaption) Animation() AVCaptionAnimation {
 	rv := objc.Send[AVCaptionAnimation](c.ID, objc.Sel("animation"))
 	return AVCaptionAnimation(rv)
 }
-

@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NEVPNProtocolIPSec] class.
@@ -44,7 +45,7 @@ func (nc NEVPNProtocolIPSecClass) Alloc() NEVPNProtocolIPSec {
 // Settings for an IPsec VPN configuration.
 //
 // # Overview
-// 
+//
 // To configure IKE version 2 (IKEv2), use the [NEVPNProtocolIKEv2] subclass.
 // Instantiating [NEVPNProtocolIPSec] directly implies IKE version 1.
 //
@@ -72,6 +73,7 @@ type NEVPNProtocolIPSec struct {
 func NEVPNProtocolIPSecFromID(id objc.ID) NEVPNProtocolIPSec {
 	return NEVPNProtocolIPSec{NEVPNProtocol: NEVPNProtocolFromID(id)}
 }
+
 // NOTE: NEVPNProtocolIPSec adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -138,12 +140,10 @@ func NewNEVPNProtocolIPSec() NEVPNProtocolIPSec {
 // by the server.
 //
 // # Discussion
-// 
+//
 // If this property is set to [NEVPNIKEAuthenticationMethodNone], extended
 // authentication will still be negotiated if [UseExtendedAuthentication] is
-// set to [true].
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
+// set to true.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocolIPSec/authenticationMethod
 func (v NEVPNProtocolIPSec) AuthenticationMethod() NEVPNIKEAuthenticationMethod {
@@ -153,13 +153,14 @@ func (v NEVPNProtocolIPSec) AuthenticationMethod() NEVPNIKEAuthenticationMethod 
 func (v NEVPNProtocolIPSec) SetAuthenticationMethod(value NEVPNIKEAuthenticationMethod) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAuthenticationMethod:"), value)
 }
+
 // A flag indicating if extended authentication will be negotiated.
 //
 // # Discussion
-// 
+//
 // This authentication is in addition to the IKE authentication used to
 // authenticate the endpoints of the IKE session.
-// 
+//
 // - For IKE version 1, when this flag is set X-Auth authentication will be
 // negotiated as part of the IKE session, using the `username` and
 // `passwordReference` properties as the credential. - For IKE version 2, when
@@ -176,17 +177,18 @@ func (v NEVPNProtocolIPSec) UseExtendedAuthentication() bool {
 func (v NEVPNProtocolIPSec) SetUseExtendedAuthentication(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUseExtendedAuthentication:"), value)
 }
+
 // A persistent keychain reference to a keychain item containing the IKE
 // shared secret.
 //
 // # Discussion
-// 
+//
 // The persistent keychain reference must refer to a kerychain item of class
 // [kSecClassGenericPassword]
 //
-// [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocolIPSec/sharedSecretReference
+//
+// [kSecClassGenericPassword]: https://developer.apple.com/documentation/Security/kSecClassGenericPassword
 func (v NEVPNProtocolIPSec) SharedSecretReference() foundation.INSData {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("sharedSecretReference"))
 	return foundation.NSDataFromID(objc.ID(rv))
@@ -194,6 +196,7 @@ func (v NEVPNProtocolIPSec) SharedSecretReference() foundation.INSData {
 func (v NEVPNProtocolIPSec) SetSharedSecretReference(value foundation.INSData) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSharedSecretReference:"), value)
 }
+
 // A string identifying the iOS or macOS device for authentication purposes
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocolIPSec/localIdentifier
@@ -204,6 +207,7 @@ func (v NEVPNProtocolIPSec) LocalIdentifier() string {
 func (v NEVPNProtocolIPSec) SetLocalIdentifier(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLocalIdentifier:"), objc.String(value))
 }
+
 // A string identifying the IPSec server for authentication purposes
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocolIPSec/remoteIdentifier
@@ -214,4 +218,3 @@ func (v NEVPNProtocolIPSec) RemoteIdentifier() string {
 func (v NEVPNProtocolIPSec) SetRemoteIdentifier(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRemoteIdentifier:"), objc.String(value))
 }
-

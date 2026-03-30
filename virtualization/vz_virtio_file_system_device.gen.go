@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZVirtioFileSystemDevice] class.
@@ -44,19 +45,19 @@ func (vc VZVirtioFileSystemDeviceClass) Alloc() VZVirtioFileSystemDevice {
 // An object the defines a VIRTIO file system device.
 //
 // # Overview
-// 
+//
 // This device exposes host resources to the guest as a file system mount. The
 // directory share defines which resources the host exposes to the guest.
-// 
+//
 // Create this device by instantiating a
 // [VZVirtioFileSystemDeviceConfiguration] in a
 // [VZVirtualMachineConfiguration]. The file system device is available in the
 // [VZVirtualMachine].[VZVirtioFileSystemDevice.DirectorySharingDevices] property. The guest can use
 // the [VZVirtioFileSystemDevice.Tag] label to mount and access the host resources.
-// 
+//
 // With [VZVirtioFileSystemDevice], the framework enforces several permissions
 // policies for shared directories:
-// 
+//
 // - The framework reads and writes files using the user ID (UID) of the
 // effective user, which is the UID of the current user, rather than the UID
 // of the system process. - The framework doesn’t allow reading or
@@ -81,6 +82,7 @@ type VZVirtioFileSystemDevice struct {
 func VZVirtioFileSystemDeviceFromID(id objc.ID) VZVirtioFileSystemDevice {
 	return VZVirtioFileSystemDevice{VZDirectorySharingDevice: VZDirectorySharingDeviceFromID(id)}
 }
+
 // NOTE: VZVirtioFileSystemDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -138,10 +140,11 @@ func (v VZVirtioFileSystemDevice) Share() IVZDirectoryShare {
 func (v VZVirtioFileSystemDevice) SetShare(value IVZDirectoryShare) {
 	objc.Send[struct{}](v.ID, objc.Sel("setShare:"), value)
 }
+
 // A string that identifies the device.
 //
 // # Discussion
-// 
+//
 // The system presents the `tag` as a label in the guest VM that identifies
 // this device that’s available for mounting.
 //
@@ -150,6 +153,7 @@ func (v VZVirtioFileSystemDevice) Tag() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("tag"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The list of configured directory-sharing devices on the VM.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/directorysharingdevices
@@ -160,4 +164,3 @@ func (v VZVirtioFileSystemDevice) DirectorySharingDevices() IVZDirectorySharingD
 func (v VZVirtioFileSystemDevice) SetDirectorySharingDevices(value IVZDirectorySharingDevice) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDirectorySharingDevices:"), value)
 }
-

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -59,6 +60,7 @@ type AVAssetVariantAudioAttributes struct {
 func AVAssetVariantAudioAttributesFromID(id objc.ID) AVAssetVariantAudioAttributes {
 	return AVAssetVariantAudioAttributes{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetVariantAudioAttributes adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -111,7 +113,7 @@ func NewAVAssetVariantAudioAttributes() AVAssetVariantAudioAttributes {
 // mediaSelectionOption: The media option for which to retrieve attributes.
 //
 // # Return Value
-// 
+//
 // Attributes for the rendition, or `nil` of none exist.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/AudioAttributes-swift.class/renditionSpecificAttributes(for:)
@@ -130,6 +132,7 @@ func (a AVAssetVariantAudioAttributes) AudioAttributes() IAVAssetVariantAudioAtt
 func (a AVAssetVariantAudioAttributes) SetAudioAttributes(value IAVAssetVariantAudioAttributes) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAudioAttributes:"), value)
 }
+
 // The audio formats of the renditions present in the variant.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariantAudioAttributes/formatIDs
@@ -139,6 +142,7 @@ func (a AVAssetVariantAudioAttributes) FormatIDs() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // The video rendition attributes for the variant.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.property
@@ -149,4 +153,3 @@ func (a AVAssetVariantAudioAttributes) VideoAttributes() IAVAssetVariantVideoAtt
 func (a AVAssetVariantAudioAttributes) SetVideoAttributes(value IAVAssetVariantVideoAttributes) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVideoAttributes:"), value)
 }
-

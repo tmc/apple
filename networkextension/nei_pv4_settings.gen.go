@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NEIPv4SettingsClass) Alloc() NEIPv4Settings {
 // The IPv4 settings of an IP layer network tunnel.
 //
 // # Overview
-// 
+//
 // To specify the IPv4 settings of a packet tunnel, set its
 // [NEPacketTunnelNetworkSettings].[IPv4Settings] property to an instance of
 // this class.
@@ -79,6 +80,7 @@ type NEIPv4Settings struct {
 func NEIPv4SettingsFromID(id objc.ID) NEIPv4Settings {
 	return NEIPv4Settings{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEIPv4Settings adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -174,7 +176,7 @@ func NewNEIPv4Settings() NEIPv4Settings {
 // IPv4 network that the TUN interface is (virtually) connected to.
 //
 // # Return Value
-// 
+//
 // The initialized NEIPv4Settings object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEIPv4Settings/init(addresses:subnetMasks:)
@@ -194,7 +196,7 @@ func NewIPv4SettingsWithAddressesSubnetMasks(addresses []string, subnetMasks []s
 // IPv4 network that the TUN interface is (virtually) connected to.
 //
 // # Return Value
-// 
+//
 // The initialized NEIPv4Settings object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEIPv4Settings/init(addresses:subnetMasks:)
@@ -206,6 +208,21 @@ func (i NEIPv4Settings) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
+// # Return Value
+//
+// The initialized object.
+//
+// # Discussion
+//
+// Create a NEIPv4Settings object that will obtain IP addresses and netmasks
+// using DHCP.
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NEIPv4Settings/settingsWithAutomaticAddressing
+func (_NEIPv4SettingsClass NEIPv4SettingsClass) SettingsWithAutomaticAddressing() NEIPv4Settings {
+	rv := objc.Send[objc.ID](objc.ID(_NEIPv4SettingsClass.class), objc.Sel("settingsWithAutomaticAddressing"))
+	return NEIPv4SettingsFromID(rv)
+}
+
 // The IPv4 addresses to assign to the TUN interface.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEIPv4Settings/addresses
@@ -213,10 +230,11 @@ func (i NEIPv4Settings) Addresses() []string {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("addresses"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The IPv4 network masks to assign to the TUN interface.
 //
 // # Discussion
-// 
+//
 // Each mask in this array is combined with the IP address in the
 // corresponding index in `addresses` to specify an IPv4 network that the TUN
 // interface is (virtually) connected to.
@@ -226,11 +244,12 @@ func (i NEIPv4Settings) SubnetMasks() []string {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("subnetMasks"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The address of the next-hop gateway router represented as a dotted decimal
 // string.
 //
 // # Discussion
-// 
+//
 // The system ignores this property for TUN interfaces.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEIPv4Settings/router
@@ -241,10 +260,11 @@ func (i NEIPv4Settings) Router() string {
 func (i NEIPv4Settings) SetRouter(value string) {
 	objc.Send[struct{}](i.ID, objc.Sel("setRouter:"), objc.String(value))
 }
+
 // The IPv4 network traffic that the system routes to the TUN interface.
 //
 // # Discussion
-// 
+//
 // If you include the default route (`0.0.0.0/0` or `::/0`) in this property,
 // the system routes traffic that doesn’t match a specific rule in the
 // system routing table through the VPN.
@@ -259,11 +279,12 @@ func (i NEIPv4Settings) IncludedRoutes() []NEIPv4Route {
 func (i NEIPv4Settings) SetIncludedRoutes(value []NEIPv4Route) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIncludedRoutes:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The IPv4 network traffic that the system routes to the primary physical
 // interface, not the TUN interface.
 //
 // # Discussion
-// 
+//
 // This property excludes routes that the system might otherwise include from
 // the [IncludedRoutes] property. The system automatically excludes the IP
 // address of the tunnel server.
@@ -278,6 +299,7 @@ func (i NEIPv4Settings) ExcludedRoutes() []NEIPv4Route {
 func (i NEIPv4Settings) SetExcludedRoutes(value []NEIPv4Route) {
 	objc.Send[struct{}](i.ID, objc.Sel("setExcludedRoutes:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The tunnel IP version 4 settings.
 //
 // See: https://developer.apple.com/documentation/networkextension/nepackettunnelnetworksettings/ipv4settings
@@ -288,6 +310,7 @@ func (i NEIPv4Settings) Ipv4Settings() INEIPv4Settings {
 func (i NEIPv4Settings) SetIpv4Settings(value INEIPv4Settings) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIPv4Settings:"), value)
 }
+
 // The tunnel IP version 6 settings.
 //
 // See: https://developer.apple.com/documentation/networkextension/nepackettunnelnetworksettings/ipv6settings
@@ -298,6 +321,7 @@ func (i NEIPv4Settings) Ipv6Settings() INEIPv6Settings {
 func (i NEIPv4Settings) SetIpv6Settings(value INEIPv6Settings) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIPv6Settings:"), value)
 }
+
 // The size of the maximum trasnmission unit, in bytes.
 //
 // See: https://developer.apple.com/documentation/networkextension/nepackettunnelnetworksettings/mtu
@@ -308,6 +332,7 @@ func (i NEIPv4Settings) Mtu() foundation.NSNumber {
 func (i NEIPv4Settings) SetMtu(value foundation.NSNumber) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMTU:"), value)
 }
+
 // The number of bytes added to each tunneled packet for storing tunneling
 // protocol headers.
 //
@@ -319,4 +344,3 @@ func (i NEIPv4Settings) TunnelOverheadBytes() foundation.NSNumber {
 func (i NEIPv4Settings) SetTunnelOverheadBytes(value foundation.NSNumber) {
 	objc.Send[struct{}](i.ID, objc.Sel("setTunnelOverheadBytes:"), value)
 }
-

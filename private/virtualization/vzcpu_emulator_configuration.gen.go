@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZCPUEmulatorConfigurationClass) Alloc() VZCPUEmulatorConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCPUEmulatorConfiguration._cpuEmulator]
@@ -52,6 +52,7 @@ func (vc VZCPUEmulatorConfigurationClass) Alloc() VZCPUEmulatorConfiguration {
 //   - [VZCPUEmulatorConfiguration.Description]
 //   - [VZCPUEmulatorConfiguration.Hash]
 //   - [VZCPUEmulatorConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration
 type VZCPUEmulatorConfiguration struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZCPUEmulatorConfiguration struct {
 func VZCPUEmulatorConfigurationFromID(id objc.ID) VZCPUEmulatorConfiguration {
 	return VZCPUEmulatorConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZCPUEmulatorConfiguration implements IVZCPUEmulatorConfiguration.
 var _ IVZCPUEmulatorConfiguration = VZCPUEmulatorConfiguration{}
 
@@ -120,12 +122,13 @@ func (v VZCPUEmulatorConfiguration) _cpuEmulator() objectivec.IObject {
 func (v VZCPUEmulatorConfiguration) CpuEmulator() objectivec.IObject {
 	return v._cpuEmulator()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/_init
 func (v VZCPUEmulatorConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/encodeWithEncoder:
 func (v VZCPUEmulatorConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
@@ -137,19 +140,21 @@ func (v VZCPUEmulatorConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/description
 func (v VZCPUEmulatorConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/hash
 func (v VZCPUEmulatorConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCPUEmulatorConfiguration/superclass
 func (v VZCPUEmulatorConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

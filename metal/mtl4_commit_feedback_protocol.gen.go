@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -34,6 +34,7 @@ type MTL4CommitFeedback interface {
 type MTL4CommitFeedbackObject struct {
 	objectivec.Object
 }
+
 func (o MTL4CommitFeedbackObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -53,7 +54,8 @@ func MTL4CommitFeedbackObjectFromID(id objc.ID) MTL4CommitFeedbackObject {
 func (o MTL4CommitFeedbackObject) Error() foundation.INSError {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(rv)
-	}
+}
+
 // The host time, in seconds, when the GPU finishes execution of the committed
 // command buffers.
 //
@@ -61,7 +63,8 @@ func (o MTL4CommitFeedbackObject) Error() foundation.INSError {
 func (o MTL4CommitFeedbackObject) GPUEndTime() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("GPUEndTime"))
 	return rv
-	}
+}
+
 // The host time, in seconds, when the GPU starts execution of the committed
 // command buffers.
 //
@@ -69,5 +72,4 @@ func (o MTL4CommitFeedbackObject) GPUEndTime() float64 {
 func (o MTL4CommitFeedbackObject) GPUStartTime() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("GPUStartTime"))
 	return rv
-	}
-
+}

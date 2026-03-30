@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (sc SocketPortClass) Alloc() SocketPort {
 // A port that represents a BSD socket.
 //
 // # Overview
-// 
+//
 // A [NSSocketPort] object can be used as an endpoint for distributed object
 // connections. Companion classes, [NSMachPort] and [NSMessagePort], allow for
 // local (on the same machine) communication only. The [NSSocketPort] class
@@ -80,6 +81,7 @@ func SocketPortFromID(id objc.ID) SocketPort {
 
 // NSSocketPortFromID is an alias for [SocketPortFromID] for cross-framework compatibility.
 func NSSocketPortFromID(id objc.ID) SocketPort { return SocketPortFromID(id) }
+
 // NOTE: SocketPort adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -153,7 +155,7 @@ func NewSocketPort() SocketPort {
 
 // Initializes the receiver as a remote socket with the provided arguments.
 //
-// family: The protocol family for the socket port. Possible values are defined in ``,
+// family: The protocol family for the socket port. Possible values are defined in “,
 // such as `AF_LOCAL`, `AF_INET`, and `AF_INET6`.
 //
 // type: The type of socket.
@@ -164,7 +166,7 @@ func NewSocketPort() SocketPort {
 // object.
 //
 // # Discussion
-// 
+//
 // A connection is not opened to the remote address until data is sent.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(remoteWithProtocolFamily:socketType:protocol:address:)
@@ -183,12 +185,12 @@ func NewSocketPortRemoteWithProtocolFamilySocketTypeProtocolAddress(family int, 
 // IPv4-style address.
 //
 // # Return Value
-// 
+//
 // A TCP/IP socket port of type `SOCK_STREAM` that can connect to the remote
 // host `hostName` on port `port`.
 //
 // # Discussion
-// 
+//
 // A connection is not opened to the remote host until data is sent.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(remoteWithTCPPort:host:)
@@ -198,7 +200,6 @@ func NewSocketPortRemoteWithTCPPortHost(port uint16, hostName string) SocketPort
 	return SocketPortFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewSocketPortWithCoder(coder INSCoder) SocketPort {
 	instance := getSocketPortClass().Alloc()
@@ -208,7 +209,7 @@ func NewSocketPortWithCoder(coder INSCoder) SocketPort {
 
 // Initializes the receiver as a local socket with the provided arguments.
 //
-// family: The protocol family for the socket port. Possible values are defined in ``,
+// family: The protocol family for the socket port. Possible values are defined in “,
 // such as `AF_LOCAL`, `AF_INET`, and `AF_INET6`.
 //
 // type: The type of socket.
@@ -219,15 +220,15 @@ func NewSocketPortWithCoder(coder INSCoder) SocketPort {
 // object.
 //
 // # Return Value
-// 
+//
 // A local socket port initialized with the provided arguments.
 //
 // # Discussion
-// 
+//
 // The receiver must be added to a run loop before it can accept connections
 // or receive messages. Incoming messages are passed to the receiver’s
 // delegate method handlePortMessage:.
-// 
+//
 // To create a standard TCP/IP socket, use [InitWithTCPPort].
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(protocolFamily:socketType:protocol:address:)
@@ -240,7 +241,7 @@ func NewSocketPortWithProtocolFamilySocketTypeProtocolAddress(family int, type_ 
 // Initializes the receiver with a previously created local socket.
 //
 // family: The protocol family for the provided socket. Possible values are defined in
-// ``, such as `AF_LOCAL`, `AF_INET`, and `AF_INET6`.
+// “, such as `AF_LOCAL`, `AF_INET`, and `AF_INET6`.
 //
 // type: The type of the provided socket.
 //
@@ -249,7 +250,7 @@ func NewSocketPortWithProtocolFamilySocketTypeProtocolAddress(family int, type_ 
 // sock: The previously created socket.
 //
 // # Return Value
-// 
+//
 // A local socket port initialized with the provided socket.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(protocolFamily:socketType:protocol:socket:)
@@ -266,12 +267,12 @@ func NewSocketPortWithProtocolFamilySocketTypeProtocolSocket(family int, type_ i
 // is 0, the system will assign a port number.
 //
 // # Return Value
-// 
+//
 // An initialized local TCP/IP socket of type `SOCK_STREAM`, listening on port
 // `port`.
 //
 // # Discussion
-// 
+//
 // This method creates an IPv4 port, not an IPv6 port.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(tcpPort:)
@@ -288,12 +289,12 @@ func NewSocketPortWithTCPPort(port uint16) SocketPort {
 // is 0, the system will assign a port number.
 //
 // # Return Value
-// 
+//
 // An initialized local TCP/IP socket of type `SOCK_STREAM`, listening on port
 // `port`.
 //
 // # Discussion
-// 
+//
 // This method creates an IPv4 port, not an IPv6 port.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(tcpPort:)
@@ -301,9 +302,10 @@ func (s SocketPort) InitWithTCPPort(port uint16) SocketPort {
 	rv := objc.Send[SocketPort](s.ID, objc.Sel("initWithTCPPort:"), port)
 	return rv
 }
+
 // Initializes the receiver as a local socket with the provided arguments.
 //
-// family: The protocol family for the socket port. Possible values are defined in ``,
+// family: The protocol family for the socket port. Possible values are defined in “,
 // such as `AF_LOCAL`, `AF_INET`, and `AF_INET6`.
 //
 // type: The type of socket.
@@ -314,15 +316,15 @@ func (s SocketPort) InitWithTCPPort(port uint16) SocketPort {
 // object.
 //
 // # Return Value
-// 
+//
 // A local socket port initialized with the provided arguments.
 //
 // # Discussion
-// 
+//
 // The receiver must be added to a run loop before it can accept connections
 // or receive messages. Incoming messages are passed to the receiver’s
 // delegate method handlePortMessage:.
-// 
+//
 // To create a standard TCP/IP socket, use [InitWithTCPPort].
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(protocolFamily:socketType:protocol:address:)
@@ -330,10 +332,11 @@ func (s SocketPort) InitWithProtocolFamilySocketTypeProtocolAddress(family int, 
 	rv := objc.Send[SocketPort](s.ID, objc.Sel("initWithProtocolFamily:socketType:protocol:address:"), family, type_, protocol_, address)
 	return rv
 }
+
 // Initializes the receiver with a previously created local socket.
 //
 // family: The protocol family for the provided socket. Possible values are defined in
-// ``, such as `AF_LOCAL`, `AF_INET`, and `AF_INET6`.
+// “, such as `AF_LOCAL`, `AF_INET`, and `AF_INET6`.
 //
 // type: The type of the provided socket.
 //
@@ -342,7 +345,7 @@ func (s SocketPort) InitWithProtocolFamilySocketTypeProtocolAddress(family int, 
 // sock: The previously created socket.
 //
 // # Return Value
-// 
+//
 // A local socket port initialized with the provided socket.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(protocolFamily:socketType:protocol:socket:)
@@ -350,6 +353,7 @@ func (s SocketPort) InitWithProtocolFamilySocketTypeProtocolSocket(family int, t
 	rv := objc.Send[SocketPort](s.ID, objc.Sel("initWithProtocolFamily:socketType:protocol:socket:"), family, type_, protocol_, sock)
 	return rv
 }
+
 // Initializes the receiver as a TCP/IP socket of type `SOCK_STREAM` that can
 // connect to a remote host on a specified port.
 //
@@ -359,12 +363,12 @@ func (s SocketPort) InitWithProtocolFamilySocketTypeProtocolSocket(family int, t
 // IPv4-style address.
 //
 // # Return Value
-// 
+//
 // A TCP/IP socket port of type `SOCK_STREAM` that can connect to the remote
 // host `hostName` on port `port`.
 //
 // # Discussion
-// 
+//
 // A connection is not opened to the remote host until data is sent.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(remoteWithTCPPort:host:)
@@ -372,9 +376,10 @@ func (s SocketPort) InitRemoteWithTCPPortHost(port uint16, hostName string) Sock
 	rv := objc.Send[SocketPort](s.ID, objc.Sel("initRemoteWithTCPPort:host:"), port, objc.String(hostName))
 	return rv
 }
+
 // Initializes the receiver as a remote socket with the provided arguments.
 //
-// family: The protocol family for the socket port. Possible values are defined in ``,
+// family: The protocol family for the socket port. Possible values are defined in “,
 // such as `AF_LOCAL`, `AF_INET`, and `AF_INET6`.
 //
 // type: The type of socket.
@@ -385,7 +390,7 @@ func (s SocketPort) InitRemoteWithTCPPortHost(port uint16, hostName string) Sock
 // object.
 //
 // # Discussion
-// 
+//
 // A connection is not opened to the remote address until data is sent.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/init(remoteWithProtocolFamily:socketType:protocol:address:)
@@ -401,6 +406,7 @@ func (s SocketPort) Address() INSData {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("address"))
 	return NSDataFromID(objc.ID(rv))
 }
+
 // The protocol that the receiver uses for communication.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/protocol
@@ -408,11 +414,12 @@ func (s SocketPort) Protocol() int {
 	rv := objc.Send[int](s.ID, objc.Sel("protocol"))
 	return rv
 }
+
 // The protocol family that the receiver uses for communication.
 //
 // # Discussion
-// 
-// Possible values are defined in ``, such as `AF_LOCAL`, `AF_INET`, and
+//
+// Possible values are defined in “, such as `AF_LOCAL`, `AF_INET`, and
 // `AF_INET6`.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/protocolFamily
@@ -420,10 +427,11 @@ func (s SocketPort) ProtocolFamily() int {
 	rv := objc.Send[int](s.ID, objc.Sel("protocolFamily"))
 	return rv
 }
+
 // The receiver’s native socket identifier on the platform.
 //
 // # Discussion
-// 
+//
 // In macOS, the native socket identifier is an integer file descriptor.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/socket
@@ -431,6 +439,7 @@ func (s SocketPort) Socket() NSSocketNativeHandle {
 	rv := objc.Send[NSSocketNativeHandle](s.ID, objc.Sel("socket"))
 	return NSSocketNativeHandle(rv)
 }
+
 // The receiver’s socket type.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/socketType
@@ -438,4 +447,3 @@ func (s SocketPort) SocketType() int {
 	rv := objc.Send[int](s.ID, objc.Sel("socketType"))
 	return rv
 }
-

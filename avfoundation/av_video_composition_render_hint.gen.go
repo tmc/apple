@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -62,6 +63,7 @@ type AVVideoCompositionRenderHint struct {
 func AVVideoCompositionRenderHintFromID(id objc.ID) AVVideoCompositionRenderHint {
 	return AVVideoCompositionRenderHint{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVVideoCompositionRenderHint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,6 +112,7 @@ func (v AVVideoCompositionRenderHint) StartCompositionTime() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](v.ID, objc.Sel("startCompositionTime"))
 	return coremedia.CMTime(rv)
 }
+
 // The end time of the upcoming composition requests.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionRenderHint/endCompositionTime
@@ -117,4 +120,3 @@ func (v AVVideoCompositionRenderHint) EndCompositionTime() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](v.ID, objc.Sel("endCompositionTime"))
 	return coremedia.CMTime(rv)
 }
-

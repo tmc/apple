@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_wavernn_ane struct {
 func EspressoPass_wavernn_aneFromID(id objc.ID) EspressoPass_wavernn_ane {
 	return EspressoPass_wavernn_ane{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_wavernn_ane implements IEspressoPass_wavernn_ane.
 var _ IEspressoPass_wavernn_ane = EspressoPass_wavernn_ane{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_wavernn_ane() EspressoPass_wavernn_ane {
 	rv := objc.Send[EspressoPass_wavernn_ane](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -29,6 +29,7 @@ type NSTextContent interface {
 type NSTextContentObject struct {
 	objectivec.Object
 }
+
 func (o NSTextContentObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,9 +48,23 @@ func NSTextContentObjectFromID(id objc.ID) NSTextContentObject {
 func (o NSTextContentObject) ContentType() NSTextContentType {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("contentType"))
 	return NSTextContentType(foundation.NSStringFromID(rv).String())
-	}
+}
 
+// The semantic meaning for a text input area.
+//
+// # Discussion
+//
+// Use this property to give the system information about the expected
+// semantic meaning for the content that people enter. For example, you might
+// specify [emailAddress] for a text field that people fill in to receive an
+// email confirmation.
+//
+// For possible values you can use, see [NSTextContentType]; by default, the
+// value of this property is `nil`.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
+//
+// [emailAddress]: https://developer.apple.com/documentation/AppKit/NSTextContentType/emailAddress
 func (o NSTextContentObject) SetContentType(value NSTextContentType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setContentType:"), objc.String(string(value)))
 }
-

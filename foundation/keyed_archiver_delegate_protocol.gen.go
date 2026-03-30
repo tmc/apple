@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // The optional methods implemented by the delegate of a keyed archiver.
@@ -20,6 +22,7 @@ type NSKeyedArchiverDelegate interface {
 type NSKeyedArchiverDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSKeyedArchiverDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -39,17 +42,18 @@ func NSKeyedArchiverDelegateObjectFromID(id objc.ID) NSKeyedArchiverDelegateObje
 // object: The object that has been encoded. `object` may be `nil`.
 //
 // # Discussion
-// 
+//
 // The delegate might restore some state it had modified previously, or use
 // this opportunity to keep track of the objects that are encoded.
-// 
+//
 // This method is not called for conditional objects until they are actually
 // encoded (if ever).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiverDelegate/archiver(_:didEncode:)
 func (o NSKeyedArchiverDelegateObject) ArchiverDidEncodeObject(archiver INSKeyedArchiver, object objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("archiver:didEncodeObject:"), archiver, object)
-	}
+}
+
 // Notifies the delegate that encoding has finished.
 //
 // archiver: The archiver that sent the message.
@@ -57,7 +61,8 @@ func (o NSKeyedArchiverDelegateObject) ArchiverDidEncodeObject(archiver INSKeyed
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiverDelegate/archiverDidFinish(_:)
 func (o NSKeyedArchiverDelegateObject) ArchiverDidFinish(archiver INSKeyedArchiver) {
 	objc.Send[struct{}](o.ID, objc.Sel("archiverDidFinish:"), archiver)
-	}
+}
+
 // Informs the delegate that `object` is about to be encoded.
 //
 // archiver: The archiver that sent the message.
@@ -65,31 +70,32 @@ func (o NSKeyedArchiverDelegateObject) ArchiverDidFinish(archiver INSKeyedArchiv
 // object: The object that is about to be encoded. This value is never `nil`.
 //
 // # Return Value
-// 
+//
 // Either `object` or a different object to be encoded in its stead. The
 // delegate can also modify the coder state. If the delegate returns `nil`,
 // `nil` is encoded.
 //
 // # Discussion
-// 
+//
 // This method is called after the original object may have replaced itself
 // with [replacementObject(for:)]:.
-// 
+//
 // This method is called whether or not the object is being encoded
 // conditionally.
-// 
+//
 // This method is not called for an object once a replacement mapping has been
 // set up for that object (either explicitly, or because the object has
 // previously been encoded). This method is also not called when `nil` is
 // about to be encoded.
 //
-// [replacementObject(for:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/replacementObject(for:)-60vwc
-//
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiverDelegate/archiver(_:willEncode:)
+//
+// [replacementObject(for:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/replacementObject(for:)-60vwc
 func (o NSKeyedArchiverDelegateObject) ArchiverWillEncodeObject(archiver INSKeyedArchiver, object objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("archiver:willEncodeObject:"), archiver, object)
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // Notifies the delegate that encoding is about to finish.
 //
 // archiver: The archiver that sent the message.
@@ -97,7 +103,8 @@ func (o NSKeyedArchiverDelegateObject) ArchiverWillEncodeObject(archiver INSKeye
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiverDelegate/archiverWillFinish(_:)
 func (o NSKeyedArchiverDelegateObject) ArchiverWillFinish(archiver INSKeyedArchiver) {
 	objc.Send[struct{}](o.ID, objc.Sel("archiverWillFinish:"), archiver)
-	}
+}
+
 // Informs the delegate that one given object is being substituted for another
 // given object.
 //
@@ -108,7 +115,7 @@ func (o NSKeyedArchiverDelegateObject) ArchiverWillFinish(archiver INSKeyedArchi
 // newObject: The object replacing `object` in the archive.
 //
 // # Discussion
-// 
+//
 // This method is called even when the delegate itself is doing, or has done,
 // the substitution. The delegate may use this method if it is keeping track
 // of the encoded or decoded objects.
@@ -116,7 +123,7 @@ func (o NSKeyedArchiverDelegateObject) ArchiverWillFinish(archiver INSKeyedArchi
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiverDelegate/archiver(_:willReplace:with:)
 func (o NSKeyedArchiverDelegateObject) ArchiverWillReplaceObjectWithObject(archiver INSKeyedArchiver, object objectivec.IObject, newObject objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("archiver:willReplaceObject:withObject:"), archiver, object, newObject)
-	}
+}
 
 // NSKeyedArchiverDelegateConfig holds optional typed callbacks for [NSKeyedArchiverDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -191,4 +198,3 @@ func NewNSKeyedArchiverDelegate(config NSKeyedArchiverDelegateConfig) NSKeyedArc
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSKeyedArchiverDelegateObjectFromID(instance)
 }
-

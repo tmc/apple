@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,10 +44,10 @@ func (mc MLDefaultCustomLayerFactoryClass) Alloc() MLDefaultCustomLayerFactory {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLDefaultCustomLayerFactory.CreateCustomLayerWithParametersError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLDefaultCustomLayerFactory
 type MLDefaultCustomLayerFactory struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type MLDefaultCustomLayerFactory struct {
 func MLDefaultCustomLayerFactoryFromID(id objc.ID) MLDefaultCustomLayerFactory {
 	return MLDefaultCustomLayerFactory{objectivec.Object{ID: id}}
 }
+
 // Ensure MLDefaultCustomLayerFactory implements IMLDefaultCustomLayerFactory.
 var _ IMLDefaultCustomLayerFactory = MLDefaultCustomLayerFactory{}
 
@@ -93,7 +95,6 @@ func NewMLDefaultCustomLayerFactory() MLDefaultCustomLayerFactory {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLDefaultCustomLayerFactory/createCustomLayer:withParameters:error:
 func (d MLDefaultCustomLayerFactory) CreateCustomLayerWithParametersError(layer objectivec.IObject, parameters objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -105,4 +106,3 @@ func (d MLDefaultCustomLayerFactory) CreateCustomLayerWithParametersError(layer 
 	return objectivec.Object{ID: rv}, nil
 
 }
-

@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZPanicDeviceConfigurationClass) Alloc() VZPanicDeviceConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZPanicDeviceConfiguration._init]
@@ -52,6 +52,7 @@ func (vc VZPanicDeviceConfigurationClass) Alloc() VZPanicDeviceConfiguration {
 //   - [VZPanicDeviceConfiguration.Description]
 //   - [VZPanicDeviceConfiguration.Hash]
 //   - [VZPanicDeviceConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration
 type VZPanicDeviceConfiguration struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type VZPanicDeviceConfiguration struct {
 func VZPanicDeviceConfigurationFromID(id objc.ID) VZPanicDeviceConfiguration {
 	return VZPanicDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZPanicDeviceConfiguration implements IVZPanicDeviceConfiguration.
 var _ IVZPanicDeviceConfiguration = VZPanicDeviceConfiguration{}
 
@@ -115,6 +117,7 @@ func (v VZPanicDeviceConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/_panicDevice
 func (v VZPanicDeviceConfiguration) _panicDevice() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_panicDevice"))
@@ -125,7 +128,7 @@ func (v VZPanicDeviceConfiguration) _panicDevice() objectivec.IObject {
 func (v VZPanicDeviceConfiguration) PanicDevice() objectivec.IObject {
 	return v._panicDevice()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/encodeWithEncoder:
 func (v VZPanicDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
@@ -137,19 +140,21 @@ func (v VZPanicDeviceConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/description
 func (v VZPanicDeviceConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/hash
 func (v VZPanicDeviceConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZPanicDeviceConfiguration/superclass
 func (v VZPanicDeviceConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

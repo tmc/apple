@@ -4,8 +4,9 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (sc SOPowerSavvyTimerClass) Alloc() SOPowerSavvyTimer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [SOPowerSavvyTimer._target]
@@ -55,6 +55,7 @@ func (sc SOPowerSavvyTimerClass) Alloc() SOPowerSavvyTimer {
 //   - [SOPowerSavvyTimer.SetTarget]
 //   - [SOPowerSavvyTimer.GetTimer]
 //   - [SOPowerSavvyTimer.SetGetTimer]
+//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOPowerSavvyTimer
 type SOPowerSavvyTimer struct {
 	foundation.Timer
@@ -64,6 +65,7 @@ type SOPowerSavvyTimer struct {
 func SOPowerSavvyTimerFromID(id objc.ID) SOPowerSavvyTimer {
 	return SOPowerSavvyTimer{Timer: foundation.TimerFromID(id)}
 }
+
 // Ensure SOPowerSavvyTimer implements ISOPowerSavvyTimer.
 var _ ISOPowerSavvyTimer = SOPowerSavvyTimer{}
 
@@ -119,18 +121,17 @@ func NewSOPowerSavvyTimer() SOPowerSavvyTimer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOPowerSavvyTimer/_target:
 func (s SOPowerSavvyTimer) _target(_target objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("_target:"), _target)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOPowerSavvyTimer/isValid
 func (s SOPowerSavvyTimer) IsValid() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isValid"))
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/SOPowerSavvyTimer/requestTarget:performSelector:withObject:afterDelay:
 func (_SOPowerSavvyTimerClass SOPowerSavvyTimerClass) RequestTargetPerformSelectorWithObjectAfterDelay(target objectivec.IObject, selector objc.SEL, object objectivec.IObject, delay float64) {
 	objc.Send[objc.ID](objc.ID(_SOPowerSavvyTimerClass.class), objc.Sel("requestTarget:performSelector:withObject:afterDelay:"), target, selector, object, delay)
@@ -144,6 +145,7 @@ func (s SOPowerSavvyTimer) Repeats() bool {
 func (s SOPowerSavvyTimer) SetRepeats(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRepeats:"), value)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOPowerSavvyTimer/selector
 func (s SOPowerSavvyTimer) Selector() objc.SEL {
 	rv := objc.Send[objc.SEL](s.ID, objc.Sel("selector"))
@@ -152,6 +154,7 @@ func (s SOPowerSavvyTimer) Selector() objc.SEL {
 func (s SOPowerSavvyTimer) SetSelector(value objc.SEL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelector:"), value)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOPowerSavvyTimer/target
 func (s SOPowerSavvyTimer) Target() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("target"))
@@ -160,6 +163,7 @@ func (s SOPowerSavvyTimer) Target() objectivec.IObject {
 func (s SOPowerSavvyTimer) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTarget:"), value)
 }
+
 // See: https://developer.apple.com/documentation/SpeechObjects/SOPowerSavvyTimer/timer
 func (s SOPowerSavvyTimer) GetTimer() *foundation.NSTimer {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("timer"))
@@ -176,4 +180,3 @@ func (s SOPowerSavvyTimer) SetGetTimer(value *foundation.NSTimer) {
 	}
 	objc.Send[struct{}](s.ID, objc.Sel("setTimer:"), value)
 }
-

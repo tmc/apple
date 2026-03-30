@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_remove_reshape_around_rank3_inner_product struct {
 func EspressoPass_remove_reshape_around_rank3_inner_productFromID(id objc.ID) EspressoPass_remove_reshape_around_rank3_inner_product {
 	return EspressoPass_remove_reshape_around_rank3_inner_product{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_remove_reshape_around_rank3_inner_product implements IEspressoPass_remove_reshape_around_rank3_inner_product.
 var _ IEspressoPass_remove_reshape_around_rank3_inner_product = EspressoPass_remove_reshape_around_rank3_inner_product{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_remove_reshape_around_rank3_inner_product() EspressoPass_re
 	rv := objc.Send[EspressoPass_remove_reshape_around_rank3_inner_product](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

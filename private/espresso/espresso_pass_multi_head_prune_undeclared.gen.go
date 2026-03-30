@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_multi_head_prune_undeclared struct {
 func EspressoPass_multi_head_prune_undeclaredFromID(id objc.ID) EspressoPass_multi_head_prune_undeclared {
 	return EspressoPass_multi_head_prune_undeclared{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_multi_head_prune_undeclared implements IEspressoPass_multi_head_prune_undeclared.
 var _ IEspressoPass_multi_head_prune_undeclared = EspressoPass_multi_head_prune_undeclared{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_multi_head_prune_undeclared() EspressoPass_multi_head_prune
 	rv := objc.Send[EspressoPass_multi_head_prune_undeclared](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

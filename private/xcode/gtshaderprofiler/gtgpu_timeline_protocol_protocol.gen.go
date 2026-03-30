@@ -43,6 +43,7 @@ type GTGPUTimelineProtocol interface {
 type GTGPUTimelineProtocolObject struct {
 	objectivec.Object
 }
+
 func (o GTGPUTimelineProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -59,26 +60,28 @@ func GTGPUTimelineProtocolObjectFromID(id objc.ID) GTGPUTimelineProtocolObject {
 func (o GTGPUTimelineProtocolObject) ConsistentStateAchieved() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("consistentStateAchieved"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTGPUTimelineProtocol/isMio
 func (o GTGPUTimelineProtocolObject) IsMio() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isMio"))
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTGPUTimelineProtocol/metalFXCallDuration:
 func (o GTGPUTimelineProtocolObject) MetalFXCallDuration(duration uint64) uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("metalFXCallDuration:"), duration)
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTGPUTimelineProtocol/profiledState
 func (o GTGPUTimelineProtocolObject) ProfiledState() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("profiledState"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTGPUTimelineProtocol/version
 func (o GTGPUTimelineProtocolObject) Version() uint32 {
 	rv := objc.Send[uint32](o.ID, objc.Sel("version"))
 	return rv
-	}
-
+}

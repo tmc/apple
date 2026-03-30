@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for remotecoreml. DO NOT EDIT.
 
 // Package remotecoreml provides Go bindings for the remotecoreml framework.
@@ -20,20 +19,25 @@ package remotecoreml
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/PrivateFrameworks/RemoteCoreML.framework/RemoteCoreML"
+// frameworkPaths lists paths to try when loading the remotecoreml library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{"/System/Library/PrivateFrameworks/RemoteCoreML.framework/RemoteCoreML"}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: remotecoreml: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: remotecoreml: failed to load framework from any known path\n")
 }
-

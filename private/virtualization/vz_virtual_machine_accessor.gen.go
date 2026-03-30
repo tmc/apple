@@ -3,8 +3,9 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (vc VZVirtualMachineAccessorClass) Alloc() VZVirtualMachineAccessor {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtualMachineAccessor._hidEventMonitor]
@@ -59,6 +59,7 @@ func (vc VZVirtualMachineAccessorClass) Alloc() VZVirtualMachineAccessor {
 //   - [VZVirtualMachineAccessor.SendRotationEventsPointingDeviceIndex]
 //   - [VZVirtualMachineAccessor.SendScrollWheelEventsPointingDeviceIndex]
 //   - [VZVirtualMachineAccessor.SendSmartMagnifyEventsPointingDeviceIndex]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor
 type VZVirtualMachineAccessor struct {
 	objectivec.Object
@@ -68,6 +69,7 @@ type VZVirtualMachineAccessor struct {
 func VZVirtualMachineAccessorFromID(id objc.ID) VZVirtualMachineAccessor {
 	return VZVirtualMachineAccessor{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVirtualMachineAccessor implements IVZVirtualMachineAccessor.
 var _ IVZVirtualMachineAccessor = VZVirtualMachineAccessor{}
 
@@ -131,7 +133,6 @@ func NewVZVirtualMachineAccessor() VZVirtualMachineAccessor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/_processHIDReports:forDevice:deviceType:
 func (v VZVirtualMachineAccessor) _processHIDReportsForDeviceDeviceType(hIDReports unsafe.Pointer, device uint32, type_ int) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"), hIDReports, device, type_)
@@ -141,6 +142,7 @@ func (v VZVirtualMachineAccessor) _processHIDReportsForDeviceDeviceType(hIDRepor
 func (v VZVirtualMachineAccessor) ProcessHIDReportsForDeviceDeviceType(hIDReports unsafe.Pointer, device uint32, type_ int) {
 	v._processHIDReportsForDeviceDeviceType(hIDReports, device, type_)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/_shouldSendHIDReports
 func (v VZVirtualMachineAccessor) _shouldSendHIDReports() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("_shouldSendHIDReports"))
@@ -151,57 +153,57 @@ func (v VZVirtualMachineAccessor) _shouldSendHIDReports() bool {
 func (v VZVirtualMachineAccessor) ShouldSendHIDReports() bool {
 	return v._shouldSendHIDReports()
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendDigitizerEvents:pointingDeviceIndex:
 func (v VZVirtualMachineAccessor) SendDigitizerEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendDigitizerEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendIOHIDEvents:hidDeviceIndex:
 func (v VZVirtualMachineAccessor) SendIOHIDEventsHidDeviceIndex(iOHIDEvents unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendIOHIDEvents:hidDeviceIndex:"), iOHIDEvents, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendKeyboardEvents:keyboardID:
 func (v VZVirtualMachineAccessor) SendKeyboardEventsKeyboardID(events unsafe.Pointer, id uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events, id)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendMagnifyEvents:pointingDeviceIndex:
 func (v VZVirtualMachineAccessor) SendMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMagnifyEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendMouseEvents:pointingDeviceIndex:
 func (v VZVirtualMachineAccessor) SendMouseEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMouseEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendMultiTouchEvents:multiTouchDeviceIndex:
 func (v VZVirtualMachineAccessor) SendMultiTouchEventsMultiTouchDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMultiTouchEvents:multiTouchDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendPointerNSEvent:pointingDeviceIndex:
 func (v VZVirtualMachineAccessor) SendPointerNSEventPointingDeviceIndex(nSEvent objectivec.IObject, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendPointerNSEvent:pointingDeviceIndex:"), nSEvent, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendQuickLookEvents:pointingDeviceIndex:
 func (v VZVirtualMachineAccessor) SendQuickLookEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendQuickLookEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendRotationEvents:pointingDeviceIndex:
 func (v VZVirtualMachineAccessor) SendRotationEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendRotationEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendScrollWheelEvents:pointingDeviceIndex:
 func (v VZVirtualMachineAccessor) SendScrollWheelEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendScrollWheelEvents:pointingDeviceIndex:"), events, index)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtualMachineAccessor/sendSmartMagnifyEvents:pointingDeviceIndex:
 func (v VZVirtualMachineAccessor) SendSmartMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendSmartMagnifyEvents:pointingDeviceIndex:"), events, index)
@@ -216,4 +218,3 @@ func (v VZVirtualMachineAccessor) _hidEventMonitor() *VZHIDEventMonitor {
 	val := VZHIDEventMonitorFromID(objc.ID(rv))
 	return &val
 }
-

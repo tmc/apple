@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (mc MLFeatureVectorizerClass) Alloc() MLFeatureVectorizer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLFeatureVectorizer.ColumnNameEncoding]
 //   - [MLFeatureVectorizer.DimensionEncoding]
 //   - [MLFeatureVectorizer.VectorizeOneHotEncoderDictIndexError]
 //   - [MLFeatureVectorizer.InitWithDimensionEncodingDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureVectorizer
 type MLFeatureVectorizer struct {
 	MLModelEngine
@@ -59,6 +60,7 @@ type MLFeatureVectorizer struct {
 func MLFeatureVectorizerFromID(id objc.ID) MLFeatureVectorizer {
 	return MLFeatureVectorizer{MLModelEngine: MLModelEngineFromID(id)}
 }
+
 // Ensure MLFeatureVectorizer implements IMLFeatureVectorizer.
 var _ IMLFeatureVectorizer = MLFeatureVectorizer{}
 
@@ -102,7 +104,6 @@ func NewMLFeatureVectorizer() MLFeatureVectorizer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewFeatureVectorizerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
 	instance := getMLFeatureVectorizerClass().Alloc()
@@ -110,7 +111,6 @@ func NewFeatureVectorizerWithDescriptionConfiguration(description objectivec.IOb
 	return MLFeatureVectorizerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureVectorizer/initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewFeatureVectorizerWithDimensionEncodingDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, encoding objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
 	instance := getMLFeatureVectorizerClass().Alloc()
@@ -118,7 +118,6 @@ func NewFeatureVectorizerWithDimensionEncodingDataTransformerNameInputDescriptio
 	return MLFeatureVectorizerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewFeatureVectorizerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
 	instance := getMLFeatureVectorizerClass().Alloc()
@@ -126,7 +125,6 @@ func NewFeatureVectorizerWithNameInputDescriptionOutputDescriptionOrderedInputFe
 	return MLFeatureVectorizerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureVectorizer/vectorizeOneHotEncoderDict:index:error:
 func (f MLFeatureVectorizer) VectorizeOneHotEncoderDictIndexError(dict objectivec.IObject, index uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -138,14 +136,13 @@ func (f MLFeatureVectorizer) VectorizeOneHotEncoderDictIndexError(dict objective
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureVectorizer/initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func (f MLFeatureVectorizer) InitWithDimensionEncodingDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, encoding objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
 	rv := objc.Send[MLFeatureVectorizer](f.ID, objc.Sel("initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, encoding, name, description, description2, names, names2, configuration)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureVectorizer/loadModelFromSpecification:configuration:error:
 func (_MLFeatureVectorizerClass MLFeatureVectorizerClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -163,9 +160,9 @@ func (f MLFeatureVectorizer) ColumnNameEncoding() foundation.INSArray {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("columnNameEncoding"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureVectorizer/dimensionEncoding
 func (f MLFeatureVectorizer) DimensionEncoding() foundation.INSArray {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("dimensionEncoding"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-

@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for AVFoundation. DO NOT EDIT.
 
 // Package avfoundation provides Go bindings for the AVFoundation framework.
@@ -60,8 +59,8 @@
 //   - [AVPlayerItem] - An object that models the timing and presentation state of an asset during playback.
 //   - [AVCapturePhotoOutput] - A capture output for still image, Live Photos, and other photography workflows.
 //   - [AVCaptureDeviceFormat] - A class that defines media formats and capture settings that capture devices support.
-//   - [AVMutableMovie] - A mutable object that represents an audiovisual container that conforms to the QuickTime movie file format or a related format like MPEG-4.
 //   - [AVPlayer] - An object that provides the interface to control the player’s transport behavior.
+//   - [AVMutableMovie] - A mutable object that represents an audiovisual container that conforms to the QuickTime movie file format or a related format like MPEG-4.
 //   - [AVMutableMovieTrack] - A mutable track that conforms to the QuickTime or ISO base media file format.
 //   - [AVCaptureSession] - An object that configures capture behavior and coordinates the flow of data from input devices to capture outputs.
 //   - [AVCapturePhotoSettings] - A specification of the features and settings to use for a single photo capture request.
@@ -73,20 +72,28 @@ package avfoundation
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/AVFoundation.framework/AVFoundation"
+// frameworkPaths lists paths to try when loading the AVFoundation library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+	"/usr/lib/libAVFoundation.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: AVFoundation: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: AVFoundation: failed to load framework from any known path\n")
 }
-

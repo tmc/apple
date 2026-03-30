@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -73,6 +74,7 @@ type NWTCPConnection struct {
 func NWTCPConnectionFromID(id objc.ID) NWTCPConnection {
 	return NWTCPConnection{objectivec.Object{ID: id}}
 }
+
 // NOTE: NWTCPConnection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -152,21 +154,19 @@ func NewNWTCPConnection() NWTCPConnection {
 // system) to the remote endpoint of the original connection.
 //
 // # Discussion
-// 
+//
 // An upgraded connection will be initialized using the same remote endpoint
 // and set of parameters from the original connection. If the original
 // connection becomes disconnected or cancelled, the new upgrade connection
 // will automatically be considered better.
-// 
+//
 // The caller should create an [NWTCPConnection] and watch for the
-// `hasBetterPath` property. When this property is [true], the caller should
+// `hasBetterPath` property. When this property is true, the caller should
 // attempt to create a new upgrade connection, with the goal to start
 // transferring data on the new connection path as soon as possible to reduce
 // power and avoid expensive networks. When the new connection is successfully
 // connected the caller can start using the new connection and cancel the
 // original one.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTCPConnection/init(upgradeFor:)
 func NewNWTCPConnectionWithUpgradeForConnection(connection INWTCPConnection) NWTCPConnection {
@@ -178,39 +178,38 @@ func NewNWTCPConnectionWithUpgradeForConnection(connection INWTCPConnection) NWT
 // The status of the connection.
 //
 // # Discussion
-// 
+//
 // Use Key-Value Observing (KVO) to monitor the state. Many methods, such as
 // reading and writing on the connection, are only valid when the state is
 // [NWTCPConnectionStateConnected]. For information about KVO, see [Key-Value
 // Observing Programming Guide].
 //
-// [Key-Value Observing Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTCPConnection/state
+//
+// [Key-Value Observing Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i
 func (n NWTCPConnection) State() NWTCPConnectionState {
 	rv := objc.Send[NWTCPConnectionState](n.ID, objc.Sel("state"))
 	return NWTCPConnectionState(rv)
 }
+
 // The viability of a TCP connection indicates whether or not data can be
 // transferred.
 //
 // # Discussion
-// 
-// Evaluates to [true] if the connection can read and write data, [false]
-// otherwise. Use Key-Value Observing to watch this property.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Evaluates to true if the connection can read and write data, false
+// otherwise. Use Key-Value Observing to watch this property.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTCPConnection/isViable
 func (n NWTCPConnection) Viable() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isViable"))
 	return rv
 }
+
 // The connection-wide error property.
 //
 // # Discussion
-// 
+//
 // Indicates any fatal error that occurred while processing the connection or
 // performing data reading or writing. Use Key-Value Observing to watch this
 // property.
@@ -220,29 +219,29 @@ func (n NWTCPConnection) Error() foundation.INSError {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
+
 // If a connection has a better path, new connections would use a different
 // interface.
 //
 // # Discussion
-// 
-// Evaluates to [true] if a new connection attempt to the remote endpoint
-// would use a different and preferred path. If the current connection is not
+//
+// Evaluates to true if a new connection attempt to the remote endpoint would
+// use a different and preferred path. If the current connection is not
 // viable, this can be used as a hint to try again. If the current connection
 // is still viable, this can indicate that the system or user has a preference
 // for the newly available network path. For example, if the connection is
 // established over a cellular data network and Wi-Fi is now available, then
 // the connection has a better path available and this property is set to
-// [true]. Use the `` initializer to create a new connection with the same
+// true. Use the “ initializer to create a new connection with the same
 // parameters as the current connection. Use Key-Value Observing to watch this
 // property.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTCPConnection/hasBetterPath
 func (n NWTCPConnection) HasBetterPath() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("hasBetterPath"))
 	return rv
 }
+
 // The destination endpoint with which this connection was created.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTCPConnection/endpoint
@@ -250,6 +249,7 @@ func (n NWTCPConnection) Endpoint() INWEndpoint {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("endpoint"))
 	return NWEndpointFromID(objc.ID(rv))
 }
+
 // The IP address endpoint from which the connection was established.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTCPConnection/localAddress
@@ -257,6 +257,7 @@ func (n NWTCPConnection) LocalAddress() INWEndpoint {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("localAddress"))
 	return NWEndpointFromID(objc.ID(rv))
 }
+
 // The IP address endpoint to which the connection was established.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTCPConnection/remoteAddress
@@ -264,10 +265,11 @@ func (n NWTCPConnection) RemoteAddress() INWEndpoint {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("remoteAddress"))
 	return NWEndpointFromID(objc.ID(rv))
 }
+
 // The network path over which the connection was established.
 //
 // # Discussion
-// 
+//
 // The caller can query additional properties from the [NWPath] object for
 // more information. Note that this contains a snapshot of information at the
 // time of connection establishment for this connection only. As a result,
@@ -279,10 +281,11 @@ func (n NWTCPConnection) ConnectedPath() INWPath {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("connectedPath"))
 	return NWPathFromID(objc.ID(rv))
 }
+
 // The TXT record associated with a connected Bonjour service endpoint.
 //
 // # Discussion
-// 
+//
 // When the connection is connected to a Bonjour service endpoint, the TXT
 // record associated with the Bonjour service is available via this property.
 //
@@ -291,4 +294,3 @@ func (n NWTCPConnection) TxtRecord() foundation.INSData {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("txtRecord"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-

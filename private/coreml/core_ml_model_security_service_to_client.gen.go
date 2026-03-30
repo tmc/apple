@@ -5,8 +5,9 @@ package coreml
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (cc CoreMLModelSecurityServiceToClientClass) Alloc() CoreMLModelSecuritySer
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [CoreMLModelSecurityServiceToClient.ClientFeatureNamesWithReply]
@@ -54,6 +54,7 @@ func (cc CoreMLModelSecurityServiceToClientClass) Alloc() CoreMLModelSecuritySer
 //   - [CoreMLModelSecurityServiceToClient.SetFeatureProviderMap]
 //   - [CoreMLModelSecurityServiceToClient.ServiceToClientQueue]
 //   - [CoreMLModelSecurityServiceToClient.SetServiceToClientQueue]
+//
 // See: https://developer.apple.com/documentation/CoreML/CoreMLModelSecurityServiceToClient
 type CoreMLModelSecurityServiceToClient struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type CoreMLModelSecurityServiceToClient struct {
 func CoreMLModelSecurityServiceToClientFromID(id objc.ID) CoreMLModelSecurityServiceToClient {
 	return CoreMLModelSecurityServiceToClient{objectivec.Object{ID: id}}
 }
+
 // Ensure CoreMLModelSecurityServiceToClient implements ICoreMLModelSecurityServiceToClient.
 var _ ICoreMLModelSecurityServiceToClient = CoreMLModelSecurityServiceToClient{}
 
@@ -114,16 +116,15 @@ func NewCoreMLModelSecurityServiceToClient() CoreMLModelSecurityServiceToClient 
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/CoreMLModelSecurityServiceToClient/clientFeatureNames:withReply:
 func (c CoreMLModelSecurityServiceToClient) ClientFeatureNamesWithReply(names objectivec.IObject, reply VoidHandler) {
-_block1, _ := NewVoidBlock(reply)
+	_block1, _ := NewVoidBlock(reply)
 	objc.Send[objc.ID](c.ID, objc.Sel("clientFeatureNames:withReply:"), names, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/CoreMLModelSecurityServiceToClient/clientFeatureValueForName:uniqueKeyForProvider:withReply:
 func (c CoreMLModelSecurityServiceToClient) ClientFeatureValueForNameUniqueKeyForProviderWithReply(name objectivec.IObject, provider objectivec.IObject, reply VoidHandler) {
-_block2, _ := NewVoidBlock(reply)
+	_block2, _ := NewVoidBlock(reply)
 	objc.Send[objc.ID](c.ID, objc.Sel("clientFeatureValueForName:uniqueKeyForProvider:withReply:"), name, provider, _block2)
 }
 
@@ -135,6 +136,7 @@ func (c CoreMLModelSecurityServiceToClient) FeatureProviderCount() foundation.IN
 func (c CoreMLModelSecurityServiceToClient) SetFeatureProviderCount(value foundation.INSCountedSet) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFeatureProviderCount:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/CoreMLModelSecurityServiceToClient/featureProviderMap
 func (c CoreMLModelSecurityServiceToClient) FeatureProviderMap() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("featureProviderMap"))
@@ -143,6 +145,7 @@ func (c CoreMLModelSecurityServiceToClient) FeatureProviderMap() foundation.INSD
 func (c CoreMLModelSecurityServiceToClient) SetFeatureProviderMap(value foundation.INSDictionary) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFeatureProviderMap:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/CoreMLModelSecurityServiceToClient/serviceToClientQueue
 func (c CoreMLModelSecurityServiceToClient) ServiceToClientQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("serviceToClientQueue"))
@@ -181,4 +184,3 @@ func (c CoreMLModelSecurityServiceToClient) ClientFeatureValueForNameUniqueKeyFo
 		return ctx.Err()
 	}
 }
-

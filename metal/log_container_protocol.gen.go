@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -20,6 +20,7 @@ type MTLLogContainer interface {
 type MTLLogContainerObject struct {
 	foundation.NSFastEnumerationObject
 }
+
 func (o MTLLogContainerObject) BaseObject() objectivec.Object {
 	return o.NSFastEnumerationObject.BaseObject()
 }
@@ -31,4 +32,3 @@ func MTLLogContainerObjectFromID(id objc.ID) MTLLogContainerObject {
 		NSFastEnumerationObject: foundation.NSFastEnumerationObjectFromID(id),
 	}
 }
-

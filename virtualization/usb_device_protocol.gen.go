@@ -3,8 +3,8 @@
 package virtualization
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -29,6 +29,7 @@ type VZUSBDevice interface {
 type VZUSBDeviceObject struct {
 	objectivec.Object
 }
+
 func (o VZUSBDeviceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,12 +48,12 @@ func VZUSBDeviceObjectFromID(id objc.ID) VZUSBDeviceObject {
 func (o VZUSBDeviceObject) UsbController() IVZUSBController {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("usbController"))
 	return VZUSBControllerFromID(rv)
-	}
+}
+
 // The device’s unique identifier.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDevice/uuid
 func (o VZUSBDeviceObject) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(rv)
-	}
-
+}

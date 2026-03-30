@@ -3,12 +3,13 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,6 @@ func (mc MLOutputBackingsVerifierClass) Alloc() MLOutputBackingsVerifier {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLOutputBackingsVerifier._verifyMultiArrayOutputBackingForFeatureError]
@@ -54,6 +54,7 @@ func (mc MLOutputBackingsVerifierClass) Alloc() MLOutputBackingsVerifier {
 //   - [MLOutputBackingsVerifier.OutputDescriptions]
 //   - [MLOutputBackingsVerifier.VerifyOutputBackingsPredictionUsesBatchError]
 //   - [MLOutputBackingsVerifier.InitWithOutputDescriptions]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLOutputBackingsVerifier
 type MLOutputBackingsVerifier struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type MLOutputBackingsVerifier struct {
 func MLOutputBackingsVerifierFromID(id objc.ID) MLOutputBackingsVerifier {
 	return MLOutputBackingsVerifier{objectivec.Object{ID: id}}
 }
+
 // Ensure MLOutputBackingsVerifier implements IMLOutputBackingsVerifier.
 var _ IMLOutputBackingsVerifier = MLOutputBackingsVerifier{}
 
@@ -110,7 +112,6 @@ func NewMLOutputBackingsVerifier() MLOutputBackingsVerifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLOutputBackingsVerifier/initWithOutputDescriptions:
 func NewOutputBackingsVerifierWithOutputDescriptions(descriptions objectivec.IObject) MLOutputBackingsVerifier {
 	instance := getMLOutputBackingsVerifierClass().Alloc()
@@ -118,7 +119,6 @@ func NewOutputBackingsVerifierWithOutputDescriptions(descriptions objectivec.IOb
 	return MLOutputBackingsVerifierFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLOutputBackingsVerifier/_verifyMultiArrayOutputBacking:forFeature:error:
 func (o MLOutputBackingsVerifier) _verifyMultiArrayOutputBackingForFeatureError(backing objectivec.IObject, feature objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -138,7 +138,7 @@ func (o MLOutputBackingsVerifier) _verifyMultiArrayOutputBackingForFeatureError(
 func (o MLOutputBackingsVerifier) VerifyMultiArrayOutputBackingForFeatureError(backing objectivec.IObject, feature objectivec.IObject) (bool, error) {
 	return o._verifyMultiArrayOutputBackingForFeatureError(backing, feature)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLOutputBackingsVerifier/_verifyOutputBacking:forFeature:error:
 func (o MLOutputBackingsVerifier) _verifyOutputBackingForFeatureError(backing objectivec.IObject, feature objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -158,7 +158,7 @@ func (o MLOutputBackingsVerifier) _verifyOutputBackingForFeatureError(backing ob
 func (o MLOutputBackingsVerifier) VerifyOutputBackingForFeatureError(backing objectivec.IObject, feature objectivec.IObject) (bool, error) {
 	return o._verifyOutputBackingForFeatureError(backing, feature)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLOutputBackingsVerifier/_verifyPixelBufferOutputBacking:forFeature:error:
 func (o MLOutputBackingsVerifier) _verifyPixelBufferOutputBackingForFeatureError(backing corevideo.CVImageBufferRef, feature objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -178,7 +178,7 @@ func (o MLOutputBackingsVerifier) _verifyPixelBufferOutputBackingForFeatureError
 func (o MLOutputBackingsVerifier) VerifyPixelBufferOutputBackingForFeatureError(backing corevideo.CVImageBufferRef, feature objectivec.IObject) (bool, error) {
 	return o._verifyPixelBufferOutputBackingForFeatureError(backing, feature)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLOutputBackingsVerifier/verifyOutputBackings:predictionUsesBatch:error:
 func (o MLOutputBackingsVerifier) VerifyOutputBackingsPredictionUsesBatchError(backings objectivec.IObject, batch bool) (bool, error) {
 	var errorPtr objc.ID
@@ -193,7 +193,7 @@ func (o MLOutputBackingsVerifier) VerifyOutputBackingsPredictionUsesBatchError(b
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLOutputBackingsVerifier/initWithOutputDescriptions:
 func (o MLOutputBackingsVerifier) InitWithOutputDescriptions(descriptions objectivec.IObject) MLOutputBackingsVerifier {
 	rv := objc.Send[MLOutputBackingsVerifier](o.ID, objc.Sel("initWithOutputDescriptions:"), descriptions)
@@ -205,4 +205,3 @@ func (o MLOutputBackingsVerifier) OutputDescriptions() foundation.INSDictionary 
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputDescriptions"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

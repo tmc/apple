@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (vc VZLinearFramebufferGraphicsDeviceConfigurationClass) Alloc() VZLinearFr
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZLinearFramebufferGraphicsDeviceConfiguration.BackingStoreSize]
 //   - [VZLinearFramebufferGraphicsDeviceConfiguration.SetBackingStoreSize]
 //   - [VZLinearFramebufferGraphicsDeviceConfiguration.EncodeWithEncoder]
 //   - [VZLinearFramebufferGraphicsDeviceConfiguration.InitWithBackingStoreSize]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDeviceConfiguration
 type VZLinearFramebufferGraphicsDeviceConfiguration struct {
 	VZGraphicsDeviceConfiguration
@@ -58,6 +59,7 @@ type VZLinearFramebufferGraphicsDeviceConfiguration struct {
 func VZLinearFramebufferGraphicsDeviceConfigurationFromID(id objc.ID) VZLinearFramebufferGraphicsDeviceConfiguration {
 	return VZLinearFramebufferGraphicsDeviceConfiguration{VZGraphicsDeviceConfiguration: VZGraphicsDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZLinearFramebufferGraphicsDeviceConfiguration implements IVZLinearFramebufferGraphicsDeviceConfiguration.
 var _ IVZLinearFramebufferGraphicsDeviceConfiguration = VZLinearFramebufferGraphicsDeviceConfiguration{}
 
@@ -101,7 +103,6 @@ func NewVZLinearFramebufferGraphicsDeviceConfiguration() VZLinearFramebufferGrap
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDeviceConfiguration/initWithBackingStoreSize:
 func NewVZLinearFramebufferGraphicsDeviceConfigurationWithBackingStoreSize(size corefoundation.CGSize) VZLinearFramebufferGraphicsDeviceConfiguration {
 	instance := getVZLinearFramebufferGraphicsDeviceConfigurationClass().Alloc()
@@ -109,13 +110,12 @@ func NewVZLinearFramebufferGraphicsDeviceConfigurationWithBackingStoreSize(size 
 	return VZLinearFramebufferGraphicsDeviceConfigurationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDeviceConfiguration/encodeWithEncoder:
 func (v VZLinearFramebufferGraphicsDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZLinearFramebufferGraphicsDeviceConfiguration/initWithBackingStoreSize:
 func (v VZLinearFramebufferGraphicsDeviceConfiguration) InitWithBackingStoreSize(size corefoundation.CGSize) VZLinearFramebufferGraphicsDeviceConfiguration {
 	rv := objc.Send[VZLinearFramebufferGraphicsDeviceConfiguration](v.ID, objc.Sel("initWithBackingStoreSize:"), size)
@@ -130,4 +130,3 @@ func (v VZLinearFramebufferGraphicsDeviceConfiguration) BackingStoreSize() coref
 func (v VZLinearFramebufferGraphicsDeviceConfiguration) SetBackingStoreSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBackingStoreSize:"), value)
 }
-

@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (xc XRGPUShaderInfoClass) Alloc() XRGPUShaderInfo {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [XRGPUShaderInfo.Address]
@@ -66,6 +66,7 @@ func (xc XRGPUShaderInfoClass) Alloc() XRGPUShaderInfo {
 //   - [XRGPUShaderInfo.ShaderId]
 //   - [XRGPUShaderInfo.SetShaderId]
 //   - [XRGPUShaderInfo.InitWithShaderIdAddressLengthName]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo
 type XRGPUShaderInfo struct {
 	objectivec.Object
@@ -75,6 +76,7 @@ type XRGPUShaderInfo struct {
 func XRGPUShaderInfoFromID(id objc.ID) XRGPUShaderInfo {
 	return XRGPUShaderInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure XRGPUShaderInfo implements IXRGPUShaderInfo.
 var _ IXRGPUShaderInfo = XRGPUShaderInfo{}
 
@@ -152,7 +154,6 @@ func NewXRGPUShaderInfo() XRGPUShaderInfo {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/initWithShaderId:address:length:name:
 func NewXRGPUShaderInfoWithShaderIdAddressLengthName(id uint32, address uint64, length uint64, name objectivec.IObject) XRGPUShaderInfo {
 	instance := getXRGPUShaderInfoClass().Alloc()
@@ -160,7 +161,6 @@ func NewXRGPUShaderInfoWithShaderIdAddressLengthName(id uint32, address uint64, 
 	return XRGPUShaderInfoFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/initWithShaderId:address:length:name:
 func (x XRGPUShaderInfo) InitWithShaderIdAddressLengthName(id uint32, address uint64, length uint64, name objectivec.IObject) XRGPUShaderInfo {
 	rv := objc.Send[XRGPUShaderInfo](x.ID, objc.Sel("initWithShaderId:address:length:name:"), id, address, length, name)
@@ -175,6 +175,7 @@ func (x XRGPUShaderInfo) Address() uint64 {
 func (x XRGPUShaderInfo) SetAddress(value uint64) {
 	objc.Send[struct{}](x.ID, objc.Sel("setAddress:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/availableTime
 func (x XRGPUShaderInfo) AvailableTime() uint64 {
 	rv := objc.Send[uint64](x.ID, objc.Sel("availableTime"))
@@ -183,6 +184,7 @@ func (x XRGPUShaderInfo) AvailableTime() uint64 {
 func (x XRGPUShaderInfo) SetAvailableTime(value uint64) {
 	objc.Send[struct{}](x.ID, objc.Sel("setAvailableTime:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/label
 func (x XRGPUShaderInfo) Label() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("label"))
@@ -191,6 +193,7 @@ func (x XRGPUShaderInfo) Label() string {
 func (x XRGPUShaderInfo) SetLabel(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setLabel:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/length
 func (x XRGPUShaderInfo) Length() uint64 {
 	rv := objc.Send[uint64](x.ID, objc.Sel("length"))
@@ -199,6 +202,7 @@ func (x XRGPUShaderInfo) Length() uint64 {
 func (x XRGPUShaderInfo) SetLength(value uint64) {
 	objc.Send[struct{}](x.ID, objc.Sel("setLength:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/name
 func (x XRGPUShaderInfo) Name() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("name"))
@@ -207,6 +211,7 @@ func (x XRGPUShaderInfo) Name() string {
 func (x XRGPUShaderInfo) SetName(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/pid
 func (x XRGPUShaderInfo) Pid() int {
 	rv := objc.Send[int](x.ID, objc.Sel("pid"))
@@ -215,6 +220,7 @@ func (x XRGPUShaderInfo) Pid() int {
 func (x XRGPUShaderInfo) SetPid(value int) {
 	objc.Send[struct{}](x.ID, objc.Sel("setPid:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/pipelineLabel
 func (x XRGPUShaderInfo) PipelineLabel() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("pipelineLabel"))
@@ -223,6 +229,7 @@ func (x XRGPUShaderInfo) PipelineLabel() string {
 func (x XRGPUShaderInfo) SetPipelineLabel(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setPipelineLabel:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/pipelineStateId
 func (x XRGPUShaderInfo) PipelineStateId() uint64 {
 	rv := objc.Send[uint64](x.ID, objc.Sel("pipelineStateId"))
@@ -231,6 +238,7 @@ func (x XRGPUShaderInfo) PipelineStateId() uint64 {
 func (x XRGPUShaderInfo) SetPipelineStateId(value uint64) {
 	objc.Send[struct{}](x.ID, objc.Sel("setPipelineStateId:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/programType
 func (x XRGPUShaderInfo) ProgramType() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("programType"))
@@ -239,6 +247,7 @@ func (x XRGPUShaderInfo) ProgramType() string {
 func (x XRGPUShaderInfo) SetProgramType(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setProgramType:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUShaderInfo/shaderId
 func (x XRGPUShaderInfo) ShaderId() uint32 {
 	rv := objc.Send[uint32](x.ID, objc.Sel("shaderId"))
@@ -247,4 +256,3 @@ func (x XRGPUShaderInfo) ShaderId() uint32 {
 func (x XRGPUShaderInfo) SetShaderId(value uint32) {
 	objc.Send[struct{}](x.ID, objc.Sel("setShaderId:"), value)
 }
-

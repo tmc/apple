@@ -39,6 +39,7 @@ type CIHueAdjust interface {
 type CIHueAdjustObject struct {
 	objectivec.Object
 }
+
 func (o CIHueAdjustObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIHueAdjustObjectFromID(id objc.ID) CIHueAdjustObject {
 func (o CIHueAdjustObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/inputImage
 func (o CIHueAdjustObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIHueAdjustObject) InputImage() ICIImage {
 func (o CIHueAdjustObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// An angle, in radians, to use to correct the hue of an image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/angle
 func (o CIHueAdjustObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/inputImage
 func (o CIHueAdjustObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

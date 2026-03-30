@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,22 +44,22 @@ func (uc UnitTemperatureClass) Alloc() UnitTemperature {
 // A unit of measure for temperature.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitTemperature] to represent specific
 // quantities of temperature using the [NSMeasurement] class.
-// 
+//
 // # Temperature
-// 
+//
 // Temperature is a comparative measure of thermal energy. The SI unit for
 // temperature is the kelvin (K), which is defined in terms of the triple
 // point of water. Temperature is also commonly measured by degrees of various
 // scales, including Celsius (°C) and Fahrenheit (°F).
-// 
+//
 // The [NSUnitTemperature] class defines its [BaseUnit] to be [Kelvin], and
 // provides the following units, which are initialized using
 // [NSUnitConverterLinear] converters with the specified coefficients and
 // constants:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitTemperature
@@ -75,6 +76,7 @@ func UnitTemperatureFromID(id objc.ID) UnitTemperature {
 
 // NSUnitTemperatureFromID is an alias for [UnitTemperatureFromID] for cross-framework compatibility.
 func NSUnitTemperatureFromID(id objc.ID) UnitTemperature { return UnitTemperatureFromID(id) }
+
 // NOTE: UnitTemperature adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,7 +106,6 @@ func NewUnitTemperature() UnitTemperature {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitTemperatureWithCoder(coder INSCoder) UnitTemperature {
 	instance := getUnitTemperatureClass().Alloc()
@@ -117,7 +118,7 @@ func NewUnitTemperatureWithCoder(coder INSCoder) UnitTemperature {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -136,11 +137,11 @@ func NewUnitTemperatureWithSymbol(symbol string) UnitTemperature {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -157,6 +158,7 @@ func (_UnitTemperatureClass UnitTemperatureClass) Kelvin() UnitTemperature {
 	rv := objc.Send[objc.ID](objc.ID(_UnitTemperatureClass.class), objc.Sel("kelvin"))
 	return NSUnitTemperatureFromID(objc.ID(rv))
 }
+
 // The degree Celsius unit of temperature.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitTemperature/celsius
@@ -164,6 +166,7 @@ func (_UnitTemperatureClass UnitTemperatureClass) Celsius() UnitTemperature {
 	rv := objc.Send[objc.ID](objc.ID(_UnitTemperatureClass.class), objc.Sel("celsius"))
 	return NSUnitTemperatureFromID(objc.ID(rv))
 }
+
 // The degree Fahrenheit unit of temperature.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitTemperature/fahrenheit
@@ -171,4 +174,3 @@ func (_UnitTemperatureClass UnitTemperatureClass) Fahrenheit() UnitTemperature {
 	rv := objc.Send[objc.ID](objc.ID(_UnitTemperatureClass.class), objc.Sel("fahrenheit"))
 	return NSUnitTemperatureFromID(objc.ID(rv))
 }
-

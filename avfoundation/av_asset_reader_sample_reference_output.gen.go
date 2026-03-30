@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAssetReaderSampleReferenceOutput] class.
@@ -45,24 +46,21 @@ func (ac AVAssetReaderSampleReferenceOutputClass) Alloc() AVAssetReaderSampleRef
 // An object that reads sample references from an asset track.
 //
 // # Overview
-// 
+//
 // Apps can extract information about the location of samples in a track —
 // the file URL and offset — by adding an instance of this class to an asset
 // reader. Read the [KCMSampleBufferAttachmentKey_SampleReferenceURL] and
 // [KCMSampleBufferAttachmentKey_SampleReferenceByteOffset] attachments on the
 // extracted sample buffers to get the location of the sample data.
-// 
+//
 // You can also append sample buffers that you extract using this class to an
 // [AVAssetWriterInput] instance to create movie tracks that aren’t
 // self-contained and reference data in the original file instead. To write
 // tracks that aren’t self-contained, use instances of [AVAssetWriter] that
-// you configure to write files of type [mov].
-// 
-// Because this output doesn’t return sample data, it ignores the value of
-// the [alwaysCopiesSampleData] property.
+// you configure to write files of type [AVAssetReaderSampleReferenceOutput.Mov].
 //
-// [alwaysCopiesSampleData]: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderOutput/alwaysCopiesSampleData
-// [mov]: https://developer.apple.com/documentation/AVFoundation/AVFileType/mov
+// Because this output doesn’t return sample data, it ignores the value of
+// the [AVAssetReaderSampleReferenceOutput.AlwaysCopiesSampleData] property.
 //
 // # Creating a sample reference output
 //
@@ -83,6 +81,7 @@ type AVAssetReaderSampleReferenceOutput struct {
 func AVAssetReaderSampleReferenceOutputFromID(id objc.ID) AVAssetReaderSampleReferenceOutput {
 	return AVAssetReaderSampleReferenceOutput{AVAssetReaderOutput: AVAssetReaderOutputFromID(id)}
 }
+
 // NOTE: AVAssetReaderSampleReferenceOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -166,7 +165,7 @@ func (a AVAssetReaderSampleReferenceOutput) InitWithTrack(track IAVAssetTrack) A
 // track: The track for which to provide sample references.
 //
 // # Return Value
-// 
+//
 // A sample rererence output object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderSampleReferenceOutput/assetReaderSampleReferenceOutputWithTrack:
@@ -182,6 +181,7 @@ func (a AVAssetReaderSampleReferenceOutput) Track() IAVAssetTrack {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("track"))
 	return AVAssetTrackFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the output vends copied sample data.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetreaderoutput/alwayscopiessampledata
@@ -192,6 +192,7 @@ func (a AVAssetReaderSampleReferenceOutput) AlwaysCopiesSampleData() bool {
 func (a AVAssetReaderSampleReferenceOutput) SetAlwaysCopiesSampleData(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAlwaysCopiesSampleData:"), value)
 }
+
 // Indicates the byte offset at which the sample data begins (type
 // `CFNumber`).
 //
@@ -200,6 +201,7 @@ func (a AVAssetReaderSampleReferenceOutput) KCMSampleBufferAttachmentKey_SampleR
 	rv := objc.Send[corefoundation.CFStringRef](a.ID, objc.Sel("kCMSampleBufferAttachmentKey_SampleReferenceByteOffset"))
 	return corefoundation.CFStringRef(rv)
 }
+
 // Indicates the URL where the sample data is (type `CFURL`).
 //
 // See: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_SampleReferenceURL
@@ -207,6 +209,7 @@ func (a AVAssetReaderSampleReferenceOutput) KCMSampleBufferAttachmentKey_SampleR
 	rv := objc.Send[corefoundation.CFStringRef](a.ID, objc.Sel("kCMSampleBufferAttachmentKey_SampleReferenceURL"))
 	return corefoundation.CFStringRef(rv)
 }
+
 // The UTI for the QuickTime movie file format.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avfiletype/mov
@@ -214,4 +217,3 @@ func (a AVAssetReaderSampleReferenceOutput) Mov() AVFileType {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVFileTypeQuickTimeMovie"))
 	return AVFileType(foundation.NSStringFromID(rv).String())
 }
-

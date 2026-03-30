@@ -5,8 +5,10 @@ package networkextension
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NEDNSProxyProvider] class.
@@ -45,23 +47,23 @@ func (nc NEDNSProxyProviderClass) Alloc() NEDNSProxyProvider {
 // The principal class for a DNS proxy provider app extension.
 //
 // # Overview
-// 
+//
 // A DNS proxy allows your app to intercept all DNS traffic generated on a
 // device. You can use this capability to provide services like DNS traffic
 // encryption, typically by redirecting DNS traffic to your own server. You
 // usually do this in the context of managed devices, such as those owned by a
 // school or an enterprise.
-// 
+//
 // You create a DNS proxy as an app extension based on a custom subclass of
 // the [NEDNSProxyProvider] class. Once active, the proxy receives access to
 // flows of DNS traffic in the form of [NEAppProxyFlow] instances. Each flow
 // corresponds to a socket opened by an app to UDP port 53 or TCP port 53.
 // Your DNS proxy provider acts as a transparent DNS proxy for the flows of
 // network data that it receives.
-// 
+//
 // When you subclass [NEDNSProxyProvider], you must provide implementations
 // for the following methods:
-// 
+//
 // - [NEDNSProxyProvider.StartProxyWithOptionsCompletionHandler] -
 // [NEDNSProxyProvider.StopProxyWithReasonCompletionHandler] - [NEDNSProxyProvider.HandleNewFlow]
 //
@@ -90,6 +92,7 @@ type NEDNSProxyProvider struct {
 func NEDNSProxyProviderFromID(id objc.ID) NEDNSProxyProvider {
 	return NEDNSProxyProvider{NEProvider: NEProviderFromID(id)}
 }
+
 // NOTE: NEDNSProxyProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -131,6 +134,8 @@ type INEDNSProxyProvider interface {
 
 	// The current system DNS settings.
 	SystemDNSSettings() foundation.INSSet
+
+	HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint objectivec.IObject) bool
 }
 
 // Init initializes the instance.
@@ -166,10 +171,10 @@ func NewNEDNSProxyProvider() NEDNSProxyProvider {
 // error parameter passed to this block indicates the reason for failure.
 //
 // # Discussion
-// 
+//
 // Subclasses of [NEDNSProxyProvider] must override this method to perform any
 // necessary steps to ready the proxy for handling flows of network data.
-// 
+//
 // The framework calls this method when a new proxy instance is created. You
 // indicate that setup is complete by calling the completion handler with a
 // `nil` error parameter, or that setup failed by calling the completion
@@ -177,9 +182,10 @@ func NewNEDNSProxyProvider() NEDNSProxyProvider {
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyProvider/startProxy(options:completionHandler:)
 func (d NEDNSProxyProvider) StartProxyWithOptionsCompletionHandler(options foundation.INSDictionary, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("startProxyWithOptions:completionHandler:"), options, _block1)
 }
+
 // Stops the DNS proxy.
 //
 // reason: A code indicating why the proxy is being stopped.
@@ -187,25 +193,26 @@ _block1, _ := NewErrorBlock(completionHandler)
 // completionHandler: A block that must be called when the proxy is completely stopped.
 //
 // # Discussion
-// 
+//
 // Subclasses of [NEDNSProxyProvider] must override this method to perform
 // whatever steps are necessary to stop the proxy.
-// 
+//
 // The system calls this method to stop the proxy. You indicate that the proxy
 // is fully stopped by calling the completion handler.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyProvider/stopProxy(with:completionHandler:)
 func (d NEDNSProxyProvider) StopProxyWithReasonCompletionHandler(reason NEProviderStopReason, completionHandler VoidHandler) {
-_block1, _ := NewVoidBlock(completionHandler)
+	_block1, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("stopProxyWithReason:completionHandler:"), reason, _block1)
 }
+
 // Cancels the DNS proxy.
 //
 // error: An error instance containing details about the problem that the proxy
 // provider implementation encountered.
 //
 // # Discussion
-// 
+//
 // Call this method from within the proxy provider when you need to stop the
 // proxy due to a network error that renders the proxy no longer viable.
 //
@@ -213,28 +220,26 @@ _block1, _ := NewVoidBlock(completionHandler)
 func (d NEDNSProxyProvider) CancelProxyWithError(error_ foundation.INSError) {
 	objc.Send[objc.ID](d.ID, objc.Sel("cancelProxyWithError:"), error_)
 }
+
 // Handles a new flow of DNS traffic.
 //
 // flow: The flow representing the DNS traffic that the proxy should handle.
 //
 // # Return Value
-// 
-// A Boolean value set to [true] if the proxy implementation decides to handle
-// the flow, or [false] if it instead decides to terminate the flow.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// A Boolean value set to true if the proxy implementation decides to handle
+// the flow, or false if it instead decides to terminate the flow.
 //
 // # Discussion
-// 
+//
 // The system calls this method to deliver a new network data flow to the
 // proxy provider implementation. Subclasses must override this method to
 // perform whatever steps are necessary to ready the proxy to receive data
 // from the flow.
-// 
+//
 // The proxy provider indicates that the proxy is ready to handle flow data by
 // calling the flow’s [OpenWithLocalEndpointCompletionHandler] method.
-// 
+//
 // If the proxy implementation decides to handle the flow, it’s responsible
 // for retaining a reference to the flow instance.
 //
@@ -244,10 +249,19 @@ func (d NEDNSProxyProvider) HandleNewFlow(flow INEAppProxyFlow) bool {
 	return rv
 }
 
+// remoteEndpoint is a [network.nw_endpoint_t].
+//
+// See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyProvider/handleNewUDPFlow:initialRemoteFlowEndpoint:
+// remoteEndpoint is a [network.nw_endpoint_t].
+func (d NEDNSProxyProvider) HandleNewUDPFlowInitialRemoteFlowEndpoint(flow INEAppProxyUDPFlow, remoteEndpoint objectivec.IObject) bool {
+	rv := objc.Send[bool](d.ID, objc.Sel("handleNewUDPFlow:initialRemoteFlowEndpoint:"), flow, remoteEndpoint)
+	return rv
+}
+
 // The current system DNS settings.
 //
 // # Discussion
-// 
+//
 // You can use key-value observing to watch for changes on this parameter.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSProxyProvider/systemDNSSettings
@@ -285,4 +299,3 @@ func (d NEDNSProxyProvider) StopProxyWithReason(ctx context.Context, reason NEPr
 		return ctx.Err()
 	}
 }
-

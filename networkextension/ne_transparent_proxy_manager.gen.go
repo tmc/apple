@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,6 +54,7 @@ type NETransparentProxyManager struct {
 func NETransparentProxyManagerFromID(id objc.ID) NETransparentProxyManager {
 	return NETransparentProxyManager{NEVPNManager: NEVPNManagerFromID(id)}
 }
+
 // NOTE: NETransparentProxyManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -81,4 +83,3 @@ func NewNETransparentProxyManager() NETransparentProxyManager {
 	rv := objc.Send[NETransparentProxyManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

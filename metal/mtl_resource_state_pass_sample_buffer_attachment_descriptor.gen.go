@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -65,6 +66,7 @@ type MTLResourceStatePassSampleBufferAttachmentDescriptor struct {
 func MTLResourceStatePassSampleBufferAttachmentDescriptorFromID(id objc.ID) MTLResourceStatePassSampleBufferAttachmentDescriptor {
 	return MTLResourceStatePassSampleBufferAttachmentDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLResourceStatePassSampleBufferAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,16 +121,16 @@ func NewMTLResourceStatePassSampleBufferAttachmentDescriptor() MTLResourceStateP
 // during the resource state pass.
 //
 // # Discussion
-// 
+//
 // The property defaults to `nil`, which means the GPU doesn’t save any GPU
 // counter information during the resource state pass. For more information,
 // see [Creating a counter sample buffer to store a GPU’s counter data
 // during a pass] and [Sampling GPU data into counter sample buffers].
 //
+// See: https://developer.apple.com/documentation/Metal/MTLResourceStatePassSampleBufferAttachmentDescriptor/sampleBuffer
+//
 // [Creating a counter sample buffer to store a GPU’s counter data during a pass]: https://developer.apple.com/documentation/Metal/creating-a-counter-sample-buffer-to-store-a-gpus-counter-data-during-a-pass
 // [Sampling GPU data into counter sample buffers]: https://developer.apple.com/documentation/Metal/sampling-gpu-data-into-counter-sample-buffers
-//
-// See: https://developer.apple.com/documentation/Metal/MTLResourceStatePassSampleBufferAttachmentDescriptor/sampleBuffer
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SampleBuffer() MTLCounterSampleBuffer {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("sampleBuffer"))
 	return MTLCounterSampleBufferObjectFromID(rv)
@@ -136,21 +138,22 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SampleBuffer() MTL
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTLCounterSampleBuffer) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSampleBuffer:"), value)
 }
+
 // The index the Metal device object should use to store GPU counters when
 // starting the resource state pass.
 //
 // # Discussion
-// 
+//
 // Specify [MTLCounterDontSample] if you don’t want to sample GPU counters
 // at the start of the resource state pass. Otherwise, specify an index within
 // the sample buffer where you want the GPU to write the sample data.
-// 
-// On devices that don’t support [CounterSamplingPointAtStageBoundary] you
-// need to set the value to [MTLCounterDontSample].
 //
-// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
+// On devices that don’t support [MTLCounterSamplingPoint.atStageBoundary]
+// you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStatePassSampleBufferAttachmentDescriptor/startOfEncoderSampleIndex
+//
+// [MTLCounterSamplingPoint.atStageBoundary]: https://developer.apple.com/documentation/Metal/MTLCounterSamplingPoint/atStageBoundary
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) StartOfEncoderSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("startOfEncoderSampleIndex"))
 	return rv
@@ -158,21 +161,22 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) StartOfEncoderSamp
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SetStartOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setStartOfEncoderSampleIndex:"), value)
 }
+
 // The index the Metal device object should use to store GPU counters when
 // ending the resource state pass.
 //
 // # Discussion
-// 
+//
 // Specify [MTLCounterDontSample] if you don’t want to sample GPU counters
 // at the end of the resource state pass. Otherwise, specify an index within
 // the sample buffer where you want the GPU to write the sample data.
-// 
-// On devices that don’t support [CounterSamplingPointAtStageBoundary] you
-// need to set the value to [MTLCounterDontSample].
 //
-// [MTLCounterDontSample]: https://developer.apple.com/documentation/Metal/MTLCounterDontSample
+// On devices that don’t support [MTLCounterSamplingPoint.atStageBoundary]
+// you need to set the value to [MTLCounterDontSample].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStatePassSampleBufferAttachmentDescriptor/endOfEncoderSampleIndex
+//
+// [MTLCounterSamplingPoint.atStageBoundary]: https://developer.apple.com/documentation/Metal/MTLCounterSamplingPoint/atStageBoundary
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) EndOfEncoderSampleIndex() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("endOfEncoderSampleIndex"))
 	return rv
@@ -180,4 +184,3 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) EndOfEncoderSample
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SetEndOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setEndOfEncoderSampleIndex:"), value)
 }
-

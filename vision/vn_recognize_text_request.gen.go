@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (vc VNRecognizeTextRequestClass) Alloc() VNRecognizeTextRequest {
 // An image-analysis request that finds and recognizes text in an image.
 //
 // # Overview
-// 
+//
 // By default, a text recognition request first locates all possible glyphs or
 // characters in the input image, and then analyzes each string. To specify or
 // limit the languages to find in the request, set the [VNRecognizeTextRequest.RecognitionLanguages]
@@ -90,6 +91,7 @@ type VNRecognizeTextRequest struct {
 func VNRecognizeTextRequestFromID(id objc.ID) VNRecognizeTextRequest {
 	return VNRecognizeTextRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNRecognizeTextRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -185,7 +187,7 @@ func NewVNRecognizeTextRequest() VNRecognizeTextRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -200,7 +202,7 @@ func NewRecognizeTextRequestWithCompletionHandler(completionHandler VNRequestCom
 // Returns the identifiers of the languages that the request supports.
 //
 // # Return Value
-// 
+//
 // The language identifiers.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequest/supportedRecognitionLanguages()
@@ -218,7 +220,7 @@ func (r VNRecognizeTextRequest) SupportedRecognitionLanguagesAndReturnError() ([
 // The minimum height, relative to the image height, of the text to recognize.
 //
 // # Discussion
-// 
+//
 // Specify a floating-point number relative to the image height. For example,
 // to limit recognition to text that’s half of the image height, use `0.5`.
 // Increasing the size reduces memory consumption and expedites recognition
@@ -233,15 +235,16 @@ func (r VNRecognizeTextRequest) MinimumTextHeight() float32 {
 func (r VNRecognizeTextRequest) SetMinimumTextHeight(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMinimumTextHeight:"), value)
 }
+
 // A value that determines whether the request prioritizes accuracy or speed
 // in text recognition.
 //
 // # Discussion
-// 
+//
 // The recognition level determines which techniques the request uses during
-// the text recognition. Set this value to [RequestTextRecognitionLevelFast]
+// the text recognition. Set this value to [VNRequestTextRecognitionLevelFast]
 // to prioritize speed over accuracy, and to
-// [RequestTextRecognitionLevelAccurate] for longer, more computationally
+// [VNRequestTextRecognitionLevelAccurate] for longer, more computationally
 // intensive recognition.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequest/recognitionLevel
@@ -252,6 +255,7 @@ func (r VNRecognizeTextRequest) RecognitionLevel() VNRequestTextRecognitionLevel
 func (r VNRecognizeTextRequest) SetRecognitionLevel(value VNRequestTextRecognitionLevel) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRecognitionLevel:"), value)
 }
+
 // A Boolean value that indicates whether to attempt detecting the language to
 // use the appropriate model for recognition and language correction.
 //
@@ -263,13 +267,14 @@ func (r VNRecognizeTextRequest) AutomaticallyDetectsLanguage() bool {
 func (r VNRecognizeTextRequest) SetAutomaticallyDetectsLanguage(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setAutomaticallyDetectsLanguage:"), value)
 }
+
 // An array of languages to detect, in priority order.
 //
 // # Discussion
-// 
+//
 // The order of the languages in the array defines the order in which
 // languages are used during language processing and text recognition.
-// 
+//
 // Specify the languages as ISO language codes.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequest/recognitionLanguages
@@ -280,16 +285,15 @@ func (r VNRecognizeTextRequest) RecognitionLanguages() []string {
 func (r VNRecognizeTextRequest) SetRecognitionLanguages(value []string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRecognitionLanguages:"), objectivec.StringSliceToNSArray(value))
 }
+
 // A Boolean value that indicates whether the request applies language
 // correction during the recognition process.
 //
 // # Discussion
-// 
-// When this value is [true], Vision applies language correction during the
+//
+// When this value is true, Vision applies language correction during the
 // recognition process. Disabling this property returns the raw recognition
 // results, which provides performance benefits but less accurate results.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequest/usesLanguageCorrection
 func (r VNRecognizeTextRequest) UsesLanguageCorrection() bool {
@@ -299,15 +303,14 @@ func (r VNRecognizeTextRequest) UsesLanguageCorrection() bool {
 func (r VNRecognizeTextRequest) SetUsesLanguageCorrection(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setUsesLanguageCorrection:"), value)
 }
+
 // An array of strings to supplement the recognized languages at the
 // word-recognition stage.
 //
 // # Discussion
-// 
-// Custom words take precedence over the standard lexicon. The request ignores
-// this value if [UsesLanguageCorrection] is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// Custom words take precedence over the standard lexicon. The request ignores
+// this value if [UsesLanguageCorrection] is false.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequest/customWords
 func (r VNRecognizeTextRequest) CustomWords() []string {
@@ -317,6 +320,7 @@ func (r VNRecognizeTextRequest) CustomWords() []string {
 func (r VNRecognizeTextRequest) SetCustomWords(value []string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCustomWords:"), objectivec.StringSliceToNSArray(value))
 }
+
 // A constant for specifying revision 3 of the text recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision3
@@ -324,6 +328,7 @@ func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision3() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision3"))
 	return rv
 }
+
 // A constant for specifying revision 2 of the text recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision2
@@ -331,6 +336,7 @@ func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision2() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision2"))
 	return rv
 }
+
 // A constant for specifying revision 1 of the text recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision1
@@ -338,28 +344,28 @@ func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision1() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision1"))
 	return rv
 }
+
 // A Boolean set to true when a request can’t determine its progress in
 // fractions completed.
 //
 // # Discussion
-// 
-// A value of [true] doesn’t mean that the request will run forever. Rather,
+//
+// A value of true doesn’t mean that the request will run forever. Rather,
 // it means that the nature of the request can’t be broken down into
 // identifiable fractions to report. The [ProgressHandler] will still be
 // called at suitable intervals.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/indeterminate
 func (r VNRecognizeTextRequest) Indeterminate() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("indeterminate"))
 	return rv
 }
+
 // A block of code executed periodically during a Vision request to report
 // progress on long-running tasks.
 //
 // # Discussion
-// 
+//
 // The progress handler is an optional method that allows clients of the
 // request to report progress to the user or to display partial results as
 // they become available. The Vision framework may call this handler on a
@@ -376,6 +382,4 @@ func (r VNRecognizeTextRequest) SetProgressHandler(value VNRequestProgressHandle
 	objc.Send[struct{}](r.ID, objc.Sel("setProgressHandler:"), value)
 }
 
-			// Protocol methods for VNRequestProgressProviding
-			
-
+// Protocol methods for VNRequestProgressProviding

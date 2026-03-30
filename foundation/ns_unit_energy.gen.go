@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,12 +44,12 @@ func (uc UnitEnergyClass) Alloc() UnitEnergy {
 // A unit of measure for energy.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitEnergy] to represent specific
 // quantities of energy using the [NSMeasurement] class.
-// 
+//
 // # Energy
-// 
+//
 // Energy is a fundamental property of matter than can be transferred and
 // converted into different forms, such as kinetic, electric, and thermal. The
 // SI unit for energy is the joule (J), which is derived as the work of one
@@ -60,11 +61,11 @@ func (uc UnitEnergyClass) Alloc() UnitEnergy {
 // terms of the calorie (cal), or the energy needed to raise the temperature
 // of one gram of water by one degree Celsius at a pressure of one atmosphere
 // (1cal ≡ 4.184J).
-// 
+//
 // The [NSUnitEnergy] class defines its [BaseUnit] as [Joules], and provides
 // the following units, which are initialized using [NSUnitConverterLinear]
 // converters with the specified coefficients:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy
@@ -81,6 +82,7 @@ func UnitEnergyFromID(id objc.ID) UnitEnergy {
 
 // NSUnitEnergyFromID is an alias for [UnitEnergyFromID] for cross-framework compatibility.
 func NSUnitEnergyFromID(id objc.ID) UnitEnergy { return UnitEnergyFromID(id) }
+
 // NOTE: UnitEnergy adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,7 +112,6 @@ func NewUnitEnergy() UnitEnergy {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitEnergyWithCoder(coder INSCoder) UnitEnergy {
 	instance := getUnitEnergyClass().Alloc()
@@ -123,7 +124,7 @@ func NewUnitEnergyWithCoder(coder INSCoder) UnitEnergy {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -142,11 +143,11 @@ func NewUnitEnergyWithSymbol(symbol string) UnitEnergy {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -163,6 +164,7 @@ func (_UnitEnergyClass UnitEnergyClass) Kilojoules() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("kilojoules"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
+
 // The joules unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/joules
@@ -170,6 +172,7 @@ func (_UnitEnergyClass UnitEnergyClass) Joules() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("joules"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
+
 // The kilocalories unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/kilocalories
@@ -177,6 +180,7 @@ func (_UnitEnergyClass UnitEnergyClass) Kilocalories() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("kilocalories"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
+
 // The calories unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/calories
@@ -184,6 +188,7 @@ func (_UnitEnergyClass UnitEnergyClass) Calories() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("calories"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
+
 // The kilowatt hours unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/kilowattHours
@@ -191,4 +196,3 @@ func (_UnitEnergyClass UnitEnergyClass) KilowattHours() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("kilowattHours"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
-

@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,15 +45,15 @@ func (nc NSWorkspaceAuthorizationClass) Alloc() NSWorkspaceAuthorization {
 // The authorization granted to the app by the user.
 //
 // # Overview
-// 
+//
 // To enable your app to prompt the user for these file permissions, you must
 // have a Privileged File Operation entitlement. If you have an app on the Mac
 // App Store or plan to submit your app for review, you can [request this
 // entitlement].
 //
-// [request this entitlement]: https://developer.apple.com/go/?id=workspace-authorization
-//
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/Authorization
+//
+// [request this entitlement]: https://developer.apple.com/go/?id=workspace-authorization
 type NSWorkspaceAuthorization struct {
 	objectivec.Object
 }
@@ -63,6 +64,7 @@ type NSWorkspaceAuthorization struct {
 func NSWorkspaceAuthorizationFromID(id objc.ID) NSWorkspaceAuthorization {
 	return NSWorkspaceAuthorization{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSWorkspaceAuthorization adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -91,4 +93,3 @@ func NewNSWorkspaceAuthorization() NSWorkspaceAuthorization {
 	rv := objc.Send[NSWorkspaceAuthorization](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVCoordinatedPlaybackParticipantClass) Alloc() AVCoordinatedPlaybackPar
 // An object that represents a participant in a coordinated playback session.
 //
 // # Overview
-// 
+//
 // Access the other participants in a session through the playback
 // coordinator’s [AVCoordinatedPlaybackParticipant.OtherParticipants] property to determine their playback
 // readiness and suspension reasons.
@@ -67,6 +68,7 @@ type AVCoordinatedPlaybackParticipant struct {
 func AVCoordinatedPlaybackParticipantFromID(id objc.ID) AVCoordinatedPlaybackParticipant {
 	return AVCoordinatedPlaybackParticipant{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCoordinatedPlaybackParticipant adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -122,6 +124,7 @@ func (c AVCoordinatedPlaybackParticipant) Identifier() foundation.NSUUID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("identifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the participant is ready to start
 // coordinated playback.
 //
@@ -130,11 +133,12 @@ func (c AVCoordinatedPlaybackParticipant) ReadyToPlay() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isReadyToPlay"))
 	return rv
 }
+
 // The reasons a participant isn’t currently participating in coordinated
 // playback.
 //
 // # Discussion
-// 
+//
 // This value is empty if the participant’s playback isn’t in a suspended
 // state.
 //
@@ -143,6 +147,7 @@ func (c AVCoordinatedPlaybackParticipant) SuspensionReasons() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("suspensionReasons"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The identifiers of the other participants in a group.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avplaybackcoordinator/otherparticipants
@@ -162,4 +167,3 @@ func (_AVCoordinatedPlaybackParticipantClass AVCoordinatedPlaybackParticipantCla
 	rv := objc.Send[objc.ID](objc.ID(_AVCoordinatedPlaybackParticipantClass.class), objc.Sel("AVPlaybackCoordinatorOtherParticipantsDidChangeNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-

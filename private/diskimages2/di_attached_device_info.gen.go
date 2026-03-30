@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (dc DIAttachedDeviceInfoClass) Alloc() DIAttachedDeviceInfo {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIAttachedDeviceInfo.BSDName]
@@ -65,6 +65,7 @@ func (dc DIAttachedDeviceInfoClass) Alloc() DIAttachedDeviceInfo {
 //   - [DIAttachedDeviceInfo.ToDictionary]
 //   - [DIAttachedDeviceInfo.InitWithBSDNameError]
 //   - [DIAttachedDeviceInfo.InitWithDeviceError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo
 type DIAttachedDeviceInfo struct {
 	objectivec.Object
@@ -74,6 +75,7 @@ type DIAttachedDeviceInfo struct {
 func DIAttachedDeviceInfoFromID(id objc.ID) DIAttachedDeviceInfo {
 	return DIAttachedDeviceInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure DIAttachedDeviceInfo implements IDIAttachedDeviceInfo.
 var _ IDIAttachedDeviceInfo = DIAttachedDeviceInfo{}
 
@@ -145,7 +147,6 @@ func NewDIAttachedDeviceInfo() DIAttachedDeviceInfo {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/initWithBSDName:error:
 func NewDIAttachedDeviceInfoWithBSDNameError(bSDName objectivec.IObject) (DIAttachedDeviceInfo, error) {
 	var errorPtr objc.ID
@@ -158,7 +159,6 @@ func NewDIAttachedDeviceInfoWithBSDNameError(bSDName objectivec.IObject) (DIAtta
 	return DIAttachedDeviceInfoFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/initWithDevice:error:
 func NewDIAttachedDeviceInfoWithDeviceError(device objectivec.IObject) (DIAttachedDeviceInfo, error) {
 	var errorPtr objc.ID
@@ -176,7 +176,7 @@ func (d DIAttachedDeviceInfo) CopyEntitiesList() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("copyEntitiesList"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/fillDI1InfoWithDevice:error:
 func (d DIAttachedDeviceInfo) FillDI1InfoWithDeviceError(device objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -191,7 +191,7 @@ func (d DIAttachedDeviceInfo) FillDI1InfoWithDeviceError(device objectivec.IObje
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/fillDI2InfoWithDevice:error:
 func (d DIAttachedDeviceInfo) FillDI2InfoWithDeviceError(device objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -206,7 +206,7 @@ func (d DIAttachedDeviceInfo) FillDI2InfoWithDeviceError(device objectivec.IObje
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/setDI2PIDWithDevice:error:
 func (d DIAttachedDeviceInfo) SetDI2PIDWithDeviceError(device objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -221,12 +221,13 @@ func (d DIAttachedDeviceInfo) SetDI2PIDWithDeviceError(device objectivec.IObject
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/toDictionary
 func (d DIAttachedDeviceInfo) ToDictionary() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("toDictionary"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/initWithBSDName:error:
 func (d DIAttachedDeviceInfo) InitWithBSDNameError(bSDName objectivec.IObject) (DIAttachedDeviceInfo, error) {
 	var errorPtr objc.ID
@@ -238,7 +239,7 @@ func (d DIAttachedDeviceInfo) InitWithBSDNameError(bSDName objectivec.IObject) (
 	return DIAttachedDeviceInfoFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/initWithDevice:error:
 func (d DIAttachedDeviceInfo) InitWithDeviceError(device objectivec.IObject) (DIAttachedDeviceInfo, error) {
 	var errorPtr objc.ID
@@ -251,7 +252,6 @@ func (d DIAttachedDeviceInfo) InitWithDeviceError(device objectivec.IObject) (DI
 
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/DI1URLWithData:error:
 func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) DI1URLWithDataError(data objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -263,12 +263,13 @@ func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) DI1URLWithDataError(
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/copyAllMountPoints
 func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) CopyAllMountPoints() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIAttachedDeviceInfoClass.class), objc.Sel("copyAllMountPoints"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/newDI1DevicesArrayWithError:
 func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) NewDI1DevicesArrayWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -280,7 +281,7 @@ func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) NewDI1DevicesArrayWi
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/newDI2DevicesArrayWithError:
 func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) NewDI2DevicesArrayWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -292,7 +293,7 @@ func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) NewDI2DevicesArrayWi
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/newDevicesArrayWithError:
 func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) NewDevicesArrayWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -304,7 +305,7 @@ func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) NewDevicesArrayWithE
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/newEntityDictWithIOMedia:mountPoints:
 func (_DIAttachedDeviceInfoClass DIAttachedDeviceInfoClass) NewEntityDictWithIOMediaMountPoints(iOMedia objectivec.IObject, points objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIAttachedDeviceInfoClass.class), objc.Sel("newEntityDictWithIOMedia:mountPoints:"), iOMedia, points)
@@ -316,31 +317,37 @@ func (d DIAttachedDeviceInfo) BSDName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("BSDName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/blockSize
 func (d DIAttachedDeviceInfo) BlockSize() foundation.NSNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("blockSize"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/cacheURL
 func (d DIAttachedDeviceInfo) CacheURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("cacheURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/frameworkNum
 func (d DIAttachedDeviceInfo) FrameworkNum() int64 {
 	rv := objc.Send[int64](d.ID, objc.Sel("frameworkNum"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/imageURL
 func (d DIAttachedDeviceInfo) ImageURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("imageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/instanceId
 func (d DIAttachedDeviceInfo) InstanceId() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("instanceId"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/ioMedia
 func (d DIAttachedDeviceInfo) IoMedia() IDIIOMedia {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("ioMedia"))
@@ -349,19 +356,21 @@ func (d DIAttachedDeviceInfo) IoMedia() IDIIOMedia {
 func (d DIAttachedDeviceInfo) SetIoMedia(value IDIIOMedia) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIoMedia:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/mediaSize
 func (d DIAttachedDeviceInfo) MediaSize() foundation.NSNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("mediaSize"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/pid
 func (d DIAttachedDeviceInfo) Pid() foundation.NSNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("pid"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachedDeviceInfo/shadowURL
 func (d DIAttachedDeviceInfo) ShadowURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

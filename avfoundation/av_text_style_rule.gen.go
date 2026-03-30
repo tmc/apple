@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVTextStyleRuleClass) Alloc() AVTextStyleRule {
 // item’s textual content.
 //
 // # Overview
-// 
+//
 // You use text style objects to format subtitles, closed captions, and other
 // text-related content of the item. The system applies these rules to all or
 // part of the text of the media item.
@@ -73,6 +74,7 @@ type AVTextStyleRule struct {
 func AVTextStyleRuleFromID(id objc.ID) AVTextStyleRule {
 	return AVTextStyleRule{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVTextStyleRule adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -136,11 +138,11 @@ func NewAVTextStyleRule() AVTextStyleRule {
 // that you can include in this dictionary, see `CMTextMarkup.H()`.
 //
 // # Return Value
-// 
+//
 // A text style rule object initialized with the specified attributes.
 //
 // # Discussion
-// 
+//
 // This method sets the [TextSelector] property of the style object to `nil`,
 // which causes the rules to be applied to all of the text in the media item.
 //
@@ -165,7 +167,7 @@ func NewTextStyleRuleWithTextMarkupAttributes(textMarkupAttributes foundation.IN
 // to apply to all text in the item.
 //
 // # Return Value
-// 
+//
 // A text style rule object initialized with the specified attributes and
 // range information.
 //
@@ -182,11 +184,11 @@ func NewTextStyleRuleWithTextMarkupAttributesTextSelector(textMarkupAttributes f
 // that you can include in this dictionary, see `CMTextMarkup.H()`.
 //
 // # Return Value
-// 
+//
 // A text style rule object initialized with the specified attributes.
 //
 // # Discussion
-// 
+//
 // This method sets the [TextSelector] property of the style object to `nil`,
 // which causes the rules to be applied to all of the text in the media item.
 //
@@ -195,6 +197,7 @@ func (t AVTextStyleRule) InitWithTextMarkupAttributes(textMarkupAttributes found
 	rv := objc.Send[AVTextStyleRule](t.ID, objc.Sel("initWithTextMarkupAttributes:"), textMarkupAttributes)
 	return rv
 }
+
 // Creates a text style rule object with the specified style attributes and
 // text range information.
 //
@@ -209,7 +212,7 @@ func (t AVTextStyleRule) InitWithTextMarkupAttributes(textMarkupAttributes found
 // to apply to all text in the item.
 //
 // # Return Value
-// 
+//
 // A text style rule object initialized with the specified attributes and
 // range information.
 //
@@ -225,12 +228,12 @@ func (t AVTextStyleRule) InitWithTextMarkupAttributesTextSelector(textMarkupAttr
 // plist: A property-list object containing the text style data.
 //
 // # Return Value
-// 
+//
 // An array of [AVTextStyleRule] objects corresponding to the style
 // information in the property-list object.
 //
 // # Discussion
-// 
+//
 // Use this method to create new text style rule objects based on data you
 // previously converted to a property-list format using the
 // [PropertyListForTextStyleRules] class method.
@@ -242,28 +245,30 @@ func (_AVTextStyleRuleClass AVTextStyleRuleClass) TextStyleRulesFromPropertyList
 		return AVTextStyleRuleFromID(id)
 	})
 }
+
 // Converts one or more text style rules into a serializable property list
 // object.
 //
 // textStyleRules: An array of [AVTextStyleRule] objects to write to the property list.
 //
 // # Return Value
-// 
+//
 // A property-list object that you can pass to the [PropertyListSerialization]
 // serialization routines.
 //
-// [PropertyListSerialization]: https://developer.apple.com/documentation/Foundation/PropertyListSerialization
-//
 // # Discussion
-// 
+//
 // The property-list object returned by this method can be written to disk and
 // stored persistently.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTextStyleRule/propertyList(for:)
+//
+// [PropertyListSerialization]: https://developer.apple.com/documentation/Foundation/PropertyListSerialization
 func (_AVTextStyleRuleClass AVTextStyleRuleClass) PropertyListForTextStyleRules(textStyleRules []AVTextStyleRule) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_AVTextStyleRuleClass.class), objc.Sel("propertyListForTextStyleRules:"), objectivec.IObjectSliceToNSArray(textStyleRules))
 	return objectivec.Object{ID: rv}
 }
+
 // Creates a new text style rule object using the style attributes in the
 // specified dictionary.
 //
@@ -271,11 +276,11 @@ func (_AVTextStyleRuleClass AVTextStyleRuleClass) PropertyListForTextStyleRules(
 // that you can include in this dictionary, see `CMTextMarkup.H()`.
 //
 // # Return Value
-// 
+//
 // A new text style rule object with the specified attributes.
 //
 // # Discussion
-// 
+//
 // This method sets the [TextSelector] property of the style object to `nil`,
 // which causes the rules to be applied to all of the text in the media item.
 //
@@ -284,6 +289,7 @@ func (_AVTextStyleRuleClass AVTextStyleRuleClass) TextStyleRuleWithTextMarkupAtt
 	rv := objc.Send[objc.ID](objc.ID(_AVTextStyleRuleClass.class), objc.Sel("textStyleRuleWithTextMarkupAttributes:"), textMarkupAttributes)
 	return AVTextStyleRuleFromID(rv)
 }
+
 // Creates a new text style rule object using the specified style attributes
 // and text range information.
 //
@@ -298,7 +304,7 @@ func (_AVTextStyleRuleClass AVTextStyleRuleClass) TextStyleRuleWithTextMarkupAtt
 // to apply to all text in the item.
 //
 // # Return Value
-// 
+//
 // A new text style rule object with the specified attributes and range
 // information.
 //
@@ -311,7 +317,7 @@ func (_AVTextStyleRuleClass AVTextStyleRuleClass) TextStyleRuleWithTextMarkupAtt
 // A dictionary of text style attributes to apply to the text.
 //
 // # Discussion
-// 
+//
 // The supported keys for this dictionary are defined in `CMTextMarkup.H()`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTextStyleRule/textMarkupAttributes
@@ -319,14 +325,15 @@ func (t AVTextStyleRule) TextMarkupAttributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textMarkupAttributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // A string that identifies the text to which the attributes should apply.
 //
 // # Discussion
-// 
+//
 // The contents of the string are determined by the format of the legible
 // media. For example, the string could contain the CSS selectors used by the
 // corresponding text in Web Video Text Tracks (WebVTT) markup.
-// 
+//
 // If the value of this property is `nil`, the text style attributes apply to
 // all text in the media item.
 //
@@ -335,6 +342,7 @@ func (t AVTextStyleRule) TextSelector() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textSelector"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An array of text style rules that specify the formatting and presentation
 // of Web Video Text Tracks (WebVTT) subtitles.
 //
@@ -346,4 +354,3 @@ func (t AVTextStyleRule) TextStyleRules() IAVTextStyleRule {
 func (t AVTextStyleRule) SetTextStyleRules(value IAVTextStyleRule) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextStyleRules:"), value)
 }
-

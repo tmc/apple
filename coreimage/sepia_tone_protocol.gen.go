@@ -39,6 +39,7 @@ type CISepiaTone interface {
 type CISepiaToneObject struct {
 	objectivec.Object
 }
+
 func (o CISepiaToneObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CISepiaToneObjectFromID(id objc.ID) CISepiaToneObject {
 func (o CISepiaToneObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The intensity of the sepia effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/intensity
 func (o CISepiaToneObject) Intensity() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,23 @@ func (o CISepiaToneObject) Intensity() float32 {
 func (o CISepiaToneObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/inputImage
 func (o CISepiaToneObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The intensity of the sepia effect.
+//
+// # Discussion
+//
+// A value of 1.0 creates a monochrome sepia image. A value of 0.0 has no
+// effect on the image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/intensity
 func (o CISepiaToneObject) SetIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIntensity:"), value)
 }
-

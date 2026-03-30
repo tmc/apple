@@ -5,8 +5,9 @@ package texttospeech
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (tc TextToSpeechVoiceResolverClass) Alloc() TextToSpeechVoiceResolver {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TextToSpeechVoiceResolver.CurrentLocaleIdentifiersWithCompletionHandler]
@@ -54,6 +54,7 @@ func (tc TextToSpeechVoiceResolverClass) Alloc() TextToSpeechVoiceResolver {
 //   - [TextToSpeechVoiceResolver.VoiceForIdentifierPreferringLanguageCompletionHandler]
 //   - [TextToSpeechVoiceResolver.VoiceForLocaleCompletionHandler]
 //   - [TextToSpeechVoiceResolver.VoiceForLocaleIdentifierCompletionHandler]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceResolver
 type TextToSpeechVoiceResolver struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type TextToSpeechVoiceResolver struct {
 func TextToSpeechVoiceResolverFromID(id objc.ID) TextToSpeechVoiceResolver {
 	return TextToSpeechVoiceResolver{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechVoiceResolver struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechVoiceResolver embeds the parent interface; skip compile-time assertion.
 
@@ -114,56 +116,54 @@ func NewTextToSpeechVoiceResolver() TextToSpeechVoiceResolver {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceResolver/currentLocaleIdentifiersWithCompletionHandler:
 func (t TextToSpeechVoiceResolver) CurrentLocaleIdentifiersWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("currentLocaleIdentifiersWithCompletionHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceResolver/currentSystemLocaleIdentifierWithCompletionHandler:
 func (t TextToSpeechVoiceResolver) CurrentSystemLocaleIdentifierWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("currentSystemLocaleIdentifierWithCompletionHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceResolver/currentSystemLocaleWithCompletionHandler:
 func (t TextToSpeechVoiceResolver) CurrentSystemLocaleWithCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("currentSystemLocaleWithCompletionHandler:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceResolver/fallbackForVoice:completionHandler:
 func (t TextToSpeechVoiceResolver) FallbackForVoiceCompletionHandler(voice ITTSSpeechVoice, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("fallbackForVoice:completionHandler:"), voice, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceResolver/voiceForIdentifier:completionHandler:
 func (t TextToSpeechVoiceResolver) VoiceForIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceForIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceResolver/voiceForIdentifier:preferringLanguage:completionHandler:
 func (t TextToSpeechVoiceResolver) VoiceForIdentifierPreferringLanguageCompletionHandler(identifier objectivec.IObject, language objectivec.IObject, handler ErrorHandler) {
-_block2, _ := NewErrorBlock(handler)
+	_block2, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceForIdentifier:preferringLanguage:completionHandler:"), identifier, language, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceResolver/voiceForLocale:completionHandler:
 func (t TextToSpeechVoiceResolver) VoiceForLocaleCompletionHandler(locale foundation.NSLocale, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceForLocale:completionHandler:"), locale, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceResolver/voiceForLocaleIdentifier:completionHandler:
 func (t TextToSpeechVoiceResolver) VoiceForLocaleIdentifierCompletionHandler(identifier objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceForLocaleIdentifier:completionHandler:"), identifier, _block1)
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoiceResolver/setShared:
 func (_TextToSpeechVoiceResolverClass TextToSpeechVoiceResolverClass) SetShared(shared objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_TextToSpeechVoiceResolverClass.class), objc.Sel("setShared:"), shared)
@@ -288,4 +288,3 @@ func (t TextToSpeechVoiceResolver) VoiceForLocaleIdentifier(ctx context.Context,
 		return ctx.Err()
 	}
 }
-

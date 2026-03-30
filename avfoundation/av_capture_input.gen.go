@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,13 +46,13 @@ func (ac AVCaptureInputClass) Alloc() AVCaptureInput {
 // session.
 //
 // # Overview
-// 
+//
 // You create concrete instances of this class, such as
 // [AVCaptureDeviceInput], to add inputs to a capture session. An input
 // provides one or more streams of media data. For example, input devices can
 // provide both audio and video data. The framework represents each media
 // stream that an input provides as an [AVCaptureInputPort] object.
-// 
+//
 // A capture makes connections between capture inputs and capture outputs
 // using a [AVCaptureConnection] object. The connection defines the mapping
 // between a set of port objects and an [AVCaptureOutput].
@@ -72,6 +73,7 @@ type AVCaptureInput struct {
 func AVCaptureInputFromID(id objc.ID) AVCaptureInput {
 	return AVCaptureInput{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureInput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -113,17 +115,16 @@ func NewAVCaptureInput() AVCaptureInput {
 // The ports available on a capture input.
 //
 // # Discussion
-// 
+//
 // Individual ports post an [formatDescriptionDidChangeNotification]
 // notification when their [FormatDescription] changes.
 //
-// [formatDescriptionDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/Port/formatDescriptionDidChangeNotification
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/ports
+//
+// [formatDescriptionDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/Port/formatDescriptionDidChangeNotification
 func (c AVCaptureInput) Ports() []AVCaptureInputPort {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("ports"))
 	return objc.ConvertSlice(rv, func(id objc.ID) AVCaptureInputPort {
 		return AVCaptureInputPortFromID(id)
 	})
 }
-

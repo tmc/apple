@@ -3,8 +3,9 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/vmnet"
 )
@@ -45,13 +46,11 @@ func (vc VZVmnetNetworkDeviceAttachmentClass) Alloc() VZVmnetNetworkDeviceAttach
 // A network device attachment that allows a custom network topology.
 //
 // # Overview
-// 
+//
 // The Virtualization framework backs this attachment by a logical network
 // which the client creates and customizes through the [vmnet] framework APIs
 // to allow custom network topology which allows multiple virtual machines to
 // appear on the same network and connect with each other.
-//
-// [vmnet]: https://developer.apple.com/documentation/vmnet
 //
 // # Creating the vmnet network device attachment
 //
@@ -59,6 +58,8 @@ func (vc VZVmnetNetworkDeviceAttachmentClass) Alloc() VZVmnetNetworkDeviceAttach
 //   - [VZVmnetNetworkDeviceAttachment.Network]: The network object that the you initialize the attachment with.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVmnetNetworkDeviceAttachment
+//
+// [vmnet]: https://developer.apple.com/documentation/vmnet
 type VZVmnetNetworkDeviceAttachment struct {
 	VZNetworkDeviceAttachment
 }
@@ -69,6 +70,7 @@ type VZVmnetNetworkDeviceAttachment struct {
 func VZVmnetNetworkDeviceAttachmentFromID(id objc.ID) VZVmnetNetworkDeviceAttachment {
 	return VZVmnetNetworkDeviceAttachment{VZNetworkDeviceAttachment: VZNetworkDeviceAttachmentFromID(id)}
 }
+
 // NOTE: VZVmnetNetworkDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,26 +117,26 @@ func NewVZVmnetNetworkDeviceAttachment() VZVmnetNetworkDeviceAttachment {
 // network: The logical network object
 //
 // # Return Value
-// 
+//
 // An initialized [VZVmnetNetworkDeviceAttachment] object, or `nil` if there
 // was an error.
 //
 // # Discussion
-// 
+//
 // To ensure proper isolation between application processes, a virtual machine
 // (VM) can only use the `network` that the same application process creates.
 // If an application’s VM tries to use a `network` that another
 // application’s VM creates, initialization fails.
-// 
+//
 // For more information on vmnet configuration requirements and restrictions,
 // see [vmnet]
-// 
+//
 // The following example demonstrates how to create and initialize a custom
 // network using [VZVmnetNetworkDeviceAttachment].
 //
-// [vmnet]: https://developer.apple.com/documentation/vmnet
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZVmnetNetworkDeviceAttachment/init(network:)
+//
+// [vmnet]: https://developer.apple.com/documentation/vmnet
 func NewVmnetNetworkDeviceAttachmentWithNetwork(network vmnet.Vmnet_network_ref) VZVmnetNetworkDeviceAttachment {
 	instance := getVZVmnetNetworkDeviceAttachmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
@@ -146,26 +148,26 @@ func NewVmnetNetworkDeviceAttachmentWithNetwork(network vmnet.Vmnet_network_ref)
 // network: The logical network object
 //
 // # Return Value
-// 
+//
 // An initialized [VZVmnetNetworkDeviceAttachment] object, or `nil` if there
 // was an error.
 //
 // # Discussion
-// 
+//
 // To ensure proper isolation between application processes, a virtual machine
 // (VM) can only use the `network` that the same application process creates.
 // If an application’s VM tries to use a `network` that another
 // application’s VM creates, initialization fails.
-// 
+//
 // For more information on vmnet configuration requirements and restrictions,
 // see [vmnet]
-// 
+//
 // The following example demonstrates how to create and initialize a custom
 // network using [VZVmnetNetworkDeviceAttachment].
 //
-// [vmnet]: https://developer.apple.com/documentation/vmnet
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZVmnetNetworkDeviceAttachment/init(network:)
+//
+// [vmnet]: https://developer.apple.com/documentation/vmnet
 func (v VZVmnetNetworkDeviceAttachment) InitWithNetwork(network vmnet.Vmnet_network_ref) VZVmnetNetworkDeviceAttachment {
 	rv := objc.Send[VZVmnetNetworkDeviceAttachment](v.ID, objc.Sel("initWithNetwork:"), network)
 	return rv
@@ -178,4 +180,3 @@ func (v VZVmnetNetworkDeviceAttachment) Network() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("network"))
 	return rv
 }
-

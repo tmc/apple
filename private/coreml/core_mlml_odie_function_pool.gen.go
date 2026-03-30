@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type CoreMLMLOdieFunctionPool struct {
 func CoreMLMLOdieFunctionPoolFromID(id objc.ID) CoreMLMLOdieFunctionPool {
 	return CoreMLMLOdieFunctionPool{objectivec.Object{ID: id}}
 }
+
 // NOTE: CoreMLMLOdieFunctionPool struct embeds objectivec.Object (parent type unavailable) but
 // ICoreMLMLOdieFunctionPool embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewCoreMLMLOdieFunctionPool() CoreMLMLOdieFunctionPool {
 	rv := objc.Send[CoreMLMLOdieFunctionPool](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

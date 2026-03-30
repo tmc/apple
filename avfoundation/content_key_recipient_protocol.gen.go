@@ -23,6 +23,7 @@ type AVContentKeyRecipient interface {
 type AVContentKeyRecipientObject struct {
 	objectivec.Object
 }
+
 func (o AVContentKeyRecipientObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,18 +43,18 @@ func AVContentKeyRecipientObjectFromID(id objc.ID) AVContentKeyRecipientObject {
 func (o AVContentKeyRecipientObject) MayRequireContentKeysForMediaDataProcessing() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("mayRequireContentKeysForMediaDataProcessing"))
 	return rv
-	}
+}
+
 // Tells the recipient that a content key is available.
 //
 // contentKeySession: The current content key session.
 //
 // contentKey: A content key to use with objects that support manual attachment of keys,
 // such as [CMSampleBuffer].
-// //
-// [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRecipient/contentKeySession(_:didProvide:)
+//
+// [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 func (o AVContentKeyRecipientObject) ContentKeySessionDidProvideContentKey(contentKeySession IAVContentKeySession, contentKey IAVContentKey) {
 	objc.Send[struct{}](o.ID, objc.Sel("contentKeySession:didProvideContentKey:"), contentKeySession, contentKey)
-	}
-
+}

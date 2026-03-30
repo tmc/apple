@@ -4,10 +4,11 @@ package foundation
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,13 +49,13 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 // ranges of characters to support rendering.
 //
 // # Overview
-// 
+//
 // [NSAttributedString] is a type you use to manage strings of stylized
 // Unicode text. In addition to text, an attributed string contains key-value
 // pairs known as that specify additional information to apply to ranges of
 // characters within the string. Attributed strings support many different
 // kinds of attributes, including:
-// 
+//
 // - Rendering attributes that specify font, color, kern, ligature, and other
 // details - Attributes for attachments and adaptive image glyphs - Semantic
 // attributes such as link URLs or tool-tip information - Language attributes
@@ -62,7 +63,7 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 // attributes that provide information for assistive technologies - Attributes
 // that summarize details of the Markdown import process - Custom attributes
 // you define for your app
-// 
+//
 // Use attributed strings anywhere you need styled text, or when you need to
 // associate additional information with your text. Because
 // [NSAttributedString] is an immutable type, you specify all of the text and
@@ -72,14 +73,14 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 // contents of a file, including files that contain RTF, RTFD, HTML, Markdown,
 // or other file formats. If you need to modify the contents of an attributed
 // string later, use the [NSMutableAttributedString] type instead.
-// 
+//
 // If you create an [NSAttributedString] without any font information, the
 // string’s default font is Helvetica 12-point, which might differ from the
 // default system font for the platform. To change the font, specify a font
 // attribute at creation time.
-// 
+//
 // # Persistence
-// 
+//
 // Be aware of how you persist attributed strings to and from the disk. RTF
 // and RTFD are the preferred format for attributed strings because they offer
 // the best fidelity for reading and writing attribute data. The RTF formats
@@ -87,13 +88,13 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 // formats to support many Apple-specific attributes. If you define custom
 // attributes for ranges of characters, store them separately alongside the
 // RTF file for your text.
-// 
+//
 // If you work extensively with HTML content, validate the results and
 // performance of import and export operations during testing. WebKit handles
 // the conversion between HTML markup and attributed strings. If an HTML file
 // contains tags or constructs that attributed strings don’t support, the
 // import process ignores them and imports what it can.
-// 
+//
 // When you create an attributed string from Markdown, the system adds
 // presentation intent attributes with information about the original Markdown
 // content. The system doesn’t add style attributes to match the Markdown
@@ -101,7 +102,7 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 // a string with intent attributes. To change the rendering behavior of your
 // Markdown content, remove the intent attributes and add the style attributes
 // you prefer.
-// 
+//
 // The methods for reading and writing common file formats also support
 // document attributes. Document attributes aren’t part of the attributed
 // string itself, but accompany the text when you save it to a file. When you
@@ -110,9 +111,9 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 // the attributes to include. For more information about document attributes,
 // see [NSAttributedString.DocumentAttributeKey] and
 // [NSAttributedString.DocumentReadingOptionKey].
-// 
+//
 // # System framework interoperability
-// 
+//
 // [TextKit] and [Core Text] use attributed strings extensively during the
 // layout and rendering processes. These technologies use the string’s text
 // and rendering-related attributes to calculate the text metrics needed
@@ -121,8 +122,8 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 // use only attributes that directly affect the appearance of the text, and
 // ignore most other attributes. For some attributes, the text system adds
 // attributes during rendering as needed. For example, the text system
-// provides default style attributes for text with the [link] attribute.
-// 
+// provides default style attributes for text with the [NSAttributedString.Link] attribute.
+//
 // [AppKit] and [UIKit] also support attributed strings in several ways. Some
 // views and controls in these frameworks have APIs that accept attributed
 // strings, and render the string with its style information. The frameworks
@@ -130,20 +131,11 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 // styled string directly in one of your custom views. Because these methods
 // use TextKit to draw the string, they recognize the same rendering-related
 // attributes as that technology.
-// 
+//
 // The [NSAttributedString] class and its Core Foundation counterpart,
 // [CFAttributedString], are toll-free bridged, which means you can use the
 // two types interchangeably in your code without losing any text or attribute
 // information.
-//
-// [AppKit]: https://developer.apple.com/documentation/AppKit
-// [CFAttributedString]: https://developer.apple.com/documentation/CoreFoundation/CFAttributedString
-// [Core Text]: https://developer.apple.com/documentation/CoreText
-// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-// [NSAttributedString.DocumentReadingOptionKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey
-// [TextKit]: https://developer.apple.com/documentation/UIKit/textkit
-// [UIKit]: https://developer.apple.com/documentation/UIKit
-// [link]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/link
 //
 // # Exporting the string as data
 //
@@ -212,6 +204,14 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 //   - [NSAttributedString.ContainsAttachmentsInRange]: Returns a Boolean value that indicates if the attributed string contains an attachment in the specified range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString
+//
+// [AppKit]: https://developer.apple.com/documentation/AppKit
+// [CFAttributedString]: https://developer.apple.com/documentation/CoreFoundation/CFAttributedString
+// [Core Text]: https://developer.apple.com/documentation/CoreText
+// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
+// [NSAttributedString.DocumentReadingOptionKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey
+// [TextKit]: https://developer.apple.com/documentation/UIKit/textkit
+// [UIKit]: https://developer.apple.com/documentation/UIKit
 type NSAttributedString struct {
 	objectivec.Object
 }
@@ -223,6 +223,7 @@ type NSAttributedString struct {
 func NSAttributedStringFromID(id objc.ID) NSAttributedString {
 	return NSAttributedString{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAttributedString adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -488,7 +489,7 @@ func NewNSAttributedString() NSAttributedString {
 // dictionary to create the string without any extra attributes.
 //
 // # Return Value
-// 
+//
 // An attributed string containing the adaptive image glyph.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(adaptiveImageGlyph:attributes:)
@@ -503,18 +504,18 @@ func NewAttributedStringWithAdaptiveImageGlyphAttributes(adaptiveImageGlyph obje
 // attachment: The attrachment to place in the string.
 //
 // # Return Value
-// 
+//
 // An attributed string containing the attachment.
 //
 // # Discussion
-// 
+//
 // This is a convenience method for creating an attributed string containing
 // an attachment using [character] as the base character.
 //
-// [character]: https://developer.apple.com/documentation/UIKit/NSTextAttachment/character
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(attachment:)
 // attachment is a [appkit.NSTextAttachment].
+//
+// [character]: https://developer.apple.com/documentation/UIKit/NSTextAttachment/character
 func NewAttributedStringWithAttachment(attachment objectivec.IObject) NSAttributedString {
 	rv := objc.Send[objc.ID](objc.ID(getNSAttributedStringClass().class), objc.Sel("attributedStringWithAttachment:"), attachment)
 	return NSAttributedStringFromID(rv)
@@ -529,7 +530,7 @@ func NewAttributedStringWithAttachment(attachment objectivec.IObject) NSAttribut
 // create the string without any extra attributes.
 //
 // # Return Value
-// 
+//
 // An attributed string containing the attachment.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(attachment:attributes:)
@@ -545,7 +546,7 @@ func NewAttributedStringWithAttachmentAttributes(attachment objectivec.IObject, 
 // attrStr: An attributed string.
 //
 // # Return Value
-// 
+//
 // An [NSAttributedString] object initialized with the characters and
 // attributes of `attrStr`.
 //
@@ -556,7 +557,6 @@ func NewAttributedStringWithAttributedString(attrStr INSAttributedString) NSAttr
 	return NSAttributedStringFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewAttributedStringWithCoder(coder INSCoder) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
@@ -581,7 +581,7 @@ func NewAttributedStringWithCoder(coder INSCoder) NSAttributedString {
 // specify `nil` for this parameter if you don’t want the error information.
 //
 // # Return Value
-// 
+//
 // An attributed string with the parsed Markdown text and styling, or `nil` if
 // parsing the data fails.
 //
@@ -606,29 +606,22 @@ func NewAttributedStringWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markd
 // [documentType] or [fileType] option to interpret the data as a specific
 // type. When sharing files between different platforms, specify the
 // [sourceTextScaling] or [targetTextScaling] options for any required text
-// scaling behaviors. Specify the [characterEncoding] attribute for plain-text
+// scaling behaviors. Specify the [CharacterEncoding] attribute for plain-text
 // files. Specify the [defaultAttributes] key to apply document attributes to
 // the returned string. If you specify an empty dictionary, the method
 // identifies the data format from the data itself.
-// //
-// [characterEncoding]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/characterEncoding
-// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
-// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-// [sourceTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/sourceTextScaling
-// [targetTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/targetTextScaling
 //
 // dict: An in-out dictionary containing document-level attributes. On output, this
 // method updates the dictionary to contain any document-specific keys found
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
 // # Discussion
-// 
+//
 // Don’t call this method from a background thread if the `options`
 // dictionary includes the [documentType] attribute with a value of [html]. If
 // you do, the method tries to synchronize with the main thread, fails, and
@@ -637,10 +630,16 @@ func NewAttributedStringWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markd
 // mechanism is meant for implementing something like markdown (that is, text
 // styles, colors, and so on), not for general HTML import.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(data:options:documentAttributes:)
+//
+// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
+// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
+// [sourceTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/sourceTextScaling
+// [targetTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/targetTextScaling
 // [html]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentType/html
 //
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(data:options:documentAttributes:)
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 func NewAttributedStringWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
 	var errorPtr objc.ID
 	instance := getNSAttributedStringClass().Alloc()
@@ -662,7 +661,7 @@ func NewAttributedStringWithDataOptionsDocumentAttributesError(data INSData, opt
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
@@ -679,24 +678,20 @@ func NewAttributedStringWithDocFormatDocumentAttributes(data INSData, dict INSDi
 // url: An [NSURL] object specifying the document to load.
 //
 // options: Document attributes for interpreting the document contents. [documentType],
-// [characterEncoding], and [defaultAttributes] are supported option keys. If
+// [CharacterEncoding], and [defaultAttributes] are supported option keys. If
 // not specified, the method examines the data to attempt to determine the
 // appropriate attributes.
-// //
-// [characterEncoding]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/characterEncoding
-// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 //
 // dict: If non-[NULL], returns a dictionary with various document-wide attributes
 // accessible via document attribute keys.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the data
 // can’t be decoded.
 //
 // # Discussion
-// 
+//
 // The HTML importer should not be called from a background thread (that is,
 // the `options` dictionary includes [documentType] with a value of [html]).
 // It will try to synchronize with the main thread, fail, and time out.
@@ -706,10 +701,13 @@ func NewAttributedStringWithDocFormatDocumentAttributes(data INSData, dict INSDi
 // markdown (that is, text styles, colors, and so on), not for general HTML
 // import.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(fileURL:options:documentAttributes:)
+//
+// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 // [html]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentType/html
 //
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(fileURL:options:documentAttributes:)
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 func NewAttributedStringWithFileURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
 	var errorPtr objc.ID
 	instance := getNSAttributedStringClass().Alloc()
@@ -726,8 +724,6 @@ func NewAttributedStringWithFileURLOptionsDocumentAttributesError(url INSURL, op
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // options: Options for how to apply attributes to the string’s content.
 //
@@ -735,16 +731,18 @@ func NewAttributedStringWithFileURLOptionsDocumentAttributesError(url INSURL, op
 // formatting of region-sensitive values such as numbers and currencies.
 //
 // # Return Value
-// 
+//
 // An initialized attributed string that combines the format string with the
 // provided arguments and other information.
 //
 // # Discussion
-// 
+//
 // Pass an optional list of trailing variadic arguments to substitute into the
 // `format` string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func NewAttributedStringWithFormatOptionsLocale(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:options:locale:"), format, options, locale)
@@ -756,8 +754,6 @@ func NewAttributedStringWithFormatOptionsLocale(format INSAttributedString, opti
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // options: Options for how to apply attributes to the string’s content.
 //
@@ -767,11 +763,13 @@ func NewAttributedStringWithFormatOptionsLocale(format INSAttributedString, opti
 // arguments: A list of arguments to substitute into the `format` string.
 //
 // # Return Value
-// 
+//
 // An initialized attributed string that combines the format string with the
 // provided arguments and other information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:arguments:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func NewAttributedStringWithFormatOptionsLocaleArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, arguments unsafe.Pointer) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:options:locale:arguments:"), format, options, locale, arguments)
@@ -783,8 +781,6 @@ func NewAttributedStringWithFormatOptionsLocaleArguments(format INSAttributedStr
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // options: Options for how to apply attributes to the string’s content.
 //
@@ -794,16 +790,18 @@ func NewAttributedStringWithFormatOptionsLocaleArguments(format INSAttributedStr
 // context: Additional options to apply to the string.
 //
 // # Return Value
-// 
+//
 // An initialized attributed string that combines the format string with the
 // provided arguments and other information.
 //
 // # Discussion
-// 
+//
 // Pass an optional list of trailing variadic arguments to substitute into the
 // `format` string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:context:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func NewAttributedStringWithFormatOptionsLocaleContext(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:options:locale:context:"), format, options, locale, context)
@@ -816,8 +814,6 @@ func NewAttributedStringWithFormatOptionsLocaleContext(format INSAttributedStrin
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // options: Options for how to apply attributes to the string’s content.
 //
@@ -829,11 +825,13 @@ func NewAttributedStringWithFormatOptionsLocaleContext(format INSAttributedStrin
 // arguments: A list of arguments to substitute into the `format` string.
 //
 // # Return Value
-// 
+//
 // An initialized attributed string that combines the format string with the
 // provided arguments and other information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:context:arguments:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func NewAttributedStringWithFormatOptionsLocaleContextArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary, arguments unsafe.Pointer) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:options:locale:context:arguments:"), format, options, locale, context, arguments)
@@ -853,7 +851,7 @@ func NewAttributedStringWithFormatOptionsLocaleContextArguments(format INSAttrib
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:baseURL:documentAttributes:)
@@ -873,7 +871,7 @@ func NewAttributedStringWithHTMLBaseURLDocumentAttributes(data INSData, base INS
 // in the data. Specify `nil` if you don’t want the document attributes
 //
 // # Return Value
-// 
+//
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:documentAttributes:)
@@ -890,18 +888,18 @@ func NewAttributedStringWithHTMLDocumentAttributes(data INSData, dict INSDiction
 //
 // options: Specifies additional options for loading the document. For a list of
 // possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 //
 // dict: An in-out dictionary containing document-level attributes. On output, this
 // method updates the dictionary to contain any document-specific keys found
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:options:documentAttributes:)
+//
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 func NewAttributedStringWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict INSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, dict)
@@ -925,7 +923,7 @@ func NewAttributedStringWithHTMLOptionsDocumentAttributes(data INSData, options 
 // specify `nil` for this parameter if you don’t want the error information.
 //
 // # Return Value
-// 
+//
 // An attributed string with the parsed Markdown text and styling, or `nil` if
 // parsing the data fails.
 //
@@ -958,7 +956,7 @@ func NewAttributedStringWithMarkdownOptionsBaseURLError(markdown INSData, option
 // specify `nil` for this parameter if you don’t want the error information.
 //
 // # Return Value
-// 
+//
 // An attributed string with the parsed Markdown text and styling, or `nil` if
 // parsing the data fails.
 //
@@ -984,7 +982,7 @@ func NewAttributedStringWithMarkdownStringOptionsBaseURLError(markdownString str
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
@@ -1005,21 +1003,21 @@ func NewAttributedStringWithRTFDDocumentAttributes(data INSData, dict INSDiction
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
 // # Discussion
-// 
+//
 // Also returns by reference in `dict` a dictionary containing document-level
 // attributes described in [NSAttributedString.DocumentAttributeKey]. `dict`
 // may be [NULL], in which case no document attributes are returned. Returns
 // an initialized object, or `nil` if `wrapper` can’t be interpreted as an
 // RTFD document.
 //
-// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFDFileWrapper:documentAttributes:)
+//
+// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
 func NewAttributedStringWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict INSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, dict)
@@ -1036,20 +1034,20 @@ func NewAttributedStringWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWra
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
 // # Discussion
-// 
+//
 // Also returns by reference in `dict` a dictionary containing document-level
 // attributes described in [NSAttributedString.DocumentAttributeKey]. `dict`
 // may be [NULL], in which case no document attributes are returned. Returns
 // an initialized object, or `nil` if `data` can’t be decoded.
 //
-// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTF:documentAttributes:)
+//
+// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
 func NewAttributedStringWithRTFDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTF:documentAttributes:"), data, dict)
@@ -1062,7 +1060,7 @@ func NewAttributedStringWithRTFDocumentAttributes(data INSData, dict INSDictiona
 // str: The text for the new attributed string.
 //
 // # Return Value
-// 
+//
 // An [NSAttributedString] object initialized with the characters of `str` and
 // no attribute information.
 //
@@ -1082,7 +1080,7 @@ func NewAttributedStringWithString(str string) NSAttributedString {
 // include in this dictionary, see [NSAttributedStringKey].
 //
 // # Discussion
-// 
+//
 // Returns an [NSAttributedString] object initialized with the characters of
 // `str` and the attributes of `attrs`.
 //
@@ -1101,29 +1099,22 @@ func NewAttributedStringWithStringAttributes(str string, attrs INSDictionary) NS
 // [documentType] or [fileType] option to interpret the data as a specific
 // type. When sharing files between different platforms, specify the
 // [sourceTextScaling] or [targetTextScaling] options for any required text
-// scaling behaviors. Specify the [characterEncoding] attribute for plain-text
+// scaling behaviors. Specify the [CharacterEncoding] attribute for plain-text
 // files. Specify the [defaultAttributes] key to apply document attributes to
 // the returned string. If you specify an empty dictionary, the method
 // identifies the data format from the data itself.
-// //
-// [characterEncoding]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/characterEncoding
-// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
-// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-// [sourceTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/sourceTextScaling
-// [targetTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/targetTextScaling
 //
 // dict: An in-out dictionary containing document-level attributes. On output, this
 // method updates the dictionary to contain any document-specific keys found
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
 // # Discussion
-// 
+//
 // Filter services can be used to convert the file into a format recognized by
 // Cocoa. The `options` dictionary specifies how the document should be loaded
 // and can contain the values described in
@@ -1132,16 +1123,22 @@ func NewAttributedStringWithStringAttributes(str string, attrs INSDictionary) NS
 // it is in the specified format. If you don’t specify one of these options,
 // the method examines the document and loads it using whatever format it
 // seems to contain.
-// 
+//
 // If an error occurs, the method returns `nil` and sets the `error` parameter
 // to an [NSError] object with information about why it couldn’t create the
 // attributed string object.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(URL:options:documentAttributes:)
+//
+// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
+// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
+// [sourceTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/sourceTextScaling
+// [targetTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/targetTextScaling
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
+//
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/documentType
 // [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(URL:options:documentAttributes:)
 func NewAttributedStringWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
 	var errorPtr objc.ID
 	instance := getNSAttributedStringClass().Alloc()
@@ -1161,22 +1158,20 @@ func NewAttributedStringWithURLOptionsDocumentAttributesError(url INSURL, option
 // dict: A required dictionary specifying the document attributes. The dictionary
 // contains values from `Document Types` and must at least contain
 // [documentType].
-// //
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 //
 // # Return Value
-// 
+//
 // Returns the data for the attributed string, or `nil` if failure. When
 // `nil`, `error` encapsulates the error information.
 //
 // # Discussion
-// 
-// Raises an [rangeException] if any part of `range` lies beyond the end of
+//
+// Raises an [RangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/data(from:documentAttributes:)
+//
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 func (a NSAttributedString) DataFromRangeDocumentAttributesError(range_ NSRange, dict INSDictionary) (INSData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dataFromRange:documentAttributes:error:"), range_, dict, unsafe.Pointer(&errorPtr))
@@ -1187,6 +1182,7 @@ func (a NSAttributedString) DataFromRangeDocumentAttributesError(range_ NSRange,
 	return NSDataFromID(rv), nil
 
 }
+
 // Returns a file wrapper object that contains a text stream corresponding to
 // the characters and attributes within the specified range.
 //
@@ -1195,22 +1191,20 @@ func (a NSAttributedString) DataFromRangeDocumentAttributesError(range_ NSRange,
 // dict: A required dictionary specifying the document attributes. The dictionary
 // contains values from `Document Types` and must at least contain
 // [documentType].
-// //
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 //
 // # Return Value
-// 
+//
 // Returns a file wrapper for the appropriate document type, or `nil` if
 // failure. When `nil`, `error` encapsulates the error information.
 //
 // # Discussion
-// 
-// Raises an [rangeException] if any part of `range` lies beyond the end of
+//
+// Raises an [RangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/fileWrapper(from:documentAttributes:)
+//
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 func (a NSAttributedString) FileWrapperFromRangeDocumentAttributesError(range_ NSRange, dict INSDictionary) (INSFileWrapper, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fileWrapperFromRange:documentAttributes:error:"), range_, dict, unsafe.Pointer(&errorPtr))
@@ -1221,6 +1215,7 @@ func (a NSAttributedString) FileWrapperFromRangeDocumentAttributesError(range_ N
 	return NSFileWrapperFromID(rv), nil
 
 }
+
 // Returns a data object that contains a Microsoft Word–format stream
 // corresponding to the characters and attributes within the specified range.
 //
@@ -1229,26 +1224,25 @@ func (a NSAttributedString) FileWrapperFromRangeDocumentAttributesError(range_ N
 // dict: A required dictionary specifying the document attributes. The dictionary
 // contains values from `Document Types` and must at least contain
 // [documentType].
-// //
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 //
 // # Return Value
-// 
+//
 // Returns a data object containing the attributed string as a Microsoft Word
 // doc file.
 //
 // # Discussion
-// 
-// Raises an [rangeException] if any part of `range` lies beyond the end of
+//
+// Raises an [RangeException] if any part of `range` lies beyond the end of
 // the receiver’s characters.
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/docFormat(from:documentAttributes:)
+//
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 func (a NSAttributedString) DocFormatFromRangeDocumentAttributes(range_ NSRange, dict INSDictionary) INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("docFormatFromRange:documentAttributes:"), range_, dict)
 	return NSDataFromID(rv)
 }
+
 // Returns a data object that contains an RTF stream corresponding to the
 // characters and attributes within the specified range, omitting all
 // attachment attributes.
@@ -1258,21 +1252,19 @@ func (a NSAttributedString) DocFormatFromRangeDocumentAttributes(range_ NSRange,
 // dict: A required dictionary specifying the document attributes. The dictionary
 // contains values from `Document Types` and must at least contain
 // [documentType].
-// //
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 //
 // # Return Value
-// 
+//
 // A data object containing an RTF stream for the attributed string.
 //
 // # Discussion
-// 
+//
 // Writes the document-level attributes in `docAttributes`, as explained in
 // [RTF Files and Attributed Strings].
-// 
-// Raises an [rangeException] if any part of `aRange` lies beyond the end of
+//
+// Raises an [RangeException] if any part of `aRange` lies beyond the end of
 // the receiver’s characters.
-// 
+//
 // When writing data to the pasteboard, you can use the [NSData] object as the
 // first argument to the [NSPasteboard] method [setData(_:forType:)], with a
 // second argument of [NSRTFPboardType]. Although this method strips
@@ -1280,17 +1272,18 @@ func (a NSAttributedString) DocFormatFromRangeDocumentAttributes(range_ NSRange,
 // [NSText] method [rtf(from:)], on the other hand, does strip attachment
 // characters when extracting RTF.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/rtf(from:documentAttributes:)
+//
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 // [NSPasteboard]: https://developer.apple.com/documentation/AppKit/NSPasteboard
 // [RTF Files and Attributed Strings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/TextAttributes/RTFAndAttrStrings.html#//apple_ref/doc/uid/20000164
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 // [rtf(from:)]: https://developer.apple.com/documentation/AppKit/NSText/rtf(from:)
 // [setData(_:forType:)]: https://developer.apple.com/documentation/AppKit/NSPasteboard/setData(_:forType:)
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/rtf(from:documentAttributes:)
 func (a NSAttributedString) RTFFromRangeDocumentAttributes(range_ NSRange, dict INSDictionary) INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("RTFFromRange:documentAttributes:"), range_, dict)
 	return NSDataFromID(rv)
 }
+
 // Returns a data object that contains an RTFD stream corresponding to the
 // characters and attributes within the specified range.
 //
@@ -1299,36 +1292,35 @@ func (a NSAttributedString) RTFFromRangeDocumentAttributes(range_ NSRange, dict 
 // dict: A required dictionary specifying the document attributes. The dictionary
 // contains values from `Document Types` and must at least contain
 // [documentType].
-// //
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 //
 // # Return Value
-// 
+//
 // A data object containing the RTFD stream containing the characters and
 // attributes.
 //
 // # Discussion
-// 
+//
 // Writes the document-level attributes in `docAttributes`, as explained in
 // [RTF Files and Attributed Strings].
-// 
-// Raises an [rangeException] if any part of `aRange` lies beyond the end of
+//
+// Raises an [RangeException] if any part of `aRange` lies beyond the end of
 // the receiver’s characters.
-// 
+//
 // When writing data to the pasteboard, you can use the [NSData] object as the
 // first argument to the [NSPasteboard] method [setData(_:forType:)], with a
 // second argument of [NSRTFPboardType].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/rtfd(from:documentAttributes:)
+//
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 // [NSPasteboard]: https://developer.apple.com/documentation/AppKit/NSPasteboard
 // [RTF Files and Attributed Strings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/TextAttributes/RTFAndAttrStrings.html#//apple_ref/doc/uid/20000164
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 // [setData(_:forType:)]: https://developer.apple.com/documentation/AppKit/NSPasteboard/setData(_:forType:)
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/rtfd(from:documentAttributes:)
 func (a NSAttributedString) RTFDFromRangeDocumentAttributes(range_ NSRange, dict INSDictionary) INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("RTFDFromRange:documentAttributes:"), range_, dict)
 	return NSDataFromID(rv)
 }
+
 // Returns a file wrapper object that contains an RTFD document corresponding
 // to the characters and attributes within the specified range.
 //
@@ -1339,29 +1331,29 @@ func (a NSAttributedString) RTFDFromRangeDocumentAttributes(range_ NSRange, dict
 // [NSDocumentTypeDocumentAttribute].
 //
 // # Return Value
-// 
+//
 // A file wrapper containing the RTFD data.
 //
 // # Discussion
-// 
+//
 // The file wrapper also includes the document-level attributes in
 // `docAttributes`, as explained in [RTF Files and Attributed Strings].
-// 
-// Raises an [rangeException] if any part of `aRange` lies beyond the end of
+//
+// Raises an [RangeException] if any part of `aRange` lies beyond the end of
 // the receiver’s characters.
-// 
+//
 // You can save the file wrapper using the
 // [write(toFile:atomically:updateFilenames:)] method of [NSFileWrapper].
 //
-// [RTF Files and Attributed Strings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/TextAttributes/RTFAndAttrStrings.html#//apple_ref/doc/uid/20000164
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
-// [write(toFile:atomically:updateFilenames:)]: https://developer.apple.com/documentation/Foundation/FileWrapper/write(toFile:atomically:updateFilenames:)
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/rtfdFileWrapper(from:documentAttributes:)
+//
+// [RTF Files and Attributed Strings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/TextAttributes/RTFAndAttrStrings.html#//apple_ref/doc/uid/20000164
+// [write(toFile:atomically:updateFilenames:)]: https://developer.apple.com/documentation/Foundation/FileWrapper/write(toFile:atomically:updateFilenames:)
 func (a NSAttributedString) RTFDFileWrapperFromRangeDocumentAttributes(range_ NSRange, dict INSDictionary) INSFileWrapper {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("RTFDFileWrapperFromRange:documentAttributes:"), range_, dict)
 	return NSFileWrapperFromID(rv)
 }
+
 // Returns an attributed string consisting of the characters and attributes
 // within the specified range in the attributed string.
 //
@@ -1369,78 +1361,77 @@ func (a NSAttributedString) RTFDFileWrapperFromRangeDocumentAttributes(range_ NS
 // within the bounds of the receiver.
 //
 // # Return Value
-// 
+//
 // An [NSAttributedString] object consisting of the characters and attributes
 // within `aRange` in the receiver.
 //
 // # Discussion
-// 
-// Raises an [rangeException] if any part of `aRange` lies beyond the end of
+//
+// Raises an [RangeException] if any part of `aRange` lies beyond the end of
 // the receiver’s characters. This method treats the length of the string as
 // a valid range value that returns an empty string.
-//
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/attributedSubstring(from:)
 func (a NSAttributedString) AttributedSubstringFromRange(range_ NSRange) INSAttributedString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributedSubstringFromRange:"), range_)
 	return NSAttributedStringFromID(rv)
 }
+
 // Returns the font attributes in effect for the character at the specified
 // location.
 //
 // range: The range.
 //
 // # Return Value
-// 
+//
 // A dictionary containing the font attributes for the range.
 //
 // # Discussion
-// 
+//
 // The dictionary attributes are all those listed in `Character Attributes`,
-// except [link], [paragraphStyle], and [attachment].
-// 
+// except [Link], [paragraphStyle], and [attachment].
+//
 // Use this method to obtain font attributes that are to be copied or pasted
 // with “copy font” operations.
-// 
+//
 // Raises an [NSRangeException] if any part of `aRange` lies beyond the end of
 // the receiver’s characters.
 //
-// [attachment]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/attachment
-// [link]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/link
-// [paragraphStyle]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/paragraphStyle
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/fontAttributes(in:)
+//
+// [attachment]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/attachment
+// [paragraphStyle]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/paragraphStyle
 func (a NSAttributedString) FontAttributesInRange(range_ NSRange) INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fontAttributesInRange:"), range_)
 	return NSDictionaryFromID(rv)
 }
+
 // Returns the ruler (paragraph) attributes in effect for the characters
 // within the specified range.
 //
 // range: The range.
 //
 // # Return Value
-// 
+//
 // A dictionary containing the ruler attributes in the range.
 //
 // # Discussion
-// 
+//
 // The only ruler attribute currently defined is that named by
 // [paragraphStyle]. Use this method to obtain attributes that are to be
 // copied or pasted with “copy ruler” operations.
-// 
-// Raises an [rangeException] if any part of `aRange` lies beyond the end of
+//
+// Raises an [RangeException] if any part of `aRange` lies beyond the end of
 // the receiver’s characters.
 //
-// [paragraphStyle]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/paragraphStyle
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/rulerAttributes(in:)
+//
+// [paragraphStyle]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/paragraphStyle
 func (a NSAttributedString) RulerAttributesInRange(range_ NSRange) INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("rulerAttributesInRange:"), range_)
 	return NSDictionaryFromID(rv)
 }
+
 // Returns the attributes for the character at the specified index.
 //
 // location: The index for which to return attributes. This value must lie within the
@@ -1453,23 +1444,22 @@ func (a NSAttributedString) RulerAttributesInRange(range_ NSRange) INSDictionary
 // this value, pass [NULL].
 //
 // # Return Value
-// 
+//
 // The attributes for the character at `index`.
 //
 // # Discussion
-// 
-// Raises an [rangeException] if `index` lies beyond the end of the
-// receiver’s characters.
-// 
-// For a list of possible attributes, see [NSAttributedStringKey].
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// Raises an [RangeException] if `index` lies beyond the end of the
+// receiver’s characters.
+//
+// For a list of possible attributes, see [NSAttributedStringKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/attributes(at:effectiveRange:)
 func (a NSAttributedString) AttributesAtIndexEffectiveRange(location uint, range_ NSRangePointer) INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributesAtIndex:effectiveRange:"), location, range_)
 	return NSDictionaryFromID(rv)
 }
+
 // Returns the attributes for the character at the specified index and, by
 // reference, the range where the attributes apply.
 //
@@ -1484,23 +1474,22 @@ func (a NSAttributedString) AttributesAtIndexEffectiveRange(location uint, range
 // `index`. This value must not exceed the bounds of the receiver.
 //
 // # Discussion
-// 
-// Raises an [rangeException] if `index` or any part of `rangeLimit` lies
+//
+// Raises an [RangeException] if `index` or any part of `rangeLimit` lies
 // beyond the end of the receiver’s characters.
-// 
+//
 // If you don’t need the range information, it’s far more efficient to use
 // the [AttributesAtIndexEffectiveRange] method to retrieve the attribute
 // value.
-// 
-// For a list of possible attributes, see [NSAttributedStringKey].
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// For a list of possible attributes, see [NSAttributedStringKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/attributes(at:longestEffectiveRange:in:)
 func (a NSAttributedString) AttributesAtIndexLongestEffectiveRangeInRange(location uint, range_ NSRangePointer, rangeLimit NSRange) INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributesAtIndex:longestEffectiveRange:inRange:"), location, range_, rangeLimit)
 	return NSDictionaryFromID(rv)
 }
+
 // Returns the value for an attribute with the specified name of the character
 // at the specified index and, by reference, the range where the attribute
 // applies.
@@ -1511,24 +1500,24 @@ func (a NSAttributedString) AttributesAtIndexLongestEffectiveRangeInRange(locati
 // bounds of the receiver.
 //
 // range: If non-[NULL]:
-// 
+//
 // - If the named attribute exists at `index`, upon return `aRange` contains a
 // range over which the named attribute’s value applies. - If the named
 // attribute does not exist at `index`, upon return `aRange` contains the
 // range over which the attribute does not exist.
-// 
+//
 // The range isn’t necessarily the maximum range covered by `attributeName`,
 // and its extent is implementation-dependent. If you need the maximum range,
 // use [AttributeAtIndexLongestEffectiveRangeInRange]. If you don’t need
 // this value, pass [NULL].
 //
 // # Return Value
-// 
+//
 // The value for the attribute named `attrName` of the character at
 // `location`, or `nil` if there is no such attribute.
 //
 // # Discussion
-// 
+//
 // For a list of possible attributes, see [NSAttributedStringKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/attribute(_:at:effectiveRange:)
@@ -1536,6 +1525,7 @@ func (a NSAttributedString) AttributeAtIndexEffectiveRange(attrName NSAttributed
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attribute:atIndex:effectiveRange:"), objc.String(string(attrName)), location, range_)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns the value for the attribute with the specified name of the
 // character at the specified index and, by reference, the range where the
 // attribute applies.
@@ -1545,41 +1535,40 @@ func (a NSAttributedString) AttributeAtIndexEffectiveRange(attrName NSAttributed
 // location: The index at which to test for `attributeName`.
 //
 // range: If non-[NULL]:
-// 
+//
 // - If the named attribute exists at `index`, upon return `aRange` contains
 // the full range over which the value of the named attribute is the same as
 // that at `index`, clipped to `rangeLimit`. - If the named attribute does not
 // exist at `index`, upon return `aRange` contains the full range over which
 // the attribute does not exist, clipped to `rangeLimit`.
-// 
+//
 // If you don’t need this value, pass [NULL].
 //
 // rangeLimit: The range over which to search for continuous presence of `attributeName`.
 // This value must not exceed the bounds of the receiver.
 //
 // # Return Value
-// 
+//
 // The value for the attribute named `attributeName` of the character at
 // `index`, or `nil` if there is no such attribute.
 //
 // # Discussion
-// 
-// Raises an [rangeException] if `index` or any part of `rangeLimit` lies
+//
+// Raises an [RangeException] if `index` or any part of `rangeLimit` lies
 // beyond the end of the receiver’s characters.
-// 
+//
 // If you don’t need the longest effective range, it’s far more efficient
 // to use the [AttributeAtIndexEffectiveRange] method to retrieve the
 // attribute value.
-// 
-// For a list of possible attributes, see [NSAttributedStringKey].
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// For a list of possible attributes, see [NSAttributedStringKey].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/attribute(_:at:longestEffectiveRange:in:)
 func (a NSAttributedString) AttributeAtIndexLongestEffectiveRangeInRange(attrName NSAttributedStringKey, location uint, range_ NSRangePointer, rangeLimit NSRange) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attribute:atIndex:longestEffectiveRange:inRange:"), objc.String(string(attrName)), location, range_, rangeLimit)
 	return objectivec.Object{ID: rv}
 }
+
 // Executes the specified closure or block for each range of a particular
 // attribute in the attributed string.
 //
@@ -1589,21 +1578,17 @@ func (a NSAttributedString) AttributeAtIndexLongestEffectiveRangeInRange(attrNam
 //
 // opts: The options used by the enumeration. For possible values, see
 // [NSAttributedString.EnumerationOptions].
-// //
-// [NSAttributedString.EnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSAttributedString/EnumerationOptions
 //
 // block: A closure or block to apply to ranges of the specified attribute in the
 // attributed string, taking three arguments:
-// 
+//
 // - The value for the specified attribute. - The range of the attribute value
 // in the attributed string. - A reference to a Boolean value, which you can
-// set to [true] within the closure to stop further processing of the
-// attributed string.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// set to true within the closure to stop further processing of the attributed
+// string.
 //
 // # Discussion
-// 
+//
 // If this method is called by an instance of [NSMutableAttributedString],
 // mutation (deletion, addition, or change) is allowed only if the mutation is
 // within the range provided to the block. After a mutation, the enumeration
@@ -1614,52 +1599,48 @@ func (a NSAttributedString) AttributeAtIndexLongestEffectiveRangeInRange(attrNam
 // pass [N] as the location of the range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/enumerateAttribute(_:in:options:using:)
+//
+// [NSAttributedString.EnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSAttributedString/EnumerationOptions
 func (a NSAttributedString) EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block ObjectHandler) {
-_block3, _ := NewObjectBlock(block)
+	_block3, _ := NewObjectBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateAttribute:inRange:options:usingBlock:"), objc.String(string(attrName)), enumerationRange, opts, _block3)
 }
+
 // Returns a Boolean value that indicates whether the attributed string is
 // equal to the specified string.
 //
 // other: The attributed string with which to compare the receiver.
 //
 // # Return Value
-// 
-// [true] if the text and attributes in the current string and `otherString`
-// are the same, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the text and attributes in the current string and `otherString` are
+// the same, otherwise false.
 //
 // # Discussion
-// 
+//
 // This method performs a character-by-character comparison of the string and
 // its attributes. The character and its attributes must be the same in both
-// strings for the method to return [true]. In attributed strings with many
-// attributes, such a comparison is unlikely to yield an exact match [true].
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
+// strings for the method to return true. In attributed strings with many
+// attributes, such a comparison is unlikely to yield an exact match true.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/isEqual(to:)
 func (a NSAttributedString) IsEqualToAttributedString(other INSAttributedString) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isEqualToAttributedString:"), other)
 	return rv
 }
+
 // Returns a Boolean value that indicates whether the specified range of text
 // prefers RTFD formatting.
 //
 // range: The range of text to test.
 //
 // # Return Value
-// 
-// [true] if the range of text prefers RTFD formatting, or [false] if you can
-// use the RTF format instead.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the range of text prefers RTFD formatting, or false if you can use
+// the RTF format instead.
 //
 // # Discussion
-// 
+//
 // When an attributed string contains attachments, you must save it using the
 // RTFD file format to preserve the attached files.
 //
@@ -1668,6 +1649,7 @@ func (a NSAttributedString) PrefersRTFDInRange(range_ NSRange) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("prefersRTFDInRange:"), range_)
 	return rv
 }
+
 // Returns the range of characters that form a word (or other linguistic unit)
 // surrounding the specified index, taking language characteristics into
 // account.
@@ -1675,22 +1657,21 @@ func (a NSAttributedString) PrefersRTFDInRange(range_ NSRange) bool {
 // location: The index in the attributed string.
 //
 // # Return Value
-// 
+//
 // Returns the range of characters that form a word (or other linguistic unit)
 // surrounding the given index, taking language characteristics into account.
 //
 // # Discussion
-// 
-// Raises an [rangeException] if `index` lies beyond the end of the
-// receiver’s characters.
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// Raises an [RangeException] if `index` lies beyond the end of the
+// receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/doubleClick(at:)
 func (a NSAttributedString) DoubleClickAtIndex(location uint) NSRange {
 	rv := objc.Send[NSRange](a.ID, objc.Sel("doubleClickAtIndex:"), location)
 	return NSRange(rv)
 }
+
 // Returns the appropriate line break when the character at the index
 // doesn’t fit on the same line as the character at the beginning of the
 // range.
@@ -1700,23 +1681,22 @@ func (a NSAttributedString) DoubleClickAtIndex(location uint) NSRange {
 // aRange: The range.
 //
 // # Return Value
-// 
+//
 // Returns the index of the closest character before `index` within `aRange`,
 // that can be placed on a new line when laying out text. Returns [NSNotFound]
 // if no line break is possible before `index`.
 //
 // # Discussion
-// 
-// Raises an [rangeException] if `index` or any part of `aRange` lies beyond
-// the end of the receiver’s characters.
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// Raises an [RangeException] if `index` or any part of `aRange` lies beyond
+// the end of the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/lineBreak(before:within:)
 func (a NSAttributedString) LineBreakBeforeIndexWithinRange(location uint, aRange NSRange) uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("lineBreakBeforeIndex:withinRange:"), location, aRange)
 	return rv
 }
+
 // Returns the index of the closest character before the specified index, and
 // within the specified range, that can fit on a new line by hyphenating.
 //
@@ -1725,65 +1705,57 @@ func (a NSAttributedString) LineBreakBeforeIndexWithinRange(location uint, aRang
 // aRange: The range.
 //
 // # Return Value
-// 
+//
 // Returns the index of the closest character before `index` within `aRange`,
 // that can be placed on a new line by hyphenating. Returns [NSNotFound] if no
 // line break by hyphenation is possible before `index`.
 //
 // # Discussion
-// 
+//
 // In other words, during text layout, finds the appropriate line break by
 // hyphenation (the character index at which the hyphen glyph should be
 // inserted) when the character at `index` won’t fit on the same line as the
 // character at the beginning of `aRange`.
-// 
-// Raises an [rangeException] if `index` or any part of `aRange` lies beyond
-// the end of the receiver’s characters.
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// Raises an [RangeException] if `index` or any part of `aRange` lies beyond
+// the end of the receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/lineBreakByHyphenating(before:within:)
 func (a NSAttributedString) LineBreakByHyphenatingBeforeIndexWithinRange(location uint, aRange NSRange) uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("lineBreakByHyphenatingBeforeIndex:withinRange:"), location, aRange)
 	return rv
 }
+
 // Returns the index of the first character of the word after or before the
 // specified index.
 //
 // location: The index in the attribute string.
 //
-// isForward: [true] if the search should be forward, otherwise [false].
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// isForward: true if the search should be forward, otherwise false.
 //
 // # Return Value
-// 
-// [true] if this is the first character after `index` that begins a word; if
-// `flag` is [false], it’s the first character before `index` that begins a
+//
+// true if this is the first character after `index` that begins a word; if
+// `flag` is false, it’s the first character before `index` that begins a
 // word, whether `index` is located within a word or not.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // # Discussion
-// 
+//
 // If `index` lies at either end of the string and the search direction would
 // progress past that end, it’s returned unchanged.
-// 
+//
 // This method is intended for moving the insertion point during editing, not
 // for linguistic analysis or parsing of text.
-// 
-// Raises an [rangeException] if `index` lies beyond the end of the
-// receiver’s characters.
 //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// Raises an [RangeException] if `index` lies beyond the end of the
+// receiver’s characters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/nextWord(from:forward:)
 func (a NSAttributedString) NextWordFromIndexForward(location uint, isForward bool) uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("nextWordFromIndex:forward:"), location, isForward)
 	return rv
 }
+
 // If the string has portions tagged with NSInflectionRuleAttributeName that
 // have no format specifiers, create a new string with those portions
 // inflected by following the rule in the attribute.
@@ -1793,6 +1765,7 @@ func (a NSAttributedString) AttributedStringByInflectingString() INSAttributedSt
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributedStringByInflectingString"))
 	return NSAttributedStringFromID(rv)
 }
+
 // Returns the index of the item at the specified location within the list.
 //
 // list: The text list.
@@ -1802,7 +1775,7 @@ func (a NSAttributedString) AttributedStringByInflectingString() INSAttributedSt
 // list is a [appkit.NSTextList].
 //
 // # Return Value
-// 
+//
 // Returns the index within the list.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/itemNumber(in:at:)
@@ -1811,6 +1784,7 @@ func (a NSAttributedString) ItemNumberInTextListAtIndex(list objectivec.IObject,
 	rv := objc.Send[int](a.ID, objc.Sel("itemNumberInTextList:atIndex:"), list, location)
 	return rv
 }
+
 // Returns the range of the individual text block that contains the specified
 // location.
 //
@@ -1821,7 +1795,7 @@ func (a NSAttributedString) ItemNumberInTextListAtIndex(list objectivec.IObject,
 // block is a [appkit.NSTextBlock].
 //
 // # Return Value
-// 
+//
 // The range of the text block containing the location.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/range(of:at:)-1wrcp
@@ -1830,6 +1804,7 @@ func (a NSAttributedString) RangeOfTextBlockAtIndex(block objectivec.IObject, lo
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextBlock:atIndex:"), block, location)
 	return NSRange(rv)
 }
+
 // Returns the range of the specified text list that contains the specified
 // location.
 //
@@ -1840,7 +1815,7 @@ func (a NSAttributedString) RangeOfTextBlockAtIndex(block objectivec.IObject, lo
 // list is a [appkit.NSTextList].
 //
 // # Return Value
-// 
+//
 // The range of the given text list containing the location.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/range(of:at:)-6um0x
@@ -1849,6 +1824,7 @@ func (a NSAttributedString) RangeOfTextListAtIndex(list objectivec.IObject, loca
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextList:atIndex:"), list, location)
 	return NSRange(rv)
 }
+
 // Returns the range of the specified text table that contains the specified
 // location.
 //
@@ -1859,7 +1835,7 @@ func (a NSAttributedString) RangeOfTextListAtIndex(list objectivec.IObject, loca
 // table is a [appkit.NSTextTable].
 //
 // # Return Value
-// 
+//
 // Returns the range of `table` that contains `location`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/range(of:at:)-3fevu
@@ -1868,6 +1844,7 @@ func (a NSAttributedString) RangeOfTextTableAtIndex(table objectivec.IObject, lo
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextTable:atIndex:"), table, location)
 	return NSRange(rv)
 }
+
 // Draws the attributed string starting at the specified point in the current
 // graphics context.
 //
@@ -1876,13 +1853,13 @@ func (a NSAttributedString) RangeOfTextTableAtIndex(table objectivec.IObject, lo
 // defined by the view in which you are drawing.
 //
 // # Discussion
-// 
+//
 // This method draws the entire string starting at the specified point. This
 // method draws the line using the attributes specified in the attributed
 // string itself. If newline characters are present in the string, those
 // characters are honored and cause subsequent text to be placed on the next
 // line underneath the starting point.
-// 
+//
 // There must be either a focused view or an active graphics context when you
 // call this method.
 //
@@ -1890,6 +1867,7 @@ func (a NSAttributedString) RangeOfTextTableAtIndex(table objectivec.IObject, lo
 func (a NSAttributedString) DrawAtPoint(point corefoundation.CGPoint) {
 	objc.Send[objc.ID](a.ID, objc.Sel("drawAtPoint:"), point)
 }
+
 // Draws the attributed string inside the specified bounding rectangle in the
 // current graphics context.
 //
@@ -1898,7 +1876,7 @@ func (a NSAttributedString) DrawAtPoint(point corefoundation.CGPoint) {
 // in the upper-left corner if the focused view is flipped.
 //
 // # Discussion
-// 
+//
 // This method draws as much of the string as it can inside the specified
 // rectangle, wrapping the string text as needed to make it fit. If the string
 // is too long to fit inside the rectangle, the method renders as much as
@@ -1907,18 +1885,18 @@ func (a NSAttributedString) DrawAtPoint(point corefoundation.CGPoint) {
 // particular glyph exceeds its typographic bounding box. Text is drawn
 // according to its line sweep direction; for example, Arabic text begins at
 // the right edge and is potentially clipped on the left.
-// 
+//
 // Layout always occurs from top to bottom. AppKit automatically adjusts the
 // initial drawing point whether or not the view is flipped. For example, if
 // the `rect` argument is `{0.0, 0.0, 100.0, 100.0}`, the text origin is {0.0,
 // 0.0} when the view coordinates are flipped and {0.0, 100.0} when the view
 // is not flipped.
-// 
+//
 // This method draws the line using the attributes specified in the attributed
 // string itself. If newline characters are present in the string, those
 // characters are honored and cause subsequent text to be placed on the next
 // line underneath the starting point.
-// 
+//
 // There must be either a focused view or an active graphics context when you
 // call this method.
 //
@@ -1926,6 +1904,7 @@ func (a NSAttributedString) DrawAtPoint(point corefoundation.CGPoint) {
 func (a NSAttributedString) DrawInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](a.ID, objc.Sel("drawInRect:"), rect)
 }
+
 // Draws the attributed string in the specified bounding rectangle using the
 // provided options.
 //
@@ -1933,8 +1912,6 @@ func (a NSAttributedString) DrawInRect(rect corefoundation.CGRect) {
 //
 // options: Additional drawing options to apply to the string during rendering. For a
 // list of possible values, see [NSStringDrawingOptions].
-// //
-// [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
 //
 // context: A context object with information about how to adjust the font tracking and
 // scaling information. On return, the specified object contains information
@@ -1944,61 +1921,64 @@ func (a NSAttributedString) DrawInRect(rect corefoundation.CGRect) {
 // context is a [appkit.NSStringDrawingContext].
 //
 // # Discussion
-// 
+//
 // If [usesLineFragmentOrigin] is specified in `options`, it wraps the string
 // text as needed to make it fit. If the string is too big to fit completely
 // inside the rectangle, the method scales the font or adjusts the letter
 // spacing to make the string fit within the given bounds.
-// 
+//
 // If [usesLineFragmentOrigin] is not specified in `options`, the origin of
 // the rectangle is the baseline of the only line. The text will be displayed
 // above the rectangle and not inside of it. For example, if you specify a
 // rectangle starting at 0,0 and draw the string ‘juxtaposed’, only the
 // descenders of the ‘j’ and ‘p’ will be seen. The rest of the text
 // will be on the top edge of the rectangle.
-// 
+//
 // This method draws the line using the attributes specified in the attributed
 // string itself. If newline characters are present in the string, those
 // characters are honored and cause subsequent text to be placed on the next
 // line underneath the starting point.
-// 
+//
 // There must be either an active graphics context when you call this method.
-// 
+//
 // # Special Considerations
-// 
+//
 // This method uses the baseline origin by default, so it renders the string
 // as a single line. To render the string in multiple lines, specify
 // [usesLineFragmentOrigin] in `options`.
 //
-// [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/draw(with:options:context:)
 // context is a [appkit.NSStringDrawingContext].
+//
+// [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
+// [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
 func (a NSAttributedString) DrawWithRectOptionsContext(rect corefoundation.CGRect, options NSStringDrawingOptions, context objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("drawWithRect:options:context:"), rect, options, context)
 }
+
 // Returns the size necessary to draw the string.
 //
 // # Return Value
-// 
+//
 // The minimum size required to draw the entire contents of the string.
 //
 // # Discussion
-// 
+//
 // You can use this method prior to drawing to compute how much space is
 // required to draw the string.
-// 
+//
 // This method may return fractional sizes. When setting the size of your
 // view, use the [ceil] function to round fractional values up to the nearest
 // whole number.
 //
-// [ceil]: https://developer.apple.com/documentation/kernel/1557272-ceil
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/size()
+//
+// [ceil]: https://developer.apple.com/documentation/kernel/1557272-ceil
 func (a NSAttributedString) Size() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](a.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)
 }
+
 // Returns the bounding rectangle necessary to draw the string.
 //
 // size: The width and height constraints to apply when computing the string’s
@@ -2006,8 +1986,6 @@ func (a NSAttributedString) Size() corefoundation.CGSize {
 //
 // options: Additional drawing options to apply to the string during rendering. For a
 // list of possible values, see [NSStringDrawingOptions].
-// //
-// [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
 //
 // context: A context object with information about how to adjust the font tracking and
 // scaling information. On return, the specified object contains information
@@ -2017,59 +1995,61 @@ func (a NSAttributedString) Size() corefoundation.CGSize {
 // context is a [appkit.NSStringDrawingContext].
 //
 // # Return Value
-// 
+//
 // A rectangle whose size component indicates the width and height required to
 // draw the entire contents of the string.
 //
 // # Discussion
-// 
+//
 // You can use this method to compute the space required to draw the string.
 // The constraints you specify in the size parameter are a guide for the
 // renderer for how to size the string. However, the actual bounding rectangle
 // returned by this method can be larger than the constraints if additional
 // space is needed to render the entire string. Typically, the renderer
 // preserves the width constraint and adjusts the height constraint as needed.
-// 
+//
 // In iOS 7 and later, this method returns fractional sizes (in the `size`
 // component of the returned rectangle); to use a returned size to size views,
 // you must use raise its value to the nearest higher integer using the [ceil]
 // function.
-// 
+//
 // # Special Considerations
-// 
+//
 // To calculate the bounding rectangle, this method uses the baseline origin
 // by default, so it behaves as a single line. To render the string in
 // multiple lines, specify [usesLineFragmentOrigin] in `options`.
 //
-// [ceil]: https://developer.apple.com/documentation/kernel/1557272-ceil
-// [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/boundingRect(with:options:context:)
 // context is a [appkit.NSStringDrawingContext].
+//
+// [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
+// [ceil]: https://developer.apple.com/documentation/kernel/1557272-ceil
+// [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
 func (a NSAttributedString) BoundingRectWithSizeOptionsContext(size corefoundation.CGSize, options NSStringDrawingOptions, context objectivec.IObject) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](a.ID, objc.Sel("boundingRectWithSize:options:context:"), size, options, context)
 	return corefoundation.CGRect(rv)
 }
+
 // Returns a Boolean value that indicates if the attributed string contains an
 // attachment in the specified range.
 //
 // range: The range.
 //
 // # Return Value
-// 
-// [true] if the attributed string contains a property configured as
-// [attachment] with [character] in `range`; otherwise, [false].
 //
-// [attachment]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/attachment
-// [character]: https://developer.apple.com/documentation/UIKit/NSTextAttachment/character
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the attributed string contains a property configured as
+// [attachment] with
+// doc://com.apple.documentation/documentation/appkit/nstextattachment/character
+// in `range`; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/containsAttachments(in:)
+//
+// [attachment]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/attachment
 func (a NSAttributedString) ContainsAttachmentsInRange(range_ NSRange) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("containsAttachmentsInRange:"), range_)
 	return rv
 }
+
 // Calculates and returns a bounding rectangle for the attributed string using
 // the options specified within the specified rectangle in the current
 // graphics context.
@@ -2078,23 +2058,24 @@ func (a NSAttributedString) ContainsAttachmentsInRange(range_ NSRange) bool {
 //
 // options: The string drawing options. See [NSStringDrawingOptions] for the possible
 // values.
-// //
-// [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
 //
 // # Return Value
-// 
+//
 // The bounding rectangle in the current graphics context.
 //
 // # Discussion
-// 
+//
 // The origin of the rectangle returned from this method is the first glyph
 // origin.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/boundingRect(with:options:)
+//
+// [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
 func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) NSRect {
 	rv := objc.Send[NSRect](a.ID, objc.Sel("boundingRectWithSize:options:"), size, options)
 	return NSRect(rv)
 }
+
 // Draws the attributed string with the specified options within the specified
 // rectangle in the current graphics context.
 //
@@ -2103,11 +2084,9 @@ func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSi
 //
 // options: The string drawing options. See [NSStringDrawingOptions] for the available
 // options.
-// //
-// [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
 //
 // # Discussion
-// 
+//
 // The `rect` argument’s origin field specifies the rendering origin. The
 // point is interpreted as the baseline origin by default. With
 // [NSStringDrawingUsesLineFragmentOrigin], it is interpreted as the upper
@@ -2119,14 +2098,17 @@ func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSi
 // [NSStringDrawingUsesLineFragmentOrigin] is not specified, height is ignored
 // and considered to be single-line rendering ([NSLineBreakByWordWrapping] and
 // [NSLineBreakByCharWrapping] are treated as [NSLineBreakByClipping]).
-// 
+//
 // You should only invoke this method when there is a current graphics
 // context.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/draw(with:options:)
+//
+// [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
 func (a NSAttributedString) DrawWithRectOptions(rect corefoundation.CGRect, options NSStringDrawingOptions) {
 	objc.Send[objc.ID](a.ID, objc.Sel("drawWithRect:options:"), rect, options)
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -2135,13 +2117,14 @@ func (a NSAttributedString) DrawWithRectOptions(rect corefoundation.CGRect, opti
 func (a NSAttributedString) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+
 // Creates a new attributed string from the contents of another attributed
 // string.
 //
 // attrStr: An attributed string.
 //
 // # Return Value
-// 
+//
 // An [NSAttributedString] object initialized with the characters and
 // attributes of `attrStr`.
 //
@@ -2150,12 +2133,13 @@ func (a NSAttributedString) InitWithAttributedString(attrStr INSAttributedString
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithAttributedString:"), attrStr)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (a NSAttributedString) InitWithCoder(coder INSCoder) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Creates an attributed string from the contents of a specified URL that
 // contains Markdown-formatted data using the provided options.
 //
@@ -2173,7 +2157,7 @@ func (a NSAttributedString) InitWithCoder(coder INSCoder) NSAttributedString {
 // specify `nil` for this parameter if you don’t want the error information.
 //
 // # Return Value
-// 
+//
 // An attributed string with the parsed Markdown text and styling, or `nil` if
 // parsing the data fails.
 //
@@ -2188,6 +2172,7 @@ func (a NSAttributedString) InitWithContentsOfMarkdownFileAtURLOptionsBaseURLErr
 	return NSAttributedStringFromID(rv), nil
 
 }
+
 // Creates an attributed string from the contents of the specified data
 // object.
 //
@@ -2197,29 +2182,22 @@ func (a NSAttributedString) InitWithContentsOfMarkdownFileAtURLOptionsBaseURLErr
 // [documentType] or [fileType] option to interpret the data as a specific
 // type. When sharing files between different platforms, specify the
 // [sourceTextScaling] or [targetTextScaling] options for any required text
-// scaling behaviors. Specify the [characterEncoding] attribute for plain-text
+// scaling behaviors. Specify the [CharacterEncoding] attribute for plain-text
 // files. Specify the [defaultAttributes] key to apply document attributes to
 // the returned string. If you specify an empty dictionary, the method
 // identifies the data format from the data itself.
-// //
-// [characterEncoding]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/characterEncoding
-// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
-// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-// [sourceTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/sourceTextScaling
-// [targetTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/targetTextScaling
 //
 // dict: An in-out dictionary containing document-level attributes. On output, this
 // method updates the dictionary to contain any document-specific keys found
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
 // # Discussion
-// 
+//
 // Don’t call this method from a background thread if the `options`
 // dictionary includes the [documentType] attribute with a value of [html]. If
 // you do, the method tries to synchronize with the main thread, fails, and
@@ -2228,10 +2206,16 @@ func (a NSAttributedString) InitWithContentsOfMarkdownFileAtURLOptionsBaseURLErr
 // mechanism is meant for implementing something like markdown (that is, text
 // styles, colors, and so on), not for general HTML import.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(data:options:documentAttributes:)
+//
+// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
+// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
+// [sourceTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/sourceTextScaling
+// [targetTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/targetTextScaling
 // [html]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentType/html
 //
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(data:options:documentAttributes:)
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
 func (a NSAttributedString) InitWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithData:options:documentAttributes:error:"), data, options, dict, unsafe.Pointer(&errorPtr))
@@ -2242,6 +2226,7 @@ func (a NSAttributedString) InitWithDataOptionsDocumentAttributesError(data INSD
 	return NSAttributedStringFromID(rv), nil
 
 }
+
 // Creates an attributed string from Microsoft Word format data in the
 // specified data object.
 //
@@ -2252,7 +2237,7 @@ func (a NSAttributedString) InitWithDataOptionsDocumentAttributesError(data INSD
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
@@ -2261,13 +2246,12 @@ func (a NSAttributedString) InitWithDocFormatDocumentAttributes(data INSData, di
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, dict)
 	return rv
 }
+
 // Initializes an attributed string by substituting arguments into a specially
 // formatted string.
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // options: Options for how to apply attributes to the string’s content.
 //
@@ -2275,27 +2259,28 @@ func (a NSAttributedString) InitWithDocFormatDocumentAttributes(data INSData, di
 // formatting of region-sensitive values such as numbers and currencies.
 //
 // # Return Value
-// 
+//
 // An initialized attributed string that combines the format string with the
 // provided arguments and other information.
 //
 // # Discussion
-// 
+//
 // Pass an optional list of trailing variadic arguments to substitute into the
 // `format` string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func (a NSAttributedString) InitWithFormatOptionsLocale(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:"), format, options, locale)
 	return rv
 }
+
 // Initializes an attributed string by substituting a list of function
 // arguments into a specially formatted string.
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // options: Options for how to apply attributes to the string’s content.
 //
@@ -2305,22 +2290,23 @@ func (a NSAttributedString) InitWithFormatOptionsLocale(format INSAttributedStri
 // arguments: A list of arguments to substitute into the `format` string.
 //
 // # Return Value
-// 
+//
 // An initialized attributed string that combines the format string with the
 // provided arguments and other information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:arguments:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func (a NSAttributedString) InitWithFormatOptionsLocaleArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, arguments unsafe.Pointer) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:arguments:"), format, options, locale, arguments)
 	return rv
 }
+
 // Initializes an attributed string by substituting arguments into a specially
 // formatted string and applying additional contextual information.
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // options: Options for how to apply attributes to the string’s content.
 //
@@ -2330,28 +2316,29 @@ func (a NSAttributedString) InitWithFormatOptionsLocaleArguments(format INSAttri
 // context: Additional options to apply to the string.
 //
 // # Return Value
-// 
+//
 // An initialized attributed string that combines the format string with the
 // provided arguments and other information.
 //
 // # Discussion
-// 
+//
 // Pass an optional list of trailing variadic arguments to substitute into the
 // `format` string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:context:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func (a NSAttributedString) InitWithFormatOptionsLocaleContext(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:context:"), format, options, locale, context)
 	return rv
 }
+
 // Initializes an attributed string by substituting a list of function
 // arguments into a specially formatted string and applying additional
 // contextual information.
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // options: Options for how to apply attributes to the string’s content.
 //
@@ -2363,15 +2350,18 @@ func (a NSAttributedString) InitWithFormatOptionsLocaleContext(format INSAttribu
 // arguments: A list of arguments to substitute into the `format` string.
 //
 // # Return Value
-// 
+//
 // An initialized attributed string that combines the format string with the
 // provided arguments and other information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:context:arguments:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func (a NSAttributedString) InitWithFormatOptionsLocaleContextArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary, arguments unsafe.Pointer) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:context:arguments:"), format, options, locale, context, arguments)
 	return rv
 }
+
 // Creates an attributed string from the HTML in the specified data object and
 // base URL.
 //
@@ -2385,7 +2375,7 @@ func (a NSAttributedString) InitWithFormatOptionsLocaleContextArguments(format I
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:baseURL:documentAttributes:)
@@ -2393,6 +2383,7 @@ func (a NSAttributedString) InitWithHTMLBaseURLDocumentAttributes(data INSData, 
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:baseURL:documentAttributes:"), data, base, dict)
 	return rv
 }
+
 // Creates an attributed string from the HTML in the specified data object.
 //
 // data: A data object with text in HTML format. The method uses this data to create
@@ -2403,7 +2394,7 @@ func (a NSAttributedString) InitWithHTMLBaseURLDocumentAttributes(data INSData, 
 // in the data. Specify `nil` if you don’t want the document attributes
 //
 // # Return Value
-// 
+//
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:documentAttributes:)
@@ -2411,6 +2402,7 @@ func (a NSAttributedString) InitWithHTMLDocumentAttributes(data INSData, dict IN
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:documentAttributes:"), data, dict)
 	return rv
 }
+
 // Creates an attributed string from the HTML in the specified data object.
 //
 // data: A data object with text in HTML format. The method uses this data to create
@@ -2418,22 +2410,23 @@ func (a NSAttributedString) InitWithHTMLDocumentAttributes(data INSData, dict IN
 //
 // options: Specifies additional options for loading the document. For a list of
 // possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 //
 // dict: An in-out dictionary containing document-level attributes. On output, this
 // method updates the dictionary to contain any document-specific keys found
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:options:documentAttributes:)
+//
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 func (a NSAttributedString) InitWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict INSDictionary) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, dict)
 	return rv
 }
+
 // Creates an attributed string from Markdown-formatted data using the
 // provided options.
 //
@@ -2451,7 +2444,7 @@ func (a NSAttributedString) InitWithHTMLOptionsDocumentAttributes(data INSData, 
 // specify `nil` for this parameter if you don’t want the error information.
 //
 // # Return Value
-// 
+//
 // An attributed string with the parsed Markdown text and styling, or `nil` if
 // parsing the data fails.
 //
@@ -2466,6 +2459,7 @@ func (a NSAttributedString) InitWithMarkdownOptionsBaseURLError(markdown INSData
 	return NSAttributedStringFromID(rv), nil
 
 }
+
 // Creates an attributed string from a Markdown-formatted string using the
 // provided options.
 //
@@ -2483,7 +2477,7 @@ func (a NSAttributedString) InitWithMarkdownOptionsBaseURLError(markdown INSData
 // specify `nil` for this parameter if you don’t want the error information.
 //
 // # Return Value
-// 
+//
 // An attributed string with the parsed Markdown text and styling, or `nil` if
 // parsing the data fails.
 //
@@ -2498,6 +2492,7 @@ func (a NSAttributedString) InitWithMarkdownStringOptionsBaseURLError(markdownSt
 	return NSAttributedStringFromID(rv), nil
 
 }
+
 // Creates an attributed string by decoding the stream of RTFD commands and
 // data in the specified data object.
 //
@@ -2508,7 +2503,7 @@ func (a NSAttributedString) InitWithMarkdownStringOptionsBaseURLError(markdownSt
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
@@ -2517,6 +2512,7 @@ func (a NSAttributedString) InitWithRTFDDocumentAttributes(data INSData, dict IN
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, dict)
 	return rv
 }
+
 // Creates an attributed string from the specified file wrapper that contains
 // an RTFD document.
 //
@@ -2527,25 +2523,26 @@ func (a NSAttributedString) InitWithRTFDDocumentAttributes(data INSData, dict IN
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
 // # Discussion
-// 
+//
 // Also returns by reference in `dict` a dictionary containing document-level
 // attributes described in [NSAttributedString.DocumentAttributeKey]. `dict`
 // may be [NULL], in which case no document attributes are returned. Returns
 // an initialized object, or `nil` if `wrapper` can’t be interpreted as an
 // RTFD document.
 //
-// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFDFileWrapper:documentAttributes:)
+//
+// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
 func (a NSAttributedString) InitWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict INSDictionary) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, dict)
 	return rv
 }
+
 // Creates an attributed string by decoding the stream of RTF commands and
 // data in the specified data object.
 //
@@ -2556,31 +2553,32 @@ func (a NSAttributedString) InitWithRTFDFileWrapperDocumentAttributes(wrapper IN
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
 // # Discussion
-// 
+//
 // Also returns by reference in `dict` a dictionary containing document-level
 // attributes described in [NSAttributedString.DocumentAttributeKey]. `dict`
 // may be [NULL], in which case no document attributes are returned. Returns
 // an initialized object, or `nil` if `data` can’t be decoded.
 //
-// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTF:documentAttributes:)
+//
+// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
 func (a NSAttributedString) InitWithRTFDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTF:documentAttributes:"), data, dict)
 	return rv
 }
+
 // Creates an attributed string with the specified text and no attribute
 // information.
 //
 // str: The text for the new attributed string.
 //
 // # Return Value
-// 
+//
 // An [NSAttributedString] object initialized with the characters of `str` and
 // no attribute information.
 //
@@ -2589,6 +2587,7 @@ func (a NSAttributedString) InitWithString(str string) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithString:"), objc.String(str))
 	return rv
 }
+
 // Creates an attributed string with the specified text and attributes.
 //
 // str: The text for the new attributed string.
@@ -2598,7 +2597,7 @@ func (a NSAttributedString) InitWithString(str string) NSAttributedString {
 // include in this dictionary, see [NSAttributedStringKey].
 //
 // # Discussion
-// 
+//
 // Returns an [NSAttributedString] object initialized with the characters of
 // `str` and the attributes of `attrs`.
 //
@@ -2607,6 +2606,7 @@ func (a NSAttributedString) InitWithStringAttributes(str string, attrs INSDictio
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithString:attributes:"), objc.String(str), attrs)
 	return rv
 }
+
 // Creates an attributed string from the contents of the specified URL.
 //
 // url: An [NSURL] object specifying the document to load.
@@ -2615,29 +2615,22 @@ func (a NSAttributedString) InitWithStringAttributes(str string, attrs INSDictio
 // [documentType] or [fileType] option to interpret the data as a specific
 // type. When sharing files between different platforms, specify the
 // [sourceTextScaling] or [targetTextScaling] options for any required text
-// scaling behaviors. Specify the [characterEncoding] attribute for plain-text
+// scaling behaviors. Specify the [CharacterEncoding] attribute for plain-text
 // files. Specify the [defaultAttributes] key to apply document attributes to
 // the returned string. If you specify an empty dictionary, the method
 // identifies the data format from the data itself.
-// //
-// [characterEncoding]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/characterEncoding
-// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
-// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-// [sourceTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/sourceTextScaling
-// [targetTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/targetTextScaling
 //
 // dict: An in-out dictionary containing document-level attributes. On output, this
 // method updates the dictionary to contain any document-specific keys found
 // in the data. Specify `nil` if you don’t want the document attributes.
 //
 // # Return Value
-// 
+//
 // Returns an initialized attributed string object, or `nil` if the method
 // can’t decode the data.
 //
 // # Discussion
-// 
+//
 // Filter services can be used to convert the file into a format recognized by
 // Cocoa. The `options` dictionary specifies how the document should be loaded
 // and can contain the values described in
@@ -2646,16 +2639,22 @@ func (a NSAttributedString) InitWithStringAttributes(str string, attrs INSDictio
 // it is in the specified format. If you don’t specify one of these options,
 // the method examines the document and loads it using whatever format it
 // seems to contain.
-// 
+//
 // If an error occurs, the method returns `nil` and sets the `error` parameter
 // to an [NSError] object with information about why it couldn’t create the
 // attributed string object.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(URL:options:documentAttributes:)
+//
+// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
+// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
+// [sourceTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/sourceTextScaling
+// [targetTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/targetTextScaling
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
+//
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/documentType
 // [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(URL:options:documentAttributes:)
 func (a NSAttributedString) InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
@@ -2666,13 +2665,14 @@ func (a NSAttributedString) InitWithURLOptionsDocumentAttributesError(url INSURL
 	return NSAttributedStringFromID(rv), nil
 
 }
+
 // Asks the item provider for the representation visibility specification for
 // the given UTI.
 //
 // typeIdentifier: A uniform type identifier (UTI).
 //
 // # Return Value
-// 
+//
 // A representation visibility specification for the given UTI.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
@@ -2680,6 +2680,7 @@ func (a NSAttributedString) ItemProviderVisibilityForRepresentationWithTypeIdent
 	rv := objc.Send[NSItemProviderRepresentationVisibility](a.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
 	return NSItemProviderRepresentationVisibility(rv)
 }
+
 // Loads data of a particular type, identified by the given UTI.
 //
 // typeIdentifier: The uniform type identifier (UTI) identifying the type of data to load.
@@ -2687,17 +2688,17 @@ func (a NSAttributedString) ItemProviderVisibilityForRepresentationWithTypeIdent
 // completionHandler: The handler that’s called after the data is loaded.
 //
 // # Return Value
-// 
+//
 // The progress of the data load process.
 //
 // # Discussion
-// 
+//
 // When the system calls this method, the `typeIdentifier` parameter is set to
 // one of the elements in the `writableTypeIdentifiersForItemProvider` array.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/loadData(withTypeIdentifier:forItemProviderCompletionHandler:)
 func (a NSAttributedString) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-_block1, _ := NewDataErrorBlock(completionHandler)
+	_block1, _ := NewDataErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
@@ -2709,19 +2710,20 @@ _block1, _ := NewDataErrorBlock(completionHandler)
 //
 // options: Specifies additional options for loading the document. For a list of
 // possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 //
 // completionHandler: A completion handler to execute with the results.
 //
-// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(data:options:completionHandler:)
-// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
+//
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOptionsCompletionHandler(data INSData, options INSDictionary, completionHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithData:options:completionHandler:"), data, options, _block2)
 }
+
 // Creates an attributed string by converting the content of a local HTML file
 // at the specified URL.
 //
@@ -2729,19 +2731,20 @@ _block2, _ := NewErrorBlock(completionHandler)
 //
 // options: Specifies additional options for loading the document. For a list of
 // possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 //
 // completionHandler: A completion handler to execute with the results.
 //
-// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(fileURL:options:completionHandler:)
-// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
+//
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLOptionsCompletionHandler(fileURL INSURL, options INSDictionary, completionHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithFileURL:options:completionHandler:"), fileURL, options, _block2)
 }
+
 // Creates an attributed string by converting the contents of the specified
 // HTML URL request.
 //
@@ -2749,139 +2752,145 @@ _block2, _ := NewErrorBlock(completionHandler)
 //
 // options: Specifies additional options for loading the document. For a list of
 // possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 //
 // completionHandler: A completion handler to execute with the results.
 //
-// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(request:options:completionHandler:)
-// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
+//
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestOptionsCompletionHandler(request INSURLRequest, options INSDictionary, completionHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithRequest:options:completionHandler:"), request, options, _block2)
 }
+
 // Creates an attributed string from the specified HTML string.
 //
 // string: A string that contains the HTML to convert to an attributed string.
 //
 // options: Specifies additional options for loading the document. For a list of
 // possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 //
 // completionHandler: A completion handler to execute with the results.
 //
-// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(string:options:completionHandler:)
-// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+// completionHandler is a [webkit.NSAttributedStringCompletionHandler].
+//
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithStringOptionsCompletionHandler(string_ string, options INSDictionary, completionHandler ErrorHandler) {
-_block2, _ := NewErrorBlock(completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithString:options:completionHandler:"), objc.String(string_), options, _block2)
 }
+
 // Creates an attributed string by substituting arguments into a specially
 // formatted string.
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // # Return Value
-// 
+//
 // A new attributed string that combines the format string with the provided
 // arguments and other information.
 //
 // # Discussion
-// 
+//
 // Pass an optional list of trailing variadic arguments to substitute into the
 // `format` string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/localizedAttributedStringWithFormat:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStringWithFormat(format INSAttributedString) NSAttributedString {
 	rv := objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("localizedAttributedStringWithFormat:"), format)
 	return NSAttributedStringFromID(rv)
 }
+
 // Creates an attributed string by substituting arguments into a specially
 // formatted string and applying additional contextual information.
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // context: Additional options to apply to the string.
 //
 // # Return Value
-// 
+//
 // A new attributed string that combines the format string with the provided
 // arguments and other information.
 //
 // # Discussion
-// 
+//
 // Pass an optional list of trailing variadic arguments to substitute into the
 // `format` string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/localizedAttributedStringWithFormat:context:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStringWithFormatContext(format INSAttributedString, context INSDictionary) NSAttributedString {
 	rv := objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("localizedAttributedStringWithFormat:context:"), format, context)
 	return NSAttributedStringFromID(rv)
 }
+
 // Creates an attributed string by substituting a list of function arguments
 // into a specially formatted string.
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // options: Options for how to apply attributes to the string’s content.
 //
 // # Return Value
-// 
+//
 // A new attributed string that combines the format string with the provided
 // arguments and other information.
 //
 // # Discussion
-// 
+//
 // Pass an optional list of trailing variadic arguments to substitute into the
 // `format` string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/localizedAttributedStringWithFormat:options:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStringWithFormatOptions(format INSAttributedString, options NSAttributedStringFormattingOptions) NSAttributedString {
 	rv := objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("localizedAttributedStringWithFormat:options:"), format, options)
 	return NSAttributedStringFromID(rv)
 }
+
 // Creates an attributed string by substituting a list of function arguments
 // into a specially formatted string and applying additional contextual
 // information.
 //
 // format: The format string to use to create the final string. For a list of format
 // specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 //
 // options: Options for how to apply attributes to the string’s content.
 //
 // context: Additional options to apply to the string.
 //
 // # Return Value
-// 
+//
 // A new attributed string that combines the format string with the provided
 // arguments and other information.
 //
 // # Discussion
-// 
+//
 // Pass an optional list of trailing variadic arguments to substitute into the
 // `format` string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/localizedAttributedStringWithFormat:options:context:
+//
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
 func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStringWithFormatOptionsContext(format INSAttributedString, options NSAttributedStringFormattingOptions, context INSDictionary) NSAttributedString {
 	rv := objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("localizedAttributedStringWithFormat:options:context:"), format, options, context)
 	return NSAttributedStringFromID(rv)
 }
+
 // Creates a new instance of a class using the given data and UTI string.
 //
 // data: The data used to create the object.
@@ -2889,7 +2898,7 @@ func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStrin
 // typeIdentifier: The uniform type identifier (UTI) representing the data type of `data`.
 //
 // # Return Value
-// 
+//
 // An object created from the given data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderReading/object(withItemProviderData:typeIdentifier:)
@@ -2907,14 +2916,14 @@ func (_NSAttributedStringClass NSAttributedStringClass) ObjectWithItemProviderDa
 // The character contents of the attributed string as a string.
 //
 // # Discussion
-// 
+//
 // Attachment characters are not removed from the value of this property.
-// 
+//
 // For performance reasons, this property returns the current backing store of
 // the attributed string object. If you want to maintain a snapshot of this as
 // you manipulate the returned string, you should make a copy of the
 // appropriate substring.
-// 
+//
 // This primitive property must guarantee efficient access to an attributed
 // string’s characters; subclasses should implement it to execute in O(1)
 // time.
@@ -2924,6 +2933,7 @@ func (a NSAttributedString) String() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("string"))
 	return NSStringFromID(rv).String()
 }
+
 // The length of the attributed string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/length
@@ -2931,6 +2941,7 @@ func (a NSAttributedString) Length() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("length"))
 	return rv
 }
+
 // The string encoding for the document.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/characterencoding
@@ -2938,16 +2949,17 @@ func (a NSAttributedString) CharacterEncoding() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("characterEncoding"))
 	return NSStringFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the attribute string contains any
 // attachment attributes.
 //
 // # Return Value
-// 
+//
 // YES if the attributed string contains any attachment attributes, otherwise
 // NO.
-// 
+//
 // # Discussion
-// 
+//
 // This method checks only for attachment attributes, not for
 // [NSAttachmentCharacter].
 //
@@ -2956,6 +2968,7 @@ func (a NSAttributedString) ContainsAttachments() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("containsAttachments"))
 	return rv
 }
+
 // The HTML elements to exclude in generated HTML.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/excludedelements
@@ -2963,6 +2976,7 @@ func (a NSAttributedString) ExcludedElements() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("excludedElements"))
 	return NSStringFromID(objc.ID(rv))
 }
+
 // The link for the text.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/key/link
@@ -2970,6 +2984,7 @@ func (a NSAttributedString) Link() NSAttributedStringKey {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("link"))
 	return NSAttributedStringKey(NSStringFromID(rv).String())
 }
+
 // The number of spaces for indenting nested HTML elements.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/prefixspaces
@@ -2977,6 +2992,7 @@ func (a NSAttributedString) PrefixSpaces() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("prefixSpaces"))
 	return NSStringFromID(objc.ID(rv))
 }
+
 // The name of the text encoding to use.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/textencodingname
@@ -2984,15 +3000,16 @@ func (a NSAttributedString) TextEncodingName() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("textEncodingName"))
 	return NSStringFromID(objc.ID(rv))
 }
+
 // An array of UTI strings representing the types of data that can be loaded
 // for an item provider.
 //
 // # Discussion
-// 
+//
 // Provide uniform type identifiers (UTIs) in order from highest fidelity to
 // lowest. If your app employs a native data representation, place that first
 // in the array.
-// 
+//
 // Use the instance version of this property when you initialize an item
 // provider with an object. As possible, implement this property to provide an
 // extended array of UTIs based on the object. For example, for an [NSURL]
@@ -3011,12 +3028,12 @@ func (a NSAttributedString) WritableTypeIdentifiersForItemProvider() []string {
 // service.
 //
 // # Return Value
-// 
+//
 // An array of [NSString] objects, each of which contains a UTI identifying a
 // supported file type.
-// 
+//
 // # Discussion
-// 
+//
 // The returned list includes UTIs all file types supported by the receiver
 // plus those that can be opened by the receiver after being converted by a
 // user-installed filter service. You can use the returned UTI strings with
@@ -3027,16 +3044,17 @@ func (_NSAttributedStringClass NSAttributedStringClass) TextTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("textTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // An array of UTI strings that identify the file types that attributed
 // strings support directly.
 //
 // # Return Value
-// 
+//
 // An array of [NSString] objects, each of which contains a UTI identifying a
 // supported file type.
-// 
+//
 // # Discussion
-// 
+//
 // The returned list includes UTI strings only for those file types that are
 // supported directly by the receiver. It does not include types that are
 // supported through user-installed filter services. You can use the returned
@@ -3048,20 +3066,15 @@ func (_NSAttributedStringClass NSAttributedStringClass) TextUnfilteredTypes() []
 	return objc.ConvertSliceToStrings(rv)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSItemProviderReading
-			
+// Protocol methods for NSItemProviderReading
 
-			// Protocol methods for NSItemProviderWriting
-			
+// Protocol methods for NSItemProviderWriting
 
-			// Protocol methods for NSMutableCopying
-			
+// Protocol methods for NSMutableCopying
 
-			// Protocol methods for NSSecureCoding
-			
+// Protocol methods for NSSecureCoding
 
 // EnumerateAttributeInRangeOptionsUsingBlockSync is a synchronous wrapper around [NSAttributedString.EnumerateAttributeInRangeOptionsUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -3096,4 +3109,3 @@ func (a NSAttributedString) LoadDataWithTypeIdentifierForItemProvider(ctx contex
 		return nil, ctx.Err()
 	}
 }
-

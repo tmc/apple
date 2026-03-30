@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -57,6 +58,7 @@ type AVContentKeyResponse struct {
 func AVContentKeyResponseFromID(id objc.ID) AVContentKeyResponse {
 	return AVContentKeyResponse{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVContentKeyResponse adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -105,19 +107,19 @@ func NewContentKeyResponseWithAuthorizationTokenData(authorizationTokenData foun
 // when the initialization vector is contained in the media to be decrypted.
 //
 // # Return Value
-// 
+//
 // Returns a new [AVContentKeyResponse] object to decrypt content.
 //
 // # Discussion
-// 
+//
 // Use the results of this initializer when the content key session creates a
 // key request using the [clearKey] parameter. The results are then passed to
 // the [ProcessContentKeyResponse] method to supply the decrypter with key
 // data.
 //
-// [clearKey]: https://developer.apple.com/documentation/AVFoundation/AVContentKeySystem/clearKey
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyResponse/init(clearKeyData:initializationVector:)
+//
+// [clearKey]: https://developer.apple.com/documentation/AVFoundation/AVContentKeySystem/clearKey
 func NewContentKeyResponseWithClearKeyDataInitializationVector(keyData foundation.INSData, initializationVector foundation.INSData) AVContentKeyResponse {
 	rv := objc.Send[objc.ID](objc.ID(getAVContentKeyResponseClass().class), objc.Sel("contentKeyResponseWithClearKeyData:initializationVector:"), keyData, initializationVector)
 	return AVContentKeyResponseFromID(rv)
@@ -129,21 +131,20 @@ func NewContentKeyResponseWithClearKeyDataInitializationVector(keyData foundatio
 // keyResponseData: The key data from the FairPlay Streaming key server.
 //
 // # Return Value
-// 
+//
 // Returns a new [AVContentKeyResponse] object to decrypt content.
 //
 // # Discussion
-// 
+//
 // Use the results of this initializer when the content key session creates a
 // key request using the [fairPlayStreaming] parameter. The results are then
 // passed to the [ProcessContentKeyResponse] method to supply the decrypter
 // with key data.
 //
-// [fairPlayStreaming]: https://developer.apple.com/documentation/AVFoundation/AVContentKeySystem/fairPlayStreaming
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyResponse/init(fairPlayStreamingKeyResponseData:)
+//
+// [fairPlayStreaming]: https://developer.apple.com/documentation/AVFoundation/AVContentKeySystem/fairPlayStreaming
 func NewContentKeyResponseWithFairPlayStreamingKeyResponseData(keyResponseData foundation.INSData) AVContentKeyResponse {
 	rv := objc.Send[objc.ID](objc.ID(getAVContentKeyResponseClass().class), objc.Sel("contentKeyResponseWithFairPlayStreamingKeyResponseData:"), keyResponseData)
 	return AVContentKeyResponseFromID(rv)
 }
-

@@ -18,6 +18,7 @@ type NSItemProviderReading interface {
 type NSItemProviderReadingObject struct {
 	objectivec.Object
 }
+
 func (o NSItemProviderReadingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func NSItemProviderReadingObjectFromID(id objc.ID) NSItemProviderReadingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

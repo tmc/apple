@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (vc VZBinaryBootLoaderSegmentClass) Alloc() VZBinaryBootLoaderSegment {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZBinaryBootLoaderSegment.BinaryURL]
 //   - [VZBinaryBootLoaderSegment.LoadAddress]
 //   - [VZBinaryBootLoaderSegment.InitWithBinaryURLLoadAddress]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoaderSegment
 type VZBinaryBootLoaderSegment struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type VZBinaryBootLoaderSegment struct {
 func VZBinaryBootLoaderSegmentFromID(id objc.ID) VZBinaryBootLoaderSegment {
 	return VZBinaryBootLoaderSegment{objectivec.Object{ID: id}}
 }
+
 // Ensure VZBinaryBootLoaderSegment implements IVZBinaryBootLoaderSegment.
 var _ IVZBinaryBootLoaderSegment = VZBinaryBootLoaderSegment{}
 
@@ -98,7 +100,6 @@ func NewVZBinaryBootLoaderSegment() VZBinaryBootLoaderSegment {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoaderSegment/initWithBinaryURL:loadAddress:
 func NewVZBinaryBootLoaderSegmentWithBinaryURLLoadAddress(url foundation.INSURL, address uint64) VZBinaryBootLoaderSegment {
 	instance := getVZBinaryBootLoaderSegmentClass().Alloc()
@@ -106,7 +107,6 @@ func NewVZBinaryBootLoaderSegmentWithBinaryURLLoadAddress(url foundation.INSURL,
 	return VZBinaryBootLoaderSegmentFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoaderSegment/initWithBinaryURL:loadAddress:
 func (v VZBinaryBootLoaderSegment) InitWithBinaryURLLoadAddress(url foundation.INSURL, address uint64) VZBinaryBootLoaderSegment {
 	rv := objc.Send[VZBinaryBootLoaderSegment](v.ID, objc.Sel("initWithBinaryURL:loadAddress:"), url, address)
@@ -118,9 +118,9 @@ func (v VZBinaryBootLoaderSegment) BinaryURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("binaryURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZBinaryBootLoaderSegment/loadAddress
 func (v VZBinaryBootLoaderSegment) LoadAddress() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("loadAddress"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -63,6 +64,7 @@ type AVAudioBuffer struct {
 func AVAudioBufferFromID(id objc.ID) AVAudioBuffer {
 	return AVAudioBuffer{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioBuffer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,17 +122,18 @@ func (a AVAudioBuffer) Format() IAVAudioFormat {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("format"))
 	return AVAudioFormatFromID(objc.ID(rv))
 }
+
 // The buffer’s underlying audio buffer list.
 //
 // # Discussion
-// 
+//
 // A buffer list is a variable length array that contains an array of audio
 // buffer instances. You use it with lower-level Core Audio and Audio Toolbox
 // API.
-// 
+//
 // You must not modify the buffer list structure, although you can modify
 // buffer contents.
-// 
+//
 // The `mDataByteSize` fields of this audio buffer list express the buffer’s
 // current [FrameLength].
 //
@@ -139,24 +142,24 @@ func (a AVAudioBuffer) AudioBufferList() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioBufferList"))
 	return objectivec.Object{ID: rv}
 }
+
 // A mutable version of the buffer’s underlying audio buffer list.
 //
 // # Discussion
-// 
+//
 // You use this with some lower-level Core Audio and Audio Toolbox APIs that
 // require a mutable [AudioBufferList] (for example, the
 // [AudioConverterConvertComplexBuffer(_:_:_:_:)] function).
-// 
+//
 // The `mDataByteSize` fields of this audio buffer list express the buffer’s
 // current [FrameCapacity]. If you alter the capacity, modify the buffer’s
 // `frameLength` to match.
 //
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/mutableAudioBufferList
+//
 // [AudioBufferList]: https://developer.apple.com/documentation/CoreAudioTypes/AudioBufferList
 // [AudioConverterConvertComplexBuffer(_:_:_:_:)]: https://developer.apple.com/documentation/AudioToolbox/AudioConverterConvertComplexBuffer(_:_:_:_:)
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioBuffer/mutableAudioBufferList
 func (a AVAudioBuffer) MutableAudioBufferList() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("mutableAudioBufferList"))
 	return objectivec.Object{ID: rv}
 }
-

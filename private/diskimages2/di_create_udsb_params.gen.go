@@ -3,10 +3,11 @@
 package diskimages2
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,11 +44,11 @@ func (dc DICreateUDSBParamsClass) Alloc() DICreateUDSBParams {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DICreateUDSBParams.SparseBundleBandSize]
 //   - [DICreateUDSBParams.SetSparseBundleBandSize]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateUDSBParams
 type DICreateUDSBParams struct {
 	DICreateParams
@@ -57,6 +58,7 @@ type DICreateUDSBParams struct {
 func DICreateUDSBParamsFromID(id objc.ID) DICreateUDSBParams {
 	return DICreateUDSBParams{DICreateParams: DICreateParamsFromID(id)}
 }
+
 // Ensure DICreateUDSBParams implements IDICreateUDSBParams.
 var _ IDICreateUDSBParams = DICreateUDSBParams{}
 
@@ -96,7 +98,6 @@ func NewDICreateUDSBParams() DICreateUDSBParams {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithCoder:
 func NewDICreateUDSBParamsWithCoder(coder objectivec.IObject) DICreateUDSBParams {
 	instance := getDICreateUDSBParamsClass().Alloc()
@@ -104,7 +105,6 @@ func NewDICreateUDSBParamsWithCoder(coder objectivec.IObject) DICreateUDSBParams
 	return DICreateUDSBParamsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateParams/initWithURL:error:
 func NewDICreateUDSBParamsWithURLError(url foundation.INSURL) (DICreateUDSBParams, error) {
 	var errorPtr objc.ID
@@ -117,7 +117,6 @@ func NewDICreateUDSBParamsWithURLError(url foundation.INSURL) (DICreateUDSBParam
 	return DICreateUDSBParamsFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateUDSBParams/initWithURL:numBlocks:error:
 func NewDICreateUDSBParamsWithURLNumBlocksError(url foundation.INSURL, blocks uint64) (DICreateUDSBParams, error) {
 	var errorPtr objc.ID
@@ -138,4 +137,3 @@ func (d DICreateUDSBParams) SparseBundleBandSize() uint64 {
 func (d DICreateUDSBParams) SetSparseBundleBandSize(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSparseBundleBandSize:"), value)
 }
-

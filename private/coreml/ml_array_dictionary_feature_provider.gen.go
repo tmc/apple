@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLArrayDictionaryFeatureProviderClass) Alloc() MLArrayDictionaryFeature
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLArrayDictionaryFeatureProvider.Array]
@@ -51,6 +51,7 @@ func (mc MLArrayDictionaryFeatureProviderClass) Alloc() MLArrayDictionaryFeature
 //   - [MLArrayDictionaryFeatureProvider.FeaturesAtIndex]
 //   - [MLArrayDictionaryFeatureProvider.InitWithCoder]
 //   - [MLArrayDictionaryFeatureProvider.InitWithDictionaryFeatureProviderArray]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider
 type MLArrayDictionaryFeatureProvider struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type MLArrayDictionaryFeatureProvider struct {
 func MLArrayDictionaryFeatureProviderFromID(id objc.ID) MLArrayDictionaryFeatureProvider {
 	return MLArrayDictionaryFeatureProvider{objectivec.Object{ID: id}}
 }
+
 // Ensure MLArrayDictionaryFeatureProvider implements IMLArrayDictionaryFeatureProvider.
 var _ IMLArrayDictionaryFeatureProvider = MLArrayDictionaryFeatureProvider{}
 
@@ -107,7 +109,6 @@ func NewMLArrayDictionaryFeatureProvider() MLArrayDictionaryFeatureProvider {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/initWithCoder:
 func NewArrayDictionaryFeatureProviderWithCoder(coder objectivec.IObject) MLArrayDictionaryFeatureProvider {
 	instance := getMLArrayDictionaryFeatureProviderClass().Alloc()
@@ -115,7 +116,6 @@ func NewArrayDictionaryFeatureProviderWithCoder(coder objectivec.IObject) MLArra
 	return MLArrayDictionaryFeatureProviderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/initWithDictionaryFeatureProviderArray:
 func NewArrayDictionaryFeatureProviderWithDictionaryFeatureProviderArray(array objectivec.IObject) MLArrayDictionaryFeatureProvider {
 	instance := getMLArrayDictionaryFeatureProviderClass().Alloc()
@@ -123,24 +123,23 @@ func NewArrayDictionaryFeatureProviderWithDictionaryFeatureProviderArray(array o
 	return MLArrayDictionaryFeatureProviderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/encodeWithCoder:
 func (a MLArrayDictionaryFeatureProvider) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/featuresAtIndex:
 func (a MLArrayDictionaryFeatureProvider) FeaturesAtIndex(index int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("featuresAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/initWithCoder:
 func (a MLArrayDictionaryFeatureProvider) InitWithCoder(coder foundation.INSCoder) MLArrayDictionaryFeatureProvider {
 	rv := objc.Send[MLArrayDictionaryFeatureProvider](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/initWithDictionaryFeatureProviderArray:
 func (a MLArrayDictionaryFeatureProvider) InitWithDictionaryFeatureProviderArray(array objectivec.IObject) MLArrayDictionaryFeatureProvider {
 	rv := objc.Send[MLArrayDictionaryFeatureProvider](a.ID, objc.Sel("initWithDictionaryFeatureProviderArray:"), array)
@@ -158,9 +157,9 @@ func (a MLArrayDictionaryFeatureProvider) Array() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("array"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLArrayDictionaryFeatureProvider/count
 func (a MLArrayDictionaryFeatureProvider) Count() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("count"))
 	return rv
 }
-

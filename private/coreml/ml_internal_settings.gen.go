@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLInternalSettingsClass) Alloc() MLInternalSettings {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLInternalSettings.EncodeWithCoder]
@@ -52,6 +52,7 @@ func (mc MLInternalSettingsClass) Alloc() MLInternalSettings {
 //   - [MLInternalSettings.RestrictNeuralNetworksToUseCPUOnly]
 //   - [MLInternalSettings.SetRestrictNeuralNetworksToUseCPUOnly]
 //   - [MLInternalSettings.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings
 type MLInternalSettings struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type MLInternalSettings struct {
 func MLInternalSettingsFromID(id objc.ID) MLInternalSettings {
 	return MLInternalSettings{objectivec.Object{ID: id}}
 }
+
 // Ensure MLInternalSettings implements IMLInternalSettings.
 var _ IMLInternalSettings = MLInternalSettings{}
 
@@ -110,7 +112,6 @@ func NewMLInternalSettings() MLInternalSettings {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/initWithCoder:
 func NewInternalSettingsWithCoder(coder objectivec.IObject) MLInternalSettings {
 	instance := getMLInternalSettingsClass().Alloc()
@@ -118,12 +119,11 @@ func NewInternalSettingsWithCoder(coder objectivec.IObject) MLInternalSettings {
 	return MLInternalSettingsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/encodeWithCoder:
 func (i MLInternalSettings) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/initWithCoder:
 func (i MLInternalSettings) InitWithCoder(coder foundation.INSCoder) MLInternalSettings {
 	rv := objc.Send[MLInternalSettings](i.ID, objc.Sel("initWithCoder:"), coder)
@@ -135,17 +135,19 @@ func (_MLInternalSettingsClass MLInternalSettingsClass) DeviceHasANE() bool {
 	rv := objc.Send[bool](objc.ID(_MLInternalSettingsClass.class), objc.Sel("deviceHasANE"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/globalSettings
 func (_MLInternalSettingsClass MLInternalSettingsClass) GlobalSettings() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLInternalSettingsClass.class), objc.Sel("globalSettings"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/globalSettingsFromSettings:
 func (_MLInternalSettingsClass MLInternalSettingsClass) GlobalSettingsFromSettings(settings objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLInternalSettingsClass.class), objc.Sel("globalSettingsFromSettings:"), settings)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/supportsSecureCoding
 func (_MLInternalSettingsClass MLInternalSettingsClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLInternalSettingsClass.class), objc.Sel("supportsSecureCoding"))
@@ -157,6 +159,7 @@ func (i MLInternalSettings) IsNeuralNetworkGPUPathForbidden() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isNeuralNetworkGPUPathForbidden"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/restrictNeuralNetworksFromUsingANE
 func (i MLInternalSettings) RestrictNeuralNetworksFromUsingANE() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("restrictNeuralNetworksFromUsingANE"))
@@ -165,6 +168,7 @@ func (i MLInternalSettings) RestrictNeuralNetworksFromUsingANE() bool {
 func (i MLInternalSettings) SetRestrictNeuralNetworksFromUsingANE(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setRestrictNeuralNetworksFromUsingANE:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLInternalSettings/restrictNeuralNetworksToUseCPUOnly
 func (i MLInternalSettings) RestrictNeuralNetworksToUseCPUOnly() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("restrictNeuralNetworksToUseCPUOnly"))
@@ -173,4 +177,3 @@ func (i MLInternalSettings) RestrictNeuralNetworksToUseCPUOnly() bool {
 func (i MLInternalSettings) SetRestrictNeuralNetworksToUseCPUOnly(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setRestrictNeuralNetworksToUseCPUOnly:"), value)
 }
-

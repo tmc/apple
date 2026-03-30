@@ -25,4 +25,3 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

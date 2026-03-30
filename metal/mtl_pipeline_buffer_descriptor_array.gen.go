@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MTLPipelineBufferDescriptorArray struct {
 func MTLPipelineBufferDescriptorArrayFromID(id objc.ID) MTLPipelineBufferDescriptorArray {
 	return MTLPipelineBufferDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLPipelineBufferDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,7 +106,7 @@ func NewMTLPipelineBufferDescriptorArray() MTLPipelineBufferDescriptorArray {
 // bufferIndex: The array index of the requested pipeline buffer descriptor.
 //
 // # Return Value
-// 
+//
 // The descriptor for the buffer bound at this index.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLPipelineBufferDescriptorArray/subscript(_:)
@@ -112,6 +114,7 @@ func (p MTLPipelineBufferDescriptorArray) ObjectAtIndexedSubscript(bufferIndex u
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("objectAtIndexedSubscript:"), bufferIndex)
 	return MTLPipelineBufferDescriptorFromID(rv)
 }
+
 // Sets a pipeline buffer descriptor at the specified array index.
 //
 // buffer: The pipeline buffer descriptor to set in the array.
@@ -122,4 +125,3 @@ func (p MTLPipelineBufferDescriptorArray) ObjectAtIndexedSubscript(bufferIndex u
 func (p MTLPipelineBufferDescriptorArray) SetObjectAtIndexedSubscript(buffer IMTLPipelineBufferDescriptor, bufferIndex uint) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setObject:atIndexedSubscript:"), buffer, bufferIndex)
 }
-

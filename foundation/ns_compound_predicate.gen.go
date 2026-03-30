@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,18 +46,14 @@ func (nc NSCompoundPredicateClass) Alloc() NSCompoundPredicate {
 // predicates.
 //
 // # Overview
-// 
+//
 // Use [NSCompoundPredicate] to create an [AND] or [OR] compound predicate of
 // one or more other predicates, or the [NOT] of a single predicate. For the
 // logical [AND] and [OR] operations:
-// 
-// - An [AND] predicate with no subpredicates evaluates to [true]. - An [OR]
-// predicate with no subpredicates evaluates to [false]. - A compound
-// predicate with one or more subpredicates evaluates to the truth of its
-// subpredicates.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// - An [AND] predicate with no subpredicates evaluates to true. - An [OR]
+// predicate with no subpredicates evaluates to false. - A compound predicate
+// with one or more subpredicates evaluates to the truth of its subpredicates.
 //
 // # Creating Compound Predicates
 //
@@ -79,6 +76,7 @@ type NSCompoundPredicate struct {
 func NSCompoundPredicateFromID(id objc.ID) NSCompoundPredicate {
 	return NSCompoundPredicate{NSPredicate: NSPredicateFromID(id)}
 }
+
 // NOTE: NSCompoundPredicate adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,16 +133,16 @@ func NewNSCompoundPredicate() NSCompoundPredicate {
 // subpredicates: An array of [NSPredicate] objects.
 //
 // # Return Value
-// 
+//
 // A new predicate formed by AND-ing the predicates specified by
 // `subpredicates`.
 //
 // # Discussion
-// 
+//
 // An AND predicate with no subpredicates evaluates to TRUE.
-// 
+//
 // # Special Considerations
-// 
+//
 // For applications linked on macOS 10.5 or later, the `subpredicates` array
 // is copied. For applications linked on OS X v10.4, the `subpredicates` array
 // is retained (for binary compatibility).
@@ -161,11 +159,11 @@ func NewCompoundPredicateAndPredicateWithSubpredicates(subpredicates []NSPredica
 // predicate: A predicate.
 //
 // # Return Value
-// 
+//
 // A new predicate formed by NOT-ing the predicate specified by `predicate`.
 //
 // # Discussion
-// 
+//
 // For applications linked on macOS 10.5 or later, the `subpredicates` array
 // is copied. For applications linked on OS X v10.4, the `subpredicates` array
 // is retained (for binary compatibility).
@@ -182,16 +180,16 @@ func NewCompoundPredicateNotPredicateWithSubpredicate(predicate INSPredicate) NS
 // subpredicates: An array of [NSPredicate] objects.
 //
 // # Return Value
-// 
+//
 // A new predicate formed by OR-ing the predicates specified by
 // `subpredicates`.
 //
 // # Discussion
-// 
+//
 // An OR predicate with no subpredicates evaluates to FALSE.
-// 
+//
 // # Special Considerations
-// 
+//
 // For applications linked on macOS 10.5 or later, the `subpredicates` array
 // is copied. For applications linked on OS X v10.4, the `subpredicates` array
 // is retained (for binary compatibility).
@@ -221,12 +219,12 @@ func NewCompoundPredicateWithCoder(coder INSCoder) NSCompoundPredicate {
 // subpredicates: An array of [NSPredicate] objects.
 //
 // # Return Value
-// 
+//
 // The receiver initialized with its type set to type and subpredicates array
 // to `subpredicates`.
 //
 // # Discussion
-// 
+//
 // For applications linked on macOS 10.5 or later, the `subpredicates` array
 // is copied. For applications linked on OS X v10.4, the `subpredicates` array
 // is retained (for binary compatibility).
@@ -246,12 +244,12 @@ func NewCompoundPredicateWithTypeSubpredicates(type_ NSCompoundPredicateType, su
 // subpredicates: An array of [NSPredicate] objects.
 //
 // # Return Value
-// 
+//
 // The receiver initialized with its type set to type and subpredicates array
 // to `subpredicates`.
 //
 // # Discussion
-// 
+//
 // For applications linked on macOS 10.5 or later, the `subpredicates` array
 // is copied. For applications linked on OS X v10.4, the `subpredicates` array
 // is retained (for binary compatibility).
@@ -269,6 +267,7 @@ func (c NSCompoundPredicate) CompoundPredicateType() NSCompoundPredicateType {
 	rv := objc.Send[NSCompoundPredicateType](c.ID, objc.Sel("compoundPredicateType"))
 	return NSCompoundPredicateType(rv)
 }
+
 // The receiver’s subpredicates.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate/subpredicates
@@ -276,4 +275,3 @@ func (c NSCompoundPredicate) Subpredicates() INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("subpredicates"))
 	return NSArrayFromID(objc.ID(rv))
 }
-

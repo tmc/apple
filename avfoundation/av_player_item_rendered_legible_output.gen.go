@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/dispatch"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVPlayerItemRenderedLegibleOutput] class.
@@ -74,6 +75,7 @@ type AVPlayerItemRenderedLegibleOutput struct {
 func AVPlayerItemRenderedLegibleOutputFromID(id objc.ID) AVPlayerItemRenderedLegibleOutput {
 	return AVPlayerItemRenderedLegibleOutput{AVPlayerItemOutput: AVPlayerItemOutputFromID(id)}
 }
+
 // NOTE: AVPlayerItemRenderedLegibleOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -148,7 +150,7 @@ func NewAVPlayerItemRenderedLegibleOutput() AVPlayerItemRenderedLegibleOutput {
 // videoDisplaySize: The size of the video display.
 //
 // # Discussion
-// 
+//
 // You can also choose to reset the [VideoDisplaySize] value after
 // initialization or during playback.
 //
@@ -164,7 +166,7 @@ func NewPlayerItemRenderedLegibleOutputWithVideoDisplaySize(videoDisplaySize cor
 // videoDisplaySize: The size of the video display.
 //
 // # Discussion
-// 
+//
 // You can also choose to reset the [VideoDisplaySize] value after
 // initialization or during playback.
 //
@@ -173,6 +175,7 @@ func (p AVPlayerItemRenderedLegibleOutput) InitWithVideoDisplaySize(videoDisplay
 	rv := objc.Send[AVPlayerItemRenderedLegibleOutput](p.ID, objc.Sel("initWithVideoDisplaySize:"), videoDisplaySize)
 	return rv
 }
+
 // Sets the delegate object and the queue on which it’s invoked.
 //
 // delegate: A delegate object for this output.
@@ -187,7 +190,7 @@ func (p AVPlayerItemRenderedLegibleOutput) SetDelegateQueue(delegate AVPlayerIte
 // Permits advance invocation of the associated delegate, if any.
 //
 // # Discussion
-// 
+//
 // Use this property specify the number of seconds early to invoke the
 // delegate object. When possible, an AVPlayerItemLegibleOutput uses this
 // value to call its delegate earlier than it would otherwise.
@@ -200,10 +203,11 @@ func (p AVPlayerItemRenderedLegibleOutput) AdvanceIntervalForDelegateInvocation(
 func (p AVPlayerItemRenderedLegibleOutput) SetAdvanceIntervalForDelegateInvocation(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAdvanceIntervalForDelegateInvocation:"), value)
 }
+
 // Set the video display size to use for rendering of pixel buffers.
 //
 // # Discussion
-// 
+//
 // The output renders the pixel buffers according to the width and height of
 // display area. If you set this property during the presentation time of a
 // vended caption image, the output vends a new image rendered at the new
@@ -217,6 +221,7 @@ func (p AVPlayerItemRenderedLegibleOutput) VideoDisplaySize() corefoundation.CGS
 func (p AVPlayerItemRenderedLegibleOutput) SetVideoDisplaySize(value corefoundation.CGSize) {
 	objc.Send[struct{}](p.ID, objc.Sel("setVideoDisplaySize:"), value)
 }
+
 // A delegate object for this output.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemRenderedLegibleOutput/delegate
@@ -224,6 +229,7 @@ func (p AVPlayerItemRenderedLegibleOutput) Delegate() AVPlayerItemRenderedLegibl
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("delegate"))
 	return AVPlayerItemRenderedLegibleOutputPushDelegateObjectFromID(rv)
 }
+
 // The dispatch queue on which the output calls the delegate object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemRenderedLegibleOutput/delegateQueue
@@ -231,4 +237,3 @@ func (p AVPlayerItemRenderedLegibleOutput) DelegateQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](p.ID, objc.Sel("delegateQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
-

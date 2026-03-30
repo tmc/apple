@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (vc VZAppleTouchScreenConfigurationClass) Alloc() VZAppleTouchScreenConfigu
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZAppleTouchScreenConfiguration._registryProperties]
 //   - [VZAppleTouchScreenConfiguration.Set_registryProperties]
 //   - [VZAppleTouchScreenConfiguration._setRegistryProperties]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZAppleTouchScreenConfiguration
 type VZAppleTouchScreenConfiguration struct {
 	VZMultiTouchDeviceConfiguration
@@ -57,6 +58,7 @@ type VZAppleTouchScreenConfiguration struct {
 func VZAppleTouchScreenConfigurationFromID(id objc.ID) VZAppleTouchScreenConfiguration {
 	return VZAppleTouchScreenConfiguration{VZMultiTouchDeviceConfiguration: VZMultiTouchDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZAppleTouchScreenConfiguration implements IVZAppleTouchScreenConfiguration.
 var _ IVZAppleTouchScreenConfiguration = VZAppleTouchScreenConfiguration{}
 
@@ -98,7 +100,6 @@ func NewVZAppleTouchScreenConfiguration() VZAppleTouchScreenConfiguration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZAppleTouchScreenConfiguration/_setRegistryProperties:
 func (v VZAppleTouchScreenConfiguration) _setRegistryProperties(properties objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setRegistryProperties:"), properties)
@@ -117,4 +118,3 @@ func (v VZAppleTouchScreenConfiguration) _registryProperties() foundation.INSDic
 func (v VZAppleTouchScreenConfiguration) Set_registryProperties(value foundation.INSDictionary) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_registryProperties:"), value)
 }
-

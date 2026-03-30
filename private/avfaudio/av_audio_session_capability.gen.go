@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (ac AVAudioSessionCapabilityClass) Alloc() AVAudioSessionCapability {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioSessionCapability.InitWithIsSupportedIsEnabled]
 //   - [AVAudioSessionCapability.Enabled]
 //   - [AVAudioSessionCapability.Supported]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionCapability
 type AVAudioSessionCapability struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type AVAudioSessionCapability struct {
 func AVAudioSessionCapabilityFromID(id objc.ID) AVAudioSessionCapability {
 	return AVAudioSessionCapability{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioSessionCapability implements IAVAudioSessionCapability.
 var _ IAVAudioSessionCapability = AVAudioSessionCapability{}
 
@@ -97,7 +99,6 @@ func NewAVAudioSessionCapability() AVAudioSessionCapability {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionCapability/initWithIsSupported:isEnabled:
 func NewAudioSessionCapabilityWithIsSupportedIsEnabled(supported bool, enabled bool) AVAudioSessionCapability {
 	instance := getAVAudioSessionCapabilityClass().Alloc()
@@ -105,7 +106,6 @@ func NewAudioSessionCapabilityWithIsSupportedIsEnabled(supported bool, enabled b
 	return AVAudioSessionCapabilityFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionCapability/initWithIsSupported:isEnabled:
 func (a AVAudioSessionCapability) InitWithIsSupportedIsEnabled(supported bool, enabled bool) AVAudioSessionCapability {
 	rv := objc.Send[AVAudioSessionCapability](a.ID, objc.Sel("initWithIsSupported:isEnabled:"), supported, enabled)
@@ -117,9 +117,9 @@ func (a AVAudioSessionCapability) Enabled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("enabled"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionCapability/supported
 func (a AVAudioSessionCapability) Supported() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("supported"))
 	return rv
 }
-

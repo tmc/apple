@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,15 +46,13 @@ func (ac AVPlayerItemAccessLogEventClass) Alloc() AVPlayerItemAccessLogEvent {
 // A single entry in a player item’s access log.
 //
 // # Overview
-// 
+//
 // This object provides named properties for accessing the data fields of each
 // log event. Each event is a single entry in an [AVPlayerItem] object’s
 // access log.
-// 
+//
 // These properties aren’t observable. For more information about key-value
 // observing, see [Using Key-Value Observing in Swift].
-//
-// [Using Key-Value Observing in Swift]: https://developer.apple.com/documentation/Swift/using-key-value-observing-in-swift
 //
 // # Getting server-related log events
 //
@@ -89,6 +88,8 @@ func (ac AVPlayerItemAccessLogEventClass) Alloc() AVPlayerItemAccessLogEvent {
 //   - [AVPlayerItemAccessLogEvent.IndicatedAverageBitrate]: The average throughput, in bits per second, required to play the stream, as advertised by the server.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent
+//
+// [Using Key-Value Observing in Swift]: https://developer.apple.com/documentation/Swift/using-key-value-observing-in-swift
 type AVPlayerItemAccessLogEvent struct {
 	objectivec.Object
 }
@@ -99,6 +100,7 @@ type AVPlayerItemAccessLogEvent struct {
 func AVPlayerItemAccessLogEventFromID(id objc.ID) AVPlayerItemAccessLogEvent {
 	return AVPlayerItemAccessLogEvent{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerItemAccessLogEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -221,11 +223,11 @@ func NewAVPlayerItemAccessLogEvent() AVPlayerItemAccessLogEvent {
 // The URI of the playback item.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “uri”.
-// 
+//
 // The value of this property is `nil` if the URI is unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/uri
@@ -233,15 +235,16 @@ func (p AVPlayerItemAccessLogEvent) URI() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URI"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The IP address of the server that was the source of the last delivered
 // media segment.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “s-ip”.
-// 
+//
 // The value of this property is `nil` if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/serverAddress
@@ -249,15 +252,16 @@ func (p AVPlayerItemAccessLogEvent) ServerAddress() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("serverAddress"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A count of changes to the server address over the last uninterrupted period
 // of playback.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “s-ip-changes”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/numberOfServerAddressChanges
@@ -265,14 +269,15 @@ func (p AVPlayerItemAccessLogEvent) NumberOfServerAddressChanges() int {
 	rv := objc.Send[int](p.ID, objc.Sel("numberOfServerAddressChanges"))
 	return rv
 }
+
 // The number of network read requests over a WWAN.
 //
 // # Discussion
-// 
+//
 // The value of the property is negative if unknown.
-// 
+//
 // Corresponds to “sc-wwan-count”.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/mediaRequestsWWAN
@@ -280,14 +285,15 @@ func (p AVPlayerItemAccessLogEvent) MediaRequestsWWAN() int {
 	rv := objc.Send[int](p.ID, objc.Sel("mediaRequestsWWAN"))
 	return rv
 }
+
 // The accumulated duration, in seconds, of active network transfer of bytes.
 //
 // # Discussion
-// 
+//
 // The value of the property is negative if unknown.
-// 
+//
 // Corresponds to “c-transfer-duration”.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/transferDuration
@@ -295,14 +301,15 @@ func (p AVPlayerItemAccessLogEvent) TransferDuration() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("transferDuration"))
 	return rv
 }
+
 // The accumulated number of bytes transferred by the item.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “bytes”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/numberOfBytesTransferred
@@ -310,18 +317,19 @@ func (p AVPlayerItemAccessLogEvent) NumberOfBytesTransferred() int64 {
 	rv := objc.Send[int64](p.ID, objc.Sel("numberOfBytesTransferred"))
 	return rv
 }
+
 // The number of media read requests from the server to this client.
 //
 // # Discussion
-// 
+//
 // For HTTP live streaming, this property contains the count of media requests
 // downloaded from the server. For progressive-style HTTP media downloads, it
 // contains a count of HTTP [GET] (byte-range) requests for the resource.
-// 
+//
 // The property corresponds to “sc-count”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/numberOfMediaRequests
@@ -329,14 +337,15 @@ func (p AVPlayerItemAccessLogEvent) NumberOfMediaRequests() int {
 	rv := objc.Send[int](p.ID, objc.Sel("numberOfMediaRequests"))
 	return rv
 }
+
 // The date and time at which playback began for this event.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “date”.
-// 
+//
 // The value of this property is `nil` if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/playbackStartDate
@@ -344,16 +353,17 @@ func (p AVPlayerItemAccessLogEvent) PlaybackStartDate() foundation.INSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("playbackStartDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
+
 // A GUID that identifies the playback session.
 //
 // # Discussion
-// 
+//
 // This value is used in HTTP requests.
-// 
+//
 // The property corresponds to “cs-guid”.
-// 
+//
 // The value of this property is `nil` if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/playbackSessionID
@@ -361,15 +371,16 @@ func (p AVPlayerItemAccessLogEvent) PlaybackSessionID() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("playbackSessionID"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The offset, in seconds, in the playlist where the last uninterrupted period
 // of playback began.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “c-start-time”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/playbackStartOffset
@@ -377,15 +388,16 @@ func (p AVPlayerItemAccessLogEvent) PlaybackStartOffset() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("playbackStartOffset"))
 	return rv
 }
+
 // The playback type.
 //
 // # Discussion
-// 
+//
 // The playback type can be live, VOD, or from a file. If `nil` is returned
 // the playback type is unknown.
-// 
+//
 // Corresponds to “s-playback-type”.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/playbackType
@@ -393,15 +405,16 @@ func (p AVPlayerItemAccessLogEvent) PlaybackType() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("playbackType"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The accumulated duration, in seconds, until the player item is ready to
 // play.
 //
 // # Discussion
-// 
+//
 // The value of the property is negative if unknown.
-// 
+//
 // Corresponds to “c-startup-time”.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/startupTime
@@ -409,14 +422,15 @@ func (p AVPlayerItemAccessLogEvent) StartupTime() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("startupTime"))
 	return rv
 }
+
 // The accumulated duration, in seconds, of the media played.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “c-duration-watched”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/durationWatched
@@ -424,14 +438,15 @@ func (p AVPlayerItemAccessLogEvent) DurationWatched() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("durationWatched"))
 	return rv
 }
+
 // The total number of dropped video frames
 //
 // # Discussion
-// 
+//
 // The property corresponds to “c-frames-dropped”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/numberOfDroppedVideoFrames
@@ -439,14 +454,15 @@ func (p AVPlayerItemAccessLogEvent) NumberOfDroppedVideoFrames() int {
 	rv := objc.Send[int](p.ID, objc.Sel("numberOfDroppedVideoFrames"))
 	return rv
 }
+
 // The total number of playback stalls encountered.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “c-stalls”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/numberOfStalls
@@ -454,14 +470,15 @@ func (p AVPlayerItemAccessLogEvent) NumberOfStalls() int {
 	rv := objc.Send[int](p.ID, objc.Sel("numberOfStalls"))
 	return rv
 }
+
 // The accumulated duration, in seconds, of the media segments downloaded.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “c-duration-downloaded”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/segmentsDownloadedDuration
@@ -469,14 +486,15 @@ func (p AVPlayerItemAccessLogEvent) SegmentsDownloadedDuration() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("segmentsDownloadedDuration"))
 	return rv
 }
+
 // The total number of times that downloading the segments took too long.
 //
 // # Discussion
-// 
+//
 // The value of the property is negative if unknown.
-// 
+//
 // This property corresponds to “c-overdue”.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/downloadOverdue
@@ -484,14 +502,15 @@ func (p AVPlayerItemAccessLogEvent) DownloadOverdue() int {
 	rv := objc.Send[int](p.ID, objc.Sel("downloadOverdue"))
 	return rv
 }
+
 // The standard deviation of the observed segment download bit rates.
 //
 // # Discussion
-// 
+//
 // The value of the property is negative if unknown.
-// 
+//
 // Corresponds to “c-observed-bitrate-sd”.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/observedBitrateStandardDeviation
@@ -499,15 +518,16 @@ func (p AVPlayerItemAccessLogEvent) ObservedBitrateStandardDeviation() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("observedBitrateStandardDeviation"))
 	return rv
 }
+
 // The bandwidth value that causes a switch, up or down, in the item’s
 // quality being played.
 //
 // # Discussion
-// 
+//
 // The value of the property is negative if unknown.
-// 
+//
 // Corresponds to “c-switch-bitrate”.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/switchBitrate
@@ -515,15 +535,16 @@ func (p AVPlayerItemAccessLogEvent) SwitchBitrate() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("switchBitrate"))
 	return rv
 }
+
 // The throughput, in bits per second, required to play the stream, as
 // advertised by the server.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “sc-indicated-bitrate”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/indicatedBitrate
@@ -531,14 +552,15 @@ func (p AVPlayerItemAccessLogEvent) IndicatedBitrate() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("indicatedBitrate"))
 	return rv
 }
+
 // The empirical throughput, in bits per second, across all media downloaded.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “c-observed-bitrate”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/observedBitrate
@@ -546,14 +568,15 @@ func (p AVPlayerItemAccessLogEvent) ObservedBitrate() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("observedBitrate"))
 	return rv
 }
+
 // The audio track’s average bit rate, in bits per second.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “c-avg-audio-bitrate”.
-// 
+//
 // This property returns a non-positive value if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/averageAudioBitrate
@@ -561,18 +584,19 @@ func (p AVPlayerItemAccessLogEvent) AverageAudioBitrate() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("averageAudioBitrate"))
 	return rv
 }
+
 // The video track’s average bit rate, in bits per second.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “c-avg-video-bitrate”.
-// 
+//
 // This property returns the average bitrate of the video track if it is
 // unmuxed, or the average bitrate of the combined content if muxed. Measured
 // in bits per second.
-// 
+//
 // The value is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/averageVideoBitrate
@@ -580,15 +604,16 @@ func (p AVPlayerItemAccessLogEvent) AverageVideoBitrate() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("averageVideoBitrate"))
 	return rv
 }
+
 // The average throughput, in bits per second, required to play the stream, as
 // advertised by the server.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “sc-indicated-avg-bitrate”.
-// 
+//
 // The value of this property is negative if unknown.
-// 
+//
 // This property is not compatible with key-value observing.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemAccessLogEvent/indicatedAverageBitrate
@@ -596,4 +621,3 @@ func (p AVPlayerItemAccessLogEvent) IndicatedAverageBitrate() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("indicatedAverageBitrate"))
 	return rv
 }
-

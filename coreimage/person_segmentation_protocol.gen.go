@@ -39,6 +39,7 @@ type CIPersonSegmentation interface {
 type CIPersonSegmentationObject struct {
 	objectivec.Object
 }
+
 func (o CIPersonSegmentationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -55,12 +56,14 @@ func CIPersonSegmentationObjectFromID(id objc.ID) CIPersonSegmentationObject {
 func (o CIPersonSegmentationObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/qualityLevel
 func (o CIPersonSegmentationObject) QualityLevel() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("qualityLevel"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -68,13 +71,14 @@ func (o CIPersonSegmentationObject) QualityLevel() uint {
 func (o CIPersonSegmentationObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/inputImage
 func (o CIPersonSegmentationObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/qualityLevel
 func (o CIPersonSegmentationObject) SetQualityLevel(value uint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQualityLevel:"), value)
 }
-

@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -29,6 +29,7 @@ type NSCollectionViewDataSource interface {
 type NSCollectionViewDataSourceObject struct {
 	objectivec.Object
 }
+
 func (o NSCollectionViewDataSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -49,14 +50,14 @@ func NSCollectionViewDataSourceObjectFromID(id objc.ID) NSCollectionViewDataSour
 // section: The index number of the section. Section indexes are zero based.
 //
 // # Return Value
-// 
+//
 // The number of items in the specified section.
 //
 // # Discussion
-// 
+//
 // All data source objects must implement this method. Your implementation
 // should quickly return the number of items in the specified section.
-// 
+//
 // Make sure the number of items you return is accurate. The
 // [CollectionViewItemForRepresentedObjectAtIndexPath] method of your data
 // source object must be able to provide a visual representation for each item
@@ -66,7 +67,8 @@ func NSCollectionViewDataSourceObjectFromID(id objc.ID) NSCollectionViewDataSour
 func (o NSCollectionViewDataSourceObject) CollectionViewNumberOfItemsInSection(collectionView INSCollectionView, section int) int {
 	rv := objc.Send[int](o.ID, objc.Sel("collectionView:numberOfItemsInSection:"), collectionView, section)
 	return rv
-	}
+}
+
 // Asks your data source object to provide the item at the specified location
 // in the collection view.
 //
@@ -76,11 +78,11 @@ func (o NSCollectionViewDataSourceObject) CollectionViewNumberOfItemsInSection(c
 // contains both the section index and the item index within that section.
 //
 // # Return Value
-// 
+//
 // A configured item object. You must not return `nil` from this method.
 //
 // # Discussion
-// 
+//
 // All data source objects must implement this method. Your implementation is
 // responsible for creating, configuring, and returning the appropriate item
 // object based on the specified index path. You do this by calling the
@@ -88,7 +90,7 @@ func (o NSCollectionViewDataSourceObject) CollectionViewNumberOfItemsInSection(c
 // an empty item object of the appropriate type. After receiving the item
 // object, update its properties with the data from your app’s data
 // structures and return it.
-// 
+//
 // You do not need to set the frame of an item’s view from this method. The
 // collection view gets the item’s location and other layout-related
 // attributes from the layout object during a separate step.
@@ -97,17 +99,18 @@ func (o NSCollectionViewDataSourceObject) CollectionViewNumberOfItemsInSection(c
 func (o NSCollectionViewDataSourceObject) CollectionViewItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, indexPath foundation.INSIndexPath) INSCollectionViewItem {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:itemForRepresentedObjectAtIndexPath:"), collectionView, indexPath)
 	return NSCollectionViewItemFromID(rv)
-	}
+}
+
 // Asks your data source object to provide the total number of sections.
 //
 // collectionView: The collection view requesting the information.
 //
 // # Return Value
-// 
+//
 // The number of sections in the specified collection view.
 //
 // # Discussion
-// 
+//
 // Implement this method when the organization of your data requires more than
 // one section. If you do not implement this method, the collection view
 // creates only one section.
@@ -116,7 +119,8 @@ func (o NSCollectionViewDataSourceObject) CollectionViewItemForRepresentedObject
 func (o NSCollectionViewDataSourceObject) NumberOfSectionsInCollectionView(collectionView INSCollectionView) int {
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfSectionsInCollectionView:"), collectionView)
 	return rv
-	}
+}
+
 // Asks your data source object to provide the supplementary view at the
 // specified location in a section of the collection view.
 //
@@ -131,11 +135,11 @@ func (o NSCollectionViewDataSourceObject) NumberOfSectionsInCollectionView(colle
 // supplementary view.
 //
 // # Return Value
-// 
+//
 // A configured view object. You must not return `nil` from this method.
 //
 // # Discussion
-// 
+//
 // Implement this method if the collection view’s layout object supports
 // supplementary views. Your implementation is responsible for creating,
 // configuring, and returning an appropriate view. You do this by calling the
@@ -143,7 +147,7 @@ func (o NSCollectionViewDataSourceObject) NumberOfSectionsInCollectionView(colle
 // collection view to retrieve an unconfigured view of the appropriate type.
 // After receiving the view, update its properties and content using your
 // app’s data structures and return it.
-// 
+//
 // You do not need to set the location of supplementary views inside the
 // collection view’s bounds. The collection view gets the view’s location
 // and other layout-related attributes from the layout object during a
@@ -153,5 +157,4 @@ func (o NSCollectionViewDataSourceObject) NumberOfSectionsInCollectionView(colle
 func (o NSCollectionViewDataSourceObject) CollectionViewViewForSupplementaryElementOfKindAtIndexPath(collectionView INSCollectionView, kind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) INSView {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:viewForSupplementaryElementOfKind:atIndexPath:"), collectionView, objc.String(string(kind)), indexPath)
 	return NSViewFromID(rv)
-	}
-
+}

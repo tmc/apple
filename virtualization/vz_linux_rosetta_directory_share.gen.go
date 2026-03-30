@@ -4,10 +4,11 @@ package virtualization
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZLinuxRosettaDirectoryShare] class.
@@ -46,22 +47,19 @@ func (vc VZLinuxRosettaDirectoryShareClass) Alloc() VZLinuxRosettaDirectoryShare
 // The Linux directory share for Rosetta.
 //
 // # Overview
-// 
+//
 // This directory share exposes the Rosetta directory from the host file
 // system to the guest. The example below shows the process of creating a
 // [VZVirtualMachineConfiguration], and then associating the Rosetta directory
 // share with the VM configuration.
-// 
+//
 // For complete instructions on installing Rosetta see [Running Intel Binaries
 // in Linux VMs with Rosetta], which includes additional information about
 // checking for Rosetta availability, mounting the directory share, and
 // registering the Rosetta runtime binary to run Intel binaries in a guest VM.
-// 
+//
 // For information on using a custom kernel to enhance Rosetta performance,
 // see [Accelerating the performance of Rosetta].
-//
-// [Accelerating the performance of Rosetta]: https://developer.apple.com/documentation/Virtualization/accelerating-the-performance-of-rosetta
-// [Running Intel Binaries in Linux VMs with Rosetta]: https://developer.apple.com/documentation/Virtualization/running-intel-binaries-in-linux-vms-with-rosetta
 //
 // # Creating a Rosetta directory share
 //
@@ -73,6 +71,9 @@ func (vc VZLinuxRosettaDirectoryShareClass) Alloc() VZLinuxRosettaDirectoryShare
 //   - [VZLinuxRosettaDirectoryShare.SetCachingOptions]
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaDirectoryShare
+//
+// [Accelerating the performance of Rosetta]: https://developer.apple.com/documentation/Virtualization/accelerating-the-performance-of-rosetta
+// [Running Intel Binaries in Linux VMs with Rosetta]: https://developer.apple.com/documentation/Virtualization/running-intel-binaries-in-linux-vms-with-rosetta
 type VZLinuxRosettaDirectoryShare struct {
 	VZDirectoryShare
 }
@@ -83,6 +84,7 @@ type VZLinuxRosettaDirectoryShare struct {
 func VZLinuxRosettaDirectoryShareFromID(id objc.ID) VZLinuxRosettaDirectoryShare {
 	return VZLinuxRosettaDirectoryShare{VZDirectoryShare: VZDirectoryShareFromID(id)}
 }
+
 // NOTE: VZLinuxRosettaDirectoryShare adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,15 +142,15 @@ func NewVZLinuxRosettaDirectoryShare() VZLinuxRosettaDirectoryShare {
 // isn’t installed.
 //
 // # Discussion
-// 
+//
 // Check the status of Rosetta by examining the [Availability] class property
 // before creating a new Rosetta directory share to ensure the capability is
 // both supported and available on host Mac. For complete instructions on
 // installing Rosetta see [Running Intel Binaries in Linux VMs with Rosetta].
 //
-// [Running Intel Binaries in Linux VMs with Rosetta]: https://developer.apple.com/documentation/Virtualization/running-intel-binaries-in-linux-vms-with-rosetta
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaDirectoryShare/init()
+//
+// [Running Intel Binaries in Linux VMs with Rosetta]: https://developer.apple.com/documentation/Virtualization/running-intel-binaries-in-linux-vms-with-rosetta
 func NewLinuxRosettaDirectoryShareWithError() (VZLinuxRosettaDirectoryShare, error) {
 	var errorPtr objc.ID
 	instance := getVZLinuxRosettaDirectoryShareClass().Alloc()
@@ -164,15 +166,15 @@ func NewLinuxRosettaDirectoryShareWithError() (VZLinuxRosettaDirectoryShare, err
 // isn’t installed.
 //
 // # Discussion
-// 
+//
 // Check the status of Rosetta by examining the [Availability] class property
 // before creating a new Rosetta directory share to ensure the capability is
 // both supported and available on host Mac. For complete instructions on
 // installing Rosetta see [Running Intel Binaries in Linux VMs with Rosetta].
 //
-// [Running Intel Binaries in Linux VMs with Rosetta]: https://developer.apple.com/documentation/Virtualization/running-intel-binaries-in-linux-vms-with-rosetta
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaDirectoryShare/init()
+//
+// [Running Intel Binaries in Linux VMs with Rosetta]: https://developer.apple.com/documentation/Virtualization/running-intel-binaries-in-linux-vms-with-rosetta
 func (l VZLinuxRosettaDirectoryShare) InitWithError() (VZLinuxRosettaDirectoryShare, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
@@ -190,13 +192,13 @@ func (l VZLinuxRosettaDirectoryShare) InitWithError() (VZLinuxRosettaDirectorySh
 // processing.
 //
 // # Discussion
-// 
+//
 // The completion handler returns an error object that contains information
 // about a problem, or `nil` if the installation completed successfully.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaDirectoryShare/installRosetta(completionHandler:)
 func (_VZLinuxRosettaDirectoryShareClass VZLinuxRosettaDirectoryShareClass) InstallRosettaWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_VZLinuxRosettaDirectoryShareClass.class), objc.Sel("installRosettaWithCompletionHandler:"), _block0)
 }
 
@@ -211,6 +213,7 @@ func (l VZLinuxRosettaDirectoryShare) CachingOptions() uint {
 func (l VZLinuxRosettaDirectoryShare) SetCachingOptions(value uint) {
 	objc.Send[struct{}](l.ID, objc.Sel("setCachingOptions:"), value)
 }
+
 // The value that enables translation caching and configures the socket
 // communication type for Rosetta.
 //
@@ -226,12 +229,12 @@ func (l VZLinuxRosettaDirectoryShare) SetOptions(value IVZLinuxRosettaCachingOpt
 // A value that indicates the current state of Rosetta’s availability.
 //
 // # Discussion
-// 
+//
 // The value is one of the possible [VZLinuxRosettaAvailability] values.
 //
-// [VZLinuxRosettaAvailability]: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaAvailability
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaDirectoryShare/availability
+//
+// [VZLinuxRosettaAvailability]: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaAvailability
 func (_VZLinuxRosettaDirectoryShareClass VZLinuxRosettaDirectoryShareClass) Availability() VZLinuxRosettaAvailability {
 	rv := objc.Send[VZLinuxRosettaAvailability](objc.ID(_VZLinuxRosettaDirectoryShareClass.class), objc.Sel("availability"))
 	return VZLinuxRosettaAvailability(rv)
@@ -251,4 +254,3 @@ func (lc VZLinuxRosettaDirectoryShareClass) InstallRosetta(ctx context.Context) 
 		return ctx.Err()
 	}
 }
-

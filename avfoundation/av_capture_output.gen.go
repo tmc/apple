@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,10 +47,10 @@ func (ac AVCaptureOutputClass) Alloc() AVCaptureOutput {
 // for a capture session.
 //
 // # Overview
-// 
+//
 // This class provides an abstract interface to connect capture output
 // destinations, such as files and streams, to a capture session.
-// 
+//
 // A capture output can have multiple connections, one for each stream of
 // media that it receives from a capture input. A capture output doesn’t
 // have any connections when you create it. When you add it to a capture
@@ -85,6 +86,7 @@ type AVCaptureOutput struct {
 func AVCaptureOutputFromID(id objc.ID) AVCaptureOutput {
 	return AVCaptureOutput{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,20 +160,21 @@ func NewAVCaptureOutput() AVCaptureOutput {
 // Returns the first connection with an input port of a specified media type.
 //
 // mediaType: A media type such as [video] or [audio].
-// //
-// [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
-// [video]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/video
 //
 // # Return Value
-// 
+//
 // The first capture connection that has the specified media type, or `nil` if
 // no connection for the media type exists.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureOutput/connection(with:)
+//
+// [audio]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/audio
+// [video]: https://developer.apple.com/documentation/AVFoundation/AVMediaType/video
 func (c AVCaptureOutput) ConnectionWithMediaType(mediaType AVMediaType) IAVCaptureConnection {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("connectionWithMediaType:"), objc.String(string(mediaType)))
 	return AVCaptureConnectionFromID(rv)
 }
+
 // Converts a metadata object’s visual properties to layer coordinates.
 //
 // metadataObject: A metadata object that originates from the same capture input as the
@@ -181,17 +184,17 @@ func (c AVCaptureOutput) ConnectionWithMediaType(mediaType AVMediaType) IAVCaptu
 // to convert.
 //
 // # Return Value
-// 
+//
 // A metadata object whose properties are in output coordinates, or `nil` if
 // the object originates from an input source other than the preview layer.
 //
 // # Discussion
-// 
+//
 // A metadata object has a rectangular bounds where `0,0` is the top-left of
 // the picture area, and `1,1` represents the bottom-right on an unrotated
 // picture. Face metadata objects likewise express yaw and roll angles with
 // respect to an unrotated picture.
-// 
+//
 // This method converts the visual properties in the coordinate space of the
 // supplied metadata object to the coordinate space of the output. The
 // conversion takes orientation, mirroring, layer bounds and video gravity
@@ -203,17 +206,18 @@ func (c AVCaptureOutput) TransformedMetadataObjectForMetadataObjectConnection(me
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("transformedMetadataObjectForMetadataObject:connection:"), metadataObject, connection)
 	return AVMetadataObjectFromID(rv)
 }
+
 // Converts a rectangle in the capture output object’s coordinate system to
 // one in the coordinate system used for metadata outputs.
 //
 // rectInOutputCoordinates: A rectangle in the [AVCaptureOutput] object’s coordinate system.
 //
 // # Return Value
-// 
+//
 // A rectangle in the [AVCaptureMetadataOutput] coordinate system.
 //
 // # Discussion
-// 
+//
 // An [AVCaptureMetadataOutput] object expresses its [RectOfInterest] as a
 // [CGRect] where 0,0 represents the top-left of the picture area, and 1,1
 // represents the bottom-right on an unrotated picture. This convenience
@@ -221,29 +225,30 @@ func (c AVCaptureOutput) TransformedMetadataObjectForMetadataObjectConnection(me
 // rectangle of interest in the coordinate space of a metadata output whose
 // capture device provides input to the output. The conversion takes
 // orientation, mirroring, and scaling into consideration.
-// 
+//
 // See [TransformedMetadataObjectForMetadataObjectConnection] for a full
 // discussion of how the system applies orientation and mirroring to sample
 // buffers passing through the output.
 //
-// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureOutput/metadataOutputRectConverted(fromOutputRect:)
+//
+// [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 func (c AVCaptureOutput) MetadataOutputRectOfInterestForRect(rectInOutputCoordinates corefoundation.CGRect) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("metadataOutputRectOfInterestForRect:"), rectInOutputCoordinates)
 	return corefoundation.CGRect(rv)
 }
+
 // Converts a rectangle in the coordinate system used for metadata outputs to
 // one in the capture output object’s coordinate system.
 //
 // rectInMetadataOutputCoordinates: A rectangle in the [AVCaptureMetadataOutput] coordinate system.
 //
 // # Return Value
-// 
+//
 // A rectangle in the [AVCaptureOutput] object’s coordinate system.
 //
 // # Discussion
-// 
+//
 // The rectangle of interest for an [AVCaptureMetadataOutput] object is in a
 // coordinate system extending from `{0,0}` in the top-left to `{1,1}` in the
 // bottom-right, relative to the device’s natural orientation. A capture
@@ -259,7 +264,7 @@ func (c AVCaptureOutput) RectForMetadataOutputRectOfInterest(rectInMetadataOutpu
 // The capture output object’s connections.
 //
 // # Discussion
-// 
+//
 // Each connection object in the array describes the mapping between the
 // output and the capture input ports.
 //
@@ -270,11 +275,12 @@ func (c AVCaptureOutput) Connections() []AVCaptureConnection {
 		return AVCaptureConnectionFromID(id)
 	})
 }
+
 // A Boolean value that indicates whether to defer starting this capture
 // output.
 //
 // # Discussion
-// 
+//
 // When this value is `true`, the session doesn’t prepare the output’s
 // resources until some time after [StartRunning] returns. You can start the
 // visual parts of your user interface prior to other parts, such as photo or
@@ -284,14 +290,14 @@ func (c AVCaptureOutput) Connections() []AVCaptureConnection {
 // example, an [AVCaptureVideoDataOutput] that you intend to use for
 // displaying preview should set this value to `false`, so that the frames are
 // available as soon as possible.
-// 
+//
 // For apps that are linked on or after iOS 26, this property value is `true`
 // for [AVCapturePhotoOutput] and [AVCaptureFileOutput] subclasses if
 // supported, and `false` otherwise. When set to `true` for
 // [AVCapturePhotoOutput], if you want to support multiple capture requests
 // before running deferred start, set [ResponsiveCaptureEnabled] to `true` on
 // that output.
-// 
+//
 // If [DeferredStartSupported] is `false`, setting this property value to
 // `true` results in the system throwing an invalid argument exception.
 //
@@ -303,10 +309,11 @@ func (c AVCaptureOutput) DeferredStartEnabled() bool {
 func (c AVCaptureOutput) SetDeferredStartEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDeferredStartEnabled:"), value)
 }
+
 // A [BOOL] value that indicates whether the output supports deferred start.
 //
 // # Discussion
-// 
+//
 // You can only set the [DeferredStartEnabled] property value to `true` if the
 // output supports deferred start.
 //
@@ -315,4 +322,3 @@ func (c AVCaptureOutput) DeferredStartSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isDeferredStartSupported"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (ec ETDataSourceBlobF4Class) Alloc() ETDataSourceBlobF4 {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETDataSourceBlobF4.AddBlobForKey]
 //   - [ETDataSourceBlobF4.DataPointAtIndex]
 //   - [ETDataSourceBlobF4.NumberOfDataPoints]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceBlobF4
 type ETDataSourceBlobF4 struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type ETDataSourceBlobF4 struct {
 func ETDataSourceBlobF4FromID(id objc.ID) ETDataSourceBlobF4 {
 	return ETDataSourceBlobF4{objectivec.Object{ID: id}}
 }
+
 // Ensure ETDataSourceBlobF4 implements IETDataSourceBlobF4.
 var _ IETDataSourceBlobF4 = ETDataSourceBlobF4{}
 
@@ -97,20 +99,19 @@ func NewETDataSourceBlobF4() ETDataSourceBlobF4 {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceBlobF4/addBlob:forKey:
 func (e ETDataSourceBlobF4) AddBlobForKey(blob objectivec.IObject, key objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("addBlob:forKey:"), blob, key)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceBlobF4/dataPointAtIndex:
 func (e ETDataSourceBlobF4) DataPointAtIndex(index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceBlobF4/numberOfDataPoints
 func (e ETDataSourceBlobF4) NumberOfDataPoints() int {
 	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-

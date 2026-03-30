@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZVirtioSoundDeviceStreamConfigurationClass) Alloc() VZVirtioSoundDevic
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtioSoundDeviceStreamConfiguration._init]
@@ -51,6 +51,7 @@ func (vc VZVirtioSoundDeviceStreamConfigurationClass) Alloc() VZVirtioSoundDevic
 //   - [VZVirtioSoundDeviceStreamConfiguration.Description]
 //   - [VZVirtioSoundDeviceStreamConfiguration.Hash]
 //   - [VZVirtioSoundDeviceStreamConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration
 type VZVirtioSoundDeviceStreamConfiguration struct {
 	objectivec.Object
@@ -60,6 +61,7 @@ type VZVirtioSoundDeviceStreamConfiguration struct {
 func VZVirtioSoundDeviceStreamConfigurationFromID(id objc.ID) VZVirtioSoundDeviceStreamConfiguration {
 	return VZVirtioSoundDeviceStreamConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVirtioSoundDeviceStreamConfiguration implements IVZVirtioSoundDeviceStreamConfiguration.
 var _ IVZVirtioSoundDeviceStreamConfiguration = VZVirtioSoundDeviceStreamConfiguration{}
 
@@ -118,24 +120,27 @@ func (v VZVirtioSoundDeviceStreamConfiguration) _stream() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_stream"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/debugDescription
 func (v VZVirtioSoundDeviceStreamConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/description
 func (v VZVirtioSoundDeviceStreamConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/hash
 func (v VZVirtioSoundDeviceStreamConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceStreamConfiguration/superclass
 func (v VZVirtioSoundDeviceStreamConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

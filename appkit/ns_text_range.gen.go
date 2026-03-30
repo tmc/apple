@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSTextRangeClass) Alloc() NSTextRange {
 // document contents.
 //
 // # Overview
-// 
+//
 // An [NSTextRange] consists of the starting and terminating locations. There
 // the two basic properties: [NSTextRange.Location] and [NSTextRange.EndLocation], respectively. The
 // terminating [NSTextRange.Location], [NSTextRange.EndLocation], is directly following the last
@@ -88,6 +89,7 @@ type NSTextRange struct {
 func NSTextRangeFromID(id objc.ID) NSTextRange {
 	return NSTextRange{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTextRange adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -208,6 +210,7 @@ func (t NSTextRange) InitWithLocation(location NSTextLocation) NSTextRange {
 	rv := objc.Send[NSTextRange](t.ID, objc.Sel("initWithLocation:"), location)
 	return rv
 }
+
 // Creates a new text range with the starting and ending locations you
 // specify.
 //
@@ -220,30 +223,32 @@ func (t NSTextRange) InitWithLocationEndLocation(location NSTextLocation, endLoc
 	rv := objc.Send[NSTextRange](t.ID, objc.Sel("initWithLocation:endLocation:"), location, endLocation)
 	return rv
 }
+
 // Returns the range, if any, where two text ranges intersect.
 //
 // textRange: The range used to compare against the current range to evaluate for
 // differences.
 //
 // # Return Value
-// 
+//
 // An [NSRange] that represents the intersection of the ranges, or `nil` if
 // they don’t intersect.
 //
-// [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextRange/intersection(_:)
+//
+// [NSRange]: https://developer.apple.com/documentation/Foundation/NSRange-c.struct
 func (t NSTextRange) TextRangeByIntersectingWithTextRange(textRange INSTextRange) INSTextRange {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textRangeByIntersectingWithTextRange:"), textRange)
 	return NSTextRangeFromID(rv)
 }
+
 // Determines if two ranges intersect.
 //
 // textRange: The range used to compare against the current range to evaluate for
 // differences.
 //
 // # Return Value
-// 
+//
 // Returns `true` if the ranges intersect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextRange/intersects(_:)
@@ -251,13 +256,14 @@ func (t NSTextRange) IntersectsWithTextRange(textRange INSTextRange) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("intersectsWithTextRange:"), textRange)
 	return rv
 }
+
 // Compares two text ranges.
 //
 // textRange: The range used to compare against the current range to evaluate for
 // differences.
 //
 // # Return Value
-// 
+//
 // Returns `true` if the ranges are equal.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextRange/isEqual(to:)
@@ -265,13 +271,14 @@ func (t NSTextRange) IsEqualToTextRange(textRange INSTextRange) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isEqualToTextRange:"), textRange)
 	return rv
 }
+
 // Returns a new text range by forming the union with the text range you
 // provide.
 //
 // textRange: The range to use to create the union.
 //
 // # Return Value
-// 
+//
 // An [NSTextRange] that represent the union of the two ranges.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextRange/union(_:)
@@ -279,12 +286,13 @@ func (t NSTextRange) TextRangeByFormingUnionWithTextRange(textRange INSTextRange
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textRangeByFormingUnionWithTextRange:"), textRange)
 	return NSTextRangeFromID(rv)
 }
+
 // Determines if the text location you specify is in the current text range.
 //
 // location: An [NSTextLocation].
 //
 // # Return Value
-// 
+//
 // Returns `true` if the location is in the range otherwise `false` .
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextRange/contains(_:)-7hvi0
@@ -292,12 +300,13 @@ func (t NSTextRange) ContainsLocation(location NSTextLocation) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("containsLocation:"), location)
 	return rv
 }
+
 // Determines if the text range you specify is in the current text range.
 //
 // textRange: An [NSTextRange].
 //
 // # Return Value
-// 
+//
 // Returns `true` if the range you provide is in the current range; otherwise
 // `false`.
 //
@@ -314,6 +323,7 @@ func (t NSTextRange) Location() NSTextLocation {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("location"))
 	return NSTextLocationObjectFromID(rv)
 }
+
 // The ending location of the text range.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextRange/endLocation
@@ -321,6 +331,7 @@ func (t NSTextRange) EndLocation() NSTextLocation {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("endLocation"))
 	return NSTextLocationObjectFromID(rv)
 }
+
 // Returns whether the text range is empty.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextRange/isEmpty
@@ -328,4 +339,3 @@ func (t NSTextRange) Empty() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isEmpty"))
 	return rv
 }
-

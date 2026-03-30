@@ -3,11 +3,12 @@
 package avfaudio
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,16 +49,14 @@ func (ac AVAudioFileClass) Alloc() AVAudioFile {
 // reading or writing.
 //
 // # Overview
-// 
+//
 // Regardless of the file format, you read and write using [AVAudioPCMBuffer]
 // objects. These objects contain samples as [AVAudioCommonFormat] that the
 // framework refers to as the file’s processing format. You convert to and
 // from using the file’s actual format.
-// 
+//
 // Reads and writes are always sequential. Random access is possible by
 // setting the [AVAudioFile.FramePosition] property.
-//
-// [AVAudioCommonFormat]: https://developer.apple.com/documentation/AVFAudio/AVAudioCommonFormat
 //
 // # Creating an Audio File
 //
@@ -85,6 +84,8 @@ func (ac AVAudioFileClass) Alloc() AVAudioFile {
 //   - [AVAudioFile.IsOpen]: A Boolean value that indicates whether the file is open.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile
+//
+// [AVAudioCommonFormat]: https://developer.apple.com/documentation/AVFAudio/AVAudioCommonFormat
 type AVAudioFile struct {
 	objectivec.Object
 }
@@ -96,6 +97,7 @@ type AVAudioFile struct {
 func AVAudioFileFromID(id objc.ID) AVAudioFile {
 	return AVAudioFile{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioFile adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -200,11 +202,11 @@ func NewAVAudioFile() AVAudioFile {
 // format.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFile] instance you use for reading.
 //
 // # Discussion
-// 
+//
 // The processing format refers to the buffers it reads from the file. The
 // system reads the content and converts from the file format to the
 // processing format. The processing format must be at the same sample rate as
@@ -229,7 +231,7 @@ func NewAudioFileForReadingCommonFormatInterleavedError(fileURL foundation.INSUR
 // fileURL: The file to read.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFile] instance you use for reading.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forReading:)
@@ -256,14 +258,14 @@ func NewAudioFileForReadingError(fileURL foundation.INSURL) (AVAudioFile, error)
 // format.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFile] instance for writing.
 //
 // # Discussion
-// 
+//
 // This method infers the file type to create from the file extension of
 // `fileURL`, and overwrites a file at the specified URL if a file exists.
-// 
+//
 // For more information about the `settings` parameter, see the [Settings]
 // property in the [AVAudioRecorder] class.
 //
@@ -286,16 +288,16 @@ func NewAudioFileForWritingSettingsCommonFormatInterleavedError(fileURL foundati
 // settings: The format of the file to create.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFile] instance for writing.
 //
 // # Discussion
-// 
+//
 // This method infers the file type to create from the file extension of
 // `fileURL`, and overwrites a file at the specified URL if a file exists.
-// 
+//
 // The file opens for writing using the standard format
-// [AudioPCMFormatFloat32]. For more information about the `settings`
+// [AVAudioPCMFormatFloat32]. For more information about the `settings`
 // parameter, see the [Settings] property in the [AVAudioRecorder] class.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forWriting:settings:)
@@ -316,7 +318,7 @@ func NewAudioFileForWritingSettingsError(fileURL foundation.INSURL, settings fou
 // fileURL: The file to read.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFile] instance you use for reading.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forReading:)
@@ -330,6 +332,7 @@ func (a AVAudioFile) InitForReadingError(fileURL foundation.INSURL) (AVAudioFile
 	return AVAudioFileFromID(rv), nil
 
 }
+
 // Opens a file for reading using the specified processing format.
 //
 // fileURL: The file to read.
@@ -340,11 +343,11 @@ func (a AVAudioFile) InitForReadingError(fileURL foundation.INSURL) (AVAudioFile
 // format.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFile] instance you use for reading.
 //
 // # Discussion
-// 
+//
 // The processing format refers to the buffers it reads from the file. The
 // system reads the content and converts from the file format to the
 // processing format. The processing format must be at the same sample rate as
@@ -362,6 +365,7 @@ func (a AVAudioFile) InitForReadingCommonFormatInterleavedError(fileURL foundati
 	return AVAudioFileFromID(rv), nil
 
 }
+
 // Opens a file for writing using the specified settings.
 //
 // fileURL: The path of the file to create for writing.
@@ -369,16 +373,16 @@ func (a AVAudioFile) InitForReadingCommonFormatInterleavedError(fileURL foundati
 // settings: The format of the file to create.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFile] instance for writing.
 //
 // # Discussion
-// 
+//
 // This method infers the file type to create from the file extension of
 // `fileURL`, and overwrites a file at the specified URL if a file exists.
-// 
+//
 // The file opens for writing using the standard format
-// [AudioPCMFormatFloat32]. For more information about the `settings`
+// [AVAudioPCMFormatFloat32]. For more information about the `settings`
 // parameter, see the [Settings] property in the [AVAudioRecorder] class.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/init(forWriting:settings:)
@@ -392,6 +396,7 @@ func (a AVAudioFile) InitForWritingSettingsError(fileURL foundation.INSURL, sett
 	return AVAudioFileFromID(rv), nil
 
 }
+
 // Opens a file for writing using a specified processing format and settings.
 //
 // fileURL: The path at which to create the file.
@@ -404,14 +409,14 @@ func (a AVAudioFile) InitForWritingSettingsError(fileURL foundation.INSURL, sett
 // format.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioFile] instance for writing.
 //
 // # Discussion
-// 
+//
 // This method infers the file type to create from the file extension of
 // `fileURL`, and overwrites a file at the specified URL if a file exists.
-// 
+//
 // For more information about the `settings` parameter, see the [Settings]
 // property in the [AVAudioRecorder] class.
 //
@@ -426,13 +431,14 @@ func (a AVAudioFile) InitForWritingSettingsCommonFormatInterleavedError(fileURL 
 	return AVAudioFileFromID(rv), nil
 
 }
+
 // Reads an entire audio buffer.
 //
 // buffer: The buffer from which to read the file. Its format must match the file’s
 // processing format.
 //
 // # Discussion
-// 
+//
 // When reading sequentially from the [FramePosition] property, the method
 // attempts to fill the buffer to its capacity. On return, the buffer’s
 // [Length] property indicates the number of sample frames it successfully
@@ -452,6 +458,7 @@ func (a AVAudioFile) ReadIntoBufferError(buffer IAVAudioPCMBuffer) (bool, error)
 	return rv, nil
 
 }
+
 // Reads a portion of an audio buffer using the number of frames you specify.
 //
 // buffer: The buffer from which to read the file. Its format must match the file’s
@@ -460,7 +467,7 @@ func (a AVAudioFile) ReadIntoBufferError(buffer IAVAudioPCMBuffer) (bool, error)
 // frames: The number of frames to read.
 //
 // # Discussion
-// 
+//
 // You use this method to read fewer frames than the buffer’s
 // `frameCapacity`.
 //
@@ -478,13 +485,14 @@ func (a AVAudioFile) ReadIntoBufferFrameCountError(buffer IAVAudioPCMBuffer, fra
 	return rv, nil
 
 }
+
 // Writes an audio buffer sequentially.
 //
 // buffer: The buffer from which to write to the file. Its format must match the
 // file’s processing format.
 //
 // # Discussion
-// 
+//
 // The buffer’s [FrameLength] signifies how much of the buffer the method
 // writes.
 //
@@ -502,10 +510,11 @@ func (a AVAudioFile) WriteFromBufferError(buffer IAVAudioPCMBuffer) (bool, error
 	return rv, nil
 
 }
+
 // Closes the audio file.
 //
 // # Discussion
-// 
+//
 // Calling this method closes the underlying file, if open. It’s normally
 // unnecessary to close a file opened for reading because it’s automatically
 // closed when released. It’s only necessary to close a file opened for
@@ -524,6 +533,7 @@ func (a AVAudioFile) Url() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // The on-disk format of the file.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/fileFormat
@@ -531,6 +541,7 @@ func (a AVAudioFile) FileFormat() IAVAudioFormat {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fileFormat"))
 	return AVAudioFormatFromID(objc.ID(rv))
 }
+
 // The processing format of the file.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/processingFormat
@@ -538,10 +549,11 @@ func (a AVAudioFile) ProcessingFormat() IAVAudioFormat {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("processingFormat"))
 	return AVAudioFormatFromID(objc.ID(rv))
 }
+
 // The number of sample frames in the file.
 //
 // # Discussion
-// 
+//
 // This can be computationally expensive to compute for the first time.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/length
@@ -549,10 +561,11 @@ func (a AVAudioFile) Length() AVAudioFramePosition {
 	rv := objc.Send[AVAudioFramePosition](a.ID, objc.Sel("length"))
 	return AVAudioFramePosition(rv)
 }
+
 // The position in the file where the next read or write operation occurs.
 //
 // # Discussion
-// 
+//
 // Set the `framePosition` property to perform a seek before a read or write.
 // A read or write operation advances the frame position value by the number
 // of frames it reads or writes.
@@ -565,6 +578,7 @@ func (a AVAudioFile) FramePosition() AVAudioFramePosition {
 func (a AVAudioFile) SetFramePosition(value AVAudioFramePosition) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFramePosition:"), value)
 }
+
 // A string that indicates the audio file type.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiofiletypekey
@@ -572,6 +586,7 @@ func (a AVAudioFile) AVAudioFileTypeKey() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVAudioFileTypeKey"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A Boolean value that indicates whether the file is open.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/isOpen
@@ -579,4 +594,3 @@ func (a AVAudioFile) IsOpen() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isOpen"))
 	return rv
 }
-

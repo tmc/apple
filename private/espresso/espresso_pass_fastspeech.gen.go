@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_fastspeech struct {
 func EspressoPass_fastspeechFromID(id objc.ID) EspressoPass_fastspeech {
 	return EspressoPass_fastspeech{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_fastspeech implements IEspressoPass_fastspeech.
 var _ IEspressoPass_fastspeech = EspressoPass_fastspeech{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_fastspeech() EspressoPass_fastspeech {
 	rv := objc.Send[EspressoPass_fastspeech](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -39,6 +39,7 @@ type CILabDeltaE interface {
 type CILabDeltaEObject struct {
 	objectivec.Object
 }
+
 func (o CILabDeltaEObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CILabDeltaEObjectFromID(id objc.ID) CILabDeltaEObject {
 func (o CILabDeltaEObject) Image2() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("image2"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The first input image for comparison.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILabDeltaE/inputImage
 func (o CILabDeltaEObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CILabDeltaEObject) InputImage() ICIImage {
 func (o CILabDeltaEObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The second input image for comparison.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CILabDeltaE/image2
 func (o CILabDeltaEObject) SetImage2(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setImage2:"), value)
 }
 
+// The first input image for comparison.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CILabDeltaE/inputImage
 func (o CILabDeltaEObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

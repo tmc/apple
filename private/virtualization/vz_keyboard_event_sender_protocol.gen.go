@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -24,6 +25,7 @@ type VZKeyboardEventSender interface {
 type VZKeyboardEventSenderObject struct {
 	objectivec.Object
 }
+
 func (o VZKeyboardEventSenderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -36,9 +38,7 @@ func VZKeyboardEventSenderObjectFromID(id objc.ID) VZKeyboardEventSenderObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZKeyboardEventSender/sendKeyboardEvents:keyboardID:
 func (o VZKeyboardEventSenderObject) SendKeyboardEventsKeyboardID(events unsafe.Pointer, id uint32) {
 	objc.Send[struct{}](o.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events, id)
-	}
-
+}

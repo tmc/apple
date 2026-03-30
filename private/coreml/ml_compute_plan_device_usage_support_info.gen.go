@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (mc MLComputePlanDeviceUsageSupportInfoClass) Alloc() MLComputePlanDeviceUs
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLComputePlanDeviceUsageSupportInfo.ComputeDevice]
 //   - [MLComputePlanDeviceUsageSupportInfo.State]
 //   - [MLComputePlanDeviceUsageSupportInfo.InitWithComputeDeviceSupportState]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportInfo
 type MLComputePlanDeviceUsageSupportInfo struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type MLComputePlanDeviceUsageSupportInfo struct {
 func MLComputePlanDeviceUsageSupportInfoFromID(id objc.ID) MLComputePlanDeviceUsageSupportInfo {
 	return MLComputePlanDeviceUsageSupportInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure MLComputePlanDeviceUsageSupportInfo implements IMLComputePlanDeviceUsageSupportInfo.
 var _ IMLComputePlanDeviceUsageSupportInfo = MLComputePlanDeviceUsageSupportInfo{}
 
@@ -97,7 +99,6 @@ func NewMLComputePlanDeviceUsageSupportInfo() MLComputePlanDeviceUsageSupportInf
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportInfo/initWithComputeDevice:supportState:
 func NewComputePlanDeviceUsageSupportInfoWithComputeDeviceSupportState(device objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportInfo {
 	instance := getMLComputePlanDeviceUsageSupportInfoClass().Alloc()
@@ -105,7 +106,6 @@ func NewComputePlanDeviceUsageSupportInfoWithComputeDeviceSupportState(device ob
 	return MLComputePlanDeviceUsageSupportInfoFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportInfo/initWithComputeDevice:supportState:
 func (c MLComputePlanDeviceUsageSupportInfo) InitWithComputeDeviceSupportState(device objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportInfo {
 	rv := objc.Send[MLComputePlanDeviceUsageSupportInfo](c.ID, objc.Sel("initWithComputeDevice:supportState:"), device, state)
@@ -117,9 +117,9 @@ func (c MLComputePlanDeviceUsageSupportInfo) ComputeDevice() objectivec.IObject 
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("computeDevice"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsageSupportInfo/state
 func (c MLComputePlanDeviceUsageSupportInfo) State() int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("state"))
 	return rv
 }
-

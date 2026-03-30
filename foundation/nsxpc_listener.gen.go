@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSXPCListenerClass) Alloc() NSXPCListener {
 // accepts or rejects them.
 //
 // # Overview
-// 
+//
 // Each XPC service, launchd agent, or launchd daemon typically has at least
 // one [NSXPCListener] object that listens for connections to a specified
 // service name. Each listener must have a delegate that conforms to the
@@ -90,6 +91,7 @@ type NSXPCListener struct {
 func NSXPCListenerFromID(id objc.ID) NSXPCListener {
 	return NSXPCListener{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSXPCListener adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -179,7 +181,7 @@ func NewNSXPCListener() NSXPCListener {
 // advertised in a `launchd.Plist()` file.
 //
 // # Discussion
-// 
+//
 // For example, you might use this in an agent launched by launchd with a
 // `launchd.Plist()` contained in `~/Library/LaunchAgents`, or a daemon
 // launched by launchd with a `launchd.Plist()` contained in
@@ -196,7 +198,7 @@ func NewXPCListenerWithMachServiceName(name string) NSXPCListener {
 // advertised in a `launchd.Plist()` file.
 //
 // # Discussion
-// 
+//
 // For example, you might use this in an agent launched by launchd with a
 // `launchd.Plist()` contained in `~/Library/LaunchAgents`, or a daemon
 // launched by launchd with a `launchd.Plist()` contained in
@@ -207,15 +209,16 @@ func (x NSXPCListener) InitWithMachServiceName(name string) NSXPCListener {
 	rv := objc.Send[NSXPCListener](x.ID, objc.Sel("initWithMachServiceName:"), objc.String(name))
 	return rv
 }
+
 // Activates the listener.
 //
 // # Discussion
-// 
+//
 // Connections start in an inactive state. You must call [Activate] on a
 // connection before it can send or receive any messages.
-// 
+//
 // Calling [Activate] on an active connection has no effect.
-// 
+//
 // For backward compatibility reasons, calling [Resume] on an inactive and
 // otherwise not suspended [NSXPCListener] has the same effect as calling
 // [Activate]. For new code, prefer [Activate].
@@ -224,18 +227,19 @@ func (x NSXPCListener) InitWithMachServiceName(name string) NSXPCListener {
 func (x NSXPCListener) Activate() {
 	objc.Send[objc.ID](x.ID, objc.Sel("activate"))
 }
+
 // Starts processing of incoming requests.
 //
 // # Discussion
-// 
+//
 // All listeners start suspended and must be resumed before they begin
 // processing incoming requests.
-// 
+//
 // If called on the [ServiceListener] object, this method never returns.
 // Therefore, you should call it as the last step inside the XPC service’s
 // `main` function after setting up any desired initial state and configuring
 // the listener itself.
-// 
+//
 // If called on any other [NSXPCListener], the connection is resumed, and the
 // method returns immediately.
 //
@@ -243,10 +247,11 @@ func (x NSXPCListener) Activate() {
 func (x NSXPCListener) Resume() {
 	objc.Send[objc.ID](x.ID, objc.Sel("resume"))
 }
+
 // Invalidates the listener.
 //
 // # Discussion
-// 
+//
 // After calling this method, no more connections are created. Once a listener
 // is invalidated it may not be resumed or suspended.
 //
@@ -254,10 +259,11 @@ func (x NSXPCListener) Resume() {
 func (x NSXPCListener) Invalidate() {
 	objc.Send[objc.ID](x.ID, objc.Sel("invalidate"))
 }
+
 // Suspends the listener.
 //
 // # Discussion
-// 
+//
 // As you cannot invalidate a suspended listener, every call to [Suspend] that
 // you make must be balanced by a call to [Resume].
 //
@@ -265,22 +271,23 @@ func (x NSXPCListener) Invalidate() {
 func (x NSXPCListener) Suspend() {
 	objc.Send[objc.ID](x.ID, objc.Sel("suspend"))
 }
+
 // Sets the code signing requirement for connections to this listener.
 //
 // requirement: A string that describes requirements expected of the connection peer. See
 // [Code Signing Guide] for more information on the code signing format.
-// //
-// [Code Signing Guide]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/
 //
 // # Discussion
-// 
+//
 // Use this method to enforce a code-signing requirement on incoming XPC
 // connections.
-// 
+//
 // The following example shows how a listener can ensure that the XPC client
 // service on the other end of a connection has a specific entitlement.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCListener/setConnectionCodeSigningRequirement(_:)
+//
+// [Code Signing Guide]: https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/
 func (x NSXPCListener) SetConnectionCodeSigningRequirement(requirement string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setConnectionCodeSigningRequirement:"), objc.String(requirement))
 }
@@ -289,7 +296,7 @@ func (x NSXPCListener) SetConnectionCodeSigningRequirement(requirement string) {
 // an XPC service.
 //
 // # Discussion
-// 
+//
 // Calling the `resume` method on the returned object starts the listener and
 // never returns. This method is typically called at the end of your `main`
 // function.
@@ -299,10 +306,11 @@ func (_NSXPCListenerClass NSXPCListenerClass) ServiceListener() NSXPCListener {
 	rv := objc.Send[objc.ID](objc.ID(_NSXPCListenerClass.class), objc.Sel("serviceListener"))
 	return NSXPCListenerFromID(rv)
 }
+
 // Returns a new anonymous listener connection.
 //
 // # Discussion
-// 
+//
 // Other processes can connect to this listener by passing this listener
 // object’s [NSXPCListenerEndpoint] to the [InitWithListenerEndpoint] method
 // of an [NSXPCConnection] object.
@@ -316,7 +324,7 @@ func (_NSXPCListenerClass NSXPCListenerClass) AnonymousListener() NSXPCListener 
 // The delegate for the listener.
 //
 // # Discussion
-// 
+//
 // If no delegate is set, all new connections are rejected. See the
 // documentation for [NSXPCListenerDelegate] for implementation details.
 //
@@ -328,10 +336,11 @@ func (x NSXPCListener) Delegate() NSXPCListenerDelegate {
 func (x NSXPCListener) SetDelegate(value NSXPCListenerDelegate) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDelegate:"), value)
 }
+
 // Returns an endpoint object that may be sent over an existing connection.
 //
 // # Discussion
-// 
+//
 // The receiver of the endpoint can use this object to create a new connection
 // to this [NSXPCListener] object. The resulting [NSXPCListenerEndpoint]
 // object uniquely names this listener object across connections.
@@ -341,4 +350,3 @@ func (x NSXPCListener) Endpoint() INSXPCListenerEndpoint {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("endpoint"))
 	return NSXPCListenerEndpointFromID(objc.ID(rv))
 }
-

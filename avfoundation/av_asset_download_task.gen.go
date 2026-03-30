@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAssetDownloadTask] class.
@@ -44,18 +45,18 @@ func (ac AVAssetDownloadTaskClass) Alloc() AVAssetDownloadTask {
 // A session used to download HTTP Live Streaming assets.
 //
 // # Overview
-// 
+//
 // This class is a subclass of [URLSessionTask] that you use to download HTTP
 // Live Streaming assets. You create instances of this class by calling
 // [AssetDownloadTaskWithConfiguration] on the download session.
-//
-// [URLSessionTask]: https://developer.apple.com/documentation/Foundation/URLSessionTask
 //
 // # Accessing task information
 //
 //   - [AVAssetDownloadTask.URLAsset]: The asset that this task downloads.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetDownloadTask
+//
+// [URLSessionTask]: https://developer.apple.com/documentation/Foundation/URLSessionTask
 type AVAssetDownloadTask struct {
 	foundation.URLSessionTask
 }
@@ -66,6 +67,7 @@ type AVAssetDownloadTask struct {
 func AVAssetDownloadTaskFromID(id objc.ID) AVAssetDownloadTask {
 	return AVAssetDownloadTask{URLSessionTask: foundation.URLSessionTaskFromID(id)}
 }
+
 // NOTE: AVAssetDownloadTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -111,4 +113,3 @@ func (a AVAssetDownloadTask) URLAsset() IAVURLAsset {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URLAsset"))
 	return AVURLAssetFromID(objc.ID(rv))
 }
-

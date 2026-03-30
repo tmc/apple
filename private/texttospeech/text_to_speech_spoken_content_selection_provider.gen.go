@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (tc TextToSpeechSpokenContentSelectionProviderClass) Alloc() TextToSpeechSp
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TextToSpeechSpokenContentSelectionProvider.SiriVoiceChanged]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.SpokenContentSelectionProvider
 type TextToSpeechSpokenContentSelectionProvider struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type TextToSpeechSpokenContentSelectionProvider struct {
 func TextToSpeechSpokenContentSelectionProviderFromID(id objc.ID) TextToSpeechSpokenContentSelectionProvider {
 	return TextToSpeechSpokenContentSelectionProvider{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechSpokenContentSelectionProvider struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechSpokenContentSelectionProvider embeds the parent interface; skip compile-time assertion.
 
@@ -95,4 +97,3 @@ func NewTextToSpeechSpokenContentSelectionProvider() TextToSpeechSpokenContentSe
 func (t TextToSpeechSpokenContentSelectionProvider) SiriVoiceChanged() {
 	objc.Send[objc.ID](t.ID, objc.Sel("siriVoiceChanged"))
 }
-

@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,10 +43,10 @@ func (ac AVSpeechSynthesisMarkerClass) Alloc() AVSpeechSynthesisMarker {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVSpeechSynthesisMarker.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker
 type AVSpeechSynthesisMarker struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type AVSpeechSynthesisMarker struct {
 func AVSpeechSynthesisMarkerFromID(id objc.ID) AVSpeechSynthesisMarker {
 	return AVSpeechSynthesisMarker{objectivec.Object{ID: id}}
 }
+
 // Ensure AVSpeechSynthesisMarker implements IAVSpeechSynthesisMarker.
 var _ IAVSpeechSynthesisMarker = AVSpeechSynthesisMarker{}
 
@@ -92,7 +94,6 @@ func NewAVSpeechSynthesisMarker() AVSpeechSynthesisMarker {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/initWithCoder:
 func NewSpeechSynthesisMarkerWithCoder(coder objectivec.IObject) AVSpeechSynthesisMarker {
 	instance := getAVSpeechSynthesisMarkerClass().Alloc()
@@ -100,7 +101,6 @@ func NewSpeechSynthesisMarkerWithCoder(coder objectivec.IObject) AVSpeechSynthes
 	return AVSpeechSynthesisMarkerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisMarker/initWithCoder:
 func (s AVSpeechSynthesisMarker) InitWithCoder(coder foundation.INSCoder) AVSpeechSynthesisMarker {
 	rv := objc.Send[AVSpeechSynthesisMarker](s.ID, objc.Sel("initWithCoder:"), coder)
@@ -112,4 +112,3 @@ func (_AVSpeechSynthesisMarkerClass AVSpeechSynthesisMarkerClass) SupportsSecure
 	rv := objc.Send[bool](objc.ID(_AVSpeechSynthesisMarkerClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-

@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +61,7 @@ type MLSequenceConstraint struct {
 func MLSequenceConstraintFromID(id objc.ID) MLSequenceConstraint {
 	return MLSequenceConstraint{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLSequenceConstraint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -129,6 +131,7 @@ func (s MLSequenceConstraint) ValueDescription() IMLFeatureDescription {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("valueDescription"))
 	return MLFeatureDescriptionFromID(objc.ID(rv))
 }
+
 // The range of values allowed for the sequence’s length.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLSequenceConstraint/countRange
@@ -136,6 +139,7 @@ func (s MLSequenceConstraint) CountRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](s.ID, objc.Sel("countRange"))
 	return foundation.NSRange(rv)
 }
+
 // The constraint for a dictionary feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/dictionaryconstraint
@@ -146,6 +150,7 @@ func (s MLSequenceConstraint) DictionaryConstraint() IMLDictionaryConstraint {
 func (s MLSequenceConstraint) SetDictionaryConstraint(value IMLDictionaryConstraint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDictionaryConstraint:"), value)
 }
+
 // The size and format constraints for an image feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/imageconstraint
@@ -156,6 +161,7 @@ func (s MLSequenceConstraint) ImageConstraint() IMLImageConstraint {
 func (s MLSequenceConstraint) SetImageConstraint(value IMLImageConstraint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setImageConstraint:"), value)
 }
+
 // The constraints on a multidimensional array feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/multiarrayconstraint
@@ -166,6 +172,7 @@ func (s MLSequenceConstraint) MultiArrayConstraint() IMLMultiArrayConstraint {
 func (s MLSequenceConstraint) SetMultiArrayConstraint(value IMLMultiArrayConstraint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMultiArrayConstraint:"), value)
 }
+
 // The constraints for a sequence feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/sequenceconstraint
@@ -176,6 +183,7 @@ func (s MLSequenceConstraint) SequenceConstraint() IMLSequenceConstraint {
 func (s MLSequenceConstraint) SetSequenceConstraint(value IMLSequenceConstraint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSequenceConstraint:"), value)
 }
+
 // The state feature value constraint.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/stateconstraint
@@ -186,4 +194,3 @@ func (s MLSequenceConstraint) StateConstraint() IMLStateConstraint {
 func (s MLSequenceConstraint) SetStateConstraint(value IMLStateConstraint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStateConstraint:"), value)
 }
-

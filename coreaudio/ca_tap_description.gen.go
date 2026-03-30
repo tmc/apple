@@ -4,8 +4,9 @@ package coreaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,9 +43,8 @@ func (cc CATapDescriptionClass) Alloc() CATapDescription {
 	return rv
 }
 
-//
 // # Overview
-// 
+//
 // This class describes a tap object that contains an input stream. The input
 // stream is a mix of all of the specified processes output audio.
 //
@@ -80,6 +80,7 @@ type CATapDescription struct {
 func CATapDescriptionFromID(id objc.ID) CATapDescription {
 	return CATapDescription{objectivec.Object{ID: id}}
 }
+
 // NOTE: CATapDescription adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -166,7 +167,6 @@ func NewCATapDescription() CATapDescription {
 	return rv
 }
 
-//
 // processesObjectIDsToExcludeFromTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to exclude from the tap. All other processes that output
 // audio will be included in the tap.
@@ -178,7 +178,7 @@ func NewCATapDescription() CATapDescription {
 // stream.
 //
 // # Discussion
-// 
+//
 // Mix all process audio streams destined for the selected device stream
 // except the given processes
 //
@@ -189,14 +189,13 @@ func NewTapDescriptionExcludingProcessesAndDeviceUIDWithStream(processesObjectID
 	return CATapDescriptionFromID(rv)
 }
 
-//
 // processesObjectIDsToExcludeFromTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to exclude from the tap. All other processes that output
 // audio will be included in the tap.
 //
 // # Discussion
-// 
-// Mix all processes to a mono stream except the given processes
+//
+// # Mix all processes to a mono stream except the given processes
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/initMonoGlobalTapButExcludeProcesses:
 func NewTapDescriptionMonoGlobalTapButExcludeProcesses(processesObjectIDsToExcludeFromTap []foundation.NSNumber) CATapDescription {
@@ -205,12 +204,11 @@ func NewTapDescriptionMonoGlobalTapButExcludeProcesses(processesObjectIDsToExclu
 	return CATapDescriptionFromID(rv)
 }
 
-//
 // processesObjectIDsToIncludeInTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to include in the tap
 //
 // # Discussion
-// 
+//
 // Mix all given process audio streams audio to mono.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/initMonoMixdownOfProcesses:
@@ -220,13 +218,12 @@ func NewTapDescriptionMonoMixdownOfProcesses(processesObjectIDsToIncludeInTap []
 	return CATapDescriptionFromID(rv)
 }
 
-//
 // processesObjectIDsToExcludeFromTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to exclude from the tap. All other processes that output
 // audio will be included in the tap.
 //
 // # Discussion
-// 
+//
 // Mix all processes to a stereo stream except the given processes. Mono
 // sources will be duplicated in both right and left channels.
 //
@@ -237,12 +234,11 @@ func NewTapDescriptionStereoGlobalTapButExcludeProcesses(processesObjectIDsToExc
 	return CATapDescriptionFromID(rv)
 }
 
-//
 // processesObjectIDsToIncludeInTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to include in the tap
 //
 // # Discussion
-// 
+//
 // Mix all given process audio streams down to stereo. Mono sources will be
 // duplicated in both right and left channels.
 //
@@ -253,7 +249,6 @@ func NewTapDescriptionStereoMixdownOfProcesses(processesObjectIDsToIncludeInTap 
 	return CATapDescriptionFromID(rv)
 }
 
-//
 // processesObjectIDsToIncludeInTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to exclude from the tap. All other processes that output
 // audio will be included in the tap.
@@ -265,8 +260,8 @@ func NewTapDescriptionStereoMixdownOfProcesses(processesObjectIDsToIncludeInTap 
 // stream.
 //
 // # Discussion
-// 
-// Mix all given process audio streams destined for the selected device stream
+//
+// # Mix all given process audio streams destined for the selected device stream
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/initWithProcesses:andDeviceUID:withStream:
 func NewTapDescriptionWithProcessesAndDeviceUIDWithStream(processesObjectIDsToIncludeInTap []foundation.NSNumber, deviceUID string, stream int) CATapDescription {
@@ -275,7 +270,6 @@ func NewTapDescriptionWithProcessesAndDeviceUIDWithStream(processesObjectIDsToIn
 	return CATapDescriptionFromID(rv)
 }
 
-//
 // processesObjectIDsToExcludeFromTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to exclude from the tap. All other processes that output
 // audio will be included in the tap.
@@ -287,7 +281,7 @@ func NewTapDescriptionWithProcessesAndDeviceUIDWithStream(processesObjectIDsToIn
 // stream.
 //
 // # Discussion
-// 
+//
 // Mix all process audio streams destined for the selected device stream
 // except the given processes
 //
@@ -296,26 +290,26 @@ func (t CATapDescription) InitExcludingProcessesAndDeviceUIDWithStream(processes
 	rv := objc.Send[CATapDescription](t.ID, objc.Sel("initExcludingProcesses:andDeviceUID:withStream:"), objectivec.IObjectSliceToNSArray(processesObjectIDsToExcludeFromTap), objc.String(deviceUID), stream)
 	return rv
 }
-//
+
 // processesObjectIDsToExcludeFromTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to exclude from the tap. All other processes that output
 // audio will be included in the tap.
 //
 // # Discussion
-// 
-// Mix all processes to a mono stream except the given processes
+//
+// # Mix all processes to a mono stream except the given processes
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/initMonoGlobalTapButExcludeProcesses:
 func (t CATapDescription) InitMonoGlobalTapButExcludeProcesses(processesObjectIDsToExcludeFromTap []foundation.NSNumber) CATapDescription {
 	rv := objc.Send[CATapDescription](t.ID, objc.Sel("initMonoGlobalTapButExcludeProcesses:"), objectivec.IObjectSliceToNSArray(processesObjectIDsToExcludeFromTap))
 	return rv
 }
-//
+
 // processesObjectIDsToIncludeInTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to include in the tap
 //
 // # Discussion
-// 
+//
 // Mix all given process audio streams audio to mono.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/initMonoMixdownOfProcesses:
@@ -323,13 +317,13 @@ func (t CATapDescription) InitMonoMixdownOfProcesses(processesObjectIDsToInclude
 	rv := objc.Send[CATapDescription](t.ID, objc.Sel("initMonoMixdownOfProcesses:"), objectivec.IObjectSliceToNSArray(processesObjectIDsToIncludeInTap))
 	return rv
 }
-//
+
 // processesObjectIDsToExcludeFromTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to exclude from the tap. All other processes that output
 // audio will be included in the tap.
 //
 // # Discussion
-// 
+//
 // Mix all processes to a stereo stream except the given processes. Mono
 // sources will be duplicated in both right and left channels.
 //
@@ -338,12 +332,12 @@ func (t CATapDescription) InitStereoGlobalTapButExcludeProcesses(processesObject
 	rv := objc.Send[CATapDescription](t.ID, objc.Sel("initStereoGlobalTapButExcludeProcesses:"), objectivec.IObjectSliceToNSArray(processesObjectIDsToExcludeFromTap))
 	return rv
 }
-//
+
 // processesObjectIDsToIncludeInTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to include in the tap
 //
 // # Discussion
-// 
+//
 // Mix all given process audio streams down to stereo. Mono sources will be
 // duplicated in both right and left channels.
 //
@@ -352,7 +346,7 @@ func (t CATapDescription) InitStereoMixdownOfProcesses(processesObjectIDsToInclu
 	rv := objc.Send[CATapDescription](t.ID, objc.Sel("initStereoMixdownOfProcesses:"), objectivec.IObjectSliceToNSArray(processesObjectIDsToIncludeInTap))
 	return rv
 }
-//
+
 // processesObjectIDsToIncludeInTap: An NSArray of NSNumbers where each NSNumber holds an AudioObjectID of the
 // process object to exclude from the tap. All other processes that output
 // audio will be included in the tap.
@@ -364,8 +358,8 @@ func (t CATapDescription) InitStereoMixdownOfProcesses(processesObjectIDsToInclu
 // stream.
 //
 // # Discussion
-// 
-// Mix all given process audio streams destined for the selected device stream
+//
+// # Mix all given process audio streams destined for the selected device stream
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/initWithProcesses:andDeviceUID:withStream:
 func (t CATapDescription) InitWithProcessesAndDeviceUIDWithStream(processesObjectIDsToIncludeInTap []foundation.NSNumber, deviceUID string, stream int) CATapDescription {
@@ -373,9 +367,8 @@ func (t CATapDescription) InitWithProcessesAndDeviceUIDWithStream(processesObjec
 	return rv
 }
 
-//
 // # Discussion
-// 
+//
 // An Array of Strings where each String holds the bundle ID of a process to
 // tap or exclude.
 //
@@ -387,9 +380,9 @@ func (t CATapDescription) BundleIDs() []string {
 func (t CATapDescription) SetBundleIDs(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBundleIDs:"), objectivec.StringSliceToNSArray(value))
 }
-//
+
 // # Discussion
-// 
+//
 // An optional deviceUID that will have a value if this tap only taps a
 // specific hardware device
 //
@@ -401,9 +394,9 @@ func (t CATapDescription) DeviceUID() string {
 func (t CATapDescription) SetDeviceUID(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDeviceUID:"), objc.String(value))
 }
-//
+
 // # Discussion
-// 
+//
 // True if this description should tap all processes except the process listed
 // in the ‘processes’ property.
 //
@@ -415,9 +408,9 @@ func (t CATapDescription) Exclusive() bool {
 func (t CATapDescription) SetExclusive(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setExclusive:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // True if this description is a mono or stereo mix of the tapped device’s
 // channels.
 //
@@ -429,9 +422,9 @@ func (t CATapDescription) Mixdown() bool {
 func (t CATapDescription) SetMixdown(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMixdown:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // True if this description is a mono mixdown of channels.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/isMono
@@ -442,9 +435,9 @@ func (t CATapDescription) Mono() bool {
 func (t CATapDescription) SetMono(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMono:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // True if this tap is only visible to the client process that created the
 // tap.
 //
@@ -456,9 +449,9 @@ func (t CATapDescription) PrivateTap() bool {
 func (t CATapDescription) SetPrivateTap(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPrivate:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // True if this tap should save tapped processes by bundle ID when they exit,
 // and restore them to the tap when they start up again.
 //
@@ -470,9 +463,9 @@ func (t CATapDescription) ProcessRestoreEnabled() bool {
 func (t CATapDescription) SetProcessRestoreEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setProcessRestoreEnabled:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // Set the tap’s mute behavior. See CATapMuteBehavior above.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/muteBehavior
@@ -483,9 +476,9 @@ func (t CATapDescription) MuteBehavior() CATapMuteBehavior {
 func (t CATapDescription) SetMuteBehavior(value CATapMuteBehavior) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMuteBehavior:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // Human readable name of this tap.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/name
@@ -496,9 +489,9 @@ func (t CATapDescription) Name() string {
 func (t CATapDescription) SetName(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setName:"), objc.String(value))
 }
-//
+
 // # Discussion
-// 
+//
 // UID of this tap.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/CATapDescription/uuid
@@ -509,9 +502,9 @@ func (t CATapDescription) UUID() foundation.NSUUID {
 func (t CATapDescription) SetUUID(value foundation.NSUUID) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUUID:"), value)
 }
-//
+
 // # Discussion
-// 
+//
 // An NSArray of NSNumbers where each NSNumber holds the AudioObjectID of a
 // process object to tap or exclude.
 //
@@ -525,9 +518,9 @@ func (t CATapDescription) Processes() []foundation.NSNumber {
 func (t CATapDescription) SetProcesses(value []foundation.NSNumber) {
 	objc.Send[struct{}](t.ID, objc.Sel("setProcesses:"), objectivec.IObjectSliceToNSArray(value))
 }
-//
+
 // # Discussion
-// 
+//
 // An optional NSNumber that will have a value if this tap taps a specific
 // device stream. The value represents the index of the hardware stream.
 //
@@ -539,4 +532,3 @@ func (t CATapDescription) Stream() foundation.NSNumber {
 func (t CATapDescription) SetStream(value foundation.NSNumber) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStream:"), value)
 }
-

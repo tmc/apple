@@ -18,6 +18,7 @@ type OS_sec_trust interface {
 type OS_sec_trustObject struct {
 	objectivec.Object
 }
+
 func (o OS_sec_trustObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func OS_sec_trustObjectFromID(id objc.ID) OS_sec_trustObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

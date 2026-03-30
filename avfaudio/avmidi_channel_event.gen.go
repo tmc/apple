@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -58,6 +59,7 @@ type AVMIDIChannelEvent struct {
 func AVMIDIChannelEventFromID(id objc.ID) AVMIDIChannelEvent {
 	return AVMIDIChannelEvent{AVMusicEvent: AVMusicEventFromID(id)}
 }
+
 // NOTE: AVMIDIChannelEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -101,7 +103,7 @@ func NewAVMIDIChannelEvent() AVMIDIChannelEvent {
 // The MIDI channel.
 //
 // # Discussion
-// 
+//
 // The valid range of values are between `0` and `15`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIChannelEvent/channel
@@ -112,4 +114,3 @@ func (m AVMIDIChannelEvent) Channel() uint32 {
 func (m AVMIDIChannelEvent) SetChannel(value uint32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setChannel:"), value)
 }
-

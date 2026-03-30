@@ -4,10 +4,12 @@ package avfaudio
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that defines the methods to respond to audio playback events and decoding errors.
@@ -21,6 +23,7 @@ type AVAudioPlayerDelegate interface {
 type AVAudioPlayerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVAudioPlayerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,13 +44,14 @@ func AVAudioPlayerDelegateObjectFromID(id objc.ID) AVAudioPlayerDelegateObject {
 // successfully.
 //
 // # Discussion
-// 
+//
 // The system doesn’t call this method on an audio interruption.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerDelegate/audioPlayerDidFinishPlaying(_:successfully:)
 func (o AVAudioPlayerDelegateObject) AudioPlayerDidFinishPlayingSuccessfully(player IAVAudioPlayer, flag bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerDidFinishPlaying:successfully:"), player, flag)
-	}
+}
+
 // Tells the delegate when an audio player encounters a decoding error during
 // playback.
 //
@@ -58,7 +62,7 @@ func (o AVAudioPlayerDelegateObject) AudioPlayerDidFinishPlayingSuccessfully(pla
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerDelegate/audioPlayerDecodeErrorDidOccur(_:error:)
 func (o AVAudioPlayerDelegateObject) AudioPlayerDecodeErrorDidOccurError(player IAVAudioPlayer, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerDecodeErrorDidOccur:error:"), player, error_)
-	}
+}
 
 // AVAudioPlayerDelegateConfig holds optional typed callbacks for [AVAudioPlayerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -136,4 +140,3 @@ func NewAVAudioPlayerDelegate(config AVAudioPlayerDelegateConfig) AVAudioPlayerD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVAudioPlayerDelegateObjectFromID(instance)
 }
-

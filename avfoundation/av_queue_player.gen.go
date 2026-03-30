@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVQueuePlayerClass) Alloc() AVQueuePlayer {
 // An object that plays a sequence of player items.
 //
 // # Overview
-// 
+//
 // Use an instance of this class to manage a queue of player items.
 //
 // # Creating a queue player
@@ -72,6 +73,7 @@ type AVQueuePlayer struct {
 func AVQueuePlayerFromID(id objc.ID) AVQueuePlayer {
 	return AVQueuePlayer{AVPlayer: AVPlayerFromID(id)}
 }
+
 // NOTE: AVQueuePlayer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -150,7 +152,7 @@ func NewQueuePlayerWithItems(items []AVPlayerItem) AVQueuePlayer {
 // item: The player item to play.
 //
 // # Return Value
-// 
+//
 // A new player initialized to play `item`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(playerItem:)
@@ -166,12 +168,12 @@ func NewQueuePlayerWithPlayerItem(item IAVPlayerItem) AVQueuePlayer {
 // URL: A URL that identifies an audiovisual resource.
 //
 // # Return Value
-// 
+//
 // A new player instance initialized to play the audiovisual resource
 // specified by [URL].
 //
 // # Discussion
-// 
+//
 // This method implicitly creates an [AVPlayerItem] object. You can get the
 // player item using [CurrentItem].
 //
@@ -191,14 +193,15 @@ func (q AVQueuePlayer) InitWithItems(items []AVPlayerItem) AVQueuePlayer {
 	rv := objc.Send[AVQueuePlayer](q.ID, objc.Sel("initWithItems:"), objectivec.IObjectSliceToNSArray(items))
 	return rv
 }
+
 // Returns an array of the currently enqueued items.
 //
 // # Return Value
-// 
+//
 // An array of the currently enqueued player items.
 //
 // # Discussion
-// 
+//
 // The array contains [AVPlayerItem] objects currently in the player’s
 // queue.
 //
@@ -209,17 +212,19 @@ func (q AVQueuePlayer) Items() []AVPlayerItem {
 		return AVPlayerItemFromID(id)
 	})
 }
+
 // Ends playback of the current item and starts playback of the next item in
 // the player’s queue.
 //
 // # Discussion
-// 
+//
 // Calling this method also removes the current item from the play queue.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuePlayer/advanceToNextItem()
 func (q AVQueuePlayer) AdvanceToNextItem() {
 	objc.Send[objc.ID](q.ID, objc.Sel("advanceToNextItem"))
 }
+
 // Returns a Boolean value that indicates whether you can insert a player item
 // into the player’s queue.
 //
@@ -229,14 +234,11 @@ func (q AVQueuePlayer) AdvanceToNextItem() {
 // append the item to the queue.
 //
 // # Return Value
-// 
-// [true] if `item` can be appended to the queue, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if `item` can be appended to the queue, otherwise false.
 //
 // # Discussion
-// 
+//
 // Adding the same item to a player at more than one position in the queue
 // isn’t supported.
 //
@@ -245,6 +247,7 @@ func (q AVQueuePlayer) CanInsertItemAfterItem(item IAVPlayerItem, afterItem IAVP
 	rv := objc.Send[bool](q.ID, objc.Sel("canInsertItem:afterItem:"), item, afterItem)
 	return rv
 }
+
 // Inserts a player item after another player item in the queue.
 //
 // item: The item to insert into the queue.
@@ -256,12 +259,13 @@ func (q AVQueuePlayer) CanInsertItemAfterItem(item IAVPlayerItem, afterItem IAVP
 func (q AVQueuePlayer) InsertItemAfterItem(item IAVPlayerItem, afterItem IAVPlayerItem) {
 	objc.Send[objc.ID](q.ID, objc.Sel("insertItem:afterItem:"), item, afterItem)
 }
+
 // Removes a given player item from the queue.
 //
 // item: The player item to remove from the queue.
 //
 // # Discussion
-// 
+//
 // If the item is currently playing, calling this method has the same effect
 // as calling the [AdvanceToNextItem] method.
 //
@@ -269,10 +273,11 @@ func (q AVQueuePlayer) InsertItemAfterItem(item IAVPlayerItem, afterItem IAVPlay
 func (q AVQueuePlayer) RemoveItem(item IAVPlayerItem) {
 	objc.Send[objc.ID](q.ID, objc.Sel("removeItem:"), item)
 }
+
 // Removes all player items from the queue.
 //
 // # Discussion
-// 
+//
 // Calling this method removes all currently enqueued player items and stops
 // playback.
 //
@@ -287,7 +292,7 @@ func (q AVQueuePlayer) RemoveAllItems() {
 // player’s queue.
 //
 // # Return Value
-// 
+//
 // A new queue player.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuePlayer/queuePlayerWithItems:
@@ -295,4 +300,3 @@ func (_AVQueuePlayerClass AVQueuePlayerClass) QueuePlayerWithItems(items []AVPla
 	rv := objc.Send[objc.ID](objc.ID(_AVQueuePlayerClass.class), objc.Sel("queuePlayerWithItems:"), objectivec.IObjectSliceToNSArray(items))
 	return AVQueuePlayerFromID(rv)
 }
-

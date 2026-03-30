@@ -4,9 +4,10 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [CIQRCodeFeature] class.
@@ -45,15 +46,13 @@ func (cc CIQRCodeFeatureClass) Alloc() CIQRCodeFeature {
 // Information about a Quick Response code detected in a still or video image.
 //
 // # Overview
-// 
+//
 // A QR code is a two-dimensional barcode using the ISO/IEC 18004:2006
 // standard. The properties of a CIQRCodeFeature object identify the corners
 // of the barcode in the image perspective and provide the decoded message.
-// 
+//
 // To detect QR codes in an image or video, choose [CIQRCodeFeature.CIDetectorTypeQRCode] type
 // when initializing a [CIDetector] object.
-//
-// [CIQRCodeFeature.CIDetectorTypeQRCode]: https://developer.apple.com/documentation/CoreImage/CIDetectorTypeQRCode
 //
 // # Decoding a Detected Barcode
 //
@@ -78,6 +77,7 @@ type CIQRCodeFeature struct {
 func CIQRCodeFeatureFromID(id objc.ID) CIQRCodeFeature {
 	return CIQRCodeFeature{CIFeature: CIFeatureFromID(id)}
 }
+
 // NOTE: CIQRCodeFeature adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,7 +117,7 @@ type ICIQRCodeFeature interface {
 	// The image coordinate of the upper-right corner of the detected QR code.
 	TopRight() corefoundation.CGPoint
 
-	// A detector that searches for Quick Response codes (a type of 2D barcode) in a still image or video, returning 
+	// A detector that searches for Quick Response codes (a type of 2D barcode) in a still image or video, returning
 	CIDetectorTypeQRCode() string
 }
 
@@ -147,10 +147,11 @@ func (q CIQRCodeFeature) MessageString() string {
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("messageString"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // An abstract representation of a QR Code symbol.
 //
 // # Discussion
-// 
+//
 // The property is a [CIQRCodeDescriptor] instance that contains the payload,
 // symbol version, mask pattern, and error correction level, so the QR Code
 // can be reproduced.
@@ -160,6 +161,7 @@ func (q CIQRCodeFeature) SymbolDescriptor() ICIQRCodeDescriptor {
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("symbolDescriptor"))
 	return CIQRCodeDescriptorFromID(objc.ID(rv))
 }
+
 // The image coordinate of the lower-left corner of the detected QR code.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeFeature/bottomLeft-swift.property
@@ -167,6 +169,7 @@ func (q CIQRCodeFeature) BottomLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](q.ID, objc.Sel("bottomLeft"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The image coordinate of the lower-right corner of the detected QR code.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeFeature/bottomRight-swift.property
@@ -174,6 +177,7 @@ func (q CIQRCodeFeature) BottomRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](q.ID, objc.Sel("bottomRight"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The image coordinate of the upper-left corner of the detected QR code.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeFeature/topLeft-swift.property
@@ -181,6 +185,7 @@ func (q CIQRCodeFeature) TopLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](q.ID, objc.Sel("topLeft"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The image coordinate of the upper-right corner of the detected QR code.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeFeature/topRight-swift.property
@@ -188,6 +193,7 @@ func (q CIQRCodeFeature) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](q.ID, objc.Sel("topRight"))
 	return corefoundation.CGPoint(rv)
 }
+
 // A detector that searches for Quick Response codes (a type of 2D barcode) in
 // a still image or video, returning
 //
@@ -196,4 +202,3 @@ func (q CIQRCodeFeature) CIDetectorTypeQRCode() string {
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("CIDetectorTypeQRCode"))
 	return foundation.NSStringFromID(rv).String()
 }
-

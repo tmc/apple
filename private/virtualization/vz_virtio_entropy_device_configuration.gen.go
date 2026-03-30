@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZVirtioEntropyDeviceConfiguration struct {
 func VZVirtioEntropyDeviceConfigurationFromID(id objc.ID) VZVirtioEntropyDeviceConfiguration {
 	return VZVirtioEntropyDeviceConfiguration{VZEntropyDeviceConfiguration: VZEntropyDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioEntropyDeviceConfiguration implements IVZVirtioEntropyDeviceConfiguration.
 var _ IVZVirtioEntropyDeviceConfiguration = VZVirtioEntropyDeviceConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZVirtioEntropyDeviceConfiguration() VZVirtioEntropyDeviceConfiguration 
 	rv := objc.Send[VZVirtioEntropyDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

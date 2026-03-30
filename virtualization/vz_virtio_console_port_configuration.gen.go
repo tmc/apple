@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZVirtioConsolePortConfiguration] class.
@@ -45,7 +46,7 @@ func (vc VZVirtioConsolePortConfigurationClass) Alloc() VZVirtioConsolePortConfi
 // console port.
 //
 // # Overview
-// 
+//
 // A console port is a two-way communication channel between a host
 // [VZSerialPortAttachment] and a VM console port. A Virtio device can have
 // one or more attached console devices. Optionally, you can set a name for a
@@ -71,6 +72,7 @@ type VZVirtioConsolePortConfiguration struct {
 func VZVirtioConsolePortConfigurationFromID(id objc.ID) VZVirtioConsolePortConfiguration {
 	return VZVirtioConsolePortConfiguration{VZConsolePortConfiguration: VZConsolePortConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioConsolePortConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -123,7 +125,7 @@ func NewVZVirtioConsolePortConfiguration() VZVirtioConsolePortConfiguration {
 // A Boolean value that indicates whether this port is a console.
 //
 // # Discussion
-// 
+//
 // The framework may mark the console port for use as the system console. The
 // default is `false`.
 //
@@ -135,10 +137,11 @@ func (v VZVirtioConsolePortConfiguration) IsConsole() bool {
 func (v VZVirtioConsolePortConfiguration) SetIsConsole(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIsConsole:"), value)
 }
+
 // The name of the port.
 //
 // # Discussion
-// 
+//
 // The default behavior is to not use a name unless set.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsolePortConfiguration/name
@@ -149,6 +152,7 @@ func (v VZVirtioConsolePortConfiguration) Name() string {
 func (v VZVirtioConsolePortConfiguration) SetName(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setName:"), objc.String(value))
 }
+
 // The array of console devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/consoledevices
@@ -159,4 +163,3 @@ func (v VZVirtioConsolePortConfiguration) ConsoleDevices() IVZConsoleDeviceConfi
 func (v VZVirtioConsolePortConfiguration) SetConsoleDevices(value IVZConsoleDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConsoleDevices:"), value)
 }
-

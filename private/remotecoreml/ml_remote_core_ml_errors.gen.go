@@ -4,6 +4,7 @@ package remotecoreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MLRemoteCoreMLErrors struct {
 func MLRemoteCoreMLErrorsFromID(id objc.ID) MLRemoteCoreMLErrors {
 	return MLRemoteCoreMLErrors{objectivec.Object{ID: id}}
 }
+
 // Ensure MLRemoteCoreMLErrors implements IMLRemoteCoreMLErrors.
 var _ IMLRemoteCoreMLErrors = MLRemoteCoreMLErrors{}
 
@@ -79,16 +81,14 @@ func NewMLRemoteCoreMLErrors() MLRemoteCoreMLErrors {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteCoreMLErrors/clientTimeoutErrorForMethod:
 func (_MLRemoteCoreMLErrorsClass MLRemoteCoreMLErrorsClass) ClientTimeoutErrorForMethod(method objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLRemoteCoreMLErrorsClass.class), objc.Sel("clientTimeoutErrorForMethod:"), method)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLRemoteCoreMLErrors/createErrorWithCode:description:
 func (_MLRemoteCoreMLErrorsClass MLRemoteCoreMLErrorsClass) CreateErrorWithCodeDescription(code int64, description objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLRemoteCoreMLErrorsClass.class), objc.Sel("createErrorWithCode:description:"), code, description)
 	return objectivec.Object{ID: rv}
 }
-

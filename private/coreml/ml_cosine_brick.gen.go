@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLCosineBrickClass) Alloc() MLCosineBrick {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLCosineBrick.ComputeOnCPUWithInputTensorsOutputTensors]
@@ -57,6 +57,7 @@ func (mc MLCosineBrickClass) Alloc() MLCosineBrick {
 //   - [MLCosineBrick.Description]
 //   - [MLCosineBrick.Hash]
 //   - [MLCosineBrick.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick
 type MLCosineBrick struct {
 	objectivec.Object
@@ -66,6 +67,7 @@ type MLCosineBrick struct {
 func MLCosineBrickFromID(id objc.ID) MLCosineBrick {
 	return MLCosineBrick{objectivec.Object{ID: id}}
 }
+
 // Ensure MLCosineBrick implements IMLCosineBrick.
 var _ IMLCosineBrick = MLCosineBrick{}
 
@@ -125,7 +127,6 @@ func NewMLCosineBrick() MLCosineBrick {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/initWithParameters:
 func NewCosineBrickWithParameters(parameters objectivec.IObject) MLCosineBrick {
 	instance := getMLCosineBrickClass().Alloc()
@@ -133,23 +134,23 @@ func NewCosineBrickWithParameters(parameters objectivec.IObject) MLCosineBrick {
 	return MLCosineBrickFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/computeOnCPUWithInputTensors:outputTensors:
 func (c MLCosineBrick) ComputeOnCPUWithInputTensorsOutputTensors(tensors objectivec.IObject, tensors2 objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("computeOnCPUWithInputTensors:outputTensors:"), tensors, tensors2)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/hasGPUSupport
 func (c MLCosineBrick) HasGPUSupport() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("hasGPUSupport"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/setupForInputShapes:withParameters:
 func (c MLCosineBrick) SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("setupForInputShapes:withParameters:"), shapes, parameters)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/initWithParameters:
 func (c MLCosineBrick) InitWithParameters(parameters objectivec.IObject) MLCosineBrick {
 	rv := objc.Send[MLCosineBrick](c.ID, objc.Sel("initWithParameters:"), parameters)
@@ -161,39 +162,45 @@ func (c MLCosineBrick) DebugDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/description
 func (c MLCosineBrick) Description() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/hash
 func (c MLCosineBrick) Hash() uint64 {
 	rv := objc.Send[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/inputRanks
 func (c MLCosineBrick) InputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("inputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/inputShapes
 func (c MLCosineBrick) InputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("inputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/outputRanks
 func (c MLCosineBrick) OutputRanks() foundation.INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("outputRanks"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/outputShapes
 func (c MLCosineBrick) OutputShapes() foundation.INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCosineBrick/superclass
 func (c MLCosineBrick) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](c.ID, objc.Sel("superclass"))
 	return rv
 }
-

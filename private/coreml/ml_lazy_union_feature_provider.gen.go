@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLLazyUnionFeatureProviderClass) Alloc() MLLazyUnionFeatureProvider {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLLazyUnionFeatureProvider.FeatureNames]
@@ -53,6 +53,7 @@ func (mc MLLazyUnionFeatureProviderClass) Alloc() MLLazyUnionFeatureProvider {
 //   - [MLLazyUnionFeatureProvider.SetSecond]
 //   - [MLLazyUnionFeatureProvider.UnionFeatureProvider]
 //   - [MLLazyUnionFeatureProvider.InitWithFeaturesFromAddedToFeaturesFrom]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionFeatureProvider
 type MLLazyUnionFeatureProvider struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLLazyUnionFeatureProvider struct {
 func MLLazyUnionFeatureProviderFromID(id objc.ID) MLLazyUnionFeatureProvider {
 	return MLLazyUnionFeatureProvider{objectivec.Object{ID: id}}
 }
+
 // Ensure MLLazyUnionFeatureProvider implements IMLLazyUnionFeatureProvider.
 var _ IMLLazyUnionFeatureProvider = MLLazyUnionFeatureProvider{}
 
@@ -113,7 +115,6 @@ func NewMLLazyUnionFeatureProvider() MLLazyUnionFeatureProvider {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionFeatureProvider/initWithFeaturesFrom:addedToFeaturesFrom:
 func NewLazyUnionFeatureProviderWithFeaturesFromAddedToFeaturesFrom(from objectivec.IObject, from2 objectivec.IObject) MLLazyUnionFeatureProvider {
 	instance := getMLLazyUnionFeatureProviderClass().Alloc()
@@ -121,18 +122,18 @@ func NewLazyUnionFeatureProviderWithFeaturesFromAddedToFeaturesFrom(from objecti
 	return MLLazyUnionFeatureProviderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionFeatureProvider/featureValueForName:
 func (l MLLazyUnionFeatureProvider) FeatureValueForName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("featureValueForName:"), name)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionFeatureProvider/unionFeatureProvider
 func (l MLLazyUnionFeatureProvider) UnionFeatureProvider() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("unionFeatureProvider"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionFeatureProvider/initWithFeaturesFrom:addedToFeaturesFrom:
 func (l MLLazyUnionFeatureProvider) InitWithFeaturesFromAddedToFeaturesFrom(from objectivec.IObject, from2 objectivec.IObject) MLLazyUnionFeatureProvider {
 	rv := objc.Send[MLLazyUnionFeatureProvider](l.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:"), from, from2)
@@ -144,6 +145,7 @@ func (l MLLazyUnionFeatureProvider) FeatureNames() foundation.INSSet {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("featureNames"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionFeatureProvider/first
 func (l MLLazyUnionFeatureProvider) First() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("first"))
@@ -152,6 +154,7 @@ func (l MLLazyUnionFeatureProvider) First() objectivec.IObject {
 func (l MLLazyUnionFeatureProvider) SetFirst(value objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setFirst:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLLazyUnionFeatureProvider/second
 func (l MLLazyUnionFeatureProvider) Second() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("second"))
@@ -160,4 +163,3 @@ func (l MLLazyUnionFeatureProvider) Second() objectivec.IObject {
 func (l MLLazyUnionFeatureProvider) SetSecond(value objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setSecond:"), value)
 }
-

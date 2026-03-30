@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +60,7 @@ type CIGlassDistortion interface {
 type CIGlassDistortionObject struct {
 	objectivec.Object
 }
+
 func (o CIGlassDistortionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -76,24 +77,28 @@ func CIGlassDistortionObjectFromID(id objc.ID) CIGlassDistortionObject {
 func (o CIGlassDistortionObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/inputImage
 func (o CIGlassDistortionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/scale
 func (o CIGlassDistortionObject) Scale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/textureImage
 func (o CIGlassDistortionObject) TextureImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textureImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -101,21 +106,26 @@ func (o CIGlassDistortionObject) TextureImage() ICIImage {
 func (o CIGlassDistortionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/center
 func (o CIGlassDistortionObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/inputImage
 func (o CIGlassDistortionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/scale
 func (o CIGlassDistortionObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/textureImage
 func (o CIGlassDistortionObject) SetTextureImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTextureImage:"), value)
 }
-

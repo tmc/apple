@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -72,6 +73,7 @@ type AVCaptureAudioDataOutput struct {
 func AVCaptureAudioDataOutputFromID(id objc.ID) AVCaptureAudioDataOutput {
 	return AVCaptureAudioDataOutput{AVCaptureOutput: AVCaptureOutputFromID(id)}
 }
+
 // NOTE: AVCaptureAudioDataOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -141,37 +143,38 @@ func NewAVCaptureAudioDataOutput() AVCaptureAudioDataOutput {
 // for the defined UTIs.
 //
 // # Return Value
-// 
+//
 // A fully populated dictionary of keys and values that are compatible with
 // [AVAssetWriter].
 //
 // # Discussion
-// 
+//
 // The value of this property is an [NSDictionary] containing values for
 // compression settings keys defined in [Audio settings]. This dictionary is
 // suitable for use as the [AssetWriterInputWithMediaTypeOutputSettings]
 // method’s `outputSettings` parameter when creating an
 // [AVAssetWriterInputPixelBufferAdaptor]; for example,
-// 
+//
 // The dictionary returned contains all necessary keys and values needed to
 // create an [AVAssetWriter] instance; see the
 // [InitWithMediaTypeOutputSettings] method for a more in depth discussion.
 // For QuickTime movie and ISO files, the recommended audio settings will
 // always produce output comparable to that of [AVCaptureMovieFileOutput].
-// 
+//
 // The dictionary of settings is dependent on the current configuration of the
 // receiver’s [AVCaptureSession] and its inputs. The settings dictionary may
 // change if the session’s configuration changes. As such, you should
 // configure your session first, then query the recommended audio settings.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutput/recommendedAudioSettingsForAssetWriter(writingTo:)
+//
 // [AVAssetWriterInputPixelBufferAdaptor]: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInputPixelBufferAdaptor
 // [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutput/recommendedAudioSettingsForAssetWriter(writingTo:)
 func (c AVCaptureAudioDataOutput) RecommendedAudioSettingsForAssetWriterWithOutputFileType(outputFileType AVFileType) foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("recommendedAudioSettingsForAssetWriterWithOutputFileType:"), objc.String(string(outputFileType)))
 	return foundation.NSDictionaryFromID(rv)
 }
+
 // Sets the delegate that will accept captured buffers and the dispatch queue
 // on which the delegate will be called.
 //
@@ -180,38 +183,38 @@ func (c AVCaptureAudioDataOutput) RecommendedAudioSettingsForAssetWriterWithOutp
 //
 // sampleBufferCallbackQueue: You must pass a serial dispatch to guarantee that audio samples will be
 // delivered in order.
-// 
+//
 // The value may not be [NULL], except when setting the `sampleBufferDelegate`
 // to `nil`.
 //
 // # Discussion
-// 
+//
 // When a new audio sample buffer is captured it is vended to the sample
 // buffer delegate using the
 // [CaptureOutputDidOutputSampleBufferFromConnection] delegate method. All
 // delegate methods are called on the specified dispatch queue.
-// 
+//
 // If the queue is blocked when new samples are captured, those samples will
 // be automatically dropped when they become sufficiently late. This allows
 // you to process existing samples on the same queue without having to manage
 // the potential memory usage increases that would otherwise occur when that
 // processing is unable to keep up with the rate of incoming samples.
-// 
+//
 // If you need to minimize the chances of samples being dropped, you should
 // specify a queue on which a sufficiently small amount of processing is being
 // done outside of receiving sample buffers. When migrating extra processing
 // to another queue, you are responsible for ensuring that memory usage does
 // not grow without bound from samples that have not been processed.
-// 
+//
 // # Special considerations
-// 
+//
 // This method uses [dispatch_retain] and [dispatch_release] to manage the
 // queue.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutput/setSampleBufferDelegate(_:queue:)
+//
 // [dispatch_release]: https://developer.apple.com/documentation/Dispatch/dispatch_release
 // [dispatch_retain]: https://developer.apple.com/documentation/Dispatch/dispatch_retain
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutput/setSampleBufferDelegate(_:queue:)
 func (c AVCaptureAudioDataOutput) SetSampleBufferDelegateQueue(sampleBufferDelegate AVCaptureAudioDataOutputSampleBufferDelegate, sampleBufferCallbackQueue dispatch.Queue) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setSampleBufferDelegate:queue:"), sampleBufferDelegate, uintptr(sampleBufferCallbackQueue.Handle()))
 }
@@ -219,16 +222,16 @@ func (c AVCaptureAudioDataOutput) SetSampleBufferDelegateQueue(sampleBufferDeleg
 // The settings used to decode or re-encode audio before it’s output.
 //
 // # Discussion
-// 
+//
 // The value of this property is a dictionary containing values for audio
 // settings keys defined in [Audio settings].
-// 
+//
 // If the value of this property is `nil`, samples are output in their device
 // native format.
 //
-// [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutput/audioSettings
+//
+// [Audio settings]: https://developer.apple.com/documentation/AVFoundation/audio-settings
 func (c AVCaptureAudioDataOutput) AudioSettings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("audioSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -236,11 +239,12 @@ func (c AVCaptureAudioDataOutput) AudioSettings() foundation.INSDictionary {
 func (c AVCaptureAudioDataOutput) SetAudioSettings(value foundation.INSDictionary) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAudioSettings:"), value)
 }
+
 // The audio channel layout tag of the audio sample buffers produced by the
 // audio data output.
 //
 // # Discussion
-// 
+//
 // When you set your audio data output’s associated [MultichannelAudioMode]
 // property to [AVCaptureMultichannelAudioModeFirstOrderAmbisonics], the
 // [AVCaptureSession] allows up to two [AVCaptureAudioDataOutput] instances to
@@ -250,7 +254,7 @@ func (c AVCaptureAudioDataOutput) SetAudioSettings(value foundation.INSDictionar
 // FOA audio or two channels of Stereo audio. If you connect two
 // [AVCaptureAudioDataOutput] instances, you must configure one to output four
 // channels of FOA audio and the other to output two channels of Stereo audio.
-// 
+//
 // Thus, when you set your associated [MultichannelAudioMode] property to
 // [AVCaptureMultichannelAudioModeFirstOrderAmbisonics], you must set your
 // connected [AVCaptureAudioDataOutput] instance’s
@@ -262,14 +266,14 @@ func (c AVCaptureAudioDataOutput) SetAudioSettings(value foundation.INSDictionar
 // supports one [AVCaptureAudioDataOutput], and you may only set
 // [SpatialAudioChannelLayoutTag] to `kAudioChannelLayoutTag_Unknown` (the
 // default value).
-// 
+//
 // Your [AVCaptureSession] validates your app’s adherence to the the above
 // rules when you call `AVCaptureSession/` or [CommitConfiguration] and throws
 // a [NSInvalidArgumentException] if necessary.
 //
-// [AudioChannelLayoutTag]: https://developer.apple.com/documentation/CoreAudioTypes/AudioChannelLayoutTag
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutput/spatialAudioChannelLayoutTag
+//
+// [AudioChannelLayoutTag]: https://developer.apple.com/documentation/CoreAudioTypes/AudioChannelLayoutTag
 func (c AVCaptureAudioDataOutput) SpatialAudioChannelLayoutTag() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("spatialAudioChannelLayoutTag"))
 	return objectivec.Object{ID: rv}
@@ -277,10 +281,11 @@ func (c AVCaptureAudioDataOutput) SpatialAudioChannelLayoutTag() objectivec.IObj
 func (c AVCaptureAudioDataOutput) SetSpatialAudioChannelLayoutTag(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSpatialAudioChannelLayoutTag:"), value)
 }
+
 // The capture object’s delegate.
 //
 // # Discussion
-// 
+//
 // You use the delegate to manage incoming data.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutput/sampleBufferDelegate
@@ -288,6 +293,7 @@ func (c AVCaptureAudioDataOutput) SampleBufferDelegate() AVCaptureAudioDataOutpu
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("sampleBufferDelegate"))
 	return AVCaptureAudioDataOutputSampleBufferDelegateObjectFromID(rv)
 }
+
 // The queue on which delegate callbacks are invoked
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioDataOutput/sampleBufferCallbackQueue
@@ -295,4 +301,3 @@ func (c AVCaptureAudioDataOutput) SampleBufferCallbackQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](c.ID, objc.Sel("sampleBufferCallbackQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
-

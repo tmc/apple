@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_fuse_affine_scale struct {
 func EspressoPass_fuse_affine_scaleFromID(id objc.ID) EspressoPass_fuse_affine_scale {
 	return EspressoPass_fuse_affine_scale{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_fuse_affine_scale implements IEspressoPass_fuse_affine_scale.
 var _ IEspressoPass_fuse_affine_scale = EspressoPass_fuse_affine_scale{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_fuse_affine_scale() EspressoPass_fuse_affine_scale {
 	rv := objc.Send[EspressoPass_fuse_affine_scale](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

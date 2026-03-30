@@ -3,11 +3,12 @@
 package avfoundation
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,18 +49,18 @@ func (ac AVDepthDataClass) Alloc() AVDepthData {
 // compatible camera devices.
 //
 // # Overview
-// 
+//
 // is a generic term for a map of per-pixel data containing depth-related
 // information. A depth data object wraps a disparity or depth map and
 // provides conversion methods, focus information, and camera calibration data
 // to aid in using the map for rendering or computer vision tasks.
-// 
+//
 // A depth map describes at each pixel the distance to an object, in meters.
-// 
+//
 // A disparity map describes normalized shift values for use in comparing two
 // images. The value for each pixel in the map is in units of 1/meters:
 // (`pixelShift / (pixelFocalLength * baselineInMeters)`).
-// 
+//
 // The capture pipeline generates disparity or depth maps from camera images
 // containing nonrectilinear data. Camera lenses have small imperfections that
 // cause small distortions in their resultant images compared to an ideal
@@ -67,29 +68,26 @@ func (ac AVDepthDataClass) Alloc() AVDepthData {
 // (nondistortion-corrected) data as well. The maps’ values are warped to
 // match the lens distortion characteristics present in the YUV image pixel
 // buffers captured at the same time.
-// 
+//
 // Because a depth data map is nonrectilinear, you can use an [AVDepthData]
 // map as a proxy for depth when rendering effects to its accompanying image,
 // but not to correlate points in 3D space. To use depth data for computer
 // vision tasks, use the data in the [CameraCalibrationData] property to
 // rectify the depth data.
-// 
+//
 // There are two ways to capture depth data:
-// 
+//
 // - The [AVCaptureDepthDataOutput] class captures and delivers depth data in
 // a stream (similar to how the [AVCaptureVideoDataOutput] delivers video
 // data). - The [AVCapturePhotoOutput] class delivers depth data as a property
 // of an [AVCapturePhoto] object containing the captured image.
-// 
+//
 // You can also create [AVDepthData] objects using information obtained from
 // image files with the [Image I/O] framework.
-// 
+//
 // When editing images containing depth information, use the methods listed in
 // Transforming and Processing to generate derivative [AVDepthData] objects
 // reflecting the edits that have been performed.
-//
-// [AVCaptureDepthDataOutput]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDepthDataOutput
-// [Image I/O]: https://developer.apple.com/documentation/ImageIO
 //
 // # Creating depth data
 //
@@ -117,6 +115,9 @@ func (ac AVDepthDataClass) Alloc() AVDepthData {
 //   - [AVDepthData.CameraCalibrationData]: The imaging parameters with which this depth data was captured.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData
+//
+// [AVCaptureDepthDataOutput]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDepthDataOutput
+// [Image I/O]: https://developer.apple.com/documentation/ImageIO
 type AVDepthData struct {
 	objectivec.Object
 }
@@ -128,6 +129,7 @@ type AVDepthData struct {
 func AVDepthDataFromID(id objc.ID) AVDepthData {
 	return AVDepthData{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVDepthData adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -225,20 +227,20 @@ func NewAVDepthData() AVDepthData {
 //
 // imageSourceAuxDataInfoDictionary: A dictionary of primitive depth-related information, in the format provided
 // by the [CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)] function.
-// //
-// [CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)
 //
 // # Discussion
-// 
+//
 // When using [CGImageSource] functions to read from a HEIF, JPEG, or DNG file
 // containing depth data (as well as image data), you can use the
 // [CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)] function to load
 // primitive depth map information, then use this initializer to create an
 // [AVDepthData] object, as shown below.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/init(fromDictionaryRepresentation:)
+//
 // [CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/init(fromDictionaryRepresentation:)
+// [CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageSourceCopyAuxiliaryDataInfoAtIndex(_:_:_:)
 func NewDepthDataFromDictionaryRepresentationError(imageSourceAuxDataInfoDictionary foundation.INSDictionary) (AVDepthData, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getAVDepthDataClass().class), objc.Sel("depthDataFromDictionaryRepresentation:error:"), imageSourceAuxDataInfoDictionary, unsafe.Pointer(&errorPtr))
@@ -254,25 +256,25 @@ func NewDepthDataFromDictionaryRepresentationError(imageSourceAuxDataInfoDiction
 //
 // outAuxDataType: On output, either [kCGImageAuxiliaryDataTypeDisparity] or
 // [kCGImageAuxiliaryDataTypeDepth], depending on the depth data’s type.
-// //
-// [kCGImageAuxiliaryDataTypeDepth]: https://developer.apple.com/documentation/ImageIO/kCGImageAuxiliaryDataTypeDepth
-// [kCGImageAuxiliaryDataTypeDisparity]: https://developer.apple.com/documentation/ImageIO/kCGImageAuxiliaryDataTypeDisparity
 //
 // # Discussion
-// 
+//
 // When using [CGImageDestination] functions to write depth data (along with
 // image data) to a HEIF, JPEG, or DNG file, you can use this method to obtain
 // a dictionary of primitive depth map information, then use the
 // [CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)] function to embed that
 // data into the output file.
 //
-// [CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/dictionaryRepresentation(forAuxiliaryDataType:)
+//
+// [kCGImageAuxiliaryDataTypeDepth]: https://developer.apple.com/documentation/ImageIO/kCGImageAuxiliaryDataTypeDepth
+// [kCGImageAuxiliaryDataTypeDisparity]: https://developer.apple.com/documentation/ImageIO/kCGImageAuxiliaryDataTypeDisparity
+// [CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)
 func (d AVDepthData) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType string) foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dictionaryRepresentationForAuxiliaryDataType:"), objc.String(outAuxDataType))
 	return foundation.NSDictionaryFromID(rv)
 }
+
 // Returns a derivative depth data object by mirroring or rotating it to the
 // specified orientation.
 //
@@ -281,30 +283,31 @@ func (d AVDepthData) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType
 // exifOrientation is a [imageio.CGImagePropertyOrientation].
 //
 // # Return Value
-// 
+//
 // A new, transformed depth data object.
 //
 // # Discussion
-// 
+//
 // When applying simple 90-degree rotation or mirroring edits to media
 // containing depth data, you may use this method to create a derivative copy
 // of the depth in which the specified orientation is applied to both the
 // underlying pixel map data and the camera calibration data. This method
 // throws an exception if you pass an unrecognized `exifOrientation` value.
-// 
+//
 // A depth data object does not contain orientation metadata; this method
 // assumes the data is in the default [CGImagePropertyOrientation.up]
 // orientation and applies the transformation necessary to produce the
 // orientation you specify.
 //
-// [CGImagePropertyOrientation.up]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation/up
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/applyingExifOrientation(_:)
 // exifOrientation is a [imageio.CGImagePropertyOrientation].
+//
+// [CGImagePropertyOrientation.up]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation/up
 func (d AVDepthData) DepthDataByApplyingExifOrientation(exifOrientation objectivec.IObject) IAVDepthData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("depthDataByApplyingExifOrientation:"), exifOrientation)
 	return AVDepthDataFromID(rv)
 }
+
 // Returns a derivative depth data object by converting the depth data map to
 // the specified data type.
 //
@@ -312,11 +315,11 @@ func (d AVDepthData) DepthDataByApplyingExifOrientation(exifOrientation objectiv
 // in the [AvailableDepthDataTypes] array.
 //
 // # Return Value
-// 
+//
 // A new, converted depth data object.
 //
 // # Discussion
-// 
+//
 // This method raises an exception if you pass an invalid `depthDataType`
 // value.
 //
@@ -325,17 +328,18 @@ func (d AVDepthData) DepthDataByConvertingToDepthDataType(depthDataType uint32) 
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("depthDataByConvertingToDepthDataType:"), depthDataType)
 	return AVDepthDataFromID(rv)
 }
+
 // Returns a derivative depth data object by replacing the depth data map.
 //
 // pixelBuffer: A pixel buffer containing depth or disparity information in a compatible
 // format.
 //
 // # Return Value
-// 
+//
 // A new depth data object containing the pixel buffer.
 //
 // # Discussion
-// 
+//
 // If you apply simple transforms to media containing depth data, you can use
 // the [DepthDataByApplyingExifOrientation] method to apply parallel
 // transforms to the corresponding depth data. More complex transforms and
@@ -364,6 +368,7 @@ func (d AVDepthData) DepthDataMap() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](d.ID, objc.Sel("depthDataMap"))
 	return corevideo.CVImageBufferRef(rv)
 }
+
 // The pixel format of the depth data map.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/depthDataType
@@ -371,11 +376,12 @@ func (d AVDepthData) DepthDataType() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("depthDataType"))
 	return rv
 }
+
 // A Boolean value indicating whether the depth map contains temporally
 // smoothed data.
 //
 // # Discussion
-// 
+//
 // The capture system can smooth noise and fill in missing values (caused by
 // low light or lens occlusion) in depth data maps by temporally interpolating
 // between previous and subsequent frames of captured depth data. Use the
@@ -383,24 +389,25 @@ func (d AVDepthData) DepthDataType() uint32 {
 // filtering for streaming depth capture, or the [AVCapturePhotoSettings]
 // [DepthDataFiltered] property to control filtering for depth data captured
 // alongside photo capture.
-// 
+//
 // Filtering depth data makes it more useful for applying visual effects to a
 // companion image, but alters the data such that it may no longer be suitable
 // for computer vision tasks. (In an unfiltered depth map, missing values are
 // represented as [NaN].)
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/isDepthDataFiltered
+//
 // [AVCaptureDepthDataOutput]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDepthDataOutput
 // [isFilteringEnabled]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDepthDataOutput/isFilteringEnabled
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/isDepthDataFiltered
 func (d AVDepthData) DepthDataFiltered() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isDepthDataFiltered"))
 	return rv
 }
+
 // The general accuracy of depth data map values.
 //
 // # Discussion
-// 
+//
 // The accuracy of a depth data map is highly dependent on the camera
 // calibration data used to generate it. If the camera’s focal length cannot
 // be precisely determined at the time of capture, a scaling error in the z
@@ -410,39 +417,42 @@ func (d AVDepthData) DepthDataFiltered() bool {
 // [AVDepthData.Accuracy] constants report the accuracy of a map’s values
 // with respect to its reported units.
 //
-// [AVDepthData.Accuracy]: https://developer.apple.com/documentation/AVFoundation/AVDepthData/Accuracy
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/depthDataAccuracy
+//
+// [AVDepthData.Accuracy]: https://developer.apple.com/documentation/AVFoundation/AVDepthData/Accuracy
 func (d AVDepthData) DepthDataAccuracy() AVDepthDataAccuracy {
 	rv := objc.Send[AVDepthDataAccuracy](d.ID, objc.Sel("depthDataAccuracy"))
 	return AVDepthDataAccuracy(rv)
 }
+
 // The overall quality of the depth map.
 //
 // # Discussion
-// 
+//
 // A device typically generates depth data maps by comparing images and
 // calculating disparity. If features are lacking in either input image, it
 // may be difficult to find matching key points, resulting in a depth data map
 // with substantial holes. These holes can be filled with depth data
 // filtering, but still may produce a map of overall poor quality.
-// 
+//
 // If a depth data map suffers from insufficient features, the capture system
-// marks it as [DepthDataQualityLow] quality, indicating that the depth map is
-// a poor candidate for rendering high-quality depth effects or reconstructing
-// a 3D scene. A depth map with [DepthDataQualityHigh] quality is
-// feature-rich, contains a high level of detail, making it a good candidate
-// for rendering high-quality depth effects or reconstructing a 3D scene.
+// marks it as [AVDepthDataQualityLow] quality, indicating that the depth map
+// is a poor candidate for rendering high-quality depth effects or
+// reconstructing a 3D scene. A depth map with [AVDepthDataQualityHigh]
+// quality is feature-rich, contains a high level of detail, making it a good
+// candidate for rendering high-quality depth effects or reconstructing a 3D
+// scene.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/depthDataQuality
 func (d AVDepthData) DepthDataQuality() AVDepthDataQuality {
 	rv := objc.Send[AVDepthDataQuality](d.ID, objc.Sel("depthDataQuality"))
 	return AVDepthDataQuality(rv)
 }
+
 // The imaging parameters with which this depth data was captured.
 //
 // # Discussion
-// 
+//
 // Using depth or disparity map data to render effects into a corresponding
 // image or to perform computer vision tasks requires knowledge of the camera
 // parameters that generated the depth data. Depth data captured by an
@@ -454,10 +464,11 @@ func (d AVDepthData) CameraCalibrationData() IAVCameraCalibrationData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("cameraCalibrationData"))
 	return AVCameraCalibrationDataFromID(objc.ID(rv))
 }
+
 // The list of depth data formats to which you can convert this depth data.
 //
 // # Discussion
-// 
+//
 // Use the [DepthDataByConvertingToDepthDataType] method to obtain a converted
 // depth data object using one of the types in this list.
 //
@@ -468,4 +479,3 @@ func (d AVDepthData) AvailableDepthDataTypes() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
-

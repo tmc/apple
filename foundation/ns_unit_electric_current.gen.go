@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,21 +44,21 @@ func (uc UnitElectricCurrentClass) Alloc() UnitElectricCurrent {
 // A unit of measure for electric current.
 //
 // # Overview
-// 
+//
 // You typically use instances of [NSUnitElectricCurrent] to represent
 // specific quantities of electric current using the [NSMeasurement] class.
-// 
+//
 // # Electric Current
-// 
+//
 // Electric current is the flow of electric charge. The SI unit for electric
 // current is the ampere (A), which is defined in terms the production of
 // electromagnetic force between two parallel linear conductors. It can also
 // be expressed as the flow of one coulomb per second (1A = 1C / s).
-// 
+//
 // The [NSUnitElectricCurrent] class defines its [BaseUnit] as [Amperes], and
 // provides the following units, which are initialized using
 // [NSUnitConverterLinear] converters with the specified coefficients:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCurrent
@@ -73,7 +74,10 @@ func UnitElectricCurrentFromID(id objc.ID) UnitElectricCurrent {
 }
 
 // NSUnitElectricCurrentFromID is an alias for [UnitElectricCurrentFromID] for cross-framework compatibility.
-func NSUnitElectricCurrentFromID(id objc.ID) UnitElectricCurrent { return UnitElectricCurrentFromID(id) }
+func NSUnitElectricCurrentFromID(id objc.ID) UnitElectricCurrent {
+	return UnitElectricCurrentFromID(id)
+}
+
 // NOTE: UnitElectricCurrent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -103,7 +107,6 @@ func NewUnitElectricCurrent() UnitElectricCurrent {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitElectricCurrentWithCoder(coder INSCoder) UnitElectricCurrent {
 	instance := getUnitElectricCurrentClass().Alloc()
@@ -116,7 +119,7 @@ func NewUnitElectricCurrentWithCoder(coder INSCoder) UnitElectricCurrent {
 // symbol: The symbol used to represent the unit.
 //
 // # Return Value
-// 
+//
 // A new unit with the specified symbol.
 //
 // See: https://developer.apple.com/documentation/Foundation/Unit/init(symbol:)
@@ -135,11 +138,11 @@ func NewUnitElectricCurrentWithSymbol(symbol string) UnitElectricCurrent {
 // base unit.
 //
 // # Return Value
-// 
+//
 // A new dimensional unit with the specified symbol and unit converter.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/Dimension/init(symbol:converter:)
@@ -156,6 +159,7 @@ func (_UnitElectricCurrentClass UnitElectricCurrentClass) Megaamperes() UnitElec
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricCurrentClass.class), objc.Sel("megaamperes"))
 	return NSUnitElectricCurrentFromID(objc.ID(rv))
 }
+
 // The kiloamperes unit of electric current.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCurrent/kiloamperes
@@ -163,6 +167,7 @@ func (_UnitElectricCurrentClass UnitElectricCurrentClass) Kiloamperes() UnitElec
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricCurrentClass.class), objc.Sel("kiloamperes"))
 	return NSUnitElectricCurrentFromID(objc.ID(rv))
 }
+
 // The amperes unit of electric current.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCurrent/amperes
@@ -170,6 +175,7 @@ func (_UnitElectricCurrentClass UnitElectricCurrentClass) Amperes() UnitElectric
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricCurrentClass.class), objc.Sel("amperes"))
 	return NSUnitElectricCurrentFromID(objc.ID(rv))
 }
+
 // The milliamperes unit of electric current.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCurrent/milliamperes
@@ -177,6 +183,7 @@ func (_UnitElectricCurrentClass UnitElectricCurrentClass) Milliamperes() UnitEle
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricCurrentClass.class), objc.Sel("milliamperes"))
 	return NSUnitElectricCurrentFromID(objc.ID(rv))
 }
+
 // The microamperes unit of electric current.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCurrent/microamperes
@@ -184,4 +191,3 @@ func (_UnitElectricCurrentClass UnitElectricCurrentClass) Microamperes() UnitEle
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricCurrentClass.class), objc.Sel("microamperes"))
 	return NSUnitElectricCurrentFromID(objc.ID(rv))
 }
-

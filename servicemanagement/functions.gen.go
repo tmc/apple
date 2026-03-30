@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 )
@@ -96,9 +97,8 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_sMCopyAllJobDictionaries, frameworkHandle, "SMCopyAllJobDictionaries")
-		registerFunc(&_sMJobCopyDictionary, frameworkHandle, "SMJobCopyDictionary")
-		registerFunc(&_sMJobRemove, frameworkHandle, "SMJobRemove")
-		registerFunc(&_sMJobSubmit, frameworkHandle, "SMJobSubmit")
-	}
-
+	registerFunc(&_sMCopyAllJobDictionaries, frameworkHandle, "SMCopyAllJobDictionaries")
+	registerFunc(&_sMJobCopyDictionary, frameworkHandle, "SMJobCopyDictionary")
+	registerFunc(&_sMJobRemove, frameworkHandle, "SMJobRemove")
+	registerFunc(&_sMJobSubmit, frameworkHandle, "SMJobSubmit")
+}

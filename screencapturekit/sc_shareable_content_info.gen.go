@@ -4,8 +4,9 @@ package screencapturekit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type SCShareableContentInfo struct {
 func SCShareableContentInfoFromID(id objc.ID) SCShareableContentInfo {
 	return SCShareableContentInfo{objectivec.Object{ID: id}}
 }
+
 // NOTE: SCShareableContentInfo adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,6 +114,7 @@ func (s SCShareableContentInfo) ContentRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("contentRect"))
 	return corefoundation.CGRect(rv)
 }
+
 // The scaling from points to output pixel resolution for the stream.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContentInfo/pointPixelScale
@@ -119,6 +122,7 @@ func (s SCShareableContentInfo) PointPixelScale() float32 {
 	rv := objc.Send[float32](s.ID, objc.Sel("pointPixelScale"))
 	return rv
 }
+
 // The current presentation style of the stream.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContentInfo/style
@@ -126,4 +130,3 @@ func (s SCShareableContentInfo) Style() SCShareableContentStyle {
 	rv := objc.Send[SCShareableContentStyle](s.ID, objc.Sel("style"))
 	return SCShareableContentStyle(rv)
 }
-

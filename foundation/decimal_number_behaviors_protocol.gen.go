@@ -33,6 +33,7 @@ type NSDecimalNumberBehaviors interface {
 type NSDecimalNumberBehaviorsObject struct {
 	objectivec.Object
 }
+
 func (o NSDecimalNumberBehaviorsObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -49,40 +50,42 @@ func NSDecimalNumberBehaviorsObjectFromID(id objc.ID) NSDecimalNumberBehaviorsOb
 // round their return values.
 //
 // # Return Value
-// 
+//
 // Returns the current rounding mode. See [NSDecimalNumber.RoundingMode] for
 // possible values.
 //
-// [NSDecimalNumber.RoundingMode]: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/RoundingMode
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/roundingMode()
+//
+// [NSDecimalNumber.RoundingMode]: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/RoundingMode
 func (o NSDecimalNumberBehaviorsObject) RoundingMode() NSRoundingMode {
 	rv := objc.Send[NSRoundingMode](o.ID, objc.Sel("roundingMode"))
 	return rv
-	}
+}
+
 // Returns the number of digits allowed after the decimal separator.
 //
 // # Return Value
-// 
+//
 // The number of digits allowed after the decimal separator.
 //
 // # Discussion
-// 
+//
 // This method limits the precision of the values returned by
 // [NSDecimalNumber]’s `decimalNumberBy...` methods. If [Scale] returns a
 // negative value, it affects the digits before the decimal separator as well.
 // If [Scale] returns [NSDecimalNoScale], the number of digits is unlimited.
-// 
+//
 // Assuming that [RoundingMode] returns [NSRoundPlain], different values of
 // [Scale] have the following effects on the number 123.456:
-// 
+//
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/scale()
 func (o NSDecimalNumberBehaviorsObject) Scale() int16 {
 	rv := objc.Send[int16](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // Specifies what an [NSDecimalNumber] object will do when it encounters an
 // error.
 //
@@ -95,7 +98,7 @@ func (o NSDecimalNumberBehaviorsObject) Scale() int16 {
 // rightOperand: The right operand.
 //
 // # Discussion
-// 
+//
 // There are four possible values for `error`, described in
 // [NSDecimalNumber.CalculationError]. The first three have to do with limits
 // on the ability of [NSDecimalNumber] to represent decimal numbers. An
@@ -103,10 +106,10 @@ func (o NSDecimalNumberBehaviorsObject) Scale() int16 {
 // mantissa x 10^exponent, where mantissa is a decimal integer up to 38 digits
 // long, and exponent is between –256 and 256. The fourth results from the
 // caller trying to divide by `0`.
-// 
+//
 // In implementing [ExceptionDuringOperationErrorLeftOperandRightOperand], you
 // can handle each of these errors in several ways:
-// 
+//
 // - Raise an exception. For an explanation of exceptions, see [Exception
 // Programming Topics]. - Return `nil`. The calling method will return its
 // value as though no error had occurred. If `error` is
@@ -118,12 +121,11 @@ func (o NSDecimalNumberBehaviorsObject) Scale() int16 {
 // [NSDecimalNumber] object. The calling method will use this as its own
 // return value.
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/exceptionDuringOperation(_:error:leftOperand:rightOperand:)
+//
 // [Exception Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Exceptions/Exceptions.html#//apple_ref/doc/uid/10000012i
 // [NSDecimalNumber.CalculationError]: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/CalculationError
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/exceptionDuringOperation(_:error:leftOperand:rightOperand:)
 func (o NSDecimalNumberBehaviorsObject) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("exceptionDuringOperation:error:leftOperand:rightOperand:"), operation, error_, leftOperand, rightOperand)
 	return NSDecimalNumberFromID(rv)
-	}
-
+}

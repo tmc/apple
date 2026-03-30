@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -69,6 +70,7 @@ type NSAttributedStringMarkdownParsingOptions struct {
 func NSAttributedStringMarkdownParsingOptionsFromID(id objc.ID) NSAttributedStringMarkdownParsingOptions {
 	return NSAttributedStringMarkdownParsingOptions{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAttributedStringMarkdownParsingOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,7 +136,7 @@ func NewNSAttributedStringMarkdownParsingOptions() NSAttributedStringMarkdownPar
 // Markdown that specify extended attributes.
 //
 // # Discussion
-// 
+//
 // If this value is [NO], the Markdown parser supports only the CommonMark
 // syntax. The default is [NO].
 //
@@ -146,6 +148,7 @@ func (a NSAttributedStringMarkdownParsingOptions) AllowsExtendedAttributes() boo
 func (a NSAttributedStringMarkdownParsingOptions) SetAllowsExtendedAttributes(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAllowsExtendedAttributes:"), value)
 }
+
 // A Boolean value that indicates whether parsing applies attributes that
 // indicate the position of attributed text in the original Markdown string.
 //
@@ -157,6 +160,7 @@ func (a NSAttributedStringMarkdownParsingOptions) AppliesSourcePositionAttribute
 func (a NSAttributedStringMarkdownParsingOptions) SetAppliesSourcePositionAttributes(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAppliesSourcePositionAttributes:"), value)
 }
+
 // The policy for handling a parsing failure.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedStringMarkdownParsingOptions/failurePolicy
@@ -167,10 +171,11 @@ func (a NSAttributedStringMarkdownParsingOptions) FailurePolicy() NSAttributedSt
 func (a NSAttributedStringMarkdownParsingOptions) SetFailurePolicy(value NSAttributedStringMarkdownParsingFailurePolicy) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFailurePolicy:"), value)
 }
+
 // The syntax for intepreting a Markdown string.
 //
 // # Discussion
-// 
+//
 // If your Markdown data uses syntax that this setting excludes, the parser
 // still parses it and includes its text in the final result. However, the
 // relevant text won’t have attributes.
@@ -183,17 +188,18 @@ func (a NSAttributedStringMarkdownParsingOptions) InterpretedSyntax() NSAttribut
 func (a NSAttributedStringMarkdownParsingOptions) SetInterpretedSyntax(value NSAttributedStringMarkdownInterpretedSyntax) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInterpretedSyntax:"), value)
 }
+
 // The BCP-47 language code for this document.
 //
 // # Discussion
-// 
+//
 // If not `nil`, the string applies the [languageIdentifier] attribute to any
 // range in the returned string that doesn’t otherwise specify a language
 // attribute. The default is `nil`, which applies no attributes.
 //
-// [languageIdentifier]: https://developer.apple.com/documentation/Foundation/AttributeScopes/FoundationAttributes/languageIdentifier
-//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedStringMarkdownParsingOptions/languageCode
+//
+// [languageIdentifier]: https://developer.apple.com/documentation/Foundation/AttributeScopes/FoundationAttributes/languageIdentifier
 func (a NSAttributedStringMarkdownParsingOptions) LanguageCode() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("languageCode"))
 	return NSStringFromID(rv).String()
@@ -202,6 +208,4 @@ func (a NSAttributedStringMarkdownParsingOptions) SetLanguageCode(value string) 
 	objc.Send[struct{}](a.ID, objc.Sel("setLanguageCode:"), objc.String(value))
 }
 
-			// Protocol methods for NSCopying
-			
-
+// Protocol methods for NSCopying

@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (ic InMemoryArchiveReaderClass) Alloc() InMemoryArchiveReader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [InMemoryArchiveReader.CopyLayerShapesToContainer]
@@ -56,6 +56,7 @@ func (ic InMemoryArchiveReaderClass) Alloc() InMemoryArchiveReader {
 //   - [InMemoryArchiveReader.Description]
 //   - [InMemoryArchiveReader.Hash]
 //   - [InMemoryArchiveReader.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader
 type InMemoryArchiveReader struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type InMemoryArchiveReader struct {
 func InMemoryArchiveReaderFromID(id objc.ID) InMemoryArchiveReader {
 	return InMemoryArchiveReader{objectivec.Object{ID: id}}
 }
+
 // Ensure InMemoryArchiveReader implements IInMemoryArchiveReader.
 var _ IInMemoryArchiveReader = InMemoryArchiveReader{}
 
@@ -120,7 +122,6 @@ func NewInMemoryArchiveReader() InMemoryArchiveReader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/initWithNetwork:
 func NewInMemoryArchiveReaderWithNetwork(network objectivec.IObject) InMemoryArchiveReader {
 	instance := getInMemoryArchiveReaderClass().Alloc()
@@ -128,23 +129,23 @@ func NewInMemoryArchiveReaderWithNetwork(network objectivec.IObject) InMemoryArc
 	return InMemoryArchiveReaderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/copyLayerShapesToContainer:
 func (i InMemoryArchiveReader) CopyLayerShapesToContainer(container objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("copyLayerShapesToContainer:"), container)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/loadUpdatableParams:
 func (i InMemoryArchiveReader) LoadUpdatableParams(params []objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadUpdatableParams:"), objectivec.IObjectSliceToNSArray(params))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/transformParams
 func (i InMemoryArchiveReader) TransformParams() objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("transformParams"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/initWithNetwork:
 func (i InMemoryArchiveReader) InitWithNetwork(network objectivec.IObject) InMemoryArchiveReader {
 	rv := objc.Send[InMemoryArchiveReader](i.ID, objc.Sel("initWithNetwork:"), network)
@@ -156,7 +157,7 @@ func (_InMemoryArchiveReaderClass InMemoryArchiveReaderClass) ModelName() object
 	rv := objc.Send[objc.ID](objc.ID(_InMemoryArchiveReaderClass.class), objc.Sel("modelName"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/readerFromArchiver:error:
 func (_InMemoryArchiveReaderClass InMemoryArchiveReaderClass) ReaderFromArchiverError(archiver unsafe.Pointer) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -174,29 +175,33 @@ func (i InMemoryArchiveReader) DebugDescription() string {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/description
 func (i InMemoryArchiveReader) Description() string {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/hash
 func (i InMemoryArchiveReader) Hash() uint64 {
 	rv := objc.Send[uint64](i.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/layerInfos
 func (i InMemoryArchiveReader) LayerInfos() foundation.INSArray {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("layerInfos"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/modelPath
 func (i InMemoryArchiveReader) ModelPath() string {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("modelPath"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/_InMemoryArchiveReader/superclass
 func (i InMemoryArchiveReader) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](i.ID, objc.Sel("superclass"))
 	return rv
 }
-

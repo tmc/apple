@@ -4,10 +4,12 @@ package avfoundation
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A delegate protocol that defines the methods to implement to respond to asset-writing events.
@@ -21,6 +23,7 @@ type AVAssetWriterDelegate interface {
 type AVAssetWriterDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVAssetWriterDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -44,7 +47,8 @@ func AVAssetWriterDelegateObjectFromID(id objc.ID) AVAssetWriterDelegateObject {
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterDelegate/assetWriter(_:didOutputSegmentData:segmentType:)
 func (o AVAssetWriterDelegateObject) AssetWriterDidOutputSegmentDataSegmentType(writer IAVAssetWriter, segmentData foundation.INSData, segmentType AVAssetSegmentType) {
 	objc.Send[struct{}](o.ID, objc.Sel("assetWriter:didOutputSegmentData:segmentType:"), writer, segmentData, segmentType)
-	}
+}
+
 // Tells the delegate that the asset writer output segment data and a report.
 //
 // writer: The asset writer that output segment data.
@@ -56,13 +60,13 @@ func (o AVAssetWriterDelegateObject) AssetWriterDidOutputSegmentDataSegmentType(
 // segmentReport: A report for the segment data.
 //
 // # Discussion
-// 
+//
 // The asset writer stops normal file writing when you implement this method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterDelegate/assetWriter(_:didOutputSegmentData:segmentType:segmentReport:)
 func (o AVAssetWriterDelegateObject) AssetWriterDidOutputSegmentDataSegmentTypeSegmentReport(writer IAVAssetWriter, segmentData foundation.INSData, segmentType AVAssetSegmentType, segmentReport IAVAssetSegmentReport) {
 	objc.Send[struct{}](o.ID, objc.Sel("assetWriter:didOutputSegmentData:segmentType:segmentReport:"), writer, segmentData, segmentType, segmentReport)
-	}
+}
 
 // AVAssetWriterDelegateConfig holds optional typed callbacks for [AVAssetWriterDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -140,4 +144,3 @@ func NewAVAssetWriterDelegate(config AVAssetWriterDelegateConfig) AVAssetWriterD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVAssetWriterDelegateObjectFromID(instance)
 }
-

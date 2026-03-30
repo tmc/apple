@@ -4,6 +4,7 @@ package uniformtypeidentifiers
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -25,6 +26,7 @@ var (
 	// See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTType3DContent
 	UTType3DContent UTType
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -661,7 +663,7 @@ var UTTypes struct {
 	CPlusPlusHeader UTType
 	// CPlusPlusSource: A type that represents a C++ source code file.
 	CPlusPlusSource UTType
-	CSS UTType
+	CSS             UTType
 	// CSource: A type that represents a C source code file.
 	CSource UTType
 	// CalendarEvent: A base type that represents a calendar event.
@@ -674,7 +676,7 @@ var UTTypes struct {
 	Contact UTType
 	// Content: A base type that represents anything containing user-viewable content.
 	Content UTType
-	DNG UTType
+	DNG     UTType
 	// Data: A base type that represents any sort of byte stream, including files and in-memory data.
 	Data UTType
 	// Database: A base type that represents a database store.
@@ -707,10 +709,10 @@ var UTTypes struct {
 	// GIF: A type that represents a GIF image.
 	GIF UTType
 	// GZIP: A type that represents a GNU zip archive.
-	GZIP UTType
+	GZIP    UTType
 	GeoJSON UTType
 	// HEIC: A type that represents High Efficiency Image Coding images.
-	HEIC UTType
+	HEIC  UTType
 	HEICS UTType
 	// HEIF: A type that represents High Efficiency Image File Format images.
 	HEIF UTType
@@ -729,12 +731,12 @@ var UTTypes struct {
 	// Item: A generic base type for most objects, such as files or directories.
 	Item UTType
 	// JPEG: A type that represents a JPEG image.
-	JPEG UTType
+	JPEG   UTType
 	JPEGXL UTType
 	// JSON: A type that represents JavaScript Object Notation (JSON) data.
 	JSON UTType
 	// JavaScript: A type that represents JavaScript source code.
-	JavaScript UTType
+	JavaScript               UTType
 	LinkPresentationMetadata UTType
 	// LivePhoto: A type that represents Live Photos.
 	LivePhoto UTType
@@ -836,7 +838,7 @@ var UTTypes struct {
 	TIFF UTType
 	// TabSeparatedText: A type that represents text containing tab-separated values.
 	TabSeparatedText UTType
-	TarArchive UTType
+	TarArchive       UTType
 	// Text: A base type that represents all text-encoded data, including text with markup.
 	Text UTType
 	// ToDoItem: A type that represents a to-do item.
@@ -884,4 +886,3 @@ var UTTypes struct {
 	// ZIP: A type that represents a zip archive.
 	ZIP UTType
 }
-

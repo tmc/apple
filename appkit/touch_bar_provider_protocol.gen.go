@@ -23,6 +23,7 @@ type NSTouchBarProvider interface {
 type NSTouchBarProviderObject struct {
 	objectivec.Object
 }
+
 func (o NSTouchBarProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,5 +42,4 @@ func NSTouchBarProviderObjectFromID(id objc.ID) NSTouchBarProviderObject {
 func (o NSTouchBarProviderObject) TouchBar() INSTouchBar {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("touchBar"))
 	return NSTouchBarFromID(rv)
-	}
-
+}

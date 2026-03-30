@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZMacOSBootLoader] class.
@@ -41,12 +42,12 @@ func (vc VZMacOSBootLoaderClass) Alloc() VZMacOSBootLoader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacOSBootLoader._romURL]
 //   - [VZMacOSBootLoader.Set_romURL]
 //   - [VZMacOSBootLoader._setROMURL]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSBootLoader
 type VZMacOSBootLoader struct {
 	VZBootLoader
@@ -56,6 +57,7 @@ type VZMacOSBootLoader struct {
 func VZMacOSBootLoaderFromID(id objc.ID) VZMacOSBootLoader {
 	return VZMacOSBootLoader{VZBootLoader: VZBootLoaderFromID(id)}
 }
+
 // Ensure VZMacOSBootLoader implements IVZMacOSBootLoader.
 var _ IVZMacOSBootLoader = VZMacOSBootLoader{}
 
@@ -97,7 +99,6 @@ func NewVZMacOSBootLoader() VZMacOSBootLoader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSBootLoader/_setROMURL:
 func (m VZMacOSBootLoader) _setROMURL(romurl foundation.INSURL) {
 	objc.Send[objc.ID](m.ID, objc.Sel("_setROMURL:"), romurl)
@@ -116,4 +117,3 @@ func (m VZMacOSBootLoader) _romURL() foundation.INSURL {
 func (m VZMacOSBootLoader) Set_romURL(value foundation.INSURL) {
 	objc.Send[struct{}](m.ID, objc.Sel("set_romURL:"), value)
 }
-

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Msgid struct {
 func MsgidFromID(id objc.ID) Msgid {
 	return Msgid{objectivec.Object{ID: id}}
 }
+
 // Ensure Msgid implements IMsgid.
 var _ IMsgid = Msgid{}
 
@@ -78,4 +80,3 @@ func NewMsgid() Msgid {
 	rv := objc.Send[Msgid](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

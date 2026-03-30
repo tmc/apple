@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMusicUserEvent] class.
@@ -44,7 +45,7 @@ func (ac AVMusicUserEventClass) Alloc() AVMusicUserEvent {
 // An object that represents a custom user message.
 //
 // # Overview
-// 
+//
 // When playback of an [AVMusicTrack] reaches this event, the system calls the
 // track’s callback. You can’t modify the size and contents of an
 // [AVMusicUserEvent] once you create it.
@@ -68,6 +69,7 @@ type AVMusicUserEvent struct {
 func AVMusicUserEventFromID(id objc.ID) AVMusicUserEvent {
 	return AVMusicUserEvent{AVMusicEvent: AVMusicEventFromID(id)}
 }
+
 // NOTE: AVMusicUserEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -143,4 +145,3 @@ func (m AVMusicUserEvent) SizeInBytes() uint32 {
 	rv := objc.Send[uint32](m.ID, objc.Sel("sizeInBytes"))
 	return rv
 }
-

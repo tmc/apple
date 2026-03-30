@@ -50,16 +50,16 @@ var (
 
 	// Exception handler masks (from ExceptionHandling framework)
 	// These are defined here so we don't need the generated bindings
-	NSLogUncaughtExceptionMask         uint = 1 << 0
-	NSHandleUncaughtExceptionMask      uint = 1 << 1
-	NSLogUncaughtSystemExceptionMask   uint = 1 << 2
+	NSLogUncaughtExceptionMask          uint = 1 << 0
+	NSHandleUncaughtExceptionMask       uint = 1 << 1
+	NSLogUncaughtSystemExceptionMask    uint = 1 << 2
 	NSHandleUncaughtSystemExceptionMask uint = 1 << 3
-	NSLogUncaughtRuntimeErrorMask      uint = 1 << 4
-	NSHandleUncaughtRuntimeErrorMask   uint = 1 << 5
-	NSLogTopLevelExceptionMask         uint = 1 << 6
-	NSHandleTopLevelExceptionMask      uint = 1 << 7
-	NSLogOtherExceptionMask            uint = 1 << 8
-	NSHandleOtherExceptionMask         uint = 1 << 9
+	NSLogUncaughtRuntimeErrorMask       uint = 1 << 4
+	NSHandleUncaughtRuntimeErrorMask    uint = 1 << 5
+	NSLogTopLevelExceptionMask          uint = 1 << 6
+	NSHandleTopLevelExceptionMask       uint = 1 << 7
+	NSLogOtherExceptionMask             uint = 1 << 8
+	NSHandleOtherExceptionMask          uint = 1 << 9
 )
 
 // initExceptionHandlerFuncs loads objc exception handler functions.
@@ -244,8 +244,8 @@ func createExceptionHandlerDelegate() (Class, error) {
 	return purego_objc.RegisterClass(
 		"GoExceptionHandlerDelegate",
 		nsObjectClass,
-		nil,    // protocols
-		nil,    // ivars
+		nil, // protocols
+		nil, // ivars
 		methods,
 	)
 }

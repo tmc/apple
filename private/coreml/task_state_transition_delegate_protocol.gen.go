@@ -4,9 +4,11 @@ package coreml
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // MLTaskStateTransitionDelegate protocol.
@@ -25,6 +27,7 @@ type MLTaskStateTransitionDelegate interface {
 type MLTaskStateTransitionDelegateObject struct {
 	objectivec.Object
 }
+
 func (o MLTaskStateTransitionDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,27 +43,27 @@ func MLTaskStateTransitionDelegateObjectFromID(id objc.ID) MLTaskStateTransition
 // See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onCancellation
 func (o MLTaskStateTransitionDelegateObject) OnCancellation() {
 	objc.Send[struct{}](o.ID, objc.Sel("onCancellation"))
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onCompletionWithTaskContext:
 func (o MLTaskStateTransitionDelegateObject) OnCompletionWithTaskContext(context objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("onCompletionWithTaskContext:"), context)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onFailureWithTaskContext:
 func (o MLTaskStateTransitionDelegateObject) OnFailureWithTaskContext(context objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("onFailureWithTaskContext:"), context)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onResumptionWithTaskContext:
 func (o MLTaskStateTransitionDelegateObject) OnResumptionWithTaskContext(context objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("onResumptionWithTaskContext:"), context)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLTaskStateTransitionDelegate/onSuspensionWithTaskContext:
 func (o MLTaskStateTransitionDelegateObject) OnSuspensionWithTaskContext(context objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("onSuspensionWithTaskContext:"), context)
-	}
+}
 
 // MLTaskStateTransitionDelegateConfig holds optional typed callbacks for [MLTaskStateTransitionDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -120,4 +123,3 @@ func NewMLTaskStateTransitionDelegate(config MLTaskStateTransitionDelegateConfig
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return MLTaskStateTransitionDelegateObjectFromID(instance)
 }
-

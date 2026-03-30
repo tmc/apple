@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc ModelKeyServerAPIFetchKeyRequestClass) Alloc() ModelKeyServerAPIFetchKe
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ModelKeyServerAPIFetchKeyRequest.CopyTo]
@@ -63,6 +63,7 @@ func (mc ModelKeyServerAPIFetchKeyRequestClass) Alloc() ModelKeyServerAPIFetchKe
 //   - [ModelKeyServerAPIFetchKeyRequest.TeamId]
 //   - [ModelKeyServerAPIFetchKeyRequest.SetTeamId]
 //   - [ModelKeyServerAPIFetchKeyRequest.WriteTo]
+//
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest
 type ModelKeyServerAPIFetchKeyRequest struct {
 	objectivec.Object
@@ -72,6 +73,7 @@ type ModelKeyServerAPIFetchKeyRequest struct {
 func ModelKeyServerAPIFetchKeyRequestFromID(id objc.ID) ModelKeyServerAPIFetchKeyRequest {
 	return ModelKeyServerAPIFetchKeyRequest{objectivec.Object{ID: id}}
 }
+
 // NOTE: ModelKeyServerAPIFetchKeyRequest struct embeds objectivec.Object (parent type unavailable) but
 // IModelKeyServerAPIFetchKeyRequest embeds the parent interface; skip compile-time assertion.
 
@@ -143,28 +145,28 @@ func NewModelKeyServerAPIFetchKeyRequest() ModelKeyServerAPIFetchKeyRequest {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/copyTo:
 func (m ModelKeyServerAPIFetchKeyRequest) CopyTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/dictionaryRepresentation
 func (m ModelKeyServerAPIFetchKeyRequest) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/mergeFrom:
 func (m ModelKeyServerAPIFetchKeyRequest) MergeFrom(from objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/readFrom:
 func (m ModelKeyServerAPIFetchKeyRequest) ReadFrom(from objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/writeTo:
 func (m ModelKeyServerAPIFetchKeyRequest) WriteTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
@@ -175,6 +177,7 @@ func (m ModelKeyServerAPIFetchKeyRequest) HasKeyId() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasKeyId"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/hasRawRequest
 func (m ModelKeyServerAPIFetchKeyRequest) HasRawRequest() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasRawRequest"))
@@ -183,16 +186,19 @@ func (m ModelKeyServerAPIFetchKeyRequest) HasRawRequest() bool {
 func (m ModelKeyServerAPIFetchKeyRequest) SetHasRawRequest(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHasRawRequest:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/hasSignedKeyRequest
 func (m ModelKeyServerAPIFetchKeyRequest) HasSignedKeyRequest() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasSignedKeyRequest"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/hasTeamId
 func (m ModelKeyServerAPIFetchKeyRequest) HasTeamId() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasTeamId"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/keyId
 func (m ModelKeyServerAPIFetchKeyRequest) KeyId() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("keyId"))
@@ -201,6 +207,7 @@ func (m ModelKeyServerAPIFetchKeyRequest) KeyId() string {
 func (m ModelKeyServerAPIFetchKeyRequest) SetKeyId(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setKeyId:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/rawRequest
 func (m ModelKeyServerAPIFetchKeyRequest) RawRequest() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("rawRequest"))
@@ -209,6 +216,7 @@ func (m ModelKeyServerAPIFetchKeyRequest) RawRequest() bool {
 func (m ModelKeyServerAPIFetchKeyRequest) SetRawRequest(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRawRequest:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/signedKeyRequest
 func (m ModelKeyServerAPIFetchKeyRequest) SignedKeyRequest() foundation.INSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("signedKeyRequest"))
@@ -217,6 +225,7 @@ func (m ModelKeyServerAPIFetchKeyRequest) SignedKeyRequest() foundation.INSData 
 func (m ModelKeyServerAPIFetchKeyRequest) SetSignedKeyRequest(value foundation.INSData) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSignedKeyRequest:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyRequest/teamId
 func (m ModelKeyServerAPIFetchKeyRequest) TeamId() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("teamId"))
@@ -225,4 +234,3 @@ func (m ModelKeyServerAPIFetchKeyRequest) TeamId() string {
 func (m ModelKeyServerAPIFetchKeyRequest) SetTeamId(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTeamId:"), objc.String(value))
 }
-

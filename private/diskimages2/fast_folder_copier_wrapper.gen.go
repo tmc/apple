@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (fc FastFolderCopierWrapperClass) Alloc() FastFolderCopierWrapper {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [FastFolderCopierWrapper.Copier]
@@ -56,6 +56,7 @@ func (fc FastFolderCopierWrapperClass) Alloc() FastFolderCopierWrapper {
 //   - [FastFolderCopierWrapper.SetProgress]
 //   - [FastFolderCopierWrapper.TraverseSrcFolderWithProgressError]
 //   - [FastFolderCopierWrapper.InitWithSrcFolderParallelModeAuditToken]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/FastFolderCopierWrapper
 type FastFolderCopierWrapper struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type FastFolderCopierWrapper struct {
 func FastFolderCopierWrapperFromID(id objc.ID) FastFolderCopierWrapper {
 	return FastFolderCopierWrapper{objectivec.Object{ID: id}}
 }
+
 // Ensure FastFolderCopierWrapper implements IFastFolderCopierWrapper.
 var _ IFastFolderCopierWrapper = FastFolderCopierWrapper{}
 
@@ -118,7 +120,6 @@ func NewFastFolderCopierWrapper() FastFolderCopierWrapper {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/FastFolderCopierWrapper/initWithSrcFolder:parallelMode:auditToken:
 func NewFastFolderCopierWrapperWithSrcFolderParallelModeAuditToken(folder objectivec.IObject, mode bool, token objectivec.IObject) FastFolderCopierWrapper {
 	instance := getFastFolderCopierWrapperClass().Alloc()
@@ -126,7 +127,6 @@ func NewFastFolderCopierWrapperWithSrcFolderParallelModeAuditToken(folder object
 	return FastFolderCopierWrapperFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/FastFolderCopierWrapper/copyWithDstFolder:progress:error:
 func (f FastFolderCopierWrapper) CopyWithDstFolderProgressError(folder objectivec.IObject, progress objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -141,7 +141,7 @@ func (f FastFolderCopierWrapper) CopyWithDstFolderProgressError(folder objective
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/FastFolderCopierWrapper/traverseSrcFolderWithProgress:error:
 func (f FastFolderCopierWrapper) TraverseSrcFolderWithProgressError(progress objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -156,7 +156,7 @@ func (f FastFolderCopierWrapper) TraverseSrcFolderWithProgressError(progress obj
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/FastFolderCopierWrapper/initWithSrcFolder:parallelMode:auditToken:
 func (f FastFolderCopierWrapper) InitWithSrcFolderParallelModeAuditToken(folder objectivec.IObject, mode bool, token objectivec.IObject) FastFolderCopierWrapper {
 	rv := objc.Send[FastFolderCopierWrapper](f.ID, objc.Sel("initWithSrcFolder:parallelMode:auditToken:"), folder, mode, token)
@@ -171,16 +171,19 @@ func (f FastFolderCopierWrapper) Copier() objectivec.IObject {
 func (f FastFolderCopierWrapper) SetCopier(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setCopier:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/FastFolderCopierWrapper/folderSize
 func (f FastFolderCopierWrapper) FolderSize() uint64 {
 	rv := objc.Send[uint64](f.ID, objc.Sel("folderSize"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/FastFolderCopierWrapper/numFiles
 func (f FastFolderCopierWrapper) NumFiles() uint64 {
 	rv := objc.Send[uint64](f.ID, objc.Sel("numFiles"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/FastFolderCopierWrapper/progress
 func (f FastFolderCopierWrapper) Progress() *foundation.NSProgress {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("progress"))
@@ -197,4 +200,3 @@ func (f FastFolderCopierWrapper) SetProgress(value *foundation.NSProgress) {
 	}
 	objc.Send[struct{}](f.ID, objc.Sel("setProgress:"), value)
 }
-

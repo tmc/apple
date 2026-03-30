@@ -29,6 +29,7 @@ type CISaliencyMap interface {
 type CISaliencyMapObject struct {
 	objectivec.Object
 }
+
 func (o CISaliencyMapObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func CISaliencyMapObjectFromID(id objc.ID) CISaliencyMapObject {
 func (o CISaliencyMapObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -55,9 +57,11 @@ func (o CISaliencyMapObject) InputImage() ICIImage {
 func (o CISaliencyMapObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISaliencyMap/inputImage
 func (o CISaliencyMapObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
-

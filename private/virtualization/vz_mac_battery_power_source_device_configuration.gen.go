@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -40,11 +41,11 @@ func (vc VZMacBatteryPowerSourceDeviceConfigurationClass) Alloc() VZMacBatteryPo
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacBatteryPowerSourceDeviceConfiguration.Source]
 //   - [VZMacBatteryPowerSourceDeviceConfiguration.SetSource]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBatteryPowerSourceDeviceConfiguration
 type VZMacBatteryPowerSourceDeviceConfiguration struct {
 	VZPowerSourceDeviceConfiguration
@@ -54,6 +55,7 @@ type VZMacBatteryPowerSourceDeviceConfiguration struct {
 func VZMacBatteryPowerSourceDeviceConfigurationFromID(id objc.ID) VZMacBatteryPowerSourceDeviceConfiguration {
 	return VZMacBatteryPowerSourceDeviceConfiguration{VZPowerSourceDeviceConfiguration: VZPowerSourceDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZMacBatteryPowerSourceDeviceConfiguration implements IVZMacBatteryPowerSourceDeviceConfiguration.
 var _ IVZMacBatteryPowerSourceDeviceConfiguration = VZMacBatteryPowerSourceDeviceConfiguration{}
 
@@ -109,4 +111,3 @@ func (v VZMacBatteryPowerSourceDeviceConfiguration) SetSource(value *VZMacBatter
 	}
 	objc.Send[struct{}](v.ID, objc.Sel("setSource:"), value)
 }
-

@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -66,6 +67,7 @@ type NSKeyValueSharedObservers struct {
 func NSKeyValueSharedObserversFromID(id objc.ID) NSKeyValueSharedObservers {
 	return NSKeyValueSharedObservers{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSKeyValueSharedObservers adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -132,10 +134,11 @@ func (k NSKeyValueSharedObservers) InitWithObservableClass(observableClass objc.
 	rv := objc.Send[NSKeyValueSharedObservers](k.ID, objc.Sel("initWithObservableClass:"), observableClass)
 	return rv
 }
+
 // Add a new observer to the collection.
 //
 // observer: The observer object to register for KVO notifications. The observer must
-// implement the key-value observing method ``
+// implement the key-value observing method “
 //
 // key: Key of the property being observed. This cannot be a nested key path or a
 // computed property
@@ -147,7 +150,7 @@ func (k NSKeyValueSharedObservers) InitWithObservableClass(observableClass objc.
 // context: Arbitrary data which is passed to the observer object
 //
 // # Discussion
-// 
+//
 // This method works like `-[NSObject ]`, but observations on nested and
 // computed properties are disallowed. Observers are not registered until
 // `setSharedObservers` is called on the observable.
@@ -156,6 +159,7 @@ func (k NSKeyValueSharedObservers) InitWithObservableClass(observableClass objc.
 func (k NSKeyValueSharedObservers) AddSharedObserverForKeyOptionsContext(observer objectivec.Object, key string, options uint, context unsafe.Pointer) {
 	objc.Send[objc.ID](k.ID, objc.Sel("addSharedObserver:forKey:options:context:"), observer, objc.String(key), options, context)
 }
+
 // A momentary snapshot of all observers added to the collection thus far,
 // that can be assigned to an observable using `-[NSObject ]`
 //
@@ -164,4 +168,3 @@ func (k NSKeyValueSharedObservers) Snapshot() INSKeyValueSharedObserversSnapshot
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("snapshot"))
 	return NSKeyValueSharedObserversSnapshotFromID(rv)
 }
-

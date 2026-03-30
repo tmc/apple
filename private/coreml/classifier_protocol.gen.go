@@ -18,6 +18,7 @@ type MLClassifierProtocol interface {
 type MLClassifierProtocolObject struct {
 	objectivec.Object
 }
+
 func (o MLClassifierProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,8 +35,8 @@ func MLClassifierProtocolObjectFromID(id objc.ID) MLClassifierProtocolObject {
 func (o MLClassifierProtocolObject) ClassLabels() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("classLabels"))
 	return objectivec.Object{ID: rv}
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLClassifier/classify:options:error:
 func (o MLClassifierProtocolObject) ClassifyOptionsError(classify objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("classify:options:error:"), classify, options)
@@ -43,5 +44,4 @@ func (o MLClassifierProtocolObject) ClassifyOptionsError(classify objectivec.IOb
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

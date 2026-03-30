@@ -4,8 +4,9 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (cc CIBarcodeDescriptorClass) Alloc() CIBarcodeDescriptor {
 // attributes.
 //
 // # Overview
-// 
+//
 // Subclasses encapsulate the formal specification and fields specific to a
 // code type. Each subclass is sufficient to recreate the unique symbol
 // exactly as seen or used with a custom parser.
@@ -63,6 +64,7 @@ type CIBarcodeDescriptor struct {
 func CIBarcodeDescriptorFromID(id objc.ID) CIBarcodeDescriptor {
 	return CIBarcodeDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: CIBarcodeDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -97,4 +99,3 @@ func NewCIBarcodeDescriptor() CIBarcodeDescriptor {
 func (b CIBarcodeDescriptor) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-

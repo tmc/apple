@@ -26,4 +26,3 @@ func cgSizeMake(width, height float64) corefoundation.CGSize {
 func cgVectorMake(dx, dy float64) corefoundation.CGVector {
 	return corefoundation.CGVector{Dx: dx, Dy: dy}
 }
-

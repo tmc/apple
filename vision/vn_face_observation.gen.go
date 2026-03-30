@@ -4,9 +4,10 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNFaceObservation] class.
@@ -45,7 +46,7 @@ func (vc VNFaceObservationClass) Alloc() VNFaceObservation {
 // Face or facial-feature information that an image analysis request detects.
 //
 // # Overview
-// 
+//
 // This type of observation results from a [VNDetectFaceRectanglesRequest]. It
 // contains information about facial landmarks and regions it finds in the
 // image.
@@ -71,6 +72,7 @@ type VNFaceObservation struct {
 func VNFaceObservationFromID(id objc.ID) VNFaceObservation {
 	return VNFaceObservation{VNDetectedObjectObservation: VNDetectedObjectObservationFromID(id)}
 }
+
 // NOTE: VNFaceObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -177,7 +179,7 @@ func NewFaceObservationWithRequestRevisionBoundingBoxRollYawPitch(requestRevisio
 // The facial features of the detected face.
 //
 // # Discussion
-// 
+//
 // This value is `nil` for face observations produced by a
 // [VNDetectFaceRectanglesRequest] analysis. Use the
 // [VNDetectFaceLandmarksRequest] class to find facial features.
@@ -187,12 +189,13 @@ func (f VNFaceObservation) Landmarks() IVNFaceLandmarks2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("landmarks"))
 	return VNFaceLandmarks2DFromID(objc.ID(rv))
 }
+
 // The roll angle of a face in radians.
 //
 // # Discussion
-// 
+//
 // This value indicates the rotational angle of the face around the z-axis.
-// 
+//
 // If the request doesn’t calculate the angle, the value is `nil`.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceObservation/roll
@@ -200,12 +203,13 @@ func (f VNFaceObservation) Roll() foundation.NSNumber {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("roll"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // The yaw angle of a face in radians.
 //
 // # Discussion
-// 
+//
 // This value indicates the rotational angle of the face around the y-axis.
-// 
+//
 // If the request doesn’t calculate the angle, the value is `nil.`
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceObservation/yaw
@@ -213,12 +217,13 @@ func (f VNFaceObservation) Yaw() foundation.NSNumber {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("yaw"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // The pitch angle of a face in radians.
 //
 // # Discussion
-// 
+//
 // This value indicates the rotational angle of the face around the x-axis.
-// 
+//
 // If the request doesn’t calculate the angle, the value is `nil`.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceObservation/pitch
@@ -226,15 +231,16 @@ func (f VNFaceObservation) Pitch() foundation.NSNumber {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("pitch"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // A value that indicates the quality of the face capture.
 //
 // # Discussion
-// 
+//
 // The capture quality of the face allows you to compare the quality of the
 // face in terms of its capture attributes: lighting, blur, and prime
 // positioning. Use this value to compare the capture quality of a face
 // against other captures of the same face in a specified set.
-// 
+//
 // The value of this property value ranges from `0.0` to `1.0`. Faces with
 // quality closer to `1.0` are better lit, sharper, and more centrally
 // positioned than faces with quality closer to `0.0`.
@@ -244,6 +250,7 @@ func (f VNFaceObservation) FaceCaptureQuality() foundation.NSNumber {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("faceCaptureQuality"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // The results of the face-capture quality request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectfacecapturequalityrequest/results
@@ -254,4 +261,3 @@ func (f VNFaceObservation) Results() IVNFaceObservation {
 func (f VNFaceObservation) SetResults(value IVNFaceObservation) {
 	objc.Send[struct{}](f.ID, objc.Sel("setResults:"), value)
 }
-

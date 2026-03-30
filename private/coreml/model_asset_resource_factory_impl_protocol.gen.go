@@ -18,6 +18,7 @@ type MLModelAssetResourceFactoryImpl interface {
 type MLModelAssetResourceFactoryImplObject struct {
 	objectivec.Object
 }
+
 func (o MLModelAssetResourceFactoryImplObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,8 +35,8 @@ func MLModelAssetResourceFactoryImplObjectFromID(id objc.ID) MLModelAssetResourc
 func (o MLModelAssetResourceFactoryImplObject) CompiledModelURL() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("compiledModelURL"))
 	return objectivec.Object{ID: rv}
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryImpl/modelAssetDescriptionWithError:
 func (o MLModelAssetResourceFactoryImplObject) ModelAssetDescriptionWithError() (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("modelAssetDescriptionWithError:"))
@@ -43,8 +44,8 @@ func (o MLModelAssetResourceFactoryImplObject) ModelAssetDescriptionWithError() 
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryImpl/modelStructureWithError:
 func (o MLModelAssetResourceFactoryImplObject) ModelStructureWithError() (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("modelStructureWithError:"))
@@ -52,8 +53,8 @@ func (o MLModelAssetResourceFactoryImplObject) ModelStructureWithError() (object
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelAssetResourceFactoryImpl/modelWithConfiguration:error:
 func (o MLModelAssetResourceFactoryImplObject) ModelWithConfigurationError(configuration objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("modelWithConfiguration:error:"), configuration)
@@ -61,5 +62,4 @@ func (o MLModelAssetResourceFactoryImplObject) ModelWithConfigurationError(confi
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

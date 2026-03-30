@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZLinuxRosettaUnixSocketCachingOptions] class.
@@ -45,7 +46,7 @@ func (vc VZLinuxRosettaUnixSocketCachingOptionsClass) Alloc() VZLinuxRosettaUnix
 // An object that represents caching options for a UNIX domain socket.
 //
 // # Overview
-// 
+//
 // This object configures Rosetta to communicate with the Rosetta daemon using
 // a UNIX domain socket.
 //
@@ -68,6 +69,7 @@ type VZLinuxRosettaUnixSocketCachingOptions struct {
 func VZLinuxRosettaUnixSocketCachingOptionsFromID(id objc.ID) VZLinuxRosettaUnixSocketCachingOptions {
 	return VZLinuxRosettaUnixSocketCachingOptions{VZLinuxRosettaCachingOptions: VZLinuxRosettaCachingOptionsFromID(id)}
 }
+
 // Ensure VZLinuxRosettaUnixSocketCachingOptions implements IVZLinuxRosettaUnixSocketCachingOptions.
 var _ IVZLinuxRosettaUnixSocketCachingOptions = VZLinuxRosettaUnixSocketCachingOptions{}
 
@@ -123,10 +125,10 @@ func NewVZLinuxRosettaUnixSocketCachingOptions() VZLinuxRosettaUnixSocketCaching
 // error: If not `nil`, assigned with the error if the initialization fails.
 //
 // # Discussion
-// 
+//
 // You can optionally configure Rosetta to use cached translations from the
 // Rosetta translation daemon communicating through a UNIX domain socket.
-// 
+//
 // If `path` length exceeds [MaximumPathLength] in UTF-8 bytes, the framework
 // returns `nil` and sets the `error` value, if available.
 //
@@ -150,10 +152,10 @@ func NewLinuxRosettaUnixSocketCachingOptionsWithPathError(path string) (VZLinuxR
 // error: If not `nil`, assigned with the error if the initialization fails.
 //
 // # Discussion
-// 
+//
 // You can optionally configure Rosetta to use cached translations from the
 // Rosetta translation daemon communicating through a UNIX domain socket.
-// 
+//
 // If `path` length exceeds [MaximumPathLength] in UTF-8 bytes, the framework
 // returns `nil` and sets the `error` value, if available.
 //
@@ -180,7 +182,7 @@ func (l VZLinuxRosettaUnixSocketCachingOptions) Path() string {
 // The maximum allowed length of the path to the UNIX domain socket.
 //
 // # Discussion
-// 
+//
 // The `sockaddr_un` structure in Linux defines the maximum length for this
 // path.
 //
@@ -189,4 +191,3 @@ func (_VZLinuxRosettaUnixSocketCachingOptionsClass VZLinuxRosettaUnixSocketCachi
 	rv := objc.Send[uint](objc.ID(_VZLinuxRosettaUnixSocketCachingOptionsClass.class), objc.Sel("maximumPathLength"))
 	return rv
 }
-

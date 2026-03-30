@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VNImageHomographicAlignmentObservationClass) Alloc() VNImageHomographic
 // An object that represents a perspective warp transformation.
 //
 // # Overview
-// 
+//
 // This type of observation results from a
 // [VNHomographicImageRegistrationRequest], informing the [VNImageHomographicAlignmentObservation.WarpTransform]
 // performed to align the input images.
@@ -64,6 +65,7 @@ type VNImageHomographicAlignmentObservation struct {
 func VNImageHomographicAlignmentObservationFromID(id objc.ID) VNImageHomographicAlignmentObservation {
 	return VNImageHomographicAlignmentObservation{VNImageAlignmentObservation: VNImageAlignmentObservationFromID(id)}
 }
+
 // NOTE: VNImageHomographicAlignmentObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -110,4 +112,3 @@ func (i VNImageHomographicAlignmentObservation) WarpTransform() objectivec.IObje
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("warpTransform"))
 	return objectivec.Object{ID: rv}
 }
-

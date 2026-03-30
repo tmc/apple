@@ -3,8 +3,9 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -41,13 +42,13 @@ func (gc GTMioTraceCliqueTrackClass) Alloc() GTMioTraceCliqueTrack {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioTraceCliqueTrack.PostProcess]
 //   - [GTMioTraceCliqueTrack.Take]
 //   - [GTMioTraceCliqueTrack.TraceCount]
 //   - [GTMioTraceCliqueTrack.Traces]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack
 type GTMioTraceCliqueTrack struct {
 	GTMioTraceTrack
@@ -57,6 +58,7 @@ type GTMioTraceCliqueTrack struct {
 func GTMioTraceCliqueTrackFromID(id objc.ID) GTMioTraceCliqueTrack {
 	return GTMioTraceCliqueTrack{GTMioTraceTrack: GTMioTraceTrackFromID(id)}
 }
+
 // Ensure GTMioTraceCliqueTrack implements IGTMioTraceCliqueTrack.
 var _ IGTMioTraceCliqueTrack = GTMioTraceCliqueTrack{}
 
@@ -100,7 +102,6 @@ func NewGTMioTraceCliqueTrack() GTMioTraceCliqueTrack {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceTrack/initWithId:scope:scopeIdentifier:level:levelIdentifier:
 func NewGTMioTraceCliqueTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id int, scope uint16, identifier uint64, level uint16, identifier2 uint32) GTMioTraceCliqueTrack {
 	instance := getGTMioTraceCliqueTrackClass().Alloc()
@@ -112,7 +113,7 @@ func NewGTMioTraceCliqueTrackWithIdScopeScopeIdentifierLevelLevelIdentifier(id i
 func (g GTMioTraceCliqueTrack) PostProcess() {
 	objc.Send[objc.ID](g.ID, objc.Sel("postProcess"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack/take:
 func (g GTMioTraceCliqueTrack) Take(take unsafe.Pointer) {
 	objc.Send[objc.ID](g.ID, objc.Sel("take:"), take)
@@ -123,9 +124,9 @@ func (g GTMioTraceCliqueTrack) TraceCount() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("traceCount"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceCliqueTrack/traces
 func (g GTMioTraceCliqueTrack) Traces() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("traces"))
 	return rv
 }
-

@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for ScreenCaptureKit. DO NOT EDIT.
 
 // Package screencapturekit provides Go bindings for the ScreenCaptureKit framework.
@@ -60,8 +59,8 @@
 //   - [SCStream] - An instance that represents a stream of shareable content.
 //   - [SCShareableContent] - An instance that represents a set of displays, apps, and windows that your app can capture.
 //   - [SCWindow] - An instance that represents an onscreen window.
-//   - [SCRecordingOutputConfiguration]
 //   - [SCScreenshotManager] - An instance for the capture of single frames from a stream.
+//   - [SCRecordingOutputConfiguration]
 //   - [SCContentSharingPickerConfiguration] - An instance for configuring the system content-sharing picker.
 //
 // [ScreenCaptureKit Documentation]: https://developer.apple.com/documentation/ScreenCaptureKit
@@ -70,20 +69,28 @@ package screencapturekit
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/ScreenCaptureKit.framework/ScreenCaptureKit"
+// frameworkPaths lists paths to try when loading the ScreenCaptureKit library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/ScreenCaptureKit.framework/ScreenCaptureKit",
+	"/usr/lib/libScreenCaptureKit.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: ScreenCaptureKit: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: ScreenCaptureKit: failed to load framework from any known path\n")
 }
-

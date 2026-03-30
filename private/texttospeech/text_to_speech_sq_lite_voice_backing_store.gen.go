@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type TextToSpeechSQLiteVoiceBackingStore struct {
 func TextToSpeechSQLiteVoiceBackingStoreFromID(id objc.ID) TextToSpeechSQLiteVoiceBackingStore {
 	return TextToSpeechSQLiteVoiceBackingStore{objectivec.Object{ID: id}}
 }
+
 // NOTE: TextToSpeechSQLiteVoiceBackingStore struct embeds objectivec.Object (parent type unavailable) but
 // ITextToSpeechSQLiteVoiceBackingStore embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewTextToSpeechSQLiteVoiceBackingStore() TextToSpeechSQLiteVoiceBackingStor
 	rv := objc.Send[TextToSpeechSQLiteVoiceBackingStore](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZVirtioGraphicsScanoutConfiguration struct {
 func VZVirtioGraphicsScanoutConfigurationFromID(id objc.ID) VZVirtioGraphicsScanoutConfiguration {
 	return VZVirtioGraphicsScanoutConfiguration{VZGraphicsDisplayConfiguration: VZGraphicsDisplayConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioGraphicsScanoutConfiguration implements IVZVirtioGraphicsScanoutConfiguration.
 var _ IVZVirtioGraphicsScanoutConfiguration = VZVirtioGraphicsScanoutConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZVirtioGraphicsScanoutConfiguration() VZVirtioGraphicsScanoutConfigurat
 	rv := objc.Send[VZVirtioGraphicsScanoutConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

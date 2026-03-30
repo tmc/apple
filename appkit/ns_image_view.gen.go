@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSImageViewClass) Alloc() NSImageView {
 // A display of image data in a frame.
 //
 // # Overview
-// 
+//
 // Image views can be static or editable. A static image view only displays
 // the image that you specify. An editable image view object lets the user
 // change the displayed image. You can also configure an image view to allow
@@ -69,7 +70,7 @@ func (nc NSImageViewClass) Alloc() NSImageView {
 //   - [NSImageView.SetImageScaling]
 //   - [NSImageView.Animates]: A Boolean value indicating whether the image view automatically plays animated images.
 //   - [NSImageView.SetAnimates]
-//   - [NSImageView.ContentTintColor]
+//   - [NSImageView.ContentTintColor]: A tint color to be used when rendering template image content.
 //   - [NSImageView.SetContentTintColor]
 //
 // # Specifying the dynamic range
@@ -96,6 +97,7 @@ type NSImageView struct {
 func NSImageViewFromID(id objc.ID) NSImageView {
 	return NSImageView{NSControl: NSControlFromID(id)}
 }
+
 // NOTE: NSImageView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,7 +120,7 @@ func NSImageViewFromID(id objc.ID) NSImageView {
 //   - [INSImageView.SetImageScaling]
 //   - [INSImageView.Animates]: A Boolean value indicating whether the image view automatically plays animated images.
 //   - [INSImageView.SetAnimates]
-//   - [INSImageView.ContentTintColor]
+//   - [INSImageView.ContentTintColor]: A tint color to be used when rendering template image content.
 //   - [INSImageView.SetContentTintColor]
 //
 // # Specifying the dynamic range
@@ -162,6 +164,7 @@ type INSImageView interface {
 	// A Boolean value indicating whether the image view automatically plays animated images.
 	Animates() bool
 	SetAnimates(value bool)
+	// A tint color to be used when rendering template image content.
 	ContentTintColor() INSColor
 	SetContentTintColor(value INSColor)
 
@@ -181,6 +184,29 @@ type INSImageView interface {
 	// A Boolean value indicating whether the image view lets the user cut, copy, and paste the image contents.
 	AllowsCutCopyPaste() bool
 	SetAllowsCutCopyPaste(value bool)
+
+	// Adds a symbol effect to the image view with default options and animation.
+	AddSymbolEffect(symbolEffect objectivec.IObject)
+	// Adds a symbol effect to the image view with the specified options and default animation.
+	AddSymbolEffectOptions(symbolEffect objectivec.IObject, options objectivec.IObject)
+	// Adds a symbol effect to the image view with the specified options and animation.
+	AddSymbolEffectOptionsAnimated(symbolEffect objectivec.IObject, options objectivec.IObject, animated bool)
+	// Removes all symbol effects from the image view.
+	RemoveAllSymbolEffects()
+	// Removes all symbol effects from the image view, using the specified options.
+	RemoveAllSymbolEffectsWithOptions(options objectivec.IObject)
+	// Removes all symbol effects from the image view, using the specified options and animation setting.
+	RemoveAllSymbolEffectsWithOptionsAnimated(options objectivec.IObject, animated bool)
+	// Removes the symbol effect that matches the specified effect type.
+	RemoveSymbolEffectOfType(symbolEffect objectivec.IObject)
+	// Removes the symbol effect that matches the specified effect type, using the specified options.
+	RemoveSymbolEffectOfTypeOptions(symbolEffect objectivec.IObject, options objectivec.IObject)
+	// Removes the symbol effect that matches the specified effect type, using the specified options and animation setting.
+	RemoveSymbolEffectOfTypeOptionsAnimated(symbolEffect objectivec.IObject, options objectivec.IObject, animated bool)
+	// Sets a symbol image using the specified content-transition effect.
+	SetSymbolImageWithContentTransition(symbolImage INSImage, transition objectivec.IObject)
+	// Sets a symbol image using the specified content-transition effect and options.
+	SetSymbolImageWithContentTransitionOptions(symbolImage INSImage, transition objectivec.IObject, options objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -217,12 +243,12 @@ func NewImageViewWithCoder(coder foundation.INSCoder) NSImageView {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -237,11 +263,182 @@ func NewImageViewWithFrame(frameRect corefoundation.CGRect) NSImageView {
 	return NSImageViewFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/init(image:)
 func NewImageViewWithImage(image INSImage) NSImageView {
 	rv := objc.Send[objc.ID](objc.ID(getNSImageViewClass().class), objc.Sel("imageViewWithImage:"), image)
 	return NSImageViewFromID(rv)
+}
+
+// Adds a symbol effect to the image view with default options and animation.
+//
+// symbolEffect: The symbol effect to add.
+//
+// symbolEffect is a [symbols.NSSymbolEffect].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/addSymbolEffect:
+// symbolEffect is a [symbols.NSSymbolEffect].
+func (i NSImageView) AddSymbolEffect(symbolEffect objectivec.IObject) {
+	objc.Send[objc.ID](i.ID, objc.Sel("addSymbolEffect:"), symbolEffect)
+}
+
+// Adds a symbol effect to the image view with the specified options and
+// default animation.
+//
+// symbolEffect: The symbol effect to add.
+//
+// options: The options for the symbol effect.
+//
+// symbolEffect is a [symbols.NSSymbolEffect].
+//
+// options is a [symbols.NSSymbolEffectOptions].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/addSymbolEffect:options:
+// symbolEffect is a [symbols.NSSymbolEffect].
+// options is a [symbols.NSSymbolEffectOptions].
+func (i NSImageView) AddSymbolEffectOptions(symbolEffect objectivec.IObject, options objectivec.IObject) {
+	objc.Send[objc.ID](i.ID, objc.Sel("addSymbolEffect:options:"), symbolEffect, options)
+}
+
+// Adds a symbol effect to the image view with the specified options and
+// animation.
+//
+// symbolEffect: The symbol effect to add.
+//
+// options: The options for the symbol effect.
+//
+// animated: A Boolean value that indicates whether to animate the addition of a scale,
+// appear, or disappear effect.
+//
+// symbolEffect is a [symbols.NSSymbolEffect].
+//
+// options is a [symbols.NSSymbolEffectOptions].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/addSymbolEffect:options:animated:
+// symbolEffect is a [symbols.NSSymbolEffect].
+// options is a [symbols.NSSymbolEffectOptions].
+func (i NSImageView) AddSymbolEffectOptionsAnimated(symbolEffect objectivec.IObject, options objectivec.IObject, animated bool) {
+	objc.Send[objc.ID](i.ID, objc.Sel("addSymbolEffect:options:animated:"), symbolEffect, options, animated)
+}
+
+// Removes all symbol effects from the image view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/removeAllSymbolEffects
+func (i NSImageView) RemoveAllSymbolEffects() {
+	objc.Send[objc.ID](i.ID, objc.Sel("removeAllSymbolEffects"))
+}
+
+// Removes all symbol effects from the image view, using the specified
+// options.
+//
+// options: The options to use when removing the symbol effects.
+//
+// options is a [symbols.NSSymbolEffectOptions].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/removeAllSymbolEffectsWithOptions:
+// options is a [symbols.NSSymbolEffectOptions].
+func (i NSImageView) RemoveAllSymbolEffectsWithOptions(options objectivec.IObject) {
+	objc.Send[objc.ID](i.ID, objc.Sel("removeAllSymbolEffectsWithOptions:"), options)
+}
+
+// Removes all symbol effects from the image view, using the specified options
+// and animation setting.
+//
+// options: The options to use when removing the symbol effects.
+//
+// animated: A Boolean value that indicates whether to animate the removal of a scale,
+// appear, or disappear effects.
+//
+// options is a [symbols.NSSymbolEffectOptions].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/removeAllSymbolEffectsWithOptions:animated:
+// options is a [symbols.NSSymbolEffectOptions].
+func (i NSImageView) RemoveAllSymbolEffectsWithOptionsAnimated(options objectivec.IObject, animated bool) {
+	objc.Send[objc.ID](i.ID, objc.Sel("removeAllSymbolEffectsWithOptions:animated:"), options, animated)
+}
+
+// Removes the symbol effect that matches the specified effect type.
+//
+// symbolEffect: The symbol effect to match for removal.
+//
+// symbolEffect is a [symbols.NSSymbolEffect].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/removeSymbolEffectOfType:
+// symbolEffect is a [symbols.NSSymbolEffect].
+func (i NSImageView) RemoveSymbolEffectOfType(symbolEffect objectivec.IObject) {
+	objc.Send[objc.ID](i.ID, objc.Sel("removeSymbolEffectOfType:"), symbolEffect)
+}
+
+// Removes the symbol effect that matches the specified effect type, using the
+// specified options.
+//
+// symbolEffect: The symbol effect to match for removal.
+//
+// options: The options to use when removing the symbol effect.
+//
+// symbolEffect is a [symbols.NSSymbolEffect].
+//
+// options is a [symbols.NSSymbolEffectOptions].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/removeSymbolEffectOfType:options:
+// symbolEffect is a [symbols.NSSymbolEffect].
+// options is a [symbols.NSSymbolEffectOptions].
+func (i NSImageView) RemoveSymbolEffectOfTypeOptions(symbolEffect objectivec.IObject, options objectivec.IObject) {
+	objc.Send[objc.ID](i.ID, objc.Sel("removeSymbolEffectOfType:options:"), symbolEffect, options)
+}
+
+// Removes the symbol effect that matches the specified effect type, using the
+// specified options and animation setting.
+//
+// symbolEffect: The symbol effect to match for removal.
+//
+// options: The options to use when removing the symbol effect.
+//
+// animated: A Boolean value that indicates whether to animate the removal of a scale,
+// appear, or disappear effect.
+//
+// symbolEffect is a [symbols.NSSymbolEffect].
+//
+// options is a [symbols.NSSymbolEffectOptions].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/removeSymbolEffectOfType:options:animated:
+// symbolEffect is a [symbols.NSSymbolEffect].
+// options is a [symbols.NSSymbolEffectOptions].
+func (i NSImageView) RemoveSymbolEffectOfTypeOptionsAnimated(symbolEffect objectivec.IObject, options objectivec.IObject, animated bool) {
+	objc.Send[objc.ID](i.ID, objc.Sel("removeSymbolEffectOfType:options:animated:"), symbolEffect, options, animated)
+}
+
+// Sets a symbol image using the specified content-transition effect.
+//
+// symbolImage: The symbol image to set.
+//
+// transition: The content transition to use when setting the symbol image.
+//
+// transition is a [symbols.NSSymbolContentTransition].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/setSymbolImage:withContentTransition:
+// transition is a [symbols.NSSymbolContentTransition].
+func (i NSImageView) SetSymbolImageWithContentTransition(symbolImage INSImage, transition objectivec.IObject) {
+	objc.Send[objc.ID](i.ID, objc.Sel("setSymbolImage:withContentTransition:"), symbolImage, transition)
+}
+
+// Sets a symbol image using the specified content-transition effect and
+// options.
+//
+// symbolImage: The symbol image to set.
+//
+// transition: The content transition to use when setting the symbol image.
+//
+// options: The options to use when setting the symbol image.
+//
+// transition is a [symbols.NSSymbolContentTransition].
+//
+// options is a [symbols.NSSymbolEffectOptions].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/setSymbolImage:withContentTransition:options:
+// transition is a [symbols.NSSymbolContentTransition].
+// options is a [symbols.NSSymbolEffectOptions].
+func (i NSImageView) SetSymbolImageWithContentTransitionOptions(symbolImage INSImage, transition objectivec.IObject, options objectivec.IObject) {
+	objc.Send[objc.ID](i.ID, objc.Sel("setSymbolImage:withContentTransition:options:"), symbolImage, transition, options)
 }
 
 // Implemented to override the default action of enabling or disabling a
@@ -250,18 +447,15 @@ func NewImageViewWithImage(image INSImage) NSImageView {
 // menuItem: An [NSMenuItem] object that represents the menu item.
 //
 // # Return Value
-// 
-// [true] to enable `menuItem`, [false] to disable it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to enable `menuItem`, false to disable it.
 //
 // # Discussion
-// 
+//
 // The object implementing this method must be the target of `menuItem`. You
 // can determine which menu item `menuItem` is by querying it for its tag or
 // action.
-// 
+//
 // The following example disables the menu item associated with the
 // `nextRecord` action method when the selected line in a table view is the
 // last one; conversely, it disables the menu item with `priorRecord` as its
@@ -283,10 +477,11 @@ func (i NSImageView) SymbolConfiguration() INSImageSymbolConfiguration {
 func (i NSImageView) SetSymbolConfiguration(value INSImageSymbolConfiguration) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSymbolConfiguration:"), value)
 }
+
 // The image displayed by the image view.
 //
 // # Discussion
-// 
+//
 // Use this property to change the image being displayed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/image
@@ -297,13 +492,12 @@ func (i NSImageView) Image() INSImage {
 func (i NSImageView) SetImage(value INSImage) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImage:"), value)
 }
+
 // The style of frame that appears around the image.
 //
 // # Discussion
-// 
-// The default value of this property is [NSImageView.FrameStyle.none].
 //
-// [NSImageView.FrameStyle.none]: https://developer.apple.com/documentation/AppKit/NSImageView/FrameStyle/none
+// The default value of this property is [NSImageFrameNone].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/imageFrameStyle
 func (i NSImageView) ImageFrameStyle() NSImageFrameStyle {
@@ -313,13 +507,12 @@ func (i NSImageView) ImageFrameStyle() NSImageFrameStyle {
 func (i NSImageView) SetImageFrameStyle(value NSImageFrameStyle) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageFrameStyle:"), value)
 }
+
 // The alignment of the cell’s image inside the image view.
 //
 // # Discussion
-// 
-// The default value of this property is [NSImageAlignment.alignCenter].
 //
-// [NSImageAlignment.alignCenter]: https://developer.apple.com/documentation/AppKit/NSImageAlignment/alignCenter
+// The default value of this property is [NSImageAlignCenter].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/imageAlignment
 func (i NSImageView) ImageAlignment() NSImageAlignment {
@@ -329,15 +522,13 @@ func (i NSImageView) ImageAlignment() NSImageAlignment {
 func (i NSImageView) SetImageAlignment(value NSImageAlignment) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageAlignment:"), value)
 }
+
 // The scaling mode applied to make the cell’s image fit the frame of the
 // image view.
 //
 // # Discussion
-// 
-// The default value of this property is
-// [NSImageScaling.scaleProportionallyDown].
 //
-// [NSImageScaling.scaleProportionallyDown]: https://developer.apple.com/documentation/AppKit/NSImageScaling/scaleProportionallyDown
+// The default value of this property is [NSImageScaleProportionallyDown].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/imageScaling
 func (i NSImageView) ImageScaling() NSImageScaling {
@@ -347,34 +538,33 @@ func (i NSImageView) ImageScaling() NSImageScaling {
 func (i NSImageView) SetImageScaling(value NSImageScaling) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageScaling:"), value)
 }
+
 // A Boolean value indicating whether the image view automatically plays
 // animated images.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the image view plays animated
+//
+// When the value of this property is true, the image view plays animated
 // images automatically using the timing and looping characteristics stored in
-// the image data. The default value of this property is [true].
-// 
+// the image data. The default value of this property is true.
+//
 // Decoding an animated GIF file is the only way to create an animated
 // [NSImage] object. If the image view has been assigned an image that was
-// created from animated GIF data, setting this property to [true] enables
-// automatic playback of the animation. If this property is set to [false],
-// only the first frame of an animated image is displayed.
-// 
+// created from animated GIF data, setting this property to true enables
+// automatic playback of the animation. If this property is set to false, only
+// the first frame of an animated image is displayed.
+//
 // Loading an animated GIF file using an [NSImage] object produces an image
 // that uses an [NSBitmapImageRep] object. The [currentFrame],
 // [currentFrameDuration], and [frameCount] properties of the bitmap image
 // representation determine the timing and looping characteristics of the
 // animation. For more information, see [NSBitmapImageRep].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSImageView/animates
+//
 // [currentFrameDuration]: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/currentFrameDuration
 // [currentFrame]: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/currentFrame
-// [false]: https://developer.apple.com/documentation/Swift/false
 // [frameCount]: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/frameCount
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSImageView/animates
 func (i NSImageView) Animates() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("animates"))
 	return rv
@@ -382,6 +572,16 @@ func (i NSImageView) Animates() bool {
 func (i NSImageView) SetAnimates(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAnimates:"), value)
 }
+
+// A tint color to be used when rendering template image content.
+//
+// # Discussion
+//
+// This color may be combined with other effects to produce a
+// theme-appropriate rendition of the template image. A `nil` value indicates
+// the standard set of effects without color modification. The default value
+// is `nil`.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/contentTintColor
 func (i NSImageView) ContentTintColor() INSColor {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("contentTintColor"))
@@ -390,20 +590,20 @@ func (i NSImageView) ContentTintColor() INSColor {
 func (i NSImageView) SetContentTintColor(value INSColor) {
 	objc.Send[struct{}](i.ID, objc.Sel("setContentTintColor:"), value)
 }
+
 // The resolved dynamic range of the fully resolved image content.
 //
 // # Discussion
-// 
-// This property returns [NSImage.DynamicRange.unspecified] if the image view
-// can’t resolve the image content or the image view hasn’t displayed.
 //
-// [NSImage.DynamicRange.unspecified]: https://developer.apple.com/documentation/AppKit/NSImage/DynamicRange/unspecified
+// This property returns [NSImageDynamicRangeUnspecified] if the image view
+// can’t resolve the image content or the image view hasn’t displayed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/imageDynamicRange
 func (i NSImageView) ImageDynamicRange() NSImageDynamicRange {
 	rv := objc.Send[NSImageDynamicRange](i.ID, objc.Sel("imageDynamicRange"))
 	return NSImageDynamicRange(rv)
 }
+
 // The preferred dynamic range when displaying an image in the receiving image
 // view.
 //
@@ -415,18 +615,16 @@ func (i NSImageView) PreferredImageDynamicRange() NSImageDynamicRange {
 func (i NSImageView) SetPreferredImageDynamicRange(value NSImageDynamicRange) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPreferredImageDynamicRange:"), value)
 }
+
 // A Boolean value indicating whether the user can drag a new image into the
 // image view.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the user can set the displayed
-// image by dragging an image onto the image view. The default value of this
-// property is [false], which causes the image view to display only the
-// programmatically set image.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the user can set the displayed
+// image by dragging an image onto the image view. The default value of this
+// property is false, which causes the image view to display only the
+// programmatically set image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/isEditable
 func (i NSImageView) Editable() bool {
@@ -436,11 +634,12 @@ func (i NSImageView) Editable() bool {
 func (i NSImageView) SetEditable(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setEditable:"), value)
 }
+
 // A Boolean value indicating whether the image view lets the user cut, copy,
 // and paste the image contents.
 //
 // # Discussion
-// 
+//
 // When the value of this property is YES, the user can cut, copy, or paste
 // the image in the image view.
 //
@@ -456,17 +655,15 @@ func (i NSImageView) SetAllowsCutCopyPaste(value bool) {
 // The default preferred image dynamic range.
 //
 // # Discussion
-// 
-// This property defaults to [NSImage.DynamicRange.constrainedHigh] on macOS
-// 14 and higher, and [NSImage.DynamicRange.standard] otherwise. Set this
-// property to another [NSImage.DynamicRange] value to change the default for
-// all subsequently created image views in your app.
 //
-// [NSImage.DynamicRange.constrainedHigh]: https://developer.apple.com/documentation/AppKit/NSImage/DynamicRange/constrainedHigh
-// [NSImage.DynamicRange.standard]: https://developer.apple.com/documentation/AppKit/NSImage/DynamicRange/standard
-// [NSImage.DynamicRange]: https://developer.apple.com/documentation/AppKit/NSImage/DynamicRange
+// This property defaults to [NSImageDynamicRangeConstrainedHigh] on macOS 14
+// and higher, and [NSImageDynamicRangeStandard] otherwise. Set this property
+// to another [NSImage.DynamicRange] value to change the default for all
+// subsequently created image views in your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/defaultPreferredImageDynamicRange
+//
+// [NSImage.DynamicRange]: https://developer.apple.com/documentation/AppKit/NSImage/DynamicRange
 func (_NSImageViewClass NSImageViewClass) DefaultPreferredImageDynamicRange() NSImageDynamicRange {
 	rv := objc.Send[NSImageDynamicRange](objc.ID(_NSImageViewClass.class), objc.Sel("defaultPreferredImageDynamicRange"))
 	return NSImageDynamicRange(rv)
@@ -475,90 +672,88 @@ func (_NSImageViewClass NSImageViewClass) SetDefaultPreferredImageDynamicRange(v
 	objc.Send[struct{}](objc.ID(_NSImageViewClass.class), objc.Sel("setDefaultPreferredImageDynamicRange:"), value)
 }
 
-			// Protocol methods for NSAccessibilityImage
-			
+// Protocol methods for NSAccessibilityImage
+
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
-// 
+//
 // The element’s frame in screen coordinates.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityFrame] property. This method is called whenever accessibility
 // clients request the [size] or [position] attributes.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
+//
 // [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
 // [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSImageView) AccessibilityFrame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
-	}
+}
+
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
 // # Return Value
-// 
+//
 // The element’s parent in the accessibility hierarchy.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityParent] property.
 //
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
+//
+// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 func (o NSImageView) AccessibilityParent() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // Returns the accessibility element’s identity.
 //
 // # Return Value
-// 
+//
 // Returns the unique ID for the accessibility element. It is often used in
 // automated testing.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityIdentifier] property.
 //
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
+//
+// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 func (o NSImageView) AccessibilityIdentifier() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
 // # Return Value
-// 
-// [true] if this element has the keyboard focus; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if this element has the keyboard focus; otherwise, false.
 //
 // # Discussion
-// 
+//
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
 // [accessibilityFocused] property.
 //
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-//
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
+//
+// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 func (o NSImageView) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
-	}
+}
 
-			// Protocol methods for NSMenuItemValidation
-			
-
+// Protocol methods for NSMenuItemValidation

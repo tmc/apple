@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,12 +45,12 @@ func (vc VZVirtioSoundDeviceConfigurationClass) Alloc() VZVirtioSoundDeviceConfi
 // An object that defines a Virtio sound device configuration.
 //
 // # Overview
-// 
+//
 // Use a [VZVirtioSoundDeviceConfiguration] object to configure an audio
 // device for your VM. After creating this object, assign appropriate values
 // to the [VZVirtioSoundDeviceConfiguration.Streams] array property which defines the behaviors of the
 // underlying audio streams for this audio device.
-// 
+//
 // After creating and configuring a [VZVirtioSoundDeviceConfiguration] object,
 // assign it to the [VZVirtioSoundDeviceConfiguration.AudioDevices] property of your VM’s configuration.
 //
@@ -69,6 +70,7 @@ type VZVirtioSoundDeviceConfiguration struct {
 func VZVirtioSoundDeviceConfigurationFromID(id objc.ID) VZVirtioSoundDeviceConfiguration {
 	return VZVirtioSoundDeviceConfiguration{VZAudioDeviceConfiguration: VZAudioDeviceConfigurationFromID(id)}
 }
+
 // NOTE: VZVirtioSoundDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,7 +118,7 @@ func NewVZVirtioSoundDeviceConfiguration() VZVirtioSoundDeviceConfiguration {
 // List of audio streams exposed by this device.
 //
 // # Discussion
-// 
+//
 // Empty by default.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSoundDeviceConfiguration/streams
@@ -129,6 +131,7 @@ func (v VZVirtioSoundDeviceConfiguration) Streams() []VZVirtioSoundDeviceStreamC
 func (v VZVirtioSoundDeviceConfiguration) SetStreams(value []VZVirtioSoundDeviceStreamConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStreams:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The list of audio devices.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/audiodevices
@@ -139,4 +142,3 @@ func (v VZVirtioSoundDeviceConfiguration) AudioDevices() IVZAudioDeviceConfigura
 func (v VZVirtioSoundDeviceConfiguration) SetAudioDevices(value IVZAudioDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAudioDevices:"), value)
 }
-

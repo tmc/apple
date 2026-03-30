@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,10 +47,10 @@ func (nc NSDateComponentsClass) Alloc() NSDateComponents {
 // zone.
 //
 // # Overview
-// 
+//
 // In Swift, this object bridges to [DateComponents]; use [NSDateComponents]
 // when you need reference semantics or other Foundation-specific behavior.
-// 
+//
 // [NSDateComponents] encapsulates the components of a date in an extendable,
 // object-oriented manner. It’s used to specify a date by providing the
 // temporal components that make up a date and time: hour, minutes, seconds,
@@ -57,23 +58,19 @@ func (nc NSDateComponentsClass) Alloc() NSDateComponents {
 // time, for example, 5 hours and 16 minutes. An [NSDateComponents] object is
 // not required to define all the component fields. When a new instance of
 // [NSDateComponents] is created, the date components are set to
-// [DateComponentUndefined].
-// 
+// [NSDateComponents.NSDateComponentUndefined].
+//
 // An instance of [NSDateComponents] is not responsible for answering
 // questions about a date beyond the information with which it was
 // initialized. For example, if you initialize one with May 4, 2017, its
-// weekday is [DateComponentUndefined], not Thursday. To get the correct day
+// weekday is [NSDateComponents.NSDateComponentUndefined], not Thursday. To get the correct day
 // of the week, you must create a suitable instance of [NSCalendar], create an
 // [NSDate] object using [DateFromComponents] and then use
 // [ComponentsFromDate] to retrieve the weekday—as illustrated in the
 // following example.
-// 
+//
 // For more details, see [Calendars, Date Components, and Calendar Units] in
 // [Date and Time Programming Guide].
-//
-// [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
-// [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-// [DateComponents]: https://developer.apple.com/documentation/Foundation/DateComponents
 //
 // # Setting a Calendar and Time Zone
 //
@@ -140,6 +137,10 @@ func (nc NSDateComponentsClass) Alloc() NSDateComponents {
 //   - [NSDateComponents.SetRepeatedDay]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents
+//
+// [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
+// [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
+// [DateComponents]: https://developer.apple.com/documentation/Foundation/DateComponents
 type NSDateComponents struct {
 	objectivec.Object
 }
@@ -152,6 +153,7 @@ type NSDateComponents struct {
 func NSDateComponentsFromID(id objc.ID) NSDateComponents {
 	return NSDateComponents{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSDateComponents adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -338,7 +340,6 @@ func NewNSDateComponents() NSDateComponents {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDateComponentsWithCoder(coder INSCoder) NSDateComponents {
 	instance := getNSDateComponentsClass().Alloc()
@@ -352,18 +353,15 @@ func NewDateComponentsWithCoder(coder INSCoder) NSDateComponents {
 // calendar: The calendar for which to use in the calculation.
 //
 // # Return Value
-// 
-// [true] if the date corresponding to the receiver’s values is valid and
-// exists in the given calendar, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the date corresponding to the receiver’s values is valid and
+// exists in the given calendar, otherwise false.
 //
 // # Discussion
-// 
+//
 // If the [TimeZone] property is set on the receiver, the time zone property
 // value is used.
-// 
+//
 // This property should not be used for [NSDateComponents] objects that
 // represent relative quantities of calendar components. To find the the next
 // or previous date that matches a particular set of date components, use the
@@ -375,45 +373,48 @@ func (d NSDateComponents) IsValidDateInCalendar(calendar INSCalendar) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isValidDateInCalendar:"), calendar)
 	return rv
 }
+
 // Returns the value for a given calendar unit.
 //
 // unit: The calendar unit for which to retrieve its value. Do not pass
-// [CalendarUnitCalendar] or [CalendarUnitTimeZone].
+// [NSCalendarUnitCalendar] or [NSCalendarUnitTimeZone].
 //
 // # Return Value
-// 
+//
 // The value for the given calendar unit.
 //
 // # Discussion
-// 
+//
 // This method allows for component values to be retrieved for an
 // [NSCalendar.Unit] value.
 //
-// [NSCalendar.Unit]: https://developer.apple.com/documentation/Foundation/NSCalendar/Unit
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/value(forComponent:)
+//
+// [NSCalendar.Unit]: https://developer.apple.com/documentation/Foundation/NSCalendar/Unit
 func (d NSDateComponents) ValueForComponent(unit NSCalendarUnit) int {
 	rv := objc.Send[int](d.ID, objc.Sel("valueForComponent:"), unit)
 	return rv
 }
+
 // Sets a value for a given calendar unit.
 //
 // value: The value to set for the `unit` component.
 //
 // unit: The calendar unit for which to set `value`. Do not pass
-// [CalendarUnitCalendar] or [CalendarUnitTimeZone].
+// [NSCalendarUnitCalendar] or [NSCalendarUnitTimeZone].
 //
 // # Discussion
-// 
+//
 // This method allows for component values to be set for an [NSCalendar.Unit]
 // value.
 //
-// [NSCalendar.Unit]: https://developer.apple.com/documentation/Foundation/NSCalendar/Unit
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/setValue(_:forComponent:)
+//
+// [NSCalendar.Unit]: https://developer.apple.com/documentation/Foundation/NSCalendar/Unit
 func (d NSDateComponents) SetValueForComponent(value int, unit NSCalendarUnit) {
 	objc.Send[objc.ID](d.ID, objc.Sel("setValue:forComponent:"), value, unit)
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -422,7 +423,7 @@ func (d NSDateComponents) SetValueForComponent(value int, unit NSCalendarUnit) {
 func (d NSDateComponents) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (d NSDateComponents) InitWithCoder(coder INSCoder) NSDateComponents {
 	rv := objc.Send[NSDateComponents](d.ID, objc.Sel("initWithCoder:"), coder)
@@ -432,14 +433,14 @@ func (d NSDateComponents) InitWithCoder(coder INSCoder) NSDateComponents {
 // The calendar used to interpret the date components.
 //
 // # Discussion
-// 
+//
 // See [Calendars, Date Components, and Calendar Units] in [Date and Time
 // Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/calendar
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/calendar
 func (d NSDateComponents) Calendar() INSCalendar {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("calendar"))
 	return NSCalendarFromID(objc.ID(rv))
@@ -447,17 +448,18 @@ func (d NSDateComponents) Calendar() INSCalendar {
 func (d NSDateComponents) SetCalendar(value INSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
+
 // The time zone used to interpret the date components.
 //
 // # Discussion
-// 
+//
 // See [Calendars, Date Components, and Calendar Units] in [Date and Time
 // Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/timeZone
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/timeZone
 func (d NSDateComponents) TimeZone() INSTimeZone {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("timeZone"))
 	return NSTimeZoneFromID(objc.ID(rv))
@@ -465,11 +467,12 @@ func (d NSDateComponents) TimeZone() INSTimeZone {
 func (d NSDateComponents) SetTimeZone(value INSTimeZone) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeZone:"), value)
 }
+
 // A Boolean value that indicates whether the current combination of
 // properties represents a date which exists in the current calendar.
 //
 // # Discussion
-// 
+//
 // If the [TimeZone] property is set on the receiver, the time zone property
 // value is used. If the [Calendar] property is not set on the receiver, `nil`
 // is returned.
@@ -479,36 +482,38 @@ func (d NSDateComponents) ValidDate() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isValidDate"))
 	return rv
 }
+
 // The date calculated from the current components using the stored calendar.
 //
 // # Discussion
-// 
+//
 // Returns `nil` if the [Calendar] property value of the receiver is `nil` or
 // cannot convert the receiver into an [NSDate] object.
-// 
+//
 // See [Calendars, Date Components, and Calendar Units] in [Date and Time
 // Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/date
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/date
 func (d NSDateComponents) Date() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("date"))
 	return NSDateFromID(objc.ID(rv))
 }
+
 // The number of eras.
 //
 // # Discussion
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/era
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/era
 func (d NSDateComponents) Era() int {
 	rv := objc.Send[int](d.ID, objc.Sel("era"))
 	return rv
@@ -516,18 +521,19 @@ func (d NSDateComponents) Era() int {
 func (d NSDateComponents) SetEra(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEra:"), value)
 }
+
 // The number of years.
 //
 // # Discussion
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/year
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/year
 func (d NSDateComponents) Year() int {
 	rv := objc.Send[int](d.ID, objc.Sel("year"))
 	return rv
@@ -535,10 +541,11 @@ func (d NSDateComponents) Year() int {
 func (d NSDateComponents) SetYear(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setYear:"), value)
 }
+
 // The ISO 8601 week-numbering year.
 //
 // # Discussion
-// 
+//
 // The Gregorian calendar defines a week to have 7 days, and a year to have
 // 365 days, or 366 in a leap year. However, neither 365 or 366 divide evenly
 // into a 7-day week, so it is often the case that the last week of a year
@@ -549,7 +556,7 @@ func (d NSDateComponents) SetYear(value int) {
 // Thursday of the year. For a given date, the [WeekOfYear] property indicates
 // which week the date falls in, and [YearForWeekOfYear] provides the
 // corresponding week-numbering year.
-// 
+//
 // You can use the week-numbering year when specifying a date with
 // [NSDateComponents], usually in combination with the [WeekOfYear]. The code
 // listing below shows this approach. It creates an [NSDateComponents]
@@ -567,6 +574,7 @@ func (d NSDateComponents) YearForWeekOfYear() int {
 func (d NSDateComponents) SetYearForWeekOfYear(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setYearForWeekOfYear:"), value)
 }
+
 // The number of quarters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/quarter
@@ -577,18 +585,19 @@ func (d NSDateComponents) Quarter() int {
 func (d NSDateComponents) SetQuarter(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setQuarter:"), value)
 }
+
 // The number of months.
 //
 // # Discussion
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/month
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/month
 func (d NSDateComponents) Month() int {
 	rv := objc.Send[int](d.ID, objc.Sel("month"))
 	return rv
@@ -596,14 +605,12 @@ func (d NSDateComponents) Month() int {
 func (d NSDateComponents) SetMonth(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMonth:"), value)
 }
+
 // A Boolean value that indicates whether the month is a leap month.
 //
 // # Discussion
-// 
-// [true] if the month is a leap month, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the month is a leap month, false otherwise.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/isLeapMonth
 func (d NSDateComponents) LeapMonth() bool {
@@ -613,22 +620,23 @@ func (d NSDateComponents) LeapMonth() bool {
 func (d NSDateComponents) SetLeapMonth(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLeapMonth:"), value)
 }
+
 // The number of the weekdays.
 //
 // # Discussion
-// 
+//
 // Weekday units are the numbers 1 through , where is the number of days in
 // the week. For example, in the Gregorian calendar, is 7 and Sunday is
 // represented by 1.
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/weekday
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/weekday
 func (d NSDateComponents) Weekday() int {
 	rv := objc.Send[int](d.ID, objc.Sel("weekday"))
 	return rv
@@ -636,22 +644,23 @@ func (d NSDateComponents) Weekday() int {
 func (d NSDateComponents) SetWeekday(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setWeekday:"), value)
 }
+
 // The ordinal number of weekdays.
 //
 // # Discussion
-// 
+//
 // Weekday ordinal units represent the position of the weekday within the next
 // larger calendar unit, such as the month. For example, is the weekday
 // ordinal unit for the Friday of the month.
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/weekdayOrdinal
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/weekdayOrdinal
 func (d NSDateComponents) WeekdayOrdinal() int {
 	rv := objc.Send[int](d.ID, objc.Sel("weekdayOrdinal"))
 	return rv
@@ -659,18 +668,19 @@ func (d NSDateComponents) WeekdayOrdinal() int {
 func (d NSDateComponents) SetWeekdayOrdinal(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setWeekdayOrdinal:"), value)
 }
+
 // The week number of the months.
 //
 // # Discussion
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/weekOfMonth
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/weekOfMonth
 func (d NSDateComponents) WeekOfMonth() int {
 	rv := objc.Send[int](d.ID, objc.Sel("weekOfMonth"))
 	return rv
@@ -678,18 +688,19 @@ func (d NSDateComponents) WeekOfMonth() int {
 func (d NSDateComponents) SetWeekOfMonth(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setWeekOfMonth:"), value)
 }
+
 // The ISO 8601 week date of the year.
 //
 // # Discussion
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/weekOfYear
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/weekOfYear
 func (d NSDateComponents) WeekOfYear() int {
 	rv := objc.Send[int](d.ID, objc.Sel("weekOfYear"))
 	return rv
@@ -697,18 +708,19 @@ func (d NSDateComponents) WeekOfYear() int {
 func (d NSDateComponents) SetWeekOfYear(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setWeekOfYear:"), value)
 }
+
 // The number of days.
 //
 // # Discussion
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/day
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/day
 func (d NSDateComponents) Day() int {
 	rv := objc.Send[int](d.ID, objc.Sel("day"))
 	return rv
@@ -716,18 +728,19 @@ func (d NSDateComponents) Day() int {
 func (d NSDateComponents) SetDay(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDay:"), value)
 }
+
 // The number of hour units for the receiver.
 //
 // # Discussion
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/hour
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/hour
 func (d NSDateComponents) Hour() int {
 	rv := objc.Send[int](d.ID, objc.Sel("hour"))
 	return rv
@@ -735,18 +748,19 @@ func (d NSDateComponents) Hour() int {
 func (d NSDateComponents) SetHour(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setHour:"), value)
 }
+
 // The number of minute units for the receiver.
 //
 // # Discussion
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/minute
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/minute
 func (d NSDateComponents) Minute() int {
 	rv := objc.Send[int](d.ID, objc.Sel("minute"))
 	return rv
@@ -754,18 +768,19 @@ func (d NSDateComponents) Minute() int {
 func (d NSDateComponents) SetMinute(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinute:"), value)
 }
+
 // The number of second units for the receiver.
 //
 // # Discussion
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/second
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/second
 func (d NSDateComponents) Second() int {
 	rv := objc.Send[int](d.ID, objc.Sel("second"))
 	return rv
@@ -773,18 +788,19 @@ func (d NSDateComponents) Second() int {
 func (d NSDateComponents) SetSecond(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSecond:"), value)
 }
+
 // The number of nanosecond units for the receiver.
 //
 // # Discussion
-// 
+//
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and
 // Time Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/nanosecond
+//
 // [Calendars, Date Components, and Calendar Units]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html#//apple_ref/doc/uid/TP40003470
 // [Date and Time Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/DatesAndTimes/DatesAndTimes.html#//apple_ref/doc/uid/10000039i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDateComponents/nanosecond
 func (d NSDateComponents) Nanosecond() int {
 	rv := objc.Send[int](d.ID, objc.Sel("nanosecond"))
 	return rv
@@ -792,6 +808,7 @@ func (d NSDateComponents) Nanosecond() int {
 func (d NSDateComponents) SetNanosecond(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNanosecond:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/dayOfYear
 func (d NSDateComponents) DayOfYear() int {
 	rv := objc.Send[int](d.ID, objc.Sel("dayOfYear"))
@@ -800,6 +817,7 @@ func (d NSDateComponents) DayOfYear() int {
 func (d NSDateComponents) SetDayOfYear(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDayOfYear:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/isRepeatedDay
 func (d NSDateComponents) RepeatedDay() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isRepeatedDay"))
@@ -808,6 +826,7 @@ func (d NSDateComponents) RepeatedDay() bool {
 func (d NSDateComponents) SetRepeatedDay(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRepeatedDay:"), value)
 }
+
 // Specifies a date component without a value.
 //
 // See: https://developer.apple.com/documentation/foundation/nsdatecomponentundefined
@@ -819,9 +838,6 @@ func (d NSDateComponents) SetNSDateComponentUndefined(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSDateComponentUndefined:"), value)
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

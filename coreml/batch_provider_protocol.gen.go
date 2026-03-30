@@ -28,6 +28,7 @@ type MLBatchProvider interface {
 type MLBatchProviderObject struct {
 	objectivec.Object
 }
+
 func (o MLBatchProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -45,19 +46,19 @@ func MLBatchProviderObjectFromID(id objc.ID) MLBatchProviderObject {
 // index: The index of the desired feature provider.
 //
 // # Return Value
-// 
+//
 // The feature provider at the given index.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/features(at:)
 func (o MLBatchProviderObject) FeaturesAtIndex(index int) MLFeatureProvider {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featuresAtIndex:"), index)
 	return MLFeatureProviderObjectFromID(rv)
-	}
+}
+
 // The number of feature providers in this batch.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count
 func (o MLBatchProviderObject) Count() int {
 	rv := objc.Send[int](o.ID, objc.Sel("count"))
 	return rv
-	}
-
+}

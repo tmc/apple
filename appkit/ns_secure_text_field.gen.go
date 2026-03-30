@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSSecureTextField] class.
@@ -45,7 +46,7 @@ func (nc NSSecureTextFieldClass) Alloc() NSSecureTextField {
 // A text field that hides the typed text.
 //
 // # Overview
-// 
+//
 // A secure text field is suitable for use as a password-entry object or for
 // any item in which the text value must be kept secret. [NSSecureTextField]
 // uses [NSSecureTextFieldCell] to implement its user interface.
@@ -61,6 +62,7 @@ type NSSecureTextField struct {
 func NSSecureTextFieldFromID(id objc.ID) NSSecureTextField {
 	return NSSecureTextField{NSTextField: NSTextFieldFromID(id)}
 }
+
 // NOTE: NSSecureTextField adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -96,12 +98,12 @@ func NewNSSecureTextField() NSSecureTextField {
 // attributedStringValue: An attributed string to use as the content of the label.
 //
 // # Return Value
-// 
+//
 // A text field that displays the specified attributed string as a static
 // label.
 //
 // # Discussion
-// 
+//
 // The text field determines its line-break mode by inspecting the paragraph
 // style attributes in the attributed string.
 //
@@ -117,7 +119,7 @@ func NewSecureTextFieldLabelWithAttributedString(attributedStringValue foundatio
 // stringValue: A string to use as the content of the label.
 //
 // # Return Value
-// 
+//
 // A text field that displays the specified string as a static label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/init(labelWithString:)
@@ -141,12 +143,12 @@ func NewSecureTextFieldWithCoder(coder foundation.INSCoder) NSSecureTextField {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -167,7 +169,7 @@ func NewSecureTextFieldWithFrame(frameRect corefoundation.CGRect) NSSecureTextFi
 // stringValue: A string to use as the initial content of the editable text field.
 //
 // # Return Value
-// 
+//
 // A single-line editable text field that displays the specified string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/init(string:)
@@ -182,7 +184,7 @@ func NewSecureTextFieldWithString(stringValue string) NSSecureTextField {
 // stringValue: A string to use as the initial content of the editable text field.
 //
 // # Return Value
-// 
+//
 // A multiline text field that displays the specified string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/init(wrappingLabelWithString:)
@@ -190,4 +192,3 @@ func NewSecureTextFieldWrappingLabelWithString(stringValue string) NSSecureTextF
 	rv := objc.Send[objc.ID](objc.ID(getNSSecureTextFieldClass().class), objc.Sel("wrappingLabelWithString:"), objc.String(stringValue))
 	return NSSecureTextFieldFromID(rv)
 }
-

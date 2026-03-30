@@ -18,6 +18,7 @@ type OS_sec_certificate interface {
 type OS_sec_certificateObject struct {
 	objectivec.Object
 }
+
 func (o OS_sec_certificateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func OS_sec_certificateObjectFromID(id objc.ID) OS_sec_certificateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

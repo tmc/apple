@@ -18,6 +18,7 @@ type NSMetadataQueryDelegate interface {
 type NSMetadataQueryDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSMetadataQueryDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,11 +38,11 @@ func NSMetadataQueryDelegateObjectFromID(id objc.ID) NSMetadataQueryDelegateObje
 // result: The query result object to replace.
 //
 // # Return Value
-// 
+//
 // Object that replaces the query result object.
 //
 // # Discussion
-// 
+//
 // By default query result objects are instances of the [NSMetadataItem]
 // class. By implementing this method, you can return an object of a different
 // class type for the specified result object.
@@ -50,7 +51,8 @@ func NSMetadataQueryDelegateObjectFromID(id objc.ID) NSMetadataQueryDelegateObje
 func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementObjectForResultObject(query INSMetadataQuery, result INSMetadataItem) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metadataQuery:replacementObjectForResultObject:"), query, result)
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // Returns a different value for a given attribute and value.
 //
 // query: The query that produced the result object with `attrName`.
@@ -60,11 +62,11 @@ func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementObjectForResultOb
 // attrValue: The attribute value to replace.
 //
 // # Return Value
-// 
-// Object that replaces the value of `attrName` in the result object
+//
+// # Object that replaces the value of `attrName` in the result object
 //
 // # Discussion
-// 
+//
 // The delegate implementation of this method could convert specific query
 // attribute values to other attribute values, for example, converting date
 // object values to formatted strings for display.
@@ -73,5 +75,4 @@ func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementObjectForResultOb
 func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementValueForAttributeValue(query INSMetadataQuery, attrName string, attrValue objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metadataQuery:replacementValueForAttribute:value:"), query, objc.String(attrName), attrValue)
 	return objectivec.Object{ID: rv}
-	}
-
+}

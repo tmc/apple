@@ -23,6 +23,7 @@ type MTLIOScratchBuffer interface {
 type MTLIOScratchBufferObject struct {
 	objectivec.Object
 }
+
 func (o MTLIOScratchBufferObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,5 +43,4 @@ func MTLIOScratchBufferObjectFromID(id objc.ID) MTLIOScratchBufferObject {
 func (o MTLIOScratchBufferObject) Buffer() MTLBuffer {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("buffer"))
 	return MTLBufferObjectFromID(rv)
-	}
-
+}

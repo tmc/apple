@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (vc VZMultiTouchDeviceClass) Alloc() VZMultiTouchDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMultiTouchDevice.AssociationIdentifier]
 //   - [VZMultiTouchDevice.SendMultiTouchEvents]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDevice
 type VZMultiTouchDevice struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type VZMultiTouchDevice struct {
 func VZMultiTouchDeviceFromID(id objc.ID) VZMultiTouchDevice {
 	return VZMultiTouchDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure VZMultiTouchDevice implements IVZMultiTouchDevice.
 var _ IVZMultiTouchDevice = VZMultiTouchDevice{}
 
@@ -95,7 +97,6 @@ func NewVZMultiTouchDevice() VZMultiTouchDevice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMultiTouchDevice/sendMultiTouchEvents:
 func (v VZMultiTouchDevice) SendMultiTouchEvents(events objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendMultiTouchEvents:"), events)
@@ -106,4 +107,3 @@ func (v VZMultiTouchDevice) AssociationIdentifier() foundation.NSUUID {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("associationIdentifier"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
-

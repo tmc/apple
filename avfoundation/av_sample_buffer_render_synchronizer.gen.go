@@ -5,10 +5,11 @@ package avfoundation
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,7 +50,7 @@ func (ac AVSampleBufferRenderSynchronizerClass) Alloc() AVSampleBufferRenderSync
 // timeline.
 //
 // # Overview
-// 
+//
 // This class synchronizes multiple objects that conform to
 // [AVQueuedSampleBufferRendering] to a single timeline.
 //
@@ -88,6 +89,7 @@ type AVSampleBufferRenderSynchronizer struct {
 func AVSampleBufferRenderSynchronizerFromID(id objc.ID) AVSampleBufferRenderSynchronizer {
 	return AVSampleBufferRenderSynchronizer{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSampleBufferRenderSynchronizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -181,13 +183,14 @@ func NewAVSampleBufferRenderSynchronizer() AVSampleBufferRenderSynchronizer {
 // renderer: The render to be added.
 //
 // # Discussion
-// 
+//
 // This method can be called while [Rate] is not `0.0`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/addRenderer(_:)
 func (s AVSampleBufferRenderSynchronizer) AddRenderer(renderer AVQueuedSampleBufferRendering) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addRenderer:"), renderer)
 }
+
 // Removes a renderer from the synchronizer.
 //
 // time: The time on the timebase’s timeline at which the renderer should be
@@ -195,20 +198,20 @@ func (s AVSampleBufferRenderSynchronizer) AddRenderer(renderer AVQueuedSampleBuf
 //
 // completionHandler: An optional block to invoke when the renderer is removed from the
 // synchronizer. The block takes one argument:
-// 
+//
 // didRemoveRenderer: A Boolean value indicating the whether the renderer was
 // removed.
 //
 // # Discussion
-// 
+//
 // This method removes the renderer asynchronously. The method can be called
 // more than once, with a subsequent scheduled removal replacing a previously
 // scheduled removal. This method can be called while [Rate] is not `0.0`.
-// 
+//
 // Clients may provide an optional `completionHandler` to be notified when the
 // scheduled removal is complete. If provided, the completion handler will
 // always be called with the following values for `didRemoveRenderer`:
-// 
+//
 // - If the renderer has not been added to this synchronizer,
 // `didRemoveRenderer` is [NO]. - If the removal of a particular renderer is
 // scheduled after the same renderer’s removal was previous scheduled but
@@ -219,42 +222,45 @@ func (s AVSampleBufferRenderSynchronizer) AddRenderer(renderer AVQueuedSampleBuf
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/removeRenderer(_:at:completionHandler:)
 func (s AVSampleBufferRenderSynchronizer) RemoveRendererAtTimeCompletionHandler(renderer AVQueuedSampleBufferRendering, time coremedia.CMTime, completionHandler BoolHandler) {
-_block2, _ := NewBoolBlock(completionHandler)
+	_block2, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("removeRenderer:atTime:completionHandler:"), renderer, time, _block2)
 }
+
 // Returns the current time of the synchronizer.
 //
 // # Return Value
-// 
+//
 // A [CMTime] object.
 //
-// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/currentTime()
+//
+// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 func (s AVSampleBufferRenderSynchronizer) CurrentTime() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("currentTime"))
 	return coremedia.CMTime(rv)
 }
+
 // Sets the renderer’s time and rate.
 //
 // rate: The new timebase rate. This value must be greater than or equal to `0.0`.
 //
 // time: The new timebase time. This value must be greater than or equal to [zero],
 // or [invalid].
-// //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // # Discussion
-// 
+//
 // This method first sets the new time and then the new rendering rate. A
 // `rate` value of `0.0` means that playback has stopped while a `rate` value
 // of `1.0` indicates playback should be at the natural rate of the media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/setRate(_:time:)
+//
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func (s AVSampleBufferRenderSynchronizer) SetRateTime(rate float32, time coremedia.CMTime) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setRate:time:"), rate, time)
 }
+
 // Sets the playback rate and the relationship between the current time and
 // host time.
 //
@@ -262,20 +268,21 @@ func (s AVSampleBufferRenderSynchronizer) SetRateTime(rate float32, time coremed
 //
 // time: A new timebase time. This value must be greater than or equal to [zero], or
 // [invalid].
-// //
-// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // hostTime: A new host time. This value must be greater than or equal to [zero], or
 // [invalid].
-// //
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/setRate(_:time:atHostTime:)
+//
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/setRate(_:time:atHostTime:)
+// [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func (s AVSampleBufferRenderSynchronizer) SetRateTimeAtHostTime(rate float32, time coremedia.CMTime, hostTime coremedia.CMTime) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setRate:time:atHostTime:"), rate, time, hostTime)
 }
+
 // Requests invocation of a block during rendering at specified time
 // intervals.
 //
@@ -288,34 +295,35 @@ func (s AVSampleBufferRenderSynchronizer) SetRateTimeAtHostTime(rate float32, ti
 // block: The block to be invoked periodically.
 //
 // # Return Value
-// 
+//
 // An object that conforms to [NSObject]. You must retain this value as long
 // as you want the time observer to be invoked by the synchronizer. Pass this
 // object to [RemoveTimeObserver] to cancel time observation.
 //
-// [NSObject]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class
-//
 // # Discussion
-// 
+//
 // The block associated with this method is invoked at the specified time
 // intervals, interpreted according to the timeline of the timebase. The block
 // is also invoked whenever there is a time jump or rendering starts or stops.
-// 
+//
 // If a very short time interval is used, the synchronizer may invoke the
 // block less frequently than requested. However, the synchronizer will invoke
 // the block often enough for the client to update indications of the current
 // time appropriately in its end-user interface.
-// 
+//
 // Always pair a call to this method with a call to [RemoveTimeObserver].
 // Releasing the observer without calling `removeTimeObserver(_:)` results in
 // undefined behavior.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/addPeriodicTimeObserver(forInterval:queue:using:)
+//
+// [NSObject]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class
 func (s AVSampleBufferRenderSynchronizer) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval coremedia.CMTime, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject {
-_block2, _ := NewCMTimeBlock(block)
+	_block2, _ := NewCMTimeBlock(block)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("addPeriodicTimeObserverForInterval:queue:usingBlock:"), interval, uintptr(queue.Handle()), _block2)
 	return objectivec.Object{ID: rv}
 }
+
 // Requests invocation of a block when specified times are traversed during
 // normal rendering.
 //
@@ -329,45 +337,46 @@ _block2, _ := NewCMTimeBlock(block)
 // normal rendering.
 //
 // # Return Value
-// 
+//
 // An object that conforms to [NSObject]. You must retain this value as long
 // as you want the time observer to be invoked by the synchronizer. Pass this
 // object to [RemoveTimeObserver] to cancel time observation.
 //
-// [NSObject]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class
-//
 // # Discussion
-// 
+//
 // Always pair a call to this method with a call to [RemoveTimeObserver].
 // Releasing the observer without calling `removeTimeObserver(_:)` results in
 // undefined behavior.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/addBoundaryTimeObserver(forTimes:queue:using:)
+//
+// [NSObject]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class
 func (s AVSampleBufferRenderSynchronizer) AddBoundaryTimeObserverForTimesQueueUsingBlock(times []foundation.NSValue, queue dispatch.Queue, block VoidHandler) objectivec.IObject {
-_block2, _ := NewVoidBlock(block)
+	_block2, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("addBoundaryTimeObserverForTimes:queue:usingBlock:"), times, uintptr(queue.Handle()), _block2)
 	return objectivec.Object{ID: rv}
 }
+
 // Cancels the specified time observer.
 //
 // observer: The time observer to be cancelled.
 //
 // # Discussion
-// 
+//
 // Use this method to explicitly cancel time observers added using
 // [AddPeriodicTimeObserverForIntervalQueueUsingBlock] or
 // [AddBoundaryTimeObserverForTimesQueueUsingBlock]
-// 
+//
 // Upon return, the caller is guaranteed that no new time observer blocks will
 // begin executing. Depending on the calling thread and the queue used to add
 // the time observer, an in-flight block may continue to execute after this
 // method returns. You can guarantee synchronous time observer removal by
-// enqueuing the call to `` on that queue. Call [sync(execute:)] after `` to
+// enqueuing the call to “ on that queue. Call [sync(execute:)] after “ to
 // wait for any in-flight blocks to finish executing.
 //
-// [sync(execute:)]: https://developer.apple.com/documentation/Dispatch/DispatchQueue/sync(execute:)-3segw
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/removeTimeObserver(_:)
+//
+// [sync(execute:)]: https://developer.apple.com/documentation/Dispatch/DispatchQueue/sync(execute:)-3segw
 func (s AVSampleBufferRenderSynchronizer) RemoveTimeObserver(observer objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeTimeObserver:"), observer)
 }
@@ -376,7 +385,7 @@ func (s AVSampleBufferRenderSynchronizer) RemoveTimeObserver(observer objectivec
 // synchronizer.
 //
 // # Discussion
-// 
+//
 // This property includes all renderers that have been added to the
 // synchronizer and haven’t been removed, including renderers that have been
 // scheduled for removal, but have yet to be removed. This property is not KVO
@@ -389,11 +398,12 @@ func (s AVSampleBufferRenderSynchronizer) Renderers() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // The synchronizer’s rendering timebase which determines how it interprets
 // timestamps.
 //
 // # Discussion
-// 
+//
 // The default for this property is the clock for an added
 // [AVSampleBufferAudioRenderer] object. If you haven’t added a renderer,
 // the timebase is the system host clock.
@@ -403,10 +413,11 @@ func (s AVSampleBufferRenderSynchronizer) Timebase() uintptr {
 	rv := objc.Send[uintptr](s.ID, objc.Sel("timebase"))
 	return rv
 }
+
 // The current playback rate.
 //
 // # Discussion
-// 
+//
 // A value of `0.0` means playback has stopped. A value of `1.0` tells the
 // renderer to play at the natural rate of the media. This property must be
 // greater than or equal to `0.0`.
@@ -419,6 +430,7 @@ func (s AVSampleBufferRenderSynchronizer) Rate() float32 {
 func (s AVSampleBufferRenderSynchronizer) SetRate(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRate:"), value)
 }
+
 // A Boolean value that Indicates whether the playback should start
 // immediately on rate change requests.
 //
@@ -460,4 +472,3 @@ func (s AVSampleBufferRenderSynchronizer) AddPeriodicTimeObserverForIntervalQueu
 		return coremedia.CMTime{}, ctx.Err()
 	}
 }
-

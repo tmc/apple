@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (ac AVCameraCalibrationDataClass) Alloc() AVCameraCalibrationData {
 // depth data.
 //
 // # Overview
-// 
+//
 // Information about the calibration of a camera—such as its pixel focal
 // length, principal point, and lens distortion characteristics—helps to
 // determine the geometric relationships between the camera device and the
@@ -80,6 +81,7 @@ type AVCameraCalibrationData struct {
 func AVCameraCalibrationDataFromID(id objc.ID) AVCameraCalibrationData {
 	return AVCameraCalibrationData{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCameraCalibrationData adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -146,13 +148,13 @@ func NewAVCameraCalibrationData() AVCameraCalibrationData {
 // pinhole-camera model.
 //
 // # Discussion
-// 
+//
 // The intrinsic matrix allows you to transform 3D coordinates to 2D
 // coordinates on an image plane using the pinhole camera model. Equations
 // like the following commonly represent the intrinsic matrix as `K:`
-// 
+//
 // [media-2902623]
-// 
+//
 // The equation expresses all values in pixels. The values `fx` and `fy` are
 // the pixel focal length, and are identical for square pixels. The `ox` and
 // `oy` values are the offsets of the principal point, from the top-left
@@ -165,11 +167,12 @@ func (c AVCameraCalibrationData) IntrinsicMatrix() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("intrinsicMatrix"))
 	return objectivec.Object{ID: rv}
 }
+
 // The image dimensions to which the camera’s intrinsic matrix values are
 // relative.
 //
 // # Discussion
-// 
+//
 // The [IntrinsicMatrix] property measures focal length and principal point
 // offset in pixels, but those values are meaningful only in the context of an
 // image of this size.
@@ -179,17 +182,18 @@ func (c AVCameraCalibrationData) IntrinsicMatrixReferenceDimensions() corefounda
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("intrinsicMatrixReferenceDimensions"))
 	return corefoundation.CGSize(rv)
 }
+
 // A matrix relating a camera’s position and orientation to a world or scene
 // coordinate system.
 //
 // # Discussion
-// 
+//
 // The extrinsic matrix consists of a unitless 3 x 3 rotation matrix ([R]) on
 // the left and a 3 x 1 column vector translation (`t`) on the right. The
 // translation vector’s units are millimeters.
-// 
+//
 // [media-2902624]
-// 
+//
 // The camera’s pose is expressed with respect to a reference camera
 // (camera-to-world view). If the rotation matrix is an identity matrix, then
 // this camera is the reference camera.
@@ -199,6 +203,7 @@ func (c AVCameraCalibrationData) ExtrinsicMatrix() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("extrinsicMatrix"))
 	return objectivec.Object{ID: rv}
 }
+
 // The size, in millimeters, of one image pixel.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCameraCalibrationData/pixelSize
@@ -206,11 +211,12 @@ func (c AVCameraCalibrationData) PixelSize() float32 {
 	rv := objc.Send[float32](c.ID, objc.Sel("pixelSize"))
 	return rv
 }
+
 // A map of floating-point values describing radial distortions imparted by
 // the camera lens, for use in rectifying camera images.
 //
 // # Discussion
-// 
+//
 // Images captured by a camera are geometrically warped by small imperfections
 // in the lens. To project from the 2D image plane back into the 3D world, the
 // images must be distortion corrected, or made rectilinear. Lens distortion
@@ -218,7 +224,7 @@ func (c AVCameraCalibrationData) PixelSize() float32 {
 // evenly distributed along a radius from the center of the distortion to a
 // corner, with each value representing a magnification of the radius. This
 // model assumes symmetrical lens distortion.
-// 
+//
 // When dealing with [AVDepthData] objects, the disparity/depth map
 // representations are geometrically distorted to align with images produced
 // by the camera.
@@ -228,11 +234,12 @@ func (c AVCameraCalibrationData) LensDistortionLookupTable() foundation.INSData 
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("lensDistortionLookupTable"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // A map of floating-point values describing radial distortions for use in
 // reapplying camera geometry to a rectified image.
 //
 // # Discussion
-// 
+//
 // If you’ve rectified an image by removing the distortions characterized by
 // the [LensDistortionLookupTable] property, and now wish to go back to a
 // geometrically distorted image (for example, to render visual effects into
@@ -244,11 +251,12 @@ func (c AVCameraCalibrationData) InverseLensDistortionLookupTable() foundation.I
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("inverseLensDistortionLookupTable"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // The offset of the distortion center of the camera lens from the top-left
 // corner of the image.
 //
 // # Discussion
-// 
+//
 // Due to geometric distortions in the image, the center of the distortion may
 // not be equal to the optical center (principal point) of the lens. When
 // making an image rectilinear, use the distortion center rather than the
@@ -259,4 +267,3 @@ func (c AVCameraCalibrationData) LensDistortionCenter() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("lensDistortionCenter"))
 	return corefoundation.CGPoint(rv)
 }
-

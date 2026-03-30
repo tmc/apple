@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_squeeze_devop struct {
 func EspressoPass_squeeze_devopFromID(id objc.ID) EspressoPass_squeeze_devop {
 	return EspressoPass_squeeze_devop{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_squeeze_devop implements IEspressoPass_squeeze_devop.
 var _ IEspressoPass_squeeze_devop = EspressoPass_squeeze_devop{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_squeeze_devop() EspressoPass_squeeze_devop {
 	rv := objc.Send[EspressoPass_squeeze_devop](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

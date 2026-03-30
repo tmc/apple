@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,14 +46,14 @@ func (mc MTLStencilDescriptorClass) Alloc() MTLStencilDescriptor {
 // of a depth and stencil state object.
 //
 // # Overview
-// 
+//
 // A stencil test is a comparison between a masked reference value and a
 // masked value stored in a stencil attachment. (A value is by performing a
 // logical AND operation on it with the [MTLStencilDescriptor.ReadMask] value.) The
 // [MTLStencilDescriptor] object defines how to update the contents of the
 // stencil attachment, based on the results of the stencil test and the depth
 // test.
-// 
+//
 // The [MTLStencilDescriptor.StencilCompareFunction] property defines the stencil test. The
 // [MTLStencilDescriptor.StencilFailureOperation], [MTLStencilDescriptor.DepthFailureOperation], and
 // [MTLStencilDescriptor.DepthStencilPassOperation] properties specify what to do to a stencil
@@ -92,6 +93,7 @@ type MTLStencilDescriptor struct {
 func MTLStencilDescriptorFromID(id objc.ID) MTLStencilDescriptor {
 	return MTLStencilDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLStencilDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -167,17 +169,17 @@ func NewMTLStencilDescriptor() MTLStencilDescriptor {
 // attachment when the stencil test fails.
 //
 // # Discussion
-// 
-// The default value is [StencilOperationKeep], which does not change the
+//
+// The default value is [MTLStencilOperationKeep], which does not change the
 // current stencil value. For more information on possible values, see
 // [MTLStencilOperation].
-// 
+//
 // When the stencil test fails for a pixel, its incoming color, depth, or
 // stencil values are discarded.
 //
-// [MTLStencilOperation]: https://developer.apple.com/documentation/Metal/MTLStencilOperation
-//
 // See: https://developer.apple.com/documentation/Metal/MTLStencilDescriptor/stencilFailureOperation
+//
+// [MTLStencilOperation]: https://developer.apple.com/documentation/Metal/MTLStencilOperation
 func (s MTLStencilDescriptor) StencilFailureOperation() MTLStencilOperation {
 	rv := objc.Send[MTLStencilOperation](s.ID, objc.Sel("stencilFailureOperation"))
 	return MTLStencilOperation(rv)
@@ -185,18 +187,19 @@ func (s MTLStencilDescriptor) StencilFailureOperation() MTLStencilOperation {
 func (s MTLStencilDescriptor) SetStencilFailureOperation(value MTLStencilOperation) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStencilFailureOperation:"), value)
 }
+
 // The operation that is performed to update the values in the stencil
 // attachment when the stencil test passes, but the depth test fails.
 //
 // # Discussion
-// 
-// The default value is [StencilOperationKeep], which does not change the
+//
+// The default value is [MTLStencilOperationKeep], which does not change the
 // current stencil value. For more information on possible values, see
 // [MTLStencilOperation].
 //
-// [MTLStencilOperation]: https://developer.apple.com/documentation/Metal/MTLStencilOperation
-//
 // See: https://developer.apple.com/documentation/Metal/MTLStencilDescriptor/depthFailureOperation
+//
+// [MTLStencilOperation]: https://developer.apple.com/documentation/Metal/MTLStencilOperation
 func (s MTLStencilDescriptor) DepthFailureOperation() MTLStencilOperation {
 	rv := objc.Send[MTLStencilOperation](s.ID, objc.Sel("depthFailureOperation"))
 	return MTLStencilOperation(rv)
@@ -204,18 +207,19 @@ func (s MTLStencilDescriptor) DepthFailureOperation() MTLStencilOperation {
 func (s MTLStencilDescriptor) SetDepthFailureOperation(value MTLStencilOperation) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDepthFailureOperation:"), value)
 }
+
 // The operation that is performed to update the values in the stencil
 // attachment when both the stencil test and the depth test pass.
 //
 // # Discussion
-// 
-// The default value is [StencilOperationKeep], which does not change the
+//
+// The default value is [MTLStencilOperationKeep], which does not change the
 // current stencil value. For more information on possible values, see
 // [MTLStencilOperation].
 //
-// [MTLStencilOperation]: https://developer.apple.com/documentation/Metal/MTLStencilOperation
-//
 // See: https://developer.apple.com/documentation/Metal/MTLStencilDescriptor/depthStencilPassOperation
+//
+// [MTLStencilOperation]: https://developer.apple.com/documentation/Metal/MTLStencilOperation
 func (s MTLStencilDescriptor) DepthStencilPassOperation() MTLStencilOperation {
 	rv := objc.Send[MTLStencilOperation](s.ID, objc.Sel("depthStencilPassOperation"))
 	return MTLStencilOperation(rv)
@@ -223,23 +227,26 @@ func (s MTLStencilDescriptor) DepthStencilPassOperation() MTLStencilOperation {
 func (s MTLStencilDescriptor) SetDepthStencilPassOperation(value MTLStencilOperation) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDepthStencilPassOperation:"), value)
 }
+
 // The comparison that is performed between the masked reference value and a
 // masked value in the stencil attachment.
 //
 // # Discussion
-// 
-// For example, if `stencilCompareFunction` is [CompareFunctionLess], then the
-// stencil test passes if the masked reference value is less than the masked
-// stored stencil value. The default value is [CompareFunctionAlways], which
-// indicates that the stencil test always passes.
-// 
+//
+// For example, if `stencilCompareFunction` is [MTLCompareFunctionLess], then
+// the stencil test passes if the masked reference value is less than the
+// masked stored stencil value. The default value is
+// [MTLCompareFunction.always], which indicates that the stencil test always
+// passes.
+//
 // The stored stencil value and the reference value are both by performing a
 // logical AND operation with the [ReadMask] value before the comparison takes
 // place. For more information on possible values, see [MTLCompareFunction].
 //
-// [MTLCompareFunction]: https://developer.apple.com/documentation/Metal/MTLCompareFunction
-//
 // See: https://developer.apple.com/documentation/Metal/MTLStencilDescriptor/stencilCompareFunction
+//
+// [MTLCompareFunction.always]: https://developer.apple.com/documentation/Metal/MTLCompareFunction/always
+// [MTLCompareFunction]: https://developer.apple.com/documentation/Metal/MTLCompareFunction
 func (s MTLStencilDescriptor) StencilCompareFunction() MTLCompareFunction {
 	rv := objc.Send[MTLCompareFunction](s.ID, objc.Sel("stencilCompareFunction"))
 	return MTLCompareFunction(rv)
@@ -247,14 +254,15 @@ func (s MTLStencilDescriptor) StencilCompareFunction() MTLCompareFunction {
 func (s MTLStencilDescriptor) SetStencilCompareFunction(value MTLCompareFunction) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStencilCompareFunction:"), value)
 }
+
 // A bitmask that determines from which bits that stencil comparison tests can
 // read.
 //
 // # Discussion
-// 
+//
 // The [ReadMask] bits are used for logical AND operations to both the stored
 // stencil value and the reference value.
-// 
+//
 // The least significant bits of the read mask are used. The default value is
 // all ones. A logical AND operation with the default [ReadMask] does not
 // change the value.
@@ -267,13 +275,14 @@ func (s MTLStencilDescriptor) ReadMask() uint32 {
 func (s MTLStencilDescriptor) SetReadMask(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setReadMask:"), value)
 }
+
 // A bitmask that determines to which bits that stencil operations can write.
 //
 // # Discussion
-// 
+//
 // [WriteMask] are used for logical AND operations to values that are going to
 // be written into a stencil attachment as the result of a stencil operation.
-// 
+//
 // The least significant bits of the write mask are used. The default value is
 // all ones. A logical AND operation with the default [WriteMask] does not
 // change the value.
@@ -286,4 +295,3 @@ func (s MTLStencilDescriptor) WriteMask() uint32 {
 func (s MTLStencilDescriptor) SetWriteMask(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setWriteMask:"), value)
 }
-

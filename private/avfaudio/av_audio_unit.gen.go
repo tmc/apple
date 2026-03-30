@@ -3,8 +3,9 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -41,12 +42,12 @@ func (ac AVAudioUnitClass) Alloc() AVAudioUnit {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioUnit.SetValueForParam]
 //   - [AVAudioUnit.ValueForParam]
 //   - [AVAudioUnit.AUAudioUnit]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit
 type AVAudioUnit struct {
 	AVAudioNode
@@ -56,6 +57,7 @@ type AVAudioUnit struct {
 func AVAudioUnitFromID(id objc.ID) AVAudioUnit {
 	return AVAudioUnit{AVAudioNode: AVAudioNodeFromID(id)}
 }
+
 // Ensure AVAudioUnit implements IAVAudioUnit.
 var _ IAVAudioUnit = AVAudioUnit{}
 
@@ -97,7 +99,6 @@ func NewAVAudioUnit() AVAudioUnit {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioUnitWithImpl(impl unsafe.Pointer) AVAudioUnit {
 	instance := getAVAudioUnitClass().Alloc()
@@ -105,13 +106,12 @@ func NewAudioUnitWithImpl(impl unsafe.Pointer) AVAudioUnit {
 	return AVAudioUnitFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit/setValue:forParam:
 func (a AVAudioUnit) SetValueForParam(value float32, param uint32) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("setValue:forParam:"), value, param)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit/valueForParam:
 func (a AVAudioUnit) ValueForParam(param uint32) float32 {
 	rv := objc.Send[float32](a.ID, objc.Sel("valueForParam:"), param)
@@ -123,4 +123,3 @@ func (a AVAudioUnit) AUAudioUnit() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("AUAudioUnit"))
 	return rv
 }
-

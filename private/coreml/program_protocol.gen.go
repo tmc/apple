@@ -18,6 +18,7 @@ type MLProgram interface {
 type MLProgramObject struct {
 	objectivec.Object
 }
+
 func (o MLProgramObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,5 +35,4 @@ func MLProgramObjectFromID(id objc.ID) MLProgramObject {
 func (o MLProgramObject) SerializedMILText() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("serializedMILText"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

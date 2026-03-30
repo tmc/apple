@@ -29,6 +29,7 @@ type CIBarcodeGenerator interface {
 type CIBarcodeGeneratorObject struct {
 	objectivec.Object
 }
+
 func (o CIBarcodeGeneratorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -47,7 +48,8 @@ func CIBarcodeGeneratorObjectFromID(id objc.ID) CIBarcodeGeneratorObject {
 func (o CIBarcodeGeneratorObject) BarcodeDescriptor() ICIBarcodeDescriptor {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("barcodeDescriptor"))
 	return CIBarcodeDescriptorFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -55,9 +57,11 @@ func (o CIBarcodeGeneratorObject) BarcodeDescriptor() ICIBarcodeDescriptor {
 func (o CIBarcodeGeneratorObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The barcode descriptor to generate an image for.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIBarcodeGenerator/barcodeDescriptor
 func (o CIBarcodeGeneratorObject) SetBarcodeDescriptor(value ICIBarcodeDescriptor) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBarcodeDescriptor:"), value)
 }
-

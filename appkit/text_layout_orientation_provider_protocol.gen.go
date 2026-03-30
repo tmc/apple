@@ -23,6 +23,7 @@ type NSTextLayoutOrientationProvider interface {
 type NSTextLayoutOrientationProviderObject struct {
 	objectivec.Object
 }
+
 func (o NSTextLayoutOrientationProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,5 +42,4 @@ func NSTextLayoutOrientationProviderObjectFromID(id objc.ID) NSTextLayoutOrienta
 func (o NSTextLayoutOrientationProviderObject) LayoutOrientation() NSTextLayoutOrientation {
 	rv := objc.Send[NSTextLayoutOrientation](o.ID, objc.Sel("layoutOrientation"))
 	return rv
-	}
-
+}

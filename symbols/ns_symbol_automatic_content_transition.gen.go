@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -55,6 +56,7 @@ type NSSymbolAutomaticContentTransition struct {
 func NSSymbolAutomaticContentTransitionFromID(id objc.ID) NSSymbolAutomaticContentTransition {
 	return NSSymbolAutomaticContentTransition{NSSymbolContentTransition: NSSymbolContentTransitionFromID(id)}
 }
+
 // Ensure NSSymbolAutomaticContentTransition implements INSSymbolAutomaticContentTransition.
 var _ INSSymbolAutomaticContentTransition = NSSymbolAutomaticContentTransition{}
 
@@ -88,7 +90,7 @@ func NewNSSymbolAutomaticContentTransition() NSSymbolAutomaticContentTransition 
 // a context-sensitive manner.
 //
 // # Return Value
-// 
+//
 // A new instance of the automatic transition.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolAutomaticContentTransition/transition
@@ -96,4 +98,3 @@ func (_NSSymbolAutomaticContentTransitionClass NSSymbolAutomaticContentTransitio
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolAutomaticContentTransitionClass.class), objc.Sel("transition"))
 	return NSSymbolAutomaticContentTransitionFromID(rv)
 }
-

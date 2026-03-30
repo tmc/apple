@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,17 +44,15 @@ func (nc NSMenuToolbarItemClass) Alloc() NSMenuToolbarItem {
 // A control that presents a menu in a window’s toolbar.
 //
 // # Overview
-// 
+//
 // If you set an action on an [NSMenuToolbarItem] control item, the user
 // invokes the action when clicking on the item through pressing and holding
 // to display the menu. If you set an action on the item and [NSMenuToolbarItem.ShowsIndicator]
-// to [true], the system displays the indicator as a separate segment so the
+// to true, the system displays the indicator as a separate segment so the
 // user can invoke the menu with a click on that segment.
-// 
+//
 // If you don’t set an action on the [NSMenuToolbarItem], a simple click
 // invokes the menu, and the indicator is purely decorative.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Configuring a menu toolbar item
 //
@@ -73,6 +72,7 @@ type NSMenuToolbarItem struct {
 func NSMenuToolbarItemFromID(id objc.ID) NSMenuToolbarItem {
 	return NSMenuToolbarItem{NSToolbarItem: NSToolbarItemFromID(id)}
 }
+
 // NOTE: NSMenuToolbarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -125,7 +125,7 @@ func NewNSMenuToolbarItem() NSMenuToolbarItem {
 // toolbar delegate uses this value to identify the specific toolbar item.
 //
 // # Return Value
-// 
+//
 // A new toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/init(itemIdentifier:)
@@ -139,11 +139,9 @@ func NewMenuToolbarItemWithItemIdentifier(itemIdentifier NSToolbarItemIdentifier
 // indicator of additional functionality.
 //
 // # Discussion
-// 
-// If [true], the menu toolbar item shows an indicator that additional
-// functionality is available.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If true, the menu toolbar item shows an indicator that additional
+// functionality is available.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuToolbarItem/showsIndicator
 func (m NSMenuToolbarItem) ShowsIndicator() bool {
@@ -153,6 +151,7 @@ func (m NSMenuToolbarItem) ShowsIndicator() bool {
 func (m NSMenuToolbarItem) SetShowsIndicator(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShowsIndicator:"), value)
 }
+
 // The menu presented from the toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuToolbarItem/menu
@@ -163,4 +162,3 @@ func (m NSMenuToolbarItem) Menu() INSMenu {
 func (m NSMenuToolbarItem) SetMenu(value INSMenu) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMenu:"), value)
 }
-

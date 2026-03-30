@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,33 +45,33 @@ func (nc NSSecureUnarchiveFromDataTransformerClass) Alloc() NSSecureUnarchiveFro
 // secure coding.
 //
 // # Overview
-// 
+//
 // This class provides a default [NSValueTransformer] implementation for
 // secure decoding. This class attempts to decode data into the classes listed
 // within [NSSecureUnarchiveFromDataTransformer.AllowedTopLevelClasses], which includes [NSArray], [NSDictionary],
 // [NSSet], [NSString], [NSNumber], [NSDate], [NSData], [NSURL], [NSUUID], and
 // [NSNull].
-// 
+//
 // To archive or unarchive other classes that support [NSSecureCoding], create
 // a subclass and override [NSSecureUnarchiveFromDataTransformer.AllowedTopLevelClasses] to list the classes to
 // transform.
-// 
+//
 // To use [NSSecureUnarchiveFromDataTransformer] with [Core Data], use the
 // name of this class, or the name of a subclass you implement, as the name of
 // the transformer for an entity’s attribute within a Core Data Model. If
 // you use your own transformer subclass, register it with your app before
 // intializing your persistent container with Core Data.
-// 
+//
 // For an example of subclassing [NSSecureUnarchiveFromDataTransformer], see
 // [Handling Different Data Types in Core Data], which has a
 // [ColorToDataTransformer] class that transforms [UIColor] to [NSData] and
 // the reverse, to support archiving instances of [UIColor].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSSecureUnarchiveFromDataTransformer
+//
 // [Core Data]: https://developer.apple.com/documentation/CoreData
 // [Handling Different Data Types in Core Data]: https://developer.apple.com/documentation/CoreData/handling-different-data-types-in-core-data
 // [UIColor]: https://developer.apple.com/documentation/UIKit/UIColor
-//
-// See: https://developer.apple.com/documentation/Foundation/NSSecureUnarchiveFromDataTransformer
 type NSSecureUnarchiveFromDataTransformer struct {
 	NSValueTransformer
 }
@@ -82,6 +83,7 @@ type NSSecureUnarchiveFromDataTransformer struct {
 func NSSecureUnarchiveFromDataTransformerFromID(id objc.ID) NSSecureUnarchiveFromDataTransformer {
 	return NSSecureUnarchiveFromDataTransformer{NSValueTransformer: NSValueTransformerFromID(id)}
 }
+
 // NOTE: NSSecureUnarchiveFromDataTransformer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -115,12 +117,12 @@ func NewNSSecureUnarchiveFromDataTransformer() NSSecureUnarchiveFromDataTransfor
 // to, for encoding and decoding.
 //
 // # Discussion
-// 
+//
 // This property contains the value of [TransformedValueClass] if that value
 // isn’t `nil`. Otherwise, it holds a list of the top level classes that it
 // decodes, which includes [NSArray], [NSDictionary], [NSSet], [NSString],
 // [NSNumber], [NSDate], [NSData], [NSURL], [NSUUID], and [NSNull].
-// 
+//
 // Override this property in subclasses to provide an expanded or different
 // set of allowed transformation classes.
 //
@@ -131,4 +133,3 @@ func (_NSSecureUnarchiveFromDataTransformerClass NSSecureUnarchiveFromDataTransf
 		return objc.Class(id)
 	})
 }
-

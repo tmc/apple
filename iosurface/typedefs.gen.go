@@ -2,7 +2,6 @@
 
 package iosurface
 
-
 // IOSurfaceID is an IOSurface identifier.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceID
@@ -19,4 +18,3 @@ type IOSurfaceRef uintptr
 // SurfaceRef is a bare alias for IOSurfaceRef used by dependent frameworks.
 
 type SurfaceRef = IOSurfaceRef
-

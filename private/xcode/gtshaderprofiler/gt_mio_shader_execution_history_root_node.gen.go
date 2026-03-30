@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"context"
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -43,7 +44,6 @@ func (gc GTMioShaderExecutionHistoryRootNodeClass) Alloc() GTMioShaderExecutionH
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTMioShaderExecutionHistoryRootNode._pushNewFunction]
@@ -71,6 +71,7 @@ func (gc GTMioShaderExecutionHistoryRootNodeClass) Alloc() GTMioShaderExecutionH
 //   - [GTMioShaderExecutionHistoryRootNode.Style]
 //   - [GTMioShaderExecutionHistoryRootNode.TimestampNextInstructionCount]
 //   - [GTMioShaderExecutionHistoryRootNode.InitWithStyleOptionsDelegate]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode
 type GTMioShaderExecutionHistoryRootNode struct {
 	GTMioShaderExecutionHistoryNode
@@ -80,6 +81,7 @@ type GTMioShaderExecutionHistoryRootNode struct {
 func GTMioShaderExecutionHistoryRootNodeFromID(id objc.ID) GTMioShaderExecutionHistoryRootNode {
 	return GTMioShaderExecutionHistoryRootNode{GTMioShaderExecutionHistoryNode: GTMioShaderExecutionHistoryNodeFromID(id)}
 }
+
 // Ensure GTMioShaderExecutionHistoryRootNode implements IGTMioShaderExecutionHistoryRootNode.
 var _ IGTMioShaderExecutionHistoryRootNode = GTMioShaderExecutionHistoryRootNode{}
 
@@ -165,7 +167,6 @@ func NewGTMioShaderExecutionHistoryRootNode() GTMioShaderExecutionHistoryRootNod
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/initWithStyle:options:delegate:
 func NewGTMioShaderExecutionHistoryRootNodeWithStyleOptionsDelegate(style uint32, options uint32, delegate objectivec.IObject) GTMioShaderExecutionHistoryRootNode {
 	instance := getGTMioShaderExecutionHistoryRootNodeClass().Alloc()
@@ -173,7 +174,6 @@ func NewGTMioShaderExecutionHistoryRootNodeWithStyleOptionsDelegate(style uint32
 	return GTMioShaderExecutionHistoryRootNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryNode/initWithType:parent:
 func NewGTMioShaderExecutionHistoryRootNodeWithTypeParent(type_ uint32, parent objectivec.IObject) GTMioShaderExecutionHistoryRootNode {
 	instance := getGTMioShaderExecutionHistoryRootNodeClass().Alloc()
@@ -181,7 +181,6 @@ func NewGTMioShaderExecutionHistoryRootNodeWithTypeParent(type_ uint32, parent o
 	return GTMioShaderExecutionHistoryRootNodeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/_pushNewFunction:
 func (g GTMioShaderExecutionHistoryRootNode) _pushNewFunction(function objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_pushNewFunction:"), function)
@@ -191,105 +190,109 @@ func (g GTMioShaderExecutionHistoryRootNode) _pushNewFunction(function objective
 func (g GTMioShaderExecutionHistoryRootNode) PushNewFunction(function objectivec.IObject) {
 	g._pushNewFunction(function)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/cacheKey
 func (g GTMioShaderExecutionHistoryRootNode) CacheKey() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("cacheKey"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/cacheObject
 func (g GTMioShaderExecutionHistoryRootNode) CacheObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("cacheObject"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/cliqueExecutionHistoryBegin:usc:
 func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryBeginUsc(begin unsafe.Pointer, usc objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryBegin:usc:"), begin, usc)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/cliqueExecutionHistoryEnd:usc:
 func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryEndUsc(end unsafe.Pointer, usc objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("cliqueExecutionHistoryEnd:usc:"), end, usc)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/cliqueExecutionHistoryStyle
 func (g GTMioShaderExecutionHistoryRootNode) CliqueExecutionHistoryStyle() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("cliqueExecutionHistoryStyle"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/dumpTree:
 func (g GTMioShaderExecutionHistoryRootNode) DumpTree(tree objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("dumpTree:"), tree)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/enumerateFunctionCallSites:
 func (g GTMioShaderExecutionHistoryRootNode) EnumerateFunctionCallSites(sites VoidHandler) {
-_block0, _ := NewVoidBlock(sites)
+	_block0, _ := NewVoidBlock(sites)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateFunctionCallSites:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/functionCallSitesForIdentifier:
 func (g GTMioShaderExecutionHistoryRootNode) FunctionCallSitesForIdentifier(identifier uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("functionCallSitesForIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/handleCachedObject:
 func (g GTMioShaderExecutionHistoryRootNode) HandleCachedObject(object objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("handleCachedObject:"), object)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/loopBack:instructionEnd:loopCount:currentLoopCount:binary:
 func (g GTMioShaderExecutionHistoryRootNode) LoopBackInstructionEndLoopCountCurrentLoopCountBinary(back uint32, end uint32, count uint32, count2 uint32, binary objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("loopBack:instructionEnd:loopCount:currentLoopCount:binary:"), back, end, count, count2, binary)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/numHitsForInstruction:binaryIndex:
 func (g GTMioShaderExecutionHistoryRootNode) NumHitsForInstructionBinaryIndex(instruction uint32, index uint32) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("numHitsForInstruction:binaryIndex:"), instruction, index)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/popFunction:binaryRange:binary:
 func (g GTMioShaderExecutionHistoryRootNode) PopFunctionBinaryRangeBinary(function unsafe.Pointer, range_ unsafe.Pointer, binary objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("popFunction:binaryRange:binary:"), function, range_, binary)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/popLoop:instructionEnd:loopCount:binary:
 func (g GTMioShaderExecutionHistoryRootNode) PopLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("popLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/popStack
 func (g GTMioShaderExecutionHistoryRootNode) PopStack() {
 	objc.Send[objc.ID](g.ID, objc.Sel("popStack"))
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/processInstruction:binaryRange:binary:numHits:
 func (g GTMioShaderExecutionHistoryRootNode) ProcessInstructionBinaryRangeBinaryNumHits(instruction uint32, range_ unsafe.Pointer, binary objectivec.IObject, hits uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("processInstruction:binaryRange:binary:numHits:"), instruction, range_, binary, hits)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:
 func (g GTMioShaderExecutionHistoryRootNode) PushFunctionBinaryRangeIndexInlinedBinaryCallerLocationCallerBinaryRangeIndexCallerBinary(function unsafe.Pointer, index uint32, inlined bool, binary objectivec.IObject, location unsafe.Pointer, index2 uint32, binary2 objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("pushFunction:binaryRangeIndex:inlined:binary:callerLocation:callerBinaryRangeIndex:callerBinary:"), function, index, inlined, binary, location, index2, binary2)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/pushLoop:instructionEnd:loopCount:binary:
 func (g GTMioShaderExecutionHistoryRootNode) PushLoopInstructionEndLoopCountBinary(loop uint32, end uint32, count uint32, binary objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("pushLoop:instructionEnd:loopCount:binary:"), loop, end, count, binary)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/pushStack:
 func (g GTMioShaderExecutionHistoryRootNode) PushStack(stack objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("pushStack:"), stack)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/timestamp:next:instructionCount:
 func (g GTMioShaderExecutionHistoryRootNode) TimestampNextInstructionCount(timestamp uint64, next uint64, count uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("timestamp:next:instructionCount:"), timestamp, next, count)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/initWithStyle:options:delegate:
 func (g GTMioShaderExecutionHistoryRootNode) InitWithStyleOptionsDelegate(style uint32, options uint32, delegate objectivec.IObject) GTMioShaderExecutionHistoryRootNode {
 	rv := objc.Send[GTMioShaderExecutionHistoryRootNode](g.ID, objc.Sel("initWithStyle:options:delegate:"), style, options, delegate)
@@ -304,11 +307,13 @@ func (g GTMioShaderExecutionHistoryRootNode) Delegate() objectivec.IObject {
 func (g GTMioShaderExecutionHistoryRootNode) SetDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/options
 func (g GTMioShaderExecutionHistoryRootNode) Options() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("options"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioShaderExecutionHistoryRootNode/style
 func (g GTMioShaderExecutionHistoryRootNode) Style() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("style"))
@@ -329,4 +334,3 @@ func (g GTMioShaderExecutionHistoryRootNode) EnumerateFunctionCallSitesSync(ctx 
 		return ctx.Err()
 	}
 }
-

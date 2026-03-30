@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,26 +46,26 @@ func (uc UnitConverterClass) Alloc() UnitConverter {
 // and from the base unit of its dimension.
 //
 // # Overview
-// 
+//
 // For units that can be converted by a scale factor or linear equation, use
 // the concrete subclass [NSUnitConverterLinear].
-// 
+//
 // # Subclassing Notes
-// 
+//
 // [NSUnitConverter] is an abstract class that is intended for subclassing.
 // You can implement your own subclass of [NSUnitConverter] to convert between
 // units according to any desired mapping function. For example, units may be
 // converted using a logarithmic, exponential, or quantile scale.
-// 
+//
 // # Methods to Override
-// 
+//
 // All subclasses must fully implement the following methods:
-// 
+//
 // - [BaseUnitValueFromValue]
 // - [ValueFromBaseUnitValue]
-// 
+//
 // # Alternatives to Subclassing
-// 
+//
 // As stated above, most physical units can be converted using a linear
 // equation with [NSUnitConverterLinear]. You should only create a custom
 // subclass of [NSUnitConverter] for units that cannot be converted in this
@@ -90,6 +91,7 @@ func UnitConverterFromID(id objc.ID) UnitConverter {
 
 // NSUnitConverterFromID is an alias for [UnitConverterFromID] for cross-framework compatibility.
 func NSUnitConverterFromID(id objc.ID) UnitConverter { return UnitConverterFromID(id) }
+
 // NOTE: UnitConverter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,11 +139,11 @@ func NewUnitConverter() UnitConverter {
 // value: The value in terms of a given unit.
 //
 // # Return Value
-// 
+//
 // The value in terms of the base unit.
 //
 // # Discussion
-// 
+//
 // This method takes a value in a particular unit and returns the result of
 // converting it into the base unit of that unit’s dimension. For example, a
 // converter for the miles unit calling this method, passing `1.0` to the
@@ -152,17 +154,18 @@ func (u UnitConverter) BaseUnitValueFromValue(value float64) float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("baseUnitValueFromValue:"), value)
 	return rv
 }
+
 // For a given unit, returns the specified value of the base unit in terms of
 // that unit.
 //
 // baseUnitValue: The value in terms of the base unit.
 //
 // # Return Value
-// 
+//
 // The value in terms of a given unit.
 //
 // # Discussion
-// 
+//
 // This method takes a value in the base unit of a unit’s dimension and
 // returns the result of converting it into that unit. For example, a
 // converter for the pounds unit calling this method, passing `2.20462` to the
@@ -173,4 +176,3 @@ func (u UnitConverter) ValueFromBaseUnitValue(baseUnitValue float64) float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("valueFromBaseUnitValue:"), baseUnitValue)
 	return rv
 }
-

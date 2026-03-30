@@ -86,4 +86,3 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

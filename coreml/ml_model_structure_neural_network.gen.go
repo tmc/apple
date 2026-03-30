@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MLModelStructureNeuralNetwork struct {
 func MLModelStructureNeuralNetworkFromID(id objc.ID) MLModelStructureNeuralNetwork {
 	return MLModelStructureNeuralNetwork{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureNeuralNetwork implements IMLModelStructureNeuralNetwork.
 var _ IMLModelStructureNeuralNetwork = MLModelStructureNeuralNetwork{}
 
@@ -105,4 +107,3 @@ func (m MLModelStructureNeuralNetwork) Layers() []MLModelStructureNeuralNetworkL
 		return MLModelStructureNeuralNetworkLayerFromID(id)
 	})
 }
-

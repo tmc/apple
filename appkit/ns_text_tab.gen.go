@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,11 +46,11 @@ func (nc NSTextTabClass) Alloc() NSTextTab {
 // A tab in a paragraph.
 //
 // # Overview
-// 
+//
 // A text tab represents a tab in an [NSParagraphStyle] object, storing an
 // alignment type and location. [NSTextTab] objects are most frequently used
 // with the TextKit system and with [NSRulerView] and [NSRulerMarker] objects.
-// 
+//
 // The text system supports four alignment types: left, center, right, and
 // decimal (based on the decimal separator character of the locale in effect).
 // These alignment types are absolute, not based on the line sweep direction
@@ -88,6 +89,7 @@ type NSTextTab struct {
 func NSTextTabFromID(id objc.ID) NSTextTab {
 	return NSTextTab{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTextTab adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -171,18 +173,18 @@ func NewNSTextTab() NSTextTab {
 // options: Options to apply to the text tab.
 //
 // # Return Value
-// 
+//
 // An initialized text tab.
 //
 // # Discussion
-// 
+//
 // The text alignment is used to determine the position of text inside the tab
 // column. See [NSParagraphStyle.TextTabType] for a mapping between alignments
 // and tab stop types
 //
-// [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/init(textAlignment:location:options:)
+//
+// [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
 func NewTextTabWithTextAlignmentLocationOptions(alignment NSTextAlignment, loc float64, options foundation.INSDictionary) NSTextTab {
 	instance := getNSTextTabClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTextAlignment:location:options:"), alignment, loc, options)
@@ -193,14 +195,14 @@ func NewTextTabWithTextAlignmentLocationOptions(alignment NSTextAlignment, loc f
 // location.
 //
 // # Discussion
-// 
+//
 // The location is relative to the back margin, based on the line sweep
 // direction of the paragraph. The value in the `type` parameter can be any of
 // the values described in [NSParagraphStyle.TextTabType].
 //
-// [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/init(type:location:)
+//
+// [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
 func NewTextTabWithTypeLocation(type_ NSTextTabType, loc float64) NSTextTab {
 	instance := getNSTextTabClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:location:"), type_, loc)
@@ -217,34 +219,35 @@ func NewTextTabWithTypeLocation(type_ NSTextTabType, loc float64) NSTextTab {
 // options: Options to apply to the text tab.
 //
 // # Return Value
-// 
+//
 // An initialized text tab.
 //
 // # Discussion
-// 
+//
 // The text alignment is used to determine the position of text inside the tab
 // column. See [NSParagraphStyle.TextTabType] for a mapping between alignments
 // and tab stop types
 //
-// [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/init(textAlignment:location:options:)
+//
+// [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
 func (t NSTextTab) InitWithTextAlignmentLocationOptions(alignment NSTextAlignment, loc float64, options foundation.INSDictionary) NSTextTab {
 	rv := objc.Send[NSTextTab](t.ID, objc.Sel("initWithTextAlignment:location:options:"), alignment, loc, options)
 	return rv
 }
+
 // Initializes a newly allocated text tab with the specified alignment and
 // location.
 //
 // # Discussion
-// 
+//
 // The location is relative to the back margin, based on the line sweep
 // direction of the paragraph. The value in the `type` parameter can be any of
 // the values described in [NSParagraphStyle.TextTabType].
 //
-// [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/init(type:location:)
+//
+// [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
 func (t NSTextTab) InitWithTypeLocation(type_ NSTextTabType, loc float64) NSTextTab {
 	rv := objc.Send[NSTextTab](t.ID, objc.Sel("initWithType:location:"), type_, loc)
 	return rv
@@ -258,22 +261,21 @@ func (t NSTextTab) EncodeWithCoder(coder foundation.INSCoder) {
 // aLocale: The locale to use when determining the terminators. Specify `nil` to use
 // the system’s current locale. You can get the user’s locale using the
 // [current] method of [NSLocale].
-// //
-// [NSLocale]: https://developer.apple.com/documentation/Foundation/NSLocale
-// [current]: https://developer.apple.com/documentation/Foundation/NSLocale/current
 //
 // # Return Value
-// 
+//
 // The characters for the column terminators.
 //
 // # Discussion
-// 
+//
 // The returned value can be used as the value for [columnTerminators] to make
 // a decimal tab stop.
 //
-// [columnTerminators]: https://developer.apple.com/documentation/AppKit/NSTextTab/OptionKey/columnTerminators
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/columnTerminators(for:)
+//
+// [NSLocale]: https://developer.apple.com/documentation/Foundation/NSLocale
+// [current]: https://developer.apple.com/documentation/Foundation/NSLocale/current
+// [columnTerminators]: https://developer.apple.com/documentation/AppKit/NSTextTab/OptionKey/columnTerminators
 func (_NSTextTabClass NSTextTabClass) ColumnTerminatorsForLocale(aLocale foundation.NSLocale) foundation.NSCharacterSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextTabClass.class), objc.Sel("columnTerminatorsForLocale:"), aLocale)
 	return foundation.NSCharacterSetFromID(rv)
@@ -286,6 +288,7 @@ func (t NSTextTab) Location() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("location"))
 	return rv
 }
+
 // The text alignment of the text tab.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/alignment
@@ -293,6 +296,7 @@ func (t NSTextTab) Alignment() NSTextAlignment {
 	rv := objc.Send[NSTextAlignment](t.ID, objc.Sel("alignment"))
 	return NSTextAlignment(rv)
 }
+
 // The dictionary of attributes for the text tab.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/options
@@ -300,17 +304,17 @@ func (t NSTextTab) Options() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("options"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // The text tab’s type of tab stop.
 //
 // # Discussion
-// 
+//
 // Possible values are listed in [NSParagraphStyle.TextTabType].
 //
-// [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/tabStopType
+//
+// [NSParagraphStyle.TextTabType]: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
 func (t NSTextTab) TabStopType() NSTextTabType {
 	rv := objc.Send[NSTextTabType](t.ID, objc.Sel("tabStopType"))
 	return NSTextTabType(rv)
 }
-

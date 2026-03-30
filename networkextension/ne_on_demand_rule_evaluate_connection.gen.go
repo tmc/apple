@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NEOnDemandRuleEvaluateConnectionClass) Alloc() NEOnDemandRuleEvaluateCo
 // whether to run its action.
 //
 // # Overview
-// 
+//
 // When rules of this class match, the properties of the network connection
 // being established are matched against a set of connection rules. The action
 // of the matched rule (if any) is used to determine whether or not the VPN
@@ -68,6 +69,7 @@ type NEOnDemandRuleEvaluateConnection struct {
 func NEOnDemandRuleEvaluateConnectionFromID(id objc.ID) NEOnDemandRuleEvaluateConnection {
 	return NEOnDemandRuleEvaluateConnection{NEOnDemandRule: NEOnDemandRuleFromID(id)}
 }
+
 // NOTE: NEOnDemandRuleEvaluateConnection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -111,21 +113,18 @@ func NewNEOnDemandRuleEvaluateConnection() NEOnDemandRuleEvaluateConnection {
 // An array of [NEEvaluateConnectionRule] objects
 //
 // # Discussion
-// 
+//
 // Each [NEEvaluateConnectionRule] object defines a behavior to take for
 // connections that match the domain of the rule. Each rule is evaluated in
 // order against the properties of a network connection being established. An
 // example configuration has two connection rules: a rule matching
 // `myserver.ExampleXCUIElementTypeCom()` with the domain action
-// [NEEvaluateConnectionRuleAction.neverConnect], followed by a rule matching
+// [NEEvaluateConnectionRuleActionNeverConnect], followed by a rule matching
 // `example.Com()` with the domain action
-// [NEEvaluateConnectionRuleAction.connectIfNeeded]. This configuration would
+// [NEEvaluateConnectionRuleActionConnectIfNeeded]. This configuration would
 // cause all connections to hostnames in `example.Com()` that do not resolve
 // on the current network to trigger the VPN, except for
 // `myserver.ExampleXCUIElementTypeCom()`.
-//
-// [NEEvaluateConnectionRuleAction.connectIfNeeded]: https://developer.apple.com/documentation/NetworkExtension/NEEvaluateConnectionRuleAction/connectIfNeeded
-// [NEEvaluateConnectionRuleAction.neverConnect]: https://developer.apple.com/documentation/NetworkExtension/NEEvaluateConnectionRuleAction/neverConnect
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEOnDemandRuleEvaluateConnection/connectionRules
 func (o NEOnDemandRuleEvaluateConnection) ConnectionRules() []NEEvaluateConnectionRule {
@@ -137,4 +136,3 @@ func (o NEOnDemandRuleEvaluateConnection) ConnectionRules() []NEEvaluateConnecti
 func (o NEOnDemandRuleEvaluateConnection) SetConnectionRules(value []NEEvaluateConnectionRule) {
 	objc.Send[struct{}](o.ID, objc.Sel("setConnectionRules:"), objectivec.IObjectSliceToNSArray(value))
 }
-

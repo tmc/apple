@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -73,6 +74,7 @@ type NEEvaluateConnectionRule struct {
 func NEEvaluateConnectionRuleFromID(id objc.ID) NEEvaluateConnectionRule {
 	return NEEvaluateConnectionRule{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEEvaluateConnectionRule adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,7 +121,7 @@ type INEEvaluateConnectionRule interface {
 	// The action to take if the properties of the network connection being established match the rule.
 	Action() NEEvaluateConnectionRuleAction
 
-	// An array of 
+	// An array of
 	ConnectionRules() INEEvaluateConnectionRule
 	SetConnectionRules(value INEEvaluateConnectionRule)
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -202,6 +204,7 @@ func (e NEEvaluateConnectionRule) MatchDomains() []string {
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("matchDomains"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // If the rule matches the connection being established and the action is
 // [NEEvaluateConnectionRuleActionConnectIfNeeded], the DNS servers specified
 // in this array are used to resolve the destination hostname of the
@@ -216,6 +219,7 @@ func (e NEEvaluateConnectionRule) UseDNSServers() []string {
 func (e NEEvaluateConnectionRule) SetUseDNSServers(value []string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setUseDNSServers:"), objectivec.StringSliceToNSArray(value))
 }
+
 // An HTTP or HTTPS URL. If the rule matches the connection being established
 // and the action is [NEEvaluateConnectionRuleActionConnectIfNeeded] and a
 // request sent to this URL results in a response with an HTTP response code
@@ -229,6 +233,7 @@ func (e NEEvaluateConnectionRule) ProbeURL() foundation.INSURL {
 func (e NEEvaluateConnectionRule) SetProbeURL(value foundation.INSURL) {
 	objc.Send[struct{}](e.ID, objc.Sel("setProbeURL:"), value)
 }
+
 // The action to take if the properties of the network connection being
 // established match the rule.
 //
@@ -237,6 +242,7 @@ func (e NEEvaluateConnectionRule) Action() NEEvaluateConnectionRuleAction {
 	rv := objc.Send[NEEvaluateConnectionRuleAction](e.ID, objc.Sel("action"))
 	return NEEvaluateConnectionRuleAction(rv)
 }
+
 // An array of
 //
 // See: https://developer.apple.com/documentation/networkextension/neondemandruleevaluateconnection/connectionrules
@@ -247,4 +253,3 @@ func (e NEEvaluateConnectionRule) ConnectionRules() INEEvaluateConnectionRule {
 func (e NEEvaluateConnectionRule) SetConnectionRules(value INEEvaluateConnectionRule) {
 	objc.Send[struct{}](e.ID, objc.Sel("setConnectionRules:"), value)
 }
-

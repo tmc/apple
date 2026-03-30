@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,6 +49,7 @@ type MTL4CounterHeap interface {
 type MTL4CounterHeapObject struct {
 	objectivec.Object
 }
+
 func (o MTL4CounterHeapObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,27 +68,30 @@ func MTL4CounterHeapObjectFromID(id objc.ID) MTL4CounterHeapObject {
 func (o MTL4CounterHeapObject) Count() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("count"))
 	return rv
-	}
+}
+
 // Assigns a label for later inspection or visualization.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/label
 func (o MTL4CounterHeapObject) Label() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
-	}
+}
+
 // Queries the type of the heap.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/type
 func (o MTL4CounterHeapObject) Type() MTL4CounterHeapType {
 	rv := objc.Send[MTL4CounterHeapType](o.ID, objc.Sel("type"))
 	return rv
-	}
+}
+
 // Invalidates a range of entries in this counter heap.
 //
 // range: A heap index range to invalidate.
 //
 // # Discussion
-// 
+//
 // The effect of this call is immediate on the CPU timeline. You are
 // responsible for ensuring that this counter heap is not currently in use on
 // the GPU.
@@ -95,18 +99,19 @@ func (o MTL4CounterHeapObject) Type() MTL4CounterHeapType {
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/invalidateCounterRange:
 func (o MTL4CounterHeapObject) InvalidateCounterRange(range_ foundation.NSRange) {
 	objc.Send[struct{}](o.ID, objc.Sel("invalidateCounterRange:"), range_)
-	}
+}
+
 // Resolves heap data on the CPU timeline.
 //
 // range: The range in the heap to resolve.
 //
 // # Discussion
-// 
+//
 // This method resolves heap data in the CPU timeline. Your app needs to
 // ensure the GPU work has completed in order to retrieve the data correctly.
 // You can alternatively resolve the heap data in the GPU timeline by calling
 // [ResolveCounterHeapWithRangeIntoBufferWaitFenceUpdateFence].
-// 
+//
 // - Returns a newly allocated autoreleased NSData containing tightly packed
 // resolved heap counter values.
 //
@@ -114,9 +119,11 @@ func (o MTL4CounterHeapObject) InvalidateCounterRange(range_ foundation.NSRange)
 func (o MTL4CounterHeapObject) ResolveCounterRange(range_ foundation.NSRange) foundation.INSData {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("resolveCounterRange:"), range_)
 	return foundation.NSDataFromID(rv)
-	}
+}
 
+// Assigns a label for later inspection or visualization.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/label
 func (o MTL4CounterHeapObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-

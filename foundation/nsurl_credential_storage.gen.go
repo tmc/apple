@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,23 +46,23 @@ func (uc URLCredentialStorageClass) Alloc() URLCredentialStorage {
 // The manager of a shared credentials cache.
 //
 // # Overview
-// 
+//
 // The shared cache stores and retrieves instances of [NSURLCredential]. You
 // can store password-based credentials permanently, based on the
 // [URLCredential.Persistence] they were created with. Certificate-based
 // credentials are never stored permanently.
-// 
+//
 // # Subclassing notes
-// 
+//
 // The [NSURLCredentialStorage] class is meant to be used as-is, but you can
 // subclass it if you have specific needs, such as screening which credentials
 // are stored.
-// 
+//
 // When overriding methods of this class, be aware that methods that take a
 // `task` parameter are preferred to equivalent methods that do not.
 // Therefore, you should override the task-based methods when subclassing, as
 // follows:
-// 
+//
 // - Setting credentials — Override [SetCredentialForProtectionSpaceTask]
 // instead of or in addition to [SetCredentialForProtectionSpace]. - Getting
 // credentials — Override
@@ -75,8 +76,6 @@ func (uc URLCredentialStorageClass) Alloc() URLCredentialStorage {
 // credentials — Override
 // [GetDefaultCredentialForProtectionSpaceTaskCompletionHandler] instead of or
 // in addition to [DefaultCredentialForProtectionSpace].
-//
-// [URLCredential.Persistence]: https://developer.apple.com/documentation/Foundation/URLCredential/Persistence-swift.enum
 //
 // # Getting and setting default credentials
 //
@@ -103,6 +102,8 @@ func (uc URLCredentialStorageClass) Alloc() URLCredentialStorage {
 //   - [URLCredentialStorage.NSURLCredentialStorageChanged]: A notification posted when the set of stored credentials changes.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredentialStorage
+//
+// [URLCredential.Persistence]: https://developer.apple.com/documentation/Foundation/URLCredential/Persistence-swift.enum
 type URLCredentialStorage struct {
 	objectivec.Object
 }
@@ -115,7 +116,10 @@ func URLCredentialStorageFromID(id objc.ID) URLCredentialStorage {
 }
 
 // NSURLCredentialStorageFromID is an alias for [URLCredentialStorageFromID] for cross-framework compatibility.
-func NSURLCredentialStorageFromID(id objc.ID) URLCredentialStorage { return URLCredentialStorageFromID(id) }
+func NSURLCredentialStorageFromID(id objc.ID) URLCredentialStorage {
+	return URLCredentialStorageFromID(id)
+}
+
 // NOTE: URLCredentialStorage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -210,11 +214,11 @@ func NewURLCredentialStorage() URLCredentialStorage {
 // space: The URL protection space of interest.
 //
 // # Return Value
-// 
+//
 // The default credential for `space` or `nil` if no default has been set.
 //
 // # Discussion
-// 
+//
 // If you override this method, also override
 // [GetDefaultCredentialForProtectionSpaceTaskCompletionHandler].
 //
@@ -223,6 +227,7 @@ func (u URLCredentialStorage) DefaultCredentialForProtectionSpace(space INSURLPr
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("defaultCredentialForProtectionSpace:"), space)
 	return NSURLCredentialFromID(rv)
 }
+
 // Gets the default credential for the specified protection space, which is
 // being accessed by the given task, and passes it to the provided completion
 // handler.
@@ -237,9 +242,10 @@ func (u URLCredentialStorage) DefaultCredentialForProtectionSpace(space INSURLPr
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredentialStorage/getDefaultCredential(for:task:completionHandler:)
 func (u URLCredentialStorage) GetDefaultCredentialForProtectionSpaceTaskCompletionHandler(space INSURLProtectionSpace, task INSURLSessionTask, completionHandler URLCredentialHandler) {
-_block2, _ := NewURLCredentialBlock(completionHandler)
+	_block2, _ := NewURLCredentialBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("getDefaultCredentialForProtectionSpace:task:completionHandler:"), space, task, _block2)
 }
+
 // Sets the default credential for a specified protection space.
 //
 // credential: The URL credential to set as the default for `space`. If the receiver does
@@ -249,7 +255,7 @@ _block2, _ := NewURLCredentialBlock(completionHandler)
 // space: The protection space whose default credential is being set.
 //
 // # Discussion
-// 
+//
 // If you override this method, also override
 // [SetDefaultCredentialForProtectionSpaceTask].
 //
@@ -257,6 +263,7 @@ _block2, _ := NewURLCredentialBlock(completionHandler)
 func (u URLCredentialStorage) SetDefaultCredentialForProtectionSpace(credential INSURLCredential, space INSURLProtectionSpace) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setDefaultCredential:forProtectionSpace:"), credential, space)
 }
+
 // Sets the default credential for a given protection space, which is being
 // accessed by the given task.
 //
@@ -274,6 +281,7 @@ func (u URLCredentialStorage) SetDefaultCredentialForProtectionSpace(credential 
 func (u URLCredentialStorage) SetDefaultCredentialForProtectionSpaceTask(credential INSURLCredential, protectionSpace INSURLProtectionSpace, task INSURLSessionTask) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setDefaultCredential:forProtectionSpace:task:"), credential, protectionSpace, task)
 }
+
 // Removes the specified credential from the credential storage for the
 // specified protection space.
 //
@@ -282,7 +290,7 @@ func (u URLCredentialStorage) SetDefaultCredentialForProtectionSpaceTask(credent
 // space: The protection space from which to remove the credential.
 //
 // # Discussion
-// 
+//
 // If you override this method, also override
 // [RemoveCredentialForProtectionSpaceOptionsTask].
 //
@@ -290,6 +298,7 @@ func (u URLCredentialStorage) SetDefaultCredentialForProtectionSpaceTask(credent
 func (u URLCredentialStorage) RemoveCredentialForProtectionSpace(credential INSURLCredential, space INSURLProtectionSpace) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeCredential:forProtectionSpace:"), credential, space)
 }
+
 // Removes the specified credential from the credential storage for the
 // specified protection space using the given options.
 //
@@ -298,24 +307,25 @@ func (u URLCredentialStorage) RemoveCredentialForProtectionSpace(credential INSU
 // space: The protection space from which to remove the credential.
 //
 // options: A dictionary containing options to consider when removing the credential.
-// 
+//
 // For possible keys, see [Dictionary key for credential removal options]. You
 // should use this when trying to delete a credential that has the
-// [URLCredentialPersistenceSynchronizable] policy.
-// //
-// [Dictionary key for credential removal options]: https://developer.apple.com/documentation/Foundation/dictionary-key-for-credential-removal-options
+// [NSURLCredentialPersistenceSynchronizable] policy.
 //
 // # Discussion
-// 
+//
 // The credential is removed from both persistent and temporary storage.
-// 
+//
 // If you override this method, also override
 // [RemoveCredentialForProtectionSpaceOptionsTask].
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredentialStorage/remove(_:for:options:)
+//
+// [Dictionary key for credential removal options]: https://developer.apple.com/documentation/Foundation/dictionary-key-for-credential-removal-options
 func (u URLCredentialStorage) RemoveCredentialForProtectionSpaceOptions(credential INSURLCredential, space INSURLProtectionSpace, options INSDictionary) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeCredential:forProtectionSpace:options:"), credential, space, options)
 }
+
 // Removes the specified credential from the credential storage for the
 // specified protection space, on behalf of the given task and using the given
 // options.
@@ -325,24 +335,25 @@ func (u URLCredentialStorage) RemoveCredentialForProtectionSpaceOptions(credenti
 // protectionSpace: The protection space from which to remove the credential.
 //
 // options: A dictionary containing options to consider when removing the credential.
-// 
+//
 // For possible keys, see [Dictionary key for credential removal options]. You
 // should use this when trying to delete a credential that has the
-// [URLCredentialPersistenceSynchronizable] policy.
-// //
-// [Dictionary key for credential removal options]: https://developer.apple.com/documentation/Foundation/dictionary-key-for-credential-removal-options
+// [NSURLCredentialPersistenceSynchronizable] policy.
 //
 // task: The task using the protection space that you wish to remove the credential
 // for.
 //
 // # Discussion
-// 
+//
 // The credential is removed from both persistent and temporary storage.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredentialStorage/remove(_:for:options:task:)
+//
+// [Dictionary key for credential removal options]: https://developer.apple.com/documentation/Foundation/dictionary-key-for-credential-removal-options
 func (u URLCredentialStorage) RemoveCredentialForProtectionSpaceOptionsTask(credential INSURLCredential, protectionSpace INSURLProtectionSpace, options INSDictionary, task INSURLSessionTask) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeCredential:forProtectionSpace:options:task:"), credential, protectionSpace, options, task)
 }
+
 // Adds a credential to the credential storage for the specified protection
 // space.
 //
@@ -352,10 +363,10 @@ func (u URLCredentialStorage) RemoveCredentialForProtectionSpaceOptionsTask(cred
 // space: The protection space to which to add the credential.
 //
 // # Discussion
-// 
+//
 // If the credential is not yet in the set for the protection space, it will
 // be added to it.
-// 
+//
 // If you override this method, also override
 // [SetCredentialForProtectionSpaceTask].
 //
@@ -363,6 +374,7 @@ func (u URLCredentialStorage) RemoveCredentialForProtectionSpaceOptionsTask(cred
 func (u URLCredentialStorage) SetCredentialForProtectionSpace(credential INSURLCredential, space INSURLProtectionSpace) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setCredential:forProtectionSpace:"), credential, space)
 }
+
 // Adds a credential to the credential storage for the specified protection
 // space, on behalf of the specified task.
 //
@@ -379,19 +391,20 @@ func (u URLCredentialStorage) SetCredentialForProtectionSpace(credential INSURLC
 func (u URLCredentialStorage) SetCredentialForProtectionSpaceTask(credential INSURLCredential, protectionSpace INSURLProtectionSpace, task INSURLSessionTask) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setCredential:forProtectionSpace:task:"), credential, protectionSpace, task)
 }
+
 // Returns a dictionary containing the credentials for the specified
 // protection space.
 //
 // space: The protection space whose credentials you want to retrieve.
 //
 // # Return Value
-// 
+//
 // A dictionary containing the credentials for the specified protection space.
 // The dictionary’s keys are user name strings, and each value is the
 // corresponding [NSURLCredential].
 //
 // # Discussion
-// 
+//
 // If you override this method, also override
 // [GetCredentialsForProtectionSpaceTaskCompletionHandler].
 //
@@ -404,7 +417,7 @@ func (u URLCredentialStorage) CredentialsForProtectionSpace(space INSURLProtecti
 // The credentials for all available protection spaces.
 //
 // # Discussion
-// 
+//
 // The dictionary has keys corresponding to the [NSURLProtectionSpace]
 // instances. The values are dictionaries where the keys are user name
 // strings, and each value is the corresponding [NSURLCredential] instances.
@@ -414,6 +427,7 @@ func (u URLCredentialStorage) AllCredentials() INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("allCredentials"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
+
 // A notification posted when the set of stored credentials changes.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsurlcredentialstoragechanged
@@ -444,4 +458,3 @@ func (u URLCredentialStorage) GetDefaultCredentialForProtectionSpaceTask(ctx con
 		return nil, ctx.Err()
 	}
 }
-

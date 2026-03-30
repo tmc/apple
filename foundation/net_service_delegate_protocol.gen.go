@@ -4,9 +4,11 @@ package foundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // The interface a net service uses to inform its delegate about the state of the service it offers.
@@ -20,6 +22,7 @@ type NSNetServiceDelegate interface {
 type NSNetServiceDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSNetServiceDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -37,7 +40,7 @@ func NSNetServiceDelegateObjectFromID(id objc.ID) NSNetServiceDelegateObject {
 // sender: The service that is ready to publish.
 //
 // # Discussion
-// 
+//
 // Publication of the service proceeds asynchronously and may still generate a
 // call to the delegate’s [NetServiceDidNotPublish] method if an error
 // occurs.
@@ -45,7 +48,8 @@ func NSNetServiceDelegateObjectFromID(id objc.ID) NSNetServiceDelegateObject {
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceWillPublish(_:)
 func (o NSNetServiceDelegateObject) NetServiceWillPublish(sender INSNetService) {
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceWillPublish:"), sender)
-	}
+}
+
 // Notifies the delegate that a service could not be published.
 //
 // sender: The service that could not be published.
@@ -54,14 +58,15 @@ func (o NSNetServiceDelegateObject) NetServiceWillPublish(sender INSNetService) 
 // contains the keys [NSNetServicesErrorCode] and [NSNetServicesErrorDomain].
 //
 // # Discussion
-// 
+//
 // This method may be called long after a [NetServiceWillPublish] message has
 // been delivered to the delegate.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netService(_:didNotPublish:)
 func (o NSNetServiceDelegateObject) NetServiceDidNotPublish(sender INSNetService, errorDict INSDictionary) {
 	objc.Send[struct{}](o.ID, objc.Sel("netService:didNotPublish:"), sender, errorDict)
-	}
+}
+
 // Notifies the delegate that a service was successfully published.
 //
 // sender: The service that was published.
@@ -69,13 +74,14 @@ func (o NSNetServiceDelegateObject) NetServiceDidNotPublish(sender INSNetService
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceDidPublish(_:)
 func (o NSNetServiceDelegateObject) NetServiceDidPublish(sender INSNetService) {
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceDidPublish:"), sender)
-	}
+}
+
 // Notifies the delegate that the network is ready to resolve the service.
 //
 // sender: The service that the network is ready to resolve.
 //
 // # Discussion
-// 
+//
 // Resolution of the service proceeds asynchronously and may still generate a
 // call to the delegate’s [NetServiceDidNotResolve] method if an error
 // occurs.
@@ -83,7 +89,8 @@ func (o NSNetServiceDelegateObject) NetServiceDidPublish(sender INSNetService) {
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceWillResolve(_:)
 func (o NSNetServiceDelegateObject) NetServiceWillResolve(sender INSNetService) {
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceWillResolve:"), sender)
-	}
+}
+
 // Informs the delegate that an error occurred during resolution of a given
 // service.
 //
@@ -91,27 +98,28 @@ func (o NSNetServiceDelegateObject) NetServiceWillResolve(sender INSNetService) 
 //
 // errorDict: A dictionary containing information about the problem. The dictionary
 // contains the keys [errorCode] and [errorDomain].
-// //
-// [errorCode]: https://developer.apple.com/documentation/Foundation/NetService/errorCode-swift.type.property
-// [errorDomain]: https://developer.apple.com/documentation/Foundation/NetService/errorDomain
 //
 // # Discussion
-// 
+//
 // Clients may try to resolve again upon receiving this error. For example, a
 // DNS rotary may yield different IP addresses on different resolution
 // requests. A common error condition is that no addresses were resolved
 // during the timeout period specified in [ResolveWithTimeout].
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netService(_:didNotResolve:)
+//
+// [errorCode]: https://developer.apple.com/documentation/Foundation/NetService/errorCode-swift.type.property
+// [errorDomain]: https://developer.apple.com/documentation/Foundation/NetService/errorDomain
 func (o NSNetServiceDelegateObject) NetServiceDidNotResolve(sender INSNetService, errorDict INSDictionary) {
 	objc.Send[struct{}](o.ID, objc.Sel("netService:didNotResolve:"), sender, errorDict)
-	}
+}
+
 // Informs the delegate that the address for a given service was resolved.
 //
 // sender: The service that was resolved.
 //
 // # Discussion
-// 
+//
 // The delegate can use the [Addresses] method to retrieve the service’s
 // address. If the delegate needs only one address, it can stop the resolution
 // process using [Stop]. Otherwise, the resolution will continue until the
@@ -120,7 +128,8 @@ func (o NSNetServiceDelegateObject) NetServiceDidNotResolve(sender INSNetService
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceDidResolveAddress(_:)
 func (o NSNetServiceDelegateObject) NetServiceDidResolveAddress(sender INSNetService) {
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceDidResolveAddress:"), sender)
-	}
+}
+
 // Notifies the delegate that the TXT record for a given service has been
 // updated.
 //
@@ -131,7 +140,8 @@ func (o NSNetServiceDelegateObject) NetServiceDidResolveAddress(sender INSNetSer
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netService(_:didUpdateTXTRecord:)
 func (o NSNetServiceDelegateObject) NetServiceDidUpdateTXTRecordData(sender INSNetService, data INSData) {
 	objc.Send[struct{}](o.ID, objc.Sel("netService:didUpdateTXTRecordData:"), sender, data)
-	}
+}
+
 // Informs the delegate that a [Publish] or [ResolveWithTimeout] request was
 // stopped.
 //
@@ -140,7 +150,8 @@ func (o NSNetServiceDelegateObject) NetServiceDidUpdateTXTRecordData(sender INSN
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceDidStop(_:)
 func (o NSNetServiceDelegateObject) NetServiceDidStop(sender INSNetService) {
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceDidStop:"), sender)
-	}
+}
+
 // Called when a client connects to a service managed by Bonjour.
 //
 // sender: The net service object that the client connected to.
@@ -150,17 +161,17 @@ func (o NSNetServiceDelegateObject) NetServiceDidStop(sender INSNetService) {
 // outputStream: A stream object for sending data to the client.
 //
 // # Discussion
-// 
-// When you publish a service, if you set the [NetServiceListenForConnections]
-// flag in the service options, the service object accepts connections on
-// behalf of your app. Later, when a client connects to that service, the
-// service object calls this method to provide the app with a pair of streams
-// for communicating with that client.
+//
+// When you publish a service, if you set the
+// [NSNetServiceListenForConnections] flag in the service options, the service
+// object accepts connections on behalf of your app. Later, when a client
+// connects to that service, the service object calls this method to provide
+// the app with a pair of streams for communicating with that client.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netService(_:didAcceptConnectionWith:outputStream:)
 func (o NSNetServiceDelegateObject) NetServiceDidAcceptConnectionWithInputStreamOutputStream(sender INSNetService, inputStream INSInputStream, outputStream INSOutputStream) {
 	objc.Send[struct{}](o.ID, objc.Sel("netService:didAcceptConnectionWithInputStream:outputStream:"), sender, inputStream, outputStream)
-	}
+}
 
 // NSNetServiceDelegateConfig holds optional typed callbacks for [NSNetServiceDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -305,4 +316,3 @@ func NewNSNetServiceDelegate(config NSNetServiceDelegateConfig) NSNetServiceDele
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSNetServiceDelegateObjectFromID(instance)
 }
-

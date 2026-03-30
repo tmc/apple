@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNAnimalBodyPoseObservation] class.
@@ -64,6 +65,7 @@ type VNAnimalBodyPoseObservation struct {
 func VNAnimalBodyPoseObservationFromID(id objc.ID) VNAnimalBodyPoseObservation {
 	return VNAnimalBodyPoseObservation{VNRecognizedPointsObservation: VNRecognizedPointsObservationFromID(id)}
 }
+
 // NOTE: VNAnimalBodyPoseObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,7 +118,7 @@ func NewVNAnimalBodyPoseObservation() VNAnimalBodyPoseObservation {
 // jointName: The joint name to retrieve.
 //
 // # Return Value
-// 
+//
 // The point for the joint name.
 //
 // See: https://developer.apple.com/documentation/Vision/VNAnimalBodyPoseObservation/recognizedPoint(_:)
@@ -130,12 +132,13 @@ func (a VNAnimalBodyPoseObservation) RecognizedPointForJointNameError(jointName 
 	return VNRecognizedPointFromID(rv), nil
 
 }
+
 // Returns the points for a joint group name the observation recognizes.
 //
 // jointsGroupName: The joint group of the points to retrieve.
 //
 // # Return Value
-// 
+//
 // The dictionary of points the observation associates with the group name.
 //
 // See: https://developer.apple.com/documentation/Vision/VNAnimalBodyPoseObservation/recognizedPoints(_:)
@@ -157,6 +160,7 @@ func (a VNAnimalBodyPoseObservation) AvailableJointNames() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("availableJointNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The available joint group names in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNAnimalBodyPoseObservation/availableJointGroupNames
@@ -164,4 +168,3 @@ func (a VNAnimalBodyPoseObservation) AvailableJointGroupNames() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("availableJointGroupNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSImageCell] class.
@@ -46,18 +47,18 @@ func (nc NSImageCellClass) Alloc() NSImageCell {
 // frame and for aligning and scaling the image to fit the frame.
 //
 // # Overview
-// 
+//
 // The object value of an [NSImageCell] object must be an [NSImage] object, so
 // if you use the [NSImageCell.ObjectValue] method of [NSCell], be sure to supply an
 // [NSImage] object as an argument. Because an [NSImage] object does not need
 // to be converted for display, do not use the [NSCell] methods relating to
 // formatters.
-// 
+//
 // An [NSImageCell] object is usually associated with some kind of control
 // object. For example, an [NSMatrix] or an [NSTableView].
-// 
+//
 // # Designated Initializers
-// 
+//
 // When subclassing [NSImageCell] you must implement all of the designated
 // initializers. Those methods are: init, [NSImageCell.InitWithCoder], [NSImageCell.InitTextCell], and
 // [NSImageCell.InitImageCell].
@@ -87,6 +88,7 @@ type NSImageCell struct {
 func NSImageCellFromID(id objc.ID) NSImageCell {
 	return NSImageCell{NSCell: NSCellFromID(id)}
 }
+
 // NOTE: NSImageCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -149,12 +151,12 @@ func NewNSImageCell() NSImageCell {
 // image: The image to use for the cell. If this parameter is `nil`, no image is set.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -171,15 +173,15 @@ func NewImageCellImageCell(image INSImage) NSImageCell {
 // string: The initial string to use for the cell.
 //
 // # Return Value
-// 
+//
 // An initialized [NSCell] object, or `nil` if the cell could not be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If no field editor (a shared [NSText] object) has been created for all
 // [NSCell] objects, one is created.
-// 
+//
 // This is one of four designated initializers you must implement when
 // subclassing. See [NSCell] for the complete list.
 //
@@ -190,7 +192,6 @@ func NewImageCellTextCell(string_ string) NSImageCell {
 	return NSImageCellFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewImageCellWithCoder(coder foundation.INSCoder) NSImageCell {
 	instance := getNSImageCellClass().Alloc()
@@ -201,13 +202,13 @@ func NewImageCellWithCoder(coder foundation.INSCoder) NSImageCell {
 // The alignment of the receiver’s image relative to its frame.
 //
 // # Discussion
-// 
+//
 // For a list of possible values, see [NSImageAlignment]. The default value is
 // [NSImageAlignCenter].
 //
-// [NSImageAlignment]: https://developer.apple.com/documentation/AppKit/NSImageAlignment
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageCell/imageAlignment
+//
+// [NSImageAlignment]: https://developer.apple.com/documentation/AppKit/NSImageAlignment
 func (i NSImageCell) ImageAlignment() NSImageAlignment {
 	rv := objc.Send[NSImageAlignment](i.ID, objc.Sel("imageAlignment"))
 	return NSImageAlignment(rv)
@@ -215,17 +216,17 @@ func (i NSImageCell) ImageAlignment() NSImageAlignment {
 func (i NSImageCell) SetImageAlignment(value NSImageAlignment) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageAlignment:"), value)
 }
+
 // The scaling mode used to fit the receiver’s image into the frame.
 //
 // # Discussion
-// 
-// For a list of possible values, see [NSImageScaling]. The default value is
-// [NSImageScaling.scaleProportionallyDown].
 //
-// [NSImageScaling.scaleProportionallyDown]: https://developer.apple.com/documentation/AppKit/NSImageScaling/scaleProportionallyDown
-// [NSImageScaling]: https://developer.apple.com/documentation/AppKit/NSImageScaling
+// For a list of possible values, see [NSImageScaling]. The default value is
+// [NSImageScaleProportionallyDown].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageCell/imageScaling
+//
+// [NSImageScaling]: https://developer.apple.com/documentation/AppKit/NSImageScaling
 func (i NSImageCell) ImageScaling() NSImageScaling {
 	rv := objc.Send[NSImageScaling](i.ID, objc.Sel("imageScaling"))
 	return NSImageScaling(rv)
@@ -233,16 +234,17 @@ func (i NSImageCell) ImageScaling() NSImageScaling {
 func (i NSImageCell) SetImageScaling(value NSImageScaling) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageScaling:"), value)
 }
+
 // The style of the frame that borders the image.
 //
 // # Discussion
-// 
+//
 // For a list of frame styles, see [NSImageView.FrameStyle]. The default value
 // is [NSImageFrameNone].
 //
-// [NSImageView.FrameStyle]: https://developer.apple.com/documentation/AppKit/NSImageView/FrameStyle
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageCell/imageFrameStyle
+//
+// [NSImageView.FrameStyle]: https://developer.apple.com/documentation/AppKit/NSImageView/FrameStyle
 func (i NSImageCell) ImageFrameStyle() NSImageFrameStyle {
 	rv := objc.Send[NSImageFrameStyle](i.ID, objc.Sel("imageFrameStyle"))
 	return NSImageFrameStyle(rv)
@@ -250,4 +252,3 @@ func (i NSImageCell) ImageFrameStyle() NSImageFrameStyle {
 func (i NSImageCell) SetImageFrameStyle(value NSImageFrameStyle) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageFrameStyle:"), value)
 }
-

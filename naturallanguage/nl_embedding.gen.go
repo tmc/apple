@@ -3,11 +3,12 @@
 package naturallanguage
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (nc NLEmbeddingClass) Alloc() NLEmbedding {
 // A map of strings to vectors, which locates neighboring, similar strings.
 //
 // # Overview
-// 
+//
 // Use an [NLEmbedding] to find similar strings based on the proximity of
 // their vectors. The is the entire set of strings in an embedding. Each
 // string in the vocabulary has a vector, which is an array of doubles, and
@@ -55,7 +56,7 @@ func (nc NLEmbeddingClass) Alloc() NLEmbedding {
 // uses these vectors to determine the distance between two strings, or to
 // find the nearest neighbors of a string in the vocabulary. The higher the
 // similarity of any two strings, the smaller the distance is between them.
-// 
+//
 // [Natural Language] provides built-in word embeddings that you can retrieve
 // by using the [NLEmbedding.WordEmbeddingForLanguage] method. You can also compile your
 // own custom embedding into an efficient, searchable, on-disk representation.
@@ -64,14 +65,11 @@ func (nc NLEmbeddingClass) Alloc() NLEmbedding {
 // development time. Alternatively, you can compile an embedding at runtime by
 // using Natural Language’s
 // [NLEmbedding.WriteEmbeddingForDictionaryLanguageRevisionToURLError] method.
-// 
+//
 // Your custom embedding can use any kind of string that’s useful to your
 // app, such as phrases, brand names, serial numbers, and so on. For example,
 // you could make an embedding of movie titles. Each movie title could have a
 // vector that places similar movies close together in the embedding.
-//
-// [MLWordEmbedding]: https://developer.apple.com/documentation/CreateML/MLWordEmbedding
-// [Natural Language]: https://developer.apple.com/documentation/NaturalLanguage
 //
 // # Inspecting the vocabulary of an embedding
 //
@@ -82,6 +80,9 @@ func (nc NLEmbeddingClass) Alloc() NLEmbedding {
 //   - [NLEmbedding.Revision]: The revision of the word embedding.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding
+//
+// [MLWordEmbedding]: https://developer.apple.com/documentation/CreateML/MLWordEmbedding
+// [Natural Language]: https://developer.apple.com/documentation/NaturalLanguage
 type NLEmbedding struct {
 	objectivec.Object
 }
@@ -92,6 +93,7 @@ type NLEmbedding struct {
 func NLEmbeddingFromID(id objc.ID) NLEmbedding {
 	return NLEmbedding{objectivec.Object{ID: id}}
 }
+
 // NOTE: NLEmbedding adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -162,13 +164,13 @@ func NewNLEmbedding() NLEmbedding {
 // url: The location of the .`mlmodel` file that contains a word embedding.
 //
 // # Discussion
-// 
+//
 // Use this initializer to create a word embedding from an
 // `XCUIElementTypeMlmodel` file saved by Create ML’s [MLWordEmbedding].
 //
-// [MLWordEmbedding]: https://developer.apple.com/documentation/CreateML/MLWordEmbedding
-//
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/init(contentsOf:)
+//
+// [MLWordEmbedding]: https://developer.apple.com/documentation/CreateML/MLWordEmbedding
 func NewEmbeddingWithContentsOfURLError(url foundation.INSURL) (NLEmbedding, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getNLEmbeddingClass().class), objc.Sel("embeddingWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -185,7 +187,7 @@ func NewEmbeddingWithContentsOfURLError(url foundation.INSURL) (NLEmbedding, err
 // string: The term to search for in the word embedding.
 //
 // # Return Value
-// 
+//
 // `true` if the term is in the word embedding’s vocabulary, otherwise
 // `false`.
 //
@@ -194,6 +196,7 @@ func (e NLEmbedding) ContainsString(string_ string) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("containsString:"), objc.String(string_))
 	return rv
 }
+
 // Calculates the distance between two strings in the vocabulary space.
 //
 // firstString: A string in the embedding vocabulary.
@@ -204,7 +207,7 @@ func (e NLEmbedding) ContainsString(string_ string) bool {
 // uses to evaluate the distance between `firstString` and `secondString`.
 //
 // # Return Value
-// 
+//
 // The distance associated with `distanceType`.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/distanceBetweenString:andString:distanceType:
@@ -212,6 +215,7 @@ func (e NLEmbedding) DistanceBetweenStringAndStringDistanceType(firstString stri
 	rv := objc.Send[NLDistance](e.ID, objc.Sel("distanceBetweenString:andString:distanceType:"), objc.String(firstString), objc.String(secondString), distanceType)
 	return NLDistance(rv)
 }
+
 // Copies a vector into the given a pointer to a float array.
 //
 // vector: An array of floats the method copies the vector to. The array’s capacity
@@ -220,7 +224,7 @@ func (e NLEmbedding) DistanceBetweenStringAndStringDistanceType(firstString stri
 // string: The term to find in the word embedding.
 //
 // # Return Value
-// 
+//
 // A Boolean indicating whether the method copied the vector.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/getVector:forString:
@@ -229,6 +233,7 @@ func (e NLEmbedding) GetVectorForString(string_ string) (float32, bool) {
 	rv := objc.Send[bool](e.ID, objc.Sel("getVector:forString:"), unsafe.Pointer(&vector), objc.String(string_))
 	return vector, rv
 }
+
 // Retrieves a limited number of strings near a string in the vocabulary.
 //
 // string: A string in the embedding vocabulary.
@@ -240,7 +245,7 @@ func (e NLEmbedding) GetVectorForString(string_ string) (float32, bool) {
 // uses to evaluate a neighbor’s distance from `string`.
 //
 // # Return Value
-// 
+//
 // An array of neighboring strings.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/neighborsForString:maximumCount:distanceType:
@@ -248,6 +253,7 @@ func (e NLEmbedding) NeighborsForStringMaximumCountDistanceType(string_ string, 
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("neighborsForString:maximumCount:distanceType:"), objc.String(string_), maxCount, distanceType)
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Retrieves a limited number of strings, within a radius of a string, in the
 // vocabulary.
 //
@@ -262,7 +268,7 @@ func (e NLEmbedding) NeighborsForStringMaximumCountDistanceType(string_ string, 
 // uses to evaluate a neighbor’s distance from `string`.
 //
 // # Return Value
-// 
+//
 // An array of neighboring strings.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/neighborsForString:maximumCount:maximumDistance:distanceType:
@@ -270,6 +276,7 @@ func (e NLEmbedding) NeighborsForStringMaximumCountMaximumDistanceDistanceType(s
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("neighborsForString:maximumCount:maximumDistance:distanceType:"), objc.String(string_), maxCount, maxDistance, distanceType)
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Retrieves a limited number of strings near a location in the vocabulary
 // space.
 //
@@ -282,7 +289,7 @@ func (e NLEmbedding) NeighborsForStringMaximumCountMaximumDistanceDistanceType(s
 // uses to evaluate a neighbor’s distance from `vector`.
 //
 // # Return Value
-// 
+//
 // An array of tuples that contain neighboring strings and their distances. In
 // Objective-C, this returns an array of neighboring strings.
 //
@@ -291,6 +298,7 @@ func (e NLEmbedding) NeighborsForVectorMaximumCountDistanceType(vector []foundat
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("neighborsForVector:maximumCount:distanceType:"), objectivec.IObjectSliceToNSArray(vector), maxCount, distanceType)
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Retrieves a limited number of strings within a radius of a location in the
 // vocabulary space.
 //
@@ -305,7 +313,7 @@ func (e NLEmbedding) NeighborsForVectorMaximumCountDistanceType(vector []foundat
 // uses to evaluate a neighbor’s distance from `vector`.
 //
 // # Return Value
-// 
+//
 // An array of strings.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/neighborsForVector:maximumCount:maximumDistance:distanceType:
@@ -313,12 +321,13 @@ func (e NLEmbedding) NeighborsForVectorMaximumCountMaximumDistanceDistanceType(v
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("neighborsForVector:maximumCount:maximumDistance:distanceType:"), objectivec.IObjectSliceToNSArray(vector), maxCount, maxDistance, distanceType)
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Requests the vector for the given term.
 //
 // string: The term to find in the word embedding.
 //
 // # Return Value
-// 
+//
 // A vector represented as an array of doubles if present in the word
 // embedding, otherwise `nil`.
 //
@@ -333,75 +342,79 @@ func (e NLEmbedding) VectorForString(string_ string) []foundation.NSNumber {
 // Retrieves a word embedding for a given language.
 //
 // language: The language of the word embedding, such as [french].
-// //
-// [french]: https://developer.apple.com/documentation/NaturalLanguage/NLLanguage/french
 //
 // # Return Value
-// 
+//
 // An [NLEmbedding] if available, otherwise `nil`.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/wordEmbedding(for:)
+//
+// [french]: https://developer.apple.com/documentation/NaturalLanguage/NLLanguage/french
 func (_NLEmbeddingClass NLEmbeddingClass) WordEmbeddingForLanguage(language NLLanguage) NLEmbedding {
 	rv := objc.Send[objc.ID](objc.ID(_NLEmbeddingClass.class), objc.Sel("wordEmbeddingForLanguage:"), objc.String(string(language)))
 	return NLEmbeddingFromID(rv)
 }
+
 // Retrieves a word embedding for a given language and revision.
 //
 // language: The language of the word embedding, such as [french].
-// //
-// [french]: https://developer.apple.com/documentation/NaturalLanguage/NLLanguage/french
 //
 // revision: The revision of the word embedding.
 //
 // # Return Value
-// 
+//
 // An [NLEmbedding] if available, otherwise `nil`.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/wordEmbedding(for:revision:)
+//
+// [french]: https://developer.apple.com/documentation/NaturalLanguage/NLLanguage/french
 func (_NLEmbeddingClass NLEmbeddingClass) WordEmbeddingForLanguageRevision(language NLLanguage, revision uint) NLEmbedding {
 	rv := objc.Send[objc.ID](objc.ID(_NLEmbeddingClass.class), objc.Sel("wordEmbeddingForLanguage:revision:"), objc.String(string(language)), revision)
 	return NLEmbeddingFromID(rv)
 }
+
 // Retrieves a sentence embedding for a given language.
 //
 // language: The language of the sentence embedding, such as [french]. For possible
 // values, see [NLLanguage].
-// //
-// [french]: https://developer.apple.com/documentation/NaturalLanguage/NLLanguage/french
 //
 // # Return Value
-// 
+//
 // An [NLEmbedding] if available, otherwise `nil`.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/sentenceEmbedding(for:)
+//
+// [french]: https://developer.apple.com/documentation/NaturalLanguage/NLLanguage/french
 func (_NLEmbeddingClass NLEmbeddingClass) SentenceEmbeddingForLanguage(language NLLanguage) NLEmbedding {
 	rv := objc.Send[objc.ID](objc.ID(_NLEmbeddingClass.class), objc.Sel("sentenceEmbeddingForLanguage:"), objc.String(string(language)))
 	return NLEmbeddingFromID(rv)
 }
+
 // Retrieves a sentence embedding for a given language and revision.
 //
 // language: The language of the sentence embedding, such as [french]. For possible
 // values, see [NLLanguage].
-// //
-// [french]: https://developer.apple.com/documentation/NaturalLanguage/NLLanguage/french
 //
 // revision: The revision of the sentence embedding.
 //
 // # Return Value
-// 
+//
 // An [NLEmbedding] if available, otherwise `nil`.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/sentenceEmbedding(for:revision:)
+//
+// [french]: https://developer.apple.com/documentation/NaturalLanguage/NLLanguage/french
 func (_NLEmbeddingClass NLEmbeddingClass) SentenceEmbeddingForLanguageRevision(language NLLanguage, revision uint) NLEmbedding {
 	rv := objc.Send[objc.ID](objc.ID(_NLEmbeddingClass.class), objc.Sel("sentenceEmbeddingForLanguage:revision:"), objc.String(string(language)), revision)
 	return NLEmbeddingFromID(rv)
 }
+
 // Retrieves the current version of a word embedding for the given language.
 //
 // language: A language supported by the Natural Language framework.
 //
 // # Return Value
-// 
+//
 // An integer.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/currentRevision(for:)
@@ -409,12 +422,13 @@ func (_NLEmbeddingClass NLEmbeddingClass) CurrentRevisionForLanguage(language NL
 	rv := objc.Send[uint](objc.ID(_NLEmbeddingClass.class), objc.Sel("currentRevisionForLanguage:"), objc.String(string(language)))
 	return rv
 }
+
 // Retrieves all version numbers of a word embedding for the given language.
 //
 // language: A language supported by the Natural Language framework.
 //
 // # Return Value
-// 
+//
 // An index set.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/supportedRevisions(for:)
@@ -422,6 +436,7 @@ func (_NLEmbeddingClass NLEmbeddingClass) SupportedRevisionsForLanguage(language
 	rv := objc.Send[objc.ID](objc.ID(_NLEmbeddingClass.class), objc.Sel("supportedRevisionsForLanguage:"), objc.String(string(language)))
 	return foundation.NSIndexSetFromID(rv)
 }
+
 // Retrieves the current version of a sentence embedding for the given
 // language.
 //
@@ -429,7 +444,7 @@ func (_NLEmbeddingClass NLEmbeddingClass) SupportedRevisionsForLanguage(language
 // values, see [NLLanguage].
 //
 // # Return Value
-// 
+//
 // An integer representing the current version number of a sentence embedding.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/currentSentenceEmbeddingRevision(for:)
@@ -437,6 +452,7 @@ func (_NLEmbeddingClass NLEmbeddingClass) CurrentSentenceEmbeddingRevisionForLan
 	rv := objc.Send[uint](objc.ID(_NLEmbeddingClass.class), objc.Sel("currentSentenceEmbeddingRevisionForLanguage:"), objc.String(string(language)))
 	return rv
 }
+
 // Retrieves all version numbers of a sentence embedding for the given
 // language.
 //
@@ -444,7 +460,7 @@ func (_NLEmbeddingClass NLEmbeddingClass) CurrentSentenceEmbeddingRevisionForLan
 // values, see [NLLanguage].
 //
 // # Return Value
-// 
+//
 // An index set representing all of the supported version numbers of the
 // sentence embedding.
 //
@@ -453,6 +469,7 @@ func (_NLEmbeddingClass NLEmbeddingClass) SupportedSentenceEmbeddingRevisionsFor
 	rv := objc.Send[objc.ID](objc.ID(_NLEmbeddingClass.class), objc.Sel("supportedSentenceEmbeddingRevisionsForLanguage:"), objc.String(string(language)))
 	return foundation.NSIndexSetFromID(rv)
 }
+
 // Exports the word embedding contained within a Core ML model file at the
 // given URL.
 //
@@ -487,6 +504,7 @@ func (e NLEmbedding) Dimension() uint {
 	rv := objc.Send[uint](e.ID, objc.Sel("dimension"))
 	return rv
 }
+
 // The number of words in the vocabulary.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/vocabularySize
@@ -494,6 +512,7 @@ func (e NLEmbedding) VocabularySize() uint {
 	rv := objc.Send[uint](e.ID, objc.Sel("vocabularySize"))
 	return rv
 }
+
 // The language of the text in the word embedding.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/language
@@ -501,6 +520,7 @@ func (e NLEmbedding) Language() NLLanguage {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("language"))
 	return NLLanguage(foundation.NSStringFromID(rv).String())
 }
+
 // The revision of the word embedding.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLEmbedding/revision
@@ -508,4 +528,3 @@ func (e NLEmbedding) Revision() uint {
 	rv := objc.Send[uint](e.ID, objc.Sel("revision"))
 	return rv
 }
-

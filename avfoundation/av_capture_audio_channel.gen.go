@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (ac AVCaptureAudioChannelClass) Alloc() AVCaptureAudioChannel {
 // in a capture connection.
 //
 // # Overview
-// 
+//
 // You don’t create instances of this class directly. Instead, an
 // [AVCaptureConnection] object that connects an audio input to an audio
 // output provides an array of [AVCaptureAudioChannel] objects, one for each
@@ -76,6 +77,7 @@ type AVCaptureAudioChannel struct {
 func AVCaptureAudioChannelFromID(id objc.ID) AVCaptureAudioChannel {
 	return AVCaptureAudioChannel{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureAudioChannel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,12 +142,10 @@ func NewAVCaptureAudioChannel() AVCaptureAudioChannel {
 // A Boolean value that indicates whether the channel is in an enabled state.
 //
 // # Discussion
-// 
-// By default, a connection enables all audio channels that it exposes. You
-// can set this value to [false] to stop the flow of data for a particular
-// channel.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// By default, a connection enables all audio channels that it exposes. You
+// can set this value to false to stop the flow of data for a particular
+// channel.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioChannel/isEnabled
 func (c AVCaptureAudioChannel) Enabled() bool {
@@ -155,6 +155,7 @@ func (c AVCaptureAudioChannel) Enabled() bool {
 func (c AVCaptureAudioChannel) SetEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEnabled:"), value)
 }
+
 // The current volume (gain) of the channel.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioChannel/volume
@@ -165,10 +166,11 @@ func (c AVCaptureAudioChannel) Volume() float32 {
 func (c AVCaptureAudioChannel) SetVolume(value float32) {
 	objc.Send[struct{}](c.ID, objc.Sel("setVolume:"), value)
 }
+
 // The instantaneous average power level in decibels.
 //
 // # Discussion
-// 
+//
 // This property isn’t key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioChannel/averagePowerLevel
@@ -176,10 +178,11 @@ func (c AVCaptureAudioChannel) AveragePowerLevel() float32 {
 	rv := objc.Send[float32](c.ID, objc.Sel("averagePowerLevel"))
 	return rv
 }
+
 // The peak hold power level in decibels.
 //
 // # Discussion
-// 
+//
 // This property isn’t key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureAudioChannel/peakHoldLevel
@@ -187,6 +190,7 @@ func (c AVCaptureAudioChannel) PeakHoldLevel() float32 {
 	rv := objc.Send[float32](c.ID, objc.Sel("peakHoldLevel"))
 	return rv
 }
+
 // The connections between inputs and outputs that a capture session contains.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcapturesession/connections
@@ -197,4 +201,3 @@ func (c AVCaptureAudioChannel) Connections() IAVCaptureConnection {
 func (c AVCaptureAudioChannel) SetConnections(value IAVCaptureConnection) {
 	objc.Send[struct{}](c.ID, objc.Sel("setConnections:"), value)
 }
-

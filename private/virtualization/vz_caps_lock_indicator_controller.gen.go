@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZCapsLockIndicatorController struct {
 func VZCapsLockIndicatorControllerFromID(id objc.ID) VZCapsLockIndicatorController {
 	return VZCapsLockIndicatorController{objectivec.Object{ID: id}}
 }
+
 // Ensure VZCapsLockIndicatorController implements IVZCapsLockIndicatorController.
 var _ IVZCapsLockIndicatorController = VZCapsLockIndicatorController{}
 
@@ -78,4 +80,3 @@ func NewVZCapsLockIndicatorController() VZCapsLockIndicatorController {
 	rv := objc.Send[VZCapsLockIndicatorController](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

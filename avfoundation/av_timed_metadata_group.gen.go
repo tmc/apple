@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (ac AVTimedMetadataGroupClass) Alloc() AVTimedMetadataGroup {
 // time range.
 //
 // # Overview
-// 
+//
 // For example, [AVTimedMetadataGroups] are used to represent chapters,
 // optionally containing metadata items for chapter titles and chapter images.
 //
@@ -74,6 +75,7 @@ type AVTimedMetadataGroup struct {
 func AVTimedMetadataGroupFromID(id objc.ID) AVTimedMetadataGroup {
 	return AVTimedMetadataGroup{AVMetadataGroup: AVMetadataGroupFromID(id)}
 }
+
 // NOTE: AVTimedMetadataGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -137,7 +139,7 @@ func NewAVTimedMetadataGroup() AVTimedMetadataGroup {
 // timeRange: The time range of the metadata contained in `items`.
 //
 // # Return Value
-// 
+//
 // A metadata group initialized with `items`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/init(items:timeRange:)
@@ -154,7 +156,7 @@ func NewTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange c
 // timeRange: The time range of the metadata contained in `items`.
 //
 // # Return Value
-// 
+//
 // A metadata group initialized with `items`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/init(items:timeRange:)
@@ -162,25 +164,26 @@ func (t AVTimedMetadataGroup) InitWithItemsTimeRange(items []AVMetadataItem, tim
 	rv := objc.Send[AVTimedMetadataGroup](t.ID, objc.Sel("initWithItems:timeRange:"), objectivec.IObjectSliceToNSArray(items), timeRange)
 	return rv
 }
+
 // Creates a format description based on the receiver’s items.
 //
 // # Return Value
-// 
+//
 // An instance of [CMMetadataFormatDescription] sufficient to describe the
 // contents of all the items referenced by the object.
 //
-// [CMMetadataFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMMetadataFormatDescription
-//
 // # Discussion
-// 
+//
 // The returned format description is suitable for use as the format hint
 // parameter when creating an instance of [AVAssetWriterInput].
-// 
+//
 // Each item referenced by the receiver must carry a non-`nil` value for its
 // `dataType` property. An exception will be thrown if any item does not have
 // a data type.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/copyFormatDescription()
+//
+// [CMMetadataFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMMetadataFormatDescription
 func (t AVTimedMetadataGroup) CopyFormatDescription() coremedia.CMFormatDescriptionRef {
 	rv := objc.Send[coremedia.CMFormatDescriptionRef](t.ID, objc.Sel("copyFormatDescription"))
 	return coremedia.CMFormatDescriptionRef(rv)
@@ -193,4 +196,3 @@ func (t AVTimedMetadataGroup) TimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](t.ID, objc.Sel("timeRange"))
 	return coremedia.CMTimeRange(rv)
 }
-

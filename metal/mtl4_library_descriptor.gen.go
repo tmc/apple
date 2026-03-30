@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -64,6 +65,7 @@ type MTL4LibraryDescriptor struct {
 func MTL4LibraryDescriptorFromID(id objc.ID) MTL4LibraryDescriptor {
 	return MTL4LibraryDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4LibraryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,6 +126,7 @@ func (m MTL4LibraryDescriptor) Name() string {
 func (m MTL4LibraryDescriptor) SetName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
+
 // Provides compile-time options for the Metal library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4LibraryDescriptor/options
@@ -134,6 +137,7 @@ func (m MTL4LibraryDescriptor) Options() IMTLCompileOptions {
 func (m MTL4LibraryDescriptor) SetOptions(value IMTLCompileOptions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOptions:"), value)
 }
+
 // Assigns an optional string containing the source code of the shader
 // language program to compile into a Metal library.
 //
@@ -145,4 +149,3 @@ func (m MTL4LibraryDescriptor) Source() string {
 func (m MTL4LibraryDescriptor) SetSource(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSource:"), objc.String(value))
 }
-

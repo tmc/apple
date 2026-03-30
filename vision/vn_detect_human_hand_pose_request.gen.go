@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNDetectHumanHandPoseRequest] class.
@@ -45,7 +46,7 @@ func (vc VNDetectHumanHandPoseRequestClass) Alloc() VNDetectHumanHandPoseRequest
 // A request that detects a human hand pose.
 //
 // # Overview
-// 
+//
 // The framework provides the detected hand pose as a
 // [VNIdentifiedPointsObservation].
 //
@@ -76,6 +77,7 @@ type VNDetectHumanHandPoseRequest struct {
 func VNDetectHumanHandPoseRequestFromID(id objc.ID) VNDetectHumanHandPoseRequest {
 	return VNDetectHumanHandPoseRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectHumanHandPoseRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -151,7 +153,7 @@ func NewVNDetectHumanHandPoseRequest() VNDetectHumanHandPoseRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -179,6 +181,7 @@ func (d VNDetectHumanHandPoseRequest) SupportedJointNamesAndReturnError() ([]str
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
+
 // Retrieves the supported joint group names.
 //
 // error: If an error occurs, an error object that describes the error; otherwise,
@@ -199,10 +202,10 @@ func (d VNDetectHumanHandPoseRequest) SupportedJointsGroupNamesAndReturnError() 
 // The maximum number of hands to detect in an image.
 //
 // # Discussion
-// 
+//
 // The request orders detected hands by relative size, with only the largest
 // ones having key points determined.
-// 
+//
 // The default value is 2.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanHandPoseRequest/maximumHandCount
@@ -213,6 +216,7 @@ func (d VNDetectHumanHandPoseRequest) MaximumHandCount() uint {
 func (d VNDetectHumanHandPoseRequest) SetMaximumHandCount(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumHandCount:"), value)
 }
+
 // Retrieves the supported joint names.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequest/supportedjointnames
@@ -223,6 +227,7 @@ func (d VNDetectHumanHandPoseRequest) SupportedJointNames() VNHumanHandPoseObser
 func (d VNDetectHumanHandPoseRequest) SetSupportedJointNames(value VNHumanHandPoseObservationJointName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointNames:"), value)
 }
+
 // Retrieves the supported joint group names.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequest/supportedjointsgroupnames
@@ -233,6 +238,7 @@ func (d VNDetectHumanHandPoseRequest) SupportedJointsGroupNames() VNHumanHandPos
 func (d VNDetectHumanHandPoseRequest) SetSupportedJointsGroupNames(value VNHumanHandPoseObservationJointsGroupName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointsGroupNames:"), value)
 }
+
 // A constant for specifying revision 1 of the hand pose detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequestrevision1
@@ -240,4 +246,3 @@ func (d VNDetectHumanHandPoseRequest) VNDetectHumanHandPoseRequestRevision1() in
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHumanHandPoseRequestRevision1"))
 	return rv
 }
-

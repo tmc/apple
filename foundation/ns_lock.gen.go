@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,16 +46,16 @@ func (nc NSLockClass) Alloc() NSLock {
 // within the same application.
 //
 // # Overview
-// 
+//
 // An [NSLock] object can be used to mediate access to an application’s
 // global data or to protect a critical section of code, allowing it to run
 // atomically.
-// 
+//
 // You should not use this class to implement a recursive lock. Calling the
 // `lock` method twice on the same thread will lock up your thread
 // permanently. Use the [NSRecursiveLock] class to implement recursive locks
 // instead.
-// 
+//
 // Unlocking a lock that is not locked is considered a programmer error and
 // should be fixed in your code. The [NSLock] class reports such errors by
 // printing an error message to the console when they occur.
@@ -81,6 +82,7 @@ type NSLock struct {
 func NSLockFromID(id objc.ID) NSLock {
 	return NSLock{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSLock adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -139,14 +141,11 @@ func NewNSLock() NSLock {
 // limit: The time limit for attempting to acquire a lock.
 //
 // # Return Value
-// 
-// [true] if the lock is acquired before `limit`, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the lock is acquired before `limit`, otherwise false.
 //
 // # Discussion
-// 
+//
 // The thread is blocked until the receiver acquires the lock or `limit` is
 // reached.
 //
@@ -155,26 +154,25 @@ func (l NSLock) LockBeforeDate(limit INSDate) bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("lockBeforeDate:"), limit)
 	return rv
 }
+
 // Attempts to acquire a lock and immediately returns a Boolean value that
 // indicates whether the attempt was successful.
 //
 // # Return Value
-// 
-// [true] if the lock was acquired, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the lock was acquired, otherwise false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLock/try()
 func (l NSLock) TryLock() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("tryLock"))
 	return rv
 }
+
 // Attempts to acquire a lock, blocking a thread’s execution until the lock
 // can be acquired.
 //
 // # Discussion
-// 
+//
 // An application protects a critical section of code by requiring a thread to
 // acquire a lock before executing the code. Once the critical section is
 // completed, the thread relinquishes the lock by invoking [Unlock].
@@ -183,6 +181,7 @@ func (l NSLock) TryLock() bool {
 func (l NSLock) Lock() {
 	objc.Send[objc.ID](l.ID, objc.Sel("lock"))
 }
+
 // Relinquishes a previously acquired lock.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/unlock()
@@ -193,7 +192,7 @@ func (l NSLock) Unlock() {
 // The name associated with the receiver.
 //
 // # Discussion
-// 
+//
 // You can use a name string to identify a lock within your code. Cocoa also
 // uses this name as part of any error descriptions involving the receiver.
 //
@@ -205,4 +204,3 @@ func (l NSLock) Name() string {
 func (l NSLock) SetName(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setName:"), objc.String(value))
 }
-

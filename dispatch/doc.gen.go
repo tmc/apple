@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for Dispatch. DO NOT EDIT.
 
 // Package dispatch provides Go bindings for the Dispatch framework.
@@ -17,20 +16,25 @@ package dispatch
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/usr/lib/system/libdispatch.dylib"
+// frameworkPaths lists paths to try when loading the Dispatch library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{"/usr/lib/system/libdispatch.dylib"}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: Dispatch: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: Dispatch: failed to load framework from any known path\n")
 }
-

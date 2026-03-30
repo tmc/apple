@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -62,6 +63,7 @@ type VZMacOSConfigurationRequirements struct {
 func VZMacOSConfigurationRequirementsFromID(id objc.ID) VZMacOSConfigurationRequirements {
 	return VZMacOSConfigurationRequirements{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZMacOSConfigurationRequirements adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,10 +111,10 @@ func NewVZMacOSConfigurationRequirements() VZMacOSConfigurationRequirements {
 // The hardware model for this configuration.
 //
 // # Discussion
-// 
+//
 // Use a hardware model to configure a new VM that meets a set of specific
 // requirements.
-// 
+//
 // After creating the hardware model, use [VZMacPlatformConfiguration]
 // [HardwareModel] to configure the Mac platform, and
 // [InitCreatingStorageAtURLHardwareModelOptionsError] to create its auxiliary
@@ -123,17 +125,18 @@ func (m VZMacOSConfigurationRequirements) HardwareModel() IVZMacHardwareModel {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("hardwareModel"))
 	return VZMacHardwareModelFromID(objc.ID(rv))
 }
+
 // The minimum supported number of CPUs for this configuration.
 //
 // # Discussion
-// 
+//
 // This property specifies the minimum number of CPUs required by the
 // associated macOS configuration.
-// 
+//
 // You associate a [VZMacOSConfigurationRequirements] with a specific
 // [VZMacOSRestoreImage] object, which results in a specific macOS
 // configuration.
-// 
+//
 // Installing or running the associated configuration of macOS on a virtual
 // machine with fewer than the specified number of CPUs results in undefined
 // behavior.
@@ -143,17 +146,18 @@ func (m VZMacOSConfigurationRequirements) MinimumSupportedCPUCount() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("minimumSupportedCPUCount"))
 	return rv
 }
+
 // The minimum supported memory size for this configuration.
 //
 // # Discussion
-// 
+//
 // This property specifies the minimum amount of memory required by the
 // associated macOS configuration.
-// 
+//
 // You associate a [VZMacOSConfigurationRequirements] with a specific
 // [VZMacOSRestoreImage] object, which results in a specific macOS
 // configuration.
-// 
+//
 // Installing or running the associated configuration of macOS on a VM with
 // less than this amount of memory results in undefined behavior.
 //
@@ -162,4 +166,3 @@ func (m VZMacOSConfigurationRequirements) MinimumSupportedMemorySize() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("minimumSupportedMemorySize"))
 	return rv
 }
-

@@ -4,10 +4,11 @@ package coreml
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLModelEngineClass) Alloc() MLModelEngine {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLModelEngine.Configuration]
@@ -72,6 +72,7 @@ func (mc MLModelEngineClass) Alloc() MLModelEngine {
 //   - [MLModelEngine.Description]
 //   - [MLModelEngine.Hash]
 //   - [MLModelEngine.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine
 type MLModelEngine struct {
 	objectivec.Object
@@ -81,6 +82,7 @@ type MLModelEngine struct {
 func MLModelEngineFromID(id objc.ID) MLModelEngine {
 	return MLModelEngine{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelEngine implements IMLModelEngine.
 var _ IMLModelEngine = MLModelEngine{}
 
@@ -166,7 +168,6 @@ func NewMLModelEngine() MLModelEngine {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewModelEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModelEngine {
 	instance := getMLModelEngineClass().Alloc()
@@ -174,7 +175,6 @@ func NewModelEngineWithDescriptionConfiguration(description objectivec.IObject, 
 	return MLModelEngineFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewModelEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModelEngine {
 	instance := getMLModelEngineClass().Alloc()
@@ -186,17 +186,19 @@ func NewModelEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureN
 func (m MLModelEngine) EnableInstrumentsTracing() {
 	objc.Send[objc.ID](m.ID, objc.Sel("enableInstrumentsTracing"))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/executionSchedule
 func (m MLModelEngine) ExecutionSchedule() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("executionSchedule"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/modelPath
 func (m MLModelEngine) ModelPath() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelPath"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/newRequestForModel:inputFeatures:options:error:
 func (m MLModelEngine) NewRequestForModelInputFeaturesOptionsError(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -208,7 +210,7 @@ func (m MLModelEngine) NewRequestForModelInputFeaturesOptionsError(model objecti
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/parameterValueForKey:error:
 func (m MLModelEngine) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -220,7 +222,7 @@ func (m MLModelEngine) ParameterValueForKeyError(key objectivec.IObject) (object
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/predictionFromFeatures:error:
 func (m MLModelEngine) PredictionFromFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -232,7 +234,7 @@ func (m MLModelEngine) PredictionFromFeaturesError(features objectivec.IObject) 
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/predictionFromFeatures:options:error:
 func (m MLModelEngine) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -244,7 +246,7 @@ func (m MLModelEngine) PredictionFromFeaturesOptionsError(features objectivec.IO
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/predictionsFromBatch:error:
 func (m MLModelEngine) PredictionsFromBatchError(batch objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -256,7 +258,7 @@ func (m MLModelEngine) PredictionsFromBatchError(batch objectivec.IObject) (obje
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/predictionsFromBatch:options:error:
 func (m MLModelEngine) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -268,18 +270,18 @@ func (m MLModelEngine) PredictionsFromBatchOptionsError(batch objectivec.IObject
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/setModelPath:modelName:
 func (m MLModelEngine) SetModelPathModelName(path objectivec.IObject, name objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setModelPath:modelName:"), path, name)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/submitPredictionRequest:completionHandler:
 func (m MLModelEngine) SubmitPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("submitPredictionRequest:completionHandler:"), request, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/vectorizeInput:error:
 func (m MLModelEngine) VectorizeInputError(input objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -291,13 +293,13 @@ func (m MLModelEngine) VectorizeInputError(input objectivec.IObject) (objectivec
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func (m MLModelEngine) InitWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModelEngine {
 	rv := objc.Send[MLModelEngine](m.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func (m MLModelEngine) InitWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModelEngine {
 	rv := objc.Send[MLModelEngine](m.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
@@ -309,51 +311,61 @@ func (m MLModelEngine) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/debugDescription
 func (m MLModelEngine) DebugDescription() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/description
 func (m MLModelEngine) Description() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/hash
 func (m MLModelEngine) Hash() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/metadata
 func (m MLModelEngine) Metadata() IMLModelMetadata {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("metadata"))
 	return MLModelMetadataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/modelDescription
 func (m MLModelEngine) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/predictionTypeForKTrace
 func (m MLModelEngine) PredictionTypeForKTrace() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("predictionTypeForKTrace"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/recordsPredictionEvent
 func (m MLModelEngine) RecordsPredictionEvent() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("recordsPredictionEvent"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/signpostID
 func (m MLModelEngine) SignpostID() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("signpostID"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/superclass
 func (m MLModelEngine) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](m.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/supportsConcurrentSubmissions
 func (m MLModelEngine) SupportsConcurrentSubmissions() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("supportsConcurrentSubmissions"))
@@ -374,4 +386,3 @@ func (m MLModelEngine) SubmitPredictionRequest(ctx context.Context, request obje
 		return ctx.Err()
 	}
 }
-

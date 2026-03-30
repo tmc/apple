@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZUSBControllerConfigurationClass) Alloc() VZUSBControllerConfiguration
 // The base class for a USB controller configuration.
 //
 // # Overview
-// 
+//
 // Don’t create [VZUSBControllerConfiguration] objects directly. Use one of
 // its subclasses, such as [VZXHCIControllerConfiguration], instead.
 //
@@ -64,6 +65,7 @@ type VZUSBControllerConfiguration struct {
 func VZUSBControllerConfigurationFromID(id objc.ID) VZUSBControllerConfiguration {
 	return VZUSBControllerConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZUSBControllerConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -107,11 +109,11 @@ func NewVZUSBControllerConfiguration() VZUSBControllerConfiguration {
 // The list of USB devices.
 //
 // # Discussion
-// 
+//
 // This list represents a set of USB devices that a VM starts with. For each
 // entry in the list, the system creates a corresponding runtime object in the
 // [UsbDevices] property.
-// 
+//
 // The list is empty by default.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBControllerConfiguration/usbDevices
@@ -124,4 +126,3 @@ func (u VZUSBControllerConfiguration) UsbDevices() []objectivec.IObject {
 func (u VZUSBControllerConfiguration) SetUsbDevices(value []objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUsbDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-

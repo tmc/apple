@@ -18,6 +18,7 @@ type NSEditorRegistration interface {
 type NSEditorRegistrationObject struct {
 	objectivec.Object
 }
+
 func (o NSEditorRegistrationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,14 +31,12 @@ func NSEditorRegistrationObjectFromID(id objc.ID) NSEditorRegistrationObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSEditorRegistration/objectDidBeginEditing(_:)
 func (o NSEditorRegistrationObject) ObjectDidBeginEditing(editor NSEditor) {
 	objc.Send[struct{}](o.ID, objc.Sel("objectDidBeginEditing:"), editor)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSEditorRegistration/objectDidEndEditing(_:)
 func (o NSEditorRegistrationObject) ObjectDidEndEditing(editor NSEditor) {
 	objc.Send[struct{}](o.ID, objc.Sel("objectDidEndEditing:"), editor)
-	}
-
+}

@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (xc XRGPUAPSDerivedCounterClass) Alloc() XRGPUAPSDerivedCounter {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [XRGPUAPSDerivedCounter.CounterId]
@@ -50,6 +50,7 @@ func (xc XRGPUAPSDerivedCounterClass) Alloc() XRGPUAPSDerivedCounter {
 //   - [XRGPUAPSDerivedCounter.DocString]
 //   - [XRGPUAPSDerivedCounter.Name]
 //   - [XRGPUAPSDerivedCounter.InitWithNameDocStringTypeCounterId]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDerivedCounter
 type XRGPUAPSDerivedCounter struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type XRGPUAPSDerivedCounter struct {
 func XRGPUAPSDerivedCounterFromID(id objc.ID) XRGPUAPSDerivedCounter {
 	return XRGPUAPSDerivedCounter{objectivec.Object{ID: id}}
 }
+
 // Ensure XRGPUAPSDerivedCounter implements IXRGPUAPSDerivedCounter.
 var _ IXRGPUAPSDerivedCounter = XRGPUAPSDerivedCounter{}
 
@@ -104,7 +106,6 @@ func NewXRGPUAPSDerivedCounter() XRGPUAPSDerivedCounter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDerivedCounter/initWithName:docString:type:counterId:
 func NewXRGPUAPSDerivedCounterWithNameDocStringTypeCounterId(name objectivec.IObject, string_ objectivec.IObject, type_ uint32, id uint64) XRGPUAPSDerivedCounter {
 	instance := getXRGPUAPSDerivedCounterClass().Alloc()
@@ -112,7 +113,6 @@ func NewXRGPUAPSDerivedCounterWithNameDocStringTypeCounterId(name objectivec.IOb
 	return XRGPUAPSDerivedCounterFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDerivedCounter/initWithName:docString:type:counterId:
 func (x XRGPUAPSDerivedCounter) InitWithNameDocStringTypeCounterId(name objectivec.IObject, string_ objectivec.IObject, type_ uint32, id uint64) XRGPUAPSDerivedCounter {
 	rv := objc.Send[XRGPUAPSDerivedCounter](x.ID, objc.Sel("initWithName:docString:type:counterId:"), name, string_, type_, id)
@@ -124,19 +124,21 @@ func (x XRGPUAPSDerivedCounter) CounterId() uint64 {
 	rv := objc.Send[uint64](x.ID, objc.Sel("counterId"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDerivedCounter/counterType
 func (x XRGPUAPSDerivedCounter) CounterType() uint32 {
 	rv := objc.Send[uint32](x.ID, objc.Sel("counterType"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDerivedCounter/docString
 func (x XRGPUAPSDerivedCounter) DocString() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("docString"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/XRGPUAPSDerivedCounter/name
 func (x XRGPUAPSDerivedCounter) Name() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-

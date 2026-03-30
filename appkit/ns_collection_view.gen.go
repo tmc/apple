@@ -5,9 +5,10 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,13 +48,13 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // An ordered collection of data items displayed in a customizable layout.
 //
 // # Overview
-// 
+//
 // The simplest type of collection view displays its items in a grid, but you
 // can define layouts to arrange items however you like. For example, you
 // might create a layout where items are arranged in a circle. You can also
 // change layouts dynamically at runtime whenever you need to present items
 // differently.
-// 
+//
 // You can add collection views to your interface using Interface Builder or
 // create them programmatically in your view controller or window controller
 // code. It is recommended that you configure your collection view with a data
@@ -61,7 +62,7 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // [NSCollectionViewDataSource] protocol. Data sources support multiple
 // sections and the modern layout architecture and are the preferred way for
 // specifying your data.
-// 
+//
 // In addition to displaying items, collection views support the display of
 // supplementary and decoration views. Support for supplementary and
 // decoration views is defined by the current layout object, but both types of
@@ -70,18 +71,18 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // footer views for a related group of items. Decoration views are purely
 // visual adornments and can be used to implement dynamic backgrounds or other
 // types of configurable visual content.
-// 
+//
 // The layout of a collection view can be changed dynamically by assigning a
 // new layout object to the [CollectionViewLayout] property. Changing the
 // layout object updates the appearance of the collection view without
 // animating the changes.
-// 
+//
 // # The Objects of a Collection View Interface
-// 
+//
 // An [NSCollectionView] object itself is a facilitator, taking information
 // from disparate sources and merging them together to create an overall
 // interface:
-// 
+//
 // - The data source object provides both the data and the views used to
 // display that data. You define the data source object by implementing the
 // methods of the [NSCollectionViewDataSource] protocol in one of your app’s
@@ -96,7 +97,7 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // appearance of items onscreen. AppKit defines layout objects that you can
 // use as-is, but you can also define custom layouts by subclassing
 // [NSCollectionViewLayout].
-// 
+//
 // [Figure 1] illustrates how the collection view works with its other objects
 // to create its final appearance. The collection view obtains the views for
 // items and supplementary views from its data source, which creates the views
@@ -104,9 +105,9 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // needed to position those items and supplementary views onscreen. The
 // collection view merges the two sets of information to create the final
 // appearance that the user sees onscreen.
-// 
+//
 // [media-1965644]
-// 
+//
 // There are other helper classes and protocols that you can use to customize
 // the layout behavior and other aspects of the collection view interface. For
 // example, when using a flow layout object ([NSCollectionViewFlowLayout]),
@@ -115,19 +116,19 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // layout, you might also work with [NSCollectionViewUpdateItem] and
 // [NSCollectionViewLayoutInvalidationContext] objects, which help the layout
 // object manage updates.
-// 
+//
 // # Managing the Collection View’s Content
-// 
+//
 // Data for the collection view is managed by the —that is an object that
 // adopts the methods of the [NSCollectionViewDataSource] protocol. You are
 // responsible for defining the data source used by your collection view. The
 // data source provides information about the number of sections and items in
 // the collection view and it provides the visual representation of that data.
 // Every data source object is required to implement the following methods:
-// 
+//
 // - [CollectionViewNumberOfItemsInSection] -
 // [CollectionViewItemForRepresentedObjectAtIndexPath]
-// 
+//
 // The [NSCollectionViewItem] class defines the visual appearance of items in
 // the collection view. Your data source object vends items from its
 // [CollectionViewItemForRepresentedObjectAtIndexPath] method, creating and
@@ -135,7 +136,7 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // the data it represents. Items are often short-lived because they can be
 // recycled by the collection view and reused to display new data. As a
 // result, never store references to items in your app.
-// 
+//
 // Supplementary views are another way to display data in your interface. Each
 // layout object defines the supplementary views it supports, and different
 // layouts can define supplementary views for different purposes. For example,
@@ -144,7 +145,7 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // which supplementary views are supported by the layout object and how those
 // views are displayed. The data source can then provide supplementary views
 // when asked for them.
-// 
+//
 // When your content changes in a way that requires you to update what the
 // collection view displays, call the [NSCollectionView.ReloadData], [NSCollectionView.ReloadSections], or
 // [NSCollectionView.ReloadItemsAtIndexPaths] method to perform that update. These methods
@@ -153,22 +154,22 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // associated with your items directly. The collection view does not maintain
 // views for all items, only those that are currently being displayed.
 // Reloading the items ensures that the views are updated correctly.
-// 
+//
 // For more information on defining your data source object, see
 // [NSCollectionViewDataSource].
-// 
+//
 // # Inserting, Deleting, and Moving Content
-// 
+//
 // The collection view includes methods for inserting, deleting, and moving
 // items and sections. All of these methods affect only what the collection
 // view displays onscreen; they do not change the data in the associated data
 // source object. As a result, when updating your collection view’s content,
 // always do the following:
-// 
+//
 // - Update the internal structures of your data source object first. - Call
 // the [NSCollectionView] methods to insert, delete, or move items and
 // sections.
-// 
+//
 // When you call methods like [NSCollectionView.InsertItemsAtIndexPaths] or [NSCollectionView.DeleteSections],
 // the collection view fetches any new data from your data source object and
 // then updates the layout. When inserting, moving, or deleting items, the
@@ -177,7 +178,7 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // inserting one item might require adjusting the onscreen position of many
 // other items. When the layout attributes for any visible items changes, the
 // collection view animates those changes into place automatically.
-// 
+//
 // The layout object determines how inserted and deleted items are animated
 // into position. Because newly inserted items are not onscreen initially, the
 // layout object provides the initial layout attributes for those items.
@@ -185,7 +186,7 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // items that are being deleted. For example, the layout object might specify
 // final layout attributes that are offscreen so that a deleted item animates
 // out of the visible rectangle.
-// 
+//
 // Because individual methods for inserting, deleting, and moving content
 // animate their changes right away, you must use the
 // [NSCollectionView.PerformBatchUpdatesCompletionHandler] method when you want to animate
@@ -193,54 +194,52 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 // method takes a block containing all of the insert, delete, move, and reload
 // method calls you need to update the collection view. All of those
 // operations are captured and performed as a single animated sequence.
-// 
+//
 // # Interface Builder Configuration Options
-// 
+//
 // Xcode lets you configure information about your collection view in your
 // storyboard and nib files. The table below shows the basic collection view
 // attributes. Additional attributes are available based on the selected value
 // for the Layout attribute.
-// 
+//
 // [Table data omitted]
-// 
+//
 // The table below shows the attributes you can configure when you set the
 // Layout attribute to Flow.
-// 
+//
 // [Table data omitted]
-// 
+//
 // The table below shows the attributes you can configure when you set the
 // Layout attribute to Grid.
-// 
+//
 // [Table data omitted]
-// 
+//
 // The table below shows the attributes you can configure when you set the
 // Layout attribute to Custom.
-// 
+//
 // [Table data omitted]
-// 
+//
 // The table below shows the attributes you can configure when you set the
 // Layout attribute to Content Array (Legacy).
-// 
+//
 // [Table data omitted]
-// 
+//
 // # Legacy Collection View Support
-// 
+//
 // Prior to OS X v10.11, the collection view always displayed its contents in
 // a grid structure that could not be changed. The data for the collection
 // view was stored in the [NSCollectionView.Content] property, which was often populated with
 // data using bindings. You specified the visual appearance for the collection
 // view’s data by creating an [NSCollectionViewItem] object and assigning it
-// to the [itemPrototype] property. That item object acted as a template and
+// to the [ItemPrototype] property. That item object acted as a template and
 // was used to create all of the items in the collection view.
-// 
+//
 // You are encouraged to use the modern collection view architecture when
 // configuring collection views in macOS 10.11 and later. Use the legacy
 // architecture only for apps that must run in earlier versions of macOS.
-// 
+//
 // For more information about how to configure a collection view using the
 // legacy architecture, see Collection View Programming Guide for macOS.
-//
-// [itemPrototype]: https://developer.apple.com/documentation/AppKit/NSCollectionView/itemPrototype
 //
 // # Providing the Collection View’s Data
 //
@@ -367,6 +366,7 @@ type NSCollectionView struct {
 func NSCollectionViewFromID(id objc.ID) NSCollectionView {
 	return NSCollectionView{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSCollectionView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -682,7 +682,7 @@ func NewNSCollectionView() NSCollectionView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -698,11 +698,11 @@ func NewCollectionViewWithCoder(coder foundation.INSCoder) NSCollectionView {
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -725,15 +725,15 @@ func NewCollectionViewWithFrame(frameRect corefoundation.CGRect) NSCollectionVie
 // just pass it along.
 //
 // # Return Value
-// 
+//
 // A valid [NSCollectionViewItem] object.
 //
 // # Discussion
-// 
+//
 // This method looks for a recycled item object of the specified type and
 // returns it if one exists. If one does not exist, it creates it using one of
 // the following techniques:
-// 
+//
 // - If you used the [RegisterClassForItemWithIdentifier] method to register a
 // class for the identifier, this method instantiates your class and returns
 // it. - If you used the [RegisterNibForItemWithIdentifier] method to register
@@ -745,6 +745,7 @@ func (c NSCollectionView) MakeItemWithIdentifierForIndexPath(identifier NSUserIn
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("makeItemWithIdentifier:forIndexPath:"), objc.String(string(identifier)), indexPath)
 	return NSCollectionViewItemFromID(rv)
 }
+
 // Registers a class to use when creating new items in the collection view.
 //
 // itemClass: A class to use for creating items. The class must be descended from
@@ -757,29 +758,30 @@ func (c NSCollectionView) MakeItemWithIdentifierForIndexPath(identifier NSUserIn
 // empty string or `nil`.
 //
 // # Discussion
-// 
+//
 // Use this method to register the classes that represent items in your
 // collection view. When you request an item using the
 // [ItemWithIdentifierForIndexPath] method, the collection view recycles an
 // existing item with the same `identifier` or creates a new one by
 // instantiating your class and calling the [init()] method of the resulting
 // object.
-// 
+//
 // Because items are recycled to improve performance, it is recommended that
 // your custom classes conform to the [NSCollectionViewElement] protocol. You
 // can use the methods of that protocol to prepare your classes for reuse.
-// 
+//
 // Typically, you register your items when initializing your collection view
 // interface. Although you can register new items at any time, you must not
 // call the [ItemWithIdentifierForIndexPath] method until after you register
 // the corresponding item.
 //
-// [init()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/init()
-//
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/register(_:forItemWithIdentifier:)-6s4i
+//
+// [init()]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/init()
 func (c NSCollectionView) RegisterClassForItemWithIdentifier(itemClass objc.Class, identifier NSUserInterfaceItemIdentifier) {
 	objc.Send[objc.ID](c.ID, objc.Sel("registerClass:forItemWithIdentifier:"), itemClass, objc.String(string(identifier)))
 }
+
 // Registers a nib file to use when creating items in the collection view.
 //
 // nib: The nib object containing the item’s definition. The nib file must
@@ -793,17 +795,17 @@ func (c NSCollectionView) RegisterClassForItemWithIdentifier(itemClass objc.Clas
 // empty string or `nil`.
 //
 // # Discussion
-// 
+//
 // Use this method to register nib files containing prototype items to use in
 // your collection view. When you request an item using the
 // [ItemWithIdentifierForIndexPath] method, the collection view recycles an
 // existing item with the same `identifier` or creates a new one by loading
 // the contents of your nib file.
-// 
+//
 // Because items are recycled to improve performance, it is recommended that
 // your custom item classes conform to the [NSCollectionViewElement] protocol.
 // You can use the methods of that protocol to prepare your classes for reuse.
-// 
+//
 // Typically, you register your items when initializing your collection view
 // interface. Although you can register new items at any time, you must not
 // call the [ItemWithIdentifierForIndexPath] method until after you register
@@ -813,6 +815,7 @@ func (c NSCollectionView) RegisterClassForItemWithIdentifier(itemClass objc.Clas
 func (c NSCollectionView) RegisterNibForItemWithIdentifier(nib INSNib, identifier NSUserInterfaceItemIdentifier) {
 	objc.Send[objc.ID](c.ID, objc.Sel("registerNib:forItemWithIdentifier:"), nib, objc.String(string(identifier)))
 }
+
 // Creates or returns a reusable supplementary view of the specified type.
 //
 // elementKind: The kind of supplementary view to create. This value is defined by the
@@ -828,15 +831,15 @@ func (c NSCollectionView) RegisterNibForItemWithIdentifier(nib INSNib, identifie
 // should just pass it along.
 //
 // # Return Value
-// 
+//
 // A view that adopts the [NSCollectionViewElement] protocol.
 //
 // # Discussion
-// 
+//
 // This method looks for a recycled supplementary view of the specified type
 // and returns it if one exists. If one does not exist, it creates it using
 // one of the following techniques:
-// 
+//
 // - If you used the [RegisterClassForSupplementaryViewOfKindWithIdentifier]
 // method to register a class for the identifier, this method instantiates
 // your view class and returns it. - If you used the
@@ -849,6 +852,7 @@ func (c NSCollectionView) MakeSupplementaryViewOfKindWithIdentifierForIndexPath(
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("makeSupplementaryViewOfKind:withIdentifier:forIndexPath:"), objc.String(string(elementKind)), objc.String(string(identifier)), indexPath)
 	return NSViewFromID(rv)
 }
+
 // Registers a class to use when creating new supplementary views in the
 // collection view.
 //
@@ -868,19 +872,19 @@ func (c NSCollectionView) MakeSupplementaryViewOfKindWithIdentifierForIndexPath(
 // parameter must not be an empty string or `nil`.
 //
 // # Discussion
-// 
+//
 // Use this method to register the classes that represent the supplementary
 // views in your collection view. When you request a view using the
 // [SupplementaryViewOfKindWithIdentifierForIndexPath] method, the collection
 // view recycles an existing view with the same `identifier` and `kind` values
 // or creates a new one by instantiating your class and calling the
 // [InitWithFrame] method of the resulting object.
-// 
+//
 // The layout object is responsible for defining the kind of supplementary
 // views it supports and how those views are used. For example, the flow
 // layout ([NSCollectionViewFlowLayout] class) lets you specify supplementary
 // views to act as headers and footers for each section.
-// 
+//
 // Typically, you register your supplementary views when initializing your
 // collection view interface. Although you can register new views at any time,
 // you must not call the [SupplementaryViewOfKindWithIdentifierForIndexPath]
@@ -890,6 +894,7 @@ func (c NSCollectionView) MakeSupplementaryViewOfKindWithIdentifierForIndexPath(
 func (c NSCollectionView) RegisterClassForSupplementaryViewOfKindWithIdentifier(viewClass objc.Class, kind NSCollectionViewSupplementaryElementKind, identifier NSUserInterfaceItemIdentifier) {
 	objc.Send[objc.ID](c.ID, objc.Sel("registerClass:forSupplementaryViewOfKind:withIdentifier:"), viewClass, objc.String(string(kind)), objc.String(string(identifier)))
 }
+
 // Registers a nib file to use when creating supplementary views in the
 // collection view.
 //
@@ -909,18 +914,18 @@ func (c NSCollectionView) RegisterClassForSupplementaryViewOfKindWithIdentifier(
 // parameter must not be an empty string or `nil`.
 //
 // # Discussion
-// 
+//
 // Use this method to register nib files containing prototype supplementary
 // views in your collection view. When you request a view using the
 // [SupplementaryViewOfKindWithIdentifierForIndexPath] method, the collection
 // view recycles an existing view with the same `identifier` and `kind` values
 // or creates a new one by loading the contents of your nib file.
-// 
+//
 // The layout object is responsible for defining the kind of supplementary
 // views it supports and how those views are used. For example, the flow
 // layout ([NSCollectionViewFlowLayout] class) lets you specify supplementary
 // views to act as headers and footers for each section.
-// 
+//
 // Typically, you register your supplementary views when initializing your
 // collection view interface. Although you can register new views at any time,
 // you must not call the [SupplementaryViewOfKindWithIdentifierForIndexPath]
@@ -930,10 +935,11 @@ func (c NSCollectionView) RegisterClassForSupplementaryViewOfKindWithIdentifier(
 func (c NSCollectionView) RegisterNibForSupplementaryViewOfKindWithIdentifier(nib INSNib, kind NSCollectionViewSupplementaryElementKind, identifier NSUserInterfaceItemIdentifier) {
 	objc.Send[objc.ID](c.ID, objc.Sel("registerNib:forSupplementaryViewOfKind:withIdentifier:"), nib, objc.String(string(kind)), objc.String(string(identifier)))
 }
+
 // Reloads all of the data for the collection view.
 //
 // # Discussion
-// 
+//
 // Call this method when the data in your data source object changes or when
 // you want to force the collection view to update its contents. When you call
 // this method, the collection view discards any currently visible items and
@@ -941,7 +947,7 @@ func (c NSCollectionView) RegisterNibForSupplementaryViewOfKindWithIdentifier(ni
 // only the items and supplementary views that are visible after reloading the
 // data. If the collection view’s size changes as a result of reloading the
 // data, the collection view adjusts its scrolling offsets accordingly.
-// 
+//
 // Do not call this method in the middle of animation blocks where items are
 // being inserted or deleted. The methods used to insert and delete items
 // automatically update the collection view’s contents.
@@ -950,20 +956,21 @@ func (c NSCollectionView) RegisterNibForSupplementaryViewOfKindWithIdentifier(ni
 func (c NSCollectionView) ReloadData() {
 	objc.Send[objc.ID](c.ID, objc.Sel("reloadData"))
 }
+
 // Reloads the data in the specified sections of the collection view.
 //
 // sections: The indexes of the sections that you want to reload. Specifying `nil` for
 // this parameter raises an exception.
 //
 // # Discussion
-// 
+//
 // Call this method when the data for the specified sections changes or when
 // you want to force the appearance of those sections to be updated. When you
 // call this method, the collection view discards visible elements in the
 // section along with any cached attributes for those elements. For
 // efficiency, it then asks the layout object to provide fresh attributes for
 // only the visible items and views and requests new views for those elements.
-// 
+//
 // Do not call this method in the middle of animation blocks where items are
 // being inserted or deleted. The methods used to insert and delete items
 // automatically update the collection view’s contents.
@@ -972,13 +979,14 @@ func (c NSCollectionView) ReloadData() {
 func (c NSCollectionView) ReloadSections(sections foundation.NSIndexSet) {
 	objc.Send[objc.ID](c.ID, objc.Sel("reloadSections:"), sections)
 }
+
 // Reloads only the specified items.
 //
 // indexPaths: The index paths of the specific items that you want to reload. Specifying
 // `nil` for this parameter raises an exception.
 //
 // # Discussion
-// 
+//
 // Call this method to update specific items in your collection view. You call
 // this method when the underlying data for those items changes and you want
 // to update the visual appearance of those items. When you call this method,
@@ -990,16 +998,17 @@ func (c NSCollectionView) ReloadSections(sections foundation.NSIndexSet) {
 func (c NSCollectionView) ReloadItemsAtIndexPaths(indexPaths foundation.INSSet) {
 	objc.Send[objc.ID](c.ID, objc.Sel("reloadItemsAtIndexPaths:"), indexPaths)
 }
+
 // Returns the number of items in the specified section.
 //
 // section: The index of the section whose item count you want. This index is 0-based.
 //
 // # Return Value
-// 
+//
 // The number of items in the section.
 //
 // # Discussion
-// 
+//
 // Use this method to get the number of items currently displayed by the
 // collection view for the specified section. Do not call the methods of the
 // data source to get this information.
@@ -1009,16 +1018,15 @@ func (c NSCollectionView) NumberOfItemsInSection(section int) int {
 	rv := objc.Send[int](c.ID, objc.Sel("numberOfItemsInSection:"), section)
 	return rv
 }
+
 // Inserts new items into the collection view at the specified locations.
 //
 // indexPaths: A set of [NSIndexPath] objects, each of which includes a section and item
 // index corresponding to the insertion point of a single item. Specifying
 // `nil` for this parameter raises an exception.
-// //
-// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
 //
 // # Discussion
-// 
+//
 // After adding new items to your data source object, use this method to
 // synchronize those changes with the collection view. Calling this method
 // lets the collection view know that it must update its internal data
@@ -1027,15 +1035,18 @@ func (c NSCollectionView) NumberOfItemsInSection(section int) int {
 // objects. If the layout object indicates that the new items should appear
 // onscreen, the collection view asks the data source to provide the
 // appropriate content, animating that content into position as needed.
-// 
+//
 // When inserting or deleting multiple sections and items, you can animate all
 // of your changes at once using the [PerformBatchUpdatesCompletionHandler]
 // method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/insertItems(at:)
+//
+// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
 func (c NSCollectionView) InsertItemsAtIndexPaths(indexPaths foundation.INSSet) {
 	objc.Send[objc.ID](c.ID, objc.Sel("insertItemsAtIndexPaths:"), indexPaths)
 }
+
 // Moves an item from one location to another in the collection view.
 //
 // indexPath: The index path of the item that you want to move. This parameter must not
@@ -1045,7 +1056,7 @@ func (c NSCollectionView) InsertItemsAtIndexPaths(indexPaths foundation.INSSet) 
 // `nil`.
 //
 // # Discussion
-// 
+//
 // After rearranging items in your data source object, use this method to
 // synchronize those changes with the collection view. Calling this method
 // lets the collection view know that it must update its internal data
@@ -1053,7 +1064,7 @@ func (c NSCollectionView) InsertItemsAtIndexPaths(indexPaths foundation.INSSet) 
 // to a different section or to a new location in the same section. The
 // collection view updates the layout as needed to account for the move,
 // animating cells into position in response.
-// 
+//
 // When inserting or deleting multiple sections and items, you can animate all
 // of your changes at once using the [PerformBatchUpdatesCompletionHandler]
 // method.
@@ -1062,16 +1073,15 @@ func (c NSCollectionView) InsertItemsAtIndexPaths(indexPaths foundation.INSSet) 
 func (c NSCollectionView) MoveItemAtIndexPathToIndexPath(indexPath foundation.INSIndexPath, newIndexPath foundation.INSIndexPath) {
 	objc.Send[objc.ID](c.ID, objc.Sel("moveItemAtIndexPath:toIndexPath:"), indexPath, newIndexPath)
 }
+
 // Deletes the items at the specified index paths.
 //
 // indexPaths: A set of [NSIndexPath] objects, each of which includes a section and item
 // index corresponding to the insertion point of a single item. Specifying
 // `nil` for this parameter raises an exception.
-// //
-// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
 //
 // # Discussion
-// 
+//
 // After removing items from your data source object, use this method to
 // synchronize those changes with the collection view. Calling this method
 // lets the collection view know that it must update its internal data
@@ -1080,22 +1090,25 @@ func (c NSCollectionView) MoveItemAtIndexPathToIndexPath(indexPath foundation.IN
 // remaining objects. If the layout object indicates that there are changes to
 // the visible items, the collection view animates the affected items into
 // place.
-// 
+//
 // When inserting or deleting multiple sections and items, you can animate all
 // of your changes at once using the [PerformBatchUpdatesCompletionHandler]
 // method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/deleteItems(at:)
+//
+// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
 func (c NSCollectionView) DeleteItemsAtIndexPaths(indexPaths foundation.INSSet) {
 	objc.Send[objc.ID](c.ID, objc.Sel("deleteItemsAtIndexPaths:"), indexPaths)
 }
+
 // Inserts new sections at the specified indexes.
 //
 // sections: An index set containing the indexes at which you want to insert new
 // sections. This parameter must not be `nil`.
 //
 // # Discussion
-// 
+//
 // This method tells the collection view to insert the specified sections and
 // update itself. Always update your data source object before calling this
 // method. Calling this method kicks off an update (and possible animations)
@@ -1103,7 +1116,7 @@ func (c NSCollectionView) DeleteItemsAtIndexPaths(indexPaths foundation.INSSet) 
 // object for any updated layout attributes related to the new sections or any
 // existing sections. If the layout attributes of any visible items changed,
 // those changes are animated into place.
-// 
+//
 // When inserting or deleting multiple sections and items, you can animate all
 // of your changes at once using the [PerformBatchUpdatesCompletionHandler]
 // method.
@@ -1112,6 +1125,7 @@ func (c NSCollectionView) DeleteItemsAtIndexPaths(indexPaths foundation.INSSet) 
 func (c NSCollectionView) InsertSections(sections foundation.NSIndexSet) {
 	objc.Send[objc.ID](c.ID, objc.Sel("insertSections:"), sections)
 }
+
 // Moves a section from its current location to a new location.
 //
 // section: The index of the section that you want to move.
@@ -1119,7 +1133,7 @@ func (c NSCollectionView) InsertSections(sections foundation.NSIndexSet) {
 // newSection: The new index at which to insert the section.
 //
 // # Discussion
-// 
+//
 // Use this method to reorganize sections and their contained items. Always
 // update your data source object before calling this method. Calling this
 // method kicks off an update (and possible animations) to move the specified
@@ -1127,7 +1141,7 @@ func (c NSCollectionView) InsertSections(sections foundation.NSIndexSet) {
 // layout object for any updated layout attributes related to the new sections
 // or any existing sections. If the layout attributes of any visible items
 // changed, those changes are animated into place.
-// 
+//
 // When inserting or deleting multiple sections and items, you can animate all
 // of your changes at once using the [PerformBatchUpdatesCompletionHandler]
 // method.
@@ -1136,13 +1150,14 @@ func (c NSCollectionView) InsertSections(sections foundation.NSIndexSet) {
 func (c NSCollectionView) MoveSectionToSection(section int, newSection int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("moveSection:toSection:"), section, newSection)
 }
+
 // Deletes the specified sections and their contained items.
 //
 // sections: An index set containing the indexes of the sections that you want to
 // delete. This parameter must not be `nil`.
 //
 // # Discussion
-// 
+//
 // Use this method to delete entire sections and their contained items. Always
 // update your data source object before calling this method. Calling this
 // method kicks off an update (and possible animations) to delete the
@@ -1151,7 +1166,7 @@ func (c NSCollectionView) MoveSectionToSection(section int, newSection int) {
 // also ask for updated layout attributes for any remaining sections. If the
 // layout attributes of any visible items changed, those changes are animated
 // into place.
-// 
+//
 // When inserting or deleting multiple sections and items, you can animate all
 // of your changes at once using the [PerformBatchUpdatesCompletionHandler]
 // method.
@@ -1160,13 +1175,14 @@ func (c NSCollectionView) MoveSectionToSection(section int, newSection int) {
 func (c NSCollectionView) DeleteSections(sections foundation.NSIndexSet) {
 	objc.Send[objc.ID](c.ID, objc.Sel("deleteSections:"), sections)
 }
+
 // Collapses the section in which the sender resides into a single
 // horizontally scrollable row.
 //
 // sender: The object that requested the action.
 //
 // # Discussion
-// 
+//
 // The icon view in Finder offers this type of collapsible section behavior
 // when users choose the Show Less and Show More buttons. To enable this
 // behavior, your header view must conform to the
@@ -1178,30 +1194,29 @@ func (c NSCollectionView) DeleteSections(sections foundation.NSIndexSet) {
 func (c NSCollectionView) ToggleSectionCollapse(sender objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("toggleSectionCollapse:"), sender)
 }
+
 // Deselects all items in the collection view.
 //
 // sender: The object that requested the action. You may specify `nil` for this
 // property.
 //
 // # Discussion
-// 
+//
 // This method works only when the [Selectable] and [AllowsEmptySelection]
-// properties are both true [true]. If either property is set to [false], this
+// properties are both true true. If either property is set to false, this
 // method quietly does nothing and any connected menu item is disabled.
-// 
+//
 // This method consults the delegate object regarding the selection.
 // Specifically, it calls the delegate’s
 // [CollectionViewShouldDeselectItemsAtIndexPaths] method to see if the items
 // should be selected. For any items that are selected, it calls the
 // [CollectionViewDidDeselectItemsAtIndexPaths] method.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/deselectAll(_:)
 func (c NSCollectionView) DeselectAll(sender objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("deselectAll:"), sender)
 }
+
 // Adds the specified items to the current selection and optionally scrolls
 // the items into position.
 //
@@ -1213,7 +1228,7 @@ func (c NSCollectionView) DeselectAll(sender objectivec.IObject) {
 // horizontal directions raises an exception.
 //
 // # Discussion
-// 
+//
 // Use this method to extend the current selection. If you want to animate the
 // selection of the new items, call this method on the collection view’s
 // [Animator] proxy object instead. This method does not call any methods of
@@ -1223,12 +1238,13 @@ func (c NSCollectionView) DeselectAll(sender objectivec.IObject) {
 func (c NSCollectionView) SelectItemsAtIndexPathsScrollPosition(indexPaths foundation.INSSet, scrollPosition NSCollectionViewScrollPosition) {
 	objc.Send[objc.ID](c.ID, objc.Sel("selectItemsAtIndexPaths:scrollPosition:"), indexPaths, scrollPosition)
 }
+
 // Removes the specified items from the current selection.
 //
 // indexPaths: The index paths of the items you want to deselect.
 //
 // # Discussion
-// 
+//
 // Use this method to reduce the current selection. If you want to animate the
 // deselection of the new items, call this method on the collection view’s
 // [Animator] proxy object instead. This method does not call any methods of
@@ -1238,24 +1254,23 @@ func (c NSCollectionView) SelectItemsAtIndexPathsScrollPosition(indexPaths found
 func (c NSCollectionView) DeselectItemsAtIndexPaths(indexPaths foundation.INSSet) {
 	objc.Send[objc.ID](c.ID, objc.Sel("deselectItemsAtIndexPaths:"), indexPaths)
 }
+
 // Returns an array of the actively managed items in the collection view.
 //
 // # Return Value
-// 
+//
 // An array of [NSCollectionViewItem] objects. The returned array may be
 // empty.
 //
 // # Discussion
-// 
+//
 // The items returned by this method represent the ones that are active and
 // currently being managed by the collection view. This array may contain
 // items that are outside of the collection view’s actual visible rectangle.
 // For example, it may contain items that were recently visible but have since
 // been scrolled out of view. To test whether an item is actually visible,
-// check to see if its frame rectangle intersects the [visibleRect] of the
+// check to see if its frame rectangle intersects the [VisibleRect] of the
 // collection view.
-//
-// [visibleRect]: https://developer.apple.com/documentation/AppKit/NSView/visibleRect
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/visibleItems()
 func (c NSCollectionView) VisibleItems() []NSCollectionViewItem {
@@ -1264,32 +1279,32 @@ func (c NSCollectionView) VisibleItems() []NSCollectionViewItem {
 		return NSCollectionViewItemFromID(id)
 	})
 }
+
 // Returns the index paths of the currently active items.
 //
 // # Return Value
-// 
+//
 // The set of [NSIndexPath] objects corresponding to the currently visible
 // items.
 //
-// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
-//
 // # Discussion
-// 
+//
 // The index paths returned by this method belong to items that are active and
 // currently being managed by the collection view. As a result, the returned
 // set may include index paths for items that are outside of the collection
 // view’s actual visible rectangle. For example, it may contain index paths
 // for items that were recently visible but have since been scrolled out of
 // view. To test whether an item is visible, check to see if its frame
-// rectangle intersects the [visibleRect] of the collection view.
-//
-// [visibleRect]: https://developer.apple.com/documentation/AppKit/NSView/visibleRect
+// rectangle intersects the [VisibleRect] of the collection view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/indexPathsForVisibleItems()
+//
+// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
 func (c NSCollectionView) IndexPathsForVisibleItems() foundation.INSSet {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathsForVisibleItems"))
 	return foundation.NSSetFromID(rv)
 }
+
 // Returns an array of the actively managed supplementary views in the
 // collection view.
 //
@@ -1298,20 +1313,18 @@ func (c NSCollectionView) IndexPathsForVisibleItems() foundation.INSSet {
 // not be `nil`.
 //
 // # Return Value
-// 
+//
 // An array of view objects. The returned array may be empty.
 //
 // # Discussion
-// 
+//
 // The views returned by this method represent the ones that are active and
 // are currently being managed by the collection view. The array may contain
 // supplementary views that are outside of the collection view’s actual
 // visible rectangle. For example, it might contain views that were recently
 // visible but have since been scrolled out of the visible rectangle. To test
 // whether a view is actually visible, check to see if its frame rectangle
-// intersects the [visibleRect] of the collection view.
-//
-// [visibleRect]: https://developer.apple.com/documentation/AppKit/NSView/visibleRect
+// intersects the [VisibleRect] of the collection view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/visibleSupplementaryViews(ofKind:)
 func (c NSCollectionView) VisibleSupplementaryViewsOfKind(elementKind NSCollectionViewSupplementaryElementKind) []NSView {
@@ -1320,6 +1333,7 @@ func (c NSCollectionView) VisibleSupplementaryViewsOfKind(elementKind NSCollecti
 		return NSViewFromID(id)
 	})
 }
+
 // Returns the index paths of the currently active supplementary views.
 //
 // elementKind: The kind of the supplementary views you want returned. The layout object
@@ -1327,35 +1341,34 @@ func (c NSCollectionView) VisibleSupplementaryViewsOfKind(elementKind NSCollecti
 // not be `nil`.
 //
 // # Return Value
-// 
+//
 // The set of [NSIndexPath] objects. The returned array may be empty.
 //
-// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
-//
 // # Discussion
-// 
+//
 // The index paths returned by this method correspond to supplementary views
 // that are active and currently being managed by the collection view. The set
 // may include index paths for views that are outside of the collection
 // view’s actual visible rectangle. For example, it might contain index
 // paths for views that were recently visible but have since been scrolled out
 // of the visible rectangle. To test whether a view is actually visible, check
-// to see if its frame rectangle intersects the [visibleRect] of the
+// to see if its frame rectangle intersects the [VisibleRect] of the
 // collection view.
 //
-// [visibleRect]: https://developer.apple.com/documentation/AppKit/NSView/visibleRect
-//
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/indexPathsForVisibleSupplementaryElements(ofKind:)
+//
+// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
 func (c NSCollectionView) IndexPathsForVisibleSupplementaryElementsOfKind(elementKind NSCollectionViewSupplementaryElementKind) foundation.INSSet {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathsForVisibleSupplementaryElementsOfKind:"), objc.String(string(elementKind)))
 	return foundation.NSSetFromID(rv)
 }
+
 // Returns the index path of the specified item.
 //
 // item: The item whose index path you want to know.
 //
 // # Return Value
-// 
+//
 // The item’s index path or `nil` if the item is not in the collection view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/indexPath(for:)
@@ -1363,17 +1376,18 @@ func (c NSCollectionView) IndexPathForItem(item INSCollectionViewItem) objc.ID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathForItem:"), item)
 	return rv
 }
+
 // Returns the index path of the item at the specified point.
 //
 // point: The point in the collection view’s bounds that you want to test.
 //
 // # Return Value
-// 
+//
 // The item at the specified point or `nil` if no item was found at that
 // point.
 //
 // # Discussion
-// 
+//
 // This method uses the available layout attributes to determine which item is
 // at the specified point. If more than one item is at the point, this method
 // returns only the top-most item. This method ignores the opacity of the
@@ -1385,16 +1399,17 @@ func (c NSCollectionView) IndexPathForItemAtPoint(point corefoundation.CGPoint) 
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathForItemAtPoint:"), point)
 	return rv
 }
+
 // Returns the item associated with the specified index path.
 //
 // indexPath: The index path whose item you want.
 //
 // # Return Value
-// 
+//
 // The item for the specified index path or `nil` if no item is available.
 //
 // # Discussion
-// 
+//
 // For efficiency, the collection view does not create items until they are
 // needed, and usually it creates them only when they need to be displayed
 // onscreen. If the collection view does not currently have an item for the
@@ -1406,6 +1421,7 @@ func (c NSCollectionView) ItemAtIndexPath(indexPath foundation.INSIndexPath) INS
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemAtIndexPath:"), indexPath)
 	return NSCollectionViewItemFromID(rv)
 }
+
 // Returns the supplementary view associated with the specified index path.
 //
 // elementKind: The kind of the supplementary views you want returned. The layout object
@@ -1415,11 +1431,11 @@ func (c NSCollectionView) ItemAtIndexPath(indexPath foundation.INSIndexPath) INS
 // indexPath: The index path whose supplementary view you want.
 //
 // # Return Value
-// 
+//
 // The view for the specified index path or `nil` if no view is available.
 //
 // # Discussion
-// 
+//
 // For efficiency, the collection view does not create supplementary views
 // until they are needed. Typically, views are created only when they need to
 // be displayed onscreen. If the collection view does not currently have a
@@ -1431,6 +1447,7 @@ func (c NSCollectionView) SupplementaryViewForElementKindAtIndexPath(elementKind
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("supplementaryViewForElementKind:atIndexPath:"), objc.String(string(elementKind)), indexPath)
 	return NSViewFromID(rv)
 }
+
 // Scrolls the collection view contents until the specified items are visible.
 //
 // indexPaths: The index paths of the items. The layout attributes of these items define
@@ -1442,7 +1459,7 @@ func (c NSCollectionView) SupplementaryViewForElementKindAtIndexPath(elementKind
 // vertical or horizontal directions raises an exception.
 //
 // # Discussion
-// 
+//
 // To animate the scrolling operation, call this method on the collection
 // view’s [Animator] proxy object instead.
 //
@@ -1450,17 +1467,18 @@ func (c NSCollectionView) SupplementaryViewForElementKindAtIndexPath(elementKind
 func (c NSCollectionView) ScrollToItemsAtIndexPathsScrollPosition(indexPaths foundation.INSSet, scrollPosition NSCollectionViewScrollPosition) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scrollToItemsAtIndexPaths:scrollPosition:"), indexPaths, scrollPosition)
 }
+
 // Returns the layout information for the item at the specified index path.
 //
 // indexPath: The index path of the item.
 //
 // # Return Value
-// 
+//
 // The layout attributes of the item or `nil` if no item exists at the
 // specified path.
 //
 // # Discussion
-// 
+//
 // This method updates the layout information as needed before returning the
 // specified attributes. Always use this method to retrieve the layout
 // attributes for items in the collection view. Do not query the layout object
@@ -1471,6 +1489,7 @@ func (c NSCollectionView) LayoutAttributesForItemAtIndexPath(indexPath foundatio
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForItemAtIndexPath:"), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
+
 // Returns the layout information for the supplementary view at the specified
 // index path.
 //
@@ -1481,12 +1500,12 @@ func (c NSCollectionView) LayoutAttributesForItemAtIndexPath(indexPath foundatio
 // indexPath: The index path of the supplementary view. Normally, this path
 //
 // # Return Value
-// 
+//
 // The layout attributes of the supplementary view or `nil` if no item exists
 // at the specified path.
 //
 // # Discussion
-// 
+//
 // This method updates the layout information as needed before returning the
 // specified attributes. Always use this method to retrieve the layout
 // attributes for supplementary views in the collection view. Do not query the
@@ -1497,6 +1516,7 @@ func (c NSCollectionView) LayoutAttributesForSupplementaryElementOfKindAtIndexPa
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForSupplementaryElementOfKind:atIndexPath:"), objc.String(string(kind)), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
+
 // Encapsulates multiple insert, delete, reload, and move operations into a
 // single animated operation.
 //
@@ -1506,23 +1526,20 @@ func (c NSCollectionView) LayoutAttributesForSupplementaryElementOfKindAtIndexPa
 // completionHandler: A completion handler block to execute when the changes made in the
 // `updates` block have finished animating. This parameter may be `nil`. This
 // block takes the following parameters:
-// 
+//
 // finished: A Boolean value indicating whether the animations completed
-// successfully. The value of this parameter is [true] if the animations ran
-// to completion or [false] if they were interrupted.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// successfully. The value of this parameter is true if the animations ran to
+// completion or false if they were interrupted.
 //
 // # Discussion
-// 
+//
 // Use this method to make multiple changes to the collection view in one
 // single animated operation. Normally, when you insert, delete, reload, or
 // move items, the collection view animates each change separately. Making
 // those same changes inside the `updates` block causes them to be animated at
 // the same time. This method updates the current layout information as needed
 // before and after performing the operations in the `updates` block.
-// 
+//
 // The order in which you make calls to insert, delete, or otherwise modify
 // the collection view is ignored. When executing your `updates` block, this
 // method gathers information about the operations you requested without
@@ -1533,21 +1550,20 @@ func (c NSCollectionView) LayoutAttributesForSupplementaryElementOfKindAtIndexPa
 // operation at the same location.) As a result, the indexes you specify for
 // each set of operations must reflect the changes made by any preceding
 // operations.
-// 
+//
 // You may call this method from inside your `updates` or `completionHandler`
 // blocks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/performBatchUpdates(_:completionHandler:)
 func (c NSCollectionView) PerformBatchUpdatesCompletionHandler(updates VoidHandler, completionHandler BoolHandler) {
-_block0, _ := NewVoidBlock(updates)
+	_block0, _ := NewVoidBlock(updates)
 	_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("performBatchUpdates:completionHandler:"), _block0, _block1)
 }
+
 // Returns an image to use for dragging the specified items.
 //
 // indexPaths: The set of [NSIndexPath] objects corresponding to the items being dragged.
-// //
-// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
 //
 // event: The mouse-down event that began the drag operation.
 //
@@ -1555,22 +1571,20 @@ _block0, _ := NewVoidBlock(updates)
 // [NSZeroPoint], which centers the returned image under the mouse. Custom
 // implementations can return a different point that repositions the drag
 // image by the specified offset values.
-// //
-// [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
 //
 // # Return Value
-// 
+//
 // The image to use for the dragged items.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method creates an image using the
 // visible portions of the dragged items. The resulting image is a snapshot of
 // the dragged items as they currently appear in the collection view but
 // rendered with additional transparency to indicate they are part of a drag
 // operation. This method also updates the `dragImageOffset` parameter to an
 // appropriate point for dragging the resulting image.
-// 
+//
 // If the delegate implements the
 // [CollectionViewDraggingImageForItemsAtIndexPathsWithEventOffset] method,
 // the collection view method obtains the drag image from that method instead.
@@ -1578,21 +1592,25 @@ _block0, _ := NewVoidBlock(updates)
 // the image returned by this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/draggingImageForItems(at:with:offset:)-7rc4k
+//
+// [NSIndexPath]: https://developer.apple.com/documentation/Foundation/NSIndexPath
+// [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
 func (c NSCollectionView) DraggingImageForItemsAtIndexPathsWithEventOffset(indexPaths foundation.INSSet, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("draggingImageForItemsAtIndexPaths:withEvent:offset:"), indexPaths, event, dragImageOffset)
 	return NSImageFromID(rv)
 }
+
 // Returns the collection view item for the represented object at the
 // specified index.
 //
 // index: The index of the collection view item.
 //
 // # Return Value
-// 
+//
 // An instance of [NSCollectionViewItem].
 //
 // # Discussion
-// 
+//
 // Rather than using the [NSCollectionViewItem] instance returned by this
 // method to determine the frame of the collection item’s view you should
 // use [Content], it is significantly more efficient.
@@ -1602,23 +1620,24 @@ func (c NSCollectionView) ItemAtIndex(index uint) INSCollectionViewItem {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemAtIndex:"), index)
 	return NSCollectionViewItemFromID(rv)
 }
+
 // Returns the frame of the collection view item at the specified index.
 //
 // index: The index of the collection view item.
 //
 // # Return Value
-// 
+//
 // The frame calculated by the receiver where it intends to place the subview
 // for the [NSCollectionViewItem] at the given index. The rectangle is
 // returned in the collection view’s coordinate system.
 //
 // # Discussion
-// 
+//
 // You can use this method in the
 // [CollectionViewDraggingImageForItemsAtIndexesWithEventOffset] method to
 // determine which views are in the visible portion of the enclosing scroll
 // view.
-// 
+//
 // Overriding this method will have no effect on the collection view’s
 // subview layout.
 //
@@ -1627,6 +1646,7 @@ func (c NSCollectionView) FrameForItemAtIndex(index uint) corefoundation.CGRect 
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("frameForItemAtIndex:"), index)
 	return corefoundation.CGRect(rv)
 }
+
 // Returns the frame of an item based on the number of items in the collection
 // view.
 //
@@ -1637,16 +1657,16 @@ func (c NSCollectionView) FrameForItemAtIndex(index uint) corefoundation.CGRect 
 // that number is different than the actual number of items.
 //
 // # Return Value
-// 
+//
 // The frame rectangle that reflects where the collection view would place the
 // item.
 //
 // # Discussion
-// 
+//
 // Using the value in the `numberOfItems` parameter, this method calculates
 // the frame rectangle of the item at the specified `index` in the collection
 // view.
-// 
+//
 // When the collection view is a drag destination, use this method (instead of
 // the [Content] method) to get the frame of items. Drag operations can change
 // the number of items, which affects the layout of the item views.
@@ -1656,6 +1676,7 @@ func (c NSCollectionView) FrameForItemAtIndexWithNumberOfItems(index uint, numbe
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("frameForItemAtIndex:withNumberOfItems:"), index, numberOfItems)
 	return corefoundation.CGRect(rv)
 }
+
 // This method computes and returns an image to use for dragging.
 //
 // indexes: The index set of the items to be dragged.
@@ -1665,57 +1686,52 @@ func (c NSCollectionView) FrameForItemAtIndexWithNumberOfItems(index uint, numbe
 // dragImageOffset: An in/out parameter that will initially be set to [NSZeroPoint]. it can be
 // modified to reposition the returned image. A `dragImageOffset` of
 // [NSZeroPoint] will cause the image to be centered under the mouse.
-// //
-// [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
 //
 // # Return Value
-// 
+//
 // An image containing a rendering of the visible portions of the views for
 // each item.
 //
 // # Discussion
-// 
+//
 // You can override the default image by subclassing NSCollectionView and
 // overriding this method, or by implementing the
 // [CollectionViewDraggingImageForItemsAtIndexesWithEventOffset] delegate
 // method, it will be preferred over this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/draggingImageForItems(at:with:offset:)-951w7
+//
+// [NSZeroPoint]: https://developer.apple.com/documentation/Foundation/NSZeroPoint
 func (c NSCollectionView) DraggingImageForItemsAtIndexesWithEventOffset(indexes foundation.NSIndexSet, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("draggingImageForItemsAtIndexes:withEvent:offset:"), indexes, event, dragImageOffset)
 	return NSImageFromID(rv)
 }
+
 // Configures the drag operation mask.
 //
 // dragOperationMask: The types of drag operations allowed.
 //
-// localDestination: If [true], mask applies when the drag destination object is in the same
-// application as the receiver; if [false], mask applies when the destination
+// localDestination: If true, mask applies when the drag destination object is in the same
+// application as the receiver; if false, mask applies when the destination
 // object is outside the receiver’s application.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Discussion
-// 
+//
 // This method configures the default value returned from
 // [draggingSourceOperationMaskForLocal:]. By default, this method returns
-// [DragOperationEvery] when `localDestination` is [true] and
-// [NSDragOperationNone] when `localDestination` is [false].
-// [NSCollectionView] will save the values you set for each `localDestination`
-// value.
-// 
+// [NSDragOperationEvery] when `localDestination` is true and
+// [NSDragOperationNone] when `localDestination` is false. [NSCollectionView]
+// will save the values you set for each `localDestination` value.
+//
 // You typically will invoke this method, and not override it.
 //
-// [NSDragOperationNone]: https://developer.apple.com/documentation/AppKit/NSDragOperation/NSDragOperationNone
-// [draggingSourceOperationMaskForLocal:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/draggingSourceOperationMaskForLocal:
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/setDraggingSourceOperationMask(_:forLocal:)
+//
+// [draggingSourceOperationMaskForLocal:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/draggingSourceOperationMaskForLocal:
 func (c NSCollectionView) SetDraggingSourceOperationMaskForLocal(dragOperationMask NSDragOperation, localDestination bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setDraggingSourceOperationMask:forLocal:"), dragOperationMask, localDestination)
 }
+
 // Invoked when the dragging session has completed.
 //
 // session: The dragging session.
@@ -1723,13 +1739,14 @@ func (c NSCollectionView) SetDraggingSourceOperationMaskForLocal(dragOperationMa
 // screenPoint: The point where the drag ended, in screen coordinates.
 //
 // operation: The drag operation. See [NSDragOperation] for drag operation types.
-// //
-// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:endedAt:operation:)
+//
+// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
 func (c NSCollectionView) DraggingSessionEndedAtPointOperation(session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
 	objc.Send[objc.ID](c.ID, objc.Sel("draggingSession:endedAtPoint:operation:"), session, screenPoint, operation)
 }
+
 // Invoked when the drag moves on the screen.
 //
 // session: The dragging session.
@@ -1740,30 +1757,31 @@ func (c NSCollectionView) DraggingSessionEndedAtPointOperation(session INSDraggi
 func (c NSCollectionView) DraggingSessionMovedToPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("draggingSession:movedToPoint:"), session, screenPoint)
 }
+
 // Declares the types of operations the source allows to be performed.
 //
 // session: The dragging session.
 //
 // context: The dragging context. See [NSDraggingContext] for the supported values.
-// //
-// [NSDraggingContext]: https://developer.apple.com/documentation/AppKit/NSDraggingContext
 //
 // # Return Value
-// 
-// The appropriate dragging operation as defined in
+//
+// A dragging operation you specify.
 //
 // # Discussion
-// 
-// In the future Apple may provide more specific “within” values in the
-// future. To account for this, for unrecognized localities, return the
-// operation mask for the most specific context that you are concerned with.
-// The following code is an example of how to implement this functionality:
+//
+// To account for unexpected contexts, set a `default` case for the most
+// specific context your app handles. The following code shows an example that
+// handles different dragging contexts and includes a default case.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:sourceOperationMaskFor:)
+//
+// [NSDraggingContext]: https://developer.apple.com/documentation/AppKit/NSDraggingContext
 func (c NSCollectionView) DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation {
 	rv := objc.Send[NSDragOperation](c.ID, objc.Sel("draggingSession:sourceOperationMaskForDraggingContext:"), session, context)
 	return NSDragOperation(rv)
 }
+
 // Invoked when the drag will begin.
 //
 // session: The dragging session.
@@ -1774,17 +1792,15 @@ func (c NSCollectionView) DraggingSessionSourceOperationMaskForDraggingContext(s
 func (c NSCollectionView) DraggingSessionWillBeginAtPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("draggingSession:willBeginAtPoint:"), session, screenPoint)
 }
+
 // Returns whether the modifier keys will be ignored for this dragging
 // session.
 //
 // session: The dragging session.
 //
 // # Return Value
-// 
-// [true] if the modifier keys will be ignored, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the modifier keys will be ignored, false otherwise.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/ignoreModifierKeys(for:)
 func (c NSCollectionView) IgnoreModifierKeysForDraggingSession(session INSDraggingSession) bool {
@@ -1795,12 +1811,12 @@ func (c NSCollectionView) IgnoreModifierKeysForDraggingSession(session INSDraggi
 // An object that provides data for the collection view.
 //
 // # Discussion
-// 
+//
 // The data source object manages the data in the collection view. Use this
 // object to specify how many items are in the collection view and to create
 // the visual representation of those items. The object you specify must adopt
 // the [NSCollectionViewDataSource] protocol.
-// 
+//
 // To specify the data for your collection view, assign a value to this
 // property or to the [Content] property, but not both. If you specify a value
 // for this property, the collection view ignores the [Content] property and
@@ -1814,10 +1830,11 @@ func (c NSCollectionView) DataSource() NSCollectionViewDataSource {
 func (c NSCollectionView) SetDataSource(value NSCollectionViewDataSource) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDataSource:"), value)
 }
+
 // The collection view’s delegate object.
 //
 // # Discussion
-// 
+//
 // Use the delegate object to manage the selection and highlighting of items,
 // track the addition and removal of items, and manage drag and drop
 // operations. The object you assign to this property must conform to the
@@ -1832,16 +1849,17 @@ func (c NSCollectionView) Delegate() NSCollectionViewDelegate {
 func (c NSCollectionView) SetDelegate(value NSCollectionViewDelegate) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDelegate:"), value)
 }
+
 // An array that provides data for the collection view.
 //
 // # Discussion
-// 
+//
 // The content object manages the data in the collection view. Use this object
 // to specify an array of items directly. This property is observable using
 // key-value observing. The collection view also exposes a `content` binding
 // value so that you can specify the array of items using an ArrayController
 // object in Interface Builder.
-// 
+//
 // To specify the data for your collection view, assign a value to this
 // property or to the [DataSource] property, but not both. If you specify a
 // value for the [DataSource] property, the collection view ignores the value
@@ -1857,21 +1875,20 @@ func (c NSCollectionView) Content() []objectivec.IObject {
 func (c NSCollectionView) SetContent(value []objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContent:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The background view placed behind all items and supplementary views.
 //
 // # Discussion
-// 
+//
 // The view you assign to this property is positioned underneath all other
 // content and sized automatically to match the enclosing clip view’s frame.
 // The view itself does not scroll with the rest of the collection view
 // content. The view’s layer redraw policy is also changed to
-// [NSView.LayerContentsRedrawPolicy.never].
-// 
+// [NSViewLayerContentsRedrawNever].
+//
 // In macOS 10.12 and later, a collection view that sets both [BackgroundView]
 // and [BackgroundColors] shows `backgroundColors[0]` through all areas that
 // are not opaquely covered by the [BackgroundView].
-//
-// [NSView.LayerContentsRedrawPolicy.never]: https://developer.apple.com/documentation/AppKit/NSView/LayerContentsRedrawPolicy-swift.enum/never
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/backgroundView
 func (c NSCollectionView) BackgroundView() INSView {
@@ -1881,21 +1898,22 @@ func (c NSCollectionView) BackgroundView() INSView {
 func (c NSCollectionView) SetBackgroundView(value INSView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundView:"), value)
 }
+
 // An array containing the collection view’s background colors.
 //
 // # Discussion
-// 
+//
 // This property contains an array of [NSColor] objects, representing the
 // colors to use when drawing the background grid. Specifying an empty array
 // or `nil` causes the collection view to use the default colors returned by
 // the [controlAlternatingRowBackgroundColors] method.
-// 
+//
 // When a background view is specified for the collection view, the colors in
 // this property are ignored.
 //
-// [controlAlternatingRowBackgroundColors]: https://developer.apple.com/documentation/AppKit/NSColor/controlAlternatingRowBackgroundColors
-//
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/backgroundColors
+//
+// [controlAlternatingRowBackgroundColors]: https://developer.apple.com/documentation/AppKit/NSColor/controlAlternatingRowBackgroundColors
 func (c NSCollectionView) BackgroundColors() []NSColor {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("backgroundColors"))
 	return objc.ConvertSlice(rv, func(id objc.ID) NSColor {
@@ -1905,25 +1923,23 @@ func (c NSCollectionView) BackgroundColors() []NSColor {
 func (c NSCollectionView) SetBackgroundColors(value []NSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundColors:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // A Boolean value that indicates whether the collection view’s background
 // view scrolls with the items and other content.
 //
 // # Discussion
-// 
-// The default value of this property is [false], which means that
+//
+// The default value of this property is false, which means that
 // [BackgroundView] (if it exists) fills the collection view’s visible area
 // and remains stationary when the collection view’s content is scrolled.
-// When the value of this property is [true], [BackgroundView] matches the
+// When the value of this property is true, [BackgroundView] matches the
 // collection view’s frame and scrolls with the collection view’s items
 // and other content.
-// 
+//
 // Changing the value of this property also changes the background view’s
 // parent. When [BackgroundView] floats behind the scrolling content, it is a
 // sibling of the collection view’s clip view. When it scrolls with the
 // collection view’s content, it is a subview of the collection view.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/backgroundViewScrollsWithContent
 func (c NSCollectionView) BackgroundViewScrollsWithContent() bool {
@@ -1933,22 +1949,23 @@ func (c NSCollectionView) BackgroundViewScrollsWithContent() bool {
 func (c NSCollectionView) SetBackgroundViewScrollsWithContent(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundViewScrollsWithContent:"), value)
 }
+
 // The layout object used to organize the collection view’s content.
 //
 // # Discussion
-// 
+//
 // Typically, you specify the layout object at design time in Interface
 // Builder. The layout object works with your data source object to generate
 // the needed items and views to display. In macOS 10.11 and later, using a
 // data source object is recommended, but you may specify `nil` for this
 // property if your collection view does not use a data source object. The
 // collection view uses the [NSCollectionViewGridLayout] object by default.
-// 
+//
 // Assigning a new value to this property changes the layout object and causes
 // the collection view to update its contents immediately and without
 // animations. If you want to animate a layout change, use an animator object
 // to set the layout object as follows:
-// 
+//
 // You can use the completion handler of the associated [NSAnimationContext]
 // object to perform additional tasks when the animations finish.
 //
@@ -1960,6 +1977,7 @@ func (c NSCollectionView) CollectionViewLayout() INSCollectionViewLayout {
 func (c NSCollectionView) SetCollectionViewLayout(value INSCollectionViewLayout) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCollectionViewLayout:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/prefetchDataSource
 func (c NSCollectionView) PrefetchDataSource() NSCollectionViewPrefetching {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("prefetchDataSource"))
@@ -1968,10 +1986,11 @@ func (c NSCollectionView) PrefetchDataSource() NSCollectionViewPrefetching {
 func (c NSCollectionView) SetPrefetchDataSource(value NSCollectionViewPrefetching) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPrefetchDataSource:"), value)
 }
+
 // The number of sections in the collection view.
 //
 // # Discussion
-// 
+//
 // This property contains the number of sections reported by the data source
 // object. If the collection view does not use a data source object, the value
 // in this property is `1`.
@@ -1981,20 +2000,18 @@ func (c NSCollectionView) NumberOfSections() int {
 	rv := objc.Send[int](c.ID, objc.Sel("numberOfSections"))
 	return rv
 }
+
 // A Boolean value that indicates whether the user may select items in the
 // collection view.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the collection view allows the
-// user to select items, or [false] when it does not. You can set selections
-// programmatically regardless of this setting.
-// 
-// The default value of this property is [false]. Changing the value from
-// [true] to [false] removes the current selection if there is one.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true when the collection view allows the user
+// to select items, or false when it does not. You can set selections
+// programmatically regardless of this setting.
+//
+// The default value of this property is false. Changing the value from true
+// to false removes the current selection if there is one.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/isSelectable
 func (c NSCollectionView) Selectable() bool {
@@ -2004,18 +2021,16 @@ func (c NSCollectionView) Selectable() bool {
 func (c NSCollectionView) SetSelectable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSelectable:"), value)
 }
+
 // A Boolean value that indicates whether the user may select more than one
 // item in the collection view.
 //
 // # Discussion
-// 
-// The value of this property is [true] if the collection view supports the
-// selection of more than one item at a time. The default value of this
-// property is [false]. Changing the value from [true] to [false] reduces the
-// current selection to the first item in the selected group.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true if the collection view supports the
+// selection of more than one item at a time. The default value of this
+// property is false. Changing the value from true to false reduces the
+// current selection to the first item in the selected group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/allowsMultipleSelection
 func (c NSCollectionView) AllowsMultipleSelection() bool {
@@ -2025,17 +2040,15 @@ func (c NSCollectionView) AllowsMultipleSelection() bool {
 func (c NSCollectionView) SetAllowsMultipleSelection(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsMultipleSelection:"), value)
 }
+
 // A Boolean value indicating whether the collection view may have no selected
 // items.
 //
 // # Discussion
-// 
-// The default value of this property is [true], which allows the collection
-// view to have no selected items. Setting this property to [false] causes the
-// collection view to always leave at least one item selected.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is true, which allows the collection
+// view to have no selected items. Setting this property to false causes the
+// collection view to always leave at least one item selected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/allowsEmptySelection
 func (c NSCollectionView) AllowsEmptySelection() bool {
@@ -2045,10 +2058,11 @@ func (c NSCollectionView) AllowsEmptySelection() bool {
 func (c NSCollectionView) SetAllowsEmptySelection(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsEmptySelection:"), value)
 }
+
 // The set of index paths representing the currently selected items.
 //
 // # Discussion
-// 
+//
 // This property reflects the index paths of the currently selected items,
 // where each index path contains a [section] number and an index number for
 // the [item] in that section. This property is updated automatically when the
@@ -2056,18 +2070,18 @@ func (c NSCollectionView) SetAllowsEmptySelection(value bool) {
 // programmatically by assigning a new value to this property. To animate
 // changes to the selection, call this method on the collection view’s
 // [Animator] proxy object instead.
-// 
+//
 // It is a programmer error to specify an index path that does not refer to a
 // valid item in the data source. If you specify an invalid index path, this
 // method raises an exception.
-// 
+//
 // This property is key-value observable. Other methods that modify the
 // selection automatically update this property.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionView/selectionIndexPaths
+//
 // [item]: https://developer.apple.com/documentation/Foundation/NSIndexPath/item
 // [section]: https://developer.apple.com/documentation/Foundation/NSIndexPath/section
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionView/selectionIndexPaths
 func (c NSCollectionView) SelectionIndexPaths() foundation.INSSet {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("selectionIndexPaths"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -2075,28 +2089,28 @@ func (c NSCollectionView) SelectionIndexPaths() foundation.INSSet {
 func (c NSCollectionView) SetSelectionIndexPaths(value foundation.INSSet) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSelectionIndexPaths:"), value)
 }
+
 // A Boolean value indicating whether the collection view is the first
 // responder.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the collection view is the first
-// responder. This property is fully key-value observing compliant.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true when the collection view is the first
+// responder. This property is fully key-value observing compliant.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/isFirstResponder
 func (c NSCollectionView) FirstResponder() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFirstResponder"))
 	return rv
 }
+
 // The indexes of the currently selected items.
 //
 // # Discussion
-// 
+//
 // Whenever possible, use the [SelectionIndexPaths] property instead of this
 // one to set selections.
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/selectionIndexes
@@ -2116,6 +2130,7 @@ func (_NSCollectionViewClass NSCollectionViewClass) ElementKindInterItemGapIndic
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewClass.class), objc.Sel("NSCollectionElementKindInterItemGapIndicator"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A supplementary view that acts as a footer for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionfooter
@@ -2123,6 +2138,7 @@ func (_NSCollectionViewClass NSCollectionViewClass) ElementKindSectionFooter() s
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewClass.class), objc.Sel("NSCollectionElementKindSectionFooter"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A supplementary view that acts as a header for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionheader
@@ -2131,8 +2147,7 @@ func (_NSCollectionViewClass NSCollectionViewClass) ElementKindSectionHeader() s
 	return foundation.NSStringFromID(rv).String()
 }
 
-			// Protocol methods for NSDraggingSource
-			
+// Protocol methods for NSDraggingSource
 
 // PerformBatchUpdates is a synchronous wrapper around [NSCollectionView.PerformBatchUpdatesCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -2148,4 +2163,3 @@ func (c NSCollectionView) PerformBatchUpdates(ctx context.Context, updates VoidH
 		return false, ctx.Err()
 	}
 }
-

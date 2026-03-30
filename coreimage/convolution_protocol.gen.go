@@ -49,6 +49,7 @@ type CIConvolution interface {
 type CIConvolutionObject struct {
 	objectivec.Object
 }
+
 func (o CIConvolutionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CIConvolutionObjectFromID(id objc.ID) CIConvolutionObject {
 func (o CIConvolutionObject) Bias() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("bias"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIConvolution/inputImage
 func (o CIConvolutionObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The convolution kernel.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIConvolution/weights
 func (o CIConvolutionObject) Weights() ICIVector {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("weights"))
 	return CIVectorFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,25 @@ func (o CIConvolutionObject) Weights() ICIVector {
 func (o CIConvolutionObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// A value that’s added to each output pixel.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIConvolution/bias
 func (o CIConvolutionObject) SetBias(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setBias:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIConvolution/inputImage
 func (o CIConvolutionObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The convolution kernel.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIConvolution/weights
 func (o CIConvolutionObject) SetWeights(value ICIVector) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWeights:"), value)
 }
-

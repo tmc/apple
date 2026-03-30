@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,19 +45,17 @@ func (cc CachedURLResponseClass) Alloc() CachedURLResponse {
 // A cached response to a URL request.
 //
 // # Overview
-// 
+//
 // A [NSCachedURLResponse] object provides the server’s response metadata in
 // the form of a [NSURLResponse] object, along with an [NSData] object
 // containing the actual cached content data. Its storage policy determines
 // whether the response should be cached on disk, in memory, or not at all.
-// 
+//
 // Cached responses also contain a user info dictionary where you can store
 // app-specific information about the cached item.
-// 
+//
 // The [NSURLCache] class stores and retrieves instances of
 // [NSCachedURLResponse].
-//
-// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
 //
 // # Creating a cached URL response
 //
@@ -71,6 +70,8 @@ func (cc CachedURLResponseClass) Alloc() CachedURLResponse {
 //   - [CachedURLResponse.UserInfo]: The cached response’s user info dictionary.
 //
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse
+//
+// [NSData]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html#//apple_ref/doc/uid/20001012-47169
 type CachedURLResponse struct {
 	objectivec.Object
 }
@@ -84,6 +85,7 @@ func CachedURLResponseFromID(id objc.ID) CachedURLResponse {
 
 // NSCachedURLResponseFromID is an alias for [CachedURLResponseFromID] for cross-framework compatibility.
 func NSCachedURLResponseFromID(id objc.ID) CachedURLResponse { return CachedURLResponseFromID(id) }
+
 // NOTE: CachedURLResponse adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -146,7 +148,6 @@ func NewCachedURLResponse() CachedURLResponse {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewCachedURLResponseWithCoder(coder INSCoder) CachedURLResponse {
 	instance := getCachedURLResponseClass().Alloc()
@@ -161,12 +162,12 @@ func NewCachedURLResponseWithCoder(coder INSCoder) CachedURLResponse {
 // data: The data to cache.
 //
 // # Return Value
-// 
+//
 // A cached URL response object, containing the response and data.
 //
 // # Discussion
-// 
-// The cache storage policy is set to the default, [URLCacheStorageAllowed],
+//
+// The cache storage policy is set to the default, [NSURLCacheStorageAllowed],
 // and the user info dictionary is set to `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse/init(response:data:)
@@ -188,7 +189,7 @@ func NewCachedURLResponseWithResponseData(response INSURLResponse, data INSData)
 // storagePolicy: The storage policy for the cached response.
 //
 // # Return Value
-// 
+//
 // A cached URL response object, containing the response and data.
 //
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse/init(response:data:userInfo:storagePolicy:)
@@ -205,12 +206,12 @@ func NewCachedURLResponseWithResponseDataUserInfoStoragePolicy(response INSURLRe
 // data: The data to cache.
 //
 // # Return Value
-// 
+//
 // A cached URL response object, containing the response and data.
 //
 // # Discussion
-// 
-// The cache storage policy is set to the default, [URLCacheStorageAllowed],
+//
+// The cache storage policy is set to the default, [NSURLCacheStorageAllowed],
 // and the user info dictionary is set to `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse/init(response:data:)
@@ -218,6 +219,7 @@ func (c CachedURLResponse) InitWithResponseData(response INSURLResponse, data IN
 	rv := objc.Send[CachedURLResponse](c.ID, objc.Sel("initWithResponse:data:"), response, data)
 	return rv
 }
+
 // Creates a cached URL response with a given server response, data, user-info
 // dictionary, and storage policy.
 //
@@ -230,7 +232,7 @@ func (c CachedURLResponse) InitWithResponseData(response INSURLResponse, data IN
 // storagePolicy: The storage policy for the cached response.
 //
 // # Return Value
-// 
+//
 // A cached URL response object, containing the response and data.
 //
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse/init(response:data:userInfo:storagePolicy:)
@@ -238,6 +240,7 @@ func (c CachedURLResponse) InitWithResponseDataUserInfoStoragePolicy(response IN
 	rv := objc.Send[CachedURLResponse](c.ID, objc.Sel("initWithResponse:data:userInfo:storagePolicy:"), response, data, userInfo, storagePolicy)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -246,7 +249,7 @@ func (c CachedURLResponse) InitWithResponseDataUserInfoStoragePolicy(response IN
 func (c CachedURLResponse) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (c CachedURLResponse) InitWithCoder(coder INSCoder) CachedURLResponse {
 	rv := objc.Send[CachedURLResponse](c.ID, objc.Sel("initWithCoder:"), coder)
@@ -260,6 +263,7 @@ func (c CachedURLResponse) Data() INSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("data"))
 	return NSDataFromID(objc.ID(rv))
 }
+
 // The URL response object associated with the instance.
 //
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse/response
@@ -267,6 +271,7 @@ func (c CachedURLResponse) Response() INSURLResponse {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("response"))
 	return NSURLResponseFromID(objc.ID(rv))
 }
+
 // The cached response’s storage policy.
 //
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse/storagePolicy
@@ -274,10 +279,11 @@ func (c CachedURLResponse) StoragePolicy() NSURLCacheStoragePolicy {
 	rv := objc.Send[NSURLCacheStoragePolicy](c.ID, objc.Sel("storagePolicy"))
 	return NSURLCacheStoragePolicy(rv)
 }
+
 // The cached response’s user info dictionary.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if there is no user info dictionary.
 //
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse/userInfo
@@ -286,9 +292,6 @@ func (c CachedURLResponse) UserInfo() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

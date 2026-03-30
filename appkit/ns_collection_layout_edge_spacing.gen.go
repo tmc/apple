@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,22 +46,22 @@ func (nc NSCollectionLayoutEdgeSpacingClass) Alloc() NSCollectionLayoutEdgeSpaci
 // view.
 //
 // # Overview
-// 
+//
 // You use edge spacing to create additional spacing around the edges of an
 // item to adjust the position of the item in relation to its container and
 // other items.
-// 
+//
 // The leading and trailing spaces within edge spacing differ in left-to-right
 // versus right-to-left environments. In a left-to-right environment, the
 // leading space is on the left, and the trailing space is on the right. In a
 // right-to-left environment, the leading space is on the right, and the
 // trailing space is on the left. This difference ensures that your collection
 // view layout is built with support for right-to-left languages.
-// 
+//
 // The following diagram shows the difference between adding 2 points of
 // trailing edge spacing in a left-to-right versus a right-to-left
 // environment.
-// 
+//
 // [media-3570381]
 //
 // # Getting the edge spacing
@@ -82,6 +83,7 @@ type NSCollectionLayoutEdgeSpacing struct {
 func NSCollectionLayoutEdgeSpacingFromID(id objc.ID) NSCollectionLayoutEdgeSpacing {
 	return NSCollectionLayoutEdgeSpacing{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSCollectionLayoutEdgeSpacing adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -145,6 +147,7 @@ func (c NSCollectionLayoutEdgeSpacing) Leading() INSCollectionLayoutSpacing {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("leading"))
 	return NSCollectionLayoutSpacingFromID(objc.ID(rv))
 }
+
 // The top edge spacing value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutEdgeSpacing/top
@@ -152,6 +155,7 @@ func (c NSCollectionLayoutEdgeSpacing) Top() INSCollectionLayoutSpacing {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("top"))
 	return NSCollectionLayoutSpacingFromID(objc.ID(rv))
 }
+
 // The trailing edge spacing value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutEdgeSpacing/trailing
@@ -159,6 +163,7 @@ func (c NSCollectionLayoutEdgeSpacing) Trailing() INSCollectionLayoutSpacing {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("trailing"))
 	return NSCollectionLayoutSpacingFromID(objc.ID(rv))
 }
+
 // The bottom edge spacing value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutEdgeSpacing/bottom
@@ -166,4 +171,3 @@ func (c NSCollectionLayoutEdgeSpacing) Bottom() INSCollectionLayoutSpacing {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("bottom"))
 	return NSCollectionLayoutSpacingFromID(objc.ID(rv))
 }
-

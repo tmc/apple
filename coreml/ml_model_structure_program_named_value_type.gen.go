@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -60,6 +61,7 @@ type MLModelStructureProgramNamedValueType struct {
 func MLModelStructureProgramNamedValueTypeFromID(id objc.ID) MLModelStructureProgramNamedValueType {
 	return MLModelStructureProgramNamedValueType{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgramNamedValueType implements IMLModelStructureProgramNamedValueType.
 var _ IMLModelStructureProgramNamedValueType = MLModelStructureProgramNamedValueType{}
 
@@ -108,6 +110,7 @@ func (m MLModelStructureProgramNamedValueType) Name() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The type of the parameter.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramNamedValueType/type
@@ -115,4 +118,3 @@ func (m MLModelStructureProgramNamedValueType) Type() IMLModelStructureProgramVa
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("type"))
 	return MLModelStructureProgramValueTypeFromID(objc.ID(rv))
 }
-

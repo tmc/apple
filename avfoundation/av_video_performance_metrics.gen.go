@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -62,6 +63,7 @@ type AVVideoPerformanceMetrics struct {
 func AVVideoPerformanceMetricsFromID(id objc.ID) AVVideoPerformanceMetrics {
 	return AVVideoPerformanceMetrics{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVVideoPerformanceMetrics adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,6 +128,7 @@ func (v AVVideoPerformanceMetrics) NumberOfCorruptedFrames() int {
 	rv := objc.Send[int](v.ID, objc.Sel("numberOfCorruptedFrames"))
 	return rv
 }
+
 // The total number of frames the system drops prior to decoding or from
 // missing the display deadline.
 //
@@ -134,6 +137,7 @@ func (v AVVideoPerformanceMetrics) NumberOfDroppedFrames() int {
 	rv := objc.Send[int](v.ID, objc.Sel("numberOfDroppedFrames"))
 	return rv
 }
+
 // The total number of full screen frames rendered in a special
 // power-efficient mode that didn’t require compositing with other UI
 // elements.
@@ -143,6 +147,7 @@ func (v AVVideoPerformanceMetrics) NumberOfFramesDisplayedUsingOptimizedComposit
 	rv := objc.Send[int](v.ID, objc.Sel("numberOfFramesDisplayedUsingOptimizedCompositing"))
 	return rv
 }
+
 // The accumulated amount of time between the prescribed presentation times of
 // displayed video frames and their actual time of display.
 //
@@ -151,6 +156,7 @@ func (v AVVideoPerformanceMetrics) TotalAccumulatedFrameDelay() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("totalAccumulatedFrameDelay"))
 	return rv
 }
+
 // The total number of frames that display if no frames drop.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoPerformanceMetrics/totalNumberOfFrames
@@ -158,9 +164,9 @@ func (v AVVideoPerformanceMetrics) TotalNumberOfFrames() int {
 	rv := objc.Send[int](v.ID, objc.Sel("totalNumberOfFrames"))
 	return rv
 }
-//
+
 // # Discussion
-// 
+//
 // [SPI] The total number of corrupted frames that have been detected. Same as
 // numberOfCorruptedFrames.
 //
@@ -169,9 +175,9 @@ func (v AVVideoPerformanceMetrics) NumberOfCorruptedVideoFrames() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("numberOfCorruptedVideoFrames"))
 	return rv
 }
-//
+
 // # Discussion
-// 
+//
 // [SPI] The total number of frames that were composited in detached mode.
 // Same as numberOfFramesDisplayedUsingOptimizedCompositing.
 //
@@ -180,9 +186,9 @@ func (v AVVideoPerformanceMetrics) NumberOfDisplayCompositedVideoFrames() uint64
 	rv := objc.Send[uint64](v.ID, objc.Sel("numberOfDisplayCompositedVideoFrames"))
 	return rv
 }
-//
+
 // # Discussion
-// 
+//
 // [SPI] The total number of frames dropped prior to decoding or dropped
 // because a frame missed its display deadline. Same as numberOfDroppedFrames.
 //
@@ -191,9 +197,9 @@ func (v AVVideoPerformanceMetrics) NumberOfDroppedVideoFrames() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("numberOfDroppedVideoFrames"))
 	return rv
 }
-//
+
 // # Discussion
-// 
+//
 // [SPI] The total number of frames that were composited in undetached mode.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoPerformanceMetrics/numberOfNonDisplayCompositedVideoFrames
@@ -201,13 +207,13 @@ func (v AVVideoPerformanceMetrics) NumberOfNonDisplayCompositedVideoFrames() uin
 	rv := objc.Send[uint64](v.ID, objc.Sel("numberOfNonDisplayCompositedVideoFrames"))
 	return rv
 }
-//
+
 // # Discussion
-// 
+//
 // [SPI] The accumulated amount of time, in microseconds, between the
 // prescribed presentation times of displayed video frames and the actual time
 // at which they were displayed.
-// 
+//
 // This delay is always greater than or equal to zero since frames must never
 // be displayed before their presentation time. Non-zero delays are a sign of
 // playback jitter and possible loss of A/V sync. Same as
@@ -218,9 +224,9 @@ func (v AVVideoPerformanceMetrics) TotalFrameDelay() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("totalFrameDelay"))
 	return rv
 }
-//
+
 // # Discussion
-// 
+//
 // [SPI] The total number of frames that would have been displayed if no
 // frames are dropped. Same as totalNumberOfFrames.
 //
@@ -229,4 +235,3 @@ func (v AVVideoPerformanceMetrics) TotalNumberOfVideoFrames() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("totalNumberOfVideoFrames"))
 	return rv
 }
-

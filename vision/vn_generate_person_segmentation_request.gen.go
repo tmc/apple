@@ -3,11 +3,12 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNGeneratePersonSegmentationRequest] class.
@@ -47,7 +48,7 @@ func (vc VNGeneratePersonSegmentationRequestClass) Alloc() VNGeneratePersonSegme
 // image.
 //
 // # Overview
-// 
+//
 // Perform this request to detect and generate an image mask for a person in
 // an image. The request returns the resulting image mask in an instance of
 // [VNPixelBufferObservation].
@@ -79,6 +80,7 @@ type VNGeneratePersonSegmentationRequest struct {
 func VNGeneratePersonSegmentationRequestFromID(id objc.ID) VNGeneratePersonSegmentationRequest {
 	return VNGeneratePersonSegmentationRequest{VNStatefulRequest: VNStatefulRequestFromID(id)}
 }
+
 // NOTE: VNGeneratePersonSegmentationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,15 +160,15 @@ func NewGeneratePersonSegmentationRequestWithCompletionHandler(completionHandler
 // frameAnalysisSpacing: A [CMTime] value that indicates the duration between analysis operations.
 // Increase this value to reduce the number of frames analyzed on slower
 // devices. Set this argument to [zero] to analyze all frames.
-// //
-// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // completionHandler: A closure that’s invoked after the request has completed its processing.
 // The system invokes the completion handler on the same dispatch queue as the
 // request performs its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
+//
+// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func NewGeneratePersonSegmentationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNGeneratePersonSegmentationRequest {
 	instance := getVNGeneratePersonSegmentationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
@@ -192,20 +194,20 @@ func (g VNGeneratePersonSegmentationRequest) SupportedOutputPixelFormatsAndRetur
 // The pixel format of the output image.
 //
 // # Discussion
-// 
+//
 // The property supports the following values:
-// 
+//
 // - [kCVPixelFormatType_OneComponent8] -
 // [kCVPixelFormatType_OneComponent16Half] -
 // [kCVPixelFormatType_OneComponent32Float]
-// 
+//
 // The default value is [kCVPixelFormatType_OneComponent8].
+//
+// See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest/outputPixelFormat
 //
 // [kCVPixelFormatType_OneComponent16Half]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent16Half
 // [kCVPixelFormatType_OneComponent32Float]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent32Float
 // [kCVPixelFormatType_OneComponent8]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_OneComponent8
-//
-// See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest/outputPixelFormat
 func (g VNGeneratePersonSegmentationRequest) OutputPixelFormat() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("outputPixelFormat"))
 	return rv
@@ -213,6 +215,7 @@ func (g VNGeneratePersonSegmentationRequest) OutputPixelFormat() uint32 {
 func (g VNGeneratePersonSegmentationRequest) SetOutputPixelFormat(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setOutputPixelFormat:"), value)
 }
+
 // A value that indicates how the request balances accuracy and performance.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest/qualityLevel-swift.property
@@ -223,6 +226,7 @@ func (g VNGeneratePersonSegmentationRequest) QualityLevel() VNGeneratePersonSegm
 func (g VNGeneratePersonSegmentationRequest) SetQualityLevel(value VNGeneratePersonSegmentationRequestQualityLevel) {
 	objc.Send[struct{}](g.ID, objc.Sel("setQualityLevel:"), value)
 }
+
 // A constant for specifying revision 1 of the person segmentation generation
 // request.
 //
@@ -231,4 +235,3 @@ func (g VNGeneratePersonSegmentationRequest) VNGeneratePersonSegmentationRequest
 	rv := objc.Send[int](g.ID, objc.Sel("VNGeneratePersonSegmentationRequestRevision1"))
 	return rv
 }
-

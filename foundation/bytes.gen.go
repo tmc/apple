@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type Bytes struct {
 func BytesFromID(id objc.ID) Bytes {
 	return Bytes{objectivec.Object{ID: id}}
 }
+
 // Ensure Bytes implements IBytes.
 var _ IBytes = Bytes{}
 
@@ -78,4 +80,3 @@ func NewBytes() Bytes {
 	rv := objc.Send[Bytes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

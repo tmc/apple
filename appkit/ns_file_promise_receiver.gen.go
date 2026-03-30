@@ -5,8 +5,9 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,10 +47,10 @@ func (nc NSFilePromiseReceiverClass) Alloc() NSFilePromiseReceiver {
 // An object that receives a file promise from the pasteboard.
 //
 // # Overview
-// 
+//
 // Because [NSFilePromiseReceiver] implements the [NSPasteboardReading]
 // protocol, you receive all file promises on the drag pasteboard as follows:
-// 
+//
 // Likewise, you can enumerate dragged items by calling the following:
 //
 // # Instance Properties
@@ -72,6 +73,7 @@ type NSFilePromiseReceiver struct {
 func NSFilePromiseReceiverFromID(id objc.ID) NSFilePromiseReceiver {
 	return NSFilePromiseReceiver{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSFilePromiseReceiver adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,29 +130,29 @@ func NewNSFilePromiseReceiver() NSFilePromiseReceiver {
 // Initializes an instance with a property list object and a type string.
 //
 // propertyList: A property list containing data to initialize the receiver.
-// 
+//
 // By default, the property list object is an instance of [NSData]. If you
 // implement [ReadingOptionsForTypePasteboard] and specify an option other
-// than [PasteboardReadingAsData], the `propertyList` may be any other
+// than [NSPasteboardReadingAsData], the `propertyList` may be any other
 // property list object.
 //
 // type: A UTI supported by the receiver for reading (one of the types returned by
 // [ReadableTypesForPasteboard]).
 //
 // # Return Value
-// 
+//
 // An object initialized using the data in `propertyList`.
 //
 // # Discussion
-// 
+//
 // This method is considered optional because, if [ReadableTypesForPasteboard]
 // returns just a single type, and that type uses the
-// [PasteboardReadingAsKeyedArchive] reading option, then instances are
+// [NSPasteboardReadingAsKeyedArchive] reading option, then instances are
 // initialized using [init(coder:)] instead of this method.
 //
-// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-//
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/init(pasteboardPropertyList:ofType:)
+//
+// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewFilePromiseReceiverWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSFilePromiseReceiver {
 	instance := getNSFilePromiseReceiverClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
@@ -170,12 +172,12 @@ func NewFilePromiseReceiverWithPasteboardPropertyListOfType(propertyList objecti
 // is ready to be read.
 //
 // # Discussion
-// 
+//
 // Call this method only when you’re accepting the file promise. All file
 // promise receivers in a drag must specify the same destination location. The
 // `options` dictionary is ignored for now. The `reader` block is called on
 // the supplied `operationQueue` when the promised file is ready to be read.
-// 
+//
 // Avoid blocking the main thread while waiting for the file promise to be
 // written (which can be a long process) by specifying an operation queue
 // other than the main queue. When the source is an [NSFilePromiseProvider],
@@ -183,35 +185,36 @@ func NewFilePromiseReceiverWithPasteboardPropertyListOfType(propertyList objecti
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseReceiver/receivePromisedFiles(atDestination:options:operationQueue:reader:)
 func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReader(destinationDir foundation.INSURL, options foundation.INSDictionary, operationQueue foundation.NSOperationQueue, reader URLErrorHandler) {
-_block3, _ := NewURLErrorBlock(reader)
+	_block3, _ := NewURLErrorBlock(reader)
 	objc.Send[objc.ID](f.ID, objc.Sel("receivePromisedFilesAtDestination:options:operationQueue:reader:"), destinationDir, options, operationQueue, _block3)
 }
+
 // Initializes an instance with a property list object and a type string.
 //
 // propertyList: A property list containing data to initialize the receiver.
-// 
+//
 // By default, the property list object is an instance of [NSData]. If you
 // implement [ReadingOptionsForTypePasteboard] and specify an option other
-// than [PasteboardReadingAsData], the `propertyList` may be any other
+// than [NSPasteboardReadingAsData], the `propertyList` may be any other
 // property list object.
 //
 // type: A UTI supported by the receiver for reading (one of the types returned by
 // [ReadableTypesForPasteboard]).
 //
 // # Return Value
-// 
+//
 // An object initialized using the data in `propertyList`.
 //
 // # Discussion
-// 
+//
 // This method is considered optional because, if [ReadableTypesForPasteboard]
 // returns just a single type, and that type uses the
-// [PasteboardReadingAsKeyedArchive] reading option, then instances are
+// [NSPasteboardReadingAsKeyedArchive] reading option, then instances are
 // initialized using [init(coder:)] instead of this method.
 //
-// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-//
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/init(pasteboardPropertyList:ofType:)
+//
+// [init(coder:)]: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (f NSFilePromiseReceiver) InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSFilePromiseReceiver {
 	rv := objc.Send[NSFilePromiseReceiver](f.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return rv
@@ -224,20 +227,20 @@ func (f NSFilePromiseReceiver) InitWithPasteboardPropertyListOfType(propertyList
 // types based on the pasteboard name, if you need to.
 //
 // # Return Value
-// 
+//
 // An array of uniform type identifier strings of data types instances that
 // the receiver can read from the pasteboard and initialize from.
 //
 // # Discussion
-// 
+//
 // By default, the system provides the data for a type to
 // [InitWithPasteboardPropertyListOfType] as an instance of [NSData]. If you
 // implement [ReadingOptionsForTypePasteboard] and specify a different option,
 // the system converts the [NSData] object for a type to an [NSString] object
 // or any other property list object.
-// 
+//
 // # Special Considerations
-// 
+//
 // Don’t perform other pasteboard operations in the method implementation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/readableTypes(for:)
@@ -245,6 +248,7 @@ func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadableTypesForPa
 	rv := objc.Send[[]objc.ID](objc.ID(_NSFilePromiseReceiverClass.class), objc.Sel("readableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // Returns options for reading data of a specified type from a given
 // pasteboard.
 //
@@ -252,22 +256,22 @@ func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadableTypesForPa
 // returned by [ReadableTypesForPasteboard]).
 //
 // pasteboard: A pasteboard.
-// 
+//
 // You can use the pasteboard argument to provide return different based on
 // the pasteboard name, should you need to do so.
 //
 // # Return Value
-// 
+//
 // Options for reading data of `type` from `pasteboard`. For a list of valid
 // values, see [NSPasteboard.ReadingOptions].
 //
-// [NSPasteboard.ReadingOptions]: https://developer.apple.com/documentation/AppKit/NSPasteboard/ReadingOptions
-//
 // # Discussion
-// 
+//
 // Do not perform other pasteboard operations in this method implementation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardReading/readingOptions(forType:pasteboard:)
+//
+// [NSPasteboard.ReadingOptions]: https://developer.apple.com/documentation/AppKit/NSPasteboard/ReadingOptions
 func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadingOptionsForTypePasteboard(type_ NSPasteboardType, pasteboard INSPasteboard) NSPasteboardReadingOptions {
 	rv := objc.Send[NSPasteboardReadingOptions](objc.ID(_NSFilePromiseReceiverClass.class), objc.Sel("readingOptionsForType:pasteboard:"), objc.String(string(type_)), pasteboard)
 	return NSPasteboardReadingOptions(rv)
@@ -277,7 +281,7 @@ func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadingOptionsForT
 // destination location.
 //
 // # Discussion
-// 
+//
 // This property returns an empty array until the file promise is called using
 // [ReceivePromisedFilesAtDestinationOptionsOperationQueueReader].
 //
@@ -286,11 +290,12 @@ func (f NSFilePromiseReceiver) FileNames() []string {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("fileNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // An array containing types of the promised files being written to the
 // destination location.
 //
 // # Discussion
-// 
+//
 // [NSFilePromiseProvider] promises one file type per item. The `count` of
 // `fileTypes` should tell you the number of promised files in this item, but
 // that’s not always guaranteed. Some legacy file promisers list each unique
@@ -305,7 +310,7 @@ func (f NSFilePromiseReceiver) FileTypes() []string {
 // An array containing dragged file types that are readable.
 //
 // # Discussion
-// 
+//
 // A view must register what types it accepts via [RegisterForDraggedTypes].
 // Use that class method to get the file promise drag types that
 // [NSFilePromiseReceiver] can accept, in order to register a view to accept
@@ -338,4 +343,3 @@ func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperation
 		return nil, ctx.Err()
 	}
 }
-

@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSSymbolScaleEffectClass) Alloc() NSSymbolScaleEffect {
 // whole.
 //
 // # Overview
-// 
+//
 // A scale animation draws attention to a symbol by changing the symbol’s
 // scale indefinitely. You can choose to scale the symbol up or down.
 //
@@ -65,6 +66,7 @@ type NSSymbolScaleEffect struct {
 func NSSymbolScaleEffectFromID(id objc.ID) NSSymbolScaleEffect {
 	return NSSymbolScaleEffect{NSSymbolEffect: NSSymbolEffectFromID(id)}
 }
+
 // Ensure NSSymbolScaleEffect implements INSSymbolScaleEffect.
 var _ INSSymbolScaleEffect = NSSymbolScaleEffect{}
 
@@ -109,7 +111,7 @@ func NewNSSymbolScaleEffect() NSSymbolScaleEffect {
 // An effect that scales each layer separately.
 //
 // # Return Value
-// 
+//
 // A copy of the effect options that scales each layer separately.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolScaleEffect/effectWithByLayer
@@ -117,10 +119,11 @@ func (s NSSymbolScaleEffect) EffectWithByLayer() INSSymbolScaleEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolScaleEffectFromID(rv)
 }
+
 // An effect that scales all layers simultaneously.
 //
 // # Return Value
-// 
+//
 // A copy of the effect options that scales all layers simultaneously.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolScaleEffect/effectWithWholeSymbol
@@ -133,7 +136,7 @@ func (s NSSymbolScaleEffect) EffectWithWholeSymbol() INSSymbolScaleEffect {
 // as a whole.
 //
 // # Return Value
-// 
+//
 // A new instance of the scale effect options.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolScaleEffect/effect
@@ -141,10 +144,11 @@ func (_NSSymbolScaleEffectClass NSSymbolScaleEffectClass) Effect() NSSymbolScale
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolScaleEffectClass.class), objc.Sel("effect"))
 	return NSSymbolScaleEffectFromID(rv)
 }
+
 // An effect that scales the symbol down.
 //
 // # Return Value
-// 
+//
 // A new instance of the scale effect options that scales down the symbol.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolScaleEffect/scaleDownEffect
@@ -152,10 +156,11 @@ func (_NSSymbolScaleEffectClass NSSymbolScaleEffectClass) ScaleDownEffect() NSSy
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolScaleEffectClass.class), objc.Sel("scaleDownEffect"))
 	return NSSymbolScaleEffectFromID(rv)
 }
+
 // An effect that scales the symbol up.
 //
 // # Return Value
-// 
+//
 // A new instance of the scale effect options that scales up the symbol.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolScaleEffect/scaleUpEffect
@@ -163,4 +168,3 @@ func (_NSSymbolScaleEffectClass NSSymbolScaleEffectClass) ScaleUpEffect() NSSymb
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolScaleEffectClass.class), objc.Sel("scaleUpEffect"))
 	return NSSymbolScaleEffectFromID(rv)
 }
-

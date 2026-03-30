@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -57,6 +58,5 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_mLAllComputeDevices, frameworkHandle, "MLAllComputeDevices")
-	}
-
+	registerFunc(&_mLAllComputeDevices, frameworkHandle, "MLAllComputeDevices")
+}

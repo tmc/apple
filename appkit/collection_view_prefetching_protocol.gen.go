@@ -23,6 +23,7 @@ type NSCollectionViewPrefetching interface {
 type NSCollectionViewPrefetchingObject struct {
 	objectivec.Object
 }
+
 func (o NSCollectionViewPrefetchingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -35,14 +36,12 @@ func NSCollectionViewPrefetchingObjectFromID(id objc.ID) NSCollectionViewPrefetc
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewPrefetching/collectionView(_:prefetchItemsAt:)
 func (o NSCollectionViewPrefetchingObject) CollectionViewPrefetchItemsAtIndexPaths(collectionView INSCollectionView, indexPaths []objc.ID) {
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:prefetchItemsAtIndexPaths:"), collectionView, objectivec.IDSliceToNSArray(indexPaths))
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewPrefetching/collectionView(_:cancelPrefetchingForItemsAt:)
 func (o NSCollectionViewPrefetchingObject) CollectionViewCancelPrefetchingForItemsAtIndexPaths(collectionView INSCollectionView, indexPaths []objc.ID) {
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:cancelPrefetchingForItemsAtIndexPaths:"), collectionView, objectivec.IDSliceToNSArray(indexPaths))
-	}
-
+}

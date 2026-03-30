@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZUSBKeyboardConfiguration struct {
 func VZUSBKeyboardConfigurationFromID(id objc.ID) VZUSBKeyboardConfiguration {
 	return VZUSBKeyboardConfiguration{VZKeyboardConfiguration: VZKeyboardConfigurationFromID(id)}
 }
+
 // Ensure VZUSBKeyboardConfiguration implements IVZUSBKeyboardConfiguration.
 var _ IVZUSBKeyboardConfiguration = VZUSBKeyboardConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZUSBKeyboardConfiguration() VZUSBKeyboardConfiguration {
 	rv := objc.Send[VZUSBKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

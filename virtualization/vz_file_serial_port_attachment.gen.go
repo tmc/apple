@@ -3,10 +3,11 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZFileSerialPortAttachment] class.
@@ -45,13 +46,13 @@ func (vc VZFileSerialPortAttachmentClass) Alloc() VZFileSerialPortAttachment {
 // An attachment point that writes data from the guest system to a file.
 //
 // # Overview
-// 
+//
 // Use a [VZFileSerialPortAttachment] object to configure a one-way serial
 // port from the guest operating system to the virtual machine. When the guest
 // sends data to the serial port, the virtual machine writes that data to the
 // specified file. You can’t use this serial port to send data back to the
 // guest.
-// 
+//
 // Create a [VZSerialPortAttachment] object and assign it to an appropriate
 // subclass of [VZSerialPortConfiguration] object, such as
 // [VZVirtioConsoleDeviceConfiguration]. The file you use to create this
@@ -77,6 +78,7 @@ type VZFileSerialPortAttachment struct {
 func VZFileSerialPortAttachmentFromID(id objc.ID) VZFileSerialPortAttachment {
 	return VZFileSerialPortAttachment{VZSerialPortAttachment: VZSerialPortAttachmentFromID(id)}
 }
+
 // NOTE: VZFileSerialPortAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -133,14 +135,11 @@ func NewVZFileSerialPortAttachment() VZFileSerialPortAttachment {
 // writable by the virtual machine.
 //
 // shouldAppend: A Boolean that indicates whether the virtual machine opens the file in
-// append mode. Specify [true] to append data to the file, and specify [false]
-// to replace the contents of the file with any new data.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// append mode. Specify true to append data to the file, and specify false to
+// replace the contents of the file with any new data.
 //
 // # Return Value
-// 
+//
 // A file-based serial port attachment on success, or `nil` if initialization
 // failed.
 //
@@ -162,14 +161,11 @@ func NewFileSerialPortAttachmentWithURLAppendError(url foundation.INSURL, should
 // writable by the virtual machine.
 //
 // shouldAppend: A Boolean that indicates whether the virtual machine opens the file in
-// append mode. Specify [true] to append data to the file, and specify [false]
-// to replace the contents of the file with any new data.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// append mode. Specify true to append data to the file, and specify false to
+// replace the contents of the file with any new data.
 //
 // # Return Value
-// 
+//
 // A file-based serial port attachment on success, or `nil` if initialization
 // failed.
 //
@@ -192,20 +188,18 @@ func (f VZFileSerialPortAttachment) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // A Boolean that indicates whether the virtual machine appends data to the
 // file.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the virtual machine appends new
+//
+// When the value of this property is true, the virtual machine appends new
 // data to the file; otherwise, it replaces the existing contents of the file
 // before writing new data to it.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZFileSerialPortAttachment/append
 func (f VZFileSerialPortAttachment) Append() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("append"))
 	return rv
 }
-

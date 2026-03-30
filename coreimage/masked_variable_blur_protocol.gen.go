@@ -49,6 +49,7 @@ type CIMaskedVariableBlur interface {
 type CIMaskedVariableBlurObject struct {
 	objectivec.Object
 }
+
 func (o CIMaskedVariableBlurObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CIMaskedVariableBlurObjectFromID(id objc.ID) CIMaskedVariableBlurObject {
 func (o CIMaskedVariableBlurObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A grayscale mask that defines the blur amount.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/mask
 func (o CIMaskedVariableBlurObject) Mask() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("mask"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The distance from the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/radius
 func (o CIMaskedVariableBlurObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,25 @@ func (o CIMaskedVariableBlurObject) Radius() float32 {
 func (o CIMaskedVariableBlurObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/inputImage
 func (o CIMaskedVariableBlurObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// A grayscale mask that defines the blur amount.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/mask
 func (o CIMaskedVariableBlurObject) SetMask(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMask:"), value)
 }
 
+// The distance from the center of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/radius
 func (o CIMaskedVariableBlurObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
-

@@ -3,8 +3,8 @@
 package coreimage
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -90,6 +90,7 @@ type CICMYKHalftone interface {
 type CICMYKHalftoneObject struct {
 	objectivec.Object
 }
+
 func (o CICMYKHalftoneObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -108,49 +109,56 @@ func CICMYKHalftoneObjectFromID(id objc.ID) CICMYKHalftoneObject {
 func (o CICMYKHalftoneObject) Angle() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
-	}
+}
+
 // The x and y position to use as the center of the halftone pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/center
 func (o CICMYKHalftoneObject) Center() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
-	}
+}
+
 // The gray component replacement value.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/grayComponentReplacement
 func (o CICMYKHalftoneObject) GrayComponentReplacement() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("grayComponentReplacement"))
 	return rv
-	}
+}
+
 // The image to use as an input image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/inputImage
 func (o CICMYKHalftoneObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The sharpness of the pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/sharpness
 func (o CICMYKHalftoneObject) Sharpness() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
-	}
+}
+
 // The under color removal value.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/underColorRemoval
 func (o CICMYKHalftoneObject) UnderColorRemoval() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("underColorRemoval"))
 	return rv
-	}
+}
+
 // The distance between dots in the pattern.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/width
 func (o CICMYKHalftoneObject) Width() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -158,33 +166,53 @@ func (o CICMYKHalftoneObject) Width() float32 {
 func (o CICMYKHalftoneObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The angle of the pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/angle
 func (o CICMYKHalftoneObject) SetAngle(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAngle:"), value)
 }
 
+// The x and y position to use as the center of the halftone pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/center
 func (o CICMYKHalftoneObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
+// The gray component replacement value.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/grayComponentReplacement
 func (o CICMYKHalftoneObject) SetGrayComponentReplacement(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setGrayComponentReplacement:"), value)
 }
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/inputImage
 func (o CICMYKHalftoneObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The sharpness of the pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/sharpness
 func (o CICMYKHalftoneObject) SetSharpness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSharpness:"), value)
 }
 
+// The under color removal value.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/underColorRemoval
 func (o CICMYKHalftoneObject) SetUnderColorRemoval(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUnderColorRemoval:"), value)
 }
 
+// The distance between dots in the pattern.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/width
 func (o CICMYKHalftoneObject) SetWidth(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWidth:"), value)
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type VZPluginService struct {
 func VZPluginServiceFromID(id objc.ID) VZPluginService {
 	return VZPluginService{objectivec.Object{ID: id}}
 }
+
 // Ensure VZPluginService implements IVZPluginService.
 var _ IVZPluginService = VZPluginService{}
 
@@ -84,4 +86,3 @@ func (_VZPluginServiceClass VZPluginServiceClass) XpcMain() int {
 	rv := objc.Send[int](objc.ID(_VZPluginServiceClass.class), objc.Sel("xpcMain"))
 	return rv
 }
-

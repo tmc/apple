@@ -4,6 +4,7 @@ package corefoundation
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -1352,6 +1353,7 @@ var (
 	// See: https://developer.apple.com/documentation/CoreFoundation/kCFTypeDictionaryValueCallBacks
 	KCFTypeDictionaryValueCallBacks CFDictionaryValueCallBacks
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -3976,4 +3978,3 @@ func init() {
 	}
 
 }
-

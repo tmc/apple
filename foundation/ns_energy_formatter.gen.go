@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -71,6 +72,7 @@ func EnergyFormatterFromID(id objc.ID) EnergyFormatter {
 
 // NSEnergyFormatterFromID is an alias for [EnergyFormatterFromID] for cross-framework compatibility.
 func NSEnergyFormatterFromID(id objc.ID) EnergyFormatter { return EnergyFormatterFromID(id) }
+
 // NOTE: EnergyFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -133,7 +135,6 @@ func NewEnergyFormatter() EnergyFormatter {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewEnergyFormatterWithCoder(coder INSCoder) EnergyFormatter {
 	instance := getEnergyFormatterClass().Alloc()
@@ -146,12 +147,12 @@ func NewEnergyFormatterWithCoder(coder INSCoder) EnergyFormatter {
 // numberInJoules: The energy value in joules.
 //
 // # Return Value
-// 
+//
 // A string that combines a value and a unit string appropriate for the
 // formatter’s locale.
 //
 // # Discussion
-// 
+//
 // This method converts the provided value in joules into units appropriate to
 // the formatter’s locale.
 //
@@ -160,6 +161,7 @@ func (e EnergyFormatter) StringFromJoules(numberInJoules float64) string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("stringFromJoules:"), numberInJoules)
 	return NSStringFromID(rv).String()
 }
+
 // Returns a properly formatted energy string for the given value and unit.
 //
 // value: The energy value in the given unit.
@@ -167,7 +169,7 @@ func (e EnergyFormatter) StringFromJoules(numberInJoules float64) string {
 // unit: The unit used in the resulting energy string.
 //
 // # Return Value
-// 
+//
 // A localized string that combines the provided value and unit.
 //
 // See: https://developer.apple.com/documentation/Foundation/EnergyFormatter/string(fromValue:unit:)
@@ -175,29 +177,31 @@ func (e EnergyFormatter) StringFromValueUnit(value float64, unit NSEnergyFormatt
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("stringFromValue:unit:"), value, unit)
 	return NSStringFromID(rv).String()
 }
+
 // Returns the unit string for the provided value.
 //
 // numberInJoules: The energy value in joules.
 //
 // unitp: An output parameter. This will hold the [EnergyFormatter.Unit] value that
 // corresponds to the returned units.
-// //
-// [EnergyFormatter.Unit]: https://developer.apple.com/documentation/Foundation/EnergyFormatter/Unit
 //
 // # Return Value
-// 
+//
 // A localized string representing the unit.
 //
 // # Discussion
-// 
+//
 // This method selects the correct unit based on the formatter’s locale, the
 // magnitude of the value, and the [ForFoodEnergyUse] property.
 //
 // See: https://developer.apple.com/documentation/Foundation/EnergyFormatter/unitString(fromJoules:usedUnit:)
+//
+// [EnergyFormatter.Unit]: https://developer.apple.com/documentation/Foundation/EnergyFormatter/Unit
 func (e EnergyFormatter) UnitStringFromJoulesUsedUnit(numberInJoules float64, unitp NSEnergyFormatterUnit) string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("unitStringFromJoules:usedUnit:"), numberInJoules, unitp)
 	return NSStringFromID(rv).String()
 }
+
 // Returns the unit string based on the provided value and unit.
 //
 // value: The energy value in the provided unit.
@@ -205,7 +209,7 @@ func (e EnergyFormatter) UnitStringFromJoulesUsedUnit(numberInJoules float64, un
 // unit: The unit to use in the resulting energy string.
 //
 // # Return Value
-// 
+//
 // A localized string representing the given unit. The provided value
 // determines whether the unit is plural or singular.
 //
@@ -219,14 +223,11 @@ func (e EnergyFormatter) UnitStringFromValueUnit(value float64, unit NSEnergyFor
 // food energy.
 //
 // # Discussion
-// 
-// Returns [true] if the energy is used to measure food energy; otherwise,
-// [false]. If set to [true], [EnergyFormatterUnitKilocalorie] may be
-// represented using “C” instead of “kcal”. By default, this property
-// returns [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Returns true if the energy is used to measure food energy; otherwise,
+// false. If set to true, [NSEnergyFormatterUnitKilocalorie] may be
+// represented using “C” instead of “kcal”. By default, this property
+// returns false.
 //
 // See: https://developer.apple.com/documentation/Foundation/EnergyFormatter/isForFoodEnergyUse
 func (e EnergyFormatter) ForFoodEnergyUse() bool {
@@ -236,12 +237,13 @@ func (e EnergyFormatter) ForFoodEnergyUse() bool {
 func (e EnergyFormatter) SetForFoodEnergyUse(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setForFoodEnergyUse:"), value)
 }
+
 // The number formatter used to format the numbers in energy strings.
 //
 // # Discussion
-// 
+//
 // This property defaults to a number formatter using the
-// [NumberFormatterDecimalStyle] style. You can provide a different number
+// [NSNumberFormatterDecimalStyle] style. You can provide a different number
 // formatter to customize the energy string’s appearance.
 //
 // See: https://developer.apple.com/documentation/Foundation/EnergyFormatter/numberFormatter
@@ -252,16 +254,17 @@ func (e EnergyFormatter) NumberFormatter() INSNumberFormatter {
 func (e EnergyFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNumberFormatter:"), value)
 }
+
 // The unit style used by this formatter.
 //
 // # Discussion
-// 
-// This property defaults to [FormattingUnitStyleMedium]. For a complete list
-// of unit styles, see [Formatter.UnitStyle].
 //
-// [Formatter.UnitStyle]: https://developer.apple.com/documentation/Foundation/Formatter/UnitStyle
+// This property defaults to [NSFormattingUnitStyleMedium]. For a complete
+// list of unit styles, see [Formatter.UnitStyle].
 //
 // See: https://developer.apple.com/documentation/Foundation/EnergyFormatter/unitStyle
+//
+// [Formatter.UnitStyle]: https://developer.apple.com/documentation/Foundation/Formatter/UnitStyle
 func (e EnergyFormatter) UnitStyle() NSFormattingUnitStyle {
 	rv := objc.Send[NSFormattingUnitStyle](e.ID, objc.Sel("unitStyle"))
 	return NSFormattingUnitStyle(rv)
@@ -269,4 +272,3 @@ func (e EnergyFormatter) UnitStyle() NSFormattingUnitStyle {
 func (e EnergyFormatter) SetUnitStyle(value NSFormattingUnitStyle) {
 	objc.Send[struct{}](e.ID, objc.Sel("setUnitStyle:"), value)
 }
-

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVCaptionConversionTimeRangeAdjustment] class.
@@ -61,6 +62,7 @@ type AVCaptionConversionTimeRangeAdjustment struct {
 func AVCaptionConversionTimeRangeAdjustmentFromID(id objc.ID) AVCaptionConversionTimeRangeAdjustment {
 	return AVCaptionConversionTimeRangeAdjustment{AVCaptionConversionAdjustment: AVCaptionConversionAdjustmentFromID(id)}
 }
+
 // NOTE: AVCaptionConversionTimeRangeAdjustment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -106,7 +108,7 @@ func NewAVCaptionConversionTimeRangeAdjustment() AVCaptionConversionTimeRangeAdj
 // correct a problem.
 //
 // # Discussion
-// 
+//
 // The value may any numeric value, positive, negative, or zero.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionTimeRangeAdjustment/startTimeOffset
@@ -114,11 +116,12 @@ func (c AVCaptionConversionTimeRangeAdjustment) StartTimeOffset() coremedia.CMTi
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("startTimeOffset"))
 	return coremedia.CMTime(rv)
 }
+
 // The time value by which the system offsets the durations of captions to
 // correct a problem.
 //
 // # Discussion
-// 
+//
 // The value may any numeric value, positive, negative, or zero.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionTimeRangeAdjustment/durationOffset
@@ -126,4 +129,3 @@ func (c AVCaptionConversionTimeRangeAdjustment) DurationOffset() coremedia.CMTim
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("durationOffset"))
 	return coremedia.CMTime(rv)
 }
-

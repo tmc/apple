@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZVNCServerClass) Alloc() VZVNCServer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVNCServer.Delegate]
@@ -73,6 +73,7 @@ func (vc VZVNCServerClass) Alloc() VZVNCServer {
 //   - [VZVNCServer.Description]
 //   - [VZVNCServer.Hash]
 //   - [VZVNCServer.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer
 type VZVNCServer struct {
 	objectivec.Object
@@ -82,6 +83,7 @@ type VZVNCServer struct {
 func VZVNCServerFromID(id objc.ID) VZVNCServer {
 	return VZVNCServer{objectivec.Object{ID: id}}
 }
+
 // Ensure VZVNCServer implements IVZVNCServer.
 var _ IVZVNCServer = VZVNCServer{}
 
@@ -173,7 +175,6 @@ func NewVZVNCServer() VZVNCServer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithBonjourServiceName:
 func NewVZVNCServerWithBonjourServiceName(name objectivec.IObject) VZVNCServer {
 	instance := getVZVNCServerClass().Alloc()
@@ -181,7 +182,6 @@ func NewVZVNCServerWithBonjourServiceName(name objectivec.IObject) VZVNCServer {
 	return VZVNCServerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithBonjourServiceName:queue:
 func NewVZVNCServerWithBonjourServiceNameQueue(name objectivec.IObject, queue objectivec.IObject) VZVNCServer {
 	instance := getVZVNCServerClass().Alloc()
@@ -189,7 +189,6 @@ func NewVZVNCServerWithBonjourServiceNameQueue(name objectivec.IObject, queue ob
 	return VZVNCServerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithBonjourServiceName:queue:securityConfiguration:
 func NewVZVNCServerWithBonjourServiceNameQueueSecurityConfiguration(name objectivec.IObject, queue objectivec.IObject, configuration objectivec.IObject) VZVNCServer {
 	instance := getVZVNCServerClass().Alloc()
@@ -197,7 +196,6 @@ func NewVZVNCServerWithBonjourServiceNameQueueSecurityConfiguration(name objecti
 	return VZVNCServerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithPort:
 func NewVZVNCServerWithPort(port uint16) VZVNCServer {
 	instance := getVZVNCServerClass().Alloc()
@@ -205,7 +203,6 @@ func NewVZVNCServerWithPort(port uint16) VZVNCServer {
 	return VZVNCServerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithPort:queue:
 func NewVZVNCServerWithPortQueue(port uint16, queue objectivec.IObject) VZVNCServer {
 	instance := getVZVNCServerClass().Alloc()
@@ -213,7 +210,6 @@ func NewVZVNCServerWithPortQueue(port uint16, queue objectivec.IObject) VZVNCSer
 	return VZVNCServerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithPort:queue:securityConfiguration:
 func NewVZVNCServerWithPortQueueSecurityConfiguration(port uint16, queue objectivec.IObject, configuration objectivec.IObject) VZVNCServer {
 	instance := getVZVNCServerClass().Alloc()
@@ -221,70 +217,72 @@ func NewVZVNCServerWithPortQueueSecurityConfiguration(port uint16, queue objecti
 	return VZVNCServerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/framebuffer:didUpdateCursor:
 func (v VZVNCServer) FramebufferDidUpdateCursor(framebuffer objectivec.IObject, cursor objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("framebuffer:didUpdateCursor:"), framebuffer, cursor)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/framebuffer:didUpdateFrame:
 func (v VZVNCServer) FramebufferDidUpdateFrame(framebuffer objectivec.IObject, frame objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("framebuffer:didUpdateFrame:"), framebuffer, frame)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/framebuffer:didUpdateGraphicsOrientation:
 func (v VZVNCServer) FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("framebuffer:didUpdateGraphicsOrientation:"), framebuffer, orientation)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/framebufferDidUpdateColorSpace:
 func (v VZVNCServer) FramebufferDidUpdateColorSpace(space objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("framebufferDidUpdateColorSpace:"), space)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/getDisplayProtectionOptions
 func (v VZVNCServer) GetDisplayProtectionOptions() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("getDisplayProtectionOptions"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/start
 func (v VZVNCServer) Start() {
 	objc.Send[objc.ID](v.ID, objc.Sel("start"))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/stop
 func (v VZVNCServer) Stop() {
 	objc.Send[objc.ID](v.ID, objc.Sel("stop"))
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithBonjourServiceName:
 func (v VZVNCServer) InitWithBonjourServiceName(name objectivec.IObject) VZVNCServer {
 	rv := objc.Send[VZVNCServer](v.ID, objc.Sel("initWithBonjourServiceName:"), name)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithBonjourServiceName:queue:
 func (v VZVNCServer) InitWithBonjourServiceNameQueue(name objectivec.IObject, queue objectivec.IObject) VZVNCServer {
 	rv := objc.Send[VZVNCServer](v.ID, objc.Sel("initWithBonjourServiceName:queue:"), name, queue)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithBonjourServiceName:queue:securityConfiguration:
 func (v VZVNCServer) InitWithBonjourServiceNameQueueSecurityConfiguration(name objectivec.IObject, queue objectivec.IObject, configuration objectivec.IObject) VZVNCServer {
 	rv := objc.Send[VZVNCServer](v.ID, objc.Sel("initWithBonjourServiceName:queue:securityConfiguration:"), name, queue, configuration)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithPort:
 func (v VZVNCServer) InitWithPort(port uint16) VZVNCServer {
 	rv := objc.Send[VZVNCServer](v.ID, objc.Sel("initWithPort:"), port)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithPort:queue:
 func (v VZVNCServer) InitWithPortQueue(port uint16, queue objectivec.IObject) VZVNCServer {
 	rv := objc.Send[VZVNCServer](v.ID, objc.Sel("initWithPort:queue:"), port, queue)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/initWithPort:queue:securityConfiguration:
 func (v VZVNCServer) InitWithPortQueueSecurityConfiguration(port uint16, queue objectivec.IObject, configuration objectivec.IObject) VZVNCServer {
 	rv := objc.Send[VZVNCServer](v.ID, objc.Sel("initWithPort:queue:securityConfiguration:"), port, queue, configuration)
@@ -296,6 +294,7 @@ func (v VZVNCServer) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/delegate
 func (v VZVNCServer) Delegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("delegate"))
@@ -304,11 +303,13 @@ func (v VZVNCServer) Delegate() objectivec.IObject {
 func (v VZVNCServer) SetDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/description
 func (v VZVNCServer) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/graphicsDisplay
 func (v VZVNCServer) GraphicsDisplay() IVZGraphicsDisplay {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("graphicsDisplay"))
@@ -317,21 +318,25 @@ func (v VZVNCServer) GraphicsDisplay() IVZGraphicsDisplay {
 func (v VZVNCServer) SetGraphicsDisplay(value IVZGraphicsDisplay) {
 	objc.Send[struct{}](v.ID, objc.Sel("setGraphicsDisplay:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/hash
 func (v VZVNCServer) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/port
 func (v VZVNCServer) Port() uint16 {
 	rv := objc.Send[uint16](v.ID, objc.Sel("port"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/queue
 func (v VZVNCServer) Queue() objectivec.Object {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/securityConfiguration
 func (v VZVNCServer) SecurityConfiguration() *VZVNCSecurityConfiguration {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("securityConfiguration"))
@@ -341,6 +346,7 @@ func (v VZVNCServer) SecurityConfiguration() *VZVNCSecurityConfiguration {
 	val := VZVNCSecurityConfigurationFromID(objc.ID(rv))
 	return &val
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/state
 func (v VZVNCServer) State() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("state"))
@@ -349,11 +355,13 @@ func (v VZVNCServer) State() int64 {
 func (v VZVNCServer) SetState(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setState:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/superclass
 func (v VZVNCServer) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZVNCServer/virtualMachine
 func (v VZVNCServer) VirtualMachine() IVZVirtualMachine {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("virtualMachine"))
@@ -362,4 +370,3 @@ func (v VZVNCServer) VirtualMachine() IVZVirtualMachine {
 func (v VZVNCServer) SetVirtualMachine(value IVZVirtualMachine) {
 	objc.Send[struct{}](v.ID, objc.Sel("setVirtualMachine:"), value)
 }
-

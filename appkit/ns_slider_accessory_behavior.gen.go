@@ -5,8 +5,9 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,10 +44,10 @@ func (nc NSSliderAccessoryBehaviorClass) Alloc() NSSliderAccessoryBehavior {
 	return rv
 }
 
-//
 // # Instance Methods
 //
-//   - [NSSliderAccessoryBehavior.HandleAction]
+//   - [NSSliderAccessoryBehavior.HandleAction]: Override point for custom subclasses to handle interaction.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior
 type NSSliderAccessoryBehavior struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type NSSliderAccessoryBehavior struct {
 func NSSliderAccessoryBehaviorFromID(id objc.ID) NSSliderAccessoryBehavior {
 	return NSSliderAccessoryBehavior{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSSliderAccessoryBehavior adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -63,7 +65,7 @@ func NSSliderAccessoryBehaviorFromID(id objc.ID) NSSliderAccessoryBehavior {
 //
 // # Instance Methods
 //
-//   - [INSSliderAccessoryBehavior.HandleAction]
+//   - [INSSliderAccessoryBehavior.HandleAction]: Override point for custom subclasses to handle interaction.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior
 type INSSliderAccessoryBehavior interface {
@@ -71,6 +73,7 @@ type INSSliderAccessoryBehavior interface {
 
 	// Topic: Instance Methods
 
+	// Override point for custom subclasses to handle interaction.
 	HandleAction(sender INSSliderAccessory)
 
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -95,13 +98,13 @@ func NewNSSliderAccessoryBehavior() NSSliderAccessoryBehavior {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/init(target:action:)
 func NewSliderAccessoryBehaviorWithTargetAction(target objectivec.IObject, action objc.SEL) NSSliderAccessoryBehavior {
 	rv := objc.Send[objc.ID](objc.ID(getNSSliderAccessoryBehaviorClass().class), objc.Sel("behaviorWithTarget:action:"), target, action)
 	return NSSliderAccessoryBehaviorFromID(rv)
 }
 
+// Override point for custom subclasses to handle interaction.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/handleAction(_:)
 func (s NSSliderAccessoryBehavior) HandleAction(sender INSSliderAccessory) {
@@ -111,24 +114,32 @@ func (s NSSliderAccessoryBehavior) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/init(handler:)
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) BehaviorWithHandler(handler SliderAccessoryHandler) NSSliderAccessoryBehavior {
-_block0, _ := NewSliderAccessoryBlock(handler)
+	_block0, _ := NewSliderAccessoryBlock(handler)
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("behaviorWithHandler:"), _block0)
 	return NSSliderAccessoryBehaviorFromID(rv)
 }
 
+// The behavior is automatically picked to be the system standard, given the
+// slider’s current context.
+//
+// # Discussion
+//
+// For example, NSTouchBarItems have `XCUIElementTypeValueStep` behavior.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/automatic
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) AutomaticBehavior() NSSliderAccessoryBehavior {
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("automaticBehavior"))
 	return NSSliderAccessoryBehaviorFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/valueReset
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) ValueResetBehavior() NSSliderAccessoryBehavior {
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("valueResetBehavior"))
 	return NSSliderAccessoryBehaviorFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/valueStep
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) ValueStepBehavior() NSSliderAccessoryBehavior {
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("valueStepBehavior"))
@@ -149,4 +160,3 @@ func (sc NSSliderAccessoryBehaviorClass) BehaviorWithHandlerSync(ctx context.Con
 		return nil, ctx.Err()
 	}
 }
-

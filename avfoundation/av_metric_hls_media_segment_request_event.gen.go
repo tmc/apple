@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMetricHLSMediaSegmentRequestEvent] class.
@@ -64,6 +65,7 @@ type AVMetricHLSMediaSegmentRequestEvent struct {
 func AVMetricHLSMediaSegmentRequestEventFromID(id objc.ID) AVMetricHLSMediaSegmentRequestEvent {
 	return AVMetricHLSMediaSegmentRequestEvent{AVMetricEvent: AVMetricEventFromID(id)}
 }
+
 // NOTE: AVMetricHLSMediaSegmentRequestEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,26 +121,31 @@ func (m AVMetricHLSMediaSegmentRequestEvent) ByteRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](m.ID, objc.Sel("byteRange"))
 	return foundation.NSRange(rv)
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/indexFileURL
 func (m AVMetricHLSMediaSegmentRequestEvent) IndexFileURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("indexFileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/isMapSegment
 func (m AVMetricHLSMediaSegmentRequestEvent) IsMapSegment() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isMapSegment"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/mediaResourceRequestEvent
 func (m AVMetricHLSMediaSegmentRequestEvent) MediaResourceRequestEvent() IAVMetricMediaResourceRequestEvent {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaResourceRequestEvent"))
 	return AVMetricMediaResourceRequestEventFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/mediaType
 func (m AVMetricHLSMediaSegmentRequestEvent) MediaType() AVMediaType {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaType"))
 	return AVMediaType(foundation.NSStringFromID(rv).String())
 }
+
 // Returns the duration of segment in seconds.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/segmentDuration
@@ -146,9 +153,9 @@ func (m AVMetricHLSMediaSegmentRequestEvent) SegmentDuration() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("segmentDuration"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricHLSMediaSegmentRequestEvent/url
 func (m AVMetricHLSMediaSegmentRequestEvent) Url() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

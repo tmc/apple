@@ -4,8 +4,9 @@ package quartzcore
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,21 +46,21 @@ func (cc CAAnimationClass) Alloc() CAAnimation {
 // The abstract superclass for animations in Core Animation.
 //
 // # Overview
-// 
+//
 // [CAAnimation] provides the basic support for the [CAMediaTiming] and
 // [CAAction] protocols. You do not create instance of [CAAnimation]: to
 // animate Core Animation layers or SceneKit objects, create instances of the
 // concrete subclasses [CABasicAnimation], [CAKeyframeAnimation],
 // [CAAnimationGroup], or [CATransition].
-// 
+//
 // # Animating Core Animation Layers
-// 
+//
 // You can animate the contents of your iOS or macOS app’s user interface by
 // attaching animations to [CALayer] objects. For more information, see [Core
 // Animation Programming Guide].
-// 
+//
 // # Animating Scene Kit Content
-// 
+//
 // In Scene Kit, animation objects represent not only property-based
 // animations, but also animations of geometry data created with external 3D
 // authoring tools and loaded from a scene file. You use the properties of the
@@ -68,13 +69,10 @@ func (cc CAAnimationClass) Alloc() CAAnimation {
 // during the animation. You can attach animations to Scene Kit objects that
 // adopt the [SCNAnimatable] protocol, including nodes, geometries, and
 // materials.
-// 
+//
 // In a Scene Kit app, [CAAnimation] objects support additional methods and
 // properties, listed under Controlling SceneKit Animation Timing, Fading
 // between SceneKit Animations, and Attaching SceneKit Animation Events.
-//
-// [Core Animation Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreAnimation_guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004514
-// [SCNAnimatable]: https://developer.apple.com/documentation/SceneKit/SCNAnimatable
 //
 // # Animation Attributes
 //
@@ -115,6 +113,9 @@ func (cc CAAnimationClass) Alloc() CAAnimation {
 //   - [CAAnimation.SetPreferredFrameRateRange]
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation
+//
+// [Core Animation Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreAnimation_guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004514
+// [SCNAnimatable]: https://developer.apple.com/documentation/SceneKit/SCNAnimatable
 type CAAnimation struct {
 	objectivec.Object
 }
@@ -125,6 +126,7 @@ type CAAnimation struct {
 func CAAnimationFromID(id objc.ID) CAAnimation {
 	return CAAnimation{objectivec.Object{ID: id}}
 }
+
 // NOTE: CAAnimation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -260,26 +262,22 @@ func NewAnimationWithSCNAnimation(animation objectivec.IObject) CAAnimation {
 // key: The name of one of the receiver’s properties.
 //
 // # Return Value
-// 
-// [true] if the specified property should be archived, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the specified property should be archived, otherwise false.
 //
 // # Discussion
-// 
-// Called by the object’s implementation of ``. The object must implement
-// keyed archiving.
-// 
-// The default implementation returns [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Called by the object’s implementation of “. The object must implement
+// keyed archiving.
+//
+// The default implementation returns true.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/shouldArchiveValue(forKey:)
 func (a CAAnimation) ShouldArchiveValueForKey(key string) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("shouldArchiveValueForKey:"), objc.String(key))
 	return rv
 }
+
 // Called to trigger the action specified by the identifier.
 //
 // event: The identifier of the action. The identifier may be a key or key path
@@ -298,10 +296,12 @@ func (a CAAnimation) RunActionForKeyObjectArguments(event string, anObject objec
 func (a CAAnimation) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+
 // Sets the value of the property identified by the given key. [Full Topic]
 func (a CAAnimation) SetValueForKey(value objectivec.IObject, key string) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setValue:forKey:"), value, objc.String(key))
 }
+
 // Returns the value of the property identified by the given key. [Full Topic]
 func (a CAAnimation) ValueForKey(key string) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("valueForKey:"), objc.String(key))
@@ -313,20 +313,20 @@ func (a CAAnimation) ValueForKey(key string) objectivec.IObject {
 // key: The name of one of the receiver’s properties.
 //
 // # Return Value
-// 
+//
 // The default value for the named property. Returns `nil` if no default value
 // has been set.
 //
 // # Discussion
-// 
+//
 // If this method returns `nil` a suitable “zero” default value for the
 // property is provided, based on the declared type of the `key`. For example,
 // if `key` is a [CGSize] object, a size of (0.0,0.0) is returned. For a
 // [CGRect] an empty rectangle is returned. For [CGAffineTransform] and
 // [CATransform3D], the appropriate identity matrix is returned.
-// 
+//
 // # Special Considerations
-// 
+//
 // If `key` is not a known for property of the class, the result of the method
 // is undefined.
 //
@@ -336,15 +336,25 @@ func (_CAAnimationClass CAAnimationClass) DefaultValueForKey(key string) objecti
 	return objectivec.Object{ID: rv}
 }
 
+// Creates and returns a new [CAAnimation] instance.
+//
+// # Return Value
+//
+// An [CAAnimation] object whose input values are initialized.
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/animation
+func (_CAAnimationClass CAAnimationClass) Animation() CAAnimation {
+	rv := objc.Send[objc.ID](objc.ID(_CAAnimationClass.class), objc.Sel("animation"))
+	return CAAnimationFromID(rv)
+}
+
 // Determines if the animation is removed from the target layer’s animations
 // upon completion.
 //
 // # Discussion
-// 
-// When [true], the animation is removed from the target layer’s animations
-// once its active duration has passed. Defaults to [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When true, the animation is removed from the target layer’s animations
+// once its active duration has passed. Defaults to true.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/isRemovedOnCompletion
 func (a CAAnimation) RemovedOnCompletion() bool {
@@ -354,10 +364,11 @@ func (a CAAnimation) RemovedOnCompletion() bool {
 func (a CAAnimation) SetRemovedOnCompletion(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRemovedOnCompletion:"), value)
 }
+
 // An optional timing function defining the pacing of the animation.
 //
 // # Discussion
-// 
+//
 // Defaults to `nil`, indicating linear pacing.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/timingFunction
@@ -368,10 +379,11 @@ func (a CAAnimation) TimingFunction() ICAMediaTimingFunction {
 func (a CAAnimation) SetTimingFunction(value ICAMediaTimingFunction) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimingFunction:"), value)
 }
+
 // Specifies the receiver’s delegate object.
 //
 // # Discussion
-// 
+//
 // Defaults to `nil`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/delegate
@@ -382,23 +394,22 @@ func (a CAAnimation) Delegate() CAAnimationDelegate {
 func (a CAAnimation) SetDelegate(value CAAnimationDelegate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDelegate:"), value)
 }
+
 // For animations attached to SceneKit objects, a Boolean value that
 // determines whether the animation is evaluated using the scene time or the
 // system time.
 //
 // # Discussion
-// 
-// If the value of this property is [true], animation timing is governed by
-// the currentTime property of the view, layer, or custom renderer responsible
-// for drawing the scene. The default value is [false].
-// 
+//
+// If the value of this property is true, animation timing is governed by the
+// currentTime property of the view, layer, or custom renderer responsible for
+// drawing the scene. The default value is false.
+//
 // To attach animations to SceneKit objects, see [SCNAnimatable].
 //
-// [SCNAnimatable]: https://developer.apple.com/documentation/SceneKit/SCNAnimatable
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/usesSceneTimeBase
+//
+// [SCNAnimatable]: https://developer.apple.com/documentation/SceneKit/SCNAnimatable
 func (a CAAnimation) UsesSceneTimeBase() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("usesSceneTimeBase"))
 	return rv
@@ -406,15 +417,16 @@ func (a CAAnimation) UsesSceneTimeBase() bool {
 func (a CAAnimation) SetUsesSceneTimeBase(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setUsesSceneTimeBase:"), value)
 }
+
 // For animations attached to SceneKit objects, the duration for transitioning
 // into the animation’s effect as it begins.
 //
 // # Discussion
-// 
+//
 // Use this property to create smooth transitions between the effects of
 // multiple animations. These transitions are especially useful for geometry
 // animations created with external 3D authoring tools.
-// 
+//
 // For example, the geometry loaded from a scene file for a game character may
 // have associated animations for player actions such as walking and jumping.
 // When the player jumps, if the fade duration is zero, SceneKit abruptly
@@ -422,12 +434,12 @@ func (a CAAnimation) SetUsesSceneTimeBase(value bool) {
 // the jump animation. If the fade duration is greater than zero, SceneKit
 // plays both animations at once during that duration and interpolates vertex
 // positions from one animation to the other, creating a smooth transition.
-// 
+//
 // To attach animations to SceneKit objects, see [SCNAnimatable].
 //
-// [SCNAnimatable]: https://developer.apple.com/documentation/SceneKit/SCNAnimatable
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/fadeInDuration
+//
+// [SCNAnimatable]: https://developer.apple.com/documentation/SceneKit/SCNAnimatable
 func (a CAAnimation) FadeInDuration() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("fadeInDuration"))
 	return rv
@@ -435,15 +447,16 @@ func (a CAAnimation) FadeInDuration() float64 {
 func (a CAAnimation) SetFadeInDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFadeInDuration:"), value)
 }
+
 // For animations attached to SceneKit objects, the duration for transitioning
 // out of the animation’s effect as it ends.
 //
 // # Discussion
-// 
+//
 // Use this property to create smooth transitions between the effects of
 // multiple animations. These transitions are especially useful for geometry
 // animations created with external 3D authoring tools.
-// 
+//
 // For example, the geometry loaded from a scene file for a game character may
 // have associated animations for player actions such as walking and jumping.
 // When the player jumps, if the fade duration is zero, SceneKit abruptly
@@ -451,12 +464,12 @@ func (a CAAnimation) SetFadeInDuration(value float64) {
 // the jump animation. If the fade duration is greater than zero, SceneKit
 // plays both animations at once during that duration and interpolates vertex
 // positions from one animation to the other, creating a smooth transition.
-// 
+//
 // To attach animations to SceneKit objects, see [SCNAnimatable].
 //
-// [SCNAnimatable]: https://developer.apple.com/documentation/SceneKit/SCNAnimatable
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/fadeOutDuration
+//
+// [SCNAnimatable]: https://developer.apple.com/documentation/SceneKit/SCNAnimatable
 func (a CAAnimation) FadeOutDuration() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("fadeOutDuration"))
 	return rv
@@ -464,24 +477,25 @@ func (a CAAnimation) FadeOutDuration() float64 {
 func (a CAAnimation) SetFadeOutDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFadeOutDuration:"), value)
 }
+
 // For animations attached to SceneKit objects, a list of events attached to
 // an animation.
 //
 // # Discussion
-// 
+//
 // An array of [SCNAnimationEvent] objects, each of which adds a timed action
 // to the animation.
-// 
+//
 // For example, you can create animation events that play sound effects timed
 // to match the footsteps of an animated game character or that add new nodes
 // to the scene when an animation completes.
-// 
+//
 // To attach animations to SceneKit objects, see [SCNAnimatable].
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/animationEvents
 //
 // [SCNAnimatable]: https://developer.apple.com/documentation/SceneKit/SCNAnimatable
 // [SCNAnimationEvent]: https://developer.apple.com/documentation/SceneKit/SCNAnimationEvent
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/animationEvents
 func (a CAAnimation) AnimationEvents() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("animationEvents"))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
@@ -491,15 +505,13 @@ func (a CAAnimation) AnimationEvents() []objectivec.IObject {
 func (a CAAnimation) SetAnimationEvents(value []objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAnimationEvents:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Determines if the receiver plays in the reverse upon completion.
 //
 // # Discussion
-// 
-// When [true], the receiver plays backwards after playing forwards. Defaults
-// to [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When true, the receiver plays backwards after playing forwards. Defaults to
+// false.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/autoreverses
 func (a CAAnimation) Autoreverses() bool {
@@ -509,11 +521,12 @@ func (a CAAnimation) Autoreverses() bool {
 func (a CAAnimation) SetAutoreverses(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAutoreverses:"), value)
 }
+
 // Specifies the begin time of the receiver in relation to its parent object,
 // if applicable.
 //
 // # Discussion
-// 
+//
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
@@ -524,10 +537,11 @@ func (a CAAnimation) BeginTime() float64 {
 func (a CAAnimation) SetBeginTime(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBeginTime:"), value)
 }
+
 // Specifies the basic duration of the animation, in seconds.
 //
 // # Discussion
-// 
+//
 // Defaults to 0.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
@@ -538,18 +552,19 @@ func (a CAAnimation) Duration() float64 {
 func (a CAAnimation) SetDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
+
 // Determines if the receiver’s presentation is frozen or removed once its
 // active duration has completed.
 //
 // # Discussion
-// 
+//
 // The possible values are described in [Fill Modes]. The default is
 // [removed].
 //
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/fillMode
+//
 // [Fill Modes]: https://developer.apple.com/documentation/QuartzCore/fill-modes
 // [removed]: https://developer.apple.com/documentation/QuartzCore/CAMediaTimingFillMode/removed
-//
-// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/fillMode
 func (a CAAnimation) FillMode() CAMediaTimingFillMode {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fillMode"))
 	return CAMediaTimingFillMode(foundation.NSStringFromID(rv).String())
@@ -557,6 +572,7 @@ func (a CAAnimation) FillMode() CAMediaTimingFillMode {
 func (a CAAnimation) SetFillMode(value CAMediaTimingFillMode) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFillMode:"), objc.String(string(value)))
 }
+
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/preferredFrameRateRange
 func (a CAAnimation) PreferredFrameRateRange() CAFrameRateRange {
 	rv := objc.Send[CAFrameRateRange](a.ID, objc.Sel("preferredFrameRateRange"))
@@ -565,20 +581,21 @@ func (a CAAnimation) PreferredFrameRateRange() CAFrameRateRange {
 func (a CAAnimation) SetPreferredFrameRateRange(value CAFrameRateRange) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPreferredFrameRateRange:"), value)
 }
+
 // Determines the number of times the animation will repeat.
 //
 // # Discussion
-// 
+//
 // May be fractional. If the `repeatCount` is 0, it is ignored. Defaults to 0.
 // If both [RepeatDuration] and [RepeatCount] are specified the behavior is
 // undefined.
-// 
+//
 // Setting this property to [greatestFiniteMagnitude] will cause the animation
 // to repeat forever.
 //
-// [greatestFiniteMagnitude]: https://developer.apple.com/documentation/Swift/Float/greatestFiniteMagnitude
-//
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatCount
+//
+// [greatestFiniteMagnitude]: https://developer.apple.com/documentation/Swift/Float/greatestFiniteMagnitude
 func (a CAAnimation) RepeatCount() float32 {
 	rv := objc.Send[float32](a.ID, objc.Sel("repeatCount"))
 	return rv
@@ -586,10 +603,11 @@ func (a CAAnimation) RepeatCount() float32 {
 func (a CAAnimation) SetRepeatCount(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRepeatCount:"), value)
 }
+
 // Determines how many seconds the animation will repeat for.
 //
 // # Discussion
-// 
+//
 // Defaults to 0. If the `repeatDuration` is 0, it is ignored. If both
 // [RepeatDuration] and [RepeatCount] are specified the behavior is undefined.
 //
@@ -601,11 +619,12 @@ func (a CAAnimation) RepeatDuration() float64 {
 func (a CAAnimation) SetRepeatDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRepeatDuration:"), value)
 }
+
 // Specifies how time is mapped to receiver’s time space from the parent
 // time space.
 //
 // # Discussion
-// 
+//
 // For example, if `speed` is 2.0 local time progresses twice as fast as
 // parent time. Defaults to 1.0.
 //
@@ -617,10 +636,11 @@ func (a CAAnimation) Speed() float32 {
 func (a CAAnimation) SetSpeed(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSpeed:"), value)
 }
+
 // Specifies an additional time offset in active local time.
 //
 // # Discussion
-// 
+//
 // Defaults to 0. .
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
@@ -632,9 +652,6 @@ func (a CAAnimation) SetTimeOffset(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimeOffset:"), value)
 }
 
-			// Protocol methods for CAAction
-			
+// Protocol methods for CAAction
 
-			// Protocol methods for CAMediaTiming
-			
-
+// Protocol methods for CAMediaTiming

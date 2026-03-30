@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -61,6 +62,7 @@ type AVAssetVariantVideoLayoutAttributes struct {
 func AVAssetVariantVideoLayoutAttributesFromID(id objc.ID) AVAssetVariantVideoLayoutAttributes {
 	return AVAssetVariantVideoLayoutAttributes{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetVariantVideoLayoutAttributes adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,20 +123,21 @@ func NewAVAssetVariantVideoLayoutAttributes() AVAssetVariantVideoLayoutAttribute
 // Attributes that describe the video’s stereo components.
 //
 // # Discussion
-// 
+//
 // In the case of 3D or stereoscopic content, the value contains [leftEye] and
 // [rightEye] components. In the case of monoscopic content, this value is
 // [kCMStereoView_None].
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/VideoAttributes-swift.class/LayoutAttributes/stereoViewComponents
+//
 // [kCMStereoView_None]: https://developer.apple.com/documentation/CoreMedia/CMStereoViewComponents/kCMStereoView_None
 // [leftEye]: https://developer.apple.com/documentation/CoreMedia/CMStereoViewComponents/leftEye
 // [rightEye]: https://developer.apple.com/documentation/CoreMedia/CMStereoViewComponents/rightEye
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/VideoAttributes-swift.class/LayoutAttributes/stereoViewComponents
 func (a AVAssetVariantVideoLayoutAttributes) StereoViewComponents() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("stereoViewComponents"))
 	return rv
 }
+
 // Describes the video projection.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/VideoAttributes-swift.class/LayoutAttributes/projectionType
@@ -142,6 +145,7 @@ func (a AVAssetVariantVideoLayoutAttributes) ProjectionType() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("projectionType"))
 	return rv
 }
+
 // The video sample codec types present in the variant’s renditions.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/codectypes
@@ -152,6 +156,7 @@ func (a AVAssetVariantVideoLayoutAttributes) CodecTypes() uint32 {
 func (a AVAssetVariantVideoLayoutAttributes) SetCodecTypes(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCodecTypes:"), value)
 }
+
 // The nominal frame rate of the variant’s renditions.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/nominalframerate
@@ -162,6 +167,7 @@ func (a AVAssetVariantVideoLayoutAttributes) NominalFrameRate() float64 {
 func (a AVAssetVariantVideoLayoutAttributes) SetNominalFrameRate(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setNominalFrameRate:"), value)
 }
+
 // The presentation size of the variant’s renditions.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/presentationsize
@@ -172,6 +178,7 @@ func (a AVAssetVariantVideoLayoutAttributes) PresentationSize() corefoundation.C
 func (a AVAssetVariantVideoLayoutAttributes) SetPresentationSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPresentationSize:"), value)
 }
+
 // Attributes that describe the layout of the video content.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/videolayoutattributes
@@ -182,6 +189,7 @@ func (a AVAssetVariantVideoLayoutAttributes) VideoLayoutAttributes() IAVAssetVar
 func (a AVAssetVariantVideoLayoutAttributes) SetVideoLayoutAttributes(value IAVAssetVariantVideoLayoutAttributes) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVideoLayoutAttributes:"), value)
 }
+
 // The video range of the variant.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.class/videorange
@@ -192,4 +200,3 @@ func (a AVAssetVariantVideoLayoutAttributes) VideoRange() AVVideoRange {
 func (a AVAssetVariantVideoLayoutAttributes) SetVideoRange(value AVVideoRange) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVideoRange:"), objc.String(string(value)))
 }
-

@@ -5,6 +5,7 @@ package coreml
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,12 +43,12 @@ func (mc MLPendingPredictionClass) Alloc() MLPendingPrediction {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLPendingPrediction.CompletionHandler]
 //   - [MLPendingPrediction.PredictionRequest]
 //   - [MLPendingPrediction.InitWithPredictionRequestCompletionHandler]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLPendingPrediction
 type MLPendingPrediction struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type MLPendingPrediction struct {
 func MLPendingPredictionFromID(id objc.ID) MLPendingPrediction {
 	return MLPendingPrediction{objectivec.Object{ID: id}}
 }
+
 // Ensure MLPendingPrediction implements IMLPendingPrediction.
 var _ IMLPendingPrediction = MLPendingPrediction{}
 
@@ -98,10 +100,9 @@ func NewMLPendingPrediction() MLPendingPrediction {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPendingPrediction/initWithPredictionRequest:completionHandler:
 func (p MLPendingPrediction) InitWithPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) MLPendingPrediction {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("initWithPredictionRequest:completionHandler:"), request, _block1)
 	return MLPendingPredictionFromID(rv)
 }
@@ -112,6 +113,7 @@ func (p MLPendingPrediction) CompletionHandler() VoidHandler {
 	_ = rv
 	return nil
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPendingPrediction/predictionRequest
 func (p MLPendingPrediction) PredictionRequest() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("predictionRequest"))
@@ -132,4 +134,3 @@ func (p MLPendingPrediction) InitWithPredictionRequest(ctx context.Context, requ
 		return ctx.Err()
 	}
 }
-

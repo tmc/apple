@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,6 +59,7 @@ type MLModelStructureProgramArgument struct {
 func MLModelStructureProgramArgumentFromID(id objc.ID) MLModelStructureProgramArgument {
 	return MLModelStructureProgramArgument{objectivec.Object{ID: id}}
 }
+
 // Ensure MLModelStructureProgramArgument implements IMLModelStructureProgramArgument.
 var _ IMLModelStructureProgramArgument = MLModelStructureProgramArgument{}
 
@@ -105,4 +107,3 @@ func (m MLModelStructureProgramArgument) Bindings() []MLModelStructureProgramBin
 		return MLModelStructureProgramBindingFromID(id)
 	})
 }
-

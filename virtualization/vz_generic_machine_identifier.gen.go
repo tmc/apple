@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (vc VZGenericMachineIdentifierClass) Alloc() VZGenericMachineIdentifier {
 // An object that represents a unique identifier for a virtual machine.
 //
 // # Overview
-// 
+//
 // Use the data representation in [VZGenericMachineIdentifier.DataRepresentation] to save the VM’s
 // identifier. To restore a previously saved identifier use
 // [VZGenericMachineIdentifier.InitWithDataRepresentation].
@@ -69,6 +70,7 @@ type VZGenericMachineIdentifier struct {
 func VZGenericMachineIdentifierFromID(id objc.ID) VZGenericMachineIdentifier {
 	return VZGenericMachineIdentifier{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZGenericMachineIdentifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -151,6 +153,7 @@ func (g VZGenericMachineIdentifier) DataRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether nested virtualization is in an
 // enabled state.
 //
@@ -162,6 +165,7 @@ func (g VZGenericMachineIdentifier) IsNestedVirtualizationEnabled() bool {
 func (g VZGenericMachineIdentifier) SetIsNestedVirtualizationEnabled(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setNestedVirtualizationEnabled:"), value)
 }
+
 // A value that represents a unique identifier for the virtual machine.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzgenericplatformconfiguration/machineidentifier
@@ -184,4 +188,3 @@ func (_VZGenericMachineIdentifierClass VZGenericMachineIdentifierClass) IsNested
 func (_VZGenericMachineIdentifierClass VZGenericMachineIdentifierClass) SetIsNestedVirtualizationSupported(value bool) {
 	objc.Send[struct{}](objc.ID(_VZGenericMachineIdentifierClass.class), objc.Sel("setNestedVirtualizationSupported:"), value)
 }
-

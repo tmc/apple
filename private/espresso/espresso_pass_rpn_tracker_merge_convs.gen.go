@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_rpn_tracker_merge_convs struct {
 func EspressoPass_rpn_tracker_merge_convsFromID(id objc.ID) EspressoPass_rpn_tracker_merge_convs {
 	return EspressoPass_rpn_tracker_merge_convs{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_rpn_tracker_merge_convs implements IEspressoPass_rpn_tracker_merge_convs.
 var _ IEspressoPass_rpn_tracker_merge_convs = EspressoPass_rpn_tracker_merge_convs{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_rpn_tracker_merge_convs() EspressoPass_rpn_tracker_merge_co
 	rv := objc.Send[EspressoPass_rpn_tracker_merge_convs](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

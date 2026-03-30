@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for Security. DO NOT EDIT.
 
 // Package security provides Go bindings for the Security framework.
@@ -50,7 +49,7 @@
 //   - Cryptographic Message Syntax Services: Cryptographically sign and encrypt S/MIME messages. ([CMSSignedAttributes], [CMSCertificateChainMode], [CMSSignerStatus])
 //   - Randomization Services: Generate cryptographically secure random numbers. ([SecRandomRef])
 //   - Security Transforms: Perform cryptographic functions like encoding, encryption, signing, and signature verification. ([SecTransformInstanceBlock], [SecTransformImplementationRef], [SecTransformMetaAttributeType], [SecTransformDataBlock], [SecMessageBlock])
-//   - ASN.1: Encode and decode Distinguished Encoding Rules (DER) and Basic Encoding Rules (BER) data streams. ([SecAsn1Template_struct], [SecAsn1Template_struct], [SecAsn1AlgId], [SecAsn1PubKeyInfo])
+//   - ASN.1: Encode and decode Distinguished Encoding Rules (DER) and Basic Encoding Rules (BER) data streams. ([SecAsn1Item], [SecAsn1Template_struct], [SecAsn1Template_struct], [SecAsn1AlgId], [SecAsn1PubKeyInfo])
 //
 // # Result codes
 //
@@ -95,20 +94,28 @@ package security
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPath is the system path to the framework binary.
-const frameworkPath = "/System/Library/Frameworks/Security.framework/Security"
+// frameworkPaths lists paths to try when loading the Security library.
+// The framework bundle path is tried first; a /usr/lib dylib fallback covers
+// C-API frameworks that are not in the dyld shared cache as bundles.
+var frameworkPaths = []string{
+	"/System/Library/Frameworks/Security.framework/Security",
+	"/usr/lib/libSecurity.dylib",
+}
+
 // frameworkHandle is the handle to the loaded framework.
 var frameworkHandle uintptr
 
 func init() {
-	var err error
-	frameworkHandle, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "warning: Security: failed to load %s: %v\n", frameworkPath, err)
-		return 
+	for _, path := range frameworkPaths {
+		h, err := purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+		if err == nil {
+			frameworkHandle = h
+			return
+		}
 	}
+	fmt.Fprintf(os.Stderr, "warning: Security: failed to load framework from any known path\n")
 }
-

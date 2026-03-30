@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,14 +48,14 @@ func (ac AVCaptureSessionClass) Alloc() AVCaptureSession {
 // from input devices to capture outputs.
 //
 // # Overview
-// 
+//
 // To perform real-time capture, you instantiate a capture session and add
 // appropriate inputs and outputs. The following code fragment illustrates how
 // to configure a capture device to record audio.
-// 
+//
 // Call the [AVCaptureSession.StartRunning] method to start the flow of data from the inputs to
 // the outputs, and call the [AVCaptureSession.StopRunning] method to stop the flow.
-// 
+//
 // You use the [AVCaptureSession.SessionPreset] property to customize the quality level,
 // bitrate, or other settings for the output. Most common capture
 // configurations are available through session presets; however, some
@@ -142,6 +143,7 @@ type AVCaptureSession struct {
 func AVCaptureSessionFromID(id objc.ID) AVCaptureSession {
 	return AVCaptureSession{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureSession adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -350,10 +352,10 @@ func NewAVCaptureSession() AVCaptureSession {
 // configuration to perform in a single atomic update.
 //
 // # Discussion
-// 
+//
 // Call this method and [CommitConfiguration] to batch multiple configuration
 // operations on a running session into an atomic update.
-// 
+//
 // After you call this method, you can add or remove outputs, alter the
 // [SessionPreset], or configure individual capture input or output
 // properties. The session configuration doesn’t change until you invoke
@@ -365,6 +367,7 @@ func NewAVCaptureSession() AVCaptureSession {
 func (c AVCaptureSession) BeginConfiguration() {
 	objc.Send[objc.ID](c.ID, objc.Sel("beginConfiguration"))
 }
+
 // Commits one or more changes to a running capture session’s configuration
 // in a single atomic update.
 //
@@ -372,100 +375,90 @@ func (c AVCaptureSession) BeginConfiguration() {
 func (c AVCaptureSession) CommitConfiguration() {
 	objc.Send[objc.ID](c.ID, objc.Sel("commitConfiguration"))
 }
+
 // Determines whether you can configure a capture session with the specified
 // preset.
 //
 // preset: A preset value to test.
 //
 // # Return Value
-// 
-// [true] if the capture session supports the preset; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the capture session supports the preset; otherwise, false.
 //
 // # Discussion
-// 
+//
 // Use this method to determine whether the capture session, in its current
 // I/O configuration, supports a particular preset. You can only set a preset
-// that returns [true] as the capture session’s [SessionPreset] property
+// that returns true as the capture session’s [SessionPreset] property
 // value.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/canSetSessionPreset(_:)
 func (c AVCaptureSession) CanSetSessionPreset(preset AVCaptureSessionPreset) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("canSetSessionPreset:"), objc.String(string(preset)))
 	return rv
 }
+
 // Determines whether you can add an input to a session.
 //
 // input: An input to add to the session.
 //
 // # Return Value
-// 
-// [true] if you can add the input to the session; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if you can add the input to the session; otherwise, false.
 //
 // # Discussion
-// 
-// This method returns [false] if you can’t add an input to a capture
-// session. This occurs, for example, if you attempt to add the input to a
-// session twice, or if the input already belongs to another capture session.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// This method returns false if you can’t add an input to a capture session.
+// This occurs, for example, if you attempt to add the input to a session
+// twice, or if the input already belongs to another capture session.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/canAddInput(_:)
 func (c AVCaptureSession) CanAddInput(input IAVCaptureInput) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("canAddInput:"), input)
 	return rv
 }
+
 // Adds a capture input to the session.
 //
 // input: An input to add to the session.
 //
 // # Discussion
-// 
-// It’s only valid to call this method if [CanAddInput] returns [true].
-// 
-// You can invoke this method while the session is running.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// It’s only valid to call this method if [CanAddInput] returns true.
+//
+// You can invoke this method while the session is running.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/addInput(_:)
 func (c AVCaptureSession) AddInput(input IAVCaptureInput) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addInput:"), input)
 }
+
 // Removes an input from the session.
 //
 // input: An input to remove from the capture session.
 //
 // # Discussion
-// 
+//
 // You can invoke this method while the session is running.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/removeInput(_:)
 func (c AVCaptureSession) RemoveInput(input IAVCaptureInput) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeInput:"), input)
 }
+
 // Determines whether you can add an output to a session.
 //
 // output: An output to add to the session.
 //
 // # Return Value
-// 
-// [true] if you can add the output; otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if you can add the output; otherwise false.
 //
 // # Discussion
-// 
+//
 // In iOS and Mac Catalyst, the system imposes the following limitations on
 // the combinations of outputs a capture session may contain:
-// 
+//
 // - An app may add only a single output of a particular type. For apps that
 // link against iOS 16 or later, this restriction no longer applies to
 // [AVCaptureVideoDataOutput]. - Prior to iOS 16, you can add an
@@ -482,86 +475,84 @@ func (c AVCaptureSession) RemoveInput(input IAVCaptureInput) {
 // longer exists. - An app can’t add an [AVCapturePhotoOutput] and
 // [AVCaptureStillImageOutput] to the same session.
 //
-// [AVCaptureStillImageOutput]: https://developer.apple.com/documentation/AVFoundation/AVCaptureStillImageOutput
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/canAddOutput(_:)
+//
+// [AVCaptureStillImageOutput]: https://developer.apple.com/documentation/AVFoundation/AVCaptureStillImageOutput
 func (c AVCaptureSession) CanAddOutput(output IAVCaptureOutput) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("canAddOutput:"), output)
 	return rv
 }
+
 // Adds an output to the capture session.
 //
 // output: An output to add to the session.
 //
 // # Discussion
-// 
-// You can only add an output to a session using this method if [CanAddOutput]
-// returns [true].
-// 
-// You can invoke this method while the session is running.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// You can only add an output to a session using this method if [CanAddOutput]
+// returns true.
+//
+// You can invoke this method while the session is running.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/addOutput(_:)
 func (c AVCaptureSession) AddOutput(output IAVCaptureOutput) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addOutput:"), output)
 }
+
 // Removes an output from a capture session.
 //
 // output: An output to remove from the capture session.
 //
 // # Discussion
-// 
+//
 // You can call this method while the session is running.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/removeOutput(_:)
 func (c AVCaptureSession) RemoveOutput(output IAVCaptureOutput) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeOutput:"), output)
 }
+
 // Adds a connection to the capture session.
 //
 // connection: The capture connection to add to the session.
 //
 // # Discussion
-// 
+//
 // You can only add a capture connection to a session using this method if
-// [CanAddConnection] returns [true].
-// 
+// [CanAddConnection] returns true.
+//
 // When using [AddInput] or [AddOutput], the session automatically forms
 // connections between all compatible inputs and outputs. Manually adding
 // connections is only necessary when adding an input or output with no
 // connections.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/addConnection(_:)
 func (c AVCaptureSession) AddConnection(connection IAVCaptureConnection) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addConnection:"), connection)
 }
+
 // Determines whether a you can add a connection to a capture session.
 //
 // connection: A connect object to test.
 //
 // # Return Value
-// 
-// [true] if you can add the connection; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if you can add the connection; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/canAddConnection(_:)
 func (c AVCaptureSession) CanAddConnection(connection IAVCaptureConnection) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("canAddConnection:"), connection)
 	return rv
 }
+
 // Adds a capture input to a session without forming any connections.
 //
 // input: The capture input to add to the session.
 //
 // # Discussion
-// 
+//
 // You can call this method while the session is running.
-// 
+//
 // In most cases, use the [AddInput] method to add new inputs to a session.
 // Call this method if you require fine-grained control over which inputs
 // connect to which outputs.
@@ -570,14 +561,15 @@ func (c AVCaptureSession) CanAddConnection(connection IAVCaptureConnection) bool
 func (c AVCaptureSession) AddInputWithNoConnections(input IAVCaptureInput) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addInputWithNoConnections:"), input)
 }
+
 // Adds a capture output to the session without forming any connections.
 //
 // output: The capture output to add to the session.
 //
 // # Discussion
-// 
+//
 // You can call this method while the session is running.
-// 
+//
 // In most cases, use the [AddOutput] method to add new outputs to a session.
 // Call this method if you require fine-grained control over which inputs
 // connect to which outputs.
@@ -586,29 +578,31 @@ func (c AVCaptureSession) AddInputWithNoConnections(input IAVCaptureInput) {
 func (c AVCaptureSession) AddOutputWithNoConnections(output IAVCaptureOutput) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addOutputWithNoConnections:"), output)
 }
+
 // Removes a capture connection from the session.
 //
 // connection: The capture connection to remove from the session.
 //
 // # Discussion
-// 
+//
 // You can call this method while the session is running.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/removeConnection(_:)
 func (c AVCaptureSession) RemoveConnection(connection IAVCaptureConnection) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeConnection:"), connection)
 }
+
 // Tells the session to run deferred start when appropriate.
 //
 // # Discussion
-// 
+//
 // For best perceived startup performance, call this after displaying the
 // first frame, so that deferred start processing doesn’t interfere with
 // other initialization operations. For example, if using a [CAMetalLayer] to
 // draw camera frames, add a `presentHandler` (using
 // doc://com.apple.documentation/metal/mtldrawable/addpresentedhandler) to the
 // first drawable and call [RunDeferredStartWhenNeeded] from there.
-// 
+//
 // If one or more outputs need to start to perform a capture operation, and
 // [RunDeferredStartWhenNeeded] has not run yet, the session runs the deferred
 // start on your app’s behalf. Only call this method once for each
@@ -616,12 +610,13 @@ func (c AVCaptureSession) RemoveConnection(connection IAVCaptureConnection) {
 // [RunDeferredStartWhenNeeded] have no effect. The deferred start runs
 // asynchronously, so this method returns immediately.
 //
-// [CAMetalLayer]: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/runDeferredStartWhenNeeded()
+//
+// [CAMetalLayer]: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer
 func (c AVCaptureSession) RunDeferredStartWhenNeeded() {
 	objc.Send[objc.ID](c.ID, objc.Sel("runDeferredStartWhenNeeded"))
 }
+
 // Sets a delegate object for the session to call when performing deferred
 // start.
 //
@@ -631,7 +626,7 @@ func (c AVCaptureSession) RunDeferredStartWhenNeeded() {
 // deferredStartDelegateCallbackQueue: A dispatch queue on which deferredStart delegate methods are called.
 //
 // # Discussion
-// 
+//
 // This delegate receives a call to the [SessionWillRunDeferredStart] method
 // when deferred start is about to run. It is non-blocking, so by the time
 // this method is called, the deferred start may already be underway. If you
@@ -641,29 +636,29 @@ func (c AVCaptureSession) RunDeferredStartWhenNeeded() {
 // possible) it may be done in the delegate’s [SessionWillRunDeferredStart]
 // method. To wait until deferred start is finished to perform some remaining
 // initialization work, use the [SessionDidRunDeferredStart] method instead.
-// 
+//
 // The delegate receives a call to the [SessionDidRunDeferredStart] method
 // when the deferred start finishes running. This allows you to run
 // less-critical application initialization code. For example, if you’ve
 // deferred an [AVCapturePhotoOutput] by setting its [DeferredStartEnabled]
 // property to `true`, and you’d like to do some app-specific initialization
 // related to still capture, here might be a good place to put it.
-// 
+//
 // If the delegate is non-nil, the session still calls the
 // [SessionWillRunDeferredStart] and [SessionDidRunDeferredStart] methods
 // regardless of the value of the session’s [AutomaticallyRunsDeferredStart]
 // property.
-// 
+//
 // To minimize the capture session’s startup latency, defer all unnecessary
 // work until after the session starts. This delegate provides callbacks for
 // you to schedule deferred work without impacting session startup
 // performance.
-// 
+//
 // To perform initialization prior to deferred start but after the user
 // interface displays, set [AutomaticallyRunsDeferredStart] to `false`, and
 // then run the custom initialization prior to calling
 // [RunDeferredStartWhenNeeded].
-// 
+//
 // If [DeferredStartDelegate] is not [NULL], the session throws an exception
 // if [DeferredStartDelegateCallbackQueue] is `nil`.
 //
@@ -671,20 +666,18 @@ func (c AVCaptureSession) RunDeferredStartWhenNeeded() {
 func (c AVCaptureSession) SetDeferredStartDelegateDeferredStartDelegateCallbackQueue(deferredStartDelegate AVCaptureSessionDeferredStartDelegate, deferredStartDelegateCallbackQueue dispatch.Queue) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setDeferredStartDelegate:deferredStartDelegateCallbackQueue:"), deferredStartDelegate, uintptr(deferredStartDelegateCallbackQueue.Handle()))
 }
+
 // Returns a Boolean value that indicates whether a capture session add the
 // specified control.
 //
 // control: The capture control to add.
 //
 // # Return Value
-// 
-// [true] if the capture session can add the control; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the capture session can add the control; otherwise, false.
 //
 // # Discussion
-// 
+//
 // Call this method to determine whether you can successfully add a control to
 // a capture session using the [AddControl] method. A capture session may not
 // be able to add a control due to its current session configuration or if
@@ -695,35 +688,38 @@ func (c AVCaptureSession) CanAddControl(control IAVCaptureControl) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("canAddControl:"), control)
 	return rv
 }
+
 // Adds a control to a capture session.
 //
 // control: The capture control to add.
 //
 // # Discussion
-// 
+//
 // A capture session may not be able to add a control due to configuration
 // reasons or limits of the host platform. Before calling this method,
 // determine whether you can successfully add a control by calling the capture
 // session’s [CanAddControl] method.
-// 
+//
 // You may call this method while the session is running.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/addControl(_:)
 func (c AVCaptureSession) AddControl(control IAVCaptureControl) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addControl:"), control)
 }
+
 // Removes a control from a capture session.
 //
 // control: The control to remove.
 //
 // # Discussion
-// 
+//
 // You may call this method while the session is running.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/removeControl(_:)
 func (c AVCaptureSession) RemoveControl(control IAVCaptureControl) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeControl:"), control)
 }
+
 // Sets a delegate object for the system to call when it activates and
 // presents controls.
 //
@@ -731,12 +727,12 @@ func (c AVCaptureSession) RemoveControl(control IAVCaptureControl) {
 //
 // controlsDelegateCallbackQueue: A serial dispatch queue on which to call the delegate methods. You must
 // specify a serial queue to ensure callbacks occur in order.
-// 
+//
 // This argument must not be `nil` unless the `controlsDelegate` argument is
 // also `nil;` otherwise, the system throws an [InvalidArgumentException].
 //
 // # Discussion
-// 
+//
 // People interact with capture controls by performing specific gestures to
 // enable their visibility. Specify a delegate to for the system to call when
 // it presents and dismisses controls. The system calls the delegate’s
@@ -746,25 +742,27 @@ func (c AVCaptureSession) RemoveControl(control IAVCaptureControl) {
 func (c AVCaptureSession) SetControlsDelegateQueue(controlsDelegate AVCaptureSessionControlsDelegate, controlsDelegateCallbackQueue dispatch.Queue) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setControlsDelegate:queue:"), controlsDelegate, uintptr(controlsDelegateCallbackQueue.Handle()))
 }
+
 // Starts the flow of data through the capture pipeline.
 //
 // # Discussion
-// 
+//
 // Call this method to start the flow of data from the capture session’s
 // inputs to its outputs. This method is synchronous and blocks until the
 // session starts running or it fails, which it reports by posting an
 // [runtimeErrorNotification] notification.
 //
-// [runtimeErrorNotification]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/runtimeErrorNotification
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/startRunning()
+//
+// [runtimeErrorNotification]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/runtimeErrorNotification
 func (c AVCaptureSession) StartRunning() {
 	objc.Send[objc.ID](c.ID, objc.Sel("startRunning"))
 }
+
 // Stops the flow of data through the capture pipeline.
 //
 // # Discussion
-// 
+//
 // Call this method to stop the flow of data from the inputs to the outputs
 // connected to the capture session. This method is synchronous and blocks
 // until the session stops running completely.
@@ -777,18 +775,17 @@ func (c AVCaptureSession) StopRunning() {
 // A preset value that indicates the quality level or bit rate of the output.
 //
 // # Discussion
-// 
+//
 // Specify a preset value to configure a capture session’s format and
 // settings. The default preset is [high], which produces high-quality video
-// and audio output, but you can specify any preset value that returns [true]
+// and audio output, but you can specify any preset value that returns true
 // for a call to [CanSetSessionPreset].
-// 
+//
 // You can set this value while the session is running.
 //
-// [high]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/Preset/high
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/sessionPreset
+//
+// [high]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/Preset/high
 func (c AVCaptureSession) SessionPreset() AVCaptureSessionPreset {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("sessionPreset"))
 	return AVCaptureSessionPreset(foundation.NSStringFromID(rv).String())
@@ -796,10 +793,11 @@ func (c AVCaptureSession) SessionPreset() AVCaptureSessionPreset {
 func (c AVCaptureSession) SetSessionPreset(value AVCaptureSessionPreset) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSessionPreset:"), objc.String(string(value)))
 }
+
 // The inputs that provide media data to a capture session.
 //
 // # Discussion
-// 
+//
 // You add new inputs to a capture session by callings its [AddInput] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/inputs
@@ -809,10 +807,11 @@ func (c AVCaptureSession) Inputs() []AVCaptureInput {
 		return AVCaptureInputFromID(id)
 	})
 }
+
 // The output destinations to which a captures session sends its data.
 //
 // # Discussion
-// 
+//
 // You add new outputs to a capture session by calling its [AddOutput] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/outputs
@@ -822,10 +821,11 @@ func (c AVCaptureSession) Outputs() []AVCaptureOutput {
 		return AVCaptureOutputFromID(id)
 	})
 }
+
 // The connections between inputs and outputs that a capture session contains.
 //
 // # Discussion
-// 
+//
 // A capture session automatically forms connections between inputs and
 // outputs when you call the [AddInput] or [AddOutput] methods. You can
 // explicitly add connections to a session by calling the [AddConnection]
@@ -838,16 +838,17 @@ func (c AVCaptureSession) Connections() []AVCaptureConnection {
 		return AVCaptureConnectionFromID(id)
 	})
 }
+
 // A [BOOL] value that indicates whether the session supports manually running
 // deferred start.
 //
 // # Discussion
-// 
+//
 // Deferred Start is a feature that allows you to control, on a per-output
 // basis, whether output objects start when or after the session is started.
 // The session defers starting an output when its `deferredStartEnabled`
 // property is set to `true`, and starts it after the session is started.
-// 
+//
 // You can only set the [AutomaticallyRunsDeferredStart] property value to
 // `false` if the session supports manual deferred start.
 //
@@ -856,15 +857,16 @@ func (c AVCaptureSession) ManualDeferredStartSupported() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isManualDeferredStartSupported"))
 	return rv
 }
+
 // A Boolean value that indicates whether deferred start runs automatically.
 //
 // # Discussion
-// 
+//
 // Deferred Start is a feature that allows you to control, on a per-output
 // basis, whether output objects start when or after the session is started.
 // The session defers starting an output when its [DeferredStartEnabled]
 // property is set to `true`, and starts it after the session is started.
-// 
+//
 // When this value is `true`, [AVCaptureSession] automatically runs deferred
 // start. If only [AVCaptureVideoPreviewLayer] objects have
 // [DeferredStartEnabled] set to `false`, the session runs deferred start a
@@ -872,13 +874,13 @@ func (c AVCaptureSession) ManualDeferredStartSupported() bool {
 // objects that have [DeferredStartEnabled] set to `false`, then the session
 // waits until each output that provides streaming data to your app sends its
 // first frame.
-// 
+//
 // If you set this value to `false`, call [RunDeferredStartWhenNeeded] to
 // indicate when to run deferred start.
-// 
+//
 // By default, for apps that are linked on or after iOS 26, this value is
 // `true`.
-// 
+//
 // If [ManualDeferredStartSupported] is `false`, setting this property value
 // to false results in the session throwing an invalid argument exception.
 //
@@ -890,10 +892,11 @@ func (c AVCaptureSession) AutomaticallyRunsDeferredStart() bool {
 func (c AVCaptureSession) SetAutomaticallyRunsDeferredStart(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAutomaticallyRunsDeferredStart:"), value)
 }
+
 // A delegate object that observes events about deferred start.
 //
 // # Discussion
-// 
+//
 // Call the [SetDeferredStartDelegateDeferredStartDelegateCallbackQueue]
 // method to set the deferred start delegate for a session.
 //
@@ -902,11 +905,12 @@ func (c AVCaptureSession) DeferredStartDelegate() AVCaptureSessionDeferredStartD
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("deferredStartDelegate"))
 	return AVCaptureSessionDeferredStartDelegateObjectFromID(rv)
 }
+
 // The dispatch queue on which the session calls deferred start delegate
 // methods.
 //
 // # Discussion
-// 
+//
 // Call the [SetDeferredStartDelegateDeferredStartDelegateCallbackQueue]
 // method to specify the dispatch queue on which to call the deferred start
 // delegate methods.
@@ -916,10 +920,11 @@ func (c AVCaptureSession) DeferredStartDelegateCallbackQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](c.ID, objc.Sel("deferredStartDelegateCallbackQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
+
 // A Boolean value that indicates whether a capture session supports controls.
 //
 // # Discussion
-// 
+//
 // A capture session supports controls only on platforms that provide the
 // required hardware.
 //
@@ -928,6 +933,7 @@ func (c AVCaptureSession) SupportsControls() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("supportsControls"))
 	return rv
 }
+
 // The maximum number of controls a capture session supports.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/maxControlsCount
@@ -935,10 +941,11 @@ func (c AVCaptureSession) MaxControlsCount() int {
 	rv := objc.Send[int](c.ID, objc.Sel("maxControlsCount"))
 	return rv
 }
+
 // The controls that allow configuring the camera system from device hardware.
 //
 // # Discussion
-// 
+//
 // You modify the contents of this array by calling the [AddControl] and
 // [RemoveControl] methods.
 //
@@ -949,10 +956,11 @@ func (c AVCaptureSession) Controls() []AVCaptureControl {
 		return AVCaptureControlFromID(id)
 	})
 }
+
 // A delegate object that observes changes to the state of capture controls.
 //
 // # Discussion
-// 
+//
 // Call the [SetControlsDelegateQueue] method to set the controls delegate for
 // a session.
 //
@@ -961,10 +969,11 @@ func (c AVCaptureSession) ControlsDelegate() AVCaptureSessionControlsDelegate {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("controlsDelegate"))
 	return AVCaptureSessionControlsDelegateObjectFromID(rv)
 }
+
 // The dispatch queue on which the system calls controls delegate methods.
 //
 // # Discussion
-// 
+//
 // Call the [SetControlsDelegateQueue] method to specify the dispatch queue on
 // which to call the controls delegate methods.
 //
@@ -973,11 +982,12 @@ func (c AVCaptureSession) ControlsDelegateCallbackQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](c.ID, objc.Sel("controlsDelegateCallbackQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
+
 // A Boolean value that indicates whether the capture session is in a running
 // state.
 //
 // # Discussion
-// 
+//
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/isRunning
@@ -985,19 +995,20 @@ func (c AVCaptureSession) Running() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isRunning"))
 	return rv
 }
+
 // A clock to use for output synchronization.
 //
 // # Discussion
-// 
+//
 // All capture output sample buffer timestamps are on the synchronization
 // clock’s timebase. Use this clock in conjunction with the clock from an
 // [AVCaptureInputPort] object to synchronize capture output with external
 // data sources such as Core Motion samples.
-// 
+//
 // The example below shows how to reverse synchronize the output timestamps to
 // the original timestamps in the
 // [CaptureOutputDidOutputSampleBufferFromConnection] method:
-// 
+//
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/synchronizationClock
@@ -1005,4 +1016,3 @@ func (c AVCaptureSession) SynchronizationClock() uintptr {
 	rv := objc.Send[uintptr](c.ID, objc.Sel("synchronizationClock"))
 	return rv
 }
-

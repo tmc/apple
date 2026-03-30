@@ -3,8 +3,8 @@
 package appkit
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -24,6 +24,7 @@ type NSUserActivityRestoring interface {
 type NSUserActivityRestoringObject struct {
 	objectivec.Object
 }
+
 func (o NSUserActivityRestoringObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -41,7 +42,7 @@ func NSUserActivityRestoringObjectFromID(id objc.ID) NSUserActivityRestoringObje
 // userActivity: The user activity to continue.
 //
 // # Discussion
-// 
+//
 // Implement this method to restore an object’s state using the specified
 // user activity. The system calls this method on any responders or documents
 // passed to the `restorationHandler` in
@@ -49,19 +50,17 @@ func NSUserActivityRestoringObjectFromID(id objc.ID) NSUserActivityRestoringObje
 // method on the main thread. Your implementation should use the state data
 // contained in the specified user activity’s [userInfo] dictionary to
 // restore the object.
-// 
+//
 // On macOS, the system can automatically restore activities managed by
 // [NSDocument] if you don’t implement
 // [ApplicationContinueUserActivityRestorationHandler], or if you return
-// [false]. When this occurs, the system opens the document using
+// false. When this occurs, the system opens the document using
 // [OpenDocumentWithContentsOfURLDisplayCompletionHandler], and calls
 // `restoreUserActivityState` on it.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [userInfo]: https://developer.apple.com/documentation/Foundation/NSUserActivity/userInfo
-//
 // See: https://developer.apple.com/documentation/AppKit/NSUserActivityRestoring/restoreUserActivityState(_:)
+//
+// [userInfo]: https://developer.apple.com/documentation/Foundation/NSUserActivity/userInfo
 func (o NSUserActivityRestoringObject) RestoreUserActivityState(userActivity foundation.NSUserActivity) {
 	objc.Send[struct{}](o.ID, objc.Sel("restoreUserActivityState:"), userActivity)
-	}
-
+}

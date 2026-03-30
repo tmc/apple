@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (dc DIEncryptionCreatorClass) Alloc() DIEncryptionCreator {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIEncryptionCreator.AddPublicKeyEntryWithXpcHandlerError]
@@ -53,6 +53,7 @@ func (dc DIEncryptionCreatorClass) Alloc() DIEncryptionCreator {
 //   - [DIEncryptionCreator.CreateParams]
 //   - [DIEncryptionCreator.SetCreateParams]
 //   - [DIEncryptionCreator.CreateWithXpcHandlerError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator
 type DIEncryptionCreator struct {
 	DIEncryptionFrontend
@@ -62,6 +63,7 @@ type DIEncryptionCreator struct {
 func DIEncryptionCreatorFromID(id objc.ID) DIEncryptionCreator {
 	return DIEncryptionCreator{DIEncryptionFrontend: DIEncryptionFrontendFromID(id)}
 }
+
 // Ensure DIEncryptionCreator implements IDIEncryptionCreator.
 var _ IDIEncryptionCreator = DIEncryptionCreator{}
 
@@ -109,7 +111,6 @@ func NewDIEncryptionCreator() DIEncryptionCreator {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithCoder:
 func NewDIEncryptionCreatorWithCoder(coder objectivec.IObject) DIEncryptionCreator {
 	instance := getDIEncryptionCreatorClass().Alloc()
@@ -117,7 +118,6 @@ func NewDIEncryptionCreatorWithCoder(coder objectivec.IObject) DIEncryptionCreat
 	return DIEncryptionCreatorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionFrontend/initWithParams:
 func NewDIEncryptionCreatorWithParams(params objectivec.IObject) DIEncryptionCreator {
 	instance := getDIEncryptionCreatorClass().Alloc()
@@ -125,7 +125,6 @@ func NewDIEncryptionCreatorWithParams(params objectivec.IObject) DIEncryptionCre
 	return DIEncryptionCreatorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/addPublicKeyEntryWithXpcHandler:error:
 func (d DIEncryptionCreator) AddPublicKeyEntryWithXpcHandlerError(handler objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -140,7 +139,7 @@ func (d DIEncryptionCreator) AddPublicKeyEntryWithXpcHandlerError(handler object
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/addSymmetricKeyEntryWithError:
 func (d DIEncryptionCreator) AddSymmetricKeyEntryWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -155,7 +154,7 @@ func (d DIEncryptionCreator) AddSymmetricKeyEntryWithError() (bool, error) {
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/createAndStoreInSystemKeychainWithAccount:error:
 func (d DIEncryptionCreator) CreateAndStoreInSystemKeychainWithAccountError(account objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -170,7 +169,7 @@ func (d DIEncryptionCreator) CreateAndStoreInSystemKeychainWithAccountError(acco
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/createWithXpcHandler:error:
 func (d DIEncryptionCreator) CreateWithXpcHandlerError(handler objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -186,7 +185,6 @@ func (d DIEncryptionCreator) CreateWithXpcHandlerError(handler objectivec.IObjec
 
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIEncryptionCreator/getPublicKeyWithCertificate:error:
 func (_DIEncryptionCreatorClass DIEncryptionCreatorClass) GetPublicKeyWithCertificateError(certificate objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -207,4 +205,3 @@ func (d DIEncryptionCreator) CreateParams() IDICreateParams {
 func (d DIEncryptionCreator) SetCreateParams(value IDICreateParams) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCreateParams:"), value)
 }
-

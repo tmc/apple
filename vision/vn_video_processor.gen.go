@@ -3,12 +3,13 @@
 package vision
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -69,6 +70,7 @@ type VNVideoProcessor struct {
 func VNVideoProcessorFromID(id objc.ID) VNVideoProcessor {
 	return VNVideoProcessor{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNVideoProcessor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -149,6 +151,7 @@ func (v VNVideoProcessor) InitWithURL(videoURL foundation.INSURL) VNVideoProcess
 	rv := objc.Send[VNVideoProcessor](v.ID, objc.Sel("initWithURL:"), videoURL)
 	return rv
 }
+
 // Adds a request with processing options to the video processor.
 //
 // request: The Vision request to add.
@@ -156,7 +159,7 @@ func (v VNVideoProcessor) InitWithURL(videoURL foundation.INSURL) VNVideoProcess
 // processingOptions: The processing options to apply.
 //
 // # Discussion
-// 
+//
 // Call this method either before calling [AnalyzeTimeRangeError] or from
 // within the completion handler of an already associated request.
 //
@@ -174,6 +177,7 @@ func (v VNVideoProcessor) AddRequestProcessingOptionsError(request IVNRequest, p
 	return rv, nil
 
 }
+
 // Removes a Vision request from the video processor’s request queue.
 //
 // request: The request to remove.
@@ -192,13 +196,14 @@ func (v VNVideoProcessor) RemoveRequestError(request IVNRequest) (bool, error) {
 	return rv, nil
 
 }
+
 // Analyzes a time range of video content.
 //
 // timeRange: The time range to analyze. The value must be within the time range of the
 // video asset.
 //
 // # Discussion
-// 
+//
 // The system executes this method synchronously, so you typically call it
 // from a separate dispatch queue. It returns when the video processor
 // finishes analyzing the time range or if an error prevents processing.
@@ -217,10 +222,10 @@ func (v VNVideoProcessor) AnalyzeTimeRangeError(timeRange coremedia.CMTimeRange)
 	return rv, nil
 
 }
+
 // Cancels the video processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/cancel()
 func (v VNVideoProcessor) Cancel() {
 	objc.Send[objc.ID](v.ID, objc.Sel("cancel"))
 }
-

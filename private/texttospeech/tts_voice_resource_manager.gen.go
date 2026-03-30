@@ -5,6 +5,7 @@ package texttospeech
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -51,6 +52,7 @@ type TTSVoiceResourceManager struct {
 func TTSVoiceResourceManagerFromID(id objc.ID) TTSVoiceResourceManager {
 	return TTSVoiceResourceManager{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSVoiceResourceManager implements ITTSVoiceResourceManager.
 var _ ITTSVoiceResourceManager = TTSVoiceResourceManager{}
 
@@ -80,16 +82,15 @@ func NewTTSVoiceResourceManager() TTSVoiceResourceManager {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceManager/effectiveResourceForLanguageCode:andVoiceType:
 func (_TTSVoiceResourceManagerClass TTSVoiceResourceManagerClass) EffectiveResourceForLanguageCodeAndVoiceType(code objectivec.IObject, type_ int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_TTSVoiceResourceManagerClass.class), objc.Sel("effectiveResourceForLanguageCode:andVoiceType:"), code, type_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceManager/enumerateLoadableResourcesInAsset:usingBlock:
 func (_TTSVoiceResourceManagerClass TTSVoiceResourceManagerClass) EnumerateLoadableResourcesInAssetUsingBlock(asset objectivec.IObject, block VoidHandler) {
-_block1, _ := NewVoidBlock(block)
+	_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_TTSVoiceResourceManagerClass.class), objc.Sel("enumerateLoadableResourcesInAsset:usingBlock:"), asset, _block1)
 }
 
@@ -107,4 +108,3 @@ func (tc TTSVoiceResourceManagerClass) EnumerateLoadableResourcesInAssetUsingBlo
 		return ctx.Err()
 	}
 }
-

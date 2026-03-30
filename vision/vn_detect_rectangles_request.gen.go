@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,18 +45,18 @@ func (vc VNDetectRectanglesRequestClass) Alloc() VNDetectRectanglesRequest {
 // image.
 //
 // # Overview
-// 
+//
 // A rectangle detection request locates regions of an image with rectangular
 // shape, like credit cards, business cards, documents, and signs. The request
 // returns its observations in the form of [VNRectangleObservation] objects,
 // which contain normalized coordinates of bounding boxes containing the
 // rectangle.
-// 
+//
 // Use this type of request to find the bounding boxes of rectangles in an
 // image. Vision returns observations for rectangles found in all orientations
 // and sizes, along with a confidence level to indicate how likely it’s that
 // the observation contains an actual rectangle.
-// 
+//
 // To further configure or restrict the types of rectangles found, set
 // properties on the request specifying a range of aspect ratios, sizes, and
 // quadrature tolerance.
@@ -91,6 +92,7 @@ type VNDetectRectanglesRequest struct {
 func VNDetectRectanglesRequestFromID(id objc.ID) VNDetectRectanglesRequest {
 	return VNDetectRectanglesRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectRectanglesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -170,7 +172,7 @@ func NewVNDetectRectanglesRequest() VNDetectRectanglesRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -186,7 +188,7 @@ func NewDetectRectanglesRequestWithCompletionHandler(completionHandler VNRequest
 // defined as the shorter dimension over the longer dimension.
 //
 // # Discussion
-// 
+//
 // The value should range from `0.0` to `1.0`, inclusive. The default value is
 // `0.5`.
 //
@@ -198,11 +200,12 @@ func (d VNDetectRectanglesRequest) MinimumAspectRatio() VNAspectRatio {
 func (d VNDetectRectanglesRequest) SetMinimumAspectRatio(value VNAspectRatio) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinimumAspectRatio:"), value)
 }
+
 // A `float` specifying the maximum aspect ratio of the rectangle to detect,
 // defined as the shorter dimension over the longer dimension.
 //
 // # Discussion
-// 
+//
 // The value should range from `0.0` to `1.0`, inclusive. The default value is
 // `0.5`.
 //
@@ -214,11 +217,12 @@ func (d VNDetectRectanglesRequest) MaximumAspectRatio() VNAspectRatio {
 func (d VNDetectRectanglesRequest) SetMaximumAspectRatio(value VNAspectRatio) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumAspectRatio:"), value)
 }
+
 // A float specifying the number of degrees a rectangle corner angle can
 // deviate from 90°.
 //
 // # Discussion
-// 
+//
 // The tolerance value should range from `0` to `45`, inclusive. The default
 // tolerance is `30`.
 //
@@ -230,14 +234,15 @@ func (d VNDetectRectanglesRequest) QuadratureTolerance() VNDegrees {
 func (d VNDetectRectanglesRequest) SetQuadratureTolerance(value VNDegrees) {
 	objc.Send[struct{}](d.ID, objc.Sel("setQuadratureTolerance:"), value)
 }
+
 // The minimum size of a rectangle to detect, as a proportion of the smallest
 // dimension.
 //
 // # Discussion
-// 
+//
 // The value should range from `0.0` to `1.0` inclusive. The default minimum
 // size is `0.2`.
-// 
+//
 // Any smaller rectangles that Vision may have detected aren’t returned.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectRectanglesRequest/minimumSize
@@ -248,13 +253,14 @@ func (d VNDetectRectanglesRequest) MinimumSize() float32 {
 func (d VNDetectRectanglesRequest) SetMinimumSize(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinimumSize:"), value)
 }
+
 // A value specifying the minimum acceptable confidence level.
 //
 // # Discussion
-// 
+//
 // Vision won’t return rectangles with a confidence score lower than the
 // specified minimum.
-// 
+//
 // The confidence score ranges from `0.0` to `1.0`, inclusive, where `0.0`
 // represents no confidence, and `1.0` represents full confidence.
 //
@@ -266,12 +272,13 @@ func (d VNDetectRectanglesRequest) MinimumConfidence() VNConfidence {
 func (d VNDetectRectanglesRequest) SetMinimumConfidence(value VNConfidence) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinimumConfidence:"), value)
 }
+
 // An integer specifying the maximum number of rectangles Vision returns.
 //
 // # Discussion
-// 
+//
 // The default value is `1`.
-// 
+//
 // Setting this property to `0` allows Vision algorithms to return an
 // unlimited number of observations.
 //
@@ -283,6 +290,7 @@ func (d VNDetectRectanglesRequest) MaximumObservations() uint {
 func (d VNDetectRectanglesRequest) SetMaximumObservations(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumObservations:"), value)
 }
+
 // A constant for specifying revision 1 of the rectangle detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectrectanglesrequestrevision1
@@ -290,4 +298,3 @@ func (d VNDetectRectanglesRequest) VNDetectRectanglesRequestRevision1() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectRectanglesRequestRevision1"))
 	return rv
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZCustomMMIODevicePluginBridgeClass) Alloc() VZCustomMMIODevicePluginBr
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCustomMMIODevicePluginBridge.InitWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevicePluginBridge
 type VZCustomMMIODevicePluginBridge struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type VZCustomMMIODevicePluginBridge struct {
 func VZCustomMMIODevicePluginBridgeFromID(id objc.ID) VZCustomMMIODevicePluginBridge {
 	return VZCustomMMIODevicePluginBridge{objectivec.Object{ID: id}}
 }
+
 // Ensure VZCustomMMIODevicePluginBridge implements IVZCustomMMIODevicePluginBridge.
 var _ IVZCustomMMIODevicePluginBridge = VZCustomMMIODevicePluginBridge{}
 
@@ -91,7 +93,6 @@ func NewVZCustomMMIODevicePluginBridge() VZCustomMMIODevicePluginBridge {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevicePluginBridge/initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:
 func NewVZCustomMMIODevicePluginBridgeWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions(xPCConnection objectivec.IObject, dictionary objectivec.IObject, class objc.Class, delegate objectivec.IObject, options objectivec.IObject) VZCustomMMIODevicePluginBridge {
 	instance := getVZCustomMMIODevicePluginBridgeClass().Alloc()
@@ -99,10 +100,8 @@ func NewVZCustomMMIODevicePluginBridgeWithXPCConnectionPersonalityDictionaryPers
 	return VZCustomMMIODevicePluginBridgeFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevicePluginBridge/initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:
 func (v VZCustomMMIODevicePluginBridge) InitWithXPCConnectionPersonalityDictionaryPersonalityClassConnectionDelegateOptions(xPCConnection objectivec.IObject, dictionary objectivec.IObject, class objc.Class, delegate objectivec.IObject, options objectivec.IObject) VZCustomMMIODevicePluginBridge {
 	rv := objc.Send[VZCustomMMIODevicePluginBridge](v.ID, objc.Sel("initWithXPCConnection:personalityDictionary:personalityClass:connectionDelegate:options:"), xPCConnection, dictionary, class, delegate, options)
 	return rv
 }
-

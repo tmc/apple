@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,11 +42,11 @@ func (vc VZUSBMassStorageDeviceConfigurationClass) Alloc() VZUSBMassStorageDevic
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZUSBMassStorageDeviceConfiguration.IsDuplicateConfiguration]
 //   - [VZUSBMassStorageDeviceConfiguration.MakeUSBDeviceWithVirtualMachine]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDeviceConfiguration
 type VZUSBMassStorageDeviceConfiguration struct {
 	VZStorageDeviceConfiguration
@@ -55,6 +56,7 @@ type VZUSBMassStorageDeviceConfiguration struct {
 func VZUSBMassStorageDeviceConfigurationFromID(id objc.ID) VZUSBMassStorageDeviceConfiguration {
 	return VZUSBMassStorageDeviceConfiguration{VZStorageDeviceConfiguration: VZStorageDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZUSBMassStorageDeviceConfiguration implements IVZUSBMassStorageDeviceConfiguration.
 var _ IVZUSBMassStorageDeviceConfiguration = VZUSBMassStorageDeviceConfiguration{}
 
@@ -94,16 +96,14 @@ func NewVZUSBMassStorageDeviceConfiguration() VZUSBMassStorageDeviceConfiguratio
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDeviceConfiguration/isDuplicateConfiguration:
 func (u VZUSBMassStorageDeviceConfiguration) IsDuplicateConfiguration(configuration objectivec.IObject) bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBMassStorageDeviceConfiguration/makeUSBDeviceWithVirtualMachine:
 func (u VZUSBMassStorageDeviceConfiguration) MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
 	return objectivec.Object{ID: rv}
 }
-

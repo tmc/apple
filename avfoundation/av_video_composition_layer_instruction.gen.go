@@ -3,12 +3,13 @@
 package avfoundation
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -70,6 +71,7 @@ type AVVideoCompositionLayerInstruction struct {
 func AVVideoCompositionLayerInstructionFromID(id objc.ID) AVVideoCompositionLayerInstruction {
 	return AVVideoCompositionLayerInstruction{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVVideoCompositionLayerInstruction adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -134,31 +136,30 @@ func NewAVVideoCompositionLayerInstruction() AVVideoCompositionLayerInstruction 
 //
 // startCropRectangle: A pointer to a [CGRect] to receive the starting crop rectangle value for
 // the crop rectangle ramp.
-// 
+//
 // May be NULL.
 //
 // endCropRectangle: A pointer to a [CGRect] to receive the ending crop rectangle value for the
 // crop rectangle ramp.
-// 
+//
 // This value may be [NULL].
 //
 // timeRange: A pointer to a [CMTimeRange] to receive the time range of the crop
 // rectangle ramp.
-// 
+//
 // This value may be [NULL].
 //
 // # Return Value
-// 
-// [false] will be returned if the specified time is beyond the duration of
-// the last crop rectangle ramp that has been set.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// false will be returned if the specified time is beyond the duration of the
+// last crop rectangle ramp that has been set.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getCropRectangleRamp(for:startCropRectangle:endCropRectangle:timeRange:)
 func (v AVVideoCompositionLayerInstruction) GetCropRectangleRampForTimeStartCropRectangleEndCropRectangleTimeRange(time coremedia.CMTime, startCropRectangle *corefoundation.CGRect, endCropRectangle *corefoundation.CGRect, timeRange *coremedia.CMTimeRange) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("getCropRectangleRampForTime:startCropRectangle:endCropRectangle:timeRange:"), time, startCropRectangle, endCropRectangle, timeRange)
 	return rv
 }
+
 // Obtains the opacity ramp that includes a specified time.
 //
 // time: If a ramp with a time range that contains the specified time has been set,
@@ -168,26 +169,23 @@ func (v AVVideoCompositionLayerInstruction) GetCropRectangleRampForTimeStartCrop
 //
 // startOpacity: A pointer to a float to receive the starting opacity value for the opacity
 // ramp.
-// 
+//
 // This value may be [NULL].
 //
 // endOpacity: A pointer to a float to receive the ending opacity value for the opacity
 // ramp.
-// 
+//
 // This value may be [NULL].
 //
 // timeRange: A pointer to a [CMTimeRange] to receive the time range of the opacity ramp.
-// 
+//
 // This value may be [NULL].
 //
 // # Return Value
-// 
-// [true] if values are returned successfully, otherwise [false]. [false] is
+//
+// true if values are returned successfully, otherwise false. false is
 // returned if `time` is beyond the duration of the last opacity ramp that has
 // been set.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getOpacityRamp(for:startOpacity:endOpacity:timeRange:)
 func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEndOpacityTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool) {
@@ -196,6 +194,7 @@ func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEnd
 	rv := objc.Send[bool](v.ID, objc.Sel("getOpacityRampForTime:startOpacity:endOpacity:timeRange:"), time, unsafe.Pointer(&startOpacity), unsafe.Pointer(&endOpacity), timeRange)
 	return startOpacity, endOpacity, rv
 }
+
 // Obtains the transform ramp that includes a specified time.
 //
 // time: If a ramp with a time range that contains the specified time has been set,
@@ -205,27 +204,24 @@ func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEnd
 //
 // startTransform: A pointer to a float to receive the starting transform value for the
 // transform ramp.
-// 
+//
 // This value may be [NULL].
 //
 // endTransform: A pointer to a float to receive the ending transform value for the
 // transform ramp.
-// 
+//
 // This value may be [NULL].
 //
 // timeRange: A pointer to a [CMTimeRange] to receive the time range of the transform
 // ramp.
-// 
+//
 // This value may be [NULL].
 //
 // # Return Value
-// 
-// [true] if values are returned successfully, otherwise [false]. [false] is
+//
+// true if values are returned successfully, otherwise false. false is
 // returned if `time` is beyond the duration of the last transform ramp that
 // has been set.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getTransformRamp(for:start:end:timeRange:)
 func (v AVVideoCompositionLayerInstruction) GetTransformRampForTimeStartTransformEndTransformTimeRange(time coremedia.CMTime, startTransform *corefoundation.CGAffineTransform, endTransform *corefoundation.CGAffineTransform, timeRange *coremedia.CMTimeRange) bool {
@@ -252,4 +248,3 @@ func (v AVVideoCompositionLayerInstruction) TrackID() int32 {
 	rv := objc.Send[int32](v.ID, objc.Sel("trackID"))
 	return rv
 }
-

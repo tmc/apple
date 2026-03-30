@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -75,6 +76,7 @@ type NSPopoverTouchBarItem struct {
 func NSPopoverTouchBarItemFromID(id objc.ID) NSPopoverTouchBarItem {
 	return NSPopoverTouchBarItem{NSTouchBarItem: NSTouchBarItemFromID(id)}
 }
+
 // NOTE: NSPopoverTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,7 +160,7 @@ func NewPopoverTouchBarItemWithCoder(coder foundation.INSCoder) NSPopoverTouchBa
 // Creates a new item with the specified identifier.
 //
 // # Discussion
-// 
+//
 // The designated initializer. The identifier must be globally unique for
 // every item, except for space items.
 //
@@ -172,17 +174,18 @@ func NewPopoverTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) N
 // Replaces the main bar with this item’s popover bar.
 //
 // # Discussion
-// 
+//
 // If this item is not visible, this method will have no effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/showPopover(_:)
 func (p NSPopoverTouchBarItem) ShowPopover(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("showPopover:"), sender)
 }
+
 // Restores the previously visible main bar.
 //
 // # Discussion
-// 
+//
 // This method has the same effect as the user tapping the optional close
 // button.
 //
@@ -190,11 +193,12 @@ func (p NSPopoverTouchBarItem) ShowPopover(sender objectivec.IObject) {
 func (p NSPopoverTouchBarItem) DismissPopover(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("dismissPopover:"), sender)
 }
+
 // Returns a gesture recognizer, configured to invoke the [ShowPopover]
 // method.
 //
 // # Discussion
-// 
+//
 // Use this method to create a gesture recognizer that you then attach to a
 // custom [CollapsedRepresentation] view.
 //
@@ -207,7 +211,7 @@ func (p NSPopoverTouchBarItem) MakeStandardActivatePopoverGestureRecognizer() IN
 // The image displayed by the button for the default collapsed representation.
 //
 // # Discussion
-// 
+//
 // If the [CollapsedRepresentation] button has been replaced by a different
 // view, this property may not have any effect.
 //
@@ -219,11 +223,12 @@ func (p NSPopoverTouchBarItem) CollapsedRepresentationImage() objectivec.Object 
 func (p NSPopoverTouchBarItem) SetCollapsedRepresentationImage(value objectivec.Object) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationImage:"), value)
 }
+
 // The localized string displayed by the button for the default collapsed
 // representation.
 //
 // # Discussion
-// 
+//
 // If the [CollapsedRepresentation] button has been replaced by a different
 // view, this property may not have any effect.
 //
@@ -235,17 +240,15 @@ func (p NSPopoverTouchBarItem) CollapsedRepresentationLabel() string {
 func (p NSPopoverTouchBarItem) SetCollapsedRepresentationLabel(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationLabel:"), objc.String(value))
 }
+
 // A Boolean value that determines whether a close button should be shown on
 // the popover bar.
 //
 // # Discussion
-// 
-// When [true], a close button is automatically displayed when the popover bar
-// is displayed. When [false], it is your responsibility to dismiss the
-// popover bar.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When true, a close button is automatically displayed when the popover bar
+// is displayed. When false, it is your responsibility to dismiss the popover
+// bar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/showsCloseButton
 func (p NSPopoverTouchBarItem) ShowsCloseButton() bool {
@@ -255,4 +258,3 @@ func (p NSPopoverTouchBarItem) ShowsCloseButton() bool {
 func (p NSPopoverTouchBarItem) SetShowsCloseButton(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setShowsCloseButton:"), value)
 }
-

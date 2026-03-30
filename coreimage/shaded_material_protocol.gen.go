@@ -49,6 +49,7 @@ type CIShadedMaterial interface {
 type CIShadedMaterialObject struct {
 	objectivec.Object
 }
+
 func (o CIShadedMaterialObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CIShadedMaterialObjectFromID(id objc.ID) CIShadedMaterialObject {
 func (o CIShadedMaterialObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The scale of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/scale
 func (o CIShadedMaterialObject) Scale() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
-	}
+}
+
 // The image to use as the height field.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/shadingImage
 func (o CIShadedMaterialObject) ShadingImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("shadingImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,30 @@ func (o CIShadedMaterialObject) ShadingImage() ICIImage {
 func (o CIShadedMaterialObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/inputImage
 func (o CIShadedMaterialObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The scale of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/scale
 func (o CIShadedMaterialObject) SetScale(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setScale:"), value)
 }
 
+// The image to use as the height field.
+//
+// # Discussion
+//
+// The resulting image has greater heights with lighter shades, and lesser
+// heights (lower areas) with darker shades.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/shadingImage
 func (o CIShadedMaterialObject) SetShadingImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShadingImage:"), value)
 }
-

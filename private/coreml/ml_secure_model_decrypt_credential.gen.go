@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,13 +43,13 @@ func (mc MLSecureModelDecryptCredentialClass) Alloc() MLSecureModelDecryptCreden
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLSecureModelDecryptCredential.CryptoKey]
 //   - [MLSecureModelDecryptCredential.SetCryptoKey]
 //   - [MLSecureModelDecryptCredential.EncodeWithCoder]
 //   - [MLSecureModelDecryptCredential.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential
 type MLSecureModelDecryptCredential struct {
 	objectivec.Object
@@ -58,6 +59,7 @@ type MLSecureModelDecryptCredential struct {
 func MLSecureModelDecryptCredentialFromID(id objc.ID) MLSecureModelDecryptCredential {
 	return MLSecureModelDecryptCredential{objectivec.Object{ID: id}}
 }
+
 // Ensure MLSecureModelDecryptCredential implements IMLSecureModelDecryptCredential.
 var _ IMLSecureModelDecryptCredential = MLSecureModelDecryptCredential{}
 
@@ -101,7 +103,6 @@ func NewMLSecureModelDecryptCredential() MLSecureModelDecryptCredential {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/initWithCoder:
 func NewSecureModelDecryptCredentialWithCoder(coder objectivec.IObject) MLSecureModelDecryptCredential {
 	instance := getMLSecureModelDecryptCredentialClass().Alloc()
@@ -109,12 +110,11 @@ func NewSecureModelDecryptCredentialWithCoder(coder objectivec.IObject) MLSecure
 	return MLSecureModelDecryptCredentialFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/encodeWithCoder:
 func (s MLSecureModelDecryptCredential) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLSecureModelDecryptCredential/initWithCoder:
 func (s MLSecureModelDecryptCredential) InitWithCoder(coder foundation.INSCoder) MLSecureModelDecryptCredential {
 	rv := objc.Send[MLSecureModelDecryptCredential](s.ID, objc.Sel("initWithCoder:"), coder)
@@ -135,4 +135,3 @@ func (s MLSecureModelDecryptCredential) CryptoKey() int64 {
 func (s MLSecureModelDecryptCredential) SetCryptoKey(value int64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCryptoKey:"), value)
 }
-

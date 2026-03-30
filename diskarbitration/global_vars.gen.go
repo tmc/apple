@@ -4,9 +4,10 @@ package diskarbitration
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 var (
@@ -109,6 +110,7 @@ var (
 	// See: https://developer.apple.com/documentation/DiskArbitration/kDADiskDescriptionWatchVolumePath
 	KDADiskDescriptionWatchVolumePath corefoundation.CFArrayRef
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -539,4 +541,3 @@ func init() {
 	}
 
 }
-

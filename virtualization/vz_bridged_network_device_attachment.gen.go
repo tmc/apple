@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,15 +45,15 @@ func (vc VZBridgedNetworkDeviceAttachmentClass) Alloc() VZBridgedNetworkDeviceAt
 // on the host computer.
 //
 // # Overview
-// 
+//
 // A [VZBridgedNetworkDeviceAttachment] object represents a physical interface
 // on the host computer. Use this object when configuring a network interface
 // for your virtual machine. A bridged network device sends and receives
 // packets on the same physical interface as the host computer, but does so
 // using a different network layer.
-// 
+//
 // To configure a network device with a bridged network interface:
-// 
+//
 // - Obtain a reference to one of the host’s physical network interfaces
 // from the [VZBridgedNetworkDeviceAttachment.NetworkInterfaces] property of [VZBridgedNetworkInterface]. -
 // Create the [VZBridgedNetworkDeviceAttachment] object using the network
@@ -81,6 +82,7 @@ type VZBridgedNetworkDeviceAttachment struct {
 func VZBridgedNetworkDeviceAttachmentFromID(id objc.ID) VZBridgedNetworkDeviceAttachment {
 	return VZBridgedNetworkDeviceAttachment{VZNetworkDeviceAttachment: VZNetworkDeviceAttachmentFromID(id)}
 }
+
 // NOTE: VZBridgedNetworkDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -142,7 +144,7 @@ func NewVZBridgedNetworkDeviceAttachment() VZBridgedNetworkDeviceAttachment {
 // [VZBridgedNetworkInterface].
 //
 // # Return Value
-// 
+//
 // An attachment object for the specified network interface.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZBridgedNetworkDeviceAttachment/init(interface:)
@@ -159,7 +161,7 @@ func NewBridgedNetworkDeviceAttachmentWithInterface(interface_ IVZBridgedNetwork
 // [VZBridgedNetworkInterface].
 //
 // # Return Value
-// 
+//
 // An attachment object for the specified network interface.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZBridgedNetworkDeviceAttachment/init(interface:)
@@ -175,6 +177,7 @@ func (b VZBridgedNetworkDeviceAttachment) Interface() IVZBridgedNetworkInterface
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("interface"))
 	return VZBridgedNetworkInterfaceFromID(objc.ID(rv))
 }
+
 // The object that defines how the virtual network device communicates with
 // the host system.
 //
@@ -186,6 +189,7 @@ func (b VZBridgedNetworkDeviceAttachment) Attachment() IVZNetworkDeviceAttachmen
 func (b VZBridgedNetworkDeviceAttachment) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAttachment:"), value)
 }
+
 // The array of network devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/networkdevices
@@ -207,4 +211,3 @@ func (_VZBridgedNetworkDeviceAttachmentClass VZBridgedNetworkDeviceAttachmentCla
 func (_VZBridgedNetworkDeviceAttachmentClass VZBridgedNetworkDeviceAttachmentClass) SetNetworkInterfaces(value VZBridgedNetworkInterface) {
 	objc.Send[struct{}](objc.ID(_VZBridgedNetworkDeviceAttachmentClass.class), objc.Sel("setNetworkInterfaces:"), value)
 }
-

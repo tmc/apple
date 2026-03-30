@@ -3,10 +3,11 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,11 +44,11 @@ func (ac AVAudioFileClass) Alloc() AVAudioFile {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioFile.Url]
 //   - [AVAudioFile.InitSecondaryReaderFormatError]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile
 type AVAudioFile struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type AVAudioFile struct {
 func AVAudioFileFromID(id objc.ID) AVAudioFile {
 	return AVAudioFile{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioFile implements IAVAudioFile.
 var _ IAVAudioFile = AVAudioFile{}
 
@@ -96,7 +98,6 @@ func NewAVAudioFile() AVAudioFile {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/initSecondaryReader:format:error:
 func NewAudioFileSecondaryReaderFormatError(reader objectivec.IObject, format objectivec.IObject) (AVAudioFile, error) {
 	var errorPtr objc.ID
@@ -109,7 +110,6 @@ func NewAudioFileSecondaryReaderFormatError(reader objectivec.IObject, format ob
 	return AVAudioFileFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFile/initSecondaryReader:format:error:
 func (a AVAudioFile) InitSecondaryReaderFormatError(reader objectivec.IObject, format objectivec.IObject) (AVAudioFile, error) {
 	var errorPtr objc.ID
@@ -127,4 +127,3 @@ func (a AVAudioFile) Url() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-

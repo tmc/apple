@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (mc MTLMotionKeyframeDataClass) Alloc() MTLMotionKeyframeData {
 // Geometry data for a specific keyframe to use in a moving instance.
 //
 // # Overview
-// 
+//
 // An [MTLMotionKeyframeData] instance describes the location of geometry data
 // for a keyframe. The exact type of data can vary, depending on which kind of
 // motion descriptor you create. For an
@@ -71,6 +72,7 @@ type MTLMotionKeyframeData struct {
 func MTLMotionKeyframeDataFromID(id objc.ID) MTLMotionKeyframeData {
 	return MTLMotionKeyframeData{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLMotionKeyframeData adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -116,14 +118,6 @@ func NewMTLMotionKeyframeData() MTLMotionKeyframeData {
 	return rv
 }
 
-// Creates a new keyframe object.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLMotionKeyframeData/data
-func (_MTLMotionKeyframeDataClass MTLMotionKeyframeDataClass) Data() MTLMotionKeyframeData {
-	rv := objc.Send[objc.ID](objc.ID(_MTLMotionKeyframeDataClass.class), objc.Sel("data"))
-	return MTLMotionKeyframeDataFromID(rv)
-}
-
 // The buffer that holds the geometry data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLMotionKeyframeData/buffer
@@ -134,6 +128,7 @@ func (m MTLMotionKeyframeData) Buffer() MTLBuffer {
 func (m MTLMotionKeyframeData) SetBuffer(value MTLBuffer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBuffer:"), value)
 }
+
 // The offset, in bytes, to the keyframe data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLMotionKeyframeData/offset
@@ -144,4 +139,3 @@ func (m MTLMotionKeyframeData) Offset() uint {
 func (m MTLMotionKeyframeData) SetOffset(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOffset:"), value)
 }
-

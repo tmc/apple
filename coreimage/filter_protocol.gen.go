@@ -23,6 +23,7 @@ type CIFilterProtocol interface {
 type CIFilterProtocolObject struct {
 	objectivec.Object
 }
+
 func (o CIFilterProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -42,5 +43,4 @@ func CIFilterProtocolObjectFromID(id objc.ID) CIFilterProtocolObject {
 func (o CIFilterProtocolObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
-
+}

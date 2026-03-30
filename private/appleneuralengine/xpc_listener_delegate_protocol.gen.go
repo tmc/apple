@@ -18,6 +18,7 @@ type NSXPCListenerDelegate interface {
 type NSXPCListenerDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSXPCListenerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,10 +31,8 @@ func NSXPCListenerDelegateObjectFromID(id objc.ID) NSXPCListenerDelegateObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/NSXPCListenerDelegate/listener:shouldAcceptNewConnection:
 func (o NSXPCListenerDelegateObject) ListenerShouldAcceptNewConnection(listener objectivec.IObject, connection objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("listener:shouldAcceptNewConnection:"), listener, connection)
 	return rv
-	}
-
+}

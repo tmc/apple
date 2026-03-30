@@ -49,6 +49,7 @@ type CISharpenLuminance interface {
 type CISharpenLuminanceObject struct {
 	objectivec.Object
 }
+
 func (o CISharpenLuminanceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -67,21 +68,24 @@ func CISharpenLuminanceObjectFromID(id objc.ID) CISharpenLuminanceObject {
 func (o CISharpenLuminanceObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The distance from the center of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISharpenLuminance/radius
 func (o CISharpenLuminanceObject) Radius() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
-	}
+}
+
 // The amount of sharpening to apply.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISharpenLuminance/sharpness
 func (o CISharpenLuminanceObject) Sharpness() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -89,17 +93,25 @@ func (o CISharpenLuminanceObject) Sharpness() float32 {
 func (o CISharpenLuminanceObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISharpenLuminance/inputImage
 func (o CISharpenLuminanceObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The distance from the center of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISharpenLuminance/radius
 func (o CISharpenLuminanceObject) SetRadius(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRadius:"), value)
 }
 
+// The amount of sharpening to apply.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CISharpenLuminance/sharpness
 func (o CISharpenLuminanceObject) SetSharpness(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSharpness:"), value)
 }
-

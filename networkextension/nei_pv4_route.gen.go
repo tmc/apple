@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type NEIPv4Route struct {
 func NEIPv4RouteFromID(id objc.ID) NEIPv4Route {
 	return NEIPv4Route{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEIPv4Route adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -164,11 +166,11 @@ func (i NEIPv4Route) EncodeWithCoder(coder foundation.INSCoder) {
 // A convenience method for creating the default IPv4 route.
 //
 // # Return Value
-// 
+//
 // An [NEIPv4Route] object containing the default IPv4 route.
 //
 // # Discussion
-// 
+//
 // Set this route in the `includedRoutes` array in the [NEIPv4Settings] object
 // to specify that all IPv4 network traffic be routed to the TUN interface by
 // default.
@@ -182,7 +184,7 @@ func (_NEIPv4RouteClass NEIPv4RouteClass) DefaultRoute() NEIPv4Route {
 // The destination network address of the route.
 //
 // # Discussion
-// 
+//
 // This string is combined with `destinationSubnetMask` to specify the
 // destination network of the route.
 //
@@ -191,10 +193,11 @@ func (i NEIPv4Route) DestinationAddress() string {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("destinationAddress"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The destination network mask of the route.
 //
 // # Discussion
-// 
+//
 // This string is combined with `destinationAddress` to specify the
 // destination network of the route.
 //
@@ -203,10 +206,11 @@ func (i NEIPv4Route) DestinationSubnetMask() string {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("destinationSubnetMask"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The address of the next-hop gateway of the route.
 //
 // # Discussion
-// 
+//
 // The default value of this property is nil. When this property is nil, the
 // route’s next-hop gateway will be set to the TUN interface unless it is a
 // Split Exclude route.
@@ -219,6 +223,7 @@ func (i NEIPv4Route) GatewayAddress() string {
 func (i NEIPv4Route) SetGatewayAddress(value string) {
 	objc.Send[struct{}](i.ID, objc.Sel("setGatewayAddress:"), objc.String(value))
 }
+
 // The IPv4 network traffic that the system routes to the primary physical
 // interface, not the TUN interface.
 //
@@ -230,6 +235,7 @@ func (i NEIPv4Route) ExcludedRoutes() INEIPv4Route {
 func (i NEIPv4Route) SetExcludedRoutes(value INEIPv4Route) {
 	objc.Send[struct{}](i.ID, objc.Sel("setExcludedRoutes:"), value)
 }
+
 // The IPv4 network traffic that the system routes to the TUN interface.
 //
 // See: https://developer.apple.com/documentation/networkextension/neipv4settings/includedroutes
@@ -240,4 +246,3 @@ func (i NEIPv4Route) IncludedRoutes() INEIPv4Route {
 func (i NEIPv4Route) SetIncludedRoutes(value INEIPv4Route) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIncludedRoutes:"), value)
 }
-

@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNTrackOpticalFlowRequest] class.
@@ -45,10 +46,10 @@ func (vc VNTrackOpticalFlowRequestClass) Alloc() VNTrackOpticalFlowRequest {
 // from a previous to current image.
 //
 // # Overview
-// 
+//
 // This request works at the pixel level, so both images must have the same
 // dimensions to successfully perform the request.
-// 
+//
 // Setting a region of interest isolates where to perform the change
 // determination.
 //
@@ -73,6 +74,7 @@ type VNTrackOpticalFlowRequest struct {
 func VNTrackOpticalFlowRequestFromID(id objc.ID) VNTrackOpticalFlowRequest {
 	return VNTrackOpticalFlowRequest{VNStatefulRequest: VNStatefulRequestFromID(id)}
 }
+
 // NOTE: VNTrackOpticalFlowRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,15 +142,15 @@ func NewTrackOpticalFlowRequestWithCompletionHandler(completionHandler VNRequest
 // frameAnalysisSpacing: A [CMTime] value that indicates the duration between analysis operations.
 // Increase this value to reduce the number of frames analyzed on slower
 // devices. Set this argument to [zero] to analyze all frames.
-// //
-// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
-// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // completionHandler: A closure that’s invoked after the request has completed its processing.
 // The system invokes the completion handler on the same dispatch queue as the
 // request performs its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
+//
+// [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
+// [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func NewTrackOpticalFlowRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNTrackOpticalFlowRequest {
 	instance := getVNTrackOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
@@ -158,9 +160,9 @@ func NewTrackOpticalFlowRequestWithFrameAnalysisSpacingCompletionHandler(frameAn
 // The level of accuracy to compute the optical flow.
 //
 // # Discussion
-// 
+//
 // The computational time trends with accuracy level. The default value is
-// [TrackOpticalFlowRequestComputationAccuracyMedium].
+// [VNTrackOpticalFlowRequestComputationAccuracyMedium].
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackOpticalFlowRequest/computationAccuracy-swift.property
 func (t VNTrackOpticalFlowRequest) ComputationAccuracy() VNTrackOpticalFlowRequestComputationAccuracy {
@@ -170,15 +172,14 @@ func (t VNTrackOpticalFlowRequest) ComputationAccuracy() VNTrackOpticalFlowReque
 func (t VNTrackOpticalFlowRequest) SetComputationAccuracy(value VNTrackOpticalFlowRequestComputationAccuracy) {
 	objc.Send[struct{}](t.ID, objc.Sel("setComputationAccuracy:"), value)
 }
+
 // A Boolean value that indicates the raw pixel buffer continues to emit from
 // the network.
 //
 // # Discussion
-// 
-// The default value is [false]; otherwise, the request ignores
-// [OutputPixelFormat].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value is false; otherwise, the request ignores
+// [OutputPixelFormat].
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackOpticalFlowRequest/keepNetworkOutput
 func (t VNTrackOpticalFlowRequest) KeepNetworkOutput() bool {
@@ -188,18 +189,19 @@ func (t VNTrackOpticalFlowRequest) KeepNetworkOutput() bool {
 func (t VNTrackOpticalFlowRequest) SetKeepNetworkOutput(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setKeepNetworkOutput:"), value)
 }
+
 // The pixel format type of the output value.
 //
 // # Discussion
-// 
+//
 // The valid values are [kCVPixelFormatType_TwoComponent32Float] and
 // [kCVPixelFormatType_TwoComponent16Half]. The default value is
 // [kCVPixelFormatType_TwoComponent32Float].
 //
+// See: https://developer.apple.com/documentation/Vision/VNTrackOpticalFlowRequest/outputPixelFormat
+//
 // [kCVPixelFormatType_TwoComponent16Half]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_TwoComponent16Half
 // [kCVPixelFormatType_TwoComponent32Float]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_TwoComponent32Float
-//
-// See: https://developer.apple.com/documentation/Vision/VNTrackOpticalFlowRequest/outputPixelFormat
 func (t VNTrackOpticalFlowRequest) OutputPixelFormat() uint32 {
 	rv := objc.Send[uint32](t.ID, objc.Sel("outputPixelFormat"))
 	return rv
@@ -207,4 +209,3 @@ func (t VNTrackOpticalFlowRequest) OutputPixelFormat() uint32 {
 func (t VNTrackOpticalFlowRequest) SetOutputPixelFormat(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOutputPixelFormat:"), value)
 }
-

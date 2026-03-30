@@ -3,8 +3,8 @@
 package metal
 
 import (
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -20,6 +20,7 @@ type MTLFunctionStitchingNode interface {
 type MTLFunctionStitchingNodeObject struct {
 	foundation.NSCopyingObject
 }
+
 func (o MTLFunctionStitchingNodeObject) BaseObject() objectivec.Object {
 	return o.NSCopyingObject.BaseObject()
 }
@@ -31,4 +32,3 @@ func MTLFunctionStitchingNodeObjectFromID(id objc.ID) MTLFunctionStitchingNodeOb
 		NSCopyingObject: foundation.NSCopyingObjectFromID(id),
 	}
 }
-

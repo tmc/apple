@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -71,6 +72,7 @@ type NSTextListElement struct {
 func NSTextListElementFromID(id objc.ID) NSTextListElement {
 	return NSTextListElement{NSTextParagraph: NSTextParagraphFromID(id)}
 }
+
 // NOTE: NSTextListElement adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -139,10 +141,10 @@ func NewNSTextListElement() NSTextListElement {
 // Creates a new paragraph with the attributed string you provide.
 //
 // attributedString: An [NSAttributedString].
-// //
-// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextParagraph/init(attributedString:)
+//
+// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 func NewTextListElementWithAttributedString(attributedString foundation.NSAttributedString) NSTextListElement {
 	instance := getNSTextListElementClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAttributedString:"), attributedString)
@@ -169,19 +171,18 @@ func NewTextListElementWithChildElementsTextListNestingLevel(children []NSTextLi
 //
 // contents: An [NSAttributedString] that contains the contents of the text list
 // element.
-// //
-// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 //
 // markerAttributes: A dictionary of [NSAttributedString.Key] keys and IDs that describe the
 // marker attributes.
-// //
-// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 //
 // textList: The [NSTextList] to add elements to.
 //
 // children: An array of [NSTextListElement] elements.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextListElement/init(contents:markerAttributes:textList:children:)
+//
+// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
+// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 func NewTextListElementWithContentsMarkerAttributesTextListChildElements(contents foundation.NSAttributedString, markerAttributes foundation.INSDictionary, textList INSTextList, children []NSTextListElement) NSTextListElement {
 	rv := objc.Send[objc.ID](objc.ID(getNSTextListElementClass().class), objc.Sel("textListElementWithContents:markerAttributes:textList:childElements:"), contents, markerAttributes, textList, objectivec.IObjectSliceToNSArray(children))
 	return NSTextListElementFromID(rv)
@@ -196,17 +197,16 @@ func NewTextListElementWithContentsMarkerAttributesTextListChildElements(content
 //
 // contents: An [NSAttributedString] that contains the contents of the text list
 // element.
-// //
-// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 //
 // markerAttributes: A dictionary of [NSAttributedString.Key] keys and IDs that describe the
 // marker attributes.
-// //
-// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 //
 // children: An array of [NSTextListElement] elements.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextListElement/init(parent:textList:contents:markerAttributes:children:)
+//
+// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
+// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 func NewTextListElementWithParentElementTextListContentsMarkerAttributesChildElements(parent INSTextListElement, textList INSTextList, contents foundation.NSAttributedString, markerAttributes foundation.INSDictionary, children []NSTextListElement) NSTextListElement {
 	instance := getNSTextListElementClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParentElement:textList:contents:markerAttributes:childElements:"), parent, textList, contents, markerAttributes, objectivec.IObjectSliceToNSArray(children))
@@ -233,17 +233,16 @@ func NewTextListElementWithTextContentManager(textContentManager INSTextContentM
 //
 // contents: An [NSAttributedString] that contains the contents of the text list
 // element.
-// //
-// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 //
 // markerAttributes: A dictionary of [NSAttributedString.Key] keys and IDs that describe the
 // marker attributes.
-// //
-// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 //
 // children: An array of [NSTextListElement] elements.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextListElement/init(parent:textList:contents:markerAttributes:children:)
+//
+// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
+// [NSAttributedString.Key]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key
 func (t NSTextListElement) InitWithParentElementTextListContentsMarkerAttributesChildElements(parent INSTextListElement, textList INSTextList, contents foundation.NSAttributedString, markerAttributes foundation.INSDictionary, children []NSTextListElement) NSTextListElement {
 	rv := objc.Send[NSTextListElement](t.ID, objc.Sel("initWithParentElement:textList:contents:markerAttributes:childElements:"), parent, textList, contents, markerAttributes, objectivec.IObjectSliceToNSArray(children))
 	return rv
@@ -256,6 +255,7 @@ func (t NSTextListElement) TextList() INSTextList {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textList"))
 	return NSTextListFromID(objc.ID(rv))
 }
+
 // A dictionary of attributed string keys and IDs that represent the list’s
 // marker attributes.
 //
@@ -264,6 +264,7 @@ func (t NSTextListElement) MarkerAttributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("markerAttributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // The text list element contents without markers and formatting.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextListElement/contents
@@ -271,4 +272,3 @@ func (t NSTextListElement) Contents() foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("contents"))
 	return foundation.NSAttributedStringFromID(objc.ID(rv))
 }
-

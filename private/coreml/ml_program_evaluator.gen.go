@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLProgramEvaluatorClass) Alloc() MLProgramEvaluator {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLProgramEvaluator.EvaluateFunctionArgumentsContextError]
@@ -55,6 +55,7 @@ func (mc MLProgramEvaluatorClass) Alloc() MLProgramEvaluator {
 //   - [MLProgramEvaluator.SetProgram]
 //   - [MLProgramEvaluator.UpdateContextFunctionNameResult]
 //   - [MLProgramEvaluator.InitWithProgramError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluator
 type MLProgramEvaluator struct {
 	objectivec.Object
@@ -64,6 +65,7 @@ type MLProgramEvaluator struct {
 func MLProgramEvaluatorFromID(id objc.ID) MLProgramEvaluator {
 	return MLProgramEvaluator{objectivec.Object{ID: id}}
 }
+
 // Ensure MLProgramEvaluator implements IMLProgramEvaluator.
 var _ IMLProgramEvaluator = MLProgramEvaluator{}
 
@@ -117,7 +119,6 @@ func NewMLProgramEvaluator() MLProgramEvaluator {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluator/initWithProgram:error:
 func NewProgramEvaluatorWithProgramError(program objectivec.IObject) (MLProgramEvaluator, error) {
 	var errorPtr objc.ID
@@ -130,7 +131,6 @@ func NewProgramEvaluatorWithProgramError(program objectivec.IObject) (MLProgramE
 	return MLProgramEvaluatorFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluator/evaluateFunction:arguments:context:error:
 func (p MLProgramEvaluator) EvaluateFunctionArgumentsContextError(function objectivec.IObject, arguments objectivec.IObject, context objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -142,7 +142,7 @@ func (p MLProgramEvaluator) EvaluateFunctionArgumentsContextError(function objec
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluator/evaluateFunction:arguments:context:updateContext:error:
 func (p MLProgramEvaluator) EvaluateFunctionArgumentsContextUpdateContextError(function objectivec.IObject, arguments objectivec.IObject, context objectivec.IObject, context2 bool) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -154,7 +154,7 @@ func (p MLProgramEvaluator) EvaluateFunctionArgumentsContextUpdateContextError(f
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluator/newContextAndReturnError:
 func (p MLProgramEvaluator) NewContextAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -166,18 +166,18 @@ func (p MLProgramEvaluator) NewContextAndReturnError() (objectivec.IObject, erro
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluator/prepareArgumentsFromFeatures:context:forFunctionName:
 func (p MLProgramEvaluator) PrepareArgumentsFromFeaturesContextForFunctionName(features objectivec.IObject, context objectivec.IObject, name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("prepareArgumentsFromFeatures:context:forFunctionName:"), features, context, name)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluator/updateContext:functionName:result:
 func (p MLProgramEvaluator) UpdateContextFunctionNameResult(context objectivec.IObject, name objectivec.IObject, result objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("updateContext:functionName:result:"), context, name, result)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluator/initWithProgram:error:
 func (p MLProgramEvaluator) InitWithProgramError(program objectivec.IObject) (MLProgramEvaluator, error) {
 	var errorPtr objc.ID
@@ -195,6 +195,7 @@ func (p MLProgramEvaluator) Model() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("model"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramEvaluator/program
 func (p MLProgramEvaluator) Program() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("program"))
@@ -203,4 +204,3 @@ func (p MLProgramEvaluator) Program() objectivec.IObject {
 func (p MLProgramEvaluator) SetProgram(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setProgram:"), value)
 }
-

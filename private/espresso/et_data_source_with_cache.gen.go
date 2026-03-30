@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,13 +42,13 @@ func (ec ETDataSourceWithCacheClass) Alloc() ETDataSourceWithCache {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETDataSourceWithCache.DataPointAtIndex]
 //   - [ETDataSourceWithCache.NumberOfDataPoints]
 //   - [ETDataSourceWithCache.InitWithDataSource]
 //   - [ETDataSourceWithCache.InitWithDataSourceDumpPath]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithCache
 type ETDataSourceWithCache struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type ETDataSourceWithCache struct {
 func ETDataSourceWithCacheFromID(id objc.ID) ETDataSourceWithCache {
 	return ETDataSourceWithCache{objectivec.Object{ID: id}}
 }
+
 // Ensure ETDataSourceWithCache implements IETDataSourceWithCache.
 var _ IETDataSourceWithCache = ETDataSourceWithCache{}
 
@@ -100,7 +102,6 @@ func NewETDataSourceWithCache() ETDataSourceWithCache {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithCache/initWithDataSource:
 func NewETDataSourceWithCacheWithDataSource(source objectivec.IObject) ETDataSourceWithCache {
 	instance := getETDataSourceWithCacheClass().Alloc()
@@ -108,7 +109,6 @@ func NewETDataSourceWithCacheWithDataSource(source objectivec.IObject) ETDataSou
 	return ETDataSourceWithCacheFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithCache/initWithDataSource:dumpPath:
 func NewETDataSourceWithCacheWithDataSourceDumpPath(source objectivec.IObject, path objectivec.IObject) ETDataSourceWithCache {
 	instance := getETDataSourceWithCacheClass().Alloc()
@@ -116,27 +116,26 @@ func NewETDataSourceWithCacheWithDataSourceDumpPath(source objectivec.IObject, p
 	return ETDataSourceWithCacheFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithCache/dataPointAtIndex:
 func (e ETDataSourceWithCache) DataPointAtIndex(index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithCache/numberOfDataPoints
 func (e ETDataSourceWithCache) NumberOfDataPoints() int {
 	rv := objc.Send[int](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithCache/initWithDataSource:
 func (e ETDataSourceWithCache) InitWithDataSource(source objectivec.IObject) ETDataSourceWithCache {
 	rv := objc.Send[ETDataSourceWithCache](e.ID, objc.Sel("initWithDataSource:"), source)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataSourceWithCache/initWithDataSource:dumpPath:
 func (e ETDataSourceWithCache) InitWithDataSourceDumpPath(source objectivec.IObject, path objectivec.IObject) ETDataSourceWithCache {
 	rv := objc.Send[ETDataSourceWithCache](e.ID, objc.Sel("initWithDataSource:dumpPath:"), source, path)
 	return rv
 }
-

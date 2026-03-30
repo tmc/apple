@@ -188,28 +188,28 @@ func (e AVAudioCommonFormat) String() string {
 type AVAudioContentSource int
 
 const (
-	AVAudioContentSource_AV_Spatial_Live AVAudioContentSource = 41
-	AVAudioContentSource_AV_Spatial_Offline AVAudioContentSource = 39
-	AVAudioContentSource_AV_Traditional_Live AVAudioContentSource = 40
-	AVAudioContentSource_AV_Traditional_Offline AVAudioContentSource = 38
-	AVAudioContentSource_AppleAV_Spatial_Live AVAudioContentSource = 9
-	AVAudioContentSource_AppleAV_Spatial_Offline AVAudioContentSource = 7
-	AVAudioContentSource_AppleAV_Traditional_Live AVAudioContentSource = 8
-	AVAudioContentSource_AppleAV_Traditional_Offline AVAudioContentSource = 6
-	AVAudioContentSource_AppleCapture_Spatial AVAudioContentSource = 2
+	AVAudioContentSource_AV_Spatial_Live               AVAudioContentSource = 41
+	AVAudioContentSource_AV_Spatial_Offline            AVAudioContentSource = 39
+	AVAudioContentSource_AV_Traditional_Live           AVAudioContentSource = 40
+	AVAudioContentSource_AV_Traditional_Offline        AVAudioContentSource = 38
+	AVAudioContentSource_AppleAV_Spatial_Live          AVAudioContentSource = 9
+	AVAudioContentSource_AppleAV_Spatial_Offline       AVAudioContentSource = 7
+	AVAudioContentSource_AppleAV_Traditional_Live      AVAudioContentSource = 8
+	AVAudioContentSource_AppleAV_Traditional_Offline   AVAudioContentSource = 6
+	AVAudioContentSource_AppleCapture_Spatial          AVAudioContentSource = 2
 	AVAudioContentSource_AppleCapture_Spatial_Enhanced AVAudioContentSource = 3
-	AVAudioContentSource_AppleCapture_Traditional AVAudioContentSource = 1
-	AVAudioContentSource_AppleMusic_Spatial AVAudioContentSource = 5
-	AVAudioContentSource_AppleMusic_Traditional AVAudioContentSource = 4
-	AVAudioContentSource_ApplePassthrough AVAudioContentSource = 10
-	AVAudioContentSource_Capture_Spatial AVAudioContentSource = 34
-	AVAudioContentSource_Capture_Spatial_Enhanced AVAudioContentSource = 35
-	AVAudioContentSource_Capture_Traditional AVAudioContentSource = 33
-	AVAudioContentSource_Music_Spatial AVAudioContentSource = 37
-	AVAudioContentSource_Music_Traditional AVAudioContentSource = 36
-	AVAudioContentSource_Passthrough AVAudioContentSource = 42
-	AVAudioContentSource_Reserved AVAudioContentSource = 0
-	AVAudioContentSource_Unspecified AVAudioContentSource = -1
+	AVAudioContentSource_AppleCapture_Traditional      AVAudioContentSource = 1
+	AVAudioContentSource_AppleMusic_Spatial            AVAudioContentSource = 5
+	AVAudioContentSource_AppleMusic_Traditional        AVAudioContentSource = 4
+	AVAudioContentSource_ApplePassthrough              AVAudioContentSource = 10
+	AVAudioContentSource_Capture_Spatial               AVAudioContentSource = 34
+	AVAudioContentSource_Capture_Spatial_Enhanced      AVAudioContentSource = 35
+	AVAudioContentSource_Capture_Traditional           AVAudioContentSource = 33
+	AVAudioContentSource_Music_Spatial                 AVAudioContentSource = 37
+	AVAudioContentSource_Music_Traditional             AVAudioContentSource = 36
+	AVAudioContentSource_Passthrough                   AVAudioContentSource = 42
+	AVAudioContentSource_Reserved                      AVAudioContentSource = 0
+	AVAudioContentSource_Unspecified                   AVAudioContentSource = -1
 )
 
 func (e AVAudioContentSource) String() string {
@@ -347,10 +347,10 @@ type AVAudioDynamicRangeControlConfiguration int
 
 const (
 	AVAudioDynamicRangeControlConfiguration_Capture AVAudioDynamicRangeControlConfiguration = 4
-	AVAudioDynamicRangeControlConfiguration_Movie AVAudioDynamicRangeControlConfiguration = 3
-	AVAudioDynamicRangeControlConfiguration_Music AVAudioDynamicRangeControlConfiguration = 1
-	AVAudioDynamicRangeControlConfiguration_None AVAudioDynamicRangeControlConfiguration = 0
-	AVAudioDynamicRangeControlConfiguration_Speech AVAudioDynamicRangeControlConfiguration = 2
+	AVAudioDynamicRangeControlConfiguration_Movie   AVAudioDynamicRangeControlConfiguration = 3
+	AVAudioDynamicRangeControlConfiguration_Music   AVAudioDynamicRangeControlConfiguration = 1
+	AVAudioDynamicRangeControlConfiguration_None    AVAudioDynamicRangeControlConfiguration = 0
+	AVAudioDynamicRangeControlConfiguration_Speech  AVAudioDynamicRangeControlConfiguration = 2
 )
 
 func (e AVAudioDynamicRangeControlConfiguration) String() string {
@@ -629,8 +629,8 @@ type AVAudioSessionAnchoringStrategy int
 
 const (
 	AVAudioSessionAnchoringStrategyAutomatic AVAudioSessionAnchoringStrategy = 0
-	AVAudioSessionAnchoringStrategyFront AVAudioSessionAnchoringStrategy = 0
-	AVAudioSessionAnchoringStrategyScene AVAudioSessionAnchoringStrategy = 0
+	AVAudioSessionAnchoringStrategyFront     AVAudioSessionAnchoringStrategy = 0
+	AVAudioSessionAnchoringStrategyScene     AVAudioSessionAnchoringStrategy = 0
 )
 
 func (e AVAudioSessionAnchoringStrategy) String() string {
@@ -700,21 +700,21 @@ func (e AVAudioSessionCategoryOptions) String() string {
 type AVAudioSessionErrorCode int
 
 const (
-	AVAudioSessionErrorCodeBadParam AVAudioSessionErrorCode = -50
+	AVAudioSessionErrorCodeBadParam              AVAudioSessionErrorCode = -50
 	AVAudioSessionErrorCodeCannotInterruptOthers AVAudioSessionErrorCode = '!'<<24 | 'i'<<16 | 'n'<<8 | 't' // '!int'
-	AVAudioSessionErrorCodeCannotStartPlaying AVAudioSessionErrorCode = '!'<<24 | 'p'<<16 | 'l'<<8 | 'a' // '!pla'
-	AVAudioSessionErrorCodeCannotStartRecording AVAudioSessionErrorCode = '!'<<24 | 'r'<<16 | 'e'<<8 | 'c' // '!rec'
-	AVAudioSessionErrorCodeExpiredSession AVAudioSessionErrorCode = '!'<<24 | 's'<<16 | 'e'<<8 | 's' // '!ses'
-	AVAudioSessionErrorCodeIncompatibleCategory AVAudioSessionErrorCode = '!'<<24 | 'c'<<16 | 'a'<<8 | 't' // '!cat'
-	AVAudioSessionErrorCodeInsufficientPriority AVAudioSessionErrorCode = '!'<<24 | 'p'<<16 | 'r'<<8 | 'i' // '!pri'
-	AVAudioSessionErrorCodeIsBusy AVAudioSessionErrorCode = '!'<<24 | 'a'<<16 | 'c'<<8 | 't' // '!act'
-	AVAudioSessionErrorCodeMediaServicesFailed AVAudioSessionErrorCode = 'm'<<24 | 's'<<16 | 'r'<<8 | 'v' // 'msrv'
-	AVAudioSessionErrorCodeMissingEntitlement AVAudioSessionErrorCode = 'e'<<24 | 'n'<<16 | 't'<<8 | '?' // 'ent?'
-	AVAudioSessionErrorCodeNone AVAudioSessionErrorCode = 0
-	AVAudioSessionErrorCodeResourceNotAvailable AVAudioSessionErrorCode = '!'<<24 | 'r'<<16 | 'e'<<8 | 's' // '!res'
-	AVAudioSessionErrorCodeSessionNotActive AVAudioSessionErrorCode = 'i'<<24 | 'n'<<16 | 'a'<<8 | 'c' // 'inac'
-	AVAudioSessionErrorCodeSiriIsRecording AVAudioSessionErrorCode = 's'<<24 | 'i'<<16 | 'r'<<8 | 'i' // 'siri'
-	AVAudioSessionErrorCodeUnspecified AVAudioSessionErrorCode = 'w'<<24 | 'h'<<16 | 'a'<<8 | 't' // 'what'
+	AVAudioSessionErrorCodeCannotStartPlaying    AVAudioSessionErrorCode = '!'<<24 | 'p'<<16 | 'l'<<8 | 'a' // '!pla'
+	AVAudioSessionErrorCodeCannotStartRecording  AVAudioSessionErrorCode = '!'<<24 | 'r'<<16 | 'e'<<8 | 'c' // '!rec'
+	AVAudioSessionErrorCodeExpiredSession        AVAudioSessionErrorCode = '!'<<24 | 's'<<16 | 'e'<<8 | 's' // '!ses'
+	AVAudioSessionErrorCodeIncompatibleCategory  AVAudioSessionErrorCode = '!'<<24 | 'c'<<16 | 'a'<<8 | 't' // '!cat'
+	AVAudioSessionErrorCodeInsufficientPriority  AVAudioSessionErrorCode = '!'<<24 | 'p'<<16 | 'r'<<8 | 'i' // '!pri'
+	AVAudioSessionErrorCodeIsBusy                AVAudioSessionErrorCode = '!'<<24 | 'a'<<16 | 'c'<<8 | 't' // '!act'
+	AVAudioSessionErrorCodeMediaServicesFailed   AVAudioSessionErrorCode = 'm'<<24 | 's'<<16 | 'r'<<8 | 'v' // 'msrv'
+	AVAudioSessionErrorCodeMissingEntitlement    AVAudioSessionErrorCode = 'e'<<24 | 'n'<<16 | 't'<<8 | '?' // 'ent?'
+	AVAudioSessionErrorCodeNone                  AVAudioSessionErrorCode = 0
+	AVAudioSessionErrorCodeResourceNotAvailable  AVAudioSessionErrorCode = '!'<<24 | 'r'<<16 | 'e'<<8 | 's' // '!res'
+	AVAudioSessionErrorCodeSessionNotActive      AVAudioSessionErrorCode = 'i'<<24 | 'n'<<16 | 'a'<<8 | 'c' // 'inac'
+	AVAudioSessionErrorCodeSiriIsRecording       AVAudioSessionErrorCode = 's'<<24 | 'i'<<16 | 'r'<<8 | 'i' // 'siri'
+	AVAudioSessionErrorCodeUnspecified           AVAudioSessionErrorCode = 'w'<<24 | 'h'<<16 | 'a'<<8 | 't' // 'what'
 )
 
 func (e AVAudioSessionErrorCode) String() string {
@@ -775,6 +775,22 @@ func (e AVAudioSessionIOType) String() string {
 	}
 }
 
+type AVAudioSessionInterruptionFlags uint
+
+const (
+	// Deprecated.
+	AVAudioSessionInterruptionFlags_ShouldResume AVAudioSessionInterruptionFlags = 1
+)
+
+func (e AVAudioSessionInterruptionFlags) String() string {
+	switch e {
+	case AVAudioSessionInterruptionFlags_ShouldResume:
+		return "AVAudioSessionInterruptionFlags_ShouldResume"
+	default:
+		return fmt.Sprintf("AVAudioSessionInterruptionFlags(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/InterruptionOptions
 type AVAudioSessionInterruptionOptions uint
 
@@ -799,7 +815,7 @@ const (
 	// AVAudioSessionInterruptionReasonBuiltInMicMuted: The system interrupts the audio session when the device mutes the built-in microphone.
 	AVAudioSessionInterruptionReasonBuiltInMicMuted AVAudioSessionInterruptionReason = 2
 	// AVAudioSessionInterruptionReasonDefault: The system interrupts this audio session when it activates another.
-	AVAudioSessionInterruptionReasonDefault AVAudioSessionInterruptionReason = 0
+	AVAudioSessionInterruptionReasonDefault               AVAudioSessionInterruptionReason = 0
 	AVAudioSessionInterruptionReasonDeviceUnauthenticated AVAudioSessionInterruptionReason = 0
 	// AVAudioSessionInterruptionReasonRouteDisconnected: The system interrupts the audio session due to a disconnection of an audio route.
 	AVAudioSessionInterruptionReasonRouteDisconnected AVAudioSessionInterruptionReason = 4
@@ -1022,8 +1038,7 @@ func (e AVAudioSessionRouteChangeReason) String() string {
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/RouteSelection
 type AVAudioSessionRouteSelection int
 
-const (
-)
+const ()
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/RouteSharingPolicy-swift.enum
 type AVAudioSessionRouteSharingPolicy uint
@@ -1053,6 +1068,22 @@ func (e AVAudioSessionRouteSharingPolicy) String() string {
 		return "AVAudioSessionRouteSharingPolicyLongFormVideo"
 	default:
 		return fmt.Sprintf("AVAudioSessionRouteSharingPolicy(%d)", e)
+	}
+}
+
+type AVAudioSessionSetActiveFlags uint
+
+const (
+	// Deprecated.
+	AVAudioSessionSetActiveFlags_NotifyOthersOnDeactivation AVAudioSessionSetActiveFlags = 1
+)
+
+func (e AVAudioSessionSetActiveFlags) String() string {
+	switch e {
+	case AVAudioSessionSetActiveFlags_NotifyOthersOnDeactivation:
+		return "AVAudioSessionSetActiveFlags_NotifyOthersOnDeactivation"
+	default:
+		return fmt.Sprintf("AVAudioSessionSetActiveFlags(%d)", e)
 	}
 }
 
@@ -1121,8 +1152,8 @@ func (e AVAudioSessionSoundStageSize) String() string {
 type AVAudioSessionSpatialExperience int
 
 const (
-	AVAudioSessionSpatialExperienceBypassed AVAudioSessionSpatialExperience = 0
-	AVAudioSessionSpatialExperienceFixed AVAudioSessionSpatialExperience = 0
+	AVAudioSessionSpatialExperienceBypassed    AVAudioSessionSpatialExperience = 0
+	AVAudioSessionSpatialExperienceFixed       AVAudioSessionSpatialExperience = 0
 	AVAudioSessionSpatialExperienceHeadTracked AVAudioSessionSpatialExperience = 0
 )
 
@@ -1866,36 +1897,3 @@ func (e AVSpeechSynthesisVoiceTraits) String() string {
 		return fmt.Sprintf("AVSpeechSynthesisVoiceTraits(%d)", e)
 	}
 }
-
-type AvaudiosessioninterruptionflagsShouldresume uint
-
-const (
-	// Deprecated.
-	AVAudioSessionInterruptionFlags_ShouldResume AvaudiosessioninterruptionflagsShouldresume = 1
-)
-
-func (e AvaudiosessioninterruptionflagsShouldresume) String() string {
-	switch e {
-	case AVAudioSessionInterruptionFlags_ShouldResume:
-		return "AVAudioSessionInterruptionFlags_ShouldResume"
-	default:
-		return fmt.Sprintf("AvaudiosessioninterruptionflagsShouldresume(%d)", e)
-	}
-}
-
-type AvaudiosessionsetactiveflagsNotifyothersondeactivation uint
-
-const (
-	// Deprecated.
-	AVAudioSessionSetActiveFlags_NotifyOthersOnDeactivation AvaudiosessionsetactiveflagsNotifyothersondeactivation = 1
-)
-
-func (e AvaudiosessionsetactiveflagsNotifyothersondeactivation) String() string {
-	switch e {
-	case AVAudioSessionSetActiveFlags_NotifyOthersOnDeactivation:
-		return "AVAudioSessionSetActiveFlags_NotifyOthersOnDeactivation"
-	default:
-		return fmt.Sprintf("AvaudiosessionsetactiveflagsNotifyothersondeactivation(%d)", e)
-	}
-}
-

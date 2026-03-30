@@ -67,6 +67,7 @@ import (
 	"sync"
 	"sync/atomic"
 	"unsafe"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -78,22 +79,22 @@ var (
 	_dispatch_get_global_queue_typed func(identifier uintptr, flags uintptr) uintptr
 	// dispatch_semaphore_t Dispatch_semaphore_create(intptr_t value)
 	_dispatch_semaphore_create_typed func(value uintptr) uintptr
-	_dispatch_main                  func()
-	_dispatch_queue_create          func(label *byte, attr dispatch_queue_attr_t) uintptr
-	_dispatch_async_f               func(queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
-	_dispatch_sync_f                func(queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
-	_dispatch_barrier_async_f       func(queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
-	_dispatch_queue_get_label       func(queue uintptr) *byte
-	_dispatch_after_f               func(when uint64, queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
-	_dispatch_time                  func(when uint64, delta int64) uint64
-	_dispatch_group_create          func() uintptr
-	_dispatch_group_async_f         func(group uintptr, queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
-	_dispatch_group_wait            func(group uintptr, timeout uint64) int
-	_dispatch_group_notify_f        func(group uintptr, queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
-	_dispatch_group_enter           func(group uintptr)
-	_dispatch_group_leave           func(group uintptr)
-	_dispatch_semaphore_signal      func(dsema uintptr) int
-	_dispatch_semaphore_wait        func(dsema uintptr, timeout uint64) int
+	_dispatch_main                   func()
+	_dispatch_queue_create           func(label *byte, attr dispatch_queue_attr_t) uintptr
+	_dispatch_async_f                func(queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
+	_dispatch_sync_f                 func(queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
+	_dispatch_barrier_async_f        func(queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
+	_dispatch_queue_get_label        func(queue uintptr) *byte
+	_dispatch_after_f                func(when uint64, queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
+	_dispatch_time                   func(when uint64, delta int64) uint64
+	_dispatch_group_create           func() uintptr
+	_dispatch_group_async_f          func(group uintptr, queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
+	_dispatch_group_wait             func(group uintptr, timeout uint64) int
+	_dispatch_group_notify_f         func(group uintptr, queue uintptr, context unsafe.Pointer, work Dispatch_function_t)
+	_dispatch_group_enter            func(group uintptr)
+	_dispatch_group_leave            func(group uintptr)
+	_dispatch_semaphore_signal       func(dsema uintptr) int
+	_dispatch_semaphore_wait         func(dsema uintptr, timeout uint64) int
 )
 
 // _dispatch_queue_attr_concurrent is the DISPATCH_QUEUE_CONCURRENT attribute
@@ -152,60 +153,64 @@ func init() {
 
 	lib := frameworkHandle
 	if lib == 0 {
-		var err error
-		lib, err = purego.Dlopen(frameworkPath, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "warning: dispatch: failed to load %s: %v\n", frameworkPath, err)
-			_dispatch_get_global_queue_typed = func(identifier uintptr, flags uintptr) uintptr {
-				panic("dispatch: dispatch_get_global_queue unavailable")
+		for _, path := range frameworkPaths {
+			lib, _ = purego.Dlopen(path, purego.RTLD_LAZY|purego.RTLD_GLOBAL)
+			if lib != 0 {
+				break
 			}
-			_dispatch_semaphore_create_typed = func(value uintptr) uintptr {
-				panic("dispatch: dispatch_semaphore_create unavailable")
-			}
-			_dispatch_main = func() { panic("dispatch: dispatch_main unavailable") }
-			_dispatch_queue_create = func(*byte, dispatch_queue_attr_t) uintptr {
-				panic("dispatch: dispatch_queue_create unavailable")
-			}
-			_dispatch_async_f = func(uintptr, unsafe.Pointer, Dispatch_function_t) {
-				panic("dispatch: dispatch_async_f unavailable")
-			}
-			_dispatch_sync_f = func(uintptr, unsafe.Pointer, Dispatch_function_t) {
-				panic("dispatch: dispatch_sync_f unavailable")
-			}
-			_dispatch_barrier_async_f = func(uintptr, unsafe.Pointer, Dispatch_function_t) {
-				panic("dispatch: dispatch_barrier_async_f unavailable")
-			}
-			_dispatch_queue_get_label = func(uintptr) *byte {
-				panic("dispatch: dispatch_queue_get_label unavailable")
-			}
-			_dispatch_after_f = func(uint64, uintptr, unsafe.Pointer, Dispatch_function_t) {
-				panic("dispatch: dispatch_after_f unavailable")
-			}
-			_dispatch_time = func(uint64, int64) uint64 {
-				panic("dispatch: dispatch_time unavailable")
-			}
-			_dispatch_group_create = func() uintptr {
-				panic("dispatch: dispatch_group_create unavailable")
-			}
-			_dispatch_group_async_f = func(uintptr, uintptr, unsafe.Pointer, Dispatch_function_t) {
-				panic("dispatch: dispatch_group_async_f unavailable")
-			}
-			_dispatch_group_wait = func(uintptr, uint64) int {
-				panic("dispatch: dispatch_group_wait unavailable")
-			}
-			_dispatch_group_notify_f = func(uintptr, uintptr, unsafe.Pointer, Dispatch_function_t) {
-				panic("dispatch: dispatch_group_notify_f unavailable")
-			}
-			_dispatch_group_enter = func(uintptr) { panic("dispatch: dispatch_group_enter unavailable") }
-			_dispatch_group_leave = func(uintptr) { panic("dispatch: dispatch_group_leave unavailable") }
-			_dispatch_semaphore_signal = func(uintptr) int {
-				panic("dispatch: dispatch_semaphore_signal unavailable")
-			}
-			_dispatch_semaphore_wait = func(uintptr, uint64) int {
-				panic("dispatch: dispatch_semaphore_wait unavailable")
-			}
-			return
 		}
+	}
+	if lib == 0 {
+		fmt.Fprintf(os.Stderr, "warning: dispatch: failed to load framework from any known path\n")
+		_dispatch_get_global_queue_typed = func(identifier uintptr, flags uintptr) uintptr {
+			panic("dispatch: dispatch_get_global_queue unavailable")
+		}
+		_dispatch_semaphore_create_typed = func(value uintptr) uintptr {
+			panic("dispatch: dispatch_semaphore_create unavailable")
+		}
+		_dispatch_main = func() { panic("dispatch: dispatch_main unavailable") }
+		_dispatch_queue_create = func(*byte, dispatch_queue_attr_t) uintptr {
+			panic("dispatch: dispatch_queue_create unavailable")
+		}
+		_dispatch_async_f = func(uintptr, unsafe.Pointer, Dispatch_function_t) {
+			panic("dispatch: dispatch_async_f unavailable")
+		}
+		_dispatch_sync_f = func(uintptr, unsafe.Pointer, Dispatch_function_t) {
+			panic("dispatch: dispatch_sync_f unavailable")
+		}
+		_dispatch_barrier_async_f = func(uintptr, unsafe.Pointer, Dispatch_function_t) {
+			panic("dispatch: dispatch_barrier_async_f unavailable")
+		}
+		_dispatch_queue_get_label = func(uintptr) *byte {
+			panic("dispatch: dispatch_queue_get_label unavailable")
+		}
+		_dispatch_after_f = func(uint64, uintptr, unsafe.Pointer, Dispatch_function_t) {
+			panic("dispatch: dispatch_after_f unavailable")
+		}
+		_dispatch_time = func(uint64, int64) uint64 {
+			panic("dispatch: dispatch_time unavailable")
+		}
+		_dispatch_group_create = func() uintptr {
+			panic("dispatch: dispatch_group_create unavailable")
+		}
+		_dispatch_group_async_f = func(uintptr, uintptr, unsafe.Pointer, Dispatch_function_t) {
+			panic("dispatch: dispatch_group_async_f unavailable")
+		}
+		_dispatch_group_wait = func(uintptr, uint64) int {
+			panic("dispatch: dispatch_group_wait unavailable")
+		}
+		_dispatch_group_notify_f = func(uintptr, uintptr, unsafe.Pointer, Dispatch_function_t) {
+			panic("dispatch: dispatch_group_notify_f unavailable")
+		}
+		_dispatch_group_enter = func(uintptr) { panic("dispatch: dispatch_group_enter unavailable") }
+		_dispatch_group_leave = func(uintptr) { panic("dispatch: dispatch_group_leave unavailable") }
+		_dispatch_semaphore_signal = func(uintptr) int {
+			panic("dispatch: dispatch_semaphore_signal unavailable")
+		}
+		_dispatch_semaphore_wait = func(uintptr, uint64) int {
+			panic("dispatch: dispatch_semaphore_wait unavailable")
+		}
+		return
 	}
 	purego.RegisterLibFunc(&_dispatch_get_global_queue_typed, lib, "dispatch_get_global_queue")
 	purego.RegisterLibFunc(&_dispatch_semaphore_create_typed, lib, "dispatch_semaphore_create")
@@ -490,4 +495,3 @@ func (s Source) Handle() uintptr {
 func GroupFromHandle(handle uintptr) Group {
 	return Group{group: dispatch_group_t(handle)}
 }
-

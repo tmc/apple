@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,30 +47,26 @@ func (nc NSPointerArrayClass) Alloc() NSPointerArray {
 // memory semantics.
 //
 // # Overview
-// 
+//
 // The pointer array class is modeled after [NSArray], but can also hold `nil`
 // values. You can insert or remove `nil` values which contribute to the
 // array’s [NSPointerArray.Count].
-// 
+//
 // A pointer array can be initialized to maintain strong or weak references to
 // objects, or according to any of the memory or personality options defined
 // by [NSPointerFunctions.Options].
-// 
+//
 // The [NSCopying] and [NSCoding] protocols are applicable only when a pointer
 // array is initialized to maintain strong or weak references to objects.
-// 
+//
 // When enumerating a pointer array with [NSFastEnumeration] using
 // `for..XCUIElementTypeIn`, the loop will yield any `nil` values present in
 // the array. See [Fast Enumeration Makes It Easy to Enumerate a Collection]
 // in [Programming with Objective-C] for more information.
-// 
-// # Subclassing Notes
-// 
-// [NSPointerArray] is not suitable for subclassing.
 //
-// [Fast Enumeration Makes It Easy to Enumerate a Collection]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/FoundationTypesandCollections/FoundationTypesandCollections.html#//apple_ref/doc/uid/TP40011210-CH7-SW30
-// [NSPointerFunctions.Options]: https://developer.apple.com/documentation/Foundation/NSPointerFunctions/Options
-// [Programming with Objective-C]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210
+// # Subclassing Notes
+//
+// [NSPointerArray] is not suitable for subclassing.
 //
 // # Creating and Initializing a New Pointer Array
 //
@@ -93,6 +90,10 @@ func (nc NSPointerArrayClass) Alloc() NSPointerArray {
 //   - [NSPointerArray.PointerFunctions]: The functions in use by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray
+//
+// [Fast Enumeration Makes It Easy to Enumerate a Collection]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/FoundationTypesandCollections/FoundationTypesandCollections.html#//apple_ref/doc/uid/TP40011210-CH7-SW30
+// [NSPointerFunctions.Options]: https://developer.apple.com/documentation/Foundation/NSPointerFunctions/Options
+// [Programming with Objective-C]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210
 type NSPointerArray struct {
 	objectivec.Object
 }
@@ -104,6 +105,7 @@ type NSPointerArray struct {
 func NSPointerArrayFromID(id objc.ID) NSPointerArray {
 	return NSPointerArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPointerArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -189,7 +191,6 @@ func NewNSPointerArray() NSPointerArray {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewPointerArrayWithCoder(coder INSCoder) NSPointerArray {
 	instance := getNSPointerArrayClass().Alloc()
@@ -202,7 +203,7 @@ func NewPointerArrayWithCoder(coder INSCoder) NSPointerArray {
 // options: The pointer functions options for the new instance.
 //
 // # Return Value
-// 
+//
 // The receiver, initialized to use the given options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/init(options:)
@@ -217,7 +218,7 @@ func NewPointerArrayWithOptions(options NSPointerFunctionsOptions) NSPointerArra
 // functions: The pointer functions for the new instance.
 //
 // # Return Value
-// 
+//
 // The receiver, initialized to use the given functions.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/init(pointerFunctions:)
@@ -232,7 +233,7 @@ func NewPointerArrayWithPointerFunctions(functions INSPointerFunctions) NSPointe
 // options: The pointer functions options for the new instance.
 //
 // # Return Value
-// 
+//
 // The receiver, initialized to use the given options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/init(options:)
@@ -240,12 +241,13 @@ func (p NSPointerArray) InitWithOptions(options NSPointerFunctionsOptions) NSPoi
 	rv := objc.Send[NSPointerArray](p.ID, objc.Sel("initWithOptions:"), options)
 	return rv
 }
+
 // Initializes the receiver to use the given functions.
 //
 // functions: The pointer functions for the new instance.
 //
 // # Return Value
-// 
+//
 // The receiver, initialized to use the given functions.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/init(pointerFunctions:)
@@ -253,17 +255,18 @@ func (p NSPointerArray) InitWithPointerFunctions(functions INSPointerFunctions) 
 	rv := objc.Send[NSPointerArray](p.ID, objc.Sel("initWithPointerFunctions:"), functions)
 	return rv
 }
+
 // Returns the pointer at a given index.
 //
 // index: The index of an element in the receiver. This value must be less than the
 // [Count] of the receiver.
 //
 // # Return Value
-// 
+//
 // The pointer at `index`.
 //
 // # Discussion
-// 
+//
 // The returned value may be [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/pointer(at:)
@@ -271,31 +274,34 @@ func (p NSPointerArray) PointerAtIndex(index uint) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("pointerAtIndex:"), index)
 	return rv
 }
+
 // Adds a given pointer to the receiver.
 //
 // pointer: The pointer to add. This value may be [NULL].
 //
 // # Discussion
-// 
+//
 // `pointer` is added at index [Count].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/addPointer(_:)
 func (p NSPointerArray) AddPointer(pointer unsafe.Pointer) {
 	objc.Send[objc.ID](p.ID, objc.Sel("addPointer:"), pointer)
 }
+
 // Removes the pointer at a given index.
 //
 // index: The index of an element in the receiver. This value must be less than the
 // [Count] of the receiver.
 //
 // # Discussion
-// 
+//
 // Elements above `index`, including [NULL] values, slide lower.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/removePointer(at:)
 func (p NSPointerArray) RemovePointerAtIndex(index uint) {
 	objc.Send[objc.ID](p.ID, objc.Sel("removePointerAtIndex:"), index)
 }
+
 // Inserts a pointer at a given index.
 //
 // item: The pointer to add.
@@ -304,13 +310,14 @@ func (p NSPointerArray) RemovePointerAtIndex(index uint) {
 // [Count] of the receiver.
 //
 // # Discussion
-// 
+//
 // Elements at and above `index`, including [NULL] values, slide higher.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/insertPointer(_:at:)
 func (p NSPointerArray) InsertPointerAtIndex(item unsafe.Pointer, index uint) {
 	objc.Send[objc.ID](p.ID, objc.Sel("insertPointer:atIndex:"), item, index)
 }
+
 // Replaces the pointer at a given index.
 //
 // index: The index of an element in the receiver. This value must be less than the
@@ -323,12 +330,14 @@ func (p NSPointerArray) InsertPointerAtIndex(item unsafe.Pointer, index uint) {
 func (p NSPointerArray) ReplacePointerAtIndexWithPointer(index uint, item unsafe.Pointer) {
 	objc.Send[objc.ID](p.ID, objc.Sel("replacePointerAtIndex:withPointer:"), index, item)
 }
+
 // Removes [NULL] values from the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/compact()
 func (p NSPointerArray) Compact() {
 	objc.Send[objc.ID](p.ID, objc.Sel("compact"))
 }
+
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //
@@ -340,12 +349,12 @@ func (p NSPointerArray) Compact() {
 // len: The maximum number of objects to return in `stackbuf`.
 //
 // # Return Value
-// 
+//
 // The number of objects returned in `stackbuf`. Returns `0` when the
 // iteration is finished.
 //
 // # Discussion
-// 
+//
 // The state structure is assumed to be of stack local memory, so you can
 // recast the passed in state structure to one more suitable for your
 // iteration.
@@ -355,6 +364,7 @@ func (p NSPointerArray) CountByEnumeratingWithStateObjectsCount(state NSFastEnum
 	rv := objc.Send[uint](p.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -363,7 +373,7 @@ func (p NSPointerArray) CountByEnumeratingWithStateObjectsCount(state NSFastEnum
 func (p NSPointerArray) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (p NSPointerArray) InitWithCoder(coder INSCoder) NSPointerArray {
 	rv := objc.Send[NSPointerArray](p.ID, objc.Sel("initWithCoder:"), coder)
@@ -374,7 +384,7 @@ func (p NSPointerArray) InitWithCoder(coder INSCoder) NSPointerArray {
 // elements.
 //
 // # Return Value
-// 
+//
 // A new pointer array that maintains strong references to its elements.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/strongObjects()
@@ -382,10 +392,11 @@ func (_NSPointerArrayClass NSPointerArrayClass) StrongObjectsPointerArray() NSPo
 	rv := objc.Send[objc.ID](objc.ID(_NSPointerArrayClass.class), objc.Sel("strongObjectsPointerArray"))
 	return NSPointerArrayFromID(rv)
 }
+
 // Returns a new pointer array that maintains weak references to its elements.
 //
 // # Return Value
-// 
+//
 // A new pointer array that maintains weak references to its elements.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/weakObjects()
@@ -393,12 +404,13 @@ func (_NSPointerArrayClass NSPointerArrayClass) WeakObjectsPointerArray() NSPoin
 	rv := objc.Send[objc.ID](objc.ID(_NSPointerArrayClass.class), objc.Sel("weakObjectsPointerArray"))
 	return NSPointerArrayFromID(rv)
 }
+
 // Returns a new pointer array initialized to use the given options.
 //
 // options: The pointer functions options for the new instance.
 //
 // # Return Value
-// 
+//
 // A new pointer array initialized to use the given options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/pointerArrayWithOptions:
@@ -406,12 +418,13 @@ func (_NSPointerArrayClass NSPointerArrayClass) PointerArrayWithOptions(options 
 	rv := objc.Send[objc.ID](objc.ID(_NSPointerArrayClass.class), objc.Sel("pointerArrayWithOptions:"), options)
 	return NSPointerArrayFromID(rv)
 }
+
 // A new pointer array initialized to use the given functions.
 //
 // functions: The pointer functions for the new instance.
 //
 // # Return Value
-// 
+//
 // A new pointer array initialized to use the given pointer functions.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/pointerArrayWithPointerFunctions:
@@ -423,7 +436,7 @@ func (_NSPointerArrayClass NSPointerArrayClass) PointerArrayWithPointerFunctions
 // The number of elements in the receiver.
 //
 // # Discussion
-// 
+//
 // If you increase the `count`, [NULL] values are added. If you decrease the
 // `count`, elements at indexes `count` and greater are removed.
 //
@@ -435,6 +448,7 @@ func (p NSPointerArray) Count() uint {
 func (p NSPointerArray) SetCount(value uint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCount:"), value)
 }
+
 // All the objects in the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/allObjects
@@ -442,10 +456,11 @@ func (p NSPointerArray) AllObjects() INSArray {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("allObjects"))
 	return NSArrayFromID(objc.ID(rv))
 }
+
 // The functions in use by the receiver.
 //
 // # Discussion
-// 
+//
 // The returned object is a new [NSPointerFunctions] object that you can
 // modify and/or use directly to create other pointer collections.
 //
@@ -455,9 +470,6 @@ func (p NSPointerArray) PointerFunctions() INSPointerFunctions {
 	return NSPointerFunctionsFromID(objc.ID(rv))
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

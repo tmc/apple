@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,6 +54,7 @@ type MLMetricKey struct {
 func MLMetricKeyFromID(id objc.ID) MLMetricKey {
 	return MLMetricKey{MLKey: MLKeyFromID(id)}
 }
+
 // NOTE: MLMetricKey adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -101,7 +103,7 @@ func (m MLMetricKey) SetMetrics(value IMLMetricKey) {
 // The key you use to access the current loss (a `float` value).
 //
 // # Discussion
-// 
+//
 // Use this key to fetch the loss value in the [Metrics] dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMetricKey/lossValue
@@ -109,10 +111,11 @@ func (_MLMetricKeyClass MLMetricKeyClass) LossValue() MLMetricKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLMetricKeyClass.class), objc.Sel("lossValue"))
 	return MLMetricKeyFromID(objc.ID(rv))
 }
+
 // The key you use to access the epoch index (an [Int64] value).
 //
 // # Discussion
-// 
+//
 // Use this key to fetch the epoch index value in the [Metrics] dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMetricKey/epochIndex
@@ -120,11 +123,12 @@ func (_MLMetricKeyClass MLMetricKeyClass) EpochIndex() MLMetricKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLMetricKeyClass.class), objc.Sel("epochIndex"))
 	return MLMetricKeyFromID(objc.ID(rv))
 }
+
 // The key you use to access the mini-batch index (an [Int64] value) within an
 // epoch.
 //
 // # Discussion
-// 
+//
 // Use this key to fetch the mini-batch index value in the [Metrics]
 // dictionary.
 //
@@ -133,4 +137,3 @@ func (_MLMetricKeyClass MLMetricKeyClass) MiniBatchIndex() MLMetricKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLMetricKeyClass.class), objc.Sel("miniBatchIndex"))
 	return MLMetricKeyFromID(objc.ID(rv))
 }
-

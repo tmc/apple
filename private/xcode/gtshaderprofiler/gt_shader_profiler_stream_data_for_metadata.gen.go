@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type GTShaderProfilerStreamDataForMetadata struct {
 func GTShaderProfilerStreamDataForMetadataFromID(id objc.ID) GTShaderProfilerStreamDataForMetadata {
 	return GTShaderProfilerStreamDataForMetadata{GTShaderProfilerStreamData: GTShaderProfilerStreamDataFromID(id)}
 }
+
 // Ensure GTShaderProfilerStreamDataForMetadata implements IGTShaderProfilerStreamDataForMetadata.
 var _ IGTShaderProfilerStreamDataForMetadata = GTShaderProfilerStreamDataForMetadata{}
 
@@ -79,7 +81,6 @@ func NewGTShaderProfilerStreamDataForMetadata() GTShaderProfilerStreamDataForMet
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataForMetadata/initWithCoder:
 func NewGTShaderProfilerStreamDataForMetadataWithCoder(coder objectivec.IObject) GTShaderProfilerStreamDataForMetadata {
 	instance := getGTShaderProfilerStreamDataForMetadataClass().Alloc()
@@ -87,7 +88,6 @@ func NewGTShaderProfilerStreamDataForMetadataWithCoder(coder objectivec.IObject)
 	return GTShaderProfilerStreamDataForMetadataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithNewFileFormatV2Support:
 func NewGTShaderProfilerStreamDataForMetadataWithNewFileFormatV2Support(v2Support bool) GTShaderProfilerStreamDataForMetadata {
 	instance := getGTShaderProfilerStreamDataForMetadataClass().Alloc()
@@ -95,11 +95,9 @@ func NewGTShaderProfilerStreamDataForMetadataWithNewFileFormatV2Support(v2Suppor
 	return GTShaderProfilerStreamDataForMetadataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/initWithPreSiBundle:
 func NewGTShaderProfilerStreamDataForMetadataWithPreSiBundle(bundle objectivec.IObject) GTShaderProfilerStreamDataForMetadata {
 	instance := getGTShaderProfilerStreamDataForMetadataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPreSiBundle:"), bundle)
 	return GTShaderProfilerStreamDataForMetadataFromID(rv)
 }
-

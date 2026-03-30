@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -54,6 +55,7 @@ type AVPlayerItemMediaDataCollector struct {
 func AVPlayerItemMediaDataCollectorFromID(id objc.ID) AVPlayerItemMediaDataCollector {
 	return AVPlayerItemMediaDataCollector{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerItemMediaDataCollector adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -82,4 +84,3 @@ func NewAVPlayerItemMediaDataCollector() AVPlayerItemMediaDataCollector {
 	rv := objc.Send[AVPlayerItemMediaDataCollector](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

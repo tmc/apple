@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (mc MTLBufferLayoutDescriptorArrayClass) Alloc() MTLBufferLayoutDescriptorA
 // An array of buffer layout descriptor objects.
 //
 // # Overview
-// 
+//
 // An [MTLBufferLayoutDescriptorArray] defines the data layout and loading for
 // compute data, using [MTLBufferLayoutDescriptor] instances.
 //
@@ -63,6 +64,7 @@ type MTLBufferLayoutDescriptorArray struct {
 func MTLBufferLayoutDescriptorArrayFromID(id objc.ID) MTLBufferLayoutDescriptorArray {
 	return MTLBufferLayoutDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLBufferLayoutDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,7 +114,7 @@ func NewMTLBufferLayoutDescriptorArray() MTLBufferLayoutDescriptorArray {
 // index: A specified index in the array of buffer layouts.
 //
 // # Return Value
-// 
+//
 // The buffer layout descriptor for the buffer bound to the given attribute
 // table index.
 //
@@ -121,6 +123,7 @@ func (b MTLBufferLayoutDescriptorArray) ObjectAtIndexedSubscript(index uint) IMT
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("objectAtIndexedSubscript:"), index)
 	return MTLBufferLayoutDescriptorFromID(rv)
 }
+
 // Sets the state of the specified buffer layout.
 //
 // bufferDesc: A descriptor that contains buffer layout state.
@@ -142,4 +145,3 @@ func (b MTLBufferLayoutDescriptorArray) StageInputDescriptor() IMTLStageInputOut
 func (b MTLBufferLayoutDescriptorArray) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStageInputDescriptor:"), value)
 }
-

@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,17 +47,17 @@ func (nc NSTextClass) Alloc() NSText {
 // The most general programmatic interface for objects that manage text.
 //
 // # Overview
-// 
+//
 // [NSText] draws text for user interface objects, provides text editing
 // capabilities, and controls text attributes such as type size, font, and
 // color.
-// 
+//
 // [NSText] initialization creates an instance of a concrete subclass, such as
 // [NSTextView] (generically called a text object). In general, you’re more
 // likely to use the [NSTextView] subclass, because it extends the interface
 // declared by [NSText] and provides much more sophisticated functionality
 // than that declared in [NSText].
-// 
+//
 // AppKit uses text objects wherever text appears in interface objects. For
 // example, a text object draws the title of a window, the commands in a menu,
 // the title of a button, and the items in a browser. Your app can also create
@@ -194,6 +195,7 @@ type NSText struct {
 func NSTextFromID(id objc.ID) NSText {
 	return NSText{NSView: NSViewFromID(id)}
 }
+
 // NOTE: NSText adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -516,7 +518,6 @@ func NewNSText() NSText {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSText/init(coder:)
 func NewTextWithCoder(coder foundation.INSCoder) NSText {
 	instance := getNSTextClass().Alloc()
@@ -524,7 +525,6 @@ func NewTextWithCoder(coder foundation.INSCoder) NSText {
 	return NSTextFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSText/init(frame:)
 func NewTextWithFrame(frameRect corefoundation.CGRect) NSText {
 	instance := getNSTextClass().Alloc()
@@ -539,6 +539,7 @@ func NewTextWithFrame(frameRect corefoundation.CGRect) NSText {
 func (t NSText) ToggleRuler(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("toggleRuler:"), sender)
 }
+
 // Replaces the characters in the given range with RTF text interpreted from
 // the given RTF data.
 //
@@ -547,25 +548,26 @@ func (t NSText) ToggleRuler(sender objectivec.IObject) {
 // rtfData: The RTF data from which to derive the replacement string.
 //
 // # Discussion
-// 
+//
 // This method applies only to rich text objects.
-// 
+//
 // This method does not include undo support by default. Clients must invoke
 // [ShouldChangeTextInRangesReplacementStrings] or
 // [ShouldChangeTextInRangeReplacementString] to include this method in an
 // undoable action.
-// 
+//
 // This method is designed for transferring text from out-of-process sources
 // such as the pasteboard. In most cases, programmatic modification of the
 // text is best done by operating on the text storage directly, using the
 // general methods of [NSMutableAttributedString].
 //
-// [NSMutableAttributedString]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString
-//
 // See: https://developer.apple.com/documentation/AppKit/NSText/replaceCharacters(in:withRTF:)
+//
+// [NSMutableAttributedString]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString
 func (t NSText) ReplaceCharactersInRangeWithRTF(range_ foundation.NSRange, rtfData foundation.INSData) {
 	objc.Send[objc.ID](t.ID, objc.Sel("replaceCharactersInRange:withRTF:"), range_, rtfData)
 }
+
 // Replaces the characters in the given range with RTFD text interpreted from
 // the given RTFD data.
 //
@@ -574,25 +576,26 @@ func (t NSText) ReplaceCharactersInRangeWithRTF(range_ foundation.NSRange, rtfDa
 // rtfdData: The RTFD data from which to derive the replacement string.
 //
 // # Discussion
-// 
+//
 // This method applies only to rich text objects.
-// 
+//
 // This method does not include undo support by default. Clients must invoke
 // [ShouldChangeTextInRangesReplacementStrings] or
 // [ShouldChangeTextInRangeReplacementString] to include this method in an
 // undoable action.
-// 
+//
 // This method is designed for transferring text from out-of-process sources
 // such as the pasteboard. In most cases, programmatic modification of the
 // text is best done by operating on the text storage directly, using the
 // general methods of [NSMutableAttributedString].
 //
-// [NSMutableAttributedString]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString
-//
 // See: https://developer.apple.com/documentation/AppKit/NSText/replaceCharacters(in:withRTFD:)
+//
+// [NSMutableAttributedString]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString
 func (t NSText) ReplaceCharactersInRangeWithRTFD(range_ foundation.NSRange, rtfdData foundation.INSData) {
 	objc.Send[objc.ID](t.ID, objc.Sel("replaceCharactersInRange:withRTFD:"), range_, rtfdData)
 }
+
 // Replaces the characters in the given range with those in the given string.
 //
 // range: The range of characters to be replaced.
@@ -600,33 +603,34 @@ func (t NSText) ReplaceCharactersInRangeWithRTFD(range_ foundation.NSRange, rtfd
 // string: The replacement string.
 //
 // # Discussion
-// 
+//
 // For a rich text object, the text of `aString` is assigned the formatting
 // attributes of the first character of the text it replaces, or of the
 // character immediately before `aRange` if the range’s length is 0. If the
 // range’s location is 0, the formatting attributes of the first character
 // in the receiver are used.
-// 
+//
 // This method does not include undo support by default. Clients must invoke
 // [ShouldChangeTextInRangesReplacementStrings] or
 // [ShouldChangeTextInRangeReplacementString] to include this method in an
 // undoable action.
-// 
+//
 // In most cases, programmatic modification of the text is best done by
 // operating on the text storage directly, using the general methods of
 // [NSMutableAttributedString].
 //
-// [NSMutableAttributedString]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString
-//
 // See: https://developer.apple.com/documentation/AppKit/NSText/replaceCharacters(in:with:)
+//
+// [NSMutableAttributedString]: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString
 func (t NSText) ReplaceCharactersInRangeWithString(range_ foundation.NSRange, string_ string) {
 	objc.Send[objc.ID](t.ID, objc.Sel("replaceCharactersInRange:withString:"), range_, objc.String(string_))
 }
+
 // This action method copies the selected text onto the general pasteboard, in
 // as many formats as the receiver supports.
 //
 // # Discussion
-// 
+//
 // A plain text object uses [NSStringPboardType] for plain text, and a rich
 // text object also uses [NSRTFPboardType].
 //
@@ -634,11 +638,12 @@ func (t NSText) ReplaceCharactersInRangeWithString(range_ foundation.NSRange, st
 func (t NSText) Copy(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("copy:"), sender)
 }
+
 // This action method deletes the selected text and places it onto the general
 // pasteboard, in as many formats as the receiver supports.
 //
 // # Discussion
-// 
+//
 // A plain text object uses [NSStringPboardType] for plain text, and a rich
 // text object also uses [NSRTFPboardType].
 //
@@ -646,6 +651,7 @@ func (t NSText) Copy(sender objectivec.IObject) {
 func (t NSText) Cut(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("cut:"), sender)
 }
+
 // This action method pastes text from the general pasteboard at the insertion
 // point or over the selection.
 //
@@ -653,6 +659,7 @@ func (t NSText) Cut(sender objectivec.IObject) {
 func (t NSText) Paste(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("paste:"), sender)
 }
+
 // This action method copies the font information for the first character of
 // the selection (or for the insertion point) onto the font pasteboard, as
 // [NSFontPboardType].
@@ -661,6 +668,7 @@ func (t NSText) Paste(sender objectivec.IObject) {
 func (t NSText) CopyFont(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("copyFont:"), sender)
 }
+
 // This action method pastes font information from the font pasteboard onto
 // the selected text or insertion point of a rich text object, or over all
 // text of a plain text object.
@@ -669,6 +677,7 @@ func (t NSText) CopyFont(sender objectivec.IObject) {
 func (t NSText) PasteFont(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("pasteFont:"), sender)
 }
+
 // This action method copies the paragraph style information for first
 // selected paragraph onto the ruler pasteboard, as [NSRulerPboardType], and
 // expands the selection to paragraph boundaries.
@@ -677,30 +686,33 @@ func (t NSText) PasteFont(sender objectivec.IObject) {
 func (t NSText) CopyRuler(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("copyRuler:"), sender)
 }
+
 // This action method pastes paragraph style information from the ruler
 // pasteboard onto the selected paragraphs of a rich text object.
 //
 // # Discussion
-// 
+//
 // It doesn’t apply to a plain text object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/pasteRuler(_:)
 func (t NSText) PasteRuler(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("pasteRuler:"), sender)
 }
+
 // This action method deletes the selected text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/delete(_:)
 func (t NSText) Delete(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("delete:"), sender)
 }
+
 // This action method changes the font of the selection for a rich text
 // object, or of all text for a plain text object.
 //
 // # Discussion
-// 
+//
 // If the receiver doesn’t use the Font panel, this method does nothing.
-// 
+//
 // This method changes the font by sending a [ConvertFont] message to the
 // shared NSFontManager and applying each NSFont returned to the appropriate
 // text. See the [NSFontManager] class specification for more information on
@@ -710,12 +722,13 @@ func (t NSText) Delete(sender objectivec.IObject) {
 func (t NSText) ChangeFont(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("changeFont:"), sender)
 }
+
 // Sets the font of characters within `aRange` to `aFont`.
 //
 // # Discussion
-// 
+//
 // This method applies only to a rich text object.
-// 
+//
 // This method does not include undo support by default. Clients must invoke
 // [ShouldChangeTextInRangesReplacementStrings] or
 // [ShouldChangeTextInRangeReplacementString] to include this method in an
@@ -725,6 +738,7 @@ func (t NSText) ChangeFont(sender objectivec.IObject) {
 func (t NSText) SetFontRange(font NSFont, range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setFont:range:"), font, range_)
 }
+
 // This action method applies center alignment to selected paragraphs (or all
 // text if the receiver is a plain text object).
 //
@@ -732,6 +746,7 @@ func (t NSText) SetFontRange(font NSFont, range_ foundation.NSRange) {
 func (t NSText) AlignCenter(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("alignCenter:"), sender)
 }
+
 // This action method applies left alignment to selected paragraphs (or all
 // text if the receiver is a plain text object).
 //
@@ -739,6 +754,7 @@ func (t NSText) AlignCenter(sender objectivec.IObject) {
 func (t NSText) AlignLeft(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("alignLeft:"), sender)
 }
+
 // This action method applies right alignment to selected paragraphs (or all
 // text if the receiver is a plain text object).
 //
@@ -746,14 +762,15 @@ func (t NSText) AlignLeft(sender objectivec.IObject) {
 func (t NSText) AlignRight(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("alignRight:"), sender)
 }
+
 // Sets the text color of characters within the specified range to the
 // specified color.
 //
 // # Discussion
-// 
+//
 // Removes the text color attribute if `color` is `nil`. This method applies
 // only to rich text objects.
-// 
+//
 // This method does not include undo support by default. Clients must invoke
 // [ShouldChangeTextInRangesReplacementStrings] or
 // [ShouldChangeTextInRangeReplacementString] to include this method in an
@@ -763,6 +780,7 @@ func (t NSText) AlignRight(sender objectivec.IObject) {
 func (t NSText) SetTextColorRange(color INSColor, range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setTextColor:range:"), color, range_)
 }
+
 // This action method applies a superscript attribute to selected text (or all
 // text if the receiver is a plain text object), raising its baseline offset
 // by a predefined amount.
@@ -771,6 +789,7 @@ func (t NSText) SetTextColorRange(color INSColor, range_ foundation.NSRange) {
 func (t NSText) Superscript(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("superscript:"), sender)
 }
+
 // This action method applies a subscript attribute to selected text (or all
 // text if the receiver is a plain text object), lowering its baseline offset
 // by a predefined amount.
@@ -779,6 +798,7 @@ func (t NSText) Superscript(sender objectivec.IObject) {
 func (t NSText) Subscript(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("subscript:"), sender)
 }
+
 // This action method removes any superscripting or subscripting from selected
 // text (or all text if the receiver is a plain text object).
 //
@@ -786,16 +806,17 @@ func (t NSText) Subscript(sender objectivec.IObject) {
 func (t NSText) Unscript(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("unscript:"), sender)
 }
+
 // Adds the underline attribute to the selected text attributes if absent;
 // removes the attribute if present.
 //
 // # Discussion
-// 
+//
 // If there is a selection and the first character of the selected range has
 // any form of underline on it, or if there is no selection and the typing
 // attributes have any form of underline, then underline is removed; otherwise
 // a single simple underline is added.
-// 
+//
 // Operates on the selected range if the receiver contains rich text. For
 // plain text the range is the entire contents of the receiver.
 //
@@ -803,17 +824,15 @@ func (t NSText) Unscript(sender objectivec.IObject) {
 func (t NSText) Underline(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("underline:"), sender)
 }
+
 // Attempts to read the RTFD file at the specified path.
 //
 // # Return Value
-// 
-// [true] if successful; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if successful; otherwise, false.
 //
 // # Discussion
-// 
+//
 // `path` should be the path for an `XCUIElementTypeRtf` file or an
 // `XCUIElementTypeRtfd` file wrapper, not for the RTF file within an
 // `XCUIElementTypeRtfd` file wrapper.
@@ -823,32 +842,31 @@ func (t NSText) ReadRTFDFromFile(path string) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("readRTFDFromFile:"), objc.String(path))
 	return rv
 }
+
 // Writes the receiver’s text as RTF with attachments to a file or directory
 // at `path`.
 //
 // # Discussion
-// 
-// Returns [true] on success and [false] on failure. If `atomicFlag` is
-// [true], attempts to write the file safely so that an existing file at
-// `path` is not overwritten, nor does a new file at `path` actually get
-// created, unless the write is successful.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Returns true on success and false on failure. If `atomicFlag` is true,
+// attempts to write the file safely so that an existing file at `path` is not
+// overwritten, nor does a new file at `path` actually get created, unless the
+// write is successful.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/writeRTFD(toFile:atomically:)
 func (t NSText) WriteRTFDToFileAtomically(path string, flag bool) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("writeRTFDToFile:atomically:"), objc.String(path), flag)
 	return rv
 }
+
 // Returns an NSData object that contains an RTFD stream corresponding to the
 // characters and attributes within `aRange`.
 //
 // # Discussion
-// 
+//
 // Raises an [NSRangeException] if any part of `aRange` lies beyond the end of
 // the receiver’s characters.
-// 
+//
 // When writing data to the pasteboard, you can use the NSData object as the
 // first argument to [NSPasteboard]’s [SetDataForType] method, with a second
 // argument of [NSRTFDPboardType].
@@ -858,15 +876,16 @@ func (t NSText) RTFDFromRange(range_ foundation.NSRange) foundation.INSData {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("RTFDFromRange:"), range_)
 	return foundation.NSDataFromID(rv)
 }
+
 // Returns an NSData object that contains an RTF stream corresponding to the
 // characters and attributes within `aRange`, omitting any attachment
 // characters and attributes.
 //
 // # Discussion
-// 
+//
 // Raises an [NSRangeException] if any part of `aRange` lies beyond the end of
 // the receiver’s characters.
-// 
+//
 // When writing data to the pasteboard, you can use the NSData object as the
 // first argument to [NSPasteboard]’s [SetDataForType] method, with a second
 // argument of [NSRTFPboardType].
@@ -876,10 +895,11 @@ func (t NSText) RTFFromRange(range_ foundation.NSRange) foundation.INSData {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("RTFFromRange:"), range_)
 	return foundation.NSDataFromID(rv)
 }
+
 // This action method searches for a misspelled word in the receiver’s text.
 //
 // # Discussion
-// 
+//
 // The search starts at the end of the selection and continues until it
 // reaches a word suspected of being misspelled or the end of the text. If a
 // word isn’t recognized by the spelling server, a [ShowGuessPanel] message
@@ -890,6 +910,7 @@ func (t NSText) RTFFromRange(range_ foundation.NSRange) foundation.INSData {
 func (t NSText) CheckSpelling(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("checkSpelling:"), sender)
 }
+
 // This action method opens the Spelling panel, allowing the user to make a
 // correction during spell checking.
 //
@@ -897,16 +918,18 @@ func (t NSText) CheckSpelling(sender objectivec.IObject) {
 func (t NSText) ShowGuessPanel(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("showGuessPanel:"), sender)
 }
+
 // Resizes the receiver to fit its text.
 //
 // # Discussion
-// 
+//
 // The text view will not be sized any smaller than its minimum size, however.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/sizeToFit()
 func (t NSText) SizeToFit() {
 	objc.Send[objc.ID](t.ID, objc.Sel("sizeToFit"))
 }
+
 // Scrolls the receiver in its enclosing scroll view so the first characters
 // of `aRange` are visible.
 //
@@ -914,11 +937,12 @@ func (t NSText) SizeToFit() {
 func (t NSText) ScrollRangeToVisible(range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("scrollRangeToVisible:"), range_)
 }
+
 // Replaces the selected word in the receiver with a corrected version from
 // the Spelling panel.
 //
 // # Discussion
-// 
+//
 // This message is sent by the [NSSpellChecker] to the object whose text is
 // being checked. To get the corrected spelling, ask `sender` for the string
 // value of its selected cell (visible to the user as the text field in the
@@ -929,13 +953,13 @@ func (t NSText) ScrollRangeToVisible(range_ foundation.NSRange) {
 func (t NSText) ChangeSpelling(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("changeSpelling:"), sender)
 }
-//
+
 // # Discussion
-// 
+//
 // Implement this action method to allow an application to ignore misspelled
 // words on a document-by-document basis. This message is sent by the
 // NSSpellChecker instance to the object whose text is being checked.
-// 
+//
 // Implement this method by using the code shown in the protocol description.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSIgnoreMisspelledWords/ignoreSpelling(_:)
@@ -953,15 +977,13 @@ func (t NSText) BackgroundColor() INSColor {
 func (t NSText) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
+
 // A Boolean that controls whether the receiver draws its background.
 //
 // # Discussion
-// 
-// If `flag` is [true], the receiver fills its background with the background
-// color, if `flag` is [false], it doesn’t.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If `flag` is true, the receiver fills its background with the background
+// color, if `flag` is false, it doesn’t.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/drawsBackground
 func (t NSText) DrawsBackground() bool {
@@ -971,20 +993,18 @@ func (t NSText) DrawsBackground() bool {
 func (t NSText) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDrawsBackground:"), value)
 }
+
 // A Boolean that controls whether the receiver allows the user to edit its
 // text.
 //
 // # Discussion
-// 
-// If `flag` is [true], the receiver allows the user to edit text and
-// attributes; if `flag` is [false], it doesn’t.
-// 
+//
+// If `flag` is true, the receiver allows the user to edit text and
+// attributes; if `flag` is false, it doesn’t.
+//
 // You can change the receiver’s text programmatically regardless of this
 // setting. If the receiver is made editable, it’s also made selectable.
 // [NSText] objects are by default editable.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isEditable
 func (t NSText) Editable() bool {
@@ -994,20 +1014,18 @@ func (t NSText) Editable() bool {
 func (t NSText) SetEditable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEditable:"), value)
 }
+
 // A Boolean that controls whether the receiver allows the user to select its
 // text.
 //
 // # Discussion
-// 
-// If `flag` is [true], the receiver allows the user to select text; if `flag`
-// is [false], it doesn’t.
-// 
+//
+// If `flag` is true, the receiver allows the user to select text; if `flag`
+// is false, it doesn’t.
+//
 // You can set selections programmatically regardless of this setting. If the
 // receiver is made not selectable, it’s also made not editable. [NSText]
 // objects are by default editable and selectable.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isSelectable
 func (t NSText) Selectable() bool {
@@ -1017,22 +1035,20 @@ func (t NSText) Selectable() bool {
 func (t NSText) SetSelectable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectable:"), value)
 }
+
 // A Boolean that controls whether the receiver interprets Tab, Shift-Tab, and
 // Return (Enter) as cues to end editing and possibly to change the first
 // responder.
 //
 // # Discussion
-// 
-// If `flag` is [true], the receiver interprets Tab, Shift-Tab, and Return
+//
+// If `flag` is true, the receiver interprets Tab, Shift-Tab, and Return
 // (Enter) as cues to end editing and possibly to change the first responder;
-// if `flag` is [false], it doesn’t, instead accepting these characters as
+// if `flag` is false, it doesn’t, instead accepting these characters as
 // text input.
-// 
+//
 // See the [NSWindow] class specification for more information on field
 // editors. By default, [NSText] objects don’t behave as field editors.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isFieldEditor
 func (t NSText) FieldEditor() bool {
@@ -1042,16 +1058,14 @@ func (t NSText) FieldEditor() bool {
 func (t NSText) SetFieldEditor(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFieldEditor:"), value)
 }
+
 // A Boolean that controls whether the receiver allows the user to apply
 // attributes to specific ranges of the text.
 //
 // # Discussion
-// 
-// If `flag` is [true] the receiver allows the user to apply attributes to
-// specific ranges of the text; if `flag` is [false] it doesn’t.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If `flag` is true the receiver allows the user to apply attributes to
+// specific ranges of the text; if `flag` is false it doesn’t.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isRichText
 func (t NSText) RichText() bool {
@@ -1061,19 +1075,17 @@ func (t NSText) RichText() bool {
 func (t NSText) SetRichText(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRichText:"), value)
 }
+
 // A Boolean that controls whether the receiver allows the user to import
 // files by dragging.
 //
 // # Discussion
-// 
-// If `flag` is [true], the receiver allows the user to import files by
-// dragging; if `flag` is [false], it doesn’t.
-// 
+//
+// If `flag` is true, the receiver allows the user to import files by
+// dragging; if `flag` is false, it doesn’t.
+//
 // If the receiver is set to accept dragged files, it’s also made a rich
 // text object. Subclasses may or may not accept dragged files by default.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/importsGraphics
 func (t NSText) ImportsGraphics() bool {
@@ -1083,18 +1095,16 @@ func (t NSText) ImportsGraphics() bool {
 func (t NSText) SetImportsGraphics(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setImportsGraphics:"), value)
 }
+
 // A Boolean that controls whether the receiver uses the Font panel and Font
 // menu.
 //
 // # Discussion
-// 
-// If `flag` is [true], the receiver responds to messages from the Font panel
-// and from the Font menu and updates the Font panel with the selection font
-// whenever it changes. If `flag` is [false] the receiver doesn’t do any of
-// these actions.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If `flag` is true, the receiver responds to messages from the Font panel
+// and from the Font menu and updates the Font panel with the selection font
+// whenever it changes. If `flag` is false the receiver doesn’t do any of
+// these actions.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/usesFontPanel
 func (t NSText) UsesFontPanel() bool {
@@ -1104,22 +1114,21 @@ func (t NSText) UsesFontPanel() bool {
 func (t NSText) SetUsesFontPanel(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesFontPanel:"), value)
 }
+
 // A Boolean value that indicates whether the receiver’s enclosing scroll
 // view shows its ruler.
 //
 // # Discussion
-// 
-// [true] if the receiver’s enclosing scroll view shows its ruler, otherwise
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver’s enclosing scroll view shows its ruler, otherwise
+// false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isRulerVisible
 func (t NSText) RulerVisible() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isRulerVisible"))
 	return rv
 }
+
 // The receiver’s characters within `aRange`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/selectedRange
@@ -1130,10 +1139,11 @@ func (t NSText) SelectedRange() foundation.NSRange {
 func (t NSText) SetSelectedRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedRange:"), value)
 }
+
 // The font of all the receiver’s text.
 //
 // # Discussion
-// 
+//
 // When the specified font doesn’t include a character, the text system uses
 // an alternate font that contains the character. The substituted font may not
 // have compatible metrics.
@@ -1146,20 +1156,21 @@ func (t NSText) Font() NSFont {
 func (t NSText) SetFont(value NSFont) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
+
 // The alignment of all the receiver’s text.
 //
 // # Discussion
-// 
+//
 // The value of `mode` must be one of the alignments described in
 // [NSTextAlignment].
-// 
+//
 // Text using [NSNaturalTextAlignment] is actually displayed using one of the
 // other alignments, depending on the natural alignment of the text’s
 // script.
 //
-// [NSTextAlignment]: https://developer.apple.com/documentation/AppKit/NSTextAlignment
-//
 // See: https://developer.apple.com/documentation/AppKit/NSText/alignment
+//
+// [NSTextAlignment]: https://developer.apple.com/documentation/AppKit/NSTextAlignment
 func (t NSText) Alignment() NSTextAlignment {
 	rv := objc.Send[NSTextAlignment](t.ID, objc.Sel("alignment"))
 	return NSTextAlignment(rv)
@@ -1167,6 +1178,7 @@ func (t NSText) Alignment() NSTextAlignment {
 func (t NSText) SetAlignment(value NSTextAlignment) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAlignment:"), value)
 }
+
 // The text color of all characters in the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/textColor
@@ -1177,11 +1189,12 @@ func (t NSText) TextColor() INSColor {
 func (t NSText) SetTextColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextColor:"), value)
 }
+
 // The initial writing direction used to determine the actual writing
 // direction for text.
 //
 // # Discussion
-// 
+//
 // The Text system uses this value as a hint for calculating the actual
 // direction for displaying Unicode characters. If no writing direction is
 // set, returns [NSWritingDirectionNatural].
@@ -1194,6 +1207,7 @@ func (t NSText) BaseWritingDirection() NSWritingDirection {
 func (t NSText) SetBaseWritingDirection(value NSWritingDirection) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBaseWritingDirection:"), value)
 }
+
 // The receiver’s maximum size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/maxSize
@@ -1204,6 +1218,7 @@ func (t NSText) MaxSize() corefoundation.CGSize {
 func (t NSText) SetMaxSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaxSize:"), value)
 }
+
 // The receiver’s minimum size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/minSize
@@ -1214,15 +1229,13 @@ func (t NSText) MinSize() corefoundation.CGSize {
 func (t NSText) SetMinSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMinSize:"), value)
 }
+
 // A Boolean that controls whether the receiver changes its height to fit the
 // height of its text.
 //
 // # Discussion
-// 
-// If `flag` is [true] it does; if `flag` is [false] it doesn’t.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If `flag` is true it does; if `flag` is false it doesn’t.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isVerticallyResizable
 func (t NSText) VerticallyResizable() bool {
@@ -1232,15 +1245,13 @@ func (t NSText) VerticallyResizable() bool {
 func (t NSText) SetVerticallyResizable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVerticallyResizable:"), value)
 }
+
 // A Boolean that controls whether the receiver changes its width to fit the
 // width of its text.
 //
 // # Discussion
-// 
-// If `flag` is [true] it does; if `flag` is [false] it doesn’t
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If `flag` is true it does; if `flag` is false it doesn’t
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/isHorizontallyResizable
 func (t NSText) HorizontallyResizable() bool {
@@ -1250,6 +1261,7 @@ func (t NSText) HorizontallyResizable() bool {
 func (t NSText) SetHorizontallyResizable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHorizontallyResizable:"), value)
 }
+
 // The receiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/delegate
@@ -1261,9 +1273,6 @@ func (t NSText) SetDelegate(value NSTextDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
 
-			// Protocol methods for NSChangeSpelling
-			
+// Protocol methods for NSChangeSpelling
 
-			// Protocol methods for NSIgnoreMisspelledWords
-			
-
+// Protocol methods for NSIgnoreMisspelledWords

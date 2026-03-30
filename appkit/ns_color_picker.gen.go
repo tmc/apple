@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NSColorPickerClass) Alloc() NSColorPicker {
 // An abstract superclass that implements the default color picking protocol.
 //
 // # Overview
-// 
+//
 // The [NSColorPickingDefault] and [NSColorPickingCustom] protocols define a
 // way to add color pickers (custom user interfaces for color selection) to
 // the color panel.
@@ -87,6 +88,7 @@ type NSColorPicker struct {
 func NSColorPickerFromID(id objc.ID) NSColorPicker {
 	return NSColorPicker{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSColorPicker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -185,11 +187,11 @@ func NewNSColorPicker() NSColorPicker {
 // can be accessed using the [ColorPanel] property.
 //
 // # Return Value
-// 
+//
 // An initialized color picker object.
 //
 // # Discussion
-// 
+//
 // Override this method to respond to the values in `mask` or do other custom
 // initialization. If you override this method in a subclass, you should
 // forward the message to `super` as part of the implementation.
@@ -210,11 +212,11 @@ func NewColorPickerWithPickerMaskColorPanel(mask uint, owningColorPanel INSColor
 // can be accessed using the [ColorPanel] property.
 //
 // # Return Value
-// 
+//
 // An initialized color picker object.
 //
 // # Discussion
-// 
+//
 // Override this method to respond to the values in `mask` or do other custom
 // initialization. If you override this method in a subclass, you should
 // forward the message to `super` as part of the implementation.
@@ -224,6 +226,7 @@ func (c NSColorPicker) InitWithPickerMaskColorPanel(mask uint, owningColorPanel 
 	rv := objc.Send[NSColorPicker](c.ID, objc.Sel("initWithPickerMask:colorPanel:"), mask, owningColorPanel)
 	return rv
 }
+
 // Sets the image used for the specified button cell.
 //
 // newButtonImage: The image used for the specified button cell.
@@ -231,7 +234,7 @@ func (c NSColorPicker) InitWithPickerMaskColorPanel(mask uint, owningColorPanel 
 // buttonCell: The button cell for which to set the image.
 //
 // # Discussion
-// 
+//
 // Called by the color panel to insert a new image into the specified cell by
 // invoking [NSButtonCell]’s setImage: method. Override this method to
 // customize `newButtonImage` before insertion in `buttonCell`.
@@ -240,13 +243,14 @@ func (c NSColorPicker) InitWithPickerMaskColorPanel(mask uint, owningColorPanel 
 func (c NSColorPicker) InsertNewButtonImageIn(newButtonImage INSImage, buttonCell INSButtonCell) {
 	objc.Send[objc.ID](c.ID, objc.Sel("insertNewButtonImage:in:"), newButtonImage, buttonCell)
 }
+
 // Overriden to set the color picker’s mode.
 //
 // mode: A constant specifying the color picking mode. These constants are defined
 // in `AppKit/NSColorPanel.H()`.
 //
 // # Discussion
-// 
+//
 // In grayscale-alpha, red-green-blue, cyan-magenta-yellow-black, and
 // hue-saturation-brightness modes, the user adjusts colors by manipulating
 // sliders. In the custom palette mode, the user can load an [NSImage] file
@@ -260,6 +264,7 @@ func (c NSColorPicker) InsertNewButtonImageIn(newButtonImage INSImage, buttonCel
 func (c NSColorPicker) SetMode(mode NSColorPanelMode) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setMode:"), mode)
 }
+
 // Overriden to attach a color list to a color picker.
 //
 // colorList: The color list to attach to the color picker.
@@ -268,6 +273,7 @@ func (c NSColorPicker) SetMode(mode NSColorPanelMode) {
 func (c NSColorPicker) AttachColorList(colorList INSColorList) {
 	objc.Send[objc.ID](c.ID, objc.Sel("attachColorList:"), colorList)
 }
+
 // Overriden to detach a color list from a color picker.
 //
 // colorList: The color list to detach.
@@ -276,28 +282,27 @@ func (c NSColorPicker) AttachColorList(colorList INSColorList) {
 func (c NSColorPicker) DetachColorList(colorList INSColorList) {
 	objc.Send[objc.ID](c.ID, objc.Sel("detachColorList:"), colorList)
 }
+
 // Overriden to respond to a size change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPicker/viewSizeChanged(_:)
 func (c NSColorPicker) ViewSizeChanged(sender objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("viewSizeChanged:"), sender)
 }
+
 // Sent when the color panel’s opacity controls have been hidden or
 // displayed.
 //
 // sender: The color panel sending the message.
 //
 // # Discussion
-// 
+//
 // This method is invoked automatically when the opacity slider of the
 // [NSColorPanel] is added or removed; you never invoke this method directly.
-// 
-// If the color picker has its own opacity controls, it should hide or display
-// them, depending on whether the sender’s [ShowsAlpha] method returns
-// [false] or [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the color picker has its own opacity controls, it should hide or display
+// them, depending on whether the sender’s [ShowsAlpha] method returns false
+// or true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/alphaControlAddedOrRemoved(_:)
 func (c NSColorPicker) AlphaControlAddedOrRemoved(sender objectivec.IObject) {
@@ -311,10 +316,11 @@ func (c NSColorPicker) ColorPanel() INSColorPanel {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorPanel"))
 	return NSColorPanelFromID(objc.ID(rv))
 }
+
 // The button image used by the color picker.
 //
 // # Discussion
-// 
+//
 // The image placed on the mode button the user uses to select this color
 // picker. This is the same image the color panel uses as an argument when
 // sending the [InsertNewButtonImageIn] message. Override this property’s
@@ -327,11 +333,12 @@ func (c NSColorPicker) ProvideNewButtonImage() INSImage {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("provideNewButtonImage"))
 	return NSImageFromID(objc.ID(rv))
 }
+
 // The tool tip that is shown when the mouse cursor is over the color
 // picker’s button image.
 //
 // # Discussion
-// 
+//
 // Override this property’s getter method to provide a custom tool tip. The
 // default implementation returns the name of the receiver’s class. If you
 // want the color picker to have no tool tip, return an empty string.
@@ -341,13 +348,14 @@ func (c NSColorPicker) ButtonToolTip() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("buttonToolTip"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The minimum content size.
 //
 // # Discussion
-// 
+//
 // The containing [NSColorPanel] object does not allow the color picker to be
 // made smaller than this size.
-// 
+//
 // Override this property’s getter method to return a minimum size for the
 // color picker’s content area. The default implementation obtains the
 // minimum content size from the view-autoresizing behavior specified for the
@@ -359,4 +367,3 @@ func (c NSColorPicker) MinContentSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("minContentSize"))
 	return corefoundation.CGSize(rv)
 }
-

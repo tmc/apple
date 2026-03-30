@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type MaskPattern struct {
 func MaskPatternFromID(id objc.ID) MaskPattern {
 	return MaskPattern{objectivec.Object{ID: id}}
 }
+
 // Ensure MaskPattern implements IMaskPattern.
 var _ IMaskPattern = MaskPattern{}
 
@@ -78,4 +80,3 @@ func NewMaskPattern() MaskPattern {
 	rv := objc.Send[MaskPattern](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

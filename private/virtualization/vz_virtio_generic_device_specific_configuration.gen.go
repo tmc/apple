@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (vc VZVirtioGenericDeviceSpecificConfigurationClass) Alloc() VZVirtioGeneri
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtioGenericDeviceSpecificConfiguration.ConfigurationData]
 //   - [VZVirtioGenericDeviceSpecificConfiguration.InitWithConfigurationData]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioGenericDeviceSpecificConfiguration
 type VZVirtioGenericDeviceSpecificConfiguration struct {
 	VZVirtioDeviceSpecificConfiguration
@@ -56,6 +57,7 @@ type VZVirtioGenericDeviceSpecificConfiguration struct {
 func VZVirtioGenericDeviceSpecificConfigurationFromID(id objc.ID) VZVirtioGenericDeviceSpecificConfiguration {
 	return VZVirtioGenericDeviceSpecificConfiguration{VZVirtioDeviceSpecificConfiguration: VZVirtioDeviceSpecificConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioGenericDeviceSpecificConfiguration implements IVZVirtioGenericDeviceSpecificConfiguration.
 var _ IVZVirtioGenericDeviceSpecificConfiguration = VZVirtioGenericDeviceSpecificConfiguration{}
 
@@ -95,7 +97,6 @@ func NewVZVirtioGenericDeviceSpecificConfiguration() VZVirtioGenericDeviceSpecif
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioGenericDeviceSpecificConfiguration/initWithConfigurationData:
 func NewVZVirtioGenericDeviceSpecificConfigurationWithConfigurationData(data objectivec.IObject) VZVirtioGenericDeviceSpecificConfiguration {
 	instance := getVZVirtioGenericDeviceSpecificConfigurationClass().Alloc()
@@ -103,7 +104,6 @@ func NewVZVirtioGenericDeviceSpecificConfigurationWithConfigurationData(data obj
 	return VZVirtioGenericDeviceSpecificConfigurationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioGenericDeviceSpecificConfiguration/initWithConfigurationData:
 func (v VZVirtioGenericDeviceSpecificConfiguration) InitWithConfigurationData(data objectivec.IObject) VZVirtioGenericDeviceSpecificConfiguration {
 	rv := objc.Send[VZVirtioGenericDeviceSpecificConfiguration](v.ID, objc.Sel("initWithConfigurationData:"), data)
@@ -115,4 +115,3 @@ func (v VZVirtioGenericDeviceSpecificConfiguration) ConfigurationData() foundati
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("configurationData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-

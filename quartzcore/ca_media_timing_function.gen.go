@@ -3,10 +3,11 @@
 package quartzcore
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,12 +47,12 @@ func (cc CAMediaTimingFunctionClass) Alloc() CAMediaTimingFunction {
 // A function that defines the pacing of an animation as a timing curve.
 //
 // # Overview
-// 
+//
 // [CAMediaTimingFunction] represents one segment of a function that defines
 // the pacing of an animation as a timing curve. The function maps an input
 // time normalized to the range `[0,1]` to an output time also in the range
 // `[0,1]`.
-// 
+//
 // You can create a media timing function by supplying your own cubic Bézier
 // curve control points using the [CAMediaTimingFunction.InitWithControlPoints] method or by using
 // one of the predefined timing functions.
@@ -75,6 +76,7 @@ type CAMediaTimingFunction struct {
 func CAMediaTimingFunctionFromID(id objc.ID) CAMediaTimingFunction {
 	return CAMediaTimingFunction{objectivec.Object{ID: id}}
 }
+
 // NOTE: CAMediaTimingFunction adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,12 +142,12 @@ func NewCAMediaTimingFunction() CAMediaTimingFunction {
 // point.
 //
 // # Return Value
-// 
+//
 // An instance of [CAMediaTimingFunction] with the timing function specified
 // by the provided control points.
 //
 // # Discussion
-// 
+//
 // The end points of the Bézier curve are automatically set to (0.0,0.0) and
 // (1.0,1.0). The control points defining the Bézier curve are: [(0.0,0.0),
 // (`c1x`,`c1y`), (`c2x`,`c2y`), (1.0,1.0)].
@@ -161,15 +163,15 @@ func NewMediaTimingFunctionWithControlPoints(c1x float32, c1y float32, c2x float
 // with the predefined timing function specified by `name`.
 //
 // name: The timing function to use as specified in [Predefined Timing Functions].
-// //
-// [Predefined Timing Functions]: https://developer.apple.com/documentation/QuartzCore/predefined-timing-functions
 //
 // # Return Value
-// 
+//
 // A new instance of [CAMediaTimingFunction] with the timing function
 // specified by `name`.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTimingFunction/init(name:)
+//
+// [Predefined Timing Functions]: https://developer.apple.com/documentation/QuartzCore/predefined-timing-functions
 func NewMediaTimingFunctionWithName(name CAMediaTimingFunctionName) CAMediaTimingFunction {
 	rv := objc.Send[objc.ID](objc.ID(getCAMediaTimingFunctionClass().class), objc.Sel("functionWithName:"), objc.String(string(name)))
 	return CAMediaTimingFunctionFromID(rv)
@@ -191,12 +193,12 @@ func NewMediaTimingFunctionWithName(name CAMediaTimingFunctionName) CAMediaTimin
 // point.
 //
 // # Return Value
-// 
+//
 // An instance of [CAMediaTimingFunction] with the timing function specified
 // by the provided control points.
 //
 // # Discussion
-// 
+//
 // The end points of the Bézier curve are automatically set to (0.0,0.0) and
 // (1.0,1.0). The control points defining the Bézier curve are: [(0.0,0.0),
 // (`c1x`,`c1y`), (`c2x`,`c2y`), (1.0,1.0)].
@@ -206,6 +208,7 @@ func (m CAMediaTimingFunction) InitWithControlPoints(c1x float32, c1y float32, c
 	rv := objc.Send[CAMediaTimingFunction](m.ID, objc.Sel("initWithControlPoints::::"), c1x, c1y, c2x, c2y)
 	return rv
 }
+
 // Returns the control point for the specified index.
 //
 // idx: An integer specifying the index of the control point to return.
@@ -214,7 +217,7 @@ func (m CAMediaTimingFunction) InitWithControlPoints(c1x float32, c1y float32, c
 // the specified point.
 //
 // # Discussion
-// 
+//
 // The value of `index` must be between 0 and 3.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTimingFunction/getControlPoint(at:values:)
@@ -225,3 +228,35 @@ func (m CAMediaTimingFunction) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
+// Creates and returns a new instance of [CAMediaTimingFunction] timing
+// function modeled as a cubic Bézier curve using the specified control
+// points.
+//
+// c1x: A floating point number representing the x position of the c1 control
+// point.
+//
+// c1y: A floating point number representing the y position of the c1 control
+// point.
+//
+// c2x: A floating point number representing the x position of the c2 control
+// point.
+//
+// c2y: A floating point number representing the y position of the c2 control
+// point.
+//
+// # Return Value
+//
+// A new instance of [CAMediaTimingFunction] with the timing function
+// specified by the provided control points.
+//
+// # Discussion
+//
+// The end points of the Bézier curve are automatically set to (0.0,0.0) and
+// (1.0,1.0). The control points defining the Bézier curve are: [(0.0,0.0),
+// (`c1x`,`c1y`), (`c2x`,`c2y`), (1.0,1.0)].
+//
+// See: https://developer.apple.com/documentation/QuartzCore/CAMediaTimingFunction/functionWithControlPoints::::
+func (_CAMediaTimingFunctionClass CAMediaTimingFunctionClass) FunctionWithControlPoints(c1x float32, c1y float32, c2x float32, c2y float32) CAMediaTimingFunction {
+	rv := objc.Send[objc.ID](objc.ID(_CAMediaTimingFunctionClass.class), objc.Sel("functionWithControlPoints::::"), c1x, c1y, c2x, c2y)
+	return CAMediaTimingFunctionFromID(rv)
+}

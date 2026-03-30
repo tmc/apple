@@ -5,9 +5,10 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/uniformtypeidentifiers"
 )
@@ -48,19 +49,19 @@ func (nc NSSavePanelClass) Alloc() NSSavePanel {
 // A panel that prompts the user for information about where to save a file.
 //
 // # Overview
-// 
+//
 // The Save panel provides an interface for specifying the location to save a
 // file and the name of that file. You present this panel when the user
 // attempts to save a new document, or when the user saves a copy of an
 // existing document to a new location. The panel includes UI for browsing the
 // file system, selecting a directory, and specifying the new name for the
 // file. You can also add custom UI for your app using an accessory view.
-// 
+//
 // An [NSSavePanel] object reports user interactions to its associated
 // [NSSavePanel.Delegate] object, which must adopt the [NSOpenSavePanelDelegate] protocol.
 // Use your delegate object to validate the user’s selection and respond to
 // user interactions with the panel.
-// 
+//
 // In macOS 10.15, the system always displays the Save dialog in a separate
 // process, regardless of whether the app is sandboxed. When the user saves
 // the document, macOS adds the saved file to the app’s sandbox (if
@@ -141,6 +142,7 @@ type NSSavePanel struct {
 func NSSavePanelFromID(id objc.ID) NSSavePanel {
 	return NSSavePanel{NSPanel: NSPanelFromID(id)}
 }
+
 // NOTE: NSSavePanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -300,10 +302,6 @@ type INSSavePanel interface {
 	// [NSSavePanel]: Whether or not to show a control for selecting the type of the saved file. The control shows the types in `allowedContentTypes`. Default is [NO]. [NSOpenPanel]: Not used.
 	ShowsContentTypes() bool
 	SetShowsContentTypes(value bool)
-
-	// An array of filename extensions or UTIs that represent the allowed file types for the panel.
-	AllowedFileTypes() string
-	SetAllowedFileTypes(value string)
 }
 
 // Init initializes the instance.
@@ -330,26 +328,24 @@ func NewNSSavePanel() NSSavePanel {
 //
 // contentViewController: The view controller that provides the main content view for the window. The
 // window’s [ContentView] property is set to
-// `contentViewController``XCUIElementTypeView`.
+// `contentViewController“XCUIElementTypeView`.
 //
 // # Return Value
-// 
+//
 // A window with the content view controller set to the passed-in view
 // controller object.
 //
 // # Discussion
-// 
+//
 // This method creates a basic window object that is titled, closable,
 // resizable, and miniaturizable. By default, the window’s title is
 // automatically bound to the title of `contentViewController`. You can
 // control the size of the window by using Auto Layout and applying size
 // constraints to the view or its subviews. The initial size of the window is
 // set to the initial size of [ContentView] (that is, the size of
-// `contentViewController``XCUIElementTypeView`). The newly created window has
-// [ReleasedWhenClosed] set to [false], and it must be explicitly retained to
+// `contentViewController“XCUIElementTypeView`). The newly created window has
+// [ReleasedWhenClosed] set to false, and it must be explicitly retained to
 // keep the window instance alive.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentViewController:)
 func NewSavePanelWindowWithContentViewController(contentViewController INSViewController) NSSavePanel {
@@ -381,37 +377,34 @@ func NewSavePanelWithCoder(coder foundation.INSCoder) NSSavePanel {
 // purposes; you should normally not need to create them. Also, note that a
 // window’s style mask should include [NSTitledWindowMask] if it includes
 // any of the others.
-// //
-// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
 //
 // backingStoreType: Specifies how the drawing done in the window is buffered by the window
 // device, and possible values are described in [NSWindow.BackingStoreType].
-// //
-// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 //
 // flag: Specifies whether the window server creates a window device for the window
-// immediately. When [true], the window server defers creating the window
-// device until the window is moved onscreen. All display messages sent to the
-// window or its views are postponed until the window is created, just before
-// it’s moved onscreen.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// immediately. When true, the window server defers creating the window device
+// until the window is moved onscreen. All display messages sent to the window
+// or its views are postponed until the window is created, just before it’s
+// moved onscreen.
 //
 // # Return Value
-// 
+//
 // The initialized window.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer for the [NSWindow] class.
-// 
+//
 // Deferring the creation of the window improves launch time and minimizes the
 // virtual memory load on the window server.
-// 
+//
 // The new window creates a view to be its default content view. You can
 // replace it with your own object by setting the [ContentView] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:)
+//
+// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
+// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 func NewSavePanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation.CGRect, style NSWindowStyleMask, backingStoreType NSBackingStoreType, flag bool) NSSavePanel {
 	instance := getNSSavePanelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:"), contentRect, style, backingStoreType, flag)
@@ -432,21 +425,15 @@ func NewSavePanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 // purposes; you should not usually need to create them. Also, note that a
 // window’s style mask should include [NSTitledWindowMask] if it includes
 // any of the others.
-// //
-// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
 //
 // backingStoreType: Specifies how the drawing done in the window is buffered by the window
 // device; possible values are described in [NSWindow.BackingStoreType].
-// //
-// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 //
 // flag: Specifies whether the window server creates a window device for the window
-// immediately. When [true], the window server defers creating the window
-// device until the window is moved onscreen. All display messages sent to the
-// window or its views are postponed until the window is created, just before
-// it’s moved onscreen.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// immediately. When true, the window server defers creating the window device
+// until the window is moved onscreen. All display messages sent to the window
+// or its views are postponed until the window is created, just before it’s
+// moved onscreen.
 //
 // screen: Specifies the screen on which the window is positioned. The content
 // rectangle is positioned relative to the bottom-left corner of `screen`.
@@ -454,11 +441,11 @@ func NewSavePanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 // is the origin of the primary screen.
 //
 // # Return Value
-// 
+//
 // The initialized window.
 //
 // # Discussion
-// 
+//
 // The primary screen is the one that contains the current key window or, if
 // there is no key window, the one that contains the main menu. If there’s
 // neither a key window nor a main menu (if there’s no active application),
@@ -466,6 +453,9 @@ func NewSavePanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 // system is located.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/init(contentRect:styleMask:backing:defer:screen:)
+//
+// [NSWindow.StyleMask]: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
+// [NSWindow.BackingStoreType]: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
 func NewSavePanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoundation.CGRect, style NSWindowStyleMask, backingStoreType NSBackingStoreType, flag bool, screen INSScreen) NSSavePanel {
 	instance := getNSSavePanelClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:screen:"), contentRect, style, backingStoreType, flag, screen)
@@ -477,11 +467,11 @@ func NewSavePanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 // window: The window in which the panel will be presented.
 //
 // handler: The block called after the user dismisses the panel. The argument passed in
-// will be [FileHandlingPanelOKButton] if the user chose the OK button or
-// [FileHandlingPanelCancelButton] if the user chose the Cancel button.
+// will be [NSFileHandlingPanelOKButton] if the user chose the OK button or
+// [NSFileHandlingPanelCancelButton] if the user chose the Cancel button.
 //
 // # Discussion
-// 
+//
 // Configure all the relevant properties of the panel before you call this
 // method. The completion handler block runs after the user dismisses the
 // panel, but while the panel may still be onscreen. If you need to dismiss
@@ -491,38 +481,40 @@ func NewSavePanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/beginSheetModal(for:completionHandler:)
 func (s NSSavePanel) BeginSheetModalForWindowCompletionHandler(window INSWindow, handler ModalResponseHandler) {
-_block1, _ := NewModalResponseBlock(handler)
+	_block1, _ := NewModalResponseBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("beginSheetModalForWindow:completionHandler:"), window, _block1)
 }
+
 // Presents the panel as a modeless window.
 //
 // handler: The block to call after the user closes the panel. This block has no return
 // value and takes a single parameter:
-// 
+//
 // result: The action taken by the user. The value of this parameter is
-// [FileHandlingPanelOKButton] if the user chose the OK button or
-// [FileHandlingPanelCancelButton] if the user chose the Cancel button.
+// [NSFileHandlingPanelOKButton] if the user chose the OK button or
+// [NSFileHandlingPanelCancelButton] if the user chose the Cancel button.
 //
 // # Discussion
-// 
+//
 // Configure all of the relevant properties of the panel before you call this
 // method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/begin(completionHandler:)
 func (s NSSavePanel) BeginWithCompletionHandler(handler ModalResponseHandler) {
-_block0, _ := NewModalResponseBlock(handler)
+	_block0, _ := NewModalResponseBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("beginWithCompletionHandler:"), _block0)
 }
+
 // Displays the panel and begins its event loop with the current working (or
 // last-selected) directory as the default starting point.
 //
 // # Return Value
-// 
+//
 // [NSFileHandlingPanelOKButton] (if the user clicks the OK button) or
 // [NSFileHandlingPanelCancelButton] (if the user clicks the Cancel button).
 //
 // # Discussion
-// 
+//
 // This method invokes [NSApplication]’s [RunModalForWindow] method with
 // `self` as the argument.
 //
@@ -531,10 +523,11 @@ func (s NSSavePanel) RunModal() NSModalResponse {
 	rv := objc.Send[NSModalResponse](s.ID, objc.Sel("runModal"))
 	return NSModalResponse(rv)
 }
+
 // Validates and reloads the browser columns visible in the panel.
 //
 // # Discussion
-// 
+//
 // Call this method to validate the contents of the panel. For example, you
 // might call it to allow the selection of files with certain extensions based
 // on the selection made in an accessory-view pop-up list. When the user
@@ -545,12 +538,13 @@ func (s NSSavePanel) RunModal() NSModalResponse {
 func (s NSSavePanel) ValidateVisibleColumns() {
 	objc.Send[objc.ID](s.ID, objc.Sel("validateVisibleColumns"))
 }
+
 // The action method that the panel calls when the user clicks the OK button.
 //
 // sender: The [NSSavePanel] object that contains the OK button.
 //
 // # Discussion
-// 
+//
 // In macOS 10.15 and later, you cannot call this method programmatically to
 // trigger the OK action. Prior to macOS 10.15, AppKit prevented only
 // sandboxed apps from calling this method.
@@ -559,6 +553,7 @@ func (s NSSavePanel) ValidateVisibleColumns() {
 func (s NSSavePanel) Ok(sender objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("ok:"), sender)
 }
+
 // The action method that the panel calls when the user clicks the Cancel
 // button.
 //
@@ -569,10 +564,22 @@ func (s NSSavePanel) Cancel(sender objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("cancel:"), sender)
 }
 
+// Creates a new Save panel and initializes it with default information.
+//
+// # Return Value
+//
+// The initialized Save panel.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSavePanel/savePanel
+func (_NSSavePanelClass NSSavePanelClass) SavePanel() NSSavePanel {
+	rv := objc.Send[objc.ID](objc.ID(_NSSavePanelClass.class), objc.Sel("savePanel"))
+	return NSSavePanelFromID(rv)
+}
+
 // A URL that contains the fully specified location of the targeted file.
 //
 // # Discussion
-// 
+//
 // The [NSOpenPanel] subclass sets this property to `nil` when the selection
 // contains multiple items.
 //
@@ -581,15 +588,16 @@ func (s NSSavePanel) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // The text to display in the default button.
 //
 // # Discussion
-// 
+//
 // The prompt appears on all [NSSavePanel] objects (or all [NSOpenPanel]
 // objects if this property is on an [NSOpenPanel] instance) in your
 // application. By default, the text in the default button is “Open” for
 // an Open panel and “Save” for a Save panel.
-// 
+//
 // Use short words or phrases, such as “Open,” “Save,” “Set,” or
 // “Choose,” on the button. The button is not resized to accommodate long
 // prompts.
@@ -602,10 +610,11 @@ func (s NSSavePanel) Prompt() string {
 func (s NSSavePanel) SetPrompt(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPrompt:"), objc.String(value))
 }
+
 // The message text displayed in the panel.
 //
 // # Discussion
-// 
+//
 // This prompt appears on all [NSSavePanel] objects (or all [NSOpenPanel]
 // objects if this property is on an [NSOpenPanel] instance) in your
 // application. The default message text is an empty string.
@@ -618,10 +627,11 @@ func (s NSSavePanel) Message() string {
 func (s NSSavePanel) SetMessage(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMessage:"), objc.String(value))
 }
+
 // The label text displayed in front of the filename text field.
 //
 // # Discussion
-// 
+//
 // The default value of this property is “Save As:”.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/nameFieldLabel
@@ -632,14 +642,13 @@ func (s NSSavePanel) NameFieldLabel() string {
 func (s NSSavePanel) SetNameFieldLabel(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNameFieldLabel:"), objc.String(value))
 }
+
 // The user-editable filename currently shown in the name field.
 //
 // # Discussion
-// 
-// The value of this property must not be `nil`. Note that the filename may
-// not display an extension if the value of [ExtensionHidden] is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property must not be `nil`. Note that the filename may
+// not display an extension if the value of [ExtensionHidden] is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/nameFieldStringValue
 func (s NSSavePanel) NameFieldStringValue() string {
@@ -649,6 +658,7 @@ func (s NSSavePanel) NameFieldStringValue() string {
 func (s NSSavePanel) SetNameFieldStringValue(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNameFieldStringValue:"), objc.String(value))
 }
+
 // The current directory shown in the panel.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/directoryURL
@@ -659,17 +669,18 @@ func (s NSSavePanel) DirectoryURL() foundation.INSURL {
 func (s NSSavePanel) SetDirectoryURL(value foundation.INSURL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDirectoryURL:"), value)
 }
+
 // The custom accessory view for the current app.
 //
 // # Discussion
-// 
+//
 // You can customize the panel by adding a custom view. The custom object you
 // add appears just above the OK and Cancel buttons at the bottom of the
 // panel. The [NSSavePanel] object automatically resizes itself to accommodate
 // `accessoryView`. Use this property to change the accessory view as needed.
 // If `accessoryView` is `nil`, the Save panel removes the current accessory
 // view.
-// 
+//
 // The panel relinquishes ownership of the accessory view after the panel is
 // closed. If you want to reuse the accessory view, don’t rely on the panel
 // to hold onto the accessory view until the next time you use it; instead,
@@ -683,25 +694,23 @@ func (s NSSavePanel) AccessoryView() INSView {
 func (s NSSavePanel) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAccessoryView:"), value)
 }
+
 // A Boolean value that indicates whether the panel displays the Tags field.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the panel displays the Tags
-// field; if [false], the panel doesn’t display the Tags field. The default
-// value is [true]. (Note that the Tags field is appropriate only in a Save
-// panel.)
-// 
-// If you set this property to [true], you are responsible for setting tag
-// names on the resulting file after saving is complete. If you don’t set
-// this property, macOS will automatically show the tag field and attempt to
-// apply the tags to the file. To set tags on files, use the [tagNamesKey].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [tagNamesKey]: https://developer.apple.com/documentation/Foundation/URLResourceKey/tagNamesKey
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the panel displays the Tags field;
+// if false, the panel doesn’t display the Tags field. The default value is
+// true. (Note that the Tags field is appropriate only in a Save panel.)
+//
+// If you set this property to true, you are responsible for setting tag names
+// on the resulting file after saving is complete. If you don’t set this
+// property, macOS will automatically show the tag field and attempt to apply
+// the tags to the file. To set tags on files, use the [tagNamesKey].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/showsTagField
+//
+// [tagNamesKey]: https://developer.apple.com/documentation/Foundation/URLResourceKey/tagNamesKey
 func (s NSSavePanel) ShowsTagField() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("showsTagField"))
 	return rv
@@ -709,16 +718,15 @@ func (s NSSavePanel) ShowsTagField() bool {
 func (s NSSavePanel) SetShowsTagField(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsTagField:"), value)
 }
+
 // The tag names that you want to include on a saved file.
 //
 // # Discussion
-// 
-// When the value of [ShowsTagField] is [true], use this property to provide
-// an array of strings that represent the initial tag names to display in the
+//
+// When the value of [ShowsTagField] is true, use this property to provide an
+// array of strings that represent the initial tag names to display in the
 // panel. If you set the property to `nil` or an empty array, the panel
 // displays no initial tag names.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/tagNames
 func (s NSSavePanel) TagNames() []string {
@@ -728,17 +736,15 @@ func (s NSSavePanel) TagNames() []string {
 func (s NSSavePanel) SetTagNames(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTagNames:"), objectivec.StringSliceToNSArray(value))
 }
+
 // A Boolean value that indicates whether the panel displays UI for creating
 // directories.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the panel includes UI to create
-// new directories. When the value is [false], the panel does not expose that
-// UI.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the panel includes UI to create
+// new directories. When the value is false, the panel does not expose that
+// UI.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/canCreateDirectories
 func (s NSSavePanel) CanCreateDirectories() bool {
@@ -748,20 +754,18 @@ func (s NSSavePanel) CanCreateDirectories() bool {
 func (s NSSavePanel) SetCanCreateDirectories(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCanCreateDirectories:"), value)
 }
+
 // A Boolean value that indicates whether the panel displays UI for hiding or
 // showing filename extensions.
 //
 // # Discussion
-// 
-// Set the value of this property before displaying the panel. When the value
-// of this property is [true], and the Finder preference “Show all
-// extensions” is [false], the panel displays the Hide Extension menu item.
-// The default value of this property is [false].
-// 
-// Use the [ExtensionHidden] property to hide or shows extensions.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// Set the value of this property before displaying the panel. When the value
+// of this property is true, and the Finder preference “Show all
+// extensions” is false, the panel displays the Hide Extension menu item.
+// The default value of this property is false.
+//
+// Use the [ExtensionHidden] property to hide or shows extensions.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/canSelectHiddenExtension
 func (s NSSavePanel) CanSelectHiddenExtension() bool {
@@ -771,16 +775,14 @@ func (s NSSavePanel) CanSelectHiddenExtension() bool {
 func (s NSSavePanel) SetCanSelectHiddenExtension(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCanSelectHiddenExtension:"), value)
 }
+
 // A Boolean value that indicates whether the panel displays files that are
 // normally hidden from the user.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the panel displays hidden files;
-// if [false], it does not. The default value is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the panel displays hidden files;
+// if false, it does not. The default value is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/showsHiddenFiles
 func (s NSSavePanel) ShowsHiddenFiles() bool {
@@ -790,20 +792,18 @@ func (s NSSavePanel) ShowsHiddenFiles() bool {
 func (s NSSavePanel) SetShowsHiddenFiles(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsHiddenFiles:"), value)
 }
+
 // A Boolean value that indicates whether to display filename extensions.
 //
 // # Discussion
-// 
-// When the value of this property is [false], [NSSavePanel] shows the
-// filename extension in places where you refer to the file by name. The user
-// can override this value by checking the hide extension menu item, which
-// reflects this value. The default value is [true].
-// 
+//
+// When the value of this property is false, [NSSavePanel] shows the filename
+// extension in places where you refer to the file by name. The user can
+// override this value by checking the hide extension menu item, which
+// reflects this value. The default value is true.
+//
 // If a user adds or removes a filename extension in the panel’s name field,
 // the panel updates this property to reflect that choice.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/isExtensionHidden
 func (s NSSavePanel) ExtensionHidden() bool {
@@ -813,25 +813,24 @@ func (s NSSavePanel) ExtensionHidden() bool {
 func (s NSSavePanel) SetExtensionHidden(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setExtensionHidden:"), value)
 }
+
 // A Boolean value that indicates whether whether the panel is expanded.
 //
 // # Discussion
-// 
-// The value of this property is [true] if the panel is expanded; otherwise,
-// [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true if the panel is expanded; otherwise,
+// false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/isExpanded
 func (s NSSavePanel) Expanded() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isExpanded"))
 	return rv
 }
+
 // An array of types that specify the files types to which you can save.
 //
 // # Discussion
-// 
+//
 // Defaults to an empty array that indicates that you can use any file type.
 // If you don’t provide an extension, the system uses the first preferred
 // extension in the array for the save panel. If you specify a type that
@@ -848,22 +847,20 @@ func (s NSSavePanel) AllowedContentTypes() []uniformtypeidentifiers.UTType {
 func (s NSSavePanel) SetAllowedContentTypes(value []uniformtypeidentifiers.UTType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowedContentTypes:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // A Boolean value that indicates whether the panel allows the user to save
 // files with a filename extension that’s not in the list of allowed types.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the panel allows the user to
-// save files with an extension that’s not in the list of allowed types. The
-// default value is [false].
-// 
+//
+// When the value of this property is true, the panel allows the user to save
+// files with an extension that’s not in the list of allowed types. The
+// default value is false.
+//
 // If the user tries to save a filename with a recognized extension that’s
 // not in the list of allowed types, they are presented with a dialog. If the
-// value of this property is [true], then the dialog presents the option of
+// value of this property is true, then the dialog presents the option of
 // using the extension the user specified.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/allowsOtherFileTypes
 func (s NSSavePanel) AllowsOtherFileTypes() bool {
@@ -873,16 +870,14 @@ func (s NSSavePanel) AllowsOtherFileTypes() bool {
 func (s NSSavePanel) SetAllowsOtherFileTypes(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsOtherFileTypes:"), value)
 }
+
 // A Boolean value that indicates whether the panel displays file packages as
 // directories.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the panel displays file packages
-// as directories; if [false], it will not.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the panel displays file packages
+// as directories; if false, it will not.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/treatsFilePackagesAsDirectories
 func (s NSSavePanel) TreatsFilePackagesAsDirectories() bool {
@@ -892,6 +887,7 @@ func (s NSSavePanel) TreatsFilePackagesAsDirectories() bool {
 func (s NSSavePanel) SetTreatsFilePackagesAsDirectories(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTreatsFilePackagesAsDirectories:"), value)
 }
+
 // [NSSavePanel]:The current type. If set to `nil`, resets to the first
 // allowed content type. Returns `nil` if `allowedContentTypes` is empty.
 // [NSOpenPanel]: Not used.
@@ -906,6 +902,7 @@ func (s NSSavePanel) CurrentContentType() uniformtypeidentifiers.UTType {
 func (s NSSavePanel) SetCurrentContentType(value uniformtypeidentifiers.UTType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCurrentContentType:"), value)
 }
+
 // [NSSavePanel]: Whether or not to show a control for selecting the type of
 // the saved file. The control shows the types in `allowedContentTypes`.
 // Default is [NO]. [NSOpenPanel]: Not used.
@@ -919,17 +916,6 @@ func (s NSSavePanel) ShowsContentTypes() bool {
 }
 func (s NSSavePanel) SetShowsContentTypes(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsContentTypes:"), value)
-}
-// An array of filename extensions or UTIs that represent the allowed file
-// types for the panel.
-//
-// See: https://developer.apple.com/documentation/appkit/nssavepanel/allowedfiletypes
-func (s NSSavePanel) AllowedFileTypes() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("allowedFileTypes"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (s NSSavePanel) SetAllowedFileTypes(value string) {
-	objc.Send[struct{}](s.ID, objc.Sel("setAllowedFileTypes:"), objc.String(value))
 }
 
 // BeginSheetModalForWindow is a synchronous wrapper around [NSSavePanel.BeginSheetModalForWindowCompletionHandler].
@@ -961,4 +947,3 @@ func (s NSSavePanel) Begin(ctx context.Context) (NSModalResponse, error) {
 		return 0, ctx.Err()
 	}
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (vc VZCustomVirtioDeviceDelegateProviderClass) Alloc() VZCustomVirtioDevice
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCustomVirtioDeviceDelegateProvider.Delegate]
 //   - [VZCustomVirtioDeviceDelegateProvider.DeviceQueue]
 //   - [VZCustomVirtioDeviceDelegateProvider.InitWithDeviceQueueDelegate]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceDelegateProvider
 type VZCustomVirtioDeviceDelegateProvider struct {
 	VZCustomVirtioDeviceProvider
@@ -56,6 +57,7 @@ type VZCustomVirtioDeviceDelegateProvider struct {
 func VZCustomVirtioDeviceDelegateProviderFromID(id objc.ID) VZCustomVirtioDeviceDelegateProvider {
 	return VZCustomVirtioDeviceDelegateProvider{VZCustomVirtioDeviceProvider: VZCustomVirtioDeviceProviderFromID(id)}
 }
+
 // Ensure VZCustomVirtioDeviceDelegateProvider implements IVZCustomVirtioDeviceDelegateProvider.
 var _ IVZCustomVirtioDeviceDelegateProvider = VZCustomVirtioDeviceDelegateProvider{}
 
@@ -97,7 +99,6 @@ func NewVZCustomVirtioDeviceDelegateProvider() VZCustomVirtioDeviceDelegateProvi
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceDelegateProvider/initWithDeviceQueue:delegate:
 func NewVZCustomVirtioDeviceDelegateProviderWithDeviceQueueDelegate(queue objectivec.IObject, delegate objectivec.IObject) VZCustomVirtioDeviceDelegateProvider {
 	instance := getVZCustomVirtioDeviceDelegateProviderClass().Alloc()
@@ -105,7 +106,6 @@ func NewVZCustomVirtioDeviceDelegateProviderWithDeviceQueueDelegate(queue object
 	return VZCustomVirtioDeviceDelegateProviderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceDelegateProvider/initWithDeviceQueue:delegate:
 func (v VZCustomVirtioDeviceDelegateProvider) InitWithDeviceQueueDelegate(queue objectivec.IObject, delegate objectivec.IObject) VZCustomVirtioDeviceDelegateProvider {
 	rv := objc.Send[VZCustomVirtioDeviceDelegateProvider](v.ID, objc.Sel("initWithDeviceQueue:delegate:"), queue, delegate)
@@ -117,9 +117,9 @@ func (v VZCustomVirtioDeviceDelegateProvider) Delegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("delegate"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomVirtioDeviceDelegateProvider/deviceQueue
 func (v VZCustomVirtioDeviceDelegateProvider) DeviceQueue() objectivec.Object {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("deviceQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-

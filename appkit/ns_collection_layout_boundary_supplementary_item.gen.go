@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,16 +46,16 @@ func (nc NSCollectionLayoutBoundarySupplementaryItemClass) Alloc() NSCollectionL
 // An object used to add headers or footers to a collection view.
 //
 // # Overview
-// 
+//
 // A boundary supplementary item is a specialized type of supplementary item
 // ([NSCollectionLayoutSupplementaryItem]). You use boundary supplementary
 // items to add headers or footers to a section of a collection view or the
 // entire collection view.
-// 
+//
 // Each type of supplementary item must have a unique element kind. Consider
 // tracking these strings together in a way that makes it straightforward to
 // identify each element, for example:
-// 
+//
 // Add boundary supplementary items to a section by setting that section’s
 // [NSCollectionLayoutBoundarySupplementaryItem.BoundarySupplementaryItems] property:
 //
@@ -81,6 +82,7 @@ type NSCollectionLayoutBoundarySupplementaryItem struct {
 func NSCollectionLayoutBoundarySupplementaryItemFromID(id objc.ID) NSCollectionLayoutBoundarySupplementaryItem {
 	return NSCollectionLayoutBoundarySupplementaryItem{NSCollectionLayoutSupplementaryItem: NSCollectionLayoutSupplementaryItemFromID(id)}
 }
+
 // NOTE: NSCollectionLayoutBoundarySupplementaryItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -200,17 +202,14 @@ func NewCollectionLayoutBoundarySupplementaryItemWithLayoutSizeSupplementaryItem
 // top or bottom visible boundary of the section or layout it’s attached to.
 //
 // # Discussion
-// 
-// The default value of this property is [false], which means that the
-// boundary supplementary item (header or footer) remains in its original
-// position during scrolling, and moves offscreen as its section or layout
-// scrolls. Set the value of this property to [true] to pin the boundary
-// supplementary item to the visible bounds of the section or layout it’s
-// attached to. This way, the boundary supplementary item is shown while any
-// portion of the section or layout it’s attached to is visible.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is false, which means that the boundary
+// supplementary item (header or footer) remains in its original position
+// during scrolling, and moves offscreen as its section or layout scrolls. Set
+// the value of this property to true to pin the boundary supplementary item
+// to the visible bounds of the section or layout it’s attached to. This
+// way, the boundary supplementary item is shown while any portion of the
+// section or layout it’s attached to is visible.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutBoundarySupplementaryItem/pinToVisibleBounds
 func (c NSCollectionLayoutBoundarySupplementaryItem) PinToVisibleBounds() bool {
@@ -220,6 +219,7 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) PinToVisibleBounds() bool {
 func (c NSCollectionLayoutBoundarySupplementaryItem) SetPinToVisibleBounds(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPinToVisibleBounds:"), value)
 }
+
 // The floating-point value of the boundary supplementary item’s offset from
 // the section or layout it’s attached to.
 //
@@ -228,6 +228,7 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) Offset() corefoundation.CGP
 	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("offset"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The alignment of the boundary supplementary item relative to the section or
 // layout it’s attached to.
 //
@@ -236,14 +237,13 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) Alignment() NSRectAlignment
 	rv := objc.Send[NSRectAlignment](c.ID, objc.Sel("alignment"))
 	return NSRectAlignment(rv)
 }
+
 // A Boolean value that indicates whether a boundary supplementary item
 // extends the content area of the section or layout it’s attached to.
 //
 // # Discussion
-// 
-// The default value of this property is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutBoundarySupplementaryItem/extendsBoundary
 func (c NSCollectionLayoutBoundarySupplementaryItem) ExtendsBoundary() bool {
@@ -253,6 +253,7 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) ExtendsBoundary() bool {
 func (c NSCollectionLayoutBoundarySupplementaryItem) SetExtendsBoundary(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setExtendsBoundary:"), value)
 }
+
 // An array of the supplementary items that are associated with the boundary
 // edges of the entire layout, such as global headers and footers.
 //
@@ -264,4 +265,3 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) BoundarySupplementaryItems(
 func (c NSCollectionLayoutBoundarySupplementaryItem) SetBoundarySupplementaryItems(value INSCollectionLayoutBoundarySupplementaryItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBoundarySupplementaryItems:"), value)
 }
-

@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_strength_reduction_gather_to_lookup struct {
 func EspressoPass_strength_reduction_gather_to_lookupFromID(id objc.ID) EspressoPass_strength_reduction_gather_to_lookup {
 	return EspressoPass_strength_reduction_gather_to_lookup{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_strength_reduction_gather_to_lookup implements IEspressoPass_strength_reduction_gather_to_lookup.
 var _ IEspressoPass_strength_reduction_gather_to_lookup = EspressoPass_strength_reduction_gather_to_lookup{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_strength_reduction_gather_to_lookup() EspressoPass_strength
 	rv := objc.Send[EspressoPass_strength_reduction_gather_to_lookup](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

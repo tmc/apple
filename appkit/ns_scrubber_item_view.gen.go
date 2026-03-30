@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSScrubberItemView] class.
@@ -55,6 +56,7 @@ type NSScrubberItemView struct {
 func NSScrubberItemViewFromID(id objc.ID) NSScrubberItemView {
 	return NSScrubberItemView{NSScrubberArrangedView: NSScrubberArrangedViewFromID(id)}
 }
+
 // NOTE: NSScrubberItemView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -89,7 +91,7 @@ func NewNSScrubberItemView() NSScrubberItemView {
 // coder: The coder object that contains the view’s configuration details.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/init(coder:)
@@ -105,11 +107,11 @@ func NewScrubberItemViewWithCoder(coder foundation.INSCoder) NSScrubberItemView 
 // frameRect: The frame rectangle for the created view object.
 //
 // # Return Value
-// 
+//
 // An initialized view or `nil` if AppKit couldn’t create the object.
 //
 // # Discussion
-// 
+//
 // Insert the view into your window’s view hieararchy before you can do
 // anything with it. This method is the designated initializer for the
 // [NSView] class.
@@ -120,4 +122,3 @@ func NewScrubberItemViewWithFrame(frameRect corefoundation.CGRect) NSScrubberIte
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSScrubberItemViewFromID(rv)
 }
-

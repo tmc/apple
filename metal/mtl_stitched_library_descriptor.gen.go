@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,17 +45,17 @@ func (mc MTLStitchedLibraryDescriptorClass) Alloc() MTLStitchedLibraryDescriptor
 // A description of a new library of procedurally generated functions.
 //
 // # Overview
-// 
+//
 // An [MTLStitchedLibraryDescriptor] describes a library of new stitched
 // functions. A is a visible function you create by composing other Metal
 // shader functions together in a function graph.
-// 
+//
 // Configure a stitched library descriptor by assigning an array of one or
 // more [MTLFunctionStitchingGraph] instances, each describing a stitched
 // function, to the [MTLStitchedLibraryDescriptor.FunctionGraphs] property. Then assign an [MTLFunction]
 // array that includes all the functions the graphs depend on to the
 // [MTLStitchedLibraryDescriptor.Functions] property.
-// 
+//
 // Create a stitched library from the descriptor by passing it to the
 // [NewLibraryWithStitchedDescriptorError] method of an [MTLDevice]. You can
 // change the descriptor to create other libraries without affecting any
@@ -85,6 +86,7 @@ type MTLStitchedLibraryDescriptor struct {
 func MTLStitchedLibraryDescriptorFromID(id objc.ID) MTLStitchedLibraryDescriptor {
 	return MTLStitchedLibraryDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLStitchedLibraryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -147,7 +149,7 @@ func NewMTLStitchedLibraryDescriptor() MTLStitchedLibraryDescriptor {
 // The list of functions for creating the stitched library.
 //
 // # Discussion
-// 
+//
 // The function objects need to all be created by the same Metal device object
 // that you’ll use to create the library. The MSL functions referenced by
 // these function objects need to be declared with the `stitchable` attribute,
@@ -163,6 +165,7 @@ func (s MTLStitchedLibraryDescriptor) Functions() []objectivec.IObject {
 func (s MTLStitchedLibraryDescriptor) SetFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The function graphs that define the new stitched library’s functions.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStitchedLibraryDescriptor/functionGraphs
@@ -175,6 +178,7 @@ func (s MTLStitchedLibraryDescriptor) FunctionGraphs() []MTLFunctionStitchingGra
 func (s MTLStitchedLibraryDescriptor) SetFunctionGraphs(value []MTLFunctionStitchingGraph) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFunctionGraphs:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // See: https://developer.apple.com/documentation/Metal/MTLStitchedLibraryDescriptor/binaryArchives
 func (s MTLStitchedLibraryDescriptor) BinaryArchives() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("binaryArchives"))
@@ -185,6 +189,7 @@ func (s MTLStitchedLibraryDescriptor) BinaryArchives() []objectivec.IObject {
 func (s MTLStitchedLibraryDescriptor) SetBinaryArchives(value []objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBinaryArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // See: https://developer.apple.com/documentation/Metal/MTLStitchedLibraryDescriptor/options
 func (s MTLStitchedLibraryDescriptor) Options() MTLStitchedLibraryOptions {
 	rv := objc.Send[MTLStitchedLibraryOptions](s.ID, objc.Sel("options"))
@@ -193,4 +198,3 @@ func (s MTLStitchedLibraryDescriptor) Options() MTLStitchedLibraryOptions {
 func (s MTLStitchedLibraryDescriptor) SetOptions(value MTLStitchedLibraryOptions) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOptions:"), value)
 }
-

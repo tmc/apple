@@ -5,8 +5,9 @@ package networkextension
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NETunnelProvider] class.
@@ -46,17 +47,17 @@ func (nc NETunnelProviderClass) Alloc() NETunnelProvider {
 // NEAppProxyProvider.
 //
 // # Overview
-// 
+//
 // Each [NETunnelProvider] instance corresponds to a single tunneling session,
 // with a single associated configuration.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // The [NETunnelProvider] class should not be subclassed directly. Instead,
 // you should create subclasses of [NETunnelProvider] subclasses.
-// 
+//
 // # Methods to Override
-// 
+//
 // - [NETunnelProvider.HandleAppMessageCompletionHandler]
 //
 // # Getting the tunnel configuration
@@ -94,6 +95,7 @@ type NETunnelProvider struct {
 func NETunnelProviderFromID(id objc.ID) NETunnelProvider {
 	return NETunnelProvider{NEProvider: NEProviderFromID(id)}
 }
+
 // NOTE: NETunnelProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -187,21 +189,19 @@ func NewNETunnelProvider() NETunnelProvider {
 // containing more information about the error. See [NETunnelProviderError]
 // for possible error codes. If the network settings were set successfully
 // then the error parameter will be set to nil.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // Use this method to specify the settings to be used by network communication
 // that traverses the tunnel. If you are implementing a Packet Tunnel
 // Provider, pass a [NEPacketTunnelNetworkSettings] object containing virtual
 // IP configuration, DNS settings, proxy settings, the tunnel MTU, and IP
 // routes. If you are implementing an App Proxy Provider, pass a
 // [NETunnelNetworkSettings] containing DNS settings and proxy settings.
-// 
+//
 // This method should be called as part of the process of establishing the
 // tunnel, as follows:
-// 
+//
 // - The system calls the appropriate “start” method on the tunnel
 // provider object. - The provider obtains the network settings for the tunnel
 // by some means dictated by the tunnel provider, such as by downloading them
@@ -213,10 +213,13 @@ func NewNETunnelProvider() NETunnelProvider {
 // the “start” method to indicate that the tunnel is fully established.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProvider/setTunnelNetworkSettings(_:completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (t NETunnelProvider) SetTunnelNetworkSettingsCompletionHandler(tunnelNetworkSettings INETunnelNetworkSettings, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](t.ID, objc.Sel("setTunnelNetworkSettings:completionHandler:"), tunnelNetworkSettings, _block1)
 }
+
 // Handle messages sent by the tunnel provider extension’s containing app.
 //
 // messageData: The message data sent by the tunnel provider extension’s containing app.
@@ -227,59 +230,59 @@ _block1, _ := NewErrorBlock(completionHandler)
 // app via the `responseData` parameter.
 //
 // # Discussion
-// 
+//
 // Use this method to communicate information between the Tunnel Provider and
 // the Tunnel Provider’s containing app.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProvider/handleAppMessage(_:completionHandler:)
 func (t NETunnelProvider) HandleAppMessageCompletionHandler(messageData foundation.INSData, completionHandler DataHandler) {
-_block1, _ := NewDataBlock(completionHandler)
+	_block1, _ := NewDataBlock(completionHandler)
 	objc.Send[objc.ID](t.ID, objc.Sel("handleAppMessage:completionHandler:"), messageData, _block1)
 }
 
 // The configuration of the current tunneling session.
 //
 // # Discussion
-// 
+//
 // The configuration is created by the containing app of the Tunnel Provider
 // using the [NETunnelProviderManager] class, or by the ingestion of a
 // `com.AppleXCUIElementTypeVpnXCUIElementTypeManaged()` or a
 // `com.AppleXCUIElementTypeVpnXCUIElementTypeManagedXCUIElementTypeApplayer()`
 // configuration profile payload. See the [NETunnelProviderManager] class for
 // more details.
-// 
+//
 // For [NEPacketTunnelProvider] subclasses and [NEAppProxyProvider]
 // subclasses, this property will be set to a [NETunnelProviderProtocol]
 // object.
-// 
+//
 // [NETunnelProvider] subclasses can observe this property using KVO to be
 // notified when the configuration changes. For details see [Key-Value
 // Observing Programming Guide].
 //
-// [Key-Value Observing Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProvider/protocolConfiguration
+//
+// [Key-Value Observing Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i
 func (t NETunnelProvider) ProtocolConfiguration() INEVPNProtocol {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("protocolConfiguration"))
 	return NEVPNProtocolFromID(objc.ID(rv))
 }
+
 // The method by which network traffic is routed to the tunnel.
 //
 // # Discussion
-// 
-// The default is [NETunnelProviderRoutingMethod.destinationIP].
 //
-// [NETunnelProviderRoutingMethod.destinationIP]: https://developer.apple.com/documentation/NetworkExtension/NETunnelProviderRoutingMethod/destinationIP
+// The default is [NETunnelProviderRoutingMethodDestinationIP].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProvider/routingMethod
 func (t NETunnelProvider) RoutingMethod() NETunnelProviderRoutingMethod {
 	rv := objc.Send[NETunnelProviderRoutingMethod](t.ID, objc.Sel("routingMethod"))
 	return NETunnelProviderRoutingMethod(rv)
 }
+
 // The app rules dictating which apps use the current tunneling session.
 //
 // # Discussion
-// 
+//
 // This property is only non-`nil` if the current configuration is a Per-App
 // VPN configuration.
 //
@@ -290,16 +293,14 @@ func (t NETunnelProvider) AppRules() []NEAppRule {
 		return NEAppRuleFromID(id)
 	})
 }
+
 // Indicate to the system that the tunnel is being re-established.
 //
 // # Discussion
-// 
-// The Tunnel Provider should set this property to [true] whenever it starts
-// to reconnect to the tunnel server. Once the Tunnel Provider completes the
-// process of reconnecting it should set this property to [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The Tunnel Provider should set this property to true whenever it starts to
+// reconnect to the tunnel server. Once the Tunnel Provider completes the
+// process of reconnecting it should set this property to false.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NETunnelProvider/reasserting
 func (t NETunnelProvider) Reasserting() bool {
@@ -309,6 +310,7 @@ func (t NETunnelProvider) Reasserting() bool {
 func (t NETunnelProvider) SetReasserting(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setReasserting:"), value)
 }
+
 // The domain used for Tunnel Provider errors.
 //
 // See: https://developer.apple.com/documentation/networkextension/netunnelprovidererrordomain
@@ -346,4 +348,3 @@ func (t NETunnelProvider) HandleAppMessage(ctx context.Context, messageData foun
 		return nil, ctx.Err()
 	}
 }
-

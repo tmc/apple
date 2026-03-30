@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (nc NEOnDemandRuleIgnoreClass) Alloc() NEOnDemandRuleIgnore {
 // A VPN On Demand rule that doesn’t change the status of the VPN.
 //
 // # Overview
-// 
+//
 // When rules of this class match, the VPN connection is not started, and the
 // current status of the VPN connection is left unchanged.
 //
@@ -58,6 +59,7 @@ type NEOnDemandRuleIgnore struct {
 func NEOnDemandRuleIgnoreFromID(id objc.ID) NEOnDemandRuleIgnore {
 	return NEOnDemandRuleIgnore{NEOnDemandRule: NEOnDemandRuleFromID(id)}
 }
+
 // NOTE: NEOnDemandRuleIgnore adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewNEOnDemandRuleIgnore() NEOnDemandRuleIgnore {
 	rv := objc.Send[NEOnDemandRuleIgnore](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

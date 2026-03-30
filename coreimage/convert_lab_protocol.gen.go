@@ -39,6 +39,7 @@ type CIConvertLab interface {
 type CIConvertLabObject struct {
 	objectivec.Object
 }
+
 func (o CIConvertLabObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,12 +58,14 @@ func CIConvertLabObjectFromID(id objc.ID) CIConvertLabObject {
 func (o CIConvertLabObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/normalize
 func (o CIConvertLabObject) Normalize() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("normalize"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -70,13 +73,16 @@ func (o CIConvertLabObject) Normalize() bool {
 func (o CIConvertLabObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/inputImage
 func (o CIConvertLabObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/normalize
 func (o CIConvertLabObject) SetNormalize(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNormalize:"), value)
 }
-

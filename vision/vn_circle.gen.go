@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -68,6 +69,7 @@ type VNCircle struct {
 func VNCircleFromID(id objc.ID) VNCircle {
 	return VNCircle{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNCircle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -169,6 +171,7 @@ func (c VNCircle) InitWithCenterRadius(center IVNPoint, radius float64) VNCircle
 	rv := objc.Send[VNCircle](c.ID, objc.Sel("initWithCenter:radius:"), center, radius)
 	return rv
 }
+
 // Creates a circle with the specified center and diameter.
 //
 // center: The circle center.
@@ -180,23 +183,22 @@ func (c VNCircle) InitWithCenterDiameter(center IVNPoint, diameter float64) VNCi
 	rv := objc.Send[VNCircle](c.ID, objc.Sel("initWithCenter:diameter:"), center, diameter)
 	return rv
 }
+
 // Determines if this circle, including its boundary, contains the specified
 // point.
 //
 // point: The point to test.
 //
 // # Return Value
-// 
-// [true] if the point is contained within this circle, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Foundation/NSExpression/true
+// true if the point is contained within this circle, otherwise false.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCircle/contains(_:)
 func (c VNCircle) ContainsPoint(point IVNPoint) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("containsPoint:"), point)
 	return rv
 }
+
 // Determines if a ring around this circle’s circumference contains the
 // specified point.
 //
@@ -205,11 +207,8 @@ func (c VNCircle) ContainsPoint(point IVNPoint) bool {
 // ringWidth: The width of the ring around this circle’s circumference.
 //
 // # Return Value
-// 
-// [true] if the ring contains the specified point, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the ring contains the specified point, otherwise false.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCircle/contains(_:inCircumferentialRingOfWidth:)
 func (c VNCircle) ContainsPointInCircumferentialRingOfWidth(point IVNPoint, ringWidth float64) bool {
@@ -227,6 +226,7 @@ func (c VNCircle) Center() IVNPoint {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("center"))
 	return VNPointFromID(objc.ID(rv))
 }
+
 // The circle’s diameter.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCircle/diameter
@@ -234,6 +234,7 @@ func (c VNCircle) Diameter() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("diameter"))
 	return rv
 }
+
 // The circle’s radius.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCircle/radius
@@ -249,4 +250,3 @@ func (_VNCircleClass VNCircleClass) ZeroCircle() VNCircle {
 	rv := objc.Send[objc.ID](objc.ID(_VNCircleClass.class), objc.Sel("zeroCircle"))
 	return VNCircleFromID(objc.ID(rv))
 }
-

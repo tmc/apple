@@ -4,6 +4,7 @@ package gtshaderprofiler
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type GRCPerFrameDataClass struct {
 func GRCPerFrameDataClassFromID(id objc.ID) GRCPerFrameDataClass {
 	return GRCPerFrameDataClass{objectivec.Object{ID: id}}
 }
+
 // Ensure GRCPerFrameDataClass implements IGRCPerFrameDataClass.
 var _ IGRCPerFrameDataClass = GRCPerFrameDataClass{}
 
@@ -78,4 +80,3 @@ func NewGRCPerFrameDataClass() GRCPerFrameDataClass {
 	rv := objc.Send[GRCPerFrameDataClass](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

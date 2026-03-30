@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (nc NSAccessibilityCustomRotorSearchParametersClass) Alloc() NSAccessibilit
 // Search parameters for a custom rotor.
 //
 // # Overview
-// 
+//
 // Use these parameters to determine the next matching
 // [NSAccessibilityCustomRotorItemResult].
 //
@@ -75,6 +76,7 @@ type NSAccessibilityCustomRotorSearchParameters struct {
 func NSAccessibilityCustomRotorSearchParametersFromID(id objc.ID) NSAccessibilityCustomRotorSearchParameters {
 	return NSAccessibilityCustomRotorSearchParameters{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSAccessibilityCustomRotorSearchParameters adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,15 +142,12 @@ func NewNSAccessibilityCustomRotorSearchParameters() NSAccessibilityCustomRotorS
 // The current item that determines where the search starts.
 //
 // # Discussion
-// 
-// If this value is `nil`, [SearchDirection] determines the current item. A
-// search direction of [NSAccessibilityCustomRotor.SearchDirection.next]
-// begins the search from the first item, and a search direction of
-// [NSAccessibilityCustomRotor.SearchDirection.previous] begins the search
-// from the last item.
 //
-// [NSAccessibilityCustomRotor.SearchDirection.next]: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/SearchDirection/next
-// [NSAccessibilityCustomRotor.SearchDirection.previous]: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/SearchDirection/previous
+// If this value is `nil`, [SearchDirection] determines the current item. A
+// search direction of [NSAccessibilityCustomRotorSearchDirectionNext] begins
+// the search from the first item, and a search direction of
+// [NSAccessibilityCustomRotorSearchDirectionPrevious] begins the search from
+// the last item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/SearchParameters/currentItem
 func (a NSAccessibilityCustomRotorSearchParameters) CurrentItem() INSAccessibilityCustomRotorItemResult {
@@ -158,6 +157,7 @@ func (a NSAccessibilityCustomRotorSearchParameters) CurrentItem() INSAccessibili
 func (a NSAccessibilityCustomRotorSearchParameters) SetCurrentItem(value INSAccessibilityCustomRotorItemResult) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentItem:"), value)
 }
+
 // A string of text to filter the results against.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/SearchParameters/filterString
@@ -168,6 +168,7 @@ func (a NSAccessibilityCustomRotorSearchParameters) FilterString() string {
 func (a NSAccessibilityCustomRotorSearchParameters) SetFilterString(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFilterString:"), objc.String(value))
 }
+
 // The direction to search for an item result.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/SearchParameters/searchDirection
@@ -178,4 +179,3 @@ func (a NSAccessibilityCustomRotorSearchParameters) SearchDirection() NSAccessib
 func (a NSAccessibilityCustomRotorSearchParameters) SetSearchDirection(value NSAccessibilityCustomRotorSearchDirection) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSearchDirection:"), value)
 }
-

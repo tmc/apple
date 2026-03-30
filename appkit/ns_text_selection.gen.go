@@ -4,8 +4,9 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -83,6 +84,7 @@ type NSTextSelection struct {
 func NSTextSelectionFromID(id objc.ID) NSTextSelection {
 	return NSTextSelection{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTextSelection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -182,10 +184,10 @@ func NewNSTextSelection() NSTextSelection {
 // Creates a test selection from data in an unarchiver.
 //
 // coder: A coder that subclasses [NSCoder].
-// //
-// [NSCoder]: https://developer.apple.com/documentation/Foundation/NSCoder
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/init(coder:)
+//
+// [NSCoder]: https://developer.apple.com/documentation/Foundation/NSCoder
 func NewTextSelectionWithCoder(coder foundation.INSCoder) NSTextSelection {
 	instance := getNSTextSelectionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -198,10 +200,10 @@ func NewTextSelectionWithCoder(coder foundation.INSCoder) NSTextSelection {
 // location: The text location
 //
 // affinity: One of the possible [NSTextSelection.Affinity] options.
-// //
-// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/init(_:affinity:)
+//
+// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
 func NewTextSelectionWithLocationAffinity(location NSTextLocation, affinity NSTextSelectionAffinity) NSTextSelection {
 	instance := getNSTextSelectionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocation:affinity:"), location, affinity)
@@ -214,14 +216,13 @@ func NewTextSelectionWithLocationAffinity(location NSTextLocation, affinity NSTe
 // range: The range of the selection.
 //
 // affinity: One of the available [NSTextSelection.Affinity] options.
-// //
-// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
 //
 // granularity: One of the available [NSTextSelection.Granularity] options.
-// //
-// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/init(range:affinity:granularity:)
+//
+// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
+// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 func NewTextSelectionWithRangeAffinityGranularity(range_ INSTextRange, affinity NSTextSelectionAffinity, granularity NSTextSelectionGranularity) NSTextSelection {
 	instance := getNSTextSelectionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRange:affinity:granularity:"), range_, affinity, granularity)
@@ -234,14 +235,13 @@ func NewTextSelectionWithRangeAffinityGranularity(range_ INSTextRange, affinity 
 // textRanges: An array of text ranges.
 //
 // affinity: One of the available [NSTextSelection.Affinity] options.
-// //
-// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
 //
 // granularity: One of the available [NSTextSelection.Granularity] options.
-// //
-// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/init(_:affinity:granularity:)
+//
+// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
+// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 func NewTextSelectionWithRangesAffinityGranularity(textRanges []NSTextRange, affinity NSTextSelectionAffinity, granularity NSTextSelectionGranularity) NSTextSelection {
 	instance := getNSTextSelectionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRanges:affinity:granularity:"), objectivec.IObjectSliceToNSArray(textRanges), affinity, granularity)
@@ -254,68 +254,70 @@ func NewTextSelectionWithRangesAffinityGranularity(textRanges []NSTextRange, aff
 // location: The text location
 //
 // affinity: One of the possible [NSTextSelection.Affinity] options.
-// //
-// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/init(_:affinity:)
+//
+// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
 func (t NSTextSelection) InitWithLocationAffinity(location NSTextLocation, affinity NSTextSelectionAffinity) NSTextSelection {
 	rv := objc.Send[NSTextSelection](t.ID, objc.Sel("initWithLocation:affinity:"), location, affinity)
 	return rv
 }
+
 // Creates a new text selection with the range, selection affinity, and
 // granularity you provide.
 //
 // range: The range of the selection.
 //
 // affinity: One of the available [NSTextSelection.Affinity] options.
-// //
-// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
 //
 // granularity: One of the available [NSTextSelection.Granularity] options.
-// //
-// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/init(range:affinity:granularity:)
+//
+// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
+// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 func (t NSTextSelection) InitWithRangeAffinityGranularity(range_ INSTextRange, affinity NSTextSelectionAffinity, granularity NSTextSelectionGranularity) NSTextSelection {
 	rv := objc.Send[NSTextSelection](t.ID, objc.Sel("initWithRange:affinity:granularity:"), range_, affinity, granularity)
 	return rv
 }
+
 // Creates a new text selection with the ranges, selection affinity, and
 // granularity you provide.
 //
 // textRanges: An array of text ranges.
 //
 // affinity: One of the available [NSTextSelection.Affinity] options.
-// //
-// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
 //
 // granularity: One of the available [NSTextSelection.Granularity] options.
-// //
-// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/init(_:affinity:granularity:)
+//
+// [NSTextSelection.Affinity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum
+// [NSTextSelection.Granularity]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum
 func (t NSTextSelection) InitWithRangesAffinityGranularity(textRanges []NSTextRange, affinity NSTextSelectionAffinity, granularity NSTextSelectionGranularity) NSTextSelection {
 	rv := objc.Send[NSTextSelection](t.ID, objc.Sel("initWithRanges:affinity:granularity:"), objectivec.IObjectSliceToNSArray(textRanges), affinity, granularity)
 	return rv
 }
+
 // Creates a test selection from data in an unarchiver.
 //
 // coder: A coder that subclasses [NSCoder].
-// //
-// [NSCoder]: https://developer.apple.com/documentation/Foundation/NSCoder
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/init(coder:)
+//
+// [NSCoder]: https://developer.apple.com/documentation/Foundation/NSCoder
 func (t NSTextSelection) InitWithCoder(coder foundation.INSCoder) NSTextSelection {
 	rv := objc.Send[NSTextSelection](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Creates a subselection of the current text selection with the ranges you
 // specify.
 //
 // textRanges: An array of text ranges.
 //
 // # Return Value
-// 
+//
 // A new [NSTextSelection].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/textSelection(_:)
@@ -330,25 +332,24 @@ func (t NSTextSelection) EncodeWithCoder(coder foundation.INSCoder) {
 // Returns the selection affinity of the text selection.
 //
 // # Discussion
-// 
-// The affinity is [NSTextSelection.Affinity.downstream] by default. For a
+//
+// The affinity is [NSTextSelectionAffinityDownstream] by default. For a
 // zero-length selection, it describes the visual location of the text cursor
 // between the head of line containing the selection location (downstream) or
 // tail of the previous line (upstream). For a selection with contents, it
 // describes the logical direction of non-anchored edge of the selection.
-//
-// [NSTextSelection.Affinity.downstream]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Affinity-swift.enum/downstream
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/affinity-swift.property
 func (t NSTextSelection) Affinity() NSTextSelectionAffinity {
 	rv := objc.Send[NSTextSelectionAffinity](t.ID, objc.Sel("affinity"))
 	return NSTextSelectionAffinity(rv)
 }
+
 // Represents the anchor position offset from the beginning of a line fragment
 // in the visual order for the initial tap or click location.
 //
 // # Discussion
-// 
+//
 // That starts from the left for a horizontal line fragment, and from the top
 // for a vertical. Navigating between lines uses this point when the current
 // line fragment associated with the selection is shorter than the next line
@@ -362,20 +363,20 @@ func (t NSTextSelection) AnchorPositionOffset() float64 {
 func (t NSTextSelection) SetAnchorPositionOffset(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAnchorPositionOffset:"), value)
 }
+
 // The granularity of the selection.
 //
 // # Discussion
-// 
-// The default is [NSTextSelection.Granularity.character]. Selection extending
-// operations modify the selection by `granularity`.
 //
-// [NSTextSelection.Granularity.character]: https://developer.apple.com/documentation/AppKit/NSTextSelection/Granularity-swift.enum/character
+// The default is [NSTextSelectionGranularityCharacter]. Selection extending
+// operations modify the selection by `granularity`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelection/granularity-swift.property
 func (t NSTextSelection) Granularity() NSTextSelectionGranularity {
 	rv := objc.Send[NSTextSelectionGranularity](t.ID, objc.Sel("granularity"))
 	return NSTextSelectionGranularity(rv)
 }
+
 // A Boolean value that indicates whether the framework interprets the
 // selection as logical or visual.
 //
@@ -387,6 +388,7 @@ func (t NSTextSelection) Logical() bool {
 func (t NSTextSelection) SetLogical(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLogical:"), value)
 }
+
 // A Boolean value that indicates transient text selection during drag
 // handling.
 //
@@ -395,11 +397,12 @@ func (t NSTextSelection) Transient() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isTransient"))
 	return rv
 }
+
 // Specifies the secondary character location when user taps or clicks at a
 // directional boundary.
 //
 // # Discussion
-// 
+//
 // Setting a non-`nil` location has a side effect of making `isLogical` to
 // `false`.
 //
@@ -411,10 +414,11 @@ func (t NSTextSelection) SecondarySelectionLocation() NSTextLocation {
 func (t NSTextSelection) SetSecondarySelectionLocation(value NSTextLocation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSecondarySelectionLocation:"), value)
 }
+
 // Represents an array of noncontiguous logical ranges in the selection.
 //
 // # Discussion
-// 
+//
 // The array must be logically ordered. When editing, all ranges in a text
 // selection constitute a single insertion point.
 //
@@ -425,6 +429,7 @@ func (t NSTextSelection) TextRanges() []NSTextRange {
 		return NSTextRangeFromID(id)
 	})
 }
+
 // The template attributes the framework uses for characters that replace the
 // contents of this selection.
 //
@@ -436,4 +441,3 @@ func (t NSTextSelection) TypingAttributes() foundation.INSDictionary {
 func (t NSTextSelection) SetTypingAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTypingAttributes:"), value)
 }
-

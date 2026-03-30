@@ -4,6 +4,7 @@ package diskimages2
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type DIAPFSPartition struct {
 func DIAPFSPartitionFromID(id objc.ID) DIAPFSPartition {
 	return DIAPFSPartition{DIDataPartition: DIDataPartitionFromID(id)}
 }
+
 // Ensure DIAPFSPartition implements IDIAPFSPartition.
 var _ IDIAPFSPartition = DIAPFSPartition{}
 
@@ -77,4 +79,3 @@ func NewDIAPFSPartition() DIAPFSPartition {
 	rv := objc.Send[DIAPFSPartition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

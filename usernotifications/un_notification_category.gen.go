@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (uc UNNotificationCategoryClass) Alloc() UNNotificationCategory {
 // system displays.
 //
 // # Overview
-// 
+//
 // A [UNNotificationCategory] object defines a type of notification that your
 // executable can receive. You create category objects to define your app’s
 // — notifications that have action buttons the user can select in response
@@ -55,14 +56,14 @@ func (uc UNNotificationCategoryClass) Alloc() UNNotificationCategory {
 // your category objects using the [SetNotificationCategories] method of
 // [UNUserNotificationCenter]. You can register as many category objects as
 // you need.
-// 
+//
 // To apply category objects to your notifications, include the category’s
 // identifier string in the payload of any notifications you create. For local
 // notifications, put this string in the [UNNotificationCategory.CategoryIdentifier] property of the
 // [UNMutableNotificationContent] object that you use to specify the
 // notification’s content. For remote notifications, use this string as the
 // value of the `category` key in the `aps` dictionary of your payload.
-// 
+//
 // Categories can have associated actions, which define custom buttons the
 // system displays for notifications of that category. When the system has
 // unlimited space, the system displays up to 10 actions. When the system has
@@ -92,6 +93,7 @@ type UNNotificationCategory struct {
 func UNNotificationCategoryFromID(id objc.ID) UNNotificationCategory {
 	return UNNotificationCategory{objectivec.Object{ID: id}}
 }
+
 // NOTE: UNNotificationCategory adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -180,7 +182,7 @@ func NewUNNotificationCategory() UNNotificationCategory {
 // formatting characters) in the string to represent the number of
 // notifications with the same thread identifier. For example, the string
 // “`%u Messages`” becomes “`2 Messages`” when there are two messages.
-// 
+//
 // To specify different strings for the singular and plural cases, use the
 // [localizedUserNotificationString(forKey:arguments:)] method of [NSString]
 // to specify the value for this parameter. The key passed to that method
@@ -188,20 +190,19 @@ func NewUNNotificationCategory() UNNotificationCategory {
 // property list of your project. A strings dictionary lets you specify
 // different formatted strings based on the language rules, and is as
 // described in [Internationalization and Localization Guide].
-// //
-// [Internationalization and Localization Guide]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/Introduction/Introduction.html#//apple_ref/doc/uid/10000171i
-// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
-// [localizedUserNotificationString(forKey:arguments:)]: https://developer.apple.com/documentation/Foundation/NSString/localizedUserNotificationString(forKey:arguments:)
 //
 // categorySummaryFormat: A format string for the summary description used when the system groups the
 // category’s notifications.
 //
 // options: Additional options for handling notifications of this type. For a list of
 // possible values, see [UNNotificationCategoryOptions].
-// //
-// [UNNotificationCategoryOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategoryOptions
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategory/init(identifier:actions:intentIdentifiers:hiddenPreviewsBodyPlaceholder:categorySummaryFormat:options:)
+//
+// [Internationalization and Localization Guide]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/Introduction/Introduction.html#//apple_ref/doc/uid/10000171i
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
+// [localizedUserNotificationString(forKey:arguments:)]: https://developer.apple.com/documentation/Foundation/NSString/localizedUserNotificationString(forKey:arguments:)
+// [UNNotificationCategoryOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategoryOptions
 func NewUNNotificationCategoryWithIdentifierActionsIntentIdentifiersHiddenPreviewsBodyPlaceholderCategorySummaryFormatOptions(identifier string, actions []UNNotificationAction, intentIdentifiers []string, hiddenPreviewsBodyPlaceholder string, categorySummaryFormat string, options UNNotificationCategoryOptions) UNNotificationCategory {
 	rv := objc.Send[objc.ID](objc.ID(getUNNotificationCategoryClass().class), objc.Sel("categoryWithIdentifier:actions:intentIdentifiers:hiddenPreviewsBodyPlaceholder:categorySummaryFormat:options:"), objc.String(identifier), objectivec.IObjectSliceToNSArray(actions), objectivec.StringSliceToNSArray(intentIdentifiers), objc.String(hiddenPreviewsBodyPlaceholder), objc.String(categorySummaryFormat), options)
 	return UNNotificationCategoryFromID(rv)
@@ -227,7 +228,7 @@ func NewUNNotificationCategoryWithIdentifierActionsIntentIdentifiersHiddenPrevie
 // formatting characters) in the string to represent the number of
 // notifications with the same thread identifier. For example, the string
 // “`%u Messages`” becomes “`2 Messages`” when there are two messages.
-// 
+//
 // To specify different strings for the singular and plural cases, use the
 // [localizedUserNotificationString(forKey:arguments:)] method of [NSString]
 // to specify the value for this parameter. The key passed to that method
@@ -235,21 +236,20 @@ func NewUNNotificationCategoryWithIdentifierActionsIntentIdentifiersHiddenPrevie
 // property list of your project. A strings dictionary lets you specify
 // different formatted strings based on the language rules, and is as
 // described in [Internationalization and Localization Guide].
-// //
-// [Internationalization and Localization Guide]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/Introduction/Introduction.html#//apple_ref/doc/uid/10000171i
-// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
-// [localizedUserNotificationString(forKey:arguments:)]: https://developer.apple.com/documentation/Foundation/NSString/localizedUserNotificationString(forKey:arguments:)
 //
 // options: Additional options for handling notifications of this type. For a list of
 // possible values, see [UNNotificationCategoryOptions].
-// //
-// [UNNotificationCategoryOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategoryOptions
 //
 // # Return Value
-// 
+//
 // An initialized category object.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategory/init(identifier:actions:intentIdentifiers:hiddenPreviewsBodyPlaceholder:options:)
+//
+// [Internationalization and Localization Guide]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/Introduction/Introduction.html#//apple_ref/doc/uid/10000171i
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
+// [localizedUserNotificationString(forKey:arguments:)]: https://developer.apple.com/documentation/Foundation/NSString/localizedUserNotificationString(forKey:arguments:)
+// [UNNotificationCategoryOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategoryOptions
 func NewUNNotificationCategoryWithIdentifierActionsIntentIdentifiersHiddenPreviewsBodyPlaceholderOptions(identifier string, actions []UNNotificationAction, intentIdentifiers []string, hiddenPreviewsBodyPlaceholder string, options UNNotificationCategoryOptions) UNNotificationCategory {
 	rv := objc.Send[objc.ID](objc.ID(getUNNotificationCategoryClass().class), objc.Sel("categoryWithIdentifier:actions:intentIdentifiers:hiddenPreviewsBodyPlaceholder:options:"), objc.String(identifier), objectivec.IObjectSliceToNSArray(actions), objectivec.StringSliceToNSArray(intentIdentifiers), objc.String(hiddenPreviewsBodyPlaceholder), options)
 	return UNNotificationCategoryFromID(rv)
@@ -271,14 +271,14 @@ func NewUNNotificationCategoryWithIdentifierActionsIntentIdentifiersHiddenPrevie
 //
 // options: Additional options for handling notifications of this type. For a list of
 // possible values, see [UNNotificationCategoryOptions].
-// //
-// [UNNotificationCategoryOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategoryOptions
 //
 // # Return Value
-// 
+//
 // An initialized category object.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategory/init(identifier:actions:intentIdentifiers:options:)
+//
+// [UNNotificationCategoryOptions]: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategoryOptions
 func NewUNNotificationCategoryWithIdentifierActionsIntentIdentifiersOptions(identifier string, actions []UNNotificationAction, intentIdentifiers []string, options UNNotificationCategoryOptions) UNNotificationCategory {
 	rv := objc.Send[objc.ID](objc.ID(getUNNotificationCategoryClass().class), objc.Sel("categoryWithIdentifier:actions:intentIdentifiers:options:"), objc.String(identifier), objectivec.IObjectSliceToNSArray(actions), objectivec.StringSliceToNSArray(intentIdentifiers), options)
 	return UNNotificationCategoryFromID(rv)
@@ -291,7 +291,7 @@ func (u UNNotificationCategory) EncodeWithCoder(coder foundation.INSCoder) {
 // The unique string assigned to the category.
 //
 // # Discussion
-// 
+//
 // Use this string to differentiate the different types of notifications that
 // your app can send. To assign a category to a local notification, assign
 // this string to the [CategoryIdentifier] property of the content object. To
@@ -303,15 +303,16 @@ func (u UNNotificationCategory) Identifier() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The actions to display when the system delivers notifications of this type.
 //
 // # Discussion
-// 
+//
 // When displaying a notification assigned to this category, the system adds a
 // button to the notification interface for each action in this property. The
 // system displays these buttons after the notification’s content but before
 // the Dismiss button.
-// 
+//
 // When displaying banner notifications, the system displays only the first
 // two actions.
 //
@@ -322,10 +323,11 @@ func (u UNNotificationCategory) Actions() []UNNotificationAction {
 		return UNNotificationActionFromID(id)
 	})
 }
+
 // The intents related to notifications of this category.
 //
 // # Discussion
-// 
+//
 // When the system delivers a notification, the presence of an intent
 // identifier lets the system know that the notification is potentially
 // related to the handling of a request made through Siri.
@@ -335,11 +337,12 @@ func (u UNNotificationCategory) IntentIdentifiers() []string {
 	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("intentIdentifiers"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The placeholder text to display when the system disables notification
 // previews for the app.
 //
 // # Discussion
-// 
+//
 // The string in this property may contain the special characters `%u` as a
 // placeholder for the number of messages with the same thread identifier. If
 // your app declares this string in a `XCUIElementTypeStringsdict` property
@@ -347,13 +350,14 @@ func (u UNNotificationCategory) IntentIdentifiers() []string {
 // file. For more information about specifying a `XCUIElementTypeStringsdict`
 // property file, see [Internationalization and Localization Guide].
 //
-// [Internationalization and Localization Guide]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/Introduction/Introduction.html#//apple_ref/doc/uid/10000171i
-//
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategory/hiddenPreviewsBodyPlaceholder
+//
+// [Internationalization and Localization Guide]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/Introduction/Introduction.html#//apple_ref/doc/uid/10000171i
 func (u UNNotificationCategory) HiddenPreviewsBodyPlaceholder() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("hiddenPreviewsBodyPlaceholder"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A format string for the summary description used when the system groups the
 // category’s notifications.
 //
@@ -362,6 +366,7 @@ func (u UNNotificationCategory) CategorySummaryFormat() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("categorySummaryFormat"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Options for how to handle notifications of this type.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationCategory/options
@@ -369,6 +374,7 @@ func (u UNNotificationCategory) Options() UNNotificationCategoryOptions {
 	rv := objc.Send[UNNotificationCategoryOptions](u.ID, objc.Sel("options"))
 	return UNNotificationCategoryOptions(rv)
 }
+
 // The identifier of the notification’s category.
 //
 // See: https://developer.apple.com/documentation/usernotifications/unmutablenotificationcontent/categoryidentifier
@@ -379,6 +385,7 @@ func (u UNNotificationCategory) CategoryIdentifier() string {
 func (u UNNotificationCategory) SetCategoryIdentifier(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setCategoryIdentifier:"), objc.String(value))
 }
+
 // The action performs a destructive task.
 //
 // See: https://developer.apple.com/documentation/usernotifications/unnotificationactionoptions/destructive
@@ -389,4 +396,3 @@ func (u UNNotificationCategory) Destructive() UNNotificationActionOptions {
 func (u UNNotificationCategory) SetDestructive(value UNNotificationActionOptions) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUNNotificationActionOptionDestructive:"), value)
 }
-

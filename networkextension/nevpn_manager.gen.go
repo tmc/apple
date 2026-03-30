@@ -5,8 +5,9 @@ package networkextension
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (nc NEVPNManagerClass) Alloc() NEVPNManager {
 // An object to create and manage a Personal VPN configuration.
 //
 // # Overview
-// 
+//
 // The [NEVPNManager] API gives apps the ability to create and manage a
 // Personal VPN configuration on iOS and macOS. Personal VPN configurations
 // are typically used to provide a service to users that protects their
@@ -96,6 +97,7 @@ type NEVPNManager struct {
 func NEVPNManagerFromID(id objc.ID) NEVPNManager {
 	return NEVPNManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: NEVPNManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -208,19 +210,20 @@ func NewNEVPNManager() NEVPNManager {
 // configuration, the error parameter will be set to an [NSError] object
 // containing details about the error. See `NEVPN Errors` for a list of
 // possible errors.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
-// You must call this method at least once before calling `` for the first
+//
+// You must call this method at least once before calling “ for the first
 // time after your app launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/loadFromPreferences(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (v NEVPNManager) LoadFromPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("loadFromPreferencesWithCompletionHandler:"), _block0)
 }
+
 // Save the VPN configuration in the Network Extension preferences.
 //
 // completionHandler: An optional block that takes an [NSError] object. If specified, this block
@@ -230,20 +233,20 @@ _block0, _ := NewErrorBlock(completionHandler)
 // the error. See `NEVPN Errors` for a list of possible errors. If the
 // configuration is saved successfully then the error parameter will be set to
 // nil.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // You must call [LoadFromPreferencesWithCompletionHandler]: at least once
 // before calling this method the first time after your app launches.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/saveToPreferences(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (v NEVPNManager) SaveToPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("saveToPreferencesWithCompletionHandler:"), _block0)
 }
-//
+
 // authorization is a [systemconfiguration.AuthorizationRef].
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/setAuthorization(_:)
@@ -251,6 +254,7 @@ _block0, _ := NewErrorBlock(completionHandler)
 func (v NEVPNManager) SetAuthorization(authorization objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setAuthorization:"), authorization)
 }
+
 // Remove the VPN configuration from the Network Extension preferences.
 //
 // completionHandler: An optional block that takes an [NSError] object. If specified, this block
@@ -260,26 +264,26 @@ func (v NEVPNManager) SetAuthorization(authorization objectivec.IObject) {
 // containing details about the error. See `NEVPN Errors` for a list of
 // possible errors. If the configuration is removed successfully then the
 // error parameter will be set to nil.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // # Discussion
-// 
+//
 // After the configuration is removed from the preferences the [NEVPNManager]
 // object will still contain the configuration parameters. Calling
 // [LoadFromPreferencesWithCompletionHandler]: will clear out the
 // configuration parameters from the [NEVPNManager] object.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/removeFromPreferences(completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (v NEVPNManager) RemoveFromPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("removeFromPreferencesWithCompletionHandler:"), _block0)
 }
 
 // Access the single instance of [NEVPNManager].
 //
 // # Return Value
-// 
+//
 // The [NEVPNManager] instance for the calling application.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/shared()
@@ -291,22 +295,21 @@ func (_NEVPNManagerClass NEVPNManagerClass) SharedManager() NEVPNManager {
 // A Boolean used to toggle the enabled state of the VPN configuration.
 //
 // # Discussion
-// 
+//
 // A VPN configuration must be enabled before it can be used to bring up a VPN
 // tunnel. Only one Personal VPN configuration can be enabled simultaneously
 // on the system. If another Personal VPN configuration is enabled, then this
-// property will be automatically set to [false] in the Network Extension
+// property will be automatically set to false in the Network Extension
 // preferences. Note that you will need to re-load the VPN configuration from
 // the preferences in order to see the change in value. You can register with
 // [NotificationCenter] to observe the [NEVPNConfigurationChangeNotification]
 // notification for the [NEVPNManager] object so that your code can detect
 // when the VPN configuration has been disabled.
 //
+// See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/isEnabled
+//
 // [NEVPNConfigurationChangeNotification]: https://developer.apple.com/documentation/NetworkExtension/NEVPNConfigurationChangeNotification
 // [NotificationCenter]: https://developer.apple.com/documentation/Foundation/NotificationCenter
-// [false]: https://developer.apple.com/documentation/Swift/false
-//
-// See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/isEnabled
 func (v NEVPNManager) Enabled() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isEnabled"))
 	return rv
@@ -314,11 +317,12 @@ func (v NEVPNManager) Enabled() bool {
 func (v NEVPNManager) SetEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEnabled:"), value)
 }
+
 // An [NEVPNProtocol] object containing the configuration settings of the VPN
 // tunneling protocol.
 //
 // # Discussion
-// 
+//
 // For [NEVPNManager] objects, this property can be set to either an
 // [NEVPNProtocolIPSec] object or an [NEVPNProtocolIKEv2] object.
 //
@@ -330,10 +334,11 @@ func (v NEVPNManager) ProtocolConfiguration() INEVPNProtocol {
 func (v NEVPNManager) SetProtocolConfiguration(value INEVPNProtocol) {
 	objc.Send[struct{}](v.ID, objc.Sel("setProtocolConfiguration:"), value)
 }
+
 // A string containing the display name of the VPN configuration.
 //
 // # Discussion
-// 
+//
 // This string is used as the display name of the VPN configuration in the
 // system’s VPN settings UI. If this property is set to nil at the time that
 // the configuration is created, it will be automatically set to the display
@@ -347,13 +352,12 @@ func (v NEVPNManager) LocalizedDescription() string {
 func (v NEVPNManager) SetLocalizedDescription(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLocalizedDescription:"), objc.String(value))
 }
+
 // A Boolean used to toggle the Connect On Demand capability.
 //
 // # Discussion
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/isOnDemandEnabled
 func (v NEVPNManager) OnDemandEnabled() bool {
@@ -363,10 +367,11 @@ func (v NEVPNManager) OnDemandEnabled() bool {
 func (v NEVPNManager) SetOnDemandEnabled(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setOnDemandEnabled:"), value)
 }
+
 // An ordered list of Connect On Demand rules.
 //
 // # Discussion
-// 
+//
 // The VPN configuration can optionally be configured to connect automatically
 // based on a variety of criteria specified in [NEOnDemandRule] objects. The
 // [OnDemandRules] property contains the current set of Connect On Demand
@@ -383,11 +388,12 @@ func (v NEVPNManager) OnDemandRules() []NEOnDemandRule {
 func (v NEVPNManager) SetOnDemandRules(value []NEOnDemandRule) {
 	objc.Send[struct{}](v.ID, objc.Sel("setOnDemandRules:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // An [NEVPNConnection] object that is used to control the VPN tunnel
 // specified by the VPN configuration.
 //
 // # Discussion
-// 
+//
 // The connection object is used to manually start and stop the VPN tunnel,
 // and introspect the current status of the VPN tunnel. If the VPN
 // configuration does not exist in the Network Extension preferences then the
@@ -398,11 +404,13 @@ func (v NEVPNManager) Connection() INEVPNConnection {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("connection"))
 	return NEVPNConnectionFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/networkextension/nevpnerrordomain
 func (v NEVPNManager) NEVPNErrorDomain() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("NEVPNErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Posted after the VPN configuration stored in the Network Extension
 // preferences changes.
 //
@@ -456,4 +464,3 @@ func (v NEVPNManager) RemoveFromPreferences(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

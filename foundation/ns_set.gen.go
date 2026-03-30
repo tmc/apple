@@ -5,6 +5,7 @@ package foundation
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,45 +46,45 @@ func (nc NSSetClass) Alloc() NSSet {
 // A static, unordered collection of unique objects.
 //
 // # Overview
-// 
+//
 // The [NSSet], [NSMutableSet], and [NSCountedSet] classes declare the
 // programmatic interface to an unordered collection of objects.
-// 
+//
 // [NSSet] declares the programmatic interface for static sets of distinct
 // objects. You establish a static set’s entries when it’s created, and
 // can’t modify the entries after that. [NSMutableSet], on the other hand,
 // declares a programmatic interface for dynamic sets of distinct objects. A
 // dynamic — or mutable — set allows the addition and deletion of entries
 // at any time, automatically allocating memory as needed.
-// 
+//
 // Use sets as an alternative to arrays when the order of elements isn’t
 // important and you need to consider performance in testing whether the set
 // contains an object. With an array, testing for membership is slower than
 // with sets.
-// 
+//
 // [NSSet] is “toll-free bridged” with its Core Foundation counterpart,
 // [CFSet]. See [Toll-Free Bridging] for more information on toll-free
 // bridging.
-// 
+//
 // In Swift, use this class instead of a [Set] constant in cases where you
 // require reference semantics.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // There should be little need of subclassing. If you need to customize
 // behavior, it’s often better to consider composition instead of
 // subclassing.
-// 
+//
 // # Methods to Override
-// 
+//
 // In a subclass, you must override all of its primitive methods:
-// 
+//
 // - [NSSet.Count]
 // - [NSSet.Member]
 // - [NSSet.ObjectEnumerator]
-// 
+//
 // # Alternatives to Subclassing
-// 
+//
 // Before making a custom class of [NSSet], investigate [NSHashTable] and the
 // corresponding Core Foundation type, [CFSet]. Because [NSSet] and [CFSet]
 // are “toll-free bridged,” you can substitute a [CFSet] object for a
@@ -91,16 +92,12 @@ func (nc NSSetClass) Alloc() NSSet {
 // corresponding types, [CFSet] and [NSSet] don’t have identical interfaces
 // or implementations, and you can sometimes do things with [CFSet] that you
 // can’t easily do with [NSSet].
-// 
+//
 // If the behavior you want to add supplements that of the existing class, you
 // could write a category on [NSSet]. Keep in mind, however, that this
 // category affects all instances of [NSSet] that you use, and this might have
 // unintended consequences. Alternatively, you could use composition to
 // achieve the desired behavior.
-//
-// [CFSet]: https://developer.apple.com/documentation/CoreFoundation/CFSet
-// [Set]: https://developer.apple.com/documentation/Swift/Set
-// [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
 //
 // # Creating a Set
 //
@@ -148,6 +145,10 @@ func (nc NSSetClass) Alloc() NSSet {
 //   - [NSSet.DescriptionWithLocale]: Returns a string that represents the contents of the set, formatted as a property list.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet
+//
+// [CFSet]: https://developer.apple.com/documentation/CoreFoundation/CFSet
+// [Set]: https://developer.apple.com/documentation/Swift/Set
+// [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
 type NSSet struct {
 	objectivec.Object
 }
@@ -158,6 +159,7 @@ type NSSet struct {
 func NSSetFromID(id objc.ID) NSSet {
 	return NSSet{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -318,22 +320,21 @@ func NewNSSet() NSSet {
 // array: An array of objects to add to the new set. If the same object appears more
 // than once in `array`, it is represented only once in the returned set. Each
 // object receives a [retain] message as it is added to the set.
-// //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 //
 // # Return Value
-// 
+//
 // An initialized set with the contents of `array`. The returned set might be
 // different than the original receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(array:)
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func NewSetWithArray(array []objectivec.IObject) NSSet {
 	instance := getNSSetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return NSSetFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(coder:)
 func NewSetWithCoder(coder INSCoder) NSSet {
 	instance := getNSSetClass().Alloc()
@@ -341,14 +342,12 @@ func NewSetWithCoder(coder INSCoder) NSSet {
 	return NSSetFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPath:)
 func NewSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSSetClass().class), objc.Sel("setWithCollectionViewIndexPath:"), indexPath)
 	return NSSetFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPaths:)
 func NewSetWithCollectionViewIndexPaths(indexPaths []objc.ID) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), objectivec.IDSliceToNSArray(indexPaths))
@@ -359,14 +358,14 @@ func NewSetWithCollectionViewIndexPaths(indexPaths []objc.ID) NSSet {
 //
 // object: The object to add to the new set. `object` receives a [retain] message
 // after being added to the set.
-// //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 //
 // # Return Value
-// 
+//
 // A new set that contains a single member, `object`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(object:)
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func NewSetWithObject(object objectivec.IObject) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSSetClass().class), objc.Sel("setWithObject:"), object)
 	return NSSetFromID(rv)
@@ -378,21 +377,21 @@ func NewSetWithObject(object objectivec.IObject) NSSet {
 // firstObj: The first object to add to the new set.
 //
 // # Return Value
-// 
+//
 // An initialized set containing the objects specified in the parameter list.
 // The returned set might be different than the original receiver.
 //
 // # Discussion
-// 
+//
 // To add additional objects to the new set, pass a comma-separated list of
 // trailing variadic arguments, ending with `nil`. If the same object appears
 // more than once in the list of objects, it is added only once to the
 // returned set. Each object receives a [retain] message as it is added to the
 // set.
 //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
-//
 // See: https://developer.apple.com/documentation/Foundation/NSSet/initWithObjects:
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func NewSetWithObjects(firstObj objectivec.IObject) NSSet {
 	instance := getNSSetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObjects:"), firstObj)
@@ -406,7 +405,7 @@ func NewSetWithObjects(firstObj objectivec.IObject) NSSet {
 // retained as it is added.
 //
 // # Return Value
-// 
+//
 // An initialized objects set containing the objects from `set`. The returned
 // set might be different than the original receiver.
 //
@@ -422,39 +421,34 @@ func NewSetWithSet(set INSSet) NSSet {
 //
 // set: A set containing objects to add to the new set.
 //
-// flag: If [true], each object in `set` receives a [copyWithZone:] message to
-// create a copy of the object—objects must conform to the [NSCopying]
-// protocol. In a managed memory environment, this is instead of the `retain`
-// message the object would otherwise receive. The object copy is then added
-// to the returned set.
-// 
-// If [false], then in a managed memory environment each object in `set`
-// simply receives a `retain` message when it is added to the returned set.
-// //
-// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// flag: If true, each object in `set` receives a [copyWithZone:] message to create
+// a copy of the object—objects must conform to the [NSCopying] protocol. In
+// a managed memory environment, this is instead of the `retain` message the
+// object would otherwise receive. The object copy is then added to the
+// returned set.
+//
+// If false, then in a managed memory environment each object in `set` simply
+// receives a `retain` message when it is added to the returned set.
 //
 // # Return Value
-// 
+//
 // An initialized set that contains the members of `set`. The returned set
 // might be different than the original receiver.
 //
 // # Discussion
-// 
+//
 // After an immutable s has been initialized in this way, it cannot be
 // modified.
-// 
-// The [CopyWithZone] method performs a shallow copy. If you have a collection
-// of arbitrary depth, passing [true] for the `flag` parameter will perform an
-// immutable copy of the first level below the surface. If you pass [false]
-// the mutability of the first level is unaffected. In either case, the
-// mutability of all deeper levels is unaffected.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The [CopyWithZone] method performs a shallow copy. If you have a collection
+// of arbitrary depth, passing true for the `flag` parameter will perform an
+// immutable copy of the first level below the surface. If you pass false the
+// mutability of the first level is unaffected. In either case, the mutability
+// of all deeper levels is unaffected.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(set:copyItems:)
+//
+// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
 func NewSetWithSetCopyItems(set INSSet, flag bool) NSSet {
 	instance := getNSSetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSet:copyItems:"), set, flag)
@@ -466,7 +460,7 @@ func NewSetWithSetCopyItems(set INSSet, flag bool) NSSet {
 // anObject: The object to add to the set.
 //
 // # Return Value
-// 
+//
 // A new set formed by adding `anObject` to the receiving set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/adding(_:)
@@ -474,13 +468,14 @@ func (s NSSet) SetByAddingObject(anObject objectivec.IObject) INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("setByAddingObject:"), anObject)
 	return NSSetFromID(rv)
 }
+
 // Returns a new set formed by adding the objects in a given set to the
 // receiving set.
 //
 // other: The set of objects to add to the receiving set.
 //
 // # Return Value
-// 
+//
 // A new set formed by adding the objects in `other` to the receiving set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/addingObjects(from:)-2i31h
@@ -488,13 +483,14 @@ func (s NSSet) SetByAddingObjectsFromSet(other INSSet) INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("setByAddingObjectsFromSet:"), other)
 	return NSSetFromID(rv)
 }
+
 // Returns a new set formed by adding the objects in a given array to the
 // receiving set.
 //
 // other: The array of objects to add to the set.
 //
 // # Return Value
-// 
+//
 // A new set formed by adding the objects in `other` to the receiving set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/addingObjects(from:)-544m9
@@ -502,51 +498,54 @@ func (s NSSet) SetByAddingObjectsFromArray(other []objectivec.IObject) INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("setByAddingObjectsFromArray:"), objectivec.IObjectSliceToNSArray(other))
 	return NSSetFromID(rv)
 }
+
 // Initializes a newly allocated set with the objects that are contained in a
 // given array.
 //
 // array: An array of objects to add to the new set. If the same object appears more
 // than once in `array`, it is represented only once in the returned set. Each
 // object receives a [retain] message as it is added to the set.
-// //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 //
 // # Return Value
-// 
+//
 // An initialized set with the contents of `array`. The returned set might be
 // different than the original receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(array:)
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func (s NSSet) InitWithArray(array []objectivec.IObject) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return rv
 }
+
 // Initializes a newly allocated set with a specified number of objects from a
 // given C array of objects.
 //
 // objects: A C array of objects to add to the new set. If the same object appears more
 // than once in `objects`, it is added only once to the returned set. Each
 // object receives a [retain] message as it is added to the set.
-// //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 //
 // cnt: The number of objects from `objects` to add to the new set.
 //
 // # Return Value
-// 
+//
 // An initialized set containing `cnt` objects from the list of objects
 // specified by `objects`. The returned set might be different than the
 // original receiver.
 //
 // # Discussion
-// 
+//
 // This method is a designated initializer for [NSSet].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(objects:count:)-7kift
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func (s NSSet) InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithObjects:count:"), objc.CArray(objects), cnt)
 	return rv
 }
+
 // Initializes a newly allocated set and adds to it objects from another given
 // set.
 //
@@ -554,7 +553,7 @@ func (s NSSet) InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSSe
 // retained as it is added.
 //
 // # Return Value
-// 
+//
 // An initialized objects set containing the objects from `set`. The returned
 // set might be different than the original receiver.
 //
@@ -563,53 +562,50 @@ func (s NSSet) InitWithSet(set INSSet) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithSet:"), set)
 	return rv
 }
+
 // Initializes a newly allocated set and adds to it members of another given
 // set.
 //
 // set: A set containing objects to add to the new set.
 //
-// flag: If [true], each object in `set` receives a [copyWithZone:] message to
-// create a copy of the object—objects must conform to the [NSCopying]
-// protocol. In a managed memory environment, this is instead of the `retain`
-// message the object would otherwise receive. The object copy is then added
-// to the returned set.
-// 
-// If [false], then in a managed memory environment each object in `set`
-// simply receives a `retain` message when it is added to the returned set.
-// //
-// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// flag: If true, each object in `set` receives a [copyWithZone:] message to create
+// a copy of the object—objects must conform to the [NSCopying] protocol. In
+// a managed memory environment, this is instead of the `retain` message the
+// object would otherwise receive. The object copy is then added to the
+// returned set.
+//
+// If false, then in a managed memory environment each object in `set` simply
+// receives a `retain` message when it is added to the returned set.
 //
 // # Return Value
-// 
+//
 // An initialized set that contains the members of `set`. The returned set
 // might be different than the original receiver.
 //
 // # Discussion
-// 
+//
 // After an immutable s has been initialized in this way, it cannot be
 // modified.
-// 
-// The [CopyWithZone] method performs a shallow copy. If you have a collection
-// of arbitrary depth, passing [true] for the `flag` parameter will perform an
-// immutable copy of the first level below the surface. If you pass [false]
-// the mutability of the first level is unaffected. In either case, the
-// mutability of all deeper levels is unaffected.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The [CopyWithZone] method performs a shallow copy. If you have a collection
+// of arbitrary depth, passing true for the `flag` parameter will perform an
+// immutable copy of the first level below the surface. If you pass false the
+// mutability of the first level is unaffected. In either case, the mutability
+// of all deeper levels is unaffected.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(set:copyItems:)
+//
+// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
 func (s NSSet) InitWithSetCopyItems(set INSSet, flag bool) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithSet:copyItems:"), set, flag)
 	return rv
 }
+
 // Returns one of the objects in the set, or `nil` if the set contains no
 // objects.
 //
 // # Return Value
-// 
+//
 // One of the objects in the set, or `nil` if the set contains no objects. The
 // object returned is chosen at the set’s convenience—the selection is not
 // guaranteed to be random.
@@ -619,32 +615,30 @@ func (s NSSet) AnyObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("anyObject"))
 	return objectivec.Object{ID: rv}
 }
+
 // Returns a Boolean value that indicates whether a given object is present in
 // the set.
 //
 // anObject: An object to look for in the set.
 //
 // # Return Value
-// 
-// [true] if `anObject` is present in the set, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if `anObject` is present in the set, otherwise false.
 //
 // # Discussion
-// 
+//
 // Each element of the set is checked for equality with `anObject` until a
 // match is found or the end of the set is reached. Objects are considered
-// equal if [isEqual(_:)] returns [true].
-//
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
-// [true]: https://developer.apple.com/documentation/Swift/true
+// equal if [isEqual(_:)] returns true.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/contains(_:)
+//
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 func (s NSSet) ContainsObject(anObject objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("containsObject:"), anObject)
 	return rv
 }
+
 // Evaluates a given predicate against each object in the receiving set and
 // returns a new set containing the objects for which the predicate returns
 // true.
@@ -652,12 +646,12 @@ func (s NSSet) ContainsObject(anObject objectivec.IObject) bool {
 // predicate: A predicate.
 //
 // # Return Value
-// 
+//
 // A new set containing the objects in the receiving set for which `predicate`
 // returns true.
 //
 // # Discussion
-// 
+//
 // The following example illustrates the use of this method.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/filtered(using:)
@@ -665,48 +659,49 @@ func (s NSSet) FilteredSetUsingPredicate(predicate INSPredicate) INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("filteredSetUsingPredicate:"), predicate)
 	return NSSetFromID(rv)
 }
+
 // Determines whether a given object is present in the set, and returns that
 // object if it is.
 //
 // object: An object to look for in the set.
 //
 // # Return Value
-// 
+//
 // Returns an object equal to `object` if it’s present in the set, otherwise
 // `nil`.
 //
 // # Discussion
-// 
+//
 // Each element of the set is checked for equality with `object` until a match
 // is found or the end of the set is reached. Objects are considered equal if
-// [isEqual(_:)] returns [true].
-//
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
-// [true]: https://developer.apple.com/documentation/Swift/true
+// [isEqual(_:)] returns true.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/member(_:)
+//
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 func (s NSSet) Member(object objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("member:"), object)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns an enumerator object that lets you access each object in the set.
 //
 // # Return Value
-// 
+//
 // An enumerator object that lets you access each object in the set.
 //
 // # Discussion
-// 
+//
 // The following code fragment illustrates how you can use this method.
-// 
+//
 // When this method is used with mutable subclasses of [NSSet], your code
 // shouldn’t modify the set during enumeration. If you intend to modify the
 // set, use the [AllObjects] method to create a “snapshot” of the set’s
 // members. Enumerate the snapshot, but make your modifications to the
 // original set.
-// 
+//
 // # Special Considerations
-// 
+//
 // It is more efficient to use the fast enumeration protocol (see
 // [NSFastEnumeration]). Fast enumeration is available in macOS 10.5 and later
 // and iOS 2.0 and later.
@@ -716,115 +711,109 @@ func (s NSSet) ObjectEnumerator() INSEnumerator {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectEnumerator"))
 	return NSEnumeratorFromID(rv)
 }
+
 // Executes a given block using each object in the set.
 //
 // block: The block to apply to elements in the set.
-// 
+//
 // The block takes two arguments:
-// 
+//
 // obj: The element in the set. stop: A reference to a Boolean value. The
-// block can set the value to [true] to stop further processing of the set.
-// The `stop` argument is an out-only argument. You should only ever set this
-// Boolean to [true] within the block.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// block can set the value to true to stop further processing of the set. The
+// `stop` argument is an out-only argument. You should only ever set this
+// Boolean to true within the block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(_:)
 func (s NSSet) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
-_block0, _ := NewObjectTypeBlock(block)
+	_block0, _ := NewObjectTypeBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsUsingBlock:"), _block0)
 }
+
 // Executes a given block using each object in the set, using the specified
 // enumeration options.
 //
 // opts: A bitmask that specifies the options for the enumeration.
 //
 // block: The block to apply to elements in the set.
-// 
+//
 // The block takes two arguments:
-// 
+//
 // obj: The element in the set. stop: A reference to a Boolean value. The
-// block can set the value to [true] to stop further processing of the set.
-// The `stop` argument is an out-only argument. You should only ever set this
-// Boolean to [true] within the block.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// block can set the value to true to stop further processing of the set. The
+// `stop` argument is an out-only argument. You should only ever set this
+// Boolean to true within the block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(options:using:)
 func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler) {
-_block1, _ := NewObjectTypeBlock(block)
+	_block1, _ := NewObjectTypeBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, _block1)
 }
+
 // Returns a set of objects that pass a test in a given block.
 //
 // predicate: The block to apply to elements in the array.
-// 
+//
 // The block takes two arguments:
-// 
+//
 // obj: The element in the set. stop: A reference to a Boolean value. The
-// block can set the value to [true] to stop further processing of the set.
-// The `stop` argument is an out-only argument. You should only ever set this
-// Boolean to [true] within the block.
-// 
+// block can set the value to true to stop further processing of the set. The
+// `stop` argument is an out-only argument. You should only ever set this
+// Boolean to true within the block.
+//
 // The block returns a Boolean value that indicates whether `obj` passed the
 // test.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // An [NSSet] containing objects that pass the test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(passingTest:)
 func (s NSSet) ObjectsPassingTest(predicate ObjectTypeHandler) INSSet {
-_block0, _ := NewObjectTypeBlock(predicate)
+	_block0, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsPassingTest:"), _block0)
 	return NSSetFromID(rv)
 }
+
 // Returns a set of objects that pass a test in a given block, using the
 // specified enumeration options.
 //
 // opts: A bitmask that specifies the options for the enumeration.
 //
 // predicate: The block to apply to elements in the set.
-// 
+//
 // The block takes two arguments:
-// 
+//
 // obj: The element in the set. stop: A reference to a Boolean value. The
-// block can set the value to [true] to stop further processing of the set.
-// The `stop` argument is an out-only argument. You should only ever set this
-// Boolean to [true] within the block.
-// 
+// block can set the value to true to stop further processing of the set. The
+// `stop` argument is an out-only argument. You should only ever set this
+// Boolean to true within the block.
+//
 // The block returns a Boolean value that indicates whether `obj` passed the
 // test.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // An [NSSet] containing objects that pass the test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(options:passingTest:)
 func (s NSSet) ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSSet {
-_block1, _ := NewObjectTypeBlock(predicate)
+	_block1, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsWithOptions:passingTest:"), opts, _block1)
 	return NSSetFromID(rv)
 }
+
 // Returns a Boolean value that indicates whether every object in the
 // receiving set is also present in another given set.
 //
 // otherSet: The set with which to compare the receiving set.
 //
 // # Return Value
-// 
-// [true] if every object in the receiving set is also present in `otherSet`,
-// otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if every object in the receiving set is also present in `otherSet`,
+// otherwise false.
 //
 // # Discussion
-// 
+//
 // Object equality is tested using isEqual:.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/isSubset(of:)
@@ -832,21 +821,19 @@ func (s NSSet) IsSubsetOfSet(otherSet INSSet) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSubsetOfSet:"), otherSet)
 	return rv
 }
+
 // Returns a Boolean value that indicates whether at least one object in the
 // receiving set is also present in another given set.
 //
 // otherSet: The set with which to compare the receiving set.
 //
 // # Return Value
-// 
-// [true] if at least one object in the receiving set is also present in
-// `otherSet`, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if at least one object in the receiving set is also present in
+// `otherSet`, otherwise false.
 //
 // # Discussion
-// 
+//
 // Object equality is tested using isEqual:.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/intersects(_:)
@@ -854,20 +841,18 @@ func (s NSSet) IntersectsSet(otherSet INSSet) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("intersectsSet:"), otherSet)
 	return rv
 }
+
 // Compares the receiving set to another set.
 //
 // otherSet: The set with which to compare the receiving set.
 //
 // # Return Value
-// 
-// [true] if the contents of `otherSet` are equal to the contents of the
-// receiving set, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the contents of `otherSet` are equal to the contents of the
+// receiving set, otherwise false.
 //
 // # Discussion
-// 
+//
 // Two sets have equal contents if they each have the same number of members
 // and if each member of one set is present in the other. Object equality is
 // tested using isEqual:.
@@ -877,18 +862,19 @@ func (s NSSet) IsEqualToSet(otherSet INSSet) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isEqualToSet:"), otherSet)
 	return rv
 }
+
 // Returns an array of the set’s content sorted as specified by a given
 // array of sort descriptors.
 //
 // sortDescriptors: An array of [NSSortDescriptor] objects.
 //
 // # Return Value
-// 
+//
 // An NSArray containing the set’s content sorted as specified by
 // `sortDescriptors`.
 //
 // # Discussion
-// 
+//
 // The first descriptor specifies the primary key path to be used in sorting
 // the set’s contents. Any subsequent descriptors are used to further refine
 // sorting of objects with duplicate values. See [NSSortDescriptor] for
@@ -901,6 +887,7 @@ func (s NSSet) SortedArrayUsingDescriptors(sortDescriptors []NSSortDescriptor) [
 		return objectivec.Object{ID: id}
 	})
 }
+
 // Returns a string that represents the contents of the set, formatted as a
 // property list.
 //
@@ -909,29 +896,30 @@ func (s NSSet) SortedArrayUsingDescriptors(sortDescriptors []NSSortDescriptor) [
 // must be an instance of [NSDictionary].
 //
 // # Return Value
-// 
+//
 // A string that represents the contents of the set, formatted as a property
 // list.
 //
 // # Discussion
-// 
-// This method sends each of the set’s members `` with `locale` passed as
-// the sole parameter. If the set’s members do not respond to ``, this
+//
+// This method sends each of the set’s members “ with `locale` passed as
+// the sole parameter. If the set’s members do not respond to “, this
 // method sends [description] instead.
 //
-// [description]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
-//
 // See: https://developer.apple.com/documentation/Foundation/NSSet/description(withLocale:)
+//
+// [description]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
 func (s NSSet) DescriptionWithLocale(locale objectivec.IObject) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("descriptionWithLocale:"), locale)
 	return NSStringFromID(rv).String()
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(coder:)
 func (s NSSet) InitWithCoder(coder INSCoder) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //
@@ -943,12 +931,12 @@ func (s NSSet) InitWithCoder(coder INSCoder) NSSet {
 // len: The maximum number of objects to return in `stackbuf`.
 //
 // # Return Value
-// 
+//
 // The number of objects returned in `stackbuf`. Returns `0` when the
 // iteration is finished.
 //
 // # Discussion
-// 
+//
 // The state structure is assumed to be of stack local memory, so you can
 // recast the passed in state structure to one more suitable for your
 // iteration.
@@ -958,6 +946,7 @@ func (s NSSet) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationSt
 	rv := objc.Send[uint](s.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -966,31 +955,33 @@ func (s NSSet) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationSt
 func (s NSSet) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+
 // Initializes a newly allocated set with members taken from the specified
 // list of objects.
 //
 // firstObj: The first object to add to the new set.
 //
 // # Return Value
-// 
+//
 // An initialized set containing the objects specified in the parameter list.
 // The returned set might be different than the original receiver.
 //
 // # Discussion
-// 
+//
 // To add additional objects to the new set, pass a comma-separated list of
 // trailing variadic arguments, ending with `nil`. If the same object appears
 // more than once in the list of objects, it is added only once to the
 // returned set. Each object receives a [retain] message as it is added to the
 // set.
 //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
-//
 // See: https://developer.apple.com/documentation/Foundation/NSSet/initWithObjects:
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func (s NSSet) InitWithObjects(firstObj objectivec.IObject) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithObjects:"), firstObj)
 	return rv
 }
+
 // Sends a message specified by a given selector to each object in the set.
 //
 // aSelector: A selector that specifies the message to send to the members of the set.
@@ -998,7 +989,7 @@ func (s NSSet) InitWithObjects(firstObj objectivec.IObject) NSSet {
 // of modifying the set. This value must not be [NULL].
 //
 // # Discussion
-// 
+//
 // The message specified by `aSelector` is sent once to each member of the
 // set. This method raises an [NSInvalidArgumentException] if `aSelector` is
 // [NULL].
@@ -1007,6 +998,7 @@ func (s NSSet) InitWithObjects(firstObj objectivec.IObject) NSSet {
 func (s NSSet) MakeObjectsPerformSelector(aSelector objc.SEL) {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:"), aSelector)
 }
+
 // Sends a message specified by a given selector to each object in the set.
 //
 // aSelector: A selector that specifies the message to send to the set’s members. The
@@ -1016,7 +1008,7 @@ func (s NSSet) MakeObjectsPerformSelector(aSelector objc.SEL) {
 // argument: The object to pass as an argument to the method specified by `aSelector`.
 //
 // # Discussion
-// 
+//
 // The message specified by `aSelector` is sent, with `argument` as the
 // argument, once to each member of the set. This method raises an
 // [NSInvalidArgumentException] if `aSelector` is [NULL].
@@ -1032,29 +1024,30 @@ func (s NSSet) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument
 // objects: A C array of objects to add to the new set. If the same object appears more
 // than once in `objects`, it is added only once to the returned set. Each
 // object receives a [retain] message as it is added to the set.
-// //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 //
 // cnt: The number of objects from `objects` to add to the new set.
 //
 // # Return Value
-// 
+//
 // A new set containing `cnt` objects from the list of objects specified by
 // `objects`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(objects:count:)-65ni4
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func (_NSSetClass NSSetClass) SetWithObjectsCount(objects []objectivec.IObject, cnt uint) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("setWithObjects:count:"), objc.CArray(objects), cnt)
 	return NSSetFromID(rv)
 }
+
 // Creates and returns an empty set.
 //
 // # Return Value
-// 
+//
 // A new empty set.
 //
 // # Discussion
-// 
+//
 // This method is declared primarily for the use of mutable subclasses of
 // [NSSet].
 //
@@ -1063,63 +1056,66 @@ func (_NSSetClass NSSetClass) Set() NSSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("set"))
 	return NSSetFromID(rv)
 }
+
 // Creates and returns a set containing a uniqued collection of the objects
 // contained in a given array.
 //
 // array: An array containing the objects to add to the new set. If the same object
 // appears more than once in `array`, it is added only once to the returned
 // set. Each object receives a [retain] message as it is added to the set.
-// //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 //
 // # Return Value
-// 
+//
 // A new set containing a uniqued collection of the objects contained in
 // `array`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/setWithArray:
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func (_NSSetClass NSSetClass) SetWithArray(array []objectivec.IObject) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("setWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return NSSetFromID(rv)
 }
+
 // Creates and returns a set containing the objects in a given argument list.
 //
 // firstObj: The first object to add to the new set.
 //
 // # Return Value
-// 
+//
 // A new set containing the objects in the argument list.
 //
 // # Discussion
-// 
+//
 // To add additional objects to the new set, pass a comma-separated list of
 // trailing variadic arguments, ending with `nil`. If the same object appears
 // more than once in the list of objects, it is added only once to the
 // returned set. Each object receives a [retain] message as it is added to the
 // set.
-// 
+//
 // As an example, the following code excerpt creates a set containing three
 // different types of elements (assuming `aPath` exits):
 //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
-//
 // See: https://developer.apple.com/documentation/Foundation/NSSet/setWithObjects:
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func (_NSSetClass NSSetClass) SetWithObjects(firstObj objectivec.IObject) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("setWithObjects:"), firstObj)
 	return NSSetFromID(rv)
 }
+
 // Creates and returns a set containing the objects from another set.
 //
 // set: A set containing the objects to add to the new set. Each object receives a
 // [retain] message as it is added to the new set.
-// //
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 //
 // # Return Value
-// 
+//
 // A new set containing the objects from `set`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/setWithSet:
+//
+// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func (_NSSetClass NSSetClass) SetWithSet(set INSSet) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("setWithSet:"), set)
 	return NSSetFromID(rv)
@@ -1132,11 +1128,12 @@ func (s NSSet) Count() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("count"))
 	return rv
 }
+
 // An array containing the set’s members, or an empty array if the set has
 // no members.
 //
 // # Discussion
-// 
+//
 // The order of the objects in the array is undefined.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/allObjects
@@ -1146,6 +1143,7 @@ func (s NSSet) AllObjects() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // A string that represents the contents of the set, formatted as a property
 // list.
 //
@@ -1155,14 +1153,11 @@ func (s NSSet) Description() string {
 	return NSStringFromID(rv).String()
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSMutableCopying
-			
+// Protocol methods for NSMutableCopying
 
-			// Protocol methods for NSSecureCoding
-			
+// Protocol methods for NSSecureCoding
 
 // EnumerateObjectsUsingBlockSync is a synchronous wrapper around [NSSet.EnumerateObjectsUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -1223,4 +1218,3 @@ func (s NSSet) ObjectsWithOptionsPassingTestSync(ctx context.Context, opts NSEnu
 		return nil, ctx.Err()
 	}
 }
-

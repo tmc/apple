@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (ac AVMetadataHumanFullBodyObjectClass) Alloc() AVMetadataHumanFullBodyObje
 // An object that represents a detected human full body in a picture.
 //
 // # Overview
-// 
+//
 // On supported platforms, [AVCaptureMetadataOutput] outputs arrays of
 // detected human full body objects.
 //
@@ -58,6 +59,7 @@ type AVMetadataHumanFullBodyObject struct {
 func AVMetadataHumanFullBodyObjectFromID(id objc.ID) AVMetadataHumanFullBodyObject {
 	return AVMetadataHumanFullBodyObject{AVMetadataBodyObject: AVMetadataBodyObjectFromID(id)}
 }
+
 // NOTE: AVMetadataHumanFullBodyObject adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -86,4 +88,3 @@ func NewAVMetadataHumanFullBodyObject() AVMetadataHumanFullBodyObject {
 	rv := objc.Send[AVMetadataHumanFullBodyObject](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

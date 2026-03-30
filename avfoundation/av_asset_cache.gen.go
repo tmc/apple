@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVAssetCacheClass) Alloc() AVAssetCache {
 // An object that you use to inspect locally cached media data.
 //
 // # Overview
-// 
+//
 // You can download HTTP Live Streaming assets to an iOS device using the
 // [AVAssetDownloadURLSession] and [AVAssetDownloadTask] classes.
 //
@@ -67,6 +68,7 @@ type AVAssetCache struct {
 func AVAssetCacheFromID(id objc.ID) AVAssetCache {
 	return AVAssetCache{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetCache adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -120,7 +122,7 @@ func NewAVAssetCache() AVAssetCache {
 // mediaSelectionGroup: The containing media selection group.
 //
 // # Return Value
-// 
+//
 // The array of media selection options, or an empty array if none are
 // available.
 //
@@ -131,6 +133,7 @@ func (a AVAssetCache) MediaSelectionOptionsInMediaSelectionGroup(mediaSelectionG
 		return AVMediaSelectionOptionFromID(id)
 	})
 }
+
 // Returns an array of extended language tags for languages that can be
 // selected for offline operations via use of the AVMediaSelectionGroup’s
 // AVCustomMediaSelectionScheme.
@@ -140,6 +143,7 @@ func (a AVAssetCache) MediaPresentationLanguagesForMediaSelectionGroup(mediaSele
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("mediaPresentationLanguagesForMediaSelectionGroup:"), mediaSelectionGroup)
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // For each AVMediaPresentationSelector defined by the
 // AVCustomMediaSelectionScheme of an AVMediaSelectionGroup, returns the
 // AVMediaPresentationSettings that can be satisfied for offline operations,
@@ -155,7 +159,7 @@ func (a AVAssetCache) MediaPresentationSettingsForMediaSelectionGroup(mediaSelec
 // internet connection.
 //
 // # Discussion
-// 
+//
 // Check the value of this property to determine the asset’s suitability for
 // playback before presenting or attempting to play it.
 //
@@ -164,4 +168,3 @@ func (a AVAssetCache) PlayableOffline() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPlayableOffline"))
 	return rv
 }
-

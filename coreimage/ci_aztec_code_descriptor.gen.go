@@ -4,8 +4,9 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [CIAztecCodeDescriptor] class.
@@ -45,7 +46,7 @@ func (cc CIAztecCodeDescriptorClass) Alloc() CIAztecCodeDescriptor {
 // Aztec code symbol.
 //
 // # Overview
-// 
+//
 // An Aztec code symbol is a 2D barcode format defined by the ISO/IEC
 // 24778:2008 standard. It encodes data in concentric square rings around a
 // central bullseye pattern.
@@ -73,6 +74,7 @@ type CIAztecCodeDescriptor struct {
 func CIAztecCodeDescriptorFromID(id objc.ID) CIAztecCodeDescriptor {
 	return CIAztecCodeDescriptor{CIBarcodeDescriptor: CIBarcodeDescriptorFromID(id)}
 }
+
 // NOTE: CIAztecCodeDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -140,7 +142,7 @@ func NewCIAztecCodeDescriptor() CIAztecCodeDescriptor {
 // dataCodewordCount: The number of codewords in the Aztec code, from 1 to 2048.
 //
 // # Return Value
-// 
+//
 // An initialized [CIAztecCodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
@@ -162,7 +164,7 @@ func NewAztecCodeDescriptorWithPayloadIsCompactLayerCountDataCodewordCount(error
 // dataCodewordCount: The number of codewords in the Aztec code, from 1 to 2048.
 //
 // # Return Value
-// 
+//
 // An initialized [CIAztecCodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
@@ -183,7 +185,7 @@ func (a CIAztecCodeDescriptor) InitWithPayloadIsCompactLayerCountDataCodewordCou
 // dataCodewordCount: The number of codewords in the Aztec code, from 1 to 2048.
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIAztecCodeDescriptor] instance or `nil` if the parameters
 // are invalid
 //
@@ -196,9 +198,9 @@ func (_CIAztecCodeDescriptorClass CIAztecCodeDescriptorClass) DescriptorWithPayl
 // The error-corrected payload that comprises the the Aztec code symbol.
 //
 // # Discussion
-// 
+//
 // Aztec Codes are formally specified in ISO/IEC 24778:2008(E).
-// 
+//
 // The error corrected payload consists of the 6-, 8-, 10-, or 12-bit message
 // codewords produced at the end of the step described in section 7.3.1.2
 // “Formation of data codewords”, which exists immediately prior to adding
@@ -211,10 +213,11 @@ func (a CIAztecCodeDescriptor) ErrorCorrectedPayload() foundation.INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("errorCorrectedPayload"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
+
 // A Boolean value telling if the Aztec code is compact.
 //
 // # Discussion
-// 
+//
 // Compact Aztec symbols use one-fewer ring in the central finder pattern than
 // full-range Aztec symbols of the same number of data layers.
 //
@@ -223,14 +226,15 @@ func (a CIAztecCodeDescriptor) IsCompact() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isCompact"))
 	return rv
 }
+
 // The number of data layers in the Aztec code symbol.
 //
 // # Discussion
-// 
+//
 // Combined with [IsCompact], the number of data layers determines the number
 // of modules in the Aztec Code symbol. Valid values range from 1 to 32.
 // Compact symbols can have up to 4 data layers.
-// 
+//
 // The number of data layers also determines the number of bits in each data
 // codeword of the message carried by the Aztec Code symbol.
 //
@@ -239,11 +243,12 @@ func (a CIAztecCodeDescriptor) LayerCount() int {
 	rv := objc.Send[int](a.ID, objc.Sel("layerCount"))
 	return rv
 }
+
 // The number of non-error-correction codewords carried by the Aztec code
 // symbol.
 //
 // # Discussion
-// 
+//
 // Used to determine the level of error correction in conjunction with the
 // number of data layers. Valid values are 1 to 2048. Compact symbols can have
 // up to 64 message codewords.
@@ -253,4 +258,3 @@ func (a CIAztecCodeDescriptor) DataCodewordCount() int {
 	rv := objc.Send[int](a.ID, objc.Sel("dataCodewordCount"))
 	return rv
 }
-

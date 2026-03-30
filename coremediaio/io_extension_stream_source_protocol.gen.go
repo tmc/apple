@@ -18,6 +18,7 @@ type CMIOExtensionStreamSource interface {
 type CMIOExtensionStreamSourceObject struct {
 	objectivec.Object
 }
+
 func (o CMIOExtensionStreamSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func CMIOExtensionStreamSourceObjectFromID(id objc.ID) CMIOExtensionStreamSource
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

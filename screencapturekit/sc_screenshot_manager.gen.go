@@ -5,9 +5,10 @@ package screencapturekit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -57,6 +58,7 @@ type SCScreenshotManager struct {
 func SCScreenshotManagerFromID(id objc.ID) SCScreenshotManager {
 	return SCScreenshotManager{objectivec.Object{ID: id}}
 }
+
 // NOTE: SCScreenshotManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -96,9 +98,10 @@ func NewSCScreenshotManager() SCScreenshotManager {
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureImage(contentFilter:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureImageWithFilterConfigurationCompletionHandler(contentFilter ISCContentFilter, config ISCStreamConfiguration, completionHandler CGImageRefErrorHandler) {
-_block2, _ := NewCGImageRefErrorBlock(completionHandler)
+	_block2, _ := NewCGImageRefErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureImageWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
+
 // Captures a single frame directly from a stream’s buffer, using a filter.
 //
 // contentFilter: The content filter used to select the stream.
@@ -109,28 +112,28 @@ _block2, _ := NewCGImageRefErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureSampleBuffer(contentFilter:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureSampleBufferWithFilterConfigurationCompletionHandler(contentFilter ISCContentFilter, config ISCStreamConfiguration, completionHandler CMSampleBufferRefErrorHandler) {
-_block2, _ := NewCMSampleBufferRefErrorBlock(completionHandler)
+	_block2, _ := NewCMSampleBufferRefErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureSampleBufferWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
-//
+
 // rect: The rect for the region in points on the screen space for the screen shot,
 // this is display agnostic and supports multiple displays
 //
 // completionHandler: Is the handler that will deliver the screenshot to the client
 //
 // # Discussion
-// 
+//
 // captureImageInRect:completionHandler:
-// 
+//
 // this method returns an image containing the contents of the rectangle in
 // points, specified in display space
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureImage(in:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureImageInRectCompletionHandler(rect corefoundation.CGRect, completionHandler CGImageRefErrorHandler) {
-_block1, _ := NewCGImageRefErrorBlock(completionHandler)
+	_block1, _ := NewCGImageRefErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureImageInRect:completionHandler:"), rect, _block1)
 }
-//
+
 // contentFilter: Is the filter containing the content to take a screenshot of
 //
 // config: Is the screenshot configuration containing information on how to format the
@@ -140,18 +143,18 @@ _block1, _ := NewCGImageRefErrorBlock(completionHandler)
 // client
 //
 // # Discussion
-// 
+//
 // captureScreenshotWithFilter:configuration:completionHandler:
-// 
+//
 // this method returns an SCScreenshotOutput object containing CGImages of the
 // screenshot requested by the client
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureScreenshot(contentFilter:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureScreenshotWithFilterConfigurationCompletionHandler(contentFilter ISCContentFilter, config ISCScreenshotConfiguration, completionHandler SCScreenshotOutputErrorHandler) {
-_block2, _ := NewSCScreenshotOutputErrorBlock(completionHandler)
+	_block2, _ := NewSCScreenshotOutputErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureScreenshotWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
-//
+
 // rect: The rect for the region in points on the screen space for the screen shot,
 // this is display agnostic and supports multiple displays
 //
@@ -162,15 +165,15 @@ _block2, _ := NewSCScreenshotOutputErrorBlock(completionHandler)
 // client
 //
 // # Discussion
-// 
+//
 // captureScreenshotWithRect:configuration:completionHandler:
-// 
+//
 // this method returns an SCScreenshotOutput object containing CGImages of the
 // screenshot requested by the client
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureScreenshot(rect:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureScreenshotWithRectConfigurationCompletionHandler(rect corefoundation.CGRect, config ISCScreenshotConfiguration, completionHandler SCScreenshotOutputErrorHandler) {
-_block2, _ := NewSCScreenshotOutputErrorBlock(completionHandler)
+	_block2, _ := NewSCScreenshotOutputErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureScreenshotWithRect:configuration:completionHandler:"), rect, config, _block2)
 }
 
@@ -268,4 +271,3 @@ func (sc SCScreenshotManagerClass) CaptureScreenshotWithRectConfiguration(ctx co
 		return nil, ctx.Err()
 	}
 }
-

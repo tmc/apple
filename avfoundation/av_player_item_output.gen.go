@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (ac AVPlayerItemOutputClass) Alloc() AVPlayerItemOutput {
 // from a player item.
 //
 // # Overview
-// 
+//
 // This class provides basic methods for converting time values to the
 // timebase of the item. It also provides an option to suppress rendering of
 // the output associated with the specific instance of this class.
@@ -75,6 +76,7 @@ type AVPlayerItemOutput struct {
 func AVPlayerItemOutputFromID(id objc.ID) AVPlayerItemOutput {
 	return AVPlayerItemOutput{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerItemOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,36 +137,37 @@ func NewAVPlayerItemOutput() AVPlayerItemOutput {
 // hostTimeInSeconds: A host time value, specified in seconds. For example, you might specify the
 // time value returned by the [CACurrentMediaTime()] function or the timestamp
 // from a [CADisplayLink] object for this parameter.
-// //
-// [CACurrentMediaTime()]: https://developer.apple.com/documentation/QuartzCore/CACurrentMediaTime()
-// [CADisplayLink]: https://developer.apple.com/documentation/QuartzCore/CADisplayLink
 //
 // # Return Value
-// 
+//
 // The equivalent time in the item’s timebase.
 //
 // # Discussion
-// 
+//
 // The timestamp associated with a [CADisplayLink] object represents the time
 // of the most recent screen refresh, which is usually a time in the past. If
 // you want to find the time associated with the next screen refresh, you need
 // to increment the timestamp by the value in the display link’s `duration`
 // property.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/itemTime(forHostTime:)
+//
+// [CACurrentMediaTime()]: https://developer.apple.com/documentation/QuartzCore/CACurrentMediaTime()
 // [CADisplayLink]: https://developer.apple.com/documentation/QuartzCore/CADisplayLink
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/itemTime(forHostTime:)
+// [CADisplayLink]: https://developer.apple.com/documentation/QuartzCore/CADisplayLink
 func (p AVPlayerItemOutput) ItemTimeForHostTime(hostTimeInSeconds float64) coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("itemTimeForHostTime:"), hostTimeInSeconds)
 	return coremedia.CMTime(rv)
 }
+
 // Converts a Mach host time to the item’s timebase.
 //
 // machAbsoluteTime: The Mach host time to convert. You typically retrieve this value using the
 // `mach_absolute_time` function.
 //
 // # Return Value
-// 
+//
 // The equivalent time in the item’s timebase.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/itemTime(forMachAbsoluteTime:)
@@ -172,12 +175,13 @@ func (p AVPlayerItemOutput) ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) 
 	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("itemTimeForMachAbsoluteTime:"), machAbsoluteTime)
 	return coremedia.CMTime(rv)
 }
+
 // Converts a Core Video timestamp to the item’s timebase.
 //
 // timestamp: A timestamp value provided by the Core Video framework.
 //
 // # Return Value
-// 
+//
 // The equivalent time in the item’s timebase.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/itemTime(for:)
@@ -190,14 +194,11 @@ func (p AVPlayerItemOutput) ItemTimeForCVTimeStamp(timestamp corevideo.CVTimeSta
 // receiver’s output.
 //
 // # Discussion
-// 
-// When the value of this property is [false] (the default), the player object
-// handles the rendering of the receiver’s associated output. Change the
-// value of this property to [true] to suppress the rendering of the media
-// data associated with this object.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is false (the default), the player object
+// handles the rendering of the receiver’s associated output. Change the
+// value of this property to true to suppress the rendering of the media data
+// associated with this object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/suppressesPlayerRendering
 func (p AVPlayerItemOutput) SuppressesPlayerRendering() bool {
@@ -207,4 +208,3 @@ func (p AVPlayerItemOutput) SuppressesPlayerRendering() bool {
 func (p AVPlayerItemOutput) SetSuppressesPlayerRendering(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSuppressesPlayerRendering:"), value)
 }
-

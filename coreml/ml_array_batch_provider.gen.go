@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (mc MLArrayBatchProviderClass) Alloc() MLArrayBatchProvider {
 // A convenience wrapper for batches of feature providers.
 //
 // # Overview
-// 
+//
 // This batch provider supports an array of feature providers or a dictionary
 // of arrays of feature values.
 //
@@ -70,6 +71,7 @@ type MLArrayBatchProvider struct {
 func MLArrayBatchProviderFromID(id objc.ID) MLArrayBatchProvider {
 	return MLArrayBatchProvider{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLArrayBatchProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -129,7 +131,7 @@ func NewMLArrayBatchProvider() MLArrayBatchProvider {
 // aray are not expressible as an [MLFeatureValue].
 //
 // # Discussion
-// 
+//
 // This initializer is convenient when the data are available as individual
 // arrays.
 //
@@ -165,6 +167,7 @@ func (a MLArrayBatchProvider) InitWithFeatureProviderArray(array []objectivec.IO
 	rv := objc.Send[MLArrayBatchProvider](a.ID, objc.Sel("initWithFeatureProviderArray:"), objectivec.IObjectSliceToNSArray(array))
 	return rv
 }
+
 // Creates a batch provider based on feature names and their associated arrays
 // of data.
 //
@@ -173,7 +176,7 @@ func (a MLArrayBatchProvider) InitWithFeatureProviderArray(array []objectivec.IO
 // aray are not expressible as an [MLFeatureValue].
 //
 // # Discussion
-// 
+//
 // This initializer is convenient when the data are available as individual
 // arrays.
 //
@@ -188,12 +191,13 @@ func (a MLArrayBatchProvider) InitWithDictionaryError(dictionary foundation.INSD
 	return MLArrayBatchProviderFromID(rv), nil
 
 }
+
 // Returns the feature provider at the given index.
 //
 // index: The index of the desired feature provider.
 //
 // # Return Value
-// 
+//
 // The feature provider at the given index.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/features(at:)
@@ -211,6 +215,7 @@ func (a MLArrayBatchProvider) Array() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // The number of feature providers in this batch.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count
@@ -219,6 +224,4 @@ func (a MLArrayBatchProvider) Count() int {
 	return rv
 }
 
-			// Protocol methods for MLBatchProvider
-			
-
+// Protocol methods for MLBatchProvider

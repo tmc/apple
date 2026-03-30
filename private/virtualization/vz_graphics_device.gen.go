@@ -4,11 +4,12 @@ package virtualization
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,6 @@ func (vc VZGraphicsDeviceClass) Alloc() VZGraphicsDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZGraphicsDevice._attachDisplayCompletionHandler]
@@ -53,6 +53,7 @@ func (vc VZGraphicsDeviceClass) Alloc() VZGraphicsDevice {
 //   - [VZGraphicsDevice._displayPortCount]
 //   - [VZGraphicsDevice._initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays]
 //   - [VZGraphicsDevice._validateDisplayForHotPlugError]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDevice
 type VZGraphicsDevice struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type VZGraphicsDevice struct {
 func VZGraphicsDeviceFromID(id objc.ID) VZGraphicsDevice {
 	return VZGraphicsDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure VZGraphicsDevice implements IVZGraphicsDevice.
 var _ IVZGraphicsDevice = VZGraphicsDevice{}
 
@@ -107,10 +109,9 @@ func NewVZGraphicsDevice() VZGraphicsDevice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDevice/_attachDisplay:completionHandler:
 func (g VZGraphicsDevice) _attachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](g.ID, objc.Sel("_attachDisplay:completionHandler:"), display, _block1)
 }
 
@@ -118,10 +119,10 @@ _block1, _ := NewErrorBlock(handler)
 func (g VZGraphicsDevice) AttachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) {
 	g._attachDisplayCompletionHandler(display, handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDevice/_detachDisplay:completionHandler:
 func (g VZGraphicsDevice) _detachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) {
-_block1, _ := NewErrorBlock(handler)
+	_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](g.ID, objc.Sel("_detachDisplay:completionHandler:"), display, _block1)
 }
 
@@ -129,7 +130,7 @@ _block1, _ := NewErrorBlock(handler)
 func (g VZGraphicsDevice) DetachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler) {
 	g._detachDisplayCompletionHandler(display, handler)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDevice/_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:
 func (g VZGraphicsDevice) _initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:"), machine, index, count, displays)
@@ -140,7 +141,7 @@ func (g VZGraphicsDevice) _initWithVirtualMachineGraphicsDeviceIndexDisplayPortC
 func (g VZGraphicsDevice) InitWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) objectivec.IObject {
 	return g._initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine, index, count, displays)
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDevice/_validateDisplayForHotPlug:error:
 func (g VZGraphicsDevice) _validateDisplayForHotPlugError(plug objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -196,4 +197,3 @@ func (g VZGraphicsDevice) _detachDisplay(ctx context.Context, display objectivec
 		return ctx.Err()
 	}
 }
-

@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -57,6 +58,7 @@ type AVMutableDateRangeMetadataGroup struct {
 func AVMutableDateRangeMetadataGroupFromID(id objc.ID) AVMutableDateRangeMetadataGroup {
 	return AVMutableDateRangeMetadataGroup{AVDateRangeMetadataGroup: AVDateRangeMetadataGroupFromID(id)}
 }
+
 // NOTE: AVMutableDateRangeMetadataGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -96,11 +98,11 @@ func NewAVMutableDateRangeMetadataGroup() AVMutableDateRangeMetadataGroup {
 // endDate: The ending date for the group of metadata items.
 //
 // # Return Value
-// 
+//
 // A new instance of [AVDateRangeMetadataGroup].
 //
 // # Discussion
-// 
+//
 // Creates a new instance of [AVDateRangeMetadataGroup] with the specified
 // collection of metadata items. The `startDate` and `endDate` arguments
 // define the effective time range on the timeline to which the metadata
@@ -112,4 +114,3 @@ func NewMutableDateRangeMetadataGroupWithItemsStartDateEndDate(items []AVMetadat
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItems:startDate:endDate:"), objectivec.IObjectSliceToNSArray(items), startDate, endDate)
 	return AVMutableDateRangeMetadataGroupFromID(rv)
 }
-

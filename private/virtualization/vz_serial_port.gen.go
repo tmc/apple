@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,12 +42,12 @@ func (vc VZSerialPortClass) Alloc() VZSerialPort {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZSerialPort.Attachment]
 //   - [VZSerialPort.SetAttachment]
 //   - [VZSerialPort.Type]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZSerialPort
 type VZSerialPort struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type VZSerialPort struct {
 func VZSerialPortFromID(id objc.ID) VZSerialPort {
 	return VZSerialPort{objectivec.Object{ID: id}}
 }
+
 // Ensure VZSerialPort implements IVZSerialPort.
 var _ IVZSerialPort = VZSerialPort{}
 
@@ -105,9 +107,9 @@ func (v VZSerialPort) Attachment() IVZSerialPortAttachment {
 func (v VZSerialPort) SetAttachment(value IVZSerialPortAttachment) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZSerialPort/type
 func (v VZSerialPort) Type() int64 {
 	rv := objc.Send[int64](v.ID, objc.Sel("type"))
 	return rv
 }
-

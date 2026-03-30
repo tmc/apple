@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNRectangleObservation] class.
@@ -61,6 +62,7 @@ type VNRectangleObservation struct {
 func VNRectangleObservationFromID(id objc.ID) VNRectangleObservation {
 	return VNRectangleObservation{VNDetectedObjectObservation: VNDetectedObjectObservationFromID(id)}
 }
+
 // NOTE: VNRectangleObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -183,6 +185,7 @@ func (r VNRectangleObservation) BottomLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("bottomLeft"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The coordinates of the lower-right corner of the observation bounding box.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRectangleObservation/bottomRight
@@ -190,6 +193,7 @@ func (r VNRectangleObservation) BottomRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("bottomRight"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The coordinates of the upper-left corner of the observation bounding box.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRectangleObservation/topLeft
@@ -197,6 +201,7 @@ func (r VNRectangleObservation) TopLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("topLeft"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The coordinates of the upper-right corner of the observation bounding box.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRectangleObservation/topRight
@@ -204,6 +209,7 @@ func (r VNRectangleObservation) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("topRight"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The results of a document segmentation request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectdocumentsegmentationrequest/results
@@ -214,4 +220,3 @@ func (r VNRectangleObservation) Results() IVNRectangleObservation {
 func (r VNRectangleObservation) SetResults(value IVNRectangleObservation) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResults:"), value)
 }
-

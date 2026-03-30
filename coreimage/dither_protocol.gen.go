@@ -39,6 +39,7 @@ type CIDither interface {
 type CIDitherObject struct {
 	objectivec.Object
 }
+
 func (o CIDitherObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -57,14 +58,16 @@ func CIDitherObjectFromID(id objc.ID) CIDitherObject {
 func (o CIDitherObject) InputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
-	}
+}
+
 // The intensity of the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDither/intensity
 func (o CIDitherObject) Intensity() float32 {
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
-	}
+}
+
 // A [CIImage] object that encapsulates the operations configured in the
 // filter.
 //
@@ -72,13 +75,18 @@ func (o CIDitherObject) Intensity() float32 {
 func (o CIDitherObject) OutputImage() ICIImage {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
-	}
+}
 
+// The image to use as an input image.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIDither/inputImage
 func (o CIDitherObject) SetInputImage(value ICIImage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputImage:"), value)
 }
 
+// The intensity of the effect.
+//
+// See: https://developer.apple.com/documentation/CoreImage/CIDither/intensity
 func (o CIDitherObject) SetIntensity(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIntensity:"), value)
 }
-

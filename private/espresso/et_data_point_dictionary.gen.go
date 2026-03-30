@@ -3,10 +3,11 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (ec ETDataPointDictionaryClass) Alloc() ETDataPointDictionary {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ETDataPointDictionary.DataArrayForKeyError]
@@ -54,6 +54,7 @@ func (ec ETDataPointDictionaryClass) Alloc() ETDataPointDictionary {
 //   - [ETDataPointDictionary.SetImage_buffers]
 //   - [ETDataPointDictionary.SetDataSizeForKeyFreeWhenDone]
 //   - [ETDataPointDictionary.SetImageForKey]
+//
 // See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary
 type ETDataPointDictionary struct {
 	objectivec.Object
@@ -63,6 +64,7 @@ type ETDataPointDictionary struct {
 func ETDataPointDictionaryFromID(id objc.ID) ETDataPointDictionary {
 	return ETDataPointDictionary{objectivec.Object{ID: id}}
 }
+
 // Ensure ETDataPointDictionary implements IETDataPointDictionary.
 var _ IETDataPointDictionary = ETDataPointDictionary{}
 
@@ -114,7 +116,6 @@ func NewETDataPointDictionary() ETDataPointDictionary {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/dataArrayForKey:error:
 func (e ETDataPointDictionary) DataArrayForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -126,7 +127,7 @@ func (e ETDataPointDictionary) DataArrayForKeyError(key objectivec.IObject) (obj
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/dataForKey:error:
 func (e ETDataPointDictionary) DataForKeyError(key objectivec.IObject) (unsafe.Pointer, error) {
 	var errorPtr objc.ID
@@ -138,14 +139,14 @@ func (e ETDataPointDictionary) DataForKeyError(key objectivec.IObject) (unsafe.P
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/setData:size:forKey:freeWhenDone:
 func (e ETDataPointDictionary) SetDataSizeForKeyFreeWhenDone(size uint64, key objectivec.IObject, done bool) (float32, bool) {
 	var data float32
 	rv := objc.Send[bool](e.ID, objc.Sel("setData:size:forKey:freeWhenDone:"), unsafe.Pointer(&data), size, key, done)
 	return data, rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/setImage:forKey:
 func (e ETDataPointDictionary) SetImageForKey(image unsafe.Pointer, key objectivec.IObject) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("setImage:forKey:"), image, key)
@@ -160,6 +161,7 @@ func (e ETDataPointDictionary) Float_buffers() objectivec.IObject {
 func (e ETDataPointDictionary) SetFloat_buffers(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFloat_buffers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/Espresso/ETDataPointDictionary/image_buffers
 func (e ETDataPointDictionary) Image_buffers() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("image_buffers"))
@@ -168,4 +170,3 @@ func (e ETDataPointDictionary) Image_buffers() objectivec.IObject {
 func (e ETDataPointDictionary) SetImage_buffers(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImage_buffers:"), value)
 }
-

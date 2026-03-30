@@ -5,9 +5,10 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,24 +48,24 @@ func (nc NSTableViewDiffableDataSourceClass) Alloc() NSTableViewDiffableDataSour
 // The object you use to manage data and provide items for a table view.
 //
 // # Overview
-// 
+//
 // A object is a specialized type of data source that works together with your
 // table view object. It provides the behavior you need to manage updates to
 // your table view’s data and UI in a simple, efficient way. It also
 // conforms to the [NSTableViewDataSource] protocol.
-// 
+//
 // To fill a table view with data:
-// 
+//
 // - Connect a diffable data source to your table view. - Implement a cell
 // provider to configure your table view’s cells. - Generate the current
 // state of the data. - Display the data in the UI.
-// 
+//
 // To connect a diffable data source to a table view, you create the diffable
 // data source using its [NSTableViewDiffableDataSource.InitWithTableViewCellProvider] initializer, passing
 // in the table view you want to associate with that data source. You also
 // pass in a cell provider, where you configure each of your cells to
 // determine how to display your data in the UI.
-// 
+//
 // Then, you generate the current state of the data and display the data in
 // the UI by constructing and applying a snapshot. For more information, see
 // [NSDiffableDataSourceSnapshot].
@@ -106,6 +107,7 @@ type NSTableViewDiffableDataSource struct {
 func NSTableViewDiffableDataSourceFromID(id objc.ID) NSTableViewDiffableDataSource {
 	return NSTableViewDiffableDataSource{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSTableViewDiffableDataSource adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -229,12 +231,13 @@ func (t NSTableViewDiffableDataSource) InitWithTableViewCellProvider(tableView I
 	rv := objc.Send[NSTableViewDiffableDataSource](t.ID, objc.Sel("initWithTableView:cellProvider:"), tableView, cellProvider)
 	return rv
 }
+
 // Returns an identifier for the item at the specified row in the table view.
 //
 // row: The row of the item in the table view.
 //
 // # Return Value
-// 
+//
 // The item’s identifier, or `nil` if the method doesn’t find an item at
 // the provided row.
 //
@@ -243,12 +246,13 @@ func (t NSTableViewDiffableDataSource) ItemIdentifierForRow(row int) objectivec.
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("itemIdentifierForRow:"), row)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns a row for the item with the specified identifier in the table view.
 //
 // identifier: The identifier of the item in the table view.
 //
 // # Return Value
-// 
+//
 // The item’s row, or `nil` if the method doesn’t find an item with the
 // provided item identifier.
 //
@@ -257,13 +261,14 @@ func (t NSTableViewDiffableDataSource) RowForItemIdentifier(identifier objective
 	rv := objc.Send[int](t.ID, objc.Sel("rowForItemIdentifier:"), identifier)
 	return rv
 }
+
 // Returns the identifier of the section containing the specified row in the
 // snapshot.
 //
 // row: The row of the section in the table view.
 //
 // # Return Value
-// 
+//
 // The section’s identifier, or `nil` if the method doesn’t find an item
 // with the provided item identifier.
 //
@@ -272,13 +277,14 @@ func (t NSTableViewDiffableDataSource) SectionIdentifierForRow(row int) objectiv
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("sectionIdentifierForRow:"), row)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns a row for the section with the specified identifier in the table
 // view.
 //
 // identifier: The identifier of the section in the table view.
 //
 // # Return Value
-// 
+//
 // The item’s section, or `nil` if the method doesn’t find an item with
 // the provided item identifier.
 //
@@ -287,11 +293,12 @@ func (t NSTableViewDiffableDataSource) RowForSectionIdentifier(identifier object
 	rv := objc.Send[int](t.ID, objc.Sel("rowForSectionIdentifier:"), identifier)
 	return rv
 }
+
 // Returns a representation of the current state of the data in the table
 // view.
 //
 // # Return Value
-// 
+//
 // A snapshot that contains row and item identifiers in the order they appear
 // in the UI.
 //
@@ -300,6 +307,7 @@ func (t NSTableViewDiffableDataSource) Snapshot() INSDiffableDataSourceSnapshot 
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("snapshot"))
 	return NSDiffableDataSourceSnapshotFromID(rv)
 }
+
 // Updates the UI to reflect the state of the data in the specified snapshot,
 // optionally animating the UI changes.
 //
@@ -318,6 +326,7 @@ func (t NSTableViewDiffableDataSource) Snapshot() INSDiffableDataSourceSnapshot 
 func (t NSTableViewDiffableDataSource) ApplySnapshotAnimatingDifferences(snapshot INSDiffableDataSourceSnapshot, animatingDifferences bool) {
 	objc.Send[objc.ID](t.ID, objc.Sel("applySnapshot:animatingDifferences:"), snapshot, animatingDifferences)
 }
+
 // Updates the UI to reflect the state of the data in the specified snapshot,
 // optionally animating the UI changes and executing a completion handler.
 //
@@ -340,24 +349,25 @@ func (t NSTableViewDiffableDataSource) ApplySnapshotAnimatingDifferences(snapsho
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/applySnapshot(_:animatingDifferences:completion:)
 func (t NSTableViewDiffableDataSource) ApplySnapshotAnimatingDifferencesCompletion(snapshot INSDiffableDataSourceSnapshot, animatingDifferences bool, completion VoidHandler) {
-_block2, _ := NewVoidBlock(completion)
+	_block2, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](t.ID, objc.Sel("applySnapshot:animatingDifferences:completion:"), snapshot, animatingDifferences, _block2)
 }
+
 // Returns the number of records managed for `aTableView` by the data source
 // object.
 //
 // tableView: The table view that sent the message.
 //
 // # Return Value
-// 
+//
 // The number of rows in `aTableView`.
 //
 // # Discussion
-// 
+//
 // An instance of [NSTableView] uses this method to determine how many rows it
 // should create and display. Your [NumberOfRowsInTableView] implementation is
 // called very frequently, so it must be efficient.
-// 
+//
 // Both view-based table views and cell-based table views must implement this
 // method.
 //
@@ -366,6 +376,7 @@ func (t NSTableViewDiffableDataSource) NumberOfRowsInTableView(tableView INSTabl
 	rv := objc.Send[int](t.ID, objc.Sel("numberOfRowsInTableView:"), tableView)
 	return rv
 }
+
 // Called by `aTableView` when the mouse button is released over a table view
 // that previously decided to allow a drop.
 //
@@ -378,18 +389,15 @@ func (t NSTableViewDiffableDataSource) NumberOfRowsInTableView(tableView INSTabl
 // dropOperation: The type of dragging operation.
 //
 // # Return Value
-// 
-// [true] if the drop operation was successful, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the drop operation was successful, otherwise false.
 //
 // # Discussion
-// 
+//
 // The data source should incorporate the data from the dragging pasteboard in
 // the implementation of this method. You can use the [DraggingPasteboard]
 // method to get the data for the drop operation from `info`.
-// 
+//
 // To accept a drop on the second row, `row` would be 2 and `operation` would
 // be [NSTableViewDropOn]. To accept a drop below the last row, `row` would be
 // `[aTableView numberOfRows]` and `operation` would be
@@ -400,6 +408,7 @@ func (t NSTableViewDiffableDataSource) TableViewAcceptDropRowDropOperation(table
 	rv := objc.Send[bool](t.ID, objc.Sel("tableView:acceptDrop:row:dropOperation:"), tableView, info, row, dropOperation)
 	return rv
 }
+
 // Implement this method to determine when a dragging session has ended.
 //
 // tableView: The table view.
@@ -409,19 +418,20 @@ func (t NSTableViewDiffableDataSource) TableViewAcceptDropRowDropOperation(table
 // screenPoint: The ending drag location in screen coordinates.
 //
 // operation: The drag operation. See [NSDragOperation] for supported values.
-// //
-// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
 //
 // # Discussion
-// 
+//
 // This delegate method can be used to determine when the dragging source
 // operation ended at a specific location, such as the trash, by checking for
-// an operation of [DragOperationDelete].
+// an operation of [NSDragOperationDelete].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:draggingSession:endedAt:operation:)
+//
+// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
 func (t NSTableViewDiffableDataSource) TableViewDraggingSessionEndedAtPointOperation(tableView INSTableView, session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
 	objc.Send[objc.ID](t.ID, objc.Sel("tableView:draggingSession:endedAtPoint:operation:"), tableView, session, screenPoint, operation)
 }
+
 // Implement this method to determine when a dragging session will begin.
 //
 // tableView: The table view.
@@ -434,10 +444,10 @@ func (t NSTableViewDiffableDataSource) TableViewDraggingSessionEndedAtPointOpera
 // due to [TableViewPasteboardWriterForRow] returning `nil`.
 //
 // # Discussion
-// 
+//
 // Implement this method to know when the dragging session is about to begin
 // and to potentially modify the dragging session.
-// 
+//
 // The dragged item order will directly match the pasteboard writer array used
 // to begin the dragging session with the [NSView] method
 // [BeginDraggingSessionWithItemsEventSource]. Hence, the order is
@@ -448,6 +458,7 @@ func (t NSTableViewDiffableDataSource) TableViewDraggingSessionEndedAtPointOpera
 func (t NSTableViewDiffableDataSource) TableViewDraggingSessionWillBeginAtPointForRowIndexes(tableView INSTableView, session INSDraggingSession, screenPoint corefoundation.CGPoint, rowIndexes foundation.NSIndexSet) {
 	objc.Send[objc.ID](t.ID, objc.Sel("tableView:draggingSession:willBeginAtPoint:forRowIndexes:"), tableView, session, screenPoint, rowIndexes)
 }
+
 // Called by the table view to return the data object associated with the
 // specified row and column.
 //
@@ -458,11 +469,11 @@ func (t NSTableViewDiffableDataSource) TableViewDraggingSessionWillBeginAtPointF
 // row: The row of the item in `aTableColumn`.
 //
 // # Return Value
-// 
+//
 // An item in the data source in the specified table column of the view.
 //
 // # Discussion
-// 
+//
 // [TableViewObjectValueForTableColumnRow] is called each time the table cell
 // needs to be redisplayed, so it must be efficient.
 //
@@ -471,6 +482,7 @@ func (t NSTableViewDiffableDataSource) TableViewObjectValueForTableColumnRow(tab
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tableView:objectValueForTableColumn:row:"), tableView, tableColumn, row)
 	return objectivec.Object{ID: rv}
 }
+
 // Called to allow the table to support multiple item dragging.
 //
 // tableView: The table view.
@@ -478,25 +490,26 @@ func (t NSTableViewDiffableDataSource) TableViewObjectValueForTableColumnRow(tab
 // row: The row.
 //
 // # Return Value
-// 
+//
 // Returns an instance of [NSPasteboardItem] or a custom object that
 // implements the [NSPasteboardWriting] protocol. Returning `nil` excludes the
 // row from being dragged.
 //
 // # Discussion
-// 
+//
 // This method is required for multi-image dragging.
-// 
+//
 // If this method is implemented, then [tableView(_:writeRowsWith:to:)] will
 // not be called.
 //
-// [tableView(_:writeRowsWith:to:)]: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:writeRowsWith:to:)
-//
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:pasteboardWriterForRow:)
+//
+// [tableView(_:writeRowsWith:to:)]: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:writeRowsWith:to:)
 func (t NSTableViewDiffableDataSource) TableViewPasteboardWriterForRow(tableView INSTableView, row int) NSPasteboardWriting {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tableView:pasteboardWriterForRow:"), tableView, row)
 	return NSPasteboardWritingObjectFromID(rv)
 }
+
 // Sets the data object for an item in the specified row and column.
 //
 // tableView: The table view that sent the message.
@@ -508,7 +521,7 @@ func (t NSTableViewDiffableDataSource) TableViewPasteboardWriterForRow(tableView
 // row: The row of the item in `aTableColumn`.
 //
 // # Discussion
-// 
+//
 // This method is intended for use with cell-based table views, it must not be
 // used with view-based table views. In view-based tables, use target/action
 // to set each item in the view cell.
@@ -517,6 +530,7 @@ func (t NSTableViewDiffableDataSource) TableViewPasteboardWriterForRow(tableView
 func (t NSTableViewDiffableDataSource) TableViewSetObjectValueForTableColumnRow(tableView INSTableView, object objectivec.IObject, tableColumn INSTableColumn, row int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("tableView:setObjectValue:forTableColumn:row:"), tableView, object, tableColumn, row)
 }
+
 // Called by `aTableView` to indicate that sorting may need to be done.
 //
 // tableView: The table view that sent the message.
@@ -524,7 +538,7 @@ func (t NSTableViewDiffableDataSource) TableViewSetObjectValueForTableColumnRow(
 // oldDescriptors: An array that contains the previous descriptors.
 //
 // # Discussion
-// 
+//
 // The data source typically sorts and reloads the data, and adjusts the
 // selections accordingly. If you need to know the current sort descriptors
 // and the data source doesn’t manage them itself, you can get the current
@@ -534,6 +548,7 @@ func (t NSTableViewDiffableDataSource) TableViewSetObjectValueForTableColumnRow(
 func (t NSTableViewDiffableDataSource) TableViewSortDescriptorsDidChange(tableView INSTableView, oldDescriptors []foundation.NSSortDescriptor) {
 	objc.Send[objc.ID](t.ID, objc.Sel("tableView:sortDescriptorsDidChange:"), tableView, objectivec.IObjectSliceToNSArray(oldDescriptors))
 }
+
 // Implement this method to allow the table to update dragging items as they
 // are dragged over a view.
 //
@@ -542,13 +557,13 @@ func (t NSTableViewDiffableDataSource) TableViewSortDescriptorsDidChange(tableVi
 // draggingInfo: The dragging information.
 //
 // # Discussion
-// 
+//
 // Required for multi-image dragging. Typically this will involve invoking
 // [EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock] on
 // the `draggingInfo` parameter value and setting the `draggingItem`
 // object’s [ImageComponentsProvider] to a proper image based on the
 // content.
-// 
+//
 // For view-based table views, you can use the [NSTableCellView] method
 // [DraggingImageComponents]. For cell-based tables, use the [NSCell] method
 // [DraggingImageComponentsWithFrameInView].
@@ -557,6 +572,7 @@ func (t NSTableViewDiffableDataSource) TableViewSortDescriptorsDidChange(tableVi
 func (t NSTableViewDiffableDataSource) TableViewUpdateDraggingItemsForDrag(tableView INSTableView, draggingInfo NSDraggingInfo) {
 	objc.Send[objc.ID](t.ID, objc.Sel("tableView:updateDraggingItemsForDrag:"), tableView, draggingInfo)
 }
+
 // Used by `aTableView` to determine a valid drop target.
 //
 // tableView: The table view that sent the message.
@@ -568,16 +584,16 @@ func (t NSTableViewDiffableDataSource) TableViewUpdateDraggingItemsForDrag(table
 // dropOperation: The type of dragging operation proposed.
 //
 // # Return Value
-// 
+//
 // The dragging operation the data source will perform.
 //
 // # Discussion
-// 
+//
 // The data source may retarget a drop by calling [SetDropRowDropOperation]
 // and returning something other than [NSDragOperationNone]. A data source
 // might retarget for various reasons, such as to provide better visual
 // feedback when inserting into a sorted position.
-// 
+//
 // To propose a drop on the second row, `row` would be 2 and `operation` would
 // be [NSTableViewDropOn]. To propose a drop below the last row, `row` would
 // be `[aTableView numberOfRows]` and `operation` would be
@@ -593,7 +609,7 @@ func (t NSTableViewDiffableDataSource) TableViewValidateDropProposedRowProposedD
 // the diffable data source.
 //
 // # Discussion
-// 
+//
 // This property replaces the [TableViewRowViewForRow] delegate method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/rowViewProvider
@@ -604,11 +620,12 @@ func (t NSTableViewDiffableDataSource) RowViewProvider() NSTableViewDiffableData
 func (t NSTableViewDiffableDataSource) SetRowViewProvider(value NSTableViewDiffableDataSourceRowProvider) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRowViewProvider:"), value)
 }
+
 // The closure that configures and returns the table view’s section header
 // views from the diffable data source.
 //
 // # Discussion
-// 
+//
 // This property replaces the [TableViewViewForTableColumnRow] method for
 // group rows when the `tableColumn` parameter in
 // [TableViewViewForTableColumnRow] would be `nil`. Setting this property
@@ -623,12 +640,13 @@ func (t NSTableViewDiffableDataSource) SectionHeaderViewProvider() NSTableViewDi
 func (t NSTableViewDiffableDataSource) SetSectionHeaderViewProvider(value NSTableViewDiffableDataSourceSectionHeaderViewProvider) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSectionHeaderViewProvider:"), value)
 }
+
 // The default animation the UI uses to show differences between rows.
 //
 // # Discussion
-// 
-// The default value of this property is [TableViewAnimationEffectFade].
-// 
+//
+// The default value of this property is [NSTableViewAnimationEffectFade].
+//
 // If you set the value of this property, the new value becomes the default
 // row animation for the next update that uses
 // [ApplySnapshotAnimatingDifferences].
@@ -642,8 +660,7 @@ func (t NSTableViewDiffableDataSource) SetDefaultRowAnimation(value NSTableViewA
 	objc.Send[struct{}](t.ID, objc.Sel("setDefaultRowAnimation:"), value)
 }
 
-			// Protocol methods for NSTableViewDataSource
-			
+// Protocol methods for NSTableViewDataSource
 
 // ApplySnapshotAnimatingDifferencesCompletionSync is a synchronous wrapper around [NSTableViewDiffableDataSource.ApplySnapshotAnimatingDifferencesCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -659,4 +676,3 @@ func (t NSTableViewDiffableDataSource) ApplySnapshotAnimatingDifferencesCompleti
 		return ctx.Err()
 	}
 }
-

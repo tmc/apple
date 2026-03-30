@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -63,6 +64,7 @@ type AVMediaExtensionProperties struct {
 func AVMediaExtensionPropertiesFromID(id objc.ID) AVMediaExtensionProperties {
 	return AVMediaExtensionProperties{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMediaExtensionProperties adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -119,16 +121,17 @@ func NewAVMediaExtensionProperties() AVMediaExtensionProperties {
 // The name of the Media Extension.
 //
 // # Discussion
-// 
+//
 // This value corresponds to the extension’s [CFBundleDisplayName].
 //
-// [CFBundleDisplayName]: https://developer.apple.com/documentation/BundleResources/Information-Property-List/CFBundleDisplayName
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaExtensionProperties/extensionName
+//
+// [CFBundleDisplayName]: https://developer.apple.com/documentation/BundleResources/Information-Property-List/CFBundleDisplayName
 func (m AVMediaExtensionProperties) ExtensionName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("extensionName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The name of the containing app bundle.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaExtensionProperties/containingBundleName
@@ -136,11 +139,13 @@ func (m AVMediaExtensionProperties) ContainingBundleName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("containingBundleName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaExtensionProperties/extensionIdentifier
 func (m AVMediaExtensionProperties) ExtensionIdentifier() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("extensionIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The file URL of the Media Extension bundle.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaExtensionProperties/extensionURL
@@ -148,6 +153,7 @@ func (m AVMediaExtensionProperties) ExtensionURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("extensionURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // The file URL of the host application for the Media Extension.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMediaExtensionProperties/containingBundleURL
@@ -155,6 +161,7 @@ func (m AVMediaExtensionProperties) ContainingBundleURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("containingBundleURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // The properties of the media extension format reader that decodes the asset.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avurlasset/mediaextensionproperties
@@ -165,4 +172,3 @@ func (m AVMediaExtensionProperties) MediaExtensionProperties() IAVMediaExtension
 func (m AVMediaExtensionProperties) SetMediaExtensionProperties(value IAVMediaExtensionProperties) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMediaExtensionProperties:"), value)
 }
-

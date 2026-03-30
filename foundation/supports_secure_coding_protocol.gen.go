@@ -18,6 +18,7 @@ type supportsSecureCoding interface {
 type supportsSecureCodingObject struct {
 	objectivec.Object
 }
+
 func (o supportsSecureCodingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func supportsSecureCodingObjectFromID(id objc.ID) supportsSecureCodingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

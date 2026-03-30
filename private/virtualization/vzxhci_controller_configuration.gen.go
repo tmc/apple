@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type VZXHCIControllerConfiguration struct {
 func VZXHCIControllerConfigurationFromID(id objc.ID) VZXHCIControllerConfiguration {
 	return VZXHCIControllerConfiguration{VZUSBControllerConfiguration: VZUSBControllerConfigurationFromID(id)}
 }
+
 // Ensure VZXHCIControllerConfiguration implements IVZXHCIControllerConfiguration.
 var _ IVZXHCIControllerConfiguration = VZXHCIControllerConfiguration{}
 
@@ -77,4 +79,3 @@ func NewVZXHCIControllerConfiguration() VZXHCIControllerConfiguration {
 	rv := objc.Send[VZXHCIControllerConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

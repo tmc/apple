@@ -9,6 +9,7 @@ import (
 
 // ErrorHandler handles The completion handler the framework invokes after the request finishes processing.
 //   - error: A result type that contains an error object when the VM fails to start.
+//
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
@@ -96,4 +97,3 @@ func NewVirtioSocketConnectionErrorBlock(handler VirtioSocketConnectionErrorHand
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

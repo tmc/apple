@@ -5,13 +5,8 @@ package coreml
 import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
-
-// ArrayHandler is the signature for a completion handler block.
-//
-// Used by:
-//   - [MLMultiArray.GetMutableBytesWithHandler]
-type ArrayHandler = func(*[]foundation.NSNumber)
 
 // ErrorHandler is the signature for a completion handler block.
 //
@@ -31,11 +26,6 @@ type ArrayHandler = func(*[]foundation.NSNumber)
 //   - [MLGenericPredictionRequest.SubmitWithCompletionHandler]
 //   - [MLKNearestNeighborsClassifier.SetProgressHandlers]
 //   - [MLKNearestNeighborsClassifier.SetUpdateProgressHandlersDispatchQueue]
-//   - [MLModel.CompileModelAtURLCompletionHandler]
-//   - [MLModel.LoadContentsOfURLConfigurationCompletionHandler]
-//   - [MLModel.PredictionFromFeaturesCompletionHandler]
-//   - [MLModel.PredictionFromFeaturesOptionsCompletionHandler]
-//   - [MLModel.PredictionFromFeaturesUsingStateOptionsCompletionHandler]
 //   - [MLModel.PrepareWithCompletionHandler]
 //   - [MLModel.SubmitPredictionRequestCompletionHandler]
 //   - [MLModelAsset.ModelStructureWithCompletionHandler]
@@ -52,7 +42,6 @@ type ArrayHandler = func(*[]foundation.NSNumber)
 //   - [MLModelCollection.BeginAccessingModelCollectionWithIdentifierCompletionHandler]
 //   - [MLModelCollection.EndAccessingModelCollectionWithIdentifierCompletionHandler]
 //   - [MLModelEngine.SubmitPredictionRequestCompletionHandler]
-//   - [MLModeling.SubmitPredictionRequestCompletionHandler]
 //   - [MLNeuralNetworkMLComputeUpdateEngine.SetProgressHandlers]
 //   - [MLNeuralNetworkMLComputeUpdateEngine.SetUpdateProgressHandlersDispatchQueue]
 //   - [MLNeuralNetworkUpdateEngine.SetProgressHandlers]
@@ -61,7 +50,6 @@ type ArrayHandler = func(*[]foundation.NSNumber)
 //   - [MLPipelineClassifier.ClassifyOptionsCompletionHandler]
 //   - [MLPipelineUpdateEngine.SetProgressHandlers]
 //   - [MLPipelineUpdateEngine.SetUpdateProgressHandlersDispatchQueue]
-//   - [MLPredictionRequest.SubmitWithCompletionHandler]
 //   - [MLTreeEnsembleXGBoostUpdateEngine.SetProgressHandlers]
 //   - [MLTreeEnsembleXGBoostUpdateEngine.SetUpdateProgressHandlersDispatchQueue]
 //   - [MLUpdatable.SetUpdateProgressHandlersDispatchQueue]
@@ -90,11 +78,6 @@ type ErrorHandler = func(error)
 //   - [MLGenericPredictionRequest.SubmitWithCompletionHandler]
 //   - [MLKNearestNeighborsClassifier.SetProgressHandlers]
 //   - [MLKNearestNeighborsClassifier.SetUpdateProgressHandlersDispatchQueue]
-//   - [MLModel.CompileModelAtURLCompletionHandler]
-//   - [MLModel.LoadContentsOfURLConfigurationCompletionHandler]
-//   - [MLModel.PredictionFromFeaturesCompletionHandler]
-//   - [MLModel.PredictionFromFeaturesOptionsCompletionHandler]
-//   - [MLModel.PredictionFromFeaturesUsingStateOptionsCompletionHandler]
 //   - [MLModel.PrepareWithCompletionHandler]
 //   - [MLModel.SubmitPredictionRequestCompletionHandler]
 //   - [MLModelAsset.ModelStructureWithCompletionHandler]
@@ -111,7 +94,6 @@ type ErrorHandler = func(error)
 //   - [MLModelCollection.BeginAccessingModelCollectionWithIdentifierCompletionHandler]
 //   - [MLModelCollection.EndAccessingModelCollectionWithIdentifierCompletionHandler]
 //   - [MLModelEngine.SubmitPredictionRequestCompletionHandler]
-//   - [MLModeling.SubmitPredictionRequestCompletionHandler]
 //   - [MLNeuralNetworkMLComputeUpdateEngine.SetProgressHandlers]
 //   - [MLNeuralNetworkMLComputeUpdateEngine.SetUpdateProgressHandlersDispatchQueue]
 //   - [MLNeuralNetworkUpdateEngine.SetProgressHandlers]
@@ -120,7 +102,6 @@ type ErrorHandler = func(error)
 //   - [MLPipelineClassifier.ClassifyOptionsCompletionHandler]
 //   - [MLPipelineUpdateEngine.SetProgressHandlers]
 //   - [MLPipelineUpdateEngine.SetUpdateProgressHandlersDispatchQueue]
-//   - [MLPredictionRequest.SubmitWithCompletionHandler]
 //   - [MLTreeEnsembleXGBoostUpdateEngine.SetProgressHandlers]
 //   - [MLTreeEnsembleXGBoostUpdateEngine.SetUpdateProgressHandlersDispatchQueue]
 //   - [MLUpdatable.SetUpdateProgressHandlersDispatchQueue]
@@ -159,6 +140,32 @@ func NewMLClassifierResultErrorBlock(handler MLClassifierResultErrorHandler) (ob
 	return objc.ID(block), func() { block.Release() }
 }
 
+// MLFeatureProviderErrorHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [MLModeling.SubmitPredictionRequestCompletionHandler]
+//   - [MLPredictionRequest.SubmitWithCompletionHandler]
+type MLFeatureProviderErrorHandler = func(*objectivec.Object, error)
+
+// NewMLFeatureProviderErrorBlock wraps a Go [MLFeatureProviderErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [MLModeling.SubmitPredictionRequestCompletionHandler]
+//   - [MLPredictionRequest.SubmitWithCompletionHandler]
+func NewMLFeatureProviderErrorBlock(handler MLFeatureProviderErrorHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *objectivec.Object
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := objectivec.ObjectFromID(resultID)
+			result = &v
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // MLFeatureValueErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -183,29 +190,11 @@ func NewMLFeatureValueErrorBlock(handler MLFeatureValueErrorHandler) (objc.ID, f
 	return objc.ID(block), func() { block.Release() }
 }
 
-// MLMultiArrayHandler is the signature for a completion handler block.
+// NSNumberArrayHandler is the signature for a completion handler block.
 //
 // Used by:
-//   - [MLState.GetMultiArrayForStateNamedHandler]
-type MLMultiArrayHandler = func(*MLMultiArray)
-
-// NewMLMultiArrayBlock wraps a Go [MLMultiArrayHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [MLState.GetMultiArrayForStateNamedHandler]
-func NewMLMultiArrayBlock(handler MLMultiArrayHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *MLMultiArray
-		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := MLMultiArrayFromID(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
+//   - [MLMultiArray.GetMutableBytesWithHandler]
+type NSNumberArrayHandler = func(*[]foundation.NSNumber)
 
 // SetErrorHandler is the signature for a completion handler block.
 //
@@ -304,4 +293,3 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-

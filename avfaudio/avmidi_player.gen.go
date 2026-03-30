@@ -3,10 +3,11 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,11 +47,9 @@ func (ac AVMIDIPlayerClass) Alloc() AVMIDIPlayer {
 // An object that plays MIDI data through a system sound module.
 //
 // # Overview
-// 
+//
 // For more information about preparing your app to play audio, see
 // [Configuring your app for media playback].
-//
-// [Configuring your app for media playback]: https://developer.apple.com/documentation/AVFoundation/configuring-your-app-for-media-playback
 //
 // # Creating a MIDI player
 //
@@ -76,6 +75,8 @@ func (ac AVMIDIPlayerClass) Alloc() AVMIDIPlayer {
 //   - [AVMIDIPlayer.Duration]: The duration, in seconds, of the currently loaded file.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer
+//
+// [Configuring your app for media playback]: https://developer.apple.com/documentation/AVFoundation/configuring-your-app-for-media-playback
 type AVMIDIPlayer struct {
 	objectivec.Object
 }
@@ -86,6 +87,7 @@ type AVMIDIPlayer struct {
 func AVMIDIPlayerFromID(id objc.ID) AVMIDIPlayer {
 	return AVMIDIPlayer{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMIDIPlayer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -175,16 +177,12 @@ func NewAVMIDIPlayer() AVMIDIPlayer {
 // inURL: The URL of the file to play.
 //
 // bankURL: The URL of the sound bank. The sound bank must be in SoundFont2 or DLS
-// format. In macOS, you can pass [nil] for the bank URL argument to use the
+// format. In macOS, you can pass nil for the bank URL argument to use the
 // default sound bank. In iOS, you must always pass a valid bank file.
-// //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
 //
 // # Return Value
-// 
-// A new MIDI player, or [nil] if an error occurred.
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// A new MIDI player, or nil if an error occurred.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/init(contentsOf:soundBankURL:)
 func NewMIDIPlayerWithContentsOfURLSoundBankURLError(inURL foundation.INSURL, bankURL foundation.INSURL) (AVMIDIPlayer, error) {
@@ -203,16 +201,12 @@ func NewMIDIPlayerWithContentsOfURLSoundBankURLError(inURL foundation.INSURL, ba
 // data: The data to play.
 //
 // bankURL: The URL of the sound bank. The sound bank must be a SoundFont2 or DLS bank.
-// In macOS, you can pass [nil] for the bank URL argument to use the default
+// In macOS, you can pass nil for the bank URL argument to use the default
 // sound bank. In iOS, you must always pass a valid bank file.
-// //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
 //
 // # Return Value
-// 
-// A new MIDI player, or [nil] if an error occurred.
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// A new MIDI player, or nil if an error occurred.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/init(data:soundBankURL:)
 func NewMIDIPlayerWithDataSoundBankURLError(data foundation.INSData, bankURL foundation.INSURL) (AVMIDIPlayer, error) {
@@ -231,16 +225,12 @@ func NewMIDIPlayerWithDataSoundBankURLError(data foundation.INSData, bankURL fou
 // inURL: The URL of the file to play.
 //
 // bankURL: The URL of the sound bank. The sound bank must be in SoundFont2 or DLS
-// format. In macOS, you can pass [nil] for the bank URL argument to use the
+// format. In macOS, you can pass nil for the bank URL argument to use the
 // default sound bank. In iOS, you must always pass a valid bank file.
-// //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
 //
 // # Return Value
-// 
-// A new MIDI player, or [nil] if an error occurred.
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// A new MIDI player, or nil if an error occurred.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/init(contentsOf:soundBankURL:)
 func (m AVMIDIPlayer) InitWithContentsOfURLSoundBankURLError(inURL foundation.INSURL, bankURL foundation.INSURL) (AVMIDIPlayer, error) {
@@ -253,21 +243,18 @@ func (m AVMIDIPlayer) InitWithContentsOfURLSoundBankURLError(inURL foundation.IN
 	return AVMIDIPlayerFromID(rv), nil
 
 }
+
 // Creates a player to play MIDI data with the specified soundbank.
 //
 // data: The data to play.
 //
 // bankURL: The URL of the sound bank. The sound bank must be a SoundFont2 or DLS bank.
-// In macOS, you can pass [nil] for the bank URL argument to use the default
+// In macOS, you can pass nil for the bank URL argument to use the default
 // sound bank. In iOS, you must always pass a valid bank file.
-// //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
 //
 // # Return Value
-// 
-// A new MIDI player, or [nil] if an error occurred.
 //
-// [nil]: https://developer.apple.com/documentation/ObjectiveC/nil-227m0
+// A new MIDI player, or nil if an error occurred.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/init(data:soundBankURL:)
 func (m AVMIDIPlayer) InitWithDataSoundBankURLError(data foundation.INSData, bankURL foundation.INSURL) (AVMIDIPlayer, error) {
@@ -280,10 +267,11 @@ func (m AVMIDIPlayer) InitWithDataSoundBankURLError(data foundation.INSData, ban
 	return AVMIDIPlayerFromID(rv), nil
 
 }
+
 // Prepares the player to play the sequence by prerolling all events.
 //
 // # Discussion
-// 
+//
 // The system automatically calls this method on playback, but calling it in
 // advance minimizes the delay between calling [Play] and the start of sound
 // output.
@@ -292,15 +280,17 @@ func (m AVMIDIPlayer) InitWithDataSoundBankURLError(data foundation.INSData, ban
 func (m AVMIDIPlayer) PrepareToPlay() {
 	objc.Send[objc.ID](m.ID, objc.Sel("prepareToPlay"))
 }
+
 // Plays the MIDI sequence.
 //
 // completionHandler: A closure the system calls when playback completes.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/play(_:)
 func (m AVMIDIPlayer) Play(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](m.ID, objc.Sel("play:"), _block0)
 }
+
 // Stops playing the sequence.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/stop()
@@ -315,10 +305,11 @@ func (m AVMIDIPlayer) Playing() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isPlaying"))
 	return rv
 }
+
 // The playback rate of the player.
 //
 // # Discussion
-// 
+//
 // The default value is `1.0,` the standard playback rate.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/rate
@@ -329,6 +320,7 @@ func (m AVMIDIPlayer) Rate() float32 {
 func (m AVMIDIPlayer) SetRate(value float32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRate:"), value)
 }
+
 // The current playback position, in seconds.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/currentPosition
@@ -339,6 +331,7 @@ func (m AVMIDIPlayer) CurrentPosition() float64 {
 func (m AVMIDIPlayer) SetCurrentPosition(value float64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCurrentPosition:"), value)
 }
+
 // The duration, in seconds, of the currently loaded file.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/duration
@@ -346,4 +339,3 @@ func (m AVMIDIPlayer) Duration() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("duration"))
 	return rv
 }
-

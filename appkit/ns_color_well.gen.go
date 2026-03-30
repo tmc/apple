@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,14 +48,14 @@ func (nc NSColorWellClass) Alloc() NSColorWell {
 // value.
 //
 // # Overview
-// 
+//
 // An [NSColorWell] object lets people select colors from your interface.
 // Incorporate this type of control if your app supports custom color
 // selection. For example, a drawing app might include a color well to let
 // someone choose the color to use when drawing. A color well control displays
 // the currently selected color, and interactions with the color well display
 // interfaces for selecting new colors.
-// 
+//
 // When you create a color well programmatically or in Interface Builder,
 // specify the appearance and interaction style you want. The color well
 // supports color selection using a color picker popover or the system
@@ -114,6 +115,7 @@ type NSColorWell struct {
 func NSColorWellFromID(id objc.ID) NSColorWell {
 	return NSColorWell{NSControl: NSControlFromID(id)}
 }
+
 // NOTE: NSColorWell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -249,12 +251,12 @@ func NewColorWellWithCoder(coder foundation.INSCoder) NSColorWell {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -273,14 +275,14 @@ func NewColorWellWithFrame(frameRect corefoundation.CGRect) NSColorWell {
 //
 // style: The style to use to configure the color well control. For a list of
 // possible values, see [NSColorWell.Style].
-// //
-// [NSColorWell.Style]: https://developer.apple.com/documentation/AppKit/NSColorWell/Style
 //
 // # Return Value
-// 
+//
 // A color well configured with the specified style.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/init(style:)
+//
+// [NSColorWell.Style]: https://developer.apple.com/documentation/AppKit/NSColorWell/Style
 func NewColorWellWithStyle(style NSColorWellStyle) NSColorWell {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorWellClass().class), objc.Sel("colorWellWithStyle:"), style)
 	return NSColorWellFromID(rv)
@@ -291,7 +293,7 @@ func NewColorWellWithStyle(style NSColorWellStyle) NSColorWell {
 // sender: The object from which to take the new color.
 //
 // # Discussion
-// 
+//
 // This method attempts to access a property or accessor method named `color`.
 // If the object doesn’t implement a `color` accessor, this method does
 // nothing.
@@ -300,35 +302,32 @@ func NewColorWellWithStyle(style NSColorWellStyle) NSColorWell {
 func (c NSColorWell) TakeColorFrom(sender objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("takeColorFrom:"), sender)
 }
+
 // Activates the color well, displays the color panel, and synchronizes the
 // two UI elements.
 //
-// exclusive: [true] to deactivate any other color wells; [false] to keep them active. If
-// a color panel is active with `exclusive` set to [true] and another is
-// subsequently activated with `exclusive` set to [false], the exclusive
-// setting of the first panel is ignored.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// exclusive: true to deactivate any other color wells; false to keep them active. If a
+// color panel is active with `exclusive` set to true and another is
+// subsequently activated with `exclusive` set to false, the exclusive setting
+// of the first panel is ignored.
 //
 // # Discussion
-// 
+//
 // When you call this method, the color well displays the standard color panel
 // and sets the panel’s current color to the value in the color well. When
 // someone changes the color in the color panel, the color well updates its
-// selected color to match. If the color well’s [Bordered] property is
-// [true], the color well highlights that border while it’s active.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
+// selected color to match. If the color well’s [Bordered] property is true,
+// the color well highlights that border while it’s active.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/activate(_:)
 func (c NSColorWell) Activate(exclusive bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("activate:"), exclusive)
 }
+
 // Deactivates the color well.
 //
 // # Discussion
-// 
+//
 // This method detaches the color well from the system color panel. Future
 // selections in the color panel don’t update the color well’s current
 // color.
@@ -337,6 +336,7 @@ func (c NSColorWell) Activate(exclusive bool) {
 func (c NSColorWell) Deactivate() {
 	objc.Send[objc.ID](c.ID, objc.Sel("deactivate"))
 }
+
 // Draws the area inside the color well at the specified location without
 // drawing borders.
 //
@@ -350,7 +350,7 @@ func (c NSColorWell) DrawWellInside(insideRect corefoundation.CGRect) {
 // The currently selected color for the color well.
 //
 // # Discussion
-// 
+//
 // Use this property to get the currently selected color, or to set the
 // current color programmatically.
 //
@@ -362,23 +362,21 @@ func (c NSColorWell) Color() INSColor {
 func (c NSColorWell) SetColor(value INSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColor:"), value)
 }
+
 // A Boolean value that determines whether the color picker supports alpha
 // values.
 //
 // # Discussion
-// 
-// If this property is [false], people can select only fully opaque colors
-// from the color picker. A value of [false] also hides the alpha slider.
-// Setting this property to [true] enables partial color opacity, and also
-// makes the alpha slider visible.
-// 
-// If [IgnoresAlpha] is [true], this property always returns [false],
-// disabling alpha globally.
-// 
-// By default this value is [true].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If this property is false, people can select only fully opaque colors from
+// the color picker. A value of false also hides the alpha slider. Setting
+// this property to true enables partial color opacity, and also makes the
+// alpha slider visible.
+//
+// If [IgnoresAlpha] is true, this property always returns false, disabling
+// alpha globally.
+//
+// By default this value is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/supportsAlpha
 func (c NSColorWell) SupportsAlpha() bool {
@@ -388,6 +386,7 @@ func (c NSColorWell) SupportsAlpha() bool {
 func (c NSColorWell) SetSupportsAlpha(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSupportsAlpha:"), value)
 }
+
 // The maximum linear exposure a color in this color well can be set to.
 // Defaults to 1 and ignores any value less than 1. If set to a value >= 2,
 // the color picked for this well may have a linear exposure applied to it.
@@ -400,16 +399,17 @@ func (c NSColorWell) MaximumLinearExposure() float64 {
 func (c NSColorWell) SetMaximumLinearExposure(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumLinearExposure:"), value)
 }
+
 // The appearance and interaction style to apply to the color well.
 //
 // # Discussion
-// 
+//
 // The value of this property determines how the color well presents itself,
 // and how interactions affect it. For details, see [NSColorWell.Style].
 //
-// [NSColorWell.Style]: https://developer.apple.com/documentation/AppKit/NSColorWell/Style
-//
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/colorWellStyle
+//
+// [NSColorWell.Style]: https://developer.apple.com/documentation/AppKit/NSColorWell/Style
 func (c NSColorWell) ColorWellStyle() NSColorWellStyle {
 	rv := objc.Send[NSColorWellStyle](c.ID, objc.Sel("colorWellStyle"))
 	return NSColorWellStyle(rv)
@@ -417,15 +417,14 @@ func (c NSColorWell) ColorWellStyle() NSColorWellStyle {
 func (c NSColorWell) SetColorWellStyle(value NSColorWellStyle) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColorWellStyle:"), value)
 }
+
 // The image to display on the button portion of a color well that adopts the
 // expanded style.
 //
 // # Discussion
-// 
-// The color well applies the image only when the [ColorWellStyle] property is
-// set to [NSColorWell.Style.expanded].
 //
-// [NSColorWell.Style.expanded]: https://developer.apple.com/documentation/AppKit/NSColorWell/Style/expanded
+// The color well applies the image only when the [ColorWellStyle] property is
+// set to [NSColorWellStyleExpanded].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/image
 func (c NSColorWell) Image() INSImage {
@@ -435,19 +434,17 @@ func (c NSColorWell) Image() INSImage {
 func (c NSColorWell) SetImage(value INSImage) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImage:"), value)
 }
+
 // A Boolean value that determines whether the color well has a border.
 //
 // # Discussion
-// 
-// If the value of this property is [true], the color well has a border; if
-// it’s [false], the color well doesn’t have a border. The default value
-// of this property is [true].
-// 
+//
+// If the value of this property is true, the color well has a border; if
+// it’s false, the color well doesn’t have a border. The default value of
+// this property is true.
+//
 // A borderless color well doesn’t display the Colors window when someone
 // clicks it.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/isBordered
 func (c NSColorWell) Bordered() bool {
@@ -457,6 +454,7 @@ func (c NSColorWell) Bordered() bool {
 func (c NSColorWell) SetBordered(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBordered:"), value)
 }
+
 // A Boolean value that indicates whether the color well is currently active.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/isActive
@@ -464,20 +462,18 @@ func (c NSColorWell) Active() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isActive"))
 	return rv
 }
+
 // The action to perform when someone clicks in the color area of the color
 // well.
 //
 // # Discussion
-// 
-// Specify a custom action method to replace the system popover and color
-// picker. For a color well with the [NSColorWell.Style.minimal] or
-// [NSColorWell.Style.expanded] style, clicks in the color area normally
-// display a popover with the system color picker. If you specify a value for
-// this property and the [PulldownTarget] property, clicks in the color area
-// execute your custom action method instead.
 //
-// [NSColorWell.Style.expanded]: https://developer.apple.com/documentation/AppKit/NSColorWell/Style/expanded
-// [NSColorWell.Style.minimal]: https://developer.apple.com/documentation/AppKit/NSColorWell/Style/minimal
+// Specify a custom action method to replace the system popover and color
+// picker. For a color well with the [NSColorWellStyleMinimal] or
+// [NSColorWellStyleExpanded] style, clicks in the color area normally display
+// a popover with the system color picker. If you specify a value for this
+// property and the [PulldownTarget] property, clicks in the color area
+// execute your custom action method instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/pulldownAction
 func (c NSColorWell) PulldownAction() objc.SEL {
@@ -487,20 +483,18 @@ func (c NSColorWell) PulldownAction() objc.SEL {
 func (c NSColorWell) SetPulldownAction(value objc.SEL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPulldownAction:"), value)
 }
+
 // The target object that defines the action you want to perform when someone
 // interacts with the color well.
 //
 // # Discussion
-// 
-// Specify a custom action method to replace the system popover and color
-// picker. For a color well with the [NSColorWell.Style.minimal] or
-// [NSColorWell.Style.expanded] style, clicks in the color area normally
-// display a popover with the system color picker. If you specify a value for
-// this property and the [PulldownAction] property, clicks in the color area
-// execute your custom action method instead.
 //
-// [NSColorWell.Style.expanded]: https://developer.apple.com/documentation/AppKit/NSColorWell/Style/expanded
-// [NSColorWell.Style.minimal]: https://developer.apple.com/documentation/AppKit/NSColorWell/Style/minimal
+// Specify a custom action method to replace the system popover and color
+// picker. For a color well with the [NSColorWellStyleMinimal] or
+// [NSColorWellStyleExpanded] style, clicks in the color area normally display
+// a popover with the system color picker. If you specify a value for this
+// property and the [PulldownAction] property, clicks in the color area
+// execute your custom action method instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/pulldownTarget
 func (c NSColorWell) PulldownTarget() objectivec.IObject {
@@ -510,4 +504,3 @@ func (c NSColorWell) PulldownTarget() objectivec.IObject {
 func (c NSColorWell) SetPulldownTarget(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPulldownTarget:"), value)
 }
-

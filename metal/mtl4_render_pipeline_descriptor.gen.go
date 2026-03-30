@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (mc MTL4RenderPipelineDescriptorClass) Alloc() MTL4RenderPipelineDescriptor
 // Groups together properties to create a render pipeline state object.
 //
 // # Overview
-// 
+//
 // Compared to [MTLRenderPipelineDescriptor], this interface doesn’t offer a
 // mechanism to hint to Metal mutability of vertex and fragment buffers.
 // Additionally, using this descriptor, you don’t specify binary archives.
@@ -97,6 +98,7 @@ type MTL4RenderPipelineDescriptor struct {
 func MTL4RenderPipelineDescriptorFromID(id objc.ID) MTL4RenderPipelineDescriptor {
 	return MTL4RenderPipelineDescriptor{MTL4PipelineDescriptor: MTL4PipelineDescriptorFromID(id)}
 }
+
 // NOTE: MTL4RenderPipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -237,6 +239,7 @@ func (m MTL4RenderPipelineDescriptor) AlphaToCoverageState() MTL4AlphaToCoverage
 func (m MTL4RenderPipelineDescriptor) SetAlphaToCoverageState(value MTL4AlphaToCoverageState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAlphaToCoverageState:"), value)
 }
+
 // Indicates whether the pipeline forces alpha channel values of color
 // attachments to the largest representable value.
 //
@@ -248,10 +251,11 @@ func (m MTL4RenderPipelineDescriptor) AlphaToOneState() MTL4AlphaToOneState {
 func (m MTL4RenderPipelineDescriptor) SetAlphaToOneState(value MTL4AlphaToOneState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAlphaToOneState:"), value)
 }
+
 // Configures a logical-to-physical rendering remap state.
 //
 // # Discussion
-// 
+//
 // Use this property to assign how a [MTL4RenderCommandEncoder] instance maps
 // the output of your fragment shader to physical color attachments.
 //
@@ -263,6 +267,7 @@ func (m MTL4RenderPipelineDescriptor) ColorAttachmentMappingState() MTL4LogicalT
 func (m MTL4RenderPipelineDescriptor) SetColorAttachmentMappingState(value MTL4LogicalToPhysicalColorAttachmentMappingState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setColorAttachmentMappingState:"), value)
 }
+
 // Accesses an array containing descriptions of the color attachments this
 // pipeline writes to.
 //
@@ -271,10 +276,11 @@ func (m MTL4RenderPipelineDescriptor) ColorAttachments() IMTL4RenderPipelineColo
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("colorAttachments"))
 	return MTL4RenderPipelineColorAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
+
 // Assigns the shader function that this pipeline executes for each fragment.
 //
 // # Discussion
-// 
+//
 // When you don’t specify a fragment function, you need to disable
 // rasterization by setting property [RasterizationEnabled] to false.
 //
@@ -286,11 +292,12 @@ func (m MTL4RenderPipelineDescriptor) FragmentFunctionDescriptor() IMTL4Function
 func (m MTL4RenderPipelineDescriptor) SetFragmentFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFragmentFunctionDescriptor:"), value)
 }
+
 // Provides static linking information for the fragment stage of the render
 // pipeline.
 //
 // # Discussion
-// 
+//
 // Use this property to link extra shader functions to the fragment stage of
 // the render pipeline.
 //
@@ -302,6 +309,7 @@ func (m MTL4RenderPipelineDescriptor) FragmentStaticLinkingDescriptor() IMTL4Sta
 func (m MTL4RenderPipelineDescriptor) SetFragmentStaticLinkingDescriptor(value IMTL4StaticLinkingDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFragmentStaticLinkingDescriptor:"), value)
 }
+
 // Assigns type of primitive topology this pipeline renders.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDescriptor/inputPrimitiveTopology
@@ -312,16 +320,14 @@ func (m MTL4RenderPipelineDescriptor) InputPrimitiveTopology() MTLPrimitiveTopol
 func (m MTL4RenderPipelineDescriptor) SetInputPrimitiveTopology(value MTLPrimitiveTopologyClass) {
 	objc.Send[struct{}](m.ID, objc.Sel("setInputPrimitiveTopology:"), value)
 }
+
 // Determines whether the pipeline rasterizes primitives.
 //
 // # Discussion
-// 
-// By default, this value is [true], specifying that this pipeline rasterizes
-// primitives. Set this property to [false] when you don’t provide a
-// fragment shader function via function [FragmentFunctionDescriptor].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// By default, this value is true, specifying that this pipeline rasterizes
+// primitives. Set this property to false when you don’t provide a fragment
+// shader function via function [FragmentFunctionDescriptor].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDescriptor/isRasterizationEnabled
 func (m MTL4RenderPipelineDescriptor) RasterizationEnabled() bool {
@@ -331,11 +337,12 @@ func (m MTL4RenderPipelineDescriptor) RasterizationEnabled() bool {
 func (m MTL4RenderPipelineDescriptor) SetRasterizationEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRasterizationEnabled:"), value)
 }
+
 // Determines the maximum value that can you can pass as the pipeline’s
 // amplification count.
 //
 // # Discussion
-// 
+//
 // This property controls the maximum count you pass to
 // [SetVertexAmplificationCountViewMappings] when using vertex amplification
 // with this pipeline.
@@ -348,6 +355,7 @@ func (m MTL4RenderPipelineDescriptor) MaxVertexAmplificationCount() uint {
 func (m MTL4RenderPipelineDescriptor) SetMaxVertexAmplificationCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxVertexAmplificationCount:"), value)
 }
+
 // Controls the number of samples this pipeline applies for each fragment.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDescriptor/rasterSampleCount
@@ -358,6 +366,7 @@ func (m MTL4RenderPipelineDescriptor) RasterSampleCount() uint {
 func (m MTL4RenderPipelineDescriptor) SetRasterSampleCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRasterSampleCount:"), value)
 }
+
 // Indicates whether you can use the pipeline to create new pipelines by
 // adding binary functions to the fragment shader function’s callable
 // functions list.
@@ -370,6 +379,7 @@ func (m MTL4RenderPipelineDescriptor) SupportFragmentBinaryLinking() bool {
 func (m MTL4RenderPipelineDescriptor) SetSupportFragmentBinaryLinking(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportFragmentBinaryLinking:"), value)
 }
+
 // Indicates whether the pipeline supports indirect command buffers.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDescriptor/supportIndirectCommandBuffers
@@ -380,6 +390,7 @@ func (m MTL4RenderPipelineDescriptor) SupportIndirectCommandBuffers() MTL4Indire
 func (m MTL4RenderPipelineDescriptor) SetSupportIndirectCommandBuffers(value MTL4IndirectCommandBufferSupportState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportIndirectCommandBuffers:"), value)
 }
+
 // Indicates whether you can use the render pipeline to create new pipelines
 // by adding binary functions to the vertex shader function’s callable
 // functions list.
@@ -392,10 +403,11 @@ func (m MTL4RenderPipelineDescriptor) SupportVertexBinaryLinking() bool {
 func (m MTL4RenderPipelineDescriptor) SetSupportVertexBinaryLinking(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportVertexBinaryLinking:"), value)
 }
+
 // Configures an optional vertex descriptor for the vertex input.
 //
 // # Discussion
-// 
+//
 // A vertex descriptor specifies the layout of your vertex data, allowing your
 // vertex shaders to access the content in your vertex arrays via the
 // `[[stage_in]]` attribute in Metal Shading Language.
@@ -408,6 +420,7 @@ func (m MTL4RenderPipelineDescriptor) VertexDescriptor() IMTLVertexDescriptor {
 func (m MTL4RenderPipelineDescriptor) SetVertexDescriptor(value IMTLVertexDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexDescriptor:"), value)
 }
+
 // Assigns the shader function that this pipeline executes for each vertex.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDescriptor/vertexFunctionDescriptor
@@ -418,11 +431,12 @@ func (m MTL4RenderPipelineDescriptor) VertexFunctionDescriptor() IMTL4FunctionDe
 func (m MTL4RenderPipelineDescriptor) SetVertexFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexFunctionDescriptor:"), value)
 }
+
 // Provides static linking information for the vertex stage of the render
 // pipeline.
 //
 // # Discussion
-// 
+//
 // Use this property to link extra shader functions to the vertex stage of the
 // render pipeline.
 //
@@ -434,4 +448,3 @@ func (m MTL4RenderPipelineDescriptor) VertexStaticLinkingDescriptor() IMTL4Stati
 func (m MTL4RenderPipelineDescriptor) SetVertexStaticLinkingDescriptor(value IMTL4StaticLinkingDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexStaticLinkingDescriptor:"), value)
 }
-

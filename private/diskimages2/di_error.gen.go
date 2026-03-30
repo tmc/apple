@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -53,6 +54,7 @@ type DIError struct {
 func DIErrorFromID(id objc.ID) DIError {
 	return DIError{objectivec.Object{ID: id}}
 }
+
 // Ensure DIError implements IDIError.
 var _ IDIError = DIError{}
 
@@ -82,13 +84,12 @@ func NewDIError() DIError {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/copyDefaultLocalizedStringForDIErrorCode:
 func (_DIErrorClass DIErrorClass) CopyDefaultLocalizedStringForDIErrorCode(code int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("copyDefaultLocalizedStringForDIErrorCode:"), code)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/errorWithDIException:description:prefix:error:
 func (_DIErrorClass DIErrorClass) ErrorWithDIExceptionDescriptionPrefixError(dIException unsafe.Pointer, description objectivec.IObject, prefix objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -100,7 +101,7 @@ func (_DIErrorClass DIErrorClass) ErrorWithDIExceptionDescriptionPrefixError(dIE
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/errorWithDomain:code:description:verboseInfo:error:
 func (_DIErrorClass DIErrorClass) ErrorWithDomainCodeDescriptionVerboseInfoError(domain objectivec.IObject, code int64, description objectivec.IObject, info objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -112,19 +113,19 @@ func (_DIErrorClass DIErrorClass) ErrorWithDomainCodeDescriptionVerboseInfoError
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/errorWithEnumValue:verboseInfo:
 func (_DIErrorClass DIErrorClass) ErrorWithEnumValueVerboseInfo(value int64, info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("errorWithEnumValue:verboseInfo:"), value, info)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/errorWithPOSIXCode:verboseInfo:
 func (_DIErrorClass DIErrorClass) ErrorWithPOSIXCodeVerboseInfo(pOSIXCode int, info objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("errorWithPOSIXCode:verboseInfo:"), pOSIXCode, info)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/errorWithUnexpected:verboseInfo:error:
 func (_DIErrorClass DIErrorClass) ErrorWithUnexpectedVerboseInfoError(unexpected objectivec.IObject, info objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -136,7 +137,7 @@ func (_DIErrorClass DIErrorClass) ErrorWithUnexpectedVerboseInfoError(unexpected
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithDIException:description:error:
 func (_DIErrorClass DIErrorClass) FailWithDIExceptionDescriptionError(dIException unsafe.Pointer, description objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -151,7 +152,7 @@ func (_DIErrorClass DIErrorClass) FailWithDIExceptionDescriptionError(dIExceptio
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithDIException:prefix:error:
 func (_DIErrorClass DIErrorClass) FailWithDIExceptionPrefixError(dIException unsafe.Pointer, prefix objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -166,7 +167,7 @@ func (_DIErrorClass DIErrorClass) FailWithDIExceptionPrefixError(dIException uns
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithEnumValue:description:error:
 func (_DIErrorClass DIErrorClass) FailWithEnumValueDescriptionError(value int64, description objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -181,7 +182,7 @@ func (_DIErrorClass DIErrorClass) FailWithEnumValueDescriptionError(value int64,
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithEnumValue:verboseInfo:error:
 func (_DIErrorClass DIErrorClass) FailWithEnumValueVerboseInfoError(value int64, info objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -196,7 +197,7 @@ func (_DIErrorClass DIErrorClass) FailWithEnumValueVerboseInfoError(value int64,
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithInError:outError:
 func (_DIErrorClass DIErrorClass) FailWithInErrorOutError(error_ objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -211,7 +212,7 @@ func (_DIErrorClass DIErrorClass) FailWithInErrorOutError(error_ objectivec.IObj
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithOSStatus:description:error:
 func (_DIErrorClass DIErrorClass) FailWithOSStatusDescriptionError(oSStatus int, description objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -226,7 +227,7 @@ func (_DIErrorClass DIErrorClass) FailWithOSStatusDescriptionError(oSStatus int,
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithOSStatus:verboseInfo:error:
 func (_DIErrorClass DIErrorClass) FailWithOSStatusVerboseInfoError(oSStatus int, info objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -241,7 +242,7 @@ func (_DIErrorClass DIErrorClass) FailWithOSStatusVerboseInfoError(oSStatus int,
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithPOSIXCode:description:error:
 func (_DIErrorClass DIErrorClass) FailWithPOSIXCodeDescriptionError(pOSIXCode int, description objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -256,7 +257,7 @@ func (_DIErrorClass DIErrorClass) FailWithPOSIXCodeDescriptionError(pOSIXCode in
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithPOSIXCode:error:
 func (_DIErrorClass DIErrorClass) FailWithPOSIXCodeError(pOSIXCode int) (bool, error) {
 	var errorPtr objc.ID
@@ -271,7 +272,7 @@ func (_DIErrorClass DIErrorClass) FailWithPOSIXCodeError(pOSIXCode int) (bool, e
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithPOSIXCode:verboseInfo:error:
 func (_DIErrorClass DIErrorClass) FailWithPOSIXCodeVerboseInfoError(pOSIXCode int, info objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -286,7 +287,7 @@ func (_DIErrorClass DIErrorClass) FailWithPOSIXCodeVerboseInfoError(pOSIXCode in
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithUnexpected:error:
 func (_DIErrorClass DIErrorClass) FailWithUnexpectedError(unexpected objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -301,7 +302,7 @@ func (_DIErrorClass DIErrorClass) FailWithUnexpectedError(unexpected objectivec.
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/failWithUnexpected:verboseInfo:error:
 func (_DIErrorClass DIErrorClass) FailWithUnexpectedVerboseInfoError(unexpected objectivec.IObject, info objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -316,12 +317,13 @@ func (_DIErrorClass DIErrorClass) FailWithUnexpectedVerboseInfoError(unexpected 
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/frameworkBundle
 func (_DIErrorClass DIErrorClass) FrameworkBundle() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("frameworkBundle"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/mandatoryArgumentFailWithError:
 func (_DIErrorClass DIErrorClass) MandatoryArgumentFailWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -336,7 +338,7 @@ func (_DIErrorClass DIErrorClass) MandatoryArgumentFailWithError() (bool, error)
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/nilWithDIException:description:error:
 func (_DIErrorClass DIErrorClass) NilWithDIExceptionDescriptionError(dIException unsafe.Pointer, description objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -348,7 +350,7 @@ func (_DIErrorClass DIErrorClass) NilWithDIExceptionDescriptionError(dIException
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/nilWithDIException:prefix:error:
 func (_DIErrorClass DIErrorClass) NilWithDIExceptionPrefixError(dIException unsafe.Pointer, prefix objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -360,7 +362,7 @@ func (_DIErrorClass DIErrorClass) NilWithDIExceptionPrefixError(dIException unsa
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/nilWithEnumValue:description:error:
 func (_DIErrorClass DIErrorClass) NilWithEnumValueDescriptionError(value int64, description objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -372,7 +374,7 @@ func (_DIErrorClass DIErrorClass) NilWithEnumValueDescriptionError(value int64, 
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/nilWithEnumValue:verboseInfo:error:
 func (_DIErrorClass DIErrorClass) NilWithEnumValueVerboseInfoError(value int64, info objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -384,7 +386,7 @@ func (_DIErrorClass DIErrorClass) NilWithEnumValueVerboseInfoError(value int64, 
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/nilWithOSStatus:verboseInfo:error:
 func (_DIErrorClass DIErrorClass) NilWithOSStatusVerboseInfoError(oSStatus int, info objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -396,7 +398,7 @@ func (_DIErrorClass DIErrorClass) NilWithOSStatusVerboseInfoError(oSStatus int, 
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/nilWithPOSIXCode:description:error:
 func (_DIErrorClass DIErrorClass) NilWithPOSIXCodeDescriptionError(pOSIXCode int, description objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -408,7 +410,7 @@ func (_DIErrorClass DIErrorClass) NilWithPOSIXCodeDescriptionError(pOSIXCode int
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/nilWithPOSIXCode:verboseInfo:error:
 func (_DIErrorClass DIErrorClass) NilWithPOSIXCodeVerboseInfoError(pOSIXCode int, info objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -420,7 +422,7 @@ func (_DIErrorClass DIErrorClass) NilWithPOSIXCodeVerboseInfoError(pOSIXCode int
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/nilWithUnexpected:error:
 func (_DIErrorClass DIErrorClass) NilWithUnexpectedError(unexpected objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -432,7 +434,7 @@ func (_DIErrorClass DIErrorClass) NilWithUnexpectedError(unexpected objectivec.I
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIError/nilWithUnexpected:verboseInfo:error:
 func (_DIErrorClass DIErrorClass) NilWithUnexpectedVerboseInfoError(unexpected objectivec.IObject, info objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -444,4 +446,3 @@ func (_DIErrorClass DIErrorClass) NilWithUnexpectedVerboseInfoError(unexpected o
 	return objectivec.Object{ID: rv}, nil
 
 }
-

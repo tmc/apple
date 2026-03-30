@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZEFIBootLoader] class.
@@ -41,12 +42,12 @@ func (vc VZEFIBootLoaderClass) Alloc() VZEFIBootLoader {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZEFIBootLoader._ROMImageURL]
 //   - [VZEFIBootLoader.Set_ROMImageURL]
 //   - [VZEFIBootLoader._setROMImageURL]
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIBootLoader
 type VZEFIBootLoader struct {
 	VZBootLoader
@@ -56,6 +57,7 @@ type VZEFIBootLoader struct {
 func VZEFIBootLoaderFromID(id objc.ID) VZEFIBootLoader {
 	return VZEFIBootLoader{VZBootLoader: VZBootLoaderFromID(id)}
 }
+
 // Ensure VZEFIBootLoader implements IVZEFIBootLoader.
 var _ IVZEFIBootLoader = VZEFIBootLoader{}
 
@@ -97,7 +99,6 @@ func NewVZEFIBootLoader() VZEFIBootLoader {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIBootLoader/_setROMImageURL:
 func (e VZEFIBootLoader) _setROMImageURL(url foundation.INSURL) {
 	objc.Send[objc.ID](e.ID, objc.Sel("_setROMImageURL:"), url)
@@ -116,4 +117,3 @@ func (e VZEFIBootLoader) _ROMImageURL() foundation.INSURL {
 func (e VZEFIBootLoader) Set_ROMImageURL(value foundation.INSURL) {
 	objc.Send[struct{}](e.ID, objc.Sel("set_ROMImageURL:"), value)
 }
-

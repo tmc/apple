@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZPointingDeviceConfigurationClass) Alloc() VZPointingDeviceConfigurati
 // The base class for a pointing device configuration.
 //
 // # Overview
-// 
+//
 // Don’t instantiate a [VZPointingDeviceConfiguration] directly, use one of
 // its subclasses like [VZUSBScreenCoordinatePointingDeviceConfiguration]
 // instead.
@@ -60,6 +61,7 @@ type VZPointingDeviceConfiguration struct {
 func VZPointingDeviceConfigurationFromID(id objc.ID) VZPointingDeviceConfiguration {
 	return VZPointingDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZPointingDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -88,4 +90,3 @@ func NewVZPointingDeviceConfiguration() VZPointingDeviceConfiguration {
 	rv := objc.Send[VZPointingDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

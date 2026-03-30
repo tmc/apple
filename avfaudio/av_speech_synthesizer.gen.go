@@ -5,8 +5,9 @@ package avfaudio
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,29 +48,29 @@ func (ac AVSpeechSynthesizerClass) Alloc() AVSpeechSynthesizer {
 // monitoring or controlling of ongoing speech.
 //
 // # Overview
-// 
+//
 // To speak some text, create an [AVSpeechUtterance] instance that contains
 // the text and pass it to [AVSpeechSynthesizer.SpeakUtterance] on a speech synthesizer instance.
 // You can optionally also retrieve an [AVSpeechSynthesisVoice] and set it on
 // the utterance’s [AVSpeechSynthesizer.Voice] property to have the speech synthesizer use that
 // voice when speaking the utterance’s text.
-// 
+//
 // The speech synthesizer maintains a queue of utterances that it speaks. If
 // the synthesizer isn’t speaking, calling [AVSpeechSynthesizer.SpeakUtterance] begins speaking
 // that utterance either immediately or after pausing for its
 // [AVSpeechSynthesizer.PreUtteranceDelay], if necessary. If the synthesizer is speaking, the
 // synthesizer adds utterances to a queue and speaks them in the order it
 // receives them.
-// 
+//
 // After speech begins, you can use the synthesizer object to pause or stop
 // speech. After pausing, you can resume the speech from its paused point or
 // stop the speech entirely and remove all remaining utterances in the queue.
-// 
+//
 // You can monitor the speech synthesizer by examining its [AVSpeechSynthesizer.Speaking] and
 // [AVSpeechSynthesizer.Paused] properties, or by setting a delegate that conforms to
 // [AVSpeechSynthesizerDelegate]. The delegate receives significant events as
 // they occur during speech synthesis.
-// 
+//
 // An [AVSpeechSynthesizer] also controls the route where the speech plays.
 // For more information, see Directing speech output.
 //
@@ -107,6 +108,7 @@ type AVSpeechSynthesizer struct {
 func AVSpeechSynthesizerFromID(id objc.ID) AVSpeechSynthesizer {
 	return AVSpeechSynthesizer{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVSpeechSynthesizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -206,17 +208,15 @@ func NewAVSpeechSynthesizer() AVSpeechSynthesizer {
 func (s AVSpeechSynthesizer) SpeakUtterance(utterance IAVSpeechUtterance) {
 	objc.Send[objc.ID](s.ID, objc.Sel("speakUtterance:"), utterance)
 }
+
 // Resumes speech from its paused point.
 //
 // # Return Value
-// 
-// [true] if speech resumes; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if speech resumes; otherwise, false.
 //
 // # Discussion
-// 
+//
 // This method only has an effect if the speech synthesizer is in a paused
 // state.
 //
@@ -225,46 +225,42 @@ func (s AVSpeechSynthesizer) ContinueSpeaking() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("continueSpeaking"))
 	return rv
 }
+
 // Pauses speech at the boundary you specify.
 //
 // boundary: An enumeration that describes whether to pause speech immediately or only
 // after the synthesizer finishes speaking the current word.
 //
 // # Return Value
-// 
-// [true] if speech pauses; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if speech pauses; otherwise, false.
 //
 // # Discussion
-// 
+//
 // The `boundary` parameter also affects how the speech synthesizer resumes
 // speaking text after a pause and call to [ContinueSpeaking]. If the boundary
-// is [SpeechBoundaryImmediate], speech resumes from the exact point where it
-// pauses, even if that point occurs in the middle of speaking a word. If the
-// boundary is [SpeechBoundaryWord], speech resumes from the word that follows
-// the last spoken word where it pauses.
+// is [AVSpeechBoundaryImmediate], speech resumes from the exact point where
+// it pauses, even if that point occurs in the middle of speaking a word. If
+// the boundary is [AVSpeechBoundaryWord], speech resumes from the word that
+// follows the last spoken word where it pauses.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/pauseSpeaking(at:)
 func (s AVSpeechSynthesizer) PauseSpeakingAtBoundary(boundary AVSpeechBoundary) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("pauseSpeakingAtBoundary:"), boundary)
 	return rv
 }
+
 // Stops speech at the boundary you specify.
 //
 // boundary: An enumeration that describes whether to stop speech immediately or only
 // after the synthesizer finishes speaking the current word.
 //
 // # Return Value
-// 
-// [true] if speech stops; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if speech stops; otherwise, false.
 //
 // # Discussion
-// 
+//
 // Unlike pausing a speech synthesizer, which can resume after a pause,
 // stopping the synthesizer immediately cancels speech and removes all
 // unspoken utterances from the synthesizer’s queue.
@@ -274,6 +270,7 @@ func (s AVSpeechSynthesizer) StopSpeakingAtBoundary(boundary AVSpeechBoundary) b
 	rv := objc.Send[bool](s.ID, objc.Sel("stopSpeakingAtBoundary:"), boundary)
 	return rv
 }
+
 // Generates speech for the utterance and invokes the callback with the audio
 // buffer.
 //
@@ -282,7 +279,7 @@ func (s AVSpeechSynthesizer) StopSpeakingAtBoundary(boundary AVSpeechBoundary) b
 // bufferCallback: The system calls this closure with the generated audio buffer.
 //
 // # Discussion
-// 
+//
 // Call this method to receive audio buffers to store or further process
 // synthesized speech.
 //
@@ -290,6 +287,7 @@ func (s AVSpeechSynthesizer) StopSpeakingAtBoundary(boundary AVSpeechBoundary) b
 func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallback(utterance IAVSpeechUtterance, bufferCallback AVSpeechSynthesizerBufferCallback) {
 	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:"), utterance, bufferCallback)
 }
+
 // Generates audio buffers and associated metadata for storage or further
 // speech synthesis processing.
 //
@@ -314,7 +312,7 @@ func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallbackToMarkerCallback(utte
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/requestPersonalVoiceAuthorization(completionHandler:)
 func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) RequestPersonalVoiceAuthorizationWithCompletionHandler(handler AVSpeechSynthesisPersonalVoiceAuthorizationStatusHandler) {
-_block0, _ := NewAVSpeechSynthesisPersonalVoiceAuthorizationStatusBlock(handler)
+	_block0, _ := NewAVSpeechSynthesisPersonalVoiceAuthorizationStatusBlock(handler)
 	objc.Send[objc.ID](objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("requestPersonalVoiceAuthorizationWithCompletionHandler:"), _block0)
 }
 
@@ -322,7 +320,7 @@ _block0, _ := NewAVSpeechSynthesisPersonalVoiceAuthorizationStatusBlock(handler)
 // or is in a paused state and has utterances to speak.
 //
 // # Discussion
-// 
+//
 // If `true`, the synthesizer is speaking or is in a paused state with
 // utterances in its queue. If `false`, the synthesizer isn’t speaking and
 // it doesn’t have any utterances in its queue.
@@ -332,11 +330,12 @@ func (s AVSpeechSynthesizer) Speaking() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSpeaking"))
 	return rv
 }
+
 // A Boolean value that indicates whether a speech synthesizer is in a paused
 // state.
 //
 // # Discussion
-// 
+//
 // If `true`, the speech synthesizer is in a paused state after beginning to
 // speak an utterance; otherwise, `false`.
 //
@@ -345,6 +344,7 @@ func (s AVSpeechSynthesizer) Paused() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isPaused"))
 	return rv
 }
+
 // The delegate object for the speech synthesizer.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/delegate
@@ -355,6 +355,7 @@ func (s AVSpeechSynthesizer) Delegate() AVSpeechSynthesizerDelegate {
 func (s AVSpeechSynthesizer) SetDelegate(value AVSpeechSynthesizerDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The amount of time the speech synthesizer pauses before speaking the
 // utterance.
 //
@@ -366,6 +367,7 @@ func (s AVSpeechSynthesizer) PreUtteranceDelay() float64 {
 func (s AVSpeechSynthesizer) SetPreUtteranceDelay(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPreUtteranceDelay:"), value)
 }
+
 // The voice the speech synthesizer uses when speaking the utterance.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avspeechutterance/voice
@@ -380,7 +382,7 @@ func (s AVSpeechSynthesizer) SetVoice(value IAVSpeechSynthesisVoice) {
 // Your app’s authorization to use personal voices.
 //
 // # Discussion
-// 
+//
 // The user can grant or deny your app’s request to use personal voices when
 // they’re initially prompted, and change the authorization in the Settings
 // app. Additionally, the framework denies the request if the device doesn’t
@@ -391,6 +393,7 @@ func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) PersonalVoiceAuthoriza
 	rv := objc.Send[AVSpeechSynthesisPersonalVoiceAuthorizationStatus](objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("personalVoiceAuthorizationStatus"))
 	return AVSpeechSynthesisPersonalVoiceAuthorizationStatus(rv)
 }
+
 // A notification that indicates a change in available voices for speech
 // synthesis.
 //
@@ -414,4 +417,3 @@ func (sc AVSpeechSynthesizerClass) RequestPersonalVoiceAuthorization(ctx context
 		return 0, ctx.Err()
 	}
 }
-

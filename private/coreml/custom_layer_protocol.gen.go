@@ -18,6 +18,7 @@ type MLCustomLayer interface {
 type MLCustomLayerObject struct {
 	objectivec.Object
 }
+
 func (o MLCustomLayerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,7 +31,6 @@ func MLCustomLayerObjectFromID(id objc.ID) MLCustomLayerObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/encodeToCommandBuffer:inputs:outputs:error:
 func (o MLCustomLayerObject) EncodeToCommandBufferInputsOutputsError(buffer objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("encodeToCommandBuffer:inputs:outputs:error:"), buffer, inputs, outputs)
@@ -38,8 +38,8 @@ func (o MLCustomLayerObject) EncodeToCommandBufferInputsOutputsError(buffer obje
 		return false, err
 	}
 	return rv, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/evaluateOnCPUWithInputs:outputs:error:
 func (o MLCustomLayerObject) EvaluateOnCPUWithInputsOutputsError(inputs objectivec.IObject, outputs objectivec.IObject) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("evaluateOnCPUWithInputs:outputs:error:"), inputs, outputs)
@@ -47,8 +47,8 @@ func (o MLCustomLayerObject) EvaluateOnCPUWithInputsOutputsError(inputs objectiv
 		return false, err
 	}
 	return rv, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/outputShapesForInputShapes:error:
 func (o MLCustomLayerObject) OutputShapesForInputShapesError(shapes objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("outputShapesForInputShapes:error:"), shapes)
@@ -56,8 +56,8 @@ func (o MLCustomLayerObject) OutputShapesForInputShapesError(shapes objectivec.I
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/setWeightData:error:
 func (o MLCustomLayerObject) SetWeightDataError(data objectivec.IObject) (bool, error) {
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("setWeightData:error:"), data)
@@ -65,5 +65,4 @@ func (o MLCustomLayerObject) SetWeightDataError(data objectivec.IObject) (bool, 
 		return false, err
 	}
 	return rv, nil
-	}
-
+}

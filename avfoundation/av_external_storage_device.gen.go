@@ -4,10 +4,11 @@ package avfoundation
 
 import (
 	"context"
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (ac AVExternalStorageDeviceClass) Alloc() AVExternalStorageDevice {
 // Represents a physical external storage device that stores media assets.
 //
 // # Overview
-// 
+//
 // Each storage device instance corresponds to a physical external storage
 // device where the system can media assets. You can access all of the
 // currently available external storage devices with the
@@ -78,6 +79,7 @@ type AVExternalStorageDevice struct {
 func AVExternalStorageDeviceFromID(id objc.ID) AVExternalStorageDevice {
 	return AVExternalStorageDevice{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVExternalStorageDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -150,33 +152,33 @@ func NewAVExternalStorageDevice() AVExternalStorageDevice {
 // extensionArray: An array of path extensions the method generates URLs for.
 //
 // # Return Value
-// 
+//
 // An array of digital camera format (DCF) compliant URLs with security
 // scoping, one for each path extension element in `extensionArray`.
 //
 // # Discussion
-// 
+//
 // The method generates a digital camera format (DCF) compliant URL with
 // security scoping for each file extension element in `extensionArray`. It
 // does this by configuring the folder structure and, if necessary, creates a
 // digital camera image (DCIM) folder on the external storage device.
-// 
+//
 // # Request access to the storage device before request
-// 
+//
 // Your app can request authorization before calling the method if
-// [AuthorizationStatus] is [AuthorizationStatusNotDetermined] by calling the
-// [RequestAccessWithCompletionHandler] method first.
-// 
+// [AuthorizationStatus] is [AVAuthorizationStatusNotDetermined] by calling
+// the [RequestAccessWithCompletionHandler] method first.
+//
 // # Start and stop access to a URL around your code
-// 
+//
 // To access one of the security-scoped URLs the method returns, you need to
 // call the [startAccessingSecurityScopedResource()], and
 // [stopAccessingSecurityScopedResource()] methods before and after your code.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDevice/nextAvailableURLs(withPathExtensions:)
+//
 // [startAccessingSecurityScopedResource()]: https://developer.apple.com/documentation/Foundation/URL/startAccessingSecurityScopedResource()
 // [stopAccessingSecurityScopedResource()]: https://developer.apple.com/documentation/Foundation/URL/stopAccessingSecurityScopedResource()
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDevice/nextAvailableURLs(withPathExtensions:)
 func (e AVExternalStorageDevice) NextAvailableURLsWithPathExtensionsError(extensionArray []string) ([]foundation.NSURL, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("nextAvailableURLsWithPathExtensions:error:"), objectivec.StringSliceToNSArray(extensionArray), unsafe.Pointer(&errorPtr))
@@ -199,17 +201,17 @@ func (e AVExternalStorageDevice) NextAvailableURLsWithPathExtensionsError(extens
 // update its UI on the main thread or queue.
 //
 // # Discussion
-// 
+//
 // Use this method to request access to save image assets to the external
 // storage device. Your app can’t access the external storage device without
 // generating an error until a person gives it permission.
-// 
+//
 // The system only presents the dialog to a person the first time your app
 // calls the method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDevice/requestAccess(completionHandler:)
 func (_AVExternalStorageDeviceClass AVExternalStorageDeviceClass) RequestAccessWithCompletionHandler(handler BoolHandler) {
-_block0, _ := NewBoolBlock(handler)
+	_block0, _ := NewBoolBlock(handler)
 	objc.Send[objc.ID](objc.ID(_AVExternalStorageDeviceClass.class), objc.Sel("requestAccessWithCompletionHandler:"), _block0)
 }
 
@@ -221,11 +223,12 @@ func (e AVExternalStorageDevice) Connected() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("isConnected"))
 	return rv
 }
+
 // The name of an external storage device that’s appropriate for a user
 // interface.
 //
 // # Discussion
-// 
+//
 // The value is `nil` when the system can’t retrieve information from
 // external storage device.
 //
@@ -234,10 +237,11 @@ func (e AVExternalStorageDevice) DisplayName() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("displayName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The external storage device’s unique identifier.
 //
 // # Discussion
-// 
+//
 // The value is `nil` when the system can’t retrieve information from
 // external storage device.
 //
@@ -246,11 +250,12 @@ func (e AVExternalStorageDevice) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
+
 // The amount of free storage space, in bytes, that’s available on the
 // external storage device.
 //
 // # Discussion
-// 
+//
 // The value is `-1` when the system can’t retrieve information from
 // external storage device.
 //
@@ -259,11 +264,12 @@ func (e AVExternalStorageDevice) FreeSize() int {
 	rv := objc.Send[int](e.ID, objc.Sel("freeSize"))
 	return rv
 }
+
 // The total amount of storage space, in bytes, that’s available on the
 // external storage device.
 //
 // # Discussion
-// 
+//
 // The value is `-1` when the system can’t retrieve information from
 // external storage device.
 //
@@ -272,6 +278,7 @@ func (e AVExternalStorageDevice) TotalSize() int {
 	rv := objc.Send[int](e.ID, objc.Sel("totalSize"))
 	return rv
 }
+
 // A Boolean value that indicates whether the external storage device is
 // suitable for camera capture.
 //
@@ -280,6 +287,7 @@ func (e AVExternalStorageDevice) NotRecommendedForCaptureUse() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("isNotRecommendedForCaptureUse"))
 	return rv
 }
+
 // An array of external storage devices the session updates as individual
 // devices connect or disconnect from the system.
 //
@@ -295,9 +303,9 @@ func (e AVExternalStorageDevice) SetExternalStorageDevices(value IAVExternalStor
 // Your app’s authorization status for the external storage device.
 //
 // # Discussion
-// 
-// If the value is [AuthorizationStatusNotDetermined], you can request access
-// by calling the [RequestAccessWithCompletionHandler] method.
+//
+// If the value is [AVAuthorizationStatusNotDetermined], you can request
+// access by calling the [RequestAccessWithCompletionHandler] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDevice/authorizationStatus
 func (_AVExternalStorageDeviceClass AVExternalStorageDeviceClass) AuthorizationStatus() AVAuthorizationStatus {
@@ -319,4 +327,3 @@ func (ec AVExternalStorageDeviceClass) RequestAccess(ctx context.Context) (bool,
 		return false, ctx.Err()
 	}
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZEntropyDeviceConfigurationClass) Alloc() VZEntropyDeviceConfiguration
 // The common configuration traits for entropy devices.
 //
 // # Overview
-// 
+//
 // Don’t create a VZEntropyDeviceConfiguration object directly. Instead,
 // instantiate a subclass such as [VZVirtioEntropyDeviceConfiguration] to
 // configure a source of entropy for your virtual machine.
@@ -60,6 +61,7 @@ type VZEntropyDeviceConfiguration struct {
 func VZEntropyDeviceConfigurationFromID(id objc.ID) VZEntropyDeviceConfiguration {
 	return VZEntropyDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZEntropyDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -88,4 +90,3 @@ func NewVZEntropyDeviceConfiguration() VZEntropyDeviceConfiguration {
 	rv := objc.Send[VZEntropyDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

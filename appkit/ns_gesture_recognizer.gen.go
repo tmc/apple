@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,20 +48,20 @@ func (nc NSGestureRecognizerClass) Alloc() NSGestureRecognizer {
 // predefined sequence of events occur.
 //
 // # Overview
-// 
+//
 // A gesture recognizer might recognize a single click, a click and drag, or a
 // sequence of events that imply rotation. You do not create instances of this
 // class directly. This class is an abstract base class that defines the
 // common behavior for all gesture recognizers. When using a gesture
 // recognizer in your app, create an instance of one of the concrete
 // subclasses.
-// 
+//
 // The concrete subclasses of [NSGestureRecognizer] are the following:
-// 
+//
 // - [NSClickGestureRecognizer] - [NSMagnificationGestureRecognizer] -
 // [NSPanGestureRecognizer] - [NSPressGestureRecognizer] -
 // [NSRotationGestureRecognizer]
-// 
+//
 // A gesture recognizer operates on events in a specific view (or in any of
 // that view’s subviews). After creating a gesture recognizer, attach it to
 // one of your views using the [AddGestureRecognizer] method. Events received
@@ -68,13 +69,13 @@ func (nc NSGestureRecognizerClass) Alloc() NSGestureRecognizer {
 // before they are sent to the corresponding view. The gesture recognizer can
 // delay the further progression of the events until recognition is complete
 // or allow the events to be delivered normally.
-// 
+//
 // A gesture recognizer can detect gestures that are either discrete or
 // continuous in nature. A click gesture is discrete because it involves a
 // mouse-down and mouse-up event without any mouse movements in between. By
 // contrast, a pan or rotation gesture is continuous because it involves
 // tracking mouse movements over a period of time.
-// 
+//
 // During the gesture recognition process, a gesture recognizer calls the
 // action method of its associated target object to report the state of the
 // recognition process. For discrete gestures, the action method is typically
@@ -84,10 +85,10 @@ func (nc NSGestureRecognizerClass) Alloc() NSGestureRecognizer {
 // perform appropriate tasks, such as creating animations for any
 // mouse-related movements, in addition to handling the final results of the
 // gesture recognition process.
-// 
+//
 // A gesture recognizer has only one action method and one target object, and
 // the method must conform to one of the following signatures:
-// 
+//
 // When your code needs additional information about the particulars of a
 // gesture, define your action method to include the gesture recognizer
 // parameter. You almost always want the gesture recognizer object when
@@ -95,80 +96,75 @@ func (nc NSGestureRecognizerClass) Alloc() NSGestureRecognizer {
 // would use the gesture recognizer object to get the updated rotation value.
 // You can also use the gesture recognizer object to get the location of where
 // the gesture occurred.
-// 
+//
 // # State Transitions
-// 
+//
 // Gesture recognizers operate within a predefined state machine,
 // transitioning from state to state as they handle events. All gesture
-// recognizers begin in the Possible ([NSGestureRecognizer.State.possible])
+// recognizers begin in the Possible ([NSGestureRecognizerStatePossible])
 // state, but the possible transitions differ for continuous and discrete
 // gestures.
-// 
+//
 // Discrete gestures transition from the Possible state directly to the
-// Recognized ([recognized]) or Failed ([NSGestureRecognizer.State.failed])
-// state, depending on whether they successfully interpret the gesture. When a
-// discrete gesture recognizer transitions to the Recognized state, it calls
-// the action method of its target object.
-// 
+// Recognized ([NSGestureRecognizerStateRecognized]) or Failed
+// ([NSGestureRecognizerStateFailed]) state, depending on whether they
+// successfully interpret the gesture. When a discrete gesture recognizer
+// transitions to the Recognized state, it calls the action method of its
+// target object.
+//
 // For continuous gestures, the state transitions are as follows:
-// 
+//
 // - Possible —> Began —> [Changed] —> Cancelled - Possible —> Began
 // —> [Changed] —> Ended
-// 
+//
 // The Changed state is optional and may occur multiple times before the
 // Cancelled or Ended state is reached. Many state transitions cause the
 // gesture recognizer to call its action method. Setting the [NSGestureRecognizer.State] property
-// to [NSGestureRecognizer.State.changed] while monitoring events also calls
-// the action method. You can use these calls to update the state of your app
-// or update any custom animations.
-// 
+// to [NSGestureRecognizerStateChanged] while monitoring events also calls the
+// action method. You can use these calls to update the state of your app or
+// update any custom animations.
+//
 // For a list of possible states, see the constants in
 // [NSGestureRecognizer.State].
-// 
+//
 // # Subclassing Notes
-// 
+//
 // You may create a subclass of [NSGestureRecognizer] that recognizes a
 // distinctive gesture—for example, a “check mark” gesture. A custom
 // gesture recognizer implements any appropriate event-related methods to
 // detect its gesture along with a few other methods for managing state
 // information.
-// 
+//
 // All gesture recognizers must update the value in the state property at
 // appropriate times. Specifically, you must update it for all state
 // transitions. For more information about the possible state transitions of a
 // gesture recognizer, see [NSGestureRecognizer].
-// 
+//
 // # Methods to Override
-// 
+//
 // When creating your own gesture recognizer subclass:
-// 
+//
 // - Implement the [NSGestureRecognizer.Reset] method and any other relevant methods in Methods
 // for Subclasses. - Override the [NSGestureRecognizer.LocationInView] method as needed to specify
 // an appropriate point for your gesture.
-// 
+//
 // AppKit waits for a mouse-down event, magnify event, or rotation event to
 // occur before starting the gesture recognition process. A gesture recognizer
 // that used only key-down events to recognize its gesture would not have its
 // [NSGestureRecognizer.KeyDown] method called until a mouse-down, magnify, or rotation event
 // started the recognition process.
-// 
+//
 // # Alternatives to Subclassing
-// 
+//
 // The [NSGestureRecognizer] class defines the common behaviors that can be
 // configured for all concrete gesture recognizers. It also supports a
 // delegate—an object that adopts the [NSGestureRecognizerDelegate]
 // protocol—for handling finer-grained customization of some behaviors
 // without the need for subclassing. For example, you can use the delegate to
 // create dependencies between specific gesture recognizer objects.
-// 
+//
 // For more information about using the delegate to control the behavior of
 // your gesture recognizers, see [NSGestureRecognizerDelegate].
-//
-// [NSGestureRecognizer.State.changed]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum/changed
-// [NSGestureRecognizer.State.failed]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum/failed
-// [NSGestureRecognizer.State.possible]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum/possible
-// [NSGestureRecognizer.State]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum
-// [recognized]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum/recognized
 //
 // # Initializing a Gesture Recognizer
 //
@@ -262,6 +258,8 @@ func (nc NSGestureRecognizerClass) Alloc() NSGestureRecognizer {
 //   - [NSGestureRecognizer.MouseCancelled]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer
+//
+// [NSGestureRecognizer.State]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum
 type NSGestureRecognizer struct {
 	objectivec.Object
 }
@@ -273,6 +271,7 @@ type NSGestureRecognizer struct {
 func NSGestureRecognizerFromID(id objc.ID) NSGestureRecognizer {
 	return NSGestureRecognizer{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSGestureRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -526,7 +525,6 @@ func NewNSGestureRecognizer() NSGestureRecognizer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func NewGestureRecognizerWithCoder(coder foundation.INSCoder) NSGestureRecognizer {
 	instance := getNSGestureRecognizerClass().Alloc()
@@ -545,18 +543,18 @@ func NewGestureRecognizerWithCoder(coder foundation.INSCoder) NSGestureRecognize
 // must not specify `nil` for this parameter.
 //
 // # Return Value
-// 
+//
 // The initialized gesture recognizer object or `nil` if an error occurred.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer. Subclasses must call this method
 // from their own custom initialization methods. Call the method before
 // performing other tasks.
-// 
+//
 // This method records the specified `target` and `action` values and prepares
 // the gesture recognizer for use.
-// 
+//
 // The `action` method must have one of the following signatures:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(target:action:)
@@ -577,18 +575,18 @@ func NewGestureRecognizerWithTargetAction(target objectivec.IObject, action objc
 // must not specify `nil` for this parameter.
 //
 // # Return Value
-// 
+//
 // The initialized gesture recognizer object or `nil` if an error occurred.
 //
 // # Discussion
-// 
+//
 // This method is the designated initializer. Subclasses must call this method
 // from their own custom initialization methods. Call the method before
 // performing other tasks.
-// 
+//
 // This method records the specified `target` and `action` values and prepares
 // the gesture recognizer for use.
-// 
+//
 // The `action` method must have one of the following signatures:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(target:action:)
@@ -596,6 +594,7 @@ func (g NSGestureRecognizer) InitWithTargetAction(target objectivec.IObject, act
 	rv := objc.Send[NSGestureRecognizer](g.ID, objc.Sel("initWithTarget:action:"), target, action)
 	return rv
 }
+
 // Returns the point computed as the location of the gesture.
 //
 // view: The view whose coordinate system you want to use for determining the
@@ -603,17 +602,17 @@ func (g NSGestureRecognizer) InitWithTargetAction(target objectivec.IObject, act
 // coordinate system of the window.
 //
 // # Return Value
-// 
+//
 // The point at which the gesture occurred. The returned point is in the
 // coordinate system of the specified view, or in the coordinate system of the
 // window if you specified `nil` for the view parameter.
 //
 // # Discussion
-// 
+//
 // Use this method to determine the location at which the gesture occurred.
 // Subclasses are responsible for overriding this method and returning an
 // appropriate value based on the type of gesture.
-// 
+//
 // For specific information about what the returned point represents, see the
 // specific gesture recognizer subclass.
 //
@@ -622,37 +621,35 @@ func (g NSGestureRecognizer) LocationInView(view INSView) corefoundation.CGPoint
 	rv := objc.Send[corefoundation.CGPoint](g.ID, objc.Sel("locationInView:"), view)
 	return corefoundation.CGPoint(rv)
 }
+
 // Overridden to reset the internal state of the gesture recognizer when an
 // attempt completes.
 //
 // # Discussion
-// 
-// AppKit calls this method after the gesture recognizer state has been set to
-// any of the terminal states: [NSGestureRecognizer.State.ended],
-// [NSGestureRecognizer.State.cancelled], [NSGestureRecognizer.State.failed],
-// or [recognized]. Subclasses should override this method and use it to reset
-// any internal state of the gesture recognizer in preparation for a new
-// recognition attempt. After this method is called, the gesture recognizer
-// receives no further updates for events that began but have not yet ended.
 //
-// [NSGestureRecognizer.State.cancelled]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum/cancelled
-// [NSGestureRecognizer.State.ended]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum/ended
-// [NSGestureRecognizer.State.failed]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum/failed
-// [recognized]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum/recognized
+// AppKit calls this method after the gesture recognizer state has been set to
+// any of the terminal states: [NSGestureRecognizerStateEnded],
+// [NSGestureRecognizerStateCancelled], [NSGestureRecognizerStateFailed], or
+// [NSGestureRecognizerStateRecognized]. Subclasses should override this
+// method and use it to reset any internal state of the gesture recognizer in
+// preparation for a new recognition attempt. After this method is called, the
+// gesture recognizer receives no further updates for events that began but
+// have not yet ended.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/reset()
 func (g NSGestureRecognizer) Reset() {
 	objc.Send[objc.ID](g.ID, objc.Sel("reset"))
 }
+
 // Informs the gesture recognizer that the user pressed the left mouse button.
 //
 // event: An object encapsulating information about the mouse-down event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // start tracking the gesture in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -663,16 +660,17 @@ func (g NSGestureRecognizer) Reset() {
 func (g NSGestureRecognizer) MouseDown(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("mouseDown:"), event)
 }
+
 // Informs the gesture recognizer that the user moved the mouse with the left
 // button pressed.
 //
 // event: An object encapsulating information about the mouse-dragged event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -683,16 +681,17 @@ func (g NSGestureRecognizer) MouseDown(event INSEvent) {
 func (g NSGestureRecognizer) MouseDragged(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("mouseDragged:"), event)
 }
+
 // Informs the gesture recognizer that the user released the left mouse
 // button.
 //
 // event: An object encapsulating information about the mouse-up event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -703,16 +702,17 @@ func (g NSGestureRecognizer) MouseDragged(event INSEvent) {
 func (g NSGestureRecognizer) MouseUp(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("mouseUp:"), event)
 }
+
 // Informs the gesture recognizer that the user pressed a mouse button other
 // than the left or right one.
 //
 // event: An object encapsulating information about the mouse-down event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // start tracking the gesture in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -723,16 +723,17 @@ func (g NSGestureRecognizer) MouseUp(event INSEvent) {
 func (g NSGestureRecognizer) OtherMouseDown(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("otherMouseDown:"), event)
 }
+
 // Informs the gesture recognizer that the user moved the mouse with a button
 // other than the left or right one pressed.
 //
 // event: An object encapsulating information about the mouse-dragged event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -743,16 +744,17 @@ func (g NSGestureRecognizer) OtherMouseDown(event INSEvent) {
 func (g NSGestureRecognizer) OtherMouseDragged(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("otherMouseDragged:"), event)
 }
+
 // Informs the gesture recognizer that the user released a mouse button other
 // than the left or right one.
 //
 // event: An object encapsulating information about the mouse-up event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -763,16 +765,17 @@ func (g NSGestureRecognizer) OtherMouseDragged(event INSEvent) {
 func (g NSGestureRecognizer) OtherMouseUp(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("otherMouseUp:"), event)
 }
+
 // Informs the gesture recognizer that the user pressed the right mouse
 // button.
 //
 // event: An object encapsulating information about the mouse-down event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // start tracking the gesture in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -783,16 +786,17 @@ func (g NSGestureRecognizer) OtherMouseUp(event INSEvent) {
 func (g NSGestureRecognizer) RightMouseDown(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("rightMouseDown:"), event)
 }
+
 // Informs the gesture recognizer that the user moved the mouse with the right
 // button pressed.
 //
 // event: An object encapsulating information about the mouse-dragged event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -803,16 +807,17 @@ func (g NSGestureRecognizer) RightMouseDown(event INSEvent) {
 func (g NSGestureRecognizer) RightMouseDragged(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("rightMouseDragged:"), event)
 }
+
 // Informs the gesture recognizer that the user released the right mouse
 // button.
 //
 // event: An object encapsulating information about the mouse-up event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -823,15 +828,16 @@ func (g NSGestureRecognizer) RightMouseDragged(event INSEvent) {
 func (g NSGestureRecognizer) RightMouseUp(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("rightMouseUp:"), event)
 }
+
 // Informs the gesture recognizer that the user is performing a pinch gesture.
 //
 // event: An object encapsulating information about the magnify event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // start tracking the gesture in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -842,16 +848,17 @@ func (g NSGestureRecognizer) RightMouseUp(event INSEvent) {
 func (g NSGestureRecognizer) MagnifyWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("magnifyWithEvent:"), event)
 }
+
 // Informs the gesture recognizer that the user is performing a rotation
 // gesture.
 //
 // event: An object encapsulating information about the rotate event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // start tracking the gesture in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the
@@ -862,6 +869,7 @@ func (g NSGestureRecognizer) MagnifyWithEvent(event INSEvent) {
 func (g NSGestureRecognizer) RotateWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("rotateWithEvent:"), event)
 }
+
 // Overridden to indicate that the specified gesture recognizer can prevent
 // the current object from recognizing a gesture.
 //
@@ -869,16 +877,13 @@ func (g NSGestureRecognizer) RotateWithEvent(event INSEvent) {
 // its gesture.
 //
 // # Return Value
-// 
-// [true] to indicate that `preventingGestureRecognizer` can block the current
-// gesture recognizer from recognizing its gesture, or [false] if both gesture
+//
+// true to indicate that `preventingGestureRecognizer` can block the current
+// gesture recognizer from recognizing its gesture, or false if both gesture
 // recognizers can operate simultaneously.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // # Discussion
-// 
+//
 // This method enables similar behavior as the [GestureRecognizerShouldBegin]
 // and [GestureRecognizerShouldRequireFailureOfGestureRecognizer] methods of
 // the gesture recognizer’s delegate. Using this method lets you define
@@ -891,22 +896,20 @@ func (g NSGestureRecognizer) CanBePreventedByGestureRecognizer(preventingGesture
 	rv := objc.Send[bool](g.ID, objc.Sel("canBePreventedByGestureRecognizer:"), preventingGestureRecognizer)
 	return rv
 }
+
 // Overridden to indicate that the current object can prevent the specified
 // gesture recognizer from recognizing its gesture.
 //
 // preventedGestureRecognizer: The gesture recognizer to be prevented from recognizing its gesture.
 //
 // # Return Value
-// 
-// [true] to indicate that `preventedGestureRecognizer` should be blocked from
-// recognizing its gesture, or [false] if both gesture recognizers can operate
+//
+// true to indicate that `preventedGestureRecognizer` should be blocked from
+// recognizing its gesture, or false if both gesture recognizers can operate
 // simultaneously.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // # Discussion
-// 
+//
 // This method enables similar behavior as the [GestureRecognizerShouldBegin]
 // and [GestureRecognizerShouldRequireFailureOfGestureRecognizer] methods of
 // the gesture recognizer’s delegate. Using this method lets you define
@@ -920,6 +923,7 @@ func (g NSGestureRecognizer) CanPreventGestureRecognizer(preventedGestureRecogni
 	rv := objc.Send[bool](g.ID, objc.Sel("canPreventGestureRecognizer:"), preventedGestureRecognizer)
 	return rv
 }
+
 // Overridden to indicate that the current object must fail before the
 // specified gesture recognizer begins recognizing its gesture.
 //
@@ -927,14 +931,12 @@ func (g NSGestureRecognizer) CanPreventGestureRecognizer(preventedGestureRecogni
 // the current object fails.
 //
 // # Return Value
-// 
-// [true] to cause `otherGestureRecognizer` to wait until the current object
+//
+// true to cause `otherGestureRecognizer` to wait until the current object
 // fails before beginning its own gesture recognition.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // # Discussion
-// 
+//
 // Using this method lets you define rules that apply to all instances of your
 // custom gesture recognizer class.
 //
@@ -943,6 +945,7 @@ func (g NSGestureRecognizer) ShouldBeRequiredToFailByGestureRecognizer(otherGest
 	rv := objc.Send[bool](g.ID, objc.Sel("shouldBeRequiredToFailByGestureRecognizer:"), otherGestureRecognizer)
 	return rv
 }
+
 // Overridden to indicate that the specified gesture recognizer must fail
 // before the current object begins recognizing its gesture.
 //
@@ -950,14 +953,12 @@ func (g NSGestureRecognizer) ShouldBeRequiredToFailByGestureRecognizer(otherGest
 // to recognize its gesture.
 //
 // # Return Value
-// 
-// [true] to cause the current object to wait to recognize its own gesture
-// until the object in otherGestureRecognizer fails.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true to cause the current object to wait to recognize its own gesture until
+// the object in otherGestureRecognizer fails.
 //
 // # Discussion
-// 
+//
 // Using this method lets you define rules that apply to all instances of your
 // custom gesture recognizer class.
 //
@@ -966,15 +967,16 @@ func (g NSGestureRecognizer) ShouldRequireFailureOfGestureRecognizer(otherGestur
 	rv := objc.Send[bool](g.ID, objc.Sel("shouldRequireFailureOfGestureRecognizer:"), otherGestureRecognizer)
 	return rv
 }
+
 // Informs the gesture recognizer that the user has pressed a key.
 //
 // event: An object encapsulating information about the key-down event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the [DelaysKeyEvents]
@@ -984,15 +986,16 @@ func (g NSGestureRecognizer) ShouldRequireFailureOfGestureRecognizer(otherGestur
 func (g NSGestureRecognizer) KeyDown(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("keyDown:"), event)
 }
+
 // Informs the gesture recognizer that the user released a key.
 //
 // event: An object encapsulating information about the key-up event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do. Use the [DelaysKeyEvents]
@@ -1002,6 +1005,7 @@ func (g NSGestureRecognizer) KeyDown(event INSEvent) {
 func (g NSGestureRecognizer) KeyUp(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("keyUp:"), event)
 }
+
 // Informs the user that a tablet-point event occurred.
 //
 // event: An object encapsulating information about the tablet-point event.
@@ -1010,10 +1014,10 @@ func (g NSGestureRecognizer) KeyUp(event INSEvent) {
 // tilt, and rotation. For more information, see [NSEvent].
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do.
@@ -1022,16 +1026,17 @@ func (g NSGestureRecognizer) KeyUp(event INSEvent) {
 func (g NSGestureRecognizer) TabletPoint(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("tabletPoint:"), event)
 }
+
 // Informs the current object that the user pressed or released a modifier key
 // (Shift, Control, and so on).
 //
 // event: An object encapsulating information about the modifier-key event.
 //
 // # Discussion
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do.
@@ -1040,6 +1045,7 @@ func (g NSGestureRecognizer) TabletPoint(event INSEvent) {
 func (g NSGestureRecognizer) FlagsChanged(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("flagsChanged:"), event)
 }
+
 // Informs the current object that a pressure change occurred on a system that
 // supports pressure sensitivity.
 //
@@ -1047,13 +1053,13 @@ func (g NSGestureRecognizer) FlagsChanged(event INSEvent) {
 // the change in pressure.
 //
 // # Discussion
-// 
+//
 // This method is invoked automatically in response to user actions. `event`
 // is the event that initiated the change in pressure.
-// 
+//
 // The default implementation of this method does nothing. Use this method to
 // update the state of your gesture recognizer in whatever way is appropriate.
-// 
+//
 // A gesture recognizer monitors events that occur in its view (and any
 // subviews) but does not take part in the responder chain itself. The gesture
 // recognizer receives events before any views do.
@@ -1062,12 +1068,13 @@ func (g NSGestureRecognizer) FlagsChanged(event INSEvent) {
 func (g NSGestureRecognizer) PressureChangeWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("pressureChangeWithEvent:"), event)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func (g NSGestureRecognizer) InitWithCoder(coder foundation.INSCoder) NSGestureRecognizer {
 	rv := objc.Send[NSGestureRecognizer](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Called when one or more fingers first make contact with an [NSTouchBar]
 // instance on the Touch Bar.
 //
@@ -1075,6 +1082,7 @@ func (g NSGestureRecognizer) InitWithCoder(coder foundation.INSCoder) NSGestureR
 func (g NSGestureRecognizer) TouchesBeganWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("touchesBeganWithEvent:"), event)
 }
+
 // Called when a system event, such as a low-memory warning, cancels an
 // in-progress touch event in an [NSTouchBar] object.
 //
@@ -1082,6 +1090,7 @@ func (g NSGestureRecognizer) TouchesBeganWithEvent(event INSEvent) {
 func (g NSGestureRecognizer) TouchesCancelledWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("touchesCancelledWithEvent:"), event)
 }
+
 // Called when one or more fingers are removed from contact with an
 // [NSTouchBar] instance on the Touch Bar.
 //
@@ -1089,6 +1098,7 @@ func (g NSGestureRecognizer) TouchesCancelledWithEvent(event INSEvent) {
 func (g NSGestureRecognizer) TouchesEndedWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("touchesEndedWithEvent:"), event)
 }
+
 // Called when one or more fingers, associated with an in-progress event, move
 // within an [NSTouchBar] instance on the Touch Bar.
 //
@@ -1096,7 +1106,7 @@ func (g NSGestureRecognizer) TouchesEndedWithEvent(event INSEvent) {
 func (g NSGestureRecognizer) TouchesMovedWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("touchesMovedWithEvent:"), event)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/mouseCancelled(with:)
 func (g NSGestureRecognizer) MouseCancelled(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("mouseCancelled:"), event)
@@ -1108,15 +1118,15 @@ func (g NSGestureRecognizer) EncodeWithCoder(coder foundation.INSCoder) {
 // The action method to call when the gesture is recognized.
 //
 // # Discussion
-// 
+//
 // You specify this method when initializing your gesture recognizer but can
 // also change the method later. The gesture recognizer executes your action
 // method during specific states of the gesture recognition process. Use your
 // action method to perform any app-specific tasks. For example, you might use
 // that method to animate changes onscreen while the gesture is in progress.
-// 
+//
 // The signature of this method must be one of the following:
-// 
+//
 // For continuous gestures, it is recommended that you use an action method
 // that accepts the gesture recognizer as a parameter. In your method, use the
 // provided gesture recognizer object to get the current state of the gesture
@@ -1130,10 +1140,11 @@ func (g NSGestureRecognizer) Action() objc.SEL {
 func (g NSGestureRecognizer) SetAction(value objc.SEL) {
 	objc.Send[struct{}](g.ID, objc.Sel("setAction:"), value)
 }
+
 // The object that implements the action method.
 //
 // # Discussion
-// 
+//
 // The object in this property must implement the method specified by the
 // [Action] property.
 //
@@ -1145,10 +1156,11 @@ func (g NSGestureRecognizer) Target() objectivec.IObject {
 func (g NSGestureRecognizer) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setTarget:"), value)
 }
+
 // The current state of the gesture recognizer.
 //
 // # Discussion
-// 
+//
 // This property conveys where the gesture recognizer is in the recognition
 // process. The default declaration of this property is read-only so that
 // external clients (such as other gesture recognizers) can use the value for
@@ -1157,7 +1169,7 @@ func (g NSGestureRecognizer) SetTarget(value objectivec.IObject) {
 // implementation to set the value of the property. This class provides an
 // implementation that detects state transitions and updates the gesture
 // recognizer accordingly.
-// 
+//
 // For more information about the state transitions that can occur in a
 // gesture recognizer, see [NSGestureRecognizer].
 //
@@ -1166,10 +1178,11 @@ func (g NSGestureRecognizer) State() NSGestureRecognizerState {
 	rv := objc.Send[NSGestureRecognizerState](g.ID, objc.Sel("state"))
 	return NSGestureRecognizerState(rv)
 }
+
 // The view to which the gesture recognizer is attached.
 //
 // # Discussion
-// 
+//
 // To attach a gesture recognizer to a view, call the [AddGestureRecognizer]
 // method of the view. If the gesture recognizer is not attached to a view,
 // the value in this property is `nil`.
@@ -1179,23 +1192,20 @@ func (g NSGestureRecognizer) View() INSView {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("view"))
 	return NSViewFromID(objc.ID(rv))
 }
+
 // A Boolean value indicating whether the gesture recognizer is able to handle
 // events.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the gesture recognizer receives
-// events and uses them to determine when its gesture is performed. When the
-// value is [false], the gesture recognizer does not receive events. Changing
-// the value from [true] to [false] while the gesture recognizer is in the
-// process of recognizing a gesture changes the state of the gesture
-// recognizer to [NSGestureRecognizer.State.cancelled].
-// 
-// The default value of this property is [true].
 //
-// [NSGestureRecognizer.State.cancelled]: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum/cancelled
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, the gesture recognizer receives
+// events and uses them to determine when its gesture is performed. When the
+// value is false, the gesture recognizer does not receive events. Changing
+// the value from true to false while the gesture recognizer is in the process
+// of recognizing a gesture changes the state of the gesture recognizer to
+// [NSGestureRecognizerStateCancelled].
+//
+// The default value of this property is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/isEnabled
 func (g NSGestureRecognizer) Enabled() bool {
@@ -1205,21 +1215,19 @@ func (g NSGestureRecognizer) Enabled() bool {
 func (g NSGestureRecognizer) SetEnabled(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setEnabled:"), value)
 }
+
 // A Boolean value that indicates whether primary mouse button events are
 // delivered only after gesture recognition fails.
 //
 // # Discussion
-// 
-// When the value of this property is [true], primary mouse button events are
+//
+// When the value of this property is true, primary mouse button events are
 // delivered to the target view only after gesture recognition fails. Set this
-// property to [true] to prevent the view from processing events that might be
+// property to true to prevent the view from processing events that might be
 // recognized as part of a gesture. Once gesture recognition begins, all types
 // of events are delayed until gesture recognition fails.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/delaysPrimaryMouseButtonEvents
 func (g NSGestureRecognizer) DelaysPrimaryMouseButtonEvents() bool {
@@ -1229,21 +1237,19 @@ func (g NSGestureRecognizer) DelaysPrimaryMouseButtonEvents() bool {
 func (g NSGestureRecognizer) SetDelaysPrimaryMouseButtonEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysPrimaryMouseButtonEvents:"), value)
 }
+
 // A Boolean value that indicates whether secondary mouse button events are
 // delivered only after gesture recognition fails.
 //
 // # Discussion
-// 
-// When the value of this property is [true], secondary mouse button events
-// are delivered to the target view only after gesture recognition fails. Set
-// this property to [true] to prevent the view from processing events that
-// might be recognized as part of a gesture. Once gesture recognition begins,
-// all types of events are delayed until gesture recognition fails.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, secondary mouse button events are
+// delivered to the target view only after gesture recognition fails. Set this
+// property to true to prevent the view from processing events that might be
+// recognized as part of a gesture. Once gesture recognition begins, all types
+// of events are delayed until gesture recognition fails.
+//
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/delaysSecondaryMouseButtonEvents
 func (g NSGestureRecognizer) DelaysSecondaryMouseButtonEvents() bool {
@@ -1253,21 +1259,19 @@ func (g NSGestureRecognizer) DelaysSecondaryMouseButtonEvents() bool {
 func (g NSGestureRecognizer) SetDelaysSecondaryMouseButtonEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysSecondaryMouseButtonEvents:"), value)
 }
+
 // A Boolean value that indicates whether other mouse button events are
 // delivered only after gesture recognition fails.
 //
 // # Discussion
-// 
-// When the value of this property is [true], other mouse button events are
+//
+// When the value of this property is true, other mouse button events are
 // delivered to the target view only after gesture recognition fails. Set this
-// property to [true] to prevent the view from processing events that might be
+// property to true to prevent the view from processing events that might be
 // recognized as part of a gesture. Once gesture recognition begins, all types
 // of events are delayed until gesture recognition fails.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/delaysOtherMouseButtonEvents
 func (g NSGestureRecognizer) DelaysOtherMouseButtonEvents() bool {
@@ -1277,21 +1281,19 @@ func (g NSGestureRecognizer) DelaysOtherMouseButtonEvents() bool {
 func (g NSGestureRecognizer) SetDelaysOtherMouseButtonEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysOtherMouseButtonEvents:"), value)
 }
+
 // A Boolean value that indicates whether key events are delivered only after
 // gesture recognition fails.
 //
 // # Discussion
-// 
-// When the value of this property is [true], key events are delivered to the
-// target view only after gesture recognition fails. Set this property to
-// [true] to prevent the view from processing events that might be recognized
-// as part of a gesture. Once gesture recognition begins, all types of events
-// are delayed until gesture recognition fails.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, key events are delivered to the
+// target view only after gesture recognition fails. Set this property to true
+// to prevent the view from processing events that might be recognized as part
+// of a gesture. Once gesture recognition begins, all types of events are
+// delayed until gesture recognition fails.
+//
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/delaysKeyEvents
 func (g NSGestureRecognizer) DelaysKeyEvents() bool {
@@ -1301,21 +1303,19 @@ func (g NSGestureRecognizer) DelaysKeyEvents() bool {
 func (g NSGestureRecognizer) SetDelaysKeyEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysKeyEvents:"), value)
 }
+
 // A Boolean value that indicates whether magnification events are delivered
 // only after gesture recognition fails.
 //
 // # Discussion
-// 
-// When the value of this property is [true], magnification events are
-// delivered to the target view only after gesture recognition fails. Set this
-// property to [true] to prevent the view from processing events that might be
-// recognized as part of a gesture. Once gesture recognition begins, all types
-// of events are delayed until gesture recognition fails.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, magnification events are delivered
+// to the target view only after gesture recognition fails. Set this property
+// to true to prevent the view from processing events that might be recognized
+// as part of a gesture. Once gesture recognition begins, all types of events
+// are delayed until gesture recognition fails.
+//
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/delaysMagnificationEvents
 func (g NSGestureRecognizer) DelaysMagnificationEvents() bool {
@@ -1325,21 +1325,19 @@ func (g NSGestureRecognizer) DelaysMagnificationEvents() bool {
 func (g NSGestureRecognizer) SetDelaysMagnificationEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysMagnificationEvents:"), value)
 }
+
 // A Boolean value that indicates whether rotation events are delivered only
 // after gesture recognition fails.
 //
 // # Discussion
-// 
-// When the value of this property is [true], rotation events are delivered to
-// the target view only after gesture recognition fails. Set this property to
-// [true] to prevent the view from processing events that might be recognized
-// as part of a gesture. Once gesture recognition begins, all types of events
-// are delayed until gesture recognition fails.
-// 
-// The default value of this property is [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// When the value of this property is true, rotation events are delivered to
+// the target view only after gesture recognition fails. Set this property to
+// true to prevent the view from processing events that might be recognized as
+// part of a gesture. Once gesture recognition begins, all types of events are
+// delayed until gesture recognition fails.
+//
+// The default value of this property is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/delaysRotationEvents
 func (g NSGestureRecognizer) DelaysRotationEvents() bool {
@@ -1349,15 +1347,16 @@ func (g NSGestureRecognizer) DelaysRotationEvents() bool {
 func (g NSGestureRecognizer) SetDelaysRotationEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysRotationEvents:"), value)
 }
+
 // The delegate of the gesture recognizer.
 //
 // # Discussion
-// 
+//
 // Use the delegate for fine-grained control over the recognition of a
 // gesture. For example, you can use the delegate to determine whether gesture
 // recognition should begin or whether it should start only after other
 // gesture recognizers fail.
-// 
+//
 // The delegate must implement the [NSGestureRecognizerDelegate] protocol.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/delegate
@@ -1368,20 +1367,21 @@ func (g NSGestureRecognizer) Delegate() NSGestureRecognizerDelegate {
 func (g NSGestureRecognizer) SetDelegate(value NSGestureRecognizerDelegate) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
+
 // Configures the behavior and progression of the Force Touch trackpad when
 // responding to recognized pressure gestures.
 //
 // # Discussion
-// 
+//
 // This property contains a value of type [NSPressureConfiguration], which
 // configures the behavior and progression of the Force Touch trackpad when
 // responding to recognized pressure gestures.
-// 
+//
 // Ideally, you should avoid changing the pressure configuration during
 // recognition, as the gesture may complete before the configuration has time
 // to take effect. If you do need to change the pressure configuration during
 // recognition, call the [Set] method of [PressureConfiguration].
-// 
+//
 // Once the gesture ends or if recognition fails, the pressure configuration
 // resets to the current view’s pressure configuration, if any, for the
 // remaining duration of the gesture.
@@ -1394,6 +1394,7 @@ func (g NSGestureRecognizer) PressureConfiguration() INSPressureConfiguration {
 func (g NSGestureRecognizer) SetPressureConfiguration(value INSPressureConfiguration) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPressureConfiguration:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/allowedTouchTypes
 func (g NSGestureRecognizer) AllowedTouchTypes() NSTouchTypeMask {
 	rv := objc.Send[NSTouchTypeMask](g.ID, objc.Sel("allowedTouchTypes"))
@@ -1402,11 +1403,13 @@ func (g NSGestureRecognizer) AllowedTouchTypes() NSTouchTypeMask {
 func (g NSGestureRecognizer) SetAllowedTouchTypes(value NSTouchTypeMask) {
 	objc.Send[struct{}](g.ID, objc.Sel("setAllowedTouchTypes:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/modifierFlags
 func (g NSGestureRecognizer) ModifierFlags() NSEventModifierFlags {
 	rv := objc.Send[NSEventModifierFlags](g.ID, objc.Sel("modifierFlags"))
 	return NSEventModifierFlags(rv)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/name
 func (g NSGestureRecognizer) Name() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
@@ -1415,4 +1418,3 @@ func (g NSGestureRecognizer) Name() string {
 func (g NSGestureRecognizer) SetName(value string) {
 	objc.Send[struct{}](g.ID, objc.Sel("setName:"), objc.String(value))
 }
-

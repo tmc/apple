@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (gc GTShaderProfilerAnalyzerToolchainClass) Alloc() GTShaderProfilerAnalyze
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTShaderProfilerAnalyzerToolchain.McaCommandLineToolPath]
 //   - [GTShaderProfilerAnalyzerToolchain.SetMcaCommandLineToolPath]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzerToolchain
 type GTShaderProfilerAnalyzerToolchain struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type GTShaderProfilerAnalyzerToolchain struct {
 func GTShaderProfilerAnalyzerToolchainFromID(id objc.ID) GTShaderProfilerAnalyzerToolchain {
 	return GTShaderProfilerAnalyzerToolchain{objectivec.Object{ID: id}}
 }
+
 // Ensure GTShaderProfilerAnalyzerToolchain implements IGTShaderProfilerAnalyzerToolchain.
 var _ IGTShaderProfilerAnalyzerToolchain = GTShaderProfilerAnalyzerToolchain{}
 
@@ -103,4 +105,3 @@ func (g GTShaderProfilerAnalyzerToolchain) McaCommandLineToolPath() string {
 func (g GTShaderProfilerAnalyzerToolchain) SetMcaCommandLineToolPath(value string) {
 	objc.Send[struct{}](g.ID, objc.Sel("setMcaCommandLineToolPath:"), objc.String(value))
 }
-

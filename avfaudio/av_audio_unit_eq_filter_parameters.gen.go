@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -69,6 +70,7 @@ type AVAudioUnitEQFilterParameters struct {
 func AVAudioUnitEQFilterParametersFromID(id objc.ID) AVAudioUnitEQFilterParameters {
 	return AVAudioUnitEQFilterParameters{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAudioUnitEQFilterParameters adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -139,7 +141,7 @@ func NewAVAudioUnitEQFilterParameters() AVAudioUnitEQFilterParameters {
 // The bandwidth of the equalizer filter, in octaves.
 //
 // # Discussion
-// 
+//
 // The value range of values is `0.05` to `5.0` octaves.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEQFilterParameters/bandwidth
@@ -150,14 +152,12 @@ func (a AVAudioUnitEQFilterParameters) Bandwidth() float32 {
 func (a AVAudioUnitEQFilterParameters) SetBandwidth(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBandwidth:"), value)
 }
+
 // The bypass state of the equalizer filter band.
 //
 // # Discussion
-// 
-// [true] if the bypass is active; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the bypass is active; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEQFilterParameters/bypass
 func (a AVAudioUnitEQFilterParameters) Bypass() bool {
@@ -167,11 +167,12 @@ func (a AVAudioUnitEQFilterParameters) Bypass() bool {
 func (a AVAudioUnitEQFilterParameters) SetBypass(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBypass:"), value)
 }
+
 // The equalizer filter type.
 //
 // # Discussion
-// 
-// The default value is [AudioUnitEQFilterTypeParametric].
+//
+// The default value is [AVAudioUnitEQFilterTypeParametric].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEQFilterParameters/filterType
 func (a AVAudioUnitEQFilterParameters) FilterType() AVAudioUnitEQFilterType {
@@ -181,10 +182,11 @@ func (a AVAudioUnitEQFilterParameters) FilterType() AVAudioUnitEQFilterType {
 func (a AVAudioUnitEQFilterParameters) SetFilterType(value AVAudioUnitEQFilterType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFilterType:"), value)
 }
+
 // The frequency of the equalizer filter, in hertz.
 //
 // # Discussion
-// 
+//
 // The valid range of values is `20 Hz` through `(SampleRate/2)`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEQFilterParameters/frequency
@@ -195,10 +197,11 @@ func (a AVAudioUnitEQFilterParameters) Frequency() float32 {
 func (a AVAudioUnitEQFilterParameters) SetFrequency(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFrequency:"), value)
 }
+
 // The gain of the equalizer filter, in decibels.
 //
 // # Discussion
-// 
+//
 // The default value is `0 dB`. The valid range of values is `-96 dB` through
 // `24 dB`.
 //
@@ -210,6 +213,7 @@ func (a AVAudioUnitEQFilterParameters) Gain() float32 {
 func (a AVAudioUnitEQFilterParameters) SetGain(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setGain:"), value)
 }
+
 // An array of equalizer filter parameters.
 //
 // See: https://developer.apple.com/documentation/avfaudio/avaudiouniteq/bands
@@ -220,6 +224,7 @@ func (a AVAudioUnitEQFilterParameters) Bands() IAVAudioUnitEQFilterParameters {
 func (a AVAudioUnitEQFilterParameters) SetBands(value IAVAudioUnitEQFilterParameters) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBands:"), value)
 }
+
 // The overall gain adjustment that the audio unit applies to the signal, in
 // decibels.
 //
@@ -231,4 +236,3 @@ func (a AVAudioUnitEQFilterParameters) GlobalGain() float32 {
 func (a AVAudioUnitEQFilterParameters) SetGlobalGain(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setGlobalGain:"), value)
 }
-

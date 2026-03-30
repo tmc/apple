@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -62,6 +63,7 @@ type AVAssetVariantVideoAttributes struct {
 func AVAssetVariantVideoAttributesFromID(id objc.ID) AVAssetVariantVideoAttributes {
 	return AVAssetVariantVideoAttributes{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetVariantVideoAttributes adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,23 +126,25 @@ func (a AVAssetVariantVideoAttributes) PresentationSize() corefoundation.CGSize 
 	rv := objc.Send[corefoundation.CGSize](a.ID, objc.Sel("presentationSize"))
 	return corefoundation.CGSize(rv)
 }
+
 // The video range of the variant.
 //
 // # Discussion
-// 
+//
 // The property defaults to [sdr].
 //
-// [sdr]: https://developer.apple.com/documentation/AVFoundation/AVVideoRange/sdr
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariant/VideoAttributes-swift.class/videoRange
+//
+// [sdr]: https://developer.apple.com/documentation/AVFoundation/AVVideoRange/sdr
 func (a AVAssetVariantVideoAttributes) VideoRange() AVVideoRange {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("videoRange"))
 	return AVVideoRange(foundation.NSStringFromID(rv).String())
 }
+
 // Attributes that describe the layout of the video content.
 //
 // # Discussion
-// 
+//
 // This property may contain more that one element if the variant contains a
 // collection of differing video layout media attributes over time.
 //
@@ -151,6 +155,7 @@ func (a AVAssetVariantVideoAttributes) VideoLayoutAttributes() []AVAssetVariantV
 		return AVAssetVariantVideoLayoutAttributesFromID(id)
 	})
 }
+
 // The audio rendition attributes for the variant.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/audioattributes-swift.property
@@ -161,6 +166,7 @@ func (a AVAssetVariantVideoAttributes) AudioAttributes() IAVAssetVariantAudioAtt
 func (a AVAssetVariantVideoAttributes) SetAudioAttributes(value IAVAssetVariantAudioAttributes) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAudioAttributes:"), value)
 }
+
 // The video sample codec types present in the variant’s renditions.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariantVideoAttributes/codecTypes
@@ -170,6 +176,7 @@ func (a AVAssetVariantVideoAttributes) CodecTypes() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
+
 // The nominal frame rate of the variant’s renditions.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetVariantVideoAttributes/nominalFrameRate
@@ -177,6 +184,7 @@ func (a AVAssetVariantVideoAttributes) NominalFrameRate() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("nominalFrameRate"))
 	return rv
 }
+
 // The video rendition attributes for the variant.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetvariant/videoattributes-swift.property
@@ -187,4 +195,3 @@ func (a AVAssetVariantVideoAttributes) VideoAttributes() IAVAssetVariantVideoAtt
 func (a AVAssetVariantVideoAttributes) SetVideoAttributes(value IAVAssetVariantVideoAttributes) {
 	objc.Send[struct{}](a.ID, objc.Sel("setVideoAttributes:"), value)
 }
-

@@ -4,9 +4,10 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZMacGraphicsDisplayConfiguration] class.
@@ -45,7 +46,7 @@ func (vc VZMacGraphicsDisplayConfigurationClass) Alloc() VZMacGraphicsDisplayCon
 // The configuration for a Mac graphics device.
 //
 // # Overview
-// 
+//
 // Use this device to attach a display that’s shown in a
 // [VZVirtualMachineView].
 //
@@ -74,6 +75,7 @@ type VZMacGraphicsDisplayConfiguration struct {
 func VZMacGraphicsDisplayConfigurationFromID(id objc.ID) VZMacGraphicsDisplayConfiguration {
 	return VZMacGraphicsDisplayConfiguration{VZGraphicsDisplayConfiguration: VZGraphicsDisplayConfigurationFromID(id)}
 }
+
 // NOTE: VZMacGraphicsDisplayConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -145,7 +147,7 @@ func NewVZMacGraphicsDisplayConfiguration() VZMacGraphicsDisplayConfiguration {
 // sizeInPoints: The intended logical size of the display.
 //
 // # Discussion
-// 
+//
 // The framework initializes the pixel dimensions and pixel density based on
 // the specified screen and size. An instance of macOS running in the VM may
 // not necessarily provide a display mode with a backing scale factor matching
@@ -183,7 +185,7 @@ func NewMacGraphicsDisplayConfigurationWithWidthInPixelsHeightInPixelsPixelsPerI
 // sizeInPoints: The intended logical size of the display.
 //
 // # Discussion
-// 
+//
 // The framework initializes the pixel dimensions and pixel density based on
 // the specified screen and size. An instance of macOS running in the VM may
 // not necessarily provide a display mode with a backing scale factor matching
@@ -194,6 +196,7 @@ func (m VZMacGraphicsDisplayConfiguration) InitForScreenSizeInPoints(screen appk
 	rv := objc.Send[VZMacGraphicsDisplayConfiguration](m.ID, objc.Sel("initForScreen:sizeInPoints:"), screen, sizeInPoints)
 	return rv
 }
+
 // Create a display configuration with the specified pixel dimensions and
 // pixel density.
 //
@@ -219,6 +222,7 @@ func (m VZMacGraphicsDisplayConfiguration) HeightInPixels() int {
 func (m VZMacGraphicsDisplayConfiguration) SetHeightInPixels(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHeightInPixels:"), value)
 }
+
 // The width of the display, in pixels.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplayConfiguration/widthInPixels
@@ -229,6 +233,7 @@ func (m VZMacGraphicsDisplayConfiguration) WidthInPixels() int {
 func (m VZMacGraphicsDisplayConfiguration) SetWidthInPixels(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setWidthInPixels:"), value)
 }
+
 // The pixel density in pixels per inch.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplayConfiguration/pixelsPerInch
@@ -239,4 +244,3 @@ func (m VZMacGraphicsDisplayConfiguration) PixelsPerInch() int {
 func (m VZMacGraphicsDisplayConfiguration) SetPixelsPerInch(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPixelsPerInch:"), value)
 }
-

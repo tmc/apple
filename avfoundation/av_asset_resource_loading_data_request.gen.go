@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,18 +47,18 @@ func (ac AVAssetResourceLoadingDataRequestClass) Alloc() AVAssetResourceLoadingD
 // resource-loading request references.
 //
 // # Overview
-// 
+//
 // The [AVAssetResourceLoaderDelegate] uses the
 // [AVAssetResourceLoadingDataRequest] class to do the actual data reading,
 // and its methods will be invoked, as necessary, to acquire data for the
 // [AVAssetResourceLoadingRequest] instance.
-// 
+//
 // When the resource loading delegate, which implements the
 // [AVAssetResourceLoaderDelegate] protocol, receives an instance of
 // [AVAssetResourceLoadingRequest] as the second parameter of the delegate’s
 // [ResourceLoaderShouldWaitForLoadingOfRequestedResource] method, it has the
 // option of accepting responsibility for loading the referenced resource. If
-// it accepts that responsibility, by returning [true], it must check whether
+// it accepts that responsibility, by returning true, it must check whether
 // the [AVAssetResourceLoadingDataRequest.DataRequest] property of the [AVAssetResourceLoadingRequest] instance
 // is not `nil`. If it is not `nil`, the resource loading delegate is informed
 // of the range of bytes within the resource that are required by the
@@ -65,13 +66,11 @@ func (ac AVAssetResourceLoadingDataRequestClass) Alloc() AVAssetResourceLoadingD
 // invocations of [AVAssetResourceLoadingDataRequest.RespondWithData] as required to provide the requested data.
 // The data can be provided in increments determined by the resource loading
 // delegate according to convenience or efficiency.
-// 
+//
 // When the [AVAssetResourceLoadingRequest] method [FinishLoading] is invoked,
 // the data request is considered fully satisfied. If the entire range of
 // bytes requested has not yet been provided, the underlying media system
 // assumes that the resource’s length is limited to the provided content.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Providing data to a request
 //
@@ -93,6 +92,7 @@ type AVAssetResourceLoadingDataRequest struct {
 func AVAssetResourceLoadingDataRequestFromID(id objc.ID) AVAssetResourceLoadingDataRequest {
 	return AVAssetResourceLoadingDataRequest{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVAssetResourceLoadingDataRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -152,7 +152,7 @@ func NewAVAssetResourceLoadingDataRequest() AVAssetResourceLoadingDataRequest {
 // data: An instance of NSData containing some or all of the requested bytes.
 //
 // # Discussion
-// 
+//
 // This method may be invoked multiple times on the same instance of
 // [AVAssetResourceLoadingDataRequest] to provide the full range of requested
 // data incrementally. Upon each invocation, the value of the [CurrentOffset]
@@ -166,7 +166,7 @@ func (a AVAssetResourceLoadingDataRequest) RespondWithData(data foundation.INSDa
 // The length, in bytes, of the data requested.
 //
 // # Discussion
-// 
+//
 // If the content length of the resource is unknown, the sum of the
 // [RequestedLength] and [RequestedOffset] properties may be greater than the
 // actual content length. When this situation occurs, an application must
@@ -181,15 +181,16 @@ func (a AVAssetResourceLoadingDataRequest) RequestedLength() int {
 	rv := objc.Send[int](a.ID, objc.Sel("requestedLength"))
 	return rv
 }
+
 // The position within the resource of the first byte requested.
 //
 // # Discussion
-// 
+//
 // When all of the requested bytes that can be provided have been
 // loaded—including the possible [ContentInformationRequest] data in the
 // [AVAssetResourceLoadingRequest] instance that contains the receiver—the
 // delegate should respond by invoking [FinishLoading].
-// 
+//
 // If the `requestedOffset` value is beyond the content length of the
 // resource, the [AVAssetResourceLoadingRequest] instance is sent a
 // [FinishLoading] message without any prior invocations of [RespondWithData].
@@ -199,10 +200,11 @@ func (a AVAssetResourceLoadingDataRequest) RequestedOffset() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("requestedOffset"))
 	return rv
 }
+
 // The position within the resource of the next byte.
 //
 // # Discussion
-// 
+//
 // When incrementally loading data you should begin loading at this offset,
 // returning the data by invoking the [RespondWithData] method. Bytes previous
 // to this value have already been provided.
@@ -212,11 +214,12 @@ func (a AVAssetResourceLoadingDataRequest) CurrentOffset() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("currentOffset"))
 	return rv
 }
+
 // A Boolean value that indicates the entire remaining length of the resource
 // from the offest to the end of the resource is being requested.
 //
 // # Discussion
-// 
+//
 // When this property is true, you should disregard the value of
 // requestedLength and incrementally provide as much data, starting from the
 // requested offset, as the resource contains. Continue until all available
@@ -228,6 +231,7 @@ func (a AVAssetResourceLoadingDataRequest) RequestsAllDataToEndOfResource() bool
 	rv := objc.Send[bool](a.ID, objc.Sel("requestsAllDataToEndOfResource"))
 	return rv
 }
+
 // The range of requested resource data.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetresourceloadingrequest/datarequest
@@ -238,4 +242,3 @@ func (a AVAssetResourceLoadingDataRequest) DataRequest() IAVAssetResourceLoading
 func (a AVAssetResourceLoadingDataRequest) SetDataRequest(value IAVAssetResourceLoadingDataRequest) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDataRequest:"), value)
 }
-

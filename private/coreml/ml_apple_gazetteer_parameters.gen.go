@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLAppleGazetteerParametersClass) Alloc() MLAppleGazetteerParameters {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLAppleGazetteerParameters.InputFeatureName]
@@ -61,6 +61,7 @@ func (mc MLAppleGazetteerParametersClass) Alloc() MLAppleGazetteerParameters {
 //   - [MLAppleGazetteerParameters.Revision]
 //   - [MLAppleGazetteerParameters.SetRevision]
 //   - [MLAppleGazetteerParameters.InitWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteerParameters
 type MLAppleGazetteerParameters struct {
 	objectivec.Object
@@ -70,6 +71,7 @@ type MLAppleGazetteerParameters struct {
 func MLAppleGazetteerParametersFromID(id objc.ID) MLAppleGazetteerParameters {
 	return MLAppleGazetteerParameters{objectivec.Object{ID: id}}
 }
+
 // Ensure MLAppleGazetteerParameters implements IMLAppleGazetteerParameters.
 var _ IMLAppleGazetteerParameters = MLAppleGazetteerParameters{}
 
@@ -135,7 +137,6 @@ func NewMLAppleGazetteerParameters() MLAppleGazetteerParameters {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteerParameters/initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:metadata:error:
 func NewAppleGazetteerParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleGazetteerParameters, error) {
 	var errorPtr objc.ID
@@ -148,7 +149,6 @@ func NewAppleGazetteerParametersWithDataLanguageInputFeatureNameOutputFeatureNam
 	return MLAppleGazetteerParametersFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteerParameters/initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:metadata:error:
 func (a MLAppleGazetteerParameters) InitWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleGazetteerParameters, error) {
 	var errorPtr objc.ID
@@ -169,6 +169,7 @@ func (a MLAppleGazetteerParameters) InputFeatureName() string {
 func (a MLAppleGazetteerParameters) SetInputFeatureName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInputFeatureName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteerParameters/labelNames
 func (a MLAppleGazetteerParameters) LabelNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("labelNames"))
@@ -177,6 +178,7 @@ func (a MLAppleGazetteerParameters) LabelNames() foundation.INSArray {
 func (a MLAppleGazetteerParameters) SetLabelNames(value foundation.INSArray) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLabelNames:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteerParameters/language
 func (a MLAppleGazetteerParameters) Language() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("language"))
@@ -185,6 +187,7 @@ func (a MLAppleGazetteerParameters) Language() string {
 func (a MLAppleGazetteerParameters) SetLanguage(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLanguage:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteerParameters/metadata
 func (a MLAppleGazetteerParameters) Metadata() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("metadata"))
@@ -193,6 +196,7 @@ func (a MLAppleGazetteerParameters) Metadata() foundation.INSDictionary {
 func (a MLAppleGazetteerParameters) SetMetadata(value foundation.INSDictionary) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMetadata:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteerParameters/modelParameterData
 func (a MLAppleGazetteerParameters) ModelParameterData() foundation.INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("modelParameterData"))
@@ -201,6 +205,7 @@ func (a MLAppleGazetteerParameters) ModelParameterData() foundation.INSData {
 func (a MLAppleGazetteerParameters) SetModelParameterData(value foundation.INSData) {
 	objc.Send[struct{}](a.ID, objc.Sel("setModelParameterData:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteerParameters/outputFeatureName
 func (a MLAppleGazetteerParameters) OutputFeatureName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputFeatureName"))
@@ -209,6 +214,7 @@ func (a MLAppleGazetteerParameters) OutputFeatureName() string {
 func (a MLAppleGazetteerParameters) SetOutputFeatureName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOutputFeatureName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLAppleGazetteerParameters/revision
 func (a MLAppleGazetteerParameters) Revision() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("revision"))
@@ -217,4 +223,3 @@ func (a MLAppleGazetteerParameters) Revision() uint64 {
 func (a MLAppleGazetteerParameters) SetRevision(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRevision:"), value)
 }
-

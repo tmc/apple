@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -64,6 +65,7 @@ type MTL4StaticLinkingDescriptor struct {
 func MTL4StaticLinkingDescriptorFromID(id objc.ID) MTL4StaticLinkingDescriptor {
 	return MTL4StaticLinkingDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4StaticLinkingDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -126,10 +128,11 @@ func (m MTL4StaticLinkingDescriptor) FunctionDescriptors() []MTL4FunctionDescrip
 func (m MTL4StaticLinkingDescriptor) SetFunctionDescriptors(value []MTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // Assigns groups of functions to match call-site attributes in shader code.
 //
 // # Discussion
-// 
+//
 // Function groups help the compiler reduce the number of candidate functions
 // it needs to evaluate for shader function calls, potentially increasing
 // runtime performance.
@@ -142,10 +145,11 @@ func (m MTL4StaticLinkingDescriptor) Groups() foundation.INSDictionary {
 func (m MTL4StaticLinkingDescriptor) SetGroups(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGroups:"), value)
 }
+
 // Provides an array of private functions to link at the Metal IR level.
 //
 // # Discussion
-// 
+//
 // You specify private functions to link separately from [FunctionDescriptors]
 // because pipelines don’t export private functions as [MTLFunctionHandle]
 // instances.
@@ -160,4 +164,3 @@ func (m MTL4StaticLinkingDescriptor) PrivateFunctionDescriptors() []MTL4Function
 func (m MTL4StaticLinkingDescriptor) SetPrivateFunctionDescriptors(value []MTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPrivateFunctionDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
-

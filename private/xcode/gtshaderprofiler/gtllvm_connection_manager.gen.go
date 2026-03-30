@@ -3,10 +3,11 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (gc GTLLVMConnectionManagerClass) Alloc() GTLLVMConnectionManager {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTLLVMConnectionManager._acquireAllHosts]
@@ -70,6 +70,7 @@ func (gc GTLLVMConnectionManagerClass) Alloc() GTLLVMConnectionManager {
 //   - [GTLLVMConnectionManager.TargetIndex]
 //   - [GTLLVMConnectionManager.InitWithGPUNameWithTargetIndexBinaryPathWithGenWithSocketNameForNumClients]
 //   - [GTLLVMConnectionManager.Version]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager
 type GTLLVMConnectionManager struct {
 	objectivec.Object
@@ -79,6 +80,7 @@ type GTLLVMConnectionManager struct {
 func GTLLVMConnectionManagerFromID(id objc.ID) GTLLVMConnectionManager {
 	return GTLLVMConnectionManager{objectivec.Object{ID: id}}
 }
+
 // Ensure GTLLVMConnectionManager implements IGTLLVMConnectionManager.
 var _ IGTLLVMConnectionManager = GTLLVMConnectionManager{}
 
@@ -162,7 +164,6 @@ func NewGTLLVMConnectionManager() GTLLVMConnectionManager {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/initWithGPUName:withTargetIndex:binaryPath:withGen:withSocketName:forNumClients:
 func NewGTLLVMConnectionManagerWithGPUNameWithTargetIndexBinaryPathWithGenWithSocketNameForNumClients(gPUName objectivec.IObject, index int, path objectivec.IObject, gen byte, name objectivec.IObject, clients uint32) GTLLVMConnectionManager {
 	instance := getGTLLVMConnectionManagerClass().Alloc()
@@ -179,6 +180,7 @@ func (g GTLLVMConnectionManager) _acquireAllHosts() {
 func (g GTLLVMConnectionManager) AcquireAllHosts() {
 	g._acquireAllHosts()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_acquireAvailableClient
 func (g GTLLVMConnectionManager) _acquireAvailableClient() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("_acquireAvailableClient"))
@@ -189,6 +191,7 @@ func (g GTLLVMConnectionManager) _acquireAvailableClient() uint64 {
 func (g GTLLVMConnectionManager) AcquireAvailableClient() uint64 {
 	return g._acquireAvailableClient()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_acquireAvailableHost
 func (g GTLLVMConnectionManager) _acquireAvailableHost() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("_acquireAvailableHost"))
@@ -199,6 +202,7 @@ func (g GTLLVMConnectionManager) _acquireAvailableHost() uint32 {
 func (g GTLLVMConnectionManager) AcquireAvailableHost() uint32 {
 	return g._acquireAvailableHost()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_anyHostBusy
 func (g GTLLVMConnectionManager) _anyHostBusy() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("_anyHostBusy"))
@@ -209,6 +213,7 @@ func (g GTLLVMConnectionManager) _anyHostBusy() bool {
 func (g GTLLVMConnectionManager) AnyHostBusy() bool {
 	return g._anyHostBusy()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_queryVersion
 func (g GTLLVMConnectionManager) _queryVersion() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("_queryVersion"))
@@ -219,6 +224,7 @@ func (g GTLLVMConnectionManager) _queryVersion() uint32 {
 func (g GTLLVMConnectionManager) QueryVersion() uint32 {
 	return g._queryVersion()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_releaseAllHosts
 func (g GTLLVMConnectionManager) _releaseAllHosts() {
 	objc.Send[objc.ID](g.ID, objc.Sel("_releaseAllHosts"))
@@ -228,7 +234,7 @@ func (g GTLLVMConnectionManager) _releaseAllHosts() {
 func (g GTLLVMConnectionManager) ReleaseAllHosts() {
 	g._releaseAllHosts()
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_releaseAvailableClientAtIndex:
 func (g GTLLVMConnectionManager) _releaseAvailableClientAtIndex(index uint64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_releaseAvailableClientAtIndex:"), index)
@@ -238,7 +244,7 @@ func (g GTLLVMConnectionManager) _releaseAvailableClientAtIndex(index uint64) {
 func (g GTLLVMConnectionManager) ReleaseAvailableClientAtIndex(index uint64) {
 	g._releaseAvailableClientAtIndex(index)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_releaseHost:
 func (g GTLLVMConnectionManager) _releaseHost(host uint32) {
 	objc.Send[objc.ID](g.ID, objc.Sel("_releaseHost:"), host)
@@ -248,7 +254,7 @@ func (g GTLLVMConnectionManager) _releaseHost(host uint32) {
 func (g GTLLVMConnectionManager) ReleaseHost(host uint32) {
 	g._releaseHost(host)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/_tryAcquireHost:
 func (g GTLLVMConnectionManager) _tryAcquireHost(host uint32) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("_tryAcquireHost:"), host)
@@ -259,67 +265,67 @@ func (g GTLLVMConnectionManager) _tryAcquireHost(host uint32) bool {
 func (g GTLLVMConnectionManager) TryAcquireHost(host uint32) bool {
 	return g._tryAcquireHost(host)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/binaryInfo:
 func (g GTLLVMConnectionManager) BinaryInfo(info uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("binaryInfo:"), info)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/binarySize:
 func (g GTLLVMConnectionManager) BinarySize(size uint32) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("binarySize:"), size)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/createLLMVAnalyzerForBinary:forKey:
 func (g GTLLVMConnectionManager) CreateLLMVAnalyzerForBinaryForKey(binary objectivec.IObject, key uint32) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("createLLMVAnalyzerForBinary:forKey:"), binary, key)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/createLLMVAnalyzerForFilePath:
 func (g GTLLVMConnectionManager) CreateLLMVAnalyzerForFilePath(path objectivec.IObject) uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("createLLMVAnalyzerForFilePath:"), path)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/dumpDebugInfoRanges:
 func (g GTLLVMConnectionManager) DumpDebugInfoRanges(ranges uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("dumpDebugInfoRanges:"), ranges)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/dumpFileInstructionOutput:
 func (g GTLLVMConnectionManager) DumpFileInstructionOutput(output uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("dumpFileInstructionOutput:"), output)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/establishConnectionWithLLVMHosts:
 func (g GTLLVMConnectionManager) EstablishConnectionWithLLVMHosts(lLVMHosts objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("establishConnectionWithLLVMHosts:"), lLVMHosts)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/isLLVMValid:
 func (g GTLLVMConnectionManager) IsLLVMValid(lLVMValid uint32) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isLLVMValid:"), lLVMValid)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/processInstructionTraceForBinaries:withNoTimestamp:
 func (g GTLLVMConnectionManager) ProcessInstructionTraceForBinariesWithNoTimestamp(binaries unsafe.Pointer, timestamp bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("processInstructionTraceForBinaries:withNoTimestamp:"), binaries, timestamp)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/shaderProfilerBinaryInfo:
 func (g GTLLVMConnectionManager) ShaderProfilerBinaryInfo(info uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("shaderProfilerBinaryInfo:"), info)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/initWithGPUName:withTargetIndex:binaryPath:withGen:withSocketName:forNumClients:
 func (g GTLLVMConnectionManager) InitWithGPUNameWithTargetIndexBinaryPathWithGenWithSocketNameForNumClients(gPUName objectivec.IObject, index int, path objectivec.IObject, gen byte, name objectivec.IObject, clients uint32) GTLLVMConnectionManager {
 	rv := objc.Send[GTLLVMConnectionManager](g.ID, objc.Sel("initWithGPUName:withTargetIndex:binaryPath:withGen:withSocketName:forNumClients:"), gPUName, index, path, gen, name, clients)
@@ -331,19 +337,21 @@ func (g GTLLVMConnectionManager) GpuName() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("gpuName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/nLLVMClients
 func (g GTLLVMConnectionManager) NLLVMClients() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("nLLVMClients"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/targetIndex
 func (g GTLLVMConnectionManager) TargetIndex() int {
 	rv := objc.Send[int](g.ID, objc.Sel("targetIndex"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTLLVMConnectionManager/version
 func (g GTLLVMConnectionManager) Version() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("version"))
 	return rv
 }
-

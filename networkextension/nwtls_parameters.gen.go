@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -66,6 +67,7 @@ type NWTLSParameters struct {
 func NWTLSParametersFromID(id objc.ID) NWTLSParameters {
 	return NWTLSParameters{objectivec.Object{ID: id}}
 }
+
 // NOTE: NWTLSParameters adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -124,7 +126,7 @@ func NewNWTLSParameters() NWTLSParameters {
 // The Session ID to use for the associated TCP connection.
 //
 // # Discussion
-// 
+//
 // The Session ID is used for TLS session resumption.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTLSParameters/tlsSessionID
@@ -135,17 +137,18 @@ func (n NWTLSParameters) TLSSessionID() foundation.INSData {
 func (n NWTLSParameters) SetTLSSessionID(value foundation.INSData) {
 	objc.Send[struct{}](n.ID, objc.Sel("setTLSSessionID:"), value)
 }
+
 // The set of allowed cipher suites when negotiating TLS.
 //
 // # Discussion
-// 
-// Values for cipher suites are defined in ``. These values should be wrapped
+//
+// Values for cipher suites are defined in “. These values should be wrapped
 // as [NSNumber] objects in a set. If this property is set to `nil`, the
 // default cipher suites will be used.
 //
-// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
-//
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTLSParameters/sslCipherSuites
+//
+// [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 func (n NWTLSParameters) SSLCipherSuites() foundation.INSSet {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("SSLCipherSuites"))
 	return foundation.NSSetFromID(objc.ID(rv))
@@ -153,11 +156,12 @@ func (n NWTLSParameters) SSLCipherSuites() foundation.INSSet {
 func (n NWTLSParameters) SetSSLCipherSuites(value foundation.INSSet) {
 	objc.Send[struct{}](n.ID, objc.Sel("setSSLCipherSuites:"), value)
 }
+
 // The minimum allowed [SSLProtocol] value to use when negotiating TLS.
 //
 // # Discussion
-// 
-// Values for [SSLProtocol] are defined in ``. If set to a non-zero value, the
+//
+// Values for [SSLProtocol] are defined in “. If set to a non-zero value, the
 // SSL handshake will not accept any protocol version less than the minimum.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWTLSParameters/minimumSSLProtocolVersion
@@ -168,11 +172,12 @@ func (n NWTLSParameters) MinimumSSLProtocolVersion() uint {
 func (n NWTLSParameters) SetMinimumSSLProtocolVersion(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMinimumSSLProtocolVersion:"), value)
 }
+
 // The maximum allowed [SSLProtocol] value to use when negotiating TLS.
 //
 // # Discussion
-// 
-// Values for [SSLProtocol] are defined in ``. If set to a non-zero value, the
+//
+// Values for [SSLProtocol] are defined in “. If set to a non-zero value, the
 // SSL handshake will not accept any protocol version greater than the
 // maximum.
 //
@@ -184,4 +189,3 @@ func (n NWTLSParameters) MaximumSSLProtocolVersion() uint {
 func (n NWTLSParameters) SetMaximumSSLProtocolVersion(value uint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMaximumSSLProtocolVersion:"), value)
 }
-

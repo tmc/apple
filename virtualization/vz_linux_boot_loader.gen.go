@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VZLinuxBootLoader] class.
@@ -45,7 +46,7 @@ func (vc VZLinuxBootLoaderClass) Alloc() VZLinuxBootLoader {
 // your VM.
 //
 // # Overview
-// 
+//
 // Create and configure a [VZLinuxBootLoader] object during the initial
 // configuration of your VM. Use this object to specify the location of the
 // Linux kernel that serves as the guest operating system. You can also
@@ -84,6 +85,7 @@ type VZLinuxBootLoader struct {
 func VZLinuxBootLoaderFromID(id objc.ID) VZLinuxBootLoader {
 	return VZLinuxBootLoader{VZBootLoader: VZBootLoaderFromID(id)}
 }
+
 // NOTE: VZLinuxBootLoader adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -158,7 +160,7 @@ func NewVZLinuxBootLoader() VZLinuxBootLoader {
 // kernelURL: The location of a Linux kernel on the local file system.
 //
 // # Return Value
-// 
+//
 // A boot loader object for the specified Linux kernel.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxBootLoader/init(kernelURL:)
@@ -173,7 +175,7 @@ func NewLinuxBootLoaderWithKernelURL(kernelURL foundation.INSURL) VZLinuxBootLoa
 // kernelURL: The location of a Linux kernel on the local file system.
 //
 // # Return Value
-// 
+//
 // A boot loader object for the specified Linux kernel.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxBootLoader/init(kernelURL:)
@@ -185,13 +187,13 @@ func (l VZLinuxBootLoader) InitWithKernelURL(kernelURL foundation.INSURL) VZLinu
 // The command-line parameters to pass to the Linux kernel at boot time.
 //
 // # Discussion
-// 
+//
 // For information about the parameters you can pass to a Linux kernel, see
 // “[The kernel’s command-line parameters]”.
 //
-// [The kernel’s command-line parameters]: https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxBootLoader/commandLine
+//
+// [The kernel’s command-line parameters]: https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
 func (l VZLinuxBootLoader) CommandLine() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("commandLine"))
 	return foundation.NSStringFromID(rv).String()
@@ -199,11 +201,12 @@ func (l VZLinuxBootLoader) CommandLine() string {
 func (l VZLinuxBootLoader) SetCommandLine(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setCommandLine:"), objc.String(value))
 }
+
 // The location of an optional RAM disk, which the boot loader maps into
 // memory before it boots the Linux kernel.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `nil`. If you want specific files to
 // be available when your Linux kernel boots, provide a URL to a valid RAM
 // disk file in this property.
@@ -216,6 +219,7 @@ func (l VZLinuxBootLoader) InitialRamdiskURL() foundation.INSURL {
 func (l VZLinuxBootLoader) SetInitialRamdiskURL(value foundation.INSURL) {
 	objc.Send[struct{}](l.ID, objc.Sel("setInitialRamdiskURL:"), value)
 }
+
 // The URL of the Linux kernel file.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxBootLoader/kernelURL
@@ -226,6 +230,7 @@ func (l VZLinuxBootLoader) KernelURL() foundation.INSURL {
 func (l VZLinuxBootLoader) SetKernelURL(value foundation.INSURL) {
 	objc.Send[struct{}](l.ID, objc.Sel("setKernelURL:"), value)
 }
+
 // The guest system to boot when the VM starts.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/bootloader
@@ -236,4 +241,3 @@ func (l VZLinuxBootLoader) BootLoader() IVZBootLoader {
 func (l VZLinuxBootLoader) SetBootLoader(value IVZBootLoader) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBootLoader:"), value)
 }
-

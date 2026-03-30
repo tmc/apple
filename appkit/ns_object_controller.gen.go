@@ -3,11 +3,12 @@
 package appkit
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -48,27 +49,27 @@ func (nc NSObjectControllerClass) Alloc() NSObjectController {
 // key-value paths.
 //
 // # Overview
-// 
+//
 // [NSObjectController] is a Cocoa bindings–compatible controller class.
 // Properties of the content object of instances of this class can be bound to
 // user interface elements to access and modify their values.
-// 
+//
 // By default, the content of an [NSObjectController] instance is an
 // [NSMutableDictionary] object. This allows a single [NSObjectController]
 // instance to be used to manage many different properties referenced by
 // key-value paths. The default content object class can be changed by calling
 // [NSObjectController.ObjectClass], which subclasses must override. Your application should use
 // a custom data class that is key-value compliant whenever possible.
-// 
+//
 // # Object Controllers, Entity Mode, and Lazy Fetching
-// 
+//
 // [NSObjectController] and its subclasses, when in entity mode, can now fetch
 // lazily. With lazy fetching enabled using the property [NSObjectController.UsesLazyFetching],
 // the controller will try to fetch only a small amount of data from available
 // persistent stores. This can provide a significant improvement in memory use
 // when a large amount of content is stored on disk but just a subset of that
 // data is required in memory.
-// 
+//
 // When set to use lazy fetching, a controller will fetch objects in batches.
 // You can change the default batch size for your application by setting a
 // value for the the user default
@@ -76,17 +77,15 @@ func (nc NSObjectControllerClass) Alloc() NSObjectController {
 // views bound to an array controller set to use lazy fetching, the size of
 // the controller’s batch size will grow as the table views’ visible row
 // count grows.
-// 
+//
 // Add, Insert, and Remove operations on controllers that use lazy fetching
 // behave similarly to the same operations on a regular controller. The
 // difference is that it is faster to sort an array controller using lazy
 // fetching if:
-// 
-// - All of the keys in the `sortDescriptors` array are modeled, non transient
-// properties. - All of the selectors in the `sortDescriptors` array are `` or
-// ``. - There are no changes in the controller’s managed object context
 //
-// [NSMutableDictionary]: https://developer.apple.com/documentation/Foundation/NSMutableDictionary
+// - All of the keys in the `sortDescriptors` array are modeled, non transient
+// properties. - All of the selectors in the `sortDescriptors` array are “ or
+// “. - There are no changes in the controller’s managed object context
 //
 // # Initializing an object controller
 //
@@ -144,6 +143,8 @@ func (nc NSObjectControllerClass) Alloc() NSObjectController {
 //   - [NSObjectController.ValidateUserInterfaceItem]: Returns whether the receiver can handle the action method for a user interface item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController
+//
+// [NSMutableDictionary]: https://developer.apple.com/documentation/Foundation/NSMutableDictionary
 type NSObjectController struct {
 	NSController
 }
@@ -155,6 +156,7 @@ type NSObjectController struct {
 func NSObjectControllerFromID(id objc.ID) NSObjectController {
 	return NSObjectController{NSController: NSControllerFromID(id)}
 }
+
 // NOTE: NSObjectController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -317,7 +319,6 @@ func NewNSObjectController() NSObjectController {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/init(coder:)
 func NewObjectControllerWithCoder(coder foundation.INSCoder) NSObjectController {
 	instance := getNSObjectControllerClass().Alloc()
@@ -331,7 +332,7 @@ func NewObjectControllerWithCoder(coder foundation.INSCoder) NSObjectController 
 // content: The content for the receiver.
 //
 // # Return Value
-// 
+//
 // The initialized object controller, with its content object set to
 // `content`.
 //
@@ -348,7 +349,7 @@ func NewObjectControllerWithContent(content objectivec.IObject) NSObjectControll
 // content: The content for the receiver.
 //
 // # Return Value
-// 
+//
 // The initialized object controller, with its content object set to
 // `content`.
 //
@@ -357,60 +358,60 @@ func (o NSObjectController) InitWithContent(content objectivec.IObject) NSObject
 	rv := objc.Send[NSObjectController](o.ID, objc.Sel("initWithContent:"), content)
 	return rv
 }
+
 // Typically overridden by subclasses that require additional control over the
 // creation of new objects.
 //
 // # Discussion
-// 
+//
 // Subclasses that implement this method are responsible for creating the new
 // content object and setting it as the receiver’s content object. This
 // method is only called if [AutomaticallyPreparesContent] has been set to
-// [true].
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/prepareContent()
 func (o NSObjectController) PrepareContent() {
 	objc.Send[objc.ID](o.ID, objc.Sel("prepareContent"))
 }
+
 // Creates and returns a new object of the appropriate class.
 //
 // # Return Value
-// 
+//
 // A new object of the appropriate class. The returned object is implicitly
 // retained, the sender is responsible for releasing it (with either release
 // or autorelease).
 //
 // # Discussion
-// 
+//
 // If an entity name is set (see [EntityName]), the object created is an
 // instance of the class specified for that entity (and the object is inserted
 // into the receiver’s managed object context). Otherwise the object created
 // is an instance of the class returned by [ObjectClass].
-// 
+//
 // This method is called when adding and inserting objects if
-// [AutomaticallyPreparesContent] is [true].
-// 
+// [AutomaticallyPreparesContent] is true.
+//
 // The default implementation assumes the class returned by [ObjectClass] has
 // a standard `init` method without arguments. If the object class being
 // controlled is [NSManagedObject] (or a subclass thereof) its designated
 // initializer ([init(entity:insertInto:)]) is called instead, using the
 // entity and managed object context specified for the receiver.
 //
-// [init(entity:insertInto:)]: https://developer.apple.com/documentation/CoreData/NSManagedObject/init(entity:insertInto:)
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/newObject()
+//
+// [init(entity:insertInto:)]: https://developer.apple.com/documentation/CoreData/NSManagedObject/init(entity:insertInto:)
 func (o NSObjectController) NewObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newObject"))
 	return objectivec.Object{ID: rv}
 }
+
 // Sets the receiver’s content object.
 //
 // object: The content object for the receiver.
 //
 // # Discussion
-// 
+//
 // If the receiver’s content is bound to another (primary) object or
 // controller through a relationship key, the relationship of the primary
 // object is changed. In a tree-like structure, the object is added after the
@@ -421,12 +422,13 @@ func (o NSObjectController) NewObject() objectivec.IObject {
 func (o NSObjectController) AddObject(object objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("addObject:"), object)
 }
+
 // Removes a given object from the receiver’s content.
 //
 // object: The object to remove from the receiver.
 //
 // # Discussion
-// 
+//
 // If `object` is the receiver’s content object, the receiver’s content is
 // set to `nil`. If the receiver’s content is bound to another (primary)
 // object or controller through a relationship key, the relationship of the
@@ -436,18 +438,19 @@ func (o NSObjectController) AddObject(object objectivec.IObject) {
 func (o NSObjectController) RemoveObject(object objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("removeObject:"), object)
 }
+
 // Creates a new object and sets it as the receiver’s content object.
 //
 // sender: Typically the object that invoked this method.
 //
 // # Discussion
-// 
+//
 // Creates a new object of the appropriate entity (specified by [EntityName])
 // or class (specified by [ObjectClass])—see [NewObject]—and sets it as
 // the receiver’s content object using [AddObject].
-// 
+//
 // # Special Considerations
-// 
+//
 // Beginning with OS X v10.4 the result of this method is deferred until the
 // next iteration of the runloop so that the error presentation mechanism can
 // provide feedback as a sheet.
@@ -456,16 +459,17 @@ func (o NSObjectController) RemoveObject(object objectivec.IObject) {
 func (o NSObjectController) Add(sender objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("add:"), sender)
 }
+
 // Removes the receiver’s content object.
 //
 // sender: Typically the object that invoked this method.
 //
 // # Discussion
-// 
+//
 // Removes the receiver’s content object using [RemoveObject].
-// 
+//
 // # Special Considerations
-// 
+//
 // Beginning with OS X v10.4 the result of this method is deferred until the
 // next iteration of the runloop so that the error presentation mechanism can
 // provide feedback as a sheet.
@@ -474,13 +478,14 @@ func (o NSObjectController) Add(sender objectivec.IObject) {
 func (o NSObjectController) Remove(sender objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("remove:"), sender)
 }
+
 // Causes the receiver to fetch the data objects specified by the entity name
 // and fetch predicate.
 //
 // sender: Typically the object that invoked this method.
 //
 // # Discussion
-// 
+//
 // Beginning with OS X v10.4 the result of this method is deferred until the
 // next iteration of the runloop so that the error presentation mechanism can
 // provide feedback as a sheet.
@@ -489,10 +494,11 @@ func (o NSObjectController) Remove(sender objectivec.IObject) {
 func (o NSObjectController) Fetch(sender objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("fetch:"), sender)
 }
+
 // Returns the default fetch request used by the receiver.
 //
 // # Return Value
-// 
+//
 // The default NSFetchResult used by the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/defaultFetchRequest()
@@ -500,21 +506,20 @@ func (o NSObjectController) DefaultFetchRequest() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("defaultFetchRequest"))
 	return objectivec.Object{ID: rv}
 }
+
 // Subclasses should override this method to customize a fetch request, for
 // example to specify fetch limits.
 //
 // fetchRequest: The fetch request to use for the fetch. Pass `nil` to use the default fetch
 // request.
 //
-// merge: If [true], the receiver merges the existing content with the fetch result,
+// merge: If true, the receiver merges the existing content with the fetch result,
 // otherwise the receiver replaces the entire content with the fetch result.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // fetchRequest is a [coredata.NSFetchRequest].
 //
 // # Discussion
-// 
+//
 // This method performs a number of actions that you cannot reproduce. To
 // customize this method, you should therefore create your own fetch request
 // and then invoke `super`’s implementation with the new fetch request.
@@ -534,6 +539,7 @@ func (o NSObjectController) FetchWithRequestMergeError(fetchRequest objectivec.I
 	return rv, nil
 
 }
+
 // Returns whether the receiver can handle the action method for a user
 // interface item.
 //
@@ -541,11 +547,8 @@ func (o NSObjectController) FetchWithRequestMergeError(fetchRequest objectivec.I
 // [Tag] messages.
 //
 // # Return Value
-// 
-// [true] if the receiver can handle the action method; [false] if it cannot.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver can handle the action method; false if it cannot.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/validateUserInterfaceItem(_:)
 func (o NSObjectController) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool {
@@ -563,19 +566,17 @@ func (o NSObjectController) Content() objectivec.IObject {
 func (o NSObjectController) SetContent(value objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setContent:"), value)
 }
+
 // A Boolean that shows whether the receiver automatically creates and inserts
 // new content objects automatically when loading from a nib file.
 //
 // # Discussion
-// 
-// If `flag` is [true] and the receiver is not using a managed object context,
-// [PrepareContent] is used to create the content object. If `flag` is [true]
+//
+// If `flag` is true and the receiver is not using a managed object context,
+// [PrepareContent] is used to create the content object. If `flag` is true
 // and a managed object context is set, the initial content is fetched from
 // the managed object context using the current fetch predicate. The default
-// is [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// is false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/automaticallyPreparesContent
 func (o NSObjectController) AutomaticallyPreparesContent() bool {
@@ -585,10 +586,11 @@ func (o NSObjectController) AutomaticallyPreparesContent() bool {
 func (o NSObjectController) SetAutomaticallyPreparesContent(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAutomaticallyPreparesContent:"), value)
 }
+
 // The object class to use when creating new objects.
 //
 // # Discussion
-// 
+//
 // [NSObjectController]’s default implementation assumes that instances of
 // `objectClass` are initialized using a standard `init` method that takes no
 // arguments.
@@ -601,14 +603,15 @@ func (o NSObjectController) ObjectClass() objc.Class {
 func (o NSObjectController) SetObjectClass(value objc.Class) {
 	objc.Send[struct{}](o.ID, objc.Sel("setObjectClass:"), value)
 }
+
 // A Boolean value that indicates whether an object can be added to the
 // receiver using [Add].
 //
 // # Discussion
-// 
+//
 // Bindings can use this method to control the enabling of user interface
 // objects.
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/canAdd
@@ -616,14 +619,15 @@ func (o NSObjectController) CanAdd() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("canAdd"))
 	return rv
 }
+
 // A Boolean value that indicates whether an object can be removed from the
 // receiver.
 //
 // # Discussion
-// 
+//
 // Bindings can use this method to control the enabling of user interface
 // objects.
-// 
+//
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/canRemove
@@ -631,14 +635,13 @@ func (o NSObjectController) CanRemove() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("canRemove"))
 	return rv
 }
+
 // A Boolean that indicates whether the receiver allows adding and removing
 // objects.
 //
 // # Discussion
-// 
-// The default is [true].
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The default is true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/isEditable
 func (o NSObjectController) Editable() bool {
@@ -648,6 +651,7 @@ func (o NSObjectController) Editable() bool {
 func (o NSObjectController) SetEditable(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setEditable:"), value)
 }
+
 // The entity name used by the receiver to create new objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/entityName
@@ -658,10 +662,11 @@ func (o NSObjectController) EntityName() string {
 func (o NSObjectController) SetEntityName(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setEntityName:"), objc.String(value))
 }
+
 // A Boolean that indicates whether the receiver uses lazy fetching.
 //
 // # Discussion
-// 
+//
 // When enabled the controller uses a number of techniques that typically make
 // managing large data sets more efficient. As with all optimizations, you
 // should use suitable performance analysis tools (such as Instruments) to
@@ -675,10 +680,11 @@ func (o NSObjectController) UsesLazyFetching() bool {
 func (o NSObjectController) SetUsesLazyFetching(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUsesLazyFetching:"), value)
 }
+
 // The receiver’s fetch predicate.
 //
 // # Discussion
-// 
+//
 // The receiver uses `predicate` when fetching its content, for example in
 // [Fetch]. If you need to customize the fetching behavior further, you can
 // override [FetchWithRequestMergeError].
@@ -691,6 +697,7 @@ func (o NSObjectController) FetchPredicate() foundation.INSPredicate {
 func (o NSObjectController) SetFetchPredicate(value foundation.INSPredicate) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFetchPredicate:"), value)
 }
+
 // The receiver’s managed object context.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/managedObjectContext
@@ -701,6 +708,7 @@ func (o NSObjectController) ManagedObjectContext() objectivec.IObject {
 func (o NSObjectController) SetManagedObjectContext(value objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setManagedObjectContext:"), value)
 }
+
 // An array of all objects to be affected by editing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/selectedObjects
@@ -708,10 +716,11 @@ func (o NSObjectController) SelectedObjects() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("selectedObjects"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // A proxy object representing the receiver’s selection.
 //
 // # Discussion
-// 
+//
 // This object is fully key-value coding compliant, but note that it is a
 // proxy and so does not provide the full range of functionality that might be
 // available in the source object.
@@ -721,4 +730,3 @@ func (o NSObjectController) Selection() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("selection"))
 	return objectivec.Object{ID: rv}
 }
-

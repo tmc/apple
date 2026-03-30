@@ -4,8 +4,9 @@ package speechobjects
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/appkit"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [SOSRLanguageRowTextView] class.
@@ -50,6 +51,7 @@ type SOSRLanguageRowTextView struct {
 func SOSRLanguageRowTextViewFromID(id objc.ID) SOSRLanguageRowTextView {
 	return SOSRLanguageRowTextView{NSTextField: appkit.NSTextFieldFromID(id)}
 }
+
 // Ensure SOSRLanguageRowTextView implements ISOSRLanguageRowTextView.
 var _ ISOSRLanguageRowTextView = SOSRLanguageRowTextView{}
 
@@ -78,4 +80,3 @@ func NewSOSRLanguageRowTextView() SOSRLanguageRowTextView {
 	rv := objc.Send[SOSRLanguageRowTextView](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

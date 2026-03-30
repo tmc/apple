@@ -18,6 +18,7 @@ type MLNeuralNetwork interface {
 type MLNeuralNetworkObject struct {
 	objectivec.Object
 }
+
 func (o MLNeuralNetworkObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,7 +31,6 @@ func MLNeuralNetworkObjectFromID(id objc.ID) MLNeuralNetworkObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralNetwork/evaluate:error:
 func (o MLNeuralNetworkObject) EvaluateError(evaluate objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("evaluate:error:"), evaluate)
@@ -38,5 +38,4 @@ func (o MLNeuralNetworkObject) EvaluateError(evaluate objectivec.IObject) (objec
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-
+}

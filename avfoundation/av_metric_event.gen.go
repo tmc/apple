@@ -4,9 +4,10 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -62,6 +63,7 @@ type AVMetricEvent struct {
 func AVMetricEventFromID(id objc.ID) AVMetricEvent {
 	return AVMetricEvent{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVMetricEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,14 +116,15 @@ func (m AVMetricEvent) Date() foundation.INSDate {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("date"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/mediaTime
 func (m AVMetricEvent) MediaTime() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("mediaTime"))
 	return coremedia.CMTime(rv)
 }
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/sessionID
 func (m AVMetricEvent) SessionID() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("sessionID"))
 	return foundation.NSStringFromID(rv).String()
 }
-

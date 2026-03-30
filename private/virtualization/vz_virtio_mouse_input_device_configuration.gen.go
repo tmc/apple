@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZVirtioMouseInputDeviceConfigurationClass) Alloc() VZVirtioMouseInputD
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZVirtioMouseInputDeviceConfiguration.EncodeWithEncoder]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioMouseInputDeviceConfiguration
 type VZVirtioMouseInputDeviceConfiguration struct {
 	VZPointingDeviceConfiguration
@@ -54,6 +55,7 @@ type VZVirtioMouseInputDeviceConfiguration struct {
 func VZVirtioMouseInputDeviceConfigurationFromID(id objc.ID) VZVirtioMouseInputDeviceConfiguration {
 	return VZVirtioMouseInputDeviceConfiguration{VZPointingDeviceConfiguration: VZPointingDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZVirtioMouseInputDeviceConfiguration implements IVZVirtioMouseInputDeviceConfiguration.
 var _ IVZVirtioMouseInputDeviceConfiguration = VZVirtioMouseInputDeviceConfiguration{}
 
@@ -91,10 +93,8 @@ func NewVZVirtioMouseInputDeviceConfiguration() VZVirtioMouseInputDeviceConfigur
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZVirtioMouseInputDeviceConfiguration/encodeWithEncoder:
 func (v VZVirtioMouseInputDeviceConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-

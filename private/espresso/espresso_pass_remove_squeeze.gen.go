@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_remove_squeeze struct {
 func EspressoPass_remove_squeezeFromID(id objc.ID) EspressoPass_remove_squeeze {
 	return EspressoPass_remove_squeeze{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_remove_squeeze implements IEspressoPass_remove_squeeze.
 var _ IEspressoPass_remove_squeeze = EspressoPass_remove_squeeze{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_remove_squeeze() EspressoPass_remove_squeeze {
 	rv := objc.Send[EspressoPass_remove_squeeze](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

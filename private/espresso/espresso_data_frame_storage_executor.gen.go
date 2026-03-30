@@ -5,6 +5,7 @@ package espresso
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,12 +43,12 @@ func (ec EspressoDataFrameStorageExecutorClass) Alloc() EspressoDataFrameStorage
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlock]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor
 type EspressoDataFrameStorageExecutor struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type EspressoDataFrameStorageExecutor struct {
 func EspressoDataFrameStorageExecutorFromID(id objc.ID) EspressoDataFrameStorageExecutor {
 	return EspressoDataFrameStorageExecutor{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoDataFrameStorageExecutor implements IEspressoDataFrameStorageExecutor.
 var _ IEspressoDataFrameStorageExecutor = EspressoDataFrameStorageExecutor{}
 
@@ -98,23 +100,22 @@ func NewEspressoDataFrameStorageExecutor() EspressoDataFrameStorageExecutor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:block:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlock(storage objectivec.IObject, network objectivec.IObject, block VoidHandler) {
-_block2, _ := NewVoidBlock(block)
+	_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:"), storage, network, _block2)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, block VoidHandler, index VoidHandler) {
-_block2, _ := NewVoidBlock(block)
+	_block2, _ := NewVoidBlock(block)
 	_block3, _ := NewVoidBlock(index)
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:"), storage, network, _block2, _block3)
 }
-//
+
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, network2 objectivec.IObject, block VoidHandler, index VoidHandler) {
-_block3, _ := NewVoidBlock(block)
+	_block3, _ := NewVoidBlock(block)
 	_block4, _ := NewVoidBlock(index)
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:"), storage, network, network2, _block3, _block4)
 }
@@ -163,4 +164,3 @@ func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkRefe
 		return ctx.Err()
 	}
 }
-

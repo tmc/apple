@@ -4,10 +4,11 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMutableCaption] class.
@@ -56,6 +57,7 @@ type AVMutableCaption struct {
 func AVMutableCaptionFromID(id objc.ID) AVMutableCaption {
 	return AVMutableCaption{AVCaption: AVCaptionFromID(id)}
 }
+
 // NOTE: AVMutableCaption adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -135,6 +137,7 @@ func NewMutableCaptionWithTextTimeRange(text string, timeRange coremedia.CMTimeR
 func (m AVMutableCaption) RemoveBackgroundColorInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeBackgroundColorInRange:"), range_)
 }
+
 // Removes a decoration from a range of text.
 //
 // range: The range from which the system removes the decoration.
@@ -143,6 +146,7 @@ func (m AVMutableCaption) RemoveBackgroundColorInRange(range_ foundation.NSRange
 func (m AVMutableCaption) RemoveDecorationInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeDecorationInRange:"), range_)
 }
+
 // Removes a font style from a range of text.
 //
 // range: The range from which to remove the style.
@@ -151,6 +155,7 @@ func (m AVMutableCaption) RemoveDecorationInRange(range_ foundation.NSRange) {
 func (m AVMutableCaption) RemoveFontStyleInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeFontStyleInRange:"), range_)
 }
+
 // Removes a font weight from a range of text.
 //
 // range: The range from which to remove the style.
@@ -159,6 +164,7 @@ func (m AVMutableCaption) RemoveFontStyleInRange(range_ foundation.NSRange) {
 func (m AVMutableCaption) RemoveFontWeightInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeFontWeightInRange:"), range_)
 }
+
 // Removes ruby text from a range.
 //
 // range: The range from which the system removes the ruby text.
@@ -167,6 +173,7 @@ func (m AVMutableCaption) RemoveFontWeightInRange(range_ foundation.NSRange) {
 func (m AVMutableCaption) RemoveRubyInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeRubyInRange:"), range_)
 }
+
 // Removes the text color for a range of text.
 //
 // range: The range from which the system removes the text color.
@@ -175,6 +182,7 @@ func (m AVMutableCaption) RemoveRubyInRange(range_ foundation.NSRange) {
 func (m AVMutableCaption) RemoveTextColorInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTextColorInRange:"), range_)
 }
+
 // Removes text combine from a range of text.
 //
 // range: The range from which the system removes text combine.
@@ -183,6 +191,7 @@ func (m AVMutableCaption) RemoveTextColorInRange(range_ foundation.NSRange) {
 func (m AVMutableCaption) RemoveTextCombineInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTextCombineInRange:"), range_)
 }
+
 // Sets the background color for a range of text.
 //
 // color: The background color.
@@ -193,6 +202,7 @@ func (m AVMutableCaption) RemoveTextCombineInRange(range_ foundation.NSRange) {
 func (m AVMutableCaption) SetBackgroundColorInRange(color coregraphics.CGColorRef, range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setBackgroundColor:inRange:"), color, range_)
 }
+
 // Sets a decoration for a range of text.
 //
 // decoration: The decoration.
@@ -203,6 +213,7 @@ func (m AVMutableCaption) SetBackgroundColorInRange(color coregraphics.CGColorRe
 func (m AVMutableCaption) SetDecorationInRange(decoration AVCaptionDecoration, range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setDecoration:inRange:"), decoration, range_)
 }
+
 // Sets the font style for a range of text.
 //
 // fontStyle: The font style.
@@ -213,6 +224,7 @@ func (m AVMutableCaption) SetDecorationInRange(decoration AVCaptionDecoration, r
 func (m AVMutableCaption) SetFontStyleInRange(fontStyle AVCaptionFontStyle, range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setFontStyle:inRange:"), fontStyle, range_)
 }
+
 // Sets the font weight for a range of text.
 //
 // fontWeight: The font weight.
@@ -223,6 +235,7 @@ func (m AVMutableCaption) SetFontStyleInRange(fontStyle AVCaptionFontStyle, rang
 func (m AVMutableCaption) SetFontWeightInRange(fontWeight AVCaptionFontWeight, range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setFontWeight:inRange:"), fontWeight, range_)
 }
+
 // Sets ruby text for a range.
 //
 // ruby: The ruby text.
@@ -233,6 +246,7 @@ func (m AVMutableCaption) SetFontWeightInRange(fontWeight AVCaptionFontWeight, r
 func (m AVMutableCaption) SetRubyInRange(ruby IAVCaptionRuby, range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setRuby:inRange:"), ruby, range_)
 }
+
 // Sets the text color for a range of text.
 //
 // color: The text color.
@@ -243,6 +257,7 @@ func (m AVMutableCaption) SetRubyInRange(ruby IAVCaptionRuby, range_ foundation.
 func (m AVMutableCaption) SetTextColorInRange(color coregraphics.CGColorRef, range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setTextColor:inRange:"), color, range_)
 }
+
 // Sets text combine for a range.
 //
 // textCombine: The text combine.
@@ -253,4 +268,3 @@ func (m AVMutableCaption) SetTextColorInRange(color coregraphics.CGColorRef, ran
 func (m AVMutableCaption) SetTextCombineInRange(textCombine AVCaptionTextCombine, range_ foundation.NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setTextCombine:inRange:"), textCombine, range_)
 }
-

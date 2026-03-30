@@ -4,8 +4,9 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [CIFaceFeature] class.
@@ -44,7 +45,7 @@ func (cc CIFaceFeatureClass) Alloc() CIFaceFeature {
 // Information about a face detected in a still or video image.
 //
 // # Overview
-// 
+//
 // The properties of a [CIFaceFeature] object provide information about the
 // face’s eyes and mouth. A face object in a video can also have properties
 // that track its location over time, tracking ID and frame count.
@@ -84,6 +85,7 @@ type CIFaceFeature struct {
 func CIFaceFeatureFromID(id objc.ID) CIFaceFeature {
 	return CIFaceFeature{CIFeature: CIFeatureFromID(id)}
 }
+
 // NOTE: CIFaceFeature adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -184,10 +186,11 @@ func (f CIFaceFeature) HasFaceAngle() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("hasFaceAngle"))
 	return rv
 }
+
 // The rotation of the face.
 //
 // # Discussion
-// 
+//
 // Rotation is measured counterclockwise in degrees, with zero indicating that
 // a line drawn between the eyes is horizontal relative to the image
 // orientation.
@@ -197,6 +200,7 @@ func (f CIFaceFeature) FaceAngle() float32 {
 	rv := objc.Send[float32](f.ID, objc.Sel("faceAngle"))
 	return rv
 }
+
 // A Boolean value that indicates whether the detector found the face’s left
 // eye.
 //
@@ -205,6 +209,7 @@ func (f CIFaceFeature) HasLeftEyePosition() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("hasLeftEyePosition"))
 	return rv
 }
+
 // A Boolean value that indicates whether the detector found the face’s
 // right eye.
 //
@@ -213,6 +218,7 @@ func (f CIFaceFeature) HasRightEyePosition() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("hasRightEyePosition"))
 	return rv
 }
+
 // A Boolean value that indicates whether the detector found the face’s
 // mouth.
 //
@@ -221,6 +227,7 @@ func (f CIFaceFeature) HasMouthPosition() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("hasMouthPosition"))
 	return rv
 }
+
 // The image coordinate of the center of the left eye.
 //
 // # Discussion
@@ -230,6 +237,7 @@ func (f CIFaceFeature) LeftEyePosition() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](f.ID, objc.Sel("leftEyePosition"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The image coordinate of the center of the right eye.
 //
 // # Discussion
@@ -239,6 +247,7 @@ func (f CIFaceFeature) RightEyePosition() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](f.ID, objc.Sel("rightEyePosition"))
 	return corefoundation.CGPoint(rv)
 }
+
 // The image coordinate of the center of the mouth.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/mouthPosition-swift.property
@@ -246,50 +255,54 @@ func (f CIFaceFeature) MouthPosition() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](f.ID, objc.Sel("mouthPosition"))
 	return corefoundation.CGPoint(rv)
 }
+
 // A Boolean value that indicates whether a smile is detected in the face.
 //
 // # Discussion
-// 
+//
 // To detect smiles, `/CIDetector/` needs to be called with the
 // [CIDetectorSmile] option set to true.
 //
-// [CIDetectorSmile]: https://developer.apple.com/documentation/CoreImage/CIDetectorSmile
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/hasSmile-swift.property
+//
+// [CIDetectorSmile]: https://developer.apple.com/documentation/CoreImage/CIDetectorSmile
 func (f CIFaceFeature) HasSmile() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("hasSmile"))
 	return rv
 }
+
 // A Boolean value that indicates whether a closed left eye is detected in the
 // face.
 //
 // # Discussion
-// 
+//
 // To detect closed eyes, `/CIDetector/` needs to be called with the
 // [CIDetectorEyeBlink] option set to true.
 //
-// [CIDetectorEyeBlink]: https://developer.apple.com/documentation/CoreImage/CIDetectorEyeBlink
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/leftEyeClosed-swift.property
+//
+// [CIDetectorEyeBlink]: https://developer.apple.com/documentation/CoreImage/CIDetectorEyeBlink
 func (f CIFaceFeature) LeftEyeClosed() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("leftEyeClosed"))
 	return rv
 }
+
 // A Boolean value that indicates whether a closed right eye is detected in
 // the face.
 //
 // # Discussion
-// 
+//
 // To detect closed eyes, `/CIDetector/` needs to be called with the
 // [CIDetectorEyeBlink] option set to true.
 //
-// [CIDetectorEyeBlink]: https://developer.apple.com/documentation/CoreImage/CIDetectorEyeBlink
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/rightEyeClosed-swift.property
+//
+// [CIDetectorEyeBlink]: https://developer.apple.com/documentation/CoreImage/CIDetectorEyeBlink
 func (f CIFaceFeature) RightEyeClosed() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("rightEyeClosed"))
 	return rv
 }
+
 // A Boolean value that indicates whether the face object has a tracking ID.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/hasTrackingID-swift.property
@@ -297,14 +310,15 @@ func (f CIFaceFeature) HasTrackingID() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("hasTrackingID"))
 	return rv
 }
+
 // The tracking identifier of the face object.
 //
 // # Discussion
-// 
+//
 // Core Image provides a tracking identifier for faces it detects in a video
 // stream, which you can use to identify when a CIFaceFeature objects detected
 // in one video frame is the same face detected in a previous video frame.
-// 
+//
 // This identifier persists only as long as a face is in the frame and is not
 // associated with a specific face. In other words, if a face moves out of the
 // video frame and comes back into the frame later, another ID is assigned.
@@ -315,6 +329,7 @@ func (f CIFaceFeature) TrackingID() int {
 	rv := objc.Send[int](f.ID, objc.Sel("trackingID"))
 	return rv
 }
+
 // A Boolean value that indicates the face object has a tracking frame count.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/hasTrackingFrameCount-swift.property
@@ -322,6 +337,7 @@ func (f CIFaceFeature) HasTrackingFrameCount() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("hasTrackingFrameCount"))
 	return rv
 }
+
 // The tracking frame count of the face.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/trackingFrameCount-swift.property
@@ -329,4 +345,3 @@ func (f CIFaceFeature) TrackingFrameCount() int {
 	rv := objc.Send[int](f.ID, objc.Sel("trackingFrameCount"))
 	return rv
 }
-

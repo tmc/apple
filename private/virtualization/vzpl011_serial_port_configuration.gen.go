@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZPL011SerialPortConfigurationClass) Alloc() VZPL011SerialPortConfigura
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZPL011SerialPortConfiguration.EncodeWithEncoder]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPL011SerialPortConfiguration
 type VZPL011SerialPortConfiguration struct {
 	VZSerialPortConfiguration
@@ -54,6 +55,7 @@ type VZPL011SerialPortConfiguration struct {
 func VZPL011SerialPortConfigurationFromID(id objc.ID) VZPL011SerialPortConfiguration {
 	return VZPL011SerialPortConfiguration{VZSerialPortConfiguration: VZSerialPortConfigurationFromID(id)}
 }
+
 // Ensure VZPL011SerialPortConfiguration implements IVZPL011SerialPortConfiguration.
 var _ IVZPL011SerialPortConfiguration = VZPL011SerialPortConfiguration{}
 
@@ -91,10 +93,8 @@ func NewVZPL011SerialPortConfiguration() VZPL011SerialPortConfiguration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZPL011SerialPortConfiguration/encodeWithEncoder:
 func (v VZPL011SerialPortConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
-

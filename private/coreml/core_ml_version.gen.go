@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,11 +43,11 @@ func (cc CoreMLVersionClass) Alloc() CoreMLVersion {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [CoreMLVersion.FrameworkVersionNumber]
 //   - [CoreMLVersion.SetFrameworkVersionNumber]
+//
 // See: https://developer.apple.com/documentation/CoreML/CoreMLVersion
 type CoreMLVersion struct {
 	objectivec.Object
@@ -56,6 +57,7 @@ type CoreMLVersion struct {
 func CoreMLVersionFromID(id objc.ID) CoreMLVersion {
 	return CoreMLVersion{objectivec.Object{ID: id}}
 }
+
 // Ensure CoreMLVersion implements ICoreMLVersion.
 var _ ICoreMLVersion = CoreMLVersion{}
 
@@ -109,4 +111,3 @@ func (c CoreMLVersion) FrameworkVersionNumber() foundation.NSNumber {
 func (c CoreMLVersion) SetFrameworkVersionNumber(value foundation.NSNumber) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFrameworkVersionNumber:"), value)
 }
-

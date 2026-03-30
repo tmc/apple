@@ -18,6 +18,7 @@ type writableTypeIdentifiersForItemProvider interface {
 type writableTypeIdentifiersForItemProviderObject struct {
 	objectivec.Object
 }
+
 func (o writableTypeIdentifiersForItemProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func writableTypeIdentifiersForItemProviderObjectFromID(id objc.ID) writableType
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

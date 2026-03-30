@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,17 +47,15 @@ func (nc NSIndexPathClass) Alloc() NSIndexPath {
 // in a tree of nested arrays.
 //
 // # Overview
-// 
+//
 // In Swift, this object bridges to [IndexPath]; use [NSIndexPath] when you
 // need reference semantics or other Foundation-specific behavior.
-// 
+//
 // Each index in an index path represents the index into an array of children
 // from one node in the tree to another, deeper, node. For example, the index
 // path `1.4.3.2` specifies the path shown in [Figure 1].
-// 
-// [media-1965825]
 //
-// [IndexPath]: https://developer.apple.com/documentation/Foundation/IndexPath
+// [media-1965825]
 //
 // # Creating and Initializing Index Paths
 //
@@ -87,6 +86,8 @@ func (nc NSIndexPathClass) Alloc() NSIndexPath {
 //   - [NSIndexPath.GetIndexesRange]: Copies the indexes stored in the index path from the positions specified by the position range into the specified indexes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath
+//
+// [IndexPath]: https://developer.apple.com/documentation/Foundation/IndexPath
 type NSIndexPath struct {
 	objectivec.Object
 }
@@ -98,6 +99,7 @@ type NSIndexPath struct {
 func NSIndexPathFromID(id objc.ID) NSIndexPath {
 	return NSIndexPath{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSIndexPath adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -201,18 +203,18 @@ func NewNSIndexPath() NSIndexPath {
 //
 // item: An index number identifying an item in a [UICollectionView] object in a
 // section identified by the `section` parameter.
-// //
-// [UICollectionView]: https://developer.apple.com/documentation/UIKit/UICollectionView
 //
 // section: An index number identifying a section in a [UICollectionView] object.
-// //
-// [UICollectionView]: https://developer.apple.com/documentation/UIKit/UICollectionView
 //
 // # Return Value
-// 
+//
 // An [NSIndexPath] object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/init(forItem:inSection:)
+//
+// [UICollectionView]: https://developer.apple.com/documentation/UIKit/UICollectionView
+//
+// [UICollectionView]: https://developer.apple.com/documentation/UIKit/UICollectionView
 func NewIndexPathForItemInSection(item int, section int) NSIndexPath {
 	rv := objc.Send[objc.ID](objc.ID(getNSIndexPathClass().class), objc.Sel("indexPathForItem:inSection:"), item, section)
 	return NSIndexPathFromID(rv)
@@ -223,24 +225,23 @@ func NewIndexPathForItemInSection(item int, section int) NSIndexPath {
 //
 // row: An index number identifying a row in a [UITableView] object in a section
 // identified by `section`.
-// //
-// [UITableView]: https://developer.apple.com/documentation/UIKit/UITableView
 //
 // section: An index number identifying a section in a [UITableView] object.
-// //
-// [UITableView]: https://developer.apple.com/documentation/UIKit/UITableView
 //
 // # Return Value
-// 
+//
 // An [NSIndexPath] object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/init(forRow:inSection:)
+//
+// [UITableView]: https://developer.apple.com/documentation/UIKit/UITableView
+//
+// [UITableView]: https://developer.apple.com/documentation/UIKit/UITableView
 func NewIndexPathForRowInSection(row int, section int) NSIndexPath {
 	rv := objc.Send[objc.ID](objc.ID(getNSIndexPathClass().class), objc.Sel("indexPathForRow:inSection:"), row, section)
 	return NSIndexPathFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewIndexPathWithCoder(coder INSCoder) NSIndexPath {
 	instance := getNSIndexPathClass().Alloc()
@@ -253,7 +254,7 @@ func NewIndexPathWithCoder(coder INSCoder) NSIndexPath {
 // index: Index of the item in node 0 to point to.
 //
 // # Return Value
-// 
+//
 // Initialized [NSIndexPath] object representing a one-node index path with
 // `index`.
 //
@@ -271,11 +272,11 @@ func NewIndexPathWithIndex(index uint) NSIndexPath {
 // length: Number of nodes to include in the index path.
 //
 // # Return Value
-// 
+//
 // Initialized [NSIndexPath] object with `indexes` up to `length`.
 //
 // # Discussion
-// 
+//
 // This method is a designated initializer of [NSIndexPath].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/init(indexes:length:)
@@ -290,7 +291,7 @@ func NewIndexPathWithIndexesLength(indexes uint, length uint) NSIndexPath {
 // index: Index of the item in node 0 to point to.
 //
 // # Return Value
-// 
+//
 // Initialized [NSIndexPath] object representing a one-node index path with
 // `index`.
 //
@@ -299,6 +300,7 @@ func (i NSIndexPath) InitWithIndex(index uint) NSIndexPath {
 	rv := objc.Send[NSIndexPath](i.ID, objc.Sel("initWithIndex:"), index)
 	return rv
 }
+
 // Initializes an index path with the given nodes and length.
 //
 // indexes: Array of indexes to make up the index path.
@@ -306,11 +308,11 @@ func (i NSIndexPath) InitWithIndex(index uint) NSIndexPath {
 // length: Number of nodes to include in the index path.
 //
 // # Return Value
-// 
+//
 // Initialized [NSIndexPath] object with `indexes` up to `length`.
 //
 // # Discussion
-// 
+//
 // This method is a designated initializer of [NSIndexPath].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/init(indexes:length:)
@@ -318,13 +320,14 @@ func (i NSIndexPath) InitWithIndexesLength(indexes uint, length uint) NSIndexPat
 	rv := objc.Send[NSIndexPath](i.ID, objc.Sel("initWithIndexes:length:"), indexes, length)
 	return rv
 }
+
 // Returns an index path containing the nodes in the receiving index path plus
 // another given index.
 //
 // index: Index to append to the index path’s indexes.
 //
 // # Return Value
-// 
+//
 // A new index path containing the receiving index path’s indexes and
 // `index`.
 //
@@ -333,21 +336,22 @@ func (i NSIndexPath) IndexPathByAddingIndex(index uint) objc.ID {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("indexPathByAddingIndex:"), index)
 	return rv
 }
+
 // Returns an index path with the nodes in the receiving index path, excluding
 // the last one.
 //
 // # Return Value
-// 
+//
 // A new index path with the receiving index path’s indexes, excluding the
 // last one.
 //
 // # Discussion
-// 
+//
 // Returns an empty [NSIndexPath] instance if the receiving index path’s
 // length is 1 or less.
-// 
+//
 // # Special Considerations
-// 
+//
 // In OS X v10.4 this method returns `nil` when the length of the receiving
 // index path is 1 or less. On iOS and macOS 10.5 and later this method never
 // returns `nil`.
@@ -357,37 +361,39 @@ func (i NSIndexPath) IndexPathByRemovingLastIndex() objc.ID {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("indexPathByRemovingLastIndex"))
 	return rv
 }
+
 // Indicates the depth-first traversal order of the receiving index path and
 // another index path.
 //
 // otherObject: Index path to compare.
-// 
+//
 // This value must not be `nil`. If the value is `nil`, the behavior is
 // undefined.
 //
 // # Return Value
-// 
+//
 // The depth-first traversal ordering of the receiving index path and
 // `indexPath`.
 //
 // # Discussion
-// 
-// - [OrderedAscending]: The receiving index path comes before `indexPath`. -
-// [OrderedDescending]: The receiving index path comes after `indexPath`. -
-// [OrderedSame]: The receiving index path and `indexPath` are the same index
-// path.
+//
+// - [NSOrderedAscending]: The receiving index path comes before `indexPath`.
+// - [NSOrderedDescending]: The receiving index path comes after `indexPath`.
+// - [NSOrderedSame]: The receiving index path and `indexPath` are the same
+// index path.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/compare(_:)
 func (i NSIndexPath) Compare(otherObject objectivec.IObject) ComparisonResult {
 	rv := objc.Send[ComparisonResult](i.ID, objc.Sel("compare:"), otherObject)
 	return ComparisonResult(rv)
 }
+
 // Provides the value at a particular node in the index path.
 //
 // position: Index value of the desired node. Node numbering starts at zero.
 //
 // # Return Value
-// 
+//
 // The index value at `node` or [NSNotFound] if the node is outside the range
 // of the index path.
 //
@@ -396,29 +402,29 @@ func (i NSIndexPath) IndexAtPosition(position uint) uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("indexAtPosition:"), position)
 	return rv
 }
+
 // Copies the indexes stored in the index path from the positions specified by
 // the position range into the specified indexes.
 //
 // indexes: Pointer to a C array of at least as many [NSUInteger] objects as specified
 // by the length of `positionRange`. On return, the array holds the index
 // path’s indexes.
-// //
-// [NSUInteger]: https://developer.apple.com/documentation/ObjectiveC/NSUInteger
 //
 // positionRange: A range of valid positions within the index path. If the location plus the
 // length of `positionRange` is greater than the length of the index path,
-// this method raises an [rangeException].
-// //
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
+// this method raises an [RangeException].
 //
 // # Discussion
-// 
+//
 // You must allocate the memory for the C array.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/getIndexes(_:range:)
+//
+// [NSUInteger]: https://developer.apple.com/documentation/ObjectiveC/NSUInteger
 func (i NSIndexPath) GetIndexesRange(indexes unsafe.Pointer, positionRange NSRange) {
 	objc.Send[objc.ID](i.ID, objc.Sel("getIndexes:range:"), indexes, positionRange)
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -427,7 +433,7 @@ func (i NSIndexPath) GetIndexesRange(indexes unsafe.Pointer, positionRange NSRan
 func (i NSIndexPath) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (i NSIndexPath) InitWithCoder(coder INSCoder) NSIndexPath {
 	rv := objc.Send[NSIndexPath](i.ID, objc.Sel("initWithCoder:"), coder)
@@ -439,7 +445,7 @@ func (i NSIndexPath) InitWithCoder(coder INSCoder) NSIndexPath {
 // index: Index of the item in node 0 to point to.
 //
 // # Return Value
-// 
+//
 // One-node index path with `index`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/indexPathWithIndex:
@@ -447,6 +453,7 @@ func (_NSIndexPathClass NSIndexPathClass) IndexPathWithIndex(index uint) NSIndex
 	rv := objc.Send[objc.ID](objc.ID(_NSIndexPathClass.class), objc.Sel("indexPathWithIndex:"), index)
 	return NSIndexPathFromID(rv)
 }
+
 // Creates an index path with one or more nodes.
 //
 // indexes: Array of indexes to make up the index path.
@@ -454,7 +461,7 @@ func (_NSIndexPathClass NSIndexPathClass) IndexPathWithIndex(index uint) NSIndex
 // length: Number of nodes to include in the index path.
 //
 // # Return Value
-// 
+//
 // Index path with `indexes` up to `length`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/indexPathWithIndexes:length:
@@ -470,10 +477,11 @@ func (i NSIndexPath) Section() int {
 	rv := objc.Send[int](i.ID, objc.Sel("section"))
 	return rv
 }
+
 // An index number identifying an item in a section of a collection view.
 //
 // # Discussion
-// 
+//
 // The section the item is in is identified by the value of [Section].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/item
@@ -481,6 +489,7 @@ func (i NSIndexPath) Item() int {
 	rv := objc.Send[int](i.ID, objc.Sel("item"))
 	return rv
 }
+
 // The number of nodes in the index path.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/length
@@ -489,9 +498,6 @@ func (i NSIndexPath) Length() uint {
 	return rv
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

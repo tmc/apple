@@ -3,11 +3,12 @@
 package coreimage
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,39 +48,39 @@ func (cc CIColorClass) Alloc() CIColor {
 // The Core Image class that defines a color object.
 //
 // # Overview
-// 
+//
 // Use [CIColor] instances in conjunction with other Core Image classes, such
 // as [CIFilter] and [CIKernel]. Many of the built-in Core Image filters have
 // one or more [CIColor] inputs that you can set to affect the filter’s
 // behavior.
-// 
+//
 // # Color Model
-// 
+//
 // A color is defined as a N-dimensional model where each dimension’s color
 // component is represented by intensity values. A color component may also be
 // referred to as a color channel. An RGB color model, for example, is
 // three-dimensional and the red, green, and blue component intensities define
 // each unique color.
-// 
+//
 // # Color Space
-// 
+//
 // A color is also defined by a color space that locates the axes of
 // N-dimensional model within the greater volume of human perceivable colors.
 // Core Image uses [CGColorSpace] instances to specify a variety of different
 // color spaces such as sRGB, P3, BT.2020, etc. The [CGColorSpace] also
 // defines if the color space is coded linearly or in a non-linear perceptual
 // curve. (For more information on [CGColorSpace] see [CGColorSpace])
-// 
+//
 // # Color Range
-// 
+//
 // Standard dynamic range (SDR) color color component values range from `0.0`
 // to `1.0`, with `0.0` representing an 0% of that component and `1.0`
 // representing 100%. In contrast, high dynamic range (HDR) color values can
 // be less than `0.0` (for more saturation) or greater than `1.0` (for more
 // brightness).
-// 
+//
 // # Color Opacity
-// 
+//
 // [CIColor] instances also have an alpha component, which represents the
 // opacity of the color, with 0.0 meaning completely transparent and 1.0
 // meaning completely opaque. If a color does not have an explicit alpha
@@ -88,8 +89,6 @@ func (cc CIColorClass) Alloc() CIColor {
 // example, a semi-transparent pure red [CIColor] is represented by RGB
 // `1.0,0.0,0.0` and A `0.5`. In contrast color components values in [CIImage]
 // buffers or read in [CIKernel] samplers are premultiplied by default.
-//
-// [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 //
 // # Initializing Color Objects
 //
@@ -111,6 +110,8 @@ func (cc CIColorClass) Alloc() CIColor {
 //   - [CIColor.StringRepresentation]: Returns a formatted string with the unpremultiplied color and alpha components of the color.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor
+//
+// [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 type CIColor struct {
 	objectivec.Object
 }
@@ -121,6 +122,7 @@ type CIColor struct {
 func CIColorFromID(id objc.ID) CIColor {
 	return CIColor{objectivec.Object{ID: id}}
 }
+
 // NOTE: CIColor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -207,7 +209,7 @@ func NewCIColor() CIColor {
 // Create a Core Image color object with a Core Graphics color object.
 //
 // # Return Value
-// 
+//
 // An initialized [CIColor] instance.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/init(cgColor:)
@@ -217,7 +219,6 @@ func NewColorWithCGColor(color coregraphics.CGColorRef) CIColor {
 	return CIColorFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/init(color:)
 func NewColorWithColor(color objectivec.IObject) CIColor {
 	instance := getCIColorClass().Alloc()
@@ -235,11 +236,11 @@ func NewColorWithColor(color objectivec.IObject) CIColor {
 // blue: The color’s unpremultiplied blue component value between 0 and 1.
 //
 // # Return Value
-// 
+//
 // An initialized [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // On macOS before 10.10, the CIColor’s color space will be Generic RGB.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/initWithRed:green:blue:
@@ -261,11 +262,11 @@ func NewColorWithRedGreenBlue(red float64, green float64, blue float64) CIColor 
 // alpha: The color’s alpha (opacity) value between 0 and 1.
 //
 // # Return Value
-// 
+//
 // An initialized [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // On macOS before 10.10, the CIColor’s color space will be Generic RGB.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/init(red:green:blue:alpha:)
@@ -289,11 +290,11 @@ func NewColorWithRedGreenBlueAlpha(red float64, green float64, blue float64, alp
 // colorSpace: The color’s [CGColorSpace] which must have `kCGColorSpaceModelRGB`.
 //
 // # Return Value
-// 
+//
 // An initialized [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // This will return null if the [CGColorSpace] is not `kCGColorSpaceModelRGB`.
 // The RGB values can be outside the `0...1` range if the [CGColorSpace] is
 // unclamped.
@@ -317,11 +318,11 @@ func NewColorWithRedGreenBlueAlphaColorSpace(red float64, green float64, blue fl
 // colorSpace: The color’s [CGColorSpace] which must have `kCGColorSpaceModelRGB`.
 //
 // # Return Value
-// 
+//
 // An initialized [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // This will return null if the [CGColorSpace] is not `kCGColorSpaceModelRGB`.
 // The RGB values can be outside the `0...1` range if the [CGColorSpace] is
 // unclamped.
@@ -343,11 +344,11 @@ func NewColorWithRedGreenBlueColorSpace(red float64, green float64, blue float64
 // float values, then `/CIColor/clearColor` will be returned.
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // On macOS before 10.10, the CIColor’s color space will be Generic RGB.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/init(string:)
@@ -359,7 +360,7 @@ func NewColorWithString(representation string) CIColor {
 // Create a Core Image color object with a Core Graphics color object.
 //
 // # Return Value
-// 
+//
 // An initialized [CIColor] instance.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/init(cgColor:)
@@ -367,12 +368,13 @@ func (c CIColor) InitWithCGColor(color coregraphics.CGColorRef) CIColor {
 	rv := objc.Send[CIColor](c.ID, objc.Sel("initWithCGColor:"), color)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/init(color:)
 func (c CIColor) InitWithColor(color objectivec.IObject) CIColor {
 	rv := objc.Send[CIColor](c.ID, objc.Sel("initWithColor:"), color)
 	return rv
 }
+
 // Initialize a Core Image color object in the sRGB color space with the
 // specified red, green, blue, and alpha component values.
 //
@@ -385,11 +387,11 @@ func (c CIColor) InitWithColor(color objectivec.IObject) CIColor {
 // alpha: The color’s alpha (opacity) value between 0 and 1.
 //
 // # Return Value
-// 
+//
 // An initialized [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // On macOS before 10.10, the CIColor’s color space will be Generic RGB.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/init(red:green:blue:alpha:)
@@ -397,6 +399,7 @@ func (c CIColor) InitWithRedGreenBlueAlpha(red float64, green float64, blue floa
 	rv := objc.Send[CIColor](c.ID, objc.Sel("initWithRed:green:blue:alpha:"), red, green, blue, alpha)
 	return rv
 }
+
 // Initialize a Core Image color object with the specified red, green, and
 // blue component values as measured in the specified color space.
 //
@@ -409,11 +412,11 @@ func (c CIColor) InitWithRedGreenBlueAlpha(red float64, green float64, blue floa
 // colorSpace: The color’s [CGColorSpace] which must have `kCGColorSpaceModelRGB`.
 //
 // # Return Value
-// 
+//
 // An initialized [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // This will return null if the [CGColorSpace] is not `kCGColorSpaceModelRGB`.
 // The RGB values can be outside the `0...1` range if the [CGColorSpace] is
 // unclamped.
@@ -423,6 +426,7 @@ func (c CIColor) InitWithRedGreenBlueColorSpace(red float64, green float64, blue
 	rv := objc.Send[CIColor](c.ID, objc.Sel("initWithRed:green:blue:colorSpace:"), red, green, blue, colorSpace)
 	return rv
 }
+
 // Initialize a Core Image color object with the specified red, green, and
 // blue component values as measured in the specified color space.
 //
@@ -437,11 +441,11 @@ func (c CIColor) InitWithRedGreenBlueColorSpace(red float64, green float64, blue
 // colorSpace: The color’s [CGColorSpace] which must have `kCGColorSpaceModelRGB`.
 //
 // # Return Value
-// 
+//
 // An initialized [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // This will return null if the [CGColorSpace] is not `kCGColorSpaceModelRGB`.
 // The RGB values can be outside the `0...1` range if the [CGColorSpace] is
 // unclamped.
@@ -451,6 +455,7 @@ func (c CIColor) InitWithRedGreenBlueAlphaColorSpace(red float64, green float64,
 	rv := objc.Send[CIColor](c.ID, objc.Sel("initWithRed:green:blue:alpha:colorSpace:"), red, green, blue, alpha, colorSpace)
 	return rv
 }
+
 // Initialize a Core Image color object in the sRGB color space with the
 // specified red, green, and blue component values.
 //
@@ -461,11 +466,11 @@ func (c CIColor) InitWithRedGreenBlueAlphaColorSpace(red float64, green float64,
 // blue: The color’s unpremultiplied blue component value between 0 and 1.
 //
 // # Return Value
-// 
+//
 // An initialized [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // On macOS before 10.10, the CIColor’s color space will be Generic RGB.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/initWithRed:green:blue:
@@ -487,11 +492,11 @@ func (c CIColor) EncodeWithCoder(coder foundation.INSCoder) {
 // blue: The color’s unpremultiplied blue component value between 0 and 1.
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // On macOS before 10.10, the CIColor’s color space will be Generic RGB.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/init(red:green:blue:)
@@ -499,10 +504,11 @@ func (_CIColorClass CIColorClass) ColorWithRedGreenBlue(red float64, green float
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("colorWithRed:green:blue:"), red, green, blue)
 	return CIColorFromID(rv)
 }
+
 // Create a Core Image color object with a Core Graphics color object.
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIColor] instance.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/colorWithCGColor:
@@ -510,6 +516,7 @@ func (_CIColorClass CIColorClass) ColorWithCGColor(color coregraphics.CGColorRef
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("colorWithCGColor:"), color)
 	return CIColorFromID(rv)
 }
+
 // Create a Core Image color object in the sRGB color space with the specified
 // red, green, blue, and alpha component values.
 //
@@ -522,11 +529,11 @@ func (_CIColorClass CIColorClass) ColorWithCGColor(color coregraphics.CGColorRef
 // alpha: The color’s alpha (opacity) value between 0 and 1.
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // On macOS before 10.10, the CIColor’s color space will be Generic RGB.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/colorWithRed:green:blue:alpha:
@@ -534,6 +541,7 @@ func (_CIColorClass CIColorClass) ColorWithRedGreenBlueAlpha(red float64, green 
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("colorWithRed:green:blue:alpha:"), red, green, blue, alpha)
 	return CIColorFromID(rv)
 }
+
 // Create a Core Image color object with the specified red, green, blue, and
 // alpha component values as measured in the specified color space.
 //
@@ -548,14 +556,14 @@ func (_CIColorClass CIColorClass) ColorWithRedGreenBlueAlpha(red float64, green 
 // colorSpace: The color’s [CGColorSpace] which must have `kCGColorSpaceModelRGB`.
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // This will return `null` if the [CGColorSpace] is not
 // `kCGColorSpaceModelRGB`.
-// 
+//
 // The RGB values can be outside the `0...1` range if the [CGColorSpace] is
 // unclamped.
 //
@@ -564,6 +572,7 @@ func (_CIColorClass CIColorClass) ColorWithRedGreenBlueAlphaColorSpace(red float
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("colorWithRed:green:blue:alpha:colorSpace:"), red, green, blue, alpha, colorSpace)
 	return CIColorFromID(rv)
 }
+
 // Create a Core Image color object with the specified red, green, and blue
 // component values as measured in the specified color space.
 //
@@ -576,14 +585,14 @@ func (_CIColorClass CIColorClass) ColorWithRedGreenBlueAlphaColorSpace(red float
 // colorSpace: The color’s [CGColorSpace] which must have `kCGColorSpaceModelRGB`.
 //
 // # Return Value
-// 
+//
 // An autoreleased [CIColor] instance.
 //
 // # Discussion
-// 
+//
 // This will return `null` if the [CGColorSpace] is not
 // `kCGColorSpaceModelRGB`.
-// 
+//
 // The RGB values can be outside the `0...1` range if the [CGColorSpace] is
 // unclamped.
 //
@@ -600,10 +609,11 @@ func (c CIColor) ColorSpace() coregraphics.CGColorSpaceRef {
 	rv := objc.Send[coregraphics.CGColorSpaceRef](c.ID, objc.Sel("colorSpace"))
 	return coregraphics.CGColorSpaceRef(rv)
 }
+
 // Return a pointer to an array of [CGFloat] values including alpha.
 //
 // # Discussion
-// 
+//
 // Typically this array will contain `4` [CGFloat] values for red, green,
 // blue, and alpha. If the [CIColor] was initialized with a [CGColor] then
 // returned pointer will be the same as calling `CGColorGetComponents()`
@@ -613,12 +623,13 @@ func (c CIColor) Components() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("components"))
 	return rv
 }
+
 // Returns the color components of the color including alpha.
 //
 // # Discussion
-// 
+//
 // This number includes the alpha component if the color contains one.
-// 
+//
 // Typically this number will be `4` for red, green, blue, and alpha. If the
 // [CIColor] was initialized with a [CGColor] then the number will be the same
 // as calling `CGColorGetNumberOfComponents()`
@@ -628,10 +639,11 @@ func (c CIColor) NumberOfComponents() uintptr {
 	rv := objc.Send[uintptr](c.ID, objc.Sel("numberOfComponents"))
 	return rv
 }
+
 // Returns the unpremultiplied red component of the color.
 //
 // # Discussion
-// 
+//
 // If the [CIColor] was initialized with a [CGColor] in a non-RGB
 // [CGColorSpace] then it will be converted to sRGB to get the red component.
 //
@@ -640,10 +652,11 @@ func (c CIColor) Red() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("red"))
 	return rv
 }
+
 // Returns the unpremultiplied green component of the color.
 //
 // # Discussion
-// 
+//
 // If the [CIColor] was initialized with a [CGColor] in a non-RGB
 // [CGColorSpace] then it will be converted to sRGB to get the green
 // component.
@@ -653,10 +666,11 @@ func (c CIColor) Green() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("green"))
 	return rv
 }
+
 // Returns the unpremultiplied blue component of the color.
 //
 // # Discussion
-// 
+//
 // If the [CIColor] was initialized with a [CGColor] in a non-RGB
 // [CGColorSpace] then it will be converted to sRGB to get the green
 // component.
@@ -666,6 +680,7 @@ func (c CIColor) Blue() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("blue"))
 	return rv
 }
+
 // Returns the alpha value of the color.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColor/alpha
@@ -673,25 +688,26 @@ func (c CIColor) Alpha() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("alpha"))
 	return rv
 }
+
 // Returns a formatted string with the unpremultiplied color and alpha
 // components of the color.
 //
 // # Discussion
-// 
+//
 // The string representation always has four components: red, green, blue, and
 // alpha.
-// 
+//
 // Some example string representations of colors:
-// 
+//
 // [Table data omitted]
-// 
+//
 // To create a [CIColor] instance from a string representation, use the
 // [ColorWithString] method.
-// 
+//
 // If the [CIColor] was initialized with a [CGColor] in a non-RGB
 // [CGColorSpace] then it will be converted to sRGB to get the red, green, and
 // blue components.
-// 
+//
 // This property is not KVO-safe because it returns a new [NSString] instance
 // each time. The value of the [NSString] will be the same each time it is
 // called.
@@ -710,6 +726,7 @@ func (_CIColorClass CIColorClass) BlackColor() CIColor {
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("blackColor"))
 	return CIColorFromID(objc.ID(rv))
 }
+
 // Returns a singleton Core Image color instance in the sRGB color space with
 // RGB values `0,0,1` and alpha value `1`.
 //
@@ -718,6 +735,7 @@ func (_CIColorClass CIColorClass) BlueColor() CIColor {
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("blueColor"))
 	return CIColorFromID(objc.ID(rv))
 }
+
 // Returns a singleton Core Image color instance in the sRGB color space with
 // RGB values `0,0,0` and alpha value `0`.
 //
@@ -726,6 +744,7 @@ func (_CIColorClass CIColorClass) ClearColor() CIColor {
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("clearColor"))
 	return CIColorFromID(objc.ID(rv))
 }
+
 // Returns a singleton Core Image color instance in the sRGB color space with
 // RGB values `0,1,1` and alpha value `1`.
 //
@@ -734,6 +753,7 @@ func (_CIColorClass CIColorClass) CyanColor() CIColor {
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("cyanColor"))
 	return CIColorFromID(objc.ID(rv))
 }
+
 // Returns a singleton Core Image color instance in the sRGB color space with
 // RGB values `0.5,0.5,0.5` and alpha value `1`.
 //
@@ -742,6 +762,7 @@ func (_CIColorClass CIColorClass) GrayColor() CIColor {
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("grayColor"))
 	return CIColorFromID(objc.ID(rv))
 }
+
 // Returns a singleton Core Image color instance in the sRGB color space with
 // RGB values `0,1,0` and alpha value `1`.
 //
@@ -750,6 +771,7 @@ func (_CIColorClass CIColorClass) GreenColor() CIColor {
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("greenColor"))
 	return CIColorFromID(objc.ID(rv))
 }
+
 // Returns a singleton Core Image color instance in the sRGB color space with
 // RGB values `1,0,1` and alpha value `1`.
 //
@@ -758,6 +780,7 @@ func (_CIColorClass CIColorClass) MagentaColor() CIColor {
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("magentaColor"))
 	return CIColorFromID(objc.ID(rv))
 }
+
 // Returns a singleton Core Image color instance in the sRGB color space with
 // RGB values `1,0,0` and alpha value `1`.
 //
@@ -766,6 +789,7 @@ func (_CIColorClass CIColorClass) RedColor() CIColor {
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("redColor"))
 	return CIColorFromID(objc.ID(rv))
 }
+
 // Returns a singleton Core Image color instance in the sRGB color space with
 // RGB values `1,1,1` and alpha value `1`.
 //
@@ -774,6 +798,7 @@ func (_CIColorClass CIColorClass) WhiteColor() CIColor {
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("whiteColor"))
 	return CIColorFromID(objc.ID(rv))
 }
+
 // Returns a singleton Core Image color instance in the sRGB color space with
 // RGB values `1,1,0` and alpha value `1`.
 //
@@ -782,4 +807,3 @@ func (_CIColorClass CIColorClass) YellowColor() CIColor {
 	rv := objc.Send[objc.ID](objc.ID(_CIColorClass.class), objc.Sel("yellowColor"))
 	return CIColorFromID(objc.ID(rv))
 }
-

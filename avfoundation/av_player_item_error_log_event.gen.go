@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,15 +46,13 @@ func (ac AVPlayerItemErrorLogEventClass) Alloc() AVPlayerItemErrorLogEvent {
 // A single item in a player item’s error log.
 //
 // # Overview
-// 
+//
 // This object provides properties for accessing the data fields of each log
 // event. Each event is a single entry in an [AVPlayerItem] object’s error
 // log.
-// 
+//
 // These properties aren’t observable. For more information about key-value
 // observing, see [Using Key-Value Observing in Swift].
-//
-// [Using Key-Value Observing in Swift]: https://developer.apple.com/documentation/Swift/using-key-value-observing-in-swift
 //
 // # Getting information about the event
 //
@@ -67,6 +66,8 @@ func (ac AVPlayerItemErrorLogEventClass) Alloc() AVPlayerItemErrorLogEvent {
 //   - [AVPlayerItemErrorLogEvent.AllHTTPResponseHeaderFields]: The HTTP header fields the server returns.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemErrorLogEvent
+//
+// [Using Key-Value Observing in Swift]: https://developer.apple.com/documentation/Swift/using-key-value-observing-in-swift
 type AVPlayerItemErrorLogEvent struct {
 	objectivec.Object
 }
@@ -77,6 +78,7 @@ type AVPlayerItemErrorLogEvent struct {
 func AVPlayerItemErrorLogEventFromID(id objc.ID) AVPlayerItemErrorLogEvent {
 	return AVPlayerItemErrorLogEvent{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlayerItemErrorLogEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -139,9 +141,9 @@ func NewAVPlayerItemErrorLogEvent() AVPlayerItemErrorLogEvent {
 // The date and time when the error occurred.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “date”.
-// 
+//
 // The value of this property may be `nil` if the date is unknown.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemErrorLogEvent/date
@@ -149,12 +151,13 @@ func (p AVPlayerItemErrorLogEvent) Date() foundation.INSDate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("date"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
+
 // The URI of the playback item that had an error.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “uri”.
-// 
+//
 // The value of this property may be `nil` if the URI is unknown.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemErrorLogEvent/uri
@@ -162,12 +165,13 @@ func (p AVPlayerItemErrorLogEvent) URI() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URI"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The IP address of the server that was the source of the error.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “s-ip”.
-// 
+//
 // The value of this property can be either an IPv4 or IPv6 address, and may
 // be `nil` if the address is unknown.
 //
@@ -176,12 +180,13 @@ func (p AVPlayerItemErrorLogEvent) ServerAddress() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("serverAddress"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A GUID that identifies the playback session that had an error.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “cs-guid”.
-// 
+//
 // The value of this property is used in HTTP requests, and may be `nil` if
 // the GUID is unknown.
 //
@@ -190,10 +195,11 @@ func (p AVPlayerItemErrorLogEvent) PlaybackSessionID() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("playbackSessionID"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A unique error code identifier.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “status”.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemErrorLogEvent/errorStatusCode
@@ -201,10 +207,11 @@ func (p AVPlayerItemErrorLogEvent) ErrorStatusCode() int {
 	rv := objc.Send[int](p.ID, objc.Sel("errorStatusCode"))
 	return rv
 }
+
 // The domain of the error.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “domain”.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemErrorLogEvent/errorDomain
@@ -212,12 +219,13 @@ func (p AVPlayerItemErrorLogEvent) ErrorDomain() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("errorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A description of the error encountered.
 //
 // # Discussion
-// 
+//
 // The property corresponds to “comment”.
-// 
+//
 // The value of this property may be `nil` if further information is not
 // available.
 //
@@ -226,6 +234,7 @@ func (p AVPlayerItemErrorLogEvent) ErrorComment() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("errorComment"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The HTTP header fields the server returns.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemErrorLogEvent/allHTTPResponseHeaderFields
@@ -233,4 +242,3 @@ func (p AVPlayerItemErrorLogEvent) AllHTTPResponseHeaderFields() foundation.INSD
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("allHTTPResponseHeaderFields"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-

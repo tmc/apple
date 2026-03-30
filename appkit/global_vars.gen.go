@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"unsafe"
+
 	"github.com/ebitengine/purego"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // NSModalResponse values.
@@ -992,6 +993,29 @@ var (
 )
 
 var (
+	// AboutPanelOptionApplicationIcon is the icon to display for the app in the About panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/AboutPanelOptionKey/applicationIcon
+	AboutPanelOptionApplicationIcon NSAboutPanelOptionKey
+	// AboutPanelOptionApplicationName is the name of the application to display in the About panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/AboutPanelOptionKey/applicationName
+	AboutPanelOptionApplicationName NSAboutPanelOptionKey
+	// AboutPanelOptionApplicationVersion is the version information to display in the About panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/AboutPanelOptionKey/applicationVersion
+	AboutPanelOptionApplicationVersion NSAboutPanelOptionKey
+	// AboutPanelOptionCredits is the credits string to display in the About panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/AboutPanelOptionKey/credits
+	AboutPanelOptionCredits NSAboutPanelOptionKey
+	// AboutPanelOptionVersion is the version number to display in the About panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/AboutPanelOptionKey/version
+	AboutPanelOptionVersion NSAboutPanelOptionKey
+)
+
+var (
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/activationPoint
 	AccessibilityActivationPointAttribute string
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/alternateUIVisible
@@ -1140,8 +1164,10 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/incrementButton
 	AccessibilityIncrementButtonAttribute string
-	// See: https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/attribute/index
-	NSAccessibilityIndexAttribute string
+	// AccessibilityIndexAttribute is the index of the row or column represented by the element ([NSValue]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/index
+	AccessibilityIndexAttribute string
 	// AccessibilityLabelUIElementsAttribute is the elements that represent the slider’s labels ([NSArray]).
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/labelUIElements
@@ -1476,8 +1502,16 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/animationDelay
 	AnimationDelayBinding string
-	// See: https://developer.apple.com/documentation/appkit/nsanimation/progressmarkuserinfokey
-	NSAnimationProgressMark foundation.NSString
+	// See: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkUserInfoKey
+	AnimationProgressMark string
+	// ApplicationLaunchIsDefaultLaunchKey is a Boolean value that indicates if the app launch is a default launch.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/launchIsDefaultUserInfoKey
+	ApplicationLaunchIsDefaultLaunchKey string
+	// ApplicationLaunchUserNotificationKey is a key that indicates your app was launched because a user activated a notification in the Notification Center.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/launchUserNotificationUserInfoKey
+	ApplicationLaunchUserNotificationKey string
 	// ArgumentBinding is a constant that identifies an argument binding.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/argument
@@ -1486,6 +1520,14 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/attributedString
 	AttributedStringBinding string
+	// BackingPropertyOldColorSpaceKey is an [NSColorSpace] instance containing the old colorspace.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/oldColorSpaceUserInfoKey
+	BackingPropertyOldColorSpaceKey string
+	// BackingPropertyOldScaleFactorKey is an NSNumber containing the old scale factor.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/oldScaleFactorUserInfoKey
+	BackingPropertyOldScaleFactorKey string
 	// ContentArrayBinding is a constant that identifies a content array binding.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/contentArray
@@ -1614,130 +1656,6 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/image
 	ImageBinding string
-	// See: https://developer.apple.com/documentation/appkit/nsimage/actiontemplatename
-	NSImageNameActionTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/addtemplatename
-	NSImageNameAddTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/advancedname
-	NSImageNameAdvanced foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/applicationiconname
-	NSImageNameApplicationIcon foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/bluetoothtemplatename
-	NSImageNameBluetoothTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/bonjourname
-	NSImageNameBonjour foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/bookmarkstemplatename
-	NSImageNameBookmarksTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/cautionname
-	NSImageNameCaution foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/colorpanelname
-	NSImageNameColorPanel foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/columnviewtemplatename
-	NSImageNameColumnViewTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/computername
-	NSImageNameComputer foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/enterfullscreentemplatename
-	NSImageNameEnterFullScreenTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/everyonename
-	NSImageNameEveryone foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/exitfullscreentemplatename
-	NSImageNameExitFullScreenTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/flowviewtemplatename
-	NSImageNameFlowViewTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/foldername
-	NSImageNameFolder foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/folderburnablename
-	NSImageNameFolderBurnable foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/foldersmartname
-	NSImageNameFolderSmart foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/followlinkfreestandingtemplatename
-	NSImageNameFollowLinkFreestandingTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/fontpanelname
-	NSImageNameFontPanel foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/gobacktemplatename
-	NSImageNameGoBackTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/goforwardtemplatename
-	NSImageNameGoForwardTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/golefttemplatename
-	NSImageNameGoLeftTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/gorighttemplatename
-	NSImageNameGoRightTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/hometemplatename
-	NSImageNameHomeTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/ichattheatertemplatename
-	NSImageNameIChatTheaterTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/iconviewtemplatename
-	NSImageNameIconViewTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/infoname
-	NSImageNameInfo foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/invaliddatafreestandingtemplatename
-	NSImageNameInvalidDataFreestandingTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/leftfacingtriangletemplatename
-	NSImageNameLeftFacingTriangleTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/listviewtemplatename
-	NSImageNameListViewTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/locklockedtemplatename
-	NSImageNameLockLockedTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/lockunlockedtemplatename
-	NSImageNameLockUnlockedTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/menumixedstatetemplatename
-	NSImageNameMenuMixedStateTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/menuonstatetemplatename
-	NSImageNameMenuOnStateTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/mobilemename
-	NSImageNameMobileMe foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/multipledocumentsname
-	NSImageNameMultipleDocuments foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/networkname
-	NSImageNameNetwork foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/pathtemplatename
-	NSImageNamePathTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/preferencesgeneralname
-	NSImageNamePreferencesGeneral foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/quicklooktemplatename
-	NSImageNameQuickLookTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/refreshfreestandingtemplatename
-	NSImageNameRefreshFreestandingTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/refreshtemplatename
-	NSImageNameRefreshTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/removetemplatename
-	NSImageNameRemoveTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/revealfreestandingtemplatename
-	NSImageNameRevealFreestandingTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/rightfacingtriangletemplatename
-	NSImageNameRightFacingTriangleTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/sharetemplatename
-	NSImageNameShareTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/slideshowtemplatename
-	NSImageNameSlideshowTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/smartbadgetemplatename
-	NSImageNameSmartBadgeTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/statusavailablename
-	NSImageNameStatusAvailable foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/statusnonename
-	NSImageNameStatusNone foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/statuspartiallyavailablename
-	NSImageNameStatusPartiallyAvailable foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/statusunavailablename
-	NSImageNameStatusUnavailable foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/stopprogressfreestandingtemplatename
-	NSImageNameStopProgressFreestandingTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/stopprogresstemplatename
-	NSImageNameStopProgressTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/touchbarremovetemplatename
-	NSImageNameTouchBarRemoveTemplate foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/trashemptyname
-	NSImageNameTrashEmpty foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/trashfullname
-	NSImageNameTrashFull foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/username
-	NSImageNameUser foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/useraccountsname
-	NSImageNameUserAccounts foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/usergroupname
-	NSImageNameUserGroup foundation.NSString
-	// See: https://developer.apple.com/documentation/appkit/nsimage/userguestname
-	NSImageNameUserGuest foundation.NSString
 	// IncludedKeysBinding is a constant that identifies an included keys binding.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/includedKeys
@@ -1926,8 +1844,10 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/width
 	WidthBinding string
-	// See: https://developer.apple.com/documentation/appkit/nsworkspace/applicationuserinfokey
-	NSWorkspaceApplicationKey foundation.NSString
+	// WorkspaceApplicationKey is the value corresponding to this key is an instance of [NSRunningApplication] that reflects the affected app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/applicationUserInfoKey
+	WorkspaceApplicationKey string
 	// WorkspaceVolumeLocalizedNameKey is a string containing the user-visible name of the volume.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/localizedVolumeNameUserInfoKey
@@ -1977,7 +1897,7 @@ var (
 )
 
 var (
-	// AccessibilityAnnouncementRequestedNotification is this notification is posted whenever an accessibility element needs to make an announcement to the user. This notification requires a `userInfo` dictionary with the key [announcement] and a localized string containing the announcement. To help an assistive app determine the importance of the announcement, add the appropriate [priority] to the `userInfo` dictionary.
+	// AccessibilityAnnouncementRequestedNotification is this notification posts when an app needs to make an announcement to the user. If VoiceOver is enabled, it’s presented via speech and/or braille. Otherwise, it does nothing.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/announcementRequested
 	AccessibilityAnnouncementRequestedNotification NSAccessibilityNotificationName
@@ -2890,8 +2810,7 @@ var (
 	App NSApplication
 )
 
-var (
-)
+var ()
 
 var (
 	// AppearanceDocumentAttribute is the appearance of the document.
@@ -3046,8 +2965,7 @@ var (
 	ViewZoomDocumentAttribute NSAttributedStringDocumentAttributeKey
 )
 
-var (
-)
+var ()
 
 var (
 	// BaseURLDocumentOption is the base URL for HTML documents.
@@ -3111,6 +3029,10 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDarkGray
 	DarkGray float64
+	// FontIdentityMatrix is the identify matrix for the font.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFont/identityMatrix
+	FontIdentityMatrix float64
 	// GridViewSizeForContent is the default value for row and column sizes.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSGridView/sizedForContent
@@ -3127,8 +3049,10 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/unspecifiedDimension
 	SplitViewItemUnspecifiedDimension float64
-	// See: https://developer.apple.com/documentation/appkit/nsview/nointrinsicmetric
-	NSViewNoIntrinsicMetric float64
+	// ViewNoIntrinsicMetric is a value that tells the layout system to ignore the intrinsic size value for a given dimension.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/noIntrinsicMetric
+	ViewNoIntrinsicMetric float64
 	// White is a constant that specifies the white shade in the 2-bit deep grayscale color space.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSWhite
@@ -3183,6 +3107,15 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionView/elementKindSectionHeader
 	CollectionElementKindSectionHeader NSCollectionViewSupplementaryElementKind
+)
+
+var ()
+
+var (
+	// DefinitionPresentationTypeKey is an optional key in the options dictionary that specifies the presentation type of the definition display.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/DefinitionOptionKey/presentationType
+	DefinitionPresentationTypeKey NSDefinitionOptionKey
 )
 
 var (
@@ -3418,8 +3351,7 @@ var (
 	FontCollectionWasShown NSFontCollectionActionTypeKey
 )
 
-var (
-)
+var ()
 
 var (
 	// FontFeatureSelectorIdentifierKey is a key that indicates the selector of the font feature.
@@ -3430,11 +3362,6 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/FeatureKey/typeIdentifier
 	FontFeatureTypeIdentifierKey NSFontDescriptorFeatureKey
-)
-
-var (
-	// See: https://developer.apple.com/documentation/appkit/nsfont/identitymatrix
-	NSFontIdentityMatrix unsafe.Pointer
 )
 
 var (
@@ -3456,8 +3383,7 @@ var (
 	FontWidthTrait NSFontDescriptorTraitKey
 )
 
-var (
-)
+var ()
 
 var (
 	// FontVariationAxisDefaultValueKey is the default axis value as a number object.
@@ -3482,10 +3408,27 @@ var (
 	FontVariationAxisNameKey NSFontDescriptorVariationKey
 )
 
-var (
-)
+var ()
+
+var ()
 
 var (
+	// FullScreenModeAllScreens is key whose corresponding value specifies whether the view should take over all screens.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/FullScreenModeOptionKey/fullScreenModeAllScreens
+	FullScreenModeAllScreens NSViewFullScreenModeOptionKey
+	// FullScreenModeApplicationPresentationOptions is key whose corresponding value specifies the application presentation options.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/FullScreenModeOptionKey/fullScreenModeApplicationPresentationOptions
+	FullScreenModeApplicationPresentationOptions NSViewFullScreenModeOptionKey
+	// FullScreenModeSetting is key whose corresponding value specifies the full screen mode setting.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/FullScreenModeOptionKey/fullScreenModeSetting
+	FullScreenModeSetting NSViewFullScreenModeOptionKey
+	// FullScreenModeWindowLevel is key whose corresponding value specifies the screen mode window level.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/FullScreenModeOptionKey/fullScreenModeWindowLevel
+	FullScreenModeWindowLevel NSViewFullScreenModeOptionKey
 )
 
 var (
@@ -3575,29 +3518,43 @@ var (
 	ImageHintUserInterfaceLayoutDirection NSImageHintKey
 )
 
-var (
-)
+var ()
 
 var (
 	// MenuItemImportFromDeviceIdentifier is the identifier for a Continuity Camera menu item, which takes pictures or scans documents using an iOS device.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSMenuItem/importFromDeviceIdentifier
 	MenuItemImportFromDeviceIdentifier NSUserInterfaceItemIdentifier
-	// See: https://developer.apple.com/documentation/appkit/nsoutlineview/disclosurebuttonidentifier
-	NSOutlineViewDisclosureButtonKey NSUserInterfaceItemIdentifier
-	// See: https://developer.apple.com/documentation/appkit/nsoutlineview/showhidebuttonidentifier
-	NSOutlineViewShowHideButtonKey NSUserInterfaceItemIdentifier
-	// See: https://developer.apple.com/documentation/appkit/nstableview/rowviewidentifier
-	NSTableViewRowViewKey NSUserInterfaceItemIdentifier
+	// OutlineViewDisclosureButtonKey is the normal triangle disclosure button.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/disclosureButtonIdentifier
+	OutlineViewDisclosureButtonKey NSUserInterfaceItemIdentifier
+	// OutlineViewShowHideButtonKey is the Show/Hide button.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/showHideButtonIdentifier
+	OutlineViewShowHideButtonKey NSUserInterfaceItemIdentifier
+	// TableViewRowViewKey is the key associated with the identifier in the nib file containing the template row view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTableView/rowViewIdentifier
+	TableViewRowViewKey NSUserInterfaceItemIdentifier
 )
 
 var (
-	// See: https://developer.apple.com/documentation/appkit/nsbindinginfokey/options
-	NSOptionsKey NSBindingInfoKey
+	// ObservedKeyPathKey is an [NSString] object containing the key path of the binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingInfoKey/observedKeyPath
+	ObservedKeyPathKey NSBindingInfoKey
+	// ObservedObjectKey is the object that is the observable controller of the binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingInfoKey/observedObject
+	ObservedObjectKey NSBindingInfoKey
+	// OptionsKey is an [NSDictionary] object containing key value pairs as specified in the options dictionary when the binding was created.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingInfoKey/options
+	OptionsKey NSBindingInfoKey
 )
 
-var (
-)
+var ()
 
 var (
 	// PasteboardMetadataTypeContentType is a metadata type that returns the content type if the pasteboard detects a reference to a file.
@@ -3606,8 +3563,7 @@ var (
 	PasteboardMetadataTypeContentType NSPasteboardMetadataType
 )
 
-var (
-)
+var ()
 
 var (
 	// PasteboardURLReadingContentsConformToTypesKey is option for reading URLs to restrict the results to URLs with contents that conform to any of the provided UTI types.
@@ -3841,11 +3797,9 @@ var (
 	RulerViewUnitPoints NSRulerViewUnitName
 )
 
-var (
-)
+var ()
 
-var (
-)
+var ()
 
 var (
 	// SpeechCharacterModeProperty is get or set the synthesizer’s current text-processing mode.
@@ -3975,8 +3929,7 @@ var (
 	SpeechErrorOldestCode NSSpeechErrorKey
 )
 
-var (
-)
+var ()
 
 var (
 	// SpeechPhonemeInfoExample is an example word that illustrates the use of the phoneme.
@@ -4079,8 +4032,7 @@ var (
 	TextCheckingSelectedRangeKey NSTextCheckingOptionKey
 )
 
-var (
-)
+var ()
 
 var (
 	// TextEffectLetterpressStyle is a graphical text effect that gives glyphs the appearance of letterpress printing, which involves pressing the type into the paper.
@@ -4100,8 +4052,7 @@ var (
 	TextFinderMatchingTypeKey NSPasteboardTypeTextFinderOptionKey
 )
 
-var (
-)
+var ()
 
 var (
 	// TextHighlightStyleDefault is the default highlight style to apply to text.
@@ -4229,6 +4180,10 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/toggleSidebar
 	ToolbarToggleSidebarItemIdentifier NSToolbarItemIdentifier
+	// ToolbarWritingToolsItemIdentifier is a standard item that is configured to send -showWritingTools: to the firstResponder when invoked.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/writingToolsItemIdentifier
+	ToolbarWritingToolsItemIdentifier NSToolbarItemIdentifier
 )
 
 var (
@@ -4240,8 +4195,7 @@ var (
 	ToolbarNewIndexKey NSToolbarUserInfoKey
 )
 
-var (
-)
+var ()
 
 var (
 	// ViewAnimationEffectKey is an effect to apply to the animation.
@@ -4355,6 +4309,7 @@ var (
 	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/DesktopImageOptionKey/imageScaling
 	WorkspaceDesktopImageScalingKey NSWorkspaceDesktopImageOptionKey
 )
+
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -4376,6 +4331,56 @@ func init() {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
 				AbortPrintingException = foundation.NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAboutPanelOptionApplicationIcon"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AboutPanelOptionApplicationIcon = NSAboutPanelOptionKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAboutPanelOptionApplicationName"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AboutPanelOptionApplicationName = NSAboutPanelOptionKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAboutPanelOptionApplicationVersion"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AboutPanelOptionApplicationVersion = NSAboutPanelOptionKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAboutPanelOptionCredits"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AboutPanelOptionCredits = NSAboutPanelOptionKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAboutPanelOptionVersion"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AboutPanelOptionVersion = NSAboutPanelOptionKey(objc.GoString(cstr))
 			}
 		}
 	}
@@ -5765,7 +5770,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				NSAccessibilityIndexAttribute = string(objc.GoString(cstr))
+				AccessibilityIndexAttribute = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8271,7 +8276,13 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAnimationProgressMark"); err == nil && ptr != 0 {
-		NSAnimationProgressMark = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AnimationProgressMark = objc.GoString(cstr)
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAnimationProgressMarkNotification"); err == nil && ptr != 0 {
@@ -8522,6 +8533,26 @@ func init() {
 		}
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationLaunchIsDefaultLaunchKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ApplicationLaunchIsDefaultLaunchKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationLaunchUserNotificationKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ApplicationLaunchUserNotificationKey = objc.GoString(cstr)
+			}
+		}
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationProtectedDataDidBecomeAvailableNotification"); err == nil && ptr != 0 {
 		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
@@ -8688,6 +8719,26 @@ func init() {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
 				BackgroundColorDocumentAttribute = NSAttributedStringDocumentAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBackingPropertyOldColorSpaceKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				BackingPropertyOldColorSpaceKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBackingPropertyOldScaleFactorKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				BackingPropertyOldScaleFactorKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -9316,6 +9367,36 @@ func init() {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
 				DefaultTabIntervalDocumentAttribute = NSAttributedStringDocumentAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefinitionPresentationTypeDictionaryApplication"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSDefinitionPresentationTypes.DictionaryApplication = NSDefinitionPresentationType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefinitionPresentationTypeKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DefinitionPresentationTypeKey = NSDefinitionOptionKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefinitionPresentationTypeOverlay"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSDefinitionPresentationTypes.Overlay = NSDefinitionPresentationType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10005,7 +10086,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontIdentityMatrix"); err == nil && ptr != 0 {
-		NSFontIdentityMatrix = *(*unsafe.Pointer)(unsafe.Pointer(ptr))
+		FontIdentityMatrix = *(*float64)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontItalicBinding"); err == nil && ptr != 0 {
@@ -10380,6 +10461,46 @@ func init() {
 		}
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFullScreenModeAllScreens"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FullScreenModeAllScreens = NSViewFullScreenModeOptionKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFullScreenModeApplicationPresentationOptions"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FullScreenModeApplicationPresentationOptions = NSViewFullScreenModeOptionKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFullScreenModeSetting"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FullScreenModeSetting = NSViewFullScreenModeOptionKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFullScreenModeWindowLevel"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FullScreenModeWindowLevel = NSViewFullScreenModeOptionKey(objc.GoString(cstr))
+			}
+		}
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSGlyphInfoAttributeName"); err == nil && ptr != 0 {
 		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
@@ -10675,223 +10796,553 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameActionTemplate"); err == nil && ptr != 0 {
-		NSImageNameActionTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.ActionTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameAddTemplate"); err == nil && ptr != 0 {
-		NSImageNameAddTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.AddTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameAdvanced"); err == nil && ptr != 0 {
-		NSImageNameAdvanced = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.Advanced = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameApplicationIcon"); err == nil && ptr != 0 {
-		NSImageNameApplicationIcon = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.ApplicationIcon = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameBluetoothTemplate"); err == nil && ptr != 0 {
-		NSImageNameBluetoothTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.BluetoothTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameBonjour"); err == nil && ptr != 0 {
-		NSImageNameBonjour = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.Bonjour = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameBookmarksTemplate"); err == nil && ptr != 0 {
-		NSImageNameBookmarksTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.BookmarksTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameCaution"); err == nil && ptr != 0 {
-		NSImageNameCaution = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.Caution = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameColorPanel"); err == nil && ptr != 0 {
-		NSImageNameColorPanel = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.ColorPanel = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameColumnViewTemplate"); err == nil && ptr != 0 {
-		NSImageNameColumnViewTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.ColumnViewTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameComputer"); err == nil && ptr != 0 {
-		NSImageNameComputer = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.Computer = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameEnterFullScreenTemplate"); err == nil && ptr != 0 {
-		NSImageNameEnterFullScreenTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.EnterFullScreenTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameEveryone"); err == nil && ptr != 0 {
-		NSImageNameEveryone = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.Everyone = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameExitFullScreenTemplate"); err == nil && ptr != 0 {
-		NSImageNameExitFullScreenTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.ExitFullScreenTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFlowViewTemplate"); err == nil && ptr != 0 {
-		NSImageNameFlowViewTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.FlowViewTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFolder"); err == nil && ptr != 0 {
-		NSImageNameFolder = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.Folder = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFolderBurnable"); err == nil && ptr != 0 {
-		NSImageNameFolderBurnable = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.FolderBurnable = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFolderSmart"); err == nil && ptr != 0 {
-		NSImageNameFolderSmart = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.FolderSmart = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFollowLinkFreestandingTemplate"); err == nil && ptr != 0 {
-		NSImageNameFollowLinkFreestandingTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.FollowLinkFreestandingTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFontPanel"); err == nil && ptr != 0 {
-		NSImageNameFontPanel = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.FontPanel = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameGoBackTemplate"); err == nil && ptr != 0 {
-		NSImageNameGoBackTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.GoBackTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameGoForwardTemplate"); err == nil && ptr != 0 {
-		NSImageNameGoForwardTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.GoForwardTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameGoLeftTemplate"); err == nil && ptr != 0 {
-		NSImageNameGoLeftTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.GoLeftTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameGoRightTemplate"); err == nil && ptr != 0 {
-		NSImageNameGoRightTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.GoRightTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameHomeTemplate"); err == nil && ptr != 0 {
-		NSImageNameHomeTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.HomeTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameIChatTheaterTemplate"); err == nil && ptr != 0 {
-		NSImageNameIChatTheaterTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.IChatTheaterTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameIconViewTemplate"); err == nil && ptr != 0 {
-		NSImageNameIconViewTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.IconViewTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameInfo"); err == nil && ptr != 0 {
-		NSImageNameInfo = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.Info = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameInvalidDataFreestandingTemplate"); err == nil && ptr != 0 {
-		NSImageNameInvalidDataFreestandingTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.InvalidDataFreestandingTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameLeftFacingTriangleTemplate"); err == nil && ptr != 0 {
-		NSImageNameLeftFacingTriangleTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.LeftFacingTriangleTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameListViewTemplate"); err == nil && ptr != 0 {
-		NSImageNameListViewTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.ListViewTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameLockLockedTemplate"); err == nil && ptr != 0 {
-		NSImageNameLockLockedTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.LockLockedTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameLockUnlockedTemplate"); err == nil && ptr != 0 {
-		NSImageNameLockUnlockedTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.LockUnlockedTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameMenuMixedStateTemplate"); err == nil && ptr != 0 {
-		NSImageNameMenuMixedStateTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.MenuMixedStateTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameMenuOnStateTemplate"); err == nil && ptr != 0 {
-		NSImageNameMenuOnStateTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.MenuOnStateTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameMobileMe"); err == nil && ptr != 0 {
-		NSImageNameMobileMe = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.MobileMe = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameMultipleDocuments"); err == nil && ptr != 0 {
-		NSImageNameMultipleDocuments = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.MultipleDocuments = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameNetwork"); err == nil && ptr != 0 {
-		NSImageNameNetwork = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.Network = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNamePathTemplate"); err == nil && ptr != 0 {
-		NSImageNamePathTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.PathTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNamePreferencesGeneral"); err == nil && ptr != 0 {
-		NSImageNamePreferencesGeneral = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.PreferencesGeneral = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameQuickLookTemplate"); err == nil && ptr != 0 {
-		NSImageNameQuickLookTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.QuickLookTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameRefreshFreestandingTemplate"); err == nil && ptr != 0 {
-		NSImageNameRefreshFreestandingTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.RefreshFreestandingTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameRefreshTemplate"); err == nil && ptr != 0 {
-		NSImageNameRefreshTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.RefreshTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameRemoveTemplate"); err == nil && ptr != 0 {
-		NSImageNameRemoveTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.RemoveTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameRevealFreestandingTemplate"); err == nil && ptr != 0 {
-		NSImageNameRevealFreestandingTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.RevealFreestandingTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameRightFacingTriangleTemplate"); err == nil && ptr != 0 {
-		NSImageNameRightFacingTriangleTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.RightFacingTriangleTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameShareTemplate"); err == nil && ptr != 0 {
-		NSImageNameShareTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.ShareTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameSlideshowTemplate"); err == nil && ptr != 0 {
-		NSImageNameSlideshowTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.SlideshowTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameSmartBadgeTemplate"); err == nil && ptr != 0 {
-		NSImageNameSmartBadgeTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.SmartBadgeTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStatusAvailable"); err == nil && ptr != 0 {
-		NSImageNameStatusAvailable = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.StatusAvailable = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStatusNone"); err == nil && ptr != 0 {
-		NSImageNameStatusNone = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.StatusNone = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStatusPartiallyAvailable"); err == nil && ptr != 0 {
-		NSImageNameStatusPartiallyAvailable = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.StatusPartiallyAvailable = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStatusUnavailable"); err == nil && ptr != 0 {
-		NSImageNameStatusUnavailable = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.StatusUnavailable = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStopProgressFreestandingTemplate"); err == nil && ptr != 0 {
-		NSImageNameStopProgressFreestandingTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.StopProgressFreestandingTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStopProgressTemplate"); err == nil && ptr != 0 {
-		NSImageNameStopProgressTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.StopProgressTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAddDetailTemplate"); err == nil && ptr != 0 {
@@ -11345,7 +11796,13 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarRemoveTemplate"); err == nil && ptr != 0 {
-		NSImageNameTouchBarRemoveTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.TouchBarRemoveTemplate = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarRewindTemplate"); err == nil && ptr != 0 {
@@ -11659,27 +12116,63 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTrashEmpty"); err == nil && ptr != 0 {
-		NSImageNameTrashEmpty = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.TrashEmpty = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTrashFull"); err == nil && ptr != 0 {
-		NSImageNameTrashFull = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.TrashFull = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameUser"); err == nil && ptr != 0 {
-		NSImageNameUser = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.User = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameUserAccounts"); err == nil && ptr != 0 {
-		NSImageNameUserAccounts = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.UserAccounts = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameUserGroup"); err == nil && ptr != 0 {
-		NSImageNameUserGroup = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.UserGroup = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameUserGuest"); err == nil && ptr != 0 {
-		NSImageNameUserGuest = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSImageNames.UserGuest = NSImageName(objc.GoString(cstr))
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageProgressive"); err == nil && ptr != 0 {
@@ -12116,6 +12609,26 @@ func init() {
 		}
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSObservedKeyPathKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ObservedKeyPathKey = NSBindingInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSObservedObjectKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ObservedObjectKey = NSBindingInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOffStateImageBinding"); err == nil && ptr != 0 {
 		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
@@ -12161,7 +12674,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				NSOptionsKey = NSBindingInfoKey(objc.GoString(cstr))
+				OptionsKey = NSBindingInfoKey(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12191,7 +12704,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				NSOutlineViewDisclosureButtonKey = NSUserInterfaceItemIdentifier(objc.GoString(cstr))
+				OutlineViewDisclosureButtonKey = NSUserInterfaceItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12261,7 +12774,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				NSOutlineViewShowHideButtonKey = NSUserInterfaceItemIdentifier(objc.GoString(cstr))
+				OutlineViewShowHideButtonKey = NSUserInterfaceItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14467,7 +14980,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				NSTableViewRowViewKey = NSUserInterfaceItemIdentifier(objc.GoString(cstr))
+				TableViewRowViewKey = NSUserInterfaceItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -15822,6 +16335,16 @@ func init() {
 		}
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarWritingToolsItemIdentifier"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ToolbarWritingToolsItemIdentifier = NSToolbarItemIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTopMarginDocumentAttribute"); err == nil && ptr != 0 {
 		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
@@ -16213,7 +16736,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewNoIntrinsicMetric"); err == nil && ptr != 0 {
-		NSViewNoIntrinsicMetric = *(*float64)(unsafe.Pointer(ptr))
+		ViewNoIntrinsicMetric = *(*float64)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewSizeDocumentAttribute"); err == nil && ptr != 0 {
@@ -16771,7 +17294,13 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceApplicationKey"); err == nil && ptr != 0 {
-		NSWorkspaceApplicationKey = *(*foundation.NSString)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				WorkspaceApplicationKey = objc.GoString(cstr)
+			}
+		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDesktopImageAllowClippingKey"); err == nil && ptr != 0 {
@@ -17063,37 +17592,37 @@ var NSAppKitVersions struct {
 	// Number10_0: The AppKit framework included in OS X v10.0.
 	Number10_0 NSAppKitVersion
 	// Number10_1: The AppKit framework included in OS X v10.1.
-	Number10_1 NSAppKitVersion
-	Number10_10 NSAppKitVersion
-	Number10_10_2 NSAppKitVersion
-	Number10_10_3 NSAppKitVersion
-	Number10_10_4 NSAppKitVersion
-	Number10_10_5 NSAppKitVersion
+	Number10_1      NSAppKitVersion
+	Number10_10     NSAppKitVersion
+	Number10_10_2   NSAppKitVersion
+	Number10_10_3   NSAppKitVersion
+	Number10_10_4   NSAppKitVersion
+	Number10_10_5   NSAppKitVersion
 	Number10_10_Max NSAppKitVersion
-	Number10_11 NSAppKitVersion
-	Number10_11_1 NSAppKitVersion
-	Number10_11_2 NSAppKitVersion
-	Number10_11_3 NSAppKitVersion
-	Number10_12 NSAppKitVersion
-	Number10_12_1 NSAppKitVersion
-	Number10_12_2 NSAppKitVersion
-	Number10_13 NSAppKitVersion
-	Number10_13_1 NSAppKitVersion
-	Number10_13_2 NSAppKitVersion
-	Number10_13_4 NSAppKitVersion
-	Number10_14 NSAppKitVersion
-	Number10_14_1 NSAppKitVersion
-	Number10_14_2 NSAppKitVersion
-	Number10_14_3 NSAppKitVersion
-	Number10_14_4 NSAppKitVersion
-	Number10_14_5 NSAppKitVersion
-	Number10_15 NSAppKitVersion
-	Number10_15_1 NSAppKitVersion
-	Number10_15_2 NSAppKitVersion
-	Number10_15_3 NSAppKitVersion
-	Number10_15_4 NSAppKitVersion
-	Number10_15_5 NSAppKitVersion
-	Number10_15_6 NSAppKitVersion
+	Number10_11     NSAppKitVersion
+	Number10_11_1   NSAppKitVersion
+	Number10_11_2   NSAppKitVersion
+	Number10_11_3   NSAppKitVersion
+	Number10_12     NSAppKitVersion
+	Number10_12_1   NSAppKitVersion
+	Number10_12_2   NSAppKitVersion
+	Number10_13     NSAppKitVersion
+	Number10_13_1   NSAppKitVersion
+	Number10_13_2   NSAppKitVersion
+	Number10_13_4   NSAppKitVersion
+	Number10_14     NSAppKitVersion
+	Number10_14_1   NSAppKitVersion
+	Number10_14_2   NSAppKitVersion
+	Number10_14_3   NSAppKitVersion
+	Number10_14_4   NSAppKitVersion
+	Number10_14_5   NSAppKitVersion
+	Number10_15     NSAppKitVersion
+	Number10_15_1   NSAppKitVersion
+	Number10_15_2   NSAppKitVersion
+	Number10_15_3   NSAppKitVersion
+	Number10_15_4   NSAppKitVersion
+	Number10_15_5   NSAppKitVersion
+	Number10_15_6   NSAppKitVersion
 	// Number10_2: The AppKit framework included in OS X v10.2.
 	Number10_2 NSAppKitVersion
 	// Number10_2_3: The AppKit framework included in OS X v10.2.3.
@@ -17208,6 +17737,14 @@ var NSControlStateValues struct {
 	On NSControlStateValue
 }
 
+// NSDefinitionPresentationTypes provides typed accessors for [NSDefinitionPresentationType] constants.
+var NSDefinitionPresentationTypes struct {
+	// DictionaryApplication: A possible value of the [presentationType](<doc://com.apple.appkit/documentation/AppKit/NSView/DefinitionOptionKey/presentationType>) dictionary key that invokes Dictionary application to display the definition.
+	DictionaryApplication NSDefinitionPresentationType
+	// Overlay: A possible value of the [presentationType](<doc://com.apple.appkit/documentation/AppKit/NSView/DefinitionOptionKey/presentationType>) dictionary key that produces a small overlay window at the string location,
+	Overlay NSDefinitionPresentationType
+}
+
 // NSFontDescriptorSystemDesigns provides typed accessors for [NSFontDescriptorSystemDesign] constants.
 var NSFontDescriptorSystemDesigns struct {
 	// Default: The default font design.
@@ -17271,13 +17808,123 @@ var NSFontWeights struct {
 // NSFontWidths provides typed accessors for [NSFontWidth] constants.
 var NSFontWidths struct {
 	Compressed NSFontWidth
-	Condensed NSFontWidth
-	Expanded NSFontWidth
-	Standard NSFontWidth
+	Condensed  NSFontWidth
+	Expanded   NSFontWidth
+	Standard   NSFontWidth
 }
 
 // NSImageNames provides typed accessors for [NSImageName] constants.
 var NSImageNames struct {
+	// ActionTemplate: An action menu template image.
+	ActionTemplate NSImageName
+	// AddTemplate: An add item template image.
+	AddTemplate NSImageName
+	// Advanced: Advanced preferences toolbar icon for the preferences window.
+	Advanced NSImageName
+	// ApplicationIcon: The app’s icon.
+	ApplicationIcon NSImageName
+	// BluetoothTemplate: A Bluetooth template image.
+	BluetoothTemplate NSImageName
+	// Bonjour: A Bonjour icon.
+	Bonjour NSImageName
+	// BookmarksTemplate: Bookmarks image suitable for a template.
+	BookmarksTemplate NSImageName
+	// Caution: A caution image.
+	Caution NSImageName
+	// ColorPanel: A color panel toolbar icon.
+	ColorPanel NSImageName
+	// ColumnViewTemplate: A column view mode template image.
+	ColumnViewTemplate NSImageName
+	// Computer: A computer icon.
+	Computer NSImageName
+	// EnterFullScreenTemplate: An enter full-screen mode template image.
+	EnterFullScreenTemplate NSImageName
+	// Everyone: Permissions for all users.
+	Everyone NSImageName
+	// ExitFullScreenTemplate: An exit full-screen mode template image.
+	ExitFullScreenTemplate NSImageName
+	// FlowViewTemplate: A cover flow view mode template image.
+	FlowViewTemplate NSImageName
+	// Folder: A folder image.
+	Folder NSImageName
+	// FolderBurnable: A burnable folder icon.
+	FolderBurnable NSImageName
+	// FolderSmart: A smart folder icon.
+	FolderSmart NSImageName
+	// FollowLinkFreestandingTemplate: A link template image.
+	FollowLinkFreestandingTemplate NSImageName
+	// FontPanel: A font panel toolbar icon.
+	FontPanel NSImageName
+	// GoBackTemplate: A “go back” template image.
+	GoBackTemplate NSImageName
+	// GoForwardTemplate: A “go forward” template image.
+	GoForwardTemplate NSImageName
+	// GoLeftTemplate: A “go back” template image.
+	GoLeftTemplate NSImageName
+	// GoRightTemplate: A “go forward” template image.
+	GoRightTemplate NSImageName
+	// HomeTemplate: Home image suitable for a template.
+	HomeTemplate NSImageName
+	// IChatTheaterTemplate: An iChat Theater template image.
+	IChatTheaterTemplate NSImageName
+	// IconViewTemplate: An icon view mode template image.
+	IconViewTemplate NSImageName
+	// Info: An information toolbar icon.
+	Info NSImageName
+	// InvalidDataFreestandingTemplate: A template image used to denote invalid data.
+	InvalidDataFreestandingTemplate NSImageName
+	// LeftFacingTriangleTemplate: A generic left-facing triangle template image.
+	LeftFacingTriangleTemplate NSImageName
+	// ListViewTemplate: A list view mode template image.
+	ListViewTemplate NSImageName
+	// LockLockedTemplate: A locked padlock template image.
+	LockLockedTemplate NSImageName
+	// LockUnlockedTemplate: An unlocked padlock template image.
+	LockUnlockedTemplate NSImageName
+	// MenuMixedStateTemplate: A horizontal dash, for use in menus.
+	MenuMixedStateTemplate NSImageName
+	// MenuOnStateTemplate: A check mark template image, for use in menus.
+	MenuOnStateTemplate NSImageName
+	// MobileMe: A MobileMe icon.
+	MobileMe NSImageName
+	// MultipleDocuments: A drag image for multiple items.
+	MultipleDocuments NSImageName
+	// Network: A network icon.
+	Network NSImageName
+	// PathTemplate: A path button template image.
+	PathTemplate NSImageName
+	// PreferencesGeneral: General preferences toolbar icon for the preferences window.
+	PreferencesGeneral NSImageName
+	// QuickLookTemplate: A Quick Look template image.
+	QuickLookTemplate NSImageName
+	// RefreshFreestandingTemplate: A refresh template image.
+	RefreshFreestandingTemplate NSImageName
+	// RefreshTemplate: A refresh template image.
+	RefreshTemplate NSImageName
+	// RemoveTemplate: A remove item template image.
+	RemoveTemplate NSImageName
+	// RevealFreestandingTemplate: A reveal contents template image.
+	RevealFreestandingTemplate NSImageName
+	// RightFacingTriangleTemplate: A generic right-facing triangle template image.
+	RightFacingTriangleTemplate NSImageName
+	// ShareTemplate: A share view template image.
+	ShareTemplate NSImageName
+	// SlideshowTemplate: A slideshow template image.
+	SlideshowTemplate NSImageName
+	// SmartBadgeTemplate: A badge for a “smart” item.
+	SmartBadgeTemplate NSImageName
+	// StatusAvailable: Small green indicator, similar to iChat’s available image.
+	StatusAvailable NSImageName
+	// StatusNone: Small clear indicator.
+	StatusNone NSImageName
+	// StatusPartiallyAvailable: Small yellow indicator, similar to iChat’s idle image.
+	StatusPartiallyAvailable NSImageName
+	// StatusUnavailable: Small red indicator, similar to iChat’s unavailable image.
+	StatusUnavailable NSImageName
+	// StopProgressFreestandingTemplate: A stop progress template image.
+	StopProgressFreestandingTemplate NSImageName
+	// StopProgressTemplate: A stop progress button template image.
+	StopProgressTemplate NSImageName
 	// TouchBarAddDetailTemplate: A template image for showing additional detail for an item.
 	TouchBarAddDetailTemplate NSImageName
 	// TouchBarAddTemplate: A template image for creating a new item.
@@ -17368,6 +18015,8 @@ var NSImageNames struct {
 	TouchBarRecordStopTemplate NSImageName
 	// TouchBarRefreshTemplate: A template image for refreshing displayed data.
 	TouchBarRefreshTemplate NSImageName
+	// TouchBarRemoveTemplate: A template image for removing an item.
+	TouchBarRemoveTemplate NSImageName
 	// TouchBarRewindTemplate: A template image for moving backwards through media or slides.
 	TouchBarRewindTemplate NSImageName
 	// TouchBarRotateLeftTemplate: A template image for rotating an item counterclockwise.
@@ -17430,6 +18079,18 @@ var NSImageNames struct {
 	TouchBarVolumeDownTemplate NSImageName
 	// TouchBarVolumeUpTemplate: A template image for increasing the audio output volume.
 	TouchBarVolumeUpTemplate NSImageName
+	// TrashEmpty: An image of the empty trash can.
+	TrashEmpty NSImageName
+	// TrashFull: An image of the full trash can.
+	TrashFull NSImageName
+	// User: Permissions for a single user.
+	User NSImageName
+	// UserAccounts: User account toolbar icon for the preferences window.
+	UserAccounts NSImageName
+	// UserGroup: Permissions for a group of users.
+	UserGroup NSImageName
+	// UserGuest: Permissions for guests.
+	UserGuest NSImageName
 }
 
 // NSLayoutPrioritys provides typed accessors for [NSLayoutPriority] constants.
@@ -17562,8 +18223,9 @@ var NSSharingServiceNames struct {
 
 // NSSliderAccessoryWidths provides typed accessors for [NSSliderAccessoryWidth] constants.
 var NSSliderAccessoryWidths struct {
+	// Default: The default width for slider accessories.
 	Default NSSliderAccessoryWidth
-	Wide NSSliderAccessoryWidth
+	Wide    NSSliderAccessoryWidth
 }
 
 // NSSpeechModes provides typed accessors for [NSSpeechMode] constants.
@@ -17741,4 +18403,3 @@ var NSTouchBarItemPrioritys struct {
 	// Normal: A constant indicating a normal visibility priority.
 	Normal NSTouchBarItemPriority
 }
-

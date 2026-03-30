@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -59,6 +60,7 @@ type VZVirtioConsoleDevice struct {
 func VZVirtioConsoleDeviceFromID(id objc.ID) VZVirtioConsoleDevice {
 	return VZVirtioConsoleDevice{VZConsoleDevice: VZConsoleDeviceFromID(id)}
 }
+
 // NOTE: VZVirtioConsoleDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -109,6 +111,7 @@ func (v VZVirtioConsoleDevice) Ports() IVZVirtioConsolePortArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("ports"))
 	return VZVirtioConsolePortArrayFromID(objc.ID(rv))
 }
+
 // The delegate object for the console device.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDevice/delegate
@@ -119,4 +122,3 @@ func (v VZVirtioConsoleDevice) Delegate() VZVirtioConsoleDeviceDelegate {
 func (v VZVirtioConsoleDevice) SetDelegate(value VZVirtioConsoleDeviceDelegate) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
-

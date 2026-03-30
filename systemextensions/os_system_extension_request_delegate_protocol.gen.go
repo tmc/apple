@@ -4,10 +4,12 @@ package systemextensions
 
 import (
 	"fmt"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A type that receives updates about the progress of a request.
@@ -41,6 +43,7 @@ type OSSystemExtensionRequestDelegate interface {
 type OSSystemExtensionRequestDelegateObject struct {
 	objectivec.Object
 }
+
 func (o OSSystemExtensionRequestDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -60,23 +63,22 @@ func OSSystemExtensionRequestDelegateObjectFromID(id objc.ID) OSSystemExtensionR
 // result: Additional information about the completion state.
 //
 // # Discussion
-// 
+//
 // If the request completes with the
-// [OSSystemExtensionRequest.Result.willCompleteAfterReboot] result, then the
+// [OSSystemExtensionRequestWillCompleteAfterReboot] result, then the
 // extension isn’t active until after the next restart. After restarting,
 // the most recently-processed request determines the extension’s state.
 // Consider the following scenarios:
-// 
+//
 // - Activate extension and restart: the extension is active upon restarting.
 // - Activate extension, deactivate extension, and restart: the extension is
 // inactive upon restarting.
 //
-// [OSSystemExtensionRequest.Result.willCompleteAfterReboot]: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequest/Result/willCompleteAfterReboot
-//
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequestDelegate/request(_:didFinishWithResult:)
 func (o OSSystemExtensionRequestDelegateObject) RequestDidFinishWithResult(request IOSSystemExtensionRequest, result OSSystemExtensionRequestResult) {
 	objc.Send[struct{}](o.ID, objc.Sel("request:didFinishWithResult:"), request, result)
-	}
+}
+
 // Tells the delegate the manager failed to complete the request.
 //
 // request: The request that failed.
@@ -86,12 +88,13 @@ func (o OSSystemExtensionRequestDelegateObject) RequestDidFinishWithResult(reque
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequestDelegate/request(_:didFailWithError:)
 func (o OSSystemExtensionRequestDelegateObject) RequestDidFailWithError(request IOSSystemExtensionRequest, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("request:didFailWithError:"), request, error_)
-	}
+}
+
 // Tells the delegate that the user must grant approval before the manager can
 // activate the extension.
 //
 // # Discussion
-// 
+//
 // Activating an extension may require explicit user approval to proceed. For
 // example, this occurs when the user hasn’t approved the extension. The
 // manager calls this method to notify the delegate. Activation remains
@@ -100,7 +103,8 @@ func (o OSSystemExtensionRequestDelegateObject) RequestDidFailWithError(request 
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequestDelegate/requestNeedsUserApproval(_:)
 func (o OSSystemExtensionRequestDelegateObject) RequestNeedsUserApproval(request IOSSystemExtensionRequest) {
 	objc.Send[struct{}](o.ID, objc.Sel("requestNeedsUserApproval:"), request)
-	}
+}
+
 // Tells the delegate that the user has a different version of the extension
 // installed on their system.
 //
@@ -111,43 +115,41 @@ func (o OSSystemExtensionRequestDelegateObject) RequestNeedsUserApproval(request
 // ext: A properties object that describes the updated version of the extension.
 //
 // # Return Value
-// 
+//
 // A replacement action the manager should take to resolve the conflict.
 //
 // # Discussion
-// 
+//
 // The manager calls this method when it encounters an existing extension with
 // the same team and bundle identifiers, but with different version
 // identifiers. It uses the [CFBundleVersion] and [CFBundleShortVersionString]
 // identifiers to determine if the existing and new versions differ. The
 // delegate must make a decision on whether to replace the existing extension.
-// 
+//
 // Implement this method to return an
 // [OSSystemExtensionRequest.ReplacementAction], which tells the manager what
-// to do. If you return [OSSystemExtensionRequest.ReplacementAction.cancel],
-// the manager aborts the installation and calls [RequestDidFailWithError],
-// with the [OSSystemExtensionError.Code.requestCanceled] error code.
-// 
+// to do. If you return [OSSystemExtensionReplacementActionCancel], the
+// manager aborts the installation and calls [RequestDidFailWithError], with
+// the [OSSystemExtensionErrorRequestCanceled] error code.
+//
 // If the local system has System Extension developer mode enabled, the
 // manager always calls this method when it finds an existing installation,
 // even if the version identifiers match.
 //
+// See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequestDelegate/request(_:actionForReplacingExtension:withExtension:)
+//
 // [CFBundleShortVersionString]: https://developer.apple.com/documentation/BundleResources/Information-Property-List/CFBundleShortVersionString
 // [CFBundleVersion]: https://developer.apple.com/documentation/BundleResources/Information-Property-List/CFBundleVersion
-// [OSSystemExtensionError.Code.requestCanceled]: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionError/Code/requestCanceled
-// [OSSystemExtensionRequest.ReplacementAction.cancel]: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequest/ReplacementAction/cancel
 // [OSSystemExtensionRequest.ReplacementAction]: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequest/ReplacementAction
-//
-// See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequestDelegate/request(_:actionForReplacingExtension:withExtension:)
 func (o OSSystemExtensionRequestDelegateObject) RequestActionForReplacingExtensionWithExtension(request IOSSystemExtensionRequest, existing IOSSystemExtensionProperties, ext IOSSystemExtensionProperties) OSSystemExtensionReplacementAction {
 	rv := objc.Send[OSSystemExtensionReplacementAction](o.ID, objc.Sel("request:actionForReplacingExtension:withExtension:"), request, existing, ext)
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/SystemExtensions/OSSystemExtensionRequestDelegate/request(_:foundProperties:)
 func (o OSSystemExtensionRequestDelegateObject) RequestFoundProperties(request IOSSystemExtensionRequest, properties []OSSystemExtensionProperties) {
 	objc.Send[struct{}](o.ID, objc.Sel("request:foundProperties:"), request, objectivec.IObjectSliceToNSArray(properties))
-	}
+}
 
 // OSSystemExtensionRequestDelegateConfig holds optional typed callbacks for [OSSystemExtensionRequestDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -253,4 +255,3 @@ func NewOSSystemExtensionRequestDelegate(config OSSystemExtensionRequestDelegate
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return OSSystemExtensionRequestDelegateObjectFromID(instance)
 }
-

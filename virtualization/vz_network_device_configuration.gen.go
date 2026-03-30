@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (vc VZNetworkDeviceConfigurationClass) Alloc() VZNetworkDeviceConfiguration
 // The common configuration traits for network devices.
 //
 // # Overview
-// 
+//
 // Don’t instantiate the [VZNetworkDeviceConfiguration] class directly.
 // Instead, instantiate one of its subclasses, such as
 // [VZVirtioNetworkDeviceConfiguration]. Then use the properties of this class
@@ -68,6 +69,7 @@ type VZNetworkDeviceConfiguration struct {
 func VZNetworkDeviceConfigurationFromID(id objc.ID) VZNetworkDeviceConfiguration {
 	return VZNetworkDeviceConfiguration{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZNetworkDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -117,7 +119,7 @@ func NewVZNetworkDeviceConfiguration() VZNetworkDeviceConfiguration {
 // the host system.
 //
 // # Discussion
-// 
+//
 // The default value of this property is `nil`. Assign an appropriate value to
 // specify the type of network interface you want to make available to the
 // guest operating system. For example, assign a
@@ -132,10 +134,11 @@ func (n VZNetworkDeviceConfiguration) Attachment() IVZNetworkDeviceAttachment {
 func (n VZNetworkDeviceConfiguration) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
 }
+
 // The media access control (MAC) address to assign to the network device.
 //
 // # Discussion
-// 
+//
 // The default value of this property is a random, locally administered,
 // unicast address. Assign a custom value to this property if you want your
 // network device to have a specific MAC address.
@@ -148,4 +151,3 @@ func (n VZNetworkDeviceConfiguration) MACAddress() IVZMACAddress {
 func (n VZNetworkDeviceConfiguration) SetMACAddress(value IVZMACAddress) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMACAddress:"), value)
 }
-

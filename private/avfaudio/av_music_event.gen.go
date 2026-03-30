@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,6 +53,7 @@ type AVMusicEvent struct {
 func AVMusicEventFromID(id objc.ID) AVMusicEvent {
 	return AVMusicEvent{objectivec.Object{ID: id}}
 }
+
 // Ensure AVMusicEvent implements IAVMusicEvent.
 var _ IAVMusicEvent = AVMusicEvent{}
 
@@ -78,4 +80,3 @@ func NewAVMusicEvent() AVMusicEvent {
 	rv := objc.Send[AVMusicEvent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

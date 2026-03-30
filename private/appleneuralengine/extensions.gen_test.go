@@ -1,4 +1,3 @@
-
 // Code generated from Apple documentation for appleneuralengine. DO NOT EDIT.
 
 package appleneuralengine
@@ -29,10 +28,8 @@ func TestCompletionHandlerBindingReleaseIdempotent(t *testing.T) {
 }
 
 func TestCompletionEventWrapperCompile(t *testing.T) {
-	var _ func(ANEVirtualClient, objectivec.IObject, objectivec.IObject, objectivec.IObject, uint32, BoolErrorHandler) (bool, func(), error) =
-		ANEVirtualClient.DoEvaluateWithModelOptionsRequestQosCompletionEventHandlerError
-	var _ func(ANEVirtualClient, objectivec.IObject, objectivec.IObject, objectivec.IObject, uint32, BoolErrorHandler) (bool, func(), error) =
-		ANEVirtualClient.DoEvaluateWithModelLegacyOptionsRequestQosCompletionEventHandlerError
+	var _ func(ANEVirtualClient, objectivec.IObject, objectivec.IObject, objectivec.IObject, uint32, BoolErrorHandler) (bool, func(), error) = ANEVirtualClient.DoEvaluateWithModelOptionsRequestQosCompletionEventHandlerError
+	var _ func(ANEVirtualClient, objectivec.IObject, objectivec.IObject, objectivec.IObject, uint32, BoolErrorHandler) (bool, func(), error) = ANEVirtualClient.DoEvaluateWithModelLegacyOptionsRequestQosCompletionEventHandlerError
 }
 
 func TestCompletionEventWrapperZeroValueNoPanic(t *testing.T) {
@@ -48,4 +45,3 @@ func TestCompletionEventWrapperZeroValueNoPanic(t *testing.T) {
 		t.Fatalf("zero-value wrapper returned err=%v, want nil", err)
 	}
 }
-

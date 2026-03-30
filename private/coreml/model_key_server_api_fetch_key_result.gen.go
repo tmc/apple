@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc ModelKeyServerAPIFetchKeyResultClass) Alloc() ModelKeyServerAPIFetchKey
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [ModelKeyServerAPIFetchKeyResult.StringAsKey]
@@ -72,6 +72,7 @@ func (mc ModelKeyServerAPIFetchKeyResultClass) Alloc() ModelKeyServerAPIFetchKey
 //   - [ModelKeyServerAPIFetchKeyResult.TeamId]
 //   - [ModelKeyServerAPIFetchKeyResult.SetTeamId]
 //   - [ModelKeyServerAPIFetchKeyResult.WriteTo]
+//
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult
 type ModelKeyServerAPIFetchKeyResult struct {
 	objectivec.Object
@@ -81,6 +82,7 @@ type ModelKeyServerAPIFetchKeyResult struct {
 func ModelKeyServerAPIFetchKeyResultFromID(id objc.ID) ModelKeyServerAPIFetchKeyResult {
 	return ModelKeyServerAPIFetchKeyResult{objectivec.Object{ID: id}}
 }
+
 // NOTE: ModelKeyServerAPIFetchKeyResult struct embeds objectivec.Object (parent type unavailable) but
 // IModelKeyServerAPIFetchKeyResult embeds the parent interface; skip compile-time assertion.
 
@@ -170,44 +172,45 @@ func NewModelKeyServerAPIFetchKeyResult() ModelKeyServerAPIFetchKeyResult {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/StringAsKey:
 func (m ModelKeyServerAPIFetchKeyResult) StringAsKey(key objectivec.IObject) int {
 	rv := objc.Send[int](m.ID, objc.Sel("StringAsKey:"), key)
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/clearOneofValuesForKey
 func (m ModelKeyServerAPIFetchKeyResult) ClearOneofValuesForKey() {
 	objc.Send[objc.ID](m.ID, objc.Sel("clearOneofValuesForKey"))
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/copyTo:
 func (m ModelKeyServerAPIFetchKeyResult) CopyTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("copyTo:"), to)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/dictionaryRepresentation
 func (m ModelKeyServerAPIFetchKeyResult) DictionaryRepresentation() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/keyAsString:
 func (m ModelKeyServerAPIFetchKeyResult) KeyAsString(string_ int) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("keyAsString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/mergeFrom:
 func (m ModelKeyServerAPIFetchKeyResult) MergeFrom(from objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("mergeFrom:"), from)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/readFrom:
 func (m ModelKeyServerAPIFetchKeyResult) ReadFrom(from objectivec.IObject) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/writeTo:
 func (m ModelKeyServerAPIFetchKeyResult) WriteTo(to objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("writeTo:"), to)
@@ -221,31 +224,37 @@ func (m ModelKeyServerAPIFetchKeyResult) HasKey() bool {
 func (m ModelKeyServerAPIFetchKeyResult) SetHasKey(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHasKey:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/hasKeyId
 func (m ModelKeyServerAPIFetchKeyResult) HasKeyId() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasKeyId"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/hasModelName
 func (m ModelKeyServerAPIFetchKeyResult) HasModelName() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasModelName"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/hasRawKey
 func (m ModelKeyServerAPIFetchKeyResult) HasRawKey() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasRawKey"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/hasSignedKey
 func (m ModelKeyServerAPIFetchKeyResult) HasSignedKey() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasSignedKey"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/hasTeamId
 func (m ModelKeyServerAPIFetchKeyResult) HasTeamId() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasTeamId"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/key
 func (m ModelKeyServerAPIFetchKeyResult) Key() int {
 	rv := objc.Send[int](m.ID, objc.Sel("key"))
@@ -254,6 +263,7 @@ func (m ModelKeyServerAPIFetchKeyResult) Key() int {
 func (m ModelKeyServerAPIFetchKeyResult) SetKey(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setKey:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/keyId
 func (m ModelKeyServerAPIFetchKeyResult) KeyId() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("keyId"))
@@ -262,6 +272,7 @@ func (m ModelKeyServerAPIFetchKeyResult) KeyId() string {
 func (m ModelKeyServerAPIFetchKeyResult) SetKeyId(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setKeyId:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/modelName
 func (m ModelKeyServerAPIFetchKeyResult) ModelName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelName"))
@@ -270,6 +281,7 @@ func (m ModelKeyServerAPIFetchKeyResult) ModelName() string {
 func (m ModelKeyServerAPIFetchKeyResult) SetModelName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/rawKey
 func (m ModelKeyServerAPIFetchKeyResult) RawKey() IModelKeyServerAPIRawKey {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("rawKey"))
@@ -278,6 +290,7 @@ func (m ModelKeyServerAPIFetchKeyResult) RawKey() IModelKeyServerAPIRawKey {
 func (m ModelKeyServerAPIFetchKeyResult) SetRawKey(value IModelKeyServerAPIRawKey) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRawKey:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/signedKey
 func (m ModelKeyServerAPIFetchKeyResult) SignedKey() IModelKeyServerAPISignedKey {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("signedKey"))
@@ -286,6 +299,7 @@ func (m ModelKeyServerAPIFetchKeyResult) SignedKey() IModelKeyServerAPISignedKey
 func (m ModelKeyServerAPIFetchKeyResult) SetSignedKey(value IModelKeyServerAPISignedKey) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSignedKey:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/ModelKeyServerAPIFetchKeyResult/teamId
 func (m ModelKeyServerAPIFetchKeyResult) TeamId() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("teamId"))
@@ -294,4 +308,3 @@ func (m ModelKeyServerAPIFetchKeyResult) TeamId() string {
 func (m ModelKeyServerAPIFetchKeyResult) SetTeamId(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTeamId:"), objc.String(value))
 }
-

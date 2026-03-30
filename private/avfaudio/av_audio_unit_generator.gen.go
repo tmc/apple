@@ -3,10 +3,11 @@
 package avfaudio
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVAudioUnitGenerator] class.
@@ -42,13 +43,13 @@ func (ac AVAudioUnitGeneratorClass) Alloc() AVAudioUnitGenerator {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioUnitGenerator.DebugDescription]
 //   - [AVAudioUnitGenerator.Description]
 //   - [AVAudioUnitGenerator.Hash]
 //   - [AVAudioUnitGenerator.Superclass]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator
 type AVAudioUnitGenerator struct {
 	AVAudioUnit
@@ -58,6 +59,7 @@ type AVAudioUnitGenerator struct {
 func AVAudioUnitGeneratorFromID(id objc.ID) AVAudioUnitGenerator {
 	return AVAudioUnitGenerator{AVAudioUnit: AVAudioUnitFromID(id)}
 }
+
 // Ensure AVAudioUnitGenerator implements IAVAudioUnitGenerator.
 var _ IAVAudioUnitGenerator = AVAudioUnitGenerator{}
 
@@ -101,7 +103,6 @@ func NewAVAudioUnitGenerator() AVAudioUnitGenerator {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/initWithImpl:
 func NewAudioUnitGeneratorWithImpl(impl unsafe.Pointer) AVAudioUnitGenerator {
 	instance := getAVAudioUnitGeneratorClass().Alloc()
@@ -114,19 +115,21 @@ func (a AVAudioUnitGenerator) DebugDescription() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator/description
 func (a AVAudioUnitGenerator) Description() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator/hash
 func (a AVAudioUnitGenerator) Hash() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitGenerator/superclass
 func (a AVAudioUnitGenerator) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](a.ID, objc.Sel("superclass"))
 	return rv
 }
-

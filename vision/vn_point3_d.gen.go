@@ -4,8 +4,9 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -63,6 +64,7 @@ type VNPoint3D struct {
 func VNPoint3DFromID(id objc.ID) VNPoint3D {
 	return VNPoint3D{objectivec.Object{ID: id}}
 }
+
 // NOTE: VNPoint3D adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -147,4 +149,3 @@ func (p VNPoint3D) Position() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("position"))
 	return objectivec.Object{ID: rv}
 }
-

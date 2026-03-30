@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (dc DIBaseParamsClass) Alloc() DIBaseParams {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [DIBaseParams.RAMdisk]
@@ -82,6 +82,7 @@ func (dc DIBaseParamsClass) Alloc() DIBaseParams {
 //   - [DIBaseParams.ValidateDeserializationWithError]
 //   - [DIBaseParams.InitWithCoder]
 //   - [DIBaseParams.InitWithURLError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams
 type DIBaseParams struct {
 	objectivec.Object
@@ -91,6 +92,7 @@ type DIBaseParams struct {
 func DIBaseParamsFromID(id objc.ID) DIBaseParams {
 	return DIBaseParams{objectivec.Object{ID: id}}
 }
+
 // Ensure DIBaseParams implements IDIBaseParams.
 var _ IDIBaseParams = DIBaseParams{}
 
@@ -196,7 +198,6 @@ func NewDIBaseParams() DIBaseParams {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithCoder:
 func NewDIBaseParamsWithCoder(coder objectivec.IObject) DIBaseParams {
 	instance := getDIBaseParamsClass().Alloc()
@@ -204,7 +205,6 @@ func NewDIBaseParamsWithCoder(coder objectivec.IObject) DIBaseParams {
 	return DIBaseParamsFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithURL:error:
 func NewDIBaseParamsWithURLError(url foundation.INSURL) (DIBaseParams, error) {
 	var errorPtr objc.ID
@@ -217,16 +217,16 @@ func NewDIBaseParamsWithURLError(url foundation.INSURL) (DIBaseParams, error) {
 	return DIBaseParamsFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/encodeWithCoder:
 func (d DIBaseParams) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/invalidate
 func (d DIBaseParams) Invalidate() {
 	objc.Send[objc.ID](d.ID, objc.Sel("invalidate"))
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/openExistingImageWithError:
 func (d DIBaseParams) OpenExistingImageWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -241,7 +241,7 @@ func (d DIBaseParams) OpenExistingImageWithError() (bool, error) {
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/openExistingImageWithFlags:error:
 func (d DIBaseParams) OpenExistingImageWithFlagsError(flags int) (bool, error) {
 	var errorPtr objc.ID
@@ -256,7 +256,7 @@ func (d DIBaseParams) OpenExistingImageWithFlagsError(flags int) (bool, error) {
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/prepareImageWithXpcHandler:fileMode:error:
 func (d DIBaseParams) PrepareImageWithXpcHandlerFileModeError(handler objectivec.IObject, mode int64) (bool, error) {
 	var errorPtr objc.ID
@@ -271,7 +271,7 @@ func (d DIBaseParams) PrepareImageWithXpcHandlerFileModeError(handler objectivec
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/replaceDiskImageWithUnlockedBackendXPC:error:
 func (d DIBaseParams) ReplaceDiskImageWithUnlockedBackendXPCError(xpc objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -286,22 +286,23 @@ func (d DIBaseParams) ReplaceDiskImageWithUnlockedBackendXPCError(xpc objectivec
 	return rv, nil
 
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/supportsPstack
 func (d DIBaseParams) SupportsPstack() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("supportsPstack"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/tryResolvePstackChain:
 func (d DIBaseParams) TryResolvePstackChain(chain []objectivec.IObject) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("tryResolvePstackChain:"), objectivec.IObjectSliceToNSArray(chain))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/unlockWithPassphrase:error:
 func (d DIBaseParams) UnlockWithPassphraseError(passphrase string) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](d.ID, objc.Sel("unlockWithPassphrase:error:"), unsafe.Pointer(unsafe.StringData(passphrase + "\x00")), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](d.ID, objc.Sel("unlockWithPassphrase:error:"), unsafe.Pointer(unsafe.StringData(passphrase+"\x00")), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -312,7 +313,7 @@ func (d DIBaseParams) UnlockWithPassphraseError(passphrase string) (bool, error)
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/validateDeserializationWithError:
 func (d DIBaseParams) ValidateDeserializationWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -327,13 +328,13 @@ func (d DIBaseParams) ValidateDeserializationWithError() (bool, error) {
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithCoder:
 func (d DIBaseParams) InitWithCoder(coder foundation.INSCoder) DIBaseParams {
 	rv := objc.Send[DIBaseParams](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithURL:error:
 func (d DIBaseParams) InitWithURLError(url foundation.INSURL) (DIBaseParams, error) {
 	var errorPtr objc.ID
@@ -357,11 +358,13 @@ func (d DIBaseParams) RAMdisk() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("RAMdisk"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/backend
 func (d DIBaseParams) Backend() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("backend"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/blockSize
 func (d DIBaseParams) BlockSize() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("blockSize"))
@@ -370,11 +373,13 @@ func (d DIBaseParams) BlockSize() uint32 {
 func (d DIBaseParams) SetBlockSize(value uint32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/cryptoHeader
 func (d DIBaseParams) CryptoHeader() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("cryptoHeader"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/deserializationError
 func (d DIBaseParams) DeserializationError() foundation.INSError {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("deserializationError"))
@@ -383,6 +388,7 @@ func (d DIBaseParams) DeserializationError() foundation.INSError {
 func (d DIBaseParams) SetDeserializationError(value foundation.INSError) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDeserializationError:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/diskImageParamsXPC
 func (d DIBaseParams) DiskImageParamsXPC() IDiskImageParamsXPC {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("diskImageParamsXPC"))
@@ -391,16 +397,19 @@ func (d DIBaseParams) DiskImageParamsXPC() IDiskImageParamsXPC {
 func (d DIBaseParams) SetDiskImageParamsXPC(value IDiskImageParamsXPC) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDiskImageParamsXPC:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/encryptionUUID
 func (d DIBaseParams) EncryptionUUID() foundation.NSUUID {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("encryptionUUID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/hasUnlockedBackend
 func (d DIBaseParams) HasUnlockedBackend() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("hasUnlockedBackend"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/inputURL
 func (d DIBaseParams) InputURL() IDIURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("inputURL"))
@@ -409,26 +418,31 @@ func (d DIBaseParams) InputURL() IDIURL {
 func (d DIBaseParams) SetInputURL(value IDIURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setInputURL:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/instanceID
 func (d DIBaseParams) InstanceID() foundation.NSUUID {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("instanceID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/isPstack
 func (d DIBaseParams) IsPstack() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isPstack"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/mutableSymmetricKey
 func (d DIBaseParams) MutableSymmetricKey() foundation.NSMutableData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("mutableSymmetricKey"))
 	return foundation.NSMutableDataFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/overrideBlockSize
 func (d DIBaseParams) OverrideBlockSize() foundation.NSNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("overrideBlockSize"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/readPassphraseFlags
 func (d DIBaseParams) ReadPassphraseFlags() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("readPassphraseFlags"))
@@ -437,16 +451,19 @@ func (d DIBaseParams) ReadPassphraseFlags() uint64 {
 func (d DIBaseParams) SetReadPassphraseFlags(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setReadPassphraseFlags:"), value)
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/requiresRootDaemon
 func (d DIBaseParams) RequiresRootDaemon() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("requiresRootDaemon"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/shadowChain
 func (d DIBaseParams) ShadowChain() IDIShadowChain {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("shadowChain"))
 	return DIShadowChainFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/symmetricKey
 func (d DIBaseParams) SymmetricKey() foundation.INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("symmetricKey"))
@@ -455,4 +472,3 @@ func (d DIBaseParams) SymmetricKey() foundation.INSData {
 func (d DIBaseParams) SetSymmetricKey(value foundation.INSData) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSymmetricKey:"), value)
 }
-

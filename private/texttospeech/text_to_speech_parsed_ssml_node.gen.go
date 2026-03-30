@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,10 +43,10 @@ func (tc TextToSpeechParsedSSMLNodeClass) Alloc() TextToSpeechParsedSSMLNode {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TextToSpeechParsedSSMLNode.Description]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.ParsedSSMLNode
 type TextToSpeechParsedSSMLNode struct {
 	objectivec.Object
@@ -55,6 +56,7 @@ type TextToSpeechParsedSSMLNode struct {
 func TextToSpeechParsedSSMLNodeFromID(id objc.ID) TextToSpeechParsedSSMLNode {
 	return TextToSpeechParsedSSMLNode{objectivec.Object{ID: id}}
 }
+
 // Ensure TextToSpeechParsedSSMLNode implements ITextToSpeechParsedSSMLNode.
 var _ ITextToSpeechParsedSSMLNode = TextToSpeechParsedSSMLNode{}
 
@@ -97,4 +99,3 @@ func (t TextToSpeechParsedSSMLNode) Description() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-

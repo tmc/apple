@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (ac AVCaptionRubyClass) Alloc() AVCaptionRuby {
 // An object that presents ruby characters.
 //
 // # Overview
-// 
+//
 // Ruby characters are small annotations, typically used in Japanese content,
 // that render alongside the base text.
 //
@@ -71,6 +72,7 @@ type AVCaptionRuby struct {
 func AVCaptionRubyFromID(id objc.ID) AVCaptionRuby {
 	return AVCaptionRuby{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptionRuby adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -164,6 +166,7 @@ func (c AVCaptionRuby) InitWithText(text string) AVCaptionRuby {
 	rv := objc.Send[AVCaptionRuby](c.ID, objc.Sel("initWithText:"), objc.String(text))
 	return rv
 }
+
 // Creates ruby text with position and alignment.
 //
 // text: The ruby text.
@@ -188,18 +191,19 @@ func (c AVCaptionRuby) Text() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("text"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The ruby text position.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby/position
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby/position-swift.property
 func (c AVCaptionRuby) Position() AVCaptionRubyPosition {
 	rv := objc.Send[AVCaptionRubyPosition](c.ID, objc.Sel("position"))
 	return AVCaptionRubyPosition(rv)
 }
+
 // The ruby text alignment.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby/alignment
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby/alignment-swift.property
 func (c AVCaptionRuby) Alignment() AVCaptionRubyAlignment {
 	rv := objc.Send[AVCaptionRubyAlignment](c.ID, objc.Sel("alignment"))
 	return AVCaptionRubyAlignment(rv)
 }
-

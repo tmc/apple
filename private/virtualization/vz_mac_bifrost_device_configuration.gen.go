@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (vc VZMacBifrostDeviceConfigurationClass) Alloc() VZMacBifrostDeviceConfigu
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZMacBifrostDeviceConfiguration.InitWithAttachmentMMIOSize]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBifrostDeviceConfiguration
 type VZMacBifrostDeviceConfiguration struct {
 	VZBifrostDeviceConfiguration
@@ -54,6 +55,7 @@ type VZMacBifrostDeviceConfiguration struct {
 func VZMacBifrostDeviceConfigurationFromID(id objc.ID) VZMacBifrostDeviceConfiguration {
 	return VZMacBifrostDeviceConfiguration{VZBifrostDeviceConfiguration: VZBifrostDeviceConfigurationFromID(id)}
 }
+
 // Ensure VZMacBifrostDeviceConfiguration implements IVZMacBifrostDeviceConfiguration.
 var _ IVZMacBifrostDeviceConfiguration = VZMacBifrostDeviceConfiguration{}
 
@@ -91,7 +93,6 @@ func NewVZMacBifrostDeviceConfiguration() VZMacBifrostDeviceConfiguration {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBifrostDeviceConfiguration/initWithAttachment:MMIOSize:
 func NewVZMacBifrostDeviceConfigurationWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) VZMacBifrostDeviceConfiguration {
 	instance := getVZMacBifrostDeviceConfigurationClass().Alloc()
@@ -99,10 +100,8 @@ func NewVZMacBifrostDeviceConfigurationWithAttachmentMMIOSize(attachment objecti
 	return VZMacBifrostDeviceConfigurationFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZMacBifrostDeviceConfiguration/initWithAttachment:MMIOSize:
 func (v VZMacBifrostDeviceConfiguration) InitWithAttachmentMMIOSize(attachment objectivec.IObject, mIOSize uint64) VZMacBifrostDeviceConfiguration {
 	rv := objc.Send[VZMacBifrostDeviceConfiguration](v.ID, objc.Sel("initWithAttachment:MMIOSize:"), attachment, mIOSize)
 	return rv
 }
-

@@ -4,8 +4,9 @@ package gtshaderprofiler
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (gc GTShaderProfilerDeviceInfoClass) Alloc() GTShaderProfilerDeviceInfo {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [GTShaderProfilerDeviceInfo.Build]
@@ -57,6 +57,7 @@ func (gc GTShaderProfilerDeviceInfoClass) Alloc() GTShaderProfilerDeviceInfo {
 //   - [GTShaderProfilerDeviceInfo.InitWithCoder]
 //   - [GTShaderProfilerDeviceInfo.Version]
 //   - [GTShaderProfilerDeviceInfo.SetVersion]
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDeviceInfo
 type GTShaderProfilerDeviceInfo struct {
 	objectivec.Object
@@ -66,6 +67,7 @@ type GTShaderProfilerDeviceInfo struct {
 func GTShaderProfilerDeviceInfoFromID(id objc.ID) GTShaderProfilerDeviceInfo {
 	return GTShaderProfilerDeviceInfo{objectivec.Object{ID: id}}
 }
+
 // Ensure GTShaderProfilerDeviceInfo implements IGTShaderProfilerDeviceInfo.
 var _ IGTShaderProfilerDeviceInfo = GTShaderProfilerDeviceInfo{}
 
@@ -125,7 +127,6 @@ func NewGTShaderProfilerDeviceInfo() GTShaderProfilerDeviceInfo {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDeviceInfo/initWithCoder:
 func NewGTShaderProfilerDeviceInfoWithCoder(coder objectivec.IObject) GTShaderProfilerDeviceInfo {
 	instance := getGTShaderProfilerDeviceInfoClass().Alloc()
@@ -133,12 +134,11 @@ func NewGTShaderProfilerDeviceInfoWithCoder(coder objectivec.IObject) GTShaderPr
 	return GTShaderProfilerDeviceInfoFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDeviceInfo/encodeWithCoder:
 func (g GTShaderProfilerDeviceInfo) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDeviceInfo/initWithCoder:
 func (g GTShaderProfilerDeviceInfo) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerDeviceInfo {
 	rv := objc.Send[GTShaderProfilerDeviceInfo](g.ID, objc.Sel("initWithCoder:"), coder)
@@ -159,6 +159,7 @@ func (g GTShaderProfilerDeviceInfo) Build() string {
 func (g GTShaderProfilerDeviceInfo) SetBuild(value string) {
 	objc.Send[struct{}](g.ID, objc.Sel("setBuild:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDeviceInfo/metalVersion
 func (g GTShaderProfilerDeviceInfo) MetalVersion() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("metalVersion"))
@@ -167,6 +168,7 @@ func (g GTShaderProfilerDeviceInfo) MetalVersion() string {
 func (g GTShaderProfilerDeviceInfo) SetMetalVersion(value string) {
 	objc.Send[struct{}](g.ID, objc.Sel("setMetalVersion:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDeviceInfo/name
 func (g GTShaderProfilerDeviceInfo) Name() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
@@ -175,6 +177,7 @@ func (g GTShaderProfilerDeviceInfo) Name() string {
 func (g GTShaderProfilerDeviceInfo) SetName(value string) {
 	objc.Send[struct{}](g.ID, objc.Sel("setName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDeviceInfo/platform
 func (g GTShaderProfilerDeviceInfo) Platform() int {
 	rv := objc.Send[int](g.ID, objc.Sel("platform"))
@@ -183,6 +186,7 @@ func (g GTShaderProfilerDeviceInfo) Platform() int {
 func (g GTShaderProfilerDeviceInfo) SetPlatform(value int) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPlatform:"), value)
 }
+
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDeviceInfo/version
 func (g GTShaderProfilerDeviceInfo) Version() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("version"))
@@ -191,4 +195,3 @@ func (g GTShaderProfilerDeviceInfo) Version() string {
 func (g GTShaderProfilerDeviceInfo) SetVersion(value string) {
 	objc.Send[struct{}](g.ID, objc.Sel("setVersion:"), objc.String(value))
 }
-

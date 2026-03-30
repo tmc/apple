@@ -4,8 +4,9 @@ package networkextension
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -67,6 +68,7 @@ type NETunnelNetworkSettings struct {
 func NETunnelNetworkSettingsFromID(id objc.ID) NETunnelNetworkSettings {
 	return NETunnelNetworkSettings{objectivec.Object{ID: id}}
 }
+
 // NOTE: NETunnelNetworkSettings adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -157,10 +159,11 @@ func (t NETunnelNetworkSettings) TunnelRemoteAddress() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tunnelRemoteAddress"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The tunnel DNS settings.
 //
 // # Discussion
-// 
+//
 // Network connections to hosts in the tunnel’s internal network will use
 // these DNS settings when resolving host names.
 //
@@ -172,10 +175,11 @@ func (t NETunnelNetworkSettings) DNSSettings() INEDNSSettings {
 func (t NETunnelNetworkSettings) SetDNSSettings(value INEDNSSettings) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDNSSettings:"), value)
 }
+
 // The tunnel HTTP proxy settings.
 //
 // # Discussion
-// 
+//
 // HTTP connections to hosts in the tunnel’s internal network will use these
 // proxy settings.
 //
@@ -187,4 +191,3 @@ func (t NETunnelNetworkSettings) ProxySettings() INEProxySettings {
 func (t NETunnelNetworkSettings) SetProxySettings(value INEProxySettings) {
 	objc.Send[struct{}](t.ID, objc.Sel("setProxySettings:"), value)
 }
-

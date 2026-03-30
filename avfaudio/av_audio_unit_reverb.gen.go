@@ -4,6 +4,7 @@ package avfaudio
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (ac AVAudioUnitReverbClass) Alloc() AVAudioUnitReverb {
 // An object that implements a reverb effect.
 //
 // # Overview
-// 
+//
 // A reverb simulates the acoustic characteristics of a particular
 // environment. Use the different presets to simulate a particular space and
 // blend it in with the original signal using the [AVAudioUnitReverb.WetDryMix] property.
@@ -69,6 +70,7 @@ type AVAudioUnitReverb struct {
 func AVAudioUnitReverbFromID(id objc.ID) AVAudioUnitReverb {
 	return AVAudioUnitReverb{AVAudioUnitEffect: AVAudioUnitEffectFromID(id)}
 }
+
 // NOTE: AVAudioUnitReverb adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -121,14 +123,14 @@ func NewAVAudioUnitReverb() AVAudioUnitReverb {
 // Creates an audio unit effect object with the specified description.
 //
 // audioComponentDescription: The description of the audio unit to create.
-// 
+//
 // The `audioComponentDescription` must be one of these types
 // `kAudioUnitType_Effect`, `kAudioUnitType_MusicEffect`,
 // `kAudioUnitType_Panner`, `kAudioUnitType_RemoteEffect`, or
 // `kAudioUnitType_RemoteMusicEffect`.
 //
 // # Return Value
-// 
+//
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
@@ -144,13 +146,13 @@ func NewAudioUnitReverbWithAudioComponentDescription(audioComponentDescription o
 // preset: The reverb preset.
 //
 // # Discussion
-// 
-// For more information about possible values, see [AVAudioUnitReverbPreset].
-// The default value is [AudioUnitReverbPresetMediumHall].
 //
-// [AVAudioUnitReverbPreset]: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitReverbPreset
+// For more information about possible values, see [AVAudioUnitReverbPreset].
+// The default value is [AVAudioUnitReverbPresetMediumHall].
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitReverb/loadFactoryPreset(_:)
+//
+// [AVAudioUnitReverbPreset]: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitReverbPreset
 func (a AVAudioUnitReverb) LoadFactoryPreset(preset AVAudioUnitReverbPreset) {
 	objc.Send[objc.ID](a.ID, objc.Sel("loadFactoryPreset:"), preset)
 }
@@ -158,7 +160,7 @@ func (a AVAudioUnitReverb) LoadFactoryPreset(preset AVAudioUnitReverbPreset) {
 // The blend of the wet and dry signals.
 //
 // # Discussion
-// 
+//
 // You specify the blend as a percentage. The range is `0%` through `100%`,
 // where `0%` represents all dry.
 //
@@ -170,4 +172,3 @@ func (a AVAudioUnitReverb) WetDryMix() float32 {
 func (a AVAudioUnitReverb) SetWetDryMix(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setWetDryMix:"), value)
 }
-

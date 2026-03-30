@@ -4,8 +4,9 @@ package avfaudio
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (ac AVAudioFormatClass) Alloc() AVAudioFormat {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [AVAudioFormat.InitWithCoder]
 //   - [AVAudioFormat.Interleaved]
 //   - [AVAudioFormat.Standard]
+//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat
 type AVAudioFormat struct {
 	objectivec.Object
@@ -57,6 +58,7 @@ type AVAudioFormat struct {
 func AVAudioFormatFromID(id objc.ID) AVAudioFormat {
 	return AVAudioFormat{objectivec.Object{ID: id}}
 }
+
 // Ensure AVAudioFormat implements IAVAudioFormat.
 var _ IAVAudioFormat = AVAudioFormat{}
 
@@ -98,7 +100,6 @@ func NewAVAudioFormat() AVAudioFormat {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/initWithCoder:
 func NewAudioFormatWithCoder(coder objectivec.IObject) AVAudioFormat {
 	instance := getAVAudioFormatClass().Alloc()
@@ -106,7 +107,6 @@ func NewAudioFormatWithCoder(coder objectivec.IObject) AVAudioFormat {
 	return AVAudioFormatFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/initWithCoder:
 func (a AVAudioFormat) InitWithCoder(coder foundation.INSCoder) AVAudioFormat {
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithCoder:"), coder)
@@ -118,6 +118,7 @@ func (_AVAudioFormatClass AVAudioFormatClass) FormatWithInvalidSampleRateAndChan
 	rv := objc.Send[objc.ID](objc.ID(_AVAudioFormatClass.class), objc.Sel("formatWithInvalidSampleRateAndChannelCount"))
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/supportsSecureCoding
 func (_AVAudioFormatClass AVAudioFormatClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_AVAudioFormatClass.class), objc.Sel("supportsSecureCoding"))
@@ -129,9 +130,9 @@ func (a AVAudioFormat) Interleaved() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("interleaved"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/standard
 func (a AVAudioFormat) Standard() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("standard"))
 	return rv
 }
-

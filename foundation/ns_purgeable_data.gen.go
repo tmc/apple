@@ -3,8 +3,9 @@
 package foundation
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -45,32 +46,30 @@ func (nc NSPurgeableDataClass) Alloc() NSPurgeableData {
 // no longer needed.
 //
 // # Overview
-// 
+//
 // [NSPurgeableData] objects inherit their creation methods from their
 // superclass, [NSMutableData] while providing a default implementation of the
 // [NSDiscardableContent] protocol.
-// 
+//
 // All [NSPurgeableData] objects begin “accessed” to ensure that they are
 // not instantly discarded. The [NSPurgeableData.BeginContentAccess] method marks the
 // object’s bytes as “accessed,” thus protecting them from being
 // discarded, and must be called before accessing the object, or else an
-// exception will be raised. This method returns [true] if the bytes have not
+// exception will be raised. This method returns true if the bytes have not
 // been discarded and if they have been successfully marked as “accessed”.
 // Any method that directly or indirectly accesses these bytes or their length
 // when they are not “accessed” will raise an exception. When you are done
 // with the data, call [NSPurgeableData.EndContentAccess] to allow them to be discarded in
 // order to quickly free up memory.
-// 
+//
 // You may use these objects by themselves, and do not necessarily have to use
 // them in conjunction with [NSCache] to get the purging behavior. The
 // [NSCache] class incorporates a caching mechanism with some auto-removal
 // policies to ensure that its memory footprint does not get too large.
-// 
+//
 // [NSPurgeableData] objects should not be used as keys in hashing-based
 // collections, because the value of the bytes pointer can change after every
 // mutation of the data.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPurgeableData
 type NSPurgeableData struct {
@@ -84,6 +83,7 @@ type NSPurgeableData struct {
 func NSPurgeableDataFromID(id objc.ID) NSPurgeableData {
 	return NSPurgeableData{NSMutableData: NSMutableDataFromID(id)}
 }
+
 // NOTE: NSPurgeableData adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,7 +114,6 @@ func NewNSPurgeableData() NSPurgeableData {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-4t5yq
 func NewPurgeableDataWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
@@ -122,7 +121,6 @@ func NewPurgeableDataWithBase64EncodedDataOptions(base64Data INSData, options NS
 	return NSPurgeableDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-3ksry
 func NewPurgeableDataWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
@@ -135,20 +133,20 @@ func NewPurgeableDataWithBase64EncodedStringOptions(base64String string, options
 // base64String: A Base-64 encoded string.
 //
 // # Return Value
-// 
+//
 // A data object built by Base-64 decoding the provided string. Returns `nil`
 // if the data object could not be decoded.
 //
 // # Discussion
-// 
+//
 // Although this method was only introduced publicly for iOS 7, it has existed
 // since iOS 4; you can use it if your application needs to target an
 // operating system prior to iOS 7. This method behaves like
 // [init(base64EncodedString:options:)], but ignores all unknown characters.
 //
-// [init(base64EncodedString:options:)]: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoding:)
+//
+// [init(base64EncodedString:options:)]: https://developer.apple.com/documentation/Foundation/NSData/init(base64EncodedString:options:)
 func NewPurgeableDataWithBase64Encoding(base64String string) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64Encoding:"), objc.String(base64String))
@@ -159,7 +157,7 @@ func NewPurgeableDataWithBase64Encoding(base64String string) NSPurgeableData {
 // given buffer.
 //
 // # Discussion
-// 
+//
 // A data object initialized by adding to it `length` bytes of data copied
 // from the buffer `bytes`. The returned object might be different than the
 // original receiver.
@@ -181,13 +179,13 @@ func NewPurgeableDataWithBytesLength(bytes []byte) NSPurgeableData {
 // length of `bytes`.
 //
 // # Return Value
-// 
+//
 // A data object initialized by adding to it `length` bytes of data from the
 // buffer `bytes`. The returned object might be different than the original
 // receiver.
 //
 // # Discussion
-// 
+//
 // The returned object takes ownership of the `bytes` pointer and frees it on
 // deallocation. Therefore, `bytes` must point to a memory block allocated
 // with `malloc`.
@@ -202,18 +200,14 @@ func NewPurgeableDataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NS
 // Initializes a newly allocated data object by adding the given number of
 // bytes from the given buffer.
 //
-// bytes: A buffer containing data for the new object. If `flag` is [true], `bytes`
+// bytes: A buffer containing data for the new object. If `flag` is true, `bytes`
 // must point to a memory block allocated with `malloc`.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // length: The number of bytes to hold from `bytes`. This value must not exceed the
 // length of `bytes`.
 //
-// b: If [true], the returned object takes ownership of the `bytes` pointer and
+// b: If true, the returned object takes ownership of the `bytes` pointer and
 // frees it on deallocation.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:freeWhenDone:)
 func NewPurgeableDataWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length uint, b bool) NSPurgeableData {
@@ -228,19 +222,19 @@ func NewPurgeableDataWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, len
 // capacity: The number of bytes the data object can initially contain.
 //
 // # Return Value
-// 
+//
 // An initialized [NSMutableData] object capable of holding `capacity` bytes.
 // The returned object has the same memory alignment guarantees as
 // `malloc(_:)`.
 //
 // # Discussion
-// 
+//
 // This method doesn’t necessarily allocate the requested memory right away.
 // Mutable data objects allocate additional memory as needed, so `capacity`
 // simply establishes the object’s initial capacity. When it does allocate
 // the initial memory, though, it allocates the specified amount. This method
 // sets the length of the data object to `0`.
-// 
+//
 // If the capacity specified in `capacity` is greater than four memory pages
 // in size, this method may round the amount of requested memory up to the
 // nearest full page.
@@ -252,7 +246,6 @@ func NewPurgeableDataWithCapacity(capacity uint) NSPurgeableData {
 	return NSPurgeableDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewPurgeableDataWithCoder(coder INSCoder) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
@@ -265,12 +258,12 @@ func NewPurgeableDataWithCoder(coder INSCoder) NSPurgeableData {
 // path: The absolute path of the file from which to read data.
 //
 // # Return Value
-// 
+//
 // A data object initialized by reading into it the data from the file
 // specified by `path`.
 //
 // # Discussion
-// 
+//
 // This method is equivalent to [InitWithContentsOfFileOptionsError] with no
 // options.
 //
@@ -287,17 +280,17 @@ func NewPurgeableDataWithContentsOfFile(path string) NSPurgeableData {
 //
 // readOptionsMask: A mask that specifies options for reading the data. Constant components are
 // described in [NSData.ReadingOptions].
-// //
-// [NSData.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
 //
 // # Return Value
-// 
+//
 // A data object initialized by reading into it the data from the file
 // specified by `path`.
 //
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOfFile:options:)
+//
+// [NSData.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
 func NewPurgeableDataWithContentsOfFileOptionsError(path string, readOptionsMask NSDataReadingOptions) (NSPurgeableData, error) {
 	var errorPtr objc.ID
 	instance := getNSPurgeableDataClass().Alloc()
@@ -309,7 +302,6 @@ func NewPurgeableDataWithContentsOfFileOptionsError(path string, readOptionsMask
 	return NSPurgeableDataFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:)
 func NewPurgeableDataWithContentsOfURL(url INSURL) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
@@ -317,7 +309,6 @@ func NewPurgeableDataWithContentsOfURL(url INSURL) NSPurgeableData {
 	return NSPurgeableDataFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:options:)
 func NewPurgeableDataWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSDataReadingOptions) (NSPurgeableData, error) {
 	var errorPtr objc.ID
@@ -335,7 +326,7 @@ func NewPurgeableDataWithContentsOfURLOptionsError(url INSURL, readOptionsMask N
 // data: A data object.
 //
 // # Return Value
-// 
+//
 // A data object initialized with the contents `data`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(data:)
@@ -351,7 +342,7 @@ func NewPurgeableDataWithData(data INSData) NSPurgeableData {
 // length: The number of bytes the object initially contains.
 //
 // # Return Value
-// 
+//
 // An initialized [NSMutableData] object containing `length` zeroed bytes. The
 // returned object has the same memory alignment guarantees as `malloc(_:)`.
 //
@@ -366,14 +357,12 @@ func NewPurgeableDataWithLength(length uint) NSPurgeableData {
 // still available and have been successfully accessed.
 //
 // # Return Value
-// 
-// YES if the discardable contents are still available and have now been
-// successfully accessed; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
+// YES if the discardable contents are still available and have now been
+// successfully accessed; otherwise, false.
 //
 // # Discussion
-// 
+//
 // Call this method if the object’s memory is needed or is about to be used.
 // This method increments the counter variable, thus protecting the object’s
 // memory from possibly being discarded. The implementing class may decide
@@ -387,11 +376,12 @@ func (p NSPurgeableData) BeginContentAccess() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("beginContentAccess"))
 	return rv
 }
+
 // Called to discard the contents of the receiver if the value of the accessed
 // counter is 0.
 //
 // # Discussion
-// 
+//
 // This method should only discard the contents of the object if the value of
 // the accessed counter is 0. Otherwise, it should do nothing.
 //
@@ -399,10 +389,11 @@ func (p NSPurgeableData) BeginContentAccess() bool {
 func (p NSPurgeableData) DiscardContentIfPossible() {
 	objc.Send[objc.ID](p.ID, objc.Sel("discardContentIfPossible"))
 }
+
 // Called if the discardable contents are no longer being accessed.
 //
 // # Discussion
-// 
+//
 // This method decrements the counter variable of the object, which will
 // usually bring the value of the counter variable back down to 0, which
 // allows the discardable contents of the object to be thrown away if
@@ -412,14 +403,12 @@ func (p NSPurgeableData) DiscardContentIfPossible() {
 func (p NSPurgeableData) EndContentAccess() {
 	objc.Send[objc.ID](p.ID, objc.Sel("endContentAccess"))
 }
+
 // Returns a Boolean value indicating whether the content has been discarded.
 //
 // # Return Value
-// 
-// [true] if the content has been discarded; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the content has been discarded; otherwise, false.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/isContentDiscarded()
 func (p NSPurgeableData) IsContentDiscarded() bool {
@@ -427,6 +416,4 @@ func (p NSPurgeableData) IsContentDiscarded() bool {
 	return rv
 }
 
-			// Protocol methods for NSDiscardableContent
-			
-
+// Protocol methods for NSDiscardableContent

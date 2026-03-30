@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,7 +45,7 @@ func (nc NSCollectionViewUpdateItemClass) Alloc() NSCollectionViewUpdateItem {
 // A description of a single change to make to an item in a collection view.
 //
 // # Overview
-// 
+//
 // You do not create instances of this class directly. When updating its
 // content, the collection view object creates them and passes them to the
 // layout object’s [PrepareForCollectionViewUpdates] method, which can use
@@ -67,6 +68,7 @@ type NSCollectionViewUpdateItem struct {
 func NSCollectionViewUpdateItemFromID(id objc.ID) NSCollectionViewUpdateItem {
 	return NSCollectionViewUpdateItem{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSCollectionViewUpdateItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,42 +116,39 @@ func NewNSCollectionViewUpdateItem() NSCollectionViewUpdateItem {
 // The index path of the item before the update.
 //
 // # Discussion
-// 
-// The value of this property is `nil` for an action of type
-// [NSCollectionView.UpdateAction.insert].
 //
-// [NSCollectionView.UpdateAction.insert]: https://developer.apple.com/documentation/AppKit/NSCollectionView/UpdateAction/insert
+// The value of this property is `nil` for an action of type
+// [NSCollectionUpdateActionInsert].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewUpdateItem/indexPathBeforeUpdate
 func (c NSCollectionViewUpdateItem) IndexPathBeforeUpdate() objc.ID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathBeforeUpdate"))
 	return rv
 }
+
 // The index path of the item after the update.
 //
 // # Discussion
-// 
-// The value of this property is `nil` for an action of type
-// [NSCollectionView.UpdateAction.delete].
 //
-// [NSCollectionView.UpdateAction.delete]: https://developer.apple.com/documentation/AppKit/NSCollectionView/UpdateAction/delete
+// The value of this property is `nil` for an action of type
+// [NSCollectionUpdateActionDelete].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewUpdateItem/indexPathAfterUpdate
 func (c NSCollectionViewUpdateItem) IndexPathAfterUpdate() objc.ID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathAfterUpdate"))
 	return rv
 }
+
 // The action being performed on the item.
 //
 // # Discussion
-// 
+//
 // For a list of relevant actions, see [NSCollectionView.UpdateAction].
 //
-// [NSCollectionView.UpdateAction]: https://developer.apple.com/documentation/AppKit/NSCollectionView/UpdateAction
-//
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewUpdateItem/updateAction
+//
+// [NSCollectionView.UpdateAction]: https://developer.apple.com/documentation/AppKit/NSCollectionView/UpdateAction
 func (c NSCollectionViewUpdateItem) UpdateAction() NSCollectionUpdateAction {
 	rv := objc.Send[NSCollectionUpdateAction](c.ID, objc.Sel("updateAction"))
 	return NSCollectionUpdateAction(rv)
 }
-

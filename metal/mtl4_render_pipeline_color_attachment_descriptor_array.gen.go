@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -62,6 +63,7 @@ type MTL4RenderPipelineColorAttachmentDescriptorArray struct {
 func MTL4RenderPipelineColorAttachmentDescriptorArrayFromID(id objc.ID) MTL4RenderPipelineColorAttachmentDescriptorArray {
 	return MTL4RenderPipelineColorAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4RenderPipelineColorAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -118,6 +120,7 @@ func NewMTL4RenderPipelineColorAttachmentDescriptorArray() MTL4RenderPipelineCol
 func (m MTL4RenderPipelineColorAttachmentDescriptorArray) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
+
 // Accesses a color attachment at a specific index.
 //
 // attachmentIndex: Index of the attachment to access.
@@ -127,6 +130,7 @@ func (m MTL4RenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubscri
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTL4RenderPipelineColorAttachmentDescriptorFromID(rv)
 }
+
 // Sets an attachment at an index.
 //
 // attachment: The descriptor of the attachment to set.
@@ -134,9 +138,9 @@ func (m MTL4RenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubscri
 // attachmentIndex: The index of the attachment within the array.
 //
 // # Discussion
-// 
+//
 // This function offers ‘copy’ semantics.
-// 
+//
 // You can safely set the color attachment at any legal index to nil. This has
 // the effect of resetting that attachment descriptor’s state to its default
 // values.
@@ -145,4 +149,3 @@ func (m MTL4RenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubscri
 func (m MTL4RenderPipelineColorAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTL4RenderPipelineColorAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-

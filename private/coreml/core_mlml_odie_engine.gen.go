@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,12 +44,12 @@ func (cc CoreMLMLOdieEngineClass) Alloc() CoreMLMLOdieEngine {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [CoreMLMLOdieEngine.NewRequestForModelInputFeaturesUsingStateOptionsError]
 //   - [CoreMLMLOdieEngine.NewStateWithClientBuffers]
 //   - [CoreMLMLOdieEngine.PredictionFromFeaturesUsingStateOptionsError]
+//
 // See: https://developer.apple.com/documentation/CoreML/CoreML.MLOdieEngine
 type CoreMLMLOdieEngine struct {
 	MLModelSwiftEngine
@@ -58,6 +59,7 @@ type CoreMLMLOdieEngine struct {
 func CoreMLMLOdieEngineFromID(id objc.ID) CoreMLMLOdieEngine {
 	return CoreMLMLOdieEngine{MLModelSwiftEngine: MLModelSwiftEngineFromID(id)}
 }
+
 // Ensure CoreMLMLOdieEngine implements ICoreMLMLOdieEngine.
 var _ ICoreMLMLOdieEngine = CoreMLMLOdieEngine{}
 
@@ -99,7 +101,6 @@ func NewCoreMLMLOdieEngine() CoreMLMLOdieEngine {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/CoreML.MLOdieEngine/initWithDescription:configuration:
 func NewCoreMLMLOdieEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) CoreMLMLOdieEngine {
 	instance := getCoreMLMLOdieEngineClass().Alloc()
@@ -107,7 +108,6 @@ func NewCoreMLMLOdieEngineWithDescriptionConfiguration(description objectivec.IO
 	return CoreMLMLOdieEngineFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewCoreMLMLOdieEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) CoreMLMLOdieEngine {
 	instance := getCoreMLMLOdieEngineClass().Alloc()
@@ -115,7 +115,6 @@ func NewCoreMLMLOdieEngineWithNameInputDescriptionOutputDescriptionOrderedInputF
 	return CoreMLMLOdieEngineFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/CoreML.MLOdieEngine/newRequestForModel:inputFeatures:usingState:options:error:
 func (c CoreMLMLOdieEngine) NewRequestForModelInputFeaturesUsingStateOptionsError(model objectivec.IObject, features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -127,13 +126,13 @@ func (c CoreMLMLOdieEngine) NewRequestForModelInputFeaturesUsingStateOptionsErro
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/CoreML.MLOdieEngine/newStateWithClientBuffers:
 func (c CoreMLMLOdieEngine) NewStateWithClientBuffers(buffers objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("newStateWithClientBuffers:"), buffers)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/CoreML.MLOdieEngine/predictionFromFeatures:usingState:options:error:
 func (c CoreMLMLOdieEngine) PredictionFromFeaturesUsingStateOptionsError(features objectivec.IObject, state objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -145,4 +144,3 @@ func (c CoreMLMLOdieEngine) PredictionFromFeaturesUsingStateOptionsError(feature
 	return objectivec.Object{ID: rv}, nil
 
 }
-

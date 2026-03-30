@@ -18,6 +18,7 @@ type AVAudioRemoteInputPlugin_PrivateTest interface {
 type AVAudioRemoteInputPlugin_PrivateTestObject struct {
 	objectivec.Object
 }
+
 func (o AVAudioRemoteInputPlugin_PrivateTestObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -34,5 +35,4 @@ func AVAudioRemoteInputPlugin_PrivateTestObjectFromID(id objc.ID) AVAudioRemoteI
 func (o AVAudioRemoteInputPlugin_PrivateTestObject) MockPluginEndpoint() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("mockPluginEndpoint"))
 	return objectivec.Object{ID: rv}
-	}
-
+}

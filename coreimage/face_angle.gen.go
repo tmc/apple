@@ -4,6 +4,7 @@ package coreimage
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type FaceAngle struct {
 func FaceAngleFromID(id objc.ID) FaceAngle {
 	return FaceAngle{objectivec.Object{ID: id}}
 }
+
 // Ensure FaceAngle implements IFaceAngle.
 var _ IFaceAngle = FaceAngle{}
 
@@ -78,4 +80,3 @@ func NewFaceAngle() FaceAngle {
 	rv := objc.Send[FaceAngle](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

@@ -4,9 +4,10 @@ package coreimage
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,7 +48,7 @@ func (cc CIFeatureClass) Alloc() CIFeature {
 // in an image.
 //
 // # Overview
-// 
+//
 // A [CIFeature] object represents a portion of an image that a detector
 // believes matches its criteria. Subclasses of CIFeature holds additional
 // information specific to the detector that discovered the feature.
@@ -76,6 +77,7 @@ type CIFeature struct {
 func CIFeatureFromID(id objc.ID) CIFeature {
 	return CIFeature{objectivec.Object{ID: id}}
 }
+
 // NOTE: CIFeature adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -138,7 +140,7 @@ func NewCIFeature() CIFeature {
 // The rectangle that holds discovered feature.
 //
 // # Discussion
-// 
+//
 // The rectangle is in the coordinate system of the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFeature/bounds
@@ -146,6 +148,7 @@ func (f CIFeature) Bounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](f.ID, objc.Sel("bounds"))
 	return corefoundation.CGRect(rv)
 }
+
 // The type of feature that was discovered.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFeature/type
@@ -153,6 +156,7 @@ func (f CIFeature) Type() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("type"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A Core Image feature type for person’s face.
 //
 // See: https://developer.apple.com/documentation/coreimage/cifeaturetypeface
@@ -160,6 +164,7 @@ func (f CIFeature) CIFeatureTypeFace() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("CIFeatureTypeFace"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A Core Image feature type for rectangular object.
 //
 // See: https://developer.apple.com/documentation/coreimage/cifeaturetyperectangle
@@ -167,6 +172,7 @@ func (f CIFeature) CIFeatureTypeRectangle() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("CIFeatureTypeRectangle"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A Core Image feature type for QR code object.
 //
 // See: https://developer.apple.com/documentation/coreimage/cifeaturetypeqrcode
@@ -174,6 +180,7 @@ func (f CIFeature) CIFeatureTypeQRCode() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("CIFeatureTypeQRCode"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // A Core Image feature type for text.
 //
 // See: https://developer.apple.com/documentation/coreimage/cifeaturetypetext
@@ -181,4 +188,3 @@ func (f CIFeature) CIFeatureTypeText() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("CIFeatureTypeText"))
 	return foundation.NSStringFromID(rv).String()
 }
-

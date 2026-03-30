@@ -4,8 +4,9 @@ package usernotifications
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [UNTextInputNotificationResponse] class.
@@ -45,7 +46,7 @@ func (uc UNTextInputNotificationResponseClass) Alloc() UNTextInputNotificationRe
 // text that the user typed or dictated.
 //
 // # Overview
-// 
+//
 // The system delivers a [UNTextInputNotificationResponse] object to your app
 // so that you can process user-provided text content. When defining your
 // categories, you can specify an [UNTextInputNotificationAction] object
@@ -53,24 +54,24 @@ func (uc UNTextInputNotificationResponseClass) Alloc() UNTextInputNotificationRe
 // system creates an [UNTextInputNotificationResponse] object when the user
 // selects the accompanying action, and it fills the [UNTextInputNotificationResponse.UserText] property with
 // any user-entered text.
-// 
+//
 // You don’t create [UNTextInputNotificationResponse] objects yourself.
 // Instead, the shared user notification center object creates them and
 // delivers them to the
 // [UserNotificationCenterDidReceiveNotificationResponseWithCompletionHandler]
 // method of its delegate object. Use that method to extract any needed
 // information from the response object and take appropriate action.
-// 
+//
 // For more information about responding to actions, see [Handling
 // notifications and notification-related actions].
-//
-// [Handling notifications and notification-related actions]: https://developer.apple.com/documentation/UserNotifications/handling-notifications-and-notification-related-actions
 //
 // # Getting the Text Response
 //
 //   - [UNTextInputNotificationResponse.UserText]: The text response provided by the user.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNTextInputNotificationResponse
+//
+// [Handling notifications and notification-related actions]: https://developer.apple.com/documentation/UserNotifications/handling-notifications-and-notification-related-actions
 type UNTextInputNotificationResponse struct {
 	UNNotificationResponse
 }
@@ -82,6 +83,7 @@ type UNTextInputNotificationResponse struct {
 func UNTextInputNotificationResponseFromID(id objc.ID) UNTextInputNotificationResponse {
 	return UNTextInputNotificationResponse{UNNotificationResponse: UNNotificationResponseFromID(id)}
 }
+
 // NOTE: UNTextInputNotificationResponse adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -123,7 +125,7 @@ func NewUNTextInputNotificationResponse() UNTextInputNotificationResponse {
 // The text response provided by the user.
 //
 // # Discussion
-// 
+//
 // If the user does not specify any text, this property contains an empty
 // string.
 //
@@ -132,4 +134,3 @@ func (u UNTextInputNotificationResponse) UserText() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("userText"))
 	return foundation.NSStringFromID(rv).String()
 }
-

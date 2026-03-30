@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,7 +42,6 @@ func (mc MTL4RenderPipelineColorAttachmentDescriptorClass) Alloc() MTL4RenderPip
 	return rv
 }
 
-//
 // # Instance Properties
 //
 //   - [MTL4RenderPipelineColorAttachmentDescriptor.AlphaBlendOperation]: Configures the alpha blending operation.
@@ -66,6 +66,7 @@ func (mc MTL4RenderPipelineColorAttachmentDescriptorClass) Alloc() MTL4RenderPip
 // # Instance Methods
 //
 //   - [MTL4RenderPipelineColorAttachmentDescriptor.Reset]: Resets this descriptor to its default state.
+//
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor
 type MTL4RenderPipelineColorAttachmentDescriptor struct {
 	objectivec.Object
@@ -75,6 +76,7 @@ type MTL4RenderPipelineColorAttachmentDescriptor struct {
 func MTL4RenderPipelineColorAttachmentDescriptorFromID(id objc.ID) MTL4RenderPipelineColorAttachmentDescriptor {
 	return MTL4RenderPipelineColorAttachmentDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4RenderPipelineColorAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -174,7 +176,7 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) Reset() {
 // Configures the alpha blending operation.
 //
 // # Discussion
-// 
+//
 // This property defaults to [MTLBlendOperationAdd].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor/alphaBlendOperation
@@ -185,10 +187,11 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) AlphaBlendOperation() MTLBl
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetAlphaBlendOperation(value MTLBlendOperation) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAlphaBlendOperation:"), value)
 }
+
 // Configure the blend state for color attachments the pipeline state uses.
 //
 // # Discussion
-// 
+//
 // This property’s default value is [MTL4BlendStateDisabled].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor/blendingState
@@ -199,10 +202,11 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) BlendingState() MTL4BlendSt
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetBlendingState(value MTL4BlendState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBlendingState:"), value)
 }
+
 // Configures the destination-alpha blend factor.
 //
 // # Discussion
-// 
+//
 // This property defaults to [MTLBlendFactorZero].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor/destinationAlphaBlendFactor
@@ -213,10 +217,11 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) DestinationAlphaBlendFactor
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetDestinationAlphaBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDestinationAlphaBlendFactor:"), value)
 }
+
 // Configures the destination RGB blend factor.
 //
 // # Discussion
-// 
+//
 // This property defaults to [MTLBlendFactorZero].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor/destinationRGBBlendFactor
@@ -227,10 +232,11 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) DestinationRGBBlendFactor()
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetDestinationRGBBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDestinationRGBBlendFactor:"), value)
 }
+
 // Configures the pixel format.
 //
 // # Discussion
-// 
+//
 // This property defaults to [MTLPixelFormatInvalid].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor/pixelFormat
@@ -241,10 +247,11 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) PixelFormat() MTLPixelForma
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPixelFormat:"), value)
 }
+
 // Configures the RGB blend operation.
 //
 // # Discussion
-// 
+//
 // This property defaults to [MTLBlendOperationAdd].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor/rgbBlendOperation
@@ -255,10 +262,11 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) RgbBlendOperation() MTLBlen
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetRgbBlendOperation(value MTLBlendOperation) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRgbBlendOperation:"), value)
 }
+
 // Configures the source-alpha blend factor.
 //
 // # Discussion
-// 
+//
 // This property defaults to [MTLBlendFactorOne].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor/sourceAlphaBlendFactor
@@ -269,10 +277,11 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) SourceAlphaBlendFactor() MT
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetSourceAlphaBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSourceAlphaBlendFactor:"), value)
 }
+
 // Configures the source RGB blend factor.
 //
 // # Discussion
-// 
+//
 // This property defaults to [MTLBlendFactorOne].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor/sourceRGBBlendFactor
@@ -283,10 +292,11 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) SourceRGBBlendFactor() MTLB
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetSourceRGBBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSourceRGBBlendFactor:"), value)
 }
+
 // Configures the color write mask.
 //
 // # Discussion
-// 
+//
 // This property defaults to [MTLColorWriteMaskAll].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor/writeMask
@@ -297,4 +307,3 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) WriteMask() MTLColorWriteMa
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetWriteMask(value MTLColorWriteMask) {
 	objc.Send[struct{}](m.ID, objc.Sel("setWriteMask:"), value)
 }
-

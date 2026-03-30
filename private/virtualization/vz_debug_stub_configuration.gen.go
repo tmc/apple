@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (vc VZDebugStubConfigurationClass) Alloc() VZDebugStubConfiguration {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZDebugStubConfiguration._init]
@@ -53,6 +53,7 @@ func (vc VZDebugStubConfigurationClass) Alloc() VZDebugStubConfiguration {
 //   - [VZDebugStubConfiguration.Description]
 //   - [VZDebugStubConfiguration.Hash]
 //   - [VZDebugStubConfiguration.Superclass]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZDebugStubConfiguration
 type VZDebugStubConfiguration struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type VZDebugStubConfiguration struct {
 func VZDebugStubConfigurationFromID(id objc.ID) VZDebugStubConfiguration {
 	return VZDebugStubConfiguration{objectivec.Object{ID: id}}
 }
+
 // Ensure VZDebugStubConfiguration implements IVZDebugStubConfiguration.
 var _ IVZDebugStubConfiguration = VZDebugStubConfiguration{}
 
@@ -118,18 +120,19 @@ func (v VZDebugStubConfiguration) _init() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDebugStubConfiguration/encodeWithEncoder:
 func (v VZDebugStubConfiguration) EncodeWithEncoder(encoder objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("encodeWithEncoder:"), encoder)
 	return objectivec.Object{ID: rv}
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDebugStubConfiguration/makeDebugStubForCoprocessor
 func (v VZDebugStubConfiguration) MakeDebugStubForCoprocessor() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeDebugStubForCoprocessor"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDebugStubConfiguration/makeDebugStubForVirtualMachine:
 func (v VZDebugStubConfiguration) MakeDebugStubForVirtualMachine(machine objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeDebugStubForVirtualMachine:"), machine)
@@ -141,19 +144,21 @@ func (v VZDebugStubConfiguration) DebugDescription() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDebugStubConfiguration/description
 func (v VZDebugStubConfiguration) Description() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDebugStubConfiguration/hash
 func (v VZDebugStubConfiguration) Hash() uint64 {
 	rv := objc.Send[uint64](v.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZDebugStubConfiguration/superclass
 func (v VZDebugStubConfiguration) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](v.ID, objc.Sel("superclass"))
 	return rv
 }
-

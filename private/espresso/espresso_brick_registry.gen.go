@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type EspressoBrickRegistry struct {
 func EspressoBrickRegistryFromID(id objc.ID) EspressoBrickRegistry {
 	return EspressoBrickRegistry{objectivec.Object{ID: id}}
 }
+
 // Ensure EspressoBrickRegistry implements IEspressoBrickRegistry.
 var _ IEspressoBrickRegistry = EspressoBrickRegistry{}
 
@@ -79,9 +81,7 @@ func NewEspressoBrickRegistry() EspressoBrickRegistry {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Espresso/EspressoBrickRegistry/registerBrickClass:
 func (_EspressoBrickRegistryClass EspressoBrickRegistryClass) RegisterBrickClass(class objc.Class) {
 	objc.Send[objc.ID](objc.ID(_EspressoBrickRegistryClass.class), objc.Sel("registerBrickClass:"), class)
 }
-

@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (vc VZNetworkDeviceAttachmentClass) Alloc() VZNetworkDeviceAttachment {
 // machine.
 //
 // # Overview
-// 
+//
 // Don’t create a [VZNetworkDeviceAttachment] object directly. Instead,
 // instantiate one of its concrete subclasses and use that object to configure
 // your network devices. Each concrete subclass represents a specific type of
@@ -63,6 +64,7 @@ type VZNetworkDeviceAttachment struct {
 func VZNetworkDeviceAttachmentFromID(id objc.ID) VZNetworkDeviceAttachment {
 	return VZNetworkDeviceAttachment{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZNetworkDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -91,4 +93,3 @@ func NewVZNetworkDeviceAttachment() VZNetworkDeviceAttachment {
 	rv := objc.Send[VZNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

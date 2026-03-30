@@ -4,8 +4,9 @@ package coreml
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,7 +43,6 @@ func (mc MLNeuralEngineComputeDeviceClass) Alloc() MLNeuralEngineComputeDevice {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLNeuralEngineComputeDevice.InitWithTotalCoreCount]
@@ -50,6 +50,7 @@ func (mc MLNeuralEngineComputeDeviceClass) Alloc() MLNeuralEngineComputeDevice {
 //   - [MLNeuralEngineComputeDevice.Description]
 //   - [MLNeuralEngineComputeDevice.Hash]
 //   - [MLNeuralEngineComputeDevice.Superclass]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice
 type MLNeuralEngineComputeDevice struct {
 	objectivec.Object
@@ -59,6 +60,7 @@ type MLNeuralEngineComputeDevice struct {
 func MLNeuralEngineComputeDeviceFromID(id objc.ID) MLNeuralEngineComputeDevice {
 	return MLNeuralEngineComputeDevice{objectivec.Object{ID: id}}
 }
+
 // Ensure MLNeuralEngineComputeDevice implements IMLNeuralEngineComputeDevice.
 var _ IMLNeuralEngineComputeDevice = MLNeuralEngineComputeDevice{}
 
@@ -104,7 +106,6 @@ func NewMLNeuralEngineComputeDevice() MLNeuralEngineComputeDevice {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/initWithTotalCoreCount:
 func NewNeuralEngineComputeDeviceWithTotalCoreCount(count int64) MLNeuralEngineComputeDevice {
 	instance := getMLNeuralEngineComputeDeviceClass().Alloc()
@@ -112,7 +113,6 @@ func NewNeuralEngineComputeDeviceWithTotalCoreCount(count int64) MLNeuralEngineC
 	return MLNeuralEngineComputeDeviceFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/initWithTotalCoreCount:
 func (n MLNeuralEngineComputeDevice) InitWithTotalCoreCount(count int64) MLNeuralEngineComputeDevice {
 	rv := objc.Send[MLNeuralEngineComputeDevice](n.ID, objc.Sel("initWithTotalCoreCount:"), count)
@@ -130,19 +130,21 @@ func (n MLNeuralEngineComputeDevice) DebugDescription() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/description
 func (n MLNeuralEngineComputeDevice) Description() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/hash
 func (n MLNeuralEngineComputeDevice) Hash() uint64 {
 	rv := objc.Send[uint64](n.ID, objc.Sel("hash"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/superclass
 func (n MLNeuralEngineComputeDevice) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](n.ID, objc.Sel("superclass"))
 	return rv
 }
-

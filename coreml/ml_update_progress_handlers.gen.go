@@ -5,6 +5,7 @@ package coreml
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -61,6 +62,7 @@ type MLUpdateProgressHandlers struct {
 func MLUpdateProgressHandlersFromID(id objc.ID) MLUpdateProgressHandlers {
 	return MLUpdateProgressHandlers{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLUpdateProgressHandlers adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -112,7 +114,7 @@ func NewMLUpdateProgressHandlers() MLUpdateProgressHandlers {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/init(forEvents:progressHandler:completionHandler:)
 func (u MLUpdateProgressHandlers) InitForEventsProgressHandlerCompletionHandler(interestedEvents MLUpdateProgressEvent, progressHandler MLUpdateContextHandler, completionHandler MLUpdateContextHandler) MLUpdateProgressHandlers {
-_block1, _ := NewMLUpdateContextBlock(progressHandler)
+	_block1, _ := NewMLUpdateContextBlock(progressHandler)
 	_block2, _ := NewMLUpdateContextBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("initForEvents:progressHandler:completionHandler:"), interestedEvents, _block1, _block2)
 	return MLUpdateProgressHandlersFromID(rv)
@@ -132,4 +134,3 @@ func (u MLUpdateProgressHandlers) InitForEventsProgressHandler(ctx context.Conte
 		return nil, ctx.Err()
 	}
 }
-

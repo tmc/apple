@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,18 +45,18 @@ func (nc NotificationQueueClass) Alloc() NotificationQueue {
 // A notification center buffer.
 //
 // # Overview
-// 
+//
 // Whereas a notification center distributes notifications when posted,
 // notifications placed into the queue can be delayed until the end of the
 // current pass through the run loop or until the run loop is idle. Duplicate
 // notifications can be coalesced so that only one notification is sent
 // although multiple notifications are posted.
-// 
+//
 // A notification queue maintains notifications in first in, first out (FIFO)
 // order. When a notification moves to the front of the queue, the queue posts
 // it to the notification center, which in turn dispatches the notification to
 // all objects registered as observers.
-// 
+//
 // Every thread has a default notification queue, which is associated with the
 // default notification center for the process. You can create your own
 // notification queues and have multiple queues per center and thread.
@@ -84,6 +85,7 @@ func NotificationQueueFromID(id objc.ID) NotificationQueue {
 
 // NSNotificationQueueFromID is an alias for [NotificationQueueFromID] for cross-framework compatibility.
 func NSNotificationQueueFromID(id objc.ID) NotificationQueue { return NotificationQueueFromID(id) }
+
 // NOTE: NotificationQueue adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -143,11 +145,11 @@ func NewNotificationQueue() NotificationQueue {
 // notificationCenter: The notification center to be used by the notification queue.
 //
 // # Return Value
-// 
+//
 // The newly initialized notification queue.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer for the [NSNotificationQueue] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationQueue/init(notificationCenter:)
@@ -163,11 +165,11 @@ func NewNotificationQueueWithNotificationCenter(notificationCenter INSNotificati
 // notificationCenter: The notification center to be used by the notification queue.
 //
 // # Return Value
-// 
+//
 // The newly initialized notification queue.
 //
 // # Discussion
-// 
+//
 // This is the designated initializer for the [NSNotificationQueue] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationQueue/init(notificationCenter:)
@@ -175,6 +177,7 @@ func (n NotificationQueue) InitWithNotificationCenter(notificationCenter INSNoti
 	rv := objc.Send[NotificationQueue](n.ID, objc.Sel("initWithNotificationCenter:"), notificationCenter)
 	return rv
 }
+
 // Adds a notification to the notification queue with a specified posting
 // style, criteria for coalescing, and run loop mode.
 //
@@ -186,21 +189,22 @@ func (n NotificationQueue) InitWithNotificationCenter(notificationCenter INSNoti
 //
 // coalesceMask: A mask indicating what criteria to use when matching attributes of
 // `notification` to attributes of notifications in the queue. The mask is
-// created by combining any of the constants [NotificationNoCoalescing],
-// [NotificationCoalescingOnName], and [NotificationCoalescingOnSender].
+// created by combining any of the constants [NSNotificationNoCoalescing],
+// [NSNotificationCoalescingOnName], and [NSNotificationCoalescingOnSender].
 //
 // modes: The list of modes the notification may be posted in. The notification queue
 // will only post the notification to its notification center if the run loop
 // is in one of the modes provided in the array.
-// 
+//
 // This parameter may be `nil`, in which case it defaults to [default].
-// //
-// [default]: https://developer.apple.com/documentation/Foundation/RunLoop/Mode/default
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationQueue/enqueue(_:postingStyle:coalesceMask:forModes:)
+//
+// [default]: https://developer.apple.com/documentation/Foundation/RunLoop/Mode/default
 func (n NotificationQueue) EnqueueNotificationPostingStyleCoalesceMaskForModes(notification INSNotification, postingStyle NSPostingStyle, coalesceMask NSNotificationCoalescing, modes []string) {
 	objc.Send[objc.ID](n.ID, objc.Sel("enqueueNotification:postingStyle:coalesceMask:forModes:"), notification, postingStyle, coalesceMask, objectivec.StringSliceToNSArray(modes))
 }
+
 // Adds a notification to the notification queue with a specified posting
 // style.
 //
@@ -211,18 +215,19 @@ func (n NotificationQueue) EnqueueNotificationPostingStyleCoalesceMaskForModes(n
 // center.
 //
 // # Discussion
-// 
+//
 // This is a convenience method for calling
 // [EnqueueNotificationPostingStyleCoalesceMaskForModes] with coalescing
 // criteria that will coalesce only notifications that match both the
 // notification’s name and object and the runloop mode [default].
 //
-// [default]: https://developer.apple.com/documentation/Foundation/RunLoop/Mode/default
-//
 // See: https://developer.apple.com/documentation/Foundation/NotificationQueue/enqueue(_:postingStyle:)
+//
+// [default]: https://developer.apple.com/documentation/Foundation/RunLoop/Mode/default
 func (n NotificationQueue) EnqueueNotificationPostingStyle(notification INSNotification, postingStyle NSPostingStyle) {
 	objc.Send[objc.ID](n.ID, objc.Sel("enqueueNotification:postingStyle:"), notification, postingStyle)
 }
+
 // Removes all notifications from the queue that match a provided notification
 // using provided matching criteria.
 //
@@ -231,8 +236,8 @@ func (n NotificationQueue) EnqueueNotificationPostingStyle(notification INSNotif
 //
 // coalesceMask: A mask indicating what criteria to use when matching attributes of
 // `notification` to attributes of notifications in the queue. The mask is
-// created by combining any of the constants [NotificationNoCoalescing],
-// [NotificationCoalescingOnName], and [NotificationCoalescingOnSender].
+// created by combining any of the constants [NSNotificationNoCoalescing],
+// [NSNotificationCoalescingOnName], and [NSNotificationCoalescingOnSender].
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationQueue/dequeueNotifications(matching:coalesceMask:)
 func (n NotificationQueue) DequeueNotificationsMatchingCoalesceMask(notification INSNotification, coalesceMask uint) {
@@ -242,11 +247,11 @@ func (n NotificationQueue) DequeueNotificationsMatchingCoalesceMask(notification
 // Returns the default notification queue for the current thread.
 //
 // # Return Value
-// 
+//
 // Returns the default notification queue for the current thread.
-// 
+//
 // # Discussion
-// 
+//
 // This notification queue uses the default notification center.
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationQueue/default
@@ -254,4 +259,3 @@ func (_NotificationQueueClass NotificationQueueClass) DefaultQueue() Notificatio
 	rv := objc.Send[objc.ID](objc.ID(_NotificationQueueClass.class), objc.Sel("defaultQueue"))
 	return NSNotificationQueueFromID(objc.ID(rv))
 }
-

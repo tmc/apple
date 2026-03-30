@@ -4,6 +4,7 @@ package coreml
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type CoreMLIOSurfaceAllocator struct {
 func CoreMLIOSurfaceAllocatorFromID(id objc.ID) CoreMLIOSurfaceAllocator {
 	return CoreMLIOSurfaceAllocator{objectivec.Object{ID: id}}
 }
+
 // NOTE: CoreMLIOSurfaceAllocator struct embeds objectivec.Object (parent type unavailable) but
 // ICoreMLIOSurfaceAllocator embeds the parent interface; skip compile-time assertion.
 
@@ -78,4 +80,3 @@ func NewCoreMLIOSurfaceAllocator() CoreMLIOSurfaceAllocator {
 	rv := objc.Send[CoreMLIOSurfaceAllocator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

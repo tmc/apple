@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/quartzcore"
@@ -46,7 +47,7 @@ func (ac AVCaptureDeviceRotationCoordinatorClass) Alloc() AVCaptureDeviceRotatio
 // provides adjustment angles to keep images level, relative to gravity.
 //
 // # Overview
-// 
+//
 // Correctly rotate the photos and movies your app captures, and optionally, a
 // live camera preview, by applying a coordinator’s
 // [AVCaptureDeviceRotationCoordinator.VideoRotationAngleForHorizonLevelCapture] and
@@ -80,6 +81,7 @@ type AVCaptureDeviceRotationCoordinator struct {
 func AVCaptureDeviceRotationCoordinatorFromID(id objc.ID) AVCaptureDeviceRotationCoordinator {
 	return AVCaptureDeviceRotationCoordinator{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVCaptureDeviceRotationCoordinator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -181,17 +183,17 @@ func (c AVCaptureDeviceRotationCoordinator) InitWithDevicePreviewLayer(device IA
 // captures with the device so that they’re level relative to gravity.
 //
 // # Discussion
-// 
+//
 // Your app can get immediate rotation angle updates from the rotation
 // coordinator with key-value observation (KVO) of this property. The system
 // calls key-value observation code on the main queue so that it has the same
 // behavior as the [VideoRotationAngleForHorizonLevelPreview] property.
-// 
+//
 // Apps typically apply the property’s value to an [AVCaptureConnection]
 // instance’s [VideoRotationAngle] property, such as saving photos and
 // videos with the correction rotation with [AVCapturePhotoOutput] and
 // [AVCaptureMovieFileOutput], respectively.
-// 
+//
 // Alternatively, if your app uses an [AVCaptureVideoDataOutput] instance with
 // an [AVAssetWriter], such as for recording custom videos with effects,
 // don’t rotate the video with [AVCaptureConnection]. Instead, set the
@@ -205,20 +207,21 @@ func (c AVCaptureDeviceRotationCoordinator) VideoRotationAngleForHorizonLevelCap
 	rv := objc.Send[float64](c.ID, objc.Sel("videoRotationAngleForHorizonLevelCapture"))
 	return rv
 }
+
 // An angle the coordinator provides your app to apply to the preview layer so
 // that it’s level relative to gravity.
 //
 // # Discussion
-// 
+//
 // Your app can get immediate rotation angle updates from the rotation
 // coordinator with key-value observation (KVO) for this property. You can
 // immediately update your app’s UI from its key-value observation code
 // because the rotation coordinator notifies your app on the main queue.
-// 
+//
 // Apps typically apply the property’s value to an [AVCaptureConnection]
 // instance’s [VideoRotationAngle] property, such as displaying a camera
 // preview with the correction for an [AVCaptureVideoPreviewLayer] instance.
-// 
+//
 // Alternatively, if your app uses an [AVCaptureVideoDataOutput] instance to
 // display a custom camera preview, such as with effects, don’t rotate the
 // video with [AVCaptureConnection]. Instead, set the rotation in your
@@ -226,18 +229,19 @@ func (c AVCaptureDeviceRotationCoordinator) VideoRotationAngleForHorizonLevelCap
 // [AVSampleBufferDisplayLayer] instance. This approach uses less energy than
 // rotating each frame with the capture connection.
 //
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/RotationCoordinator/videoRotationAngleForHorizonLevelPreview
+//
 // [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
 // [transform]: https://developer.apple.com/documentation/QuartzCore/CALayer/transform
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/RotationCoordinator/videoRotationAngleForHorizonLevelPreview
 func (c AVCaptureDeviceRotationCoordinator) VideoRotationAngleForHorizonLevelPreview() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("videoRotationAngleForHorizonLevelPreview"))
 	return rv
 }
+
 // The capture device the coordinator monitors to track its physical rotation.
 //
 // # Discussion
-// 
+//
 // The coordinator updates its [VideoRotationAngleForHorizonLevelCapture]
 // property by monitoring the device’s physical rotation.
 //
@@ -246,11 +250,12 @@ func (c AVCaptureDeviceRotationCoordinator) Device() IAVCaptureDevice {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("device"))
 	return AVCaptureDeviceFromID(objc.ID(rv))
 }
+
 // The layer that displays a camera preview the coordinator calculates a video
 // rotation angle for.
 //
 // # Discussion
-// 
+//
 // The coordinator updates its [VideoRotationAngleForHorizonLevelPreview]
 // property by monitoring the layer and the physical rotation of [Device].
 //
@@ -259,4 +264,3 @@ func (c AVCaptureDeviceRotationCoordinator) PreviewLayer() quartzcore.CALayer {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("previewLayer"))
 	return quartzcore.CALayerFromID(objc.ID(rv))
 }
-

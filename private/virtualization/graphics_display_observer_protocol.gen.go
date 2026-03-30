@@ -18,6 +18,7 @@ type VZGraphicsDisplayObserver interface {
 type VZGraphicsDisplayObserverObject struct {
 	objectivec.Object
 }
+
 func (o VZGraphicsDisplayObserverObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,14 +31,12 @@ func VZGraphicsDisplayObserverObjectFromID(id objc.ID) VZGraphicsDisplayObserver
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayObserver/displayDidBeginReconfiguration:
 func (o VZGraphicsDisplayObserverObject) DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("displayDidBeginReconfiguration:"), reconfiguration)
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayObserver/displayDidEndReconfiguration:
 func (o VZGraphicsDisplayObserverObject) DisplayDidEndReconfiguration(reconfiguration objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("displayDidEndReconfiguration:"), reconfiguration)
-	}
-
+}

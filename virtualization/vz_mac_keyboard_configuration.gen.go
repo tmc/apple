@@ -4,6 +4,7 @@ package virtualization
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -43,7 +44,7 @@ func (vc VZMacKeyboardConfigurationClass) Alloc() VZMacKeyboardConfiguration {
 // A device that defines the configuration for a Mac keyboard.
 //
 // # Overview
-// 
+//
 // Use this configuration to attach a Mac keyboard configuration to a VM. A
 // [VZVirtualMachineView] can use this device to send key events to the VM,
 // including the Mac-specific key events, such as the Globe key.
@@ -59,6 +60,7 @@ type VZMacKeyboardConfiguration struct {
 func VZMacKeyboardConfigurationFromID(id objc.ID) VZMacKeyboardConfiguration {
 	return VZMacKeyboardConfiguration{VZKeyboardConfiguration: VZKeyboardConfigurationFromID(id)}
 }
+
 // NOTE: VZMacKeyboardConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -87,4 +89,3 @@ func NewVZMacKeyboardConfiguration() VZMacKeyboardConfiguration {
 	rv := objc.Send[VZMacKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

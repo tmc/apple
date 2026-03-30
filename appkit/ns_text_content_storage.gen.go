@@ -5,8 +5,9 @@ package appkit
 import (
 	"context"
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [NSTextContentStorage] class.
@@ -46,14 +47,14 @@ func (nc NSTextContentStorageClass) Alloc() NSTextContentStorage {
 // the text elements necessary for layout.
 //
 // # Overview
-// 
+//
 // An [NSTextContentStorage] object provides the backing store for a view that
 // contains text. This object stores the text in an attributed string object,
 // and defaults to using an [NSTextStorage] object. It also maps portions of
 // the text to [NSTextElement] objects to organize the text into paragraphs,
 // lists, and other common element types found in text content. During layout,
 // TextKit uses these elements to lay out and render the text in your view.
-// 
+//
 // The standard system views use an [NSTextContentStorage] object to manage
 // their text content. When building a custom text view, use this type to
 // store the text for your view. [NSTextContentStorage] works with an
@@ -62,7 +63,7 @@ func (nc NSTextContentStorageClass) Alloc() NSTextContentStorage {
 // [PerformEditingTransactionUsingBlock] method and use a block to modify the
 // contents of the [NSTextContentStorage.AttributedString] property. Wrapping your edits in an edit
 // transaction lets the rest of the text system respond to those changes.
-// 
+//
 // TextKit uses the abstract [NSTextLocation] protocol to identify locations
 // within text. [NSTextContentStorage] manager provides its own implementation
 // of this protocol to represent locations within its storage object. To get
@@ -99,6 +100,7 @@ type NSTextContentStorage struct {
 func NSTextContentStorageFromID(id objc.ID) NSTextContentStorage {
 	return NSTextContentStorage{NSTextContentManager: NSTextContentManagerFromID(id)}
 }
+
 // NOTE: NSTextContentStorage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -165,10 +167,10 @@ func NewNSTextContentStorage() NSTextContentStorage {
 // Creates a new content manager object from data in an unarchiver.
 //
 // coder: An unachiver that conforms to the [NSCoder] class.
-// //
-// [NSCoder]: https://developer.apple.com/documentation/Foundation/NSCoder
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManager/init(coder:)
+//
+// [NSCoder]: https://developer.apple.com/documentation/Foundation/NSCoder
 func NewTextContentStorageWithCoder(coder foundation.INSCoder) NSTextContentStorage {
 	instance := getNSTextContentStorageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
@@ -180,11 +182,11 @@ func NewTextContentStorageWithCoder(coder foundation.INSCoder) NSTextContentStor
 // attributedString: The attributed string to map into an [NSTextElement].
 //
 // # Return Value
-// 
+//
 // An [NSTextElement], or `nil`.
 //
 // # Discussion
-// 
+//
 // Returns `nil` when `attributedString` contains attributes not mappable to
 // [NSTextElement].
 //
@@ -193,35 +195,36 @@ func (t NSTextContentStorage) TextElementForAttributedString(attributedString fo
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textElementForAttributedString:"), attributedString)
 	return NSTextElementFromID(rv)
 }
+
 // Returns a new attributed string for the text element.
 //
 // textElement: The [NSTextElement] to map into an attributed string.
 //
 // # Return Value
-// 
+//
 // An [NSAttributedString], or `nil`.
 //
-// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
-//
 // # Discussion
-// 
+//
 // Returns `nil` if the method can’t map `textElement` to an
 // [NSAttributedString].
 //
+// See: https://developer.apple.com/documentation/AppKit/NSTextContentStorage/attributedString(for:)
+//
 // [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 //
-// See: https://developer.apple.com/documentation/AppKit/NSTextContentStorage/attributedString(for:)
+// [NSAttributedString]: https://developer.apple.com/documentation/Foundation/NSAttributedString
 func (t NSTextContentStorage) AttributedStringForTextElement(textElement INSTextElement) foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedStringForTextElement:"), textElement)
 	return foundation.NSAttributedStringFromID(rv)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/performEditingTransaction(for:using:)
 func (t NSTextContentStorage) PerformEditingTransactionForTextStorageUsingBlock(textStorage NSTextStorage, transaction VoidHandler) {
-_block1, _ := NewVoidBlock(transaction)
+	_block1, _ := NewVoidBlock(transaction)
 	objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionForTextStorage:usingBlock:"), textStorage, _block1)
 }
-//
+
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/processEditing(for:edited:range:changeInLength:invalidatedRange:)
 func (t NSTextContentStorage) ProcessEditingForTextStorageEditedRangeChangeInLengthInvalidatedRange(textStorage NSTextStorage, editMask NSTextStorageEditActions, newCharRange foundation.NSRange, delta int, invalidatedCharRange foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("processEditingForTextStorage:edited:range:changeInLength:invalidatedRange:"), textStorage, editMask, newCharRange, delta, invalidatedCharRange)
@@ -230,7 +233,7 @@ func (t NSTextContentStorage) ProcessEditingForTextStorageEditedRangeChangeInLen
 // An attributed string that contains the contents of the document.
 //
 // # Discussion
-// 
+//
 // The default value of this property is an [NSTextStorage] object. When you
 // need to change the text in your view, fetch this string and make your
 // changes to it. When making changes, place them in a block and pass them to
@@ -239,7 +242,7 @@ func (t NSTextContentStorage) ProcessEditingForTextStorageEditedRangeChangeInLen
 // respond to those changes. For example, the layout manager uses edit
 // transactions to update the text layout for any content in the visible
 // portion of your view.
-// 
+//
 // If you assign a new value to this property, the object replaces the current
 // string with the one you provide. Don’t set the value of this property to
 // `nil`.
@@ -252,6 +255,7 @@ func (t NSTextContentStorage) AttributedString() foundation.NSAttributedString {
 func (t NSTextContentStorage) SetAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAttributedString:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentStorage/includesTextListMarkers
 func (t NSTextContentStorage) IncludesTextListMarkers() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("includesTextListMarkers"))
@@ -260,6 +264,7 @@ func (t NSTextContentStorage) IncludesTextListMarkers() bool {
 func (t NSTextContentStorage) SetIncludesTextListMarkers(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIncludesTextListMarkers:"), value)
 }
+
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
 func (t NSTextContentStorage) TextStorage() NSTextStorage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textStorage"))
@@ -269,8 +274,7 @@ func (t NSTextContentStorage) SetTextStorage(value NSTextStorage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextStorage:"), value)
 }
 
-			// Protocol methods for NSTextStorageObserving
-			
+// Protocol methods for NSTextStorageObserving
 
 // PerformEditingTransactionForTextStorageUsingBlockSync is a synchronous wrapper around [NSTextContentStorage.PerformEditingTransactionForTextStorageUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -286,4 +290,3 @@ func (t NSTextContentStorage) PerformEditingTransactionForTextStorageUsingBlockS
 		return ctx.Err()
 	}
 }
-

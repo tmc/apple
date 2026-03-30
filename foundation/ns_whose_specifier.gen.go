@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSWhoseSpecifierClass) Alloc() NSWhoseSpecifier {
 // condition.
 //
 // # Overview
-// 
+//
 // [NSWhoseSpecifier] specifies every object in a collection (or every element
 // in a container) that matches the condition defined by a single Boolean
 // expression or multiple Boolean expressions connected by logical operators.
@@ -57,7 +58,7 @@ func (nc NSWhoseSpecifierClass) Alloc() NSWhoseSpecifier {
 // and Logical Operations” in [NSScriptObjectSpecifier] and the descriptions
 // in NSComparisonMethods and NSScriptingComparisonMethods for more
 // information.
-// 
+//
 // The set of elements specified by an [NSWhoseSpecifier] object can be a
 // subset of those that pass the [NSWhoseSpecifier] object’s test. This
 // subset is specified by the various sub-element properties of the
@@ -71,7 +72,7 @@ func (nc NSWhoseSpecifierClass) Alloc() NSWhoseSpecifier {
 // blueColor]`. The test object specifier (`word at index 3`) is evaluated for
 // each object (paragraph) using that object as the container; the resulting
 // objects (if any) are tested with the qualifier (`color blue`).
-// 
+//
 // [NSWhoseSpecifier] is part of Cocoa’s built-in script handling. You
 // don’t normally subclass it.
 //
@@ -104,6 +105,7 @@ type NSWhoseSpecifier struct {
 func NSWhoseSpecifierFromID(id objc.ID) NSWhoseSpecifier {
 	return NSWhoseSpecifier{NSScriptObjectSpecifier: NSScriptObjectSpecifierFromID(id)}
 }
+
 // NOTE: NSWhoseSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -173,7 +175,6 @@ func NewNSWhoseSpecifier() NSWhoseSpecifier {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSWhoseSpecifier/init(coder:)
 func NewWhoseSpecifierWithCoder(inCoder INSCoder) NSWhoseSpecifier {
 	instance := getNSWhoseSpecifierClass().Alloc()
@@ -185,16 +186,16 @@ func NewWhoseSpecifierWithCoder(inCoder INSCoder) NSWhoseSpecifier {
 // attributes.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier`, key `key`, and the class description of the object specifier
 // `classDescription`, derived from the value of the specifier’s key.
 //
 // # Discussion
-// 
+//
 // You should never pass `nil` for the value of `classDescription`. The
 // receiver’s child reference is set to `nil`.
-// 
+//
 // This is the designated initializer for [NSScriptObjectSpecifier].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)
@@ -215,11 +216,11 @@ func NewWhoseSpecifierWithContainerClassDescriptionContainerSpecifierKey(classDe
 // test: The test condition.
 //
 // # Return Value
-// 
+//
 // An [NSWhoseSpecifier] object initialized with the given attributes.
 //
 // # Discussion
-// 
+//
 // Invokes the super class’s
 // [InitWithContainerClassDescriptionContainerSpecifierKey] and sets the whose
 // test condition to `test`.
@@ -235,12 +236,12 @@ func NewWhoseSpecifierWithContainerClassDescriptionContainerSpecifierKeyTest(cla
 // container specifier and key.
 //
 // # Return Value
-// 
+//
 // An [NSScriptObjectSpecifier] object initialized with container specifier
 // `specifier` and key `key`.
 //
 // # Discussion
-// 
+//
 // The class description of the container is set automatically.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerSpecifier:key:)
@@ -261,11 +262,11 @@ func NewWhoseSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecifi
 // test: The test condition.
 //
 // # Return Value
-// 
+//
 // An [NSWhoseSpecifier] object initialized with the given attributes.
 //
 // # Discussion
-// 
+//
 // Invokes the super class’s
 // [InitWithContainerClassDescriptionContainerSpecifierKey] and sets the whose
 // test condition to `test`.
@@ -287,11 +288,12 @@ func (w NSWhoseSpecifier) EndSubelementIdentifier() NSWhoseSubelementIdentifier 
 func (w NSWhoseSpecifier) SetEndSubelementIdentifier(value NSWhoseSubelementIdentifier) {
 	objc.Send[struct{}](w.ID, objc.Sel("setEndSubelementIdentifier:"), value)
 }
+
 // Sets the index position of the last sub-element within the range of objects
 // being tested that pass the specifier’s test.
 //
 // # Discussion
-// 
+//
 // Used only if the end sub-element identifier is [NSIndexSubelement].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSWhoseSpecifier/endSubelementIndex
@@ -302,10 +304,11 @@ func (w NSWhoseSpecifier) EndSubelementIndex() int {
 func (w NSWhoseSpecifier) SetEndSubelementIndex(value int) {
 	objc.Send[struct{}](w.ID, objc.Sel("setEndSubelementIndex:"), value)
 }
+
 // Returns the start sub-element identifier for the receiver.
 //
 // # Return Value
-// 
+//
 // The start sub-element identifier for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSWhoseSpecifier/startSubelementIdentifier
@@ -316,11 +319,12 @@ func (w NSWhoseSpecifier) StartSubelementIdentifier() NSWhoseSubelementIdentifie
 func (w NSWhoseSpecifier) SetStartSubelementIdentifier(value NSWhoseSubelementIdentifier) {
 	objc.Send[struct{}](w.ID, objc.Sel("setStartSubelementIdentifier:"), value)
 }
+
 // Returns the index position of the first sub-element within the range of
 // objects being tested that pass the receiver’s test.
 //
 // # Return Value
-// 
+//
 // The index position of the first sub-element within the range of objects
 // being tested that pass the receiver’s test.
 //
@@ -332,10 +336,11 @@ func (w NSWhoseSpecifier) StartSubelementIndex() int {
 func (w NSWhoseSpecifier) SetStartSubelementIndex(value int) {
 	objc.Send[struct{}](w.ID, objc.Sel("setStartSubelementIndex:"), value)
 }
+
 // Returns the test object encapsulated by the receiver.
 //
 // # Return Value
-// 
+//
 // The test object encapsulated by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSWhoseSpecifier/test
@@ -346,4 +351,3 @@ func (w NSWhoseSpecifier) Test() INSScriptWhoseTest {
 func (w NSWhoseSpecifier) SetTest(value INSScriptWhoseTest) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTest:"), value)
 }
-

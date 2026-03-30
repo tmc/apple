@@ -18,6 +18,7 @@ type NSSoundDelegate interface {
 type NSSoundDelegateObject struct {
 	objectivec.Object
 }
+
 func (o NSSoundDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -30,9 +31,7 @@ func NSSoundDelegateObjectFromID(id objc.ID) NSSoundDelegateObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/SpeechObjects/NSSoundDelegate/sound:didFinishPlaying:
 func (o NSSoundDelegateObject) SoundDidFinishPlaying(sound objectivec.IObject, playing bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("sound:didFinishPlaying:"), sound, playing)
-	}
-
+}

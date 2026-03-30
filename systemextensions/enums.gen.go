@@ -112,4 +112,3 @@ func (e OSSystemExtensionRequestResult) String() string {
 		return fmt.Sprintf("OSSystemExtensionRequestResult(%d)", e)
 	}
 }
-

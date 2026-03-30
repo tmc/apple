@@ -4,6 +4,7 @@ package espresso
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,6 +50,7 @@ type EspressoPass_remove_seqw_wseq_transposes struct {
 func EspressoPass_remove_seqw_wseq_transposesFromID(id objc.ID) EspressoPass_remove_seqw_wseq_transposes {
 	return EspressoPass_remove_seqw_wseq_transposes{EspressoCustomPass: EspressoCustomPassFromID(id)}
 }
+
 // Ensure EspressoPass_remove_seqw_wseq_transposes implements IEspressoPass_remove_seqw_wseq_transposes.
 var _ IEspressoPass_remove_seqw_wseq_transposes = EspressoPass_remove_seqw_wseq_transposes{}
 
@@ -77,4 +79,3 @@ func NewEspressoPass_remove_seqw_wseq_transposes() EspressoPass_remove_seqw_wseq
 	rv := objc.Send[EspressoPass_remove_seqw_wseq_transposes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

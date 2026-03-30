@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,7 +44,6 @@ func (mc MLPipelineRegressorClass) Alloc() MLPipelineRegressor {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLPipelineRegressor.Engine]
@@ -53,6 +53,7 @@ func (mc MLPipelineRegressorClass) Alloc() MLPipelineRegressor {
 //   - [MLPipelineRegressor.RegressOptionsError]
 //   - [MLPipelineRegressor.SignpostID]
 //   - [MLPipelineRegressor.InitWithEngineDescriptionConfigurationError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor
 type MLPipelineRegressor struct {
 	objectivec.Object
@@ -62,6 +63,7 @@ type MLPipelineRegressor struct {
 func MLPipelineRegressorFromID(id objc.ID) MLPipelineRegressor {
 	return MLPipelineRegressor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MLPipelineRegressor struct embeds objectivec.Object (parent type unavailable) but
 // IMLPipelineRegressor embeds the parent interface; skip compile-time assertion.
 
@@ -111,7 +113,6 @@ func NewMLPipelineRegressor() MLPipelineRegressor {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/initWithEngine:description:configuration:error:
 func NewPipelineRegressorWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLPipelineRegressor, error) {
 	var errorPtr objc.ID
@@ -129,7 +130,7 @@ func (p MLPipelineRegressor) ExecutionSchedule() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("executionSchedule"))
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/regress:options:error:
 func (p MLPipelineRegressor) RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -141,12 +142,13 @@ func (p MLPipelineRegressor) RegressOptionsError(regress objectivec.IObject, opt
 	return objectivec.Object{ID: rv}, nil
 
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/signpostID
 func (p MLPipelineRegressor) SignpostID() uint64 {
 	rv := objc.Send[uint64](p.ID, objc.Sel("signpostID"))
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/initWithEngine:description:configuration:error:
 func (p MLPipelineRegressor) InitWithEngineDescriptionConfigurationError(engine objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLPipelineRegressor, error) {
 	var errorPtr objc.ID
@@ -167,9 +169,9 @@ func (p MLPipelineRegressor) Engine() unsafe.Pointer {
 func (p MLPipelineRegressor) SetEngine(value *MLPipeline) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEngine:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLPipelineRegressor/pipeline
 func (p MLPipelineRegressor) Pipeline() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("pipeline"))
 	return rv
 }
-

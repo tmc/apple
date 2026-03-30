@@ -3,11 +3,12 @@
 package diskimages2
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (qc QuarantineFileHandlerClass) Alloc() QuarantineFileHandler {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [QuarantineFileHandler.ApplyMountPointsWithBSDNameError]
@@ -56,6 +56,7 @@ func (qc QuarantineFileHandlerClass) Alloc() QuarantineFileHandler {
 //   - [QuarantineFileHandler.InitWithBackendError]
 //   - [QuarantineFileHandler.InitWithFDError]
 //   - [QuarantineFileHandler.InitWithFlagError]
+//
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler
 type QuarantineFileHandler struct {
 	objectivec.Object
@@ -65,6 +66,7 @@ type QuarantineFileHandler struct {
 func QuarantineFileHandlerFromID(id objc.ID) QuarantineFileHandler {
 	return QuarantineFileHandler{objectivec.Object{ID: id}}
 }
+
 // Ensure QuarantineFileHandler implements IQuarantineFileHandler.
 var _ IQuarantineFileHandler = QuarantineFileHandler{}
 
@@ -118,7 +120,6 @@ func NewQuarantineFileHandler() QuarantineFileHandler {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithBackend:error:
 func NewQuarantineFileHandlerWithBackendError(backend objectivec.IObject) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
@@ -131,7 +132,6 @@ func NewQuarantineFileHandlerWithBackendError(backend objectivec.IObject) (Quara
 	return QuarantineFileHandlerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithFD:error:
 func NewQuarantineFileHandlerWithFDError(fd int) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
@@ -144,7 +144,6 @@ func NewQuarantineFileHandlerWithFDError(fd int) (QuarantineFileHandler, error) 
 	return QuarantineFileHandlerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithFlag:error:
 func NewQuarantineFileHandlerWithFlagError(flag uint32) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
@@ -157,7 +156,6 @@ func NewQuarantineFileHandlerWithFlagError(flag uint32) (QuarantineFileHandler, 
 	return QuarantineFileHandlerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/applyMountPointsWithBSDName:error:
 func (q QuarantineFileHandler) ApplyMountPointsWithBSDNameError(bSDName objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -172,7 +170,7 @@ func (q QuarantineFileHandler) ApplyMountPointsWithBSDNameError(bSDName objectiv
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/checkErrorWithQtnInitResult:error:
 func (q QuarantineFileHandler) CheckErrorWithQtnInitResultError(result int) (bool, error) {
 	var errorPtr objc.ID
@@ -187,7 +185,7 @@ func (q QuarantineFileHandler) CheckErrorWithQtnInitResultError(result int) (boo
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/getFileInfoWithError:
 func (q QuarantineFileHandler) GetFileInfoWithError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -199,7 +197,7 @@ func (q QuarantineFileHandler) GetFileInfoWithError() (objectivec.IObject, error
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithBackend:error:
 func (q QuarantineFileHandler) InitWithBackendError(backend objectivec.IObject) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
@@ -211,7 +209,7 @@ func (q QuarantineFileHandler) InitWithBackendError(backend objectivec.IObject) 
 	return QuarantineFileHandlerFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithFD:error:
 func (q QuarantineFileHandler) InitWithFDError(fd int) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
@@ -223,7 +221,7 @@ func (q QuarantineFileHandler) InitWithFDError(fd int) (QuarantineFileHandler, e
 	return QuarantineFileHandlerFromID(rv), nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/initWithFlag:error:
 func (q QuarantineFileHandler) InitWithFlagError(flag uint32) (QuarantineFileHandler, error) {
 	var errorPtr objc.ID
@@ -241,6 +239,7 @@ func (q QuarantineFileHandler) IsQuarantined() bool {
 	rv := objc.Send[bool](q.ID, objc.Sel("isQuarantined"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/DiskImages2/QuarantineFileHandler/qtFile
 func (q QuarantineFileHandler) QtFile() objectivec.IObject {
 	rv := objc.Send[objc.ID](q.ID, objc.Sel("qtFile"))
@@ -249,4 +248,3 @@ func (q QuarantineFileHandler) QtFile() objectivec.IObject {
 func (q QuarantineFileHandler) SetQtFile(value objectivec.IObject) {
 	objc.Send[struct{}](q.ID, objc.Sel("setQtFile:"), value)
 }
-

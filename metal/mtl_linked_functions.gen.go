@@ -4,8 +4,9 @@ package metal
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,7 +47,7 @@ func (mc MTLLinkedFunctionsClass) Alloc() MTLLinkedFunctions {
 // function instance.
 //
 // # Overview
-// 
+//
 // When you create a Metal function instance using an [MTLFunctionDescriptor],
 // you specify additional functions that Metal needs to link to when it
 // compiles and links the underlying shader code. Most often, you need to do
@@ -78,6 +79,7 @@ type MTLLinkedFunctions struct {
 func MTLLinkedFunctionsFromID(id objc.ID) MTLLinkedFunctions {
 	return MTLLinkedFunctions{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLLinkedFunctions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -169,6 +171,7 @@ func (l MTLLinkedFunctions) Functions() []objectivec.IObject {
 func (l MTLLinkedFunctions) SetFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // An array of function objects already compiled to a binary representation to
 // link.
 //
@@ -182,30 +185,31 @@ func (l MTLLinkedFunctions) BinaryFunctions() []objectivec.IObject {
 func (l MTLLinkedFunctions) SetBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // An optional list of groups specifying which functions your shader can call
 // at each call site.
 //
 // # Discussion
-// 
+//
 // The default value is `nil`.
-// 
+//
 // The default behavior is conservative and assumes that your shader can call
 // any linked function from every call site. If you know that the shader can
 // only call a limited subset of functions at a call site, you can annotate
 // those sites in the shader with a name of a group and then specify the list
 // of functions for that call site using this property. Specifying call sites
 // and callable functions more precisely can improve performance.
-// 
+//
 // For more information on how to specify call site groups, see [Metal Shading
 // Language Specification].
-// 
+//
 // The value of this property is a dictionary whose keys are call site names
 // and values are arrays specifying the list of functions that the shader can
 // call from each site.
 //
-// [Metal Shading Language Specification]: https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf
-//
 // See: https://developer.apple.com/documentation/Metal/MTLLinkedFunctions/groups
+//
+// [Metal Shading Language Specification]: https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf
 func (l MTLLinkedFunctions) Groups() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("groups"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
@@ -213,11 +217,12 @@ func (l MTLLinkedFunctions) Groups() foundation.INSDictionary {
 func (l MTLLinkedFunctions) SetGroups(value foundation.INSDictionary) {
 	objc.Send[struct{}](l.ID, objc.Sel("setGroups:"), value)
 }
+
 // An array of function objects to link to the new function, without exporting
 // the functions publicly.
 //
 // # Discussion
-// 
+//
 // The pipeline doesn’t export these functions as [MTLFunctionHandle]
 // instances because the Metal device doesn’t need to support function
 // pointers to link private functions.
@@ -232,6 +237,7 @@ func (l MTLLinkedFunctions) PrivateFunctions() []objectivec.IObject {
 func (l MTLLinkedFunctions) SetPrivateFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setPrivateFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
+
 // The binary archives to search for a previously-compiled version of this
 // function.
 //
@@ -243,6 +249,7 @@ func (l MTLLinkedFunctions) BinaryArchives() MTLBinaryArchive {
 func (l MTLLinkedFunctions) SetBinaryArchives(value MTLBinaryArchive) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBinaryArchives:"), value)
 }
+
 // The set of constant values assigned to the function constants.
 //
 // See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/constantvalues
@@ -253,6 +260,7 @@ func (l MTLLinkedFunctions) ConstantValues() IMTLFunctionConstantValues {
 func (l MTLLinkedFunctions) SetConstantValues(value IMTLFunctionConstantValues) {
 	objc.Send[struct{}](l.ID, objc.Sel("setConstantValues:"), value)
 }
+
 // The name of the function to fetch from the library.
 //
 // See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/name
@@ -263,6 +271,7 @@ func (l MTLLinkedFunctions) Name() string {
 func (l MTLLinkedFunctions) SetName(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setName:"), objc.String(value))
 }
+
 // Flags specifying how Metal should create the new function object.
 //
 // See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/options
@@ -273,6 +282,7 @@ func (l MTLLinkedFunctions) Options() MTLFunctionOptions {
 func (l MTLLinkedFunctions) SetOptions(value MTLFunctionOptions) {
 	objc.Send[struct{}](l.ID, objc.Sel("setOptions:"), value)
 }
+
 // A new name for the created function object.
 //
 // See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/specializedname
@@ -283,4 +293,3 @@ func (l MTLLinkedFunctions) SpecializedName() string {
 func (l MTLLinkedFunctions) SetSpecializedName(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setSpecializedName:"), objc.String(value))
 }
-

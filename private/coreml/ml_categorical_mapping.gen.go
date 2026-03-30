@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -43,13 +44,13 @@ func (mc MLCategoricalMappingClass) Alloc() MLCategoricalMapping {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLCategoricalMapping.MapFeatureError]
 //   - [MLCategoricalMapping.Mapping]
 //   - [MLCategoricalMapping.ValueOnUnknown]
 //   - [MLCategoricalMapping.InitWithMappingValueOnUnknownDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLCategoricalMapping
 type MLCategoricalMapping struct {
 	MLModelEngine
@@ -59,6 +60,7 @@ type MLCategoricalMapping struct {
 func MLCategoricalMappingFromID(id objc.ID) MLCategoricalMapping {
 	return MLCategoricalMapping{MLModelEngine: MLModelEngineFromID(id)}
 }
+
 // Ensure MLCategoricalMapping implements IMLCategoricalMapping.
 var _ IMLCategoricalMapping = MLCategoricalMapping{}
 
@@ -102,7 +104,6 @@ func NewMLCategoricalMapping() MLCategoricalMapping {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithDescription:configuration:
 func NewCategoricalMappingWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
 	instance := getMLCategoricalMappingClass().Alloc()
@@ -110,7 +111,6 @@ func NewCategoricalMappingWithDescriptionConfiguration(description objectivec.IO
 	return MLCategoricalMappingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCategoricalMapping/initWithMapping:valueOnUnknown:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewCategoricalMappingWithMappingValueOnUnknownDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(mapping objectivec.IObject, unknown objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
 	instance := getMLCategoricalMappingClass().Alloc()
@@ -118,7 +118,6 @@ func NewCategoricalMappingWithMappingValueOnUnknownDataTransformerNameInputDescr
 	return MLCategoricalMappingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModelEngine/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewCategoricalMappingWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
 	instance := getMLCategoricalMappingClass().Alloc()
@@ -126,7 +125,6 @@ func NewCategoricalMappingWithNameInputDescriptionOutputDescriptionOrderedInputF
 	return MLCategoricalMappingFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCategoricalMapping/mapFeature:error:
 func (c MLCategoricalMapping) MapFeatureError(feature objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -138,14 +136,13 @@ func (c MLCategoricalMapping) MapFeatureError(feature objectivec.IObject) (objec
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLCategoricalMapping/initWithMapping:valueOnUnknown:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func (c MLCategoricalMapping) InitWithMappingValueOnUnknownDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(mapping objectivec.IObject, unknown objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
 	rv := objc.Send[MLCategoricalMapping](c.ID, objc.Sel("initWithMapping:valueOnUnknown:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), mapping, unknown, name, description, description2, names, names2, configuration)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCategoricalMapping/loadModelFromSpecification:configuration:error:
 func (_MLCategoricalMappingClass MLCategoricalMappingClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -163,9 +160,9 @@ func (c MLCategoricalMapping) Mapping() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("mapping"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLCategoricalMapping/valueOnUnknown
 func (c MLCategoricalMapping) ValueOnUnknown() IMLFeatureValue {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("valueOnUnknown"))
 	return MLFeatureValueFromID(objc.ID(rv))
 }
-

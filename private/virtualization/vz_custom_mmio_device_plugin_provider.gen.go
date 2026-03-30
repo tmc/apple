@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -42,12 +43,12 @@ func (vc VZCustomMMIODevicePluginProviderClass) Alloc() VZCustomMMIODevicePlugin
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [VZCustomMMIODevicePluginProvider.PluginName]
 //   - [VZCustomMMIODevicePluginProvider.PluginPersonality]
 //   - [VZCustomMMIODevicePluginProvider.InitWithPluginNamePluginPersonality]
+//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevicePluginProvider
 type VZCustomMMIODevicePluginProvider struct {
 	VZCustomMMIODeviceProvider
@@ -57,6 +58,7 @@ type VZCustomMMIODevicePluginProvider struct {
 func VZCustomMMIODevicePluginProviderFromID(id objc.ID) VZCustomMMIODevicePluginProvider {
 	return VZCustomMMIODevicePluginProvider{VZCustomMMIODeviceProvider: VZCustomMMIODeviceProviderFromID(id)}
 }
+
 // Ensure VZCustomMMIODevicePluginProvider implements IVZCustomMMIODevicePluginProvider.
 var _ IVZCustomMMIODevicePluginProvider = VZCustomMMIODevicePluginProvider{}
 
@@ -98,7 +100,6 @@ func NewVZCustomMMIODevicePluginProvider() VZCustomMMIODevicePluginProvider {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevicePluginProvider/initWithPluginName:pluginPersonality:
 func NewVZCustomMMIODevicePluginProviderWithPluginNamePluginPersonality(name objectivec.IObject, personality objectivec.IObject) VZCustomMMIODevicePluginProvider {
 	instance := getVZCustomMMIODevicePluginProviderClass().Alloc()
@@ -106,7 +107,6 @@ func NewVZCustomMMIODevicePluginProviderWithPluginNamePluginPersonality(name obj
 	return VZCustomMMIODevicePluginProviderFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevicePluginProvider/initWithPluginName:pluginPersonality:
 func (v VZCustomMMIODevicePluginProvider) InitWithPluginNamePluginPersonality(name objectivec.IObject, personality objectivec.IObject) VZCustomMMIODevicePluginProvider {
 	rv := objc.Send[VZCustomMMIODevicePluginProvider](v.ID, objc.Sel("initWithPluginName:pluginPersonality:"), name, personality)
@@ -118,9 +118,9 @@ func (v VZCustomMMIODevicePluginProvider) PluginName() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("pluginName"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // See: https://developer.apple.com/documentation/Virtualization/_VZCustomMMIODevicePluginProvider/pluginPersonality
 func (v VZCustomMMIODevicePluginProvider) PluginPersonality() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("pluginPersonality"))
 	return foundation.NSStringFromID(rv).String()
 }
-

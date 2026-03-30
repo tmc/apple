@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (uc URLProtectionSpaceClass) Alloc() URLProtectionSpace {
 // requires authentication.
 //
 // # Overview
-// 
+//
 // A protection space defines a series of matching constraints that determine
 // which credential should be provided. For example, if a request provides
 // your delegate with a [NSURLAuthenticationChallenge] object that requests a
@@ -85,6 +86,7 @@ func URLProtectionSpaceFromID(id objc.ID) URLProtectionSpace {
 
 // NSURLProtectionSpaceFromID is an alias for [URLProtectionSpaceFromID] for cross-framework compatibility.
 func NSURLProtectionSpaceFromID(id objc.ID) URLProtectionSpace { return URLProtectionSpaceFromID(id) }
+
 // NOTE: URLProtectionSpace adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -165,7 +167,6 @@ func NewURLProtectionSpace() URLProtectionSpace {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewURLProtectionSpaceWithCoder(coder INSCoder) URLProtectionSpace {
 	instance := getURLProtectionSpaceClass().Alloc()
@@ -193,16 +194,16 @@ func NewURLProtectionSpaceWithCoder(coder INSCoder) URLProtectionSpace {
 // authenticationMethod: The type of authentication to use. `authenticationMethod` should be set to
 // one of the values in [NSURLProtectionSpace authentication method constants]
 // or `nil` to use the default, [NSURLAuthenticationMethodDefault].
-// //
-// [NSURLAuthenticationMethodDefault]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodDefault
-// [NSURLProtectionSpace authentication method constants]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-authentication-method-constants
 //
 // # Return Value
-// 
+//
 // A new protection space object, initialized with the given host, port,
 // protocol, realm, and authentication method.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/init(host:port:protocol:realm:authenticationMethod:)
+//
+// [NSURLAuthenticationMethodDefault]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodDefault
+// [NSURLProtectionSpace authentication method constants]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-authentication-method-constants
 func NewURLProtectionSpaceWithHostPortProtocolRealmAuthenticationMethod(host string, port int, protocol_ string, realm string, authenticationMethod string) URLProtectionSpace {
 	instance := getURLProtectionSpaceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHost:port:protocol:realm:authenticationMethod:"), objc.String(host), port, objc.String(protocol_), objc.String(realm), objc.String(authenticationMethod))
@@ -219,8 +220,6 @@ func NewURLProtectionSpaceWithHostPortProtocolRealmAuthenticationMethod(host str
 //
 // type: The type of proxy server. The value of `proxyType` should be set to one of
 // the values specified in [NSURLProtectionSpace proxy types].
-// //
-// [NSURLProtectionSpace proxy types]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-proxy-types
 //
 // realm: A string indicating a protocol specific subdivision of the host. `realm`
 // may be `nil` if there is no specified realm or if the protocol doesn’t
@@ -229,16 +228,17 @@ func NewURLProtectionSpaceWithHostPortProtocolRealmAuthenticationMethod(host str
 // authenticationMethod: The type of authentication to use. `authenticationMethod` should be set to
 // one of the values in [NSURLProtectionSpace authentication method constants]
 // or `nil` to use the default, [NSURLAuthenticationMethodDefault].
-// //
-// [NSURLAuthenticationMethodDefault]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodDefault
-// [NSURLProtectionSpace authentication method constants]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-authentication-method-constants
 //
 // # Return Value
-// 
+//
 // A new protection space object, with the given host, port, proxyType, realm,
 // and authenticationMethod.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/init(proxyHost:port:type:realm:authenticationMethod:)
+//
+// [NSURLProtectionSpace proxy types]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-proxy-types
+// [NSURLAuthenticationMethodDefault]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodDefault
+// [NSURLProtectionSpace authentication method constants]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-authentication-method-constants
 func NewURLProtectionSpaceWithProxyHostPortTypeRealmAuthenticationMethod(host string, port int, type_ string, realm string, authenticationMethod string) URLProtectionSpace {
 	instance := getURLProtectionSpaceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProxyHost:port:type:realm:authenticationMethod:"), objc.String(host), port, objc.String(type_), objc.String(realm), objc.String(authenticationMethod))
@@ -265,20 +265,21 @@ func NewURLProtectionSpaceWithProxyHostPortTypeRealmAuthenticationMethod(host st
 // authenticationMethod: The type of authentication to use. `authenticationMethod` should be set to
 // one of the values in [NSURLProtectionSpace authentication method constants]
 // or `nil` to use the default, [NSURLAuthenticationMethodDefault].
-// //
-// [NSURLAuthenticationMethodDefault]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodDefault
-// [NSURLProtectionSpace authentication method constants]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-authentication-method-constants
 //
 // # Return Value
-// 
+//
 // A new protection space object, initialized with the given host, port,
 // protocol, realm, and authentication method.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/init(host:port:protocol:realm:authenticationMethod:)
+//
+// [NSURLAuthenticationMethodDefault]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodDefault
+// [NSURLProtectionSpace authentication method constants]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-authentication-method-constants
 func (u URLProtectionSpace) InitWithHostPortProtocolRealmAuthenticationMethod(host string, port int, protocol_ string, realm string, authenticationMethod string) URLProtectionSpace {
 	rv := objc.Send[URLProtectionSpace](u.ID, objc.Sel("initWithHost:port:protocol:realm:authenticationMethod:"), objc.String(host), port, objc.String(protocol_), objc.String(realm), objc.String(authenticationMethod))
 	return rv
 }
+
 // Creates a protection space object representing a proxy server.
 //
 // host: The host of the proxy server for the protection space object.
@@ -289,8 +290,6 @@ func (u URLProtectionSpace) InitWithHostPortProtocolRealmAuthenticationMethod(ho
 //
 // type: The type of proxy server. The value of `proxyType` should be set to one of
 // the values specified in [NSURLProtectionSpace proxy types].
-// //
-// [NSURLProtectionSpace proxy types]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-proxy-types
 //
 // realm: A string indicating a protocol specific subdivision of the host. `realm`
 // may be `nil` if there is no specified realm or if the protocol doesn’t
@@ -299,20 +298,22 @@ func (u URLProtectionSpace) InitWithHostPortProtocolRealmAuthenticationMethod(ho
 // authenticationMethod: The type of authentication to use. `authenticationMethod` should be set to
 // one of the values in [NSURLProtectionSpace authentication method constants]
 // or `nil` to use the default, [NSURLAuthenticationMethodDefault].
-// //
-// [NSURLAuthenticationMethodDefault]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodDefault
-// [NSURLProtectionSpace authentication method constants]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-authentication-method-constants
 //
 // # Return Value
-// 
+//
 // A new protection space object, with the given host, port, proxyType, realm,
 // and authenticationMethod.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/init(proxyHost:port:type:realm:authenticationMethod:)
+//
+// [NSURLProtectionSpace proxy types]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-proxy-types
+// [NSURLAuthenticationMethodDefault]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodDefault
+// [NSURLProtectionSpace authentication method constants]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-authentication-method-constants
 func (u URLProtectionSpace) InitWithProxyHostPortTypeRealmAuthenticationMethod(host string, port int, type_ string, realm string, authenticationMethod string) URLProtectionSpace {
 	rv := objc.Send[URLProtectionSpace](u.ID, objc.Sel("initWithProxyHost:port:type:realm:authenticationMethod:"), objc.String(host), port, objc.String(type_), objc.String(realm), objc.String(authenticationMethod))
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -321,7 +322,7 @@ func (u URLProtectionSpace) InitWithProxyHostPortTypeRealmAuthenticationMethod(h
 func (u URLProtectionSpace) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u URLProtectionSpace) InitWithCoder(coder INSCoder) URLProtectionSpace {
 	rv := objc.Send[URLProtectionSpace](u.ID, objc.Sel("initWithCoder:"), coder)
@@ -331,22 +332,23 @@ func (u URLProtectionSpace) InitWithCoder(coder INSCoder) URLProtectionSpace {
 // The authentication method used by the receiver.
 //
 // # Discussion
-// 
+//
 // The supported authentication methods are listed in [NSURLProtectionSpace
 // authentication method constants].
 //
-// [NSURLProtectionSpace authentication method constants]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-authentication-method-constants
-//
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/authenticationMethod
+//
+// [NSURLProtectionSpace authentication method constants]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-authentication-method-constants
 func (u URLProtectionSpace) AuthenticationMethod() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("authenticationMethod"))
 	return NSStringFromID(rv).String()
 }
+
 // The acceptable certificate-issuing authorities for client certificate
 // authentication.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if the authentication method of the protection space is
 // not client certificate. The returned issuing authorities are encoded with
 // Distinguished Encoding Rules (DER).
@@ -358,6 +360,7 @@ func (u URLProtectionSpace) DistinguishedNames() []NSData {
 		return NSDataFromID(id)
 	})
 }
+
 // The receiver’s host.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/host
@@ -365,6 +368,7 @@ func (u URLProtectionSpace) Host() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("host"))
 	return NSStringFromID(rv).String()
 }
+
 // The receiver’s port.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/port
@@ -372,10 +376,11 @@ func (u URLProtectionSpace) Port() int {
 	rv := objc.Send[int](u.ID, objc.Sel("port"))
 	return rv
 }
+
 // The receiver’s protocol.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if the receiver represents a proxy protection space.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/protocol
@@ -383,25 +388,27 @@ func (u URLProtectionSpace) Protocol() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("protocol"))
 	return NSStringFromID(rv).String()
 }
+
 // The receiver’s proxy type.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if the receiver does not represent a proxy protection
 // space. The supported proxy types are listed in [NSURLProtectionSpace proxy
 // types].
 //
-// [NSURLProtectionSpace proxy types]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-proxy-types
-//
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/proxyType
+//
+// [NSURLProtectionSpace proxy types]: https://developer.apple.com/documentation/Foundation/nsurlprotectionspace-proxy-types
 func (u URLProtectionSpace) ProxyType() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("proxyType"))
 	return NSStringFromID(rv).String()
 }
+
 // The receiver’s authentication realm
 //
 // # Discussion
-// 
+//
 // This value is `nil` if no realm has been set. A realm is generally only
 // specified for HTTP and HTTPS authentication.
 //
@@ -410,26 +417,25 @@ func (u URLProtectionSpace) Realm() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("realm"))
 	return NSStringFromID(rv).String()
 }
+
 // A Boolean value that indicates whether the credentials for the protection
 // space can be sent securely.
 //
 // # Discussion
-// 
-// This value is [true] if the credentials for the protection space
-// represented by the receiver can be sent securely, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// This value is true if the credentials for the protection space represented
+// by the receiver can be sent securely, false otherwise.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/receivesCredentialSecurely
 func (u URLProtectionSpace) ReceivesCredentialSecurely() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("receivesCredentialSecurely"))
 	return rv
 }
+
 // A representation of the server’s SSL transaction state.
 //
 // # Discussion
-// 
+//
 // This value is `nil` if the authentication method of the protection space is
 // not server trust.
 //
@@ -438,15 +444,13 @@ func (u URLProtectionSpace) ServerTrust() objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("serverTrust"))
 	return objectivec.Object{ID: rv}
 }
+
 // A Boolean value that indicates whether the receiver represents a proxy
 // server.
 //
 // # Discussion
-// 
-// [true] if the receiver represents a proxy server, [false] otherwise.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the receiver represents a proxy server, false otherwise.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLProtectionSpace/isProxy
 func (u URLProtectionSpace) IsProxy() bool {
@@ -454,9 +458,6 @@ func (u URLProtectionSpace) IsProxy() bool {
 	return rv
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

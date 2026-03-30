@@ -4,12 +4,13 @@ package virtualization
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,21 +50,19 @@ func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
 // An object that manages the overall state and configuration of your VM.
 //
 // # Overview
-// 
+//
 // A [VZVirtualMachine] object emulates a complete hardware machine of the
 // same architecture as the underlying Mac computer. Use the VM to execute a
 // guest operating system and any other apps you install. The VM manages the
 // resources that the guest operating system uses, providing access to some
 // hardware resources while emulating others.
-// 
+//
 // Create and configure a [VZVirtualMachineConfiguration] object with details
 // about how you want to configure your VM, and use that object to create the
 // [VZVirtualMachine] object. After creating the VM, call the
 // [start(completionHandler:)] method (Swift) or the
 // [VZVirtualMachine.StartWithCompletionHandler] method (Objective-C) to start the VM and boot
 // the guest operating system.
-//
-// [start(completionHandler:)]: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/start(completionHandler:)
 //
 // # Creating the VM
 //
@@ -110,6 +109,8 @@ func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
 //   - [VZVirtualMachine.RestoreMachineStateFromURLCompletionHandler]: Restores a VM from a previously saved state.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine
+//
+// [start(completionHandler:)]: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/start(completionHandler:)
 type VZVirtualMachine struct {
 	objectivec.Object
 }
@@ -120,6 +121,7 @@ type VZVirtualMachine struct {
 func VZVirtualMachineFromID(id objc.ID) VZVirtualMachine {
 	return VZVirtualMachine{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZVirtualMachine adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -269,11 +271,11 @@ func NewVZVirtualMachine() VZVirtualMachine {
 // stores a copy of the configuration.
 //
 // # Return Value
-// 
+//
 // An initialized VM object.
 //
 // # Discussion
-// 
+//
 // This VM uses your app’s main queue for all operations. You must perform
 // all VM-related operations on the main queue, and the VM executes all
 // callbacks and delegate methods on the main queue.
@@ -297,7 +299,7 @@ func NewVirtualMachineWithConfiguration(configuration IVZVirtualMachineConfigura
 // isn’t defined.
 //
 // # Return Value
-// 
+//
 // An initialized VM object.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/init(configuration:queue:)
@@ -314,11 +316,11 @@ func NewVirtualMachineWithConfigurationQueue(configuration IVZVirtualMachineConf
 // stores a copy of the configuration.
 //
 // # Return Value
-// 
+//
 // An initialized VM object.
 //
 // # Discussion
-// 
+//
 // This VM uses your app’s main queue for all operations. You must perform
 // all VM-related operations on the main queue, and the VM executes all
 // callbacks and delegate methods on the main queue.
@@ -328,6 +330,7 @@ func (v VZVirtualMachine) InitWithConfiguration(configuration IVZVirtualMachineC
 	rv := objc.Send[VZVirtualMachine](v.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return rv
 }
+
 // Creates and configures the VM with the specified data and dispatch queue.
 //
 // configuration: The configuration of the VM. The configuration must be valid, and you can
@@ -340,7 +343,7 @@ func (v VZVirtualMachine) InitWithConfiguration(configuration IVZVirtualMachineC
 // isn’t defined.
 //
 // # Return Value
-// 
+//
 // An initialized VM object.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/init(configuration:queue:)
@@ -348,19 +351,21 @@ func (v VZVirtualMachine) InitWithConfigurationQueue(configuration IVZVirtualMac
 	rv := objc.Send[VZVirtualMachine](v.ID, objc.Sel("initWithConfiguration:queue:"), configuration, uintptr(queue.Handle()))
 	return rv
 }
+
 // Starts the VM and notifies the specified completion handler if startup was
 // successful.
 //
 // # Discussion
-// 
-// Call this method to start a VM that’s in the [VirtualMachineStateStopped]
-// or [VirtualMachineStateError] state.
+//
+// Call this method to start a VM that’s in the
+// [VZVirtualMachineStateStopped] or [VZVirtualMachineStateError] state.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/start()
 func (v VZVirtualMachine) StartWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("startWithCompletionHandler:"), _block0)
 }
+
 // Starts the VM with the options and a completion handler you provide.
 //
 // options: A [VZVirtualMachineStartOptions] object that describes controlling startup
@@ -368,32 +373,34 @@ _block0, _ := NewErrorBlock(completionHandler)
 //
 // completionHandler: The block to call with the results of the startup attempt. This block has
 // no return value and has one [NSError] object as its parameter:
-// 
+//
 // error: A result type that contains an error object when the VM fails to
 // start.
-// //
-// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/start(options:completionHandler:)
+//
+// [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 func (v VZVirtualMachine) StartWithOptionsCompletionHandler(options IVZVirtualMachineStartOptions, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("startWithOptions:completionHandler:"), options, _block1)
 }
+
 // Stops a VM that’s in either a running or paused state.
 //
 // completionHandler: A block called after the VM stopped successfully, or on error. The error
 // parameter passed to the block is `nil` if the stop was successful.
 //
 // # Discussion
-// 
+//
 // To determine if a VM is in a state that allows you to stop it, check the
 // VM’s [CanStop] or [CanRequestStop] properties.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/stop(completionHandler:)
 func (v VZVirtualMachine) StopWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("stopWithCompletionHandler:"), _block0)
 }
+
 // Asks the guest operating system to stop running.
 //
 // # Discussion
@@ -412,97 +419,101 @@ func (v VZVirtualMachine) RequestStopWithError() (bool, error) {
 	return rv, nil
 
 }
+
 // Pauses a running VM and notifies the specified completion handler of the
 // results.
 //
 // # Discussion
-// 
-// Call this method to pause a VM that’s in the [VirtualMachineStateRunning]
-// state. To determine if a VM is in a state that allows you to pause it,
-// check the VM’s [CanPause] property.
-// 
+//
+// Call this method to pause a VM that’s in the
+// [VZVirtualMachineStateRunning] state. To determine if a VM is in a state
+// that allows you to pause it, check the VM’s [CanPause] property.
+//
 // If the VM stops before the attempt to pause it finishes, this method calls
 // the completion handler with an error.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/pause()
 func (v VZVirtualMachine) PauseWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("pauseWithCompletionHandler:"), _block0)
 }
+
 // Resumes a paused VM and notifies the specified completion handler of the
 // results.
 //
 // # Discussion
-// 
-// Call this method to resume a VM that’s in the [VirtualMachineStatePaused]
-// state. To determine if a VM is in a state that allows you to resume it,
-// check the VM’s [CanResume] property.
+//
+// Call this method to resume a VM that’s in the
+// [VZVirtualMachineStatePaused] state. To determine if a VM is in a state
+// that allows you to resume it, check the VM’s [CanResume] property.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/resume()
 func (v VZVirtualMachine) ResumeWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _ := NewErrorBlock(completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("resumeWithCompletionHandler:"), _block0)
 }
+
 // Saves the state of a VM.
 //
 // saveFileURL: An [NSURL] that indicates the location where the framework writes the saved
 // state of the VM.
-// //
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 //
 // completionHandler: A block the framework calls after successfully saving the VM or upon
 // returning an error.
-// 
+//
 // The error parameter passed to the block is `nil` if the save was
 // successful.
 //
 // # Discussion
-// 
+//
 // Use this method to save a paused VM to a file. You can use the contents of
 // this file later to restore the state of the paused VM.
-// 
+//
 // This call fails if the VM isn’t in a paused state or if the
 // Virtualization framework can’t save the VM. If this method fails, the
 // framework returns an error, and the VM state remains unchanged.
-// 
+//
 // If this method is successful, the framework writes the file, and the VM
 // state remains unchanged.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/saveMachineStateTo(url:completionHandler:)
+//
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 func (v VZVirtualMachine) SaveMachineStateToURLCompletionHandler(saveFileURL foundation.INSURL, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("saveMachineStateToURL:completionHandler:"), saveFileURL, _block1)
 }
+
 // Restores a VM from a previously saved state.
 //
 // saveFileURL: An [NSURL] that indicates the location where the framework reads the saved
 // state of the VM.
-// //
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 //
 // completionHandler: A block the framework calls after the VM has been successfully restored or
 // upon an error.
 //
 // # Discussion
-// 
+//
 // Use this method to restore a stopped VM to a state previously saved to file
 // through [SaveMachineStateToURLCompletionHandler].
-// 
+//
 // The method fails if any of the following conditions are true:
-// 
+//
 // - The Virtualization framework can’t open or read the file. - The file
 // contents are incompatible with the current configuration. - The VM you’re
-// trying to restore isn’t in the [VirtualMachineStateStopped] state.
-// 
+// trying to restore isn’t in the [VZVirtualMachineStateStopped] state.
+//
 // If this method fails, the framework returns an error, and the VM state
 // doesn’t change.
-// 
+//
 // If this method is successful, the framework restores the VM and places it
 // in the paused state.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/restoreMachineStateFrom(url:completionHandler:)
+//
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 func (v VZVirtualMachine) RestoreMachineStateFromURLCompletionHandler(saveFileURL foundation.INSURL, completionHandler ErrorHandler) {
-_block1, _ := NewErrorBlock(completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("restoreMachineStateFromURL:completionHandler:"), saveFileURL, _block1)
 }
 
@@ -516,10 +527,11 @@ func (v VZVirtualMachine) Delegate() VZVirtualMachineDelegate {
 func (v VZVirtualMachine) SetDelegate(value VZVirtualMachineDelegate) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
+
 // The list of configured console devices on the VM.
 //
 // # Discussion
-// 
+//
 // Return an empty array if there are no console devices configured.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/consoleDevices
@@ -529,17 +541,18 @@ func (v VZVirtualMachine) ConsoleDevices() []VZConsoleDevice {
 		return VZConsoleDeviceFromID(id)
 	})
 }
+
 // The array of devices that you use to adjust the amount of memory available
 // to the guest system.
 //
 // # Discussion
-// 
+//
 // If you included a [VZVirtioTraditionalMemoryBalloonDeviceConfiguration]
 // object in the configuration of your VM, this property contains a
 // corresponding [VZVirtioTraditionalMemoryBalloonDevice] object. Use that
 // object to adjust the amount of memory available to the guest operating
 // system.
-// 
+//
 // If you didn’t include a memory balloon object in your configuration, this
 // property contains an empty array.
 //
@@ -550,10 +563,11 @@ func (v VZVirtualMachine) MemoryBalloonDevices() []VZMemoryBalloonDevice {
 		return VZMemoryBalloonDeviceFromID(id)
 	})
 }
+
 // The list of configured network devices on the VM.
 //
 // # Discussion
-// 
+//
 // Returns an empty array if there are no configured network devices.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/networkDevices
@@ -563,16 +577,17 @@ func (v VZVirtualMachine) NetworkDevices() []VZNetworkDevice {
 		return VZNetworkDeviceFromID(id)
 	})
 }
+
 // The array of socket devices that the VM configures for use ports in the
 // guest VM.
 //
 // # Discussion
-// 
+//
 // If you included a [VZVirtioSocketDeviceConfiguration] object in the
 // configuration of your VM, this property contains a corresponding
 // [VZVirtioSocketDevice] object. Use that object to configure the ports your
 // VM makes available to the guest operating system.
-// 
+//
 // If you didn’t include a socket device in your configuration, this
 // property contains an empty array.
 //
@@ -583,10 +598,11 @@ func (v VZVirtualMachine) SocketDevices() []VZSocketDevice {
 		return VZSocketDeviceFromID(id)
 	})
 }
+
 // The list of configured directory-sharing devices on the VM.
 //
 // # Discussion
-// 
+//
 // Returns an empty array if there are no directory sharing devices associated
 // with this virtual machine.
 //
@@ -597,10 +613,11 @@ func (v VZVirtualMachine) DirectorySharingDevices() []VZDirectorySharingDevice {
 		return VZDirectorySharingDeviceFromID(id)
 	})
 }
+
 // The list of runtime USB controller objects.
 //
 // # Discussion
-// 
+//
 // Return an empty array if there isn’t a configured controller USB.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/usbControllers
@@ -610,6 +627,7 @@ func (v VZVirtualMachine) UsbControllers() []VZUSBController {
 		return VZUSBControllerFromID(id)
 	})
 }
+
 // The current execution state of the VM.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/state-swift.property
@@ -617,10 +635,11 @@ func (v VZVirtualMachine) State() VZVirtualMachineState {
 	rv := objc.Send[VZVirtualMachineState](v.ID, objc.Sel("state"))
 	return VZVirtualMachineState(rv)
 }
+
 // The list of configured graphics devices on the virtual machine.
 //
 // # Discussion
-// 
+//
 // Returns an empty array if there are no graphics devices configured.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/graphicsDevices
@@ -630,98 +649,97 @@ func (v VZVirtualMachine) GraphicsDevices() []VZGraphicsDevice {
 		return VZGraphicsDeviceFromID(id)
 	})
 }
+
 // A Boolean value that indicates whether you can start the VM.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the VM is in a state that allows
+//
+// The value of this property is true when the VM is in a state that allows
 // you to start it. Call the [start(completionHandler:)] method (Swift) or
 // [StartWithCompletionHandler] method (Objective-C) to start the VM.
 //
-// [start(completionHandler:)]: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/start(completionHandler:)
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/canStart
+//
+// [start(completionHandler:)]: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/start(completionHandler:)
 func (v VZVirtualMachine) CanStart() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("canStart"))
 	return rv
 }
+
 // A Boolean value that indicates whether you can pause the VM.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the VM is in a state that allows
+//
+// The value of this property is true when the VM is in a state that allows
 // you to pause it. Call the [pause(completionHandler:)] method (Swift) or
 // [PauseWithCompletionHandler] method (Objective-C) to pause the VM.
 //
-// [pause(completionHandler:)]: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/pause(completionHandler:)
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/canPause
+//
+// [pause(completionHandler:)]: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/pause(completionHandler:)
 func (v VZVirtualMachine) CanPause() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("canPause"))
 	return rv
 }
+
 // A Boolean value that indicates whether you can resume the VM.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the VM is in a state that allows
+//
+// The value of this property is true when the VM is in a state that allows
 // you to resume it. Call the [resume(completionHandler:)] method (Swift) or
 // [ResumeWithCompletionHandler] method (Objective-C) to resume the VM
 //
-// [resume(completionHandler:)]: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/resume(completionHandler:)
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/canResume
+//
+// [resume(completionHandler:)]: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/resume(completionHandler:)
 func (v VZVirtualMachine) CanResume() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("canResume"))
 	return rv
 }
+
 // A Boolean value that indicates whether you can stop the VM.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the VM is in a state that allows
-// you to stop it. Call the [StopWithCompletionHandler] to stop the VM.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true when the VM is in a state that allows
+// you to stop it. Call the [StopWithCompletionHandler] to stop the VM.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/canStop
 func (v VZVirtualMachine) CanStop() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("canStop"))
 	return rv
 }
+
 // A Boolean value that indicates whether you can ask the guest operating
 // system to stop running.
 //
 // # Discussion
-// 
-// The value of this property is [true] when the VM is in a state that allows
-// it to stop running. Call the [RequestStopWithError] method to ask the guest
-// operating system to stop running.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The value of this property is true when the VM is in a state that allows it
+// to stop running. Call the [RequestStopWithError] method to ask the guest
+// operating system to stop running.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/canRequestStop
 func (v VZVirtualMachine) CanRequestStop() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("canRequestStop"))
 	return rv
 }
+
 // The queue associated with this virtual machine.
 //
 // # Discussion
-// 
+//
 // This property is a reference to the queue the framework used to create the
 // virtual machine when initialized using [InitWithConfigurationQueue]. If not
 // specified, the default is the main queue.
-// 
+//
 // The property is accessible from any queue or actor.
-// 
+//
 // Other properties or function calls on [VZVirtualMachine] must happen on
 // this queue. The framework also invokes any completion handlers from
 // asynchronous functions on this queue.
-// 
+//
 // The following example shows use of the `VZVirtualMachine.Queue()` property
 // to check to see if it’s possible to start a VM.
 //
@@ -734,7 +752,7 @@ func (v VZVirtualMachine) Queue() dispatch.Queue {
 // A Boolean value that indicates whether the system supports virtualization.
 //
 // # Discussion
-// 
+//
 // If virtualization is unavailable on the current device, no configuration is
 // valid. If you want to know more about why virtualization is unavailable,
 // call the [ValidateWithError] method of [VZVirtualMachineConfiguration] and
@@ -850,4 +868,3 @@ func (v VZVirtualMachine) RestoreMachineStateFromURL(ctx context.Context, saveFi
 		return ctx.Err()
 	}
 }
-

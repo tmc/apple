@@ -28,6 +28,7 @@ type DASExtensionRunner interface {
 type DASExtensionRunnerObject struct {
 	objectivec.Object
 }
+
 func (o DASExtensionRunnerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -40,19 +41,19 @@ func DASExtensionRunnerObjectFromID(id objc.ID) DASExtensionRunnerObject {
 	}
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/_DASExtensionRunner/prepareForActivity:
 func (o DASExtensionRunnerObject) PrepareForActivity(activity objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("prepareForActivity:"), activity)
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/_DASExtensionRunner/start
 func (o DASExtensionRunnerObject) Start() byte {
 	rv := objc.Send[byte](o.ID, objc.Sel("start"))
 	return rv
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/_DASExtensionRunner/stop
 func (o DASExtensionRunnerObject) Stop() {
 	objc.Send[struct{}](o.ID, objc.Sel("stop"))
-	}
-
+}

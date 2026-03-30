@@ -4,9 +4,11 @@ package avfoundation
 
 import (
 	"fmt"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+
 var _ = fmt.Sprintf
 
 // A protocol that defines the interface to respond to events about a capture session’s deferred start.
@@ -30,6 +32,7 @@ type AVCaptureSessionDeferredStartDelegate interface {
 type AVCaptureSessionDeferredStartDelegateObject struct {
 	objectivec.Object
 }
+
 func (o AVCaptureSessionDeferredStartDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -50,13 +53,14 @@ func AVCaptureSessionDeferredStartDelegateObjectFromID(id objc.ID) AVCaptureSess
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSessionDeferredStartDelegate/sessionDidRunDeferredStart(_:)
 func (o AVCaptureSessionDeferredStartDelegateObject) SessionDidRunDeferredStart(session IAVCaptureSession) {
 	objc.Send[struct{}](o.ID, objc.Sel("sessionDidRunDeferredStart:"), session)
-	}
+}
+
 // This method gets called by the session when deferred start is about to run.
 //
 // session: The [AVCaptureSession] instance that runs the deferred start.
 //
 // # Discussion
-// 
+//
 // Delegates receive this message when the session has finished the deferred
 // start. This message will be sent regardless of whether the session’s
 // [AutomaticallyRunsDeferredStart] property is set. See
@@ -66,7 +70,7 @@ func (o AVCaptureSessionDeferredStartDelegateObject) SessionDidRunDeferredStart(
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSessionDeferredStartDelegate/sessionWillRunDeferredStart(_:)
 func (o AVCaptureSessionDeferredStartDelegateObject) SessionWillRunDeferredStart(session IAVCaptureSession) {
 	objc.Send[struct{}](o.ID, objc.Sel("sessionWillRunDeferredStart:"), session)
-	}
+}
 
 // AVCaptureSessionDeferredStartDelegateConfig holds optional typed callbacks for [AVCaptureSessionDeferredStartDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -141,4 +145,3 @@ func NewAVCaptureSessionDeferredStartDelegate(config AVCaptureSessionDeferredSta
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return AVCaptureSessionDeferredStartDelegateObjectFromID(instance)
 }
-

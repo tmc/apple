@@ -4,8 +4,9 @@ package texttospeech
 
 import (
 	"context"
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -43,7 +44,6 @@ func (tc TTSWrappedAudioQueueBufferClass) Alloc() TTSWrappedAudioQueueBuffer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [TTSWrappedAudioQueueBuffer.AqBuffer]
@@ -52,6 +52,7 @@ func (tc TTSWrappedAudioQueueBufferClass) Alloc() TTSWrappedAudioQueueBuffer {
 //   - [TTSWrappedAudioQueueBuffer.QueuedTimeStamp]
 //   - [TTSWrappedAudioQueueBuffer.SetQueuedTimeStamp]
 //   - [TTSWrappedAudioQueueBuffer.SetCompletionHandler]
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueueBuffer
 type TTSWrappedAudioQueueBuffer struct {
 	objectivec.Object
@@ -61,6 +62,7 @@ type TTSWrappedAudioQueueBuffer struct {
 func TTSWrappedAudioQueueBufferFromID(id objc.ID) TTSWrappedAudioQueueBuffer {
 	return TTSWrappedAudioQueueBuffer{objectivec.Object{ID: id}}
 }
+
 // Ensure TTSWrappedAudioQueueBuffer implements ITTSWrappedAudioQueueBuffer.
 var _ ITTSWrappedAudioQueueBuffer = TTSWrappedAudioQueueBuffer{}
 
@@ -108,10 +110,9 @@ func NewTTSWrappedAudioQueueBuffer() TTSWrappedAudioQueueBuffer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueueBuffer/setCompletionHandler:
 func (t TTSWrappedAudioQueueBuffer) SetCompletionHandler(handler ErrorHandler) {
-_block0, _ := NewErrorBlock(handler)
+	_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("setCompletionHandler:"), _block0)
 }
 
@@ -123,11 +124,13 @@ func (t TTSWrappedAudioQueueBuffer) AqBuffer() unsafe.Pointer {
 func (t TTSWrappedAudioQueueBuffer) SetAqBuffer(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAqBuffer:"), value)
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueueBuffer/byteSize
 func (t TTSWrappedAudioQueueBuffer) ByteSize() uint64 {
 	rv := objc.Send[uint64](t.ID, objc.Sel("byteSize"))
 	return rv
 }
+
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueueBuffer/queuedTimeStamp
 func (t TTSWrappedAudioQueueBuffer) QueuedTimeStamp() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("queuedTimeStamp"))
@@ -151,4 +154,3 @@ func (t TTSWrappedAudioQueueBuffer) Set(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

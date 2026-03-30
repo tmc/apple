@@ -5,6 +5,7 @@ package quartzcore
 import (
 	"fmt"
 	"os"
+
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 )
@@ -231,21 +232,20 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-		registerFunc(&_cACurrentMediaTime, frameworkHandle, "CACurrentMediaTime")
-		registerFunc(&_cAFrameRateRangeIsEqualToRange, frameworkHandle, "CAFrameRateRangeIsEqualToRange")
-		registerFunc(&_cAFrameRateRangeMake, frameworkHandle, "CAFrameRateRangeMake")
-		registerFunc(&_cATransform3DConcat, frameworkHandle, "CATransform3DConcat")
-		registerFunc(&_cATransform3DEqualToTransform, frameworkHandle, "CATransform3DEqualToTransform")
-		registerFunc(&_cATransform3DGetAffineTransform, frameworkHandle, "CATransform3DGetAffineTransform")
-		registerFunc(&_cATransform3DInvert, frameworkHandle, "CATransform3DInvert")
-		registerFunc(&_cATransform3DIsAffine, frameworkHandle, "CATransform3DIsAffine")
-		registerFunc(&_cATransform3DIsIdentity, frameworkHandle, "CATransform3DIsIdentity")
-		registerFunc(&_cATransform3DMakeAffineTransform, frameworkHandle, "CATransform3DMakeAffineTransform")
-		registerFunc(&_cATransform3DMakeRotation, frameworkHandle, "CATransform3DMakeRotation")
-		registerFunc(&_cATransform3DMakeScale, frameworkHandle, "CATransform3DMakeScale")
-		registerFunc(&_cATransform3DMakeTranslation, frameworkHandle, "CATransform3DMakeTranslation")
-		registerFunc(&_cATransform3DRotate, frameworkHandle, "CATransform3DRotate")
-		registerFunc(&_cATransform3DScale, frameworkHandle, "CATransform3DScale")
-		registerFunc(&_cATransform3DTranslate, frameworkHandle, "CATransform3DTranslate")
-	}
-
+	registerFunc(&_cACurrentMediaTime, frameworkHandle, "CACurrentMediaTime")
+	registerFunc(&_cAFrameRateRangeIsEqualToRange, frameworkHandle, "CAFrameRateRangeIsEqualToRange")
+	registerFunc(&_cAFrameRateRangeMake, frameworkHandle, "CAFrameRateRangeMake")
+	registerFunc(&_cATransform3DConcat, frameworkHandle, "CATransform3DConcat")
+	registerFunc(&_cATransform3DEqualToTransform, frameworkHandle, "CATransform3DEqualToTransform")
+	registerFunc(&_cATransform3DGetAffineTransform, frameworkHandle, "CATransform3DGetAffineTransform")
+	registerFunc(&_cATransform3DInvert, frameworkHandle, "CATransform3DInvert")
+	registerFunc(&_cATransform3DIsAffine, frameworkHandle, "CATransform3DIsAffine")
+	registerFunc(&_cATransform3DIsIdentity, frameworkHandle, "CATransform3DIsIdentity")
+	registerFunc(&_cATransform3DMakeAffineTransform, frameworkHandle, "CATransform3DMakeAffineTransform")
+	registerFunc(&_cATransform3DMakeRotation, frameworkHandle, "CATransform3DMakeRotation")
+	registerFunc(&_cATransform3DMakeScale, frameworkHandle, "CATransform3DMakeScale")
+	registerFunc(&_cATransform3DMakeTranslation, frameworkHandle, "CATransform3DMakeTranslation")
+	registerFunc(&_cATransform3DRotate, frameworkHandle, "CATransform3DRotate")
+	registerFunc(&_cATransform3DScale, frameworkHandle, "CATransform3DScale")
+	registerFunc(&_cATransform3DTranslate, frameworkHandle, "CATransform3DTranslate")
+}

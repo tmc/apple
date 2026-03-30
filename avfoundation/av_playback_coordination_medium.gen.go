@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (ac AVPlaybackCoordinationMediumClass) Alloc() AVPlaybackCoordinationMedium
 	return rv
 }
 
-//
 // # Managing playback coordinators
 //
 //   - [AVPlaybackCoordinationMedium.ConnectedPlaybackCoordinators]: All playback coordinators that are connected to the coordination medium.
+//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinationMedium
 type AVPlaybackCoordinationMedium struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type AVPlaybackCoordinationMedium struct {
 func AVPlaybackCoordinationMediumFromID(id objc.ID) AVPlaybackCoordinationMedium {
 	return AVPlaybackCoordinationMedium{objectivec.Object{ID: id}}
 }
+
 // NOTE: AVPlaybackCoordinationMedium adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -95,7 +97,7 @@ func NewAVPlaybackCoordinationMedium() AVPlaybackCoordinationMedium {
 // All playback coordinators that are connected to the coordination medium.
 //
 // # Discussion
-// 
+//
 // Returns an array of all the AVPlayerPlaybackCoordinators that are connected
 // to the coordination medium. This coordination is specifically for
 // AVPlayerPlaybackCoordinators, and we exclude
@@ -104,7 +106,7 @@ func NewAVPlaybackCoordinationMedium() AVPlaybackCoordinationMedium {
 // ensure correct synchronized behavior across all local playback
 // coordinators, any common AVPlaybackCoordinator properties and methods
 // should be set and called on all playback coordinators in the coordination
-// medium. The properties and methods `otherParticipants`, ``, and `` refer
+// medium. The properties and methods `otherParticipants`, “, and “ refer
 // specifically to remote participants that are coordinated through a group
 // session rather than through the playback coordination medium.
 // `otherParticipants` only returns participants connected to the same group
@@ -119,4 +121,3 @@ func (p AVPlaybackCoordinationMedium) ConnectedPlaybackCoordinators() []AVPlayer
 		return AVPlayerPlaybackCoordinatorFromID(id)
 	})
 }
-

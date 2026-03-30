@@ -4,11 +4,12 @@ package vision
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -49,7 +50,7 @@ func (vc VNImageRegistrationRequestClass) Alloc() VNImageRegistrationRequest {
 // according to their content.
 //
 // # Overview
-// 
+//
 // This abstract superclass forms the basis of image alignment or registration
 // requests. Make specific requests through one of its subclasses,
 // [VNTranslationalImageRegistrationRequest] or
@@ -68,6 +69,7 @@ type VNImageRegistrationRequest struct {
 func VNImageRegistrationRequestFromID(id objc.ID) VNImageRegistrationRequest {
 	return VNImageRegistrationRequest{VNTargetedImageRequest: VNTargetedImageRequestFromID(id)}
 }
+
 // NOTE: VNImageRegistrationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -102,7 +104,7 @@ func NewVNImageRegistrationRequest() VNImageRegistrationRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -150,13 +152,13 @@ func NewImageRegistrationRequestWithTargetedCGImageOptionsCompletionHandler(cgIm
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCGImage:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:"), cgImage, orientation, options)
@@ -171,8 +173,6 @@ func NewImageRegistrationRequestWithTargetedCGImageOrientationOptions(cgImage co
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -180,6 +180,8 @@ func NewImageRegistrationRequestWithTargetedCGImageOrientationOptions(cgImage co
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCGImage:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage coregraphics.CGImageRef, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:completionHandler:"), cgImage, orientation, options, completionHandler)
@@ -189,12 +191,12 @@ func NewImageRegistrationRequestWithTargetedCGImageOrientationOptionsCompletionH
 // Creates a new request targeting a Core Image image.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
-// //
-// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:options:
+//
+// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 func NewImageRegistrationRequestWithTargetedCIImageOptions(ciImage coreimage.CIImage, options foundation.INSDictionary) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
@@ -204,14 +206,14 @@ func NewImageRegistrationRequestWithTargetedCIImageOptions(ciImage coreimage.CII
 // Creates a new request targeting a Core Image image.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
-// //
-// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:options:completionHandler:)
+//
+// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 func NewImageRegistrationRequestWithTargetedCIImageOptionsCompletionHandler(ciImage coreimage.CIImage, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, completionHandler)
@@ -221,19 +223,18 @@ func NewImageRegistrationRequestWithTargetedCIImageOptionsCompletionHandler(ciIm
 // Creates a new request targeting a Core Image image of known orientation.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
-// //
-// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedCIImageOrientationOptions(ciImage coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
@@ -244,14 +245,10 @@ func NewImageRegistrationRequestWithTargetedCIImageOrientationOptions(ciImage co
 // executing the completion handler when done.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
-// //
-// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -259,6 +256,9 @@ func NewImageRegistrationRequestWithTargetedCIImageOrientationOptions(ciImage co
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:completionHandler:"), ciImage, orientation, options, completionHandler)
@@ -268,12 +268,12 @@ func NewImageRegistrationRequestWithTargetedCIImageOrientationOptionsCompletionH
 // Creates a new request that targets an image in a sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
-// //
-// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCMSampleBuffer:options:
+//
+// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 func NewImageRegistrationRequestWithTargetedCMSampleBufferOptions(sampleBuffer uintptr, options foundation.INSDictionary) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:"), sampleBuffer, options)
@@ -284,14 +284,14 @@ func NewImageRegistrationRequestWithTargetedCMSampleBufferOptions(sampleBuffer u
 // sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
-// //
-// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // completionHandler: The callback the system invokes when the request finishes executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCMSampleBuffer:options:completionHandler:)
+//
+// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 func NewImageRegistrationRequestWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer uintptr, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, completionHandler)
@@ -302,18 +302,17 @@ func NewImageRegistrationRequestWithTargetedCMSampleBufferOptionsCompletionHandl
 // sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
-// //
-// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 //
 // orientation: The EXIF orientation of the image. See [CGImagePropertyOrientation] for
 // supported orientation values.
-// //
-// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCMSampleBuffer:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
+// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedCMSampleBufferOrientationOptions(sampleBuffer uintptr, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
@@ -324,13 +323,9 @@ func NewImageRegistrationRequestWithTargetedCMSampleBufferOrientationOptions(sam
 // known orientation in a sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
-// //
-// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 //
 // orientation: The EXIF orientation of the image. See [CGImagePropertyOrientation] for
 // supported orientations.
-// //
-// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -338,6 +333,9 @@ func NewImageRegistrationRequestWithTargetedCMSampleBufferOrientationOptions(sam
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCMSampleBuffer:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
+// [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer uintptr, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:completionHandler:"), sampleBuffer, orientation, options, completionHandler)
@@ -380,13 +378,13 @@ func NewImageRegistrationRequestWithTargetedCVPixelBufferOptionsCompletionHandle
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCVPixelBuffer:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
@@ -401,8 +399,6 @@ func NewImageRegistrationRequestWithTargetedCVPixelBufferOrientationOptions(pixe
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -410,6 +406,8 @@ func NewImageRegistrationRequestWithTargetedCVPixelBufferOrientationOptions(pixe
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCVPixelBuffer:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:completionHandler:"), pixelBuffer, orientation, options, completionHandler)
@@ -452,13 +450,13 @@ func NewImageRegistrationRequestWithTargetedImageDataOptionsCompletionHandler(im
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageData:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedImageDataOrientationOptions(imageData foundation.INSData, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:"), imageData, orientation, options)
@@ -473,8 +471,6 @@ func NewImageRegistrationRequestWithTargetedImageDataOrientationOptions(imageDat
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -482,6 +478,8 @@ func NewImageRegistrationRequestWithTargetedImageDataOrientationOptions(imageDat
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageData:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedImageDataOrientationOptionsCompletionHandler(imageData foundation.INSData, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:completionHandler:"), imageData, orientation, options, completionHandler)
@@ -525,13 +523,13 @@ func NewImageRegistrationRequestWithTargetedImageURLOptionsCompletionHandler(ima
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageURL:orientation:options:
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedImageURLOrientationOptions(imageURL foundation.INSURL, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:"), imageURL, orientation, options)
@@ -546,8 +544,6 @@ func NewImageRegistrationRequestWithTargetedImageURLOrientationOptions(imageURL 
 // orientation: The orientation of the image buffer, based on EXIF specification and
 // superseding other orientation information. The value must be an integer
 // from `1` to `8`; see [kCGImagePropertyOrientation] for details.
-// //
-// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 //
 // options: A dictionary with options specifying auxiliary information for the image.
 //
@@ -555,9 +551,10 @@ func NewImageRegistrationRequestWithTargetedImageURLOrientationOptions(imageURL 
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageURL:orientation:options:completionHandler:)
 // orientation is a [imageio.CGImagePropertyOrientation].
+//
+// [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
 func NewImageRegistrationRequestWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL foundation.INSURL, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:completionHandler:"), imageURL, orientation, options, completionHandler)
 	return VNImageRegistrationRequestFromID(rv)
 }
-

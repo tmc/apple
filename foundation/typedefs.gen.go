@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -361,4 +362,3 @@ type Unichar = uint16
 // UIEdgeInsets is modeled as a CGFloat-based edge inset value for cross-platform NSValue helpers.
 
 type UIEdgeInsets = struct{ Top, Left, Bottom, Right float64 }
-

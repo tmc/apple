@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,22 +46,22 @@ func (nc NSMapTableClass) Alloc() NSMapTable {
 // memory semantics.
 //
 // # Overview
-// 
+//
 // The map table is modeled after [NSDictionary] with the following
 // differences:
-// 
+//
 // - Keys and/or values are optionally held “weakly” such that entries are
 // removed when one of the objects is reclaimed. - Its keys or values may be
 // copied on input or may use pointer identity for equality and hashing. - It
 // can contain arbitrary pointers (its contents are not constrained to being
 // objects).
-// 
+//
 // You can configure an [NSMapTable] instance to operate on arbitrary pointers
 // and not just objects, although typically you are encouraged to use the C
 // function API for void * pointers. The object-based API (such as
 // [NSMapTable.SetObjectForKey]) will not work for non-object pointers without
 // type-casting.
-// 
+//
 // When configuring map tables, note that only the options listed in
 // [NSMapTableOptions] guarantee that the rest of the API will work
 // correctly—including copying, archiving, and fast enumeration. While other
@@ -68,9 +69,9 @@ func (nc NSMapTableClass) Alloc() NSMapTable {
 // to hold arbitrary pointers, not all combinations of the options are valid.
 // With some combinations the map table may not work correctly, or may not
 // even be initialized correctly.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // [NSMapTable] is not suitable for subclassing.
 //
 // # Creating and Initializing a Map Table
@@ -112,6 +113,7 @@ type NSMapTable struct {
 func NSMapTableFromID(id objc.ID) NSMapTable {
 	return NSMapTable{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSMapTable adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -210,7 +212,6 @@ func NewNSMapTable() NSMapTable {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMapTableWithCoder(coder INSCoder) NSMapTable {
 	instance := getNSMapTableClass().Alloc()
@@ -230,11 +231,11 @@ func NewMapTableWithCoder(coder INSCoder) NSMapTable {
 // may subsequently grow and shrink as required.
 //
 // # Return Value
-// 
+//
 // A map table initialized using the given options.
 //
 // # Discussion
-// 
+//
 // `values` must contain entries at all the indexes specified in `keys`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/init(keyOptions:valueOptions:capacity:)
@@ -254,7 +255,7 @@ func NewMapTableWithKeyOptionsValueOptionsCapacity(keyOptions NSPointerFunctions
 // may subsequently grow and shrink as required.
 //
 // # Return Value
-// 
+//
 // A map table, initialized with the given functions.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/init(keyPointerFunctions:valuePointerFunctions:capacity:)
@@ -276,11 +277,11 @@ func NewMapTableWithKeyPointerFunctionsValuePointerFunctionsCapacity(keyFunction
 // may subsequently grow and shrink as required.
 //
 // # Return Value
-// 
+//
 // A map table initialized using the given options.
 //
 // # Discussion
-// 
+//
 // `values` must contain entries at all the indexes specified in `keys`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/init(keyOptions:valueOptions:capacity:)
@@ -288,6 +289,7 @@ func (m NSMapTable) InitWithKeyOptionsValueOptionsCapacity(keyOptions NSPointerF
 	rv := objc.Send[NSMapTable](m.ID, objc.Sel("initWithKeyOptions:valueOptions:capacity:"), keyOptions, valueOptions, initialCapacity)
 	return rv
 }
+
 // Returns a map table, initialized with the given functions.
 //
 // keyFunctions: The functions the map table uses to manage keys.
@@ -298,7 +300,7 @@ func (m NSMapTable) InitWithKeyOptionsValueOptionsCapacity(keyOptions NSPointerF
 // may subsequently grow and shrink as required.
 //
 // # Return Value
-// 
+//
 // A map table, initialized with the given functions.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/init(keyPointerFunctions:valuePointerFunctions:capacity:)
@@ -306,12 +308,13 @@ func (m NSMapTable) InitWithKeyPointerFunctionsValuePointerFunctionsCapacity(key
 	rv := objc.Send[NSMapTable](m.ID, objc.Sel("initWithKeyPointerFunctions:valuePointerFunctions:capacity:"), keyFunctions, valueFunctions, initialCapacity)
 	return rv
 }
+
 // Returns a the value associated with a given key.
 //
 // aKey: The key for which to return the corresponding value.
 //
 // # Return Value
-// 
+//
 // The value associated with `aKey`, or `nil` if no value is associated with
 // `aKey`.
 //
@@ -320,19 +323,20 @@ func (m NSMapTable) ObjectForKey(aKey objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectForKey:"), aKey)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns an enumerator object that lets you access each key in the map
 // table.
 //
 // # Return Value
-// 
+//
 // An enumerator object that lets you access each key in the map table.
 //
 // # Discussion
-// 
+//
 // The following code fragment illustrates how you might use the method.
-// 
+//
 // # Special Considerations
-// 
+//
 // It is more efficient to use the fast enumeration protocol (see
 // [NSFastEnumeration]).
 //
@@ -341,19 +345,20 @@ func (m NSMapTable) KeyEnumerator() INSEnumerator {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("keyEnumerator"))
 	return NSEnumeratorFromID(rv)
 }
+
 // Returns an enumerator object that lets you access each value in the map
 // table.
 //
 // # Return Value
-// 
+//
 // An enumerator object that lets you access each value in the map table.
 //
 // # Discussion
-// 
+//
 // The following code fragment illustrates how you might use the method.
-// 
+//
 // # Special Considerations
-// 
+//
 // It is more efficient to use the fast enumeration protocol (see
 // [NSFastEnumeration]).
 //
@@ -362,6 +367,7 @@ func (m NSMapTable) ObjectEnumerator() INSEnumerator {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectEnumerator"))
 	return NSEnumeratorFromID(rv)
 }
+
 // Adds a given key-value pair to the map table.
 //
 // anObject: The value for `aKey`.
@@ -372,32 +378,35 @@ func (m NSMapTable) ObjectEnumerator() INSEnumerator {
 func (m NSMapTable) SetObjectForKey(anObject objectivec.IObject, aKey objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setObject:forKey:"), anObject, aKey)
 }
+
 // Removes a given key and its associated value from the map table.
 //
 // aKey: The key to remove.
 //
 // # Discussion
-// 
+//
 // Does nothing if `aKey` does not exist.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/removeObject(forKey:)
 func (m NSMapTable) RemoveObjectForKey(aKey objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectForKey:"), aKey)
 }
+
 // Empties the map table of its entries.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/removeAllObjects()
 func (m NSMapTable) RemoveAllObjects() {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeAllObjects"))
 }
+
 // Returns a dictionary representation of the map table.
 //
 // # Return Value
-// 
+//
 // A dictionary representation of the map table.
 //
 // # Discussion
-// 
+//
 // The map table’s values and keys must conform to all the requirements
 // specified in [SetObjectForKey] in [NSMutableDictionary].
 //
@@ -406,6 +415,7 @@ func (m NSMapTable) DictionaryRepresentation() INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return NSDictionaryFromID(rv)
 }
+
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //
@@ -417,12 +427,12 @@ func (m NSMapTable) DictionaryRepresentation() INSDictionary {
 // len: The maximum number of objects to return in `stackbuf`.
 //
 // # Return Value
-// 
+//
 // The number of objects returned in `stackbuf`. Returns `0` when the
 // iteration is finished.
 //
 // # Discussion
-// 
+//
 // The state structure is assumed to be of stack local memory, so you can
 // recast the passed in state structure to one more suitable for your
 // iteration.
@@ -432,6 +442,7 @@ func (m NSMapTable) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerat
 	rv := objc.Send[uint](m.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -440,7 +451,7 @@ func (m NSMapTable) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerat
 func (m NSMapTable) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (m NSMapTable) InitWithCoder(coder INSCoder) NSMapTable {
 	rv := objc.Send[NSMapTable](m.ID, objc.Sel("initWithCoder:"), coder)
@@ -456,7 +467,7 @@ func (m NSMapTable) InitWithCoder(coder INSCoder) NSMapTable {
 // possible values, see [NSMapTableOptions].
 //
 // # Return Value
-// 
+//
 // A new map table, initialized with the given options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/init(keyOptions:valueOptions:)
@@ -464,11 +475,12 @@ func (_NSMapTableClass NSMapTableClass) MapTableWithKeyOptionsValueOptions(keyOp
 	rv := objc.Send[objc.ID](objc.ID(_NSMapTableClass.class), objc.Sel("mapTableWithKeyOptions:valueOptions:"), keyOptions, valueOptions)
 	return NSMapTableFromID(rv)
 }
+
 // Returns a new map table object which has strong references to the keys and
 // values.
 //
 // # Return Value
-// 
+//
 // A new map table object which has strong references to the keys and values.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/strongToStrongObjects()
@@ -476,16 +488,17 @@ func (_NSMapTableClass NSMapTableClass) StrongToStrongObjectsMapTable() NSMapTab
 	rv := objc.Send[objc.ID](objc.ID(_NSMapTableClass.class), objc.Sel("strongToStrongObjectsMapTable"))
 	return NSMapTableFromID(rv)
 }
+
 // Returns a new map table object which has weak references to the keys and
 // strong references to the values.
 //
 // # Return Value
-// 
+//
 // A new map table object which has weak references to the keys and strong
 // references to the values.
 //
 // # Discussion
-// 
+//
 // Use of weak-to-strong map tables is not recommended. The strong values for
 // weak keys which get zeroed out continue to be maintained until the map
 // table resizes itself.
@@ -495,11 +508,12 @@ func (_NSMapTableClass NSMapTableClass) WeakToStrongObjectsMapTable() NSMapTable
 	rv := objc.Send[objc.ID](objc.ID(_NSMapTableClass.class), objc.Sel("weakToStrongObjectsMapTable"))
 	return NSMapTableFromID(rv)
 }
+
 // Returns a new map table object which has strong references to the keys and
 // weak references to the values.
 //
 // # Return Value
-// 
+//
 // A new map table object which has strong references to the keys and weak
 // references to the values.
 //
@@ -508,11 +522,12 @@ func (_NSMapTableClass NSMapTableClass) StrongToWeakObjectsMapTable() NSMapTable
 	rv := objc.Send[objc.ID](objc.ID(_NSMapTableClass.class), objc.Sel("strongToWeakObjectsMapTable"))
 	return NSMapTableFromID(rv)
 }
+
 // Returns a new map table object which has weak references to the keys and
 // values.
 //
 // # Return Value
-// 
+//
 // A new map table object which has weak references to the keys and values.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/weakToWeakObjects()
@@ -528,6 +543,7 @@ func (m NSMapTable) Count() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("count"))
 	return rv
 }
+
 // The pointer functions the map table uses to manage keys.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/keyPointerFunctions
@@ -535,6 +551,7 @@ func (m NSMapTable) KeyPointerFunctions() INSPointerFunctions {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("keyPointerFunctions"))
 	return NSPointerFunctionsFromID(objc.ID(rv))
 }
+
 // The pointer functions the map table uses to manage values.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/valuePointerFunctions
@@ -543,9 +560,6 @@ func (m NSMapTable) ValuePointerFunctions() INSPointerFunctions {
 	return NSPointerFunctionsFromID(objc.ID(rv))
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

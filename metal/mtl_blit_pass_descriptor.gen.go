@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (mc MTLBlitPassDescriptorClass) Alloc() MTLBlitPassDescriptor {
 // affects the runtime behavior of the blit pass you encode with it.
 //
 // # Overview
-// 
+//
 // You can customize an encoder for a blit pass by creating and configuring an
 // [MTLBlitPassDescriptor] instance and passing it to
 // [BlitCommandEncoderWithDescriptor].
@@ -66,6 +67,7 @@ type MTLBlitPassDescriptor struct {
 func MTLBlitPassDescriptorFromID(id objc.ID) MTLBlitPassDescriptor {
 	return MTLBlitPassDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLBlitPassDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -104,29 +106,20 @@ func NewMTLBlitPassDescriptor() MTLBlitPassDescriptor {
 	return rv
 }
 
-// Creates a new blit pass descriptor with a default configuration.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLBlitPassDescriptor/blitPassDescriptor
-func (_MTLBlitPassDescriptorClass MTLBlitPassDescriptorClass) BlitPassDescriptor() MTLBlitPassDescriptor {
-	rv := objc.Send[objc.ID](objc.ID(_MTLBlitPassDescriptorClass.class), objc.Sel("blitPassDescriptor"))
-	return MTLBlitPassDescriptorFromID(rv)
-}
-
 // An array of counter sample buffer attachments that you configure for a blit
 // pass.
 //
 // # Discussion
-// 
+//
 // See [Sampling GPU data into counter sample buffers] for more context about
 // configuring this property. That article is one of a series of articles in
 // [GPU counters and counter sample buffers].
 //
+// See: https://developer.apple.com/documentation/Metal/MTLBlitPassDescriptor/sampleBufferAttachments
+//
 // [GPU counters and counter sample buffers]: https://developer.apple.com/documentation/Metal/gpu-counters-and-counter-sample-buffers
 // [Sampling GPU data into counter sample buffers]: https://developer.apple.com/documentation/Metal/sampling-gpu-data-into-counter-sample-buffers
-//
-// See: https://developer.apple.com/documentation/Metal/MTLBlitPassDescriptor/sampleBufferAttachments
 func (b MTLBlitPassDescriptor) SampleBufferAttachments() IMTLBlitPassSampleBufferAttachmentDescriptorArray {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("sampleBufferAttachments"))
 	return MTLBlitPassSampleBufferAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-

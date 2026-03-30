@@ -4,8 +4,9 @@ package virtualization
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -45,7 +46,7 @@ func (vc VZSharedDirectoryClass) Alloc() VZSharedDirectory {
 // A directory on the host that you can expose to a guest.
 //
 // # Overview
-// 
+//
 // This exposes a directory from the host file system to the guest.
 //
 // # Creating a Shared Directory
@@ -68,6 +69,7 @@ type VZSharedDirectory struct {
 func VZSharedDirectoryFromID(id objc.ID) VZSharedDirectory {
 	return VZSharedDirectory{objectivec.Object{ID: id}}
 }
+
 // NOTE: VZSharedDirectory adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -152,7 +154,7 @@ func (s VZSharedDirectory) InitWithURLReadOnly(url foundation.INSURL, readOnly b
 // A file URL to a directory on the host system to expose to the guest.
 //
 // # Discussion
-// 
+//
 // The URL must point to an existing directory path in the host file system.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/url
@@ -160,6 +162,7 @@ func (s VZSharedDirectory) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the directory is read-only to the
 // guest.
 //
@@ -168,4 +171,3 @@ func (s VZSharedDirectory) ReadOnly() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isReadOnly"))
 	return rv
 }
-

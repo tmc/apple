@@ -3,10 +3,11 @@
 package coreml
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,6 +53,7 @@ type MLCloudDeploymentUtils struct {
 func MLCloudDeploymentUtilsFromID(id objc.ID) MLCloudDeploymentUtils {
 	return MLCloudDeploymentUtils{objectivec.Object{ID: id}}
 }
+
 // Ensure MLCloudDeploymentUtils implements IMLCloudDeploymentUtils.
 var _ IMLCloudDeploymentUtils = MLCloudDeploymentUtils{}
 
@@ -81,7 +83,6 @@ func NewMLCloudDeploymentUtils() MLCloudDeploymentUtils {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLCloudDeploymentUtils/extractTeamIdentifierAndReturnError:
 func (_MLCloudDeploymentUtilsClass MLCloudDeploymentUtilsClass) ExtractTeamIdentifierAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -93,4 +94,3 @@ func (_MLCloudDeploymentUtilsClass MLCloudDeploymentUtilsClass) ExtractTeamIdent
 	return objectivec.Object{ID: rv}, nil
 
 }
-

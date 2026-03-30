@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLLinkedModelClass) Alloc() MLLinkedModel {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLLinkedModel.LinkedModel]
@@ -58,6 +58,7 @@ func (mc MLLinkedModelClass) Alloc() MLLinkedModel {
 //   - [MLLinkedModel.PredictionsFromBatchOptionsError]
 //   - [MLLinkedModel.UpdateParameterDescriptionsByUnarchivingSpecification]
 //   - [MLLinkedModel.InitWithLinkedModelModelFileNameModelSearchPathConfiguration]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel
 type MLLinkedModel struct {
 	MLModel
@@ -67,6 +68,7 @@ type MLLinkedModel struct {
 func MLLinkedModelFromID(id objc.ID) MLLinkedModel {
 	return MLLinkedModel{MLModel: MLModelFromID(id)}
 }
+
 // Ensure MLLinkedModel implements IMLLinkedModel.
 var _ IMLLinkedModel = MLLinkedModel{}
 
@@ -124,7 +126,6 @@ func NewMLLinkedModel() MLLinkedModel {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initDescriptionOnlyWithSpecification:configuration:error:
 func NewLinkedModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLLinkedModel, error) {
 	var errorPtr objc.ID
@@ -137,7 +138,6 @@ func NewLinkedModelDescriptionOnlyWithSpecificationConfigurationError(specificat
 	return MLLinkedModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initInterfaceAndMetadataWithCompiledArchive:error:
 func NewLinkedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLLinkedModel, error) {
 	var errorPtr objc.ID
@@ -150,7 +150,6 @@ func NewLinkedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.P
 	return MLLinkedModelFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithConfiguration:
 func NewLinkedModelWithConfiguration(configuration objectivec.IObject) MLLinkedModel {
 	instance := getMLLinkedModelClass().Alloc()
@@ -158,7 +157,6 @@ func NewLinkedModelWithConfiguration(configuration objectivec.IObject) MLLinkedM
 	return MLLinkedModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:
 func NewLinkedModelWithDescription(description objectivec.IObject) MLLinkedModel {
 	instance := getMLLinkedModelClass().Alloc()
@@ -166,7 +164,6 @@ func NewLinkedModelWithDescription(description objectivec.IObject) MLLinkedModel
 	return MLLinkedModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithDescription:configuration:
 func NewLinkedModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLLinkedModel {
 	instance := getMLLinkedModelClass().Alloc()
@@ -174,7 +171,6 @@ func NewLinkedModelWithDescriptionConfiguration(description objectivec.IObject, 
 	return MLLinkedModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/initWithLinkedModel:modelFileName:modelSearchPath:configuration:
 func NewLinkedModelWithLinkedModelModelFileNameModelSearchPathConfiguration(model objectivec.IObject, name objectivec.IObject, path objectivec.IObject, configuration objectivec.IObject) MLLinkedModel {
 	instance := getMLLinkedModelClass().Alloc()
@@ -182,7 +178,6 @@ func NewLinkedModelWithLinkedModelModelFileNameModelSearchPathConfiguration(mode
 	return MLLinkedModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLModel/initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:
 func NewLinkedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLLinkedModel {
 	instance := getMLLinkedModelClass().Alloc()
@@ -190,7 +185,6 @@ func NewLinkedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureN
 	return MLLinkedModelFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/parameterValueForKey:error:
 func (l MLLinkedModel) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -202,7 +196,7 @@ func (l MLLinkedModel) ParameterValueForKeyError(key objectivec.IObject) (object
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/predictionFromFeatures:options:error:
 func (l MLLinkedModel) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -214,7 +208,7 @@ func (l MLLinkedModel) PredictionFromFeaturesOptionsError(features objectivec.IO
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/predictionsFromBatch:options:error:
 func (l MLLinkedModel) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -226,19 +220,18 @@ func (l MLLinkedModel) PredictionsFromBatchOptionsError(batch objectivec.IObject
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/updateParameterDescriptionsByUnarchivingSpecification:
 func (l MLLinkedModel) UpdateParameterDescriptionsByUnarchivingSpecification(specification unsafe.Pointer) {
 	objc.Send[objc.ID](l.ID, objc.Sel("updateParameterDescriptionsByUnarchivingSpecification:"), specification)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/initWithLinkedModel:modelFileName:modelSearchPath:configuration:
 func (l MLLinkedModel) InitWithLinkedModelModelFileNameModelSearchPathConfiguration(model objectivec.IObject, name objectivec.IObject, path objectivec.IObject, configuration objectivec.IObject) MLLinkedModel {
 	rv := objc.Send[MLLinkedModel](l.ID, objc.Sel("initWithLinkedModel:modelFileName:modelSearchPath:configuration:"), model, name, path, configuration)
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/areFeaturesIn:modelNamed:aSubsetOf:error:
 func (_MLLinkedModelClass MLLinkedModelClass) AreFeaturesInModelNamedASubsetOfError(in objectivec.IObject, named objectivec.IObject, of objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -253,13 +246,13 @@ func (_MLLinkedModelClass MLLinkedModelClass) AreFeaturesInModelNamedASubsetOfEr
 	return rv, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/findFile:inSearchPath:basePath:
 func (_MLLinkedModelClass MLLinkedModelClass) FindFileInSearchPathBasePath(file objectivec.IObject, path objectivec.IObject, path2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLLinkedModelClass.class), objc.Sel("findFile:inSearchPath:basePath:"), file, path, path2)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/loadModelFromSpecification:configuration:error:
 func (_MLLinkedModelClass MLLinkedModelClass) LoadModelFromSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -280,6 +273,7 @@ func (l MLLinkedModel) LinkedModel() IMLModel {
 func (l MLLinkedModel) SetLinkedModel(value IMLModel) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLinkedModel:"), value)
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/modelFileName
 func (l MLLinkedModel) ModelFileName() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("modelFileName"))
@@ -288,6 +282,7 @@ func (l MLLinkedModel) ModelFileName() string {
 func (l MLLinkedModel) SetModelFileName(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setModelFileName:"), objc.String(value))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLLinkedModel/modelSearchPath
 func (l MLLinkedModel) ModelSearchPath() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("modelSearchPath"))
@@ -296,4 +291,3 @@ func (l MLLinkedModel) ModelSearchPath() string {
 func (l MLLinkedModel) SetModelSearchPath(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setModelSearchPath:"), objc.String(value))
 }
-

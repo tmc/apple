@@ -3,8 +3,9 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -41,11 +42,11 @@ func (ec EspressoBrickTensorCPUClass) Alloc() EspressoBrickTensorCPU {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [EspressoBrickTensorCPU.RawPointer]
 //   - [EspressoBrickTensorCPU.SetRawPointer]
+//
 // See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorCPU
 type EspressoBrickTensorCPU struct {
 	EspressoBrickTensor
@@ -55,6 +56,7 @@ type EspressoBrickTensorCPU struct {
 func EspressoBrickTensorCPUFromID(id objc.ID) EspressoBrickTensorCPU {
 	return EspressoBrickTensorCPU{EspressoBrickTensor: EspressoBrickTensorFromID(id)}
 }
+
 // Ensure EspressoBrickTensorCPU implements IEspressoBrickTensorCPU.
 var _ IEspressoBrickTensorCPU = EspressoBrickTensorCPU{}
 
@@ -102,4 +104,3 @@ func (e EspressoBrickTensorCPU) RawPointer() unsafe.Pointer {
 func (e EspressoBrickTensorCPU) SetRawPointer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setRawPointer:"), value)
 }
-

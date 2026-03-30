@@ -4,6 +4,7 @@ package symbols
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (nc NSSymbolAppearEffectClass) Alloc() NSSymbolAppearEffect {
 // as a whole.
 //
 // # Overview
-// 
+//
 // An appear transition causes a symbol to become visible using a scaling
 // animation. You can choose to scale the image up or down and to animate the
 // symbol by individual layers or as a whole.
@@ -66,6 +67,7 @@ type NSSymbolAppearEffect struct {
 func NSSymbolAppearEffectFromID(id objc.ID) NSSymbolAppearEffect {
 	return NSSymbolAppearEffect{NSSymbolEffect: NSSymbolEffectFromID(id)}
 }
+
 // Ensure NSSymbolAppearEffect implements INSSymbolAppearEffect.
 var _ INSSymbolAppearEffect = NSSymbolAppearEffect{}
 
@@ -110,7 +112,7 @@ func NewNSSymbolAppearEffect() NSSymbolAppearEffect {
 // An effect that makes each layer appear separately.
 //
 // # Return Value
-// 
+//
 // An effect that makes each layer appear separately.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolAppearEffect/effectWithByLayer
@@ -118,10 +120,11 @@ func (s NSSymbolAppearEffect) EffectWithByLayer() INSSymbolAppearEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolAppearEffectFromID(rv)
 }
+
 // An effect that makes all layers appear simultaneously.
 //
 // # Return Value
-// 
+//
 // A copy of the effect options that makes all layers appear simultaneously.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolAppearEffect/effectWithWholeSymbol
@@ -133,7 +136,7 @@ func (s NSSymbolAppearEffect) EffectWithWholeSymbol() INSSymbolAppearEffect {
 // An effect that makes the symbol scale down as it appears.
 //
 // # Return Value
-// 
+//
 // A new instance of the appear effect options that makes the symbol scale
 // down as it appears.
 //
@@ -142,10 +145,11 @@ func (_NSSymbolAppearEffectClass NSSymbolAppearEffectClass) AppearDownEffect() N
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolAppearEffectClass.class), objc.Sel("appearDownEffect"))
 	return NSSymbolAppearEffectFromID(rv)
 }
+
 // An effect that makes the symbol scale up as it appears.
 //
 // # Return Value
-// 
+//
 // A new instance of the appear effect options that makes the symbol scale up
 // as it appears.
 //
@@ -154,11 +158,12 @@ func (_NSSymbolAppearEffectClass NSSymbolAppearEffectClass) AppearUpEffect() NSS
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolAppearEffectClass.class), objc.Sel("appearUpEffect"))
 	return NSSymbolAppearEffectFromID(rv)
 }
+
 // An animation that makes the layers of a symbol-based image appear
 // separately or as a whole.
 //
 // # Return Value
-// 
+//
 // A new instance of the appear effect options.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolAppearEffect/effect
@@ -166,4 +171,3 @@ func (_NSSymbolAppearEffectClass NSSymbolAppearEffectClass) Effect() NSSymbolApp
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolAppearEffectClass.class), objc.Sel("effect"))
 	return NSSymbolAppearEffectFromID(rv)
 }
-

@@ -18,6 +18,7 @@ type CMIOExtensionProviderSource interface {
 type CMIOExtensionProviderSourceObject struct {
 	objectivec.Object
 }
+
 func (o CMIOExtensionProviderSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -29,4 +30,3 @@ func CMIOExtensionProviderSourceObjectFromID(id objc.ID) CMIOExtensionProviderSo
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-

@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -53,6 +54,7 @@ type AVFragmentedMovieTrack struct {
 func AVFragmentedMovieTrackFromID(id objc.ID) AVFragmentedMovieTrack {
 	return AVFragmentedMovieTrack{AVMovieTrack: AVMovieTrackFromID(id)}
 }
+
 // NOTE: AVFragmentedMovieTrack adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -81,4 +83,3 @@ func NewAVFragmentedMovieTrack() AVFragmentedMovieTrack {
 	rv := objc.Send[AVFragmentedMovieTrack](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

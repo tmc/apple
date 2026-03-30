@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,6 +60,7 @@ type MTL4PipelineDataSetSerializerDescriptor struct {
 func MTL4PipelineDataSetSerializerDescriptorFromID(id objc.ID) MTL4PipelineDataSetSerializerDescriptor {
 	return MTL4PipelineDataSetSerializerDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTL4PipelineDataSetSerializerDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -102,14 +104,14 @@ func NewMTL4PipelineDataSetSerializerDescriptor() MTL4PipelineDataSetSerializerD
 // Specifies the configuration of the serialization process.
 //
 // # Discussion
-// 
+//
 // The configuration of the serialization process determines the mechanisms
 // you use to serialize pipeline data sets.
-// 
+//
 // When this configuration contains
-// [MTL4PipelineDataSetSerializerConfigurationCaptureDescriptors], use `` to
+// [MTL4PipelineDataSetSerializerConfigurationCaptureDescriptors], use “ to
 // serialize pipeline scripts.
-// 
+//
 // If this option contains
 // [MTL4PipelineDataSetSerializerConfigurationCaptureBinaries], the serializer
 // can additionally serialize to a binary archive by calling `:`.
@@ -122,4 +124,3 @@ func (m MTL4PipelineDataSetSerializerDescriptor) Configuration() MTL4PipelineDat
 func (m MTL4PipelineDataSetSerializerDescriptor) SetConfiguration(value MTL4PipelineDataSetSerializerConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setConfiguration:"), value)
 }
-

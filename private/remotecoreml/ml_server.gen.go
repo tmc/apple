@@ -5,6 +5,7 @@ package remotecoreml
 import (
 	"context"
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,6 @@ func (mc MLServerClass) Alloc() MLServer {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLServer.DoReceiveContextIsCompleteError]
@@ -61,6 +61,7 @@ func (mc MLServerClass) Alloc() MLServer {
 //   - [MLServer.Start]
 //   - [MLServer.Stop]
 //   - [MLServer.InitWithOptions]
+//
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer
 type MLServer struct {
 	objectivec.Object
@@ -70,6 +71,7 @@ type MLServer struct {
 func MLServerFromID(id objc.ID) MLServer {
 	return MLServer{objectivec.Object{ID: id}}
 }
+
 // Ensure MLServer implements IMLServer.
 var _ IMLServer = MLServer{}
 
@@ -137,7 +139,6 @@ func NewMLServer() MLServer {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/initWithOptions:
 func NewMLServerWithOptions(options objectivec.IObject) MLServer {
 	instance := getMLServerClass().Alloc()
@@ -145,68 +146,69 @@ func NewMLServerWithOptions(options objectivec.IObject) MLServer {
 	return MLServerFromID(rv)
 }
 
-//
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/doReceive:context:isComplete:error:
 func (m MLServer) DoReceiveContextIsCompleteError(receive objectivec.IObject, context objectivec.IObject, complete bool, error_ objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("doReceive:context:isComplete:error:"), receive, context, complete, error_)
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/setLoadCommand:
 func (m MLServer) SetLoadCommand(command VoidHandler) {
-_block0, _ := NewVoidBlock(command)
+	_block0, _ := NewVoidBlock(command)
 	objc.Send[objc.ID](m.ID, objc.Sel("setLoadCommand:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/setLoadFunction:
 func (m MLServer) SetLoadFunction(function VoidHandler) {
-_block0, _ := NewVoidBlock(function)
+	_block0, _ := NewVoidBlock(function)
 	objc.Send[objc.ID](m.ID, objc.Sel("setLoadFunction:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/setPredictCommand:
 func (m MLServer) SetPredictCommand(command VoidHandler) {
-_block0, _ := NewVoidBlock(command)
+	_block0, _ := NewVoidBlock(command)
 	objc.Send[objc.ID](m.ID, objc.Sel("setPredictCommand:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/setPredictFunction:
 func (m MLServer) SetPredictFunction(function VoidHandler) {
-_block0, _ := NewVoidBlock(function)
+	_block0, _ := NewVoidBlock(function)
 	objc.Send[objc.ID](m.ID, objc.Sel("setPredictFunction:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/setTextCommand:
 func (m MLServer) SetTextCommand(command VoidHandler) {
-_block0, _ := NewVoidBlock(command)
+	_block0, _ := NewVoidBlock(command)
 	objc.Send[objc.ID](m.ID, objc.Sel("setTextCommand:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/setTextFunction:
 func (m MLServer) SetTextFunction(function VoidHandler) {
-_block0, _ := NewVoidBlock(function)
+	_block0, _ := NewVoidBlock(function)
 	objc.Send[objc.ID](m.ID, objc.Sel("setTextFunction:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/setUnLoadCommand:
 func (m MLServer) SetUnLoadCommand(command VoidHandler) {
-_block0, _ := NewVoidBlock(command)
+	_block0, _ := NewVoidBlock(command)
 	objc.Send[objc.ID](m.ID, objc.Sel("setUnLoadCommand:"), _block0)
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/setUnLoadFunction:
 func (m MLServer) SetUnLoadFunction(function VoidHandler) {
-_block0, _ := NewVoidBlock(function)
+	_block0, _ := NewVoidBlock(function)
 	objc.Send[objc.ID](m.ID, objc.Sel("setUnLoadFunction:"), _block0)
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/start
 func (m MLServer) Start() {
 	objc.Send[objc.ID](m.ID, objc.Sel("start"))
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/stop
 func (m MLServer) Stop() {
 	objc.Send[objc.ID](m.ID, objc.Sel("stop"))
 }
-//
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/initWithOptions:
 func (m MLServer) InitWithOptions(options objectivec.IObject) MLServer {
 	rv := objc.Send[MLServer](m.ID, objc.Sel("initWithOptions:"), options)
@@ -222,6 +224,7 @@ func (m MLServer) NwObj() *MLNetworking {
 	val := MLNetworkingFromID(objc.ID(rv))
 	return &val
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/nwOptions
 func (m MLServer) NwOptions() *MLNetworkOptions {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("nwOptions"))
@@ -231,6 +234,7 @@ func (m MLServer) NwOptions() *MLNetworkOptions {
 	val := MLNetworkOptionsFromID(objc.ID(rv))
 	return &val
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/packet
 func (m MLServer) Packet() *MLNetworkPacket {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("packet"))
@@ -240,6 +244,7 @@ func (m MLServer) Packet() *MLNetworkPacket {
 	val := MLNetworkPacketFromID(objc.ID(rv))
 	return &val
 }
+
 // See: https://developer.apple.com/documentation/RemoteCoreML/_MLServer/q
 func (m MLServer) Q() objectivec.Object {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("q"))
@@ -365,4 +370,3 @@ func (m MLServer) SetUnLoadFunctionSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-

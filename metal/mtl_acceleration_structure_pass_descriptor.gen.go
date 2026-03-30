@@ -4,6 +4,7 @@ package metal
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -41,10 +42,10 @@ func (mc MTLAccelerationStructurePassDescriptorClass) Alloc() MTLAccelerationStr
 	return rv
 }
 
-//
 // # Instance Properties
 //
 //   - [MTLAccelerationStructurePassDescriptor.SampleBufferAttachments]
+//
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassDescriptor
 type MTLAccelerationStructurePassDescriptor struct {
 	objectivec.Object
@@ -54,6 +55,7 @@ type MTLAccelerationStructurePassDescriptor struct {
 func MTLAccelerationStructurePassDescriptorFromID(id objc.ID) MTLAccelerationStructurePassDescriptor {
 	return MTLAccelerationStructurePassDescriptor{objectivec.Object{ID: id}}
 }
+
 // NOTE: MTLAccelerationStructurePassDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -91,15 +93,8 @@ func NewMTLAccelerationStructurePassDescriptor() MTLAccelerationStructurePassDes
 	return rv
 }
 
-// See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassDescriptor/accelerationStructurePassDescriptor
-func (_MTLAccelerationStructurePassDescriptorClass MTLAccelerationStructurePassDescriptorClass) AccelerationStructurePassDescriptor() MTLAccelerationStructurePassDescriptor {
-	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructurePassDescriptorClass.class), objc.Sel("accelerationStructurePassDescriptor"))
-	return MTLAccelerationStructurePassDescriptorFromID(rv)
-}
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassDescriptor/sampleBufferAttachments
 func (a MTLAccelerationStructurePassDescriptor) SampleBufferAttachments() IMTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sampleBufferAttachments"))
 	return MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-

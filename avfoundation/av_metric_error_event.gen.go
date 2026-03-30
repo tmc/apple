@@ -4,8 +4,9 @@ package avfoundation
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [AVMetricErrorEvent] class.
@@ -59,6 +60,7 @@ type AVMetricErrorEvent struct {
 func AVMetricErrorEventFromID(id objc.ID) AVMetricErrorEvent {
 	return AVMetricErrorEvent{AVMetricEvent: AVMetricEventFromID(id)}
 }
+
 // NOTE: AVMetricErrorEvent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -107,6 +109,7 @@ func (m AVMetricErrorEvent) Error() foundation.INSError {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
+
 // A Boolean value that indicates whether the error was recoverable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricErrorEvent/didRecover
@@ -114,4 +117,3 @@ func (m AVMetricErrorEvent) DidRecover() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("didRecover"))
 	return rv
 }
-

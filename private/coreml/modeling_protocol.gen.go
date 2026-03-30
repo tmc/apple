@@ -43,6 +43,7 @@ type MLModeling interface {
 type MLModelingObject struct {
 	objectivec.Object
 }
+
 func (o MLModelingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
@@ -59,32 +60,37 @@ func MLModelingObjectFromID(id objc.ID) MLModelingObject {
 func (o MLModelingObject) Configuration() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("configuration"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/enableInstrumentsTracing
 func (o MLModelingObject) EnableInstrumentsTracing() {
 	objc.Send[struct{}](o.ID, objc.Sel("enableInstrumentsTracing"))
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/executionSchedule
 func (o MLModelingObject) ExecutionSchedule() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("executionSchedule"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/metadata
 func (o MLModelingObject) Metadata() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metadata"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/modelDescription
 func (o MLModelingObject) ModelDescription() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelDescription"))
 	return objectivec.Object{ID: rv}
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/modelPath
 func (o MLModelingObject) ModelPath() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("modelPath"))
 	return objectivec.Object{ID: rv}
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/newRequestForModel:inputFeatures:options:error:
 func (o MLModelingObject) NewRequestForModelInputFeaturesOptionsError(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRequestForModel:inputFeatures:options:error:"), model, features, options)
@@ -92,8 +98,8 @@ func (o MLModelingObject) NewRequestForModelInputFeaturesOptionsError(model obje
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/parameterValueForKey:error:
 func (o MLModelingObject) ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("parameterValueForKey:error:"), key)
@@ -101,8 +107,8 @@ func (o MLModelingObject) ParameterValueForKeyError(key objectivec.IObject) (obj
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/predictionFromFeatures:error:
 func (o MLModelingObject) PredictionFromFeaturesError(features objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionFromFeatures:error:"), features)
@@ -110,8 +116,8 @@ func (o MLModelingObject) PredictionFromFeaturesError(features objectivec.IObjec
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/predictionFromFeatures:options:error:
 func (o MLModelingObject) PredictionFromFeaturesOptionsError(features objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionFromFeatures:options:error:"), features, options)
@@ -119,13 +125,14 @@ func (o MLModelingObject) PredictionFromFeaturesOptionsError(features objectivec
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/predictionTypeForKTrace
 func (o MLModelingObject) PredictionTypeForKTrace() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("predictionTypeForKTrace"))
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/predictionsFromBatch:error:
 func (o MLModelingObject) PredictionsFromBatchError(batch objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionsFromBatch:error:"), batch)
@@ -133,8 +140,8 @@ func (o MLModelingObject) PredictionsFromBatchError(batch objectivec.IObject) (o
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/predictionsFromBatch:options:error:
 func (o MLModelingObject) PredictionsFromBatchOptionsError(batch objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionsFromBatch:options:error:"), batch, options)
@@ -142,30 +149,32 @@ func (o MLModelingObject) PredictionsFromBatchOptionsError(batch objectivec.IObj
 		return nil, err
 	}
 	return objectivec.Object{ID: rv}, nil
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/recordsPredictionEvent
 func (o MLModelingObject) RecordsPredictionEvent() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("recordsPredictionEvent"))
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/setModelPath:modelName:
 func (o MLModelingObject) SetModelPathModelName(path objectivec.IObject, name objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setModelPath:modelName:"), path, name)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/signpostID
 func (o MLModelingObject) SignpostID() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("signpostID"))
 	return rv
-	}
-//
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/submitPredictionRequest:completionHandler:
-func (o MLModelingObject) SubmitPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler) {
+func (o MLModelingObject) SubmitPredictionRequestCompletionHandler(request objectivec.IObject, handler MLFeatureProviderErrorHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("submitPredictionRequest:completionHandler:"), request, handler)
-	}
+}
+
 // See: https://developer.apple.com/documentation/CoreML/MLModeling/supportsConcurrentSubmissions
 func (o MLModelingObject) SupportsConcurrentSubmissions() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsConcurrentSubmissions"))
 	return rv
-	}
-
+}

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,7 +46,7 @@ func (nc NSPresentationIntentClass) Alloc() NSPresentationIntent {
 // paragraphs, lists, code blocks, and parts of tables.
 //
 // # Overview
-// 
+//
 // An [NSPresentationIntent] object stores the Markdown semantics for a range
 // of characters in an attributed string. When parsing Markdown into an
 // attributed string, the system sets the value of the
@@ -54,8 +55,6 @@ func (nc NSPresentationIntentClass) Alloc() NSPresentationIntent {
 // visual style to match the corresponding information in this type. To
 // replace the system’s default formatting, remove these attributes from
 // your attributed string and apply the formatting you want.
-//
-// [presentationIntentAttributeName]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/presentationIntentAttributeName
 //
 // # Getting the intent identity
 //
@@ -85,6 +84,8 @@ func (nc NSPresentationIntentClass) Alloc() NSPresentationIntent {
 //   - [NSPresentationIntent.LanguageHint]: The language associated with the code listing.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent
+//
+// [presentationIntentAttributeName]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/presentationIntentAttributeName
 type NSPresentationIntent struct {
 	objectivec.Object
 }
@@ -96,6 +97,7 @@ type NSPresentationIntent struct {
 func NSPresentationIntentFromID(id objc.ID) NSPresentationIntent {
 	return NSPresentationIntent{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSPresentationIntent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -203,15 +205,12 @@ func NewNSPresentationIntent() NSPresentationIntent {
 // other: The other intent to use in the comparison.
 //
 // # Return Value
-// 
-// [true] if the current intent is equivalent to the specified intent, or
-// [false] if it isn’t.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the current intent is equivalent to the specified intent, or false
+// if it isn’t.
 //
 // # Discussion
-// 
+//
 // Two intents are equivalent if their attributes match. This method doesn’t
 // consider the [Identity] property of the intents when determining their
 // equivalence.
@@ -221,12 +220,13 @@ func (p NSPresentationIntent) IsEquivalentToPresentationIntent(other INSPresenta
 	rv := objc.Send[bool](p.ID, objc.Sel("isEquivalentToPresentationIntent:"), other)
 	return rv
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (p NSPresentationIntent) InitWithCoder(coder INSCoder) NSPresentationIntent {
 	rv := objc.Send[NSPresentationIntent](p.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -243,14 +243,15 @@ func (p NSPresentationIntent) EncodeWithCoder(coder INSCoder) {
 // parent: The parent intent of the paragraph.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindParagraph].
+//
+// A new intent with the kind set to [NSPresentationIntentKindParagraph].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/paragraphIntentWithIdentity:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) ParagraphIntentWithIdentityNestedInsideIntent(identity int, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("paragraphIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates a header intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -261,14 +262,15 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) ParagraphIntentWithI
 // parent: The parent intent of the header.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindHeader].
+//
+// A new intent with the kind set to [NSPresentationIntentKindHeader].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/headerIntentWithIdentity:level:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) HeaderIntentWithIdentityLevelNestedInsideIntent(identity int, level int, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("headerIntentWithIdentity:level:nestedInsideIntent:"), identity, level, parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates an ordered-list intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -276,14 +278,15 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) HeaderIntentWithIden
 // parent: The parent intent of the ordered list.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindOrderedList].
+//
+// A new intent with the kind set to [NSPresentationIntentKindOrderedList].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/orderedListIntentWithIdentity:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) OrderedListIntentWithIdentityNestedInsideIntent(identity int, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("orderedListIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates an unordered-list intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -291,14 +294,15 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) OrderedListIntentWit
 // parent: The parent intent of the list.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindUnorderedList].
+//
+// A new intent with the kind set to [NSPresentationIntentKindUnorderedList].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/unorderedListIntentWithIdentity:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) UnorderedListIntentWithIdentityNestedInsideIntent(identity int, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("unorderedListIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates an item for an ordered list with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -308,14 +312,15 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) UnorderedListIntentW
 // parent: The parent intent of the item.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindListItem].
+//
+// A new intent with the kind set to [NSPresentationIntentKindListItem].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/listItemIntentWithIdentity:ordinal:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) ListItemIntentWithIdentityOrdinalNestedInsideIntent(identity int, ordinal int, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("listItemIntentWithIdentity:ordinal:nestedInsideIntent:"), identity, ordinal, parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates an code-block intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -325,14 +330,15 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) ListItemIntentWithId
 // parent: The parent intent of the code block.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindCodeBlock].
+//
+// A new intent with the kind set to [NSPresentationIntentKindCodeBlock].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/codeBlockIntentWithIdentity:languageHint:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) CodeBlockIntentWithIdentityLanguageHintNestedInsideIntent(identity int, languageHint string, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("codeBlockIntentWithIdentity:languageHint:nestedInsideIntent:"), identity, objc.String(languageHint), parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates a block-quote intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -340,14 +346,15 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) CodeBlockIntentWithI
 // parent: The parent intent of the block quote.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindBlockQuote].
+//
+// A new intent with the kind set to [NSPresentationIntentKindBlockQuote].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/blockQuoteIntentWithIdentity:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) BlockQuoteIntentWithIdentityNestedInsideIntent(identity int, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("blockQuoteIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates a thematic break intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -355,14 +362,15 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) BlockQuoteIntentWith
 // parent: The parent intent of the horizontal rule.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindThematicBreak].
+//
+// A new intent with the kind set to [NSPresentationIntentKindThematicBreak].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/thematicBreakIntentWithIdentity:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) ThematicBreakIntentWithIdentityNestedInsideIntent(identity int, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("thematicBreakIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates a table intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -372,20 +380,21 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) ThematicBreakIntentW
 // alignments: The text alignments for each column. For each [NSNumber] in the array, set
 // the value to a value from the [NSPresentationIntentTableColumnAlignment]
 // enumerated type.
-// //
-// [NSPresentationIntentTableColumnAlignment]: https://developer.apple.com/documentation/Foundation/NSPresentationIntentTableColumnAlignment
 //
 // parent: The parent intent of the table.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindTable].
+//
+// A new intent with the kind set to [NSPresentationIntentKindTable].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/tableIntentWithIdentity:columnCount:alignments:nestedInsideIntent:
+//
+// [NSPresentationIntentTableColumnAlignment]: https://developer.apple.com/documentation/Foundation/NSPresentationIntentTableColumnAlignment
 func (_NSPresentationIntentClass NSPresentationIntentClass) TableIntentWithIdentityColumnCountAlignmentsNestedInsideIntent(identity int, columnCount int, alignments []NSNumber, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("tableIntentWithIdentity:columnCount:alignments:nestedInsideIntent:"), identity, columnCount, objectivec.IObjectSliceToNSArray(alignments), parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates a table header intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -393,14 +402,15 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) TableIntentWithIdent
 // parent: The parent intent of the table header row.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindTableHeaderRow].
+//
+// A new intent with the kind set to [NSPresentationIntentKindTableHeaderRow].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/tableHeaderRowIntentWithIdentity:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) TableHeaderRowIntentWithIdentityNestedInsideIntent(identity int, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("tableHeaderRowIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates a table row intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -410,14 +420,15 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) TableHeaderRowIntent
 // parent: The parent intent of row.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [PresentationIntentKindTableRow].
+//
+// A new intent with the kind set to [NSPresentationIntentKindTableRow].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/tableRowIntentWithIdentity:row:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) TableRowIntentWithIdentityRowNestedInsideIntent(identity int, row int, parent INSPresentationIntent) NSPresentationIntent {
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("tableRowIntentWithIdentity:row:nestedInsideIntent:"), identity, row, parent)
 	return NSPresentationIntentFromID(rv)
 }
+
 // Creates a table cell intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -427,10 +438,8 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) TableRowIntentWithId
 // parent: The parent intent of the cell.
 //
 // # Return Value
-// 
-// A new intent with the kind set to [NSPresentationIntentKindTableCell].
 //
-// [NSPresentationIntentKindTableCell]: https://developer.apple.com/documentation/Foundation/NSPresentationIntentKind/NSPresentationIntentKindTableCell
+// A new intent with the kind set to [NSPresentationIntentKindTableCell].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/tableCellIntentWithIdentity:column:nestedInsideIntent:
 func (_NSPresentationIntentClass NSPresentationIntentClass) TableCellIntentWithIdentityColumnNestedInsideIntent(identity int, column int, parent INSPresentationIntent) NSPresentationIntent {
@@ -441,7 +450,7 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) TableCellIntentWithI
 // A unique identifier for the intent in the document.
 //
 // # Discussion
-// 
+//
 // Use the value in this property to disambiguate attributes that apply to
 // contiguous text. For example, you might use it to differentiate between two
 // headers in a row with the same level.
@@ -451,6 +460,7 @@ func (p NSPresentationIntent) Identity() int {
 	rv := objc.Send[int](p.ID, objc.Sel("identity"))
 	return rv
 }
+
 // The type of the intent.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/intentKind
@@ -458,6 +468,7 @@ func (p NSPresentationIntent) IntentKind() NSPresentationIntentKind {
 	rv := objc.Send[NSPresentationIntentKind](p.ID, objc.Sel("intentKind"))
 	return NSPresentationIntentKind(rv)
 }
+
 // The parent of the current intent.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/parentIntent
@@ -465,10 +476,11 @@ func (p NSPresentationIntent) ParentIntent() INSPresentationIntent {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("parentIntent"))
 	return NSPresentationIntentFromID(objc.ID(rv))
 }
+
 // The level of a header section.
 //
 // # Discussion
-// 
+//
 // This value corresponds to the number of hash marks (`#`) associated with
 // the header. If the intent is not a header, the value of this property is
 // `0`.
@@ -478,10 +490,11 @@ func (p NSPresentationIntent) HeaderLevel() int {
 	rv := objc.Send[int](p.ID, objc.Sel("headerLevel"))
 	return rv
 }
+
 // The number for an item in an ordered list.
 //
 // # Discussion
-// 
+//
 // If the intent is not a list, the value of this property is `0`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/ordinal
@@ -489,10 +502,11 @@ func (p NSPresentationIntent) Ordinal() int {
 	rv := objc.Send[int](p.ID, objc.Sel("ordinal"))
 	return rv
 }
+
 // The indentation level of the intent.
 //
 // # Discussion
-// 
+//
 // The initial list has an indentation level of `0`. Each time you nest a new
 // list, the indentation level for new list increases by `1`. All elements
 // within the same list have the same indentation level.
@@ -502,10 +516,11 @@ func (p NSPresentationIntent) IndentationLevel() int {
 	rv := objc.Send[int](p.ID, objc.Sel("indentationLevel"))
 	return rv
 }
+
 // The row number to which this cell belongs.
 //
 // # Discussion
-// 
+//
 // The value of this property is `0`-based, with the first row at `0`, the
 // second row at `1`, and so on. If The intent is not a cell, this value is
 // `0`.
@@ -515,10 +530,11 @@ func (p NSPresentationIntent) Row() int {
 	rv := objc.Send[int](p.ID, objc.Sel("row"))
 	return rv
 }
+
 // The column number to which the cell belongs.
 //
 // # Discussion
-// 
+//
 // The value of this property is `0`-based, with the first column at `0`, the
 // second column at `1`, and so on. Header rows are always at row `0`, with
 // subsequent rows starting at `1`. If The intent is not a cell, this value is
@@ -529,10 +545,11 @@ func (p NSPresentationIntent) Column() int {
 	rv := objc.Send[int](p.ID, objc.Sel("column"))
 	return rv
 }
+
 // The number of columns in a table.
 //
 // # Discussion
-// 
+//
 // If the intent is not a table, the value of this property is `0`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/columnCount
@@ -540,10 +557,11 @@ func (p NSPresentationIntent) ColumnCount() int {
 	rv := objc.Send[int](p.ID, objc.Sel("columnCount"))
 	return rv
 }
+
 // The alignments for the columns in a table.
 //
 // # Discussion
-// 
+//
 // If the intent is not a table, the value of this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/columnAlignments
@@ -553,10 +571,11 @@ func (p NSPresentationIntent) ColumnAlignments() []NSNumber {
 		return NSNumberFromID(id)
 	})
 }
+
 // The language associated with the code listing.
 //
 // # Discussion
-// 
+//
 // If the intent is not a code block, the value of this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/languageHint
@@ -565,9 +584,6 @@ func (p NSPresentationIntent) LanguageHint() string {
 	return NSStringFromID(rv).String()
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSSecureCoding
-			
-
+// Protocol methods for NSSecureCoding

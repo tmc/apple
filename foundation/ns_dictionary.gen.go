@@ -4,10 +4,11 @@ package foundation
 
 import (
 	"context"
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -47,22 +48,22 @@ func (nc NSDictionaryClass) Alloc() NSDictionary {
 // A static collection of objects associated with unique keys.
 //
 // # Overview
-// 
+//
 // You can use this type in Swift instead of a [Dictionary] in cases that
 // require reference semantics.
-// 
+//
 // The [NSDictionary] class declares the programmatic interface to objects
 // that manage immutable associations of keys and values. For example, an
 // interactive form could be represented as a dictionary, with the field names
 // as keys, corresponding to user-entered values.
-// 
+//
 // Use this class or its subclass [NSMutableDictionary] when you need a
 // convenient and efficient way to retrieve data associated with an arbitrary
 // key. [NSDictionary] creates static dictionaries, and [NSMutableDictionary]
 // creates dynamic dictionaries. (For convenience, the term refers to any
 // instance of one of these classes without specifying its exact class
 // membership.)
-// 
+//
 // A key-value pair within a dictionary is called an entry. Each entry
 // consists of one object that represents the key and a second object that is
 // that key’s value. Within a dictionary, the keys are unique. That is, no
@@ -72,67 +73,67 @@ func (nc NSDictionaryClass) Alloc() NSDictionary {
 // coding the key must be a string (see [Accessing Object Properties]).
 // Neither a key nor a value can be `nil`; if you need to represent a null
 // value in a dictionary, you should use [NSNull].
-// 
+//
 // [NSDictionary] is “toll-free bridged” with its Core Foundation
 // counterpart, [CFDictionary]. See [Toll-Free Bridging] for more information
 // on toll-free bridging.
-// 
+//
 // # Creating NSDictionary Objects Using Dictionary Literals
-// 
+//
 // In addition to the provided initializers, such as [NSDictionary.InitWithObjectsForKeys],
 // you can create an [NSDictionary] object using a .
-// 
+//
 // In Objective-C, the compiler generates code that makes an underlying call
 // to the [NSDictionary.DictionaryWithObjectsForKeysCount] method.
-// 
+//
 // Unlike [NSDictionary.DictionaryWithObjectsAndKeys] and other initializers, dictionary
 // literals specify entries in key-value order. You should not terminate the
 // list of objects with `nil` when using this literal syntax, and in fact
 // `nil` is an invalid value. For more information about object literals in
 // Objective-C, see [Working with Objects] in [Programming with Objective-C].
-// 
+//
 // In Swift, the [NSDictionary] class conforms to the
 // [DictionaryLiteralConvertible] protocol, which allows it to be initialized
 // with dictionary literals. For more information about object literals in
 // Swift, see [Literal Expression] in [The Swift Programming Language (Swift
 // 4.1)].
-// 
+//
 // # Accessing Values Using Subscripting
-// 
+//
 // In addition to the provided instance methods, such as [NSDictionary.ObjectForKey], you
 // can access [NSDictionary] values by their keys using .
-// 
+//
 // # Enumerating Entries Using for-in Loops
-// 
+//
 // In addition to the provided instance methods, such as
 // [NSDictionary.EnumerateKeysAndObjectsUsingBlock], you can enumerate [NSDictionary]
 // entries using .
-// 
+//
 // In Objective-C, [NSDictionary] conforms to the [NSFastEnumeration]
 // protocol.
-// 
+//
 // In Swift, [NSDictionary] conforms to the [SequenceType] protocol.
-// 
+//
 // # Subclassing Notes
-// 
+//
 // You generally shouldn’t need to subclass [NSDictionary]. Custom behavior
 // can usually be achieved through composition rather than subclassing.
-// 
+//
 // # Methods to Override
-// 
+//
 // If you do need to subclass [NSDictionary], take into account that it is a
 // [Class cluster]. Any subclass must override the following primitive
 // methods:
-// 
+//
 // - [NSDictionary.InitWithObjectsForKeysCount] - [NSDictionary.Count] - [NSDictionary.ObjectForKey] -
 // [NSDictionary.KeyEnumerator]
-// 
+//
 // The other methods of [NSDictionary] operate by invoking one or more of
 // these primitives. The non-primitive methods provide convenient ways of
 // accessing multiple entries at once.
-// 
+//
 // # Alternatives to Subclassing
-// 
+//
 // Before making a custom class of [NSDictionary], investigate [NSMapTable]
 // and the corresponding Core Foundation type, [CFDictionary]. Because
 // [NSDictionary] and [CFDictionary] are “toll-free bridged,” you can
@@ -141,23 +142,12 @@ func (nc NSDictionaryClass) Alloc() NSDictionary {
 // [CFDictionary] and [NSDictionary] do not have identical interfaces or
 // implementations, and you can sometimes do things with [CFDictionary] that
 // you cannot easily do with [NSDictionary].
-// 
+//
 // If the behavior you want to add supplements that of the existing class, you
 // could write a category on [NSDictionary]. Keep in mind, however, that this
 // category will be in effect for all instances of [NSDictionary] that you
 // use, and this might have unintended consequences. Alternatively, you could
 // use composition to achieve the desired behavior.
-//
-// [Accessing Object Properties]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/BasicPrinciples.html#//apple_ref/doc/uid/20002170
-// [CFDictionary]: https://developer.apple.com/documentation/CoreFoundation/CFDictionary
-// [Class cluster]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/ClassCluster.html#//apple_ref/doc/uid/TP40008195-CH7
-// [Dictionary]: https://developer.apple.com/documentation/Swift/Dictionary
-// [Literal Expression]: https://developer.apple.com/library/archive/documentation/Swift/Conceptual/Swift_Programming_Language/Expressions.html#//apple_ref/doc/uid/TP40014097-CH32-ID390
-// [Programming with Objective-C]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210
-// [The Swift Programming Language (Swift 4.1)]: https://developer.apple.com/library/archive/documentation/Swift/Conceptual/Swift_Programming_Language/index.html#//apple_ref/doc/uid/TP40014097
-// [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
-// [Working with Objects]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithObjects/WorkingwithObjects.html#//apple_ref/doc/uid/TP40011210-CH4
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 //
 // # Creating a Dictionary from Objects and Keys
 //
@@ -239,6 +229,17 @@ func (nc NSDictionaryClass) Alloc() NSDictionary {
 //   - [NSDictionary.InitWithContentsOfURLError]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary
+//
+// [Accessing Object Properties]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/BasicPrinciples.html#//apple_ref/doc/uid/20002170
+// [CFDictionary]: https://developer.apple.com/documentation/CoreFoundation/CFDictionary
+// [Class cluster]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/ClassCluster.html#//apple_ref/doc/uid/TP40008195-CH7
+// [Dictionary]: https://developer.apple.com/documentation/Swift/Dictionary
+// [Literal Expression]: https://developer.apple.com/library/archive/documentation/Swift/Conceptual/Swift_Programming_Language/Expressions.html#//apple_ref/doc/uid/TP40014097-CH32-ID390
+// [Programming with Objective-C]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210
+// [The Swift Programming Language (Swift 4.1)]: https://developer.apple.com/library/archive/documentation/Swift/Conceptual/Swift_Programming_Language/index.html#//apple_ref/doc/uid/TP40014097
+// [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
+// [Working with Objects]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithObjects/WorkingwithObjects.html#//apple_ref/doc/uid/TP40011210-CH4
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 type NSDictionary struct {
 	objectivec.Object
 }
@@ -249,6 +250,7 @@ type NSDictionary struct {
 func NSDictionaryFromID(id objc.ID) NSDictionary {
 	return NSDictionary{objectivec.Object{ID: id}}
 }
+
 // NOTE: NSDictionary adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -505,7 +507,7 @@ func NewDictionaryWithCoder(coder INSCoder) NSDictionary {
 // new dictionary.
 //
 // # Return Value
-// 
+//
 // An initialized dictionary—which might be different than the original
 // receiver—containing the keys and values found in `otherDictionary`.
 //
@@ -522,40 +524,35 @@ func NewDictionaryWithDictionary(otherDictionary INSDictionary) NSDictionary {
 // otherDictionary: A dictionary containing the keys and values with which to initialize the
 // new dictionary.
 //
-// flag: If [true], each object in `otherDictionary` receives a [copyWithZone:]
+// flag: If true, each object in `otherDictionary` receives a [copyWithZone:]
 // message to create a copy of the object—objects must conform to the
 // [NSCopying] protocol. In a managed memory environment, this is instead of
 // the `retain` message the object would otherwise receive. The object copy is
 // then added to the returned dictionary.
-// 
-// If [false], then in a managed memory environment each object in
+//
+// If false, then in a managed memory environment each object in
 // `otherDictionary` simply receives a `retain` message when it is added to
 // the returned dictionary.
-// //
-// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // An initialized object—which might be different than the original
 // receiver—containing the keys and values found in `otherDictionary`.
 //
 // # Discussion
-// 
+//
 // After an immutable dictionary has been initialized in this way, it cannot
 // be modified.
-// 
-// The [CopyWithZone] method performs a shallow copy. If you have a collection
-// of arbitrary depth, passing [true] for the `flag` parameter will perform an
-// immutable copy of the first level below the surface. If you pass [false]
-// the mutability of the first level is unaffected. In either case, the
-// mutability of all deeper levels is unaffected.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The [CopyWithZone] method performs a shallow copy. If you have a collection
+// of arbitrary depth, passing true for the `flag` parameter will perform an
+// immutable copy of the first level below the surface. If you pass false the
+// mutability of the first level is unaffected. In either case, the mutability
+// of all deeper levels is unaffected.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/init(dictionary:copyItems:)
+//
+// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
 func NewDictionaryWithDictionaryCopyItems(otherDictionary INSDictionary, flag bool) NSDictionary {
 	instance := getNSDictionaryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionary:copyItems:"), otherDictionary, flag)
@@ -565,19 +562,15 @@ func NewDictionaryWithDictionaryCopyItems(otherDictionary INSDictionary, flag bo
 // Creates a dictionary containing a given key and value.
 //
 // object: The value corresponding to `aKey`.
-// 
-// If this value is `nil`, an [invalidArgumentException] is raised.
-// //
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+//
+// If this value is `nil`, an [InvalidArgumentException] is raised.
 //
 // key: The key for `anObject`.
-// 
-// If this value is `nil`, an [invalidArgumentException] is raised.
-// //
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+//
+// If this value is `nil`, an [InvalidArgumentException] is raised.
 //
 // # Return Value
-// 
+//
 // A new dictionary containing a single object, `object`, for a single key,
 // `aKey`.
 //
@@ -593,17 +586,15 @@ func NewDictionaryWithObjectForKey(object objectivec.IObject, key NSCopying) NSD
 // firstObject: The first value to add to the new dictionary.
 //
 // # Discussion
-// 
+//
 // After the `firstObject` value, pass the key for `firstObject`, then a
 // null-terminated list of alternating values and keys. If any key is `nil`,
-// an [invalidArgumentException] is raised.
-// 
+// an [InvalidArgumentException] is raised.
+//
 // This method is similar to [InitWithObjectsForKeys], differing only in the
 // way in which the key-value pairs are specified.
-// 
-// For example:
 //
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+// For example:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/initWithObjectsAndKeys:
 func NewDictionaryWithObjectsAndKeys(firstObject objectivec.IObject) NSDictionary {
@@ -622,7 +613,7 @@ func NewDictionaryWithObjectsAndKeys(firstObject objectivec.IObject) NSDictionar
 // the copy is added to the new dictionary.
 //
 // # Discussion
-// 
+//
 // This method steps through the `objects` and `keys` arrays, creating entries
 // in the new dictionary as it goes. An [NSInvalidArgumentException] is raised
 // if the objects and keys arrays do not have the same number of elements.
@@ -644,7 +635,7 @@ func NewDictionaryWithObjectsForKeys(objects []objectivec.IObject, keys []object
 // the copy is added to the new dictionary.
 //
 // # Discussion
-// 
+//
 // This method steps through the `objects` and `keys` arrays, creating entries
 // in the new dictionary as it goes. An [NSInvalidArgumentException] is raised
 // if the objects and keys arrays do not have the same number of elements.
@@ -654,6 +645,7 @@ func (d NSDictionary) InitWithObjectsForKeys(objects []objectivec.IObject, keys 
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithObjects:forKeys:"), objectivec.IObjectSliceToNSArray(objects), objectivec.IObjectSliceToNSArray(keys))
 	return rv
 }
+
 // Initializes a newly allocated dictionary with the specified number of
 // key-value pairs constructed from the provided C arrays of keys and objects.
 //
@@ -667,11 +659,11 @@ func (d NSDictionary) InitWithObjectsForKeys(objects []objectivec.IObject, keys 
 // must not exceed the number of elements in `objects` or `keys`.
 //
 // # Discussion
-// 
+//
 // This method steps through the `objects` and `keys` arrays, creating entries
 // in the new dictionary as it goes. An [NSInvalidArgumentException] is raised
 // if a key or value object is `nil`.
-// 
+//
 // This method is a designated initializer of [NSDictionary].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/init(objects:forKeys:count:)
@@ -679,6 +671,7 @@ func (d NSDictionary) InitWithObjectsForKeysCount(objects []objectivec.IObject, 
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithObjects:forKeys:count:"), objc.CArray(objects), objc.CArray(keys), cnt)
 	return rv
 }
+
 // Initializes a newly allocated dictionary by placing in it the keys and
 // values contained in another given dictionary.
 //
@@ -686,7 +679,7 @@ func (d NSDictionary) InitWithObjectsForKeysCount(objects []objectivec.IObject, 
 // new dictionary.
 //
 // # Return Value
-// 
+//
 // An initialized dictionary—which might be different than the original
 // receiver—containing the keys and values found in `otherDictionary`.
 //
@@ -695,50 +688,47 @@ func (d NSDictionary) InitWithDictionary(otherDictionary INSDictionary) NSDictio
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithDictionary:"), otherDictionary)
 	return rv
 }
+
 // Initializes a newly allocated dictionary using the objects contained in
 // another given dictionary.
 //
 // otherDictionary: A dictionary containing the keys and values with which to initialize the
 // new dictionary.
 //
-// flag: If [true], each object in `otherDictionary` receives a [copyWithZone:]
+// flag: If true, each object in `otherDictionary` receives a [copyWithZone:]
 // message to create a copy of the object—objects must conform to the
 // [NSCopying] protocol. In a managed memory environment, this is instead of
 // the `retain` message the object would otherwise receive. The object copy is
 // then added to the returned dictionary.
-// 
-// If [false], then in a managed memory environment each object in
+//
+// If false, then in a managed memory environment each object in
 // `otherDictionary` simply receives a `retain` message when it is added to
 // the returned dictionary.
-// //
-// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // # Return Value
-// 
+//
 // An initialized object—which might be different than the original
 // receiver—containing the keys and values found in `otherDictionary`.
 //
 // # Discussion
-// 
+//
 // After an immutable dictionary has been initialized in this way, it cannot
 // be modified.
-// 
-// The [CopyWithZone] method performs a shallow copy. If you have a collection
-// of arbitrary depth, passing [true] for the `flag` parameter will perform an
-// immutable copy of the first level below the surface. If you pass [false]
-// the mutability of the first level is unaffected. In either case, the
-// mutability of all deeper levels is unaffected.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// The [CopyWithZone] method performs a shallow copy. If you have a collection
+// of arbitrary depth, passing true for the `flag` parameter will perform an
+// immutable copy of the first level below the surface. If you pass false the
+// mutability of the first level is unaffected. In either case, the mutability
+// of all deeper levels is unaffected.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/init(dictionary:copyItems:)
+//
+// [copyWithZone:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/copyWithZone:
 func (d NSDictionary) InitWithDictionaryCopyItems(otherDictionary INSDictionary, flag bool) NSDictionary {
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithDictionary:copyItems:"), otherDictionary, flag)
 	return rv
 }
+
 // Creates a dictionary initialized from data in the provided unarchiver.
 //
 // coder: An unarchiver object.
@@ -748,57 +738,57 @@ func (d NSDictionary) InitWithCoder(coder INSCoder) NSDictionary {
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
+
 // Returns a Boolean value that indicates whether the contents of the
 // receiving dictionary are equal to the contents of another given dictionary.
 //
 // otherDictionary: The dictionary with which to compare the receiving dictionary.
 //
 // # Return Value
-// 
-// [true] if the contents of `otherDictionary` are equal to the contents of
-// the receiving dictionary, otherwise [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the contents of `otherDictionary` are equal to the contents of the
+// receiving dictionary, otherwise false.
 //
 // # Discussion
-// 
+//
 // Two dictionaries have equal contents if they each hold the same number of
 // entries and, for a given key, the corresponding value objects in each
 // dictionary satisfy the [isEqual(_:)] test.
 //
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/isEqual(to:)
+//
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 func (d NSDictionary) IsEqualToDictionary(otherDictionary INSDictionary) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEqualToDictionary:"), otherDictionary)
 	return rv
 }
+
 // Returns a new array containing the keys corresponding to all occurrences of
 // a given object in the dictionary.
 //
 // anObject: The value to look for in the dictionary.
 //
 // # Return Value
-// 
+//
 // A new array containing the keys corresponding to all occurrences of
 // `anObject` in the dictionary. If no object matching `anObject` is found,
 // returns an empty array.
 //
 // # Discussion
-// 
+//
 // Each object in the dictionary is sent an [isEqual(_:)] message to determine
 // if it’s equal to `anObject`.
 //
-// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/allKeys(for:)
+//
+// [isEqual(_:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 func (d NSDictionary) AllKeysForObject(anObject objectivec.IObject) []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("allKeysForObject:"), anObject)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // Returns as a static array the set of objects from the dictionary that
 // corresponds to the specified keys.
 //
@@ -809,7 +799,7 @@ func (d NSDictionary) AllKeysForObject(anObject objectivec.IObject) []objectivec
 // key.
 //
 // # Discussion
-// 
+//
 // The objects in the returned array and the `keys` array have a one-for-one
 // correspondence, so that the nthe object in the returned array corresponds
 // to the nthe key in `keys`.
@@ -821,12 +811,13 @@ func (d NSDictionary) ObjectsForKeysNotFoundMarker(keys []objectivec.IObject, ma
 		return objectivec.Object{ID: id}
 	})
 }
+
 // Returns the value associated with a given key.
 //
 // aKey: The key for which to return the corresponding value.
 //
 // # Return Value
-// 
+//
 // The value associated with `aKey`, or `nil` if no value is associated with
 // `aKey`.
 //
@@ -835,19 +826,20 @@ func (d NSDictionary) ObjectForKey(aKey objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("objectForKey:"), aKey)
 	return objectivec.Object{ID: rv}
 }
+
 // Returns the value associated with a given key.
 //
 // key: The key for which to return the corresponding value.
 //
 // # Return Value
-// 
+//
 // The value associated with `key`, or `nil` if no value is associated with
 // `aKey`.
 //
 // # Discussion
-// 
+//
 // This method has the same behavior as the [ObjectForKey] method.
-// 
+//
 // You shouldn’t need to call this method directly. Instead, this method is
 // called when accessing an object by key using subscripting.
 //
@@ -856,27 +848,28 @@ func (d NSDictionary) ObjectForKeyedSubscript(key objectivec.IObject) objectivec
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("objectForKeyedSubscript:"), key)
 	return objectivec.Object{ID: rv}
 }
+
 // Provides an enumerator to access the keys in the dictionary.
 //
 // # Return Value
-// 
+//
 // An enumerator object that lets you access each key in the dictionary.
 //
 // # Discussion
-// 
+//
 // Here’s how you might use this method.
-// 
+//
 // If you use this method with instances of mutable subclasses of
 // [NSDictionary], your code should not modify the entries during enumeration.
 // If you intend to modify the entries, use the [AllKeys] property to create a
 // snapshot of the dictionary’s keys. Then use this snapshot to traverse the
 // entries, modifying them along the way.
-// 
+//
 // If you want to enumerate the dictionary’s values rather than its keys,
 // use the [ObjectEnumerator] method.
-// 
+//
 // # Special Considerations
-// 
+//
 // It is more efficient to use the fast enumeration protocol (see
 // [NSFastEnumeration]) than this method. Fast enumeration is available in
 // macOS 10.5 and later and iOS 2.0 and later.
@@ -886,25 +879,26 @@ func (d NSDictionary) KeyEnumerator() INSEnumerator {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("keyEnumerator"))
 	return NSEnumeratorFromID(rv)
 }
+
 // Returns an enumerator object that lets you access each value in the
 // dictionary.
 //
 // # Return Value
-// 
+//
 // An enumerator object that lets you access each value in the dictionary.
 //
 // # Discussion
-// 
+//
 // The following code fragment illustrates how you might use the method.
-// 
+//
 // If you use this method with instances of mutable subclasses of
 // [NSDictionary], your code should not modify the entries during enumeration.
 // If you intend to modify the entries, use the [AllValues] method to create a
 // “snapshot” of the dictionary’s values. Work from this snapshot to
 // modify the values.
-// 
+//
 // # Special Considerations
-// 
+//
 // It is more efficient to use the fast enumeration protocol (see
 // [NSFastEnumeration]). Fast enumeration is available in macOS 10.5 and later
 // and iOS 2.0 and later.
@@ -914,21 +908,21 @@ func (d NSDictionary) ObjectEnumerator() INSEnumerator {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("objectEnumerator"))
 	return NSEnumeratorFromID(rv)
 }
+
 // Applies a given block object to the entries of the dictionary.
 //
 // block: A block object to operate on entries in the dictionary.
 //
 // # Discussion
-// 
-// If the block sets `*stop` to [true], the enumeration stops.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the block sets `*stop` to true, the enumeration stops.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/enumerateKeysAndObjects(_:)
 func (d NSDictionary) EnumerateKeysAndObjectsUsingBlock(block KeyTypeHandler) {
-_block0, _ := NewKeyTypeBlock(block)
+	_block0, _ := NewKeyTypeBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateKeysAndObjectsUsingBlock:"), _block0)
 }
+
 // Applies a given block object to the entries of the dictionary, with options
 // specifying how the enumeration is performed.
 //
@@ -937,34 +931,33 @@ _block0, _ := NewKeyTypeBlock(block)
 // block: A block object to operate on entries in the dictionary.
 //
 // # Discussion
-// 
-// If the block sets `*stop` to [true], the enumeration stops.
 //
-// [true]: https://developer.apple.com/documentation/Swift/true
+// If the block sets `*stop` to true, the enumeration stops.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/enumerateKeysAndObjects(options:using:)
 func (d NSDictionary) EnumerateKeysAndObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block KeyTypeHandler) {
-_block1, _ := NewKeyTypeBlock(block)
+	_block1, _ := NewKeyTypeBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateKeysAndObjectsWithOptions:usingBlock:"), opts, _block1)
 }
+
 // Returns an array of the dictionary’s keys, in the order they would be in
 // if the dictionary were sorted by its values.
 //
 // comparator: A selector that specifies the method to use to compare the values in the
 // dictionary.
-// 
+//
 // The `comparator` method should return [NSOrderedAscending] if the
 // dictionary value is smaller than the argument, [NSOrderedDescending] if the
 // dictionary value is larger than the argument, and [NSOrderedSame] if they
 // are equal.
 //
 // # Return Value
-// 
+//
 // An array of the dictionary’s keys, in the order they would be in if the
 // dictionary were sorted by its values.
 //
 // # Discussion
-// 
+//
 // Pairs of dictionary values are compared using the comparison method
 // specified by `comparator`; the `comparator` message is sent to one of the
 // values and has as its single argument the other value from the dictionary.
@@ -976,13 +969,14 @@ func (d NSDictionary) KeysSortedByValueUsingSelector(comparator objc.SEL) []obje
 		return objectivec.Object{ID: id}
 	})
 }
+
 // Returns an array of the dictionary’s keys, in the order they would be in
 // if the dictionary were sorted by its values using a given comparator block.
 //
 // cmptr: A comparator block.
 //
 // # Return Value
-// 
+//
 // An array of the dictionary’s keys, in the order they would be in if the
 // dictionary were sorted by its values using `cmptr`.
 //
@@ -993,6 +987,7 @@ func (d NSDictionary) KeysSortedByValueUsingComparator(cmptr NSComparator) []obj
 		return objectivec.Object{ID: id}
 	})
 }
+
 // Returns an array of the dictionary’s keys, in the order they would be in
 // if the dictionary were sorted by its values using a given comparator block
 // and a specified set of options.
@@ -1002,7 +997,7 @@ func (d NSDictionary) KeysSortedByValueUsingComparator(cmptr NSComparator) []obj
 // cmptr: A comparator block.
 //
 // # Return Value
-// 
+//
 // An array of the dictionary’s keys, in the order they would be in if the
 // dictionary were sorted by its values using `cmptr` with the options given
 // in `opts`.
@@ -1014,21 +1009,23 @@ func (d NSDictionary) KeysSortedByValueWithOptionsUsingComparator(opts NSSortOpt
 		return objectivec.Object{ID: id}
 	})
 }
+
 // Returns the set of keys whose corresponding value satisfies a constraint
 // described by a block object.
 //
 // predicate: A block object that specifies constraints for values in the dictionary.
 //
 // # Return Value
-// 
+//
 // The set of keys whose corresponding value satisfies `predicate`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysOfEntries(passingTest:)
 func (d NSDictionary) KeysOfEntriesPassingTest(predicate KeyTypeHandler) INSSet {
-_block0, _ := NewKeyTypeBlock(predicate)
+	_block0, _ := NewKeyTypeBlock(predicate)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("keysOfEntriesPassingTest:"), _block0)
 	return NSSetFromID(rv)
 }
+
 // Returns the set of keys whose corresponding value satisfies a constraint
 // described by a block object.
 //
@@ -1037,41 +1034,42 @@ _block0, _ := NewKeyTypeBlock(predicate)
 // predicate: A block object that specifies constraints for values in the dictionary.
 //
 // # Return Value
-// 
+//
 // The set of keys whose corresponding value satisfies `predicate`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysOfEntries(options:passingTest:)
 func (d NSDictionary) KeysOfEntriesWithOptionsPassingTest(opts NSEnumerationOptions, predicate KeyTypeHandler) INSSet {
-_block1, _ := NewKeyTypeBlock(predicate)
+	_block1, _ := NewKeyTypeBlock(predicate)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("keysOfEntriesWithOptions:passingTest:"), opts, _block1)
 	return NSSetFromID(rv)
 }
+
 // Writes a property list representation of the contents of the dictionary to
 // a given URL.
 //
 // url: The URL to which to write the dictionary.
 //
 // # Discussion
-// 
+//
 // This method recursively validates that all the contained objects are
 // property list objects (instances of [NSData], [NSDate], [NSNumber],
 // [NSString], [NSArray], or [NSDictionary]) before writing out the file. The
 // method throws an error if all the objects are not property list objects,
 // because the resulting output wouldn’t be a valid property list.
-// 
+//
 // If the dictionary’s contents are all property list objects, you can use
 // the location written by this method to initialize a new dictionary with the
 // instance method `NSDictionary/init()-4pv16`.
-// 
+//
 // If you need greater control over the property list representation, use
 // [NSPropertyListSerialization] instead.
-// 
+//
 // For more information about property lists, see [Property List Programming
 // Guide].
 //
-// [Property List Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/Introduction/Introduction.html#//apple_ref/doc/uid/10000048i
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/write(to:)
+//
+// [Property List Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/Introduction/Introduction.html#//apple_ref/doc/uid/10000048i
 func (d NSDictionary) WriteToURLError(url INSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -1085,255 +1083,269 @@ func (d NSDictionary) WriteToURLError(url INSURL) (bool, error) {
 	return rv, nil
 
 }
+
 // Returns the file’s size, in bytes.
 //
 // # Return Value
-// 
+//
 // The value associated with the [size] key, as a [UInt64] in Swift (`unsigned
 // long long` in Objective-C), or `0` if the file attributes dictionary has no
 // entry for the key.
 //
-// [size]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/size
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileSize()
+//
+// [size]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/size
 func (d NSDictionary) FileSize() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("fileSize"))
 	return rv
 }
+
 // Returns the file type.
 //
 // # Return Value
-// 
+//
 // The value associated with the [type] file attributes key, or `nil` if the
 // file attributes dictionary has no entry for the key. For possible values,
 // see [NSFileAttributeType].
 //
-// [type]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/type
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileType()
+//
+// [type]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/type
 func (d NSDictionary) FileType() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileType"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns the file’s creation date.
 //
 // # Return Value
-// 
+//
 // The value associated with the [creationDate] file attributes key, or `nil`
 // if the file attributes dictionary has no entry for the key.
 //
-// [creationDate]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/creationDate
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileCreationDate()
+//
+// [creationDate]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/creationDate
 func (d NSDictionary) FileCreationDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileCreationDate"))
 	return NSDateFromID(rv)
 }
+
 // Returns file’s modification date.
 //
 // # Return Value
-// 
+//
 // The value associated with the [modificationDate] file attributes key, or
 // `nil` if the file attributes dictionary has no entry for the key.
 //
-// [modificationDate]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/modificationDate
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileModificationDate()
+//
+// [modificationDate]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/modificationDate
 func (d NSDictionary) FileModificationDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileModificationDate"))
 	return NSDateFromID(rv)
 }
+
 // Returns the file’s POSIX permissions.
 //
 // # Return Value
-// 
+//
 // The value associated with the [posixPermissions] file attributes key as an
 // [Int] (`unsigned long` in Objective-C), or `0` if the file attributes
 // dictionary has no entry for the key.
 //
-// [posixPermissions]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/posixPermissions
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/filePosixPermissions()
+//
+// [posixPermissions]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/posixPermissions
 func (d NSDictionary) FilePosixPermissions() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("filePosixPermissions"))
 	return rv
 }
+
 // Returns the file’s owner account ID.
 //
 // # Return Value
-// 
+//
 // The value associated with the [ownerAccountID] file attributes key, or
 // `nil` if the file attributes dictionary has no entry for the key.
 //
-// [ownerAccountID]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/ownerAccountID
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileOwnerAccountID()
+//
+// [ownerAccountID]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/ownerAccountID
 func (d NSDictionary) FileOwnerAccountID() INSNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileOwnerAccountID"))
 	return NSNumberFromID(rv)
 }
+
 // Returns the file’s owner account name.
 //
 // # Return Value
-// 
+//
 // The value associated with the [ownerAccountName] file attributes key, or
 // `nil` if the file attributes dictionary has no entry for the key.
 //
-// [ownerAccountName]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/ownerAccountName
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileOwnerAccountName()
+//
+// [ownerAccountName]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/ownerAccountName
 func (d NSDictionary) FileOwnerAccountName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileOwnerAccountName"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns file’s group owner account ID.
 //
 // # Return Value
-// 
+//
 // The value associated with the [groupOwnerAccountID] file attributes key, or
 // `nil` if the file attributes dictionary has no entry for the key.
 //
-// [groupOwnerAccountID]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/groupOwnerAccountID
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileGroupOwnerAccountID()
+//
+// [groupOwnerAccountID]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/groupOwnerAccountID
 func (d NSDictionary) FileGroupOwnerAccountID() INSNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileGroupOwnerAccountID"))
 	return NSNumberFromID(rv)
 }
+
 // Returns the file’s group owner account name.
 //
 // # Return Value
-// 
+//
 // The value associated with the [groupOwnerAccountName] file attributes key,
 // or `nil` if the file attributes dictionary has no entry for the key.
 //
-// [groupOwnerAccountName]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/groupOwnerAccountName
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileGroupOwnerAccountName()
+//
+// [groupOwnerAccountName]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/groupOwnerAccountName
 func (d NSDictionary) FileGroupOwnerAccountName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileGroupOwnerAccountName"))
 	return NSStringFromID(rv).String()
 }
+
 // Returns a Boolean value indicating whether the file hides its extension.
 //
 // # Return Value
-// 
-// The value associated with the [extensionHidden] file attributes key, or
-// [false] if the file attributes dictionary has no entry for the key.
 //
-// [extensionHidden]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/extensionHidden
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The value associated with the [extensionHidden] file attributes key, or
+// false if the file attributes dictionary has no entry for the key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileExtensionHidden()
+//
+// [extensionHidden]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/extensionHidden
 func (d NSDictionary) FileExtensionHidden() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("fileExtensionHidden"))
 	return rv
 }
+
 // Returns a Boolean value indicating whether the file is immutable.
 //
 // # Return Value
-// 
-// The value associated with the [immutable] file attributes key, or [false]
-// if the file attributes dictionary has no entry for the key.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [immutable]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/immutable
+// The value associated with the [immutable] file attributes key, or false if
+// the file attributes dictionary has no entry for the key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileIsImmutable()
+//
+// [immutable]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/immutable
 func (d NSDictionary) FileIsImmutable() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("fileIsImmutable"))
 	return rv
 }
+
 // Returns a Boolean value indicating whether the file is append only.
 //
 // # Return Value
-// 
-// The value associated with the [appendOnly] file attributes key, or [false]
-// if the file attributes dictionary has no entry for the key.
 //
-// [appendOnly]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/appendOnly
-// [false]: https://developer.apple.com/documentation/Swift/false
+// The value associated with the [appendOnly] file attributes key, or false if
+// the file attributes dictionary has no entry for the key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileIsAppendOnly()
+//
+// [appendOnly]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/appendOnly
 func (d NSDictionary) FileIsAppendOnly() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("fileIsAppendOnly"))
 	return rv
 }
+
 // Returns the filesystem file number.
 //
 // # Return Value
-// 
+//
 // The value associated with the [systemFileNumber] file attributes key as an
 // [Int] (`unsigned long` in Objective-C), or `0` if the file attributes
 // dictionary has no entry for the key.
 //
-// [systemFileNumber]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/systemFileNumber
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileSystemFileNumber()
+//
+// [systemFileNumber]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/systemFileNumber
 func (d NSDictionary) FileSystemFileNumber() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("fileSystemFileNumber"))
 	return rv
 }
+
 // Returns the filesystem number.
 //
 // # Return Value
-// 
+//
 // The value associated with the [systemNumber] file attributes key as an
 // [Int] (`unsigned long` in Objective-C), or `0` if the file attributes
 // dictionary has no entry for the key
 //
-// [systemNumber]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/systemNumber
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileSystemNumber()
+//
+// [systemNumber]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/systemNumber
 func (d NSDictionary) FileSystemNumber() int {
 	rv := objc.Send[int](d.ID, objc.Sel("fileSystemNumber"))
 	return rv
 }
+
 // Returns file’s HFS type code.
 //
 // # Return Value
-// 
+//
 // The value associated with the [hfsTypeCode] file attributes key, or `0` if
 // the file attributes dictionary has no entry for the key.
 //
-// [hfsTypeCode]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/hfsTypeCode
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileHFSTypeCode()
+//
+// [hfsTypeCode]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/hfsTypeCode
 func (d NSDictionary) FileHFSTypeCode() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("fileHFSTypeCode"))
 	return rv
 }
+
 // Returns the file’s HFS creator code.
 //
 // # Return Value
-// 
+//
 // The value associated with the [hfsCreatorCode] file attributes key, or `0`
 // if the file attributes dictionary has no entry for the key.
 //
-// [hfsCreatorCode]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/hfsCreatorCode
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/fileHFSCreatorCode()
+//
+// [hfsCreatorCode]: https://developer.apple.com/documentation/Foundation/FileAttributeKey/hfsCreatorCode
 func (d NSDictionary) FileHFSCreatorCode() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("fileHFSCreatorCode"))
 	return rv
 }
+
 // Returns a string object that represents the contents of the dictionary,
 // formatted as a property list.
 //
 // locale: An object that specifies options used for formatting each of the
 // dictionary’s keys and values; pass `nil` if you don’t want them
 // formatted.
-// 
+//
 // On iOS and macOS 10.5 and later, either an instance of [NSDictionary] or an
 // [NSLocale] object may be used for `locale`. In OS X v10.4 and earlier it
 // must be an instance of [NSDictionary].
 //
 // # Discussion
-// 
+//
 // For a description of how `locale` is applied to each element in the
 // dictionary, see [DescriptionWithLocaleIndent].
-// 
-// If each key in the dictionary responds to ``, the entries are listed in
+//
+// If each key in the dictionary responds to “, the entries are listed in
 // ascending order by key, otherwise the order in which the entries are listed
 // is undefined.
 //
@@ -1342,13 +1354,14 @@ func (d NSDictionary) DescriptionWithLocale(locale objectivec.IObject) string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("descriptionWithLocale:"), locale)
 	return NSStringFromID(rv).String()
 }
+
 // Returns a string object that represents the contents of the dictionary,
 // formatted as a property list.
 //
 // locale: An object that specifies options used for formatting each of the
 // dictionary’s keys and values; pass `nil` if you don’t want them
 // formatted.
-// 
+//
 // On iOS and macOS 10.5 and later, either an instance of [NSDictionary] or an
 // [NSLocale] object may be used for `locale`. In OS X v10.4 and earlier it
 // must be an instance of [NSDictionary].
@@ -1357,24 +1370,24 @@ func (d NSDictionary) DescriptionWithLocale(locale objectivec.IObject) string {
 // indentation is (4 spaces) * `level`.
 //
 // # Return Value
-// 
+//
 // A string object that represents the contents of the dictionary, formatted
 // as a property list.
 //
 // # Discussion
-// 
+//
 // The returned [NSString] object contains the string representations of each
 // of the dictionary’s entries. [DescriptionWithLocaleIndent] obtains the
 // string representation of a given key or value as follows:
-// 
+//
 // - If the object is an [NSString] object, it is used as is. - If the object
-// responds to ``, that method is invoked to obtain the object’s string
-// representation. - If the object responds to ``, that method is invoked to
+// responds to “, that method is invoked to obtain the object’s string
+// representation. - If the object responds to “, that method is invoked to
 // obtain the object’s string representation. - If none of the above
 // conditions is met, the object’s string representation is obtained by
 // through its `description` property.
-// 
-// If each key in the dictionary responds to ``, the entries are listed in
+//
+// If each key in the dictionary responds to “, the entries are listed in
 // ascending order, by key. Otherwise, the order in which the entries are
 // listed is undefined.
 //
@@ -1383,7 +1396,7 @@ func (d NSDictionary) DescriptionWithLocaleIndent(locale objectivec.IObject, lev
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("descriptionWithLocale:indent:"), locale, level)
 	return NSStringFromID(rv).String()
 }
-//
+
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/init(contentsOf:error:)
 func (d NSDictionary) InitWithContentsOfURLError(url INSURL) (NSDictionary, error) {
 	var errorPtr objc.ID
@@ -1395,6 +1408,7 @@ func (d NSDictionary) InitWithContentsOfURLError(url INSURL) (NSDictionary, erro
 	return NSDictionaryFromID(rv), nil
 
 }
+
 // Returns by reference a C array of objects over which the sender should
 // iterate.
 //
@@ -1406,7 +1420,7 @@ func (d NSDictionary) InitWithContentsOfURLError(url INSURL) (NSDictionary, erro
 // len: The maximum number of objects to return in `buffer`.
 //
 // # Return Value
-// 
+//
 // The number of objects returned in `buffer`. Returns `0` when the iteration
 // is finished.
 //
@@ -1415,6 +1429,7 @@ func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumer
 	rv := objc.Send[uint](d.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 }
+
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1423,6 +1438,7 @@ func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumer
 func (d NSDictionary) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+
 // Returns by reference C arrays of the keys and values in the dictionary.
 //
 // objects: Upon return, contains a C array of the values in the dictionary.
@@ -1432,7 +1448,7 @@ func (d NSDictionary) EncodeWithCoder(coder INSCoder) {
 // count: The maximum number of objects to return.
 //
 // # Discussion
-// 
+//
 // The elements in the returned array and the keys array have a one-for-one
 // correspondence, so that the nth object in the returned array corresponds to
 // the the key in keys.
@@ -1441,23 +1457,22 @@ func (d NSDictionary) EncodeWithCoder(coder INSCoder) {
 func (d NSDictionary) GetObjectsAndKeysCount(objects []objectivec.IObject, keys []objectivec.IObject, count uint) {
 	objc.Send[objc.ID](d.ID, objc.Sel("getObjects:andKeys:count:"), objc.CArray(objects), objc.CArray(keys), count)
 }
+
 // Initializes a newly allocated dictionary with entries constructed from the
 // specified set of values and keys.
 //
 // firstObject: The first value to add to the new dictionary.
 //
 // # Discussion
-// 
+//
 // After the `firstObject` value, pass the key for `firstObject`, then a
 // null-terminated list of alternating values and keys. If any key is `nil`,
-// an [invalidArgumentException] is raised.
-// 
+// an [InvalidArgumentException] is raised.
+//
 // This method is similar to [InitWithObjectsForKeys], differing only in the
 // way in which the key-value pairs are specified.
-// 
-// For example:
 //
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+// For example:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/initWithObjectsAndKeys:
 func (d NSDictionary) InitWithObjectsAndKeys(firstObject objectivec.IObject) NSDictionary {
@@ -1471,15 +1486,15 @@ func (d NSDictionary) InitWithObjectsAndKeys(firstObject objectivec.IObject) NSD
 // array of keys is empty, an empty key set is returned.
 //
 // # Return Value
-// 
+//
 // A shared key set object.
 //
 // # Discussion
-// 
+//
 // The array of `keys` may contain duplicates which are quietly ignored.
 // Duplicate hash values of the keys are quietly allowed, but may cause lower
 // performance and increase memory usage.
-// 
+//
 // Typically you would create a shared key set for a given set of keys once,
 // before creating shared key dictionaries, and retain and save the result of
 // this method for use with the [NSMutableDictionary] class method `.`
@@ -1489,17 +1504,18 @@ func (_NSDictionaryClass NSDictionaryClass) SharedKeySetForKeys(keys []objective
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("sharedKeySetForKeys:"), objectivec.IObjectSliceToNSArray(keys))
 	return objectivec.Object{ID: rv}
 }
+
 // Creates an empty dictionary.
 //
 // # Return Value
-// 
+//
 // A new empty dictionary.
 //
 // # Discussion
-// 
+//
 // This method is declared primarily for use with mutable subclasses of
 // [NSDictionary].
-// 
+//
 // If you don’t want a temporary object, you can also create an empty
 // dictionary using `alloc` and [Init].
 //
@@ -1508,6 +1524,7 @@ func (_NSDictionaryClass NSDictionaryClass) Dictionary() NSDictionary {
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionary"))
 	return NSDictionaryFromID(rv)
 }
+
 // Creates a dictionary using the keys and values found in a resource
 // specified by a given URL.
 //
@@ -1515,22 +1532,22 @@ func (_NSDictionaryClass NSDictionaryClass) Dictionary() NSDictionary {
 // property list whose root object is a dictionary.
 //
 // # Return Value
-// 
+//
 // A new dictionary that contains the dictionary at `url`, or `nil` if there
 // is an error or if the contents of the resource are an invalid
 // representation of a dictionary.
 //
 // # Discussion
-// 
+//
 // The dictionary representation in the file identified by path must contain
 // only property list objects ([NSString], [NSData], [NSDate], [NSNumber],
 // [NSArray], or [NSDictionary] objects). For more details, see [Property List
 // Programming Guide]. The objects contained by this dictionary are immutable,
 // even if the dictionary is mutable.
 //
-// [Property List Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/Introduction/Introduction.html#//apple_ref/doc/uid/10000048i
-//
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/dictionaryWithContentsOfURL:error:
+//
+// [Property List Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/Introduction/Introduction.html#//apple_ref/doc/uid/10000048i
 func (_NSDictionaryClass NSDictionaryClass) DictionaryWithContentsOfURLError(url INSURL) (INSDictionary, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -1541,6 +1558,7 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithContentsOfURLError(url
 	return NSDictionaryFromID(rv), nil
 
 }
+
 // Creates a dictionary containing the keys and values from another given
 // dictionary.
 //
@@ -1548,7 +1566,7 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithContentsOfURLError(url
 // new dictionary.
 //
 // # Return Value
-// 
+//
 // A new dictionary containing the keys and values found in `dict`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/dictionaryWithDictionary:
@@ -1556,29 +1574,29 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithDictionary(dict INSDic
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithDictionary:"), dict)
 	return NSDictionaryFromID(rv)
 }
+
 // Creates a dictionary containing entries constructed from the specified set
 // of values and keys.
 //
 // firstObject: The first value to add to the new dictionary.
 //
 // # Discussion
-// 
+//
 // After passing `firstObj`, pass a null-terminated list of alternating values
 // and keys as variadic arguments. If any key is `nil`, an
-// [invalidArgumentException] is raised.
-// 
+// [InvalidArgumentException] is raised.
+//
 // This method is similar to [DictionaryWithObjectsForKeys], differing only in
 // the way key-value pairs are specified.
-// 
-// For example:
 //
-// [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+// For example:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/dictionaryWithObjectsAndKeys:
 func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsAndKeys(firstObject objectivec.IObject) NSDictionary {
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithObjectsAndKeys:"), firstObject)
 	return NSDictionaryFromID(rv)
 }
+
 // Creates a dictionary containing entries constructed from the contents of an
 // array of keys and an array of values.
 //
@@ -1589,12 +1607,12 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsAndKeys(firstOb
 // the copy is added to the dictionary.
 //
 // # Return Value
-// 
+//
 // A new dictionary containing entries constructed from the contents of
 // `objects` and `keys`.
 //
 // # Discussion
-// 
+//
 // This method steps through the `objects` and `keys` arrays, creating entries
 // in the new dictionary as it goes. An [NSInvalidArgumentException] is raised
 // if objects and keys don’t have the same number of elements.
@@ -1604,6 +1622,7 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsForKeys(objects
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithObjects:forKeys:"), objectivec.IObjectSliceToNSArray(objects), objectivec.IObjectSliceToNSArray(keys))
 	return NSDictionaryFromID(rv)
 }
+
 // Creates a dictionary containing a specified number of objects from a C
 // array.
 //
@@ -1617,11 +1636,11 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsForKeys(objects
 // must not exceed the number of elements in `objects` or `keys`.
 //
 // # Discussion
-// 
+//
 // This method steps through the `objects` and `keys` arrays, creating entries
 // in the new dictionary as it goes. An [NSInvalidArgumentException] is raised
 // if a key or value object is `nil`.
-// 
+//
 // The following code fragment illustrates how to create a dictionary that
 // associates the alphabetic characters with their ASCII values:
 //
@@ -1638,11 +1657,12 @@ func (d NSDictionary) Count() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("count"))
 	return rv
 }
+
 // A new array containing the dictionary’s keys, or an empty array if the
 // dictionary has no entries.
 //
 // # Discussion
-// 
+//
 // The order of the elements in the array is not defined.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/allKeys
@@ -1652,11 +1672,12 @@ func (d NSDictionary) AllKeys() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // A new array containing the dictionary’s values, or an empty array if the
 // dictionary has no entries.
 //
 // # Discussion
-// 
+//
 // The order of the values in the array isn’t defined.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/allValues
@@ -1666,11 +1687,12 @@ func (d NSDictionary) AllValues() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
+
 // A string that represents the contents of the dictionary, formatted as a
 // property list.
 //
 // # Discussion
-// 
+//
 // If each key in the dictionary is an [NSString] object, the entries are
 // listed in ascending order by key, otherwise the order in which the entries
 // are listed is undefined. This property is intended to produce readable
@@ -1678,42 +1700,40 @@ func (d NSDictionary) AllValues() []objectivec.IObject {
 // store dictionary data for later retrieval, see [Property List Programming
 // Guide] and [Archives and Serializations Programming Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDictionary/description
+//
 // [Archives and Serializations Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Archiving/Archiving.html#//apple_ref/doc/uid/10000047i
 // [Property List Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/PropertyLists/Introduction/Introduction.html#//apple_ref/doc/uid/10000048i
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDictionary/description
 func (d NSDictionary) Description() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
 }
+
 // A string that represents the contents of the dictionary, formatted in
 // `XCUIElementTypeStrings` file format.
 //
 // # Discussion
-// 
+//
 // The order in which the entries are listed is undefined.
-// 
+//
 // This method fails unless the dictionary can be represented by a strings
 // resource file. For details, see [String Resources] in [Resource Programming
 // Guide].
 //
+// See: https://developer.apple.com/documentation/Foundation/NSDictionary/descriptionInStringsFileFormat
+//
 // [Resource Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Introduction/Introduction.html#//apple_ref/doc/uid/10000051i
 // [String Resources]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/LoadingResources/Strings/Strings.html#//apple_ref/doc/uid/10000051i-CH6
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDictionary/descriptionInStringsFileFormat
 func (d NSDictionary) DescriptionInStringsFileFormat() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("descriptionInStringsFileFormat"))
 	return NSStringFromID(rv).String()
 }
 
-			// Protocol methods for NSCopying
-			
+// Protocol methods for NSCopying
 
-			// Protocol methods for NSMutableCopying
-			
+// Protocol methods for NSMutableCopying
 
-			// Protocol methods for NSSecureCoding
-			
+// Protocol methods for NSSecureCoding
 
 // EnumerateKeysAndObjectsUsingBlockSync is a synchronous wrapper around [NSDictionary.EnumerateKeysAndObjectsUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -1774,4 +1794,3 @@ func (d NSDictionary) KeysOfEntriesWithOptionsPassingTestSync(ctx context.Contex
 		return nil, ctx.Err()
 	}
 }
-

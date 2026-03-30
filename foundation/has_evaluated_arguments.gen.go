@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,6 +51,7 @@ type HasEvaluatedArguments struct {
 func HasEvaluatedArgumentsFromID(id objc.ID) HasEvaluatedArguments {
 	return HasEvaluatedArguments{objectivec.Object{ID: id}}
 }
+
 // Ensure HasEvaluatedArguments implements IHasEvaluatedArguments.
 var _ IHasEvaluatedArguments = HasEvaluatedArguments{}
 
@@ -78,4 +80,3 @@ func NewHasEvaluatedArguments() HasEvaluatedArguments {
 	rv := objc.Send[HasEvaluatedArguments](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

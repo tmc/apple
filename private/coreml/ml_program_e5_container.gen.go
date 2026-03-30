@@ -3,11 +3,12 @@
 package coreml
 
 import (
-	"unsafe"
-	"sync"
-	"github.com/tmc/apple/objc"
 	"errors"
+	"sync"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,6 @@ func (mc MLProgramE5ContainerClass) Alloc() MLProgramE5Container {
 	return rv
 }
 
-//
 // # Methods
 //
 //   - [MLProgramE5Container.URLOfMILText]
@@ -57,6 +57,7 @@ func (mc MLProgramE5ContainerClass) Alloc() MLProgramE5Container {
 //   - [MLProgramE5Container.ModelVersionInfo]
 //   - [MLProgramE5Container.OptionalInputDefaultValuesForFunctionNamed]
 //   - [MLProgramE5Container.InitWithCompiledArchiveModelVersionInfoCompilerVersionInfoError]
+//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container
 type MLProgramE5Container struct {
 	objectivec.Object
@@ -66,6 +67,7 @@ type MLProgramE5Container struct {
 func MLProgramE5ContainerFromID(id objc.ID) MLProgramE5Container {
 	return MLProgramE5Container{objectivec.Object{ID: id}}
 }
+
 // Ensure MLProgramE5Container implements IMLProgramE5Container.
 var _ IMLProgramE5Container = MLProgramE5Container{}
 
@@ -121,7 +123,6 @@ func NewMLProgramE5Container() MLProgramE5Container {
 	return rv
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/initWithCompiledArchive:modelVersionInfo:compilerVersionInfo:error:
 func NewProgramE5ContainerWithCompiledArchiveModelVersionInfoCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject) (MLProgramE5Container, error) {
 	var errorPtr objc.ID
@@ -134,13 +135,12 @@ func NewProgramE5ContainerWithCompiledArchiveModelVersionInfoCompilerVersionInfo
 	return MLProgramE5ContainerFromID(rv), nil
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/classScoreVectorNameOfFunctionNamed:
 func (p MLProgramE5Container) ClassScoreVectorNameOfFunctionNamed(named objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("classScoreVectorNameOfFunctionNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/findPrecompiledE5BundleAndReturnError:
 func (p MLProgramE5Container) FindPrecompiledE5BundleAndReturnError() (objectivec.IObject, error) {
 	var errorPtr objc.ID
@@ -152,13 +152,13 @@ func (p MLProgramE5Container) FindPrecompiledE5BundleAndReturnError() (objective
 	return objectivec.Object{ID: rv}, nil
 
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/optionalInputDefaultValuesForFunctionNamed:
 func (p MLProgramE5Container) OptionalInputDefaultValuesForFunctionNamed(named objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("optionalInputDefaultValuesForFunctionNamed:"), named)
 	return objectivec.Object{ID: rv}
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/initWithCompiledArchive:modelVersionInfo:compilerVersionInfo:error:
 func (p MLProgramE5Container) InitWithCompiledArchiveModelVersionInfoCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject) (MLProgramE5Container, error) {
 	var errorPtr objc.ID
@@ -171,7 +171,6 @@ func (p MLProgramE5Container) InitWithCompiledArchiveModelVersionInfoCompilerVer
 
 }
 
-//
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/_getDefaultFunctionName:modelDescription:fromModelAssetDescription:
 func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) _getDefaultFunctionNameModelDescriptionFromModelAssetDescription(name []objectivec.IObject, description []objectivec.IObject, description2 objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_MLProgramE5ContainerClass.class), objc.Sel("_getDefaultFunctionName:modelDescription:fromModelAssetDescription:"), objectivec.IObjectSliceToNSArray(name), objectivec.IObjectSliceToNSArray(description), description2)
@@ -181,7 +180,7 @@ func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) _getDefaultFunctionN
 func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) GetDefaultFunctionNameModelDescriptionFromModelAssetDescription(name []objectivec.IObject, description []objectivec.IObject, description2 objectivec.IObject) {
 	_MLProgramE5ContainerClass._getDefaultFunctionNameModelDescriptionFromModelAssetDescription(name, description, description2)
 }
-//
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/deduceFunctionNameToCompute:modelDescription:fromConfiguration:modelAssetDescription:error:
 func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) DeduceFunctionNameToComputeModelDescriptionFromConfigurationModelAssetDescriptionError(compute []objectivec.IObject, description []objectivec.IObject, configuration objectivec.IObject, description2 objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -202,29 +201,33 @@ func (p MLProgramE5Container) URLOfMILText() foundation.INSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URLOfMILText"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/compilerOutput
 func (p MLProgramE5Container) CompilerOutput() IMLCompilerNeuralNetworkOutput {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("compilerOutput"))
 	return MLCompilerNeuralNetworkOutputFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/compilerVersionInfo
 func (p MLProgramE5Container) CompilerVersionInfo() IMLVersionInfo {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("compilerVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/functionInfoArray
 func (p MLProgramE5Container) FunctionInfoArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("functionInfoArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/modelAssetDescription
 func (p MLProgramE5Container) ModelAssetDescription() IMLModelAssetDescription {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelAssetDescription"))
 	return MLModelAssetDescriptionFromID(objc.ID(rv))
 }
+
 // See: https://developer.apple.com/documentation/CoreML/MLProgramE5Container/modelVersionInfo
 func (p MLProgramE5Container) ModelVersionInfo() IMLVersionInfo {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("modelVersionInfo"))
 	return MLVersionInfoFromID(objc.ID(rv))
 }
-

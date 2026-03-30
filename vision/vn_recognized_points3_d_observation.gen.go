@@ -3,10 +3,11 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNRecognizedPoints3DObservation] class.
@@ -62,6 +63,7 @@ type VNRecognizedPoints3DObservation struct {
 func VNRecognizedPoints3DObservationFromID(id objc.ID) VNRecognizedPoints3DObservation {
 	return VNRecognizedPoints3DObservation{VNObservation: VNObservationFromID(id)}
 }
+
 // NOTE: VNRecognizedPoints3DObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -114,7 +116,7 @@ func NewVNRecognizedPoints3DObservation() VNRecognizedPoints3DObservation {
 // pointKey: The key of the point to retrieve.
 //
 // # Return Value
-// 
+//
 // The point the observation associates with the key.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPoints3DObservation/recognizedPoint(forKey:)
@@ -128,12 +130,13 @@ func (r VNRecognizedPoints3DObservation) RecognizedPointForKeyError(pointKey VNR
 	return VNRecognizedPoint3DFromID(rv), nil
 
 }
+
 // Returns a point for a group key you specify.
 //
 // groupKey: The group key to retrieve points for.
 //
 // # Return Value
-// 
+//
 // A dictionary of labeled points for the group.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPoints3DObservation/recognizedPoints(forGroupKey:)
@@ -155,6 +158,7 @@ func (r VNRecognizedPoints3DObservation) AvailableKeys() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("availableKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The available point group keys in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPoints3DObservation/availableGroupKeys
@@ -162,4 +166,3 @@ func (r VNRecognizedPoints3DObservation) AvailableGroupKeys() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("availableGroupKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

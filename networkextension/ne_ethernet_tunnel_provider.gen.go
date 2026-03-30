@@ -4,6 +4,7 @@ package networkextension
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -55,6 +56,7 @@ type NEEthernetTunnelProvider struct {
 func NEEthernetTunnelProviderFromID(id objc.ID) NEEthernetTunnelProvider {
 	return NEEthernetTunnelProvider{NEPacketTunnelProvider: NEPacketTunnelProviderFromID(id)}
 }
+
 // NOTE: NEEthernetTunnelProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -83,4 +85,3 @@ func NewNEEthernetTunnelProvider() NEEthernetTunnelProvider {
 	rv := objc.Send[NEEthernetTunnelProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

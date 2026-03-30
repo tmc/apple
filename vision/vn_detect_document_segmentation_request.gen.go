@@ -4,6 +4,7 @@ package vision
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -44,7 +45,7 @@ func (vc VNDetectDocumentSegmentationRequestClass) Alloc() VNDetectDocumentSegme
 // image.
 //
 // # Overview
-// 
+//
 // Perform this request to detect a document in an image. The result that the
 // request generates contains the four corner points of a document’s
 // quadrilateral and saliency mask.
@@ -65,6 +66,7 @@ type VNDetectDocumentSegmentationRequest struct {
 func VNDetectDocumentSegmentationRequestFromID(id objc.ID) VNDetectDocumentSegmentationRequest {
 	return VNDetectDocumentSegmentationRequest{VNImageBasedRequest: VNImageBasedRequestFromID(id)}
 }
+
 // NOTE: VNDetectDocumentSegmentationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -108,7 +110,7 @@ func NewVNDetectDocumentSegmentationRequest() VNDetectDocumentSegmentationReques
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // # Discussion
-// 
+//
 // Vision executes the completion handler on the same queue that it executes
 // the request; however, this queue differs from the one where you called
 // [PerformRequestsError].
@@ -127,4 +129,3 @@ func (d VNDetectDocumentSegmentationRequest) VNDetectDocumentSegmentationRequest
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectDocumentSegmentationRequestRevision1"))
 	return rv
 }
-

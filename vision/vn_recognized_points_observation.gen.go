@@ -3,11 +3,12 @@
 package vision
 
 import (
-	"unsafe"
 	"sync"
-	"github.com/tmc/apple/objc"
+	"unsafe"
+
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 )
 
 // The class instance for the [VNRecognizedPointsObservation] class.
@@ -67,6 +68,7 @@ type VNRecognizedPointsObservation struct {
 func VNRecognizedPointsObservationFromID(id objc.ID) VNRecognizedPointsObservation {
 	return VNRecognizedPointsObservation{VNObservation: VNObservationFromID(id)}
 }
+
 // NOTE: VNRecognizedPointsObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -128,7 +130,7 @@ func NewVNRecognizedPointsObservation() VNRecognizedPointsObservation {
 // pointKey: The key of the point to retrieve.
 //
 // # Return Value
-// 
+//
 // The recognized point associated with the key.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPointsObservation/recognizedPoint(forKey:)
@@ -142,12 +144,13 @@ func (r VNRecognizedPointsObservation) RecognizedPointForKeyError(pointKey VNRec
 	return VNRecognizedPointFromID(rv), nil
 
 }
+
 // Retrieves the recognized points for a key.
 //
 // groupKey: The group key to retrieve recognized points for.
 //
 // # Return Value
-// 
+//
 // A dictionary of labeled points for the group.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPointsObservation/recognizedPoints(forGroupKey:)
@@ -161,16 +164,17 @@ func (r VNRecognizedPointsObservation) RecognizedPointsForGroupKeyError(groupKey
 	return foundation.NSDictionaryFromID(rv), nil
 
 }
+
 // Retrieves the grouping of normalized point coordinates and confidence
 // scores in a format compatible with Core ML.
 //
 // # Return Value
-// 
+//
 // The key points converted to an [MLMultiArray].
 //
-// [MLMultiArray]: https://developer.apple.com/documentation/CoreML/MLMultiArray
-//
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPointsObservation/keypointsMultiArray()
+//
+// [MLMultiArray]: https://developer.apple.com/documentation/CoreML/MLMultiArray
 func (r VNRecognizedPointsObservation) KeypointsMultiArrayAndReturnError() (coreml.MLMultiArray, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("keypointsMultiArrayAndReturnError:"), unsafe.Pointer(&errorPtr))
@@ -189,6 +193,7 @@ func (r VNRecognizedPointsObservation) AvailableKeys() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("availableKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The available point group keys in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPointsObservation/availableGroupKeys
@@ -196,4 +201,3 @@ func (r VNRecognizedPointsObservation) AvailableGroupKeys() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("availableGroupKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-

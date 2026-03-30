@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"sync"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -52,6 +53,7 @@ type AVSpeechSynthesisProviderAudioUnit struct {
 func AVSpeechSynthesisProviderAudioUnitFromID(id objc.ID) AVSpeechSynthesisProviderAudioUnit {
 	return AVSpeechSynthesisProviderAudioUnit{objectivec.Object{ID: id}}
 }
+
 // Ensure AVSpeechSynthesisProviderAudioUnit implements IAVSpeechSynthesisProviderAudioUnit.
 var _ IAVSpeechSynthesisProviderAudioUnit = AVSpeechSynthesisProviderAudioUnit{}
 
@@ -78,4 +80,3 @@ func NewAVSpeechSynthesisProviderAudioUnit() AVSpeechSynthesisProviderAudioUnit 
 	rv := objc.Send[AVSpeechSynthesisProviderAudioUnit](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-

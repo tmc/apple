@@ -4,9 +4,10 @@ package appkit
 
 import (
 	"sync"
-	"github.com/tmc/apple/objc"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -46,10 +47,10 @@ func (nc NSPopUpButtonClass) Alloc() NSPopUpButton {
 // A control for selecting an item from a list.
 //
 // # Overview
-// 
+//
 // An [NSPopUpButton] object uses an [NSPopUpButtonCell] object to implement
 // its user interface.
-// 
+//
 // Note that while a menu is tracking user input, programmatic changes to the
 // menu, such as adding, removing, or changing items on the menu, is not
 // reflected.
@@ -132,6 +133,7 @@ type NSPopUpButton struct {
 func NSPopUpButtonFromID(id objc.ID) NSPopUpButton {
 	return NSPopUpButton{NSButton: NSButtonFromID(id)}
 }
+
 // NOTE: NSPopUpButton adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
@@ -370,12 +372,12 @@ func NewPopUpButtonWithCoder(coder foundation.INSCoder) NSPopUpButton {
 // of the enclosing view.
 //
 // # Return Value
-// 
+//
 // An initialized control object, or `nil` if the object couldn’t be
 // initialized.
 //
 // # Discussion
-// 
+//
 // If a cell has been specified for controls of this type, this method also
 // creates an instance of the cell. Because [NSControl] is an abstract class,
 // invocations of this method should appear only in the designated
@@ -395,14 +397,11 @@ func NewPopUpButtonWithFrame(frameRect corefoundation.CGRect) NSPopUpButton {
 // buttonFrame: The frame rectangle for the button, specified in the parent view’s
 // coordinate system.
 //
-// flag: [true] if you want the receiver to display a pull-down menu; otherwise,
-// [false] if you want it to display a pop-up menu.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// flag: true if you want the receiver to display a pull-down menu; otherwise, false
+// if you want it to display a pop-up menu.
 //
 // # Return Value
-// 
+//
 // An initialized [NSPopUpButton] object, or `nil` if the object could not be
 // initialized.
 //
@@ -422,7 +421,7 @@ func NewPopUpButtonWithFramePullsDown(buttonFrame corefoundation.CGRect, flag bo
 // action: The action message the button sends to the target.
 //
 // # Discussion
-// 
+//
 // Set the image’s [AccessibilityDescription] property to ensure
 // accessibility for this control.
 //
@@ -467,14 +466,11 @@ func NewPopUpButtonWithTitleTargetAction(title string, target objectivec.IObject
 // buttonFrame: The frame rectangle for the button, specified in the parent view’s
 // coordinate system.
 //
-// flag: [true] if you want the receiver to display a pull-down menu; otherwise,
-// [false] if you want it to display a pop-up menu.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// flag: true if you want the receiver to display a pull-down menu; otherwise, false
+// if you want it to display a pop-up menu.
 //
 // # Return Value
-// 
+//
 // An initialized [NSPopUpButton] object, or `nil` if the object could not be
 // initialized.
 //
@@ -483,18 +479,19 @@ func (p NSPopUpButton) InitWithFramePullsDown(buttonFrame corefoundation.CGRect,
 	rv := objc.Send[NSPopUpButton](p.ID, objc.Sel("initWithFrame:pullsDown:"), buttonFrame, flag)
 	return rv
 }
+
 // Adds an item with the specified title to the end of the menu.
 //
 // title: The title of the menu-item entry. If an item with the same title already
 // exists in the menu, the existing item is removed and the new one is added.
 //
 // # Discussion
-// 
+//
 // If you want to move an item, it’s better to invoke [RemoveItemWithTitle]
 // explicitly and then send this method. After adding the item, this method
 // calls the [SynchronizeTitleAndSelectedItem] method to make sure the item
 // being displayed matches the currently selected item.
-// 
+//
 // Since this method searches for duplicate items, it should not be used if
 // you are adding an item to an already populated menu with more than a few
 // hundred items. Add items directly to the receiver’s menu instead.
@@ -503,6 +500,7 @@ func (p NSPopUpButton) InitWithFramePullsDown(buttonFrame corefoundation.CGRect,
 func (p NSPopUpButton) AddItemWithTitle(title string) {
 	objc.Send[objc.ID](p.ID, objc.Sel("addItemWithTitle:"), objc.String(title))
 }
+
 // Adds multiple items to the end of the menu.
 //
 // itemTitles: An array of [NSString] objects containing the titles of the items you want
@@ -511,12 +509,12 @@ func (p NSPopUpButton) AddItemWithTitle(title string) {
 // one is added.
 //
 // # Discussion
-// 
+//
 // If you want to move an item, it’s better to invoke [RemoveItemWithTitle]
 // explicitly and then send this method. After adding the items, this method
 // uses the [SynchronizeTitleAndSelectedItem] method to make sure the item
 // being displayed matches the currently selected item.
-// 
+//
 // Since this method searches for duplicate items, it should not be used if
 // you are adding items to an already populated menu with more than a few
 // hundred items. Add items directly to the receiver’s menu instead.
@@ -525,6 +523,7 @@ func (p NSPopUpButton) AddItemWithTitle(title string) {
 func (p NSPopUpButton) AddItemsWithTitles(itemTitles []string) {
 	objc.Send[objc.ID](p.ID, objc.Sel("addItemsWithTitles:"), objectivec.StringSliceToNSArray(itemTitles))
 }
+
 // Inserts an item at the specified position in the menu.
 //
 // title: The title of the new item. If an item with the same title already exists in
@@ -534,12 +533,12 @@ func (p NSPopUpButton) AddItemsWithTitles(itemTitles []string) {
 // item at the top of the menu.
 //
 // # Discussion
-// 
+//
 // If you want to move an item, it’s better to invoke [RemoveItemWithTitle]
 // explicitly and then send this method. After adding the item, this method
 // uses the [SynchronizeTitleAndSelectedItem] method to make sure the item
 // displayed matches the currently selected item.
-// 
+//
 // Since this method searches for duplicate items, it should not be used if
 // you are adding an item to an already populated menu with more than a few
 // hundred items. Add items directly to the receiver’s menu instead.
@@ -548,10 +547,11 @@ func (p NSPopUpButton) AddItemsWithTitles(itemTitles []string) {
 func (p NSPopUpButton) InsertItemWithTitleAtIndex(title string, index int) {
 	objc.Send[objc.ID](p.ID, objc.Sel("insertItemWithTitle:atIndex:"), objc.String(title), index)
 }
+
 // Removes all items in the receiver’s item menu.
 //
 // # Discussion
-// 
+//
 // After removing the items, this method uses the
 // [SynchronizeTitleAndSelectedItem] method to refresh the menu.
 //
@@ -559,13 +559,14 @@ func (p NSPopUpButton) InsertItemWithTitleAtIndex(title string, index int) {
 func (p NSPopUpButton) RemoveAllItems() {
 	objc.Send[objc.ID](p.ID, objc.Sel("removeAllItems"))
 }
+
 // Removes the item with the specified title from the menu.
 //
 // title: The title of the item you want to remove. If no menu item exists with the
 // specified title, this method triggers an assertion.
 //
 // # Discussion
-// 
+//
 // This method removes the first item it finds with the specified name. This
 // method then uses [SynchronizeTitleAndSelectedItem] to refresh the menu.
 //
@@ -573,13 +574,14 @@ func (p NSPopUpButton) RemoveAllItems() {
 func (p NSPopUpButton) RemoveItemWithTitle(title string) {
 	objc.Send[objc.ID](p.ID, objc.Sel("removeItemWithTitle:"), objc.String(title))
 }
+
 // Removes the item at the specified index.
 //
 // index: The zero-based index indicating which item to remove. Specifying 0 removes
 // the item at the top of the menu.
 //
 // # Discussion
-// 
+//
 // After removing the item, this method uses the
 // [SynchronizeTitleAndSelectedItem] method to make sure the title displayed
 // matches the currently selected item.
@@ -588,6 +590,7 @@ func (p NSPopUpButton) RemoveItemWithTitle(title string) {
 func (p NSPopUpButton) RemoveItemAtIndex(index int) {
 	objc.Send[objc.ID](p.ID, objc.Sel("removeItemAtIndex:"), index)
 }
+
 // Selects the specified menu item.
 //
 // item: The menu item to select, or `nil` if you want to deselect all menu items.
@@ -596,6 +599,7 @@ func (p NSPopUpButton) RemoveItemAtIndex(index int) {
 func (p NSPopUpButton) SelectItem(item INSMenuItem) {
 	objc.Send[objc.ID](p.ID, objc.Sel("selectItem:"), item)
 }
+
 // Selects the item in the menu at the specified index.
 //
 // index: The index of the item you want to select, or `-1` you want to deselect all
@@ -605,32 +609,29 @@ func (p NSPopUpButton) SelectItem(item INSMenuItem) {
 func (p NSPopUpButton) SelectItemAtIndex(index int) {
 	objc.Send[objc.ID](p.ID, objc.Sel("selectItemAtIndex:"), index)
 }
+
 // Selects the menu item with the specified tag.
 //
 // tag: The tag of the item you want to select.
 //
 // # Return Value
-// 
-// [true] if the item was successfully selected; otherwise, [false].
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// true if the item was successfully selected; otherwise, false.
 //
 // # Discussion
-// 
-// If no item with the specified tag is found, this method returns [false] and
+//
+// If no item with the specified tag is found, this method returns false and
 // leaves the menu state unchanged.
-// 
+//
 // You typically assign tags to menu items from Interface Builder, but you can
 // also assign them programmatically using the setTag: method of [NSMenuItem].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/selectItem(withTag:)
 func (p NSPopUpButton) SelectItemWithTag(tag int) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("selectItemWithTag:"), tag)
 	return rv
 }
+
 // Selects the item with the specified title.
 //
 // title: The title of the item to select. If you specify an empty string, or a
@@ -641,12 +642,13 @@ func (p NSPopUpButton) SelectItemWithTag(tag int) bool {
 func (p NSPopUpButton) SelectItemWithTitle(title string) {
 	objc.Send[objc.ID](p.ID, objc.Sel("selectItemWithTitle:"), objc.String(title))
 }
+
 // Returns the menu item at the specified index.
 //
 // index: The index of the item you want.
 //
 // # Return Value
-// 
+//
 // The menu item, or `nil` if no item exists at the specified index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/item(at:)
@@ -654,12 +656,13 @@ func (p NSPopUpButton) ItemAtIndex(index int) INSMenuItem {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("itemAtIndex:"), index)
 	return NSMenuItemFromID(rv)
 }
+
 // Returns the title of the item at the specified index.
 //
 // index: The index of the item you want.
 //
 // # Return Value
-// 
+//
 // The title of the item, or an empty string if no item exists at the
 // specified index.
 //
@@ -668,12 +671,13 @@ func (p NSPopUpButton) ItemTitleAtIndex(index int) string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("itemTitleAtIndex:"), index)
 	return foundation.NSStringFromID(rv).String()
 }
+
 // Returns the menu item with the specified title.
 //
 // title: The title of the menu item you want.
 //
 // # Return Value
-// 
+//
 // The menu item, or `nil` if no item with the specified title exists in the
 // menu.
 //
@@ -682,16 +686,17 @@ func (p NSPopUpButton) ItemWithTitle(title string) INSMenuItem {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("itemWithTitle:"), objc.String(title))
 	return NSMenuItemFromID(rv)
 }
+
 // Returns the index of the specified menu item.
 //
 // item: The menu item whose index you want.
 //
 // # Return Value
-// 
+//
 // The index of the item or `-1` if no such item was found.
 //
 // # Discussion
-// 
+//
 // This method invokes the method of the same name of its [NSPopUpButtonCell]
 // object.
 //
@@ -700,16 +705,17 @@ func (p NSPopUpButton) IndexOfItem(item INSMenuItem) int {
 	rv := objc.Send[int](p.ID, objc.Sel("indexOfItem:"), item)
 	return rv
 }
+
 // Returns the index of the menu item with the specified tag.
 //
 // tag: The tag of the menu item you want.
 //
 // # Return Value
-// 
+//
 // The index of the item or `-1` if no item with the specified tag was found.
 //
 // # Discussion
-// 
+//
 // This method invokes the method of the same name of its [NSPopUpButtonCell]
 // object.
 //
@@ -718,12 +724,13 @@ func (p NSPopUpButton) IndexOfItemWithTag(tag int) int {
 	rv := objc.Send[int](p.ID, objc.Sel("indexOfItemWithTag:"), tag)
 	return rv
 }
+
 // Returns the index of the item with the specified title.
 //
 // title: The title of the item you want.
 //
 // # Return Value
-// 
+//
 // The index of the item or `-1` if no item with the specified title was
 // found.
 //
@@ -732,18 +739,19 @@ func (p NSPopUpButton) IndexOfItemWithTitle(title string) int {
 	rv := objc.Send[int](p.ID, objc.Sel("indexOfItemWithTitle:"), objc.String(title))
 	return rv
 }
+
 // Returns the index of the menu item that holds the specified represented
 // object.
 //
 // obj: The represented object associated with a menu item.
 //
 // # Return Value
-// 
+//
 // The index of the menu item that owns the specified object, or `-1` if no
 // such menu item was found.
 //
 // # Discussion
-// 
+//
 // Represented objects bear some direct relation to the title or image of a
 // menu item; for example, an item entitled “100” might have an [NSNumber]
 // object encapsulating that value as its represented object. This method
@@ -754,6 +762,7 @@ func (p NSPopUpButton) IndexOfItemWithRepresentedObject(obj objectivec.IObject) 
 	rv := objc.Send[int](p.ID, objc.Sel("indexOfItemWithRepresentedObject:"), obj)
 	return rv
 }
+
 // Returns the index of the menu item with the specified target and action.
 //
 // target: The target object associated with the menu item.
@@ -761,12 +770,12 @@ func (p NSPopUpButton) IndexOfItemWithRepresentedObject(obj objectivec.IObject) 
 // actionSelector: The action method associated with the menu item.
 //
 // # Return Value
-// 
+//
 // The index of the menu item, or `-1` if no menu item contains the specified
 // target and action.
 //
 // # Discussion
-// 
+//
 // If you specify [NULL] for the `actionSelector` parameter, the index of the
 // first menu item with the specified target is returned. This method invokes
 // the method of the same name of its [NSPopUpButtonCell] object.
@@ -776,11 +785,12 @@ func (p NSPopUpButton) IndexOfItemWithTargetAndAction(target objectivec.IObject,
 	rv := objc.Send[int](p.ID, objc.Sel("indexOfItemWithTarget:andAction:"), target, actionSelector)
 	return rv
 }
+
 // Ensures that the item being displayed by the receiver agrees with the
 // selected item.
 //
 // # Discussion
-// 
+//
 // If there’s no selected item, this method selects the first item in the
 // item menu and sets the receiver’s item to match. For pull-down menus,
 // this method makes sure that the first item is being displayed (the
@@ -792,21 +802,108 @@ func (p NSPopUpButton) SynchronizeTitleAndSelectedItem() {
 	objc.Send[objc.ID](p.ID, objc.Sel("synchronizeTitleAndSelectedItem"))
 }
 
+// Creates a standard pop-up button with a menu, target, and action.
+//
+// menu: A menu presented by the pop-up button, containing items that the user can
+// choose between.
+//
+// target: The target object that receives action messages from the control.
+//
+// action: The action message sent by the control.
+//
+// # Return Value
+//
+// An initialized pop-up button object.
+//
+// # Discussion
+//
+// If `menu` is non-empty, the pop-up button uses the first item for its
+// initial selection.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/popUpButtonWithMenu:target:action:
+func (_NSPopUpButtonClass NSPopUpButtonClass) PopUpButtonWithMenuTargetAction(menu INSMenu, target objectivec.IObject, action objc.SEL) NSPopUpButton {
+	rv := objc.Send[objc.ID](objc.ID(_NSPopUpButtonClass.class), objc.Sel("popUpButtonWithMenu:target:action:"), menu, target, action)
+	return NSPopUpButtonFromID(rv)
+}
+
+// Creates a standard pull-down button with an image and menu.
+//
+// image: The icon that is displayed on the button.
+//
+// menu: The pull-down menu to present when interacting with the button.
+//
+// # Return Value
+//
+// An initialized pull-down button object.
+//
+// # Discussion
+//
+// Pull-down buttons created using this method have the `usesItemFromMenu`
+// property set to [NO].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/pullDownButtonWithImage:menu:
+func (_NSPopUpButtonClass NSPopUpButtonClass) PullDownButtonWithImageMenu(image INSImage, menu INSMenu) NSPopUpButton {
+	rv := objc.Send[objc.ID](objc.ID(_NSPopUpButtonClass.class), objc.Sel("pullDownButtonWithImage:menu:"), image, menu)
+	return NSPopUpButtonFromID(rv)
+}
+
+// Creates a standard pull-down button with a title, image, and menu.
+//
+// title: The localized title string that is displayed on the button.
+//
+// image: The icon that is displayed on the button.
+//
+// menu: The pull-down menu to present when interacting with the button.
+//
+// # Return Value
+//
+// An initialized pull-down button object.
+//
+// # Discussion
+//
+// Pull-down buttons created using this method have the `usesItemFromMenu`
+// property set to [NO].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/pullDownButtonWithTitle:image:menu:
+func (_NSPopUpButtonClass NSPopUpButtonClass) PullDownButtonWithTitleImageMenu(title string, image INSImage, menu INSMenu) NSPopUpButton {
+	rv := objc.Send[objc.ID](objc.ID(_NSPopUpButtonClass.class), objc.Sel("pullDownButtonWithTitle:image:menu:"), objc.String(title), image, menu)
+	return NSPopUpButtonFromID(rv)
+}
+
+// Creates a standard pull-down button with a title and menu.
+//
+// title: The localized title string that is displayed on the button.
+//
+// menu: The pull-down menu to present when interacting with the button.
+//
+// # Return Value
+//
+// An initialized pull-down button object.
+//
+// # Discussion
+//
+// Pull-down buttons created using this method have the `usesItemFromMenu`
+// property set to [NO].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/pullDownButtonWithTitle:menu:
+func (_NSPopUpButtonClass NSPopUpButtonClass) PullDownButtonWithTitleMenu(title string, menu INSMenu) NSPopUpButton {
+	rv := objc.Send[objc.ID](objc.ID(_NSPopUpButtonClass.class), objc.Sel("pullDownButtonWithTitle:menu:"), objc.String(title), menu)
+	return NSPopUpButtonFromID(rv)
+}
+
 // A Boolean value indicating whether the button displays a pull-down or
 // pop-up menu.
 //
 // # Discussion
-// 
-// When the value of this property is [true], the button displays a pull-down
+//
+// When the value of this property is true, the button displays a pull-down
 // menu; otherwise, it displays a pop-up menu. This property does not affect
 // the contents of the menu; it affects only the style of the menu.
-// 
+//
 // When changing the menu type to a pull-down menu, if the menu was a pop-up
 // menu and the cell alters the state of its selected items, this method sets
 // the state of the currently selected item to [NSStateOff] before changing
 // the menu type.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/pullsDown
 func (p NSPopUpButton) PullsDown() bool {
@@ -816,16 +913,15 @@ func (p NSPopUpButton) PullsDown() bool {
 func (p NSPopUpButton) SetPullsDown(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPullsDown:"), value)
 }
+
 // A Boolean value indicating whether the button enables and disables its
 // items every time a user event occurs.
 //
 // # Discussion
-// 
-// When the value of this property is [true], user events cause the button to
+//
+// When the value of this property is true, user events cause the button to
 // enable and disable its items automatically according to the
 // NSMenuValidation protocol specification.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/autoenablesItems
 func (p NSPopUpButton) AutoenablesItems() bool {
@@ -835,10 +931,11 @@ func (p NSPopUpButton) AutoenablesItems() bool {
 func (p NSPopUpButton) SetAutoenablesItems(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAutoenablesItems:"), value)
 }
+
 // The menu item that was last selected by the user.
 //
 // # Discussion
-// 
+//
 // The last selected menu item is the one that was highlighted when the user
 // released the mouse button. It is possible for a pull-down menu’s selected
 // item to be its first item. If no item is selected, the value in this
@@ -849,10 +946,11 @@ func (p NSPopUpButton) SelectedItem() INSMenuItem {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("selectedItem"))
 	return NSMenuItemFromID(objc.ID(rv))
 }
+
 // The title of the item that was last selected by the user.
 //
 // # Discussion
-// 
+//
 // If no item is selected, the value in this property is `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/titleOfSelectedItem
@@ -860,10 +958,11 @@ func (p NSPopUpButton) TitleOfSelectedItem() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("titleOfSelectedItem"))
 	return foundation.NSStringFromID(rv).String()
 }
+
 // The index of the item that was last selected by the user.
 //
 // # Discussion
-// 
+//
 // If no item is selected, the value in this property is `-1`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/indexOfSelectedItem
@@ -871,6 +970,7 @@ func (p NSPopUpButton) IndexOfSelectedItem() int {
 	rv := objc.Send[int](p.ID, objc.Sel("indexOfSelectedItem"))
 	return rv
 }
+
 // The number of items in the menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/numberOfItems
@@ -878,10 +978,11 @@ func (p NSPopUpButton) NumberOfItems() int {
 	rv := objc.Send[int](p.ID, objc.Sel("numberOfItems"))
 	return rv
 }
+
 // The array of menu item objects associated with the button.
 //
 // # Discussion
-// 
+//
 // This property contains an array of [NSMenuItem] objects representing the
 // items in the menu. Usually, you access menu items using the methods and
 // properties of this class rather than accessing the items directly.
@@ -893,23 +994,25 @@ func (p NSPopUpButton) ItemArray() []NSMenuItem {
 		return NSMenuItemFromID(id)
 	})
 }
+
 // An array of strings corresponding to the titles of the items in the menu.
 //
 // # Discussion
-// 
+//
 // This property contains an array of [NSString] objects, each of which
 // contains the title of an item in the menu. The order of the titles in this
 // array matches the order of the items in the menu. If the menu contains
 // separator items, the array contains an empty string for each separator
 // item.
 //
-// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
-//
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/itemTitles
+//
+// [NSString]: https://developer.apple.com/documentation/Foundation/NSString
 func (p NSPopUpButton) ItemTitles() []string {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("itemTitles"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
 // The last item in the menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/lastItem
@@ -917,11 +1020,12 @@ func (p NSPopUpButton) LastItem() INSMenuItem {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("lastItem"))
 	return NSMenuItemFromID(objc.ID(rv))
 }
+
 // The edge of the button on which to display the menu when screen space is
 // constrained.
 //
 // # Discussion
-// 
+//
 // Possible values include [NSMinXEdge], [NSMinYEdge], [NSMaxXEdge], or
 // [NSMaxYEdge]. For pull-down menus, the default behavior is to position the
 // menu under the button. The bottom edge corresponds to the value
@@ -929,12 +1033,12 @@ func (p NSPopUpButton) LastItem() INSMenuItem {
 // most pop-up menus, the [NSPopUpButton] object attempts to show the selected
 // item directly over the button.
 //
+// See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/preferredEdge
+//
 // [NSMaxXEdge]: https://developer.apple.com/documentation/Foundation/NSRectEdge/NSMaxXEdge
 // [NSMaxYEdge]: https://developer.apple.com/documentation/Foundation/NSRectEdge/NSMaxYEdge
 // [NSMinXEdge]: https://developer.apple.com/documentation/Foundation/NSRectEdge/NSMinXEdge
 // [NSMinYEdge]: https://developer.apple.com/documentation/Foundation/NSRectEdge/NSMinYEdge
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/preferredEdge
 func (p NSPopUpButton) PreferredEdge() foundation.NSRectEdge {
 	rv := objc.Send[foundation.NSRectEdge](p.ID, objc.Sel("preferredEdge"))
 	return foundation.NSRectEdge(rv)
@@ -942,6 +1046,7 @@ func (p NSPopUpButton) PreferredEdge() foundation.NSRectEdge {
 func (p NSPopUpButton) SetPreferredEdge(value foundation.NSRectEdge) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPreferredEdge:"), value)
 }
+
 // When the value of this property is [YES], the selected menu item’s
 // `state` is set to [NSControlStateValueOn]. When the value of this property
 // is [NO], the menu item’s `state` is not changed. When this property
@@ -956,6 +1061,7 @@ func (p NSPopUpButton) AltersStateOfSelectedItem() bool {
 func (p NSPopUpButton) SetAltersStateOfSelectedItem(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAltersStateOfSelectedItem:"), value)
 }
+
 // When `usesItemFromMenu` is [YES], a pull-down button uses the title of the
 // first menu item and hides the first menu item. A pop-up button uses the
 // title of the currently selected menu. The default value is [YES].
@@ -968,4 +1074,3 @@ func (p NSPopUpButton) UsesItemFromMenu() bool {
 func (p NSPopUpButton) SetUsesItemFromMenu(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setUsesItemFromMenu:"), value)
 }
-
